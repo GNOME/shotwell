@@ -134,7 +134,9 @@ SRC_FILES = \
 	MediaPage.vala \
 	MediaDataRepresentation.vala \
 	file_util.vala \
-	DesktopIntegration.vala
+	DesktopIntegration.vala \
+	FlaggedPage.vala \
+	MediaInterfaces.vala
 
 ifndef LINUX
 SRC_FILES += \

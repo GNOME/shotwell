@@ -69,6 +69,7 @@
         <menu name="PhotosMenu" action="PhotosMenu">
             <placeholder name="PhotosExtrasEditsPlaceholder" />
             <separator />
+            <menuitem name="Flag" action="Flag" />
             <menu name="Rate" action="Rate">
                 <menuitem name="RateFive" action="RateFive" />
                 <menuitem name="RateFour" action="RateFour" />

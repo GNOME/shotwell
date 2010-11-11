@@ -253,7 +253,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string SEND_TO_MENU = _("Send _To...");
     public const string SEND_TO_TOOLTIP = _("Send photos by mail or instant message");
-        
+    
+    public const string FLAG_MENU = _("_Flag");
+    public const string FLAG_TOOLTIP = _("Flag the photos to work with them together");
+    
+    public const string UNFLAG_MENU = _("Un_flag");
+    public const string UNFLAG_TOOLTIP = _("Unflag the photos");
+    
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);
     }
@@ -605,6 +611,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
+    Gee.HashMap<string, Gdk.Pixbuf> scaled_icon_cache = null;
     
     public void init () {
         // load application-wide stock icons as IconSets
@@ -649,10 +656,16 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         
         return noninterpretable_badge_pixbuf;
     }
-
+    
     // This method returns a reference to a cached pixbuf that may be shared throughout the system.
     // If the pixbuf is to be modified, make a copy of it.
     public Gdk.Pixbuf? get_icon(string name, int scale = DEFAULT_ICON_SCALE) {
+        if (scaled_icon_cache != null) {
+            string scaled_name = "%s-%d".printf(name, scale);
+            if (scaled_icon_cache.has_key(scaled_name))
+                return scaled_icon_cache.get(scaled_name);
+        }
+        
         // stash icons not available through the UI Manager (i.e. used directly as pixbufs)
         // in the local cache
         if (icon_cache == null)
@@ -668,7 +681,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             icon_cache.set(name, pixbuf);
         }
         
-        return (scale > 0) ? scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false) : pixbuf;
+        if (scale == 0)
+            return pixbuf;
+        
+        Gdk.Pixbuf scaled_pixbuf = scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false);
+        
+        if (scaled_icon_cache == null)
+            scaled_icon_cache = new Gee.HashMap<string, Gdk.Pixbuf>();
+        
+        scaled_icon_cache.set("%s-%d".printf(name, scale), scaled_pixbuf);
+        
+        return scaled_pixbuf;
     }
     
     public Gdk.Pixbuf? load_icon(string name, int scale = DEFAULT_ICON_SCALE) {

@@ -287,11 +287,13 @@ class ThumbnailSink : Gst.BaseSink {
     }
 }
 
-public class Video : VideoSource {
+public class Video : VideoSource, Flaggable {
+    public const string TYPENAME = "video";
+    
     public const uint64 FLAG_TRASH =    0x0000000000000001;
     public const uint64 FLAG_OFFLINE =  0x0000000000000002;
-    public const string TYPENAME = "video";
-
+    public const uint64 FLAG_FLAGGED =  0x0000000000000004;
+    
     private static bool interpreter_state_changed = false;
     private static int current_state = -1;
     private static bool normal_regen_complete = false;
@@ -553,11 +555,11 @@ public class Video : VideoSource {
             if ((!rating.is_valid()) || (rating == backing_row.rating))
                 return;
 
-            try {            
+            try {
                 VideoTable.get_instance().set_rating(get_video_id(), rating);
             } catch (DatabaseError e) {
-	            AppWindow.database_error(e);
-				return;
+                AppWindow.database_error(e);
+                return;
             }
             // if we didn't short-circuit return in the catch clause above, then the change was
             // successfully committed to the database, so update it in the in-memory row cache
@@ -604,6 +606,18 @@ public class Video : VideoSource {
     
     public override void untrash() {
         remove_flags(FLAG_TRASH);
+    }
+    
+    public bool is_flagged() {
+        return is_flag_set(FLAG_FLAGGED);
+    }
+    
+    public void mark_flagged() {
+        add_flags(FLAG_FLAGGED, new Alteration("metadata", "flagged"));
+    }
+    
+    public void mark_unflagged() {
+        remove_flags(FLAG_FLAGGED, new Alteration("metadata", "flagged"));
     }
     
     public override EventID get_event_id() {
@@ -752,59 +766,61 @@ public class Video : VideoSource {
     }
 
     protected override bool internal_delete_backing() throws Error {
-        base.internal_delete_backing();
-        
         delete_original_file();
         
-        return true;
+        return base.internal_delete_backing();
     }
     
-    public uint64 add_flags(uint64 flags_to_add) {
-        uint64 new_flags = 0;
+    private void notify_flags_altered(Alteration? additional_alteration) {
+        Alteration alteration = new Alteration("metadata", "flags");
+        if (additional_alteration != null)
+            alteration = alteration.compress(additional_alteration);
         
+        notify_altered(alteration);
+    }
+    
+    public uint64 add_flags(uint64 flags_to_add, Alteration? additional_alteration = null) {
+        uint64 new_flags;
         lock (backing_row) {
             new_flags = internal_add_flags(backing_row.flags, flags_to_add);
-
             if (backing_row.flags == new_flags)
                 return backing_row.flags;
-
+            
             try {
                 VideoTable.get_instance().set_flags(get_video_id(), new_flags);
             } catch (DatabaseError e) {
                 AppWindow.database_error(e);
                 return backing_row.flags;
             }
-
+            
             backing_row.flags = new_flags;
         }
         
-        notify_altered(new Alteration("metadata", "flags"));
+        notify_flags_altered(additional_alteration);
         
-        return backing_row.flags;
+        return new_flags;
     }
     
-    public uint64 remove_flags(uint64 flags_to_remove) {
-        uint64 new_flags = 0;
-        
+    public uint64 remove_flags(uint64 flags_to_remove, Alteration? additional_alteration = null) {
+        uint64 new_flags;
         lock (backing_row) {
             new_flags = internal_remove_flags(backing_row.flags, flags_to_remove);
-
             if (backing_row.flags == new_flags)
                 return backing_row.flags;
-
+            
             try {
                 VideoTable.get_instance().set_flags(get_video_id(), new_flags);
             } catch (DatabaseError e) {
                 AppWindow.database_error(e);
                 return backing_row.flags;
             }
-
+            
             backing_row.flags = new_flags;
         }
         
-        notify_altered(new Alteration("metadata", "flags"));
+        notify_flags_altered(additional_alteration);
         
-        return backing_row.flags;
+        return new_flags;
     }
     
     public bool is_flag_set(uint64 flag) {

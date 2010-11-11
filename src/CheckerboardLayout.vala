@@ -308,10 +308,6 @@ public abstract class CheckerboardItem : ThumbnailView {
         return (FRAME_WIDTH * 2) + scale;
     }
     
-    public virtual Gee.List<Gdk.Pixbuf>? get_trinkets(int scale) {
-        return null;
-    }
-    
     private void recalc_size(string reason) {
         Dimensions old_requisition = requisition;
         
@@ -321,20 +317,9 @@ public abstract class CheckerboardItem : ThumbnailView {
         int subtitle_height = (subtitle != null && subtitle_visible)
             ? subtitle.get_height() + LABEL_PADDING : 0;
         
-        // calculate width of all trinkets ... this is important because the trinkets could be
-        // wider than the image, in which case need to expand for them
-        int trinkets_width = 0;
-        Gee.List<Gdk.Pixbuf>? trinkets = get_trinkets(TRINKET_SCALE);
-        if (trinkets != null) {
-            foreach (Gdk.Pixbuf trinket in trinkets)
-                trinkets_width += trinket.get_width() + TRINKET_PADDING;
-        }
-        
-        int image_width = int.max(trinkets_width, pixbuf_dim.width);
-        
-        // width is frame width (two sides) + frame padding (two sides) + width of pixbuf/trinkets
+        // width is frame width (two sides) + frame padding (two sides) + width of pixbuf
         // (text never wider)
-        requisition.width = (FRAME_WIDTH * 2) + (BORDER_WIDTH * 2) + image_width;
+        requisition.width = (FRAME_WIDTH * 2) + (BORDER_WIDTH * 2) + pixbuf_dim.width;
         
         // height is frame width (two sides) + frame padding (two sides) + height of pixbuf
         // + height of text + label padding (between pixbuf and text)
@@ -398,6 +383,22 @@ public abstract class CheckerboardItem : ThumbnailView {
             + BORDER_WIDTH;
     }
     
+    protected virtual Gdk.Pixbuf? get_top_left_trinket(int scale) {
+        return null;
+    }
+    
+    protected virtual Gdk.Pixbuf? get_top_right_trinket(int scale) {
+        return null;
+    }
+    
+    protected virtual Gdk.Pixbuf? get_bottom_left_trinket(int scale) {
+        return null;
+    }
+    
+    protected virtual Gdk.Pixbuf? get_bottom_right_trinket(int scale) {
+        return null;
+    }
+    
     public void paint(Gdk.Drawable drawable, Gdk.GC bg_gc, Gdk.GC select_gc, Gdk.GC text_gc, Gdk.GC? border_gc) {
         // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
@@ -420,51 +421,61 @@ public abstract class CheckerboardItem : ThumbnailView {
         if (display_pixbuf != null)
             paint_image(bg_gc, drawable, display_pixbuf, pixbuf_origin);
         
-        // get trinkets to determine the max width (pixbuf vs. trinkets)
-        int trinkets_width = 0;
-        Gee.List<Gdk.Pixbuf>? trinkets = get_trinkets(TRINKET_SCALE);
-        if (trinkets != null) {
-            foreach (Gdk.Pixbuf trinket in trinkets)
-                trinkets_width += trinket.get_width();
-        }
-        
-        int image_width = int.max(trinkets_width, pixbuf_dim.width);
-        
         // title and subtitles are LABEL_PADDING below bottom of pixbuf
         int text_y = allocation.y + FRAME_WIDTH + pixbuf_dim.height + FRAME_WIDTH + LABEL_PADDING;
         if (title != null && title_visible) {
             // get the layout sized so its with is no more than the pixbuf's
             // resize the text width to be no more than the pixbuf's
-            title.allocation = { allocation.x + FRAME_WIDTH, text_y,
-                image_width, title.get_height() };
+            title.allocation = { allocation.x + FRAME_WIDTH, text_y, pixbuf_dim.width,
+                title.get_height() };
             
             Gdk.draw_layout(drawable, text_gc, title.allocation.x, title.allocation.y,
-                title.get_pango_layout(image_width));
+                title.get_pango_layout(pixbuf_dim.width));
             
             text_y += title.get_height() + LABEL_PADDING;
         }
         
         if (subtitle != null && subtitle_visible) {
-            subtitle.allocation = { allocation.x + FRAME_WIDTH, text_y, image_width,
+            subtitle.allocation = { allocation.x + FRAME_WIDTH, text_y, pixbuf_dim.width,
                 subtitle.get_height() };
             
             Gdk.draw_layout(drawable, text_gc, subtitle.allocation.x, subtitle.allocation.y,
-                subtitle.get_pango_layout(image_width));
+                subtitle.get_pango_layout(pixbuf_dim.width));
             
             // increment text_y if more text lines follow
         }
         
         // draw trinkets last
-        if (trinkets != null) {
-            int current_trinkets_width = 0;
-            foreach (Gdk.Pixbuf trinket in trinkets) {
-                current_trinkets_width = current_trinkets_width + trinket.get_width() +
-                    TRINKET_PADDING;
-                drawable.draw_pixbuf(select_gc, trinket, 0, 0, 
-                    pixbuf_origin.x + TRINKET_PADDING,
-                    pixbuf_origin.y + pixbuf_dim.height - trinket.get_height() - TRINKET_PADDING, 
-                    trinket.get_width(), trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
-            }
+        Gdk.Pixbuf? trinket = get_bottom_left_trinket(TRINKET_SCALE);
+        if (trinket != null) {
+            drawable.draw_pixbuf(select_gc, trinket, 0, 0,
+                pixbuf_origin.x + TRINKET_PADDING,
+                pixbuf_origin.y + pixbuf_dim.height - trinket.height - TRINKET_PADDING,
+                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+        }
+        
+        trinket = get_top_left_trinket(TRINKET_SCALE);
+        if (trinket != null) {
+            drawable.draw_pixbuf(select_gc, trinket, 0, 0,
+                pixbuf_origin.x + TRINKET_PADDING,
+                pixbuf_origin.y + TRINKET_PADDING,
+                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+        }
+        
+        trinket = get_top_right_trinket(TRINKET_SCALE);
+        if (trinket != null) {
+            drawable.draw_pixbuf(select_gc, trinket, 0, 0,
+                pixbuf_origin.x + pixbuf_dim.width - trinket.width - TRINKET_PADDING,
+                pixbuf_origin.y + TRINKET_PADDING,
+                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+        }
+        
+        trinket = get_bottom_right_trinket(TRINKET_SCALE);
+        if (trinket != null) {
+            drawable.draw_pixbuf(select_gc, trinket, 0, 0,
+                pixbuf_origin.x + pixbuf_dim.width - trinket.width - TRINKET_PADDING,
+                pixbuf_origin.y + pixbuf_dim.height - trinket.height - TRINKET_PADDING,
+                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
         }
     }
 

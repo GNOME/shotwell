@@ -126,14 +126,6 @@ public class Thumbnail : CheckerboardItem {
         return media;
     }
     
-    public LibraryPhoto? get_photo() {
-        return media as LibraryPhoto;
-    }
-    
-    public Video? get_video() {
-        return media as Video;
-    }
-    
     //
     // Comparators
     //
@@ -163,7 +155,8 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public static int64 exposure_time_ascending_comparator(void *a, void *b) {
-        int64 result = ((Thumbnail *) a)->get_exposure_time() - ((Thumbnail *) b)->get_exposure_time();
+        int64 result = ((Thumbnail *) a)->media.get_exposure_time()
+            - ((Thumbnail *) b)->media.get_exposure_time();
         
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
@@ -351,32 +344,18 @@ public class Thumbnail : CheckerboardItem {
         base.unexposed();
     }
     
-    public override Gee.List<Gdk.Pixbuf>? get_trinkets(int scale) {
-        Rating rating = media.get_rating();
+    protected override Gdk.Pixbuf? get_top_right_trinket(int scale) {
+        Flaggable? flaggable = media as Flaggable;
         
-        bool show_ratings = false;
-        Value? val = get_collection_property(PROP_SHOW_RATINGS);
-        if (val != null)
-            show_ratings = (bool) val;
-        
-        // don't let the hose run
-        if (rating == Rating.UNRATED || show_ratings == false)
-            return null;
-        
-        Gee.List<Gdk.Pixbuf> trinkets = new Gee.ArrayList<Gdk.Pixbuf>();
-        
-        Gdk.Pixbuf? rating_buf = Resources.get_rating_trinket(rating, scale);
-        if (rating_buf != null)
-            trinkets.add(rating_buf);
-        
-        return trinkets;
+        return (flaggable != null && flaggable.is_flagged())
+            ? Resources.get_icon(Resources.ICON_APP, scale) : null;
     }
     
-    public time_t get_exposure_time() {
-        LibraryPhoto photo = media as LibraryPhoto;
-        if (photo != null)
-            return photo.get_exposure_time();
-        else
-            return ((Video) media).get_exposure_time();
+    protected override Gdk.Pixbuf? get_bottom_left_trinket(int scale) {
+        Rating rating = media.get_rating();
+        bool show_ratings = (bool) get_collection_property(PROP_SHOW_RATINGS, false);
+        
+        return (rating != Rating.UNRATED && show_ratings)
+            ? Resources.get_rating_trinket(rating, scale) : null;
     }
 }

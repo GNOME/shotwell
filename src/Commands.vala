@@ -70,7 +70,7 @@ public abstract class PageCommand : Command {
                 bool photo_in_collection = false;
                 int count = collection_page.get_view().get_count();
                 for (int i = 0; i < count; i++) {
-                    if ( ((Thumbnail) collection_page.get_view().get_at(i)).get_photo() == library_photo) {
+                    if ( ((Thumbnail) collection_page.get_view().get_at(i)).get_media_source() == library_photo) {
                         photo_in_collection = true;
                         break;
                     }
@@ -356,6 +356,82 @@ public abstract class MultipleDataSourceCommand : PageCommand {
             progress.close();
         
         AppWindow.get_instance().set_normal_cursor();
+    }
+}
+
+public abstract class MultipleDataSourceAtOnceCommand : PageCommand {
+    private Gee.HashSet<DataSource> sources = new Gee.HashSet<DataSource>();
+    private Gee.HashSet<SourceCollection> hooked_collections = new Gee.HashSet<SourceCollection>();
+    
+    public MultipleDataSourceAtOnceCommand(Gee.Collection<DataSource> sources, string name,
+        string explanation) {
+        base (name, explanation);
+        
+        this.sources.add_all(sources);
+        
+        foreach (DataSource source in this.sources) {
+            SourceCollection? membership = source.get_membership() as SourceCollection;
+            if (membership != null)
+                hooked_collections.add(membership);
+        }
+        
+        foreach (SourceCollection source_collection in hooked_collections)
+            source_collection.items_destroyed.connect(on_sources_destroyed);
+    }
+    
+    ~MultipleDataSourceAtOnceCommand() {
+        foreach (SourceCollection source_collection in hooked_collections)
+            source_collection.items_destroyed.disconnect(on_sources_destroyed);
+    }
+    
+    public override void execute() {
+        AppWindow.get_instance().set_busy_cursor();
+        
+        DatabaseTable.begin_transaction();
+        MediaCollectionRegistry.get_instance().freeze_all();
+        
+        execute_on_all(sources);
+        
+        MediaCollectionRegistry.get_instance().thaw_all();
+        try {
+            DatabaseTable.commit_transaction();
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        } finally {
+            AppWindow.get_instance().set_normal_cursor();
+        }
+    }
+    
+    protected abstract void execute_on_all(Gee.Collection<DataSource> sources);
+    
+    public override void undo() {
+        AppWindow.get_instance().set_busy_cursor();
+        
+        DatabaseTable.begin_transaction();
+        MediaCollectionRegistry.get_instance().freeze_all();
+        
+        undo_on_all(sources);
+        
+        MediaCollectionRegistry.get_instance().thaw_all();
+        try {
+            DatabaseTable.commit_transaction();
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        } finally {
+            AppWindow.get_instance().set_normal_cursor();
+        }
+    }
+    
+    protected abstract void undo_on_all(Gee.Collection<DataSource> sources);
+    
+    private void on_sources_destroyed(Gee.Collection<DataSource> destroyed) {
+        foreach (DataSource source in destroyed) {
+            if (sources.contains(source)) {
+                get_command_manager().reset();
+                
+                break;
+            }
+        }
     }
 }
 
@@ -1203,14 +1279,14 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
         // Remove any tag that's in the original list but not the new one
         Gee.List<Tag>? original_tags = Tag.global.fetch_for_source(media);
         if (original_tags != null) {
-		    foreach (Tag tag in original_tags) {
-		        if (!new_tag_list.contains(tag)) {
-		            SourceProxy proxy = tag.get_proxy();
-		            
-		            to_remove.add(proxy);
-		            proxy.broken.connect(on_proxy_broken);
-		        }
-		    }
+            foreach (Tag tag in original_tags) {
+                if (!new_tag_list.contains(tag)) {
+                    SourceProxy proxy = tag.get_proxy();
+                    
+                    to_remove.add(proxy);
+                    proxy.broken.connect(on_proxy_broken);
+                }
+            }
         }
         
         // Add any tag that's in the new list but not the original
@@ -1411,6 +1487,38 @@ public class TrashUntrashPhotosCommand : PageCommand {
         // only one way to do that
         if (sources.size == 0)
             get_command_manager().reset();
+    }
+}
+
+public class FlagUnflagCommand : MultipleDataSourceAtOnceCommand {
+    private bool flag;
+    
+    public FlagUnflagCommand(Gee.Collection<DataSource> sources, bool flag) {
+        base (sources,
+            flag ? _("Flag") : _("Unflag"),
+            flag ? _("Flag selected photos") : _("Unflag selected photos"));
+        
+        this.flag = flag;
+    }
+    
+    public override void execute_on_all(Gee.Collection<DataSource> sources) {
+        foreach (DataSource source in sources)
+            flag_unflag(source, flag);
+    }
+    
+    public override void undo_on_all(Gee.Collection<DataSource> sources) {
+        foreach (DataSource source in sources)
+            flag_unflag(source, !flag);
+    }
+    
+    private void flag_unflag(DataSource source, bool flag) {
+        Flaggable? flaggable = source as Flaggable;
+        if (flaggable != null) {
+            if (flag)
+                flaggable.mark_flagged();
+            else
+                flaggable.mark_unflagged();
+        }
     }
 }
 

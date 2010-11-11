@@ -249,6 +249,7 @@ public abstract class MediaPage : CheckerboardPage {
         );
 
         get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
+        get_view().items_altered.connect(on_media_altered);
 
         get_view().freeze_notifications();
         get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, 
@@ -334,7 +335,12 @@ public abstract class MediaPage : CheckerboardPage {
         decrease_size.label = _("Zoom _Out");
         decrease_size.tooltip = _("Decrease the magnification of the thumbnails");
         actions += decrease_size;
-       
+        
+        Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>F", TRANSLATABLE, on_flag_unflag };
+        flag.label = Resources.FLAG_MENU;
+        flag.tooltip = Resources.FLAG_TOOLTIP;
+        actions += flag;
+        
         Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
         set_rating.label = Resources.RATING_MENU;
         actions += set_rating;
@@ -560,7 +566,13 @@ public abstract class MediaPage : CheckerboardPage {
         set_action_sensitive("PlayVideo", selected_count == 1
             && get_view().get_selected_source_at(0) is Video);
         
+        update_flag_action(selected_count);
+        
         base.update_actions(selected_count, count);
+    }
+    
+    private void on_media_altered() {
+        update_flag_action(get_view().get_selected_count());
     }
     
     private void position_filter_popup(Gtk.Menu menu, out int x, out int y, out bool push_in) {
@@ -593,6 +605,35 @@ public abstract class MediaPage : CheckerboardPage {
         set_action_sensitive("RateFive", can_rate_selected(Rating.FIVE));
         set_action_sensitive("IncreaseRating", can_increase_selected_rating());
         set_action_sensitive("DecreaseRating", can_decrease_selected_rating());
+    }
+    
+    private void update_flag_action(int selected_count) {
+        set_action_sensitive("Flag", selected_count > 0);
+        
+        string flag_label = Resources.FLAG_MENU;
+        string flag_tooltip = Resources.FLAG_TOOLTIP;
+        if (selected_count > 0) {
+            bool all_flagged = true;
+            foreach (DataSource source in get_view().get_selected_sources()) {
+                Flaggable? flaggable = source as Flaggable;
+                if (flaggable != null && !flaggable.is_flagged()) {
+                    all_flagged = false;
+                    
+                    break;
+                }
+            }
+            
+            if (all_flagged) {
+                flag_label = Resources.UNFLAG_MENU;
+                flag_tooltip = Resources.UNFLAG_TOOLTIP;
+            }
+        }
+        
+        Gtk.Action? flag_action = get_action("Flag");
+        if (flag_action != null) {
+            flag_action.label = flag_label;
+            flag_action.tooltip = flag_tooltip;
+        }
     }
     
     public void set_display_ratings(bool display) {
@@ -872,7 +913,27 @@ public abstract class MediaPage : CheckerboardPage {
     protected virtual void on_decrease_size() {
         decrease_zoom_level();
     }
-
+    
+    private void on_flag_unflag() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        Gee.Collection<DataSource> sources = get_view().get_selected_sources();
+        
+        // If all are flagged, then unflag, otherwise flag
+        bool flag = false;
+        foreach (DataSource source in sources) {
+            Flaggable? flaggable = source as Flaggable;
+            if (flaggable != null && !flaggable.is_flagged()) {
+                flag = true;
+                
+                break;
+            }
+        }
+        
+        get_command_manager().execute(new FlagUnflagCommand(sources, flag));
+    }
+    
     protected virtual void on_increase_rating() {
         if (get_view().get_selected_count() == 0)
             return;

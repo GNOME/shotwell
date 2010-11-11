@@ -1365,7 +1365,15 @@ public abstract class Photo : PhotoSource {
         }
     }
     
-    public uint64 replace_flags(uint64 flags) {
+    private void notify_flags_altered(Alteration? additional_alteration) {
+        Alteration alteration = new Alteration("metadata", "flags");
+        if (additional_alteration != null)
+            alteration = alteration.compress(additional_alteration);
+        
+        notify_altered(alteration);
+    }
+    
+    public uint64 replace_flags(uint64 flags, Alteration? additional_alteration = null) {
         bool committed;
         lock (row) {
             committed = PhotoTable.get_instance().replace_flags(get_photo_id(), flags);
@@ -1374,7 +1382,7 @@ public abstract class Photo : PhotoSource {
         }
         
         if (committed)
-            notify_altered(new Alteration("metadata", "flags"));
+            notify_flags_altered(additional_alteration);
         
         return flags;
     }
@@ -1385,7 +1393,7 @@ public abstract class Photo : PhotoSource {
         }
     }
     
-    public uint64 add_flags(uint64 mask) {
+    public uint64 add_flags(uint64 mask, Alteration? additional_alteration = null) {
         uint64 flags = 0;
         
         bool committed = false;
@@ -1399,12 +1407,12 @@ public abstract class Photo : PhotoSource {
         }
         
         if (committed)
-            notify_altered(new Alteration("metadata", "flags"));
+            notify_flags_altered(additional_alteration);
         
         return flags;
     }
     
-    public uint64 remove_flags(uint64 mask) {
+    public uint64 remove_flags(uint64 mask, Alteration? additional_alteration = null) {
         uint64 flags = 0;
         
         bool committed = false;
@@ -1418,12 +1426,12 @@ public abstract class Photo : PhotoSource {
         }
         
         if (committed)
-            notify_altered(new Alteration("metadata", "flags"));
+            notify_flags_altered(additional_alteration);
         
         return flags;
     }
     
-    public uint64 add_remove_flags(uint64 add, uint64 remove) {
+    public uint64 add_remove_flags(uint64 add, uint64 remove, Alteration? additional_alteration = null) {
         uint64 flags = 0;
         
         bool committed = false;
@@ -1437,29 +1445,30 @@ public abstract class Photo : PhotoSource {
         }
         
         if (committed)
-            notify_altered(new Alteration("metadata", "flags"));
+            notify_flags_altered(additional_alteration);
         
         return flags;
     }
     
     public static void add_remove_many_flags(Gee.Collection<Photo>? add, uint64 add_mask,
-        Gee.Collection<Photo>? remove, uint64 remove_mask) throws DatabaseError {
+        Alteration? additional_add_alteration, Gee.Collection<Photo>? remove, uint64 remove_mask,
+        Alteration? additional_remove_alteration) throws DatabaseError {
         DatabaseTable.begin_transaction();
         
         if (add != null) {
             foreach (Photo photo in add)
-                photo.add_flags(add_mask);
+                photo.add_flags(add_mask, additional_add_alteration);
         }
         
         if (remove != null) {
             foreach (Photo photo in remove)
-                photo.remove_flags(remove_mask);
+                photo.remove_flags(remove_mask, additional_remove_alteration);
         }
         
         DatabaseTable.commit_transaction();
     }
     
-    public uint64 toggle_flags(uint64 mask) {
+    public uint64 toggle_flags(uint64 mask, Alteration? additional_alteration = null) {
         uint64 flags = 0;
         
         bool committed = false;
@@ -1473,7 +1482,7 @@ public abstract class Photo : PhotoSource {
         }
         
         if (committed)
-            notify_altered(new Alteration("metadata", "flags"));
+            notify_flags_altered(additional_alteration);
         
         return flags;
     }
@@ -3694,13 +3703,14 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
 // LibraryPhoto
 //
 
-public class LibraryPhoto : Photo {
+public class LibraryPhoto : Photo, Flaggable {
     // Top 16 bits are reserved for Photo
     // Warning: FLAG_HIDDEN and FLAG_FAVORITE have been deprecated for ratings and rating filters.
     private const uint64 FLAG_HIDDEN =      0x0000000000000001;
     private const uint64 FLAG_FAVORITE =    0x0000000000000002;
     private const uint64 FLAG_TRASH =       0x0000000000000004;
     private const uint64 FLAG_OFFLINE =     0x0000000000000008;
+    private const uint64 FLAG_FLAGGED =     0x0000000000000010;
     
     public static LibraryPhotoSourceCollection global = null;
     public static MimicManager mimic_manager = null;
@@ -3934,7 +3944,19 @@ public class LibraryPhoto : Photo {
     
     public static void mark_many_online_offline(Gee.Collection<LibraryPhoto>? online,
         Gee.Collection<LibraryPhoto>? offline) throws DatabaseError {
-        add_remove_many_flags(offline, FLAG_OFFLINE, online, FLAG_OFFLINE);
+        add_remove_many_flags(offline, FLAG_OFFLINE, null, online, FLAG_OFFLINE, null);
+    }
+    
+    public  bool is_flagged() {
+        return is_flag_set(FLAG_FLAGGED);
+    }
+    
+    public void mark_flagged() {
+        add_flags(FLAG_FLAGGED, new Alteration("metadata", "flagged"));
+    }
+    
+    public void mark_unflagged() {
+        remove_flags(FLAG_FLAGGED, new Alteration("metadata", "flagged"));
     }
     
     public override bool internal_delete_backing() throws Error {

@@ -205,6 +205,15 @@ public class Alteration {
         if (subject != null && other.subject != null && detail != null && other.detail != null)
             return equal_values(subject, other.subject) && equal_values(detail, other.detail);
         
+        // if one is singleton and the other a multiple, search for singleton in multiple
+        if ((map != null && other.map == null) || (map == null && other.map != null)) {
+            string single_subject = subject != null ? subject : other.subject;
+            string single_detail = detail != null ? detail : other.detail;
+            Gee.MultiMap<string, string> multimap = map != null ? map : other.map;
+            
+            return multimap.contains(single_subject) && map.get(single_subject).contains(single_detail);
+        }
+        
         // if both multiples, check for any match at all
         if (map != null && other.map != null) {
             Gee.Set<string>? keys = map.get_keys();

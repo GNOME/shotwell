@@ -913,6 +913,11 @@ public class LibraryMonitor : DirectoryMonitor {
      }
 
     private void post_process_videos() {
+        if (videos_to_mark_offline.size == 0 && videos_to_mark_online.size == 0
+            && videos_to_check_interpretable.size == 0) {
+            return;
+        }
+        
         Video.global.freeze_notifications();
 
         foreach (Video video in videos_to_mark_offline) {
@@ -948,6 +953,9 @@ public class LibraryMonitor : DirectoryMonitor {
         Timer timer = new Timer();
         
         post_process_videos();
+        
+        if (pending_updates.values.size == 0)
+            return true;
         
         Gee.Map<LibraryPhoto, File> set_master_file = null;
         Gee.Map<LibraryPhoto, FileInfo> set_master_file_info = null;

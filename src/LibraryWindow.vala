@@ -54,7 +54,10 @@ public class LibraryWindow : AppWindow {
         }
         
         public override void switched_to() {
-            display_for_collection(collection, start.get_photo());
+            Photo? photo = start.get_media_source() as Photo;
+            if (photo != null)
+                display_for_collection(collection, photo);
+            
             base.switched_to();
         }
     }
@@ -111,6 +114,7 @@ public class LibraryWindow : AppWindow {
     private NoEventPage.Stub no_event_page = null;
     private OfflinePage.Stub offline_page = null;
     private LastImportPage.Stub last_import_page = null;
+    private FlaggedPage.Stub flagged_page = null;
     private VideosPage.Stub videos_page = null;
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
@@ -240,20 +244,19 @@ public class LibraryWindow : AppWindow {
         // connect to sidebar signal used ommited on drag-and-drop orerations
         sidebar.drop_received.connect(drop_received);
         
-        // monitor trashes to keep common actions up-to-date
-        LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
-        Video.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
+        // monitor various states of the media source collections to update page availability
+        foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all()) {
+            sources.trashcan_contents_altered.connect(on_trashcan_contents_altered);
+            sources.import_roll_altered.connect(sync_last_import_visibility);
+            sources.flagged_contents_altered.connect(sync_flagged_visibility);
+            sources.items_altered.connect(on_media_altered);
+        }
         
-        // show or hide the last import page depending on whether or not a last import roll
-        // exists
-        LibraryPhoto.global.import_roll_altered.connect(sync_last_import_visibility);
         sync_last_import_visibility();
+        sync_flagged_visibility();
         
         Video.global.contents_altered.connect(sync_videos_visibility);
         sync_videos_visibility();
-        
-        foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all())
-            media_sources.items_altered.connect(on_media_altered);
         
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
         LibraryPhoto.library_monitor.auto_update_progress.connect(on_library_monitor_auto_update_progress);
@@ -690,11 +693,33 @@ public class LibraryWindow : AppWindow {
         import_queue_page.enqueue_and_schedule(batch_import, allow_user_cancel);
     }
     
-    public void sync_last_import_visibility() {
-        enable_disable_last_import_page((LibraryPhoto.global.get_last_import_id() != null));
+    private void sync_last_import_visibility() {
+        bool has_last_import = false;
+        foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all()) {
+            if (sources.get_last_import_id() != null) {
+                has_last_import = true;
+                
+                break;
+            }
+        }
+        
+        enable_disable_last_import_page(has_last_import);
     }
     
-    public void sync_videos_visibility() {
+    private void sync_flagged_visibility() {
+        bool has_flagged = false;
+        foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all()) {
+            if (sources.get_flagged().size > 0) {
+                has_flagged = true;
+                
+                break;
+            }
+        }
+        
+        enable_disable_flagged_page(has_flagged);
+    }
+    
+    private void sync_videos_visibility() {
         enable_disable_videos_page(Video.global.get_count() > 0);
     }
     
@@ -1185,7 +1210,17 @@ public class LibraryWindow : AppWindow {
             last_import_page = null;
         }
     }
-
+    
+    private void enable_disable_flagged_page(bool enable) {
+        if (enable && flagged_page == null) {
+            flagged_page = FlaggedPage.create_stub();
+            sidebar.insert_sibling_before(events_directory_page.get_marker(), flagged_page);
+        } else if (!enable && flagged_page != null) {
+            remove_stub(flagged_page, library_page, null);
+            flagged_page = null;
+        }
+    }
+    
     private void enable_disable_videos_page(bool enable) {
         if (enable && videos_page == null) {
             videos_page = VideosPage.create_stub();
@@ -1795,6 +1830,8 @@ public class LibraryWindow : AppWindow {
             switch_to_page(offline_page.get_page());
         } else if (last_import_page != null && is_page_selected(last_import_page, path)) {
             switch_to_page(last_import_page.get_page());
+        } else if (flagged_page != null && is_page_selected(flagged_page, path)) {
+            switch_to_page(flagged_page.get_page());
         } else if (videos_page != null && is_page_selected(videos_page, path)) {
             switch_to_page(videos_page.get_page());
         } else {

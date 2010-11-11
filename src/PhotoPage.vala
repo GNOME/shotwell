@@ -126,7 +126,7 @@ public class ZoomBuffer : Object {
                 iso_transformed_image.width / 2, iso_transformed_image.height / 2,
                 Gdk.InterpType.BILINEAR);
         }
-        object_state = ObjectState.TRANSFORMED_READY;            
+        object_state = ObjectState.TRANSFORMED_READY;
     }
     
     private void on_demand_transform_complete(BackgroundJob job) {
@@ -348,6 +348,9 @@ public class ZoomBuffer : Object {
 }
 
 public abstract class EditingHostPage : SinglePhotoPage {
+    public const int TRINKET_SCALE = 20;
+    public const int TRINKET_PADDING = 1;
+    
     public const double ZOOM_INCREMENT_SIZE = 0.1;
     public const int PAN_INCREMENT_SIZE = 64; /* in pixels */
     public const int TOOL_WINDOW_SEPARATOR = 8;
@@ -1648,14 +1651,74 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
+    protected virtual Gdk.Pixbuf? get_bottom_left_trinket(int scale) {
+        return null;
+    }
+    
+    protected virtual Gdk.Pixbuf? get_top_left_trinket(int scale) {
+        return null;
+    }
+    
+    protected virtual Gdk.Pixbuf? get_top_right_trinket(int scale) {
+        return null;
+    }
+    
+    protected virtual Gdk.Pixbuf? get_bottom_right_trinket(int scale) {
+        return null;
+    }
+    
     protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
-        if (current_tool != null)
+        if (current_tool != null) {
             current_tool.paint(gc, drawable);
-        else
-            base.paint(gc, drawable);
-
-        if (photo_missing && has_photo())
+            
+            return;
+        }
+        
+        if (photo_missing && has_photo()) {
             draw_message(_("Photo source file missing: %s").printf(get_photo().get_file().get_path()));
+            
+            return;
+        }
+        
+        base.paint(gc, drawable);
+        
+        if (!get_zoom_state().is_default())
+            return;
+        
+        // paint trinkets last
+        Gdk.Rectangle scaled_rect = get_scaled_pixbuf_position();
+        
+        Gdk.Pixbuf? trinket = get_bottom_left_trinket(TRINKET_SCALE);
+        if (trinket != null) {
+            drawable.draw_pixbuf(gc, trinket, 0, 0, 
+                scaled_rect.x + TRINKET_PADDING,
+                scaled_rect.y + scaled_rect.height - trinket.height - TRINKET_PADDING,
+                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+        }
+        
+        trinket = get_top_left_trinket(TRINKET_SCALE);
+        if (trinket != null) {
+            drawable.draw_pixbuf(gc, trinket, 0, 0,
+                scaled_rect.x + TRINKET_PADDING,
+                scaled_rect.y + TRINKET_PADDING,
+                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+        }
+        
+        trinket = get_top_right_trinket(TRINKET_SCALE);
+        if (trinket != null) {
+            drawable.draw_pixbuf(gc, trinket, 0, 0,
+                scaled_rect.x + scaled_rect.width - trinket.width - TRINKET_PADDING,
+                scaled_rect.y + TRINKET_PADDING,
+                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+        }
+        
+        trinket = get_bottom_right_trinket(TRINKET_SCALE);
+        if (trinket != null) {
+            drawable.draw_pixbuf(gc, trinket, 0, 0,
+                scaled_rect.x + scaled_rect.width - trinket.width - TRINKET_PADDING,
+                scaled_rect.y + scaled_rect.height - trinket.height - TRINKET_PADDING,
+                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+        }
     }
     
     public bool is_rotate_available(Photo photo) {
@@ -1996,9 +2059,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
 //
 
 public class LibraryPhotoPage : EditingHostPage {
-    public const int TRINKET_SCALE = 20;
-    public const int TRINKET_PADDING = 1;
-
     private Gtk.Menu context_menu;
     private CollectionPage return_page = null;
     private bool return_to_collection_on_release = false;
@@ -2208,7 +2268,12 @@ public class LibraryPhotoPage : EditingHostPage {
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
 #endif
-
+        
+        Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>F", TRANSLATABLE, on_flag_unflag };
+        flag.label = Resources.FLAG_MENU;
+        flag.tooltip = Resources.FLAG_TOOLTIP;
+        actions += flag;
+        
         Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
         set_rating.label = Resources.RATING_MENU;
         actions += set_rating;
@@ -2408,6 +2473,19 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("FlipHorizontally", rotate_possible);
         set_action_sensitive("FlipVertically", rotate_possible);
         
+        if (has_photo()) {
+            Gtk.Action? action = get_action("Flag");
+            assert(action != null);
+            
+            bool is_flagged = ((LibraryPhoto) get_photo()).is_flagged();
+            
+            action.label = is_flagged ? Resources.UNFLAG_MENU : Resources.FLAG_MENU;
+            action.tooltip = is_flagged ? Resources.UNFLAG_TOOLTIP : Resources.FLAG_TOOLTIP;
+            action.sensitive = true;
+        } else {
+            set_action_sensitive("Flag", false);
+        }
+        
 #if !NO_RAW
         set_action_visible("ExternalEditRAW", 
             is_raw && Config.get_instance().get_external_raw_app() != "");
@@ -2471,32 +2549,18 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
     
-    protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
-        base.paint(gc, drawable);
-
-        if (!has_current_tool() && get_zoom_state().is_default()) {
-            Gdk.Pixbuf? trinket = null;
-            
-            if (Config.get_instance().get_display_photo_ratings())
-                trinket = Resources.get_rating_trinket(((LibraryPhoto) get_photo()).get_rating(), 
-                    TRINKET_SCALE);
-            
-            if (trinket == null)
-                return;
-            
-            Gdk.Pixbuf? pixbuf = get_scaled_pixbuf();
-            
-            if (pixbuf == null)
-                return;
-
-            int x, y;
-            drawable.get_size(out x, out y);
-
-            drawable.draw_pixbuf(gc, trinket, 0, 0, 
-                (x / 2) - (pixbuf.get_width() / 2) + TRINKET_PADDING,
-                (y / 2) + (pixbuf.get_height() / 2) - trinket.get_height() - TRINKET_PADDING, 
-                trinket.get_width(), trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
-        }
+    protected override Gdk.Pixbuf? get_bottom_left_trinket(int scale) {
+        if (!has_photo() || !Config.get_instance().get_display_photo_ratings())
+            return null;
+        
+        return Resources.get_rating_trinket(((LibraryPhoto) get_photo()).get_rating(), scale);
+    }
+    
+    protected override Gdk.Pixbuf? get_top_right_trinket(int scale) {
+        if (!has_photo() || !((LibraryPhoto) get_photo()).is_flagged())
+            return null;
+        
+        return Resources.get_icon(Resources.ICON_APP, scale);
     }
     
     private void on_slideshow() {
@@ -2570,6 +2634,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("Revert", sensitivity);
         
         set_action_sensitive("Rate", sensitivity);
+        set_action_sensitive("Flag", sensitivity);
         set_action_sensitive("AddTags", sensitivity);
         set_action_sensitive("ModifyTags", sensitivity);
         
@@ -2725,6 +2790,13 @@ public class LibraryPhotoPage : EditingHostPage {
             LibraryWindow.get_app().switch_to_library_page();
         
         get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
+    }
+    
+    private void on_flag_unflag() {
+        if (has_photo()) {
+            get_command_manager().execute(new FlagUnflagCommand(get_view().get_sources(),
+                !((LibraryPhoto) get_photo()).is_flagged()));
+        }
     }
     
     private void on_photo_destroyed(DataSource source) {

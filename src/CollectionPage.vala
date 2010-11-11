@@ -487,22 +487,26 @@ public abstract class CollectionPage : MediaPage {
         // none of the fancy Super, Ctrl, Shift, etc., keyboard accelerators apply to videos,
         // since they can't be RAW files or be opened in an external editor, etc., so if this is
         // a video, just play it and do a short-circuit return
-        if (thumbnail.get_video() != null) {
+        if (thumbnail.get_media_source() is Video) {
             on_play_video();
             return;
         }
-
+        
+        LibraryPhoto? photo = thumbnail.get_media_source() as LibraryPhoto;
+        if (photo == null)
+            return;
+        
         // switch to full-page view or open in external editor
-        debug("activating %s", thumbnail.get_photo().to_string());
+        debug("activating %s", photo.to_string());
 
         if (activator == CheckerboardPage.Activator.MOUSE) {
             if (modifiers.super_pressed)
                 on_external_edit();
             else
-                LibraryWindow.get_app().switch_to_photo_page(this, thumbnail.get_photo());
+                LibraryWindow.get_app().switch_to_photo_page(this, photo);
         } else if (activator == CheckerboardPage.Activator.KEYBOARD) {
             if (!modifiers.shift_pressed && !modifiers.ctrl_pressed)
-                LibraryWindow.get_app().switch_to_photo_page(this, thumbnail.get_photo());
+                LibraryWindow.get_app().switch_to_photo_page(this, photo);
         }
     }
 
@@ -604,9 +608,9 @@ public abstract class CollectionPage : MediaPage {
     }
     
     private bool can_revert_selected() {
-        foreach (DataView view in get_view().get_selected()) {
-            LibraryPhoto photo = ((Thumbnail) view).get_photo();
-            if (photo.has_transformations() || photo.has_editable())
+        foreach (DataSource source in get_view().get_selected_sources()) {
+            LibraryPhoto? photo = source as LibraryPhoto;
+            if (photo != null && (photo.has_transformations() || photo.has_editable()))
                 return true;
         }
         
@@ -614,9 +618,9 @@ public abstract class CollectionPage : MediaPage {
     }
     
     private bool can_revert_editable_selected() {
-        foreach (DataView view in get_view().get_selected()) {
-            LibraryPhoto photo = ((Thumbnail) view).get_photo();
-            if (photo.has_editable())
+        foreach (DataSource source in get_view().get_selected_sources()) {
+            LibraryPhoto? photo = source as LibraryPhoto;
+            if (photo != null && photo.has_editable())
                 return true;
         }
         
@@ -800,8 +804,12 @@ public abstract class CollectionPage : MediaPage {
         if (thumbnail == null)
             return;
         
+        LibraryPhoto? photo = thumbnail.get_media_source() as LibraryPhoto;
+        if (photo == null)
+            return;
+        
         AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, get_view(),
-            thumbnail.get_photo()));
+            photo));
     }
 
     private void on_display_tags(Gtk.Action action) {

@@ -101,7 +101,7 @@ public abstract class MediaSource : ThumbnailSource {
     public abstract bool is_offline();
     public abstract void mark_offline();
     public abstract void mark_online();
-
+    
     public abstract string get_master_md5();
 
     // WARNING: some child classes of MediaSource (e.g. Photo) implement this method in a
@@ -199,6 +199,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     private Gee.MultiMap<ImportID?, MediaSource> import_rolls =
         new Gee.TreeMultiMap<ImportID?, MediaSource>(ImportID.compare_func);
     private Gee.TreeSet<ImportID?> sorted_import_ids = new Gee.TreeSet<ImportID?>(ImportID.compare_func);
+    private Gee.Set<MediaSource> flagged = new Gee.HashSet<MediaSource>();
     
     public virtual signal void trashcan_contents_altered(Gee.Collection<MediaSource>? added,
         Gee.Collection<MediaSource>? removed) {
@@ -210,7 +211,10 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     public virtual signal void offline_contents_altered(Gee.Collection<MediaSource>? added,
         Gee.Collection<MediaSource>? removed) {
     }
-
+    
+    public virtual signal void flagged_contents_altered() {
+    }
+    
     public MediaSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
         base(name, source_key_func);
         
@@ -250,10 +254,15 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     protected virtual void notify_import_roll_altered() {
         import_roll_altered();
     }
-
+    
+    protected virtual void notify_flagged_contents_altered() {
+        flagged_contents_altered();
+    }
+    
     protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
         Gee.ArrayList<MediaSource> to_trashcan = null;
         Gee.ArrayList<MediaSource> to_offline = null;
+        bool flagged_altered = false;
         foreach (DataObject object in items.keys) {
             Alteration alteration = items.get(object);
             
@@ -278,6 +287,14 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                 
                 to_offline.add(source);
             }
+            
+            Flaggable? flaggable = source as Flaggable;
+            if (flaggable != null) {
+                if (flaggable.is_flagged())
+                    flagged_altered = flagged.add(source) || flagged_altered;
+                else
+                    flagged_altered = flagged.remove(source) || flagged_altered;
+            }
         }
         
         if (to_trashcan != null)
@@ -286,23 +303,34 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         if (to_offline != null)
             get_offline_bin().unlink_and_hold(to_offline);
         
+        if (flagged_altered)
+            notify_flagged_contents_altered();
+        
         base.items_altered(items);
     }
 
     protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
         Gee.Iterable<DataObject>? removed) {
         bool import_roll_changed = false;
-
+        bool flagged_altered = false;
         if (added != null) {
             foreach (DataObject object in added) {
                 MediaSource current_media = (MediaSource) object;
-
+                
                 ImportID import_id = current_media.get_import_id();
                 if (import_id.is_valid()) {
                     sorted_import_ids.add(import_id);
                     import_rolls.set(import_id, current_media);
                     
                     import_roll_changed = true;
+                }
+                
+                Flaggable? flaggable = current_media as Flaggable;
+                if (flaggable != null ) {
+                    if (flaggable.is_flagged())
+                        flagged_altered = flagged.add(current_media) || flagged_altered;
+                    else
+                        flagged_altered = flagged.remove(current_media) || flagged_altered;
                 }
             }
         }
@@ -320,11 +348,16 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                     
                     import_roll_changed = true;
                 }
+                
+                flagged_altered = flagged.remove(current_media) || flagged_altered;
             }
         }
         
         if (import_roll_changed)
             notify_import_roll_altered();
+        
+        if (flagged_altered)
+            notify_flagged_contents_altered();
         
         base.notify_contents_altered(added, removed);
     }
@@ -351,7 +384,11 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     public Gee.Collection<MediaSource> get_offline_bin_contents() {
         return (Gee.Collection<MediaSource>) get_offline_bin().get_all();
     }
-
+    
+    public Gee.Collection<MediaSource> get_flagged() {
+        return flagged.read_only_view;
+    }
+    
     // The returned set of ImportID's is sorted from oldest to newest.
     public Gee.SortedSet<ImportID?> get_import_roll_ids() {
         return sorted_import_ids;
@@ -476,6 +513,16 @@ public class MediaCollectionRegistry {
     
     public Gee.Collection<MediaSourceCollection> get_all() {
         return collection_registry.values;
+    }
+    
+    public void freeze_all() {
+        foreach (MediaSourceCollection sources in get_all())
+            sources.freeze_notifications();
+    }
+    
+    public void thaw_all() {
+        foreach (MediaSourceCollection sources in get_all())
+            sources.thaw_notifications();
     }
     
     public MediaSource? fetch_media(string source_id) {
