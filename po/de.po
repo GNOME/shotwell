@@ -26,6 +26,7 @@ msgstr ""
 "Juergen Kofler <juergen.kofler@gobbz.net>\n"
 "Ingo Luetkebohle <iluetkeb@techfak.uni-bielefeld.de>\n"
 "Sven Mahlstedt <1ne_mail_an-sven.m@web.de>\n"
+"Peter Pall < gunter@peterpall.de>\n"
 "Hendrik Richter <hendrikr@gnome.org>\n"
 "Martin Weißhaupt <mweisshaupt1988@googlemail.com>\n"
 "Johannes Wilm <mail@johanneswilm.org>"
@@ -81,31 +82,31 @@ msgid "Shotwell failed to load the database file"
 msgstr "Shotwell konnte die Datenbank nicht öffnen"
 
 #: src/AppDirs.vala:37
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create data directory %s: %s"
-msgstr "Das Foto kann nicht exportiert werden %s: %s"
+msgstr "Fehler beim Erstellen des Verzeichnisses %s für Daten: %s"
 
 #: src/AppDirs.vala:75
 msgid "Pictures"
 msgstr "Fotos"
 
 #: src/AppDirs.vala:109
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create temporary directory %s: %s"
-msgstr "Kann %s nicht exportieren: %s"
+msgstr "Fehler beim Erstellen des Verzeichnisses %s für temporäre Dateien: %s"
 
 #: src/AppDirs.vala:125
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create data subdirectory %s: %s"
-msgstr "Der Hintergrund kann nicht an %s: %s exportiert werden"
+msgstr "Fehler beim Erstellen des Unterverzeichnisses %s für Daten: %s"
 
 #: src/AppWindow.vala:57
 msgid "Pin Toolbar"
-msgstr ""
+msgstr "Werkzeugleiste fixieren"
 
 #: src/AppWindow.vala:58
 msgid "Pin the toolbar open"
-msgstr ""
+msgstr "Werkzeugleiste immer geöffnet"
 
 #: src/AppWindow.vala:62 src/AppWindow.vala:139
 msgid "Leave fullscreen"
@@ -132,9 +133,8 @@ msgid "About Shotwell"
 msgstr "Info zu Shotwell"
 
 #: src/AppWindow.vala:476
-#, fuzzy
 msgid "Fulls_creen"
-msgstr "_Vollbild"
+msgstr "Bilds_chirmfüllend"
 
 #: src/AppWindow.vala:477
 msgid "Use Shotwell at fullscreen"
@@ -192,12 +192,11 @@ msgstr "Eine Diashow anzeigen"
 
 #: src/CollectionPage.vala:327
 msgid "View Eve_nt for Photo"
-msgstr ""
+msgstr "Ereig_nis zum Foto anzeigen"
 
 #: src/CollectionPage.vala:328
-#, fuzzy
 msgid "Go to this photo's event"
-msgstr "Zum vorherigen Foto"
+msgstr "Gehe zum Ereignis"
 
 #: src/CollectionPage.vala:332 src/CollectionPage.vala:355
 #: src/PhotoPage.vala:2292
@@ -362,9 +361,9 @@ msgid "Restoring Photos From Trash"
 msgstr "Stelle Fotos aus dem Papierkorb wieder her"
 
 #: src/DatabaseTables.vala:40
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open/create photo database %s: error code %d"
-msgstr "Kann das Foto wegen eines Dateifehlers nicht duplizieren"
+msgstr "Kann das Fotodatenbank %s wegen eines Dateifehlers nicht erstellen: Fehlernummer %d"
 
 #: src/Dialogs.vala:37
 msgid "Export Photos"
@@ -483,9 +482,8 @@ msgid "Name:"
 msgstr "Name:"
 
 #: src/Dialogs.vala:629 src/Resources.vala:230
-#, fuzzy
 msgid "Edit Title"
-msgstr "Nach _Titel"
+msgstr "Titel bearbeiten"
 
 #: src/Dialogs.vala:629 src/Properties.vala:258
 msgid "Title:"
@@ -542,23 +540,21 @@ msgstr[0] "Externe Veränderung rückgängig machen"
 msgstr[1] "Externe Veränderungen rückgängig machen"
 
 #: src/Dialogs.vala:694
-#, fuzzy, c-format
+#, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
-msgstr[0] "Dies wird den Tag \"%s\" von einem Foto entfernen. Fortsetzen?"
-msgstr[1] "Dies wird den Tag \"%s\" von %d  Fotos entfernen. Fortsetzen?"
+msgstr[0] "Dies wird das Foto aus der Bibliothek entfernen. Fortsetzen?"
+msgstr[1] "Dies wird %d Fotos aus der Bibliothek entfernen. Fortsetzen?"
 
 #: src/Dialogs.vala:701
-#, fuzzy
 msgid "_Remove"
-msgstr "Löschen"
+msgstr "Entfe_rnen"
 
 #: src/Dialogs.vala:702
-#, fuzzy
 msgid "Remove Photo From Library"
 msgid_plural "Remove Photos From Library"
-msgstr[0] "Entferne Foto aus Bibliothek..."
-msgstr[1] "Entferne Fotos aus Bibliothek..."
+msgstr[0] "Entferne Foto aus der Bibliothek."
+msgstr[1] "Entferne Fotos aus der Bibliothek."
 
 #: src/Dialogs.vala:779
 #, c-format
@@ -704,19 +700,17 @@ msgid "Connect a camera to your computer and import"
 msgstr "Verbinde die Kamera mit deinem Computer und importiere"
 
 #: src/Dialogs.vala:1277
-#, fuzzy
 msgid "Import photos from your _F-Spot library"
-msgstr "Importiere Fotos von der Festplatte in die Bibliothek"
+msgstr "Importiere Fotos von _F-Spot"
 
 #: src/Dialogs.vala:1284
-#, fuzzy, c-format
+#, c-format
 msgid "_Import photos from your %s folder"
-msgstr "Importiere Fotos von der Festplatte in die Bibliothek"
+msgstr "_Importiere Fotos vom %s-Ordner"
 
 #: src/Dialogs.vala:1294
-#, fuzzy
 msgid "You can also import photos in any of these ways:"
-msgstr "Um zu beginnen, importiere Fotos auf eine der folgenden Arten:"
+msgstr "Sie können Fotos auch auf eine der folgenden Weisen importieren:"
 
 #: src/Dialogs.vala:1306
 msgid "_Don't show this message again"
@@ -759,9 +753,9 @@ msgid "Height"
 msgstr "Höhe"
 
 #: src/DirectoryMonitor.vala:786
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to monitor %s: Not a directory (%s)"
-msgstr "%s lässt sich nicht anzeigen: Kein Verzeichnis"
+msgstr "Kann %s nicht überwachen: Ist kein Verzeichnis (%s)"
 
 #: src/EditingTools.vala:501
 msgid "Return to current photo dimensions"
@@ -965,9 +959,8 @@ msgid "_Edit"
 msgstr "_Bearbeiten"
 
 #: src/EventsDirectoryPage.vala:312
-#, fuzzy
 msgid "No Event"
-msgstr "Neues Ereignis"
+msgstr "Ereignislos"
 
 #: src/EventsDirectoryPage.vala:496
 msgid "Events"
@@ -986,9 +979,9 @@ msgid "%B"
 msgstr "%B"
 
 #: src/Event.vala:559
-#, fuzzy, c-format
+#, c-format
 msgid "Event %s"
-msgstr "Ereignisse"
+msgstr "Ereignis %s"
 
 #: src/Exporter.vala:204
 msgid "Exporting"
@@ -1599,20 +1592,22 @@ msgid "Zoom the photo to fit on the screen"
 msgstr "Foto auf Bildschirmgröße anpassen"
 
 #: src/PhotoPage.vala:2281 src/PhotoPage.vala:3318
+#, no-c-format
 msgid "Zoom _100%"
 msgstr "_100 % Vergrößerung"
 
 #: src/PhotoPage.vala:2282 src/PhotoPage.vala:3319
-#, c-format
+#, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Bild in voller Größe anzeigen"
 
 #: src/PhotoPage.vala:2287 src/PhotoPage.vala:3324
+#, no-c-format
 msgid "Zoom _200%"
 msgstr "_200 % Vergrößerung"
 
 #: src/PhotoPage.vala:2288 src/PhotoPage.vala:3325
-#, c-format
+#, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Bild in doppelter Größe anzeigen"
 
