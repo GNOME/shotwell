@@ -1409,11 +1409,9 @@ public class PreferencesDialog {
         
         Gtk.CheckButton auto_import_button = builder.get_object("autoimport") as Gtk.CheckButton;
         auto_import_button.set_active(Config.get_instance().get_auto_import_from_library());
-        auto_import_button.clicked.connect(on_auto_import_clicked);
         
         Gtk.CheckButton commit_metadata_button = builder.get_object("write_metadata") as Gtk.CheckButton;
         commit_metadata_button.set_active(Config.get_instance().get_commit_metadata_to_masters());
-        commit_metadata_button.clicked.connect(on_commit_metadata_clicked);
     }
     
     public void populate_preference_options() {
@@ -1489,17 +1487,33 @@ public class PreferencesDialog {
             preferences_dialog = new PreferencesDialog();
         
         preferences_dialog.populate_preference_options();
-        preferences_dialog.dialog.show_all();	
-	}
+        preferences_dialog.dialog.show_all();
+    }
+    
+    // For items that should only be committed when the dialog is closed, not as soon as the change
+    // is made.
+    private void commit_on_close() {
+        Config.get_instance().commit_bg_color();
+        
+        Gtk.CheckButton? autoimport = builder.get_object("autoimport") as Gtk.CheckButton;
+        if (autoimport != null)
+            Config.get_instance().set_auto_import_from_library(autoimport.active);
+        
+        Gtk.CheckButton? commit_metadata = builder.get_object("write_metadata") as Gtk.CheckButton;
+        if (commit_metadata != null)
+            Config.get_instance().set_commit_metadata_to_masters(commit_metadata.active);
+    }
     
     private bool on_delete() {
-        Config.get_instance().commit_bg_color();        
+        commit_on_close();
+        
         return dialog.hide_on_delete(); //prevent widgets from getting destroyed
     }
     
     private void on_close() {
         dialog.hide();
-        Config.get_instance().commit_bg_color();
+        
+        commit_on_close();
     }
     
     private void on_value_changed() {
@@ -1555,14 +1569,6 @@ public class PreferencesDialog {
         debug("setting external raw editor to: %s", app.get_commandline());
     }
 #endif
-    
-    private void on_auto_import_clicked(Gtk.Button button) {
-        Config.get_instance().set_auto_import_from_library(((Gtk.CheckButton) button).active);
-    }
-    
-    private void on_commit_metadata_clicked(Gtk.Button button) {
-        Config.get_instance().set_commit_metadata_to_masters(((Gtk.CheckButton) button).active);
-    }
 }
 
 // This function is used to determine whether or not files should be copied or linked when imported.

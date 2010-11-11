@@ -2091,15 +2091,24 @@ public class ViewCollection : DataCollection {
             DataSource source = (DataSource) object;
             
             MonitorImpl? monitor = null;
+            bool ignored = true;
             foreach (MonitorImpl monitor_impl in monitors.get((SourceCollection) collection)) {
                 if (monitor_impl.prereq != null && !alteration.contains_any(monitor_impl.prereq))
                     continue;
+                
+                ignored = false;
                 
                 if (monitor_impl.manager.include_in_view(source)) {
                     monitor = monitor_impl;
                     
                     break;
                 }
+            }
+            
+            if (ignored) {
+                assert(monitor == null);
+                
+                continue;
             }
             
             if (monitor != null && !has_view_for_source(source)) {

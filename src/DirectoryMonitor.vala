@@ -1077,8 +1077,8 @@ public class DirectoryMonitor : Object {
                 next.file.get_path()));
             
             if (next.err != null) {
-                warning("Unable to retrieve file information for %s, dropping %s: %s",
-                    next.file.get_path(), next.event.to_string(), next.err.message);
+                mdbg("Unable to retrieve file information for %s, dropping %s: %s".printf(
+                    next.file.get_path(), next.event.to_string(), next.err.message));
                 
                 continue;
             }
@@ -1125,7 +1125,7 @@ public class DirectoryMonitor : Object {
                 
                 FileInfo local_info = get_file_info(file);
                 if (local_info == null) {
-                    warning("Changed event for unknown file %s", file.get_path());
+                    mdbg("Changed event for unknown file %s".printf(file.get_path()));
                     
                     break;
                 }
