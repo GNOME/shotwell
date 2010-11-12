@@ -681,7 +681,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             icon_cache.set(name, pixbuf);
         }
         
-        if (scale == 0)
+        if (scale <= 0)
             return pixbuf;
         
         Gdk.Pixbuf scaled_pixbuf = scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false);
