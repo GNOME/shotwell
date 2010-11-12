@@ -1446,7 +1446,7 @@ private class PreparedFilesImportJob : BackgroundJob {
         ImportResult result = ImportResult.SUCCESS;
         VideoImportParams? video_import_params = null;
         PhotoImportParams? photo_import_params = null;
-        if (prepared_file.is_video) {           
+        if (prepared_file.is_video) {
             video_import_params = new VideoImportParams(final_file, import_id,
                 prepared_file.full_md5, new Thumbnails(),
                 prepared_file.job.get_exposure_time_override());

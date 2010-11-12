@@ -136,7 +136,9 @@ SRC_FILES = \
 	file_util.vala \
 	DesktopIntegration.vala \
 	FlaggedPage.vala \
-	MediaInterfaces.vala
+	MediaInterfaces.vala \
+	MediaMetadata.vala \
+	VideoMetadata.vala
 
 ifndef LINUX
 SRC_FILES += \
@@ -285,6 +287,8 @@ EXT_PKGS = \
 	gexiv2 \
 	json-glib-1.0
 
+DIRECT_LIBS =
+
 LIBRAW_PKG = \
 	libraw
 
@@ -301,6 +305,9 @@ EXT_PKGS += \
 	gdk-x11-2.0 \
 	gstreamer-0.10 \
 	gstreamer-base-0.10
+
+DIRECT_LIBS += \
+	libquicktime
 endif
 
 # libraw is handled separately (see note below); when libraw-config is no longer needed, the version
@@ -313,6 +320,8 @@ EXT_PKG_VERSIONS = \
 	sqlite3 >= 3.5.9 \
 	gexiv2 >= 0.2.0 \
 	json-glib-1.0 >= 0.7.6
+
+DIRECT_LIBS_VERSIONS =
 
 LIBRAW_VERSION = \
 	0.9.0
@@ -329,9 +338,12 @@ EXT_PKG_VERSIONS += \
 	dbus-glib-1 >= 0.80 \
 	gstreamer-0.10 >= 0.10.28 \
 	gstreamer-base-0.10 >= 0.10.28
+
+DIRECT_LIBS_VERSIONS += \
+	libquicktime >= 1.1.4
 endif
 
-PKGS = $(EXT_PKGS) $(LOCAL_PKGS) $(LIBRAW_PKG)
+VALA_PKGS = $(EXT_PKGS) $(LOCAL_PKGS) $(LIBRAW_PKG)
 
 ifndef BUILD_DIR
 BUILD_DIR=src
@@ -370,10 +382,11 @@ DIST_TAR_BZ2 = $(DIST_TAR).bz2
 DIST_TAR_GZ = $(DIST_TAR).gz
 PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.gz
 
-VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS) gthread-2.0` $(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
+VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
+	$(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
 	$(foreach def,$(DEFINES),-D$(def))
 
-VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS) gthread-2.0`
+VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0`
 
 ifdef WINDOWS
   VALA_DEFINES = -D WINDOWS -D NO_CAMERA -D NO_PRINTING -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX -D NO_SET_BACKGROUND
@@ -539,9 +552,9 @@ $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADE
 	@ ./minver `$(VALAC) --version | awk '{print $$2}'` $(MIN_VALAC_VERSION) || ( echo 'Shotwell requires Vala compiler $(MIN_VALAC_VERSION) or greater.  You are running' `$(VALAC) --version` '\b.'; exit 1 )
 ifndef ASSUME_PKGS
 ifdef EXT_PKG_VERSIONS
-	@pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS)'
+	@pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS) $(DIRECT_LIBS_VERSIONS)'
 else ifdef EXT_PKGS
-	@pkg-config --print-errors --exists $(EXT_PKGS)
+	@pkg-config --print-errors --exists $(EXT_PKGS) $(DIRECT_LIBS_VERSIONS)
 endif
 # Check for libraw manually, but not on Windows, where install-deps is used
 ifndef WINDOWS
@@ -551,7 +564,7 @@ endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
 	mkdir -p $(BUILD_DIR)
 	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src $(VALAFLAGS) \
-	$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
+	$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
 	$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
 	$(foreach def,$(DEFINES),-X -D$(def)) \
 	$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \

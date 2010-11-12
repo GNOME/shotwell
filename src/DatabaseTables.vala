@@ -2416,6 +2416,10 @@ public struct VideoID {
     }
 }
 
+//
+// VideoTable
+//
+
 public struct VideoRow {
     public VideoID video_id;
     public string filepath;

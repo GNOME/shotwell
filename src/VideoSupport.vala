@@ -48,7 +48,7 @@ public class VideoReader {
     }
     
     public static string[] get_supported_file_extensions() {
-        string[] result = { "avi", "mpg", "mov", "mts", "ogg", "ogv" };
+        string[] result = { "avi", "mpg", "mov", "mts", "ogg", "ogv", "mp4" };
         return result;
     }
     
@@ -114,6 +114,20 @@ public class VideoReader {
             } else {
                 error("can't prepare video for import: an unknown kind of video error occurred");
             }
+        }
+        
+        try {
+            VideoMetadata metadata = reader.read_metadata();
+            MetadataDateTime? creation_date_time = metadata.get_creation_date_time();
+            
+            if (creation_date_time != null && creation_date_time.get_timestamp() != 0)
+                exposure_time = creation_date_time.get_timestamp();
+            
+            string? video_title = metadata.get_title();
+            if (video_title != null)
+                title = video_title;
+        } catch (Error err) {
+            warning("Unable to read video metadata: %s", err.message);
         }
         
         params.row.video_id = VideoID();
@@ -217,6 +231,13 @@ public class VideoReader {
             read_internal();
 
         return clip_duration;
+    }
+    
+    public VideoMetadata read_metadata() throws Error {
+        VideoMetadata metadata = new VideoMetadata();
+        metadata.read_from_file(File.new_for_path(filepath));
+        
+        return metadata;
     }
 }
 
@@ -534,7 +555,7 @@ public class Video : VideoSource, Flaggable {
                 VideoTable.get_instance().set_title(backing_row.video_id, title);
             } catch (DatabaseError e) {
                 AppWindow.database_error(e);
-				return;
+                return;
             }
             // if we didn't short-circuit return in the catch clause above, then the change was
             // successfully committed to the database, so update it in the in-memory row cache
@@ -714,9 +735,9 @@ public class Video : VideoSource, Flaggable {
             if (get_is_interpretable()) {
                 lock (backing_row) {
                     backing_row.is_interpretable = false;
-			    }
-
-			    try {
+                }
+                
+                try {
                     VideoTable.get_instance().update_is_interpretable(get_video_id(), false);
                 } catch (DatabaseError e) {
                     AppWindow.database_error(e);
@@ -831,6 +852,10 @@ public class Video : VideoSource, Flaggable {
     
     public override void set_master_file(File file) {
         // TODO: implement master update for videos
+    }
+    
+    public VideoMetadata read_metadata() throws Error {
+        return (new VideoReader(get_filename())).read_metadata();
     }
 }
 
