@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2010-07-30 12:26-0700\n"
+"POT-Creation-Date: 2010-10-12 15:39-0700\n"
 "PO-Revision-Date: 2010-08-22 16:26+0200\n"
 "Last-Translator: Luca Ferretti <elle.uca@infinito.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -19,13 +19,14 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
-#: src/AppWindow.vala:625
+#: src/AppWindow.vala:639
 msgid "translator-credits"
 msgstr ""
 "Riccardo Albertini <ssirowain@gmail.com>\n"
 "Emanuele Grande <caccolangrifata@gmail.com>\n"
 "Fantagenius Geniusfanta <fantagenius@hotmail.com>\n"
-"Luca Ferretti <elle.uca@libero.it>"
+"Luca Ferretti <elle.uca@libero.it>\n"
+"Steko <steko@iosa.it>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -49,99 +50,114 @@ msgstr "Visualizzatore di fotografie Shotwell"
 msgid "Photo Viewer"
 msgstr "Visualizzatore di fotografie"
 
-#: src/AppWindow.vala:487
-msgid "_User Manual"
-msgstr "Manuale _utente"
-
 # %1s -> F-Spot
 # %2s -> FILE
-#: src/AlienDatabaseImportDialog.vala:53
+#: src/AlienDatabaseImportDialog.vala:68
 #, c-format
 msgid "Import from default %1$s library (%2$s)"
 msgstr "Importa dalla libreria predefinita di %1$s (%2$s)"
 
-#: src/AlienDatabaseImportDialog.vala:61
+#: src/AlienDatabaseImportDialog.vala:76
 #, c-format
 msgid "Import from another %s database file:"
 msgstr "Importa da un altro file database di %s:"
 
-#: src/AlienDatabaseImportDialog.vala:65
+#: src/AlienDatabaseImportDialog.vala:80
 #, c-format
 msgid "Import from a %s database file:"
 msgstr "Importa da un file database di %s:"
 
-#: src/AlienDatabaseImportDialog.vala:93
+#: src/AlienDatabaseImportDialog.vala:114
 msgid "No database selected"
 msgstr "Nessun database selezionato"
 
-#: src/AlienDatabaseImportDialog.vala:129
+#: src/AlienDatabaseImportDialog.vala:152
 #, c-format
 msgid "%s Database"
 msgstr "Database %s"
 
-#: src/AlienDatabaseImportDialog.vala:146
+#: src/AlienDatabaseImportDialog.vala:172
 msgid "Shotwell failed to load the database file"
 msgstr "Caricamento del file di database non riuscito"
 
-#: src/AppDirs.vala:74
+#: src/AppDirs.vala:37
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "Impossibile creare la directory dati %s: %s"
+
+#: src/AppDirs.vala:75
 msgid "Pictures"
 msgstr "Immagini"
 
-#: src/AppWindow.vala:55
+#: src/AppDirs.vala:109
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "Impossibile creare la directory temporanea  %s: %s"
+
+#: src/AppDirs.vala:125
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "Impossibile creare la sottodirectory dati  a %s: %s"
+
+#: src/AppWindow.vala:57
 msgid "Pin Toolbar"
 msgstr "Fissa barra strumenti"
 
-#: src/AppWindow.vala:56
+#: src/AppWindow.vala:58
 msgid "Pin the toolbar open"
 msgstr "Fissa la barra degli strumenti aperta"
 
-#: src/AppWindow.vala:60 src/AppWindow.vala:137
+#: src/AppWindow.vala:62 src/AppWindow.vala:139
 msgid "Leave fullscreen"
 msgstr "Esce dalla modalità schermo intero"
 
-#: src/AppWindow.vala:136
+#: src/AppWindow.vala:138
 msgid "Leave _Fullscreen"
 msgstr "Finestra _normale"
 
-#: src/AppWindow.vala:463
+#: src/AppWindow.vala:464
 msgid "_Quit"
 msgstr "_Esci"
 
-#: src/AppWindow.vala:464
+#: src/AppWindow.vala:465
 msgid "Quit Shotwell"
 msgstr "Esce da Shotwell"
 
-#: src/AppWindow.vala:469
+#: src/AppWindow.vala:470
 msgid "_About"
 msgstr "I_nformazioni"
 
-#: src/AppWindow.vala:470
+#: src/AppWindow.vala:471
 msgid "About Shotwell"
 msgstr "Informazioni su Shotwell"
 
-#: src/AppWindow.vala:475
+#: src/AppWindow.vala:476
 msgid "Fulls_creen"
 msgstr "_Schermo intero"
 
-#: src/AppWindow.vala:476
+#: src/AppWindow.vala:477
 msgid "Use Shotwell at fullscreen"
 msgstr "Usa Shotwell a schermo intero"
 
-#: src/AppWindow.vala:481
+#: src/AppWindow.vala:482
 msgid "_Contents"
 msgstr "_Sommario"
 
-#: src/AppWindow.vala:482
+#: src/AppWindow.vala:483
 msgid "More information on Shotwell"
 msgstr "Altre informazioni su Shotwell"
 
-#: src/AppWindow.vala:564 src/AppWindow.vala:578 src/AppWindow.vala:595
-#: src/Dialogs.vala:578 src/Dialogs.vala:600 src/TagPage.vala:131
-#: src/WebConnectors.vala:812
+#: src/AppWindow.vala:488
+msgid "_User Manual"
+msgstr "Manuale _utente"
+
+#: src/AppWindow.vala:575 src/AppWindow.vala:589 src/AppWindow.vala:606
+#: src/Dialogs.vala:678 src/Dialogs.vala:700 src/TagPage.vala:147
+#: src/WebConnectors.vala:843
 msgid "_Cancel"
 msgstr "A_nnulla"
 
-#: src/AppWindow.vala:605
+#: src/AppWindow.vala:616
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
@@ -152,307 +168,208 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:622
+#: src/AppWindow.vala:636
 msgid "Visit the Yorba web site"
 msgstr "Visita il sito web di Yorba"
 
-#: src/AppWindow.vala:634
+#: src/AppWindow.vala:648 src/AppWindow.vala:656
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Impossibile mostrare l'aiuto: %s"
 
-#: src/CollectionPage.vala:166 src/SlideshowPage.vala:98
-msgid "Slideshow"
-msgstr "Diapositive"
-
-#: src/CollectionPage.vala:167
-msgid "Start a slideshow of these photos"
-msgstr "Inizia una proiezione di queste foto"
-
-#: src/CollectionPage.vala:202
-msgid "Adjust the size of the thumbnails"
-msgstr "Regola la dimensione delle miniature"
-
-#: src/CollectionPage.vala:222 src/EventsDirectoryPage.vala:209
-#: src/ImportPage.vala:460 src/ImportPage.vala:1215 src/OfflinePage.vala:40
-#: src/PhotoPage.vala:1984 src/PhotoPage.vala:3114 src/TrashPage.vala:54
-msgid "_File"
-msgstr "_File"
-
-#: src/CollectionPage.vala:229
-msgid "Export selected photos to disk"
-msgstr "Esporta le foto selezionate sul disco"
-
-#: src/CollectionPage.vala:261 src/EventsDirectoryPage.vala:221
-#: src/ImportPage.vala:474 src/OfflinePage.vala:44 src/PhotoPage.vala:2016
-#: src/TrashPage.vala:58
-msgid "_Edit"
-msgstr "_Modifica"
-
-#: src/CollectionPage.vala:265 src/EventsDirectoryPage.vala:225
+#: src/CollectionPage.vala:236 src/EventsDirectoryPage.vala:228
 msgid "Even_ts"
 msgstr "Even_ti"
 
-#: src/CollectionPage.vala:282
-msgid "_Photos"
-msgstr "F_oto"
-
-#: src/CollectionPage.vala:287 src/PhotoPage.vala:2207 src/PhotoPage.vala:3244
-msgid "Zoom _In"
-msgstr "Aum_enta ingrandimento"
-
-#: src/CollectionPage.vala:288
-msgid "Increase the magnification of the thumbnails"
-msgstr "Aumenta l'ingrandimento delle miniature"
-
-#: src/CollectionPage.vala:293 src/PhotoPage.vala:2213 src/PhotoPage.vala:3250
-msgid "Zoom _Out"
-msgstr "Rid_uci ingrandimento"
-
-#: src/CollectionPage.vala:294
-msgid "Decrease the magnification of the thumbnails"
-msgstr "Diminuisce l'ingrandimento delle miniature"
-
-#: src/CollectionPage.vala:431
+#: src/CollectionPage.vala:315 src/PhotoPage.vala:2309
 msgid "_Slideshow"
 msgstr "_Diapositive"
 
 # infedele, ma pratica
-#: src/CollectionPage.vala:432
+#: src/CollectionPage.vala:316 src/PhotoPage.vala:2310
 msgid "Play a slideshow"
 msgstr "Proietta come diapositive"
 
-#: src/CollectionPage.vala:436 src/EventsDirectoryPage.vala:213
-#: src/ImportPage.vala:478 src/ImportPage.vala:1225 src/OfflinePage.vala:54
-#: src/PhotoPage.vala:2032 src/PhotoPage.vala:3235 src/TrashPage.vala:74
-msgid "_View"
-msgstr "_Visualizza"
+#: src/CollectionPage.vala:327
+msgid "View Eve_nt for Photo"
+msgstr "Visualizza eve_nto per la Foto"
 
-#: src/CollectionPage.vala:440
-msgid "Sort _Photos"
-msgstr "Ordina f_oto"
+#: src/CollectionPage.vala:328
+msgid "Go to this photo's event"
+msgstr "Vai all'evento di questa foto"
 
-#: src/CollectionPage.vala:454 src/CollectionPage.vala:487
-#: src/PhotoPage.vala:2236
+#: src/CollectionPage.vala:332 src/CollectionPage.vala:355
+#: src/PhotoPage.vala:2292
 msgid "Ta_gs"
 msgstr "_Etichette"
 
-#: src/CollectionPage.vala:470 src/EventsDirectoryPage.vala:217
-#: src/ImportPage.vala:482 src/ImportPage.vala:1229 src/OfflinePage.vala:58
-#: src/PhotoPage.vala:2202 src/PhotoPage.vala:3239 src/TrashPage.vala:78
-msgid "_Help"
-msgstr "A_iuto"
-
-#: src/CollectionPage.vala:481 src/ImportPage.vala:449
-msgid "_Titles"
-msgstr "_Titoli"
-
-#: src/CollectionPage.vala:482 src/ImportPage.vala:450
-msgid "Display the title of each photo"
-msgstr "Mostra il titolo di ogni foto"
-
-#: src/CollectionPage.vala:488
+#: src/CollectionPage.vala:356
 msgid "Display each photo's tags"
 msgstr "Mostra le etichette di ogni foto"
 
-#: src/CollectionPage.vala:505
-msgid "By _Title"
-msgstr "Per _titolo"
-
-#: src/CollectionPage.vala:506
-msgid "Sort photos by title"
-msgstr "Ordina le foto per titolo"
-
-#: src/CollectionPage.vala:511
-msgid "By Exposure _Date"
-msgstr "Per _data di scatto"
-
-#: src/CollectionPage.vala:512
-msgid "Sort photos by exposure date"
-msgstr "Ordina le foto per data di scatto"
-
-#: src/CollectionPage.vala:517
-msgid "By _Rating"
-msgstr "Per _giudizio"
-
-#: src/CollectionPage.vala:518
-msgid "Sort photos by rating"
-msgstr "Ordina le foto per voto"
-
-#: src/CollectionPage.vala:529 src/LibraryWindow.vala:506
-msgid "_Ascending"
-msgstr "_Crescente"
-
-#: src/CollectionPage.vala:530 src/LibraryWindow.vala:507
-msgid "Sort photos in an ascending order"
-msgstr "Ordina le foto in ordine crescente"
-
-#: src/CollectionPage.vala:535 src/LibraryWindow.vala:513
-msgid "D_escending"
-msgstr "D_ecrescente"
-
-#: src/CollectionPage.vala:536 src/LibraryWindow.vala:514
-msgid "Sort photos in a descending order"
-msgstr "Ordina le foto in ordine decrescente"
-
-#: src/CollectionPage.vala:933 src/Dialogs.vala:14 src/PhotoPage.vala:2679
+#: src/CollectionPage.vala:532 src/Dialogs.vala:14 src/PhotoPage.vala:2791
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Esporta la foto"
 msgstr[1] "Esporta le foto"
 
-#: src/CollectionPage.vala:1099 src/CollectionPage.vala:1119
+#: src/CollectionPage.vala:613 src/CollectionPage.vala:632
 msgid "Rotating"
 msgstr "Rotazione"
 
-#: src/CollectionPage.vala:1099 src/CollectionPage.vala:1119
+#: src/CollectionPage.vala:613 src/CollectionPage.vala:632
 msgid "Undoing Rotate"
 msgstr "Annullamento rotazione"
 
-#: src/CollectionPage.vala:1128
+#: src/CollectionPage.vala:641
 msgid "Flipping Horizontally"
 msgstr "Capovolgimento orizzontale"
 
-#: src/CollectionPage.vala:1129
+#: src/CollectionPage.vala:642
 msgid "Undoing Flip Horizontally"
 msgstr "Annullamento capovolgimento orizzontale"
 
-#: src/CollectionPage.vala:1138
+#: src/CollectionPage.vala:651
 msgid "Flipping Vertically"
 msgstr "Capovolgimento verticale"
 
-#: src/CollectionPage.vala:1139
+#: src/CollectionPage.vala:652
 msgid "Undoing Flip Vertically"
 msgstr "Annullamento capovolgimento verticale"
 
-#: src/CollectionPage.vala:1729
+#: src/CollectionPage.vala:854
 msgid "Photos"
 msgstr "Foto"
 
-#: src/Commands.vala:510
+#: src/Commands.vala:521
 msgid "Reverting"
 msgstr "Ritorno all'originale"
 
-#: src/Commands.vala:510
+#: src/Commands.vala:521
 msgid "Undoing Revert"
 msgstr "Ripristino ritorno all'originale"
 
-#: src/Commands.vala:554
+#: src/Commands.vala:565
 msgid "Enhancing"
 msgstr "Miglioramento"
 
-#: src/Commands.vala:554
+#: src/Commands.vala:565
 msgid "Undoing Enhance"
 msgstr "Annullamento miglioramento"
 
-#: src/Commands.vala:720
+#: src/Commands.vala:731
 msgid "Creating New Event"
 msgstr "Creazione nuovo evento"
 
-#: src/Commands.vala:721
+#: src/Commands.vala:732
 msgid "Removing Event"
 msgstr "Rimozione evento"
 
-#: src/Commands.vala:730
+#: src/Commands.vala:741
 msgid "Moving Photos to New Event"
 msgstr "Sposta foto in un nuovo evento"
 
-#: src/Commands.vala:731
+#: src/Commands.vala:742
 msgid "Setting Photos to Previous Event"
 msgstr "Imposta foto ad un evento precedente"
 
-#: src/Commands.vala:761
+#: src/Commands.vala:772
 msgid "Merging"
 msgstr "Unione"
 
-#: src/Commands.vala:762
+#: src/Commands.vala:773
 msgid "Unmerging"
 msgstr "Divisione"
 
-#: src/Commands.vala:771
+#: src/Commands.vala:782
 msgid "Duplicating photos"
 msgstr "Duplicazione foto"
 
-#: src/Commands.vala:771
+#: src/Commands.vala:782
 msgid "Removing duplicated photos"
 msgstr "Rimozione foto duplicate"
 
-#: src/Commands.vala:794
+#: src/Commands.vala:805
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
 msgstr[0] "Impossibile duplicare una foto a causa di un errore sul file"
 msgstr[1] "Impossibile duplicare %d foto a causa di errori su file"
 
-#: src/Commands.vala:881
+#: src/Commands.vala:893
 msgid "Restoring previous rating"
 msgstr "Ripristina voto precedente"
 
-#: src/Commands.vala:891 src/Commands.vala:892
+#: src/Commands.vala:903 src/Commands.vala:904
 msgid "Increasing ratings"
 msgstr "Aumenta voto"
 
-#: src/Commands.vala:891 src/Commands.vala:892
+#: src/Commands.vala:903 src/Commands.vala:904
 msgid "Decreasing ratings"
 msgstr "Diminuisce voto"
 
-#: src/Commands.vala:952
+#: src/Commands.vala:989
 msgid "Original photo could not be adjusted."
 msgstr "La foto originale non può essere modificata."
 
-#: src/Commands.vala:972
+#: src/Commands.vala:1009
 msgid "Adjusting Date and Time"
 msgstr "Regolazione data e ora"
 
-#: src/Commands.vala:972
+#: src/Commands.vala:1009
 msgid "Undoing Date and Time Adjustment"
 msgstr "Ripristino regolazione data e ora"
 
-#: src/Commands.vala:999
+#: src/Commands.vala:1036
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Una foto originale non può essere modificata."
 msgstr[1] "Le seguenti foto originali non possono essere modificate."
 
-#: src/Commands.vala:1001 src/Commands.vala:1013
+#: src/Commands.vala:1038 src/Commands.vala:1050
 msgid "Time Adjustment Error"
 msgstr "Errore di regolazione dell'ora"
 
-#: src/Commands.vala:1011
+#: src/Commands.vala:1048
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural "Time adjustments could not be undone on the following photo files."
 msgstr[0] "La regolazione dell'ora non può essere ripristinata sulla seguente foto."
 msgstr[1] "La regolazione dell'ora non può essere ripristinata sulle seguenti foto."
 
-#: src/Commands.vala:1265
+#: src/Commands.vala:1302
 msgid "Move Photos to Trash"
 msgstr "Sposta le foto nel cestino"
 
-#: src/Commands.vala:1265
+#: src/Commands.vala:1302
 msgid "Restore Photos from Trash"
 msgstr "Ripristina le foto dal cestino"
 
-#: src/Commands.vala:1266
+#: src/Commands.vala:1303
 msgid "Move the photos to the Shotwell trash"
 msgstr "Sposta le foto nel cestino di Shotwell"
 
-#: src/Commands.vala:1266
+#: src/Commands.vala:1303
 msgid "Restore the photos back to the Shotwell library"
 msgstr "Ripristina le foto nella libreria di Shotwell"
 
-#: src/Commands.vala:1283
+#: src/Commands.vala:1322
 msgid "Moving Photos to Trash"
 msgstr "Sposta le foto nel cestino"
 
-#: src/Commands.vala:1283
+#: src/Commands.vala:1322
 msgid "Restoring Photos From Trash"
 msgstr "Ripristino foto dal cestino"
 
-#: src/Dialogs.vala:36 src/PhotoExporter.vala:204
+#: src/DatabaseTables.vala:40
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "Impossibile aprire o creare il database delle foto %s: codice di errore %d"
+
+#: src/Dialogs.vala:37
 msgid "Export Photos"
 msgstr "Esporta foto"
 
-#: src/Dialogs.vala:54
+#: src/Dialogs.vala:56
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
@@ -460,7 +377,7 @@ msgstr ""
 "Impossibile esportare la seguente foto a causa di un errore sul file.\n"
 "\n"
 
-#: src/Dialogs.vala:60
+#: src/Dialogs.vala:62
 msgid ""
 "\n"
 "\n"
@@ -470,105 +387,105 @@ msgstr ""
 "\n"
 "Continuare con l'esportazione?"
 
-#: src/Dialogs.vala:61
+#: src/Dialogs.vala:63
 msgid "Con_tinue"
 msgstr "Con_tinua"
 
-#: src/Dialogs.vala:135
+#: src/Dialogs.vala:137
 msgid "_Format:"
 msgstr "_Formato:"
 
-#: src/Dialogs.vala:138
+#: src/Dialogs.vala:140
 msgid "_Quality:"
 msgstr "_Qualità:"
 
-#: src/Dialogs.vala:141
+#: src/Dialogs.vala:143
 msgid "_Scaling constraint:"
 msgstr "Vincolo di _ridimensionamento:"
 
-#: src/Dialogs.vala:144
+#: src/Dialogs.vala:146
 msgid " _pixels"
 msgstr " _pixel"
 
-#: src/Dialogs.vala:304
+#: src/Dialogs.vala:306
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(e altre %d)\n"
 
-#: src/Dialogs.vala:327
+#: src/Dialogs.vala:329
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "1 foto duplicata non è stata importata.\n"
 msgstr[1] "%d foto duplicate non sono state importate.\n"
 
-#: src/Dialogs.vala:342
+#: src/Dialogs.vala:344
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] "1 foto non è stata importata a causa di un errore file o hardware:\n"
 msgstr[1] "%d foto non sono state importate a causa di un errore file o hardware:\n"
 
-#: src/Dialogs.vala:357
+#: src/Dialogs.vala:359
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "1 foto non è stata importata a causa di un errore nella fotocamera:\n"
 msgstr[1] "%d foto non sono state importate a causa di errori nella fotocamera:\n"
 
-#: src/Dialogs.vala:371
+#: src/Dialogs.vala:373
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
 msgstr[0] "1 foto non supportata è stata saltata:\n"
 msgstr[1] "%d foto non supportate sono state saltate:\n"
 
-#: src/Dialogs.vala:385
+#: src/Dialogs.vala:387
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "1 file non immagine è stata saltata.\n"
 msgstr[1] "%d file non immagine sono state saltate.\n"
 
-#: src/Dialogs.vala:396
+#: src/Dialogs.vala:398
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "1 foto saltata a causa dell'annullamento da parte dell'utente:\n"
 msgstr[1] "%d foto saltate a causa dell'annullamento da parte dell'utente:\n"
 
-#: src/Dialogs.vala:410
+#: src/Dialogs.vala:412
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "1 foto importata con successo.\n"
 msgstr[1] "%d foto importate con successo.\n"
 
-#: src/Dialogs.vala:424
+#: src/Dialogs.vala:426
 msgid "No photos imported.\n"
 msgstr "Nessuna foto importata.\n"
 
-#: src/Dialogs.vala:439
+#: src/Dialogs.vala:441
 msgid "Import Complete"
 msgstr "Importazione completata"
 
-#: src/Dialogs.vala:519 src/Resources.vala:143
+#: src/Dialogs.vala:619 src/Resources.vala:157
 msgid "Rename Event"
 msgstr "Rinomina evento"
 
-#: src/Dialogs.vala:519
+#: src/Dialogs.vala:619
 msgid "Name:"
 msgstr "Nome:"
 
-#: src/Dialogs.vala:529 src/Resources.vala:216
+#: src/Dialogs.vala:629 src/Resources.vala:230
 msgid "Edit Title"
 msgstr "Modifica titolo"
 
-#: src/Dialogs.vala:529 src/Properties.vala:246
+#: src/Dialogs.vala:629 src/Properties.vala:258
 msgid "Title:"
 msgstr "Titolo:"
 
-#: src/Dialogs.vala:542
+#: src/Dialogs.vala:642
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -588,85 +505,85 @@ msgstr[1] ""
 "Questa azione non può essere ripristinata."
 
 # tolto file e reso omogeneo a nautilus
-#: src/Dialogs.vala:545
+#: src/Dialogs.vala:645
 msgid "_Trash File"
 msgid_plural "_Trash Files"
 msgstr[0] "Sposta _nel cestino"
 msgstr[1] "Sposta _nel cestino"
 
-#: src/Dialogs.vala:549
+#: src/Dialogs.vala:649
 msgid "Only _Remove"
 msgstr "_Rimuovi solamente"
 
-#: src/Dialogs.vala:571
+#: src/Dialogs.vala:671
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural "This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] "Verranno annullati tutti i cambiamenti al file esterno.  Continuare?"
 msgstr[1] "Verranno annullati tutti i cambiamenti a %d file esterni. Continuare?"
 
-#: src/Dialogs.vala:574
+#: src/Dialogs.vala:674
 msgid "Re_vert External Edit"
 msgid_plural "Re_vert External Edits"
 msgstr[0] "A_nnulla la modifica esterna"
 msgstr[1] "A_nnulla le modifiche esterne"
 
-#: src/Dialogs.vala:580
+#: src/Dialogs.vala:680
 msgid "Revert External Edit"
 msgid_plural "Revert External Edits"
 msgstr[0] "Annulla la modifica esterna"
 msgstr[1] "Annulla le modifiche esterne"
 
-#: src/Dialogs.vala:594
+#: src/Dialogs.vala:694
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
 msgstr[0] "Verrà rimossa la foto dalla libreria.  Continuare?"
 msgstr[1] "Verranno rimosse %d foto dalla libreria.  Continuare?"
 
-#: src/Dialogs.vala:601
+#: src/Dialogs.vala:701
 msgid "_Remove"
 msgstr "_Rimuovi"
 
-#: src/Dialogs.vala:602
+#: src/Dialogs.vala:702
 msgid "Remove Photo From Library"
 msgid_plural "Remove Photos From Library"
 msgstr[0] "Rimuove la foto dalla libreria"
 msgstr[1] "Rimuove le foto dalla libreria"
 
-#: src/Dialogs.vala:679
+#: src/Dialogs.vala:779
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:781
+#: src/Dialogs.vala:881
 msgid "AM"
 msgstr "AM"
 
-#: src/Dialogs.vala:782
+#: src/Dialogs.vala:882
 msgid "PM"
 msgstr "PM"
 
-#: src/Dialogs.vala:783
+#: src/Dialogs.vala:883
 msgid "24 Hr"
 msgstr "24 ore"
 
 # qualcosa di meglio??
-#: src/Dialogs.vala:798
+#: src/Dialogs.vala:898
 msgid "_Shift photos by the same amount"
 msgstr "_Trasla le foto dello stesso intervallo di tempo"
 
-#: src/Dialogs.vala:803
+#: src/Dialogs.vala:903
 msgid "Set _all photos to this time"
 msgstr "_Applica a tutte le foto l'orario indicato"
 
-#: src/Dialogs.vala:809
+#: src/Dialogs.vala:909
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Modifica il file originale"
 msgstr[1] "_Modifica i file originali"
 
-#: src/Dialogs.vala:891
+#: src/Dialogs.vala:991
 msgid "Original: "
 msgstr "Originale: "
 
@@ -674,7 +591,7 @@ msgstr "Originale: "
 # appropriate for your language, country and region. The date format string
 # should conform to POSIX date-formatting conventions. See the strftime
 # manpage for a list of applicable date format specifiers and their meanings.
-#: src/Dialogs.vala:892
+#: src/Dialogs.vala:992
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d/%m/%Y %H.%M.%S"
 
@@ -682,11 +599,11 @@ msgstr "%d/%m/%Y %H.%M.%S"
 # string appropriate for your language, country and region. The date format
 # string should conform to POSIX date-formatting conventions. See the strftime
 # manpage for a list of applicable date format specifiers and their meanings.
-#: src/Dialogs.vala:893
+#: src/Dialogs.vala:993
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d/%m/%Y %I.%M.%S %p"
 
-#: src/Dialogs.vala:978
+#: src/Dialogs.vala:1078
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -695,7 +612,7 @@ msgstr ""
 "L'ora di scatto sarà spostata in avanti di\n"
 "%d %s, %d %s, %d %s, e %d %s."
 
-#: src/Dialogs.vala:979
+#: src/Dialogs.vala:1079
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -704,31 +621,31 @@ msgstr ""
 "L'ora di scatto sarà spostata indietro di\n"
 "%d %s, %d %s, %d %s, e %d %s."
 
-#: src/Dialogs.vala:981
+#: src/Dialogs.vala:1081
 msgid "day"
 msgid_plural "days"
 msgstr[0] "giorno"
 msgstr[1] "giorni"
 
-#: src/Dialogs.vala:982
+#: src/Dialogs.vala:1082
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ora"
 msgstr[1] "ore"
 
-#: src/Dialogs.vala:983
+#: src/Dialogs.vala:1083
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuto"
 msgstr[1] "minuti"
 
-#: src/Dialogs.vala:984
+#: src/Dialogs.vala:1084
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "secondo"
 msgstr[1] "secondi"
 
-#: src/Dialogs.vala:1028
+#: src/Dialogs.vala:1128
 #, c-format
 msgid ""
 "\n"
@@ -747,75 +664,75 @@ msgstr[1] ""
 "\n"
 "E %d altre."
 
-#: src/Dialogs.vala:1045 src/Dialogs.vala:1069
+#: src/Dialogs.vala:1149 src/Dialogs.vala:1173
 msgid "Tags (separated by commas):"
 msgstr "Etichette (separate dalla virgola):"
 
-#: src/Dialogs.vala:1126
+#: src/Dialogs.vala:1230
 msgid "Welcome!"
 msgstr "Benvenuti!"
 
-#: src/Dialogs.vala:1134
+#: src/Dialogs.vala:1238
 #, c-format
 msgid "Welcome to Shotwell!"
 msgstr "Benvenuti in Shotwell!"
 
-#: src/Dialogs.vala:1139
+#: src/Dialogs.vala:1243
 #, c-format
 msgid "To get started, import photos in any of these ways:"
 msgstr "Per iniziare, importare le foto in uno dei modi seguenti:"
 
-#: src/Dialogs.vala:1162
+#: src/Dialogs.vala:1266
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr "Scegliere <span weight=\"bold\">File %s Importa dalla cartella</span>"
 
-#: src/Dialogs.vala:1163
+#: src/Dialogs.vala:1267
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Trascinare e rilasciare le foto nella finestra di Shotwell"
 
-#: src/Dialogs.vala:1164
+#: src/Dialogs.vala:1268
 msgid "Connect a camera to your computer and import"
 msgstr "Connettere una fotocamera al computer e importare"
 
-#: src/Dialogs.vala:1173
+#: src/Dialogs.vala:1277
 msgid "Import photos from your _F-Spot library"
 msgstr "Importa le foto dalla libreria di _F-Spot"
 
-#: src/Dialogs.vala:1180
+#: src/Dialogs.vala:1284
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "Importa le foto dalla _cartella %s"
 
-#: src/Dialogs.vala:1190
+#: src/Dialogs.vala:1294
 msgid "You can also import photos in any of these ways:"
 msgstr "È anche possibile importare le foto in uno dei modi seguenti:"
 
-#: src/Dialogs.vala:1202
+#: src/Dialogs.vala:1306
 msgid "_Don't show this message again"
 msgstr "Non _mostrare più questo messaggio"
 
-#: src/Dialogs.vala:1428
+#: src/Dialogs.vala:1532
 msgid "Choose Library Directory"
 msgstr "Scelta directory della libreria"
 
-#: src/Dialogs.vala:1477
+#: src/Dialogs.vala:1582
 msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
 msgstr "Shotwell può copiare le foto nella propria libreria o può collegare le foto senza duplicarle."
 
-#: src/Dialogs.vala:1482
+#: src/Dialogs.vala:1587
 msgid "Co_py into Library"
 msgstr "Co_pia nella libreria"
 
-#: src/Dialogs.vala:1483
+#: src/Dialogs.vala:1588
 msgid "Create _Links"
 msgstr "Crea co_llegamenti"
 
-#: src/Dialogs.vala:1484
+#: src/Dialogs.vala:1589
 msgid "Import to Library"
 msgstr "Importa nella libreria"
 
-#: src/Dimensions.vala:17 src/FlickrConnector.vala:949
+#: src/Dimensions.vala:17 src/FlickrConnector.vala:955
 msgid "Original size"
 msgstr "Dimensione originale"
 
@@ -831,10 +748,10 @@ msgstr "Larghezza"
 msgid "Height"
 msgstr "Altezza"
 
-#: src/DirectoryMonitor.vala:781
+#: src/DirectoryMonitor.vala:786
 #, c-format
-msgid "Unable to monitor %s: Not a directory"
-msgstr "Impossibile monitorare %s: non è una directory"
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "Impossibile monitorare %s: non è una directory (%s)"
 
 #: src/EditingTools.vala:501
 msgid "Return to current photo dimensions"
@@ -860,7 +777,7 @@ msgstr "Quadrato"
 msgid "Screen"
 msgstr "Schermo"
 
-#: src/EditingTools.vala:587 src/PicasaConnector.vala:862
+#: src/EditingTools.vala:587 src/PicasaConnector.vala:868
 msgid "Original Size"
 msgstr "Dimensione originale"
 
@@ -877,59 +794,59 @@ msgstr "Video SD (4:3)"
 msgid "HD Video (16 : 9)"
 msgstr "Video HD (16:9)"
 
-#: src/EditingTools.vala:592 src/Printing.vala:774
+#: src/EditingTools.vala:592 src/Printing.vala:765
 msgid "Wallet (2 x 3 in.)"
 msgstr "Portafoglio (2 × 3 in)"
 
-#: src/EditingTools.vala:593 src/Printing.vala:777
+#: src/EditingTools.vala:593 src/Printing.vala:768
 msgid "Notecard (3 x 5 in.)"
 msgstr "Biglietto (3 × 5 in)"
 
-#: src/EditingTools.vala:594 src/Printing.vala:780
+#: src/EditingTools.vala:594 src/Printing.vala:771
 msgid "4 x 6 in."
 msgstr "4 × 6 in"
 
-#: src/EditingTools.vala:595 src/Printing.vala:783
+#: src/EditingTools.vala:595 src/Printing.vala:774
 msgid "5 x 7 in."
 msgstr "5 × 7 in"
 
-#: src/EditingTools.vala:596 src/Printing.vala:786
+#: src/EditingTools.vala:596 src/Printing.vala:777
 msgid "8 x 10 in."
 msgstr "8 × 10 in"
 
-#: src/EditingTools.vala:597 src/Printing.vala:789
+#: src/EditingTools.vala:597 src/Printing.vala:780
 msgid "11 x 14 in."
 msgstr "11 × 14 in"
 
-#: src/EditingTools.vala:598 src/Printing.vala:792
+#: src/EditingTools.vala:598 src/Printing.vala:783
 msgid "16 x 20 in."
 msgstr "16 × 20 in"
 
-#: src/EditingTools.vala:600 src/Printing.vala:798
+#: src/EditingTools.vala:600 src/Printing.vala:789
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr "Portafoglio metrico (9 × 13 cm)"
 
-#: src/EditingTools.vala:601 src/Printing.vala:801
+#: src/EditingTools.vala:601 src/Printing.vala:792
 msgid "Postcard (10 x 15 cm)"
 msgstr "Cartolina (10 × 15 cm)"
 
-#: src/EditingTools.vala:602 src/Printing.vala:804
+#: src/EditingTools.vala:602 src/Printing.vala:795
 msgid "13 x 18 cm"
 msgstr "13 × 18 cm"
 
-#: src/EditingTools.vala:603 src/Printing.vala:807
+#: src/EditingTools.vala:603 src/Printing.vala:798
 msgid "18 x 24 cm"
 msgstr "18 × 24 cm"
 
-#: src/EditingTools.vala:604 src/Printing.vala:810
+#: src/EditingTools.vala:604 src/Printing.vala:801
 msgid "20 x 30 cm"
 msgstr "20 × 30 cm"
 
-#: src/EditingTools.vala:605 src/Printing.vala:813
+#: src/EditingTools.vala:605 src/Printing.vala:804
 msgid "24 x 40 cm"
 msgstr "24 × 40 cm"
 
-#: src/EditingTools.vala:606 src/Printing.vala:816
+#: src/EditingTools.vala:606 src/Printing.vala:807
 msgid "30 x 40 cm"
 msgstr "30 × 40 cm"
 
@@ -937,7 +854,7 @@ msgstr "30 × 40 cm"
 msgid "Custom"
 msgstr "Personalizzata"
 
-#: src/EditingTools.vala:1689 src/Properties.vala:291
+#: src/EditingTools.vala:1689 src/Properties.vala:313
 msgid "Size:"
 msgstr "Dimensione:"
 
@@ -949,90 +866,143 @@ msgstr "Chiude lo strumento occhi-rossi"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Rimuove ogni effetto occhi-rossi nella selezione"
 
-#: src/EditingTools.vala:2018
+#: src/EditingTools.vala:2021
 msgid "_Reset"
 msgstr "A_zzera"
 
-#: src/EditingTools.vala:2029 src/Properties.vala:320 src/Properties.vala:324
-#: src/Properties.vala:331
+#: src/EditingTools.vala:2032 src/Properties.vala:346 src/Properties.vala:350
+#: src/Properties.vala:357
 msgid "Exposure:"
 msgstr "Esposizione:"
 
-#: src/EditingTools.vala:2037
+#: src/EditingTools.vala:2040
 msgid "Saturation:"
 msgstr "Saturazione:"
 
-#: src/EditingTools.vala:2045
+#: src/EditingTools.vala:2048
 msgid "Tint:"
 msgstr "Tinta:"
 
-#: src/EditingTools.vala:2054
+#: src/EditingTools.vala:2057
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: src/EditingTools.vala:2062
+#: src/EditingTools.vala:2065
 msgid "Shadows:"
 msgstr "Ombre:"
 
-#: src/EditingTools.vala:2116
+#: src/EditingTools.vala:2119
 msgid "Reset Colors"
 msgstr "Azzera colori"
 
-#: src/EditingTools.vala:2116
+#: src/EditingTools.vala:2119
 msgid "Reset all color adjustments to original"
 msgstr "Reimposta tutte le regolazioni del colore all'originale"
 
-#: src/EditingTools.vala:2440
+#: src/EditingTools.vala:2443
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: src/EditingTools.vala:2446
+#: src/EditingTools.vala:2449
 msgid "Tint"
 msgstr "Tinta"
 
-#: src/EditingTools.vala:2452
+#: src/EditingTools.vala:2455
 msgid "Saturation"
 msgstr "Saturazione"
 
-#: src/EditingTools.vala:2458
+#: src/EditingTools.vala:2461
 msgid "Exposure"
 msgstr "Esposizione"
 
-#: src/EditingTools.vala:2464
+#: src/EditingTools.vala:2467
 msgid "Shadows"
 msgstr "Ombre"
 
-#: src/EditingTools.vala:2474
+#: src/EditingTools.vala:2477
 msgid "Contrast Expansion"
 msgstr "Espansione contrasto"
 
-#: src/EventsDirectoryPage.vala:64 src/Properties.vala:259
+#: src/EventsDirectoryPage.vala:64 src/Properties.vala:271
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
 msgstr[0] "%d foto"
 msgstr[1] "%d foto"
 
-#: src/EventsDirectoryPage.vala:428
+#: src/EventsDirectoryPage.vala:212 src/ImportPage.vala:555
+#: src/ImportPage.vala:1324 src/MediaPage.vala:292 src/OfflinePage.vala:72
+#: src/PhotoPage.vala:2040 src/PhotoPage.vala:3170 src/TrashPage.vala:91
+msgid "_File"
+msgstr "_File"
+
+#: src/EventsDirectoryPage.vala:216 src/ImportPage.vala:575
+#: src/ImportPage.vala:1334 src/MediaPage.vala:393 src/OfflinePage.vala:86
+#: src/PhotoPage.vala:2088 src/PhotoPage.vala:3291 src/TrashPage.vala:111
+msgid "_View"
+msgstr "_Visualizza"
+
+#: src/EventsDirectoryPage.vala:220 src/ImportPage.vala:579
+#: src/ImportPage.vala:1338 src/MediaPage.vala:405 src/OfflinePage.vala:90
+#: src/PhotoPage.vala:2258 src/PhotoPage.vala:3295 src/TrashPage.vala:115
+msgid "_Help"
+msgstr "A_iuto"
+
+#: src/EventsDirectoryPage.vala:224 src/ImportPage.vala:571
+#: src/MediaPage.vala:303 src/OfflinePage.vala:76 src/PhotoPage.vala:2072
+#: src/TrashPage.vala:95
+msgid "_Edit"
+msgstr "_Modifica"
+
+#: src/EventsDirectoryPage.vala:312
+msgid "No Event"
+msgstr "Nessun evento"
+
+#: src/EventsDirectoryPage.vala:496
 msgid "Events"
 msgstr "Eventi"
 
-#: src/EventsDirectoryPage.vala:488 src/LibraryWindow.vala:209
+#: src/EventsDirectoryPage.vala:531 src/EventsDirectoryPage.vala:625
 msgid "Undated"
 msgstr "Senza data"
 
-#: src/EventsDirectoryPage.vala:490 src/LibraryWindow.vala:212
+#: src/EventsDirectoryPage.vala:534 src/EventsDirectoryPage.vala:627
 msgid "%Y"
 msgstr "%Y"
 
-#: src/EventsDirectoryPage.vala:490 src/LibraryWindow.vala:212
+#: src/EventsDirectoryPage.vala:534 src/EventsDirectoryPage.vala:627
 msgid "%B"
 msgstr "%B"
 
-#: src/Event.vala:473
+#: src/Event.vala:559
 #, c-format
-msgid "Event %lld"
-msgstr "Evento %lld"
+msgid "Event %s"
+msgstr "Evento %s"
+
+#: src/Exporter.vala:204
+msgid "Exporting"
+msgstr "Esportazione"
+
+#: src/Exporter.vala:221
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "Il file %s esiste già.  Sovrascrivere?"
+
+#: src/Exporter.vala:223
+msgid "_Skip"
+msgstr "_Salta"
+
+#: src/Exporter.vala:223
+msgid "_Replace"
+msgstr "_Sostituisci"
+
+#: src/Exporter.vala:223
+msgid "Replace _All"
+msgstr "Sostituisci _tutto"
+
+#: src/Exporter.vala:223
+msgid "Export"
+msgstr "Esporta"
 
 #: src/FacebookConnector.vala:13 src/PicasaConnector.vala:12
 msgid "Shotwell Connect"
@@ -1056,15 +1026,15 @@ msgstr ""
 "Si è già connessi e disconnessi da Facebook durante questa sessione di Shotwell.\n"
 "Per continuare la pubblicazione su Facebook, chiudere e riavviare Shotwell, quindi provare di nuovo la pubblicazione."
 
-#: src/FacebookConnector.vala:261
+#: src/FacebookConnector.vala:265
 msgid "Testing connection to Facebook..."
 msgstr "Verifica della connessione a Facebook..."
 
-#: src/FacebookConnector.vala:344 src/PicasaConnector.vala:384
+#: src/FacebookConnector.vala:348 src/PicasaConnector.vala:388
 msgid "Creating album..."
 msgstr "Creazione album..."
 
-#: src/FacebookConnector.vala:713
+#: src/FacebookConnector.vala:719
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -1074,21 +1044,21 @@ msgstr ""
 "Si è connessi a Facebook come %s.\n"
 "Dove si vogliono pubblicare le foto selezionate?"
 
-#: src/FacebookConnector.vala:754
+#: src/FacebookConnector.vala:760
 msgid "Publish to an e_xisting album:"
 msgstr "Pubblicare in un album _esistente:"
 
-#: src/FacebookConnector.vala:757
+#: src/FacebookConnector.vala:763
 msgid "Create a _new album named:"
 msgstr "Creare un nuovo album chiamato:"
 
-#: src/FacebookConnector.vala:773 src/FlickrConnector.vala:884
-#: src/PicasaConnector.vala:789
+#: src/FacebookConnector.vala:779 src/FlickrConnector.vala:890
+#: src/PicasaConnector.vala:795
 msgid "_Publish"
 msgstr "_Pubblica"
 
-#: src/FacebookConnector.vala:775 src/FlickrConnector.vala:880
-#: src/PicasaConnector.vala:779
+#: src/FacebookConnector.vala:781 src/FlickrConnector.vala:886
+#: src/PicasaConnector.vala:785
 msgid "_Logout"
 msgstr "_Disconnetti"
 
@@ -1110,11 +1080,11 @@ msgstr ""
 "Si è già connessi e disconnessi da Flickr durante questa sessione di Shotwell.\n"
 "Per continuare la pubblicazione su Flickr, chiudere e riavviare Shotwell, quindi provare di nuovo la pubblicazione."
 
-#: src/FlickrConnector.vala:258
+#: src/FlickrConnector.vala:262
 msgid "Preparing to login..."
 msgstr "Preparazione per l'accesso..."
 
-#: src/FlickrConnector.vala:820
+#: src/FlickrConnector.vala:826
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -1123,7 +1093,7 @@ msgstr ""
 "Si è connessi a Flickr come %s.\n"
 "\n"
 
-#: src/FlickrConnector.vala:822
+#: src/FlickrConnector.vala:828
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -1132,35 +1102,35 @@ msgstr ""
 "L'account gratuito di Flickr limita la quantità di dati caricabili mensilmente.\n"
 "Questo mese rimangono a disposizione %d megabyte."
 
-#: src/FlickrConnector.vala:824
+#: src/FlickrConnector.vala:830
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "L'account Pro di Flickr da la possibilità di caricare foto illimitatamente."
 
-#: src/FlickrConnector.vala:849
+#: src/FlickrConnector.vala:855
 msgid "Photos _visible to:"
 msgstr "F_oto visibile a:"
 
-#: src/FlickrConnector.vala:850
+#: src/FlickrConnector.vala:856
 msgid "Photo _size:"
 msgstr "D_imensione foto:"
 
-#: src/FlickrConnector.vala:922
+#: src/FlickrConnector.vala:928
 msgid "Everyone"
 msgstr "Tutti"
 
-#: src/FlickrConnector.vala:923
+#: src/FlickrConnector.vala:929
 msgid "Friends & family only"
 msgstr "Amici e famiglia"
 
-#: src/FlickrConnector.vala:924
+#: src/FlickrConnector.vala:930
 msgid "Just me"
 msgstr "Solo a me"
 
-#: src/FlickrConnector.vala:947
+#: src/FlickrConnector.vala:953
 msgid "Medium (500 x 375 pixels)"
 msgstr "Media (500 × 375 pixel)"
 
-#: src/FlickrConnector.vala:948
+#: src/FlickrConnector.vala:954
 msgid "Large (1024 x 768 pixels)"
 msgstr "Grande (1024 × 768 pixel)"
 
@@ -1172,11 +1142,11 @@ msgstr "Importa da _F-Spot..."
 msgid "Import the content of an external F-Spot database"
 msgstr "Importa il contenuto di un database esterno di F-Spot"
 
-#: src/FSpotDatabaseDriver.vala:207
+#: src/FSpotDatabaseDriver.vala:216
 msgid "Import From F-Spot"
 msgstr "Importa da F-Spot"
 
-#: src/FSpotDatabaseDriver.vala:257
+#: src/FSpotDatabaseDriver.vala:270
 msgid "F-Spot"
 msgstr "F-Spot"
 
@@ -1185,59 +1155,67 @@ msgstr "F-Spot"
 msgid "Unable to export background to %s: %s"
 msgstr "Impossibile esportare lo sfondo a %s: %s"
 
-#: src/ImportPage.vala:211
+#: src/ImportPage.vala:299
 msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr "Impossibile smontare la fotocamera.  Provare a smontare la fotocamera dal file manager."
 
-#: src/ImportPage.vala:325 src/ImportPage.vala:326
+#: src/ImportPage.vala:412 src/ImportPage.vala:413
 msgid "Camera"
 msgstr "Fotocamera"
 
-#: src/ImportPage.vala:366
+#: src/ImportPage.vala:455
 msgid "Hide photos already imported"
 msgstr "Nascondi le foto già importate"
 
-#: src/ImportPage.vala:367
+#: src/ImportPage.vala:456
 msgid "Only display photos that have not been imported"
 msgstr "Visualizza solo le foto non ancora importate"
 
-#: src/ImportPage.vala:414
-msgid "Import Selected"
-msgstr "Importa selezionate"
+#: src/ImportPage.vala:544 src/MediaPage.vala:416
+msgid "_Titles"
+msgstr "_Titoli"
 
-#: src/ImportPage.vala:415
+#: src/ImportPage.vala:545 src/MediaPage.vala:417
+msgid "Display the title of each photo"
+msgstr "Mostra il titolo di ogni foto"
+
+#: src/ImportPage.vala:560
+msgid "Import _Selected"
+msgstr "Importa _selezionate"
+
+#: src/ImportPage.vala:561
 msgid "Import the selected photos into your library"
 msgstr "Importa le foto selezionate nella libreria"
 
-#: src/ImportPage.vala:423
-msgid "Import All"
-msgstr "Importa tutte"
+#: src/ImportPage.vala:566
+msgid "Import _All"
+msgstr "Import_a tutte"
 
-#: src/ImportPage.vala:424
-msgid "Import all the photos on this camera into your library"
-msgstr "Importa tutte le foto su questa fotocamera nella libreria"
+#: src/ImportPage.vala:567
+msgid "Import all the photos into your library"
+msgstr "Importa tutte le foto nella libreria"
 
-#: src/ImportPage.vala:582
+#: src/ImportPage.vala:695
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
 msgstr "È necessario smontare la fotocamera in modo che Shotwell possa accedervi.  Continuare?"
 
-#: src/ImportPage.vala:588
+#: src/ImportPage.vala:701
 msgid "_Unmount"
 msgstr "_Smonta"
 
-#: src/ImportPage.vala:593
+#: src/ImportPage.vala:706
 msgid "Please unmount the camera."
 msgstr "Smontare la fotocamera."
 
-#: src/ImportPage.vala:598
+#: src/ImportPage.vala:711
 msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
 msgstr "La fotocamera è bloccata da un'altra applicazione.  Shotwell può accedervi solo quando sarà sbloccata.  Chiudere tutte le altre applicazioni che usano la fotocamera e riprovare."
 
-#: src/ImportPage.vala:608
+#: src/ImportPage.vala:721
 msgid "Please close any other application using the camera."
 msgstr "Chiudere tutte le altre applicazioni che usano la fotocamera."
 
-#: src/ImportPage.vala:613
+#: src/ImportPage.vala:726
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -1246,162 +1224,200 @@ msgstr ""
 "Impossibile recuperare le anteprima dalla fotocamera:\n"
 "%s"
 
-#: src/ImportPage.vala:632
+#: src/ImportPage.vala:743
 msgid "Unmounting..."
 msgstr "Smonta..."
 
-#: src/ImportPage.vala:701
+#: src/ImportPage.vala:812
 msgid "Fetching photo information"
 msgstr "Recupero informazioni foto"
 
-#: src/ImportPage.vala:933
+#: src/ImportPage.vala:1047
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Recupero anteprima per %s"
 
-#: src/ImportPage.vala:1024
+#: src/ImportPage.vala:1131
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Impossibile bloccare la fotocamera: %s"
 
-#: src/ImportPage.vala:1096
+#: src/ImportPage.vala:1205
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Eliminare questa foto dalla fotocamera?"
 msgstr[1] "Eliminare queste %d foto dalla fotocamera?"
 
-#: src/ImportPage.vala:1101
+#: src/ImportPage.vala:1210
 msgid "_Keep"
 msgstr "_Mantieni"
 
-#: src/ImportPage.vala:1120
+#: src/ImportPage.vala:1229
 msgid "Removing photos from camera"
 msgstr "Rimozione delle foto dalla fotocamera"
 
-#: src/ImportPage.vala:1124
+#: src/ImportPage.vala:1233
 #, c-format
 msgid "Unable to delete %d photo from the camera due to errors."
 msgid_plural "Unable to delete %d photos from the camera due to errors."
 msgstr[0] "Impossibile eliminare %d foto dalla fotocamera a causa di errori."
 msgstr[1] "Impossibile eliminare %d foto dalla fotocamera a causa di errori."
 
-#: src/ImportPage.vala:1181 src/ImportPage.vala:1283
+#: src/ImportPage.vala:1280
 msgid "Importing..."
 msgstr "Importazione..."
 
-#: src/ImportPage.vala:1191 src/ImportPage.vala:1221
-msgid "Stop importing photos"
-msgstr "Ferma l'importazione delle foto"
-
-#: src/ImportPage.vala:1220
+#: src/ImportPage.vala:1329
 msgid "_Stop Import"
 msgstr "_Ferma importazione"
 
-#: src/ImportPage.vala:1301
+#: src/ImportPage.vala:1330
+msgid "Stop importing photos"
+msgstr "Ferma l'importazione delle foto"
+
+#: src/ImportPage.vala:1394
+#, fuzzy
+msgid "Preparing to import..."
+msgstr "Preparazione foto per l'importazione..."
+
+#: src/ImportPage.vala:1417
 #, c-format
 msgid "Imported %s"
 msgstr "Importato %s"
 
-#: src/JfifSupport.vala:77
+#: src/JfifSupport.vala:85
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/JfifSupport.vala:166
+#: src/JfifSupport.vala:180
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Bassa (%d%%)"
 
-#: src/JfifSupport.vala:169
+#: src/JfifSupport.vala:183
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Media (%d%%)"
 
-#: src/JfifSupport.vala:172
+#: src/JfifSupport.vala:186
 #, c-format
 msgid "High (%d%%)"
 msgstr "Alta (%d%%)"
 
-#: src/JfifSupport.vala:175
+#: src/JfifSupport.vala:189
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Massima (%d%%)"
 
-#: src/LastImportPage.vala:23
+#: src/LastImportPage.vala:17
 msgid "Last Import"
 msgstr "Ultima importazione"
 
-#: src/LibraryWindow.vala:458
+#: src/LibraryMonitor.vala:328 src/LibraryMonitor.vala:337
+msgid "Updating library..."
+msgstr "Aggiornamento album..."
+
+#: src/LibraryMonitor.vala:914
+msgid "Auto-importing..."
+msgstr "Importazione automatica..."
+
+#: src/LibraryWindow.vala:276
 msgid "_Import From Folder..."
 msgstr "_Importa dalla cartella..."
 
-#: src/LibraryWindow.vala:459
+#: src/LibraryWindow.vala:277
 msgid "Import photos from disk to library"
 msgstr "Importa foto nella libreria dal disco"
 
-#: src/LibraryWindow.vala:464
+#: src/LibraryWindow.vala:288
 msgid "Sort _Events"
 msgstr "Ordina _eventi"
 
-#: src/LibraryWindow.vala:475
+#: src/LibraryWindow.vala:299
 msgid "Empty T_rash"
 msgstr "Svuo_ta cestino"
 
-#: src/LibraryWindow.vala:476
+#: src/LibraryWindow.vala:300
 msgid "Delete all photos in the trash"
 msgstr "Elimina tutte le foto dal cestino"
 
-#: src/LibraryWindow.vala:487
+#: src/LibraryWindow.vala:311
 msgid "_Basic Information"
 msgstr "Informazioni di _base"
 
-#: src/LibraryWindow.vala:488
+#: src/LibraryWindow.vala:312
 msgid "Display basic information for the selection"
 msgstr "Mostra le informazioni di base per la selezione"
 
-#: src/LibraryWindow.vala:493
+#: src/LibraryWindow.vala:317
 msgid "E_xtended Information"
 msgstr "Informazioni e_stese"
 
-#: src/LibraryWindow.vala:494
+#: src/LibraryWindow.vala:318
 msgid "Display extended information for the selection"
 msgstr "Mostra le informazioni estese per la selezione"
 
-#: src/LibraryWindow.vala:654
+#: src/LibraryWindow.vala:330 src/MediaPage.vala:460
+msgid "_Ascending"
+msgstr "_Crescente"
+
+#: src/LibraryWindow.vala:331 src/MediaPage.vala:461
+msgid "Sort photos in an ascending order"
+msgstr "Ordina le foto in ordine crescente"
+
+#: src/LibraryWindow.vala:337 src/MediaPage.vala:466
+msgid "D_escending"
+msgstr "D_ecrescente"
+
+#: src/LibraryWindow.vala:338 src/MediaPage.vala:467
+msgid "Sort photos in a descending order"
+msgstr "Ordina le foto in ordine decrescente"
+
+#: src/LibraryWindow.vala:484
 msgid "Import From Folder"
 msgstr "Importa dalla cartella"
 
-#: src/LibraryWindow.vala:689
+#: src/LibraryWindow.vala:530
 msgid "Empty Trash"
 msgstr "Svuota cestino"
 
-#: src/LibraryWindow.vala:689
+#: src/LibraryWindow.vala:530
 msgid "Emptying Trash..."
 msgstr "Svuotamento cestino..."
 
-#: src/LibraryWindow.vala:811
+#: src/LibraryWindow.vala:663
 msgid "Shotwell is configured to import photos to your home directory.\n"
 msgstr "Shotwell è configurato per importare le foto nella cartella home.\n"
 
-#: src/LibraryWindow.vala:814
+#: src/LibraryWindow.vala:666
 msgid "_Import"
 msgstr "_Importa"
 
-#: src/LibraryWindow.vala:814
+#: src/LibraryWindow.vala:666
 msgid "Library Location"
 msgstr "Posizione libreria"
 
-#: src/LibraryWindow.vala:827
+#: src/LibraryWindow.vala:679
 msgid "Photos cannot be imported from this directory."
 msgstr "Le foto non possono essere importate da questa cartella."
 
-#: src/LibraryWindow.vala:1203
+#: src/LibraryWindow.vala:1082
 msgid "Tags"
 msgstr "Etichette"
 
-#: src/LibraryWindow.vala:1291
+#: src/LibraryWindow.vala:1204
 msgid "Cameras"
 msgstr "Fotocamere"
+
+#: src/LibraryWindow.vala:1441
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/LibraryWindow.vala:1473
+msgid "Writing metadata to files..."
+msgstr "Scrittura dei metadati nei file..."
 
 #: src/main.vala:79
 #, c-format
@@ -1423,175 +1439,215 @@ msgstr "La libreria delle foto non è compatibile con questa versione di Shotwel
 msgid "Unknown error attempting to verify Shotwell's database: %d"
 msgstr "Errore sconosciuto nel tentativo di verificare il database di Shotwell: %d"
 
-#: src/main.vala:121
+#: src/main.vala:129
 msgid "Loading Shotwell"
 msgstr "Caricamento Shotwell"
 
-#: src/main.vala:250
+#: src/main.vala:295
 msgid "[FILE]"
 msgstr "[FILE]"
 
-#: src/main.vala:253
+#: src/main.vala:298
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr "Eseguire '%s --help' per una lista completa di opzioni a riga di comando.\n"
+
+#: src/MediaPage.vala:158
+msgid "Adjust the size of the thumbnails"
+msgstr "Regola la dimensione delle miniature"
+
+#: src/MediaPage.vala:299
+#, fuzzy
+msgid "Export the selected items to disk"
+msgstr "Esporta le foto selezionate sul disco"
+
+#: src/MediaPage.vala:313
+msgid "_Photos"
+msgstr "F_oto"
+
+#: src/MediaPage.vala:318 src/PhotoPage.vala:2263 src/PhotoPage.vala:3300
+msgid "Zoom _In"
+msgstr "Aum_enta ingrandimento"
+
+#: src/MediaPage.vala:319
+msgid "Increase the magnification of the thumbnails"
+msgstr "Aumenta l'ingrandimento delle miniature"
+
+#: src/MediaPage.vala:324 src/PhotoPage.vala:2269 src/PhotoPage.vala:3306
+msgid "Zoom _Out"
+msgstr "Rid_uci ingrandimento"
+
+#: src/MediaPage.vala:325
+msgid "Decrease the magnification of the thumbnails"
+msgstr "Diminuisce l'ingrandimento delle miniature"
+
+#: src/MediaPage.vala:397
+msgid "Sort _Photos"
+msgstr "Ordina f_oto"
+
+#: src/MediaPage.vala:438
+msgid "By _Title"
+msgstr "Per _titolo"
+
+#: src/MediaPage.vala:439
+msgid "Sort photos by title"
+msgstr "Ordina le foto per titolo"
+
+#: src/MediaPage.vala:444
+msgid "By Exposure _Date"
+msgstr "Per _data di scatto"
+
+#: src/MediaPage.vala:445
+msgid "Sort photos by exposure date"
+msgstr "Ordina le foto per data di scatto"
+
+#: src/MediaPage.vala:450
+msgid "By _Rating"
+msgstr "Per _giudizio"
+
+#: src/MediaPage.vala:451
+msgid "Sort photos by rating"
+msgstr "Ordina le foto per voto"
 
 #: src/OfflinePage.vala:17
 msgid "Missing Files"
 msgstr "File mancanti"
 
-#: src/OfflinePage.vala:113
+#: src/OfflinePage.vala:135
 msgid "Deleting..."
 msgstr "Eliminazione..."
 
-#: src/Page.vala:2146
+#: src/Page.vala:2319
 msgid "Photos cannot be exported to this directory."
 msgstr "Le foto non possono essere esportate in questa cartella."
 
-#: src/PhotoExporter.vala:185
-msgid "Exporting"
-msgstr "Esportazione"
-
-#: src/PhotoExporter.vala:202
-#, c-format
-msgid "File %s already exists.  Replace?"
-msgstr "Il file %s esiste già.  Sovrascrivere?"
-
-#: src/PhotoExporter.vala:204
-msgid "_Skip"
-msgstr "_Salta"
-
-#: src/PhotoExporter.vala:204
-msgid "_Replace"
-msgstr "_Sostituisci"
-
-#: src/PhotoExporter.vala:204
-msgid "Replace _All"
-msgstr "Sostituisci _tutto"
-
-#: src/PhotoPage.vala:470
+#: src/PhotoPage.vala:499
 msgid "Previous photo"
 msgstr "Foto precedente"
 
-#: src/PhotoPage.vala:475
+#: src/PhotoPage.vala:504
 msgid "Next photo"
 msgstr "Foto successiva"
 
-#: src/PhotoPage.vala:1585
+#: src/PhotoPage.vala:1648
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Manca il file della foto: %s"
 
-#: src/PhotoPage.vala:2036 src/PhotoPage.vala:3147
+#: src/PhotoPage.vala:2092 src/PhotoPage.vala:3203
 msgid "_Photo"
 msgstr "F_oto"
 
-#: src/PhotoPage.vala:2040 src/PhotoPage.vala:3151
+#: src/PhotoPage.vala:2096 src/PhotoPage.vala:3207
 msgid "_Tools"
 msgstr "S_trumenti"
 
-#: src/PhotoPage.vala:2045 src/PhotoPage.vala:3156
+#: src/PhotoPage.vala:2101 src/PhotoPage.vala:3212
 msgid "_Previous Photo"
 msgstr "Foto _precedente"
 
-#: src/PhotoPage.vala:2046 src/PhotoPage.vala:3157
+#: src/PhotoPage.vala:2102 src/PhotoPage.vala:3213
 msgid "Previous Photo"
 msgstr "Foto precedente"
 
-#: src/PhotoPage.vala:2051 src/PhotoPage.vala:3162
+#: src/PhotoPage.vala:2107 src/PhotoPage.vala:3218
 msgid "_Next Photo"
 msgstr "Foto _successiva"
 
-#: src/PhotoPage.vala:2052 src/PhotoPage.vala:3163
+#: src/PhotoPage.vala:2108 src/PhotoPage.vala:3219
 msgid "Next Photo"
 msgstr "Foto successiva"
 
-#: src/PhotoPage.vala:2208 src/PhotoPage.vala:3245
+#: src/PhotoPage.vala:2264 src/PhotoPage.vala:3301
 msgid "Increase the magnification of the photo"
 msgstr "Aumenta l'ingrandimento della foto"
 
-#: src/PhotoPage.vala:2214 src/PhotoPage.vala:3251
+#: src/PhotoPage.vala:2270 src/PhotoPage.vala:3307
 msgid "Decrease the magnification of the photo"
 msgstr "Diminuisce l'ingrandimento della foto"
 
-#: src/PhotoPage.vala:2219 src/PhotoPage.vala:3256
+#: src/PhotoPage.vala:2275 src/PhotoPage.vala:3312
 msgid "Fit to _Page"
 msgstr "Adatta a _pagina"
 
-#: src/PhotoPage.vala:2220 src/PhotoPage.vala:3257
+#: src/PhotoPage.vala:2276 src/PhotoPage.vala:3313
 msgid "Zoom the photo to fit on the screen"
 msgstr "Ingrandisce la foto per adattarla sullo schermo"
 
-#: src/PhotoPage.vala:2225 src/PhotoPage.vala:3262
+#: src/PhotoPage.vala:2281 src/PhotoPage.vala:3318
+#, no-c-format
 msgid "Zoom _100%"
 msgstr "Zoom _100%"
 
-#: src/PhotoPage.vala:2226 src/PhotoPage.vala:3263
+#: src/PhotoPage.vala:2282 src/PhotoPage.vala:3319
+#, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Ingrandisce la foto al 100%"
 
-#: src/PhotoPage.vala:2231 src/PhotoPage.vala:3268
+#: src/PhotoPage.vala:2287 src/PhotoPage.vala:3324
+#, no-c-format
 msgid "Zoom _200%"
 msgstr "Zoom _200%"
 
-#: src/PhotoPage.vala:2232 src/PhotoPage.vala:3269
+#: src/PhotoPage.vala:2288 src/PhotoPage.vala:3325
+#, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Ingrandisce la foto al 200%"
 
-#: src/PhotoPage.vala:2578 src/util.vala:596
+#: src/PhotoPage.vala:2693 src/util.vala:626
 msgid "Remove From Library"
 msgstr "Rimuovi dalla libreria"
 
-#: src/PhotoPage.vala:2578 src/util.vala:597
+#: src/PhotoPage.vala:2693 src/util.vala:627
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Rimozione della foto dalla libreria"
 msgstr[1] "Rimozione delle foto dalla libreria"
 
-#: src/PhotoPage.vala:2697
+#: src/PhotoPage.vala:2809
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Impossibile esportare %s: %s"
 
-#: src/PhotoPage.vala:3119 src/PhotoPage.vala:3414
+#: src/PhotoPage.vala:3175 src/PhotoPage.vala:3508
 msgid "_Save"
 msgstr "_Salva"
 
-#: src/PhotoPage.vala:3120
+#: src/PhotoPage.vala:3176
 msgid "Save photo"
 msgstr "Salva foto"
 
-#: src/PhotoPage.vala:3125
+#: src/PhotoPage.vala:3181
 msgid "Save _As..."
 msgstr "Sa_lva come..."
 
-#: src/PhotoPage.vala:3126
+#: src/PhotoPage.vala:3182
 msgid "Save photo with a different name"
 msgstr "Salva foto con un nome differente"
 
-#: src/PhotoPage.vala:3132 src/Resources.vala:205
+#: src/PhotoPage.vala:3188 src/Resources.vala:219
 msgid "Page _Setup..."
 msgstr "_Impostazione pagina..."
 
-#: src/PhotoPage.vala:3138 src/Resources.vala:209
+#: src/PhotoPage.vala:3194 src/Resources.vala:223
 msgid "Print the photo to a printer connected to your computer"
 msgstr "Stampa la foto con una stampante connessa al computer"
 
-#: src/PhotoPage.vala:3143
+#: src/PhotoPage.vala:3199
 msgid "Edit"
 msgstr "Modifica"
 
-#: src/PhotoPage.vala:3277
+#: src/PhotoPage.vala:3354
 #, c-format
 msgid "%s does not exist."
 msgstr "%s non esiste."
 
-#: src/PhotoPage.vala:3279
+#: src/PhotoPage.vala:3356
 #, c-format
 msgid "%s is not a file."
 msgstr "%s non è un file."
 
-#: src/PhotoPage.vala:3281
+#: src/PhotoPage.vala:3358
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
@@ -1600,25 +1656,25 @@ msgstr ""
 "%s non supporta il formato del file di\n"
 "%s."
 
-#: src/PhotoPage.vala:3414
+#: src/PhotoPage.vala:3508
 msgid "_Save a Copy"
 msgstr "S_alva una copia"
 
-#: src/PhotoPage.vala:3417
+#: src/PhotoPage.vala:3511
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Perdere le modifiche per %s?"
 
-#: src/PhotoPage.vala:3418
+#: src/PhotoPage.vala:3512
 msgid "Close _without Saving"
 msgstr "Chiudi s_enza salvare"
 
-#: src/PhotoPage.vala:3454
+#: src/PhotoPage.vala:3543
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Errore durante il salvataggio di %s: %s"
 
-#: src/PhotoPage.vala:3490 src/PhotoPage.vala:3526
+#: src/PhotoPage.vala:3579 src/PhotoPage.vala:3615
 msgid "Save As"
 msgstr "Salva come"
 
@@ -1675,7 +1731,7 @@ msgstr "Errore fotocamera"
 msgid "Imported failed (%d)"
 msgstr "Importazione fallita (%d)"
 
-#: src/Photo.vala:2363
+#: src/Photo.vala:2640
 msgid "modified"
 msgstr "modificata"
 
@@ -1689,87 +1745,87 @@ msgstr ""
 "\n"
 "Bisogna essere registrati ad un account Google e impostarlo per l'uso di Picasa per continuare. È possibile configurare la maggior parte degli account utilizzando il browser accedendo al sito di Picasa Web Album almeno una volta."
 
-#: src/PicasaConnector.vala:514
+#: src/PicasaConnector.vala:520
 msgid "Enter the email address and password associated with your Picasa Web Albums account."
 msgstr "Inserire l'indirizzo email e la password associati all'account di Picasa Web Album."
 
-#: src/PicasaConnector.vala:515
+#: src/PicasaConnector.vala:521
 msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
 msgstr "Picasa Web Album non ha riconosciuto l'email e la password inseriti. Per riprovare, reinserire qui sotto l'indirizzo email e la password."
 
-#: src/PicasaConnector.vala:516
+#: src/PicasaConnector.vala:522
 msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
 msgstr "L'indirizzo email e la password inseriti corrispondono ad un account Google in cui non è abilitato l'uso di Picasa Web Album. È possibile configurare la maggior parte degli account utilizzando il browser accedendo al sito di Picasa Web Album almeno una volta. Per riprovare, reinserire l'email e la password qui sotto."
 
-#: src/PicasaConnector.vala:517
+#: src/PicasaConnector.vala:523
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
 msgstr "L'email e la password inseriti corrispondono ad un account Google etichettato come obbligo di sicurezza aggiuntiva. Usando il browser è possibile eliminare questa etichetta connettendosi a Picasa Web Album. Per riprovare, reinserire l'email e la password qui sotto."
 
-#: src/PicasaConnector.vala:552
+#: src/PicasaConnector.vala:558
 #, c-format
 msgid "Unrecognized User"
 msgstr "Utente non riconosciuto"
 
-#: src/PicasaConnector.vala:556
+#: src/PicasaConnector.vala:562
 #, c-format
 msgid "Account Not Ready"
 msgstr "Account non pronto"
 
-#: src/PicasaConnector.vala:565
+#: src/PicasaConnector.vala:571
 #, c-format
 msgid "Additional Security Required"
 msgstr "Richiesta sicurezza aggiuntiva"
 
-#: src/PicasaConnector.vala:576
+#: src/PicasaConnector.vala:582
 msgid "_Email address:"
 msgstr "Indirizzo _email:"
 
-#: src/PicasaConnector.vala:578
+#: src/PicasaConnector.vala:584
 msgid "_Password:"
 msgstr "_Password:"
 
-#: src/PicasaConnector.vala:596
+#: src/PicasaConnector.vala:602
 msgid "Go _Back"
 msgstr "Torna _indietro"
 
-#: src/PicasaConnector.vala:601 src/WebConnectors.vala:568
+#: src/PicasaConnector.vala:607 src/WebConnectors.vala:567
 msgid "_Login"
 msgstr "_Accedi"
 
-#: src/PicasaConnector.vala:684
+#: src/PicasaConnector.vala:690
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Si è connessi a Picasa Web Album come %s."
 
-#: src/PicasaConnector.vala:701
+#: src/PicasaConnector.vala:707
 msgid "Photos will appear in:"
 msgstr "Le foto appariranno in:"
 
-#: src/PicasaConnector.vala:714
+#: src/PicasaConnector.vala:720
 msgid "An _existing album:"
 msgstr "Un album _esistente:"
 
-#: src/PicasaConnector.vala:728
+#: src/PicasaConnector.vala:734
 msgid "A _new album named:"
 msgstr "Un _nuovo album chiamato:"
 
-#: src/PicasaConnector.vala:740
+#: src/PicasaConnector.vala:746
 msgid "L_ist album in public gallery"
 msgstr "E_lencare gli album in una galleria pubblica"
 
-#: src/PicasaConnector.vala:752
+#: src/PicasaConnector.vala:758
 msgid "Photo _size preset:"
 msgstr "_Dimensioni foto prestabilite:"
 
-#: src/PicasaConnector.vala:859
+#: src/PicasaConnector.vala:865
 msgid "Small (640 x 480 pixels)"
 msgstr "Piccola (640 × 480 pixel)"
 
-#: src/PicasaConnector.vala:860
+#: src/PicasaConnector.vala:866
 msgid "Medium (1024 x 768 pixels)"
 msgstr "Media (1024 × 768 pixel)"
 
-#: src/PicasaConnector.vala:861
+#: src/PicasaConnector.vala:867
 msgid "Recommended (1600 x 1200 pixels)"
 msgstr "Consigliata (1600 × 1200 pixel)"
 
@@ -1777,54 +1833,54 @@ msgstr "Consigliata (1600 × 1200 pixel)"
 msgid "PNG"
 msgstr "PNG"
 
-#: src/Printing.vala:215
+#: src/Printing.vala:210
 msgid "Printed Image Size"
 msgstr "Dimensioni immagine stampata"
 
-#: src/Printing.vala:227
+#: src/Printing.vala:222
 msgid "Use a _standard size:"
 msgstr "Usa una dimensione _standard"
 
-#: src/Printing.vala:231
+#: src/Printing.vala:226
 msgid "Use a c_ustom size:"
 msgstr "Usa una dimensione p_ersonalizzata:"
 
-#: src/Printing.vala:235
+#: src/Printing.vala:230
 msgid "_Fill the entire page"
 msgstr "_Riempi l'intera pagina"
 
-#: src/Printing.vala:282
+#: src/Printing.vala:277
 msgid "in."
 msgstr "in"
 
-#: src/Printing.vala:283
+#: src/Printing.vala:278
 msgid "cm"
 msgstr "cm"
 
-#: src/Printing.vala:302
+#: src/Printing.vala:297
 msgid "_Match photo aspect ratio"
 msgstr "_Mantieni proporzioni foto"
 
-#: src/Printing.vala:315
+#: src/Printing.vala:310
 msgid "Pixel Resolution"
 msgstr "Risoluzione pixel"
 
 # Appare come
 #   Output photo at: [NUM] pixels per inch
 # credo che converti sia più adeguato, anche se migliorabile
-#: src/Printing.vala:322
+#: src/Printing.vala:317
 msgid "_Output photo at:"
 msgstr "_Converti foto a:"
 
-#: src/Printing.vala:334
+#: src/Printing.vala:329
 msgid "pixels per inch"
 msgstr "pixel per pollice"
 
-#: src/Printing.vala:832
+#: src/Printing.vala:823
 msgid "Image Settings"
 msgstr "Impostazioni immagine"
 
-#: src/Printing.vala:846 src/Printing.vala:947 src/Printing.vala:986
+#: src/Printing.vala:838 src/Printing.vala:939 src/Printing.vala:975
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -1852,11 +1908,11 @@ msgstr "Oggi"
 msgid "Yesterday"
 msgstr "Ieri"
 
-#: src/Properties.vala:249
+#: src/Properties.vala:261
 msgid "Items:"
 msgstr "Oggetti:"
 
-#: src/Properties.vala:252
+#: src/Properties.vala:264
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
@@ -1864,78 +1920,94 @@ msgstr[0] "%d evento"
 msgstr[1] "%d eventi"
 
 #: src/Properties.vala:273
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d Video"
+msgstr[1] "%d Video"
+
+#: src/Properties.vala:295
 msgid "Date:"
 msgstr "Data:"
 
-#: src/Properties.vala:277
+#: src/Properties.vala:299
 msgid "Time:"
 msgstr "Ora:"
 
-#: src/Properties.vala:280 src/Properties.vala:285
+#: src/Properties.vala:302 src/Properties.vala:307
 msgid "From:"
 msgstr "Da:"
 
-#: src/Properties.vala:281 src/Properties.vala:286
+#: src/Properties.vala:303 src/Properties.vala:308
 msgid "To:"
 msgstr "A:"
 
-#: src/Properties.vala:412
+#: src/Properties.vala:322
+msgid "Duration:"
+msgstr "Durata:"
+
+#: src/Properties.vala:322
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f secondi"
+
+#: src/Properties.vala:438
 msgid "Location:"
 msgstr "Posizione:"
 
-#: src/Properties.vala:414
+#: src/Properties.vala:440
 msgid "File size:"
 msgstr "Dimensione file:"
 
-#: src/Properties.vala:417
+#: src/Properties.vala:443
 msgid "Original dimensions:"
 msgstr "Dimensioni originali:"
 
-#: src/Properties.vala:420
+#: src/Properties.vala:446
 msgid "Camera make:"
 msgstr "Produttore fotocamera:"
 
-#: src/Properties.vala:423
+#: src/Properties.vala:449
 msgid "Camera model:"
 msgstr "Modello fotocamera:"
 
-#: src/Properties.vala:426
+#: src/Properties.vala:452
 msgid "Flash:"
 msgstr "Flash:"
 
-#: src/Properties.vala:428
+#: src/Properties.vala:454
 msgid "Focal length:"
 msgstr "Lunghezza focale:"
 
-#: src/Properties.vala:431
+#: src/Properties.vala:457
 msgid "Exposure bias:"
 msgstr "Esposizione:"
 
-#: src/Properties.vala:433
+#: src/Properties.vala:459
 msgid "GPS latitude:"
 msgstr "Latitudine GPS:"
 
-#: src/Properties.vala:436
+#: src/Properties.vala:462
 msgid "GPS longitude:"
 msgstr "Longitudine GPS:"
 
-#: src/Properties.vala:439
+#: src/Properties.vala:465
 msgid "Artist:"
 msgstr "Artista:"
 
-#: src/Properties.vala:441
+#: src/Properties.vala:467
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: src/Properties.vala:443
+#: src/Properties.vala:469
 msgid "Software:"
 msgstr "Software:"
 
-#: src/Properties.vala:452
+#: src/Properties.vala:478
 msgid "Extended Information"
 msgstr "Informazioni estese"
 
-#: src/RawSupport.vala:127
+#: src/RawSupport.vala:135
 msgid "RAW"
 msgstr "RAW"
 
@@ -1943,617 +2015,617 @@ msgstr "RAW"
 msgid "Copyright 2009-2010 Yorba Foundation"
 msgstr "Copyright 2009-2010 Yorba Foundation"
 
-#: src/Resources.vala:90
+#: src/Resources.vala:104
 msgid "Rotate _Right"
 msgstr "Ruota in senso _orario"
 
-#: src/Resources.vala:91 src/Resources.vala:96
+#: src/Resources.vala:105 src/Resources.vala:110
 msgid "Rotate"
 msgstr "Ruota"
 
-#: src/Resources.vala:92
+#: src/Resources.vala:106
 msgid "Rotate Right"
 msgstr "Ruota in senso orario"
 
-#: src/Resources.vala:93
-msgid "Rotate the photos right"
-msgstr "Ruota le foto verso destra"
+#: src/Resources.vala:107
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "Ruota le foto verso destra (premi Ctrl per ruotare a sinistra)"
 
-#: src/Resources.vala:95
+#: src/Resources.vala:109
 msgid "Rotate _Left"
 msgstr "Ruota in senso _antiorario"
 
-#: src/Resources.vala:97
+#: src/Resources.vala:111
 msgid "Rotate Left"
 msgstr "Ruota in senso antiorario"
 
-#: src/Resources.vala:98
+#: src/Resources.vala:112
 msgid "Rotate the photos left"
 msgstr "Ruota le foto verso sinistra"
 
-#: src/Resources.vala:100
+#: src/Resources.vala:114
 msgid "Flip Hori_zontally"
 msgstr "Capovolgi ori_zzontalmente"
 
-#: src/Resources.vala:101
+#: src/Resources.vala:115
 msgid "Flip Horizontally"
 msgstr "Capovolgi orizzontalmente"
 
-#: src/Resources.vala:102
+#: src/Resources.vala:116
 msgid "Flip the photos horizontally"
 msgstr "Specchia l'immagine in orizzontale"
 
-#: src/Resources.vala:104
+#: src/Resources.vala:118
 msgid "Flip Verti_cally"
 msgstr "Capovolgi _verticalmente"
 
-#: src/Resources.vala:105
+#: src/Resources.vala:119
 msgid "Flip Vertically"
 msgstr "Capovolgi verticalmente"
 
-#: src/Resources.vala:106
+#: src/Resources.vala:120
 msgid "Flip the photos vertically"
 msgstr "Specchia l'immagine in orizzontale"
 
-#: src/Resources.vala:108
+#: src/Resources.vala:122
 msgid "_Enhance"
 msgstr "_Migliora"
 
-#: src/Resources.vala:109
+#: src/Resources.vala:123
 msgid "Enhance"
 msgstr "Migliora"
 
-#: src/Resources.vala:110
+#: src/Resources.vala:124
 msgid "Automatically improve the photo's appearance"
 msgstr "Migliora automaticamente l'aspetto della foto"
 
-#: src/Resources.vala:112
+#: src/Resources.vala:126
 msgid "_Crop"
 msgstr "_Ritaglia"
 
-#: src/Resources.vala:113
+#: src/Resources.vala:127
 msgid "Crop"
 msgstr "Ritaglia"
 
-#: src/Resources.vala:114
+#: src/Resources.vala:128
 msgid "Crop the photo's size"
 msgstr "Ritaglia la dimensione della foto"
 
-#: src/Resources.vala:116
+#: src/Resources.vala:130
 msgid "_Red-eye"
 msgstr "Occhi-_rossi"
 
-#: src/Resources.vala:117
+#: src/Resources.vala:131
 msgid "Red-eye"
 msgstr "Occhi-rossi"
 
-#: src/Resources.vala:118
+#: src/Resources.vala:132
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Riduce o elimina ogni effetto occhi-rossi dalla foto"
 
-#: src/Resources.vala:120
+#: src/Resources.vala:134
 msgid "_Adjust"
 msgstr "Regol_a"
 
-#: src/Resources.vala:121
+#: src/Resources.vala:135
 msgid "Adjust"
 msgstr "Regola"
 
-#: src/Resources.vala:122
+#: src/Resources.vala:136
 msgid "Adjust the photo's color and tone"
 msgstr "Regola il colore e il tono della foto"
 
-#: src/Resources.vala:124
+#: src/Resources.vala:138
 msgid "Re_vert to Original"
 msgstr "Ripristina _originale"
 
-#: src/Resources.vala:125
+#: src/Resources.vala:139
 msgid "Revert to Original"
 msgstr "Ripristina originale"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:140
 msgid "Revert to the original photo"
 msgstr "Ripristina la foto originale"
 
-#: src/Resources.vala:128
+#: src/Resources.vala:142
 msgid "Revert External E_dits"
 msgstr "Ripristina _modifiche esterne"
 
 # master??
-#: src/Resources.vala:129
+#: src/Resources.vala:143
 msgid "Revert to the master photo"
 msgstr "Ripristina la foto principale"
 
 # tolto scrivania in traduzione
-#: src/Resources.vala:131
+#: src/Resources.vala:145
 msgid "Set as _Desktop Background"
 msgstr "Imposta come _sfondo"
 
-#: src/Resources.vala:132
+#: src/Resources.vala:146
 msgid "Set selected image to be the new desktop background"
 msgstr "Imposta l'immagine selezionata per essere il nuovo sfondo della scrivania"
 
-#: src/Resources.vala:134
+#: src/Resources.vala:148
 msgid "_Undo"
 msgstr "Ann_ulla"
 
-#: src/Resources.vala:135
+#: src/Resources.vala:149
 msgid "Undo"
 msgstr "Annulla"
 
-#: src/Resources.vala:136
+#: src/Resources.vala:150
 msgid "Undo the last action"
 msgstr "Annulla l'ultima azione"
 
-#: src/Resources.vala:138
+#: src/Resources.vala:152
 msgid "_Redo"
 msgstr "R_ipeti"
 
-#: src/Resources.vala:139
+#: src/Resources.vala:153
 msgid "Redo"
 msgstr "Ripeti"
 
-#: src/Resources.vala:140
+#: src/Resources.vala:154
 msgid "Redo the last undone action"
 msgstr "Ripete l'ultima azione annullata"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:156
 msgid "Re_name Event..."
 msgstr "Ri_nomina evento..."
 
-#: src/Resources.vala:144
+#: src/Resources.vala:158
 msgid "Rename the selected event"
 msgstr "Rinomina l'evento selezionato"
 
-#: src/Resources.vala:146
+#: src/Resources.vala:160
 msgid "Make _Key Photo for Event"
 msgstr "Imposta come _copertina dell'evento"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:161
 msgid "Make Key Photo for Event"
 msgstr "Imposta come copertina dell'evento"
 
-#: src/Resources.vala:148
+#: src/Resources.vala:162
 msgid "Make the selected photo the thumbnail for the event"
 msgstr "Rende la foto selezionata l'anteprima dell'evento"
 
-#: src/Resources.vala:150
+#: src/Resources.vala:164
 msgid "_New Event"
 msgstr "_Nuovo evento"
 
-#: src/Resources.vala:151
+#: src/Resources.vala:165
 msgid "New Event"
 msgstr "Nuovo evento"
 
-#: src/Resources.vala:152
+#: src/Resources.vala:166
 msgid "Create new event from the selected photos"
 msgstr "Crea nuovo evento dalle foto selezionate"
 
-#: src/Resources.vala:154
+#: src/Resources.vala:168
 msgid "Move Photos"
 msgstr "Sposta foto"
 
-#: src/Resources.vala:155
+#: src/Resources.vala:169
 msgid "Move photos to an event"
 msgstr "Sposta le foto in un evento"
 
-#: src/Resources.vala:157
+#: src/Resources.vala:171
 msgid "_Merge Events"
 msgstr "_Unisci eventi"
 
-#: src/Resources.vala:158
+#: src/Resources.vala:172
 msgid "Merge"
 msgstr "Unisci"
 
-#: src/Resources.vala:159
+#: src/Resources.vala:173
 msgid "Merge into a single event"
 msgstr "Unisce in un singolo evento"
 
-#: src/Resources.vala:161
+#: src/Resources.vala:175
 msgid "_Set Rating"
 msgstr "Imposta _giudizio"
 
-#: src/Resources.vala:162
+#: src/Resources.vala:176
 msgid "Set Rating"
 msgstr "Imposta giudizio"
 
-#: src/Resources.vala:163
+#: src/Resources.vala:177
 msgid "Change the rating of your photo"
 msgstr "Cambia il voto della foto"
 
-#: src/Resources.vala:165
+#: src/Resources.vala:179
 msgid "_Increase"
 msgstr "A_umenta"
 
-#: src/Resources.vala:166
+#: src/Resources.vala:180
 msgid "Increase Rating"
 msgstr "Aumenta giudizio"
 
-#: src/Resources.vala:167
+#: src/Resources.vala:181
 msgid "Increase the rating of your photo"
 msgstr "Aumenta il voto della foto"
 
-#: src/Resources.vala:169
+#: src/Resources.vala:183
 msgid "_Decrease"
 msgstr "_Diminuisci"
 
-#: src/Resources.vala:170
+#: src/Resources.vala:184
 msgid "Decrease Rating"
 msgstr "Diminuisce giudizio"
 
-#: src/Resources.vala:171
+#: src/Resources.vala:185
 msgid "Decrease the rating of your photo"
 msgstr "Diminuisce il voto della foto"
 
-#: src/Resources.vala:173
+#: src/Resources.vala:187
 msgid "_Unrated"
 msgstr "Sen_za voto"
 
-#: src/Resources.vala:174
+#: src/Resources.vala:188
 msgid "Rate Unrated"
 msgstr "Valuta senza voto"
 
-#: src/Resources.vala:175
+#: src/Resources.vala:189
 msgid "Setting as unrated"
 msgstr "Impostazione come senza voto"
 
-#: src/Resources.vala:176
+#: src/Resources.vala:190
 msgid "Remove any ratings"
 msgstr "Rimuove qualsiasi voto"
 
-#: src/Resources.vala:178
+#: src/Resources.vala:192
 msgid "_Rejected"
 msgstr "_Respinta"
 
-#: src/Resources.vala:179
+#: src/Resources.vala:193
 msgid "Rate Rejected"
 msgstr "Respinta"
 
-#: src/Resources.vala:180
+#: src/Resources.vala:194
 msgid "Setting as rejected"
 msgstr "Imposta come respinta"
 
-#: src/Resources.vala:181
+#: src/Resources.vala:195
 msgid "Set rating to rejected"
 msgstr "Impostazione come respinta"
 
-#: src/Resources.vala:183
+#: src/Resources.vala:197
 msgid "All + _Rejected"
 msgstr "Tutte + _respinte"
 
-#: src/Resources.vala:184 src/Resources.vala:185
+#: src/Resources.vala:198 src/Resources.vala:199
 msgid "Show all photos, including rejected"
 msgstr "Mostra tutte le foto, incluse quelle respinte"
 
-#: src/Resources.vala:187
+#: src/Resources.vala:201
 msgid "_All Photos"
 msgstr "Tutte le f_oto"
 
-#: src/Resources.vala:188 src/Resources.vala:189
+#: src/Resources.vala:202 src/Resources.vala:203
 msgid "Show all photos"
 msgstr "Mostra tutte le foto"
 
-#: src/Resources.vala:191
+#: src/Resources.vala:205
 msgid "_Ratings"
 msgstr "_Giudizi"
 
-#: src/Resources.vala:192
+#: src/Resources.vala:206
 msgid "Display each photo's rating"
 msgstr "Mostra il voto di ogni foto"
 
-#: src/Resources.vala:194
+#: src/Resources.vala:208
 msgid "_Filter Photos"
 msgstr "_Filtra foto"
 
-#: src/Resources.vala:195
+#: src/Resources.vala:209
 msgid "Filter Photos"
 msgstr "Filtra foto"
 
-#: src/Resources.vala:196
+#: src/Resources.vala:210
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Limita il numero di foto mostrate in base ad un filtro"
 
-#: src/Resources.vala:198
+#: src/Resources.vala:212
 msgid "_Duplicate"
 msgstr "_Duplica"
 
-#: src/Resources.vala:199
+#: src/Resources.vala:213
 msgid "Duplicate"
 msgstr "Duplica"
 
-#: src/Resources.vala:200
+#: src/Resources.vala:214
 msgid "Make a duplicate of the photo"
 msgstr "Crea un duplicato della foto"
 
-#: src/Resources.vala:202
+#: src/Resources.vala:216
 msgid "_Export..."
 msgstr "_Esporta..."
 
-#: src/Resources.vala:203
+#: src/Resources.vala:217
 msgid "Export to disk"
 msgstr "Esporta sul disco"
 
-#: src/Resources.vala:206
+#: src/Resources.vala:220
 msgid "View and change page setup printing"
 msgstr "Visualizza e modifica impostazioni pagina di stampa"
 
-#: src/Resources.vala:208
+#: src/Resources.vala:222
 msgid "_Print..."
 msgstr "S_tampa..."
 
-#: src/Resources.vala:211
+#: src/Resources.vala:225
 msgid "Pu_blish..."
 msgstr "_Pubblica..."
 
-#: src/Resources.vala:212
+#: src/Resources.vala:226
 msgid "Publish"
 msgstr "Pubblica"
 
-#: src/Resources.vala:213
+#: src/Resources.vala:227
 msgid "Publish to various websites"
 msgstr "Pubblica in vari siti web"
 
-#: src/Resources.vala:215
+#: src/Resources.vala:229
 msgid "E_dit Title..."
 msgstr "Modifica _titolo..."
 
-#: src/Resources.vala:217
+#: src/Resources.vala:231
 msgid "Edit title of the selected photo"
 msgstr "Modifica il titolo della foto selezionata"
 
-#: src/Resources.vala:219
+#: src/Resources.vala:233
 msgid "_Adjust Date and Time..."
 msgstr "_Regola data e ora..."
 
-#: src/Resources.vala:220
+#: src/Resources.vala:234
 msgid "Adjust Date and Time"
 msgstr "Regola data e ora"
 
-#: src/Resources.vala:221
+#: src/Resources.vala:235
 msgid "Adjust date and time of selected photos"
 msgstr "Regola la data e l'ora delle foto selezionate"
 
-#: src/Resources.vala:223
+#: src/Resources.vala:237
 msgid "Add _Tags..."
 msgstr "A_ggiungi etichette..."
 
-#: src/Resources.vala:224 src/Resources.vala:246
+#: src/Resources.vala:238 src/Resources.vala:260
 msgid "Add Tags"
 msgstr "Aggiungi etichette"
 
-#: src/Resources.vala:225
+#: src/Resources.vala:239
 msgid "Add one or more tags to the selected photos"
 msgstr "Aggiunge uno o più etichette alle foto selezionate"
 
-#: src/Resources.vala:227
+#: src/Resources.vala:241
 msgid "_Preferences"
 msgstr "_Preferenze"
 
-#: src/Resources.vala:228
+#: src/Resources.vala:242
 msgid "Edit preferences"
 msgstr "Modifica le preferenze"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:244
 msgid "_Open With External Editor"
 msgstr "_Apri con editor esterno"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:245
 msgid "Open the selected photo with an external image editor"
 msgstr "Apri la foto selezionata con un editor di immagini esterno"
 
-#: src/Resources.vala:233
+#: src/Resources.vala:247
 msgid "Open With RA_W Editor"
 msgstr "Apri con editor RA_W"
 
-#: src/Resources.vala:234
+#: src/Resources.vala:248
 msgid "Open the selected photo with a RAW image editor"
 msgstr "Apri la foto selezionata con un editor di immagini RA_W esterno"
 
-#: src/Resources.vala:237
+#: src/Resources.vala:251
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Impossibile eseguire l'editor: %s"
 
-#: src/Resources.vala:242
+#: src/Resources.vala:256
 #, c-format
 msgid "Add Tag \"%s\""
 msgstr "Aggiungi etichetta  \"%s\""
 
-#: src/Resources.vala:244
+#: src/Resources.vala:258
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
 msgstr "Aggiunge etichette \"%s\" e \"%s\""
 
-#: src/Resources.vala:250
+#: src/Resources.vala:264
 #, c-format
 msgid "_Delete Tag \"%s\""
 msgstr "_Elimina etichetta \"%s\""
 
-#: src/Resources.vala:254
+#: src/Resources.vala:268
 #, c-format
 msgid "Delete Tag \"%s\""
 msgstr "Elimina l'etichetta \"%s\""
 
-#: src/Resources.vala:258
+#: src/Resources.vala:272
 #, c-format
 msgid "Remove the tag \"%s\" from one photo"
 msgid_plural "Remove the tag \"%s\" from %d photos"
 msgstr[0] "Rimuove l'etichetta \"%s\" da una foto"
 msgstr[1] "Rimuove l'etichetta \"%s\" da %d foto"
 
-#: src/Resources.vala:262
+#: src/Resources.vala:276
 msgid "Delete Tag"
 msgstr "Elimina etichetta"
 
-#: src/Resources.vala:265
+#: src/Resources.vala:279
 #, c-format
 msgid "Re_name Tag \"%s\"..."
 msgstr "Ri_nomina etichetta \"%s\"..."
 
-#: src/Resources.vala:269
+#: src/Resources.vala:283
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
 msgstr "Rinomina l'etichetta \"%s\" in \"%s\""
 
-#: src/Resources.vala:273
+#: src/Resources.vala:287
 #, c-format
 msgid "Rename the tag \"%s\""
 msgstr "Rinomina l'etichetta \"%s\""
 
-#: src/Resources.vala:276
+#: src/Resources.vala:290
 msgid "Rename Tag"
 msgstr "Rinomina etichetta"
 
-#: src/Resources.vala:278
+#: src/Resources.vala:292
 msgid "Modif_y Tags..."
 msgstr "M_odifica etichette..."
 
-#: src/Resources.vala:279
+#: src/Resources.vala:293
 msgid "Modify Tags"
 msgstr "Modifica etichette"
 
-#: src/Resources.vala:280
+#: src/Resources.vala:294
 msgid "Modify the tags for this photo"
 msgstr "Modifica le etichette di questa foto"
 
-#: src/Resources.vala:283
+#: src/Resources.vala:297
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgid_plural "Tag Photos as \"%s\""
 msgstr[0] "Etichetta la foto come \"%s\""
 msgstr[1] "Etichetta le foto come \"%s\""
 
-#: src/Resources.vala:287
+#: src/Resources.vala:301
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgid_plural "Tag the selected photos as \"%s\""
 msgstr[0] "Etichetta la foto selezionata come \"%s\""
 msgstr[1] "Etichetta le foto selezionate come \"%s\""
 
-#: src/Resources.vala:291
+#: src/Resources.vala:305
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
 msgid_plural "Remove Tag \"%s\" From _Photos"
 msgstr[0] "Rimuovi l'etichetta \"%s\" dalla f_oto"
 msgstr[1] "Rimuovi l'etichetta \"%s\" dalle f_oto"
 
-#: src/Resources.vala:295
+#: src/Resources.vala:309
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgid_plural "Remove Tag \"%s\" From Photos"
 msgstr[0] "Rimuove l'etichetta \"%s\" dalla foto"
 msgstr[1] "Rimuove l'etichetta \"%s\" dalle foto"
 
-#: src/Resources.vala:300
+#: src/Resources.vala:314
 #, c-format
 msgid "Remove tag \"%s\" from the selected photo"
 msgid_plural "Remove tag \"%s\" from the selected photos"
 msgstr[0] "Rimuove l'etichetta \"%s\" dalla foto selezionata"
 msgstr[1] "Rimuove l'etichetta \"%s\" dalle foto selezionate"
 
-#: src/Resources.vala:305
+#: src/Resources.vala:319
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgstr "Impossibile rinominare l'etichetta in \"%s\" perché già esiste."
 
-#: src/Resources.vala:432
+#: src/Resources.vala:467
 #, c-format
 msgid "Rate %s"
 msgstr "Vota %s"
 
-#: src/Resources.vala:433
+#: src/Resources.vala:468
 #, c-format
 msgid "Set rating to %s"
 msgstr "Imposta voto a %s"
 
-#: src/Resources.vala:434
+#: src/Resources.vala:469
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Impostazione voto a %s"
 
-#: src/Resources.vala:436
+#: src/Resources.vala:471
 #, c-format
 msgid "Display %s"
 msgstr "Mostra %s"
 
-#: src/Resources.vala:437
+#: src/Resources.vala:472
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Mostra solo le foto con un voto di %s"
 
-#: src/Resources.vala:438
+#: src/Resources.vala:473
 #, c-format
 msgid "%s or Better"
 msgstr "%s o migliore"
 
-#: src/Resources.vala:439
+#: src/Resources.vala:474
 #, c-format
 msgid "Display %s or Better"
 msgstr "Mostra %s o migliore"
 
-#: src/Resources.vala:440
+#: src/Resources.vala:475
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Mostra le foto con un voto di %s o migliore"
 
-#: src/Resources.vala:530 src/TagPage.vala:131
+#: src/Resources.vala:565 src/TagPage.vala:147
 msgid "_Delete"
 msgstr "_Elimina"
 
-#: src/Resources.vala:531
+#: src/Resources.vala:566
 msgid "Remove the selected photos from the trash"
 msgstr "Rimuove le foto selezionate dal cestino"
 
-#: src/Resources.vala:532 src/Resources.vala:545
+#: src/Resources.vala:567 src/Resources.vala:580
 msgid "Remove the selected photos from the library"
 msgstr "Rimuove le foto selezionate dalla libreria"
 
-#: src/Resources.vala:534
+#: src/Resources.vala:569
 msgid "_Restore"
 msgstr "_Ripristina"
 
-#: src/Resources.vala:535
+#: src/Resources.vala:570
 msgid "Move the selected photos back into the library"
 msgstr "Sposta le foto selezionate nella libreria"
 
-#: src/Resources.vala:537
+#: src/Resources.vala:572
 msgid "Show in File Mana_ger"
 msgstr "Mostra nel file mana_ger"
 
-#: src/Resources.vala:538
+#: src/Resources.vala:573
 msgid "Open the selected photo's directory in the file manager"
 msgstr "Apre la cartella della foto selezionata nel file manager"
 
-#: src/Resources.vala:541
+#: src/Resources.vala:576
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Impossibile aprire nel file manager: %s"
 
-#: src/Resources.vala:544
+#: src/Resources.vala:579
 msgid "R_emove From Library"
 msgstr "_Rimuovi dalla libreria"
 
-#: src/Resources.vala:546
+#: src/Resources.vala:581
 msgid "Remove the photo from the library"
 msgstr "Rimuove la foto dalla libreria"
 
-#: src/Resources.vala:548
+#: src/Resources.vala:583
 msgid "_Move to Trash"
 msgstr "Sposta nel c_estino"
 
-#: src/Resources.vala:549
+#: src/Resources.vala:584
 msgid "Move the selected photos to the trash"
 msgstr "Sposta le foto selezionate nel cestino"
 
-#: src/Resources.vala:550
+#: src/Resources.vala:585
 msgid "Move the photo to the trash"
 msgstr "Sposta la foto nel cestino"
 
-#: src/Resources.vala:552
+#: src/Resources.vala:587
 msgid "Select _All"
 msgstr "Seleziona _tutto"
 
-#: src/Resources.vala:553
+#: src/Resources.vala:588
 msgid "Select all items"
 msgstr "Seleziona tutti gli oggetti"
 
@@ -2568,6 +2640,10 @@ msgstr "Attesa:"
 #: src/SlideshowPage.vala:67
 msgid "seconds"
 msgstr "secondi"
+
+#: src/SlideshowPage.vala:98
+msgid "Slideshow"
+msgstr "Diapositive"
 
 #: src/SlideshowPage.vala:109
 msgid "Back"
@@ -2601,7 +2677,7 @@ msgstr "Cambia le impostazioni della proiezione"
 msgid "All photo source files are missing."
 msgstr "Mancano tutti i file delle foto."
 
-#: src/SlideshowPage.vala:224
+#: src/SlideshowPage.vala:224 src/VideosPage.vala:47
 msgid "Play"
 msgstr "Riproduci"
 
@@ -2609,7 +2685,7 @@ msgstr "Riproduci"
 msgid "Continue the slideshow"
 msgstr "Continua la proiezione"
 
-#: src/TagPage.vala:127
+#: src/TagPage.vala:143
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
@@ -2620,11 +2696,11 @@ msgstr[1] "Verrà rimossa l'etichetta \"%s\" da %d foto.  Continuare?"
 msgid "Trash"
 msgstr "Cestino"
 
-#: src/TrashPage.vala:137
+#: src/TrashPage.vala:169
 msgid "Delete"
 msgstr "Elimina"
 
-#: src/TrashPage.vala:138
+#: src/TrashPage.vala:170
 msgid "Deleting a Photo"
 msgid_plural "Deleting Photos"
 msgstr[0] "Eliminazione foto"
@@ -2635,78 +2711,116 @@ msgstr[1] "Eliminazione foto"
 # specifiers and their meanings. Translators should localize this string to
 # reflect the date formatting conventions of their language, country, and
 # region.
-#: src/util.vala:417
+#: src/util.vala:447
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b %Y"
 
-#: src/WebConnectors.vala:637
+#: src/VideosPage.vala:17 src/VideosPage.vala:34
+msgid "Videos"
+msgstr "Video"
+
+#: src/VideosPage.vala:37
+msgid "Vi_deos"
+msgstr "Vi_deo"
+
+#: src/VideosPage.vala:38
+msgid "_Filter Videos"
+msgstr "_Filtra video"
+
+#: src/VideosPage.vala:39
+msgid "Sort _Videos"
+msgstr "Ordina _Video"
+
+#: src/VideosPage.vala:40
+msgid "_All Videos"
+msgstr "Tutti i Video"
+
+# infedele, ma pratica
+#: src/VideosPage.vala:89
+msgid "_Play Video"
+msgstr "Riproduci Video"
+
+#: src/VideosPage.vala:90
+msgid "Open the selected videos in the system video player"
+msgstr "Apri i video selezionati nel riproduttore video di sistema"
+
+#: src/VideosPage.vala:139
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"Shotwell non è stato in grado di riprodurre il video selezionato:\n"
+"%s"
+
+#: src/WebConnectors.vala:636
 msgid "The selected photos were successfully published."
 msgstr "Le foto selezionate sono state pubblicate con successo."
 
-#: src/WebConnectors.vala:643
+#: src/WebConnectors.vala:642
 msgid "Fetching account information..."
 msgstr "Recupero informazioni sull'account..."
 
-#: src/WebConnectors.vala:649
+#: src/WebConnectors.vala:648
 msgid "Logging in..."
 msgstr "Accesso..."
 
-#: src/WebConnectors.vala:677
+#: src/WebConnectors.vala:674
 msgid "Publish Photos"
 msgstr "Pubblica foto"
 
-#: src/WebConnectors.vala:688
+#: src/WebConnectors.vala:685
 msgid "Publish photos _to:"
 msgstr "P_ubblica le foto su:"
 
-#: src/WebConnectors.vala:807
+#: src/WebConnectors.vala:838
 msgid "_Close"
 msgstr "_Chiudi"
 
-#: src/WebConnectors.vala:830
+#: src/WebConnectors.vala:861
 #, c-format
 msgid "Publishing to %s can't continue because the service could not be contacted."
 msgstr "La pubblicazione su %s non può continuare perché non si riesce a contattare il servizio."
 
-#: src/WebConnectors.vala:833
+#: src/WebConnectors.vala:864
 #, c-format
 msgid "Publishing to %s can't continue because communication with the service failed."
 msgstr "La pubblicazione su %s non può continuare perché la comunicazione con il servizio è fallita."
 
-#: src/WebConnectors.vala:836
+#: src/WebConnectors.vala:867
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
 msgstr "La pubblicazione su %s non può continuare a causa di un errore protocollare."
 
-#: src/WebConnectors.vala:838
+#: src/WebConnectors.vala:869
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
 msgstr "La pubblicazione su %s non può continuare perché il servizio ritorna un errore."
 
-#: src/WebConnectors.vala:840
+#: src/WebConnectors.vala:871
 #, c-format
 msgid "Publishing to %s can't continue because the service returned a bad response."
 msgstr "La pubblicazione su %s non può continuare perché il servizio ritorna una risposta errata."
 
-#: src/WebConnectors.vala:843
+#: src/WebConnectors.vala:874
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
 msgstr "La pubblicazione su %s non può continuare a causa di un errore."
 
-#: src/WebConnectors.vala:847
+#: src/WebConnectors.vala:878
 msgid "To try publishing to another service, select one from the above menu."
 msgstr "Provare la pubblicazione su un altro servizio, selezionandone uno dal menù qui sopra."
 
-#: src/WebConnectors.vala:924 src/WebConnectors.vala:1037
+#: src/WebConnectors.vala:955 src/WebConnectors.vala:1077
 msgid "Preparing photos for upload"
 msgstr "Preparazione foto per l'upload"
 
-#: src/WebConnectors.vala:925 src/WebConnectors.vala:977
+#: src/WebConnectors.vala:956 src/WebConnectors.vala:1017
 #, c-format
 msgid "Uploading photo %d of %d"
 msgstr "Uploading foto %d di %d"
 
-#: ui/shotwell.glade:101 ui/shotwell.glade:444
+#: ui/shotwell.glade:101
 msgid "Shotwell Preferences"
 msgstr "Preferenze di Shotwell"
 
@@ -2718,41 +2832,50 @@ msgstr "_Sfondo:"
 msgid "_Import photos to:"
 msgstr "I_mporta le foto in:"
 
-#: ui/shotwell.glade:188
+#: ui/shotwell.glade:187
 msgid "Bro_wse..."
 msgstr "S_foglia..."
 
-#: ui/shotwell.glade:219
+#: ui/shotwell.glade:218
 msgid "white"
 msgstr "bianco"
 
-#: ui/shotwell.glade:242
+#: ui/shotwell.glade:241
 msgid "black"
 msgstr "nero"
 
-#: ui/shotwell.glade:261
+#: ui/shotwell.glade:260
 msgid "Display"
 msgstr "Visualizzazione"
 
-#: ui/shotwell.glade:299
+#: ui/shotwell.glade:298
 msgid "External Editors"
 msgstr "Editor esterni"
 
-#: ui/shotwell.glade:321
+#: ui/shotwell.glade:320
 msgid "_External photo editor:"
 msgstr "_Editor di foto esterno:"
 
-#: ui/shotwell.glade:334
+#: ui/shotwell.glade:333
 msgid "External _RAW editor:"
 msgstr "Editor RA_W esterno:"
 
-#: ui/shotwell.glade:511
+#: ui/shotwell.glade:512
 msgid "Preparing pictures for import..."
 msgstr "Preparazione foto per l'importazione..."
 
-#: ui/shotwell.glade:542
+#: ui/shotwell.glade:543
 msgid "error"
 msgstr "errore"
+
+#~ msgid "Start a slideshow of these photos"
+#~ msgstr "Inizia una proiezione di queste foto"
+
+#~ msgid "Event %lld"
+#~ msgstr "Evento %lld"
+
+#~ msgid "Import all the photos on this camera into your library"
+#~ msgstr "Importa tutte le foto su questa fotocamera nella libreria"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Solo _preferite"
@@ -2837,9 +2960,6 @@ msgstr "errore"
 #~ msgid "_Hide"
 #~ msgstr "_Nascondi"
 
-#~ msgid "Hide"
-#~ msgstr "Nascondi"
-
 #~ msgid "Un_hide"
 #~ msgstr "_Mostra"
 
@@ -2854,9 +2974,6 @@ msgstr "errore"
 
 #~ msgid "Rename the selected photo"
 #~ msgstr "Rinomina la foto selezionata"
-
-#~ msgid "Unable to export photo %s: %s"
-#~ msgstr "Impossibile esportare foto %s: %s"
 
 #~ msgid "Error while fetching previews from %s: %s"
 #~ msgstr "Errore nel recuperare l'anteprima da %s: %s"
