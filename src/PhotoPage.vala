@@ -3403,19 +3403,19 @@ public class DirectPhotoPage : EditingHostPage {
         actions += decrease_size;
 
         Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.STOCK_ZOOM_FIT, TRANSLATABLE,
-            "0", TRANSLATABLE, snap_zoom_to_min };
+            "<Ctrl>0", TRANSLATABLE, snap_zoom_to_min };
         best_fit.label = _("Fit to _Page");
         best_fit.tooltip = _("Zoom the photo to fit on the screen");
         actions += best_fit;
 
         Gtk.ActionEntry actual_size = { "Zoom100", Gtk.STOCK_ZOOM_100, TRANSLATABLE,
-            "1", TRANSLATABLE, snap_zoom_to_isomorphic };
+            "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
         actual_size.label = _("Zoom _100%");
         actual_size.tooltip = _("Zoom the photo to 100% magnification");
         actions += actual_size;
         
         Gtk.ActionEntry max_size = { "Zoom200", null, TRANSLATABLE,
-            "2", TRANSLATABLE, snap_zoom_to_max };
+            "<Ctrl>2", TRANSLATABLE, snap_zoom_to_max };
         max_size.label = _("Zoom _200%");
         max_size.tooltip = _("Zoom the photo to 200% magnification");
         actions += max_size;
