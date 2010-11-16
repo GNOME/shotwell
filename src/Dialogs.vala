@@ -71,9 +71,13 @@ public Gtk.ResponseType export_error_dialog(File dest, bool photos_remaining) {
 
 public class ExportDialog : Gtk.Dialog {
     public const int DEFAULT_SCALE = 1200;
-    public const ScaleConstraint DEFAULT_CONSTRAINT = ScaleConstraint.DIMENSIONS;
-    public const Jpeg.Quality DEFAULT_QUALITY = Jpeg.Quality.HIGH;
-    public const PhotoFileFormat DEFAULT_FORMAT = PhotoFileFormat.JFIF;
+
+    // "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
+    // aren't formats so much as they are operating modes that determine specific formats.
+    // Hereafter we'll refer to these as "special formats."
+    public const int NUM_SPECIAL_FORMATS = 2;
+    public const string UNMODIFIED_FORMAT_LABEL = _("Unmodified");
+    public const string CURRENT_FORMAT_LABEL = _("Current");
     
     public const ScaleConstraint[] CONSTRAINT_ARRAY = { ScaleConstraint.ORIGINAL,
         ScaleConstraint.DIMENSIONS, ScaleConstraint.WIDTH, ScaleConstraint.HEIGHT };
@@ -81,14 +85,15 @@ public class ExportDialog : Gtk.Dialog {
     public const Jpeg.Quality[] QUALITY_ARRAY = { Jpeg.Quality.LOW, Jpeg.Quality.MEDIUM, 
         Jpeg.Quality.HIGH, Jpeg.Quality.MAXIMUM };
 
-    private static ScaleConstraint current_constraint = ScaleConstraint.DIMENSIONS;
-    private static Jpeg.Quality current_quality = Jpeg.Quality.HIGH;
+    private static ScaleConstraint current_constraint = ScaleConstraint.ORIGINAL;
+    private static ExportFormatParameters current_parameters = ExportFormatParameters.current();
     private static int current_scale = DEFAULT_SCALE;
     
     private Gtk.Table table = new Gtk.Table(0, 0, false);
     private Gtk.ComboBox quality_combo;
     private Gtk.ComboBox constraint_combo;
     private Gtk.ComboBox format_combo;
+    private Gee.ArrayList<string> format_options = new Gee.ArrayList<string>();
     private Gtk.Entry pixels_entry;
     private Gtk.Widget ok_button;
     private bool in_insert = false;
@@ -102,7 +107,7 @@ public class ExportDialog : Gtk.Dialog {
         int ctr = 0;
         foreach (Jpeg.Quality quality in QUALITY_ARRAY) {
             quality_combo.append_text(quality.to_string());
-            if (quality == current_quality)
+            if (quality == current_parameters.quality)
                 quality_combo.set_active(ctr);
             ctr++;
         }
@@ -117,8 +122,10 @@ public class ExportDialog : Gtk.Dialog {
         }
 
         format_combo = new Gtk.ComboBox.text();
+        format_add_option(UNMODIFIED_FORMAT_LABEL);
+        format_add_option(CURRENT_FORMAT_LABEL);
         foreach (PhotoFileFormat format in PhotoFileFormat.get_writeable()) {
-            format_combo.append_text(format.get_properties().get_user_visible_name());
+            format_add_option(format.get_properties().get_user_visible_name());
         }
 
         pixels_entry = new Gtk.Entry();
@@ -168,23 +175,70 @@ public class ExportDialog : Gtk.Dialog {
         ok_button.grab_focus();
     }
     
-    // unlike other parameters, which should be persisted across dialog executions, format
-    // must be set each time the dialog is executed, so that the format displayed in the
-    // format combo box matches the format of the backing photo -- this is why it's passed
-    // qualified as ref and not as out
-    public bool execute(out int scale, out ScaleConstraint constraint, out Jpeg.Quality quality,
-        ref PhotoFileFormat user_format) {
-        show_all();
-        
-        if (!user_format.can_write())
-            user_format = PhotoFileFormat.get_system_default_format();
-        
-        int ctr = 0;
-        foreach (PhotoFileFormat format in PhotoFileFormat.get_writeable()) {
-            if (format == user_format)
-                format_combo.set_active(ctr);
-            ctr++;
+    private void format_add_option(string format_name) {
+        format_options.add(format_name);
+        format_combo.append_text(format_name);
+    }
+    
+    private void format_set_active_text(string text) {
+        int selection_ticker = 0;
+
+        foreach (string current_text in format_options) {
+            if (current_text == text) {
+                format_combo.set_active(selection_ticker);
+                return;
+            }
+            selection_ticker++;
         }
+        
+        error("format_set_active_text: text '%s' isn't in combo box", text);
+    }
+    
+    private PhotoFileFormat get_specified_format() {
+        int index = format_combo.get_active();
+        assert(index >= NUM_SPECIAL_FORMATS);
+
+        index -= NUM_SPECIAL_FORMATS;
+        PhotoFileFormat[] writeable_formats = PhotoFileFormat.get_writeable();
+        return writeable_formats[index];
+    }
+    
+    private string get_label_for_parameters(ExportFormatParameters params) {
+        switch(params.mode) {
+            case ExportFormatMode.UNMODIFIED:
+                return UNMODIFIED_FORMAT_LABEL;
+            
+            case ExportFormatMode.CURRENT:
+                return CURRENT_FORMAT_LABEL;
+            
+            case ExportFormatMode.SPECIFIED:
+                return params.specified_format.get_properties().get_user_visible_name();            
+            
+            default:
+                error("get_label_for_parameters: unrecognized export format mode");
+        }
+    }
+    
+    // unlike other parameters, which should be persisted across dialog executions, the
+    // format parameters must be set each time the dialog is executed -- this is why
+    // it's passed qualified as ref and not as out
+    public bool execute(out int scale, out ScaleConstraint constraint,
+        ref ExportFormatParameters parameters) {
+        show_all();
+
+        // if the export format mode isn't set to last (i.e., don't use the persisted settings),
+        // reset the scale constraint to original size
+        if (parameters.mode != ExportFormatMode.LAST) {
+            current_constraint = constraint = ScaleConstraint.ORIGINAL;
+            constraint_combo.set_active(0);
+        }
+
+        if (parameters.mode == ExportFormatMode.LAST)
+            parameters = current_parameters;
+        else if (parameters.mode == ExportFormatMode.SPECIFIED && !parameters.specified_format.can_write())
+            parameters.specified_format = PhotoFileFormat.get_system_default_format();
+
+        format_set_active_text(get_label_for_parameters(parameters));
         on_format_changed();
         
         bool ok = (run() == Gtk.ResponseType.OK);
@@ -199,14 +253,16 @@ public class ExportDialog : Gtk.Dialog {
                 assert(scale > 0);
             current_scale = scale;
             
-            index = quality_combo.get_active();
-            assert(index >= 0);
-            quality = QUALITY_ARRAY[index];
-            current_quality = quality;
-            
-            index = format_combo.get_active();
-            assert(index >= 0);
-            user_format = PhotoFileFormat.get_writeable()[index];
+            if (format_combo.get_active_text() == UNMODIFIED_FORMAT_LABEL) {
+                parameters.mode = current_parameters.mode = ExportFormatMode.UNMODIFIED;
+            } else if (format_combo.get_active_text() == CURRENT_FORMAT_LABEL) {
+                parameters.mode = current_parameters.mode = ExportFormatMode.CURRENT;
+            } else {
+                parameters.mode = current_parameters.mode = ExportFormatMode.SPECIFIED;
+                parameters.specified_format = current_parameters.specified_format = get_specified_format();
+                if (current_parameters.specified_format == PhotoFileFormat.JFIF)
+                    parameters.quality = current_parameters.quality = QUALITY_ARRAY[quality_combo.get_active()];
+            }
         }
         
         destroy();
@@ -251,9 +307,34 @@ public class ExportDialog : Gtk.Dialog {
 
     private void on_format_changed() {
         bool original = CONSTRAINT_ARRAY[constraint_combo.get_active()] == ScaleConstraint.ORIGINAL;
-        bool jpeg = format_combo.get_active_text() ==
-            PhotoFileFormat.JFIF.get_properties().get_user_visible_name();
-        quality_combo.sensitive = !original && jpeg;
+        
+        if (format_combo.get_active_text() == UNMODIFIED_FORMAT_LABEL) {
+            // if the user wishes to export the media unmodified, then we just copy the original
+            // files, so parameterizing size, quality, etc. is impossible -- these are all
+            // just as they are in the original file. In this case, we set the scale constraint to
+            // original and lock out all the controls
+            constraint_combo.set_active(0); /* 0 == original size */
+            constraint_combo.set_sensitive(false);
+            quality_combo.set_sensitive(false);
+            pixels_entry.sensitive = false;
+        } else if (format_combo.get_active_text() == CURRENT_FORMAT_LABEL) {
+            // if the user wishes to export the media in its current format, we allow sizing but
+            // not JPEG quality customization, because in a batch of many photos, it's not
+            // guaranteed that all of them will be JPEGs or RAWs that get converted to JPEGs. Some
+            // could be PNGs, and PNG has no notion of quality. So lock out the quality control.
+            // If the user wants to set JPEG quality, he or she can explicitly specify the JPEG
+            // format.
+            constraint_combo.set_sensitive(true);
+            quality_combo.set_sensitive(false);
+            pixels_entry.sensitive = !original;            
+        } else {
+            // if the user has chosen a specific format, then allow JPEG quality customization if
+            // the format is JPEG and the user is re-sizing the image, otherwise, disallow JPEG
+            // quality customization; always allow scaling.
+            constraint_combo.set_sensitive(true);
+            bool jpeg = get_specified_format() == PhotoFileFormat.JFIF;
+            quality_combo.sensitive = !original && jpeg;
+        }
     }
     
     private void on_activate() {

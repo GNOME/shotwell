@@ -401,6 +401,46 @@ public class Video : VideoSource, Flaggable {
 
     public static void terminate() {
     }
+    
+    public static ExporterUI? export_many(Gee.Collection<Video> videos, Exporter.CompletionCallback done) {       
+        if (videos.size == 0)
+            return null;
+
+        // one video
+        if (videos.size == 1) {
+            Video video = null;
+            foreach (Video v in videos) {
+                video = v;
+                break;
+            }
+            
+            File save_as = ExportUI.choose_file(video.get_basename());
+            if (save_as == null)
+                return null;
+            
+            try {
+                AppWindow.get_instance().set_busy_cursor();
+                video.export(save_as);
+                AppWindow.get_instance().set_normal_cursor();
+            } catch (Error err) {
+                AppWindow.get_instance().set_normal_cursor();
+                export_error_dialog(save_as, false);
+            }
+            
+            return null;
+        }
+
+        // multiple videos
+        File export_dir = ExportUI.choose_dir();
+        if (export_dir == null)
+            return null;
+        
+        ExporterUI exporter = new ExporterUI(new Exporter(videos, export_dir,
+            Scaling.for_original(), ExportFormatParameters.unmodified(), false));
+        exporter.export(done);
+
+        return exporter;
+    }
 
     public static string upgrade_video_id_to_source_id(VideoID video_id) {
         return ("%s-%016" + int64.FORMAT_MODIFIER + "x").printf(Video.TYPENAME, video_id.id);

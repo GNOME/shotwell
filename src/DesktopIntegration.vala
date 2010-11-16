@@ -123,13 +123,12 @@ public void send_to(Gee.Collection<MediaSource> media) {
     
     int scale;
     ScaleConstraint constraint;
-    Jpeg.Quality quality;
-    PhotoFileFormat format = PhotoFileFormat.get_system_default_format();
-    if (!dialog.execute(out scale, out constraint, out quality, ref format))
+    ExportFormatParameters export_params = ExportFormatParameters.current();
+    if (!dialog.execute(out scale, out constraint, ref export_params))
         return;
     
     send_to_exporter = new ExporterUI(new Exporter.for_temp_file(media,
-        Scaling.for_constraint(constraint, scale, false), quality, format, true));
+        Scaling.for_constraint(constraint, scale, false), export_params, true));
     send_to_exporter.export(on_send_to_export_completed);
 }
 

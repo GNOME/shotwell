@@ -4,6 +4,50 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
+public enum ExportFormatMode {
+    UNMODIFIED,
+    CURRENT,
+    SPECIFIED, /* use an explicitly specified format like PNG or JPEG */
+    LAST       /* use whatever format was used in the previous export operation */
+}
+
+public struct ExportFormatParameters {
+    public ExportFormatMode mode;
+    public PhotoFileFormat specified_format;
+    public Jpeg.Quality quality;
+    
+    private ExportFormatParameters(ExportFormatMode mode, PhotoFileFormat specified_format,
+        Jpeg.Quality quality) {
+        this.mode = mode;
+        this.specified_format = specified_format;
+        this.quality = quality;
+    }
+    
+    public static ExportFormatParameters current() {
+        return ExportFormatParameters(ExportFormatMode.CURRENT,
+            PhotoFileFormat.get_system_default_format(), Jpeg.Quality.HIGH);
+    }
+       
+    public static ExportFormatParameters unmodified() {
+        return ExportFormatParameters(ExportFormatMode.UNMODIFIED,
+            PhotoFileFormat.get_system_default_format(), Jpeg.Quality.HIGH);
+    }
+    
+    public static ExportFormatParameters for_format(PhotoFileFormat format) {
+        return ExportFormatParameters(ExportFormatMode.SPECIFIED, format, Jpeg.Quality.HIGH);
+    }
+    
+    public static ExportFormatParameters last() {
+        return ExportFormatParameters(ExportFormatMode.LAST,
+            PhotoFileFormat.get_system_default_format(), Jpeg.Quality.HIGH);
+    }
+    
+    public static ExportFormatParameters for_JPEG(Jpeg.Quality quality) {
+        return ExportFormatParameters(ExportFormatMode.SPECIFIED, PhotoFileFormat.JFIF,
+            quality);
+    }
+}
+
 public class Exporter : Object {
     public enum Overwrite {
         YES,
@@ -26,9 +70,11 @@ public class Exporter : Object {
         public Jpeg.Quality? quality;
         public PhotoFileFormat? format;
         public Error? err = null;
+        public bool direct_copy_unmodified = false;
         
         public ExportJob(Exporter owner, MediaSource media, File dest, Scaling? scaling, 
-            Jpeg.Quality? quality, PhotoFileFormat? format, Cancellable cancellable) {
+            Jpeg.Quality? quality, PhotoFileFormat? format, Cancellable cancellable,
+            bool direct_copy_unmodified = false) {
             base (owner, owner.on_exported, cancellable, owner.on_export_cancelled);
             
             assert(media is Photo || media is Video);
@@ -38,14 +84,16 @@ public class Exporter : Object {
             this.scaling = scaling;
             this.quality = quality;
             this.format = format;
+            this.direct_copy_unmodified = direct_copy_unmodified;
         }
-        
+
         public override void execute() {
             try {
-                if (media is Photo)
-                    ((Photo) media).export(dest, scaling, quality, format);
-                else
+                if (media is Photo) {
+                    ((Photo) media).export(dest, scaling, quality, format, direct_copy_unmodified);
+                } else if (media is Video) {
                     ((Video) media).export(dest);
+                }
             } catch (Error err) {
                 this.err = err;
             }
@@ -56,8 +104,6 @@ public class Exporter : Object {
     private File[] exported_files;
     private File? dir;
     private Scaling scaling;
-    private Jpeg.Quality quality;
-    private PhotoFileFormat file_format;
     private bool avoid_copying;
     private int completed_count = 0;
     private Workers workers = new Workers(Workers.threads_per_cpu(), false);
@@ -68,27 +114,26 @@ public class Exporter : Object {
     private Cancellable cancellable;
     private bool replace_all = false;
     private bool aborted = false;
-    
+    private ExportFormatParameters export_params;
+
     public Exporter(Gee.Collection<MediaSource> to_export, File? dir, Scaling scaling,
-        Jpeg.Quality quality, PhotoFileFormat file_format, bool avoid_copying) {
+        ExportFormatParameters export_params, bool avoid_copying) {
         this.to_export.add_all(to_export);
         this.dir = dir;
         this.scaling = scaling;
-        this.quality = quality;
-        this.file_format = file_format;
+        this.export_params = export_params;
         this.avoid_copying = avoid_copying;
     }
-    
+       
     public Exporter.for_temp_file(Gee.Collection<MediaSource> to_export, Scaling scaling,
-        Jpeg.Quality quality, PhotoFileFormat file_format, bool avoid_copying) {
+        ExportFormatParameters export_params, bool avoid_copying) {
         this.to_export.add_all(to_export);
         this.dir = null;
         this.scaling = scaling;
-        this.quality = quality;
-        this.file_format = file_format;
+        this.export_params = export_params;
         this.avoid_copying = avoid_copying;
     }
-    
+
     // This should be called only once; the object does not reset its internal state when completed.
     public void export(CompletionCallback completion_callback, ExportFailedCallback error_callback,
         OverwriteCallback overwrite_callback, Cancellable? cancellable, ProgressMonitor? monitor) {
@@ -148,11 +193,30 @@ public class Exporter : Object {
         int submitted = 0;
         foreach (MediaSource source in to_export) {
             File? use_source_file = null;
+            PhotoFileFormat real_export_format = PhotoFileFormat.get_system_default_format();
+            string? basename = null;
+            if (source is Photo) {
+                Photo photo = (Photo) source;
+                real_export_format = photo.get_export_format_for_parameters(export_params);
+                basename = photo.get_export_basename_for_parameters(export_params);
+            } else if (source is Video) {
+                basename = ((Video) source).get_basename();
+            }
+            assert(basename != null);
+
             if (avoid_copying) {
                 if (source is Video)
                     use_source_file = source.get_master_file();
-                else if (!((Photo) source).is_export_required(scaling, file_format))
-                    use_source_file = ((Photo) source).get_source_file();
+                else if (source is Photo) {
+                    Photo photo = (Photo) source;
+
+                    if (export_params.mode == ExportFormatMode.UNMODIFIED) {
+                        use_source_file = photo.get_master_file();
+                    } else {
+                        if (!photo.is_export_required(scaling, real_export_format))
+                            use_source_file = photo.get_source_file();
+                    }
+                }
             }
             
             if (use_source_file != null) {
@@ -176,8 +240,7 @@ public class Exporter : Object {
             if (export_dir == null) {
                 try {
                     bool collision;
-                    dest = generate_unique_file(AppDirs.get_temp_dir(), source.get_file().get_basename(),
-                        out collision);
+                    dest = generate_unique_file(AppDirs.get_temp_dir(), basename, out collision);
                 } catch (Error err) {
                     AppWindow.error_message(_("Unable to generate a temporary file for %s: %s").printf(
                         source.get_file().get_basename(), err.message));
@@ -185,9 +248,6 @@ public class Exporter : Object {
                     break;
                 }
             } else {
-                string basename = (source is Photo) 
-                    ? ((Photo) source).get_export_basename(((Photo) source).get_best_export_file_format()) 
-                    : ((Video) source).get_basename();
                 dest = dir.get_child(basename);
                 
                 if (!replace_all && dest.query_exists(null)) {
@@ -220,9 +280,9 @@ public class Exporter : Object {
                     }
                 }
             }
-            
-            workers.enqueue(new ExportJob(this, source, dest, scaling, quality, file_format, 
-                cancellable));
+
+            workers.enqueue(new ExportJob(this, source, dest, scaling, export_params.quality,
+                real_export_format, cancellable, export_params.mode == ExportFormatMode.UNMODIFIED));
             submitted++;
         }
         

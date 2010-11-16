@@ -631,6 +631,49 @@ public abstract class Photo : PhotoSource {
         return reader.get_file_format();
     }
     
+    public PhotoFileFormat get_export_format_for_parameters(ExportFormatParameters params) {
+        PhotoFileFormat result = PhotoFileFormat.get_system_default_format();
+
+        switch (params.mode) {
+            case ExportFormatMode.UNMODIFIED:
+                result = get_master_file_format();
+            break;
+            
+            case ExportFormatMode.CURRENT:
+                result = get_best_export_file_format();
+            break;
+            
+            case ExportFormatMode.SPECIFIED:
+                result = params.specified_format;
+            break;
+            
+            default:
+                error("get_export_format_for_parameters: unsupported export format mode");
+        }
+        
+        return result;
+    }
+    
+    public string get_export_basename_for_parameters(ExportFormatParameters params) {
+        string? result = null;
+
+        switch (params.mode) {
+            case ExportFormatMode.UNMODIFIED:
+                result = get_master_file().get_basename();
+            break;
+            
+            case ExportFormatMode.CURRENT:
+            case ExportFormatMode.SPECIFIED:
+                return get_export_basename(get_export_format_for_parameters(params));
+            
+            default:
+                error("get_export_basename_for_parameters: unsupported export format mode");
+        }
+
+        assert (result != null);
+        return result;
+    }
+    
     // This method interrogates the specified file and returns a PhotoRow with all relevant
     // information about it.  It uses the PhotoFileInterrogator to do so.  The caller should create
     // a PhotoFileInterrogator with the proper options prior to calling.  prepare_for_import()
@@ -2688,7 +2731,13 @@ public abstract class Photo : PhotoSource {
     //
     // This method is thread-safe.
     public void export(File dest_file, Scaling scaling, Jpeg.Quality quality,
-        PhotoFileFormat export_format) throws Error {
+        PhotoFileFormat export_format, bool direct_copy_unmodified = false) throws Error {
+        if (direct_copy_unmodified) {
+            get_master_file().copy(dest_file, FileCopyFlags.OVERWRITE |
+                FileCopyFlags.TARGET_DEFAULT_PERMS, null, null);
+            return;
+        }
+
         // Attempt to avoid decode/encoding cycle when exporting original-sized photos, as that
         // degrades image quality with JFIF format files. If alterations exist, but only EXIF has
         // changed and the user hasn't requested conversion between image formats, then just copy

@@ -2883,19 +2883,21 @@ public class LibraryPhotoPage : EditingHostPage {
         
         int scale;
         ScaleConstraint constraint;
-        Jpeg.Quality quality;
-        PhotoFileFormat format = get_photo().get_file_format();
-        if (!export_dialog.execute(out scale, out constraint, out quality, ref format))
+        ExportFormatParameters export_params = ExportFormatParameters.last();
+        if (!export_dialog.execute(out scale, out constraint, ref export_params))
             return;
         
-        File save_as = ExportUI.choose_file(get_photo().get_export_basename(format));
+        File save_as =
+            ExportUI.choose_file(get_photo().get_export_basename_for_parameters(export_params));
         if (save_as == null)
             return;
         
         Scaling scaling = Scaling.for_constraint(constraint, scale, false);
         
         try {
-            get_photo().export(save_as, scaling, quality, format);
+            get_photo().export(save_as, scaling, export_params.quality,
+                get_photo().get_export_format_for_parameters(export_params),
+                export_params.mode == ExportFormatMode.UNMODIFIED);
         } catch (Error err) {
             AppWindow.error_message(_("Unable to export %s: %s").printf(save_as.get_path(), err.message));
         }
@@ -3630,11 +3632,11 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
-        PhotoFileFormat format) {
+        PhotoFileFormat format, bool copy_unmodified = false) {
         Scaling scaling = Scaling.for_constraint(constraint, scale, false);
         
         try {
-            get_photo().export(dest, scaling, quality, format);
+            get_photo().export(dest, scaling, quality, format, copy_unmodified);
         } catch (Error err) {
             AppWindow.error_message(_("Error while saving to %s: %s").printf(dest.get_path(),
                 err.message));
@@ -3676,31 +3678,16 @@ public class DirectPhotoPage : EditingHostPage {
         
         int scale;
         ScaleConstraint constraint;
-        Jpeg.Quality quality;
-        PhotoFileFormat format = get_photo().get_file_format();
-        if (!export_dialog.execute(out scale, out constraint, out quality, ref format))
+        ExportFormatParameters export_params = ExportFormatParameters.last();
+        if (!export_dialog.execute(out scale, out constraint, ref export_params))
             return;
 
-        string basename = get_photo().get_file().get_basename();
-        string ext;
-        string filename;
-        disassemble_filename(basename, out filename, out ext);
+        string filename = get_photo().get_export_basename_for_parameters(export_params);
+        PhotoFileFormat effective_export_format =
+            get_photo().get_export_format_for_parameters(export_params);
 
-        // an optimization for a common case -- when the format chosen by the user in the
-        // format combo box is the same as the format of the backing photo (e.g., the user
-        // wants to save a JPEG image as a JPEG) AND the photo's existing filename uses a
-        // known extension for the format, then there's no need to change the file's
-        // extension, so skip doing an extension replacement
-        if ((format == get_photo().get_file_format()) && ext != null &&
-            (format.get_properties().is_recognized_extension(ext))) {
-            filename = basename;
-        } else {
-            if (filename == null || filename == "")
-                filename = "shotwell";
-            filename = format.get_default_basename(filename);
-        }
-
-        string[] output_format_extensions = format.get_properties().get_known_extensions();
+        string[] output_format_extensions =
+            effective_export_format.get_properties().get_known_extensions();
         Gtk.FileFilter output_format_filter = new Gtk.FileFilter();
         foreach(string extension in output_format_extensions) {
             string uppercase_extension = extension.up();
@@ -3723,7 +3710,8 @@ public class DirectPhotoPage : EditingHostPage {
             // flag to prevent asking user about losing changes to the old file (since they'll be
             // loaded right into the new one)
             drop_if_dirty = true;
-            save(File.new_for_uri(save_as_dialog.get_uri()), scale, constraint, quality, format);
+            save(File.new_for_uri(save_as_dialog.get_uri()), scale, constraint, export_params.quality,
+                effective_export_format, export_params.mode == ExportFormatMode.UNMODIFIED);
             drop_if_dirty = false;
 
             current_save_dir = File.new_for_path(save_as_dialog.get_current_folder());

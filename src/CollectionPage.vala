@@ -371,6 +371,36 @@ public abstract class CollectionPage : MediaPage {
         return groups;
     }
     
+    private bool selection_has_video() {
+        foreach (DataSource source in get_view().get_selected_sources()) {
+            if (source is Video) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private bool page_has_photo() {
+        foreach (DataSource source in get_view().get_sources()) {
+            if (source is Photo) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private bool selection_has_photo() {
+        foreach (DataSource source in get_view().get_selected_sources()) {
+            if (source is Photo) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     public override void switched_to() {
         // set display options to match Configuration toggles (which can change while switched away)
         get_view().freeze_notifications();
@@ -392,25 +422,13 @@ public abstract class CollectionPage : MediaPage {
             if (get_view().get_selected_at(0).get_source() is Video)
                 primary_is_video = true;
 
-        bool selection_has_video = false;
-        foreach (DataSource source in get_view().get_selected_sources())
-            if (source is Video) {
-                selection_has_video = true;
-                break;
-            }
-
-        bool has_some_photos = false;
-        foreach (DataSource source in get_view().get_sources()) {
-            if (source is Photo) {
-                has_some_photos = true;
-                break;
-            }
-        }
+        bool selection_has_videos = selection_has_video();
+        bool page_has_photos = page_has_photo();
         
         set_action_sensitive("RemoveFromLibrary", has_selected);
         // don't allow duplication of the selection if it contains a video -- videos are huge and
         // and they're not editable anyway, so there seems to be no use case for duplicating them
-        set_action_sensitive("Duplicate", has_selected && (!selection_has_video));
+        set_action_sensitive("Duplicate", has_selected && (!selection_has_videos));
         set_action_visible("ExternalEdit", (!primary_is_video));
         set_action_sensitive("ExternalEdit", 
             one_selected && !is_string_empty(Config.get_instance().get_external_photo_app()));
@@ -421,28 +439,28 @@ public abstract class CollectionPage : MediaPage {
                 PhotoFileFormat.RAW
             && !is_string_empty(Config.get_instance().get_external_raw_app()));
 #endif
-        set_action_sensitive("Revert", (!selection_has_video) && can_revert_selected());
-        set_action_sensitive("Enhance", (!selection_has_video) && has_selected);
+        set_action_sensitive("Revert", (!selection_has_videos) && can_revert_selected());
+        set_action_sensitive("Enhance", (!selection_has_videos) && has_selected);
         set_action_important("Enhance", true);
-        set_action_sensitive("RotateClockwise", (!selection_has_video) && has_selected);
+        set_action_sensitive("RotateClockwise", (!selection_has_videos) && has_selected);
         set_action_important("RotateClockwise", true);
-        set_action_sensitive("RotateCounterclockwise", (!selection_has_video) && has_selected);
+        set_action_sensitive("RotateCounterclockwise", (!selection_has_videos) && has_selected);
         set_action_important("RotateCounterclockwise", true);
-        set_action_sensitive("FlipHorizontally", (!selection_has_video) && has_selected);
-        set_action_sensitive("FlipVertically", (!selection_has_video) && has_selected);
-        set_action_sensitive("AdjustDateTime", (!selection_has_video) && has_selected);
+        set_action_sensitive("FlipHorizontally", (!selection_has_videos) && has_selected);
+        set_action_sensitive("FlipVertically", (!selection_has_videos) && has_selected);
+        set_action_sensitive("AdjustDateTime", (!selection_has_videos) && has_selected);
         set_action_sensitive("NewEvent", has_selected);
         set_action_sensitive("AddTags", has_selected);
         set_action_sensitive("ModifyTags", one_selected);
-        set_action_sensitive("Slideshow", has_some_photos && (!primary_is_video));
+        set_action_sensitive("Slideshow", page_has_photos && (!primary_is_video));
         set_action_important("Slideshow", true);
         
 #if !NO_SET_BACKGROUND
-        set_action_sensitive("SetBackground", (!selection_has_video) && one_selected);
+        set_action_sensitive("SetBackground", (!selection_has_videos) && one_selected);
 #endif
         
 #if !NO_PRINTING
-        set_action_sensitive("Print", (!selection_has_video) && one_selected);
+        set_action_sensitive("Print", (!selection_has_videos) && one_selected);
 #endif
         
 #if !NO_PUBLISHING
@@ -551,20 +569,39 @@ public abstract class CollectionPage : MediaPage {
         if (exporter != null)
             return;
         
-        Gee.Collection<LibraryPhoto> export_list =
-            (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources();
+        Gee.Collection<MediaSource> export_list =
+            (Gee.Collection<MediaSource>) get_view().get_selected_sources();
         if (export_list.size == 0)
             return;
+
+        bool has_some_photos = selection_has_photo();
+        bool has_some_videos = selection_has_video();
+        assert(has_some_photos || has_some_videos);
+               
+        // if we don't have any photos, then everything is a video, so skip displaying the Export
+        // dialog and go right to the video export operation
+        if (!has_some_photos) {
+            exporter = Video.export_many((Gee.Collection<Video>) export_list, on_export_completed);
+            return;
+        }
 
         string title = ngettext("Export Photo", "Export Photos", export_list.size);
         ExportDialog export_dialog = new ExportDialog(title);
 
+        // Setting up the parameters object requires a bit of thinking about what the user wants.
+        // If the selection contains only photos, then we do what we've done in previous versions
+        // of Shotwell -- we use whatever settings the user selected on his last export operation
+        // (the thinking here being that if you've been exporting small PNGs for your blog
+        // for the last n export operations, then it's likely that for your (n + 1)-th export
+        // operation you'll also be exporting a small PNG for your blog). However, if the selection
+        // contains any videos, then we set the parameters to the "Current" operating mode, since
+        // videos can't be saved as PNGs (or any other specific photo format).
+        ExportFormatParameters export_params = (has_some_videos) ? ExportFormatParameters.current() :
+            ExportFormatParameters.last();
+
         int scale;
         ScaleConstraint constraint;
-        Jpeg.Quality quality;
-        PhotoFileFormat format =
-            ((Gee.ArrayList<Photo>) export_list).get(0).get_file_format();
-        if (!export_dialog.execute(out scale, out constraint, out quality, ref format))
+        if (!export_dialog.execute(out scale, out constraint, ref export_params))
             return;
         
         Scaling scaling = Scaling.for_constraint(constraint, scale, false);
@@ -572,18 +609,21 @@ public abstract class CollectionPage : MediaPage {
         // handle the single-photo case, which is treated like a Save As file operation
         if (export_list.size == 1) {
             LibraryPhoto photo = null;
-            foreach (LibraryPhoto p in export_list) {
+            foreach (LibraryPhoto p in (Gee.Collection<LibraryPhoto>) export_list) {
                 photo = p;
                 break;
             }
             
-            File save_as = ExportUI.choose_file(photo.get_export_basename(format));
+            File save_as =
+                ExportUI.choose_file(photo.get_export_basename_for_parameters(export_params));
             if (save_as == null)
                 return;
             
             try {
                 AppWindow.get_instance().set_busy_cursor();
-                photo.export(save_as, scaling, quality, format);
+                photo.export(save_as, scaling, export_params.quality,
+                    photo.get_export_format_for_parameters(export_params), export_params.mode ==
+                    ExportFormatMode.UNMODIFIED);
                 AppWindow.get_instance().set_normal_cursor();
             } catch (Error err) {
                 AppWindow.get_instance().set_normal_cursor();
@@ -598,8 +638,8 @@ public abstract class CollectionPage : MediaPage {
         if (export_dir == null)
             return;
         
-        exporter = new ExporterUI(new Exporter(export_list, export_dir,
-            scaling, quality, format, false));
+        exporter = new ExporterUI(new Exporter(export_list, export_dir, scaling, export_params,
+            false));
         exporter.export(on_export_completed);
     }
     

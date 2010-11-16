@@ -176,38 +176,7 @@ public class VideosPage : MediaPage {
         if (export_list.size == 0)
             return;
       
-        // handle the single-video case, which is treated like a Save As file operation
-        if (export_list.size == 1) {
-            Video video = null;
-            foreach (Video v in export_list) {
-                video = v;
-                break;
-            }
-            
-            File save_as = ExportUI.choose_file(video.get_basename());
-            if (save_as == null)
-                return;
-            
-            try {
-                AppWindow.get_instance().set_busy_cursor();
-                video.export(save_as);
-                AppWindow.get_instance().set_normal_cursor();
-            } catch (Error err) {
-                AppWindow.get_instance().set_normal_cursor();
-                export_error_dialog(save_as, false);
-            }
-            
-            return;
-        }
-
-        // multiple videos
-        File export_dir = ExportUI.choose_dir();
-        if (export_dir == null)
-            return;
-        
-        exporter = new ExporterUI(new Exporter(export_list, export_dir, Scaling.for_original(),
-            Jpeg.Quality.MAXIMUM, PhotoFileFormat.get_system_default_format(), false));
-        exporter.export(on_export_completed);
+        exporter = Video.export_many(export_list, on_export_completed);
     }
     
     private void on_export_completed() {
