@@ -989,9 +989,9 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(ngettext(
             "_Modify original file", "_Modify original files", photo_count));
-        modify_originals_check_button.set_active(Config.get_instance().get_modify_originals() &&
+        modify_originals_check_button.set_active(Config.get_instance().get_commit_metadata_to_masters() &&
             display_options);
-        modify_originals_check_button.sensitive = display_options;
+        modify_originals_check_button.sensitive = !Config.get_instance().get_commit_metadata_to_masters() && display_options;
 
         Gtk.VBox time_content = new Gtk.VBox(false, 0);
 
