@@ -135,6 +135,37 @@ public Gee.List<PhotoID?>? unserialize_photo_ids(uchar* serialized, int size) {
     return list;
 }
 
+public uchar[] serialize_media_sources(Gee.Collection<MediaSource> media) {
+    Gdk.Atom[] atoms = new Gdk.Atom[media.size];
+    int ctr = 0;
+    foreach (MediaSource current_media in media)
+        atoms[ctr++] = Gdk.Atom.intern(current_media.get_source_id(), false);
+    
+    size_t bytes = media.size * sizeof(Gdk.Atom);
+    uchar[] serialized = new uchar[bytes];
+    Memory.copy(serialized, atoms, bytes);
+    
+    return serialized;
+}
+
+public Gee.List<MediaSource>? unserialize_media_sources(uchar* serialized, int size) {
+    size_t count = (size / sizeof(Gdk.Atom));
+    if (count <= 0 || serialized == null)
+        return null;
+    
+    Gdk.Atom[] atoms = new Gdk.Atom[count];
+    Memory.copy(atoms, serialized, size);
+    
+    Gee.ArrayList<MediaSource> list = new Gee.ArrayList<MediaSource>();
+    foreach (Gdk.Atom current_atom in atoms) {
+        MediaSource media = MediaCollectionRegistry.get_instance().fetch_media(current_atom.name());
+        assert(media != null);
+        list.add(media);
+    }
+
+    return list;
+}
+
 public inline bool is_string_empty(string? s) {
     return (s == null || s[0] == '\0');
 }

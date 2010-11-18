@@ -275,7 +275,7 @@ public class PixbufCache : Object {
             if (!map.get(object).has_subject("image"))
                 continue;
             
-            LibraryPhoto photo = (LibraryPhoto) object;
+            Photo photo = (Photo) object;
             
             // only interested if in this cache and not a master cache, as they never alter
             if (!cache.has_key(photo))

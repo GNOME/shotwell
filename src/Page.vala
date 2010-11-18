@@ -2175,12 +2175,12 @@ public abstract class SinglePhotoPage : Page {
 public class PhotoDragAndDropHandler {
     private enum TargetType {
         XDS,
-        PHOTO_LIST
+        MEDIA_LIST
     }
     
     private const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
         { "XdndDirectSave0", Gtk.TargetFlags.OTHER_APP, TargetType.XDS },
-        { "shotwell/photo-id", Gtk.TargetFlags.SAME_APP, TargetType.PHOTO_LIST }
+        { "shotwell/media-id-atom", Gtk.TargetFlags.SAME_APP, TargetType.MEDIA_LIST }
     };
     
     private static Gdk.Atom? XDS_ATOM = null;
@@ -2240,14 +2240,14 @@ public class PhotoDragAndDropHandler {
         
         drag_destination = null;
         
-        // use the first photo as the icon
-        Photo photo = (Photo) page.get_view().get_selected_at(0).get_source();
+        // use the first media item as the icon
+        ThumbnailSource thumb = (ThumbnailSource) page.get_view().get_selected_at(0).get_source();
         
         try {
-            Gdk.Pixbuf icon = photo.get_thumbnail(AppWindow.DND_ICON_SCALE);
+            Gdk.Pixbuf icon = thumb.get_thumbnail(AppWindow.DND_ICON_SCALE);
             Gtk.drag_source_set_icon_pixbuf(event_source, icon);
         } catch (Error err) {
-            warning("Unable to fetch icon for drag-and-drop from %s: %s", photo.to_string(),
+            warning("Unable to fetch icon for drag-and-drop from %s: %s", thumb.to_string(),
                 err.message);
         }
         
@@ -2285,13 +2285,14 @@ public class PhotoDragAndDropHandler {
                     string_to_uchar_array((drag_destination != null) ? "S" : "E"));
             break;
             
-            case TargetType.PHOTO_LIST:
-                Gee.Collection<Photo> sources =
-                    (Gee.Collection<Photo>) page.get_view().get_selected_sources();
+            case TargetType.MEDIA_LIST:
+                Gee.Collection<MediaSource> sources =
+                    (Gee.Collection<MediaSource>) page.get_view().get_selected_sources();
                 
-                // convert the selected sources to serialized PhotoIDs for internal drag-and-drop
-                selection_data.set(Gdk.Atom.intern_static_string("PhotoID"), (int) sizeof(int64),
-                    serialize_photo_ids(sources));
+                // convert the selected media sources to Gdk.Atom-encoded sourceID strings for
+                // internal drag-and-drop
+                selection_data.set(Gdk.Atom.intern_static_string("SourceIDAtom"), (int) sizeof(Gdk.Atom),
+                    serialize_media_sources(sources));
             break;
             
             default:

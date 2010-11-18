@@ -3522,11 +3522,11 @@ public class DirectPhotoPage : EditingHostPage {
         update_zoom_menu_item_sensitivity();
     }
     
-    private void on_photos_altered(Gee.Iterable<DataObject> objects) {
+    private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
         bool contains = false;
         if (has_photo()) {
             Photo photo = get_photo();
-            foreach (DataObject object in objects) {
+            foreach (DataObject object in map.keys) {
                 if (((Photo) object) == photo) {
                     contains = true;
                     

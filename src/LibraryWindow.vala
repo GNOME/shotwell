@@ -28,12 +28,12 @@ public class LibraryWindow : AppWindow {
     
     protected enum TargetType {
         URI_LIST,
-        PHOTO_LIST
+        MEDIA_LIST
     }
     
     public const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
-        { "shotwell/photo-id", Gtk.TargetFlags.SAME_APP, TargetType.PHOTO_LIST }
+        { "shotwell/media-id-atom", Gtk.TargetFlags.SAME_APP, TargetType.MEDIA_LIST }
     };
     
     // special Yorba-selected sidebar background color for standard themes (humanity,
@@ -569,8 +569,17 @@ public class LibraryWindow : AppWindow {
     private bool can_jump_to_event() {
         ViewCollection view = get_current_page().get_view();
         
-        return view.get_selected_count() == 1
-            && ((MediaSource) view.get_selected_source_at(0)).get_event() != null;
+        if (view.get_selected_count() == 1) {
+            DataSource selected_source = view.get_selected_source_at(0);
+            if (selected_source is Event)
+                return true;
+            else if (selected_source is MediaSource)
+                return ((MediaSource) view.get_selected_source_at(0)).get_event() != null;
+            else
+                return false;
+        } else {
+            return false;
+        }
     }
     
     private void on_jump_to_event() {
@@ -836,16 +845,10 @@ public class LibraryWindow : AppWindow {
     private void drop_internal(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path,
         SidebarPage? page = null) {
-        Gee.List<PhotoID?>? photo_ids = unserialize_photo_ids(selection_data.data,
+		Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.data,
             selection_data.get_length());
         
-        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-        if (photo_ids != null) {
-            foreach (PhotoID photo_id in photo_ids)
-                photos.add(LibraryPhoto.global.fetch(photo_id));
-        }
-        
-        if (photos.size == 0) {
+        if (media.size == 0) {
             Gtk.drag_finish(context, false, false, time);
             
             return;
@@ -855,11 +858,11 @@ public class LibraryWindow : AppWindow {
         if (page is EventPage.Stub) {
             Event event = ((EventPage.Stub) page).event;
 
-            Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
-            foreach (LibraryPhoto photo in photos) {
+            Gee.ArrayList<ThumbnailView> views = new Gee.ArrayList<ThumbnailView>();
+            foreach (MediaSource current_media in media) {
                 // don't move a photo into the event it already exists in
-                if (photo.get_event() == null || !photo.get_event().equals(event))
-                    views.add(new PhotoView(photo));
+                if (current_media.get_event() == null || !current_media.get_event().equals(event))
+                    views.add(new ThumbnailView(current_media));
             }
 
             if (views.size > 0) {
@@ -867,18 +870,18 @@ public class LibraryWindow : AppWindow {
                 success = true;
             }
         } else if (page is TagPage.Stub) {
-            get_command_manager().execute(new TagUntagPhotosCommand(((TagPage.Stub) page).tag, photos, 
-                photos.size, true));
+            get_command_manager().execute(new TagUntagPhotosCommand(((TagPage.Stub) page).tag, media, 
+                media.size, true));
             success = true;
         } else if (page is TrashPage.Stub) {
-            get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
+            get_command_manager().execute(new TrashUntrashPhotosCommand(media, true));
             success = true;
         } else if ((path != null) && (tags_marker != null) && (tags_marker.get_path() != null) && 
                    (path.compare(tags_marker.get_path()) == 0)) {
             AddTagsDialog dialog = new AddTagsDialog();
             string[]? names = dialog.execute();
             if (names != null) {
-                get_command_manager().execute(new AddTagsCommand(names, photos));
+                get_command_manager().execute(new AddTagsCommand(names, media));
                 success = true;
             }
         }
