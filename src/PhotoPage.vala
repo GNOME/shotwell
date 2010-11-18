@@ -2661,6 +2661,8 @@ public class LibraryPhotoPage : EditingHostPage {
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
             case "Escape":
+            case "Return":
+            case "KP_Enter":
                 return_to_collection();
             break;
             
