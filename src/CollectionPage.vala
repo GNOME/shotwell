@@ -174,33 +174,6 @@ public abstract class CollectionPage : MediaPage {
         
         return group;
     }
-
-    private static InjectionGroup create_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/MenubarExtrasPlaceholder");
-        
-        group.add_menu("EventsMenu");
-        group.add_menu("TagsMenu");
-        
-        return group;
-    }
-
-    private static InjectionGroup create_events_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/MenubarExtrasPlaceholder/EventsMenu");
-        
-        group.add_menu_item("NewEvent");
-        group.add_menu_item("CommonJumpToEvent");
-        
-        return group;
-    }
-
-    private static InjectionGroup create_tags_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu");
-        
-        group.add_menu_item("AddTags");
-        group.add_menu_item("ModifyTags");
-        
-        return group;
-    }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
         base.init_collect_ui_filenames(ui_filenames);
@@ -364,9 +337,6 @@ public abstract class CollectionPage : MediaPage {
         groups += create_photos_menu_edits_injectables();
         groups += create_photos_menu_date_injectables();
         groups += create_photos_menu_externals_injectables();
-        groups += create_menu_injectables();
-        groups += create_events_menu_injectables();
-        groups += create_tags_menu_injectables();
         
         return groups;
     }

@@ -3,6 +3,8 @@
     <menubar name="MediaMenuBar">
         <placeholder name="MenubarExtrasPlaceholder">
             <menu name="TagsMenu" action="TagsMenu">
+                <menuitem name="AddTags" action="AddTags" />
+                <menuitem name="ModifyTags" action="ModifyTags" />
                 <menuitem name="RemoveTagFromPhotos" action="RemoveTagFromPhotos" />
                 <separator />
                 <menuitem name="RenameTag" action="RenameTag" />

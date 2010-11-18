@@ -49,19 +49,7 @@ public class TagPage : CollectionPage {
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
         base.init_collect_ui_filenames(ui_filenames);
-        
         ui_filenames.add("tags.ui");
-    }
-    
-    protected override InjectionGroup[] init_collect_injection_groups() {
-        InjectionGroup[] groups = base.init_collect_injection_groups();
-        
-        InjectionGroup remove_group = new InjectionGroup("/CollectionContextMenu/ContextTagsPlaceholder");
-        remove_group.add_menu_item("ContextRemoveTagFromPhotos", "RemoveTagFromPhotos");
-        
-        groups += remove_group;
-        
-        return groups;
     }
     
     public static TagPage.Stub create_stub(Tag tag) {

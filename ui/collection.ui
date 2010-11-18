@@ -1,4 +1,18 @@
 <ui>
+
+    <menubar name="MediaMenuBar">
+        <placeholder name="MenubarExtrasPlaceholder">
+            <menu name="EventsMenu" action="EventsMenu">
+                <menuitem name="NewEvent" action="NewEvent" />
+                <menuitem name="CommonJumpToEvent" action="CommonJumpToEvent" />
+            </menu>
+            <menu name="TagsMenu" action="TagsMenu">
+                <menuitem name="AddTags" action="AddTags" />
+                <menuitem name="ModifyTags" action="ModifyTags" />
+            </menu>
+        </placeholder>
+    </menubar>
+    
     <popup name="CollectionContextMenu">
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
