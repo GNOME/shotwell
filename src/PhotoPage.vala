@@ -2176,13 +2176,13 @@ public class LibraryPhotoPage : EditingHostPage {
         actions += next;
 
         Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE, TRANSLATABLE,
-            "bracketright", TRANSLATABLE, on_rotate_clockwise };
+            "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
         rotate_right.label = Resources.ROTATE_CW_MENU;
         rotate_right.tooltip = Resources.ROTATE_CW_TOOLTIP;
         actions += rotate_right;
 
         Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
-            TRANSLATABLE, "bracketleft", TRANSLATABLE, on_rotate_counterclockwise };
+            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
         rotate_left.label = Resources.ROTATE_CCW_MENU;
         rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
         actions += rotate_left;
@@ -2205,7 +2205,7 @@ public class LibraryPhotoPage : EditingHostPage {
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
         
-        Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>R",
+        Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>O",
             TRANSLATABLE, toggle_crop };
         crop.label = Resources.CROP_MENU;
         crop.tooltip = Resources.CROP_TOOLTIP;
@@ -2394,7 +2394,7 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
         Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
         
-        Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>R",
+        Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>A",
             TRANSLATABLE, on_display_ratings, Config.get_instance().get_display_photo_ratings() };
         ratings.label = Resources.VIEW_RATINGS_MENU;
         ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;
@@ -2709,6 +2709,14 @@ public class LibraryPhotoPage : EditingHostPage {
 
             case "KP_9":
                 on_rate_rejected();
+            break;
+            
+            case "bracketright":
+                on_rotate_clockwise();
+    	    break;
+            
+            case "bracketleft":
+                on_rotate_counterclockwise();
             break;
             
             default:
@@ -3319,13 +3327,13 @@ public class DirectPhotoPage : EditingHostPage {
         actions += next;
 
         Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
-            TRANSLATABLE, "bracketright", TRANSLATABLE, on_rotate_clockwise };
+            TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
         rotate_right.label = Resources.ROTATE_CW_MENU;
         rotate_right.tooltip = Resources.ROTATE_CCW_TOOLTIP;
         actions += rotate_right;
 
         Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
-            TRANSLATABLE, "bracketleft", TRANSLATABLE, on_rotate_counterclockwise };
+            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
         rotate_left.label = Resources.ROTATE_CCW_MENU;
         rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
         actions += rotate_left;
@@ -3348,7 +3356,7 @@ public class DirectPhotoPage : EditingHostPage {
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
         
-        Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>R",
+        Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>O",
             TRANSLATABLE, toggle_crop };
         crop.label = Resources.CROP_MENU;
         crop.tooltip = Resources.CROP_TOOLTIP;
@@ -3725,6 +3733,26 @@ public class DirectPhotoPage : EditingHostPage {
     private void on_send_to() {
         if (has_photo())
             DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
+    }
+    
+    protected override bool on_app_key_pressed(Gdk.EventKey event) {
+        bool handled = true;
+        
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "bracketright":
+	            on_rotate_clockwise();
+            break;
+
+            case "bracketleft":
+	            on_rotate_counterclockwise();
+            break;
+
+            default:
+                handled = false;
+            break;
+        }
+        
+        return handled ? true : base.on_app_key_pressed(event);
     }
     
 #if !NO_PRINTING
