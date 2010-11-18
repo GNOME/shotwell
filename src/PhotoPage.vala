@@ -2713,10 +2713,14 @@ public class LibraryPhotoPage : EditingHostPage {
             
             case "bracketright":
                 on_rotate_clockwise();
-    	    break;
+            break;
             
             case "bracketleft":
                 on_rotate_counterclockwise();
+            break;
+            
+            case "slash":
+                on_flag_unflag();
             break;
             
             default:

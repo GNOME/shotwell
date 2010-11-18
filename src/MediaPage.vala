@@ -847,6 +847,10 @@ public abstract class MediaPage : CheckerboardPage {
                     set_rating_view_filter(RatingFilter.REJECTED_ONLY);
             break;
             
+            case "slash":
+                on_flag_unflag();
+            break;
+            
             default:
                 handled = false;
             break;
