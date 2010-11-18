@@ -38,7 +38,10 @@ public class LibraryWindow : AppWindow {
     
     // special Yorba-selected sidebar background color for standard themes (humanity,
     // clearlooks, etc.); dark themes use the theme's native background color
-    public const uint16 STANDARD_COMPONENT_MINIMUM = 0xf00;
+    public static Gdk.Color SIDEBAR_STANDARD_BG_COLOR = parse_color("#EEE");
+    
+    // Max brightness value to trigger SIDEBAR_STANDARD_BG_COLOR 
+    public const uint16 STANDARD_COMPONENT_MINIMUM = 0xe000;
     
     // In fullscreen mode, want to use LibraryPhotoPage, but fullscreen has different requirements,
     // esp. regarding when the widget is realized and when it should first try and throw them image
@@ -93,10 +96,6 @@ public class LibraryWindow : AppWindow {
             base.destroy();
         }
     }
-    
-    // special Yorba-selected sidebar background color for standard themes (humanity,
-    // clearlooks, etc.); dark themes use the theme's native background color
-    public static Gdk.Color SIDEBAR_STANDARD_BG_COLOR = parse_color("#EEE");
 
     private string import_dir = Environment.get_home_dir();
 
@@ -1602,9 +1601,9 @@ public class LibraryWindow : AppWindow {
         
         Gtk.Settings settings = Gtk.Settings.get_default();
         HashTable<string, Gdk.Color?> color_table = settings.color_hash;
-        Gdk.Color? base_color = color_table.lookup("bg_color");
-        if (base_color != null && (base_color.red > STANDARD_COMPONENT_MINIMUM ||
-            base_color.green > STANDARD_COMPONENT_MINIMUM ||
+        Gdk.Color? base_color = color_table.lookup("base_color");
+        if (base_color != null && (base_color.red > STANDARD_COMPONENT_MINIMUM &&
+            base_color.green > STANDARD_COMPONENT_MINIMUM &&
             base_color.blue > STANDARD_COMPONENT_MINIMUM)) {
             // if the current theme is a standard theme (as opposed to a dark theme), then
             // use the specially-selected Yorba muted background color for the sidebar.
