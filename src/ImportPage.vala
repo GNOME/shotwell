@@ -1225,10 +1225,19 @@ public class ImportPage : CheckerboardPage {
         this.local_ref = null;
         
         if (manifest.success.size > 0) {
-            string question_string = (ngettext("Delete this photo from camera?",
+            string photos_string = (ngettext("Delete this photo from camera?",
                 "Delete these %d photos from camera?", 
                 manifest.success.size)).printf(manifest.success.size);
-        
+            string videos_string = (ngettext("Delete this video from camera?",
+                "Delete these %d videos from camera?", 
+                manifest.success.size)).printf(manifest.success.size);
+            string both_string = (ngettext("Delete this photo/video from camera?",
+                "Delete these %d photos/videos from camera?", 
+                manifest.success.size)).printf(manifest.success.size);
+
+            string question_string = ImportUI.get_media_specific_string(manifest.success,
+                photos_string, videos_string, both_string);
+
             ImportUI.QuestionParams question = new ImportUI.QuestionParams(
                 question_string, Gtk.STOCK_DELETE, _("_Keep"));
         
@@ -1249,12 +1258,12 @@ public class ImportPage : CheckerboardPage {
         }
         
         ProgressDialog progress = new ProgressDialog(AppWindow.get_instance(), 
-            _("Removing photos from camera"), new Cancellable());
+            _("Removing photos/videos from camera"), new Cancellable());
         int error_count = import_sources.destroy_marked(marker, true, progress.monitor);
         if (error_count > 0) {
             string error_string =
-                (ngettext("Unable to delete %d photo from the camera due to errors.",
-                "Unable to delete %d photos from the camera due to errors.", error_count)).printf(
+                (ngettext("Unable to delete %d photo/video from the camera due to errors.",
+                "Unable to delete %d photos/videos from the camera due to errors.", error_count)).printf(
                 error_count);
             AppWindow.error_message(error_string);
         }

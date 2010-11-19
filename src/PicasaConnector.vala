@@ -462,7 +462,7 @@ public class Interactor : ServiceInteractor {
         get_host().unlock_service();
         get_host().set_close_button_mode();
 
-        get_host().install_pane(new SuccessPane());
+        get_host().install_pane(new SuccessPane(get_host().get_media_type()));
     }
 
     internal Session get_session() {

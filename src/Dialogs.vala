@@ -10,8 +10,11 @@ private static File current_export_dir = null;
 public File? choose_file(string current_file_basename) {
     if (current_export_dir == null)
         current_export_dir = File.new_for_path(Environment.get_home_dir());
+
+    string file_chooser_title = VideoReader.is_supported_video_filename(current_file_basename) ?
+        _("Export Video") : _("Export Photo");
         
-    Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(_("Export Photo"),
+    Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(file_chooser_title,
         AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.STOCK_CANCEL, 
         Gtk.ResponseType.CANCEL, Gtk.STOCK_SAVE, Gtk.ResponseType.ACCEPT, null);
     chooser.set_do_overwrite_confirmation(true);
@@ -30,11 +33,14 @@ public File? choose_file(string current_file_basename) {
     return file;
 }
 
-public File? choose_dir() {
+public File? choose_dir(string? user_title = null) {
     if (current_export_dir == null)
         current_export_dir = File.new_for_path(Environment.get_home_dir());
 
-    Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(_("Export Photos"),
+    if (user_title == null)
+        user_title = _("Export Photos");
+
+    Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(user_title,
         AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, 
         Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT, null);
     chooser.set_current_folder(current_export_dir.get_path());
@@ -402,17 +408,54 @@ public class QuestionParams {
     }
 }
 
+public bool import_has_photos(Gee.Collection<BatchImportResult> import_collection) {
+    foreach (BatchImportResult current_result in import_collection) {
+        if (PhotoFileFormat.get_by_file_extension(current_result.file) != PhotoFileFormat.UNKNOWN)
+            return true;
+    }
+    return false;
+}
+
+public bool import_has_videos(Gee.Collection<BatchImportResult> import_collection) {
+    foreach (BatchImportResult current_result in import_collection) {
+        if (VideoReader.is_supported_video_file(current_result.file))
+            return true;
+    }
+    return false;
+}
+
+public string get_media_specific_string(Gee.Collection<BatchImportResult> import_collection,
+    string photos_msg, string videos_msg, string both_msg) {
+    bool has_photos = import_has_photos(import_collection);
+    bool has_videos = import_has_videos(import_collection);
+        
+    if (has_photos && has_videos)
+        return both_msg;
+    else if (has_photos)
+        return photos_msg;
+    else if (has_videos)
+        return videos_msg;
+    else
+        assert_not_reached();
+}
+
 // Returns true if the user selected the yes action, false otherwise.
 public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? question = null) {
     string message = "";
     
     if (manifest.already_imported.size > 0) {
-        string already_imported_message =
-            (ngettext("1 duplicate photo was not imported:\n",
+        string photos_message = (ngettext("1 duplicate photo was not imported:\n",
             "%d duplicate photos were not imported:\n",
             manifest.already_imported.size)).printf(manifest.already_imported.size);
+        string videos_message = (ngettext("1 duplicate video was not imported:\n",
+            "%d duplicate videos were not imported:\n",
+            manifest.already_imported.size)).printf(manifest.already_imported.size);
+        string both_message = (ngettext("1 duplicate photo/video was not imported:\n",
+            "%d duplicate photos/videos were not imported:\n",
+            manifest.already_imported.size)).printf(manifest.already_imported.size);
 
-        message += already_imported_message;
+        message += get_media_specific_string(manifest.already_imported, photos_message,
+            videos_message, both_message);
         
         if (list)
             message += generate_import_failure_list(manifest.already_imported);
@@ -422,12 +465,18 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         if (list && message.length > 0)
             message += "\n";
         
-        string failed_message =
-            (ngettext("1 photo failed to import due to a file or hardware error:\n",
-                "%d photos failed to import due to a file or hardware error:\n",
-                manifest.failed.size)).printf(manifest.failed.size);
-
-        message += failed_message;
+        string photos_message = (ngettext("1 photo failed to import due to a file or hardware error:\n",
+            "%d photos failed to import due to a file or hardware error:\n",
+            manifest.failed.size)).printf(manifest.failed.size);
+        string videos_message = (ngettext("1 video failed to import due to a file or hardware error:\n",
+            "%d videos failed to import due to a file or hardware error:\n",
+            manifest.failed.size)).printf(manifest.failed.size);
+        string both_message = (ngettext("1 photo/video failed to import due to a file or hardware error:\n",
+            "%d photos/videos failed to import due to a file or hardware error:\n",
+            manifest.failed.size)).printf(manifest.failed.size);
+        
+        message += get_media_specific_string(manifest.failed, photos_message, videos_message,
+            both_message);
         
         if (list)
             message += generate_import_failure_list(manifest.failed);
@@ -436,13 +485,19 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     if (manifest.camera_failed.size > 0) {
         if (list && message.length > 0)
             message += "\n";
+
+        string photos_message = (ngettext("1 photo failed to import due to a camera error:\n",
+            "%d photos failed to import due to a camera error:\n",
+            manifest.camera_failed.size)).printf(manifest.camera_failed.size);
+        string videos_message = (ngettext("1 video failed to import due to a camera error:\n",
+            "%d videos failed to import due to a camera error:\n",
+            manifest.camera_failed.size)).printf(manifest.camera_failed.size);
+        string both_message = (ngettext("1 photo/video failed to import due to a camera error:\n",
+            "%d photos/videos failed to import due to a camera error:\n",
+            manifest.camera_failed.size)).printf(manifest.camera_failed.size);
         
-        string camera_failed_message =
-            ngettext("1 photo failed to import due to a camera error:\n",
-                "%d photos failed to import due to a camera error:\n",
-                manifest.camera_failed.size).printf(manifest.camera_failed.size);
-            
-        message += camera_failed_message;
+        message += get_media_specific_string(manifest.camera_failed, photos_message, videos_message,
+            both_message);
         
         if (list)
             message += generate_import_failure_list(manifest.camera_failed);
@@ -451,7 +506,10 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     if (manifest.skipped_photos.size > 0) {
         if (list && message.length > 0)
             message += "\n";
-        
+        // we have no notion of "unsupported" video files right now in Shotwell (all
+        // standard container formats are supported, it's just that the streams in them
+        // might or might not be interpretable), so this message does not need to be
+        // media specific
         string skipped_photos_message = (ngettext("1 unsupported photo skipped:\n",
             "%d unsupported photos skipped:\n", manifest.skipped_photos.size)).printf(
             manifest.skipped_photos.size);
@@ -465,7 +523,9 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     if (manifest.skipped_files.size > 0) {
         if (list && message.length > 0)
             message += "\n";
-        
+
+        // we have no notion of "non-video" video files right now in Shotwell, so this
+        // message doesn't need to be media specific
         string skipped_files_message = (ngettext("1 non-image file skipped.\n",
             "%d non-image files skipped.\n", manifest.skipped_files.size)).printf(
             manifest.skipped_files.size);
@@ -476,12 +536,19 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     if (manifest.aborted.size > 0) {
         if (list && message.length > 0)
             message += "\n";
-        
-        string aborted_message = (ngettext("1 photo skipped due to user cancel:\n",
-            "%d photos skipped due to user cancel:\n", manifest.aborted.size)).printf(
-            manifest.aborted.size);
 
-        message += aborted_message;
+        string photos_message = (ngettext("1 photo skipped due to user cancel:\n",
+            "%d photos skipped due to user cancel:\n",
+            manifest.aborted.size)).printf(manifest.aborted.size);
+        string videos_message = (ngettext("1 video skipped due to user cancel:\n",
+            "%d videos skipped due to user cancel:\n",
+            manifest.aborted.size)).printf(manifest.aborted.size);
+        string both_message = (ngettext("1 photo/video skipped due to user cancel:\n",
+            "%d photos/videos skipped due to user cancel:\n",
+            manifest.aborted.size)).printf(manifest.aborted.size);
+        
+        message += get_media_specific_string(manifest.aborted, photos_message, videos_message,
+            both_message);
         
         if (list)
             message += generate_import_failure_list(manifest.aborted);
@@ -490,11 +557,19 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     if (manifest.success.size > 0) {
         if (list && message.length > 0)
             message += "\n";
+
+        string photos_message = (ngettext("1 photo successfully imported.\n",
+            "%d photos successfully imported.\n",
+            manifest.success.size)).printf(manifest.success.size);
+        string videos_message = (ngettext("1 video successfully imported.\n",
+            "%d videos successfully imported.\n",
+            manifest.success.size)).printf(manifest.success.size);
+        string both_message = (ngettext("1 photo/video successfully imported.\n",
+            "%d photos/videos successfully imported.\n",
+            manifest.success.size)).printf(manifest.success.size);
         
-        string success_message = (ngettext("1 photo successfully imported.\n",
-            "%d photos successfully imported.\n", manifest.success.size)).printf(
-            manifest.success.size);
-        message += success_message;
+        message += get_media_specific_string(manifest.success, photos_message, videos_message,
+            both_message);
     }
     
     int total = manifest.success.size + manifest.failed.size + manifest.camera_failed.size
@@ -502,10 +577,10 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         + manifest.already_imported.size + manifest.aborted.size;
     assert(total == manifest.all.size);
     
-    // if no photos imported at all (i.e. an empty directory attempted), need to at least report
-    // that nothing was imported
+    // if no media items were imported at all (i.e. an empty directory attempted), need to at least
+    // report that nothing was imported
     if (total == 0)
-        message += _("No photos imported.\n");
+        message += _("No photos or videos imported.\n");
     
     Gtk.MessageDialog dialog = null;
     if (question == null) {
@@ -719,15 +794,12 @@ public class EditTitleDialog : TextEntryDialogMediator {
 
 // Returns: Gtk.ResponseType.YES (trash photos), Gtk.ResponseType.NO (only remove photos) and
 // Gtk.ResponseType.CANCEL.
-public Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string title, int count) {
-    string msg = ngettext(
-        "This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-        "This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
-        count).printf(count);
+public Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string title,
+    string user_message, int count) {
     string trash_action = ngettext("_Trash File", "_Trash Files", count);
     
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
-        Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", msg);
+        Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", user_message);
     dialog.add_button(_("Only _Remove"), Gtk.ResponseType.NO);
     dialog.add_button(trash_action, Gtk.ResponseType.YES);
     dialog.title = title;

@@ -431,7 +431,7 @@ public class Video : VideoSource, Flaggable {
         }
 
         // multiple videos
-        File export_dir = ExportUI.choose_dir();
+        File export_dir = ExportUI.choose_dir(_("Export Videos"));
         if (export_dir == null)
             return null;
         

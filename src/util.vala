@@ -556,8 +556,27 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
     if (sources.size == 0)
         return;
     
+    Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+    Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+    MediaSourceCollection.filter_media(sources, photos, videos);
+    
+    string? user_message = null;
+    if ((!photos.is_empty) && (!videos.is_empty)) {
+        user_message = ngettext("This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d photos/videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+             sources.size).printf(sources.size);
+    } else if (!videos.is_empty) {
+        user_message = ngettext("This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+             sources.size).printf(sources.size);
+    } else {
+        user_message = ngettext("This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+             sources.size).printf(sources.size);
+    }
+    
     Gtk.ResponseType result = remove_from_library_dialog(AppWindow.get_instance(), dialog_title,
-        sources.size);
+        user_message, sources.size);
     if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
         return;
     
@@ -568,10 +587,6 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
     ProgressDialog progress = null;
     if (sources.size >= 20)
         progress = new ProgressDialog(AppWindow.get_instance(), progress_dialog_text);
-    
-    Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-    Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
-    MediaSourceCollection.filter_media(sources, photos, videos);
     
     if (progress != null) {
         LibraryPhoto.global.remove_from_app(photos, delete_backing, progress.monitor);

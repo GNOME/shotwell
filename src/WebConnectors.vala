@@ -644,8 +644,15 @@ public class ProgressPane : PublishingDialogPane {
 }
 
 public class SuccessPane : StaticMessagePane {
-    public SuccessPane() {
-        base(_("The selected photos were successfully published."));
+    public SuccessPane(MediaType published_media) {
+        string? message_string = null;
+        if (published_media == MediaType.ALL)
+            message_string = _("The selected photos/videos were successfully published.");
+        else if (published_media == MediaType.VIDEO)
+            message_string = _("The selected videos were successfully published.");
+        else
+            message_string = _("The selected photos were successfully published.");
+        base(message_string);
     }
 }
 
@@ -1011,8 +1018,8 @@ public abstract class BatchUploader {
         }
     }
 
-    private const string PREPARE_STATUS_DESCRIPTION = _("Preparing photos for upload");
-    private const string UPLOAD_STATUS_DESCRIPTION = _("Uploading photo %d of %d");
+    private const string PREPARE_STATUS_DESCRIPTION = _("Preparing for upload");
+    private const string UPLOAD_STATUS_DESCRIPTION = _("Uploading %d of %d");
     private const string TEMP_FILE_PREFIX = "publishing-";
     private const double PREPARATION_PHASE_FRACTION = 0.3;
     private const double UPLOAD_PHASE_FRACTION = 0.7;
@@ -1085,7 +1092,7 @@ public abstract class BatchUploader {
 
         double fraction_complete = PREPARATION_PHASE_FRACTION +
             (current_file * (UPLOAD_PHASE_FRACTION / temp_files.length));
-        status_updated(_("Uploading photo %d of %d").printf(current_file + 1, temp_files.length),
+        status_updated(_("Uploading %d of %d").printf(current_file + 1, temp_files.length),
             fraction_complete);
 
         RESTTransaction txn = create_transaction_for_file(file);
@@ -1147,7 +1154,7 @@ public abstract class BatchUploader {
     }
 
     public void upload() {
-        status_updated(_("Preparing photos for upload"), 0);
+        status_updated(_("Preparing for upload"), 0);
 
         temp_files = prepare_files();
         current_file = 0;

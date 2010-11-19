@@ -561,7 +561,9 @@ public abstract class CollectionPage : MediaPage {
             return;
         }
 
-        string title = ngettext("Export Photo", "Export Photos", export_list.size);
+        string title =  (has_some_videos) ? 
+            ngettext("Export Photo/Video", "Export Photos/Videos", export_list.size) :
+            ngettext("Export Photo", "Export Photos", export_list.size);
         ExportDialog export_dialog = new ExportDialog(title);
 
         // Setting up the parameters object requires a bit of thinking about what the user wants.
@@ -609,8 +611,8 @@ public abstract class CollectionPage : MediaPage {
             return;
         }
 
-        // multiple photos
-        File export_dir = ExportUI.choose_dir();
+        // multiple photos or videos
+        File export_dir = ExportUI.choose_dir(title);
         if (export_dir == null)
             return;
         
