@@ -569,7 +569,6 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public static void generate_many_events(Gee.Collection<MediaSource> sources, ViewCollection events_so_far) {
-        Gee.MultiMap<Event, Photo> photos = new Gee.HashMultiMap<Event, Photo>();
         Gee.Collection<Event> to_add = new Gee.ArrayList<Event>();
         foreach (MediaSource media in sources) {
             // do not replace existing assignments
@@ -581,18 +580,11 @@ public class Event : EventSource, ContainerSource, Proxyable {
             if (event == null)
                 continue;
             
-            LibraryPhoto? photo = media as LibraryPhoto;
-            if (photo != null)
-                photos.set(event, photo);
-            else
-                media.set_event(event);
+            media.set_event(event);
             
             if (new_event)
                 to_add.add(event);
         }
-        
-        foreach (Event event in photos.get_keys())
-            Photo.set_many_to_event(photos.get(event), event);
         
         if (to_add.size > 0)
             global.add_many(to_add);
