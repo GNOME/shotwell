@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.7.2\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-10-12 15:39-0700\n"
-"PO-Revision-Date: 2010-10-25 12:31-0000\n"
+"PO-Revision-Date: 2010-11-21 19:09-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1002,7 +1002,7 @@ msgstr "_Ver"
 #: src/PhotoPage.vala:3295
 #: src/TrashPage.vala:115
 msgid "_Help"
-msgstr "A_juda"
+msgstr "_Ajuda"
 
 #: src/EventsDirectoryPage.vala:224
 #: src/ImportPage.vala:571
@@ -1431,7 +1431,7 @@ msgstr "Exibe informações detalhadas para a seleção"
 #: src/LibraryWindow.vala:330
 #: src/MediaPage.vala:460
 msgid "_Ascending"
-msgstr "_Ascendente"
+msgstr "A_scendente"
 
 #: src/LibraryWindow.vala:331
 #: src/MediaPage.vala:461
@@ -1478,7 +1478,7 @@ msgstr "As fotos neste diretório não podem ser importadas."
 
 #: src/LibraryWindow.vala:1082
 msgid "Tags"
-msgstr "Etiquetas"
+msgstr "_Etiquetas"
 
 #: src/LibraryWindow.vala:1204
 msgid "Cameras"
@@ -1536,13 +1536,13 @@ msgstr "Exportar para o disco os itens selecionados"
 
 #: src/MediaPage.vala:313
 msgid "_Photos"
-msgstr "_Fotos"
+msgstr "F_otos"
 
 #: src/MediaPage.vala:318
 #: src/PhotoPage.vala:2263
 #: src/PhotoPage.vala:3300
 msgid "Zoom _In"
-msgstr "_Ampliar"
+msgstr "A_mpliar"
 
 #: src/MediaPage.vala:319
 msgid "Increase the magnification of the thumbnails"
@@ -1560,7 +1560,7 @@ msgstr "Diminuir a ampliação das miniaturas"
 
 #: src/MediaPage.vala:397
 msgid "Sort _Photos"
-msgstr "Organizar _fotos"
+msgstr "_Organizar fotos"
 
 #: src/MediaPage.vala:438
 msgid "By _Title"
@@ -1722,7 +1722,7 @@ msgstr "Gravar foto com um nome diferente"
 #: src/PhotoPage.vala:3188
 #: src/Resources.vala:219
 msgid "Page _Setup..."
-msgstr "Conf_igurar página..."
+msgstr "_Configurar página..."
 
 #: src/PhotoPage.vala:3194
 #: src/Resources.vala:223
@@ -2111,7 +2111,7 @@ msgstr "\"Copyright\" 2009-2010 Fundação Yorba"
 
 #: src/Resources.vala:104
 msgid "Rotate _Right"
-msgstr "_Rodar à direita"
+msgstr "Rodar à _direita"
 
 #: src/Resources.vala:105
 #: src/Resources.vala:110
@@ -2212,7 +2212,7 @@ msgstr "Ajusta a cor e os tons das fotos"
 
 #: src/Resources.vala:138
 msgid "Re_vert to Original"
-msgstr "Re_verter para o original"
+msgstr "_Reverter para o original"
 
 #: src/Resources.vala:139
 msgid "Revert to Original"
@@ -2454,7 +2454,7 @@ msgstr "Im_primir..."
 
 #: src/Resources.vala:225
 msgid "Pu_blish..."
-msgstr "Pu_blicar..."
+msgstr "_Publicar..."
 
 #: src/Resources.vala:226
 msgid "Publish"
@@ -2486,7 +2486,7 @@ msgstr "Ajustar a data e hora das fotos selecionadas"
 
 #: src/Resources.vala:237
 msgid "Add _Tags..."
-msgstr "Adicionar e_tiquetas..."
+msgstr "_Adicionar etiquetas..."
 
 #: src/Resources.vala:238
 #: src/Resources.vala:260
@@ -2692,7 +2692,7 @@ msgstr "Mover as fotos selecionadas para a galeria"
 
 #: src/Resources.vala:572
 msgid "Show in File Mana_ger"
-msgstr "Mostrar no _gestor de ficheiros"
+msgstr "_Mostrar no gestor de ficheiros"
 
 #: src/Resources.vala:573
 msgid "Open the selected photo's directory in the file manager"
@@ -2725,7 +2725,7 @@ msgstr "Mover a foto para o lixo"
 
 #: src/Resources.vala:587
 msgid "Select _All"
-msgstr "Selecionar _todas"
+msgstr "_Selecionar todas"
 
 #: src/Resources.vala:588
 msgid "Select all items"

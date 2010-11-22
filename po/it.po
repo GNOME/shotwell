@@ -1277,9 +1277,8 @@ msgid "Stop importing photos"
 msgstr "Ferma l'importazione delle foto"
 
 #: src/ImportPage.vala:1394
-#, fuzzy
 msgid "Preparing to import..."
-msgstr "Preparazione foto per l'importazione..."
+msgstr "Preparazione per l'importazione..."
 
 #: src/ImportPage.vala:1417
 #, c-format
@@ -1457,7 +1456,6 @@ msgid "Adjust the size of the thumbnails"
 msgstr "Regola la dimensione delle miniature"
 
 #: src/MediaPage.vala:299
-#, fuzzy
 msgid "Export the selected items to disk"
 msgstr "Esporta le foto selezionate sul disco"
 

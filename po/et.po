@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.7.2+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-10-12 15:39-0700\n"
-"PO-Revision-Date: 2010-11-02 00:00+0300\n"
+"PO-Revision-Date: 2010-11-22 01:37+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz@gmail.com>\n"
 "Language-Team: Gnome Estonian Translation Team <gnome-et linux ee>\n"
 "MIME-Version: 1.0\n"
@@ -822,7 +822,7 @@ msgstr "Visiitkaart USA (2\" x 3\")"
 #: src/EditingTools.vala:593
 #: src/Printing.vala:768
 msgid "Notecard (3 x 5 in.)"
-msgstr "Märkekaart (3\" x 5\")"
+msgstr "Märkepaber (3\" x 5\")"
 
 #: src/EditingTools.vala:594
 #: src/Printing.vala:771
@@ -1297,7 +1297,7 @@ msgstr "Lahtihaakimine..."
 
 #: src/ImportPage.vala:812
 msgid "Fetching photo information"
-msgstr "Foto teabe hankimine"
+msgstr "Foto andmete hankimine"
 
 #: src/ImportPage.vala:1047
 #, c-format
@@ -1411,19 +1411,19 @@ msgstr "Kõigi prügikastis olevate fotode kustutamine"
 
 #: src/LibraryWindow.vala:311
 msgid "_Basic Information"
-msgstr "Pea_mine teave"
+msgstr "Põhi_andmed"
 
 #: src/LibraryWindow.vala:312
 msgid "Display basic information for the selection"
-msgstr "Valiku kohta põhiteabe kuvamine"
+msgstr "Valiku kohta peamiste andmete kuvamine"
 
 #: src/LibraryWindow.vala:317
 msgid "E_xtended Information"
-msgstr "_Lisateave"
+msgstr "Ü_ksikasjad"
 
 #: src/LibraryWindow.vala:318
 msgid "Display extended information for the selection"
-msgstr "Valitud pildi kohta lisateabe kuvamine"
+msgstr "Valitud pildi kohta üksikasjalike andmete kuvamine"
 
 #: src/LibraryWindow.vala:330
 #: src/MediaPage.vala:460
@@ -1719,7 +1719,7 @@ msgstr "Foto salvestamine uue nimega"
 #: src/PhotoPage.vala:3188
 #: src/Resources.vala:219
 msgid "Page _Setup..."
-msgstr "Paberi _sätted..."
+msgstr "Lehekülje _sätted..."
 
 #: src/PhotoPage.vala:3194
 #: src/Resources.vala:223
@@ -2101,7 +2101,7 @@ msgstr "Tarkvara:"
 
 #: src/Properties.vala:478
 msgid "Extended Information"
-msgstr "Täpsem teave"
+msgstr "Üksikasjalikud andmed"
 
 #: src/RawSupport.vala:135
 msgid "RAW"
@@ -2412,7 +2412,7 @@ msgstr "Kõigi fotode hinnangute kuvamine"
 
 #: src/Resources.vala:208
 msgid "_Filter Photos"
-msgstr "Fotode _filtreerimine"
+msgstr "Foto_filter"
 
 #: src/Resources.vala:209
 msgid "Filter Photos"
@@ -2444,7 +2444,7 @@ msgstr "Foto eksportimine kettale"
 
 #: src/Resources.vala:220
 msgid "View and change page setup printing"
-msgstr "Paberile printimisesätete kuvamine ja muutmine"
+msgstr "Printimise sätete kuvamine ja muutmine"
 
 #: src/Resources.vala:222
 msgid "_Print..."
@@ -2527,33 +2527,33 @@ msgstr "Redaktori käivitamine pole võimalik: %s"
 #: src/Resources.vala:256
 #, c-format
 msgid "Add Tag \"%s\""
-msgstr "Lisa märksõna \"%s\""
+msgstr "Lisa silt \"%s\""
 
 #: src/Resources.vala:258
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
-msgstr "Lisa märksõnad \"%s\" ja \"%s\""
+msgstr "Lisa sildid \"%s\" ja \"%s\""
 
 #: src/Resources.vala:264
 #, c-format
 msgid "_Delete Tag \"%s\""
-msgstr "_Kustuta märksõna \"%s\""
+msgstr "_Kustuta silt \"%s\""
 
 #: src/Resources.vala:268
 #, c-format
 msgid "Delete Tag \"%s\""
-msgstr "Kustuta märksõna \"%s\""
+msgstr "Kustuta silt \"%s\""
 
 #: src/Resources.vala:272
 #, c-format
 msgid "Remove the tag \"%s\" from one photo"
 msgid_plural "Remove the tag \"%s\" from %d photos"
-msgstr[0] "Eemalda märksõna \"%s\" ühelt fotolt"
-msgstr[1] "Eemalda märksõna \"%s\" %d fotolt"
+msgstr[0] "Eemalda silt \"%s\" ühelt fotolt"
+msgstr[1] "Eemalda silt \"%s\" %d fotolt"
 
 #: src/Resources.vala:276
 msgid "Delete Tag"
-msgstr "Kustuta märksõna"
+msgstr "Kustuta silt"
 
 #: src/Resources.vala:279
 #, c-format
@@ -2563,12 +2563,12 @@ msgstr "_Nimeta silt \"%s\" ümber..."
 #: src/Resources.vala:283
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
-msgstr "Nimeta märksõna \"%s\" ümber kui \"%s\""
+msgstr "Nimeta silt \"%s\" ümber kui \"%s\""
 
 #: src/Resources.vala:287
 #, c-format
 msgid "Rename the tag \"%s\""
-msgstr "Nimeta märksõna \"%s\" ümber"
+msgstr "Nimeta silt \"%s\" ümber"
 
 #: src/Resources.vala:290
 msgid "Rename Tag"
@@ -2611,8 +2611,8 @@ msgstr[1] "Sildi \"%s\" eemaldamine valitud _fotodelt"
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgid_plural "Remove Tag \"%s\" From Photos"
-msgstr[0] "Märksõna \"%s\" eemaldamine fotolt"
-msgstr[1] "Märksõna \"%s\" eemaldamine fotodelt"
+msgstr[0] "Sildi \"%s\" eemaldamine fotolt"
+msgstr[1] "Sildi \"%s\" eemaldamine fotodelt"
 
 #: src/Resources.vala:314
 #, c-format
@@ -2624,7 +2624,7 @@ msgstr[1] "Sildi \"%s\" eemaldamine valitud fotodelt"
 #: src/Resources.vala:319
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
-msgstr "Märksõna nimeks pole võimalik määrata \"%s\", kuna selline märksõna on juba olemas."
+msgstr "Sildi nimeks pole võimalik määrata \"%s\", kuna selline silt on juba olemas."
 
 #: src/Resources.vala:467
 #, c-format
@@ -2793,8 +2793,8 @@ msgstr "Slaidiesitluse jätkamine"
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] "See eemaldab märksõna \"%s\" ühelt fotolt. Kas jätkata?"
-msgstr[1] "See eemaldab märksõna \"%s\" %d fotolt. Kas jätkata?"
+msgstr[0] "See eemaldab sildi \"%s\" ühelt fotolt. Kas jätkata?"
+msgstr[1] "See eemaldab sildi \"%s\" %d fotolt. Kas jätkata?"
 
 #: src/TrashPage.vala:17
 msgid "Trash"
@@ -2863,7 +2863,7 @@ msgstr "Valitud fotode avaldamine oli edukas."
 
 #: src/WebConnectors.vala:642
 msgid "Fetching account information..."
-msgstr "Konto andmete hankimine..."
+msgstr "Kontoandmete hankimine..."
 
 #: src/WebConnectors.vala:648
 msgid "Logging in..."
@@ -2932,7 +2932,7 @@ msgstr "Shotwelli eelistused"
 
 #: ui/shotwell.glade:124
 msgid "_Background:"
-msgstr "_Taustavärvus:"
+msgstr "_Taust:"
 
 #: ui/shotwell.glade:140
 msgid "_Import photos to:"
