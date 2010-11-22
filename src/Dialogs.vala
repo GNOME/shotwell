@@ -1732,8 +1732,8 @@ public Gtk.ResponseType copy_files_dialog() {
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
         Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, "%s", msg);
 
-    dialog.add_button(_("Co_py into Library"), Gtk.ResponseType.ACCEPT);
-    dialog.add_button(_("_Import without Copying"), Gtk.ResponseType.REJECT);
+    dialog.add_button(_("Co_py Photos"), Gtk.ResponseType.ACCEPT);
+    dialog.add_button(_("_Import in Place"), Gtk.ResponseType.REJECT);
     dialog.title = _("Import to Library");
 
     Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
