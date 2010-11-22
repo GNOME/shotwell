@@ -511,83 +511,45 @@ public class Event : EventSource, ContainerSource, Proxyable {
     // This method attempts to add a media source to an event in the supplied list that it would
     // naturally fit into (i.e. its exposure is within the boundary day of the earliest event
     // photo).  Otherwise, a new Event is generated and the source is added to it and the list.
-    private static Event? generate_event(MediaSource media, ViewCollection events_so_far,
-        string? event_name, out bool new_event) {
-        time_t exposure_time = media.get_exposure_time();
-        
+    public static void generate_import_event(MediaSource source, ViewCollection events_so_far,
+        string? event_name = null) {
+        time_t exposure_time = source.get_exposure_time();
+
         if (exposure_time == 0 && event_name == null) {
-            debug("Skipping event assignment to %s: no exposure time and no event name", media.to_string());
+            debug("Skipping event assignment to %s: no exposure time and no event name", source.to_string());
             
-            return null;
+            return;
         }
         
         int count = events_so_far.get_count();
         for (int ctr = 0; ctr < count; ctr++) {
             Event event = (Event) ((EventView) events_so_far.get_at(ctr)).get_source();
             
-            if ((event_name != null && event.has_name() && event_name == event.get_name())
-                || event.is_in_starting_day(exposure_time)) {
-                new_event = false;
+            if (event_name != null) {
+                if (event.has_name() && event_name == event.get_name()) {
+                    source.set_event(event);
+                    
+                    return;
+                }
+            } else if (event.is_in_starting_day(exposure_time)) {
+                source.set_event(event);
                 
-                return event;
+                return;
             }
         }
         
         // no Event so far fits the bill for this photo or video, so create a new one
         try {
-            Event event = new Event(EventTable.get_instance().create(media.get_source_id()));
+            Event event = new Event(EventTable.get_instance().create(source.get_source_id()));
             if (event_name != null)
                 event.rename(event_name);
+            source.set_event(event);
+            global.add(event);
             
             events_so_far.add(new EventView(event));
-            
-            new_event = true;
-            
-            return event;
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
-        
-        return null;
-    }
-    
-    public static void generate_single_event(MediaSource media, ViewCollection events_so_far,
-        string? event_name = null) {
-        // do not replace existing assignments
-        if (media.get_event() != null)
-            return;
-        
-        bool new_event;
-        Event? event = generate_event(media, events_so_far, event_name, out new_event);
-        if (event == null)
-            return;
-        
-        media.set_event(event);
-        
-        if (new_event)
-            global.add(event);
-    }
-    
-    public static void generate_many_events(Gee.Collection<MediaSource> sources, ViewCollection events_so_far) {
-        Gee.Collection<Event> to_add = new Gee.ArrayList<Event>();
-        foreach (MediaSource media in sources) {
-            // do not replace existing assignments
-            if (media.get_event() != null)
-                continue;
-            
-            bool new_event;
-            Event? event = generate_event(media, events_so_far, null, out new_event);
-            if (event == null)
-                continue;
-            
-            media.set_event(event);
-            
-            if (new_event)
-                to_add.add(event);
-        }
-        
-        if (to_add.size > 0)
-            global.add_many(to_add);
     }
     
     public EventID get_event_id() {
