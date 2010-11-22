@@ -690,6 +690,7 @@ private class WebAuthenticationPane : PublishingDialogPane {
         webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
         webview = new WebKit.WebView();
+        webview.get_settings().enable_plugins = false;
         webview.load_finished.connect(on_page_load);
         webview.load_started.connect(on_load_started);
 

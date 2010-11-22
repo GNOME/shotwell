@@ -702,6 +702,7 @@ public class Capabilities : ServiceCapabilities {
             webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
             webview = new WebKit.WebView();
+            webview.get_settings().enable_plugins = false;
             webview.load_finished.connect(on_load_finished);
             webview.load_started.connect(on_load_started);
             webview.navigation_requested.connect(navigation_requested);
