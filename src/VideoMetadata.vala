@@ -4,59 +4,240 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-extern void *lqt_open_read(string filename);
-extern int quicktime_close(void *handle);
-extern ulong lqt_get_creation_time(void *handle);
-extern unowned string? quicktime_get_name(void *handle);
-
 public class VideoMetadata : MediaMetadata {
-    // Quicktime calendar date/time format is number of seconds since January 1, 1904.
-    // This converts to UNIX time (66 years + 17 leap days).
-    private const ulong QUICKTIME_EPOCH_ADJUSTMENT = 2082844800;
     
-    private void *lqt_handle = null;
-    
+    private MetadataDateTime timestamp = null;
+    private string title = null;
+   
     public VideoMetadata() {
     }
     
     ~VideoMetadata() {
-        if (lqt_handle != null)
-            quicktime_close(lqt_handle);
     }
     
     public override void read_from_file(File file) throws Error {
-        lqt_handle = lqt_open_read(file.get_path());
-        if (lqt_handle == null)
-            throw new IOError.FAILED("Unable to open %s for video reading", file.get_path());
+        // Check against quicktime.
+        QuickTimeMetadataLoader quicktime = new QuickTimeMetadataLoader(file);
+        if (quicktime.is_supported()) {
+            timestamp = quicktime.get_creation_date_time();
+            title = quicktime.get_title();
+            return;
+        }
+        
+        throw new IOError.NOT_SUPPORTED("File %s is not a supported video format", file.get_path());
     }
     
     public override MetadataDateTime? get_creation_date_time() {
-        if (lqt_handle == null)
-            return null;
-        
-        ulong creation_time = lqt_get_creation_time(lqt_handle);
-        if (creation_time < QUICKTIME_EPOCH_ADJUSTMENT)
-            return null;
-        
-        creation_time -= QUICKTIME_EPOCH_ADJUSTMENT;
-        
-        // Due to a bug in libquicktime, some file formats return current time rather than a stored
-        // time ... allow for one second difference in case there's a clock tick, which I don't
-        // anticipate, but then again, I don't anticipate a library returning current time for
-        // a stored value.
-        ulong current_time = (ulong) time_t();
-        if (creation_time == current_time)
-            return null;
-        else if ((creation_time < current_time) && ((current_time - creation_time) <= 1))
-            return null;
-        else if ((creation_time > current_time) && ((creation_time - current_time) <= 1))
-            return null;
-        
-        return new MetadataDateTime((time_t) creation_time);
+        return timestamp;
     }
     
     public override string? get_title() {
-        return (lqt_handle != null) ? quicktime_get_name(lqt_handle) : null;
+        return title;
+    }
+    
+}
+
+private class QuickTimeMetadataLoader {
+
+    // Quicktime calendar date/time format is number of seconds since January 1, 1904.
+    // This converts to UNIX time (66 years + 17 leap days).
+    public static const ulong QUICKTIME_EPOCH_ADJUSTMENT = 2082844800;
+
+    private File file = null;
+
+    public QuickTimeMetadataLoader(File file) throws Error {
+        this.file = file;
+    }
+    
+    public MetadataDateTime? get_creation_date_time() {
+        return new MetadataDateTime((time_t) get_creation_date_time_for_quicktime());
+    }
+    
+    public string? get_title() {
+        // Not supported.
+        return null;
+    }
+
+    // Checks if the given file is a QuickTime file.
+    public bool is_supported() {
+        QuickTimeAtom test = new QuickTimeAtom(file);
+        
+        bool ret = false;
+        try {
+            test.open_file();            
+            test.read_atom();
+            
+            // Look for the header.
+            if ("ftyp" == test.get_current_atom_name()) {
+                // Read identifier.
+                GLib.StringBuilder sb = new GLib.StringBuilder();
+                sb.append_c((char)test.read_byte());
+                sb.append_c((char)test.read_byte());
+                sb.append_c((char)test.read_byte());
+                sb.append_c((char)test.read_byte());
+                string id_string = sb.str;
+            
+                if ("qt  " == id_string || "avc1" == id_string) {
+                    ret = true;
+                }
+            } else {
+                // Some versions of QuickTime don't have
+                // an ftyp section, so we'll just look
+                // for the mandatory moov section.
+                while(true) {
+                    if ("moov" == test.get_current_atom_name()) {
+                        ret = true;
+                        break;
+                    }
+                    test.next_atom();
+                    test.read_atom();
+                    if (test.is_last_atom()) {
+                        break;
+                    }
+                }
+            }
+            
+            test.close_file();
+        } catch (GLib.Error e) {
+            debug("Error while testing for QuickTime file: %s", e.message);
+        }
+        
+        return ret;
+    }
+
+    private ulong get_creation_date_time_for_quicktime() {
+        QuickTimeAtom test = new QuickTimeAtom(file);
+        ulong timestamp = 0;
+        
+        try {
+            test.open_file();
+            bool done = false;
+            while(!done) {
+                // Look for "moov" section.
+                test.read_atom();
+                if (test.is_last_atom()) break;
+                if ("moov" == test.get_current_atom_name()) {
+                    QuickTimeAtom child = test.get_first_child_atom();
+                    while (!done) {
+                        // Look for "mvhd" section.
+                        child.read_atom();
+                        if ("mvhd" == child.get_current_atom_name()) {
+                            // Skip 4 bytes (version + flags)
+                            child.read_uint32();
+                            // Grab the timestamp.
+                            timestamp = child.read_uint32() - QUICKTIME_EPOCH_ADJUSTMENT;
+                            done = true;
+                            break;
+                        }
+                    }
+                }
+                test.next_atom();
+            }
+            test.close_file();
+        } catch (GLib.Error e) {
+            debug("Error while testing for QuickTime file: %s", e.message);
+        }
+        return timestamp;
     }
 }
 
+private class QuickTimeAtom {
+    private GLib.File file = null;
+    private string section_name = "";
+    private uint64 section_size = 0;
+    private uint64 section_offset = 0;
+    private GLib.DataInputStream input = null;
+    
+    public QuickTimeAtom(GLib.File file) {
+        this.file = file;
+    }
+    
+    private QuickTimeAtom.with_input_stream(GLib.DataInputStream input) {
+        this.input = input;
+    }   
+    
+    public void open_file() throws GLib.Error {
+        close_file();
+        input = new GLib.DataInputStream(file.read());
+        input.set_byte_order(DataStreamByteOrder.BIG_ENDIAN);
+        section_size = 0;
+        section_offset = 0;
+        section_name = "";
+    }
+    
+    public void close_file() throws GLib.Error {
+        if (null != input) {
+            input.close();
+            input = null;
+        }
+    }    
+    
+    public QuickTimeAtom get_first_child_atom() {
+        // Child will simply have the input stream
+        // but not the size/offset.  This works because
+        // child atoms follow immediately after a header,
+        // so no skipping is required to access the child
+        // from the current position.
+        return new QuickTimeAtom.with_input_stream(input);
+    }
+    
+    public uchar read_byte() throws GLib.Error {
+        section_offset++;
+        return input.read_byte();
+    }
+    
+    public uint32 read_uint32() throws GLib.Error {
+        section_offset += 4;
+        return input.read_uint32();
+    }
+    
+    public uint64 read_uint64() throws GLib.Error {
+        section_offset += 8;
+        return input.read_uint64();
+    }
+
+    public void read_atom() throws GLib.Error {
+        // Read atom size.
+        section_size = read_uint32();
+        
+        // Read atom name.
+        GLib.StringBuilder sb = new GLib.StringBuilder();
+        sb.append_c((char) read_byte());
+        sb.append_c((char) read_byte());
+        sb.append_c((char) read_byte());
+        sb.append_c((char) read_byte());
+        section_name = sb.str;
+        
+        if (1 == section_size) {
+            // This indicates the section size is a 64-bit
+            // value, specified below the atom name.
+            section_size = read_uint64();
+        }
+    }
+    
+    public void next_atom() throws GLib.Error {
+        // skip() only accepts uint32's, so we may have to
+        // break the operation into several increments.
+        uint64 skip_amount = section_size - section_offset;
+        while (skip_amount > 0) {
+            if (skip_amount >= uint32.MAX) {
+                input.skip(uint32.MAX);
+                skip_amount -= uint32.MAX;
+            } else {
+                input.skip((uint32) skip_amount);
+                skip_amount = 0;
+            }
+        }
+        section_size = 0;
+        section_offset = 0;
+    }
+    
+    public string get_current_atom_name() {
+        return section_name;
+    }
+   
+    public bool is_last_atom() {
+        return 0 == section_size;
+    }
+    
+}

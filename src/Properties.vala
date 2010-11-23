@@ -188,6 +188,9 @@ private class BasicProperties : Properties {
 
             if (video.get_is_interpretable())
                 dimensions = video.get_frame_dimensions();
+                
+            start_time = video.get_exposure_time();
+            end_time = start_time;
         }
     }
 
