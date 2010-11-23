@@ -712,6 +712,7 @@ public class PrintJob : Gtk.PrintOperation {
     public PrintJob(Photo source_photo) {
         this.settings = PrintManager.get_instance().get_global_settings();
         this.source_photo = source_photo;
+        set_embed_page_setup (true);
         double photo_aspect_ratio =  source_photo.get_dimensions().get_aspect_ratio();
         if (photo_aspect_ratio < 1.0)
             photo_aspect_ratio = 1.0 / photo_aspect_ratio;
@@ -833,16 +834,13 @@ public class PrintManager {
         try {
             job_result = job.run(Gtk.PrintOperationAction.PRINT_DIALOG,
                 AppWindow.get_instance());
+            if (job_result == Gtk.PrintOperationResult.APPLY) {
+                user_page_setup = job.get_default_page_setup();
+            }
         } catch (Error e) {
             job.cancel();
             AppWindow.error_message(_("Unable to print photo:\n\n%s").printf(e.message));
         }
-    }
-
-    public void do_page_setup() {
-        Gtk.PrintSettings dummy_settings = new Gtk.PrintSettings();
-        user_page_setup = Gtk.print_run_page_setup_dialog(AppWindow.get_instance(),
-            user_page_setup, dummy_settings);
     }
 
     private void on_draw_page(Gtk.PrintOperation emitting_object,

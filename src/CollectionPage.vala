@@ -102,7 +102,6 @@ public abstract class CollectionPage : MediaPage {
         
 #if !NO_PRINTING
         group.add_menu_item("Print");
-        group.add_menu_item("PageSetup");
 #endif
 
 #if !NO_PUBLISHING
@@ -187,12 +186,6 @@ public abstract class CollectionPage : MediaPage {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
 
 #if !NO_PRINTING
-        Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
-            TRANSLATABLE, on_page_setup };
-        page_setup.label = Resources.PAGE_SETUP_MENU;
-        page_setup.tooltip = Resources.PAGE_SETUP_TOOLTIP;
-        actions += page_setup;
-
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
@@ -459,10 +452,6 @@ public abstract class CollectionPage : MediaPage {
     private void on_print() {
         if (get_view().get_selected_count() == 1)
             PrintManager.get_instance().spool_photo((Photo) get_view().get_selected_at(0).get_source());
-    }
-
-    protected void on_page_setup() {
-        PrintManager.get_instance().do_page_setup();
     }
 #endif
     

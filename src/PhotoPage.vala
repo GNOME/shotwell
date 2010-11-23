@@ -2114,12 +2114,6 @@ public class LibraryPhotoPage : EditingHostPage {
         actions += export;
 
 #if !NO_PRINTING
-        Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
-            TRANSLATABLE, on_page_setup };
-        page_setup.label = Resources.PAGE_SETUP_MENU;
-        page_setup.tooltip = Resources.PAGE_SETUP_TOOLTIP;
-        actions += page_setup;
-
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
@@ -2408,7 +2402,6 @@ public class LibraryPhotoPage : EditingHostPage {
         
 #if !NO_PRINTING
         InjectionGroup print_group = new InjectionGroup("/PhotoMenuBar/FileMenu/PrintPlaceholder");
-        print_group.add_menu_item("PageSetup");
         print_group.add_menu_item("Print");
         
         groups += print_group;
@@ -2839,10 +2832,6 @@ public class LibraryPhotoPage : EditingHostPage {
 #if !NO_PRINTING
     private void on_print() {
         PrintManager.get_instance().spool_photo(get_photo());
-    }
-
-    private void on_page_setup() {
-        PrintManager.get_instance().do_page_setup();
     }
 #endif
 
@@ -3294,11 +3283,6 @@ public class DirectPhotoPage : EditingHostPage {
         actions += send_to;
 
 #if !NO_PRINTING
-        Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
-            TRANSLATABLE, on_page_setup };
-        page_setup.label = _("Page _Setup...");
-        actions += page_setup;
-
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
@@ -3444,7 +3428,6 @@ public class DirectPhotoPage : EditingHostPage {
         
 #if !NO_PRINTING
         InjectionGroup print_group = new InjectionGroup("/DirectMenuBar/FileMenu/PrintPlaceholder");
-        print_group.add_menu_item("PageSetup");
         print_group.add_menu_item("Print");
         
         groups += print_group;
@@ -3762,10 +3745,6 @@ public class DirectPhotoPage : EditingHostPage {
 #if !NO_PRINTING
     private void on_print() {
         PrintManager.get_instance().spool_photo(get_photo());
-    }
-
-    private void on_page_setup() {
-        PrintManager.get_instance().do_page_setup();
     }
 #endif
 }
