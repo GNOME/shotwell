@@ -36,7 +36,7 @@ public class LastImportPage : CollectionPage {
         }
         
         public override bool include_in_view(DataSource source) {
-            return ((LibraryPhoto) source).get_import_id().id == import_id.id;
+            return ((MediaSource) source).get_import_id().id == import_id.id;
         }
     }
     
@@ -47,14 +47,18 @@ public class LastImportPage : CollectionPage {
         base (name);
         
         // be notified when the import rolls change
-        LibraryPhoto.global.import_roll_altered.connect(on_import_rolls_altered);
+        foreach (MediaSourceCollection col in MediaCollectionRegistry.get_instance().get_all()) {
+            col.import_roll_altered.connect(on_import_rolls_altered);
+        }
         
         // set up view manager for the last import roll
         on_import_rolls_altered();
     }
     
     ~LastImportPage() {
-        LibraryPhoto.global.import_roll_altered.disconnect(on_import_rolls_altered);
+        foreach (MediaSourceCollection col in MediaCollectionRegistry.get_instance().get_all()) {
+            col.import_roll_altered.disconnect(on_import_rolls_altered);
+        }
     }
     
     public static Stub create_stub() {
@@ -63,7 +67,9 @@ public class LastImportPage : CollectionPage {
     
     private void on_import_rolls_altered() {
         // see if there's a new last ImportID, or no last import at all
-        ImportID? current_last_import_id = LibraryPhoto.global.get_last_import_id();
+        ImportID? current_last_import_id =
+            MediaCollectionRegistry.get_instance().get_last_import_id();
+
         if (current_last_import_id == null) {
             get_view().halt_all_monitoring();
             get_view().clear();
@@ -76,8 +82,13 @@ public class LastImportPage : CollectionPage {
         
         last_import_id = current_last_import_id;
         
-        get_view().monitor_source_collection(LibraryPhoto.global,
-            new LastImportViewManager(this, last_import_id), last_import_alteration);
+        get_view().halt_all_monitoring();
+        get_view().clear();
+        
+        foreach (MediaSourceCollection col in MediaCollectionRegistry.get_instance().get_all()) {
+            get_view().monitor_source_collection(col, new LastImportViewManager(this,
+                last_import_id), last_import_alteration);
+        }
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
