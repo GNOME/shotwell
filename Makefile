@@ -102,6 +102,7 @@ SRC_FILES = \
 	Tag.vala \
 	TagPage.vala \
 	PicasaConnector.vala \
+    PiwigoConnector.vala \
 	YouTubeConnector.vala \
 	Screensaver.vala \
 	PhotoFileAdapter.vala \

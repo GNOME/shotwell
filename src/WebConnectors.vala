@@ -1183,6 +1183,7 @@ public class ServiceFactory {
         add_caps(new PicasaConnector.Capabilities());
         add_caps(new YandexConnector.Capabilities());
         add_caps(new YouTubeConnector.Capabilities());
+        add_caps(new PiwigoConnector.Capabilities());
     }
     
     private void add_caps(ServiceCapabilities caps) {
