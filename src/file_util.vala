@@ -118,6 +118,33 @@ public uint64 query_total_file_size(File file_or_dir, Cancellable? cancellable =
     return total_bytes;
 }
 
+// Does not currently recurse.  Could be modified to do so.  Does not error out on first file that
+// does not delete, but logs a warning and continues.
+public void delete_all_files(File dir, Gee.Set<string>? exceptions = null, Cancellable? cancellable = null)
+    throws Error {
+    FileType type = dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+    if (type != FileType.DIRECTORY)
+        throw new IOError.NOT_DIRECTORY("%s is not a directory".printf(dir.get_path()));
+    
+    FileEnumerator enumerator = dir.enumerate_children("standard::name,standard::type",
+        FileQueryInfoFlags.NOFOLLOW_SYMLINKS, cancellable);
+    FileInfo info = null;
+    while ((info = enumerator.next_file(cancellable)) != null) {
+        if (info.get_file_type() != FileType.REGULAR)
+            continue;
+        
+        if (exceptions != null && exceptions.contains(info.get_name()))
+            continue;
+        
+        File file = dir.get_child(info.get_name());
+        try {
+            file.delete(cancellable);
+        } catch (Error err) {
+            warning("Unable to delete file %s: %s", file.get_path(), err.message);
+        }
+    }
+}
+
 public time_t query_file_modified(File file) throws Error {
     FileInfo info = file.query_info(FILE_ATTRIBUTE_TIME_MODIFIED, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
         null);

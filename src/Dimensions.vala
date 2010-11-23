@@ -286,6 +286,10 @@ public struct Scaling {
         return Scaling(ScaleConstraint.FILL_VIEWPORT, NO_SCALE, viewport, true);
     }
     
+    public static Scaling to_fill_screen(Gtk.Window window) {
+        return to_fill_viewport(get_screen_dimensions(window));
+    }
+    
     public static Scaling for_constraint(ScaleConstraint constraint, int scale, bool scale_up) {
         return Scaling(constraint, scale, Dimensions(), scale_up);
     }

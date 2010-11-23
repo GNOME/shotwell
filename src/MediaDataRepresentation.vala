@@ -223,15 +223,14 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     }
 
     public static void filter_media(Gee.Collection<MediaSource> media,
-        Gee.Collection<LibraryPhoto> photos, Gee.Collection<Video> videos) {
+        Gee.Collection<LibraryPhoto>? photos, Gee.Collection<Video>? videos) {
         foreach (MediaSource source in media) {
-            if (source is LibraryPhoto)
+            if (photos != null && source is LibraryPhoto)
                 photos.add((LibraryPhoto) source);
-            else if (source is Video)
+            else if (videos != null && source is Video)
                 videos.add((Video) source);
-            else
-                warning("can't filter media: unrecognized kind - media is neither a photo "
-                    + "nor a video");
+            else if (photos != null || videos != null)
+                warning("Unrecognized media: %s", source.to_string());
         }
     }
 

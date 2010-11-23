@@ -7,10 +7,14 @@
 namespace DesktopIntegration {
 
 private const string SENDTO_EXEC = "nautilus-sendto";
+private const string DESKTOP_SLIDESHOW_XML_FILENAME = "wallpaper.xml";
 
 private int init_count = 0;
 private bool send_to_installed = false;
 private ExporterUI send_to_exporter = null;
+private ExporterUI desktop_slideshow_exporter = null;
+private double desktop_slideshow_transition = 0.0;
+private double desktop_slideshow_duration = 0.0;
 
 public void init() {
     if (init_count++ != 0)
@@ -152,7 +156,7 @@ public void set_background(Photo photo) {
     }
     
     try {
-        photo.export(save_as, Scaling.for_original(), Jpeg.Quality.MAXIMUM, file_format);
+        photo.export(save_as, Scaling.for_original(), Jpeg.Quality.HIGH, file_format);
     } catch (Error err) {
         AppWindow.error_message(_("Unable to export background to %s: %s").printf(save_as.get_path(), 
             err.message));
@@ -163,6 +167,129 @@ public void set_background(Photo photo) {
     Config.get_instance().set_background(save_as.get_path());
     
     GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
+}
+
+// Helper class for set_background_slideshow()
+// Used to build xml file that describes background
+// slideshow for Gnome
+private class BackgroundSlideshowXMLBuilder {
+    private File destination;
+    private double duration;
+    private double transition;
+    private File tmp_file;
+    private DataOutputStream? outs = null;
+    private File? first_file = null;
+    private File? last_file = null;
+    
+    public BackgroundSlideshowXMLBuilder(File destination, double duration, double transition) {
+        this.destination = destination;
+        this.duration = duration;
+        this.transition = transition;
+        
+        tmp_file = destination.get_parent().get_child(destination.get_basename() + ".tmp");
+    }
+    
+    public void open() throws Error {
+        outs = new DataOutputStream(tmp_file.replace(null, false, FileCreateFlags.NONE, null));
+        outs.put_string("<background>\n");
+    }
+    
+    private void write_transition(File from, File to) throws Error {
+        outs.put_string("  <transition>\n");
+        outs.put_string("    <duration>%2.2f</duration>\n".printf(transition));
+        outs.put_string("    <from>%s</from>\n".printf(from.get_path()));
+        outs.put_string("    <to>%s</to>\n".printf(to.get_path()));
+        outs.put_string("  </transition>\n");
+    }
+    
+    private void write_static(File file) throws Error {
+        outs.put_string("  <static>\n");
+        outs.put_string("    <duration>%2.2f</duration>\n".printf(duration));
+        outs.put_string("    <file>%s</file>\n".printf(file.get_path()));
+        outs.put_string("  </static>\n");
+    }
+    
+    public void add_photo(File file) throws Error {
+        assert(outs != null);
+        
+        if (first_file == null)
+            first_file = file;
+        
+        if (last_file != null)
+            write_transition(last_file, file);
+        
+        write_static(file);
+        
+        last_file = file;
+    }
+    
+    public File? close() throws Error {
+        if (outs == null)
+            return null;
+        
+        // transition back to first file
+        if (first_file != null && last_file != null)
+            write_transition(last_file, first_file);
+        
+        outs.put_string("</background>\n");
+        
+        outs.close();
+        outs = null;
+        
+        // move to destination name
+        tmp_file.move(destination, FileCopyFlags.OVERWRITE);
+        GLib.FileUtils.chmod(destination.get_parse_name(), 0644);
+        
+        return destination;
+    }
+}
+
+public void set_background_slideshow(Gee.Collection<Photo> photos, double duration, double transition) {
+    if (desktop_slideshow_exporter != null)
+        return;
+    
+    File wallpaper_dir = AppDirs.get_data_subdir("wallpaper");
+    
+    Gee.Set<string> exceptions = new Gee.HashSet<string>();
+    exceptions.add(DESKTOP_SLIDESHOW_XML_FILENAME);
+    try {
+        delete_all_files(wallpaper_dir, exceptions);
+    } catch (Error err) {
+        warning("Error attempting to clear wallpaper directory: %s", err.message);
+    }
+    
+    desktop_slideshow_duration = duration;
+    desktop_slideshow_transition = transition;
+    
+    Exporter exporter = new Exporter(photos, wallpaper_dir,
+        Scaling.to_fill_screen(AppWindow.get_instance()), ExportFormatParameters.current(),
+        false, true);
+    desktop_slideshow_exporter = new ExporterUI(exporter);
+    desktop_slideshow_exporter.export(on_desktop_slideshow_exported);
+}
+
+private void on_desktop_slideshow_exported(Exporter exporter) {
+    desktop_slideshow_exporter = null;
+    
+    File? xml_file = null;
+    BackgroundSlideshowXMLBuilder xml_builder = new BackgroundSlideshowXMLBuilder(
+        AppDirs.get_data_subdir("wallpaper").get_child(DESKTOP_SLIDESHOW_XML_FILENAME),
+        desktop_slideshow_duration, desktop_slideshow_transition);
+    try {
+        xml_builder.open();
+        
+        foreach (File file in exporter.get_exported_files())
+            xml_builder.add_photo(file);
+        
+        xml_file = xml_builder.close();
+    } catch (Error err) {
+        AppWindow.error_message(_("Unable to prepare desktop slideshow: %s").printf(
+            err.message));
+        
+        return;
+    }
+    
+    Config.get_instance().set_background(xml_file.get_path());
 }
 #endif
 

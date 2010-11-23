@@ -117,12 +117,13 @@ public class Exporter : Object {
     private ExportFormatParameters export_params;
 
     public Exporter(Gee.Collection<MediaSource> to_export, File? dir, Scaling scaling,
-        ExportFormatParameters export_params, bool avoid_copying) {
+        ExportFormatParameters export_params, bool avoid_copying, bool auto_replace_all = false) {
         this.to_export.add_all(to_export);
         this.dir = dir;
         this.scaling = scaling;
         this.export_params = export_params;
         this.avoid_copying = avoid_copying;
+        this.replace_all = auto_replace_all;
     }
        
     public Exporter.for_temp_file(Gee.Collection<MediaSource> to_export, Scaling scaling,

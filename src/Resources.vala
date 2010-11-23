@@ -144,6 +144,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string SET_BACKGROUND_MENU = _("Set as _Desktop Background");
     public const string SET_BACKGROUND_TOOLTIP = _("Set selected image to be the new desktop background");
+    public const string SET_BACKGROUND_SLIDESHOW_MENU = _("Set as _Desktop Slideshow...");
     
     public const string UNDO_MENU = _("_Undo");
     public const string UNDO_LABEL = _("Undo");

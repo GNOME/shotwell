@@ -17,6 +17,8 @@ public class CollectionViewManager : ViewManager {
 }
 
 public abstract class CollectionPage : MediaPage {
+    private const double DESKTOP_SLIDESHOW_TRANSITION_SEC = 2.0;
+    
     private Gtk.ToolButton rotate_button = null;
     private PhotoDragAndDropHandler dnd_handler = null;
     private ExporterUI exporter = null;
@@ -426,7 +428,15 @@ public abstract class CollectionPage : MediaPage {
         set_action_important("Slideshow", true);
         
 #if !NO_SET_BACKGROUND
-        set_action_sensitive("SetBackground", (!selection_has_videos) && one_selected);
+        set_action_sensitive("SetBackground", (!selection_has_videos) && has_selected );
+        if (has_selected) {
+            Gtk.Action? set_background = get_action("SetBackground");
+            if (set_background != null) {
+                set_background.label = one_selected
+                    ? Resources.SET_BACKGROUND_MENU
+                    : Resources.SET_BACKGROUND_SLIDESHOW_MENU;
+            }
+        }
 #endif
         
 #if !NO_PRINTING
@@ -801,19 +811,27 @@ public abstract class CollectionPage : MediaPage {
     
 #if !NO_SET_BACKGROUND
     public void on_set_background() {
-        if (get_view().get_selected_count() != 1)
-            return;
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) get_view().get_selected_sources(),
+            photos, null);
         
-        Photo photo = (Photo) get_view().get_selected_at(0).get_source();
-        if (photo == null)
-            return;
-        
-        AppWindow.get_instance().set_busy_cursor();
-        DesktopIntegration.set_background(photo);
-        AppWindow.get_instance().set_normal_cursor();
+        if (photos.size == 1) {
+            AppWindow.get_instance().set_busy_cursor();
+            DesktopIntegration.set_background(photos[0]);
+            AppWindow.get_instance().set_normal_cursor();
+        } else if (photos.size > 1) {
+            SetBackgroundSlideshowDialog dialog = new SetBackgroundSlideshowDialog();
+            int delay;
+            if (dialog.execute(out delay)) {
+                AppWindow.get_instance().set_busy_cursor();
+                DesktopIntegration.set_background_slideshow(photos, delay,
+                    DESKTOP_SLIDESHOW_TRANSITION_SEC);
+                AppWindow.get_instance().set_normal_cursor();
+            }
+        }
     }
 #endif
-
+    
     private void on_slideshow() {
         if (get_view().get_count() == 0)
             return;

@@ -716,6 +716,73 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
     }
 }
 
+public class SetBackgroundSlideshowDialog {
+    private Gtk.Dialog dialog;
+    private Gtk.Label delay_value_label;
+    private Gtk.Scale delay_scale;
+    private int delay_value = 0;
+    
+    public SetBackgroundSlideshowDialog() {
+        Gtk.Builder builder = AppWindow.create_builder("set_background_dialog.glade", this);
+        
+        dialog = builder.get_object("dialog1") as Gtk.Dialog;
+        dialog.set_type_hint(Gdk.WindowTypeHint.DIALOG);
+        dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
+        dialog.set_transient_for(AppWindow.get_instance());
+        dialog.set_default_response(Gtk.ResponseType.OK);
+        
+        delay_value_label = builder.get_object("delay_value_label") as Gtk.Label;
+        
+        delay_scale = builder.get_object("delay_scale") as Gtk.Scale;
+        delay_scale.value_changed.connect(on_delay_scale_value_changed);
+        delay_scale.adjustment.value = 50;
+    }
+
+    private void on_delay_scale_value_changed() {
+        double value = delay_scale.adjustment.value;
+        
+        // f(x)=x^5 allows to have fine-grained values (seconds) to the left
+        // and very coarse-grained values (hours) to the right of the slider.
+        // We limit maximum value to 1 day and minimum to 5 seconds.
+        delay_value = (int) (Math.pow(value, 5) / Math.pow(90, 5) * 60 * 60 * 24 + 5);
+        
+        // convert to text and remove fractions from values > 1 minute
+        string text;
+        if (delay_value < 60) {
+            text = ngettext("%d second", "%d seconds", delay_value).printf(delay_value);
+        } else if (delay_value == 60) {
+            text = _("one minute");
+        } else if (delay_value < 60 * 60) {
+            int minutes = delay_value / 60;
+            text = ngettext("%d minute", "%d minutes", minutes).printf(minutes);
+            delay_value = minutes * 60; 
+        } else if (delay_value == 60 * 60) {
+            text = _("one hour");
+        } else if (delay_value < 60 * 60 * 24) {
+            int hours = delay_value / (60 * 60);
+            text = ngettext("%d hour", "%d hours", hours).printf(hours);
+            delay_value = hours * (60 * 60);
+        } else {
+            text = _("one day");
+            delay_value = 60 * 60 * 24;
+        }
+        
+        delay_value_label.label = text;
+    }
+
+    public bool execute(out int delay_value) {
+        dialog.show_all();
+        
+        bool result = dialog.run() == Gtk.ResponseType.OK;
+        
+        dialog.destroy();
+        
+        delay_value = this.delay_value;
+        
+        return result;
+    }
+}
+
 public class TextEntryDialog : Gtk.Dialog {
     public delegate bool OnModifyValidateType(string text);
     
