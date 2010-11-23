@@ -236,10 +236,6 @@ public class Interactor : ServiceInteractor {
         uploader.upload_complete.disconnect(on_upload_complete);
         uploader.upload_error.disconnect(on_upload_error);
 
-        // TODO: add a descriptive, translatable error message string here
-        if (num_published == 0)
-            post_error(new PublishingError.LOCAL_FILE_ERROR(""));
-
         if (has_error() || cancelled)
             return;
 
@@ -255,7 +251,7 @@ public class Interactor : ServiceInteractor {
         if (has_error() || cancelled)
             return;
 
-        debug("Flickr.Interactor.on_upload_complete( ): EVENT: batch uploader reports that an upload transaction caused a network error");
+        debug("Flickr.Interactor.on_upload_complete( ): EVENT: batch uploader reports that an upload transaction caused an error");
         post_error(err);
     }
 
@@ -280,7 +276,11 @@ public class Interactor : ServiceInteractor {
         frob_fetch_txn.completed.connect(on_frob_fetch_txn_completed);
         frob_fetch_txn.network_error.connect(on_frob_fetch_txn_error);
 
-        frob_fetch_txn.execute();
+        try {
+            frob_fetch_txn.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
     
     private void do_extract_frob_from_xml(string xml) {
@@ -345,7 +345,11 @@ public class Interactor : ServiceInteractor {
         token_check_txn.completed.connect(on_token_check_txn_completed);
         token_check_txn.network_error.connect(on_token_check_txn_error);
         
-        token_check_txn.execute();
+        try {
+            token_check_txn.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
 
     private void do_interpret_token_check_xml(string xml) {
@@ -426,7 +430,11 @@ public class Interactor : ServiceInteractor {
         txn.completed.connect(on_account_fetch_txn_completed);
         txn.network_error.connect(on_account_fetch_txn_error);
 
-        txn.execute();
+        try {
+            txn.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
 
     private void do_parse_account_info_from_xml(string xml) {

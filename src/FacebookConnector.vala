@@ -289,7 +289,11 @@ public class Interactor : ServiceInteractor {
         txn.completed.connect(on_endpoint_test_completed);
         txn.network_error.connect(on_endpoint_test_error);
 
-        txn.execute();
+        try {
+            txn.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
 
     private void do_hosted_web_authentication() {
@@ -312,7 +316,11 @@ public class Interactor : ServiceInteractor {
         albums_transaction.completed.connect(on_fetch_album_descriptions_completed);
         albums_transaction.network_error.connect(on_fetch_album_descriptions_error);
 
-        albums_transaction.execute();
+        try {
+            albums_transaction.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
 
     private void do_extract_albums_from_xml(string xml) {
@@ -372,7 +380,11 @@ public class Interactor : ServiceInteractor {
         create_txn.completed.connect(on_create_album_txn_completed);
         create_txn.network_error.connect(on_create_album_txn_error);
 
-        create_txn.execute();
+        try {
+            create_txn.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
 
     private void do_extract_aid_from_xml(string xml) {

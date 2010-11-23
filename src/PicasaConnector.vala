@@ -363,7 +363,11 @@ public class Interactor : ServiceInteractor {
         fetch_trans.network_error.connect(on_token_fetch_error);
         fetch_trans.completed.connect(on_token_fetch_complete);
 
-        fetch_trans.execute();
+        try {
+            fetch_trans.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
 
     // ACTION: run a REST transaction over the network to fetch the user's account information
@@ -380,7 +384,12 @@ public class Interactor : ServiceInteractor {
             new AlbumDirectoryTransaction(session);
         directory_trans.network_error.connect(on_initial_album_fetch_error);
         directory_trans.completed.connect(on_initial_album_fetch_complete);
-        directory_trans.execute();
+        
+        try {
+            directory_trans.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
 
     // ACTION: display the publishing options pane in the publishing dialog
@@ -410,7 +419,11 @@ public class Interactor : ServiceInteractor {
             parameters);
         creation_trans.network_error.connect(on_album_creation_error);
         creation_trans.completed.connect(on_album_creation_complete);
-        creation_trans.execute();
+        try {
+            creation_trans.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
 
     // ACTION: run a REST transaction over the network to upload the user's photos to the remote

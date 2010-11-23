@@ -240,7 +240,12 @@ public class Capabilities : ServiceCapabilities {
             YandexTransaction t = new YandexTransaction.with_url(session, url);
             t.completed.connect(service_get_album_list_complete);
             t.network_error.connect(service_get_album_list_error);
-            t.execute();
+
+            try {
+                t.execute();
+            } catch (PublishingError err) {
+                post_error(err);
+            }
         }
 
         public void service_doc_transaction_error(RESTTransaction t, PublishingError err) {
@@ -339,7 +344,12 @@ public class Capabilities : ServiceCapabilities {
             YandexTransaction t = new YandexTransaction(session);
             t.completed.connect(service_doc_transaction_complete);
             t.network_error.connect(service_doc_transaction_error);
-            t.execute();
+            
+            try {
+                t.execute();
+            } catch (PublishingError err) {
+                post_error(err);
+            }
         }
 
         private void yandex_request_web_auth() {
@@ -430,7 +440,12 @@ public class Capabilities : ServiceCapabilities {
 
             t.completed.connect(album_creation_complete);
             t.network_error.connect(album_creation_error);
-            t.execute();
+            
+            try {
+                t.execute();
+            } catch (PublishingError err) {
+                post_error(err);
+            }
         }
     }
 

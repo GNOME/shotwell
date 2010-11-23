@@ -329,7 +329,7 @@ public class RESTTransaction {
         return message.status_code;
     }
     
-    public virtual void execute() {
+    public virtual void execute() throws PublishingError {
         // if a custom payload is being used, we don't need to peform the tasks that are necessary
         // to sign and encode a traditional key-value pair REST request; Instead (since we don't
         // know anything about the custom payload, we just put it on the wire and return)
@@ -470,7 +470,7 @@ public abstract class MediaUploadTransaction : RESTTransaction {
         binary_disposition_table = new_disp_table;
     }
 
-    public override void execute() {
+    public override void execute() throws PublishingError {
         sign();
 
         // before they can be executed, photo upload requests must be signed and must
@@ -496,7 +496,7 @@ public abstract class MediaUploadTransaction : RESTTransaction {
         try {
             FileUtils.get_contents(source_file, out photo_data, out data_length);
         } catch (FileError e) {
-            error("PhotoUploadTransaction: couldn't read data from file '%s'", source_file);
+            throw new PublishingError.LOCAL_FILE_ERROR(_("A temporary file needed for publishing is unavailable"));
         }
 
         // get the sequence number of the part that will soon become the binary image data
@@ -981,7 +981,7 @@ public abstract class ServiceInteractor {
     }
 
     public void post_error(PublishingError err) {
-        // if a client posts an error, then cancel the interaction immediately (this stopa any
+        // if a client posts an error, then cancel the interaction immediately (this stops any
         // network activity in progress), display a message to the user, and makes this interactor
         // enter its error state (disallowing any further pane transitions)
         cancel_interaction();
@@ -1044,7 +1044,7 @@ public abstract class BatchUploader {
     protected abstract bool prepare_file(TemporaryFileDescriptor file);
     protected abstract RESTTransaction create_transaction_for_file(TemporaryFileDescriptor file);
 
-    private TemporaryFileDescriptor[] prepare_files() {
+    private TemporaryFileDescriptor[] prepare_files() throws PublishingError {
         File temp_dir = AppDirs.get_temp_dir();
         TemporaryFileDescriptor[] temp_files = new TemporaryFileDescriptor[0];
 
@@ -1067,8 +1067,12 @@ public abstract class BatchUploader {
             if (photos[i] is Photo){
                 prepared_ok = prepare_file(current_descriptor);
             }
-            if (prepared_ok)
-                temp_files += current_descriptor;
+
+            if (!prepared_ok)
+                throw new PublishingError.LOCAL_FILE_ERROR(_("One or more of the photos or videos to be published is unavailable"));
+
+            temp_files += current_descriptor;
+
 
             double phase_fraction_complete = ((double) (i + 1)) / ((double) photos.length);
             double fraction_complete = phase_fraction_complete * PREPARATION_PHASE_FRACTION;
@@ -1100,7 +1104,11 @@ public abstract class BatchUploader {
         txn.chunk_transmitted.connect(on_chunk_transmitted);
         txn.network_error.connect(on_upload_error);
 
-        txn.execute();
+        try {
+            txn.execute();
+        } catch (PublishingError err) {
+            on_upload_error(txn, err);
+        }
     }
 
     private void delete_file(TemporaryFileDescriptor file) {
@@ -1156,7 +1164,11 @@ public abstract class BatchUploader {
     public void upload() {
         status_updated(_("Preparing for upload"), 0);
 
-        temp_files = prepare_files();
+        try {
+            temp_files = prepare_files();
+        } catch (PublishingError err) {
+            upload_error(err);
+        }
         current_file = 0;
 
         if (temp_files.length > 0)

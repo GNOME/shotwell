@@ -264,7 +264,11 @@ public class Interactor : ServiceInteractor {
         logout_trans.network_error.connect(on_logout_network_error);
         logout_trans.completed.connect(on_logout_network_complete);
 
-        logout_trans.execute();
+        try {
+            logout_trans.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
     
     // EVENT : triggered on logout network error
@@ -405,7 +409,11 @@ public class Interactor : ServiceInteractor {
         login_trans.network_error.connect(on_login_network_error);
         login_trans.completed.connect(on_login_network_complete);
 
-        login_trans.execute();
+        try {
+            login_trans.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
     
     // ACTION: fetches session status
@@ -416,13 +424,21 @@ public class Interactor : ServiceInteractor {
             status_txn.network_error.connect(on_session_get_status_error);
             status_txn.completed.connect(on_session_get_status_complete);
 
-            status_txn.execute();
+            try {
+                status_txn.execute();
+            } catch (PublishingError err) {
+                post_error(err);
+            }
         } else {
             SessionGetStatusTransaction status_txn = new SessionGetStatusTransaction(session);
             status_txn.network_error.connect(on_session_get_status_error);
             status_txn.completed.connect(on_session_get_status_complete);
 
-            status_txn.execute();
+            try {
+                status_txn.execute();
+            } catch (PublishingError err) {
+                post_error(err);
+            }
         }
     }
     
@@ -437,7 +453,12 @@ public class Interactor : ServiceInteractor {
         CategoriesGetListTransaction cat_trans = new CategoriesGetListTransaction(session);
         cat_trans.network_error.connect(on_category_fetch_error);
         cat_trans.completed.connect(on_category_fetch_complete);
-        cat_trans.execute();
+        
+        try {
+            cat_trans.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
     
     // ACTION: display the publishing options pane in the publishing dialog
@@ -466,7 +487,12 @@ public class Interactor : ServiceInteractor {
         CategoriesAddTransaction creation_trans = new CategoriesAddTransaction(session, parameters.get_category_name());
         creation_trans.network_error.connect(on_categories_add_error);
         creation_trans.completed.connect(on_categories_add_complete);
-        creation_trans.execute();
+        
+        try {
+            creation_trans.execute();
+        } catch (PublishingError err) {
+            post_error(err);
+        }
     }
     
     // ACTION: run a REST transaction over the network to upload the user's photos to the remote
