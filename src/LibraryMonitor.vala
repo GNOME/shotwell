@@ -1359,29 +1359,38 @@ public class LibraryMonitor : DirectoryMonitor {
     //
     // Use of this method should be avoided at all costs (otherwise the point of the real-time
     // monitor is negated).
-    //
-    // These methods are currently not thread-safe.
     public static void blacklist_file(File file) {
         mdbg("Blacklisting %s".printf(file.get_path()));
-        blacklist.add(file);
+        lock (blacklist) {
+            blacklist.add(file);
+        }
     }
     
     public static void unblacklist_file(File file) {
         // don't want to immediately remove the blacklisted file because the monitoring events
         // can come in much later
-        if (blacklist.contains(file) && !to_unblacklist.contains(file))
-            to_unblacklist.enqueue(file);
+        lock (blacklist) {
+            if (blacklist.contains(file) && !to_unblacklist.contains(file))
+                to_unblacklist.enqueue(file);
+        }
     }
     
     private static void on_unblacklist_file(File file) {
-        if (blacklist.remove(file))
+        bool removed;
+        lock (blacklist) {
+            removed = blacklist.remove(file);
+        }
+        
+        if (removed)
             mdbg("Blacklist for %s removed".printf(file.get_path()));
         else
             warning("File %s was not blacklisted but unblacklisted", file.get_path());
     }
     
     public static bool is_blacklisted(File file) {
-        return blacklist.contains(file);
+        lock (blacklist) {
+            return blacklist.contains(file);
+        }
     }
     
     // NOTE: This only works when runtime monitoring is enabled.  Otherwise, DirectoryMonitor will

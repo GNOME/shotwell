@@ -153,11 +153,11 @@ public class AlienDatabaseImportJob : BatchImportJob {
         return true;
     }
     
-    public override bool complete(ThumbnailSource source, ViewCollection generated_events) throws Error {
-        if (!(source is LibraryPhoto))
+    public override bool complete(MediaSource source, ViewCollection generated_events) throws Error {
+        LibraryPhoto? photo = source as LibraryPhoto;
+        if (photo == null)
             return false;
-
-        LibraryPhoto photo = (LibraryPhoto) source;
+        
         AlienDatabasePhoto src_photo = import_source.get_photo();
         // tags
         Gee.Collection<AlienDatabaseTag> src_tags = src_photo.get_tags();
@@ -168,7 +168,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
         // event
         AlienDatabaseEvent? src_event = src_photo.get_event();
         if (src_event != null) {
-            Event.generate_import_event(photo, generated_events, src_event.get_name());
+            Event.generate_single_event(photo, generated_events, src_event.get_name());
         }
         // rating
         photo.set_rating(src_photo.get_rating());

@@ -196,6 +196,20 @@ public delegate void CancellationCallback(BackgroundJob job);
 public abstract class NotificationObject {
 }
 
+public abstract class InterlockedNotificationObject : NotificationObject {
+    private Semaphore semaphore = new Semaphore();
+    
+    // Only called by BackgroundJob; no need for users or subclasses to use
+    public void internal_wait_for_completion() {
+        semaphore.wait();
+    }
+    
+    // Only called by BackgroundJob; no need for users or subclasses to use
+    public void internal_completed() {
+        semaphore.notify();
+    }
+}
+
 public delegate void NotificationCallback(BackgroundJob job, NotificationObject? user);
 
 // This abstract class represents a unit of work that can be executed within a background thread's
@@ -329,8 +343,10 @@ public abstract class BackgroundJob {
     // This should only be called by Workers.  Beware to all who fail to heed.
     public void internal_notify_completion() {
         // notify anyone waiting
-        if (semaphore != null)
-            semaphore.notify();
+        lock (semaphore) {
+            if (semaphore != null)
+                semaphore.notify();
+        }
         
         if (callback == null && cancellation == null)
             return;
@@ -372,6 +388,12 @@ public abstract class BackgroundJob {
         }
         
         Idle.add_full(notification_priority, on_notification_ready);
+        
+        // If an interlocked notification, block until the main thread completes the notification
+        // callback
+        InterlockedNotificationObject? interlocked = user as InterlockedNotificationObject;
+        if (interlocked != null)
+            interlocked.internal_wait_for_completion();
     }
     
     private bool on_notification_ready() {
@@ -385,6 +407,11 @@ public abstract class BackgroundJob {
         assert(notification_job != null);
         
         notification_job.callback(notification_job.background_job, notification_job.user);
+        
+        // Release the blocked thread waiting for this notification to complete
+        InterlockedNotificationObject? interlocked = notification_job.user as InterlockedNotificationObject;
+        if (interlocked != null)
+            interlocked.internal_completed();
         
         return false;
     }
@@ -461,21 +488,30 @@ public class Workers {
         empty_event.wait();
     }
     
+    // Returns the number of BackgroundJobs on the queue as well as any active jobs.
+    public int get_job_count() {
+        lock (queue) {
+            return enqueued;
+        }
+    }
+    
     private void thread_start(void *ignored) {
         BackgroundJob? job;
-        bool empty;
         lock (queue) {
             job = queue.try_pop();
             assert(job != null);
-            
-            assert(enqueued > 0);
-            empty = (--enqueued == 0);
         }
         
         if (!job.is_cancelled())
             job.execute();
-            
+        
         job.internal_notify_completion();
+        
+        bool empty;
+        lock (queue) {
+            assert(enqueued > 0);
+            empty = (--enqueued == 0);
+        }
         
         if (empty)
             empty_event.notify();
