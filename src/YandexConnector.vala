@@ -179,7 +179,6 @@ public class Capabilities : ServiceCapabilities {
             Config config = Config.get_instance();
             debug("Logout");
             config.unset_publishing_string("yandex", "access_token");
-            config.unset_publishing_string("yandex", "refresh_token");
             config.unset_publishing_string("yandex", "username");
             start_interaction();
         }
@@ -335,8 +334,8 @@ public class Capabilities : ServiceCapabilities {
             }
         }
         
-        private void on_web_auth_pane_token_check_required(string access_token, string refresh_token) {
-            session.set_tokens(access_token, refresh_token);
+        private void on_web_auth_pane_token_check_required(string access_token) {
+            session.set_tokens(access_token);
 
             get_host().unlock_service();
             get_host().set_cancel_button_mode();
@@ -371,7 +370,7 @@ public class Capabilities : ServiceCapabilities {
                 yandex_request_web_auth();
             } else {
                 session.want_web_check = true;
-                on_web_auth_pane_token_check_required(session.get_access_token(), session.get_refresh_token());
+                on_web_auth_pane_token_check_required(session.get_access_token());
             }
         }
         
@@ -457,7 +456,6 @@ public class Capabilities : ServiceCapabilities {
 
     public class YandexSession: RESTSession {
         private string access_token = null;
-        private string refresh_token = null;
         private string album_list_url = null;
         public Gee.HashMap<string, string> album_list = null;
         private string destination_album = null;
@@ -476,10 +474,8 @@ public class Capabilities : ServiceCapabilities {
             
             if (YandexSession.load_username() != username) {
                 config.unset_publishing_string("yandex", "access_token");
-                config.unset_publishing_string("yandex", "refresh_token");
             } else {
                 access_token = config.get_publishing_string("yandex", "access_token");
-                refresh_token = config.get_publishing_string("yandex", "refresh_token");
             }
             
             save_username(username);
@@ -489,12 +485,11 @@ public class Capabilities : ServiceCapabilities {
             options = new YandexPublishOptions();
         }
         
-        public void set_tokens(string? access_token, string? refresh_token) {
-            debug("session: setting tokens: %s %s", access_token, refresh_token);
+        public void set_tokens(string? access_token) {
+            debug("session: setting tokens: %s", access_token);
             this.access_token = access_token;
-            this.refresh_token = refresh_token;
 
-            if ((access_token == null) || (refresh_token == null))
+            if (access_token == null)
                 save_tokens();
 
             save_username(username);
@@ -512,12 +507,7 @@ public class Capabilities : ServiceCapabilities {
             assert(is_authenticated());
             return access_token;
         }
-        
-        public string get_refresh_token() {
-            assert(is_authenticated());
-            return refresh_token;
-        }
-        
+
         public void set_album_list_url(string url) {
             this.album_list_url = url;
         }
@@ -571,7 +561,6 @@ public class Capabilities : ServiceCapabilities {
         public static void clear_cache() {
             Config client = Config.get_instance();
             client.unset_publishing_string("yandex", "access_token");
-            client.unset_publishing_string("yandex", "refresh_token");
             client.unset_publishing_string("yandex", "username");
         }
 
@@ -579,10 +568,8 @@ public class Capabilities : ServiceCapabilities {
             Config client = Config.get_instance();
             if (access_token == null) {
                 client.unset_publishing_string("yandex", "access_token");
-                client.unset_publishing_string("yandex", "refresh_token");
             } else {
                 client.set_publishing_string("yandex", "access_token", access_token);
-                client.set_publishing_string("yandex", "refresh_token", refresh_token);
             }
         }
     }
@@ -700,7 +687,7 @@ public class Capabilities : ServiceCapabilities {
 
         private int started_token_recv = 0;
 
-        public signal void token_check_required(string access_token, string refresh_token);
+        public signal void token_check_required(string access_token);
 
         public WebAuthenticationPane(string login_url) {
             this.login_url = login_url;
@@ -763,9 +750,9 @@ public class Capabilities : ServiceCapabilities {
                 Json.Object root = p.get_root().get_object();
 
                 debug("data: %s", s);
-                debug("%s %s", root.get_string_member("access_token"), root.get_string_member("refresh_token"));
+                debug("access_token: %s", root.get_string_member("access_token"));
 
-                token_check_required(root.get_string_member("access_token"), root.get_string_member("refresh_token"));
+                token_check_required(root.get_string_member("access_token"));
             } catch (Error e) {
                 warning("Invalid yandex token: %s.", s);
             }
