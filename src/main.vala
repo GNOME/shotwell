@@ -139,6 +139,7 @@ void library_exec(string[] mounts) {
     }
     
     ThumbnailCache.init();
+    Tombstone.init();
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("LibraryPhoto.init");
     LibraryPhoto.init(monitor);
@@ -149,7 +150,6 @@ void library_exec(string[] mounts) {
     Event.init(monitor);
     Tag.init();
     AlienDatabaseHandler.init();
-    Tombstone.init();
     MetadataWriter.init();
     DesktopIntegration.init();
     
@@ -200,11 +200,11 @@ void library_exec(string[] mounts) {
     
     DesktopIntegration.terminate();
     MetadataWriter.terminate();
-    Tombstone.terminate();
     AlienDatabaseHandler.terminate();
     Tag.terminate();
     Event.terminate();
     LibraryPhoto.terminate();
+    Tombstone.terminate();
     ThumbnailCache.terminate();
     Video.terminate();
 
