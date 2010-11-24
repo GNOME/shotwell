@@ -750,20 +750,16 @@ public class SetBackgroundSlideshowDialog {
         string text;
         if (delay_value < 60) {
             text = ngettext("%d second", "%d seconds", delay_value).printf(delay_value);
-        } else if (delay_value == 60) {
-            text = _("one minute");
         } else if (delay_value < 60 * 60) {
             int minutes = delay_value / 60;
             text = ngettext("%d minute", "%d minutes", minutes).printf(minutes);
             delay_value = minutes * 60; 
-        } else if (delay_value == 60 * 60) {
-            text = _("one hour");
         } else if (delay_value < 60 * 60 * 24) {
             int hours = delay_value / (60 * 60);
             text = ngettext("%d hour", "%d hours", hours).printf(hours);
             delay_value = hours * (60 * 60);
         } else {
-            text = _("one day");
+            text = _("1 day");
             delay_value = 60 * 60 * 24;
         }
         
