@@ -306,9 +306,6 @@ EXT_PKGS += \
 	gdk-x11-2.0 \
 	gstreamer-0.10 \
 	gstreamer-base-0.10
-
-DIRECT_LIBS += \
-	libquicktime
 endif
 
 # libraw is handled separately (see note below); when libraw-config is no longer needed, the version
@@ -339,9 +336,6 @@ EXT_PKG_VERSIONS += \
 	dbus-glib-1 >= 0.80 \
 	gstreamer-0.10 >= 0.10.28 \
 	gstreamer-base-0.10 >= 0.10.28
-
-DIRECT_LIBS_VERSIONS += \
-	libquicktime >= 1.1.4
 endif
 
 VALA_PKGS = $(EXT_PKGS) $(LOCAL_PKGS) $(LIBRAW_PKG)
