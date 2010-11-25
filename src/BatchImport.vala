@@ -321,8 +321,8 @@ public class BatchImport : Object {
         debug("%s: to_perform=%d completed=%d ready_files=%d ready_thumbnails=%d display_queue=%d ready_sources=%d",
             where, file_imports_to_perform, file_imports_completed, ready_files.size,
             ready_thumbnails.size, display_imported_queue.size, ready_sources.size);
-        debug("%s workers: feeder=%d import=%d", where, feeder_workers.get_job_count(),
-            import_workers.get_job_count());
+        debug("%s workers: feeder=%d import=%d", where, feeder_workers.get_pending_job_count(),
+            import_workers.get_pending_job_count());
 #endif
     }
     
@@ -502,12 +502,12 @@ public class BatchImport : Object {
         // than ThumbnailWriterJob; reversing this order causes work to back up in ready_thumbnails
         // and takes longer for the user to see progress (which is only reported after the thumbnail
         // has been written)
-        while (ready_thumbnails.size > 0 && import_workers.get_job_count() < max_outstanding_import_jobs) {
+        while (ready_thumbnails.size > 0 && import_workers.get_pending_job_count() < max_outstanding_import_jobs) {
             import_workers.enqueue(new ThumbnailWriterJob(this, ready_thumbnails.remove_at(0),
                 on_thumbnail_writer_completed, cancellable, on_thumbnail_writer_cancelled));
         }
         
-        while(ready_files.size > 0 && import_workers.get_job_count() < max_outstanding_import_jobs) {
+        while(ready_files.size > 0 && import_workers.get_pending_job_count() < max_outstanding_import_jobs) {
             import_workers.enqueue(new PreparedFileImportJob(this, ready_files.remove_at(0),
                 import_roll.import_id, on_import_files_completed, cancellable,
                 on_import_files_cancelled));

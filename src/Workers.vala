@@ -488,8 +488,8 @@ public class Workers {
         empty_event.wait();
     }
     
-    // Returns the number of BackgroundJobs on the queue as well as any active jobs.
-    public int get_job_count() {
+    // Returns the number of BackgroundJobs on the queue, not including active jobs.
+    public int get_pending_job_count() {
         lock (queue) {
             return enqueued;
         }
@@ -497,21 +497,19 @@ public class Workers {
     
     private void thread_start(void *ignored) {
         BackgroundJob? job;
+        bool empty;
         lock (queue) {
             job = queue.try_pop();
             assert(job != null);
+            
+            assert(enqueued > 0);
+            empty = (--enqueued == 0);
         }
         
         if (!job.is_cancelled())
             job.execute();
         
         job.internal_notify_completion();
-        
-        bool empty;
-        lock (queue) {
-            assert(enqueued > 0);
-            empty = (--enqueued == 0);
-        }
         
         if (empty)
             empty_event.notify();
