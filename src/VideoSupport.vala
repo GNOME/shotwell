@@ -827,9 +827,10 @@ public class Video : VideoSource, Flaggable {
     }
 
     protected override bool internal_delete_backing() throws Error {
-        delete_original_file();
+        bool ret = delete_original_file();
         
-        return base.internal_delete_backing();
+        // Return false if parent method failed.
+        return base.internal_delete_backing() && ret;
     }
     
     private void notify_flags_altered(Alteration? additional_alteration) {

@@ -901,14 +901,19 @@ public abstract class DataSource : DataObject {
     // or has been unlinked from one. It should not be used otherwise.  (In particular, don't
     // automate destroys by removing and then calling this method -- that will happen automatically.)
     // To destroy a DataSource already integrated into a SourceCollection, call
-    // SourceCollection.destroy_marked().
-    public void destroy_orphan(bool delete_backing) {
+    // SourceCollection.destroy_marked().  Returns true if the operation completed succesfully,
+    // otherwise it will return false.
+    public bool destroy_orphan(bool delete_backing) {
+        bool ret = true;
         if (delete_backing) {
             try {
-                if (!internal_delete_backing())
+                ret = internal_delete_backing();
+                if (!ret)
                     warning("Unable to delete backing for %s", to_string());
+                    
             } catch (Error err) {
                 warning("Unable to delete backing for %s: %s", to_string(), err.message);
+                ret = false;
             }
         }
         
@@ -917,6 +922,8 @@ public abstract class DataSource : DataObject {
         
         if (unlinked_from_collection != null)
             unlinked_from_collection.notify_unlinked_destroyed(this);
+            
+        return ret;
     }
 
     // DataViews subscribe to the DataSource to inform it of their existance.  Not only does this

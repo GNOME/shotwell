@@ -967,7 +967,7 @@ public class SourceCollection : DataCollection {
     private class DestroyCounter : Object {
         public Marker remove_marker;
         public Gee.ArrayList<DataSource> notify_list = new Gee.ArrayList<DataSource>();
-        public int delete_failed = 0;
+        public Gee.ArrayList<MediaSource> not_removed = new Gee.ArrayList<MediaSource>();
         
         public DestroyCounter(Marker remove_marker) {
             this.remove_marker = remove_marker;
@@ -1042,7 +1042,8 @@ public class SourceCollection : DataCollection {
     
     // Destroy all marked items and optionally have them delete their backing.  Returns the
     // number of items which failed to delete their backing (if delete_backing is true) or zero.
-    public int destroy_marked(Marker marker, bool delete_backing, ProgressMonitor? monitor = null) {
+    public int destroy_marked(Marker marker, bool delete_backing, ProgressMonitor? monitor = null,
+        Gee.List<MediaSource>? not_removed = null) {
         DestroyCounter counter = new DestroyCounter(start_marking());
         
         if (delete_backing)
@@ -1058,7 +1059,11 @@ public class SourceCollection : DataCollection {
         // remove once all destroyed
         remove_marked(counter.remove_marker);
         
-        return counter.delete_failed;
+        if (null != not_removed) {
+            not_removed.add_all(counter.not_removed);
+        }
+        
+        return counter.not_removed.size;
     }
     
     private bool destroy_and_delete_source(DataObject object, Object? user) {
@@ -1069,10 +1074,11 @@ public class SourceCollection : DataCollection {
             success = false;
         }
         
-        if (!success)
-            ((DestroyCounter) user).delete_failed++;
+        if (!success && object is MediaSource) {
+            ((DestroyCounter) user).not_removed.add((MediaSource) object);
+        }
         
-        return destroy_source(object, user);
+        return destroy_source(object, user) && success;
     }
     
     private bool destroy_source(DataObject object, Object? user) {
@@ -1578,7 +1584,7 @@ public class SourceHoldingTank {
     }
     
     public void destroy_orphans(Gee.List<DataSource> destroy, bool delete_backing,
-        ProgressMonitor? monitor = null) {
+        ProgressMonitor? monitor = null, Gee.List<DataSource>? not_removed = null) {
         if (destroy.size == 0)
             return;
         
@@ -1589,7 +1595,12 @@ public class SourceHoldingTank {
         
         int count = destroy.size;
         for (int ctr = 0; ctr < count; ctr++) {
-            destroy.get(ctr).destroy_orphan(delete_backing);
+            DataSource source = destroy.get(ctr);
+            if (!source.destroy_orphan(delete_backing)) {
+                if (null != not_removed) {
+                    not_removed.add(source);
+                }
+            }
             if (monitor != null)
                 monitor(ctr + 1, count);
         }

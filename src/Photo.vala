@@ -466,6 +466,7 @@ public abstract class Photo : PhotoSource {
     }
     
     public override bool internal_delete_backing() throws Error {
+        bool ret = true;
         File file = null;
         lock (readers) {
             if (readers.editable != null)
@@ -476,14 +477,16 @@ public abstract class Photo : PhotoSource {
         
         if (file != null) {
             try {
-                file.trash(null);
+                ret = file.trash(null);
             } catch (Error err) {
-                message("Unable to move editable %s for %s to trash: %s", file.get_path(), to_string(),
-                    err.message);
+                ret = false;
+                message("Unable to move editable %s for %s to trash: %s", file.get_path(), 
+                    to_string(), err.message);
             }
         }
         
-        return base.internal_delete_backing();
+        // Return false if parent method failed.
+        return base.internal_delete_backing() && ret;
     }
     
     // For the MimicManager
@@ -4014,9 +4017,7 @@ public class LibraryPhoto : Photo, Flaggable {
         if (!base.internal_delete_backing())
             return false;
         
-        delete_original_file();
-        
-        return true;
+        return delete_original_file();
     }
     
     public override void destroy() {

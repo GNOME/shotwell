@@ -544,9 +544,13 @@ public abstract class AppWindow : PageWindow {
     }
     
     public static void error_message(string message, Gtk.Window? parent = null) {
+        error_message_with_title(Resources.APP_TITLE, message, parent);
+    }
+    
+    public static void error_message_with_title(string title, string message, Gtk.Window? parent = null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
-        dialog.title = Resources.APP_TITLE;
+        dialog.title = title;
         dialog.run();
         dialog.destroy();
     }

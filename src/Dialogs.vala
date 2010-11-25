@@ -874,6 +874,23 @@ public Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string titl
     return result;
 }
 
+// Returns: Gtk.ResponseType.YES (delete photos), Gtk.ResponseType.NO (keep photos)
+public Gtk.ResponseType remove_from_filesystem_dialog(Gtk.Window owner, string title,
+    string user_message) {
+    Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
+        Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", user_message);
+    dialog.add_button(_("_Keep"), Gtk.ResponseType.NO);
+    dialog.add_button(_("_Delete"), Gtk.ResponseType.YES);
+    dialog.set_default_response( Gtk.ResponseType.NO);
+    dialog.title = title;
+    
+    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    
+    dialog.destroy();
+    
+    return result;
+}
+
 public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photos) {
     int count = 0;
     foreach (Photo photo in photos) {

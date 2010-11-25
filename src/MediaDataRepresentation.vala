@@ -30,11 +30,12 @@ public abstract class MediaSource : ThumbnailSource {
 
     protected abstract bool internal_set_event_id(EventID id);
 
-    protected void delete_original_file() {
+    protected bool delete_original_file() {
+        bool ret = false;
         File file = get_file();
         
         try {
-            file.trash(null);
+            ret = file.trash(null);
         } catch (Error err) {
             // log error but don't abend, as this is not fatal to operation (also, could be
             // the photo is removed because it could not be found during a verify)
@@ -69,6 +70,8 @@ public abstract class MediaSource : ThumbnailSource {
                 }
             }
         }
+        
+        return ret;
     }
 
     public abstract File get_file();
@@ -417,11 +420,10 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     // Note that delete_backing dictates whether or not the photos are tombstoned (if deleted,
     // tombstones are not created).
     public void remove_from_app(Gee.Collection<MediaSource>? sources, bool delete_backing,
-        ProgressMonitor? monitor = null) {
+        ProgressMonitor? monitor = null, Gee.List<MediaSource>? not_removed = null) {
         assert(sources != null);
         // only tombstone if the backing is not being deleted
-        Gee.HashSet<MediaSource> to_tombstone = !delete_backing ? new Gee.HashSet<MediaSource>()
-            : null;
+        Gee.HashSet<MediaSource> to_tombstone = !delete_backing ? new Gee.HashSet<MediaSource>() : null;
         
         // separate photos into two piles: those in the trash and those not
         Gee.ArrayList<MediaSource> trashed = new Gee.ArrayList<MediaSource>();
@@ -450,14 +452,14 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         }
         
         if (trashed.size > 0)
-            get_trashcan().destroy_orphans(trashed, delete_backing, monitor);
+            get_trashcan().destroy_orphans(trashed, delete_backing, monitor, not_removed);
         
         if (offlined.size > 0)
-            get_offline_bin().destroy_orphans(offlined, delete_backing, monitor);
+            get_offline_bin().destroy_orphans(offlined, delete_backing, monitor, not_removed);
         
         // untrashed media sources may be destroyed outright
         if (not_trashed.size > 0)
-            destroy_marked(mark_many(not_trashed), delete_backing, monitor);
+            destroy_marked(mark_many(not_trashed), delete_backing, monitor, not_removed);
         
         if (to_tombstone != null && to_tombstone.size > 0) {
             try {
@@ -466,6 +468,35 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                 AppWindow.database_error(err);
             }
         }
+    }
+    
+    // Deletes (i.e. not trashes) the backing files.
+    // Note: must be removed from DB first.
+    public void delete_backing_files(Gee.Collection<MediaSource> sources,
+        ProgressMonitor? monitor = null, Gee.List<MediaSource>? not_deleted = null) {
+        int total_count = sources.size;
+        int i = 1;
+        
+        foreach (MediaSource source in sources) {
+            File file = source.get_file();
+            try {
+                file.delete(null);
+            } catch (Error err) {
+                // Note: we may get an exception even though the delete succeeded.
+                debug("Exception deleting file %s: %s", file.get_path(), err.message);
+            }
+            
+            bool deleted = !file.query_exists();
+            if (!deleted && null != not_deleted) {
+                not_deleted.add(source);
+            }
+            
+            if (monitor != null) {
+                monitor(i, total_count);
+            }
+            i++;
+        }
+            
     }
 }
 
