@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.7.2\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-10-12 15:39-0700\n"
-"PO-Revision-Date: 2010-11-21 19:09-0000\n"
+"PO-Revision-Date: 2010-11-24 13:48-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgstr "Sair do Shotwell"
 
 #: src/AppWindow.vala:470
 msgid "_About"
-msgstr "S_obre"
+msgstr "_Sobre"
 
 #: src/AppWindow.vala:471
 msgid "About Shotwell"
@@ -151,7 +151,7 @@ msgstr "Mais informações sobre o Shotwell"
 
 #: src/AppWindow.vala:488
 msgid "_User Manual"
-msgstr "Manual do _utilizador"
+msgstr "_Manual de utilizador"
 
 #: src/AppWindow.vala:575
 #: src/AppWindow.vala:589
@@ -1121,7 +1121,7 @@ msgstr "Criar um _novo álbum chamado:"
 #: src/FlickrConnector.vala:890
 #: src/PicasaConnector.vala:795
 msgid "_Publish"
-msgstr "_Publicar"
+msgstr "Pu_blicar"
 
 #: src/FacebookConnector.vala:781
 #: src/FlickrConnector.vala:886
@@ -1478,7 +1478,7 @@ msgstr "As fotos neste diretório não podem ser importadas."
 
 #: src/LibraryWindow.vala:1082
 msgid "Tags"
-msgstr "_Etiquetas"
+msgstr "Etiquetas"
 
 #: src/LibraryWindow.vala:1204
 msgid "Cameras"
@@ -2454,7 +2454,7 @@ msgstr "Im_primir..."
 
 #: src/Resources.vala:225
 msgid "Pu_blish..."
-msgstr "_Publicar..."
+msgstr "Pu_blicar..."
 
 #: src/Resources.vala:226
 msgid "Publish"
@@ -2466,7 +2466,7 @@ msgstr "Publicar para vários sítios"
 
 #: src/Resources.vala:229
 msgid "E_dit Title..."
-msgstr "E_ditar o título..."
+msgstr "Editar o _título..."
 
 #: src/Resources.vala:231
 msgid "Edit title of the selected photo"
@@ -2929,7 +2929,7 @@ msgstr "Preferências Shotwell"
 
 #: ui/shotwell.glade:124
 msgid "_Background:"
-msgstr "Imagem de _fundo:"
+msgstr "Imagem de f_undo:"
 
 #: ui/shotwell.glade:140
 msgid "_Import photos to:"
