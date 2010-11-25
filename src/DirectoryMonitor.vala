@@ -820,6 +820,17 @@ public class DirectoryMonitor : Object {
             }
         }
         
+        // File ID is required for directory monitoring.  No ID, no ride!
+        // TODO: Replace the warning with notify_discovery_failed() and provide a user-visible
+        // string.
+        if (get_file_info_id(local_dir_info) == null) {
+            warning("Unable to retrieve file ID on %s: skipping", dir.get_path());
+            
+            explore_directory_completed(in_discovery);
+            
+            return;
+        }
+        
         // verify this is a directory
         if (local_dir_info.get_file_type() != FileType.DIRECTORY) {
             notify_discovery_failed(_("Unable to monitor %s: Not a directory (%s)").printf(
@@ -1079,6 +1090,14 @@ public class DirectoryMonitor : Object {
             if (next.err != null) {
                 mdbg("Unable to retrieve file information for %s, dropping %s: %s".printf(
                     next.file.get_path(), next.event.to_string(), next.err.message));
+                
+                continue;
+            }
+            
+            // Directory monitoring requires file ID.  No ID, no ride!
+            if (next.info != null && get_file_info_id(next.info) == null) {
+                mdbg("Unable to retrieve file ID for %s, dropping %s".printf(next.file.get_path(),
+                    next.event.to_string()));
                 
                 continue;
             }
