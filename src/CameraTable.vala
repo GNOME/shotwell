@@ -9,15 +9,17 @@
 public class DiscoveredCamera {
     public GPhoto.Camera gcamera;
     public string uri;
+    public string display_name;
     
-    public DiscoveredCamera(GPhoto.Camera gcamera, string uri) {
+    public DiscoveredCamera(GPhoto.Camera gcamera, string uri, string display_name) {
         this.gcamera = gcamera;
         this.uri = uri;
+        this.display_name = display_name;
     }
 }
 
 public class CameraTable {
-    private const int UPDATE_DELAY_MSEC = 500;
+    private const int UPDATE_DELAY_MSEC = 1000;
     
     // list of subsystems being monitored for events
     private const string[] SUBSYSTEMS = { "usb", "block", null };
@@ -28,6 +30,7 @@ public class CameraTable {
     private OneShotScheduler camera_update_scheduler = null;
     private GPhoto.Context null_context = new GPhoto.Context();
     private GPhoto.CameraAbilitiesList abilities_list;
+    private VolumeMonitor volume_monitor;
     
     private Gee.HashMap<string, DiscoveredCamera> camera_map = new Gee.HashMap<string, DiscoveredCamera>(
         str_hash, str_equal, direct_equal);
@@ -42,6 +45,9 @@ public class CameraTable {
         
         // listen for interesting events on the specified subsystems
         client.uevent.connect(on_udev_event);
+        volume_monitor = VolumeMonitor.get();
+        volume_monitor.volume_changed.connect(on_volume_changed);
+        volume_monitor.volume_added.connect(on_volume_changed);
         
         // because loading the camera abilities list takes a bit of time and slows down app
         // startup, delay loading it (and notifying any observers) for a small period of time,
@@ -191,6 +197,21 @@ public class CameraTable {
     public static string get_port_uri(string port) {
         return "gphoto2://[%s]/".printf(port);
     }
+    
+    public static string? get_port_path(string port) {
+        // Accepted format is usb:001,005
+        return port.has_prefix("usb:") ? 
+            "/dev/bus/usb/%s".printf(port.substring(4).replace(",", "/")) : null;
+    }
+    
+    private string? get_name_for_uuid(string uuid) {
+        foreach (Volume volume in volume_monitor.get_volumes()) {
+            if (volume.get_identifier(VOLUME_IDENTIFIER_KIND_UUID) == uuid) {
+                return volume.get_name();
+            }
+        }
+        return null;
+    }
 
     private void update_camera_table() throws GPhotoError {
         // need to do this because virtual ports come and go in the USB world (and probably others)
@@ -270,6 +291,7 @@ public class CameraTable {
         // add cameras which were not present before
         foreach (string port in detected_map.keys) {
             string name = detected_map.get(port);
+            string display_name = null;
             string uri = get_port_uri(port);
 
             if (camera_map.has_key(uri)) {
@@ -277,6 +299,23 @@ public class CameraTable {
                 debug("%s @ %s already registered, skipping", name, port);
                 
                 continue;
+            }
+            
+            // Get display name for camera.
+            string path = get_port_path(port);
+            if (null != path) {
+                GUdev.Device device = client.query_by_device_file(path);
+                display_name = get_name_for_uuid(device.get_property("ID_SERIAL_SHORT"));
+                if (null == display_name) {
+                    display_name = device.get_sysfs_attr("product");
+                } 
+                if (null == display_name) {
+                    display_name = device.get_property("ID_MODEL");
+                }
+            }
+            if (null == display_name) {
+                // Default to GPhoto detected name.
+                display_name = name;
             }
             
             int index = port_info_list.lookup_path(port);
@@ -304,7 +343,7 @@ public class CameraTable {
             
             debug("Adding to camera table: %s @ %s", name, port);
             
-            DiscoveredCamera camera = new DiscoveredCamera(gcamera, uri);
+            DiscoveredCamera camera = new DiscoveredCamera(gcamera, uri, display_name);
             camera_map.set(uri, camera);
             
             camera_added(camera);
@@ -316,6 +355,10 @@ public class CameraTable {
         
         // Device add/removes often arrive in pairs; this allows for a single
         // update to occur when they come in all at once
+        camera_update_scheduler.after_timeout(UPDATE_DELAY_MSEC, true);
+    }
+    
+    public void on_volume_changed(Volume volume) {
         camera_update_scheduler.after_timeout(UPDATE_DELAY_MSEC, true);
     }
     

@@ -417,13 +417,25 @@ public class ImportPage : CheckerboardPage {
         LIBRARY_ERROR
     }
     
-    public ImportPage(GPhoto.Camera camera, string uri) {
+    public ImportPage(GPhoto.Camera camera, string uri, string? display_name = null) {
         base(_("Camera"));
-        camera_name = _("Camera");
-
         this.camera = camera;
         this.uri = uri;
         this.import_sources = new SourceCollection("ImportSources for %s".printf(uri));
+        
+        // Get camera name.
+        if (null != display_name) {
+            camera_name = display_name;
+        } else {
+            GPhoto.CameraAbilities abilities;
+            GPhoto.Result res = camera.get_abilities(out abilities);
+            if (res != GPhoto.Result.OK) {
+                debug("Unable to get camera abilities: %s", res.to_full_string());
+                camera_name = _("Camera");
+            }
+        }
+        camera_label.set_text(camera_name);
+        set_page_name(camera_name);
         
         // Mount.unmounted signal is *only* fired when a VolumeMonitor has been instantiated.
         this.volume_monitor = VolumeMonitor.get();
@@ -495,17 +507,6 @@ public class ImportPage : CheckerboardPage {
         import_all_button.set_related_action(action_group.get_action("ImportAll"));
         
         toolbar.insert(import_all_button, -1);
-        
-        GPhoto.CameraAbilities abilities;
-        GPhoto.Result res = camera.get_abilities(out abilities);
-        if (res != GPhoto.Result.OK) {
-            debug("Unable to get camera abilities: %s", res.to_full_string());
-        } else {
-            camera_name = abilities.model;
-            camera_label.set_text(abilities.model);
-            
-            set_page_name(camera_name);
-        }
 
         // restrain the recalcitrant rascal!  prevents the progress bar from being added to the
         // show_all queue so we have more control over its visibility

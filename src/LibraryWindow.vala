@@ -1286,7 +1286,7 @@ public class LibraryWindow : AppWindow {
     
 #if !NO_CAMERA
     private void add_camera_page(DiscoveredCamera camera) {
-        ImportPage page = new ImportPage(camera.gcamera, camera.uri);   
+        ImportPage page = new ImportPage(camera.gcamera, camera.uri, camera.display_name);
 
         // create the Cameras row if this is the first one
         if (cameras_marker == null)
