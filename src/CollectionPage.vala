@@ -120,8 +120,6 @@ public abstract class CollectionPage : MediaPage {
         InjectionGroup group = new InjectionGroup("/MediaMenuBar/EditMenu/EditExtrasPlaceholder");
         
         group.add_menu_item("Duplicate");
-        group.add_separator();
-        group.add_menu_item("RemoveFromLibrary");
 
         return group;
     }
@@ -204,12 +202,6 @@ public abstract class CollectionPage : MediaPage {
         Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, null };
         event.label = _("Even_ts");
         actions += event;
-        
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE,
-            "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
-        remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
-        remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_PLURAL_TOOLTIP;
-        actions += remove_from_library;
         
         Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
             TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
@@ -390,7 +382,6 @@ public abstract class CollectionPage : MediaPage {
         bool selection_has_videos = selection_has_video();
         bool page_has_photos = page_has_photo();
         
-        set_action_sensitive("RemoveFromLibrary", has_selected);
         // don't allow duplication of the selection if it contains a video -- videos are huge and
         // and they're not editable anyway, so there seems to be no use case for duplicating them
         set_action_sensitive("Duplicate", has_selected && (!selection_has_videos));
@@ -644,10 +635,6 @@ public abstract class CollectionPage : MediaPage {
         return false;
     }
    
-    private void on_remove_from_library() {
-        remove_photos_from_library((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
-    }
-    
     private void on_rotate_clockwise() {
         if (get_view().get_selected_count() == 0)
             return;

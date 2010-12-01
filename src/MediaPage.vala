@@ -391,6 +391,12 @@ public abstract class MediaPage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
         
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE,
+            "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
+        remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
+        remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_PLURAL_TOOLTIP;
+        actions += remove_from_library;
+        
         Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
             TRANSLATABLE, on_move_to_trash };
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
@@ -630,6 +636,7 @@ public abstract class MediaPage : CheckerboardPage {
         set_action_sensitive("EditTitle", selected_count == 1);
         set_action_sensitive("IncreaseSize", get_thumb_size() < Thumbnail.MAX_SCALE);
         set_action_sensitive("DecreaseSize", get_thumb_size() > Thumbnail.MIN_SCALE);
+        set_action_sensitive("RemoveFromLibrary", selected_count > 0);
         set_action_sensitive("MoveToTrash", selected_count > 0);
         
         if (DesktopIntegration.is_send_to_installed())
@@ -1073,6 +1080,10 @@ public abstract class MediaPage : CheckerboardPage {
         on_set_rating(Rating.FIVE);
     }
 
+    private void on_remove_from_library() {
+        remove_photos_from_library((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
+    }
+    
     protected virtual void on_move_to_trash() {
         if (get_view().get_selected_count() > 0) {
             get_command_manager().execute(new TrashUntrashPhotosCommand(
