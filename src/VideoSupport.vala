@@ -198,7 +198,16 @@ public class VideoReader {
             clip_duration = ((double) video_length) / 1000000000.0;
         else
             throw new VideoError.CONTENTS("GStreamer couldn't extract clip duration");
-        
+
+        // the first frame of the video may be black because of fade-in effects, so seek 1/3
+        // of the way through the video to capture the preview frame. The seek_simple( ) call
+        // can change the pipeline state, so once again set the pipeline state to PLAYING and
+        // use get_state( ) to block until the the clip is ready to play.
+        thumbnail_pipeline.seek_simple(Gst.Format.TIME, Gst.SeekFlags.FLUSH, video_length / 3);
+        thumbnail_pipeline.set_state(Gst.State.PLAYING);
+        thumbnail_pipeline.get_state(out from_state, out to_state, 1000000000);
+
+        // we're done with the video, so set the pipeline state to NULL
         thumbnail_pipeline.set_state(Gst.State.NULL);
         
         if (preview_frame == null) {
