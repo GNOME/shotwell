@@ -64,7 +64,7 @@ private class QuickTimeMetadataLoader {
         
         bool ret = false;
         try {
-            test.open_file();            
+            test.open_file();
             test.read_atom();
             
             // Look for the header.
@@ -99,7 +99,7 @@ private class QuickTimeMetadataLoader {
             
             test.close_file();
         } catch (GLib.Error e) {
-            debug("Error while testing for QuickTime file: %s", e.message);
+            debug("Error while testing for QuickTime file for %s: %s", file.get_path(), e.message);
         }
         
         return ret;
@@ -216,15 +216,17 @@ private class QuickTimeAtom {
     }
     
     public void next_atom() throws GLib.Error {
-        // skip() only accepts uint32's, so we may have to
+        // skip() only accepts size_t's, so we may have to
         // break the operation into several increments.
+        assert(section_size >= section_offset);
         uint64 skip_amount = section_size - section_offset;
         while (skip_amount > 0) {
-            if (skip_amount >= uint32.MAX) {
-                input.skip(uint32.MAX);
-                skip_amount -= uint32.MAX;
+            // skip() throws an error if the amount is too large, so check against ssize_t instead
+            if (skip_amount >= ssize_t.MAX) {
+                input.skip(ssize_t.MAX);
+                skip_amount -= ssize_t.MAX;
             } else {
-                input.skip((uint32) skip_amount);
+                input.skip((size_t) skip_amount);
                 skip_amount = 0;
             }
         }
