@@ -63,6 +63,7 @@
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
+        <menuitem name="ContextSendTo" action="SendTo" />
         <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
     </popup>
 

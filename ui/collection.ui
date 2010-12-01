@@ -39,6 +39,7 @@
         <menuitem name="ContextExternalEdit" action="ExternalEdit" />
         <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
         <separator />
+        <menuitem name="ContextSendTo" action="SendTo" />
         <menuitem name="ContextJumpToEvent" action="CommonJumpToEvent" />
         <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
         <separator />

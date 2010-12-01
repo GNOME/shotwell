@@ -18,6 +18,7 @@
         <separator />
         <menuitem name="ContextEditTitle" action="EditTitle" />
         <separator />
+        <menuitem name="ContextSendTo" action="SendTo" />
         <menuitem name="ContextJumpToEvent" action="CommonJumpToEvent" />
         <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
         <separator />
