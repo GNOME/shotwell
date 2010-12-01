@@ -222,7 +222,8 @@ ICON_FILES = \
 	zoom-in.png \
 	zoom-out.png \
 	shotwell-16.svg \
-	shotwell-24.svg
+	shotwell-24.svg \
+	sprocket.png
 
 HELP_FILES = \
 	edit-adjustments.page \

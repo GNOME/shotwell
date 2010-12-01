@@ -22,6 +22,83 @@ public enum RatingFilter {
     FIVE_ONLY = 14
 }
 
+public class MediaSourceItem : CheckerboardItem {
+    private static Gdk.Pixbuf basis_sprocket_pixbuf = null;
+    private static Gdk.Pixbuf current_sprocket_pixbuf = null;
+
+    private bool enable_sprockets = false;
+
+    // preserve the same constructor arguments and semantics as CheckerboardItem so that we're
+    // a drop-in replacement
+    public MediaSourceItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title,
+        bool marked_up = false, Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        base(source, initial_pixbuf_dim, title, marked_up, alignment);
+        if (basis_sprocket_pixbuf == null)
+            basis_sprocket_pixbuf = Resources.load_icon("sprocket.png", 0);
+    }
+
+    protected override void paint_image(Gdk.GC bg_gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf,
+        Gdk.Point origin) {       
+        Dimensions pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
+        // sprocket geometry calculation (and possible adjustment) has to occur before we call
+        // base.paint_image( ) because the base-class method needs the correct trinket horizontal
+        // offset
+        
+        if (!enable_sprockets) {
+            set_horizontal_trinket_offset(0);
+        } else {
+            double reduction_factor = ((double) pixbuf_dim.major_axis()) /
+                ((double) ThumbnailCache.Size.LARGEST);
+            int reduced_size = (int) (reduction_factor * basis_sprocket_pixbuf.width);
+
+            if (current_sprocket_pixbuf == null || reduced_size != current_sprocket_pixbuf.width) {
+                current_sprocket_pixbuf = basis_sprocket_pixbuf.scale_simple(reduced_size,
+                    reduced_size, Gdk.InterpType.HYPER);
+                set_horizontal_trinket_offset(reduced_size);
+            }
+        }
+                
+        base.paint_image(bg_gc, drawable, pixbuf, origin);
+
+        if (enable_sprockets) {
+            paint_sprockets(bg_gc, drawable, origin, pixbuf_dim);
+        }
+    }
+
+    protected void paint_one_sprocket(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Point origin) {
+        drawable.draw_pixbuf(gc, current_sprocket_pixbuf, 0, 0, origin.x, origin.y, -1, -1,
+            Gdk.RgbDither.NORMAL, 0, 0);
+    }
+
+    protected void paint_sprockets(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Point item_origin,
+        Dimensions item_dimensions) {
+        int num_sprockets = item_dimensions.height / current_sprocket_pixbuf.height;
+
+        Gdk.Point left_paint_location = item_origin;
+        Gdk.Point right_paint_location = item_origin;
+        right_paint_location.x += (item_dimensions.width - current_sprocket_pixbuf.width);
+        for (int i = 0; i < num_sprockets; i++) {
+            paint_one_sprocket(gc, drawable, left_paint_location);
+            paint_one_sprocket(gc, drawable, right_paint_location);
+
+            left_paint_location.y += current_sprocket_pixbuf.height;
+            right_paint_location.y += current_sprocket_pixbuf.height;
+        }
+
+        int straggler_pixels = item_dimensions.height % current_sprocket_pixbuf.height;
+        if (straggler_pixels > 0) {
+            drawable.draw_pixbuf(gc, current_sprocket_pixbuf, 0, 0, left_paint_location.x,
+                left_paint_location.y, -1, straggler_pixels, Gdk.RgbDither.NORMAL, 0, 0);
+            drawable.draw_pixbuf(gc, current_sprocket_pixbuf, 0, 0, right_paint_location.x,
+                right_paint_location.y, -1, straggler_pixels, Gdk.RgbDither.NORMAL, 0, 0);
+        }
+    }
+    
+    public void set_enable_sprockets(bool enable_sprockets) {
+        this.enable_sprockets = enable_sprockets;
+    }
+}
+
 public abstract class MediaPage : CheckerboardPage {
     private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
     private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon

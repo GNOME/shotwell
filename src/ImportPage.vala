@@ -218,14 +218,18 @@ class PhotoImportSource : ImportSource {
     }
 }
 
-class ImportPreview : CheckerboardItem {
+class ImportPreview : MediaSourceItem {
     public const int MAX_SCALE = 128;
     
     private static Gdk.Pixbuf placeholder_preview = null;
     
     public ImportPreview(ImportSource source) {
         base(source, Dimensions(), source.get_name());
-        
+
+        // draw sprocket holes as visual indications on video previews
+        if (source is VideoImportSource)
+            set_enable_sprockets(true);
+
         // scale down pixbuf if necessary
         Gdk.Pixbuf pixbuf = null;
         try {

@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-public class Thumbnail : CheckerboardItem {
+public class Thumbnail : MediaSourceItem {
     // Collection properties Thumbnail responds to
     // SHOW_TAGS (bool)
     public const string PROP_SHOW_TAGS = CheckerboardItem.PROP_SHOW_SUBTITLES;
@@ -42,12 +42,15 @@ public class Thumbnail : CheckerboardItem {
         Tag.global.container_contents_altered.connect(on_tag_contents_altered);
         Tag.global.items_altered.connect(on_tags_altered);
 
-        if (media is LibraryPhoto)
+        if (media is LibraryPhoto) {
             LibraryPhoto.global.items_altered.connect(on_sources_altered);
-        else if (media is Video)
+            set_enable_sprockets(false);
+        } else if (media is Video) {
             Video.global.items_altered.connect(on_sources_altered);
-        else
+            set_enable_sprockets(true);
+        } else {
             error("can't construct Thumbnail: unsupported media type");
+        }
         
         this.scale = scale;
         

@@ -121,6 +121,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     private Dimensions pixbuf_dim = Dimensions();
     private int col = -1;
     private int row = -1;
+    private int horizontal_trinket_offset = 0;
     
     public CheckerboardItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title,
         bool marked_up = false, Pango.Alignment alignment = Pango.Alignment.LEFT) {
@@ -449,7 +450,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         Gdk.Pixbuf? trinket = get_bottom_left_trinket(TRINKET_SCALE);
         if (trinket != null) {
             drawable.draw_pixbuf(select_gc, trinket, 0, 0,
-                pixbuf_origin.x + TRINKET_PADDING,
+                pixbuf_origin.x + TRINKET_PADDING + get_horizontal_trinket_offset(),
                 pixbuf_origin.y + pixbuf_dim.height - trinket.height - TRINKET_PADDING,
                 trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
         }
@@ -457,7 +458,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         trinket = get_top_left_trinket(TRINKET_SCALE);
         if (trinket != null) {
             drawable.draw_pixbuf(select_gc, trinket, 0, 0,
-                pixbuf_origin.x + TRINKET_PADDING,
+                pixbuf_origin.x + TRINKET_PADDING + get_horizontal_trinket_offset(),
                 pixbuf_origin.y + TRINKET_PADDING,
                 trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
         }
@@ -465,18 +466,27 @@ public abstract class CheckerboardItem : ThumbnailView {
         trinket = get_top_right_trinket(TRINKET_SCALE);
         if (trinket != null) {
             drawable.draw_pixbuf(select_gc, trinket, 0, 0,
-                pixbuf_origin.x + pixbuf_dim.width - trinket.width - TRINKET_PADDING,
-                pixbuf_origin.y + TRINKET_PADDING,
-                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+                pixbuf_origin.x + pixbuf_dim.width - trinket.width - get_horizontal_trinket_offset() -
+                TRINKET_PADDING, pixbuf_origin.y + TRINKET_PADDING, trinket.width, trinket.height,
+                Gdk.RgbDither.NORMAL, 0, 0);
         }
         
         trinket = get_bottom_right_trinket(TRINKET_SCALE);
         if (trinket != null) {
             drawable.draw_pixbuf(select_gc, trinket, 0, 0,
-                pixbuf_origin.x + pixbuf_dim.width - trinket.width - TRINKET_PADDING,
-                pixbuf_origin.y + pixbuf_dim.height - trinket.height - TRINKET_PADDING,
+                pixbuf_origin.x + pixbuf_dim.width - trinket.width - get_horizontal_trinket_offset() -
+                TRINKET_PADDING, pixbuf_origin.y + pixbuf_dim.height - trinket.height - TRINKET_PADDING,
                 trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
         }
+    }
+    
+    protected void set_horizontal_trinket_offset(int horizontal_trinket_offset) {
+        assert(horizontal_trinket_offset >= 0);
+        this.horizontal_trinket_offset = horizontal_trinket_offset;
+    }
+    
+    protected int get_horizontal_trinket_offset() {
+        return horizontal_trinket_offset;
     }
 
     public void set_grid_coordinates(int col, int row) {
