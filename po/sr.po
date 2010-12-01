@@ -2,10 +2,10 @@
 # Serbian translation for Shotwell
 # Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.2+trunk\n"
+"Project-Id-Version: shotwell-0.7.1\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-11-24 18:32-0800\n"
 "PO-Revision-Date: 2010-09-12 00:37+0100\n"
@@ -142,7 +142,7 @@ msgstr "Више података о Фото-бунару"
 
 #: src/AppWindow.vala:487
 msgid "_User Manual"
-msgstr "Упутство за кориснике"
+msgstr "_Упутство за кориснике"
 
 #: src/AppWindow.vala:578 src/AppWindow.vala:592 src/AppWindow.vala:609
 #: src/Dialogs.vala:912 src/Dialogs.vala:934 src/TagPage.vala:135
@@ -580,58 +580,56 @@ msgstr[1] "%d слике су успешно увежене.\n"
 msgstr[2] "%d слика је успешно увежено.\n"
 
 #: src/Dialogs.vala:564
-#, fuzzy, c-format
+#, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] "%d слика је успешно увежена.\r\n"
-msgstr[1] "%d слике су успешно увежене.\r\n"
-msgstr[2] "%d слика је успешно увежено.\r\n"
+msgstr[0] "%d видео је успешно увежен.\r\n"
+msgstr[1] "%d видеа су успешно увежена.\r\n"
+msgstr[2] "%d видеа је успешно увежено.\r\n"
 
 #: src/Dialogs.vala:567
-#, fuzzy, c-format
+#, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] "%d слика је успешно увежена.\r\n"
-msgstr[1] "%d слике су успешно увежене.\r\n"
-msgstr[2] "%d слика је успешно увежено.\r\n"
+msgstr[0] "%d слика/видео је успешно увежен.\r\n"
+msgstr[1] "%d слике/видеа су успешно увежена.\r\n"
+msgstr[2] "%d слика/видеа је успешно увежено.\r\n"
 
 #: src/Dialogs.vala:583
-#, fuzzy
 msgid "No photos or videos imported.\n"
-msgstr "Ниједна слика није увежена.\n"
+msgstr "Нијеадна слика ни видео нису увежени.\n"
 
 #: src/Dialogs.vala:598
 msgid "Import Complete"
 msgstr "Увоз је завршен"
 
 #: src/Dialogs.vala:752
-#, fuzzy, c-format
+#, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "секунд"
-msgstr[1] "секунде"
-msgstr[2] "секунди"
+msgstr[0] "%d секунд"
+msgstr[1] "%d секунде"
+msgstr[2] "%d секунди"
 
 #: src/Dialogs.vala:755
-#, fuzzy, c-format
+#, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] "минут"
-msgstr[1] "минута"
-msgstr[2] "минута"
+msgstr[0] "%d минут"
+msgstr[1] "%d минута"
+msgstr[2] "%d минута"
 
 #: src/Dialogs.vala:759
-#, fuzzy, c-format
+#, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] "сат"
-msgstr[1] "сата"
-msgstr[2] "сати"
+msgstr[0] "%d сат"
+msgstr[1] "%d сата"
+msgstr[2] "%d сати"
 
 #: src/Dialogs.vala:762
-#, fuzzy
 msgid "1 day"
-msgstr "дан"
+msgstr "%d дан"
 
 #: src/Dialogs.vala:839 src/Resources.vala:158
 msgid "Rename Event"
@@ -883,19 +881,16 @@ msgid "_Don't show this message again"
 msgstr "_Не приказуј више ову поруку"
 
 #: src/Dialogs.vala:1810
-#, fuzzy
 msgid "Shotwell can copy the photos into your library folder or it can import them without copying."
-msgstr "Фото-бунар може да ископира слике у вашу збирку или направи везу ка вашим сликама без дуплирања"
+msgstr "Фото-бунар може да ископира слике у вашу збирку или направи везу ка вашим сликама без копирања"
 
 #: src/Dialogs.vala:1815
-#, fuzzy
 msgid "Co_py Photos"
-msgstr "_Слике"
+msgstr "Ис_копирај слике"
 
 #: src/Dialogs.vala:1816
-#, fuzzy
 msgid "_Import in Place"
-msgstr "Увези _изабрано"
+msgstr "Увези _на месту"
 
 #: src/Dialogs.vala:1817
 msgid "Import to Library"
@@ -1150,9 +1145,9 @@ msgid "Event %s"
 msgstr "Догађај %s"
 
 #: src/Exporter.vala:246
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to generate a temporary file for %s: %s"
-msgstr "Нисам успео да направим привремену фасциклу %s: %s"
+msgstr "Нисам успео да направим привремену фасциклу за %s: %s"
 
 #: src/Exporter.vala:313
 msgid "Exporting"
@@ -1211,21 +1206,17 @@ msgid "Creating album..."
 msgstr "Прављење новог албума ..."
 
 #: src/FacebookConnector.vala:766
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
 "\n"
 msgstr ""
-"Ушли сте на Flickr као %s.\n"
+"Ушли сте на Facebook као %s.\n"
 "\n"
 
 #: src/FacebookConnector.vala:767
-#, fuzzy
 msgid "Where would you like to publish the selected photos?"
-msgstr ""
-"Пријављени сте на Facebook-у као %s.\n"
-"\n"
-"Где желите да објавите изабране слике?"
+msgstr "Где желите да објавите изабране слике?"
 
 #: src/FacebookConnector.vala:816
 msgid "Publish to an e_xisting album:"
@@ -1236,9 +1227,8 @@ msgid "Create a _new album named:"
 msgstr "Направите _нови албум:"
 
 #: src/FacebookConnector.vala:835
-#, fuzzy
 msgid "Videos and new photo albums _visible to:"
-msgstr "Слике су _видљиве за:"
+msgstr "Нови албуми видеа и слика су _видљиви:"
 
 #: src/FacebookConnector.vala:850 src/FlickrConnector.vala:924
 #: src/PicasaConnector.vala:829 src/PiwigoConnector.vala:839
@@ -1257,14 +1247,12 @@ msgid "Just me"
 msgstr "Само мени"
 
 #: src/FacebookConnector.vala:943
-#, fuzzy
 msgid "All friends"
-msgstr "_Сав видео"
+msgstr "Свим пријатељима"
 
 #: src/FacebookConnector.vala:944
-#, fuzzy
 msgid "Friends of friends"
-msgstr "Само пријатељима и породици"
+msgstr "Само пријатељима пријатеља"
 
 #: src/FacebookConnector.vala:945 src/FlickrConnector.vala:962
 #: src/PiwigoConnector.vala:904
@@ -1273,7 +1261,7 @@ msgstr "Свима"
 
 #: src/FlaggedPage.vala:17
 msgid "Flagged"
-msgstr ""
+msgstr "Обележено"
 
 #: src/FlickrConnector.vala:12
 msgid ""
@@ -1324,14 +1312,12 @@ msgid "Photos _visible to:"
 msgstr "Слике су _видљиве за:"
 
 #: src/FlickrConnector.vala:882
-#, fuzzy
 msgid "Videos _visible to:"
-msgstr "Слике су _видљиве за:"
+msgstr "Видео је _видљив:"
 
 #: src/FlickrConnector.vala:884
-#, fuzzy
 msgid "Photos and videos _visible to:"
-msgstr "Слике су _видљиве за:"
+msgstr "Слике и видео су _видљиви:"
 
 #: src/FlickrConnector.vala:887
 msgid "Photo _size:"
@@ -1461,33 +1447,32 @@ msgstr[1] "Да ли да избришем %d слике са фотоапара
 msgstr[2] "Да ли да избришем %d слика са фотоапарата?"
 
 #: src/ImportPage.vala:1231
-#, fuzzy, c-format
+#, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
-msgstr[0] "Да ли да избришем %d слику са фотоапарата?"
-msgstr[1] "Да ли да избришем %d слике са фотоапарата?"
-msgstr[2] "Да ли да избришем %d слика са фотоапарата?"
+msgstr[0] "Да ли да избришем %d видео са фотоапарата?"
+msgstr[1] "Да ли да избришем %d видеа са фотоапарата?"
+msgstr[2] "Да ли да избришем %d видеа са фотоапарата?"
 
 #: src/ImportPage.vala:1234
-#, fuzzy, c-format
+#, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] "Да ли да избришем %d слику са фотоапарата?"
-msgstr[1] "Да ли да избришем %d слике са фотоапарата?"
-msgstr[2] "Да ли да избришем %d слика са фотоапарата?"
+msgstr[0] "Да ли да избришем %d слику/видео са фотоапарата?"
+msgstr[1] "Да ли да избришем %d слике/видеа са фотоапарата?"
+msgstr[2] "Да ли да избришем %d слика/видеа са фотоапарата?"
 
 #: src/ImportPage.vala:1261
-#, fuzzy
 msgid "Removing photos/videos from camera"
-msgstr "Уклањам слике са фотоапарата"
+msgstr "Уклањам слике/видео са фотоапарата"
 
 #: src/ImportPage.vala:1265
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
-msgstr[0] "Због грешке, нисам успео да избришем %d слику са фотоапарата."
-msgstr[1] "Због грешке, нисам успео да избришем %d слике са фотоапарата."
-msgstr[2] "Због грешке, нисам успео да избришем %d слика са фотоапарата."
+msgstr[0] "Због грешке, нисам успео да избришем %d слику/видео са фотоапарата."
+msgstr[1] "Због грешке, нисам успео да избришем %d слике/видеа са фотоапарата."
+msgstr[2] "Због грешке, нисам успео да избришем %d слика/видеа са фотоапарата."
 
 #: src/ImportPage.vala:1312
 msgid "Importing..."
@@ -1644,14 +1629,12 @@ msgid "Updating library..."
 msgstr "Освежавам збирку слика ..."
 
 #: src/LibraryWindow.vala:1578
-#, fuzzy
 msgid "Preparing to auto-import photos..."
-msgstr "Спремам слике за увоз..."
+msgstr "Спремам слике за самостални-увоз..."
 
 #: src/LibraryWindow.vala:1583
-#, fuzzy
 msgid "Auto-importing photos..."
-msgstr "Самостално-увозим ..."
+msgstr "Самостално-увозим слике..."
 
 #: src/LibraryWindow.vala:1588
 msgid "Writing metadata to files..."
@@ -1659,27 +1642,27 @@ msgstr "Уписујем метаподатаке у датотеке ..."
 
 #: src/LibraryWindow.vala:1593
 msgid "Processing RAW files..."
-msgstr ""
+msgstr "Обрађујем RAW датотеке..."
 
 #: src/main.vala:80
-#, fuzzy, c-format
+#, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please use the latest version of Shotwell."
-msgstr "Ваша збирка слика није компатибилна са овом верзијом Фото-бунара.  Формирана је од Фото-бунара %s.  Тренутна верзија је %s.  Молим да увек користите најновију верзију Фото-бунара."
+msgstr "Ваша збирка слика није компатибилна са овом верзијом Фото-бунара.  Формирана је од Фото-бунара %s (издање %d).  Тренутна верзија је %s (издање %d).  Молим да увек користите најновију верзију Фото-бунара."
 
 #: src/main.vala:85
-#, fuzzy, c-format
+#, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d).  For more information please check the Shotwell Wiki at %s"
-msgstr "Фото-бунар није успео да унапреди вашу збирку слика са верзије %s на %s.  За више података посетите Фото-бунар Вики на %s"
+msgstr "Фото-бунар није успео да унапреди вашу збирку слика са верзије %s (издање %d) на %s (издање %d).  За више података посетите Фото-бунар Вики на %s"
 
 #: src/main.vala:91
-#, fuzzy, c-format
+#, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please clear your library by deleting %s and re-import your photos."
-msgstr "Ваша збирка слика није компатибилна са овом верзијом Фото-бунара.  Формирана је од Фото-бунара %s.  Тренутна верзија је %s.  Молим избришите вашу збирку слика, брисањем датотеке %s и поново увезите слике."
+msgstr "Ваша збирка слика није компатибилна са овом верзијом Фото-бунара.  Формирана је од Фото-бунара %s (издање %d).  Тренутна верзија је %s (издање %d).  Молим избришите вашу збирку слика, брисањем датотеке %s, а затим поново увезите слике."
 
 #: src/main.vala:97
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %s"
-msgstr "Појавила се непозната грешка приликом покушаја провере Фото-бунар базе: %d"
+msgstr "Појавила се непозната грешка приликом покушаја провере Фото-бунар базе: %s"
 
 #: src/main.vala:132
 msgid "Loading Shotwell"
@@ -2089,68 +2072,62 @@ msgid "Recommended (1600 x 1200 pixels)"
 msgstr "Препоручено (1600 x 1200 тачака)"
 
 #: src/PiwigoConnector.vala:482
-#, fuzzy
 msgid "Creating category..."
-msgstr "Прављење новог албума ..."
+msgstr "Правим нову категорију ..."
 
 #: src/PiwigoConnector.vala:587
-#, fuzzy
 msgid "Enter the username and password associated with your Piwigo account, and the URL of your Piwigo installation."
-msgstr "Унесите вашу адресу ел. поште и лозинку помоћу које приступате Picasa Web Albums налогу."
+msgstr "Унесите корисничко име и лозинку помоћу којих приступате Piwigo налогу и путању ка вашој Piwigo инсталацији."
 
 #: src/PiwigoConnector.vala:588
 msgid "No Piwigo installation was found at this URL. Please verify the URL you entered"
-msgstr ""
+msgstr "Piwigo инсталациј није пронађена на овој путањи. Проверите дату путању."
 
 #: src/PiwigoConnector.vala:589
 msgid "Username and/or password invalid. Please try again"
-msgstr ""
+msgstr "Корисничко име и/или лозинка нису исправни. Покушајте поново."
 
 #: src/PiwigoConnector.vala:623
 #, c-format
 msgid "Invalid URL"
-msgstr ""
+msgstr "Неисправна путања"
 
 #: src/PiwigoConnector.vala:634
 msgid "_URL of your Piwigo installation:"
-msgstr ""
+msgstr "_Путања ка вашој Piwigo инсталацији"
 
 #: src/PiwigoConnector.vala:636 src/YandexConnector.vala:62
-#, fuzzy
 msgid "_Username:"
-msgstr "Упутство за кориснике"
+msgstr "_Корисничко име"
 
 #: src/PiwigoConnector.vala:739
-#, fuzzy, c-format
+#, c-format
 msgid "You are logged into Piwigo as %s."
-msgstr ""
-"Ушли сте на Flickr као %s.\n"
-"\n"
+msgstr "Ушли сте на Piwigo као %s."
 
 #: src/PiwigoConnector.vala:769
-#, fuzzy
 msgid "An _existing category:"
-msgstr "_Постојећи албум:"
+msgstr "_Постојећа категорија:"
 
 #: src/PiwigoConnector.vala:802
 msgid "Who can see those pictures ?"
-msgstr ""
+msgstr "Ко може да види ове слике?"
 
 #: src/PiwigoConnector.vala:905
 msgid "Admins, Friends, Family, Contacts"
-msgstr ""
+msgstr "Администратори, пријатељи, пордица, контакти"
 
 #: src/PiwigoConnector.vala:906
 msgid "Admins, Family, Friends"
-msgstr ""
+msgstr "Администратори, пордица, пријатељи"
 
 #: src/PiwigoConnector.vala:907
 msgid "Admins, Family"
-msgstr ""
+msgstr "Администратори, пордица"
 
 #: src/PiwigoConnector.vala:908
 msgid "Admins"
-msgstr ""
+msgstr "Администратори"
 
 #: src/PngSupport.vala:31
 msgid "PNG"
@@ -2461,9 +2438,8 @@ msgid "Set selected image to be the new desktop background"
 msgstr "Поставља изабрану слику као позадину ваше радне површине"
 
 #: src/Resources.vala:147
-#, fuzzy
 msgid "Set as _Desktop Slideshow..."
-msgstr "Постави као _позадину"
+msgstr "Постави као смењиву _позадинску слику..."
 
 #: src/Resources.vala:149
 msgid "_Undo"
@@ -2610,19 +2586,16 @@ msgid "Set rating to rejected"
 msgstr "Оцењује слику као лошу"
 
 #: src/Resources.vala:198
-#, fuzzy
 msgid "Rejected _Only"
-msgstr "_Лоша"
+msgstr "Само _одбиј"
 
 #: src/Resources.vala:199
-#, fuzzy
 msgid "Rejected Only"
-msgstr "_Лоша"
+msgstr "Само одбиј"
 
 #: src/Resources.vala:200
-#, fuzzy
 msgid "Show only rejected photos"
-msgstr "Прикажи само омиљене слике"
+msgstr "Прикажи само одбијене слике"
 
 #: src/Resources.vala:202
 msgid "All + _Rejected"
@@ -2753,31 +2726,28 @@ msgid "Open the selected photo with a RAW image editor"
 msgstr "Отвори изабрану слику помоћу уређивача RAW слика"
 
 #: src/Resources.vala:252
-#, fuzzy
 msgid "Send _To..."
-msgstr "Сачувај _као..."
+msgstr "Пошаљи _у..."
 
 #: src/Resources.vala:253
 msgid "Send photos by mail or instant message"
-msgstr ""
+msgstr "Шаље слике помоћу поште или брзих порука"
 
 #: src/Resources.vala:255
-#, fuzzy
 msgid "_Flag"
-msgstr "_Датотека"
+msgstr "_Обележи"
 
 #: src/Resources.vala:256
 msgid "Flag the photos to work with them together"
-msgstr ""
+msgstr "Обележи слике на којима желиш да радиш"
 
 #: src/Resources.vala:258
 msgid "Un_flag"
-msgstr ""
+msgstr "_Скини обележје"
 
 #: src/Resources.vala:259
-#, fuzzy
 msgid "Unflag the photos"
-msgstr "Окреће слике на лево"
+msgstr "Скини обележје са слика"
 
 #: src/Resources.vala:262
 #, c-format
@@ -3073,7 +3043,7 @@ msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
 
 #: src/util.vala:565
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
@@ -3083,20 +3053,20 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Ова акција ће уклонити %d слику из Фото-бунарове збирке слика. Да ли желите и да је избришете и са диска?\n"
-"\n"
+"Ова акција ће уклонити %d слику/видео из Фото-бунарове збирке слика. Да ли желите и да је избришете и са диска?\r\n"
+"\r\n"
 "Ова акција је неповратна."
 msgstr[1] ""
-"Ова акција ће уклонити %d слике из Фото-бунарове збирке слика. Да ли желите и да их избришете и са диска?\n"
-"\n"
+"Ова акција ће уклонити %d слике/видеа из Фото-бунарове збирке слика. Да ли желите и да их избришете и са диска?\r\n"
+"\r\n"
 "Ова акција је неповратна."
 msgstr[2] ""
-"Ова акција ће уклонити %d сликa из Фото-бунарове збирке слика. Да ли желите и да их избришете и са диска?\n"
-"\n"
+"Ова акција ће уклонити %d сликa/видеа из Фото-бунарове збирке слика. Да ли желите и да их избришете и са диска?\r\n"
+"\r\n"
 "Ова акција је неповратна."
 
 #: src/util.vala:569
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
@@ -3106,16 +3076,16 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Ова акција ће уклонити %d слику из Фото-бунарове збирке слика. Да ли желите и да је избришете и са диска?\n"
-"\n"
+"Ова акција ће уклонити %d видео из Фото-бунарове збирке слика. Да ли желите и да је избришете и са диска?\r\n"
+"\r\n"
 "Ова акција је неповратна."
 msgstr[1] ""
-"Ова акција ће уклонити %d слике из Фото-бунарове збирке слика. Да ли желите и да их избришете и са диска?\n"
-"\n"
+"Ова акција ће уклонити %d видеа из Фото-бунарове збирке слика. Да ли желите и да их избришете и са диска?\r\n"
+"\r\n"
 "Ова акција је неповратна."
 msgstr[2] ""
-"Ова акција ће уклонити %d сликa из Фото-бунарове збирке слика. Да ли желите и да их избришете и са диска?\n"
-"\n"
+"Ова акција ће уклонити %d видеа из Фото-бунарове збирке слика. Да ли желите и да их избришете и са диска?\r\n"
+"\r\n"
 "Ова акција је неповратна."
 
 #: src/util.vala:573
@@ -3145,17 +3115,17 @@ msgstr[2] ""
 #, c-format
 msgid "The photo or video cannot be moved to your desktop trash.  Delete this file?"
 msgid_plural "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Не могу да преместим %d слику или видео у канту. Да ли желите да их трајно избришете?"
+msgstr[1] "Не могу да преместим %d слике или видеа у канту. Да ли желите да их трајно избришете?"
+msgstr[2] "Не могу да преместим %d слика или видеа у канту. Да ли желите да их трајно избришете?"
 
 #: src/util.vala:622
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d слику или видео није могуће избрисати."
+msgstr[1] "%d слике/видеа није могуће избрисати."
+msgstr[2] "%d слика/видеа није могуће избрисати."
 
 #: src/VideosPage.vala:17 src/VideosPage.vala:34
 msgid "Videos"
@@ -3178,23 +3148,20 @@ msgid "_All Videos"
 msgstr "_Сав видео"
 
 #: src/VideoSupport.vala:434
-#, fuzzy
 msgid "Export Videos"
-msgstr "Поређај _видео"
+msgstr "Извоз видеа"
 
 #: src/WebConnectors.vala:499
 msgid "A temporary file needed for publishing is unavailable"
-msgstr ""
+msgstr "Привремена датотека, неопходна за објављивање није доступна"
 
 #: src/WebConnectors.vala:650
-#, fuzzy
 msgid "The selected photos/videos were successfully published."
-msgstr "Изабране слике су успешно објављене."
+msgstr "Изабране слике/видео су успешно објављени."
 
 #: src/WebConnectors.vala:652
-#, fuzzy
 msgid "The selected videos were successfully published."
-msgstr "Изабране слике су успешно објављене."
+msgstr "Изабрани видео је успешно објављен."
 
 #: src/WebConnectors.vala:654
 msgid "The selected photos were successfully published."
@@ -3217,24 +3184,20 @@ msgid "Publish photos _to:"
 msgstr "Објави слике _на:"
 
 #: src/WebConnectors.vala:714
-#, fuzzy
 msgid "Publish Videos"
-msgstr "Објави слике"
+msgstr "Објави видео"
 
 #: src/WebConnectors.vala:715
-#, fuzzy
 msgid "Publish videos _to"
-msgstr "Објави слике _на:"
+msgstr "Објави видео _на"
 
 #: src/WebConnectors.vala:717
-#, fuzzy
 msgid "Publish Photos and Videos"
-msgstr "Објави слике"
+msgstr "Објави слике и видео"
 
 #: src/WebConnectors.vala:718
-#, fuzzy
 msgid "Publish photos and videos _to"
-msgstr "Објави слике _на:"
+msgstr "Објави слике и видео _на"
 
 #: src/WebConnectors.vala:878
 msgid "_Close"
@@ -3275,106 +3238,93 @@ msgid "To try publishing to another service, select one from the above menu."
 msgstr "Изаберите други сервис за објављивање слика."
 
 #: src/WebConnectors.vala:1021 src/WebConnectors.vala:1165
-#, fuzzy
 msgid "Preparing for upload"
-msgstr "Припремам слике за слање"
+msgstr "Припремам за слање"
 
 #: src/WebConnectors.vala:1022 src/WebConnectors.vala:1099
-#, fuzzy, c-format
+#, c-format
 msgid "Uploading %d of %d"
-msgstr "Постављам слику %d од %d"
+msgstr "Постављам %d од %d"
 
 #: src/WebConnectors.vala:1072
 msgid "One or more of the photos or videos to be published is unavailable"
-msgstr ""
+msgstr "Једна или више слика или видеа које покушавате да објавите нису доступни"
 
 #: src/YandexConnector.vala:11
 msgid "You are not currently logged into Yandex.Fotki."
-msgstr ""
+msgstr "Тренутно сте пријављени на Yandex.Fotki."
 
 #: src/YouTubeConnector.vala:12
-#, fuzzy
 msgid ""
 "You are not currently logged into YouTube.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."
 msgstr ""
-"Тренутно нисте пријављени на Picasa Web Albums.\n"
+"Тренутно нисте пријављени на YouTube.\n"
 "\n"
-"Да би наставили морате да поседујете Google налог који је подешен да користи Picasa. Налог можете подесити и пријавити се на Picasa Web Albums користећи ваш омиљени претраживач интернета."
+"Да би наставили морате да поседујете Google налог који је подешен да користи YouTube. Налог можете подесити и пријавити се на YouTube-у користећи ваш омиљени претраживач интернета."
 
 #: src/YouTubeConnector.vala:411
-#, fuzzy
 msgid "Enter the email address and password associated with your YouTube account."
-msgstr "Унесите вашу адресу ел. поште и лозинку помоћу које приступате Picasa Web Albums налогу."
+msgstr "Унесите вашу адресу ел. поште и лозинку помоћу које приступате YouTube налогу."
 
 #: src/YouTubeConnector.vala:412
-#, fuzzy
 msgid "YouTube didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
-msgstr "Picasa Web Albums није препознао адресу ел. поште и лозинку коју сте унели. Можете покушати поново у пољима испод."
+msgstr "YouTube није препознао адресу ел. поште и лозинку коју сте унели. Можете покушати поново у пољима испод."
 
 #: src/YouTubeConnector.vala:413
-#, fuzzy
 msgid "The email address and password you entered correspond to a Google account that isn't set up for use with YouTube. You can set up most accounts by using your browser to log into the YouTube site at least once. To try again, re-enter your email address and password below."
-msgstr "Адреса ел. поште о лозинка одговара Google налогу који није подешен да користи Picasa Web Albums. Налог можете подесити и пријавити се на Picasa Web Albums користећи ваш омиљени претраживач интернета. Након тога можете покушати поново у пољима испод."
+msgstr "Адреса ел. поште о лозинка одговара Google налогу који није подешен да користи YouTube. Налог можете подесити и пријавити се на YouTube-у користећи ваш омиљени претраживач интернета. Након тога можете покушати поново у пољима испод."
 
 #: src/YouTubeConnector.vala:414
-#, fuzzy
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into YouTube. To try again, re-enter your email address and password below."
-msgstr "Адреса ел. поште о лозинка одговара Google налогу који захтева додатну безбедност. Њу можете скинути на вашем Picasa Web Albums налогу користећи ваш омиљени претраживач интернета. Након тога можете покушати поново у пољима испод."
+msgstr "Адреса ел. поште о лозинка одговара Google налогу који захтева додатну безбедност. Њу можете скинути на вашем YouTube налогу користећи ваш омиљени претраживач интернета. Након тога можете покушати поново у пољима испод."
 
 #: src/YouTubeConnector.vala:580
-#, fuzzy, c-format
+#, c-format
 msgid "You are logged into YouTube as %s."
-msgstr ""
-"Ушли сте на Flickr као %s.\n"
-"\n"
+msgstr "Ушли сте на YouTube као %s."
 
 #: src/YouTubeConnector.vala:586
-#, fuzzy, c-format
+#, c-format
 msgid "Videos will appear in %s"
-msgstr "Слике ће се појавити у:"
+msgstr "Видео ће се појавити у %s"
 
 #: src/YouTubeConnector.vala:609
 msgid "Video privacy _setting:"
-msgstr ""
+msgstr "Подешавање _приватности видео:"
 
 #: src/YouTubeConnector.vala:686
-#, fuzzy
 msgid "Public listed"
-msgstr "Објави"
+msgstr "Јавно је доступно"
 
 #: src/YouTubeConnector.vala:687
 msgid "Public unlisted"
-msgstr ""
+msgstr "Није јавно доступно"
 
 #: src/YouTubeConnector.vala:688
 msgid "Private"
-msgstr ""
+msgstr "Приватно"
 
 #: ui/set_background_dialog.glade:8
-#, fuzzy
 msgid "Set as Desktop Slideshow"
-msgstr "Постави као _позадину"
+msgstr "Постави као смењиву позадину радне површине"
 
 #: ui/set_background_dialog.glade:23
-#, fuzzy
 msgid "Show each photo for"
-msgstr "Прикажи све слике"
+msgstr "Прикажи сваку слику за"
 
 #: ui/set_background_dialog.glade:33
 msgid "period of time"
-msgstr ""
+msgstr "период времена"
 
 #: ui/set_background_dialog.glade:52
-#, fuzzy
 msgid "How long each photo is shown on the desktop background"
-msgstr "Поставља изабрану слику као позадину ваше радне површине"
+msgstr "Колико дуго ће изабрана слика да буде позадина ваше радне површине"
 
 #: ui/set_background_dialog.glade:88
-#, fuzzy
 msgid "Generate desktop background slideshow"
-msgstr "Постави као _позадину"
+msgstr "Направи смењиву позадину радне површине"
 
 #: ui/shotwell.glade:103
 msgid "Shotwell Preferences"
@@ -3394,15 +3344,15 @@ msgstr "Спољни уређивачи"
 
 #: ui/shotwell.glade:272
 msgid "_Watch library directory for new files"
-msgstr ""
+msgstr "_Прати појављивање нових датотека у фасцикли библиотеке"
 
 #: ui/shotwell.glade:298
 msgid "Metadata"
-msgstr ""
+msgstr "Метаподатци"
 
 #: ui/shotwell.glade:317
 msgid "Write tags, titles, and other _metadata to photo files"
-msgstr ""
+msgstr "Уписуј ознаке, наслове и остале _метаподатке у датотеке слика"
 
 #: ui/shotwell.glade:340
 msgid "Display"
@@ -3434,19 +3384,19 @@ msgstr "грешка"
 
 #: ui/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
-msgstr ""
+msgstr "_Албуми (или направи нови):"
 
 #: ui/yandex_publish_model.glade:38
 msgid "Access _type:"
-msgstr ""
+msgstr "_Тип приступа"
 
 #: ui/yandex_publish_model.glade:81
 msgid "Disable _comments"
-msgstr ""
+msgstr "Онемогући _коментаре"
 
 #: ui/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
-msgstr ""
+msgstr "_Забрани преузимање оригиналне слике"
 
 #~ msgid "Choose Library Directory"
 #~ msgstr "Изабери фасциклу за збирку слика"
