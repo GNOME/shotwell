@@ -26,6 +26,23 @@ public class LibraryWindow : AppWindow {
     private const int METADATA_WRITER_PROGRESS_PRIORITY =   30;
     private const int MIMIC_MANAGER_PROGRESS_PRIORITY =     20;
     
+    // This lists the order of the toplevel items in the sidebar.  New toplevel items should be
+    // added here in the position they should appear in the sidebar.  To re-order, simply move
+    // the item in this list to a new position.  These numbers should *not* persist anywhere
+    // outside the app.
+    private enum ToplevelPosition {
+        LIBRARY_PAGE,
+        VIDEOS_PAGE,
+        FLAGGED_PAGE,
+        LAST_IMPORT_PAGE,
+        CAMERAS_GROUPING,
+        IMPORT_QUEUE_PAGE,
+        EVENTS_DIRECTORY_PAGE,
+        TAGS_GROUPING,
+        TRASH_PAGE,
+        OFFLINE_PAGE
+    }
+    
     protected enum TargetType {
         URI_LIST,
         MEDIA_LIST
@@ -171,11 +188,11 @@ public class LibraryWindow : AppWindow {
         extended_properties.show.connect(show_extended_properties);
 
         // add the default parents and orphans to the notebook
-        add_parent_page(library_page);
-        sidebar.add_parent(videos_page);
-        sidebar.add_parent(last_import_page);
-        sidebar.add_parent(events_directory_page);
-        sidebar.add_parent(trash_page);
+        add_toplevel_page(library_page, ToplevelPosition.LIBRARY_PAGE);
+        sidebar.add_toplevel(videos_page, ToplevelPosition.VIDEOS_PAGE);
+        sidebar.add_toplevel(last_import_page, ToplevelPosition.LAST_IMPORT_PAGE);
+        sidebar.add_toplevel(events_directory_page, ToplevelPosition.EVENTS_DIRECTORY_PAGE);
+        sidebar.add_toplevel(trash_page, ToplevelPosition.TRASH_PAGE);
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
             on_update_properties_now);
@@ -694,7 +711,7 @@ public class LibraryWindow : AppWindow {
 
     public void enqueue_batch_import(BatchImport batch_import, bool allow_user_cancel) {
         if (!displaying_import_queue_page) {
-            insert_page_before(events_directory_page.get_marker(), import_queue_page);
+            add_toplevel_page(import_queue_page, ToplevelPosition.IMPORT_QUEUE_PAGE);
             displaying_import_queue_page = true;
         }
         
@@ -1158,8 +1175,8 @@ public class LibraryWindow : AppWindow {
     
     private void add_tag_page(Tag tag) {
         if (tags_marker == null) {
-            tags_marker = sidebar.insert_grouping_after(events_directory_page.get_marker(),
-                _("Tags"), Resources.ICON_TAGS);
+            tags_marker = sidebar.add_toplevel_grouping(_("Tags"), Resources.ICON_TAGS,
+                ToplevelPosition.TAGS_GROUPING);
         }
         
         TagPage.Stub stub = TagPage.create_stub(tag);
@@ -1196,7 +1213,7 @@ public class LibraryWindow : AppWindow {
     private void enable_disable_offline_page(bool enable) {
         if (enable && offline_page == null) {
             offline_page = OfflinePage.create_stub();
-            sidebar.add_parent(offline_page);
+            sidebar.add_toplevel(offline_page, ToplevelPosition.OFFLINE_PAGE);
         } else if (!enable && offline_page != null) {
             remove_stub(offline_page, library_page, null);
             offline_page = null;
@@ -1206,7 +1223,7 @@ public class LibraryWindow : AppWindow {
     private void enable_disable_last_import_page(bool enable) {
         if (enable && last_import_page == null) {
             last_import_page = LastImportPage.create_stub();
-            sidebar.insert_sibling_after(library_page.get_marker(), last_import_page);
+            sidebar.add_toplevel(last_import_page, ToplevelPosition.LAST_IMPORT_PAGE);
         } else if (!enable && last_import_page != null) {
             remove_stub(last_import_page, library_page, null);
             last_import_page = null;
@@ -1216,7 +1233,7 @@ public class LibraryWindow : AppWindow {
     private void enable_disable_flagged_page(bool enable) {
         if (enable && flagged_page == null) {
             flagged_page = FlaggedPage.create_stub();
-            sidebar.insert_sibling_before(events_directory_page.get_marker(), flagged_page);
+            sidebar.add_toplevel(flagged_page, ToplevelPosition.FLAGGED_PAGE);
         } else if (!enable && flagged_page != null) {
             remove_stub(flagged_page, library_page, null);
             flagged_page = null;
@@ -1226,7 +1243,7 @@ public class LibraryWindow : AppWindow {
     private void enable_disable_videos_page(bool enable) {
         if (enable && videos_page == null) {
             videos_page = VideosPage.create_stub();
-            sidebar.insert_sibling_after(library_page.get_marker(), videos_page);
+            sidebar.add_toplevel(videos_page, ToplevelPosition.VIDEOS_PAGE);
         } else if (!enable && videos_page != null) {
             remove_stub(videos_page, library_page, null);
             videos_page = null;
@@ -1289,9 +1306,10 @@ public class LibraryWindow : AppWindow {
         ImportPage page = new ImportPage(camera.gcamera, camera.uri, camera.display_name);
 
         // create the Cameras row if this is the first one
-        if (cameras_marker == null)
-            cameras_marker = sidebar.insert_grouping_after(library_page.get_marker(),
-                _("Cameras"), Resources.ICON_CAMERAS);
+        if (cameras_marker == null) {
+            cameras_marker = sidebar.add_toplevel_grouping(_("Cameras"), Resources.ICON_CAMERAS,
+                ToplevelPosition.CAMERAS_GROUPING);
+        }
         
         camera_pages.set(camera.uri, page);
         add_child_page(cameras_marker, page);
@@ -1397,10 +1415,10 @@ public class LibraryWindow : AppWindow {
         return pos;
     }
     
-    private void add_parent_page(Page parent) {
+    private void add_toplevel_page(Page parent, int position) {
         add_to_notebook(parent);
 
-        sidebar.add_parent(parent);
+        sidebar.add_toplevel(parent, position);
     }
 
 #if !NO_CAMERA    
@@ -1410,12 +1428,6 @@ public class LibraryWindow : AppWindow {
         sidebar.add_child(parent_marker, child);
     }
 #endif
-    
-    private void insert_page_before(SidebarMarker before_marker, Page page) {
-        add_to_notebook(page);
-        
-        sidebar.insert_sibling_before(before_marker, page);
-    }
     
     // an orphan page is a Page that exists in the notebook (and can therefore be switched to) but
     // is not listed in the sidebar

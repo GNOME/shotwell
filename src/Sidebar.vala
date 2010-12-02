@@ -4,10 +4,13 @@
  * See the COPYING file in this distribution. 
  */
 
-public class SidebarMarker {
+public class SidebarMarker : Object {
+    private int position;
     private Gtk.TreeRowReference row;
+    private weak SidebarPage? page = null;
     
-    public SidebarMarker(Gtk.TreeStore store, Gtk.TreePath path) {
+    public SidebarMarker(Gtk.TreeStore store, Gtk.TreePath path, int position = -1) {
+        this.position = position;
         row = new Gtk.TreeRowReference(store, path);
     }
     
@@ -19,6 +22,19 @@ public class SidebarMarker {
     // more on the relationship of Gtk.TreePath and Gtk.TreeRowReference
     public Gtk.TreePath get_path() {
         return row.get_path();
+    }
+    
+    // Returns -1 if no position was set for the marker
+    public int get_position() {
+        return position;
+    }
+    
+    public void set_page(SidebarPage page) {
+        this.page = page;
+    }
+    
+    public SidebarPage? get_page() {
+        return page;
     }
 }
 
@@ -46,7 +62,7 @@ public interface SidebarPage : Object {
 
 public class Sidebar : Gtk.TreeView {
     // store = (page name, page, icon name, icon, expander-closed icon, expander-open icon)
-    private Gtk.TreeStore store = new Gtk.TreeStore(6, typeof(string), typeof(SidebarPage),
+    private Gtk.TreeStore store = new Gtk.TreeStore(6, typeof(string), typeof(SidebarMarker),
         typeof(string?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?));
     private Gtk.TreePath current_path = null;
 
@@ -272,17 +288,18 @@ public class Sidebar : Gtk.TreeView {
         }
     }
 
-    private SidebarMarker attach_page(SidebarPage page, Gtk.TreeIter iter) {
-        // set up the columns
-        store.set(iter, 0, guarded_markup_escape_text(page.get_sidebar_text()));
-        store.set(iter, 1, page);
-        set_iter_icon(iter, page.get_icon_name());
-        
+    private SidebarMarker attach_page(SidebarPage page, Gtk.TreeIter iter, int position = -1) {
         // create a marker for this page
-        SidebarMarker marker = new SidebarMarker(store, store.get_path(iter));
+        SidebarMarker marker = new SidebarMarker(store, store.get_path(iter), position);
+        marker.set_page(page);
         
         // stash the marker in the page itself
         page.set_marker(marker);
+        
+        // set up the columns
+        store.set(iter, 0, guarded_markup_escape_text(page.get_sidebar_text()));
+        store.set(iter, 1, marker);
+        set_iter_icon(iter, page.get_icon_name());
         
         return marker;
     }
@@ -292,7 +309,24 @@ public class Sidebar : Gtk.TreeView {
         page.clear_marker();
     }
     
+    private SidebarMarker attach_grouping(string name, string? icon, Gtk.TreeIter iter, int position = -1) {
+        SidebarMarker marker = new SidebarMarker(store, store.get_path(iter), position);
+        
+        // set up the columns
+        store.set(iter, 0, guarded_markup_escape_text(name));
+        store.set(iter, 1, marker);
+        set_iter_icon(iter, icon);
+        
+        return marker;
+    }
+    
     private SidebarPage? locate_page(Gtk.TreePath path) {
+        SidebarMarker? marker = locate_marker(path);
+        
+        return marker != null ? marker.get_page() : null;
+    }
+    
+    private SidebarMarker? locate_marker(Gtk.TreePath path) {
         Gtk.TreeIter iter;
         if (!store.get_iter(out iter, path))
             return null;
@@ -300,18 +334,28 @@ public class Sidebar : Gtk.TreeView {
         Value val;
         store.get_value(iter, 1, out val);
         
-        return (SidebarPage) val;
+        return (SidebarMarker) val;
     }
     
-    // adds a top-level parent to the sidebar
-    public SidebarMarker add_parent(SidebarPage parent) {
+    // adds a top-level parent to the sidebar at the specified position (which must be >= 0)
+    public SidebarMarker add_toplevel(SidebarPage parent, int position) requires (position >= 0) {
         // add a row, get its iter
         Gtk.TreeIter parent_iter;
+        bool found = store.get_iter_first(out parent_iter);
+        while (found) {
+            SidebarMarker? marker = locate_marker(store.get_path(parent_iter));
+            if (marker != null && position < marker.get_position())
+                return attach_page(parent, insert_before(marker), position);
+            
+            found = store.iter_next(ref parent_iter);
+        }
+        
+        // add to the bottom of the top-level list
         store.append(out parent_iter, null);
         
-        return attach_page(parent, parent_iter);
-    }    
-
+        return attach_page(parent, parent_iter, position);
+    }
+    
     public SidebarMarker add_child(SidebarMarker parent, SidebarPage child) {
         // find the parent
         Gtk.TreeIter parent_iter;
@@ -324,57 +368,35 @@ public class Sidebar : Gtk.TreeView {
         return attach_page(child, child_iter);
     }
     
-    public SidebarMarker add_grouping_row(string name) {
+    // Like add_parent, position must be specified
+    public SidebarMarker add_toplevel_grouping(string name, string? icon, int position) requires (position > 0) {
         // add the row, get its iter
         Gtk.TreeIter grouping_iter;
+        bool found = store.get_iter_first(out grouping_iter);
+        while (found) {
+            SidebarMarker? marker = locate_marker(store.get_path(grouping_iter));
+            if (marker != null && position < marker.get_position())
+                return attach_grouping(name, icon, insert_before(marker), position);
+            
+            found = store.iter_next(ref grouping_iter);
+        }
+        
+        // add to the bottom of the top-level list
         store.append(out grouping_iter, null);
         
-        // set the columns
-        store.set(grouping_iter, 0, guarded_markup_escape_text(name));
-        
-        // return the row reference, which is the only way to refer to the grouping now
-        return new SidebarMarker(store, store.get_path(grouping_iter));
+        return attach_grouping(name, icon, grouping_iter, position);
     }
     
-    public SidebarMarker insert_grouping_after(SidebarMarker after, string name, string? icon) {
-        // find sibling
-        Gtk.TreeIter after_iter;
-        store.get_iter(out after_iter, after.get_path());
-        
-        // insert before sibling
-        Gtk.TreeIter grouping_iter;
-        store.insert_after(out grouping_iter, null, after_iter);
-        
-        // set the columns
-        store.set(grouping_iter, 0, guarded_markup_escape_text(name));
-        set_iter_icon(grouping_iter, icon);
-        
-        // return row reference, which is only way to refer to grouping
-        return new SidebarMarker(store, store.get_path(grouping_iter));
-     }
-    
-    public SidebarMarker insert_sibling_before(SidebarMarker before, SidebarPage page) {
+    private Gtk.TreeIter insert_before(SidebarMarker before) {
         // find sibling in tree
         Gtk.TreeIter before_iter;
         store.get_iter(out before_iter, before.get_path());
         
-        // insert page before sibling, get its new iter
-        Gtk.TreeIter page_iter;
-        store.insert_before(out page_iter, null, before_iter);
+        // create insertion iter
+        Gtk.TreeIter insert_iter;
+        store.insert_before(out insert_iter, null, before_iter);
         
-        return attach_page(page, page_iter);
-    }
-    
-    public SidebarMarker insert_sibling_after(SidebarMarker after, SidebarPage page) {
-        // find sibling in tree
-        Gtk.TreeIter after_iter;
-        store.get_iter(out after_iter, after.get_path());
-        
-        // insert page after sibling, get its new iter
-        Gtk.TreeIter page_iter;
-        store.insert_after(out page_iter, null, after_iter);
-        
-        return attach_page(page, page_iter);
+        return insert_iter;
     }
     
     public SidebarMarker insert_child_sorted(SidebarMarker parent, SidebarPage child, 
@@ -392,7 +414,7 @@ public class Sidebar : Gtk.TreeView {
             if (page != null) {
                 // look to insert before the current page
                 if (comparator(child, page) < 0)
-                    return insert_sibling_before(page.get_marker(), child);
+                    return attach_page(child, insert_before(page.get_marker()));
             }
             
             found = store.iter_next(ref child_iter);
