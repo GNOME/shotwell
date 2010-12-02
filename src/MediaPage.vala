@@ -316,6 +316,7 @@ public abstract class MediaPage : CheckerboardPage {
     
     private ZoomSliderAssembly? connected_slider = null;
     private FilterButton? connected_filter_button = null;
+    private DragAndDropHandler dnd_handler = null;
 
     public MediaPage(string page_name) {
         base (page_name);
@@ -337,6 +338,9 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().set_property(Thumbnail.PROP_SHOW_RATINGS,
             Config.get_instance().get_display_photo_ratings());
         get_view().thaw_notifications();
+
+        // enable drag-and-drop export of media
+        dnd_handler = new DragAndDropHandler(this);
     }
     
     private static void set_global_thumbnail_scale(int new_scale) {
@@ -406,7 +410,33 @@ public abstract class MediaPage : CheckerboardPage {
         Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null, null };
         photos.label = _("_Photos");
         actions += photos;
+
+        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, null };
+        event.label = _("Even_ts");
+        actions += event;
+
+        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
+        tags.label = _("Ta_gs");
+        actions += tags;
+
+        Gtk.ActionEntry new_event = { "NewEvent", Gtk.STOCK_NEW, TRANSLATABLE, "<Ctrl>N",
+            TRANSLATABLE, on_new_event };
+        new_event.label = Resources.NEW_EVENT_MENU;
+        new_event.tooltip = Resources.NEW_EVENT_TOOLTIP;
+        actions += new_event;
         
+        Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
+            on_add_tags };
+        add_tags.label = Resources.ADD_TAGS_MENU;
+        add_tags.tooltip = Resources.ADD_TAGS_TOOLTIP;
+        actions += add_tags;
+        
+        Gtk.ActionEntry modify_tags = { "ModifyTags", null, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, 
+            on_modify_tags };
+        modify_tags.label = Resources.MODIFY_TAGS_MENU;
+        modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
+        actions += modify_tags;
+
         Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.STOCK_ZOOM_IN, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
@@ -527,7 +557,13 @@ public abstract class MediaPage : CheckerboardPage {
         ratings.label = Resources.VIEW_RATINGS_MENU;
         ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;
         toggle_actions += ratings;
-        
+
+        Gtk.ToggleActionEntry tags = { "ViewTags", null, TRANSLATABLE, "<Ctrl><Shift>G",
+            TRANSLATABLE, on_display_tags, Config.get_instance().get_display_photo_tags() };
+        tags.label = _("Ta_gs");
+        tags.tooltip = _("Display each photo's tags");
+        toggle_actions += tags;
+
         return toggle_actions;
     }
     
@@ -955,6 +991,7 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().freeze_notifications();
         set_display_titles(Config.get_instance().get_display_photo_titles());
         set_display_ratings(Config.get_instance().get_display_photo_ratings());
+        set_display_tags(Config.get_instance().get_display_photo_tags());
         get_view().thaw_notifications();
 
         restore_saved_rating_view_filter();  // Set filter to current level and set menu selection
@@ -1000,6 +1037,48 @@ public abstract class MediaPage : CheckerboardPage {
 
     protected virtual void on_decrease_size() {
         decrease_zoom_level();
+    }
+
+    private void on_add_tags() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        AddTagsDialog dialog = new AddTagsDialog();
+        string[]? names = dialog.execute();
+        if (names != null) {
+            get_command_manager().execute(new AddTagsCommand(names, 
+                (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
+        }
+    }
+
+    private void on_modify_tags() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        MediaSource media = (MediaSource) get_view().get_selected_at(0).get_source();
+        
+        ModifyTagsDialog dialog = new ModifyTagsDialog(media);
+        Gee.ArrayList<Tag>? new_tags = dialog.execute();
+        
+        if (new_tags == null)
+            return;
+        
+        get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
+    }
+
+    private void set_display_tags(bool display) {
+        get_view().freeze_notifications();
+        get_view().set_property(Thumbnail.PROP_SHOW_TAGS, display);
+        get_view().thaw_notifications();
+        
+        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTags");
+        if (action != null)
+            action.set_active(display);
+    }
+
+    private void on_new_event() {
+        if (get_view().get_selected_count() > 0)
+            get_command_manager().execute(new NewEventCommand(get_view().get_selected()));
     }
     
     private void on_flag_unflag() {
@@ -1121,6 +1200,14 @@ public abstract class MediaPage : CheckerboardPage {
         set_display_ratings(display);
         
         Config.get_instance().set_display_photo_ratings(display);
+    }
+
+    protected virtual void on_display_tags(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+        
+        set_display_tags(display);
+        
+        Config.get_instance().set_display_photo_tags(display);
     }
 
     protected abstract void get_config_photos_sort(out bool sort_order, out int sort_by);

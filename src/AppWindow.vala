@@ -672,9 +672,9 @@ public abstract class AppWindow : PageWindow {
         if (get_current_page().get_view().get_selected_count() != 1)
             return;
 
-        Photo photo = (Photo) get_current_page().get_view().get_selected_at(0).get_source();
+        MediaSource media = (MediaSource) get_current_page().get_view().get_selected_at(0).get_source();
         try {
-            AppWindow.get_instance().show_file_uri(photo.get_master_file().get_parent());
+            AppWindow.get_instance().show_file_uri(media.get_master_file().get_parent());
         } catch (Error err) {
             AppWindow.error_message(Resources.jump_to_file_failed(err));
         }

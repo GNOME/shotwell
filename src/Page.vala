@@ -2166,13 +2166,11 @@ public abstract class SinglePhotoPage : Page {
 }
 
 //
-// DragPhotoHandler attaches signals to a Page so properly handle drag-and-drop requests for the
+// DragAndDropHandler attaches signals to a Page to properly handle drag-and-drop requests for the
 // Page as a DnD Source.  (DnD Destination handling is handled by the appropriate AppWindow, i.e.
-// LibraryWindow and DirectWindow).
+// LibraryWindow and DirectWindow). Assumes the Page's ViewCollection holds MediaSources.
 //
-// The Page's ViewCollection *must* be holding TransformablePhotos or the show is off.
-//
-public class PhotoDragAndDropHandler {
+public class DragAndDropHandler {
     private enum TargetType {
         XDS,
         MEDIA_LIST
@@ -2192,7 +2190,7 @@ public class PhotoDragAndDropHandler {
     private File? drag_destination = null;
     private ExporterUI exporter = null;
     
-    public PhotoDragAndDropHandler(Page page) {
+    public DragAndDropHandler(Page page) {
         this.page = page;
         this.event_source = page.get_event_source();
         assert(event_source != null);
@@ -2220,7 +2218,7 @@ public class PhotoDragAndDropHandler {
         event_source.drag_failed.connect(on_drag_failed);
     }
     
-    ~PhotoDragAndDropHandler() {
+    ~DragAndDropHandler() {
         if (event_source != null) {
             event_source.drag_begin.disconnect(on_drag_begin);
             event_source.drag_data_get.disconnect(on_drag_data_get);

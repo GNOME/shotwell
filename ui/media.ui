@@ -34,7 +34,7 @@
             <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
             <separator />
             <menuitem name="ViewTitle" action="ViewTitle" />
-            <placeholder name="ViewExtrasTagsPlaceholder" />
+            <menuitem name="ViewTags" action="ViewTags" />
             <menuitem name="ViewRatings" action="ViewRatings" />
             <separator />
             <menu name="FilterPhotos" action="FilterPhotos">
@@ -90,7 +90,15 @@
             <placeholder name="PhotosExtrasExternalsPlaceholder" />
         </menu>
 
-        <placeholder name="MenubarExtrasPlaceholder" />
+        <menu name="EventsMenu" action="EventsMenu">
+            <menuitem name="NewEvent" action="NewEvent" />
+            <menuitem name="CommonJumpToEvent" action="CommonJumpToEvent" />
+        </menu>
+
+        <menu name="TagsMenu" action="TagsMenu">
+            <menuitem name="AddTags" action="AddTags" />
+            <menuitem name="ModifyTags" action="ModifyTags" />
+        </menu>
 
         <menu name="HelpMenu" action="HelpMenu">
             <menuitem name="Contents" action="CommonHelpContents" />

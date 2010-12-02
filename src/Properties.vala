@@ -410,14 +410,19 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         protected override void get_single_properties(DataView view) {
             base.get_single_properties(view);
             
-            PhotoSource photo = view.get_source() as PhotoSource;
-            if (photo == null)
+            MediaSource media = view.get_source() as MediaSource;
+            if (media == null)
                 return;
             
-            if (photo is Photo)
-                file_path = ((Photo) photo).get_file().get_path();
-            
-            filesize = photo.get_filesize();
+            file_path = media.get_file().get_path();
+            filesize = media.get_filesize();
+
+            // as of right now, all extended properties other than filesize & filepath aren't
+            // applicable to non-photo media types, so if the current media source isn't a photo,
+            // just do a short-circuit return
+            Photo photo = media as Photo;
+            if (photo == null)
+                return;
             
             PhotoMetadata? metadata = photo.get_metadata();
             if (metadata == null)

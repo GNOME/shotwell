@@ -20,7 +20,6 @@ public abstract class CollectionPage : MediaPage {
     private const double DESKTOP_SLIDESHOW_TRANSITION_SEC = 2.0;
     
     private Gtk.ToolButton rotate_button = null;
-    private PhotoDragAndDropHandler dnd_handler = null;
     private ExporterUI exporter = null;
     
     public CollectionPage(string page_name) {
@@ -89,9 +88,6 @@ public abstract class CollectionPage : MediaPage {
         toolbar.insert(zoom_slider_assembly, -1);
         
         show_all();
-        
-        // enable photo drag-and-drop on our ViewCollection
-        dnd_handler = new PhotoDragAndDropHandler(this);
 
         // watch for updates to the external app settings
         Config.get_instance().external_app_changed.connect(on_external_app_changed);
@@ -121,14 +117,6 @@ public abstract class CollectionPage : MediaPage {
         
         group.add_menu_item("Duplicate");
 
-        return group;
-    }
-
-    private static InjectionGroup create_view_menu_tags_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/ViewMenu/ViewExtrasTagsPlaceholder");
-        
-        group.add_menu_item("ViewTags");
-        
         return group;
     }
 
@@ -198,11 +186,7 @@ public abstract class CollectionPage : MediaPage {
         publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
 #endif
-        
-        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, null };
-        event.label = _("Even_ts");
-        actions += event;
-        
+  
         Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
             TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
         rotate_right.label = Resources.ROTATE_CW_MENU;
@@ -276,42 +260,8 @@ public abstract class CollectionPage : MediaPage {
         slideshow.label = _("_Slideshow");
         slideshow.tooltip = _("Play a slideshow");
         actions += slideshow;
-
-        Gtk.ActionEntry new_event = { "NewEvent", Gtk.STOCK_NEW, TRANSLATABLE, "<Ctrl>N",
-            TRANSLATABLE, on_new_event };
-        new_event.label = Resources.NEW_EVENT_MENU;
-        new_event.tooltip = Resources.NEW_EVENT_TOOLTIP;
-        actions += new_event;
-        
-        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
-        tags.label = _("Ta_gs");
-        actions += tags;
-        
-        Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
-            on_add_tags };
-        add_tags.label = Resources.ADD_TAGS_MENU;
-        add_tags.tooltip = Resources.ADD_TAGS_TOOLTIP;
-        actions += add_tags;
-        
-        Gtk.ActionEntry modify_tags = { "ModifyTags", null, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, 
-            on_modify_tags };
-        modify_tags.label = Resources.MODIFY_TAGS_MENU;
-        modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
-        actions += modify_tags;
         
         return actions;
-    }
-    
-    protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
-        Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
-        
-        Gtk.ToggleActionEntry tags = { "ViewTags", null, TRANSLATABLE, "<Ctrl><Shift>G",
-            TRANSLATABLE, on_display_tags, Config.get_instance().get_display_photo_tags() };
-        tags.label = _("Ta_gs");
-        tags.tooltip = _("Display each photo's tags");
-        toggle_actions += tags;
-        
-        return toggle_actions;
     }
     
     protected override InjectionGroup[] init_collect_injection_groups() {
@@ -319,7 +269,6 @@ public abstract class CollectionPage : MediaPage {
         
         groups += create_file_menu_injectables();
         groups += create_edit_menu_injectables();
-        groups += create_view_menu_tags_injectables();
         groups += create_view_menu_fullscreen_injectables();
         groups += create_photos_menu_edits_injectables();
         groups += create_photos_menu_date_injectables();
@@ -356,16 +305,6 @@ public abstract class CollectionPage : MediaPage {
         }
         
         return false;
-    }
-    
-    public override void switched_to() {
-        // set display options to match Configuration toggles (which can change while switched away)
-        get_view().freeze_notifications();
-        set_display_tags(Config.get_instance().get_display_photo_tags());
-        get_view().thaw_notifications();
-        
-        // perform these operations before calling base method to prevent flicker
-        base.switched_to();
     }
     
     protected override void update_actions(int selected_count, int count) {
@@ -708,21 +647,6 @@ public abstract class CollectionPage : MediaPage {
         get_command_manager().execute(command);
     }
     
-    private void on_modify_tags() {
-        if (get_view().get_selected_count() != 1)
-            return;
-        
-        MediaSource media = (MediaSource) get_view().get_selected_at(0).get_source();
-        
-        ModifyTagsDialog dialog = new ModifyTagsDialog(media);
-        Gee.ArrayList<Tag>? new_tags = dialog.execute();
-        
-        if (new_tags == null)
-            return;
-        
-        get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
-    }
-    
     private void on_duplicate_photo() {
         if (get_view().get_selected_count() == 0)
             return;
@@ -823,15 +747,7 @@ public abstract class CollectionPage : MediaPage {
         AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, get_view(),
             photo));
     }
-
-    private void on_display_tags(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
-        
-        set_display_tags(display);
-        
-        Config.get_instance().set_display_photo_tags(display);
-    }
-            
+           
     protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
         rotate_button.set_related_action(get_action("RotateCounterclockwise"));
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
@@ -844,33 +760,6 @@ public abstract class CollectionPage : MediaPage {
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         
         return base.on_ctrl_released(event);
-    }
-    
-    private void set_display_tags(bool display) {
-        get_view().freeze_notifications();
-        get_view().set_property(Thumbnail.PROP_SHOW_TAGS, display);
-        get_view().thaw_notifications();
-        
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTags");
-        if (action != null)
-            action.set_active(display);
-    }
-   
-    private void on_new_event() {
-        if (get_view().get_selected_count() > 0)
-            get_command_manager().execute(new NewEventCommand(get_view().get_selected()));
-    }
-    
-    private void on_add_tags() {
-        if (get_view().get_selected_count() == 0)
-            return;
-        
-        AddTagsDialog dialog = new AddTagsDialog();
-        string[]? names = dialog.execute();
-        if (names != null) {
-            get_command_manager().execute(new AddTagsCommand(names, 
-                (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
-        }
     }
 }
 

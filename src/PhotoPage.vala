@@ -393,7 +393,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool photo_missing = false;
     private PixbufCache cache = null;
     private PixbufCache master_cache = null;
-    private PhotoDragAndDropHandler dnd_handler = null;
+    private DragAndDropHandler dnd_handler = null;
     private bool enable_interactive_zoom_refresh = false;
     private Gdk.Point zoom_pan_start_point;
     private bool is_pan_in_progress = false;
@@ -738,7 +738,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // DnD not available in fullscreen mode
         if (!(container is FullscreenWindow))
-            dnd_handler = new PhotoDragAndDropHandler(this);
+            dnd_handler = new DragAndDropHandler(this);
     }
     
     public override ViewCollection get_controller() {
