@@ -305,7 +305,10 @@ public class CameraTable {
             string path = get_port_path(port);
             if (null != path) {
                 GUdev.Device device = client.query_by_device_file(path);
-                display_name = get_name_for_uuid(device.get_property("ID_SERIAL_SHORT"));
+                string serial = device.get_property("ID_SERIAL_SHORT");
+                if (null != serial) {
+                    display_name = get_name_for_uuid(serial);
+                }
                 if (null == display_name) {
                     display_name = device.get_sysfs_attr("product");
                 } 
