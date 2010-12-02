@@ -54,8 +54,9 @@ public class MediaSourceItem : CheckerboardItem {
             if (current_sprocket_pixbuf == null || reduced_size != current_sprocket_pixbuf.width) {
                 current_sprocket_pixbuf = basis_sprocket_pixbuf.scale_simple(reduced_size,
                     reduced_size, Gdk.InterpType.HYPER);
-                set_horizontal_trinket_offset(reduced_size);
             }
+
+            set_horizontal_trinket_offset(current_sprocket_pixbuf.width);
         }
                 
         base.paint_image(bg_gc, drawable, pixbuf, origin);
