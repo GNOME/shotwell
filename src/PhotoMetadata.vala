@@ -626,7 +626,10 @@ public class PhotoMetadata : MediaMetadata {
     private static string[] EXPOSURE_DATE_TIME_TAGS = {
         "Exif.Photo.DateTimeOriginal",
         "Xmp.exif.DateTimeOriginal",
-        "Xmp.xmp.CreateDate"
+        "Xmp.xmp.CreateDate",
+        "Exif.Photo.DateTimeDigitized",
+        "Xmp.exif.DateTimeDigitized",
+        "Exif.Image.DateTime"
     };
     
     public MetadataDateTime? get_exposure_date_time() {
