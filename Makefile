@@ -102,7 +102,7 @@ SRC_FILES = \
 	Tag.vala \
 	TagPage.vala \
 	PicasaConnector.vala \
-    PiwigoConnector.vala \
+	PiwigoConnector.vala \
 	YouTubeConnector.vala \
 	Screensaver.vala \
 	PhotoFileAdapter.vala \
@@ -139,7 +139,8 @@ SRC_FILES = \
 	FlaggedPage.vala \
 	MediaInterfaces.vala \
 	MediaMetadata.vala \
-	VideoMetadata.vala
+	VideoMetadata.vala \
+	string_util.vala
 
 ifndef LINUX
 SRC_FILES += \

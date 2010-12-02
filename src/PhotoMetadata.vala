@@ -88,6 +88,11 @@ public class PhotoMetadata : MediaMetadata {
         AT_LEAST_DEFAULT_DOMAIN
     }
     
+    private const PrepareInputTextOptions PREPARE_STRING_OPTIONS =
+        PrepareInputTextOptions.INVALID_IS_NULL
+        | PrepareInputTextOptions.NORMALIZE
+        | PrepareInputTextOptions.VALIDATE;
+    
     private class InternalPhotoPreview : PhotoPreview {
         public PhotoMetadata owner;
         public uint number;
@@ -232,6 +237,14 @@ public class PhotoMetadata : MediaMetadata {
         return exiv2.has_tag(tag);
     }
     
+    private Gee.Set<string> create_string_set(CompareFunc? compare_func) {
+        // ternary doesn't work here
+        if (compare_func == null)
+            return new Gee.HashSet<string>();
+        else
+            return new Gee.TreeSet<string>(compare_func);
+    }
+    
     public Gee.Collection<string>? get_tags(MetadataDomain domain, CompareFunc? compare_func = null) {
         string[] tags = null;
         switch (domain) {
@@ -251,7 +264,7 @@ public class PhotoMetadata : MediaMetadata {
         if (tags == null || tags.length == 0)
             return null;
         
-        Gee.Collection<string> collection = new Gee.TreeSet<string>(compare_func);
+        Gee.Collection<string> collection = create_string_set(compare_func);
         foreach (string tag in tags)
             collection.add(tag);
         
@@ -259,7 +272,7 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public Gee.Collection<string> get_all_tags(CompareFunc? compare_func = null) {
-        Gee.Collection<string> all_tags = new Gee.TreeSet<string>(compare_func);
+        Gee.Collection<string> all_tags = create_string_set(compare_func);
         
         Gee.Collection<string>? exif_tags = get_tags(MetadataDomain.EXIF);
         if (exif_tags != null && exif_tags.size > 0)
@@ -285,15 +298,11 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public string? get_string(string tag) {
-        string? value = exiv2.get_tag_string(tag);
-        
-        return (value != null && value.validate()) ? value : null;
+        return prepare_input_text(exiv2.get_tag_string(tag), PREPARE_STRING_OPTIONS);
     }
     
     public string? get_string_interpreted(string tag) {
-        string? value = exiv2.get_tag_interpreted_string(tag);
-        
-        return (value != null && value.validate()) ? value : null;
+        return prepare_input_text(exiv2.get_tag_interpreted_string(tag), PREPARE_STRING_OPTIONS);
     }
     
     public string? get_first_string(string[] tags) {
@@ -321,23 +330,25 @@ public class PhotoMetadata : MediaMetadata {
         if (values == null || values.length == 0)
             return null;
         
-        Gee.Collection<string> collection = new Gee.TreeSet<string>(compare_func);
+        Gee.Collection<string> collection = create_string_set(compare_func);
         foreach (string value in values) {
-            if (value.validate())
-                collection.add(value);
+            string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS);
+            if (prepped != null)
+                collection.add(prepped);
         }
         
         return collection;
     }
     
     public void set_string(string tag, string value) {
-        if (!value.validate()) {
+        string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS);
+        if (prepped == null) {
             warning("Not setting tag %s to string %s: invalid UTF-8", tag, value);
             
             return;
         }
         
-        if (!exiv2.set_tag_string(tag, value))
+        if (!exiv2.set_tag_string(tag, prepped))
             warning("Unable to set tag %s to string %s from source %s", tag, value, source_name);
     }
     
@@ -373,8 +384,9 @@ public class PhotoMetadata : MediaMetadata {
     public void set_string_multiple(string tag, Gee.Collection<string> collection) {
         string[] values = new string[0];
         foreach (string value in collection) {
-            if (value.validate())
-                values += value;
+            string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS);
+            if (prepped != null)
+                values += prepped;
             else
                 warning("Unable to set string %s to %s: invalid UTF-8", value, tag);
         }
@@ -790,12 +802,8 @@ public class PhotoMetadata : MediaMetadata {
         foreach (string tag in KEYWORD_TAGS) {
             Gee.Collection<string>? values = get_string_multiple(tag);
             if (values != null && values.size > 0) {
-                if (keywords == null) {
-                    if (compare_func == null)
-                        keywords = new Gee.HashSet<string>();
-                    else
-                        keywords = new Gee.TreeSet<string>(compare_func);
-                }
+                if (keywords == null)
+                    keywords = create_string_set(compare_func);
                 
                 keywords.add_all(values);
             }

@@ -81,7 +81,11 @@ public abstract class MediaSource : ThumbnailSource {
     
     public abstract string? get_title();
     public abstract void set_title(string? title);
-
+    
+    public static string? prep_title(string? title) {
+        return prepare_input_text(title);
+    }
+    
     public abstract Rating get_rating();
     public abstract void set_rating(Rating rating);
     public abstract void increase_rating();

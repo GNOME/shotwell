@@ -596,19 +596,21 @@ public class Video : VideoSource, Flaggable {
     }
 
     public override void set_title(string? title) {
+        string? new_title = prep_title(title);
+        
         lock (backing_row) {
-            if (backing_row.title == title)
+            if (backing_row.title == new_title)
                 return;
 
             try {
-                VideoTable.get_instance().set_title(backing_row.video_id, title);
+                VideoTable.get_instance().set_title(backing_row.video_id, new_title);
             } catch (DatabaseError e) {
                 AppWindow.database_error(e);
                 return;
             }
             // if we didn't short-circuit return in the catch clause above, then the change was
             // successfully committed to the database, so update it in the in-memory row cache
-            backing_row.title = title;
+            backing_row.title = new_title;
         }
 
         notify_altered(new Alteration("metadata", "name"));

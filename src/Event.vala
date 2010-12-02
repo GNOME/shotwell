@@ -292,6 +292,10 @@ public class Event : EventSource, ContainerSource, Proxyable {
         return alteration.has_detail("metadata", "exposure-time");
     }
     
+    public static string? prep_event_name(string? name) {
+        return prepare_input_text(name);
+    }
+    
     // This is used by MediaSource to notify Event when it's joined.  Don't use this to manually attach a
     // a photo or video to an Event, use MediaSource.set_event().
     public void attach(MediaSource source) {
@@ -639,9 +643,11 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public bool rename(string? name) {
-        bool renamed = event_table.rename(event_id, name);
+        string? new_name = prep_event_name(name);
+        
+        bool renamed = event_table.rename(event_id, new_name);
         if (renamed) {
-            raw_name = is_string_empty(name) ? null : name;
+            raw_name = new_name;
             notify_altered(new Alteration("metadata", "name"));
         }
         

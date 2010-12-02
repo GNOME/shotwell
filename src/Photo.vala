@@ -1754,11 +1754,16 @@ public abstract class Photo : PhotoSource {
     }
 
     public override void set_title(string? title) {
-        bool committed;
+        string? new_title = prep_title(title);
+        
+        bool committed = false;
         lock (row) {
-            committed = PhotoTable.get_instance().set_title(row.photo_id, title);
+            if (new_title == row.title)
+                return;
+            
+            committed = PhotoTable.get_instance().set_title(row.photo_id, new_title);
             if (committed)
-                row.title = title;
+                row.title = new_title;
         }
         
         if (committed)

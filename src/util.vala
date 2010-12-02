@@ -166,42 +166,6 @@ public Gee.List<MediaSource>? unserialize_media_sources(uchar* serialized, int s
     return list;
 }
 
-public inline bool is_string_empty(string? s) {
-    return (s == null || s[0] == '\0');
-}
-
-public string uchar_array_to_string(uchar[] data, int length = -1) {
-    if (length < 0)
-        length = data.length;
-    
-    StringBuilder builder = new StringBuilder();
-    for (int ctr = 0; ctr < length; ctr++) {
-        if (data[ctr] != '\0')
-            builder.append_c((char) data[ctr]);
-        else
-            break;
-    }
-    
-    return builder.str;
-}
-
-public uchar[] string_to_uchar_array(string str) {
-    uchar[] data = new uchar[0];
-    for (int ctr = 0; ctr < str.length; ctr++)
-        data += (uchar) str[ctr];
-    
-    return data;
-}
-
-// Markup.escape_text() will crash if the UTF-8 text is not valid; it relies on a call to 
-// g_utf8_next_char(), which demands that the string be validated before use, which escape_text()
-// does not do.  This handles this problem by kicking back an empty string if the text is not
-// valid.  Text should be validated upon entry to the system as well to guard against this
-// problem.
-public inline string guarded_markup_escape_text(string plain) {
-    return plain.validate() ? Markup.escape_text(plain) : "";
-}
-
 public class KeyValueMap {
     private string group;
     private Gee.HashMap<string, string> map = new Gee.HashMap<string, string>(str_hash, str_equal,
@@ -323,16 +287,6 @@ public bool spin_event_loop() {
     }
     
     return true;
-}
-
-public long find_last_offset(string str, char c) {
-    long offset = str.length;
-    while (--offset >= 0) {
-        if (str[offset] == c)
-            return offset;
-    }
-    
-    return -1;
 }
 
 public enum AdjustmentRelation {
@@ -635,9 +589,7 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
 
 public bool is_twentyfour_hr_time_system() {
     // if no AM/PM designation is found, the location is set to use a 24 hr time system
-    string timestring = Time.local(0).format("%p");
-    
-    return is_string_empty(timestring);
+    return is_string_empty(Time.local(0).format("%p"));
 }
 
 public string get_window_manager() {
@@ -646,17 +598,5 @@ public string get_window_manager() {
 #else
     return Gdk.x11_screen_get_window_manager_name(AppWindow.get_instance().get_screen());
 #endif
-}
-
-// Helper function for searching an array of case-insensitive strings.  The array should be
-// all lowercase.
-public bool is_in_ci_array(string str, string[] strings) {
-    string strdown = str.down();
-    foreach (string str_element in strings) {
-        if (strdown == str_element)
-            return true;
-    }
-    
-    return false;
 }
 

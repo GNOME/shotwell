@@ -840,7 +840,7 @@ public class EventRenameDialog : TextEntryDialogMediator {
     }
 
     public virtual string? execute() {
-        return _execute();
+        return Event.prep_event_name(_execute());
     }
 }
 
@@ -850,8 +850,7 @@ public class EditTitleDialog : TextEntryDialogMediator {
     }
 
     public virtual string? execute() {
-        string? ex = _execute();
-        return ex == null ? null : ex.strip();
+        return MediaSource.prep_title(_execute());
     }
 }
 

@@ -153,7 +153,7 @@ public class TagSourceCollection : ContainerSourceCollection {
     }
     
     private static int compare_tag_name(void *a, void *b) {
-        return ((Tag *) a)->get_name().collate(((Tag *) b)->get_name());
+        return strcmp(((Tag *) a)->get_name_collate_key(), ((Tag *) b)->get_name_collate_key());
     }
     
     protected override void notify_container_contents_added(ContainerSource container, 
@@ -269,6 +269,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     
     private TagRow row;
     private ViewCollection media_views;
+    private string? name_collate_key = null;
     
     private Tag(TagRow row, int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
@@ -290,7 +291,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
             }
         } else {
             // allocate the source_id_list for use if/when media sources are added
-            this.row.source_id_list = new Gee.HashSet<string>(str_hash, str_equal);
+            this.row.source_id_list = new Gee.HashSet<string>();
         }
         
         // add to internal ViewCollection, which maintains media sources associated with this tag
@@ -354,7 +355,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
             warning("Empty tag %s found with no backlinks, destroying", tag.to_string());
             tag.destroy_orphan(true);
         }
-
+        
         // add them all at once to the SourceCollection
         global.add_many(tags);
         global.init_add_many_unlinked(unlinked);
@@ -403,12 +404,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     // Utility function to cleanup a tag name that comes from user input and prepare it for use
     // in the system and storage in the database.  Returns null if the name is unacceptable.
     public static string? prep_tag_name(string name) {
-        if (name == null)
-            return null;
-        
-        string new_name = name.strip();
-        
-        return (!is_string_empty(new_name)) ? new_name : null;
+        return prepare_input_text(name);
     }
     
     // Akin to prep_tag_name.  Returned array may be smaller than the in parameter (or empty!) if
@@ -435,6 +431,13 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     
     public override string get_name() {
         return row.name;
+    }
+    
+    public string get_name_collate_key() {
+        if (name_collate_key == null)
+            name_collate_key = row.name.collate_key();
+        
+        return name_collate_key;
     }
     
     public override string to_string() {
@@ -549,8 +552,12 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         return count;
     }
     
-    // Returns false if the name already exists
-    public bool rename(string new_name) {
+    // Returns false if the name already exists or a bad name.
+    public bool rename(string name) {
+        string? new_name = prep_tag_name(name);
+        if (new_name == null)
+            return false;
+        
         if (Tag.global.exists(new_name))
             return false;
         
@@ -558,9 +565,11 @@ public class Tag : DataSource, ContainerSource, Proxyable {
             TagTable.get_instance().rename(row.tag_id, new_name);
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
+            return false;
         }
         
         row.name = new_name;
+        name_collate_key = null;
         
         notify_altered(new Alteration("metadata", "name"));
         

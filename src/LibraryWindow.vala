@@ -1170,7 +1170,7 @@ public class LibraryWindow : AppWindow {
         Tag atag = ((TagPage.Stub *) a)->tag;
         Tag btag = ((TagPage.Stub *) b)->tag;
         
-        return atag.get_name().collate(btag.get_name());
+        return strcmp(atag.get_name_collate_key(), btag.get_name_collate_key());
     }
     
     private void add_tag_page(Tag tag) {

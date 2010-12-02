@@ -2024,7 +2024,7 @@ public class TagTable : DatabaseTable {
     }
     
     private Gee.Set<string> unserialize_source_ids(string? text_list) {
-        Gee.Set<string> result = new Gee.HashSet<string>(str_hash, str_equal);
+        Gee.Set<string> result = new Gee.HashSet<string>();
         
         if (text_list == null)
             return result;
