@@ -66,6 +66,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MERGE = "shotwell-merge-events";   
 
     public const string ICON_APP = "shotwell.svg";
+    public const string ICON_APP16 = "shotwell-16.svg";
+    public const string ICON_APP24 = "shotwell-24.svg";
+    
+    public const string APP_ICONS[] = { ICON_APP, ICON_APP16, ICON_APP24 };
+    
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
     public const string ICON_RATING_REJECTED = "rejected.svg";
     public const string ICON_RATING_ONE = "one-star.svg";

@@ -487,6 +487,8 @@ install:
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
 	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
+	$(INSTALL_DATA) icons/shotwell-16.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.svg
+	$(INSTALL_DATA) icons/shotwell-24.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.svg
 ifndef DISABLE_ICON_UPDATE
 	-gtk-update-icon-cache -t -f $(DESTDIR)$(PREFIX)/share/icons/hicolor || :
 endif
@@ -523,7 +525,9 @@ endif
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
-	rm -fr $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps/shotwell.svg
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps/shotwell.svg
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.svg
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.svg
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell-viewer.desktop
 ifndef DISABLE_DESKTOP_UPDATE
