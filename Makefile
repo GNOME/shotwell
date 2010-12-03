@@ -224,7 +224,8 @@ ICON_FILES = \
 	zoom-out.png \
 	shotwell-16.svg \
 	shotwell-24.svg \
-	sprocket.png
+	sprocket.png \
+	videos-page.png
 
 HELP_FILES = \
 	edit-adjustments.page \

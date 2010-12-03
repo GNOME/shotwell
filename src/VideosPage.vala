@@ -18,7 +18,7 @@ public class VideosPage : MediaPage {
         }
         
         public override string? get_icon_name() {
-            return "";
+            return Resources.ICON_VIDEOS_PAGE;
         }
     }
     
