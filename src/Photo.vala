@@ -2818,12 +2818,8 @@ public abstract class Photo : PhotoSource {
     }
     
     private static bool launch_editor(File file, PhotoFileFormat file_format) throws Error {
-#if NO_RAW
-        string commandline = Config.get_instance().get_external_photo_app();
-#else
         string commandline = file_format == PhotoFileFormat.RAW ? Config.get_instance().get_external_raw_app() : 
             Config.get_instance().get_external_photo_app();
-#endif
 
         if (is_string_empty(commandline))
             return false;
@@ -2849,7 +2845,7 @@ public abstract class Photo : PhotoSource {
         Pid child_pid;
 
         return Process.spawn_async(
-            get_root_directory(),
+            "/",
             argv,
             null, // environment
             SpawnFlags.SEARCH_PATH,

@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_PUBLISHING
-
 namespace YandexConnector {
     private const string SERVICE_NAME = "Yandex.Fotki";
     private const string SERVICE_WELCOME_MESSAGE = _("You are not currently logged into Yandex.Fotki.");
@@ -831,4 +829,3 @@ public class Capabilities : ServiceCapabilities {
     }
 }
 
-#endif

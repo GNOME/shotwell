@@ -54,7 +54,6 @@ public abstract class CollectionPage : MediaPage {
         
         toolbar.insert(slideshow_button, -1);
 
-#if !NO_PUBLISHING
         // publish button
         Gtk.ToolButton publish_button = new Gtk.ToolButton.from_stock("");
         publish_button.set_related_action(get_action("Publish"));
@@ -62,7 +61,6 @@ public abstract class CollectionPage : MediaPage {
         publish_button.set_label(Resources.PUBLISH_LABEL);
         
         toolbar.insert(publish_button, -1);
-#endif
         
         // separator to force slider to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -96,18 +94,10 @@ public abstract class CollectionPage : MediaPage {
     private static InjectionGroup create_file_menu_injectables() {
         InjectionGroup group = new InjectionGroup("/MediaMenuBar/FileMenu/FileExtrasPlaceholder");
         
-#if !NO_PRINTING
         group.add_menu_item("Print");
-#endif
-
-#if !NO_PUBLISHING
         group.add_separator();
         group.add_menu_item("Publish");
-#endif
-
-#if !NO_SET_BACKGROUND
         group.add_menu_item("SetBackground");
-#endif
         
         return group;
     }
@@ -171,21 +161,17 @@ public abstract class CollectionPage : MediaPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
 
-#if !NO_PRINTING
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         print.tooltip = Resources.PRINT_TOOLTIP;
         actions += print;
-#endif
         
-#if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
             TRANSLATABLE, on_publish };
         publish.label = Resources.PUBLISH_MENU;
         publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
-#endif
   
         Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
             TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
@@ -223,13 +209,11 @@ public abstract class CollectionPage : MediaPage {
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
         
-#if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
             TRANSLATABLE, on_set_background };
         set_background.label = Resources.SET_BACKGROUND_MENU;
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
-#endif
 
         Gtk.ActionEntry duplicate = { "Duplicate", null, TRANSLATABLE, "<Ctrl>D", TRANSLATABLE,
             on_duplicate_photo };
@@ -327,13 +311,11 @@ public abstract class CollectionPage : MediaPage {
         set_action_visible("ExternalEdit", (!primary_is_video));
         set_action_sensitive("ExternalEdit", 
             one_selected && !is_string_empty(Config.get_instance().get_external_photo_app()));
-#if !NO_RAW
         set_action_visible("ExternalEditRAW",
             one_selected && (!primary_is_video)
             && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
                 PhotoFileFormat.RAW
             && !is_string_empty(Config.get_instance().get_external_raw_app()));
-#endif
         set_action_sensitive("Revert", (!selection_has_videos) && can_revert_selected());
         set_action_sensitive("Enhance", (!selection_has_videos) && has_selected);
         set_action_important("Enhance", true);
@@ -350,7 +332,6 @@ public abstract class CollectionPage : MediaPage {
         set_action_sensitive("Slideshow", page_has_photos && (!primary_is_video));
         set_action_important("Slideshow", true);
         
-#if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", (!selection_has_videos) && has_selected );
         if (has_selected) {
             Gtk.Action? set_background = get_action("SetBackground");
@@ -360,16 +341,11 @@ public abstract class CollectionPage : MediaPage {
                     : Resources.SET_BACKGROUND_SLIDESHOW_MENU;
             }
         }
-#endif
         
-#if !NO_PRINTING
         set_action_sensitive("Print", (!selection_has_videos) && one_selected);
-#endif
         
-#if !NO_PUBLISHING
         set_action_sensitive("Publish", has_selected);
         set_action_important("Publish", true);
-#endif
     }
 
     private void on_photos_altered() {
@@ -378,12 +354,10 @@ public abstract class CollectionPage : MediaPage {
         set_action_sensitive("Revert", can_revert_selected());
     }
     
-#if !NO_PRINTING
     private void on_print() {
         if (get_view().get_selected_count() == 1)
             PrintManager.get_instance().spool_photo((Photo) get_view().get_selected_at(0).get_source());
     }
-#endif
     
     private void on_external_app_changed() {
         int selected_count = get_view().get_selected_count();
@@ -584,12 +558,10 @@ public abstract class CollectionPage : MediaPage {
         get_command_manager().execute(command);
     }
 
-#if !NO_PUBLISHING
     private void on_publish() {
         if (get_view().get_selected_count() > 0)
             PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
-#endif
 
     private void on_rotate_counterclockwise() {
         if (get_view().get_selected_count() == 0)
@@ -694,10 +666,8 @@ public abstract class CollectionPage : MediaPage {
             return;
         
         Photo photo = (Photo) get_view().get_selected_at(0).get_source();
-#if !NO_RAW
         if (photo.get_master_file_format() != PhotoFileFormat.RAW)
             return;
-#endif        
 
         try {
             AppWindow.get_instance().set_busy_cursor();
@@ -709,7 +679,6 @@ public abstract class CollectionPage : MediaPage {
         }
     }
     
-#if !NO_SET_BACKGROUND
     public void on_set_background() {
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) get_view().get_selected_sources(),
@@ -730,7 +699,6 @@ public abstract class CollectionPage : MediaPage {
             }
         }
     }
-#endif
     
     private void on_slideshow() {
         if (get_view().get_count() == 0)

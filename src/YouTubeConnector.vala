@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution.
  */
 
-#if !NO_PUBLISHING
-
 namespace YouTubeConnector {
 private const string SERVICE_NAME = "YouTube";
 private const string SERVICE_WELCOME_MESSAGE =
@@ -934,6 +932,4 @@ private string extract_albums(Xml.Node* document_root) throws PublishingError {
 }
 
 }
-
-#endif
 

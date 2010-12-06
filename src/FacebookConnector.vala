@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_PUBLISHING
-
 namespace FacebookConnector {
 // this should not be changed by anyone unless they know what they're doing
 private const string SERVICE_NAME = "Facebook";
@@ -1100,6 +1098,4 @@ private class UploadTransaction : MediaUploadTransaction {
 }
 
 }
-
-#endif
 

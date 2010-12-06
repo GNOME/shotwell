@@ -105,7 +105,7 @@ public void files_send_to(File[] files) {
         
         Pid child_pid;
         Process.spawn_async(
-            get_root_directory(),
+            "/",
             argv,
             null, // environment
             SpawnFlags.SEARCH_PATH,
@@ -141,7 +141,6 @@ private void on_send_to_export_completed(Exporter exporter) {
     send_to_exporter = null;
 }
 
-#if !NO_SET_BACKGROUND
 public void set_background(Photo photo) {
     // attempt to set the wallpaper to the photo's native format, but if not writeable, go to the
     // system default
@@ -291,6 +290,5 @@ private void on_desktop_slideshow_exported(Exporter exporter) {
     
     Config.get_instance().set_background(xml_file.get_path());
 }
-#endif
 
 }

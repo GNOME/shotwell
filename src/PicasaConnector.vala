@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_PUBLISHING
-
 namespace PicasaConnector {
 private const string SERVICE_NAME = "Picasa Web Albums";
 private const string SERVICE_WELCOME_MESSAGE = 
@@ -1210,6 +1208,4 @@ private string decimal_entity_encode(string source) {
 
 
 }
-
-#endif
 

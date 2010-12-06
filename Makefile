@@ -14,17 +14,6 @@ PREFIX=/usr/local
 SCHEMA_FILE_DIR=/etc/gconf/schemas
 BUILD_RELEASE=1
 
-UNAME := $(shell uname)
-SYSTEM := $(UNAME:MINGW32_%=MinGW)
-
-ifeq "$(SYSTEM)" "Linux"
-	LINUX = 1
-endif
-
-ifeq "$(SYSTEM)" "MinGW"
-	WINDOWS = 1
-endif
-
 -include configure.mk
 
 ifdef ENABLE_BUILD_FOR_GLADE
@@ -37,13 +26,7 @@ VALAFLAGS = -g --enable-checking --thread $(USER_VALAFLAGS)
 DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
      _LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
 
-ifdef LINUX
-	EXPORT_FLAGS = -export-dynamic
-endif
-
-ifdef WINDOWS
-	EXPORT_FLAGS = -export-all-symbols
-endif
+EXPORT_FLAGS = -export-dynamic
 
 SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he
 LOCAL_LANG_DIR=locale-langpack
@@ -141,11 +124,6 @@ SRC_FILES = \
 	MediaMetadata.vala \
 	VideoMetadata.vala \
 	string_util.vala
-
-ifndef LINUX
-SRC_FILES += \
-	GConf.vala
-endif
 
 VAPI_FILES = \
 	libexif.vapi \
@@ -282,64 +260,56 @@ LOCAL_PKGS = \
 # added to this list
 EXT_PKGS = \
 	atk \
+	dbus-glib-1 \
+	gconf-2.0 \
 	gdk-2.0 \
+	gdk-x11-2.0 \
 	gee-1.0 \
+	gexiv2 \
+	gstreamer-0.10 \
+	gstreamer-base-0.10 \
 	gtk+-2.0 \
 	glib-2.0 \
+	gudev-1.0 \
+	json-glib-1.0 \
 	libexif \
+	libgphoto2 \
+	libsoup-2.4 \
+	libxml-2.0 \
 	sqlite3 \
-	gexiv2 \
-	json-glib-1.0
+	unique-1.0 \
+	webkit-1.0
 
 DIRECT_LIBS =
 
 LIBRAW_PKG = \
 	libraw
 
-ifdef LINUX
-EXT_PKGS += \
-	gconf-2.0 \
-	libgphoto2 \
-	libsoup-2.4 \
-	libxml-2.0 \
-	unique-1.0 \
-	webkit-1.0 \
-	gudev-1.0 \
-	dbus-glib-1 \
-	gdk-x11-2.0 \
-	gstreamer-0.10 \
-	gstreamer-base-0.10
-endif
-
 # libraw is handled separately (see note below); when libraw-config is no longer needed, the version
 # should be added to this list
 EXT_PKG_VERSIONS = \
+	dbus-glib-1 >= 0.80 \
+	gconf-2.0 >= 2.22.0 \
 	gee-1.0 >= 0.5.0 \
+	gexiv2 >= 0.2.0 \
 	gtk+-2.0 >= 2.18.0 \
 	glib-2.0 >= 2.24.0 \
-	libexif >= 0.6.16 \
-	sqlite3 >= 3.5.9 \
-	gexiv2 >= 0.2.0 \
+	gstreamer-0.10 >= 0.10.28 \
+	gstreamer-base-0.10 >= 0.10.28 \
+	gudev-1.0 >= 145 \
 	json-glib-1.0 >= 0.7.6
+	libexif >= 0.6.16 \
+	libgphoto2 >= 2.4.2 \
+	libsoup-2.4 >= 2.26.0 \
+	libxml-2.0 >= 2.6.32 \
+	sqlite3 >= 3.5.9 \
+	unique-1.0 >= 1.0.0 \
+	webkit-1.0 >= 1.1.5
 
 DIRECT_LIBS_VERSIONS =
 
 LIBRAW_VERSION = \
 	0.9.0
-
-ifdef LINUX
-EXT_PKG_VERSIONS += \
-	gconf-2.0 >= 2.22.0 \
-	libgphoto2 >= 2.4.2 \
-	libsoup-2.4 >= 2.26.0 \
-	libxml-2.0 >= 2.6.32 \
-	unique-1.0 >= 1.0.0 \
-	webkit-1.0 >= 1.1.5 \
-	gudev-1.0 >= 145 \
-	dbus-glib-1 >= 0.80 \
-	gstreamer-0.10 >= 0.10.28 \
-	gstreamer-base-0.10 >= 0.10.28
-endif
 
 VALA_PKGS = $(EXT_PKGS) $(LOCAL_PKGS) $(LIBRAW_PKG)
 
@@ -371,8 +341,7 @@ LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
 
 DIST_FILES = Makefile configure minver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
-	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_PO_FILES) po/shotwell.pot windows/install-deps \
-	windows/shotwell.rc windows/winstall.iss src/windows.c src/GConf.vala libraw-config \
+	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_PO_FILES) po/shotwell.pot libraw-config \
 	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
@@ -386,22 +355,6 @@ VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
 
 VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0`
 
-ifdef WINDOWS
-  VALA_DEFINES = -D WINDOWS -D NO_CAMERA -D NO_PRINTING -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX -D NO_SET_BACKGROUND
-  EXPANDED_OBJ_FILES += src/windows.o
-  RESOURCES = shotwell.res
-
-ifndef BUILD_DEBUG
-# -mwindows prevents a console window from appearing when we run Shotwell, but also hides
-# all logging/debugging output, so we specify it only in a release build.
-  VALA_LDFLAGS += -mwindows
-endif  
-
-shotwell.res: windows/shotwell.rc
-	windres windows/shotwell.rc -O coff -o shotwell.res
-
-endif
-
 # setting CFLAGS in configure.mk overrides build type
 ifndef CFLAGS
 ifdef BUILD_DEBUG
@@ -411,20 +364,12 @@ CFLAGS = -O2 -g -pipe -fPIC
 endif
 endif
 
-ifdef LINUX
 # Required for gudev-1.0
 CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE
-endif
 
 # Packaged libraw is not widely available, so we must fake what would be in its .pc file
 # if not available.
-ifdef LINUX
 LIBRAW_CONFIG=./libraw-config
-endif
-
-ifdef WINDOWS
-LIBRAW_CONFIG=./libraw-config --windows
-endif
 
 $(LANG_STAMP): $(EXPANDED_PO_FILES)
 	@$(foreach po,$(SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
@@ -503,7 +448,6 @@ endif
 ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
-ifdef LINUX
 ifndef DISABLE_SCHEMAS_INSTALL
 	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule misc/shotwell.schemas
 else
@@ -520,7 +464,6 @@ ifndef DISABLE_HELP_INSTALL
 	mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
 	$(INSTALL_DATA) $(EXPANDED_HELP_IMAGES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
 endif
-endif
 	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
 		$(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
 		$(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
@@ -536,7 +479,6 @@ uninstall:
 ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
-ifdef LINUX
 ifndef DISABLE_HELP_INSTALL
 	rm -rf $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell
 endif
@@ -547,7 +489,6 @@ else
 endif
 ifdef ENABLE_APPORT_HOOK_INSTALL
 	rm -f $(DESTDIR)$(PREFIX)/share/apport/package-hooks/shotwell.py
-endif
 endif
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 
@@ -560,10 +501,8 @@ ifdef EXT_PKG_VERSIONS
 else ifdef EXT_PKGS
 	@pkg-config --print-errors --exists $(EXT_PKGS) $(DIRECT_LIBS_VERSIONS)
 endif
-# Check for libraw manually, but not on Windows, where install-deps is used
-ifndef WINDOWS
+# Check for libraw manually
 	@$(LIBRAW_CONFIG) --exists=$(LIBRAW_VERSION)
-endif
 endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
 	mkdir -p $(BUILD_DIR)
@@ -590,10 +529,4 @@ glade: lib$(PROGRAM).so
 
 lib$(PROGRAM).so: $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) `$(LIBRAW_CONFIG) --libs` $(EXPORT_FLAGS) -shared -o $@
-
-shotwell-setup-$(VERSION).exe: $(PROGRAM) windows/winstall.iss
-	iscc windows\winstall.iss
-	mv setup.exe shotwell-setup-$(VERSION).exe
-
-winstaller: shotwell-setup-$(VERSION).exe
 

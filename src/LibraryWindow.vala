@@ -143,18 +143,14 @@ public class LibraryWindow : AppWindow {
     private Gee.ArrayList<SubEventsDirectoryPage.Stub> events_dir_list =
         new Gee.ArrayList<SubEventsDirectoryPage.Stub>();
     private Gee.HashMap<Tag, TagPage.Stub> tag_map = new Gee.HashMap<Tag, TagPage.Stub>();
-#if !NO_CAMERA
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
 
     // this is to keep track of cameras which initiate the app
     private static Gee.HashSet<string> initial_camera_uris = new Gee.HashSet<string>();
-#endif
 
     private Sidebar sidebar = new Sidebar();
-#if !NO_CAMERA
     private SidebarMarker cameras_marker = null;
-#endif
     private SidebarMarker tags_marker = null;
     
     private Gtk.VBox top_section = new Gtk.VBox(false, 0);
@@ -247,7 +243,6 @@ public class LibraryWindow : AppWindow {
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES,
             Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
         
-#if !NO_CAMERA
         // monitor the camera table for additions and removals
         CameraTable.get_instance().camera_added.connect(add_camera_page);
         CameraTable.get_instance().camera_removed.connect(remove_camera_page);
@@ -255,7 +250,6 @@ public class LibraryWindow : AppWindow {
         // need to populate pages with what's known now by the camera table
         foreach (DiscoveredCamera camera in CameraTable.get_instance().get_cameras())
             add_camera_page(camera);
-#endif
         
         // connect to sidebar signal used ommited on drag-and-drop orerations
         sidebar.drop_received.connect(drop_received);
@@ -289,10 +283,8 @@ public class LibraryWindow : AppWindow {
         Tag.global.contents_altered.disconnect(on_tags_added_removed);
         Tag.global.items_altered.disconnect(on_tags_altered);
         
-#if !NO_CAMERA
         CameraTable.get_instance().camera_added.disconnect(add_camera_page);
         CameraTable.get_instance().camera_removed.disconnect(remove_camera_page);
-#endif
         
         unsubscribe_from_basic_information(get_current_page());
 
@@ -907,11 +899,8 @@ public class LibraryWindow : AppWindow {
 
     private void drop_external(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
-        // We extract the URI list using Uri.list_extract_uris() rather than
-        // Gtk.SelectionData.get_uris() to work around this bug on Windows:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=599321
-        string uri_string = (string) selection_data.data;
-        string[] uris_array = Uri.list_extract_uris(uri_string);
+
+        string[] uris_array = selection_data.get_uris();
         
         GLib.SList<string> uris = new GLib.SList<string>();
         foreach (string uri in uris_array)
@@ -1301,7 +1290,6 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-#if !NO_CAMERA
     private void add_camera_page(DiscoveredCamera camera) {
         ImportPage page = new ImportPage(camera.gcamera, camera.uri, camera.display_name);
 
@@ -1353,7 +1341,6 @@ public class LibraryWindow : AppWindow {
             cameras_marker = null;
         }
     }
-#endif
     
     private PageLayout? get_page_layout(Page page) {
         return page_layouts.get(page);
@@ -1421,13 +1408,11 @@ public class LibraryWindow : AppWindow {
         sidebar.add_toplevel(parent, position);
     }
 
-#if !NO_CAMERA    
     private void add_child_page(SidebarMarker parent_marker, Page child) {
         add_to_notebook(child);
         
         sidebar.add_child(parent_marker, child);
     }
-#endif
     
     // an orphan page is a Page that exists in the notebook (and can therefore be switched to) but
     // is not listed in the sidebar
@@ -1784,7 +1769,6 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool is_camera_selected(Gtk.TreePath path) {
-#if !NO_CAMERA
         foreach (ImportPage page in camera_pages.values) {
             if (is_page_selected(page, path)) {
                 switch_to_page(page);
@@ -1792,7 +1776,6 @@ public class LibraryWindow : AppWindow {
                 return true;
             }
         }
-#endif
         return false;
     }
     
@@ -1883,7 +1866,6 @@ public class LibraryWindow : AppWindow {
             extended_properties.update_properties(get_current_page());
     }
     
-#if !NO_CAMERA
     public void mounted_camera_shell_notification(string uri, bool at_startup) {
         debug("mount point reported: %s", uri);
         
@@ -1920,7 +1902,6 @@ public class LibraryWindow : AppWindow {
                 initial_camera_uris.add(alt_uri);
         }
     }
-#endif
     
     public override bool key_press_event(Gdk.EventKey event) {        
         return (sidebar.has_focus && Gdk.keyval_name(event.keyval) == "F2") ?

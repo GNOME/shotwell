@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-#if !NO_RAW
-
 public class RawFileFormatDriver : PhotoFileFormatDriver {
     private static RawFileFormatDriver instance = null;
     
@@ -256,4 +254,3 @@ public class RawReader : PhotoFileReader {
     }
 }
 
-#endif

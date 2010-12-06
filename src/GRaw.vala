@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-#if !NO_RAW
-
 namespace GRaw {
 
 public const double HD_POWER = 2.222;
@@ -327,4 +325,3 @@ private void throw_exception(string caller, LibRaw.Result result) throws Excepti
 
 }
 
-#endif

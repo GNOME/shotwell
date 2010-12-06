@@ -53,20 +53,14 @@ namespace PhotoFileFormatData {
 
 public enum PhotoFileFormat {
     JFIF,
-#if !NO_RAW
     RAW,
-#endif
     PNG,
     UNKNOWN;
     
     // This is currently listed in the order of detection, that is, the file is examined from
     // left to right.  (See PhotoFileInterrogator.)
     public static PhotoFileFormat[] get_supported() {
-#if !NO_RAW
         return { JFIF, RAW, PNG };
-#else
-        return { JFIF, PNG };
-#endif
     }
     
     public static PhotoFileFormat[] get_writeable() {
@@ -111,10 +105,8 @@ public enum PhotoFileFormat {
             case JFIF:
                 return 0;
             
-#if !NO_RAW
             case RAW:
                 return 1;
-#endif
 
             case PNG:
                 return 2;
@@ -131,10 +123,8 @@ public enum PhotoFileFormat {
             case 0:
                 return JFIF;
             
-#if !NO_RAW
             case 1:
                 return RAW;
-#endif
 
             case 2:
                 return PNG;
@@ -144,17 +134,14 @@ public enum PhotoFileFormat {
         }
     }
 
-#if !NO_CAMERA
     public static PhotoFileFormat from_gphoto_type(string type) {
         switch (type) {
             case GPhoto.MIME.JPEG:
                 return PhotoFileFormat.JFIF;
             
-#if !NO_RAW
             case GPhoto.MIME.RAW:
             case GPhoto.MIME.CRW:
                 return PhotoFileFormat.RAW;
-#endif
             
             case GPhoto.MIME.PNG:
                 return PhotoFileFormat.PNG;
@@ -164,17 +151,14 @@ public enum PhotoFileFormat {
                 return PhotoFileFormat.UNKNOWN;
         }
     }
-#endif
     
     private PhotoFileFormatDriver get_driver() {
         switch (this) {
             case JFIF:
                 return JfifFileFormatDriver.get_instance();
             
-#if !NO_RAW
             case RAW:
                 return RawFileFormatDriver.get_instance();
-#endif
             
             case PNG:
                 return PngFileFormatDriver.get_instance();

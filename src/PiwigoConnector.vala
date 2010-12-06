@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_PUBLISHING
-
 namespace PiwigoConnector {
 private const string SERVICE_NAME = "Piwigo";
 private const string DEFAULT_CATEGORY_NAME = _("Shotwell Connect");
@@ -1229,4 +1227,3 @@ private class ImagesAddTransaction : Transaction {
 }
 }
 
-#endif

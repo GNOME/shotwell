@@ -196,14 +196,6 @@ public string? get_file_info_id(FileInfo info) {
     return info.get_attribute_string(FILE_ATTRIBUTE_ID_FILE);
 }
 
-public string get_root_directory() {
-#if WINDOWS
-    return "C:\\";
-#else
-    return "/";
-#endif
-}
-
 // Breaks a uint64 skip amount into several smaller skips.
 public void skip_uint64(InputStream input, uint64 skip_amount) throws GLib.Error {
     while (skip_amount > 0) {

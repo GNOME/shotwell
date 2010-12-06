@@ -8,8 +8,6 @@ public errordomain GPhotoError {
     LIBRARY
 }
 
-#if !NO_CAMERA
-
 namespace GPhoto {
     // ContextWrapper assigns signals to the various GPhoto.Context callbacks, as well as spins
     // the event loop at opportune times.
@@ -232,6 +230,4 @@ namespace GPhoto {
         return buffer;
     }
 }
-
-#endif
 

@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_LIBUNIQUE
-
 enum ShotwellCommand {
     // user-defined commands must be positive ints
     MOUNTED_CAMERA = 1
@@ -32,15 +30,10 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
     
     return response;
 }
-#endif
 
 private Timer startup_timer = null;
 
 void library_exec(string[] mounts) {
-#if NO_LIBUNIQUE
-    if (already_running())
-        return;
-#else
     // the library is single-instance; editing windows are one-process-per
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
     shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
@@ -60,7 +53,6 @@ void library_exec(string[] mounts) {
         // notified running app; this one exits
         return;
     }
-#endif
 
     // initialize DatabaseTable before verification
     DatabaseTable.init(AppDirs.get_data_subdir("data").get_child("photo.db"));
@@ -170,11 +162,9 @@ void library_exec(string[] mounts) {
         progress_dialog.destroy();
     progress_dialog = null;
 
-#if !NO_CAMERA
     // report mount points
     foreach (string mount in mounts)
         library_window.mounted_camera_shell_notification(mount, true);
-#endif
 
     library_window.show_all();
 
@@ -300,9 +290,6 @@ void main(string[] args) {
     // Call AppDirs init *before* calling Gtk.init_with_args, as it will strip the
     // exec file from the array
     AppDirs.init(args[0]);
-#if WINDOWS
-    win_init(AppDirs.get_exec_dir());
-#endif
 
     // init GTK (valac has already called g_threads_init())
     try {

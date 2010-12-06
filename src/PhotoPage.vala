@@ -1813,12 +1813,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
-#if !NO_SET_BACKGROUND
     public void on_set_background() {
         if (has_photo())
             DesktopIntegration.set_background(get_photo());
     }
-#endif
 
     protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
         rotate_button.set_icon_name(Resources.COUNTERCLOCKWISE);
@@ -2113,21 +2111,17 @@ public class LibraryPhotoPage : EditingHostPage {
         export.tooltip = Resources.EXPORT_TOOLTIP;
         actions += export;
 
-#if !NO_PRINTING
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         print.tooltip = Resources.PRINT_TOOLTIP;
         actions += print;
-#endif
         
-#if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
             TRANSLATABLE, on_publish };
         publish.label = Resources.PUBLISH_MENU;
         publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
-#endif
         
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
         edit.label = _("_Edit");
@@ -2241,13 +2235,11 @@ public class LibraryPhotoPage : EditingHostPage {
         external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;
         actions += external_edit;
 
-#if !NO_RAW
         Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, "<Ctrl><Shift>Return", 
             TRANSLATABLE, on_external_edit_raw };
         edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
         edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
-#endif
         
         Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null,
             TRANSLATABLE, on_send_to };
@@ -2255,13 +2247,11 @@ public class LibraryPhotoPage : EditingHostPage {
         send_to.tooltip = Resources.SEND_TO_TOOLTIP;
         actions += send_to;
         
-#if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
             TRANSLATABLE, on_set_background };
         set_background.label = Resources.SET_BACKGROUND_MENU;
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
-#endif
         
         Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>F", TRANSLATABLE, on_flag_unflag };
         flag.label = Resources.FLAG_MENU;
@@ -2400,26 +2390,20 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
         
-#if !NO_PRINTING
         InjectionGroup print_group = new InjectionGroup("/PhotoMenuBar/FileMenu/PrintPlaceholder");
         print_group.add_menu_item("Print");
         
         groups += print_group;
-#endif
         
-#if !NO_PUBLISHING
         InjectionGroup publish_group = new InjectionGroup("/PhotoMenuBar/FileMenu/PublishPlaceholder");
         publish_group.add_menu_item("Publish");
         
         groups += publish_group;
-#endif
         
-#if !NO_SET_BACKGROUND
         InjectionGroup bg_group = new InjectionGroup("/PhotoMenuBar/FileMenu/SetBackgroundPlaceholder");
         bg_group.add_menu_item("SetBackground");
         
         groups += bg_group;
-#endif
         
         return groups;
     }
@@ -2442,9 +2426,7 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override void update_actions(int selected_count, int count) {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-#if !NO_RAW
         bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
-#endif
         
         set_action_sensitive("ExternalEdit",
             has_photo() && Config.get_instance().get_external_photo_app() != "");
@@ -2455,9 +2437,7 @@ public class LibraryPhotoPage : EditingHostPage {
         if (has_photo() && !get_photo_missing())
             update_rating_menu_item_sensitivity();
         
-#if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", has_photo());
-#endif
 
         set_action_sensitive("PrevPhoto", multiple);
         set_action_sensitive("NextPhoto", multiple);
@@ -2479,10 +2459,8 @@ public class LibraryPhotoPage : EditingHostPage {
             set_action_sensitive("Flag", false);
         }
         
-#if !NO_RAW
         set_action_visible("ExternalEditRAW", 
             is_raw && Config.get_instance().get_external_raw_app() != "");
-#endif
         
         base.update_actions(selected_count, count);
     }
@@ -2631,9 +2609,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("AddTags", sensitivity);
         set_action_sensitive("ModifyTags", sensitivity);
         
-#if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", sensitivity);
-#endif
         
         base.update_ui(photo, missing);
     }
@@ -2829,11 +2805,9 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
-#if !NO_PRINTING
     private void on_print() {
         PrintManager.get_instance().spool_photo(get_photo());
     }
-#endif
 
     private void on_external_app_changed() {
         set_action_sensitive("ExternalEdit", has_photo() && 
@@ -2854,7 +2828,6 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
-#if !NO_RAW    
     private void on_external_edit_raw() {
         if (!has_photo())
             return;
@@ -2871,7 +2844,6 @@ public class LibraryPhotoPage : EditingHostPage {
             AppWindow.error_message(Resources.launch_editor_failed(err));
         }
     }
-#endif
     
     private void on_send_to() {
         if (has_photo())
@@ -2906,12 +2878,10 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
     
-#if !NO_PUBLISHING
     private void on_publish() {
         if (get_view().get_count() > 0)
             PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_sources());
     }
-#endif
     
     private void on_view_menu() {
         update_zoom_menu_item_sensitivity();
@@ -3282,13 +3252,11 @@ public class DirectPhotoPage : EditingHostPage {
         send_to.tooltip = Resources.SEND_TO_TOOLTIP;
         actions += send_to;
 
-#if !NO_PRINTING
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         print.tooltip = _("Print the photo to a printer connected to your computer");
         actions += print;
-#endif
         
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
         edit.label = _("Edit");
@@ -3374,13 +3342,11 @@ public class DirectPhotoPage : EditingHostPage {
         adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
         
-#if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
             TRANSLATABLE, on_set_background };
         set_background.label = Resources.SET_BACKGROUND_MENU;
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
-#endif
 
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
         view.label = _("_View");
@@ -3426,19 +3392,15 @@ public class DirectPhotoPage : EditingHostPage {
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
         
-#if !NO_PRINTING
         InjectionGroup print_group = new InjectionGroup("/DirectMenuBar/FileMenu/PrintPlaceholder");
         print_group.add_menu_item("Print");
         
         groups += print_group;
-#endif
         
-#if !NO_SET_BACKGROUND
         InjectionGroup bg_group = new InjectionGroup("/DirectMenuBar/FileMenu/SetBackgroundPlaceholder");
         bg_group.add_menu_item("SetBackground");
         
         groups += bg_group;
-#endif
         
         return groups;
     }
@@ -3557,9 +3519,7 @@ public class DirectPhotoPage : EditingHostPage {
         set_action_sensitive("AdjustDateTime", sensitivity);
         set_action_sensitive("Fullscreen", sensitivity);
         
-#if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", has_photo() && !get_photo_missing());
-#endif
         
         base.update_ui(photo, missing);
     }
@@ -3580,9 +3540,7 @@ public class DirectPhotoPage : EditingHostPage {
         set_action_sensitive("Revert", revert_possible);
         set_action_sensitive("Enhance", enhance_possible);
         
-#if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", has_photo());
-#endif
         
         base.update_actions(selected_count, count);
     }
@@ -3742,9 +3700,7 @@ public class DirectPhotoPage : EditingHostPage {
         return handled ? true : base.on_app_key_pressed(event);
     }
     
-#if !NO_PRINTING
     private void on_print() {
         PrintManager.get_instance().spool_photo(get_photo());
     }
-#endif
 }

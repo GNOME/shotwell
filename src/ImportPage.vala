@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_CAMERA
-
 abstract class ImportSource : ThumbnailSource {
     private string camera_name;
     private GPhoto.Camera camera;
@@ -1303,8 +1301,6 @@ public class ImportPage : CheckerboardPage {
             action.set_active(display);
     }
 }
-
-#endif
 
 public class ImportQueuePage : SinglePhotoPage {
     private Gee.ArrayList<BatchImport> queue = new Gee.ArrayList<BatchImport>();

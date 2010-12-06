@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_PRINTING
-
 public enum ContentLayout {
     FILL_PAGE,
     STANDARD_SIZE,
@@ -1033,4 +1031,3 @@ public class PrintManager {
     }
 }
 
-#endif

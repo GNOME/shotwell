@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_PUBLISHING
-
 namespace FlickrConnector {
 private const string SERVICE_NAME = "Flickr";
 private const string SERVICE_WELCOME_MESSAGE = 
@@ -1018,6 +1016,4 @@ private class PublishingOptionsPane : PublishingDialogPane {
 }
 
 }
-
-#endif
 

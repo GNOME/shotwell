@@ -22,9 +22,8 @@ class SlideshowPage : SinglePhotoPage {
     private Timer timer = new Timer();
     private bool playing = true;
     private bool exiting = false;
-#if !WINDOWS
+
     private Screensaver screensaver;
-#endif
 
     public signal void hide_toolbar();
     
@@ -111,9 +110,7 @@ class SlideshowPage : SinglePhotoPage {
         
         toolbar.insert(settings_button, -1);
 
-#if !WINDOWS
         screensaver = new Screensaver();
-#endif
     }
     
     public override void switched_to() {
@@ -131,18 +128,13 @@ class SlideshowPage : SinglePhotoPage {
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
         timer.start();
         
-#if !WINDOWS
         screensaver.inhibit("Playing slideshow");
-#endif
     }
     
     public override void switching_from() {
         base.switching_from();
 
-#if !WINDOWS
         screensaver.uninhibit();
-#endif
-
         exiting = true;
     }
     

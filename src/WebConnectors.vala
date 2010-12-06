@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_PUBLISHING
-
 public errordomain PublishingError {
     NO_ANSWER,
     COMMUNICATION_FAILED,
@@ -1314,6 +1312,4 @@ public class RESTXmlDocument {
         return rest_doc;
     }
 }
-
-#endif
 

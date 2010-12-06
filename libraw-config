@@ -5,11 +5,11 @@
 # This software is licensed under the GNU LGPL (version 2.1 or later).
 # See the COPYING file in this distribution.
 #
-# libraw-config [--windows] [--exists=VERSION] [--cflags] [--libs]
+# libraw-config [--exists=VERSION] [--cflags] [--libs]
 #
 
 usage() {
-    printf "usage: libraw-config [--windows] [--exists=VERSION] [--cflags] [--libs]\n"
+    printf "usage: libraw-config [--exists=VERSION] [--cflags] [--libs]\n"
 }
 
 # library search paths
@@ -80,9 +80,6 @@ while [ $# != 0 ]; do
                             exit 0
                             ;;
         
-        --windows)          windows="1"
-                            ;;
-        
         --exists)           if [ ! $value ]; then
                                 usage
                                 exit 1
@@ -107,15 +104,15 @@ while [ $# != 0 ]; do
 done
 
 if [ $do_exists ]; then
-    exists $windows $version
+    exists $version
 fi
 
 if [ $do_cflags ]; then
-    cflags $windows
+    cflags
 fi
 
 if [ $do_libs ]; then
-    libs $windows
+    libs
 fi
 
 if [ $output ]; then

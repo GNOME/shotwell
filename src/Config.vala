@@ -523,7 +523,6 @@ public class Config {
         return get_int("/apps/shotwell/video/interpreter_state_cookie", NO_VIDEO_INTERPRETER_STATE);
     }
 
-#if !NO_SET_BACKGROUND
     public string get_background() {
         return get_string("/desktop/gnome/background/picture_filename", null);
     }
@@ -533,7 +532,6 @@ public class Config {
             return false;
         return set_string("/desktop/gnome/background/picture_filename", filename);
     }
-#endif
     
     public bool get_show_welcome_dialog() {
         return get_bool("/apps/shotwell/preferences/ui/show_welcome_dialog", true);
@@ -655,7 +653,6 @@ public class Config {
         external_app_changed();
     }
 
-#if !NO_RAW
     public string get_external_raw_app() {
         string external_app = get_string("/apps/shotwell/preferences/editing/external_raw_editor", "");
         
@@ -670,7 +667,6 @@ public class Config {
         
         return (app != null) ? DesktopIntegration.get_app_open_command(app) : "";
     }
-#endif
 
     public void set_external_raw_app(string external_raw_app) {
         set_string("/apps/shotwell/preferences/editing/external_raw_editor", external_raw_app);

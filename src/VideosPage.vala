@@ -91,10 +91,8 @@ public class VideosPage : MediaPage {
     private static InjectionGroup create_file_menu_injectables() {
         InjectionGroup group = new InjectionGroup("/MediaMenuBar/FileMenu/FileExtrasPlaceholder");
         
-#if !NO_PUBLISHING
         group.add_separator();
         group.add_menu_item("Publish");
-#endif
         
         return group;
     }
@@ -110,23 +108,19 @@ public class VideosPage : MediaPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
 
-#if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
             TRANSLATABLE, on_publish };
         publish.label = Resources.PUBLISH_MENU;
         publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
-#endif
 
         return actions;
     }
 
-#if !NO_PUBLISHING
     private void on_publish() {
         if (get_view().get_selected_count() > 0)
             PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
-#endif
 
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();

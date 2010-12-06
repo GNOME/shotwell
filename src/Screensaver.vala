@@ -5,7 +5,7 @@
  */
 
 // TODO: implement X11 and windows-specific methods for enable/disable
-#if !WINDOWS
+
 public class Screensaver {
     private DBus.Connection conn = null;
     private dynamic DBus.Object bus = null;
@@ -37,4 +37,4 @@ public class Screensaver {
         cookie = 0;
     }
 }
-#endif
+
