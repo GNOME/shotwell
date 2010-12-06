@@ -132,7 +132,11 @@ public class AlienDatabaseImportJob : BatchImportJob {
         return exposure_time;
     }
     
-    public override string get_identifier() {
+    public override string get_dest_identifier() {
+        return import_source.get_filename();
+    }
+    
+    public override string get_source_identifier() {
         return import_source.get_filename();
     }
     

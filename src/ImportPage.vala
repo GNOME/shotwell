@@ -353,8 +353,12 @@ public class ImportPage : CheckerboardPage {
             return (import_file is VideoImportSource) ? get_exposure_time() : 0;
         }
         
-        public override string get_identifier() {
+        public override string get_dest_identifier() {
             return filename;
+        }
+        
+        public override string get_source_identifier() {
+            return import_file.get_filename();
         }
         
         public ImportSource get_source() {

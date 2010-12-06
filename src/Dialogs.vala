@@ -381,13 +381,15 @@ public class ExportDialog : Gtk.Dialog {
 namespace ImportUI {
 private const int REPORT_FAILURE_COUNT = 4;
 
-private string? generate_import_failure_list(Gee.List<BatchImportResult> failed) {
+private string? generate_import_failure_list(Gee.List<BatchImportResult> failed, bool show_dest_id) {
     if (failed.size == 0)
         return null;
     
     string list = "";
-    for (int ctr = 0; ctr < REPORT_FAILURE_COUNT && ctr < failed.size; ctr++)
-        list += "%s\n".printf(failed.get(ctr).identifier);
+    for (int ctr = 0; ctr < REPORT_FAILURE_COUNT && ctr < failed.size; ctr++) {
+        list += "%s\n".printf(show_dest_id ? failed.get(ctr).dest_identifier : 
+            failed.get(ctr).src_identifier);
+    }
     
     int remaining = failed.size - REPORT_FAILURE_COUNT;
     if (remaining > 0)
@@ -440,7 +442,8 @@ public string get_media_specific_string(Gee.Collection<BatchImportResult> import
 }
 
 // Returns true if the user selected the yes action, false otherwise.
-public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? question = null) {
+public bool report_manifest(ImportManifest manifest, bool show_dest_id, 
+    QuestionParams? question = null) {
     string message = "";
     
     if (manifest.already_imported.size > 0) {
@@ -457,12 +460,11 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         message += get_media_specific_string(manifest.already_imported, photos_message,
             videos_message, both_message);
         
-        if (list)
-            message += generate_import_failure_list(manifest.already_imported);
+        message += generate_import_failure_list(manifest.already_imported, show_dest_id);
     }
     
     if (manifest.failed.size > 0) {
-        if (list && message.length > 0)
+        if (message.length > 0)
             message += "\n";
         
         string photos_message = (ngettext("1 photo failed to import due to a file or hardware error:\n",
@@ -478,12 +480,11 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         message += get_media_specific_string(manifest.failed, photos_message, videos_message,
             both_message);
         
-        if (list)
-            message += generate_import_failure_list(manifest.failed);
+        message += generate_import_failure_list(manifest.failed, show_dest_id);
     }
     
     if (manifest.camera_failed.size > 0) {
-        if (list && message.length > 0)
+        if (message.length > 0)
             message += "\n";
 
         string photos_message = (ngettext("1 photo failed to import due to a camera error:\n",
@@ -499,12 +500,11 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         message += get_media_specific_string(manifest.camera_failed, photos_message, videos_message,
             both_message);
         
-        if (list)
-            message += generate_import_failure_list(manifest.camera_failed);
+        message += generate_import_failure_list(manifest.camera_failed, show_dest_id);
     }
     
     if (manifest.skipped_photos.size > 0) {
-        if (list && message.length > 0)
+        if (message.length > 0)
             message += "\n";
         // we have no notion of "unsupported" video files right now in Shotwell (all
         // standard container formats are supported, it's just that the streams in them
@@ -516,12 +516,11 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
 
         message += skipped_photos_message;
         
-        if (list)
-            message += generate_import_failure_list(manifest.skipped_photos);
+        message += generate_import_failure_list(manifest.skipped_photos, show_dest_id);
     }
 
     if (manifest.skipped_files.size > 0) {
-        if (list && message.length > 0)
+        if (message.length > 0)
             message += "\n";
 
         // we have no notion of "non-video" video files right now in Shotwell, so this
@@ -534,7 +533,7 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     }
     
     if (manifest.aborted.size > 0) {
-        if (list && message.length > 0)
+        if (message.length > 0)
             message += "\n";
 
         string photos_message = (ngettext("1 photo skipped due to user cancel:\n",
@@ -550,12 +549,11 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         message += get_media_specific_string(manifest.aborted, photos_message, videos_message,
             both_message);
         
-        if (list)
-            message += generate_import_failure_list(manifest.aborted);
+        message += generate_import_failure_list(manifest.aborted, show_dest_id);
     }
     
     if (manifest.success.size > 0) {
-        if (list && message.length > 0)
+        if (message.length > 0)
             message += "\n";
 
         string photos_message = (ngettext("1 photo successfully imported.\n",

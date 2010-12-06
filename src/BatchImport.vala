@@ -12,7 +12,9 @@
 // Implementations should be able to handle either situation.  The prepare method will always be
 // called by the same thread context.
 public abstract class BatchImportJob {
-    public abstract string get_identifier();
+    public abstract string get_dest_identifier();
+    
+    public abstract string get_source_identifier();
     
     public abstract bool is_directory();
     
@@ -51,7 +53,11 @@ public class FileImportJob : BatchImportJob {
         this.copy_to_library = copy_to_library;
     }
     
-    public override string get_identifier() {
+    public override string get_dest_identifier() {
+        return file_or_dir.get_path();
+    }
+    
+    public override string get_source_identifier() {
         return file_or_dir.get_path();
     }
     
@@ -98,22 +104,26 @@ public class BatchImportRoll {
 public class BatchImportResult {
     public BatchImportJob job;
     public File? file;
-    public string identifier;
+    public string src_identifier;  // Source path
+    public string dest_identifier; // Destination path
     public ImportResult result;
     public string? errmsg = null;
     
-    public BatchImportResult(BatchImportJob job, File? file, string identifier, ImportResult result) {
+    public BatchImportResult(BatchImportJob job, File? file, string src_identifier, 
+        string dest_identifier, ImportResult result) {
         this.job = job;
         this.file = file;
-        this.identifier = identifier;
+        this.src_identifier = src_identifier;
+        this.dest_identifier = dest_identifier;
         this.result = result;
     }
     
-    public BatchImportResult.from_error(BatchImportJob job, File? file, string identifier,
-        Error err, ImportResult default_result) {
+    public BatchImportResult.from_error(BatchImportJob job, File? file, string src_identifier,
+        string dest_identifier, Error err, ImportResult default_result) {
         this.job = job;
         this.file = file;
-        this.identifier = identifier;
+        this.src_identifier = src_identifier;
+        this.dest_identifier = dest_identifier;
         this.result = ImportResult.convert_error(err, default_result);
         this.errmsg = err.message;
     }
@@ -134,16 +144,16 @@ public class ImportManifest {
         Gee.List<BatchImportJob>? pre_already_imported = null) {
         if (prefailed != null) {
             foreach (BatchImportJob job in prefailed) {
-                BatchImportResult batch_result = new BatchImportResult(job, null, job.get_identifier(), 
-                    ImportResult.FILE_ERROR);
+                BatchImportResult batch_result = new BatchImportResult(job, null, 
+                    job.get_source_identifier(), job.get_dest_identifier(), ImportResult.FILE_ERROR);
                 add_result(batch_result);
             }
         }
         
         if (pre_already_imported != null) {
             foreach (BatchImportJob job in pre_already_imported) {
-                BatchImportResult batch_result = new BatchImportResult(job, null, job.get_identifier(),
-                    ImportResult.PHOTO_EXISTS);
+                BatchImportResult batch_result = new BatchImportResult(job, null, 
+                job.get_source_identifier(), job.get_dest_identifier(), ImportResult.PHOTO_EXISTS);
                 add_result(batch_result);
             }
         }
@@ -572,7 +582,8 @@ public class BatchImport : Object {
             
             if (prepared_file.is_video && Video.is_duplicate(prepared_file.file, prepared_file.full_md5)) {
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
-                    prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
+                    prepared_file.file.get_path(), prepared_file.file.get_path(), 
+                    ImportResult.PHOTO_EXISTS);
             }
             
             if (Photo.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
@@ -592,7 +603,8 @@ public class BatchImport : Object {
                     photo.remove_all_transformations();
                     
                     import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
-                        prepared_file.file.get_path(), ImportResult.SUCCESS);
+                        prepared_file.file.get_path(), prepared_file.file.get_path(), 
+                        ImportResult.SUCCESS);
                     
                     report_progress(photo.get_filesize());
                     file_import_complete();
@@ -607,13 +619,14 @@ public class BatchImport : Object {
                         prepared_file.file.get_path());
                     
                     import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
-                        prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
+                        prepared_file.source_id, prepared_file.dest_id, ImportResult.PHOTO_EXISTS);
                 }
             } else if (is_in_current_import(prepared_file)) {
                 // this looks for duplicates within the import set, since Photo.is_duplicate
                 // only looks within already-imported photos for dupes
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
-                    prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
+                    prepared_file.file.get_path(), prepared_file.file.get_path(), 
+                    ImportResult.PHOTO_EXISTS);
             }
             
             if (import_result != null) {
@@ -740,7 +753,8 @@ public class BatchImport : Object {
         
         if (job.not_ready != null) {
             report_failure(new BatchImportResult(job.not_ready.job, job.not_ready.file,
-                job.not_ready.file.get_path(), ImportResult.USER_ABORT));
+                job.not_ready.file.get_path(), job.not_ready.file.get_path(), 
+                ImportResult.USER_ABORT));
             file_import_complete();
         }
         
@@ -959,29 +973,30 @@ private abstract class BackgroundImportJob : BackgroundJob {
             abort_flag = result;
     }
     
-    protected void report_failure(BatchImportJob job, File? file, string identifier, 
-        ImportResult result) {
+    protected void report_failure(BatchImportJob job, File? file, string src_identifier, 
+        string dest_identifier, ImportResult result) {
         assert(result != ImportResult.SUCCESS);
         
         // if fatal but the flag is not set, set it now
         if (result.is_abort())
             abort(result);
         else
-            debug("Import failure %s: %s", identifier, result.to_string());
+            debug("Import failure %s: %s", src_identifier, result.to_string());
         
-        failed.add(new BatchImportResult(job, file, identifier, result));
+        failed.add(new BatchImportResult(job, file, src_identifier, dest_identifier, result));
     }
     
-    protected void report_error(BatchImportJob job, File? file, string identifier,
-        Error err, ImportResult default_result) {
+    protected void report_error(BatchImportJob job, File? file, string src_identifier, 
+        string dest_identifier, Error err, ImportResult default_result) {
         ImportResult result = ImportResult.convert_error(err, default_result);
         
-        debug("Import error %s: %s (%s)", identifier, err.message, result.to_string());
+        debug("Import error %s: %s (%s)", src_identifier, err.message, result.to_string());
         
         if (result.is_abort())
             abort(result);
         
-        failed.add(new BatchImportResult.from_error(job, file, identifier, err, default_result));
+        failed.add(new BatchImportResult.from_error(job, file, src_identifier, dest_identifier, 
+            err, default_result));
     }
 }
 
@@ -1019,7 +1034,8 @@ private class WorkSniffer : BackgroundImportJob {
         foreach (BatchImportJob job in jobs) {
             ImportResult result = abort_check();
             if (result != ImportResult.SUCCESS) {
-                report_failure(job, null, job.get_identifier(), result);
+                report_failure(job, null, job.get_dest_identifier(), job.get_source_identifier(), 
+                    result);
                 
                 continue;
             }
@@ -1027,7 +1043,8 @@ private class WorkSniffer : BackgroundImportJob {
             try {
                 sniff_job(job);
             } catch (Error err) {
-                report_error(job, null, job.get_identifier(), err, ImportResult.FILE_ERROR);
+                report_error(job, null, job.get_source_identifier(), job.get_dest_identifier(), err, 
+                    ImportResult.FILE_ERROR);
             }
             
             if (is_cancelled())
@@ -1048,7 +1065,8 @@ private class WorkSniffer : BackgroundImportJob {
             File dir;
             bool copy_to_library;
             if (!job.prepare(out dir, out copy_to_library)) {
-                report_failure(job, null, job.get_identifier(), ImportResult.FILE_ERROR);
+                report_failure(job, null, job.get_dest_identifier(), job.get_source_identifier(),
+                     ImportResult.FILE_ERROR);
                 
                 return;
             }
@@ -1057,7 +1075,8 @@ private class WorkSniffer : BackgroundImportJob {
             try {
                 search_dir(job, dir, copy_to_library);
             } catch (Error err) {
-                report_error(job, dir, dir.get_path(), err, ImportResult.FILE_ERROR);
+                report_error(job, dir, job.get_source_identifier(), dir.get_path(), err,    
+                    ImportResult.FILE_ERROR);
             }
         } else {
             // if did not get the file size, do so now
@@ -1093,7 +1112,8 @@ private class WorkSniffer : BackgroundImportJob {
                 try {
                     search_dir(job, child, copy_to_library);
                 } catch (Error err) {
-                    report_error(job, child, child.get_path(), err, ImportResult.FILE_ERROR);
+                    report_error(job, child, child.get_path(), child.get_path(), err, 
+                    ImportResult.FILE_ERROR);
                 }
             } else if (file_type == FileType.REGULAR) {
                 if ((skipset != null) && skipset.contains(child))
@@ -1117,7 +1137,8 @@ private class PreparedFile {
     public BatchImportJob job;
     public ImportResult result;
     public File file;
-    public string id;
+    public string source_id;
+    public string dest_id;
     public bool copy_to_library;
     public string? exif_md5;
     public string? thumbnail_md5;
@@ -1126,13 +1147,14 @@ private class PreparedFile {
     public uint64 filesize;
     public bool is_video;
     
-    public PreparedFile(BatchImportJob job, File file, string id, bool copy_to_library, string? exif_md5, 
-        string? thumbnail_md5, string? full_md5, PhotoFileFormat file_format, uint64 filesize,
-        bool is_video = false) {
+    public PreparedFile(BatchImportJob job, File file, string source_id, string dest_id, 
+        bool copy_to_library, string? exif_md5, string? thumbnail_md5, string? full_md5, 
+        PhotoFileFormat file_format, uint64 filesize, bool is_video = false) {
         this.job = job;
         this.result = ImportResult.SUCCESS;
         this.file = file;
-        this.id = id;
+        this.source_id = source_id;
+        this.dest_id = dest_id;
         this.copy_to_library = copy_to_library;
         this.exif_md5 = exif_md5;
         this.thumbnail_md5 = thumbnail_md5;
@@ -1191,8 +1213,8 @@ private class PrepareFilesJob : BackgroundImportJob {
         foreach (FileToPrepare file_to_prepare in files_to_prepare) {
             ImportResult result = abort_check();
             if (result != ImportResult.SUCCESS) {
-                report_failure(file_to_prepare.job, null, file_to_prepare.job.get_identifier(),
-                    result);
+                report_failure(file_to_prepare.job, null, file_to_prepare.job.get_dest_identifier(), 
+                    file_to_prepare.job.get_source_identifier(), result);
                 
                 continue;
             }
@@ -1205,12 +1227,14 @@ private class PrepareFilesJob : BackgroundImportJob {
             if (file == null) {
                 try {
                     if (!job.prepare(out file, out copy_to_library)) {
-                        report_failure(job, null, job.get_identifier(), ImportResult.FILE_ERROR);
+                        report_failure(job, null, job.get_dest_identifier(), 
+                             job.get_source_identifier(), ImportResult.FILE_ERROR);
                         
                         continue;
                     }
                 } catch (Error err) {
-                    report_error(job, null, job.get_identifier(), err, ImportResult.FILE_ERROR);
+                    report_error(job, null, job.get_source_identifier(), job.get_dest_identifier(), 
+                        err, ImportResult.FILE_ERROR);
                     
                     continue;
                 }
@@ -1223,10 +1247,12 @@ private class PrepareFilesJob : BackgroundImportJob {
                     prepared_files++;
                     list.add(prepared_file);
                 } else {
-                    report_failure(job, file, file.get_path(), result);
+                    report_failure(job, file, job.get_source_identifier(), file.get_path(), 
+                        result);
                 }
             } catch (Error err) {
-                report_error(job, file, file.get_path(), err, ImportResult.FILE_ERROR);
+                report_error(job, file, job.get_source_identifier(), file.get_path(),
+                    err, ImportResult.FILE_ERROR);
             }
             
             if (list.size >= BatchImport.REPORT_EVERY_N_PREPARED_FILES 
@@ -1251,7 +1277,8 @@ private class PrepareFilesJob : BackgroundImportJob {
                 prepared_files -= list.size;
                 
                 foreach (PreparedFile prepared_file in list) {
-                    report_failure(prepared_file.job, prepared_file.file, prepared_file.file.get_path(),
+                    report_failure(prepared_file.job, prepared_file.file,
+                        prepared_file.job.get_source_identifier(), prepared_file.file.get_path(),
                         result);
                 }
             }
@@ -1327,9 +1354,9 @@ private class PrepareFilesJob : BackgroundImportJob {
         bool is_in_library_dir = file.has_prefix(library_dir);
         
         // notify the BatchImport this is ready to go
-        prepared_file = new PreparedFile(job, file, file.get_path(), 
-            copy_to_library && !is_in_library_dir, exif_only_md5, thumbnail_md5, full_md5,
-            file_format, filesize, is_video);
+        prepared_file = new PreparedFile(job, file, job.get_source_identifier(), 
+            job.get_dest_identifier(), copy_to_library && !is_in_library_dir, exif_only_md5,        
+            thumbnail_md5, full_md5, file_format, filesize, is_video);
         
         return ImportResult.SUCCESS;
     }
@@ -1371,7 +1398,8 @@ private class ReadyForImport {
             }
         }
         
-        batch_result = new BatchImportResult(prepared_file.job, prepared_file.file, prepared_file.id,
+        batch_result = new BatchImportResult(prepared_file.job, prepared_file.file,         
+            prepared_file.job.get_source_identifier(), prepared_file.job.get_dest_identifier(), 
             ImportResult.USER_ABORT);
         
         return batch_result;
@@ -1410,13 +1438,14 @@ private class PreparedFileImportJob : BackgroundJob {
                 final_file = LibraryFiles.duplicate(prepared_file.file, null, true);
                 if (final_file == null) {
                     failed = new BatchImportResult(prepared_file.job, prepared_file.file,
-                        prepared_file.id, ImportResult.FILE_ERROR);
+                        prepared_file.source_id, prepared_file.dest_id, ImportResult.FILE_ERROR);
                     
                     return;
                 }
             } catch (Error err) {
                 failed = new BatchImportResult.from_error(prepared_file.job, prepared_file.file,
-                    prepared_file.id, err, ImportResult.FILE_ERROR);
+                    prepared_file.source_id, prepared_file.dest_id, err, 
+                    ImportResult.FILE_ERROR);
                 
                 return;
             }
@@ -1451,7 +1480,7 @@ private class PreparedFileImportJob : BackgroundJob {
         }
         
         BatchImportResult batch_result = new BatchImportResult(prepared_file.job, final_file,
-            prepared_file.id, result);
+           prepared_file.source_id, prepared_file.dest_id, result);
         if (batch_result.result != ImportResult.SUCCESS)
             failed = batch_result;
         else
