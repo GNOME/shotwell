@@ -58,6 +58,10 @@ private class CheckerboardItemText {
         return layout;
     }
     
+    public void clear_pango_layout() {
+        layout = null;
+    }
+    
     private void update_height() {
         if (one_line_height != 0 && single_line)
             height = one_line_height;
@@ -267,6 +271,12 @@ public abstract class CheckerboardItem : ThumbnailView {
     
     public virtual void unexposed() {
         exposure = false;
+        
+        if (title != null)
+            title.clear_pango_layout();
+        
+        if (subtitle != null)
+            subtitle.clear_pango_layout();
     }
     
     public virtual bool is_exposed() {

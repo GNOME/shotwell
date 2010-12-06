@@ -560,7 +560,14 @@ public class BatchImport : Object {
         
         log_status("on_file_prepared (%d files)".printf(cluster.list.size));
         
-        foreach (PreparedFile prepared_file in cluster.list) {
+        process_prepared_files.begin(cluster.list);
+    }
+    
+    private async void process_prepared_files(Gee.List<PreparedFile> list) {
+        foreach (PreparedFile prepared_file in list) {
+            Idle.add(process_prepared_files.callback);
+            yield;
+            
             BatchImportResult import_result = null;
             
             if (prepared_file.is_video && Video.is_duplicate(prepared_file.file, prepared_file.full_md5)) {

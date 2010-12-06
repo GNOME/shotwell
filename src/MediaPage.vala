@@ -1297,23 +1297,19 @@ public abstract class MediaPage : CheckerboardPage {
     }
           
     protected string get_sortby_path(int sort_by) {
-        string path = "";
-
         switch(sort_by) {
             case SortBy.TITLE:
-                path = "/MediaMenuBar/ViewMenu/SortPhotos/SortByTitle";
-                break;
+                return "/MediaMenuBar/ViewMenu/SortPhotos/SortByTitle";
+            
             case SortBy.EXPOSURE_DATE:
-                path = "/MediaMenuBar/ViewMenu/SortPhotos/SortByExposureDate";
-                break;
+                return "/MediaMenuBar/ViewMenu/SortPhotos/SortByExposureDate";
+            
             case SortBy.RATING:
-                path = "/MediaMenuBar/ViewMenu/SortPhotos/SortByRating";
-                break;
+                return "/MediaMenuBar/ViewMenu/SortPhotos/SortByRating";
+            
             default:
                 error("Unknown sort criteria: %d", sort_by);
         }
-
-        return path;
     }
 
     protected void sync_sort() {

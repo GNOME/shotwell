@@ -78,6 +78,7 @@ public abstract class MediaSource : ThumbnailSource {
     public abstract File get_master_file();
     public abstract void set_master_file(File file);
     public abstract uint64 get_filesize();
+    public abstract time_t get_timestamp();
     
     public abstract string? get_title();
     public abstract void set_title(string? title);

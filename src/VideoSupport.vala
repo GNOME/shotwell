@@ -738,6 +738,12 @@ public class Video : VideoSource, Flaggable {
         }
     }
     
+    public override time_t get_timestamp() {
+        lock (backing_row) {
+            return backing_row.timestamp;
+        }
+    }
+    
     public string get_filename() {
         lock (backing_row) {
             return backing_row.filepath;

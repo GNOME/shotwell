@@ -1363,7 +1363,7 @@ public abstract class Photo : PhotoSource {
         }
     }
     
-    public time_t get_timestamp() {
+    public override time_t get_timestamp() {
         lock (row) {
             return backing_photo_state->timestamp;
         }

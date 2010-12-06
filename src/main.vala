@@ -346,14 +346,8 @@ void main(string[] args) {
     Application.init();
     
     // set custom data directory if it's been supplied
-    if (CommandlineOptions.data_dir != null) {
-        if (!Path.is_absolute(CommandlineOptions.data_dir)) {
-            CommandlineOptions.data_dir = Path.build_filename(Environment.get_current_dir(),
-                CommandlineOptions.data_dir);
-        }
-
-        AppDirs.set_data_dir(File.parse_name(CommandlineOptions.data_dir));
-    }
+    if (CommandlineOptions.data_dir != null)
+        AppDirs.set_data_dir(CommandlineOptions.data_dir);
     
     // Verify the private data directory before continuing
     AppDirs.verify_data_dir();

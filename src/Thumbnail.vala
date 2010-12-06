@@ -56,6 +56,11 @@ public class Thumbnail : MediaSourceItem {
         
         original_dim = media.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
+        
+        // initialize title and tags text line so they're properly accounted for when the display
+        // size is calculated
+        update_title();
+        update_tags();
     }
 
     ~Thumbnail() {

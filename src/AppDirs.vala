@@ -22,10 +22,17 @@ class AppDirs {
     }
     
     // This can only be called once, and it better be called at startup
-    public static void set_data_dir(File user_data_dir) {
+    public static void set_data_dir(string user_data_dir) requires (!is_string_empty(user_data_dir)) {
         assert(data_dir == null);
-        message("Setting private data directory to %s", user_data_dir.get_path());
-        data_dir = user_data_dir;
+        
+        // fix up to absolute path
+        string path = strip_pretty_path(user_data_dir);
+        if (!Path.is_absolute(path))
+            data_dir = File.new_for_path(Environment.get_home_dir()).get_child(path);
+        else
+            data_dir = File.new_for_path(path);
+        
+        message("Setting private data directory to %s", data_dir.get_path());
     }
     
     public static void verify_data_dir() {
