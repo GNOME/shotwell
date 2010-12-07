@@ -153,15 +153,14 @@ private class BasicProperties : Properties {
 
         title = source.get_name();
         
-        if (source is PhotoSource) {
-            PhotoSource photo_source = (PhotoSource) source;
-            
-            start_time = photo_source.get_exposure_time();
+        if (source is PhotoSource || source is PhotoImportSource) {           
+            start_time = (source is PhotoSource) ? ((PhotoSource) source).get_exposure_time() :
+                ((PhotoImportSource) source).get_exposure_time();
             end_time = start_time;
-            
-            dimensions = photo_source.get_dimensions();
-            
-            PhotoMetadata? metadata = photo_source.get_metadata();
+                        
+            PhotoMetadata? metadata = (source is PhotoSource) ? ((PhotoSource) source).get_metadata() :
+                ((PhotoImportSource) source).get_metadata();
+
             if (metadata != null) {
                 exposure = metadata.get_exposure_string();
                 if (exposure == null)
@@ -174,7 +173,14 @@ private class BasicProperties : Properties {
                 iso = metadata.get_iso_string();
                 if (iso == null)
                     iso = "";
+
+                dimensions = (metadata.get_pixel_dimensions() != null) ?
+                    metadata.get_orientation().rotate_dimensions(metadata.get_pixel_dimensions()) :
+                    Dimensions(0, 0);
             }
+            
+            if (source is PhotoSource)
+                dimensions = ((PhotoSource) source).get_dimensions();
         } else if (source is EventSource) {
             EventSource event_source = (EventSource) source;
 
@@ -182,14 +188,18 @@ private class BasicProperties : Properties {
             end_time = event_source.get_end_time();
 
             photo_count = event_source.get_media_count();
-        } else if (source is VideoSource) {
-            Video video = (Video) source;
-            clip_duration = video.get_clip_duration();
+        } else if (source is VideoSource || source is VideoImportSource) {
+            if (source is VideoSource) {
+                Video video = (Video) source;
+                clip_duration = video.get_clip_duration();
 
-            if (video.get_is_interpretable())
-                dimensions = video.get_frame_dimensions();
-                
-            start_time = video.get_exposure_time();
+                if (video.get_is_interpretable())
+                    dimensions = video.get_frame_dimensions();
+
+                start_time = video.get_exposure_time();
+            } else {
+                start_time = ((VideoImportSource) source).get_exposure_time();
+            }
             end_time = start_time;
         }
     }
@@ -202,10 +212,10 @@ private class BasicProperties : Properties {
         foreach (DataView view in iter) {
             DataSource source = view.get_source();
             
-            if (source is PhotoSource) {
-                PhotoSource photo_source = (PhotoSource) source;
-                    
-                time_t exposure_time = photo_source.get_exposure_time();
+            if (source is PhotoSource || source is PhotoImportSource) {                  
+                time_t exposure_time = (source is PhotoSource) ?
+                    ((PhotoSource) source).get_exposure_time() :
+                    ((PhotoImportSource) source).get_exposure_time();
 
                 if (exposure_time != 0) {
                     if (start_time == 0 || exposure_time < start_time)
@@ -235,7 +245,19 @@ private class BasicProperties : Properties {
 
                 photo_count += event_source.get_media_count();
                 event_count++;
-            } else if (source is VideoSource) {
+            } else if (source is VideoSource || source is VideoImportSource) {
+                time_t exposure_time = (source is VideoSource) ?
+                    ((VideoSource) source).get_exposure_time() :
+                    ((VideoImportSource) source).get_exposure_time();
+
+                if (exposure_time != 0) {
+                    if (start_time == 0 || exposure_time < start_time)
+                        start_time = exposure_time;
+
+                    if (end_time == 0 || exposure_time > end_time)
+                        end_time = exposure_time;
+                }
+
                 video_count++;
             }
         }
