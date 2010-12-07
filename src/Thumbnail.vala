@@ -356,7 +356,7 @@ public class Thumbnail : MediaSourceItem {
         Flaggable? flaggable = media as Flaggable;
         
         return (flaggable != null && flaggable.is_flagged())
-            ? Resources.get_icon(Resources.ICON_APP, scale) : null;
+            ? Resources.get_icon(Resources.ICON_FLAGGED_TRINKET) : null;
     }
     
     protected override Gdk.Pixbuf? get_bottom_left_trinket(int scale) {

@@ -106,6 +106,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_TRASH_EMPTY = "user-trash";
     public const string ICON_TRASH_FULL = "user-trash-full";
     public const string ICON_VIDEOS_PAGE = "videos-page";
+    public const string ICON_FLAGGED_PAGE = "flag-page";
+    public const string ICON_FLAGGED_TRINKET = "flag-trinket.png";
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");

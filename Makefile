@@ -203,7 +203,9 @@ ICON_FILES = \
 	shotwell-16.svg \
 	shotwell-24.svg \
 	sprocket.png \
-	videos-page.png
+	videos-page.png \
+	flag-page.png \
+	flag-trinket.png
 
 HELP_FILES = \
 	edit-adjustments.page \

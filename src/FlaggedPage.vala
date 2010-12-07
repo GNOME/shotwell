@@ -16,6 +16,10 @@ public class FlaggedPage : CollectionPage {
         public override string get_name() {
             return _("Flagged");
         }
+
+        public override string? get_icon_name() {
+            return Resources.ICON_FLAGGED_PAGE;
+        }
     }
     
     private class FlaggedViewManager : CollectionViewManager {
