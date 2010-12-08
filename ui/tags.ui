@@ -1,17 +1,19 @@
 <ui>
 
     <menubar name="MediaMenuBar">
-        <placeholder name="MenubarExtrasPlaceholder">
-            <menu name="TagsMenu" action="TagsMenu">
-                <menuitem name="AddTags" action="AddTags" />
-                <menuitem name="ModifyTags" action="ModifyTags" />
-                <menuitem name="RemoveTagFromPhotos" action="RemoveTagFromPhotos" />
-                <separator />
-                <menuitem name="RenameTag" action="RenameTag" />
-                <menuitem name="DeleteTag" action="DeleteTag" />
-            </menu>
-        </placeholder>
+        <menu name="TagsMenu" action="TagsMenu">
+            <menuitem name="RemoveTagFromPhotos" action="RemoveTagFromPhotos" />
+            <separator />
+            <menuitem name="RenameTag" action="RenameTag" />
+            <menuitem name="DeleteTag" action="DeleteTag" />
+        </menu>
     </menubar>
+    
+    <popup name="CollectionContextMenu">
+        <placeholder name="ContextTagsPlaceholder">
+            <menuitem name="ContextRemoveTagFromPhotos" action="RemoveTagFromPhotos" />
+        </placeholder>
+    </popup>
     
     <popup name="TagsContextMenu">
         <menuitem name="ContextRenameTag" action="RenameTag" />

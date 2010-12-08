@@ -5,11 +5,9 @@
             <separator />
             <menuitem name="MakePrimary" action="MakePrimary" />
         </menu>
-        <placeholder name="MenubarExtrasPlaceholder">
-            <menu name="EventsMenu" action="EventsMenu">
-                <menuitem name="EventRename" action="Rename" />
-            </menu>
-        </placeholder>
+        <menu name="EventsMenu" action="EventsMenu">
+            <menuitem name="EventRename" action="Rename" />
+        </menu>
     </menubar>
 
     <popup name="CollectionContextMenu">
