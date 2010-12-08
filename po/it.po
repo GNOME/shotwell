@@ -1698,7 +1698,7 @@ msgstr "Elaborazione file RAW..."
 #: src/main.vala:80
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please use the latest version of Shotwell."
-msgstr "La libreria delle foto non è compatibile con questa versione di Shotwell.  Sembra sia stata creata dalla versione %s di Shotwell.  Questa è la versione %s (schema %d). Usare l'ultima versione di Shotwell."
+msgstr "La libreria delle foto non è compatibile con questa versione di Shotwell.  Sembra sia stata creata dalla versione %s di Shotwell (schema %d).  Questa è la versione %s (schema %d). Usare l'ultima versione di Shotwell."
 
 #: src/main.vala:85
 #, c-format
