@@ -48,12 +48,6 @@ public abstract class CollectionPage : MediaPage {
         // separator
         toolbar.insert(new Gtk.SeparatorToolItem(), -1);
         
-        // slideshow button
-        Gtk.ToolButton slideshow_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PLAY);
-        slideshow_button.set_related_action(get_action("Slideshow"));
-        
-        toolbar.insert(slideshow_button, -1);
-
         // publish button
         Gtk.ToolButton publish_button = new Gtk.ToolButton.from_stock("");
         publish_button.set_related_action(get_action("Publish"));
@@ -239,8 +233,8 @@ public abstract class CollectionPage : MediaPage {
         edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
         
-        Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
-            TRANSLATABLE, on_slideshow };
+        Gtk.ActionEntry slideshow = { "Slideshow", null, TRANSLATABLE, "F5", TRANSLATABLE,
+            on_slideshow };
         slideshow.label = _("_Slideshow");
         slideshow.tooltip = _("Play a slideshow");
         actions += slideshow;
@@ -330,7 +324,6 @@ public abstract class CollectionPage : MediaPage {
         set_action_sensitive("AddTags", has_selected);
         set_action_sensitive("ModifyTags", one_selected);
         set_action_sensitive("Slideshow", page_has_photos && (!primary_is_video));
-        set_action_important("Slideshow", true);
         
         set_action_sensitive("SetBackground", (!selection_has_videos) && has_selected );
         if (has_selected) {

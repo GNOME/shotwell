@@ -2366,8 +2366,8 @@ public class LibraryPhotoPage : EditingHostPage {
         modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
         actions += modify_tags;
         
-        Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
-            TRANSLATABLE, on_slideshow };
+        Gtk.ActionEntry slideshow = { "Slideshow", null, TRANSLATABLE, "F5", TRANSLATABLE,
+            on_slideshow };
         slideshow.label = _("_Slideshow");
         slideshow.tooltip = _("Play a slideshow");
         actions += slideshow;
