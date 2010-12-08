@@ -118,9 +118,11 @@ public abstract class MediaPage : CheckerboardPage {
     public const int SLIDER_STEPPING = 4;
 
     public enum SortBy {
+        MIN = 1,
         TITLE = 1,
         EXPOSURE_DATE = 2,
-        RATING = 3;
+        RATING = 3,
+        MAX = 3
     }
     
     protected class FilterButton : Gtk.ToolButton {
