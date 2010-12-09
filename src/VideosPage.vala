@@ -40,6 +40,7 @@ public class VideosPage : MediaPage {
         action_group.get_action("FilterPhotos").set_label(_("_Filter Videos"));
         action_group.get_action("SortPhotos").set_label(_("Sort _Videos"));
         action_group.get_action("DisplayUnratedOrHigher").set_label(_("_All Videos"));
+        set_common_action_label("CommonJumpToEvent", _("View Eve_nt for Video"));
         
         Gtk.Toolbar toolbar = get_toolbar();
         

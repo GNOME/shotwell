@@ -256,35 +256,17 @@ public abstract class CollectionPage : MediaPage {
     }
     
     private bool selection_has_video() {
-        foreach (DataSource source in get_view().get_selected_sources()) {
-            if (source is Video) {
-                return true;
-            }
-        }
-        
-        return false;
+        return MediaSourceCollection.has_video((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
     
     private bool page_has_photo() {
-        foreach (DataSource source in get_view().get_sources()) {
-            if (source is Photo) {
-                return true;
-            }
-        }
-        
-        return false;
+        return MediaSourceCollection.has_photo((Gee.Collection<MediaSource>) get_view().get_sources());
     }
     
     private bool selection_has_photo() {
-        foreach (DataSource source in get_view().get_selected_sources()) {
-            if (source is Photo) {
-                return true;
-            }
-        }
-        
-        return false;
+        return MediaSourceCollection.has_photo((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
-    
+
     protected override void update_actions(int selected_count, int count) {
         base.update_actions(selected_count, count);
 

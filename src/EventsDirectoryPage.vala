@@ -60,8 +60,17 @@ class EventDirectoryItem : CheckerboardItem {
     }
     
     private static string get_formatted_title(Event event) {
+        bool has_photos = MediaSourceCollection.has_photo(event.get_media());
+        bool has_videos = MediaSourceCollection.has_video(event.get_media());
+
         int count = event.get_media_count();
-        string count_text = ngettext("%d Photo", "%d Photos", count).printf(count);
+        string count_text = "";
+        if (has_photos && has_videos)
+            count_text = ngettext("%d Photo/Video", "%d Photos/Videos", count).printf(count);
+        else if (has_videos)
+            count_text = ngettext("%d Video", "%d Videos", count).printf(count);
+        else
+            count_text = ngettext("%d Photo", "%d Photos", count).printf(count);
         
         return "<b>%s</b>\n%s".printf(guarded_markup_escape_text(event.get_name()),
             guarded_markup_escape_text(count_text));

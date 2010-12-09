@@ -399,6 +399,12 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         if (action != null)
             action.sensitive = sensitive;
     }
+
+    public void set_common_action_label(string name, string label) {
+        Gtk.Action? action = get_common_action(name);
+        if (action != null)
+            action.set_label(label);
+    }
     
     public void set_common_action_important(string name, bool important) {
         Gtk.Action? action = get_common_action(name);

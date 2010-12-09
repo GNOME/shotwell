@@ -242,6 +242,26 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         }
     }
 
+    public static bool has_photo(Gee.Collection<MediaSource> media) {
+        foreach (MediaSource current_media in media) {
+            if (current_media is Photo) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static bool has_video(Gee.Collection<MediaSource> media) {
+        foreach (MediaSource current_media in media) {
+            if (current_media is Video) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     protected abstract MediaSourceHoldingTank create_trashcan();
     protected abstract MediaSourceHoldingTank create_offline_bin();
 
