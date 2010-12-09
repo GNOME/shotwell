@@ -622,5 +622,12 @@ public class MediaCollectionRegistry {
         
         return result;
     }
+    
+    public bool is_valid_source_id(string? source_id) {
+        if (is_string_empty(source_id)) {
+            return false;
+        }
+        return (source_id.has_prefix(Photo.TYPENAME) || source_id.has_prefix(Video.TYPENAME + "-"));
+    }
 }
 

@@ -451,10 +451,6 @@ public class Video : VideoSource, Flaggable {
         return exporter;
     }
 
-    public static string upgrade_video_id_to_source_id(VideoID video_id) {
-        return ("%s-%016" + int64.FORMAT_MODIFIER + "x").printf(Video.TYPENAME, video_id.id);
-    }
-
     public static void set_many_to_event(Gee.Collection<Video> videos, Event? event) {
         EventID event_id = (event != null) ? event.get_event_id() : EventID();
         

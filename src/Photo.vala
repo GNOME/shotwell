@@ -559,11 +559,7 @@ public abstract class Photo : PhotoSource {
             return readers.editable ?? readers.master;
         }
     }
-
-    public static string upgrade_photo_id_to_source_id(PhotoID photo_id) {
-        return ("%s%016" + int64.FORMAT_MODIFIER + "x").printf(Photo.TYPENAME, photo_id.id);
-    }
-
+    
     public bool is_mimicked() {
         lock (readers) {
             return readers.mimic != null;

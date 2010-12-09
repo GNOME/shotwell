@@ -648,6 +648,10 @@ public struct PhotoID {
     public static bool equal(void *a, void *b) {
         return ((PhotoID *) a)->id == ((PhotoID *) b)->id;
     }
+    
+    public static string upgrade_photo_id_to_source_id(PhotoID photo_id) {
+        return ("%s%016" + int64.FORMAT_MODIFIER + "x").printf(Photo.TYPENAME, photo_id.id);
+    }
 }
 
 public struct ImportID {
@@ -1235,7 +1239,7 @@ public class PhotoTable : DatabaseTable {
                 break;
             }
             
-            result.add(Photo.upgrade_photo_id_to_source_id(PhotoID(stmt.column_int64(0))));
+            result.add(PhotoID.upgrade_photo_id_to_source_id(PhotoID(stmt.column_int64(0))));
         }
         
         return result;
@@ -1621,7 +1625,6 @@ public struct EventID {
 public struct EventRow {
     public EventID event_id;
     public string? name;
-    public PhotoID primary_photo_id;
     public time_t time_created;
     public string? primary_source_id;
 }
@@ -1652,6 +1655,18 @@ public class EventTable : DatabaseTable {
             instance = new EventTable();
         
         return instance;
+    }
+    
+    // Returns a valid source ID, creating one from a legacy primary photo ID when needed.
+    private string? source_id_upgrade(int64 primary_photo_id, string? primary_source_id) {
+        if (MediaCollectionRegistry.get_instance().is_valid_source_id(primary_source_id)) {
+            return primary_source_id;
+        }
+        if (primary_photo_id != PhotoID.INVALID) {
+            // Upgrade to source_id from photo_id.
+            return PhotoID.upgrade_photo_id_to_source_id(PhotoID(primary_photo_id));
+        }
+        return null;
     }
     
     public EventRow create(string? primary_source_id) throws DatabaseError {
@@ -1728,16 +1743,7 @@ public class EventTable : DatabaseTable {
         row.name = stmt.column_text(0);
         if (row.name != null && row.name.length == 0)
             row.name = null;
-        int64 extracted_primary_photo_id = stmt.column_int64(1);
-        string extracted_primary_source_id = stmt.column_text(2);
-        
-        if (extracted_primary_photo_id != PhotoID.INVALID) {
-            extracted_primary_source_id =
-                Photo.upgrade_photo_id_to_source_id(PhotoID(extracted_primary_photo_id));
-        }
-
-        row.primary_photo_id.id = PhotoID.INVALID;
-        row.primary_source_id = extracted_primary_source_id;
+        row.primary_source_id = source_id_upgrade(stmt.column_int64(1), stmt.column_text(2));
         row.time_created = (time_t) stmt.column_int64(3);
         
         return row;
@@ -1764,20 +1770,11 @@ public class EventTable : DatabaseTable {
                 break;
             }
 
-            int64 extracted_primary_photo_id = stmt.column_int64(2);
-            string extracted_primary_source_id = stmt.column_text(3);
-            
-            if (extracted_primary_photo_id != PhotoID.INVALID) {
-                extracted_primary_source_id =
-                    Photo.upgrade_photo_id_to_source_id(PhotoID(extracted_primary_photo_id));
-            }
-
             EventRow row = EventRow();
 
             row.event_id = EventID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
-            row.primary_photo_id.id = PhotoID.INVALID;
-            row.primary_source_id = extracted_primary_source_id;
+            row.primary_source_id = source_id_upgrade(stmt.column_int64(2), stmt.column_text(3));
             row.time_created = (time_t) stmt.column_int64(4);            
 
             event_rows.add(row);
@@ -2045,7 +2042,7 @@ public class TagTable : DatabaseTable {
                 int64 legacy_id = token.to_int64(out endptr, 10);
                 assert(endptr[0] == '\0');
 
-                result.add(Photo.upgrade_photo_id_to_source_id(PhotoID(legacy_id)));
+                result.add(PhotoID.upgrade_photo_id_to_source_id(PhotoID(legacy_id)));
             } else if (token[0].isalpha()) {
                 // this is a modern entry
                 result.add(token);
@@ -2413,6 +2410,10 @@ public struct VideoID {
     
     public static bool equal(void *a, void *b) {
         return ((VideoID *) a)->id == ((VideoID *) b)->id;
+    }
+    
+    public static string upgrade_video_id_to_source_id(VideoID video_id) {
+        return ("%s-%016" + int64.FORMAT_MODIFIER + "x").printf(Video.TYPENAME, video_id.id);
     }
 }
 
@@ -2854,7 +2855,7 @@ public class VideoTable : DatabaseTable {
                 break;
             }
             
-            result.add(Video.upgrade_video_id_to_source_id(VideoID(stmt.column_int64(0))));
+            result.add(VideoID.upgrade_video_id_to_source_id(VideoID(stmt.column_int64(0))));
         }
         
         return result;
