@@ -178,7 +178,6 @@ ICON_FILES = \
 	image-adjust.svg \
 	import-all.png \
 	import.svg \
-	last-import-roll.png \
 	make-primary.svg \
 	merge.svg \
 	multiple-events.png \
