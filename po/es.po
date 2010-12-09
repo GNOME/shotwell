@@ -1,21 +1,21 @@
-# po/es.po
-# Spanish translation for Shotwell
+# po/shotwell.pot
+# PO message string template file for Shotwell
 # Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.2+trunk\n"
+"Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-11-24 18:32-0800\n"
-"PO-Revision-Date: 2010-10-11 12:48+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"PO-Revision-Date: 2010-12-09 04:12+0000\n"
+"Last-Translator: aloriel <aloriel@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Spanish\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
@@ -198,8 +198,8 @@ msgstr "Mostrar la etiqueta de cada foto"
 #: src/CollectionPage.vala:564
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
-msgstr[0] "Exportar foto/video"
-msgstr[1] "Exportar fotos/videos"
+msgstr[0] "Exportar foto/vídeo"
+msgstr[1] "Exportar fotos/vídeos"
 
 #: src/CollectionPage.vala:565 src/Dialogs.vala:15 src/PhotoPage.vala:2885
 msgid "Export Photo"
@@ -395,13 +395,13 @@ msgid "Unable to export background to %s: %s"
 msgstr "No se puede exportar el fondo de pantalla a %s: %s"
 
 #: src/DesktopIntegration.vala:286
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to prepare desktop slideshow: %s"
-msgstr "No se puede preparar el presentación de escritorio: %s"
+msgstr "No se puede preparar el presentación de diapositivas escritorio: %s"
 
 #: src/Dialogs.vala:15
 msgid "Export Video"
-msgstr "Exportar video"
+msgstr "Exportar vídeo"
 
 #: src/Dialogs.vala:41
 msgid "Export Photos"
@@ -460,155 +460,153 @@ msgstr "(y %d más)\n"
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] "1 foto duplicada no ha sido importada:\r\n"
-msgstr[1] "%d fotos duplicadas no han sido importadas:\r\n"
+msgstr[0] "No se importó 1 foto duplicada:\r\n"
+msgstr[1] "No se importaron %d fotos duplicadas:\r\n"
 
 #: src/Dialogs.vala:450
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] "1 video duplicado no ha sido importado:\r\n"
-msgstr[1] "%d videos duplicados no han sido importados:\r\n"
+msgstr[0] "No se importó 1 vídeo duplicado:\r\n"
+msgstr[1] "No se importaron %d vídeos duplicados:\r\n"
 
 #: src/Dialogs.vala:453
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] "1 foto/video duplicado no ha sido importado:\r\n"
-msgstr[1] "%d fotos/videos duplicados no han sido importados:\r\n"
+msgstr[0] "No se importó 1 foto/vídeo duplicado:\r\n"
+msgstr[1] "No se importaron %d fotos/vídeos duplicados:\r\n"
 
 #: src/Dialogs.vala:468
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] "1 foto falló al importar debido a un error de archivo o hardware\n"
-msgstr[1] "%d fotos fallaron al importar debido a un error de archivo o hardware\n"
+msgstr[0] "Falló al importar 1 foto debido a un error del archivo o de hardware:\n"
+msgstr[1] "Falló al importar %d fotos debido a un error del archivo o de hardware:\n"
 
 #: src/Dialogs.vala:471
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
-msgstr[0] "1 video fallo al ser importado debido a un error de archivo o hardware\r\n"
-msgstr[1] "%d videos fallaron al ser importados debido a un error de archivo o hardware\r\n"
+msgstr[0] "Falló al importar 1 vídeo debido a un error del archivo o de hardware:\r\n"
+msgstr[1] "Falló al importar %d vídeos debido a un error del archivo o de hardware:\r\n"
 
 #: src/Dialogs.vala:474
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] "1 foto/video falló al ser importado debido a un error de archivo o hardware\r\n"
-msgstr[1] "%d fotos/videos fallaron al ser importados debido a un error de archivo o hardware:\r\n"
+msgstr[0] "Falló al importar 1 foto/vídeo debido a un error del archivo o de hardware:\r\n"
+msgstr[1] "Falló al importar %d fotos/vídeos debido a un error del archivo o de hardware:\r\n"
 
 #: src/Dialogs.vala:489
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] "1 foto falló al importar debido a un error de la cámara:\n"
-msgstr[1] "%d fotos fallaron al importar debido a un error de la cámara:\n"
+msgstr[0] "Falló al importar 1 foto/vídeo debido a un error de la cámara:\n"
+msgstr[1] "Falló al importar %d fotos debido a un error de la cámara:\n"
 
 #: src/Dialogs.vala:492
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] "1 video falló al ser importado debido a un error de la cámara:\r\n"
-msgstr[1] "%d video fallaron al ser importado debido a un error de la cámara:\r\n"
+msgstr[0] "Falló al importar 1 foto/vídeo debido a un error de la cámara:\n"
+msgstr[1] "Falló al importar %d vídeos debido a un error de la cámara:\n"
 
 #: src/Dialogs.vala:495
-#, fuzzy, c-format
+#, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] "1 foto falló al importar debido a un error de la cámara:\n"
-msgstr[1] "%d fotos fallaron al importar debido a un error de la cámara:\n"
+msgstr[0] "Falló al importar 1 foto/vídeo debido a un error de la cámara:\n"
+msgstr[1] "Falló al importar %d foto/vídeo debido a un error de la cámara:\n"
 
 #: src/Dialogs.vala:513
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] "1 foto no soportada saltada:\n"
-msgstr[1] "%d fotos no soportadas saltadas:\n"
+msgstr[0] "Se omitió 1 foto no soportada:\n"
+msgstr[1] "Se omitieron %d fotos no soportadas:\n"
 
 #: src/Dialogs.vala:529
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "1 archivo que no era una imagen saltado.\n"
-msgstr[1] "%d archivos que no eran imágenes saltados.\n"
+msgstr[0] "Se omitió 1 archivo que no era una imagen.\n"
+msgstr[1] "Se omitieron %d archivos que no eran imágenes.\n"
 
 #: src/Dialogs.vala:540
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] "1 foto omitida debido a cancelación del usuario:\n"
-msgstr[1] "%d fotos omitidas debido a cancelación del usuario:\n"
+msgstr[0] "Se omitió 1 foto debido a la cancelación del usuario:\n"
+msgstr[1] "Se omitieron %d fotos debido a la cancelación del usuario:\n"
 
 #: src/Dialogs.vala:543
-#, fuzzy, c-format
+#, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] "1 foto omitida debido a cancelación del usuario:\n"
-msgstr[1] "%d fotos omitidas debido a cancelación del usuario:\n"
+msgstr[0] "Se omitió 1 vídeo debido a la cancelación del usuario:\n"
+msgstr[1] "Se omitieron %d vídeos debido a la cancelación del usuario:\n"
 
 #: src/Dialogs.vala:546
-#, fuzzy, c-format
+#, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] "1 foto omitida debido a cancelación del usuario:\n"
-msgstr[1] "%d fotos omitidas debido a cancelación del usuario:\n"
+msgstr[0] "Se omitió 1 foto/vídeo debido a la cancelación del usuario:\n"
+msgstr[1] "Se omitieron %d fotos/vídeos debido a la cancelación del usuario:\n"
 
 #: src/Dialogs.vala:561
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] "1 foto importada correctamente.\n"
-msgstr[1] "%d fotos importadas correctamente.\n"
+msgstr[0] "1 foto correctamente importada.\n"
+msgstr[1] "%d fotos correctamente importadas.\n"
 
 #: src/Dialogs.vala:564
-#, fuzzy, c-format
+#, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] "1 foto importada correctamente.\n"
-msgstr[1] "%d fotos importadas correctamente.\n"
+msgstr[0] "1 vídeo correctamente importado.\n"
+msgstr[1] "%d vídeos correctamente importados.\n"
 
 #: src/Dialogs.vala:567
-#, fuzzy, c-format
+#, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] "1 foto importada correctamente.\n"
-msgstr[1] "%d fotos importadas correctamente.\n"
+msgstr[0] "1 foto/vídeo correctamente importado.\n"
+msgstr[1] "%d fotos/vídeos correctamente importados.\n"
 
 #: src/Dialogs.vala:583
-#, fuzzy
 msgid "No photos or videos imported.\n"
-msgstr "No hay fotos importadas.\n"
+msgstr "No se importó ninguna foto o vídeo.\n"
 
 #: src/Dialogs.vala:598
 msgid "Import Complete"
 msgstr "Importación completa"
 
 #: src/Dialogs.vala:752
-#, fuzzy, c-format
+#, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "segundo"
-msgstr[1] "segundos"
+msgstr[0] "%d segundo"
+msgstr[1] "%d segundos"
 
 #: src/Dialogs.vala:755
-#, fuzzy, c-format
+#, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] "minuto"
-msgstr[1] "minutos"
+msgstr[0] "%d minuto"
+msgstr[1] "%d minutos"
 
 #: src/Dialogs.vala:759
-#, fuzzy, c-format
+#, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] "hora"
-msgstr[1] "horas"
+msgstr[0] "%d hora"
+msgstr[1] "%d horas"
 
 #: src/Dialogs.vala:762
-#, fuzzy
 msgid "1 day"
-msgstr "día"
+msgstr "1 día"
 
 #: src/Dialogs.vala:839 src/Resources.vala:158
 msgid "Rename Event"
@@ -725,12 +723,12 @@ msgstr "Original:"
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d/%m/%Y, %H:%M:%S"
 
-# The string %m/%d/%y, %I:%M:%S %p is a format string that describes a
-# U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should
-# translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time
-# format used in your language and region. The format string you enter should
-# conform to POSIX date and time formatting conventions. See the strftime
-# manpage for a list of format specifiers and their meanings.
+# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
+# 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
+# %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format
+# used in your language and region. The format string you enter should conform
+# to POSIX date and time formatting conventions. See the strftime manpage for
+# a list of format specifiers and their meanings.
 #: src/Dialogs.vala:1227
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d/%m/%Y, %I:%M:%S %p"
@@ -845,19 +843,16 @@ msgid "_Don't show this message again"
 msgstr "_No mostrar este mensaje de nuevo"
 
 #: src/Dialogs.vala:1810
-#, fuzzy
 msgid "Shotwell can copy the photos into your library folder or it can import them without copying."
-msgstr "Shotwell puede copiar las fotos en su biblioteca o puede ligarse a las fotos sin duplicarlos."
+msgstr "Shotwell puede copiar las fotos en su biblioteca o puede importarlas sin copiarlas."
 
 #: src/Dialogs.vala:1815
-#, fuzzy
 msgid "Co_py Photos"
-msgstr "_Fotos"
+msgstr "C_opiar fotos"
 
 #: src/Dialogs.vala:1816
-#, fuzzy
 msgid "_Import in Place"
-msgstr "Importar _seleccionadas"
+msgstr "_Importar en el lugar"
 
 #: src/Dialogs.vala:1817
 msgid "Import to Library"
@@ -1111,9 +1106,9 @@ msgid "Event %s"
 msgstr "Evento %s"
 
 #: src/Exporter.vala:246
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to generate a temporary file for %s: %s"
-msgstr "No se puede crear directorio temporal %s: %s"
+msgstr "No se puede crear el directorio temporal %s: %s"
 
 #: src/Exporter.vala:313
 msgid "Exporting"
@@ -1172,7 +1167,7 @@ msgid "Creating album..."
 msgstr "Creando álbum…"
 
 #: src/FacebookConnector.vala:766
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
 "\n"
@@ -1181,12 +1176,8 @@ msgstr ""
 "\n"
 
 #: src/FacebookConnector.vala:767
-#, fuzzy
 msgid "Where would you like to publish the selected photos?"
-msgstr ""
-"Está conectado a Facebook como %s.\n"
-"\n"
-"¿Quiere publicar las fotos seleccionadas?"
+msgstr "¿Dónde quiere publicar las fotos seleccionadas?"
 
 #: src/FacebookConnector.vala:816
 msgid "Publish to an e_xisting album:"
@@ -1197,9 +1188,8 @@ msgid "Create a _new album named:"
 msgstr "Crear un _nuevo álbum con nombre:"
 
 #: src/FacebookConnector.vala:835
-#, fuzzy
 msgid "Videos and new photo albums _visible to:"
-msgstr "Fotos _visibles para:"
+msgstr "Vídeos y álbumes de fotos nuevas _visibles para:"
 
 #: src/FacebookConnector.vala:850 src/FlickrConnector.vala:924
 #: src/PicasaConnector.vala:829 src/PiwigoConnector.vala:839
@@ -1218,14 +1208,12 @@ msgid "Just me"
 msgstr "Sólo para mí"
 
 #: src/FacebookConnector.vala:943
-#, fuzzy
 msgid "All friends"
-msgstr "Todos los vídeos"
+msgstr "Todos mis amigos"
 
 #: src/FacebookConnector.vala:944
-#, fuzzy
 msgid "Friends of friends"
-msgstr "Sólo amigos y familia"
+msgstr "Amigos de mis amigos"
 
 #: src/FacebookConnector.vala:945 src/FlickrConnector.vala:962
 #: src/PiwigoConnector.vala:904
@@ -1234,7 +1222,7 @@ msgstr "Todos"
 
 #: src/FlaggedPage.vala:17
 msgid "Flagged"
-msgstr ""
+msgstr "Marcada"
 
 #: src/FlickrConnector.vala:12
 msgid ""
@@ -1285,14 +1273,12 @@ msgid "Photos _visible to:"
 msgstr "Fotos _visibles para:"
 
 #: src/FlickrConnector.vala:882
-#, fuzzy
 msgid "Videos _visible to:"
 msgstr "Fotos _visibles para:"
 
 #: src/FlickrConnector.vala:884
-#, fuzzy
 msgid "Photos and videos _visible to:"
-msgstr "Fotos _visibles para:"
+msgstr "Fotos y vídeos _visibles para:"
 
 #: src/FlickrConnector.vala:887
 msgid "Photo _size:"
@@ -1421,30 +1407,29 @@ msgstr[0] "¿Eliminar esta foto de la cámara?"
 msgstr[1] "¿Eliminar estas %d fotos de la cámara?"
 
 #: src/ImportPage.vala:1231
-#, fuzzy, c-format
+#, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "¿Eliminar esta foto de la cámara?"
 msgstr[1] "¿Eliminar estas %d fotos de la cámara?"
 
 #: src/ImportPage.vala:1234
-#, fuzzy, c-format
+#, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] "¿Eliminar esta foto de la cámara?"
-msgstr[1] "¿Eliminar estas %d fotos de la cámara?"
+msgstr[0] "¿Eliminar esta foto/vídeo de la cámara?"
+msgstr[1] "¿Eliminar estas %d fotos/vídeos de la cámara?"
 
 #: src/ImportPage.vala:1261
-#, fuzzy
 msgid "Removing photos/videos from camera"
-msgstr "Eliminando foto de la cámara"
+msgstr "Eliminando fotos/vídeos de la cámara"
 
 #: src/ImportPage.vala:1265
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
-msgstr[0] "No se puede eliminar %d foto de la cámara, debido a errores."
-msgstr[1] "No se pueden eliminar %d fotos de la cámara, debido a errores."
+msgstr[0] "No se puede eliminar %d foto/vídeo de la cámara, debido a errores."
+msgstr[1] "No se pueden eliminar %d fotos/vídeos de la cámara, debido a errores."
 
 #: src/ImportPage.vala:1312
 msgid "Importing..."
@@ -1474,22 +1459,22 @@ msgstr "JPEG"
 #: src/JfifSupport.vala:180
 #, c-format
 msgid "Low (%d%%)"
-msgstr "Bajo (%d%%)"
+msgstr "Baja (%d%%)"
 
 #: src/JfifSupport.vala:183
 #, c-format
 msgid "Medium (%d%%)"
-msgstr "Medio (%d%%)"
+msgstr "Media (%d%%)"
 
 #: src/JfifSupport.vala:186
 #, c-format
 msgid "High (%d%%)"
-msgstr "Alto (%d%%)"
+msgstr "Alta (%d%%)"
 
 #: src/JfifSupport.vala:189
 #, c-format
 msgid "Maximum (%d%%)"
-msgstr "Máximo (%d%%)"
+msgstr "Máxima (%d%%)"
 
 #: src/LastImportPage.vala:17
 msgid "Last Import"
@@ -1516,7 +1501,6 @@ msgid "Delete all photos in the trash"
 msgstr "Eliminar todas las fotos de la papelera"
 
 #: src/LibraryWindow.vala:332
-#, fuzzy
 msgid "View Eve_nt for Photo"
 msgstr "Ver eve_nto para la foto"
 
@@ -1602,14 +1586,12 @@ msgid "Updating library..."
 msgstr "Actualizando biblioteca..."
 
 #: src/LibraryWindow.vala:1578
-#, fuzzy
 msgid "Preparing to auto-import photos..."
-msgstr "Preparando fotos para importar…"
+msgstr "Preparando fotos para autoimportar…"
 
 #: src/LibraryWindow.vala:1583
-#, fuzzy
 msgid "Auto-importing photos..."
-msgstr "Auto-importación..."
+msgstr "Autoimportando fotos…"
 
 #: src/LibraryWindow.vala:1588
 msgid "Writing metadata to files..."
@@ -1617,27 +1599,27 @@ msgstr "Escribiendo metadatos en los archivos..."
 
 #: src/LibraryWindow.vala:1593
 msgid "Processing RAW files..."
-msgstr ""
+msgstr "Procesando archivos RAW…"
 
 #: src/main.vala:80
-#, fuzzy, c-format
+#, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please use the latest version of Shotwell."
-msgstr "Su biblioteca de fotos no es compatible con esta versión de Shotwell. Parece que fue creado por Shotwell %s. Esta versión es %s. Use la versión más reciente de Shotwell."
+msgstr "Su biblioteca de fotos no es compatible con esta versión de Shotwell. Parece que fue creado por Shotwell %s (esquema %d). Esta versión es %s (esquema %d). Use la versión más reciente de Shotwell."
 
 #: src/main.vala:85
-#, fuzzy, c-format
+#, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d).  For more information please check the Shotwell Wiki at %s"
-msgstr "Shotwell no pudo actualizar su biblioteca de fotos desde la versión %s a la %s. Para obtener más información por favor consultar la Wiki de Shotwell en %s."
+msgstr "Shotwell no pudo actualizar su biblioteca de fotos desde la versión %s (esquema %d) a la %s (esquema %d). Para obtener más información por favor consultar la Wiki de Shotwell en %s."
 
 #: src/main.vala:91
-#, fuzzy, c-format
+#, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please clear your library by deleting %s and re-import your photos."
-msgstr "Su biblioteca de fotos no es compatible con esta versión de Shotwell. Parece que fue creado por Shotwell %s. Esta versión es %s. Vacíe la biblioteca mediante la eliminación de %s, y vuelva a importar las fotos."
+msgstr "Su biblioteca de fotos no es compatible con esta versión de Shotwell. Parece que fue creado por Shotwell %s (esquema %d). Esta versión es %s (esquema %d). Vacíe la biblioteca mediante la eliminación de %s, y vuelva a importar las fotos."
 
 #: src/main.vala:97
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %s"
-msgstr "Error desconocido al intentar verificar la base de datos de Shotwell: %d"
+msgstr "Error desconocido al intentar verificar la base de datos de Shotwell: %s"
 
 #: src/main.vala:132
 msgid "Loading Shotwell"
@@ -1657,9 +1639,8 @@ msgid "Adjust the size of the thumbnails"
 msgstr "Ajustar el tamaño de las miniaturas"
 
 #: src/MediaPage.vala:304
-#, fuzzy
 msgid "Export the selected items to disk"
-msgstr "Exportar los ítems seleccionados al disco"
+msgstr "Exportar los elementos seleccionados al disco"
 
 #: src/MediaPage.vala:324
 msgid "_Photos"
@@ -2047,68 +2028,62 @@ msgid "Recommended (1600 x 1200 pixels)"
 msgstr "Recomendado (1600 x 1200 píxeles)"
 
 #: src/PiwigoConnector.vala:482
-#, fuzzy
 msgid "Creating category..."
-msgstr "Creando álbum…"
+msgstr "Creando categoría…"
 
 #: src/PiwigoConnector.vala:587
-#, fuzzy
 msgid "Enter the username and password associated with your Piwigo account, and the URL of your Piwigo installation."
-msgstr "Introduzca la dirección de correo electrónico y la contraseña asociada con su cuenta de Álbumes web de Picasa."
+msgstr "Introduzca el nombre de usuario y la contraseña asociada con su cuenta de Piwigo, y el URL de su instalación de Piwigo."
 
 #: src/PiwigoConnector.vala:588
 msgid "No Piwigo installation was found at this URL. Please verify the URL you entered"
-msgstr ""
+msgstr "No se encontró la instalación de Piwigo en este URL. Verifique el URL que ha introducido."
 
 #: src/PiwigoConnector.vala:589
 msgid "Username and/or password invalid. Please try again"
-msgstr ""
+msgstr "El nombre de usuario o la contraseña no son válidos. Inténtelo de nuevo."
 
 #: src/PiwigoConnector.vala:623
 #, c-format
 msgid "Invalid URL"
-msgstr ""
+msgstr "URL inválido"
 
 #: src/PiwigoConnector.vala:634
 msgid "_URL of your Piwigo installation:"
-msgstr ""
+msgstr "_URL para su instalación de Piwigo:"
 
 #: src/PiwigoConnector.vala:636 src/YandexConnector.vala:62
-#, fuzzy
 msgid "_Username:"
-msgstr "Manual del _usuario"
+msgstr "Nombre de _usuario:"
 
 #: src/PiwigoConnector.vala:739
-#, fuzzy, c-format
+#, c-format
 msgid "You are logged into Piwigo as %s."
-msgstr ""
-"Está conectado en Flickr como %s.\n"
-"\n"
+msgstr "Está conectado en Piwigo como %s."
 
 #: src/PiwigoConnector.vala:769
-#, fuzzy
 msgid "An _existing category:"
-msgstr "Un álbum _existente:"
+msgstr "Una categoría _existente:"
 
 #: src/PiwigoConnector.vala:802
 msgid "Who can see those pictures ?"
-msgstr ""
+msgstr "¿Quién puede ver esas fotos?"
 
 #: src/PiwigoConnector.vala:905
 msgid "Admins, Friends, Family, Contacts"
-msgstr ""
+msgstr "Administradores, amigos, familia, contactos"
 
 #: src/PiwigoConnector.vala:906
 msgid "Admins, Family, Friends"
-msgstr ""
+msgstr "Administradores, familia, amigos"
 
 #: src/PiwigoConnector.vala:907
 msgid "Admins, Family"
-msgstr ""
+msgstr "Administradores, familia"
 
 #: src/PiwigoConnector.vala:908
 msgid "Admins"
-msgstr ""
+msgstr "Administradores"
 
 #: src/PngSupport.vala:31
 msgid "PNG"
@@ -2169,11 +2144,12 @@ msgstr ""
 "\n"
 "%s"
 
-# The string %I:%M %p is a format string that describes how time is formatted
-# (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common
-# time format in use in your language and region. The format string you enter
-# should conform to POSIX date and time formatting conventions. See the
-# strftime manpage for a list of format specifiers and their meanings.
+# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
+# 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
+# %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format
+# used in your language and region. The format string you enter should conform
+# to POSIX date and time formatting conventions. See the strftime manpage for
+# a list of format specifiers and their meanings.
 #: src/Properties.vala:38
 msgid "%I:%M %p"
 msgstr "%I:%M %p"
@@ -2221,7 +2197,6 @@ msgid "To:"
 msgstr "A:"
 
 #: src/Properties.vala:325
-#, fuzzy
 msgid "Duration:"
 msgstr "Duración:"
 
@@ -2423,9 +2398,8 @@ msgid "Set selected image to be the new desktop background"
 msgstr "Establezca la imagen seleccionada como nuevo fondo de escritorio"
 
 #: src/Resources.vala:147
-#, fuzzy
 msgid "Set as _Desktop Slideshow..."
-msgstr "Establecer como fondo _de escritorio"
+msgstr "Establecer como pase de _diapositivas de escritorio…"
 
 #: src/Resources.vala:149
 msgid "_Undo"
@@ -2572,19 +2546,16 @@ msgid "Set rating to rejected"
 msgstr "Establecer calificación para rechazadas"
 
 #: src/Resources.vala:198
-#, fuzzy
 msgid "Rejected _Only"
-msgstr "_Rechazado"
+msgstr "Sólo _rechazadas"
 
 #: src/Resources.vala:199
-#, fuzzy
 msgid "Rejected Only"
-msgstr "_Rechazado"
+msgstr "Sólo rechazadas"
 
 #: src/Resources.vala:200
-#, fuzzy
 msgid "Show only rejected photos"
-msgstr "Mostrar sólo tus fotos favoritas"
+msgstr "Mostrar sólo las fotos rechazadas"
 
 #: src/Resources.vala:202
 msgid "All + _Rejected"
@@ -2715,31 +2686,28 @@ msgid "Open the selected photo with a RAW image editor"
 msgstr "Abrir la foto seleccionada con el editor de imágenes RAW"
 
 #: src/Resources.vala:252
-#, fuzzy
 msgid "Send _To..."
-msgstr "G_uardar como…"
+msgstr "En_viar a…"
 
 #: src/Resources.vala:253
 msgid "Send photos by mail or instant message"
-msgstr ""
+msgstr "Enviar fotos por correo o mensajería instantánea"
 
 #: src/Resources.vala:255
-#, fuzzy
 msgid "_Flag"
-msgstr "_Archivo"
+msgstr "_Marcar"
 
 #: src/Resources.vala:256
 msgid "Flag the photos to work with them together"
-msgstr ""
+msgstr "Marcar las fotos para trabajar con ellas conjuntamente"
 
 #: src/Resources.vala:258
 msgid "Un_flag"
-msgstr ""
+msgstr "_Desmarcar"
 
 #: src/Resources.vala:259
-#, fuzzy
 msgid "Unflag the photos"
-msgstr "Rotar las fotos a la izquierda"
+msgstr "Desmarcar las fotos"
 
 #: src/Resources.vala:262
 #, c-format
@@ -2904,7 +2872,6 @@ msgstr "_Restaurar"
 msgid "Move the selected photos back into the library"
 msgstr "Mover las fotos seleccionadas de vuelta a la biblioteca"
 
-# GNOME Application Name
 #: src/Resources.vala:592
 msgid "Show in File Mana_ger"
 msgstr "Mostrar en ge_stor de archivos"
@@ -3023,18 +2990,12 @@ msgid_plural "Deleting Photos"
 msgstr[0] "Eliminando foto"
 msgstr[1] "Eliminando fotos"
 
-# The string %a %b %d, %Y is a format string that describes how dates are
-# formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate
-# it so that it describes the common date format in use in your language and
-# region. The format string you enter should conform to POSIX date and time
-# formatting conventions. See the strftime manpage for a list of format
-# specifiers and their meanings.
 #: src/util.vala:371
 msgid "%a %b %d, %Y"
 msgstr "%b %d de %a de %Y"
 
 #: src/util.vala:565
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
@@ -3044,16 +3005,16 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Esto eliminará la foto de su biblioteca Shotwell. ¿Le gustaría mover el archivo a la papelera del escritorio?\r\n"
+"Esto eliminará la foto y/o el vídeo de su biblioteca Shotwell. ¿Le gustaría mover el archivo a la papelera del escritorio?\r\n"
 "\r\n"
 "Esta acción no se puede deshacer."
 msgstr[1] ""
-"Esto eliminará %d fotos de su biblioteca Shotwell. ¿Le gustaría mover los archivos a la papelera del escritorio?\r\n"
+"Esto eliminará %d fotos y/o vídeos de su biblioteca Shotwell. ¿Le gustaría mover los archivos a la papelera del escritorio?\r\n"
 "\r\n"
 "Esta acción no se puede deshacer."
 
 #: src/util.vala:569
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
@@ -3063,11 +3024,11 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Esto eliminará la foto de su biblioteca Shotwell. ¿Le gustaría mover el archivo a la papelera del escritorio?\r\n"
+"Esto eliminará el vídeo de su biblioteca Shotwell. ¿Le gustaría mover el archivo a la papelera del escritorio?\r\n"
 "\r\n"
 "Esta acción no se puede deshacer."
 msgstr[1] ""
-"Esto eliminará %d fotos de su biblioteca Shotwell. ¿Le gustaría mover los archivos a la papelera del escritorio?\r\n"
+"Esto eliminará los %d vídeos de su biblioteca Shotwell. ¿Le gustaría mover los archivos a la papelera del escritorio?\r\n"
 "\r\n"
 "Esta acción no se puede deshacer."
 
@@ -3094,15 +3055,15 @@ msgstr[1] ""
 #, c-format
 msgid "The photo or video cannot be moved to your desktop trash.  Delete this file?"
 msgid_plural "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "No se puede mover la foto o el vídeo a la papelera de su escritorio. ¿Eliminar este archivo?"
+msgstr[1] "No se pueden mover las %d fotos o vídeos a la papelera de su escritorio. ¿Eliminar estos archivos?"
 
 #: src/util.vala:622
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "No se puede borrar la foto o el vídeo."
+msgstr[1] "No se pueden borrar las %d fotos o vídeos."
 
 #: src/VideosPage.vala:17 src/VideosPage.vala:34
 msgid "Videos"
@@ -3125,23 +3086,20 @@ msgid "_All Videos"
 msgstr "Todos los vídeos"
 
 #: src/VideoSupport.vala:434
-#, fuzzy
 msgid "Export Videos"
-msgstr "Ordenar _vídeos"
+msgstr "Exportar vídeos"
 
 #: src/WebConnectors.vala:499
 msgid "A temporary file needed for publishing is unavailable"
-msgstr ""
+msgstr "El archivo temporal necesario para la publicación no está disponible"
 
 #: src/WebConnectors.vala:650
-#, fuzzy
 msgid "The selected photos/videos were successfully published."
-msgstr "Las fotos seleccionadas han sido publicadas satisfactoriamente."
+msgstr "Las fotos/vídeos seleccionados se publicaron satisfactoriamente."
 
 #: src/WebConnectors.vala:652
-#, fuzzy
 msgid "The selected videos were successfully published."
-msgstr "Las fotos seleccionadas han sido publicadas satisfactoriamente."
+msgstr "Las fotos seleccionadas se publicaron satisfactoriamente."
 
 #: src/WebConnectors.vala:654
 msgid "The selected photos were successfully published."
@@ -3164,24 +3122,20 @@ msgid "Publish photos _to:"
 msgstr "Publicar fo_tos en:"
 
 #: src/WebConnectors.vala:714
-#, fuzzy
 msgid "Publish Videos"
-msgstr "Publicar fotos"
+msgstr "Publicar vídeos"
 
 #: src/WebConnectors.vala:715
-#, fuzzy
 msgid "Publish videos _to"
-msgstr "Publicar fo_tos en:"
+msgstr "Publicar vídeos _en"
 
 #: src/WebConnectors.vala:717
-#, fuzzy
 msgid "Publish Photos and Videos"
-msgstr "Publicar fotos"
+msgstr "Publicar fotos y vídeos"
 
 #: src/WebConnectors.vala:718
-#, fuzzy
 msgid "Publish photos and videos _to"
-msgstr "Publicar fo_tos en:"
+msgstr "Publicar fotos y vídeos _en"
 
 #: src/WebConnectors.vala:878
 msgid "_Close"
@@ -3222,106 +3176,93 @@ msgid "To try publishing to another service, select one from the above menu."
 msgstr "Para intentar publicar en otro servicio, seleccione uno en el menú de arriba."
 
 #: src/WebConnectors.vala:1021 src/WebConnectors.vala:1165
-#, fuzzy
 msgid "Preparing for upload"
-msgstr "Preparando fotos para subir"
+msgstr "Preparando para subir"
 
 #: src/WebConnectors.vala:1022 src/WebConnectors.vala:1099
-#, fuzzy, c-format
+#, c-format
 msgid "Uploading %d of %d"
-msgstr "Subiendo foto %d de %d"
+msgstr "Subiendo %d de %d"
 
 #: src/WebConnectors.vala:1072
 msgid "One or more of the photos or videos to be published is unavailable"
-msgstr ""
+msgstr "Una o más de las fotografías o vídeos para publicar no están disponibles"
 
 #: src/YandexConnector.vala:11
 msgid "You are not currently logged into Yandex.Fotki."
-msgstr ""
+msgstr "Actualmente no está conectado en Yandex.Fotki."
 
 #: src/YouTubeConnector.vala:12
-#, fuzzy
 msgid ""
 "You are not currently logged into YouTube.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."
 msgstr ""
-"No está actualmente conectado a Álbumes web de Picasa.\n"
+"No está actualmente conectado en YouTube..\n"
 "\n"
-"Debe haber registrado una cuenta de Google y configurarla para utilizarla con Picasa para continuar. Puede configurar la mayoría de cuentas mediante el uso de su navegador para registrarse en el sitio de Álbumes web de Picasa al menos una vez."
+"Debe haber registrado una cuenta de Google y configurarla para utilizarla con YouTube para continuar. Puede configurar la mayoría de cuentas mediante el uso de su navegador para registrarse en el sitio de YouTube al menos una vez."
 
 #: src/YouTubeConnector.vala:411
-#, fuzzy
 msgid "Enter the email address and password associated with your YouTube account."
-msgstr "Introduzca la dirección de correo electrónico y la contraseña asociada con su cuenta de Álbumes web de Picasa."
+msgstr "Introduzca la dirección de correo electrónico y la contraseña asociada con su cuenta de YouTube."
 
 #: src/YouTubeConnector.vala:412
-#, fuzzy
 msgid "YouTube didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
-msgstr "Álbumes web de Picasa no reconoce la dirección de correo electrónico y la contraseña que ha introducido. Para intentarlo de nuevo, vuelva a introducir su dirección de correo electrónico y contraseña."
+msgstr "YouTube no reconoce la dirección de correo electrónico y la contraseña que ha introducido. Para intentarlo de nuevo, vuelva a introducir su dirección de correo electrónico y contraseña."
 
 #: src/YouTubeConnector.vala:413
-#, fuzzy
 msgid "The email address and password you entered correspond to a Google account that isn't set up for use with YouTube. You can set up most accounts by using your browser to log into the YouTube site at least once. To try again, re-enter your email address and password below."
-msgstr "La dirección de correo electrónico y la contraseña introducidas corresponden a una cuenta de Google que no está configurada para su uso con Álbumes web de Picasa. Puede configurar la mayoría de cuentas mediante el uso de su navegador para registrarse en el sitio de Álbumes web de Picasa al menos una vez. Para intentarlo de nuevo, vuelva a introducir su dirección de correo electrónico y contraseña."
+msgstr "La dirección de correo electrónico y la contraseña introducidas corresponden a una cuenta de Google que no está configurada para su uso con YouTube. Puede configurar la mayoría de cuentas mediante el uso de su navegador para registrarse en el sitio de YouTube al menos una vez. Para intentarlo de nuevo, vuelva a introducir su dirección de correo electrónico y contraseña."
 
 #: src/YouTubeConnector.vala:414
-#, fuzzy
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into YouTube. To try again, re-enter your email address and password below."
-msgstr "La dirección de correo electrónico y la contraseña introducidas corresponden a una cuenta de Google que se ha etiquetado con una exigencia de seguridad adicionales. Usted puede limpiar esta etiqueta mediante el uso de su navegador para acceder a Álbumes web de Picasa. Para intentarlo de nuevo, vuelva a introducir su dirección de correo electrónico y contraseña."
+msgstr "La dirección de correo electrónico y la contraseña introducidas corresponden a una cuenta de Google que se ha etiquetado con una exigencia de seguridad adicionales. Puede limpiar esta etiqueta mediante el uso de su navegador para acceder a YouTube. Para intentarlo de nuevo, vuelva a introducir su dirección de correo electrónico y contraseña."
 
 #: src/YouTubeConnector.vala:580
-#, fuzzy, c-format
+#, c-format
 msgid "You are logged into YouTube as %s."
-msgstr ""
-"Está conectado en Flickr como %s.\n"
-"\n"
+msgstr "Está conectado en YouTube como %s."
 
 #: src/YouTubeConnector.vala:586
-#, fuzzy, c-format
+#, c-format
 msgid "Videos will appear in %s"
-msgstr "Las fotos aparecen en:"
+msgstr "Los vídeos aparecerán en %s"
 
 #: src/YouTubeConnector.vala:609
 msgid "Video privacy _setting:"
-msgstr ""
+msgstr "Co_nfiguración de privacidad de vídeos:"
 
 #: src/YouTubeConnector.vala:686
-#, fuzzy
 msgid "Public listed"
-msgstr "Publicar"
+msgstr "Listado públicamente"
 
 #: src/YouTubeConnector.vala:687
 msgid "Public unlisted"
-msgstr ""
+msgstr "No listado públicamente"
 
 #: src/YouTubeConnector.vala:688
 msgid "Private"
-msgstr ""
+msgstr "Privado"
 
 #: ui/set_background_dialog.glade:8
-#, fuzzy
 msgid "Set as Desktop Slideshow"
-msgstr "Establecer como fondo _de escritorio"
+msgstr "Establecer como pase de diapositivas de escritorio"
 
 #: ui/set_background_dialog.glade:23
-#, fuzzy
 msgid "Show each photo for"
-msgstr "Mostrar todas las fotos"
+msgstr "Mostrar cada foto para"
 
 #: ui/set_background_dialog.glade:33
 msgid "period of time"
-msgstr ""
+msgstr "periodo de tiempo"
 
 #: ui/set_background_dialog.glade:52
-#, fuzzy
 msgid "How long each photo is shown on the desktop background"
-msgstr "Establezca la imagen seleccionada como nuevo fondo de escritorio"
+msgstr "Cuánto tiempo se muestra cada foto en el fondo de escritorio"
 
 #: ui/set_background_dialog.glade:88
-#, fuzzy
 msgid "Generate desktop background slideshow"
-msgstr "Establecer como fondo _de escritorio"
+msgstr "Generar un pase de diapositivas de fondo de escritorio"
 
 #: ui/shotwell.glade:103
 msgid "Shotwell Preferences"
@@ -3341,15 +3282,15 @@ msgstr "Editores externos"
 
 #: ui/shotwell.glade:272
 msgid "_Watch library directory for new files"
-msgstr ""
+msgstr "_Vigilar mi biblioteca en busca de archivos nuevos"
 
 #: ui/shotwell.glade:298
 msgid "Metadata"
-msgstr ""
+msgstr "Metadatos"
 
 #: ui/shotwell.glade:317
 msgid "Write tags, titles, and other _metadata to photo files"
-msgstr ""
+msgstr "Escribir etiquetas, títulos y otros _metadatos en los archivos de fotos"
 
 #: ui/shotwell.glade:340
 msgid "Display"
@@ -3381,130 +3322,16 @@ msgstr "error"
 
 #: ui/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
-msgstr ""
+msgstr "_Álbumes (o crear uno nuevo):"
 
 #: ui/yandex_publish_model.glade:38
 msgid "Access _type:"
-msgstr ""
+msgstr "_Tipo de acceso:"
 
 #: ui/yandex_publish_model.glade:81
 msgid "Disable _comments"
-msgstr ""
+msgstr "Desactivar _comentarios"
 
 #: ui/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
-msgstr ""
-
-#~ msgid "Choose Library Directory"
-#~ msgstr "Elegir la carpeta de biblioteca"
-
-#~ msgid "Co_py into Library"
-#~ msgstr "Co_piar a la biblioteca"
-
-#~ msgid "Create _Links"
-#~ msgstr "Crear _enlaces"
-
-#~ msgid "Page _Setup..."
-#~ msgstr "Config_uración de página…"
-
-#~ msgid "View and change page setup printing"
-#~ msgstr "Ver y cambiar los ajustes de impresión de página"
-
-#~ msgid "Bro_wse..."
-#~ msgstr "Exa_minar…"
-
-#~ msgid "Start a slideshow of these photos"
-#~ msgstr "Iniciar una presentación de estas fotos"
-
-#~ msgid "Event %lld"
-#~ msgstr "Evento %lld"
-
-#~ msgid "Import all the photos on this camera into your library"
-#~ msgstr "Importar todas las fotos en esta cámara a su biblioteca"
-
-#~ msgid "Only Fa_vorites"
-#~ msgstr "Solo Fa_voritas"
-
-#~ msgid "Mirroring"
-#~ msgstr "Espejar"
-
-#~ msgid "Undoing Mirror"
-#~ msgstr "Deshacer espejo"
-
-#~ msgid "Flipping"
-#~ msgstr "Voltear"
-
-#~ msgid "Marking as Favorite"
-#~ msgstr "Marcar como favorita"
-
-#~ msgid "Unmarking as Favorite"
-#~ msgstr "Desmarcar como favorita"
-
-#~ msgid "Hiding"
-#~ msgstr "Ocultar"
-
-#~ msgid "Unhiding"
-#~ msgstr "Mostrar"
-
-#~ msgid "Rename Photo"
-#~ msgstr "Renombrar foto"
-
-#~ msgid "_No"
-#~ msgstr "_No"
-
-#~ msgid "Generating Events"
-#~ msgstr "Generando eventos"
-
-#~ msgid "Select all the events in the directory"
-#~ msgstr "Seleccionar todos los eventos en el directorio"
-
-#~ msgid "Select all the photos for importing"
-#~ msgstr "Seleccionar todas las fotos para importar"
-
-#~ msgid "_Copy files into Shotwell photo library %s"
-#~ msgstr "_Copiar los archivos en la biblioteca de fotos Shotwell. %s"
-
-#~ msgid "_Mirror"
-#~ msgstr "Espejo"
-
-#~ msgid "Make mirror images of the photos"
-#~ msgstr "Hacer imagen espejo de esta foto"
-
-#~ msgid "Fl_ip"
-#~ msgstr "Voltear"
-
-#~ msgid "Flip"
-#~ msgstr "Voltear"
-
-#~ msgid "Mark as _Favorite"
-#~ msgstr "Marcar como _favorita"
-
-#~ msgid "Mark as Favorite"
-#~ msgstr "Marcar como favorita"
-
-#~ msgid "Mark the photo as one of your favorites"
-#~ msgstr "Marcar la foto como una de tus favoritas"
-
-#~ msgid "Unmark as _Favorite"
-#~ msgstr "Desmarcar como _favorita"
-
-#~ msgid "Unmark as Favorite"
-#~ msgstr "Desmarcar como favorita"
-
-#~ msgid "Unmark the photo as one of your favorites"
-#~ msgstr "Desmarcar la foto como uno de tus favoritas"
-
-#~ msgid "_Hide"
-#~ msgstr "_Ocultar"
-
-#~ msgid "Un_hide"
-#~ msgstr "_Mostrar"
-
-#~ msgid "Unhide"
-#~ msgstr "Mostrar"
-
-#~ msgid "Re_name Photo..."
-#~ msgstr "Re_nombrar foto..."
-
-#~ msgid "Rename the selected photo"
-#~ msgstr "Renombrar la foto seleccionada"
+msgstr "_Prohibir descargar la foto original"

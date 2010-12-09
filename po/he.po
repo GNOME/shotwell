@@ -1,22 +1,21 @@
-# po/he.po
-# Hebrew translation for Shotwell
-# Copyright (C) 2010 Yorba Foundation
+# po/shotwell.pot
+# PO message string template file for Shotwell
+# Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.2+trunk\n"
+"Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-11-24 18:32-0800\n"
-"PO-Revision-Date: 2010-11-25 09:48+0200\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Gezer (Hebrew)\n"
+"PO-Revision-Date: 2010-12-09 04:10+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.6.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
@@ -722,12 +721,12 @@ msgstr "מקור:"
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d/%m/%Y, %H:%M:%S"
 
-# The string %m/%d/%y, %I:%M:%S %p is a format string that describes a
-# U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should
-# translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time
-# format used in your language and region. The format string you enter should
-# conform to POSIX date and time formatting conventions. See the strftime
-# manpage for a list of format specifiers and their meanings.
+# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
+# 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
+# %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format
+# used in your language and region. The format string you enter should conform
+# to POSIX date and time formatting conventions. See the strftime manpage for
+# a list of format specifiers and their meanings.
 #: src/Dialogs.vala:1227
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d/%m/%Y, %I:%M:%S %p"
@@ -1606,19 +1605,19 @@ msgid "Your photo library is not compatible with this version of Shotwell.  It a
 msgstr "ספריית התמונות שלך אינה נתמכת בגרסה זו של Shotwell. נראה כי הספרייה נוצרה באמצעות Shotwell %s (סכמה %d). גרסה זו הנה %s (סכמה %d). נא להשתמש בגרסה העדכנית ביותר של Shotwell."
 
 #: src/main.vala:85
-#, fuzzy, c-format
+#, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d).  For more information please check the Shotwell Wiki at %s"
-msgstr "Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d).  For more information please check the Shotwell Wiki at %s"
+msgstr "לא עלה בידי Shotwell לשדרג את ספריית התמונות שלך מגרסה %s (סכמה%d) לגרסה %s (סכמה %d).  למידע נוסף ניתן לבקר באתר הוויקי של Shotwell בכתובת %s"
 
 #: src/main.vala:91
-#, fuzzy, c-format
+#, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please clear your library by deleting %s and re-import your photos."
-msgstr "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
+msgstr "ספריית התמונות שלך אינה תואמת לגרסה זו של Shotwell.  נראה כי ספרייה זו נוצרה על ידי Shotwell %s (סכמה%d).  גרסה זו הנה %s (סכמה %d).  נא לפנות את ספריית התמונות שלך על ידי מחיקת %s ויבוא התמונות שלך מחדש."
 
 #: src/main.vala:97
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %s"
-msgstr "Unknown error attempting to verify Shotwell's database: %d"
+msgstr "אירעה שגיאה בלתי ידועה בעת הניסיון לאימות מסד הנתונים של Shotwell: %s"
 
 #: src/main.vala:132
 msgid "Loading Shotwell"
@@ -2143,11 +2142,12 @@ msgstr ""
 "\n"
 "%s"
 
-# The string %I:%M %p is a format string that describes how time is formatted
-# (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common
-# time format in use in your language and region. The format string you enter
-# should conform to POSIX date and time formatting conventions. See the
-# strftime manpage for a list of format specifiers and their meanings.
+# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
+# 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
+# %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format
+# used in your language and region. The format string you enter should conform
+# to POSIX date and time formatting conventions. See the strftime manpage for
+# a list of format specifiers and their meanings.
 #: src/Properties.vala:38
 msgid "%I:%M %p"
 msgstr "%H:%M"
@@ -2993,7 +2993,7 @@ msgid "%a %b %d, %Y"
 msgstr "%a ה־%b ב%d, %Y"
 
 #: src/util.vala:565
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
@@ -3003,18 +3003,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"פעולה זו תסיר את התמונה מספריית ה־Shotwell שלך.\r\n"
-"האם ברצונך להעביר את הקובץ לסל האשפה שלך?\r\n"
-"\r\n"
+"פעולה זו תסיר %d תמונות/סרטוני וידאו מספריית ה־Shotwell שלך.  האם ברצונך להעביר את הקבצים לאשפה של שולחן העבודה שלך?⏎\n"
+"⏎\n"
 "לא ניתן לבטל פעולה זו."
 msgstr[1] ""
-"פעולה זו תסיר %d תמונות מספריית ה־Shotwell שלך.\r\n"
-"האם ברצונך להעביר את הקובץ לסל האשפה שלך?\r\n"
-"\r\n"
-"לא ניתן לבטל פעולה זו."
 
 #: src/util.vala:569
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
@@ -3024,15 +3019,10 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"פעולה זו תסיר את התמונה מספריית ה־Shotwell שלך.\r\n"
-"האם ברצונך להעביר את הקובץ לסל האשפה שלך?\r\n"
-"\r\n"
+"פעולה זו תסיר את %d סרטוני הווידאו מספריית ה־Shotwell שלך.  האם בנוסף על כך ברצונך להעביר את הקובץ לאשפה?\n"
+"\n"
 "לא ניתן לבטל פעולה זו."
 msgstr[1] ""
-"פעולה זו תסיר %d תמונות מספריית ה־Shotwell שלך.\r\n"
-"האם ברצונך להעביר את הקובץ לסל האשפה שלך?\r\n"
-"\r\n"
-"לא ניתן לבטל פעולה זו."
 
 #: src/util.vala:573
 #, c-format
@@ -3197,30 +3187,26 @@ msgid "You are not currently logged into Yandex.Fotki."
 msgstr "לא נכנסת לשירות Yandex.Fotki."
 
 #: src/YouTubeConnector.vala:12
-#, fuzzy
 msgid ""
 "You are not currently logged into YouTube.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."
 msgstr ""
-"נכון לעכשיו לא נכנסת לחשבונך ב־Picasa Web Albums.\n"
+"נכון לעכשיו לא נכנסת לשירות YouTube.\n"
 "\n"
-"לבטח כבר נרשמת לחשבון ב־Google והגדרת אותו לשימוש עם Picasa כדי להמשיך. ניתן להגדיר את רוב החשבונות באמצעות הדפדפן שלך על ידי כניסה לאתר Picasa Web Albums פעם אחת לפחות."
+"כדי להמשיך אמור להיות ברשותך חשבון Google המוגדר לשימוש בשילוב YouTube. ניתן להגדיר את רוב החשבונות על ידי שימוש בדפדפן האינטרנט שלך כדי להיכנס ל־YouTube לפחות פעם אחת."
 
 #: src/YouTubeConnector.vala:411
-#, fuzzy
 msgid "Enter the email address and password associated with your YouTube account."
-msgstr "נא להזין את כתובת הדוא״ל והססמה המשויכות לחשבונך ב־Picasa Web Albums."
+msgstr "נא להזין את כתובת הדוא״ל והססמה המשויכים לחשבון ה־YouTube שלך."
 
 #: src/YouTubeConnector.vala:412
-#, fuzzy
 msgid "YouTube didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
-msgstr "השירות Picasa Web Albums לא זיהה את כתובת הדוא״ל והססמה שהזנת. כדי לנסות שוב יש להזין את הססמה וכתובת הדוא״ל שלך פעם נוספת להלן."
+msgstr "שירות ה־YouTube לא זיהה את כתובת הדוא״ל והססמה שהזנת. כדי לנסות שוב, עליך להזין מחדש את כתובת הדוא״ל והססמה שלך להלן."
 
 #: src/YouTubeConnector.vala:413
-#, fuzzy
 msgid "The email address and password you entered correspond to a Google account that isn't set up for use with YouTube. You can set up most accounts by using your browser to log into the YouTube site at least once. To try again, re-enter your email address and password below."
-msgstr "כתובת הדוא״ל והססמה שהזנת אינן תואמות לחשבון ה־Google שמוגדר לשימוש עם Picasa Web Albums. באפשרותך להגדיר את רוב החשבונות באמצעות הדפדפן שלך על ידי כניסה ל־Picasa Web Albums. כדי לנסות שוב, יש להזין את כתובת הדוא״ל והססמה שלך פעם נוספת להלן."
+msgstr "כתובת הדוא״ל והססמה שהזנת תואמים לחשבון ב־Google שלא הוגדר לשימוש ב־YouTube לפחות פעם אחת. כדי לנסות שוב, יש להזין מחדש את הדוא״ל והססמה להלן."
 
 #: src/YouTubeConnector.vala:414
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into YouTube. To try again, re-enter your email address and password below."
@@ -3343,21 +3329,3 @@ msgstr "ביטול הה_ערות"
 #: ui/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
 msgstr "מ_ניעת הורדת התמונה המקורית"
-
-#~ msgid "Choose Library Directory"
-#~ msgstr "יש לבחור את תיקיית הספרייה"
-
-#~ msgid "Co_py into Library"
-#~ msgstr "ה_עתקת תמונות לספרייה"
-
-#~ msgid "Create _Links"
-#~ msgstr "יצירת _קישורים"
-
-#~ msgid "Page _Setup..."
-#~ msgstr "ה_גדרות עמוד..."
-
-#~ msgid "View and change page setup printing"
-#~ msgstr "צפייה ושינוי הגדרות העמוד להדפסה"
-
-#~ msgid "Bro_wse..."
-#~ msgstr "_עיון..."
