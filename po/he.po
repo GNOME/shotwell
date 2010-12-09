@@ -3003,10 +3003,10 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+msgstr[1] ""
 "פעולה זו תסיר %d תמונות/סרטוני וידאו מספריית ה־Shotwell שלך.  האם ברצונך להעביר את הקבצים לאשפה של שולחן העבודה שלך?⏎\n"
 "⏎\n"
 "לא ניתן לבטל פעולה זו."
-msgstr[1] ""
 
 #: src/util.vala:569
 #, c-format
@@ -3019,10 +3019,10 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+msgstr[1] ""
 "פעולה זו תסיר את %d סרטוני הווידאו מספריית ה־Shotwell שלך.  האם בנוסף על כך ברצונך להעביר את הקובץ לאשפה?\n"
 "\n"
 "לא ניתן לבטל פעולה זו."
-msgstr[1] ""
 
 #: src/util.vala:573
 #, c-format

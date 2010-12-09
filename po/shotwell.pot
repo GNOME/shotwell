@@ -163,7 +163,6 @@ msgstr ""
 msgid "Visit the Yorba web site"
 msgstr ""
 
-
 #: src/AppWindow.vala:655 src/AppWindow.vala:663
 #, c-format
 msgid "Unable to display help: %s"
@@ -3242,4 +3241,96 @@ msgstr ""
 
 #: src/YouTubeConnector.vala:686
 msgid "Private"
+msgstr ""
+
+#: ui/set_background_dialog.glade:8
+msgid "Set as Desktop Slideshow"
+msgstr ""
+
+#: ui/set_background_dialog.glade:23
+msgid "Show each photo for"
+msgstr ""
+
+#: ui/set_background_dialog.glade:33
+msgid "period of time"
+msgstr ""
+
+#: ui/set_background_dialog.glade:52
+msgid "How long each photo is shown on the desktop background"
+msgstr ""
+
+#: ui/set_background_dialog.glade:88
+msgid "Generate desktop background slideshow"
+msgstr ""
+
+#: ui/shotwell.glade:103
+msgid "Shotwell Preferences"
+msgstr ""
+
+#: ui/shotwell.glade:141
+msgid "white"
+msgstr ""
+
+#: ui/shotwell.glade:164
+msgid "black"
+msgstr ""
+
+#: ui/shotwell.glade:210
+msgid "External Editors"
+msgstr ""
+
+#: ui/shotwell.glade:272
+msgid "_Watch library directory for new files"
+msgstr ""
+
+#: ui/shotwell.glade:298
+msgid "Metadata"
+msgstr ""
+
+#: ui/shotwell.glade:317
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr ""
+
+#: ui/shotwell.glade:340
+msgid "Display"
+msgstr ""
+
+#: ui/shotwell.glade:364
+msgid "_External photo editor:"
+msgstr ""
+
+#: ui/shotwell.glade:377
+msgid "External _RAW editor:"
+msgstr ""
+
+#: ui/shotwell.glade:402
+msgid "_Import photos to:"
+msgstr ""
+
+#: ui/shotwell.glade:423
+msgid "_Background:"
+msgstr ""
+
+#: ui/shotwell.glade:551
+msgid "Preparing pictures for import..."
+msgstr ""
+
+#: ui/shotwell.glade:582
+msgid "error"
+msgstr ""
+
+#: ui/yandex_publish_model.glade:24
+msgid "_Albums (or write new):"
+msgstr ""
+
+#: ui/yandex_publish_model.glade:38
+msgid "Access _type:"
+msgstr ""
+
+#: ui/yandex_publish_model.glade:81
+msgid "Disable _comments"
+msgstr ""
+
+#: ui/yandex_publish_model.glade:96
+msgid "_Forbid downloading original photo"
 msgstr ""

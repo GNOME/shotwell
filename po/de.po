@@ -468,30 +468,25 @@ msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] ""
 "Duplikat des Fotos nicht importiert:\n"
-"\r\n"
 msgstr[1] ""
 "%d Duplikate der Fotos nicht importiert:\n"
-"\r\n"
 
 #: src/Dialogs.vala:450
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] ""
-"%d Duplikate der Videos nicht importiert:\n"
-"\r\n"
-msgstr[1] ""
 "Duplikat des Videos nicht importiert:\n"
-"\r\n"
+msgstr[1] ""
+"%d Duplikate der Videos nicht importiert:\n"
 
 #: src/Dialogs.vala:453
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] ""
+msgstr[0] "Duplikat des Fotos/Videos nicht importiert:\n"
+msgstr[1] ""
 "%d Duplikate der Fotos/Videos nicht importiert:\n"
-"\r\n"
-msgstr[1] "Duplikat des Fotos/Videos nicht importiert:\n"
 
 #: src/Dialogs.vala:468
 #, c-format
@@ -504,15 +499,15 @@ msgstr[1] "%d Fotos konnten wegen Datei- oder Hardwarefehler nicht importiert we
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
-msgstr[0] "%d Videos konnten wegen Datei- oder Hardwarefehler nicht importiert werden.\n"
-msgstr[1] "Ein Video konnte wegen Datei- oder Hardwarefehler nicht importiert werden.\n"
+msgstr[0] "Ein Video konnte wegen Datei- oder Hardwarefehler nicht importiert werden.\n"
+msgstr[1] "%d Videos konnten wegen Datei- oder Hardwarefehler nicht importiert werden.\n"
 
 #: src/Dialogs.vala:474
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] "%d Fotos/Videos konnten wegen Datei- oder Hardwarefehler nicht importiert werden.\n"
-msgstr[1] "Ein Foto/Video konnte wegen Datei- oder Hardwarefehler nicht importiert werden.\n"
+msgstr[0] "Ein Foto/Video konnte wegen Datei- oder Hardwarefehler nicht importiert werden.\n"
+msgstr[1] "%d Fotos/Videos konnten wegen Datei- oder Hardwarefehler nicht importiert werden.\n"
 
 #: src/Dialogs.vala:489
 #, c-format
@@ -525,15 +520,15 @@ msgstr[1] "%d Fotos konnten wegen eines Kamerafehlers nicht importiert werden.\n
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] "%d Videos konnten wegen eines Kamerafehlers nicht importiert werden.\n"
-msgstr[1] "Ein Video konnte wegen eines Kamerafehlers nicht importiert werden.\n"
+msgstr[0] "Ein Video konnte wegen eines Kamerafehlers nicht importiert werden.\n"
+msgstr[1] "%d Videos konnten wegen eines Kamerafehlers nicht importiert werden.\n"
 
 #: src/Dialogs.vala:495
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] "%d Fotos/Videos konnten wegen eines Kamerafehlers nicht importiert werden.\n"
-msgstr[1] "Ein Foto/Video konnte wegen eines Kamerafehlers nicht importiert werden.\n"
+msgstr[0] "Ein Foto/Video konnte wegen eines Kamerafehlers nicht importiert werden.\n"
+msgstr[1] "%d Fotos/Videos konnten wegen eines Kamerafehlers nicht importiert werden.\n"
 
 #: src/Dialogs.vala:513
 #, c-format
@@ -560,15 +555,15 @@ msgstr[1] "%d Fotos wegen Abbruch durch den Benutzer übersprungen.\n"
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] "%d Videos wegen Abbruch durch den Benutzer übersprungen.\n"
-msgstr[1] "Ein Video wegen Abbruch durch den Benutzer übersprungen.\n"
+msgstr[0] "Ein Video wegen Abbruch durch den Benutzer übersprungen.\n"
+msgstr[1] "%d Videos wegen Abbruch durch den Benutzer übersprungen.\n"
 
 #: src/Dialogs.vala:546
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] "%d Fotos/Videos wegen Abbruch durch den Benutzer übersprungen.\n"
-msgstr[1] "Ein Foto/Video wegen Abbruch durch den Benutzer übersprungen.\n"
+msgstr[0] "Ein Foto/Video wegen Abbruch durch den Benutzer übersprungen.\n"
+msgstr[1] "%d Fotos/Videos wegen Abbruch durch den Benutzer übersprungen.\n"
 
 #: src/Dialogs.vala:561
 #, c-format
@@ -581,15 +576,15 @@ msgstr[1] "%d Fotos erfolgreich importiert.\n"
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] "%d Videos erfolgreich importiert.\n"
-msgstr[1] "Ein Video erfolgreich importiert.\n"
+msgstr[0] "Ein Video erfolgreich importiert.\n"
+msgstr[1] "%d Videos erfolgreich importiert.\n"
 
 #: src/Dialogs.vala:567
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] "%d Fotos/Videos erfolgreich importiert.\n"
-msgstr[1] "Ein Foto/Video erfolgreich importiert.\n"
+msgstr[0] "Ein Foto/Video erfolgreich importiert.\n"
+msgstr[1] "%d Fotos/Videos erfolgreich importiert.\n"
 
 #: src/Dialogs.vala:583
 msgid "No photos or videos imported.\n"
@@ -1426,15 +1421,15 @@ msgstr[1] "Sollen diese %d Fotos von der Kamera gelöscht werden?"
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
-msgstr[0] "Sollen diese %d Videos von der Kamera gelöscht werden?"
-msgstr[1] "Soll dieses Video von der Kamera gelöscht werden?"
+msgstr[0] "Soll dieses Video von der Kamera gelöscht werden?"
+msgstr[1] "Sollen diese %d Videos von der Kamera gelöscht werden?"
 
 #: src/ImportPage.vala:1234
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] "Sollen diese %d Fotos/Videos von der Kamera gelöscht werden?"
-msgstr[1] "Soll dieses Foto/Video von der Kamera gelöscht werden?"
+msgstr[0] "Soll dieses Foto/Video von der Kamera gelöscht werden?"
+msgstr[1] "Sollen diese %d Fotos/Videos von der Kamera gelöscht werden?"
 
 #: src/ImportPage.vala:1261
 msgid "Removing photos/videos from camera"
@@ -1444,8 +1439,8 @@ msgstr "Entferne Fotos/Videos von der Kamera"
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
-msgstr[0] "Kann %d Fotos/Videos wegen Fehlern nicht von der Kamera löschen."
-msgstr[1] "Kann das Foto/Video wegen Fehlern nicht von der Kamera löschen."
+msgstr[0] "Kann %d Foto/Video wegen Fehlern nicht von der Kamera löschen."
+msgstr[1] "Kann %d Fotos/Videos wegen Fehlern nicht von der Kamera löschen."
 
 #: src/ImportPage.vala:1312
 msgid "Importing..."
@@ -3040,13 +3035,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Dies wird %d Videos aus der Shotwell-Bibliothek entfernen.\n"
-"Möchten Sie die Dateien auch in den Papierkorb verschieben?\n"
+"Dies wird das ausgewählte Video aus der Shotwell-Bibliothek entfernen.\n"
+"Möchten Sie die Datei auch in den Papierkorb verschieben?\n"
 "\n"
 "Diese Aktion kann nicht rückgängig gemacht werden!"
 msgstr[1] ""
-"Dies wird das ausgewählte Video aus der Shotwell-Bibliothek entfernen.\n"
-"Möchten Sie die Datei auch in den Papierkorb verschieben?\n"
+"Dies wird %d Videos aus der Shotwell-Bibliothek entfernen.\n"
+"Möchten Sie die Dateien auch in den Papierkorb verschieben?\n"
 "\n"
 "Diese Aktion kann nicht rückgängig gemacht werden!"
 
@@ -3075,15 +3070,15 @@ msgstr[1] ""
 #, c-format
 msgid "The photo or video cannot be moved to your desktop trash.  Delete this file?"
 msgid_plural "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
-msgstr[0] "%d Fotos/Videos konnten nicht in den Papierkorb verschoben werden. Endgültig löschen?"
-msgstr[1] "Das Foto oder Video konnte nicht in den Papierkorb verschoben werden. Endgültig löschen?"
+msgstr[0] "Das Foto oder Video konnte nicht in den Papierkorb verschoben werden. Endgültig löschen?"
+msgstr[1] "%d Fotos/Videos konnten nicht in den Papierkorb verschoben werden. Endgültig löschen?"
 
 #: src/util.vala:622
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] "%d Fotos/Videos können nicht gelöscht werden."
-msgstr[1] "Das Foto oder Video kann nicht gelöscht werden."
+msgstr[0] "Das Foto oder Video kann nicht gelöscht werden."
+msgstr[1] "%d Fotos/Videos können nicht gelöscht werden."
 
 #: src/VideosPage.vala:17 src/VideosPage.vala:34
 msgid "Videos"

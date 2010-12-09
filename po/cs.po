@@ -476,7 +476,7 @@ msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "%d duplicitní videa nebyla naimportována:\n"
 msgstr[1] "%d duplicitních videí nebylo naimportováno:\n"
-msgstr[2] ""
+msgstr[2] "%d duplicitních videí nebylo naimportováno:\n"
 
 #: src/Dialogs.vala:453
 #, c-format
@@ -484,7 +484,7 @@ msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "%d duplicitní videa/fotografie nebyla naimportována:\n"
 msgstr[1] "%d duplicitní videí/fotografií nebyla naimportováno:\n"
-msgstr[2] ""
+msgstr[2] "%d duplicitní videí/fotografií nebyla naimportováno:\n"
 
 #: src/Dialogs.vala:468
 #, c-format
@@ -1451,7 +1451,7 @@ msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Smazat tato %d videa z kamery?"
 msgstr[1] "Smazat těchto %d videí z kamery?"
-msgstr[2] ""
+msgstr[2] "Smazat těchto %d videí z kamery?"
 
 #: src/ImportPage.vala:1234
 #, c-format
@@ -1459,7 +1459,7 @@ msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Smazat tato %d videa/fotografie z fotoaparátu?"
 msgstr[1] "Smazat těchto %d videí/fotografií z fotoaparátu?"
-msgstr[2] ""
+msgstr[2] "Smazat těchto %d videí/fotografií z fotoaparátu?"
 
 #: src/ImportPage.vala:1261
 msgid "Removing photos/videos from camera"
@@ -3064,6 +3064,9 @@ msgstr[1] ""
 "\n"
 "Tato operace nemůže být vrácena zpět."
 msgstr[2] ""
+"Tímto odstraníte %d videí/fotografií z knihovny. Chcete odstraněná videa/fotografie přesunout do koše?\n"
+"\n"
+"Tato operace nemůže být vrácena zpět."
 
 #: src/util.vala:569
 #, c-format
@@ -3084,6 +3087,9 @@ msgstr[1] ""
 "\n"
 "Tato operace nemůže být vrácena zpět."
 msgstr[2] ""
+"Tímto odstraníte %d videí/fotografií z knihovny. Chcete odstraněná videa/fotografie přesunout do koše?\n"
+"\n"
+"Tato operace nemůže být vrácena zpět."
 
 #: src/util.vala:573
 #, c-format
@@ -3114,7 +3120,7 @@ msgid "The photo or video cannot be moved to your desktop trash.  Delete this fi
 msgid_plural "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
 msgstr[0] "%d fotografie, nebo videa nemohou být vyhozeny do koše. Smazat tyto soubory?"
 msgstr[1] "%d fotografií, nebo videí nemůže být vyhozeno do koše. Smazat tyto soubory?"
-msgstr[2] ""
+msgstr[2] "%d fotografií, nebo videí nemůže být vyhozeno do koše. Smazat tyto soubory?"
 
 #: src/util.vala:622
 #, c-format
@@ -3122,7 +3128,7 @@ msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "%d fotografie/videa nemohou být smazány."
 msgstr[1] "%d fotografií/videí nemůže být smazáno."
-msgstr[2] ""
+msgstr[2] "%d fotografií/videí nemůže být smazáno."
 
 #: src/VideosPage.vala:17 src/VideosPage.vala:34
 msgid "Videos"
