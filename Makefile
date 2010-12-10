@@ -123,7 +123,10 @@ SRC_FILES = \
 	MediaInterfaces.vala \
 	MediaMetadata.vala \
 	VideoMetadata.vala \
-	string_util.vala
+	string_util.vala \
+	MediaMonitor.vala \
+	PhotoMonitor.vala \
+	VideoMonitor.vala
 
 VAPI_FILES = \
 	libexif.vapi \

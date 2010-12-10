@@ -4,6 +4,31 @@
  * See the COPYING file in this distribution. 
  */
 
+public class BackingFileState {
+    public string filepath;
+    public int64 filesize;
+    public time_t modification_time;
+    public string? md5;
+    
+    public BackingFileState(string filepath, int64 filesize, time_t modification_time, string? md5) {
+        this.filepath = filepath;
+        this.filesize = filesize;
+        this.modification_time = modification_time;
+        this.md5 = md5;
+    }
+    
+    public BackingFileState.from_photo_state(BackingPhotoState photo_state, string? md5) {
+        this.filepath = photo_state.filepath;
+        this.filesize = photo_state.filesize;
+        this.modification_time = photo_state.timestamp;
+        this.md5 = md5;
+    }
+    
+    public File get_file() {
+        return File.new_for_path(filepath);
+    }
+}
+
 public abstract class MediaSource : ThumbnailSource {
     public virtual signal void master_replaced(File old_file, File new_file) {
     }
@@ -73,12 +98,24 @@ public abstract class MediaSource : ThumbnailSource {
         
         return ret;
     }
-
+    
+    public override string get_name() {
+        string? title = get_title();
+        
+        return is_string_empty(title) ? get_basename() : title;
+    }
+    
+    public virtual string get_basename() {
+        return get_file().get_basename();
+    }
+    
     public abstract File get_file();
     public abstract File get_master_file();
-    public abstract void set_master_file(File file);
     public abstract uint64 get_filesize();
     public abstract time_t get_timestamp();
+    
+    // Must return at least one, for the master file.
+    public abstract BackingFileState[] get_backing_files_state();
     
     public abstract string? get_title();
     public abstract void set_title(string? title);
@@ -143,6 +180,30 @@ public abstract class MediaSource : ThumbnailSource {
         return committed;
     }
     
+    public static void set_many_to_event(Gee.Collection<MediaSource> media_sources, Event? event,
+        TransactionController controller) throws Error {
+        EventID event_id = (event != null) ? event.get_event_id() : EventID();
+        
+        controller.begin();
+        
+        foreach (MediaSource media in media_sources) {
+            Event? old_event = media.get_event();
+            if (old_event != null)
+                old_event.detach(media);
+            
+            media.internal_set_event_id(event_id);
+        }
+        
+        if (event != null)
+            event.attach_many(media_sources);
+        
+        Alteration alteration = new Alteration("metadata", "event");
+        foreach (MediaSource media in media_sources)
+            media.notify_altered(alteration);
+        
+        controller.commit();
+    }
+    
     public abstract time_t get_exposure_time();
 
     public abstract ImportID get_import_id();
@@ -201,13 +262,41 @@ public class MediaSourceHoldingTank : DatabaseSourceHoldingTank {
     }
 }
 
+// This class is good for any MediaSourceCollection that is backed by a DatabaseTable (which should
+// be all of them, but if not, they should construct their own implementation).
+public class MediaSourceTransactionController : TransactionController {
+    private MediaSourceCollection sources;
+    
+    public MediaSourceTransactionController(MediaSourceCollection sources) {
+        this.sources = sources;
+    }
+    
+    protected override void begin_impl() throws Error {
+        DatabaseTable.begin_transaction();
+        sources.freeze_notifications();
+    }
+    
+    protected override void commit_impl() throws Error {
+        sources.thaw_notifications();
+        DatabaseTable.commit_transaction();
+    }
+}
+
 public abstract class MediaSourceCollection : DatabaseSourceCollection {
+    public abstract TransactionController transaction_controller { get; }
+    
     private MediaSourceHoldingTank trashcan = null;
     private MediaSourceHoldingTank offline_bin = null;
+    private Gee.HashMap<File, MediaSource> by_master_file = new Gee.HashMap<File, MediaSource>(
+        file_hash, file_equal);
     private Gee.MultiMap<ImportID?, MediaSource> import_rolls =
         new Gee.TreeMultiMap<ImportID?, MediaSource>(ImportID.compare_func);
     private Gee.TreeSet<ImportID?> sorted_import_ids = new Gee.TreeSet<ImportID?>(ImportID.compare_func);
     private Gee.Set<MediaSource> flagged = new Gee.HashSet<MediaSource>();
+    private Gee.Map<string, MediaSource> by_master_md5 = new Gee.HashMap<string, MediaSource>();
+    
+    public virtual signal void master_file_replaced(MediaSource media, File old_file, File new_file) {
+    }
     
     public virtual signal void trashcan_contents_altered(Gee.Collection<MediaSource>? added,
         Gee.Collection<MediaSource>? removed) {
@@ -241,7 +330,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                 warning("Unrecognized media: %s", source.to_string());
         }
     }
-
+    
     public static bool has_photo(Gee.Collection<MediaSource> media) {
         foreach (MediaSource current_media in media) {
             if (current_media is Photo) {
@@ -263,13 +352,20 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     }
 
     protected abstract MediaSourceHoldingTank create_trashcan();
+    
     protected abstract MediaSourceHoldingTank create_offline_bin();
-
-    protected MediaSourceHoldingTank get_trashcan() {
+    
+    public abstract MediaMonitor create_media_monitor(Workers workers, Cancellable cancellable);
+    
+    public abstract string get_typename();
+    
+    public abstract bool is_file_recognized(File file);
+    
+    public MediaSourceHoldingTank get_trashcan() {
         return trashcan;
     }
 
-    protected MediaSourceHoldingTank get_offline_bin() {
+    public MediaSourceHoldingTank get_offline_bin() {
         return offline_bin;
     }
     
@@ -292,7 +388,6 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         bool flagged_altered = false;
         foreach (DataObject object in items.keys) {
             Alteration alteration = items.get(object);
-            
             MediaSource source = (MediaSource) object;
             
             if (!alteration.has_subject("metadata"))
@@ -322,6 +417,21 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                 else
                     flagged_altered = flagged.remove(source) || flagged_altered;
             }
+            
+            if (alteration.has_detail("metadata", "md5")) {
+                Gee.MapIterator<string, MediaSource> iter = by_master_md5.map_iterator();
+                while (iter.next()) {
+                    if (iter.get_value() == source) {
+                        iter.unset();
+                        
+                        break;
+                    }
+                }
+                
+                string md5 = source.get_master_md5();
+                if (!is_string_empty(md5))
+                    by_master_md5.set(md5, source);
+            }
         }
         
         if (to_trashcan != null)
@@ -342,33 +452,42 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         bool flagged_altered = false;
         if (added != null) {
             foreach (DataObject object in added) {
-                MediaSource current_media = (MediaSource) object;
+                MediaSource media = (MediaSource) object;
                 
-                ImportID import_id = current_media.get_import_id();
+                by_master_file.set(media.get_master_file(), media);
+                media.master_replaced.connect(on_master_replaced);
+                
+                ImportID import_id = media.get_import_id();
                 if (import_id.is_valid()) {
                     sorted_import_ids.add(import_id);
-                    import_rolls.set(import_id, current_media);
+                    import_rolls.set(import_id, media);
                     
                     import_roll_changed = true;
                 }
                 
-                Flaggable? flaggable = current_media as Flaggable;
+                Flaggable? flaggable = media as Flaggable;
                 if (flaggable != null ) {
                     if (flaggable.is_flagged())
-                        flagged_altered = flagged.add(current_media) || flagged_altered;
+                        flagged_altered = flagged.add(media) || flagged_altered;
                     else
-                        flagged_altered = flagged.remove(current_media) || flagged_altered;
+                        flagged_altered = flagged.remove(media) || flagged_altered;
                 }
+                
+                by_master_md5.set(media.get_master_md5(), media);
             }
         }
         
         if (removed != null) {
             foreach (DataObject object in removed) {
-                MediaSource current_media = (MediaSource) object;
+                MediaSource media = (MediaSource) object;
                 
-                ImportID import_id = current_media.get_import_id();
+                bool is_removed = by_master_file.unset(media.get_master_file());
+                assert(is_removed);
+                media.master_replaced.disconnect(on_master_replaced);
+                
+                ImportID import_id = media.get_import_id();
                 if (import_id.is_valid()) {
-                    bool is_removed = import_rolls.remove(import_id, current_media);
+                    is_removed = import_rolls.remove(import_id, media);
                     assert(is_removed);
                     if (!import_rolls.contains(import_id))
                         sorted_import_ids.remove(import_id);
@@ -376,7 +495,10 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                     import_roll_changed = true;
                 }
                 
-                flagged_altered = flagged.remove(current_media) || flagged_altered;
+                flagged_altered = flagged.remove(media) || flagged_altered;
+                
+                is_removed = by_master_md5.unset(media.get_master_md5());
+                assert(is_removed);
             }
         }
         
@@ -387,6 +509,19 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
             notify_flagged_contents_altered();
         
         base.notify_contents_altered(added, removed);
+    }
+    
+    private void on_master_replaced(MediaSource media, File old_file, File new_file) {
+        bool is_removed = by_master_file.unset(old_file);
+        assert(is_removed);
+        
+        by_master_file.set(new_file, media);
+        
+        master_file_replaced(media, old_file, new_file);
+    }
+    
+    public MediaSource? fetch_by_master_file(File file) {
+        return by_master_file.get(file);
     }
     
     public virtual MediaSource? fetch_by_source_id(string source_id) {
@@ -414,6 +549,10 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     
     public Gee.Collection<MediaSource> get_flagged() {
         return flagged.read_only_view;
+    }
+    
+    public MediaSource? get_source_by_master_md5(string md5) {
+        return by_master_md5.get(md5);
     }
     
     // The returned set of ImportID's is sorted from oldest to newest.
@@ -521,23 +660,27 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
             }
             i++;
         }
-            
     }
 }
 
 public class MediaCollectionRegistry {
     private static MediaCollectionRegistry? instance = null;
     
-    private Gee.HashMap<string, MediaSourceCollection> collection_registry =
-        new Gee.HashMap<string, MediaSourceCollection>(str_hash, str_equal, direct_equal);
+    private Gee.ArrayList<MediaSourceCollection> all = new Gee.ArrayList<MediaSourceCollection>();
+    private Gee.HashMap<string, MediaSourceCollection> by_typename = 
+        new Gee.HashMap<string, MediaSourceCollection>();
     
     private MediaCollectionRegistry() {
     }
     
+    public static void init() {
+        instance = new MediaCollectionRegistry();
+    }
+    
+    public static void terminate() {
+    }
+    
     public static MediaCollectionRegistry get_instance() {
-        if (instance == null)
-            instance = new MediaCollectionRegistry();
-
         return instance;
     }
     
@@ -554,8 +697,9 @@ public class MediaCollectionRegistry {
         }
     }
 
-    public void register_collection(string typename, MediaSourceCollection collection) {
-        collection_registry.set(typename, collection);
+    public void register_collection(MediaSourceCollection collection) {
+        all.add(collection);
+        by_typename.set(collection.get_typename(), collection);
     }
     
     // NOTE: going forward, please use get_collection( ) and get_all_collections( ) to get the
@@ -563,11 +707,11 @@ public class MediaCollectionRegistry {
     //       respectively, instead of explicitly referencing Video.global and LibraryPhoto.global.
     //       This will make it *much* easier to add new media types in the future.
     public MediaSourceCollection? get_collection(string typename) {
-        return collection_registry.get(typename);
+        return by_typename.get(typename);
     }
     
     public Gee.Collection<MediaSourceCollection> get_all() {
-        return collection_registry.values;
+        return all.read_only_view;
     }
     
     public void freeze_all() {
@@ -582,7 +726,7 @@ public class MediaCollectionRegistry {
     
     public MediaSource? fetch_media(string source_id) {
         string typename = get_typename_from_source_id(source_id);
-               
+        
         MediaSourceCollection? collection = get_collection(typename);
         if (collection == null) {
             critical("source id '%s' has unrecognized media type '%s'", source_id, typename);
@@ -621,6 +765,15 @@ public class MediaCollectionRegistry {
         }
         
         return result;
+    }
+    
+    public MediaSourceCollection? get_collection_for_file(File file) {
+        foreach (MediaSourceCollection collection in get_all()) {
+            if (collection.is_file_recognized(file))
+                return collection;
+        }
+        
+        return null;
     }
     
     public bool is_valid_source_id(string? source_id) {

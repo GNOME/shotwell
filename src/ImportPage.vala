@@ -4,6 +4,16 @@
  * See the COPYING file in this distribution. 
  */
 
+private class ImportSourceCollection : SourceCollection {
+    public ImportSourceCollection(string name) {
+        base (name);
+    }
+    
+    public override bool holds_type_of_source(DataSource source) {
+        return source is ImportSource;
+    }
+}
+
 abstract class ImportSource : ThumbnailSource {
     private string camera_name;
     private GPhoto.Camera camera;
@@ -427,7 +437,7 @@ public class ImportPage : CheckerboardPage {
         base(_("Camera"));
         this.camera = camera;
         this.uri = uri;
-        this.import_sources = new SourceCollection("ImportSources for %s".printf(uri));
+        this.import_sources = new ImportSourceCollection("ImportSources for %s".printf(uri));
         
         // Get camera name.
         if (null != display_name) {

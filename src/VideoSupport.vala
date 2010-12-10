@@ -317,7 +317,7 @@ class ThumbnailSink : Gst.BaseSink {
     }
 }
 
-public class Video : VideoSource, Flaggable {
+public class Video : VideoSource, Flaggable, Monitorable {
     public const string TYPENAME = "video";
     
     public const uint64 FLAG_TRASH =    0x0000000000000001;
@@ -334,14 +334,14 @@ public class Video : VideoSource, Flaggable {
     
     public Video(VideoRow row) {
         this.backing_row = row;
-
+        
         if (((row.flags & FLAG_TRASH) != 0) || ((row.flags & FLAG_OFFLINE) != 0))
             rehydrate_backlinks(global, row.backlinks);
     }
 
     public static void init() {
         global = new VideoSourceCollection();
-
+        
         Gee.ArrayList<VideoRow?> all = VideoTable.get_instance().get_all();
         Gee.ArrayList<Video> all_videos = new Gee.ArrayList<Video>();
         Gee.ArrayList<Video> trashed_videos = new Gee.ArrayList<Video>();
@@ -372,7 +372,7 @@ public class Video : VideoSource, Flaggable {
             interpreter_state_changed = true;
         }
     }
-
+    
     public static bool has_interpreter_state_changed() {
         return interpreter_state_changed;
     }
@@ -451,34 +451,6 @@ public class Video : VideoSource, Flaggable {
         return exporter;
     }
 
-    public static void set_many_to_event(Gee.Collection<Video> videos, Event? event) {
-        EventID event_id = (event != null) ? event.get_event_id() : EventID();
-        
-        VideoID[] video_ids = new VideoID[videos.size];
-        int ctr = 0;
-        foreach (Video video in videos) {
-            Event? old_event = video.get_event();
-            if (old_event != null)
-                old_event.detach(video);
-            
-            video_ids[ctr++] = video.backing_row.video_id;
-            video.backing_row.event_id = event_id;
-        }
-        
-        try {
-            VideoTable.get_instance().set_many_to_event(video_ids, event_id);
-        } catch (DatabaseError err) {
-            AppWindow.database_error(err);
-        }
-        
-        if (event != null)
-            event.attach_many(videos);
-        
-        Alteration alteration = new Alteration("metadata", "event");
-        foreach (Video video in videos)
-            video.notify_altered(alteration);
-    }
-
     protected override void commit_backlinks(SourceCollection? sources, string? backlinks) {        
         try {
             VideoTable.get_instance().update_backlinks(get_video_id(), backlinks);
@@ -532,7 +504,17 @@ public class Video : VideoSource, Flaggable {
             AppWindow.database_error(err);
         }
     }
-
+    
+    public override BackingFileState[] get_backing_files_state() {
+        BackingFileState[] backing = new BackingFileState[1];
+        lock (backing_row) {
+            backing[0] = new BackingFileState(backing_row.filepath, backing_row.filesize, 
+                backing_row.timestamp, backing_row.md5);
+        }
+        
+        return backing;
+    }
+    
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
         return ThumbnailCache.fetch(this, scale);
     }
@@ -577,14 +559,6 @@ public class Video : VideoSource, Flaggable {
         return PhotoFileFormat.get_system_default_format();
     }
     
-    public override string get_name() {
-        lock (backing_row) {
-            if (!is_string_empty(backing_row.title))
-                return backing_row.title;
-        }
-        return get_basename();
-    }
-
     public override string? get_title() {
         lock (backing_row) {
             return backing_row.title;
@@ -693,13 +667,7 @@ public class Video : VideoSource, Flaggable {
             return backing_row.event_id;
         }
     }
-
-    public string get_basename() {
-        lock (backing_row) {
-            return Filename.display_basename(backing_row.filepath);
-        }
-    }
-
+    
     public override string to_string() {
         lock (backing_row) {
             return "[%s] %s".printf(backing_row.video_id.id.to_string(), backing_row.filepath);
@@ -738,6 +706,27 @@ public class Video : VideoSource, Flaggable {
         lock (backing_row) {
             return backing_row.timestamp;
         }
+    }
+    
+    public void set_master_timestamp(FileInfo info) {
+        TimeVal time_val;
+        info.get_modification_time(out time_val);
+        
+        try {
+            lock (backing_row) {
+                if (backing_row.timestamp == time_val.tv_sec)
+                    return;
+                
+                VideoTable.get_instance().set_timestamp(backing_row.video_id, time_val.tv_sec);
+                backing_row.timestamp = time_val.tv_sec;
+            }
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+            
+            return;
+        }
+        
+        notify_altered(new Alteration("metadata", "master-timestamp"));
     }
     
     public string get_filename() {
@@ -904,8 +893,29 @@ public class Video : VideoSource, Flaggable {
         }
     }
     
-    public override void set_master_file(File file) {
-        // TODO: implement master update for videos
+    public void set_master_file(File file) {
+        string new_filepath = file.get_path();
+        string? old_filepath = null;
+        try {
+            lock (backing_row) {
+                if (backing_row.filepath == new_filepath)
+                    return;
+                
+                old_filepath = backing_row.filepath;
+                
+                VideoTable.get_instance().set_filepath(backing_row.video_id, new_filepath);
+                backing_row.filepath = new_filepath;
+            }
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+            
+            return;
+        }
+        
+        assert(old_filepath != null);
+        notify_master_replaced(File.new_for_path(old_filepath), file);
+        
+        notify_altered(new Alteration.from_list("backing:master,metadata:name"));
     }
     
     public VideoMetadata read_metadata() throws Error {
@@ -914,9 +924,23 @@ public class Video : VideoSource, Flaggable {
 }
 
 public class VideoSourceCollection : MediaSourceCollection {
-    private Gee.HashMap<File, Video> file_dictionary = new Gee.HashMap<File, Video>(
-        file_hash, file_equal);
-
+    public enum State {
+        ONLINE,
+        OFFLINE,
+        TRASH
+    }
+    
+    public override TransactionController transaction_controller {
+        get {
+            if (_transaction_controller == null)
+                _transaction_controller = new MediaSourceTransactionController(this);
+            
+            return _transaction_controller;
+        }
+    }
+    
+    private TransactionController _transaction_controller = null;
+    
     public VideoSourceCollection() {
         base("VideoSourceCollection", get_video_key);
 
@@ -927,11 +951,27 @@ public class VideoSourceCollection : MediaSourceCollection {
     protected override MediaSourceHoldingTank create_trashcan() {
         return new MediaSourceHoldingTank(this, is_video_trashed, get_video_key);
     }
-
+    
     protected override MediaSourceHoldingTank create_offline_bin() {
         return new MediaSourceHoldingTank(this, is_video_offline, get_video_key);
     }
-
+    
+    public override MediaMonitor create_media_monitor(Workers workers, Cancellable cancellable) {
+        return new VideoMonitor(cancellable);
+    }
+    
+    public override bool holds_type_of_source(DataSource source) {
+        return source is Video;
+    }
+    
+    public override string get_typename() {
+        return Video.TYPENAME;
+    }
+    
+    public override bool is_file_recognized(File file) {
+        return VideoReader.is_supported_video_file(file);
+    }
+    
     private void on_trashcan_contents_altered(Gee.Collection<DataSource>? added,
         Gee.Collection<DataSource>? removed) {
         trashcan_contents_altered((Gee.Collection<Video>?) added,
@@ -944,27 +984,6 @@ public class VideoSourceCollection : MediaSourceCollection {
             (Gee.Collection<Video>?) removed);
     }
 
-    protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
-        Gee.Iterable<DataObject>? removed) {
-        if (added != null) {
-            foreach (DataObject object in added) {
-                Video video = (Video) object;
-                file_dictionary.set(video.get_file(), video);
-            }
-        }
-        
-        if (removed != null) {
-            foreach (DataObject object in removed) {
-                Video video = (Video) object;
-                
-                bool is_removed = file_dictionary.unset(video.get_master_file());
-                assert(is_removed);
-            }
-        }
-        
-        base.notify_contents_altered(added, removed);
-    }
-
     protected override MediaSource? fetch_by_numeric_id(int64 numeric_id) {
         return fetch(VideoID(numeric_id));
     }
@@ -975,25 +994,7 @@ public class VideoSourceCollection : MediaSourceCollection {
         
         return video_id.id;
     }
-
-    public Video? get_by_file(File file) {
-        Video? video = file_dictionary.get(file);
-
-        if (video != null)
-            return video;
-        
-        video = (Video?) get_trashcan().fetch_by_master_file(file);
-        if (video != null)
-            return video;
-        
-        video = (Video?) get_offline_bin().fetch_by_master_file(file);
-        if (video != null) {
-            return video;
-        }
-        
-        return null;
-    }
-
+    
     public static bool is_video_trashed(DataSource source) {
         return ((Video) source).is_trashed();
     }
@@ -1008,5 +1009,49 @@ public class VideoSourceCollection : MediaSourceCollection {
     
     public override Gee.Collection<string> get_event_source_ids(EventID event_id){
         return VideoTable.get_instance().get_event_source_ids(event_id);
+    }
+    
+    public Video? get_state_by_file(File file, out State state) {
+        Video? video = (Video?) fetch_by_master_file(file);
+        if (video != null) {
+            state = State.ONLINE;
+            
+            return video;
+        }
+        
+        video = (Video?) get_trashcan().fetch_by_master_file(file);
+        if (video != null) {
+            state = State.TRASH;
+            
+            return video;
+        }
+        
+        video = (Video?) get_offline_bin().fetch_by_master_file(file);
+        if (video != null) {
+            state = State.OFFLINE;
+            
+            return video;
+        }
+        
+        return null;
+    }
+    
+    private void compare_backing(Video video, FileInfo info, Gee.Collection<Video> matching_master) {
+        if (video.get_filesize() != info.get_size())
+            return;
+        
+        TimeVal modification;
+        info.get_modification_time(out modification);
+        
+        if (video.get_timestamp() == modification.tv_sec)
+            matching_master.add(video);
+    }
+    
+    public void fetch_by_matching_backing(FileInfo info, Gee.Collection<Video> matching_master) {
+        foreach (DataObject object in get_all())
+            compare_backing((Video) object, info, matching_master);
+        
+        foreach (MediaSource media in get_offline_bin_contents())
+            compare_backing((Video) media, info, matching_master);
     }
 }

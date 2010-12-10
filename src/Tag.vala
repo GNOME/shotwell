@@ -18,6 +18,10 @@ public class TagSourceCollection : ContainerSourceCollection {
         attach_collection(Video.global);
     }
     
+    public override bool holds_type_of_source(DataSource source) {
+        return source is Tag;
+    }
+    
     private static int64 get_tag_key(DataSource source) {
         return ((Tag) source).get_instance_id();
     }

@@ -90,6 +90,25 @@ public enum PhotoFileFormat {
         return UNKNOWN;
     }
     
+    public static bool is_file_supported(File file) {
+        return is_basename_supported(file.get_basename());
+    }
+    
+    public static bool is_basename_supported(string basename) {
+        string name, ext;
+        disassemble_filename(basename, out name, out ext);
+        
+        if (is_string_empty(ext))
+            return false;
+        
+        foreach (PhotoFileFormat format in get_supported()) {
+            if (format.get_driver().get_properties().is_recognized_extension(ext))
+                return true;
+        }
+        
+        return false;
+    }
+    
     // Guaranteed to be writeable.
     public static PhotoFileFormat get_system_default_format() {
         return JFIF;

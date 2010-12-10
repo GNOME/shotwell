@@ -963,7 +963,7 @@ public class DataCollection {
 // SourceCollection
 //
 
-public class SourceCollection : DataCollection {
+public abstract class SourceCollection : DataCollection {
     private class DestroyCounter : Object {
         public Marker remove_marker;
         public Gee.ArrayList<DataSource> notify_list = new Gee.ArrayList<DataSource>();
@@ -1009,6 +1009,8 @@ public class SourceCollection : DataCollection {
     public SourceCollection(string name) {
         base (name);
     }
+    
+    public abstract bool holds_type_of_source(DataSource source);
     
     protected virtual void notify_items_unlinking(Gee.Collection<DataSource> unlinking) {
         items_unlinking(unlinking);

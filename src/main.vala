@@ -134,11 +134,15 @@ void library_exec(string[] mounts) {
     Tombstone.init();
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("LibraryPhoto.init");
+    MediaCollectionRegistry.init();
     LibraryPhoto.init(monitor);
+    
+    MediaCollectionRegistry registry = MediaCollectionRegistry.get_instance();
+    registry.register_collection(LibraryPhoto.global);
+    registry.register_collection(Video.global);
+    
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("Event.init");
-    MediaCollectionRegistry.get_instance().register_collection(Photo.TYPENAME, LibraryPhoto.global);
-    MediaCollectionRegistry.get_instance().register_collection(Video.TYPENAME, Video.global);
     Event.init(monitor);
     Tag.init();
     AlienDatabaseHandler.init();
@@ -193,6 +197,7 @@ void library_exec(string[] mounts) {
     AlienDatabaseHandler.terminate();
     Tag.terminate();
     Event.terminate();
+    MediaCollectionRegistry.terminate();
     LibraryPhoto.terminate();
     Tombstone.terminate();
     ThumbnailCache.terminate();
@@ -245,7 +250,7 @@ void editing_exec(string filename) {
     DatabaseTable.init(null);
     DirectPhoto.init();
     DesktopIntegration.init();
-
+    
     // TODO: At some point in the future, to support mixed-media in direct-edit mode, we will
     //       refactor DirectPhotoSourceCollection to be a MediaSourceCollection. At that point,
     //       we'll need to register DirectPhoto.global with the MediaCollectionRegistry

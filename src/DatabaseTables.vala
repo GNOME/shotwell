@@ -25,7 +25,7 @@ public class DatabaseTable {
     
     protected static Sqlite.Database db;
     
-    private static bool in_transaction = false;
+    private static int in_transaction = 0;
     
     public string table_name = null;
 
@@ -313,24 +313,22 @@ public class DatabaseTable {
         return stmt.column_int(0);
     }
     
-    // NOTE: Transactions do NOT nest.
+    // This is not thread-safe.
     public static void begin_transaction() {
-        assert(!in_transaction);
+        if (in_transaction++ != 0)
+            return;
         
         int res = db.exec("BEGIN TRANSACTION");
         assert(res == Sqlite.OK);
-        
-        in_transaction = true;
     }
     
-    // NOTE: Transactions do NOT nest.
+    // This is not thread-safe.
     public static void commit_transaction() throws DatabaseError {
-        assert(in_transaction);
+        assert(in_transaction > 0);
+        if (--in_transaction != 0)
+            return;
         
         int res = db.exec("COMMIT TRANSACTION");
-        
-        in_transaction = false;
-        
         if (res != Sqlite.DONE)
             throw_error("commit_transaction", res);
     }
@@ -1287,39 +1285,6 @@ public class PhotoTable : DatabaseTable {
 
     public bool set_event(PhotoID photo_id, EventID event_id) {
         return update_int64_by_id(photo_id.id, "event_id", event_id.id);
-    }
-    
-    public void set_many_to_event(PhotoID[] photo_ids, EventID event_id) throws DatabaseError {
-        int count = photo_ids.length;
-        if (count == 0)
-            return;
-        
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE PhotoTable SET event_id=? WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = db.exec("BEGIN TRANSACTION");
-        assert(res == Sqlite.OK);
-        
-        for (int ctr = 0; ctr < count; ctr++) {
-            res = stmt.bind_int64(1, event_id.id);
-            assert(res == Sqlite.OK);
-            res = stmt.bind_int64(2, photo_ids[ctr].id);
-            assert(res == Sqlite.OK);
-            
-            res = stmt.step();
-            if (res != Sqlite.DONE)
-                break;
-            
-            stmt.reset();
-        }
-        
-        if (res != Sqlite.DONE)
-            throw_error("PhotoTable.set_many_to_event", res);
-        
-        res = db.exec("COMMIT TRANSACTION");
-        if (res != Sqlite.DONE)
-            throw_error("PhotoTable.set_many_to_event", res);
     }
     
     private string? get_raw_transformations(PhotoID photo_id) {
@@ -2310,7 +2275,7 @@ public class TombstoneTable : DatabaseTable {
         return instance;
     }
     
-    public TombstoneRow add(File file, int64 filesize, string? md5) throws DatabaseError {
+    public TombstoneRow add(string filepath, int64 filesize, string? md5) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("INSERT INTO TombstoneTable "
             + "(filepath, filesize, md5, time_created) "
@@ -2320,7 +2285,7 @@ public class TombstoneTable : DatabaseTable {
         
         time_t time_created = (time_t) now_sec();
         
-        res = stmt.bind_text(1, file.get_path());
+        res = stmt.bind_text(1, filepath);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(2, filesize);
         assert(res == Sqlite.OK);
@@ -2335,7 +2300,7 @@ public class TombstoneTable : DatabaseTable {
         
         TombstoneRow row = TombstoneRow();
         row.id = TombstoneID(db.last_insert_rowid());
-        row.filepath = file.get_path();
+        row.filepath = filepath;
         row.filesize = filesize;
         row.md5 = md5;
         row.time_created = time_created;
@@ -2547,40 +2512,7 @@ public class VideoTable : DatabaseTable {
         
         return video_row.video_id;
     }
-
-    public void set_many_to_event(VideoID[] video_ids, EventID event_id) throws DatabaseError {
-        int count = video_ids.length;
-        if (count == 0)
-            return;
-        
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE VideoTable SET event_id=? WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = db.exec("BEGIN TRANSACTION");
-        assert(res == Sqlite.OK);
-        
-        for (int ctr = 0; ctr < count; ctr++) {
-            res = stmt.bind_int64(1, event_id.id);
-            assert(res == Sqlite.OK);
-            res = stmt.bind_int64(2, video_ids[ctr].id);
-            assert(res == Sqlite.OK);
-            
-            res = stmt.step();
-            if (res != Sqlite.DONE)
-                break;
-            
-            stmt.reset();
-        }
-        
-        if (res != Sqlite.DONE)
-            throw_error("VideoTable.set_many_to_event", res);
-        
-        res = db.exec("COMMIT TRANSACTION");
-        if (res != Sqlite.DONE)
-            throw_error("VideoTable.set_many_to_event", res);
-    }
-
+    
     public bool drop_event(EventID event_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("UPDATE VideoTable SET event_id = ? WHERE event_id = ?", -1, out stmt);
@@ -2676,7 +2608,11 @@ public class VideoTable : DatabaseTable {
         
         return all;
     }
-       
+    
+    public void set_filepath(VideoID video_id, string filepath) throws DatabaseError {
+        update_text_by_id_2(video_id.id, "filename", filepath);
+    }
+    
     public void set_title(VideoID video_id, string? new_title) throws DatabaseError {
        update_text_by_id_2(video_id.id, "title", new_title != null ? new_title : "");
     }
@@ -2767,7 +2703,7 @@ public class VideoTable : DatabaseTable {
         
         return video_ids;
     }
-              
+    
     private Sqlite.Statement get_duplicate_stmt(File? file, string? md5) {
         assert(file != null || md5 != null);
         
@@ -2859,5 +2795,9 @@ public class VideoTable : DatabaseTable {
         }
         
         return result;
+    }
+    
+    public void set_timestamp(VideoID video_id, time_t timestamp) throws DatabaseError {
+        update_int64_by_id_2(video_id.id, "timestamp", (int64) timestamp);
     }
 }

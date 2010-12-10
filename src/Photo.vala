@@ -499,6 +499,17 @@ public abstract class Photo : PhotoSource {
         return (flags & PhotoFileFormatFlags.MIMIC_RECOMMENDED) != 0;
     }
     
+    public override BackingFileState[] get_backing_files_state() {
+        BackingFileState[] backing = new BackingFileState[0];
+        lock (row) {
+            backing += new BackingFileState.from_photo_state(row.master, row.md5);
+            if (has_editable())
+                backing += new BackingFileState.from_photo_state(editable, null);
+        }
+        
+        return backing;
+    }
+    
     private PhotoFileReader get_backing_reader(BackingFetchMode mode) {
         switch (mode) {
             case BackingFetchMode.MASTER:
@@ -1036,34 +1047,28 @@ public abstract class Photo : PhotoSource {
     }
     
     // Use this only if the master file's modification time has been changed (i.e. touched)
-    public void update_master_modification_time(FileInfo info) throws DatabaseError {
+    public void set_master_timestamp(FileInfo info) {
         TimeVal modification;
         info.get_modification_time(out modification);
         
-        bool altered = false;
-        lock (row) {
-            if (row.master.timestamp != modification.tv_sec) {
+        try {
+            lock (row) {
+                if (row.master.timestamp == modification.tv_sec)
+                    return;
+
                 PhotoTable.get_instance().update_timestamp(row.photo_id, modification.tv_sec);
                 row.master.timestamp = modification.tv_sec;
-                altered = true;
             }
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+            
+            return;
         }
         
-        if (altered) {
-            if (is_master_baseline())
-                notify_altered(new Alteration.from_list("metadata:master-timestamp,metadata:baseline-timestamp"));
-            else
-                notify_altered(new Alteration("metadata", "master-timestamp"));
-        }
-    }
-    
-    // Most useful if the appropriate SourceCollection is frozen while calling this.
-    public static void update_many_master_timestamps(Gee.Map<Photo, FileInfo> map)
-        throws DatabaseError {
-        DatabaseTable.begin_transaction();
-        foreach (Photo photo in map.keys)
-            photo.update_master_modification_time(map.get(photo));
-        DatabaseTable.commit_transaction();
+        if (is_master_baseline())
+            notify_altered(new Alteration.from_list("metadata:master-timestamp,metadata:baseline-timestamp"));
+        else
+            notify_altered(new Alteration("metadata", "master-timestamp"));
     }
     
     // Use this only if the editable file's modification time has been changed (i.e. touched)
@@ -1194,7 +1199,7 @@ public abstract class Photo : PhotoSource {
     
     // This should only be used when the photo's master backing file has been renamed; if it's been
     // altered, use update().
-    public override void set_master_file(File file) {
+    public void set_master_file(File file) {
         string filepath = file.get_path();
         
         bool altered = false;
@@ -1247,17 +1252,6 @@ public abstract class Photo : PhotoSource {
             
             notify_altered(new Alteration.from_array(alteration_list));
         }
-    }
-    
-    // Also makes sense to freeze the SourceCollection when doing this.
-    public static void set_many_master_file(Gee.Map<Photo, File> map) throws DatabaseError {
-        DatabaseTable.begin_transaction();
-        
-        Gee.MapIterator<Photo, File> map_iter = map.map_iterator();
-        while (map_iter.next())
-            map_iter.get_key().set_master_file(map_iter.get_value());
-        
-        DatabaseTable.commit_transaction();
     }
     
     // This should only be used when the photo's editable file has been renamed.  If it's been
@@ -1634,35 +1628,6 @@ public abstract class Photo : PhotoSource {
         }
     }
 
-    // Best to freeze the appropriate SourceCollection as well.
-    public static void set_many_to_event(Gee.Collection<Photo> photos, Event? event) {
-        EventID event_id = (event != null) ? event.get_event_id() : EventID();
-        
-        PhotoID[] photo_ids = new PhotoID[photos.size];
-        int ctr = 0;
-        foreach (Photo photo in photos) {
-            Event? old_event = photo.get_event();
-            if (old_event != null)
-                old_event.detach(photo);
-            
-            photo_ids[ctr++] = photo.row.photo_id;
-            photo.row.event_id = event_id;
-        }
-        
-        try {
-            PhotoTable.get_instance().set_many_to_event(photo_ids, event_id);
-        } catch (DatabaseError err) {
-            AppWindow.database_error(err);
-        }
-        
-        if (event != null)
-            event.attach_many(photos);
-        
-        Alteration alteration = new Alteration("metadata", "event");
-        foreach (Photo photo in photos)
-            photo.notify_altered(alteration);
-    }
-    
     public override string to_string() {
         return "[%s] %s%s".printf(get_photo_id().id.to_string(), get_master_reader().get_filepath(),
             !is_master_baseline() ? " (" + get_actual_file().get_path() + ")" : "");
@@ -1725,12 +1690,6 @@ public abstract class Photo : PhotoSource {
 
     // PhotoSource
     
-    public override string get_name() {
-        lock (row) {
-            return !is_string_empty(row.title) ? row.title : file_title;
-        }
-    }
-    
     public override uint64 get_filesize() {
         lock (row) {
             return backing_photo_state->filesize;
@@ -1742,7 +1701,13 @@ public abstract class Photo : PhotoSource {
             return row.exposure_time;
         }
     }
-
+    
+    public override string get_basename() {
+        lock (row) {
+            return file_title;
+        }
+    }
+    
     public override string? get_title() {
         lock (row) {
             return row.title;
@@ -3462,8 +3427,16 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         EDITABLE
     }
     
-    private Gee.HashMap<File, LibraryPhoto> by_master_file = new Gee.HashMap<File, LibraryPhoto>(
-        file_hash, file_equal);
+    public override TransactionController transaction_controller {
+        get {
+            if (_transaction_controller == null)
+                _transaction_controller = new MediaSourceTransactionController(this);
+            
+            return _transaction_controller;
+        }
+    }
+    
+    private TransactionController? _transaction_controller = null;
     private Gee.HashMap<File, LibraryPhoto> by_editable_file = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
     private Gee.MultiMap<int64?, LibraryPhoto> filesize_to_photo =
@@ -3472,10 +3445,6 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
     private Gee.HashMap<LibraryPhoto, int64?> photo_to_editable_filesize =
         new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
-
-    
-    public virtual signal void master_file_replaced(LibraryPhoto photo, File old_file, File new_file) {
-    }
     
     public LibraryPhotoSourceCollection() {
         base ("LibraryPhotoSourceCollection", Photo.get_photo_key);
@@ -3492,14 +3461,27 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         return new MediaSourceHoldingTank(this, check_if_offline_photo, Photo.get_photo_key);
     }
     
+    public override MediaMonitor create_media_monitor(Workers workers, Cancellable cancellable) {
+        return new PhotoMonitor(workers, cancellable);
+    }
+    
+    public override bool holds_type_of_source(DataSource source) {
+        return source is LibraryPhoto;
+    }
+    
+    public override string get_typename() {
+        return Photo.TYPENAME;
+    }
+    
+    public override bool is_file_recognized(File file) {
+        return PhotoFileFormat.is_file_supported(file);
+    }
+    
     protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
         Gee.Iterable<DataObject>? removed) {
         if (added != null) {
             foreach (DataObject object in added) {
                 LibraryPhoto photo = (LibraryPhoto) object;
-                
-                by_master_file.set(photo.get_master_file(), photo);
-                photo.master_replaced.connect(on_master_replaced);
                 
                 File? editable = photo.get_editable_file();
                 if (editable != null)
@@ -3523,13 +3505,9 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
             foreach (DataObject object in removed) {
                 LibraryPhoto photo = (LibraryPhoto) object;
                 
-                bool is_removed = by_master_file.unset(photo.get_master_file());
-                assert(is_removed);
-                photo.master_replaced.disconnect(on_master_replaced);
-                
                 File? editable = photo.get_editable_file();
                 if (editable != null) {
-                    is_removed = by_editable_file.unset(photo.get_editable_file());
+                    bool is_removed = by_editable_file.unset(photo.get_editable_file());
                     assert(is_removed);
                 }
                 photo.editable_replaced.disconnect(on_editable_replaced);
@@ -3548,15 +3526,6 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         }
         
         base.notify_contents_altered(added, removed);
-    }
-    
-    private void on_master_replaced(MediaSource source, File old_file, File new_file) {
-        bool is_removed = by_master_file.unset(old_file);
-        assert(is_removed);
-        
-        by_master_file.set(new_file, (LibraryPhoto) source);
-        
-        master_file_replaced((LibraryPhoto) source, old_file, new_file);
     }
     
     private void on_editable_replaced(Photo photo, File? old_file, File? new_file) {
@@ -3648,26 +3617,29 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         return (LibraryPhoto) fetch_by_key(photo_id.id);
     }
     
-    public LibraryPhoto? fetch_by_master_file(File file) {
-        return by_master_file.get(file);
-    }
-    
     public LibraryPhoto? fetch_by_editable_file(File file) {
         return by_editable_file.get(file);
+    }
+    
+    private void compare_backing(LibraryPhoto photo, FileInfo info,
+        Gee.Collection<LibraryPhoto> matches_master, Gee.Collection<LibraryPhoto> matches_editable) {
+        if (photo.get_master_photo_state().matches_file_info(info))
+            matches_master.add(photo);
+        
+        BackingPhotoState? editable = photo.get_editable_photo_state();
+        if (editable != null && editable.matches_file_info(info))
+            matches_editable.add(photo);
     }
     
     // Adds photos to both collections if their filesize and timestamp match.  Note that it's possible
     // for a single photo to be added to both collections.
     public void fetch_by_matching_backing(FileInfo info, Gee.Collection<LibraryPhoto> matches_master,
         Gee.Collection<LibraryPhoto> matches_editable) {
-        foreach (LibraryPhoto photo in filesize_to_photo.get(info.get_size())) {
-            if (photo.get_master_photo_state().matches_file_info(info))
-                matches_master.add(photo);
-            
-            BackingPhotoState? editable = photo.get_editable_photo_state();
-            if (editable != null && editable.matches_file_info(info))
-                matches_editable.add(photo);
-        }
+        foreach (LibraryPhoto photo in filesize_to_photo.get(info.get_size()))
+            compare_backing(photo, info, matches_master, matches_editable);
+        
+        foreach (MediaSource media in get_offline_bin_contents())
+            compare_backing((LibraryPhoto) media, info, matches_master, matches_editable);
     }
     
     public bool has_basename_filesize_duplicate(string basename, int64 filesize) {
@@ -3696,7 +3668,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     }
     
     public LibraryPhoto? get_state_by_file(File file, out State state) {
-        LibraryPhoto? photo = fetch_by_master_file(file);
+        LibraryPhoto? photo = (LibraryPhoto?) fetch_by_master_file(file);
         if (photo != null) {
             state = State.ONLINE;
             
@@ -3752,7 +3724,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
 // LibraryPhoto
 //
 
-public class LibraryPhoto : Photo, Flaggable {
+public class LibraryPhoto : Photo, Flaggable, Monitorable {
     // Top 16 bits are reserved for Photo
     // Warning: FLAG_HIDDEN and FLAG_FAVORITE have been deprecated for ratings and rating filters.
     private const uint64 FLAG_HIDDEN =      0x0000000000000001;
@@ -3991,11 +3963,6 @@ public class LibraryPhoto : Photo, Flaggable {
         remove_flags(FLAG_OFFLINE);
     }
     
-    public static void mark_many_online_offline(Gee.Collection<LibraryPhoto>? online,
-        Gee.Collection<LibraryPhoto>? offline) throws DatabaseError {
-        add_remove_many_flags(offline, FLAG_OFFLINE, null, online, FLAG_OFFLINE, null);
-    }
-    
     public  bool is_flagged() {
         return is_flag_set(FLAG_FLAGGED);
     }
@@ -4111,6 +4078,10 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
     
     public DirectPhotoSourceCollection() {
         base("DirectPhotoSourceCollection", get_direct_key);
+    }
+    
+    public override bool holds_type_of_source(DataSource source) {
+        return source is DirectPhoto;
     }
     
     private static int64 get_direct_key(DataSource source) {

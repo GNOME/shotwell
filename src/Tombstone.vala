@@ -13,6 +13,10 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
         base ("Tombstones", get_tombstone_id);
     }
     
+    public override bool holds_type_of_source(DataSource source) {
+        return source is Tombstone;
+    }
+    
     private static int64 get_tombstone_id(DataSource source) {
         return ((Tombstone) source).get_tombstone_id().id;
     }
@@ -196,20 +200,9 @@ public class Tombstone : DataSource {
     public static void entomb_many_sources(Gee.Collection<MediaSource> sources) throws DatabaseError {
         // destroy any out-of-date tombstones so they may be updated
         Marker to_destroy = global.start_marking();
-        foreach (MediaSource source in sources) {
-            // we don't support tombstoning videos
-            if (source is Video)
-                continue;
-            LibraryPhoto photo = (LibraryPhoto) source;
-
-            File master_file = photo.get_master_file();
-            Tombstone? tombstone = global.locate(master_file, photo.get_master_md5());
-            if (tombstone != null)
-                to_destroy.mark(tombstone);
-            
-            File? editable_file = photo.get_editable_file();
-            if (editable_file != null) {
-                tombstone = global.locate(editable_file, null);
+        foreach (MediaSource media in sources) {
+            foreach (BackingFileState state in media.get_backing_files_state()) {
+                Tombstone? tombstone = global.locate(state.get_file(), state.md5);
                 if (tombstone != null)
                     to_destroy.mark(tombstone);
             }
@@ -218,21 +211,10 @@ public class Tombstone : DataSource {
         global.destroy_marked(to_destroy, false);
         
         Gee.ArrayList<Tombstone> tombstones = new Gee.ArrayList<Tombstone>();
-        foreach (MediaSource source in sources) {
-            if (source is Video)
-                continue;
-            LibraryPhoto photo = (LibraryPhoto) source;
-
-            File master_file = photo.get_master_file();
-            BackingPhotoState master_state = photo.get_master_photo_state();
-            tombstones.add(new Tombstone(TombstoneTable.get_instance().add(master_file,
-                master_state.filesize, photo.get_master_md5())));
-            
-            File? editable_file = photo.get_editable_file();
-            if (editable_file != null) {
-                BackingPhotoState editable_state = photo.get_editable_photo_state();
-                tombstones.add(new Tombstone(TombstoneTable.get_instance().add(editable_file,
-                    editable_state.filesize, null)));
+        foreach (MediaSource media in sources) {
+            foreach (BackingFileState state in media.get_backing_files_state()) {
+                tombstones.add(new Tombstone(TombstoneTable.get_instance().add(state.filepath,
+                    state.filesize, state.md5)));
             }
         }
         

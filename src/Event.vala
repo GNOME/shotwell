@@ -40,6 +40,10 @@ public class EventSourceCollection : ContainerSourceCollection {
         no_event.contents_altered.connect(on_no_event_collection_altered);
     }
     
+    public override bool holds_type_of_source(DataSource source) {
+        return source is Event;
+    }
+    
     private static int64 get_event_key(DataSource source) {
         Event event = (Event) source;
         EventID event_id = event.get_event_id();
@@ -444,18 +448,21 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public void break_link_many(Gee.Collection<DataSource> sources) {
-        LibraryPhoto.global.freeze_notifications();
-        Video.global.freeze_notifications();
-        
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
         MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) sources, photos, videos);
-
-        Photo.set_many_to_event(photos, null);
-        Video.set_many_to_event(videos, null);
-
-        LibraryPhoto.global.thaw_notifications();
-        Video.global.thaw_notifications();
+        
+        try {
+            MediaSource.set_many_to_event(photos, null, LibraryPhoto.global.transaction_controller);
+        } catch (Error err) {
+            AppWindow.error_message("%s".printf(err.message));
+        }
+        
+        try {
+            MediaSource.set_many_to_event(videos, null, Video.global.transaction_controller);
+        } catch (Error err) {
+            AppWindow.error_message("%s".printf(err.message));
+        }
     }
     
     public void establish_link(DataSource source) {
@@ -463,19 +470,21 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public void establish_link_many(Gee.Collection<DataSource> sources) {
-        LibraryPhoto.global.freeze_notifications();
-        Video.global.freeze_notifications();
-
-
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
         MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) sources, photos, videos);
         
-        Photo.set_many_to_event(photos, this);
-        Video.set_many_to_event(videos, this);
-
-        LibraryPhoto.global.thaw_notifications();
-        Video.global.thaw_notifications();
+        try {
+            MediaSource.set_many_to_event(photos, this, LibraryPhoto.global.transaction_controller);
+        } catch (Error err) {
+            AppWindow.error_message("%s".printf(err.message));
+        }
+        
+        try {
+            MediaSource.set_many_to_event(videos, this, Video.global.transaction_controller);
+        } catch (Error err) {
+            AppWindow.error_message("%s".printf(err.message));
+        }
     }
     
     public bool is_in_starting_day(time_t time) {
