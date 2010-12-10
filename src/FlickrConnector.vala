@@ -604,6 +604,37 @@ private class Session : RESTSession {
     }
 }
 
+private void asciify_managed_iptc_tags(PhotoMetadata metadata) {
+    string[] managed_tags = { "Iptc.Application2.Caption", "Iptc.Application2.Headline" };
+    
+    foreach (string current_tag in managed_tags) {
+        metadata.set_string(current_tag, asciify_string(metadata.get_string(current_tag)));
+    }
+}
+
+private void flickrize_keywords(PhotoMetadata metadata) {
+    Gee.Collection<string>? keywords = metadata.get_keywords();
+
+    if (keywords != null)
+        metadata.set_keywords(keywords, PhotoMetadata.SetOption.ALL_DOMAINS);
+
+    Gee.Collection<string> keyword_coll = new Gee.ArrayList<string>();
+    keyword_coll.add("");
+    metadata.set_string_multiple("Iptc.Application2.Keywords", keyword_coll);
+}
+
+private void flickrize_file(File file) {
+    PhotoMetadata metadata = new PhotoMetadata();
+    try {
+        metadata.read_from_file(file);
+        asciify_managed_iptc_tags(metadata);
+        flickrize_keywords(metadata);
+        metadata.write_to_file(file);
+    } catch (Error err) {
+        warning("couldn't asciify metadata in file %s", file.get_path());
+    }
+}
+
 private class Uploader : BatchUploader {
     private Session session;
     private PublishingParameters parameters;
@@ -624,6 +655,7 @@ private class Uploader : BatchUploader {
             if (file.media is Photo) {
                 ((Photo) file.media).export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM,
                     PhotoFileFormat.JFIF);
+                flickrize_file(file.temp_file);
             }
         } catch (Error e) {
             return false;
@@ -725,7 +757,7 @@ private class UploadTransaction : MediaUploadTransaction {
 
         GLib.HashTable<string, string> disposition_table =
             new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
-        disposition_table.insert("filename", media_source.get_name());
+        disposition_table.insert("filename",  Soup.URI.encode(media_source.get_name(), null));
         disposition_table.insert("name", "photo");
         set_binary_disposition_table(disposition_table);
     }

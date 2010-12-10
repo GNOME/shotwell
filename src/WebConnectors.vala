@@ -455,7 +455,7 @@ public abstract class MediaUploadTransaction : RESTTransaction {
         GLib.HashTable<string, string> result =
             new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
 
-        result.insert("filename", source_photo.get_name());
+        result.insert("filename", Soup.URI.encode(source_photo.get_name(), null));
 
         return result;
     }
