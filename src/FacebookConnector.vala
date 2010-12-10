@@ -19,6 +19,14 @@ private const string RESTART_ERROR_MESSAGE =
 private const string PHOTO_ENDPOINT_URL = "http://api.facebook.com/restserver.php";
 private const string VIDEO_ENDPOINT_URL = "http://api-video.facebook.com/restserver.php";
 
+// as of mid-November 2010, the privacy the simple string "SELF" is no longer a valid
+// privacy value; "SELF" must be simulated by a "CUSTOM" setting; see the discussion
+// http://forum.developers.facebook.net/viewtopic.php?pid=289287
+private const string PRIVACY_OBJECT_JUST_ME = "{ 'value' : 'CUSTOM', 'friends' : 'SELF' }";
+private const string PRIVACY_OBJECT_ALL_FRIENDS = "{ 'value' : 'ALL_FRIENDS' }";
+private const string PRIVACY_OBJECT_FRIENDS_OF_FRIENDS = "{ 'value' : 'FRIENDS_OF_FRIENDS' }";
+private const string PRIVACY_OBJECT_EVERYONE = "{ 'value' : 'EVERYONE' }";
+
 private struct Album {
     string name;
     string id;
@@ -52,7 +60,7 @@ public class Interactor : ServiceInteractor {
     // very angry.
     private WebAuthenticationPane web_auth_pane = null;
     private ProgressPane progress_pane = null;
-    private string privacy_setting = "SELF";
+    private string privacy_setting = PRIVACY_OBJECT_JUST_ME;
     private Album[] albums = null;
     private int publish_to_album = NO_ALBUM;
     private bool cancelled = false;
@@ -937,10 +945,10 @@ private class PublishingOptionsPane : PublishingDialogPane {
     private PrivacyDescription[] create_privacy_descriptions() {
         PrivacyDescription[] result = new PrivacyDescription[0];
 
-        result += PrivacyDescription(_("Just me"), "SELF");
-        result += PrivacyDescription(_("All friends"), "ALL_FRIENDS");
-        result += PrivacyDescription(_("Friends of friends"), "FRIENDS_OF_FRIENDS");
-        result += PrivacyDescription(_("Everyone"), "EVERYONE");
+        result += PrivacyDescription(_("Just me"), PRIVACY_OBJECT_JUST_ME);
+        result += PrivacyDescription(_("All friends"), PRIVACY_OBJECT_ALL_FRIENDS);
+        result += PrivacyDescription(_("Friends of friends"), PRIVACY_OBJECT_FRIENDS_OF_FRIENDS);
+        result += PrivacyDescription(_("Everyone"), PRIVACY_OBJECT_EVERYONE);
 
         return result;
     }
@@ -1066,7 +1074,7 @@ private class AlbumCreationTransaction : Transaction {
 
         add_argument("method", "photos.createAlbum");
         add_argument("name", album_name);
-        add_argument("privacy", "{'value':'%s'}".printf(privacy_setting));
+        add_argument("privacy", privacy_setting);
     }
 }
 
@@ -1082,7 +1090,7 @@ private class UploadTransaction : MediaUploadTransaction {
         add_argument("v", session.get_api_version());
         add_argument("method", (media is Photo) ? "photos.upload" : "video.upload");
         add_argument("aid", aid);
-        add_argument("privacy", "{'value':'%s'}".printf(privacy_setting));
+        add_argument("privacy", privacy_setting);
     }
 
     protected override void sign() {
