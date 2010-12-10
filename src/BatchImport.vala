@@ -1034,7 +1034,7 @@ private class WorkSniffer : BackgroundImportJob {
         foreach (BatchImportJob job in jobs) {
             ImportResult result = abort_check();
             if (result != ImportResult.SUCCESS) {
-                report_failure(job, null, job.get_dest_identifier(), job.get_source_identifier(), 
+                report_failure(job, null, job.get_source_identifier(), job.get_dest_identifier(),
                     result);
                 
                 continue;
@@ -1065,7 +1065,7 @@ private class WorkSniffer : BackgroundImportJob {
             File dir;
             bool copy_to_library;
             if (!job.prepare(out dir, out copy_to_library)) {
-                report_failure(job, null, job.get_dest_identifier(), job.get_source_identifier(),
+                report_failure(job, null, job.get_source_identifier(), job.get_dest_identifier(),
                      ImportResult.FILE_ERROR);
                 
                 return;
@@ -1227,8 +1227,8 @@ private class PrepareFilesJob : BackgroundImportJob {
             if (file == null) {
                 try {
                     if (!job.prepare(out file, out copy_to_library)) {
-                        report_failure(job, null, job.get_dest_identifier(), 
-                             job.get_source_identifier(), ImportResult.FILE_ERROR);
+                        report_failure(job, null, job.get_source_identifier(), 
+                             job.get_dest_identifier(), ImportResult.FILE_ERROR);
                         
                         continue;
                     }
@@ -1443,9 +1443,9 @@ private class PreparedFileImportJob : BackgroundJob {
                     return;
                 }
             } catch (Error err) {
+                string filename = final_file != null ? final_file.get_path() : prepared_file.source_id;
                 failed = new BatchImportResult.from_error(prepared_file.job, prepared_file.file,
-                    prepared_file.source_id, prepared_file.dest_id, err, 
-                    ImportResult.FILE_ERROR);
+                    filename, filename, err, ImportResult.FILE_ERROR);
                 
                 return;
             }
