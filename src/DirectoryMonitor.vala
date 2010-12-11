@@ -998,7 +998,7 @@ public class DirectoryMonitor : Object {
     }
     
     private void on_monitor_notification(File file, File? other_file, FileMonitorEvent event) {
-        mdbg("%s: file=%s other_file=%s".printf(event.to_string(), file.get_path(),
+        mdbg("NOTIFY %s: file=%s other_file=%s".printf(event.to_string(), file.get_path(),
             other_file != null ? other_file.get_path() : "(none)"));
         
         // The problem: Having basic file information about each file is valuable (and necessary
