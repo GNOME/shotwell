@@ -3931,6 +3931,15 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         // add it to the SourceCollection; this notifies everyone interested of its presence
         global.add(dupe);
         
+        // Attach event and tags.
+        dupe.get_event().attach(dupe);
+        Gee.Collection<Tag>? tags = Tag.global.fetch_for_source(this);
+        if (tags != null) {
+            foreach (Tag tag in tags) {
+                tag.attach(dupe);
+            }
+        }
+        
         return dupe;
     }
     
