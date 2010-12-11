@@ -820,6 +820,14 @@ public class DirectoryMonitor : Object {
             }
         }
         
+        if (local_dir_info.get_is_hidden()) {
+            warning("Ignoring hidden directory %s", dir.get_path());
+            
+            explore_directory_completed(in_discovery);
+            
+            return;
+        }
+        
         // File ID is required for directory monitoring.  No ID, no ride!
         // TODO: Replace the warning with notify_discovery_failed() and provide a user-visible
         // string.
@@ -858,6 +866,14 @@ public class DirectoryMonitor : Object {
                     break;
                 
                 foreach (FileInfo info in infos) {
+                    // we don't deal with hidden files or directories
+                    if (info.get_is_hidden()) {
+                        warning("Skipping hidden file/directory %s",
+                            dir.get_child(info.get_name()).get_path());
+                        
+                        continue;
+                    }
+                    
                     switch (info.get_file_type()) {
                         case FileType.REGULAR:
                             if (file_map == null)

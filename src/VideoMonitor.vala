@@ -115,21 +115,17 @@ private class VideoMonitor : MediaMonitor {
         
         if (old_video != null && new_video == null) {
             // 1.
-            debug("1");
             update_master_file(old_video, new_file);
         } else if (old_video == null && new_video != null) {
             // 2.
-            debug("2");
             set_check_interpretable(new_video, true);
         } else if (old_video == null && new_video == null) {
             // 3.
-            debug("3");
             return false;
         } else {
             assert(old_video != null && new_video != null);
             
             // 4.
-            debug("4");
             update_offline(old_video);
             set_check_interpretable(new_video, true);
         }
