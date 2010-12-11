@@ -500,7 +500,7 @@ private class AVIMetadataLoader {
         ulong timestamp = 0;
         try {
             chunk.open_file();
-            chunk.skip(12); // Advance past 12 byte header.
+            chunk.nonsection_skip(12); // Advance past 12 byte header.
             string sdate = read_section(chunk);
             if (null != sdate) {
                 timestamp = parse_date(sdate.strip());
@@ -552,6 +552,10 @@ private class AVIChunk {
         }
     }
     
+    public void nonsection_skip(uint64 skip_amount) throws GLib.Error {
+        skip_uint64(input, skip_amount);
+    }
+    
     public void skip(uint64 skip_amount) throws GLib.Error {
         advance_section_offset(skip_amount);
         skip_uint64(input, skip_amount);
@@ -561,11 +565,9 @@ private class AVIChunk {
         return new AVIChunk.with_input_stream(input, this);
     }
     
-    private void advance_section_offset(uint64 amount) throws Error {
-        if ((section_offset + amount) > section_size) {
-            throw new IOError.FAILED("Attempted to advance %d bytes past end of section", 
-                (section_offset + amount) - section_size);
-        }
+    private void advance_section_offset(uint64 amount) {
+        if ((section_offset + amount) > section_size)
+            amount = section_size - section_offset;
         
         section_offset += amount;
         if (null != parent) {
@@ -578,19 +580,21 @@ private class AVIChunk {
         return input.read_byte();
     }
     
-    public uint32 read_uint32() throws GLib.Error {
-       advance_section_offset(4);
-       return input.read_uint32();
-    }
-    
     public uint16 read_uint16() throws GLib.Error {
        advance_section_offset(2);
        return input.read_uint16();
     }
     
     public void read_chunk() throws GLib.Error {
-        section_name = read_name();
-        section_size = read_uint32();
+        // don't use checked reads here because they advance the section offset, which we're trying
+        // to determine here
+        GLib.StringBuilder sb = new GLib.StringBuilder();
+        sb.append_c((char) input.read_byte());
+        sb.append_c((char) input.read_byte());
+        sb.append_c((char) input.read_byte());
+        sb.append_c((char) input.read_byte());
+        section_name = sb.str;
+        section_size = input.read_uint32();
         section_offset = 0;
     }
     
