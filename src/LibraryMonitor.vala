@@ -100,6 +100,8 @@ public class LibraryMonitor : DirectoryMonitor {
             
             this.file = file;
             this.candidates = candidates;
+            
+            set_completion_priority(Priority.LOW);
         }
         
         public override void execute() {
@@ -118,28 +120,6 @@ public class LibraryMonitor : DirectoryMonitor {
                     
                     break;
                 }
-            }
-        }
-    }
-    
-    private class ChecksumJob : BackgroundJob {
-        public File file;
-        public string? md5 = null;
-        public Error? err = null;
-        
-        public ChecksumJob(LibraryMonitor owner, File file) {
-            base (owner, owner.on_checksum_completed, owner.cancellable, owner.on_checksum_cancelled);
-            
-            this.file = file;
-            
-            set_completion_priority(Priority.LOW);
-        }
-        
-        public override void execute() {
-            try {
-                md5 = md5_file(file);
-            } catch (Error err) {
-                this.err = err;
             }
         }
     }
@@ -175,6 +155,11 @@ public class LibraryMonitor : DirectoryMonitor {
     private uint import_queue_timer_id = 0;
     private Gee.Queue<VerifyJob> verify_queue = new Gee.LinkedList<VerifyJob>();
     private int outstanding_verify_jobs = 0;
+    private int files_discovered = 0;
+    private int completed_monitorable_verifies = 0;
+    private int total_monitorable_verifies = 0;
+    
+    public signal void discovery_in_progress();
     
     public signal void auto_update_progress(int completed_files, int total_files);
     
@@ -261,9 +246,12 @@ public class LibraryMonitor : DirectoryMonitor {
         if (representing != null) {
             assert(representation != null && !ignore);
             add_to_discovered_list(representing, representation);
-        } else if (!ignore && !Tombstone.global.matches(file, null)) {
+        } else if (!ignore && !Tombstone.global.matches(file, null) && is_supported_filetype(file)) {
             unknown_files.add(file);
         }
+        
+        if ((++files_discovered % 500) == 0)
+            discovery_in_progress();
         
         base.file_discovered(file, info);
     }
@@ -324,16 +312,6 @@ public class LibraryMonitor : DirectoryMonitor {
         // remove all adopted files from the unknown list
         unknown_files.remove_all(adopted);
         
-        // After the checksumming is complete, the only use of the unknown files is for
-        // auto-import, so don't bother checksumming the remainder for duplicates/tombstones unless
-        // going to do that work
-        if (auto_import) {
-            foreach (File file in unknown_files) {
-                checksums_total++;
-                workers.enqueue(new ChecksumJob(this, file));
-            }
-        }
-        
         checksums_completed = 0;
         
         if (checksums_total == 0) {
@@ -377,41 +355,6 @@ public class LibraryMonitor : DirectoryMonitor {
     }
     
     private void on_find_move_cancelled(BackgroundJob j) {
-        report_checksum_job_completed();
-    }
-    
-    private void on_checksum_completed(BackgroundJob j) {
-        ChecksumJob job = (ChecksumJob) j;
-        
-        if (job.err != null) {
-            warning("Unable to checksum %s to verify tombstone; treating as new file: %s",
-                job.file.get_path(), job.err.message);
-        }
-        
-        if (job.md5 != null) {
-            Tombstone? tombstone = Tombstone.global.locate(job.file, job.md5);
-            if (tombstone != null) {
-                // if tombstoned, update if backing file has moved
-                if (get_file_info(tombstone.get_file()) == null)
-                    tombstone.move(job.file);
-                else
-                    mdbg("Skipping auto-import of tombstoned file %s".printf(job.file.get_path()));
-            } else {
-                foreach (MediaMonitor monitor in monitors) {
-                    if (monitor.get_media_source_collection().get_source_by_master_md5(job.md5) != null) {
-                        mdbg("Skipping auto-import of duplicate file %s".printf(job.file.get_path()));
-                        unknown_files.remove(job.file);
-                        
-                        break;
-                    }
-                }
-            }
-        }
-        
-        report_checksum_job_completed();
-    }
-    
-    private void on_checksum_cancelled(BackgroundJob j) {
         report_checksum_job_completed();
     }
     
@@ -511,6 +454,12 @@ public class LibraryMonitor : DirectoryMonitor {
             monitor.update_backing_file_info(monitorable, file, info);
         }
         
+        completed_monitorable_verifies++;
+        auto_update_progress(completed_monitorable_verifies, total_monitorable_verifies);
+        
+        Idle.add(verify_monitorable.callback, DEFAULT_PRIORITY);
+        yield;
+        
         // finished, move on to the next job in the queue
         assert(outstanding_verify_jobs > 0);
         outstanding_verify_jobs--;
@@ -535,15 +484,13 @@ public class LibraryMonitor : DirectoryMonitor {
     }
     
     private void enqueue_import(File file) {
-        if (!pending_imports.contains(file))
+        if (!pending_imports.contains(file) && is_supported_filetype(file))
             import_queue.add(file);
     }
     
     private void enqueue_import_many(Gee.Collection<File> files) {
-        foreach (File file in files) {
-            if (!pending_imports.contains(file))
-                import_queue.add(file);
-        }
+        foreach (File file in files)
+            enqueue_import(file);
     }
     
     private void remove_queued_import(File file) {
@@ -660,6 +607,26 @@ public class LibraryMonitor : DirectoryMonitor {
             // was cancelled
             if (result.file != null)
                 pending_imports.remove(result.file);
+        }
+        
+        if (manifest.already_imported.size > 0) {
+            Gee.ArrayList<TombstonedFile> to_tombstone = new Gee.ArrayList<TombstonedFile>();
+            foreach (BatchImportResult result in manifest.already_imported) {
+                FileInfo? info = get_file_info(result.file);
+                if (info == null) {
+                    warning("Unable to get info for duplicate file %s", result.file.get_path());
+                    
+                    continue;
+                }
+                
+                to_tombstone.add(new TombstonedFile(result.file, info.get_size(), null));
+            }
+            
+            try {
+                Tombstone.entomb_many_files(to_tombstone, Tombstone.Reason.AUTO_DETECTED_DUPLICATE);
+            } catch (DatabaseError err) {
+                AppWindow.database_error(err);
+            }
         }
         
         mdbg("%d files remain pending for auto-import".printf(pending_imports.size));

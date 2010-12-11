@@ -21,6 +21,7 @@ public class LibraryWindow : AppWindow {
     
     // these values reflect the priority various background operations have when reporting
     // progress to the LibraryWindow progress bar ... higher values give priority to those reports
+    private const int STARTUP_SCAN_PROGRESS_PRIORITY =      35;
     private const int REALTIME_UPDATE_PROGRESS_PRIORITY =   40;
     private const int REALTIME_IMPORT_PROGRESS_PRIORITY =   50;
     private const int METADATA_WRITER_PROGRESS_PRIORITY =   30;
@@ -269,6 +270,7 @@ public class LibraryWindow : AppWindow {
         sync_videos_visibility();
         
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
+        LibraryPhoto.library_monitor.discovery_in_progress.connect(on_library_monitor_discovery_in_progress);
         LibraryPhoto.library_monitor.auto_update_progress.connect(on_library_monitor_auto_update_progress);
         LibraryPhoto.library_monitor.auto_import_preparing.connect(on_library_monitor_auto_import_preparing);
         LibraryPhoto.library_monitor.auto_import_progress.connect(on_library_monitor_auto_import_progress);
@@ -298,6 +300,7 @@ public class LibraryWindow : AppWindow {
             media_sources.items_altered.disconnect(on_media_altered);
         
         MetadataWriter.get_instance().progress.disconnect(on_metadata_writer_progress);
+        LibraryPhoto.library_monitor.discovery_in_progress.disconnect(on_library_monitor_discovery_in_progress);
         LibraryPhoto.library_monitor.auto_update_progress.disconnect(on_library_monitor_auto_update_progress);
         LibraryPhoto.library_monitor.auto_import_preparing.disconnect(on_library_monitor_auto_import_preparing);
         LibraryPhoto.library_monitor.auto_import_progress.disconnect(on_library_monitor_auto_import_progress);
@@ -1564,6 +1567,10 @@ public class LibraryWindow : AppWindow {
             top_section.remove(background_progress_frame);
             background_progress_displayed = false;
         }
+    }
+    
+    private void on_library_monitor_discovery_in_progress() {
+        pulse_background_progress_bar(_("Updating library..."), STARTUP_SCAN_PROGRESS_PRIORITY);
     }
     
     private void on_library_monitor_auto_update_progress(int completed_files, int total_files) {

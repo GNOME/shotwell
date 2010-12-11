@@ -1696,6 +1696,18 @@ public abstract class Photo : PhotoSource {
         }
     }
     
+    public override uint64 get_master_filesize() {
+        lock (row) {
+            return row.master.filesize;
+        }
+    }
+    
+    public uint64 get_editable_filesize() {
+        lock (row) {
+            return editable.filesize;
+        }
+    }
+    
     public override time_t get_exposure_time() {
         lock (row) {
             return row.exposure_time;

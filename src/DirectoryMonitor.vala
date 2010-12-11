@@ -898,14 +898,8 @@ public class DirectoryMonitor : Object {
         add_monitor(dir, local_dir_info);
         
         // report files in local directory
-        if (file_map != null) {
-            foreach (File file in file_map.keys) {
-                if (in_discovery)
-                    internal_notify_file_discovered(file, file_map.get(file));
-                else
-                    internal_notify_file_created(file, file_map.get(file));
-            }
-        }
+        if (file_map != null)
+            yield notify_directory_files(file_map, in_discovery);
         
         // post all the subdirectory traversals, allowing them to report themselves as discovered
         if (recurse && dir_map != null) {
@@ -918,6 +912,19 @@ public class DirectoryMonitor : Object {
         }
         
         explore_directory_completed(in_discovery);
+    }
+    
+    private async void notify_directory_files(Gee.Map<File, FileInfo> map, bool in_discovery) {
+        Gee.MapIterator<File, FileInfo> iter = map.map_iterator();
+        while (iter.next()) {
+            if (in_discovery)
+                internal_notify_file_discovered(iter.get_key(), iter.get_value());
+            else
+                internal_notify_file_created(iter.get_key(), iter.get_value());
+            
+            Idle.add(notify_directory_files.callback, DEFAULT_PRIORITY);
+            yield;
+        }
     }
     
     // called whenever exploration of a directory is completed, to know when to signal that

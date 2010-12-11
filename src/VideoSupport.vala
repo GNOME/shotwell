@@ -697,6 +697,10 @@ public class Video : VideoSource, Flaggable, Monitorable {
     }
     
     public override uint64 get_filesize() {
+        return get_master_filesize();
+    }
+    
+    public override uint64 get_master_filesize() {
         lock (backing_row) {
             return backing_row.filesize;
         }

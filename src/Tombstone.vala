@@ -156,16 +156,59 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
             // if not found, resurrect
             if (info == null)
                 marker.mark(tombstone);
+            
+            Idle.add(async_scan.callback);
+            yield;
         }
         
         if (marker.get_count() > 0) {
             debug("Resurrecting %d tombstones with no backing file", marker.get_count());
+            DatabaseTable.begin_transaction();
             destroy_marked(marker, false);
+            try {
+                DatabaseTable.commit_transaction();
+            } catch (DatabaseError err2) {
+                AppWindow.database_error(err2);
+            }
         }
     }
 }
 
+public class TombstonedFile {
+    public File file;
+    public int64 filesize;
+    public string? md5;
+    
+    public TombstonedFile(File file, int64 filesize, string? md5) {
+        this.file = file;
+        this.filesize = filesize;
+        this.md5 = md5;
+    }
+}
+
 public class Tombstone : DataSource {
+    // These values are persisted.  Do not change.
+    public enum Reason {
+        REMOVED_BY_USER = 0,
+        AUTO_DETECTED_DUPLICATE = 1;
+        
+        public int serialize() {
+            return (int) this;
+        }
+        
+        public static Reason unserialize(int value) {
+            switch ((Reason) value) {
+                case AUTO_DETECTED_DUPLICATE:
+                    return AUTO_DETECTED_DUPLICATE;
+                
+                // 0 is the default in the database, so it should remain so here
+                case REMOVED_BY_USER:
+                default:
+                    return REMOVED_BY_USER;
+            }
+        }
+    }
+    
     public static TombstoneSourceCollection global = null;
     
     private TombstoneRow row;
@@ -197,25 +240,33 @@ public class Tombstone : DataSource {
     public static void terminate() {
     }
     
-    public static void entomb_many_sources(Gee.Collection<MediaSource> sources) throws DatabaseError {
+    public static void entomb_many_sources(Gee.Collection<MediaSource> sources, Reason reason)
+        throws DatabaseError {
+        Gee.Collection<TombstonedFile> files = new Gee.ArrayList<TombstonedFile>();
+        foreach (MediaSource source in sources) {
+            foreach (BackingFileState state in source.get_backing_files_state())
+                files.add(new TombstonedFile(state.get_file(), state.filesize, state.md5));
+        }
+        
+        entomb_many_files(files, reason);
+    }
+    
+    public static void entomb_many_files(Gee.Collection<TombstonedFile> files, Reason reason)
+        throws DatabaseError {
         // destroy any out-of-date tombstones so they may be updated
         Marker to_destroy = global.start_marking();
-        foreach (MediaSource media in sources) {
-            foreach (BackingFileState state in media.get_backing_files_state()) {
-                Tombstone? tombstone = global.locate(state.get_file(), state.md5);
-                if (tombstone != null)
-                    to_destroy.mark(tombstone);
-            }
+        foreach (TombstonedFile file in files) {
+            Tombstone? tombstone = global.locate(file.file, file.md5);
+            if (tombstone != null)
+                to_destroy.mark(tombstone);
         }
         
         global.destroy_marked(to_destroy, false);
         
         Gee.ArrayList<Tombstone> tombstones = new Gee.ArrayList<Tombstone>();
-        foreach (MediaSource media in sources) {
-            foreach (BackingFileState state in media.get_backing_files_state()) {
-                tombstones.add(new Tombstone(TombstoneTable.get_instance().add(state.filepath,
-                    state.filesize, state.md5)));
-            }
+        foreach (TombstonedFile file in files) {
+            tombstones.add(new Tombstone(TombstoneTable.get_instance().add(file.file.get_path(),
+                file.filesize, file.md5, reason)));
         }
         
         global.add_many(tombstones);
@@ -250,6 +301,10 @@ public class Tombstone : DataSource {
     
     public string? get_md5() {
         return is_string_empty(row.md5) ? null : row.md5;
+    }
+    
+    public Reason get_reason() {
+        return row.reason;
     }
     
     public void move(File file) {

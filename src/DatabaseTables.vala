@@ -21,7 +21,7 @@ public class DatabaseTable {
      * tables are created on demand and tables and columns are easily ignored when already present.
      * However, the change should be noted in upgrade_database() as a comment.
      ***/
-    public const int SCHEMA_VERSION = 11;
+    public const int SCHEMA_VERSION = 12;
     
     protected static Sqlite.Database db;
     
@@ -517,9 +517,22 @@ private DatabaseVerifyResult upgrade_database(int version) {
         if (!DatabaseTable.add_column("EventTable", "primary_source_id", "INTEGER DEFAULT 0"))
             return DatabaseVerifyResult.UPGRADE_ERROR;
     }
-
+    
     version = 11;
-
+    
+    //
+    // Version 12:
+    // * Added reason columnn to TombstoneTable
+    //
+    
+    if (!DatabaseTable.has_column("TombstoneTable", "reason")) {
+        message("upgrade_database: adding reason column to TombstoneTable");
+        if (!DatabaseTable.add_column("TombstoneTable", "reason", "INTEGER DEFAULT 0"))
+            return DatabaseVerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 12;
+    
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     
@@ -2243,7 +2256,8 @@ public struct TombstoneRow {
     public int64 filesize;
     public string? md5;
     public time_t time_created;
-}
+    public Tombstone.Reason reason;
+} 
 
 public class TombstoneTable : DatabaseTable {
     private static TombstoneTable instance = null;
@@ -2259,7 +2273,8 @@ public class TombstoneTable : DatabaseTable {
             + "filepath TEXT NOT NULL, "
             + "filesize INTEGER, "
             + "md5 TEXT, "
-            + "time_created INTEGER "
+            + "time_created INTEGER, "
+            + "reason INTEGER DEFAULT 0 "
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -2275,11 +2290,12 @@ public class TombstoneTable : DatabaseTable {
         return instance;
     }
     
-    public TombstoneRow add(string filepath, int64 filesize, string? md5) throws DatabaseError {
+    public TombstoneRow add(string filepath, int64 filesize, string? md5, Tombstone.Reason reason)
+        throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("INSERT INTO TombstoneTable "
-            + "(filepath, filesize, md5, time_created) "
-            + "VALUES (?, ?, ?, ?)",
+            + "(filepath, filesize, md5, time_created, reason) "
+            + "VALUES (?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -2293,6 +2309,8 @@ public class TombstoneTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(4, (int64) time_created);
         assert(res == Sqlite.OK);
+        res = stmt.bind_int(5, reason.serialize());
+        assert(res == Sqlite.OK);
         
         res = stmt.step();
         if (res != Sqlite.DONE)
@@ -2304,6 +2322,7 @@ public class TombstoneTable : DatabaseTable {
         row.filesize = filesize;
         row.md5 = md5;
         row.time_created = time_created;
+        row.reason = reason;
         
         return row;
     }
@@ -2314,7 +2333,7 @@ public class TombstoneTable : DatabaseTable {
             return null;
         
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT id, filepath, filesize, md5, time_created "
+        int res = db.prepare_v2("SELECT id, filepath, filesize, md5, time_created, reason "
             + "FROM TombstoneTable", -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -2334,6 +2353,7 @@ public class TombstoneTable : DatabaseTable {
             row.filesize = stmt.column_int64(2);
             row.md5 = stmt.column_text(3);
             row.time_created = (time_t) stmt.column_int64(4);
+            row.reason = Tombstone.Reason.unserialize(stmt.column_int(5));
             
             rows[index++] = row;
         }

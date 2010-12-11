@@ -553,15 +553,20 @@ private class AVIChunk {
     }
     
     public void skip(uint64 skip_amount) throws GLib.Error {
-        skip_uint64(input, skip_amount);
         advance_section_offset(skip_amount);
+        skip_uint64(input, skip_amount);
     }
     
     public AVIChunk get_first_child_chunk() {
         return new AVIChunk.with_input_stream(input, this);
     }
     
-    private void advance_section_offset(uint64 amount) {
+    private void advance_section_offset(uint64 amount) throws Error {
+        if ((section_offset + amount) > section_size) {
+            throw new IOError.FAILED("Attempted to advance %d bytes past end of section", 
+                (section_offset + amount) - section_size);
+        }
+        
         section_offset += amount;
         if (null != parent) {
             parent.advance_section_offset(amount);

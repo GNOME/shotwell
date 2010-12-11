@@ -111,6 +111,7 @@ public abstract class MediaSource : ThumbnailSource {
     
     public abstract File get_file();
     public abstract File get_master_file();
+    public abstract uint64 get_master_filesize();
     public abstract uint64 get_filesize();
     public abstract time_t get_timestamp();
     
@@ -627,7 +628,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         
         if (to_tombstone != null && to_tombstone.size > 0) {
             try {
-                Tombstone.entomb_many_sources(to_tombstone);
+                Tombstone.entomb_many_sources(to_tombstone, Tombstone.Reason.REMOVED_BY_USER);
             } catch (DatabaseError err) {
                 AppWindow.database_error(err);
             }
