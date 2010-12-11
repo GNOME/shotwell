@@ -1888,10 +1888,17 @@ public class ViewCollection : DataCollection {
             return;
         }
         
-        // Cannot clear a locked ViewCollection
-        assert(view_lock_count == 0);
+        // Unlock and relock ViewCollection if needed.
+        int original_lock_count = view_lock_count;
+        while (is_view_locked()) {
+            unlock_view();
+        }
         
         base.clear();
+        
+        for (int i = 0; i < original_lock_count; i++) {
+            lock_view();
+        }
     }
     
     public override void close() {

@@ -1031,6 +1031,25 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected virtual bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
         return true;
     }
+    
+    private Gdk.Pixbuf get_zoom_pixbuf(Photo new_photo) {
+        Gdk.Pixbuf? pixbuf = cache.get_ready_pixbuf(new_photo);
+        if (pixbuf == null) {
+            try {
+                pixbuf = new_photo.get_preview_pixbuf(get_canvas_scaling());
+            } catch (Error err) {
+                warning("%s", err.message);
+            }
+        }
+        if (pixbuf == null) {
+            // Create empty pixbuf.
+            pixbuf = AppWindow.get_instance().render_icon(Gtk.STOCK_MISSING_IMAGE, 
+                Gtk.IconSize.DIALOG, null);
+            get_canvas_scaling().perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
+            
+        }
+        return pixbuf;
+    }
 
     protected void replace_photo(ViewCollection new_controller, Photo new_photo) {
         ViewCollection old_controller = this.controller;
@@ -1041,7 +1060,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // just need to reload the image for the proper scaling. Of course, the photo's pixels
         // might've changed, so rebuild the zoom buffer.
         if (new_photo.equals(get_photo()) && !pixbuf_dirty && !photo_missing) {
-            zoom_buffer = new ZoomBuffer(this, new_photo, cache.get_ready_pixbuf(new_photo));
+            zoom_buffer = new ZoomBuffer(this, new_photo, get_zoom_pixbuf(new_photo));
             return;
         }
 
@@ -1075,16 +1094,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cancel_prefetch_neighbors(old_controller, old_photo, new_controller, new_photo);
 
         cancel_zoom();
-
-        Gdk.Pixbuf? zoom_preview_pixbuf = cache.get_ready_pixbuf(new_photo);
-        if (zoom_preview_pixbuf == null) {
-            try {
-                zoom_preview_pixbuf = new_photo.get_preview_pixbuf(get_canvas_scaling());
-            } catch (Error err) {
-                warning("%s", err.message);
-            }
-        }
-        zoom_buffer = new ZoomBuffer(this, new_photo, zoom_preview_pixbuf);
+        
+        zoom_buffer = new ZoomBuffer(this, new_photo, get_zoom_pixbuf(new_photo));
 
         quick_update_pixbuf();
         
