@@ -2055,27 +2055,23 @@ public class ViewCollection : DataCollection {
     }
 
     public override bool add(DataObject object) {
+        ((DataView) object).internal_set_visible(true);
+        
         if (!base.add(object))
             return false;
         
-        DataView view = (DataView) object;
-        Gee.Collection<DataView> views = (Gee.Collection<DataView>) get_singleton(view);
-        
-        view.internal_set_visible(true);
-        add_many_visible(views);
-        filter_altered_items(views);
+        filter_altered_items((Gee.Collection<DataView>) get_singleton(object));
         
         return true;
     }
 
     public override Gee.Collection<DataObject> add_many(Gee.Collection<DataObject> objects, 
         ProgressMonitor? monitor = null) {
-        Gee.Collection<DataObject> return_list = base.add_many(objects, monitor);
-        
-        foreach (DataObject object in return_list)
+        foreach (DataObject object in objects)
             ((DataView) object).internal_set_visible(true);
         
-        add_many_visible((Gee.Collection<DataView>) return_list);
+        Gee.Collection<DataObject> return_list = base.add_many(objects, monitor);
+        
         filter_altered_items((Gee.Collection<DataView>) return_list);
         
         return return_list;
@@ -2204,10 +2200,8 @@ public class ViewCollection : DataCollection {
                 added_selected.add(view);
             }
             
-            if (filter != null)
-                view.internal_set_visible(filter(view));
-            
-            if (view.is_visible()) {
+            // add to visible list only if there is one
+            if (view.is_visible() && visible != null) {
                 if (added_visible == null)
                     added_visible = new Gee.ArrayList<DataView>();
                 
@@ -2701,7 +2695,7 @@ public class ViewCollection : DataCollection {
             // make a copy of the full set before removing items
             visible = get_dataset_copy();
         }
-            
+        
         bool removed = visible.remove_many(to_hide);
         assert(removed);
         

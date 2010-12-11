@@ -540,9 +540,11 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
     
     public override void visibility_changed(bool visible) {
-         // if going from visible to hidden, unbrighten
-         if (!visible)
+        // if going from visible to hidden, unbrighten
+        if (!visible)
             unbrighten();
+        
+        base.visibility_changed(visible);
     }
     
     private bool query_tooltip_on_text(CheckerboardItemText text, Gtk.Tooltip tooltip) {
