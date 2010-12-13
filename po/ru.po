@@ -786,7 +786,7 @@ msgstr "Оригинал: "
 # a list of format specifiers and their meanings.
 #: src/Dialogs.vala:1226
 msgid "%m/%d/%Y, %H:%M:%S"
-msgstr "%m/%d/%Y, %H:%M:%S"
+msgstr "%d %m %Y, %H:%M:%S"
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
 # 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
@@ -796,7 +796,7 @@ msgstr "%m/%d/%Y, %H:%M:%S"
 # a list of format specifiers and their meanings.
 #: src/Dialogs.vala:1227
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%d %m %Y, %H:%M:%S"
 
 #: src/Dialogs.vala:1312
 #, c-format
@@ -2233,7 +2233,7 @@ msgstr ""
 # a list of format specifiers and their meanings.
 #: src/Properties.vala:38
 msgid "%I:%M %p"
-msgstr "%I:%M %p"
+msgstr "%H:%M"
 
 #: src/Properties.vala:50
 msgid "Today"
