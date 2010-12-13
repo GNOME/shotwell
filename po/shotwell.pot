@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.7.2+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2010-12-08 20:00-0800\n"
+"POT-Creation-Date: 2010-12-13 15:24-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,11 +168,11 @@ msgstr ""
 msgid "Unable to display help: %s"
 msgstr ""
 
-#: src/CollectionPage.vala:238 src/PhotoPage.vala:2371
+#: src/CollectionPage.vala:238 src/PhotoPage.vala:2382
 msgid "_Slideshow"
 msgstr ""
 
-#: src/CollectionPage.vala:239 src/PhotoPage.vala:2372
+#: src/CollectionPage.vala:239 src/PhotoPage.vala:2383
 msgid "Play a slideshow"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgid_plural "Export Photos/Videos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/CollectionPage.vala:444 src/Dialogs.vala:15 src/PhotoPage.vala:2857
+#: src/CollectionPage.vala:444 src/Dialogs.vala:15 src/PhotoPage.vala:2868
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] ""
@@ -614,7 +614,7 @@ msgstr[1] ""
 msgid "Only _Remove"
 msgstr ""
 
-#: src/Dialogs.vala:879 src/ImportPage.vala:1249
+#: src/Dialogs.vala:879 src/ImportPage.vala:1259
 msgid "_Keep"
 msgstr ""
 
@@ -695,12 +695,12 @@ msgid "Original: "
 msgstr ""
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1226
+#: src/Dialogs.vala:1223
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr ""
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1227
+#: src/Dialogs.vala:1224
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr ""
 
@@ -821,7 +821,7 @@ msgstr ""
 msgid "Import to Library"
 msgstr ""
 
-#: src/Dimensions.vala:17 src/FlickrConnector.vala:987
+#: src/Dimensions.vala:17 src/FlickrConnector.vala:1021
 msgid "Original size"
 msgstr ""
 
@@ -837,7 +837,7 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: src/DirectoryMonitor.vala:836
+#: src/DirectoryMonitor.vala:844
 #, c-format
 msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr ""
@@ -1033,26 +1033,26 @@ msgid_plural "%d Photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/EventsDirectoryPage.vala:221 src/ImportPage.vala:571
-#: src/ImportPage.vala:1361 src/MediaPage.vala:381 src/OfflinePage.vala:78
-#: src/PhotoPage.vala:2105 src/PhotoPage.vala:3234 src/TrashPage.vala:91
+#: src/EventsDirectoryPage.vala:221 src/ImportPage.vala:581
+#: src/ImportPage.vala:1371 src/MediaPage.vala:381 src/OfflinePage.vala:78
+#: src/PhotoPage.vala:2116 src/PhotoPage.vala:3245 src/TrashPage.vala:91
 msgid "_File"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:225 src/ImportPage.vala:591
-#: src/ImportPage.vala:1371 src/MediaPage.vala:525 src/OfflinePage.vala:92
-#: src/PhotoPage.vala:2143 src/PhotoPage.vala:3352 src/TrashPage.vala:111
+#: src/EventsDirectoryPage.vala:225 src/ImportPage.vala:601
+#: src/ImportPage.vala:1381 src/MediaPage.vala:525 src/OfflinePage.vala:92
+#: src/PhotoPage.vala:2154 src/PhotoPage.vala:3363 src/TrashPage.vala:111
 msgid "_View"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:229 src/ImportPage.vala:595
-#: src/ImportPage.vala:1375 src/MediaPage.vala:537 src/OfflinePage.vala:96
-#: src/PhotoPage.vala:2320 src/PhotoPage.vala:3356 src/TrashPage.vala:115
+#: src/EventsDirectoryPage.vala:229 src/ImportPage.vala:605
+#: src/ImportPage.vala:1385 src/MediaPage.vala:537 src/OfflinePage.vala:96
+#: src/PhotoPage.vala:2331 src/PhotoPage.vala:3367 src/TrashPage.vala:115
 msgid "_Help"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:233 src/ImportPage.vala:587
-#: src/MediaPage.vala:398 src/OfflinePage.vala:82 src/PhotoPage.vala:2127
+#: src/EventsDirectoryPage.vala:233 src/ImportPage.vala:597
+#: src/MediaPage.vala:398 src/OfflinePage.vala:82 src/PhotoPage.vala:2138
 #: src/TrashPage.vala:95
 msgid "_Edit"
 msgstr ""
@@ -1081,7 +1081,7 @@ msgstr ""
 msgid "%B"
 msgstr ""
 
-#: src/Event.vala:638
+#: src/Event.vala:647
 #, c-format
 msgid "Event %s"
 msgstr ""
@@ -1139,62 +1139,62 @@ msgid ""
 "publishing again."
 msgstr ""
 
-#: src/FacebookConnector.vala:284
+#: src/FacebookConnector.vala:292
 msgid "Testing connection to Facebook..."
 msgstr ""
 
-#: src/FacebookConnector.vala:375 src/PicasaConnector.vala:411
+#: src/FacebookConnector.vala:383 src/PicasaConnector.vala:411
 msgid "Creating album..."
 msgstr ""
 
-#: src/FacebookConnector.vala:764
+#: src/FacebookConnector.vala:772
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
 "\n"
 msgstr ""
 
-#: src/FacebookConnector.vala:765
+#: src/FacebookConnector.vala:773
 msgid "Where would you like to publish the selected photos?"
 msgstr ""
 
-#: src/FacebookConnector.vala:814
+#: src/FacebookConnector.vala:822
 msgid "Publish to an e_xisting album:"
 msgstr ""
 
-#: src/FacebookConnector.vala:817
+#: src/FacebookConnector.vala:825
 msgid "Create a _new album named:"
 msgstr ""
 
-#: src/FacebookConnector.vala:833
+#: src/FacebookConnector.vala:841
 msgid "Videos and new photo albums _visible to:"
 msgstr ""
 
-#: src/FacebookConnector.vala:848 src/FlickrConnector.vala:922
+#: src/FacebookConnector.vala:856 src/FlickrConnector.vala:954
 #: src/PicasaConnector.vala:827 src/PiwigoConnector.vala:837
 #: src/YouTubeConnector.vala:644
 msgid "_Publish"
 msgstr ""
 
-#: src/FacebookConnector.vala:850 src/FlickrConnector.vala:918
+#: src/FacebookConnector.vala:858 src/FlickrConnector.vala:950
 #: src/PicasaConnector.vala:817 src/PiwigoConnector.vala:827
 #: src/YouTubeConnector.vala:634
 msgid "_Logout"
 msgstr ""
 
-#: src/FacebookConnector.vala:940 src/FlickrConnector.vala:962
+#: src/FacebookConnector.vala:948 src/FlickrConnector.vala:994
 msgid "Just me"
 msgstr ""
 
-#: src/FacebookConnector.vala:941
+#: src/FacebookConnector.vala:949
 msgid "All friends"
 msgstr ""
 
-#: src/FacebookConnector.vala:942
+#: src/FacebookConnector.vala:950
 msgid "Friends of friends"
 msgstr ""
 
-#: src/FacebookConnector.vala:943 src/FlickrConnector.vala:960
+#: src/FacebookConnector.vala:951 src/FlickrConnector.vala:992
 #: src/PiwigoConnector.vala:902
 msgid "Everyone"
 msgstr ""
@@ -1223,50 +1223,58 @@ msgstr ""
 msgid "Preparing to login..."
 msgstr ""
 
-#: src/FlickrConnector.vala:849
+#: src/FlickrConnector.vala:881
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
 "\n"
 msgstr ""
 
-#: src/FlickrConnector.vala:851
+#: src/FlickrConnector.vala:883
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
 
-#: src/FlickrConnector.vala:853
+#: src/FlickrConnector.vala:885
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
 
-#: src/FlickrConnector.vala:878
+#: src/FlickrConnector.vala:910
 msgid "Photos _visible to:"
 msgstr ""
 
-#: src/FlickrConnector.vala:880
+#: src/FlickrConnector.vala:912
 msgid "Videos _visible to:"
 msgstr ""
 
-#: src/FlickrConnector.vala:882
+#: src/FlickrConnector.vala:914
 msgid "Photos and videos _visible to:"
 msgstr ""
 
-#: src/FlickrConnector.vala:885
+#: src/FlickrConnector.vala:917
 msgid "Photo _size:"
 msgstr ""
 
-#: src/FlickrConnector.vala:961
+#: src/FlickrConnector.vala:993
 msgid "Friends & family only"
 msgstr ""
 
-#: src/FlickrConnector.vala:985
-msgid "Medium (500 x 375 pixels)"
+#: src/FlickrConnector.vala:1017
+msgid "500 x 375 pixels"
 msgstr ""
 
-#: src/FlickrConnector.vala:986
-msgid "Large (1024 x 768 pixels)"
+#: src/FlickrConnector.vala:1018
+msgid "1024 x 768 pixels"
+msgstr ""
+
+#: src/FlickrConnector.vala:1019
+msgid "2048 x 1536 pixels"
+msgstr ""
+
+#: src/FlickrConnector.vala:1020
+msgid "4096 x 3072 pixels"
 msgstr ""
 
 #: src/FSpotDatabaseDriver.vala:197
@@ -1285,146 +1293,146 @@ msgstr ""
 msgid "F-Spot"
 msgstr ""
 
-#: src/ImportPage.vala:306
+#: src/ImportPage.vala:316
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
 
-#: src/ImportPage.vala:427 src/ImportPage.vala:440
+#: src/ImportPage.vala:437 src/ImportPage.vala:450
 msgid "Camera"
 msgstr ""
 
-#: src/ImportPage.vala:482
+#: src/ImportPage.vala:492
 msgid "Hide photos already imported"
 msgstr ""
 
-#: src/ImportPage.vala:483
+#: src/ImportPage.vala:493
 msgid "Only display photos that have not been imported"
 msgstr ""
 
-#: src/ImportPage.vala:560 src/MediaPage.vala:554
+#: src/ImportPage.vala:570 src/MediaPage.vala:554
 msgid "_Titles"
 msgstr ""
 
-#: src/ImportPage.vala:561 src/MediaPage.vala:555
+#: src/ImportPage.vala:571 src/MediaPage.vala:555
 msgid "Display the title of each photo"
 msgstr ""
 
-#: src/ImportPage.vala:576
+#: src/ImportPage.vala:586
 msgid "Import _Selected"
 msgstr ""
 
-#: src/ImportPage.vala:577
+#: src/ImportPage.vala:587
 msgid "Import the selected photos into your library"
 msgstr ""
 
-#: src/ImportPage.vala:582
+#: src/ImportPage.vala:592
 msgid "Import _All"
 msgstr ""
 
-#: src/ImportPage.vala:583
+#: src/ImportPage.vala:593
 msgid "Import all the photos into your library"
 msgstr ""
 
-#: src/ImportPage.vala:711
+#: src/ImportPage.vala:721
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
 msgstr ""
 
-#: src/ImportPage.vala:717
+#: src/ImportPage.vala:727
 msgid "_Unmount"
 msgstr ""
 
-#: src/ImportPage.vala:722
+#: src/ImportPage.vala:732
 msgid "Please unmount the camera."
 msgstr ""
 
-#: src/ImportPage.vala:727
+#: src/ImportPage.vala:737
 msgid ""
 "The camera is locked by another application.  Shotwell can only access the "
 "camera when it's unlocked.  Please close any other application using the "
 "camera and try again."
 msgstr ""
 
-#: src/ImportPage.vala:737
+#: src/ImportPage.vala:747
 msgid "Please close any other application using the camera."
 msgstr ""
 
-#: src/ImportPage.vala:742
+#: src/ImportPage.vala:752
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
 
-#: src/ImportPage.vala:759
+#: src/ImportPage.vala:769
 msgid "Unmounting..."
 msgstr ""
 
-#: src/ImportPage.vala:828
+#: src/ImportPage.vala:838
 msgid "Fetching photo information"
 msgstr ""
 
-#: src/ImportPage.vala:1063
+#: src/ImportPage.vala:1073
 #, c-format
 msgid "Fetching preview for %s"
 msgstr ""
 
-#: src/ImportPage.vala:1161
+#: src/ImportPage.vala:1171
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr ""
 
-#: src/ImportPage.vala:1235
+#: src/ImportPage.vala:1245
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ImportPage.vala:1238
+#: src/ImportPage.vala:1248
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ImportPage.vala:1241
+#: src/ImportPage.vala:1251
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ImportPage.vala:1268
+#: src/ImportPage.vala:1278
 msgid "Removing photos/videos from camera"
 msgstr ""
 
-#: src/ImportPage.vala:1272
+#: src/ImportPage.vala:1282
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/ImportPage.vala:1317
+#: src/ImportPage.vala:1327
 msgid "Importing..."
 msgstr ""
 
-#: src/ImportPage.vala:1366
+#: src/ImportPage.vala:1376
 msgid "_Stop Import"
 msgstr ""
 
-#: src/ImportPage.vala:1367
+#: src/ImportPage.vala:1377
 msgid "Stop importing photos"
 msgstr ""
 
-#: src/ImportPage.vala:1431
+#: src/ImportPage.vala:1441
 msgid "Preparing to import..."
 msgstr ""
 
-#: src/ImportPage.vala:1454
+#: src/ImportPage.vala:1464
 #, c-format
 msgid "Imported %s"
 msgstr ""
@@ -1457,124 +1465,124 @@ msgstr ""
 msgid "Last Import"
 msgstr ""
 
-#: src/LibraryWindow.vala:312
+#: src/LibraryWindow.vala:315
 msgid "_Import From Folder..."
 msgstr ""
 
-#: src/LibraryWindow.vala:313
+#: src/LibraryWindow.vala:316
 msgid "Import photos from disk to library"
 msgstr ""
 
-#: src/LibraryWindow.vala:324
+#: src/LibraryWindow.vala:327
 msgid "Sort _Events"
 msgstr ""
 
-#: src/LibraryWindow.vala:335
+#: src/LibraryWindow.vala:338
 msgid "Empty T_rash"
 msgstr ""
 
-#: src/LibraryWindow.vala:336
+#: src/LibraryWindow.vala:339
 msgid "Delete all photos in the trash"
 msgstr ""
 
-#: src/LibraryWindow.vala:341
+#: src/LibraryWindow.vala:344
 msgid "View Eve_nt for Photo"
 msgstr ""
 
-#: src/LibraryWindow.vala:342
+#: src/LibraryWindow.vala:345
 msgid "Go to this photo's event"
 msgstr ""
 
-#: src/LibraryWindow.vala:353
+#: src/LibraryWindow.vala:356
 msgid "_Basic Information"
 msgstr ""
 
-#: src/LibraryWindow.vala:354
+#: src/LibraryWindow.vala:357
 msgid "Display basic information for the selection"
 msgstr ""
 
-#: src/LibraryWindow.vala:359
+#: src/LibraryWindow.vala:362
 msgid "E_xtended Information"
 msgstr ""
 
-#: src/LibraryWindow.vala:360
+#: src/LibraryWindow.vala:363
 msgid "Display extended information for the selection"
 msgstr ""
 
-#: src/LibraryWindow.vala:372 src/MediaPage.vala:604
+#: src/LibraryWindow.vala:375 src/MediaPage.vala:604
 msgid "_Ascending"
 msgstr ""
 
-#: src/LibraryWindow.vala:373 src/MediaPage.vala:605
+#: src/LibraryWindow.vala:376 src/MediaPage.vala:605
 msgid "Sort photos in an ascending order"
 msgstr ""
 
-#: src/LibraryWindow.vala:379 src/MediaPage.vala:610
+#: src/LibraryWindow.vala:382 src/MediaPage.vala:610
 msgid "D_escending"
 msgstr ""
 
-#: src/LibraryWindow.vala:380 src/MediaPage.vala:611
+#: src/LibraryWindow.vala:383 src/MediaPage.vala:611
 msgid "Sort photos in a descending order"
 msgstr ""
 
-#: src/LibraryWindow.vala:526
+#: src/LibraryWindow.vala:529
 msgid "Import From Folder"
 msgstr ""
 
-#: src/LibraryWindow.vala:572
+#: src/LibraryWindow.vala:575
 msgid "Empty Trash"
 msgstr ""
 
-#: src/LibraryWindow.vala:572
+#: src/LibraryWindow.vala:575
 msgid "Emptying Trash..."
 msgstr ""
 
-#: src/LibraryWindow.vala:758
+#: src/LibraryWindow.vala:761
 msgid "Shotwell is configured to import photos to your home directory.\n"
 msgstr ""
 
-#: src/LibraryWindow.vala:761
+#: src/LibraryWindow.vala:764
 msgid "_Import"
 msgstr ""
 
-#: src/LibraryWindow.vala:761
+#: src/LibraryWindow.vala:764
 msgid "Library Location"
 msgstr ""
 
-#: src/LibraryWindow.vala:774
+#: src/LibraryWindow.vala:777
 msgid "Photos cannot be imported from this directory."
 msgstr ""
 
-#: src/LibraryWindow.vala:1167
+#: src/LibraryWindow.vala:1170
 msgid "Tags"
 msgstr ""
 
-#: src/LibraryWindow.vala:1298
+#: src/LibraryWindow.vala:1301
 msgid "Cameras"
 msgstr ""
 
-#: src/LibraryWindow.vala:1542
+#: src/LibraryWindow.vala:1545
 #, c-format
 msgid "%s (%d%%)"
 msgstr ""
 
-#: src/LibraryWindow.vala:1570
+#: src/LibraryWindow.vala:1573 src/LibraryWindow.vala:1577
 msgid "Updating library..."
 msgstr ""
 
-#: src/LibraryWindow.vala:1575
+#: src/LibraryWindow.vala:1582
 msgid "Preparing to auto-import photos..."
 msgstr ""
 
-#: src/LibraryWindow.vala:1580
+#: src/LibraryWindow.vala:1587
 msgid "Auto-importing photos..."
 msgstr ""
 
-#: src/LibraryWindow.vala:1585
+#: src/LibraryWindow.vala:1592
 msgid "Writing metadata to files..."
 msgstr ""
 
-#: src/LibraryWindow.vala:1590
+#: src/LibraryWindow.vala:1597
 msgid "Processing RAW files..."
 msgstr ""
 
@@ -1612,11 +1620,11 @@ msgstr ""
 msgid "Loading Shotwell"
 msgstr ""
 
-#: src/main.vala:296
+#: src/main.vala:301
 msgid "[FILE]"
 msgstr ""
 
-#: src/main.vala:299
+#: src/main.vala:304
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
@@ -1633,11 +1641,11 @@ msgstr ""
 msgid "_Photos"
 msgstr ""
 
-#: src/MediaPage.vala:422 src/MediaPage.vala:566 src/PhotoPage.vala:2354
+#: src/MediaPage.vala:422 src/MediaPage.vala:566 src/PhotoPage.vala:2365
 msgid "Ta_gs"
 msgstr ""
 
-#: src/MediaPage.vala:445 src/PhotoPage.vala:2325 src/PhotoPage.vala:3361
+#: src/MediaPage.vala:445 src/PhotoPage.vala:2336 src/PhotoPage.vala:3372
 msgid "Zoom _In"
 msgstr ""
 
@@ -1645,7 +1653,7 @@ msgstr ""
 msgid "Increase the magnification of the thumbnails"
 msgstr ""
 
-#: src/MediaPage.vala:451 src/PhotoPage.vala:2331 src/PhotoPage.vala:3367
+#: src/MediaPage.vala:451 src/PhotoPage.vala:2342 src/PhotoPage.vala:3378
 msgid "Zoom _Out"
 msgstr ""
 
@@ -1720,146 +1728,146 @@ msgstr ""
 msgid "Next photo"
 msgstr ""
 
-#: src/PhotoPage.vala:1678
+#: src/PhotoPage.vala:1689
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr ""
 
-#: src/PhotoPage.vala:2147 src/PhotoPage.vala:3266
+#: src/PhotoPage.vala:2158 src/PhotoPage.vala:3277
 msgid "_Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:2151 src/PhotoPage.vala:3270
+#: src/PhotoPage.vala:2162 src/PhotoPage.vala:3281
 msgid "_Tools"
 msgstr ""
 
-#: src/PhotoPage.vala:2156 src/PhotoPage.vala:3275
+#: src/PhotoPage.vala:2167 src/PhotoPage.vala:3286
 msgid "_Previous Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:2157 src/PhotoPage.vala:3276
+#: src/PhotoPage.vala:2168 src/PhotoPage.vala:3287
 msgid "Previous Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:2162 src/PhotoPage.vala:3281
+#: src/PhotoPage.vala:2173 src/PhotoPage.vala:3292
 msgid "_Next Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:2163 src/PhotoPage.vala:3282
+#: src/PhotoPage.vala:2174 src/PhotoPage.vala:3293
 msgid "Next Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:2326 src/PhotoPage.vala:3362
+#: src/PhotoPage.vala:2337 src/PhotoPage.vala:3373
 msgid "Increase the magnification of the photo"
 msgstr ""
 
-#: src/PhotoPage.vala:2332 src/PhotoPage.vala:3368
+#: src/PhotoPage.vala:2343 src/PhotoPage.vala:3379
 msgid "Decrease the magnification of the photo"
 msgstr ""
 
-#: src/PhotoPage.vala:2337 src/PhotoPage.vala:3373
+#: src/PhotoPage.vala:2348 src/PhotoPage.vala:3384
 msgid "Fit to _Page"
 msgstr ""
 
-#: src/PhotoPage.vala:2338 src/PhotoPage.vala:3374
+#: src/PhotoPage.vala:2349 src/PhotoPage.vala:3385
 msgid "Zoom the photo to fit on the screen"
 msgstr ""
 
-#: src/PhotoPage.vala:2343 src/PhotoPage.vala:3379
+#: src/PhotoPage.vala:2354 src/PhotoPage.vala:3390
 #, no-c-format
 msgid "Zoom _100%"
 msgstr ""
 
-#: src/PhotoPage.vala:2344 src/PhotoPage.vala:3380
+#: src/PhotoPage.vala:2355 src/PhotoPage.vala:3391
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr ""
 
-#: src/PhotoPage.vala:2349 src/PhotoPage.vala:3385
+#: src/PhotoPage.vala:2360 src/PhotoPage.vala:3396
 #, no-c-format
 msgid "Zoom _200%"
 msgstr ""
 
-#: src/PhotoPage.vala:2350 src/PhotoPage.vala:3386
+#: src/PhotoPage.vala:2361 src/PhotoPage.vala:3397
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr ""
 
-#: src/PhotoPage.vala:2755 src/util.vala:504
+#: src/PhotoPage.vala:2766 src/util.vala:504
 msgid "Remove From Library"
 msgstr ""
 
-#: src/PhotoPage.vala:2755 src/util.vala:505
+#: src/PhotoPage.vala:2766 src/util.vala:505
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/PhotoPage.vala:2877
+#: src/PhotoPage.vala:2888
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr ""
 
-#: src/PhotoPage.vala:3239 src/PhotoPage.vala:3561
+#: src/PhotoPage.vala:3250 src/PhotoPage.vala:3572
 msgid "_Save"
 msgstr ""
 
-#: src/PhotoPage.vala:3240
+#: src/PhotoPage.vala:3251
 msgid "Save photo"
 msgstr ""
 
-#: src/PhotoPage.vala:3245
+#: src/PhotoPage.vala:3256
 msgid "Save _As..."
 msgstr ""
 
-#: src/PhotoPage.vala:3246
+#: src/PhotoPage.vala:3257
 msgid "Save photo with a different name"
 msgstr ""
 
-#: src/PhotoPage.vala:3258 src/Resources.vala:233
+#: src/PhotoPage.vala:3269 src/Resources.vala:233
 msgid "Print the photo to a printer connected to your computer"
 msgstr ""
 
-#: src/PhotoPage.vala:3262
+#: src/PhotoPage.vala:3273
 msgid "Edit"
 msgstr ""
 
-#: src/PhotoPage.vala:3410
+#: src/PhotoPage.vala:3421
 #, c-format
 msgid "%s does not exist."
 msgstr ""
 
-#: src/PhotoPage.vala:3412
+#: src/PhotoPage.vala:3423
 #, c-format
 msgid "%s is not a file."
 msgstr ""
 
-#: src/PhotoPage.vala:3414
+#: src/PhotoPage.vala:3425
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
 "%s."
 msgstr ""
 
-#: src/PhotoPage.vala:3561
+#: src/PhotoPage.vala:3572
 msgid "_Save a Copy"
 msgstr ""
 
-#: src/PhotoPage.vala:3564
+#: src/PhotoPage.vala:3575
 #, c-format
 msgid "Lose changes to %s?"
 msgstr ""
 
-#: src/PhotoPage.vala:3565
+#: src/PhotoPage.vala:3576
 msgid "Close _without Saving"
 msgstr ""
 
-#: src/PhotoPage.vala:3596
+#: src/PhotoPage.vala:3607
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr ""
 
-#: src/PhotoPage.vala:3632 src/PhotoPage.vala:3653
+#: src/PhotoPage.vala:3643 src/PhotoPage.vala:3664
 msgid "Save As"
 msgstr ""
 
@@ -1916,7 +1924,7 @@ msgstr ""
 msgid "Imported failed (%d)"
 msgstr ""
 
-#: src/Photo.vala:2810
+#: src/Photo.vala:2787
 msgid "modified"
 msgstr ""
 
