@@ -1014,8 +1014,10 @@ private class PublishingOptionsPane : PublishingDialogPane {
     private SizeEntry[] create_sizes() {
         SizeEntry[] result = new SizeEntry[0];
 
-        result += SizeEntry(_("Medium (500 x 375 pixels)"), 500);
-        result += SizeEntry(_("Large (1024 x 768 pixels)"), 1024);
+        result += SizeEntry(_("500 x 375 pixels"), 500);
+        result += SizeEntry(_("1024 x 768 pixels"), 1024);
+        result += SizeEntry(_("2048 x 1536 pixels"), 2048);
+        result += SizeEntry(_("4096 x 3072 pixels"), 4096);
         result += SizeEntry(_("Original size"), ORIGINAL_SIZE);
 
         return result;
