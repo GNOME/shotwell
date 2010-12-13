@@ -298,6 +298,19 @@ public class DatabaseTable {
         return true;
     }
     
+    // This method will only add the column if a table exists (relying on the table object
+    // to build a new one when first referenced) and only if the column does not exist.  In essence,
+    // it's a cleaner way to run has_table(), has_column(), and add_column().
+    public static bool ensure_column(string table_name, string column_name, string column_constraints,
+        string upgrade_msg) {
+        if (!has_table(table_name) || has_column(table_name, column_name))
+            return true;
+        
+        message("%s", upgrade_msg);
+        
+        return add_column(table_name, column_name, column_constraints);
+    }
+    
     public int get_row_count() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT COUNT(id) AS RowCount FROM %s".printf(table_name), -1, out stmt);
@@ -522,13 +535,12 @@ private DatabaseVerifyResult upgrade_database(int version) {
     
     //
     // Version 12:
-    // * Added reason columnn to TombstoneTable
+    // * Added reason column to TombstoneTable
     //
     
-    if (!DatabaseTable.has_column("TombstoneTable", "reason")) {
-        message("upgrade_database: adding reason column to TombstoneTable");
-        if (!DatabaseTable.add_column("TombstoneTable", "reason", "INTEGER DEFAULT 0"))
-            return DatabaseVerifyResult.UPGRADE_ERROR;
+    if (!DatabaseTable.ensure_column("TombstoneTable", "reason", "INTEGER DEFAULT 0",
+        "upgrade_database: adding reason column to TombstoneTable")) {
+        return DatabaseVerifyResult.UPGRADE_ERROR;
     }
     
     version = 12;
