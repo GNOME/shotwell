@@ -891,24 +891,30 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         int x = (int) xd;
         int y = (int) yd;
         
-        // look for the row in the range of the pixel
+        // binary search the rows for the one in range of the pixel
         LayoutRow in_range = null;
-        foreach (LayoutRow row in item_rows) {
-            // this happens when there is an exact number of elements to fill the last row
-            if (row == null)
-                continue;
+        int min = 0;
+        int max = item_rows.length;
+        for(;;) {
+            int mid = min + ((max - min) / 2);
+            LayoutRow row = item_rows[mid];
             
-            if (y < row.y) {
-                // overshot ... this happens because there's gaps in the rows
-                break;
-            }
-
-            // if inside height range, this is it
-            if (y <= (row.y + row.height)) {
+            if (row == null || y < row.y) {
+                // undershot
+                // row == null happens when there is an exact number of elements to fill the last row
+                max = mid - 1;
+            } else if (y > (row.y + row.height)) {
+                // undershot
+                min = mid + 1;
+            } else {
+                // bingo
                 in_range = row;
                 
                 break;
             }
+            
+            if (min > max)
+                break;
         }
         
         if (in_range == null)

@@ -150,36 +150,55 @@ public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
         return list.get(index);
     }
     
+    private int binary_search(G search, EqualFunc? equal_func) {
+        assert(cmp != null);
+        
+        int min = 0;
+        int max = list.size;
+        for (;;) {
+            int mid = min + ((max - min) / 2);
+            G item = list.get(mid);
+            
+            if (equal_func != null && equal_func(item, search))
+                return mid;
+            
+            int64 compare = cmp(item, search);
+            if (compare == 0)
+                return mid;
+            else if (compare > 0)
+                max =  mid - 1;
+            else
+                min = mid + 1;
+            
+            if (min > max)
+                break;
+        }
+        
+        return -1;
+    }
+    
     // index_of uses the Comparator to find the item being searched for.  Because SortedList allows
     // for items identified as equal by the Comparator to co-exist in the list, this method will
     // return the first item found where its compare() method returns zero.  Use locate() if a
     // specific EqualFunc is required for searching.
     public int index_of(G search) {
         // with no comparator, can only do a direct_equal search
-        if (cmp == null)
-            return locate(search);
-        
-        // because the internal ArrayList has no equal_func (and can't easily provide one without
-        // asking the user for a separate static comparator), search manually here
-        // TODO: Use a binary search.
-        int count = list.size;
-        for (int ctr = 0; ctr < count; ctr++) {
-            if (cmp(list.get(ctr), search) == 0)
-                return ctr;
-        }
-        
-        return -1;
+        return cmp != null ? binary_search(search, null) : locate(search);
     }
     
     // See notes at index_of for the difference between this method and it.
     public int locate(G search, EqualFunc equal_func = direct_equal) {
-        int count = list.size;
-        for (int ctr = 0; ctr < count; ctr++) {
-            if (equal_func(list.get(ctr), search))
-                return ctr;
+        if (cmp == null) {
+            int count = list.size;
+            for (int ctr = 0; ctr < count; ctr++) {
+                if (equal_func(list.get(ctr), search))
+                    return ctr;
+            }
+            
+            return -1;
         }
         
-        return -1;
+        return binary_search(search, equal_func);
     }
     
     public Gee.Collection<G> read_only_view {
