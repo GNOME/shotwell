@@ -294,7 +294,6 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         new Gee.TreeMultiMap<ImportID?, MediaSource>(ImportID.compare_func);
     private Gee.TreeSet<ImportID?> sorted_import_ids = new Gee.TreeSet<ImportID?>(ImportID.compare_func);
     private Gee.Set<MediaSource> flagged = new Gee.HashSet<MediaSource>();
-    private Gee.Map<string, MediaSource> by_master_md5 = new Gee.HashMap<string, MediaSource>();
     
     public virtual signal void master_file_replaced(MediaSource media, File old_file, File new_file) {
     }
@@ -418,21 +417,6 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                 else
                     flagged_altered = flagged.remove(source) || flagged_altered;
             }
-            
-            if (alteration.has_detail("metadata", "md5")) {
-                Gee.MapIterator<string, MediaSource> iter = by_master_md5.map_iterator();
-                while (iter.next()) {
-                    if (iter.get_value() == source) {
-                        iter.unset();
-                        
-                        break;
-                    }
-                }
-                
-                string md5 = source.get_master_md5();
-                if (!is_string_empty(md5))
-                    by_master_md5.set(md5, source);
-            }
         }
         
         if (to_trashcan != null)
@@ -473,8 +457,6 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                     else
                         flagged_altered = flagged.remove(media) || flagged_altered;
                 }
-                
-                by_master_md5.set(media.get_master_md5(), media);
             }
         }
         
@@ -497,9 +479,6 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                 }
                 
                 flagged_altered = flagged.remove(media) || flagged_altered;
-                
-                is_removed = by_master_md5.unset(media.get_master_md5());
-                assert(is_removed);
             }
         }
         
@@ -550,10 +529,6 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     
     public Gee.Collection<MediaSource> get_flagged() {
         return flagged.read_only_view;
-    }
-    
-    public MediaSource? get_source_by_master_md5(string md5) {
-        return by_master_md5.get(md5);
     }
     
     // The returned set of ImportID's is sorted from oldest to newest.
