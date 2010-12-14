@@ -2449,7 +2449,7 @@ public class LibraryPhotoPage : EditingHostPage {
             update_rating_menu_item_sensitivity();
         
         set_action_sensitive("SetBackground", has_photo());
-
+        
         set_action_sensitive("PrevPhoto", multiple);
         set_action_sensitive("NextPhoto", multiple);
         set_action_sensitive("RotateClockwise", rotate_possible);
@@ -2457,6 +2457,21 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("FlipHorizontally", rotate_possible);
         set_action_sensitive("FlipVertically", rotate_possible);
         
+        update_flag_action();
+        
+        set_action_visible("ExternalEditRAW", 
+            is_raw && Config.get_instance().get_external_raw_app() != "");
+        
+        base.update_actions(selected_count, count);
+    }
+    
+    private void on_photos_altered() {
+        set_action_sensitive("Revert", has_photo() ?
+            (get_photo().has_transformations() || get_photo().has_editable()) : false);
+        update_flag_action();
+    }
+    
+    private void update_flag_action() {
         if (has_photo()) {
             Gtk.Action? action = get_action("Flag");
             assert(action != null);
@@ -2469,16 +2484,6 @@ public class LibraryPhotoPage : EditingHostPage {
         } else {
             set_action_sensitive("Flag", false);
         }
-        
-        set_action_visible("ExternalEditRAW", 
-            is_raw && Config.get_instance().get_external_raw_app() != "");
-        
-        base.update_actions(selected_count, count);
-    }
-    
-    private void on_photos_altered() {
-        set_action_sensitive("Revert", has_photo() ?
-            (get_photo().has_transformations() || get_photo().has_editable()) : false);
     }
     
     public void display_for_collection(CollectionPage return_page, Photo photo) {
