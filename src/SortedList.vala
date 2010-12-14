@@ -181,14 +181,16 @@ public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
     // for items identified as equal by the Comparator to co-exist in the list, this method will
     // return the first item found where its compare() method returns zero.  Use locate() if a
     // specific EqualFunc is required for searching.
+    //
+    // Also, index_of() cannot be reliably used to find an item if it has been altered in such a
+    // way that it is no longer sorted properly.  Use locate() for that.
     public int index_of(G search) {
-        // with no comparator, can only do a direct_equal search
-        return cmp != null ? binary_search(search, null) : locate(search);
+        return cmp != null ? binary_search(search, null) : locate(search, false);
     }
     
     // See notes at index_of for the difference between this method and it.
-    public int locate(G search, EqualFunc equal_func = direct_equal) {
-        if (cmp == null) {
+    public int locate(G search, bool altered, EqualFunc equal_func = direct_equal) {
+        if (cmp == null || altered) {
             int count = list.size;
             for (int ctr = 0; ctr < count; ctr++) {
                 if (equal_func(list.get(ctr), search))
@@ -227,7 +229,7 @@ public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
     
     // Returns true if item has moved.
     public bool resort_item(G item) {
-        int index = locate(item);
+        int index = locate(item, true);
         assert(index >= 0);
         
         int new_index = get_sorted_insert_pos(item);

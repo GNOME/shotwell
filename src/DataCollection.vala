@@ -97,7 +97,7 @@ public class DataSet {
     }
     
     public int index_of(DataObject object) {
-        return list.locate(object);
+        return list.locate(object, false);
     }
     
     // DataObject's ordinal should be set before adding.
