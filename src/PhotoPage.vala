@@ -2026,17 +2026,31 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!has_photo())
             return;
         
+        Photo? current_photo = get_photo();
+        assert(current_photo != null);
+        
         DataView current = controller.get_view_for_source(get_photo());
         if (current == null)
             return;
         
-        DataView? next = controller.get_next(current);
-        if (next == null)
-            return;
-
-        Photo next_photo = next.get_source() as Photo;
-        if (next_photo != null)
+        // search through the collection until the next photo is found or back at the starting point
+        DataView? next = current;
+        for (;;) {
+            next = controller.get_next(next);
+            if (next == null)
+                break;
+            
+            Photo? next_photo = next.get_source() as Photo;
+            if (next_photo == null)
+                continue;
+            
+            if (next_photo == current_photo)
+                break;
+            
             replace_photo(controller, next_photo);
+            
+            break;
+        }
     }
     
     public void on_previous_photo() {
@@ -2045,17 +2059,31 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!has_photo())
             return;
         
+        Photo? current_photo = get_photo();
+        assert(current_photo != null);
+        
         DataView current = controller.get_view_for_source(get_photo());
         if (current == null)
             return;
         
-        DataView? previous = controller.get_previous(current);
-        if (previous == null)
-            return;
-        
-        Photo previous_photo = previous.get_source() as Photo;
-        if (previous_photo != null)
+        // loop until a previous photo is found or back at the starting point
+        DataView? previous = current;
+        for (;;) {
+            previous = controller.get_previous(previous);
+            if (previous == null)
+                break;
+            
+            Photo? previous_photo = previous.get_source() as Photo;
+            if (previous_photo == null)
+                continue;
+            
+            if (previous_photo == current_photo)
+                break;
+            
             replace_photo(controller, previous_photo);
+            
+            break;
+        }
     }
 
     public bool has_current_tool() {
