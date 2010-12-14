@@ -528,7 +528,7 @@ public class EditTitleCommand : SingleDataSourceCommand {
     }
 }
 
-public class RenameEventCommand : SingleDataSourceCommand {
+public class RenameEventCommand : SimpleProxyableCommand {
     private string new_name;
     private string? old_name;
     
@@ -539,11 +539,11 @@ public class RenameEventCommand : SingleDataSourceCommand {
         old_name = event.get_raw_name();
     }
     
-    public override void execute() {
+    public override void execute_on_source(DataSource source) {
         ((Event) source).rename(new_name);
     }
     
-    public override void undo() {
+    public override void undo_on_source(DataSource source) {
         ((Event) source).rename(old_name);
     }
 }
