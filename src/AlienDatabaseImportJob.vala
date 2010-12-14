@@ -166,13 +166,16 @@ public class AlienDatabaseImportJob : BatchImportJob {
         // tags
         Gee.Collection<AlienDatabaseTag> src_tags = src_photo.get_tags();
         foreach (AlienDatabaseTag src_tag in src_tags) {
-            Tag tag = Tag.for_name(src_tag.get_name());
-            tag.establish_link(photo);
+            string? prepped = prepare_input_text(src_tag.get_name());
+            if (prepped != null)
+                Tag.for_name(prepped).attach(photo);
         }
         // event
         AlienDatabaseEvent? src_event = src_photo.get_event();
         if (src_event != null) {
-            Event.generate_single_event(photo, generated_events, src_event.get_name());
+            string? prepped = prepare_input_text(src_event.get_name());
+            if (prepped != null)
+                Event.generate_single_event(photo, generated_events, prepped);
         }
         // rating
         photo.set_rating(src_photo.get_rating());
