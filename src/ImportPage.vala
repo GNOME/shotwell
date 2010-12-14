@@ -400,7 +400,14 @@ public class ImportPage : CheckerboardPage {
                 return false;
             }
             
-            GPhoto.save_image(context.context, camera, fulldir, filename, dest_file);
+            // always blacklist the copied images from the LibraryMonitor, otherwise it'll think
+            // they should be auto-imported
+            LibraryMonitor.blacklist_file(dest_file);
+            try {
+                GPhoto.save_image(context.context, camera, fulldir, filename, dest_file);
+            } finally {
+                LibraryMonitor.unblacklist_file(dest_file);
+            }
             
             file_to_import = dest_file;
             copy_to_library = false;

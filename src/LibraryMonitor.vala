@@ -484,7 +484,7 @@ public class LibraryMonitor : DirectoryMonitor {
     }
     
     private void enqueue_import(File file) {
-        if (!pending_imports.contains(file) && is_supported_filetype(file))
+        if (!pending_imports.contains(file) && is_supported_filetype(file) && !is_blacklisted(file))
             import_queue.add(file);
     }
     
@@ -521,6 +521,9 @@ public class LibraryMonitor : DirectoryMonitor {
         
         Gee.ArrayList<BatchImportJob> jobs = new Gee.ArrayList<BatchImportJob>();
         foreach (File file in import_queue) {
+            if (is_blacklisted(file))
+                continue;
+            
             jobs.add(new FileImportJob(file, false));
             pending_imports.add(file);
         }
