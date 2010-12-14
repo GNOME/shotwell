@@ -981,7 +981,7 @@ private abstract class BackgroundImportJob : BackgroundJob {
         if (result.is_abort())
             abort(result);
         else
-            debug("Import failure %s: %s", src_identifier, result.to_string());
+            warning("Import failure %s: %s", src_identifier, result.to_string());
         
         failed.add(new BatchImportResult(job, file, src_identifier, dest_identifier, result));
     }
@@ -990,7 +990,7 @@ private abstract class BackgroundImportJob : BackgroundJob {
         string dest_identifier, Error err, ImportResult default_result) {
         ImportResult result = ImportResult.convert_error(err, default_result);
         
-        debug("Import error %s: %s (%s)", src_identifier, err.message, result.to_string());
+        warning("Import error %s: %s (%s)", src_identifier, err.message, result.to_string());
         
         if (result.is_abort())
             abort(result);
@@ -1319,13 +1319,14 @@ private class PrepareFilesJob : BackgroundImportJob {
         //     for videos: always compare on full MD5
         try {
             full_md5 = md5_file(file);
+#if TRACE_MD5
+            debug("import MD5 for file %s = %s", file.get_path(), full_md5);
+#endif
         } catch (Error err) {
             warning("Unable to perform MD5 checksum on video file %s: %s", file.get_path(),
                 err.message);
         }
-#if TRACE_MD5
-            debug("import MD5 for file %s = %s", file.get_basename(), full_md5);
-#endif
+        
         // we only care about file extensions and metadata if we're importing a photo --
         // we don't care about these things for video
         PhotoFileFormat file_format = PhotoFileFormat.get_by_file_extension(file);
@@ -1450,6 +1451,8 @@ private class PreparedFileImportJob : BackgroundJob {
                 return;
             }
         }
+        
+        debug("Importing %s", final_file.get_path());
         
         ImportResult result = ImportResult.SUCCESS;
         VideoImportParams? video_import_params = null;
