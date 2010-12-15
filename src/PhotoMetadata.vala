@@ -325,19 +325,45 @@ public class PhotoMetadata : MediaMetadata {
         return null;
     }
     
-    public Gee.Collection<string>? get_string_multiple(string tag, CompareFunc? compare_func = null) {
+    // Returns a List that has been filtered through a Set, so no duplicates will be returned.
+    //
+    // NOTE: get_tag_multiple() in gexiv2 currently does not work with EXIF tags (as EXIF can 
+    // never return a list of strings).  It will quietly return NULL if attempted.  Until fixed
+    // (there or here), don't use this function to access EXIF.  See:
+    // http://trac.yorba.org/ticket/2966
+    public Gee.List<string>? get_string_multiple(string tag) {
         string[] values = exiv2.get_tag_multiple(tag);
         if (values == null || values.length == 0)
             return null;
         
-        Gee.Collection<string> collection = create_string_set(compare_func);
+        Gee.List<string> list = new Gee.ArrayList<string>();
+        
+        Gee.HashSet<string> collection = new Gee.HashSet<string>();
         foreach (string value in values) {
             string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS);
-            if (prepped != null)
+            if (prepped != null && !collection.contains(prepped)) {
+                list.add(prepped);
                 collection.add(prepped);
+            }
         }
         
-        return collection;
+        return list.size > 0 ? list : null;
+    }
+    
+    // Returns a List that has been filtered through a Set, so no duplicates will be found.
+    //
+    // NOTE: get_tag_multiple() in gexiv2 currently does not work with EXIF tags (as EXIF can 
+    // never return a list of strings).  It will quietly return NULL if attempted.  Until fixed
+    // (there or here), don't use this function to access EXIF.  See:
+    // http://trac.yorba.org/ticket/2966
+    public Gee.List<string>? get_first_string_multiple(string[] tags) {
+        foreach (string tag in tags) {
+            Gee.List<string>? values = get_string_multiple(tag);
+            if (values != null && values.size > 0)
+                return values;
+        }
+        
+        return null;
     }
     
     public void set_string(string tag, string value) {
@@ -744,9 +770,21 @@ public class PhotoMetadata : MediaMetadata {
     };
     
     public override string? get_title() {
-        string? title = has_tag(IPHOTO_TITLE_TAG) 
-            ? get_string_interpreted(IPHOTO_TITLE_TAG)
-            : get_first_string_interpreted(STANDARD_TITLE_TAGS);
+        // using get_string_multiple()/get_first_string_multiple() because it's possible for
+        // multiple strings to be specified in XMP for different language codes, and want to
+        // retrieve only the first one (other get_string variants will return ugly strings like
+        //
+        //   lang="x-default" Xyzzy
+        //
+        // but get_string_multiple will return a list of titles w/o language information
+        Gee.List<string>? titles = has_tag(IPHOTO_TITLE_TAG)
+            ? get_string_multiple(IPHOTO_TITLE_TAG)
+            : get_first_string_multiple(STANDARD_TITLE_TAGS);
+        
+        // use the first string every time (assume it's default)
+        // TODO: We could get a list of all titles by their lang="<iso code>" and attempt to find
+        // the right one for the user's locale, but this does not seem to be a normal use case
+        string? title = (titles != null && titles.size > 0) ? titles[0] : null;
         
         // strip out leading and trailing whitespace
         if (title != null)
@@ -776,10 +814,11 @@ public class PhotoMetadata : MediaMetadata {
     
     public string? get_description() {
         // see note in get_title() for the logic here
-        if (has_tag(IPHOTO_TITLE_TAG))
-            return get_string_interpreted(IPHOTO_DESCRIPTION_TAG);
-        else
-            return get_first_string_interpreted(STANDARD_DESCRIPTION_TAGS);
+        Gee.List<string>? descriptions = has_tag(IPHOTO_TITLE_TAG)
+            ? get_string_multiple(IPHOTO_DESCRIPTION_TAG)
+            : get_first_string_multiple(STANDARD_DESCRIPTION_TAGS);
+        
+        return (descriptions != null && descriptions.size > 0) ? descriptions[0] : null;
     }
     
     public void set_description(string? description,
