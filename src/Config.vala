@@ -235,12 +235,12 @@ public class Config {
         return get_int("/apps/shotwell/sharing/flickr/visibility", 1) - 1;
     }
 
-    public bool set_default_service(int service_code) {
-        return set_int("/apps/shotwell/sharing/default_service", service_code + 1);
+    public bool set_last_used_service(string service_name) {
+        return set_string("/apps/shotwell/sharing/last_used_service", service_name);
     }
 
-    public int get_default_service() {
-        return get_int("/apps/shotwell/sharing/default_service", 1) - 1;
+    public string get_last_used_service() {
+        return get_string("/apps/shotwell/sharing/last_used_service");
     }
 
     public bool clear_facebook_session_key() {

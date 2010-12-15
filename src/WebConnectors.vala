@@ -776,13 +776,47 @@ public class PublishingDialog : Gtk.Dialog {
             return;
         
         active_instance = new PublishingDialog(to_publish);
-        active_instance.service_selector_box.set_active(Config.get_instance().get_default_service());
+            
+        // determine which service to use
+
+        // get the list of services available for our particular combination of media types
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+        MediaSourceCollection.filter_media(to_publish, photos, videos);
+        string[] avail_services = ServiceFactory.get_instance().get_manifest(photos.size,
+            videos.size);
+
+        // get the name of the service the user last used as well as the name of the system
+        // default service -- in case the last used service isn't available for our combination
+        // of media types
+        string? last_used_service = Config.get_instance().get_last_used_service();
+        string system_default_service =
+            ServiceFactory.get_instance().get_default_service().get_name();
+        
+        // search the list to see if the default service saved in GConf is available for this
+        // combination of media types
+        int last_used_index = -1;
+        int system_default_index = -1;
+        for (int i = 0; i < avail_services.length; i++) {
+            if (avail_services[i] == last_used_service)
+                last_used_index = i;
+            // not else-if because the default service and the last used service can be the same
+            if (avail_services[i] == system_default_service)
+                system_default_index = i;
+        }
+        
+        // the system default service should always be available across all media types
+        assert(system_default_index >= 0);
 
         // because we connect to the "delete" signal of the active instance in the PublishingDialog
         // constructor, we need to see if active_instance has become null before using it further
         if (active_instance == null)
             return;
 
+        // select the service we've determined we're going to use in the service selector box and
+        // create an interactor for it
+        active_instance.service_selector_box.set_active((last_used_index >= 0) ? last_used_index :
+            system_default_index);
         ServiceInteractor created_interactor = ServiceFactory.get_instance().create_interactor(
             active_instance, active_instance.service_selector_box.get_active_text());
 
@@ -827,7 +861,7 @@ public class PublishingDialog : Gtk.Dialog {
 
     private void on_service_changed() {
         Config config = Config.get_instance();
-        config.set_default_service(service_selector_box.get_active());
+        config.set_last_used_service(service_selector_box.get_active_text());
         interactor = ServiceFactory.get_instance().create_interactor(this,
             service_selector_box.get_active_text());
         interactor.start_interaction();
