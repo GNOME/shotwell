@@ -1071,21 +1071,14 @@ public class LibraryWindow : AppWindow {
         // this prevents the cursor from jumping back to the library photos page
         // should it be on this page as we re-sort by removing and reinserting it
         sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
-            
+        
         foreach (DataObject object in map.keys) {
-            TagPage.Stub page_stub = tag_map.get((Tag) object);
+            Tag tag = (Tag) object;
+            TagPage.Stub page_stub = tag_map.get(tag);
             assert(page_stub != null);
             
-            bool expanded = sidebar.is_branch_expanded(tags_marker);
-            bool selected = sidebar.is_page_selected(page_stub);
-            sidebar.remove_page(page_stub);
-            sidebar.insert_child_sorted(tags_marker, page_stub, tag_page_comparator);
-            
-            if (expanded)
-                sidebar.expand_branch(tags_marker);
-            
-            if (selected)
-                sidebar.place_cursor(page_stub);
+            sidebar.rename(page_stub.get_marker(), tag.get_name());
+            sidebar.sort_branch(tags_marker, tag_page_comparator);
         }
         
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
