@@ -871,7 +871,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (pixbuf != null) {
             // update the preview image in the zoom buffer
             if ((zoom_buffer != null) && (zoom_buffer.get_backing_photo() == photo))
-                zoom_buffer.update_preview_image(pixbuf);
+                zoom_buffer = new ZoomBuffer(this, photo, pixbuf);
 
             // if no tool, use the pixbuf directly, otherwise, let the tool decide what should be
             // displayed
