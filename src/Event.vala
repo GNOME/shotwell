@@ -397,7 +397,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     private void on_media_altered(Gee.Map<DataObject, Alteration> items) {
         foreach (Alteration alteration in items.values) {
-            if (alteration.has_subject("metadata")) {
+            if (alteration.has_detail("metadata", "time")) {
                 notify_altered(new Alteration("metadata", "time"));
                 
                 break;
