@@ -355,6 +355,7 @@ public class DirectoryMonitor : Object {
     private FileInfoMap parent_moved = new FileInfoMap();
     private Cancellable cancellable = new Cancellable();
     private int outstanding_exploration_dirs = 0;
+    private bool started = false;
     private bool has_discovery_started = false;
     private uint delete_timer_id = 0;
     
@@ -443,14 +444,18 @@ public class DirectoryMonitor : Object {
         this.monitoring = monitoring;
     }
     
-    ~DirectoryMonitor() {
-        close();
-    }
-    
     protected static void mdbg(string msg) {
 #if TRACE_MONITORING
         debug("%s", msg);
 #endif
+    }
+    
+    public bool is_recursive() {
+        return recurse;
+    }
+    
+    public bool is_monitoring() {
+        return monitoring;
     }
     
     protected virtual void notify_root_deleted(File root) {
@@ -755,10 +760,16 @@ public class DirectoryMonitor : Object {
         return file.has_prefix(root);
     }
     
+    public bool has_started() {
+        return started;
+    }
+    
     public void start_discovery() throws Error {
-        assert(!has_discovery_started);
+        assert(!started);
         
         has_discovery_started = true;
+        started = true;
+        
         notify_discovery_started();
         
         // start exploring the directory, adding monitors as the directories are discovered

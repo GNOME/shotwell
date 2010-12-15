@@ -25,6 +25,80 @@
 // situation (since that's a likely case).
 //
 
+public class LibraryMonitorPool {
+    private static LibraryMonitorPool? instance = null;
+    
+    private LibraryMonitor? monitor = null;
+    private uint timer_id = 0;
+    
+    public signal void monitor_installed(LibraryMonitor monitor);
+    
+    public signal void monitor_destroyed(LibraryMonitor monitor);
+    
+    private LibraryMonitorPool() {
+    }
+    
+    public static void init() {
+    }
+    
+    public static void terminate() {
+        if (instance != null)
+            instance.close();
+        
+        instance = null;
+    }
+    
+    public static LibraryMonitorPool get_instance() {
+        if (instance == null)
+            instance = new LibraryMonitorPool();
+        
+        return instance;
+    }
+    
+    public LibraryMonitor? get_monitor() {
+        return monitor;
+    }
+    
+    // This closes and destroys the old monitor, if any, and replaces it with the new one.
+    public void replace(LibraryMonitor replacement, int start_msec_delay = 0) {
+        close();
+        
+        monitor = replacement;
+        if (start_msec_delay > 0 && timer_id == 0)
+            timer_id = Timeout.add(start_msec_delay, on_start_monitor);
+        
+        monitor_installed(monitor);
+    }
+    
+    private void close() {
+        if (monitor == null)
+            return;
+        
+        monitor.close();
+        LibraryMonitor closed = monitor;
+        monitor = null;
+        
+        monitor_destroyed(closed);
+    }
+    
+    private bool on_start_monitor() {
+        // can set to zero because this function always returns false
+        timer_id = 0;
+        
+        if (monitor == null)
+            return false;
+        
+        try {
+            monitor.start_discovery();
+        } catch (Error err) {
+            warning("Unable to start discovery of %s: %s", monitor.get_root().get_path(),
+                err.message);
+        }
+        
+        return false;
+    }
+}
+
 public class LibraryMonitor : DirectoryMonitor {
     private const int FLUSH_IMPORT_QUEUE_SEC = 3;
     private const int IMPORT_ROLL_QUIET_SEC = 5 * 60;
@@ -155,11 +229,8 @@ public class LibraryMonitor : DirectoryMonitor {
     private uint import_queue_timer_id = 0;
     private Gee.Queue<VerifyJob> verify_queue = new Gee.LinkedList<VerifyJob>();
     private int outstanding_verify_jobs = 0;
-    private int files_discovered = 0;
     private int completed_monitorable_verifies = 0;
     private int total_monitorable_verifies = 0;
-    
-    public signal void discovery_in_progress();
     
     public signal void auto_update_progress(int completed_files, int total_files);
     
@@ -250,13 +321,14 @@ public class LibraryMonitor : DirectoryMonitor {
             unknown_files.add(file);
         }
         
-        if ((++files_discovered % 500) == 0)
-            discovery_in_progress();
-        
         base.file_discovered(file, info);
     }
     
     public override void discovery_completed() {
+        async_discovery_completed.begin();
+    }
+    
+    private async void async_discovery_completed() {
         // before marking anything online/offline, reimporting changed files, or auto-importing new
         // files, want to see if the unknown files are actually renamed files.  Do this by examining
         // their FileInfo and calculating their MD5 in the background ... when all this is sorted
@@ -307,6 +379,9 @@ public class LibraryMonitor : DirectoryMonitor {
                 checksums_total++;
                 workers.enqueue(new FindMoveJob(this, file, job_candidates));
             }
+            
+            Idle.add(async_discovery_completed.callback);
+            yield;
         }
         
         // remove all adopted files from the unknown list

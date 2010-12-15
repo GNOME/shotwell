@@ -1594,7 +1594,6 @@ public class PreferencesDialog {
     private Gtk.Builder builder;
     private Gtk.Adjustment bg_color_adjustment;
     private Gtk.HScale bg_color_slider;
-    private Gtk.FileChooserButton library_dir_button;
     private Gtk.ComboBox photo_editor_combo;
     private Gtk.ComboBox raw_editor_combo;
     private SortedList<AppInfo> external_raw_apps;
@@ -1617,11 +1616,9 @@ public class PreferencesDialog {
         bg_color_slider = builder.get_object("bg_color_slider") as Gtk.HScale;
         bg_color_slider.button_press_event.connect(on_bg_color_reset);
 
-        library_dir_button = 
+        Gtk.FileChooserButton library_dir_button = 
             builder.get_object("library_dir_button") as Gtk.FileChooserButton;
-
         library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
-        library_dir_button.current_folder_changed.connect(on_import_dir_changed);
 
         photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
         raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
@@ -1724,6 +1721,11 @@ public class PreferencesDialog {
         Gtk.CheckButton? commit_metadata = builder.get_object("write_metadata") as Gtk.CheckButton;
         if (commit_metadata != null)
             Config.get_instance().set_commit_metadata_to_masters(commit_metadata.active);
+        
+        Gtk.FileChooserButton? library_dir_button = 
+            builder.get_object("library_dir_button") as Gtk.FileChooserButton;
+        if (library_dir_button != null)
+            AppDirs.set_import_dir(library_dir_button.get_current_folder());
     }
     
     private bool on_delete() {
@@ -1767,12 +1769,7 @@ public class PreferencesDialog {
         
         return color;
     }
-
-    private void on_import_dir_changed() {
-        AppDirs.set_import_dir(library_dir_button.get_current_folder());
-        debug("setting import dir to: %s", library_dir_button.get_current_folder());
-    }
-
+    
     private void on_photo_editor_changed() {
         AppInfo app = external_photo_apps.get_at(photo_editor_combo.get_active());
 

@@ -640,6 +640,8 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
 }
 
 public class MediaCollectionRegistry {
+    private const int LIBRARY_MONITOR_START_DELAY_MSEC = 1000;
+    
     private static MediaCollectionRegistry? instance = null;
     
     private Gee.ArrayList<MediaSourceCollection> all = new Gee.ArrayList<MediaSourceCollection>();
@@ -651,9 +653,32 @@ public class MediaCollectionRegistry {
     
     public static void init() {
         instance = new MediaCollectionRegistry();
+        
+        // install the default library monitor
+        LibraryMonitor library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true,
+            !CommandlineOptions.no_runtime_monitoring);
+        LibraryMonitorPool.get_instance().replace(library_monitor, LIBRARY_MONITOR_START_DELAY_MSEC);
+        
+        Config.get_instance().string_changed.connect(on_config_string_changed);
     }
     
     public static void terminate() {
+        Config.get_instance().string_changed.disconnect(on_config_string_changed);
+    }
+    
+    private static void on_config_string_changed(string path, string value) {
+        if (path != Config.STRING_IMPORT_DIRECTORY)
+            return;
+        
+        File import_dir = AppDirs.get_import_dir();
+        
+        LibraryMonitor? current = LibraryMonitorPool.get_instance().get_monitor();
+        if (current != null && current.get_root().equal(import_dir))
+            return;
+        
+        LibraryMonitor replacement = new LibraryMonitor(import_dir, true,
+            !CommandlineOptions.no_runtime_monitoring);
+        LibraryMonitorPool.get_instance().replace(replacement, LIBRARY_MONITOR_START_DELAY_MSEC);
     }
     
     public static MediaCollectionRegistry get_instance() {

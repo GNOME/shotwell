@@ -3747,7 +3747,6 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     
     public static LibraryPhotoSourceCollection global = null;
     public static MimicManager mimic_manager = null;
-    public static LibraryMonitor library_monitor = null;
     
     private bool block_thumbnail_generation = false;
     private OneShotScheduler thumbnail_scheduler = null;
@@ -3768,8 +3767,6 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     public static void init(ProgressMonitor? monitor = null) {
         global = new LibraryPhotoSourceCollection();
         mimic_manager = new MimicManager(global, AppDirs.get_data_subdir("mimics"));
-        library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true,
-            !CommandlineOptions.no_runtime_monitoring);
         
         // prefetch all the photos from the database and add them to the global collection ...
         // do in batches to take advantage of add_many()
@@ -3794,26 +3791,9 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         global.add_many(all_photos, monitor);
         global.add_many_to_trash(trashed_photos);
         global.add_many_to_offline(offline_photos);
-        
-        // only start discovery after global has been initialized and loaded
-        Timeout.add(125, start_discovery);
     }
     
     public static void terminate() {
-        if (library_monitor != null)
-            library_monitor.close();
-    }
-    
-    private static bool start_discovery() {
-        try {
-            if (library_monitor != null)
-                library_monitor.start_discovery();
-        } catch (Error err) {
-            warning("Unable to monitor library %s: %s", AppDirs.get_import_dir().get_path(),
-                err.message);
-        }
-        
-        return false;
     }
     
     // This accepts a PhotoRow that was prepared with Photo.prepare_for_import and

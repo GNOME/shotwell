@@ -132,6 +132,7 @@ void library_exec(string[] mounts) {
     
     ThumbnailCache.init();
     Tombstone.init();
+    LibraryMonitorPool.init();
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("LibraryPhoto.init");
     MediaCollectionRegistry.init();
@@ -187,7 +188,7 @@ void library_exec(string[] mounts) {
                                                pictures import automatically if it's requested */
         run_system_pictures_import();
     }
-
+    
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
     
     Application.get_instance().start();
@@ -197,8 +198,9 @@ void library_exec(string[] mounts) {
     AlienDatabaseHandler.terminate();
     Tag.terminate();
     Event.terminate();
-    MediaCollectionRegistry.terminate();
     LibraryPhoto.terminate();
+    MediaCollectionRegistry.terminate();
+    LibraryMonitorPool.terminate();
     Tombstone.terminate();
     ThumbnailCache.terminate();
     Video.terminate();

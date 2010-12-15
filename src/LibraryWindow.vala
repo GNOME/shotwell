@@ -19,6 +19,8 @@ public class LibraryWindow : AppWindow {
         "file:"
     };
     
+    private const int BACKGROUND_PROGRESS_PULSE_MSEC = 250;
+    
     // these values reflect the priority various background operations have when reporting
     // progress to the LibraryWindow progress bar ... higher values give priority to those reports
     private const int STARTUP_SCAN_PROGRESS_PRIORITY =      35;
@@ -167,11 +169,12 @@ public class LibraryWindow : AppWindow {
     
     private bool events_sort_ascending = false;
     private int current_progress_priority = 0;
+    private uint background_progress_pulse_id = 0;
     
-    public LibraryWindow(ProgressMonitor monitor) {
+    public LibraryWindow(ProgressMonitor progress_monitor) {
         // prepare the default parent and orphan pages
         // (these are never removed from the system)
-        library_page = new LibraryPage(monitor);
+        library_page = new LibraryPage(progress_monitor);
         last_import_page = LastImportPage.create_stub();
         events_directory_page = MasterEventsDirectoryPage.create_stub();
         import_queue_page = new ImportQueuePage();
@@ -270,11 +273,14 @@ public class LibraryWindow : AppWindow {
         sync_videos_visibility();
         
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
-        LibraryPhoto.library_monitor.discovery_in_progress.connect(on_library_monitor_discovery_in_progress);
-        LibraryPhoto.library_monitor.auto_update_progress.connect(on_library_monitor_auto_update_progress);
-        LibraryPhoto.library_monitor.auto_import_preparing.connect(on_library_monitor_auto_import_preparing);
-        LibraryPhoto.library_monitor.auto_import_progress.connect(on_library_monitor_auto_import_progress);
         LibraryPhoto.mimic_manager.progress.connect(on_mimic_manager_progress);
+        
+        LibraryMonitor? monitor = LibraryMonitorPool.get_instance().get_monitor();
+        if (monitor != null)
+            on_library_monitor_installed(monitor);
+        
+        LibraryMonitorPool.get_instance().monitor_installed.connect(on_library_monitor_installed);
+        LibraryMonitorPool.get_instance().monitor_destroyed.connect(on_library_monitor_destroyed);
     }
     
     ~LibraryWindow() {
@@ -300,11 +306,36 @@ public class LibraryWindow : AppWindow {
             media_sources.items_altered.disconnect(on_media_altered);
         
         MetadataWriter.get_instance().progress.disconnect(on_metadata_writer_progress);
-        LibraryPhoto.library_monitor.discovery_in_progress.disconnect(on_library_monitor_discovery_in_progress);
-        LibraryPhoto.library_monitor.auto_update_progress.disconnect(on_library_monitor_auto_update_progress);
-        LibraryPhoto.library_monitor.auto_import_preparing.disconnect(on_library_monitor_auto_import_preparing);
-        LibraryPhoto.library_monitor.auto_import_progress.disconnect(on_library_monitor_auto_import_progress);
         LibraryPhoto.mimic_manager.progress.disconnect(on_mimic_manager_progress);
+        
+        LibraryMonitor? monitor = LibraryMonitorPool.get_instance().get_monitor();
+        if (monitor != null)
+            on_library_monitor_destroyed(monitor);
+        
+        LibraryMonitorPool.get_instance().monitor_installed.disconnect(on_library_monitor_installed);
+        LibraryMonitorPool.get_instance().monitor_destroyed.disconnect(on_library_monitor_destroyed);
+    }
+    
+    private void on_library_monitor_installed(LibraryMonitor monitor) {
+        debug("on_library_monitor_installed: %s", monitor.get_root().get_path());
+        
+        monitor.discovery_started.connect(on_library_monitor_discovery_started);
+        monitor.discovery_completed.connect(on_library_monitor_discovery_completed);
+        monitor.closed.connect(on_library_monitor_discovery_completed);
+        monitor.auto_update_progress.connect(on_library_monitor_auto_update_progress);
+        monitor.auto_import_preparing.connect(on_library_monitor_auto_import_preparing);
+        monitor.auto_import_progress.connect(on_library_monitor_auto_import_progress);
+    }
+    
+    private void on_library_monitor_destroyed(LibraryMonitor monitor) {
+        debug("on_library_monitor_destroyed: %s", monitor.get_root().get_path());
+        
+        monitor.discovery_started.disconnect(on_library_monitor_discovery_started);
+        monitor.discovery_completed.disconnect(on_library_monitor_discovery_completed);
+        monitor.closed.disconnect(on_library_monitor_discovery_completed);
+        monitor.auto_update_progress.disconnect(on_library_monitor_auto_update_progress);
+        monitor.auto_import_preparing.disconnect(on_library_monitor_auto_import_preparing);
+        monitor.auto_import_progress.disconnect(on_library_monitor_auto_import_progress);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -1509,15 +1540,39 @@ public class LibraryWindow : AppWindow {
         sort_events_action.set_active(events_sort_ascending);
     }
     
-    private void pulse_background_progress_bar(string label, int priority) {
+    private void start_pulse_background_progress_bar(string label, int priority) {
         if (priority < current_progress_priority)
             return;
+        
+        stop_pulse_background_progress_bar(priority, false);
         
         current_progress_priority = priority;
         
         background_progress_bar.set_text(label);
         background_progress_bar.pulse();
         show_background_progress_bar();
+        
+        background_progress_pulse_id = Timeout.add(BACKGROUND_PROGRESS_PULSE_MSEC,
+            on_pulse_background_progress_bar);
+    }
+    
+    private bool on_pulse_background_progress_bar() {
+        background_progress_bar.pulse();
+        
+        return true;
+    }
+    
+    private void stop_pulse_background_progress_bar(int priority, bool clear) {
+        if (priority < current_progress_priority)
+            return;
+        
+        if (background_progress_pulse_id != 0) {
+            Source.remove(background_progress_pulse_id);
+            background_progress_pulse_id = 0;
+        }
+        
+        if (clear)
+            clear_background_progress_bar(priority);
     }
     
     private void update_background_progress_bar(string label, int priority, double count,
@@ -1525,8 +1580,10 @@ public class LibraryWindow : AppWindow {
         if (priority < current_progress_priority)
             return;
         
+        stop_pulse_background_progress_bar(priority, false);
+        
         if (count <= 0.0 || total <= 0.0 || count >= total) {
-            clear_background_progress_bar();
+            clear_background_progress_bar(priority);
             
             return;
         }
@@ -1539,7 +1596,12 @@ public class LibraryWindow : AppWindow {
         show_background_progress_bar();
     }
     
-    private void clear_background_progress_bar() {
+    private void clear_background_progress_bar(int priority) {
+        if (priority < current_progress_priority)
+            return;
+        
+        stop_pulse_background_progress_bar(priority, false);
+        
         current_progress_priority = 0;
         
         background_progress_bar.set_fraction(0.0);
@@ -1562,8 +1624,12 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    private void on_library_monitor_discovery_in_progress() {
-        pulse_background_progress_bar(_("Updating library..."), STARTUP_SCAN_PROGRESS_PRIORITY);
+    private void on_library_monitor_discovery_started() {
+        start_pulse_background_progress_bar(_("Updating library..."), STARTUP_SCAN_PROGRESS_PRIORITY);
+    }
+    
+    private void on_library_monitor_discovery_completed() {
+        stop_pulse_background_progress_bar(STARTUP_SCAN_PROGRESS_PRIORITY, true);
     }
     
     private void on_library_monitor_auto_update_progress(int completed_files, int total_files) {
@@ -1572,7 +1638,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_library_monitor_auto_import_preparing() {
-        pulse_background_progress_bar(_("Preparing to auto-import photos..."),
+        start_pulse_background_progress_bar(_("Preparing to auto-import photos..."),
             REALTIME_IMPORT_PROGRESS_PRIORITY);
     }
     

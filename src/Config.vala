@@ -9,6 +9,7 @@ public class Config {
     
     public const string BOOL_COMMIT_METADATA_TO_MASTERS = PATH_SHOTWELL + "/files/commit_metadata";
     public const string BOOL_AUTO_IMPORT_FROM_LIBRARY = PATH_SHOTWELL + "/files/auto_import";
+    public const string STRING_IMPORT_DIRECTORY = PATH_SHOTWELL + "/files/import_dir";
     
     public const double SLIDESHOW_DELAY_MAX = 30.0;
     public const double SLIDESHOW_DELAY_MIN = 1.0;
@@ -46,6 +47,8 @@ public class Config {
     public signal void external_app_changed();
     
     public signal void bool_changed(string path, bool value);
+    
+    public signal void string_changed(string path, string value);
     
     private Config() {
         client = GConf.Client.get_default();
@@ -185,6 +188,8 @@ public class Config {
         try {
             client.set_string(path, value);
             
+            string_changed(path, value);
+            
             return true;
         } catch (Error err) {
             report_set_error(path, err);
@@ -308,10 +313,10 @@ public class Config {
     }
     
     public void unset_publishing_string(string id, string key) {
-	try {
-		client.recursive_unset(_("/apps/shotwell/sharing/%s/%s").printf(id, key), GConf.UnsetFlags.NAMES);
-	} catch (GLib.Error err) {
-	}
+        try {
+            client.recursive_unset(_("/apps/shotwell/sharing/%s/%s").printf(id, key), GConf.UnsetFlags.NAMES);
+        } catch (GLib.Error err) {
+        }
     }
 
     public bool set_printing_content_layout(int layout_code) {
@@ -627,11 +632,11 @@ public class Config {
     }
 
     public string get_import_dir() {
-        return get_string("/apps/shotwell/preferences/files/import_dir", null);
+        return get_string(STRING_IMPORT_DIRECTORY, null);
     }
     
     public void set_import_dir(string import_dir) {
-        set_string("/apps/shotwell/preferences/files/import_dir", import_dir);
+        set_string(STRING_IMPORT_DIRECTORY, import_dir);
     }
     
     public string get_external_photo_app() {
