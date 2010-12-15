@@ -4,10 +4,10 @@
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Save" action="Save" />
             <menuitem name="SaveAs" action="SaveAs" />
-            <menuitem name="SendTo" action="SendTo" />
             <separator />
             <placeholder name="PrintPlaceholder"/>
             <separator />
+            <menuitem name="SendTo" action="SendTo" />
             <placeholder name="SetBackgroundPlaceholder" />
             <separator />
             <menuitem name="JumpToFile" action="CommonJumpToFile" />
@@ -63,8 +63,8 @@
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
-        <menuitem name="ContextSendTo" action="SendTo" />
         <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
+        <menuitem name="ContextSendTo" action="SendTo" />
     </popup>
 
 </ui>

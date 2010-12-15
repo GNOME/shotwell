@@ -91,6 +91,7 @@ public abstract class CollectionPage : MediaPage {
         group.add_menu_item("Print");
         group.add_separator();
         group.add_menu_item("Publish");
+        group.add_menu_item("SendTo");
         group.add_menu_item("SetBackground");
         
         return group;

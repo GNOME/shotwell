@@ -94,6 +94,7 @@ public class VideosPage : MediaPage {
         
         group.add_separator();
         group.add_menu_item("Publish");
+        group.add_menu_item("SendTo");
         
         return group;
     }
