@@ -80,6 +80,17 @@ private File duplicate(File src, FileProgressCallback? progress_callback, bool b
             LibraryMonitor.unblacklist_file(dest);
     }
     
+    // Make file writable by getting current Unix mode and or it with 600 (user read/write)
+    try {
+        FileInfo info = dest.query_info(FILE_ATTRIBUTE_UNIX_MODE, FileQueryInfoFlags.NONE);
+        uint32 mode = info.get_attribute_uint32(FILE_ATTRIBUTE_UNIX_MODE) | 0600;
+        if (!dest.set_attribute_uint32(FILE_ATTRIBUTE_UNIX_MODE, mode, FileQueryInfoFlags.NONE)) {
+            warning("Could not make file writable");
+        }
+    } catch (Error err) {
+        warning("Could not make file writable: %s", err.message);
+    }
+    
     return dest;
 }
 }
