@@ -18,7 +18,7 @@ namespace Resources {
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string YORBA_URL = "http://www.yorba.org";
-    private const string USERS_GUIDE_URL_BASE = "http://trac.yorba.org/wiki/UsingShotwell";
+    public const string WIKI_URL = "http://trac.yorba.org/wiki/Shotwell";
     
     public const string PREFIX = _PREFIX;
 
@@ -728,12 +728,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         factory.add(stock_id, icon_set);
     }
 
-    // we can't have a plain ol' HELP_URL const due to a vala bug:
-    // https://bugzilla.gnome.org/show_bug.cgi?id=611716
-    public string get_users_guide_url() {
-        return USERS_GUIDE_URL_BASE + APP_VERSION.substring(0, 3);
-    }
-    
     public static void launch_help(Gdk.Screen screen) throws Error {
         // if running from the build directory, launch the help from there ... don't just search for
         // the directory (because /usr/bin/help is a perfectly reasonable file to see), but look

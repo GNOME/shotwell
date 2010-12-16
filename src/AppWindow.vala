@@ -486,12 +486,6 @@ public abstract class AppWindow : PageWindow {
         help_contents.tooltip = _("More information on Shotwell");
         actions += help_contents;
         
-        Gtk.ActionEntry users_guide = { "CommonUsersGuide", null, TRANSLATABLE, null,
-            TRANSLATABLE, on_users_guide };
-        users_guide.label = _("_User Manual");
-        // TODO: tooltip (when strings not frozen)
-        actions += users_guide;
-        
         Gtk.ActionEntry undo = { "CommonUndo", Gtk.STOCK_UNDO, TRANSLATABLE, "<Ctrl>Z",
             TRANSLATABLE, on_undo };
         undo.label = Resources.UNDO_MENU;
@@ -651,14 +645,6 @@ public abstract class AppWindow : PageWindow {
     private void on_help_contents() {
         try {
             Resources.launch_help(get_screen());
-        } catch (Error err) {
-            error_message(_("Unable to display help: %s").printf(err.message));
-        }
-    }
-    
-    private void on_users_guide() {
-        try {
-            show_uri(Resources.get_users_guide_url());
         } catch (Error err) {
             error_message(_("Unable to display help: %s").printf(err.message));
         }
