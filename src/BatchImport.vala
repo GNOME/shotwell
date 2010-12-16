@@ -573,12 +573,80 @@ public class BatchImport : Object {
         process_prepared_files.begin(cluster.list);
     }
     
+    // TODO: This logic can be cleaned up.  Attempt to remove all calls to
+    // the database, as it's a blocking call (use in-memory lookups whenever possible)
     private async void process_prepared_files(Gee.List<PreparedFile> list) {
         foreach (PreparedFile prepared_file in list) {
             Idle.add(process_prepared_files.callback);
             yield;
             
             BatchImportResult import_result = null;
+            
+            // first check if file is already registered as a media object
+            
+            LibraryPhotoSourceCollection.State photo_state;
+            LibraryPhoto? photo = LibraryPhoto.global.get_state_by_file(prepared_file.file,
+                out photo_state);
+            if (photo != null) {
+                switch (photo_state) {
+                    case LibraryPhotoSourceCollection.State.ONLINE:
+                    case LibraryPhotoSourceCollection.State.OFFLINE:
+                    case LibraryPhotoSourceCollection.State.EDITABLE:
+                        import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                            prepared_file.file.get_path(), prepared_file.file.get_path(),
+                            ImportResult.PHOTO_EXISTS);
+                        
+                        if (photo_state == LibraryPhotoSourceCollection.State.OFFLINE)
+                            photo.mark_online();
+                    break;
+                    
+                    case LibraryPhotoSourceCollection.State.TRASH:
+                        // let the code below deal with it
+                    break;
+                    
+                    default:
+                        error("Unknown LibraryPhotoSourceCollection state: %s", photo_state.to_string());
+                }
+            }
+            
+            if (import_result != null) {
+                report_failure(import_result);
+                file_import_complete();
+                
+                continue;
+            }
+            
+            VideoSourceCollection.State video_state;
+            Video? video = Video.global.get_state_by_file(prepared_file.file, out video_state);
+            if (video != null) {
+                switch (video_state) {
+                    case VideoSourceCollection.State.ONLINE:
+                    case VideoSourceCollection.State.OFFLINE:
+                        import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                            prepared_file.file.get_path(), prepared_file.file.get_path(),
+                            ImportResult.PHOTO_EXISTS);
+                        
+                        if (video_state == VideoSourceCollection.State.OFFLINE)
+                            video.mark_online();
+                    break;
+                    
+                    case VideoSourceCollection.State.TRASH:
+                        // let the code below deal with it
+                    break;
+                    
+                    default:
+                        error("Unknown VideoSourceCollection state: %s", video_state.to_string());
+                }
+            }
+            
+            if (import_result != null) {
+                report_failure(import_result);
+                file_import_complete();
+                
+                continue;
+            }
+            
+            // now check if the file is a duplicate
             
             if (prepared_file.is_video && Video.is_duplicate(prepared_file.file, prepared_file.full_md5)) {
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
@@ -590,7 +658,7 @@ public class BatchImport : Object {
                 prepared_file.full_md5, prepared_file.file_format)) {
                 // If a file is being linked and has a dupe in the trash, we take it out of the trash
                 // and revert its edits.
-                LibraryPhoto photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
+                photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
                 
                 if (photo == null && prepared_file.full_md5 != null)
                     photo = LibraryPhoto.global.get_trashed_by_md5(prepared_file.full_md5);
