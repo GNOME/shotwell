@@ -1083,9 +1083,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // reset flags
         set_photo_missing(false);
         pixbuf_dirty = true;
-
-        update_toolbar();
-
+        
         // it's possible for this to be called prior to the page being realized, however, the
         // underlying canvas has a scaling, so use that
         rebuild_caches("replace_photo");
@@ -1100,6 +1098,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         quick_update_pixbuf();
         
         prefetch_neighbors(new_controller, new_photo);
+        
+        update_toolbar();
     }
     
     protected override void cancel_zoom() {
