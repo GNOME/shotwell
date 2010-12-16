@@ -867,11 +867,13 @@ public abstract class Photo : PhotoSource {
     private class ReimportMasterStateImpl : ReimportMasterState {
         public PhotoRow row = PhotoRow();
         public PhotoMetadata? metadata;
+        public string[] alterations;
         public bool metadata_only = false;
         
-        public ReimportMasterStateImpl(PhotoRow row, PhotoMetadata? metadata) {
+        public ReimportMasterStateImpl(PhotoRow row, PhotoMetadata? metadata, string[] alterations) {
             this.row = row;
             this.metadata = metadata;
+            this.alterations = alterations;
         }
     }
     
@@ -917,12 +919,33 @@ public abstract class Photo : PhotoSource {
             updated_row = row;
         }
         
+        // build an Alteration list for the relevant changes
+        string[] list = new string[0];
+        
+        if (updated_row.md5 != detected.md5)
+            list += "metadata:md5";
+        
+        if (updated_row.master.original_orientation != state.original_orientation) {
+            list += "image:orientation";
+            updated_row.orientation = state.original_orientation;
+        }
+        
+        if (detected.metadata != null) {
+            MetadataDateTime? date_time = detected.metadata.get_exposure_date_time();
+            if (date_time != null && updated_row.exposure_time != date_time.get_timestamp())
+                list += "metadata:exposure-time";
+            
+            if (updated_row.title != detected.metadata.get_title())
+                list += "metadata:title";
+            
+            if (updated_row.rating != detected.metadata.get_rating())
+                list += "metadata:rating";
+        }
+        
         updated_row.master = state;
         updated_row.md5 = detected.md5;
         updated_row.exif_md5 = detected.exif_md5;
         updated_row.thumbnail_md5 = detected.thumbnail_md5;
-        updated_row.exposure_time = 0;
-        updated_row.orientation = state.original_orientation;
         
         PhotoMetadata? metadata = null;
         if (detected.metadata != null) {
@@ -936,7 +959,7 @@ public abstract class Photo : PhotoSource {
             updated_row.rating = detected.metadata.get_rating();
         }
         
-        reimport_state = new ReimportMasterStateImpl(updated_row, metadata);
+        reimport_state = new ReimportMasterStateImpl(updated_row, metadata, list);
         
         return true;
     }
@@ -958,17 +981,17 @@ public abstract class Photo : PhotoSource {
         if (reimport_state.metadata != null)
             apply_user_metadata_for_reimport(reimport_state.metadata);
         
-        string list = "metadata:title,image:orientation,metadata:rating,metadata:exposure-time,"
-            + "metadata:md5";
-        
         if (!reimport_state.metadata_only) {
-            if (is_master_baseline())
-                list += ",image:master,image:baseline";
-            else
-                list += "image:master";
+            if (is_master_baseline()) {
+                reimport_state.alterations += "image:master";
+                reimport_state.alterations += "image:baseline";
+            } else {
+                reimport_state.alterations += "image:master";
+            }
         }
         
-        notify_altered(new Alteration.from_list(list));
+        if (reimport_state.alterations.length > 0)
+            notify_altered(new Alteration.from_array(reimport_state.alterations));
     }
     
     // This method is thread-safe.  Returns false if the photo has no associated editable.
@@ -1529,29 +1552,6 @@ public abstract class Photo : PhotoSource {
         }
     }
     
-    // If the SourceCollection is provided, it will be frozen and thawed to generate a singal
-    // items-altered signal.
-    public static void set_many_master_metadata_dirty(SourceCollection? sources,
-        Gee.Collection<Photo> photos, bool dirty) throws DatabaseError {
-        if (sources != null)
-            sources.freeze_notifications();
-        
-        DatabaseTable.begin_transaction();
-        
-        foreach (Photo photo in photos) {
-            try {
-                photo.set_master_metadata_dirty(dirty);
-            } catch (DatabaseError err) {
-                AppWindow.database_error(err);
-            }
-        }
-        
-        DatabaseTable.commit_transaction();
-        
-        if (sources != null)
-            sources.thaw_notifications();
-    }
-    
     public void set_master_metadata_dirty(bool dirty) throws DatabaseError {
         bool committed = false;
         lock (row) {
@@ -1776,7 +1776,7 @@ public abstract class Photo : PhotoSource {
         metadata.set_title(title);
         
         PhotoFileMetadataWriter writer = source.create_metadata_writer();
-        LibraryMonitor.blacklist_file(source.get_file());
+        LibraryMonitor.blacklist_file(source.get_file(), "Photo.set_persistent_title");
         try {
             writer.write_metadata(metadata);
         } finally {
@@ -1816,7 +1816,7 @@ public abstract class Photo : PhotoSource {
         metadata.set_exposure_date_time(new MetadataDateTime(time));
         
         PhotoFileMetadataWriter writer = source.create_metadata_writer();
-        LibraryMonitor.blacklist_file(source.get_file());
+        LibraryMonitor.blacklist_file(source.get_file(), "Photo.set_exposure_time_persistent");
         try {
             writer.write_metadata(metadata);
         } finally {
@@ -2896,7 +2896,7 @@ public abstract class Photo : PhotoSource {
         halt_monitoring_editable();
         
         // tell the LibraryMonitor not to monitor this file
-        LibraryMonitor.blacklist_file(file);
+        LibraryMonitor.blacklist_file(file, "Photo.start_monitoring_editable");
         
         editable_monitor = file.monitor(FileMonitorFlags.NONE, null);
         editable_monitor.changed.connect(on_editable_file_changed);

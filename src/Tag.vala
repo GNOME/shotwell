@@ -161,7 +161,7 @@ public class TagSourceCollection : ContainerSourceCollection {
     }
     
     protected override void notify_container_contents_added(ContainerSource container, 
-        Gee.Collection<DataSource> added) {
+        Gee.Collection<DataSource> added, bool relinking) {
         Tag tag = (Tag) container;
         Gee.Collection<MediaSource> sources = (Gee.Collection<MediaSource>) added;
         
@@ -185,11 +185,11 @@ public class TagSourceCollection : ContainerSourceCollection {
             assert(is_added);
         }
         
-        base.notify_container_contents_added(container, added);
+        base.notify_container_contents_added(container, added, relinking);
     }
     
     protected override void notify_container_contents_removed(ContainerSource container, 
-        Gee.Collection<DataSource> removed) {
+        Gee.Collection<DataSource> removed, bool unlinking) {
         Tag tag = (Tag) container;
         Gee.Collection<MediaSource> sources = (Gee.Collection<MediaSource>) removed;
         
@@ -213,7 +213,7 @@ public class TagSourceCollection : ContainerSourceCollection {
                 sorted_source_map.unset(source);
         }
         
-        base.notify_container_contents_removed(container, removed);
+        base.notify_container_contents_removed(container, removed, unlinking);
     }
 }
 
@@ -274,6 +274,8 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     private TagRow row;
     private ViewCollection media_views;
     private string? name_collate_key = null;
+    private bool unlinking = false;
+    private bool relinking = false;
     
     private Tag(TagRow row, int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
@@ -305,8 +307,8 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         // need to do this manually here because only want to monitor photo_contents_altered
         // after add_many() here; but need to keep the TagSourceCollection apprised
         if (source_list.size > 0) {
-            global.notify_container_contents_added(this, source_list);
-            global.notify_container_contents_altered(this, source_list, null);
+            global.notify_container_contents_added(this, source_list, false);
+            global.notify_container_contents_altered(this, source_list, false, null, false);
         }
         
         // monitor ViewCollection to (a) keep the in-memory list of source ids up-to-date, and
@@ -497,19 +499,35 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     }
     
     public void break_link(DataSource source) {
+        unlinking = true;
+        
         detach((LibraryPhoto) source);
+        
+        unlinking = false;
     }
     
     public void break_link_many(Gee.Collection<DataSource> sources) {
+        unlinking = true;
+        
         detach_many((Gee.Collection<LibraryPhoto>) sources);
+        
+        unlinking = false;
     }
     
     public void establish_link(DataSource source) {
+        relinking = true;
+        
         attach((LibraryPhoto) source);
+        
+        relinking = false;
     }
     
     public void establish_link_many(Gee.Collection<DataSource> sources) {
+        relinking = true;
+        
         attach_many((Gee.Collection<LibraryPhoto>) sources);
+        
+        relinking = false;
     }
     
     public void attach(MediaSource source) {
@@ -638,13 +656,15 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         
         // notify of changes to this tag
         if (added_sources != null)
-            global.notify_container_contents_added(this, added_sources);
+            global.notify_container_contents_added(this, added_sources, relinking);
         
         if (removed_sources != null)
-            global.notify_container_contents_removed(this, removed_sources);
+            global.notify_container_contents_removed(this, removed_sources, unlinking);
         
-        if (added_sources != null || removed_sources != null)
-            global.notify_container_contents_altered(this, added_sources, removed_sources);
+        if (added_sources != null || removed_sources != null) {
+            global.notify_container_contents_altered(this, added_sources, relinking, removed_sources,
+                unlinking);
+        }
         
         // if no more sources, tag evaporates; do not touch "this" afterwards
         if (media_views.get_count() == 0)
@@ -667,8 +687,8 @@ public class Tag : DataSource, ContainerSource, Proxyable {
             
             media_views.clear();
             
-            global.notify_container_contents_removed(this, removed);
-            global.notify_container_contents_altered(this, null, removed);
+            global.notify_container_contents_removed(this, removed, false);
+            global.notify_container_contents_altered(this, null, false, removed, false);
             
             media_views.contents_altered.connect(on_media_views_contents_altered);
         }

@@ -87,7 +87,7 @@ public class Thumbnail : MediaSourceItem {
     }
     
     private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,
-        Gee.Collection<DataSource>? removed) {
+        bool relinking, Gee.Collection<DataSource>? removed, bool unlinking) {
         if (!exposure)
             return;
         

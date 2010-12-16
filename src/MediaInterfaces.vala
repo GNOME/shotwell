@@ -60,7 +60,7 @@ public abstract class TransactionController {
         }
     }
     
-    public void begin() throws Error {
+    public void begin() {
         lock (count) {
             if (count++ != 0)
                 return;
@@ -71,7 +71,10 @@ public abstract class TransactionController {
                 // unwind
                 count--;
                 
-                throw err;
+                if (err is DatabaseError)
+                    AppWindow.database_error((DatabaseError) err);
+                else
+                    AppWindow.panic("%s".printf(err.message));
             }
         }
     }
@@ -79,14 +82,21 @@ public abstract class TransactionController {
     // For thread safety, this method will only be called under the protection of a mutex.
     public abstract void begin_impl() throws Error;
     
-    public void commit() throws Error {
+    public void commit() {
         lock (count) {
             assert(count > 0);
             if (--count != 0)
                 return;
             
             // no need to unwind the count here; it's already unwound.
-            commit_impl();
+            try {
+                commit_impl();
+            } catch (Error err) {
+                if (err is DatabaseError)
+                    AppWindow.database_error((DatabaseError) err);
+                else
+                    AppWindow.panic("%s".printf(err.message));
+            }
         }
     }
     

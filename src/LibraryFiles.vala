@@ -71,7 +71,7 @@ private File duplicate(File src, FileProgressCallback? progress_callback, bool b
         throw new FileError.FAILED("Unable to generate unique pathname for destination");
     
     if (blacklist)
-        LibraryMonitor.blacklist_file(dest);
+        LibraryMonitor.blacklist_file(dest, "LibraryFiles.duplicate");
     
     try {
         src.copy(dest, FileCopyFlags.ALL_METADATA | FileCopyFlags.OVERWRITE, null, progress_callback);

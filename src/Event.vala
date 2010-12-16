@@ -169,6 +169,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
     private string? raw_name;
     private MediaSource primary_source;
     private ViewCollection view;
+    private bool unlinking = false;
+    private bool relinking = false;
     
     private Event(EventRow event_row, int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
@@ -193,8 +195,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
         // need to do this manually here because only want to monitor ViewCollection contents after
         // initial batch has been added, but need to keep EventSourceCollection apprised
         if (event_thumbs.size > 0) {
-            global.notify_container_contents_added(this, event_thumbs);
-            global.notify_container_contents_altered(this, event_thumbs, null);
+            global.notify_container_contents_added(this, event_thumbs, false);
+            global.notify_container_contents_altered(this, event_thumbs, false, null, false);
         }
         
         // get the primary source for monitoring; if not available, use the first source in the
@@ -342,8 +344,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     private void on_media_added(Gee.Iterable<DataObject> added) {
         Gee.Collection<MediaSource> media = views_to_media(added);
-        global.notify_container_contents_added(this, media);
-        global.notify_container_contents_altered(this, media, null);
+        global.notify_container_contents_added(this, media, relinking);
+        global.notify_container_contents_altered(this, media, relinking, null, false);
         
         notify_altered(new Alteration.from_list("contents:added, metadata:time"));
     }
@@ -352,8 +354,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
     private void on_media_removed(Gee.Iterable<DataObject> removed) {
         Gee.ArrayList<MediaSource> media = views_to_media(removed);
         
-        global.notify_container_contents_removed(this, media);
-        global.notify_container_contents_altered(this, null, media);
+        global.notify_container_contents_removed(this, media, unlinking);
+        global.notify_container_contents_altered(this, null, false, media, unlinking);
         
         // update primary source if it's been removed (and there's one to take its place)
         foreach (MediaSource current_source in media) {
@@ -444,10 +446,16 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public void break_link(DataSource source) {
+        unlinking = true;
+        
         ((MediaSource) source).set_event(null);
+        
+        unlinking = false;
     }
     
     public void break_link_many(Gee.Collection<DataSource> sources) {
+        unlinking = true;
+        
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
         MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) sources, photos, videos);
@@ -463,13 +471,21 @@ public class Event : EventSource, ContainerSource, Proxyable {
         } catch (Error err) {
             AppWindow.error_message("%s".printf(err.message));
         }
+        
+        unlinking = false;
     }
     
     public void establish_link(DataSource source) {
+        relinking = true;
+        
         ((MediaSource) source).set_event(this);
+        
+        relinking = false;
     }
     
     public void establish_link_many(Gee.Collection<DataSource> sources) {
+        relinking = true;
+        
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
         MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) sources, photos, videos);
@@ -485,6 +501,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
         } catch (Error err) {
             AppWindow.error_message("%s".printf(err.message));
         }
+        
+        relinking = false;
     }
     
     public bool is_in_starting_day(time_t time) {

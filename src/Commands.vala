@@ -304,19 +304,41 @@ public abstract class MultipleDataSourceCommand : PageCommand {
     
     public override void execute() {
         acted_upon.clear();
+        
+        start_transaction();
         execute_all(true, true, source_list, acted_upon);
+        commit_transaction();
     }
     
     public abstract void execute_on_source(DataSource source);
     
     public override void undo() {
         if (acted_upon.size > 0) {
+            start_transaction();
             execute_all(false, false, acted_upon, null);
+            commit_transaction();
+            
             acted_upon.clear();
         }
     }
     
     public abstract void undo_on_source(DataSource source);
+    
+    private void start_transaction() {
+        foreach (SourceCollection sources in hooked_collections) {
+            MediaSourceCollection? media_collection = sources as MediaSourceCollection;
+            if (media_collection != null)
+                media_collection.transaction_controller.begin();
+        }
+    }
+    
+    private void commit_transaction() {
+        foreach (SourceCollection sources in hooked_collections) {
+            MediaSourceCollection? media_collection = sources as MediaSourceCollection;
+            if (media_collection != null)
+                media_collection.transaction_controller.commit();
+        }
+    }
     
     private void execute_all(bool exec, bool can_cancel, Gee.ArrayList<DataSource> todo, 
         Gee.ArrayList<DataSource>? completed) {
@@ -324,6 +346,9 @@ public abstract class MultipleDataSourceCommand : PageCommand {
         
         int count = 0;
         int total = todo.size;
+        int two_percent = (int) ((double) total / 50.0);
+        if (two_percent <= 0)
+            two_percent = 1;
         
         string text = exec ? progress_text : undo_progress_text;
         
@@ -344,8 +369,10 @@ public abstract class MultipleDataSourceCommand : PageCommand {
                 completed.add(source);
 
             if (progress != null) {
-                progress.set_fraction(++count, total);
-                spin_event_loop();
+                if ((++count % two_percent) == 0) {
+                    progress.set_fraction(count, total);
+                    spin_event_loop();
+                }
                 
                 if (cancellable != null && cancellable.is_cancelled())
                     break;
@@ -996,16 +1023,12 @@ public class SetRatingCommand : MultipleDataSourceCommand {
     
     public override void execute() {
         action_count = 0;
-        LibraryPhoto.global.freeze_notifications();
         base.execute();
-        LibraryPhoto.global.thaw_notifications();
     }
     
     public override void undo() {
         action_count = 0;
-        LibraryPhoto.global.freeze_notifications();
         base.undo();
-        LibraryPhoto.global.thaw_notifications();
     }
     
     public override void execute_on_source(DataSource source) {
@@ -1017,21 +1040,10 @@ public class SetRatingCommand : MultipleDataSourceCommand {
             else
                 ((MediaSource) source).decrease_rating();
         }
-        
-        // TODO: Replace this system with a mass set rating function (like Photo.set_event_many)
-        if (++action_count % 50 == 0) {
-            LibraryPhoto.global.thaw_notifications();
-            LibraryPhoto.global.freeze_notifications();
-        }
     }
     
     public override void undo_on_source(DataSource source) {
         ((MediaSource) source).set_rating(last_rating_map[source]);
-        
-        if (++action_count % 50 == 0) {
-            LibraryPhoto.global.thaw_notifications();
-            LibraryPhoto.global.freeze_notifications();
-        }
     }
 }
 
@@ -1439,43 +1451,35 @@ public class TrashUntrashPhotosCommand : PageCommand {
     private void trash(ProgressMonitor? monitor) {
         int ctr = 0;
         int count = sources.size;
-        LibraryPhoto.global.freeze_notifications();
-        Video.global.freeze_notifications();
+        
+        LibraryPhoto.global.transaction_controller.begin();
+        Video.global.transaction_controller.begin();
+        
         foreach (MediaSource source in sources) {
             source.trash();
             if (monitor != null)
                 monitor(++ctr, count);
-            
-            if (ctr % 100 == 0) {
-                LibraryPhoto.global.thaw_notifications();
-                Video.global.thaw_notifications();
-                LibraryPhoto.global.freeze_notifications();
-                Video.global.freeze_notifications();
-            }
         }
-        LibraryPhoto.global.thaw_notifications();
-        Video.global.thaw_notifications();
+        
+        LibraryPhoto.global.transaction_controller.commit();
+        Video.global.transaction_controller.commit();
     }
     
     private void untrash(ProgressMonitor? monitor) {
         int ctr = 0;
         int count = sources.size;
-        LibraryPhoto.global.freeze_notifications();
-        Video.global.freeze_notifications();
+        
+        LibraryPhoto.global.transaction_controller.begin();
+        Video.global.transaction_controller.begin();
+        
         foreach (MediaSource source in sources) {
             source.untrash();
             if (monitor != null)
                 monitor(++ctr, count);
-            
-            if (ctr % 100 == 0) {
-                LibraryPhoto.global.thaw_notifications();
-                Video.global.thaw_notifications();
-                LibraryPhoto.global.freeze_notifications();
-                Video.global.freeze_notifications();
-            }
         }
-        LibraryPhoto.global.thaw_notifications();
-        Video.global.thaw_notifications();
+        
+        LibraryPhoto.global.transaction_controller.commit();
+        Video.global.transaction_controller.commit();
     }
     
     private void on_photo_destroyed(DataSource source) {

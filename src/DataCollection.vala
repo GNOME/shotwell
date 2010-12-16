@@ -1248,15 +1248,16 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     private Gee.HashSet<ContainerSource> holding_tank = new Gee.HashSet<ContainerSource>();
     
     public virtual signal void container_contents_added(ContainerSource container,
-        Gee.Collection<DataSource> added) {
+        Gee.Collection<DataSource> added, bool relinked) {
     }
     
     public virtual signal void container_contents_removed(ContainerSource container, 
-        Gee.Collection<DataSource> removed) {
+        Gee.Collection<DataSource> removed, bool unlinked) {
     }
     
     public virtual signal void container_contents_altered(ContainerSource container, 
-        Gee.Collection<DataSource>? added, Gee.Collection<DataSource>? removed) {
+        Gee.Collection<DataSource>? added, bool relinked, Gee.Collection<DataSource>? removed,
+        bool unlinked) {
     }
     
     public virtual signal void backlink_to_container_removed(ContainerSource container,
@@ -1284,8 +1285,8 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     }
     
     public virtual void notify_container_contents_added(ContainerSource container, 
-        Gee.Collection<DataSource> added) {
-        // if source is in holding tank, remove it now and relink to collection
+        Gee.Collection<DataSource> added, bool relinked) {
+        // if container is in holding tank, remove it now and relink to collection
         if (holding_tank.contains(container)) {
             bool removed = holding_tank.remove(container);
             assert(removed);
@@ -1293,17 +1294,18 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
             relink(container);
         }
         
-        container_contents_added(container, added);
+        container_contents_added(container, added, relinked);
     }
     
     public virtual void notify_container_contents_removed(ContainerSource container, 
-        Gee.Collection<DataSource> removed) {
-        container_contents_removed(container, removed);
+        Gee.Collection<DataSource> removed, bool unlinked) {
+        container_contents_removed(container, removed, unlinked);
     }
     
     public virtual void notify_container_contents_altered(ContainerSource container,
-        Gee.Collection<DataSource>? added, Gee.Collection<DataSource>? removed) {
-        container_contents_altered(container, added, removed);
+        Gee.Collection<DataSource>? added, bool relinked, Gee.Collection<DataSource>? removed,
+        bool unlinked) {
+        container_contents_altered(container, added, relinked, removed, unlinked);
     }
     
     public virtual void notify_backlink_to_container_removed(ContainerSource container,

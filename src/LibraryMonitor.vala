@@ -726,8 +726,8 @@ public class LibraryMonitor : DirectoryMonitor {
     //
     // Use of this method should be avoided at all costs (otherwise the point of the real-time
     // monitor is negated).
-    public static void blacklist_file(File file) {
-        mdbg("Blacklisting %s".printf(file.get_path()));
+    public static void blacklist_file(File file, string reason) {
+        mdbg("[%s] Blacklisting %s".printf(reason, file.get_path()));
         lock (blacklist) {
             blacklist.add(file);
         }

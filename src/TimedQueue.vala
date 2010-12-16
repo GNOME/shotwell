@@ -41,6 +41,10 @@ public class TimedQueue<G> {
     private SortedList<Element<G>> queue;
     private uint dequeue_spacing_msec = 0;
     private time_t last_dequeue = 0;
+    private bool paused_state = false;
+    
+    public virtual signal void paused(bool is_paused) {
+    }
     
     // Initial design was to have a signal that passed the dequeued G, but bug in valac meant
     // finding a workaround, namely using a delegate:
@@ -86,6 +90,28 @@ public class TimedQueue<G> {
     
     protected virtual void notify_dequeued(G item) {
         callback(item);
+    }
+    
+    public bool is_paused() {
+        return paused_state;
+    }
+    
+    public void pause() {
+        if (paused_state)
+            return;
+        
+        paused_state = true;
+        
+        paused(true);
+    }
+    
+    public void unpause() {
+        if (!paused_state)
+            return;
+        
+        paused_state = false;
+        
+        paused(false);
     }
     
     public virtual void clear() {
@@ -140,6 +166,9 @@ public class TimedQueue<G> {
     }
     
     private bool on_heartbeat() {
+        if (paused_state)
+            return true;
+        
         time_t now = 0;
         
         for (;;) {
