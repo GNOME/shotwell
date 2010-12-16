@@ -60,6 +60,14 @@
 public class DirectoryMonitor : Object {
     public const string SUPPLIED_ATTRIBUTES = "standard::*,time::*,id::file,id::filesystem,etag::value";
     public const int DEFAULT_PRIORITY = Priority.LOW;
+    public const FileQueryInfoFlags DIR_INFO_FLAGS = FileQueryInfoFlags.NONE;
+    public const FileQueryInfoFlags FILE_INFO_FLAGS = FileQueryInfoFlags.NOFOLLOW_SYMLINKS;
+    
+    // when using UNKNOWN_FILE_FLAGS, check if the resulting FileInfo's symlink status matches
+    // symlink support for files and directories by calling is_file_symlink_supported().
+    public const FileQueryInfoFlags UNKNOWN_INFO_FLAGS = FileQueryInfoFlags.NONE;
+    public const bool SUPPORT_DIR_SYMLINKS = true;
+    public const bool SUPPORT_FILE_SYMLINKS = false;
     
     private const FileMonitorFlags FILE_MONITOR_FLAGS = FileMonitorFlags.SEND_MOVED;
     private const uint DELETED_EXPIRATION_MSEC = 500;
@@ -239,13 +247,15 @@ public class DirectoryMonitor : Object {
             // This *only* retrieves the file ID, which is then used to obtain the in-memory file
             // information.
             try {
-                info = file.query_info(FILE_ATTRIBUTE_ID_FILE, FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-                    cancellable);
+                info = file.query_info(FILE_ATTRIBUTE_ID_FILE, UNKNOWN_INFO_FLAGS, cancellable);
             } catch (Error err) {
                 warning("Unable to query file ID of %s: %s", file.get_path(), err.message);
                 
                 return null;
             }
+            
+            if (!is_file_symlink_supported(info))
+                return null;
             
             string? id = info.get_attribute_string(FILE_ATTRIBUTE_ID_FILE);
             if (id == null)
@@ -617,6 +627,11 @@ public class DirectoryMonitor : Object {
     
     private void internal_notify_directory_moved(File old_dir, FileInfo old_dir_info, File new_dir,
         FileInfo new_dir_info) {
+        async_internal_notify_directory_moved.begin(old_dir, old_dir_info, new_dir, new_dir_info);
+    }
+    
+    private async void async_internal_notify_directory_moved(File old_dir, FileInfo old_dir_info,
+        File new_dir, FileInfo new_dir_info) {
         Gee.ArrayList<File> file_children = new Gee.ArrayList<File>(file_equal);
         Gee.ArrayList<File> dir_children = new Gee.ArrayList<File>(file_equal);
         int count = files.get_children(old_dir, file_children, dir_children);
@@ -625,27 +640,31 @@ public class DirectoryMonitor : Object {
             // (if files.get_info() returns null, that indicates the directory/file was already
             // deleted in recurse)
             foreach (File dir_child in dir_children) {
-                FileInfo? info = files.get_info(dir_child);
-                if (info == null) {
+                FileInfo? dir_info = files.get_info(dir_child);
+                if (dir_info == null) {
                     warning("Unable to retrieve directory-moved info for %s", dir_child.get_path());
                     
                     continue;
                 }
                 
-                internal_notify_directory_moved(dir_child, info, new_dir.get_child(dir_child.get_basename()),
-                    info);
+                yield async_internal_notify_directory_moved(dir_child, dir_info,
+                    new_dir.get_child(dir_child.get_basename()), dir_info);
             }
             
             // then move the children
             foreach (File file_child in file_children) {
-                FileInfo? info = files.get_info(file_child);
-                if (info == null) {
+                FileInfo? file_info = files.get_info(file_child);
+                if (file_info == null) {
                     warning("Unable to retrieve directory-moved info for %s", file_child.get_path());
                     
                     continue;
                 }
                 
-                internal_notify_file_moved(file_child, new_dir.get_child(file_child.get_basename()), info);
+                internal_notify_file_moved(file_child, new_dir.get_child(file_child.get_basename()),
+                    file_info);
+                
+                Idle.add(async_internal_notify_directory_moved.callback, DEFAULT_PRIORITY);
+                yield;
             }
         }
         
@@ -700,10 +719,10 @@ public class DirectoryMonitor : Object {
         // stop monitoring this directory
         remove_monitor(dir, info);
         
-        pre_notify_directory_deleted(dir, false);
+        async_notify_directory_deleted.begin(dir, false);
     }
     
-    private void pre_notify_directory_deleted(File dir, bool already_removed) {
+    private async void async_notify_directory_deleted(File dir, bool already_removed) {
         // because a directory can be deleted without its children being deleted first (probably
         // means it has been moved to a location outside of the monitored root), need to
         // synthesize notifications for all its children
@@ -719,7 +738,7 @@ public class DirectoryMonitor : Object {
             
             // descend first into directories, deleting files and directories on the way up
             foreach (File dir_child in dir_children)
-                pre_notify_directory_deleted(dir_child, false);
+                yield async_notify_directory_deleted(dir_child, false);
             
             // now notify deletions on all immediate children files ... don't notify directory
             // deletion because that's handled right before exiting this method
@@ -728,12 +747,15 @@ public class DirectoryMonitor : Object {
                 assert(removed);
                 
                 notify_file_deleted(file_child);
+                
+                Idle.add(async_notify_directory_deleted.callback, DEFAULT_PRIORITY);
+                yield;
             }
         }
         
         if (!already_removed) {
-            bool removed = files.remove(dir, null);
-            assert(removed);
+            bool removed2 = files.remove(dir, null);
+            assert(removed2);
         }
         
         notify_directory_deleted(dir);
@@ -820,8 +842,8 @@ public class DirectoryMonitor : Object {
         FileInfo? local_dir_info = dir_info;
         if (local_dir_info == null) {
             try {
-                local_dir_info = yield dir.query_info_async(SUPPLIED_ATTRIBUTES,
-                    FileQueryInfoFlags.NONE, DEFAULT_PRIORITY, cancellable);
+                local_dir_info = yield dir.query_info_async(SUPPLIED_ATTRIBUTES, DIR_INFO_FLAGS,
+                    DEFAULT_PRIORITY, cancellable);
             } catch (Error err) {
                 warning("Unable to retrieve info on %s: %s", dir.get_path(), err.message);
                 
@@ -869,7 +891,7 @@ public class DirectoryMonitor : Object {
         
         try {
             FileEnumerator enumerator = yield dir.enumerate_children_async(SUPPLIED_ATTRIBUTES,
-                FileQueryInfoFlags.NONE, DEFAULT_PRIORITY, cancellable);
+                UNKNOWN_INFO_FLAGS, DEFAULT_PRIORITY, cancellable);
             for (;;) {
                 List<FileInfo>? infos = yield enumerator.next_files_async(10, DEFAULT_PRIORITY,
                     cancellable);
@@ -884,6 +906,10 @@ public class DirectoryMonitor : Object {
                         
                         continue;
                     }
+                    
+                    // check for symlink support
+                    if (!is_file_symlink_supported(info))
+                        continue;
                     
                     switch (info.get_file_type()) {
                         case FileType.REGULAR:
@@ -1041,7 +1067,7 @@ public class DirectoryMonitor : Object {
         switch (event) {
             case FileMonitorEvent.CREATED:
             case FileMonitorEvent.CHANGES_DONE_HINT:
-                file.query_info_async.begin(SUPPLIED_ATTRIBUTES, FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+                file.query_info_async.begin(SUPPLIED_ATTRIBUTES, UNKNOWN_INFO_FLAGS,
                     DEFAULT_PRIORITY, cancellable, query_info.on_completed);
             break;
             
@@ -1057,7 +1083,7 @@ public class DirectoryMonitor : Object {
                 // unlike the others, other_file is the destination of the move, and therefore the
                 // one we need to get info on
                 if (other_file != null) {
-                    other_file.query_info_async.begin(SUPPLIED_ATTRIBUTES, FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+                    other_file.query_info_async.begin(SUPPLIED_ATTRIBUTES, UNKNOWN_INFO_FLAGS,
                         DEFAULT_PRIORITY, cancellable, query_info.on_completed);
                 } else {
                     warning("Unable to process MOVED event: no other_file");
@@ -1136,6 +1162,14 @@ public class DirectoryMonitor : Object {
                 continue;
             }
             
+            // watch for symlink support
+            if (next.info != null && !is_file_symlink_supported(next.info)) {
+                mdbg("No symlink support for %s, dropping %s".printf(next.file.get_path(),
+                    next.event.to_string()));
+                
+                continue;
+            }
+            
             on_monitor_notification_ready(next.file, next.other_file, next.info, next.event);
         }
     }
@@ -1159,7 +1193,7 @@ public class DirectoryMonitor : Object {
                     
                     case FType.DIRECTORY:
                         // other files may have been created under this new directory before we have
-                        // a change to register a monitor, so scan it now looking for new additions
+                        // a chance to register a monitor, so scan it now looking for new additions
                         // (this call will notify of creation and monitor this new directory once 
                         // it's been scanned)
                         outstanding_exploration_dirs++;
@@ -1374,6 +1408,32 @@ public class DirectoryMonitor : Object {
     // there.
     public FileInfo? query_file_info(File file) {
         return files.query_info(file, cancellable);
+    }
+    
+    // This checks if the FileInfo is for a symlinked file/directory and if symlinks for the file
+    // type are supported by DirectoryMonitor.  Note that this requires the FileInfo have support
+    // for the "standard::is-symlink" and "standard::type" file attributes, which SUPPLIED_ATTRIBUTES
+    // provides.
+    //
+    // Returns true if the file is not a symlink or if symlinks are supported for the file type,
+    // false otherwise.  If an unsupported file type, returns false.
+    public static bool is_file_symlink_supported(FileInfo info) {
+        if (!info.get_is_symlink())
+            return true;
+        
+        FType ftype = get_ftype(info);
+        switch (ftype) {
+            case FType.DIRECTORY:
+                return SUPPORT_DIR_SYMLINKS;
+            
+            case FType.FILE:
+                return SUPPORT_FILE_SYMLINKS;
+            
+            default:
+                assert(ftype == FType.UNSUPPORTED);
+                
+                return false;
+        }
     }
 }
 

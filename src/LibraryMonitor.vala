@@ -511,8 +511,8 @@ public class LibraryMonitor : DirectoryMonitor {
             FileInfo? info = get_file_info(file);
             if (info == null) {
                 try {
-                    info = yield file.query_info_async(SUPPLIED_ATTRIBUTES,
-                        FileQueryInfoFlags.NOFOLLOW_SYMLINKS, DEFAULT_PRIORITY, cancellable);
+                    info = yield file.query_info_async(SUPPLIED_ATTRIBUTES, FILE_INFO_FLAGS,
+                        DEFAULT_PRIORITY, cancellable);
                 } catch (Error err) {
                     // ignore, this happens when file is not found
                 }
