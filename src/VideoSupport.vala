@@ -411,9 +411,18 @@ public class Video : VideoSource, Flaggable, Monitorable {
     public static void terminate() {
     }
     
-    public static ExporterUI? export_many(Gee.Collection<Video> videos, Exporter.CompletionCallback done) {       
+    public static ExporterUI? export_many(Gee.Collection<Video> videos, Exporter.CompletionCallback done,
+        bool export_in_place = false) {       
         if (videos.size == 0)
             return null;
+        
+		// in place export is relatively easy -- provide a fast, separate code path for it
+        if (export_in_place) {
+             ExporterUI temp_exporter = new ExporterUI(new Exporter.for_temp_file(videos,
+                Scaling.for_original(), ExportFormatParameters.unmodified(), true));
+             temp_exporter.export(done);
+             return temp_exporter;
+        }
 
         // one video
         if (videos.size == 1) {

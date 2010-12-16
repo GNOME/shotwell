@@ -124,6 +124,15 @@ public void send_to(Gee.Collection<MediaSource> media) {
         return;
     
     ExportDialog dialog = new ExportDialog(_("Send To"));
+
+    // determine the mix of media in the export collection -- if it contains only
+    // videos then we can use the Video.export_many( ) fast path and not have to
+    // worry about ExportFormatParameters or the Export... dialog
+    if (MediaSourceCollection.has_video(media) && !MediaSourceCollection.has_photo(media)) {
+        send_to_exporter = Video.export_many((Gee.Collection<Video>) media,
+            on_send_to_export_completed, true);
+        return;
+    }
     
     int scale;
     ScaleConstraint constraint;
