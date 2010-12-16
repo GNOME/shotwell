@@ -1879,14 +1879,19 @@ public class RedeyeTool : EditingTool {
         cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.LEFT_PTR);
         cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
         
-        LibraryPhoto.global.items_altered.connect(on_photos_altered);
+        DataCollection? owner = canvas.get_photo().get_membership();
+        if (owner != null)
+            owner.items_altered.connect(on_photos_altered);
         
         base.activate(canvas);
     }
     
     public override void deactivate() {
         if (canvas != null) {
-            LibraryPhoto.global.items_altered.disconnect(on_photos_altered);
+            DataCollection? owner = canvas.get_photo().get_membership();
+            if (owner != null)
+                owner.items_altered.disconnect(on_photos_altered);
+                
             unbind_canvas_handlers(canvas);
         }
         
@@ -2348,7 +2353,9 @@ public class AdjustTool : EditingTool {
         }
         virgin_histogram_pixbuf = histogram_pixbuf.copy();
         
-        LibraryPhoto.global.items_altered.connect(on_photos_altered);
+        DataCollection? owner = canvas.get_photo().get_membership();
+        if (owner != null)
+            owner.items_altered.connect(on_photos_altered);
 
         base.activate(canvas);
     }
@@ -2359,7 +2366,10 @@ public class AdjustTool : EditingTool {
 
     public override void deactivate() {
         if (canvas != null) {
-            LibraryPhoto.global.items_altered.disconnect(on_photos_altered);
+            DataCollection? owner = canvas.get_photo().get_membership();
+            if (owner != null)
+                owner.items_altered.disconnect(on_photos_altered);
+                
             unbind_canvas_handlers(canvas);
         }
         
