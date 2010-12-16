@@ -330,13 +330,13 @@ public class MetadataWriter : Object {
     }
     
     private void on_tags_altered(Gee.Map<DataObject, Alteration> map) {
-        Gee.ArrayList<LibraryPhoto>? photos = null;
+        Gee.HashSet<LibraryPhoto>? photos = null;
         foreach (DataObject object in map.keys) {
             if (!map.get(object).has_detail("metadata", "name"))
                 continue;
             
             if (photos == null)
-                photos = new Gee.ArrayList<LibraryPhoto>();
+                photos = new Gee.HashSet<LibraryPhoto>();
             
             foreach (MediaSource media in ((Tag) object).get_sources()) {
                 LibraryPhoto? photo = media as LibraryPhoto;
