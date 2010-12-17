@@ -335,6 +335,9 @@ public class Video : VideoSource, Flaggable, Monitorable {
     public Video(VideoRow row) {
         this.backing_row = row;
         
+        // normalize user text
+        this.backing_row.title = prep_title(this.backing_row.title);
+        
         if (((row.flags & FLAG_TRASH) != 0) || ((row.flags & FLAG_OFFLINE) != 0))
             rehydrate_backlinks(global, row.backlinks);
     }

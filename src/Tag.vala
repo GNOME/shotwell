@@ -282,6 +282,9 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         
         this.row = row;
         
+        // normalize user text
+        this.row.name = prep_tag_name(this.row.name);
+        
         // convert source ids to MediaSources and ThumbnailViews for the internal ViewCollection
         Gee.ArrayList<MediaSource> source_list = new Gee.ArrayList<MediaSource>();
         Gee.ArrayList<ThumbnailView> thumbnail_views = new Gee.ArrayList<ThumbnailView>();

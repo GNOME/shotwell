@@ -175,6 +175,9 @@ public class Event : EventSource, ContainerSource, Proxyable {
     private Event(EventRow event_row, int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
         
+        // normalize user text
+        event_row.name = prep_event_name(event_row.name);
+        
         this.event_id = event_row.event_id;
         this.raw_name = event_row.name;
         

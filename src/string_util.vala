@@ -81,11 +81,15 @@ public string? prepare_input_text(string? text, PrepareInputTextOptions options 
     
     string prepped = text;
     
+    // Using composed form rather than GLib's default (decomposed) as NFC is the preferred form in
+    // Linux and WWW.  More importantly, Pango seems to have serious problems displaying decomposed
+    // forms of Korean language glyphs (and perhaps others).  See:
+    // http://trac.yorba.org/ticket/2952
+    if ((options & PrepareInputTextOptions.NORMALIZE) != 0)
+        prepped = prepped.normalize(-1, NormalizeMode.NFC);
+    
     if ((options & PrepareInputTextOptions.STRIP) != 0)
         prepped = prepped.strip();
-    
-    if ((options & PrepareInputTextOptions.NORMALIZE) != 0)
-        prepped = prepped.normalize();
     
     if ((options & PrepareInputTextOptions.EMPTY_IS_NULL) != 0 && is_string_empty(prepped))
         return null;

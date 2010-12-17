@@ -411,6 +411,9 @@ public abstract class Photo : PhotoSource {
     protected Photo(PhotoRow row) {
         this.row = row;
         
+        // normalize user text
+        this.row.title = prep_title(this.row.title);
+        
         // don't need to lock the struct in the constructor (and to do so would hurt startup
         // time)
         readers.master = row.master.file_format.create_reader(row.master.filepath);
