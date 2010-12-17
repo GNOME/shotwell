@@ -33,7 +33,7 @@ public abstract class BatchImportJob {
     // that have been successfully imported.
     //
     // Returns true if any action was taken, false otherwise.
-    public virtual bool complete(MediaSource source, ViewCollection generated_events) throws Error {
+    public virtual bool complete(MediaSource source, BatchImportRoll import_roll) throws Error {
         return false;
     }
     
@@ -252,7 +252,7 @@ public class BatchImport : Object {
         new Gee.LinkedList<CompletedImportObject>();
     private Gee.List<CompletedImportObject> display_imported_queue =
         new Gee.LinkedList<CompletedImportObject>();
-    private Gee.List<MediaSource> ready_sources = new Gee.LinkedList<MediaSource>();
+    private Gee.List<CompletedImportObject> ready_sources = new Gee.LinkedList<CompletedImportObject>();
     
     // Called at the end of the batched jobs.  Can be used to report the result of the import
     // to the user.  This is called BEFORE import_complete is fired.
@@ -791,20 +791,8 @@ public class BatchImport : Object {
                 report_failure(job.ready.batch_result);
                 file_import_complete();
             } else {
-                // complete the import job
-                PreparedFile src_prepared_file = job.ready.prepared_file;
-                BatchImportJob src_job = src_prepared_file.job;
-                try {
-                    src_job.complete(source, import_roll.generated_events);
-                } catch(Error e) {
-                    // TODO: improve failure handling to report it properly
-                    warning("Could not complete import job: %s", e.message);
-                }
-                
-                // TODO: should this be inside the try/catch statement to only
-                // be called if the completion is successful?
                 ready_thumbnails.add(new CompletedImportObject(source, job.ready.get_thumbnails(),
-                    job.ready.batch_result));
+                    job.ready.prepared_file.job, job.ready.batch_result));
             }
         }
         
@@ -865,7 +853,7 @@ public class BatchImport : Object {
             report_failure(completed.batch_result);
             file_import_complete();
         } else {
-            manifest.imported.add(completed.source as MediaSource);
+            manifest.imported.add(completed.source);
             manifest.add_result(completed.batch_result);
             
             display_imported_queue.add(completed);
@@ -903,39 +891,45 @@ public class BatchImport : Object {
         
         log_status("flush_ready_sources (%d)".printf(ready_sources.size));
         
-        Gee.ArrayList<LibraryPhoto> photos = null;
-        Gee.ArrayList<Video> videos = null;
-        foreach (MediaSource source in ready_sources) {
-            LibraryPhoto? photo = source as LibraryPhoto;
-            if (photo != null) {
-                if (photos == null)
-                    photos = new Gee.ArrayList<LibraryPhoto>();
-                
-                photos.add(photo);
-                
-                continue;
-            }
+        Gee.ArrayList<MediaSource> all = new Gee.ArrayList<MediaSource>();
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+        Gee.HashMap<MediaSource, BatchImportJob> completion_list =
+            new Gee.HashMap<MediaSource, BatchImportJob>();
+        foreach (CompletedImportObject completed in ready_sources) {
+            all.add(completed.source);
             
-            Video? video = source as Video;
-            assert(video != null);
+            if (completed.source is LibraryPhoto)
+                photos.add((LibraryPhoto) completed.source);
+            else if (completed.source is Video)
+                videos.add((Video) completed.source);
             
-            if (videos == null)
-                videos = new Gee.ArrayList<Video>();
-            
-            videos.add(video);
+            completion_list.set(completed.source, completed.original_job);
         }
         
-        MediaCollectionRegistry.get_instance().freeze_all();
+        MediaCollectionRegistry.get_instance().begin_transaction_on_all();
+        Event.global.freeze_notifications();
+        Tag.global.freeze_notifications();
         
-        if (photos != null)
-            LibraryPhoto.global.add_many(photos);
+        LibraryPhoto.global.import_many(photos);
+        Video.global.import_many(videos);
         
-        if (videos != null)
-            Video.global.add_many(videos);
+        // allow the BatchImportJob to perform final work on the MediaSource
+        foreach (MediaSource media in completion_list.keys) {
+            try {
+                completion_list.get(media).complete(media, import_roll);
+            } catch (Error err) {
+                warning("Completion error when finalizing import of %s: %s", media.to_string(),
+                    err.message);
+            }
+        }
         
-        Event.generate_many_events(ready_sources, import_roll.generated_events);
+        // generate events for MediaSources not yet assigned
+        Event.generate_many_events(all, import_roll.generated_events);
         
-        MediaCollectionRegistry.get_instance().thaw_all();
+        Tag.global.thaw_notifications();
+        Event.global.thaw_notifications();
+        MediaCollectionRegistry.get_instance().commit_transaction_on_all();
         
         ready_sources.clear();
     }
@@ -984,7 +978,7 @@ public class BatchImport : Object {
             
             // Stage the number of ready media objects to incorporate into the system rather than
             // doing them one at a time, to keep the UI thread responsive.
-            ready_sources.add(completed_object.source);
+            ready_sources.add(completed_object);
             
             imported(completed_object.source, completed_object.user_preview, total);
             report_progress(completed_object.source.get_filesize());
@@ -1563,13 +1557,15 @@ private class CompletedImportObject {
     public Thumbnails? thumbnails;
     public BatchImportResult batch_result;
     public MediaSource source;
+    public BatchImportJob original_job;
     public Gdk.Pixbuf user_preview;
     
     public CompletedImportObject(MediaSource source, Thumbnails thumbnails,
-        BatchImportResult import_result) {
+        BatchImportJob original_job, BatchImportResult import_result) {
         this.thumbnails = thumbnails;
         this.batch_result = import_result;
         this.source = source;
+        this.original_job = original_job;
         user_preview = thumbnails.get(ThumbnailCache.Size.LARGEST);
     }
 }

@@ -116,7 +116,6 @@ public class AlienDatabaseImportJob : BatchImportJob {
     private File? src_file;
     private uint64 filesize;
     private time_t exposure_time;
-    private ImportID import_id;
     
     public AlienDatabaseImportJob(AlienDatabaseImportSource import_source) {
         this.import_source = import_source;
@@ -125,7 +124,6 @@ public class AlienDatabaseImportJob : BatchImportJob {
         src_file = import_source.get_file();
         filesize = import_source.get_filesize();
         exposure_time = import_source.get_exposure_time();
-        import_id = ImportID.generate();
     }
     
     public time_t get_exposure_time() {
@@ -157,7 +155,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
         return true;
     }
     
-    public override bool complete(MediaSource source, ViewCollection generated_events) throws Error {
+    public override bool complete(MediaSource source, BatchImportRoll import_roll) throws Error {
         LibraryPhoto? photo = source as LibraryPhoto;
         if (photo == null)
             return false;
@@ -175,7 +173,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
         if (src_event != null) {
             string? prepped = prepare_input_text(src_event.get_name());
             if (prepped != null)
-                Event.generate_single_event(photo, generated_events, prepped);
+                Event.generate_single_event(photo, import_roll.generated_events, prepped);
         }
         // rating
         photo.set_rating(src_photo.get_rating());
@@ -184,7 +182,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
         if (title != null)
             photo.set_title(title);
         // import ID
-        photo.set_import_id(import_id);
+        photo.set_import_id(import_roll.import_id);
         
         return true;
     }

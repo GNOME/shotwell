@@ -3587,7 +3587,26 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         
         base.items_altered(items);
     }
-
+    
+    // This method adds the photos to the Tags (keywords) that were discovered during import.
+    public override void postprocess_imported_media(Gee.Collection<MediaSource> media_sources) {
+        Gee.HashMultiMap<Tag, LibraryPhoto> map = new Gee.HashMultiMap<Tag, LibraryPhoto>();
+        foreach (MediaSource media in media_sources) {
+            LibraryPhoto photo = (LibraryPhoto) media;
+            if (photo.get_import_keywords() != null) {
+                foreach (string keyword in photo.get_import_keywords())
+                    map.set(Tag.for_name(keyword), photo);
+                
+                photo.clear_import_keywords();
+            }
+        }
+        
+        foreach (Tag tag in map.get_keys())
+            tag.attach_many(map.get(tag));
+        
+        base.postprocess_imported_media(media_sources);
+    }
+    
     protected override MediaSource? fetch_by_numeric_id(int64 numeric_id) {
         return fetch(PhotoID(numeric_id));
     }
@@ -3753,9 +3772,12 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     
     private bool block_thumbnail_generation = false;
     private OneShotScheduler thumbnail_scheduler = null;
+    private Gee.Collection<string>? import_keywords;
     
-    private LibraryPhoto(PhotoRow row) {
+    private LibraryPhoto(PhotoRow row, Gee.Collection<string>? import_keywords) {
         base (row);
+        
+        this.import_keywords = import_keywords;
         
         thumbnail_scheduler = new OneShotScheduler("LibraryPhoto", generate_thumbnails);
         
@@ -3780,7 +3802,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         int count = all.size;
         for (int ctr = 0; ctr < count; ctr++) {
             PhotoRow row = all.get(ctr);
-            LibraryPhoto photo = new LibraryPhoto(row);
+            LibraryPhoto photo = new LibraryPhoto(row, null);
             uint64 flags = row.flags;
             
             if ((flags & FLAG_TRASH) != 0)
@@ -3810,13 +3832,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
             return ImportResult.DATABASE_ERROR;
         
         // create local object but don't add to global until thumbnails generated
-        photo = new LibraryPhoto(params.row);
-        
-        // if photo has tags/keywords, add them now
-        if (params.keywords != null) {
-            foreach (string keyword in params.keywords)
-                Tag.for_name(keyword).attach(photo);
-        }
+        photo = new LibraryPhoto(params.row, params.keywords);
         
         return ImportResult.SUCCESS;
     }
@@ -3838,6 +3854,15 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         
         // fire signal that thumbnails have changed
         notify_thumbnail_altered();
+    }
+    
+    // These keywords are only used during import and should not be relied upon elsewhere.
+    public Gee.Collection<string>? get_import_keywords() {
+        return import_keywords;
+    }
+    
+    public void clear_import_keywords() {
+        import_keywords = null;
     }
     
     protected override void notify_altered(Alteration alteration) {
@@ -3906,7 +3931,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         PhotoRow dupe_row = PhotoTable.get_instance().get_row(dupe_id);
         
         // build the DataSource for the duplicate
-        LibraryPhoto dupe = new LibraryPhoto(dupe_row);
+        LibraryPhoto dupe = new LibraryPhoto(dupe_row, null);
 
         // clone thumbnails
         ThumbnailCache.duplicate(this, dupe);

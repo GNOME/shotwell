@@ -296,6 +296,18 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     private Gee.TreeSet<ImportID?> sorted_import_ids = new Gee.TreeSet<ImportID?>(ImportID.compare_func);
     private Gee.Set<MediaSource> flagged = new Gee.HashSet<MediaSource>();
     
+    // This signal is fired when MediaSources are added to the collection due to a successful import.
+    // "items-added" and "contents-altered" will follow.
+    public virtual signal void media_import_starting(Gee.Collection<MediaSource> media) {
+    }
+    
+    // This signal is fired when MediaSources have been added to the collection due to a successful
+    // import and import postprocessing has completed (such as adding an import Photo to its Tags).
+    // Thus, signals that have already been fired (in this order) are "media-imported", "items-added",
+    // "contents-altered" before this signal.
+    public virtual signal void media_import_completed(Gee.Collection<MediaSource> media) {
+    }
+    
     public virtual signal void master_file_replaced(MediaSource media, File old_file, File new_file) {
     }
     
@@ -381,6 +393,14 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     
     protected virtual void notify_flagged_contents_altered() {
         flagged_contents_altered();
+    }
+    
+    protected virtual void notify_media_import_starting(Gee.Collection<MediaSource> media) {
+        media_import_starting(media);
+    }
+    
+    protected virtual void notify_media_import_completed(Gee.Collection<MediaSource> media) {
+        media_import_completed(media);
     }
     
     protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
@@ -556,7 +576,25 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     public int get_trashcan_count() {
         return get_trashcan().get_count();
     }
-
+    
+    // This method should be used in place of add_many() when adding MediaSources due to a successful
+    // import.  This function fires appropriate signals and calls add_many(), so the signals
+    // associated with that call will be fired too.
+    public virtual void import_many(Gee.Collection<MediaSource> media) {
+        notify_media_import_starting(media);
+        
+        add_many(media);
+        
+        postprocess_imported_media(media);
+        
+        notify_media_import_completed(media);
+    }
+    
+    // Child classes can override this method to perform postprocessing on a imported media, such
+    // as associating them with tags or events.
+    protected virtual void postprocess_imported_media(Gee.Collection<MediaSource> media) {
+    }
+    
     // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
     // Note that delete_backing dictates whether or not the photos are tombstoned (if deleted,
     // tombstones are not created).
@@ -724,6 +762,16 @@ public class MediaCollectionRegistry {
     public void thaw_all() {
         foreach (MediaSourceCollection sources in get_all())
             sources.thaw_notifications();
+    }
+    
+    public void begin_transaction_on_all() {
+        foreach (MediaSourceCollection sources in get_all())
+            sources.transaction_controller.begin();
+    }
+    
+    public void commit_transaction_on_all() {
+        foreach (MediaSourceCollection sources in get_all())
+            sources.transaction_controller.commit();
     }
     
     public MediaSource? fetch_media(string source_id) {

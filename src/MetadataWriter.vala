@@ -135,6 +135,7 @@ public class MetadataWriter : Object {
     private uint outstanding_completed = 0;
     private bool closed = false;
     private int pause_count = 0;
+    private Gee.HashSet<LibraryPhoto> importing_photos = new Gee.HashSet<LibraryPhoto>();
     
     public signal void progress(uint completed, uint total);
     
@@ -158,10 +159,13 @@ public class MetadataWriter : Object {
         // add all current photos to look for ones that are dirty and need updating
         force_rescan();
         
+        LibraryPhoto.global.media_import_starting.connect(on_importing_photos);
+        LibraryPhoto.global.media_import_completed.connect(on_photos_imported);
         LibraryPhoto.global.contents_altered.connect(on_photos_added_removed);
         LibraryPhoto.global.items_altered.connect(on_photos_altered);
         LibraryPhoto.global.frozen.connect(on_collection_frozen);
         LibraryPhoto.global.thawed.connect(on_collection_thawed);
+        LibraryPhoto.global.items_destroyed.connect(on_photos_destroyed);
         
         Tag.global.items_altered.connect(on_tags_altered);
         Tag.global.container_contents_altered.connect(on_tag_contents_altered);
@@ -177,10 +181,13 @@ public class MetadataWriter : Object {
     ~MetadataWriter() {
         Config.get_instance().bool_changed.disconnect(on_config_bool_changed);
         
+        LibraryPhoto.global.media_import_starting.disconnect(on_importing_photos);
+        LibraryPhoto.global.media_import_completed.disconnect(on_photos_imported);
         LibraryPhoto.global.contents_altered.disconnect(on_photos_added_removed);
         LibraryPhoto.global.items_altered.disconnect(on_photos_altered);
         LibraryPhoto.global.frozen.disconnect(on_collection_frozen);
         LibraryPhoto.global.thawed.disconnect(on_collection_thawed);
+        LibraryPhoto.global.items_destroyed.disconnect(on_photos_destroyed);
         
         Tag.global.items_altered.disconnect(on_tags_altered);
         Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
@@ -210,7 +217,7 @@ public class MetadataWriter : Object {
     
     // This will examine all photos for dirty metadata and schedule commits if enabled.
     public void force_rescan() {
-        schedule_dirty((Gee.Collection<LibraryPhoto>) LibraryPhoto.global.get_all(), "force rescan");
+        schedule_if_dirty((Gee.Collection<LibraryPhoto>) LibraryPhoto.global.get_all(), "force rescan");
     }
     
     public void pause() {
@@ -268,11 +275,21 @@ public class MetadataWriter : Object {
         unpause();
     }
     
+    private void on_importing_photos(Gee.Collection<MediaSource> media_sources) {
+        bool added = importing_photos.add_all((Gee.Collection<LibraryPhoto>) media_sources);
+        assert(added);
+    }
+    
+    private void on_photos_imported(Gee.Collection<MediaSource> media_sources) {
+        bool removed = importing_photos.remove_all((Gee.Collection<LibraryPhoto>) media_sources);
+        assert(removed);
+    }
+    
     private void on_photos_added_removed(Gee.Iterable<DataObject>? added,
         Gee.Iterable<DataObject>? removed) {
         // no reason to go through this exercise if auto-commit is disabled
         if (added != null && enabled)
-            schedule_dirty((Gee.Collection<LibraryPhoto>) added, "added to LibraryPhoto.global");
+            schedule_if_dirty((Gee.Iterable<LibraryPhoto>) added, "added to LibraryPhoto.global");
         
         // want to cancel jobs no matter what, however
         if (removed != null) {
@@ -326,7 +343,15 @@ public class MetadataWriter : Object {
         }
         
         if (photos != null)
-            photos_dirty(photos, "alteration", false);
+            photos_are_dirty(photos, "alteration", false);
+    }
+    
+    private void on_photos_destroyed(Gee.Collection<DataSource> destroyed) {
+        foreach (DataSource source in destroyed) {
+            LibraryPhoto photo = (LibraryPhoto) source;
+            cancel_job(photo);
+            importing_photos.remove(photo);
+        }
     }
     
     private void on_tags_altered(Gee.Map<DataObject, Alteration> map) {
@@ -346,7 +371,7 @@ public class MetadataWriter : Object {
         }
         
         if (photos != null)
-            photos_dirty(photos, "tag renamed", false);
+            photos_are_dirty(photos, "tag renamed", false);
     }
     
     private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,
@@ -357,11 +382,11 @@ public class MetadataWriter : Object {
             Gee.ArrayList<LibraryPhoto> added_photos = new Gee.ArrayList<LibraryPhoto>();
             foreach (DataSource source in added) {
                 LibraryPhoto? photo =  source as LibraryPhoto;
-                if (photo != null)
+                if (photo != null && !importing_photos.contains(photo))
                     added_photos.add(photo);
             }
             
-            photos_dirty(added_photos, "added to %s".printf(tag.to_string()), false);
+            photos_are_dirty(added_photos, "added to %s".printf(tag.to_string()), false);
         }
         
         if (removed != null && !unlinking) {
@@ -372,7 +397,7 @@ public class MetadataWriter : Object {
                     removed_photos.add(photo);
             }
             
-            photos_dirty(removed_photos, "removed from %s".printf(tag.to_string()), false);
+            photos_are_dirty(removed_photos, "removed from %s".printf(tag.to_string()), false);
         }
     }
     
@@ -384,7 +409,7 @@ public class MetadataWriter : Object {
                 photos.add(photo);
         }
         
-        photos_dirty(photos, "backlink removed from %s".printf(container.to_string()), false);
+        photos_are_dirty(photos, "backlink removed from %s".printf(container.to_string()), false);
     }
     
     private void count_enqueued_work(int count, bool report) {
@@ -428,11 +453,15 @@ public class MetadataWriter : Object {
             progress(outstanding_completed, outstanding_total);
     }
     
-    private void schedule_dirty(Gee.Collection<MediaSource> media_sources, string reason) {
+    private void schedule_if_dirty(Gee.Iterable<MediaSource> media_sources, string reason) {
         Gee.ArrayList<LibraryPhoto> photos = null;
         foreach (MediaSource media in media_sources) {
             LibraryPhoto? photo = media as LibraryPhoto;
             if (photo == null)
+                continue;
+            
+            // if in the importing stage, do not schedule for commit
+            if (importing_photos.contains(photo))
                 continue;
             
             if (photo.is_master_metadata_dirty()) {
@@ -444,10 +473,11 @@ public class MetadataWriter : Object {
         }
         
         if (photos != null)
-            photos_dirty(photos, reason, true);
+            photos_are_dirty(photos, reason, true);
     }
     
-    private void photos_dirty(Gee.Collection<LibraryPhoto> photos, string reason, bool already_marked) {
+    // No photos are dirty.  The human body is a thing of beauty and grace.
+    private void photos_are_dirty(Gee.Collection<LibraryPhoto> photos, string reason, bool already_marked) {
         if (photos.size == 0)
             return;
         
