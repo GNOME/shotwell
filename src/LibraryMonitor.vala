@@ -317,7 +317,7 @@ public class LibraryMonitor : DirectoryMonitor {
         if (representing != null) {
             assert(representation != null && !ignore);
             add_to_discovered_list(representing, representation);
-        } else if (!ignore && !Tombstone.global.matches(file, null) && is_supported_filetype(file)) {
+        } else if (!ignore && !Tombstone.global.matches(file) && is_supported_filetype(file)) {
             unknown_files.add(file);
         }
         
@@ -779,7 +779,7 @@ public class LibraryMonitor : DirectoryMonitor {
             if (pending_imports.contains(file))
                 continue;
             
-            if (Tombstone.global.matches(file, null))
+            if (Tombstone.global.matches(file))
                 continue;
             
             bool represented = false;
@@ -810,7 +810,7 @@ public class LibraryMonitor : DirectoryMonitor {
     // It's possible for the monitor to miss a file create but report other activities, which we
     // can use to pick up new files
     private void runtime_unknown_file_discovered(File file) {
-        if (auto_import && is_supported_filetype(file) && !Tombstone.global.matches(file, null)) {
+        if (auto_import && is_supported_filetype(file) && !Tombstone.global.matches(file)) {
             mdbg("Unknown file %s discovered, enqueuing for import".printf(file.get_path()));
             enqueue_import(file);
         }
@@ -1001,7 +1001,7 @@ public class LibraryMonitor : DirectoryMonitor {
         
         if (!known) {
             // ressurrect tombstone if deleted
-            Tombstone? tombstone = Tombstone.global.locate(file, null);
+            Tombstone? tombstone = Tombstone.global.locate(file);
             if (tombstone != null) {
                 debug("Resurrecting tombstoned file %s", file.get_path());
                 Tombstone.global.resurrect(tombstone);

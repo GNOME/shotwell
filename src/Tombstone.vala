@@ -7,7 +7,6 @@
 public class TombstoneSourceCollection : DatabaseSourceCollection {
     private Gee.HashMap<File, Tombstone> file_map = new Gee.HashMap<File, Tombstone>(file_hash,
         file_equal);
-    private Gee.HashMap<string, Tombstone> md5_map = new Gee.HashMap<string, Tombstone>();
     
     public TombstoneSourceCollection() {
         base ("Tombstones", get_tombstone_id);
@@ -28,10 +27,6 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
                 Tombstone tombstone = (Tombstone) object;
                 
                 file_map.set(tombstone.get_file(), tombstone);
-                
-                string? md5 = tombstone.get_md5();
-                if (md5 != null)
-                    md5_map.set(md5, tombstone);
             }
         }
         
@@ -41,12 +36,6 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
                 
                 bool is_removed = file_map.unset(tombstone.get_file());
                 assert(is_removed);
-                
-                string? md5 = tombstone.get_md5();
-                if (md5 != null) {
-                    is_removed = md5_map.unset(md5);
-                    assert(is_removed);
-                }
             }
         }
         
@@ -74,23 +63,12 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
         }
     }
     
-    public Tombstone? locate(File file, string? md5) {
-        Tombstone? tombstone = file_map.get(file);
-        if (tombstone != null)
-            return tombstone;
-        
-        return (md5 != null) ? md5_map.get(md5) : null;
+    public Tombstone? locate(File file) {
+        return file_map.get(file);
     }
     
-    public bool matches(File file, string? md5) {
-        if (file_map.has_key(file))
-            return true;
-        
-        return (md5 != null) ? md5_map.has_key(md5) : false;
-    }
-    
-    public bool has_md5(string md5) {
-        return md5_map.has_key(md5);
+    public bool matches(File file) {
+        return file_map.has_key(file);
     }
     
     public void resurrect(Tombstone tombstone) {
@@ -256,7 +234,7 @@ public class Tombstone : DataSource {
         // destroy any out-of-date tombstones so they may be updated
         Marker to_destroy = global.start_marking();
         foreach (TombstonedFile file in files) {
-            Tombstone? tombstone = global.locate(file.file, file.md5);
+            Tombstone? tombstone = global.locate(file.file);
             if (tombstone != null)
                 to_destroy.mark(tombstone);
         }

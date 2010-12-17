@@ -771,8 +771,7 @@ public class BatchImport : Object {
         if (job.ready != null) {
             assert(job.ready.batch_result.result == ImportResult.SUCCESS);
             
-            Tombstone? tombstone = Tombstone.global.locate(job.ready.final_file,
-                job.ready.prepared_file.full_md5);
+            Tombstone? tombstone = Tombstone.global.locate(job.ready.final_file);
             if (tombstone != null)
                 Tombstone.global.resurrect(tombstone);
         
