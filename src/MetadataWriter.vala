@@ -276,13 +276,11 @@ public class MetadataWriter : Object {
     }
     
     private void on_importing_photos(Gee.Collection<MediaSource> media_sources) {
-        bool added = importing_photos.add_all((Gee.Collection<LibraryPhoto>) media_sources);
-        assert(added);
+        importing_photos.add_all((Gee.Collection<LibraryPhoto>) media_sources);
     }
     
     private void on_photos_imported(Gee.Collection<MediaSource> media_sources) {
-        bool removed = importing_photos.remove_all((Gee.Collection<LibraryPhoto>) media_sources);
-        assert(removed);
+        importing_photos.remove_all((Gee.Collection<LibraryPhoto>) media_sources);
     }
     
     private void on_photos_added_removed(Gee.Iterable<DataObject>? added,
