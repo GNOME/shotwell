@@ -676,6 +676,7 @@ private class PhotoMonitor : MediaMonitor {
     
     public void update_editable_file_alterations_completed(LibraryPhoto photo, FileInfo info) {
         fetch_photo_updates(photo).set_editable_file_info(info);
+        fetch_photo_updates(photo).set_editable_in_alteration(false);
     }
     
     public void update_revert_to_master(LibraryPhoto photo) {
