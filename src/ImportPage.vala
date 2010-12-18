@@ -274,10 +274,8 @@ class ImportPreview : MediaSourceItem {
     }
     
     public bool is_already_imported() {
-        // TODO: dupe detection for video
-
-        if (get_import_source() is PhotoImportSource) {
-            PhotoImportSource photo_import_source = get_import_source() as PhotoImportSource;
+        PhotoImportSource photo_import_source = get_import_source() as PhotoImportSource;
+        if (photo_import_source != null) {
             string? preview_md5 = photo_import_source.get_preview_md5();
             PhotoFileFormat file_format = photo_import_source.get_file_format();
             
@@ -299,6 +297,20 @@ class ImportPreview : MediaSourceItem {
                         return true;
                     }
                 }
+            }
+            
+            return false;
+        }
+        
+        VideoImportSource video_import_source = get_import_source() as VideoImportSource;
+        if (video_import_source != null) {
+            // Unlike photos, if a video does have a thumbnail (i.e. gphoto2 can retrieve one from
+            // a sidebar file), it will be unavailable to Shotwell during the import process, so
+            // no comparison is available.  Instead, like RAW files, use name and filesize to
+            // do a less-reliable but better-than-nothing comparison
+            if (Video.global.has_basename_filesize_duplicate(video_import_source.get_filename(),
+                video_import_source.get_filesize())) {
+                return true;
             }
             
             return false;
@@ -482,8 +494,9 @@ public class ImportPage : CheckerboardPage {
         get_view().contents_altered.connect(on_view_changed);
         get_view().items_visibility_changed.connect(on_view_changed);
         
-        // monitor Photos for removals, at that will change the result of the ViewFilter
-        LibraryPhoto.global.contents_altered.connect(on_photos_added_removed);
+        // monitor Photos for removals, as that will change the result of the ViewFilter
+        LibraryPhoto.global.contents_altered.connect(on_media_added_removed);
+        Video.global.contents_altered.connect(on_media_added_removed);
         
         // Adds one menu entry per alien database driver
         AlienDatabaseHandler.get_instance().add_menu_entries(
@@ -539,7 +552,8 @@ public class ImportPage : CheckerboardPage {
     }
     
     ~ImportPage() {
-        LibraryPhoto.global.contents_altered.disconnect(on_photos_added_removed);
+        LibraryPhoto.global.contents_altered.disconnect(on_media_added_removed);
+        Video.global.contents_altered.disconnect(on_media_added_removed);
     }
     
     public override string? get_icon_name() {
@@ -668,7 +682,7 @@ public class ImportPage : CheckerboardPage {
             !busy && (get_view().get_count() > 0));
     }
     
-    private void on_photos_added_removed() {
+    private void on_media_added_removed() {
         get_view().reapply_view_filter();
     }
 

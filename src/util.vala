@@ -32,6 +32,18 @@ public int int64_compare(void *a, void *b) {
         return 0;
 }
 
+public int uint64_compare(void *a, void *b) {
+    uint64 a64 = *((uint64 *) a);
+    uint64 b64 = *((uint64 *) b);
+    
+    if (a64 < b64)
+        return -1;
+    else if (a64 > b64)
+        return 1;
+    else
+        return 0;
+}
+
 public delegate bool ValueEqualFunc(Value a, Value b);
 
 public bool bool_value_equals(Value a, Value b) {

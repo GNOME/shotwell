@@ -985,12 +985,9 @@ public abstract class Photo : PhotoSource {
             apply_user_metadata_for_reimport(reimport_state.metadata);
         
         if (!reimport_state.metadata_only) {
-            if (is_master_baseline()) {
-                reimport_state.alterations += "image:master";
+            reimport_state.alterations += "image:master";
+            if (is_master_baseline())
                 reimport_state.alterations += "image:baseline";
-            } else {
-                reimport_state.alterations += "image:master";
-            }
         }
         
         if (reimport_state.alterations.length > 0)

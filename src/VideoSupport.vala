@@ -956,6 +956,8 @@ public class VideoSourceCollection : MediaSourceCollection {
     }
     
     private TransactionController _transaction_controller = null;
+    private Gee.MultiMap<uint64?, Video> filesize_to_video =
+        new Gee.TreeMultiMap<uint64?, Video>(uint64_compare);
     
     public VideoSourceCollection() {
         base("VideoSourceCollection", get_video_key);
@@ -1069,5 +1071,35 @@ public class VideoSourceCollection : MediaSourceCollection {
         
         foreach (MediaSource media in get_offline_bin_contents())
             compare_backing((Video) media, info, matching_master);
+    }
+    
+    protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
+        Gee.Iterable<DataObject>? removed) {
+        if (added != null) {
+            foreach (DataObject object in added) {
+                Video video = (Video) object;
+                
+                filesize_to_video.set(video.get_master_filesize(), video);
+            }
+        }
+        
+        if (removed != null) {
+            foreach (DataObject object in removed) {
+                Video video = (Video) object;
+                
+                filesize_to_video.remove(video.get_master_filesize(), video);
+            }
+        }
+        
+        base.notify_contents_altered(added, removed);
+    }
+    
+    public bool has_basename_filesize_duplicate(string basename, uint64 filesize) {
+        foreach (Video video in filesize_to_video.get(filesize)) {
+            if (video.get_master_file().get_basename() == basename)
+                return true;
+        }
+        
+        return false;
     }
 }
