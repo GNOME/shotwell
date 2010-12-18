@@ -237,10 +237,7 @@ public class BatchImport : Object {
     private ulong last_preparing_ms = 0;
     private Gee.HashSet<File> skipset;
 #if !NO_DUPE_DETECTION
-    private Gee.MultiMap<string, PhotoFileFormat> imported_thumbnail_md5 =
-        new Gee.HashMultiMap<string, PhotoFileFormat>();
-    private Gee.MultiMap<string, PhotoFileFormat> imported_full_md5 =
-        new Gee.HashMultiMap<string, PhotoFileFormat>();
+    private Gee.HashSet<string> imported_full_md5 = new Gee.HashSet<string>();
 #endif
     private uint throbber_id = 0;
     private int max_outstanding_import_jobs = Workers.thread_per_cpu_minus_one();
@@ -528,36 +525,15 @@ public class BatchImport : Object {
     // library and therefore not detected there.
     private bool is_in_current_import(PreparedFile prepared_file) {
 #if !NO_DUPE_DETECTION
-        if (prepared_file.thumbnail_md5 != null
-            && imported_thumbnail_md5.contains(prepared_file.thumbnail_md5)) {
-            foreach (PhotoFileFormat file_format in imported_thumbnail_md5.get(prepared_file.thumbnail_md5)) {
-                if (file_format == prepared_file.file_format) {
-                    debug("Not importing %s: thumbnail match detected in import set",
-                        prepared_file.file.get_path());
-                    
-                    return true;
-                }
-            }
-        }
-        
         if (prepared_file.full_md5 != null
-            && imported_full_md5.contains(prepared_file.full_md5)) {
-            foreach (PhotoFileFormat file_format in imported_full_md5.get(prepared_file.full_md5)) {
-                if (file_format == prepared_file.file_format) {
-                    debug("Not importing %s: full match detected in import set",
-                        prepared_file.file.get_path());
-                    
-                    return true;
-                }
-            }
+            && imported_full_md5.contains(prepared_file.full_md5)) {            
+            
+            return true;
         }
         
         // add for next one
-        if (prepared_file.thumbnail_md5 != null)
-            imported_thumbnail_md5.set(prepared_file.thumbnail_md5, prepared_file.file_format);
-        
         if (prepared_file.full_md5 != null)
-            imported_full_md5.set(prepared_file.full_md5, prepared_file.file_format);
+            imported_full_md5.add(prepared_file.full_md5);
 #endif
         return false;
     }
@@ -654,7 +630,13 @@ public class BatchImport : Object {
                     ImportResult.PHOTO_EXISTS);
             }
             
-            if (Photo.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
+            if (is_in_current_import(prepared_file)) {
+                // this looks for duplicates within the import set, since Photo.is_duplicate
+                // only looks within already-imported photos for dupes
+                import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                    prepared_file.file.get_path(), prepared_file.file.get_path(), 
+                    ImportResult.PHOTO_EXISTS);
+            } else if (Photo.is_duplicate(prepared_file.file, null, 
                 prepared_file.full_md5, prepared_file.file_format)) {
                 // If a file is being linked and has a dupe in the trash, we take it out of the trash
                 // and revert its edits.
@@ -680,21 +662,13 @@ public class BatchImport : Object {
                     continue;
                 }
                 
-                // Photos with duplicates that exist outside of the trash are marked as already existing
-                if (LibraryPhoto.has_nontrash_duplicate(prepared_file.file,
-                    prepared_file.thumbnail_md5, prepared_file.full_md5, prepared_file.file_format)) {
-                    debug("duplicate photo detected outside of trash, not importing %s",
-                        prepared_file.file.get_path());
-                    
-                    import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
-                        prepared_file.source_id, prepared_file.dest_id, ImportResult.PHOTO_EXISTS);
-                }
-            } else if (is_in_current_import(prepared_file)) {
-                // this looks for duplicates within the import set, since Photo.is_duplicate
-                // only looks within already-imported photos for dupes
-                import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
-                    prepared_file.file.get_path(), prepared_file.file.get_path(), 
-                    ImportResult.PHOTO_EXISTS);
+                // Photos with duplicates that exist outside of the trash are marked as already existing.
+                // Photo may not be in LibraryPhoto.global yet, so we'll just trust the database.
+                debug("duplicate photo detected outside of trash, not importing %s",
+                    prepared_file.file.get_path());
+                
+                import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
+                    prepared_file.source_id, prepared_file.dest_id, ImportResult.PHOTO_EXISTS);
             }
             
             if (import_result != null) {
