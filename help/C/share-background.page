@@ -4,11 +4,18 @@
 
     <info>
         <link type="guide" xref="index#share"/>
-        <desc>Click <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq> to set a photo as your wallpaper.</desc>
+        <desc>Set your desktop background to a single photo or to a slideshow of photos.</desc>
     </info>
 
-	<title>Set a photo as your desktop background</title>
+	<title>Set a desktop background or slideshow</title>
 
-    <p>To set a photo as your desktop background, select the photo and choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>.</p>
+    <p>To set a single photo as your desktop background, select the photo and choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>.</p>
+    
+    <p>You can also set your background to a slideshow of photos.  To do this, select the photos for
+    the slideshow and choose <guiseq><gui>File</gui><gui>Set as Desktop Slideshow</gui></guiseq>.
+    Shotwell will prompt you for a slideshow delay, which can be any interval up to one day in length.
+    The background slideshow will proceed even when Shotwell is not running.
+    </p>
+    
 </page>
 

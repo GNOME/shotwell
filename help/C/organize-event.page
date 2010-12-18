@@ -13,6 +13,12 @@
     
     <p>Choose <gui>Events</gui> from the sidebar to see your photos organized by date. If you select a month or year from the sidebar, a list of events will be displayed in the main window. Double-click an event to see all the photos that were taken around that time.</p>
     
+    <p>If a photo has no embedded date/time information, then Shotwell can't automatically
+    place it in any event.  In this case the photo will appear in the <gui>No Event</gui>
+    view accessible from the sidebar.  You can still move the photo to any event you like
+    as described below.
+    </p>
+    
     <section>
     <title>Renaming events</title>
 

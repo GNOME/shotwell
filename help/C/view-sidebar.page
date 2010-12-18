@@ -11,7 +11,9 @@
 
 <p>The sidebar on the left side of the Shotwell window lists various views of your library. Each view is known as a collection. Although you may see the same photo in multiple collections, it's only stored once on your hard drive.</p>
 
-<p>The Photos collection displays all the photos in your library.</p>
+<p>The <gui>Photos</gui> collection displays all the photos in your library.</p>
+
+<p>The <gui>Videos</gui> collection displays all the videos in your library.</p>
 
 <p>The Events collection lists all events in your library.  An event is a group of photos that were taken at approximately the same time.</p>
 
