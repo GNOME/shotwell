@@ -907,7 +907,7 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "UPDATE PhotoTable SET width = ?, height = ?, filesize = ?, timestamp = ?, "
             + "exposure_time = ?, orientation = ?, original_orientation = ?, md5 = ?, " 
-            + "exif_md5 = ?, thumbnail_md5 = ?, file_format = ?, time_reimported = ? "
+            + "exif_md5 = ?, thumbnail_md5 = ?, file_format = ?, title = ?, time_reimported = ? "
             + "WHERE id = ?", -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -935,9 +935,11 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int(11, row.master.file_format.serialize());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(12, time_reimported);
+        res = stmt.bind_text(12, row.title);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(13, row.photo_id.id);
+        res = stmt.bind_int64(13, time_reimported);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(14, row.photo_id.id);
         assert(res == Sqlite.OK);
         
         res = stmt.step();

@@ -939,7 +939,7 @@ public abstract class Photo : PhotoSource {
                 list += "metadata:exposure-time";
             
             if (updated_row.title != detected.metadata.get_title())
-                list += "metadata:title";
+                list += "metadata:name";
             
             if (updated_row.rating != detected.metadata.get_rating())
                 list += "metadata:rating";
@@ -1047,7 +1047,7 @@ public abstract class Photo : PhotoSource {
             apply_user_metadata_for_reimport(reimport_state.metadata);
         }
         
-        string list = "metadata:title,image:orientation,metadata:rating,metadata:exposure-time";
+        string list = "metadata:name,image:orientation,metadata:rating,metadata:exposure-time";
         if (!reimport_state.metadata_only)
             list += "image:editable,image:baseline";
         
