@@ -7,7 +7,7 @@
         <desc>Shotwell supports JPEG, PNG and RAW photo files as well as video files.</desc>
     </info>
 
-	<title>Supported Photo and Video Formats</title>
+	<title>Supported photo and video formats</title>
 
    <p>Shotwell supports JPEG, PNG, and RAW photo files. Shotwell does not yet support other graphics format such as BMP, GIF and TIFF.</p>
 
@@ -21,8 +21,8 @@ Shotwell is running.  This typically includes the following formats among others
 codecs listed here due to legal or licensing restrictions.</em></p></item>
 </list>
 
-<p>Shotwell supports both photos and videos, but for simplicity, this documentation generally uses just the term "photos"
-in most places.  Many operations in Shotwell apply to both photos and videos, however.  In particular, grouping into events,
+<p>Shotwell supports both photos and videos, but for simplicity, this documentation uses just the term "photos"
+in most places.  Many operations in Shotwell apply to both photos and videos, however.  In particular, events,
 flagging, rating, tagging, and publishing work both for photos and for videos.</p>
 
 </page>

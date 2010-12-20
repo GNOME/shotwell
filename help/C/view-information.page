@@ -7,7 +7,7 @@
         <desc>View more detailed information about photos, like the exposure mode used by the camera.</desc>
     </info>
 
-	<title>Basic and Extended Information</title>
+	<title>Basic and extended information</title>
 
 <p>The Basic Information pane appears at the bottom of the sidebar, and displays a brief summary of the photos you've selected. If no photos are selected, it displays a summary of the entire collection. You can toggle the display of this pane using the <guiseq><gui>View</gui><gui>Basic Information</gui></guiseq> command.</p>
 

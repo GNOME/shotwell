@@ -7,7 +7,7 @@
         <desc>You can open Shotwell with a different photo library by using the command line.</desc>
     </info>
 
-	<title>Multiple Libraries</title>
+	<title>Multiple libraries</title>
 
 <p>Shotwell normally stores its database and photo thumbnails in the directory <file>~/.shotwell</file> . This directory does not hold photos, but the database in this directory contains a list of all the photos in the Shotwell library.</p>
 

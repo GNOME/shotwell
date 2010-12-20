@@ -7,7 +7,7 @@
         <desc>If Shotwell can't find a photo in your library, it marks it as missing.</desc>
     </info>
 
-	<title>Missing Photos</title>
+	<title>Missing photos</title>
 
 <p>Each time Shotwell starts up, it scans your photo library to verify that all photo files still exist on your hard drive. If Shotwell finds that any photo files are missing, it will not display them in the normal Photos, Events and Tags views, but will instead show them in a separate Missing Files view which will appear in the sidebar.</p>
 
