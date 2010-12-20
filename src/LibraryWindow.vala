@@ -69,17 +69,15 @@ public class LibraryWindow : AppWindow {
     // LibraryPhotoPage.
     private class FullscreenPhotoPage : LibraryPhotoPage {
         private CollectionPage collection;
-        private Thumbnail start;
+        private LibraryPhoto start;
         
-        public FullscreenPhotoPage(CollectionPage collection, Thumbnail start) {
+        public FullscreenPhotoPage(CollectionPage collection, LibraryPhoto start) {
             this.collection = collection;
             this.start = start;
         }
         
         public override void switched_to() {
-            Photo? photo = start.get_media_source() as Photo;
-            if (photo != null)
-                display_for_collection(collection, photo);
+            display_for_collection(collection, start);
             
             base.switched_to();
         }
@@ -551,7 +549,11 @@ public class LibraryWindow : AppWindow {
         if (collection == null || start == null)
             return;
         
-        FullscreenPhotoPage fs_photo = new FullscreenPhotoPage(collection, start);
+        LibraryPhoto? photo = start.get_media_source() as LibraryPhoto;
+        if (photo == null)
+            return;
+        
+        FullscreenPhotoPage fs_photo = new FullscreenPhotoPage(collection, photo);
 
         go_fullscreen(fs_photo);
     }
@@ -583,8 +585,24 @@ public class LibraryWindow : AppWindow {
     }
     
     protected override void update_actions(int selected_count, int count) {
+        // see on_fullscreen for the logic here ... both CollectionPage and EventsDirectoryPage
+        // are CheckerboardPages (but in on_fullscreen have to be handled differently to locate
+        // the view controller)
+        bool can_fullscreen = false;
+        Page? page = get_current_page();
+        if (page != null) {
+            if (page is CheckerboardPage) {
+                CheckerboardItem? item = ((CheckerboardPage) page).get_fullscreen_photo();
+                if (item != null)
+                    can_fullscreen = item.get_source() is Photo;
+            } else if (page is LibraryPhotoPage) {
+                can_fullscreen = true;
+            }
+        }
+        
         set_common_action_sensitive("CommonEmptyTrash", can_empty_trash());
         set_common_action_sensitive("CommonJumpToEvent", can_jump_to_event());
+        set_common_action_sensitive("CommonFullscreen", can_fullscreen);
         
         base.update_actions(selected_count, count);
     }

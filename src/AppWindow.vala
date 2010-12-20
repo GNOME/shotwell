@@ -761,15 +761,11 @@ public abstract class AppWindow : PageWindow {
     }
     
     // This is a counterpart to Page.update_actions(), but for common Gtk.Actions
+    // NOTE: Although CommonFullscreen is declared here, it's implementation is up to the subclasses,
+    // therefore they need to update its action.
     protected virtual void update_actions(int selected_count, int count) {
-        bool primary_select_is_video = false;
-        if (selected_count > 0 && get_current_page() != null)
-            primary_select_is_video = get_current_page().get_view().get_selected_at(0).get_source()
-                is Video;
-            
         set_common_action_sensitive("CommonSelectAll", count > 0);
         set_common_action_sensitive("CommonJumpToFile", selected_count == 1);
-        set_common_action_sensitive("CommonFullscreen", (count > 0) && (!primary_select_is_video));
 
         decorate_undo_action();
         decorate_redo_action();

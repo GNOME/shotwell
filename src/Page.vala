@@ -1261,7 +1261,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     public override void switched_to() {
-        layout.set_in_view(true);       
+        layout.set_in_view(true);
 
         base.switched_to();
     }
