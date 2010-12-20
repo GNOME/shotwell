@@ -723,6 +723,10 @@ public class DirectoryMonitor : Object {
     }
     
     private async void async_notify_directory_deleted(File dir, bool already_removed) {
+        // Note that in this function no assertion checking is done ... there are many
+        // reasons a deleted file may not be known to the internal bookkeeping; if
+        // the file is gone and we didn't know about it, then it's no problem.
+        
         // because a directory can be deleted without its children being deleted first (probably
         // means it has been moved to a location outside of the monitored root), need to
         // synthesize notifications for all its children
@@ -743,8 +747,7 @@ public class DirectoryMonitor : Object {
             // now notify deletions on all immediate children files ... don't notify directory
             // deletion because that's handled right before exiting this method
             foreach (File file_child in file_children) {
-                bool removed = files.remove(file_child, null);
-                assert(removed);
+                files.remove(file_child, null);
                 
                 notify_file_deleted(file_child);
                 
@@ -753,10 +756,8 @@ public class DirectoryMonitor : Object {
             }
         }
         
-        if (!already_removed) {
-            bool removed2 = files.remove(dir, null);
-            assert(removed2);
-        }
+        if (!already_removed)
+            files.remove(dir, null);
         
         notify_directory_deleted(dir);
     }
