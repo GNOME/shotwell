@@ -1348,18 +1348,16 @@ private class PrepareFilesJob : BackgroundImportJob {
         string thumbnail_md5 = null;
         string full_md5 = null;
         
-        // duplicate detection:
-        //     for photos: if EXIF data present, look for a match with either EXIF itself or
-        //                 the thumbnail. Still do a full MD5 for tombstones.
-        //     for videos: always compare on full MD5
         try {
             full_md5 = md5_file(file);
 #if TRACE_MD5
             debug("import MD5 for file %s = %s", file.get_path(), full_md5);
 #endif
         } catch (Error err) {
-            warning("Unable to perform MD5 checksum on video file %s: %s", file.get_path(),
+            warning("Unable to perform MD5 checksum on file %s: %s", file.get_path(),
                 err.message);
+                
+            return ImportResult.FILE_ERROR;
         }
         
         // we only care about file extensions and metadata if we're importing a photo --
