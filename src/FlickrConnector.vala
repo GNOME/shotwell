@@ -665,7 +665,7 @@ private class Uploader : BatchUploader {
     }
 
     protected override RESTTransaction create_transaction_for_file(
-        BatchUploader.TemporaryFileDescriptor file) {
+        BatchUploader.TemporaryFileDescriptor file) throws PublishingError {
         return new UploadTransaction(session, parameters, file.temp_file.get_path(), file.media);
     }
 }

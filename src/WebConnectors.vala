@@ -4,6 +4,12 @@
  * See the COPYING file in this distribution. 
  */
 
+// Soup.form_request_new_from_multipart() (which is used in many of the web connectors) is not
+// bound properly, causing a memory leak on the Soup.Message object it produces.  This is especially
+// onerous for video uploads, as the message holds the entire video object in memory during the
+// transaction.  (See http://trac.yorba.org/ticket/2991)
+extern Soup.Message soup_form_request_new_from_multipart(string uri, Soup.Multipart multipart);
+
 public errordomain PublishingError {
     NO_ANSWER,
     COMMUNICATION_FAILED,
@@ -177,10 +183,11 @@ public class RESTTransaction {
     private string signature_key = null;
     private string signature_value = null;
     private bool is_executed = false;
-    private RESTSession parent_session = null;
+    private weak RESTSession parent_session = null;
     private Soup.Message message = null;
     private bool use_custom_payload = false;
     private int bytes_written = 0;
+    private PublishingError? err = null;
     
     public signal void chunk_transmitted(int bytes_written_so_far, int total_bytes);
     public signal void network_error(PublishingError err);
@@ -206,18 +213,13 @@ public class RESTTransaction {
     private void on_request_unqueued(Soup.Message message) {
         if (this.message != message)
             return;
-            
-        parent_session.get_soup_session().request_unqueued.disconnect(on_request_unqueued);
-        message.wrote_body_data.disconnect(on_wrote_body_data);
-
+        
         try {
             check_response(message);
         } catch (PublishingError err) {
-            network_error(err);
-            return;
+            warning("Publishing error: %s", err.message);
+            this.err = err;
         }
-
-        completed();
     }
 
     public virtual void check_response(Soup.Message message) throws PublishingError {
@@ -292,13 +294,24 @@ public class RESTTransaction {
         is_executed = new_is_executed;
     }
 
-    protected void send() {
+    protected void send() throws PublishingError {
         if (parent_session.are_transactions_stopped())
             return;
 
         parent_session.get_soup_session().request_unqueued.connect(on_request_unqueued);
         get_message().wrote_body_data.connect(on_wrote_body_data);
         parent_session.get_soup_session().send_message(get_message());
+        
+        parent_session.get_soup_session().request_unqueued.disconnect(on_request_unqueued);
+        message.wrote_body_data.disconnect(on_wrote_body_data);
+        
+        if (err != null)
+            network_error(err);
+        else
+            completed();
+        
+        if (err != null)
+            throw err;
      }
 
     // When writing a specialized transaction subclass you should rarely need to
@@ -376,11 +389,13 @@ public class RESTTransaction {
             message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
                 formdata_string, formdata_string.length);
             is_executed = true;
-            send();
-
-            // if old_url is non-null, then restore it
-            if (old_url != null)
-                message.set_uri(new Soup.URI(old_url));
+            try {
+                send();
+            } finally {
+                // if old_url is non-null, then restore it
+                if (old_url != null)
+                    message.set_uri(new Soup.URI(old_url));
+            }
         }
     }
 
@@ -517,7 +532,7 @@ public abstract class MediaUploadTransaction : RESTTransaction {
         // create a message that can be sent over the wire whose payload is the multipart container
         // that we've been building up
         Soup.Message outbound_message =
-            Soup.form_request_new_from_multipart(get_endpoint_url(), message_parts);
+            soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
         set_message(outbound_message);
         
         // send the message and get its response
@@ -835,27 +850,31 @@ public class PublishingDialog : Gtk.Dialog {
             return;
         
         active_instance.run();
+        
+        if (active_instance != null)
+            destroy_instance();
+    }
+    
+    private static void destroy_instance() {
+        if (active_instance == null)
+            return;
+        
+        if (active_instance.interactor != null)
+            active_instance.interactor.cancel_interaction();
+        
+        active_instance.hide();
+        active_instance.destroy();
+        
+        active_instance = null;
     }
     
     private void on_close_cancel_clicked() {
-        if (interactor != null)
-            interactor.cancel_interaction();
-
-        hide();
-        destroy();
-        
-        active_instance = null;
+        destroy_instance();
     }
 
     private bool on_window_close(Gdk.Event evt) {
-        if (interactor != null)
-            interactor.cancel_interaction();
+        destroy_instance();
         
-        hide();
-        destroy();
-        
-        active_instance = null;
-
         return true;
     }
 
@@ -1001,7 +1020,7 @@ public abstract class ServiceCapabilities {
 }
 
 public abstract class ServiceInteractor {
-    private PublishingDialog host;
+    private weak PublishingDialog host;
     private bool error = false;
 
     public ServiceInteractor(PublishingDialog host) {
@@ -1058,7 +1077,6 @@ public abstract class BatchUploader {
 
     private MediaSource[] photos;
     private TemporaryFileDescriptor[] temp_files;
-    private bool has_error = false;
     private int current_file = 0;
 
     public signal void status_updated(string description, double fraction_complete);
@@ -1074,15 +1092,15 @@ public abstract class BatchUploader {
     }
 
     protected abstract bool prepare_file(TemporaryFileDescriptor file);
-    protected abstract RESTTransaction create_transaction_for_file(TemporaryFileDescriptor file);
+    
+    protected abstract RESTTransaction create_transaction_for_file(TemporaryFileDescriptor file)
+        throws PublishingError;
 
     private TemporaryFileDescriptor[] prepare_files() throws PublishingError {
         File temp_dir = AppDirs.get_temp_dir();
         TemporaryFileDescriptor[] temp_files = new TemporaryFileDescriptor[0];
 
         for (int i = 0; i < photos.length; i++) {
-            if (has_error)
-                break;
 
             spin_event_loop();
 
@@ -1122,25 +1140,47 @@ public abstract class BatchUploader {
         return temp_files;
     }
 
-    private void send_file(TemporaryFileDescriptor file) {
-        if (has_error)
-            return;
-
-        double fraction_complete = PREPARATION_PHASE_FRACTION +
-            (current_file * (UPLOAD_PHASE_FRACTION / temp_files.length));
-        status_updated(_("Uploading %d of %d").printf(current_file + 1, temp_files.length),
-            fraction_complete);
-
-        RESTTransaction txn = create_transaction_for_file(file);
-        txn.completed.connect(on_file_uploaded);
-        txn.chunk_transmitted.connect(on_chunk_transmitted);
-        txn.network_error.connect(on_upload_error);
-
-        try {
-            txn.execute();
-        } catch (PublishingError err) {
-            on_upload_error(txn, err);
+    private void send_files() {
+        current_file = 0;
+        bool stop = false;
+        foreach (TemporaryFileDescriptor temp_file in temp_files) {
+            double fraction_complete = PREPARATION_PHASE_FRACTION +
+                (current_file * (UPLOAD_PHASE_FRACTION / temp_files.length));
+            status_updated(_("Uploading %d of %d").printf(current_file + 1, temp_files.length),
+                fraction_complete);
+            
+            RESTTransaction txn = null;
+            try {
+                txn = create_transaction_for_file(temp_file);
+            } catch (PublishingError err) {
+                upload_error(err);
+                stop = true;
+            }
+            
+            if (!stop) {
+                txn.chunk_transmitted.connect(on_chunk_transmitted);
+                
+                try {
+                    txn.execute();
+                } catch (PublishingError err) {
+                    upload_error(err);
+                    stop = true;
+                }
+                
+                txn.chunk_transmitted.disconnect(on_chunk_transmitted);
+            }
+            
+            if (temp_file.media is Photo)
+                delete_file(temp_file);
+            
+            if (stop)
+                break;
+            
+            current_file++;
         }
+        
+        if (!stop)
+            upload_complete(current_file);
     }
 
     private void delete_file(TemporaryFileDescriptor file) {
@@ -1154,25 +1194,7 @@ public abstract class BatchUploader {
             warning("BatchUploader: deleting temporary files failed.");
         }
     }
-
-    private void on_file_uploaded(RESTTransaction txn) {
-        txn.completed.disconnect(on_file_uploaded);
-        txn.chunk_transmitted.disconnect(on_chunk_transmitted);
-        txn.network_error.disconnect(on_upload_error);
-
-        if (has_error)
-            return;
-
-        if (temp_files[current_file].media is Photo) {
-            delete_file(temp_files[current_file]);
-        }
-        current_file++;
-        if (current_file < temp_files.length)
-           send_file(temp_files[current_file]);
-        else
-           upload_complete(current_file);
-    }
-
+    
     private void on_chunk_transmitted(int bytes_written_so_far, int total_bytes) {
         double file_span = UPLOAD_PHASE_FRACTION / temp_files.length;
         double this_file_fraction_complete = ((double) bytes_written_so_far) / total_bytes;
@@ -1182,17 +1204,7 @@ public abstract class BatchUploader {
         string status_desc = UPLOAD_STATUS_DESCRIPTION.printf(current_file + 1, temp_files.length);
         status_updated(status_desc, fraction_complete);
     }
-
-    private void on_upload_error(RESTTransaction bad_txn, PublishingError err) {
-        bad_txn.completed.disconnect(on_file_uploaded);
-        bad_txn.chunk_transmitted.disconnect(on_chunk_transmitted);
-        bad_txn.network_error.disconnect(on_upload_error);
-
-        has_error = true;
-
-        upload_error(err);
-    }
-
+    
     public void upload() {
         status_updated(_("Preparing for upload"), 0);
 
@@ -1201,10 +1213,9 @@ public abstract class BatchUploader {
         } catch (PublishingError err) {
             upload_error(err);
         }
-        current_file = 0;
 
         if (temp_files.length > 0)
-           send_file(temp_files[0]);
+           send_files();
     }
 }
 

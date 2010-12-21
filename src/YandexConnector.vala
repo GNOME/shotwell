@@ -603,7 +603,8 @@ public class Capabilities : ServiceCapabilities {
             }
         }
 
-        protected override RESTTransaction create_transaction_for_file(BatchUploader.TemporaryFileDescriptor file) {
+        protected override RESTTransaction create_transaction_for_file(BatchUploader.TemporaryFileDescriptor file)
+            throws PublishingError {
             RESTTransaction t = new UploadTransaction(session, file.temp_file.get_path(),
                 (Photo) file.media);
 
@@ -615,7 +616,7 @@ public class Capabilities : ServiceCapabilities {
     }
 
     private class UploadTransaction: YandexTransaction {
-        public UploadTransaction(YandexSession session, string source_file, Photo photo) {
+        public UploadTransaction(YandexSession session, string source_file, Photo photo) throws PublishingError {
             base.with_url(session, session.get_destination_album_url(), HttpMethod.POST);
             
             set_custom_payload("qwe", "image/jpeg", 1);
@@ -649,7 +650,11 @@ public class Capabilities : ServiceCapabilities {
             try {
                 FileUtils.get_contents(source_file, out photo_data, out data_length);
             } catch (FileError e) {
-                error("YandexUploadTransaction: couldn't read data from file '%s'", source_file);
+                string msg = "Yandex: couldn't read data from %s: %s".printf(
+                    source_file, e.message);
+                warning("%s", msg);
+                
+                throw new PublishingError.LOCAL_FILE_ERROR(msg);
             }
 
             int image_part_num = message_parts.get_length();
@@ -667,7 +672,8 @@ public class Capabilities : ServiceCapabilities {
 
             image_part_header.set_content_disposition("form-data", result);
 
-            Soup.Message outbound_message = Soup.form_request_new_from_multipart(get_endpoint_url(), message_parts);
+            Soup.Message outbound_message = soup_form_request_new_from_multipart(
+                get_endpoint_url(), message_parts);
             outbound_message.request_headers.append("Authorization", ("OAuth %s").printf(session.get_access_token()));
             outbound_message.request_headers.append("Connection", "close");
             set_message(outbound_message);

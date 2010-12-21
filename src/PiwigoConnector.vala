@@ -571,7 +571,8 @@ private class Uploader : BatchUploader {
         return true;
     }
 
-    protected override RESTTransaction create_transaction_for_file(BatchUploader.TemporaryFileDescriptor file) {
+    protected override RESTTransaction create_transaction_for_file(BatchUploader.TemporaryFileDescriptor file) 
+        throws PublishingError {
         return new ImagesAddTransaction(session, parameters, file.temp_file.get_path(), file.media);
     }
 }
@@ -1176,7 +1177,7 @@ private class ImagesAddTransaction : Transaction {
     }
 
     // Need to copy and paste this method to add the cookie header to the sent message.
-    public override void execute() {
+    public override void execute() throws PublishingError {
 
         RESTArgument[] request_arguments = get_arguments();
         assert(request_arguments.length > 0);
@@ -1194,7 +1195,11 @@ private class ImagesAddTransaction : Transaction {
         try {
             FileUtils.get_contents(source_file, out photo_data, out data_length);
         } catch (FileError e) {
-            error("PhotoUploadTransaction: couldn't read data from file '%s'", source_file);
+            string msg = "Piwigo: couldn't ready data from %s: %s".printf(source_file,
+                e.message);
+            warning("%s", msg);
+            
+            throw new PublishingError.LOCAL_FILE_ERROR(msg);
         }
 
         // get the sequence number of the part that will soon become the binary image data
@@ -1216,7 +1221,8 @@ private class ImagesAddTransaction : Transaction {
 
         // create a message that can be sent over the wire whose payload is the multipart container
         // that we've been building up
-        Soup.Message outbound_message = Soup.form_request_new_from_multipart(get_endpoint_url(), message_parts);
+        Soup.Message outbound_message = soup_form_request_new_from_multipart(
+            get_endpoint_url(), message_parts);
         outbound_message.request_headers.append("Cookie", session_copy.get_pwg_id());
         set_message(outbound_message);
 

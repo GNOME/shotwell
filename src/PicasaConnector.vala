@@ -533,7 +533,7 @@ private class Uploader : BatchUploader {
     }
 
     protected override RESTTransaction create_transaction_for_file(
-        BatchUploader.TemporaryFileDescriptor file) {
+        BatchUploader.TemporaryFileDescriptor file) throws PublishingError {
         return new PicasaUploadTransaction(session, parameters, file.temp_file.get_path(), file.media);
     }
 }
@@ -1099,7 +1099,7 @@ private class PicasaUploadTransaction : AuthenticatedTransaction {
         this.photo_name = media_source.get_name();
     }
 
-    public override void execute() {
+    public override void execute() throws PublishingError {
         sign();
 
         // before they can be executed, photo upload requests must be signed and must
@@ -1119,7 +1119,10 @@ private class PicasaUploadTransaction : AuthenticatedTransaction {
         try {
             FileUtils.get_contents(source_file, out photo_data, out data_length);
         } catch (FileError e) {
-            error("PicasaUploadTransaction: couldn't read data from file '%s'", source_file);
+            string msg = "Picasa: couldn't read data from %s: %s".printf(source_file, e.message);
+            warning("%s", msg);
+            
+            throw new PublishingError.LOCAL_FILE_ERROR(msg);
         }
 
         // bind the binary image data read from disk into a Soup.Buffer object so that we
@@ -1131,7 +1134,7 @@ private class PicasaUploadTransaction : AuthenticatedTransaction {
         // create a message that can be sent over the wire whose payload is the multipart container
         // that we've been building up
         Soup.Message outbound_message =
-            Soup.form_request_new_from_multipart(get_endpoint_url(), message_parts);
+            soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
         outbound_message.request_headers.append("Authorization", "GoogleLogin auth=%s".printf(session.get_auth_token()));
         set_message(outbound_message);
 

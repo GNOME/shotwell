@@ -214,7 +214,7 @@ public class Interactor : ServiceInteractor {
         uploader.upload_complete.disconnect(on_upload_complete);
         uploader.upload_error.disconnect(on_upload_error);
         uploader.status_updated.disconnect(progress_pane.set_status);
-
+        
         if (has_error() || cancelled)
             return;
 
@@ -390,7 +390,7 @@ private class Uploader : BatchUploader {
     }
 
     protected override RESTTransaction create_transaction_for_file(
-        BatchUploader.TemporaryFileDescriptor file) {
+        BatchUploader.TemporaryFileDescriptor file) throws PublishingError {
         return new VideoUploadTransaction(session, (Video) file.media, parameters.get_privacy_setting());
     }
 
@@ -556,7 +556,6 @@ private class PublishingOptionsPane : PublishingDialogPane {
     private const int ACTION_BUTTON_SPACING = 48;
 
     private Gtk.ComboBox privacy_combo;
-    private Interactor interactor;
     private string channel_name;
     private PrivacyDescription[] privacy_descriptions;
     private Gtk.Button publish_button;
@@ -565,7 +564,6 @@ private class PublishingOptionsPane : PublishingDialogPane {
     public signal void logout();
 
     public PublishingOptionsPane(Interactor interactor, string channel_name) {
-        this.interactor = interactor;
         this.channel_name = channel_name;
         this.privacy_descriptions = create_privacy_descriptions();
 
@@ -828,7 +826,6 @@ private class VideoUploadTransaction : AuthenticatedTransaction {
                                                 </entry>""";
     private string source_file;
     private Video source_video = null;
-    private Session session;
     private PrivacySetting privacy_setting;
 
     public VideoUploadTransaction(Session session, Video source_video, PrivacySetting privacy_setting) {
@@ -836,12 +833,11 @@ private class VideoUploadTransaction : AuthenticatedTransaction {
 
         this.source_file = source_video.get_file().get_path();
         this.source_video = source_video;
-        this.session = session;
         this.privacy_setting = privacy_setting;
         add_header("Slug", source_video.get_name());
     }
 
-    public override void execute() {
+    public override void execute() throws PublishingError {
         sign();
 
         // before they can be executed, video upload requests must be signed and must
@@ -867,7 +863,10 @@ private class VideoUploadTransaction : AuthenticatedTransaction {
         try {
             FileUtils.get_contents(source_file, out video_data, out data_length);
         } catch (FileError e) {
-            error("VideoUploadTransaction: couldn't read data from file '%s'", source_file);
+            string msg = "YouTube: Unable to read data from %s: %s".printf(source_file, e.message);
+            warning("%s", msg);
+            
+            throw new PublishingError.LOCAL_FILE_ERROR(msg);
         }
 
         // bind the binary image data read from disk into a Soup.Buffer object so that we
@@ -881,8 +880,9 @@ private class VideoUploadTransaction : AuthenticatedTransaction {
         // create a message that can be sent over the wire whose payload is the multipart container
         // that we've been building up
         Soup.Message outbound_message =
-            Soup.form_request_new_from_multipart(get_endpoint_url(), message_parts);
-        outbound_message.request_headers.append("Authorization", "GoogleLogin auth=%s".printf(session.get_auth_token()));
+            soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
+        outbound_message.request_headers.append("Authorization", "GoogleLogin auth=%s".printf(
+            ((Session) get_parent_session()).get_auth_token()));
         outbound_message.request_headers.append("X-GData-Key", "key=%s".printf(DEVELOPER_KEY));
         outbound_message.request_headers.append("Slug", source_video.get_name());
         set_message(outbound_message);
