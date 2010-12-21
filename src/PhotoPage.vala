@@ -3255,6 +3255,8 @@ public class DirectPhotoPage : EditingHostPage {
         context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
         
         DirectPhoto.global.items_altered.connect(on_photos_altered);
+        
+        get_view().selection_group_altered.connect(on_selection_group_altered);
     }
     
     ~DirectPhotoPage() {
@@ -3530,6 +3532,16 @@ public class DirectPhotoPage : EditingHostPage {
         
         set_action_sensitive("Save", sensitive && get_photo().get_file_format().can_write());
         set_action_sensitive("Revert", sensitive);
+    }
+    
+    private void on_selection_group_altered() {
+        // On EditingHostPage, the displayed photo is always selected, so this signal is fired
+        // whenever a new photo is displayed (which even happens on an in-place save; the changes
+        // are written and a new DirectPhoto is loaded into its place).
+        //
+        // In every case, reset the CommandManager, as the command stack is not valid against this
+        // new file.
+        get_command_manager().reset();
     }
     
     protected override void update_ui(Photo photo, bool missing) {
