@@ -266,13 +266,25 @@ public class EventsDirectoryPage : CheckerboardPage {
     }
 
     private EventDirectoryItem? get_fullscreen_item() {
-        // use first selected item, otherwise use first item
-        if (get_view().get_selected_count() > 0)
-            return (EventDirectoryItem?) get_view().get_selected_at(0);
-        else if (get_view().get_count() > 0)
-            return (EventDirectoryItem?) get_view().get_at(0);
-        else
+        // if there's a selection, use first selected event with a photo; otherwise, no go.
+        if (get_view().get_selected_count() > 0) {
+            foreach (DataView view in get_view().get_selected()) {
+                EventDirectoryItem item = (EventDirectoryItem) view;
+                if (item.event.contains_media_type(Photo.TYPENAME))
+                    return item;
+            }
+            
             return null;
+        }
+        
+        // no selection, so use first event with photo
+        foreach (DataObject object in get_view().get_all()) {
+            EventDirectoryItem item = (EventDirectoryItem) object;
+            if (item.event.contains_media_type(Photo.TYPENAME))
+                return item;
+        }
+        
+        return null;
     }
     
     public EventPage? get_fullscreen_event() {

@@ -382,13 +382,25 @@ public abstract class CollectionPage : MediaPage {
     }
 
     public override CheckerboardItem? get_fullscreen_photo() {
-        // use first selected item; if no selection, use first item
-        if (get_view().get_selected_count() > 0)
-            return (CheckerboardItem?) get_view().get_selected_at(0);
-        else if (get_view().get_count() > 0)
-            return (CheckerboardItem?) get_view().get_at(0);
-        else
+        // if a selection, use first selected photo, otherwise, no go
+        if (get_view().get_selected_count() > 0) {
+            foreach (DataView view in get_view().get_selected()) {
+                Thumbnail thumbnail = (Thumbnail) view;
+                if (thumbnail.get_media_source() is Photo)
+                    return thumbnail;
+            }
+            
             return null;
+        }
+        
+        // no selection, so use first photo
+        foreach (DataObject object in get_view().get_all()) {
+            Thumbnail thumbnail = (Thumbnail) object;
+            if (thumbnail.get_media_source() is Photo)
+                return thumbnail;
+        }
+        
+        return null;
     }
     
     protected override bool on_app_key_pressed(Gdk.EventKey event) {

@@ -337,6 +337,18 @@ public class Event : EventSource, ContainerSource, Proxyable {
         view.remove_marked(view.mark_many(views));
     }
     
+    // TODO: A preferred way to do this is for ContainerSource to have an abstract interface for
+    // obtaining the DataCollection in the ContainerSource of all the media objects.  Then,
+    // ContinerSource could offer this helper class.
+    public bool contains_media_type(string media_type) {
+        foreach (MediaSource media in get_media()) {
+            if (media.get_typename() == media_type)
+                return true;
+        }
+        
+        return false;
+    }
+    
     private Gee.ArrayList<MediaSource> views_to_media(Gee.Iterable<DataObject> views) {
         Gee.ArrayList<MediaSource> media = new Gee.ArrayList<MediaSource>();
         foreach (DataObject object in views)
