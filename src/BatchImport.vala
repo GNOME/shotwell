@@ -1158,7 +1158,7 @@ private class WorkSniffer : BackgroundImportJob {
                     search_dir(job, child, copy_to_library);
                 } catch (Error err) {
                     report_error(job, child, child.get_path(), child.get_path(), err, 
-                    ImportResult.FILE_ERROR);
+                        ImportResult.FILE_ERROR);
                 }
             } else if (file_type == FileType.REGULAR) {
                 if ((skipset != null) && skipset.contains(child))
@@ -1331,7 +1331,7 @@ private class PrepareFilesJob : BackgroundImportJob {
     }
     
     private ImportResult prepare_file(BatchImportJob job, File file, bool copy_to_library,
-        out PreparedFile prepared_file) throws Error {
+        out PreparedFile prepared_file) {
         bool is_video = VideoReader.is_supported_video_file(file);
         
         if ((!is_video) && (!Photo.is_file_image(file)))
@@ -1367,7 +1367,7 @@ private class PrepareFilesJob : BackgroundImportJob {
             warning("Unable to perform MD5 checksum on file %s: %s", file.get_path(),
                 err.message);
                 
-            return ImportResult.FILE_ERROR;
+            return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
         }
         
         // we only care about file extensions and metadata if we're importing a photo --
@@ -1380,7 +1380,14 @@ private class PrepareFilesJob : BackgroundImportJob {
                 return ImportResult.UNSUPPORTED_FORMAT;
             }
             PhotoFileReader reader = file_format.create_reader(file.get_path());
-            PhotoMetadata? metadata = reader.read_metadata();
+            PhotoMetadata? metadata = null;
+            try {
+                metadata = reader.read_metadata();
+            } catch (Error err) {
+                warning("Unable to read metadata for %s (%s): continuing to attempt import",
+                    file.get_path(), err.message);
+            }
+            
             if (metadata != null) {
                 uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
                 if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
@@ -1392,7 +1399,14 @@ private class PrepareFilesJob : BackgroundImportJob {
             }
         }
 
-        uint64 filesize = query_total_file_size(file, get_cancellable());
+        uint64 filesize = 0;
+        try {
+            filesize = query_total_file_size(file, get_cancellable());
+        } catch (Error err) {
+            warning("Unable to query file size of %s: %s", file.get_path(), err.message);
+            
+            return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
+        }
         
         // never copy file if already in library directory
         bool is_in_library_dir = file.has_prefix(library_dir);
