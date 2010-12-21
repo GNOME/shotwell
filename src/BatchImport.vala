@@ -241,6 +241,7 @@ public class BatchImport : Object {
 #endif
     private uint throbber_id = 0;
     private int max_outstanding_import_jobs = Workers.thread_per_cpu_minus_one();
+    private bool untrash_duplicates = true;
     
     // These queues are staging queues, holding batches of work that must happen in the import
     // process, working on them all at once to minimize overhead.
@@ -321,6 +322,14 @@ public class BatchImport : Object {
     
     public void user_halt() {
         cancellable.cancel();
+    }
+    
+    public bool get_untrash_duplicates() {
+        return untrash_duplicates;
+    }
+    
+    public void set_untrash_duplicates(bool untrash_duplicates) {
+        this.untrash_duplicates = untrash_duplicates;
     }
     
     private void log_status(string where) {
@@ -636,36 +645,37 @@ public class BatchImport : Object {
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
                     prepared_file.file.get_path(), prepared_file.file.get_path(), 
                     ImportResult.PHOTO_EXISTS);
-            } else if (Photo.is_duplicate(prepared_file.file, null, 
-                prepared_file.full_md5, prepared_file.file_format)) {
-                // If a file is being linked and has a dupe in the trash, we take it out of the trash
-                // and revert its edits.
-                photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
-                
-                if (photo == null && prepared_file.full_md5 != null)
-                    photo = LibraryPhoto.global.get_trashed_by_md5(prepared_file.full_md5);
-                
-                if (photo != null) {
-                    debug("duplicate linked photo found in trash, untrashing and removing" + 
-                            " transforms for %s", prepared_file.file.get_path());
+            } else if (Photo.is_duplicate(prepared_file.file, null, prepared_file.full_md5,
+                prepared_file.file_format)) {
+                if (untrash_duplicates) {
+                    // If a file is being linked and has a dupe in the trash, we take it out of the trash
+                    // and revert its edits.
+                    photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
                     
-                    photo.untrash();
-                    photo.remove_all_transformations();
+                    if (photo == null && prepared_file.full_md5 != null)
+                        photo = LibraryPhoto.global.get_trashed_by_md5(prepared_file.full_md5);
                     
-                    import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
-                        prepared_file.file.get_path(), prepared_file.file.get_path(), 
-                        ImportResult.SUCCESS);
-                    
-                    report_progress(photo.get_filesize());
-                    file_import_complete();
-                    
-                    continue;
+                    if (photo != null) {
+                        debug("duplicate linked photo found in trash, untrashing and removing transforms for %s",
+                            prepared_file.file.get_path());
+                        
+                        photo.untrash();
+                        photo.remove_all_transformations();
+                        
+                        import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                            prepared_file.file.get_path(), prepared_file.file.get_path(), 
+                            ImportResult.SUCCESS);
+                        
+                        report_progress(photo.get_filesize());
+                        file_import_complete();
+                        
+                        continue;
+                    }
                 }
                 
                 // Photos with duplicates that exist outside of the trash are marked as already existing.
                 // Photo may not be in LibraryPhoto.global yet, so we'll just trust the database.
-                debug("duplicate photo detected outside of trash, not importing %s",
-                    prepared_file.file.get_path());
+                debug("duplicate photo detected, not importing %s", prepared_file.file.get_path());
                 
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
                     prepared_file.source_id, prepared_file.dest_id, ImportResult.PHOTO_EXISTS);

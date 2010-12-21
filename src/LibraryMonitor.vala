@@ -607,6 +607,7 @@ public class LibraryMonitor : DirectoryMonitor {
         
         BatchImport importer = new BatchImport(jobs, "LibraryMonitor autoimport",
             null, null, null, null, current_import_roll);
+        importer.set_untrash_duplicates(false);
         batch_import_queue.add(importer);
         
         schedule_next_batch_import();
