@@ -1285,19 +1285,14 @@ private class PrepareFilesJob : BackgroundImportJob {
                 }
             }
             
-            try {
-                PreparedFile prepared_file;
-                result = prepare_file(job, file, copy_to_library, out prepared_file);
-                if (result == ImportResult.SUCCESS) {
-                    prepared_files++;
-                    list.add(prepared_file);
-                } else {
-                    report_failure(job, file, job.get_source_identifier(), file.get_path(), 
-                        result);
-                }
-            } catch (Error err) {
-                report_error(job, file, job.get_source_identifier(), file.get_path(),
-                    err, ImportResult.FILE_ERROR);
+            PreparedFile prepared_file;
+            result = prepare_file(job, file, copy_to_library, out prepared_file);
+            if (result == ImportResult.SUCCESS) {
+                prepared_files++;
+                list.add(prepared_file);
+            } else {
+                report_failure(job, file, job.get_source_identifier(), file.get_path(), 
+                    result);
             }
             
             if (list.size >= BatchImport.REPORT_EVERY_N_PREPARED_FILES 
