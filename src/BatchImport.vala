@@ -873,9 +873,6 @@ public class BatchImport : Object {
         if (ready_sources.size == 0)
             return;
         
-        // the user_preview and thumbnails in the CompletedImportObjects are not available at
-        // this stage
-        
         log_status("flush_ready_sources (%d)".printf(ready_sources.size));
         
         Gee.ArrayList<MediaSource> all = new Gee.ArrayList<MediaSource>();
@@ -963,17 +960,13 @@ public class BatchImport : Object {
         while (total-- > 0) {
             CompletedImportObject completed_object = display_imported_queue.remove_at(0);
             
-            imported(completed_object.source, completed_object.user_preview, total);
-            report_progress(completed_object.source.get_filesize());
-            file_import_complete();
-            
-            // expensive pixbufs no longer needed
-            completed_object.user_preview = null;
-            completed_object.thumbnails = null;
-            
             // Stage the number of ready media objects to incorporate into the system rather than
             // doing them one at a time, to keep the UI thread responsive.
             ready_sources.add(completed_object);
+            
+            imported(completed_object.source, completed_object.user_preview, total);
+            report_progress(completed_object.source.get_filesize());
+            file_import_complete();
         }
         
         if (ready_sources.size >= READY_SOURCES_COUNT_OVERFLOW || cancellable.is_cancelled())
