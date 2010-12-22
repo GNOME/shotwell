@@ -99,6 +99,7 @@ public string md5_file(File file) throws Error {
     return md5.get_string();
 }
 
+// Once generic functions are available in Vala, this could be genericized.
 public bool equal_sets(Gee.Set<string>? a, Gee.Set<string>? b) {
     if ((a == null && b != null) || (a != null && b == null))
         return false;
@@ -117,6 +118,42 @@ public bool equal_sets(Gee.Set<string>? a, Gee.Set<string>? b) {
     }
     
     return true;
+}
+
+// Once generic functions are available in Vala, this could be genericized.
+public Gee.Set<string>? intersection_of_sets(Gee.Set<string>? a, Gee.Set<string>? b,
+    Gee.Set<string>? excluded) {
+    if (a != null && b == null) {
+        if (excluded != null)
+            excluded.add_all(a);
+        
+        return null;
+    }
+    
+    if (a == null && b != null) {
+        if (excluded != null)
+            excluded.add_all(b);
+        
+        return null;
+    }
+    
+    Gee.Set<string> intersection = new Gee.HashSet<string>();
+    
+    foreach (string element in a) {
+        if (b.contains(element))
+            intersection.add(element);
+        else if (excluded != null)
+            excluded.add(element);
+    }
+    
+    foreach (string element in b) {
+        if (a.contains(element))
+            intersection.add(element);
+        else if (excluded != null)
+            excluded.add(element);
+    }
+    
+    return intersection.size > 0 ? intersection : null;
 }
 
 public uchar[] serialize_photo_ids(Gee.Collection<Photo> photos) {

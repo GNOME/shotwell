@@ -119,8 +119,9 @@ public enum ImportResult {
 
 // Specifies how pixel data is fetched from the backing file on disk.  MASTER is the original
 // backing photo of any supported photo file format; SOURCE is either the master or the editable
-// file, that is, the appropriate reference file for user display; BASELINE is an appropriate source
-// file with the proviso that it may be a suitable substitute for the master and/or the editable.
+// file, that is, the appropriate reference file for user display; BASELINE is an appropriate
+// file with the proviso that it may be a suitable substitute for the master and/or the editable
+// (i.e. a mimic).
 //
 // In general, callers want to use the BASELINE unless requirements are specific.
 public enum BackingFetchMode {
@@ -188,7 +189,7 @@ public enum Rating {
     }
 
     public bool can_decrease() {
-	    return this > REJECTED;
+        return this > REJECTED;
     }
 
     public bool is_valid() {
@@ -406,6 +407,30 @@ public abstract class Photo : PhotoSource {
     public virtual signal void baseline_replaced() {
     }
     
+    // This is fired when the photo's master is reimported in place.  It's fired after all changes
+    // to the Photo's state have been incorporated into the object and the "altered" signal has
+    // been fired notifying of the various details that have changed.
+    public virtual signal void master_reimported(PhotoMetadata? metadata) {
+    }
+    
+    // Like "master-reimported", but when a photo's editable has been reimported.
+    public virtual signal void editable_reimported(PhotoMetadata? metadata) {
+    }
+    
+    // Like "master-reimported" but when the baseline file has been reimported.  Note that this
+    // could be the master file OR the editable file.
+    //
+    // See BackingFetchMode for more details.
+    public virtual signal void baseline_reimported(PhotoMetadata? metadata) {
+    }
+    
+    // Like "master-reimported" but when the source file has been reimported.  Note that this could
+    // be the master file OR the editable file.
+    //
+    // See BackingFetchMode for more details.
+    public virtual signal void source_reimported(PhotoMetadata? metadata) {
+    }
+    
     // The key to this implementation is that multiple instances of Photo with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
     protected Photo(PhotoRow row) {
@@ -466,6 +491,22 @@ public abstract class Photo : PhotoSource {
     
     protected virtual void notify_baseline_replaced() {
         baseline_replaced();
+    }
+    
+    protected virtual void notify_master_reimported(PhotoMetadata? metadata) {
+        master_reimported(metadata);
+    }
+    
+    protected virtual void notify_editable_reimported(PhotoMetadata? metadata) {
+        editable_reimported(metadata);
+    }
+    
+    protected virtual void notify_source_reimported(PhotoMetadata? metadata) {
+        source_reimported(metadata);
+    }
+    
+    protected virtual void notify_baseline_reimported(PhotoMetadata? metadata) {
+        baseline_reimported(metadata);
     }
     
     public override bool internal_delete_backing() throws Error {
@@ -992,6 +1033,14 @@ public abstract class Photo : PhotoSource {
         
         if (reimport_state.alterations.length > 0)
             notify_altered(new Alteration.from_array(reimport_state.alterations));
+        
+        notify_master_reimported(reimport_state.metadata);
+        
+        if (is_master_baseline())
+            notify_baseline_reimported(reimport_state.metadata);
+        
+        if (is_master_source())
+            notify_source_reimported(reimport_state.metadata);
     }
     
     // This method is thread-safe.  Returns false if the photo has no associated editable.
@@ -1052,6 +1101,14 @@ public abstract class Photo : PhotoSource {
             list += "image:editable,image:baseline";
         
         notify_altered(new Alteration.from_list(list));
+        
+        notify_editable_reimported(reimport_state.metadata);
+        
+        if (is_editable_baseline())
+            notify_baseline_reimported(reimport_state.metadata);
+        
+        if (is_editable_source())
+            notify_source_reimported(reimport_state.metadata);
     }
     
     public override string get_typename() {
@@ -3458,6 +3515,18 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     private Gee.HashMap<LibraryPhoto, int64?> photo_to_editable_filesize =
         new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
     
+    public virtual signal void master_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
+    }
+    
+    public virtual signal void editable_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
+    }
+    
+    public virtual signal void baseline_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
+    }
+    
+    public virtual signal void source_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
+    }
+    
     public LibraryPhotoSourceCollection() {
         base ("LibraryPhotoSourceCollection", Photo.get_photo_key);
         
@@ -3602,6 +3671,26 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
             tag.attach_many(map.get(tag));
         
         base.postprocess_imported_media(media_sources);
+    }
+    
+    // This is only called by LibraryPhoto.
+    public virtual void notify_master_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
+        master_reimported(photo, metadata);
+    }
+    
+    // This is only called by LibraryPhoto.
+    public virtual void notify_editable_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
+        editable_reimported(photo, metadata);
+    }
+    
+    // This is only called by LibraryPhoto.
+    public virtual void notify_source_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
+        source_reimported(photo, metadata);
+    }
+    
+    // This is only called by LibraryPhoto.
+    public virtual void notify_baseline_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
+        baseline_reimported(photo, metadata);
     }
     
     protected override MediaSource? fetch_by_numeric_id(int64 numeric_id) {
@@ -3840,6 +3929,30 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
+    }
+    
+    protected override void notify_master_reimported(PhotoMetadata? metadata) {
+        base.notify_master_reimported(metadata);
+        
+        global.notify_master_reimported(this, metadata);
+    }
+    
+    protected override void notify_editable_reimported(PhotoMetadata? metadata) {
+        base.notify_editable_reimported(metadata);
+        
+        global.notify_editable_reimported(this, metadata);
+    }
+    
+    protected override void notify_source_reimported(PhotoMetadata? metadata) {
+        base.notify_source_reimported(metadata);
+        
+        global.notify_source_reimported(this, metadata);
+    }
+    
+    protected override void notify_baseline_reimported(PhotoMetadata? metadata) {
+        base.notify_baseline_reimported(metadata);
+        
+        global.notify_baseline_reimported(this, metadata);
     }
     
     private void generate_thumbnails() {

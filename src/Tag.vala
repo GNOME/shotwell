@@ -16,6 +16,13 @@ public class TagSourceCollection : ContainerSourceCollection {
 
         attach_collection(LibraryPhoto.global);
         attach_collection(Video.global);
+        
+        // deal with LibraryPhotos being reimported (and possibly their on-disk keywords changing)
+        LibraryPhoto.global.source_reimported.connect(on_photo_source_reimported);
+    }
+    
+    ~TagSourceCollection() {
+        LibraryPhoto.global.source_reimported.disconnect(on_photo_source_reimported);
     }
     
     public override bool holds_type_of_source(DataSource source) {
@@ -214,6 +221,43 @@ public class TagSourceCollection : ContainerSourceCollection {
         }
         
         base.notify_container_contents_removed(container, removed, unlinking);
+    }
+    
+    private void on_photo_source_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
+        // if no metadata, do nothing (we might interpret this to remove all keywords; worth
+        // discussing)
+        if (metadata == null)
+            return;
+        
+        // get current tags and convert into a set of keywords
+        Gee.Collection<Tag>? tags = fetch_for_source(photo);
+        Gee.HashSet<string> tag_names = new Gee.HashSet<string>();
+        if (tags != null) {
+            foreach (Tag tag in tags)
+                tag_names.add(tag.get_name());
+        }
+        
+        // get keywords from the metadata
+        Gee.Set<string>? keywords = metadata.get_keywords();
+        
+        // Want to replace current tags with new tags, but to avoid thrashing, remove what's not
+        // on disk and add what is but isn't already attached to.  This is called an intersection.
+        // Unfortunately, Gee.Set doesn't have an intersection() method.
+        Gee.HashSet<string> excluded = new Gee.HashSet<string>();
+        Gee.Set<string>? intersection = intersection_of_sets(tag_names, keywords, excluded);
+        
+        // detach photo from all excluded tags
+        foreach (string exclude in excluded) {
+            Tag? tag = fetch_by_name(exclude);
+            if (tag != null)
+                tag.detach(photo);
+        }
+        
+        // attach photo to the intersection
+        if (intersection != null) {
+            foreach (string intersected in intersection)
+                Tag.for_name(intersected).attach(photo);
+        }
     }
 }
 
