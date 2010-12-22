@@ -1599,7 +1599,7 @@ public class PreferencesDialog {
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
     private Gtk.FileChooserButton library_dir_button;
-    private string? original_lib_dir = null;
+    private string? lib_dir = null;
 
     private PreferencesDialog() {
         builder = AppWindow.create_builder();
@@ -1725,8 +1725,8 @@ public class PreferencesDialog {
         if (commit_metadata != null)
             Config.get_instance().set_commit_metadata_to_masters(commit_metadata.active);
        
-        if (original_lib_dir != null && original_lib_dir != library_dir_button.get_current_folder())
-            AppDirs.set_import_dir(library_dir_button.get_current_folder());
+        if (lib_dir != null)
+            AppDirs.set_import_dir(lib_dir);
     }
     
     private bool on_delete() {
@@ -1788,12 +1788,16 @@ public class PreferencesDialog {
         debug("setting external raw editor to: %s", app.get_commandline());
     }
     
+    private void on_current_folder_changed() {
+        lib_dir = library_dir_button.get_current_folder();
+    }
+    
     private bool map_event() {
-        // Get the folder showing in the GUI. We'll only save the path if
-        // it changes, because the FileChooserButton has a nasty habbit of
-        // selecting a different folder if the provided path doesn't exist.
+        // Set the signal for the lib dir button after the dialog is displayed, 
+        // because the FileChooserButton has a nasty habbit of selecting a
+        // different folder when displayed if the provided path doesn't exist.
         // See ticket #3000 for more info.
-        original_lib_dir = library_dir_button.get_current_folder();
+        library_dir_button.current_folder_changed.connect(on_current_folder_changed);
         return true;
     }
 }
