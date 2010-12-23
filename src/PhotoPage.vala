@@ -2622,10 +2622,10 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("SendTo", sensitivity);
         set_action_sensitive("Publish", sensitivity);
         set_action_sensitive("Print", sensitivity);
-        set_action_sensitive("JumpToFile", sensitivity);
+        set_action_sensitive("CommonJumpToFile", sensitivity);
         
-        set_action_sensitive("Undo", sensitivity);
-        set_action_sensitive("Redo", sensitivity);
+        set_action_sensitive("CommonUndo", sensitivity);
+        set_action_sensitive("CommonRedo", sensitivity);
         
         set_action_sensitive("IncreaseSize", sensitivity);
         set_action_sensitive("DecreaseSize", sensitivity);
@@ -3552,10 +3552,10 @@ public class DirectPhotoPage : EditingHostPage {
         set_action_sensitive("SendTo", sensitivity);
         set_action_sensitive("Publish", sensitivity);
         set_action_sensitive("Print", sensitivity);
-        set_action_sensitive("JumpToFile", sensitivity);
+        set_action_sensitive("CommonJumpToFile", sensitivity);
         
-        set_action_sensitive("Undo", sensitivity);
-        set_action_sensitive("Redo", sensitivity);
+        set_action_sensitive("CommonUndo", sensitivity);
+        set_action_sensitive("CommonRedo", sensitivity);
         
         set_action_sensitive("IncreaseSize", sensitivity);
         set_action_sensitive("DecreaseSize", sensitivity);
