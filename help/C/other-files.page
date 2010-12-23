@@ -1,0 +1,69 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="other-files">
+
+    <info>
+        <link type="guide" xref="index#other"/>
+        <desc>Keep the Shotwell library in sync with photo files on disk.</desc>
+    </info>
+
+	<title>Photo files</title>
+
+    <p>Every photo in the Shotwell library corresponds to a file stored on your hard disk.  Shotwell has
+    several features which help you keep the Shotwell library and files on disk in sync.</p>
+    
+    <section>
+    <title>Automatically importing photos</title>
+    
+    <p>Shotwell can automatically import new photos which appear in the library directory.
+    (The library directory is usually the <file>Pictures</file> directory in your home directory;
+    you can change its location in in the <gui>Preferences</gui> window.)
+    </p>
+    
+    <p>To enable auto-import,
+    check the box <gui>Watch library directory for new files</gui> in
+    the <gui>Preferences</gui> window.</p>
+
+    </section>
+    
+    <section>
+    <title>Writing metadata on the fly</title>
+    
+    <p>By default, Shotwell does not modify photo files, even when you edit photos or change their
+    tags or titles.  Shotwell records these changes in its own database only.</p>
+    
+    <p>To change this behavior, you can enable the checkbox
+    <gui>Write tags, titles and other metadata to photo files</gui>
+    in the <gui>Preferences</gui> dialog.  When this option is enabled, Shotwell will write
+    the following metadata to most photo files whenever you change it in Shotwell:</p>
+    
+    <list>
+    <item><p>titles</p></item>
+    <item><p>tags</p></item>
+    <item><p>ratings</p></item>
+    <item><p>rotation information</p></item>
+    <item><p>time/date</p></item>
+    </list>
+    
+    <p>Shotwell stores this information in photo files in EXIF, IPTC and/or XMP format.  Note
+    that Shotwell can write only to photo files in JPEG and PNG format, not to RAW photos
+    or to video files.  
+    </p>
+    
+    </section>
+    
+    <section>
+    <title>Runtime monitoring</title>
+    
+    <p>While Shotwell is running, it notices changes made to any photo file externally.
+    When a photo file changes, Shotwell rereads the file and updates your view of the
+    photo and metadata.</p>
+    
+    <p>Note that Shotwell 0.8 checks all photo files for changes at startup, but only photo files contained in
+    the library directory are monitored in real time after startup.  We hope to remove this limitation
+    in a further release.</p>
+
+    </section>
+    
+</page>
+

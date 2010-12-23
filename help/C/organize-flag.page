@@ -1,0 +1,33 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="flag">
+
+    <info>
+        <link type="guide" xref="index#organize"/>
+        <desc>Flag photos to mark them as special or to work with them as a set.</desc>
+    </info>
+
+	<title>Flagging photos</title>
+
+    <p>Shotwell lets you <em>flag</em> photos.  When a photo is flagged, a small flag icon
+    appears in its upper right corner.  You can select the <gui>Flagged</gui> item in the sidebar to see
+    all photos which have been flagged.</p>
+    
+    <p>Flagging a photo marks it as special.  You can interpret this in any way you like.  For example,
+    you might flag all photos which need visual
+    adjustment, or all photos which you want to share with a friend.</p>
+    
+    <p>Flagging
+    is also useful because you can operate on all flagged photos as a set.  For example, you can
+    select the <gui>Flagged</gui> view and then upload all flagged photos to a publishing service.</p>
+    
+    <section>
+    <title>To flag or unflag a photo</title>
+    <p>
+    To flag or unflag a photo, right click the photo and choose <gui>Flag</gui> or <gui>Unflag</gui>
+    from the context menu.  Or use the <keyseq><key>Ctrl</key><key>F</key></keyseq> or <key>/</key>
+    shortcut keys.
+    </p>
+    </section>
+    
+</page>
