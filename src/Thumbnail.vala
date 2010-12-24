@@ -166,17 +166,32 @@ public class Thumbnail : MediaSourceItem {
         int64 result = ((Thumbnail *) a)->media.get_exposure_time()
             - ((Thumbnail *) b)->media.get_exposure_time();
         
-        return (result != 0) ? result : photo_id_ascending_comparator(a, b);
+        return (result != 0) ? result : filename_ascending_comparator(a, b);
     }
     
     public static int64 exposure_time_desending_comparator(void *a, void *b) {
         int64 result = exposure_time_ascending_comparator(b, a);
         
-        return (result != 0) ? result : photo_id_descending_comparator(a, b);
+        return (result != 0) ? result : filename_descending_comparator(a, b);
     }
     
     public static bool exposure_time_comparator_predicate(DataObject object, Alteration alteration) {
         return alteration.has_detail("metadata", "exposure-time");
+    }
+    
+    public static int64 filename_ascending_comparator(void *a, void *b) {
+        string path_a = ((Thumbnail *) a)->media.get_file().get_basename().down();
+        string path_b = ((Thumbnail *) b)->media.get_file().get_basename().down();
+        
+        int64 result = strcmp(g_utf8_collate_key_for_filename(path_a), 
+            g_utf8_collate_key_for_filename(path_b));
+        return (result != 0) ? result : photo_id_ascending_comparator(a, b);
+    }
+    
+    public static int64 filename_descending_comparator(void *a, void *b) {
+        int64 result = filename_ascending_comparator(b, a);
+        
+        return (result != 0) ? result : photo_id_descending_comparator(a, b);
     }
     
     public static int64 rating_ascending_comparator(void *a, void *b) {
