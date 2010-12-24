@@ -1209,7 +1209,7 @@ public class LibraryWindow : AppWindow {
     
     private void add_tag_page(Tag tag) {
         if (tags_marker == null) {
-            tags_marker = sidebar.add_toplevel_grouping(_("Tags"), Resources.ICON_TAGS,
+            tags_marker = sidebar.add_toplevel_grouping(_("Tags"), new GLib.ThemedIcon(Resources.ICON_TAGS),
                 ToplevelPosition.TAGS_GROUPING);
         }
         
@@ -1336,12 +1336,12 @@ public class LibraryWindow : AppWindow {
     }
     
     private void add_camera_page(DiscoveredCamera camera) {
-        ImportPage page = new ImportPage(camera.gcamera, camera.uri, camera.display_name);
+        ImportPage page = new ImportPage(camera.gcamera, camera.uri, camera.display_name, camera.icon);
 
         // create the Cameras row if this is the first one
         if (cameras_marker == null) {
-            cameras_marker = sidebar.add_toplevel_grouping(_("Cameras"), Resources.ICON_CAMERAS,
-                ToplevelPosition.CAMERAS_GROUPING);
+            cameras_marker = sidebar.add_toplevel_grouping(_("Cameras"), 
+                new GLib.ThemedIcon(Resources.ICON_CAMERAS), ToplevelPosition.CAMERAS_GROUPING);
         }
         
         camera_pages.set(camera.uri, page);

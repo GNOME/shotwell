@@ -444,6 +444,7 @@ public class ImportPage : CheckerboardPage {
     private string camera_name;
     private VolumeMonitor volume_monitor = null;
     private ImportPage? local_ref = null;
+    private GLib.Icon? icon;
     
     public enum RefreshResult {
         OK,
@@ -452,11 +453,12 @@ public class ImportPage : CheckerboardPage {
         LIBRARY_ERROR
     }
     
-    public ImportPage(GPhoto.Camera camera, string uri, string? display_name = null) {
+    public ImportPage(GPhoto.Camera camera, string uri, string? display_name = null, GLib.Icon? icon = null) {
         base(_("Camera"));
         this.camera = camera;
         this.uri = uri;
         this.import_sources = new ImportSourceCollection("ImportSources for %s".printf(uri));
+        this.icon = icon;
         
         // Get camera name.
         if (null != display_name) {
@@ -556,8 +558,8 @@ public class ImportPage : CheckerboardPage {
         Video.global.contents_altered.disconnect(on_media_added_removed);
     }
     
-    public override string? get_icon_name() {
-        return Resources.ICON_SINGLE_PHOTO;
+    public override GLib.Icon? get_icon() {
+        return icon != null ? icon : new GLib.ThemedIcon(Resources.ICON_CAMERAS);
     }
 
     private static int64 preview_comparator(void *a, void *b) {
@@ -1536,8 +1538,8 @@ public class ImportQueuePage : SinglePhotoPage {
         AppWindow.error_message(message);
     }
     
-    public override string? get_icon_name() {
-        return Resources.ICON_IMPORTING;
+    public override GLib.Icon? get_icon() {
+        return new GLib.ThemedIcon(Resources.ICON_IMPORTING);
     }
 }
 

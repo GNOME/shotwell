@@ -47,7 +47,7 @@ public interface SidebarPage : Object {
     
     public abstract void clear_marker();
 
-    public abstract string? get_icon_name();
+    public abstract GLib.Icon? get_icon();
 
     public abstract string get_page_name();
     
@@ -61,9 +61,9 @@ public interface SidebarPage : Object {
 }
 
 public class Sidebar : Gtk.TreeView {
-    // store = (page name, page, icon name, icon, expander-closed icon, expander-open icon)
+    // store = (page name, page, Icon, icon, expander-closed icon, expander-open icon)
     private Gtk.TreeStore store = new Gtk.TreeStore(6, typeof(string), typeof(SidebarMarker),
-        typeof(string?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?));
+        typeof(GLib.Icon?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?));
     private Gtk.TreePath current_path = null;
 
     public signal void drop_received(Gdk.DragContext context, int x, int y, 
@@ -73,8 +73,11 @@ public class Sidebar : Gtk.TreeView {
     private Gtk.CellRendererPixbuf icon;
     private Gtk.CellRendererText text;
     private Gtk.Entry? text_entry = null;
-    private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = new Gee.HashMap<string, Gdk.Pixbuf>();
+    private Gee.HashMap<GLib.Icon, Gdk.Pixbuf> icon_cache = new Gee.HashMap<GLib.Icon, Gdk.Pixbuf>();
     private int editing_disabled = 0;
+    
+    private ThemedIcon icon_folder_open = new ThemedIcon(Resources.ICON_FOLDER_OPEN);
+    private ThemedIcon icon_folder_closed = new ThemedIcon(Resources.ICON_FOLDER_CLOSED);
     
     public Sidebar() {
         set_model(store);
@@ -199,12 +202,12 @@ public class Sidebar : Gtk.TreeView {
         expand_to_path(path);
     }
     
-    private Gdk.Pixbuf? lookup_icon(string icon_name) throws Error {
-        Gdk.Pixbuf? icon = icon_cache.get(icon_name);
+    private Gdk.Pixbuf? lookup_icon(GLib.Icon gicon) throws Error {
+        Gdk.Pixbuf? icon = icon_cache.get(gicon);
         if (icon != null)
             return icon;
         
-        Gtk.IconInfo? info = icon_theme.lookup_icon(icon_name, 16, 0);
+        Gtk.IconInfo? info = icon_theme.lookup_by_gicon(gicon, 16, 0);
         if (info == null)
             return null;
         
@@ -212,24 +215,22 @@ public class Sidebar : Gtk.TreeView {
         if (icon == null)
             return null;
         
-        icon_cache.set(icon_name, icon);
+        icon_cache.set(gicon, icon);
         
         return icon;
     }
-    
-    private void set_iter_icon(Gtk.TreeIter iter, string? icon_name) {
-        // keep icon name for theme change, some items have no page to request name from
-        store.set(iter, 2, icon_name);
+
+    private void set_iter_icon(Gtk.TreeIter iter, GLib.Icon icon) {
+        // keep icon for theme change, some items have no page to request name from
+        store.set(iter, 2, icon);
 
         Gdk.Pixbuf? closed = null;
         Gdk.Pixbuf? open = null;
-
-        if (icon_name != null) {
-            try {
-                closed = lookup_icon(icon_name);
-            } catch (Error err) {
-                warning("Unable to load ico %s: %s", icon_name, err.message);
-            }
+        
+        try {
+            closed = lookup_icon(icon);
+        } catch (Error err) {
+            warning("Unable to load ico %s", err.message);
         }
         
         if (closed == null) {
@@ -239,11 +240,11 @@ public class Sidebar : Gtk.TreeView {
             store.set(iter, 5, null);
         } else {
             try {
-                if (icon_name == Resources.ICON_FOLDER_CLOSED)
+                if (icon.equal(icon_folder_closed))
                     // icon is a folder, so both open and closed are needed
-                    open = lookup_icon(Resources.ICON_FOLDER_OPEN);
+                    open = lookup_icon(icon_folder_open);
             } catch (Error err) {
-                warning("Unable to load icon %s: %s", icon_name, err.message);
+                warning("Unable to load icon %s", err.message);
             }
             
             if (open == null) {
@@ -263,13 +264,13 @@ public class Sidebar : Gtk.TreeView {
     public void update_page_icon(SidebarPage page) {
         Gtk.TreeIter iter;
         store.get_iter(out iter, page.get_marker().get_path());
-        set_iter_icon(iter, page.get_icon_name());
+        set_iter_icon(iter, page.get_icon());
     }
 
     public void reload_iter_and_child_icons(Gtk.TreeIter iter) {
-        string? icon_name;
-        store.get(iter, 2, out icon_name);
-        set_iter_icon(iter, icon_name);
+        GLib.Icon? icon;
+        store.get(iter, 2, out icon);
+        set_iter_icon(iter, icon);
 
         Gtk.TreeIter child;
         if (store.iter_children(out child, iter)) {
@@ -299,7 +300,7 @@ public class Sidebar : Gtk.TreeView {
         // set up the columns
         store.set(iter, 0, guarded_markup_escape_text(page.get_sidebar_text()));
         store.set(iter, 1, marker);
-        set_iter_icon(iter, page.get_icon_name());
+        set_iter_icon(iter, page.get_icon());
         
         return marker;
     }
@@ -309,7 +310,7 @@ public class Sidebar : Gtk.TreeView {
         page.clear_marker();
     }
     
-    private SidebarMarker attach_grouping(string name, string? icon, Gtk.TreeIter iter, int position = -1) {
+    private SidebarMarker attach_grouping(string name, GLib.Icon? icon, Gtk.TreeIter iter, int position = -1) {
         SidebarMarker marker = new SidebarMarker(store, store.get_path(iter), position);
         
         // set up the columns
@@ -369,7 +370,7 @@ public class Sidebar : Gtk.TreeView {
     }
     
     // Like add_parent, position must be specified
-    public SidebarMarker add_toplevel_grouping(string name, string? icon, int position) requires (position > 0) {
+    public SidebarMarker add_toplevel_grouping(string name, GLib.Icon? icon, int position) requires (position > 0) {
         // add the row, get its iter
         Gtk.TreeIter grouping_iter;
         bool found = store.get_iter_first(out grouping_iter);

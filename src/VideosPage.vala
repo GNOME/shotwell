@@ -17,8 +17,8 @@ public class VideosPage : MediaPage {
             return _("Videos");
         }
         
-        public override string? get_icon_name() {
-            return Resources.ICON_VIDEOS_PAGE;
+        public override GLib.Icon? get_icon() {
+            return new GLib.ThemedIcon(Resources.ICON_VIDEOS_PAGE);
         }
     }
     

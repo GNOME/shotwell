@@ -17,14 +17,14 @@ public class TrashPage : CheckerboardPage {
             return _("Trash");
         }
         
-        public override string? get_icon_name() {
+        public override GLib.Icon? get_icon() {
             if (LibraryPhoto.global.get_trashcan_count() > 0)
-                return Resources.ICON_TRASH_FULL;
+                return new GLib.ThemedIcon(Resources.ICON_TRASH_FULL);
             
             if (Video.global.get_trashcan_count() > 0)
-                return Resources.ICON_TRASH_FULL;
+                return new GLib.ThemedIcon(Resources.ICON_TRASH_FULL);
                 
-            return Resources.ICON_TRASH_EMPTY;
+            return new GLib.ThemedIcon(Resources.ICON_TRASH_EMPTY);
         }
     }
     
@@ -157,8 +157,9 @@ public class TrashPage : CheckerboardPage {
             (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), false));
     }
     
-    public override string? get_icon_name() {
-        return get_view().get_count() == 0 ? Resources.ICON_TRASH_EMPTY : Resources.ICON_TRASH_FULL;
+    public override GLib.Icon? get_icon() {
+        return new GLib.ThemedIcon(get_view().get_count() == 0 ? 
+            Resources.ICON_TRASH_EMPTY : Resources.ICON_TRASH_FULL);
     }
 
     public override CheckerboardItem? get_fullscreen_photo() {

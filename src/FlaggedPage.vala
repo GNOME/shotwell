@@ -17,8 +17,8 @@ public class FlaggedPage : CollectionPage {
             return _("Flagged");
         }
 
-        public override string? get_icon_name() {
-            return Resources.ICON_FLAGGED_PAGE;
+        public override GLib.Icon? get_icon() {
+            return new GLib.ThemedIcon(Resources.ICON_FLAGGED_PAGE);
         }
     }
     

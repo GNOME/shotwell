@@ -24,7 +24,7 @@ public abstract class PageStub : Object, SidebarPage {
         get_page().rename(new_name);
     }
     
-    public virtual string? get_icon_name() {
+    public virtual GLib.Icon? get_icon() {
         return null;
     }
     
@@ -210,7 +210,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         base.destroy();
     }
     
-    public virtual string? get_icon_name() {
+    public virtual GLib.Icon? get_icon() {
         return null;
     }
 

@@ -8,11 +8,13 @@ public class DiscoveredCamera {
     public GPhoto.Camera gcamera;
     public string uri;
     public string display_name;
+    public GLib.Icon? icon;
     
-    public DiscoveredCamera(GPhoto.Camera gcamera, string uri, string display_name) {
+    public DiscoveredCamera(GPhoto.Camera gcamera, string uri, string display_name, GLib.Icon? icon) {
         this.gcamera = gcamera;
         this.uri = uri;
         this.display_name = display_name;
+        this.icon = icon;
     }
 }
 
@@ -210,6 +212,15 @@ public class CameraTable {
         }
         return null;
     }
+    
+    private GLib.Icon? get_icon_for_uuid(string uuid) {
+        foreach (Volume volume in volume_monitor.get_volumes()) {
+            if (volume.get_identifier(VOLUME_IDENTIFIER_KIND_UUID) == uuid) {
+                return volume.get_icon();
+            }
+        }
+        return null;
+    }
 
     private void update_camera_table() throws GPhotoError {
         // need to do this because virtual ports come and go in the USB world (and probably others)
@@ -290,6 +301,7 @@ public class CameraTable {
         foreach (string port in detected_map.keys) {
             string name = detected_map.get(port);
             string display_name = null;
+            GLib.Icon? icon = null;
             string uri = get_port_uri(port);
 
             if (camera_map.has_key(uri)) {
@@ -305,7 +317,9 @@ public class CameraTable {
                 GUdev.Device device = client.query_by_device_file(path);
                 string serial = device.get_property("ID_SERIAL_SHORT");
                 if (null != serial) {
+                    // Try to get the name and icon.
                     display_name = get_name_for_uuid(serial);
+                    icon = get_icon_for_uuid(serial);
                 }
                 if (null == display_name) {
                     display_name = device.get_sysfs_attr("product");
@@ -344,7 +358,7 @@ public class CameraTable {
             
             debug("Adding to camera table: %s @ %s", name, port);
             
-            DiscoveredCamera camera = new DiscoveredCamera(gcamera, uri, display_name);
+            DiscoveredCamera camera = new DiscoveredCamera(gcamera, uri, display_name, icon);
             camera_map.set(uri, camera);
             
             camera_added(camera);

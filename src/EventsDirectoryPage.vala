@@ -333,8 +333,8 @@ public class NoEventPage : CollectionPage {
     static const string NO_EVENT_PAGE_NAME = _("No Event");
     
     public class Stub : PageStub {
-        public override string? get_icon_name() {
-            return Resources.ICON_MISSING_FILES;
+        public override GLib.Icon? get_icon() {
+            return new GLib.ThemedIcon(Resources.ICON_MISSING_FILES);
         }
         
         public override string get_name() {
@@ -400,8 +400,8 @@ public class EventPage : CollectionPage {
             this.event = event;
         }
 
-        public override string? get_icon_name() {
-            return Resources.ICON_ONE_EVENT;
+        public override GLib.Icon? get_icon() {
+            return new GLib.ThemedIcon(Resources.ICON_ONE_EVENT);
         }
 
         public override string get_name() {
@@ -522,8 +522,8 @@ public class MasterEventsDirectoryPage : EventsDirectoryPage {
             return _("Events");
         }
         
-        public override string? get_icon_name() {
-            return Resources.ICON_EVENTS;
+        public override GLib.Icon? get_icon() {
+            return new GLib.ThemedIcon(Resources.ICON_EVENTS);
         }
         
         public override bool is_renameable() {
@@ -576,8 +576,8 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
             return time.year;
         }
 
-        public override string? get_icon_name() {
-            return Resources.ICON_FOLDER_CLOSED;
+        public override GLib.Icon? get_icon() {
+            return new GLib.ThemedIcon(Resources.ICON_FOLDER_CLOSED);
         }
 
         public override string get_name() {
