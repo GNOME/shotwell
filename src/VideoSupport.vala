@@ -48,7 +48,7 @@ public class VideoReader {
     }
     
     public static string[] get_supported_file_extensions() {
-        string[] result = { "avi", "mpg", "mov", "mts", "ogg", "ogv", "mp4" , "wmv"};
+        string[] result = { "avi", "mpg", "mov", "mts", "ogg", "ogv", "mp4" , "wmv", "3gp", "3g2"};
         return result;
     }
     
