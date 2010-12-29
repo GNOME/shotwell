@@ -538,11 +538,22 @@ public class Sidebar : Gtk.TreeView {
     }
 
     public override bool key_press_event(Gdk.EventKey event) {
-        if (Gdk.keyval_name(event.keyval) == "Return" || Gdk.keyval_name(event.keyval) == "KP_Enter") {
-            toggle_branch_expansion(current_path);
-            return false;
-        } else if (Gdk.keyval_name(event.keyval) == "F2") {
-            return rename_in_place();
+        switch(Gdk.keyval_name(event.keyval)) {
+            case "Return":
+            case "KP_Enter":
+                toggle_branch_expansion(current_path);
+                return false;
+            case "F2":
+                return rename_in_place();
+            case "Delete":
+                SidebarPage? p = locate_page(current_path);
+                if (p != null && p is TagPage.Stub) {
+                    TagPage.Stub stub = (TagPage.Stub) p;
+                    TagPage page = (TagPage) stub.get_page();
+                    page.action_group.get_action("DeleteTag").activate();
+                    return false;
+                }
+            break;
         }
         
         bool return_val = base.key_press_event(event);
