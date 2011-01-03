@@ -1,3 +1,20 @@
+shotwell (0.8.0-1~maverick1) maverick; urgency=low
+
+  * Video support for Ogg, AVI, MP4, Quicktime, and WMV files.
+  * Upload videos to major Web services, including YouTube, Facebook, Flickr,
+    and PicasaWeb.
+  * Runtime monitoring of library directory and auto-import of newly created
+    files.
+  * Background writing of metadata (tags, titles, rating, orientation, exposure
+    date) to master files (user configurable).
+  * Flagging of photos for batch operations.
+  * Set multiple photos to desktop background slideshow.
+  * Numerous translation updates.
+  * Various bug fixes.
+
+ -- Jim Nelson <jim@yorba.org>  Thu, 23 Dec 2010 12:22:14 -0800 
+
+
 shotwell (0.7.2-1~lucid1) lucid; urgency=low
 
   * Fixed major startup problem when the user's Pictures directory is actually

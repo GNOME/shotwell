@@ -1,6 +1,6 @@
 PROGRAM = shotwell
 
-VERSION = 0.7.2+trunk
+VERSION = 0.8.0
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -149,7 +149,9 @@ RESOURCE_FILES = \
 	offline.ui \
 	media.ui \
 	yandex_publish_model.glade \
-	shotwell.glade
+	shotwell.glade \
+	set_background_dialog.glade \
+	video.ui
 
 SYS_INTEGRATION_FILES = \
 	shotwell.desktop.head \
@@ -176,6 +178,8 @@ ICON_FILES = \
 	enhance.png \
 	five-star-filter.svg \
 	five-stars.svg \
+	flag-page.png \
+	flag-trinket.png \
 	four-star-filter-plus.svg \
 	four-stars.svg \
 	image-adjust.svg \
@@ -185,6 +189,7 @@ ICON_FILES = \
 	merge.svg \
 	multiple-events.png \
 	multiple-tags.png \
+	noninterpretable-video.png \
 	one-event.png \
 	one-star-filter-plus.svg \
 	one-star.svg \
@@ -193,21 +198,19 @@ ICON_FILES = \
 	publish.png \
 	redeye.png \
 	rejected.svg \
+	shotwell-16.svg \
+	shotwell-24.svg \
 	shotwell.ico \
 	shotwell-street.jpg \
 	shotwell.svg \
+	sprocket.png \
 	three-star-filter-plus.svg \
 	three-stars.svg \
 	two-star-filter-plus.svg \
 	two-stars.svg \
-	zoom-in.png \
-	zoom-out.png \
-	shotwell-16.svg \
-	shotwell-24.svg \
-	sprocket.png \
 	videos-page.png \
-	flag-page.png \
-	flag-trinket.png
+	zoom-in.png \
+	zoom-out.png
 
 HELP_FILES = \
 	edit-adjustments.page \
@@ -226,16 +229,19 @@ HELP_FILES = \
 	import-memorycard.page \
 	index.page \
 	organize-event.page \
+	organize-flag.page \
 	organize-rating.page \
 	organize-remove.page \
 	organize-tag.page \
 	organize-title.page \
+	other-files.page \
 	other-missing.page \
 	other-multiple.page \
 	running.page \
 	share-background.page \
 	share-export.page \
 	share-print.page \
+	share-send.page \
 	share-slideshow.page \
 	share-upload.page \
 	view-displaying.page \
