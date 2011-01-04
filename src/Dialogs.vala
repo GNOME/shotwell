@@ -1679,7 +1679,7 @@ public class PreferencesDialog {
                         ((FileIcon) app_icon).get_file().get_path()), Resources.DEFAULT_ICON_SCALE,
                         Gdk.InterpType.BILINEAR, false));
                 } else if (app_icon is ThemedIcon) {
-                    unowned Gdk.Pixbuf icon_pixbuf = 
+                    Gdk.Pixbuf icon_pixbuf = 
                         Gtk.IconTheme.get_default().load_icon(((ThemedIcon) app_icon).get_names()[0],
                         Resources.DEFAULT_ICON_SCALE, Gtk.IconLookupFlags.FORCE_SIZE);
                     
