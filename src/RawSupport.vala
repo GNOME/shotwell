@@ -53,7 +53,7 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
     private static string[] KNOWN_EXTENSIONS = {
         "3fr", "arw", "srf", "sr2", "bay", "crw", "cr2", "cap", "iiq", "eip", "dcs", "dcr", "drf",
         "k25", "kdc", "dng", "erf", "fff", "mef", "mos", "mrw", "nef", "nrw", "orf", "ptx", "pef",
-        "pxn", "r3d", "raf", "raw", "rw2", "raw", "rwl", "rwz", "x3f"
+        "pxn", "r3d", "raf", "raw", "rw2", "raw", "rwl", "rwz", "x3f", "srw"
     };
 
     private static string[] KNOWN_MIME_TYPES = {
@@ -75,6 +75,7 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
         "image/x-sony-arw",
         "image/x-sony-srf",
         "image/x-sony-sr2",
+        "image/x-samsung-raw",
 
         /* generic MIME types for file extensions*/
         "image/x-3fr",
@@ -111,7 +112,8 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
         "image/x-raw",
         "image/x-rwl",
         "image/x-rwz",
-        "image/x-x3f"
+        "image/x-x3f",
+        "image/x-srw"
     };
     
     private static RawFileFormatProperties instance = null;

@@ -74,17 +74,7 @@ private class QuickTimeMetadataLoader {
             
             // Look for the header.
             if ("ftyp" == test.get_current_atom_name()) {
-                // Read identifier.
-                GLib.StringBuilder sb = new GLib.StringBuilder();
-                sb.append_c((char)test.read_byte());
-                sb.append_c((char)test.read_byte());
-                sb.append_c((char)test.read_byte());
-                sb.append_c((char)test.read_byte());
-                string id_string = sb.str;
-            
-                if ("qt  " == id_string || "avc1" == id_string) {
-                    ret = true;
-                }
+                ret = true;
             } else {
                 // Some versions of QuickTime don't have
                 // an ftyp section, so we'll just look

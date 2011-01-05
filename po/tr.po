@@ -5,11 +5,11 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell\n"
+"Project-Id-Version: shotwell-0.8.0+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-12-13 15:24-0800\n"
-"PO-Revision-Date: 2010-12-14 01:19+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2010-12-23 22:24+0000\n"
+"Last-Translator: dilsayar <hsyn.demirtas@gmail.com>\n"
 "Language-Team: Turkish <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,9 @@ msgstr ""
 # below if it's not already present
 #: src/AppWindow.vala:646
 msgid "translator-credits"
-msgstr "Yiğit Ateş <yigitates52@gmail.com>"
+msgstr ""
+"Yiğit Ateş <yigitates52@gmail.com>\n"
+"Hüseyin Demirtaş <h.demirtas.l10n@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -48,7 +50,7 @@ msgstr "Fotoğraf Görüntüleyici"
 #: src/AlienDatabaseImportDialog.vala:68
 #, c-format
 msgid "Import from default %1$s library (%2$s)"
-msgstr ""
+msgstr "Varsayılan kütüphaneden içe aktar:  %1$s kütüphane (%2$s)"
 
 #: src/AlienDatabaseImportDialog.vala:76
 #, c-format
@@ -62,12 +64,12 @@ msgstr ""
 
 #: src/AlienDatabaseImportDialog.vala:114
 msgid "No database selected"
-msgstr ""
+msgstr "Seçili veritabanı yok"
 
 #: src/AlienDatabaseImportDialog.vala:152
 #, c-format
 msgid "%s Database"
-msgstr ""
+msgstr "%s Veritabanı"
 
 #: src/AlienDatabaseImportDialog.vala:172
 msgid "Shotwell failed to load the database file"
@@ -76,7 +78,7 @@ msgstr ""
 #: src/AppDirs.vala:44
 #, c-format
 msgid "Unable to create data directory %s: %s"
-msgstr ""
+msgstr "Veri klasörü oluşturulamadı %s: %s"
 
 #: src/AppDirs.vala:82
 msgid "Pictures"
@@ -85,12 +87,12 @@ msgstr "Resimler"
 #: src/AppDirs.vala:109
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
-msgstr ""
+msgstr "Geçici klasör oluşturulamadı  %s: %s"
 
 #: src/AppDirs.vala:125
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
-msgstr ""
+msgstr "Altklasör oluşturulamadı  %s: %s"
 
 #: src/AppWindow.vala:57
 msgid "Pin Toolbar"
@@ -142,7 +144,7 @@ msgstr "Shotwell hakkında daha fazla bilgi"
 
 #: src/AppWindow.vala:491
 msgid "_User Manual"
-msgstr ""
+msgstr "_Kullanıcı Klavuzu"
 
 #: src/AppWindow.vala:582 src/AppWindow.vala:596 src/AppWindow.vala:613
 #: src/Dialogs.vala:909 src/Dialogs.vala:931 src/TagPage.vala:135
@@ -272,15 +274,15 @@ msgstr[0] ""
 
 #: src/Commands.vala:968
 msgid "Restoring previous rating"
-msgstr ""
+msgstr "Önceki puanlamaya geri dön"
 
 #: src/Commands.vala:978 src/Commands.vala:979
 msgid "Increasing ratings"
-msgstr ""
+msgstr "Puanlandırmalar artırılıyor"
 
 #: src/Commands.vala:978 src/Commands.vala:979
 msgid "Decreasing ratings"
-msgstr ""
+msgstr "Puanlandırmalar düşürülüyor"
 
 #: src/Commands.vala:1064
 msgid "Original photo could not be adjusted."
@@ -334,34 +336,34 @@ msgstr "Fotoğraflar Çöp Kutusundan Geri Getiriliyor"
 
 #: src/Commands.vala:1498
 msgid "Flag"
-msgstr ""
+msgstr "Bildir"
 
 #: src/Commands.vala:1498
 msgid "Unflag"
-msgstr ""
+msgstr "Bildirme"
 
 #: src/Commands.vala:1499
 msgid "Flag selected photos"
-msgstr ""
+msgstr "Şeçili uygunsuz olarak fotoğrafları bildir"
 
 #: src/Commands.vala:1499
 msgid "Unflag selected photos"
-msgstr ""
+msgstr "Seçili fotoğrafları uygunsuz olarak bildirme"
 
 #: src/Config.vala:303 src/Config.vala:307 src/Config.vala:312
 #, c-format
 msgid "/apps/shotwell/sharing/%s/%s"
-msgstr ""
+msgstr "/apps/shotwell/sharing/%s/%s"
 
 #: src/DatabaseTables.vala:40
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
-msgstr ""
+msgstr "Fotoğraf veri tabanı açılmadı/oluşturulamadı %s: hata kodu %d"
 
 #: src/DesktopIntegration.vala:118
 #, c-format
 msgid "Unable to launch Nautilus Send-To: %s"
-msgstr ""
+msgstr "Nautilus Send-To başlatılamadı: %s"
 
 #: src/DesktopIntegration.vala:126
 msgid "Send To"
@@ -1168,7 +1170,7 @@ msgstr ""
 
 #: src/FacebookConnector.vala:950
 msgid "Friends of friends"
-msgstr ""
+msgstr "Arkadaşlarımın arkadaşları"
 
 #: src/FacebookConnector.vala:951 src/FlickrConnector.vala:992
 #: src/PiwigoConnector.vala:902
@@ -1305,7 +1307,7 @@ msgstr "_Seçili Öğeleri İçe Aktar"
 
 #: src/ImportPage.vala:587
 msgid "Import the selected photos into your library"
-msgstr ""
+msgstr "Şeçili fotoğrafları kütüphaneye aktar"
 
 #: src/ImportPage.vala:592
 msgid "Import _All"
@@ -1313,7 +1315,7 @@ msgstr "_Tümünü İçe Aktar"
 
 #: src/ImportPage.vala:593
 msgid "Import all the photos into your library"
-msgstr ""
+msgstr "Tüm fotoğrafları kütüphaneye aktar"
 
 #: src/ImportPage.vala:721
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
@@ -1404,7 +1406,7 @@ msgstr "Fotoğrafları içe aktarmayı durdur"
 
 #: src/ImportPage.vala:1441
 msgid "Preparing to import..."
-msgstr ""
+msgstr "İçe Aktarmaya Hazırlanıyor..."
 
 #: src/ImportPage.vala:1464
 #, c-format
@@ -1437,7 +1439,7 @@ msgstr "En Yüksek (%d%%)"
 
 #: src/LastImportPage.vala:17
 msgid "Last Import"
-msgstr ""
+msgstr "Son İçe Aktarılanlar"
 
 #: src/LibraryWindow.vala:315
 msgid "_Import From Folder..."
@@ -1461,11 +1463,11 @@ msgstr "Çöp kutusundaki tüm fotoğrafları sil"
 
 #: src/LibraryWindow.vala:344
 msgid "View Eve_nt for Photo"
-msgstr ""
+msgstr "Resmin Etkinliğine Bak"
 
 #: src/LibraryWindow.vala:345
 msgid "Go to this photo's event"
-msgstr ""
+msgstr "Bu fotoğrafın etkinliğine git"
 
 #: src/LibraryWindow.vala:356
 msgid "_Basic Information"
@@ -1538,27 +1540,27 @@ msgstr "Kameralar"
 #: src/LibraryWindow.vala:1545
 #, c-format
 msgid "%s (%d%%)"
-msgstr ""
+msgstr "%s (%d%%)"
 
 #: src/LibraryWindow.vala:1573 src/LibraryWindow.vala:1577
 msgid "Updating library..."
-msgstr ""
+msgstr "Kütüphane güncelleniyor..."
 
 #: src/LibraryWindow.vala:1582
 msgid "Preparing to auto-import photos..."
-msgstr ""
+msgstr "Fotoğraflar otomatik olarak içe aktarmaya hazırlanıyor..."
 
 #: src/LibraryWindow.vala:1587
 msgid "Auto-importing photos..."
-msgstr ""
+msgstr "Fotoğraflar otomatik olarak içe aktarılıyor..."
 
 #: src/LibraryWindow.vala:1592
 msgid "Writing metadata to files..."
-msgstr ""
+msgstr "Meta dosyaları yazılıyor..."
 
 #: src/LibraryWindow.vala:1597
 msgid "Processing RAW files..."
-msgstr ""
+msgstr "RAW dosyaları işleniyor..."
 
 #: src/main.vala:72
 #, c-format
@@ -1599,7 +1601,7 @@ msgstr "Önizleme boyutunu ayarla"
 
 #: src/MediaPage.vala:388
 msgid "Export the selected items to disk"
-msgstr ""
+msgstr "Seçili öğeyi diske aktar"
 
 #: src/MediaPage.vala:414
 msgid "_Photos"
@@ -1631,11 +1633,11 @@ msgstr "_Fotoğrafları Sırala"
 
 #: src/MediaPage.vala:542
 msgid "_Play Video"
-msgstr ""
+msgstr "Videoyu Oynat"
 
 #: src/MediaPage.vala:543
 msgid "Open the selected videos in the system video player"
-msgstr ""
+msgstr "Seçili videolrı varsayılan video oynatıcıda aç"
 
 #: src/MediaPage.vala:567
 msgid "Display each photo's tags"
@@ -1659,26 +1661,26 @@ msgstr "Fotoğrafları çekim tarihine göre sırala"
 
 #: src/MediaPage.vala:594
 msgid "By _Rating"
-msgstr ""
+msgstr "Puanlamaya göre"
 
 #: src/MediaPage.vala:595
 msgid "Sort photos by rating"
-msgstr ""
+msgstr "Fotoğrafları puanlmaya göre sırala"
 
 #: src/MediaPage.vala:876
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
 "%s"
-msgstr ""
+msgstr "Shotwell seçili videoyu oynatamadı: %s"
 
 #: src/OfflinePage.vala:17
 msgid "Missing Files"
-msgstr ""
+msgstr "Eksik Dosyalar"
 
 #: src/OfflinePage.vala:141
 msgid "Deleting..."
-msgstr ""
+msgstr "Siliniyor..."
 
 #: src/Page.vala:2328
 msgid "Photos cannot be exported to this directory."
@@ -1731,11 +1733,11 @@ msgstr "Fotoğrafı küçült"
 
 #: src/PhotoPage.vala:2348 src/PhotoPage.vala:3384
 msgid "Fit to _Page"
-msgstr ""
+msgstr "Sayfaya sığdır"
 
 #: src/PhotoPage.vala:2349 src/PhotoPage.vala:3385
 msgid "Zoom the photo to fit on the screen"
-msgstr ""
+msgstr "Fotoğrafı ekrana sığacak şekilde büyült"
 
 #: src/PhotoPage.vala:2354 src/PhotoPage.vala:3390
 #, no-c-format
@@ -1993,7 +1995,7 @@ msgstr "Önerilen (1600 x 1200 benek)"
 
 #: src/PiwigoConnector.vala:480
 msgid "Creating category..."
-msgstr ""
+msgstr "Klasör oluşturuluyor..."
 
 #: src/PiwigoConnector.vala:585
 msgid "Enter the username and password associated with your Piwigo account, and the URL of your Piwigo installation."
@@ -2005,29 +2007,29 @@ msgstr ""
 
 #: src/PiwigoConnector.vala:587
 msgid "Username and/or password invalid. Please try again"
-msgstr ""
+msgstr "Kullanıcı adı ya da şifre hatalı. Lütfen tekrar deneyin"
 
 #: src/PiwigoConnector.vala:621
 #, c-format
 msgid "Invalid URL"
-msgstr ""
+msgstr "Geçersiz URL"
 
 #: src/PiwigoConnector.vala:632
 msgid "_URL of your Piwigo installation:"
-msgstr ""
+msgstr "Piwigo kurulumunuzun bağlantısı:"
 
 #: src/PiwigoConnector.vala:634 src/YandexConnector.vala:60
 msgid "_Username:"
-msgstr ""
+msgstr "_Kullanıcı adı:"
 
 #: src/PiwigoConnector.vala:737
 #, c-format
 msgid "You are logged into Piwigo as %s."
-msgstr ""
+msgstr "Piwigo'ya %s olarak giriş yaptınız"
 
 #: src/PiwigoConnector.vala:767
 msgid "An _existing category:"
-msgstr ""
+msgstr "Varolan bir kategori:"
 
 #: src/PiwigoConnector.vala:800
 msgid "Who can see those pictures ?"

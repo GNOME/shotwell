@@ -5,10 +5,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell\n"
+"Project-Id-Version: shotwell-0.8.0+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-12-13 15:24-0800\n"
-"PO-Revision-Date: 2010-12-13 23:47+0000\n"
+"PO-Revision-Date: 2010-12-23 22:24+0000\n"
 "Last-Translator: yeager <po@danielnylander.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -183,8 +183,8 @@ msgstr "Spela upp ett bildspel"
 #: src/CollectionPage.vala:443
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
-msgstr[0] "Exportera foton/videor"
-msgstr[1] "Exportera foto/video"
+msgstr[0] "Exportera foto/video"
+msgstr[1] "Exportera foton/videor"
 
 #: src/CollectionPage.vala:444 src/Dialogs.vala:15 src/PhotoPage.vala:2868
 msgid "Export Photo"
@@ -382,7 +382,7 @@ msgstr "Kunde inte exportera bakgrund till %s: %s"
 #: src/DesktopIntegration.vala:285
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
-msgstr ""
+msgstr "Kunde inte förbereda skrivbordsbildspel: %s"
 
 #: src/Dialogs.vala:15
 msgid "Export Video"
@@ -454,15 +454,15 @@ msgstr[1] "%d dubbletta foton importerades inte:\n"
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dubblettvideor importerades inte:\n"
+msgstr[1] "%d dubblettvideo importerades inte:\n"
 
 #: src/Dialogs.vala:456
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d dubletta videor/foton importerades inte:\n"
+msgstr[1] "%d dublett video/foto importerades inte:\n"
 
 #: src/Dialogs.vala:470
 #, c-format
@@ -475,15 +475,15 @@ msgstr[1] "Import av %d foton misslyckades på grund av ett fil- eller hårdvaru
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d videor gick inte att importera på grund av ett fil- eller hårdvarufel:\n"
+msgstr[1] "%d videor gick inte att importera på grund av ett fil- eller hårdvarufel:\n"
 
 #: src/Dialogs.vala:476
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d foton/videor gick inte att importera på grund av ett fil- eller hårdvarufel:\n"
+msgstr[1] "%d foton/videor gick inte att importera på grund av ett fil- eller hårdvarufel:\n"
 
 #: src/Dialogs.vala:490
 #, c-format
@@ -496,15 +496,15 @@ msgstr[1] "Import av %d foton misslyckades på grund av ett kamerafel:\n"
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d videor gick inte att importera på grund av ett kamerafel:\n"
+msgstr[1] "%d videor gick inte att importera på grund av ett kamerafel:\n"
 
 #: src/Dialogs.vala:496
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d foton/videor gick inte att importera på grund av ett kamerafel:\n"
+msgstr[1] "%d foton/videor gick inte att importera på grund av ett kamerafel:\n"
 
 #: src/Dialogs.vala:513
 #, c-format
@@ -531,15 +531,15 @@ msgstr[1] "%d foton hoppades över därför att användaren avbröt:\n"
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d videor hoppades över därför att användaren avbröt:\n"
+msgstr[1] "%d videor hoppades över därför att användaren avbröt:\n"
 
 #: src/Dialogs.vala:545
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d foton/videor hoppades över därför att användaren avbröt:\n"
+msgstr[1] "%d foton/videor hoppades över därför att användaren avbröt:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -552,19 +552,19 @@ msgstr[1] "%d foton importerades.\n"
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d videor importerades.\n"
+msgstr[1] "%d videor importerades.\n"
 
 #: src/Dialogs.vala:565
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d foton/videor importerades.\n"
+msgstr[1] "%d foton/videor importerades.\n"
 
 #: src/Dialogs.vala:581
 msgid "No photos or videos imported.\n"
-msgstr ""
+msgstr "Inga foton eller videor importerades.\n"
 
 #: src/Dialogs.vala:596
 msgid "Import Complete"
@@ -574,22 +574,22 @@ msgstr "Importeringen är färdig"
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "%d sekunder"
-msgstr[1] "%d sekund"
+msgstr[0] "%d sekund"
+msgstr[1] "%d sekunder"
 
 #: src/Dialogs.vala:753
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] "%d minuter"
-msgstr[1] "%d minut"
+msgstr[0] "%d minut"
+msgstr[1] "%d minuter"
 
 #: src/Dialogs.vala:757
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] "%d timmar"
-msgstr[1] "%d timme"
+msgstr[0] "%d timme"
+msgstr[1] "%d timmar"
 
 #: src/Dialogs.vala:760
 msgid "1 day"
@@ -831,7 +831,7 @@ msgstr "Visa _inte detta meddelande igen"
 
 #: src/Dialogs.vala:1797
 msgid "Shotwell can copy the photos into your library folder or it can import them without copying."
-msgstr ""
+msgstr "Shotwell kan kopiera fotona till din biblioteksmapp eller importera dem utan att kopiera dem."
 
 #: src/Dialogs.vala:1802
 msgid "Co_py Photos"
@@ -839,7 +839,7 @@ msgstr "Ko_piera foton"
 
 #: src/Dialogs.vala:1803
 msgid "_Import in Place"
-msgstr ""
+msgstr "_Importera på plats"
 
 #: src/Dialogs.vala:1804
 msgid "Import to Library"
@@ -1040,8 +1040,8 @@ msgstr "Kontrastökning"
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
-msgstr[0] "%d foton/videor"
-msgstr[1] "%d foto/video"
+msgstr[0] "%d foto/video"
+msgstr[1] "%d foton/videor"
 
 #: src/EventsDirectoryPage.vala:71 src/Properties.vala:298
 #, c-format
@@ -1182,7 +1182,7 @@ msgstr ""
 
 #: src/FacebookConnector.vala:773
 msgid "Where would you like to publish the selected photos?"
-msgstr ""
+msgstr "Var vill du publicera de markerade fotona?"
 
 #: src/FacebookConnector.vala:822
 msgid "Publish to an e_xisting album:"
@@ -1194,7 +1194,7 @@ msgstr "Skapa ett _nytt album med namnet:"
 
 #: src/FacebookConnector.vala:841
 msgid "Videos and new photo albums _visible to:"
-msgstr ""
+msgstr "Videor och nya fotoalbum är _synliga för:"
 
 #: src/FacebookConnector.vala:856 src/FlickrConnector.vala:954
 #: src/PicasaConnector.vala:827 src/PiwigoConnector.vala:837
@@ -1227,7 +1227,7 @@ msgstr "Alla"
 
 #: src/FlaggedPage.vala:17
 msgid "Flagged"
-msgstr ""
+msgstr "Flaggad"
 
 #: src/FlickrConnector.vala:10
 msgid ""
@@ -1279,11 +1279,11 @@ msgstr "Foton s_ynliga för:"
 
 #: src/FlickrConnector.vala:912
 msgid "Videos _visible to:"
-msgstr ""
+msgstr "Videor _synliga för:"
 
 #: src/FlickrConnector.vala:914
 msgid "Photos and videos _visible to:"
-msgstr ""
+msgstr "Foton och videor _synliga för:"
 
 #: src/FlickrConnector.vala:917
 msgid "Photo _size:"
@@ -1423,26 +1423,26 @@ msgstr[1] "Ta bort dessa %d foton från kameran?"
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ta bort dessa video från kameran?"
+msgstr[1] "Ta bort dessa %d videor från kameran?"
 
 #: src/ImportPage.vala:1251
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ta bort dessa foto/video från kameran?"
+msgstr[1] "Ta bort dessa %d foton/videor från kameran?"
 
 #: src/ImportPage.vala:1278
 msgid "Removing photos/videos from camera"
-msgstr ""
+msgstr "Tar bort foton/videor från kameran"
 
 #: src/ImportPage.vala:1282
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kunde inte ta bort %d foton/videor från kameran på grund av fel."
+msgstr[1] "Kunde inte ta bort %d foto/video från kameran på grund av fel."
 
 #: src/ImportPage.vala:1327
 msgid "Importing..."
@@ -1600,11 +1600,11 @@ msgstr "Uppdaterar bibliotek..."
 
 #: src/LibraryWindow.vala:1582
 msgid "Preparing to auto-import photos..."
-msgstr ""
+msgstr "Förbereder att automatiskt importera foton..."
 
 #: src/LibraryWindow.vala:1587
 msgid "Auto-importing photos..."
-msgstr ""
+msgstr "Importerar foton automatiskt..."
 
 #: src/LibraryWindow.vala:1592
 msgid "Writing metadata to files..."
@@ -1627,12 +1627,12 @@ msgstr "Shotwell kunde inte uppgradera ditt fotobibliotek från version %s (sche
 #: src/main.vala:83
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please clear your library by deleting %s and re-import your photos."
-msgstr ""
+msgstr "Ditt fotobibliotek är inte kompatibelt med denna version av Shotwell.  Det verkar som om det skapades med Shotwell %s (schema %d).  Denna version är %s (schema %d).  Töm ditt bibliotek genom att ta bort %s och importera dina foton igen."
 
 #: src/main.vala:89
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %s"
-msgstr ""
+msgstr "Okänt fel vid försök att verifiera Shotwells databas: %s"
 
 #: src/main.vala:124
 msgid "Loading Shotwell"
@@ -2054,11 +2054,11 @@ msgstr "Skapar kategori..."
 
 #: src/PiwigoConnector.vala:585
 msgid "Enter the username and password associated with your Piwigo account, and the URL of your Piwigo installation."
-msgstr ""
+msgstr "Ange det användarnamn och lösenord som används för ditt Piwigo-konto samt URL:en till din Piwigo-installation."
 
 #: src/PiwigoConnector.vala:586
 msgid "No Piwigo installation was found at this URL. Please verify the URL you entered"
-msgstr ""
+msgstr "Ingen Piwigo-installation hittades på denna URL. Verifiera URL:en som du angav"
 
 #: src/PiwigoConnector.vala:587
 msgid "Username and/or password invalid. Please try again"
@@ -2071,7 +2071,7 @@ msgstr "Ogiltig URL"
 
 #: src/PiwigoConnector.vala:632
 msgid "_URL of your Piwigo installation:"
-msgstr ""
+msgstr "_URL för din Piwigo-installation:"
 
 #: src/PiwigoConnector.vala:634 src/YandexConnector.vala:60
 msgid "_Username:"
@@ -2413,7 +2413,7 @@ msgstr "Ange markerad bild att vara den nya skrivbordsbakgrunden"
 
 #: src/Resources.vala:155
 msgid "Set as _Desktop Slideshow..."
-msgstr ""
+msgstr "Ange som s_krivbordsbildspel..."
 
 #: src/Resources.vala:157
 msgid "_Undo"
@@ -2561,15 +2561,15 @@ msgstr "Sätt betyg till nekat"
 
 #: src/Resources.vala:206
 msgid "Rejected _Only"
-msgstr ""
+msgstr "_Endast nekade"
 
 #: src/Resources.vala:207
 msgid "Rejected Only"
-msgstr ""
+msgstr "Endast nekade"
 
 #: src/Resources.vala:208
 msgid "Show only rejected photos"
-msgstr ""
+msgstr "Visa endast nekade foton"
 
 #: src/Resources.vala:210
 msgid "All + _Rejected"
@@ -3019,7 +3019,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Detta kommer att ta bort %d foton/videor från ditt Shotwell-bibliotek.  Vill du även flytta filerna till din papperskorg?\n"
+"\n"
+"Denna åtgärd kan inte ångras."
 msgstr[1] ""
+"Detta kommer att ta bort %d foton/videor från ditt Shotwell-bibliotek.  Vill du även flytta filerna till din papperskorg?\n"
+"\n"
+"Denna åtgärd kan inte ångras."
 
 #: src/util.vala:523
 #, c-format
@@ -3032,7 +3038,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Detta kommer att ta bort %d videor från ditt Shotwell-bibliotek.  Vill du även flytta filerna till din papperskorg?\n"
+"\n"
+"Denna åtgärd kan inte ångras."
 msgstr[1] ""
+"Detta kommer att ta bort %d videor från ditt Shotwell-bibliotek.  Vill du även flytta filerna till din papperskorg?\n"
+"\n"
+"Denna åtgärd kan inte ångras."
 
 #: src/util.vala:527
 #, c-format
@@ -3057,15 +3069,15 @@ msgstr[1] ""
 #, c-format
 msgid "The photo or video cannot be moved to your desktop trash.  Delete this file?"
 msgid_plural "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d foton/videor kan inte flyttas till din papperskorg.  Ta bort dessa filer?"
+msgstr[1] "%d foton/videor kan inte flyttas till din papperskorg.  Ta bort dessa filer?"
 
 #: src/util.vala:576
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d foton/videor kan inte tas bort."
+msgstr[1] "%d foton/videor kan inte tas bort."
 
 #: src/VideosPage.vala:17 src/VideosPage.vala:34
 msgid "Videos"
@@ -3089,7 +3101,7 @@ msgstr "_Alla videor"
 
 #: src/VideosPage.vala:43
 msgid "View Eve_nt for Video"
-msgstr ""
+msgstr "Visa hä_ndelse för video"
 
 #: src/VideoSupport.vala:443
 msgid "Export Videos"
@@ -3097,15 +3109,15 @@ msgstr "Exportera videor"
 
 #: src/WebConnectors.vala:497
 msgid "A temporary file needed for publishing is unavailable"
-msgstr ""
+msgstr "En temporär fil som krävs för publicering finns inte tillgänglig"
 
 #: src/WebConnectors.vala:648
 msgid "The selected photos/videos were successfully published."
-msgstr ""
+msgstr "Markerade foton/videor blev publicerade."
 
 #: src/WebConnectors.vala:650
 msgid "The selected videos were successfully published."
-msgstr ""
+msgstr "Markerade videor blev publicerade."
 
 #: src/WebConnectors.vala:652
 msgid "The selected photos were successfully published."
@@ -3192,7 +3204,7 @@ msgstr "Skickar upp %d av %d"
 
 #: src/WebConnectors.vala:1070
 msgid "One or more of the photos or videos to be published is unavailable"
-msgstr ""
+msgstr "En eller flera av de foton/videor som ska publiceras finns inte tillgängliga"
 
 #: src/YandexConnector.vala:9
 msgid "You are not currently logged into Yandex.Fotki."
@@ -3204,36 +3216,39 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."
 msgstr ""
+"Du är för närvarande inte inloggad på YouTube.\n"
+"\n"
+"Du måste redan ha registrerat ett Google-konto och konfigurerat det för användning med YouTube för att fortsätta. Du kan konfigurera de flesta konton genom att logga in på YouTube via din webbläsare."
 
 #: src/YouTubeConnector.vala:409
 msgid "Enter the email address and password associated with your YouTube account."
-msgstr ""
+msgstr "Ange den e-postadress och lösenord som används för ditt YouTube-konto."
 
 #: src/YouTubeConnector.vala:410
 msgid "YouTube didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "YouTube kände inte igen e-postadressen och lösenordet som du angav. Ange din e-postadress och lösenord nedan för att försöka igen."
 
 #: src/YouTubeConnector.vala:411
 msgid "The email address and password you entered correspond to a Google account that isn't set up for use with YouTube. You can set up most accounts by using your browser to log into the YouTube site at least once. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "E-postadressen och lösenordet som du angav är kopplade till ett Google-konto som inte är konfigurerat för användning med YouTube. Du kan konfigurera de flesta konton genom att logga in på YouTube via din webbläsare. Ange din e-postadress och lösenord nedan för att försöka igen."
 
 #: src/YouTubeConnector.vala:412
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into YouTube. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "E-postadressen och lösenordet som du angav är kopplade till ett Google-konto som har flaggats för ytterligare säkerhet. Du kan ta bort denna flagga genom att logga in på YouTube via din webbläsare. Ange din e-postadress och lösenord nedan för att försöka igen."
 
 #: src/YouTubeConnector.vala:578
 #, c-format
 msgid "You are logged into YouTube as %s."
-msgstr ""
+msgstr "Du är inloggad på YouTube som %s."
 
 #: src/YouTubeConnector.vala:584
 #, c-format
 msgid "Videos will appear in %s"
-msgstr ""
+msgstr "Videor dyker upp i %s"
 
 #: src/YouTubeConnector.vala:607
 msgid "Video privacy _setting:"
-msgstr ""
+msgstr "Integritetsinställningar för video:"
 
 #: src/YouTubeConnector.vala:684
 msgid "Public listed"
@@ -3245,27 +3260,27 @@ msgstr ""
 
 #: src/YouTubeConnector.vala:686
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 #: ui/set_background_dialog.glade:8
 msgid "Set as Desktop Slideshow"
-msgstr ""
+msgstr "Ange som skrivbordsbildspel"
 
 #: ui/set_background_dialog.glade:23
 msgid "Show each photo for"
-msgstr ""
+msgstr "Visa varje foto i"
 
 #: ui/set_background_dialog.glade:33
 msgid "period of time"
-msgstr ""
+msgstr "tidsperiod"
 
 #: ui/set_background_dialog.glade:52
 msgid "How long each photo is shown on the desktop background"
-msgstr ""
+msgstr "Hur länge varje foto ska visas på skrivbordsbakgrunden"
 
 #: ui/set_background_dialog.glade:88
 msgid "Generate desktop background slideshow"
-msgstr ""
+msgstr "Generera bildspel för skrivbordsbakgrunden"
 
 #: ui/shotwell.glade:103
 msgid "Shotwell Preferences"
@@ -3285,7 +3300,7 @@ msgstr "Externa redigerare"
 
 #: ui/shotwell.glade:272
 msgid "_Watch library directory for new files"
-msgstr ""
+msgstr "_Bevaka bibliotekskatalogen efter nya filer"
 
 #: ui/shotwell.glade:298
 msgid "Metadata"
@@ -3293,7 +3308,7 @@ msgstr "Metadata"
 
 #: ui/shotwell.glade:317
 msgid "Write tags, titles, and other _metadata to photo files"
-msgstr ""
+msgstr "Skriv taggar, titlar och annat _metadata till fotofiler"
 
 #: ui/shotwell.glade:340
 msgid "Display"
@@ -3301,11 +3316,11 @@ msgstr "Visning"
 
 #: ui/shotwell.glade:364
 msgid "_External photo editor:"
-msgstr ""
+msgstr "_Extern fotoredigerare:"
 
 #: ui/shotwell.glade:377
 msgid "External _RAW editor:"
-msgstr ""
+msgstr "Extern _RAW-redigerare:"
 
 #: ui/shotwell.glade:402
 msgid "_Import photos to:"

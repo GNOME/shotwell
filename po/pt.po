@@ -5,10 +5,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell\n"
+"Project-Id-Version: shotwell-0.8.0+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-12-13 15:24-0800\n"
-"PO-Revision-Date: 2010-12-13 23:45+0000\n"
+"PO-Revision-Date: 2011-01-05 00:46+0000\n"
 "Last-Translator: smarquespt <smarquespt@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1518,7 +1518,7 @@ msgstr "Apagar todas as fotos no lixo"
 
 #: src/LibraryWindow.vala:344
 msgid "View Eve_nt for Photo"
-msgstr "Ver eve_nto da foto"
+msgstr "_Ver evento da foto"
 
 #: src/LibraryWindow.vala:345
 msgid "Go to this photo's event"
@@ -1648,7 +1648,7 @@ msgstr "[FICHEIRO]"
 #: src/main.vala:304
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
-msgstr "Digite '%s --help' para ver a lista completa das opções de linha de comando.\n"
+msgstr "Digite \"%s --help\" para ver a lista completa das opções de linha de comando.\n"
 
 #: src/MediaPage.vala:242
 msgid "Adjust the size of the thumbnails"
@@ -1688,7 +1688,7 @@ msgstr "_Organizar fotos"
 
 #: src/MediaPage.vala:542
 msgid "_Play Video"
-msgstr "_Reproduzir vídeos"
+msgstr "Reprodu_zir vídeos"
 
 #: src/MediaPage.vala:543
 msgid "Open the selected videos in the system video player"
@@ -1758,11 +1758,11 @@ msgstr "Falta o ficheiro fonte da foto: %s"
 
 #: src/PhotoPage.vala:2158 src/PhotoPage.vala:3277
 msgid "_Photo"
-msgstr "_Foto"
+msgstr "F_oto"
 
 #: src/PhotoPage.vala:2162 src/PhotoPage.vala:3281
 msgid "_Tools"
-msgstr "Ferramen_tas"
+msgstr "Ferramenta_s"
 
 #: src/PhotoPage.vala:2167 src/PhotoPage.vala:3286
 msgid "_Previous Photo"
@@ -2276,7 +2276,7 @@ msgstr "Aplicação:"
 
 #: src/Properties.vala:508
 msgid "Extended Information"
-msgstr "Informações extendidas"
+msgstr "Informações detalhadas"
 
 #: src/RawSupport.vala:133
 msgid "RAW"
@@ -2340,7 +2340,7 @@ msgstr "Inverter as fotos verticalmente"
 
 #: src/Resources.vala:130
 msgid "_Enhance"
-msgstr "_Melhorar"
+msgstr "Mel_horar"
 
 #: src/Resources.vala:131
 msgid "Enhance"
@@ -2364,7 +2364,7 @@ msgstr "Cortar o tamanho da foto"
 
 #: src/Resources.vala:138
 msgid "_Red-eye"
-msgstr "Olhos ve_rmelhos"
+msgstr "_Olhos vermelhos"
 
 #: src/Resources.vala:139
 msgid "Red-eye"
@@ -2891,7 +2891,7 @@ msgstr "Mover as fotos selecionadas para a galeria"
 
 #: src/Resources.vala:600
 msgid "Show in File Mana_ger"
-msgstr "_Mostrar no gestor de ficheiros"
+msgstr "Mo_strar no gestor de ficheiros"
 
 #: src/Resources.vala:601
 msgid "Open the selected photo's directory in the file manager"
@@ -2912,7 +2912,7 @@ msgstr "Remover a foto da biblioteca"
 
 #: src/Resources.vala:611
 msgid "_Move to Trash"
-msgstr "_Mover para o lixo"
+msgstr "Mover para o _lixo"
 
 #: src/Resources.vala:612
 msgid "Move the selected photos to the trash"
@@ -3104,7 +3104,7 @@ msgstr "_Todos os vídeos"
 
 #: src/VideosPage.vala:43
 msgid "View Eve_nt for Video"
-msgstr "ver eve_nto do vídeo"
+msgstr "_Ver evento do vídeo"
 
 #: src/VideoSupport.vala:443
 msgid "Export Videos"

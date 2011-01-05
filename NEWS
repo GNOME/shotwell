@@ -1,3 +1,19 @@
+Shotwell 0.8.0 - 23 December 2010 - "The Festivus for the Rest of Us"
+---------------------------------------------------------------------
+
+  * Video support for Ogg, AVI, MP4, Quicktime, and WMV files.
+  * Upload videos to major Web services, including YouTube, Facebook, Flickr,
+    and PicasaWeb.
+  * Runtime monitoring of library directory and auto-import of newly created
+    files.
+  * Background writing of metadata (tags, titles, rating, orientation, exposure
+    date) to master files (user configurable).
+  * Flagging of photos for batch operations.
+  * Set multiple photos to desktop background slideshow.
+  * Numerous translation updates.
+  * Various bug fixes.
+
+
 Shotwell 0.7.2 - 10 September 2010
 ----------------------------------
 

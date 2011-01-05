@@ -286,7 +286,7 @@ public abstract class Photo : PhotoSource {
         // RAW extensions
         "3fr", "arw", "srf", "sr2", "bay", "crw", "cr2", "cap", "iiq", "eip", "dcs", "dcr", "drf",
         "k25", "kdc", "dng", "erf", "fff", "mef", "mos", "mrw", "nef", "nrw", "orf", "ptx", "pef",
-        "pxn", "r3d", "raf", "raw", "rw2", "rwl", "rwz", "x3f"
+        "pxn", "r3d", "raf", "raw", "rw2", "rwl", "rwz", "x3f", "srw"
     };
     
     // There are assertions in the photo pipeline to verify that the generated (or loaded) pixbuf
@@ -1211,7 +1211,10 @@ public abstract class Photo : PhotoSource {
     }
     
     public static bool is_file_image(File file) {
-        return is_extension_found(file.get_basename(), IMAGE_EXTENSIONS);
+        // if it's a supported image file, by definition it's an image file, otherwise check the
+        // master list of common image extensions (checking this way allows for extensions to be
+        // added to various PhotoFileFormats without having to also add them to IMAGE_EXTENSIONS)
+        return is_file_supported(file) ? true : is_extension_found(file.get_basename(), IMAGE_EXTENSIONS);
     }
     
     private static bool is_extension_found(string basename, string[] extensions) {
