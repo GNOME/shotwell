@@ -91,6 +91,7 @@ public class PhotoMetadata : MediaMetadata {
     private const PrepareInputTextOptions PREPARE_STRING_OPTIONS =
         PrepareInputTextOptions.INVALID_IS_NULL
         | PrepareInputTextOptions.EMPTY_IS_NULL
+        | PrepareInputTextOptions.STRIP
         | PrepareInputTextOptions.NORMALIZE
         | PrepareInputTextOptions.VALIDATE;
     

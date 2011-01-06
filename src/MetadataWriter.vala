@@ -584,6 +584,8 @@ public class MetadataWriter : Object {
         
         if (job.err != null)
             warning("Unable to update metadata for %s: %s", job.photo.to_string(), job.err.message);
+        else
+            message("Completed writing metadata for %s", job.photo.to_string());
         
         bool removed = pending.unset(job.photo);
         assert(removed);
