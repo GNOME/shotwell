@@ -203,7 +203,9 @@ public class VideoReader {
         // of the way through the video to capture the preview frame. The seek_simple( ) call
         // can change the pipeline state, so once again set the pipeline state to PLAYING and
         // use get_state( ) to block until the the clip is ready to play.
-        thumbnail_pipeline.seek_simple(Gst.Format.TIME, Gst.SeekFlags.FLUSH, video_length / 3);
+        // Note: using NONE as a SeekFlag because FLUSH will cause GStreamer to hang with
+        // a certain codec. Side effect: other videos may generate wonky thumbnails. (#3041)
+        thumbnail_pipeline.seek_simple(Gst.Format.TIME, Gst.SeekFlags.NONE, video_length / 3);
         thumbnail_pipeline.set_state(Gst.State.PLAYING);
         thumbnail_pipeline.get_state(out from_state, out to_state, 1000000000);
 
