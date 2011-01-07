@@ -82,6 +82,24 @@ abstract class ImportSource : ThumbnailSource {
     public override string to_string() {
         return "%s %s/%s".printf(get_camera_name(), get_folder(), get_filename());
     }
+    
+    public override bool internal_delete_backing() throws Error {
+        debug("Deleting %s from %s", to_string(), camera_name);
+        
+        string? fulldir = get_fulldir();
+        if (fulldir == null) {
+            warning("Skipping deleting %s from %s: invalid folder name", to_string(), camera_name);
+            
+            return base.internal_delete_backing();
+        }
+        
+        GPhoto.Result result = get_camera().delete_file(fulldir, get_filename(),
+            ImportPage.spin_idle_context.context);
+        if (result != GPhoto.Result.OK)
+            warning("Error deleting %s from %s: %s", to_string(), camera_name, result.to_full_string());
+        
+        return base.internal_delete_backing() && (result == GPhoto.Result.OK);
+    }
 }
 
 class VideoImportSource : ImportSource {
@@ -205,24 +223,6 @@ class PhotoImportSource : ImportSource {
     
     public string? get_preview_md5() {
         return preview_md5;
-    }
-    
-    public override bool internal_delete_backing() throws Error {
-        debug("Deleting %s", to_string());
-        
-        string? fulldir = get_fulldir();
-        if (fulldir == null) {
-            warning("Skipping deleting %s: invalid folder name", to_string());
-            
-            return true;
-        }
-        
-        GPhoto.Result result = get_camera().delete_file(fulldir, get_filename(),
-            ImportPage.spin_idle_context.context);
-        if (result != GPhoto.Result.OK)
-            warning("Error deleting %s: %s", to_string(), result.to_full_string());
-        
-        return result == GPhoto.Result.OK;
     }
 }
 
