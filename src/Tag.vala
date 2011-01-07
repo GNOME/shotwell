@@ -390,7 +390,26 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         Gee.ArrayList<Tag> unlinked = new Gee.ArrayList<Tag>();
         int count = rows.size;
         for (int ctr = 0; ctr < count; ctr++) {
-            Tag tag = new Tag(rows.get(ctr));
+            TagRow row = rows.get(ctr);
+            
+            // make sure the tag name is valid
+            string? name = prep_tag_name(row.name);
+            if (name == null) {
+                // TODO: More graceful handling of this situation would be to rename the tag or
+                // alert the user.
+                warning("Invalid tag name \"%s\": removing from database", row.name);
+                try {
+                    TagTable.get_instance().remove(row.tag_id);
+                } catch (DatabaseError err) {
+                    warning("Unable to delete tag \"%s\": %s", row.name, err.message);
+                }
+                
+                continue;
+            }
+            
+            row.name = name;
+            
+            Tag tag = new Tag(row);
             
             if (tag.get_sources_count() != 0) {
                 tags.add(tag);
@@ -417,7 +436,8 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     public static void terminate() {
     }
     
-    // Returns a Tag for the name, creating a new empty one if it does not already exist
+    // Returns a Tag for the name, creating a new empty one if it does not already exist.
+    // name should have already been prepared by prep_tag_name.
     public static Tag for_name(string name) {
         Tag? tag = global.fetch_by_name(name);
         if (tag == null)

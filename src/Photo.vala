@@ -3663,8 +3663,11 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         foreach (MediaSource media in media_sources) {
             LibraryPhoto photo = (LibraryPhoto) media;
             if (photo.get_import_keywords() != null) {
-                foreach (string keyword in photo.get_import_keywords())
-                    map.set(Tag.for_name(keyword), photo);
+                foreach (string keyword in photo.get_import_keywords()) {
+                    string? name = Tag.prep_tag_name(keyword);
+                    if (name != null)
+                        map.set(Tag.for_name(name), photo);
+                }
                 
                 photo.clear_import_keywords();
             }
