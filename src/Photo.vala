@@ -16,7 +16,8 @@ public enum ImportResult {
     NOT_AN_IMAGE,
     DISK_FAILURE,
     DISK_FULL,
-    CAMERA_ERROR;
+    CAMERA_ERROR,
+    FILE_WRITE_ERROR;
     
     public string to_string() {
         switch (this) {
@@ -56,6 +57,9 @@ public enum ImportResult {
             case CAMERA_ERROR:
                 return _("Camera error");
             
+            case FILE_WRITE_ERROR:
+                return _("File write error");
+            
             default:
                 return _("Imported failed (%d)").printf((int) this);
         }
@@ -94,6 +98,8 @@ public enum ImportResult {
                 return ImportResult.DISK_FAILURE;
             else if (ferr is FileError.ISDIR)
                 return ImportResult.NOT_A_FILE;
+            else if (ferr is FileError.ACCES || ferr is FileError.PERM)
+                return ImportResult.FILE_WRITE_ERROR;
             else
                 return ImportResult.FILE_ERROR;
         } else if (err is IOError) {
@@ -107,6 +113,8 @@ public enum ImportResult {
                 return ImportResult.NOT_A_FILE;
             else if (ioerr is IOError.CANCELLED)
                 return ImportResult.USER_ABORT;
+            else if (ioerr is IOError.PERMISSION_DENIED || ioerr is IOError.READ_ONLY)
+                return ImportResult.FILE_WRITE_ERROR;
             else
                 return ImportResult.FILE_ERROR;
         } else if (err is GPhotoError) {

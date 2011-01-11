@@ -134,6 +134,7 @@ public class ImportManifest {
     public Gee.List<BatchImportResult> success = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> camera_failed = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> failed = new Gee.ArrayList<BatchImportResult>();
+    public Gee.List<BatchImportResult> write_failed = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> skipped_photos = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> skipped_files = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> aborted = new Gee.ArrayList<BatchImportResult>();
@@ -188,6 +189,10 @@ public class ImportManifest {
             
             case ImportResult.CAMERA_ERROR:
                 camera_failed.add(batch_result);
+            break;
+            
+            case ImportResult.FILE_WRITE_ERROR:
+                write_failed.add(batch_result);
             break;
             
             default:

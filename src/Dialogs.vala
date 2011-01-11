@@ -483,6 +483,26 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         message += generate_import_failure_list(manifest.failed, show_dest_id);
     }
     
+    if (manifest.write_failed.size > 0) {
+        if (message.length > 0)
+            message += "\n";
+        
+        string photos_message = (ngettext("1 photo failed to import because the photo library folder was not writable:\n",
+            "%d photos failed to import because the photo library folder was not writable:\n",
+            manifest.write_failed.size)).printf(manifest.write_failed.size);
+        string videos_message = (ngettext("1 video failed to import because the photo library folder was not writable:\n",
+            "%d videos failed to import because the photo library folder was not writable:\n",
+            manifest.write_failed.size)).printf(manifest.write_failed.size);
+        string both_message = (ngettext("1 photo/video failed to import because the photo library folder was not writable:\n",
+            "%d photos/videos failed to import because the photo library folder was not writable:\n",
+            manifest.write_failed.size)).printf(manifest.write_failed.size);
+        
+        message += get_media_specific_string(manifest.write_failed, photos_message, videos_message,
+            both_message);
+        
+        message += generate_import_failure_list(manifest.write_failed, show_dest_id);
+    }
+    
     if (manifest.camera_failed.size > 0) {
         if (message.length > 0)
             message += "\n";
@@ -572,7 +592,7 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
     
     int total = manifest.success.size + manifest.failed.size + manifest.camera_failed.size
         + manifest.skipped_photos.size + manifest.skipped_files.size
-        + manifest.already_imported.size + manifest.aborted.size;
+        + manifest.already_imported.size + manifest.aborted.size + manifest.write_failed.size;
     assert(total == manifest.all.size);
     
     // if no media items were imported at all (i.e. an empty directory attempted), need to at least
