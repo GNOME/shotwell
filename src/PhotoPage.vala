@@ -375,7 +375,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private SourceCollection sources;
-    private ViewCollection controller = null;
+    private ViewCollection? parent_view = null;
     private Gdk.Pixbuf swapped = null;
     private bool pixbuf_dirty = true;
     private Gtk.ToolButton rotate_button = null;
@@ -741,44 +741,47 @@ public abstract class EditingHostPage : SinglePhotoPage {
             dnd_handler = new DragAndDropHandler(this);
     }
     
-    public override ViewCollection get_controller() {
-        return controller;
+    public ViewCollection? get_parent_view() {
+        return parent_view;
     }
     
     public bool has_photo() {
-        // ViewCollection should have either zero or one photos in it at all times
-        assert(get_view().get_count() <= 1);
-
-        return get_view().get_count() == 1;
+        return get_photo() != null;
     }
     
     public Photo? get_photo() {
-        // use the photo stored in our ViewCollection ... should either be zero or one in the
-        // collection at all times
-        assert(get_view().get_count() <= 1);
+        // If there is currently no selected photo, return null.
+        if (get_view().get_selected_count() == 0)
+            return null;
         
-        return (get_view().get_count() > 0)
-            ? (Photo?) ((PhotoView) get_view().get_at(0)).get_source()
-            : null;
+        // Use the selected photo.  There should only ever be one selected photo,
+        // which is the currently displayed photo.
+        assert(get_view().get_selected_count() == 1);
+        return (Photo) get_view().get_selected_at(0).get_source();
     }
     
     private void set_photo(Photo photo) {
         zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
         zoom_slider.set_value(0.0);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
-
-        // clear out the collection and use this as its sole member, selecting it so it's seen
-        // as the item to be operated upon by various observers (including drag-and-drop)
-        get_view().clear();
-        get_view().add(new PhotoView(photo));
-        get_view().select_all();
         
-        // also select it in the controller's collection, so when the user returns to that view
+        DataView view = get_view().get_view_for_source(photo);
+        assert(view != null);
+        
+        // Select photo.
+        get_view().unselect_all();
+        Marker marker = get_view().mark(view);
+        get_view().select_marked(marker);
+        
+        // also select it in the parent view's collection, so when the user returns to that view
         // it's apparent which one was being viewed here
-        if (controller != null) {
-            controller.unselect_all();
-            Marker marker = controller.mark(controller.get_view_for_source(photo));
-            controller.select_marked(marker);
+        if (parent_view != null) {
+            parent_view.unselect_all();
+            DataView view_in_parent = parent_view.get_view_for_source(photo);
+            if (null != view_in_parent) {
+                Marker parent_marker = parent_view.mark(view_in_parent);
+                parent_view.select_marked(parent_marker);
+            }
         }
     }
     
@@ -789,7 +792,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // check if the photo altered while away
         if (has_photo() && pixbuf_dirty)
-            replace_photo(controller, get_photo());
+            replace_photo(get_photo());
     }
     
     public override void switching_from() {
@@ -800,6 +803,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         deactivate_tool();
 
+        parent_view = null;
         get_view().clear();
     }
     
@@ -828,7 +832,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void on_selection_changed(Gee.Iterable<DataView> selected) {
         foreach (DataView view in selected) {
-            replace_photo(controller, (Photo) view.get_source());
+            replace_photo((Photo) view.get_source());
             break;
         }
     }
@@ -856,7 +860,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             ORIGINAL_PIXBUF_CACHE_COUNT, master_cache_filter);
         
         if (has_photo())
-            prefetch_neighbors(controller, get_photo());
+            prefetch_neighbors(get_view(), get_photo());
     }
     
     private bool master_cache_filter(Photo photo) {
@@ -959,10 +963,23 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
+    private DataView create_photo_view(DataSource source) {
+        return new PhotoView((PhotoSource) source);
+    }
+    
+    private bool is_photo(DataSource source) {
+        return source is PhotoSource;
+    }
+    
     protected void display(ViewCollection controller, Photo photo) {
         assert(controller.get_view_for_source(photo) != null);
+        if (controller != get_view() && controller != parent_view) {
+            get_view().clear();
+            get_view().copy_into(controller, create_photo_view, is_photo);
+            parent_view = controller;
+        }
         
-        replace_photo(controller, photo);
+        replace_photo(photo);
     }
 
     protected virtual void update_ui(Photo photo, bool missing) {
@@ -1051,10 +1068,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return pixbuf;
     }
 
-    protected void replace_photo(ViewCollection new_controller, Photo new_photo) {
-        ViewCollection old_controller = this.controller;
-        controller = new_controller;
-        
+    private void replace_photo(Photo new_photo) {
         // if it's the same Photo object, the scaling hasn't changed, and the photo's file
         // has not gone missing or re-appeared, there's nothing to do otherwise,
         // just need to reload the image for the proper scaling. Of course, the photo's pixels
@@ -1089,7 +1103,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rebuild_caches("replace_photo");
         
         if (old_photo != null)
-            cancel_prefetch_neighbors(old_controller, old_photo, new_controller, new_photo);
+            cancel_prefetch_neighbors(get_view(), old_photo, get_view(), new_photo);
 
         cancel_zoom();
         
@@ -1097,7 +1111,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         quick_update_pixbuf();
         
-        prefetch_neighbors(new_controller, new_photo);
+        prefetch_neighbors(get_view(), new_photo);
         
         update_toolbar();
     }
@@ -1210,7 +1224,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void update_toolbar() {
         bool multiple_photos = false;
         int photo_ticker = 0;
-        foreach (DataSource source in controller.get_sources()) {
+        foreach (DataSource source in get_view().get_sources()) {
             if (source is Photo)
                 photo_ticker++;
 
@@ -2029,14 +2043,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Photo? current_photo = get_photo();
         assert(current_photo != null);
         
-        DataView current = controller.get_view_for_source(get_photo());
+        DataView current = get_view().get_view_for_source(get_photo());
         if (current == null)
             return;
         
         // search through the collection until the next photo is found or back at the starting point
         DataView? next = current;
         for (;;) {
-            next = controller.get_next(next);
+            next = get_view().get_next(next);
             if (next == null)
                 break;
             
@@ -2047,7 +2061,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             if (next_photo == current_photo)
                 break;
             
-            replace_photo(controller, next_photo);
+            replace_photo(next_photo);
             
             break;
         }
@@ -2062,14 +2076,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Photo? current_photo = get_photo();
         assert(current_photo != null);
         
-        DataView current = controller.get_view_for_source(get_photo());
+        DataView current = get_view().get_view_for_source(get_photo());
         if (current == null)
             return;
         
         // loop until a previous photo is found or back at the starting point
         DataView? previous = current;
         for (;;) {
-            previous = controller.get_previous(previous);
+            previous = get_view().get_previous(previous);
             if (previous == null)
                 break;
             
@@ -2080,7 +2094,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             if (previous_photo == current_photo)
                 break;
             
-            replace_photo(controller, previous_photo);
+            replace_photo(previous_photo);
             
             break;
         }
@@ -2088,6 +2102,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
     public bool has_current_tool() {
         return (current_tool != null);
+    }
+    
+    protected void unset_view_collection() {
+        parent_view = null;
     }
 }
 
@@ -2097,7 +2115,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
 public class LibraryPhotoPage : EditingHostPage {
     private Gtk.Menu context_menu;
-    private CollectionPage return_page = null;
+    private CollectionPage? return_page = null;
     private bool return_to_collection_on_release = false;
     
     public LibraryPhotoPage() {
@@ -2119,12 +2137,29 @@ public class LibraryPhotoPage : EditingHostPage {
         
         // watch for updates to the external app settings
         Config.get_instance().external_app_changed.connect(on_external_app_changed);
+        
+        // Filter out trashed files.
+        get_view().install_view_filter(not_trashed_view_filter);
+        LibraryPhoto.global.items_unlinking.connect(on_photo_unlinking);
+        LibraryPhoto.global.items_relinked.connect(on_photo_relinked);
     }
     
     ~LibraryPhotoPage() {
         LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
         LibraryPhoto.global.items_altered.disconnect(on_metadata_altered);
         Config.get_instance().external_app_changed.disconnect(on_external_app_changed);
+    }
+    
+    public bool not_trashed_view_filter(DataView view) {
+        return !((MediaSource) view.get_source()).is_trashed();
+    }
+    
+    private void on_photo_unlinking(Gee.Collection<DataSource> unlinking) {
+        get_view().reapply_view_filter();
+    }
+    
+    private void on_photo_relinked(Gee.Collection<DataSource> relinked) {
+        get_view().reapply_view_filter();
     }
     
     protected override string? get_menubar_path() {
@@ -2516,11 +2551,19 @@ public class LibraryPhotoPage : EditingHostPage {
     
     public void display_for_collection(CollectionPage return_page, Photo photo) {
         this.return_page = return_page;
+        return_page.destroy.connect(on_page_destroyed);
         
         display(return_page.get_view(), photo);
     }
     
-    public CollectionPage get_controller_page() {
+    public void on_page_destroyed() {
+        // The parent page was removed, so drop the reference to the page and
+        // its view collection.
+        return_page = null;
+        unset_view_collection();
+    }
+    
+    public CollectionPage? get_controller_page() {
         return return_page;
     }
 
@@ -2530,38 +2573,12 @@ public class LibraryPhotoPage : EditingHostPage {
         // switched_to call.
         assert(get_photo() != null);
         
-        lock_controller();
-        
         base.switched_to();
         
         update_zoom_menu_item_sensitivity();
         update_rating_menu_item_sensitivity();
         
         set_display_ratings(Config.get_instance().get_display_photo_ratings());
-    }
-
-    public override void switching_from() {
-        base.switching_from();
-        
-        unlock_controller();
-    }
-    
-    private void on_controller_page_destroyed() {
-        unlock_controller();
-    }
-    
-    private void lock_controller() {
-        get_controller().lock_view();
-        get_controller_page().destroy.connect(on_controller_page_destroyed);
-        get_controller().items_removed.connect(on_photos_removed);
-    }
-    
-    private void unlock_controller() {
-        if (get_controller().is_view_locked()) {
-            get_controller().unlock_view();
-            get_controller_page().destroy.disconnect(on_controller_page_destroyed);
-            get_controller().items_removed.disconnect(on_photos_removed);
-        }
     }
     
     protected override Gdk.Pixbuf? get_bottom_left_trinket(int scale) {
@@ -2780,14 +2797,11 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void return_to_collection() {
-        ViewCollection controller = get_controller();
-        if (controller != null && has_photo()) {
-            controller.unselect_all();
-            
-            return_page.set_cursor((CheckerboardItem) controller.get_view_for_source(get_photo()));
-        }
-        
-        LibraryWindow.get_app().switch_to_page(return_page);
+        // Return to the previous page if it exists.
+        if (null != return_page)
+            LibraryWindow.get_app().switch_to_page(return_page);
+        else
+            LibraryWindow.get_app().switch_to_library_page();
     }
     
     private void on_remove_from_library() {
@@ -2821,18 +2835,15 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_flag_unflag() {
         if (has_photo()) {
-            get_command_manager().execute(new FlagUnflagCommand(get_view().get_sources(),
+            Gee.ArrayList<DataSource> photo_list = new Gee.ArrayList<DataSource>();
+            photo_list.add(get_photo());
+            get_command_manager().execute(new FlagUnflagCommand(photo_list,
                 !((LibraryPhoto) get_photo()).is_flagged()));
         }
     }
     
     private void on_photo_destroyed(DataSource source) {
         on_photo_removed((LibraryPhoto) source);
-    }
-    
-    private void on_photos_removed(Gee.Iterable<DataObject> removed) {
-        foreach (DataObject object in removed)
-            on_photo_removed((LibraryPhoto) ((DataView) object).get_source());
     }
     
     private void on_photo_removed(LibraryPhoto photo) {

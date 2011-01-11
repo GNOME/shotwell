@@ -1707,9 +1707,13 @@ public abstract class ViewManager {
     public abstract DataView create_view(DataSource source);
 }
 
-// CreateView is a construction delegate used when mirroring a ViewCollection in another
-// ViewCollection.
+// CreateView is a construction delegate used when mirroring or copying a ViewCollection 
+// in another ViewCollection.
 public delegate DataView CreateView(DataSource source);
+
+// CreateViewPredicate is a filter delegate used when copy a ViewCollection in another
+// ViewCollection.
+public delegate bool CreateViewPredicate(DataSource source);
 
 // A ViewFilter allows for items in a ViewCollection to be shown or hidden depending on the
 // supplied predicate method.  For now, only one ViewFilter may be installed, although this may
@@ -1776,10 +1780,6 @@ public class ViewCollection : DataCollection {
     private DataSet visible = null;
     private Gee.HashSet<DataView> frozen_views_altered = null;
     private Gee.HashSet<DataView> frozen_geometries_altered = null;
-    private int view_lock_count = 0;
-    // if true the items needs to be shown, if false, it needs to be hidden
-    private Gee.HashMap<DataView, bool> locked_filter_items = new Gee.HashMap<DataView, bool>();
-    private Gee.HashSet<DataView> locked_unlinked_items = new Gee.HashSet<DataView>();
     
     // TODO: source-to-view mapping ... for now, only one view is allowed for each source.
     // This may need to change in the future.
@@ -1890,17 +1890,7 @@ public class ViewCollection : DataCollection {
             return;
         }
         
-        // Unlock and relock ViewCollection if needed.
-        int original_lock_count = view_lock_count;
-        while (is_view_locked()) {
-            unlock_view();
-        }
-        
         base.clear();
-        
-        for (int i = 0; i < original_lock_count; i++) {
-            lock_view();
-        }
     }
     
     public override void close() {
@@ -1969,6 +1959,19 @@ public class ViewCollection : DataCollection {
         }
         
         mirroring = null;
+    }
+    
+    public void copy_into(ViewCollection to_copy, CreateView copying_ctor, 
+        CreateViewPredicate should_copy) {
+        // Copy into self.
+        Gee.ArrayList<DataObject> copy_view = new Gee.ArrayList<DataObject>();
+        foreach (DataObject object in to_copy.get_all()) {
+            DataView view = (DataView) object;
+            if (should_copy(view.get_source())) {
+                copy_view.add(copying_ctor(view.get_source()));
+            }
+        }
+        add_many(copy_view);
     }
     
     public void install_view_filter(ViewFilter filter) {
@@ -2266,35 +2269,20 @@ public class ViewCollection : DataCollection {
         
         foreach (DataView view in views) {
             if (filter(view)) {
-                if (locked_filter_items.has_key(view) || !view.is_visible()) {
+                if (!view.is_visible()) {
                     if (to_show == null)
                         to_show = new Gee.ArrayList<DataView>();
                     
                     to_show.add(view);
                 }
             } else {
-                if (locked_filter_items.has_key(view) || view.is_visible()) {
+                if (view.is_visible()) {
                     if (to_hide == null)
                         to_hide = new Gee.ArrayList<DataView>();
                     
                     to_hide.add(view);
                 }
             }
-        }
-
-        if (view_lock_count > 0) {
-            if (to_show != null) {
-                foreach (DataView view in to_show) {
-                    locked_filter_items.set(view, true);
-                }
-            }
-            
-            if (to_hide != null) {
-                foreach (DataView view in to_hide) {
-                    locked_filter_items.set(view, false);
-                }
-            }
-            return;
         }
         
         if (to_show != null)
@@ -2308,62 +2296,6 @@ public class ViewCollection : DataCollection {
         filter_altered_items(map.keys);
 
         base.items_altered(map);
-    }
-    
-    public bool is_view_locked() {
-        return view_lock_count > 0;
-    }
-    
-    public void lock_view() {
-        view_lock_count++;
-    }
-    
-    public void unlock_view() {
-        assert(view_lock_count > 0);
-        if (--view_lock_count != 0)
-            return;
-        
-        // remove everything unlinked while locked, being sure to remove them from the locked
-        // visible lists as well
-        foreach (DataView view in locked_unlinked_items)
-            locked_filter_items.unset(view);
-        
-        // Because verify_remove will be called inside remove_marked, want to have the
-        // locked_unlinked_items collection cleared at that point
-        Marker marker = mark_many(locked_unlinked_items);
-        locked_unlinked_items.clear();
-        remove_marked(marker);
-        
-        // everything remaining on the visible list update as well
-        Gee.ArrayList<DataView> to_show = new Gee.ArrayList<DataView>();
-        Gee.ArrayList<DataView> to_hide = new Gee.ArrayList<DataView>();
-        
-        foreach (DataView key in locked_filter_items.keys) {
-            if (locked_filter_items[key] && !key.is_visible())
-                to_show.add(key);
-            else if (!locked_filter_items[key] && key.is_visible())
-                to_hide.add(key);
-        }
-        
-        if (to_show.size > 0)
-            show_items(to_show);
-        
-        if (to_hide.size > 0)
-            hide_items(to_hide);
-        
-        locked_filter_items.clear();
-    }
-    
-    public override void remove_marked(Marker marker) {
-        // if locked, block removal of unlinked DataViews
-        if (locked_unlinked_items.size > 0) {
-            foreach (DataObject object in marker.get_all()) {
-                if (locked_unlinked_items.contains((DataView) object))
-                    marker.unmark(object);
-            }
-        }
-        
-        base.remove_marked(marker);
     }
     
     public override void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
@@ -2789,22 +2721,6 @@ public class ViewCollection : DataCollection {
                 frozen_geometries_altered = new Gee.HashSet<DataView>();
             frozen_geometries_altered.add(view);
         }
-    }
-    
-    // This is only called by DataView.
-    public void internal_notify_unlinking(DataView view, SourceCollection sources) {
-        if (view_lock_count > 0) {
-            bool added = locked_unlinked_items.add(view);
-            assert(added);
-        }
-    }
-    
-    // This is only called by DataView.
-    public void internal_notify_relinked(DataView view, SourceCollection sources) {
-        // don't assert if removed because it's possible the relink is happening in a session
-        // after the unlink
-        if (view_lock_count > 0)
-            locked_unlinked_items.remove(view);
     }
     
     protected override void notify_thawed() {
