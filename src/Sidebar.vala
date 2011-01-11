@@ -713,6 +713,7 @@ public class Sidebar : Gtk.TreeView {
         if (editable is Gtk.Entry) {
             text_entry = (Gtk.Entry) editable;
             text_entry.editing_done.connect(on_editing_done);
+            text_entry.focus_out_event.connect(on_editing_focus_out);
         }
         
         AppWindow.get_instance().pause_keyboard_trapping();
@@ -733,5 +734,10 @@ public class Sidebar : Gtk.TreeView {
             page.rename(text_entry.get_text());
         
         text_entry.editing_done.disconnect(on_editing_done);
+    }
+
+    private bool on_editing_focus_out(Gdk.EventFocus event) {
+        text_entry.editing_done();
+        return false;
     }
 }
