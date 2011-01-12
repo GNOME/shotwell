@@ -53,33 +53,42 @@ void library_exec(string[] mounts) {
         // notified running app; this one exits
         return;
     }
-
-    // initialize DatabaseTable before verification
-    DatabaseTable.init(AppDirs.get_data_subdir("data").get_child("photo.db"));
-
+    
+    // preconfigure units
+    Db.preconfigure(AppDirs.get_data_subdir("data").get_child("photo.db"));
+    
+    // initialize units
+    try {
+        Library.unitize_init();
+    } catch (Error err) {
+        AppWindow.panic(err.message);
+        
+        return;
+    }
+    
     // validate the databases prior to using them
     message("Verifying database ...");
     string errormsg = null;
     string app_version;
     int schema_version;
-    DatabaseVerifyResult result = verify_database(out app_version, out schema_version);
+    Db.VerifyResult result = Db.verify_database(out app_version, out schema_version);
     switch (result) {
-        case DatabaseVerifyResult.OK:
+        case Db.VerifyResult.OK:
             // do nothing; no problems
         break;
         
-        case DatabaseVerifyResult.FUTURE_VERSION:
+        case Db.VerifyResult.FUTURE_VERSION:
             errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please use the latest version of Shotwell.").printf(
                 app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION);
         break;
         
-        case DatabaseVerifyResult.UPGRADE_ERROR:
+        case Db.VerifyResult.UPGRADE_ERROR:
             errormsg = _("Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d).  For more information please check the Shotwell Wiki at %s").printf(
                 app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION,
                 Resources.WIKI_URL);
         break;
         
-        case DatabaseVerifyResult.NO_UPGRADE_AVAILABLE:
+        case Db.VerifyResult.NO_UPGRADE_AVAILABLE:
             errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please clear your library by deleting %s and re-import your photos.").printf(
                 app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION,
                 AppDirs.get_data_dir().get_path());
@@ -205,7 +214,7 @@ void library_exec(string[] mounts) {
     ThumbnailCache.terminate();
     Video.terminate();
 
-    DatabaseTable.terminate();
+    Library.unitize_terminate();
 }
 
 private bool do_system_pictures_import = false;
@@ -248,8 +257,16 @@ private void report_system_pictures_import(ImportManifest manifest, BatchImportR
 }
 
 void editing_exec(string filename) {
+    // preconfigure units
+    Db.preconfigure(null);
+    
+    // initialize units for direct-edit mode
+    try {
+        Direct.unitize_init();
+    } catch (Error err) {
+    }
+    
     // init modules direct-editing relies on
-    DatabaseTable.init(null);
     DirectPhoto.init();
     DesktopIntegration.init();
     
@@ -266,7 +283,9 @@ void editing_exec(string filename) {
     
     DesktopIntegration.terminate();
     DirectPhoto.terminate();
-    DatabaseTable.terminate();
+    
+    // terminate units for direct-edit mode
+    Direct.unitize_terminate();
 }
 
 namespace CommandlineOptions {

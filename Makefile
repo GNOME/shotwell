@@ -32,14 +32,14 @@ SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu 
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=$(DESTDIR)$(PREFIX)/share/locale
 
-SRC_FILES = \
+include units.mk
+
+UNUNITIZED_SRC_FILES = \
 	main.vala \
 	AppWindow.vala \
 	CollectionPage.vala \
 	Thumbnail.vala \
-	DatabaseTables.vala \
 	ThumbnailCache.vala \
-	image_util.vala \
 	CheckerboardLayout.vala \
 	PhotoPage.vala \
 	Page.vala \
@@ -51,7 +51,6 @@ SRC_FILES = \
 	Box.vala \
 	Photo.vala \
 	Orientation.vala \
-	util.vala \
 	BatchImport.vala \
 	Dialogs.vala \
 	Resources.vala \
@@ -69,8 +68,6 @@ SRC_FILES = \
 	Config.vala \
 	Event.vala \
 	International.vala \
-	Workers.vala \
-	system.vala \
 	AppDirs.vala \
 	PixbufCache.vala \
 	WebConnectors.vala \
@@ -117,13 +114,11 @@ SRC_FILES = \
 	TimedQueue.vala \
 	MediaPage.vala \
 	MediaDataRepresentation.vala \
-	file_util.vala \
 	DesktopIntegration.vala \
 	FlaggedPage.vala \
 	MediaInterfaces.vala \
 	MediaMetadata.vala \
 	VideoMetadata.vala \
-	string_util.vala \
 	MediaMonitor.vala \
 	PhotoMonitor.vala \
 	VideoMonitor.vala
@@ -334,25 +329,36 @@ DIRECT_EDIT_DESKTOP_APPLICATION_NAME="Shotwell Photo Viewer"
 DIRECT_EDIT_DESKTOP_APPLICATION_CLASS="Photo Viewer"
 TEMPORARY_DESKTOP_FILES = misc/shotwell.desktop misc/shotwell-viewer.desktop
 
-EXPANDED_PO_FILES = $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
-EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES),src/$(src))
-EXPANDED_C_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.c))
-EXPANDED_SAVE_TEMPS_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.vala.c))
-EXPANDED_OBJ_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.o))
-EXPANDED_SYS_INTEGRATION_FILES = $(foreach file,$(SYS_INTEGRATION_FILES),misc/$(file))
-EXPANDED_ICON_FILES = $(foreach file,$(ICON_FILES),icons/$(file))
-EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
-EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
-EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES),ui/$(res))
-EXPANDED_HELP_FILES = $(foreach file,$(HELP_FILES),help/C/$(file))
-EXPANDED_HELP_IMAGES = $(foreach file,$(HELP_IMAGES),help/C/figures/$(file))
-VALA_STAMP = $(BUILD_DIR)/.stamp
-LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
+# Process the units
+UNIT_MKS := $(foreach unit,$(UNITS),src/$(unit)/mk/$(unit).mk)
+include $(UNIT_MKS)
+
+UNITIZE_DIR := src/.unitize
+UNITIZE_ENTRIES := $(foreach group,$(APP_GROUPS),$(UNITIZE_DIR)/_$(group)_unitize_entry.vala)
+UNITIZE_INITS := $(foreach nm,$(UNIT_NAMESPACES),$(UNITIZE_DIR)/_$(nm)Internals.vala)
+UNITIZE_STAMP := $(UNITIZE_DIR)/.unitized
+
+EXPANDED_PO_FILES := $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
+EXPANDED_SRC_FILES := $(UNITIZED_SRC_FILES) $(foreach src,$(UNUNITIZED_SRC_FILES),src/$(src)) \
+	$(UNITIZE_INITS) $(UNITIZE_ENTRIES)
+EXPANDED_C_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FILES)),$(file:.vala=.c))
+EXPANDED_OBJ_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FILES)),$(file:.vala=.o))
+EXPANDED_SYS_INTEGRATION_FILES := $(foreach file,$(SYS_INTEGRATION_FILES),misc/$(file))
+EXPANDED_ICON_FILES := $(foreach file,$(ICON_FILES),icons/$(file))
+EXPANDED_VAPI_FILES := $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
+EXPANDED_SRC_HEADER_FILES := $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
+EXPANDED_RESOURCE_FILES := $(foreach res,$(RESOURCE_FILES),ui/$(res))
+EXPANDED_HELP_FILES := $(foreach file,$(HELP_FILES),help/C/$(file))
+EXPANDED_HELP_IMAGES := $(foreach file,$(HELP_IMAGES),help/C/figures/$(file))
+VALA_STAMP := $(BUILD_DIR)/.stamp
+LANG_STAMP := $(LOCAL_LANG_DIR)/.langstamp
+MAKE_FILES := Makefile $(CONFIG_IN) $(UNIT_MKS) unitize.mk units.mk
 
 DIST_FILES = Makefile configure minver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
 	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_PO_FILES) po/shotwell.pot libraw-config \
-	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py
+	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
+	unitize.mk units.mk
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
@@ -388,7 +394,6 @@ $(LANG_STAMP): $(EXPANDED_PO_FILES)
 
 clean:
 	rm -f $(EXPANDED_C_FILES)
-	rm -f $(EXPANDED_SAVE_TEMPS_FILES)
 	rm -f $(EXPANDED_OBJ_FILES)
 	rm -f $(VALA_STAMP)
 	rm -rf $(PROGRAM)-$(VERSION)
@@ -397,10 +402,10 @@ clean:
 	rm -f $(LANG_STAMP)
 	rm -f $(TEMPORARY_DESKTOP_FILES)
 	rm -f lib$(PROGRAM).so
+	rm -rf $(UNITIZE_DIR)
 
 cleantemps:
 	rm -f $(EXPANDED_C_FILES)
-	rm -f $(EXPANDED_SAVE_TEMPS_FILES)
 	rm -f $(EXPANDED_OBJ_FILES)
 	rm -f $(VALA_STAMP)
 	rm -f $(LANG_STAMP)
@@ -502,8 +507,24 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 endif
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 
-$(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
-	$(CONFIG_IN)
+$(BUILD_DIR):
+	@mkdir -p $(BUILD_DIR)
+
+$(UNITIZE_DIR):
+	@mkdir -p $(UNITIZE_DIR)
+
+$(UNITIZE_STAMP): $(UNITIZE_DIR) $(MAKE_FILES) src/unit/rc/UnitInternals.m4 src/unit/rc/unitize_entry.m4
+	@$(foreach group,$(APP_GROUPS),\
+		`m4 '--define=_APP_GROUP_=$(group)' '--define=_UNIT_ENTRY_POINTS_=$(foreach nm,$(UNIT_NAMESPACES),$(nm).init_entry,)' '--define=_UNIT_TERMINATE_POINTS_=$(foreach nm,$(UNIT_NAMESPACES),$(nm).terminate_entry,)' src/unit/rc/unitize_entry.m4 > $(UNITIZE_DIR)/_$(group)_unitize_entry.vala`)
+	@$(foreach nm,$(UNIT_NAMESPACES),\
+		`m4 '--define=_UNIT_NAME_=$(nm)' '--define=_UNIT_USES_INITS_=$($(nm)_USES_INITS)' '--define=_UNIT_USES_TERMINATORS_=$($(nm)_USES_TERMINATORS)' src/unit/rc/UnitInternals.m4 > $(UNITIZE_DIR)/_$(nm)Internals.vala`)
+	@touch $@
+
+$(UNITIZE_INITS) $(UNITIZE_ENTRIES): $(UNITIZE_STAMP)
+	@
+
+# EXPANDED_SRC_FILES includes UNITIZE_INITS and UNITIZE_ENTRY
+$(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES)
 	@ ./minver `$(VALAC) --version | awk '{print $$2}'` $(MIN_VALAC_VERSION) || ( echo 'Shotwell requires Vala compiler $(MIN_VALAC_VERSION) or greater.  You are running' `$(VALAC) --version` '\b.'; exit 1 )
 ifndef ASSUME_PKGS
 ifdef EXT_PKG_VERSIONS
@@ -515,7 +536,6 @@ endif
 	@$(LIBRAW_CONFIG) --exists=$(LIBRAW_VERSION)
 endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
-	mkdir -p $(BUILD_DIR)
 	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src $(VALAFLAGS) \
 	$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
 	$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
