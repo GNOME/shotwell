@@ -23,9 +23,9 @@ public void terminate_entry() {
     if (_unit_init_count == 0 || --_unit_init_count != 0)
         return;
     
-    _UNIT_USES_TERMINATORS_
-    
     _UNIT_NAME_.terminate();
+    
+    _UNIT_USES_TERMINATORS_
 }
 
 }
