@@ -19,6 +19,7 @@ namespace Resources {
     
     public const string YORBA_URL = "http://www.yorba.org";
     public const string WIKI_URL = "http://trac.yorba.org/wiki/Shotwell";
+    public const string FAQ_URL = "http://trac.yorba.org/wiki/Shotwell/FAQ";
     
     public const string PREFIX = _PREFIX;
 

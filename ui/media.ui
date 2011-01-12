@@ -101,6 +101,7 @@
 
         <menu name="HelpMenu" action="HelpMenu">
             <menuitem name="Contents" action="CommonHelpContents" />
+            <menuitem name="Frequently Asked Questions" action="CommonHelpFAQ" />
             <separator />
             <menuitem name="About" action="CommonAbout" />
         </menu>

@@ -486,6 +486,12 @@ public abstract class AppWindow : PageWindow {
         help_contents.tooltip = _("More information on Shotwell");
         actions += help_contents;
         
+        Gtk.ActionEntry help_faq = { "CommonHelpFAQ", null, TRANSLATABLE, null, 
+            TRANSLATABLE, on_help_faq };
+        help_faq.label = _("_Frequently Asked Questions");
+        help_faq.tooltip = _("Answers to common questions about Shotwell");
+        actions += help_faq;
+        
         Gtk.ActionEntry undo = { "CommonUndo", Gtk.STOCK_UNDO, TRANSLATABLE, "<Ctrl>Z",
             TRANSLATABLE, on_undo };
         undo.label = Resources.UNDO_MENU;
@@ -647,6 +653,14 @@ public abstract class AppWindow : PageWindow {
             Resources.launch_help(get_screen());
         } catch (Error err) {
             error_message(_("Unable to display help: %s").printf(err.message));
+        }
+    }
+    
+    private void on_help_faq() {
+        try {
+            show_uri(Resources.FAQ_URL);
+        } catch (Error err) {
+            error_message(_("Unable to display FAQ: %s").printf(err.message));
         }
     }
     
