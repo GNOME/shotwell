@@ -714,18 +714,22 @@ public class Sidebar : Gtk.TreeView {
             text_entry = (Gtk.Entry) editable;
             text_entry.editing_done.connect(on_editing_done);
             text_entry.focus_out_event.connect(on_editing_focus_out);
+            text_entry.editable = true;
         }
         
         AppWindow.get_instance().pause_keyboard_trapping();
     }
     
     private void on_editing_canceled() {
+        text_entry.editable = false;
         AppWindow.get_instance().resume_keyboard_trapping();
         
         text_entry.editing_done.disconnect(on_editing_done);
+        text_entry.focus_out_event.disconnect(on_editing_focus_out);
     }
     
     private void on_editing_done() {
+        text_entry.editable = false;
         AppWindow.get_instance().resume_keyboard_trapping();
         
         SidebarPage? page = locate_page(current_path);
@@ -734,10 +738,13 @@ public class Sidebar : Gtk.TreeView {
             page.rename(text_entry.get_text());
         
         text_entry.editing_done.disconnect(on_editing_done);
+        text_entry.focus_out_event.disconnect(on_editing_focus_out);
     }
 
     private bool on_editing_focus_out(Gdk.EventFocus event) {
-        text_entry.editing_done();
+        if (text_entry.editable)
+            text_entry.editing_done();
+
         return false;
     }
 }
