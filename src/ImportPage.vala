@@ -339,6 +339,12 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
+    private class UnimportedViewFilter : ViewFilter {
+        public override bool predicate(DataView view) {
+            return !((ImportPreview) view).is_already_imported();
+        }
+    }
+    
     private class CameraImportJob : BatchImportJob {
         private GPhoto.ContextWrapper context;
         private ImportSource import_file;
@@ -445,6 +451,7 @@ public class ImportPage : CheckerboardPage {
     private VolumeMonitor volume_monitor = null;
     private ImportPage? local_ref = null;
     private GLib.Icon? icon;
+    private UnimportedViewFilter show_unimported_filter = new UnimportedViewFilter();
     
     public enum RefreshResult {
         OK,
@@ -685,7 +692,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_media_added_removed() {
-        get_view().reapply_view_filter();
+        show_unimported_filter.refresh();
     }
 
     private void on_display_titles(Gtk.Action action) {
@@ -1167,10 +1174,6 @@ public class ImportPage : CheckerboardPage {
             if (!spin_event_loop())
                 break;
         }
-    }
-    
-    private bool show_unimported_filter(DataView view) {
-        return !((ImportPreview) view).is_already_imported();
     }
     
     private void on_hide_imported() {

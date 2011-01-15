@@ -63,6 +63,11 @@ public class VideosPage : MediaPage {
         separator.set_draw(false);
         
         toolbar.insert(separator, -1);
+        
+        // Search box.
+        MediaPage.SearchBox search_box = create_search_box();
+        connect_search_box(search_box);
+        toolbar.insert(search_box, -1);
 
         // ratings filter button
         MediaPage.FilterButton filter_button = create_filter_button();

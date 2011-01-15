@@ -1719,9 +1719,15 @@ public delegate bool CreateViewPredicate(DataSource source);
 // supplied predicate method.  For now, only one ViewFilter may be installed, although this may
 // change in the future.  The ViewFilter is used whenever an object is added to the collection
 // and when its altered/metadata_altered signals fire.
-//
-// Return true if view should be visible, false if it should be hidden.
-public delegate bool ViewFilter(DataView view);
+public abstract class ViewFilter {
+    // Fire this signal whenever a refresh is needed.  The ViewCollection listens
+    // to this signal to know when to reapply the filter.
+    public virtual signal void refresh() {
+    }
+    
+    // Return true if view should be visible, false if it should be hidden.
+    public abstract bool predicate(DataView view);
+}
 
 // A ViewCollection holds DataView objects, which are view instances wrapping DataSource objects.
 // Thus, multiple views can exist of a single SourceCollection, each view displaying all or some
@@ -1896,6 +1902,9 @@ public class ViewCollection : DataCollection {
     public override void close() {
         halt_all_monitoring();
         halt_mirroring();
+        if (null != filter) {
+            filter.refresh.disconnect(on_view_filter_refresh);
+        }
         filter = null;
         
         base.close();
@@ -1980,18 +1989,20 @@ public class ViewCollection : DataCollection {
         
         // this currently replaces any existing ViewFilter
         this.filter = filter;
+        this.filter.refresh.connect(on_view_filter_refresh);
         
         // filter existing items
-        reapply_view_filter();
+        on_view_filter_refresh();
     }
     
-    // This is used when conditions outside of the collection have changed and the entire collection
-    // should be re-filtered.
-    public void reapply_view_filter() {
+    private void on_view_filter_refresh() {
         filter_altered_items((Gee.Collection<DataView>) base.get_all());
     }
     
     public void reset_view_filter() {
+        if (null != this.filter) {
+            filter.refresh.disconnect(on_view_filter_refresh);
+        }
         this.filter = null;
         
         // reset visibility of all hidden items ... can't use marker for reasons explained in
@@ -2268,7 +2279,7 @@ public class ViewCollection : DataCollection {
         Gee.ArrayList<DataView> to_hide = null;
         
         foreach (DataView view in views) {
-            if (filter(view)) {
+            if (filter.predicate(view)) {
                 if (!view.is_visible()) {
                     if (to_show == null)
                         to_show = new Gee.ArrayList<DataView>();

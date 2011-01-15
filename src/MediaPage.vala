@@ -125,6 +125,138 @@ public abstract class MediaPage : CheckerboardPage {
         MAX = 3
     }
     
+    // Handles filtering via rating and text.
+    private class MediaPageViewFilter : ViewFilter {
+        // If this is true, allow the current rating or higher.
+        bool rating_allow_higher = true;
+        
+        // Rating to filter by.
+        Rating rating = Rating.REJECTED;
+        
+        RatingFilter rating_filter = RatingFilter.REJECTED_OR_HIGHER;
+        
+        // Search text filter.  Should only be set to lower-case.
+        string? search_filter = null;
+        
+        public void set_rating_filter(RatingFilter rf) {
+            rating_filter = rf;
+            switch (rating_filter) {
+                case RatingFilter.REJECTED_ONLY:
+                    rating = Rating.REJECTED;
+                    rating_allow_higher = false;
+                break;
+                
+                case RatingFilter.REJECTED_OR_HIGHER:
+                    rating = Rating.REJECTED;
+                    rating_allow_higher = true;
+                break;
+                
+                case RatingFilter.ONE_OR_HIGHER:
+                    rating = Rating.ONE;
+                    rating_allow_higher = true;
+                break;
+                
+                case RatingFilter.ONE_ONLY:
+                    rating = Rating.ONE;
+                    rating_allow_higher = false;
+                break;
+                
+                case RatingFilter.TWO_OR_HIGHER:
+                    rating = Rating.TWO;
+                    rating_allow_higher = true;
+                break;
+                
+                 case RatingFilter.TWO_ONLY:
+                    rating = Rating.TWO;
+                    rating_allow_higher = false;
+                break;
+                
+                case RatingFilter.THREE_OR_HIGHER:
+                    rating = Rating.THREE;
+                    rating_allow_higher = true;
+                break;
+                
+                case RatingFilter.THREE_ONLY:
+                    rating = Rating.THREE;
+                    rating_allow_higher = false;
+                break;
+                
+                case RatingFilter.FOUR_OR_HIGHER:
+                    rating = Rating.FOUR;
+                    rating_allow_higher = true;
+                break;
+                
+                case RatingFilter.FOUR_ONLY:
+                    rating = Rating.FOUR;
+                    rating_allow_higher = false;
+                break;
+                
+                case RatingFilter.FIVE_OR_HIGHER:
+                    rating = Rating.FIVE;
+                    rating_allow_higher = true;
+                break;
+                
+                case RatingFilter.FIVE_ONLY:
+                    rating = Rating.FIVE;
+                    rating_allow_higher = false;
+                break;
+                
+                case RatingFilter.UNRATED_OR_HIGHER:
+                default:
+                    rating = Rating.UNRATED;
+                    rating_allow_higher = true;
+                break;
+            }
+            
+            refresh();
+        }
+        
+        public void set_search_filter(string text) {
+            search_filter = text.down();
+            refresh();
+        }
+        
+        public void clear_search_filter() {
+            search_filter = null;
+            refresh();
+        }
+        
+        // The predicate here tests against various filters ANDed together.
+        public override bool predicate(DataView view) {
+            MediaSource source = ((Thumbnail) view).get_media_source();
+            // Ratings filter
+            if (rating_allow_higher && source.get_rating() < rating)
+                return false;
+            else if (!rating_allow_higher && source.get_rating() != rating)
+                return false;
+            
+            // Text filter.
+            if (!is_string_empty(search_filter)) {
+                string title = source.get_title() != null ? source.get_title().down() : "";
+                if (title.contains(search_filter))
+                    return true;
+                
+                if (source.get_basename().down().contains(search_filter))
+                    return true;
+                
+                if (source.get_event() != null && source.get_event().get_raw_name() != null &&
+                    source.get_event().get_raw_name().down().contains(search_filter))
+                    return true;
+                
+                Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
+                if (null != tags) {
+                    foreach (Tag tag in tags) {
+                        if (tag.get_name().down().contains(search_filter))
+                            return true;
+                    }
+                }
+                return false;
+            }
+            
+            return true;
+        }
+    }
+    
     protected class FilterButton : Gtk.ToolButton {
         public Gtk.Menu filter_popup = null;
         
@@ -317,9 +449,71 @@ public abstract class MediaPage : CheckerboardPage {
         }
     }
     
+    protected class SearchBox : Gtk.ToolItem {
+        private Gtk.Entry entry;
+        
+        public signal void text_changed();
+
+        public SearchBox() {
+            entry = new Gtk.Entry();
+            entry.primary_icon_stock = Gtk.STOCK_FIND;
+            entry.primary_icon_activatable = false;
+            entry.secondary_icon_stock = Gtk.STOCK_CLEAR;
+            entry.secondary_icon_activatable = true;
+            entry.width_chars = 23;
+            entry.focus_in_event.connect(on_editing_started);
+            entry.focus_out_event.connect(on_editing_canceled);
+            entry.changed.connect(on_text_changed);
+            entry.icon_release.connect(on_icon_release);
+            add(entry);
+        }
+        
+        ~SearchBox() {
+            entry.focus_in_event.disconnect(on_editing_started);
+            entry.focus_out_event.disconnect(on_editing_canceled);
+            entry.changed.disconnect(on_text_changed);
+            entry.icon_release.disconnect(on_icon_release);
+        }
+        
+        private void on_text_changed() {
+            text_changed();
+        }
+        
+        private void on_icon_release(Gtk.EntryIconPosition pos, Gdk.Event event) {
+            if (Gtk.EntryIconPosition.SECONDARY == pos) {
+                clear();
+            }
+        }
+        
+        public string get_text() {
+            return entry.text;
+        }
+        
+        public void set_text(string t) {
+            entry.text = t;
+        }
+        
+        public void clear() {
+            entry.set_text("");
+        }
+        
+        private bool on_editing_started(Gdk.EventFocus event) {
+            // Prevent window from stealing our keystrokes.
+            AppWindow.get_instance().pause_keyboard_trapping();
+            return false;
+        }
+        
+        private bool on_editing_canceled(Gdk.EventFocus event) {
+            AppWindow.get_instance().resume_keyboard_trapping();
+            return false;
+        }
+    }
+    
     private ZoomSliderAssembly? connected_slider = null;
     private FilterButton? connected_filter_button = null;
     private DragAndDropHandler dnd_handler = null;
+    private SearchBox? connected_search_box = null;
+    private MediaPageViewFilter view_filter = new MediaPageViewFilter();
 
     public MediaPage(string page_name) {
         base (page_name);
@@ -344,6 +538,8 @@ public abstract class MediaPage : CheckerboardPage {
 
         // enable drag-and-drop export of media
         dnd_handler = new DragAndDropHandler(this);
+        
+        get_view().install_view_filter(view_filter);
     }
     
     private static void set_global_thumbnail_scale(int new_scale) {
@@ -796,6 +992,10 @@ public abstract class MediaPage : CheckerboardPage {
         return false;
     }
     
+    public SearchBox create_search_box() {
+        return new SearchBox();
+    }
+    
     public ZoomSliderAssembly create_zoom_slider_assembly() {
         return new ZoomSliderAssembly();
     }
@@ -840,7 +1040,7 @@ public abstract class MediaPage : CheckerboardPage {
 
     protected virtual void on_view_filter_changed() {
         RatingFilter filter = get_filter_criteria();
-        install_rating_filter(filter);
+        view_filter.set_rating_filter(filter);
         if (connected_filter_button != null) {
             connected_filter_button.set_filter_icon(filter);
         }
@@ -856,6 +1056,16 @@ public abstract class MediaPage : CheckerboardPage {
         RatingFilter filter = (RatingFilter) action.get_current_value();
 
         return filter;
+    }
+    
+    protected virtual void on_search_changed() {
+        string search = connected_search_box.get_text();
+        if (is_string_empty(search)) {
+            view_filter.clear_search_filter();
+        } else {
+            view_filter.set_search_filter(search);
+        }
+        set_config_search_filter(search);
     }
     
     private void on_send_to() {
@@ -932,42 +1142,42 @@ public abstract class MediaPage : CheckerboardPage {
             
             case "exclam":
                 if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.ONE_OR_HIGHER);
+                    view_filter.set_rating_filter(RatingFilter.ONE_OR_HIGHER);
             break;
 
             case "at":
                 if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.TWO_OR_HIGHER);
+                    view_filter.set_rating_filter(RatingFilter.TWO_OR_HIGHER);
             break;
 
             case "numbersign":
                 if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.THREE_OR_HIGHER);
+                    view_filter.set_rating_filter(RatingFilter.THREE_OR_HIGHER);
             break;
 
             case "dollar":
                 if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.FOUR_OR_HIGHER);
+                    view_filter.set_rating_filter(RatingFilter.FOUR_OR_HIGHER);
             break;
 
             case "percent":
                 if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.FIVE_OR_HIGHER);
+                    view_filter.set_rating_filter(RatingFilter.FIVE_OR_HIGHER);
             break;
 
             case "parenright":
                 if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.UNRATED_OR_HIGHER);
+                    view_filter.set_rating_filter(RatingFilter.UNRATED_OR_HIGHER);
             break;
 
             case "parenleft":
                 if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.REJECTED_OR_HIGHER);
+                    view_filter.set_rating_filter(RatingFilter.REJECTED_OR_HIGHER);
             break;
             
             case "asterisk":
                 if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.REJECTED_ONLY);
+                    view_filter.set_rating_filter(RatingFilter.REJECTED_ONLY);
             break;
             
             case "slash":
@@ -998,6 +1208,7 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().thaw_notifications();
 
         restore_saved_rating_view_filter();  // Set filter to current level and set menu selection
+        restore_saved_search_view_filter();
 
         sync_sort();
     }
@@ -1030,6 +1241,19 @@ public abstract class MediaPage : CheckerboardPage {
     protected virtual void on_zoom_changed() {
         if (connected_slider != null)
             set_thumb_size(connected_slider.get_scale());
+    }
+    
+    protected void connect_search_box(MediaPage.SearchBox search_box) {
+        connected_search_box = search_box;
+        connected_search_box.text_changed.connect(on_search_changed);
+    }
+    
+    protected void disconnect_search_box() {
+        if (connected_search_box == null)
+            return;
+        
+        connected_search_box.text_changed.disconnect(on_search_changed);
+        connected_search_box = null;
     }
     
     protected abstract void on_export();
@@ -1348,7 +1572,7 @@ public abstract class MediaPage : CheckerboardPage {
         if (connected_filter_button != null) {
             connected_filter_button.set_filter_icon(filter);
         }
-        install_rating_filter(filter);
+        view_filter.set_rating_filter(filter);
     }
 
     private RatingFilter get_config_rating_filter() {
@@ -1395,185 +1619,34 @@ public abstract class MediaPage : CheckerboardPage {
         
         action.set_active(true);
     }
-
-    private void set_rating_view_filter(RatingFilter filter) {
-        set_rating_view_filter_menu(filter);
-        install_rating_filter(filter);
-        if (connected_filter_button != null) {
-            connected_filter_button.set_filter_icon(filter);
-        }
-        set_config_rating_filter(filter);
-    }
-    
-    // This is one of those situations where lambdas would be beneficial, in that we could install
-    // ViewFilters that use the parameterized rating for comparison; the following pages of code
-    // could greatly be simplified.  However, ViewCollection.install_view_filter() checks to see
-    // if the supplied ViewFilter == the installed one, and if so, exits quietly; this simple
-    // optimization can save a lot of work.
-    //
-    // That comparison in Vala is a simple comparison of function pointers, which always succeed
-    // with lambdas no matter how they're parameterized.  Rather than give up this optimization,
-    // coding this the "old-fashioned" way.  In the future, if we're willing to avoid that check.
-    // it may be worthwhile here (and elsewhere) to use lambdas.
-    private void install_rating_filter(RatingFilter filter) {
-        switch (filter) {
-            case RatingFilter.REJECTED_ONLY:
-                use_exact_rating_filter(Rating.REJECTED);
-            break;
-            
-            case RatingFilter.REJECTED_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.REJECTED);
-            break;
-            
-            case RatingFilter.ONE_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.ONE);
-            break;
-            
-            case RatingFilter.TWO_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.TWO);
-            break;
-            
-            case RatingFilter.THREE_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.THREE);
-            break;
-            
-            case RatingFilter.FOUR_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.FOUR);
-            break;
-            
-            case RatingFilter.FIVE_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.FIVE);
-            break;
-            
-            case RatingFilter.UNRATED_OR_HIGHER:
-            default:
-                use_rating_or_higher_filter(Rating.UNRATED);
-            break;
-        }
-    }
-    
-    private void use_rating_or_higher_filter(Rating rating) {
-        get_view().install_view_filter(get_rating_or_higher_view_filter(rating));
-    }
-    
-    private ViewFilter get_rating_or_higher_view_filter(Rating rating) {
-        switch (rating) {
-            case Rating.UNRATED:
-                return unrated_or_higher_filter;
-            case Rating.ONE:
-                return one_or_higher_filter;
-            case Rating.TWO:
-                return two_or_higher_filter;
-            case Rating.THREE:
-                return three_or_higher_filter;
-            case Rating.FOUR:
-                return four_or_higher_filter;
-            case Rating.FIVE:
-                return five_or_higher_filter;
-            case Rating.REJECTED:
-            default:
-                return rejected_or_higher_filter;
-        }
-    }
-    
-    private bool higher_filter(DataView view, Rating rating) {
-        return ((Thumbnail) view).get_media_source().get_rating() >= rating;
-    }
-    
-    private bool rejected_or_higher_filter(DataView view) {
-        return higher_filter(view, Rating.REJECTED);
-    }
-
-    private bool unrated_or_higher_filter(DataView view) {
-        return higher_filter(view, Rating.UNRATED);
-    }
-
-    private bool one_or_higher_filter(DataView view) {
-        return higher_filter(view, Rating.ONE);
-    }
-
-    private bool two_or_higher_filter(DataView view) {
-        return higher_filter(view, Rating.TWO);
-    }
-
-    private bool three_or_higher_filter(DataView view) {
-        return higher_filter(view, Rating.THREE);
-    }
-
-    private bool four_or_higher_filter(DataView view) {
-        return higher_filter(view, Rating.FOUR);
-    }
-
-    private bool five_or_higher_filter(DataView view) {
-        return higher_filter(view, Rating.FIVE);
-    }
-    
-    private void use_exact_rating_filter(Rating rating) {
-        get_view().install_view_filter(get_exact_rating_view_filter(rating));
-    }
-    
-    private ViewFilter get_exact_rating_view_filter(Rating rating) {
-        switch (rating) {
-            case Rating.ONE:
-                return one_filter;
-            
-            case Rating.TWO:
-                return two_filter;
-            
-            case Rating.THREE:
-                return three_filter;
-            
-            case Rating.FOUR:
-                return four_filter;
-            
-            case Rating.FIVE:
-                return five_filter;
-            
-            case Rating.REJECTED:
-                return rejected_filter;
-            
-            case Rating.UNRATED:
-            default:
-                return unrated_filter;
-        }
-    }
-    
-    private bool exact_filter(DataView view, Rating rating) {
-        return ((Thumbnail) view).get_media_source().get_rating() == rating;
-    }
-    
-    private bool rejected_filter(DataView view) {
-        return exact_filter(view, Rating.REJECTED);
-    }
-    
-    private bool unrated_filter(DataView view) {
-        return exact_filter(view, Rating.UNRATED);
-    }
-    
-    private bool one_filter(DataView view) {
-        return exact_filter(view, Rating.ONE);
-    }
-    
-    private bool two_filter(DataView view) {
-        return exact_filter(view, Rating.TWO);
-    }
-    
-    private bool three_filter(DataView view) {
-        return exact_filter(view, Rating.THREE);
-    }
-    
-    private bool four_filter(DataView view) {
-        return exact_filter(view, Rating.FOUR);
-    }
-    
-    private bool five_filter(DataView view) {
-        return exact_filter(view, Rating.FIVE);
-    }
     
     private void set_config_rating_filter(RatingFilter filter) {
         if (!Config.get_instance().set_photo_rating_filter(filter))
             warning("Unable to write rating filter settings to config");
     }
+    
+    private void restore_saved_search_view_filter() {
+        string? search = get_config_search_filter();
+        if (null != search) {
+            if (connected_search_box != null) {
+                connected_search_box.set_text(search);
+            }
+            view_filter.set_search_filter(search);
+        } else {
+            connected_search_box.clear();
+            view_filter.clear_search_filter();
+        }
+    }
+
+    private string? get_config_search_filter() {
+        return Config.get_instance().get_search_filter();
+    }
+    
+    private void set_config_search_filter(string search) {
+        if (!Config.get_instance().set_search_filter(search))
+            warning("Unable to write search filter settings to config");
+    }
+
 
     public override void destroy() {
         disconnect_slider();

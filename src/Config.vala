@@ -433,6 +433,15 @@ public class Config {
         return set_int("/apps/shotwell/preferences/ui/photo_rating_filter", filter);
     }
 
+    public string? get_search_filter() {
+        return (get_string("/apps/shotwell/preferences/ui/search_filter", 
+            null));
+    }
+
+    public bool set_search_filter(string search) {
+        return set_string("/apps/shotwell/preferences/ui/search_filter", search);
+    }
+
     public void get_library_window_state(out bool maximize, out Dimensions dimensions) {
         maximize = get_bool("/apps/shotwell/preferences/window/library_maximize", false);
         dimensions = Dimensions(get_int("/apps/shotwell/preferences/window/library_width", WIDTH_DEFAULT),

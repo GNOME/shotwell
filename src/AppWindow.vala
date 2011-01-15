@@ -408,6 +408,11 @@ public abstract class PageWindow : Gtk.Window {
         
         return false;
     }
+    
+    // Disables keyboard trapping and reset count.
+    public void reset_keyboard_trapping() {
+        while (resume_keyboard_trapping()) {}
+    }
 }
 
 // AppWindow is the parent window for most windows in Shotwell (FullscreenWindow is the exception).

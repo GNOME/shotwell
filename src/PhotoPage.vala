@@ -2114,9 +2114,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
 //
 
 public class LibraryPhotoPage : EditingHostPage {
+
+    private class LibraryPhotoPageViewFilter : ViewFilter {
+        public override bool predicate (DataView view) {
+            return !((MediaSource) view.get_source()).is_trashed();
+        }
+    }
+
     private Gtk.Menu context_menu;
     private CollectionPage? return_page = null;
     private bool return_to_collection_on_release = false;
+    private LibraryPhotoPageViewFilter filter = new LibraryPhotoPageViewFilter();
     
     public LibraryPhotoPage() {
         base(LibraryPhoto.global, "Photo");
@@ -2139,7 +2147,7 @@ public class LibraryPhotoPage : EditingHostPage {
         Config.get_instance().external_app_changed.connect(on_external_app_changed);
         
         // Filter out trashed files.
-        get_view().install_view_filter(not_trashed_view_filter);
+        get_view().install_view_filter(filter);
         LibraryPhoto.global.items_unlinking.connect(on_photo_unlinking);
         LibraryPhoto.global.items_relinked.connect(on_photo_relinked);
     }
@@ -2155,11 +2163,11 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     private void on_photo_unlinking(Gee.Collection<DataSource> unlinking) {
-        get_view().reapply_view_filter();
+        filter.refresh();
     }
     
     private void on_photo_relinked(Gee.Collection<DataSource> relinked) {
-        get_view().reapply_view_filter();
+        filter.refresh();
     }
     
     protected override string? get_menubar_path() {

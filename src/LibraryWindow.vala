@@ -1756,6 +1756,8 @@ public class LibraryWindow : AppWindow {
         if (page.get_marker() != null && page is EventPage)
             sidebar.expand_tree(page.get_marker());
         
+        reset_keyboard_trapping();
+        
         Page current_page = get_current_page();
         if (current_page != null) {
             current_page.switching_from();
