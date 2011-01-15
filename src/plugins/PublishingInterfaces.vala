@@ -15,48 +15,68 @@ public interface Publisher {
         VIDEO =         1 << 1
     }
     
-    public abstract string get_name();
+    public abstract string get_service_name();
     
-    public abstract string get_user_name();
+    public abstract string get_user_visible_name();
     
     public abstract MediaType get_supported_media();
     
-    public abstract void start(PublishInteractor interactor);
+    public abstract void start(PublishingInteractor interactor);
     
-    public abstract void cancelled();
+    /* plugins must relinquish their interactor reference when stop( ) is called */
+    public abstract void stop();
 }
 
-public interface PublisherPane {
-    public enum Size {
-        NORMAL,
-        EXTENDED
+public interface PublishingDialogPane {
+    public enum GeometryOptions {
+        NONE =          0,
+        EXTENDED_SIZE = 1 << 0,
+        RESIZABLE =     1 << 1;
     }
     
-    public abstract Gtk.Widget get_pane();
+    public abstract Gtk.Widget get_widget();
     
-    public abstract Size get_pane_size();
+	/* the publishing dialog may give you what you want; then again, it may not ;-) */
+    public abstract GeometryOptions get_preferred_geometry();
     
     public abstract void on_pane_installed();
     
     public abstract void on_pane_uninstalled();
 }
 
-public delegate void ProgressCallback(double completed, double total);
+/* completed fraction is between 0.0 and 1.0 inclusive; status text is displayed as text on the
+   progress bar */
+public delegate void ProgressCallback(string status_text, double completed_fraction);
 
-public interface PublishInteractor {
-    public abstract void install_pane(PublisherPane pane);
+public delegate void LoginCallback();
+
+public interface PublishingInteractor {
+    public enum ButtonMode {
+        CLOSE,
+        CANCEL
+    }
+
+    public abstract void install_dialog_pane(PublishingDialogPane pane); 
+	
+    public abstract void post_error(Error err);
     
-    public abstract void install_login_pane();
+    public abstract void install_static_message_pane(string message);
     
-    public abstract void install_error_pane();
+    public abstract void install_pango_message_pane(string markup);
+    
+    public abstract void install_success_pane();
+    
+    public abstract void install_account_fetch_wait_pane();
+    
+    public abstract void install_login_wait_pane();
+    
+    public abstract LoginCallback install_login_pane(string welcome_message);
+	
+    public abstract void set_service_locked(bool locked);
+    
+    public abstract void set_button_mode(ButtonMode mode);
     
     public abstract ProgressCallback install_progress_pane();
-    
-    public abstract void create_rest_session(string endpoint, string? user_agent = null);
-    
-    public abstract void parse_xml_stream(DataInputStream ins);
-    
-    public abstract void parse_xml_string(string xml);
     
     public abstract int get_config_int(string key, int default_value);
     
