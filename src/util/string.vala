@@ -8,6 +8,14 @@ public inline bool is_string_empty(string? s) {
     return (s == null || s[0] == '\0');
 }
 
+public int utf8_cs_compare(void *a, void *b) {
+    return ((string) a).collate((string) b);
+}
+
+public int utf8_ci_compare(void *a, void *b) {
+    return ((string) a).down().collate(((string) b).down());
+}
+
 public string uchar_array_to_string(uchar[] data, int length = -1) {
     if (length < 0)
         length = data.length;

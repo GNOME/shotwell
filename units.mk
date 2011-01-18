@@ -10,7 +10,8 @@ UNITS = \
 	util \
 	threads \
 	db \
-	plugins
+	plugins \
+	slideshow
 
 # Names of variables (which follow) that represent unit groups for different uses of the
 # application.  The variables should be formed as Name_UNITS.  Entry and terminate points in
@@ -29,7 +30,8 @@ Library_UNITS = \
 	util \
 	threads \
 	db \
-	plugins
+	plugins \
+	slideshow
 
 # List of units for direct-edit mode.
 Direct_UNITS = \

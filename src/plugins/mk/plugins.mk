@@ -18,7 +18,8 @@ UNIT_FILES := \
 # be listed here using its Vala namespace.
 #
 # NOTE: All units are assumed to rely upon the unit-unit.  Do not include that here.
-UNIT_USES :=
+UNIT_USES := \
+	Util
 
 # List of plugin interfaces.  These form the plugins VAPI.
 PLUGIN_INTERFACES := \

@@ -4,6 +4,24 @@
  * See the COPYING file in this distribution. 
  */
 
+public enum AdjustmentRelation {
+    BELOW,
+    IN_RANGE,
+    ABOVE
+}
+
+public enum CompassPoint {
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST
+}
+
+public enum Direction {
+    FORWARD,
+    BACKWARD
+}
+
 public uint int64_hash(void *p) {
     // Rotating XOR hash
     uint8 *u8 = (uint8 *) p;
@@ -225,12 +243,6 @@ public bool spin_event_loop() {
     return true;
 }
 
-public enum AdjustmentRelation {
-    BELOW,
-    IN_RANGE,
-    ABOVE
-}
-
 public AdjustmentRelation get_adjustment_relation(Gtk.Adjustment adjustment, int value) {
     if (value < (int) adjustment.get_value())
         return AdjustmentRelation.BELOW;
@@ -248,13 +260,6 @@ public Gdk.Rectangle get_adjustment_page(Gtk.Adjustment hadj, Gtk.Adjustment vad
     rect.height = (int) vadj.get_page_size();
     
     return rect;
-}
-
-public enum CompassPoint {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST
 }
 
 public string format_local_date(Time date) {

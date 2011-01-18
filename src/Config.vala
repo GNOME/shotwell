@@ -14,6 +14,9 @@ public class Config {
     public const double SLIDESHOW_DELAY_MAX = 30.0;
     public const double SLIDESHOW_DELAY_MIN = 1.0;
     public const double SLIDESHOW_DELAY_DEFAULT = 3.0;
+    public const double SLIDESHOW_TRANSITION_DELAY_MAX = 1.0;
+    public const double SLIDESHOW_TRANSITION_DELAY_MIN = 0.1;
+    public const double SLIDESHOW_TRANSITION_DELAY_DEFAULT = 0.3;
     public const int WIDTH_DEFAULT = 1024;
     public const int HEIGHT_DEFAULT = 768;
     public const int SIDEBAR_MIN_POSITION = 180;
@@ -423,7 +426,24 @@ public class Config {
         return get_double("/apps/shotwell/preferences/slideshow/delay", SLIDESHOW_DELAY_DEFAULT).clamp(
             SLIDESHOW_DELAY_MIN, SLIDESHOW_DELAY_MAX);
     }
+    
+    public bool set_slideshow_transition_delay(double delay) {
+        return set_double("/apps/shotwell/preferences/slideshow_transition/delay", delay);
+    }
 
+    public double get_slideshow_transition_delay() {
+        return get_double("/apps/shotwell/preferences/slideshow_transition/delay", SLIDESHOW_TRANSITION_DELAY_DEFAULT).clamp(
+            SLIDESHOW_TRANSITION_DELAY_MIN, SLIDESHOW_TRANSITION_DELAY_MAX);
+    }
+    
+    public bool set_slideshow_transition_effect(string name) {
+        return set_string("/apps/shotwell/preferences/slideshow_transition/name", name);
+    }
+    
+    public string get_slideshow_transition_effect() {
+        return get_string("/apps/shotwell/preferences/slideshow_transition/name", TransitionEffectsManager.NULL_TRANSITION_NAME);
+    }
+    
     public RatingFilter get_photo_rating_filter() {
         return (RatingFilter)(get_int("/apps/shotwell/preferences/ui/photo_rating_filter", 
             RatingFilter.UNRATED_OR_HIGHER));

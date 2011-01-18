@@ -92,6 +92,9 @@ private void search_for_plugins(File dir) throws Error {
         if (info == null)
             break;
         
+        if (info.get_is_hidden())
+            continue;
+        
         File file = dir.get_child(info.get_name());
         
         switch (info.get_file_type()) {

@@ -1789,21 +1789,25 @@ public abstract class SinglePhotoPage : Page {
     protected Gdk.GC text_gc = null;
     
     private bool scale_up_to_viewport;
+    private TransitionEffect transition_effect; 
     private Gdk.Pixmap pixmap = null;
     private Dimensions pixmap_dim = Dimensions();
     private Gdk.Pixbuf unscaled = null;
     private Dimensions max_dim = Dimensions();
     private Gdk.Pixbuf scaled = null;
+    private Gdk.Pixbuf old_scaled = null; // previous scaled image
     private Gdk.Rectangle scaled_pos = Gdk.Rectangle();
     private ZoomState static_zoom_state;
     private bool zoom_high_quality = true;
     private ZoomState saved_zoom_state;
     private bool has_saved_zoom_state = false;
-
+    
     public SinglePhotoPage(string page_name, bool scale_up_to_viewport) {
         base(page_name);
         
         this.scale_up_to_viewport = scale_up_to_viewport;
+        
+        transition_effect = TransitionEffectsManager.get_instance().get_null_instance();
         
         // With the current code automatically resizing the image to the viewport, scrollbars
         // should never be shown, but this may change if/when zooming is supported
@@ -1829,7 +1833,24 @@ public abstract class SinglePhotoPage : Page {
 
         set_event_source(canvas);
     }
-
+    
+    public bool is_transition_in_progress() {
+        return transition_effect.state.is_in_progress();
+    }
+    
+    public void cancel_transition() {
+        if (transition_effect.state.is_in_progress())
+            transition_effect.state.cancel();
+    }
+    
+    public void set_transition_effect(TransitionEffect transition_effect) {
+        // cancel current transition
+        cancel_transition();
+        
+        // replace with new one
+        this.transition_effect = transition_effect;
+    }
+    
     private void render_zoomed_to_pixmap(ZoomState zoom_state) {
         assert(is_zoom_supported());
         
@@ -1945,19 +1966,23 @@ public abstract class SinglePhotoPage : Page {
     // the caller capable of producing larger ones depending on the viewport size).  max_dim
     // is used when scale_up_to_viewport is set to true.  Pass a Dimensions with no area if
     // max_dim should be ignored (i.e. scale_up_to_viewport is false).
-    public void set_pixbuf(Gdk.Pixbuf unscaled, Dimensions max_dim) {       
+    public void set_pixbuf(Gdk.Pixbuf unscaled, Dimensions max_dim, bool do_transition = false,
+        Direction transition_direction = Direction.FORWARD) {
         static_zoom_state = ZoomState(max_dim, pixmap_dim,
             static_zoom_state.get_interpolation_factor(),
             static_zoom_state.get_viewport_center());
 
+        cancel_transition();
+        
         this.unscaled = unscaled;
         this.max_dim = max_dim;
+        this.old_scaled = scaled;
         scaled = null;
         
         // need to make sure this has happened
         canvas.realize();
         
-        repaint();
+        repaint(do_transition, transition_direction);
     }
     
     public void blank_display() {
@@ -2054,17 +2079,25 @@ public abstract class SinglePhotoPage : Page {
             pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
             render_zoomed_to_pixmap(static_zoom_state);
             canvas.window.draw_drawable(canvas_gc, pixmap, 0, 0, 0, 0, -1, -1);
+        } else if (transition_effect.state.is_in_progress()) {
+            transition_effect.paint(drawable);
         } else {
+            drawable.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
             drawable.draw_pixbuf(gc, scaled, 0, 0, scaled_pos.x, scaled_pos.y, -1, -1, 
                 Gdk.RgbDither.NORMAL, 0, 0);
         }
     }
     
-    public void repaint() {
-        internal_repaint(false);
+    public void simple_repaint() {
+        repaint();
     }
     
-    private void internal_repaint(bool fast) {
+    public void repaint(bool do_transition = false, Direction transition_direction = Direction.FORWARD) {
+        internal_repaint(false, do_transition, transition_direction);
+    }
+    
+    private void internal_repaint(bool fast, bool do_transition = false, 
+        Direction transition_direction = Direction.FORWARD) {
         // if not in view, assume a full repaint needed in future but do nothing more
         if (!is_in_view()) {
             pixmap = null;
@@ -2087,6 +2120,7 @@ public abstract class SinglePhotoPage : Page {
         
         // save if reporting an image being rescaled
         Dimensions old_scaled_dim = Dimensions.for_rectangle(scaled_pos);
+        Gdk.Rectangle old_scaled_pos = scaled_pos;
 
         // attempt to reuse pixmap
         if (pixmap_dim.width != width || pixmap_dim.height != height)
@@ -2143,8 +2177,15 @@ public abstract class SinglePhotoPage : Page {
         }
 
         zoom_high_quality = !fast;
-        paint(canvas_gc, pixmap);
-
+        
+        if (do_transition && transition_effect.enabled) {
+            assert(!transition_effect.state.is_in_progress());
+            transition_effect.start(old_scaled, old_scaled_pos, scaled, scaled_pos,
+                transition_direction);
+        } else {
+            paint(canvas_gc, pixmap);
+        }
+        
         // invalidate everything
         invalidate_all();
     }
