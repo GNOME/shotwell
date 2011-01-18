@@ -130,13 +130,25 @@ class AppDirs {
     }
     
     public static File get_resources_dir() {
-        File exec_dir = get_exec_dir();
-        File install_dir = get_install_dir();
+        File? install_dir = get_install_dir();
         
-        if (install_dir != null)
-            return install_dir.get_child("share").get_child("shotwell");
-        else    // running locally
-            return exec_dir;
+        return (install_dir != null) ? install_dir.get_child("share").get_child("shotwell")
+            : get_exec_dir();
+    }
+    
+    public static File get_lib_dir() {
+        File? install_dir = get_install_dir();
+        
+        return (install_dir != null) ? install_dir.get_child("lib").get_child("shotwell")
+            : get_exec_dir();
+    }
+    
+    public static File get_system_plugins_dir() {
+        return get_lib_dir().get_child("plugins");
+    }
+    
+    public static File get_user_plugins_dir() {
+        return get_data_subdir("plugins");
     }
     
     public static File? get_log_file() {

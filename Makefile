@@ -16,12 +16,6 @@ BUILD_RELEASE=1
 
 -include configure.mk
 
-ifdef ENABLE_BUILD_FOR_GLADE
-all: lib$(PROGRAM).so $(PROGRAM)
-else
-all: $(PROGRAM)
-endif
-
 VALAFLAGS = -g --enable-checking --thread $(USER_VALAFLAGS)
 DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
      _LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
@@ -33,6 +27,7 @@ LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=$(DESTDIR)$(PREFIX)/share/locale
 
 include units.mk
+include plugins/plugins.mk
 
 UNUNITIZED_SRC_FILES = \
 	main.vala \
@@ -283,7 +278,8 @@ EXT_PKGS = \
 	libxml-2.0 \
 	sqlite3 \
 	unique-1.0 \
-	webkit-1.0
+	webkit-1.0 \
+	gmodule-2.0
 
 DIRECT_LIBS =
 
@@ -309,7 +305,8 @@ EXT_PKG_VERSIONS = \
 	libxml-2.0 >= 2.6.32 \
 	sqlite3 >= 3.5.9 \
 	unique-1.0 >= 1.0.0 \
-	webkit-1.0 >= 1.1.5
+	webkit-1.0 >= 1.1.5 \
+	gmodule-2.0 >= 2.24.0
 
 DIRECT_LIBS_VERSIONS =
 
@@ -338,6 +335,12 @@ UNITIZE_ENTRIES := $(foreach group,$(APP_GROUPS),$(UNITIZE_DIR)/_$(group)_unitiz
 UNITIZE_INITS := $(foreach nm,$(UNIT_NAMESPACES),$(UNITIZE_DIR)/_$(nm)Internals.vala)
 UNITIZE_STAMP := $(UNITIZE_DIR)/.unitized
 
+PLUGINS_DIR := plugins
+PLUGINS_SO := $(foreach plugin,$(PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
+PLUGIN_VAPI := $(PLUGINS_DIR)/shotwell-plugins-1.0.vapi
+PLUGIN_HEADER := $(PLUGINS_DIR)/shotwell-plugins-1.0.h
+PLUGIN_INTERFACES_SRC := $(foreach src,$(PLUGIN_INTERFACES),src/plugins/$(src).vala)
+
 EXPANDED_PO_FILES := $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
 EXPANDED_SRC_FILES := $(UNITIZED_SRC_FILES) $(foreach src,$(UNUNITIZED_SRC_FILES),src/$(src)) \
 	$(UNITIZE_INITS) $(UNITIZE_ENTRIES)
@@ -365,11 +368,11 @@ DIST_TAR_BZ2 = $(DIST_TAR).bz2
 DIST_TAR_GZ = $(DIST_TAR).gz
 PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.gz
 
-VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
+VALA_CFLAGS := `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
 	$(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
 	$(foreach def,$(DEFINES),-D$(def))
 
-VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0`
+VALA_LDFLAGS := `pkg-config --libs $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0`
 
 # setting CFLAGS in configure.mk overrides build type
 ifndef CFLAGS
@@ -387,6 +390,12 @@ CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE
 # if not available.
 LIBRAW_CONFIG=./libraw-config
 
+ifdef ENABLE_BUILD_FOR_GLADE
+all: $(PLUGINS_DIR) lib$(PROGRAM).so $(PROGRAM)
+else
+all: $(PLUGINS_DIR) $(PROGRAM)
+endif
+
 $(LANG_STAMP): $(EXPANDED_PO_FILES)
 	@$(foreach po,$(SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
 		msgfmt -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell.mo po/$(po).po`)
@@ -403,12 +412,18 @@ clean:
 	rm -f $(TEMPORARY_DESKTOP_FILES)
 	rm -f lib$(PROGRAM).so
 	rm -rf $(UNITIZE_DIR)
+	rm -f $(PLUGIN_VAPI)
+	rm -f $(PLUGIN_HEADER)
+	rm -f $(PLUGINS_SO)
+	@$(MAKE) --directory=plugins clean
 
 cleantemps:
 	rm -f $(EXPANDED_C_FILES)
 	rm -f $(EXPANDED_OBJ_FILES)
 	rm -f $(VALA_STAMP)
 	rm -f $(LANG_STAMP)
+	rm -f $(TEMPORARY_DESKTOP_FILES)
+	@$(MAKE) --directory=plugins cleantemps
 
 package:
 	$(MAKE) dist
@@ -425,6 +440,7 @@ dist: $(DIST_FILES)
 
 distclean: clean
 	rm -f configure.mk
+	@$(MAKE) --directory=plugins distclean
 
 .PHONY: install
 install:
@@ -536,14 +552,15 @@ endif
 	@$(LIBRAW_CONFIG) --exists=$(LIBRAW_VERSION)
 endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
-	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src $(VALAFLAGS) \
-	$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
-	$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
-	$(foreach def,$(DEFINES),-X -D$(def)) \
-	$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
-	$(VALA_DEFINES) \
-	$(EXPANDED_SRC_FILES)
-	touch $@
+	@echo Compiling Vala code...
+	@$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src $(VALAFLAGS) \
+		$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
+		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
+		$(foreach def,$(DEFINES),-X -D$(def)) \
+		$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
+		$(VALA_DEFINES) \
+		$(EXPANDED_SRC_FILES)
+	@touch $@
 
 # Do not remove hard tab or at symbol; necessary for dependencies to complete.
 $(EXPANDED_C_FILES): $(VALA_STAMP)
@@ -554,6 +571,20 @@ $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 
 $(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) `$(LIBRAW_CONFIG) --libs` $(EXPORT_FLAGS) -o $@
+
+$(PLUGINS_SO): $(PLUGINS_DIR)
+	@
+
+.PHONY: $(PLUGINS_DIR)
+$(PLUGINS_DIR): $(PLUGIN_VAPI) $(PLUGIN_HEADER)
+	@$(MAKE) --directory=$@
+
+$(PLUGIN_HEADER): $(PLUGIN_VAPI)
+	@
+
+# This rule will make PLUGIN_HEADER as well
+$(PLUGIN_VAPI): $(PLUGIN_INTERFACES_SRC) $(MAKE_FILES)
+	$(VALAC) -c $(VALA_DEFINES) --includedir=plugins --vapi=$@ --header=$(basename $@).h $(PLUGIN_INTERFACES_SRC)
 
 glade: lib$(PROGRAM).so
 

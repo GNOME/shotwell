@@ -11,13 +11,18 @@ UNIT_DIR := plugins
 #
 # NOTE: Do *not* include the unit's master file, i.e. UNIT_NAME.vala.
 UNIT_FILES := \
-	PublishingInterfaces.vala
+	PublishingInterfaces.vala \
+	SpitInterfaces.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.
 #
 # NOTE: All units are assumed to rely upon the unit-unit.  Do not include that here.
 UNIT_USES :=
+
+# List of plugin interfaces.  These form the plugins VAPI.
+PLUGIN_INTERFACES := \
+	SpitInterfaces
 
 # List any additional files that are used in the build process as a part of this unit that should
 # be packaged in the tarball.  File names should be relative to the unit's home directory.

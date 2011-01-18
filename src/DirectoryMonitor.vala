@@ -58,7 +58,6 @@
 //
 
 public class DirectoryMonitor : Object {
-    public const string SUPPLIED_ATTRIBUTES = "standard::*,time::*,id::file,id::filesystem,etag::value";
     public const int DEFAULT_PRIORITY = Priority.LOW;
     public const FileQueryInfoFlags DIR_INFO_FLAGS = FileQueryInfoFlags.NONE;
     public const FileQueryInfoFlags FILE_INFO_FLAGS = FileQueryInfoFlags.NOFOLLOW_SYMLINKS;
@@ -68,6 +67,8 @@ public class DirectoryMonitor : Object {
     public const FileQueryInfoFlags UNKNOWN_INFO_FLAGS = FileQueryInfoFlags.NONE;
     public const bool SUPPORT_DIR_SYMLINKS = true;
     public const bool SUPPORT_FILE_SYMLINKS = false;
+    
+    protected const string SUPPLIED_ATTRIBUTES = Util.FILE_ATTRIBUTES;
     
     private const FileMonitorFlags FILE_MONITOR_FLAGS = FileMonitorFlags.SEND_MOVED;
     private const uint DELETED_EXPIRATION_MSEC = 500;
