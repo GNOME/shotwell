@@ -64,23 +64,23 @@ class SlideshowPage : SinglePhotoPage {
             transition_effect_selector_label.xalign = (float) 1.0;
             transition_effect_selector_label.set_mnemonic_widget(transition_effect_selector);
             
-            // get last effect name
-            string effect_name = Config.get_instance().get_slideshow_transition_effect();
+            // get last effect id
+            string effect_id = Config.get_instance().get_slideshow_transition_effect_id();
             
             // null effect first, always, and set active in case no other one is found
-            string null_display_name = TransitionEffectsManager.get_instance().get_display_name(
-                TransitionEffectsManager.NULL_TRANSITION_NAME);
+            string null_display_name = TransitionEffectsManager.get_instance().get_effect_name(
+                TransitionEffectsManager.NULL_EFFECT_ID);
             transition_effect_selector.append_text(null_display_name);
             transition_effect_selector.set_active(0);
             
             int i = 1;
             foreach (string display_name in 
-                TransitionEffectsManager.get_instance().get_display_names(utf8_ci_compare)) {
+                TransitionEffectsManager.get_instance().get_effect_names(utf8_ci_compare)) {
                 if (display_name == null_display_name)
                     continue;
                 
                 transition_effect_selector.append_text(display_name);
-                if (effect_name == TransitionEffectsManager.get_instance().get_name_for_display_name(display_name))
+                if (effect_id == TransitionEffectsManager.get_instance().get_id_for_effect_name(display_name))
                     transition_effect_selector.set_active(i);
                 
                 ++i;
@@ -158,7 +158,7 @@ class SlideshowPage : SinglePhotoPage {
         private void on_transition_changed() {
             string selected = transition_effect_selector.get_active_text();
             bool sensitive = selected != null 
-               && selected != TransitionEffectsManager.NULL_TRANSITION_NAME;
+               && selected != TransitionEffectsManager.NULL_EFFECT_ID;
            
             transition_effect_hscale.sensitive = sensitive;
             transition_effect_entry.sensitive = sensitive;
@@ -172,14 +172,14 @@ class SlideshowPage : SinglePhotoPage {
             return transition_effect_entry.get_value();
         }
         
-        public string get_transition_effect() {
+        public string get_transition_effect_id() {
             string? active = transition_effect_selector.get_active_text();
             if (active == null)
-                return TransitionEffectsManager.NULL_TRANSITION_NAME;
+                return TransitionEffectsManager.NULL_EFFECT_ID;
             
-            string? name = TransitionEffectsManager.get_instance().get_name_for_display_name(active);
+            string? id = TransitionEffectsManager.get_instance().get_id_for_effect_name(active);
             
-            return (name != null) ? name : TransitionEffectsManager.NULL_TRANSITION_NAME;
+            return (id != null) ? id : TransitionEffectsManager.NULL_EFFECT_ID;
         }
     }
 
@@ -237,7 +237,7 @@ class SlideshowPage : SinglePhotoPage {
         
         Gdk.Pixbuf pixbuf;
         if (get_next_photo(current, Direction.FORWARD, out current, out pixbuf))
-            set_pixbuf(pixbuf, current.get_dimensions(), true, Direction.FORWARD);
+            set_pixbuf(pixbuf, current.get_dimensions(), Direction.FORWARD);
         
         // start the auto-advance timer
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
@@ -373,7 +373,7 @@ class SlideshowPage : SinglePhotoPage {
         // set pixbuf
         Gdk.Pixbuf next_pixbuf;
         if (get_next_photo(current, direction, out current, out next_pixbuf))
-            set_pixbuf(next_pixbuf, current.get_dimensions(), true, direction);
+            set_pixbuf(next_pixbuf, current.get_dimensions(), direction);
         
         // reset the advance timer
         timer.start();
@@ -425,35 +425,31 @@ class SlideshowPage : SinglePhotoPage {
     private void on_change_settings() {
         SettingsDialog settings_dialog = new SettingsDialog();
         settings_dialog.show_all();
+        
         bool slideshow_playing = playing;
         playing = false;
         hide_toolbar();
-
-        int response = settings_dialog.run();
-        if (response == Gtk.ResponseType.OK) {
+        
+        if (settings_dialog.run() == Gtk.ResponseType.OK) {
             // sync with the config setting so it will persist
             Config.get_instance().set_slideshow_delay(settings_dialog.get_delay());
             
             Config.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
-            Config.get_instance().set_slideshow_transition_effect(settings_dialog.get_transition_effect());
+            Config.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
             
             update_transition_effect();
         }
-
+        
         settings_dialog.destroy();
         playing = slideshow_playing;
         timer.start();
     }
     
     private void update_transition_effect() {
-        string effect_name = Config.get_instance().get_slideshow_transition_effect();
+        string effect_id = Config.get_instance().get_slideshow_transition_effect_id();
         double effect_delay = Config.get_instance().get_slideshow_transition_delay();
         
-        TransitionEffect transition_effect = TransitionEffectsManager.get_instance().create_effect(
-            effect_name, simple_repaint, canvas.style.black);
-        transition_effect.duration = (int) (effect_delay * 1000.0);
-        
-        set_transition_effect(transition_effect);
+        set_transition(effect_id, (int) (effect_delay * 1000.0));
     }
 }
 

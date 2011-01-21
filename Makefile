@@ -337,9 +337,6 @@ UNITIZE_STAMP := $(UNITIZE_DIR)/.unitized
 
 PLUGINS_DIR := plugins
 PLUGINS_SO := $(foreach plugin,$(PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
-PLUGIN_VAPI := $(PLUGINS_DIR)/shotwell-plugins-1.0.vapi
-PLUGIN_HEADER := $(PLUGINS_DIR)/shotwell-plugins-1.0.h
-PLUGIN_INTERFACES_SRC := $(foreach src,$(PLUGIN_INTERFACES),src/plugins/$(src).vala)
 
 EXPANDED_PO_FILES := $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
 EXPANDED_SRC_FILES := $(UNITIZED_SRC_FILES) $(foreach src,$(UNUNITIZED_SRC_FILES),src/$(src)) \
@@ -367,6 +364,8 @@ DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
 DIST_TAR_GZ = $(DIST_TAR).gz
 PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.gz
+
+VALAFLAGS := --vapidir=plugins/
 
 VALA_CFLAGS := `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
 	$(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
@@ -396,6 +395,8 @@ else
 all: $(PLUGINS_DIR) $(PROGRAM)
 endif
 
+include src/plugins/mk/interfaces.mk
+
 $(LANG_STAMP): $(EXPANDED_PO_FILES)
 	@$(foreach po,$(SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
 		msgfmt -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell.mo po/$(po).po`)
@@ -412,8 +413,9 @@ clean:
 	rm -f $(TEMPORARY_DESKTOP_FILES)
 	rm -f lib$(PROGRAM).so
 	rm -rf $(UNITIZE_DIR)
-	rm -f $(PLUGIN_VAPI)
-	rm -f $(PLUGIN_HEADER)
+	rm -f $(PLUGIN_VAPIS)
+	rm -f $(PLUGIN_HEADERS)
+	rm -f $(PLUGIN_DEPS)
 	rm -f $(PLUGINS_SO)
 	@$(MAKE) --directory=plugins clean
 
@@ -498,6 +500,8 @@ endif
 	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
 		$(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
 		$(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
+	mkdir -p $(DESTDIR)$(PREFIX)/lib/shotwell/plugins/builtin
+	$(INSTALL_PROGRAM) $(PLUGINS_SO) $(DESTDIR)$(PREFIX)/lib/shotwell/plugins/builtin
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
@@ -522,6 +526,7 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 	rm -f $(DESTDIR)$(PREFIX)/share/apport/package-hooks/shotwell.py
 endif
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
+	rm -rf $(DESTDIR)$(PREFIX)/lib/shotwell/plugins/builtin
 
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
@@ -558,7 +563,7 @@ endif
 		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
 		$(foreach def,$(DEFINES),-X -D$(def)) \
 		$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
-		$(VALA_DEFINES) \
+		$(VALAFLAGS) \
 		$(EXPANDED_SRC_FILES)
 	@touch $@
 
@@ -576,15 +581,8 @@ $(PLUGINS_SO): $(PLUGINS_DIR)
 	@
 
 .PHONY: $(PLUGINS_DIR)
-$(PLUGINS_DIR): $(PLUGIN_VAPI) $(PLUGIN_HEADER)
-	@$(MAKE) --directory=$@
-
-$(PLUGIN_HEADER): $(PLUGIN_VAPI)
-	@
-
-# This rule will make PLUGIN_HEADER as well
-$(PLUGIN_VAPI): $(PLUGIN_INTERFACES_SRC) $(MAKE_FILES)
-	$(VALAC) -c $(VALA_DEFINES) --includedir=plugins --vapi=$@ --header=$(basename $@).h $(PLUGIN_INTERFACES_SRC)
+$(PLUGINS_DIR): $(PLUGIN_VAPIS) $(PLUGIN_HEADERS) $(PLUGIN_DEPS)
+	@$(MAKE) --directory=$@ PLUGINS_VERSION="$(VERSION)"
 
 glade: lib$(PROGRAM).so
 

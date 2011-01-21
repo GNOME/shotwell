@@ -14,13 +14,13 @@ private const string[] SHARED_LIB_EXTS = { "so", "la" };
 
 // Although not expecting this system to last very long, these ranges declare what versions of this
 // interface are supported by the current implementation.
-private const int MIN_SPIT_VERSION = 1;
-private const int MAX_SPIT_VERSION = 1;
+private const int MIN_SPIT_INTERFACE = 0;
+private const int MAX_SPIT_INTERFACE = 0;
 
 private class SpitModule {
     public Module? module;
-    public SpitWad? spitwad = null;
-    public int spit_version = UNSUPPORTED_SPIT_VERSION;
+    public unowned Spit.Wad? spitwad = null;
+    public int spit_interface = Spit.UNSUPPORTED_INTERFACE;
     public string? wad_name = null;
     
     private SpitModule() {
@@ -66,6 +66,21 @@ public void init() throws Error {
 public void terminate() {
     search_dirs = null;
     module_table = null;
+}
+
+public Gee.Collection<Spit.Pluggable> get_pluggables_for_type(Type type) {
+    Gee.Collection<Spit.Pluggable> for_type = new Gee.HashSet<Spit.Pluggable>();
+    foreach (SpitModule module in module_table.values) {
+        Spit.Pluggable[]? pluggables = module.spitwad.get_pluggables();
+        if (pluggables != null) {
+            foreach (Spit.Pluggable pluggable in pluggables) {
+                if (pluggable.get_type().is_a(type))
+                    for_type.add(pluggable);
+            }
+        }
+    }
+    
+    return for_type;
 }
 
 private bool is_shared_library(File file) {
@@ -128,39 +143,39 @@ private void load_module(File file) {
     
     // look for the well-known entry point
     void *entry;
-    if (!spit_module.module.symbol(SPIT_ENTRY_POINT, out entry)) {
+    if (!spit_module.module.symbol(Spit.ENTRY_POINT_NAME, out entry)) {
         critical("Unable to load module %s: well-known entry point %s not found", file.get_path(),
-            SPIT_ENTRY_POINT);
+            Spit.ENTRY_POINT_NAME);
         
         return;
     }
     
-    SpitEntryPoint spit_entry_point = (SpitEntryPoint) entry;
+    Spit.EntryPoint spit_entry_point = (Spit.EntryPoint) entry;
     
-    assert(MIN_SPIT_VERSION <= SPIT_VERSION && SPIT_VERSION <= MAX_SPIT_VERSION);
-    spit_module.spit_version = UNSUPPORTED_SPIT_VERSION;
-    spit_module.spitwad = spit_entry_point(SPIT_VERSION, out spit_module.spit_version);
-    if (spit_module.spit_version == UNSUPPORTED_SPIT_VERSION) {
-        critical("Unable to load module %s: module reports unsupported SPIT version %d", file.get_path(),
-            SPIT_VERSION);
+    assert(MIN_SPIT_INTERFACE <= Spit.CURRENT_INTERFACE && Spit.CURRENT_INTERFACE <= MAX_SPIT_INTERFACE);
+    spit_module.spit_interface = Spit.UNSUPPORTED_INTERFACE;
+    spit_module.spitwad = spit_entry_point(MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE, out spit_module.spit_interface);
+    if (spit_module.spit_interface == Spit.UNSUPPORTED_INTERFACE) {
+        critical("Unable to load module %s: module reports no support for SPIT interfaces %d to %d",
+            file.get_path(), MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE);
         
         return;
     }
     
-    if (spit_module.spit_version < MIN_SPIT_VERSION || spit_module.spit_version > MAX_SPIT_VERSION) {
-        critical("Unable to load module %s: module reports unsupported SPIT version %d (out of range %d - %d)",
-            file.get_path(), spit_module.spit_version, MIN_SPIT_VERSION, MAX_SPIT_VERSION);
+    if (spit_module.spit_interface < MIN_SPIT_INTERFACE || spit_module.spit_interface > MAX_SPIT_INTERFACE) {
+        critical("Unable to load module %s: module reports unsupported SPIT version %d (out of range %d to %d)",
+            file.get_path(), spit_module.spit_interface, MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE);
         
         return;
     }
     
     // verify type (as best as possible; still potential to segfault inside GType here)
-    if (!(spit_module.spitwad is SpitWad))
+    if (!(spit_module.spitwad is Spit.Wad))
         spit_module.spitwad = null;
     
     if (spit_module.spitwad == null) {
-        critical("Unable to load module %s (SPIT %d): no SpitWad returned", file.get_path(),
-            spit_module.spit_version);
+        critical("Unable to load module %s (SPIT %d): no spitwad returned", file.get_path(),
+            spit_module.spit_interface);
         
         return;
     }
@@ -171,14 +186,14 @@ private void load_module(File file) {
         PrepareInputTextOptions.DEFAULT);
     if (spit_module.wad_name == null) {
         critical("Unable to load module %s (SPIT %d): invalid or empty wad name",
-            file.get_path(), spit_module.spit_version);
+            file.get_path(), spit_module.spit_interface);
         
         return;
     }
     
     if (module_table.has_key(spit_module.wad_name)) {
         critical("Not loading module %s (SPIT %d): wad with name \"%s\" already loaded",
-            file.get_path(), spit_module.spit_version, spit_module.wad_name);
+            file.get_path(), spit_module.spit_interface, spit_module.wad_name);
         
         return;
     }

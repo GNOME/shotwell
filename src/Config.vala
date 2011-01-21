@@ -436,12 +436,12 @@ public class Config {
             SLIDESHOW_TRANSITION_DELAY_MIN, SLIDESHOW_TRANSITION_DELAY_MAX);
     }
     
-    public bool set_slideshow_transition_effect(string name) {
-        return set_string("/apps/shotwell/preferences/slideshow_transition/name", name);
+    public bool set_slideshow_transition_effect_id(string id) {
+        return set_string("/apps/shotwell/preferences/slideshow_transition/name", id);
     }
     
-    public string get_slideshow_transition_effect() {
-        return get_string("/apps/shotwell/preferences/slideshow_transition/name", TransitionEffectsManager.NULL_TRANSITION_NAME);
+    public string get_slideshow_transition_effect_id() {
+        return get_string("/apps/shotwell/preferences/slideshow_transition/name", TransitionEffectsManager.NULL_EFFECT_ID);
     }
     
     public RatingFilter get_photo_rating_filter() {

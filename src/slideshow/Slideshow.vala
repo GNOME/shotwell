@@ -7,9 +7,11 @@
 namespace Slideshow {
 
 public void init() throws Error {
+    TransitionEffectsManager.init();
 }
 
 public void terminate() {
+    TransitionEffectsManager.terminate();
 }
 
 }

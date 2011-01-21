@@ -496,7 +496,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         Gee.List<string> ui_filenames = new Gee.ArrayList<string>();
         init_collect_ui_filenames(ui_filenames);
         if (ui_filenames.size == 0)
-            warning("No UI file specified for %s", get_page_name());
+            message("No UI file specified for %s", get_page_name());
         
         foreach (string ui_filename in ui_filenames)
             init_load_ui(ui_filename);
@@ -1789,7 +1789,8 @@ public abstract class SinglePhotoPage : Page {
     protected Gdk.GC text_gc = null;
     
     private bool scale_up_to_viewport;
-    private TransitionEffect transition_effect; 
+    private TransitionClock transition_clock;
+    private int transition_duration_msec = 0;
     private Gdk.Pixmap pixmap = null;
     private Dimensions pixmap_dim = Dimensions();
     private Gdk.Pixbuf unscaled = null;
@@ -1807,7 +1808,7 @@ public abstract class SinglePhotoPage : Page {
         
         this.scale_up_to_viewport = scale_up_to_viewport;
         
-        transition_effect = TransitionEffectsManager.get_instance().get_null_instance();
+        transition_clock = TransitionEffectsManager.get_instance().create_null_transition_clock();
         
         // With the current code automatically resizing the image to the viewport, scrollbars
         // should never be shown, but this may change if/when zooming is supported
@@ -1835,20 +1836,22 @@ public abstract class SinglePhotoPage : Page {
     }
     
     public bool is_transition_in_progress() {
-        return transition_effect.state.is_in_progress();
+        return transition_clock.is_in_progress();
     }
     
     public void cancel_transition() {
-        if (transition_effect.state.is_in_progress())
-            transition_effect.state.cancel();
+        if (transition_clock.is_in_progress())
+            transition_clock.cancel();
     }
     
-    public void set_transition_effect(TransitionEffect transition_effect) {
-        // cancel current transition
+    public void set_transition(string effect_id, int duration_msec) {
         cancel_transition();
         
-        // replace with new one
-        this.transition_effect = transition_effect;
+        transition_clock = TransitionEffectsManager.get_instance().create_transition_clock(effect_id);
+        if (transition_clock == null)
+            transition_clock = TransitionEffectsManager.get_instance().create_null_transition_clock();
+        
+        transition_duration_msec = duration_msec;
     }
     
     private void render_zoomed_to_pixmap(ZoomState zoom_state) {
@@ -1966,8 +1969,7 @@ public abstract class SinglePhotoPage : Page {
     // the caller capable of producing larger ones depending on the viewport size).  max_dim
     // is used when scale_up_to_viewport is set to true.  Pass a Dimensions with no area if
     // max_dim should be ignored (i.e. scale_up_to_viewport is false).
-    public void set_pixbuf(Gdk.Pixbuf unscaled, Dimensions max_dim, bool do_transition = false,
-        Direction transition_direction = Direction.FORWARD) {
+    public void set_pixbuf(Gdk.Pixbuf unscaled, Dimensions max_dim, Direction? direction = null) {
         static_zoom_state = ZoomState(max_dim, pixmap_dim,
             static_zoom_state.get_interpolation_factor(),
             static_zoom_state.get_viewport_center());
@@ -1982,7 +1984,7 @@ public abstract class SinglePhotoPage : Page {
         // need to make sure this has happened
         canvas.realize();
         
-        repaint(do_transition, transition_direction);
+        repaint(direction);
     }
     
     public void blank_display() {
@@ -2040,7 +2042,7 @@ public abstract class SinglePhotoPage : Page {
     
     private void on_viewport_resize() {
         // do fast repaints while resizing
-        internal_repaint(true);
+        internal_repaint(true, null);
     }
     
     protected override void on_resize_finished(Gdk.Rectangle rect) {
@@ -2074,30 +2076,31 @@ public abstract class SinglePhotoPage : Page {
     protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {
     }
     
+    // dirty is set to invalidate the entire viewport.  Adjust to invalidate only a portion of
+    // the viewport
     protected virtual void paint(Gdk.GC gc, Gdk.Drawable drawable) {
         if (is_zoom_supported() && (!static_zoom_state.is_default())) {
             pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
             render_zoomed_to_pixmap(static_zoom_state);
             canvas.window.draw_drawable(canvas_gc, pixmap, 0, 0, 0, 0, -1, -1);
-        } else if (transition_effect.state.is_in_progress()) {
-            transition_effect.paint(drawable);
-        } else {
+        } else if (!transition_clock.paint_drawable(drawable)) {
+            // transition is not running, so paint the full image
             drawable.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
             drawable.draw_pixbuf(gc, scaled, 0, 0, scaled_pos.x, scaled_pos.y, -1, -1, 
                 Gdk.RgbDither.NORMAL, 0, 0);
         }
     }
     
-    public void simple_repaint() {
-        repaint();
+    private void repaint_pixmap() {
+        paint(canvas_gc, pixmap);
+        invalidate_all();
     }
     
-    public void repaint(bool do_transition = false, Direction transition_direction = Direction.FORWARD) {
-        internal_repaint(false, do_transition, transition_direction);
+    public void repaint(Direction? direction = null) {
+        internal_repaint(false, direction);
     }
     
-    private void internal_repaint(bool fast, bool do_transition = false, 
-        Direction transition_direction = Direction.FORWARD) {
+    private void internal_repaint(bool fast, Direction? direction) {
         // if not in view, assume a full repaint needed in future but do nothing more
         if (!is_in_view()) {
             pixmap = null;
@@ -2178,16 +2181,16 @@ public abstract class SinglePhotoPage : Page {
 
         zoom_high_quality = !fast;
         
-        if (do_transition && transition_effect.enabled) {
-            assert(!transition_effect.state.is_in_progress());
-            transition_effect.start(old_scaled, old_scaled_pos, scaled, scaled_pos,
-                transition_direction);
-        } else {
-            paint(canvas_gc, pixmap);
+        if (direction != null && !transition_clock.is_in_progress()) {
+            Spit.Transitions.Visuals visuals = new Spit.Transitions.Visuals(old_scaled,
+                old_scaled_pos, scaled, scaled_pos, canvas.style.black);
+            
+            transition_clock.start(visuals, direction.to_transition_direction(), transition_duration_msec,
+                repaint_pixmap);
         }
         
-        // invalidate everything
-        invalidate_all();
+        if (!transition_clock.is_in_progress())
+            repaint_pixmap();
     }
     
     private void init_pixmap(int width, int height) {

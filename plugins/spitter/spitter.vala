@@ -10,11 +10,13 @@
 // This module does essentially nothing.  It is not installed alongside the other Shotwell
 // deliverables.  It mainly exists to test SPIT in the compilation and initialization steps.
 
-using Shotwell.Plugins;
-
 extern const string _VERSION;
 
-private class Spitter : Object, SpitWad {
+private class Spitter : Object, Spit.Wad {
+    ~Spitter() {
+        debug("DTOR: Spitter");
+    }
+    
     public string get_name() {
         return "SPIT Reference Module";
     }
@@ -27,22 +29,25 @@ private class Spitter : Object, SpitWad {
         return "org.yorba.shotwell.spitter";
     }
     
-    public Pluggable[]? get_pluggables() {
+    public Spit.Pluggable[]? get_pluggables() {
         return null;
     }
 }
 
 private Spitter? spitter = null;
+private Spit.EntryPoint? compiler_entry_point = null;
 
 // This entry point is required for all SPIT modules.
-public SpitWad? spit_entry_point(int host_spit_version, out int module_spit_version) {
-    if (host_spit_version != SPIT_VERSION) {
-        module_spit_version = UNSUPPORTED_SPIT_VERSION;
-        
-        return null;
-    }
+public unowned Spit.Wad? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
+    out int module_spit_interface) {
+    // this is purely for compilation, to verify that the entry point matches SpitEntryPoint's sig;
+    // it does nothing functionally
+    compiler_entry_point = spit_entry_point;
     
-    module_spit_version = SPIT_VERSION;
+    module_spit_interface = Spit.negotiate_interfaces(host_min_spit_interface, host_max_spit_interface,
+        Spit.CURRENT_INTERFACE);
+    if (module_spit_interface == Spit.UNSUPPORTED_INTERFACE)
+        return null;
     
     if (spitter == null)
         spitter = new Spitter();

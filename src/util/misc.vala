@@ -19,7 +19,20 @@ public enum CompassPoint {
 
 public enum Direction {
     FORWARD,
-    BACKWARD
+    BACKWARD;
+    
+    public Spit.Transitions.Direction to_transition_direction() {
+        switch (this) {
+            case FORWARD:
+                return Spit.Transitions.Direction.FORWARD;
+            
+            case BACKWARD:
+                return Spit.Transitions.Direction.FORWARD;
+            
+            default:
+                error("Unknown Direction %s", this.to_string());
+        }
+    }
 }
 
 public uint int64_hash(void *p) {

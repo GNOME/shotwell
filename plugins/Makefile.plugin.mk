@@ -12,14 +12,14 @@
 
 VALAC := valac
 MAKE_FILES := Makefile ../Makefile.plugin.mk ../plugins.mk
-HEADER_FILES := ../shotwell-plugins-1.0.vapi ../shotwell-plugins-1.0.h
 
 include ../plugins.mk
 
 all: $(PLUGIN).so
 
-$(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
-	$(VALAC) --save-temps --main=dummy_main --pkg=shotwell-plugins-1.0 --vapidir=../ \
+$(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES)
+	$(VALAC) --save-temps --main=dummy_main --vapidir=../ \
+		$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
 		-X -I../.. -X --shared -X -fPIC -X -D_VERSION='"$(PLUGINS_VERSION)"' $(SRC_FILES) -o $@
 
 .PHONY: cleantemps
