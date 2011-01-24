@@ -686,7 +686,7 @@ msgstr "%d/%m/%Y, %H:%M:%S"
 # a list of format specifiers and their meanings.
 #: src/Dialogs.vala:1224
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%d/m/%Y, %I:%M:%S %p"
+msgstr "%d/%m/%Y, %I:%M:%S %p"
 
 #: src/Dialogs.vala:1309
 #, c-format
