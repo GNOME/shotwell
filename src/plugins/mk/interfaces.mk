@@ -15,7 +15,7 @@ plugins/shotwell-spit-1.0.vapi: src/plugins/SpitInterfaces.vala
 	$(VALAC) -c $(VALAFLAGS) -X -I. --includedir=plugins --vapi=$@ --header=$(basename $@).h $<
 
 plugins/shotwell-transitions-1.0.deps: plugins/shotwell-transitions-1.0.vapi
-	echo "gdk-2.0\nshotwell-spit-1.0" > $@
+	printf "gdk-2.0\nshotwell-spit-1.0\n" > $@
 
 plugins/shotwell-transitions-1.0.vapi: src/plugins/TransitionsInterfaces.vala plugins/shotwell-spit-1.0.vapi
 	$(VALAC) -c $(VALAFLAGS) -X -I. --pkg=gdk-2.0 --pkg=shotwell-spit-1.0 --includedir=plugins --vapi=$@ --header=$(basename $@).h $<
