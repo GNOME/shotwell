@@ -266,6 +266,7 @@ EXT_PKGS = \
 	gdk-x11-2.0 \
 	gee-1.0 \
 	gexiv2 \
+	gnome-vfs-2.0 \
 	gstreamer-0.10 \
 	gstreamer-base-0.10 \
 	gtk+-2.0 \

@@ -47,21 +47,14 @@ public class VideoReader {
         this.filepath = filepath;
     }
     
-    public static string[] get_supported_file_extensions() {
-        string[] result = { "avi", "mpg", "mov", "mts", "ogg", "ogv", "mp4" , "wmv", "3gp", "3g2"};
-        return result;
-    }
-    
     public static bool is_supported_video_file(File file) {
         return is_supported_video_filename(file.get_basename());
     }
     
     public static bool is_supported_video_filename(string filename) {
-        string name;
-        string extension;
-        disassemble_filename(filename, out name, out extension);
-        
-        return (extension != null) ? is_in_ci_array(extension, get_supported_file_extensions()) : false;
+        string mime_type;
+        mime_type = GnomeVFS.get_mime_type_for_name(filename);
+        return (mime_type.length >= 6 && mime_type[0:6] == "video/");
     }
     
     public static ImportResult prepare_for_import(VideoImportParams params) {
