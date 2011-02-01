@@ -2134,6 +2134,9 @@ public abstract class SinglePhotoPage : Page {
     }
     
     private void repaint_pixmap() {
+        if (pixmap_ctx == null)
+            return;
+        
         paint(pixmap_ctx, pixmap_dim);
         invalidate_all();
     }
