@@ -24,6 +24,14 @@ public abstract class PageStub : Object, SidebarPage {
         get_page().rename(new_name);
     }
     
+    public virtual bool is_destroyable() {
+        return false;
+    }
+    
+    public virtual void destroy_source() {
+        get_page().destroy_source();
+    }
+
     public virtual GLib.Icon? get_icon() {
         return null;
     }
@@ -229,6 +237,13 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     public virtual void rename(string new_name) {
     }
     
+    public virtual bool is_destroyable() {
+        return false;
+    }
+    
+    public virtual void destroy_source() {
+    }
+
     public virtual void set_page_name(string page_name) {
         this.page_name = page_name;
     }

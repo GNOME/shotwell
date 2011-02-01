@@ -1989,9 +1989,13 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    public override bool key_press_event(Gdk.EventKey event) {        
-        return (sidebar.has_focus && Gdk.keyval_name(event.keyval) == "F2") ?
-            sidebar.key_press_event(event) : base.key_press_event(event);
+    public override bool key_press_event(Gdk.EventKey event) {
+        bool pass_on = true;
+        
+        if (sidebar.has_focus && sidebar.is_keypress_interpreted(event))
+            pass_on = sidebar.key_press_event(event);
+        
+        return pass_on ? base.key_press_event(event) : false;
     }
 
     public void sidebar_rename_in_place(Page page) {

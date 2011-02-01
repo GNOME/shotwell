@@ -24,6 +24,10 @@ public class TagPage : CollectionPage {
             return (tag != null);
         }
         
+        public override bool is_destroyable() {
+            return (tag != null);
+        }
+
         protected override Page construct_page() {
             return new TagPage(tag);
         }
@@ -121,6 +125,10 @@ public class TagPage : CollectionPage {
             AppWindow.error_message(Resources.rename_tag_exists_message(new_name));
     }
     
+    public override void destroy_source() {
+        on_delete_tag();
+    }
+
     private void on_rename_tag() {
         LibraryWindow.get_app().sidebar_rename_in_place(this);
     }

@@ -55,6 +55,10 @@ public interface SidebarPage : Object {
     
     public abstract void rename(string new_name);
 
+    public abstract bool is_destroyable();
+
+    public abstract void destroy_source();
+
     public abstract Gtk.Menu? get_page_context_menu();
 
     public abstract bool popup_context_menu(Gtk.Menu? context_menu, Gdk.EventButton? event = null);
@@ -536,13 +540,30 @@ public class Sidebar : Gtk.TreeView {
         
         return base.button_press_event(event);
     }
-
+    
+    public bool is_keypress_interpreted(Gdk.EventKey event) {
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "F2":
+            case "Delete":
+            case "Return":
+            case "KP_Enter":
+                return true;
+            
+            default:
+                return false;
+        }
+    }
+    
     public override bool key_press_event(Gdk.EventKey event) {
-        if (Gdk.keyval_name(event.keyval) == "Return" || Gdk.keyval_name(event.keyval) == "KP_Enter") {
-            toggle_branch_expansion(current_path);
-            return false;
-        } else if (Gdk.keyval_name(event.keyval) == "F2") {
-            return rename_in_place();
+        switch(Gdk.keyval_name(event.keyval)) {
+            case "Return":
+            case "KP_Enter":
+                toggle_branch_expansion(current_path);
+                return false;
+            case "F2":
+                return rename_in_place();
+            case "Delete":
+                return !destroy_path(current_path);
         }
         
         bool return_val = base.key_press_event(event);
@@ -708,7 +729,17 @@ public class Sidebar : Gtk.TreeView {
         
         return true;
     }
+
+    private bool destroy_path(Gtk.TreePath path) {
+        SidebarPage? page = locate_page(path);
+        if (page == null || !page.is_destroyable())
+            return false;
         
+        page.destroy_source();
+        
+        return true;
+    }
+
     private void on_editing_started(Gtk.CellEditable editable, string path) {
         if (editable is Gtk.Entry) {
             text_entry = (Gtk.Entry) editable;
