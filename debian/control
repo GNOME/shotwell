@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 7),
  valac (>= 0.9.8),
  libgee-dev (>= 0.5.0),
  libgtk2.0-dev (>= 2.18.0),
- libglib2.0-dev (>= 2.24.0),
+ libglib2.0-dev (>= 2.26.0),
  libgphoto2-2-dev (>= 2.4.2),
  libexif-dev (>= 0.6.16),
  libsqlite3-dev (>= 3.5.9),
@@ -16,12 +16,12 @@ Build-Depends: debhelper (>= 7),
  libxml2 (>= 2.6.32),
  libwebkit-dev (>= 1.1.5),
  libgudev-1.0-dev (>= 145),
- libdbus-glib-1-dev (>= 0.80),
  libgexiv2-dev (>= 0.2.0),
  libraw-dev (>= 0.9.0),
  libatk1.0-dev (>= 1.30.0),
  libgstreamer0.10-dev (>= 0.10.28),
- libjson-glib-dev (>= 0.7.6)
+ libjson-glib-dev (>= 0.7.6),
+ libgnomevfs2-dev (>= 1:2.24.3)
 Standards-Version: 3.8.3
 Homepage: http://www.yorba.org/shotwell
 
@@ -30,7 +30,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, 
  libgee2 (>= 0.5.0),
  libgtk2.0-0 (>= 2.18.0),
- libglib2.0-0 (>= 2.24.0),
+ libglib2.0-0 (>= 2.26.0),
  libgphoto2-2 (>= 2.4.2),
  libexif12 (>= 0.6.16),
  sqlite3 (>= 3.5.9),
@@ -40,14 +40,13 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  libxml2 (>= 2.6.32),
  libwebkit-1.0-2 (>= 1.1.5),
  libgudev-1.0-0 (>= 145),
- libdbus-glib-1-2 (>= 0.80),
  librsvg2-common (>= 2.14.0),
- dbus-x11 (>= 1.2.4),
  libgexiv2-0 (>= 0.2.0),
  libraw-dev (>= 0.9.0),
  libatk1.0-0 (>= 1.30.0),
  libgstreamer0.10-0 (>= 0.10.28),
- libjson-glib-1.0-0 (>= 0.7.6)
+ libjson-glib-1.0-0 (>= 0.7.6),
+ libgnomevfs2-0 (>= 1:2.24.3)
 Description: Digital photo manager
  Shotwell is a digital photo manager designed for the GNOME desktop 
  environment. It allows you to import photos from disk or camera, organize 

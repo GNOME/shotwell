@@ -260,7 +260,6 @@ LOCAL_PKGS = \
 # added to this list
 EXT_PKGS = \
 	atk \
-	dbus-glib-1 \
 	gconf-2.0 \
 	gdk-2.0 \
 	gdk-x11-2.0 \
@@ -290,12 +289,12 @@ LIBRAW_PKG = \
 # libraw is handled separately (see note below); when libraw-config is no longer needed, the version
 # should be added to this list
 EXT_PKG_VERSIONS = \
-	dbus-glib-1 >= 0.80 \
 	gconf-2.0 >= 2.22.0 \
 	gee-1.0 >= 0.5.0 \
 	gexiv2 >= 0.2.0 \
+	gnome-vfs-2.0 >= 1:2.24.3 \
 	gtk+-2.0 >= 2.18.0 \
-	glib-2.0 >= 2.24.0 \
+	glib-2.0 >= 2.26.0 \
 	gstreamer-0.10 >= 0.10.28 \
 	gstreamer-base-0.10 >= 0.10.28 \
 	gudev-1.0 >= 145 \
