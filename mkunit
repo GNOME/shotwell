@@ -14,7 +14,7 @@ fi
 
 mkdir -p src/$1
 mkdir -p src/$1/mk
-m4 --define=_UNIT_DIR_=$1 --define=_UNIT_NAME_=$2 src/unit/rc/template.mk > src/$1/mk/$1.mk
+m4 --define=_UNIT_DIR_=$1 --define=_UNIT_NAME_=$2 src/unit/rc/template.mk > src/$1/mk/$(basename $1).mk
 m4 --define=_UNIT_NAME_=$2 src/unit/rc/Unit.m4 > src/$1/$2.vala
 
 echo "Unit $1 must be manually added to units.mk."

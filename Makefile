@@ -328,7 +328,7 @@ DIRECT_EDIT_DESKTOP_APPLICATION_CLASS="Photo Viewer"
 TEMPORARY_DESKTOP_FILES = misc/shotwell.desktop misc/shotwell-viewer.desktop
 
 # Process the units
-UNIT_MKS := $(foreach unit,$(UNITS),src/$(unit)/mk/$(unit).mk)
+UNIT_MKS := $(foreach unit,$(UNITS),src/$(unit)/mk/$(notdir $(unit)).mk)
 include $(UNIT_MKS)
 
 UNITIZE_DIR := src/.unitize
