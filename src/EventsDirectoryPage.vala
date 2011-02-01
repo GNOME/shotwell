@@ -122,25 +122,25 @@ class EventDirectoryItem : CheckerboardItem {
         base.thumbnail_altered();
     }
     
-    protected override void paint_border(Gdk.GC gc, Gdk.Drawable drawable,
-        Dimensions object_dimensions, Gdk.Point object_origin, int border_width) {
+    protected override void paint_border(Cairo.Context ctx, Dimensions object_dimensions,
+        Gdk.Point object_origin, int border_width) {
         Dimensions dimensions = get_border_dimensions(object_dimensions, border_width);
         Gdk.Point origin = get_border_origin(object_origin, border_width);
 
-        draw_rounded_corners_filled(gc, drawable, dimensions, origin, 6.0);
+        draw_rounded_corners_filled(ctx, dimensions, origin, 6.0);
     }
 
-    protected override void paint_image(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf,
+    protected override void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf,
         Gdk.Point origin) {
         Dimensions dimensions = Dimensions.for_pixbuf(pixbuf);
 
         if (pixbuf.get_has_alpha())
-            draw_rounded_corners_filled(gc, drawable, dimensions, origin, 6.0);
+            draw_rounded_corners_filled(ctx, dimensions, origin, 6.0);
 
         // use rounded corners on events
-        Cairo.Context cx = get_rounded_corners_context(drawable, dimensions, origin, 6.0);
-        Gdk.cairo_set_source_pixbuf(cx, pixbuf, origin.x, origin.y);
-        cx.paint();
+        context_rounded_corners(ctx, dimensions, origin, 6.0);
+        Gdk.cairo_set_source_pixbuf(ctx, pixbuf, origin.x, origin.y);
+        ctx.paint();
     }
 }
 

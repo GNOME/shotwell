@@ -37,7 +37,7 @@ public class MediaSourceItem : CheckerboardItem {
             basis_sprocket_pixbuf = Resources.load_icon("sprocket.png", 0);
     }
 
-    protected override void paint_image(Gdk.GC bg_gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf,
+    protected override void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf,
         Gdk.Point origin) {       
         Dimensions pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
         // sprocket geometry calculation (and possible adjustment) has to occur before we call
@@ -59,19 +59,21 @@ public class MediaSourceItem : CheckerboardItem {
             set_horizontal_trinket_offset(current_sprocket_pixbuf.width);
         }
                 
-        base.paint_image(bg_gc, drawable, pixbuf, origin);
+        base.paint_image(ctx, pixbuf, origin);
 
         if (enable_sprockets) {
-            paint_sprockets(bg_gc, drawable, origin, pixbuf_dim);
+            paint_sprockets(ctx, origin, pixbuf_dim);
         }
     }
 
-    protected void paint_one_sprocket(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Point origin) {
-        drawable.draw_pixbuf(gc, current_sprocket_pixbuf, 0, 0, origin.x, origin.y, -1, -1,
-            Gdk.RgbDither.NORMAL, 0, 0);
+    protected void paint_one_sprocket(Cairo.Context ctx, Gdk.Point origin) {
+        ctx.save();
+        Gdk.cairo_set_source_pixbuf(ctx, current_sprocket_pixbuf, origin.x, origin.y);
+        ctx.paint();
+        ctx.restore();
     }
 
-    protected void paint_sprockets(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Point item_origin,
+    protected void paint_sprockets(Cairo.Context ctx, Gdk.Point item_origin,
         Dimensions item_dimensions) {
         int num_sprockets = item_dimensions.height / current_sprocket_pixbuf.height;
 
@@ -79,8 +81,8 @@ public class MediaSourceItem : CheckerboardItem {
         Gdk.Point right_paint_location = item_origin;
         right_paint_location.x += (item_dimensions.width - current_sprocket_pixbuf.width);
         for (int i = 0; i < num_sprockets; i++) {
-            paint_one_sprocket(gc, drawable, left_paint_location);
-            paint_one_sprocket(gc, drawable, right_paint_location);
+            paint_one_sprocket(ctx, left_paint_location);
+            paint_one_sprocket(ctx, right_paint_location);
 
             left_paint_location.y += current_sprocket_pixbuf.height;
             right_paint_location.y += current_sprocket_pixbuf.height;
@@ -88,10 +90,21 @@ public class MediaSourceItem : CheckerboardItem {
 
         int straggler_pixels = item_dimensions.height % current_sprocket_pixbuf.height;
         if (straggler_pixels > 0) {
-            drawable.draw_pixbuf(gc, current_sprocket_pixbuf, 0, 0, left_paint_location.x,
-                left_paint_location.y, -1, straggler_pixels, Gdk.RgbDither.NORMAL, 0, 0);
-            drawable.draw_pixbuf(gc, current_sprocket_pixbuf, 0, 0, right_paint_location.x,
-                right_paint_location.y, -1, straggler_pixels, Gdk.RgbDither.NORMAL, 0, 0);
+            ctx.save();
+
+            Gdk.cairo_set_source_pixbuf(ctx, current_sprocket_pixbuf, left_paint_location.x,
+                left_paint_location.y);
+            ctx.rectangle(left_paint_location.x, left_paint_location.y,
+                current_sprocket_pixbuf.get_width(), straggler_pixels);
+            ctx.fill();
+
+            Gdk.cairo_set_source_pixbuf(ctx, current_sprocket_pixbuf, right_paint_location.x,
+                right_paint_location.y);
+            ctx.rectangle(left_paint_location.x, left_paint_location.y,
+                current_sprocket_pixbuf.get_width(), straggler_pixels);
+            ctx.fill();
+
+            ctx.restore();
         }
     }
     

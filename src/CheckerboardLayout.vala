@@ -364,29 +364,30 @@ public abstract class CheckerboardItem : ThumbnailView {
         return origin;
     }
     
-    protected virtual void paint_border(Gdk.GC gc, Gdk.Drawable drawable, 
-        Dimensions object_dimensions, Gdk.Point object_origin, int border_width) {
+    protected virtual void paint_border(Cairo.Context ctx, Dimensions object_dimensions,
+        Gdk.Point object_origin, int border_width) {
         if (border_width == 1) {
-            drawable.draw_rectangle(gc, true, object_origin.x - border_width, 
-                object_origin.y - border_width, object_dimensions.width + (border_width * 2),
+            ctx.rectangle(object_origin.x - border_width, object_origin.y - border_width,
+                object_dimensions.width + (border_width * 2),
                 object_dimensions.height + (border_width * 2));
+            ctx.fill();
         } else {
             Dimensions dimensions = get_border_dimensions(object_dimensions, border_width);
             Gdk.Point origin = get_border_origin(object_origin, border_width);
             
             // amount of rounding needed on corners varies by size of object
             double scale = int.max(object_dimensions.width, object_dimensions.height);
-            draw_rounded_corners_filled(gc, drawable, dimensions, origin, 0.25 * scale);
+            draw_rounded_corners_filled(ctx, dimensions, origin, 0.25 * scale);
         }
     }
-    
-    protected virtual void paint_image(Gdk.GC bg_gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
+
+    protected virtual void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
         if (pixbuf.get_has_alpha()) {
-            drawable.draw_rectangle(bg_gc, true, origin.x, origin.y,
-                pixbuf.get_width(), pixbuf.get_height());
+            ctx.rectangle(origin.x, origin.y, pixbuf.get_width(), pixbuf.get_height());
+            ctx.fill();
         }
-        drawable.draw_pixbuf(bg_gc, display_pixbuf, 0, 0, origin.x, origin.y, -1, -1, 
-            Gdk.RgbDither.NORMAL, 0, 0);
+        Gdk.cairo_set_source_pixbuf(ctx, pixbuf, origin.x, origin.y);
+        ctx.paint();
     }
 
     private int get_selection_border_width(int scale) {
@@ -410,27 +411,41 @@ public abstract class CheckerboardItem : ThumbnailView {
         return null;
     }
     
-    public void paint(Gdk.Drawable drawable, Gdk.GC bg_gc, Gdk.GC select_gc, Gdk.GC text_gc, Gdk.GC? border_gc) {
+    public void paint(Cairo.Context ctx, Gdk.Color bg_color, Gdk.Color selected_color,
+        Gdk.Color text_color, Gdk.Color? border_color) {
         // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
         pixbuf_origin.x = allocation.x + FRAME_WIDTH + BORDER_WIDTH;
         pixbuf_origin.y = allocation.y + FRAME_WIDTH + BORDER_WIDTH;
         
+        ctx.set_line_width(FRAME_WIDTH);
+        Gdk.cairo_set_source_color(ctx, selected_color);
+        
         // draw selection border
         if (is_selected()) {
             // border thickness depends on the size of the thumbnail
-            int scale = int.max(pixbuf_dim.width, pixbuf_dim.height);
-            
-            paint_border(select_gc, drawable, pixbuf_dim, pixbuf_origin,
-                get_selection_border_width(scale));
+            ctx.save();
+            paint_border(ctx, pixbuf_dim, pixbuf_origin,
+                get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height)));
+            ctx.restore();
         }
         
         // draw border
-        if (border_gc != null)
-            paint_border(border_gc, drawable, pixbuf_dim, pixbuf_origin, BORDER_WIDTH);
+        if (border_color != null) {
+            ctx.save();
+            Gdk.cairo_set_source_color(ctx, border_color);
+            paint_border(ctx, pixbuf_dim, pixbuf_origin, BORDER_WIDTH);
+            ctx.restore();
+        }
         
-        if (display_pixbuf != null)
-            paint_image(bg_gc, drawable, display_pixbuf, pixbuf_origin);
+        if (display_pixbuf != null) {
+            ctx.save();
+            Gdk.cairo_set_source_color(ctx, bg_color);
+            paint_image(ctx, display_pixbuf, pixbuf_origin);
+            ctx.restore();
+        }
+        
+        Gdk.cairo_set_source_color(ctx, text_color);
         
         // title and subtitles are LABEL_PADDING below bottom of pixbuf
         int text_y = allocation.y + FRAME_WIDTH + pixbuf_dim.height + FRAME_WIDTH + LABEL_PADDING;
@@ -440,8 +455,8 @@ public abstract class CheckerboardItem : ThumbnailView {
             title.allocation = { allocation.x + FRAME_WIDTH, text_y, pixbuf_dim.width,
                 title.get_height() };
             
-            Gdk.draw_layout(drawable, text_gc, title.allocation.x, title.allocation.y,
-                title.get_pango_layout(pixbuf_dim.width));
+            ctx.move_to(title.allocation.x, title.allocation.y);
+            Pango.cairo_show_layout(ctx, title.get_pango_layout(pixbuf_dim.width));
             
             text_y += title.get_height() + LABEL_PADDING;
         }
@@ -450,43 +465,53 @@ public abstract class CheckerboardItem : ThumbnailView {
             subtitle.allocation = { allocation.x + FRAME_WIDTH, text_y, pixbuf_dim.width,
                 subtitle.get_height() };
             
-            Gdk.draw_layout(drawable, text_gc, subtitle.allocation.x, subtitle.allocation.y,
-                subtitle.get_pango_layout(pixbuf_dim.width));
+            ctx.move_to(subtitle.allocation.x, subtitle.allocation.y);
+            Pango.cairo_show_layout(ctx, subtitle.get_pango_layout(pixbuf_dim.width));
             
             // increment text_y if more text lines follow
         }
         
+        Gdk.cairo_set_source_color(ctx, selected_color);
+        
         // draw trinkets last
         Gdk.Pixbuf? trinket = get_bottom_left_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            drawable.draw_pixbuf(select_gc, trinket, 0, 0,
-                pixbuf_origin.x + TRINKET_PADDING + get_horizontal_trinket_offset(),
-                pixbuf_origin.y + pixbuf_dim.height - trinket.height - TRINKET_PADDING,
-                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+            int x = pixbuf_origin.x + TRINKET_PADDING + get_horizontal_trinket_offset();
+            int y = pixbuf_origin.y + pixbuf_dim.height - trinket.get_height() -
+                TRINKET_PADDING;
+            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
+            ctx.rectangle(x, y, trinket.get_width(), trinket.get_height());
+            ctx.fill();
         }
         
         trinket = get_top_left_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            drawable.draw_pixbuf(select_gc, trinket, 0, 0,
-                pixbuf_origin.x + TRINKET_PADDING + get_horizontal_trinket_offset(),
-                pixbuf_origin.y + TRINKET_PADDING,
-                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+            int x = pixbuf_origin.x + TRINKET_PADDING + get_horizontal_trinket_offset();
+            int y = pixbuf_origin.y + TRINKET_PADDING;
+            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
+            ctx.rectangle(x, y, trinket.get_width(), trinket.get_height());
+            ctx.fill();
         }
         
         trinket = get_top_right_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            drawable.draw_pixbuf(select_gc, trinket, 0, 0,
-                pixbuf_origin.x + pixbuf_dim.width - trinket.width - get_horizontal_trinket_offset() -
-                TRINKET_PADDING, pixbuf_origin.y + TRINKET_PADDING, trinket.width, trinket.height,
-                Gdk.RgbDither.NORMAL, 0, 0);
+            int x = pixbuf_origin.x + pixbuf_dim.width - trinket.width - 
+                get_horizontal_trinket_offset() - TRINKET_PADDING;
+            int y = pixbuf_origin.y + TRINKET_PADDING;
+            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
+            ctx.rectangle(x, y, trinket.get_width(), trinket.get_height());
+            ctx.fill();
         }
         
         trinket = get_bottom_right_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            drawable.draw_pixbuf(select_gc, trinket, 0, 0,
-                pixbuf_origin.x + pixbuf_dim.width - trinket.width - get_horizontal_trinket_offset() -
-                TRINKET_PADDING, pixbuf_origin.y + pixbuf_dim.height - trinket.height - TRINKET_PADDING,
-                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+            int x = pixbuf_origin.x + pixbuf_dim.width - trinket.width - 
+                get_horizontal_trinket_offset() - TRINKET_PADDING;
+            int y = pixbuf_origin.y + pixbuf_dim.height - trinket.height - 
+                TRINKET_PADDING;
+            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
+            ctx.rectangle(x, y, trinket.get_width(), trinket.get_height());
+            ctx.fill();
         }
     }
     
@@ -578,6 +603,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     // the following are minimums, as the pads and gutters expand to fill up the window width
     public const int COLUMN_GUTTER_PADDING = 24;
     
+    // For a 40% alpha channel
+    private const double SELECTION_ALPHA = 0.40;
+    
     private class LayoutRow {
         public int y;
         public int height;
@@ -590,8 +618,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         }
     }
     
-    private static Gdk.Pixbuf selection_interior = null;
-
     private ViewCollection view;
     private string page_name = "";
     private LayoutRow[] item_rows = null;
@@ -599,11 +625,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gtk.Adjustment hadjustment = null;
     private Gtk.Adjustment vadjustment = null;
     private string message = null;
-    private Gdk.GC selected_gc = null;
-    private Gdk.GC unselected_gc = null;
-    private Gdk.GC border_gc = null;
-    private Gdk.GC selection_band_gc = null;
-    private Gdk.GC background_gc = null;
+    private Gdk.Color selected_color;
+    private Gdk.Color unselected_color;
+    private Gdk.Color border_color;
+    private Gdk.Color bg_color;
     private Gdk.Rectangle visible_page = Gdk.Rectangle();
     private int last_width = 0;
     private int columns = 0;
@@ -611,7 +636,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gdk.Point drag_origin = Gdk.Point();
     private Gdk.Point drag_endpoint = Gdk.Point();
     private Gdk.Rectangle selection_band = Gdk.Rectangle();
-    private uint32 selection_transparency_color = 0;
     private int scale = 0;
     private bool flow_scheduled = false;
     private bool exposure_dirty = true;
@@ -1526,58 +1550,18 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     public override void map() {
         base.map();
         
-        selected_gc = new Gdk.GC(window);
-        unselected_gc = new Gdk.GC(window);
-        border_gc = new Gdk.GC(window); 
-        selection_band_gc = new Gdk.GC(window);
-        background_gc = new Gdk.GC(window);
-        
         set_colors();
     }
 
     private void set_colors(bool in_focus = true) {
-        if (selected_gc == null || unselected_gc == null || border_gc == null ||
-            selection_band_gc == null)
-            return;
-        
         // set up selected/unselected colors
-        Gdk.Color selected_color = fetch_color(
+        selected_color = fetch_color(
             Config.get_instance().get_selected_color(in_focus).to_string(), window);
-        Gdk.Color unselected_color = fetch_color(
+        unselected_color = fetch_color(
             Config.get_instance().get_unselected_color().to_string(), window);
-        Gdk.Color border_color = fetch_color(
+        border_color = fetch_color(
             Config.get_instance().get_border_color().to_string(), window);
-        selection_transparency_color = convert_rgba(selected_color, 0x40);
-
-        // set up GC's for painting layout items
-        Gdk.GCValues gc_values = Gdk.GCValues();
-        gc_values.foreground = selected_color;
-        gc_values.function = Gdk.Function.COPY;
-        gc_values.fill = Gdk.Fill.SOLID;
-        gc_values.line_width = CheckerboardItem.FRAME_WIDTH;
-        
-        Gdk.GCValuesMask mask = 
-            Gdk.GCValuesMask.FOREGROUND 
-            | Gdk.GCValuesMask.FUNCTION 
-            | Gdk.GCValuesMask.FILL
-            | Gdk.GCValuesMask.LINE_WIDTH;
-
-        selected_gc.set_values(gc_values, mask);
-        
-        gc_values.foreground = unselected_color;
-        
-        unselected_gc.set_values(gc_values, mask);
-
-        gc_values.foreground = border_color;
-        
-        border_gc.set_values(gc_values, mask);
-
-        gc_values.line_width = 1;
-        gc_values.foreground = selected_color;
-        
-        selection_band_gc.set_values(gc_values, mask);
-
-        background_gc.set_foreground(this.get_style().bg[Gtk.StateType.NORMAL]);
+        bg_color = this.get_style().bg[Gtk.StateType.NORMAL];
     }
     
     public override void size_allocate(Gdk.Rectangle allocation) {
@@ -1594,6 +1578,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // now in place and should do its thing to update itself), have to be be prepared for
         // GTK/GDK calls between the widgets being actually present on the screen and "switched to"
         
+        // switch to Cairo
+        Cairo.Context ctx = Gdk.cairo_create(event.window);
+        
         // watch for message mode
         if (message == null) {
 #if TRACE_REFLOW
@@ -1604,9 +1591,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 expose_items("expose_event");
             
             // have all items in the exposed area paint themselves
-            foreach (CheckerboardItem item in intersection(event.area))
-                item.paint(window, background_gc, item.is_selected() ? selected_gc : unselected_gc,
-                    unselected_gc, border_gc);
+            foreach (CheckerboardItem item in intersection(event.area)) {
+                item.paint(ctx, bg_color, item.is_selected() ? selected_color : unselected_color,
+                    unselected_color, border_color);
+            }
         } else {
             // draw the message in the center of the window
             Pango.Layout pango_layout = create_pango_layout(message);
@@ -1618,19 +1606,21 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             
             int y = allocation.height - text_height;
             y = (y > 0) ? y / 2 : 0;
-
-            Gdk.draw_layout(window, style.white_gc, x, y, pango_layout);
+            
+            Gdk.cairo_set_source_color(ctx, style.white);
+            ctx.move_to(x, y);
+            Pango.cairo_show_layout(ctx, pango_layout);
         }
-
+        
         bool result = (base.expose_event != null) ? base.expose_event(event) : true;
         
         // draw the selection band last, so it appears floating over everything else
-        draw_selection_band(event);
-
+        draw_selection_band(ctx);
+        
         return result;
     }
     
-    private void draw_selection_band(Gdk.EventExpose event) {
+    private void draw_selection_band(Cairo.Context ctx) {
         // no selection band, nothing to draw
         if (selection_band.width <= 1 || selection_band.height <= 1)
             return;
@@ -1646,23 +1636,21 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // pixelate selection rectangle interior
         if (visible_band.width > 1 && visible_band.height > 1) {
-            // generate a pixbuf of the selection color with a transparency to paint over the
-            // visible selection area ... reuse old pixbuf (which is shared among all instances)
-            // if possible
-            if (selection_interior == null || selection_interior.width < visible_band.width
-                || selection_interior.height < visible_band.height) {
-                selection_interior = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, visible_band.width,
-                    visible_band.height);
-                selection_interior.fill(selection_transparency_color);
-            }
-            
-            window.draw_pixbuf(selection_band_gc, selection_interior, 0, 0, visible_band.x, 
-                visible_band.y, visible_band.width, visible_band.height, Gdk.RgbDither.NORMAL, 0, 0);
+            set_source_color_with_alpha(ctx, selected_color, SELECTION_ALPHA);
+            ctx.rectangle(visible_band.x, visible_band.y, visible_band.width,
+                visible_band.height);
+            ctx.fill();
         }
-
+        
         // border
-        Gdk.draw_rectangle(window, selection_band_gc, false, selection_band.x, selection_band.y,
-            selection_band.width - 1, selection_band.height - 1);
+        // See this for an explanation of the adjustments to the band's dimensions
+        // http://cairographics.org/FAQ/#sharp_lines
+        ctx.set_line_width(1.0);
+        ctx.set_line_cap(Cairo.LineCap.SQUARE);
+        Gdk.cairo_set_source_color(ctx, selected_color);
+        ctx.rectangle((double) selection_band.x + 0.5, (double) selection_band.y + 0.5,
+            (double) selection_band.width - 1.0, (double) selection_band.height - 1.0);
+        ctx.stroke();
     }
     
     public override bool query_tooltip(int x, int y, bool keyboard_mode, Gtk.Tooltip tooltip) {

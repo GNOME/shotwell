@@ -4,10 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-// This is only needed until the following ticket is closed (see EventDirectoryItem's paint_border)
-// https://bugzilla.gnome.org/show_bug.cgi?id=617000
-extern void gdk_gc_get_values(Gdk.GC *gc, Gdk.GCValues *values);
-
 bool is_color_parsable(string spec) {
     Gdk.Color color;
     return Gdk.Color.parse(spec, out color);
@@ -40,13 +36,9 @@ Gdk.Color fetch_color(string spec, Gdk.Drawable? drawable = null) {
     return color;
 }
 
-private inline uint32 convert_color(uint16 component) {
-    return (uint32) (component / 256);
-}
-
-uint32 convert_rgba(Gdk.Color c, uint8 alpha) {
-    return (convert_color(c.red) << 24) | (convert_color(c.green) << 16) | (convert_color(c.blue) << 8) 
-        | alpha;
+void set_source_color_with_alpha(Cairo.Context ctx, Gdk.Color color, double alpha) {
+    ctx.set_source_rgba((double) color.red / 65535.0, (double) color.green / 65535.0,
+        (double) color.blue / 65535.0, alpha);
 }
 
 private const int MIN_SCALED_WIDTH = 10;
@@ -77,24 +69,13 @@ Gdk.Pixbuf resize_pixbuf(Gdk.Pixbuf pixbuf, Dimensions resized, Gdk.InterpType i
 
 private const double DEGREE = Math.PI / 180.0;
 
-void draw_rounded_corners_filled(Gdk.GC gc, Gdk.Drawable drawable, Dimensions dim, Gdk.Point origin,
+void draw_rounded_corners_filled(Cairo.Context ctx, Dimensions dim, Gdk.Point origin,
     double radius_proportion) {
-    Cairo.Context cx = get_rounded_corners_context(drawable, dim, origin, 
-        radius_proportion);
-    
-    // gc.get_values(out values) cannot be used due to a vapi binding bug
-    // https://bugzilla.gnome.org/show_bug.cgi?id=617000
-    Gdk.GCValues values = Gdk.GCValues();
-    gdk_gc_get_values(gc, &values);
-
-    Gdk.Color color;
-    gc.colormap.query_color(values.foreground.pixel, out color);
-
-    Gdk.cairo_set_source_color(cx, color);
-    cx.paint();
+    context_rounded_corners(ctx, dim, origin, radius_proportion);
+    ctx.paint();
 }
 
-Cairo.Context get_rounded_corners_context(Gdk.Drawable drawable, Dimensions dim, Gdk.Point origin, 
+void context_rounded_corners(Cairo.Context cx, Dimensions dim, Gdk.Point origin, 
     double radius_proportion) {
     // establish a reasonable range
     radius_proportion = radius_proportion.clamp(2.0, 100.0);
@@ -109,14 +90,12 @@ Cairo.Context get_rounded_corners_context(Gdk.Drawable drawable, Dimensions dim,
     
     // create context and clipping region, starting from the top right arc and working around
     // clockwise
-    Cairo.Context cx = Gdk.cairo_create(drawable);
+    cx.move_to(left, top);
     cx.arc(right - radius, top + radius, radius, -90 * DEGREE, 0 * DEGREE);
     cx.arc(right - radius, bottom - radius, radius, 0 * DEGREE, 90 * DEGREE);
     cx.arc(left + radius, bottom - radius, radius, 90 * DEGREE, 180 * DEGREE);
     cx.arc(left + radius, top + radius, radius, 180 * DEGREE, 270 * DEGREE);
     cx.clip();
-
-    return cx;
 }
 
 inline uchar shift_color_byte(int b, int shift) {

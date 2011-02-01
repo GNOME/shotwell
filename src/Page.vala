@@ -1798,15 +1798,15 @@ public abstract class SinglePhotoPage : Page {
         RESIZED_CANVAS
     }
     
-    protected Gdk.GC canvas_gc = null;
     protected Gtk.DrawingArea canvas = new Gtk.DrawingArea();
     protected Gtk.Viewport viewport = new Gtk.Viewport(null, null);
-    protected Gdk.GC text_gc = null;
     
     private bool scale_up_to_viewport;
     private TransitionClock transition_clock;
     private int transition_duration_msec = 0;
-    private Gdk.Pixmap pixmap = null;
+    private Cairo.Surface pixmap = null;
+    private Cairo.Context pixmap_ctx = null;
+    private Cairo.Context text_ctx = null;
     private Dimensions pixmap_dim = Dimensions();
     private Gdk.Pixbuf unscaled = null;
     private Dimensions max_dim = Dimensions();
@@ -1869,6 +1869,7 @@ public abstract class SinglePhotoPage : Page {
         transition_duration_msec = duration_msec;
     }
     
+    // This method includes a call to pixmap_ctx.paint().
     private void render_zoomed_to_pixmap(ZoomState zoom_state) {
         assert(is_zoom_supported());
         
@@ -1895,30 +1896,40 @@ public abstract class SinglePhotoPage : Page {
         if (draw_y < 0)
             draw_y = 0;
 
-        pixmap.draw_pixbuf(canvas_gc, zoomed, 0, 0, draw_x, draw_y, -1, -1, Gdk.RgbDither.NORMAL,
-            0, 0);
+        Gdk.cairo_set_source_pixbuf(pixmap_ctx, zoomed, draw_x, draw_y);
+        pixmap_ctx.paint();
     }
 
     protected void on_interactive_zoom(ZoomState interactive_zoom_state) {
         assert(is_zoom_supported());
-
-        pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
+        Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.window);
+        
+        Gdk.cairo_set_source_color(pixmap_ctx, canvas.get_style().black);
+        pixmap_ctx.paint();
+        
         bool old_quality_setting = zoom_high_quality;
         zoom_high_quality = false;
         render_zoomed_to_pixmap(interactive_zoom_state);
         zoom_high_quality = old_quality_setting;
-        canvas.window.draw_drawable(canvas_gc, pixmap, 0, 0, 0, 0, -1, -1);
+        
+        canvas_ctx.set_source_surface(pixmap, 0, 0);
+        canvas_ctx.paint();
     }
 
     protected void on_interactive_pan(ZoomState interactive_zoom_state) {
         assert(is_zoom_supported());
-
-        pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
+        Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.window);
+        
+        Gdk.cairo_set_source_color(pixmap_ctx, canvas.style.black);
+        pixmap_ctx.paint();
+        
         bool old_quality_setting = zoom_high_quality;
         zoom_high_quality = true;
         render_zoomed_to_pixmap(interactive_zoom_state);
         zoom_high_quality = old_quality_setting;
-        canvas.window.draw_drawable(canvas_gc, pixmap, 0, 0, 0, 0, -1, -1);
+        
+        canvas_ctx.set_source_surface(pixmap, 0, 0);
+        canvas_ctx.paint();
     }
 
     protected virtual bool is_zoom_supported() {
@@ -1926,8 +1937,10 @@ public abstract class SinglePhotoPage : Page {
     }
 
     protected virtual void cancel_zoom() {
-        if (pixmap != null)
-            pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
+        if (pixmap != null) {
+            Gdk.cairo_set_source_color(pixmap_ctx, canvas.style.black);
+            pixmap_ctx.paint();
+        }
     }
 
     protected virtual void save_zoom_state() {
@@ -2015,12 +2028,21 @@ public abstract class SinglePhotoPage : Page {
         invalidate_all();
     }
     
-    public Gdk.Drawable? get_drawable() {
+    public Cairo.Surface? get_surface() {
         return pixmap;
     }
     
-    public Dimensions get_drawable_dim() {
+    public Dimensions get_surface_dim() {
         return pixmap_dim;
+    }
+    
+    public Cairo.Context get_cairo_context() {
+        return pixmap_ctx;
+    }
+    
+    public void paint_text(Pango.Layout pango_layout, int x, int y) {
+        text_ctx.move_to(x, y);
+        Pango.cairo_show_layout(text_ctx, pango_layout);
     }
     
     public Scaling get_canvas_scaling() {
@@ -2072,42 +2094,47 @@ public abstract class SinglePhotoPage : Page {
         if (event.count > 0)
             return false;
         
+        Cairo.Context exposed_ctx = Gdk.cairo_create(canvas.window);
+        
         // draw pixmap onto canvas unless it's not been instantiated, in which case draw black
         // (so either old image or contents of another page is not left on screen)
-        if (pixmap != null) {
-            canvas.window.draw_drawable(canvas_gc, pixmap, event.area.x, event.area.y, event.area.x, 
-                event.area.y, event.area.width, event.area.height);
-        } else {
-            canvas.window.draw_rectangle(canvas.style.black_gc, true, event.area.x, event.area.y,
-                event.area.width, event.area.height);
-        }
-
+        if (pixmap != null)
+            exposed_ctx.set_source_surface(pixmap, 0, 0);
+        else
+            Gdk.cairo_set_source_color(exposed_ctx, canvas.style.black);
+        
+        exposed_ctx.rectangle(event.area.x, event.area.y, event.area.width, event.area.height);
+        exposed_ctx.paint();
+        
         return true;
     }
     
-    protected virtual void new_drawable(Gdk.GC default_gc, Gdk.Drawable drawable) {
+    protected virtual void new_surface(Cairo.Context ctx, Dimensions ctx_dim) {
     }
     
     protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {
     }
     
-    // dirty is set to invalidate the entire viewport.  Adjust to invalidate only a portion of
-    // the viewport
-    protected virtual void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+    protected virtual void paint(Cairo.Context ctx, Dimensions ctx_dim) {
         if (is_zoom_supported() && (!static_zoom_state.is_default())) {
-            pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
+            Gdk.cairo_set_source_color(ctx, canvas.style.black);
+            ctx.rectangle(0, 0, pixmap_dim.width, pixmap_dim.height);
+            ctx.fill();
+            
             render_zoomed_to_pixmap(static_zoom_state);
-            canvas.window.draw_drawable(canvas_gc, pixmap, 0, 0, 0, 0, -1, -1);
-        } else if (!transition_clock.paint_drawable(drawable)) {
-            // transition is not running, so paint the full image
-            drawable.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
-            drawable.draw_pixbuf(gc, scaled, 0, 0, scaled_pos.x, scaled_pos.y, -1, -1, 
-                Gdk.RgbDither.NORMAL, 0, 0);
+        } else if (!transition_clock.paint(ctx, ctx_dim.width, ctx_dim.height)) {
+            // transition is not running, so paint the full image on a black background
+            Gdk.cairo_set_source_color(ctx, canvas.style.black);
+            ctx.rectangle(0, 0, pixmap_dim.width, pixmap_dim.height);
+            ctx.fill();
+            
+            Gdk.cairo_set_source_pixbuf(ctx, scaled, scaled_pos.x, scaled_pos.y);
+            ctx.paint();
         }
     }
     
     private void repaint_pixmap() {
-        paint(canvas_gc, pixmap);
+        paint(pixmap_ctx, pixmap_dim);
         invalidate_all();
     }
     
@@ -2170,9 +2197,6 @@ public abstract class SinglePhotoPage : Page {
             scaled_pos.y = (height - scaled_dim.height) / 2;
             scaled_pos.width = scaled_dim.width;
             scaled_pos.height = scaled_dim.height;
-
-            // draw background
-            pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, width, height);
         }
         
         Gdk.InterpType interp = (fast) ? FAST_INTERP : QUALITY_INTERP;
@@ -2212,21 +2236,23 @@ public abstract class SinglePhotoPage : Page {
         assert(unscaled != null);
         assert(canvas.window != null);
         
-        pixmap = new Gdk.Pixmap(canvas.window, width, height, -1);
+        // Cairo backing surface (manual double-buffering)
+        pixmap = new Cairo.ImageSurface(Cairo.Format.ARGB32, width, height);
         pixmap_dim = Dimensions(width, height);
+        
+        // Cairo context for drawing on the pixmap
+        pixmap_ctx = new Cairo.Context(pixmap);
         
         // need a new pixbuf to fit this scale
         scaled = null;
-
-        // GC for drawing on the pixmap
-        canvas_gc = canvas.style.fg_gc[(int) Gtk.StateType.NORMAL];
-
-        // GC for text
-        text_gc = canvas.style.white_gc;
-
+        
+        // Cairo context for drawing text on the pixmap
+        text_ctx = new Cairo.Context(pixmap);
+        Gdk.cairo_set_source_color(text_ctx, canvas.style.white);
+        
         // no need to resize canvas, viewport does that automatically
-
-        new_drawable(canvas_gc, pixmap);
+        
+        new_surface(pixmap_ctx, pixmap_dim);
     }
 
     protected override bool on_context_keypress() {

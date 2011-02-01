@@ -363,7 +363,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         public EditingHostCanvas(EditingHostPage host_page) {
             base(host_page.get_container(), host_page.canvas.window, host_page.get_photo(),
-                host_page.canvas_gc, host_page.get_drawable(), host_page.get_scaled_pixbuf(),
+                host_page.get_cairo_context(), host_page.get_surface_dim(), host_page.get_scaled_pixbuf(),
                 host_page.get_scaled_pixbuf_position());
             
             this.host_page = host_page;
@@ -1010,8 +1010,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         int y = allocation.height - text_height;
         y = (y > 0) ? y / 2 : 0;
-
-        Gdk.draw_layout(get_drawable(), text_gc, x, y, pango_layout);
+        
+        paint_text(pango_layout, x, y);
     }
 
     // This method can be called indiscriminantly, whether or not the backing is actually present.
@@ -1123,7 +1123,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.set_value(0.0);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
 
-        set_zoom_state(ZoomState(get_photo().get_dimensions(), get_drawable_dim(), 0.0));
+        set_zoom_state(ZoomState(get_photo().get_dimensions(), get_surface_dim(), 0.0));
 
         // when cancelling zoom, panning becomes impossible, so set the cursor back to
         // a left pointer in case it had been a hand-grip cursor indicating that panning
@@ -1492,7 +1492,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Dimensions content_dim = {0};
         content_dim.width = get_zoom_state().get_zoomed_width();
         content_dim.height = get_zoom_state().get_zoomed_height();
-        Dimensions canvas_dim = get_drawable_dim();
+        Dimensions canvas_dim = get_surface_dim();
 
         return (!(canvas_dim.width >= content_dim.width && canvas_dim.height >= content_dim.height));
     }
@@ -1660,10 +1660,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
     
-    protected override void new_drawable(Gdk.GC default_gc, Gdk.Drawable drawable) {
+    protected override void new_surface(Cairo.Context default_ctx, Dimensions dim) {
         // if tool is open, update its canvas object
         if (current_tool != null)
-            current_tool.canvas.set_drawable(default_gc, drawable);
+            current_tool.canvas.set_surface(default_ctx, dim);
     }
     
     protected override void updated_pixbuf(Gdk.Pixbuf pixbuf, SinglePhotoPage.UpdateReason reason, 
@@ -1692,9 +1692,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return null;
     }
     
-    protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+    protected override void paint(Cairo.Context ctx, Dimensions ctx_dim) {
         if (current_tool != null) {
-            current_tool.paint(gc, drawable);
+            current_tool.paint(ctx);
             
             return;
         }
@@ -1705,7 +1705,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         }
         
-        base.paint(gc, drawable);
+        base.paint(ctx, ctx_dim);
         
         if (!get_zoom_state().is_default())
             return;
@@ -1715,34 +1715,38 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         Gdk.Pixbuf? trinket = get_bottom_left_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            drawable.draw_pixbuf(gc, trinket, 0, 0, 
-                scaled_rect.x + TRINKET_PADDING,
-                scaled_rect.y + scaled_rect.height - trinket.height - TRINKET_PADDING,
-                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+            int x = scaled_rect.x + TRINKET_PADDING;
+            int y = scaled_rect.y + scaled_rect.height - trinket.height - TRINKET_PADDING;
+            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
+            ctx.rectangle(x, y, trinket.width, trinket.height);
+            ctx.fill();
         }
         
         trinket = get_top_left_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            drawable.draw_pixbuf(gc, trinket, 0, 0,
-                scaled_rect.x + TRINKET_PADDING,
-                scaled_rect.y + TRINKET_PADDING,
-                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+            int x = scaled_rect.x + TRINKET_PADDING;
+            int y = scaled_rect.y + TRINKET_PADDING;
+            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
+            ctx.rectangle(x, y, trinket.width, trinket.height);
+            ctx.fill();
         }
         
         trinket = get_top_right_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            drawable.draw_pixbuf(gc, trinket, 0, 0,
-                scaled_rect.x + scaled_rect.width - trinket.width - TRINKET_PADDING,
-                scaled_rect.y + TRINKET_PADDING,
-                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+            int x = scaled_rect.x + scaled_rect.width - trinket.width - TRINKET_PADDING;
+            int y = scaled_rect.y + TRINKET_PADDING;
+            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
+            ctx.rectangle(x, y, trinket.width, trinket.height);
+            ctx.fill();
         }
         
         trinket = get_bottom_right_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            drawable.draw_pixbuf(gc, trinket, 0, 0,
-                scaled_rect.x + scaled_rect.width - trinket.width - TRINKET_PADDING,
-                scaled_rect.y + scaled_rect.height - trinket.height - TRINKET_PADDING,
-                trinket.width, trinket.height, Gdk.RgbDither.NORMAL, 0, 0);
+            int x = scaled_rect.x + scaled_rect.width - trinket.width - TRINKET_PADDING;
+            int y = scaled_rect.y + scaled_rect.height - trinket.height - TRINKET_PADDING;
+            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
+            ctx.rectangle(x, y, trinket.width, trinket.height);
+            ctx.fill();
         }
     }
     

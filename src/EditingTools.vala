@@ -66,23 +66,25 @@ public abstract class PhotoCanvas {
     private Gtk.Window container;
     private Gdk.Window drawing_window;
     private Photo photo;
-    private Gdk.GC default_gc;
-    private Gdk.Drawable drawable;
-    private Gdk.Pixbuf scaled;
+    private Cairo.Context default_ctx;
+    private Dimensions surface_dim;
+    private Cairo.Surface scaled;
+    private Gdk.Pixbuf scaled_pixbuf;
     private Gdk.Rectangle scaled_position;
     
     public PhotoCanvas(Gtk.Window container, Gdk.Window drawing_window, Photo photo, 
-        Gdk.GC default_gc, Gdk.Drawable drawable, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
+        Cairo.Context default_ctx, Dimensions surface_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
         this.container = container;
         this.drawing_window = drawing_window;
         this.photo = photo;
-        this.default_gc = default_gc;
-        this.drawable = drawable;
-        this.scaled = scaled;
+        this.default_ctx = default_ctx;
+        this.surface_dim = surface_dim;
         this.scaled_position = scaled_position;
+        this.scaled_pixbuf = scaled;
+        this.scaled = pixbuf_to_surface(default_ctx, scaled, scaled_position);
     }
     
-    public signal void new_drawable(Gdk.GC default_gc, Gdk.Drawable drawable);
+    public signal void new_surface(Cairo.Context ctx, Dimensions dim);
     
     public signal void resized_scaled_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, 
         Gdk.Rectangle scaled_position);
@@ -165,30 +167,31 @@ public abstract class PhotoCanvas {
         return drawing_window;
     }
     
-    public Gdk.GC get_default_gc() {
-        return default_gc;
+    public Cairo.Context get_default_ctx() {
+        return default_ctx;
     }
     
-    public Gdk.Drawable get_drawable() {
-        return drawable;
+    public Dimensions get_surface_dim() {
+        return surface_dim;
     }
     
     public Scaling get_scaling() {
-        int width, height;
-        drawable.get_size(out width, out height);
-        
-        return Scaling.for_viewport(Dimensions(width, height), false);
+        return Scaling.for_viewport(surface_dim, false);
     }
     
-    public void set_drawable(Gdk.GC default_gc, Gdk.Drawable drawable) {
-        this.default_gc = default_gc;
-        this.drawable = drawable;
+    public void set_surface(Cairo.Context default_ctx, Dimensions surface_dim) {
+        this.default_ctx = default_ctx;
+        this.surface_dim = surface_dim;
         
-        new_drawable(default_gc, drawable);
+        new_surface(default_ctx, surface_dim);
+    }
+    
+    public Cairo.Surface get_scaled_surface() {
+        return scaled;
     }
     
     public Gdk.Pixbuf get_scaled_pixbuf() {
-        return scaled;
+        return scaled_pixbuf;
     }
     
     public Gdk.Rectangle get_scaled_pixbuf_position() {
@@ -196,7 +199,8 @@ public abstract class PhotoCanvas {
     }
     
     public void resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
-        this.scaled = scaled;
+        this.scaled = pixbuf_to_surface(default_ctx, scaled, scaled_position);
+        this.scaled_pixbuf = scaled;
         this.scaled_position = scaled_position;
         
         resized_scaled_pixbuf(old_dim, scaled, scaled_position);
@@ -210,91 +214,134 @@ public abstract class PhotoCanvas {
     //
     // If these methods are not used, all painting to the drawable should be offet by
     // get_scaled_pixbuf_position().x and get_scaled_pixbuf_position().y
-    
     public void paint_pixbuf(Gdk.Pixbuf pixbuf) {
+        default_ctx.save();
         if (pixbuf.get_has_alpha()) {
-            drawable.draw_rectangle(container.style.black_gc, true,
-                scaled_position.x, scaled_position.y,
+            Gdk.cairo_set_source_color(default_ctx, container.style.black);
+            default_ctx.rectangle(scaled_position.x, scaled_position.y,
                 pixbuf.get_width(), pixbuf.get_height());
+            default_ctx.fill();
         }
-        drawable.draw_pixbuf(default_gc, pixbuf,
-            0, 0,
-            scaled_position.x, scaled_position.y,
-            pixbuf.get_width(), pixbuf.get_height(),
-            Gdk.RgbDither.NORMAL, 0, 0);
+        Gdk.cairo_set_source_pixbuf(default_ctx, pixbuf, scaled_position.x, scaled_position.y);
+        default_ctx.rectangle(scaled_position.x, scaled_position.y,
+            pixbuf.get_width(), pixbuf.get_height());
+        default_ctx.fill();
+        default_ctx.restore();
     }
-    
+
     public void paint_pixbuf_area(Gdk.Pixbuf pixbuf, Box source_area) {
+        default_ctx.save();
         if (pixbuf.get_has_alpha()) {
-            drawable.draw_rectangle(container.style.black_gc, true,
-                scaled_position.x + source_area.left, scaled_position.y + source_area.top,
+            Gdk.cairo_set_source_color(default_ctx, container.style.black);
+            default_ctx.rectangle(scaled_position.x + source_area.left,
+                scaled_position.y + source_area.top,
                 source_area.get_width(), source_area.get_height());
+            default_ctx.fill();
+
         }
-        drawable.draw_pixbuf(default_gc, pixbuf,
-            source_area.left, source_area.top,
-            scaled_position.x + source_area.left, scaled_position.y + source_area.top,
-            source_area.get_width(), source_area.get_height(),
-            Gdk.RgbDither.NORMAL, 0, 0);
+        Gdk.cairo_set_source_pixbuf(default_ctx, pixbuf, scaled_position.x,
+            scaled_position.y);
+        default_ctx.rectangle(scaled_position.x + source_area.left,
+            scaled_position.y + source_area.top,
+            source_area.get_width(), source_area.get_height());
+        default_ctx.fill();
+        default_ctx.restore();
+    }
+
+    // Paint a surface on top of the photo
+    public void paint_surface(Cairo.Surface surface, bool over) {
+        default_ctx.save();
+        if (over == false)
+            default_ctx.set_operator(Cairo.Operator.SOURCE);
+        else
+            default_ctx.set_operator(Cairo.Operator.OVER);
+
+        default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
+        default_ctx.paint();
+        default_ctx.set_source_surface(surface, scaled_position.x, scaled_position.y);
+        default_ctx.paint();
+        default_ctx.restore();
     }
     
-    public void draw_box(Gdk.GC gc, Box box) {
+    public void paint_surface_area(Cairo.Surface surface, Box source_area, bool over) {
+        default_ctx.save();
+        if (over == false)
+            default_ctx.set_operator(Cairo.Operator.SOURCE);
+        else
+            default_ctx.set_operator(Cairo.Operator.OVER);
+
+        default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
+        default_ctx.rectangle(scaled_position.x + source_area.left,
+            scaled_position.y + source_area.top,
+            source_area.get_width(), source_area.get_height());
+        default_ctx.fill();
+
+        default_ctx.set_source_surface(surface, scaled_position.x, scaled_position.y);
+        default_ctx.rectangle(scaled_position.x + source_area.left,
+            scaled_position.y + source_area.top,
+            source_area.get_width(), source_area.get_height());
+        default_ctx.fill();
+        default_ctx.restore();
+    }
+    
+    public void draw_box(Cairo.Context ctx, Box box) {
         Gdk.Rectangle rect = box.get_rectangle();
         rect.x += scaled_position.x;
         rect.y += scaled_position.y;
         
-        // See note at gtk_drawable_draw_rectangle for info on off-by-one with unfilled rectangles
-        drawable.draw_rectangle(gc, false, rect.x, rect.y, rect.width - 1, rect.height - 1);
+        ctx.rectangle(rect.x + 0.5, rect.y + 0.5, rect.width - 1, rect.height - 1);
+        ctx.stroke();
     }
     
-    public void draw_horizontal_line(Gdk.GC gc, int x, int y, int width) {
+    public void draw_horizontal_line(Cairo.Context ctx, int x, int y, int width) {
+        x += scaled_position.x;
+        y += scaled_position.y;
+
+        ctx.move_to(x + 0.5, y + 0.5);
+        ctx.line_to(x + width - 1, y + 0.5);
+        ctx.stroke();
+    }
+    
+    public void draw_vertical_line(Cairo.Context ctx, int x, int y, int height) {
         x += scaled_position.x;
         y += scaled_position.y;
         
-        Gdk.draw_line(drawable, gc, x, y, x + width - 1, y);
-    }
-    
-    public void draw_vertical_line(Gdk.GC gc, int x, int y, int height) {
-        x += scaled_position.x;
-        y += scaled_position.y;
-        
-        Gdk.draw_line(drawable, gc, x, y, x, y + height - 1);
+        ctx.move_to(x + 0.5, y + 0.5);
+        ctx.line_to(x + 0.5, y + height - 1);
+        ctx.stroke();
     }
     
     public void erase_horizontal_line(int x, int y, int width) {
-        if (scaled.get_has_alpha())
-            draw_horizontal_line(container.style.black_gc, x, y, width);
+        default_ctx.save();
 
-        drawable.draw_pixbuf(default_gc, scaled,
-            x, y,
-            scaled_position.x + x, scaled_position.y + y,
-            width, 1,
-            Gdk.RgbDither.NORMAL, 0, 0);
+        default_ctx.set_operator(Cairo.Operator.SOURCE);
+        default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
+        default_ctx.rectangle(scaled_position.x + x, scaled_position.y + y,
+            width - 1, 1);
+        default_ctx.fill();
+
+        default_ctx.restore();
     }
 
-    public void draw_circle(Gdk.GC gc, int active_center_x, int active_center_y,
+    public void draw_circle(Cairo.Context ctx, int active_center_x, int active_center_y,
         int radius) {
-        int center_x = active_center_x + get_scaled_pixbuf_position().x;
-        int center_y = active_center_y + get_scaled_pixbuf_position().y;
+        int center_x = active_center_x + scaled_position.x;
+        int center_y = active_center_y + scaled_position.y;
 
-        Gdk.Rectangle bounds = { 0 };
-        bounds.x = center_x - radius;
-        bounds.y = center_y - radius;
-        bounds.width = 2 * radius;
-        bounds.height = bounds.width;
-        
-        Gdk.draw_arc(get_drawable(), gc, false, bounds.x, bounds.y,
-            bounds.width, bounds.height, 0, (360 * 64));
+        ctx.arc(center_x, center_y, radius, 0, 2 * GLib.Math.PI);
+        ctx.stroke();
     }
     
     public void erase_vertical_line(int x, int y, int height) {
-        if (scaled.get_has_alpha())
-            draw_vertical_line(container.style.black_gc, x, y, height);
+        default_ctx.save();
 
-        drawable.draw_pixbuf(default_gc, scaled,
-            x, y,
-            scaled_position.x + x, scaled_position.y + y,
-            1, height,
-            Gdk.RgbDither.NORMAL, 0, 0);
+        default_ctx.set_operator(Cairo.Operator.SOURCE);
+        default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
+        default_ctx.rectangle(scaled_position.x + x, scaled_position.y + y,
+            1, height - 1);
+        default_ctx.fill();
+
+        default_ctx.restore();
     }
     
     public void erase_box(Box box) {
@@ -312,12 +359,23 @@ public abstract class PhotoCanvas {
         
         drawing_window.invalidate_rect(rect, false);
     }
+
+    private Cairo.Surface pixbuf_to_surface(Cairo.Context default_ctx, Gdk.Pixbuf pixbuf,
+        Gdk.Rectangle pos) {
+        Cairo.Surface surface = new Cairo.Surface.similar(default_ctx.get_target(),
+            Cairo.Content.COLOR_ALPHA, pos.width, pos.height);
+        Cairo.Context ctx = new Cairo.Context(surface);
+        Gdk.cairo_set_source_pixbuf(ctx, pixbuf, 0, 0);
+        ctx.paint();
+        return surface;
+    }
 }
 
 public abstract class EditingTool {
     public PhotoCanvas canvas = null;
     
     private EditingToolWindow tool_window = null;
+    protected Cairo.Surface surface;
     
     [CCode (has_target=false)]
     public delegate EditingTool Factory();
@@ -414,7 +472,7 @@ public abstract class EditingTool {
         return false;
     }
     
-    public virtual void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+    public virtual void paint(Cairo.Context ctx) {
     }
     
     // Helper function that fires the cancelled signal.  (Can be connected to other signals.)
@@ -541,12 +599,14 @@ public class CropTool : EditingTool {
     }
 
     private CropToolWindow crop_tool_window = null;
-    private Gdk.Pixbuf color_shifted = null;
     private Gdk.CursorType current_cursor_type = Gdk.CursorType.LEFT_PTR;
     private BoxLocation in_manipulation = BoxLocation.OUTSIDE;
-    private Gdk.GC wide_black_gc = null;
-    private Gdk.GC wide_white_gc = null;
-    private Gdk.GC thin_white_gc = null;
+    private Cairo.Context wide_black_ctx = null;
+    private Cairo.Context wide_white_ctx = null;
+    private Cairo.Context thin_white_ctx = null;
+
+    // This is where we draw our crop tool
+    private Cairo.Surface crop_surface = null;
 
     // these are kept in absolute coordinates, not relative to photo's position on canvas
     private Box scaled_crop;
@@ -631,8 +691,8 @@ public class CropTool : EditingTool {
         ConstraintDescription result = constraints[crop_tool_window.constraint_combo.get_active()];
 
         if (result.aspect_ratio == ORIGINAL_ASPECT_RATIO) {
-            result.basis_width = canvas.get_scaled_pixbuf().width;
-            result.basis_height = canvas.get_scaled_pixbuf().height;
+            result.basis_width = canvas.get_scaled_pixbuf_position().width;
+            result.basis_height = canvas.get_scaled_pixbuf_position().height;
         } else if (result.aspect_ratio == SCREEN_ASPECT_RATIO) {
             Gdk.Screen screen = Gdk.Screen.get_default();
             result.basis_width = screen.get_width();
@@ -731,8 +791,8 @@ public class CropTool : EditingTool {
         float result = get_selected_constraint().aspect_ratio;
 
         if (result == ORIGINAL_ASPECT_RATIO) {
-            result = ((float) canvas.get_scaled_pixbuf().width) /
-                ((float) canvas.get_scaled_pixbuf().height);
+            result = ((float) canvas.get_scaled_pixbuf_position().width) /
+                ((float) canvas.get_scaled_pixbuf_position().height);
         } else if (result == SCREEN_ASPECT_RATIO) {
             Gdk.Screen screen = Gdk.Screen.get_default();
             result = ((float) screen.get_width()) / ((float) screen.get_height());
@@ -886,8 +946,8 @@ public class CropTool : EditingTool {
         //          because scaling preserves the center point of the box, so if the user
         //          has framed a particular subject, the frame remains on the subject after
         //          boundary correction.
-        int photo_right_edge = canvas.get_scaled_pixbuf().width - 1;
-        int photo_bottom_edge = canvas.get_scaled_pixbuf().height - 1;
+        int photo_right_edge = canvas.get_scaled_pixbuf_position().width - 1;
+        int photo_bottom_edge = canvas.get_scaled_pixbuf_position().height - 1;
 
         int new_box_left = (int) ((scaled_center_x - (scaled_width / 2.0f)));
         int new_box_right = (int) ((scaled_center_x + (scaled_width / 2.0f)));
@@ -933,9 +993,19 @@ public class CropTool : EditingTool {
     public override void activate(PhotoCanvas canvas) {
         bind_canvas_handlers(canvas);
         
-        prepare_gc(canvas.get_default_gc(), canvas.get_drawable());
-        prepare_visuals(canvas.get_scaled_pixbuf());
-        
+        prepare_ctx(canvas.get_default_ctx(), canvas.get_surface_dim());
+
+        if (crop_surface != null)
+            crop_surface = null;
+
+        crop_surface = new Cairo.ImageSurface(Cairo.Format.ARGB32,
+            canvas.get_scaled_pixbuf_position().width,
+            canvas.get_scaled_pixbuf_position().height);
+
+        Cairo.Context ctx = new Cairo.Context(crop_surface);
+        ctx.set_source_rgba(0.0, 0.0, 0.0, 1.0);
+        ctx.paint();
+
         // create the crop tool window, where the user can apply or cancel the crop
         crop_tool_window = new CropToolWindow(canvas.get_container());
         
@@ -976,12 +1046,12 @@ public class CropTool : EditingTool {
     }
     
     private void bind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.new_drawable.connect(prepare_gc);
+        canvas.new_surface.connect(prepare_ctx);
         canvas.resized_scaled_pixbuf.connect(on_resized_pixbuf);
     }
     
     private void unbind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.new_drawable.disconnect(prepare_gc);
+        canvas.new_surface.disconnect(prepare_ctx);
         canvas.resized_scaled_pixbuf.disconnect(on_resized_pixbuf);
     }
     
@@ -1040,6 +1110,8 @@ public class CropTool : EditingTool {
         if (canvas != null)
             canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
 
+        crop_surface = null;
+
         base.deactivate();
     }
     
@@ -1059,34 +1131,18 @@ public class CropTool : EditingTool {
         return photo.get_pixbuf_with_options(scaling, Photo.Exception.CROP);
     }
  
-    private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
-        Gdk.GCValues gc_values = Gdk.GCValues();
-        gc_values.foreground = fetch_color("#000", drawable);
-        gc_values.function = Gdk.Function.COPY;
-        gc_values.fill = Gdk.Fill.SOLID;
-        gc_values.line_width = 1;
-        gc_values.line_style = Gdk.LineStyle.SOLID;
-        gc_values.cap_style = Gdk.CapStyle.BUTT;
-        gc_values.join_style = Gdk.JoinStyle.MITER;
-
-        Gdk.GCValuesMask mask = 
-            Gdk.GCValuesMask.FOREGROUND
-            | Gdk.GCValuesMask.FUNCTION
-            | Gdk.GCValuesMask.FILL
-            | Gdk.GCValuesMask.LINE_WIDTH 
-            | Gdk.GCValuesMask.LINE_STYLE
-            | Gdk.GCValuesMask.CAP_STYLE
-            | Gdk.GCValuesMask.JOIN_STYLE;
-
-        wide_black_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
+    private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
+        wide_black_ctx = new Cairo.Context(ctx.get_target());
+        Gdk.cairo_set_source_color(wide_black_ctx, fetch_color("#000"));
+        wide_black_ctx.set_line_width(1);
         
-        gc_values.foreground = fetch_color("#FFF", drawable);
+        wide_white_ctx = new Cairo.Context(ctx.get_target());
+        Gdk.cairo_set_source_color(wide_white_ctx, fetch_color("#FFF"));
+        wide_white_ctx.set_line_width(1);
         
-        wide_white_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
-        
-        gc_values.line_width = 0;
-        
-        thin_white_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
+        thin_white_ctx = new Cairo.Context(ctx.get_target());
+        Gdk.cairo_set_source_color(thin_white_ctx, fetch_color("#FFF"));
+        thin_white_ctx.set_line_width(0.5);
     }
     
     private void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
@@ -1098,15 +1154,14 @@ public class CropTool : EditingTool {
         
         // rescale back to new size
         scaled_crop = crop.get_scaled_similar(uncropped_dim, new_dim);
+        if (crop_surface != null)
+            crop_surface = null;
 
-        prepare_visuals(scaled);
-    }
-    
-    private void prepare_visuals(Gdk.Pixbuf pixbuf) {
-        // create color shifted pixbuf for crop exterior
-        color_shifted = pixbuf.copy();
-        shift_colors(color_shifted, CROP_EXTERIOR_RED_SHIFT, CROP_EXTERIOR_GREEN_SHIFT,
-            CROP_EXTERIOR_BLUE_SHIFT, CROP_EXTERIOR_ALPHA_SHIFT);
+        crop_surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, scaled.width, scaled.height);
+        Cairo.Context ctx = new Cairo.Context(crop_surface);
+        ctx.set_source_rgba(0.0, 0.0, 0.0, 1.0);
+        ctx.paint();
+
     }
     
     public override void on_left_click(int x, int y) {
@@ -1149,13 +1204,18 @@ public class CropTool : EditingTool {
         update_cursor(x, y);
     }
     
-    public override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
-        // painter's algorithm: from the bottom up, starting with the color shifted portion of the
-        // photo outside the crop
-        canvas.paint_pixbuf(color_shifted);
+    public override void paint(Cairo.Context default_ctx) {
+        Cairo.Context ctx = new Cairo.Context(crop_surface);
+        ctx.set_operator(Cairo.Operator.SOURCE);
+        ctx.set_source_rgba(0.0, 0.0, 0.0, 0.5);
+        ctx.paint();
         
         // paint exposed (cropped) part of pixbuf minus crop border
-        canvas.paint_pixbuf_area(canvas.get_scaled_pixbuf(), scaled_crop);
+        ctx.set_source_rgba(0.0, 0.0, 0.0, 0.0);
+        ctx.rectangle(scaled_crop.left, scaled_crop.top, scaled_crop.get_width(),
+            scaled_crop.get_height());
+        ctx.fill();
+        canvas.paint_surface(crop_surface, true);
 
         // paint crop tool last
         paint_crop_tool(scaled_crop);
@@ -1539,19 +1599,11 @@ public class CropTool : EditingTool {
         // this should never happen ... this means that the operation wasn't a resize
         assert(complements != BoxComplements.NONE);
         
-        if (complements == BoxComplements.HORIZONTAL || complements == BoxComplements.BOTH) {
-            Gdk.Pixbuf pb = horizontal_enlarged ? canvas.get_scaled_pixbuf() : color_shifted;
-            canvas.paint_pixbuf_area(pb, horizontal);
-            
-            canvas.invalidate_area(horizontal);
-        }
+        if (complements == BoxComplements.HORIZONTAL || complements == BoxComplements.BOTH)
+            set_area_alpha(horizontal, horizontal_enlarged ? 0.0 : 0.5);
         
-        if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH) {
-            Gdk.Pixbuf pb = vertical_enlarged ? canvas.get_scaled_pixbuf() : color_shifted;
-            canvas.paint_pixbuf_area(pb, vertical);
-            
-            canvas.invalidate_area(vertical);
-        }
+        if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH)
+            set_area_alpha(vertical, vertical_enlarged ? 0.0 : 0.5);
         
         paint_crop_tool(new_crop);
         canvas.invalidate_area(new_crop);
@@ -1576,35 +1628,35 @@ public class CropTool : EditingTool {
         
         if (complements == BoxComplements.HORIZONTAL || complements == BoxComplements.BOTH) {
             // paint in the horizontal complements appropriately
-            canvas.paint_pixbuf_area(color_shifted, scaled_horizontal);
-            canvas.paint_pixbuf_area(canvas.get_scaled_pixbuf(), new_horizontal);
-            
-            canvas.invalidate_area(scaled_horizontal);
-            canvas.invalidate_area(new_horizontal);
+            set_area_alpha(scaled_horizontal, 0.5);
+            set_area_alpha(new_horizontal, 0.0);
         }
         
         if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH) {
             // paint in vertical complements appropriately
-            canvas.paint_pixbuf_area(color_shifted, scaled_vertical);
-            canvas.paint_pixbuf_area(canvas.get_scaled_pixbuf(), new_vertical);
-            
-            canvas.invalidate_area(scaled_vertical);
-            canvas.invalidate_area(new_vertical);
+            set_area_alpha(scaled_vertical, 0.5);
+            set_area_alpha(new_vertical, 0.0);
         }
         
         if (complements == BoxComplements.NONE) {
             // this means the two boxes have no intersection, not that they're equal ... since
             // there's no intersection, fill in both new and old with apropriate pixbufs
-            canvas.paint_pixbuf_area(color_shifted, scaled_crop);
-            canvas.paint_pixbuf_area(canvas.get_scaled_pixbuf(), new_crop);
-            
-            canvas.invalidate_area(scaled_crop);
-            canvas.invalidate_area(new_crop);
+            set_area_alpha(scaled_crop, 0.5);
+            set_area_alpha(new_crop, 0.0);
         }
         
         // paint crop in new location
         paint_crop_tool(new_crop);
         canvas.invalidate_area(new_crop);
+    }
+
+    private void set_area_alpha(Box area, double alpha) {
+        Cairo.Context ctx = new Cairo.Context(crop_surface);
+        ctx.set_operator(Cairo.Operator.SOURCE);
+        ctx.set_source_rgba(0.0, 0.0, 0.0, alpha);
+        ctx.rectangle(area.left, area.top, area.get_width(), area.get_height());
+        ctx.fill();
+        canvas.paint_surface_area(crop_surface, area, true);
     }
 
     private void paint_crop_tool(Box crop) {
@@ -1613,17 +1665,17 @@ public class CropTool : EditingTool {
             int one_third_x = crop.get_width() / 3;
             int one_third_y = crop.get_height() / 3;
             
-            canvas.draw_horizontal_line(thin_white_gc, crop.left, crop.top + one_third_y, crop.get_width());
-            canvas.draw_horizontal_line(thin_white_gc, crop.left, crop.top + (one_third_y * 2), crop.get_width());
+            canvas.draw_horizontal_line(thin_white_ctx, crop.left, crop.top + one_third_y, crop.get_width());
+            canvas.draw_horizontal_line(thin_white_ctx, crop.left, crop.top + (one_third_y * 2), crop.get_width());
 
-            canvas.draw_vertical_line(thin_white_gc, crop.left + one_third_x, crop.top, crop.get_height());
-            canvas.draw_vertical_line(thin_white_gc, crop.left + (one_third_x * 2), crop.top, crop.get_height());
+            canvas.draw_vertical_line(thin_white_ctx, crop.left + one_third_x, crop.top, crop.get_height());
+            canvas.draw_vertical_line(thin_white_ctx, crop.left + (one_third_x * 2), crop.top, crop.get_height());
         }
 
         // outer rectangle ... outer line in black, inner in white, corners fully black
-        canvas.draw_box(wide_black_gc, crop);
-        canvas.draw_box(wide_white_gc, crop.get_reduced(1));
-        canvas.draw_box(wide_white_gc, crop.get_reduced(2));
+        canvas.draw_box(wide_black_ctx, crop);
+        canvas.draw_box(wide_white_ctx, crop.get_reduced(1));
+        canvas.draw_box(wide_white_ctx, crop.get_reduced(2));
     }
     
     private void erase_crop_tool(Box crop) {
@@ -1717,8 +1769,8 @@ public class RedeyeTool : EditingTool {
         }
     }
     
-    private Gdk.GC thin_white_gc = null;
-    private Gdk.GC wider_gray_gc = null;
+    private Cairo.Context thin_white_ctx = null;
+    private Cairo.Context wider_gray_ctx = null;
     private RedeyeToolWindow redeye_tool_window = null;
     private RedeyeInstance user_interaction_instance;
     private bool is_reticle_move_in_progress = false;
@@ -1757,36 +1809,20 @@ public class RedeyeTool : EditingTool {
         return result;
     }
     
-    private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
-        Gdk.GCValues gc_values = Gdk.GCValues();
-        gc_values.function = Gdk.Function.COPY;
-        gc_values.fill = Gdk.Fill.SOLID;
-        gc_values.line_style = Gdk.LineStyle.SOLID;
-        gc_values.cap_style = Gdk.CapStyle.BUTT;
-        gc_values.join_style = Gdk.JoinStyle.MITER;
+    private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
+        wider_gray_ctx = new Cairo.Context(ctx.get_target());
+        Gdk.cairo_set_source_color(wider_gray_ctx, fetch_color("#222"));
+        wider_gray_ctx.set_line_width(1);
 
-        Gdk.GCValuesMask mask = 
-            Gdk.GCValuesMask.FOREGROUND
-            | Gdk.GCValuesMask.FUNCTION
-            | Gdk.GCValuesMask.FILL
-            | Gdk.GCValuesMask.LINE_WIDTH 
-            | Gdk.GCValuesMask.LINE_STYLE
-            | Gdk.GCValuesMask.CAP_STYLE
-            | Gdk.GCValuesMask.JOIN_STYLE;
-
-        gc_values.foreground = fetch_color("#222", drawable);
-        gc_values.line_width = 1;
-        wider_gray_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
-
-        gc_values.foreground = fetch_color("#FFF", drawable);
-        gc_values.line_width = 1;
-        thin_white_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
+        thin_white_ctx = new Cairo.Context(ctx.get_target());
+        Gdk.cairo_set_source_color(thin_white_ctx, fetch_color("#222"));
+        thin_white_ctx.set_line_width(1);
     }
     
     private void draw_redeye_instance(RedeyeInstance inst) {
-        canvas.draw_circle(wider_gray_gc, inst.center.x, inst.center.y,
+        canvas.draw_circle(wider_gray_ctx, inst.center.x, inst.center.y,
             inst.radius - 1);
-        canvas.draw_circle(thin_white_gc, inst.center.x, inst.center.y,
+        canvas.draw_circle(thin_white_ctx, inst.center.x, inst.center.y,
             inst.radius - 2);
     }
     
@@ -1864,7 +1900,7 @@ public class RedeyeTool : EditingTool {
     public override void activate(PhotoCanvas canvas) {
         user_interaction_instance = new_interaction_instance(canvas);
         
-        prepare_gc(canvas.get_default_gc(), canvas.get_drawable());
+        prepare_ctx(canvas.get_default_ctx(), canvas.get_surface_dim());
         
         bind_canvas_handlers(canvas);
         
@@ -1906,12 +1942,12 @@ public class RedeyeTool : EditingTool {
     }
     
     private void bind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.new_drawable.connect(prepare_gc);
+        canvas.new_surface.connect(prepare_ctx);
         canvas.resized_scaled_pixbuf.connect(on_canvas_resize);
     }
     
     private void unbind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.new_drawable.disconnect(prepare_gc);
+        canvas.new_surface.disconnect(prepare_ctx);
         canvas.resized_scaled_pixbuf.disconnect(on_canvas_resize);
     }
     
@@ -1931,7 +1967,7 @@ public class RedeyeTool : EditingTool {
         return redeye_tool_window;
     }
     
-    public override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+    public override void paint(Cairo.Context ctx) {
         canvas.paint_pixbuf((current_pixbuf != null) ? current_pixbuf : canvas.get_scaled_pixbuf());
         
         /* user_interaction_instance has its radius in user coords, and
@@ -2386,7 +2422,7 @@ public class AdjustTool : EditingTool {
         base.deactivate();
     }
 
-    public override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+    public override void paint(Cairo.Context ctx) {
         if (!suppress_effect_redraw) {
             transformer.transform_from_fp(ref fp_pixel_cache, draw_to_pixbuf);
             histogram_transformer.transform_to_other_pixbuf(virgin_histogram_pixbuf,

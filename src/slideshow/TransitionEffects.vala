@@ -217,6 +217,8 @@ public class TransitionClock {
         
         paint_timer.start();
         
+        ctx.save();
+        
         if (effect.needs_clear_background()) {
             Gdk.cairo_set_source_color(ctx, visuals.bg_color);
             ctx.rectangle(0, 0, width, height);
@@ -224,6 +226,8 @@ public class TransitionClock {
         }
         
         effect.paint(visuals, motion, ctx, width, height, frame_number);
+        
+        ctx.restore();
         
         paint_timer.stop();
         
