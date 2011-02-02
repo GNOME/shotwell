@@ -43,7 +43,7 @@ public class TrashPage : CheckerboardPage {
         init_page_context_menu("/TrashPageMenu");
 
         // Adds one menu entry per alien database driver
-        AlienDatabaseHandler.get_instance().add_menu_entries(
+        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/TrashMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
         

@@ -164,7 +164,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         get_view().monitor_source_collection(Event.global, view_manager, null, initial_events);
         
         // Adds one menu entry per alien database driver
-        AlienDatabaseHandler.get_instance().add_menu_entries(
+        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
         
@@ -369,7 +369,7 @@ public class NoEventPage : CollectionPage {
         base(NO_EVENT_PAGE_NAME);
         
         // Adds one menu entry per alien database driver
-        AlienDatabaseHandler.get_instance().add_menu_entries(
+        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
         
@@ -423,7 +423,7 @@ public class EventPage : CollectionPage {
         base (page_event.get_name());
         
         // Adds one menu entry per alien database driver
-        AlienDatabaseHandler.get_instance().add_menu_entries(
+        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
         

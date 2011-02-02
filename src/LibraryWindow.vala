@@ -346,7 +346,7 @@ public class LibraryWindow : AppWindow {
         actions += import;
         
         // Add one action per alien database driver
-        foreach (AlienDatabaseDriver driver in AlienDatabaseHandler.get_instance().get_drivers()) {
+        foreach (AlienDb.AlienDatabaseDriver driver in AlienDb.AlienDatabaseHandler.get_instance().get_drivers()) {
             Gtk.ActionEntry import_from_alien_db = driver.get_action_entry();
             actions += import_from_alien_db;
         }

@@ -479,7 +479,7 @@
     <property name="page_increment">1000</property>
     <property name="page_size">1000</property>
   </object>
-  <object class="AlienDatabaseImportDialog" id="alien-db-import_dialog">
+  <object class="AlienDbAlienDatabaseImportDialog" id="alien-db-import_dialog">
     <property name="resizable">False</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
@@ -514,7 +514,7 @@
                     <child>
                       <object class="GtkFileChooserButton" id="db_filechooserbutton">
                         <property name="visible">True</property>
-                        <signal name="file_set" handler="alien_database_import_dialog_on_file_chooser_file_set" object="alien-db-import_dialog"/>
+                        <signal name="file_set" handler="alien_db_alien_database_import_dialog_on_file_chooser_file_set" object="alien-db-import_dialog"/>
                       </object>
                     </child>
                   </object>

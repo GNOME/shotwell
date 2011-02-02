@@ -155,7 +155,6 @@ void library_exec(string[] mounts) {
         aggregate_monitor.next_step("Event.init");
     Event.init(monitor);
     Tag.init();
-    AlienDatabaseHandler.init();
     MetadataWriter.init();
     DesktopIntegration.init();
     
@@ -192,7 +191,8 @@ void library_exec(string[] mounts) {
     }
     
     if (do_fspot_import) {
-        FSpotDatabaseDriver.do_import(report_fspot_import);
+        // TODO: remove dependency on FSpot
+        AlienDb.FSpot.FSpotDatabaseDriver.do_import(report_fspot_import);
     } else if (do_system_pictures_import) { /* else-if because f-spot import will run the system
                                                pictures import automatically if it's requested */
         run_system_pictures_import();
@@ -204,7 +204,6 @@ void library_exec(string[] mounts) {
     
     DesktopIntegration.terminate();
     MetadataWriter.terminate();
-    AlienDatabaseHandler.terminate();
     Tag.terminate();
     Event.terminate();
     LibraryPhoto.terminate();

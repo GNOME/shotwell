@@ -98,11 +98,6 @@ UNUNITIZED_SRC_FILES = \
 	LibraryMonitor.vala \
 	OfflinePage.vala \
 	LastImportPage.vala \
-	AlienDatabase.vala \
-	AlienDatabaseImportJob.vala \
-	AlienDatabaseImportDialog.vala \
-	FSpotDatabaseDriver.vala \
-	FSpotDatabaseTables.vala \
 	VideoSupport.vala \
 	VideosPage.vala \
 	Tombstone.vala \

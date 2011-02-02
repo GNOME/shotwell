@@ -1626,7 +1626,7 @@ public class WelcomeDialog : Gtk.Dialog {
     }
     
     private static bool is_fspot_import_possible() {
-        return FSpotDatabaseDriver.is_available();
+        return AlienDb.FSpot.FSpotDatabaseDriver.is_available();
     }
 }
 

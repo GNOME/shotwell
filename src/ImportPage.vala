@@ -508,7 +508,7 @@ public class ImportPage : CheckerboardPage {
         Video.global.contents_altered.connect(on_media_added_removed);
         
         // Adds one menu entry per alien database driver
-        AlienDatabaseHandler.get_instance().add_menu_entries(
+        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/ImportMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
         init_item_context_menu("/ImportContextMenu");
@@ -1353,7 +1353,7 @@ public class ImportQueuePage : SinglePhotoPage {
         base(_("Importing..."), false);
         
         // Adds one menu entry per alien database driver
-        AlienDatabaseHandler.get_instance().add_menu_entries(
+        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/ImportQueueMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
         

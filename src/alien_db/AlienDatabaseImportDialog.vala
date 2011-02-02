@@ -4,24 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-public class AlienDatabaseImportDialogController {
-    private AlienDatabaseImportDialog dialog;
-    
-    public AlienDatabaseImportDialogController(string title, AlienDatabaseDriver driver,
-        BatchImport.ImportReporter? reporter = null) {
-        if (reporter == null)
-            reporter = alien_import_reporter;
-            
-        Gtk.Builder builder = AppWindow.create_builder();
-        dialog = builder.get_object("alien-db-import_dialog") as AlienDatabaseImportDialog;
-        dialog.set_builder(builder);
-        dialog.setup(title, driver, reporter);
-    }
-    
-    public void execute() {
-        dialog.execute();
-    }
-}
+namespace AlienDb {
 
 public class AlienDatabaseImportDialog : Gtk.Dialog {
     private static const int MSG_NOTEBOOK_PAGE_EMPTY = 0;
@@ -234,5 +217,7 @@ public class AlienDatabaseImportDialog : Gtk.Dialog {
 
 private void alien_import_reporter(ImportManifest manifest, BatchImportRoll import_roll) {
     ImportUI.report_manifest(manifest, true);
+}
+
 }
 

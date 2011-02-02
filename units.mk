@@ -12,7 +12,9 @@ UNITS = \
 	db \
 	plugins \
 	slideshow \
-	publishing
+	publishing \
+	alien_db \
+	alien_db/f_spot
 
 # Names of variables (which follow) that represent unit groups for different uses of the
 # application.  The variables should be formed as Name_UNITS.  Entry and terminate points in
@@ -33,7 +35,9 @@ Library_UNITS = \
 	db \
 	plugins \
 	slideshow \
-	publishing
+	publishing \
+	alien_db \
+	alien_db/f_spot
 
 # List of units for direct-edit mode.
 Direct_UNITS = \

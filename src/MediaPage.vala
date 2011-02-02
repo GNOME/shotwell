@@ -532,7 +532,7 @@ public abstract class MediaPage : CheckerboardPage {
         base (page_name);
 
         // Adds one menu entry per alien database driver
-        AlienDatabaseHandler.get_instance().add_menu_entries(
+        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/MediaMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
 
