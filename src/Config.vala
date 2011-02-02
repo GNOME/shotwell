@@ -251,54 +251,6 @@ public class Config {
         return get_string("/apps/shotwell/sharing/last_used_service");
     }
 
-    public bool clear_facebook_session_key() {
-        return set_facebook_session_key("");
-    }
-
-    public bool set_facebook_session_key(string key) {
-        return set_string("/apps/shotwell/sharing/facebook/session_key", key);
-    }
-
-    public string? get_facebook_session_key() {
-        return get_string("/apps/shotwell/sharing/facebook/session_key");
-    }
-
-    public bool clear_facebook_session_secret() {
-        return set_facebook_session_secret("");
-    }
-
-    public bool set_facebook_session_secret(string secret) {
-        return set_string("/apps/shotwell/sharing/facebook/session_secret", secret);
-    }
-
-    public string? get_facebook_session_secret() {
-        return get_string("/apps/shotwell/sharing/facebook/session_secret");
-    }
-
-    public bool clear_facebook_uid() {
-        return set_facebook_uid("");
-    }
-
-    public bool set_facebook_uid(string uid) {
-        return set_string("/apps/shotwell/sharing/facebook/uid", uid);
-    }
-
-    public string? get_facebook_uid() {
-        return get_string("/apps/shotwell/sharing/facebook/uid");
-    }
-
-    public bool clear_facebook_user_name() {
-        return set_facebook_user_name("");
-    }
-
-    public bool set_facebook_user_name(string user_name) {
-        return set_string("/apps/shotwell/sharing/facebook/user_name", user_name);
-    }
-
-    public string? get_facebook_user_name() {
-        return get_string("/apps/shotwell/sharing/facebook/user_name");
-    }
-
     public bool set_picasa_default_size(int default_size) {
         return set_int("/apps/shotwell/sharing/picasa/default_size", default_size + 1);
     }
@@ -307,18 +259,44 @@ public class Config {
         return get_int("/apps/shotwell/sharing/picasa/default_size", 3) - 1;
     }
 
-    public string? get_publishing_string(string id, string key) {
-        return get_string(_("/apps/shotwell/sharing/%s/%s").printf(id, key));
+    public string? get_publishing_string(string domain, string key, string? default_value = null) {
+        return get_string("/apps/shotwell/sharing/%s/%s".printf(domain, key), default_value);
     }
 
-    public void set_publishing_string(string id, string key, string value) {
-        set_string(_("/apps/shotwell/sharing/%s/%s").printf(id, key), value);
+    public void set_publishing_string(string domain, string key, string value) {
+        set_string("/apps/shotwell/sharing/%s/%s".printf(domain, key), value);
     }
-    
-    public void unset_publishing_string(string id, string key) {
+
+    public int get_publishing_int(string domain, string key, int default_value = -1) {
+        return get_int("/apps/shotwell/sharing/%s/%s".printf(domain, key), default_value);
+    }
+
+    public void set_publishing_int(string domain, string key, int value) {
+        set_int("/apps/shotwell/sharing/%s/%s".printf(domain, key), value);
+    }
+
+    public bool get_publishing_bool(string domain, string key, bool default_value = false) {
+        return get_bool("/apps/shotwell/sharing/%s/%s".printf(domain, key), default_value);
+    }
+
+    public void set_publishing_bool(string domain, string key, bool value) {
+        set_bool("/apps/shotwell/sharing/%s/%s".printf(domain, key), value);
+    }
+
+    public double get_publishing_double(string domain, string key, double default_value = 0.0) {
+        return get_double("/apps/shotwell/sharing/%s/%s".printf(domain, key), default_value);
+    }
+
+    public void set_publishing_double(string domain, string key, double value) {
+        set_double("/apps/shotwell/sharing/%s/%s".printf(domain, key), value);
+    }
+
+    public void unset_publishing_string(string domain, string key) {
+        string path = "/apps/shotwell/sharing/%s/%s".printf(domain, key);
         try {
-            client.recursive_unset(_("/apps/shotwell/sharing/%s/%s").printf(id, key), GConf.UnsetFlags.NAMES);
+            client.recursive_unset(path, GConf.UnsetFlags.NAMES);
         } catch (GLib.Error err) {
+            warning("Unable to unset GConf value at %s: %s", path, err.message);
         }
     }
 

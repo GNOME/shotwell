@@ -11,7 +11,8 @@ UNITS = \
 	threads \
 	db \
 	plugins \
-	slideshow
+	slideshow \
+	publishing
 
 # Names of variables (which follow) that represent unit groups for different uses of the
 # application.  The variables should be formed as Name_UNITS.  Entry and terminate points in
@@ -31,7 +32,8 @@ Library_UNITS = \
 	threads \
 	db \
 	plugins \
-	slideshow
+	slideshow \
+	publishing
 
 # List of units for direct-edit mode.
 Direct_UNITS = \

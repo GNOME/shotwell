@@ -35,8 +35,8 @@ public class Capabilities : ServiceCapabilities {
         return SERVICE_NAME;
     }
     
-    public override ServiceCapabilities.MediaType get_supported_media() {
-        return MediaType.VIDEO;
+    public override Spit.Publishing.Publisher.MediaType get_supported_media() {
+        return Spit.Publishing.Publisher.MediaType.VIDEO;
     }
     
     public override ServiceInteractor factory(PublishingDialog host) {
@@ -347,7 +347,7 @@ public class Interactor : ServiceInteractor {
         get_host().unlock_service();
         get_host().set_close_button_mode();
 
-        get_host().install_pane(new SuccessPane(MediaType.VIDEO));
+        get_host().install_pane(new SuccessPane(Spit.Publishing.Publisher.MediaType.VIDEO));
     }
 
     internal Session get_session() {

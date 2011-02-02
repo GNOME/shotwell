@@ -118,8 +118,8 @@ public class Capabilities : ServiceCapabilities {
         return SERVICE_NAME;
     }
     
-    public override ServiceCapabilities.MediaType get_supported_media() {
-        return MediaType.PHOTO;
+    public override Spit.Publishing.Publisher.MediaType get_supported_media() {
+        return Spit.Publishing.Publisher.MediaType.PHOTO;
     }
     
     public override ServiceInteractor factory(PublishingDialog host) {
@@ -192,7 +192,7 @@ public class Capabilities : ServiceCapabilities {
             get_host().unlock_service();
             get_host().set_close_button_mode();
 
-            get_host().install_pane(new SuccessPane(MediaType.PHOTO));
+            get_host().install_pane(new SuccessPane(Spit.Publishing.Publisher.MediaType.PHOTO));
         }
         
         private void on_upload_error(BatchUploader uploader, PublishingError err) {

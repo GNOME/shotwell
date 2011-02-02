@@ -86,8 +86,8 @@ public class Capabilities : ServiceCapabilities {
         return SERVICE_NAME;
     }
     
-    public override ServiceCapabilities.MediaType get_supported_media() {
-        return MediaType.PHOTO | MediaType.VIDEO;
+    public override Spit.Publishing.Publisher.MediaType get_supported_media() {
+        return Spit.Publishing.Publisher.MediaType.PHOTO | Spit.Publishing.Publisher.MediaType.VIDEO;
     }
     
     public override ServiceInteractor factory(PublishingDialog host) {

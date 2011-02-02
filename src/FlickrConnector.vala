@@ -48,8 +48,8 @@ public class Capabilities : ServiceCapabilities {
         return SERVICE_NAME;
     }
     
-    public override ServiceCapabilities.MediaType get_supported_media() {
-        return MediaType.PHOTO | MediaType.VIDEO;
+    public override Spit.Publishing.Publisher.MediaType get_supported_media() {
+        return Spit.Publishing.Publisher.MediaType.PHOTO | Spit.Publishing.Publisher.MediaType.VIDEO;
     }
     
     public override ServiceInteractor factory(PublishingDialog host) {
@@ -872,7 +872,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
     public signal void publish();
     public signal void logout();
 
-    public PublishingOptionsPane(PublishingParameters parameters, MediaType media_type) {
+    public PublishingOptionsPane(PublishingParameters parameters, Spit.Publishing.Publisher.MediaType media_type) {
         this.parameters = parameters;
 
         visibilities = create_visibilities();
@@ -908,9 +908,9 @@ private class PublishingOptionsPane : PublishingDialogPane {
         Gtk.Table combos_layouter = new Gtk.Table(2, 2, false);
         combos_layouter.set_row_spacing(0, 12);
         string visibility_label_text = _("Photos _visible to:");
-        if ((media_type == MediaType.VIDEO)) {
+        if ((media_type == Spit.Publishing.Publisher.MediaType.VIDEO)) {
             visibility_label_text = _("Videos _visible to:");
-        } else if ((media_type == MediaType.ALL)) {
+        } else if ((media_type == (Spit.Publishing.Publisher.MediaType.PHOTO | Spit.Publishing.Publisher.MediaType.VIDEO))) {
             visibility_label_text = _("Photos and videos _visible to:");
         }
         Gtk.Label visibility_label = new Gtk.Label.with_mnemonic(visibility_label_text);
@@ -932,7 +932,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
         combos_layouter.attach_defaults(vis_label_aligner, 0, 1, 0, 1);
         combos_layouter.attach_defaults(visibility_combo_aligner, 1, 2, 0, 1);
 
-        if ((media_type & MediaType.PHOTO) != 0) {
+        if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) {
             combos_layouter.attach_defaults(size_label_aligner, 0, 1, 1, 2);
             combos_layouter.attach_defaults(size_combo_aligner, 1, 2, 1, 2);
         }

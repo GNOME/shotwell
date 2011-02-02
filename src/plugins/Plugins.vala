@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-using Shotwell.Plugins;
-
 namespace Plugins {
 
 // GModule doesn't have a truly generic way to determine if a file is a shared library by extension,

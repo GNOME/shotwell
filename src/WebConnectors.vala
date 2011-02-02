@@ -19,13 +19,6 @@ public errordomain PublishingError {
     LOCAL_FILE_ERROR
 }
 
-public enum MediaType {
-    NONE =          0,
-    PHOTO =         1 << 0,
-    VIDEO =         1 << 1,
-    ALL =           PHOTO | VIDEO
-}
-
 public enum HttpMethod {
     GET,
     POST,
@@ -657,11 +650,11 @@ public class ProgressPane : PublishingDialogPane {
 }
 
 public class SuccessPane : StaticMessagePane {
-    public SuccessPane(MediaType published_media) {
+    public SuccessPane(Spit.Publishing.Publisher.MediaType published_media) {
         string? message_string = null;
-        if (published_media == MediaType.ALL)
+        if (published_media == (Spit.Publishing.Publisher.MediaType.PHOTO | Spit.Publishing.Publisher.MediaType.VIDEO))
             message_string = _("The selected photos/videos were successfully published.");
-        else if (published_media == MediaType.VIDEO)
+        else if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO)
             message_string = _("The selected videos were successfully published.");
         else
             message_string = _("The selected photos were successfully published.");
@@ -701,32 +694,32 @@ public class PublishingDialog : Gtk.Dialog {
     private Photo[] photos = new Photo[0];
     private Video[] videos = new Video[0];
     private MediaSource[] media_sources = new MediaSource[0];
-    private PublishingDialogPane active_pane;
+    private Gtk.Widget active_pane = null;
     private ServiceInteractor interactor;
-    private MediaType media_type = MediaType.NONE;
+    private Spit.Publishing.Publisher.MediaType media_type = Spit.Publishing.Publisher.MediaType.NONE;
 
-    private PublishingDialog(Gee.Collection<MediaSource> to_publish) {
+    protected PublishingDialog(Gee.Collection<MediaSource> to_publish) {
         resizable = false;
         delete_event.connect(on_window_close);
         
         foreach (MediaSource media in to_publish) {
             if (media is Photo) {
                 photos += (Photo) media;
-                media_type |= MediaType.PHOTO;
+                media_type |= Spit.Publishing.Publisher.MediaType.PHOTO;
             } else {
                 assert(media is Video);
                 videos += (Video) media;
-                media_type |= MediaType.VIDEO;
+                media_type |= Spit.Publishing.Publisher.MediaType.VIDEO;
             }
             media_sources += media;
         }
 
         string title = _("Publish Photos");
         string label = _("Publish photos _to:");
-        if (media_type == MediaType.VIDEO) {
+        if (media_type == Spit.Publishing.Publisher.MediaType.VIDEO) {
             title = _("Publish Videos");
             label = _("Publish videos _to");
-        } else if (media_type == MediaType.ALL) {
+        } else if (media_type == (Spit.Publishing.Publisher.MediaType.PHOTO | Spit.Publishing.Publisher.MediaType.VIDEO)) {
             title = _("Publish Photos and Videos");
             label = _("Publish photos and videos _to");
         }
@@ -790,7 +783,9 @@ public class PublishingDialog : Gtk.Dialog {
         if (active_instance != null)
             return;
         
-        active_instance = new PublishingDialog(to_publish);
+        debug("PublishingDialog.go( )");
+        
+        active_instance = new Publishing.Glue.DialogInteractorWrapper(to_publish);
             
         // determine which service to use
 
@@ -869,6 +864,7 @@ public class PublishingDialog : Gtk.Dialog {
     }
     
     private void on_close_cancel_clicked() {
+        debug("PublishingDialog: on_close_cancel_clicked( ): invoked.");
         destroy_instance();
     }
 
@@ -879,6 +875,17 @@ public class PublishingDialog : Gtk.Dialog {
     }
 
     private void on_service_changed() {
+        string? existing_service_name = (interactor != null) ? interactor.get_name() : null;
+        // if the current service is already running, do nothing
+        if ((existing_service_name != null) && (existing_service_name == service_selector_box.get_active_text()))
+            return;
+        
+        // if no interactor is installed, do nothing
+        if (interactor == null)
+            return;
+            
+        debug("existing service = '%s'; selected service = '%s'.", existing_service_name, service_selector_box.get_active_text());
+
         Config config = Config.get_instance();
         config.set_last_used_service(service_selector_box.get_active_text());
         interactor = ServiceFactory.get_instance().create_interactor(this,
@@ -890,21 +897,26 @@ public class PublishingDialog : Gtk.Dialog {
         return active_instance;
     }
 
-    public void install_pane(PublishingDialogPane pane) {
+    public void install_pane(Gtk.Widget pane) {
+        debug("PublishingDialog: install_pane( ): invoked.");
         // only proceed with pane installation if our interactor doesn't have an error situation;
         // if an error is present, then continue to display the existing pane -- this should be
         // the error pane that was installed when the error was posted
         if (interactor.has_error())
             return;
 
-        if (active_pane != null)
+        if (active_pane != null) {
+            debug("PublishingDialog: install_pane( ): a pane is already installed; removing it.");
+
             central_area_layouter.remove(active_pane);
+        }
 
         central_area_layouter.add(pane);
         show_all();
 
         active_pane = pane;
-        pane.installed();
+        if (pane is PublishingDialogPane)
+            ((PublishingDialogPane) pane).installed();
     }
 
     public void set_large_window_mode() {
@@ -923,6 +935,10 @@ public class PublishingDialog : Gtk.Dialog {
     
     public void set_free_sizable_window_mode() {
         resizable = true;
+    }
+
+    public void clear_free_sizable_window_mode() {
+        resizable = false;
     }
 
     public void set_close_button_mode() {
@@ -995,7 +1011,7 @@ public class PublishingDialog : Gtk.Dialog {
         return media_sources;
     }
 
-    public MediaType get_media_type() {
+    public Spit.Publishing.Publisher.MediaType get_media_type() {
         return media_type;
     }
 
@@ -1005,21 +1021,14 @@ public class PublishingDialog : Gtk.Dialog {
 }
 
 public abstract class ServiceCapabilities {
-    public enum MediaType {
-        NONE =          0,
-        PHOTO =         1 << 0,
-        VIDEO =         1 << 1,
-        ALL =           0xFFFFFFFF
-    }
-    
     public abstract string get_name();
     
-    public abstract MediaType get_supported_media();
+    public abstract Spit.Publishing.Publisher.MediaType get_supported_media();
     
     public abstract ServiceInteractor factory(PublishingDialog host);
 }
 
-public abstract class ServiceInteractor {
+public abstract class ServiceInteractor : GLib.Object {
     private weak PublishingDialog host;
     private bool error = false;
 
@@ -1255,7 +1264,8 @@ public class ServiceFactory {
     // This returns the first service that can handle any media type.
     public ServiceCapabilities get_default_service() {
         foreach (ServiceCapabilities caps in caps_map.values) {
-            if ((caps.get_supported_media() & ServiceCapabilities.MediaType.ALL) != 0)
+            if (((caps.get_supported_media() & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) &&
+                ((caps.get_supported_media() & Spit.Publishing.Publisher.MediaType.VIDEO) != 0))
                 return caps;
         }
         
@@ -1265,15 +1275,15 @@ public class ServiceFactory {
     public string[] get_manifest(int photo_count, int video_count) {
         string[] result = new string[0];
         
-        ServiceCapabilities.MediaType media_type = ServiceCapabilities.MediaType.NONE;
+        Spit.Publishing.Publisher.MediaType media_type = Spit.Publishing.Publisher.MediaType.NONE;
         
         if (photo_count > 0)
-            media_type |= ServiceCapabilities.MediaType.PHOTO;
+            media_type |= Spit.Publishing.Publisher.MediaType.PHOTO;
         
         if (video_count > 0)
-            media_type |= ServiceCapabilities.MediaType.VIDEO;
+            media_type |= Spit.Publishing.Publisher.MediaType.VIDEO;
         
-        if (media_type == ServiceCapabilities.MediaType.NONE)
+        if (media_type == Spit.Publishing.Publisher.MediaType.NONE)
             return result;
         
         foreach (ServiceCapabilities caps in caps_map.values) {
@@ -1285,6 +1295,8 @@ public class ServiceFactory {
     }
     
     public ServiceInteractor create_interactor(PublishingDialog host, string? service_name) {
+        debug("ServiceFactory: create_interactor( ): creating interactor for service '%s'", service_name);
+
         ServiceCapabilities caps = null;
         if (service_name != null)
             caps = caps_map.get(service_name);
