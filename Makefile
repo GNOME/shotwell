@@ -4,10 +4,12 @@ VERSION = 0.8.1+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
-VALAC = valac
-MIN_VALAC_VERSION = 0.9.8
-INSTALL_PROGRAM = install
-INSTALL_DATA = install -m 644
+VALAC := valac
+VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
+MIN_VALAC_VERSION := 0.9.8
+MAX_VALAC_VERSION := 0.11.0
+INSTALL_PROGRAM := install
+INSTALL_DATA := install -m 644
 
 # defaults that may be overridden by configure.mk
 PREFIX=/usr/local
@@ -354,7 +356,7 @@ VALA_STAMP := $(BUILD_DIR)/.stamp
 LANG_STAMP := $(LOCAL_LANG_DIR)/.langstamp
 MAKE_FILES := Makefile $(CONFIG_IN) $(UNIT_MKS) unitize.mk units.mk
 
-DIST_FILES = Makefile configure minver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
+DIST_FILES = Makefile configure chkver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
 	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_PO_FILES) po/shotwell.pot libraw-config \
 	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
@@ -388,6 +390,12 @@ CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE
 # Packaged libraw is not widely available, so we must fake what would be in its .pc file
 # if not available.
 LIBRAW_CONFIG=./libraw-config
+
+define check_valac_version
+	@ ./chkver min $(VALAC_VERSION) $(MIN_VALAC_VERSION) || ( echo 'Shotwell requires Vala compiler $(MIN_VALAC_VERSION) or greater.  You are running' $(VALAC_VERSION) '\b.'; exit 1 )
+	$(if $(MAX_VALAC_VERSION),\
+		@ ./chkver max $(VALAC_VERSION) $(MAX_VALAC_VERSION) || ( echo 'Shotwell cannot be built by Vala compiler $(MAX_VALAC_VERSION) or greater.  You are running' $(VALAC_VERSION) '\b.'; exit 1 ),)
+endef
 
 ifdef ENABLE_BUILD_FOR_GLADE
 all: $(PLUGINS_DIR) lib$(PROGRAM).so $(PROGRAM)
@@ -546,7 +554,7 @@ $(UNITIZE_INITS) $(UNITIZE_ENTRIES): $(UNITIZE_STAMP)
 
 # EXPANDED_SRC_FILES includes UNITIZE_INITS and UNITIZE_ENTRY
 $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES)
-	@ ./minver `$(VALAC) --version | awk '{print $$2}'` $(MIN_VALAC_VERSION) || ( echo 'Shotwell requires Vala compiler $(MIN_VALAC_VERSION) or greater.  You are running' `$(VALAC) --version` '\b.'; exit 1 )
+	$(call check_valac_version)
 ifndef ASSUME_PKGS
 ifdef EXT_PKG_VERSIONS
 	@pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS) $(DIRECT_LIBS_VERSIONS)'
@@ -582,6 +590,7 @@ $(PLUGINS_SO): $(PLUGINS_DIR)
 
 .PHONY: $(PLUGINS_DIR)
 $(PLUGINS_DIR): $(PLUGIN_VAPIS) $(PLUGIN_HEADERS) $(PLUGIN_DEPS)
+	$(call check_valac_version)
 	@$(MAKE) --directory=$@ PLUGINS_VERSION="$(VERSION)"
 
 glade: lib$(PROGRAM).so
