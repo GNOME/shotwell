@@ -7,6 +7,12 @@
 namespace Spit.Publishing {
 
 public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object {
+    private const string PREPARE_STATUS_DESCRIPTION = _("Preparing for upload");
+    private const string UPLOAD_STATUS_DESCRIPTION = _("Uploading %d of %d");
+    private const double STATUS_PREPARATION_FRACTION = 0.3;
+    private const double STATUS_UPLOAD_FRACTION = 0.7;
+
+    
     private PublishingDialog dialog = null;
     private Spit.Publishing.PublishingDialogPane current_pane = null;
     private Spit.Publishing.Publisher active_publisher = null;
@@ -23,6 +29,36 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
             current_login_callback();
     }
     
+    private void clean_up() {
+        foreach (Publishable publishable in publishables)
+            ((global::Publishing.Glue.MediaSourcePublishableWrapper) publishable).clean_up();
+    }
+    
+    private void report_plugin_upload_progress(int file_number, double fraction_complete) {
+        // if the currently installed pane isn't the progress pane, do nothing
+        if (!(dialog.get_active_pane() is ProgressPane))
+            return;
+
+        ProgressPane pane = (ProgressPane) dialog.get_active_pane();
+        
+        string status_string = UPLOAD_STATUS_DESCRIPTION.printf(file_number,
+            publishables.length);
+        double status_fraction = STATUS_PREPARATION_FRACTION + (STATUS_UPLOAD_FRACTION *
+            fraction_complete);
+        
+        pane.set_status(status_string, status_fraction);
+    }
+
+    private void install_progress_pane() {
+        ProgressPane progress_pane = new ProgressPane();
+        
+        if (current_pane != null)
+            current_pane.on_pane_uninstalled();
+        current_pane = null;
+         
+        dialog.install_pane(progress_pane);
+    }
+
     public void set_active_publisher(Spit.Publishing.Publisher active_publisher) {
         this.active_publisher = active_publisher;
     }
@@ -68,6 +104,11 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
         dialog.show_pango_error_message(msg);
 
         active_publisher.stop();
+        
+        // post_error( ) tells the active_publisher to stop publishing and displays a
+        // non-removable error pane that effectively ends the publishing interaction,
+        // so no problem calling clean_up( ) here.
+        clean_up();
     }
 
     public void stop_publishing() {
@@ -75,6 +116,8 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
         
         if (active_publisher.is_running())
             active_publisher.stop();
+
+        clean_up();
 
         active_publisher = null;
         dialog = null;
@@ -102,6 +145,10 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
         current_pane = null;
         
         dialog.install_pane(new SuccessPane(media_type));
+
+        // the success pane is a terminal pane; once it's installed, the publishing
+        // interaction is considered over, so clean up
+        clean_up();
     }
     
     public void install_account_fetch_wait_pane() {
@@ -152,18 +199,6 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
         widget.can_default = true;
         dialog.set_default(widget);
     }
-
-    public ProgressCallback install_progress_pane() {
-        ProgressPane progress_pane = new ProgressPane();
-        
-        if (current_pane != null)
-            current_pane.on_pane_uninstalled();
-        current_pane = null;
-         
-        dialog.install_pane(progress_pane);
-
-        return progress_pane.set_status;
-    }
     
     public Spit.Publishing.Publisher.MediaType get_publishable_media_type() {
         return dialog.get_media_type();
@@ -209,6 +244,35 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
     
     public Publishable[] get_publishables() {
         return publishables;
+    }
+    
+    public Spit.Publishing.ProgressCallback? serialize_publishables(int content_major_axis,
+        bool strip_metadata = false) {
+        install_progress_pane();
+        ProgressPane progress_pane = (ProgressPane) dialog.get_active_pane();
+
+        int i = 0;
+        foreach (Spit.Publishing.Publishable publishable in publishables) {
+            try {
+                publishable.serialize_for_publishing(content_major_axis, strip_metadata);
+            } catch (Spit.Publishing.PublishingError err) {
+                post_error(err);
+                return null;
+            }
+
+            double phase_fraction_complete = ((double) (i + 1)) / ((double) publishables.length);
+            double fraction_complete = phase_fraction_complete * STATUS_PREPARATION_FRACTION;
+            
+            debug("serialize_publishables( ): fraction_complete = %f.", fraction_complete);
+            
+            progress_pane.set_status(PREPARE_STATUS_DESCRIPTION, fraction_complete);
+            
+            spin_event_loop();
+
+            i++;
+        }
+        
+        return report_plugin_upload_progress;
     }
 }
 

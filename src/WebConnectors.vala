@@ -918,6 +918,10 @@ public class PublishingDialog : Gtk.Dialog {
         if (pane is PublishingDialogPane)
             ((PublishingDialogPane) pane).installed();
     }
+    
+    public Gtk.Widget get_active_pane() {
+        return active_pane;
+    }
 
     public void set_large_window_mode() {
         set_size_request(LARGE_WINDOW_WIDTH, LARGE_WINDOW_HEIGHT);

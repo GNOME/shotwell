@@ -54,9 +54,8 @@ public interface PublishingDialogPane : GLib.Object {
     public abstract void on_pane_uninstalled();
 }
 
-/* completed fraction is between 0.0 and 1.0 inclusive; status text is displayed as text on the
-   progress bar */
-public delegate void ProgressCallback(string status_text, double completed_fraction);
+/* fraction_complete should be between 0.0 and 1.0 inclusive */
+public delegate void ProgressCallback(int file_number, double fraction_complete);
 
 public delegate void LoginCallback();
 
@@ -91,8 +90,6 @@ public interface PublishingInteractor : GLib.Object {
     
     public abstract void set_dialog_default_widget(Gtk.Widget widget);
     
-    public abstract ProgressCallback install_progress_pane();
-    
     public abstract int get_config_int(string key, int default_value);
     
     public abstract string? get_config_string(string key, string? default_value);
@@ -111,12 +108,17 @@ public interface PublishingInteractor : GLib.Object {
     
     public abstract Publishable[] get_publishables();
     
+    public abstract ProgressCallback? serialize_publishables(int content_major_axis,
+        bool strip_metadata = false);
+    
     public abstract Spit.Publishing.Publisher.MediaType get_publishable_media_type();
 }
 
 public interface Publishable : GLib.Object {
     public abstract GLib.File serialize_for_publishing(int content_major_axis,
         bool strip_metadata = false) throws Spit.Publishing.PublishingError;
+    
+    public abstract GLib.File? get_serialized_file();
 
     public abstract string get_publishing_name();
 

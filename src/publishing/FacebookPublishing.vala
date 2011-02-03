@@ -310,16 +310,16 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         interactor.set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode.CANCEL);
         interactor.set_service_locked(true);
 
-        progress_reporter = interactor.install_progress_pane();
+        progress_reporter = interactor.serialize_publishables(MAX_PHOTO_DIMENSION);
 
         Spit.Publishing.Publishable[] publishables = interactor.get_publishables();
         FacebookUploader uploader = new FacebookUploader(session, albums[publish_to_album].id,
             privacy_setting, publishables);
-        uploader.status_updated.connect(on_upload_status_updated);
+
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
 
-        uploader.upload();
+        uploader.upload(on_upload_status_updated);
     }
 
     private void do_create_album(string album_name) {
@@ -523,7 +523,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         do_upload();
     }
 
-    private void on_upload_status_updated(string status_text, double completed_fraction) {
+    private void on_upload_status_updated(int file_number, double completed_fraction) {
         if (!is_running())
             return;
 
@@ -531,7 +531,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         assert(progress_reporter != null);
 
-        progress_reporter(status_text, completed_fraction);
+        progress_reporter(file_number, completed_fraction);
     }
 
     private void on_upload_complete(FacebookUploader uploader, int num_published) {
@@ -540,7 +540,6 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         debug("EVENT: uploader reports upload complete; %d items published.", num_published);
 
-        uploader.status_updated.disconnect(on_upload_status_updated);
         uploader.upload_complete.disconnect(on_upload_complete);
         uploader.upload_error.disconnect(on_upload_error);
 
@@ -553,7 +552,6 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         debug("EVENT: uploader reports upload error = '%s'.", err.message);
 
-        uploader.status_updated.disconnect(on_upload_status_updated);
         uploader.upload_complete.disconnect(on_upload_complete);
         uploader.upload_error.disconnect(on_upload_error);
 
@@ -1606,20 +1604,13 @@ internal class FacebookRESTXmlDocument {
 }
 
 internal class FacebookUploader {
-    private const string PREPARE_STATUS_DESCRIPTION = _("Preparing for upload");
-    private const string UPLOAD_STATUS_DESCRIPTION = _("Uploading %d of %d");
-    private const string TEMP_FILE_PREFIX = "publishing-";
-    private const double PREPARATION_PHASE_FRACTION = 0.3;
-    private const double UPLOAD_PHASE_FRACTION = 0.7;
-
     private int current_file = 0;
     private Spit.Publishing.Publishable[] publishables = null;
-    private GLib.File[] temp_files = null;
     private FacebookRESTSession session = null;
     private string aid;
     private string privacy_setting;
+	private Spit.Publishing.ProgressCallback? status_updated = null;
 
-    public signal void status_updated(string description, double fraction_complete);
     public signal void upload_complete(int num_photos_published);
     public signal void upload_error(Spit.Publishing.PublishingError err);
 
@@ -1631,39 +1622,16 @@ internal class FacebookUploader {
         this.session = session;
     }
 
-    private void prepare_files() {
-        temp_files = new GLib.File[0];
-
-        int i = 0;
-        foreach (Spit.Publishing.Publishable publishable in publishables) {
-            try {
-                temp_files += publishable.serialize_for_publishing(MAX_PHOTO_DIMENSION);
-            } catch (Spit.Publishing.PublishingError err) {
-                upload_error(err);
-                return;
-            }
-
-            double phase_fraction_complete = ((double) (i + 1)) / ((double) publishables.length);
-            double fraction_complete = phase_fraction_complete * PREPARATION_PHASE_FRACTION;
-            
-            debug("prepare_file( ): fraction_complete = %f.", fraction_complete);
-            
-            status_updated(PREPARE_STATUS_DESCRIPTION, fraction_complete);
-            
-            spin_event_loop();
-
-            i++;
-        }
-    }
-
     private void send_files() {
         current_file = 0;
         bool stop = false;
-        foreach (File file in temp_files) {
-            double fraction_complete = PREPARATION_PHASE_FRACTION +
-                (current_file * (UPLOAD_PHASE_FRACTION / temp_files.length));
-            status_updated(_("Uploading %d of %d").printf(current_file + 1, temp_files.length),
-                fraction_complete);
+        foreach (Spit.Publishing.Publishable publishable in publishables) {
+            GLib.File? file = publishable.get_serialized_file();
+            assert (file != null);
+
+            double fraction_complete = ((double) current_file) / publishables.length;
+                if (status_updated != null)
+                    status_updated(current_file + 1, fraction_complete);
 
             FacebookRESTTransaction txn = new FacebookUploadTransaction(session, aid, privacy_setting,
                 publishables[current_file], file);
@@ -1678,7 +1646,6 @@ internal class FacebookUploader {
             }
                 
             txn.chunk_transmitted.disconnect(on_chunk_transmitted);           
-            delete_file(file);
             
             if (stop)
                 break;
@@ -1689,35 +1656,21 @@ internal class FacebookUploader {
         if (!stop)
             upload_complete(current_file);
     }
-
-    private void delete_file(GLib.File file) {
-        try {
-            debug("Deleting publishing temporary file '%s'", file.get_path());
-            file.delete(null);
-        } catch (Error e) {
-            // if deleting temporary files generates an exception, just print a warning
-            // message -- temp directory clean-up will be done on launch or at exit or
-            // both
-            warning("FacebookUploader: deleting temporary files failed.");
-        }
-    }
     
     private void on_chunk_transmitted(int bytes_written_so_far, int total_bytes) {
-        double file_span = UPLOAD_PHASE_FRACTION / temp_files.length;
+        double file_span = 1.0 / publishables.length;
         double this_file_fraction_complete = ((double) bytes_written_so_far) / total_bytes;
-        double fraction_complete = PREPARATION_PHASE_FRACTION + (current_file * file_span) +
-            (this_file_fraction_complete * file_span);
+        double fraction_complete = (current_file * file_span) + (this_file_fraction_complete *
+            file_span);
 
-        string status_desc = UPLOAD_STATUS_DESCRIPTION.printf(current_file + 1, temp_files.length);
-        status_updated(status_desc, fraction_complete);
+		if (status_updated != null)
+	        status_updated(current_file + 1, fraction_complete);
     }
     
-    public void upload() {
-        status_updated(_("Preparing for upload"), 0);
+    public void upload(Spit.Publishing.ProgressCallback? status_updated = null) {
+        this.status_updated = status_updated;
 
-        prepare_files();
-
-        if (temp_files.length > 0)
+        if (publishables.length > 0)
            send_files();
     }
 }

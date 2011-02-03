@@ -141,10 +141,6 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.Publishing.Publish
     public void set_dialog_default_widget(Gtk.Widget widget) {
         plugin_host.set_dialog_default_widget(widget);
     }
-
-    public Spit.Publishing.ProgressCallback install_progress_pane() {
-        return plugin_host.install_progress_pane();
-    }
     
     public Spit.Publishing.Publisher.MediaType get_publishable_media_type() {
         return plugin_host.get_publishable_media_type();
@@ -185,15 +181,36 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.Publishing.Publish
     public Spit.Publishing.Publishable[] get_publishables() {
         return publishables;
     }
+    
+    public Spit.Publishing.ProgressCallback? serialize_publishables(int content_major_axis,
+        bool strip_metadata = false) {
+        return plugin_host.serialize_publishables(content_major_axis, strip_metadata);
+    }
 }
 
 public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.Object {
     private static int name_ticker = 0;
 
     private MediaSource wrapped;
+    private GLib.File? serialized_file = null;
     
     public MediaSourcePublishableWrapper(MediaSource to_wrap) {
         wrapped = to_wrap;
+    }
+    
+    public void clean_up() {
+        if (serialized_file == null)
+            return;
+
+        debug("cleaning up temporary publishing file '%s'.", serialized_file.get_path());
+
+        try {
+            serialized_file.delete(null);
+        } catch (Error err) {
+            warning("couldn't delete temporary publishing file '%s'.", serialized_file.get_path());
+        }
+
+        serialized_file = null;
     }
 
     public GLib.File serialize_for_publishing(int content_major_axis,
@@ -215,7 +232,7 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
                     "unable to serialize photo '%s' for publishing.", photo.get_name());
             }
 
-            return to_file;
+            serialized_file = to_file;
         } else if (wrapped is Video) {
             Video video = (Video) wrapped;
 
@@ -235,11 +252,12 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
                     "unable to serialize video '%s' for publishing.", video.get_name());
             }
 
-            return to_file;
+            serialized_file = to_file;
         } else {
             error("MediaSourcePublishableWrapper.serialize_for_publishing( ): unknown media type.");
-            
         }
+
+		return serialized_file;
     }
 
     public string get_publishing_name() {
@@ -270,6 +288,10 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
             return Spit.Publishing.Publisher.MediaType.VIDEO;
         else
             return Spit.Publishing.Publisher.MediaType.NONE;
+    }
+    
+    public GLib.File? get_serialized_file() {
+        return serialized_file;
     }
 }
 
