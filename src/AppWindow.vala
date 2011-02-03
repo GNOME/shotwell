@@ -56,7 +56,7 @@ public class FullscreenWindow : PageWindow {
         
         pin_button.set_label(_("Pin Toolbar"));
         pin_button.set_tooltip_text(_("Pin the toolbar open"));
-        pin_button.clicked.connect(on_pin_button_state_change);
+        pin_button.clicked.connect(update_toolbar_dismissal);
         
         close_button.set_tooltip_text(_("Leave fullscreen"));
         close_button.clicked.connect(on_close);
@@ -102,15 +102,11 @@ public class FullscreenWindow : PageWindow {
         invoke_toolbar();
     }
 
-    public void enable_toolbar_dismissal() {
-        is_toolbar_dismissal_enabled = true;
-    }
-    
     public void disable_toolbar_dismissal() {
         is_toolbar_dismissal_enabled = false;
     }
     
-    private void on_pin_button_state_change() {
+    public void update_toolbar_dismissal() {
         is_toolbar_dismissal_enabled = !pin_button.get_active();
     }
 

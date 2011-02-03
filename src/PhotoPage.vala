@@ -546,7 +546,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enable_interactive_zoom_refresh = false;
 
         if (get_container() is FullscreenWindow)
-            ((FullscreenWindow) get_container()).enable_toolbar_dismissal();
+            ((FullscreenWindow) get_container()).update_toolbar_dismissal();
 
         ZoomState zoom_state = ZoomState.rescale(get_zoom_state(), zoom_slider.get_value());
         set_zoom_state(zoom_state);
