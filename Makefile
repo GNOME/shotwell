@@ -82,17 +82,8 @@ UNUNITIZED_SRC_FILES = \
 	PiwigoConnector.vala \
 	YouTubeConnector.vala \
 	Screensaver.vala \
-	PhotoFileAdapter.vala \
-	PhotoFileFormat.vala \
-	PhotoFileSniffer.vala \
-	PhotoMetadata.vala \
-	GRaw.vala \
-	GdkSupport.vala \
-	JfifSupport.vala \
-	RawSupport.vala \
 	MimicManager.vala \
 	TrashPage.vala \
-	PngSupport.vala \
 	Exporter.vala \
 	DirectoryMonitor.vala \
 	LibraryMonitor.vala \

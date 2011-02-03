@@ -121,20 +121,7 @@ public abstract class GdkSniffer : PhotoFileSniffer {
         
         unowned Gdk.PixbufFormat format = pixbuf_loader.get_format();
         detected.format_name = format.get_name();
-        
-        switch (detected.format_name) {
-            case "jpeg":
-                detected.file_format = PhotoFileFormat.JFIF;
-            break;
-
-            case "png":
-                detected.file_format = PhotoFileFormat.PNG;
-            break;
-            
-            default:
-                detected.file_format = PhotoFileFormat.UNKNOWN;
-            break;
-        }
+        detected.file_format = PhotoFileFormat.from_pixbuf_name(detected.format_name);
         
         area_prepared = true;
     }

@@ -12,6 +12,7 @@ UNITS = \
 	db \
 	plugins \
 	slideshow \
+	photos \
 	publishing \
 	alien_db \
 	alien_db/f_spot
@@ -35,6 +36,7 @@ Library_UNITS = \
 	db \
 	plugins \
 	slideshow \
+	photos \
 	publishing \
 	alien_db \
 	alien_db/f_spot

@@ -55,12 +55,13 @@ public enum PhotoFileFormat {
     JFIF,
     RAW,
     PNG,
+    TIFF,
     UNKNOWN;
     
     // This is currently listed in the order of detection, that is, the file is examined from
     // left to right.  (See PhotoFileInterrogator.)
     public static PhotoFileFormat[] get_supported() {
-        return { JFIF, RAW, PNG };
+        return { JFIF, RAW, PNG, TIFF };
     }
     
     public static PhotoFileFormat[] get_writeable() {
@@ -130,6 +131,9 @@ public enum PhotoFileFormat {
             case PNG:
                 return 2;
             
+            case TIFF:
+                return 3;
+            
             case UNKNOWN:
             default:
                 return -1;
@@ -148,6 +152,9 @@ public enum PhotoFileFormat {
             case 2:
                 return PNG;
             
+            case 3:
+                return TIFF;
+            
             default:
                 return UNKNOWN;
         }
@@ -165,8 +172,28 @@ public enum PhotoFileFormat {
             case GPhoto.MIME.PNG:
                 return PhotoFileFormat.PNG;
             
+            case GPhoto.MIME.TIFF:
+                return PhotoFileFormat.TIFF;
+            
             default:
                 // check file extension against those we support
+                return PhotoFileFormat.UNKNOWN;
+        }
+    }
+    
+    // Converts GDK's pixbuf library's name to a PhotoFileFormat
+    public static PhotoFileFormat from_pixbuf_name(string name) {
+        switch (name) {
+            case "jpeg":
+                return PhotoFileFormat.JFIF;
+            
+            case "png":
+                return PhotoFileFormat.PNG;
+            
+            case "tiff":
+                return PhotoFileFormat.TIFF;
+            
+            default:
                 return PhotoFileFormat.UNKNOWN;
         }
     }
@@ -181,6 +208,9 @@ public enum PhotoFileFormat {
             
             case PNG:
                 return PngFileFormatDriver.get_instance();
+            
+            case TIFF:
+                return Photos.TiffFileFormatDriver.get_instance();
             
             default:
                 error("Unsupported file format %s", this.to_string());
