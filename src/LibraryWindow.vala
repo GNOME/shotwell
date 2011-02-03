@@ -491,13 +491,18 @@ public class LibraryWindow : AppWindow {
         return false;
     }
     
-    public override void add_common_actions(Gtk.ActionGroup action_group) {
-        base.add_common_actions(action_group);
+    public override void add_common_actions(Page page, Gtk.ActionGroup action_group) {
+        base.add_common_actions(page, action_group);
         
         action_group.add_actions(create_actions(), this);
         action_group.add_toggle_actions(create_toggle_actions(), this);
         action_group.add_radio_actions(create_order_actions(),
             SORT_EVENTS_ORDER_ASCENDING, on_events_sort_changed);
+        
+        // Adds one menu entry per alien database driver
+        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
+            page.ui, "/MenuBar/FileMenu/CommonImportFromAlienDbPlaceholder"
+        );
     }
     
     public override string get_app_role() {

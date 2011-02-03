@@ -42,11 +42,6 @@ public class TrashPage : CheckerboardPage {
         init_item_context_menu("/TrashContextMenu");
         init_page_context_menu("/TrashPageMenu");
 
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/TrashMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
-        
         Gtk.Toolbar toolbar = get_toolbar();
         
         // delete button
@@ -72,10 +67,6 @@ public class TrashPage : CheckerboardPage {
         Video.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
         on_trashcan_contents_altered(LibraryPhoto.global.get_trashcan_contents(), null);
         on_trashcan_contents_altered(Video.global.get_trashcan_contents(), null);
-    }
-    
-    protected override string? get_menubar_path() {
-        return "/TrashMenuBar";
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {

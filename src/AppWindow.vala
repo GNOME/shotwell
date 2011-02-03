@@ -702,7 +702,7 @@ public abstract class AppWindow : PageWindow {
         sys_show_uri(window.get_screen(), url);
     }
     
-    public virtual void add_common_actions(Gtk.ActionGroup action_group) {
+    public virtual void add_common_actions(Page page, Gtk.ActionGroup action_group) {
         action_group.add_actions(create_actions(), this);
     }
 

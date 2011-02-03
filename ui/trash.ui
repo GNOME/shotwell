@@ -1,9 +1,9 @@
 <ui>
 
-    <menubar name="TrashMenuBar">
+    <menubar name="MenuBar">
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Import" action="CommonFileImport" />
-            <placeholder name="ImportFromAlienDbPlaceholder" />
+            <placeholder name="CommonImportFromAlienDbPlaceholder" />
             <separator />
             <menuitem name="JumpToFile" action="CommonJumpToFile" />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />

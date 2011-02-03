@@ -1,6 +1,6 @@
 <ui>
 
-    <menubar name="MediaMenuBar">
+    <menubar name="MenuBar">
         <menu name="PhotosMenu" action="PhotosMenu">
             <separator />
             <menuitem name="MakePrimary" action="MakePrimary" />

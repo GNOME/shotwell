@@ -2133,11 +2133,6 @@ public class LibraryPhotoPage : EditingHostPage {
     public LibraryPhotoPage() {
         base(LibraryPhoto.global, "Photo");
         
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/PhotoMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
-        
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
         
         // monitor view to update UI elements
@@ -2172,10 +2167,6 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_photo_relinked(Gee.Collection<DataSource> relinked) {
         filter.refresh();
-    }
-    
-    protected override string? get_menubar_path() {
-        return "/PhotoMenuBar";
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
@@ -2476,17 +2467,17 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
         
-        InjectionGroup print_group = new InjectionGroup("/PhotoMenuBar/FileMenu/PrintPlaceholder");
+        InjectionGroup print_group = new InjectionGroup("/MenuBar/FileMenu/PrintPlaceholder");
         print_group.add_menu_item("Print");
         
         groups += print_group;
         
-        InjectionGroup publish_group = new InjectionGroup("/PhotoMenuBar/FileMenu/PublishPlaceholder");
+        InjectionGroup publish_group = new InjectionGroup("/MenuBar/FileMenu/PublishPlaceholder");
         publish_group.add_menu_item("Publish");
         
         groups += publish_group;
         
-        InjectionGroup bg_group = new InjectionGroup("/PhotoMenuBar/FileMenu/SetBackgroundPlaceholder");
+        InjectionGroup bg_group = new InjectionGroup("/MenuBar/FileMenu/SetBackgroundPlaceholder");
         bg_group.add_menu_item("SetBackground");
         
         groups += bg_group;
@@ -3286,10 +3277,6 @@ public class DirectPhotoPage : EditingHostPage {
         DirectPhoto.global.items_altered.disconnect(on_photos_altered);
     }
     
-    protected override string? get_menubar_path() {
-        return "/DirectMenuBar";
-    }
-    
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
         base.init_collect_ui_filenames(ui_filenames);
         
@@ -3461,12 +3448,12 @@ public class DirectPhotoPage : EditingHostPage {
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
         
-        InjectionGroup print_group = new InjectionGroup("/DirectMenuBar/FileMenu/PrintPlaceholder");
+        InjectionGroup print_group = new InjectionGroup("/MenuBar/FileMenu/PrintPlaceholder");
         print_group.add_menu_item("Print");
         
         groups += print_group;
         
-        InjectionGroup bg_group = new InjectionGroup("/DirectMenuBar/FileMenu/SetBackgroundPlaceholder");
+        InjectionGroup bg_group = new InjectionGroup("/MenuBar/FileMenu/SetBackgroundPlaceholder");
         bg_group.add_menu_item("SetBackground");
         
         groups += bg_group;

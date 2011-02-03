@@ -1,9 +1,9 @@
 <ui>
 
-    <menubar name="PhotoMenuBar">
+    <menubar name="MenuBar">
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Import" action="CommonFileImport" />
-            <placeholder name="ImportFromAlienDbPlaceholder" />
+            <placeholder name="CommonImportFromAlienDbPlaceholder" />
             <menuitem name="Export" action="Export" />
             <separator />
             <placeholder name="PrintPlaceholder" />

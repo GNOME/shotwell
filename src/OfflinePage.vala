@@ -34,11 +34,6 @@ public class OfflinePage : CheckerboardPage {
         base (name);
         
         init_item_context_menu("/OfflineContextMenu");
-
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/OfflineMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
         
         Gtk.Toolbar toolbar = get_toolbar();
         
@@ -59,10 +54,6 @@ public class OfflinePage : CheckerboardPage {
     ~OfflinePage() {
         LibraryPhoto.global.offline_contents_altered.disconnect(on_offline_contents_altered);
         Video.global.offline_contents_altered.disconnect(on_offline_contents_altered);
-    }
-    
-    protected override string? get_menubar_path() {
-        return "/OfflineMenuBar";
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {

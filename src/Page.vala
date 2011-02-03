@@ -327,9 +327,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     public virtual Gtk.MenuBar get_menubar() {
-        assert(get_menubar_path() != null);
+        Gtk.MenuBar? menubar = ui.get_widget("/MenuBar") as Gtk.MenuBar;
+        assert(menubar != null);
         
-        return (Gtk.MenuBar) ui.get_widget(get_menubar_path());
+        return menubar;
     }
 
     public virtual Gtk.Toolbar get_toolbar() {
@@ -536,7 +537,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         common_action_group = new Gtk.ActionGroup("CommonActionGroup");
         
         // Add common actions to the Page's common ActionGroup
-        AppWindow.get_instance().add_common_actions(common_action_group);
+        AppWindow.get_instance().add_common_actions(this, common_action_group);
         
         // Add both ActionGroups to the UIManager
         ui.insert_action_group(action_group, 0);
@@ -590,11 +591,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     // manager.  Because order is important here, call the base method *first*, then add the
     // classes' filename.
     protected virtual void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
-    }
-    
-    // This is called during construction for the menubar path to use for the menubar widget
-    protected virtual string? get_menubar_path() {
-        return null;
     }
     
     // This is called during init_ui() to collect all Gtk.ActionEntries for the page.

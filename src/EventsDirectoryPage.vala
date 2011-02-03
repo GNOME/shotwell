@@ -163,11 +163,6 @@ public class EventsDirectoryPage : CheckerboardPage {
         get_view().set_comparator(get_event_comparator(), event_comparator_predicate);
         get_view().monitor_source_collection(Event.global, view_manager, null, initial_events);
         
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
-        
         init_item_context_menu("/EventsDirectoryContextMenu");
 
         this.view_manager = view_manager;
@@ -180,10 +175,6 @@ public class EventsDirectoryPage : CheckerboardPage {
         merge_button.set_related_action(action_group.get_action("Merge"));
         
         toolbar.insert(merge_button, -1);
-    }
-    
-    protected override string? get_menubar_path() {
-        return "/EventsDirectoryMenuBar";
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
@@ -368,11 +359,6 @@ public class NoEventPage : CollectionPage {
     private NoEventPage() {
         base(NO_EVENT_PAGE_NAME);
         
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
-        
         ViewManager filter = new NoEventViewManager(this);
         get_view().monitor_source_collection(LibraryPhoto.global, filter, no_event_page_alteration);
         get_view().monitor_source_collection(Video.global, filter, no_event_page_alteration);
@@ -421,11 +407,6 @@ public class EventPage : CollectionPage {
     
     private EventPage(Event page_event) {
         base (page_event.get_name());
-        
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
         
         this.page_event = page_event;
         page_event.mirror_photos(get_view(), create_thumbnail);

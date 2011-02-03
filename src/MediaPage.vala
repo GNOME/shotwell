@@ -531,11 +531,6 @@ public abstract class MediaPage : CheckerboardPage {
     public MediaPage(string page_name) {
         base (page_name);
 
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/MediaMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
-
         get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
         get_view().items_altered.connect(on_media_altered);
 
@@ -571,10 +566,6 @@ public abstract class MediaPage : CheckerboardPage {
     private static int compute_zoom_scale_decrease(int current_scale) {
         int new_scale = current_scale - MANUAL_STEPPING;
         return new_scale.clamp(Thumbnail.MIN_SCALE, Thumbnail.MAX_SCALE);
-    }
-    
-    protected override string? get_menubar_path() {
-        return "/MediaMenuBar";
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
@@ -1063,7 +1054,7 @@ public abstract class MediaPage : CheckerboardPage {
     protected RatingFilter get_filter_criteria() {
         // any member of the group knows the current value
         Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/MediaMenuBar/ViewMenu/FilterPhotos/DisplayRejectedOrHigher");
+            "/MenuBar/ViewMenu/FilterPhotos/DisplayRejectedOrHigher");
         assert(action != null);
         
         RatingFilter filter = (RatingFilter) action.get_current_value();
@@ -1471,7 +1462,7 @@ public abstract class MediaPage : CheckerboardPage {
     protected int get_sort_criteria() {
         // any member of the group knows the current value
         Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/MediaMenuBar/ViewMenu/SortPhotos/SortByTitle");
+            "/MenuBar/ViewMenu/SortPhotos/SortByTitle");
         assert(action != null);
         
         int value = action.get_current_value();
@@ -1482,7 +1473,7 @@ public abstract class MediaPage : CheckerboardPage {
     protected int get_sort_order() {
         // any member of the group knows the current value
         Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/MediaMenuBar/ViewMenu/SortPhotos/SortAscending");
+            "/MenuBar/ViewMenu/SortPhotos/SortAscending");
         assert(action != null);
         
         int value = action.get_current_value();
@@ -1538,13 +1529,13 @@ public abstract class MediaPage : CheckerboardPage {
     protected string get_sortby_path(int sort_by) {
         switch(sort_by) {
             case SortBy.TITLE:
-                return "/MediaMenuBar/ViewMenu/SortPhotos/SortByTitle";
+                return "/MenuBar/ViewMenu/SortPhotos/SortByTitle";
             
             case SortBy.EXPOSURE_DATE:
-                return "/MediaMenuBar/ViewMenu/SortPhotos/SortByExposureDate";
+                return "/MenuBar/ViewMenu/SortPhotos/SortByExposureDate";
             
             case SortBy.RATING:
-                return "/MediaMenuBar/ViewMenu/SortPhotos/SortByRating";
+                return "/MenuBar/ViewMenu/SortPhotos/SortByRating";
             
             default:
                 error("Unknown sort criteria: %d", sort_by);
@@ -1567,7 +1558,7 @@ public abstract class MediaPage : CheckerboardPage {
         }
 
         Gtk.RadioAction ascending_action = 
-            (Gtk.RadioAction) ui.get_action("/MediaMenuBar/ViewMenu/SortPhotos/SortAscending");
+            (Gtk.RadioAction) ui.get_action("/MenuBar/ViewMenu/SortPhotos/SortAscending");
 
         int sort_order_int = sort_order ? SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING;
         if (ascending_action != null && ascending_action.get_current_value() != sort_order_int) {

@@ -1,6 +1,6 @@
 <ui>
 
-    <menubar name="MediaMenuBar">
+    <menubar name="MenuBar">
         <menu name="TagsMenu" action="TagsMenu">
             <menuitem name="RemoveTagFromPhotos" action="RemoveTagFromPhotos" />
             <separator />

@@ -1,6 +1,6 @@
 <ui>
 
-    <menubar name="DirectMenuBar">
+    <menubar name="MenuBar">
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Save" action="Save" />
             <menuitem name="SaveAs" action="SaveAs" />

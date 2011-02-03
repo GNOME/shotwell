@@ -91,7 +91,7 @@ public abstract class CollectionPage : MediaPage {
     }
 
     private static InjectionGroup create_file_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/FileMenu/FileExtrasPlaceholder");
+        InjectionGroup group = new InjectionGroup("/MenuBar/FileMenu/FileExtrasPlaceholder");
         
         group.add_menu_item("Print");
         group.add_separator();
@@ -103,7 +103,7 @@ public abstract class CollectionPage : MediaPage {
     }
     
     private static InjectionGroup create_edit_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/EditMenu/EditExtrasPlaceholder");
+        InjectionGroup group = new InjectionGroup("/MenuBar/EditMenu/EditExtrasPlaceholder");
         
         group.add_menu_item("Duplicate");
 
@@ -111,7 +111,7 @@ public abstract class CollectionPage : MediaPage {
     }
 
     private static InjectionGroup create_view_menu_fullscreen_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/ViewMenu/ViewExtrasFullscreenSlideshowPlaceholder");
+        InjectionGroup group = new InjectionGroup("/MenuBar/ViewMenu/ViewExtrasFullscreenSlideshowPlaceholder");
         
         group.add_menu_item("Fullscreen", "CommonFullscreen");
         group.add_separator();
@@ -121,7 +121,7 @@ public abstract class CollectionPage : MediaPage {
     }
 
     private static InjectionGroup create_photos_menu_edits_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder");
+        InjectionGroup group = new InjectionGroup("/MenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder");
         
         group.add_menu_item("RotateClockwise");
         group.add_menu_item("RotateCounterclockwise");
@@ -135,7 +135,7 @@ public abstract class CollectionPage : MediaPage {
     }
   
     private static InjectionGroup create_photos_menu_date_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasDateTimePlaceholder");
+        InjectionGroup group = new InjectionGroup("/MenuBar/PhotosMenu/PhotosExtrasDateTimePlaceholder");
         
         group.add_menu_item("AdjustDateTime");
         
@@ -143,7 +143,7 @@ public abstract class CollectionPage : MediaPage {
     }
 
     private static InjectionGroup create_photos_menu_externals_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
+        InjectionGroup group = new InjectionGroup("/MenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
         
         group.add_menu_item("ExternalEdit");
         group.add_menu_item("ExternalEditRAW");

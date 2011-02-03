@@ -1,11 +1,11 @@
 <ui>
 
-    <menubar name="ImportMenuBar">
+    <menubar name="MenuBar">
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Import" action="CommonFileImport" />
             <menuitem name="ImportSelected" action="ImportSelected" />
             <menuitem name="ImportAll" action="ImportAll" />
-            <placeholder name="ImportFromAlienDbPlaceholder" />
+            <placeholder name="CommonImportFromAlienDbPlaceholder" />
             <separator />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
             <separator />

@@ -507,10 +507,6 @@ public class ImportPage : CheckerboardPage {
         LibraryPhoto.global.contents_altered.connect(on_media_added_removed);
         Video.global.contents_altered.connect(on_media_added_removed);
         
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/ImportMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
         init_item_context_menu("/ImportContextMenu");
         init_page_context_menu("/ImportContextMenu");
         
@@ -580,10 +576,6 @@ public class ImportPage : CheckerboardPage {
     
     private int64 import_job_comparator(void *a, void *b) {
         return ((CameraImportJob *) a)->get_exposure_time() - ((CameraImportJob *) b)->get_exposure_time();
-    }
-    
-    protected override string? get_menubar_path() {
-        return "/ImportMenuBar";
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
@@ -1352,11 +1344,6 @@ public class ImportQueuePage : SinglePhotoPage {
     public ImportQueuePage() {
         base(_("Importing..."), false);
         
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/ImportQueueMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
-        
         // Set up toolbar
         Gtk.Toolbar toolbar = get_toolbar();
         
@@ -1378,10 +1365,6 @@ public class ImportQueuePage : SinglePhotoPage {
         progress_item.add(progress_bar);
         
         toolbar.insert(progress_item, -1);
-    }
-    
-    protected override string? get_menubar_path() {
-        return "/ImportQueueMenuBar";
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {

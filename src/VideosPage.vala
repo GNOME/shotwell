@@ -95,7 +95,7 @@ public class VideosPage : MediaPage {
     }
     
     private static InjectionGroup create_file_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/FileMenu/FileExtrasPlaceholder");
+        InjectionGroup group = new InjectionGroup("/MenuBar/FileMenu/FileExtrasPlaceholder");
         
         group.add_separator();
         group.add_menu_item("Publish");
@@ -105,7 +105,7 @@ public class VideosPage : MediaPage {
     }
     
     private static InjectionGroup create_videos_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
+        InjectionGroup group = new InjectionGroup("/MenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
         
         group.add_menu_item("PlayVideo");
         
