@@ -1636,6 +1636,15 @@ public class WelcomeDialog : Gtk.Dialog {
 }
 
 public class PreferencesDialog {
+    private class PathFormat {
+        public PathFormat(string name, string? pattern) {
+            this.name = name;
+            this.pattern = pattern;
+        }
+        public string name;
+        public string? pattern;
+    } 
+    
     private static PreferencesDialog preferences_dialog;
     private Gtk.Dialog dialog;
     private Gtk.Builder builder;
@@ -1646,7 +1655,15 @@ public class PreferencesDialog {
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
     private Gtk.FileChooserButton library_dir_button;
+    private Gtk.ComboBox dir_pattern_combo;
+    private Gtk.Entry dir_pattern_entry;
+    private Gtk.Label dir_pattern_example;
+    private bool allow_closing = false;
     private string? lib_dir = null;
+    private Gee.ArrayList<PathFormat> path_formats = new Gee.ArrayList<PathFormat>();
+    private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
+    private Gtk.CheckButton lowercase;
+    private Gtk.Button close_button;
 
     private PreferencesDialog() {
         builder = AppWindow.create_builder();
@@ -1667,8 +1684,31 @@ public class PreferencesDialog {
 
         library_dir_button = builder.get_object("library_dir_button") as Gtk.FileChooserButton;
         
+        close_button = builder.get_object("close_button") as Gtk.Button;
+        
         photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
         raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
+        
+        Gtk.Label pattern_help = builder.get_object("pattern_help") as Gtk.Label;
+        pattern_help.set_markup("<a href=\"" + Resources.DIR_PATTERN_URL + "\">" + _("(Help)") + "</a>");
+        
+        dir_pattern_combo = new Gtk.ComboBox.text();
+        Gtk.Alignment dir_choser_align = builder.get_object("dir choser") as Gtk.Alignment;
+        dir_choser_align.add(dir_pattern_combo);
+        dir_pattern_entry = builder.get_object("dir_pattern_entry") as Gtk.Entry;
+        dir_pattern_example = builder.get_object("dynamic example") as Gtk.Label;
+        add_to_dir_formats(_("Year" + Path.DIR_SEPARATOR_S + "Month" + Path.DIR_SEPARATOR_S + "Day"), 
+            "%Y" + Path.DIR_SEPARATOR_S + "%m" + Path.DIR_SEPARATOR_S + "%d");
+        add_to_dir_formats(_("Year" + Path.DIR_SEPARATOR_S + "Month"), "%Y" + Path.DIR_SEPARATOR_S + "%m");
+        add_to_dir_formats(_("Year" + Path.DIR_SEPARATOR_S + "Month-Day"), 
+            "%Y" + Path.DIR_SEPARATOR_S + "%m-%d");
+        add_to_dir_formats(_("Year-Month-Day"), "%Y-%m-%d");
+        add_to_dir_formats(_("Custom"), null); // Custom must always be last.
+        dir_pattern_combo.changed.connect(on_dir_pattern_combo_changed);
+        dir_pattern_entry.changed.connect(on_dir_pattern_entry_changed);
+        
+        lowercase = builder.get_object("lowercase") as Gtk.CheckButton;
+        lowercase.toggled.connect(on_lowercase_toggled);
 
         populate_preference_options();
 
@@ -1690,6 +1730,10 @@ public class PreferencesDialog {
 
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(), 
             Config.get_instance().get_external_raw_app(), out external_raw_apps);
+        
+        setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
+        
+        lowercase.set_active(Config.get_instance().get_use_lowercase_filenames());
     }
     
     private void populate_app_combo_box(Gtk.ComboBox combo_box, string[] mime_types,
@@ -1750,6 +1794,36 @@ public class PreferencesDialog {
             combo_box.set_active(current_app);
     }
     
+    private void setup_dir_pattern(Gtk.ComboBox combo_box, Gtk.Entry entry) {
+        string? pattern = Config.get_instance().get_directory_pattern();
+        bool found = false;
+        if (null != pattern) {
+            // Locate pre-built text.
+            int i = 0;
+            foreach (PathFormat pf in path_formats) {
+                if (pf.pattern == pattern) {
+                    combo_box.set_active(i);
+                    found = true;
+                    break;
+                }
+                i++;
+            }
+        } else {
+            // Custom path.
+            string? s = Config.get_instance().get_directory_pattern_custom();
+            if (!is_string_empty(s)) {
+                combo_box.set_active(path_formats.size - 1); // Assume "custom" is last.
+                found = true;
+            }
+        }
+        
+        if (!found) {
+            combo_box.set_active(0);
+        }
+        
+        on_dir_pattern_combo_changed();
+    }
+    
     public static void show() {
         if (preferences_dialog == null) 
             preferences_dialog = new PreferencesDialog();
@@ -1778,17 +1852,29 @@ public class PreferencesDialog {
        
         if (lib_dir != null)
             AppDirs.set_import_dir(lib_dir);
+        
+        PathFormat pf = path_formats.get(dir_pattern_combo.get_active());
+        if (null == pf.pattern) {
+            Config.get_instance().set_directory_pattern_custom(dir_pattern_entry.text);
+            Config.get_instance().unset_directory_pattern();
+        } else {
+            Config.get_instance().set_directory_pattern(pf.pattern);
+        }
     }
     
     private bool on_delete() {
-        commit_on_close();
+        if (!get_allow_closing())
+            return true;
         
+        commit_on_close();
         return dialog.hide_on_delete(); //prevent widgets from getting destroyed
     }
     
     private void on_close() {
+        if (!get_allow_closing())
+            return;
+            
         dialog.hide();
-        
         commit_on_close();
     }
     
@@ -1806,6 +1892,49 @@ public class PreferencesDialog {
         }
 
         return false;
+    }
+    
+    private void on_dir_pattern_combo_changed() {
+        PathFormat pf = path_formats.get(dir_pattern_combo.get_active());
+        if (null == pf.pattern) {
+            // Custom format.
+            string? dir_pattern = Config.get_instance().get_directory_pattern_custom();
+            if (is_string_empty(dir_pattern))
+                dir_pattern = "";
+            dir_pattern_entry.set_text(dir_pattern);
+            dir_pattern_entry.editable = true;
+            dir_pattern_entry.sensitive = true;
+        } else {
+            dir_pattern_entry.set_text(pf.pattern);
+            dir_pattern_entry.editable = false;
+            dir_pattern_entry.sensitive = false;
+        }
+    }
+    
+    private void on_dir_pattern_entry_changed() {
+         string example = example_date.format(dir_pattern_entry.text);
+         if (is_string_empty(example) && !is_string_empty(dir_pattern_entry.text)) {
+            // Invalid pattern.
+            dir_pattern_example.set_text(_("Invalid pattern"));
+            dir_pattern_entry.set_icon_from_stock(Gtk.EntryIconPosition.SECONDARY, Gtk.STOCK_DIALOG_ERROR);
+            dir_pattern_entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, false);
+            set_allow_closing(false);
+         } else {
+            // Valid pattern.
+            dir_pattern_example.set_text(example);
+            dir_pattern_entry.set_icon_from_stock(Gtk.EntryIconPosition.SECONDARY, null);
+            set_allow_closing(true);
+         }
+    }
+    
+    private void set_allow_closing(bool allow) {
+        dialog.set_deletable(allow);
+        close_button.set_sensitive(allow);
+        allow_closing = allow;
+    }
+    
+    private bool get_allow_closing() {
+        return allow_closing;
     }
 
     private void set_background_color(double bg_color_value) {
@@ -1850,6 +1979,16 @@ public class PreferencesDialog {
         // See ticket #3000 for more info.
         library_dir_button.current_folder_changed.connect(on_current_folder_changed);
         return true;
+    }
+    
+    private void add_to_dir_formats(string name, string? pattern) {
+        PathFormat pf = new PathFormat(name, pattern);
+        path_formats.add(pf);
+        dir_pattern_combo.append_text(name);
+    }
+    
+    private void on_lowercase_toggled() {
+        Config.get_instance().set_use_lowercase_filenames(lowercase.get_active());
     }
 }
 

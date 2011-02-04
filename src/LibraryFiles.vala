@@ -5,7 +5,6 @@
  */
 
 namespace LibraryFiles {
-public const int DIRECTORY_DEPTH = 3;
 
 // This method uses global::generate_unique_file_at in order to "claim" a file in the filesystem.
 // Thus, when the method returns success a file may exist already, and should be overwritten.
@@ -24,15 +23,8 @@ public File? generate_unique_file(string basename, PhotoMetadata? metadata, time
             timestamp = time_t();
     }
     
-    Time tm = Time.local(timestamp);
-    
-    // build a directory tree inside the library, as deep as DIRECTORY_DEPTH:
-    // yyyy/mm/dd
-    File dir = AppDirs.get_import_dir();
-    dir = dir.get_child("%04u".printf(tm.year + 1900));
-    dir = dir.get_child("%02u".printf(tm.month + 1));
-    dir = dir.get_child("%02u".printf(tm.day));
-    
+    // build a directory tree inside the library
+    File dir = AppDirs.get_baked_import_dir(timestamp);
     try {
         dir.make_directory_with_parents(null);
     } catch (Error err) {
@@ -42,7 +34,12 @@ public File? generate_unique_file(string basename, PhotoMetadata? metadata, time
         // silently ignore not creating a directory that already exists
     }
     
-    return global::generate_unique_file(dir, basename, out collision);
+    // Optionally convert to lower-case.
+    string newbasename = basename;
+    if (Config.get_instance().get_use_lowercase_filenames())
+        newbasename = newbasename.down();
+    
+    return global::generate_unique_file(dir, newbasename, out collision);
 }
 
 // This function is thread-safe.

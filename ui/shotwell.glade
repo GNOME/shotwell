@@ -114,7 +114,7 @@
             <child>
               <object class="GtkTable" id="table1">
                 <property name="visible">True</property>
-                <property name="n_rows">9</property>
+                <property name="n_rows">14</property>
                 <property name="n_columns">2</property>
                 <property name="column_spacing">8</property>
                 <property name="row_spacing">4</property>
@@ -132,7 +132,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="hbox3">
+                  <object class="GtkHBox" id="slider container">
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
                     <child>
@@ -182,7 +182,7 @@
                     <property name="top_padding">14</property>
                     <property name="bottom_padding">3</property>
                     <child>
-                      <object class="GtkLabel" id="label3">
+                      <object class="GtkLabel" id="library location">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
                         <property name="label" translatable="yes">Library Location</property>
@@ -216,12 +216,12 @@
                   </object>
                   <packing>
                     <property name="right_attach">2</property>
-                    <property name="top_attach">7</property>
-                    <property name="bottom_attach">8</property>
+                    <property name="top_attach">12</property>
+                    <property name="bottom_attach">13</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="hbox2">
+                  <object class="GtkHBox" id="buttons: editors">
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkAlignment" id="alignment2">
@@ -258,8 +258,8 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
-                    <property name="top_attach">8</property>
-                    <property name="bottom_attach">9</property>
+                    <property name="top_attach">13</property>
+                    <property name="bottom_attach">14</property>
                   </packing>
                 </child>
                 <child>
@@ -287,7 +287,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkAlignment" id="alignment9">
+                  <object class="GtkAlignment" id="label: metadata">
                     <property name="visible">True</property>
                     <property name="top_padding">14</property>
                     <property name="bottom_padding">3</property>
@@ -304,12 +304,12 @@
                   </object>
                   <packing>
                     <property name="right_attach">2</property>
-                    <property name="top_attach">5</property>
-                    <property name="bottom_attach">6</property>
+                    <property name="top_attach">10</property>
+                    <property name="bottom_attach">11</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkAlignment" id="alignment10">
+                  <object class="GtkAlignment" id="label: metadate write">
                     <property name="visible">True</property>
                     <property name="left_padding">10</property>
                     <child>
@@ -325,12 +325,12 @@
                   </object>
                   <packing>
                     <property name="right_attach">2</property>
-                    <property name="top_attach">6</property>
-                    <property name="bottom_attach">7</property>
+                    <property name="top_attach">11</property>
+                    <property name="bottom_attach">12</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkAlignment" id="alignment11">
+                  <object class="GtkAlignment" id="label: display">
                     <property name="visible">True</property>
                     <property name="bottom_padding">3</property>
                     <child>
@@ -349,7 +349,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkAlignment" id="alignment12">
+                  <object class="GtkAlignment" id="labels: external editors">
                     <property name="visible">True</property>
                     <property name="left_padding">6</property>
                     <child>
@@ -386,13 +386,13 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="top_attach">8</property>
-                    <property name="bottom_attach">9</property>
+                    <property name="top_attach">13</property>
+                    <property name="bottom_attach">14</property>
                     <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkAlignment" id="alignment13">
+                  <object class="GtkAlignment" id="label: import to">
                     <property name="visible">True</property>
                     <property name="left_padding">10</property>
                     <child>
@@ -413,7 +413,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkAlignment" id="alignment14">
+                  <object class="GtkAlignment" id="label: background">
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkLabel" id="bg_color_label">
@@ -432,6 +432,174 @@
                     <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkAlignment" id="label: importing">
+                    <property name="visible">True</property>
+                    <property name="top_padding">14</property>
+                    <property name="bottom_padding">3</property>
+                    <child>
+                      <object class="GtkLabel" id="importing">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">Importing</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">5</property>
+                    <property name="bottom_attach">6</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="label: directory structure">
+                    <property name="visible">True</property>
+                    <property name="left_padding">10</property>
+                    <child>
+                      <object class="GtkLabel" id="label12">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">_Directory structure:</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">library_dir_button</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="top_attach">6</property>
+                    <property name="bottom_attach">7</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="dir choser">
+                    <property name="visible">True</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">6</property>
+                    <property name="bottom_attach">7</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="label: patern">
+                    <property name="visible">True</property>
+                    <property name="left_padding">34</property>
+                    <child>
+                      <object class="GtkHBox" id="hbox1">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkLabel" id="patern">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">_Pattern:</property>
+                            <property name="use_underline">True</property>
+                          </object>
+                          <packing>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="pattern_help">
+                            <property name="visible">True</property>
+                            <attributes>
+                              <attribute name="underline" value="True"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="top_attach">7</property>
+                    <property name="bottom_attach">8</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="entry: pattern">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkEntry" id="dir_pattern_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">•</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">7</property>
+                    <property name="bottom_attach">8</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="label: dynamic example">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkLabel" id="dynamic example">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">8</property>
+                    <property name="bottom_attach">9</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="label: example">
+                    <property name="visible">True</property>
+                    <property name="left_padding">34</property>
+                    <child>
+                      <object class="GtkLabel" id="example">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">Example:</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="top_attach">8</property>
+                    <property name="bottom_attach">9</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="checkbox: lowercase">
+                    <property name="visible">True</property>
+                    <property name="top_padding">2</property>
+                    <property name="left_padding">10</property>
+                    <child>
+                      <object class="GtkCheckButton" id="lowercase">
+                        <property name="label" translatable="yes">R_ename imported files to lowercase</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">9</property>
+                    <property name="bottom_attach">10</property>
+                    <property name="x_options">GTK_FILL</property>
+                    <property name="y_options"></property>
+                  </packing>
+                </child>
               </object>
             </child>
           </object>
@@ -445,7 +613,7 @@
             <property name="visible">True</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton" id="button3">
+              <object class="GtkButton" id="close_button">
                 <property name="label">gtk-close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -470,7 +638,7 @@
       </object>
     </child>
     <action-widgets>
-      <action-widget response="-5">button3</action-widget>
+      <action-widget response="-5">close_button</action-widget>
     </action-widgets>
   </object>
   <object class="GtkAdjustment" id="bg_color_adjustment">

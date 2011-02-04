@@ -82,6 +82,18 @@ class AppDirs {
         return File.new_for_path(Environment.get_home_dir()).get_child(_("Pictures"));
     }
     
+    // Library folder + photo folder, based on user's prefered directory pattern.
+    public static File get_baked_import_dir(time_t tm) {
+        string? pattern = Config.get_instance().get_directory_pattern();
+        if (is_string_empty(pattern))
+            pattern = Config.get_instance().get_directory_pattern_custom();
+        if (is_string_empty(pattern))
+            pattern = "%Y" + Path.DIR_SEPARATOR_S + "%m" + Path.DIR_SEPARATOR_S + "%d"; // default
+            
+        DateTime date = new DateTime.from_unix_utc(tm);
+        return File.new_for_path(get_import_dir().get_path() + Path.DIR_SEPARATOR_S + date.format(pattern));
+    }
+    
     // Returns true if the File is in or is equal to the library/import directory.
     public static bool is_in_import_dir(File file) {
         File import_dir = get_import_dir();

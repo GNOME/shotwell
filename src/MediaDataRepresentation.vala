@@ -71,7 +71,7 @@ public abstract class MediaSource : ThumbnailSource {
         // inside the user's Pictures directory
         if (file.has_prefix(AppDirs.get_import_dir())) {
             File parent = file;
-            for (int depth = 0; depth < LibraryFiles.DIRECTORY_DEPTH; depth++) {
+            while(!parent.equal(AppDirs.get_import_dir())) {
                 parent = parent.get_parent();
                 if (parent == null)
                     break;

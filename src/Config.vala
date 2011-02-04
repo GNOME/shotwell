@@ -77,6 +77,15 @@ public class Config {
         warning("Unable to set GConf value at %s: %s", path, err.message);
     }
     
+    private bool unset(string path) {
+        try {
+            return client.unset(path);
+        } catch (Error err) {
+            report_get_error(path, err);
+            return false;
+        }
+    }
+    
     private bool get_bool(string path, bool def) {
         try {
             if (client.get(path) == null)
@@ -701,5 +710,33 @@ public class Config {
     
     public void set_commit_metadata_to_masters(bool commit_metadata) {
         set_bool(BOOL_COMMIT_METADATA_TO_MASTERS, commit_metadata);
+    }
+    
+    public string? get_directory_pattern() {
+        return (get_string(PATH_SHOTWELL + "/files/directory_pattern", null));
+    }
+
+    public bool set_directory_pattern(string s) {
+        return set_string(PATH_SHOTWELL + "/files/directory_pattern", s);
+    }
+    
+    public bool unset_directory_pattern() {
+        return unset(PATH_SHOTWELL + "/files/directory_pattern");
+    }
+    
+    public string get_directory_pattern_custom() {
+        return (get_string(PATH_SHOTWELL + "/files/directory_pattern_custom", ""));
+    }
+
+    public bool set_directory_pattern_custom(string s) {
+        return set_string(PATH_SHOTWELL + "/files/directory_pattern_custom", s);
+    }
+    
+    public bool get_use_lowercase_filenames() {
+        return get_bool(PATH_SHOTWELL + "/files/user_lowercase_filenames", false);
+    }
+    
+    public void set_use_lowercase_filenames(bool b) {
+        set_bool(PATH_SHOTWELL + "/files/user_lowercase_filenames", b);
     }
 }
