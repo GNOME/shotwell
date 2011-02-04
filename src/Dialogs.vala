@@ -1013,7 +1013,12 @@ public class ProgressDialog : Gtk.Window {
         add(alignment);
         
         time_started = now_ms();
+    }
+    
+    public override void realize() {
+        base.realize();
         
+        // if unable to cancel the progress bar, remove the close button
         if (cancellable == null)
             window.set_functions(Gdk.WMFunction.MOVE);
     }
