@@ -1752,8 +1752,12 @@ public class PreferencesDialog {
         preferences_dialog.populate_preference_options();
         preferences_dialog.dialog.show_all();
         preferences_dialog.library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
+
+        // Ticket #3001: Cause the dialog to become active if the user chooses 'Preferences'
+        // from the menus a second time.
+        preferences_dialog.dialog.present();
     }
-    
+
     // For items that should only be committed when the dialog is closed, not as soon as the change
     // is made.
     private void commit_on_close() {

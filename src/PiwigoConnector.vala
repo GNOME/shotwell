@@ -632,7 +632,7 @@ private class CredentialsCapturePane : PublishingDialogPane {
         Gtk.Table entry_widgets_table = new Gtk.Table(4,2, false);
         Gtk.Label url_entry_label = new Gtk.Label.with_mnemonic(_("_URL of your Piwigo installation:"));
         url_entry_label.set_alignment(0.0f, 0.5f);
-        Gtk.Label user_entry_label = new Gtk.Label.with_mnemonic(_("_Username:"));
+        Gtk.Label user_entry_label = new Gtk.Label.with_mnemonic(_("User_name:"));
         user_entry_label.set_alignment(0.0f, 0.5f);
         Gtk.Label password_entry_label = new Gtk.Label.with_mnemonic(_("_Password:"));
         password_entry_label.set_alignment(0.0f, 0.5f);
