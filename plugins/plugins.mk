@@ -1,5 +1,6 @@
 
 PLUGINS := \
 	spitter \
-	shotwell-transitions
+	shotwell-transitions \
+	shotwell-publishing
 

@@ -20,7 +20,7 @@ all: $(PLUGIN).so
 $(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES)
 	$(VALAC) --save-temps --main=dummy_main --vapidir=../ \
 		$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
-		-X -I../.. -X --shared -X -fPIC -X -D_VERSION='"$(PLUGINS_VERSION)"' $(SRC_FILES) -o $@
+		-X -I../.. -X --shared -X -fPIC -X -D_VERSION='"$(PLUGINS_VERSION)"' -X -DGETTEXT_PACKAGE='"shotwell"' $(SRC_FILES) -o $@
 
 .PHONY: cleantemps
 cleantemps:

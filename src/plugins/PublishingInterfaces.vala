@@ -6,6 +6,8 @@
 
 namespace Spit.Publishing {
 
+public const int CURRENT_API_VERSION = 0;
+
 public errordomain PublishingError {
     NO_ANSWER,
     COMMUNICATION_FAILED,
@@ -129,4 +131,13 @@ public interface Publishable : GLib.Object {
     public abstract Spit.Publishing.Publisher.MediaType get_media_type();
 }
 
+public interface PublishingService : Object, Spit.Pluggable {
+    public abstract string get_service_id();
+    
+    public abstract string get_service_name();
+    
+    public abstract Spit.Publishing.Publisher create_publisher();
 }
+
+}
+

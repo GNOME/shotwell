@@ -330,8 +330,26 @@ public class GlueFactory {
 
         ((DialogInteractorWrapper) active_dialog).set_plugin_host(publishing_host);
 
-        Spit.Publishing.Publisher real_publisher =
-            new global::Publishing.Facebook.FacebookPublisher();
+        // load publishing services from plug-ins
+        Gee.Collection<Spit.Pluggable> pluggables = Plugins.get_pluggables_for_type(
+            typeof(Spit.Publishing.PublishingService));
+            
+        debug("Publising API Glue: discovered %d pluggable publishing services.", pluggables.size);
+
+        Spit.Publishing.PublishingService? facebook_service = null;
+        foreach (Spit.Pluggable pluggable in pluggables) {
+            Spit.Publishing.PublishingService service =
+                (Spit.Publishing.PublishingService) pluggable;
+            debug("Publishing API Glue: discovered pluggable publishing service '%s'.",
+                service.get_service_name());
+            if (service.get_service_id() == "org.yorba.shotwell.publishing.core_services.facebook")
+                facebook_service = service;
+        }
+        
+        if (facebook_service == null)
+            error("Publishing API Glue: required service 'Facebook' wasn't found.'");
+        
+        Spit.Publishing.Publisher real_publisher = facebook_service.create_publisher();
         
         ServiceInteractor publisher_wrapper = new PublisherWrapperInteractor(real_publisher,
             publishing_host, active_dialog);

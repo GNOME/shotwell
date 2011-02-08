@@ -8,7 +8,7 @@ namespace FacebookConnector {
 
 public class Capabilities : ServiceCapabilities {
     public override string get_name() {
-        return Publishing.Facebook.SERVICE_NAME;
+        return "Facebook";
     }
     
     public override Spit.Publishing.Publisher.MediaType get_supported_media() {

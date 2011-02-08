@@ -4,6 +4,28 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
+extern Soup.Message soup_form_request_new_from_multipart(string uri, Soup.Multipart multipart);
+extern void qsort(void *p, size_t num, size_t size, GLib.CompareFunc func);
+
+public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.PublishingService {
+    public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
+        return Spit.negotiate_interfaces(min_host_interface, max_host_interface,
+            Spit.Publishing.CURRENT_API_VERSION);
+    }
+    
+    public string get_service_id() {
+        return "org.yorba.shotwell.publishing.core_services.facebook";
+    }
+    
+    public string get_service_name() {
+        return "Facebook";
+    }
+    
+    public Spit.Publishing.Publisher create_publisher() {
+        return new Publishing.Facebook.FacebookPublisher();
+    }
+}
+
 namespace Publishing.Facebook {
 // global parameters for the Facebook publishing plugin -- don't touch these (unless you really,
 // truly, deep-down know what you're doing)
@@ -1291,6 +1313,8 @@ internal class PublishingOptionsPane : Spit.Publishing.PublishingDialogPane, GLi
     public void on_pane_installed() {        
         wrapped.logout.connect(notify_logout);
         wrapped.publish.connect(notify_publish);
+        
+        wrapped.installed();
     }
     
     public void on_pane_uninstalled() {
@@ -1299,7 +1323,7 @@ internal class PublishingOptionsPane : Spit.Publishing.PublishingDialogPane, GLi
     }
 }
 
-internal class LegacyPublishingOptionsPane : global::PublishingDialogPane {
+internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private struct PrivacyDescription {
         private string description;
         private string privacy_setting;
@@ -1313,7 +1337,8 @@ internal class LegacyPublishingOptionsPane : global::PublishingDialogPane {
     private const string HEADER_LABEL_TEXT = _("You are logged into Facebook as %s.\n\n");
     private const string PHOTOS_LABEL_TEXT = _("Where would you like to publish the selected photos?");
     private const int CONTENT_GROUP_SPACING = 32;
-
+    private const int STANDARD_ACTION_BUTTON_WIDTH = 128;
+    
     private Gtk.RadioButton use_existing_radio = null;
     private Gtk.RadioButton create_new_radio = null;
     private Gtk.ComboBox existing_albums_combo = null;
@@ -1415,8 +1440,8 @@ internal class LegacyPublishingOptionsPane : global::PublishingDialogPane {
         buttons_layouter.add(buttons_central_padding);
         buttons_layouter.add(publish_button_aligner);
         buttons_layouter.add(buttons_right_padding);
-        publish_button.set_size_request(PublishingDialog.STANDARD_ACTION_BUTTON_WIDTH, -1);
-        logout_button.set_size_request(PublishingDialog.STANDARD_ACTION_BUTTON_WIDTH, -1);
+        publish_button.set_size_request(STANDARD_ACTION_BUTTON_WIDTH, -1);
+        logout_button.set_size_request(STANDARD_ACTION_BUTTON_WIDTH, -1);
 
         album_mode_layouter.add(use_existing_layouter);
         album_mode_layouter.add(create_new_layouter);
@@ -1495,7 +1520,7 @@ internal class LegacyPublishingOptionsPane : global::PublishingDialogPane {
         return result;
     }
 
-    public override void installed() {
+    public void installed() {
         if (albums.length == 0) {
             create_new_radio.set_active(true);
             new_album_entry.set_text(DEFAULT_ALBUM_NAME);

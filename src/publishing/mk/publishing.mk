@@ -12,7 +12,6 @@ UNIT_DIR := publishing
 # NOTE: Do *not* include the unit's master file, i.e. UNIT_NAME.vala.
 UNIT_FILES := \
 	PublishingPluginHost.vala \
-	FacebookPublishing.vala \
 	APIGlue.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
