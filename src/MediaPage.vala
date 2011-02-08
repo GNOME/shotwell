@@ -478,6 +478,7 @@ public abstract class MediaPage : CheckerboardPage {
             entry.focus_out_event.connect(on_editing_canceled);
             entry.changed.connect(on_text_changed);
             entry.icon_release.connect(on_icon_release);
+            entry.key_press_event.connect(on_escape_key);
             add(entry);
         }
         
@@ -486,6 +487,7 @@ public abstract class MediaPage : CheckerboardPage {
             entry.focus_out_event.disconnect(on_editing_canceled);
             entry.changed.disconnect(on_text_changed);
             entry.icon_release.disconnect(on_icon_release);
+            entry.key_press_event.disconnect(on_escape_key);
         }
         
         private void on_text_changed() {
@@ -505,6 +507,18 @@ public abstract class MediaPage : CheckerboardPage {
         public void set_text(string t) {
             entry.text = t;
         }
+
+        // Ticket #3124 - user should be able to clear
+        // the search textbox by typing 'Esc'.
+        private bool on_escape_key(Gdk.EventKey e) {
+            if(Gdk.keyval_name(e.keyval) == "Escape") {
+                this.clear();
+            }
+            
+            // Continue processing this event, since the
+            // text entry functionality needs to see it too.
+            return false;
+        }  
         
         public void clear() {
             entry.set_text("");
