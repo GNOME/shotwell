@@ -982,7 +982,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         replace_photo(photo);
     }
 
-    protected virtual void update_ui(Photo photo, bool missing) {
+    protected virtual void update_ui(bool missing) {
         bool sensitivity = !missing;
         
         rotate_button.sensitive = sensitivity;
@@ -1025,7 +1025,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (photo == null)
             return;
         
-        update_ui(photo, missing);
+        update_ui(missing);
         
         if (photo_missing) {
             try {
@@ -1095,7 +1095,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         swapped = null;
 
         // reset flags
-        set_photo_missing(false);
+        set_photo_missing(!new_photo.get_file().query_exists());
         pixbuf_dirty = true;
         
         // it's possible for this to be called prior to the page being realized, however, the
@@ -1700,8 +1700,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
         
         if (photo_missing && has_photo()) {
+            Gdk.cairo_set_source_color(ctx, canvas.style.black);
+            ctx.rectangle(0, 0, get_surface_dim().width, get_surface_dim().height);
+            ctx.fill();
+            ctx.paint();
             draw_message(_("Photo source file missing: %s").printf(get_photo().get_file().get_path()));
-            
             return;
         }
         
@@ -2636,7 +2639,7 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
-    protected override void update_ui(Photo photo, bool missing) {
+    protected override void update_ui(bool missing) {
         bool sensitivity = !missing;
         
         set_action_sensitive("SendTo", sensitivity);
@@ -2675,7 +2678,7 @@ public class LibraryPhotoPage : EditingHostPage {
         
         set_action_sensitive("SetBackground", sensitivity);
         
-        base.update_ui(photo, missing);
+        base.update_ui(missing);
     }
     
     protected override void notify_photo_backing_missing(Photo photo, bool missing) {
@@ -3554,7 +3557,7 @@ public class DirectPhotoPage : EditingHostPage {
         get_command_manager().reset();
     }
     
-    protected override void update_ui(Photo photo, bool missing) {
+    protected override void update_ui(bool missing) {
         bool sensitivity = !missing;
         
         set_action_sensitive("Save", sensitivity);
@@ -3587,7 +3590,7 @@ public class DirectPhotoPage : EditingHostPage {
         
         set_action_sensitive("SetBackground", has_photo() && !get_photo_missing());
         
-        base.update_ui(photo, missing);
+        base.update_ui(missing);
     }
     
     protected override void update_actions(int selected_count, int count) {

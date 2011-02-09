@@ -912,6 +912,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     public CheckerboardItem? get_item_at_pixel(double xd, double yd) {
+        if (null == item_rows)
+            return null;
+            
         int x = (int) xd;
         int y = (int) yd;
         
