@@ -7,7 +7,7 @@
 extern const string _VERSION;
 
 // "core services" are: Facebook, Flickr, Picasa Web Albums, and YouTube
-private class ShotwellPublishingCoreServices : Object, Spit.Wad {
+private class ShotwellPublishingCoreServices : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
 
     public ShotwellPublishingCoreServices() {
@@ -25,7 +25,7 @@ private class ShotwellPublishingCoreServices : Object, Spit.Wad {
         return _VERSION;
     }
     
-    public string get_wad_name() {
+    public string get_id() {
         return "org.yorba.shotwell.publishing.core_services";
     }
     
@@ -38,7 +38,7 @@ private ShotwellPublishingCoreServices? core_services = null;
 private Spit.EntryPoint? compiler_entry_point = null;
 
 // This entry point is required for all SPIT modules.
-public unowned Spit.Wad? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
+public unowned Spit.Module? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
     out int module_spit_interface) {
     // this is purely for compilation, to verify that the entry point matches SpitEntryPoint's sig;
     // it does nothing functionally

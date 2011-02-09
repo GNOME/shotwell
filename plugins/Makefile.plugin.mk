@@ -12,12 +12,13 @@
 
 VALAC := valac
 MAKE_FILES := Makefile ../Makefile.plugin.mk ../plugins.mk
+HEADER_FILES := $(wildcard ../*.vapi ../*.h ../*.deps)
 
 include ../plugins.mk
 
 all: $(PLUGIN).so
 
-$(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES)
+$(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
 	$(VALAC) --save-temps --main=dummy_main --vapidir=../ \
 		$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
 		-X -I../.. -X --shared -X -fPIC -X -D_VERSION='"$(PLUGINS_VERSION)"' -X -DGETTEXT_PACKAGE='"shotwell"' $(SRC_FILES) -o $@

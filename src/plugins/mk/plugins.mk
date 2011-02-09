@@ -13,7 +13,8 @@ UNIT_DIR := plugins
 UNIT_FILES := \
 	PublishingInterfaces.vala \
 	SpitInterfaces.vala \
-	TransitionsInterfaces.vala
+	TransitionsInterfaces.vala \
+	StandardHostInterface.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

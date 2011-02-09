@@ -8,16 +8,15 @@
 using Spit;
 
 private class CrumbleEffectDescriptor : ShotwellTransitionDescriptor {
-    public override string get_effect_id() {
+    public override string get_id() {
         return "org.yorba.shotwell.transitions.crumble";
     }
     
-    public override string get_effect_name() {
-        // TODO: Need to enable gettext for the plug-ins
-        return "Crumble";
+    public override string get_pluggable_name() {
+        return _("Crumble");
     }
     
-    public override Transitions.Effect create() {
+    public override Transitions.Effect create(Spit.HostInterface host) {
         return new CrumbleEffect();
     }
 }

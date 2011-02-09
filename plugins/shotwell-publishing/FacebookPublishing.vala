@@ -13,12 +13,20 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Publishin
             Spit.Publishing.CURRENT_API_VERSION);
     }
     
-    public string get_service_id() {
-        return "org.yorba.shotwell.publishing.core_services.facebook";
+    public string get_id() {
+        return "org.yorba.shotwell.publishing.facebook";
     }
     
-    public string get_service_name() {
+    public string get_pluggable_name() {
         return "Facebook";
+    }
+    
+    public void get_info(out Spit.PluggableInfo info) {
+        info.copyright = _("Copyright 2009-2011 Yorba Foundation");
+        info.translators = _("translator-credits");
+        info.version = _VERSION;
+        info.website_name = _("Visit the Yorba web site");
+        info.website_url = "http://www.yorba.org";
     }
     
     public Spit.Publishing.Publisher create_publisher() {

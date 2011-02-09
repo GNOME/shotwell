@@ -85,7 +85,7 @@ public interface PublishingInteractor : GLib.Object {
     
     public abstract void install_welcome_pane(string welcome_message,
         LoginCallback on_login_clicked);
-	
+    
     public abstract void set_service_locked(bool locked);
     
     public abstract void set_button_mode(ButtonMode mode);
@@ -132,10 +132,6 @@ public interface Publishable : GLib.Object {
 }
 
 public interface PublishingService : Object, Spit.Pluggable {
-    public abstract string get_service_id();
-    
-    public abstract string get_service_name();
-    
     public abstract Spit.Publishing.Publisher create_publisher();
 }
 

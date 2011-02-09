@@ -17,18 +17,27 @@ public class TransitionEffectsManager {
     
     private TransitionEffectsManager() {
         // add null effect first
-        effects.set(null_descriptor.get_effect_id(), null_descriptor);
+        effects.set(null_descriptor.get_id(), null_descriptor);
         
         // load effects from plug-ins
         Gee.Collection<Spit.Pluggable> pluggables = Plugins.get_pluggables_for_type(
             typeof(Spit.Transitions.Descriptor));
         foreach (Spit.Pluggable pluggable in pluggables) {
+            int pluggable_interface = pluggable.get_pluggable_interface(Spit.Transitions.CURRENT_INTERFACE,
+                Spit.Transitions.CURRENT_INTERFACE);
+            if (pluggable_interface != Spit.Transitions.CURRENT_INTERFACE) {
+                warning("Unable to load transitions plug-in %s: reported interface %d",
+                    Plugins.get_pluggable_module_id(pluggable), pluggable_interface);
+                
+                continue;
+            }
+            
             Spit.Transitions.Descriptor desc = (Spit.Transitions.Descriptor) pluggable;
-            debug("Discovered transition effect %s (%s)", desc.get_effect_name(), desc.get_effect_id());
-            if (effects.has_key(desc.get_effect_id()))
-                warning("Multiple transitions loaded with same effect ID %s", desc.get_effect_id());
+            debug("Discovered transition effect %s (%s)", desc.get_pluggable_name(), desc.get_id());
+            if (effects.has_key(desc.get_id()))
+                warning("Multiple transitions loaded with same effect ID %s", desc.get_id());
             else
-                effects.set(desc.get_effect_id(), desc);
+                effects.set(desc.get_id(), desc);
         }
     }
     
@@ -53,15 +62,15 @@ public class TransitionEffectsManager {
     public Gee.Collection<string> get_effect_names(CompareFunc? comparator = null) {
         Gee.Collection<string> effect_names = new Gee.TreeSet<string>(comparator);
         foreach (Spit.Transitions.Descriptor desc in effects.values)
-            effect_names.add(desc.get_effect_name());
+            effect_names.add(desc.get_pluggable_name());
         
         return effect_names;
     }
     
     public string? get_id_for_effect_name(string effect_name) {
         foreach (Spit.Transitions.Descriptor desc in effects.values) {
-            if (desc.get_effect_name() == effect_name)
-                return desc.get_effect_id();
+            if (desc.get_pluggable_name() == effect_name)
+                return desc.get_id();
         }
         
         return null;
@@ -74,7 +83,7 @@ public class TransitionEffectsManager {
     public string get_effect_name(string effect_id) {
         Spit.Transitions.Descriptor? desc = get_effect_descriptor(effect_id);
         
-        return (desc != null) ? desc.get_effect_name() : _("(none)");
+        return (desc != null) ? desc.get_pluggable_name() : _("(None)");
     }
     
     public Spit.Transitions.Descriptor get_null_descriptor() {
@@ -115,10 +124,10 @@ public class TransitionClock {
     public TransitionClock(Spit.Transitions.Descriptor desc) {
         this.desc = desc;
         
-        effect = desc.create();
+        effect = desc.create(new Plugins.StandardHostInterface(desc, "transitions"));
         effect.get_fps(out desired_fps, out min_fps);
         
-        paint_timer = new OpTimer(desc.get_effect_name());
+        paint_timer = new OpTimer(desc.get_pluggable_name());
     }
     
     ~TransitionClock() {
@@ -265,15 +274,18 @@ public class NullTransitionDescriptor : Object, Spit.Pluggable, Spit.Transitions
         return Spit.Transitions.CURRENT_INTERFACE;
     }
     
-    public string get_effect_id() {
+    public string get_id() {
         return EFFECT_ID;
     }
     
-    public string get_effect_name() {
+    public string get_pluggable_name() {
         return _("None");
     }
     
-    public Spit.Transitions.Effect create() {
+    public void get_info(out Spit.PluggableInfo info) {
+    }
+    
+    public Spit.Transitions.Effect create(Spit.HostInterface host) {
         return new NullEffect();
     }
 }

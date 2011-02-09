@@ -21,6 +21,10 @@ class AppDirs {
     public static void terminate() {
     }
     
+    public static File get_home_dir() {
+        return File.new_for_path(Environment.get_home_dir());
+    }
+    
     // This can only be called once, and it better be called at startup
     public static void set_data_dir(string user_data_dir) requires (!is_string_empty(user_data_dir)) {
         assert(data_dir == null);
@@ -28,7 +32,7 @@ class AppDirs {
         // fix up to absolute path
         string path = strip_pretty_path(user_data_dir);
         if (!Path.is_absolute(path))
-            data_dir = File.new_for_path(Environment.get_home_dir()).get_child(path);
+            data_dir = get_home_dir().get_child(path);
         else
             data_dir = File.new_for_path(path);
         
@@ -52,9 +56,7 @@ class AppDirs {
     }
     
     public static File get_data_dir() {
-        return (data_dir == null)
-            ? File.new_for_path(Environment.get_home_dir()).get_child(DEFAULT_DATA_DIR)
-            : data_dir;
+        return (data_dir == null) ? get_home_dir().get_child(DEFAULT_DATA_DIR) : data_dir;
     }
     
     // The "import directory" is the same as the library directory, and are often used
@@ -67,7 +69,7 @@ class AppDirs {
             
             // if non-empty and relative, make it relative to the user's home directory
             if (!Path.is_absolute(path)) 
-                return File.new_for_path(Environment.get_home_dir()).get_child(path);
+                return get_home_dir().get_child(path);
             
             // non-empty and absolute, it's golden
             return File.new_for_path(path);
@@ -79,7 +81,7 @@ class AppDirs {
             return File.new_for_path(path);
         
         // If XDG yarfed, use ~/Pictures
-        return File.new_for_path(Environment.get_home_dir()).get_child(_("Pictures"));
+        return get_home_dir().get_child(_("Pictures"));
     }
     
     // Library folder + photo folder, based on user's prefered directory pattern.
@@ -160,7 +162,7 @@ class AppDirs {
     }
     
     public static File get_user_plugins_dir() {
-        return get_data_subdir("plugins");
+        return get_home_dir().get_child(".gnome2").get_child("shotwell").get_child("plugins");
     }
     
     public static File? get_log_file() {

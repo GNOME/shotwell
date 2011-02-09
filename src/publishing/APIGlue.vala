@@ -338,11 +338,20 @@ public class GlueFactory {
 
         Spit.Publishing.PublishingService? facebook_service = null;
         foreach (Spit.Pluggable pluggable in pluggables) {
+            int pluggable_interface = pluggable.get_pluggable_interface(
+                Spit.Publishing.CURRENT_API_VERSION, Spit.Publishing.CURRENT_API_VERSION);
+            if (pluggable_interface != Spit.Publishing.CURRENT_API_VERSION) {
+                warning("Unable to load publisher %s: reported interface %d",
+                    Plugins.get_pluggable_module_id(pluggable), pluggable_interface);
+                
+                continue;
+            }
+            
             Spit.Publishing.PublishingService service =
                 (Spit.Publishing.PublishingService) pluggable;
             debug("Publishing API Glue: discovered pluggable publishing service '%s'.",
-                service.get_service_name());
-            if (service.get_service_id() == "org.yorba.shotwell.publishing.core_services.facebook")
+                service.get_pluggable_name());
+            if (service.get_id() == "org.yorba.shotwell.publishing.facebook")
                 facebook_service = service;
         }
         

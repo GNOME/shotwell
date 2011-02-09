@@ -5,11 +5,12 @@
  */
 
 public class Config {
-    public const string PATH_SHOTWELL = "/apps/shotwell/preferences";
+    public const string PATH_SHOTWELL = "/apps/shotwell";
+    public const string PATH_SHOTWELL_PREFS = PATH_SHOTWELL + "/preferences";
     
-    public const string BOOL_COMMIT_METADATA_TO_MASTERS = PATH_SHOTWELL + "/files/commit_metadata";
-    public const string BOOL_AUTO_IMPORT_FROM_LIBRARY = PATH_SHOTWELL + "/files/auto_import";
-    public const string STRING_IMPORT_DIRECTORY = PATH_SHOTWELL + "/files/import_dir";
+    public const string BOOL_COMMIT_METADATA_TO_MASTERS = PATH_SHOTWELL_PREFS + "/files/commit_metadata";
+    public const string BOOL_AUTO_IMPORT_FROM_LIBRARY = PATH_SHOTWELL_PREFS + "/files/auto_import";
+    public const string STRING_IMPORT_DIRECTORY = PATH_SHOTWELL_PREFS + "/files/import_dir";
     
     public const double SLIDESHOW_DELAY_MAX = 30.0;
     public const double SLIDESHOW_DELAY_MIN = 1.0;
@@ -267,7 +268,47 @@ public class Config {
     public int get_picasa_default_size() {
         return get_int("/apps/shotwell/sharing/picasa/default_size", 3) - 1;
     }
-
+    
+    private string make_plugin_path(string domain, string id, string key) {
+        return "%s/%s/%s/%s".printf(PATH_SHOTWELL, domain, id, key);
+    }
+    
+    public bool get_plugin_bool(string domain, string id, string key, bool def) {
+        return get_bool(make_plugin_path(domain, id, key), def);
+    }
+    
+    public void set_plugin_bool(string domain, string id, string key, bool val) {
+        set_bool(make_plugin_path(domain, id, key), val);
+    }
+    
+    public int get_plugin_int(string domain, string id, string key, int def) {
+        return get_int(make_plugin_path(domain, id, key), def);
+    }
+    
+    public void set_plugin_int(string domain, string id, string key, int val) {
+        set_int(make_plugin_path(domain, id, key), val);
+    }
+    
+    public string? get_plugin_string(string domain, string id, string key, string? def) {
+        return get_string(make_plugin_path(domain, id, key), def);
+    }
+    
+    public void set_plugin_string(string domain, string id, string key, string? val) {
+        set_string(make_plugin_path(domain, id, key), val);
+    }
+    
+    public double get_plugin_double(string domain, string id, string key, double def) {
+        return get_double(make_plugin_path(domain, id, key), def);
+    }
+    
+    public void set_plugin_double(string domain, string id, string key, double val) {
+        set_double(make_plugin_path(domain, id, key), val);
+    }
+    
+    public void unset_plugin_key(string domain, string id, string key) {
+        unset(make_plugin_path(domain, id, key));
+    }
+    
     public string? get_publishing_string(string domain, string key, string? default_value = null) {
         return get_string("/apps/shotwell/sharing/%s/%s".printf(domain, key), default_value);
     }
@@ -713,30 +754,30 @@ public class Config {
     }
     
     public string? get_directory_pattern() {
-        return (get_string(PATH_SHOTWELL + "/files/directory_pattern", null));
+        return (get_string(PATH_SHOTWELL_PREFS + "/files/directory_pattern", null));
     }
 
     public bool set_directory_pattern(string s) {
-        return set_string(PATH_SHOTWELL + "/files/directory_pattern", s);
+        return set_string(PATH_SHOTWELL_PREFS + "/files/directory_pattern", s);
     }
     
     public bool unset_directory_pattern() {
-        return unset(PATH_SHOTWELL + "/files/directory_pattern");
+        return unset(PATH_SHOTWELL_PREFS + "/files/directory_pattern");
     }
     
     public string get_directory_pattern_custom() {
-        return (get_string(PATH_SHOTWELL + "/files/directory_pattern_custom", ""));
+        return (get_string(PATH_SHOTWELL_PREFS + "/files/directory_pattern_custom", ""));
     }
 
     public bool set_directory_pattern_custom(string s) {
-        return set_string(PATH_SHOTWELL + "/files/directory_pattern_custom", s);
+        return set_string(PATH_SHOTWELL_PREFS + "/files/directory_pattern_custom", s);
     }
     
     public bool get_use_lowercase_filenames() {
-        return get_bool(PATH_SHOTWELL + "/files/user_lowercase_filenames", false);
+        return get_bool(PATH_SHOTWELL_PREFS + "/files/user_lowercase_filenames", false);
     }
     
     public void set_use_lowercase_filenames(bool b) {
-        set_bool(PATH_SHOTWELL + "/files/user_lowercase_filenames", b);
+        set_bool(PATH_SHOTWELL_PREFS + "/files/user_lowercase_filenames", b);
     }
 }

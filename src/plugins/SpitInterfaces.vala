@@ -20,21 +20,19 @@ public const int CURRENT_INTERFACE = 0;
 // Note that this only works if the caller operates on only one interface version (and cannot mutate
 // between multiple ones).
 public int negotiate_interfaces(int min_host_interface, int max_host_interface, int plugin_interface) {
-    if (min_host_interface > plugin_interface || max_host_interface < plugin_interface)
-        return UNSUPPORTED_INTERFACE;
-    else
-        return plugin_interface;
+    return (min_host_interface > plugin_interface || max_host_interface < plugin_interface)
+        ? UNSUPPORTED_INTERFACE : plugin_interface;
 }
 
 //
 // SPIT API entry point.  Host application passes in the minimum and maximum version of the SPIT
 // inteface it supports (values are inclusive).  The module returns the version it wishes to
-// use and a pointer to a SpitWad (which will remain ref'ed as long as the module is loaded in
+// use and a pointer to a Spit.Module (which will remain ref'ed as long as the module is loaded in
 // memory).  The module should return UNSUPPORTED_SPIT_VERSION is the min/max are out of its
-// range and null for its SpitWad.
+// range and null for its Spit.Module.
 //
 [CCode (has_target = false)]
-public delegate unowned Wad? EntryPoint(int host_min_spit_interface, int host_max_spit_interface,
+public delegate unowned Module? EntryPoint(int host_min_spit_interface, int host_max_spit_interface,
     out int module_spit_interface);
 
 //
@@ -43,12 +41,12 @@ public delegate unowned Wad? EntryPoint(int host_min_spit_interface, int host_ma
 public const string ENTRY_POINT_NAME = "spit_entry_point";
 
 //
-// A Wad represents an entire module (i.e. a .so/.la) which contains zero or more Shotwell
+// A Module represents an entire module (i.e. a .so/.la) which contains zero or more Shotwell
 // plug-ins.  Once the module has been loaded into process space and this object has been
 // loaded and held by Shotwell, all calls to the module and plug-ins are resolved through this
 // interface.
 //
-public interface Wad : Object {
+public interface Module : Object {
     //
     // Returns a (potentially) user-visible string describing the module (i.e. the .so/.la file).
     //
@@ -68,7 +66,7 @@ public interface Wad : Object {
     // Best practice: use a reverse-DNS-order scheme, a la Java's packages
     // (i.e. "org.yorba.shotwell.frotz").
     //
-    public abstract string get_wad_name();
+    public abstract string get_id();
     
     //
     // Returns an array of Pluggables that represent each plug-in available in the module.
@@ -77,15 +75,74 @@ public interface Wad : Object {
     public abstract Pluggable[]? get_pluggables();
 }
 
+public struct PluggableInfo {
+    public string? version;
+    public string? brief_description;
+    public string? authors;
+    public string? copyright;
+    public string? license;
+    public bool is_licensed_wordwrapped;
+    public string? website_url;
+    public string? website_name;
+    public string? translators;
+    public Gdk.Pixbuf? icon;
+}
+
 //
 // Each plug-in in a module needs to implement this interface at a minimum.  Specific plug-in
 // points may have (and probably will have) specific interface requirements as well.
 //
 public interface Pluggable : Object {
+    //
     // Like the Spit entry point, this mechanism allows for the host to negotiate with the Pluggable
     // for its interface version.  If the pluggable does not support an interface between the
     // two ranges (inclusive), it should return UNSUPPORTED_INTERFACE.
+    //
     public abstract int get_pluggable_interface(int min_host_interface, int max_host_interface);
+    
+    //
+    // Returns a unique identifier for this Pluggable.  Like Spit.Module.get_id(), best practice is 
+    // to use a reverse-DNS-order scheme to avoid conflicts.
+    //
+    public abstract string get_id();
+    
+    //
+    // Returns a user-visible name for the Pluggable.
+    //
+    public abstract string get_pluggable_name();
+    
+    //
+    // Returns extra information about the Pluggable that is used to identify it to the user.
+    //
+    public abstract void get_info(out PluggableInfo info);
+}
+
+//
+// Each Pluggable is offered a Host interface for needs common to most plug-ins.  Note that the
+// Host is not explicitly handed to the Pluggable through that interface, but is expected to be
+// offer to the Pluggable through the interface applicable to the extension point.  This also allows
+// the extension point to extend Host to offer other services applicable to the type of plug-in.
+//
+public interface HostInterface : Object {
+    public abstract File get_module_file();
+    
+    public abstract bool get_config_bool(string key, bool def);
+    
+    public abstract void set_config_bool(string key, bool val);
+    
+    public abstract int get_config_int(string key, int def);
+    
+    public abstract void set_config_int(string key, int val);
+    
+    public abstract string? get_config_string(string key, string? def);
+    
+    public abstract void set_config_string(string key, string? val);
+    
+    public abstract double get_config_double(string key, double def);
+    
+    public abstract void set_config_double(string key, double val);
+    
+    public abstract void unset_config_key(string key);
 }
 
 }

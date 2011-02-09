@@ -86,16 +86,8 @@ public class Motion : Object {
 // A Descriptor offers information about an Effect as well as a factory method so instances may
 // be created for use.
 public interface Descriptor : Object, Spit.Pluggable {
-    // Returns a unique string identifier for the effect.  A reverse-DNS-order name
-    // ("org.yorba.shotwell.transition.fade") would be appropriate here.
-    public abstract string get_effect_id();
-    
-    // Returns a brief user-visible string that describes the effect.  This string should be
-    // internationalized.
-    public abstract string get_effect_name();
-    
     // Returns an instance of the Effect this descriptor represents.
-    public abstract Effect create();
+    public abstract Effect create(Spit.HostInterface host);
 }
 
 // An Effect represents a particular interstitial effect that may be used when switching

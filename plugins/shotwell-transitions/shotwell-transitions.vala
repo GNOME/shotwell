@@ -6,7 +6,7 @@
 
 extern const string _VERSION;
 
-private class ShotwellTransitions : Object, Spit.Wad {
+private class ShotwellTransitions : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
     
     public ShotwellTransitions() {
@@ -23,7 +23,7 @@ private class ShotwellTransitions : Object, Spit.Wad {
         return _VERSION;
     }
     
-    public string get_wad_name() {
+    public string get_id() {
         return "org.yorba.shotwell.transitions";
     }
     
@@ -35,7 +35,7 @@ private class ShotwellTransitions : Object, Spit.Wad {
 private ShotwellTransitions? spitwad = null;
 
 // This entry point is required for all SPIT modules.
-public unowned Spit.Wad? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
+public unowned Spit.Module? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
     out int module_spit_interface) {
     module_spit_interface = Spit.negotiate_interfaces(host_min_spit_interface, host_max_spit_interface,
         Spit.CURRENT_INTERFACE);
@@ -68,10 +68,22 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
             Spit.Transitions.CURRENT_INTERFACE);
     }
     
-    public abstract string get_effect_id();
+    public abstract string get_id();
     
-    public abstract string get_effect_name();
+    public abstract string get_pluggable_name();
     
-    public abstract Spit.Transitions.Effect create();
+    public void get_info(out Spit.PluggableInfo info) {
+        info.authors = "Maxim Kartashev, Jim Nelson";
+        info.copyright = _("Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation");
+        // TODO: Include license here
+        info.license = null;
+        info.is_licensed_wordwrapped = false;
+        info.translators = _("translator-credits");
+        info.version = _VERSION;
+        info.website_name = _("Visit the Yorba web site");
+        info.website_url = "http://www.yorba.org";
+    }
+    
+    public abstract Spit.Transitions.Effect create(Spit.HostInterface host);
 }
 

@@ -12,7 +12,7 @@
 
 extern const string _VERSION;
 
-private class Spitter : Object, Spit.Wad {
+private class Spitter : Object, Spit.Module {
     ~Spitter() {
         debug("DTOR: Spitter");
     }
@@ -25,7 +25,7 @@ private class Spitter : Object, Spit.Wad {
         return _VERSION;
     }
     
-    public string get_wad_name() {
+    public string get_id() {
         return "org.yorba.shotwell.spitter";
     }
     
@@ -38,7 +38,7 @@ private Spitter? spitter = null;
 private Spit.EntryPoint? compiler_entry_point = null;
 
 // This entry point is required for all SPIT modules.
-public unowned Spit.Wad? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
+public unowned Spit.Module? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
     out int module_spit_interface) {
     // this is purely for compilation, to verify that the entry point matches SpitEntryPoint's sig;
     // it does nothing functionally
