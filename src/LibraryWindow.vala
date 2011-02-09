@@ -800,7 +800,8 @@ public class LibraryWindow : AppWindow {
     private void import_queue_batch_finished() {
         if (displaying_import_queue_page && import_queue_page.get_batch_count() == 0) {
             // only hide the import queue page, as it might be used later
-            hide_page(import_queue_page, library_page);
+            hide_page(import_queue_page, last_import_page != null ? 
+                last_import_page.get_page() : library_page);
             displaying_import_queue_page = false;
         }
     }
