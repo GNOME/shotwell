@@ -93,16 +93,14 @@ public class VideoReader {
         VideoReader reader = new VideoReader(file.get_path());
         bool is_interpretable = true;
         double clip_duration = 0.0;
-        Gdk.Pixbuf? preview_frame = null;
+        Gdk.Pixbuf preview_frame = reader.read_preview_frame();
         try {
             clip_duration = reader.read_clip_duration();
-            preview_frame = reader.read_preview_frame();
         } catch (VideoError err) {
             if (err is VideoError.FILE) {
                 return ImportResult.FILE_ERROR;
             } else if (err is VideoError.CONTENTS) {
                 is_interpretable = false;
-                preview_frame = Resources.get_noninterpretable_badge_pixbuf();
                 clip_duration = 0.0;
             } else {
                 error("can't prepare video for import: an unknown kind of video error occurred");
@@ -153,28 +151,22 @@ public class VideoReader {
     }
     
     private void read_internal() throws VideoError {
-        bool does_file_exist = FileUtils.test(filepath, FileTest.EXISTS | FileTest.IS_REGULAR);
-        if (!does_file_exist)
+        if (!does_file_exist())
             throw new VideoError.FILE("video file '%s' does not exist or is inaccessible".printf(
                 filepath));
         
+        // Setup GStreamer pipeline.
         Gst.Pipeline thumbnail_pipeline = new Gst.Pipeline("thumbnail-pipeline");
-        
         Gst.Element thumbnail_source = Gst.ElementFactory.make("filesrc", "source");
         thumbnail_source.set_property("location", filepath);
-        
         Gst.Element thumbnail_decode_bin = Gst.ElementFactory.make("decodebin2", "decode-bin");
-        
-        ThumbnailSink thumbnail_sink = new ThumbnailSink();
-        thumbnail_sink.have_thumbnail.connect(on_have_thumbnail);
-        
+        Gst.Element fake_sink = Gst.ElementFactory.make("fakesink", "fakesink");
         colorspace = Gst.ElementFactory.make("ffmpegcolorspace", "colorspace");
-        
         thumbnail_pipeline.add_many(thumbnail_source, thumbnail_decode_bin, colorspace,
-            thumbnail_sink);
+            fake_sink);
 
         thumbnail_source.link(thumbnail_decode_bin);
-        colorspace.link(thumbnail_sink);
+        colorspace.link(fake_sink);
         thumbnail_decode_bin.pad_added.connect(on_pad_added);
 
         // the get_state( ) call is required after the call to set_state( ) to block this
@@ -191,24 +183,55 @@ public class VideoReader {
             clip_duration = ((double) video_length) / 1000000000.0;
         else
             throw new VideoError.CONTENTS("GStreamer couldn't extract clip duration");
-
-        // the first frame of the video may be black because of fade-in effects, so seek 1/3
-        // of the way through the video to capture the preview frame. The seek_simple( ) call
-        // can change the pipeline state, so once again set the pipeline state to PLAYING and
-        // use get_state( ) to block until the the clip is ready to play.
-        // Note: using NONE as a SeekFlag because FLUSH will cause GStreamer to hang with
-        // a certain codec. Side effect: other videos may generate wonky thumbnails. (#3041)
-        thumbnail_pipeline.seek_simple(Gst.Format.TIME, Gst.SeekFlags.NONE, video_length / 3);
-        thumbnail_pipeline.set_state(Gst.State.PLAYING);
-        thumbnail_pipeline.get_state(out from_state, out to_state, 1000000000);
-
-        // we're done with the video, so set the pipeline state to NULL
-        thumbnail_pipeline.set_state(Gst.State.NULL);
         
-        if (preview_frame == null) {
-            clip_duration = UNKNOWN_CLIP_DURATION;
-            throw new VideoError.CONTENTS("GStreamer couldn't extract preview frame");
+        // We're done with the video, so set the pipeline state to NULL
+        thumbnail_pipeline.set_state(Gst.State.NULL);
+    }
+    
+    private Gdk.Pixbuf? thumbnailer(string video_file) {
+        GLib.Pid child_pid = 0;
+        int[] pipefd = {0, 0};
+        
+        if (Posix.pipe(pipefd) < 0) {
+            warning("Error: unable to open pipe.");
+            return null;
         }
+        Posix.close(pipefd[1]); // Close the write end of the pipe.
+        
+        // Use totem's thumbnailer, redirect output to stdout.
+        string[] argv = {"totem-video-thumbnailer", "-r", video_file, "/dev/stdout"};
+        try {
+            GLib.Process.spawn_async_with_pipes(null, argv, null, GLib.SpawnFlags.SEARCH_PATH,
+                null, out child_pid, null, out pipefd[0], null);
+            debug("Spawned thumbnailer, child pid: %d", (int) child_pid);
+        } catch (Error e) {
+            debug("Error spawning process: %s", e.message);
+            if (child_pid != 0)
+                GLib.Process.close_pid(child_pid);
+            return null;
+        }
+        
+        // Read pixbuf from stream.
+        Gdk.Pixbuf? buf = null;
+        try {
+            GLib.UnixInputStream unix_input = new GLib.UnixInputStream(pipefd[0], true);
+            buf = new Gdk.Pixbuf.from_stream(unix_input, null);
+        } catch (Error e) {
+            warning("Error creating pixbuf: %s", e.message);
+            buf = null;
+        }
+        
+        // Make sure process exited properly.
+        int child_status = 0;
+        Posix.waitpid(child_pid, out child_status, 0);
+        if (0 != child_status) {
+            debug("Thumbnailer exited with error code: %d", child_status);
+            buf = null;
+        }
+        
+        Posix.close(pipefd[0]);
+        GLib.Process.close_pid(child_pid);
+        return buf;
     }
     
     private void on_pad_added(Gst.Pad pad) {
@@ -219,14 +242,22 @@ public class VideoReader {
         }
     }
     
-    private void on_have_thumbnail(Gdk.Pixbuf pixbuf) {
-        preview_frame = pixbuf.copy();
+    private bool does_file_exist() {
+        return FileUtils.test(filepath, FileTest.EXISTS | FileTest.IS_REGULAR);
     }
     
-    public Gdk.Pixbuf read_preview_frame() throws VideoError {
-        if (preview_frame == null)
-            read_internal();
-
+    public Gdk.Pixbuf? read_preview_frame() {
+        if (preview_frame != null)
+            return preview_frame;
+        
+        if (!does_file_exist())
+            return null;
+        
+        // Get preview frame from thumbnailer.
+        preview_frame = thumbnailer(filepath);
+        if (null == preview_frame)
+            preview_frame = Resources.get_noninterpretable_badge_pixbuf();
+        
         return preview_frame;
     }
     
@@ -242,73 +273,6 @@ public class VideoReader {
         metadata.read_from_file(File.new_for_path(filepath));
         
         return metadata;
-    }
-}
-
-// NOTE: this class is adapted from the class of the same name in project marina; see
-//       media/src/marina/thumbnailsink.vala
-class ThumbnailSink : Gst.BaseSink {
-    int width;
-    int height;
-    
-    const string caps_string = """video/x-raw-rgb,bpp = (int) 32, depth = (int) 32,
-                                  endianness = (int) BIG_ENDIAN,
-                                  blue_mask = (int)  0xFF000000,
-                                  green_mask = (int) 0x00FF0000,
-                                  red_mask = (int)   0x0000FF00,
-                                  width = (int) [ 1, max ],
-                                  height = (int) [ 1, max ],
-                                  framerate = (fraction) [ 0, max ]""";
-
-    public signal void have_thumbnail(Gdk.Pixbuf b);
-    
-    class construct {
-        Gst.StaticPadTemplate pad;        
-        pad.name_template = "sink";
-        pad.direction = Gst.PadDirection.SINK;
-        pad.presence = Gst.PadPresence.ALWAYS;
-        pad.static_caps.str = caps_string;
-        
-        add_pad_template(pad.get());        
-    }
-    
-    public ThumbnailSink() {
-        Object();
-        set_sync(false);
-    }
-    
-    public override bool set_caps(Gst.Caps c) {
-        if (c.get_size() < 1)
-            return false;
-            
-        Gst.Structure s = c.get_structure(0);
-        
-        if (!s.get_int("width", out width) ||
-            !s.get_int("height", out height))
-            return false;
-        return true;
-    }
-    
-    void convert_pixbuf_to_rgb(Gdk.Pixbuf buf) {
-        uchar* data = buf.get_pixels();
-        int limit = buf.get_width() * buf.get_height();
-        
-        while (limit-- != 0) {
-            uchar temp = data[0];
-            data[0] = data[2];
-            data[2] = temp;
-            
-            data += 4;
-        }
-    }
-    
-    public override Gst.FlowReturn preroll(Gst.Buffer b) {
-        Gdk.Pixbuf buf = new Gdk.Pixbuf.from_data(b.data, Gdk.Colorspace.RGB, 
-                                                    true, 8, width, height, width * 4, null);
-        convert_pixbuf_to_rgb(buf);
-               
-        have_thumbnail(buf);
-        return Gst.FlowReturn.OK;
     }
 }
 

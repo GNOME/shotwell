@@ -267,7 +267,8 @@ EXT_PKGS = \
 	sqlite3 \
 	unique-1.0 \
 	webkit-1.0 \
-	gmodule-2.0
+	gmodule-2.0 \
+	gio-unix-2.0
 
 DIRECT_LIBS =
 
@@ -294,7 +295,8 @@ EXT_PKG_VERSIONS = \
 	sqlite3 >= 3.5.9 \
 	unique-1.0 >= 1.0.0 \
 	webkit-1.0 >= 1.1.5 \
-	gmodule-2.0 >= 2.24.0
+	gmodule-2.0 >= 2.24.0 \
+	gio-unix-2.0 >= 2.20
 
 DIRECT_LIBS_VERSIONS =
 
