@@ -32,6 +32,8 @@ configure_help() {
     printf "\t\t\t\tEnable build for Glade-related development.\n"
     printf "\t--disable-help-install\n"
     printf "\t\t\t\tDisable installation of online help.\n"
+    printf "\t--install-headers\n"
+    printf "\t\t\t\tInstall headers and VAPI files (developers only).\n"
     printf "\n"
 }
 
@@ -104,7 +106,10 @@ do
         
         --disable-help-install)           variables="${variables}DISABLE_HELP_INSTALL=1\n"
                                           ;;
-
+        
+        --install-headers)                variables="${variables}INSTALL_HEADERS=1\n"
+                                          ;;
+        
         *)                  if [ ! $value ]
                             then
                                 abort $1

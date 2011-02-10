@@ -1,6 +1,5 @@
 
 PLUGIN := shotwell-transitions
-PKGS := shotwell-transitions-1.0
 
 SRC_FILES := \
 	shotwell-transitions.vala \

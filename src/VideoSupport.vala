@@ -504,12 +504,9 @@ public class Video : VideoSource, Flaggable, Monitorable {
 
     public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
         VideoReader reader = new VideoReader(backing_row.filepath);
+        Gdk.Pixbuf? frame = reader.read_preview_frame();
         
-        try {
-            return reader.read_preview_frame();
-        } catch (VideoError err) {
-            return Resources.get_noninterpretable_badge_pixbuf().copy();
-        }
+        return (frame != null) ? frame : Resources.get_noninterpretable_badge_pixbuf().copy();
     }
     
     public override string get_typename() {

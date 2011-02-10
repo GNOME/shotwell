@@ -18,15 +18,16 @@ BUILD_RELEASE=1
 
 -include configure.mk
 
-VALAFLAGS = -g --enable-checking --thread $(USER_VALAFLAGS)
-DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
-     _LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
+VALAFLAGS := -g --enable-checking --thread --fatal-warnings $(USER_VALAFLAGS)
+DEFINES := _PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
+	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
 
 EXPORT_FLAGS = -export-dynamic
 
 SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he mk
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=$(DESTDIR)$(PREFIX)/share/locale
+LIB=lib
 
 include units.mk
 include plugins/plugins.mk
@@ -343,19 +344,21 @@ EXPANDED_HELP_IMAGES := $(foreach file,$(HELP_IMAGES),help/C/figures/$(file))
 VALA_STAMP := $(BUILD_DIR)/.stamp
 LANG_STAMP := $(LOCAL_LANG_DIR)/.langstamp
 MAKE_FILES := Makefile $(CONFIG_IN) $(UNIT_MKS) unitize.mk units.mk
+PC_INPUT := shotwell-plugin-dev-1.0.m4
+PC_FILE := $(PC_INPUT:.m4=.pc)
 
 DIST_FILES = Makefile configure chkver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
 	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_PO_FILES) po/shotwell.pot libraw-config \
 	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
-	unitize.mk units.mk
+	unitize.mk units.mk $(PC_INPUT)
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
 DIST_TAR_GZ = $(DIST_TAR).gz
 PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.gz
 
-VALAFLAGS := --vapidir=plugins/
+VALAFLAGS := $(VALAFLAGS) --vapidir=plugins/
 
 VALA_CFLAGS := `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
 	$(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
@@ -386,9 +389,9 @@ define check_valac_version
 endef
 
 ifdef ENABLE_BUILD_FOR_GLADE
-all: $(PLUGINS_DIR) lib$(PROGRAM).so $(PROGRAM)
+all: $(PLUGINS_DIR) lib$(PROGRAM).so $(PROGRAM) $(PC_FILE)
 else
-all: $(PLUGINS_DIR) $(PROGRAM)
+all: $(PLUGINS_DIR) $(PROGRAM) $(PC_FILE)
 endif
 
 include src/plugins/mk/interfaces.mk
@@ -409,11 +412,12 @@ clean:
 	rm -f $(TEMPORARY_DESKTOP_FILES)
 	rm -f lib$(PROGRAM).so
 	rm -rf $(UNITIZE_DIR)
-	rm -f $(PLUGIN_VAPIS)
-	rm -f $(PLUGIN_HEADERS)
+	rm -f $(PLUGIN_VAPI)
+	rm -f $(PLUGIN_HEADER)
 	rm -f $(PLUGIN_DEPS)
 	rm -f $(PLUGINS_SO)
 	@$(MAKE) --directory=plugins clean
+	rm -f $(PC_FILE)
 
 cleantemps:
 	rm -f $(EXPANDED_C_FILES)
@@ -496,8 +500,16 @@ endif
 	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
 		$(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
 		$(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
-	mkdir -p $(DESTDIR)$(PREFIX)/lib/shotwell/plugins/builtin
-	$(INSTALL_PROGRAM) $(PLUGINS_SO) $(DESTDIR)$(PREFIX)/lib/shotwell/plugins/builtin
+	mkdir -p $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
+	$(INSTALL_PROGRAM) $(PLUGINS_SO) $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
+ifdef INSTALL_HEADERS
+	mkdir -p $(DESTDIR)$(PREFIX)/include/shotwell/plugins
+	$(INSTALL_DATA) $(PLUGIN_HEADER) $(DESTDIR)$(PREFIX)/include/shotwell/plugins
+	mkdir -p $(DESTDIR)$(PREFIX)/share/vala/vapi
+	$(INSTALL_DATA) $(PLUGIN_VAPI) $(DESTDIR)$(PREFIX)/share/vala/vapi
+	$(INSTALL_DATA) $(PLUGIN_DEPS) $(DESTDIR)$(PREFIX)/share/vala/vapi
+	$(INSTALL_DATA) $(PC_FILE) $(DESTDIR)$(PREFIX)/$(LIB)/pkgconfig
+endif
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
@@ -522,7 +534,16 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 	rm -f $(DESTDIR)$(PREFIX)/share/apport/package-hooks/shotwell.py
 endif
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
-	rm -rf $(DESTDIR)$(PREFIX)/lib/shotwell/plugins/builtin
+	rm -rf $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
+ifdef INSTALL_HEADERS
+	rm -rf $(DESTDIR)$(PREFIX)/include/shotwell
+	rm -f $(foreach vapi,$(PLUGIN_VAPI),$(DESTDIR)$(PREFIX)/share/vala/vapi/$(notdir $(vapi)))
+	rm -f $(foreach dep,$(PLUGIN_DEPS),$(DESTDIR)$(PREFIX)/share/vala/vapi/$(notdir $(dep)))
+	rm -f $(DESTDIR)$(PREFIX)/$(LIB)/pkgconfig/$(PC_FILE)
+endif
+
+$(PC_FILE): $(PC_INPUT) $(MAKE_FILES)
+	m4 '--define=_VERSION_=$(VERSION)' '--define=_PREFIX_=$(PREFIX)' '--define=_REQUIREMENTS_=$(PLUGIN_PKG_REQS)' $< > $@
 
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
@@ -554,7 +575,7 @@ endif
 endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
 	@echo Compiling Vala code...
-	@$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src $(VALAFLAGS) \
+	@$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
 		$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
 		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
 		$(foreach def,$(DEFINES),-X -D$(def)) \
@@ -577,7 +598,7 @@ $(PLUGINS_SO): $(PLUGINS_DIR)
 	@
 
 .PHONY: $(PLUGINS_DIR)
-$(PLUGINS_DIR): $(PLUGIN_VAPIS) $(PLUGIN_HEADERS) $(PLUGIN_DEPS)
+$(PLUGINS_DIR): $(PLUGIN_VAPI) $(PLUGIN_HEADER) $(PLUGIN_DEPS)
 	$(call check_valac_version)
 	@$(MAKE) --directory=$@ PLUGINS_VERSION="$(VERSION)"
 

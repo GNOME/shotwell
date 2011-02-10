@@ -16,6 +16,9 @@ HEADER_FILES := $(wildcard ../*.vapi ../*.h ../*.deps)
 
 include ../plugins.mk
 
+# automatically include the shotwell-plugin-dev-1.0 package
+PKGS := shotwell-plugin-dev-1.0 $(PKGS)
+
 all: $(PLUGIN).so
 
 $(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
