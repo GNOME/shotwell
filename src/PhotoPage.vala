@@ -2333,7 +2333,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
         
-        Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>F", TRANSLATABLE, on_flag_unflag };
+        Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>G", TRANSLATABLE, on_flag_unflag };
         flag.label = Resources.FLAG_MENU;
         flag.tooltip = Resources.FLAG_TOOLTIP;
         actions += flag;

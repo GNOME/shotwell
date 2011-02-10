@@ -265,6 +265,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string FLAG_MENU = _("_Flag");
     public const string FLAG_TOOLTIP = _("Flag the photos to work with them together");
+
+    public const string FIND_MENU = _("_Find...");
+    public const string FIND_TOOLTIP = _("Find an image by typing text that appears in its name or tags");
     
     public const string UNFLAG_MENU = _("Un_flag");
     public const string UNFLAG_TOOLTIP = _("Unflag the photos");

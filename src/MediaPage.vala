@@ -523,6 +523,10 @@ public abstract class MediaPage : CheckerboardPage {
         public void clear() {
             entry.set_text("");
         }
+
+        public void get_focus() {
+            entry.grab_focus();        
+        }
         
         private bool on_editing_started(Gdk.EventFocus event) {
             // Prevent window from stealing our keystrokes.
@@ -612,6 +616,13 @@ public abstract class MediaPage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
         
+        // Ticket #3144 - Add a hotkey to give focus to the search bar.
+        Gtk.ActionEntry find = { "Find", Gtk.STOCK_FIND, TRANSLATABLE, "<Ctrl>F",
+            TRANSLATABLE, on_find };
+        find.label = Resources.FIND_MENU;
+        find.tooltip = Resources.FIND_TOOLTIP;
+        actions += find;
+
         Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
@@ -666,7 +677,7 @@ public abstract class MediaPage : CheckerboardPage {
         decrease_size.tooltip = _("Decrease the magnification of the thumbnails");
         actions += decrease_size;
         
-        Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>F", TRANSLATABLE, on_flag_unflag };
+        Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>G", TRANSLATABLE, on_flag_unflag };
         flag.label = Resources.FLAG_MENU;
         flag.tooltip = Resources.FLAG_TOOLTIP;
         actions += flag;
@@ -912,6 +923,10 @@ public abstract class MediaPage : CheckerboardPage {
         update_flag_action(get_view().get_selected_count());
     }
     
+    private void on_find() {
+        connected_search_box.get_focus();
+    }
+
     private void position_filter_popup(Gtk.Menu menu, out int x, out int y, out bool push_in) {
         assert(connected_filter_button != null);
 
