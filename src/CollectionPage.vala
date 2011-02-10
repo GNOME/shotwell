@@ -650,7 +650,7 @@ public abstract class CollectionPage : MediaPage {
             AppWindow.get_instance().set_normal_cursor();
         } catch (Error err) {
             AppWindow.get_instance().set_normal_cursor();
-            AppWindow.error_message(Resources.launch_editor_failed(err));
+            open_external_editor_error_dialog(err, photo);
         }
     }
     

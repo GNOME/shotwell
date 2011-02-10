@@ -58,6 +58,23 @@ public File? choose_dir(string? user_title = null) {
 }
 }
 
+// Ticket #3023
+// Attempt to replace the system error with something friendlier
+// if we can't copy an image over for editing in an external tool.
+public void open_external_editor_error_dialog(Error err, Photo photo) {
+    // Did we fail because we can't write to this directory?
+    if (err is IOError.PERMISSION_DENIED || err is FileError.PERM) {
+         // Yes - display an alternate error message here.
+         AppWindow.error_message(          
+            _("Shotwell couldn't create a file for editing this photo because you do not have " + 
+            "permission to write to %s.").printf(photo.get_master_file().get_parent().get_path()));
+    } else {
+        // No - something else is wrong, display the error message 
+        // the system gave us.
+        AppWindow.error_message(Resources.launch_editor_failed(err));
+    }         
+}
+
 public Gtk.ResponseType export_error_dialog(File dest, bool photos_remaining) {
     string message = _("Unable to export the following photo due to a file error.\n\n") +
         dest.get_path();
