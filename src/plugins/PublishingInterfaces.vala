@@ -25,7 +25,7 @@ public interface Publisher : GLib.Object {
         VIDEO =         1 << 1
     }
     
-    public abstract PublishingService get_service();
+    public abstract Service get_service();
     
     public abstract MediaType get_supported_media();
     
@@ -37,7 +37,7 @@ public interface Publisher : GLib.Object {
     public abstract void stop();
 }
 
-public interface PublishingDialogPane : GLib.Object {
+public interface DialogPane : GLib.Object {
     public enum GeometryOptions {
         NONE =          0,
         EXTENDED_SIZE = 1 << 0,
@@ -61,8 +61,8 @@ public delegate void LoginCallback();
 
 public interface PluginHost : GLib.Object, Spit.HostInterface {
     public enum ButtonMode {
-        CLOSE,
-        CANCEL
+        CLOSE = 0,
+        CANCEL = 1
     }
 	
     public abstract void post_error(Error err);
@@ -71,7 +71,7 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
     
     public abstract Publisher get_publisher();
 
-    public abstract void install_dialog_pane(Spit.Publishing.PublishingDialogPane pane,
+    public abstract void install_dialog_pane(Spit.Publishing.DialogPane pane,
         ButtonMode mode = ButtonMode.CANCEL);
     
     public abstract void install_static_message_pane(string message,
@@ -113,7 +113,7 @@ public interface Publishable : GLib.Object {
     public abstract Spit.Publishing.Publisher.MediaType get_media_type();
 }
 
-public interface PublishingService : Object, Spit.Pluggable {
+public interface Service : Object, Spit.Pluggable {
     public abstract Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host);
 }
 

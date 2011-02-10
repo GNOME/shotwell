@@ -19,7 +19,7 @@ public class PublisherWrapperInteractor : ServiceInteractor, Spit.Publishing.Pub
         this.old_api_dialog = old_api_dialog;
     }
     
-    public Spit.Publishing.PublishingService get_service() {
+    public Spit.Publishing.Service get_service() {
         return wrapped.get_service();
     }
     
@@ -81,7 +81,7 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.HostInterface,
         this.plugin_host = plugin_host;
     }
 
-    public void install_dialog_pane(Spit.Publishing.PublishingDialogPane pane,
+    public void install_dialog_pane(Spit.Publishing.DialogPane pane,
         Spit.Publishing.PluginHost.ButtonMode button_mode) {
         debug("DialogInteractorWrapper: install_pane( ): invoked.");
 
@@ -332,11 +332,11 @@ public class GlueFactory {
 
         // load publishing services from plug-ins
         Gee.Collection<Spit.Pluggable> pluggables = Plugins.get_pluggables_for_type(
-            typeof(Spit.Publishing.PublishingService));
+            typeof(Spit.Publishing.Service));
             
         debug("Publising API Glue: discovered %d pluggable publishing services.", pluggables.size);
 
-        Spit.Publishing.PublishingService? facebook_service = null;
+        Spit.Publishing.Service? facebook_service = null;
         foreach (Spit.Pluggable pluggable in pluggables) {
             int pluggable_interface = pluggable.get_pluggable_interface(
                 Spit.Publishing.CURRENT_API_VERSION, Spit.Publishing.CURRENT_API_VERSION);
@@ -347,8 +347,8 @@ public class GlueFactory {
                 continue;
             }
             
-            Spit.Publishing.PublishingService service =
-                (Spit.Publishing.PublishingService) pluggable;
+            Spit.Publishing.Service service =
+                (Spit.Publishing.Service) pluggable;
             debug("Publishing API Glue: discovered pluggable publishing service '%s'.",
                 service.get_pluggable_name());
             if (service.get_id() == "org.yorba.shotwell.publishing.facebook")

@@ -14,12 +14,12 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     private const double STATUS_UPLOAD_FRACTION = 0.7;
     
     private PublishingDialog dialog = null;
-    private Spit.Publishing.PublishingDialogPane current_pane = null;
+    private Spit.Publishing.DialogPane current_pane = null;
     private Spit.Publishing.Publisher active_publisher = null;
     private Publishable[] publishables = null;
     private LoginCallback current_login_callback = null;
     
-    public ConcretePublishingHost(PublishingService service, PublishingDialog dialog,
+    public ConcretePublishingHost(Service service, PublishingDialog dialog,
         Publishable[] publishables) {
         base(service, "sharing");
         this.dialog = dialog;
@@ -63,7 +63,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         set_button_mode(Spit.Publishing.PluginHost.ButtonMode.CANCEL);
     }
 
-    public void install_dialog_pane(Spit.Publishing.PublishingDialogPane pane,
+    public void install_dialog_pane(Spit.Publishing.DialogPane pane,
         Spit.Publishing.PluginHost.ButtonMode button_mode) {
         debug("Publishing.PluginHost: install_dialog_pane( ): invoked.");
 
@@ -75,14 +75,14 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
 
         dialog.install_pane(pane.get_widget());
         
-        Spit.Publishing.PublishingDialogPane.GeometryOptions geometry_options =
+        Spit.Publishing.DialogPane.GeometryOptions geometry_options =
             pane.get_preferred_geometry();
-        if ((geometry_options & PublishingDialogPane.GeometryOptions.EXTENDED_SIZE) != 0)
+        if ((geometry_options & DialogPane.GeometryOptions.EXTENDED_SIZE) != 0)
             dialog.set_large_window_mode();
         else
             dialog.set_standard_window_mode();
 
-        if ((geometry_options & PublishingDialogPane.GeometryOptions.RESIZABLE) != 0)
+        if ((geometry_options & DialogPane.GeometryOptions.RESIZABLE) != 0)
             dialog.set_free_sizable_window_mode();
         else
             dialog.clear_free_sizable_window_mode();

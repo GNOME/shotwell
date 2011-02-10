@@ -7,7 +7,7 @@
 extern Soup.Message soup_form_request_new_from_multipart(string uri, Soup.Multipart multipart);
 extern void qsort(void *p, size_t num, size_t size, GLib.CompareFunc func);
 
-public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.PublishingService {
+public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,
             Spit.Publishing.CURRENT_API_VERSION);
@@ -113,10 +113,10 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private FacebookRESTSession session = null;
     private WebAuthenticationPane web_auth_pane = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
-    private weak Spit.Publishing.PublishingService service = null;
+    private weak Spit.Publishing.Service service = null;
     private bool running = false;
 
-    public FacebookPublisher(Spit.Publishing.PublishingService service,
+    public FacebookPublisher(Spit.Publishing.Service service,
         Spit.Publishing.PluginHost host) {
         debug("FacebookPublisher instantiated.");
         this.service = service;
@@ -290,6 +290,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         invalidate_persistent_session();
 
+        running = false;
         start();
     }
     
@@ -587,7 +588,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.post_error(err);
     }
     
-    public Spit.Publishing.PublishingService get_service() {
+    public Spit.Publishing.Service get_service() {
         return service;
     }
 
@@ -1218,7 +1219,7 @@ internal class FacebookCreateAlbumTransaction : FacebookRESTTransaction {
     }
 }
 
-internal class WebAuthenticationPane : Spit.Publishing.PublishingDialogPane, Object {
+internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     private WebKit.WebView webview = null;
     private Gtk.VBox pane_widget = null;
     private Gtk.ScrolledWindow webview_frame = null;
@@ -1284,8 +1285,8 @@ internal class WebAuthenticationPane : Spit.Publishing.PublishingDialogPane, Obj
         return pane_widget;
     }
     
-    public Spit.Publishing.PublishingDialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.PublishingDialogPane.GeometryOptions.RESIZABLE;
+    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+        return Spit.Publishing.DialogPane.GeometryOptions.RESIZABLE;
     }
     
     public void on_pane_installed() {
@@ -1296,7 +1297,7 @@ internal class WebAuthenticationPane : Spit.Publishing.PublishingDialogPane, Obj
     }
 }
 
-internal class PublishingOptionsPane : Spit.Publishing.PublishingDialogPane, GLib.Object {
+internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private LegacyPublishingOptionsPane wrapped = null;
 
     public signal void logout();
@@ -1319,8 +1320,8 @@ internal class PublishingOptionsPane : Spit.Publishing.PublishingDialogPane, GLi
         return wrapped;
     }
     
-    public Spit.Publishing.PublishingDialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.PublishingDialogPane.GeometryOptions.NONE;
+    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
     }
     
     public void on_pane_installed() {        
