@@ -6,12 +6,12 @@
 
 namespace Spit.Publishing {
 
-public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object {
+public class ConcretePublishingHost : Plugins.StandardHostInterface,
+    Spit.Publishing.PluginHost {
     private const string PREPARE_STATUS_DESCRIPTION = _("Preparing for upload");
     private const string UPLOAD_STATUS_DESCRIPTION = _("Uploading %d of %d");
     private const double STATUS_PREPARATION_FRACTION = 0.3;
     private const double STATUS_UPLOAD_FRACTION = 0.7;
-
     
     private PublishingDialog dialog = null;
     private Spit.Publishing.PublishingDialogPane current_pane = null;
@@ -19,9 +19,12 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
     private Publishable[] publishables = null;
     private LoginCallback current_login_callback = null;
     
-    public PublishingHost(PublishingDialog dialog, Publishable[] publishables) {
+    public ConcretePublishingHost(PublishingService service, PublishingDialog dialog,
+        Publishable[] publishables) {
+        base(service, "sharing");
         this.dialog = dialog;
         this.publishables = publishables;
+        this.active_publisher = service.create_publisher(this);
     }
     
     private void on_login_clicked() {
@@ -57,14 +60,12 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
         current_pane = null;
          
         dialog.install_pane(progress_pane);
+        set_button_mode(Spit.Publishing.PluginHost.ButtonMode.CANCEL);
     }
 
-    public void set_active_publisher(Spit.Publishing.Publisher active_publisher) {
-        this.active_publisher = active_publisher;
-    }
-
-    public void install_dialog_pane(Spit.Publishing.PublishingDialogPane pane) {
-        debug("PublishingPluginHost: install_dialog_pane( ): invoked.");
+    public void install_dialog_pane(Spit.Publishing.PublishingDialogPane pane,
+        Spit.Publishing.PluginHost.ButtonMode button_mode) {
+        debug("Publishing.PluginHost: install_dialog_pane( ): invoked.");
 
         if (active_publisher == null || (!active_publisher.is_running()))
             return;
@@ -86,6 +87,8 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
         else
             dialog.clear_free_sizable_window_mode();
         
+        set_button_mode(button_mode);
+        
         current_pane = pane;
         
         pane.on_pane_installed();
@@ -97,7 +100,7 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
         current_pane = null;
 
         string msg = _("Publishing to %s can't continue because an error occurred:").printf(
-            active_publisher.get_user_visible_name());
+            active_publisher.get_service().get_pluggable_name());
         msg += GLib.Markup.printf_escaped("\n\n\t<i>%s</i>\n\n", err.message);
         msg += _("To try publishing to another service, select one from the above menu.");
         
@@ -112,39 +115,49 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
     }
 
     public void stop_publishing() {
-        debug("PublishingHost.stop_publishing( ): invoked.");
+        debug("ConcretePublishingHost.stop_publishing( ): invoked.");
         
         if (active_publisher.is_running())
             active_publisher.stop();
 
         clean_up();
 
-        active_publisher = null;
         dialog = null;
     }
 
-    public void install_static_message_pane(string message) {
+    public Publisher get_publisher() {
+        return active_publisher;
+    }
+
+    public void install_static_message_pane(string message,
+        Spit.Publishing.PluginHost.ButtonMode button_mode) {
         if (current_pane != null)
             current_pane.on_pane_uninstalled();
         current_pane = null;
+
+        set_button_mode(button_mode);
 
         dialog.install_pane(new StaticMessagePane(message));
     }
     
-    public void install_pango_message_pane(string markup) {
+    public void install_pango_message_pane(string markup,
+        Spit.Publishing.PluginHost.ButtonMode button_mode) {
         if (current_pane != null)
             current_pane.on_pane_uninstalled();
         current_pane = null;
-        
+
+        set_button_mode(button_mode);
+
         dialog.install_pane(new StaticMessagePane.with_pango(markup));
     }
     
-    public void install_success_pane(Spit.Publishing.Publisher.MediaType media_type) {
+    public void install_success_pane() {
         if (current_pane != null)
             current_pane.on_pane_uninstalled();
         current_pane = null;
         
-        dialog.install_pane(new SuccessPane(media_type));
+        dialog.install_pane(new SuccessPane(get_publishable_media_type()));
+        dialog.set_close_button_mode();
 
         // the success pane is a terminal pane; once it's installed, the publishing
         // interaction is considered over, so clean up
@@ -157,6 +170,7 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
         current_pane = null;
         
         dialog.install_pane(new AccountFetchWaitPane());
+        set_button_mode(Spit.Publishing.PluginHost.ButtonMode.CANCEL);
     }
     
     public void install_login_wait_pane() {
@@ -176,6 +190,8 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
             current_pane.on_pane_uninstalled();
         current_pane = null;
 
+        set_button_mode(Spit.Publishing.PluginHost.ButtonMode.CLOSE);
+
         dialog.install_pane(login_pane);
     }
 	
@@ -186,10 +202,10 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
             dialog.unlock_service();
     }
     
-    public void set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode mode) {
-        if (mode == Spit.Publishing.PublishingInteractor.ButtonMode.CLOSE)
+    public void set_button_mode(Spit.Publishing.PluginHost.ButtonMode mode) {
+        if (mode == Spit.Publishing.PluginHost.ButtonMode.CLOSE)
             dialog.set_close_button_mode();
-        else if (mode == Spit.Publishing.PublishingInteractor.ButtonMode.CANCEL)
+        else if (mode == Spit.Publishing.PluginHost.ButtonMode.CANCEL)
             dialog.set_cancel_button_mode();
         else
             error("unrecognized button mode enumeration value");
@@ -203,45 +219,7 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
     public Spit.Publishing.Publisher.MediaType get_publishable_media_type() {
         return dialog.get_media_type();
     }
-    
-    public int get_config_int(string key, int default_value) {
-        return Config.get_instance().get_publishing_int(active_publisher.get_service_name(),
-            key, default_value);
-    }
-    
-    public string? get_config_string(string key, string? default_value) {
-        return Config.get_instance().get_publishing_string(active_publisher.get_service_name(),
-            key, default_value);
-    }
-    
-    public bool get_config_bool(string key, bool default_value) {
-        return Config.get_instance().get_publishing_bool(active_publisher.get_service_name(),
-            key, default_value);
-    }
-    
-    public double get_config_double(string key, double default_value) {
-        return Config.get_instance().get_publishing_double(active_publisher.get_service_name(),
-            key, default_value);
-    }
-    
-    public void set_config_int(string key, int value) {
-        Config.get_instance().set_publishing_int(active_publisher.get_service_name(), key, value);
-    }
-    
-    public void set_config_string(string key, string value) {
-        Config.get_instance().set_publishing_string(active_publisher.get_service_name(), key,
-            value);
-    }
-    
-    public void set_config_bool(string key, bool value) {
-        Config.get_instance().set_publishing_bool(active_publisher.get_service_name(), key, value);
-    }
-    
-    public void set_config_double(string key, double value) {
-        Config.get_instance().set_publishing_double(active_publisher.get_service_name(), key,
-            value);
-    }
-    
+
     public Publishable[] get_publishables() {
         return publishables;
     }
@@ -254,7 +232,9 @@ public class PublishingHost : Spit.Publishing.PublishingInteractor, GLib.Object 
         int i = 0;
         foreach (Spit.Publishing.Publishable publishable in publishables) {
             try {
-                publishable.serialize_for_publishing(content_major_axis, strip_metadata);
+                global::Publishing.Glue.MediaSourcePublishableWrapper wrapper =
+                    (global::Publishing.Glue.MediaSourcePublishableWrapper) publishable;
+                wrapper.serialize_for_publishing(content_major_axis, strip_metadata);
             } catch (Spit.Publishing.PublishingError err) {
                 post_error(err);
                 return null;

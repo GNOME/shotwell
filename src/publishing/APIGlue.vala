@@ -7,45 +7,38 @@ namespace Publishing.Glue {
 
 public class PublisherWrapperInteractor : ServiceInteractor, Spit.Publishing.Publisher {
     private Spit.Publishing.Publisher wrapped;
-    private Spit.Publishing.PublishingInteractor new_api_interactor;
+    private Spit.Publishing.PluginHost new_api_host;
     private weak PublishingDialog old_api_dialog;
     
-    public PublisherWrapperInteractor(Spit.Publishing.Publisher wrapped,
-        Spit.Publishing.PublishingInteractor new_api_interactor, PublishingDialog old_api_dialog) {
+    public PublisherWrapperInteractor(Spit.Publishing.PluginHost new_api_host,
+        PublishingDialog old_api_dialog) {
         
         base(old_api_dialog);
-        this.wrapped = wrapped;
-        this.new_api_interactor = new_api_interactor;
+        this.wrapped = new_api_host.get_publisher();
+        this.new_api_host = new_api_host;
         this.old_api_dialog = old_api_dialog;
     }
     
-    public string get_service_name() {
-        return wrapped.get_service_name();
-    }
-    
-    public string get_user_visible_name() {
-        return wrapped.get_user_visible_name();
+    public Spit.Publishing.PublishingService get_service() {
+        return wrapped.get_service();
     }
     
     public Spit.Publishing.Publisher.MediaType get_supported_media() {
         return wrapped.get_supported_media();
     }
     
-    public void start(Spit.Publishing.PublishingInteractor interactor) {
-        if (interactor is Spit.Publishing.PublishingHost)
-            ((Spit.Publishing.PublishingHost) interactor).set_active_publisher(wrapped);
-                
-        wrapped.start(interactor);
+    public void start() {
+        wrapped.start();
     }
     
     public void stop() {
         debug("PublisherWrapperInteractor: stop( ) invoked.");
 
         old_api_dialog = null;
-        new_api_interactor.stop_publishing();
+        new_api_host.stop_publishing();
 
         wrapped = null;
-        new_api_interactor = null;
+        new_api_host = null;
     }
     
     public bool is_running() {
@@ -56,12 +49,12 @@ public class PublisherWrapperInteractor : ServiceInteractor, Spit.Publishing.Pub
     }
     
     public override string get_name() {
-        return get_user_visible_name();
+        return wrapped.get_service().get_pluggable_name();
     }
     
     public override void start_interaction() {
         debug("PublisherWrapperInteractor: start_interaction( ): invoked.");
-        start(new_api_interactor);
+        start();
     }
     
     public override void cancel_interaction() {
@@ -70,8 +63,9 @@ public class PublisherWrapperInteractor : ServiceInteractor, Spit.Publishing.Pub
     }
 }
 
-public class DialogInteractorWrapper : PublishingDialog, Spit.Publishing.PublishingInteractor {
-    Spit.Publishing.PublishingInteractor plugin_host;
+public class DialogInteractorWrapper : PublishingDialog, Spit.HostInterface,
+    Spit.Publishing.PluginHost {
+    Spit.Publishing.PluginHost plugin_host;
     Spit.Publishing.Publishable[] publishables;
     
     public DialogInteractorWrapper(Gee.Collection<MediaSource> to_publish) {
@@ -83,14 +77,15 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.Publishing.Publish
             publishables += new MediaSourcePublishableWrapper(current_media_item);
     }
     
-    public void set_plugin_host(Spit.Publishing.PublishingInteractor plugin_host) {
+    public void set_plugin_host(Spit.Publishing.PluginHost plugin_host) {
         this.plugin_host = plugin_host;
     }
 
-    public void install_dialog_pane(Spit.Publishing.PublishingDialogPane pane) {
+    public void install_dialog_pane(Spit.Publishing.PublishingDialogPane pane,
+        Spit.Publishing.PluginHost.ButtonMode button_mode) {
         debug("DialogInteractorWrapper: install_pane( ): invoked.");
 
-        plugin_host.install_dialog_pane(pane);
+        plugin_host.install_dialog_pane(pane, button_mode);
     }
 	
     public void post_error(Error err) {
@@ -105,16 +100,22 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.Publishing.Publish
         plugin_host.stop_publishing();
     }
 
-    public void install_static_message_pane(string message) {
-        plugin_host.install_static_message_pane(message);
+    public Spit.Publishing.Publisher get_publisher() {
+        return plugin_host.get_publisher();
+    }
+
+    public void install_static_message_pane(string message,
+        Spit.Publishing.PluginHost.ButtonMode button_mode) {
+        plugin_host.install_static_message_pane(message, button_mode);
     }
     
-    public void install_pango_message_pane(string markup) {
-        plugin_host.install_pango_message_pane(markup);
+    public void install_pango_message_pane(string markup,
+        Spit.Publishing.PluginHost.ButtonMode button_mode) {
+        plugin_host.install_pango_message_pane(markup, button_mode);
     }
     
-    public void install_success_pane(Spit.Publishing.Publisher.MediaType media_type) {
-        plugin_host.install_success_pane(media_type);
+    public void install_success_pane() {
+        plugin_host.install_success_pane();
     }
     
     public void install_account_fetch_wait_pane() {
@@ -133,10 +134,6 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.Publishing.Publish
     public void set_service_locked(bool locked) {
         plugin_host.set_service_locked(locked);
     }
-    
-    public void set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode mode) {
-        plugin_host.set_button_mode(mode);
-    }
 
     public void set_dialog_default_widget(Gtk.Widget widget) {
         plugin_host.set_dialog_default_widget(widget);
@@ -144,6 +141,10 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.Publishing.Publish
     
     public Spit.Publishing.Publisher.MediaType get_publishable_media_type() {
         return plugin_host.get_publishable_media_type();
+    }
+    
+    public GLib.File get_module_file() {
+        return plugin_host.get_module_file();
     }
     
     public int get_config_int(string key, int default_value) {
@@ -166,7 +167,7 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.Publishing.Publish
         plugin_host.set_config_int(key, value);
     }
     
-    public void set_config_string(string key, string value) {
+    public void set_config_string(string key, string? value) {
         plugin_host.set_config_string(key, value);
     }
     
@@ -177,7 +178,11 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.Publishing.Publish
     public void set_config_double(string key, double value) {
         plugin_host.set_config_double(key, value);
     }
-    
+
+    public void unset_config_key(string key) {
+        plugin_host.unset_config_key(key);
+    }
+
     public Spit.Publishing.Publishable[] get_publishables() {
         return publishables;
     }
@@ -264,8 +269,8 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
         return wrapped.get_name();
     }
 
-    public string get_publishing_description() {
-        return "";
+    public string? get_publishing_description() {
+        return null;
     }
 
     public string[] get_publishing_keywords() {
@@ -278,7 +283,7 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
             }
         }
         
-        return result;
+        return (result.length > 0) ? result : null;
     }
 
     public Spit.Publishing.Publisher.MediaType get_media_type() {
@@ -291,13 +296,15 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
     }
     
     public GLib.File? get_serialized_file() {
+        assert(serialized_file != null);
+
         return serialized_file;
     }
 }
 
 public class GlueFactory {
     private static GlueFactory instance = null;
-    private Spit.Publishing.PublishingHost publishing_host = null;
+    private Spit.Publishing.ConcretePublishingHost publishing_host = null;
     
     private GlueFactory() {
     }
@@ -322,13 +329,6 @@ public class GlueFactory {
 
         if (service_name != "facebook")
             error("GlueFactory: unsupported service name");
-
-        Spit.Publishing.Publishable[] publishables =
-            ((DialogInteractorWrapper) active_dialog).get_publishables();
-        debug("GlueFactory: setting up adapters to publish %d items.", publishables.length);
-        publishing_host = new Spit.Publishing.PublishingHost(active_dialog, publishables);
-
-        ((DialogInteractorWrapper) active_dialog).set_plugin_host(publishing_host);
 
         // load publishing services from plug-ins
         Gee.Collection<Spit.Pluggable> pluggables = Plugins.get_pluggables_for_type(
@@ -357,11 +357,18 @@ public class GlueFactory {
         
         if (facebook_service == null)
             error("Publishing API Glue: required service 'Facebook' wasn't found.'");
+
+        Spit.Publishing.Publishable[] publishables =
+            ((DialogInteractorWrapper) active_dialog).get_publishables();
+        debug("GlueFactory: setting up adapters to publish %d items.", publishables.length);
+
+        publishing_host = new Spit.Publishing.ConcretePublishingHost(facebook_service, active_dialog,
+            publishables);
+
+        ((DialogInteractorWrapper) active_dialog).set_plugin_host(publishing_host);
         
-        Spit.Publishing.Publisher real_publisher = facebook_service.create_publisher();
-        
-        ServiceInteractor publisher_wrapper = new PublisherWrapperInteractor(real_publisher,
-            publishing_host, active_dialog);
+        ServiceInteractor publisher_wrapper = new PublisherWrapperInteractor(publishing_host,
+            active_dialog);
 
         active_dialog = null;
 

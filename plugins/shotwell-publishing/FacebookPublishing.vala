@@ -29,8 +29,8 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Publishin
         info.website_url = "http://www.yorba.org";
     }
     
-    public Spit.Publishing.Publisher create_publisher() {
-        return new Publishing.Facebook.FacebookPublisher();
+    public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {
+        return new Publishing.Facebook.FacebookPublisher(this, host);
     }
 }
 
@@ -109,17 +109,22 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private string privacy_setting = PRIVACY_OBJECT_JUST_ME;
     private FacebookAlbum[] albums = null;
     private int publish_to_album = NO_ALBUM;
-    private weak Spit.Publishing.PublishingInteractor interactor = null;
+    private weak Spit.Publishing.PluginHost host = null;
     private FacebookRESTSession session = null;
     private WebAuthenticationPane web_auth_pane = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
+    private weak Spit.Publishing.PublishingService service = null;
+    private bool running = false;
 
-    public FacebookPublisher() {
+    public FacebookPublisher(Spit.Publishing.PublishingService service,
+        Spit.Publishing.PluginHost host) {
         debug("FacebookPublisher instantiated.");
+        this.service = service;
+        this.host = host;
     }
     
     private bool is_running() {
-        return (interactor != null);
+        return running;
     }
     
     private int lookup_album(string name) {
@@ -148,35 +153,35 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
     
     private string? get_persistent_session_key() {
-        return interactor.get_config_string("session_key", null);
+        return host.get_config_string("session_key", null);
     }
     
     private string? get_persistent_session_secret() {
-        return interactor.get_config_string("session_secret", null);
+        return host.get_config_string("session_secret", null);
     }
     
     private string? get_persistent_uid() {
-        return interactor.get_config_string("uid", null);
+        return host.get_config_string("uid", null);
     }
     
     private string? get_persistent_user_name() {
-        return interactor.get_config_string("user_name", null);
+        return host.get_config_string("user_name", null);
     }
     
     private void set_persistent_session_key(string session_key) {
-        interactor.set_config_string("session_key", session_key);
+        host.set_config_string("session_key", session_key);
     }
     
     private void set_persistent_session_secret(string session_secret) {
-        interactor.set_config_string("session_secret", session_secret);
+        host.set_config_string("session_secret", session_secret);
     }
     
     private void set_persistent_uid(string uid) {
-        interactor.set_config_string("uid", uid);
+        host.set_config_string("uid", uid);
     }
     
     private void set_persistent_user_name(string user_name) {
-        interactor.set_config_string("user_name", user_name);
+        host.set_config_string("user_name", user_name);
     }
 
     private void invalidate_persistent_session() {
@@ -191,15 +196,14 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void do_show_service_welcome_pane() {
         debug("ACTION: showing service welcome pane.");
 
-        interactor.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_login_clicked);
+        host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_login_clicked);
     }
 
     private void do_fetch_album_descriptions() {
         debug("ACTION: fetching album descriptions from remote endpoint.");
-        interactor.set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode.CANCEL);
-        interactor.set_service_locked(true);
-        
-        interactor.install_account_fetch_wait_pane();
+
+        host.set_service_locked(true);
+        host.install_account_fetch_wait_pane();
         
         FacebookRESTTransaction albums_transaction = new FacebookAlbumsFetchTransaction(session);
         albums_transaction.completed.connect(on_fetch_album_descriptions_completed);
@@ -213,7 +217,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             // only post an error if we're running; errors tend to come in groups, so it's possible
             // another error has already posted and caused us to stop        
             if (is_running())
-                interactor.post_error(err);
+                host.post_error(err);
         }
     }
 
@@ -258,7 +262,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             // only post an error if we're running; errors tend to come in groups, so it's possible
             // another error has already posted and caused us to stop
             if (is_running())
-                interactor.post_error(err);
+                host.post_error(err);
 
             return;
         }
@@ -270,14 +274,15 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_show_publishing_options_pane() {
         debug("ACTION: showing publishing options pane.");
-        interactor.set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode.CANCEL);
-        interactor.set_service_locked(false);
+
+        host.set_service_locked(false);
 
         PublishingOptionsPane publishing_options_pane = new PublishingOptionsPane(
-            session.get_user_name(), albums, interactor.get_publishable_media_type());
+            session.get_user_name(), albums, host.get_publishable_media_type());
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
-        interactor.install_dialog_pane(publishing_options_pane);
+        host.install_dialog_pane(publishing_options_pane,
+            Spit.Publishing.PluginHost.ButtonMode.CANCEL);
     }
     
     private void do_logout() {
@@ -285,31 +290,28 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         invalidate_persistent_session();
 
-        Spit.Publishing.PublishingInteractor restart_with_interactor = interactor;
-        stop();
-        start(restart_with_interactor);
+        start();
     }
     
     private void do_hosted_web_authentication() {
         debug("ACTION: doing hosted web authentication.");
 
-        interactor.set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode.CANCEL);
-        interactor.set_service_locked(false);
+        host.set_service_locked(false);
 
         web_auth_pane = new WebAuthenticationPane();
         web_auth_pane.login_succeeded.connect(on_web_auth_pane_login_succeeded);
         web_auth_pane.login_failed.connect(on_web_auth_pane_login_failed);
         
-        interactor.install_dialog_pane(web_auth_pane);
+        host.install_dialog_pane(web_auth_pane,
+            Spit.Publishing.PluginHost.ButtonMode.CANCEL);
     }
 
     private void do_authenticate_session(string success_url) {
         debug("ACTION: preparing to extract session information encoded in url = '%s'",
             success_url);
 
-        interactor.set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode.CANCEL);
-        interactor.set_service_locked(true);
-        interactor.install_account_fetch_wait_pane();
+        host.set_service_locked(true);
+        host.install_account_fetch_wait_pane();
 
         session.authenticated.connect(on_session_authenticated);
         session.authentication_failed.connect(on_session_authentication_failed);
@@ -320,7 +322,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             // only post an error if we're running; errors tend to come in groups, so it's possible
             // another error has already posted and caused us to stop
             if (is_running())
-                interactor.post_error(err);
+                host.post_error(err);
         }
     }
 
@@ -337,12 +339,11 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         assert(publish_to_album != NO_ALBUM);
         debug("ACTION: uploading photos to album '%s'", albums[publish_to_album].name);
 
-        interactor.set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode.CANCEL);
-        interactor.set_service_locked(true);
+        host.set_service_locked(true);
 
-        progress_reporter = interactor.serialize_publishables(MAX_PHOTO_DIMENSION);
+        progress_reporter = host.serialize_publishables(MAX_PHOTO_DIMENSION);
 
-        Spit.Publishing.Publishable[] publishables = interactor.get_publishables();
+        Spit.Publishing.Publishable[] publishables = host.get_publishables();
         FacebookUploader uploader = new FacebookUploader(session, albums[publish_to_album].id,
             privacy_setting, publishables);
 
@@ -356,10 +357,10 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: creating new photo album with name '%s'", album_name);
         albums += FacebookAlbum(album_name, "");
 
-        interactor.set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode.CANCEL);
-        interactor.set_service_locked(true);
+        host.set_service_locked(true);
 
-        interactor.install_static_message_pane(_("Creating album..."));
+        host.install_static_message_pane(_("Creating album..."),
+            Spit.Publishing.PluginHost.ButtonMode.CANCEL);
 
         FacebookRESTTransaction create_txn = new FacebookCreateAlbumTransaction(session,
             album_name, privacy_setting);
@@ -372,7 +373,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             // only post an error if we're running; errors tend to come in groups, so it's possible
             // another error has already posted and caused us to stop
             if (is_running())
-                interactor.post_error(err);
+                host.post_error(err);
         }
     }
 
@@ -393,7 +394,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             // only post an error if we're running; errors tend to come in groups, so it's possible
             // another error has already posted and caused us to stop
             if (is_running())
-                interactor.post_error(err);
+                host.post_error(err);
 
             return;
         }
@@ -404,10 +405,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void do_show_success_pane() {
         debug("ACTION: showing success pane.");
 
-        interactor.set_service_locked(false);
-        interactor.set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode.CLOSE);
-
-        interactor.install_success_pane(interactor.get_publishable_media_type());
+        host.set_service_locked(false);
+        host.install_success_pane();
     }
     
     private void on_login_clicked() {
@@ -460,7 +459,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         debug("EVENT: session authentication failed.");
 
-        interactor.post_error(err);
+        host.post_error(err);
     }
 
     private void on_fetch_album_descriptions_completed(FacebookRESTTransaction txn) {
@@ -483,7 +482,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         bad_txn.completed.disconnect(on_fetch_album_descriptions_completed);
         bad_txn.network_error.disconnect(on_fetch_album_descriptions_error);
 
-        interactor.post_error(err);
+        host.post_error(err);
     }
 
     private void on_albums_extracted() {
@@ -541,7 +540,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         bad_txn.completed.disconnect(on_create_album_txn_completed);
         bad_txn.network_error.disconnect(on_create_album_txn_error);
 
-        interactor.post_error(err);
+        host.post_error(err);
     }
 
     private void on_album_name_extracted() {
@@ -585,7 +584,11 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         uploader.upload_complete.disconnect(on_upload_complete);
         uploader.upload_error.disconnect(on_upload_error);
 
-        interactor.post_error(err);
+        host.post_error(err);
+    }
+    
+    public Spit.Publishing.PublishingService get_service() {
+        return service;
     }
 
     public string get_service_name() {
@@ -601,13 +604,13 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             Spit.Publishing.Publisher.MediaType.VIDEO;
     }
     
-    public void start(Spit.Publishing.PublishingInteractor interactor) {
+    public void start() {
         if (is_running())
             return;
 
         debug("FacebookPublisher: starting interaction.");
-
-        this.interactor = interactor;
+        
+        running = true;
         
         // reset all publishing parameters to their default values -- in case this start is
         // actually a restart
@@ -627,9 +630,9 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             on_session_authenticated();
         } else {
             if (WebAuthenticationPane.is_cache_dirty()) {
-                interactor.set_button_mode(Spit.Publishing.PublishingInteractor.ButtonMode.CANCEL);
-                interactor.set_service_locked(false);
-                interactor.install_static_message_pane(RESTART_ERROR_MESSAGE);
+                host.set_service_locked(false);
+                host.install_static_message_pane(RESTART_ERROR_MESSAGE,
+                    Spit.Publishing.PluginHost.ButtonMode.CANCEL);
             } else {
                 session = new FacebookRESTSession(PHOTO_ENDPOINT_URL, USER_AGENT);
                 do_show_service_welcome_pane();
@@ -640,8 +643,10 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     public void stop() {
         debug("FacebookPublisher: stop( ) invoked.");
 
-        interactor = null;
+        host = null;
         session.stop_transactions();
+
+        running = false;
     }
 }
 
