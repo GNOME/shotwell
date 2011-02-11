@@ -1418,7 +1418,16 @@ public abstract class CheckerboardPage : Page {
                 break;
                 
                 case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK:
-                    // TODO
+                    // Ticket #853 - Make Ctrl + Shift + Mouse Button 1 able to start a new run
+                    // of contiguous selected items without unselecting previously-selected items
+                    // a la Nautilus.
+                    // Same as the case for SHIFT_MASK, but don't unselect anything first.
+                    if (anchor == null)
+                        anchor = item;
+                    
+                    select_between_items(anchor, item);
+                    
+                    cursor = item;
                 break;
                 
                 default:
