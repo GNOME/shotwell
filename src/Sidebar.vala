@@ -68,7 +68,6 @@ public class Sidebar : Gtk.TreeView {
     // store = (page name, page, Icon, icon, expander-closed icon, expander-open icon)
     private Gtk.TreeStore store = new Gtk.TreeStore(6, typeof(string), typeof(SidebarMarker),
         typeof(GLib.Icon?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?));
-    private Gtk.TreePath current_path = null;
 
     public signal void drop_received(Gdk.DragContext context, int x, int y, 
         Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, SidebarPage? page);
@@ -147,9 +146,20 @@ public class Sidebar : Gtk.TreeView {
         return (page.get_marker() != null) ? get_selection().path_is_selected(page.get_marker().get_path()) : false;
     }
     
+    public bool is_any_page_selected() {
+        return get_selection().count_selected_rows() != 0;
+    }
+    
+    private Gtk.TreePath? get_current_path() {
+        Gtk.TreeModel model;
+        GLib.List<Gtk.TreePath> rows = get_selection().get_selected_rows(out model);
+        assert(rows.length() == 0 || rows.length() == 1);
+        return rows.length() != 0 ? rows.nth_data(0) : null;
+    }
+    
     public override void cursor_changed() {
         if (editing_disabled == 0) {
-            SidebarPage? page = locate_page(current_path);
+            SidebarPage? page = locate_page(get_current_path());
             text.editable = page != null && page.is_renameable();
         }
         
@@ -167,7 +177,7 @@ public class Sidebar : Gtk.TreeView {
             return;
         
         if (--editing_disabled == 0) {
-            SidebarPage? page = locate_page(current_path);
+            SidebarPage? page = locate_page(get_current_path());
             text.editable = page != null && page.is_renameable();
         }
     }
@@ -457,12 +467,17 @@ public class Sidebar : Gtk.TreeView {
     }
     
     public void remove_page(SidebarPage page) {
+        SidebarPage? next_page = null;
         // do nothing if page is not in sidebar
         if (page.get_marker() != null) {
             // Path can be null if the row is blown away ... need to detach, but it's obviously
             // not located in the model any longer
             Gtk.TreePath path = page.get_marker().get_path();
             if (path != null) {
+                // Look up next page if current path is selected.
+                if (get_selection().path_is_selected(path))
+                    next_page = get_next_page(path);
+                
                 // locate in sidebar; again, if not there, don't complain
                 Gtk.TreeIter iter;
                 if (store.get_iter(out iter, path))
@@ -472,18 +487,30 @@ public class Sidebar : Gtk.TreeView {
         
         // in every case, attempt to detach from this object
         detach_page(page);
+        
+        // Jump to next page.
+        if (next_page != null)
+            place_cursor(next_page);
+    }
+    
+    public SidebarPage? get_next_page(Gtk.TreePath path) {
+        SidebarPage? next_page = null;
+        Gtk.TreePath next_path = path.copy();
+        next_path.next();
+        next_page = locate_page(next_path);
+        if (null == next_page) {
+            next_path = path.copy();
+            if (next_path.prev())
+                next_page = locate_page(next_path);
+        }
+        return next_page;
     }
 
     private bool on_selection(Gtk.TreeSelection selection, Gtk.TreeModel model, Gtk.TreePath path,
         bool path_currently_selected) {
         // only allow selection if a page is associated with the path; if not, it's a grouping row,
         // which is unselectable
-        if (locate_page(path) != null) {
-            current_path = path;
-            return true;
-        }
-
-        return false;
+        return locate_page(path) != null;
     }
 
     private Gtk.TreePath? get_path_from_event(Gdk.EventButton event) {
@@ -558,12 +585,12 @@ public class Sidebar : Gtk.TreeView {
         switch(Gdk.keyval_name(event.keyval)) {
             case "Return":
             case "KP_Enter":
-                toggle_branch_expansion(current_path);
+                toggle_branch_expansion(get_current_path());
                 return false;
             case "F2":
                 return rename_in_place();
             case "Delete":
-                return !destroy_path(current_path);
+                return !destroy_path(get_current_path());
         }
         
         bool return_val = base.key_press_event(event);
@@ -579,7 +606,7 @@ public class Sidebar : Gtk.TreeView {
         Gtk.TreePath? cursor_path;
         Gtk.TreeViewColumn? cursor_column;
         get_cursor(out cursor_path, out cursor_column);
-        cursor_path = current_path;
+        cursor_path = get_current_path();
 
         if (rename_path(cursor_path)) {
             set_cursor(cursor_path, cursor_column, true);
@@ -763,7 +790,7 @@ public class Sidebar : Gtk.TreeView {
         text_entry.editable = false;
         AppWindow.get_instance().resume_keyboard_trapping();
         
-        SidebarPage? page = locate_page(current_path);
+        SidebarPage? page = locate_page(get_current_path());
         
         if (page != null && page.is_renameable())
             page.rename(text_entry.get_text());

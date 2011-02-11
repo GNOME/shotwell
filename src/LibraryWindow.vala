@@ -1087,12 +1087,12 @@ public class LibraryWindow : AppWindow {
                             get_event_branch_comparator(get_events_sort()));
 
                         sidebar.expand_tree(stub.get_marker());
+                        
+                        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
 
                         if (get_current_page() is EventPage &&
                             ((EventPage) get_current_page()).page_event.equals(event))
                             sidebar.place_cursor(stub);
-                        
-                        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
                     }
                     
                     // refresh name
@@ -1316,10 +1316,6 @@ public class LibraryWindow : AppWindow {
         
         // remove from sidebar
         remove_event_tree(event_stub);
-        
-        // jump to the Events page
-        if (event_stub.has_page() && event_stub.get_page() == get_current_page())
-            switch_to_events_directory_page();
     }
 
     private void remove_event_tree(PageStub stub, bool delete_stub = true) {
@@ -1526,15 +1522,14 @@ public class LibraryWindow : AppWindow {
         // remove stub (which holds a marker) from the sidebar
         sidebar.remove_page(stub);
         
+        if (!sidebar.is_any_page_selected()) {
+            if (fallback_page != null)
+                switch_to_page(fallback_page);
+            else if (fallback_stub != null)
+                switch_to_page(fallback_stub.get_page());
+        }
+        
         if (stub.has_page()) {
-            // ensure the page is fully detached
-            if (get_current_page() == stub.get_page()) {
-                if (fallback_page != null)
-                    switch_to_page(fallback_page);
-                else if (fallback_stub != null)
-                    switch_to_page(fallback_stub.get_page());
-            }
-            
             // detach from notebook
             remove_from_notebook(stub.get_page());
             
