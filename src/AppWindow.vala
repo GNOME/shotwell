@@ -195,16 +195,10 @@ public class FullscreenWindow : PageWindow {
     }
     
     private bool is_pointer_in_toolbar() {
-        int y, height;
-        window.get_geometry(null, out y, null, out height, null);
-
-        int py;
+        int py, wy;
         get_display().get_pointer(null, null, out py, null);
-        
-        Gtk.Requisition req;
-        toolbar_window.size_request(out req);
-
-        return (py >= (y + height - req.height));
+        toolbar_window.window.get_geometry(null, out wy, null, null, null);
+        return (py >= wy);
     }
     
     private bool on_check_toolbar_invocation() {
