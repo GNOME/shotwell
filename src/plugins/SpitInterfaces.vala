@@ -73,6 +73,18 @@ public interface Module : Object {
     // May return NULL or an empty array.
     //
     public abstract Pluggable[]? get_pluggables();
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 public struct PluggableInfo {
@@ -115,6 +127,18 @@ public interface Pluggable : Object {
     // Returns extra information about the Pluggable that is used to identify it to the user.
     //
     public abstract void get_info(out PluggableInfo info);
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 //
@@ -143,6 +167,18 @@ public interface HostInterface : Object {
     public abstract void set_config_double(string key, double val);
     
     public abstract void unset_config_key(string key);
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 }

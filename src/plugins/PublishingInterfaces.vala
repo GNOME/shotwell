@@ -35,6 +35,18 @@ public interface Publisher : GLib.Object {
     
     /* plugins must relinquish their host reference when stop( ) is called */
     public abstract void stop();
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 public interface DialogPane : GLib.Object {
@@ -52,6 +64,18 @@ public interface DialogPane : GLib.Object {
     public abstract void on_pane_installed();
     
     public abstract void on_pane_uninstalled();
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 /* fraction_complete should be between 0.0 and 1.0 inclusive */
@@ -99,6 +123,18 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
         bool strip_metadata = false);
     
     public abstract Spit.Publishing.Publisher.MediaType get_publishable_media_type();
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 public interface Publishable : GLib.Object {
@@ -111,10 +147,34 @@ public interface Publishable : GLib.Object {
     public abstract string[] get_publishing_keywords();
 
     public abstract Spit.Publishing.Publisher.MediaType get_media_type();
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 public interface Service : Object, Spit.Pluggable {
     public abstract Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host);
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 }

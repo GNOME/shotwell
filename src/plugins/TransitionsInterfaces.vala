@@ -51,6 +51,18 @@ public class Visuals : Object {
         this.to_pos = to_pos;
         this.bg_color = bg_color;
     }
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 // Motion contains all the pertinent information regarding the animation of the transition.  Some
@@ -81,6 +93,18 @@ public class Motion : Object {
     public double get_alpha(int frame_number) {
         return (double) frame_number / (double) total_frames;
     }
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 // A Descriptor offers information about an Effect as well as a factory method so instances may
@@ -88,6 +112,18 @@ public class Motion : Object {
 public interface Descriptor : Object, Spit.Pluggable {
     // Returns an instance of the Effect this descriptor represents.
     public abstract Effect create(Spit.HostInterface host);
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 // An Effect represents a particular interstitial effect that may be used when switching
@@ -133,6 +169,18 @@ public interface Effect : Object {
     // The Effect should stop the transition.  It only needs to reset state if start() is called
     // again.
     public abstract void cancel();
+    
+    //
+    // For future expansion.
+    //
+    public virtual void reserved0() {}
+    public virtual void reserved1() {}
+    public virtual void reserved2() {}
+    public virtual void reserved3() {}
+    public virtual void reserved4() {}
+    public virtual void reserved5() {}
+    public virtual void reserved6() {}
+    public virtual void reserved7() {}
 }
 
 }
