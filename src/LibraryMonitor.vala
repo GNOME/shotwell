@@ -88,12 +88,7 @@ public class LibraryMonitorPool {
         if (monitor == null)
             return false;
         
-        try {
-            monitor.start_discovery();
-        } catch (Error err) {
-            warning("Unable to start discovery of %s: %s", monitor.get_root().get_path(),
-                err.message);
-        }
+        monitor.start_discovery();
         
         return false;
     }

@@ -71,7 +71,7 @@ public class PhotoFileInterrogator {
     
     // This should only be called after interrogate().  Will return null every time, otherwise.
     // If called after interrogate and returns null, that indicates the file is not an image file.
-    public DetectedPhotoInformation get_detected_photo_information() {
+    public DetectedPhotoInformation? get_detected_photo_information() {
         return detected;
     }
     

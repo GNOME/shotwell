@@ -742,7 +742,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public void mirror_photos(ViewCollection view, CreateView mirroring_ctor) {
-        view.mirror(this.view, mirroring_ctor);
+        view.mirror(this.view, mirroring_ctor, null);
     }
     
     private void on_primary_thumbnail_altered() {

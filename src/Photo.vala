@@ -650,7 +650,7 @@ public abstract class Photo : PhotoSource {
             return ImportResult.NOT_AN_IMAGE;
         }
 
-        if (!is_file_supported(file)) {
+        if (!PhotoFileFormat.is_file_supported(file)) {
             message("Not importing %s: Unsupported extension", file.get_path());
             
             return ImportResult.UNSUPPORTED_FORMAT;
@@ -1074,34 +1074,13 @@ public abstract class Photo : PhotoSource {
     public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
         return get_pixbuf(Scaling.for_best_fit(scale, true));
     }
-
-    public static bool is_file_supported(File file) {
-        return is_basename_supported(file.get_basename());
-    }
-    
-    public static bool is_basename_supported(string basename) {
-        string name, ext;
-        disassemble_filename(basename, out name, out ext);
-        if (ext == null)
-            return false;
-        
-        // treat extensions as case-insensitive
-        ext = ext.down();
-        
-        // search support file formats
-        foreach (PhotoFileFormat file_format in PhotoFileFormat.get_supported()) {
-            if (file_format.get_properties().is_recognized_extension(ext))
-                return true;
-        }
-        
-        return false;
-    }
     
     public static bool is_file_image(File file) {
         // if it's a supported image file, by definition it's an image file, otherwise check the
         // master list of common image extensions (checking this way allows for extensions to be
         // added to various PhotoFileFormats without having to also add them to IMAGE_EXTENSIONS)
-        return is_file_supported(file) ? true : is_extension_found(file.get_basename(), IMAGE_EXTENSIONS);
+        return PhotoFileFormat.is_file_supported(file)
+            ? true : is_extension_found(file.get_basename(), IMAGE_EXTENSIONS);
     }
     
     private static bool is_extension_found(string basename, string[] extensions) {
@@ -4097,184 +4076,6 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
             foreach (string keyword in keywords)
                 Tag.for_name(keyword).attach(this);
         }
-    }
-}
-
-//
-// DirectPhoto
-//
-
-public class DirectPhotoSourceCollection : DatabaseSourceCollection {
-    private Gee.HashMap<File, DirectPhoto> file_map = new Gee.HashMap<File, DirectPhoto>(file_hash, 
-        file_equal, direct_equal);
-    
-    public DirectPhotoSourceCollection() {
-        base("DirectPhotoSourceCollection", get_direct_key);
-    }
-    
-    public override bool holds_type_of_source(DataSource source) {
-        return source is DirectPhoto;
-    }
-    
-    private static int64 get_direct_key(DataSource source) {
-        DirectPhoto photo = (DirectPhoto) source;
-        PhotoID photo_id = photo.get_photo_id();
-        
-        return photo_id.id;
-    }
-    
-    public override void notify_items_added(Gee.Iterable<DataObject> added) {
-        foreach (DataObject object in added) {
-            DirectPhoto photo = (DirectPhoto) object;
-            File file = photo.get_file();
-            
-            assert(!file_map.has_key(file));
-            
-            file_map.set(file, photo);
-        }
-        
-        base.notify_items_added(added);
-    }
-    
-    public override void notify_items_removed(Gee.Iterable<DataObject> removed) {
-        foreach (DataObject object in removed) {
-            DirectPhoto photo = (DirectPhoto) object;
-            File file = photo.get_file();
-            
-            bool is_removed = file_map.unset(file);
-            assert(is_removed);
-        }
-        
-        base.notify_items_removed(removed);
-    }
-    
-    public ImportResult fetch(File file, out DirectPhoto? photo, bool reset = false) throws Error {
-        // fetch from the map first, which ensures that only one DirectPhoto exists for each file
-        photo = file_map.get(file);
-        if (photo != null) {
-            // if a reset is necessary, the database (and the object) need to reset to original
-            // easiest way to do this: perform an in-place re-import
-            if (reset) {
-                Photo.ReimportMasterState reimport_state;
-                if (!photo.prepare_for_reimport_master(out reimport_state))
-                    return ImportResult.FILE_ERROR;
-                
-                photo.finish_reimport_master(reimport_state);
-            }
-            
-            return ImportResult.SUCCESS;
-        }
-            
-        // for DirectPhoto, a fetch on an unknown file is an implicit import into the in-memory
-        // database (which automatically adds the new DirectPhoto object to DirectPhoto.global,
-        // which be us)
-        return DirectPhoto.internal_import(file, out photo);
-    }
-    
-    public DirectPhoto? get_file_source(File file) {
-        return file_map.get(file);
-    }
-}
-
-public class DirectPhoto : Photo {
-    private const int PREVIEW_BEST_FIT = 360;
-    
-    public static DirectPhotoSourceCollection global = null;
-    
-    private Gdk.Pixbuf preview = null;
-    
-    private DirectPhoto(PhotoRow row) {
-        base (row);
-    }
-    
-    public static void init() {
-        global = new DirectPhotoSourceCollection();
-    }
-    
-    public static void terminate() {
-    }
-    
-    // This method should only be called by DirectPhotoSourceCollection.  Use
-    // DirectPhoto.global.fetch to import files into the system.
-    public static ImportResult internal_import(File file, out DirectPhoto? photo) {
-        PhotoImportParams params = new PhotoImportParams(file, ImportID.generate(),
-            PhotoFileSniffer.Options.NO_MD5, null, null, null);
-        ImportResult result = Photo.prepare_for_import(params);
-        if (result != ImportResult.SUCCESS) {
-            // this should never happen; DirectPhotoSourceCollection guarantees it.
-            assert(result != ImportResult.PHOTO_EXISTS);
-            
-            photo = null;
-            return result;
-        }
-        
-        PhotoTable.get_instance().add(ref params.row);
-        
-        // create DataSource and add to SourceCollection
-        photo = new DirectPhoto(params.row);
-        global.add(photo);
-        
-        return result;
-    }
-
-    public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
-        if (preview == null) {
-            preview = get_thumbnail(PREVIEW_BEST_FIT);
-
-            if (preview == null)
-                preview = get_pixbuf(scaling);
-        }
-
-        return scaling.perform_on_pixbuf(preview, Gdk.InterpType.BILINEAR, true);
-    }
-    
-    public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
-        return (get_metadata().get_preview_count() == 0) ? null :
-            get_orientation().rotate_pixbuf(get_metadata().get_preview(0).get_pixbuf());
-    }
-
-    protected override void notify_altered(Alteration alteration) {
-        preview = null;
-        
-        base.notify_altered(alteration);
-    }
-
-    protected override bool has_user_generated_metadata() {
-        // TODO: implement this method
-        return false;
-    }
-
-    protected override void set_user_metadata_for_export(PhotoMetadata metadata) {
-        // TODO: implement this method, see ticket
-    }
-    
-    protected override void apply_user_metadata_for_reimport(PhotoMetadata metadata) {
-    }
-
-    public override bool is_trashed() {
-        // always returns false -- direct-edit mode has no concept of the trash can
-        return false;
-    }
-    
-    public override bool is_offline() {
-        // always returns false -- direct-edit mode has no concept of offline photos
-        return false;
-    }
-    
-    public override void trash() {
-        // a no-op -- direct-edit mode has no concept of the trash can
-    }
-    
-    public override void untrash() {
-        // a no-op -- direct-edit mode has no concept of the trash can
-    }
-
-    public override void mark_offline() {
-        // a no-op -- direct-edit mode has no concept of offline photos
-    }
-    
-    public override void mark_online() {
-        // a no-op -- direct-edit mode has no concept of offline photos
     }
 }
 

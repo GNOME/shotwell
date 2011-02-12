@@ -21,9 +21,9 @@ public delegate void DequeuedCallback<G>(G item);
 public class TimedQueue<G> {
     private class Element<G> {
         public G item;
-        public time_t ready;
+        public ulong ready;
         
-        public Element(G item, time_t ready) {
+        public Element(G item, ulong ready) {
             this.item = item;
             this.ready = ready;
         }
@@ -40,7 +40,7 @@ public class TimedQueue<G> {
     private uint timer_id = 0;
     private SortedList<Element<G>> queue;
     private uint dequeue_spacing_msec = 0;
-    private time_t last_dequeue = 0;
+    private ulong last_dequeue = 0;
     private bool paused_state = false;
     
     public virtual signal void paused(bool is_paused) {
@@ -132,7 +132,7 @@ public class TimedQueue<G> {
     }
     
     public virtual bool enqueue_many(Gee.Collection<G> items) {
-        time_t ready_time = calc_ready_time();
+        ulong ready_time = calc_ready_time();
         
         Gee.ArrayList<Element<G>> elements = new Gee.ArrayList<Element<G>>();
         foreach (G item in items)
@@ -161,15 +161,15 @@ public class TimedQueue<G> {
         }
     }
     
-    private time_t calc_ready_time() {
-        return (time_t) (now_ms() + hold_msec);
+    private ulong calc_ready_time() {
+        return now_ms() + (ulong) hold_msec;
     }
     
     private bool on_heartbeat() {
         if (paused_state)
             return true;
         
-        time_t now = 0;
+        ulong now = 0;
         
         for (;;) {
             if (queue.size == 0)
@@ -179,7 +179,7 @@ public class TimedQueue<G> {
             assert(head != null);
             
             if (now == 0)
-                now = (time_t) now_ms();
+                now = now_ms();
             
             if (head.ready > now)
                 break;

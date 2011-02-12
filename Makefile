@@ -60,7 +60,6 @@ UNUNITIZED_SRC_FILES = \
 	DataCollection.vala \
 	LibraryWindow.vala \
 	CameraTable.vala \
-	DirectWindow.vala \
 	Properties.vala \
 	CustomComponents.vala \
 	Config.vala \
@@ -553,7 +552,7 @@ $(UNITIZE_DIR):
 
 $(UNITIZE_STAMP): $(UNITIZE_DIR) $(MAKE_FILES) src/unit/rc/UnitInternals.m4 src/unit/rc/unitize_entry.m4
 	@$(foreach group,$(APP_GROUPS),\
-		`m4 '--define=_APP_GROUP_=$(group)' '--define=_UNIT_ENTRY_POINTS_=$(foreach nm,$(UNIT_NAMESPACES),$(nm).init_entry,)' '--define=_UNIT_TERMINATE_POINTS_=$(foreach nm,$(UNIT_NAMESPACES),$(nm).terminate_entry,)' src/unit/rc/unitize_entry.m4 > $(UNITIZE_DIR)/_$(group)_unitize_entry.vala`)
+		`m4 '--define=_APP_GROUP_=$(group)' '--define=_UNIT_ENTRY_POINTS_=$(foreach nm,$($(group)_UNITS),$(nm).init_entry,)' '--define=_UNIT_TERMINATE_POINTS_=$(foreach nm,$($(group)_UNITS),$(nm).terminate_entry,)' src/unit/rc/unitize_entry.m4 > $(UNITIZE_DIR)/_$(group)_unitize_entry.vala`)
 	@$(foreach nm,$(UNIT_NAMESPACES),\
 		`m4 '--define=_UNIT_NAME_=$(nm)' '--define=_UNIT_USES_INITS_=$($(nm)_USES_INITS)' '--define=_UNIT_USES_TERMINATORS_=$($(nm)_USES_TERMINATORS)' src/unit/rc/UnitInternals.m4 > $(UNITIZE_DIR)/_$(nm)Internals.vala`)
 	@touch $@

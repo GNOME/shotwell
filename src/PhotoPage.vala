@@ -408,6 +408,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // when photo is altered need to update it here
         sources.items_altered.connect(on_photos_altered);
         
+        // monitor when the ViewCollection's contents change
+        get_view().contents_altered.connect(on_view_contents_ordering_altered);
+        get_view().ordering_changed.connect(on_view_contents_ordering_altered);
+        
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         Gtk.Toolbar toolbar = get_toolbar();
         
@@ -511,8 +515,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     ~EditingHostPage() {
         sources.items_altered.disconnect(on_photos_altered);
+        
+        get_view().contents_altered.disconnect(on_view_contents_ordering_altered);
+        get_view().ordering_changed.disconnect(on_view_contents_ordering_altered);
     }
-
+    
     private void on_zoom_slider_value_changed() {
         ZoomState new_zoom_state = ZoomState.rescale(get_zoom_state(), zoom_slider.get_value());
 
@@ -785,6 +792,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
+    public override void realize() {
+        base.realize();
+        
+        rebuild_caches("realize");
+    }
+    
     public override void switched_to() {
         base.switched_to();
         
@@ -837,14 +850,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
+    // This function should be called if the viewport has changed and the pixbuf cache needs to be
+    // regenerated.  Use refresh_caches() if the contents of the ViewCollection have changed
+    // but not the viewport.
     private void rebuild_caches(string caller) {
         Scaling scaling = get_canvas_scaling();
-
+        
         // only rebuild if not the same scaling
         if (cache != null && cache.get_scaling().equals(scaling))
             return;
         
-        debug("Rebuild cache: %s (%s)", caller, scaling.to_string());
+        debug("Rebuild pixbuf caches: %s (%s)", caller, scaling.to_string());
         
         // if dropping an old cache, clear the signal handler so currently executing requests
         // don't complete and cancel anything queued up
@@ -859,6 +875,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         master_cache = new PixbufCache(sources, PixbufCache.PhotoType.MASTER, scaling, 
             ORIGINAL_PIXBUF_CACHE_COUNT, master_cache_filter);
         
+        refresh_caches(caller);
+    }
+    
+    // See note at rebuild_caches() for usage.
+    private void refresh_caches(string caller) {
         if (has_photo())
             prefetch_neighbors(get_view(), get_photo());
     }
@@ -971,17 +992,30 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return source is PhotoSource;
     }
     
-    protected void display(ViewCollection controller, Photo photo) {
-        assert(controller.get_view_for_source(photo) != null);
+    protected void display_copy_of(ViewCollection controller, Photo starting_photo) {
+        assert(controller.get_view_for_source(starting_photo) != null);
+        
         if (controller != get_view() && controller != parent_view) {
             get_view().clear();
             get_view().copy_into(controller, create_photo_view, is_photo);
             parent_view = controller;
         }
         
-        replace_photo(photo);
+        replace_photo(starting_photo);
     }
-
+    
+    protected void display_mirror_of(ViewCollection controller, Photo starting_photo) {
+        assert(controller.get_view_for_source(starting_photo) != null);
+        
+        if (controller != get_view() && controller != parent_view) {
+            get_view().clear();
+            get_view().mirror(controller, create_photo_view, is_photo);
+            parent_view = controller;
+        }
+        
+        replace_photo(starting_photo);
+    }
+    
     protected virtual void update_ui(bool missing) {
         bool sensitivity = !missing;
         
@@ -1099,21 +1133,20 @@ public abstract class EditingHostPage : SinglePhotoPage {
         pixbuf_dirty = true;
         
         // it's possible for this to be called prior to the page being realized, however, the
-        // underlying canvas has a scaling, so use that
+        // underlying canvas has a scaling, so use that (hence rebuild rather than refresh)
         rebuild_caches("replace_photo");
         
         if (old_photo != null)
             cancel_prefetch_neighbors(get_view(), old_photo, get_view(), new_photo);
-
+        
         cancel_zoom();
         
         zoom_buffer = new ZoomBuffer(this, new_photo, get_zoom_pixbuf(new_photo));
-
+        
         quick_update_pixbuf();
         
-        prefetch_neighbors(get_view(), new_photo);
-        
-        update_toolbar();
+        // now refresh the caches, which ensures that the neighbors get pulled into memory
+        refresh_caches("replace_photo");
     }
     
     protected override void cancel_zoom() {
@@ -1221,23 +1254,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         update_pixbuf();
     }
     
-    private void update_toolbar() {
-        bool multiple_photos = false;
-        int photo_ticker = 0;
-        foreach (DataSource source in get_view().get_sources()) {
-            if (source is Photo)
-                photo_ticker++;
-
-            if (photo_ticker > 1) {
-                multiple_photos = true;
-                break;
-            }
-        }
-
+    protected override void update_actions(int selected_count, int count) {
+        Gee.Collection<DataSource>? photos = get_view().get_sources_of_type(typeof(Photo));
+        bool multiple_photos = (photos != null) && (photos.size > 1);
+        
         prev_button.sensitive = multiple_photos;
         next_button.sensitive = multiple_photos;
         
-        Photo photo = get_photo();
+        Photo? photo = get_photo();
         Scaling scaling = get_canvas_scaling();
         
         rotate_button.sensitive = photo != null ? is_rotate_available(photo) : false;
@@ -1245,6 +1269,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         redeye_button.sensitive = photo != null ? RedeyeTool.is_available(photo, scaling) : false;
         adjust_button.sensitive = photo != null ? AdjustTool.is_available(photo, scaling) : false;
         enhance_button.sensitive = photo != null ? is_enhance_available(photo) : false;
+        
+        base.update_actions(selected_count, count);
     }
     
     protected override bool on_shift_pressed(Gdk.EventKey? event) {
@@ -1476,7 +1502,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (get_photo().has_transformations())
             Idle.add(on_fetch_original);
         
-        update_toolbar();
+        update_actions(get_view().get_selected_count(), get_view().get_count());
+    }
+    
+    private void on_view_contents_ordering_altered() {
+        refresh_caches("on_view_contents_ordering_altered");
     }
     
     private bool on_fetch_original() {
@@ -2065,6 +2095,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
             if (next_photo == null)
                 continue;
             
+            if (next_photo is DummyDataSource)
+                continue;
+            
             if (next_photo == current_photo)
                 break;
             
@@ -2096,6 +2129,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
             
             Photo? previous_photo = previous.get_source() as Photo;
             if (previous_photo == null)
+                continue;
+            
+            if (previous_photo is DummyDataSource)
                 continue;
             
             if (previous_photo == current_photo)
@@ -2559,7 +2595,7 @@ public class LibraryPhotoPage : EditingHostPage {
         this.return_page = return_page;
         return_page.destroy.connect(on_page_destroyed);
         
-        display(return_page.get_view(), photo);
+        display_copy_of(return_page.get_view(), photo);
     }
     
     public void on_page_destroyed() {
@@ -3046,731 +3082,3 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 }
 
-//
-// DirectPhotoPage
-//
-
-// TODO: This implementation of a ViewCollection is solely for use in direct editing mode, and will 
-// not satisfy all the requirements of a checkerboard-style file browser without additional work.
-//
-// TODO: With the new SourceCollection/ViewCollection model, we can start monitoring the cwd for
-// files and generating DirectPhotoSource stubs to represent each possible image file in the
-// directory, only importing them into the system when selected by the user.
-private class DirectViewCollection : ViewCollection {
-    private class DirectViewManager : ViewManager {
-        public override DataView create_view(DataSource source) {
-            return new DataView(source);
-        }
-    }
-    
-    private File dir;
-    private SortedList<File>? cached = null;
-    
-    public DirectViewCollection(File dir) {
-        base ("DirectViewCollection of %s".printf(dir.get_path()));
-        
-        this.dir = dir;
-        
-        monitor_source_collection(DirectPhoto.global, new DirectViewManager(), null);
-    }
-    
-    public override int get_count() {
-        SortedList<File> list = get_children_photos();
-        
-        return (list != null) ? list.size : 0;
-    }
-    
-    public override DataView? get_first() {
-        SortedList<File> list = get_children_photos();
-        if (list == null)
-            return null;
-        
-        File file = null;
-        while (list.size > 0) {
-            file = list.get_at(0);
-            
-            if (validate(file))
-                break;
-            
-            file = null;
-        }
-        
-        if (file == null)
-            return null;
-        
-        DirectPhoto? photo = null;
-        try {
-            DirectPhoto.global.fetch(file, out photo);
-        } catch (Error error) {
-            warning("Fetching photo failed: %s", error.message);
-        }
-        
-        return (photo != null) ? get_view_for_source(photo) : null;
-    }
-    
-    public override DataView? get_last() {
-        SortedList<File> list = get_children_photos();
-        if (list == null)
-            return null;
-        
-        File file = null;
-        while (list.size > 0) {
-            file = list.get_at(list.size - 1);
-            
-            if (validate(file))
-                break;
-            
-            file = null;
-        }
-        
-        if (file == null)
-            return null;
-        
-        DirectPhoto? photo = null;
-        try {
-            DirectPhoto.global.fetch(file, out photo);
-        } catch (Error error) {
-            warning("Fetching photo failed: %s", error.message);
-        }
-        
-        return (photo != null) ? get_view_for_source(photo) : null;
-    }
-    
-    public override DataView? get_next(DataView current) {
-        SortedList<File> list = get_children_photos();
-        if (list == null || list.size == 0)
-            return null;
-        
-        int index = list.index_of(((DirectPhoto) current.get_source()).get_file());
-        if (index < 0)
-            index = 0;
-        else
-            index++;
-        
-        File file = null;
-        while (list.size > 0) {
-            if (index >= list.size)
-                index = 0;
-            
-            file = list.get_at(index);
-            
-            if (validate(file))
-                break;
-            
-            file = null;
-        }
-        
-        if (file == null)
-            return null;
-        
-        DirectPhoto? photo = null;
-        try {
-            DirectPhoto.global.fetch(file, out photo);
-        } catch (Error error) {
-            warning("Fetching photo failed: %s", error.message);
-        }
-        
-        return (photo != null) ? get_view_for_source(photo) : null;
-    }
-    
-    public override DataView? get_previous(DataView current) {
-        SortedList<File> list = get_children_photos();
-        if (list == null || list.size == 0)
-            return null;
-        
-        int index = list.index_of(((DirectPhoto) current.get_source()).get_file());
-        if (index < 0)
-            index = 0;
-        else
-            index--;
-        
-        File file = null;
-        while (list.size > 0) {
-            if (index < 0)
-                index = list.size - 1;
-            
-            file = list.get_at(index);
-            
-            if (validate(file))
-                break;
-            
-            file = null;
-        }
-        
-        if (file == null)
-            return null;
-        
-        DirectPhoto? photo = null;
-        try {
-            DirectPhoto.global.fetch(file, out photo);
-        } catch (Error error) {
-            warning("Fetching photo failed: %s", error.message);
-        }
-        
-        return (photo != null) ? get_view_for_source(photo) : null;
-    }
-    
-    private SortedList<File>? get_children_photos() {
-        if (cached != null)
-            return cached;
-        
-        cached = new SortedList<File>(file_comparator);
-        
-        try {
-            FileEnumerator enumerator = dir.enumerate_children(FILE_ATTRIBUTE_STANDARD_NAME,
-                FileQueryInfoFlags.NONE, null);
-            
-            FileInfo file_info = null;
-            while ((file_info = enumerator.next_file(null)) != null) {
-                string basename = file_info.get_name();
-                
-                if (Photo.is_basename_supported(basename))
-                    cached.add(dir.get_child(basename));
-            }
-        } catch (Error err) {
-            message("Unable to enumerate children in %s: %s", dir.get_path(), err.message);
-            
-            cached = null;
-        }
-        
-        return cached;
-    }
-    
-    private bool validate(File file) {
-        if (file.query_exists(null))
-            return true;
-        
-        // Remove from SortedList but not from the SourceCollection.  If the lost photo is the
-        // current one, EditingHostPage has no way to determine what is next or previous, as the current
-        // location is now invalid.
-        //
-        // TODO: Fix this behavior.
-        if (cached != null)
-            cached.remove(file);
-        
-        return false;
-    }
-}
-
-public class DirectPhotoPage : EditingHostPage {
-    private Gtk.Menu context_menu;
-    private File initial_file;
-    private File current_save_dir;
-    private bool drop_if_dirty = false;
-    
-    public DirectPhotoPage(File file) {
-        base (DirectPhoto.global, file.get_basename());
-        
-        if (!check_editable_file(file)) {
-            Application.get_instance().panic();
-            
-            return;
-        }
-        
-        initial_file = file;
-        current_save_dir = file.get_parent();
-        
-        context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
-        
-        DirectPhoto.global.items_altered.connect(on_photos_altered);
-        
-        get_view().selection_group_altered.connect(on_selection_group_altered);
-    }
-    
-    ~DirectPhotoPage() {
-        DirectPhoto.global.items_altered.disconnect(on_photos_altered);
-    }
-    
-    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
-        base.init_collect_ui_filenames(ui_filenames);
-        
-        ui_filenames.add("direct.ui");
-    }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
-        file.label = _("_File");
-        actions += file;
-
-        Gtk.ActionEntry save = { "Save", Gtk.STOCK_SAVE, TRANSLATABLE, "<Ctrl>S", TRANSLATABLE,
-            on_save };
-        save.label = _("_Save");
-        save.tooltip = _("Save photo");
-        actions += save;
-
-        Gtk.ActionEntry save_as = { "SaveAs", Gtk.STOCK_SAVE_AS, TRANSLATABLE,
-            "<Ctrl><Shift>S", TRANSLATABLE, on_save_as };
-        save_as.label = _("Save _As...");
-        save_as.tooltip = _("Save photo with a different name");
-        actions += save_as;
-        
-        Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null,
-            TRANSLATABLE, on_send_to };
-        send_to.label = Resources.SEND_TO_MENU;
-        send_to.tooltip = Resources.SEND_TO_TOOLTIP;
-        actions += send_to;
-
-        Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
-            TRANSLATABLE, on_print };
-        print.label = Resources.PRINT_MENU;
-        print.tooltip = _("Print the photo to a printer connected to your computer");
-        actions += print;
-        
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
-        edit.label = _("Edit");
-        actions += edit;
-
-        Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null, null };
-        photo.label = _("_Photo");
-        actions += photo;
-        
-        Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, null };
-        tools.label = _("_Tools");
-        actions += tools;
-        
-        Gtk.ActionEntry prev = { "PrevPhoto", Gtk.STOCK_GO_BACK, TRANSLATABLE, null,
-            TRANSLATABLE, on_previous_photo };
-        prev.label = _("_Previous Photo");
-        prev.tooltip = _("Previous Photo");
-        actions += prev;
-
-        Gtk.ActionEntry next = { "NextPhoto", Gtk.STOCK_GO_FORWARD, TRANSLATABLE, null,
-            TRANSLATABLE, on_next_photo };
-        next.label = _("_Next Photo");
-        next.tooltip = _("Next Photo");
-        actions += next;
-
-        Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
-            TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
-        rotate_right.label = Resources.ROTATE_CW_MENU;
-        rotate_right.tooltip = Resources.ROTATE_CCW_TOOLTIP;
-        actions += rotate_right;
-
-        Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
-            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
-        rotate_left.label = Resources.ROTATE_CCW_MENU;
-        rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
-        actions += rotate_left;
-
-        Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip_horizontally };
-        hflip.label = Resources.HFLIP_MENU;
-        hflip.tooltip = Resources.HFLIP_TOOLTIP;
-        actions += hflip;
-        
-        Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip_vertically };
-        vflip.label = Resources.VFLIP_MENU;
-        vflip.tooltip = Resources.VFLIP_TOOLTIP;
-        actions += vflip;
-        
-        Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
-            TRANSLATABLE, on_enhance };
-        enhance.label = Resources.ENHANCE_MENU;
-        enhance.tooltip = Resources.ENHANCE_TOOLTIP;
-        actions += enhance;
-        
-        Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>O",
-            TRANSLATABLE, toggle_crop };
-        crop.label = Resources.CROP_MENU;
-        crop.tooltip = Resources.CROP_TOOLTIP;
-        actions += crop;
-        
-        Gtk.ActionEntry red_eye = { "RedEye", Resources.REDEYE, TRANSLATABLE, "<Ctrl>Y",
-            TRANSLATABLE, toggle_redeye };
-        red_eye.label = Resources.RED_EYE_MENU;
-        red_eye.tooltip = Resources.RED_EYE_TOOLTIP;
-        actions += red_eye;
-        
-        Gtk.ActionEntry adjust = { "Adjust", Resources.ADJUST, TRANSLATABLE, "<Ctrl>D",
-            TRANSLATABLE, toggle_adjust };
-        adjust.label = Resources.ADJUST_MENU;
-        adjust.tooltip = Resources.ADJUST_TOOLTIP;
-        actions += adjust;
-        
-        Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,
-            null, TRANSLATABLE, on_revert };
-        revert.label = Resources.REVERT_MENU;
-        revert.tooltip = Resources.REVERT_TOOLTIP;
-        actions += revert;
-
-        Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
-            TRANSLATABLE, on_adjust_date_time };
-        adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
-        adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
-        actions += adjust_date_time;
-        
-        Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
-            TRANSLATABLE, on_set_background };
-        set_background.label = Resources.SET_BACKGROUND_MENU;
-        set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
-        actions += set_background;
-
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
-        view.label = _("_View");
-        actions += view;
-
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
-        help.label = _("_Help");
-        actions += help;
-
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.STOCK_ZOOM_IN, TRANSLATABLE,
-            "<Ctrl>plus", TRANSLATABLE, on_increase_size };
-        increase_size.label = _("Zoom _In");
-        increase_size.tooltip = _("Increase the magnification of the photo");
-        actions += increase_size;
-
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, TRANSLATABLE,
-            "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
-        decrease_size.label = _("Zoom _Out");
-        decrease_size.tooltip = _("Decrease the magnification of the photo");
-        actions += decrease_size;
-
-        Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.STOCK_ZOOM_FIT, TRANSLATABLE,
-            "<Ctrl>0", TRANSLATABLE, snap_zoom_to_min };
-        best_fit.label = _("Fit to _Page");
-        best_fit.tooltip = _("Zoom the photo to fit on the screen");
-        actions += best_fit;
-
-        Gtk.ActionEntry actual_size = { "Zoom100", Gtk.STOCK_ZOOM_100, TRANSLATABLE,
-            "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
-        actual_size.label = _("Zoom _100%");
-        actual_size.tooltip = _("Zoom the photo to 100% magnification");
-        actions += actual_size;
-        
-        Gtk.ActionEntry max_size = { "Zoom200", null, TRANSLATABLE,
-            "<Ctrl>2", TRANSLATABLE, snap_zoom_to_max };
-        max_size.label = _("Zoom _200%");
-        max_size.tooltip = _("Zoom the photo to 200% magnification");
-        actions += max_size;
-
-        return actions;
-    }
-    
-    protected override InjectionGroup[] init_collect_injection_groups() {
-        InjectionGroup[] groups = base.init_collect_injection_groups();
-        
-        InjectionGroup print_group = new InjectionGroup("/MenuBar/FileMenu/PrintPlaceholder");
-        print_group.add_menu_item("Print");
-        
-        groups += print_group;
-        
-        InjectionGroup bg_group = new InjectionGroup("/MenuBar/FileMenu/SetBackgroundPlaceholder");
-        bg_group.add_menu_item("SetBackground");
-        
-        groups += bg_group;
-        
-        return groups;
-    }
-    
-    private static bool check_editable_file(File file) {
-        if (!FileUtils.test(file.get_path(), FileTest.EXISTS))
-            AppWindow.error_message(_("%s does not exist.").printf(file.get_path()));
-        else if (!FileUtils.test(file.get_path(), FileTest.IS_REGULAR))
-            AppWindow.error_message(_("%s is not a file.").printf(file.get_path()));
-        else if (!Photo.is_file_supported(file))
-            AppWindow.error_message(_("%s does not support the file format of\n%s.").printf(
-                Resources.APP_TITLE, file.get_path()));
-        else
-            return true;
-        
-        return false;
-    }
-    
-    public override void realize() {
-        if (base.realize != null)
-            base.realize();
-        
-        DirectPhoto photo = null;
-        ImportResult import_result = ImportResult.SUCCESS;
-        try {
-            import_result = DirectPhoto.global.fetch(initial_file, out photo);
-        } catch (Error error) {
-            warning("Fetching photo failed: %s", error.message);
-        }
-        
-        if (photo == null) {
-            AppWindow.error_message(import_result.to_string());
-            Application.get_instance().panic();
-        }
-
-        display(new DirectViewCollection(initial_file.get_parent()), photo);
-        initial_file = null;
-    }
-    
-    public File get_current_file() {
-        return get_photo().get_file();
-    }
-
-    protected override bool on_context_buttonpress(Gdk.EventButton event) {
-        popup_context_menu(context_menu, event);
-
-        return true;
-    }
-
-    private void update_zoom_menu_item_sensitivity() {
-        set_action_sensitive("IncreaseSize", !get_zoom_state().is_max() && !get_photo_missing());
-        set_action_sensitive("DecreaseSize", !get_zoom_state().is_default() && !get_photo_missing());
-    }
-
-    protected override void on_increase_size() {
-        base.on_increase_size();
-        
-        update_zoom_menu_item_sensitivity();
-    }
-    
-    protected override void on_decrease_size() {
-        base.on_decrease_size();
-
-        update_zoom_menu_item_sensitivity();
-    }
-    
-    private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
-        bool contains = false;
-        if (has_photo()) {
-            Photo photo = get_photo();
-            foreach (DataObject object in map.keys) {
-                if (((Photo) object) == photo) {
-                    contains = true;
-                    
-                    break;
-                }
-            }
-        }
-        
-        bool sensitive = has_photo() && !get_photo_missing();
-        if (sensitive)
-            sensitive = contains;
-        
-        set_action_sensitive("Save", sensitive && get_photo().get_file_format().can_write());
-        set_action_sensitive("Revert", sensitive);
-    }
-    
-    private void on_selection_group_altered() {
-        // On EditingHostPage, the displayed photo is always selected, so this signal is fired
-        // whenever a new photo is displayed (which even happens on an in-place save; the changes
-        // are written and a new DirectPhoto is loaded into its place).
-        //
-        // In every case, reset the CommandManager, as the command stack is not valid against this
-        // new file.
-        get_command_manager().reset();
-    }
-    
-    protected override void update_ui(bool missing) {
-        bool sensitivity = !missing;
-        
-        set_action_sensitive("Save", sensitivity);
-        set_action_sensitive("SaveAs", sensitivity);
-        set_action_sensitive("SendTo", sensitivity);
-        set_action_sensitive("Publish", sensitivity);
-        set_action_sensitive("Print", sensitivity);
-        set_action_sensitive("CommonJumpToFile", sensitivity);
-        
-        set_action_sensitive("CommonUndo", sensitivity);
-        set_action_sensitive("CommonRedo", sensitivity);
-        
-        set_action_sensitive("IncreaseSize", sensitivity);
-        set_action_sensitive("DecreaseSize", sensitivity);
-        set_action_sensitive("ZoomFit", sensitivity);
-        set_action_sensitive("Zoom100", sensitivity);
-        set_action_sensitive("Zoom200", sensitivity);
-        
-        set_action_sensitive("RotateClockwise", sensitivity);
-        set_action_sensitive("RotateCounterclockwise", sensitivity);
-        set_action_sensitive("FlipHorizontally", sensitivity);
-        set_action_sensitive("FlipVertically", sensitivity);
-        set_action_sensitive("Enhance", sensitivity);
-        set_action_sensitive("Crop", sensitivity);
-        set_action_sensitive("RedEye", sensitivity);
-        set_action_sensitive("Adjust", sensitivity);
-        set_action_sensitive("Revert", sensitivity);
-        set_action_sensitive("AdjustDateTime", sensitivity);
-        set_action_sensitive("Fullscreen", sensitivity);
-        
-        set_action_sensitive("SetBackground", has_photo() && !get_photo_missing());
-        
-        base.update_ui(missing);
-    }
-    
-    protected override void update_actions(int selected_count, int count) {
-        bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
-        bool revert_possible = has_photo() ? get_photo().has_transformations() 
-            && !get_photo_missing() : false;
-        bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
-        
-        set_action_sensitive("PrevPhoto", multiple);
-        set_action_sensitive("NextPhoto", multiple);
-        set_action_sensitive("RotateClockwise", rotate_possible);
-        set_action_sensitive("RotateCounterclockwise", rotate_possible);
-        set_action_sensitive("FlipHorizontally", rotate_possible);
-        set_action_sensitive("FlipVertically", rotate_possible);
-        set_action_sensitive("Revert", revert_possible);
-        set_action_sensitive("Enhance", enhance_possible);
-        
-        set_action_sensitive("SetBackground", has_photo());
-        
-        base.update_actions(selected_count, count);
-    }
-    
-    private bool check_ok_to_close_photo(Photo photo) {
-        if (!photo.has_alterations())
-            return true;
-        
-        if (drop_if_dirty) {
-            // need to remove transformations, or else they stick around in memory (reappearing
-            // if the user opens the file again)
-            photo.remove_all_transformations();
-            
-            return true;
-        }
-
-        bool is_writeable = get_photo().get_file_format().can_write();
-        string save_option = is_writeable ? _("_Save") : _("_Save a Copy");
-
-        Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(
-            _("Lose changes to %s?").printf(photo.get_name()), save_option,
-            _("Close _without Saving"));
-
-        if (response == Gtk.ResponseType.YES)
-            photo.remove_all_transformations();
-        else if (response == Gtk.ResponseType.NO) {
-            if (is_writeable)
-                save(photo.get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH,
-                    get_photo().get_file_format());
-            else
-                on_save_as();
-        } else if (response == Gtk.ResponseType.CANCEL)
-            return false;
-
-        return true;
-    }
-    
-    public bool check_quit() {
-        return check_ok_to_close_photo(get_photo());
-    }
-    
-    protected override bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
-        return (old_photo != null) ? check_ok_to_close_photo(old_photo) : true;
-    }
-    
-    private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
-        PhotoFileFormat format, bool copy_unmodified = false) {
-        Scaling scaling = Scaling.for_constraint(constraint, scale, false);
-        
-        try {
-            get_photo().export(dest, scaling, quality, format, copy_unmodified);
-        } catch (Error err) {
-            AppWindow.error_message(_("Error while saving to %s: %s").printf(dest.get_path(),
-                err.message));
-            
-            return;
-        }
-        
-        DirectPhoto photo = null;
-        ImportResult fetch_result = ImportResult.SUCCESS;
-        try {
-            fetch_result = DirectPhoto.global.fetch(dest, out photo, true);
-        } catch (Error error) {
-            warning("Fetching photo failed: %s", error.message);
-        }
-        
-        if (photo == null) {
-            // dead in the water
-            Application.get_instance().panic();
-        }
-        
-        // switch to that file ... if saving on top of the original file, this will re-import the
-        // photo into the in-memory database, which is key because its stored transformations no
-        // longer match the backing photo
-        display(new DirectViewCollection(dest.get_parent()), photo);
-    }
-
-    private void on_save() {
-        if (!get_photo().has_alterations() || !get_photo().get_file_format().can_write() || 
-            get_photo_missing())
-            return;
-
-        // save full-sized version right on top of the current file
-        save(get_photo().get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH,
-            get_photo().get_file_format());
-    }
-    
-    private void on_save_as() {
-        ExportDialog export_dialog = new ExportDialog(_("Save As"));
-        
-        int scale;
-        ScaleConstraint constraint;
-        ExportFormatParameters export_params = ExportFormatParameters.last();
-        if (!export_dialog.execute(out scale, out constraint, ref export_params))
-            return;
-
-        string filename = get_photo().get_export_basename_for_parameters(export_params);
-        PhotoFileFormat effective_export_format =
-            get_photo().get_export_format_for_parameters(export_params);
-
-        string[] output_format_extensions =
-            effective_export_format.get_properties().get_known_extensions();
-        Gtk.FileFilter output_format_filter = new Gtk.FileFilter();
-        foreach(string extension in output_format_extensions) {
-            string uppercase_extension = extension.up();
-            output_format_filter.add_pattern("*." + extension);
-            output_format_filter.add_pattern("*." + uppercase_extension);
-        }
-
-        Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog(_("Save As"), 
-            AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.STOCK_CANCEL, 
-            Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
-        save_as_dialog.set_select_multiple(false);
-        save_as_dialog.set_current_name(filename);
-        save_as_dialog.set_current_folder(current_save_dir.get_path());
-        save_as_dialog.add_filter(output_format_filter);
-        save_as_dialog.set_do_overwrite_confirmation(true);
-        save_as_dialog.set_local_only(false);
-        
-        int response = save_as_dialog.run();
-        if (response == Gtk.ResponseType.OK) {
-            // flag to prevent asking user about losing changes to the old file (since they'll be
-            // loaded right into the new one)
-            drop_if_dirty = true;
-            save(File.new_for_uri(save_as_dialog.get_uri()), scale, constraint, export_params.quality,
-                effective_export_format, export_params.mode == ExportFormatMode.UNMODIFIED);
-            drop_if_dirty = false;
-
-            current_save_dir = File.new_for_path(save_as_dialog.get_current_folder());
-        }
-        
-        save_as_dialog.destroy();
-    }
-    
-    private void on_send_to() {
-        if (has_photo())
-            DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
-    }
-    
-    protected override bool on_app_key_pressed(Gdk.EventKey event) {
-        bool handled = true;
-        
-        switch (Gdk.keyval_name(event.keyval)) {
-            case "bracketright":
-	            on_rotate_clockwise();
-            break;
-
-            case "bracketleft":
-	            on_rotate_counterclockwise();
-            break;
-
-            default:
-                handled = false;
-            break;
-        }
-        
-        return handled ? true : base.on_app_key_pressed(event);
-    }
-    
-    private void on_print() {
-        PrintManager.get_instance().spool_photo(get_photo());
-    }
-}

@@ -74,6 +74,10 @@ public class DataSet {
         list.resort(order_added_comparator);
     }
     
+    public Comparator get_comparator() {
+        return user_comparator;
+    }
+    
     public void set_comparator(Comparator user_comparator, ComparatorPredicate? comparator_predicate) {
         this.user_comparator = user_comparator;
         this.comparator_predicate = comparator_predicate;
@@ -563,6 +567,10 @@ public class DataCollection {
     
     public virtual bool valid_type(DataObject object) {
         return true;
+    }
+    
+    public Comparator get_comparator() {
+        return dataset.get_comparator();
     }
     
     public virtual void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
@@ -1781,6 +1789,7 @@ public class ViewCollection : DataCollection {
         SourceCollection, MonitorImpl>();
     private ViewCollection mirroring = null;
     private CreateView mirroring_ctor = null;
+    private CreateViewPredicate should_mirror = null;
     private ViewFilter filter = null;
     private DataSet selected = new DataSet();
     private DataSet visible = null;
@@ -1946,25 +1955,32 @@ public class ViewCollection : DataCollection {
         monitors.clear();
     }
     
-    public void mirror(ViewCollection to_mirror, CreateView mirroring_ctor) {
+    public void mirror(ViewCollection to_mirror, CreateView mirroring_ctor,
+        CreateViewPredicate? should_mirror) {
         halt_mirroring();
         halt_all_monitoring();
         clear();
         
         mirroring = to_mirror;
         this.mirroring_ctor = mirroring_ctor;
+        this.should_mirror = should_mirror;
+        
+        // used to mirror the ordering of to_mirror
+        set_comparator(mirroring_comparator, null);
         
         // load up with current items
         on_mirror_contents_added(mirroring.get_all());
         
         mirroring.items_added.connect(on_mirror_contents_added);
         mirroring.items_removed.connect(on_mirror_contents_removed);
+        mirroring.ordering_changed.connect(on_mirror_ordering_changed);
     }
     
     public void halt_mirroring() {
         if (mirroring != null) {
             mirroring.items_added.disconnect(on_mirror_contents_added);
             mirroring.items_removed.disconnect(on_mirror_contents_removed);
+            mirroring.ordering_changed.disconnect(on_mirror_ordering_changed);
         }
         
         mirroring = null;
@@ -2176,12 +2192,25 @@ public class ViewCollection : DataCollection {
             notify_ordering_changed();
     }
     
+    private int64 mirroring_comparator(void *a, void *b) {
+        assert(mirroring != null);
+        
+        int aindex = mirroring.index_of_source(((DataView *) a)->get_source());
+        assert(aindex >= 0);
+        
+        int bindex = mirroring.index_of_source(((DataView *) b)->get_source());
+        assert(bindex >= 0);
+        
+        return aindex - bindex;
+    }
+    
     private void on_mirror_contents_added(Gee.Iterable<DataObject> added) {
         Gee.ArrayList<DataView> to_add = new Gee.ArrayList<DataView>();
         foreach (DataObject object in added) {
-            DataView view = (DataView) object;
+            DataSource source = ((DataView) object).get_source();
             
-            to_add.add(mirroring_ctor(view.get_source()));
+            if (should_mirror == null || should_mirror(source))
+                to_add.add(mirroring_ctor(source));
         }
         
         if (to_add.size > 0)
@@ -2193,11 +2222,21 @@ public class ViewCollection : DataCollection {
         foreach (DataObject object in removed) {
             DataView view = (DataView) object;
             
-            DataView our_view = get_view_for_source(view.get_source());
+            DataView? our_view = get_view_for_source(view.get_source());
+            assert(our_view != null);
+            
             marker.mark(our_view);
         }
         
         remove_marked(marker);
+    }
+    
+    private void on_mirror_ordering_changed() {
+        // By re-setting the comparator, this forces a resort of the collection (but only do it
+        // if the comparator is still set to the mirroring_comparator, as the user may have changed
+        // it after mirroring started)
+        if (get_comparator() == mirroring_comparator)
+            set_comparator(mirroring_comparator, null);
     }
     
     // Keep the source map and state tables synchronized
@@ -2412,8 +2451,8 @@ public class ViewCollection : DataCollection {
             }
             next_view = get_next(next_view);
         }
-
-        prev = null;      
+        
+        prev = null;
         DataView? prev_view = get_previous(home_view);
         while (prev_view != home_view) {
             if ((type_selector == null) || (prev_view.get_source().get_typename() == type_selector)) {
@@ -2422,7 +2461,7 @@ public class ViewCollection : DataCollection {
             }
             prev_view = get_previous(prev_view);
         }
-
+        
         return true;
     }
     
@@ -2689,9 +2728,23 @@ public class ViewCollection : DataCollection {
     public DataView? get_view_for_source(DataSource source) {
         return source_map.get(source);
     }
-
+    
     public Gee.Collection<DataSource> get_sources() {
         return source_map.keys.read_only_view;
+    }
+    
+    public Gee.Collection<DataSource>? get_sources_of_type(Type t) {
+        Gee.Collection<DataSource>? sources = null;
+        foreach (DataSource source in source_map.keys) {
+            if (source.get_type().is_a(t)) {
+                if (sources == null)
+                    sources = new Gee.ArrayList<DataSource>();
+                
+                sources.add(source);
+            }
+        }
+        
+        return sources;
     }
     
     public Gee.Collection<DataSource> get_selected_sources() {
@@ -2708,6 +2761,13 @@ public class ViewCollection : DataCollection {
         DataObject? object = selected.get_at(index);
         
         return (object != null) ? ((DataView) object).get_source() : null;
+    }
+    
+    // Returns -1 if source is not in the ViewCollection.
+    public int index_of_source(DataSource source) {
+        DataView? view = get_view_for_source(source);
+        
+        return (view != null) ? index_of(view) : -1;
     }
     
     // This is only used by DataView.

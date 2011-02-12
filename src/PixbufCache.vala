@@ -176,8 +176,11 @@ public class PixbufCache : Object {
         if (!photo.get_actual_file().query_exists(null))
             decache(photo);
         
-        if (!force && cache.has_key(photo))
+        if (!force && cache.has_key(photo)) {
+            prioritize(photo);
+            
             return;
+        }
         
         if (in_progress.has_key(photo))
             return;
@@ -303,10 +306,14 @@ public class PixbufCache : Object {
     
     private Gdk.Pixbuf? get_cached(Photo photo) {
         Gdk.Pixbuf pixbuf = cache.get(photo);
-        if (pixbuf == null)
-            return null;
+        if (pixbuf != null)
+            prioritize(photo);
         
-        // move up in the LRU
+        return pixbuf;
+    }
+    
+    // Moves the photo up in the cache LRU.  Assumes photo is actually in cache.
+    private void prioritize(Photo photo) {
         int index = lru.index_of(photo);
         assert(index >= 0);
         
@@ -314,8 +321,6 @@ public class PixbufCache : Object {
             lru.remove_at(index);
             lru.insert(0, photo);
         }
-        
-        return pixbuf;
     }
     
     private void encache(Photo photo, Gdk.Pixbuf pixbuf) {

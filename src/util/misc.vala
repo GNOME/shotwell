@@ -99,6 +99,10 @@ public ulong now_sec() {
     return time_val.tv_sec;
 }
 
+public inline time_t now_time_t() {
+    return (time_t) now_sec();
+}
+
 public string md5_binary(uint8 *buffer, size_t length) {
     assert(length != 0);
 

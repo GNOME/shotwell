@@ -15,7 +15,8 @@ UNITS = \
 	photos \
 	publishing \
 	alien_db \
-	alien_db/f_spot
+	alien_db/f_spot \
+	direct
 
 # Names of variables (which follow) that represent unit groups for different uses of the
 # application.  The variables should be formed as Name_UNITS.  Entry and terminate points in
@@ -30,21 +31,21 @@ APP_GROUPS = Library Direct
 
 # List of units for library mode.
 Library_UNITS = \
-	unit \
-	util \
-	threads \
-	db \
-	plugins \
-	slideshow \
-	photos \
-	publishing \
-	alien_db \
-	alien_db/f_spot
+	Unit \
+	Util \
+	Threads \
+	Db \
+	Plugins \
+	Slideshow \
+	Photos \
+	Publishing \
+	AlienDb \
+	AlienDb.FSpot
 
 # List of units for direct-edit mode.
 Direct_UNITS = \
-	unit \
-	util \
-	threads \
-	db
+	Unit \
+	Util \
+	Db \
+	Direct
 

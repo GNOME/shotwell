@@ -678,7 +678,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     }
     
     public void mirror_sources(ViewCollection view, CreateView mirroring_ctor) {
-        view.mirror(media_views, mirroring_ctor);
+        view.mirror(media_views, mirroring_ctor, null);
     }
     
     private void on_media_views_contents_altered(Gee.Iterable<DataView>? added,

@@ -1301,7 +1301,7 @@ private class WorkSniffer : BackgroundImportJob {
                 if ((skipset != null) && skipset.contains(child))
                     continue; /* don't enqueue if this file is to be skipped */
 
-                if ((Photo.is_file_image(child) && Photo.is_file_supported(child)) ||
+                if ((Photo.is_file_image(child) && PhotoFileFormat.is_file_supported(child)) ||
                     VideoReader.is_supported_video_file(child)) {
                     total_bytes += info.get_size();
                     files_to_prepare.add(new FileToPrepare(job, child, copy_to_library));
@@ -1469,7 +1469,7 @@ private class PrepareFilesJob : BackgroundImportJob {
         if ((!is_video) && (!Photo.is_file_image(file)))
             return ImportResult.NOT_AN_IMAGE;
 
-        if ((!is_video) && (!Photo.is_file_supported(file)))
+        if ((!is_video) && (!PhotoFileFormat.is_file_supported(file)))
             return ImportResult.UNSUPPORTED_FORMAT;
         
         import_file_count++;

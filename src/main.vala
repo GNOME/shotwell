@@ -256,24 +256,29 @@ private void report_system_pictures_import(ImportManifest manifest, BatchImportR
 }
 
 void editing_exec(string filename) {
+    File initial_file = File.new_for_commandline_arg(filename);
+    
     // preconfigure units
+    Direct.preconfigure(initial_file);
     Db.preconfigure(null);
     
     // initialize units for direct-edit mode
     try {
         Direct.unitize_init();
     } catch (Error err) {
+        AppWindow.panic(err.message);
+        
+        return;
     }
     
     // init modules direct-editing relies on
-    DirectPhoto.init();
     DesktopIntegration.init();
     
     // TODO: At some point in the future, to support mixed-media in direct-edit mode, we will
     //       refactor DirectPhotoSourceCollection to be a MediaSourceCollection. At that point,
     //       we'll need to register DirectPhoto.global with the MediaCollectionRegistry
     
-    DirectWindow direct_window = new DirectWindow(File.new_for_commandline_arg(filename));
+    DirectWindow direct_window = new DirectWindow(initial_file);
     direct_window.show_all();
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
@@ -281,7 +286,6 @@ void editing_exec(string filename) {
     Application.get_instance().start();
     
     DesktopIntegration.terminate();
-    DirectPhoto.terminate();
     
     // terminate units for direct-edit mode
     Direct.unitize_terminate();

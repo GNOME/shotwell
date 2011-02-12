@@ -788,7 +788,7 @@ public class DirectoryMonitor : Object {
         return started;
     }
     
-    public void start_discovery() throws Error {
+    public void start_discovery() {
         assert(!started);
         
         has_discovery_started = true;

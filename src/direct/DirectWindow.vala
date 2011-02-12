@@ -10,12 +10,12 @@ public class DirectWindow : AppWindow {
     public DirectWindow(File file) {
         direct_photo_page = new DirectPhotoPage(file);
         direct_photo_page.get_view().items_altered.connect(on_photo_changed);
-        direct_photo_page.get_view().contents_altered.connect(on_photo_changed);
+        direct_photo_page.get_view().items_state_changed.connect(on_photo_changed);
         
         set_current_page(direct_photo_page);
         
         update_title(file, false);
-
+        
         // add accelerators
         Gtk.AccelGroup accel_group = direct_photo_page.ui.get_accel_group();
         if (accel_group != null)
@@ -85,7 +85,7 @@ public class DirectWindow : AppWindow {
             
             return true;
         }
-
+        
        // ...then let the base class take over
        return (base.key_press_event != null) ? base.key_press_event(event) : false;
     }
