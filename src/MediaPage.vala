@@ -4,24 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-public enum RatingFilter {
-    NO_FILTER = 0,
-    REJECTED_OR_HIGHER = 1,
-    UNRATED_OR_HIGHER = 2,
-    ONE_OR_HIGHER = 3,
-    TWO_OR_HIGHER = 4,
-    THREE_OR_HIGHER = 5,
-    FOUR_OR_HIGHER = 6,
-    FIVE_OR_HIGHER = 7,
-    REJECTED_ONLY = 8,
-    UNRATED_ONLY = 9,
-    ONE_ONLY = 10,
-    TWO_ONLY = 11,
-    THREE_ONLY = 12,
-    FOUR_ONLY = 13,
-    FIVE_ONLY = 14
-}
-
 public class MediaSourceItem : CheckerboardItem {
     private static Gdk.Pixbuf basis_sprocket_pixbuf = null;
     private static Gdk.Pixbuf current_sprocket_pixbuf = null;
@@ -114,15 +96,6 @@ public class MediaSourceItem : CheckerboardItem {
 }
 
 public abstract class MediaPage : CheckerboardPage {
-    private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
-    private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon
-    private const float FILTER_ICON_SCALE = 0.75f; // changes the size of the all photos icon
-    
-    // filter_icon_base_width is the width (in px) of a single filter icon such as one star or an "X"
-    private const int FILTER_ICON_BASE_WIDTH = 30;
-    // filter_icon_plus_width is the width (in px) of the plus icon
-    private const int FILTER_ICON_PLUS_WIDTH = 20;
-    
     public const int SORT_ORDER_ASCENDING = 0;
     public const int SORT_ORDER_DESCENDING = 1;
 
@@ -136,225 +109,6 @@ public abstract class MediaPage : CheckerboardPage {
         EXPOSURE_DATE = 2,
         RATING = 3,
         MAX = 3
-    }
-    
-    // Handles filtering via rating and text.
-    private class MediaPageViewFilter : ViewFilter {
-        // If this is true, allow the current rating or higher.
-        bool rating_allow_higher = true;
-        
-        // Rating to filter by.
-        Rating rating = Rating.REJECTED;
-        
-        RatingFilter rating_filter = RatingFilter.REJECTED_OR_HIGHER;
-        
-        // Search text filter.  Should only be set to lower-case.
-        string? search_filter = null;
-        
-        public void set_rating_filter(RatingFilter rf) {
-            rating_filter = rf;
-            switch (rating_filter) {
-                case RatingFilter.REJECTED_ONLY:
-                    rating = Rating.REJECTED;
-                    rating_allow_higher = false;
-                break;
-                
-                case RatingFilter.REJECTED_OR_HIGHER:
-                    rating = Rating.REJECTED;
-                    rating_allow_higher = true;
-                break;
-                
-                case RatingFilter.ONE_OR_HIGHER:
-                    rating = Rating.ONE;
-                    rating_allow_higher = true;
-                break;
-                
-                case RatingFilter.ONE_ONLY:
-                    rating = Rating.ONE;
-                    rating_allow_higher = false;
-                break;
-                
-                case RatingFilter.TWO_OR_HIGHER:
-                    rating = Rating.TWO;
-                    rating_allow_higher = true;
-                break;
-                
-                 case RatingFilter.TWO_ONLY:
-                    rating = Rating.TWO;
-                    rating_allow_higher = false;
-                break;
-                
-                case RatingFilter.THREE_OR_HIGHER:
-                    rating = Rating.THREE;
-                    rating_allow_higher = true;
-                break;
-                
-                case RatingFilter.THREE_ONLY:
-                    rating = Rating.THREE;
-                    rating_allow_higher = false;
-                break;
-                
-                case RatingFilter.FOUR_OR_HIGHER:
-                    rating = Rating.FOUR;
-                    rating_allow_higher = true;
-                break;
-                
-                case RatingFilter.FOUR_ONLY:
-                    rating = Rating.FOUR;
-                    rating_allow_higher = false;
-                break;
-                
-                case RatingFilter.FIVE_OR_HIGHER:
-                    rating = Rating.FIVE;
-                    rating_allow_higher = true;
-                break;
-                
-                case RatingFilter.FIVE_ONLY:
-                    rating = Rating.FIVE;
-                    rating_allow_higher = false;
-                break;
-                
-                case RatingFilter.UNRATED_OR_HIGHER:
-                default:
-                    rating = Rating.UNRATED;
-                    rating_allow_higher = true;
-                break;
-            }
-            
-            refresh();
-        }
-        
-        public void set_search_filter(string text) {
-            search_filter = text.down();
-            refresh();
-        }
-        
-        public void clear_search_filter() {
-            search_filter = null;
-            refresh();
-        }
-        
-        // The predicate here tests against various filters ANDed together.
-        public override bool predicate(DataView view) {
-            MediaSource source = ((Thumbnail) view).get_media_source();
-            // Ratings filter
-            if (rating_allow_higher && source.get_rating() < rating)
-                return false;
-            else if (!rating_allow_higher && source.get_rating() != rating)
-                return false;
-            
-            // Text filter.
-            if (!is_string_empty(search_filter)) {
-                string title = source.get_title() != null ? source.get_title().down() : "";
-                if (title.contains(search_filter))
-                    return true;
-                
-                if (source.get_basename().down().contains(search_filter))
-                    return true;
-                
-                if (source.get_event() != null && source.get_event().get_raw_name() != null &&
-                    source.get_event().get_raw_name().down().contains(search_filter))
-                    return true;
-                
-                Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
-                if (null != tags) {
-                    foreach (Tag tag in tags) {
-                        if (tag.get_name().down().contains(search_filter))
-                            return true;
-                    }
-                }
-                return false;
-            }
-            
-            return true;
-        }
-    }
-    
-    protected class FilterButton : Gtk.ToolButton {
-        public Gtk.Menu filter_popup = null;
-        
-        public FilterButton() {
-            set_icon_widget(get_filter_icon(RatingFilter.UNRATED_OR_HIGHER));
-        }
-        
-        private Gtk.Widget get_filter_icon(RatingFilter filter) {
-            string filename = null;
-
-            switch (filter) {
-                case RatingFilter.ONE_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_ONE_OR_BETTER;
-                break;
-                
-                case RatingFilter.TWO_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_TWO_OR_BETTER;
-                break;
-                
-                case RatingFilter.THREE_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_THREE_OR_BETTER;
-                break;
-                
-                case RatingFilter.FOUR_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_FOUR_OR_BETTER;
-                break;
-                
-                case RatingFilter.FIVE_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_FIVE;
-                break;
-                
-                case RatingFilter.REJECTED_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_REJECTED_OR_BETTER;
-                break;
-                
-                case RatingFilter.REJECTED_ONLY:
-                    filename = Resources.ICON_RATING_REJECTED;
-                break;
-                
-                case RatingFilter.UNRATED_OR_HIGHER:
-                default:
-                    filename = Resources.ICON_FILTER_UNRATED_OR_BETTER;
-                break;
-            }
-            
-            return new Gtk.Image.from_pixbuf(Resources.load_icon(filename,
-                get_filter_icon_size(filter)));
-        }
-
-        private int get_filter_icon_size(RatingFilter filter) {
-            int icon_base = (int) (FILTER_ICON_BASE_WIDTH * FILTER_ICON_SCALE);
-            int icon_star_base = (int) (FILTER_ICON_BASE_WIDTH * FILTER_ICON_STAR_SCALE);
-            int icon_plus = (int) (FILTER_ICON_PLUS_WIDTH * FILTER_ICON_STAR_SCALE);
-            
-            switch (filter) {
-                case RatingFilter.ONE_OR_HIGHER:
-                    return icon_star_base + icon_plus;
-                case RatingFilter.TWO_OR_HIGHER:
-                    return icon_star_base * 2 + icon_plus;
-                case RatingFilter.THREE_OR_HIGHER:
-                    return icon_star_base * 3 + icon_plus;
-                case RatingFilter.FOUR_OR_HIGHER:
-                    return icon_star_base * 4 + icon_plus;
-                case RatingFilter.FIVE_OR_HIGHER:
-                case RatingFilter.FIVE_ONLY:
-                    return icon_star_base * 5;
-                case RatingFilter.REJECTED_OR_HIGHER:
-                    return Resources.ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE;
-                case RatingFilter.UNRATED_OR_HIGHER:
-                    return Resources.ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE;
-                default:
-                    return icon_base;
-            }
-        }
-
-        public void set_filter_icon(RatingFilter filter) {
-            set_icon_widget(get_filter_icon(filter));
-            set_size_request(get_filter_button_size(filter), -1);
-            set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
-            show_all();
-        }
-
-        private int get_filter_button_size(RatingFilter filter) {
-            return get_filter_icon_size(filter) + 2 * FILTER_BUTTON_MARGIN;
-        }
     }
 
     protected class ZoomSliderAssembly : Gtk.ToolItem {
@@ -462,89 +216,8 @@ public abstract class MediaPage : CheckerboardPage {
         }
     }
     
-    protected class SearchBox : Gtk.ToolItem {
-        private Gtk.Entry entry;
-        
-        public signal void text_changed();
-
-        public SearchBox() {
-            entry = new Gtk.Entry();
-            entry.primary_icon_stock = Gtk.STOCK_FIND;
-            entry.primary_icon_activatable = false;
-            entry.secondary_icon_stock = Gtk.STOCK_CLEAR;
-            entry.secondary_icon_activatable = true;
-            entry.width_chars = 23;
-            entry.focus_in_event.connect(on_editing_started);
-            entry.focus_out_event.connect(on_editing_canceled);
-            entry.changed.connect(on_text_changed);
-            entry.icon_release.connect(on_icon_release);
-            entry.key_press_event.connect(on_escape_key);
-            add(entry);
-        }
-        
-        ~SearchBox() {
-            entry.focus_in_event.disconnect(on_editing_started);
-            entry.focus_out_event.disconnect(on_editing_canceled);
-            entry.changed.disconnect(on_text_changed);
-            entry.icon_release.disconnect(on_icon_release);
-            entry.key_press_event.disconnect(on_escape_key);
-        }
-        
-        private void on_text_changed() {
-            text_changed();
-        }
-        
-        private void on_icon_release(Gtk.EntryIconPosition pos, Gdk.Event event) {
-            if (Gtk.EntryIconPosition.SECONDARY == pos) {
-                clear();
-            }
-        }
-        
-        public string get_text() {
-            return entry.text;
-        }
-        
-        public void set_text(string t) {
-            entry.text = t;
-        }
-
-        // Ticket #3124 - user should be able to clear
-        // the search textbox by typing 'Esc'.
-        private bool on_escape_key(Gdk.EventKey e) {
-            if(Gdk.keyval_name(e.keyval) == "Escape") {
-                this.clear();
-            }
-            
-            // Continue processing this event, since the
-            // text entry functionality needs to see it too.
-            return false;
-        }  
-        
-        public void clear() {
-            entry.set_text("");
-        }
-
-        public void get_focus() {
-            entry.grab_focus();        
-        }
-        
-        private bool on_editing_started(Gdk.EventFocus event) {
-            // Prevent window from stealing our keystrokes.
-            AppWindow.get_instance().pause_keyboard_trapping();
-            return false;
-        }
-        
-        private bool on_editing_canceled(Gdk.EventFocus event) {
-            AppWindow.get_instance().resume_keyboard_trapping();
-            return false;
-        }
-    }
-    
     private ZoomSliderAssembly? connected_slider = null;
-    private FilterButton? connected_filter_button = null;
     private DragAndDropHandler dnd_handler = null;
-    private SearchBox? connected_search_box = null;
-    private MediaPageViewFilter view_filter = new MediaPageViewFilter();
 
     public MediaPage(string page_name) {
         base (page_name);
@@ -564,8 +237,6 @@ public abstract class MediaPage : CheckerboardPage {
 
         // enable drag-and-drop export of media
         dnd_handler = new DragAndDropHandler(this);
-        
-        get_view().install_view_filter(view_filter);
     }
     
     private static void set_global_thumbnail_scale(int new_scale) {
@@ -616,13 +287,6 @@ public abstract class MediaPage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
         
-        // Ticket #3144 - Add a hotkey to give focus to the search bar.
-        Gtk.ActionEntry find = { "Find", Gtk.STOCK_FIND, TRANSLATABLE, "<Ctrl>F",
-            TRANSLATABLE, on_find };
-        find.label = Resources.FIND_MENU;
-        find.tooltip = Resources.FIND_TOOLTIP;
-        actions += find;
-
         Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
@@ -839,59 +503,6 @@ public abstract class MediaPage : CheckerboardPage {
         action_group.add_radio_actions(sort_order_actions,
             sort_order ? SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING, on_sort_changed);
         
-        Gtk.RadioActionEntry[] view_filter_actions = new Gtk.RadioActionEntry[0];
-        
-        Gtk.RadioActionEntry rejected_only = { "DisplayRejectedOnly", null, TRANSLATABLE,
-            "<Ctrl>8", TRANSLATABLE, RatingFilter.REJECTED_ONLY };
-        rejected_only.label = Resources.DISPLAY_REJECTED_ONLY_MENU;
-        rejected_only.tooltip = Resources.DISPLAY_REJECTED_ONLY_TOOLTIP;
-        view_filter_actions += rejected_only;
-        
-        Gtk.RadioActionEntry rejected_or_higher = { "DisplayRejectedOrHigher", null, TRANSLATABLE,
-            "<Ctrl>9", TRANSLATABLE, RatingFilter.REJECTED_OR_HIGHER };
-        rejected_or_higher.label = Resources.DISPLAY_REJECTED_OR_HIGHER_MENU;
-        rejected_or_higher.tooltip = Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP;
-        view_filter_actions += rejected_or_higher;
-        
-        Gtk.RadioActionEntry unrated_or_higher = { "DisplayUnratedOrHigher", null, TRANSLATABLE, 
-            "<Ctrl>0", TRANSLATABLE, RatingFilter.UNRATED_OR_HIGHER };
-        unrated_or_higher.label = Resources.DISPLAY_UNRATED_OR_HIGHER_MENU;
-        unrated_or_higher.tooltip = Resources.DISPLAY_UNRATED_OR_HIGHER_TOOLTIP;
-        view_filter_actions += unrated_or_higher;
-        
-        Gtk.RadioActionEntry one_or_higher = { "DisplayOneOrHigher", null, TRANSLATABLE,
-            "<Ctrl>1", TRANSLATABLE, RatingFilter.ONE_OR_HIGHER };
-        one_or_higher.label = Resources.DISPLAY_ONE_OR_HIGHER_MENU;
-        one_or_higher.tooltip = Resources.DISPLAY_ONE_OR_HIGHER_TOOLTIP;
-        view_filter_actions += one_or_higher;
-        
-        Gtk.RadioActionEntry two_or_higher = { "DisplayTwoOrHigher", null, TRANSLATABLE,
-            "<Ctrl>2", TRANSLATABLE, RatingFilter.TWO_OR_HIGHER };
-        two_or_higher.label = Resources.DISPLAY_TWO_OR_HIGHER_MENU;
-        two_or_higher.tooltip = Resources.DISPLAY_TWO_OR_HIGHER_TOOLTIP;
-        view_filter_actions += two_or_higher;
-        
-        Gtk.RadioActionEntry three_or_higher = { "DisplayThreeOrHigher", null, TRANSLATABLE,
-            "<Ctrl>3", TRANSLATABLE, RatingFilter.THREE_OR_HIGHER };
-        three_or_higher.label = Resources.DISPLAY_THREE_OR_HIGHER_MENU;
-        three_or_higher.tooltip = Resources.DISPLAY_THREE_OR_HIGHER_TOOLTIP;
-        view_filter_actions += three_or_higher;
-        
-        Gtk.RadioActionEntry four_or_higher = { "DisplayFourOrHigher", null, TRANSLATABLE,
-            "<Ctrl>4", TRANSLATABLE, RatingFilter.FOUR_OR_HIGHER };
-        four_or_higher.label = Resources.DISPLAY_FOUR_OR_HIGHER_MENU;
-        four_or_higher.tooltip = Resources.DISPLAY_FOUR_OR_HIGHER_TOOLTIP;
-        view_filter_actions += four_or_higher;
-        
-        Gtk.RadioActionEntry five_or_higher = { "DisplayFiveOrHigher", null, TRANSLATABLE,
-            "<Ctrl>5", TRANSLATABLE, RatingFilter.FIVE_OR_HIGHER };
-        five_or_higher.label = Resources.DISPLAY_FIVE_OR_HIGHER_MENU;
-        five_or_higher.tooltip = Resources.DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
-        view_filter_actions += five_or_higher;
-        
-        action_group.add_radio_actions(view_filter_actions, get_config_rating_filter(),
-            on_view_filter_changed);
-        
         base.register_radio_actions(action_group);
     }
     
@@ -923,30 +534,6 @@ public abstract class MediaPage : CheckerboardPage {
         update_flag_action(get_view().get_selected_count());
     }
     
-    private void on_find() {
-        connected_search_box.get_focus();
-    }
-
-    private void position_filter_popup(Gtk.Menu menu, out int x, out int y, out bool push_in) {
-        assert(connected_filter_button != null);
-
-        menu.realize();
-        int rx, ry;
-        get_container().get_child().window.get_root_origin(out rx, out ry);
-        
-        x = rx + connected_filter_button.allocation.x;
-        y = ry + get_menubar().allocation.height + get_toolbar().allocation.y 
-            - menu.allocation.height;
-        push_in = false;
-    }
-    
-    private void on_filter_button_clicked() {
-        assert(connected_filter_button != null);
-        
-        connected_filter_button.filter_popup.popup(null, null, position_filter_popup, 0,
-            Gtk.get_current_event_time());
-    }
-
     private void update_rating_sensitivities() {
         set_action_sensitive("RateRejected", can_rate_selected(Rating.REJECTED));
         set_action_sensitive("RateUnrated", can_rate_selected(Rating.UNRATED));
@@ -1025,21 +612,8 @@ public abstract class MediaPage : CheckerboardPage {
         return false;
     }
     
-    public SearchBox create_search_box() {
-        return new SearchBox();
-    }
-    
     public ZoomSliderAssembly create_zoom_slider_assembly() {
         return new ZoomSliderAssembly();
-    }
-
-    public FilterButton create_filter_button() {
-        FilterButton result = new FilterButton();
-
-        result.filter_popup = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
-        result.set_expand(false);
-
-        return result;
     }
     
     public static int get_global_thumbnail_scale() {
@@ -1069,36 +643,6 @@ public abstract class MediaPage : CheckerboardPage {
         } else {
             return base.on_mousewheel_down(event);
         }
-    }
-
-    protected virtual void on_view_filter_changed() {
-        RatingFilter filter = get_filter_criteria();
-        view_filter.set_rating_filter(filter);
-        if (connected_filter_button != null) {
-            connected_filter_button.set_filter_icon(filter);
-        }
-        set_config_rating_filter(filter);
-    }
-
-    protected RatingFilter get_filter_criteria() {
-        // any member of the group knows the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/MenuBar/ViewMenu/FilterPhotos/DisplayRejectedOrHigher");
-        assert(action != null);
-        
-        RatingFilter filter = (RatingFilter) action.get_current_value();
-
-        return filter;
-    }
-    
-    protected virtual void on_search_changed() {
-        string search = connected_search_box.get_text();
-        if (is_string_empty(search)) {
-            view_filter.clear_search_filter();
-        } else {
-            view_filter.set_search_filter(search);
-        }
-        set_config_search_filter(search);
     }
     
     private void on_send_to() {
@@ -1175,42 +719,42 @@ public abstract class MediaPage : CheckerboardPage {
             
             case "exclam":
                 if (get_ctrl_pressed())
-                    view_filter.set_rating_filter(RatingFilter.ONE_OR_HIGHER);
+                    get_search_view_filter().set_rating_filter(RatingFilter.ONE_OR_HIGHER);
             break;
 
             case "at":
                 if (get_ctrl_pressed())
-                    view_filter.set_rating_filter(RatingFilter.TWO_OR_HIGHER);
+                    get_search_view_filter().set_rating_filter(RatingFilter.TWO_OR_HIGHER);
             break;
 
             case "numbersign":
                 if (get_ctrl_pressed())
-                    view_filter.set_rating_filter(RatingFilter.THREE_OR_HIGHER);
+                    get_search_view_filter().set_rating_filter(RatingFilter.THREE_OR_HIGHER);
             break;
 
             case "dollar":
                 if (get_ctrl_pressed())
-                    view_filter.set_rating_filter(RatingFilter.FOUR_OR_HIGHER);
+                    get_search_view_filter().set_rating_filter(RatingFilter.FOUR_OR_HIGHER);
             break;
 
             case "percent":
                 if (get_ctrl_pressed())
-                    view_filter.set_rating_filter(RatingFilter.FIVE_OR_HIGHER);
+                    get_search_view_filter().set_rating_filter(RatingFilter.FIVE_OR_HIGHER);
             break;
 
             case "parenright":
                 if (get_ctrl_pressed())
-                    view_filter.set_rating_filter(RatingFilter.UNRATED_OR_HIGHER);
+                    get_search_view_filter().set_rating_filter(RatingFilter.UNRATED_OR_HIGHER);
             break;
 
             case "parenleft":
                 if (get_ctrl_pressed())
-                    view_filter.set_rating_filter(RatingFilter.REJECTED_OR_HIGHER);
+                    get_search_view_filter().set_rating_filter(RatingFilter.REJECTED_OR_HIGHER);
             break;
             
             case "asterisk":
                 if (get_ctrl_pressed())
-                    view_filter.set_rating_filter(RatingFilter.REJECTED_ONLY);
+                    get_search_view_filter().set_rating_filter(RatingFilter.REJECTED_ONLY);
             break;
             
             case "slash":
@@ -1240,21 +784,12 @@ public abstract class MediaPage : CheckerboardPage {
         set_display_tags(Config.get_instance().get_display_photo_tags());
         get_view().thaw_notifications();
 
-        restore_saved_rating_view_filter();  // Set filter to current level and set menu selection
-        restore_saved_search_view_filter();
-
         sync_sort();
     }
 
     protected void connect_slider(ZoomSliderAssembly slider) {
         connected_slider = slider;
         connected_slider.zoom_changed.connect(on_zoom_changed);
-    }
-
-    protected void connect_filter_button(FilterButton button) {
-        connected_filter_button = button;
-        
-        connected_filter_button.clicked.connect(on_filter_button_clicked);
     }
     
     protected void disconnect_slider() {
@@ -1264,29 +799,10 @@ public abstract class MediaPage : CheckerboardPage {
         connected_slider.zoom_changed.disconnect(on_zoom_changed);
         connected_slider = null;
     }
-    
-    protected void disconnect_filter_button() {
-        connected_filter_button.clicked.disconnect(on_filter_button_clicked);
-
-        connected_filter_button = null;
-    }
 
     protected virtual void on_zoom_changed() {
         if (connected_slider != null)
             set_thumb_size(connected_slider.get_scale());
-    }
-    
-    protected void connect_search_box(MediaPage.SearchBox search_box) {
-        connected_search_box = search_box;
-        connected_search_box.text_changed.connect(on_search_changed);
-    }
-    
-    protected void disconnect_search_box() {
-        if (connected_search_box == null)
-            return;
-        
-        connected_search_box.text_changed.disconnect(on_search_changed);
-        connected_search_box = null;
     }
     
     protected abstract void on_export();
@@ -1598,88 +1114,6 @@ public abstract class MediaPage : CheckerboardPage {
         if (resort_needed)
             get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
     }
-
-    private void restore_saved_rating_view_filter() {
-        RatingFilter filter = get_config_rating_filter();
-        set_rating_view_filter_menu(filter);
-        if (connected_filter_button != null) {
-            connected_filter_button.set_filter_icon(filter);
-        }
-        view_filter.set_rating_filter(filter);
-    }
-
-    private RatingFilter get_config_rating_filter() {
-        return Config.get_instance().get_photo_rating_filter();
-    }
-
-    private void set_rating_view_filter_menu(RatingFilter filter) {
-        Gtk.ToggleAction action;
-        
-        switch (filter) {
-            case RatingFilter.UNRATED_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayUnratedOrHigher");
-            break;
-            
-            case RatingFilter.ONE_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayOneOrHigher");
-            break;
-            
-            case RatingFilter.TWO_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayTwoOrHigher");
-            break;
-            
-            case RatingFilter.THREE_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayThreeOrHigher");
-            break;
-            
-            case RatingFilter.FOUR_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayFourOrHigher");
-            break;
-            
-            case RatingFilter.FIVE_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayFiveOrHigher");
-            break;
-            
-            case RatingFilter.REJECTED_ONLY:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayRejectedOnly");
-            break;
-            
-            case RatingFilter.REJECTED_OR_HIGHER:
-            default:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayRejectedOrHigher");
-            break;
-        }
-        
-        action.set_active(true);
-    }
-    
-    private void set_config_rating_filter(RatingFilter filter) {
-        if (!Config.get_instance().set_photo_rating_filter(filter))
-            warning("Unable to write rating filter settings to config");
-    }
-    
-    private void restore_saved_search_view_filter() {
-        string? search = get_config_search_filter();
-        if (null != search) {
-            if (connected_search_box != null) {
-                connected_search_box.set_text(search);
-            }
-            view_filter.set_search_filter(search);
-        } else {
-            connected_search_box.clear();
-            view_filter.clear_search_filter();
-        }
-    }
-
-    private string? get_config_search_filter() {
-        return Config.get_instance().get_search_filter();
-    }
-    
-    private void set_config_search_filter(string search) {
-        if (!Config.get_instance().set_search_filter(search))
-            warning("Unable to write search filter settings to config");
-    }
-
 
     public override void destroy() {
         disconnect_slider();

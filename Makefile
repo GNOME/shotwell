@@ -90,7 +90,6 @@ UNUNITIZED_SRC_FILES = \
 	OfflinePage.vala \
 	LastImportPage.vala \
 	VideoSupport.vala \
-	VideosPage.vala \
 	Tombstone.vala \
 	MetadataWriter.vala \
 	Application.vala \
@@ -104,7 +103,8 @@ UNUNITIZED_SRC_FILES = \
 	VideoMetadata.vala \
 	MediaMonitor.vala \
 	PhotoMonitor.vala \
-	VideoMonitor.vala
+	VideoMonitor.vala \
+	SearchFilter.vala
 
 VAPI_FILES = \
 	libexif.vapi \

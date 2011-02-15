@@ -36,6 +36,15 @@ public class TrashPage : CheckerboardPage {
         }
     }
     
+    private class TrashSearchViewFilter : DefaultSearchViewFilter {
+        public override uint get_criteria() {
+            return SearchFilterCriteria.TEXT | SearchFilterCriteria.FLAG | 
+                SearchFilterCriteria.MEDIA | SearchFilterCriteria.RATING;
+        }
+    }
+    
+    private TrashSearchViewFilter search_filter = new TrashSearchViewFilter();
+    
     private TrashPage(string name) {
         base (name);
         
@@ -160,6 +169,10 @@ public class TrashPage : CheckerboardPage {
     private void on_delete() {
         remove_from_app((Gee.Collection<MediaSource>) get_view().get_selected_sources(), _("Delete"), 
             ngettext("Deleting a Photo", "Deleting Photos", get_view().get_selected_count()));
+    }
+    
+    public override SearchViewFilter get_search_view_filter() {
+        return search_filter;
     }
 }
 

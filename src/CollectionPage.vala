@@ -19,8 +19,16 @@ public class CollectionViewManager : ViewManager {
 public abstract class CollectionPage : MediaPage {
     private const double DESKTOP_SLIDESHOW_TRANSITION_SEC = 2.0;
     
+    protected class CollectionSearchViewFilter : DefaultSearchViewFilter {
+        public override uint get_criteria() {
+            return SearchFilterCriteria.TEXT | SearchFilterCriteria.FLAG | 
+                SearchFilterCriteria.MEDIA | SearchFilterCriteria.RATING;
+        }
+    }
+    
     private Gtk.ToolButton rotate_button = null;
     private ExporterUI exporter = null;
+    private CollectionSearchViewFilter search_filter = new CollectionSearchViewFilter();
     
     public CollectionPage(string page_name) {
         base (page_name);
@@ -60,18 +68,7 @@ public abstract class CollectionPage : MediaPage {
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
         separator.set_expand(true);
         separator.set_draw(false);
-        
         toolbar.insert(separator, -1);
-        
-        // Search box.
-        MediaPage.SearchBox search_box = create_search_box();
-        connect_search_box(search_box);
-        toolbar.insert(search_box, -1);
-
-        // ratings filter button
-        MediaPage.FilterButton filter_button = create_filter_button();
-        connect_filter_button(filter_button);
-        toolbar.insert(filter_button, -1);
 
         Gtk.SeparatorToolItem drawn_separator = new Gtk.SeparatorToolItem();
         drawn_separator.set_expand(false);
@@ -722,16 +719,18 @@ public abstract class CollectionPage : MediaPage {
         
         return base.on_ctrl_released(event);
     }
+    
+    public override SearchViewFilter get_search_view_filter() {
+        return search_filter;
+    }
 }
 
 public class LibraryPage : CollectionPage {
     public LibraryPage(ProgressMonitor? monitor = null) {
-        base(_("Photos"));
+        base(_("Media"));
         
-        get_view().freeze_notifications();
-        get_view().monitor_source_collection(LibraryPhoto.global, new CollectionViewManager(this),
-            null, (Gee.Collection<DataSource>) LibraryPhoto.global.get_all(), monitor);
-        get_view().thaw_notifications();
+        foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all())
+            get_view().monitor_source_collection(sources, new CollectionViewManager(this), null, null, monitor);
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {

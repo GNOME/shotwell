@@ -30,6 +30,15 @@ public class OfflinePage : CheckerboardPage {
         }
     }
     
+    private class OfflineSearchViewFilter : DefaultSearchViewFilter {
+        public override uint get_criteria() {
+            return SearchFilterCriteria.TEXT | SearchFilterCriteria.FLAG | 
+                SearchFilterCriteria.MEDIA | SearchFilterCriteria.RATING;
+        }
+    }
+    
+    private OfflineSearchViewFilter search_filter = new OfflineSearchViewFilter();
+    
     private OfflinePage(string name) {
         base (name);
         
@@ -155,6 +164,10 @@ public class OfflinePage : CheckerboardPage {
 
     public override CheckerboardItem? get_fullscreen_photo() {
         return null;
+    }
+    
+    public override SearchViewFilter get_search_view_filter() {
+        return search_filter;
     }
 }
 

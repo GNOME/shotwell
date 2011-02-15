@@ -34,8 +34,16 @@ public class FlaggedPage : CollectionPage {
         }
     }
     
+    private class FlaggedSearchViewFilter : CollectionPage.CollectionSearchViewFilter {
+        public override uint get_criteria() {
+            return SearchFilterCriteria.TEXT | SearchFilterCriteria.MEDIA | 
+                SearchFilterCriteria.RATING;
+        }
+    }
+    
     private ViewManager view_manager;
     private Alteration prereq = new Alteration("metadata", "flagged");
+    private FlaggedSearchViewFilter search_filter = new FlaggedSearchViewFilter();
     
     private FlaggedPage(string name) {
         base (name);
@@ -56,6 +64,10 @@ public class FlaggedPage : CollectionPage {
     
     protected override void set_config_photos_sort(bool sort_order, int sort_by) {
         Config.get_instance().set_library_photos_sort(sort_order, sort_by);
+    }
+    
+    public override SearchViewFilter get_search_view_filter() {
+        return search_filter;
     }
 }
 

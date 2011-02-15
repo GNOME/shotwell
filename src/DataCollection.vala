@@ -2811,5 +2811,9 @@ public class ViewCollection : DataCollection {
         
         base.notify_thawed();
     }
+    
+    public bool are_items_filtered_out() {
+        return base.get_count() != get_count();
+    }
 }
 

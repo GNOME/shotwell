@@ -82,9 +82,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_RATING_FOUR = "four-stars.svg";
     public const string ICON_RATING_FIVE = "five-stars.svg";
     public const string ICON_FILTER_REJECTED_OR_BETTER = "all-rejected.png";
-    public const int ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE = 44;
-    public const string ICON_FILTER_UNRATED_OR_BETTER = "shotwell-24.svg";
-    public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 24;
+    public const int ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE = 32;
+    public const string ICON_FILTER_UNRATED_OR_BETTER = "shotwell-16.svg";
+    public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 16;
     public const string ICON_FILTER_ONE_OR_BETTER = "one-star-filter-plus.svg";
     public const string ICON_FILTER_TWO_OR_BETTER = "two-star-filter-plus.svg";
     public const string ICON_FILTER_THREE_OR_BETTER = "three-star-filter-plus.svg";
@@ -640,6 +640,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
         add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
         add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
+        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FLAGGED_PAGE), ICON_FLAGGED_PAGE);
+        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_VIDEOS_PAGE), ICON_VIDEOS_PAGE);
+        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_SINGLE_PHOTO), ICON_SINGLE_PHOTO);
+        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_CAMERAS), ICON_CAMERAS);
         
         factory.add_default();
 
@@ -732,6 +736,25 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         
         Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pixbuf);
         factory.add(stock_id, icon_set);
+    }
+    
+    private void add_stock_icon_from_themed_icon(GLib.ThemedIcon gicon, string stock_id) {
+        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
+        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
+
+        Gtk.IconInfo? info = icon_theme.lookup_by_gicon(gicon, 
+            Resources.DEFAULT_ICON_SCALE, Gtk.IconLookupFlags.FORCE_SIZE);
+        if (info == null) {
+            debug("unable to load icon for: %s", stock_id);
+            return;
+        }
+        
+        try {
+            Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(info.load_icon());
+                factory.add(stock_id, icon_set);
+        } catch (Error err) {
+            debug("%s", err.message);
+        }
     }
 
     public static void launch_help(Gdk.Screen screen) throws Error {

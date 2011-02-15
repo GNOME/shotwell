@@ -150,10 +150,29 @@ public class EventsDirectoryPage : CheckerboardPage {
             return new EventDirectoryItem((Event) source);
         }
     }
+    
+    private class EventsDirectorySearchViewFilter : SearchViewFilter {
+        public override uint get_criteria() {
+            return SearchFilterCriteria.TEXT;
+        }
+
+        public override bool predicate(DataView view) {
+            assert(view.get_source() is Event);
+            if (is_string_empty(get_search_filter()))
+                return true;
+            Event source = (Event) view.get_source();
+            string title = source.get_raw_name() != null ? source.get_raw_name().down() : "";
+            if (!title.contains(get_search_filter()))
+                return false;
+            return true;
+        }
+    }
    
     private const int MIN_PHOTOS_FOR_PROGRESS_WINDOW = 50;
 
     protected ViewManager view_manager;
+    
+    private EventsDirectorySearchViewFilter search_filter = new EventsDirectorySearchViewFilter();
 
     public EventsDirectoryPage(string page_name, ViewManager view_manager,
         Gee.Collection<Event>? initial_events) {
@@ -317,6 +336,10 @@ public class EventsDirectoryPage : CheckerboardPage {
         
         MergeEventsCommand command = new MergeEventsCommand(get_view().get_selected());
         get_command_manager().execute(command);
+    }
+    
+    public override SearchViewFilter get_search_view_filter() {
+       return search_filter;
     }
 }
 

@@ -339,12 +339,6 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
-    private class UnimportedViewFilter : ViewFilter {
-        public override bool predicate(DataView view) {
-            return !((ImportPreview) view).is_already_imported();
-        }
-    }
-    
     private class CameraImportJob : BatchImportJob {
         private GPhoto.ContextWrapper context;
         private ImportSource import_file;
@@ -434,6 +428,45 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
+    private class ImportPageSearchViewFilter : SearchViewFilter {
+        // Set to true if you want to hide duplicates.
+        public bool hide_duplicates { get; set; default = false; }
+        
+        public override uint get_criteria() {
+            return SearchFilterCriteria.TEXT | SearchFilterCriteria.MEDIA;
+        }
+        
+        public override bool predicate(DataView view) {
+            // Duplicate check.
+            if (hide_duplicates && ((ImportPreview) view).is_already_imported())
+                return false;
+                
+            ImportSource source = ((ImportPreview) view).get_import_source();
+
+            // Media type.
+            if ((bool) (SearchFilterCriteria.MEDIA & get_criteria()) && filter_by_media_type()) {
+                if (source is VideoImportSource) {
+                    if (!show_media_video)
+                        return false;
+                } else if (source is PhotoImportSource) {
+                    if (((PhotoImportSource) source).get_file_format() == PhotoFileFormat.RAW) {
+                        if (!show_media_photos && !show_media_raw)
+                            return false;
+                    } else if (!show_media_photos)
+                        return false;
+                }
+            }
+            
+            // Text filter.
+            if ((bool) (SearchFilterCriteria.TEXT & get_criteria())) {
+                if (!source.get_filename().down().contains(get_search_filter()))
+                    return false;
+            }
+            
+            return true;
+        }
+    }
+    
     public static GPhoto.ContextWrapper null_context = null;
     public static GPhoto.SpinIdleWrapper spin_idle_context = null;
 
@@ -451,7 +484,7 @@ public class ImportPage : CheckerboardPage {
     private VolumeMonitor volume_monitor = null;
     private ImportPage? local_ref = null;
     private GLib.Icon? icon;
-    private UnimportedViewFilter show_unimported_filter = new UnimportedViewFilter();
+    private ImportPageSearchViewFilter search_filter = new ImportPageSearchViewFilter();
     
     public enum RefreshResult {
         OK,
@@ -684,7 +717,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_media_added_removed() {
-        show_unimported_filter.refresh();
+        search_filter.refresh();
     }
 
     private void on_display_titles(Gtk.Action action) {
@@ -1169,10 +1202,8 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_hide_imported() {
-        if (hide_imported.get_active())
-            get_view().install_view_filter(show_unimported_filter);
-        else
-            get_view().reset_view_filter();
+        search_filter.hide_duplicates = hide_imported.get_active();
+        search_filter.refresh();
     }
     
     private void on_import_selected() {
@@ -1327,6 +1358,11 @@ public class ImportPage : CheckerboardPage {
         Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");
         if (action != null)
             action.set_active(display);
+    }
+    
+    // Gets the search view filter for this page.
+    public override SearchViewFilter get_search_view_filter() {
+        return search_filter;
     }
 }
 

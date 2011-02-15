@@ -886,12 +886,16 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         queue_draw();
     }
     
-    public void set_message(string text) {
+    public void set_message(string? text) {
         message = text;
 
         // set the layout's size to be exactly the same as the parent's
         if (parent != null)
             set_size_request(parent.allocation.width, parent.allocation.height);
+    }
+    
+    public void unset_message() {
+        set_message(null);
     }
     
     private void update_visible_page() {
@@ -912,7 +916,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     public CheckerboardItem? get_item_at_pixel(double xd, double yd) {
-        if (null == item_rows)
+        if (message != null || item_rows == null)
             return null;
             
         int x = (int) xd;

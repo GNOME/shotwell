@@ -1266,8 +1266,12 @@ public abstract class CheckerboardPage : Page {
         return layout;
     }
     
+    // Gets the search view filter for this page.
+    public abstract SearchViewFilter get_search_view_filter();
+    
     public override void switching_from() {
         layout.set_in_view(false);
+        get_search_view_filter().refresh.disconnect(on_view_filter_refresh);
 
         // unselect everything so selection won't persist after page loses focus 
         get_view().unselect_all();
@@ -1277,14 +1281,32 @@ public abstract class CheckerboardPage : Page {
     
     public override void switched_to() {
         layout.set_in_view(true);
+        get_search_view_filter().refresh.connect(on_view_filter_refresh);
+        on_view_filter_refresh();
 
         base.switched_to();
+    }
+    
+    private void on_view_filter_refresh() {
+        if (get_view().are_items_filtered_out() && get_view().get_count() == 0) {
+            set_page_message(_("No items visible in your current filter"));
+        } else if (get_view().get_count() == 0) {
+            set_page_message(_("There are currently no items on this page"));
+        } else {
+            unset_page_message();
+        }
     }
     
     public abstract CheckerboardItem? get_fullscreen_photo();
     
     public void set_page_message(string message) {
         layout.set_message(message);
+        if (is_in_view())
+            layout.queue_draw();
+    }
+    
+    public void unset_page_message() {
+        layout.unset_message();
         if (is_in_view())
             layout.queue_draw();
     }

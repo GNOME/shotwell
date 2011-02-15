@@ -20,7 +20,6 @@
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
             <placeholder name="EditExtrasPlaceholder" />
-            <menuitem name="Find" action="Find" />          
             <menuitem name="RemoveFromLibrary" action="RemoveFromLibrary" />
             <menuitem name="MoveToTrash" action="MoveToTrash" />
             <separator />
@@ -36,17 +35,6 @@
             <menuitem name="ViewTitle" action="ViewTitle" />
             <menuitem name="ViewTags" action="ViewTags" />
             <menuitem name="ViewRatings" action="ViewRatings" />
-            <separator />
-            <menu name="FilterPhotos" action="FilterPhotos">
-                <menuitem name="DisplayFiveOrHigher" action="DisplayFiveOrHigher" />
-                <menuitem name="DisplayFourOrHigher" action="DisplayFourOrHigher" />
-                <menuitem name="DisplayThreeOrHigher" action="DisplayThreeOrHigher" />
-                <menuitem name="DisplayTwoOrHigher" action="DisplayTwoOrHigher" />
-                <menuitem name="DisplayOneOrHigher" action="DisplayOneOrHigher" />
-                <menuitem name="DisplayUnratedOrHigher" action="DisplayUnratedOrHigher" />
-                <menuitem name="DisplayRejectedOrHigher" action="DisplayRejectedOrHigher" />
-                <menuitem name="DisplayRejectedOnly" action="DisplayRejectedOnly" />
-            </menu>
             <separator />
             <menu name="SortPhotos" action="SortPhotos">
                 <menuitem name="SortByTitle" action="SortByTitle" />
@@ -107,17 +95,5 @@
             <menuitem name="About" action="CommonAbout" />
         </menu>
     </menubar>
-        
-    <popup name="FilterPopupMenu">
-        <menuitem name="DisplayFiveOrHigher" action="DisplayFiveOrHigher" />
-        <menuitem name="DisplayFourOrHigher" action="DisplayFourOrHigher" />
-        <menuitem name="DisplayThreeOrHigher" action="DisplayThreeOrHigher" />
-        <menuitem name="DisplayTwoOrHigher" action="DisplayTwoOrHigher" />
-        <menuitem name="DisplayOneOrHigher" action="DisplayOneOrHigher" />
-        <menuitem name="DisplayUnratedOrHigher" action="DisplayUnratedOrHigher" />
-        <menuitem name="DisplayRejectedOrHigher" action="DisplayRejectedOrHigher" />
-        <menuitem name="DisplayRejectedOnly" action="DisplayRejectedOnly" />
-    </popup>
-
 </ui>
 

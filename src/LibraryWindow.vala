@@ -35,7 +35,6 @@ public class LibraryWindow : AppWindow {
     // outside the app.
     private enum ToplevelPosition {
         LIBRARY_PAGE,
-        VIDEOS_PAGE,
         FLAGGED_PAGE,
         LAST_IMPORT_PAGE,
         CAMERAS_GROUPING,
@@ -132,7 +131,6 @@ public class LibraryWindow : AppWindow {
     private OfflinePage.Stub offline_page = null;
     private LastImportPage.Stub last_import_page = null;
     private FlaggedPage.Stub flagged_page = null;
-    private VideosPage.Stub videos_page = null;
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
     private OneShotScheduler properties_scheduler = null;
@@ -153,6 +151,8 @@ public class LibraryWindow : AppWindow {
     private Sidebar sidebar = new Sidebar();
     private SidebarMarker cameras_marker = null;
     private SidebarMarker tags_marker = null;
+    
+    private SearchFilterToolbar search_toolbar = new SearchFilterToolbar();
     
     private Gtk.VBox top_section = new Gtk.VBox(false, 0);
     private Gtk.Frame background_progress_frame = new Gtk.Frame(null);
@@ -178,7 +178,6 @@ public class LibraryWindow : AppWindow {
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed.connect(import_queue_batch_finished);
         trash_page = TrashPage.create_stub();
-        videos_page = VideosPage.create_stub();
 
         // create and connect extended properties window
         extended_properties = new ExtendedPropertiesWindow(this);
@@ -187,7 +186,6 @@ public class LibraryWindow : AppWindow {
 
         // add the default parents and orphans to the notebook
         add_toplevel_page(library_page, ToplevelPosition.LIBRARY_PAGE);
-        sidebar.add_toplevel(videos_page, ToplevelPosition.VIDEOS_PAGE);
         sidebar.add_toplevel(last_import_page, ToplevelPosition.LAST_IMPORT_PAGE);
         sidebar.add_toplevel(events_directory_page, ToplevelPosition.EVENTS_DIRECTORY_PAGE);
         sidebar.add_toplevel(trash_page, ToplevelPosition.TRASH_PAGE);
@@ -266,9 +264,6 @@ public class LibraryWindow : AppWindow {
         
         sync_last_import_visibility();
         sync_flagged_visibility();
-        
-        Video.global.contents_altered.connect(sync_videos_visibility);
-        sync_videos_visibility();
         
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
         LibraryPhoto.mimic_manager.progress.connect(on_mimic_manager_progress);
@@ -793,10 +788,6 @@ public class LibraryWindow : AppWindow {
         enable_disable_flagged_page(has_flagged);
     }
     
-    private void sync_videos_visibility() {
-        enable_disable_videos_page(Video.global.get_count() > 0);
-    }
-    
     private void import_queue_batch_finished() {
         if (displaying_import_queue_page && import_queue_page.get_batch_count() == 0) {
             // only hide the import queue page, as it might be used later
@@ -1280,16 +1271,6 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    private void enable_disable_videos_page(bool enable) {
-        if (enable && videos_page == null) {
-            videos_page = VideosPage.create_stub();
-            sidebar.add_toplevel(videos_page, ToplevelPosition.VIDEOS_PAGE);
-        } else if (!enable && videos_page != null) {
-            remove_stub(videos_page, library_page, null);
-            videos_page = null;
-        }
-    }
-    
     private void add_event_page(Event event) {
         EventPage.Stub event_stub = EventPage.create_stub(event);
         
@@ -1725,8 +1706,12 @@ public class LibraryWindow : AppWindow {
         // layout the selection tree to the left of the collection/toolbar box with an adjustable
         // gutter between them, framed for presentation
         Gtk.Frame right_frame = new Gtk.Frame(null);
-        right_frame.add(notebook);
         right_frame.set_shadow_type(Gtk.ShadowType.IN);
+        
+        Gtk.VBox right_vbox = new Gtk.VBox(false, 0);
+        right_frame.add(right_vbox);
+        right_vbox.pack_start(search_toolbar, false, false, 0);
+        right_vbox.pack_start(notebook, true, true, 0);
         
         client_paned = new Gtk.HPaned();
         client_paned.pack1(sidebar_paned, false, false);
@@ -1823,6 +1808,15 @@ public class LibraryWindow : AppWindow {
         // which will then call this function again
         base.set_current_page(page);
         
+        // Update search filter to new page.
+        if (page is CheckerboardPage) {
+            search_toolbar.set_view_filter(((CheckerboardPage) page).get_search_view_filter());
+            page.get_view().install_view_filter(((CheckerboardPage) page).get_search_view_filter());
+        } else {
+            // Disables the search view filter for non CheckerboardPages.
+            search_toolbar.unset_view_filter();
+        }
+        
         sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
         sidebar.place_cursor(page);
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
@@ -1916,8 +1910,6 @@ public class LibraryWindow : AppWindow {
             switch_to_page(last_import_page.get_page());
         } else if (flagged_page != null && is_page_selected(flagged_page, path)) {
             switch_to_page(flagged_page.get_page());
-        } else if (videos_page != null && is_page_selected(videos_page, path)) {
-            switch_to_page(videos_page.get_page());
         } else {
             // nothing recognized selected
         }
@@ -2028,6 +2020,10 @@ public class LibraryWindow : AppWindow {
         }
         
         return false;
+    }
+    
+    public void set_search_box_focus() {
+        search_toolbar.set_search_box_focus();
     }
 }
 
