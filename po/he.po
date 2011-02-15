@@ -1,14 +1,14 @@
 # po/shotwell.pot
 # PO message string template file for Shotwell
-# Copyright (C) 2009-2010 Yorba Foundation
+# Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.8.1+trunk\n"
+"Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-12-13 15:24-0800\n"
-"PO-Revision-Date: 2010-12-13 23:43+0000\n"
+"PO-Revision-Date: 2011-02-14 23:28+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -804,11 +804,11 @@ msgstr "יש לבחור ב<span weight=\"bold\">קובץ %s יבוא מתיקי�
 
 #: src/Dialogs.vala:1498
 msgid "Drag and drop photos onto the Shotwell window"
-msgstr "גרירה והשלכה של תמונות לחלון של Shotwell"
+msgstr "לגרור ולהשליך תמונות לחלון של Shotwell"
 
 #: src/Dialogs.vala:1499
 msgid "Connect a camera to your computer and import"
-msgstr "חיבור מצלמה למחשב שלך ולייבא ממנה"
+msgstr "לחבר מצלמה למחשב שלך ולייבא ממנה"
 
 #: src/Dialogs.vala:1508
 msgid "Import photos from your _F-Spot library"
@@ -2278,7 +2278,7 @@ msgid "RAW"
 msgstr "RAW"
 
 #: src/Resources.vala:17
-msgid "Copyright 2009-2010 Yorba Foundation"
+msgid "Copyright 2009-2011 Yorba Foundation"
 msgstr "כל הזכויות שמורות 2009—2010 קרן Yorba"
 
 #: src/Resources.vala:112
@@ -2985,12 +2985,12 @@ msgstr "המשך בהצגת המצגת"
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] "פעולה זו תסיר את התגית \"%s\" מתמונה אחת. להמשיך?"
-msgstr[1] "פעולה זו תסיר את התגית \"%s\" מ־%d אחת. להמשיך?"
+msgstr[0] "פעולה זו תסיר את התגית \"%s\" מתמונה %d. להמשיך?"
+msgstr[1] "פעולה זו תסיר את התגית \"%s\" מ־%d תמונות. להמשיך?"
 
 #: src/TrashPage.vala:17
 msgid "Trash"
-msgstr "השלכה לאשפה"
+msgstr "סל האשפה"
 
 #: src/TrashPage.vala:169
 msgid "Delete"
@@ -3017,9 +3017,12 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"פעולה זו תסיר את התמונה/סרטון הווידאו מספריית ה־Shotwell שלך.  האם ברצונך להעביר את הקבצים לאשפה של שולחן העבודה שלך?\n"
+"\n"
+"לא ניתן לבטל פעולה זו. %d"
 msgstr[1] ""
-"פעולה זו תסיר %d תמונות/סרטוני וידאו מספריית ה־Shotwell שלך.  האם ברצונך להעביר את הקבצים לאשפה של שולחן העבודה שלך?⏎\n"
-"⏎\n"
+"פעולה זו תסיר %d תמונות/סרטוני וידאו מספריית ה־Shotwell שלך.  האם ברצונך להעביר את הקבצים לאשפה של שולחן העבודה שלך?\n"
+"\n"
 "לא ניתן לבטל פעולה זו."
 
 #: src/util.vala:523
@@ -3033,6 +3036,9 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"פעולה זו תסיר את סרטון הווידאו מספריית ה־Shotwell שלך.  האם בנוסף על כך ברצונך להעביר את הקובץ לאשפה?\n"
+"\n"
+"לא ניתן לבטל פעולה זו. %d"
 msgstr[1] ""
 "פעולה זו תסיר את %d סרטוני הווידאו מספריית ה־Shotwell שלך.  האם בנוסף על כך ברצונך להעביר את הקובץ לאשפה?\n"
 "\n"

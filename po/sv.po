@@ -1,14 +1,14 @@
 # po/shotwell.pot
 # PO message string template file for Shotwell
-# Copyright (C) 2009-2010 Yorba Foundation
+# Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.8.1+trunk\n"
+"Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-12-13 15:24-0800\n"
-"PO-Revision-Date: 2010-12-23 22:24+0000\n"
+"PO-Revision-Date: 2011-02-14 23:27+0000\n"
 "Last-Translator: yeager <po@danielnylander.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2280,8 +2280,8 @@ msgid "RAW"
 msgstr "RAW"
 
 #: src/Resources.vala:17
-msgid "Copyright 2009-2010 Yorba Foundation"
-msgstr "Copyright 2009-2010 Yorba Foundation"
+msgid "Copyright 2009-2011 Yorba Foundation"
+msgstr "Copyright 2009-2011 Yorba Foundation"
 
 #: src/Resources.vala:112
 msgid "Rotate _Right"
@@ -3252,11 +3252,11 @@ msgstr "Integritetsinställningar för video:"
 
 #: src/YouTubeConnector.vala:684
 msgid "Public listed"
-msgstr ""
+msgstr "Publikt listad"
 
 #: src/YouTubeConnector.vala:685
 msgid "Public unlisted"
-msgstr ""
+msgstr "Publikt olistad"
 
 #: src/YouTubeConnector.vala:686
 msgid "Private"

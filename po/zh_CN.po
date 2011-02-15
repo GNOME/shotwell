@@ -1,6 +1,6 @@
 # po/shotwell.pot
 # PO message string template file for Shotwell
-# Copyright (C) 2009-2010 Yorba Foundation
+# Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
@@ -2231,8 +2231,8 @@ msgid "RAW"
 msgstr "RAW"
 
 #: src/Resources.vala:17
-msgid "Copyright 2009-2010 Yorba Foundation"
-msgstr "版权所有 2009-2010 Yorba Foundation"
+msgid "Copyright 2009-2011 Yorba Foundation"
+msgstr "版权所有 2009-2011 Yorba Foundation"
 
 #: src/Resources.vala:112
 msgid "Rotate _Right"

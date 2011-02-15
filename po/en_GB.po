@@ -1,14 +1,14 @@
 # po/shotwell.pot
 # PO message string template file for Shotwell
-# Copyright (C) 2009-2010 Yorba Foundation
+# Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.8.1+trunk\n"
+"Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-12-13 15:24-0800\n"
-"PO-Revision-Date: 2010-12-13 23:40+0000\n"
+"PO-Revision-Date: 2011-02-14 23:26+0000\n"
 "Last-Translator: bruce89 <l10n@bcowan.fastmail.co.uk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -716,7 +716,7 @@ msgstr "%d/%m/%Y, %H:%M:%S"
 # a list of format specifiers and their meanings.
 #: src/Dialogs.vala:1224
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%d/%m/%Y, %I:%M:%S %p"
+msgstr "%d/%m/%Y, %H:%M:%S"
 
 #: src/Dialogs.vala:1309
 #, c-format
@@ -2278,8 +2278,8 @@ msgid "RAW"
 msgstr "RAW"
 
 #: src/Resources.vala:17
-msgid "Copyright 2009-2010 Yorba Foundation"
-msgstr "Copyright 2009-2010 Yorba Foundation"
+msgid "Copyright 2009-2011 Yorba Foundation"
+msgstr "Copyright 2009-2011 Yorba Foundation"
 
 #: src/Resources.vala:112
 msgid "Rotate _Right"

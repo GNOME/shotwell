@@ -1,14 +1,14 @@
 # po/shotwell.pot
 # PO message string template file for Shotwell
-# Copyright (C) 2009-2010 Yorba Foundation
+# Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.8.1+trunk\n"
+"Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-12-13 15:24-0800\n"
-"PO-Revision-Date: 2010-12-13 23:44+0000\n"
+"PO-Revision-Date: 2011-02-14 23:28+0000\n"
 "Last-Translator: boram <boramism@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2227,8 +2227,8 @@ msgid "RAW"
 msgstr "RAW"
 
 #: src/Resources.vala:17
-msgid "Copyright 2009-2010 Yorba Foundation"
-msgstr "Copyright 2009-2010 Yorba Foundation"
+msgid "Copyright 2009-2011 Yorba Foundation"
+msgstr "Copyright 2009-2011 Yorba Foundation"
 
 #: src/Resources.vala:112
 msgid "Rotate _Right"
@@ -2492,7 +2492,7 @@ msgstr "모든 평점 제거"
 
 #: src/Resources.vala:201
 msgid "_Rejected"
-msgstr "거부된(_R)"
+msgstr "v거부(_R)"
 
 #: src/Resources.vala:202
 msgid "Rate Rejected"
