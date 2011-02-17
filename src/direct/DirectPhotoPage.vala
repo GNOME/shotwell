@@ -398,8 +398,10 @@ public class DirectPhotoPage : EditingHostPage {
                     get_photo().get_file_format());
             else
                 on_save_as();
-        } else if (response == Gtk.ResponseType.CANCEL)
+        } else if ((response == Gtk.ResponseType.CANCEL) || (response == Gtk.ResponseType.DELETE_EVENT) ||
+            (response == Gtk.ResponseType.CLOSE)) {
             return false;
+        }
 
         return true;
     }
