@@ -298,6 +298,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         
         public RatingFilterButton() {
             set_icon_widget(get_filter_icon(RatingFilter.UNRATED_OR_HIGHER));
+            set_homogeneous(false);
         }
         
         private Gtk.Widget get_filter_icon(RatingFilter filter) {
