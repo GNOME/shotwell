@@ -55,7 +55,7 @@ public class MimicManager : Object {
     
     private SourceCollection sources;
     private File impersonators_dir;
-    private Workers workers = new Workers(1, false);
+    private Workers workers = new Workers(Workers.thread_per_cpu_minus_one(), false);
     private Gee.HashMap<Photo, VerifyJob> verify_jobs = new Gee.HashMap<Photo, VerifyJob>();
     private Gee.HashSet<DeleteJob> delete_jobs = new Gee.HashSet<DeleteJob>();
     private int pause_count = 0;
