@@ -1,7 +1,7 @@
 /* Copyright 2009-2011 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
@@ -9,15 +9,15 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,
             Spit.Publishing.CURRENT_API_VERSION);
     }
-    
+
     public unowned string get_id() {
         return "org.yorba.shotwell.publishing.facebook";
     }
-    
+
     public unowned string get_pluggable_name() {
         return "Facebook";
     }
-    
+
     public void get_info(out Spit.PluggableInfo info) {
         info.copyright = _("Copyright 2009-2011 Yorba Foundation");
         info.translators = _("translator-credits");
@@ -25,14 +25,14 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.website_name = _("Visit the Yorba web site");
         info.website_url = "http://www.yorba.org";
     }
-    
+
     public void activation(bool enabled) {
     }
-    
+
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {
         return new Publishing.Facebook.FacebookPublisher(this, host);
     }
-    
+
     public Spit.Publishing.Publisher.MediaType get_supported_media() {
         return (Spit.Publishing.Publisher.MediaType.PHOTO |
             Spit.Publishing.Publisher.MediaType.VIDEO);
@@ -46,7 +46,8 @@ public const string SERVICE_NAME = "facebook";
 internal const string USER_VISIBLE_NAME = "Facebook";
 internal const string API_KEY = "3afe0a1888bd340254b1587025f8d1a5";
 internal const string SIGNATURE_KEY = "sig";
-internal const int MAX_PHOTO_DIMENSION = 720;
+internal const int STANDARD_PHOTO_DIMENSION = 720;
+internal const int HIGH_PHOTO_DIMENSION = 2048;
 internal const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
 internal const string PHOTO_ENDPOINT_URL = "http://api.facebook.com/restserver.php";
 internal const string VIDEO_ENDPOINT_URL = "http://api-video.facebook.com/restserver.php";
@@ -67,7 +68,7 @@ internal const string USER_AGENT = "Java/1.6.0_16";
 internal struct FacebookAlbum {
     string name;
     string id;
-    
+
     FacebookAlbum(string creator_name, string creator_id) {
         name = creator_name;
         id = creator_id;
@@ -108,9 +109,43 @@ internal enum FacebookHttpMethod {
     }
 }
 
+// Ticket #2916: we now allow users publishing to Facebook to choose the
+// resolution at which they want to upload, either the standard 720 pixels
+// across, or the newly-supported 2048 pixel size.
+public enum Resolution {
+    STANDARD,
+    HIGH;
+
+    public string get_name() {
+        switch (this) {
+            case STANDARD:
+                return _("Standard (720 pixels)");
+
+            case HIGH:
+                return _("Large (2048 pixels)");
+
+            default:
+                error("Unknown resolution %s", this.to_string());
+        }
+    }
+
+    public int get_pixels() {
+        switch (this) {
+            case STANDARD:
+                return STANDARD_PHOTO_DIMENSION;
+
+            case HIGH:
+                return HIGH_PHOTO_DIMENSION;
+
+            default:
+                error("Unknown resolution %s", this.to_string());
+        }
+    }
+}
+
 public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private const int NO_ALBUM = -1;
-    
+
     private string privacy_setting = PRIVACY_OBJECT_JUST_ME;
     private FacebookAlbum[] albums = null;
     private int publish_to_album = NO_ALBUM;
@@ -121,17 +156,19 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private weak Spit.Publishing.Service service = null;
     private bool running = false;
 
+    private Resolution target_resolution = Resolution.HIGH;
+
     public FacebookPublisher(Spit.Publishing.Service service,
         Spit.Publishing.PluginHost host) {
         debug("FacebookPublisher instantiated.");
         this.service = service;
         this.host = host;
     }
-    
+
     private bool is_running() {
         return running;
     }
-    
+
     private int lookup_album(string name) {
         for (int i = 0; i < albums.length; i++) {
             if (albums[i].name == name)
@@ -139,13 +176,13 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
         return NO_ALBUM;
     }
-    
+
     private bool is_persistent_session_valid() {
         string? session_key = get_persistent_session_key();
         string? session_secret = get_persistent_session_secret();
         string? uid = get_persistent_uid();
         string? user_name = get_persistent_user_name();
-       
+
         bool valid = ((session_key != null) && (session_secret != null) && (uid != null) &&
             (user_name != null));
 
@@ -156,35 +193,35 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         return valid;
     }
-    
+
     private string? get_persistent_session_key() {
         return host.get_config_string("session_key", null);
     }
-    
+
     private string? get_persistent_session_secret() {
         return host.get_config_string("session_secret", null);
     }
-    
+
     private string? get_persistent_uid() {
         return host.get_config_string("uid", null);
     }
-    
+
     private string? get_persistent_user_name() {
         return host.get_config_string("user_name", null);
     }
-    
+
     private void set_persistent_session_key(string session_key) {
         host.set_config_string("session_key", session_key);
     }
-    
+
     private void set_persistent_session_secret(string session_secret) {
         host.set_config_string("session_secret", session_secret);
     }
-    
+
     private void set_persistent_uid(string uid) {
         host.set_config_string("uid", uid);
     }
-    
+
     private void set_persistent_user_name(string user_name) {
         host.set_config_string("user_name", user_name);
     }
@@ -209,7 +246,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.set_service_locked(true);
         host.install_account_fetch_wait_pane();
-        
+
         FacebookRESTTransaction albums_transaction = new FacebookAlbumsFetchTransaction(session);
         albums_transaction.completed.connect(on_fetch_album_descriptions_completed);
         albums_transaction.network_error.connect(on_fetch_album_descriptions_error);
@@ -218,9 +255,9 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             albums_transaction.execute();
         } catch (Spit.Publishing.PublishingError err) {
             warning("PublishingError: %s.", err.message);
-    
+
             // only post an error if we're running; errors tend to come in groups, so it's possible
-            // another error has already posted and caused us to stop        
+            // another error has already posted and caused us to stop
             if (is_running())
                 host.post_error(err);
         }
@@ -289,16 +326,16 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.install_dialog_pane(publishing_options_pane,
             Spit.Publishing.PluginHost.ButtonMode.CANCEL);
     }
-    
+
     private void do_logout() {
         debug("ACTION: clearing persistent session information and restaring interaction.");
-        
+
         invalidate_persistent_session();
 
         running = false;
         start();
     }
-    
+
     private void do_hosted_web_authentication() {
         debug("ACTION: doing hosted web authentication.");
 
@@ -307,7 +344,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         web_auth_pane = new WebAuthenticationPane();
         web_auth_pane.login_succeeded.connect(on_web_auth_pane_login_succeeded);
         web_auth_pane.login_failed.connect(on_web_auth_pane_login_failed);
-        
+
         host.install_dialog_pane(web_auth_pane,
             Spit.Publishing.PluginHost.ButtonMode.CANCEL);
     }
@@ -334,7 +371,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_save_session_information() {
         debug("ACTION: saving session information to configuration system.");
-        
+
         set_persistent_session_key(session.get_session_key());
         set_persistent_session_secret(session.get_session_secret());
         set_persistent_uid(session.get_user_id());
@@ -347,7 +384,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.set_service_locked(true);
 
-        progress_reporter = host.serialize_publishables(MAX_PHOTO_DIMENSION);
+        progress_reporter = host.serialize_publishables(target_resolution.get_pixels());
 
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
         FacebookUploader uploader = new FacebookUploader(session, albums[publish_to_album].id,
@@ -407,14 +444,14 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         on_album_name_extracted();
     }
-    
+
     private void do_show_success_pane() {
         debug("ACTION: showing success pane.");
 
         host.set_service_locked(false);
         host.install_success_pane();
     }
-    
+
     private void on_login_clicked() {
         if (!is_running())
             return;
@@ -423,7 +460,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         do_hosted_web_authentication();
     }
-    
+
     private void on_web_auth_pane_login_succeeded(string success_url) {
         if (!is_running())
             return;
@@ -447,7 +484,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         // service welcome pane so that they can start the web interaction again.
         do_show_service_welcome_pane();
     }
-    
+
     private void on_session_authenticated() {
         if (!is_running())
             return;
@@ -505,17 +542,18 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
 
         debug("EVENT: user clicked 'Logout' in publishing options pane.");
-        
+
         do_logout();
     }
 
-    public void on_publishing_options_pane_publish(string target_album, string privacy_setting) {
+    public void on_publishing_options_pane_publish(string target_album, string privacy_setting, Resolution target_resolution) {
         if (!is_running())
             return;
 
         debug("EVENT: user clicked 'Publish' in publishing options pane.");
-        
+
         this.privacy_setting = privacy_setting;
+        this.target_resolution = target_resolution;
 
         if (lookup_album(target_album) != NO_ALBUM) {
             publish_to_album = lookup_album(target_album);
@@ -540,7 +578,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void on_create_album_txn_error(FacebookRESTTransaction bad_txn, Spit.Publishing.PublishingError err) {
         if (!is_running())
             return;
-            
+
         debug("EVENT: create album transaction generated a publishing error: %s", err.message);
 
         bad_txn.completed.disconnect(on_create_album_txn_completed);
@@ -592,7 +630,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.post_error(err);
     }
-    
+
     public Spit.Publishing.Service get_service() {
         return service;
     }
@@ -600,19 +638,19 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     public string get_service_name() {
         return SERVICE_NAME;
     }
-    
+
     public string get_user_visible_name() {
         return USER_VISIBLE_NAME;
     }
-    
+
     public void start() {
         if (is_running())
             return;
 
         debug("FacebookPublisher: starting interaction.");
-        
+
         running = true;
-        
+
         // reset all publishing parameters to their default values -- in case this start is
         // actually a restart
         privacy_setting = PRIVACY_OBJECT_JUST_ME;
@@ -640,7 +678,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             }
         }
     }
-    
+
     public void stop() {
         debug("FacebookPublisher: stop( ) invoked.");
 
@@ -659,7 +697,7 @@ internal class FacebookRESTSession {
     private string? uid = null;
     private string? secret = null;
     private string? user_name = null;
-    
+
     public signal void wire_message_unqueued(Soup.Message message);
     public signal void authenticated();
     public signal void authentication_failed(Spit.Publishing.PublishingError err);
@@ -670,15 +708,15 @@ internal class FacebookRESTSession {
         if (user_agent != null)
             soup_session.user_agent = user_agent;
     }
-    
+
     protected void notify_wire_message_unqueued(Soup.Message message) {
         wire_message_unqueued(message);
     }
-    
+
     protected void notify_authenticated() {
         authenticated();
     }
-    
+
     protected void notify_authentication_failed(Spit.Publishing.PublishingError err) {
         authentication_failed(err);
     }
@@ -713,7 +751,7 @@ internal class FacebookRESTSession {
     public bool is_authenticated() {
         return (session_key != null && uid != null && secret != null && user_name != null);
     }
-    
+
     public void authenticate_with_parameters(string session_key, string uid, string secret,
         string user_name) {
         this.session_key = session_key;
@@ -721,7 +759,7 @@ internal class FacebookRESTSession {
         this.secret = secret;
         this.user_name = user_name;
     }
-    
+
     public void authenticate_from_uri(string good_login_uri) throws Spit.Publishing.PublishingError {
         // the raw uri is percent-encoded, so decode it
         string decoded_uri = Soup.URI.decode(good_login_uri);
@@ -738,7 +776,7 @@ internal class FacebookRESTSession {
 
         // remove the key from the session description string
         session_desc = session_desc.replace("session=", "");
-        
+
         // remove the group open, group close, quote, list separator, and key-value
         // delimiter characters from the session description string
         session_desc = session_desc.replace("{", "");
@@ -746,7 +784,7 @@ internal class FacebookRESTSession {
         session_desc = session_desc.replace("\"", "");
         session_desc = session_desc.replace(",", " ");
         session_desc = session_desc.replace(":", " ");
-        
+
         // parse the session description string
         string[] session_tokens = session_desc.split(" ");
         for (int i = 0; i < session_tokens.length; i++) {
@@ -775,12 +813,12 @@ internal class FacebookRESTSession {
     public string get_endpoint_url() {
         return endpoint_url;
     }
-  
+
     public void stop_transactions() {
         transactions_stopped = true;
         soup_session.abort();
     }
-    
+
     public bool are_transactions_stopped() {
         return transactions_stopped;
     }
@@ -819,14 +857,14 @@ internal class FacebookRESTSession {
         assert(user_name != null);
         return user_name;
     }
-    
+
     public void send_wire_message(Soup.Message message) {
         if (are_transactions_stopped())
             return;
 
         soup_session.request_unqueued.connect(notify_wire_message_unqueued);
         soup_session.send_message(message);
-        
+
         soup_session.request_unqueued.disconnect(notify_wire_message_unqueued);
     }
 }
@@ -856,11 +894,11 @@ internal class FacebookRESTTransaction {
     private Soup.Message message = null;
     private int bytes_written = 0;
     private Spit.Publishing.PublishingError? err = null;
-    
+
     public signal void chunk_transmitted(int bytes_written_so_far, int total_bytes);
     public signal void network_error(Spit.Publishing.PublishingError err);
     public signal void completed();
-    
+
     public FacebookRESTTransaction(FacebookRESTSession session, FacebookHttpMethod method = FacebookHttpMethod.POST) {
         parent_session = session;
         message = new Soup.Message(method.to_string(), parent_session.get_endpoint_url());
@@ -882,7 +920,7 @@ internal class FacebookRESTTransaction {
         debug("FacebookRESTTransaction.on_message_unqueued( ).");
         if (this.message != message)
             return;
-        
+
         try {
             check_response(message);
         } catch (Spit.Publishing.PublishingError err) {
@@ -897,17 +935,17 @@ internal class FacebookRESTTransaction {
             case Soup.KnownStatusCode.CREATED: // HTTP code 201 (CREATED) signals that a new
                                                // resource was created in response to a PUT or POST
             break;
-            
+
             case Soup.KnownStatusCode.CANT_RESOLVE:
             case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
                 throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to resolve %s (error code %u)",
                     get_endpoint_url(), message.status_code);
-            
+
             case Soup.KnownStatusCode.CANT_CONNECT:
             case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
                 throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to connect to %s (error code %u)",
                     get_endpoint_url(), message.status_code);
-            
+
             default:
                 // status codes below 100 are used by Soup, 100 and above are defined HTTP codes
                 if (message.status_code >= 100) {
@@ -918,7 +956,7 @@ internal class FacebookRESTTransaction {
                         get_endpoint_url(), message.status_code);
                 }
         }
-        
+
         // All valid communication with Facebook involves body data in the response
         if (message.response_body.data == null || message.response_body.data.length == 0)
             throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("No response data from %s",
@@ -932,7 +970,7 @@ internal class FacebookRESTTransaction {
     protected void set_message(Soup.Message message) {
         this.message = message;
     }
-    
+
     protected FacebookRESTArgument[] get_sorted_arguments() {
         FacebookRESTArgument[] sorted_array = new FacebookRESTArgument[0];
 
@@ -961,10 +999,10 @@ internal class FacebookRESTTransaction {
         add_argument("call_id", parent_session.get_next_call_id());
 
         string sig = generate_signature(get_sorted_arguments());
-       
+
         signature_value = sig;
     }
-    
+
     protected bool get_is_signed() {
         return (signature_value != null);
     }
@@ -977,15 +1015,15 @@ internal class FacebookRESTTransaction {
         parent_session.wire_message_unqueued.connect(on_message_unqueued);
         message.wrote_body_data.connect(on_wrote_body_data);
         parent_session.send_wire_message(message);
-        
+
         parent_session.wire_message_unqueued.disconnect(on_message_unqueued);
         message.wrote_body_data.disconnect(on_wrote_body_data);
-        
+
         if (err != null)
             network_error(err);
         else
             completed();
-        
+
         if (err != null)
             throw err;
      }
@@ -993,12 +1031,12 @@ internal class FacebookRESTTransaction {
     protected FacebookHttpMethod get_method() {
         return FacebookHttpMethod.from_string(message.method);
     }
-    
+
     protected string get_signature_value() {
         assert(get_is_signed());
         return signature_value;
     }
-    
+
     protected void set_signature_value(string signature_value) {
         this.signature_value = signature_value;
     }
@@ -1006,7 +1044,7 @@ internal class FacebookRESTTransaction {
     public bool get_is_executed() {
         return is_executed;
     }
-    
+
     public virtual void execute() throws Spit.Publishing.PublishingError {
         sign();
 
@@ -1056,18 +1094,18 @@ internal class FacebookRESTTransaction {
         assert(get_is_executed());
         return (string) message.response_body.data;
     }
-   
+
     public void add_argument(string name, string value) {
         // if a request has already been signed, it's an error to add further arguments to it
         assert(!get_is_signed());
 
         arguments += FacebookRESTArgument(name, value);
     }
-    
+
     public string get_endpoint_url() {
         return message.get_uri().to_string(false);
     }
-    
+
     public FacebookRESTSession get_parent_session() {
         return parent_session;
     }
@@ -1142,7 +1180,7 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
         add_argument("call_id", get_parent_session().get_next_call_id());
 
         string sig = generate_signature(get_sorted_arguments());
-       
+
         set_signature_value(sig);
     }
 
@@ -1162,7 +1200,7 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
         // attach each REST argument as its own multipart formdata part
         foreach (FacebookRESTArgument arg in request_arguments)
             message_parts.append_form_string(arg.key, arg.value);
-        
+
         // append the signature key-value pair to the formdata string
         message_parts.append_form_string(SIGNATURE_KEY, get_signature_value());
 
@@ -1199,7 +1237,7 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
         Soup.Message outbound_message =
             soup_form_request_new_from_multipart(endpoint_url, message_parts);
         set_message(outbound_message);
-        
+
         // send the message and get its response
         set_is_executed(true);
         send();
@@ -1272,7 +1310,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
             return;
         }
     }
-    
+
     private void on_load_started(WebKit.WebFrame frame) {
         pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
     }
@@ -1284,15 +1322,15 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     public Gtk.Widget get_widget() {
         return pane_widget;
     }
-    
+
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
         return Spit.Publishing.DialogPane.GeometryOptions.RESIZABLE;
     }
-    
+
     public void on_pane_installed() {
         webview.open(get_login_url());
     }
-    
+
     public void on_pane_uninstalled() {
     }
 }
@@ -1301,36 +1339,36 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private LegacyPublishingOptionsPane wrapped = null;
 
     public signal void logout();
-    public signal void publish(string target_album, string privacy_setting);
+    public signal void publish(string target_album, string privacy_setting, Resolution target_resolution);
 
     public PublishingOptionsPane(string username, FacebookAlbum[] albums,
         Spit.Publishing.Publisher.MediaType media_type) {
             wrapped = new LegacyPublishingOptionsPane(username, albums, media_type);
     }
-    
+
     private void notify_logout() {
         logout();
     }
-    
-    private void notify_publish(string target_album, string privacy_setting) {
-        publish(target_album, privacy_setting);
+
+    private void notify_publish(string target_album, string privacy_setting, Resolution target_resolution) {
+        publish(target_album, privacy_setting, target_resolution);
     }
 
     public Gtk.Widget get_widget() {
         return wrapped;
     }
-    
+
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
         return Spit.Publishing.DialogPane.GeometryOptions.NONE;
     }
-    
-    public void on_pane_installed() {        
+
+    public void on_pane_installed() {
         wrapped.logout.connect(notify_logout);
         wrapped.publish.connect(notify_publish);
-        
+
         wrapped.installed();
     }
-    
+
     public void on_pane_uninstalled() {
         wrapped.logout.disconnect(notify_logout);
         wrapped.publish.disconnect(notify_publish);
@@ -1350,9 +1388,10 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
     private const string HEADER_LABEL_TEXT = _("You are logged into Facebook as %s.\n\n");
     private const string PHOTOS_LABEL_TEXT = _("Where would you like to publish the selected photos?");
+    private const string RESOLUTION_LABEL_TEXT = _("Upload _size:");
     private const int CONTENT_GROUP_SPACING = 32;
     private const int STANDARD_ACTION_BUTTON_WIDTH = 128;
-    
+
     private Gtk.RadioButton use_existing_radio = null;
     private Gtk.RadioButton create_new_radio = null;
     private Gtk.ComboBox existing_albums_combo = null;
@@ -1363,16 +1402,24 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private Gtk.Label how_to_label = null;
     private FacebookAlbum[] albums = null;
     private PrivacyDescription[] privacy_descriptions;
+
+    // Ticket #2916 - These are used to allow the user to choose
+    // their target resolution.
+    private Resolution[] possible_resolutions;
+    private Gtk.ComboBox resolution_combo = null;
+
     private Spit.Publishing.Publisher.MediaType media_type;
 
     public signal void logout();
-    public signal void publish(string target_album, string privacy_setting);
+    public signal void publish(string target_album, string privacy_setting, Resolution target_resolution);
 
     public LegacyPublishingOptionsPane(string username, FacebookAlbum[] albums,
         Spit.Publishing.Publisher.MediaType media_type) {
         this.albums = albums;
         this.privacy_descriptions = create_privacy_descriptions();
-        
+
+        this.possible_resolutions = create_resolution_list();
+
         // Ticket #3175
         // Remember this for later - we'll need to know if
         // the user is importing video or not when sorting
@@ -1474,6 +1521,46 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             add(album_mode_wrapper);
         add(visibility_layouter);
 
+        // Ticket #2916 - if the user is uploading photographs, allow
+        // them to choose what resolution they should be uploaded at.
+        if((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) {
+            Gtk.HBox resolution_layouter = new Gtk.HBox(false, 8);
+
+            // Create the controls. Each control is assigned to a
+            // Gtk.Alignment to try to make it easier to line up.
+            Gtk.Label resolution_label = new Gtk.Label.with_mnemonic(RESOLUTION_LABEL_TEXT);
+            resolution_combo = create_resolution_combo();
+            resolution_combo.set_active(0);
+            resolution_label.set_mnemonic_widget(resolution_combo);
+
+            Gtk.Alignment resolution_combo_aligner = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
+            resolution_combo_aligner.add(resolution_combo);
+            resolution_combo_aligner.right_padding = CONTENT_GROUP_SPACING * 2;
+
+            Gtk.Alignment resolution_label_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
+            resolution_label_aligner.left_padding = CONTENT_GROUP_SPACING;
+            resolution_label_aligner.add(resolution_label);
+
+            Gtk.SeparatorToolItem resolution_pusher = new Gtk.SeparatorToolItem();
+            resolution_pusher.set_size_request(-1,-1);
+            resolution_pusher.set_draw(false);
+
+            Gtk.Alignment resolution_pusher_aligner = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
+            resolution_pusher_aligner.add(resolution_pusher);
+
+            resolution_layouter.add(resolution_label_aligner);
+            resolution_layouter.add(resolution_pusher_aligner);
+            resolution_layouter.add(resolution_combo_aligner);
+
+            // Actually add them to the pane.  We move them down slightly,
+            // since they're not logically related to gallery privacy.
+            Gtk.SeparatorToolItem resolution_padding = new Gtk.SeparatorToolItem();
+            resolution_padding.set_size_request(-1, CONTENT_GROUP_SPACING);
+            resolution_padding.set_draw(false);
+            add(resolution_padding);
+            add(resolution_layouter);
+        }
+
         // Ticket #3175, part 2: make sure this widget starts out sensitive
         // if it needs to by checking whether we're starting with a video
         // or a new gallery.
@@ -1501,39 +1588,51 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         return result;
     }
 
+
+    private Gtk.ComboBox create_resolution_combo() {
+        Gtk.ComboBox result = new Gtk.ComboBox.text();
+
+        foreach (Resolution res in possible_resolutions)
+            result.append_text(res.get_name());
+
+        return result;
+    }
+
+
     private void on_use_existing_toggled() {
         if (use_existing_radio.active) {
             existing_albums_combo.set_sensitive(true);
             new_album_entry.set_sensitive(false);
-            
+
             // Ticket #3175 - if we're not adding a new gallery
-            // or a video, then we shouldn't be allowed to 
+            // or a video, then we shouldn't be allowed to
             // choose visibility, since it has no effect.
             visibility_combo.set_sensitive((media_type & Spit.Publishing.Publisher.MediaType.VIDEO) != 0);
-            
+
             existing_albums_combo.grab_focus();
         }
     }
-    
+
     private void on_create_new_toggled() {
         if (create_new_radio.active) {
             existing_albums_combo.set_sensitive(false);
             new_album_entry.set_sensitive(true);
             new_album_entry.grab_focus();
-            
+
             // Ticket #3175 - if we're creating a new gallery, make sure this is
             // active, since it may have possibly been set inactive.
             visibility_combo.set_sensitive(true);
         }
-    } 
-    
+    }
+
     private void on_logout_button_clicked() {
         logout();
     }
-    
+
     private void on_publish_button_clicked() {
         string album_name;
         string privacy_setting = privacy_descriptions[visibility_combo.get_active()].privacy_setting;
+        Resolution resolution_setting = possible_resolutions[resolution_combo.get_active()];
 
         if (use_existing_radio.active) {
             album_name = existing_albums_combo.get_active_text();
@@ -1541,8 +1640,9 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             album_name = new_album_entry.get_text();
         }
 
-        publish(album_name, privacy_setting);
+        publish(album_name, privacy_setting, resolution_setting);
     }
+
 
     private PrivacyDescription[] create_privacy_descriptions() {
         PrivacyDescription[] result = new PrivacyDescription[0];
@@ -1551,6 +1651,15 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         result += PrivacyDescription(_("All friends"), PRIVACY_OBJECT_ALL_FRIENDS);
         result += PrivacyDescription(_("Friends of friends"), PRIVACY_OBJECT_FRIENDS_OF_FRIENDS);
         result += PrivacyDescription(_("Everyone"), PRIVACY_OBJECT_EVERYONE);
+
+        return result;
+    }
+
+    private Resolution[] create_resolution_list() {
+        Resolution[] result = new Resolution[0];
+
+        result += Resolution.STANDARD;
+        result += Resolution.HIGH;
 
         return result;
     }
@@ -1574,7 +1683,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
                 existing_albums_combo.set_active(default_album_seq_num);
                 use_existing_radio.set_active(true);
                 new_album_entry.set_sensitive(false);
-            }
+             }
             else {
                 create_new_radio.set_active(true);
                 existing_albums_combo.set_active(0);
@@ -1582,7 +1691,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
                 new_album_entry.set_text(DEFAULT_ALBUM_NAME);
             }
         }
- 
+
        publish_button.grab_focus();
     }
 }
@@ -1602,14 +1711,14 @@ internal class FacebookRESTXmlDocument {
         Xml.Node* root = doc.get_root_node();
         if (root->name != "error_response")
             return;
-        
+
         Xml.Node* error_code = null;
         try {
             error_code = doc.get_named_child(root, "error_code");
         } catch (Spit.Publishing.PublishingError err) {
             warning("Unable to parse error response for error code");
         }
-        
+
         Xml.Node* error_msg = null;
         try {
             error_msg = doc.get_named_child(root, "error_msg");
@@ -1635,7 +1744,7 @@ internal class FacebookRESTXmlDocument {
 
     public Xml.Node* get_named_child(Xml.Node* parent, string child_name) throws Spit.Publishing.PublishingError {
         Xml.Node* doc_node_iter = parent->children;
-    
+
         for ( ; doc_node_iter != null; doc_node_iter = doc_node_iter->next) {
             if (doc_node_iter->name == child_name)
                 return doc_node_iter;
@@ -1648,17 +1757,17 @@ internal class FacebookRESTXmlDocument {
         throws Spit.Publishing.PublishingError {
         if (input_string == null || input_string.length == 0)
             throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Empty XML string");
-        
+
         // Don't want blanks to be included as text nodes, and want the XML parser to tolerate
         // tolerable XML
         Xml.Doc* doc = Xml.Parser.read_memory(input_string, (int) input_string.length, null, null,
             Xml.ParserOption.NOBLANKS | Xml.ParserOption.RECOVER);
         if (doc == null)
             throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Unable to parse XML document");
-        
+
         FacebookRESTXmlDocument rest_doc = new FacebookRESTXmlDocument(doc);
         check_for_error_response(rest_doc);
-        
+
         return rest_doc;
     }
 }
@@ -1695,28 +1804,28 @@ internal class FacebookUploader {
 
             FacebookRESTTransaction txn = new FacebookUploadTransaction(session, aid, privacy_setting,
                 publishables[current_file], file);
-           
+
             txn.chunk_transmitted.connect(on_chunk_transmitted);
-            
+
             try {
                 txn.execute();
             } catch (Spit.Publishing.PublishingError err) {
                 upload_error(err);
                 stop = true;
             }
-                
-            txn.chunk_transmitted.disconnect(on_chunk_transmitted);           
-            
+
+            txn.chunk_transmitted.disconnect(on_chunk_transmitted);
+
             if (stop)
                 break;
-            
+
             current_file++;
         }
-        
+
         if (!stop)
             upload_complete(current_file);
     }
-    
+
     private void on_chunk_transmitted(int bytes_written_so_far, int total_bytes) {
         double file_span = 1.0 / publishables.length;
         double this_file_fraction_complete = ((double) bytes_written_so_far) / total_bytes;
@@ -1726,7 +1835,7 @@ internal class FacebookUploader {
         if (status_updated != null)
             status_updated(current_file + 1, fraction_complete);
     }
-    
+
     public void upload(Spit.Publishing.ProgressCallback? status_updated = null) {
         this.status_updated = status_updated;
 
