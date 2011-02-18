@@ -18,19 +18,19 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
     ~ShotwellPublishingCoreServices() {
     }
     
-    public string get_name() {
-        return "Core Publishing Services";
+    public unowned string get_module_name() {
+        return _("Core Publishing Services");
     }
     
-    public string get_version() {
+    public unowned string get_version() {
         return _VERSION;
     }
     
-    public string get_id() {
+    public unowned string get_id() {
         return "org.yorba.shotwell.publishing.core_services";
     }
     
-    public Spit.Pluggable[]? get_pluggables() {
+    public unowned Spit.Pluggable[]? get_pluggables() {
         return pluggables;
     }
 }
@@ -58,7 +58,7 @@ public unowned Spit.Module? spit_entry_point(int host_min_spit_interface, int ho
 
 public void g_module_unload() {
     if (core_services != null)
-        debug("%s %s unloaded", core_services.get_name(), core_services.get_version());
+        debug("%s %s unloaded", core_services.get_module_name(), core_services.get_version());
     else
         debug("core_services unloaded prior to spit_entry_point being called");
     

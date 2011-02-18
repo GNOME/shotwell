@@ -8,11 +8,11 @@
 using Spit;
 
 private class FadeEffectDescriptor : ShotwellTransitionDescriptor {
-    public override string get_id() {
+    public override unowned string get_id() {
         return "org.yorba.shotwell.transitions.fade";
     }
     
-    public override string get_pluggable_name() {
+    public override unowned string get_pluggable_name() {
         return _("Fade");
     }
     

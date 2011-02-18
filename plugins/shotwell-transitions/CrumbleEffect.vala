@@ -8,11 +8,11 @@
 using Spit;
 
 private class CrumbleEffectDescriptor : ShotwellTransitionDescriptor {
-    public override string get_id() {
+    public override unowned string get_id() {
         return "org.yorba.shotwell.transitions.crumble";
     }
     
-    public override string get_pluggable_name() {
+    public override unowned string get_pluggable_name() {
         return _("Crumble");
     }
     

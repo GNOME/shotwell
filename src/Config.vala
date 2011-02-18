@@ -269,8 +269,19 @@ public class Config {
         return get_int("/apps/shotwell/sharing/picasa/default_size", 3) - 1;
     }
     
-    private string make_plugin_path(string domain, string id, string key) {
-        return "%s/%s/%s/%s".printf(PATH_SHOTWELL, domain, id, key);
+    public static string? clean_plugin_id(string id) {
+        string cleaned = id.replace("/", "_");
+        cleaned = cleaned.strip();
+        
+        return !is_string_empty(cleaned) ? cleaned : null;
+    }
+    
+    private static string make_plugin_path(string domain, string id, string key) {
+        string? cleaned_id = clean_plugin_id(id);
+        if (cleaned_id == null)
+            cleaned_id = "default";
+        
+        return "%s/%s/%s/%s".printf(PATH_SHOTWELL, domain, cleaned_id, key);
     }
     
     public bool get_plugin_bool(string domain, string id, string key, bool def) {
@@ -307,6 +318,14 @@ public class Config {
     
     public void unset_plugin_key(string domain, string id, string key) {
         unset(make_plugin_path(domain, id, key));
+    }
+    
+    public bool is_plugin_enabled(string id, bool def) {
+        return get_bool("/apps/shotwell/plugins/%s/enabled".printf(clean_plugin_id(id)), def);
+    }
+    
+    public void set_plugin_enabled(string id, bool enabled) {
+        set_bool("/apps/shotwell/plugins/%s/enabled".printf(clean_plugin_id(id)), enabled);
     }
     
     public string? get_publishing_string(string domain, string key, string? default_value = null) {

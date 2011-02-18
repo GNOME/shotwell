@@ -16,6 +16,17 @@ public class TransitionEffectsManager {
     private Spit.Transitions.Descriptor null_descriptor = new NullTransitionDescriptor();
     
     private TransitionEffectsManager() {
+        load_transitions();
+        Plugins.Notifier.get_instance().pluggable_activation.connect(load_transitions);
+    }
+    
+    ~TransitionEffectsManager() {
+        Plugins.Notifier.get_instance().pluggable_activation.disconnect(load_transitions);
+    }
+    
+    private void load_transitions() {
+        effects.clear();
+        
         // add null effect first
         effects.set(null_descriptor.get_id(), null_descriptor);
         
@@ -33,7 +44,6 @@ public class TransitionEffectsManager {
             }
             
             Spit.Transitions.Descriptor desc = (Spit.Transitions.Descriptor) pluggable;
-            debug("Discovered transition effect %s (%s)", desc.get_pluggable_name(), desc.get_id());
             if (effects.has_key(desc.get_id()))
                 warning("Multiple transitions loaded with same effect ID %s", desc.get_id());
             else
@@ -274,15 +284,18 @@ public class NullTransitionDescriptor : Object, Spit.Pluggable, Spit.Transitions
         return Spit.Transitions.CURRENT_INTERFACE;
     }
     
-    public string get_id() {
+    public unowned string get_id() {
         return EFFECT_ID;
     }
     
-    public string get_pluggable_name() {
+    public unowned string get_pluggable_name() {
         return _("None");
     }
     
     public void get_info(out Spit.PluggableInfo info) {
+    }
+    
+    public void activation(bool enabled) {
     }
     
     public Spit.Transitions.Effect create(Spit.HostInterface host) {

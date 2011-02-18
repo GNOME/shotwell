@@ -8,11 +8,11 @@
 using Spit;
 
 private class SlideEffectDescriptor : ShotwellTransitionDescriptor {
-    public override string get_id() {
+    public override unowned string get_id() {
         return "org.yorba.shotwell.transitions.slide";
     }
     
-    public override string get_pluggable_name() {
+    public override unowned string get_pluggable_name() {
         return _("Slide");
     }
     

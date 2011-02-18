@@ -122,14 +122,14 @@ public class Sidebar : Gtk.TreeView {
         
         popup_menu.connect(on_context_menu_keypress);
         
-        icon_theme = Gtk.IconTheme.get_default();
-        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
+        icon_theme = Resources.get_icon_theme_engine();
         icon_theme.changed.connect(on_theme_change);
     }
     
     ~Sidebar() {
         text.editing_canceled.disconnect(on_editing_canceled);
         text.editing_started.disconnect(on_editing_started);
+        icon_theme.changed.disconnect(on_theme_change);
     }
     
     public void place_cursor(SidebarPage page) {

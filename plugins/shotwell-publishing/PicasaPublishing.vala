@@ -10,11 +10,11 @@ public class PicasaService : Object, Spit.Pluggable, Spit.Publishing.Service {
             Spit.Publishing.CURRENT_API_VERSION);
     }
     
-    public string get_id() {
+    public unowned string get_id() {
         return "org.yorba.shotwell.publishing.picasa";
     }
     
-    public string get_pluggable_name() {
+    public unowned string get_pluggable_name() {
         return "Picasa Web Albums";
     }
     
@@ -33,6 +33,9 @@ public class PicasaService : Object, Spit.Pluggable, Spit.Publishing.Service {
     public Spit.Publishing.Publisher.MediaType get_supported_media() {
         return (Spit.Publishing.Publisher.MediaType.PHOTO |
             Spit.Publishing.Publisher.MediaType.VIDEO);
+    }
+    
+    public void activation(bool enabled) {
     }
 }
 

@@ -7,6 +7,13 @@
 namespace Slideshow {
 
 public void init() throws Error {
+    string[] core_ids = new string[0];
+    core_ids += "org.yorba.shotwell.transitions.crumble";
+    core_ids += "org.yorba.shotwell.transitions.fade";
+    core_ids += "org.yorba.shotwell.transitions.slide";
+    
+    Plugins.register_extension_point(typeof(Spit.Transitions.Descriptor), _("Slideshow Transitions"),
+        Resources.ICON_CAMERAS, core_ids);
     TransitionEffectsManager.init();
 }
 

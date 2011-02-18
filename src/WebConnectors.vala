@@ -1239,16 +1239,23 @@ public class ServiceFactory {
         string, ServiceCapabilities>();
     
     private ServiceFactory() {
+        load_wrapped_services();
+        Publishing.Glue.GlueFactory.get_instance().wrapped_services_changed.connect(
+            load_wrapped_services);
+    }
+    
+    private void load_wrapped_services() {
+        caps_map.clear();
+        
+        // in addition to the baked-in services above, add services dynamically loaded from
+        // plugins. since everything involving plugins is written in terms of the new publishing
+        // API, we have to use the glue code.
         add_caps(new FlickrConnector.Capabilities());
         add_caps(new YandexConnector.Capabilities());
         add_caps(new YouTubeConnector.Capabilities());
         add_caps(new PiwigoConnector.Capabilities());
         
-        // in addition to the baked-in services above, add services dynamically loaded from
-        // plugins. since everything involving plugins is written in terms of the new publishing
-        // API, we have to use the glue code.
-        Publishing.Glue.GlueFactory glue_factory = Publishing.Glue.GlueFactory.get_instance();
-        ServiceCapabilities[] caps = glue_factory.get_wrapped_services();
+        ServiceCapabilities[] caps = Publishing.Glue.GlueFactory.get_instance().get_wrapped_services();
         foreach (ServiceCapabilities current_caps in caps)
             add_caps(current_caps);
     }

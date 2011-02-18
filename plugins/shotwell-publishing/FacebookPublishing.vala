@@ -10,11 +10,11 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
             Spit.Publishing.CURRENT_API_VERSION);
     }
     
-    public string get_id() {
+    public unowned string get_id() {
         return "org.yorba.shotwell.publishing.facebook";
     }
     
-    public string get_pluggable_name() {
+    public unowned string get_pluggable_name() {
         return "Facebook";
     }
     
@@ -24,6 +24,9 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.version = _VERSION;
         info.website_name = _("Visit the Yorba web site");
         info.website_url = "http://www.yorba.org";
+    }
+    
+    public void activation(bool enabled) {
     }
     
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {

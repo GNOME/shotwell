@@ -50,13 +50,13 @@ public interface Module : Object {
     //
     // Returns a (potentially) user-visible string describing the module (i.e. the .so/.la file).
     //
-    public abstract string get_name();
+    public abstract unowned string get_module_name();
     
     //
     // Returns a (potentially) user-visible string describing the module version.  Note that this
     // may be programmatically interpreted at some point, so use a widespread versioning scheme.
     //
-    public abstract string get_version();
+    public abstract unowned string get_version();
     
     //
     // Returns a unique identifier for this module.  This is used to differentiate between multiple
@@ -66,13 +66,13 @@ public interface Module : Object {
     // Best practice: use a reverse-DNS-order scheme, a la Java's packages
     // (i.e. "org.yorba.shotwell.frotz").
     //
-    public abstract string get_id();
+    public abstract unowned string get_id();
     
     //
     // Returns an array of Pluggables that represent each plug-in available in the module.
     // May return NULL or an empty array.
     //
-    public abstract Pluggable[]? get_pluggables();
+    public abstract unowned Pluggable[]? get_pluggables();
     
     //
     // For future expansion.
@@ -116,17 +116,29 @@ public interface Pluggable : Object {
     // Returns a unique identifier for this Pluggable.  Like Spit.Module.get_id(), best practice is 
     // to use a reverse-DNS-order scheme to avoid conflicts.
     //
-    public abstract string get_id();
+    public abstract unowned string get_id();
     
     //
     // Returns a user-visible name for the Pluggable.
     //
-    public abstract string get_pluggable_name();
+    public abstract unowned string get_pluggable_name();
     
     //
     // Returns extra information about the Pluggable that is used to identify it to the user.
     //
     public abstract void get_info(out PluggableInfo info);
+    
+    //
+    // Called when the Pluggable is enabled (activated) or disabled (deactivated).  It will be 
+    // called at the start of the program if the user previously enabled/disabled it as well as 
+    // during program execution if the user changes its state.  Note that disabling a Pluggable
+    // does not require destroying existing resources or objects the Pluggable has previously
+    // handed off to the host.
+    //
+    // This is purely informational.  The Pluggable should acquire any long-term resources it
+    // may be holding onto here, or wait until an extension-specific call is made to it.
+    //
+    public abstract void activation(bool enabled);
     
     //
     // For future expansion.

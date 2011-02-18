@@ -15,14 +15,29 @@ private const string[] SHARED_LIB_EXTS = { "so", "la" };
 private const int MIN_SPIT_INTERFACE = 0;
 private const int MAX_SPIT_INTERFACE = 0;
 
-private class SpitModule {
+public class ExtensionPoint {
+    public GLib.Type pluggable_type { get; private set; }
+    // name is user-visible
+    public string name { get; private set; }
+    public string? icon_name { get; private set; }
+    public string[]? core_ids { get; private set; }
+    
+    public ExtensionPoint(Type pluggable_type, string name, string? icon_name, string[]? core_ids) {
+        this.pluggable_type = pluggable_type;
+        this.name = name;
+        this.icon_name = icon_name;
+        this.core_ids = core_ids;
+    }
+}
+
+private class ModuleRep {
     public File file;
     public Module? module;
-    public unowned Spit.Module? spitmodule = null;
+    public unowned Spit.Module? spit_module = null;
     public int spit_interface = Spit.UNSUPPORTED_INTERFACE;
     public string? id = null;
     
-    private SpitModule(File file) {
+    private ModuleRep(File file) {
         this.file = file;
         
         module = Module.open(file.get_path(), ModuleFlags.BIND_LAZY);
@@ -31,22 +46,73 @@ private class SpitModule {
     // Have to use this funky static factory because GModule is a compact class and has no copy
     // constructor.  The handle must be kept open for the lifetime of the application (or until
     // the module is ready to be discarded), as dropping the reference will unload the binary.
-    public static SpitModule? open(File file) {
-        SpitModule spit_module = new SpitModule(file);
+    public static ModuleRep? open(File file) {
+        ModuleRep module_rep = new ModuleRep(file);
         
-        return (spit_module.module != null) ? spit_module : null;
+        return (module_rep.module != null) ? module_rep : null;
+    }
+}
+
+private class PluggableRep {
+    public Spit.Pluggable pluggable { get; private set; }
+    public string id { get; private set; }
+    public bool is_core { get; private set; default = false; }
+    public bool activated { get; private set; default = false; }
+    
+    private bool enabled = false;
+    
+    // Note that creating a PluggableRep does not activate it.
+    public PluggableRep(Spit.Pluggable pluggable) {
+        this.pluggable = pluggable;
+        id = pluggable.get_id();
+    }
+    
+    public void activate() {
+        // determine if a core pluggable (which is only known after all the extension points
+        // register themselves)
+        is_core = is_core_pluggable(pluggable);
+        
+        // enabled defaults to false unless this Pluggable is core, in which case default is true
+        enabled = Config.get_instance().is_plugin_enabled(id, is_core);
+        
+        // inform the plugin of its activation state
+        pluggable.activation(enabled);
+        
+        activated = true;
+    }
+    
+    public bool is_enabled() {
+        return enabled;
+    }
+    
+    // Returns true if value changed, false otherwise
+    public bool set_enabled(bool enabled) {
+        if (enabled == this.enabled)
+            return false;
+        
+        this.enabled = enabled;
+        Config.get_instance().set_plugin_enabled(id, enabled);
+        pluggable.activation(enabled);
+        
+        return true;
     }
 }
 
 private File[] search_dirs;
-private Gee.HashMap<string, SpitModule> module_table;
+private Gee.HashMap<string, ModuleRep> module_table;
+private Gee.HashMap<string, PluggableRep> pluggable_table;
+private Gee.HashMap<Type, ExtensionPoint> extension_points;
+private Gee.HashSet<string> core_ids;
 
 public void init() throws Error {
     search_dirs = new File[0];
     search_dirs += AppDirs.get_user_plugins_dir();
     search_dirs += AppDirs.get_system_plugins_dir();
     
-    module_table = new Gee.HashMap<string, SpitModule>();
+    module_table = new Gee.HashMap<string, ModuleRep>();
+    pluggable_table = new Gee.HashMap<string, PluggableRep>();
+    extension_points = new Gee.HashMap<Type, ExtensionPoint>();
+    core_ids = new Gee.HashSet<string>();
     
     // do this after constructing member variables so accessors don't blow up if GModule isn't
     // supported
@@ -67,16 +133,71 @@ public void init() throws Error {
 
 public void terminate() {
     search_dirs = null;
+    pluggable_table = null;
     module_table = null;
+    extension_points = null;
+    core_ids = null;
 }
 
-private SpitModule? get_module_for_pluggable(Spit.Pluggable needle) {
-    foreach (SpitModule module in module_table.values) {
-        Spit.Pluggable[]? pluggables = module.spitmodule.get_pluggables();
+public class Notifier {
+    private static Notifier? instance = null;
+    
+    public signal void pluggable_activation(Spit.Pluggable pluggable, bool enabled);
+    
+    private Notifier() {
+    }
+    
+    public static Notifier get_instance() {
+        if (instance == null)
+            instance = new Notifier();
+        
+        return instance;
+    }
+}
+
+public void register_extension_point(Type type, string name, string? icon_name, string[]? core_ids) {
+    // if this assertion triggers, it means this extension point has already registered
+    assert(!extension_points.has_key(type));
+    
+    extension_points.set(type, new ExtensionPoint(type, name, icon_name, core_ids));
+    
+    // add core IDs to master list
+    if (core_ids != null) {
+        foreach (string core_id in core_ids)
+            Plugins.core_ids.add(core_id);
+    }
+    
+    // activate all the pluggables for this extension point
+    foreach (PluggableRep pluggable_rep in pluggable_table.values) {
+        if (!pluggable_rep.pluggable.get_type().is_a(type))
+            continue;
+        
+        pluggable_rep.activate();
+        Notifier.get_instance().pluggable_activation(pluggable_rep.pluggable, pluggable_rep.is_enabled());
+    }
+}
+
+public Gee.Collection<Spit.Pluggable> get_pluggables(bool include_disabled = false) {
+    Gee.Collection<Spit.Pluggable> all = new Gee.HashSet<Spit.Pluggable>();
+    foreach (PluggableRep pluggable_rep in pluggable_table.values) {
+        if (pluggable_rep.activated && (include_disabled || pluggable_rep.is_enabled()))
+            all.add(pluggable_rep.pluggable);
+    }
+    
+    return all;
+}
+
+public bool is_core_pluggable(Spit.Pluggable pluggable) {
+    return core_ids.contains(pluggable.get_id());
+}
+
+private ModuleRep? get_module_for_pluggable(Spit.Pluggable needle) {
+    foreach (ModuleRep module_rep in module_table.values) {
+        Spit.Pluggable[]? pluggables = module_rep.spit_module.get_pluggables();
         if (pluggables != null) {
             foreach (Spit.Pluggable pluggable in pluggables) {
                 if (pluggable == needle)
-                    return module;
+                    return module_rep;
             }
         }
     }
@@ -85,30 +206,89 @@ private SpitModule? get_module_for_pluggable(Spit.Pluggable needle) {
 }
 
 public string? get_pluggable_module_id(Spit.Pluggable needle) {
-    SpitModule? module = get_module_for_pluggable(needle);
+    ModuleRep? module_rep = get_module_for_pluggable(needle);
     
-    return (module != null) ? module.spitmodule.get_id() : null;
+    return (module_rep != null) ? module_rep.spit_module.get_id() : null;
 }
 
-public Gee.Collection<Spit.Pluggable> get_pluggables_for_type(Type type) {
-    Gee.Collection<Spit.Pluggable> for_type = new Gee.HashSet<Spit.Pluggable>();
-    foreach (SpitModule module in module_table.values) {
-        Spit.Pluggable[]? pluggables = module.spitmodule.get_pluggables();
-        if (pluggables != null) {
-            foreach (Spit.Pluggable pluggable in pluggables) {
-                if (pluggable.get_type().is_a(type))
-                    for_type.add(pluggable);
-            }
+public Gee.Collection<ExtensionPoint> get_extension_points(CompareFunc? compare_func = null) {
+    Gee.Collection<ExtensionPoint> sorted = new Gee.TreeSet<ExtensionPoint>(compare_func);
+    sorted.add_all(extension_points.values);
+    
+    return sorted;
+}
+
+public Gee.Collection<Spit.Pluggable> get_pluggables_for_type(Type type,
+    CompareFunc? compare_func = null, bool include_disabled = false) {
+    // if this triggers it means the extension point didn't register itself at init() time
+    assert(extension_points.has_key(type));
+    
+    Gee.Collection<Spit.Pluggable> for_type = new Gee.TreeSet<Spit.Pluggable>(compare_func);
+    foreach (PluggableRep pluggable_rep in pluggable_table.values) {
+        if (pluggable_rep.activated 
+            && pluggable_rep.pluggable.get_type().is_a(type) 
+            && (include_disabled || pluggable_rep.is_enabled())) {
+            for_type.add(pluggable_rep.pluggable);
         }
     }
     
     return for_type;
 }
 
-public File get_pluggable_module_file(Spit.Pluggable pluggable) {
-    SpitModule? module = get_module_for_pluggable(pluggable);
+public string? get_pluggable_name(string id) {
+    PluggableRep? pluggable_rep = pluggable_table.get(id);
     
-    return (module != null) ? module.file : null;
+    return (pluggable_rep != null && pluggable_rep.activated) 
+        ? pluggable_rep.pluggable.get_pluggable_name() : null;
+}
+
+public bool get_pluggable_info(string id, out Spit.PluggableInfo info) {
+    PluggableRep? pluggable_rep = pluggable_table.get(id);
+    if (pluggable_rep == null || !pluggable_rep.activated)
+        return false;
+    
+    pluggable_rep.pluggable.get_info(out info);
+    
+    return true;
+}
+
+public bool get_pluggable_enabled(string id, out bool enabled) {
+    PluggableRep? pluggable_rep = pluggable_table.get(id);
+    if (pluggable_rep == null || !pluggable_rep.activated)
+        return false;
+    
+    enabled = pluggable_rep.is_enabled();
+    
+    return true;
+}
+
+public void set_pluggable_enabled(string id, bool enabled) {
+    PluggableRep? pluggable_rep = pluggable_table.get(id);
+    if (pluggable_rep == null || !pluggable_rep.activated)
+        return;
+    
+    if (pluggable_rep.set_enabled(enabled))
+        Notifier.get_instance().pluggable_activation(pluggable_rep.pluggable, enabled);
+}
+
+public File get_pluggable_module_file(Spit.Pluggable pluggable) {
+    ModuleRep? module_rep = get_module_for_pluggable(pluggable);
+    
+    return (module_rep != null) ? module_rep.file : null;
+}
+
+public int compare_pluggable_names(void *a, void *b) {
+    Spit.Pluggable *apluggable = (Spit.Pluggable *) a;
+    Spit.Pluggable *bpluggable = (Spit.Pluggable *) b;
+    
+    return apluggable->get_pluggable_name().collate(bpluggable->get_pluggable_name());
+}
+
+public int compare_extension_point_names(void *a, void *b) {
+    ExtensionPoint *apoint = (ExtensionPoint *) a;
+    ExtensionPoint *bpoint = (ExtensionPoint *) b;
+    
+    return apoint->name.collate(bpoint->name);
 }
 
 private bool is_shared_library(File file) {
@@ -162,8 +342,8 @@ private void search_for_plugins(File dir) throws Error {
 }
 
 private void load_module(File file) {
-    SpitModule? spit_module = SpitModule.open(file);
-    if (spit_module == null) {
+    ModuleRep? module_rep = ModuleRep.open(file);
+    if (module_rep == null) {
         critical("Unable to load module %s: %s", file.get_path(), Module.error());
         
         return;
@@ -171,7 +351,7 @@ private void load_module(File file) {
     
     // look for the well-known entry point
     void *entry;
-    if (!spit_module.module.symbol(Spit.ENTRY_POINT_NAME, out entry)) {
+    if (!module_rep.module.symbol(Spit.ENTRY_POINT_NAME, out entry)) {
         critical("Unable to load module %s: well-known entry point %s not found", file.get_path(),
             Spit.ENTRY_POINT_NAME);
         
@@ -181,56 +361,60 @@ private void load_module(File file) {
     Spit.EntryPoint spit_entry_point = (Spit.EntryPoint) entry;
     
     assert(MIN_SPIT_INTERFACE <= Spit.CURRENT_INTERFACE && Spit.CURRENT_INTERFACE <= MAX_SPIT_INTERFACE);
-    spit_module.spit_interface = Spit.UNSUPPORTED_INTERFACE;
-    spit_module.spitmodule = spit_entry_point(MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE,
-        out spit_module.spit_interface);
-    if (spit_module.spit_interface == Spit.UNSUPPORTED_INTERFACE) {
+    module_rep.spit_interface = Spit.UNSUPPORTED_INTERFACE;
+    module_rep.spit_module = spit_entry_point(MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE,
+        out module_rep.spit_interface);
+    if (module_rep.spit_interface == Spit.UNSUPPORTED_INTERFACE) {
         critical("Unable to load module %s: module reports no support for SPIT interfaces %d to %d",
             file.get_path(), MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE);
         
         return;
     }
     
-    if (spit_module.spit_interface < MIN_SPIT_INTERFACE || spit_module.spit_interface > MAX_SPIT_INTERFACE) {
+    if (module_rep.spit_interface < MIN_SPIT_INTERFACE || module_rep.spit_interface > MAX_SPIT_INTERFACE) {
         critical("Unable to load module %s: module reports unsupported SPIT version %d (out of range %d to %d)",
-            file.get_path(), spit_module.spit_interface, MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE);
+            file.get_path(), module_rep.spit_interface, MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE);
         
         return;
     }
     
     // verify type (as best as possible; still potential to segfault inside GType here)
-    if (!(spit_module.spitmodule is Spit.Module))
-        spit_module.spitmodule = null;
+    if (!(module_rep.spit_module is Spit.Module))
+        module_rep.spit_module = null;
     
-    if (spit_module.spitmodule == null) {
+    if (module_rep.spit_module == null) {
         critical("Unable to load module %s (SPIT %d): no spit module returned", file.get_path(),
-            spit_module.spit_interface);
+            module_rep.spit_interface);
         
         return;
     }
     
     // if module has already been loaded, drop this one (search path is set up to load user-installed
     // binaries prior to system binaries)
-    spit_module.id = prepare_input_text(spit_module.spitmodule.get_id(), PrepareInputTextOptions.DEFAULT);
-    if (spit_module.id == null) {
+    module_rep.id = prepare_input_text(module_rep.spit_module.get_id(), PrepareInputTextOptions.DEFAULT);
+    if (module_rep.id == null) {
         critical("Unable to load module %s (SPIT %d): invalid or empty module name",
-            file.get_path(), spit_module.spit_interface);
+            file.get_path(), module_rep.spit_interface);
         
         return;
     }
     
-    if (module_table.has_key(spit_module.id)) {
+    if (module_table.has_key(module_rep.id)) {
         critical("Not loading module %s (SPIT %d): module with name \"%s\" already loaded",
-            file.get_path(), spit_module.spit_interface, spit_module.id);
+            file.get_path(), module_rep.spit_interface, module_rep.id);
         
         return;
     }
     
-    debug("Loaded SPIT module \"%s %s\" (%s) [%s]", spit_module.spitmodule.get_name(),
-        spit_module.spitmodule.get_version(), spit_module.id, file.get_path());
+    debug("Loaded SPIT module \"%s %s\" (%s) [%s]", module_rep.spit_module.get_module_name(),
+        module_rep.spit_module.get_version(), module_rep.id, file.get_path());
     
-    // stash in module table
-    module_table.set(spit_module.id, spit_module);
+    // stash in module table by their ID
+    module_table.set(module_rep.id, module_rep);
+    
+    // stash pluggables in pluggable table by their ID
+    foreach (Spit.Pluggable pluggable in module_rep.spit_module.get_pluggables())
+        pluggable_table.set(pluggable.get_id(), new PluggableRep(pluggable));
 }
 
 }

@@ -66,7 +66,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ENHANCE = "shotwell-auto-enhance";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "applications-internet";
-    public const string MERGE = "shotwell-merge-events";   
+    public const string MERGE = "shotwell-merge-events";
 
     public const string ICON_APP = "shotwell.svg";
     public const string ICON_APP16 = "shotwell-16.svg";
@@ -671,6 +671,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         
         return noninterpretable_badge_pixbuf;
+    }
+    
+    public Gtk.IconTheme get_icon_theme_engine() {
+        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
+        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
+        
+        return icon_theme;
     }
     
     // This method returns a reference to a cached pixbuf that may be shared throughout the system.

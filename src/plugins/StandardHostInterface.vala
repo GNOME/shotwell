@@ -22,25 +22,16 @@ public class StandardHostInterface : Object, Spit.HostInterface {
     private static string parse_key(string id) {
         // special case: legacy plugins (Web publishers moved into SPIT) have special names
         // new plugins will use their full ID
-        string subkey;
         switch (id) {
             case "org.yorba.shotwell.publishing.facebook":
-                subkey = "facebook";
-            break;
+                return "facebook";
             
             case "org.yorba.shotwell.publishing.picasa":
-                subkey = "picasa";
-            break;
+                return "picasa";
             
             default:
-                subkey = id;
-            break;
+                return id;
         }
-        
-        // convert illegal key characters
-        subkey = subkey.replace("/", "_");
-        
-        return subkey;
     }
     
     public File get_module_file() {

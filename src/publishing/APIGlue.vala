@@ -349,7 +349,18 @@ public class GlueFactory {
     private Spit.Publishing.ConcretePublishingHost publishing_host = null;
     private ServiceCapabilities[] legacy_capabilities_list;
     
+    public signal void wrapped_services_changed();
+    
     private GlueFactory() {
+        load_pluggables();
+        Plugins.Notifier.get_instance().pluggable_activation.connect(load_pluggables);
+    }
+    
+    ~GlueFactory() {
+        Plugins.Notifier.get_instance().pluggable_activation.disconnect(load_pluggables);
+    }
+    
+    private void load_pluggables() {
         // ServiceCapabilities objects are used in the legacy publishing API to describe supported
         // web services. Every service has a ServiceCapabilities object that contains information
         // about things like the name of the service and the kinds of media that it supports
@@ -383,6 +394,8 @@ public class GlueFactory {
             
             legacy_capabilities_list += new LegacyServiceCapabilitiesWrapper(this, service);
         }
+        
+        wrapped_services_changed();
     }
     
     public static GlueFactory get_instance() {

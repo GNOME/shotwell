@@ -15,24 +15,24 @@ private class ShotwellTransitions : Object, Spit.Module {
         pluggables += new CrumbleEffectDescriptor();
     }
     
-    public string get_name() {
-        return "Shotwell Transitions";
+    public unowned string get_module_name() {
+        return _("Core Slideshow Transitions");
     }
     
-    public string get_version() {
+    public unowned string get_version() {
         return _VERSION;
     }
     
-    public string get_id() {
+    public unowned string get_id() {
         return "org.yorba.shotwell.transitions";
     }
     
-    public Spit.Pluggable[]? get_pluggables() {
+    public unowned Spit.Pluggable[]? get_pluggables() {
         return pluggables;
     }
 }
 
-private ShotwellTransitions? spitwad = null;
+private ShotwellTransitions? module = null;
 
 // This entry point is required for all SPIT modules.
 public unowned Spit.Module? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
@@ -42,19 +42,19 @@ public unowned Spit.Module? spit_entry_point(int host_min_spit_interface, int ho
     if (module_spit_interface == Spit.UNSUPPORTED_INTERFACE)
         return null;
     
-    if (spitwad == null)
-        spitwad = new ShotwellTransitions();
+    if (module == null)
+        module = new ShotwellTransitions();
     
-    return spitwad;
+    return module;
 }
 
 public void g_module_unload() {
-    if (spitwad != null)
-        debug("%s %s unloaded", spitwad.get_name(), spitwad.get_version());
+    if (module != null)
+        debug("%s %s unloaded", module.get_module_name(), module.get_version());
     else
         debug("spitter unloaded prior to spit_entry_point being called");
     
-    spitwad = null;
+    module = null;
 }
 
 // This is here to keep valac happy.
@@ -68,9 +68,9 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
             Spit.Transitions.CURRENT_INTERFACE);
     }
     
-    public abstract string get_id();
+    public abstract unowned string get_id();
     
-    public abstract string get_pluggable_name();
+    public abstract unowned string get_pluggable_name();
     
     public void get_info(out Spit.PluggableInfo info) {
         info.authors = "Maxim Kartashev, Jim Nelson";
@@ -82,6 +82,9 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
         info.version = _VERSION;
         info.website_name = _("Visit the Yorba web site");
         info.website_url = "http://www.yorba.org";
+    }
+    
+    public void activation(bool enabled) {
     }
     
     public abstract Spit.Transitions.Effect create(Spit.HostInterface host);

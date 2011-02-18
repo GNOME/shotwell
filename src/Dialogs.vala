@@ -1663,6 +1663,7 @@ public class PreferencesDialog {
     } 
     
     private static PreferencesDialog preferences_dialog;
+    
     private Gtk.Dialog dialog;
     private Gtk.Builder builder;
     private Gtk.Adjustment bg_color_adjustment;
@@ -1681,16 +1682,17 @@ public class PreferencesDialog {
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
     private Gtk.CheckButton lowercase;
     private Gtk.Button close_button;
+    private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
 
     private PreferencesDialog() {
         builder = AppWindow.create_builder();
-
+        
         dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
         dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
         dialog.set_transient_for(AppWindow.get_instance());
         dialog.delete_event.connect(on_delete);
         dialog.response.connect(on_close);
-
+        
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
             Config.get_instance().get_bg_color().red);
@@ -1726,7 +1728,10 @@ public class PreferencesDialog {
         
         lowercase = builder.get_object("lowercase") as Gtk.CheckButton;
         lowercase.toggled.connect(on_lowercase_toggled);
-
+        
+        Gtk.Bin plugin_manifest_container = builder.get_object("plugin-manifest-bin") as Gtk.Bin;
+        plugin_manifest_container.add(plugins_mediator.widget);
+        
         populate_preference_options();
 
         photo_editor_combo.changed.connect(on_photo_editor_changed);
