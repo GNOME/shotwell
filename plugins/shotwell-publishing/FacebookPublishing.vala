@@ -1360,6 +1360,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private Gtk.Label how_to_label = null;
     private FacebookAlbum[] albums = null;
     private PrivacyDescription[] privacy_descriptions;
+    private Spit.Publishing.Publisher.MediaType media_type;
 
     public signal void logout();
     public signal void publish(string target_album, string privacy_setting);
@@ -1368,6 +1369,12 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         Spit.Publishing.Publisher.MediaType media_type) {
         this.albums = albums;
         this.privacy_descriptions = create_privacy_descriptions();
+        
+        // Ticket #3175
+        // Remember this for later - we'll need to know if
+        // the user is importing video or not when sorting
+        // out visibility.
+        this.media_type = media_type;
 
         set_border_width(16);
 
@@ -1464,6 +1471,11 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             add(album_mode_wrapper);
         add(visibility_layouter);
 
+        // Ticket #3175, part 2: make sure this widget starts out sensitive
+        // if it needs to by checking whether we're starting with a video
+        // or a new gallery.
+        visibility_combo.set_sensitive((create_new_radio.active) || ((media_type & Spit.Publishing.Publisher.MediaType.VIDEO) != 0));
+
         Gtk.SeparatorToolItem albums_buttons_spacing = new Gtk.SeparatorToolItem();
         albums_buttons_spacing.set_size_request(-1, CONTENT_GROUP_SPACING);
         albums_buttons_spacing.set_draw(false);
@@ -1486,11 +1498,16 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         return result;
     }
 
-
     private void on_use_existing_toggled() {
         if (use_existing_radio.active) {
             existing_albums_combo.set_sensitive(true);
             new_album_entry.set_sensitive(false);
+            
+            // Ticket #3175 - if we're not adding a new gallery
+            // or a video, then we shouldn't be allowed to 
+            // choose visibility, since it has no effect.
+            visibility_combo.set_sensitive((media_type & Spit.Publishing.Publisher.MediaType.VIDEO) != 0);
+            
             existing_albums_combo.grab_focus();
         }
     }
@@ -1500,8 +1517,12 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             existing_albums_combo.set_sensitive(false);
             new_album_entry.set_sensitive(true);
             new_album_entry.grab_focus();
+            
+            // Ticket #3175 - if we're creating a new gallery, make sure this is
+            // active, since it may have possibly been set inactive.
+            visibility_combo.set_sensitive(true);
         }
-    }
+    } 
     
     private void on_logout_button_clicked() {
         logout();
@@ -1645,7 +1666,7 @@ internal class FacebookUploader {
     private FacebookRESTSession session = null;
     private string aid;
     private string privacy_setting;
-	private Spit.Publishing.ProgressCallback? status_updated = null;
+    private Spit.Publishing.ProgressCallback? status_updated = null;
 
     public signal void upload_complete(int num_photos_published);
     public signal void upload_error(Spit.Publishing.PublishingError err);
@@ -1699,8 +1720,8 @@ internal class FacebookUploader {
         double fraction_complete = (current_file * file_span) + (this_file_fraction_complete *
             file_span);
 
-		if (status_updated != null)
-	        status_updated(current_file + 1, fraction_complete);
+        if (status_updated != null)
+            status_updated(current_file + 1, fraction_complete);
     }
     
     public void upload(Spit.Publishing.ProgressCallback? status_updated = null) {
