@@ -41,6 +41,8 @@ public class SidebarMarker : Object {
 public interface SidebarPage : Object {
     public abstract string get_sidebar_text();
     
+    public abstract string get_tooltip();
+    
     public abstract SidebarMarker? get_marker();
     
     public abstract void set_marker(SidebarMarker marker);
@@ -65,9 +67,26 @@ public interface SidebarPage : Object {
 }
 
 public class Sidebar : Gtk.TreeView {
-    // store = (page name, page, Icon, icon, expander-closed icon, expander-open icon)
-    private Gtk.TreeStore store = new Gtk.TreeStore(6, typeof(string), typeof(SidebarMarker),
-        typeof(GLib.Icon?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?));
+    private enum Columns {
+        NAME,
+        TOOLTIP,
+        MARKER,
+        ICON,
+        PIXBUF,
+        CLOSED_PIXBUF,
+        OPEN_PIXBUF,
+        N_COLUMNS
+    }
+    
+    private Gtk.TreeStore store = new Gtk.TreeStore(Columns.N_COLUMNS,
+        typeof(string),             // NAME
+        typeof(string),             // TOOLTIP
+        typeof(SidebarMarker),      // MARKER
+        typeof(GLib.Icon?),         // ICON
+        typeof(Gdk.Pixbuf?),        // PIXBUF
+        typeof(Gdk.Pixbuf?),        // CLOSED_PIXBUF
+        typeof(Gdk.Pixbuf?)         // OPEN_PIXBUF
+    );
 
     public signal void drop_received(Gdk.DragContext context, int x, int y, 
         Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, SidebarPage? page);
@@ -89,14 +108,14 @@ public class Sidebar : Gtk.TreeView {
         text_column.set_sizing(Gtk.TreeViewColumnSizing.FIXED);
         icon = new Gtk.CellRendererPixbuf();
         text_column.pack_start(icon, false);
-        text_column.add_attribute(icon, "pixbuf", 3);
-        text_column.add_attribute(icon, "pixbuf_expander_closed", 4);
-        text_column.add_attribute(icon, "pixbuf_expander_open", 5);
+        text_column.add_attribute(icon, "pixbuf", Columns.PIXBUF);
+        text_column.add_attribute(icon, "pixbuf_expander_closed", Columns.CLOSED_PIXBUF);
+        text_column.add_attribute(icon, "pixbuf_expander_open", Columns.OPEN_PIXBUF);
         text = new Gtk.CellRendererText();
         text.editing_canceled.connect(on_editing_canceled);
         text.editing_started.connect(on_editing_started);
         text_column.pack_start(text, true);
-        text_column.add_attribute(text, "markup", 0);
+        text_column.add_attribute(text, "markup", Columns.NAME);
         append_column(text_column);
         
         Gtk.CellRendererText invisitext = new Gtk.CellRendererText();
@@ -112,7 +131,7 @@ public class Sidebar : Gtk.TreeView {
         set_reorderable(false);
         set_enable_tree_lines(false);
         set_grid_lines(Gtk.TreeViewGridLines.NONE);
-        set_tooltip_column(0);
+        set_tooltip_column(Columns.TOOLTIP);
 
         Gtk.TreeSelection selection = get_selection();
         selection.set_mode(Gtk.SelectionMode.BROWSE);
@@ -236,7 +255,7 @@ public class Sidebar : Gtk.TreeView {
 
     private void set_iter_icon(Gtk.TreeIter iter, GLib.Icon icon) {
         // keep icon for theme change, some items have no page to request name from
-        store.set(iter, 2, icon);
+        store.set(iter, Columns.ICON, icon);
 
         Gdk.Pixbuf? closed = null;
         Gdk.Pixbuf? open = null;
@@ -249,9 +268,9 @@ public class Sidebar : Gtk.TreeView {
         
         if (closed == null) {
             // icon_name is null OR icon not found, dont show an icon
-            store.set(iter, 3, null);
-            store.set(iter, 4, null);
-            store.set(iter, 5, null);
+            store.set(iter, Columns.PIXBUF, null);
+            store.set(iter, Columns.CLOSED_PIXBUF, null);
+            store.set(iter, Columns.OPEN_PIXBUF, null);
         } else {
             try {
                 if (icon.equal(icon_folder_closed))
@@ -263,14 +282,14 @@ public class Sidebar : Gtk.TreeView {
             
             if (open == null) {
                 // no expander-open icon, only load one icon
-                store.set(iter, 3, closed);
-                store.set(iter, 4, null);
-                store.set(iter, 5, null);
+                store.set(iter, Columns.PIXBUF, closed);
+                store.set(iter, Columns.CLOSED_PIXBUF, null);
+                store.set(iter, Columns.OPEN_PIXBUF, null);
             } else {
                 // load expander-open and expander-closed icons
-                store.set(iter, 3, null);
-                store.set(iter, 4, closed);
-                store.set(iter, 5, open);
+                store.set(iter, Columns.PIXBUF, null);
+                store.set(iter, Columns.CLOSED_PIXBUF, closed);
+                store.set(iter, Columns.OPEN_PIXBUF, open);
             }
         }
     }
@@ -283,7 +302,7 @@ public class Sidebar : Gtk.TreeView {
 
     public void reload_iter_and_child_icons(Gtk.TreeIter iter) {
         GLib.Icon? icon;
-        store.get(iter, 2, out icon);
+        store.get(iter, Columns.ICON, out icon);
         set_iter_icon(iter, icon);
 
         Gtk.TreeIter child;
@@ -312,8 +331,9 @@ public class Sidebar : Gtk.TreeView {
         page.set_marker(marker);
         
         // set up the columns
-        store.set(iter, 0, guarded_markup_escape_text(page.get_sidebar_text()));
-        store.set(iter, 1, marker);
+        store.set(iter, Columns.NAME, guarded_markup_escape_text(page.get_sidebar_text()));
+        store.set(iter, Columns.TOOLTIP, guarded_markup_escape_text(page.get_tooltip()));
+        store.set(iter, Columns.MARKER, marker);
         set_iter_icon(iter, page.get_icon());
         
         return marker;
@@ -328,8 +348,9 @@ public class Sidebar : Gtk.TreeView {
         SidebarMarker marker = new SidebarMarker(store, store.get_path(iter), position);
         
         // set up the columns
-        store.set(iter, 0, guarded_markup_escape_text(name));
-        store.set(iter, 1, marker);
+        store.set(iter, Columns.NAME, guarded_markup_escape_text(name));
+        store.set(iter, Columns.TOOLTIP, guarded_markup_escape_text(name));
+        store.set(iter, Columns.MARKER, marker);
         set_iter_icon(iter, icon);
         
         return marker;
@@ -347,7 +368,7 @@ public class Sidebar : Gtk.TreeView {
             return null;
         
         Value val;
-        store.get_value(iter, 1, out val);
+        store.get_value(iter, Columns.MARKER, out val);
         
         return (SidebarMarker) val;
     }
@@ -620,7 +641,7 @@ public class Sidebar : Gtk.TreeView {
         // set up the columns
         Gtk.TreeIter iter;
         store.get_iter(out iter, marker.get_path());
-        store.set(iter, 0, guarded_markup_escape_text(name));
+        store.set(iter, Columns.NAME, guarded_markup_escape_text(name));
     }
 
     public SidebarPage? get_parent_page(SidebarPage page) {

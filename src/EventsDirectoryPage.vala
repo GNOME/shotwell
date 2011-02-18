@@ -72,8 +72,12 @@ class EventDirectoryItem : CheckerboardItem {
         else
             count_text = ngettext("%d Photo", "%d Photos", count).printf(count);
         
-        return "<b>%s</b>\n%s".printf(guarded_markup_escape_text(event.get_name()),
-            guarded_markup_escape_text(count_text));
+        if (event.has_name())
+            return "<b>%s</b>\n%s\n%s".printf(guarded_markup_escape_text(event.get_name()),
+               guarded_markup_escape_text(count_text), event.get_formatted_daterange());
+        else
+            return "<b>%s</b>\n%s".printf(guarded_markup_escape_text(event.get_name()),
+                guarded_markup_escape_text(count_text));
     }
 
     public override void exposed() {
@@ -415,6 +419,12 @@ public class EventPage : CollectionPage {
 
         public override string get_name() {
             return event.get_name();
+        }
+        
+        public override string get_tooltip() {
+            return (event.has_name())
+                ? String.strip_leading_zeroes("%s - %s".printf(event.get_name(), event.get_formatted_daterange()))
+                : event.get_formatted_daterange();
         }
         
         public override bool is_renameable() {

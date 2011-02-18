@@ -121,3 +121,23 @@ string asciify_string(string s) {
     return b.str;
 }
 
+namespace String {
+
+// Note that this method currently turns a word of all zeros into empty space ("000" -> "")
+public string strip_leading_zeroes(string str) {
+    StringBuilder stripped = new StringBuilder();
+    bool prev_is_space = true;
+    for (unowned string iter = str; iter.get_char() != 0; iter = iter.next_char()) {
+        unichar ch = iter.get_char();
+        
+        if (!prev_is_space || ch != '0') {
+            stripped.append_unichar(ch);
+            prev_is_space = ch.isspace();
+        }
+    }
+    
+    return stripped.str;
+}
+
+}
+

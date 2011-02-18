@@ -16,6 +16,10 @@ public abstract class PageStub : Object, SidebarPage {
     
     public abstract string get_name();
     
+    public virtual string get_tooltip() {
+        return (page != null) ? page.get_tooltip() : get_name();
+    }
+    
     public virtual bool is_renameable() {
         return false;
     }
@@ -312,6 +316,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     public string get_sidebar_text() {
         return page_name;
+    }
+    
+    public string get_tooltip() {
+        return page_name;   
     }
     
     public void set_marker(SidebarMarker marker) {
@@ -2465,4 +2473,3 @@ public class DragAndDropHandler {
         exporter = null;
     }
 }
-

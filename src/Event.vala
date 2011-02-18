@@ -673,11 +673,28 @@ public class Event : EventSource, ContainerSource, Proxyable {
             return get_raw_name();
         
         // if no name, pretty up the start time
-        time_t start_time = get_start_time();
+        string? datestring = get_formatted_daterange();
         
-        return (start_time != 0) 
-            ? format_local_date(Time.local(start_time)) 
-            : _("Event %s").printf(event_id.id.to_string());
+        return !is_string_empty(datestring) ? datestring : _("Event %s").printf(event_id.id.to_string());
+    }
+    
+    public string? get_formatted_daterange() {
+        time_t start_time = get_start_time();
+        time_t end_time = get_end_time();
+        
+        if (end_time == 0 && start_time == 0)
+            return null;
+        
+        if (end_time == 0 && start_time != 0)
+            return format_local_date(Time.local(start_time));
+        
+        Time start = Time.local(start_time);
+        Time end = Time.local(end_time);
+        
+        if (start.day == end.day && start.month == end.month && start.day == end.day)
+            return format_local_date(Time.local(start_time));
+        
+        return format_local_datespan(start, end);
     }
     
     public string? get_raw_name() {
@@ -809,4 +826,3 @@ public class Event : EventSource, ContainerSource, Proxyable {
         base.destroy();
    }
 }
-
