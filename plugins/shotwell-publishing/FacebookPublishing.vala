@@ -4,9 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-extern Soup.Message soup_form_request_new_from_multipart(string uri, Soup.Multipart multipart);
-extern void qsort(void *p, size_t num, size_t size, GLib.CompareFunc func);
-
 public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,
@@ -31,6 +28,11 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {
         return new Publishing.Facebook.FacebookPublisher(this, host);
+    }
+    
+    public Spit.Publishing.Publisher.MediaType get_supported_media() {
+        return (Spit.Publishing.Publisher.MediaType.PHOTO |
+            Spit.Publishing.Publisher.MediaType.VIDEO);
     }
 }
 
@@ -600,11 +602,6 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         return USER_VISIBLE_NAME;
     }
     
-    public Spit.Publishing.Publisher.MediaType get_supported_media() {
-        return Spit.Publishing.Publisher.MediaType.PHOTO |
-            Spit.Publishing.Publisher.MediaType.VIDEO;
-    }
-    
     public void start() {
         if (is_running())
             return;
@@ -671,15 +668,15 @@ internal class FacebookRESTSession {
             soup_session.user_agent = user_agent;
     }
     
-    private void notify_wire_message_unqueued(Soup.Message message) {
+    protected void notify_wire_message_unqueued(Soup.Message message) {
         wire_message_unqueued(message);
     }
     
-    private void notify_authenticated() {
+    protected void notify_authenticated() {
         authenticated();
     }
     
-    private void notify_authentication_failed(Spit.Publishing.PublishingError err) {
+    protected void notify_authentication_failed(Spit.Publishing.PublishingError err) {
         authentication_failed(err);
     }
 

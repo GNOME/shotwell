@@ -228,6 +228,11 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         bool strip_metadata = false) {
         install_progress_pane();
         ProgressPane progress_pane = (ProgressPane) dialog.get_active_pane();
+        
+        // spin the event loop right after installing the progress_pane so that the progress_pane
+        // will appear and let the user know that something is going on while file serialization
+        // takes place
+        spin_event_loop();
 
         int i = 0;
         foreach (Spit.Publishing.Publishable publishable in publishables) {

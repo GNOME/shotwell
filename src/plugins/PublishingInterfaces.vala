@@ -27,8 +27,6 @@ public interface Publisher : GLib.Object {
     
     public abstract Service get_service();
     
-    public abstract MediaType get_supported_media();
-    
     public abstract void start();
     
     public abstract bool is_running();
@@ -163,6 +161,7 @@ public interface Publishable : GLib.Object {
 
 public interface Service : Object, Spit.Pluggable {
     public abstract Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host);
+    public abstract Spit.Publishing.Publisher.MediaType get_supported_media();
     
     //
     // For future expansion.

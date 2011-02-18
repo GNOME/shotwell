@@ -28,6 +28,10 @@ public class StandardHostInterface : Object, Spit.HostInterface {
                 subkey = "facebook";
             break;
             
+            case "org.yorba.shotwell.publishing.picasa":
+                subkey = "picasa";
+            break;
+            
             default:
                 subkey = id;
             break;

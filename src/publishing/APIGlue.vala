@@ -23,10 +23,6 @@ public class PublisherWrapperInteractor : ServiceInteractor, Spit.Publishing.Pub
         return wrapped.get_service();
     }
     
-    public Spit.Publishing.Publisher.MediaType get_supported_media() {
-        return wrapped.get_supported_media();
-    }
-    
     public void start() {
         wrapped.start();
     }
@@ -230,8 +226,9 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
             debug("writing photo '%s' to temporary file '%s' for publishing.",
                 photo.get_source_id(), to_file.get_path());
             try {
-                photo.export(to_file, Scaling.for_best_fit(content_major_axis, false),
-                    Jpeg.Quality.HIGH, PhotoFileFormat.JFIF);
+                Scaling scaling = (content_major_axis > 0) ?
+                    Scaling.for_best_fit(content_major_axis, false) : Scaling.for_original();
+                photo.export(to_file, scaling, Jpeg.Quality.HIGH, PhotoFileFormat.JFIF);
             } catch (Error err) {
                 throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
                     "unable to serialize photo '%s' for publishing.", photo.get_name());
@@ -303,10 +300,89 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
 }
 
 public class GlueFactory {
+    private class LegacyServiceCapabilitiesWrapper : ServiceCapabilities {
+        public Spit.Publishing.Publisher.MediaType supported_media;
+        public Spit.Publishing.Service new_api_service;
+        public GlueFactory creator;
+
+        public LegacyServiceCapabilitiesWrapper(GlueFactory creator,
+            Spit.Publishing.Service new_api_service) {
+            this.new_api_service = new_api_service;
+            this.creator = creator;
+            this.supported_media = new_api_service.get_supported_media();
+        }
+
+        public override string get_name() {
+            return new_api_service.get_pluggable_name();
+        }
+        
+        public override Spit.Publishing.Publisher.MediaType get_supported_media() {
+            return supported_media;
+        }
+        
+        public override ServiceInteractor factory(PublishingDialog host) {
+            // verify that the host PublishingDialog instance is not just a vanilla
+            // PublishingDialog but an instance of a specialized glue subclass
+            if (!(host is DialogInteractorWrapper))
+                error("GlueFactory: active publishing dialog isn't a DialogInteractorWrapper; " +
+                    "glue can't work.");
+
+            Spit.Publishing.Publishable[] publishables =
+                ((DialogInteractorWrapper) host).get_publishables();
+
+            debug("GlueFactory: setting up adapters to publish %d items.", publishables.length);
+
+            creator.publishing_host = new Spit.Publishing.ConcretePublishingHost(new_api_service,
+                host, publishables);
+
+            ((DialogInteractorWrapper) host).set_plugin_host(creator.publishing_host);
+            
+            ServiceInteractor publisher_wrapper = new PublisherWrapperInteractor(
+                creator.publishing_host, host);
+
+            return publisher_wrapper;
+        }
+    }
+
     private static GlueFactory instance = null;
+
     private Spit.Publishing.ConcretePublishingHost publishing_host = null;
+    private ServiceCapabilities[] legacy_capabilities_list;
     
     private GlueFactory() {
+        // ServiceCapabilities objects are used in the legacy publishing API to describe supported
+        // web services. Every service has a ServiceCapabilities object that contains information
+        // about things like the name of the service and the kinds of media that it supports
+        // (e.g., photos, videos, etc.). ServiceCapabilities concern us here because they're
+        // used to populate the list of available services that appears in the upper-right-hand
+        // corner of the publishing dialog. So for every dynamically-loaded service, we need
+        // to provide a ServiceCapabilities for interoperability with the old API.
+        legacy_capabilities_list = new ServiceCapabilities[0];
+        
+        // load publishing services from plug-ins
+        Gee.Collection<Spit.Pluggable> pluggables = Plugins.get_pluggables_for_type(
+            typeof(Spit.Publishing.Service));
+            
+        debug("Publising API Glue: discovered %d pluggable publishing services.", pluggables.size);
+
+        foreach (Spit.Pluggable pluggable in pluggables) {
+            int pluggable_interface = pluggable.get_pluggable_interface(
+                Spit.Publishing.CURRENT_API_VERSION, Spit.Publishing.CURRENT_API_VERSION);
+            if (pluggable_interface != Spit.Publishing.CURRENT_API_VERSION) {
+                warning("Unable to load publisher %s: reported interface %d.",
+                    Plugins.get_pluggable_module_id(pluggable), pluggable_interface);
+                
+                continue;
+            }
+            
+            Spit.Publishing.Service service =
+                (Spit.Publishing.Service) pluggable;
+
+            debug("Publishing API Glue: discovered pluggable publishing service '%s'.",
+                service.get_pluggable_name());
+            
+            legacy_capabilities_list += new LegacyServiceCapabilitiesWrapper(this, service);
+        }
     }
     
     public static GlueFactory get_instance() {
@@ -316,63 +392,20 @@ public class GlueFactory {
         return instance;
     }
     
+    public ServiceCapabilities[] get_wrapped_services() {
+        return legacy_capabilities_list;
+    }
+    
     public ServiceInteractor create_publisher(string service_name) {
-        // the entire reason for the GlueFactory are the complicated requirements and
-        // creation sequences for publishing glue classes
-        
-        // verify that the active PublishingDialog instance is not just a vanilla
-        // PublishingDialog but an instance of a specialized glue subclass
         PublishingDialog active_dialog = PublishingDialog.get_active_instance();
-        if (!(active_dialog is DialogInteractorWrapper))
-            error("GlueFactory: active publishing dialog isn't a DialogInteractorWrapper; glue " +
-                "can't work.");
 
-        if (service_name != "facebook")
-            error("GlueFactory: unsupported service name");
-
-        // load publishing services from plug-ins
-        Gee.Collection<Spit.Pluggable> pluggables = Plugins.get_pluggables_for_type(
-            typeof(Spit.Publishing.Service));
-            
-        debug("Publising API Glue: discovered %d pluggable publishing services.", pluggables.size);
-
-        Spit.Publishing.Service? facebook_service = null;
-        foreach (Spit.Pluggable pluggable in pluggables) {
-            int pluggable_interface = pluggable.get_pluggable_interface(
-                Spit.Publishing.CURRENT_API_VERSION, Spit.Publishing.CURRENT_API_VERSION);
-            if (pluggable_interface != Spit.Publishing.CURRENT_API_VERSION) {
-                warning("Unable to load publisher %s: reported interface %d",
-                    Plugins.get_pluggable_module_id(pluggable), pluggable_interface);
-                
-                continue;
-            }
-            
-            Spit.Publishing.Service service =
-                (Spit.Publishing.Service) pluggable;
-            debug("Publishing API Glue: discovered pluggable publishing service '%s'.",
-                service.get_pluggable_name());
-            if (service.get_id() == "org.yorba.shotwell.publishing.facebook")
-                facebook_service = service;
+        foreach (ServiceCapabilities caps in legacy_capabilities_list) {
+            LegacyServiceCapabilitiesWrapper wrapper = (LegacyServiceCapabilitiesWrapper) caps;
+            if (wrapper.get_name() == service_name)
+                return wrapper.factory(active_dialog);
         }
         
-        if (facebook_service == null)
-            error("Publishing API Glue: required service 'Facebook' wasn't found.'");
-
-        Spit.Publishing.Publishable[] publishables =
-            ((DialogInteractorWrapper) active_dialog).get_publishables();
-        debug("GlueFactory: setting up adapters to publish %d items.", publishables.length);
-
-        publishing_host = new Spit.Publishing.ConcretePublishingHost(facebook_service, active_dialog,
-            publishables);
-
-        ((DialogInteractorWrapper) active_dialog).set_plugin_host(publishing_host);
-        
-        ServiceInteractor publisher_wrapper = new PublisherWrapperInteractor(publishing_host,
-            active_dialog);
-
-        active_dialog = null;
-
-        return publisher_wrapper;
+        error("GlueFactory: unsupported service name '%s'.", service_name);
     }
 }
 

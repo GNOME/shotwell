@@ -9,7 +9,9 @@ PKGS := \
 
 SRC_FILES := \
 	shotwell-publishing.vala \
-	FacebookPublishing.vala
+	FacebookPublishing.vala \
+	PicasaPublishing.vala \
+	RESTSupport.vala
 
 include ../Makefile.plugin.mk
 

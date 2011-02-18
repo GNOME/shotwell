@@ -68,7 +68,6 @@ UNUNITIZED_SRC_FILES = \
 	AppDirs.vala \
 	PixbufCache.vala \
 	WebConnectors.vala \
-	FacebookConnector.vala \
 	CommandManager.vala \
 	Commands.vala \
 	SlideshowPage.vala \
@@ -78,7 +77,6 @@ UNUNITIZED_SRC_FILES = \
 	Printing.vala \
 	Tag.vala \
 	TagPage.vala \
-	PicasaConnector.vala \
 	PiwigoConnector.vala \
 	YouTubeConnector.vala \
 	Screensaver.vala \

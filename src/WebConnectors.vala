@@ -1232,13 +1232,6 @@ public abstract class BatchUploader {
     }
 }
 
-// TODO: in the future, when we support an arbitrary number of services potentially
-//       developed by third parties, the ServiceFactory will support dynamic
-//       registration of services at runtime. For right now, with only two services,
-//       we just bake the services into the factory. Whatever we do in the future,
-//       however, only this ServiceFactory class will have to change; all of its
-//       clients will still see the same interface no matter how it's implemented
-//       internally.
 public class ServiceFactory {
     private static ServiceFactory instance = null;
     
@@ -1246,12 +1239,18 @@ public class ServiceFactory {
         string, ServiceCapabilities>();
     
     private ServiceFactory() {
-        add_caps(new FacebookConnector.Capabilities());
         add_caps(new FlickrConnector.Capabilities());
-        add_caps(new PicasaConnector.Capabilities());
         add_caps(new YandexConnector.Capabilities());
         add_caps(new YouTubeConnector.Capabilities());
         add_caps(new PiwigoConnector.Capabilities());
+        
+        // in addition to the baked-in services above, add services dynamically loaded from
+        // plugins. since everything involving plugins is written in terms of the new publishing
+        // API, we have to use the glue code.
+        Publishing.Glue.GlueFactory glue_factory = Publishing.Glue.GlueFactory.get_instance();
+        ServiceCapabilities[] caps = glue_factory.get_wrapped_services();
+        foreach (ServiceCapabilities current_caps in caps)
+            add_caps(current_caps);
     }
     
     private void add_caps(ServiceCapabilities caps) {
