@@ -152,6 +152,7 @@ public class LibraryWindow : AppWindow {
     private SidebarMarker cameras_marker = null;
     private SidebarMarker tags_marker = null;
     
+    private bool is_search_toolbar_visible = false;
     private SearchFilterToolbar search_toolbar = new SearchFilterToolbar();
     
     private Gtk.VBox top_section = new Gtk.VBox(false, 0);
@@ -216,6 +217,9 @@ public class LibraryWindow : AppWindow {
         
         // monitor cursor changes to select proper page in notebook
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
+        
+        // set search bar's visibility to default state
+        search_toolbar.visible = is_search_toolbar_visible;
         
         create_layout(library_page);
 
@@ -369,6 +373,12 @@ public class LibraryWindow : AppWindow {
         jump_to_event.tooltip = _("Go to this photo's event");
         actions += jump_to_event;
         
+        Gtk.ActionEntry find = { "CommonFind", Gtk.STOCK_FIND, TRANSLATABLE, null, null,
+            on_find };
+        find.label = _("_Find");
+        find.tooltip = _("Find photos and videos by search criteria");
+        actions += find;
+        
         return actions;
     }
     
@@ -386,7 +396,13 @@ public class LibraryWindow : AppWindow {
         extended_props.label = _("E_xtended Information");
         extended_props.tooltip = _("Display extended information for the selection");
         actions += extended_props;
-
+        
+        Gtk.ToggleActionEntry searchbar = { "CommonDisplaySearchbar", null, TRANSLATABLE,
+            "F8", TRANSLATABLE, on_display_searchbar, is_search_toolbar_visible };
+        searchbar.label = _("_Search Bar");
+        searchbar.tooltip = _("Display the search bar");
+        actions += searchbar;
+        
         return actions;
     }
 
@@ -409,18 +425,24 @@ public class LibraryWindow : AppWindow {
 
         return actions;
     }
-
+    
+    // show_all() may make visible certain items we wish to keep programmatically hidden
     public override void show_all() {
         base.show_all();
-
-        Gtk.ToggleAction basic_properties_action = 
-            (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
-            "CommonDisplayBasicProperties");
+        
+        Gtk.ToggleAction? basic_properties_action = get_current_page().get_common_action(
+            "CommonDisplayBasicProperties") as Gtk.ToggleAction;
         assert(basic_properties_action != null);
-
-        if (!basic_properties_action.get_active()) {
+        
+        if (!basic_properties_action.get_active())
             bottom_frame.hide();
-        }
+        
+        Gtk.ToggleAction? searchbar_action = get_current_page().get_common_action(
+            "CommonDisplaySearchbar") as Gtk.ToggleAction;
+        assert(searchbar_action != null);
+        
+        is_search_toolbar_visible = searchbar_action.get_active();
+        search_toolbar.visible = searchbar_action.get_active();
     }
     
     public static LibraryWindow get_app() {
@@ -503,7 +525,7 @@ public class LibraryWindow : AppWindow {
     public override string get_app_role() {
         return Resources.APP_LIBRARY_ROLE;
     }
-
+    
     protected override void on_quit() {
         Config.get_instance().set_library_window_state(maximized, dimensions);
 
@@ -653,6 +675,15 @@ public class LibraryWindow : AppWindow {
             switch_to_event(event);
     }
     
+    private void on_find() {
+        Gtk.ToggleAction action = (Gtk.ToggleAction) get_current_page().get_common_action(
+            "CommonDisplaySearchbar");
+        action.active = true;
+        
+        // give it focus (which should move cursor to the text entry control)
+        search_toolbar.take_focus();
+    }
+    
     private void on_media_altered() {
         set_common_action_sensitive("CommonJumpToEvent", can_jump_to_event());
     }
@@ -733,7 +764,18 @@ public class LibraryWindow : AppWindow {
             extended_properties.hide();
         }
     }
-
+    
+    private void on_display_searchbar(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+        
+        is_search_toolbar_visible = display;
+        search_toolbar.visible = display;
+        
+        // if dismissing the toolbar, reset the filter
+        if (!display)
+            search_toolbar.reset();
+    }
+    
     private void show_extended_properties() {
         sync_extended_properties(true);
     }
@@ -1810,11 +1852,13 @@ public class LibraryWindow : AppWindow {
         
         // Update search filter to new page.
         if (page is CheckerboardPage) {
+            // restore visibility and install filters
+            search_toolbar.visible = is_search_toolbar_visible;
             search_toolbar.set_view_filter(((CheckerboardPage) page).get_search_view_filter());
             page.get_view().install_view_filter(((CheckerboardPage) page).get_search_view_filter());
         } else {
-            // Disables the search view filter for non CheckerboardPages.
-            search_toolbar.unset_view_filter();
+            // hide search toolbar, but don't reset its CheckboardLayout visibility
+            search_toolbar.visible = false;
         }
         
         sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
@@ -2020,10 +2064,6 @@ public class LibraryWindow : AppWindow {
         }
         
         return false;
-    }
-    
-    public void set_search_box_focus() {
-        search_toolbar.set_search_box_focus();
     }
 }
 

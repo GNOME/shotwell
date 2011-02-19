@@ -700,6 +700,16 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         search_filter.refresh();
     }
     
+    // Reset all controls to default state
+    public void reset() {
+        clear_search_text();
+        set_flagged(false);
+        set_toggle_media_photos(false);
+        set_toggle_media_raw(false);
+        set_toggle_media_video(false);
+        set_rating_filter(RatingFilter.UNRATED_OR_HIGHER);
+    }
+    
     // Saves settings.
     private void save_search_filter() {
         Config.get_instance().set_search_text(get_search_text());
@@ -748,14 +758,23 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     
     protected RatingFilter get_rating_filter() {
         // any member of the group knows the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/FilterPopupMenu/DisplayRejectedOrHigher");
+        Gtk.RadioAction? action = ui.get_action("/FilterPopupMenu/DisplayRejectedOrHigher")
+            as Gtk.RadioAction;
         assert(action != null);
-        RatingFilter filter = (RatingFilter) action.get_current_value();
-        return filter;
+        
+        return (RatingFilter) action.get_current_value();
     }
     
-    public void set_search_box_focus() {
+    public void set_rating_filter(RatingFilter filter) {
+        // any member of the group knows the current value
+        Gtk.RadioAction? action = ui.get_action("/FilterPopupMenu/DisplayRejectedOrHigher")
+            as Gtk.RadioAction;
+        assert(action != null);
+        
+        action.set_current_value(filter);
+    }
+    
+    public void take_focus() {
         search_box.get_focus();
     }
 }

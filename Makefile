@@ -127,7 +127,7 @@ RESOURCE_FILES = \
 	yandex_publish_model.glade \
 	shotwell.glade \
 	set_background_dialog.glade \
-	video.ui
+	search_bar.ui
 
 SYS_INTEGRATION_FILES = \
 	shotwell.desktop.head \

@@ -15,6 +15,8 @@
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
+            <menuitem name="Find" action="CommonFind" />
+            <separator />
             <menuitem name="Delete" action="Delete" />
             <menuitem name="Restore" action="Restore" />
             <separator />
@@ -26,6 +28,7 @@
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
             <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
+            <menuitem name="DisplaySearchbar" action="CommonDisplaySearchbar" />
             <separator />
             <menu name="SortEvents" action="CommonSortEvents">
                 <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />

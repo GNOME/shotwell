@@ -238,7 +238,7 @@ public abstract class CollectionPage : MediaPage {
         
         Gtk.ActionEntry slideshow = { "Slideshow", null, TRANSLATABLE, "F5", TRANSLATABLE,
             on_slideshow };
-        slideshow.label = _("_Slideshow");
+        slideshow.label = _("S_lideshow");
         slideshow.tooltip = _("Play a slideshow");
         actions += slideshow;
         

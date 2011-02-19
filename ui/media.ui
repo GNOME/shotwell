@@ -19,6 +19,8 @@
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
+            <menuitem name="Find" action="CommonFind" />
+            <separator />
             <placeholder name="EditExtrasPlaceholder" />
             <menuitem name="RemoveFromLibrary" action="RemoveFromLibrary" />
             <menuitem name="MoveToTrash" action="MoveToTrash" />
@@ -31,6 +33,7 @@
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
             <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
+            <menuitem name="DisplaySearchbar" action="CommonDisplaySearchbar" />
             <separator />
             <menuitem name="ViewTitle" action="ViewTitle" />
             <menuitem name="ViewTags" action="ViewTags" />
