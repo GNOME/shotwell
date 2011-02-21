@@ -484,18 +484,23 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         // Load settings.
         restore_saved_search_filter();
         
-        // TODO
-        // Set bg color of toolbar.
+        // Set background color of toolbar.
+        
         string toolbar_style = """
             style "search-filter-toolbar-style"
             {
                 GtkToolbar::shadow-type = GTK_SHADOW_IN
+                
+                color["search_background"] = "%s"
+                
+                bg[NORMAL] = @search_background
+                bg[PRELIGHT] = shade(1.02, @search_background)
+                bg[ACTIVE] = shade(0.85, @search_background)
             }
 
             widget_class "*<SearchFilterToolbar>*" style "search-filter-toolbar-style"
-        """;
+        """.printf(Config.get_instance().get_bg_color().to_string());
         Gtk.rc_parse_string(toolbar_style);
-        modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
     }
     
     private void register_actions() {
