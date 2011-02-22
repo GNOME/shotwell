@@ -72,7 +72,6 @@ UNUNITIZED_SRC_FILES = \
 	Commands.vala \
 	SlideshowPage.vala \
 	LibraryFiles.vala \
-	FlickrConnector.vala \
 	YandexConnector.vala \
 	Printing.vala \
 	Tag.vala \

@@ -105,22 +105,6 @@ public string? prepare_input_text(string? text, PrepareInputTextOptions options 
     return prepped;
 }
 
-// Remove diacritics in a string, yielding ASCII.  If the given string is in
-// a character set not based on Latin letters (e.g. Cyrillic), the result
-// may be empty.
-string asciify_string(string s) {
-    string t = s.normalize();  // default normalization yields a maximally decomposed form
-    
-    StringBuilder b = new StringBuilder();
-    for (unowned string u = t; u.get_char() != 0 ; u = u.next_char()) {
-        unichar c = u.get_char();
-        if ((int) c < 128)
-            b.append_unichar(c);
-    }
-    
-    return b.str;
-}
-
 namespace String {
 
 // Note that this method currently turns a word of all zeros into empty space ("000" -> "")

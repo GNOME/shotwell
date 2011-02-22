@@ -345,6 +345,91 @@ public class Transaction {
     }
 }
 
+public class UploadTransaction : Transaction {
+    private GLib.HashTable<string, string> binary_disposition_table = null;
+    private Spit.Publishing.Publishable publishable = null;
+    private string mime_type;
+
+    public UploadTransaction(Session session, Spit.Publishing.Publishable publishable) {
+        base (session);
+        this.publishable = publishable;
+        this.mime_type = media_type_to_mime_type(publishable.get_media_type());
+
+        binary_disposition_table = create_default_binary_disposition_table();
+    }
+    
+    public UploadTransaction.with_endpoint_url(Session session,
+        Spit.Publishing.Publishable publishable, string endpoint_url) {
+        base.with_endpoint_url(session, endpoint_url);
+        this.publishable = publishable;
+        this.mime_type = media_type_to_mime_type(publishable.get_media_type());
+
+        binary_disposition_table = create_default_binary_disposition_table();
+    }
+    
+    private static string media_type_to_mime_type(Spit.Publishing.Publisher.MediaType media_type) {
+        if (media_type == Spit.Publishing.Publisher.MediaType.PHOTO)
+            return "image/jpeg";
+        else if (media_type == Spit.Publishing.Publisher.MediaType.VIDEO)
+            return "video/mpeg";
+        else
+            error("UploadTransaction: unknown media type %s.", media_type.to_string());
+    }
+
+    private GLib.HashTable<string, string> create_default_binary_disposition_table() {
+        GLib.HashTable<string, string> result =
+            new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
+
+        result.insert("filename", Soup.URI.encode(publishable.get_serialized_file().get_basename(),
+            null));
+
+        return result;
+    }
+
+    protected void set_binary_disposition_table(GLib.HashTable<string, string> new_disp_table) {
+        binary_disposition_table = new_disp_table;
+    }
+
+    public override void execute() throws Spit.Publishing.PublishingError {
+        Argument[] request_arguments = get_arguments();
+        assert(request_arguments.length > 0);
+
+        Soup.Multipart message_parts = new Soup.Multipart("multipart/form-data");
+
+        foreach (Argument arg in request_arguments)
+            message_parts.append_form_string(arg.key, arg.value);
+
+        string payload;
+        size_t payload_length;
+        try {
+            FileUtils.get_contents(publishable.get_serialized_file().get_path(), out payload,
+                out payload_length);
+        } catch (FileError e) {
+            throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(_("A temporary file needed for publishing " +
+                "is unavailable"));
+        }
+
+        int payload_part_num = message_parts.get_length();
+
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, payload,
+            payload_length);
+        message_parts.append_form_file("", publishable.get_serialized_file().get_path(), mime_type,
+            bindable_data);
+
+        unowned Soup.MessageHeaders image_part_header;
+        unowned Soup.Buffer image_part_body;
+        message_parts.get_part(payload_part_num, out image_part_header, out image_part_body);
+        image_part_header.set_content_disposition("form-data", binary_disposition_table);
+
+        Soup.Message outbound_message =
+            soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
+        set_message(outbound_message);
+        
+        set_is_executed(true);
+        send();
+    }
+}
+
 public class XmlDocument {
     // Returns non-null string if an error condition is discovered in the XML (such as a well-known 
     // node).  The string is used when generating a PublishingError exception.  This delegate does
@@ -509,6 +594,22 @@ internal abstract class BatchUploader {
         if (publishables.length > 0)
            send_files();
     }
+}
+
+// Remove diacritics in a string, yielding ASCII.  If the given string is in
+// a character set not based on Latin letters (e.g. Cyrillic), the result
+// may be empty.
+string asciify_string(string s) {
+    string t = s.normalize();  // default normalization yields a maximally decomposed form
+    
+    StringBuilder b = new StringBuilder();
+    for (unowned string u = t; u.get_char() != 0 ; u = u.next_char()) {
+        unichar c = u.get_char();
+        if ((int) c < 128)
+            b.append_unichar(c);
+    }
+    
+    return b.str;
 }
 
 }
