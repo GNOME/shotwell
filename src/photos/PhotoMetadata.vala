@@ -644,7 +644,7 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public void set_modification_date_time(MetadataDateTime? date_time,
-        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
+        SetOption option = SetOption.ALL_DOMAINS) {
         if (date_time != null)
             set_all_date_time(DATE_TIME_TAGS, date_time, option);
         else
@@ -665,7 +665,7 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public void set_exposure_date_time(MetadataDateTime? date_time,
-        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
+        SetOption option = SetOption.ALL_DOMAINS) {
         if (date_time != null)
             set_all_date_time(EXPOSURE_DATE_TIME_TAGS, date_time, option);
         else
@@ -682,7 +682,7 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public void set_digitized_date_time(MetadataDateTime? date_time,
-        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
+        SetOption option = SetOption.ALL_DOMAINS) {
         if (date_time != null)
             set_all_date_time(DIGITIZED_DATE_TIME_TAGS, date_time, option);
         else
@@ -731,8 +731,7 @@ public class PhotoMetadata : MediaMetadata {
         return null;
     }
     
-    public void set_pixel_dimensions(Dimensions? dim,
-        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
+    public void set_pixel_dimensions(Dimensions? dim, SetOption option = SetOption.ALL_DOMAINS) {
          if (dim != null) {
             set_all_long(WIDTH_TAGS, dim.width, option);
             set_all_long(HEIGHT_TAGS, dim.height, option);
@@ -797,7 +796,7 @@ public class PhotoMetadata : MediaMetadata {
             title : null;
     }
     
-    public void set_title(string? title, SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
+    public void set_title(string? title, SetOption option = SetOption.ALL_DOMAINS) {
         if (!is_string_empty(title)) {
             if (has_tag(IPHOTO_TITLE_TAG))
                 set_string(IPHOTO_TITLE_TAG, title);
@@ -823,8 +822,7 @@ public class PhotoMetadata : MediaMetadata {
         return (descriptions != null && descriptions.size > 0) ? descriptions[0] : null;
     }
     
-    public void set_description(string? description,
-        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
+    public void set_description(string? description, SetOption option = SetOption.ALL_DOMAINS) {
         if (!is_string_empty(description)) {
             if (has_tag(IPHOTO_TITLE_TAG) 
                 && (option != SetOption.ONLY_IF_DOMAIN_PRESENT || has_domain(get_tag_domain(IPHOTO_DESCRIPTION_TAG))))
@@ -856,8 +854,7 @@ public class PhotoMetadata : MediaMetadata {
         return (keywords != null && keywords.size > 0) ? keywords : null;
     }
     
-    public void set_keywords(Gee.Collection<string>? keywords,
-        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
+    public void set_keywords(Gee.Collection<string>? keywords, SetOption option = SetOption.ALL_DOMAINS) {
         if (keywords != null)
             set_all_string_multiple(KEYWORD_TAGS, keywords, option);
         else
