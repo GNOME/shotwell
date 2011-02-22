@@ -152,7 +152,8 @@ public class LibraryWindow : AppWindow {
     private SidebarMarker cameras_marker = null;
     private SidebarMarker tags_marker = null;
     
-    private bool is_search_toolbar_visible = false;
+    private bool is_search_toolbar_visible = Config.get_instance().get_search_bar_hidden();
+
     private SearchFilterToolbar search_toolbar = new SearchFilterToolbar();
     
     private Gtk.VBox top_section = new Gtk.VBox(false, 0);
@@ -791,6 +792,9 @@ public class LibraryWindow : AppWindow {
         // if dismissing the toolbar, reset the filter
         if (!display)
             search_toolbar.reset();
+        
+        // Ticket #3222 - remember search bar status between sessions.    
+        Config.get_instance().set_search_bar_hidden(is_search_toolbar_visible);
     }
     
     private void show_extended_properties() {

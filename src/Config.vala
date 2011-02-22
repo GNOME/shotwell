@@ -500,6 +500,14 @@ public class Config {
         return set_int("/apps/shotwell/preferences/ui/photo_rating_filter", filter);
     }
 
+    public bool set_search_bar_hidden(bool should_be_hidden) {
+        return set_bool("/apps/shotwell/preferences/ui/search_hidden", should_be_hidden);
+    }
+
+    public bool get_search_bar_hidden() {
+        return get_bool("/apps/shotwell/preferences/ui/search_hidden", false);
+    }
+
     public string? get_search_text() {
         return get_string("/apps/shotwell/preferences/ui/search_filter", null);
     }
