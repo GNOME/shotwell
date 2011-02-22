@@ -1,12 +1,12 @@
 <ui>
-    <popup name="FilterPopupMenu">
-        <menuitem name="DisplayFiveOrHigher" action="DisplayFiveOrHigher" />
-        <menuitem name="DisplayFourOrHigher" action="DisplayFourOrHigher" />
-        <menuitem name="DisplayThreeOrHigher" action="DisplayThreeOrHigher" />
-        <menuitem name="DisplayTwoOrHigher" action="DisplayTwoOrHigher" />
-        <menuitem name="DisplayOneOrHigher" action="DisplayOneOrHigher" />
-        <menuitem name="DisplayUnratedOrHigher" action="DisplayUnratedOrHigher" />
-        <menuitem name="DisplayRejectedOrHigher" action="DisplayRejectedOrHigher" />
-        <menuitem name="DisplayRejectedOnly" action="DisplayRejectedOnly" />
+    <popup name="FilterPopupMenu" action="CommonFilterPhotos">
+        <menuitem name="DisplayFiveOrHigher" action="CommonDisplayFiveOrHigher" />
+        <menuitem name="DisplayFourOrHigher" action="CommonDisplayFourOrHigher" />
+        <menuitem name="DisplayThreeOrHigher" action="CommonDisplayThreeOrHigher" />
+        <menuitem name="DisplayTwoOrHigher" action="CommonDisplayTwoOrHigher" />
+        <menuitem name="DisplayOneOrHigher" action="CommonDisplayOneOrHigher" />
+        <menuitem name="DisplayUnratedOrHigher" action="CommonDisplayUnratedOrHigher" />
+        <menuitem name="DisplayRejectedOrHigher" action="CommonDisplayRejectedOrHigher" />
+        <menuitem name="DisplayRejectedOnly" action="CommonDisplayRejectedOnly" />
     </popup>
 </ui>

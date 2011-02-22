@@ -218,8 +218,9 @@ public class LibraryWindow : AppWindow {
         // monitor cursor changes to select proper page in notebook
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
         
-        // set search bar's visibility to default state
+        // set search bar's visibility to default state and add its accelerators to the window
         search_toolbar.visible = is_search_toolbar_visible;
+        add_accel_group(search_toolbar.ui.get_accel_group());
         
         create_layout(library_page);
 
@@ -379,6 +380,12 @@ public class LibraryWindow : AppWindow {
         find.tooltip = _("Find photos and videos by search criteria");
         actions += find;
         
+        // add the common action for the FilterPhotos submenu (the submenu contains items from
+        // SearchFilterActions)
+        Gtk.ActionEntry filter_photos = { "CommonFilterPhotos", null, TRANSLATABLE, null, null, null };
+        filter_photos.label = Resources.FILTER_PHOTOS_MENU;
+        actions += filter_photos;
+        
         return actions;
     }
     
@@ -508,17 +515,27 @@ public class LibraryWindow : AppWindow {
         return false;
     }
     
-    public override void add_common_actions(Page page, Gtk.ActionGroup action_group) {
-        base.add_common_actions(page, action_group);
+    public override void add_common_actions(Gtk.ActionGroup action_group) {
+        base.add_common_actions(action_group);
         
         action_group.add_actions(create_actions(), this);
         action_group.add_toggle_actions(create_toggle_actions(), this);
         action_group.add_radio_actions(create_order_actions(),
             SORT_EVENTS_ORDER_ASCENDING, on_events_sort_changed);
+    }
+    
+    public override void add_common_action_groups(Gtk.UIManager ui) {
+        base.add_common_action_groups(ui);
+        
+        ui.insert_action_group(SearchFilterActions.get_instance().get_action_group(), 0);
+    }
+    
+    public override void replace_common_placeholders(Gtk.UIManager ui) {
+        base.replace_common_placeholders(ui);
         
         // Adds one menu entry per alien database driver
         AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            page.ui, "/MenuBar/FileMenu/CommonImportFromAlienDbPlaceholder"
+            ui, "/MenuBar/FileMenu/CommonImportFromAlienDbPlaceholder"
         );
     }
     

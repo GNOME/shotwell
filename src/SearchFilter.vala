@@ -217,8 +217,227 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
     }
 }
 
-public class SearchFilterToolbar : Gtk.Toolbar {
+public class SearchFilterActions {
+    private static SearchFilterActions? instance = null;
+    
+    public unowned Gtk.ToggleAction? flagged {
+        get {
+            return get_action("CommonDisplayFlagged") as Gtk.ToggleAction;
+        }
+    }
+    
+    public unowned Gtk.ToggleAction? photos {
+        get {
+            return get_action("CommonDisplayPhotos") as Gtk.ToggleAction;
+        }
+    }
+    
+    public unowned Gtk.ToggleAction? videos {
+        get {
+            return get_action("CommonDisplayVideos") as Gtk.ToggleAction;
+        }
+    }
+    
+    public unowned Gtk.ToggleAction? raw {
+        get {
+            return get_action("CommonDisplayRaw") as Gtk.ToggleAction;
+        }
+    }
+    
+    public unowned Gtk.RadioAction? rating {
+        get {
+            return get_action("CommonDisplayUnratedOrHigher") as Gtk.RadioAction;
+        }
+    }
+    
+    private Gtk.ActionGroup action_group = new Gtk.ActionGroup("SearchFilterActionGroup");
+    
+    public signal void flagged_toggled(bool on);
+    
+    public signal void photos_toggled(bool on);
+    
+    public signal void videos_toggled(bool on);
+    
+    public signal void raw_toggled(bool on);
+    
+    public signal void rating_changed(RatingFilter filter);
+    
+    private SearchFilterActions() {
+        // the getters defined above should not be used until register() returns
+        register();
+        
+        flagged.toggled.connect(on_flagged_value_toggled);
+        photos.toggled.connect(on_photos_value_toggled);
+        videos.toggled.connect(on_videos_value_toggled);
+        raw.toggled.connect(on_raw_value_toggled);
+        rating.changed.connect(on_rating_value_changed);
+    }
+    
+    public static SearchFilterActions get_instance() {
+        if (instance == null)
+            instance = new SearchFilterActions();
+        
+        return instance;
+    }
+    
+    public Gtk.ActionGroup get_action_group() {
+        return action_group;
+    }
+    
+    public unowned Gtk.Action? get_action(string name) {
+        return action_group.get_action(name);
+    }
+    
+    public void set_action_sensitive(string name, bool sensitive) {
+        Gtk.Action? action = get_action(name);
+        if (action != null)
+            action.sensitive = sensitive;
+    }
+    
+    public void set_sensitive_for_search_criteria(uint criteria) {
+        set_action_sensitive("CommonDisplayFlagged", (SearchFilterCriteria.FLAG & criteria) != 0);
+        
+        bool allow_media = (SearchFilterCriteria.MEDIA & criteria) != 0;
+        set_action_sensitive("CommonDisplayVideos", allow_media);
+        set_action_sensitive("CommonDisplayPhotos", allow_media);
+        set_action_sensitive("CommonDisplayRaw", allow_media);
+        
+        bool allow_ratings = (SearchFilterCriteria.RATING & criteria) != 0;
+        set_action_sensitive("CommonDisplayRejectedOnly", allow_ratings);
+        set_action_sensitive("CommonDisplayRejectedOrHigher", allow_ratings);
+        set_action_sensitive("CommonDisplayUnratedOrHigher", allow_ratings);
+        set_action_sensitive("CommonDisplayOneOrHigher", allow_ratings);
+        set_action_sensitive("CommonDisplayTwoOrHigher", allow_ratings);
+        set_action_sensitive("CommonDisplayThreeOrHigher", allow_ratings);
+        set_action_sensitive("CommonDisplayFourOrHigher", allow_ratings);
+        set_action_sensitive("CommonDisplayFiveOrHigher", allow_ratings);
+    }
+    
+    private static void on_flagged_value_toggled(Gtk.ToggleAction action) {
+        Config.get_instance().set_search_flagged(action.active);
+    }
+    
+    private static void on_photos_value_toggled(Gtk.ToggleAction action) {
+        Config.get_instance().set_show_media_photos(action.active);
+    }
+    
+    private static void on_videos_value_toggled(Gtk.ToggleAction action) {
+        Config.get_instance().set_show_media_video(action.active);
+    }
+    
+    private static void on_raw_value_toggled(Gtk.ToggleAction action) {
+        Config.get_instance().set_show_media_raw(action.active);
+    }
+    
+    private static void on_rating_value_changed(Gtk.RadioAction action, Gtk.RadioAction current) {
+        Config.get_instance().set_photo_rating_filter((RatingFilter) current.current_value);
+    }
+    
+    private void register() {
+        Gtk.RadioActionEntry[] view_filter_actions = new Gtk.RadioActionEntry[0];
+        
+        Gtk.RadioActionEntry rejected_only = { "CommonDisplayRejectedOnly", null, TRANSLATABLE,
+            "<Ctrl>8", TRANSLATABLE, RatingFilter.REJECTED_ONLY };
+        rejected_only.label = Resources.DISPLAY_REJECTED_ONLY_MENU;
+        rejected_only.tooltip = Resources.DISPLAY_REJECTED_ONLY_TOOLTIP;
+        view_filter_actions += rejected_only;
+        
+        Gtk.RadioActionEntry rejected_or_higher = { "CommonDisplayRejectedOrHigher", null, TRANSLATABLE,
+            "<Ctrl>9", TRANSLATABLE, RatingFilter.REJECTED_OR_HIGHER };
+        rejected_or_higher.label = Resources.DISPLAY_REJECTED_OR_HIGHER_MENU;
+        rejected_or_higher.tooltip = Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP;
+        view_filter_actions += rejected_or_higher;
+        
+        Gtk.RadioActionEntry unrated_or_higher = { "CommonDisplayUnratedOrHigher", null, TRANSLATABLE, 
+            "<Ctrl>0", TRANSLATABLE, RatingFilter.UNRATED_OR_HIGHER };
+        unrated_or_higher.label = Resources.DISPLAY_UNRATED_OR_HIGHER_MENU;
+        unrated_or_higher.tooltip = Resources.DISPLAY_UNRATED_OR_HIGHER_TOOLTIP;
+        view_filter_actions += unrated_or_higher;
+        
+        Gtk.RadioActionEntry one_or_higher = { "CommonDisplayOneOrHigher", null, TRANSLATABLE,
+            "<Ctrl>1", TRANSLATABLE, RatingFilter.ONE_OR_HIGHER };
+        one_or_higher.label = Resources.DISPLAY_ONE_OR_HIGHER_MENU;
+        one_or_higher.tooltip = Resources.DISPLAY_ONE_OR_HIGHER_TOOLTIP;
+        view_filter_actions += one_or_higher;
+        
+        Gtk.RadioActionEntry two_or_higher = { "CommonDisplayTwoOrHigher", null, TRANSLATABLE,
+            "<Ctrl>2", TRANSLATABLE, RatingFilter.TWO_OR_HIGHER };
+        two_or_higher.label = Resources.DISPLAY_TWO_OR_HIGHER_MENU;
+        two_or_higher.tooltip = Resources.DISPLAY_TWO_OR_HIGHER_TOOLTIP;
+        view_filter_actions += two_or_higher;
+        
+        Gtk.RadioActionEntry three_or_higher = { "CommonDisplayThreeOrHigher", null, TRANSLATABLE,
+            "<Ctrl>3", TRANSLATABLE, RatingFilter.THREE_OR_HIGHER };
+        three_or_higher.label = Resources.DISPLAY_THREE_OR_HIGHER_MENU;
+        three_or_higher.tooltip = Resources.DISPLAY_THREE_OR_HIGHER_TOOLTIP;
+        view_filter_actions += three_or_higher;
+        
+        Gtk.RadioActionEntry four_or_higher = { "CommonDisplayFourOrHigher", null, TRANSLATABLE,
+            "<Ctrl>4", TRANSLATABLE, RatingFilter.FOUR_OR_HIGHER };
+        four_or_higher.label = Resources.DISPLAY_FOUR_OR_HIGHER_MENU;
+        four_or_higher.tooltip = Resources.DISPLAY_FOUR_OR_HIGHER_TOOLTIP;
+        view_filter_actions += four_or_higher;
+        
+        Gtk.RadioActionEntry five_or_higher = { "CommonDisplayFiveOrHigher", null, TRANSLATABLE,
+            "<Ctrl>5", TRANSLATABLE, RatingFilter.FIVE_OR_HIGHER };
+        five_or_higher.label = Resources.DISPLAY_FIVE_OR_HIGHER_MENU;
+        five_or_higher.tooltip = Resources.DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
+        view_filter_actions += five_or_higher;
+        
+        action_group.add_radio_actions(view_filter_actions, Config.get_instance().get_photo_rating_filter(),
+            on_rating_changed);
+        
+        Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
+        
+        Gtk.ToggleActionEntry flagged_action = { "CommonDisplayFlagged", Resources.ICON_FLAGGED_PAGE,
+            TRANSLATABLE, null, TRANSLATABLE, on_flagged_toggled, Config.get_instance().get_search_flagged() };
+        flagged_action.label = _("Flagged");
+        flagged_action.tooltip = _("Display flagged media");
+        toggle_actions += flagged_action;
+        
+        Gtk.ToggleActionEntry photos_action = { "CommonDisplayPhotos", Resources.ICON_SINGLE_PHOTO,
+            TRANSLATABLE, null, TRANSLATABLE, on_photos_toggled, Config.get_instance().get_show_media_photos() };
+        photos_action.label = _("Photos");
+        photos_action.tooltip = _("Display photos");
+        toggle_actions += photos_action;
+        
+        Gtk.ToggleActionEntry videos_action = { "CommonDisplayVideos", Resources.ICON_VIDEOS_PAGE,
+            TRANSLATABLE, null, TRANSLATABLE, on_videos_toggled, Config.get_instance().get_show_media_video() };
+        videos_action.label = _("Videos");
+        videos_action.tooltip = _("Display videos");
+        toggle_actions += videos_action;
+        
+        Gtk.ToggleActionEntry raw_action = { "CommonDisplayRaw", Resources.ICON_CAMERAS, TRANSLATABLE,
+            null, TRANSLATABLE, on_raw_toggled, Config.get_instance().get_show_media_raw() };
+        raw_action.label = _("RAW Photos");
+        raw_action.tooltip = _("Display RAW photos");
+        toggle_actions += raw_action;
+        
+        action_group.add_toggle_actions(toggle_actions, this);
+    }
+    
+    private void on_rating_changed(Gtk.Action action, Gtk.Action current) {
+        rating_changed((RatingFilter) ((Gtk.RadioAction) current).get_current_value());
+    }
+    
+    private void on_flagged_toggled(Gtk.Action action) {
+        flagged_toggled(((Gtk.ToggleAction) action).active);
+    }
+    
+    private void on_photos_toggled(Gtk.Action action) {
+        photos_toggled(((Gtk.ToggleAction) action).active);
+    }
+    
+    private void on_videos_toggled(Gtk.Action action) {
+        videos_toggled(((Gtk.ToggleAction) action).active);
+    }
+    
+    private void on_raw_toggled(Gtk.Action action) {
+        raw_toggled(((Gtk.ToggleAction) action).active);
+    }
+}
 
+public class SearchFilterToolbar : Gtk.Toolbar {
     private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
     private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon
     private const float FILTER_ICON_SCALE = 0.75f; // changes the size of the all photos icon
@@ -407,35 +626,27 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             return SearchFilterCriteria.NONE;
         }
     }
-
-    private SearchBox search_box;
-    private Gtk.ToggleToolButton flagged;
-    private RatingFilterButton rating_button;
-    private Gtk.ToggleToolButton media_video;
-    private Gtk.ToggleToolButton media_photos;
-    private Gtk.ToggleToolButton media_raw;
     
-    private SearchViewFilter? search_filter = null;
     public Gtk.UIManager ui = new Gtk.UIManager();
-    private Gtk.ActionGroup action_group;
-
-    // Called when any search filters have changed.
-    public virtual signal void changed() {
-    }
-
+    
+    private SearchBox search_box = new SearchBox();
+    private RatingFilterButton rating_button = new RatingFilterButton();
+    private SearchViewFilter? search_filter = null;
+    private SearchFilterActions actions = SearchFilterActions.get_instance();
+    
     public SearchFilterToolbar() {
         set_name("search-filter-toolbar");
         set_icon_size(Gtk.IconSize.SMALL_TOOLBAR);
-        register_actions();
         
         File ui_file = Resources.get_ui("search_bar.ui");
         try {
             ui.add_ui_from_file(ui_file.get_path());
         } catch (Error err) {
-            AppWindow.error_message(_("Error loading UI file %s: %s").printf(
+            AppWindow.panic(_("Error loading UI file %s: %s").printf(
                 ui_file.get_path(), err.message));
-            Application.get_instance().panic();
         }
+        
+        ui.insert_action_group(actions.get_action_group(), 0);
         
         // Separator to right-align toolbar items.
         Gtk.SeparatorToolItem separator_align = new Gtk.SeparatorToolItem();
@@ -444,7 +655,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         insert(separator_align, -1);
         
         // Rating filter.
-        rating_button = new RatingFilterButton();
         rating_button.filter_popup = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
         rating_button.set_expand(false);
         rating_button.clicked.connect(on_filter_button_clicked);
@@ -457,9 +667,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         insert(separator_1, -1);
         
         // Flagged-only.
-        flagged = new Gtk.ToggleToolButton.from_stock(Resources.ICON_FLAGGED_PAGE);
-        flagged.toggled.connect(on_flag_toggle);
-        flagged.tooltip_text = _("Toggle flagged-only");
+        Gtk.ToggleToolButton flagged = new Gtk.ToggleToolButton();
+        flagged.set_related_action(actions.flagged);
         insert(flagged, -1);
         
         // Separator.
@@ -469,19 +678,16 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         insert(separator_2, -1);
         
         // Media type buttons.
-        media_photos = new Gtk.ToggleToolButton.from_stock(Resources.ICON_SINGLE_PHOTO);
-        media_photos.toggled.connect(on_photos_toggle);
-        media_photos.tooltip_text = _("Toggle photos");
+        Gtk.ToggleToolButton media_photos = new Gtk.ToggleToolButton();
+        media_photos.set_related_action(actions.photos);
         insert(media_photos, -1);
         
-        media_video = new Gtk.ToggleToolButton.from_stock(Resources.ICON_VIDEOS_PAGE);
-        media_video.toggled.connect(on_video_toggle);
-        media_video.tooltip_text = _("Toggle video");
+        Gtk.ToggleToolButton media_video = new Gtk.ToggleToolButton();
+        media_video.set_related_action(actions.videos);
         insert(media_video, -1);
         
-        media_raw = new Gtk.ToggleToolButton.from_stock(Resources.ICON_CAMERAS);
-        media_raw.toggled.connect(on_raw_toggle);
-        media_raw.tooltip_text = _("Toggle raw");
+        Gtk.ToggleToolButton media_raw = new Gtk.ToggleToolButton();
+        media_raw.set_related_action(actions.raw);
         insert(media_raw, -1);
         
         // Separator.
@@ -491,7 +697,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         insert(separator_3, -1);
         
         // Search box.
-        search_box = new SearchBox();
         search_box.text_changed.connect(on_search_changed);
         insert(search_box, -1);
         
@@ -515,120 +720,36 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             widget_class "*<SearchFilterToolbar>*" style "search-filter-toolbar-style"
         """.printf(Config.get_instance().get_bg_color().to_string());
         Gtk.rc_parse_string(toolbar_style);
+        
+        // hook up signals to actions to be notified when they change
+        actions.flagged_toggled.connect(on_flagged_toggled);
+        actions.photos_toggled.connect(on_photos_toggled);
+        actions.videos_toggled.connect(on_videos_toggled);
+        actions.raw_toggled.connect(on_raw_toggled);
+        actions.rating_changed.connect(on_rating_changed);
     }
     
-    private void register_actions() {
-        action_group = new Gtk.ActionGroup("FilterPopupMenu");
-        Gtk.RadioActionEntry[] view_filter_actions = new Gtk.RadioActionEntry[0];
-        
-        Gtk.RadioActionEntry rejected_only = { "DisplayRejectedOnly", null, TRANSLATABLE,
-            "<Ctrl>8", TRANSLATABLE, RatingFilter.REJECTED_ONLY };
-        rejected_only.label = Resources.DISPLAY_REJECTED_ONLY_MENU;
-        rejected_only.tooltip = Resources.DISPLAY_REJECTED_ONLY_TOOLTIP;
-        view_filter_actions += rejected_only;
-        
-        Gtk.RadioActionEntry rejected_or_higher = { "DisplayRejectedOrHigher", null, TRANSLATABLE,
-            "<Ctrl>9", TRANSLATABLE, RatingFilter.REJECTED_OR_HIGHER };
-        rejected_or_higher.label = Resources.DISPLAY_REJECTED_OR_HIGHER_MENU;
-        rejected_or_higher.tooltip = Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP;
-        view_filter_actions += rejected_or_higher;
-        
-        Gtk.RadioActionEntry unrated_or_higher = { "DisplayUnratedOrHigher", null, TRANSLATABLE, 
-            "<Ctrl>0", TRANSLATABLE, RatingFilter.UNRATED_OR_HIGHER };
-        unrated_or_higher.label = Resources.DISPLAY_UNRATED_OR_HIGHER_MENU;
-        unrated_or_higher.tooltip = Resources.DISPLAY_UNRATED_OR_HIGHER_TOOLTIP;
-        view_filter_actions += unrated_or_higher;
-        
-        Gtk.RadioActionEntry one_or_higher = { "DisplayOneOrHigher", null, TRANSLATABLE,
-            "<Ctrl>1", TRANSLATABLE, RatingFilter.ONE_OR_HIGHER };
-        one_or_higher.label = Resources.DISPLAY_ONE_OR_HIGHER_MENU;
-        one_or_higher.tooltip = Resources.DISPLAY_ONE_OR_HIGHER_TOOLTIP;
-        view_filter_actions += one_or_higher;
-        
-        Gtk.RadioActionEntry two_or_higher = { "DisplayTwoOrHigher", null, TRANSLATABLE,
-            "<Ctrl>2", TRANSLATABLE, RatingFilter.TWO_OR_HIGHER };
-        two_or_higher.label = Resources.DISPLAY_TWO_OR_HIGHER_MENU;
-        two_or_higher.tooltip = Resources.DISPLAY_TWO_OR_HIGHER_TOOLTIP;
-        view_filter_actions += two_or_higher;
-        
-        Gtk.RadioActionEntry three_or_higher = { "DisplayThreeOrHigher", null, TRANSLATABLE,
-            "<Ctrl>3", TRANSLATABLE, RatingFilter.THREE_OR_HIGHER };
-        three_or_higher.label = Resources.DISPLAY_THREE_OR_HIGHER_MENU;
-        three_or_higher.tooltip = Resources.DISPLAY_THREE_OR_HIGHER_TOOLTIP;
-        view_filter_actions += three_or_higher;
-        
-        Gtk.RadioActionEntry four_or_higher = { "DisplayFourOrHigher", null, TRANSLATABLE,
-            "<Ctrl>4", TRANSLATABLE, RatingFilter.FOUR_OR_HIGHER };
-        four_or_higher.label = Resources.DISPLAY_FOUR_OR_HIGHER_MENU;
-        four_or_higher.tooltip = Resources.DISPLAY_FOUR_OR_HIGHER_TOOLTIP;
-        view_filter_actions += four_or_higher;
-        
-        Gtk.RadioActionEntry five_or_higher = { "DisplayFiveOrHigher", null, TRANSLATABLE,
-            "<Ctrl>5", TRANSLATABLE, RatingFilter.FIVE_OR_HIGHER };
-        five_or_higher.label = Resources.DISPLAY_FIVE_OR_HIGHER_MENU;
-        five_or_higher.tooltip = Resources.DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
-        view_filter_actions += five_or_higher;
-        
-        action_group.add_radio_actions(view_filter_actions, Config.get_instance().get_photo_rating_filter(),
-            on_rating_filter_changed);
-        
-        ui.insert_action_group(action_group, 0);
+    ~SearchFilterToolbar() {
+        actions.flagged_toggled.disconnect(on_flagged_toggled);
+        actions.photos_toggled.disconnect(on_photos_toggled);
+        actions.videos_toggled.disconnect(on_videos_toggled);
+        actions.raw_toggled.disconnect(on_raw_toggled);
+        actions.rating_changed.disconnect(on_rating_changed);
     }
     
-    private void set_rating_view_filter_menu(RatingFilter filter) {
-        Gtk.ToggleAction action;
-        
-        switch (filter) {
-            case RatingFilter.UNRATED_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayUnratedOrHigher");
-            break;
-            
-            case RatingFilter.ONE_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayOneOrHigher");
-            break;
-            
-            case RatingFilter.TWO_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayTwoOrHigher");
-            break;
-            
-            case RatingFilter.THREE_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayThreeOrHigher");
-            break;
-            
-            case RatingFilter.FOUR_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayFourOrHigher");
-            break;
-            
-            case RatingFilter.FIVE_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayFiveOrHigher");
-            break;
-            
-            case RatingFilter.REJECTED_ONLY:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayRejectedOnly");
-            break;
-            
-            case RatingFilter.REJECTED_OR_HIGHER:
-            default:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayRejectedOrHigher");
-            break;
-        }
-        
-        action.set_active(true);
-    }
-    
-    private void on_flag_toggle() {
+    private void on_flagged_toggled() {
         update();
     }
     
-    private void on_video_toggle() {
+    private void on_videos_toggled() {
         update();
     }
     
-    private void on_photos_toggle() {
+    private void on_photos_toggled() {
         update();
     }
     
-    private void on_raw_toggle() {
+    private void on_raw_toggled() {
         update();
     }
     
@@ -636,36 +757,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         update();
     }
     
-    public bool get_flagged() {
-        return flagged.active;
-    }
-    
-    public void set_flagged(bool f) {
-        flagged.active = f;
-    }
-    
-    public bool get_toggle_media_video() {
-        return media_video.active;
-    }
-    
-    public void set_toggle_media_video(bool m) {
-        media_video.active = m;
-    }
-    
-    public bool get_toggle_media_photos() {
-        return media_photos.active;
-    }
-    
-    public void set_toggle_media_photos(bool m) {
-        media_photos.active = m;
-    }
-    
-    public bool get_toggle_media_raw() {
-        return media_raw.active;
-    }
-    
-    public void set_toggle_media_raw(bool m) {
-        media_raw.active = m;
+    private void on_rating_changed() {
+        update();
     }
     
     public string get_search_text() {
@@ -683,14 +776,10 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     public void set_view_filter(SearchViewFilter search_filter) {
         this.search_filter = search_filter;
         
-        // Enable/disable toolbar features.
-        // TODO: recursive
-        // SearchFilterCriteria.RECURSIVE & search_fitler.get_criteria()
-        search_box.sensitive = (bool) (SearchFilterCriteria.TEXT & search_filter.get_criteria());
-        flagged.sensitive = (bool) (SearchFilterCriteria.FLAG & search_filter.get_criteria());
-        media_video.sensitive = media_photos.sensitive = media_raw.sensitive = 
-            (bool) (SearchFilterCriteria.MEDIA & search_filter.get_criteria());
-        rating_button.sensitive = (bool) (SearchFilterCriteria.RATING & search_filter.get_criteria());
+        // Enable/disable toolbar features depending on what the filter offers
+        actions.set_sensitive_for_search_criteria(search_filter.get_criteria());
+        search_box.sensitive = (SearchFilterCriteria.TEXT & search_filter.get_criteria()) != 0;
+        rating_button.sensitive = (SearchFilterCriteria.RATING & search_filter.get_criteria()) != 0;
         
         update();
     }
@@ -703,14 +792,14 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     public void update() {
         if (null == search_filter) 
             return;
-            
-        search_filter.set_search_filter(get_search_text());
-        search_filter.flagged = get_flagged();
-        search_filter.show_media_video = get_toggle_media_video();
-        search_filter.show_media_photos = get_toggle_media_photos();
-        search_filter.show_media_raw = get_toggle_media_raw();
         
-        RatingFilter filter = get_rating_filter();
+        search_filter.set_search_filter(get_search_text());
+        search_filter.flagged = actions.flagged.active;
+        search_filter.show_media_video = actions.videos.active;
+        search_filter.show_media_photos = actions.photos.active;
+        search_filter.show_media_raw = actions.raw.active;
+        
+        RatingFilter filter = (RatingFilter) actions.rating.current_value;
         search_filter.set_rating_filter(filter);
         rating_button.set_filter_icon(filter);
         
@@ -722,20 +811,16 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     // Reset all controls to default state
     public void reset() {
         clear_search_text();
-        set_flagged(false);
-        set_toggle_media_photos(false);
-        set_toggle_media_raw(false);
-        set_toggle_media_video(false);
-        set_rating_filter(RatingFilter.UNRATED_OR_HIGHER);
+        actions.flagged.active = false;
+        actions.photos.active = false;
+        actions.raw.active = false;
+        actions.videos.active = false;
+        actions.rating.current_value = RatingFilter.UNRATED_OR_HIGHER;
     }
     
     // Saves settings.
     private void save_search_filter() {
         Config.get_instance().set_search_text(get_search_text());
-        Config.get_instance().set_search_flagged(get_flagged());
-        Config.get_instance().set_show_media_video(get_toggle_media_video());
-        Config.get_instance().set_show_media_photos(get_toggle_media_photos());
-        Config.get_instance().set_show_media_raw(get_toggle_media_raw());
     }
     
     // Loads saved settings.
@@ -746,12 +831,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         } else {
             clear_search_text();
         }
-        
-        set_flagged(Config.get_instance().get_search_flagged());
-        set_rating_view_filter_menu(Config.get_instance().get_photo_rating_filter());
-        set_toggle_media_video(Config.get_instance().get_show_media_video());
-        set_toggle_media_photos(Config.get_instance().get_show_media_photos());
-        set_toggle_media_raw(Config.get_instance().get_show_media_raw());
     }
     
     private void position_filter_popup(Gtk.Menu menu, out int x, out int y, out bool push_in) {
@@ -769,28 +848,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     private void on_filter_button_clicked() {
         rating_button.filter_popup.popup(null, null, position_filter_popup, 0,
             Gtk.get_current_event_time());
-    }
-    
-    protected void on_rating_filter_changed() {
-        update();
-    }
-    
-    protected RatingFilter get_rating_filter() {
-        // any member of the group knows the current value
-        Gtk.RadioAction? action = ui.get_action("/FilterPopupMenu/DisplayRejectedOrHigher")
-            as Gtk.RadioAction;
-        assert(action != null);
-        
-        return (RatingFilter) action.get_current_value();
-    }
-    
-    public void set_rating_filter(RatingFilter filter) {
-        // any member of the group knows the current value
-        Gtk.RadioAction? action = ui.get_action("/FilterPopupMenu/DisplayRejectedOrHigher")
-            as Gtk.RadioAction;
-        assert(action != null);
-        
-        action.set_current_value(filter);
     }
     
     public void take_focus() {

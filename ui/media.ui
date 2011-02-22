@@ -39,6 +39,17 @@
             <menuitem name="ViewTags" action="ViewTags" />
             <menuitem name="ViewRatings" action="ViewRatings" />
             <separator />
+            <menu name="FilterPhotos" action="CommonFilterPhotos">
+                <menuitem name="DisplayFiveOrHigher" action="CommonDisplayFiveOrHigher" />
+                <menuitem name="DisplayFourOrHigher" action="CommonDisplayFourOrHigher" />
+                <menuitem name="DisplayThreeOrHigher" action="CommonDisplayThreeOrHigher" />
+                <menuitem name="DisplayTwoOrHigher" action="CommonDisplayTwoOrHigher" />
+                <menuitem name="DisplayOneOrHigher" action="CommonDisplayOneOrHigher" />
+                <menuitem name="DisplayUnratedOrHigher" action="CommonDisplayUnratedOrHigher" />
+                <menuitem name="DisplayRejectedOrHigher" action="CommonDisplayRejectedOrHigher" />
+                <menuitem name="DisplayRejectedOnly" action="CommonDisplayRejectedOnly" />
+            </menu>
+            <separator />
             <menu name="SortPhotos" action="SortPhotos">
                 <menuitem name="SortByTitle" action="SortByTitle" />
                 <menuitem name="SortByExposureDate" action="SortByExposureDate" />

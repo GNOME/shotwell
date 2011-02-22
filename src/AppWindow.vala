@@ -692,10 +692,16 @@ public abstract class AppWindow : PageWindow {
         sys_show_uri(window.get_screen(), url);
     }
     
-    public virtual void add_common_actions(Page page, Gtk.ActionGroup action_group) {
+    public virtual void add_common_actions(Gtk.ActionGroup action_group) {
         action_group.add_actions(create_actions(), this);
     }
-
+    
+    public virtual void add_common_action_groups(Gtk.UIManager ui) {
+    }
+    
+    public virtual void replace_common_placeholders(Gtk.UIManager ui) {
+    }
+    
     public void go_fullscreen(Page page) {
         // if already fullscreen, use that
         if (fullscreen_window != null) {

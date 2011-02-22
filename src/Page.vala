@@ -545,11 +545,13 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         common_action_group = new Gtk.ActionGroup("CommonActionGroup");
         
         // Add common actions to the Page's common ActionGroup
-        AppWindow.get_instance().add_common_actions(this, common_action_group);
+        AppWindow.get_instance().add_common_actions(common_action_group);
         
         // Add both ActionGroups to the UIManager
         ui.insert_action_group(action_group, 0);
         ui.insert_action_group(common_action_group, 0);
+        
+        AppWindow.get_instance().add_common_action_groups(ui);
         
         // Collect injected UI elements and add them to the UI manager
         InjectionGroup[] injection_groups = init_collect_injection_groups();
@@ -559,6 +561,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
                     element.kind, false);
             }
         }
+        
+        AppWindow.get_instance().replace_common_placeholders(ui);
         
         ui.ensure_update();
     }
