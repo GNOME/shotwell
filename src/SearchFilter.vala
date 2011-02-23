@@ -517,12 +517,12 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         private bool on_escape_key(Gdk.EventKey e) { 
             if(Gdk.keyval_name(e.keyval) == "Escape") { 
                 this.clear(); 
-			} 
- 		             
-			// Continue processing this event, since the 
-			// text entry functionality needs to see it too. 
-			return false; 
-		}          
+            }
+            
+            // Continue processing this event, since the 
+            // text entry functionality needs to see it too. 
+            return false; 
+        }
     }
     
     // Handles ratings filters.
@@ -703,8 +703,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         // Load settings.
         restore_saved_search_filter();
         
-        // Set background color of toolbar.
-        
+        // Set background color of toolbar and update them when the configuration is updated
         string toolbar_style = """
             style "search-filter-toolbar-style"
             {
@@ -721,6 +720,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         """.printf(Config.get_instance().get_bg_color().to_string());
         Gtk.rc_parse_string(toolbar_style);
         
+        Config.get_instance().colors_changed.connect(on_colors_changed);
+        
         // hook up signals to actions to be notified when they change
         actions.flagged_toggled.connect(on_flagged_toggled);
         actions.photos_toggled.connect(on_photos_toggled);
@@ -730,11 +731,17 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     }
     
     ~SearchFilterToolbar() {
+        Config.get_instance().colors_changed.disconnect(on_colors_changed);
+        
         actions.flagged_toggled.disconnect(on_flagged_toggled);
         actions.photos_toggled.disconnect(on_photos_toggled);
         actions.videos_toggled.disconnect(on_videos_toggled);
         actions.raw_toggled.disconnect(on_raw_toggled);
         actions.rating_changed.disconnect(on_rating_changed);
+    }
+    
+    private void on_colors_changed() {
+        modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
     }
     
     private void on_flagged_toggled() {
