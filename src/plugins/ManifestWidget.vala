@@ -82,7 +82,7 @@ public class ManifestWidgetMediator {
         about_dialog.comments = info.brief_description;
         about_dialog.copyright = info.copyright;
         about_dialog.license = info.license;
-        about_dialog.wrap_license = info.is_licensed_wordwrapped;
+        about_dialog.wrap_license = info.is_license_wordwrapped;
         about_dialog.logo = info.icon;
         about_dialog.program_name = get_pluggable_name(id);
         about_dialog.translator_credits = info.translators;

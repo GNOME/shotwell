@@ -6,7 +6,7 @@
 
 namespace Spit.Publishing {
 
-public const int CURRENT_API_VERSION = 0;
+public const int CURRENT_INTERFACE = 0;
 
 public errordomain PublishingError {
     NO_ANSWER,
@@ -37,14 +37,14 @@ public interface Publisher : GLib.Object {
     //
     // For future expansion.
     //
-    public virtual void reserved0() {}
-    public virtual void reserved1() {}
-    public virtual void reserved2() {}
-    public virtual void reserved3() {}
-    public virtual void reserved4() {}
-    public virtual void reserved5() {}
-    public virtual void reserved6() {}
-    public virtual void reserved7() {}
+    protected virtual void reserved0() {}
+    protected virtual void reserved1() {}
+    protected virtual void reserved2() {}
+    protected virtual void reserved3() {}
+    protected virtual void reserved4() {}
+    protected virtual void reserved5() {}
+    protected virtual void reserved6() {}
+    protected virtual void reserved7() {}
 }
 
 public interface DialogPane : GLib.Object {
@@ -56,7 +56,7 @@ public interface DialogPane : GLib.Object {
     
     public abstract Gtk.Widget get_widget();
     
-	/* the publishing dialog may give you what you want; then again, it may not ;-) */
+    /* the publishing dialog may give you what you want; then again, it may not ;-) */
     public abstract GeometryOptions get_preferred_geometry();
     
     public abstract void on_pane_installed();
@@ -66,14 +66,14 @@ public interface DialogPane : GLib.Object {
     //
     // For future expansion.
     //
-    public virtual void reserved0() {}
-    public virtual void reserved1() {}
-    public virtual void reserved2() {}
-    public virtual void reserved3() {}
-    public virtual void reserved4() {}
-    public virtual void reserved5() {}
-    public virtual void reserved6() {}
-    public virtual void reserved7() {}
+    protected virtual void reserved0() {}
+    protected virtual void reserved1() {}
+    protected virtual void reserved2() {}
+    protected virtual void reserved3() {}
+    protected virtual void reserved4() {}
+    protected virtual void reserved5() {}
+    protected virtual void reserved6() {}
+    protected virtual void reserved7() {}
 }
 
 /* fraction_complete should be between 0.0 and 1.0 inclusive */
@@ -125,14 +125,14 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
     //
     // For future expansion.
     //
-    public virtual void reserved0() {}
-    public virtual void reserved1() {}
-    public virtual void reserved2() {}
-    public virtual void reserved3() {}
-    public virtual void reserved4() {}
-    public virtual void reserved5() {}
-    public virtual void reserved6() {}
-    public virtual void reserved7() {}
+    protected virtual void reserved0() {}
+    protected virtual void reserved1() {}
+    protected virtual void reserved2() {}
+    protected virtual void reserved3() {}
+    protected virtual void reserved4() {}
+    protected virtual void reserved5() {}
+    protected virtual void reserved6() {}
+    protected virtual void reserved7() {}
 }
 
 public interface Publishable : GLib.Object {
@@ -149,14 +149,14 @@ public interface Publishable : GLib.Object {
     //
     // For future expansion.
     //
-    public virtual void reserved0() {}
-    public virtual void reserved1() {}
-    public virtual void reserved2() {}
-    public virtual void reserved3() {}
-    public virtual void reserved4() {}
-    public virtual void reserved5() {}
-    public virtual void reserved6() {}
-    public virtual void reserved7() {}
+    protected virtual void reserved0() {}
+    protected virtual void reserved1() {}
+    protected virtual void reserved2() {}
+    protected virtual void reserved3() {}
+    protected virtual void reserved4() {}
+    protected virtual void reserved5() {}
+    protected virtual void reserved6() {}
+    protected virtual void reserved7() {}
 }
 
 public interface Service : Object, Spit.Pluggable {
@@ -166,14 +166,14 @@ public interface Service : Object, Spit.Pluggable {
     //
     // For future expansion.
     //
-    public virtual void reserved0() {}
-    public virtual void reserved1() {}
-    public virtual void reserved2() {}
-    public virtual void reserved3() {}
-    public virtual void reserved4() {}
-    public virtual void reserved5() {}
-    public virtual void reserved6() {}
-    public virtual void reserved7() {}
+    protected virtual void reserved0() {}
+    protected virtual void reserved1() {}
+    protected virtual void reserved2() {}
+    protected virtual void reserved3() {}
+    protected virtual void reserved4() {}
+    protected virtual void reserved5() {}
+    protected virtual void reserved6() {}
+    protected virtual void reserved7() {}
 }
 
 }

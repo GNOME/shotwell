@@ -598,6 +598,17 @@ $(PLUGINS_DIR): $(PLUGIN_VAPI) $(PLUGIN_HEADER) $(PLUGIN_DEPS)
 	$(call check_valac_version)
 	@$(MAKE) --directory=$@ PLUGINS_VERSION="$(VERSION)"
 
+.PHONY: docs
+docs:
+# valadoc complains if the directory already exists
+	@rm -rf docs
+	valadoc --directory=docs --package-name=shotwell-plugin-dev --package-version=$(VERSION) --verbose \
+		--no-protected \
+		$(foreach def,$(DEFINES),--define=$(def)) \
+		$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
+		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
+		$(PLUGIN_INTERFACES)
+
 glade: lib$(PROGRAM).so
 
 lib$(PROGRAM).so: $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)

@@ -378,8 +378,8 @@ public class GlueFactory {
 
         foreach (Spit.Pluggable pluggable in pluggables) {
             int pluggable_interface = pluggable.get_pluggable_interface(
-                Spit.Publishing.CURRENT_API_VERSION, Spit.Publishing.CURRENT_API_VERSION);
-            if (pluggable_interface != Spit.Publishing.CURRENT_API_VERSION) {
+                Spit.Publishing.CURRENT_INTERFACE, Spit.Publishing.CURRENT_INTERFACE);
+            if (pluggable_interface != Spit.Publishing.CURRENT_INTERFACE) {
                 warning("Unable to load publisher %s: reported interface %d.",
                     Plugins.get_pluggable_module_id(pluggable), pluggable_interface);
                 
