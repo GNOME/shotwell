@@ -302,7 +302,13 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public static string? prep_event_name(string? name) {
-        return prepare_input_text(name);
+        // Ticket #3218 - we tell prepare_input_text to 
+        // allow empty strings, and if the rest of the app sees
+        // one, it already knows to rename it to  
+        // one of the default event names.
+        return prepare_input_text(name, 
+            PrepareInputTextOptions.NORMALIZE | PrepareInputTextOptions.VALIDATE | 
+            PrepareInputTextOptions.INVALID_IS_NULL | PrepareInputTextOptions.STRIP);
     }
     
     // This is used by MediaSource to notify Event when it's joined.  Don't use this to manually attach a
