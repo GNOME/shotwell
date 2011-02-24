@@ -614,8 +614,8 @@ internal class UploadTransaction : AuthenticatedTransaction {
         string private_video =
             (parameters.get_privacy_setting() == PrivacySetting.PRIVATE) ? PRIVATE_XML : "";
 
-        string metadata = METADATA_TEMPLATE.printf(publishable.get_publishing_name(), private_video,
-            unlisted_video);
+        string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(
+            publishable.get_publishing_name()), private_video, unlisted_video);
         Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata,
             metadata.length);
         message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);

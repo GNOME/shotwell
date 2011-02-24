@@ -676,9 +676,11 @@ internal class UploadTransaction : AuthenticatedTransaction {
         // create the multipart request container
         Soup.Multipart message_parts = new Soup.Multipart("multipart/related");
 
-        string metadata = METADATA_TEMPLATE.printf(publishable.get_publishing_name(),
-            publishable.get_publishing_name());
-        Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata, metadata.length);
+        string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(
+            publishable.get_publishing_name()), Publishing.RESTSupport.decimal_entity_encode(
+            publishable.get_publishing_name()));
+        Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata,
+            metadata.length);
         message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);
 
         // attempt to read the binary image data from disk

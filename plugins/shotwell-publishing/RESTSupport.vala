@@ -150,14 +150,14 @@ public class Transaction {
     }
 
     private void on_message_unqueued(Soup.Message message) {
-        // debug("Transaction.on_message_unqueued( ).");
         if (this.message != message)
             return;
-        
+
         try {
             check_response(message);
         } catch (Spit.Publishing.PublishingError err) {
             warning("Publishing error: %s", err.message);
+            warning("response validation failed. bad response = '%s'.", get_response());
             this.err = err;
         }
     }
