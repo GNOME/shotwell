@@ -92,14 +92,16 @@ public class FSpotDatabase : Object, AlienDatabase {
                 }
             } catch(DatabaseError e) {
                 // log the error and leave the tag list empty
-                message("Failed to retrieve tags for photo ID %l: %s", (long)photo_row.photo_id.id, e.message);
+                message("Failed to retrieve tags for photo ID %ld: %s", (long) photo_row.photo_id.id,
+                    e.message);
             }
             
             try {
                 roll_row = rolls_table.get_by_id(photo_row.roll_id);
             } catch (DatabaseError e) {
                 // log the error and leave the roll row null
-                message("Failed to retrieve roll for photo ID %l: %s", (long)photo_row.photo_id.id, e.message);
+                message("Failed to retrieve roll for photo ID %ld: %s", (long) photo_row.photo_id.id,
+                    e.message);
             }
             
             try {
@@ -120,7 +122,8 @@ public class FSpotDatabase : Object, AlienDatabase {
             } catch (DatabaseError e) {
                 // if we can't load the different versions, do the best we can
                 // and create one photo from the photo row that was found earlier
-                message("Failed to retrieve versions for photo ID %l: %s", (long)photo_row.photo_id.id, e.message);
+                message("Failed to retrieve versions for photo ID %ld: %s", (long) photo_row.photo_id.id,
+                    e.message);
                 photos.add(new FSpotDatabasePhoto(
                     photo_row, null, roll_row, tags, event, hidden, favorite
                 ));
