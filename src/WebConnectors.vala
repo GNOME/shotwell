@@ -650,14 +650,27 @@ public class ProgressPane : PublishingDialogPane {
 }
 
 public class SuccessPane : StaticMessagePane {
-    public SuccessPane(Spit.Publishing.Publisher.MediaType published_media) {
+    public SuccessPane(Spit.Publishing.Publisher.MediaType published_media, int num_uploaded = 1) {
         string? message_string = null;
-        if (published_media == (Spit.Publishing.Publisher.MediaType.PHOTO | Spit.Publishing.Publisher.MediaType.VIDEO))
-            message_string = _("The selected photos/videos were successfully published.");
-        else if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO)
-            message_string = _("The selected videos were successfully published.");
-        else
-            message_string = _("The selected photos were successfully published.");
+
+        // Ticket #3216: When only one media item is uploaded, the app inappropriately
+        // uses plural instead of singluar speech.
+        //
+        // Here, we check whether more than one item is being uploaded, and if so, display
+        // an alternate message.
+        if(num_uploaded > 1) {
+            if (published_media == (Spit.Publishing.Publisher.MediaType.PHOTO | Spit.Publishing.Publisher.MediaType.VIDEO))
+                message_string = _("The selected photos/videos were successfully published.");
+            else if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO)
+                message_string = _("The selected videos were successfully published.");
+            else
+                message_string = _("The selected photos were successfully published.");
+        } else {
+            if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO)
+                message_string = _("The selected video was successfully published.");
+            else
+                message_string = _("The selected photo was successfully published.");
+        }
         base(message_string);
     }
 }

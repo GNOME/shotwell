@@ -86,7 +86,7 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
         CLOSE = 0,
         CANCEL = 1
     }
-	
+    
     public abstract void post_error(Error err);
     
     public abstract void stop_publishing();

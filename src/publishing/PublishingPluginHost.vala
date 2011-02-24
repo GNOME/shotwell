@@ -93,7 +93,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         
         pane.on_pane_installed();
     }
-	
+    
     public void post_error(Error err) {
         if (current_pane != null)
             current_pane.on_pane_uninstalled();
@@ -156,7 +156,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
             current_pane.on_pane_uninstalled();
         current_pane = null;
         
-        dialog.install_pane(new SuccessPane(get_publishable_media_type()));
+        dialog.install_pane(new SuccessPane(get_publishable_media_type(), publishables.length));
         dialog.set_close_button_mode();
 
         // the success pane is a terminal pane; once it's installed, the publishing
@@ -194,7 +194,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
 
         dialog.install_pane(login_pane);
     }
-	
+    
     public void set_service_locked(bool locked) {
         if (locked)
             dialog.lock_service();

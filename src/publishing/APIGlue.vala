@@ -83,7 +83,7 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.HostInterface,
 
         plugin_host.install_dialog_pane(pane, button_mode);
     }
-	
+    
     public void post_error(Error err) {
         debug("DialogInteractorWrapper.post_error( ): err = '%s'.", err.message);
 
@@ -126,7 +126,7 @@ public class DialogInteractorWrapper : PublishingDialog, Spit.HostInterface,
         Spit.Publishing.LoginCallback on_login_clicked) {
         plugin_host.install_welcome_pane(welcome_message, on_login_clicked);
     }
-	
+    
     public void set_service_locked(bool locked) {
         plugin_host.set_service_locked(locked);
     }
@@ -259,7 +259,7 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
             error("MediaSourcePublishableWrapper.serialize_for_publishing( ): unknown media type.");
         }
 
-		return serialized_file;
+        return serialized_file;
     }
 
     public string get_publishing_name() {
