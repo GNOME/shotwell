@@ -784,11 +784,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // it's apparent which one was being viewed here
         if (parent_view != null) {
             parent_view.unselect_all();
-            DataView view_in_parent = parent_view.get_view_for_source(photo);
-            if (null != view_in_parent) {
-                Marker parent_marker = parent_view.mark(view_in_parent);
-                parent_view.select_marked(parent_marker);
-            }
+            DataView? view_in_parent = parent_view.get_view_for_source(photo);
+            if (null != view_in_parent)
+                parent_view.select_marked(parent_view.mark(view_in_parent));
         }
     }
     

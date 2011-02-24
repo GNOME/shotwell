@@ -150,7 +150,7 @@ public class DataSet {
         return success;
     }
     
-    public bool remove_many(Gee.List<DataObject> objects) {
+    public bool remove_many(Gee.Collection<DataObject> objects) {
         bool success = true;
         
         if (!list.remove_all(objects))
@@ -2248,7 +2248,7 @@ public class ViewCollection : DataCollection {
             DataView view = (DataView) object;
             source_map.set(view.get_source(), view);
             
-            if (view.is_selected()) {
+            if (view.is_selected() && view.is_visible()) {
                 if (added_selected == null)
                     added_selected = new Gee.ArrayList<DataView>();
                 
@@ -2270,9 +2270,7 @@ public class ViewCollection : DataCollection {
         }
         
         if (added_selected != null) {
-            bool is_added = selected.add_many(added_selected);
-            assert(is_added);
-            
+            add_many_selected(added_selected);
             notify_items_selected(added_selected);
         }
         
@@ -2281,7 +2279,7 @@ public class ViewCollection : DataCollection {
     
     // Keep the source map and state tables synchronized
     protected override void notify_items_removed(Gee.Iterable<DataObject> removed) {
-        bool selected_removed = false;
+        Gee.ArrayList<DataView>? selected_removed = null;
         foreach (DataObject object in removed) {
             DataView view = (DataView) object;
 
@@ -2289,8 +2287,15 @@ public class ViewCollection : DataCollection {
             assert(is_removed);
             
             if (view.is_selected()) {
-                remove_selected(view);
-                selected_removed = true;
+                // hidden items may be selected, but they won't be in the selected pool
+                assert(selected.contains(view) == view.is_visible());
+                
+                if (view.is_visible()) {
+                    if (selected_removed == null)
+                        selected_removed = new Gee.ArrayList<DataView>();
+                    
+                    selected_removed.add(view);
+                }
             }
             
             if (view.is_visible() && visible != null) {
@@ -2299,11 +2304,14 @@ public class ViewCollection : DataCollection {
             }
         }
         
-        // If a selected item was removed, only fire the selected_removed signal, as the total
-        // selection character of the ViewCollection has changed, but not the individual items'
-        // state.
-        if (selected_removed)
+        if (selected_removed != null) {
+            remove_many_selected(selected_removed);
+            
+            // If a selected item was removed, only fire the selected_removed signal, as the total
+            // selection character of the ViewCollection has changed, but not the individual items'
+            // state.
             notify_selection_group_altered();
+        }
         
         base.notify_items_removed(removed);
     }
@@ -2510,17 +2518,30 @@ public class ViewCollection : DataCollection {
         Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();
         act_on_marked(marker, select_item, null, selected);
         
-        if (selected.size > 0)
+        if (selected.size > 0) {
+            add_many_selected(selected);
             notify_items_selected(selected);
+        }
     }
     
-    private void add_selected(DataView view) {
-        bool added = selected.add(view);
+    // Do NOT add hidden items to the selection collection, mark them as selected and they will be
+    // added when/if they are made visible.
+    private void add_many_selected(Gee.Collection<DataView> views) {
+        if (views.size == 0)
+            return;
+        
+        foreach (DataView view in views)
+            assert(view.is_visible());
+        
+        bool added = selected.add_many(views);
         assert(added);
     }
     
-    private void remove_selected(DataView view) {
-        bool removed = selected.remove(view);
+    private void remove_many_selected(Gee.Collection<DataView> views) {
+        if (views.size == 0)
+            return;
+        
+        bool removed = selected.remove_many(views);
         assert(removed);
     }
     
@@ -2534,15 +2555,18 @@ public class ViewCollection : DataCollection {
     private bool select_item(DataObject object, Object? user) {
         DataView view = (DataView) object;
         if (view.is_selected()) {
-            assert(selected.contains(view));
+            if (view.is_visible())
+                assert(selected.contains(view));
             
             return true;
         }
-            
+        
         view.internal_set_selected(true);
-        add_selected(view);
-
-        ((Gee.ArrayList<DataView>) user).add(view);
+        
+        // Do NOT add hidden items to the selection collection, merely mark them as selected
+        // and they will be re-added when/if they are made visible
+        if (view.is_visible())
+            ((Gee.ArrayList<DataView>) user).add(view);
         
         return true;
     }
@@ -2552,8 +2576,10 @@ public class ViewCollection : DataCollection {
         Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
         act_on_marked(marker, unselect_item, null, unselected);
         
-        if (unselected.size > 0)
+        if (unselected.size > 0) {
+            remove_many_selected(unselected);
             notify_items_unselected(unselected);
+        }
     }
     
     // Unselects all items.
@@ -2588,8 +2614,6 @@ public class ViewCollection : DataCollection {
         }
         
         view.internal_set_selected(false);
-        remove_selected(view);
-        
         ((Gee.ArrayList<DataView>) user).add(view);
         
         return true;
@@ -2600,6 +2624,10 @@ public class ViewCollection : DataCollection {
     public void toggle_marked(Marker marker) {
         ToggleLists lists = new ToggleLists();
         act_on_marked(marker, toggle_item, null, lists);
+        
+        // add and remove selected before firing the signals
+        add_many_selected(lists.selected);
+        remove_many_selected(lists.unselected);
         
         if (lists.selected.size > 0)
             notify_items_selected(lists.selected);
@@ -2614,13 +2642,12 @@ public class ViewCollection : DataCollection {
         
         // toggle the selection state of the view, adding or removing it from the selected list
         // to maintain state and adding it to the ToggleLists for the caller to signal with
+        //
+        // See add_many_selected for rules on not adding hidden items to the selection pool
         if (view.internal_toggle()) {
-            add_selected(view);
-            
-            lists.selected.add(view);
+            if (view.is_visible())
+                lists.selected.add(view);
         } else {
-            remove_selected(view);
-            
             lists.unselected.add(view);
         }
         
@@ -2665,11 +2692,12 @@ public class ViewCollection : DataCollection {
         for (int ctr = 0; ctr < count; ctr++) {
             DataView view = to_hide.get(ctr);
             assert(view.is_visible());
-
+            
             if (view.is_selected()) {
                 view.internal_set_selected(false);
-                remove_selected(view);
                 unselected.add(view);
+            } else {
+                assert(!selected.contains(view));
             }
             
             view.internal_set_visible(false);
@@ -2682,6 +2710,8 @@ public class ViewCollection : DataCollection {
         
         bool removed = visible.remove_many(to_hide);
         assert(removed);
+        
+        remove_many_selected(unselected);
         
         if (unselected.size > 0)
             notify_items_unselected(unselected);
@@ -2703,7 +2733,7 @@ public class ViewCollection : DataCollection {
             
             view.internal_set_visible(true);
             
-            // see note in hide_item for selection handling with hidden/visible items
+            // See note in add_selected for selection handling with hidden/visible items
             if (view.is_selected()) {
                 assert(!selected.contains(view));
                 added_selected.add(view);
@@ -2712,8 +2742,8 @@ public class ViewCollection : DataCollection {
         
         bool added = add_many_visible(to_show);
         assert(added);
-        added = selected.add_many(added_selected);
-        assert(added);
+        
+        add_many_selected(added_selected);
         
         if (to_show.size > 0) {
             notify_items_shown(to_show);
