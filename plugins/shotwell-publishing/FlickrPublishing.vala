@@ -542,7 +542,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_show_publishing_options_pane() {
         debug("ACTION: displaying publishing options pane");
-        host.set_service_locked(true);
+        host.set_service_locked(false);
 
         PublishingOptionsPane publishing_options_pane = new PublishingOptionsPane(this, parameters,
             host.get_publishable_media_type());

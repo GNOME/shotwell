@@ -241,6 +241,24 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_login_clicked);
     }
 
+    private void do_test_connection_to_endpoint() {
+        debug("ACTION: testing connection to Facebook endpoint.");
+        host.set_service_locked(true);
+        
+        host.install_static_message_pane(_("Testing connection to Facebook..."));
+
+        FacebookEndpointTestTransaction txn = new FacebookEndpointTestTransaction(session);
+        txn.completed.connect(on_endpoint_test_completed);
+        txn.network_error.connect(on_endpoint_test_error);
+
+        try {
+            txn.execute();
+        } catch (Spit.Publishing.PublishingError err) {
+            if (is_running())
+                host.post_error(err);
+        }
+    }
+
     private void do_fetch_album_descriptions() {
         debug("ACTION: fetching album descriptions from remote endpoint.");
 
@@ -458,7 +476,32 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         debug("EVENT: user clicked 'Login' on welcome pane.");
 
+        do_test_connection_to_endpoint();
+    }
+
+    private void on_endpoint_test_completed(FacebookRESTTransaction txn) {
+        txn.completed.disconnect(on_endpoint_test_completed);
+        txn.network_error.disconnect(on_endpoint_test_error);
+
+        if (!is_running())
+            return;
+
+        debug("EVENT: endpoint test transaction detected that the Facebook endpoint is alive.");
+
         do_hosted_web_authentication();
+    }
+
+    private void on_endpoint_test_error(FacebookRESTTransaction bad_txn,
+        Spit.Publishing.PublishingError err) {
+        bad_txn.completed.disconnect(on_endpoint_test_completed);
+        bad_txn.network_error.disconnect(on_endpoint_test_error);
+
+        if (!is_running())
+            return;
+
+        debug("EVENT: endpoint test transaction failed to detect a connection to the Facebook endpoint");
+
+        host.post_error(err);
     }
 
     private void on_web_auth_pane_login_succeeded(string success_url) {
@@ -1048,8 +1091,6 @@ internal class FacebookRESTTransaction {
     public virtual void execute() throws Spit.Publishing.PublishingError {
         sign();
 
-        assert(get_is_signed());
-
         // Facebook REST POST requests must transmit at least one argument
         if (get_method() == FacebookHttpMethod.POST)
             assert(arguments.length > 0);
@@ -1061,9 +1102,12 @@ internal class FacebookRESTTransaction {
                 Soup.URI.encode(arg.value, "&+")));
         }
 
-        // append the signature key-value pair to the formdata string
-        formdata_string = formdata_string + ("%s=%s".printf(
-            Soup.URI.encode(SIGNATURE_KEY, null), Soup.URI.encode(signature_value, null)));
+        // if this transaction has been signed, then we need to append the signature key-value pair
+        // to the formdata string
+        if (get_is_signed()) {
+            formdata_string = formdata_string + ("%s=%s".printf(
+                Soup.URI.encode(SIGNATURE_KEY, null), Soup.URI.encode(signature_value, null)));
+        }
 
         debug("formdata_string = '%s'", formdata_string);
 
@@ -1128,6 +1172,22 @@ internal class FacebookAlbumsFetchTransaction : FacebookRESTTransaction {
         assert(session.is_authenticated());
 
         add_argument("method", "photos.getAlbums");
+    }
+}
+
+internal class FacebookEndpointTestTransaction : FacebookRESTTransaction {
+    public FacebookEndpointTestTransaction(FacebookRESTSession session) {
+        base(session, FacebookHttpMethod.GET);
+    }
+
+    public FacebookEndpointTestTransaction.with_endpoint_url(FacebookRESTSession session,
+        string endpoint_url) {
+        base(session, FacebookHttpMethod.GET);
+    }
+
+    protected override void sign() {
+        // signing is a no-op for endpoint test transactions since we don't need any authentication
+        // just to check if the remote host is alive.
     }
 }
 
