@@ -1014,7 +1014,6 @@ public class ProgressDialog : Gtk.Window {
         if (cancel_button != null)
             hbox.pack_end(cancel_button, false, false, 0);
         
-        
         Gtk.Label primary_text_label = new Gtk.Label("");
         primary_text_label.set_markup("<span weight=\"bold\">%s</span>".printf(text));
         primary_text_label.set_alignment(0, 0.5f);
@@ -1059,20 +1058,23 @@ public class ProgressDialog : Gtk.Window {
         progress_bar.set_text(_("%d%%").printf((int) (pct * 100.0)));
     }
     
+    public void set_status(string text) {
+        progress_bar.set_text(text);
+        
+        show_all();
+    }
+    
     // This can be used as a ProgressMonitor delegate.
     public bool monitor(uint64 count, uint64 total) {
-        if (last_count == uint64.MAX)
-            last_count = count;
-        
-        if ((count - last_count) > update_every) {
+        if ((last_count == uint64.MAX) || (count - last_count) >= update_every) {
             set_percentage((double) count / (double) total);
             
             // TODO: get rid of this.  non-trivial, as some progress-monitor operations are blocking
             // and need to allow the event loop to spin
             spin_event_loop();
-            
-            last_count = count;
         }
+        
+        last_count = count;
         
         return (cancellable != null) ? !cancellable.is_cancelled() : true;
     }

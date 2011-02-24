@@ -2901,7 +2901,10 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void on_print() {
-        PrintManager.get_instance().spool_photo((Gee.Collection<MediaSource>) get_view().get_selected_sources());
+        if (get_view().get_selected_count() > 0) {
+            PrintManager.get_instance().spool_photo(
+                (Gee.Collection<Photo>) get_view().get_selected_sources_of_type(typeof(Photo)));
+        }
     }
 
     private void on_external_app_changed() {

@@ -867,13 +867,10 @@ public class PrintJob : Gtk.PrintOperation {
     private PrintSettings settings;
     private Gee.ArrayList<Photo> photos = new Gee.ArrayList<Photo>();
     
-    public PrintJob(Gee.Collection<MediaSource> to_print) {
+    public PrintJob(Gee.Collection<Photo> to_print) {
         this.settings = PrintManager.get_instance().get_global_settings();
-        foreach (MediaSource media in to_print) {
-            Photo? photo = media as Photo;
-            if (photo != null)
-                photos.add(photo);
-        }
+        photos.add_all(to_print);
+        
         set_embed_page_setup (true);
         double photo_aspect_ratio =  photos[0].get_dimensions().get_aspect_ratio();
         if (photo_aspect_ratio < 1.0)
@@ -918,11 +915,13 @@ public class PrintManager {
     private const double IMAGE_DISTANCE = 0.24;
     
     private static PrintManager instance = null;
-
+    
     private PrintSettings settings;
     private Gtk.PageSetup user_page_setup;
     private CustomPrintTab custom_tab;
-
+    private ProgressDialog? progress_dialog = null;
+    private Cancellable? cancellable = null;
+    
     private PrintManager() {
         user_page_setup = new Gtk.PageSetup();
         settings = PrintSettings();
@@ -987,8 +986,8 @@ public class PrintManager {
         return instance;
     }
 
-    public void spool_photo(Gee.Collection<MediaSource> to_print) {
-        PrintJob job = new PrintJob((Gee.Collection<MediaSource>) to_print);
+    public void spool_photo(Gee.Collection<Photo> to_print) {
+        PrintJob job = new PrintJob(to_print);
         job.set_custom_tab_label(_("Image Settings"));
         job.set_unit(Gtk.Unit.INCH);
         job.set_n_pages(1);
@@ -997,24 +996,46 @@ public class PrintManager {
         job.begin_print.connect(on_begin_print);
         job.draw_page.connect(on_draw_page);
         job.create_custom_widget.connect(on_create_custom_widget);
-
-        Gtk.PrintOperationResult job_result;
-
+        job.status_changed.connect(on_status_changed);
+        
+        AppWindow.get_instance().set_busy_cursor();
+        
+        cancellable = new Cancellable();
+        progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Printing..."), cancellable);
+        
+        string? err_msg = null;
         try {
-            job_result = job.run(Gtk.PrintOperationAction.PRINT_DIALOG,
+            Gtk.PrintOperationResult result = job.run(Gtk.PrintOperationAction.PRINT_DIALOG,
                 AppWindow.get_instance());
-            if (job_result == Gtk.PrintOperationResult.APPLY) {
+            if (result == Gtk.PrintOperationResult.APPLY)
                 user_page_setup = job.get_default_page_setup();
-            }
         } catch (Error e) {
             job.cancel();
-            AppWindow.error_message(_("Unable to print photo:\n\n%s").printf(e.message));
+            err_msg = e.message;
         }
+        
+        progress_dialog.close();
+        progress_dialog = null;
+        cancellable = null;
+        
+        AppWindow.get_instance().set_normal_cursor();
+        
+        if (err_msg != null)
+            AppWindow.error_message(_("Unable to print photo:\n\n%s").printf(err_msg));
     }
 
-    private void on_begin_print(Gtk.PrintOperation emitting_object,
-        Gtk.PrintContext job_context) {
+    private void on_begin_print(Gtk.PrintOperation emitting_object, Gtk.PrintContext job_context) {
+        debug("on_begin_print");
+        
         PrintJob job = (PrintJob) emitting_object;
+        
+        // cancel() can only be called from "begin-print", "paginate", or "draw-page"
+        if (cancellable != null && cancellable.is_cancelled()) {
+            job.cancel();
+            
+            return;
+        }
+        
         Gee.List<Photo> photos = job.get_photos();
         if (job.get_local_settings().get_content_layout() == ContentLayout.IMAGE_PER_PAGE){
             PrintLayout layout = (PrintLayout) job.get_local_settings().get_image_per_page_selection();
@@ -1022,12 +1043,34 @@ public class PrintManager {
         } else {
             job.set_n_pages(photos.size);
         }
+        
+        spin_event_loop();
+    }
+    
+    private void on_status_changed(Gtk.PrintOperation job) {
+        debug("on_status_changed: %s", job.get_status_string());
+        
+        if (progress_dialog != null) {
+            progress_dialog.set_status(job.get_status_string());
+            spin_event_loop();
+        }
     }
     
     private void on_draw_page(Gtk.PrintOperation emitting_object, Gtk.PrintContext job_context,
         int page_num) {
+        debug("on_draw_page");
+        
         PrintJob job = (PrintJob) emitting_object;
-
+        
+        // cancel() can only be called from "begin-print", "paginate", or "draw-page"
+        if (cancellable != null && cancellable.is_cancelled()) {
+            job.cancel();
+            
+            return;
+        }
+        
+        spin_event_loop();
+        
         Gtk.PageSetup page_setup = job_context.get_page_setup();
         double page_width = page_setup.get_page_width(Gtk.Unit.INCH);
         double page_height = page_setup.get_page_height(Gtk.Unit.INCH);
@@ -1065,6 +1108,7 @@ public class PrintManager {
                         canvas_width = canvas_height;
                         canvas_height = canvas_tmp;
                     }
+                    
                     double dx = (page_width - canvas_width) / 2.0;
                     double dy = (page_height - canvas_height) / 2.0;
                     fit_image_to_canvas(photos[page_num], dx, dy, canvas_width, canvas_height, true,
@@ -1074,6 +1118,9 @@ public class PrintManager {
                             job, job_context);
                     }
                 }
+                
+                if (progress_dialog != null)
+                    progress_dialog.monitor(page_num, photos.size);
             break;
             
             case ContentLayout.IMAGE_PER_PAGE:
@@ -1096,6 +1143,9 @@ public class PrintManager {
                                     photos[i].get_name(), job, job_context);
                             }
                         }
+                        
+                        if (progress_dialog != null)
+                            progress_dialog.monitor(i, photos.size);
                     }
                 }
             break;
@@ -1138,6 +1188,7 @@ public class PrintManager {
             x += (canvas_width - target_width) / 2.0;
             y += (canvas_height - target_height) / 2.0;
         }
+        
         double x_offset = dpi * x;
         double y_offset = dpi * y;
         dc.save();
@@ -1161,12 +1212,12 @@ public class PrintManager {
                 }
                 Gdk.Pixbuf shaved_pixbuf = new Gdk.Pixbuf.subpixbuf(photo_pixbuf, shave_vertical,shave_horizontal, scaled_photo_dimensions.width - (2 * shave_vertical), scaled_photo_dimensions.height - (2 * shave_horizontal));
 
-                photo_pixbuf = pixbuf_scaling.perform_on_pixbuf(shaved_pixbuf, Gdk.InterpType.NEAREST, true);
+                photo_pixbuf = pixbuf_scaling.perform_on_pixbuf(shaved_pixbuf, Gdk.InterpType.HYPER, true);
                 Gdk.cairo_set_source_pixbuf(dc, photo_pixbuf, 0.0, 0.0);
             } else {
                 Scaling pixbuf_scaling = Scaling.for_viewport(viewport, true);
                 Gdk.Pixbuf photo_pixbuf = photo.get_pixbuf(pixbuf_scaling);
-                photo_pixbuf = pixbuf_scaling.perform_on_pixbuf(photo_pixbuf, Gdk.InterpType.NEAREST, true);
+                photo_pixbuf = pixbuf_scaling.perform_on_pixbuf(photo_pixbuf, Gdk.InterpType.HYPER, true);
                 Gdk.cairo_set_source_pixbuf(dc, photo_pixbuf, 0.0, 0.0);
             }
             dc.paint();
@@ -1177,6 +1228,7 @@ public class PrintManager {
         }
         dc.restore();
     }
+    
     private void add_title_to_canvas(double x, double y, string title, PrintJob job, Gtk.PrintContext job_context) {
         Cairo.Context dc = job_context.get_cairo_context();
         double dpi = job.get_local_settings().get_content_ppi();
@@ -1200,7 +1252,7 @@ public class PrintManager {
         dc.fill();
         dc.set_source_rgba(0, 0, 0, 1);
 
-        dc.move_to(tx, ty+2);
+        dc.move_to(tx, ty + 2);
         Pango.cairo_show_layout(dc, title_layout);
     }
     

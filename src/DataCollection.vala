@@ -2793,6 +2793,21 @@ public class ViewCollection : DataCollection {
         return (object != null) ? ((DataView) object).get_source() : null;
     }
     
+    public Gee.Collection<DataSource>? get_selected_sources_of_type(Type t) {
+        Gee.Collection<DataSource>? sources = null;
+        foreach (DataView view in get_selected()) {
+            DataSource source = view.get_source();
+            if (source.get_type().is_a(t)) {
+                if (sources == null)
+                    sources = new Gee.ArrayList<DataSource>();
+                
+                sources.add(source);
+            }
+        }
+        
+        return sources;
+    }
+    
     // Returns -1 if source is not in the ViewCollection.
     public int index_of_source(DataSource source) {
         DataView? view = get_view_for_source(source);
