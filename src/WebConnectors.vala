@@ -1248,7 +1248,6 @@ public class ServiceFactory {
         caps_map.clear();
         
         add_caps(new YandexConnector.Capabilities());
-        add_caps(new YouTubeConnector.Capabilities());
         add_caps(new PiwigoConnector.Capabilities());
 
         // in addition to the baked-in services above, add services dynamically loaded from

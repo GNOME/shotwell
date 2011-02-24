@@ -14,6 +14,7 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
         pluggables += new FacebookService();
         pluggables += new PicasaService();
         pluggables += new FlickrService();
+        pluggables += new YouTubeService();
     }
     
     ~ShotwellPublishingCoreServices() {

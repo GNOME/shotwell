@@ -14,6 +14,7 @@ SRC_FILES := \
 	FacebookPublishing.vala \
 	PicasaPublishing.vala \
 	FlickrPublishing.vala \
+	YouTubePublishing.vala \
 	RESTSupport.vala
 
 include ../Makefile.plugin.mk

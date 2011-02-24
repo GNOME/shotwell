@@ -77,7 +77,6 @@ UNUNITIZED_SRC_FILES = \
 	Tag.vala \
 	TagPage.vala \
 	PiwigoConnector.vala \
-	YouTubeConnector.vala \
 	Screensaver.vala \
 	MimicManager.vala \
 	TrashPage.vala \
