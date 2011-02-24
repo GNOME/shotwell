@@ -417,16 +417,26 @@ public class Event : EventSource, ContainerSource, Proxyable {
         
         base.notify_relinking(sources);
     }
-    
-    private void on_media_altered(Gee.Map<DataObject, Alteration> items) {
+
+    // This gets called when one or more media items inside this event gets 
+    // modified in some fashion. If the media item's date changes and the
+    // event was previously undated, the name of the event needs to change 
+    // as well; all of that happens automatically in here.
+    private void on_media_altered(Gee.Map<DataObject, Alteration> items) { 
         foreach (Alteration alteration in items.values) {
-            if (alteration.has_detail("metadata", "time")) {
-                notify_altered(new Alteration("metadata", "time"));
+            if (alteration.has_detail("metadata", "exposure-time")) {
+                
+                string alt_list = "metadata:time";
+                
+                if(!has_name())
+                    alt_list += (", metadata:name");
+
+                notify_altered(new Alteration.from_list(alt_list));
                 
                 break;
             }
         }
-    }
+    }    
     
     // This creates an empty event with a primary source.  NOTE: This does not add the source to
     // the event.  That must be done manually.
