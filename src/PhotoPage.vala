@@ -2903,7 +2903,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void on_print() {
-        PrintManager.get_instance().spool_photo(get_photo());
+        PrintManager.get_instance().spool_photo((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
 
     private void on_external_app_changed() {

@@ -417,12 +417,36 @@ public class Config {
         return get_int("/apps/shotwell/printing/size_selection", 1) - 1;
     }
 
+    public bool set_image_per_page_selection(int image_per_page) {
+        return set_int("/apps/shotwell/printing/image_per_page_selection", image_per_page + 1);
+    }
+
+    public int get_image_per_page_selection() {
+        return get_int("/apps/shotwell/printing/image_per_page_selection", 1) - 1;
+    }
+
     public bool set_printing_match_aspect_ratio(bool match_aspect_ratio) {
         return set_bool("/apps/shotwell/printing/match_aspect_ratio", match_aspect_ratio);
     }
 
     public bool get_printing_match_aspect_ratio() {
         return get_bool("/apps/shotwell/printing/match_aspect_ratio", true);
+    }
+
+    public bool set_printing_print_titles(bool print_titles) {
+        return set_bool("/apps/shotwell/printing/print_titles", print_titles);
+    }
+
+    public bool get_printing_print_titles() {
+        return get_bool("/apps/shotwell/printing/print_titles", true);
+    }
+
+    public bool set_printing_print_titles_font(string font_name) {
+        return set_string("/apps/shotwell/printing/print_titles_font", font_name);
+    }
+
+    public string get_printing_print_titles_font() {
+        return get_string("/apps/shotwell/printing/print_titles_font", "Sans Bold 12");
     }
 
     public bool set_display_basic_properties(bool display) {
