@@ -44,8 +44,10 @@ public uchar[] string_to_uchar_array(string str) {
 // does not do.  This handles this problem by kicking back an empty string if the text is not
 // valid.  Text should be validated upon entry to the system as well to guard against this
 // problem.
-public inline string guarded_markup_escape_text(string plain) {
-    return plain.validate() ? Markup.escape_text(plain) : "";
+//
+// Null strings are accepted; they will result in an empty string returned.
+public inline string guarded_markup_escape_text(string? plain) {
+    return (!is_string_empty(plain) && plain.validate()) ? Markup.escape_text(plain) : "";
 }
 
 public long find_last_offset(string str, char c) {
