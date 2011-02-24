@@ -392,25 +392,25 @@ public class SearchFilterActions {
         Gtk.ToggleActionEntry flagged_action = { "CommonDisplayFlagged", Resources.ICON_FLAGGED_PAGE,
             TRANSLATABLE, null, TRANSLATABLE, on_flagged_toggled, Config.get_instance().get_search_flagged() };
         flagged_action.label = _("Flagged");
-        flagged_action.tooltip = _("Display flagged media");
+        flagged_action.tooltip = _("Flagged");
         toggle_actions += flagged_action;
         
         Gtk.ToggleActionEntry photos_action = { "CommonDisplayPhotos", Resources.ICON_SINGLE_PHOTO,
             TRANSLATABLE, null, TRANSLATABLE, on_photos_toggled, Config.get_instance().get_show_media_photos() };
         photos_action.label = _("Photos");
-        photos_action.tooltip = _("Display photos");
+        photos_action.tooltip = _("Photos");
         toggle_actions += photos_action;
         
         Gtk.ToggleActionEntry videos_action = { "CommonDisplayVideos", Resources.ICON_VIDEOS_PAGE,
             TRANSLATABLE, null, TRANSLATABLE, on_videos_toggled, Config.get_instance().get_show_media_video() };
         videos_action.label = _("Videos");
-        videos_action.tooltip = _("Display videos");
+        videos_action.tooltip = _("Videos");
         toggle_actions += videos_action;
         
         Gtk.ToggleActionEntry raw_action = { "CommonDisplayRaw", Resources.ICON_CAMERAS, TRANSLATABLE,
             null, TRANSLATABLE, on_raw_toggled, Config.get_instance().get_show_media_raw() };
         raw_action.label = _("RAW Photos");
-        raw_action.tooltip = _("Display RAW photos");
+        raw_action.tooltip = _("RAW photos");
         toggle_actions += raw_action;
         
         action_group.add_toggle_actions(toggle_actions, this);
