@@ -1850,18 +1850,34 @@ public class ViewCollection : DataCollection {
         base (name);
     }
     
-    protected virtual void notify_items_selected(Gee.Iterable<DataView> views) {
-        items_selected(views);
-        items_state_changed(views);
+    protected virtual void notify_items_selected_unselected(Gee.Collection<DataView>? selected,
+        Gee.Collection<DataView>? unselected) {
+        bool has_selected = (selected != null) && (selected.size > 0);
+        bool has_unselected = (unselected != null) && (unselected.size > 0);
         
-        notify_selection_group_altered();
-    }
-    
-    protected virtual void notify_items_unselected(Gee.Iterable<DataView> views) {
-        items_unselected(views);
-        items_state_changed(views);
+        if (has_selected)
+            items_selected(selected);
         
-        notify_selection_group_altered();
+        if (has_unselected)
+            items_unselected(unselected);
+        
+        Gee.Collection<DataView>? sum;
+        if (has_selected && !has_unselected) {
+            sum = selected;
+        } else if (!has_selected && has_unselected) {
+            sum = unselected;
+        } else if (!has_selected && !has_unselected) {
+            sum = null;
+        } else {
+            sum = new Gee.HashSet<DataView>();
+            sum.add_all(selected);
+            sum.add_all(unselected);
+        }
+        
+        if (sum != null) {
+            items_state_changed(sum);
+            notify_selection_group_altered();
+        }
     }
     
     protected virtual void notify_selection_group_altered() {
@@ -2271,7 +2287,7 @@ public class ViewCollection : DataCollection {
         
         if (added_selected != null) {
             add_many_selected(added_selected);
-            notify_items_selected(added_selected);
+            notify_items_selected_unselected(added_selected, null);
         }
         
         base.notify_items_added(added);
@@ -2513,17 +2529,6 @@ public class ViewCollection : DataCollection {
         return neighbors;
     }
     
-    // Selects all the marked items.  The marker will be invalid after this call.
-    public void select_marked(Marker marker) {
-        Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();
-        act_on_marked(marker, select_item, null, selected);
-        
-        if (selected.size > 0) {
-            add_many_selected(selected);
-            notify_items_selected(selected);
-        }
-    }
-    
     // Do NOT add hidden items to the selection collection, mark them as selected and they will be
     // added when/if they are made visible.
     private void add_many_selected(Gee.Collection<DataView> views) {
@@ -2543,6 +2548,17 @@ public class ViewCollection : DataCollection {
         
         bool removed = selected.remove_many(views);
         assert(removed);
+    }
+    
+    // Selects all the marked items.  The marker will be invalid after this call.
+    public void select_marked(Marker marker) {
+        Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();
+        act_on_marked(marker, select_item, null, selected);
+        
+        if (selected.size > 0) {
+            add_many_selected(selected);
+            notify_items_selected_unselected(selected, null);
+        }
     }
     
     // Selects all items.
@@ -2578,7 +2594,7 @@ public class ViewCollection : DataCollection {
         
         if (unselected.size > 0) {
             remove_many_selected(unselected);
-            notify_items_unselected(unselected);
+            notify_items_selected_unselected(null, unselected);
         }
     }
     
@@ -2619,6 +2635,21 @@ public class ViewCollection : DataCollection {
         return true;
     }
     
+    // Performs the operations in that order: unselects the marked then selects the marked
+    public void unselect_and_select_marked(Marker unselect, Marker select) {
+        Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
+        act_on_marked(unselect, unselect_item, null, unselected);
+        
+        remove_many_selected(unselected);
+        
+        Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();
+        act_on_marked(select, select_item, null, selected);
+        
+        add_many_selected(selected);
+        
+        notify_items_selected_unselected(selected, unselected);
+    }
+    
     // Toggle the selection state of all marked items.  The marker will be invalid after this
     // call.
     public void toggle_marked(Marker marker) {
@@ -2629,11 +2660,7 @@ public class ViewCollection : DataCollection {
         add_many_selected(lists.selected);
         remove_many_selected(lists.unselected);
         
-        if (lists.selected.size > 0)
-            notify_items_selected(lists.selected);
-        
-        if (lists.unselected.size > 0)
-            notify_items_unselected(lists.unselected);
+        notify_items_selected_unselected(lists.selected, lists.unselected);
     }
     
     private bool toggle_item(DataObject object, Object? user) {
@@ -2714,7 +2741,7 @@ public class ViewCollection : DataCollection {
         remove_many_selected(unselected);
         
         if (unselected.size > 0)
-            notify_items_unselected(unselected);
+            notify_items_selected_unselected(null, unselected);
         
         if (to_hide.size > 0) {
             notify_items_hidden(to_hide);

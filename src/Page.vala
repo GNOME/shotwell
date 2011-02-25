@@ -163,6 +163,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private int cursor_hide_msec = 0;
     private uint last_timeout_id = 0;
     private int cursor_hide_time_cached = 0;
+    private bool are_actions_attached = false;
+    private OneShotScheduler? update_actions_scheduler = null;
     
     protected Page(string page_name) {
         this.page_name = page_name;
@@ -176,6 +178,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         popup_menu.connect(on_context_keypress);
         
         init_ui();
+        
+        realize.connect(attach_view_signals);
     }
     
     ~Page() {
@@ -193,10 +197,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     // This is called by the page controller when it has removed this page ... pages should override
     // this (or the signal) to clean up
     public override void destroy() {
-        debug("Page %s Destroyed", get_page_name());
-
         // untie signals
         detach_event_source();
+        detach_view_signals();
         view.close();
         
         // remove refs to external objects which may be pointing to the Page
@@ -220,6 +223,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         is_destroyed = true;
         
         base.destroy();
+        
+        debug("Page %s Destroyed", get_page_name());
     }
     
     public virtual GLib.Icon? get_icon() {
@@ -567,8 +572,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         ui.ensure_update();
     }
     
-    public override void map() {
-        base.map();
+    // Called from "realize"
+    private void attach_view_signals() {
+        if (are_actions_attached)
+            return;
         
         // initialize the Gtk.Actions according to current state
         int selected_count = get_view().get_selected_count();
@@ -577,13 +584,41 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         update_actions(selected_count, count);
         
         // monitor state changes to update actions
-        view.items_state_changed.connect(on_update_actions);
-        view.selection_group_altered.connect(on_update_actions);
-        view.items_visibility_changed.connect(on_update_actions);
-        view.contents_altered.connect(on_update_actions);
+        get_view().items_state_changed.connect(on_update_actions);
+        get_view().selection_group_altered.connect(on_update_actions);
+        get_view().items_visibility_changed.connect(on_update_actions);
+        get_view().contents_altered.connect(on_update_actions);
+        
+        are_actions_attached = true;
+    }
+    
+    // Called from destroy()
+    private void detach_view_signals() {
+        if (!are_actions_attached)
+            return;
+        
+        get_view().items_state_changed.disconnect(on_update_actions);
+        get_view().selection_group_altered.disconnect(on_update_actions);
+        get_view().items_visibility_changed.disconnect(on_update_actions);
+        get_view().contents_altered.disconnect(on_update_actions);
+        
+        are_actions_attached = false;
     }
     
     private void on_update_actions() {
+        if (update_actions_scheduler == null) {
+            update_actions_scheduler = new OneShotScheduler(
+                "Update actions scheduler for %s".printf(get_page_name()),
+                on_update_actions_on_idle);
+        }
+        
+        update_actions_scheduler.at_priority_idle(Priority.LOW);
+    }
+    
+    private void on_update_actions_on_idle() {
+        if (is_destroyed)
+            return;
+        
         update_actions(get_view().get_selected_count(), get_view().get_count());
     }
     
@@ -1473,8 +1508,10 @@ public abstract class CheckerboardPage : Page {
                         // unselect all and select that one; if they've clicked on a previously
                         // selected item, do nothing
                         if (!item.is_selected()) {
-                            get_view().unselect_all();
-                            get_view().select_marked(get_view().mark(item));
+                            Marker all = get_view().start_marking();
+                            all.mark_many(get_view().get_selected());
+                            
+                            get_view().unselect_and_select_marked(all, get_view().mark(item));
                         }
                     }
 
@@ -1577,10 +1614,10 @@ public abstract class CheckerboardPage : Page {
                     // if the item is already selected, proceed; if item is not selected, a bare right
                     // click unselects everything else but it
                     if (!item.is_selected()) {
-                        get_view().unselect_all();
+                        Marker all = get_view().start_marking();
+                        all.mark_many(get_view().get_selected());
                         
-                        Marker marker = get_view().mark(item);
-                        get_view().select_marked(marker);
+                        get_view().unselect_and_select_marked(all, get_view().mark(item));
                     }
                 break;
             }

@@ -48,36 +48,36 @@ public static int64 app_info_comparator(void *a, void *b) {
 }
 
 public SortedList<AppInfo> get_apps_for_mime_types(string[] mime_types) {
-        SortedList<AppInfo> external_apps = new SortedList<AppInfo>(app_info_comparator);
-        
-        if (mime_types.length == 0)
-            return external_apps;
-        
-        // 3 loops because SortedList.contains() wasn't paying nicely with AppInfo,
-        // probably because it has a special equality function
-        foreach (string mime_type in mime_types) {
-            string content_type = g_content_type_from_mime_type(mime_type);
-            if (content_type == null)
-                break;
-            
-            foreach (AppInfo external_app in 
-                AppInfo.get_all_for_type(content_type)) {
-                bool already_contains = false;
-                
-                foreach (AppInfo app in external_apps) {
-                    if (app.get_name() == external_app.get_name()) {
-                        already_contains = true;
-                        break;
-                    }
-                }
-                
-                // dont add Shotwell to app list
-                if (!already_contains && !external_app.get_name().contains(Resources.APP_TITLE))
-                    external_apps.add(external_app);
-            }
-        }
-
+    SortedList<AppInfo> external_apps = new SortedList<AppInfo>(app_info_comparator);
+    
+    if (mime_types.length == 0)
         return external_apps;
+    
+    // 3 loops because SortedList.contains() wasn't paying nicely with AppInfo,
+    // probably because it has a special equality function
+    foreach (string mime_type in mime_types) {
+        string content_type = g_content_type_from_mime_type(mime_type);
+        if (content_type == null)
+            break;
+        
+        foreach (AppInfo external_app in 
+            AppInfo.get_all_for_type(content_type)) {
+            bool already_contains = false;
+            
+            foreach (AppInfo app in external_apps) {
+                if (app.get_name() == external_app.get_name()) {
+                    already_contains = true;
+                    break;
+                }
+            }
+            
+            // dont add Shotwell to app list
+            if (!already_contains && !external_app.get_name().contains(Resources.APP_TITLE))
+                external_apps.add(external_app);
+        }
+    }
+    
+    return external_apps;
 }
 
 public string? get_app_open_command(AppInfo app_info) {
