@@ -226,6 +226,16 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_config_string("user_name", user_name);
     }
 
+    // Part of the fix for #3232. These have to be 
+    // public so the legacy options pane may use them.
+    public int get_persistent_default_size() {
+        return host.get_config_int("default_size", 0);
+    }
+    
+    public void set_persistent_default_size(int size) { 
+        host.set_config_int("default_size", size);
+    }
+
     private void invalidate_persistent_session() {
         debug("invalidating persisted Facebook session.");
 
@@ -338,7 +348,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_service_locked(false);
 
         PublishingOptionsPane publishing_options_pane = new PublishingOptionsPane(
-            session.get_user_name(), albums, host.get_publishable_media_type());
+            session.get_user_name(), albums, host.get_publishable_media_type(), this);
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         host.install_dialog_pane(publishing_options_pane,
@@ -1402,8 +1412,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     public signal void publish(string target_album, string privacy_setting, Resolution target_resolution);
 
     public PublishingOptionsPane(string username, FacebookAlbum[] albums,
-        Spit.Publishing.Publisher.MediaType media_type) {
-            wrapped = new LegacyPublishingOptionsPane(username, albums, media_type);
+        Spit.Publishing.Publisher.MediaType media_type, FacebookPublisher publisher) {
+            wrapped = new LegacyPublishingOptionsPane(username, albums, media_type, publisher);
     }
 
     private void notify_logout() {
@@ -1461,6 +1471,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private Gtk.Button logout_button = null;
     private Gtk.Label how_to_label = null;
     private FacebookAlbum[] albums = null;
+    private FacebookPublisher publisher = null;
     private PrivacyDescription[] privacy_descriptions;
 
     // Ticket #2916 - These are used to allow the user to choose
@@ -1474,11 +1485,13 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     public signal void publish(string target_album, string privacy_setting, Resolution target_resolution);
 
     public LegacyPublishingOptionsPane(string username, FacebookAlbum[] albums,
-        Spit.Publishing.Publisher.MediaType media_type) {
+        Spit.Publishing.Publisher.MediaType media_type, FacebookPublisher publisher) {
         this.albums = albums;
         this.privacy_descriptions = create_privacy_descriptions();
 
         this.possible_resolutions = create_resolution_list();
+        
+        this.publisher = publisher;
 
         // Ticket #3175
         // Remember this for later - we'll need to know if
@@ -1590,8 +1603,11 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             // Gtk.Alignment to try to make it easier to line up.
             Gtk.Label resolution_label = new Gtk.Label.with_mnemonic(RESOLUTION_LABEL_TEXT);
             resolution_combo = create_resolution_combo();
-            resolution_combo.set_active(0);
             resolution_label.set_mnemonic_widget(resolution_combo);
+            
+            // Ticket #3232 - Remember facebook size settings.
+            resolution_combo.set_active(publisher.get_persistent_default_size());
+            resolution_combo.changed.connect(on_size_changed);
 
             Gtk.Alignment resolution_combo_aligner = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
             resolution_combo_aligner.add(resolution_combo);
@@ -1683,6 +1699,10 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             // active, since it may have possibly been set inactive.
             visibility_combo.set_sensitive(true);
         }
+    }
+    
+    private void on_size_changed() {
+        publisher.set_persistent_default_size(resolution_combo.get_active());
     }
 
     private void on_logout_button_clicked() {
