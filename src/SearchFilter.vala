@@ -446,7 +446,28 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     private const int FILTER_ICON_BASE_WIDTH = 30;
     // filter_icon_plus_width is the width (in px) of the plus icon
     private const int FILTER_ICON_PLUS_WIDTH = 20;
-
+    
+    private class LabelToolItem : Gtk.ToolItem {
+        public LabelToolItem(string s, int left_padding = 0, int right_padding = 0) {
+            Gtk.Label label = new Gtk.Label(s);
+            if (left_padding != 0 || right_padding != 0) {
+                Gtk.Alignment alignment = new Gtk.Alignment(0, 0.5f, 0, 0);
+                alignment.add(label);
+                alignment.left_padding = left_padding;
+                alignment.right_padding = right_padding;
+                add(alignment);
+            } else {
+                add(label);
+            }
+        }
+    }
+    
+    private class ToggleActionToolButton : Gtk.ToggleToolButton {
+        public ToggleActionToolButton(Gtk.Action action) {
+            set_related_action(action);
+        }
+    }
+    
     // Text search box.
     protected class SearchBox : Gtk.ToolItem {
         public signal void text_changed();
@@ -648,53 +669,34 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         
         ui.insert_action_group(actions.get_action_group(), 0);
         
-        // Separator to right-align toolbar items.
-        Gtk.SeparatorToolItem separator_align = new Gtk.SeparatorToolItem();
-        separator_align.set_expand(true);
-        separator_align.set_draw(false);
-        insert(separator_align, -1);
+        // Type label and toggles
+        insert(new LabelToolItem(_("Type"), 10, 5), -1);
+        insert(new ToggleActionToolButton(actions.photos), -1);
+        insert(new ToggleActionToolButton(actions.videos), -1);
+        insert(new ToggleActionToolButton(actions.raw), -1);
         
-        // Rating filter.
+        // separator
+        insert(new Gtk.SeparatorToolItem(), -1);
+        
+        // Flagged label and toggle
+        insert(new LabelToolItem(_("Flagged")), -1);
+        insert(new ToggleActionToolButton(actions.flagged), -1);
+        
+        // separator
+        insert(new Gtk.SeparatorToolItem(), -1);
+        
+        // Rating label and button
+        insert(new LabelToolItem(_("Rating")), -1);
         rating_button.filter_popup = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
         rating_button.set_expand(false);
         rating_button.clicked.connect(on_filter_button_clicked);
         insert(rating_button, -1);
         
-        // Separator.
-        Gtk.SeparatorToolItem separator_1 = new Gtk.SeparatorToolItem();
-        separator_1.set_expand(false);
-        separator_1.set_draw(true);
-        insert(separator_1, -1);
-        
-        // Flagged-only.
-        Gtk.ToggleToolButton flagged = new Gtk.ToggleToolButton();
-        flagged.set_related_action(actions.flagged);
-        insert(flagged, -1);
-        
-        // Separator.
-        Gtk.SeparatorToolItem separator_2 = new Gtk.SeparatorToolItem();
-        separator_2.set_expand(false);
-        separator_2.set_draw(true);
-        insert(separator_2, -1);
-        
-        // Media type buttons.
-        Gtk.ToggleToolButton media_photos = new Gtk.ToggleToolButton();
-        media_photos.set_related_action(actions.photos);
-        insert(media_photos, -1);
-        
-        Gtk.ToggleToolButton media_video = new Gtk.ToggleToolButton();
-        media_video.set_related_action(actions.videos);
-        insert(media_video, -1);
-        
-        Gtk.ToggleToolButton media_raw = new Gtk.ToggleToolButton();
-        media_raw.set_related_action(actions.raw);
-        insert(media_raw, -1);
-        
-        // Separator.
-        Gtk.SeparatorToolItem separator_3 = new Gtk.SeparatorToolItem();
-        separator_3.set_expand(false);
-        separator_3.set_draw(true);
-        insert(separator_3, -1);
+        // Separator to right-align the text box
+        Gtk.SeparatorToolItem separator_align = new Gtk.SeparatorToolItem();
+        separator_align.set_expand(true);
+        separator_align.set_draw(false);
+        insert(separator_align, -1);
         
         // Search box.
         search_box.text_changed.connect(on_search_changed);
@@ -714,6 +716,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
                 bg[NORMAL] = @search_background
                 bg[PRELIGHT] = shade(1.02, @search_background)
                 bg[ACTIVE] = shade(0.85, @search_background)
+                
+                fg[NORMAL] = "#ccc"
             }
 
             widget_class "*<SearchFilterToolbar>*" style "search-filter-toolbar-style"
