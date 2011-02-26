@@ -54,12 +54,22 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     private string? username = null;
     private Album[] albums = null;
     private PublishingParameters parameters = null;
+    private Spit.Publishing.Publisher.MediaType media_type = Spit.Publishing.Publisher.MediaType.NONE;
 
     public PicasaPublisher(Spit.Publishing.Service service,
         Spit.Publishing.PluginHost host) {
         this.service = service;
         this.host = host;
         this.session = new Session();
+        
+        // Ticket #3212 - Only display the size chooser if we're uploading a
+        // photograph, since resizing of video isn't supported.
+        //
+        // Find the media types involved. We need this to decide whether
+        // to show the size combobox or not.
+        foreach(Spit.Publishing.Publishable p in host.get_publishables()) {
+            media_type |= p.get_media_type();
+        }         
     }
     
     private Album[] extract_albums(Xml.Node* document_root) throws Spit.Publishing.PublishingError {
@@ -472,7 +482,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void do_show_publishing_options_pane() {
         debug("ACTION: showing publishing options pane.");
         
-        PublishingOptionsPane opts_pane = new PublishingOptionsPane(host, username, albums);
+        PublishingOptionsPane opts_pane = new PublishingOptionsPane(host, username, albums, media_type);
         opts_pane.publish.connect(on_publishing_options_publish);
         opts_pane.logout.connect(on_publishing_options_logout);
         host.install_dialog_pane(opts_pane);
@@ -925,8 +935,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     public signal void publish(PublishingParameters parameters);
     public signal void logout();
 
-    public PublishingOptionsPane(Spit.Publishing.PluginHost host, string username, Album[] albums) {
-        wrapped = new LegacyPublishingOptionsPane(host, username, albums);
+    public PublishingOptionsPane(Spit.Publishing.PluginHost host, string username, Album[] albums, Spit.Publishing.Publisher.MediaType media_type) {
+        wrapped = new LegacyPublishingOptionsPane(host, username, albums, media_type);
     }
     
     protected void notify_publish(PublishingParameters parameters) {
@@ -992,8 +1002,8 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     public signal void publish(PublishingParameters parameters);
     public signal void logout();
 
-    public LegacyPublishingOptionsPane(Spit.Publishing.PluginHost host, string username,
-        Album[] albums) {
+    public LegacyPublishingOptionsPane(Spit.Publishing.PluginHost host, string username, 
+        Album[] albums, Spit.Publishing.Publisher.MediaType media_type) {
         this.username = username;
         this.albums = albums;
         this.host = host;
@@ -1022,7 +1032,15 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         Gtk.Table main_table = new Gtk.Table(6, 3, false);
 
-        Gtk.Label publish_to_label = new Gtk.Label(_("Photos will appear in:"));
+        // Ticket #3212, part II - If we're onluy uploading video, alter the         
+        // 'will appear in' message to reflect this.          
+        Gtk.Label publish_to_label;
+
+        if((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) == 0) 
+            publish_to_label = new Gtk.Label(_("Videos will appear in:"));
+        else
+            publish_to_label = new Gtk.Label(_("Photos will appear in:"));
+            
         publish_to_label.set_alignment(0.0f, 0.5f);
         main_table.attach(publish_to_label, 0, 2, 0, 1,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
@@ -1073,23 +1091,33 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
-        Gtk.Label size_label = new Gtk.Label.with_mnemonic(_("Photo _size preset:"));
-        size_label.set_alignment(0.0f, 0.5f);
-        main_table.attach(size_label, 0, 2, 5, 6,
+        // Ticket #3212 - Only display the size chooser if we're uploading a
+        // photograph, since resizing of video isn't supported.
+        // 
+        // If the media_type argument doesn't tell us we're getting at least
+        // one photo, do not create or add these widgets.
+        if((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) {
+            Gtk.Label size_label = new Gtk.Label.with_mnemonic(_("Photo _size preset:"));
+            size_label.set_alignment(0.0f, 0.5f);
+            
+            main_table.attach(size_label, 0, 2, 5, 6,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
-        size_combo = new Gtk.ComboBox.text();
-        foreach(SizeDescription desc in size_descriptions)
-            size_combo.append_text(desc.name);
-        size_combo.set_active(host.get_config_int(DEFAULT_SIZE_CONFIG_KEY, 0));
-        Gtk.Alignment size_combo_frame = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        size_combo_frame.add(size_combo);
-        main_table.attach(size_combo_frame, 2, 3, 5, 6,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
+            size_combo = new Gtk.ComboBox.text();
+            foreach(SizeDescription desc in size_descriptions)
+                size_combo.append_text(desc.name);
+        
+            size_combo.set_active(host.get_config_int(DEFAULT_SIZE_CONFIG_KEY, 0));
+            Gtk.Alignment size_combo_frame = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
+        
+            size_combo_frame.add(size_combo);
+            main_table.attach(size_combo_frame, 2, 3, 5, 6,
+                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
+                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
-        size_label.set_mnemonic_widget(size_combo);
+            size_label.set_mnemonic_widget(size_combo);
+        }
 
         vert_packer.add(main_table);
 
