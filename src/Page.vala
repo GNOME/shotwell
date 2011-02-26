@@ -137,8 +137,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
     
     public Gtk.UIManager ui = new Gtk.UIManager();
-    public Gtk.ActionGroup action_group = null;
-    public Gtk.ActionGroup common_action_group = null;
     
     private string page_name;
     private ViewCollection view = null;
@@ -165,6 +163,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private int cursor_hide_time_cached = 0;
     private bool are_actions_attached = false;
     private OneShotScheduler? update_actions_scheduler = null;
+    private Gtk.ActionGroup? action_group = null;
+    private Gtk.ActionGroup[]? common_action_groups = null;
     
     protected Page(string page_name) {
         this.page_name = page_name;
@@ -374,9 +374,12 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     public Gtk.Action? get_action(string name) {
+        if (action_group == null)
+            return null;
+        
         Gtk.Action? action = action_group.get_action(name);
         if (action == null)
-            action = common_action_group.get_action(name);
+            action = get_common_action(name, false);
         
         if (action == null)
             warning("Page %s: Unable to locate action %s", get_page_name(), name);
@@ -405,6 +408,12 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         action.sensitive = visible;
     }
     
+    public void set_action_short_label(string name, string short_label) {
+        Gtk.Action? action = get_action(name);
+        if (action != null)
+            action.short_label = short_label;
+    }
+    
     public void set_action_details(string name, string? label, string? tooltip, bool sensitive) {
         Gtk.Action? action = get_action(name);
         if (action == null)
@@ -419,12 +428,20 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         action.sensitive = sensitive;
     }
     
-    public Gtk.Action? get_common_action(string name) {
-        Gtk.Action? action = common_action_group.get_action(name);
-        if (action == null)
+    public Gtk.Action? get_common_action(string name, bool log_warning = true) {
+        if (common_action_groups == null)
+            return null;
+        
+        foreach (Gtk.ActionGroup group in common_action_groups) {
+            Gtk.Action? action = group.get_action(name);
+            if (action != null)
+                return action;
+        }
+        
+        if (log_warning)
             warning("Page %s: Unable to locate common action %s", get_page_name(), name);
         
-        return action;
+        return null;
     }
     
     public void set_common_action_sensitive(string name, bool sensitive) {
@@ -547,16 +564,13 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         // problem with Gtk.RadioActionCallback that doesn't allow it to be stored in a struct)
         register_radio_actions(action_group);
         
-        common_action_group = new Gtk.ActionGroup("CommonActionGroup");
+        // Get global (common) action groups from the application window
+        common_action_groups = AppWindow.get_instance().get_common_action_groups();
         
-        // Add common actions to the Page's common ActionGroup
-        AppWindow.get_instance().add_common_actions(common_action_group);
-        
-        // Add both ActionGroups to the UIManager
+        // Add all ActionGroups to the UIManager
         ui.insert_action_group(action_group, 0);
-        ui.insert_action_group(common_action_group, 0);
-        
-        AppWindow.get_instance().add_common_action_groups(ui);
+        foreach (Gtk.ActionGroup group in common_action_groups)
+            ui.insert_action_group(group, 0);
         
         // Collect injected UI elements and add them to the UI manager
         InjectionGroup[] injection_groups = init_collect_injection_groups();
@@ -572,6 +586,13 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         ui.ensure_update();
     }
     
+    public void init_toolbar(string path) {
+        // safely replace existing toolbar (so get_toolbar() never returns null)
+        Gtk.Toolbar? ui_toolbar = ui.get_widget(path) as Gtk.Toolbar;
+        if (ui_toolbar != null)
+            toolbar = ui_toolbar;
+    }
+   
     // Called from "realize"
     private void attach_view_signals() {
         if (are_actions_attached)
@@ -1286,7 +1307,7 @@ public abstract class CheckerboardPage : Page {
     public void init_page_context_menu(string path) {
         page_context_menu = (Gtk.Menu) ui.get_widget(path);
     }
-   
+    
     public Gtk.Menu? get_context_menu() {
         // show page context menu if nothing is selected
         return (get_view().get_selected_count() != 0) ? get_item_context_menu() :

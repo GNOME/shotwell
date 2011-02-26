@@ -2532,7 +2532,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void set_display_ratings(bool display) {
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewRatings");
+        Gtk.ToggleAction? action = get_action("ViewRatings") as Gtk.ToggleAction;
         if (action != null)
             action.set_active(display);
     }

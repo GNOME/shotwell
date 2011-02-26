@@ -31,5 +31,14 @@
         <separator />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
     </popup>
+    
+    <toolbar name="CollectionToolbar">
+        <toolitem name="ToolRotate" action="RotateClockwise" />
+        <toolitem name="ToolEnhance" action="Enhance" />
+        <separator />
+        <toolitem name="ToolPublish" action="Publish" />
+        <separator />
+        <toolitem name="ToolFind" action="CommonDisplaySearchbar" />
+    </toolbar>
 </ui>
 

@@ -20,7 +20,7 @@ public class MediaSourceItem : CheckerboardItem {
     }
 
     protected override void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf,
-        Gdk.Point origin) {       
+        Gdk.Point origin) {
         Dimensions pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
         // sprocket geometry calculation (and possible adjustment) has to occur before we call
         // base.paint_image( ) because the base-class method needs the correct trinket horizontal
@@ -580,7 +580,7 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().set_property(Thumbnail.PROP_SHOW_RATINGS, display);
         get_view().thaw_notifications();
         
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewRatings");
+        Gtk.ToggleAction? action = get_action("ViewRatings") as Gtk.ToggleAction;
         if (action != null)
             action.set_active(display);
     }
@@ -847,7 +847,7 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().set_property(Thumbnail.PROP_SHOW_TAGS, display);
         get_view().thaw_notifications();
         
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTags");
+        Gtk.ToggleAction? action = get_action("ViewTags") as Gtk.ToggleAction;
         if (action != null)
             action.set_active(display);
     }
@@ -999,7 +999,7 @@ public abstract class MediaPage : CheckerboardPage {
     protected override void set_display_titles(bool display) {
         base.set_display_titles(display);
     
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");
+        Gtk.ToggleAction? action = get_action("ViewTitle") as Gtk.ToggleAction;
         if (action != null)
             action.set_active(display);
     }

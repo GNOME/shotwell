@@ -50,26 +50,7 @@ public class TrashPage : CheckerboardPage {
         
         init_item_context_menu("/TrashContextMenu");
         init_page_context_menu("/TrashPageMenu");
-
-        Gtk.Toolbar toolbar = get_toolbar();
-        
-        // delete button
-        Gtk.ToolButton delete_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_DELETE);
-        delete_button.set_related_action(action_group.get_action("Delete"));
-        
-        toolbar.insert(delete_button, -1);
-        
-        // restore button
-        Gtk.ToolButton restore_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_UNDELETE);
-        restore_button.set_related_action(action_group.get_action("Restore"));
-        
-        toolbar.insert(restore_button, -1);
-        
-        // empty trash button
-        Gtk.ToolButton empty_trash_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_CLEAR);
-        empty_trash_button.set_related_action(common_action_group.get_action("CommonEmptyTrash"));
-        
-        toolbar.insert(empty_trash_button, -1);
+        init_toolbar("/TrashToolbar");
         
         // monitor trashcans and initialize view with all items in them
         LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);

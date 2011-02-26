@@ -564,6 +564,7 @@ public class ImportPage : CheckerboardPage {
         
         toolbar.insert(separator, -1);
         
+        // progress bar in center of toolbar
         progress_bar.set_orientation(Gtk.ProgressBarOrientation.LEFT_TO_RIGHT);
         progress_bar.visible = false;
         Gtk.ToolItem progress_item = new Gtk.ToolItem();
@@ -571,14 +572,25 @@ public class ImportPage : CheckerboardPage {
         progress_item.add(progress_bar);
         
         toolbar.insert(progress_item, -1);
-
+        
+        // Find button
+        Gtk.ToggleToolButton find_button = new Gtk.ToggleToolButton();
+        find_button.set_related_action(get_action("CommonDisplaySearchbar"));
+        
+        toolbar.insert(find_button, -1);
+        
+        // Separator
+        toolbar.insert(new Gtk.SeparatorToolItem(), -1);
+        
+        // Import selected
         Gtk.ToolButton import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
-        import_selected_button.set_related_action(action_group.get_action("ImportSelected"));
+        import_selected_button.set_related_action(get_action("ImportSelected"));
         
         toolbar.insert(import_selected_button, -1);
         
+        // Import all
         Gtk.ToolButton import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
-        import_all_button.set_related_action(action_group.get_action("ImportAll"));
+        import_all_button.set_related_action(get_action("ImportAll"));
         
         toolbar.insert(import_all_button, -1);
 
@@ -1355,7 +1367,7 @@ public class ImportPage : CheckerboardPage {
     public override void set_display_titles(bool display) {
         base.set_display_titles(display);
     
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");
+        Gtk.ToggleAction? action = get_action("ViewTitle") as Gtk.ToggleAction;
         if (action != null)
             action.set_active(display);
     }
@@ -1385,7 +1397,7 @@ public class ImportQueuePage : SinglePhotoPage {
         
         // Stop button
         Gtk.ToolButton stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);
-        stop_button.set_related_action(action_group.get_action("Stop"));
+        stop_button.set_related_action(get_action("Stop"));
         
         toolbar.insert(stop_button, -1);
 

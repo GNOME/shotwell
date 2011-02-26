@@ -148,7 +148,7 @@ class EventDirectoryItem : CheckerboardItem {
     }
 }
 
-public class EventsDirectoryPage : CheckerboardPage {
+public abstract class EventsDirectoryPage : CheckerboardPage {
     public class EventDirectoryManager : ViewManager {
         public override DataView create_view(DataSource source) {
             return new EventDirectoryItem((Event) source);
@@ -183,7 +183,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         base (page_name);
         
         // set comparator before monitoring source collection, to prevent a re-sort
-        get_view().set_comparator(get_event_comparator(), event_comparator_predicate);
+        get_view().set_comparator(get_event_comparator(true), event_comparator_predicate);
         get_view().monitor_source_collection(Event.global, view_manager, null, initial_events);
         
         init_item_context_menu("/EventsDirectoryContextMenu");
@@ -195,9 +195,15 @@ public class EventsDirectoryPage : CheckerboardPage {
         
         // merge tool
         Gtk.ToolButton merge_button = new Gtk.ToolButton.from_stock(Resources.MERGE);
-        merge_button.set_related_action(action_group.get_action("Merge"));
+        merge_button.set_related_action(get_action("Merge"));
         
         toolbar.insert(merge_button, -1);
+    }
+    
+    ~EventsDirectoryPage() {
+        Gtk.RadioAction? action = get_action("CommonSortEventsAscending") as Gtk.RadioAction;
+        assert(action != null);
+        action.changed.disconnect(on_sort_changed);
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
@@ -206,6 +212,10 @@ public class EventsDirectoryPage : CheckerboardPage {
         base.init_collect_ui_filenames(ui_filenames);
     }
 
+    protected static bool event_comparator_predicate(DataObject object, Alteration alteration) {
+        return alteration.has_detail("metadata", "time");
+    }
+    
     private static int64 event_ascending_comparator(void *a, void *b) {
         time_t start_a = ((EventDirectoryItem *) a)->event.get_start_time();
         time_t start_b = ((EventDirectoryItem *) b)->event.get_start_time();
@@ -213,16 +223,12 @@ public class EventsDirectoryPage : CheckerboardPage {
         return start_a - start_b;
     }
     
-    protected static bool event_comparator_predicate(DataObject object, Alteration alteration) {
-        return alteration.has_detail("metadata", "time");
-    }
-    
-    private int64 event_descending_comparator(void *a, void *b) {
+    private static int64 event_descending_comparator(void *a, void *b) {
         return event_ascending_comparator(b, a);
     }
     
-    private Comparator get_event_comparator() {
-        if (Config.get_instance().get_events_sort_ascending())
+    private static Comparator get_event_comparator(bool ascending) {
+        if (ascending)
             return event_ascending_comparator;
         else
             return event_descending_comparator;
@@ -263,6 +269,14 @@ public class EventsDirectoryPage : CheckerboardPage {
         actions += merge;
         
         return actions;
+    }
+    
+    protected override void init_actions(int selected_count, int count) {
+        base.init_actions(selected_count, count);
+        
+        Gtk.RadioAction? action = get_action("CommonSortEventsAscending") as Gtk.RadioAction;
+        assert(action != null);
+        action.changed.connect(on_sort_changed);
     }
     
     protected override void update_actions(int selected_count, int count) {
@@ -314,8 +328,12 @@ public class EventsDirectoryPage : CheckerboardPage {
         return (page != null) ? page.get_fullscreen_photo() : null;
     }
 
-    public void notify_sort_changed() {
-        get_view().set_comparator(get_event_comparator(), event_comparator_predicate);
+    private void on_sort_changed(Gtk.Action action, Gtk.Action c) {
+        Gtk.RadioAction current = (Gtk.RadioAction) c;
+        
+        get_view().set_comparator(
+            get_event_comparator(current.current_value == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING),
+            event_comparator_predicate);
     }
     
     private void on_rename() {

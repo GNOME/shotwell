@@ -26,60 +26,33 @@ public abstract class CollectionPage : MediaPage {
         }
     }
     
-    private Gtk.ToolButton rotate_button = null;
     private ExporterUI exporter = null;
     private CollectionSearchViewFilter search_filter = new CollectionSearchViewFilter();
     
     public CollectionPage(string page_name) {
         base (page_name);
-
+        
         get_view().items_altered.connect(on_photos_altered);
-
+        
         init_item_context_menu("/CollectionContextMenu");
-
-        // set up page's toolbar (used by AppWindow for layout)
-        Gtk.Toolbar toolbar = get_toolbar();
-        
-        // rotate tool
-        rotate_button = new Gtk.ToolButton.from_stock("");
-        rotate_button.set_related_action(get_action("RotateClockwise"));
-        rotate_button.set_label(Resources.ROTATE_CW_LABEL);
-        
-        toolbar.insert(rotate_button, -1);
-
-        // enhance tool
-        Gtk.ToolButton enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
-        enhance_button.set_related_action(get_action("Enhance"));
-
-        toolbar.insert(enhance_button, -1);
-
-        // separator
-        toolbar.insert(new Gtk.SeparatorToolItem(), -1);
-        
-        // publish button
-        Gtk.ToolButton publish_button = new Gtk.ToolButton.from_stock("");
-        publish_button.set_related_action(get_action("Publish"));
-        publish_button.set_icon_name(Resources.PUBLISH);
-        publish_button.set_label(Resources.PUBLISH_LABEL);
-        
-        toolbar.insert(publish_button, -1);
+        init_toolbar("/CollectionToolbar");
         
         // separator to force slider to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
         separator.set_expand(true);
         separator.set_draw(false);
-        toolbar.insert(separator, -1);
+        get_toolbar().insert(separator, -1);
 
         Gtk.SeparatorToolItem drawn_separator = new Gtk.SeparatorToolItem();
         drawn_separator.set_expand(false);
         drawn_separator.set_draw(true);
         
-        toolbar.insert(drawn_separator, -1);
+        get_toolbar().insert(drawn_separator, -1);
         
         // zoom slider assembly
         MediaPage.ZoomSliderAssembly zoom_slider_assembly = create_zoom_slider_assembly();
         connect_slider(zoom_slider_assembly);
-        toolbar.insert(zoom_slider_assembly, -1);
+        get_toolbar().insert(zoom_slider_assembly, -1);
         
         show_all();
 
@@ -269,7 +242,20 @@ public abstract class CollectionPage : MediaPage {
     private bool selection_has_photo() {
         return MediaSourceCollection.has_photo((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
-
+    
+    protected override void init_actions(int selected_count, int count) {
+        base.init_actions(selected_count, count);
+        
+        set_action_short_label("RotateClockwise", Resources.ROTATE_CW_LABEL);
+        set_action_short_label("RotateCounterclockwise", Resources.ROTATE_CCW_LABEL);
+        set_action_short_label("Publish", Resources.PUBLISH_LABEL);
+        
+        set_action_important("RotateClockwise", true);
+        set_action_important("RotateCounterclockwise", true);
+        set_action_important("Enhance", true);
+        set_action_important("Publish", true);
+    }
+    
     protected override void update_actions(int selected_count, int count) {
         base.update_actions(selected_count, count);
 
@@ -297,11 +283,8 @@ public abstract class CollectionPage : MediaPage {
             && !is_string_empty(Config.get_instance().get_external_raw_app()));
         set_action_sensitive("Revert", (!selection_has_videos) && can_revert_selected());
         set_action_sensitive("Enhance", (!selection_has_videos) && has_selected);
-        set_action_important("Enhance", true);
         set_action_sensitive("RotateClockwise", (!selection_has_videos) && has_selected);
-        set_action_important("RotateClockwise", true);
         set_action_sensitive("RotateCounterclockwise", (!selection_has_videos) && has_selected);
-        set_action_important("RotateCounterclockwise", true);
         set_action_sensitive("FlipHorizontally", (!selection_has_videos) && has_selected);
         set_action_sensitive("FlipVertically", (!selection_has_videos) && has_selected);
         set_action_sensitive("AdjustDateTime", (!selection_has_videos) && has_selected);
@@ -309,6 +292,8 @@ public abstract class CollectionPage : MediaPage {
         set_action_sensitive("AddTags", has_selected);
         set_action_sensitive("ModifyTags", one_selected);
         set_action_sensitive("Slideshow", page_has_photos && (!primary_is_video));
+        set_action_sensitive("Print", (!selection_has_videos) && has_selected);
+        set_action_sensitive("Publish", has_selected);
         
         set_action_sensitive("SetBackground", (!selection_has_videos) && has_selected );
         if (has_selected) {
@@ -319,11 +304,6 @@ public abstract class CollectionPage : MediaPage {
                     : Resources.SET_BACKGROUND_SLIDESHOW_MENU;
             }
         }
-        
-        set_action_sensitive("Print", (!selection_has_videos) && has_selected);
-        
-        set_action_sensitive("Publish", has_selected);
-        set_action_important("Publish", true);
     }
 
     private void on_photos_altered() {
@@ -707,17 +687,21 @@ public abstract class CollectionPage : MediaPage {
         AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, get_view(),
             photo));
     }
-           
+    
     protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
-        rotate_button.set_related_action(get_action("RotateCounterclockwise"));
-        rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
+        Gtk.ToolButton? rotate_button = ui.get_widget("/CollectionToolbar/ToolRotate")
+            as Gtk.ToolButton;
+        if (rotate_button != null)
+            rotate_button.set_related_action(get_action("RotateCounterclockwise"));
         
         return base.on_ctrl_pressed(event);
     }
     
     protected override bool on_ctrl_released(Gdk.EventKey? event) {
-        rotate_button.set_related_action(get_action("RotateClockwise"));
-        rotate_button.set_label(Resources.ROTATE_CW_LABEL);
+        Gtk.ToolButton? rotate_button = ui.get_widget("/CollectionToolbar/ToolRotate")
+            as Gtk.ToolButton;
+        if (rotate_button != null)
+            rotate_button.set_related_action(get_action("RotateClockwise"));
         
         return base.on_ctrl_released(event);
     }

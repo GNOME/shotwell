@@ -2034,3 +2034,91 @@ public Gtk.ResponseType copy_files_dialog() {
 
     return result;
 }
+
+public void remove_photos_from_library(Gee.Collection<LibraryPhoto> photos) {
+    remove_from_app(photos, _("Remove From Library"),
+        ngettext("Removing Photo From Library", "Removing Photos From Library", photos.size));
+}
+
+public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_title, 
+    string progress_dialog_text) {
+    if (sources.size == 0)
+        return;
+    
+    Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+    Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+    MediaSourceCollection.filter_media(sources, photos, videos);
+    
+    string? user_message = null;
+    if ((!photos.is_empty) && (!videos.is_empty)) {
+        user_message = ngettext("This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d photos/videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+             sources.size).printf(sources.size);
+    } else if (!videos.is_empty) {
+        user_message = ngettext("This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+             sources.size).printf(sources.size);
+    } else {
+        user_message = ngettext("This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+             sources.size).printf(sources.size);
+    }
+    
+    Gtk.ResponseType result = remove_from_library_dialog(AppWindow.get_instance(), dialog_title,
+        user_message, sources.size);
+    if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
+        return;
+    
+    bool delete_backing = (result == Gtk.ResponseType.YES);
+    
+    AppWindow.get_instance().set_busy_cursor();
+    
+    ProgressDialog progress = null;
+    ProgressMonitor monitor = null;
+    if (sources.size >= 20) {
+        progress = new ProgressDialog(AppWindow.get_instance(), progress_dialog_text);
+        monitor = progress.monitor;
+    }
+        
+    Gee.ArrayList<LibraryPhoto> not_removed_photos = new Gee.ArrayList<LibraryPhoto>();
+    Gee.ArrayList<Video> not_removed_videos = new Gee.ArrayList<Video>();
+    
+    // Remove and attempt to trash.
+    LibraryPhoto.global.remove_from_app(photos, delete_backing, monitor, not_removed_photos);
+    Video.global.remove_from_app(videos, delete_backing, monitor, not_removed_videos);
+    
+    // Check for files we couldn't trash.
+    int num_not_removed = not_removed_photos.size + not_removed_videos.size;
+    if (delete_backing && num_not_removed > 0) {
+        string not_deleted_message = 
+            ngettext("The photo or video cannot be moved to your desktop trash.  Delete this file?",
+                "%d photos/videos cannot be moved to your desktop trash.  Delete these files?",
+                num_not_removed).printf(num_not_removed);
+        Gtk.ResponseType result_delete = remove_from_filesystem_dialog(AppWindow.get_instance(), 
+            dialog_title, not_deleted_message);
+            
+        if (Gtk.ResponseType.YES == result_delete) {
+            // Attempt to delete the files.
+            Gee.ArrayList<LibraryPhoto> not_deleted_photos = new Gee.ArrayList<LibraryPhoto>();
+            Gee.ArrayList<Video> not_deleted_videos = new Gee.ArrayList<Video>();
+            LibraryPhoto.global.delete_backing_files(not_removed_photos, monitor, not_deleted_photos);
+            Video.global.delete_backing_files(not_removed_videos, monitor, not_deleted_videos);
+            
+            int num_not_deleted = not_deleted_photos.size + not_deleted_videos.size;
+            if (num_not_deleted > 0) {
+                // Alert the user that the files were not removed.
+                string delete_failed_message = 
+                    ngettext("The photo or video cannot be deleted.",
+                        "%d photos/videos cannot be deleted.",
+                        num_not_deleted).printf(num_not_deleted);
+                AppWindow.error_message_with_title(dialog_title, delete_failed_message, AppWindow.get_instance());
+            }
+        }
+    }
+    
+    if (progress != null)
+        progress.close();
+    
+    AppWindow.get_instance().set_normal_cursor();
+}
+

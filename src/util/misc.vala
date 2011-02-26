@@ -4,37 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-public enum AdjustmentRelation {
-    BELOW,
-    IN_RANGE,
-    ABOVE
-}
-
-public enum CompassPoint {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST
-}
-
-public enum Direction {
-    FORWARD,
-    BACKWARD;
-    
-    public Spit.Transitions.Direction to_transition_direction() {
-        switch (this) {
-            case FORWARD:
-                return Spit.Transitions.Direction.FORWARD;
-            
-            case BACKWARD:
-                return Spit.Transitions.Direction.FORWARD;
-            
-            default:
-                error("Unknown Direction %s", this.to_string());
-        }
-    }
-}
-
 public uint int64_hash(void *p) {
     // Rotating XOR hash
     uint8 *u8 = (uint8 *) p;
@@ -250,35 +219,6 @@ public Gee.List<MediaSource>? unserialize_media_sources(uchar* serialized, int s
     return list;
 }
 
-// Returns false if Gtk.quit() was called
-public bool spin_event_loop() {
-    while (Gtk.events_pending()) {
-        if (Gtk.main_iteration())
-            return false;
-    }
-    
-    return true;
-}
-
-public AdjustmentRelation get_adjustment_relation(Gtk.Adjustment adjustment, int value) {
-    if (value < (int) adjustment.get_value())
-        return AdjustmentRelation.BELOW;
-    else if (value > (int) (adjustment.get_value() + adjustment.get_page_size()))
-        return AdjustmentRelation.ABOVE;
-    else
-        return AdjustmentRelation.IN_RANGE;
-}
-
-public Gdk.Rectangle get_adjustment_page(Gtk.Adjustment hadj, Gtk.Adjustment vadj) {
-    Gdk.Rectangle rect = Gdk.Rectangle();
-    rect.x = (int) hadj.get_value();
-    rect.y = (int) vadj.get_value();
-    rect.width = (int) hadj.get_page_size();
-    rect.height = (int) vadj.get_page_size();
-    
-    return rect;
-}
-
 public string format_local_datespan(Time from_date, Time to_date) {
     string from_format = (from_date.year == to_date.year)? _("%a %b %d") : _("%a %b %d, %Y");
     
@@ -288,33 +228,6 @@ public string format_local_datespan(Time from_date, Time to_date) {
 
 public string format_local_date(Time date) {
     return String.strip_leading_zeroes(date.format(_("%a %b %d, %Y")));
-}
-
-// Verifies that only the mask bits are set in the modifier field, disregarding mouse and 
-// key modifers that are not normally of concern (i.e. Num Lock, Caps Lock, etc.).  Mask can be
-// one or more bits set, but should only consist of these values:
-// * Gdk.ModifierType.SHIFT_MASK
-// * Gdk.ModifierType.CONTROL_MASK
-// * Gdk.ModifierType.MOD1_MASK (Alt)
-// * Gdk.ModifierType.MOD3_MASK
-// * Gdk.ModifierType.MOD4_MASK
-// * Gdk.ModifierType.MOD5_MASK
-// * Gdk.ModifierType.SUPER_MASK
-// * Gdk.ModifierType.HYPER_MASK
-// * Gdk.ModifierType.META_MASK
-//
-// (Note: MOD2 seems to be Num Lock in GDK.)
-public bool has_only_key_modifier(Gdk.ModifierType field, Gdk.ModifierType mask) {
-    return (field 
-        & (Gdk.ModifierType.SHIFT_MASK 
-        | Gdk.ModifierType.CONTROL_MASK
-        | Gdk.ModifierType.MOD1_MASK
-        | Gdk.ModifierType.MOD3_MASK
-        | Gdk.ModifierType.MOD4_MASK
-        | Gdk.ModifierType.MOD5_MASK
-        | Gdk.ModifierType.SUPER_MASK
-        | Gdk.ModifierType.HYPER_MASK
-        | Gdk.ModifierType.META_MASK)) == mask;
 }
 
 public delegate void OneShotCallback();
@@ -454,98 +367,9 @@ public class OpTimer {
     }
 }
 
-public void remove_photos_from_library(Gee.Collection<LibraryPhoto> photos) {
-    remove_from_app(photos, _("Remove From Library"),
-        ngettext("Removing Photo From Library", "Removing Photos From Library", photos.size));
-}
-
-public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_title, 
-    string progress_dialog_text) {
-    if (sources.size == 0)
-        return;
-    
-    Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-    Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
-    MediaSourceCollection.filter_media(sources, photos, videos);
-    
-    string? user_message = null;
-    if ((!photos.is_empty) && (!videos.is_empty)) {
-        user_message = ngettext("This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-            "This will remove %d photos/videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
-             sources.size).printf(sources.size);
-    } else if (!videos.is_empty) {
-        user_message = ngettext("This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-            "This will remove %d videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
-             sources.size).printf(sources.size);
-    } else {
-        user_message = ngettext("This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-            "This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
-             sources.size).printf(sources.size);
-    }
-    
-    Gtk.ResponseType result = remove_from_library_dialog(AppWindow.get_instance(), dialog_title,
-        user_message, sources.size);
-    if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
-        return;
-    
-    bool delete_backing = (result == Gtk.ResponseType.YES);
-    
-    AppWindow.get_instance().set_busy_cursor();
-    
-    ProgressDialog progress = null;
-    ProgressMonitor monitor = null;
-    if (sources.size >= 20) {
-        progress = new ProgressDialog(AppWindow.get_instance(), progress_dialog_text);
-        monitor = progress.monitor;
-    }
-        
-    Gee.ArrayList<LibraryPhoto> not_removed_photos = new Gee.ArrayList<LibraryPhoto>();
-    Gee.ArrayList<Video> not_removed_videos = new Gee.ArrayList<Video>();
-    
-    // Remove and attempt to trash.
-    LibraryPhoto.global.remove_from_app(photos, delete_backing, monitor, not_removed_photos);
-    Video.global.remove_from_app(videos, delete_backing, monitor, not_removed_videos);
-    
-    // Check for files we couldn't trash.
-    int num_not_removed = not_removed_photos.size + not_removed_videos.size;
-    if (delete_backing && num_not_removed > 0) {
-        string not_deleted_message = 
-            ngettext("The photo or video cannot be moved to your desktop trash.  Delete this file?",
-                "%d photos/videos cannot be moved to your desktop trash.  Delete these files?",
-                num_not_removed).printf(num_not_removed);
-        Gtk.ResponseType result_delete = remove_from_filesystem_dialog(AppWindow.get_instance(), 
-            dialog_title, not_deleted_message);
-            
-        if (Gtk.ResponseType.YES == result_delete) {
-            // Attempt to delete the files.
-            Gee.ArrayList<LibraryPhoto> not_deleted_photos = new Gee.ArrayList<LibraryPhoto>();
-            Gee.ArrayList<Video> not_deleted_videos = new Gee.ArrayList<Video>();
-            LibraryPhoto.global.delete_backing_files(not_removed_photos, monitor, not_deleted_photos);
-            Video.global.delete_backing_files(not_removed_videos, monitor, not_deleted_videos);
-            
-            int num_not_deleted = not_deleted_photos.size + not_deleted_videos.size;
-            if (num_not_deleted > 0) {
-                // Alert the user that the files were not removed.
-                string delete_failed_message = 
-                    ngettext("The photo or video cannot be deleted.",
-                        "%d photos/videos cannot be deleted.",
-                        num_not_deleted).printf(num_not_deleted);
-                AppWindow.error_message_with_title(dialog_title, delete_failed_message, AppWindow.get_instance());
-            }
-        }
-    }
-    
-    if (progress != null)
-        progress.close();
-    
-    AppWindow.get_instance().set_normal_cursor();
-}
-
 public bool is_twentyfour_hr_time_system() {
     // if no AM/PM designation is found, the location is set to use a 24 hr time system
     return is_string_empty(Time.local(0).format("%p"));
 }
 
-public string get_window_manager() {
-    return Gdk.x11_screen_get_window_manager_name(AppWindow.get_instance().get_screen());
-}
+

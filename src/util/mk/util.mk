@@ -16,7 +16,8 @@ UNIT_FILES := \
 	misc.vala \
 	string.vala \
 	system.vala \
-	KeyValueMap.vala
+	KeyValueMap.vala \
+	ui.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

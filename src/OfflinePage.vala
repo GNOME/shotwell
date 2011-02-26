@@ -43,14 +43,7 @@ public class OfflinePage : CheckerboardPage {
         base (name);
         
         init_item_context_menu("/OfflineContextMenu");
-        
-        Gtk.Toolbar toolbar = get_toolbar();
-        
-        // delete button
-        Gtk.ToolButton delete_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_DELETE);
-        delete_button.set_related_action(action_group.get_action("RemoveFromLibrary"));
-        
-        toolbar.insert(delete_button, -1);
+        init_toolbar("/OfflineToolbar");
         
         // monitor offline and initialize view with all items in it
         LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);

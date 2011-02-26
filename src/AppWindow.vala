@@ -88,7 +88,7 @@ public class FullscreenWindow : PageWindow {
 
         // call to set_default_size() saves one repaint caused by changing
         // size from default to full screen. In slideshow mode, this change
-        // also causes pixbuf cache updates, so it really saves some work.        
+        // also causes pixbuf cache updates, so it really saves some work.
         set_default_size(get_screen().get_width(), get_screen().get_height());
         
         // need to create a Gdk.Window to set masks
@@ -424,10 +424,15 @@ public abstract class AppWindow : PageWindow {
     private static FullscreenWindow fullscreen_window = null;
     private static CommandManager command_manager = null;
     
+    // the AppWindow maintains its own UI manager because the first UIManager an action group is
+    // added to is the one that claims its accelerators
+    protected Gtk.UIManager ui = new Gtk.UIManager();
     protected bool maximized = false;
     protected Dimensions dimensions;
     protected int pos_x = 0;
     protected int pos_y = 0;
+    
+    private Gtk.ActionGroup common_action_group = new Gtk.ActionGroup("AppWindowGlobalActionGroup");
     
     public AppWindow() {
         // although there are multiple AppWindow types, only one may exist per-process
@@ -457,9 +462,27 @@ public abstract class AppWindow : PageWindow {
         assert(command_manager == null);
         command_manager = new CommandManager();
         command_manager.altered.connect(on_command_manager_altered);
+        
+        // Because the first UIManager to associated with an ActionGroup claims the accelerators,
+        // need to create the AppWindow's ActionGroup early on and add it to an application-wide
+        // UIManager.  In order to activate those accelerators, we need to create a dummy UI string
+        // that lists all the common actions.  We build it on-the-fly from the actions associated
+        // with each ActionGroup while we're adding the groups to the UIManager.
+        Gtk.ActionGroup[] groups = create_common_action_groups();
+        foreach (Gtk.ActionGroup group in groups)
+            ui.insert_action_group(group, 0);
+        
+        try {
+            ui.add_ui_from_string(build_dummy_ui_string("CommonMenuBar", groups), -1);
+        } catch (Error err) {
+            error("Unable to add AppWindow UI: %s", err.message);
+        }
+        
+        ui.ensure_update();
+        add_accel_group(ui.get_accel_group());
     }
     
-    private Gtk.ActionEntry[] create_actions() {
+    private Gtk.ActionEntry[] create_common_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
         Gtk.ActionEntry quit = { "CommonQuit", Gtk.STOCK_QUIT, TRANSLATABLE, "<Ctrl>Q",
@@ -692,11 +715,22 @@ public abstract class AppWindow : PageWindow {
         sys_show_uri(window.get_screen(), url);
     }
     
-    public virtual void add_common_actions(Gtk.ActionGroup action_group) {
-        action_group.add_actions(create_actions(), this);
+    protected virtual Gtk.ActionGroup[] create_common_action_groups() {
+        Gtk.ActionGroup[] groups = new Gtk.ActionGroup[0];
+        
+        common_action_group.add_actions(create_common_actions(), this);
+        groups += common_action_group;
+        
+        return groups;
     }
     
-    public virtual void add_common_action_groups(Gtk.UIManager ui) {
+    public Gtk.ActionGroup[] get_common_action_groups() {
+        Gtk.ActionGroup[] groups = new Gtk.ActionGroup[0];
+        
+        foreach (Gtk.ActionGroup group in ui.get_action_groups())
+            groups += group;
+        
+        return groups;
     }
     
     public virtual void replace_common_placeholders(Gtk.UIManager ui) {
@@ -741,25 +775,27 @@ public abstract class AppWindow : PageWindow {
     }
     
     public Gtk.Action? get_common_action(string name) {
-        Page? page = get_current_page();
-        if (page == null) {
-            warning("No page to set action %s", name);
-            
-            return null;
+        foreach (Gtk.ActionGroup group in ui.get_action_groups()) {
+            Gtk.Action? action = group.get_action(name);
+            if (action != null)
+                return action;
         }
         
-        return page.get_common_action(name);
+        warning("No common action found: %s", name);
+        
+        return null;
     }
     
     public void set_common_action_sensitive(string name, bool sensitive) {
-        Page? page = get_current_page();
-        if (page == null) {
-            warning("No page to set action %s", name);
-            
-            return;
-        }
-        
-        page.set_common_action_sensitive(name, sensitive);
+        Gtk.Action? action = get_common_action(name);
+        if (action != null)
+            action.sensitive = sensitive;
+    }
+    
+    public void set_common_action_important(string name, bool important) {
+        Gtk.Action? action = get_common_action(name);
+        if (action != null)
+            action.is_important = important;
     }
     
     protected override void switched_pages(Page? old_page, Page? new_page) {
@@ -855,6 +891,22 @@ public abstract class AppWindow : PageWindow {
             get_size(out dimensions.width, out dimensions.height);
 
         return base.configure_event(event);
+    }
+    
+    protected override bool pause_keyboard_trapping() {
+        bool paused = base.pause_keyboard_trapping();
+        if (paused)
+            remove_accel_group(ui.get_accel_group());
+        
+        return paused;
+    }
+    
+    protected override bool resume_keyboard_trapping() {
+        bool unpaused = base.resume_keyboard_trapping();
+        if (unpaused)
+            add_accel_group(ui.get_accel_group());
+        
+        return unpaused;
     }
 }
 

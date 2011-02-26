@@ -57,4 +57,10 @@
         <menuitem name="RemoveFromLibrary" action="RemoveFromLibrary" />
     </popup>
     
+    <toolbar name="OfflineToolbar">
+        <toolitem name="ToolRemoveFromLibrary" action="RemoveFromLibrary" />
+        <separator />
+        <toolitem name="ToolFind" action="CommonDisplaySearchbar" />
+    </toolbar>
+    
 </ui>
