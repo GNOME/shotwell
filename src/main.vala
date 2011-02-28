@@ -359,6 +359,9 @@ void main(string[] args) {
     }
     
     Debug.init(is_string_empty(filename) ? Debug.LIBRARY_PREFIX : Debug.VIEWER_PREFIX);
+    message("Shotwell %s %s",
+        is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
+        Resources.APP_VERSION);
     Application.init();
     
     // set custom data directory if it's been supplied
