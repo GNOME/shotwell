@@ -464,6 +464,39 @@ public class LibraryWindow : AppWindow {
         );
     }
     
+    protected override void switched_pages(Page? old_page, Page? new_page) {
+        base.switched_pages(old_page, new_page);
+        
+        // monitor when the ViewFilter is changed in any page
+        if (old_page != null)
+            old_page.get_view().view_filter_changed.disconnect(on_view_filter_changed);
+        
+        if (new_page != null)
+            new_page.get_view().view_filter_changed.connect(on_view_filter_changed);
+    }
+    
+    private void on_view_filter_changed(ViewCollection view, ViewFilter? old_filter, ViewFilter? new_filter) {
+        // when the ViewFilter is changed, monitor when it's refreshed
+        if (old_filter != null)
+            old_filter.refresh.disconnect(on_view_filter_refreshed);
+        
+        if (new_filter != null)
+            new_filter.refresh.connect(on_view_filter_refreshed);
+    }
+    
+    private void on_view_filter_refreshed() {
+        // if view filter is reset to show all items, do nothing (leave searchbar in current
+        // state)
+        if (!get_current_page().get_view().are_items_filtered_out())
+            return;
+        
+        // always show the searchbar when items are filtered
+        Gtk.ToggleAction? display_searchbar = get_common_action("CommonDisplaySearchbar")
+            as Gtk.ToggleAction;
+        if (display_searchbar != null)
+            display_searchbar.active = true;
+    }
+    
     // show_all() may make visible certain items we wish to keep programmatically hidden
     public override void show_all() {
         base.show_all();

@@ -1790,7 +1790,7 @@ public class ViewCollection : DataCollection {
     private ViewCollection mirroring = null;
     private CreateView mirroring_ctor = null;
     private CreateViewPredicate should_mirror = null;
-    private ViewFilter filter = null;
+    private ViewFilter? filter = null;
     private DataSet selected = new DataSet();
     private DataSet visible = null;
     private Gee.HashSet<DataView> frozen_views_altered = null;
@@ -1846,6 +1846,9 @@ public class ViewCollection : DataCollection {
     public virtual signal void geometries_altered(Gee.Collection<DataView> views) {
     }
     
+    public virtual signal void view_filter_changed(ViewFilter? old_filer, ViewFilter? new_filter) {
+    }
+    
     public ViewCollection(string name) {
         base (name);
     }
@@ -1896,20 +1899,24 @@ public class ViewCollection : DataCollection {
         item_geometry_altered(view);
     }
     
-    public virtual void notify_geometries_altered(Gee.Collection<DataView> views) {
+    protected virtual void notify_geometries_altered(Gee.Collection<DataView> views) {
         geometries_altered(views);
     }
     
-    public virtual void notify_items_shown(Gee.Collection<DataView> shown) {
+    protected virtual void notify_items_shown(Gee.Collection<DataView> shown) {
         items_shown(shown);
     }
     
-    public virtual void notify_items_hidden(Gee.Collection<DataView> hidden) {
+    protected virtual void notify_items_hidden(Gee.Collection<DataView> hidden) {
         items_hidden(hidden);
     }
     
-    public virtual void notify_items_visibility_changed(Gee.Collection<DataView> changed) {
+    protected virtual void notify_items_visibility_changed(Gee.Collection<DataView> changed) {
         items_visibility_changed(changed);
+    }
+    
+    protected virtual void notify_view_filter_changed(ViewFilter? old_filter, ViewFilter? new_filter) {
+        view_filter_changed(old_filter, new_filter);
     }
     
     public override void clear() {
@@ -2020,11 +2027,15 @@ public class ViewCollection : DataCollection {
             return;
         
         // this currently replaces any existing ViewFilter
+        ViewFilter? old_filter = this.filter;
         this.filter = filter;
         this.filter.refresh.connect(on_view_filter_refresh);
         
         // filter existing items
         on_view_filter_refresh();
+        
+        // notify of change after activating filter
+        notify_view_filter_changed(old_filter, filter);
     }
     
     private void on_view_filter_refresh() {
@@ -2032,9 +2043,10 @@ public class ViewCollection : DataCollection {
     }
     
     public void reset_view_filter() {
-        if (null != this.filter) {
+        if (null != this.filter)
             filter.refresh.disconnect(on_view_filter_refresh);
-        }
+        
+        ViewFilter? old_filter = this.filter;
         this.filter = null;
         
         // reset visibility of all hidden items ... can't use marker for reasons explained in
@@ -2052,6 +2064,10 @@ public class ViewCollection : DataCollection {
         }
         
         show_items(to_show);
+        
+        // notify of change after deactivating filter
+        if (old_filter != null)
+            notify_view_filter_changed(old_filter, null);
     }
     
     public override bool valid_type(DataObject object) {
