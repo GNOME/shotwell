@@ -128,7 +128,7 @@ private class ManifestListView : Gtk.TreeView {
         typeof(bool),       // CAN_ENABLE
         typeof(Gdk.Pixbuf), // ICON
         typeof(string),     // NAME
-        typeof(int)         // ID
+        typeof(string)      // ID
     );
     
     public ManifestListView() {

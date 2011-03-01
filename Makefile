@@ -1,6 +1,6 @@
 PROGRAM = shotwell
 
-VERSION = 0.8.1+trunk
+VERSION = 0.8.90
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -323,10 +323,12 @@ UNITIZE_STAMP := $(UNITIZE_DIR)/.unitized
 
 PLUGINS_DIR := plugins
 PLUGINS_SO := $(foreach plugin,$(PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
+PLUGINS_DIST_FILES = `$(MAKE) --directory=plugins --no-print-directory listfiles`
 
 EXPANDED_PO_FILES := $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
 EXPANDED_SRC_FILES := $(UNITIZED_SRC_FILES) $(foreach src,$(UNUNITIZED_SRC_FILES),src/$(src)) \
 	$(UNITIZE_INITS) $(UNITIZE_ENTRIES)
+EXPANDED_DIST_SRC_FILES := $(UNITIZED_SRC_FILES) $(foreach src,$(UNUNITIZED_SRC_FILES),src/$(src))
 EXPANDED_C_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FILES)),$(file:.vala=.c))
 EXPANDED_OBJ_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FILES)),$(file:.vala=.o))
 EXPANDED_SYS_INTEGRATION_FILES := $(foreach file,$(SYS_INTEGRATION_FILES),misc/$(file))
@@ -342,11 +344,11 @@ MAKE_FILES := Makefile $(CONFIG_IN) $(UNIT_MKS) unitize.mk units.mk
 PC_INPUT := shotwell-plugin-dev-1.0.m4
 PC_FILE := $(PC_INPUT:.m4=.pc)
 
-DIST_FILES = Makefile configure chkver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
+DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
 	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_PO_FILES) po/shotwell.pot libraw-config \
 	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
-	unitize.mk units.mk $(PC_INPUT)
+	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES)
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
@@ -428,7 +430,8 @@ package:
 	rm -f $(DIST_TAR_GZ)
 	rm -f $(DIST_TAR_BZ2)
 
-dist: $(DIST_FILES)
+.PHONY: dist
+dist:
 	mkdir -p $(PROGRAM)-$(VERSION)
 	cp --parents $(DIST_FILES) $(PROGRAM)-$(VERSION)
 	tar --bzip2 -cvf $(DIST_TAR_BZ2) $(PROGRAM)-$(VERSION)

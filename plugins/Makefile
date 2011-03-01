@@ -1,6 +1,11 @@
 
 include plugins.mk
 
+DIST_FILES := \
+	Makefile \
+	Makefile.plugin.mk \
+	plugins.mk
+
 .PHONY: all
 all: $(PLUGINS)
 
@@ -19,4 +24,9 @@ cleantemps:
 .PHONY: distclean
 distclean:
 	$(foreach plugin,$(PLUGINS),$(MAKE) --directory=$(plugin) distclean;)
+
+.PHONY: listfiles
+listfiles:
+	@printf "$(foreach file,$(DIST_FILES), plugins/$(file)) "
+	@$(foreach plugin,$(PLUGINS),$(MAKE) --directory=$(plugin) --no-print-directory listfiles;)
 

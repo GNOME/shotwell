@@ -37,3 +37,7 @@ clean: cleantemps
 .PHONY: distclean
 distclean: clean
 
+.PHONY: listfiles
+listfiles:
+	@printf "plugins/$(PLUGIN)/Makefile $(foreach file,$(SRC_FILES),plugins/$(PLUGIN)/$(file)) "
+
