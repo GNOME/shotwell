@@ -421,6 +421,12 @@ public class PhotoMetadata : MediaMetadata {
         
         if (values.length == 0)
             return;
+
+        // append a null pointer to the end of the string array -- this is a necessary
+        // workaround for http://trac.yorba.org/ticket/3264. See also
+        // http://trac.yorba.org/ticket/3257, which describes the user-visible behavior
+        // seen in the Flickr Connector as a result of the former bug.
+        values += null;
         
         if (!exiv2.set_tag_multiple(tag, values))
             warning("Unable to set %d strings to tag %s from source %s", values.length, tag, source_name);

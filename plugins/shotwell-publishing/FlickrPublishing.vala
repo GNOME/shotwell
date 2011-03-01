@@ -1172,8 +1172,18 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
                     keyword_set.add(keyword);
 
             string[] all_keywords = keyword_set.to_array();
+            // append a null pointer to the end of all_keywords -- this is a necessary workaround
+            // for http://trac.yorba.org/ticket/3264. See also http://trac.yorba.org/ticket/3257,
+            // which describes the user-visible behavior seen in the Flickr Connector as a result
+            // of the former bug.
+            all_keywords += null;
+
             string[] no_keywords = new string[1];
-            no_keywords[0] = "";
+            // append a null pointer to the end of no_keywords -- this is a necessary workaround
+            // for http://trac.yorba.org/ticket/3264. See also http://trac.yorba.org/ticket/3257,
+            // which describes the user-visible behavior seen in the Flickr Connector as a result
+            // of the former bug.
+            no_keywords[0] = null;
             
             publishable_metadata.set_tag_multiple("Xmp.dc.subject", all_keywords);
             publishable_metadata.set_tag_multiple("Iptc.Application2.Keywords", no_keywords);
