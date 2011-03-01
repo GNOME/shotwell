@@ -2794,19 +2794,50 @@ public class ViewCollection : DataCollection {
         }
     }
     
+    // TODO: This currently does not respect filtering.
     public bool has_view_for_source(DataSource source) {
         return source_map.has_key(source);
     }
     
+    // TODO: This currently does not respect filtering.
     public DataView? get_view_for_source(DataSource source) {
         return source_map.get(source);
     }
     
+    // TODO: This currently does not respect filtering.
     public Gee.Collection<DataSource> get_sources() {
         return source_map.keys.read_only_view;
     }
     
+    // TODO: This currently does not respect filtering.
+    public bool has_source_of_type(Type t) {
+        assert(t.is_a(typeof(DataSource)));
+        
+        foreach (DataSource source in source_map.keys) {
+            if (source.get_type().is_a(t))
+                return true;
+        }
+        
+        return false;
+    }
+    
+    // TODO: This currently does not respect filtering.
+    public int get_sources_of_type_count(Type t) {
+        assert(t.is_a(typeof(DataSource)));
+        
+        int count = 0;
+        foreach (DataSource source in source_map.keys) {
+            if (source.get_type().is_a(t))
+                count++;
+        }
+        
+        return count;
+    }
+    
+    // TODO: This currently does not respect filtering.
     public Gee.Collection<DataSource>? get_sources_of_type(Type t) {
+        assert(t.is_a(typeof(DataSource)));
+        
         Gee.Collection<DataSource>? sources = null;
         foreach (DataSource source in source_map.keys) {
             if (source.get_type().is_a(t)) {
