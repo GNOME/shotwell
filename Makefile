@@ -56,8 +56,6 @@ UNUNITIZED_SRC_FILES = \
 	Sidebar.vala \
 	ColorTransformation.vala \
 	EditingTools.vala \
-	DataObject.vala \
-	DataCollection.vala \
 	LibraryWindow.vala \
 	CameraTable.vala \
 	Properties.vala \
