@@ -220,10 +220,31 @@ public Gee.List<MediaSource>? unserialize_media_sources(uchar* serialized, int s
 }
 
 public string format_local_datespan(Time from_date, Time to_date) {
-    string from_format = (from_date.year == to_date.year)? _("%a %b %d") : _("%a %b %d, %Y");
-    
+    string from_format, to_format;
+   
+    // Ticket #3240 - Change the way date ranges are pretty-
+    // printed if the start and end date occur on consecutive days.    
+    if (from_date.year == to_date.year) {
+        // are these consecutive dates?
+        if ((from_date.month == to_date.month) && (from_date.day == (to_date.day - 1))) {
+            // Yes; display like so: Sat, July 4 - 5, 20X6
+            from_format =  _("%a %b %d");
+            to_format = _("%d, %Y");
+        } else {
+            // No, but they're in the same year; display in shortened
+            // form: Sat, July 4 - Mon, July 6, 20X6
+            from_format = _("%a %b %d");
+            to_format = _("%a %b %d, %Y");
+        }
+    } else {
+        // Span crosses a year boundary, use long form dates
+        // for both start and end date.
+        from_format = _("%a %b %d, %Y");
+        to_format = _("%a %b %d, %Y");
+    }
+     
     return String.strip_leading_zeroes("%s - %s".printf(from_date.format(from_format),
-        to_date.format(_("%a %b %d, %Y"))));
+        to_date.format(to_format)));
 }
 
 public string format_local_date(Time date) {
