@@ -1351,9 +1351,100 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
         webview_frame.add(webview);
         pane_widget.add(webview_frame);
     }
+    
+    private struct LocaleLookup {
+        public string prefix;
+        public string translation;
+        public string? exception_code;
+        public string? exception_translation;
+        public string? exception_code_2;
+        public string? exception_translation_2;
+    }
+    
+    private const LocaleLookup[] locale_lookup_table = {
+        { "es", "es-la", "ES", "es-es" },
+        { "en", "en-gb", "US", "www" },
+        { "fr", "fr-fr", "CA", "fr-ca" },
+        { "pt", "pt-br", "PT", "pt-pt" },
+        { "zh", "zh-cn", "HK", "zh-hk", "TW", "zh-tw" },
+        { "af", "af-za" },
+        { "ar", "ar-ar" },
+        { "nb", "nb-no" },
+        { "no", "nb-no" },
+        { "id", "id-id" },
+        { "ms", "ms-my" },
+        { "ca", "ca-es" },
+        { "cs", "cs-cz" },
+        { "cy", "cy-gb" },
+        { "da", "da-dk" },
+        { "de", "de-de" },
+        { "tl", "tl-ph" },
+        { "ko", "ko-kr" },
+        { "hr", "hr-hr" },
+        { "it", "it-it" },
+        { "lt", "lt-lt" },
+        { "hu", "hu-hu" },
+        { "nl", "nl-nl" },
+        { "ja", "ja-jp" },
+        { "nb", "nb-no" },
+        { "no", "nb-no" },
+        { "pl", "pl-pl" },
+        { "ro", "ro-ro" },
+        { "ru", "ru-ru" },
+        { "sk", "sk-sk" },
+        { "sl", "sl-sl" },
+        { "sv", "sv-se" },
+        { "th", "th-th" },
+        { "vi", "vi-vn" },
+        { "tr", "tr-tr" },
+        { "el", "el-gr" },
+        { "bg", "bg-bg" },
+        { "sr", "sr-rs" },
+        { "he", "he-il" },
+        { "hi", "hi-in" },
+        { "bn", "bn-in" },
+        { "pa", "pa-in" },
+        { "ta", "ta-in" },
+        { "te", "te-in" },
+        { "ml", "ml-in" }
+    };
+    
+    private string get_system_locale_as_facebook_locale() {
+        unowned string? raw_system_locale = Intl.setlocale(LocaleCategory.ALL, "");
+        if (raw_system_locale == null || raw_system_locale == "")
+            return "www";
+        
+        string system_locale = raw_system_locale.split(".")[0];
+        
+        foreach (LocaleLookup locale_lookup in locale_lookup_table) {
+            if (!system_locale.has_prefix(locale_lookup.prefix))
+                continue;
+            
+            if (locale_lookup.exception_code != null) {
+                assert(locale_lookup.exception_translation != null);
+                
+                if (system_locale.contains(locale_lookup.exception_code))
+                    return locale_lookup.exception_translation;
+            }
+            
+            if (locale_lookup.exception_code_2 != null) {
+                assert(locale_lookup.exception_translation_2 != null);
+                
+                if (system_locale.contains(locale_lookup.exception_code_2))
+                    return locale_lookup.exception_translation_2;
+            }
+            
+            return locale_lookup.translation;
+        }
+        
+        // default
+        return "www";
+    }
 
     private string get_login_url() {
-        return "http://www.facebook.com/login.php?api_key=%s&connect_display=popup&v=1.0&next=http://www.facebook.com/connect/login_success.html&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream,publish_stream,offline_access,photo_upload,user_photos".printf(API_KEY);
+        string facebook_locale = get_system_locale_as_facebook_locale();
+
+        return "http://%s.facebook.com/login.php?api_key=%s&connect_display=popup&v=1.0&next=http://www.facebook.com/connect/login_success.html&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream,publish_stream,offline_access,photo_upload,user_photos".printf(facebook_locale, API_KEY);
     }
 
     private void on_page_load(WebKit.WebFrame origin_frame) {
