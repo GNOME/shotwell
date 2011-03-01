@@ -887,11 +887,20 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     public void set_message(string? text) {
+        if (text == message)
+            return;
+        
         message = text;
-
-        // set the layout's size to be exactly the same as the parent's
-        if (parent != null)
-            set_size_request(parent.allocation.width, parent.allocation.height);
+        
+        if (text != null) {
+            // message is being set, change size to match parent's; if no parent, then the size 
+            // will be set later when added to the parent
+            if (parent != null)
+                set_size_request(parent.allocation.width, parent.allocation.height);
+        } else {
+            // message is being cleared, layout all the items again
+            need_reflow("set_message");
+        }
     }
     
     public void unset_message() {
