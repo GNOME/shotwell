@@ -713,7 +713,7 @@ public abstract class CollectionPage : MediaPage {
 
 public class LibraryPage : CollectionPage {
     public LibraryPage(ProgressMonitor? monitor = null) {
-        base(_("Media"));
+        base(_("Library"));
         
         foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all())
             get_view().monitor_source_collection(sources, new CollectionViewManager(this), null, null, monitor);
