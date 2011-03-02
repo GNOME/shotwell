@@ -132,6 +132,10 @@ public abstract class SearchViewFilter : ViewFilter {
     public string? get_search_filter() {
         return search_filter;
     }
+       
+    public string[] get_search_filter_words() {
+		return search_filter.split(" ");
+	}
     
     public void set_search_filter(string text) {
         search_filter = text.down();
@@ -192,29 +196,38 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
         // Text filter.
         if (((bool) (SearchFilterCriteria.TEXT & get_criteria())) && 
             !is_string_empty(get_search_filter())) {
-            string title = source.get_title() != null ? source.get_title().down() : "";
-            if (title.contains(get_search_filter()))
-                return true;
-            
-            if (source.get_basename().down().contains(get_search_filter()))
-                return true;
-            
-            if (source.get_event() != null && source.get_event().get_raw_name() != null &&
-                source.get_event().get_raw_name().down().contains(get_search_filter()))
-                return true;
-            
-            Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
-            if (null != tags) {
-                foreach (Tag tag in tags) {
-                    if (tag.get_name().down().contains(get_search_filter()))
-                        return true;
-                }
-            }
-            return false;
+			foreach (string word in get_search_filter_words()) {
+				if (!contains_text(source, word))
+					return false;
+			}
+			return true;
         }
         
         return true;
     }
+    
+    public bool contains_text(MediaSource source, string word) {
+		string title = source.get_title() != null ? source.get_title().down() : "";
+		if (title.contains(word))
+			return true;
+		
+		if (source.get_basename().down().contains(word))
+			return true;
+		
+		if (source.get_event() != null && source.get_event().get_raw_name() != null &&
+			source.get_event().get_raw_name().down().contains(word))
+			return true;
+		
+		Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
+		if (null != tags) {
+			foreach (Tag tag in tags) {
+				if (tag.get_name().down().contains(word))
+					return true;
+			}
+		}
+		return false;
+	}
+    
 }
 
 public class SearchFilterActions {
