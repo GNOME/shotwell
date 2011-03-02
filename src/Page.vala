@@ -1295,6 +1295,9 @@ public abstract class CheckerboardPage : Page {
         
         // need to monitor items going hidden when dealing with anchor/cursor/highlighted items
         get_view().items_hidden.connect(on_items_hidden);
+        get_view().contents_altered.connect(on_contents_altered);
+        get_view().items_state_changed.connect(on_items_state_changed);
+        get_view().items_visibility_changed.connect(on_items_visibility_changed);
         
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
@@ -1356,6 +1359,23 @@ public abstract class CheckerboardPage : Page {
     }
     
     private void on_view_filter_refresh() {
+        update_view_filter_message();
+    }
+    
+    private void on_contents_altered(Gee.Iterable<DataObject>? added,
+        Gee.Iterable<DataObject>? removed) {
+        update_view_filter_message();
+    }
+    
+    private void on_items_state_changed(Gee.Iterable<DataView> changed) {
+        update_view_filter_message();
+    }
+    
+    private void on_items_visibility_changed(Gee.Collection<DataView> changed) {
+        update_view_filter_message();
+    }
+    
+    private void update_view_filter_message() {
         if (get_view().are_items_filtered_out() && get_view().get_count() == 0) {
             set_page_message(_("No items visible in your current filter"));
         } else if (get_view().get_count() == 0) {
