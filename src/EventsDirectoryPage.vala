@@ -286,6 +286,14 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         
         base.update_actions(selected_count, count);
     }
+
+    protected override string get_view_empty_message() {
+        return _("No events");
+    }
+
+    protected override string get_filter_no_match_message() {
+        return _("No events found");
+    }
     
     public override void on_item_activated(CheckerboardItem item, CheckerboardPage.Activator 
         activator, CheckerboardPage.KeyboardModifiers modifiers) {

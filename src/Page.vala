@@ -1329,6 +1329,14 @@ public abstract class CheckerboardPage : Page {
         return popup_context_menu(get_context_menu());
     }
     
+    protected virtual string get_view_empty_message() {
+        return _("No photos/videos");
+    }
+
+    protected virtual string get_filter_no_match_message() {
+        return _("No photos/videos found");
+    }
+
     protected virtual void on_item_activated(CheckerboardItem item, Activator activator, 
         KeyboardModifiers modifiers) {
     }
@@ -1377,9 +1385,9 @@ public abstract class CheckerboardPage : Page {
     
     private void update_view_filter_message() {
         if (get_view().are_items_filtered_out() && get_view().get_count() == 0) {
-            set_page_message(_("No items visible in your current filter"));
+            set_page_message(get_filter_no_match_message());
         } else if (get_view().get_count() == 0) {
-            set_page_message(_("There are currently no items on this page"));
+            set_page_message(get_view_empty_message());
         } else {
             unset_page_message();
         }

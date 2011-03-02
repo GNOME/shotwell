@@ -137,7 +137,11 @@ public class TrashPage : CheckerboardPage {
         get_command_manager().execute(new TrashUntrashPhotosCommand(
             (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), false));
     }
-    
+
+    protected override string get_view_empty_message() {
+        return _("Trash is empty");
+    }
+
     public override GLib.Icon? get_icon() {
         return new GLib.ThemedIcon(get_view().get_count() == 0 ? 
             Resources.ICON_TRASH_EMPTY : Resources.ICON_TRASH_FULL);
