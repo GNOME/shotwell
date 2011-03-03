@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-03-02 17:01-0800\n"
-"PO-Revision-Date: 2011-03-03 01:31+0000\n"
+"POT-Creation-Date: 2011-03-03 11:49-0800\n"
+"PO-Revision-Date: 2011-03-03 20:17+0000\n"
 "Last-Translator: verayin <vera@yorba.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -102,15 +102,15 @@ msgstr "Alte informații despre Shotwell"
 
 #: src/AppWindow.vala:514
 msgid "_Frequently Asked Questions"
-msgstr ""
+msgstr "Întrebări _frecvente"
 
 #: src/AppWindow.vala:515
 msgid "Answers to common questions about Shotwell"
-msgstr ""
+msgstr "Răspunsuri pentru întrebări frecvente despre Shotwell"
 
 #: src/AppWindow.vala:605 src/AppWindow.vala:619 src/AppWindow.vala:636
-#: src/TagPage.vala:143 src/WebConnectors.vala:997 src/Dialogs.vala:946
-#: src/Dialogs.vala:968
+#: src/TagPage.vala:143 src/WebConnectors.vala:995 src/Dialogs.vala:945
+#: src/Dialogs.vala:967
 msgid "_Cancel"
 msgstr "_Anulează"
 
@@ -142,7 +142,7 @@ msgstr "Nu se poate afișa pagina de ajutor: %s"
 #: src/AppWindow.vala:686
 #, c-format
 msgid "Unable to display FAQ: %s"
-msgstr ""
+msgstr "Nu se pot afișa întrebările frecvente FAQ: %s"
 
 #: src/ImportPage.vala:328
 msgid ""
@@ -295,7 +295,7 @@ msgstr[0] "Ștergeți această fotografie/acest clip din aparatul foto?"
 msgstr[1] "Ștergeți aceste %d fotografii/clipuri din aparatul foto?"
 msgstr[2] "Ștergeți aceste %d de fotografii/clipuri din aparatul foto?"
 
-#: src/ImportPage.vala:1320 src/Dialogs.vala:916
+#: src/ImportPage.vala:1320 src/Dialogs.vala:915
 msgid "_Keep"
 msgstr "_Păstrează"
 
@@ -345,7 +345,7 @@ msgstr "Opţiuni"
 
 #: src/SlideshowPage.vala:43
 msgid "_Delay:"
-msgstr ""
+msgstr "_Decalaj:"
 
 #: src/SlideshowPage.vala:45 src/SlideshowPage.vala:47
 msgid "seconds"
@@ -353,11 +353,11 @@ msgstr "secunde"
 
 #: src/SlideshowPage.vala:63
 msgid "_Transition effect:"
-msgstr ""
+msgstr "Efecte _tranziție:"
 
 #: src/SlideshowPage.vala:90
 msgid "Transition d_elay:"
-msgstr ""
+msgstr "D_ecalaj tranziție:"
 
 #: src/SlideshowPage.vala:187
 msgid "Slideshow"
@@ -576,7 +576,7 @@ msgstr "Refă ultima acțiune anulată"
 msgid "Re_name Event..."
 msgstr "Rede_numește eveniment..."
 
-#: src/Resources.vala:169 src/Dialogs.vala:874
+#: src/Resources.vala:169 src/Dialogs.vala:873
 msgid "Rename Event"
 msgstr "Redenumește eveniment"
 
@@ -788,7 +788,7 @@ msgstr "Publică pe diferite site-uri web"
 msgid "E_dit Title..."
 msgstr "E_ditare nume..."
 
-#: src/Resources.vala:243 src/Dialogs.vala:884
+#: src/Resources.vala:243 src/Dialogs.vala:883
 msgid "Edit Title"
 msgstr "Editare nume"
 
@@ -854,15 +854,15 @@ msgstr "Trimite fotografiile pe mail sau pe mesageria online"
 
 #: src/Resources.vala:266
 msgid "_Find..."
-msgstr ""
+msgstr "_Caută..."
 
 #: src/Resources.vala:267
 msgid "Find"
-msgstr ""
+msgstr "Căutare"
 
 #: src/Resources.vala:268
 msgid "Find an image by typing text that appears in its name or tags"
-msgstr ""
+msgstr "Căutați o imagine după textul care apare în denumire sau în etichete"
 
 #: src/Resources.vala:270
 msgid "_Flag"
@@ -1035,7 +1035,7 @@ msgstr "Afișează %s sau mai mare"
 msgid "Only show photos with a rating of %s or better"
 msgstr "Afișează numai fotografiile cu aprecierea %s sau mai mare"
 
-#: src/Resources.vala:600 src/TagPage.vala:143 src/Dialogs.vala:917
+#: src/Resources.vala:600 src/TagPage.vala:143 src/Dialogs.vala:916
 msgid "_Delete"
 msgstr "Ș_terge"
 
@@ -1107,31 +1107,31 @@ msgstr[2] ""
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
-msgstr ""
+msgstr "Pe toată pagina"
 
 #: src/Printing.vala:256
 msgid "2 images per page"
-msgstr ""
+msgstr "2 imagini pe pagină"
 
 #: src/Printing.vala:257
 msgid "4 images per page"
-msgstr ""
+msgstr "4 imagini pe pagină"
 
 #: src/Printing.vala:258
 msgid "6 images per page"
-msgstr ""
+msgstr "6 imagini pe pagină"
 
 #: src/Printing.vala:259
 msgid "8 images per page"
-msgstr ""
+msgstr "8 "
 
 #: src/Printing.vala:260
 msgid "16 images per page"
-msgstr ""
+msgstr "16 "
 
 #: src/Printing.vala:261
 msgid "32 images per page"
-msgstr ""
+msgstr "32 "
 
 #: src/Printing.vala:298
 msgid "Printed Image Size"
@@ -1147,7 +1147,7 @@ msgstr "_Utilizează dimensiune personalizată:"
 
 #: src/Printing.vala:318
 msgid "_Autosize:"
-msgstr ""
+msgstr "Potrivire _automată:"
 
 #: src/Printing.vala:387
 msgid "in."
@@ -1163,11 +1163,11 @@ msgstr "Pă_strează proporțiile fotografiei"
 
 #: src/Printing.vala:413
 msgid "Titles"
-msgstr ""
+msgstr "Denumiri"
 
 #: src/Printing.vala:420
 msgid "Print image _title"
-msgstr ""
+msgstr "_Tipărește denumirea imaginii"
 
 #: src/Printing.vala:432
 msgid "Pixel Resolution"
@@ -1243,7 +1243,7 @@ msgstr "Configurări imagine"
 
 #: src/Printing.vala:1004
 msgid "Printing..."
-msgstr ""
+msgstr "Se tipărește..."
 
 #: src/Printing.vala:1024 src/Printing.vala:1227
 #, c-format
@@ -1267,7 +1267,7 @@ msgstr "Coș de gunoi"
 
 #: src/TrashPage.vala:142
 msgid "Trash is empty"
-msgstr ""
+msgstr "Coșul de gunoi este gol"
 
 #: src/TrashPage.vala:155
 msgid "Delete"
@@ -1396,7 +1396,7 @@ msgstr ""
 #: src/direct/DirectPhotoPage.vala:247 src/direct/DirectPhotoPage.vala:445
 #, c-format
 msgid "Unable to load %s: %s"
-msgstr ""
+msgstr "Nu se poate încărca %s: %s"
 
 #: src/direct/DirectPhotoPage.vala:387
 msgid "_Save a Copy"
@@ -1422,15 +1422,15 @@ msgstr "Salvează ca"
 
 #: src/slideshow/TransitionEffects.vala:96
 msgid "(None)"
-msgstr ""
+msgstr "(Nimic)"
 
 #: src/slideshow/TransitionEffects.vala:292
 msgid "None"
-msgstr ""
+msgstr "Nimic"
 
 #: src/slideshow/Slideshow.vala:15
 msgid "Slideshow Transitions"
-msgstr ""
+msgstr "Tranziție prezentare diapozitive"
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
 # 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
@@ -1450,7 +1450,7 @@ msgstr "Azi"
 msgid "Yesterday"
 msgstr "Ieri"
 
-#: src/Properties.vala:283 src/Dialogs.vala:884
+#: src/Properties.vala:283 src/Dialogs.vala:883
 msgid "Title:"
 msgstr "Nume:"
 
@@ -1589,11 +1589,11 @@ msgstr "Nume _utilizator:"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr ""
+msgstr "%a %b %d"
 
 #: src/util/misc.vala:232
 msgid "%d, %Y"
-msgstr ""
+msgstr "%d, %Y"
 
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
@@ -1650,7 +1650,7 @@ msgstr "Eroare aparat foto"
 
 #: src/BatchImport.vala:61
 msgid "File write error"
-msgstr ""
+msgstr "Eroare la scrierea fișierului"
 
 #: src/BatchImport.vala:64
 #, c-format
@@ -1699,7 +1699,7 @@ msgstr "Video SD (4 : 3)"
 msgid "HD Video (16 : 9)"
 msgstr "Video HD (16 : 9)"
 
-#: src/EditingTools.vala:672 src/Dialogs.vala:1727
+#: src/EditingTools.vala:672 src/Dialogs.vala:1726
 msgid "Custom"
 msgstr "Personalizat"
 
@@ -1778,24 +1778,24 @@ msgstr "Clipuri"
 
 #: src/SearchFilter.vala:425
 msgid "RAW Photos"
-msgstr ""
+msgstr "Fotografii RAW"
 
 #: src/SearchFilter.vala:426
 msgid "RAW photos"
-msgstr ""
+msgstr "Fotografii RAW"
 
 #: src/SearchFilter.vala:679
 #, c-format
 msgid "Error loading UI file %s: %s"
-msgstr ""
+msgstr "Eroare la încărcarea fișierului UI %s: %s"
 
 #: src/SearchFilter.vala:686
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: src/SearchFilter.vala:702
 msgid "Rating"
-msgstr ""
+msgstr "Cotare"
 
 #: src/Exporter.vala:246
 #, c-format
@@ -1929,7 +1929,7 @@ msgstr "_URL-ul instalării Piwigo:"
 
 #: src/PiwigoConnector.vala:635
 msgid "User_name:"
-msgstr ""
+msgstr "_Nume utilizator: "
 
 #: src/PiwigoConnector.vala:637
 #: plugins/shotwell-publishing/PicasaPublishing.vala:865
@@ -2054,15 +2054,15 @@ msgstr "Rulați '%s --help' pentru a consulta lista completă a comenzilor.\n"
 
 #: src/publishing/Publishing.vala:16
 msgid "Publishing"
-msgstr ""
+msgstr "Se publică"
 
-#: src/publishing/PublishingPluginHost.vala:11 src/WebConnectors.vala:1128
-#: src/WebConnectors.vala:1265
+#: src/publishing/PublishingPluginHost.vala:11 src/WebConnectors.vala:1126
+#: src/WebConnectors.vala:1263
 msgid "Preparing for upload"
 msgstr "Pregătire pentru încărcare"
 
-#: src/publishing/PublishingPluginHost.vala:12 src/WebConnectors.vala:1129
-#: src/WebConnectors.vala:1205
+#: src/publishing/PublishingPluginHost.vala:12 src/WebConnectors.vala:1127
+#: src/WebConnectors.vala:1203
 #, c-format
 msgid "Uploading %d of %d"
 msgstr "Se încarcă %d din %d"
@@ -2070,13 +2070,15 @@ msgstr "Se încarcă %d din %d"
 #: src/publishing/PublishingPluginHost.vala:102
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred:"
-msgstr ""
+msgstr "Publicarea pe %s nu poate continua din cauza unei erori:"
 
-#: src/publishing/PublishingPluginHost.vala:105 src/WebConnectors.vala:1032
+#: src/publishing/PublishingPluginHost.vala:105 src/WebConnectors.vala:1030
 msgid "To try publishing to another service, select one from the above menu."
 msgstr "Pentru a încerca publicarea pe alt serviciu, alegeți unul din meniu."
 
 #: src/WebConnectors.vala:505
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1284
+#: plugins/shotwell-publishing/RESTSupport.vala:409
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Un fișier temporar necesar pentru publicare nu este disponibil"
 
@@ -2094,11 +2096,11 @@ msgstr "Fotografiile selectate au fost publicate cu succes."
 
 #: src/WebConnectors.vala:670
 msgid "The selected video was successfully published."
-msgstr ""
+msgstr "Clipul video selectat a fost publicat cu succes."
 
 #: src/WebConnectors.vala:672
 msgid "The selected photo was successfully published."
-msgstr ""
+msgstr "Fotografia selectată a fost publicată cu succes."
 
 #: src/WebConnectors.vala:680
 msgid "Fetching account information..."
@@ -2133,23 +2135,26 @@ msgid "Publish photos and videos _to"
 msgstr "Publică fo_tografiile și clipurile pe"
 
 #: src/WebConnectors.vala:820
+#, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
-"compatible "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugin</b> tab."
 msgstr ""
 
-#: src/WebConnectors.vala:992
+#: src/WebConnectors.vala:990
 msgid "_Close"
 msgstr "În_chide"
 
-#: src/WebConnectors.vala:1015
+#: src/WebConnectors.vala:1013
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service could not be contacted."
 msgstr ""
 "Publicarea pe %s nu poate continua deoarece serviciul nu poate fi contactat."
 
-#: src/WebConnectors.vala:1018
+#: src/WebConnectors.vala:1016
 #, c-format
 msgid ""
 "Publishing to %s can't continue because communication with the service "
@@ -2158,18 +2163,18 @@ msgstr ""
 "Publicarea pe %s nu poate continua deoarece comunicarea cu serviciul a "
 "eșuat."
 
-#: src/WebConnectors.vala:1021
+#: src/WebConnectors.vala:1019
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
 msgstr "Publicarea pe %s nu poate continua din cauza unei erori de protocol"
 
-#: src/WebConnectors.vala:1023
+#: src/WebConnectors.vala:1021
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
 msgstr ""
 "Publicarea pe %s nu poate continua deoarece serviciul a returnat o eroare."
 
-#: src/WebConnectors.vala:1025
+#: src/WebConnectors.vala:1023
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service returned a bad response."
@@ -2177,12 +2182,12 @@ msgstr ""
 "Publicarea pe %s nu poate continua deoarece serviciul a returnat un răspuns "
 "greșit."
 
-#: src/WebConnectors.vala:1028
+#: src/WebConnectors.vala:1026
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
 msgstr "Publicarea pe %s nu poate continua din cauza unei erori."
 
-#: src/WebConnectors.vala:1178
+#: src/WebConnectors.vala:1176
 msgid "One or more of the photos or videos to be published is unavailable"
 msgstr ""
 "Una sau mai multe fotografii sau clipuri destinate publicării nu sunt "
@@ -2198,7 +2203,7 @@ msgstr "Se șterge..."
 
 #: src/CollectionPage.vala:214 src/PhotoPage.vala:2485
 msgid "S_lideshow"
-msgstr ""
+msgstr "Pre_zentare diapozitive"
 
 #: src/CollectionPage.vala:215 src/PhotoPage.vala:2486
 msgid "Play a slideshow"
@@ -2244,7 +2249,7 @@ msgstr "Se anulează inversarea pe verticală"
 
 #: src/CollectionPage.vala:716
 msgid "Library"
-msgstr ""
+msgstr "Colecție"
 
 #: src/Dialogs.vala:15
 msgid "Export Video"
@@ -2255,12 +2260,13 @@ msgid "Export Photos"
 msgstr "Exportă fotografii"
 
 #: src/Dialogs.vala:69
+#, c-format
 msgid ""
 "Shotwell couldn't create a file for editing this photo because you do not "
-"have "
+"have permission to write to %s."
 msgstr ""
 
-#: src/Dialogs.vala:79
+#: src/Dialogs.vala:78
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
@@ -2268,7 +2274,7 @@ msgstr ""
 "Fotografia următoare nu poate fi exportată din cauza unei erori în fișier.\n"
 "\n"
 
-#: src/Dialogs.vala:85
+#: src/Dialogs.vala:84
 msgid ""
 "\n"
 "\n"
@@ -2278,40 +2284,40 @@ msgstr ""
 "\n"
 "Doriți continuarea exportării?"
 
-#: src/Dialogs.vala:86
+#: src/Dialogs.vala:85
 msgid "Con_tinue"
 msgstr "Con_tinuă"
 
-#: src/Dialogs.vala:102
+#: src/Dialogs.vala:101
 msgid "Unmodified"
 msgstr "Nemodificate"
 
-#: src/Dialogs.vala:103
+#: src/Dialogs.vala:102
 msgid "Current"
 msgstr "Actual"
 
-#: src/Dialogs.vala:167
+#: src/Dialogs.vala:166
 msgid "_Format:"
 msgstr "_Format:"
 
-#: src/Dialogs.vala:170
+#: src/Dialogs.vala:169
 msgid "_Quality:"
 msgstr "_Calitate:"
 
-#: src/Dialogs.vala:173
+#: src/Dialogs.vala:172
 msgid "_Scaling constraint:"
 msgstr "Limită _scalare:"
 
-#: src/Dialogs.vala:176
+#: src/Dialogs.vala:175
 msgid " _pixels"
 msgstr "_pixeli"
 
-#: src/Dialogs.vala:413
+#: src/Dialogs.vala:412
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(și %d în plus)\n"
 
-#: src/Dialogs.vala:467
+#: src/Dialogs.vala:466
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
@@ -2319,7 +2325,7 @@ msgstr[0] "O fotografie duplicat nu a fost importată:\n"
 msgstr[1] "%d fotografii duplicat nu au fost importate:\n"
 msgstr[2] "%d de fotografii duplicat nu au fost importate:\n"
 
-#: src/Dialogs.vala:470
+#: src/Dialogs.vala:469
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
@@ -2327,7 +2333,7 @@ msgstr[0] "Un clip duplicat nu a fost importat:\n"
 msgstr[1] "%d clipuri duplicate nu au fost importate:\n"
 msgstr[2] "%d de clipuri duplicate nu au fost importate:\n"
 
-#: src/Dialogs.vala:473
+#: src/Dialogs.vala:472
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
@@ -2335,7 +2341,7 @@ msgstr[0] "O fotografie/un clip duplicat nu a fost importat(ă):\n"
 msgstr[1] "%d fotografii/clipuri duplicate nu au fost importate:\n"
 msgstr[2] "%d de fotografii/clipuri duplicate nu au fost importate:\n"
 
-#: src/Dialogs.vala:487
+#: src/Dialogs.vala:486
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
@@ -2349,7 +2355,7 @@ msgstr[2] ""
 "%d de fotografii nu au fost importate din cauza unei erori în fișier sau de "
 "natură hardware:\n"
 
-#: src/Dialogs.vala:490
+#: src/Dialogs.vala:489
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
@@ -2363,7 +2369,7 @@ msgstr[2] ""
 "%d de clipuri nu au fost importate din cauza unei erori în fișier sau de "
 "natură hardware:\n"
 
-#: src/Dialogs.vala:493
+#: src/Dialogs.vala:492
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -2378,7 +2384,7 @@ msgstr[2] ""
 "%d de fotografii/clipuri nu au fost importate din cauza unei erori în fișier"
 " sau de natură hardware:\n"
 
-#: src/Dialogs.vala:507
+#: src/Dialogs.vala:506
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not "
@@ -2387,10 +2393,16 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"%d fotografie nu a fost importată deoarece dosarul colecției foto nu poate "
+"fi scris:\n"
 msgstr[1] ""
+"%d fotografii nu au fost importate deoarece dosarul colecției foto nu poate "
+"fi scris:\n"
 msgstr[2] ""
+"%d de fotografii nu au fost importate deoarece dosarul colecției foto nu "
+"poate fi scris:\n"
 
-#: src/Dialogs.vala:510
+#: src/Dialogs.vala:509
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not "
@@ -2399,10 +2411,16 @@ msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"%d clip video nu a fost importat deoarece deoarece dosarul colecției foto nu"
+" poate fi scris:\n"
 msgstr[1] ""
+"%d clipuri video nu au fost importate deoarece dosarul colecției foto nu "
+"poate fi scris:\n"
 msgstr[2] ""
+"%d de clipuri video nu au fost importate deoarece dosarul colecției foto nu "
+"poate fi scris:\n"
 
-#: src/Dialogs.vala:513
+#: src/Dialogs.vala:512
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -2411,10 +2429,16 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"%d fotografie/clip video nu a fost importat(ă) deoarece dosarul colecției "
+"foto nu poate fi scris:\n"
 msgstr[1] ""
+"%d fotografii/clipuri nu au fost importate deoarece dosarul colecției foto "
+"nu poate fi scris:\n"
 msgstr[2] ""
+"%d de fotografii/clipuri nu au fost importate deoarece dosarul colecției "
+"foto nu poate fi scris:\n"
 
-#: src/Dialogs.vala:527
+#: src/Dialogs.vala:526
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
@@ -2426,7 +2450,7 @@ msgstr[2] ""
 "%d de fotografii nu au fost importate din cauza unei erori a aparatului "
 "foto:\n"
 
-#: src/Dialogs.vala:530
+#: src/Dialogs.vala:529
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
@@ -2436,7 +2460,7 @@ msgstr[1] ""
 msgstr[2] ""
 "%d de clipuri nu au fost importate din cauza unei erori a aparatului foto:\n"
 
-#: src/Dialogs.vala:533
+#: src/Dialogs.vala:532
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
@@ -2450,7 +2474,7 @@ msgstr[2] ""
 "%d de fotografii/clipuri nu au fost importate din cauza unei erori a "
 "aparatului foto:\n"
 
-#: src/Dialogs.vala:550
+#: src/Dialogs.vala:549
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -2458,7 +2482,7 @@ msgstr[0] "O fotografie nerecunoscută a fost omisă:\n"
 msgstr[1] "%d fotografii nerecunoscute au fost omise:\n"
 msgstr[2] "%d de fotografii nerecunoscute au fost omise:\n"
 
-#: src/Dialogs.vala:565
+#: src/Dialogs.vala:564
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
@@ -2466,7 +2490,7 @@ msgstr[0] "Un fișier non-imagine a fost omis.\n"
 msgstr[1] "%d fișiere non-imagine au fost omise.\n"
 msgstr[2] "%d de fișiere non-imagine au fost omise.\n"
 
-#: src/Dialogs.vala:576
+#: src/Dialogs.vala:575
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
@@ -2480,7 +2504,7 @@ msgstr[2] ""
 "Au fost omise %d de fotografii din cauza anulării operației de către "
 "utilizator:\n"
 
-#: src/Dialogs.vala:579
+#: src/Dialogs.vala:578
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
@@ -2491,7 +2515,7 @@ msgstr[2] ""
 "Au fost omise %d de clipuri din cauza anulării operației de către "
 "utilizator:\n"
 
-#: src/Dialogs.vala:582
+#: src/Dialogs.vala:581
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
@@ -2505,7 +2529,7 @@ msgstr[2] ""
 "Au fost omise %d de fotografii/clipuri din cauza anulării operației de către"
 " utilizator:\n"
 
-#: src/Dialogs.vala:596
+#: src/Dialogs.vala:595
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
@@ -2513,7 +2537,7 @@ msgstr[0] "Fotografia a fost importată cu succes.\n"
 msgstr[1] "%d fotografii au fost importate cu succes.\n"
 msgstr[2] "%d de fotografii au fost importate cu succes.\n"
 
-#: src/Dialogs.vala:599
+#: src/Dialogs.vala:598
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
@@ -2521,7 +2545,7 @@ msgstr[0] "Un clip a fost importat cu succes.\n"
 msgstr[1] "%d clipuri au fost importate cu succes.\n"
 msgstr[2] "%d de clipuri au fost importate cu succes.\n"
 
-#: src/Dialogs.vala:602
+#: src/Dialogs.vala:601
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -2529,15 +2553,15 @@ msgstr[0] "O fotografie/un clip a fost importat(ă) cu succes.\n"
 msgstr[1] "%d fotografii/clipuri au fost importate cu succes.\n"
 msgstr[2] "%d de fotografii/clipuri au fost importate cu succes.\n"
 
-#: src/Dialogs.vala:618
+#: src/Dialogs.vala:617
 msgid "No photos or videos imported.\n"
 msgstr "Nicio fotografie și niciun clip nu au fost importate.\n"
 
-#: src/Dialogs.vala:633
+#: src/Dialogs.vala:632
 msgid "Import Complete"
 msgstr "Operația de importare a fost încheiată"
 
-#: src/Dialogs.vala:787
+#: src/Dialogs.vala:786
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -2545,7 +2569,7 @@ msgstr[0] "o secundă"
 msgstr[1] "%d secunde"
 msgstr[2] "%d de secunde"
 
-#: src/Dialogs.vala:790
+#: src/Dialogs.vala:789
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -2553,7 +2577,7 @@ msgstr[0] "un minut"
 msgstr[1] "%d minute"
 msgstr[2] "%d de minute"
 
-#: src/Dialogs.vala:794
+#: src/Dialogs.vala:793
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
@@ -2561,26 +2585,26 @@ msgstr[0] "o oră"
 msgstr[1] "%d ore"
 msgstr[2] "%d de ore"
 
-#: src/Dialogs.vala:797
+#: src/Dialogs.vala:796
 msgid "1 day"
 msgstr "1 zi"
 
-#: src/Dialogs.vala:874
+#: src/Dialogs.vala:873
 msgid "Name:"
 msgstr "Nume:"
 
-#: src/Dialogs.vala:896
+#: src/Dialogs.vala:895
 msgid "_Trash File"
 msgid_plural "_Trash Files"
 msgstr[0] "_Trimite fișierul la coșul de gunoi"
 msgstr[1] "_Trimite fișierele la coșul de gunoi"
 msgstr[2] "_Trimite fișierele la coșul de gunoi"
 
-#: src/Dialogs.vala:900
+#: src/Dialogs.vala:899
 msgid "Only _Remove"
 msgstr "Doar ște_rge"
 
-#: src/Dialogs.vala:939
+#: src/Dialogs.vala:938
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural ""
@@ -2594,21 +2618,21 @@ msgstr[2] ""
 "Veți pierde toate modificările aplicate celor %d de fișiere externe. "
 "Continuați?"
 
-#: src/Dialogs.vala:942
+#: src/Dialogs.vala:941
 msgid "Re_vert External Edit"
 msgid_plural "Re_vert External Edits"
 msgstr[0] "Anulează e_ditarea externă"
 msgstr[1] "Anulează e_ditările externe"
 msgstr[2] "Anulează e_ditările externe"
 
-#: src/Dialogs.vala:948
+#: src/Dialogs.vala:947
 msgid "Revert External Edit"
 msgid_plural "Revert External Edits"
 msgstr[0] "Anulează editarea externă"
 msgstr[1] "Anulează editările externe"
 msgstr[2] "Anulează editările externe"
 
-#: src/Dialogs.vala:962
+#: src/Dialogs.vala:961
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
@@ -2616,50 +2640,50 @@ msgstr[0] "Această acțiune va șterge fotografia din colecție. Continuați?"
 msgstr[1] "Această acțiune va șterge %d fotografii din colecție. Continuați?"
 msgstr[2] "Această acțiune va șterge %d de fotografii din colecție. Continuați?"
 
-#: src/Dialogs.vala:969
+#: src/Dialogs.vala:968
 msgid "_Remove"
 msgstr "Ște_rge"
 
-#: src/Dialogs.vala:970
+#: src/Dialogs.vala:969
 msgid "Remove Photo From Library"
 msgid_plural "Remove Photos From Library"
 msgstr[0] "Șterge fotografia din colecție"
 msgstr[1] "Șterge fotografiile din colecție"
 msgstr[2] "Șterge fotografiile din colecție"
 
-#: src/Dialogs.vala:1058
+#: src/Dialogs.vala:1057
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:1178
+#: src/Dialogs.vala:1177
 msgid "AM"
 msgstr "AM"
 
-#: src/Dialogs.vala:1179
+#: src/Dialogs.vala:1178
 msgid "PM"
 msgstr "PM"
 
-#: src/Dialogs.vala:1180
+#: src/Dialogs.vala:1179
 msgid "24 Hr"
 msgstr "24 de ore"
 
-#: src/Dialogs.vala:1195
+#: src/Dialogs.vala:1194
 msgid "_Shift photos by the same amount"
 msgstr "_Schimbă fotografiile cu aceeași măsură"
 
-#: src/Dialogs.vala:1200
+#: src/Dialogs.vala:1199
 msgid "Set _all photos to this time"
 msgstr "Pune _această dată tuturor fotografiilor"
 
-#: src/Dialogs.vala:1206
+#: src/Dialogs.vala:1205
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Modifică fișierul original"
 msgstr[1] "_Modifică fișierele originale"
 msgstr[2] "_Modifică fișierele originale"
 
-#: src/Dialogs.vala:1288
+#: src/Dialogs.vala:1287
 msgid "Original: "
 msgstr "Original:"
 
@@ -2669,7 +2693,7 @@ msgstr "Original:"
 # used in your language and region. The format string you enter should conform
 # to POSIX date and time formatting conventions. See the strftime manpage for
 # a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1289
+#: src/Dialogs.vala:1288
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d/%m/%Y, %H:%M:%S"
 
@@ -2679,11 +2703,11 @@ msgstr "%d/%m/%Y, %H:%M:%S"
 # used in your language and region. The format string you enter should conform
 # to POSIX date and time formatting conventions. See the strftime manpage for
 # a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1290
+#: src/Dialogs.vala:1289
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d/%m/%Y, %I:%M:%S %p"
 
-#: src/Dialogs.vala:1375
+#: src/Dialogs.vala:1374
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -2692,7 +2716,7 @@ msgstr ""
 "Data expunerii va fi modificată în avans cu\n"
 "%d %s, %d %s, %d %s, și %d %s."
 
-#: src/Dialogs.vala:1376
+#: src/Dialogs.vala:1375
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -2701,35 +2725,35 @@ msgstr ""
 "Data expunerii va fi modificată în devans cu\n"
 "%d %s, %d %s, %d %s, și %d %s."
 
-#: src/Dialogs.vala:1378
+#: src/Dialogs.vala:1377
 msgid "day"
 msgid_plural "days"
 msgstr[0] "zi"
 msgstr[1] "zile"
 msgstr[2] "de zile"
 
-#: src/Dialogs.vala:1379
+#: src/Dialogs.vala:1378
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "oră"
 msgstr[1] "ore"
 msgstr[2] "de ore"
 
-#: src/Dialogs.vala:1380
+#: src/Dialogs.vala:1379
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minute"
 msgstr[2] "de minute"
 
-#: src/Dialogs.vala:1381
+#: src/Dialogs.vala:1380
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "secundă"
 msgstr[1] "secunde"
 msgstr[2] "de secunde"
 
-#: src/Dialogs.vala:1425
+#: src/Dialogs.vala:1424
 #, c-format
 msgid ""
 "\n"
@@ -2752,72 +2776,72 @@ msgstr[2] ""
 "\n"
 "Și %d în plus."
 
-#: src/Dialogs.vala:1446 src/Dialogs.vala:1470
+#: src/Dialogs.vala:1445 src/Dialogs.vala:1469
 msgid "Tags (separated by commas):"
 msgstr "Etichete (separate prin virgulă):"
 
-#: src/Dialogs.vala:1527
+#: src/Dialogs.vala:1526
 msgid "Welcome!"
 msgstr "Bine ați venit!"
 
-#: src/Dialogs.vala:1535
+#: src/Dialogs.vala:1534
 #, c-format
 msgid "Welcome to Shotwell!"
 msgstr "Bine ați venit în Shotwell!"
 
-#: src/Dialogs.vala:1540
+#: src/Dialogs.vala:1539
 #, c-format
 msgid "To get started, import photos in any of these ways:"
 msgstr ""
 "Pentru a începe, importați fotografii prin una din metodele următoare:"
 
-#: src/Dialogs.vala:1563
+#: src/Dialogs.vala:1562
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr "Alegeți <span weight=\"bold\">Fișier %s Importă din dosar</span>"
 
-#: src/Dialogs.vala:1564
+#: src/Dialogs.vala:1563
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Trageți și plasați fotografii în fereastra Shotwell"
 
-#: src/Dialogs.vala:1565
+#: src/Dialogs.vala:1564
 msgid "Connect a camera to your computer and import"
 msgstr "Conectați un aparat foto la calculator și importați fotografiile"
 
-#: src/Dialogs.vala:1574
+#: src/Dialogs.vala:1573
 msgid "Import photos from your _F-Spot library"
 msgstr "Importă fotografiile din colecția _F-Spot"
 
-#: src/Dialogs.vala:1581
+#: src/Dialogs.vala:1580
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Importă fotografiile din dosarul %s"
 
-#: src/Dialogs.vala:1591
+#: src/Dialogs.vala:1590
 msgid "You can also import photos in any of these ways:"
 msgstr "Mai puteți importa fotografii într-unul din următoarele moduri:"
 
-#: src/Dialogs.vala:1603
+#: src/Dialogs.vala:1602
 msgid "_Don't show this message again"
 msgstr "Nu arăta _din nou acest mesaj"
 
-#: src/Dialogs.vala:1714
+#: src/Dialogs.vala:1713
 msgid "(Help)"
-msgstr ""
+msgstr "(Ajutor)"
 
-#: src/Dialogs.vala:1721 src/Dialogs.vala:1723 src/Dialogs.vala:1724
+#: src/Dialogs.vala:1720 src/Dialogs.vala:1722 src/Dialogs.vala:1723
 msgid "Year"
-msgstr ""
+msgstr "An"
 
-#: src/Dialogs.vala:1726
+#: src/Dialogs.vala:1725
 msgid "Year-Month-Day"
-msgstr ""
+msgstr "Zi-Lună-An"
 
-#: src/Dialogs.vala:1942
+#: src/Dialogs.vala:1941
 msgid "Invalid pattern"
-msgstr ""
+msgstr "Model nevalid"
 
-#: src/Dialogs.vala:2022
+#: src/Dialogs.vala:2021
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -2825,30 +2849,30 @@ msgstr ""
 "Shotwell poate copia fotografiile în dosarul colecție sau le poate importa "
 "fără a le copia. "
 
-#: src/Dialogs.vala:2027
+#: src/Dialogs.vala:2026
 msgid "Co_py Photos"
 msgstr "Co_piază fotografiile"
 
-#: src/Dialogs.vala:2028
+#: src/Dialogs.vala:2027
 msgid "_Import in Place"
 msgstr "_Importă în locul"
 
-#: src/Dialogs.vala:2029
+#: src/Dialogs.vala:2028
 msgid "Import to Library"
 msgstr "Importă în colecție"
 
-#: src/Dialogs.vala:2039 src/PhotoPage.vala:2853
+#: src/Dialogs.vala:2038 src/PhotoPage.vala:2853
 msgid "Remove From Library"
 msgstr "Șterge din colecție"
 
-#: src/Dialogs.vala:2040 src/PhotoPage.vala:2853
+#: src/Dialogs.vala:2039 src/PhotoPage.vala:2853
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Se șterge fotografia din colecție"
 msgstr[1] "Se șterg fotografiile din colecție"
 msgstr[2] "Se șterg fotografiile din colecție"
 
-#: src/Dialogs.vala:2054
+#: src/Dialogs.vala:2053
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -2871,7 +2895,7 @@ msgstr[2] ""
 "\n"
 "Nu veți putea reveni asupra acestei acțiuni."
 
-#: src/Dialogs.vala:2058
+#: src/Dialogs.vala:2057
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -2894,7 +2918,7 @@ msgstr[2] ""
 "\n"
 "Nu veți putea reveni asupra acestei acțiuni."
 
-#: src/Dialogs.vala:2062
+#: src/Dialogs.vala:2061
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -2917,7 +2941,7 @@ msgstr[2] ""
 "\n"
 "Nu veți putea reveni asupra acestei acțiuni."
 
-#: src/Dialogs.vala:2094
+#: src/Dialogs.vala:2093
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash.  Delete this file?"
@@ -2933,7 +2957,7 @@ msgstr[2] ""
 "%d de fotografii/clipuri nu pot fi trimise la coșul de gunoi al sistemului. "
 "Ștergeți definitiv fișierele?"
 
-#: src/Dialogs.vala:2111
+#: src/Dialogs.vala:2110
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -2977,11 +3001,11 @@ msgstr "Evenimen_te"
 
 #: src/EventsDirectoryPage.vala:291
 msgid "No events"
-msgstr ""
+msgstr "Niciun eveniment"
 
 #: src/EventsDirectoryPage.vala:295
 msgid "No events found"
-msgstr ""
+msgstr "Nu a fost găsit niciun eveniment"
 
 #: src/EventsDirectoryPage.vala:377
 msgid "No Event"
@@ -3033,11 +3057,11 @@ msgstr "Mergi la evenimentul asociat fotografiei"
 
 #: src/LibraryWindow.vala:382
 msgid "_Find"
-msgstr ""
+msgstr "_Caută"
 
 #: src/LibraryWindow.vala:383
 msgid "Find photos and videos by search criteria"
-msgstr ""
+msgstr "Căutați fotografii și clipuri video după criterii de căutare"
 
 #: src/LibraryWindow.vala:400
 msgid "_Basic Information"
@@ -3057,11 +3081,11 @@ msgstr "Afișează informații extinse despre selecție"
 
 #: src/LibraryWindow.vala:412
 msgid "_Search Bar"
-msgstr ""
+msgstr "_Bară căutare"
 
 #: src/LibraryWindow.vala:413
 msgid "Display the search bar"
-msgstr ""
+msgstr "Afișează bara de căutare"
 
 #: src/LibraryWindow.vala:425 src/MediaPage.vala:493
 msgid "_Ascending"
@@ -3151,7 +3175,7 @@ msgstr "RAW"
 
 #: src/photos/TiffSupport.vala:87
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: src/photos/JfifSupport.vala:85
 msgid "JPEG"
@@ -3318,11 +3342,11 @@ msgstr "Demarchează fotografiile selectate "
 
 #: src/Page.vala:1333
 msgid "No photos/videos"
-msgstr ""
+msgstr "Nicio fotografie/niciun clip video"
 
 #: src/Page.vala:1337
 msgid "No photos/videos found"
-msgstr ""
+msgstr "Nicio fotografie/niciun clip video nu a fost găsit"
 
 #: src/Page.vala:2545
 msgid "Photos cannot be exported to this directory."
@@ -3454,23 +3478,23 @@ msgstr "Eveniment %s"
 
 #: plugins/shotwell-transitions/FadeEffect.vala:16
 msgid "Fade"
-msgstr ""
+msgstr "Atenuare"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:16
 msgid "Crumble"
-msgstr ""
+msgstr "Fărâmițare"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:19
 msgid "Core Slideshow Transitions"
-msgstr ""
+msgstr "Tranziție principală pentru prezentare diapozitive "
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:77
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
-msgstr ""
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:16
 msgid "Slide"
-msgstr ""
+msgstr "Diapozitiv"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:55
 msgid ""
@@ -3492,11 +3516,11 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:122
 msgid "Standard (720 pixels)"
-msgstr ""
+msgstr "Standard (720 pixeli)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:125
 msgid "Large (2048 pixels)"
-msgstr ""
+msgstr "Mare (2048 pixeli)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:258
 msgid "Testing connection to Facebook..."
@@ -3506,11 +3530,6 @@ msgstr "Se testează conexiunea la Facebook..."
 #: plugins/shotwell-publishing/PicasaPublishing.vala:498
 msgid "Creating album..."
 msgstr "Se creează album..."
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1283
-#: plugins/shotwell-publishing/RESTSupport.vala:408
-msgid "A temporary file needed for publishing "
-msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1550
 #, c-format
@@ -3527,7 +3546,7 @@ msgstr "Unde doriți să publicați fotografiile selectate?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1552
 msgid "Upload _size:"
-msgstr ""
+msgstr "Dimen_siune încărcare:"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1621
 msgid "Publish to an e_xisting album:"
@@ -3633,7 +3652,7 @@ msgstr "Sunteți autentificat pe Picasa Web Album ca %s."
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1040
 msgid "Videos will appear in:"
-msgstr ""
+msgstr "Clipurile video vor apărea în:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1056
 msgid "An _existing album:"
@@ -3718,7 +3737,7 @@ msgstr "Sunteți autentificat pe YouTube ca %s."
 #: plugins/shotwell-publishing/YouTubePublishing.vala:943
 #, c-format
 msgid "Videos will appear in '%s'"
-msgstr ""
+msgstr " '%s'"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:966
 msgid "Video privacy _setting:"
@@ -3738,7 +3757,7 @@ msgstr "Privat"
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:24
 msgid "Core Publishing Services"
-msgstr ""
+msgstr "Servicii de bază pentru publicare"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:46
 msgid ""
@@ -3891,27 +3910,27 @@ msgstr "_Fundal:"
 
 #: ui/shotwell.glade:448
 msgid "Importing"
-msgstr ""
+msgstr "Se importă"
 
 #: ui/shotwell.glade:469
 msgid "_Directory structure:"
-msgstr ""
+msgstr "Structură _dosare:"
 
 #: ui/shotwell.glade:505
 msgid "_Pattern:"
-msgstr ""
+msgstr "_Model:"
 
 #: ui/shotwell.glade:574
 msgid "Example:"
-msgstr ""
+msgstr "Exemplu:"
 
 #: ui/shotwell.glade:590
 msgid "R_ename imported files to lowercase"
-msgstr ""
+msgstr "R_edenumește fișierele importate folosind litere mici"
 
 #: ui/shotwell.glade:638
 msgid "Plugins"
-msgstr ""
+msgstr "Module"
 
 #: ui/shotwell.glade:764
 msgid "Preparing pictures for import..."
