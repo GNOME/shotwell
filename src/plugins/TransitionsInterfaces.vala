@@ -5,7 +5,7 @@
  */
 
 /**
- * Transitions are used in Shotwell for interstitial effects in slideshow mode.  They may
+ * Transitions are used in Shotwell for interstitial effects in slideshow mode. They may
  * also be used elsewhere in future releases.
  *
  * Plugin writers should start by implementing a {@link Descriptor} which in turn Shotwell uses
@@ -50,11 +50,11 @@ public enum Direction {
  * call to paint to the screen.
  *
  * Note that if starting with a blank screen, from_pixbuf will be null and from_pos will be
- * zeroed.  The transition should be considered to start from a blank screen of the supplied
+ * zeroed. The transition should be considered to start from a blank screen of the supplied
  * background color.
  *
  * Also note that if transitioning to a blank screen, to_pixbuf will be null and to_pos will be
- * zeroed.  Like the prior case, the transition should move toward a blank screen of the background
+ * zeroed. Like the prior case, the transition should move toward a blank screen of the background
  * color.
  */
 public class Visuals : Object {
@@ -208,18 +208,18 @@ public interface Descriptor : Object, Spit.Pluggable {
  * image to another.
  * 
  * An Effect must hold state so that it knows what it should be drawn at any call to {@link paint}
- * (which is called regularly during a transition).  That is, it should be able to draw any frame of
- * the transition at any time.  The same frame may need to be drawn multiple times, or the host
+ * (which is called regularly during a transition). That is, it should be able to draw any frame of
+ * the transition at any time. The same frame may need to be drawn multiple times, or the host
  * may skip ahead and ask for a frame well ahead of the last requested one.
  *
- * ''Frame numbers are one-based throughout this interface''.  This is because the initial state (the
- * blank viewport or the starting pixbuf) is frame zero.  The Effect is never called to paint this
+ * ''Frame numbers are one-based throughout this interface''. This is because the initial state (the
+ * blank viewport or the starting pixbuf) is frame zero. The Effect is never called to paint this
  * frame.  The Effect is also not called to paint the final frame (a blank viewport or the ending
  * pixbuf).
  *
  * If the Effect uses background threads for its work, it should use the appropriate primitives
- * for critical sections.  All calls to this interface will be from the context of the main UI
- * thread.  ''None of these calls should block.''
+ * for critical sections. All calls to this interface will be from the context of the main UI
+ * thread. ''None of these calls should block.''
  *
  * If the Details object needs to be held by the Effect, its reference to it should be dropped at
  * the end of the cycle (or shortly thereafter).
@@ -242,7 +242,7 @@ public interface Effect : Object {
     /**
      * Called when the effect is starting.
      * 
-     * All state should be reset.  The frame number, which is not supplied, is one.
+     * All state should be reset. The frame number, which is not supplied, is one.
      */
     public abstract void start(Visuals visuals, Motion motion);
     

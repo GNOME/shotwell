@@ -8,8 +8,8 @@
  * Shotwell Pluggable Interface Technology (SPIT)
  *
  * This is the front-end interface for all modules (i.e. .so/.la files) that allows for Shotwell
- * to query them for information and to get a list of all plug-ins stored in the module.  This
- * is named Shotwell Pluggable Interface Technology (SPIT).  This is intended only to last long
+ * to query them for information and to get a list of all plug-ins stored in the module. This
+ * is named Shotwell Pluggable Interface Technology (SPIT). This is intended only to last long
  * enough for another generic plug-in library (most likely Peas) to be used later.
  *
  * The Spit namespace is used for all interfaces and code that are made available to plugins or
@@ -52,10 +52,10 @@ public int negotiate_interfaces(int min_host_interface, int max_host_interface, 
  * SPIT API entry point.
  *
  * Host application passes in the minimum and maximum version of the SPIT
- * inteface it supports (values are inclusive).  The module returns the version it wishes to
+ * interface it supports (values are inclusive). The module returns the version it wishes to
  * use and a pointer to a {@link Spit.Module} (which will remain ref'ed as long as the module is 
- * loaded in memory).  The module should return {@link UNSUPPORTED_INTERFACE} is the min/max 
- * are out of its range and null for its Spit.Module.  ({@link negotiate_interfaces} is good for 
+ * loaded in memory). The module should return {@link UNSUPPORTED_INTERFACE} is the min/max 
+ * are out of its range and null for its Spit.Module. ({@link negotiate_interfaces} is good for 
  * dealing with this.)
  * 
  * @param host_min_spit_interface The host's minimum supported interface version.
@@ -77,12 +77,12 @@ public const string ENTRY_POINT_NAME = "spit_entry_point";
 /**
  * A Module represents the resources of an entire dynamically-linked module (i.e. a .so/.la).
  *
- * A module holds zero or more Shotwell plugins ({@link Pluggable}).  Once the module has been
- * loaded into process space this object is retrieved by Shotwell.  All calls to the module and
+ * A module holds zero or more Shotwell plugins ({@link Pluggable}). Once the module has been
+ * loaded into process space this object is retrieved by Shotwell. All calls to the module and
  * its plugins are resolved through this interface.
  *
  * Note: The module is responsible for holding the reference to the Module object, of which there
- * should be only one in the library file.  The module should implement a g_module_unload method
+ * should be only one in the library file. The module should implement a g_module_unload method
  * and drop the reference there.
  */
 public interface Module : Object {
@@ -104,7 +104,7 @@ public interface Module : Object {
      * 
      * This is used to differentiate between multiple
      * installed versions and to determine which one should be used (i.e. if a module is available
-     * in a system directory and a user directory).  This name is case-sensitive.
+     * in a system directory and a user directory). This name is case-sensitive.
      * 
      * Best practice: use a reverse-DNS-order scheme, a la Java's packages
      * (i.e. "org.yorba.shotwell.frotz").
@@ -153,7 +153,7 @@ public struct PluggableInfo {
 /**
  * A generic interface to all Shotwell plugins.
  *
- * Each plugin in a module needs to implement this interface at a minimum.  Extension
+ * Each plugin in a module needs to implement this interface at a minimum. Extension
  * points may have (and probably will have) specific interface requirements as well.
  */
 public interface Pluggable : Object {
@@ -161,12 +161,12 @@ public interface Pluggable : Object {
      * Pluggable interface version negotiation.
      *
      * Like the {@link EntryPoint}, this mechanism allows for the host to negotiate with the Pluggable
-     * for its interface version.  If the pluggable does not support an interface between the
+     * for its interface version. If the pluggable does not support an interface between the
      * two ranges (inclusive), it should return {@link UNSUPPORTED_INTERFACE}.
      *
      * Note that this is ''not'' a negotiation of the SPIT interface versions (which is the
-     * responsibility of {@link EntryPoint}.  Rather, each extension point is expected to version
-     * its own cluster of interfaces.  It is that interface version that is being negotiated here.
+     * responsibility of {@link EntryPoint}. Rather, each extension point is expected to version
+     * its own cluster of interfaces. It is that interface version that is being negotiated here.
      *
      * {@link negotiate_interfaces} can be used to implement this method.
      *
@@ -202,11 +202,11 @@ public interface Pluggable : Object {
      * Called when the Pluggable is enabled (activated) or disabled (deactivated).
      *
      * activation will be called at the start of the program if the user previously 
-     * enabled/disabled it as well as during program execution if the user changes its state.  Note 
+     * enabled/disabled it as well as during program execution if the user changes its state. Note 
      * that disabling a Pluggable does not require destroying existing resources or objects 
      * the Pluggable has previously handed off to the host.
      *
-     * This is purely informational.  The Pluggable should acquire any long-term resources
+     * This is purely informational. The Pluggable should acquire any long-term resources
      * it may be holding onto here, or wait until an extension-specific call is made to it.
      *
      * @param enabled ``true`` if the Pluggable has been enabled, ``false`` otherwise.
@@ -233,7 +233,7 @@ public interface Pluggable : Object {
  * 
  * Note that
  * a HostInterface is not explicitly handed to the Pluggable through the SPIT interface, but is expected 
- * to be offered to the Pluggable through an interface applicable to the extension point.  This 
+ * to be offered to the Pluggable through an interface applicable to the extension point. This 
  * also allows the extension point to extend HostInterface to offer other services applicable to the
  * type of plugin.
  */
