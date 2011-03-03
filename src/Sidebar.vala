@@ -607,20 +607,14 @@ public class Sidebar : Gtk.TreeView {
             case "Return":
             case "KP_Enter":
                 toggle_branch_expansion(get_current_path());
-                return false;
+                return true;
             case "F2":
                 return rename_in_place();
             case "Delete":
-                return !destroy_path(get_current_path());
+                return destroy_path(get_current_path());
         }
         
-        bool return_val = base.key_press_event(event);
-        
-        if (has_grab() && !return_val) {
-            AppWindow.get_instance().key_press_event(event);
-        }
-        
-        return return_val;
+        return base.key_press_event(event);
     }
     
     public bool rename_in_place() {
@@ -631,10 +625,10 @@ public class Sidebar : Gtk.TreeView {
 
         if (rename_path(cursor_path)) {
             set_cursor(cursor_path, cursor_column, true);
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public void rename(SidebarMarker marker, string name) {

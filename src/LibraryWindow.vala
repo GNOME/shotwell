@@ -744,6 +744,11 @@ public class LibraryWindow : AppWindow {
         set_common_action_sensitive("CommonJumpToEvent", can_jump_to_event());
     }
     
+    private void on_clear_search() {
+//        if (is_search_toolbar_visible)
+//            search_actions.reset();
+    }
+    
     public int get_events_sort() {
         Gtk.RadioAction? action = get_common_action("CommonSortEventsAscending") as Gtk.RadioAction;
         
@@ -2030,12 +2035,18 @@ public class LibraryWindow : AppWindow {
     }
     
     public override bool key_press_event(Gdk.EventKey event) {
-        bool pass_on = true;
+        if (sidebar.has_focus && sidebar.is_keypress_interpreted(event) && sidebar.key_press_event(event))
+            return true;
+            
+        if (base.key_press_event(event))
+            return true;
         
-        if (sidebar.has_focus && sidebar.is_keypress_interpreted(event))
-            pass_on = sidebar.key_press_event(event);
+        if (Gdk.keyval_name(event.keyval) == "Escape") {
+            on_clear_search();
+            return true;
+        }
         
-        return pass_on ? base.key_press_event(event) : false;
+        return false;
     }
 
     public void sidebar_rename_in_place(Page page) {
