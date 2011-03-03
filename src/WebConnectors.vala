@@ -817,9 +817,7 @@ public class PublishingDialog : Gtk.Dialog {
             // warn the user.
             Gtk.MessageDialog no_publishers_enabled_dialog = new Gtk.MessageDialog.with_markup(
                 null, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK, 
-                _("Shotwell cannot publish the selected items because you do not have a compatible " +
-                "publishing plugin enabled. To correct this, choose <b>Edit ▸ Preferences</b> "+
-                "and enable one or more of the publishing plugins on the <b>Plugin</b> tab."));
+                _("Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose <b>Edit ▸ Preferences</b> and enable one or more of the publishing plugins on the <b>Plugin</b> tab."));
                     
             no_publishers_enabled_dialog.run();
             no_publishers_enabled_dialog.destroy();

@@ -405,8 +405,8 @@ public class UploadTransaction : Transaction {
             FileUtils.get_contents(publishable.get_serialized_file().get_path(), out payload,
                 out payload_length);
         } catch (FileError e) {
-            throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(_("A temporary file needed for publishing " +
-                "is unavailable"));
+            throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
+                _("A temporary file needed for publishing is unavailable"));
         }
 
         int payload_part_num = message_parts.get_length();

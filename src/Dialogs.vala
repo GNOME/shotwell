@@ -66,8 +66,7 @@ public void open_external_editor_error_dialog(Error err, Photo photo) {
     if (err is IOError.PERMISSION_DENIED || err is FileError.PERM) {
          // Yes - display an alternate error message here.
          AppWindow.error_message(          
-            _("Shotwell couldn't create a file for editing this photo because you do not have " + 
-            "permission to write to %s.").printf(photo.get_master_file().get_parent().get_path()));
+            _("Shotwell couldn't create a file for editing this photo because you do not have permission to write to %s.").printf(photo.get_master_file().get_parent().get_path()));
     } else {
         // No - something else is wrong, display the error message 
         // the system gave us.

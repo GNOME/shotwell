@@ -1280,8 +1280,8 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
         try {
             FileUtils.get_contents(file.get_path(), out payload, out payload_length);
         } catch (FileError e) {
-            throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(_("A temporary file needed for publishing " +
-                "is unavailable"));
+            throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
+                _("A temporary file needed for publishing is unavailable"));
         }
 
         // get the sequence number of the part that will soon become the binary data
