@@ -82,7 +82,7 @@ public class MediaSourceItem : CheckerboardItem {
 
             Gdk.cairo_set_source_pixbuf(ctx, current_sprocket_pixbuf, right_paint_location.x,
                 right_paint_location.y);
-            ctx.rectangle(left_paint_location.x, left_paint_location.y,
+            ctx.rectangle(right_paint_location.x, right_paint_location.y,
                 current_sprocket_pixbuf.get_width(), straggler_pixels);
             ctx.fill();
 
