@@ -745,8 +745,8 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_clear_search() {
-//        if (is_search_toolbar_visible)
-//            search_actions.reset();
+        if (is_search_toolbar_visible)
+            search_actions.reset();
     }
     
     public int get_events_sort() {
