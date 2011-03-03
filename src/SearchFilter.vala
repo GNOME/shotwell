@@ -493,8 +493,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             entry.secondary_icon_stock = Gtk.STOCK_CLEAR;
             entry.secondary_icon_activatable = true;
             entry.width_chars = 23;
-            entry.focus_in_event.connect(on_editing_started);
-            entry.focus_out_event.connect(on_editing_canceled);
             entry.changed.connect(on_text_changed);
             entry.icon_release.connect(on_icon_release);
             entry.key_press_event.connect(on_escape_key); 
@@ -502,8 +500,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         }
         
         ~SearchBox() {
-            entry.focus_in_event.disconnect(on_editing_started);
-            entry.focus_out_event.disconnect(on_editing_canceled);
             entry.changed.disconnect(on_text_changed);
             entry.icon_release.disconnect(on_icon_release);
             entry.key_press_event.disconnect(on_escape_key);
@@ -531,17 +527,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             entry.set_text("");
         }
         
-        private bool on_editing_started(Gdk.EventFocus event) {
-            // Prevent window from stealing our keystrokes.
-            AppWindow.get_instance().pause_keyboard_trapping();
-            return false;
-        }
-        
-        private bool on_editing_canceled(Gdk.EventFocus event) {
-            AppWindow.get_instance().resume_keyboard_trapping();
-            return false;
-        }
-        
         public void get_focus() {
             entry.has_focus = true;
         }
@@ -551,6 +536,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         private bool on_escape_key(Gdk.EventKey e) { 
             if(Gdk.keyval_name(e.keyval) == "Escape") { 
                 this.clear(); 
+                return true;
             }
             
             // Continue processing this event, since the 

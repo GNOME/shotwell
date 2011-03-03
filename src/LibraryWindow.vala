@@ -120,7 +120,6 @@ public class LibraryWindow : AppWindow {
     private Gtk.HPaned client_paned = new Gtk.HPaned();
     private Gtk.Frame bottom_frame = new Gtk.Frame(null);
     
-    private Gtk.AccelGroup? paused_accel_group = null;
     private Gtk.ActionGroup common_action_group = new Gtk.ActionGroup("LibraryWindowGlobalActionGroup");
     
     // Static (default) pages
@@ -1815,8 +1814,6 @@ public class LibraryWindow : AppWindow {
         if (page.get_marker() != null && page is EventPage)
             sidebar.expand_tree(page.get_marker());
         
-        reset_keyboard_trapping();
-        
         Page current_page = get_current_page();
         if (current_page != null) {
             current_page.switching_from();
@@ -2047,29 +2044,5 @@ public class LibraryWindow : AppWindow {
         sidebar.rename_in_place();
     }
     
-    public override bool pause_keyboard_trapping() {
-        if (base.pause_keyboard_trapping()) {
-            paused_accel_group = get_current_page().ui.get_accel_group();
-            if (paused_accel_group != null)
-                remove_accel_group(paused_accel_group);
-            
-            return true;
-        }
-        
-        return false;
-    }
-    
-    public override bool resume_keyboard_trapping() {
-        if (base.resume_keyboard_trapping()) {
-            if (paused_accel_group != null) {
-                add_accel_group(paused_accel_group);
-                paused_accel_group = null;
-            }
-            
-            return true;
-        }
-        
-        return false;
-    }
 }
 

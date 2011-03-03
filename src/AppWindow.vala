@@ -294,7 +294,6 @@ public class FullscreenWindow : PageWindow {
 public abstract class PageWindow : Gtk.Window {
     private Page current_page = null;
     private int busy_counter = 0;
-    private int keyboard_trapping = 0;
     
     protected virtual void switched_pages(Page? old_page, Page? new_page) {
     }
@@ -331,19 +330,21 @@ public abstract class PageWindow : Gtk.Window {
     }
     
     public override bool key_press_event(Gdk.EventKey event) {
-        if (keyboard_trapping == 0) {
-            if (current_page != null && current_page.notify_app_key_pressed(event))
-                return true;
-        }
+        if (get_focus() is Gtk.Entry && get_focus().key_press_event(event))
+            return true;
+        
+        if (current_page != null && current_page.notify_app_key_pressed(event))
+            return true;
         
         return (base.key_press_event != null) ? base.key_press_event(event) : false;
     }
     
     public override bool key_release_event(Gdk.EventKey event) {
-       if (keyboard_trapping == 0) {
-            if (current_page != null && current_page.notify_app_key_released(event))
-                    return true;
-        }
+        if (get_focus() is Gtk.Entry && get_focus().key_release_event(event))
+            return true;
+       
+        if (current_page != null && current_page.notify_app_key_released(event))
+                return true;
         
         return (base.key_release_event != null) ? base.key_release_event(event) : false;
     }
@@ -391,23 +392,6 @@ public abstract class PageWindow : Gtk.Window {
         spin_event_loop();
     }
     
-    public virtual bool pause_keyboard_trapping() {
-        return (keyboard_trapping++ == 0);
-    }
-    
-    public virtual bool resume_keyboard_trapping() {
-        if (keyboard_trapping <= 0)
-            keyboard_trapping = 0;
-        else
-            return (--keyboard_trapping == 0);
-        
-        return false;
-    }
-    
-    // Disables keyboard trapping and reset count.
-    public void reset_keyboard_trapping() {
-        while (resume_keyboard_trapping()) {}
-    }
 }
 
 // AppWindow is the parent window for most windows in Shotwell (FullscreenWindow is the exception).
@@ -893,20 +877,5 @@ public abstract class AppWindow : PageWindow {
         return base.configure_event(event);
     }
     
-    protected override bool pause_keyboard_trapping() {
-        bool paused = base.pause_keyboard_trapping();
-        if (paused)
-            remove_accel_group(ui.get_accel_group());
-        
-        return paused;
-    }
-    
-    protected override bool resume_keyboard_trapping() {
-        bool unpaused = base.resume_keyboard_trapping();
-        if (unpaused)
-            add_accel_group(ui.get_accel_group());
-        
-        return unpaused;
-    }
 }
 
