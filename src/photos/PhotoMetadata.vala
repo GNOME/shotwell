@@ -92,6 +92,7 @@ public class PhotoMetadata : MediaMetadata {
         PrepareInputTextOptions.INVALID_IS_NULL
         | PrepareInputTextOptions.EMPTY_IS_NULL
         | PrepareInputTextOptions.STRIP
+        | PrepareInputTextOptions.STRIP_CRLF
         | PrepareInputTextOptions.NORMALIZE
         | PrepareInputTextOptions.VALIDATE;
     
@@ -810,33 +811,6 @@ public class PhotoMetadata : MediaMetadata {
                 set_all_string(STANDARD_TITLE_TAGS, title, option);
         } else {
             remove_tags(STANDARD_TITLE_TAGS);
-        }
-    }
-    
-    private const string IPHOTO_DESCRIPTION_TAG = "Iptc.Application2.Caption";
-    
-    private static string[] STANDARD_DESCRIPTION_TAGS = {
-        "Xmp.dc.description"
-    };
-    
-    public string? get_description() {
-        // see note in get_title() for the logic here
-        Gee.List<string>? descriptions = has_tag(IPHOTO_TITLE_TAG)
-            ? get_string_multiple(IPHOTO_DESCRIPTION_TAG)
-            : get_first_string_multiple(STANDARD_DESCRIPTION_TAGS);
-        
-        return (descriptions != null && descriptions.size > 0) ? descriptions[0] : null;
-    }
-    
-    public void set_description(string? description, SetOption option = SetOption.ALL_DOMAINS) {
-        if (!is_string_empty(description)) {
-            if (has_tag(IPHOTO_TITLE_TAG) 
-                && (option != SetOption.ONLY_IF_DOMAIN_PRESENT || has_domain(get_tag_domain(IPHOTO_DESCRIPTION_TAG))))
-                set_string(IPHOTO_DESCRIPTION_TAG, description);
-            else
-                set_all_string(STANDARD_DESCRIPTION_TAGS, description, option);
-        } else {
-            remove_tags(STANDARD_DESCRIPTION_TAGS);
         }
     }
     

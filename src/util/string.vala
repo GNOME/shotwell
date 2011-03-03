@@ -78,8 +78,9 @@ public enum PrepareInputTextOptions {
     VALIDATE,
     INVALID_IS_NULL,
     STRIP,
+    STRIP_CRLF,
     NORMALIZE,
-    DEFAULT = EMPTY_IS_NULL | VALIDATE | INVALID_IS_NULL | STRIP | NORMALIZE;
+    DEFAULT = EMPTY_IS_NULL | VALIDATE | INVALID_IS_NULL | STRIP_CRLF | STRIP | NORMALIZE;
 }
 
 public string? prepare_input_text(string? text, PrepareInputTextOptions options = PrepareInputTextOptions.DEFAULT) {
@@ -100,6 +101,11 @@ public string? prepare_input_text(string? text, PrepareInputTextOptions options 
     
     if ((options & PrepareInputTextOptions.STRIP) != 0)
         prepped = prepped.strip();
+        
+    // Ticket #3245 - Prevent carriage return mayhem
+    // in image titles, tag names, etc.
+    if ((options & PrepareInputTextOptions.STRIP_CRLF) != 0)
+        prepped = prepped.delimit("\n\r", ' ');
     
     if ((options & PrepareInputTextOptions.EMPTY_IS_NULL) != 0 && is_string_empty(prepped))
         return null;
