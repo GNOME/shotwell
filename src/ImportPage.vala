@@ -324,6 +324,76 @@ class ImportPreview : MediaSourceItem {
     }
 }
 
+public class CameraViewTracker : Core.ViewTracker {
+    public CameraAccumulator all = new CameraAccumulator();
+    public CameraAccumulator visible = new CameraAccumulator();
+    public CameraAccumulator selected = new CameraAccumulator();
+    
+    public CameraViewTracker(ViewCollection collection) {
+        base (collection);
+        
+        start(all, visible, selected);
+    }
+}
+
+public class CameraAccumulator : Object, Core.TrackerAccumulator {
+    public int total { get; private set; default = 0; }
+    public int photos { get; private set; default = 0; }
+    public int videos { get; private set; default = 0; }
+    public int raw { get; private set; default = 0; }
+    
+    public bool include(DataObject object) {
+        ImportSource source = (ImportSource) ((DataView) object).get_source();
+        
+        total++;
+        
+        PhotoImportSource? photo = source as PhotoImportSource;
+        if (photo != null) {
+            photos++;
+            
+            if (photo.get_file_format() == PhotoFileFormat.RAW)
+                raw++;
+        } else if (source is VideoImportSource) {
+            videos++;
+        }
+        
+        // because of total, always fire "updated"
+        return true;
+    }
+    
+    public bool uninclude(DataObject object) {
+        ImportSource source = (ImportSource) ((DataView) object).get_source();
+        
+        total++;
+        
+        PhotoImportSource? photo = source as PhotoImportSource;
+        if (photo != null) {
+            assert(photos > 0);
+            photos--;
+            
+            if (photo.get_file_format() == PhotoFileFormat.RAW) {
+                assert(raw > 0);
+                raw--;
+            }
+        } else if (source is VideoImportSource) {
+            assert(videos > 0);
+            videos--;
+        }
+        
+        // because of total, always fire "updated"
+        return true;
+    }
+    
+    public bool altered(DataObject object, Alteration alteration) {
+        // no alteration affects accumulated data
+        return false;
+    }
+    
+    public string to_string() {
+        return "%d total/%d photos/%d videos/%d raw".printf(total, photos, videos, raw);
+    }
+}
+
 public class ImportPage : CheckerboardPage {
     private const string UNMOUNT_FAILED_MSG = _("Unable to unmount camera.  Try unmounting the camera from the file manager.");
     
@@ -442,7 +512,7 @@ public class ImportPage : CheckerboardPage {
                 return false;
                 
             ImportSource source = ((ImportPreview) view).get_import_source();
-
+            
             // Media type.
             if ((bool) (SearchFilterCriteria.MEDIA & get_criteria()) && filter_by_media_type()) {
                 if (source is VideoImportSource) {
@@ -458,9 +528,11 @@ public class ImportPage : CheckerboardPage {
             }
             
             // Text filter.
-            if ((bool) (SearchFilterCriteria.TEXT & get_criteria())) {
-                if (!source.get_filename().down().contains(get_search_filter()))
-                    return false;
+            if (!is_string_empty(get_search_filter())) {
+                if ((bool) (SearchFilterCriteria.TEXT & get_criteria())) {
+                    if (!source.get_filename().down().contains(get_search_filter()))
+                        return false;
+                }
             }
             
             return true;
@@ -485,6 +557,7 @@ public class ImportPage : CheckerboardPage {
     private ImportPage? local_ref = null;
     private GLib.Icon? icon;
     private ImportPageSearchViewFilter search_filter = new ImportPageSearchViewFilter();
+    private CameraViewTracker tracker;
     
     public enum RefreshResult {
         OK,
@@ -499,6 +572,8 @@ public class ImportPage : CheckerboardPage {
         this.uri = uri;
         this.import_sources = new ImportSourceCollection("ImportSources for %s".printf(uri));
         this.icon = icon;
+        
+        tracker = new CameraViewTracker(get_view());
         
         // Get camera name.
         if (null != display_name) {
@@ -604,6 +679,10 @@ public class ImportPage : CheckerboardPage {
     ~ImportPage() {
         LibraryPhoto.global.contents_altered.disconnect(on_media_added_removed);
         Video.global.contents_altered.disconnect(on_media_added_removed);
+    }
+    
+    public override Core.ViewTracker? get_view_tracker() {
+        return tracker;
     }
     
     public override GLib.Icon? get_icon() {

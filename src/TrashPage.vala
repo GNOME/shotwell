@@ -44,6 +44,7 @@ public class TrashPage : CheckerboardPage {
     }
     
     private TrashSearchViewFilter search_filter = new TrashSearchViewFilter();
+    private MediaViewTracker tracker;
     
     private TrashPage(string name) {
         base (name);
@@ -51,6 +52,8 @@ public class TrashPage : CheckerboardPage {
         init_item_context_menu("/TrashContextMenu");
         init_page_context_menu("/TrashPageMenu");
         init_toolbar("/TrashToolbar");
+        
+        tracker = new MediaViewTracker(get_view());
         
         // monitor trashcans and initialize view with all items in them
         LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
@@ -101,6 +104,10 @@ public class TrashPage : CheckerboardPage {
     
     public static Stub create_stub() {
         return new Stub();
+    }
+    
+    public override Core.ViewTracker? get_view_tracker() {
+        return tracker;
     }
     
     protected override void update_actions(int selected_count, int count) {

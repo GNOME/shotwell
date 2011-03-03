@@ -38,12 +38,15 @@ public class OfflinePage : CheckerboardPage {
     }
     
     private OfflineSearchViewFilter search_filter = new OfflineSearchViewFilter();
+    private MediaViewTracker tracker;
     
     private OfflinePage(string name) {
         base (name);
         
         init_item_context_menu("/OfflineContextMenu");
         init_toolbar("/OfflineToolbar");
+        
+        tracker = new MediaViewTracker(get_view());
         
         // monitor offline and initialize view with all items in it
         LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);
@@ -94,6 +97,10 @@ public class OfflinePage : CheckerboardPage {
     
     public static Stub create_stub() {
         return new Stub();
+    }
+    
+    public override Core.ViewTracker? get_view_tracker() {
+        return tracker;
     }
     
     protected override void update_actions(int selected_count, int count) {

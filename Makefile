@@ -98,7 +98,8 @@ UNUNITIZED_SRC_FILES = \
 	MediaMonitor.vala \
 	PhotoMonitor.vala \
 	VideoMonitor.vala \
-	SearchFilter.vala
+	SearchFilter.vala \
+	MediaViewTracker.vala
 
 VAPI_FILES = \
 	libexif.vapi \

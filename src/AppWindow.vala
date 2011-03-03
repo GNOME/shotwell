@@ -794,7 +794,8 @@ public abstract class AppWindow : PageWindow {
             new_page.get_view().selection_group_altered.connect(on_update_actions);
             new_page.get_view().items_state_changed.connect(on_update_actions);
             
-            update_actions(new_page.get_view().get_selected_count(), new_page.get_view().get_count());
+            update_actions(new_page, new_page.get_view().get_selected_count(),
+                new_page.get_view().get_count());
         }
         
         base.switched_pages(old_page, new_page);
@@ -803,7 +804,7 @@ public abstract class AppWindow : PageWindow {
     // This is a counterpart to Page.update_actions(), but for common Gtk.Actions
     // NOTE: Although CommonFullscreen is declared here, it's implementation is up to the subclasses,
     // therefore they need to update its action.
-    protected virtual void update_actions(int selected_count, int count) {
+    protected virtual void update_actions(Page page, int selected_count, int count) {
         set_common_action_sensitive("CommonSelectAll", count > 0);
         set_common_action_sensitive("CommonJumpToFile", selected_count == 1);
 
@@ -814,7 +815,7 @@ public abstract class AppWindow : PageWindow {
     private void on_update_actions() {
         Page? page = get_current_page();
         if (page != null)
-            update_actions(page.get_view().get_selected_count(), page.get_view().get_count());
+            update_actions(page, page.get_view().get_selected_count(), page.get_view().get_count());
     }
     
     public static CommandManager get_command_manager() {

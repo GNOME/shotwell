@@ -218,10 +218,13 @@ public abstract class MediaPage : CheckerboardPage {
     
     private ZoomSliderAssembly? connected_slider = null;
     private DragAndDropHandler dnd_handler = null;
-
+    private MediaViewTracker tracker;
+    
     public MediaPage(string page_name) {
         base (page_name);
-
+        
+        tracker = new MediaViewTracker(get_view());
+        
         get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
         get_view().items_altered.connect(on_media_altered);
 
@@ -573,6 +576,10 @@ public abstract class MediaPage : CheckerboardPage {
             flag_action.label = flag_label;
             flag_action.tooltip = flag_tooltip;
         }
+    }
+    
+    public override Core.ViewTracker? get_view_tracker() {
+        return tracker;
     }
     
     public void set_display_ratings(bool display) {

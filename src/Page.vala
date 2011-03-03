@@ -1348,6 +1348,10 @@ public abstract class CheckerboardPage : Page {
     // Gets the search view filter for this page.
     public abstract SearchViewFilter get_search_view_filter();
     
+    public virtual Core.ViewTracker? get_view_tracker() {
+        return null;
+    }
+    
     public override void switching_from() {
         layout.set_in_view(false);
         get_search_view_filter().refresh.disconnect(on_view_filter_refresh);

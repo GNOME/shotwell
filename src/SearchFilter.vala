@@ -7,12 +7,13 @@
 // Bitfield values used to specify which search bar features we want.
 [Flags]
 public enum SearchFilterCriteria {
-    NONE,
+    NONE = 0,
     RECURSIVE,
     TEXT,
     FLAG,
     MEDIA,
-    RATING;
+    RATING,
+    ALL = 0xFFFFFFFF
 }
 
 public enum RatingFilter {
@@ -137,8 +138,8 @@ public abstract class SearchViewFilter : ViewFilter {
 		return search_filter.split(" ");
 	}
     
-    public void set_search_filter(string text) {
-        search_filter = text.down();
+    public void set_search_filter(string? text) {
+        search_filter = (text != null) ? text.down() : null;
     }
     
     public void clear_search_filter() {
@@ -196,43 +197,151 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
         // Text filter.
         if (((bool) (SearchFilterCriteria.TEXT & get_criteria())) && 
             !is_string_empty(get_search_filter())) {
-			foreach (string word in get_search_filter_words()) {
-				if (!contains_text(source, word))
-					return false;
-			}
-			return true;
+            foreach (string word in get_search_filter_words()) {
+                if (!contains_text(source, word))
+                    return false;
+            }
+            return true;
         }
         
         return true;
     }
     
     public bool contains_text(MediaSource source, string word) {
-		string title = source.get_title() != null ? source.get_title().down() : "";
-		if (title.contains(word))
-			return true;
-		
-		if (source.get_basename().down().contains(word))
-			return true;
-		
-		if (source.get_event() != null && source.get_event().get_raw_name() != null &&
-			source.get_event().get_raw_name().down().contains(word))
-			return true;
-		
-		Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
-		if (null != tags) {
-			foreach (Tag tag in tags) {
-				if (tag.get_name().down().contains(word))
-					return true;
-			}
-		}
-		return false;
-	}
+        string title = source.get_title() != null ? source.get_title().down() : "";
+        if (title.contains(word))
+            return true;
+        
+        if (source.get_basename().down().contains(word))
+            return true;
+        
+        if (source.get_event() != null && source.get_event().get_raw_name() != null &&
+            source.get_event().get_raw_name().down().contains(word))
+            return true;
+        
+        Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
+        if (null != tags) {
+            foreach (Tag tag in tags) {
+                if (tag.get_name().down().contains(word))
+                    return true;
+            }
+        }
+        return false;
+    }
+}
+
+public class TextAction {
+    public string? value {
+        get {
+            return text;
+        }
+    }
     
+    private string? text = null;
+    private bool sensitive = true;
+    private bool visible = true;
+    
+    public signal void text_changed(string? text);
+    
+    public signal void sensitivity_changed(bool sensitive);
+    
+    public signal void visibility_changed(bool visible);
+    
+    public TextAction(string? init = null) {
+        text = init;
+    }
+    
+    public void set_text(string? text) {
+        if (this.text != text) {
+            this.text = text;
+            text_changed(text);
+        }
+    }
+    
+    public void clear() {
+        set_text(null);
+    }
+    
+    public bool is_sensitive() {
+        return sensitive;
+    }
+    
+    public void set_sensitive(bool sensitive) {
+        if (this.sensitive != sensitive) {
+            this.sensitive = sensitive;
+            sensitivity_changed(sensitive);
+        }
+    }
+    
+    public bool is_visible() {
+        return visible;
+    }
+    
+    public void set_visible(bool visible) {
+        if (this.visible != visible) {
+            this.visible = visible;
+            visibility_changed(visible);
+        }
+    }
+}
+
+public class TextActionEntry : Gtk.Entry {
+    private TextAction action;
+    
+    public TextActionEntry(TextAction action) {
+        this.action = action;
+        
+        set_nullable_text(action.value);
+        
+        action.text_changed.connect(on_action_text_changed);
+        action.sensitivity_changed.connect(on_sensitivity_changed);
+        action.visibility_changed.connect(on_visibility_changed);
+        
+        buffer.deleted_text.connect(on_entry_changed);
+        buffer.inserted_text.connect(on_entry_changed);
+    }
+    
+    ~TextActionEntry() {
+        action.text_changed.disconnect(on_action_text_changed);
+        action.sensitivity_changed.disconnect(on_sensitivity_changed);
+        action.visibility_changed.disconnect(on_visibility_changed);
+        
+        buffer.deleted_text.disconnect(on_entry_changed);
+        buffer.inserted_text.disconnect(on_entry_changed);
+    }
+    
+    public TextAction get_text_action() {
+        return action;
+    }
+    
+    private void on_action_text_changed(string? text) {
+        buffer.deleted_text.disconnect(on_entry_changed);
+        buffer.inserted_text.disconnect(on_entry_changed);
+        set_nullable_text(text);
+        buffer.deleted_text.connect(on_entry_changed);
+        buffer.inserted_text.connect(on_entry_changed);
+    }
+    
+    private void on_entry_changed() {
+        action.text_changed.disconnect(on_action_text_changed);
+        action.set_text(get_text());
+        action.text_changed.connect(on_action_text_changed);
+    }
+    
+    private void on_sensitivity_changed(bool sensitive) {
+        this.sensitive = sensitive;
+    }
+    
+    private void on_visibility_changed(bool visible) {
+        ((Gtk.Widget) this).visible = visible;
+    }
+    
+    private void set_nullable_text(string? text) {
+        set_text(text != null ? text : "");
+    }
 }
 
 public class SearchFilterActions {
-    private static SearchFilterActions? instance = null;
-    
     public unowned Gtk.ToggleAction? flagged {
         get {
             return get_action("CommonDisplayFlagged") as Gtk.ToggleAction;
@@ -263,7 +372,21 @@ public class SearchFilterActions {
         }
     }
     
+    public unowned TextAction text {
+        get {
+            assert(_text != null);
+            return _text;
+        }
+    }
+    
     private Gtk.ActionGroup action_group = new Gtk.ActionGroup("SearchFilterActionGroup");
+    private SearchFilterCriteria criteria = SearchFilterCriteria.ALL;
+    private TextAction? _text = null;
+    private bool has_flagged = true;
+    private bool has_photos = true;
+    private bool has_videos = true;
+    private bool has_raw = true;
+    private bool has_text = true;
     
     public signal void flagged_toggled(bool on);
     
@@ -275,7 +398,9 @@ public class SearchFilterActions {
     
     public signal void rating_changed(RatingFilter filter);
     
-    private SearchFilterActions() {
+    public signal void text_changed(string? text);
+    
+    public SearchFilterActions() {
         // the getters defined above should not be used until register() returns
         register();
         
@@ -284,13 +409,7 @@ public class SearchFilterActions {
         videos.toggled.connect(on_videos_value_toggled);
         raw.toggled.connect(on_raw_value_toggled);
         rating.changed.connect(on_rating_value_changed);
-    }
-    
-    public static SearchFilterActions get_instance() {
-        if (instance == null)
-            instance = new SearchFilterActions();
-        
-        return instance;
+        text.text_changed.connect(on_text_changed);
     }
     
     public Gtk.ActionGroup get_action_group() {
@@ -307,13 +426,91 @@ public class SearchFilterActions {
             action.sensitive = sensitive;
     }
     
-    public void set_sensitive_for_search_criteria(uint criteria) {
-        set_action_sensitive("CommonDisplayFlagged", (SearchFilterCriteria.FLAG & criteria) != 0);
+    public void reset() {
+        flagged.active = false;
+        photos.active = false;
+        raw.active = false;
+        videos.active = false;
+        rating.current_value = RatingFilter.UNRATED_OR_HIGHER;
+        text.set_text(null);
+    }
+    
+    public void set_sensitive_for_search_criteria(SearchFilterCriteria criteria) {
+        this.criteria = criteria;
+        update_sensitivities();
+    }
+    
+    public void monitor_page_contents(Page? old_page, Page? new_page) {
+        CheckerboardPage? old_tracked_page = old_page as CheckerboardPage;
+        if (old_tracked_page != null) {
+            Core.ViewTracker tracker = old_tracked_page.get_view_tracker();
+            if (tracker is MediaViewTracker)
+                tracker.updated.disconnect(on_media_tracker_updated);
+            else if (tracker is CameraViewTracker)
+                tracker.updated.disconnect(on_camera_tracker_updated);
+        }
+        
+        CheckerboardPage? new_tracked_page = new_page as CheckerboardPage;
+        if (new_tracked_page != null) {
+            Core.ViewTracker tracker = new_tracked_page.get_view_tracker();
+            if (tracker is MediaViewTracker) {
+                tracker.updated.connect(on_media_tracker_updated);
+                on_media_tracker_updated(tracker);
+                
+                return;
+            } else if (tracker is CameraViewTracker) {
+                tracker.updated.connect(on_camera_tracker_updated);
+                on_camera_tracker_updated(tracker);
+                
+                return;
+            }
+        }
+        
+        // go with default behavior of making none of the filters available
+        has_flagged = false;
+        has_photos = false;
+        has_videos = false;
+        has_raw = false;
+        
+        // ... but allow text, unless the SearchCriteria says otherwise
+        has_text = true;
+        
+        update_sensitivities();
+    }
+    
+    private void on_media_tracker_updated(Core.Tracker t) {
+        MediaViewTracker tracker = (MediaViewTracker) t;
+        
+        has_flagged = tracker.all.flagged > 0;
+        has_photos = tracker.all.photos > 0;
+        has_videos = tracker.all.videos > 0;
+        has_raw = tracker.all.raw > 0;
+        has_text = tracker.all.total > 0;
+        
+        update_sensitivities();
+    }
+    
+    private void on_camera_tracker_updated(Core.Tracker t) {
+        CameraViewTracker tracker = (CameraViewTracker) t;
+        
+        has_flagged = false;
+        has_photos = tracker.all.photos > 0;
+        has_videos = tracker.all.videos > 0;
+        has_raw = tracker.all.raw > 0;
+        has_text = tracker.all.total > 0;
+        
+        update_sensitivities();
+    }
+    
+    private void update_sensitivities() {
+        flagged.sensitive = (SearchFilterCriteria.FLAG & criteria) != 0 && has_flagged;
+        if (!flagged.sensitive)
+            flagged.active = false;
         
         bool allow_media = (SearchFilterCriteria.MEDIA & criteria) != 0;
-        set_action_sensitive("CommonDisplayVideos", allow_media);
-        set_action_sensitive("CommonDisplayPhotos", allow_media);
-        set_action_sensitive("CommonDisplayRaw", allow_media);
+        videos.sensitive = allow_media && has_videos;
+        photos.sensitive = allow_media && has_photos;
+        raw.sensitive = allow_media && has_raw;
         
         bool allow_ratings = (SearchFilterCriteria.RATING & criteria) != 0;
         set_action_sensitive("CommonDisplayRejectedOnly", allow_ratings);
@@ -324,29 +521,38 @@ public class SearchFilterActions {
         set_action_sensitive("CommonDisplayThreeOrHigher", allow_ratings);
         set_action_sensitive("CommonDisplayFourOrHigher", allow_ratings);
         set_action_sensitive("CommonDisplayFiveOrHigher", allow_ratings);
+        
+        text.set_sensitive(has_text);
     }
     
-    private static void on_flagged_value_toggled(Gtk.ToggleAction action) {
+    private void on_flagged_value_toggled(Gtk.ToggleAction action) {
         Config.get_instance().set_search_flagged(action.active);
     }
     
-    private static void on_photos_value_toggled(Gtk.ToggleAction action) {
+    private void on_photos_value_toggled(Gtk.ToggleAction action) {
         Config.get_instance().set_show_media_photos(action.active);
     }
     
-    private static void on_videos_value_toggled(Gtk.ToggleAction action) {
+    private void on_videos_value_toggled(Gtk.ToggleAction action) {
         Config.get_instance().set_show_media_video(action.active);
     }
     
-    private static void on_raw_value_toggled(Gtk.ToggleAction action) {
+    private void on_raw_value_toggled(Gtk.ToggleAction action) {
         Config.get_instance().set_show_media_raw(action.active);
     }
     
-    private static void on_rating_value_changed(Gtk.RadioAction action, Gtk.RadioAction current) {
+    private void on_rating_value_changed(Gtk.RadioAction action, Gtk.RadioAction current) {
         Config.get_instance().set_photo_rating_filter((RatingFilter) current.current_value);
     }
     
+    private void on_text_changed(TextAction action, string? text) {
+        Config.get_instance().set_search_text(text != null ? text : "");
+        text_changed(text);
+    }
+    
     private void register() {
+        _text = new TextAction(Config.get_instance().get_search_text());
+        
         Gtk.RadioActionEntry[] view_filter_actions = new Gtk.RadioActionEntry[0];
         
         Gtk.RadioActionEntry rejected_only = { "CommonDisplayRejectedOnly", null, TRANSLATABLE,
@@ -483,48 +689,29 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     
     // Text search box.
     protected class SearchBox : Gtk.ToolItem {
-        public signal void text_changed();
-    
-        private Gtk.Entry entry = new Gtk.Entry();
-
-        public SearchBox() {
+        private TextActionEntry entry;
+        
+        public SearchBox(TextAction action) {
+            entry = new TextActionEntry(action);
+            
             entry.primary_icon_stock = Gtk.STOCK_FIND;
             entry.primary_icon_activatable = false;
             entry.secondary_icon_stock = Gtk.STOCK_CLEAR;
             entry.secondary_icon_activatable = true;
             entry.width_chars = 23;
-            entry.changed.connect(on_text_changed);
             entry.icon_release.connect(on_icon_release);
             entry.key_press_event.connect(on_escape_key); 
             add(entry);
         }
         
         ~SearchBox() {
-            entry.changed.disconnect(on_text_changed);
             entry.icon_release.disconnect(on_icon_release);
             entry.key_press_event.disconnect(on_escape_key);
         }
         
-        private void on_text_changed() {
-            text_changed();
-        }
-        
         private void on_icon_release(Gtk.EntryIconPosition pos, Gdk.Event event) {
-            if (Gtk.EntryIconPosition.SECONDARY == pos) {
-                clear();
-            }
-        }
-        
-        public string get_text() {
-            return entry.text;
-        }
-        
-        public void set_text(string t) {
-            entry.text = t;
-        }
-        
-        public void clear() {
-            entry.set_text("");
+            if (Gtk.EntryIconPosition.SECONDARY == pos)
+                entry.get_text_action().clear();
         }
         
         public void get_focus() {
@@ -534,10 +721,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         // Ticket #3124 - user should be able to clear 
         // the search textbox by typing 'Esc'. 
         private bool on_escape_key(Gdk.EventKey e) { 
-            if(Gdk.keyval_name(e.keyval) == "Escape") { 
-                this.clear(); 
-                return true;
-            }
+            if(Gdk.keyval_name(e.keyval) == "Escape")
+                entry.get_text_action().clear(); 
             
             // Continue processing this event, since the 
             // text entry functionality needs to see it too. 
@@ -649,12 +834,15 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     
     public Gtk.UIManager ui = new Gtk.UIManager();
     
-    private SearchBox search_box = new SearchBox();
+    private SearchFilterActions actions;
+    private SearchBox search_box;
     private RatingFilterButton rating_button = new RatingFilterButton();
     private SearchViewFilter? search_filter = null;
-    private SearchFilterActions actions = SearchFilterActions.get_instance();
     
-    public SearchFilterToolbar() {
+    public SearchFilterToolbar(SearchFilterActions actions) {
+        this.actions = actions;
+        search_box = new SearchBox(actions.text);
+        
         set_name("search-filter-toolbar");
         set_icon_size(Gtk.IconSize.SMALL_TOOLBAR);
         
@@ -698,11 +886,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         insert(separator_align, -1);
         
         // Search box.
-        search_box.text_changed.connect(on_search_changed);
         insert(search_box, -1);
-        
-        // Load settings.
-        restore_saved_search_filter();
         
         // Set background color of toolbar and update them when the configuration is updated
         string toolbar_style = """
@@ -731,6 +915,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.videos_toggled.connect(on_videos_toggled);
         actions.raw_toggled.connect(on_raw_toggled);
         actions.rating_changed.connect(on_rating_changed);
+        actions.text_changed.connect(on_search_text_changed);
     }
     
     ~SearchFilterToolbar() {
@@ -741,6 +926,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.videos_toggled.disconnect(on_videos_toggled);
         actions.raw_toggled.disconnect(on_raw_toggled);
         actions.rating_changed.disconnect(on_rating_changed);
+        actions.text_changed.disconnect(on_search_text_changed);
     }
     
     private void on_colors_changed() {
@@ -763,7 +949,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         update();
     }
     
-    private void on_search_changed() {
+    private void on_search_text_changed() {
         update();
     }
     
@@ -771,23 +957,11 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         update();
     }
     
-    public string get_search_text() {
-        return search_box.get_text();
-    }
-    
-    public void set_search_text(string text) {
-        search_box.set_text(text);
-    }
-    
-    public void clear_search_text() {
-        search_box.clear();
-    }
-    
     public void set_view_filter(SearchViewFilter search_filter) {
         this.search_filter = search_filter;
         
         // Enable/disable toolbar features depending on what the filter offers
-        actions.set_sensitive_for_search_criteria(search_filter.get_criteria());
+        actions.set_sensitive_for_search_criteria((SearchFilterCriteria) search_filter.get_criteria());
         search_box.sensitive = (SearchFilterCriteria.TEXT & search_filter.get_criteria()) != 0;
         rating_button.sensitive = (SearchFilterCriteria.RATING & search_filter.get_criteria()) != 0;
         
@@ -803,7 +977,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         if (null == search_filter) 
             return;
         
-        search_filter.set_search_filter(get_search_text());
+        search_filter.set_search_filter(actions.text.value);
         search_filter.flagged = actions.flagged.active;
         search_filter.show_media_video = actions.videos.active;
         search_filter.show_media_photos = actions.photos.active;
@@ -813,34 +987,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         search_filter.set_rating_filter(filter);
         rating_button.set_filter_icon(filter);
         
-        // Save and send update to view collection.
-        save_search_filter();
+        // Send update to view collection.
         search_filter.refresh();
-    }
-    
-    // Reset all controls to default state
-    public void reset() {
-        clear_search_text();
-        actions.flagged.active = false;
-        actions.photos.active = false;
-        actions.raw.active = false;
-        actions.videos.active = false;
-        actions.rating.current_value = RatingFilter.UNRATED_OR_HIGHER;
-    }
-    
-    // Saves settings.
-    private void save_search_filter() {
-        Config.get_instance().set_search_text(get_search_text());
-    }
-    
-    // Loads saved settings.
-    private void restore_saved_search_filter() {
-        string? search = Config.get_instance().get_search_text();
-        if (null != search) {
-            set_search_text(search);
-        } else {
-            clear_search_text();
-        }
     }
     
     private void position_filter_popup(Gtk.Menu menu, out int x, out int y, out bool push_in) {

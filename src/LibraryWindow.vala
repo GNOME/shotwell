@@ -157,6 +157,7 @@ public class LibraryWindow : AppWindow {
     // Want to instantiate this in the constructor rather than here because the search bar has its
     // own UIManager which will suck up the accelerators, and we want them to be associated with
     // AppWindows instead.
+    private SearchFilterActions search_actions = new SearchFilterActions();
     private SearchFilterToolbar search_toolbar;
     
     private Gtk.VBox top_section = new Gtk.VBox(false, 0);
@@ -222,7 +223,7 @@ public class LibraryWindow : AppWindow {
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
         
         // set search bar's visibility to default state and add its accelerators to the window
-        search_toolbar = new SearchFilterToolbar();
+        search_toolbar = new SearchFilterToolbar(search_actions);
         search_toolbar.visible = is_search_toolbar_visible;
         
         create_layout(library_page);
@@ -449,7 +450,7 @@ public class LibraryWindow : AppWindow {
         }
         
         groups += common_action_group;
-        groups += SearchFilterActions.get_instance().get_action_group();
+        groups += search_actions.get_action_group();
         
         return groups;
     }
@@ -472,6 +473,8 @@ public class LibraryWindow : AppWindow {
         
         if (new_page != null)
             new_page.get_view().view_filter_changed.connect(on_view_filter_changed);
+        
+        search_actions.monitor_page_contents(old_page, new_page);
     }
     
     private void on_view_filter_changed(ViewCollection view, ViewFilter? old_filter, ViewFilter? new_filter) {
@@ -662,27 +665,24 @@ public class LibraryWindow : AppWindow {
         import_dialog.destroy();
     }
     
-    protected override void update_actions(int selected_count, int count) {
+    protected override void update_actions(Page page, int selected_count, int count) {
         // see on_fullscreen for the logic here ... both CollectionPage and EventsDirectoryPage
         // are CheckerboardPages (but in on_fullscreen have to be handled differently to locate
         // the view controller)
         bool can_fullscreen = false;
-        Page? page = get_current_page();
-        if (page != null) {
-            if (page is CheckerboardPage) {
-                CheckerboardItem? item = ((CheckerboardPage) page).get_fullscreen_photo();
-                if (item != null)
-                    can_fullscreen = item.get_source() is Photo;
-            } else if (page is LibraryPhotoPage) {
-                can_fullscreen = true;
-            }
+        if (page is CheckerboardPage) {
+            CheckerboardItem? item = ((CheckerboardPage) page).get_fullscreen_photo();
+            if (item != null)
+                can_fullscreen = item.get_source() is Photo;
+        } else if (page is LibraryPhotoPage) {
+            can_fullscreen = true;
         }
         
         set_common_action_sensitive("CommonEmptyTrash", can_empty_trash());
         set_common_action_sensitive("CommonJumpToEvent", can_jump_to_event());
         set_common_action_sensitive("CommonFullscreen", can_fullscreen);
         
-        base.update_actions(selected_count, count);
+        base.update_actions(page, selected_count, count);
     }
     
     private void on_trashcan_contents_altered() {
@@ -803,9 +803,9 @@ public class LibraryWindow : AppWindow {
         
         // if dismissing the toolbar, reset the filter
         if (!display)
-            search_toolbar.reset();
+            search_actions.reset();
         
-        // Ticket #3222 - remember search bar status between sessions.    
+        // Ticket #3222 - remember search bar status between sessions.
         Config.get_instance().set_search_bar_hidden(is_search_toolbar_visible);
     }
     
