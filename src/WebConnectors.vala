@@ -805,8 +805,10 @@ public class PublishingDialog : Gtk.Dialog {
         MediaSourceCollection.filter_media(to_publish, photos, videos);
         
         Spit.Publishing.Publisher.MediaType media_type = Spit.Publishing.Publisher.MediaType.NONE; 
-        if (photos.size > 0) media_type = Spit.Publishing.Publisher.MediaType.PHOTO;
-        if (videos.size > 0) media_type |= Spit.Publishing.Publisher.MediaType.VIDEO;
+        if (photos.size > 0) 
+            media_type = Spit.Publishing.Publisher.MediaType.PHOTO;
+        if (videos.size > 0) 
+            media_type |= Spit.Publishing.Publisher.MediaType.VIDEO;
         
         // We then check if there's a publishing service that can cope with this 
         // media type, making sure to check non-plugin services as well.
