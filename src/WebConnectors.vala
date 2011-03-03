@@ -795,7 +795,38 @@ public class PublishingDialog : Gtk.Dialog {
     public static void go(Gee.Collection<MediaSource> to_publish) {
         if (active_instance != null)
             return;
+
+        // Ticket #3253 - crash on attempting to publish with all plugins disabled.    
+        // 
+        // Because the publishing dialog needs to display anyway if we're uploading 
+        // photos, first, we check to see what kind of media we're uploading.
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+        MediaSourceCollection.filter_media(to_publish, photos, videos);
         
+        Spit.Publishing.Publisher.MediaType media_type = Spit.Publishing.Publisher.MediaType.NONE; 
+        if (photos.size > 0) media_type = Spit.Publishing.Publisher.MediaType.PHOTO;
+        if (videos.size > 0) media_type |= Spit.Publishing.Publisher.MediaType.VIDEO;
+        
+        // We then check if there's a publishing service that can cope with this 
+        // media type, making sure to check non-plugin services as well.
+        if(ServiceFactory.get_instance().get_default_service_by_media_type(media_type) == null) {
+            // There are no enabled publishing services that accept this media type,
+            // warn the user.
+            Gtk.MessageDialog no_publishers_enabled_dialog = new Gtk.MessageDialog.with_markup(
+                null, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK, 
+                _("Shotwell cannot publish the selected items because you do not have a compatible " +
+                "publishing plugin enabled. To correct this, choose <b>Edit ▸ Preferences</b> "+
+                "and enable one or more of the publishing plugins on the <b>Plugin</b> tab."));
+                    
+            no_publishers_enabled_dialog.run();
+            no_publishers_enabled_dialog.destroy();
+            return;                
+        }
+        
+        // If we get down here, it means that at least one publishing service 
+        // was found that could accept this type of media, so continue normally.
+
         debug("PublishingDialog.go( )");
         
         active_instance = new Publishing.Glue.DialogInteractorWrapper(to_publish);
@@ -803,24 +834,21 @@ public class PublishingDialog : Gtk.Dialog {
         // determine which service to use
 
         // get the list of services available for our particular combination of media types
-        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-        Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
-        MediaSourceCollection.filter_media(to_publish, photos, videos);
         string[] avail_services = ServiceFactory.get_instance().get_manifest(photos.size,
-            videos.size);
+            videos.size); 
 
         // get the name of the service the user last used as well as the name of the system
         // default service -- in case the last used service isn't available for our combination
         // of media types
         string? last_used_service = Config.get_instance().get_last_used_service();
         string system_default_service =
-            ServiceFactory.get_instance().get_default_service().get_name();
+            ServiceFactory.get_instance().get_default_service_by_media_type(media_type).get_name();
         
         // search the list to see if the default service saved in GConf is available for this
         // combination of media types
         int last_used_index = -1;
         int system_default_index = -1;
-        for (int i = 0; i < avail_services.length; i++) {
+        for (int i = 0; i < avail_services.length; i++) { 
             if (avail_services[i] == last_used_service)
                 last_used_index = i;
             // not else-if because the default service and the last used service can be the same
@@ -857,7 +885,7 @@ public class PublishingDialog : Gtk.Dialog {
         if (active_instance == null)
             return;
         
-        active_instance.run();
+        active_instance.run(); 
         
         if (active_instance != null)
             destroy_instance();
@@ -1282,15 +1310,26 @@ public class ServiceFactory {
         return instance;
     }
     
-    // This returns the first service that can handle any media type.
-    public ServiceCapabilities get_default_service() {
+    // This returns the first service that can handle any media type, or NULL if no
+    // publishing services could be found.  This should only happen if the user has
+    // disabled all publishing plugins in 'preferences'.
+    public ServiceCapabilities? get_default_service() {
         foreach (ServiceCapabilities caps in caps_map.values) {
-            if (((caps.get_supported_media() & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) &&
+            if (((caps.get_supported_media() & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) ||
                 ((caps.get_supported_media() & Spit.Publishing.Publisher.MediaType.VIDEO) != 0))
                 return caps;
         }
-        
-        error("No default publishing service available.");
+
+        return null; 
+    }
+
+    public ServiceCapabilities? get_default_service_by_media_type(Spit.Publishing.Publisher.MediaType mtype) {
+        foreach (ServiceCapabilities caps in caps_map.values) {
+            if ((caps.get_supported_media() & mtype) != 0) 
+                return caps;
+        }
+         
+        return null; 
     }
     
     public string[] get_manifest(int photo_count, int video_count) {
@@ -1315,7 +1354,8 @@ public class ServiceFactory {
         return result;
     }
     
-    public ServiceInteractor create_interactor(PublishingDialog host, string? service_name) {
+
+    public ServiceInteractor? create_interactor(PublishingDialog host, string? service_name) {
         debug("ServiceFactory: create_interactor( ): creating interactor for service '%s'", service_name);
 
         ServiceCapabilities caps = null;
@@ -1325,7 +1365,9 @@ public class ServiceFactory {
         if (caps == null)
             caps = get_default_service();
         
-        return caps.factory(host);
+        // If no publishing services could be found, caps will be null here,
+        // so we'll return null also.
+        return (caps != null) ? caps.factory(host) : null;
     }
 }
 
