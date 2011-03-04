@@ -158,7 +158,6 @@ public abstract class SearchViewFilter : ViewFilter {
         return ((show_media_video || show_media_photos || show_media_raw) && 
             !(show_media_video && show_media_photos && show_media_raw));
     }
-    
 }
 
 // This class provides a default predicate implementation used for CollectionPage
@@ -505,7 +504,7 @@ public class SearchFilterActions {
     private void update_sensitivities() {
         flagged.sensitive = (SearchFilterCriteria.FLAG & criteria) != 0 && has_flagged;
         if (!flagged.sensitive)
-            flagged.active = false;
+            flagged.sensitive = false;
         
         bool allow_media = (SearchFilterCriteria.MEDIA & criteria) != 0;
         videos.sensitive = allow_media && has_videos;
@@ -958,11 +957,13 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     }
     
     public void set_view_filter(SearchViewFilter search_filter) {
+        if (search_filter == this.search_filter)
+            return;
+        
         this.search_filter = search_filter;
         
         // Enable/disable toolbar features depending on what the filter offers
         actions.set_sensitive_for_search_criteria((SearchFilterCriteria) search_filter.get_criteria());
-        search_box.sensitive = (SearchFilterCriteria.TEXT & search_filter.get_criteria()) != 0;
         rating_button.sensitive = (SearchFilterCriteria.RATING & search_filter.get_criteria()) != 0;
         
         update();
