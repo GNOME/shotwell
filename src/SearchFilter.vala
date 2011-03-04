@@ -503,8 +503,6 @@ public class SearchFilterActions {
     
     private void update_sensitivities() {
         flagged.sensitive = (SearchFilterCriteria.FLAG & criteria) != 0 && has_flagged;
-        if (!flagged.sensitive)
-            flagged.sensitive = false;
         
         bool allow_media = (SearchFilterCriteria.MEDIA & criteria) != 0;
         videos.sensitive = allow_media && has_videos;
