@@ -19,11 +19,14 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
     }
 
     public void get_info(out Spit.PluggableInfo info) {
+        info.authors = "Lucas Beeler";
         info.copyright = _("Copyright 2009-2011 Yorba Foundation");
-        info.translators = _("translator-credits");
+        info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
-        info.website_name = _("Visit the Yorba web site");
-        info.website_url = "http://www.yorba.org";
+        info.website_name = Resources.WEBSITE_NAME;
+        info.website_url = Resources.WEBSITE_URL;
+        info.is_license_wordwrapped = false;
+        info.license = Resources.LICENSE;
     }
 
     public void activation(bool enabled) {

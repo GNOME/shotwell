@@ -73,30 +73,14 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
     public abstract unowned string get_pluggable_name();
     
     public void get_info(out Spit.PluggableInfo info) {
-        info.authors = "Maxim Kartashev, Jim Nelson";
+        info.authors = "Maxim Kartashev";
         info.copyright = _("Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation");
-        info.license = null;
-        info.translators = _("translator-credits");
+        info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
-        info.website_name = _("Visit the Yorba web site");
-        info.website_url = "http://www.yorba.org";
-        
-        info.is_license_wordwrapped = true;
-        info.license = """
-Shotwell is free software; you can redistribute it and/or modify it under the 
-terms of the GNU Lesser General Public License as published by the Free 
-Software Foundation; either version 2.1 of the License, or (at your option) 
-any later version.
-
-Shotwell is distributed in the hope that it will be useful, but WITHOUT 
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for 
-more details.
-
-You should have received a copy of the GNU Lesser General Public License 
-along with Shotwell; if not, write to the Free Software Foundation, Inc., 
-51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-""";
+        info.website_name = Resources.WEBSITE_NAME;
+        info.website_url = Resources.WEBSITE_URL;
+        info.is_license_wordwrapped = false;
+        info.license = Resources.LICENSE;
     }
     
     public void activation(bool enabled) {

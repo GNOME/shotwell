@@ -21,10 +21,11 @@ PKGS := shotwell-plugin-dev-1.0 $(PKGS)
 
 all: $(PLUGIN).so
 
-$(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
+$(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES) ../common/Resources.vala
 	$(VALAC) --save-temps --main=dummy_main --vapidir=../ \
 		$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
-		-X -I../.. -X --shared -X -fPIC -X -D_VERSION='"$(PLUGINS_VERSION)"' -X -DGETTEXT_PACKAGE='"shotwell"' $(SRC_FILES) -o $@
+		-X -I../.. -X --shared -X -fPIC -X -D_VERSION='"$(PLUGINS_VERSION)"' \
+		-X -DGETTEXT_PACKAGE='"shotwell"' $(SRC_FILES) ../common/Resources.vala -o $@
 
 .PHONY: cleantemps
 cleantemps:
