@@ -664,8 +664,10 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     private const int FILTER_ICON_PLUS_WIDTH = 20;
     
     private class LabelToolItem : Gtk.ToolItem {
+        private Gtk.Label label;
+        
         public LabelToolItem(string s, int left_padding = 0, int right_padding = 0) {
-            Gtk.Label label = new Gtk.Label(s);
+            label = new Gtk.Label(s);
             if (left_padding != 0 || right_padding != 0) {
                 Gtk.Alignment alignment = new Gtk.Alignment(0, 0.5f, 0, 0);
                 alignment.add(label);
@@ -675,6 +677,10 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             } else {
                 add(label);
             }
+        }
+        
+        public void set_color(Gdk.Color color) {
+            label.modify_fg(Gtk.StateType.NORMAL, color);
         }
     }
     
@@ -724,6 +730,10 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             // Continue processing this event, since the 
             // text entry functionality needs to see it too. 
             return false; 
+        }
+        
+        public void set_bg_color(Gtk.StateType state, Gdk.Color? color) {
+            entry.modify_bg(state, color);
         }
     }
     
@@ -835,6 +845,9 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     private SearchBox search_box;
     private RatingFilterButton rating_button = new RatingFilterButton();
     private SearchViewFilter? search_filter = null;
+    private LabelToolItem label_type;
+    private LabelToolItem label_flagged;
+    private LabelToolItem label_rating;
     
     public SearchFilterToolbar(SearchFilterActions actions) {
         this.actions = actions;
@@ -854,7 +867,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         ui.insert_action_group(actions.get_action_group(), 0);
         
         // Type label and toggles
-        insert(new LabelToolItem(_("Type"), 10, 5), -1);
+        label_type = new LabelToolItem(_("Type"), 10, 5);
+        insert(label_type, -1);
         insert(new ToggleActionToolButton(actions.photos), -1);
         insert(new ToggleActionToolButton(actions.videos), -1);
         insert(new ToggleActionToolButton(actions.raw), -1);
@@ -863,14 +877,16 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         insert(new Gtk.SeparatorToolItem(), -1);
         
         // Flagged label and toggle
-        insert(new LabelToolItem(_("Flagged")), -1);
+        label_flagged = new LabelToolItem(_("Flagged"));
+        insert(label_flagged, -1);
         insert(new ToggleActionToolButton(actions.flagged), -1);
         
         // separator
         insert(new Gtk.SeparatorToolItem(), -1);
         
         // Rating label and button
-        insert(new LabelToolItem(_("Rating")), -1);
+        label_rating = new LabelToolItem(_("Rating"));
+        insert(label_rating, -1);
         rating_button.filter_popup = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
         rating_button.set_expand(false);
         rating_button.clicked.connect(on_filter_button_clicked);
@@ -905,6 +921,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         Gtk.rc_parse_string(toolbar_style);
         
         Config.get_instance().colors_changed.connect(on_colors_changed);
+        on_colors_changed(); // Force color change on init.
         
         // hook up signals to actions to be notified when they change
         actions.flagged_toggled.connect(on_flagged_toggled);
@@ -928,6 +945,10 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     
     private void on_colors_changed() {
         modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
+        search_box.set_bg_color(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
+        label_type.set_color(Config.get_instance().get_unselected_color());
+        label_flagged.set_color(Config.get_instance().get_unselected_color());
+        label_rating.set_color(Config.get_instance().get_unselected_color());
     }
     
     private void on_flagged_toggled() {
