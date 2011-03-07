@@ -447,7 +447,7 @@ public abstract class MediaPage : CheckerboardPage {
         titles.tooltip = _("Display the title of each photo");
         toggle_actions += titles;
         
-        Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>A",
+        Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>N",
             TRANSLATABLE, on_display_ratings, Config.get_instance().get_display_photo_ratings() };
         ratings.label = Resources.VIEW_RATINGS_MENU;
         ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;

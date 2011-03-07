@@ -523,6 +523,10 @@ public abstract class AppWindow : PageWindow {
         select_all.tooltip = Resources.SELECT_ALL_TOOLTIP;
         actions += select_all;
         
+        Gtk.ActionEntry select_none = { "CommonSelectNone", null, null,
+            "<Ctrl><Shift>A", TRANSLATABLE, on_select_none };
+        actions += select_none;
+        
         return actions;
     }
     
@@ -862,10 +866,18 @@ public abstract class AppWindow : PageWindow {
         command_manager.redo();
     }
     
+    // TODO: ticket #3287 to replace this function.
     private void on_select_all() {
         Page? page = get_current_page();
         if (page != null)
-            page.get_view().select_all();
+            page.select_all();
+    }
+    
+    // TODO: ticket #3287 to replace this function.
+    private void on_select_none() {
+        Page? page = get_current_page();
+        if (page != null)
+            page.unselect_all();
     }
     
     public override bool configure_event(Gdk.EventConfigure event) {
