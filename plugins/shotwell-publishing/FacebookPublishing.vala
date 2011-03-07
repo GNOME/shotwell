@@ -738,9 +738,10 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     public void stop() {
         debug("FacebookPublisher: stop( ) invoked.");
 
-        host = null;
-        session.stop_transactions();
+        if (session != null)
+            session.stop_transactions();
 
+        host = null;
         running = false;
     }
 }

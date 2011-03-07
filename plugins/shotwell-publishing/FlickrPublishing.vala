@@ -629,8 +629,10 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     public void stop() {
         debug("FlickrPublisher: stop( ) invoked.");
 
-        host = null;
+        if (session != null)
+            session.stop_transactions();
 
+        host = null;
         running = false;
     }
 }

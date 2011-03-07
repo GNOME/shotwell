@@ -495,6 +495,9 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
     public void stop() {
         debug("YouTubePublisher: stop( ) invoked.");
 
+        if (session != null)
+            session.stop_transactions();
+
         host = null;
         running = false;
     }

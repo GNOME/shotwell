@@ -42,6 +42,8 @@ public abstract class Session {
     }
     
     public void stop_transactions() {
+        debug("Session: stopping transactions.");
+
         transactions_stopped = true;
         soup_session.abort();
     }

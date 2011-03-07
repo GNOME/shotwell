@@ -559,6 +559,9 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     public void stop() {
         debug("PicasaPublisher: stop( ) invoked.");
 
+        if (session != null)
+            session.stop_transactions();
+
         host = null;
         running = false;
     }
