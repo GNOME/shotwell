@@ -70,7 +70,6 @@ UNUNITIZED_SRC_FILES = \
 	Commands.vala \
 	SlideshowPage.vala \
 	LibraryFiles.vala \
-	YandexConnector.vala \
 	Printing.vala \
 	Tag.vala \
 	TagPage.vala \
@@ -254,7 +253,6 @@ EXT_PKGS = \
 	gtk+-2.0 \
 	glib-2.0 \
 	gudev-1.0 \
-	json-glib-1.0 \
 	libexif \
 	libgphoto2 \
 	libsoup-2.4 \
@@ -282,7 +280,6 @@ EXT_PKG_VERSIONS = \
 	gstreamer-0.10 >= 0.10.28 \
 	gstreamer-base-0.10 >= 0.10.28 \
 	gudev-1.0 >= 145 \
-	json-glib-1.0 >= 0.7.6 \
 	libexif >= 0.6.16 \
 	libgphoto2 >= 2.4.2 \
 	libsoup-2.4 >= 2.26.0 \
@@ -322,6 +319,7 @@ UNITIZE_STAMP := $(UNITIZE_DIR)/.unitized
 
 PLUGINS_DIR := plugins
 PLUGINS_SO := $(foreach plugin,$(PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
+EXTRA_PLUGINS_SO := $(foreach plugin,$(EXTRA_PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
 PLUGINS_DIST_FILES = `$(MAKE) --directory=plugins --no-print-directory listfiles`
 
 EXPANDED_PO_FILES := $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
@@ -412,6 +410,7 @@ clean:
 	rm -f $(PLUGIN_HEADER)
 	rm -f $(PLUGIN_DEPS)
 	rm -f $(PLUGINS_SO)
+	rm -f $(EXTRA_PLUGINS_SO)
 	@$(MAKE) --directory=plugins clean
 	rm -f $(PC_FILE)
 
@@ -499,6 +498,15 @@ endif
 		$(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 	mkdir -p $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
 	$(INSTALL_PROGRAM) $(PLUGINS_SO) $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
+ifdef PLUGINS_RC
+	$(INSTALL_DATA) $(PLUGINS_RC) $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
+endif
+ifndef DISABLE_EXTRA_PLUGINS_INSTALL
+	$(INSTALL_PROGRAM) $(EXTRA_PLUGINS_SO) $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
+ifdef EXTRA_PLUGINS_RC
+	$(INSTALL_DATA) $(EXTRA_PLUGINS_RC) $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
+endif
+endif
 ifdef INSTALL_HEADERS
 	mkdir -p $(DESTDIR)$(PREFIX)/include/shotwell/plugins
 	$(INSTALL_DATA) $(PLUGIN_HEADER) $(DESTDIR)$(PREFIX)/include/shotwell/plugins
@@ -591,7 +599,7 @@ $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 $(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) `$(LIBRAW_CONFIG) --libs` $(EXPORT_FLAGS) -o $@
 
-$(PLUGINS_SO): $(PLUGINS_DIR)
+$(PLUGINS_SO) $(EXTRA_PLUGINS_SO): $(PLUGINS_DIR)
 	@
 
 .PHONY: $(PLUGINS_DIR)

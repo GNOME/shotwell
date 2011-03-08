@@ -32,29 +32,15 @@ private class ShotwellTransitions : Object, Spit.Module {
     }
 }
 
-private ShotwellTransitions? module = null;
-
 // This entry point is required for all SPIT modules.
-public unowned Spit.Module? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
+public Spit.Module? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
     out int module_spit_interface) {
     module_spit_interface = Spit.negotiate_interfaces(host_min_spit_interface, host_max_spit_interface,
         Spit.CURRENT_INTERFACE);
     if (module_spit_interface == Spit.UNSUPPORTED_INTERFACE)
         return null;
     
-    if (module == null)
-        module = new ShotwellTransitions();
-    
-    return module;
-}
-
-public void g_module_unload() {
-    if (module != null)
-        debug("%s %s unloaded", module.get_module_name(), module.get_version());
-    else
-        debug("spitter unloaded prior to spit_entry_point being called");
-    
-    module = null;
+    return new ShotwellTransitions();
 }
 
 // This is here to keep valac happy.

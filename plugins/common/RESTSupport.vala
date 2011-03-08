@@ -42,8 +42,6 @@ public abstract class Session {
     }
     
     public void stop_transactions() {
-        debug("Session: stopping transactions.");
-
         transactions_stopped = true;
         soup_session.abort();
     }
@@ -601,7 +599,7 @@ internal abstract class BatchUploader {
 // Remove diacritics in a string, yielding ASCII.  If the given string is in
 // a character set not based on Latin letters (e.g. Cyrillic), the result
 // may be empty.
-string asciify_string(string s) {
+public string asciify_string(string s) {
     string t = s.normalize();  // default normalization yields a maximally decomposed form
     
     StringBuilder b = new StringBuilder();

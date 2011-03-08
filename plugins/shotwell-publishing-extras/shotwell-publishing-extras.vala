@@ -6,19 +6,15 @@
 
 extern const string _VERSION;
 
-// "core services" are: Facebook, Flickr, Picasa Web Albums, and YouTube
-private class ShotwellPublishingCoreServices : Object, Spit.Module {
+private class ShotwellPublishingExtraServices : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
 
-    public ShotwellPublishingCoreServices() {
-        pluggables += new FacebookService();
-        pluggables += new PicasaService();
-        pluggables += new FlickrService();
-        pluggables += new YouTubeService();
+    public ShotwellPublishingExtraServices() {
+        pluggables += new YandexService();
     }
     
     public unowned string get_module_name() {
-        return _("Core Publishing Services");
+        return _("Shotwell Extra Publishing Services");
     }
     
     public unowned string get_version() {
@@ -26,7 +22,7 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
     }
     
     public unowned string get_id() {
-        return "org.yorba.shotwell.publishing.core_services";
+        return "org.yorba.shotwell.publishing.extras";
     }
     
     public unowned Spit.Pluggable[]? get_pluggables() {
@@ -42,7 +38,7 @@ public Spit.Module? spit_entry_point(int host_min_spit_interface, int host_max_s
     if (module_spit_interface == Spit.UNSUPPORTED_INTERFACE)
         return null;
     
-    return new ShotwellPublishingCoreServices();
+    return new ShotwellPublishingExtraServices();
 }
 
 // valac wants a default entry point, so valac gets a default entry point

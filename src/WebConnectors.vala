@@ -1288,7 +1288,6 @@ public class ServiceFactory {
     private void load_wrapped_services() {
         caps_map.clear();
         
-        add_caps(new YandexConnector.Capabilities());
         add_caps(new PiwigoConnector.Capabilities());
 
         // in addition to the baked-in services above, add services dynamically loaded from

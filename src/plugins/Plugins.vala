@@ -33,7 +33,7 @@ public class ExtensionPoint {
 private class ModuleRep {
     public File file;
     public Module? module;
-    public unowned Spit.Module? spit_module = null;
+    public Spit.Module? spit_module = null;
     public int spit_interface = Spit.UNSUPPORTED_INTERFACE;
     public string? id = null;
     
@@ -41,6 +41,11 @@ private class ModuleRep {
         this.file = file;
         
         module = Module.open(file.get_path(), ModuleFlags.BIND_LAZY);
+    }
+    
+    ~ModuleRep() {
+        // ensure that the Spit.Module is destroyed before the GLib.Module
+        spit_module = null;
     }
     
     // Have to use this funky static factory because GModule is a compact class and has no copy

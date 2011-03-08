@@ -66,7 +66,7 @@ public int negotiate_interfaces(int min_host_interface, int max_host_interface, 
  * @return A {@link Spit.Module} if the interface negotiation is acceptable, null otherwise.
  */
 [CCode (has_target = false)]
-public delegate unowned Module? EntryPoint(int host_min_spit_interface, int host_max_spit_interface,
+public delegate Module? EntryPoint(int host_min_spit_interface, int host_max_spit_interface,
     out int module_spit_interface);
 
 /**
