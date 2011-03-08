@@ -433,7 +433,7 @@ public class Video : VideoSource, Flaggable, Monitorable {
         }
     }
 
-    protected override bool internal_set_event_id(EventID event_id) {
+    protected override bool set_event_id(EventID event_id) {
         lock (backing_row) {
             bool committed = VideoTable.get_instance().set_event(backing_row.video_id, event_id);
 

@@ -25,7 +25,8 @@ UNIT_FILES := \
     DataSourceTypes.vala \
     DataView.vala \
     DataViewTypes.vala \
-    Tracker.vala
+    Tracker.vala \
+    SourceInterfaces.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

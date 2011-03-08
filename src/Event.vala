@@ -91,7 +91,7 @@ public class EventSourceCollection : ContainerSourceCollection {
     }
 }
 
-public class Event : EventSource, ContainerSource, Proxyable {
+public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     public const string TYPENAME = "event";
     
     // In 24-hour time.
@@ -171,6 +171,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
     private ViewCollection view;
     private bool unlinking = false;
     private bool relinking = false;
+    private string? indexable_keywords = null;
     
     private Event(EventRow event_row, int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
@@ -223,6 +224,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
         // for media destruction (but not removal, which is handled automatically in any case)
         LibraryPhoto.global.item_destroyed.connect(on_media_destroyed);
         Video.global.item_destroyed.connect(on_media_destroyed);
+        
+        update_indexable_keywords();
     }
 
     ~Event() {
@@ -537,6 +540,14 @@ public class Event : EventSource, ContainerSource, Proxyable {
         relinking = false;
     }
     
+    private void update_indexable_keywords() {
+        indexable_keywords = prepare_indexable_string(get_raw_name());
+    }
+    
+    public unowned string? get_indexable_keywords() {
+        return indexable_keywords;
+    }
+    
     public bool is_in_starting_day(time_t time) {
         // it's possible the Event ref is held although it's been emptied
         // (such as the user removing items during an import, when events
@@ -724,7 +735,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
         bool renamed = event_table.rename(event_id, new_name);
         if (renamed) {
             raw_name = new_name;
-            notify_altered(new Alteration("metadata", "name"));
+            update_indexable_keywords();
+            notify_altered(new Alteration.from_list("metadata:name, indexable:keywords"));
         }
         
         return renamed;

@@ -29,9 +29,12 @@ public class BackingFileState {
     }
 }
 
-public abstract class MediaSource : ThumbnailSource {
+public abstract class MediaSource : ThumbnailSource, Indexable {
     public virtual signal void master_replaced(File old_file, File new_file) {
     }
+    
+    private Event? event = null;
+    private string? indexable_keywords = null;
     
     public MediaSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
@@ -52,8 +55,43 @@ public abstract class MediaSource : ThumbnailSource {
     protected virtual void notify_master_replaced(File old_file, File new_file) {
         master_replaced(old_file, new_file);
     }
-
-    protected abstract bool internal_set_event_id(EventID id);
+    
+    protected override void notify_altered(Alteration alteration) {
+        Alteration local = alteration;
+        
+        if (local.has_detail("metadata", "name") || local.has_detail("backing", "master")) {
+            update_indexable_keywords();
+            local = local.compress(new Alteration("indexable", "keywords"));
+        }
+        
+        base.notify_altered(local);
+    }
+    
+    // use this method as a kind of post-constructor initializer; it means the DataSource has been
+    // added or removed to a SourceCollection.
+    protected override void notify_membership_changed(DataCollection? collection) {
+        if (collection != null && indexable_keywords == null) {
+            // don't fire the alteration here, as the MediaSource is only being added to its
+            // SourceCollection
+            update_indexable_keywords();
+        }
+        
+        base.notify_membership_changed(collection);
+    }
+    
+    private void update_indexable_keywords() {
+        string[] indexables = new string[2];
+        indexables[0] = get_title();
+        indexables[1] = get_basename();
+        
+        indexable_keywords = prepare_indexable_strings(indexables);
+    }
+    
+    public unowned string? get_indexable_keywords() {
+        return indexable_keywords;
+    }
+    
+    protected abstract bool set_event_id(EventID id);
 
     protected bool delete_original_file() {
         bool ret = false;
@@ -156,25 +194,32 @@ public abstract class MediaSource : ThumbnailSource {
     public abstract EventID get_event_id();
 
     public Event? get_event() {
-        EventID event_id = get_event_id();
+        if (event != null)
+            return event;
         
-        return event_id.is_valid() ? Event.global.fetch(event_id) : null;
+        EventID event_id = get_event_id();
+        if (!event_id.is_valid())
+            return null;
+        
+        event = Event.global.fetch(event_id);
+        
+        return event;
     }
 
-    public bool set_event(Event? event) {
-        EventID event_id = (event != null) ? event.get_event_id() : EventID();
+    public bool set_event(Event? new_event) {
+        EventID event_id = (new_event != null) ? new_event.get_event_id() : EventID();
         if (get_event_id().id == event_id.id)
             return true;
         
-        Event? old_event = get_event();
-        
-        bool committed = internal_set_event_id(event_id);
+        bool committed = set_event_id(event_id);
         if (committed) {
-            if (old_event != null)
-                old_event.detach(this);
-
             if (event != null)
-                event.attach(this);
+                event.detach(this);
+
+            if (new_event != null)
+                new_event.attach(this);
+            
+            event = new_event;
             
             notify_altered(new Alteration("metadata", "event"));
         }
@@ -193,7 +238,8 @@ public abstract class MediaSource : ThumbnailSource {
             if (old_event != null)
                 old_event.detach(media);
             
-            media.internal_set_event_id(event_id);
+            media.set_event_id(event_id);
+            media.event = event;
         }
         
         if (event != null)

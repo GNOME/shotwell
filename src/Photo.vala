@@ -1543,7 +1543,7 @@ public abstract class Photo : PhotoSource {
         // with unlink/relink properly.
     }
 
-    protected override bool internal_set_event_id(EventID event_id) {
+    protected override bool set_event_id(EventID event_id) {
         lock (row) {
             bool committed = PhotoTable.get_instance().set_event(row.photo_id, event_id);
 

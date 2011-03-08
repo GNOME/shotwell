@@ -66,15 +66,11 @@ public class TagSourceCollection : ContainerSourceCollection {
     }
     
     // Returns a list of all Tags associated with the media source in no particular order.
+    //
+    // NOTE: As a search optimization, this returns the list that is maintained by Tags.global.
+    // Do NOT modify this list.
     public Gee.List<Tag>? fetch_for_source(MediaSource source) {
-        Gee.List<Tag>? tags = source_map.get(source);
-        if (tags == null)
-            return null;
-        
-        Gee.List<Tag> copy = new Gee.ArrayList<Tag>();
-        copy.add_all(tags);
-        
-        return copy;
+        return source_map.get(source);
     }
     
     // Returns a sorted set of all Tags associated with the media source (ascending by name).
@@ -261,7 +257,7 @@ public class TagSourceCollection : ContainerSourceCollection {
     }
 }
 
-public class Tag : DataSource, ContainerSource, Proxyable {
+public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     public const string TYPENAME = "tag";
     
     private class TagSnapshot : SourceSnapshot {
@@ -320,6 +316,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     private string? name_collate_key = null;
     private bool unlinking = false;
     private bool relinking = false;
+    private string? indexable_keywords = null;
     
     private Tag(TagRow row, int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
@@ -366,6 +363,8 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         // automatically remove from the tag
         LibraryPhoto.global.items_destroyed.connect(on_sources_destroyed);
         Video.global.items_destroyed.connect(on_sources_destroyed);
+        
+        update_indexable_keywords();
     }
     
     ~Tag() {
@@ -597,6 +596,14 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         relinking = false;
     }
     
+    private void update_indexable_keywords() {
+        indexable_keywords = prepare_indexable_string(get_name());
+    }
+    
+    public unowned string? get_indexable_keywords() {
+        return indexable_keywords;
+    }
+    
     public void attach(MediaSource source) {
         if (!media_views.has_view_for_source(source))
             media_views.add(new ThumbnailView(source));
@@ -660,7 +667,9 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         row.name = new_name;
         name_collate_key = null;
         
-        notify_altered(new Alteration("metadata", "name"));
+        update_indexable_keywords();
+        
+        notify_altered(new Alteration.from_list("metadata:name, indexable:keywords"));
         
         return true;
     }

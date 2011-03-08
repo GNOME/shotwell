@@ -53,6 +53,7 @@ public abstract class SearchViewFilter : ViewFilter {
     
     // Search text filter.  Should only be set to lower-case.
     private string? search_filter = null;
+    private string[]? search_filter_words = null;
     
     // Returns a bitmask of SearchFilterCriteria.
     // IMPORTANT: There is no signal on this, changing this value after the
@@ -130,20 +131,26 @@ public abstract class SearchViewFilter : ViewFilter {
         }
     }
     
-    public string? get_search_filter() {
+    public bool has_search_filter() {
+        return !is_string_empty(search_filter);
+    }
+    
+    public unowned string? get_search_filter() {
         return search_filter;
     }
        
-    public string[] get_search_filter_words() {
-		return search_filter.split(" ");
-	}
+    public unowned string[]? get_search_filter_words() {
+        return search_filter_words;
+    }
     
     public void set_search_filter(string? text) {
-        search_filter = (text != null) ? text.down() : null;
+        search_filter = !is_string_empty(text) ? text.down() : null;
+        search_filter_words = search_filter != null ? search_filter.split(" ") : null;
     }
     
     public void clear_search_filter() {
         search_filter = null;
+        search_filter_words = null;
     }
     
     public bool get_rating_allow_higher() {
@@ -165,8 +172,10 @@ public abstract class SearchViewFilter : ViewFilter {
 public abstract class DefaultSearchViewFilter : SearchViewFilter {
     public override bool predicate(DataView view) {
         MediaSource source = ((Thumbnail) view).get_media_source();
+        uint criteria = get_criteria();
+        
         // Ratings filter
-        if ((bool) (SearchFilterCriteria.RATING & get_criteria())) {
+        if ((SearchFilterCriteria.RATING & criteria) != 0) {
             if (get_rating_allow_higher() && source.get_rating() < get_rating())
                 return false;
             else if (!get_rating_allow_higher() && source.get_rating() != get_rating())
@@ -174,13 +183,13 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
         }
         
         // Flag state.
-        if ((bool) (SearchFilterCriteria.FLAG & get_criteria())) {
+        if ((SearchFilterCriteria.FLAG & criteria) != 0) {
             if (flagged && source is Flaggable && !((Flaggable) source).is_flagged())
                 return false;
         }
         
         // Media type.
-        if ((bool) (SearchFilterCriteria.MEDIA & get_criteria()) && filter_by_media_type()) {
+        if (((SearchFilterCriteria.MEDIA & criteria) != 0) && filter_by_media_type()) {
             if (source is VideoSource) {
                 if (!show_media_video)
                     return false;
@@ -193,39 +202,46 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
             }
         }
         
-        // Text filter.
-        if (((bool) (SearchFilterCriteria.TEXT & get_criteria())) && 
-            !is_string_empty(get_search_filter())) {
-            foreach (string word in get_search_filter_words()) {
-                if (!contains_text(source, word))
-                    return false;
+        if (((SearchFilterCriteria.TEXT & criteria) != 0) && has_search_filter()) {
+            unowned string? media_keywords = source.get_indexable_keywords();
+            
+            unowned string? event_keywords = null;
+            Event? event = source.get_event();
+            if (event != null)
+                event_keywords = event.get_indexable_keywords();
+            
+            Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
+            int tags_size = (tags != null) ? tags.size : 0;
+            
+            foreach (unowned string word in get_search_filter_words()) {
+                if (media_keywords != null && media_keywords.contains(word))
+                    continue;
+                
+                if (event_keywords != null && event_keywords.contains(word))
+                    continue;
+                
+                if (tags_size > 0) {
+                    bool found = false;
+                    for (int ctr = 0; ctr < tags_size; ctr++) {
+                        unowned string? tag_keywords = tags[ctr].get_indexable_keywords();
+                        if (tag_keywords != null && tag_keywords.contains(word)) {
+                            found = true;
+                            
+                            break;
+                        }
+                    }
+                    
+                    if (found)
+                        continue;
+                }
+                
+                // failed all tests (this even works if none of the Indexables have strings,
+                // as they fail the implicit AND test)
+                return false;
             }
-            return true;
         }
         
         return true;
-    }
-    
-    public bool contains_text(MediaSource source, string word) {
-        string title = source.get_title() != null ? source.get_title().down() : "";
-        if (title.contains(word))
-            return true;
-        
-        if (source.get_basename().down().contains(word))
-            return true;
-        
-        if (source.get_event() != null && source.get_event().get_raw_name() != null &&
-            source.get_event().get_raw_name().down().contains(word))
-            return true;
-        
-        Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
-        if (null != tags) {
-            foreach (Tag tag in tags) {
-                if (tag.get_name().down().contains(word))
-                    return true;
-            }
-        }
-        return false;
     }
 }
 
