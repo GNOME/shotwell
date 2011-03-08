@@ -52,6 +52,10 @@ public class ViewCollection : DataCollection {
         public Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
     }
     
+#if MEASURE_VIEW_FILTERING
+    private static OpTimer filter_timer = new OpTimer("ViewCollection filter timer");
+#endif
+    
     private Gee.HashMultiMap<SourceCollection, MonitorImpl> monitors = new Gee.HashMultiMap<
         SourceCollection, MonitorImpl>();
     private ViewCollection mirroring = null;
@@ -624,6 +628,9 @@ public class ViewCollection : DataCollection {
         Gee.ArrayList<DataView> to_show = null;
         Gee.ArrayList<DataView> to_hide = null;
         
+#if MEASURE_VIEW_FILTERING
+        filter_timer.start();
+#endif
         foreach (DataView view in views) {
             if (filter.predicate(view)) {
                 if (!view.is_visible()) {
@@ -641,6 +648,10 @@ public class ViewCollection : DataCollection {
                 }
             }
         }
+#if MEASURE_VIEW_FILTERING
+        filter_timer.stop();
+        debug("Filtering for %s: %s", to_string(), filter_timer.to_string());
+#endif
         
         if (to_show != null)
             show_items(to_show);
