@@ -20,17 +20,20 @@ include ../plugins.mk
 # automatically include the shotwell-plugin-dev-1.0 package
 PKGS := shotwell-plugin-dev-1.0 $(PKGS)
 
+# automatically include the Resources.vala common file
+SRC_FILES := ../common/Resources.vala $(SRC_FILES)
+
 all: $(PLUGIN).so
 
-$(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES) ../common/Resources.vala
+$(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
 	$(VALAC) --save-temps --main=dummy_main --vapidir=../ \
 		$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
 		-X -I../.. -X --shared -X -fPIC -X -D_VERSION='"$(PLUGINS_VERSION)"' \
-		-X -DGETTEXT_PACKAGE='"shotwell"' $(SRC_FILES) ../common/Resources.vala -o $@
+		-X -DGETTEXT_PACKAGE='"shotwell"' $(SRC_FILES) -o $@
 
 .PHONY: cleantemps
 cleantemps:
-	@rm -f $(SRC_FILES:.vala=.c) $(SRC_FILES:.vala=.o)
+	@rm -f $(notdir $(SRC_FILES:.vala=.c)) $(notdir $(SRC_FILES:.vala=.o))
 
 .PHONY: clean
 clean: cleantemps
