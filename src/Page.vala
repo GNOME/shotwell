@@ -1235,12 +1235,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
 
         return false;
     }
-    
-    // Should select all objects on page, (if appropriate.)
-    public abstract void select_all();
-    
-    // Should deselect all objects on page (if appropriate.)
-    public abstract void unselect_all();
 }
 
 public abstract class CheckerboardPage : Page {
@@ -1921,14 +1915,6 @@ public abstract class CheckerboardPage : Page {
         get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, display);
         get_view().thaw_notifications();
     }
-    
-    public override void select_all() {
-        get_view().select_all();
-    }
-    
-    public override void unselect_all() {
-        get_view().unselect_all();
-    }
 }
 
 public abstract class SinglePhotoPage : Page {
@@ -2403,16 +2389,6 @@ public abstract class SinglePhotoPage : Page {
 
     protected override bool on_context_keypress() {
         return popup_context_menu(get_page_context_menu());
-    }
-    
-    public override void select_all() {
-        // Do nothing.  Select all is meaningless on a single
-        // photo page.
-    }
-    
-    public override void unselect_all() {
-        // Do nothing.  Unselect all is meaningless on a single
-        // photo page.
     }
 }
 

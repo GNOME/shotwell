@@ -665,7 +665,16 @@ public class LibraryWindow : AppWindow {
         import_dialog.destroy();
     }
     
-    protected override void update_actions(Page page, int selected_count, int count) {
+    protected override void update_common_action_availability(Page? old_page, Page? new_page) {
+        base.update_common_action_availability(old_page, new_page);
+        
+        bool is_checkerboard = new_page is CheckerboardPage;
+        
+        set_common_action_sensitive("CommonDisplaySearchbar", is_checkerboard);
+        set_common_action_sensitive("CommonFind", is_checkerboard);
+    }
+    
+    protected override void update_common_actions(Page page, int selected_count, int count) {
         // see on_fullscreen for the logic here ... both CollectionPage and EventsDirectoryPage
         // are CheckerboardPages (but in on_fullscreen have to be handled differently to locate
         // the view controller)
@@ -682,7 +691,7 @@ public class LibraryWindow : AppWindow {
         set_common_action_sensitive("CommonJumpToEvent", can_jump_to_event());
         set_common_action_sensitive("CommonFullscreen", can_fullscreen);
         
-        base.update_actions(page, selected_count, count);
+        base.update_common_actions(page, selected_count, count);
     }
     
     private void on_trashcan_contents_altered() {
@@ -726,9 +735,12 @@ public class LibraryWindow : AppWindow {
         if (view.get_selected_count() != 1)
             return;
         
-        Event? event = ((MediaSource) view.get_selected_source_at(0)).get_event();
-        if (event != null)
-            switch_to_event(event);
+        MediaSource? media = view.get_selected_source_at(0) as MediaSource;
+        if (media == null)
+            return;
+        
+        if (media.get_event() != null)
+            switch_to_event(media.get_event());
     }
     
     private void on_find() {

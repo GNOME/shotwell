@@ -95,13 +95,13 @@ public string get_window_manager() {
     return Gdk.x11_screen_get_window_manager_name(AppWindow.get_instance().get_screen());
 }
 
-public string build_dummy_ui_string(string menu_name, Gtk.ActionGroup[] groups) {
-    string ui_string = "<ui><menubar name=\"%s\">".printf(menu_name);
+public string build_dummy_ui_string(Gtk.ActionGroup[] groups) {
+    string ui_string = "<ui>";
     foreach (Gtk.ActionGroup group in groups) {
         foreach (Gtk.Action action in group.list_actions())
-            ui_string += "<menuitem name=\"%s\" action=\"%s\" />".printf(action.name, action.name);
+            ui_string += "<accelerator name=\"%s\" action=\"%s\" />".printf(action.name, action.name);
     }
-    ui_string += "</menubar></ui>";
+    ui_string += "</ui>";
     
     return ui_string;
 }

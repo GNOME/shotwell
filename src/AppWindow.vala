@@ -411,6 +411,7 @@ public abstract class AppWindow : PageWindow {
     // the AppWindow maintains its own UI manager because the first UIManager an action group is
     // added to is the one that claims its accelerators
     protected Gtk.UIManager ui = new Gtk.UIManager();
+    protected Gtk.ActionGroup[] common_action_groups;
     protected bool maximized = false;
     protected Dimensions dimensions;
     protected int pos_x = 0;
@@ -452,12 +453,12 @@ public abstract class AppWindow : PageWindow {
         // UIManager.  In order to activate those accelerators, we need to create a dummy UI string
         // that lists all the common actions.  We build it on-the-fly from the actions associated
         // with each ActionGroup while we're adding the groups to the UIManager.
-        Gtk.ActionGroup[] groups = create_common_action_groups();
-        foreach (Gtk.ActionGroup group in groups)
+        common_action_groups = create_common_action_groups();
+        foreach (Gtk.ActionGroup group in common_action_groups)
             ui.insert_action_group(group, 0);
         
         try {
-            ui.add_ui_from_string(build_dummy_ui_string("CommonMenuBar", groups), -1);
+            ui.add_ui_from_string(build_dummy_ui_string(common_action_groups), -1);
         } catch (Error err) {
             error("Unable to add AppWindow UI: %s", err.message);
         }
@@ -683,7 +684,11 @@ public abstract class AppWindow : PageWindow {
         if (get_current_page().get_view().get_selected_count() != 1)
             return;
 
-        MediaSource media = (MediaSource) get_current_page().get_view().get_selected_at(0).get_source();
+        MediaSource? media = get_current_page().get_view().get_selected_at(0).get_source()
+            as MediaSource;
+        if (media == null)
+            return;
+        
         try {
             AppWindow.get_instance().show_file_uri(media.get_master_file().get_parent());
         } catch (Error err) {
@@ -713,12 +718,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public Gtk.ActionGroup[] get_common_action_groups() {
-        Gtk.ActionGroup[] groups = new Gtk.ActionGroup[0];
-        
-        foreach (Gtk.ActionGroup group in ui.get_action_groups())
-            groups += group;
-        
-        return groups;
+        return common_action_groups;
     }
     
     public virtual void replace_common_placeholders(Gtk.UIManager ui) {
@@ -763,7 +763,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public Gtk.Action? get_common_action(string name) {
-        foreach (Gtk.ActionGroup group in ui.get_action_groups()) {
+        foreach (Gtk.ActionGroup group in common_action_groups) {
             Gtk.Action? action = group.get_action(name);
             if (action != null)
                 return action;
@@ -787,39 +787,52 @@ public abstract class AppWindow : PageWindow {
     }
     
     protected override void switched_pages(Page? old_page, Page? new_page) {
+        update_common_action_availability(old_page, new_page);
+        
         if (old_page != null) {
-            old_page.get_view().contents_altered.disconnect(on_update_actions);
-            old_page.get_view().selection_group_altered.disconnect(on_update_actions);
-            old_page.get_view().items_state_changed.disconnect(on_update_actions);
+            old_page.get_view().contents_altered.disconnect(on_update_common_actions);
+            old_page.get_view().selection_group_altered.disconnect(on_update_common_actions);
+            old_page.get_view().items_state_changed.disconnect(on_update_common_actions);
         }
         
         if (new_page != null) {
-            new_page.get_view().contents_altered.connect(on_update_actions);
-            new_page.get_view().selection_group_altered.connect(on_update_actions);
-            new_page.get_view().items_state_changed.connect(on_update_actions);
+            new_page.get_view().contents_altered.connect(on_update_common_actions);
+            new_page.get_view().selection_group_altered.connect(on_update_common_actions);
+            new_page.get_view().items_state_changed.connect(on_update_common_actions);
             
-            update_actions(new_page, new_page.get_view().get_selected_count(),
+            update_common_actions(new_page, new_page.get_view().get_selected_count(),
                 new_page.get_view().get_count());
         }
         
         base.switched_pages(old_page, new_page);
     }
     
+    // This is called when a Page is switched out and certain common actions are simply
+    // unavailable for the new one.  This is different than update_common_actions() in that that
+    // call is made when state within the Page has changed.
+    protected virtual void update_common_action_availability(Page? old_page, Page? new_page) {
+        bool is_checkerboard = new_page is CheckerboardPage;
+        
+        set_common_action_sensitive("CommonSelectAll", is_checkerboard);
+        set_common_action_sensitive("CommonSelectNone", is_checkerboard);
+    }
+    
     // This is a counterpart to Page.update_actions(), but for common Gtk.Actions
     // NOTE: Although CommonFullscreen is declared here, it's implementation is up to the subclasses,
     // therefore they need to update its action.
-    protected virtual void update_actions(Page page, int selected_count, int count) {
-        set_common_action_sensitive("CommonSelectAll", count > 0);
+    protected virtual void update_common_actions(Page page, int selected_count, int count) {
+        if (page is CheckerboardPage)
+            set_common_action_sensitive("CommonSelectAll", count > 0);
         set_common_action_sensitive("CommonJumpToFile", selected_count == 1);
-
+        
         decorate_undo_action();
         decorate_redo_action();
     }
     
-    private void on_update_actions() {
+    private void on_update_common_actions() {
         Page? page = get_current_page();
         if (page != null)
-            update_actions(page, page.get_view().get_selected_count(), page.get_view().get_count());
+            update_common_actions(page, page.get_view().get_selected_count(), page.get_view().get_count());
     }
     
     public static CommandManager get_command_manager() {
@@ -866,18 +879,16 @@ public abstract class AppWindow : PageWindow {
         command_manager.redo();
     }
     
-    // TODO: ticket #3287 to replace this function.
     private void on_select_all() {
-        Page? page = get_current_page();
+        Page? page = get_current_page() as CheckerboardPage;
         if (page != null)
-            page.select_all();
+            page.get_view().select_all();
     }
     
-    // TODO: ticket #3287 to replace this function.
     private void on_select_none() {
-        Page? page = get_current_page();
+        Page? page = get_current_page() as CheckerboardPage;
         if (page != null)
-            page.unselect_all();
+            page.get_view().unselect_all();
     }
     
     public override bool configure_event(Gdk.EventConfigure event) {
