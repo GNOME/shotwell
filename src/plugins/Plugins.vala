@@ -396,7 +396,7 @@ private void load_module(File file) {
     
     // if module has already been loaded, drop this one (search path is set up to load user-installed
     // binaries prior to system binaries)
-    module_rep.id = prepare_input_text(module_rep.spit_module.get_id(), PrepareInputTextOptions.DEFAULT);
+    module_rep.id = prepare_input_text(module_rep.spit_module.get_id(), PrepareInputTextOptions.DEFAULT, -1);
     if (module_rep.id == null) {
         critical("Unable to load module %s (SPIT %d): invalid or empty module name",
             file.get_path(), module_rep.spit_interface);

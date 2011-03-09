@@ -4,6 +4,8 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
+public const int DEFAULT_USER_TEXT_INPUT_LENGTH = 1024;
+
 public inline bool is_string_empty(string? s) {
     return (s == null || s[0] == '\0');
 }
@@ -83,7 +85,7 @@ public enum PrepareInputTextOptions {
     DEFAULT = EMPTY_IS_NULL | VALIDATE | INVALID_IS_NULL | STRIP_CRLF | STRIP | NORMALIZE;
 }
 
-public string? prepare_input_text(string? text, PrepareInputTextOptions options = PrepareInputTextOptions.DEFAULT) {
+public string? prepare_input_text(string? text, PrepareInputTextOptions options, int dest_length) {
     if (text == null)
         return null;
     
@@ -110,6 +112,16 @@ public string? prepare_input_text(string? text, PrepareInputTextOptions options 
     if ((options & PrepareInputTextOptions.EMPTY_IS_NULL) != 0 && is_string_empty(prepped))
         return null;
     
+    // Ticket #3196 - Allow calling functions to limit the length of the 
+    // string we return to them. Passing any negative value is interpreted 
+    // as 'do not truncate'.
+    if (dest_length >= 0) { 
+        StringBuilder sb = new StringBuilder(prepped);
+        sb.truncate(dest_length);
+        return sb.str;
+    }
+    
+    // otherwise, return normally.
     return prepped;
 }
 

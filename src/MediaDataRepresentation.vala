@@ -161,7 +161,7 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     
     public static string? prep_title(string? title) {
         return prepare_input_text(title, 
-            PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.EMPTY_IS_NULL);
+            PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.EMPTY_IS_NULL, DEFAULT_USER_TEXT_INPUT_LENGTH);
     }
     
     public abstract Rating get_rating();

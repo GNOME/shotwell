@@ -489,7 +489,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     // Utility function to cleanup a tag name that comes from user input and prepare it for use
     // in the system and storage in the database.  Returns null if the name is unacceptable.
     public static string? prep_tag_name(string name) {
-        return prepare_input_text(name);
+        return prepare_input_text(name, PrepareInputTextOptions.DEFAULT, DEFAULT_USER_TEXT_INPUT_LENGTH);
     }
     
     // Akin to prep_tag_name.  Returned array may be smaller than the in parameter (or empty!) if

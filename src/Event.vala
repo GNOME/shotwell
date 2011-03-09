@@ -312,7 +312,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         return prepare_input_text(name, 
             PrepareInputTextOptions.NORMALIZE | PrepareInputTextOptions.VALIDATE | 
             PrepareInputTextOptions.INVALID_IS_NULL | PrepareInputTextOptions.STRIP |
-            PrepareInputTextOptions.STRIP_CRLF);
+            PrepareInputTextOptions.STRIP_CRLF, DEFAULT_USER_TEXT_INPUT_LENGTH);
     }
     
     // This is used by MediaSource to notify Event when it's joined.  Don't use this to manually attach a

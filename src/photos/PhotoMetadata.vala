@@ -301,11 +301,11 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public string? get_string(string tag) {
-        return prepare_input_text(exiv2.get_tag_string(tag), PREPARE_STRING_OPTIONS);
+        return prepare_input_text(exiv2.get_tag_string(tag), PREPARE_STRING_OPTIONS, DEFAULT_USER_TEXT_INPUT_LENGTH);
     }
     
     public string? get_string_interpreted(string tag) {
-        return prepare_input_text(exiv2.get_tag_interpreted_string(tag), PREPARE_STRING_OPTIONS);
+        return prepare_input_text(exiv2.get_tag_interpreted_string(tag), PREPARE_STRING_OPTIONS, DEFAULT_USER_TEXT_INPUT_LENGTH);
     }
     
     public string? get_first_string(string[] tags) {
@@ -343,7 +343,9 @@ public class PhotoMetadata : MediaMetadata {
         
         Gee.HashSet<string> collection = new Gee.HashSet<string>();
         foreach (string value in values) {
-            string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS);
+            string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS,
+                DEFAULT_USER_TEXT_INPUT_LENGTH);
+                
             if (prepped != null && !collection.contains(prepped)) {
                 list.add(prepped);
                 collection.add(prepped);
@@ -370,7 +372,7 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public void set_string(string tag, string value) {
-        string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS);
+        string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS, DEFAULT_USER_TEXT_INPUT_LENGTH);
         if (prepped == null) {
             warning("Not setting tag %s to string %s: invalid UTF-8", tag, value);
             
@@ -413,7 +415,7 @@ public class PhotoMetadata : MediaMetadata {
     public void set_string_multiple(string tag, Gee.Collection<string> collection) {
         string[] values = new string[0];
         foreach (string value in collection) {
-            string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS);
+            string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS,-1);
             if (prepped != null)
                 values += prepped;
             else
