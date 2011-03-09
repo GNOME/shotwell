@@ -147,7 +147,11 @@ public struct PluggableInfo {
     public string? website_url;
     public string? website_name;
     public string? translators;
-    public Gdk.Pixbuf? icon;
+    /**
+     * An icon representing this plugin at one or more sizes.  Shotwell may select an icon 
+     * according to the size that closest fits the control its being drawn in.
+     */
+    public Gdk.Pixbuf[]? icons;
 }
 
 /**

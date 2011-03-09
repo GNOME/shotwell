@@ -12,7 +12,8 @@
 
 VALAC := valac
 MAKE_FILES := Makefile ../Makefile.plugin.mk ../plugins.mk
-HEADER_FILES := $(wildcard ../*.vapi ../*.h ../*.deps)
+HEADER_FILES := ../shotwell-plugin-dev-1.0.vapi ../shotwell-plugin-dev-1.0.h \
+	../shotwell-plugin-dev-1.0.deps
 
 include ../plugins.mk
 
