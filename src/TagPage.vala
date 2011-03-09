@@ -31,6 +31,10 @@ public class TagPage : CollectionPage {
         protected override Page construct_page() {
             return new TagPage(tag);
         }
+        
+        public static int64 comparator(void *a, void *b) {
+            return Tag.compare_names(((Stub *) a)->tag, ((Stub *) b)->tag);
+        }
     }
     
     private Tag tag;

@@ -5,7 +5,8 @@
  */
 
 public class TagSourceCollection : ContainerSourceCollection {
-    private Gee.HashMap<string, Tag> name_map = new Gee.HashMap<string, Tag>();
+    private Gee.HashMap<string, Tag> name_map = new Gee.HashMap<string, Tag>(Tag.hash_name_string,
+        Tag.equal_name_strings);
     private Gee.HashMap<MediaSource, Gee.List<Tag>> source_map =
         new Gee.HashMap<MediaSource, Gee.List<Tag>>();
     private Gee.HashMap<MediaSource, Gee.SortedSet<Tag>> sorted_source_map =
@@ -79,7 +80,7 @@ public class TagSourceCollection : ContainerSourceCollection {
         if (tags == null)
             return null;
         
-        Gee.SortedSet<Tag> copy = new Gee.TreeSet<Tag>(compare_tag_name);
+        Gee.SortedSet<Tag> copy = new Gee.TreeSet<Tag>(Tag.compare_names);
         copy.add_all(tags);
         
         return copy;
@@ -159,10 +160,6 @@ public class TagSourceCollection : ContainerSourceCollection {
         base.notify_items_altered(map);
     }
     
-    private static int compare_tag_name(void *a, void *b) {
-        return strcmp(((Tag *) a)->get_name_collate_key(), ((Tag *) b)->get_name_collate_key());
-    }
-    
     protected override void notify_container_contents_added(ContainerSource container, 
         Gee.Collection<DataSource> added, bool relinking) {
         Tag tag = (Tag) container;
@@ -180,7 +177,7 @@ public class TagSourceCollection : ContainerSourceCollection {
             
             Gee.SortedSet<Tag>? sorted_tags = sorted_source_map.get(source);
             if (sorted_tags == null) {
-                sorted_tags = new Gee.TreeSet<Tag>(compare_tag_name);
+                sorted_tags = new Gee.TreeSet<Tag>(Tag.compare_names);
                 sorted_source_map.set(source, sorted_tags);
             }
             
@@ -313,7 +310,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     
     private TagRow row;
     private ViewCollection media_views;
-    private string? name_collate_key = null;
+    private string? name_collation_key = null;
     private bool unlinking = false;
     private bool relinking = false;
     private string? indexable_keywords = null;
@@ -435,6 +432,22 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     public static void terminate() {
     }
     
+    public static int compare_names(void *a, void *b) {
+        Tag *atag = (Tag *) a;
+        Tag *btag = (Tag *) b;
+        
+        return String.precollated_compare(atag->get_name(), atag->get_name_collation_key(),
+            btag->get_name(), btag->get_name_collation_key());
+    }
+    
+    public static uint hash_name_string(void *a) {
+        return String.collated_hash(a);
+    }
+    
+    public static bool equal_name_strings(void *a, void *b) {
+        return String.collated_equals(a, b);
+    }
+    
     // Returns a Tag for the name, creating a new empty one if it does not already exist.
     // name should have already been prepared by prep_tag_name.
     public static Tag for_name(string name) {
@@ -505,11 +518,11 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         return row.name;
     }
     
-    public string get_name_collate_key() {
-        if (name_collate_key == null)
-            name_collate_key = row.name.collate_key();
+    public string get_name_collation_key() {
+        if (name_collation_key == null)
+            name_collation_key = row.name.collate_key();
         
-        return name_collate_key;
+        return name_collation_key;
     }
     
     public override string to_string() {
@@ -665,7 +678,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         }
         
         row.name = new_name;
-        name_collate_key = null;
+        name_collation_key = null;
         
         update_indexable_keywords();
         

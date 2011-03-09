@@ -131,5 +131,68 @@ public string strip_leading_zeroes(string str) {
     return stripped.str;
 }
 
+public string to_hex_string(string str) {
+    StringBuilder builder = new StringBuilder();
+    
+    uint8 *data = (uint8 *) str;
+    while (*data != 0)
+        builder.append_printf("%02Xh%s", *data++, (*data != 0) ? " " : "");
+    
+    return builder.str;
 }
 
+// A note on the collated_* and precollated_* methods:
+//
+// A bug report (http://trac.yorba.org/ticket/3152) indicated that two different Hirigana characters
+// as Tag names would trigger an assertion.  Investigation showed that the characters' collation
+// keys computed as equal when the locale was set to anything but the default locale (C) or
+// Japanese.  A related bug was that another hash table was using str_equal, which does not use
+// collation, meaning that in one table the strings were seen as the same and in another as
+// different.
+//
+// The solution we arrived at is to use collation whenever possible, but if two strings have the
+// same collation, then fall back on strcmp(), which looks for byte-for-byte comparisons.  Note
+// that this technique requires that both strings have been properly composed (use
+// prepare_input_text() for that task) so that equal UTF-8 strings are byte-for-byte equal as
+// well.
+
+// See note above.
+public uint collated_hash(void *ptr) {
+    string str = (string) ptr;
+    
+    return str_hash(str.collate_key());
+}
+
+// See note above.
+public uint precollated_hash(void *ptr) {
+    return str_hash(ptr);
+}
+
+// See note above.
+public int collated_compare(void *a, void *b) {
+    string astr = (string) a;
+    string bstr = (string) b;
+    
+    int result = astr.collate(bstr);
+    
+    return (result != 0) ? result : strcmp(astr, bstr);
+}
+
+// See note above.
+public int precollated_compare(string astr, string akey, string bstr, string bkey) {
+    int result = strcmp(akey, bkey);
+    
+    return (result != 0) ? result : strcmp(astr, bstr);
+}
+
+// See note above.
+public bool collated_equals(void *a, void *b) {
+    return collated_compare(a, b) == 0;
+}
+
+// See note above.
+public bool precollated_equals(string astr, string akey, string bstr, string bkey) {
+    return precollated_compare(astr, akey, bstr, bkey) == 0;
+}
+
+}

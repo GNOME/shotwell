@@ -1215,7 +1215,7 @@ public class LibraryWindow : AppWindow {
             assert(page_stub != null);
             
             sidebar.rename(page_stub.get_marker(), tag.get_name());
-            sidebar.sort_branch(tags_marker, tag_page_comparator);
+            sidebar.sort_branch(tags_marker, TagPage.Stub.comparator);
         }
         
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
@@ -1288,13 +1288,6 @@ public class LibraryWindow : AppWindow {
         return new_dir;
     }
     
-    private int64 tag_page_comparator(void *a, void *b) {
-        Tag atag = ((TagPage.Stub *) a)->tag;
-        Tag btag = ((TagPage.Stub *) b)->tag;
-        
-        return strcmp(atag.get_name_collate_key(), btag.get_name_collate_key());
-    }
-    
     private void add_tag_page(Tag tag) {
         if (tags_marker == null) {
             tags_marker = sidebar.add_toplevel_grouping(_("Tags"), new GLib.ThemedIcon(Resources.ICON_TAGS),
@@ -1302,7 +1295,7 @@ public class LibraryWindow : AppWindow {
         }
         
         TagPage.Stub stub = TagPage.create_stub(tag);
-        sidebar.insert_child_sorted(tags_marker, stub, tag_page_comparator);
+        sidebar.insert_child_sorted(tags_marker, stub, TagPage.Stub.comparator);
         tag_map.set(tag, stub);
     }
     

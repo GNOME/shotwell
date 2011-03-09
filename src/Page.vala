@@ -219,7 +219,11 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         // toolbars (as of yet) are not created by the UI Manager and need to be destroyed
         // explicitly
         toolbar.destroy();
-
+        
+        // halt any pending callbacks
+        if (update_actions_scheduler != null)
+            update_actions_scheduler.cancel();
+        
         is_destroyed = true;
         
         base.destroy();

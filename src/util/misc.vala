@@ -256,9 +256,7 @@ public delegate void OneShotCallback();
 public class OneShotScheduler {
     private string name;
     private OneShotCallback callback;
-    private bool scheduled = false;
-    private bool reschedule = false;
-    private bool cancelled = false;
+    private uint scheduled = 0;
     
     public OneShotScheduler(string name, OneShotCallback callback) {
         this.name = name;
@@ -270,78 +268,46 @@ public class OneShotScheduler {
         debug("DTOR: OneShotScheduler for %s", name);
 #endif
         
-        cancelled = true;
+        cancel();
     }
     
     public bool is_scheduled() {
-        return scheduled;
+        return scheduled != 0;
     }
     
     public void at_idle() {
-        if (scheduled)
-            return;
-            
-        scheduled = true;
-        cancelled = false;
-        Idle.add(callback_wrapper);
+        at_priority_idle(Priority.DEFAULT_IDLE);
     }
     
     public void at_priority_idle(int priority) {
-        if (scheduled)
-            return;
-        
-        scheduled = true;
-        cancelled = false;
-        Idle.add_full(priority, callback_wrapper);
+        if (scheduled == 0)
+            scheduled = Idle.add_full(priority, callback_wrapper);
     }
     
     public void after_timeout(uint msec, bool reschedule) {
-        if (scheduled) {
-            if (reschedule)
-                this.reschedule = true;
-            
-            return;
-        }
-        
-        scheduled = true;
-        cancelled = false;
-        Timeout.add(msec, callback_wrapper);
+        priority_after_timeout(Priority.DEFAULT, msec, reschedule);
     }
     
     public void priority_after_timeout(int priority, uint msec, bool reschedule) {
-        if (scheduled) {
-            if (reschedule)
-                this.reschedule = true;
-                
+        if (scheduled != 0 && !reschedule)
             return;
-        }
         
-        scheduled = true;
-        cancelled = false;
-        Timeout.add_full(priority, msec, callback_wrapper);
+        if (scheduled != 0)
+            Source.remove(scheduled);
+        
+        scheduled = Timeout.add_full(priority, msec, callback_wrapper);
     }
     
     public void cancel() {
-        cancelled = true;
-        reschedule = false;
-        scheduled = false;
+        if (scheduled == 0)
+            return;
+        
+        Source.remove(scheduled);
+        scheduled = 0;
     }
     
     private bool callback_wrapper() {
-        if (cancelled) {
-            cancelled = false;
-            scheduled = false;
-            
-            return false;
-        }
-        
-        if (reschedule) {
-            reschedule = false;
-            
-            return true;
-        }
-        
-        scheduled = false;
+        scheduled = 0;
         callback();
         
         return false;
