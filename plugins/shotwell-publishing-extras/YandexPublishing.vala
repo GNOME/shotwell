@@ -169,7 +169,6 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     public void on_pane_uninstalled() {
-        pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
     }
 }
 
