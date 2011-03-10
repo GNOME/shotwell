@@ -550,13 +550,8 @@ endif
 $(PC_FILE): $(PC_INPUT) $(MAKE_FILES)
 	m4 '--define=_VERSION_=$(VERSION)' '--define=_PREFIX_=$(PREFIX)' '--define=_REQUIREMENTS_=$(PLUGIN_PKG_REQS)' $< > $@
 
-$(BUILD_DIR):
-	@mkdir -p $(BUILD_DIR)
-
-$(UNITIZE_DIR):
+$(UNITIZE_STAMP): $(MAKE_FILES) src/unit/rc/UnitInternals.m4 src/unit/rc/unitize_entry.m4
 	@mkdir -p $(UNITIZE_DIR)
-
-$(UNITIZE_STAMP): $(UNITIZE_DIR) $(MAKE_FILES) src/unit/rc/UnitInternals.m4 src/unit/rc/unitize_entry.m4
 	@$(foreach group,$(APP_GROUPS),\
 		`m4 '--define=_APP_GROUP_=$(group)' '--define=_UNIT_ENTRY_POINTS_=$(foreach nm,$($(group)_UNITS),$(nm).init_entry,)' '--define=_UNIT_TERMINATE_POINTS_=$(foreach nm,$($(group)_UNITS),$(nm).terminate_entry,)' src/unit/rc/unitize_entry.m4 > $(UNITIZE_DIR)/_$(group)_unitize_entry.vala`)
 	@$(foreach nm,$(UNIT_NAMESPACES),\
@@ -580,6 +575,7 @@ endif
 endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
 	@echo Compiling Vala code...
+	@mkdir -p $(BUILD_DIR)
 	@$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
 		$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
 		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
