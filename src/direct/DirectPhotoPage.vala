@@ -518,13 +518,13 @@ public class DirectPhotoPage : EditingHostPage {
         
         switch (Gdk.keyval_name(event.keyval)) {
             case "bracketright":
-                on_rotate_clockwise();
+                activate_action("RotateClockwise");
             break;
-
+            
             case "bracketleft":
-                on_rotate_counterclockwise();
+                activate_action("RotateClockwise");
             break;
-
+            
             default:
                 handled = false;
             break;

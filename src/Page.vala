@@ -432,6 +432,12 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         action.sensitive = sensitive;
     }
     
+    public void activate_action(string name) {
+        Gtk.Action? action = get_action(name);
+        if (action != null)
+            action.activate();
+    }
+    
     public Gtk.Action? get_common_action(string name, bool log_warning = true) {
         if (common_action_groups == null)
             return null;
@@ -464,6 +470,12 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         Gtk.Action? action = get_common_action(name);
         if (action != null)
             action.is_important = important;
+    }
+    
+    public void activate_common_action(string name) {
+        Gtk.Action? action = get_common_action(name);
+        if (action != null)
+            action.activate();
     }
     
     public bool get_ctrl_pressed() {

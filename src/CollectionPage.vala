@@ -389,7 +389,6 @@ public abstract class CollectionPage : MediaPage {
     
     protected override bool on_app_key_pressed(Gdk.EventKey event) {
         bool handled = true;
-        
         switch (Gdk.keyval_name(event.keyval)) {
             case "Page_Up":
             case "KP_Page_Up":
@@ -401,13 +400,15 @@ public abstract class CollectionPage : MediaPage {
             case "KP_End":
                 key_press_event(event);
             break;
+            
             case "bracketright":
-                on_rotate_clockwise();
+                activate_action("RotateClockwise");
             break;
+            
             case "bracketleft":
-                on_rotate_counterclockwise();
+                activate_action("RotateCounterclockwise");
             break;
-
+            
             default:
                 handled = false;
             break;

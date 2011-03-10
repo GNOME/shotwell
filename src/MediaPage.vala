@@ -674,61 +674,60 @@ public abstract class MediaPage : CheckerboardPage {
 
     protected override bool on_app_key_pressed(Gdk.EventKey event) {
         bool handled = true;
-        
         switch (Gdk.keyval_name(event.keyval)) {
             case "equal":
             case "plus":
             case "KP_Add":
-                increase_zoom_level();
+                activate_action("IncreaseSize");
             break;
             
             case "minus":
             case "underscore":
             case "KP_Subtract":
-                decrease_zoom_level();
+                activate_action("DecreaseSize");
             break;
-
+            
             case "period":
-                on_increase_rating();
+                activate_action("IncreaseRating");
             break;
             
             case "comma":
-                on_decrease_rating();
+                activate_action("DecreaseRating");
             break;
-
+            
             case "KP_1":
-                on_rate_one();
+                activate_action("RateOne");
             break;
             
             case "KP_2":
-                on_rate_two();
+                activate_action("RateTwo");
             break;
-
+            
             case "KP_3":
-                on_rate_three();
+                activate_action("RateThree");
             break;
-        
+            
             case "KP_4":
-                on_rate_four();
+                activate_action("RateFour");
             break;
-
+            
             case "KP_5":
-                on_rate_five();
+                activate_action("RateFive");
             break;
-
+            
             case "KP_0":
-                on_rate_unrated();
+                activate_action("RateUnrated");
             break;
-
+            
             case "KP_9":
-                on_rate_rejected();
+                activate_action("RateRejected");
             break;
             
             case "exclam":
                 if (get_ctrl_pressed())
                     get_search_view_filter().set_rating_filter(RatingFilter.ONE_OR_HIGHER);
             break;
-
+            
             case "at":
                 if (get_ctrl_pressed())
                     get_search_view_filter().set_rating_filter(RatingFilter.TWO_OR_HIGHER);
@@ -765,7 +764,7 @@ public abstract class MediaPage : CheckerboardPage {
             break;
             
             case "slash":
-                on_flag_unflag();
+                activate_action("Flag");
             break;
             
             default:
