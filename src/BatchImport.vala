@@ -368,6 +368,7 @@ public class BatchImport : Object {
     private uint throbber_id = 0;
     private int max_outstanding_import_jobs = Workers.thread_per_cpu_minus_one();
     private bool untrash_duplicates = true;
+    private bool mark_duplicates_online = true;
     
     // These queues are staging queues, holding batches of work that must happen in the import
     // process, working on them all at once to minimize overhead.
@@ -456,6 +457,14 @@ public class BatchImport : Object {
     
     public void set_untrash_duplicates(bool untrash_duplicates) {
         this.untrash_duplicates = untrash_duplicates;
+    }
+    
+    public bool get_mark_duplicates_online() {
+        return mark_duplicates_online;
+    }
+    
+    public void set_mark_duplicates_online(bool mark_duplicates_online) {
+        this.mark_duplicates_online = mark_duplicates_online;
     }
     
     private void log_status(string where) {
@@ -785,22 +794,42 @@ public class BatchImport : Object {
                         debug("duplicate linked photo found in trash, untrashing and removing transforms for %s",
                             prepared_file.file.get_path());
                         
+                        photo.set_master_file(prepared_file.file);
                         photo.untrash();
                         photo.remove_all_transformations();
-                        
-                        import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
-                            prepared_file.file.get_path(), prepared_file.file.get_path(), 
-                            ImportResult.SUCCESS);
-                        
-                        report_progress(photo.get_filesize());
-                        file_import_complete();
-                        
-                        continue;
                     }
                 }
                 
-                // Photos with duplicates that exist outside of the trash are marked as already existing.
-                // Photo may not be in LibraryPhoto.global yet, so we'll just trust the database.
+                if (photo == null && mark_duplicates_online) {
+                    // if a duplicate is found marked offline, make it online
+                    photo = LibraryPhoto.global.get_offline_by_file(prepared_file.file);
+                    
+                    if (photo == null && prepared_file.full_md5 != null)
+                        photo = LibraryPhoto.global.get_offline_by_md5(prepared_file.full_md5);
+                    
+                    if (photo != null) {
+                        debug("duplicate photo found marked offline, marking online: %s",
+                            prepared_file.file.get_path());
+                        
+                        photo.set_master_file(prepared_file.file);
+                        photo.mark_online();
+                    }
+                }
+                
+                if (photo != null) {
+                    import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                        prepared_file.file.get_path(), prepared_file.file.get_path(), 
+                        ImportResult.SUCCESS);
+                    
+                    manifest.imported.add(photo);
+                    manifest.add_result(import_result);
+                    
+                    report_progress(photo.get_filesize());
+                    file_import_complete();
+                    
+                    continue;
+                }
+                
                 debug("duplicate photo detected, not importing %s", prepared_file.file.get_path());
                 
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
@@ -815,7 +844,6 @@ public class BatchImport : Object {
             }
             
             report_progress(0);
-            
             ready_files.add(prepared_file);
         }
         

@@ -3655,6 +3655,10 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         return (LibraryPhoto?) get_offline_bin().fetch_by_master_file(file);
     }
     
+    public LibraryPhoto? get_offline_by_md5(string md5) {
+        return (LibraryPhoto?) get_offline_bin().fetch_by_md5(md5);
+    }
+    
     public int get_offline_count() {
         return get_offline_bin().get_count();
     }
