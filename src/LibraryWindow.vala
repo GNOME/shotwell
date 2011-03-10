@@ -514,8 +514,7 @@ public class LibraryWindow : AppWindow {
             "CommonDisplaySearchbar") as Gtk.ToggleAction;
         assert(searchbar_action != null);
         
-        is_search_toolbar_visible = searchbar_action.get_active();
-        search_toolbar.visible = searchbar_action.get_active();
+        search_toolbar.visible = should_show_search_bar();
     }
     
     public static LibraryWindow get_app() {
@@ -1864,13 +1863,12 @@ public class LibraryWindow : AppWindow {
         base.set_current_page(page);
         
         // Update search filter to new page.
-        if (page is CheckerboardPage) {
+        if (should_show_search_bar()) {
             // restore visibility and install filters
-            search_toolbar.visible = is_search_toolbar_visible;
+            search_toolbar.visible = true;
             search_toolbar.set_view_filter(((CheckerboardPage) page).get_search_view_filter());
             page.get_view().install_view_filter(((CheckerboardPage) page).get_search_view_filter());
         } else {
-            // hide search toolbar, but don't reset its CheckboardLayout visibility
             search_toolbar.visible = false;
         }
         
@@ -1886,6 +1884,10 @@ public class LibraryWindow : AppWindow {
         subscribe_for_basic_information(get_current_page());
         
         page.switched_to();
+    }
+    
+    private bool should_show_search_bar() {
+        return (get_current_page() is CheckerboardPage) ? is_search_toolbar_visible : false;
     }
     
     private bool is_page_selected(SidebarPage page, Gtk.TreePath path) {
