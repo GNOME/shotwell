@@ -366,22 +366,28 @@ private void load_module(File file) {
     Spit.EntryPoint spit_entry_point = (Spit.EntryPoint) entry;
     
     assert(MIN_SPIT_INTERFACE <= Spit.CURRENT_INTERFACE && Spit.CURRENT_INTERFACE <= MAX_SPIT_INTERFACE);
-    module_rep.spit_interface = Spit.UNSUPPORTED_INTERFACE;
-    module_rep.spit_module = spit_entry_point(MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE,
-        out module_rep.spit_interface);
-    if (module_rep.spit_interface == Spit.UNSUPPORTED_INTERFACE) {
+    Spit.EntryPointParams params = Spit.EntryPointParams();
+    params.host_min_spit_interface = MIN_SPIT_INTERFACE;
+    params.host_max_spit_interface = MAX_SPIT_INTERFACE;
+    params.module_spit_interface = Spit.UNSUPPORTED_INTERFACE;
+    params.module_file = file;
+    
+    module_rep.spit_module = spit_entry_point(&params);
+    if (params.module_spit_interface == Spit.UNSUPPORTED_INTERFACE) {
         critical("Unable to load module %s: module reports no support for SPIT interfaces %d to %d",
             file.get_path(), MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE);
         
         return;
     }
     
-    if (module_rep.spit_interface < MIN_SPIT_INTERFACE || module_rep.spit_interface > MAX_SPIT_INTERFACE) {
+    if (params.module_spit_interface < MIN_SPIT_INTERFACE || params.module_spit_interface > MAX_SPIT_INTERFACE) {
         critical("Unable to load module %s: module reports unsupported SPIT version %d (out of range %d to %d)",
             file.get_path(), module_rep.spit_interface, MIN_SPIT_INTERFACE, MAX_SPIT_INTERFACE);
         
         return;
     }
+    
+    module_rep.spit_interface = params.module_spit_interface;
     
     // verify type (as best as possible; still potential to segfault inside GType here)
     if (!(module_rep.spit_module is Spit.Module))

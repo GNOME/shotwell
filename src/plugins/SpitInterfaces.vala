@@ -49,25 +49,50 @@ public int negotiate_interfaces(int min_host_interface, int max_host_interface, 
 }
 
 /**
+ * SPIT entry point parameters.
+ *
+ * The host application passes a pointer to this structure for the module's information.
+ * The pointer should //not// be held, as it may be freed or reused by the host application
+ * after calling the entry point.  The module should copy any information it may need (or hold
+ * a GObject reference) in its own memory space.
+ *
+ * Note that the module //must// fill in the module_spit_interface field with the SPIT interface
+ * version it understands prior to returning control.
+ */
+public struct EntryPointParams {
+    /**
+     * The host's minimum supported interface version.
+     */
+    public int host_min_spit_interface;
+    /**
+     * The host's maximum supported interface version.
+     */
+    public int host_max_spit_interface;
+    /**
+     * The module returns here the interface version of SPIT it supports,
+     * {@link UNSUPPORTED_INTERFACE} otherwise.
+     */
+    public int module_spit_interface;
+    /**
+     * A File object representing the library file (.so/la.) that the plugin was loaded from.
+     */
+    public File module_file;
+}
+
+/**
  * SPIT API entry point.
  *
  * Host application passes in the minimum and maximum version of the SPIT
- * interface it supports (values are inclusive). The module returns the version it wishes to
- * use and a pointer to a {@link Spit.Module} (which will remain ref'ed as long as the module is 
- * loaded in memory). The module should return {@link UNSUPPORTED_INTERFACE} is the min/max 
- * are out of its range and null for its Spit.Module. ({@link negotiate_interfaces} is good for 
- * dealing with this.)
+ * interface it supports (values are inclusive) in the {@link EntryPointParams} struct. 
+ * The module returns the version it wishes to use and a pointer to a {@link Spit.Module} (which 
+ * will remain ref'ed by the host as long as the module is loaded in memory). The module should 
+ * return {@link UNSUPPORTED_INTERFACE} if the min/max are out of its range and null for its 
+ * Spit.Module. ({@link negotiate_interfaces} is good for dealing with this.)
  * 
- * @param host_min_spit_interface The host's minimum supported interface version.
- * @param host_max_spit_interface The host's maximum supported interface version.
- * @param module_spit_interface The interface version of SPIT the module supports,
- *        {@link UNSUPPORTED_INTERFACE} otherwise.
- *
  * @return A {@link Spit.Module} if the interface negotiation is acceptable, null otherwise.
  */
 [CCode (has_target = false)]
-public delegate Module? EntryPoint(int host_min_spit_interface, int host_max_spit_interface,
-    out int module_spit_interface);
+public delegate Module? EntryPoint(EntryPointParams *params);
 
 /**
  * SPIT entry point name, which matches {@link EntryPoint}'s interface

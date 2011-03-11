@@ -31,14 +31,12 @@ private class ShotwellPublishingExtraServices : Object, Spit.Module {
 }
 
 // This entry point is required for all SPIT modules.
-public Spit.Module? spit_entry_point(int host_min_spit_interface, int host_max_spit_interface,
-    out int module_spit_interface) {
-    module_spit_interface = Spit.negotiate_interfaces(host_min_spit_interface, host_max_spit_interface,
-        Spit.CURRENT_INTERFACE);
-    if (module_spit_interface == Spit.UNSUPPORTED_INTERFACE)
-        return null;
+public Spit.Module? spit_entry_point(Spit.EntryPointParams *params) {
+    params->module_spit_interface = Spit.negotiate_interfaces(params->host_min_spit_interface,
+        params->host_max_spit_interface, Spit.CURRENT_INTERFACE);
     
-    return new ShotwellPublishingExtraServices();
+    return (params->module_spit_interface != Spit.UNSUPPORTED_INTERFACE)
+        ? new ShotwellPublishingExtraServices() : null;
 }
 
 // valac wants a default entry point, so valac gets a default entry point
