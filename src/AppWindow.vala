@@ -786,6 +786,12 @@ public abstract class AppWindow : PageWindow {
             action.is_important = important;
     }
     
+    public void set_common_action_visible(string name, bool visible) {
+        Gtk.Action? action = get_common_action(name);
+        if (action != null)
+            action.visible = visible;
+    }
+    
     protected override void switched_pages(Page? old_page, Page? new_page) {
         update_common_action_availability(old_page, new_page);
         

@@ -687,6 +687,7 @@ public class LibraryWindow : AppWindow {
         }
         
         set_common_action_sensitive("CommonEmptyTrash", can_empty_trash());
+        set_common_action_visible("CommonJumpToEvent", true);
         set_common_action_sensitive("CommonJumpToEvent", can_jump_to_event());
         set_common_action_sensitive("CommonFullscreen", can_fullscreen);
         
@@ -714,7 +715,6 @@ public class LibraryWindow : AppWindow {
     
     private bool can_jump_to_event() {
         ViewCollection view = get_current_page().get_view();
-        
         if (view.get_selected_count() == 1) {
             DataSource selected_source = view.get_selected_source_at(0);
             if (selected_source is Event)

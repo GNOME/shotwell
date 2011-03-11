@@ -504,14 +504,14 @@ public class EventPage : CollectionPage {
     }
     
     protected override void init_actions(int selected_count, int count) {
-        // hide this command in CollectionPage, as it does not apply here
-        set_action_visible("CommonJumpToEvent", false);
-        
         base.init_actions(selected_count, count);
     }
     
     protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("MakePrimary", selected_count == 1);
+        
+        // hide this command in CollectionPage, as it does not apply here
+        set_action_visible("CommonJumpToEvent", false);
         
         base.update_actions(selected_count, count);
     }
