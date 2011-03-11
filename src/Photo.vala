@@ -43,6 +43,17 @@ public class PhotoImportParams {
         this.full_md5 = full_md5;
         this.thumbnails = thumbnails;
     }
+    
+    // Creates a placeholder import.
+    public PhotoImportParams.create_placeholder(File file, ImportID import_id) {
+        this.file = file;
+        this.import_id = import_id;
+        this.sniffer_options = PhotoFileSniffer.Options.NO_MD5;
+        this.exif_md5 = null;
+        this.thumbnail_md5 = null;
+        this.full_md5 = null;
+        this.thumbnails = null;
+    }
 }
 
 public abstract class PhotoTransformationState : Object {
@@ -753,6 +764,29 @@ public abstract class Photo : PhotoSource {
         debug("IMPORT: total=%lf", total_time.elapsed());
 #endif
         return ImportResult.SUCCESS;
+    }
+    
+    public static void create_pre_import(PhotoImportParams params) {
+        File file = params.file;
+        params.row.photo_id = PhotoID();
+        params.row.master.filepath = file.get_path();
+        params.row.master.dim = Dimensions(0,0);
+        params.row.master.filesize = 0;
+        params.row.master.timestamp = 0;
+        params.row.exposure_time = 0;
+        params.row.orientation = Orientation.TOP_LEFT;
+        params.row.master.original_orientation = Orientation.TOP_LEFT;
+        params.row.import_id = params.import_id;
+        params.row.event_id = EventID();
+        params.row.transformations = null;
+        params.row.md5 = null;
+        params.row.thumbnail_md5 = null;
+        params.row.exif_md5 = null;
+        params.row.time_created = 0;
+        params.row.flags = 0;
+        params.row.master.file_format = PhotoFileFormat.JFIF;
+        params.row.title = null;
+        params.row.rating = Rating.UNRATED;
     }
     
     protected bool query_backing_photo_state(File file, PhotoFileSniffer.Options options,

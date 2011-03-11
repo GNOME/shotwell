@@ -1105,6 +1105,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_photo_page(CollectionPage controller, Photo current) {
+        assert(controller.get_view().get_view_for_source(current) != null);
         if (photo_page == null) {
             photo_page = new LibraryPhotoPage();
             add_orphan_page(photo_page);

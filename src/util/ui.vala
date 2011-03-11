@@ -36,10 +36,18 @@ public enum Direction {
 }
 
 // Returns false if Gtk.quit() was called
-public bool spin_event_loop() {
+public bool spin_event_loop(int max = -1) {
+    if (max == 0)
+        return true;
+    
     while (Gtk.events_pending()) {
         if (Gtk.main_iteration())
             return false;
+        
+        if (max > 0) {
+            if (--max <= 0)
+                break;
+        }
     }
     
     return true;

@@ -21,7 +21,7 @@ public class DirectPhotoPage : EditingHostPage {
         }
         
         initial_file = file;
-        view_controller = new DirectViewCollection(initial_file);
+        view_controller = new DirectViewCollection();
         current_save_dir = file.get_parent();
         
         context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
@@ -237,23 +237,14 @@ public class DirectPhotoPage : EditingHostPage {
         if (base.realize != null)
             base.realize();
         
-        DirectPhoto? photo = null;
-        
-        DirectPhotoPlaceholder? placeholder = DirectPhotoPlaceholder.global.get_source_for_file(initial_file);
-        if (placeholder != null)
-            photo = placeholder.fetch_real_source() as DirectPhoto;
-        
-        if (photo == null || photo is DummyDirectPhoto) {
-            AppWindow.error_message(_("Unable to load %s: %s").printf(initial_file.get_path(),
-                ((DummyDirectPhoto) photo).get_reason()));
-            
-            Application.get_instance().panic();
-            
-            return;
-        }
+        DirectPhoto? photo = DirectPhoto.global.get_file_source(initial_file);
         
         display_mirror_of(view_controller, photo);
         initial_file = null;
+    }
+    
+    protected override void photo_changing(Photo new_photo) {
+        ((DirectPhoto) new_photo).demand_load();
     }
     
     public File get_current_file() {
@@ -427,26 +418,9 @@ public class DirectPhotoPage : EditingHostPage {
             return;
         }
         
-        // create a new placeholder for the dest, unless one already exists, in which case mark it
-        // as requiring a re-import
-        DirectPhotoPlaceholder? placeholder = DirectPhotoPlaceholder.global.get_source_for_file(dest);
-        if (placeholder != null) {
-            placeholder.mark_for_reimport();
-        } else {
-            placeholder = new DirectPhotoPlaceholder(dest);
-            DirectPhotoPlaceholder.global.add(placeholder);
-        }
-        
-        // now fetch the DirectPhoto from the placeholder, which will import it into the database
-        // if not already present, or re-import it if it is
-        DirectPhoto photo = placeholder.fetch_real_source() as DirectPhoto;
-        if (photo is DummyDirectPhoto) {
-            // dead in the water
-            AppWindow.error_message(_("Unable to load %s: %s").printf(dest.get_path(),
-                ((DummyDirectPhoto) photo).get_reason()));
-            
-            return;
-        }
+        // Fetch the DirectPhoto. This will create a set of "dummy" values in the db until 
+        // demand_load() is called on the DirectPhoto.
+        DirectPhoto photo = DirectPhoto.global.get_file_source(dest);
         
         display_mirror_of(view_controller, photo);
     }

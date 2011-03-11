@@ -10,37 +10,50 @@ public class DirectPhoto : Photo {
     public static DirectPhotoSourceCollection global = null;
     
     private Gdk.Pixbuf preview = null;
+    private bool loaded = false;
     
     private DirectPhoto(PhotoRow row) {
         base (row);
     }
     
-    public static void init() {
-        global = new DirectPhotoSourceCollection();
+    public static void init(File initial_file) {
+        global = new DirectPhotoSourceCollection(initial_file);
+        DirectPhoto photo;
+        string? reason = global.fetch(initial_file, out photo, false);
+        if (reason != null)
+            warning("fetch error: %s", reason);
+        global.add(photo);
     }
     
     public static void terminate() {
     }
     
+    // Loads a photo on demand.
+    public ImportResult demand_load() {
+        if (loaded)
+            return ImportResult.SUCCESS;
+
+        Photo.ReimportMasterState reimport_state;
+        try {
+            prepare_for_reimport_master(out reimport_state);
+            finish_reimport_master(reimport_state);
+        } catch (Error err) {
+            warning("Database error on re-importing image: %s", err.message);
+            return ImportResult.DATABASE_ERROR;
+        }
+
+        loaded = true;
+        return ImportResult.SUCCESS;
+    }
+    
     // This method should only be called by DirectPhotoSourceCollection.  Use
     // DirectPhoto.global.fetch to import files into the system.
     public static ImportResult internal_import(File file, out DirectPhoto photo) {
-        PhotoImportParams params = new PhotoImportParams(file, ImportID.generate(),
-            PhotoFileSniffer.Options.NO_MD5, null, null, null);
-        ImportResult result = Photo.prepare_for_import(params);
-        if (result != ImportResult.SUCCESS) {
-            // this should never happen; DirectPhotoSourceCollection guarantees it.
-            assert(result != ImportResult.PHOTO_EXISTS);
-            
-            photo = null;
-            
-            return result;
-        }
-        
+        PhotoImportParams params = new PhotoImportParams.create_placeholder(file, ImportID.generate());
+        Photo.create_pre_import(params);
         PhotoTable.get_instance().add(ref params.row);
         
         photo = new DirectPhoto(params.row);
-        global.add(photo);
         
         return ImportResult.SUCCESS;
     }
@@ -106,57 +119,22 @@ public class DirectPhoto : Photo {
     }
 }
 
-public class DummyDirectPhoto : DirectPhoto, DummyDataSource {
-    private string reason;
-    
-    private DummyDirectPhoto(PhotoRow row, string reason) {
-        base (row);
-        
-        this.reason = reason;
-    }
-    
-    // This creates a DummyDirectPhoto with basic (and invalid) values, but enough to generate
-    // a Photo object.  It also adds the photo to the PhotoTable but not DirectPhoto.global.
-    public static DummyDirectPhoto create(File file, string reason) {
-        PhotoRow row = PhotoRow();
-        row.photo_id = PhotoID();
-        row.master.filepath = file.get_path();
-        row.master.filesize = 0;
-        row.master.timestamp = 0;
-        row.master.file_format = PhotoFileFormat.JFIF;
-        row.master.dim = Dimensions();
-        row.master.original_orientation = Orientation.TOP_LEFT;
-        row.exposure_time = 0;
-        row.import_id = ImportID();
-        row.orientation = Orientation.TOP_LEFT;
-        row.transformations = null;
-        row.md5 = null;
-        row.thumbnail_md5 = null;
-        row.exif_md5 = null;
-        row.time_created = now_time_t();
-        row.flags = 0;
-        row.rating = Rating.UNRATED;
-        row.title = null;
-        row.backlinks = null;
-        row.time_reimported = 0;
-        row.metadata_dirty = false;
-        
-        PhotoTable.get_instance().add(ref row);
-        
-        return new DummyDirectPhoto(row, reason);
-    }
-    
-    public string get_reason() {
-        return reason;
-    }
-}
-
 public class DirectPhotoSourceCollection : DatabaseSourceCollection {
+    private const int DISCOVERED_FILES_BATCH_ADD = 500;
+    private Gee.Collection<DirectPhoto> prepared_photos = new Gee.ArrayList<DirectPhoto>();
     private Gee.HashMap<File, DirectPhoto> file_map = new Gee.HashMap<File, DirectPhoto>(file_hash, 
         file_equal, direct_equal);
+    private DirectoryMonitor monitor;
     
-    public DirectPhotoSourceCollection() {
+    public DirectPhotoSourceCollection(File initial_file) {
         base("DirectPhotoSourceCollection", get_direct_key);
+        
+        // only use the monitor for discovery in the specified directory, not its children
+        monitor = new DirectoryMonitor(initial_file.get_parent(), false, false);
+        monitor.file_discovered.connect(on_file_discovered);
+        monitor.discovery_completed.connect(on_discovery_completed);
+        
+        monitor.start_discovery();
     }
     
     public override bool holds_type_of_source(DataSource source) {
@@ -193,6 +171,37 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
         }
         
         base.notify_items_removed(removed);
+    }
+    
+    public bool has_source_for_file(File file) {
+        return file_map.has_key(file);
+    }
+    
+    private void on_file_discovered(File file, FileInfo info) {
+        // skip already-seen files
+        if (has_source_for_file(file))
+            return;
+        
+        // only add files that look like photo files we support
+        if (!PhotoFileFormat.is_file_supported(file))
+            return;
+        
+        DirectPhoto photo;
+        string? reason = fetch(file, out photo, false);
+        if (reason != null)
+            warning("Error fetching file: %s", reason);
+        prepared_photos.add(photo);
+        if (prepared_photos.size >= DISCOVERED_FILES_BATCH_ADD)
+            flush_prepared_photos();
+    }
+    
+    private void on_discovery_completed() {
+        flush_prepared_photos();
+    }
+    
+    private void flush_prepared_photos() {
+        add_many(prepared_photos);
+        prepared_photos.clear();
     }
     
     public bool has_file(File file) {

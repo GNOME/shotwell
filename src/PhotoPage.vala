@@ -767,11 +767,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return (Photo) get_view().get_selected_at(0).get_source();
     }
     
+    // Called before the photo changes.
+    protected virtual void photo_changing(Photo new_photo) {}
+    
     private void set_photo(Photo photo) {
         zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
         zoom_slider.set_value(0.0);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
         
+        photo_changing(photo);
         DataView view = get_view().get_view_for_source(photo);
         assert(view != null);
         
@@ -2093,9 +2097,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             if (next_photo == null)
                 continue;
             
-            if (next_photo is DummyDataSource)
-                continue;
-            
             if (next_photo == current_photo)
                 break;
             
@@ -2127,9 +2128,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             
             Photo? previous_photo = previous.get_source() as Photo;
             if (previous_photo == null)
-                continue;
-            
-            if (previous_photo is DummyDataSource)
                 continue;
             
             if (previous_photo == current_photo)

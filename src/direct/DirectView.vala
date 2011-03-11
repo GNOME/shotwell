@@ -8,10 +8,10 @@ public class DirectView : DataView {
     private File file;
     private string? collate_key = null;
     
-    public DirectView(DirectPhotoPlaceholder placeholder) {
-        base (placeholder);
+    public DirectView(DirectPhoto source) {
+        base ((DataSource) source);
         
-        this.file = placeholder.get_file();
+        this.file = ((Photo) source).get_file();
     }
     
     public File get_file() {
@@ -29,15 +29,15 @@ public class DirectView : DataView {
 private class DirectViewCollection : ViewCollection {
     private class DirectViewManager : ViewManager {
         public override DataView create_view(DataSource source) {
-            return new DirectView((DirectPhotoPlaceholder) source);
+            return new DirectView((DirectPhoto) source);
         }
     }
     
-    public DirectViewCollection(File initial_file) {
-        base ("DirectViewCollection of %s".printf(initial_file.get_parent().get_path()));
+    public DirectViewCollection() {
+        base ("DirectViewCollection");
         
         set_comparator(filename_comparator, null);
-        monitor_source_collection(DirectPhotoPlaceholder.global, new DirectViewManager(), null);
+        monitor_source_collection(DirectPhoto.global, new DirectViewManager(), null);
     }
     
     private static int64 filename_comparator(void *a, void *b) {

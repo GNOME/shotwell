@@ -532,26 +532,6 @@ public class SourceBacklink {
 }
 
 //
-// The DataSourcePlaceholder interface indicates that a DataSource is actually a placeholder
-// for another "real" DataSource and that it will generate it on-the-fly.  DataView.get_source()
-// will recognize this and return the results of fetch_real_source() rather than the
-// DataSourcePlaceholder itself.  If fetch_real_source() is called multiple times, it's assumed
-// it will not keep creating DataSources, but rather get a previously-created one that's stored
-// in its natural SourceCollection.  It's also assumed that the DataSourcePlaceholder will monitor
-// the "real" DataSource and destroy itself if the real one is destroyed.
-//
-// fetch_real_source() may NOT return null if the real source cannot be generated.  (There is no
-// provision in the DataObject system for a DataView not to return a DataSource.)  If unable to
-// generate a real source, a DummyDataSource must be returned.
-//
-public interface DataSourcePlaceholder : DataSource {
-    public abstract DataSource fetch_real_source();
-}
-
-public interface DummyDataSource : DataSource {
-}
-
-//
 // SourceProxy
 //
 // A SourceProxy allows for a DataSource's state to be maintained in memory regardless of

@@ -6,7 +6,6 @@
 
 public class DataView : DataObject {
     private DataSource source;
-    private DataSourcePlaceholder? placeholder;
     private bool selected = false;
     private bool visible = true;
     
@@ -32,7 +31,6 @@ public class DataView : DataObject {
     
     public DataView(DataSource source) {
         this.source = source;
-        placeholder = source as DataSourcePlaceholder;
         
         // subscribe to the DataSource, which sets up signal reflection and gives the DataView
         // first notification of destruction.
@@ -45,7 +43,7 @@ public class DataView : DataObject {
 #endif
         source.internal_unsubscribe(this);
     }
- 
+    
     public override string get_name() {
         return "View of %s".printf(source.get_name());
     }
@@ -55,13 +53,7 @@ public class DataView : DataObject {
     }
     
     public DataSource get_source() {
-        if (placeholder == null)
-            return source;
-        
-        DataSource real_source = placeholder.fetch_real_source();
-        assert(real_source != null);
-        
-        return real_source;
+        return source;
     }
     
     public bool is_selected() {

@@ -14,8 +14,7 @@ UNIT_FILES := \
     DirectWindow.vala \
     DirectPhoto.vala \
     DirectPhotoPage.vala \
-    DirectView.vala \
-    DirectPhotoPlaceholder.vala
+    DirectView.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

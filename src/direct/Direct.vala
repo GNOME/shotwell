@@ -24,13 +24,11 @@ public void preconfigure(File initial_file) {
 public void init() throws Error {
     assert(initial_file != null);
     
-    DirectPhoto.init();
-    DirectPhotoPlaceholder.init(initial_file);
+    DirectPhoto.init(initial_file);
 }
 
 public void terminate() {
     DirectPhoto.terminate();
-    DirectPhotoPlaceholder.terminate();
 }
 
 }
