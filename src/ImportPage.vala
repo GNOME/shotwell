@@ -689,6 +689,14 @@ public class ImportPage : CheckerboardPage {
         return icon != null ? icon : new GLib.ThemedIcon(Resources.ICON_CAMERAS);
     }
 
+    // Ticket #3304 - Import page shouldn't display confusing message
+    // prior to import. 
+    // TODO: replace this with approved text for "talking to camera, 
+    // please wait" once new strings are being accepted.   
+    protected override string get_view_empty_message() {
+        return ("");
+    }        
+
     private static int64 preview_comparator(void *a, void *b) {
         return ((ImportPreview *) a)->get_import_source().get_exposure_time()
             - ((ImportPreview *) b)->get_import_source().get_exposure_time();
