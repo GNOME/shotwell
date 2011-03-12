@@ -8,6 +8,10 @@
 using Spit;
 
 private class FadeEffectDescriptor : ShotwellTransitionDescriptor {
+    public FadeEffectDescriptor(GLib.File resource_directory) {
+        base(resource_directory);
+    }
+
     public override unowned string get_id() {
         return "org.yorba.shotwell.transitions.fade";
     }

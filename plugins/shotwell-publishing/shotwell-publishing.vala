@@ -10,11 +10,15 @@ extern const string _VERSION;
 private class ShotwellPublishingCoreServices : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
 
-    public ShotwellPublishingCoreServices() {
-        pluggables += new FacebookService();
-        pluggables += new PicasaService();
-        pluggables += new FlickrService();
-        pluggables += new YouTubeService();
+    // we need to get a module file handle because our pluggables have to load resources from the
+    // module file directory
+    public ShotwellPublishingCoreServices(GLib.File module_file) {
+        GLib.File resource_directory = module_file.get_parent();
+        
+        pluggables += new FacebookService(resource_directory);
+        pluggables += new PicasaService(resource_directory);
+        pluggables += new FlickrService(resource_directory);
+        pluggables += new YouTubeService(resource_directory);
     }
     
     public unowned string get_module_name() {
@@ -40,7 +44,7 @@ public Spit.Module? spit_entry_point(Spit.EntryPointParams *params) {
         params->host_max_spit_interface, Spit.CURRENT_INTERFACE);
     
     return (params->module_spit_interface != Spit.UNSUPPORTED_INTERFACE)
-        ? new ShotwellPublishingCoreServices() : null;
+        ? new ShotwellPublishingCoreServices(params->module_file) : null;
 }
 
 // valac wants a default entry point, so valac gets a default entry point

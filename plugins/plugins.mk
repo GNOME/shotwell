@@ -3,6 +3,13 @@ PLUGINS := \
 	shotwell-transitions \
 	shotwell-publishing
 
+PLUGINS_RC := \
+	plugins/shotwell-publishing/facebook.png \
+	plugins/shotwell-publishing/flickr.png \
+	plugins/shotwell-publishing/picasa.png \
+	plugins/shotwell-publishing/youtube.png \
+	plugins/shotwell-transitions/slideshow-plugin.png
+
 EXTRA_PLUGINS := \
 	shotwell-publishing-extras
 

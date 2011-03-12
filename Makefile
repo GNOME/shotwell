@@ -182,7 +182,9 @@ ICON_FILES = \
 	two-stars.svg \
 	videos-page.png \
 	zoom-in.png \
-	zoom-out.png
+	zoom-out.png \
+	slideshow-extension-point.png \
+	generic-plugin.png
 
 HELP_FILES = \
 	edit-adjustments.page \

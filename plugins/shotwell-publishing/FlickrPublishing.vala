@@ -5,6 +5,15 @@
  */
 
 public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
+    private const string ICON_FILENAME = "flickr.png";
+
+    private static Gdk.Pixbuf[] icon_pixbuf_set = null;
+    
+    public FlickrService(GLib.File resource_directory) {
+        if (icon_pixbuf_set == null)
+            icon_pixbuf_set = Resources.load_icon_set(resource_directory.get_child(ICON_FILENAME));
+    }
+
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,
             Spit.Publishing.CURRENT_INTERFACE);
@@ -27,6 +36,7 @@ public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.website_url = Resources.WEBSITE_URL;
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
+        info.icons = icon_pixbuf_set;
     }
 
     public void activation(bool enabled) {

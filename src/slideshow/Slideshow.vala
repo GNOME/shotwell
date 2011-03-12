@@ -13,7 +13,7 @@ public void init() throws Error {
     core_ids += "org.yorba.shotwell.transitions.slide";
     
     Plugins.register_extension_point(typeof(Spit.Transitions.Descriptor), _("Slideshow Transitions"),
-        Resources.ICON_CAMERAS, core_ids);
+        Resources.ICON_SLIDESHOW_EXTENSION_POINT, core_ids);
     TransitionEffectsManager.init();
 }
 
