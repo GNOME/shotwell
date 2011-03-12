@@ -415,6 +415,12 @@ public class SearchFilterActions {
     
     public signal void text_changed(string? text);
     
+    // Ticket #3290 - Hide some search bar fields when they
+    // cannot be used.
+    // Part 1 - we use this to announce when the criteria have changed,
+    // and the toolbar can listen for it and hide or show widgets accordingly.
+    public signal void criteria_changed();
+    
     public SearchFilterActions() {
         // the getters defined above should not be used until register() returns
         register();
@@ -429,6 +435,10 @@ public class SearchFilterActions {
     
     public Gtk.ActionGroup get_action_group() {
         return action_group;
+    }
+    
+    public SearchFilterCriteria get_criteria() {
+        return criteria;
     }
     
     public unowned Gtk.Action? get_action(string name) {
@@ -453,6 +463,9 @@ public class SearchFilterActions {
     public void set_sensitive_for_search_criteria(SearchFilterCriteria criteria) {
         this.criteria = criteria;
         update_sensitivities();
+        
+        // Announce that we've gotten a new criteria...
+        criteria_changed();
     }
     
     public void monitor_page_contents(Page? old_page, Page? new_page) {
@@ -864,6 +877,12 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     private LabelToolItem label_type;
     private LabelToolItem label_flagged;
     private LabelToolItem label_rating;
+    private ToggleActionToolButton toolbtn_photos;
+    private ToggleActionToolButton toolbtn_videos;
+    private ToggleActionToolButton toolbtn_raw;
+    private ToggleActionToolButton toolbtn_flag;
+    private Gtk.SeparatorToolItem sepr_mediatype_flagged;
+    private Gtk.SeparatorToolItem sepr_flagged_rating;
     
     public SearchFilterToolbar(SearchFilterActions actions) {
         this.actions = actions;
@@ -885,20 +904,29 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         // Type label and toggles
         label_type = new LabelToolItem(_("Type"), 10, 5);
         insert(label_type, -1);
-        insert(new ToggleActionToolButton(actions.photos), -1);
-        insert(new ToggleActionToolButton(actions.videos), -1);
-        insert(new ToggleActionToolButton(actions.raw), -1);
+        
+        toolbtn_photos = new ToggleActionToolButton(actions.photos); 
+        toolbtn_videos = new ToggleActionToolButton(actions.videos);
+        toolbtn_raw = new ToggleActionToolButton(actions.raw);
+        
+        insert(toolbtn_photos, -1);
+        insert(toolbtn_videos, -1);
+        insert(toolbtn_raw, -1);
         
         // separator
-        insert(new Gtk.SeparatorToolItem(), -1);
+        sepr_mediatype_flagged = new Gtk.SeparatorToolItem();
+        insert(sepr_mediatype_flagged, -1);
         
         // Flagged label and toggle
         label_flagged = new LabelToolItem(_("Flagged"));
         insert(label_flagged, -1);
-        insert(new ToggleActionToolButton(actions.flagged), -1);
+        
+        toolbtn_flag = new ToggleActionToolButton(actions.flagged);
+        insert(toolbtn_flag, -1);
         
         // separator
-        insert(new Gtk.SeparatorToolItem(), -1);
+        sepr_flagged_rating = new Gtk.SeparatorToolItem();
+        insert(sepr_flagged_rating, -1);
         
         // Rating label and button
         label_rating = new LabelToolItem(_("Rating"));
@@ -946,6 +974,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.raw_toggled.connect(on_raw_toggled);
         actions.rating_changed.connect(on_rating_changed);
         actions.text_changed.connect(on_search_text_changed);
+        actions.criteria_changed.connect(on_criteria_changed);
     }
     
     ~SearchFilterToolbar() {
@@ -957,6 +986,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.raw_toggled.disconnect(on_raw_toggled);
         actions.rating_changed.disconnect(on_rating_changed);
         actions.text_changed.disconnect(on_search_text_changed);
+        actions.criteria_changed.disconnect(on_criteria_changed);
     }
     
     private void on_colors_changed() {
@@ -988,6 +1018,13 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     }
     
     private void on_rating_changed() {
+        update();
+    }
+    
+    // Ticket #3290, part II - listen for criteria change signals,
+    // and show or hide widgets based on the criteria we just 
+    // changed to.
+    private void on_criteria_changed() {
         update();
     }
     
@@ -1023,6 +1060,30 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         search_filter.set_rating_filter(filter);
         rating_button.set_filter_icon(filter);
         
+        // Ticket #3290, part III - check the current criteria
+        // and show or hide widgets as needed.
+        SearchFilterCriteria criteria = actions.get_criteria();
+        
+        search_box.visible = ((criteria & SearchFilterCriteria.TEXT) != 0);
+
+        rating_button.visible = ((criteria & SearchFilterCriteria.RATING) != 0);
+        label_rating.visible = ((criteria & SearchFilterCriteria.RATING) != 0);
+        
+        label_flagged.visible = ((criteria & SearchFilterCriteria.FLAG) != 0);
+        toolbtn_flag.visible = ((criteria & SearchFilterCriteria.FLAG) != 0);
+        
+        label_type.visible = ((criteria & SearchFilterCriteria.MEDIA) != 0);
+        toolbtn_photos.visible = ((criteria & SearchFilterCriteria.MEDIA) != 0); 
+        toolbtn_videos.visible = ((criteria & SearchFilterCriteria.MEDIA) != 0);
+        toolbtn_raw.visible = ((criteria & SearchFilterCriteria.MEDIA) != 0);
+
+        // Ticket #3290, part IV - ensure that the separators
+        // are shown and/or hidden as needed.
+        sepr_mediatype_flagged.visible = (label_type.visible && label_flagged.visible);
+
+        sepr_flagged_rating.visible = ((label_type.visible && label_rating.visible) || 
+        	(label_flagged.visible && label_rating.visible));
+
         // Send update to view collection.
         search_filter.refresh();
     }
