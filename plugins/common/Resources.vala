@@ -34,7 +34,7 @@ public const string TRANSLATORS = _("translator-credits");
 // pretty common in the GNOME world), then this function can be modified to load an entire icon
 // set without its interface needing to change, since given one icon filename, we can
 // determine the others.
-public Gdk.Pixbuf[] load_icon_set(GLib.File? icon_file) {
+public Gdk.Pixbuf[]? load_icon_set(GLib.File? icon_file) {
     Gdk.Pixbuf? icon = null;
     try {
         icon = new Gdk.Pixbuf.from_file(icon_file.get_path());
