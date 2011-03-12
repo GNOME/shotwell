@@ -26,7 +26,7 @@ SRC_FILES := ../common/Resources.vala $(SRC_FILES)
 all: $(PLUGIN).so
 
 $(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
-	$(VALAC) --save-temps --main=dummy_main --vapidir=../ \
+	$(VALAC) -g --enable-checking --fatal-warnings --save-temps --main=dummy_main --vapidir=../ \
 		$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
 		-X -I../.. -X --shared -X -fPIC -X -D_VERSION='"$(PLUGINS_VERSION)"' \
 		-X -DGETTEXT_PACKAGE='"shotwell"' $(SRC_FILES) -o $@
