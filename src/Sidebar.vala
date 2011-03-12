@@ -67,6 +67,8 @@ public interface SidebarPage : Object {
 }
 
 public class Sidebar : Gtk.TreeView {
+    public const int ICON_SIZE = 16;
+    
     private enum Columns {
         NAME,
         TOOLTIP,
@@ -95,7 +97,7 @@ public class Sidebar : Gtk.TreeView {
     private Gtk.CellRendererPixbuf icon;
     private Gtk.CellRendererText text;
     private Gtk.Entry? text_entry = null;
-    private Gee.HashMap<GLib.Icon, Gdk.Pixbuf> icon_cache = new Gee.HashMap<GLib.Icon, Gdk.Pixbuf>();
+    private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = new Gee.HashMap<string, Gdk.Pixbuf>();
     private int editing_disabled = 0;
     
     private ThemedIcon icon_folder_open = new ThemedIcon(Resources.ICON_FOLDER_OPEN);
@@ -236,11 +238,11 @@ public class Sidebar : Gtk.TreeView {
     }
     
     private Gdk.Pixbuf? lookup_icon(GLib.Icon gicon) throws Error {
-        Gdk.Pixbuf? icon = icon_cache.get(gicon);
+        Gdk.Pixbuf? icon = icon_cache.get(gicon.to_string());
         if (icon != null)
             return icon;
         
-        Gtk.IconInfo? info = icon_theme.lookup_by_gicon(gicon, 16, 0);
+        Gtk.IconInfo? info = icon_theme.lookup_by_gicon(gicon, ICON_SIZE, 0);
         if (info == null)
             return null;
         
@@ -248,7 +250,7 @@ public class Sidebar : Gtk.TreeView {
         if (icon == null)
             return null;
         
-        icon_cache.set(gicon, icon);
+        icon_cache.set(gicon.to_string(), icon);
         
         return icon;
     }
