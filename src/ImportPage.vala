@@ -1401,7 +1401,7 @@ public class ImportPage : CheckerboardPage {
                 manifest.success.size)).printf(manifest.success.size);
 
             string question_string = ImportUI.get_media_specific_string(manifest.success,
-                photos_string, videos_string, both_string);
+                photos_string, videos_string, both_string, _("File error"));
 
             ImportUI.QuestionParams question = new ImportUI.QuestionParams(
                 question_string, Gtk.STOCK_DELETE, _("_Keep"));

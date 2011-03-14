@@ -98,7 +98,7 @@ public enum ImportResult {
                 return ImportResult.DISK_FAILURE;
             else if (ferr is FileError.ISDIR)
                 return ImportResult.NOT_A_FILE;
-            else if (ferr is FileError.ACCES || ferr is FileError.PERM)
+            else if (ferr is FileError.ACCES)
                 return ImportResult.FILE_WRITE_ERROR;
             else
                 return ImportResult.FILE_ERROR;
@@ -113,7 +113,7 @@ public enum ImportResult {
                 return ImportResult.NOT_A_FILE;
             else if (ioerr is IOError.CANCELLED)
                 return ImportResult.USER_ABORT;
-            else if (ioerr is IOError.PERMISSION_DENIED || ioerr is IOError.READ_ONLY)
+            else if (ioerr is IOError.READ_ONLY)
                 return ImportResult.FILE_WRITE_ERROR;
             else
                 return ImportResult.FILE_ERROR;
