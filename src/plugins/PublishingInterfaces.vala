@@ -537,6 +537,11 @@ public interface Publishable : GLib.Object {
      */
     public abstract Spit.Publishing.Publisher.MediaType get_media_type();
     
+    /**
+     * Returns the creation timestamp on the file.
+     */
+    public abstract GLib.DateTime get_exposure_date_time();
+    
     //
     // For future expansion.
     //

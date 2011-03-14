@@ -563,15 +563,30 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         host.install_dialog_pane(publishing_options_pane);
     }
+    
+    public static int flickr_date_time_compare_func(Spit.Publishing.Publishable a, 
+        Spit.Publishing.Publishable b) {
+        return a.get_exposure_date_time().compare(b.get_exposure_date_time());
+    }
 
     private void do_publish() {
         debug("ACTION: uploading media items to remote server.");
 
         host.set_service_locked(true);
-        
         progress_reporter = host.serialize_publishables(parameters.photo_major_axis_size);
+        
+        // Sort publishables in reverse-chronological order.
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
-        Uploader uploader = new Uploader(session, publishables, parameters);
+        Gee.SortedSet<Spit.Publishing.Publishable> sorted_set = 
+            new Gee.TreeSet<Spit.Publishing.Publishable>((CompareFunc) flickr_date_time_compare_func);
+        foreach (Spit.Publishing.Publishable p in publishables) {
+            sorted_set.add(p);
+        }
+        
+        // The sorted_publishables array exists as a workaround for a crash.  See:
+        // http://trac.yorba.org/ticket/3352 for more information.
+        Spit.Publishing.Publishable[] sorted_publishables = sorted_set.to_array();
+        Uploader uploader = new Uploader(session, sorted_publishables, parameters);
 
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
