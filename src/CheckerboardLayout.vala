@@ -1011,13 +1011,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             row_rect.width = allocation.width;
             row_rect.height = row.height;
             
-            if (area.intersect(row_rect, bitbucket)) {
+            if (area.intersect(row_rect, out bitbucket)) {
                 // see what elements, if any, intersect the area
                 foreach (CheckerboardItem item in row.items) {
                     if (item == null)
                         continue;
                     
-                    if (area.intersect(item.allocation, bitbucket))
+                    if (area.intersect(item.allocation, out bitbucket))
                         intersects.add(item);
                 }
             }
@@ -1544,7 +1544,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             
             // only mark area as dirty if visible in viewport
             Gdk.Rectangle intersection = Gdk.Rectangle();
-            if (!visible_page.intersect(item.allocation, intersection))
+            if (!visible_page.intersect(item.allocation, out intersection))
                 continue;
             
             // grow the dirty area
@@ -1648,7 +1648,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // find the visible intersection of the viewport and the selection band
         Gdk.Rectangle visible_page = get_adjustment_page(hadjustment, vadjustment);
         Gdk.Rectangle visible_band = Gdk.Rectangle();
-        visible_page.intersect(selection_band, visible_band);
+        visible_page.intersect(selection_band, out visible_band);
         
         // pixelate selection rectangle interior
         if (visible_band.width > 1 && visible_band.height > 1) {
