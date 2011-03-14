@@ -386,6 +386,7 @@ public abstract class MultipleDataSourceCommand : PageCommand {
     }
 }
 
+// TODO: Upgrade MultipleDataSourceAtOnceCommand to use TransactionControllers.
 public abstract class MultipleDataSourceAtOnceCommand : PageCommand {
     private Gee.HashSet<DataSource> sources = new Gee.HashSet<DataSource>();
     private Gee.HashSet<SourceCollection> hooked_collections = new Gee.HashSet<SourceCollection>();
@@ -552,6 +553,29 @@ public class EditTitleCommand : SingleDataSourceCommand {
     
     public override void undo() {
         ((MediaSource) source).set_title(old_title);
+    }
+}
+
+public class EditMultipleTitlesCommand : MultipleDataSourceAtOnceCommand {
+    public string new_title;
+    public Gee.HashMap<MediaSource, string?> old_titles = new Gee.HashMap<MediaSource, string?>();
+    
+    public EditMultipleTitlesCommand(Gee.Collection<MediaSource> media_sources, string new_title) {
+        base (media_sources, Resources.EDIT_TITLE_LABEL, Resources.EDIT_TITLE_TOOLTIP);
+        
+        this.new_title = new_title;
+        foreach (MediaSource media in media_sources)
+            old_titles.set(media, media.get_title());
+    }
+    
+    public override void execute_on_all(Gee.Collection<DataSource> sources) {
+        foreach (DataSource source in sources)
+            ((MediaSource) source).set_title(new_title);
+    }
+    
+    public override void undo_on_all(Gee.Collection<DataSource> sources) {
+        foreach (DataSource source in sources)
+            ((MediaSource) source).set_title(old_titles.get((MediaSource) source));
     }
 }
 

@@ -882,9 +882,13 @@ public class EditTitleDialog : TextEntryDialogMediator {
     public EditTitleDialog(string? photo_title) {
         base (_("Edit Title"), _("Title:"), photo_title);
     }
-
+    
     public virtual string? execute() {
         return MediaSource.prep_title(_execute());
+    }
+    
+    protected override bool on_modify_validate(string text) {
+        return true;
     }
 }
 

@@ -511,7 +511,7 @@ public abstract class MediaPage : CheckerboardPage {
     
     protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("Export", selected_count > 0);
-        set_action_sensitive("EditTitle", selected_count == 1);
+        set_action_sensitive("EditTitle", selected_count > 0);
         set_action_sensitive("IncreaseSize", get_thumb_size() < Thumbnail.MAX_SCALE);
         set_action_sensitive("DecreaseSize", get_thumb_size() > Thumbnail.MIN_SCALE);
         set_action_sensitive("RemoveFromLibrary", selected_count > 0);
@@ -953,19 +953,15 @@ public abstract class MediaPage : CheckerboardPage {
     }
 
     protected virtual void on_edit_title() {
-        // only edit one title at a time
-        if (get_view().get_selected_count() != 1)
+        if (get_view().get_selected_count() == 0)
             return;
-
-        MediaSource item = (MediaSource) get_view().get_selected_at(0).get_source();
         
-        EditTitleDialog edit_title_dialog = new EditTitleDialog(item.get_title());
+        Gee.List<MediaSource> media_sources = (Gee.List<MediaSource>) get_view().get_selected_sources();
+        
+        EditTitleDialog edit_title_dialog = new EditTitleDialog(media_sources[0].get_title());
         string? new_title = edit_title_dialog.execute();
-        if (new_title == null)
-            return;
-        
-        EditTitleCommand command = new EditTitleCommand(item, new_title);
-        get_command_manager().execute(command);
+        if (new_title != null)
+            get_command_manager().execute(new EditMultipleTitlesCommand(media_sources, new_title));
     }
 
     protected virtual void on_display_titles(Gtk.Action action) {

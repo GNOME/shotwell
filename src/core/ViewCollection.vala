@@ -979,8 +979,8 @@ public class ViewCollection : DataCollection {
         return selected.get_count();
     }
     
-    public Gee.Collection<DataView> get_selected() {
-        return (Gee.Collection<DataView>) selected.get_all();
+    public Gee.List<DataView> get_selected() {
+        return (Gee.List<DataView>) selected.get_all();
     }
     
     public DataView? get_selected_at(int index) {
@@ -1129,8 +1129,8 @@ public class ViewCollection : DataCollection {
         return sources;
     }
     
-    public Gee.Collection<DataSource> get_selected_sources() {
-        Gee.Collection<DataSource> sources = new Gee.ArrayList<DataSource>();
+    public Gee.List<DataSource> get_selected_sources() {
+        Gee.List<DataSource> sources = new Gee.ArrayList<DataSource>();
         
         int count = selected.get_count();
         for (int ctr = 0; ctr < count; ctr++)
@@ -1145,8 +1145,8 @@ public class ViewCollection : DataCollection {
         return (object != null) ? ((DataView) object).get_source() : null;
     }
     
-    public Gee.Collection<DataSource>? get_selected_sources_of_type(Type t) {
-        Gee.Collection<DataSource>? sources = null;
+    public Gee.List<DataSource>? get_selected_sources_of_type(Type t) {
+        Gee.List<DataSource>? sources = null;
         foreach (DataView view in get_selected()) {
             DataSource source = view.get_source();
             if (source.get_type().is_a(t)) {

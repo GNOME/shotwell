@@ -209,6 +209,12 @@ public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
         }
     }
     
+    public Gee.List<G> read_only_view_as_list {
+        owned get {
+            return list.read_only_view;
+        }
+    }
+    
     public G? remove_at(int index) {
         return list.remove_at(index);
     }

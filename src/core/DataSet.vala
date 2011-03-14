@@ -84,8 +84,8 @@ public class DataSet {
         list.resort(comparator_wrapper);
     }
     
-    public Gee.Collection<DataObject> get_all() {
-        return list.read_only_view;
+    public Gee.List<DataObject> get_all() {
+        return list.read_only_view_as_list;
     }
     
     public DataSet copy() {
