@@ -184,7 +184,12 @@ ICON_FILES = \
 	zoom-in.png \
 	zoom-out.png \
 	slideshow-extension-point.png \
-	generic-plugin.png
+	generic-plugin.png \
+	filter-raw.png \
+	filter-photos.png \
+	filter-videos.png \
+	filter-flagged.png
+
 
 HELP_FILES = \
 	edit-adjustments.page \
