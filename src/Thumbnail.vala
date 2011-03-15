@@ -38,29 +38,21 @@ public class Thumbnail : MediaSourceItem {
         base (media, media.get_dimensions().get_scaled(scale, true), media.get_name());
         
         this.media = media;
-
+        this.scale = scale;
+        
         Tag.global.container_contents_altered.connect(on_tag_contents_altered);
         Tag.global.items_altered.connect(on_tags_altered);
-
-        if (media is LibraryPhoto) {
-            LibraryPhoto.global.items_altered.connect(on_sources_altered);
-            set_enable_sprockets(false);
-        } else if (media is Video) {
-            Video.global.items_altered.connect(on_sources_altered);
-            set_enable_sprockets(true);
-        } else {
-            error("can't construct Thumbnail: unsupported media type");
-        }
         
-        this.scale = scale;
+        assert((media is LibraryPhoto) || (media is Video));
+        set_enable_sprockets(media is Video);
         
         original_dim = media.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
         
         // initialize title and tags text line so they're properly accounted for when the display
         // size is calculated
-        update_title();
-        update_tags();
+        update_title(true);
+        update_tags(true);
     }
 
     ~Thumbnail() {
@@ -69,21 +61,16 @@ public class Thumbnail : MediaSourceItem {
 
         Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
         Tag.global.items_altered.disconnect(on_tags_altered);
-
-        if (media is Photo)
-            LibraryPhoto.global.items_altered.disconnect(on_sources_altered);
-        else if (media is Video)
-            Video.global.items_altered.disconnect(on_sources_altered);
-        else
-            error("Thumbnail.destroy( ): thumbnail internal state references unsupported media type");
     }
     
-    private void update_tags() {
+    private void update_tags(bool init = false) {
         Gee.Collection<Tag>? tags = Tag.global.fetch_sorted_for_source(media);
         if (tags == null || tags.size == 0)
             clear_subtitle();
-        else
+        else if (!init)
             set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>", true), true);
+        else
+            set_subtitle("<small>.</small>", true);
     }
     
     private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,
@@ -114,20 +101,21 @@ public class Thumbnail : MediaSourceItem {
         }
     }
     
-    private void update_title() {
+    private void update_title(bool init = false) {
         string title = media.get_name();
         if (is_string_empty(title))
             clear_title();
-        else
+        else if (!init)
             set_title(title);
+        else
+            set_title("");
     }
     
-    private void on_sources_altered(Gee.Map<DataObject, Alteration> map) {
-        if (!exposure || !map.has_key(media))
-            return;
-        
-        if (map.get(media).has_detail("metadata", "name"))
+    protected override void notify_altered(Alteration alteration) {
+        if (exposure && alteration.has_detail("metadata", "name"))
             update_title();
+        
+        base.notify_altered(alteration);
     }
     
     public MediaSource get_media_source() {
@@ -147,7 +135,7 @@ public class Thumbnail : MediaSourceItem {
     }
     
     public static int64 title_ascending_comparator(void *a, void *b) {
-        int64 result = strcmp(((Thumbnail *) a)->get_name(), ((Thumbnail *) b)->get_name());
+        int64 result = strcmp(((Thumbnail *) a)->media.get_name(), ((Thumbnail *) b)->media.get_name());
         
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }

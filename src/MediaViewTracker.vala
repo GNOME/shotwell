@@ -17,11 +17,11 @@ public class MediaViewTracker : Core.ViewTracker {
 }
 
 public class MediaAccumulator : Object, Core.TrackerAccumulator {
-    public int total { get; private set; default = 0; }
-    public int photos { get; private set; default = 0; }
-    public int videos { get; private set; default = 0; }
-    public int raw { get; private set; default = 0; }
-    public int flagged { get; private set; default = 0; }
+    public int total = 0;
+    public int photos = 0;
+    public int videos = 0;
+    public int raw = 0;
+    public int flagged = 0;
     
     public bool include(DataObject object) {
         DataSource source = ((DataView) object).get_source();

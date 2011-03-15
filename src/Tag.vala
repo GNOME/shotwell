@@ -75,15 +75,11 @@ public class TagSourceCollection : ContainerSourceCollection {
     }
     
     // Returns a sorted set of all Tags associated with the media source (ascending by name).
+    //
+    // NOTE: As an optimization, this returns the list that is maintained by Tags.global.
+    // Do NOT modify this list.
     public Gee.SortedSet<Tag>? fetch_sorted_for_source(MediaSource photo) {
-        Gee.SortedSet<Tag>? tags = sorted_source_map.get(photo);
-        if (tags == null)
-            return null;
-        
-        Gee.SortedSet<Tag> copy = new Gee.TreeSet<Tag>(Tag.compare_names);
-        copy.add_all(tags);
-        
-        return copy;
+        return sorted_source_map.get(photo);
     }
     
     // Returns null if not Tag with name exists.

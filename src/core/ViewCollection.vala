@@ -219,6 +219,8 @@ public class ViewCollection : DataCollection {
         // cannot use source monitoring and mirroring at the same time
         halt_mirroring();
         
+        freeze_notifications();
+        
         // create a monitor, which will hook up all the signals and filter from there
         MonitorImpl monitor = new MonitorImpl(this, sources, manager, prereq);
         monitors.set(sources, monitor);
@@ -234,6 +236,8 @@ public class ViewCollection : DataCollection {
             // load in all items from the SourceCollection, filtering with the manager
             add_sources(sources, (Gee.Iterable<DataSource>) sources.get_all(), progress_monitor);
         }
+        
+        thaw_notifications();
         
         return monitor;
     }
