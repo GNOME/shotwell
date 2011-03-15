@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-03 20:17+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-03-04 18:33+0000\n"
+"Last-Translator: Praveen_Illa <mail2ipn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: plugins/shotwell-publishing/YouTubePublishing.vala:23
 #: plugins/shotwell-publishing/FlickrPublishing.vala:23
 msgid "translator-credits"
-msgstr ""
+msgstr "అనువాదకుడి వివరాలు"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -3135,12 +3135,12 @@ msgstr ""
 
 #: src/alien_db/AlienDatabaseImportDialog.vala:97
 msgid "No database selected"
-msgstr ""
+msgstr "ఏ డేటాబేసు ఎంచుకోలేదు"
 
 #: src/alien_db/AlienDatabaseImportDialog.vala:135
 #, c-format
 msgid "%s Database"
-msgstr ""
+msgstr "%s డేటాబేసు"
 
 #: src/alien_db/AlienDatabaseImportDialog.vala:155
 msgid "Shotwell failed to load the database file"

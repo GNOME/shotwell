@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-03 20:17+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-03-05 08:29+0000\n"
+"Last-Translator: zerng07 <pswo10680@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,11 +102,11 @@ msgstr "更多關於 Shotwell 的資訊"
 
 #: src/AppWindow.vala:514
 msgid "_Frequently Asked Questions"
-msgstr ""
+msgstr "常見問答集(_F)"
 
 #: src/AppWindow.vala:515
 msgid "Answers to common questions about Shotwell"
-msgstr ""
+msgstr "有關 Shotwell 的常見問題回答"
 
 #: src/AppWindow.vala:605 src/AppWindow.vala:619 src/AppWindow.vala:636
 #: src/TagPage.vala:143 src/WebConnectors.vala:995 src/Dialogs.vala:945
@@ -142,7 +142,7 @@ msgstr "無法顯示幫助：%s"
 #: src/AppWindow.vala:686
 #, c-format
 msgid "Unable to display FAQ: %s"
-msgstr ""
+msgstr "無法顯示 FAQ：%s"
 
 #: src/ImportPage.vala:328
 msgid ""
@@ -324,7 +324,7 @@ msgstr "設定值"
 
 #: src/SlideshowPage.vala:43
 msgid "_Delay:"
-msgstr ""
+msgstr "延遲(_D)："
 
 #: src/SlideshowPage.vala:45 src/SlideshowPage.vala:47
 msgid "seconds"
@@ -332,15 +332,15 @@ msgstr "秒"
 
 #: src/SlideshowPage.vala:63
 msgid "_Transition effect:"
-msgstr ""
+msgstr "轉場效果(_T)："
 
 #: src/SlideshowPage.vala:90
 msgid "Transition d_elay:"
-msgstr ""
+msgstr "轉場延遲(_D)："
 
 #: src/SlideshowPage.vala:187
 msgid "Slideshow"
-msgstr "投影片"
+msgstr "投影秀"
 
 #: src/SlideshowPage.vala:200
 msgid "Back"
@@ -356,7 +356,7 @@ msgstr "暫停"
 
 #: src/SlideshowPage.vala:208 src/SlideshowPage.vala:313
 msgid "Pause the slideshow"
-msgstr "暫停放映投影片"
+msgstr "暫停投影秀"
 
 #: src/SlideshowPage.vala:214
 msgid "Next"
@@ -368,7 +368,7 @@ msgstr "前往下一張相片"
 
 #: src/SlideshowPage.vala:222
 msgid "Change slideshow settings"
-msgstr "變更投影片設定值"
+msgstr "變更投影秀設定值"
 
 #: src/SlideshowPage.vala:276
 msgid "All photo source files are missing."
@@ -380,7 +380,7 @@ msgstr "播放"
 
 #: src/SlideshowPage.vala:309
 msgid "Continue the slideshow"
-msgstr "繼續放映投影片"
+msgstr "繼續投影秀"
 
 #: src/Photo.vala:2713
 msgid "modified"
@@ -392,7 +392,7 @@ msgstr "已修改"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:22
 #: plugins/shotwell-publishing/FlickrPublishing.vala:22
 msgid "Copyright 2009-2011 Yorba Foundation"
-msgstr "版權所有 2009-2010 Yorba 基金會"
+msgstr "版權所有 2009-2011 Yorba 基金會"
 
 #: src/Resources.vala:115
 msgid "Rotate _Right"
@@ -524,7 +524,7 @@ msgstr "將所選的影像設為新的桌面背景"
 
 #: src/Resources.vala:158
 msgid "Set as _Desktop Slideshow..."
-msgstr "設為桌面幻燈秀(_D)..."
+msgstr "設為桌面投影秀(_D)..."
 
 #: src/Resources.vala:160
 msgid "_Undo"
@@ -832,15 +832,15 @@ msgstr "透過郵件或即時訊息傳送相片"
 
 #: src/Resources.vala:266
 msgid "_Find..."
-msgstr ""
+msgstr "尋找(_F)..."
 
 #: src/Resources.vala:267
 msgid "Find"
-msgstr ""
+msgstr "尋找"
 
 #: src/Resources.vala:268
 msgid "Find an image by typing text that appears in its name or tags"
-msgstr ""
+msgstr "輸入出現在影像的名稱內或標籤上的文字來尋找影像"
 
 #: src/Resources.vala:270
 msgid "_Flag"
@@ -1068,31 +1068,31 @@ msgstr[0] "這會移除「%s」標籤，共 %d 張相片。要繼續嗎？"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
-msgstr ""
+msgstr "填滿整個頁面"
 
 #: src/Printing.vala:256
 msgid "2 images per page"
-msgstr ""
+msgstr "每頁 2 張影像"
 
 #: src/Printing.vala:257
 msgid "4 images per page"
-msgstr ""
+msgstr "每頁 4 張影像"
 
 #: src/Printing.vala:258
 msgid "6 images per page"
-msgstr ""
+msgstr "每頁 6 張影像"
 
 #: src/Printing.vala:259
 msgid "8 images per page"
-msgstr ""
+msgstr "每頁 8 張影像"
 
 #: src/Printing.vala:260
 msgid "16 images per page"
-msgstr ""
+msgstr "每頁 16 張影像"
 
 #: src/Printing.vala:261
 msgid "32 images per page"
-msgstr ""
+msgstr "每頁 32 張影像"
 
 #: src/Printing.vala:298
 msgid "Printed Image Size"
@@ -1108,7 +1108,7 @@ msgstr "使用自訂大小(_C)："
 
 #: src/Printing.vala:318
 msgid "_Autosize:"
-msgstr ""
+msgstr "自動大小(_A)："
 
 #: src/Printing.vala:387
 msgid "in."
@@ -1124,11 +1124,11 @@ msgstr "符合相片寬高比(_M)"
 
 #: src/Printing.vala:413
 msgid "Titles"
-msgstr ""
+msgstr "標題"
 
 #: src/Printing.vala:420
 msgid "Print image _title"
-msgstr ""
+msgstr "列印影像標題(_T)"
 
 #: src/Printing.vala:432
 msgid "Pixel Resolution"
@@ -1204,7 +1204,7 @@ msgstr "影像設定值"
 
 #: src/Printing.vala:1004
 msgid "Printing..."
-msgstr ""
+msgstr "正在列印..."
 
 #: src/Printing.vala:1024 src/Printing.vala:1227
 #, c-format
@@ -1228,7 +1228,7 @@ msgstr "回收筒"
 
 #: src/TrashPage.vala:142
 msgid "Trash is empty"
-msgstr ""
+msgstr "空的回收筒"
 
 #: src/TrashPage.vala:155
 msgid "Delete"
@@ -1355,7 +1355,7 @@ msgstr ""
 #: src/direct/DirectPhotoPage.vala:247 src/direct/DirectPhotoPage.vala:445
 #, c-format
 msgid "Unable to load %s: %s"
-msgstr ""
+msgstr "無法載入 %s：%s"
 
 #: src/direct/DirectPhotoPage.vala:387
 msgid "_Save a Copy"
@@ -1381,15 +1381,15 @@ msgstr "另存新檔"
 
 #: src/slideshow/TransitionEffects.vala:96
 msgid "(None)"
-msgstr ""
+msgstr "(無)"
 
 #: src/slideshow/TransitionEffects.vala:292
 msgid "None"
-msgstr ""
+msgstr "無"
 
 #: src/slideshow/Slideshow.vala:15
 msgid "Slideshow Transitions"
-msgstr ""
+msgstr "投影秀轉場"
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
 # 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
@@ -1542,11 +1542,11 @@ msgstr "使用者名稱(_U)："
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr ""
+msgstr "%b%d日(%a)"
 
 #: src/util/misc.vala:232
 msgid "%d, %Y"
-msgstr ""
+msgstr "%d日，%Y年"
 
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
@@ -1603,7 +1603,7 @@ msgstr "相機錯誤"
 
 #: src/BatchImport.vala:61
 msgid "File write error"
-msgstr ""
+msgstr "檔案寫入發生錯誤"
 
 #: src/BatchImport.vala:64
 #, c-format
@@ -1731,24 +1731,24 @@ msgstr "視訊"
 
 #: src/SearchFilter.vala:425
 msgid "RAW Photos"
-msgstr ""
+msgstr "RAW 相片"
 
 #: src/SearchFilter.vala:426
 msgid "RAW photos"
-msgstr ""
+msgstr "RAW 相片"
 
 #: src/SearchFilter.vala:679
 #, c-format
 msgid "Error loading UI file %s: %s"
-msgstr ""
+msgstr "載入 UI 檔 %s 時發生錯誤：%s"
 
 #: src/SearchFilter.vala:686
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #: src/SearchFilter.vala:702
 msgid "Rating"
-msgstr ""
+msgstr "評等"
 
 #: src/Exporter.vala:246
 #, c-format
@@ -1816,7 +1816,7 @@ msgstr "無法將背景匯出至 %s：%s"
 #: src/DesktopIntegration.vala:294
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
-msgstr "無法預備桌面幻燈秀：%s"
+msgstr "無法預備桌面投影秀：%s"
 
 #: src/Dimensions.vala:17
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1057
@@ -1879,7 +1879,7 @@ msgstr "您的 Piwigo 安裝位置 _URL："
 
 #: src/PiwigoConnector.vala:635
 msgid "User_name:"
-msgstr ""
+msgstr "使用者名稱(_N)："
 
 #: src/PiwigoConnector.vala:637
 #: plugins/shotwell-publishing/PicasaPublishing.vala:865
@@ -1999,7 +1999,7 @@ msgstr "執行 '%s --help' 來查看可用命令列選項的完整清單。\n"
 
 #: src/publishing/Publishing.vala:16
 msgid "Publishing"
-msgstr ""
+msgstr "正在發布"
 
 #: src/publishing/PublishingPluginHost.vala:11 src/WebConnectors.vala:1126
 #: src/WebConnectors.vala:1263
@@ -2015,7 +2015,7 @@ msgstr "正在上傳 %d/%d"
 #: src/publishing/PublishingPluginHost.vala:102
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred:"
-msgstr ""
+msgstr "無法繼續發布至 %s，因為遭遇錯誤："
 
 #: src/publishing/PublishingPluginHost.vala:105 src/WebConnectors.vala:1030
 msgid "To try publishing to another service, select one from the above menu."
@@ -2041,11 +2041,11 @@ msgstr "所選的相片已經成功發布。"
 
 #: src/WebConnectors.vala:670
 msgid "The selected video was successfully published."
-msgstr ""
+msgstr "所選的視訊已成功發布。"
 
 #: src/WebConnectors.vala:672
 msgid "The selected photo was successfully published."
-msgstr ""
+msgstr "所選的相片已成功發布。"
 
 #: src/WebConnectors.vala:680
 msgid "Fetching account information..."
@@ -2087,6 +2087,8 @@ msgid ""
 "Preferences</b> and enable one or more of the publishing plugins on the "
 "<b>Plugin</b> tab."
 msgstr ""
+"Shotwell 無法發布所選的項目，因為您尚未啟用相容的發布用插件。若要修正此問題，請選擇「<b>編輯 %s "
+"偏好設定</b>」並在「<b>插件</b>」分頁中啟用一個或多個發布用插件。"
 
 #: src/WebConnectors.vala:990
 msgid "_Close"
@@ -2140,11 +2142,11 @@ msgstr "正在刪除..."
 
 #: src/CollectionPage.vala:214 src/PhotoPage.vala:2485
 msgid "S_lideshow"
-msgstr ""
+msgstr "投影秀(_L)"
 
 #: src/CollectionPage.vala:215 src/PhotoPage.vala:2486
 msgid "Play a slideshow"
-msgstr "播放投影片"
+msgstr "播放投影秀"
 
 #: src/CollectionPage.vala:440
 msgid "Export Photo/Video"
@@ -2182,7 +2184,7 @@ msgstr "正在復原垂直翻轉"
 
 #: src/CollectionPage.vala:716
 msgid "Library"
-msgstr ""
+msgstr "珍藏館"
 
 #: src/Dialogs.vala:15
 msgid "Export Video"
@@ -2197,7 +2199,7 @@ msgstr "匯出相片"
 msgid ""
 "Shotwell couldn't create a file for editing this photo because you do not "
 "have permission to write to %s."
-msgstr ""
+msgstr "Shotwell 無法建立檔案以供此相片編輯，因為您尚未獲取寫入 %s 的授權。"
 
 #: src/Dialogs.vala:78
 msgid ""
@@ -2295,7 +2297,7 @@ msgid ""
 msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
+msgstr[0] "%d 份視訊匯入失敗，因為相片珍藏管資料夾無法寫入：\n"
 
 #: src/Dialogs.vala:509
 #, c-format
@@ -2305,7 +2307,7 @@ msgid ""
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
+msgstr[0] "%d 份視訊匯入失敗，因為相片珍藏管資料夾無法寫入：\n"
 
 #: src/Dialogs.vala:512
 #, c-format
@@ -2315,7 +2317,7 @@ msgid ""
 msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
+msgstr[0] "%d 份相片/視訊匯入失敗，因為相片珍藏管資料夾無法寫入：\n"
 
 #: src/Dialogs.vala:526
 #, c-format
@@ -2615,19 +2617,19 @@ msgstr "不要再次顯示此訊息(_D)"
 
 #: src/Dialogs.vala:1713
 msgid "(Help)"
-msgstr ""
+msgstr "(幫助)"
 
 #: src/Dialogs.vala:1720 src/Dialogs.vala:1722 src/Dialogs.vala:1723
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 #: src/Dialogs.vala:1725
 msgid "Year-Month-Day"
-msgstr ""
+msgstr "年-月-日"
 
 #: src/Dialogs.vala:1941
 msgid "Invalid pattern"
-msgstr ""
+msgstr "無效的樣式"
 
 #: src/Dialogs.vala:2021
 msgid ""
@@ -2749,11 +2751,11 @@ msgstr "事件(_T)"
 
 #: src/EventsDirectoryPage.vala:291
 msgid "No events"
-msgstr ""
+msgstr "無事件"
 
 #: src/EventsDirectoryPage.vala:295
 msgid "No events found"
-msgstr ""
+msgstr "找不到事件"
 
 #: src/EventsDirectoryPage.vala:377
 msgid "No Event"
@@ -2805,11 +2807,11 @@ msgstr "前往此相片的事件"
 
 #: src/LibraryWindow.vala:382
 msgid "_Find"
-msgstr ""
+msgstr "尋找(_F)"
 
 #: src/LibraryWindow.vala:383
 msgid "Find photos and videos by search criteria"
-msgstr ""
+msgstr "根據搜尋準則尋找相片與視訊"
 
 #: src/LibraryWindow.vala:400
 msgid "_Basic Information"
@@ -2829,11 +2831,11 @@ msgstr "顯示選取項目的擴充資訊"
 
 #: src/LibraryWindow.vala:412
 msgid "_Search Bar"
-msgstr ""
+msgstr "搜尋列(_S)"
 
 #: src/LibraryWindow.vala:413
 msgid "Display the search bar"
-msgstr ""
+msgstr "顯示搜尋列"
 
 #: src/LibraryWindow.vala:425 src/MediaPage.vala:493
 msgid "_Ascending"
@@ -2922,7 +2924,7 @@ msgstr "RAW"
 
 #: src/photos/TiffSupport.vala:87
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: src/photos/JfifSupport.vala:85
 msgid "JPEG"
@@ -3083,11 +3085,11 @@ msgstr "移除所選相片的旗幟"
 
 #: src/Page.vala:1333
 msgid "No photos/videos"
-msgstr ""
+msgstr "無相片/視訊"
 
 #: src/Page.vala:1337
 msgid "No photos/videos found"
-msgstr ""
+msgstr "找不到相片或視訊"
 
 #: src/Page.vala:2545
 msgid "Photos cannot be exported to this directory."
@@ -3218,23 +3220,23 @@ msgstr "事件 %s"
 
 #: plugins/shotwell-transitions/FadeEffect.vala:16
 msgid "Fade"
-msgstr ""
+msgstr "淡化"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:16
 msgid "Crumble"
-msgstr ""
+msgstr "崩解"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:19
 msgid "Core Slideshow Transitions"
-msgstr ""
+msgstr "核心投影秀轉場"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:77
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
-msgstr ""
+msgstr "版權所有 2010 Maxim Kartashev，版權所有 2011 Yorba 基金會"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:16
 msgid "Slide"
-msgstr ""
+msgstr "投影片"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:55
 msgid ""
@@ -3256,11 +3258,11 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:122
 msgid "Standard (720 pixels)"
-msgstr ""
+msgstr "標準 (720 畫素)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:125
 msgid "Large (2048 pixels)"
-msgstr ""
+msgstr "大 (2048 畫素)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:258
 msgid "Testing connection to Facebook..."
@@ -3286,7 +3288,7 @@ msgstr "您想要在何處發布所選的相片？"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1552
 msgid "Upload _size:"
-msgstr ""
+msgstr "上傳大小(_S)："
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1621
 msgid "Publish to an e_xisting album:"
@@ -3384,7 +3386,7 @@ msgstr "您已經以 %s 的身份登入 Picasa 網路相簿。"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1040
 msgid "Videos will appear in:"
-msgstr ""
+msgstr "視訊將顯現於："
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1056
 msgid "An _existing album:"
@@ -3459,7 +3461,7 @@ msgstr "您正在以 %s 身分登入 YouTube。"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:943
 #, c-format
 msgid "Videos will appear in '%s'"
-msgstr ""
+msgstr "視訊將「 %s」內顯現"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:966
 msgid "Video privacy _setting:"
@@ -3479,7 +3481,7 @@ msgstr "私人"
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:24
 msgid "Core Publishing Services"
-msgstr ""
+msgstr "核心發布服務"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:46
 msgid ""
@@ -3563,7 +3565,7 @@ msgstr "4096 x 3072 畫素"
 
 #: ui/set_background_dialog.glade:8
 msgid "Set as Desktop Slideshow"
-msgstr "設為桌面幻燈秀"
+msgstr "設為桌面投影秀"
 
 #: ui/set_background_dialog.glade:23
 msgid "Show each photo for"
@@ -3579,7 +3581,7 @@ msgstr "每張相片要顯示為桌面背景多久"
 
 #: ui/set_background_dialog.glade:88
 msgid "Generate desktop background slideshow"
-msgstr "製作桌面背景幻燈秀"
+msgstr "製作桌面背景投影秀"
 
 #: ui/shotwell.glade:103
 msgid "Shotwell Preferences"
@@ -3631,27 +3633,27 @@ msgstr "背景(_B)："
 
 #: ui/shotwell.glade:448
 msgid "Importing"
-msgstr ""
+msgstr "正在匯入.."
 
 #: ui/shotwell.glade:469
 msgid "_Directory structure:"
-msgstr ""
+msgstr "目錄結構(_D)："
 
 #: ui/shotwell.glade:505
 msgid "_Pattern:"
-msgstr ""
+msgstr "樣式(_P)："
 
 #: ui/shotwell.glade:574
 msgid "Example:"
-msgstr ""
+msgstr "範例："
 
 #: ui/shotwell.glade:590
 msgid "R_ename imported files to lowercase"
-msgstr ""
+msgstr "將匯入的檔案重新命名為小寫(_E)"
 
 #: ui/shotwell.glade:638
 msgid "Plugins"
-msgstr ""
+msgstr "插件"
 
 #: ui/shotwell.glade:764
 msgid "Preparing pictures for import..."

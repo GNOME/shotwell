@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-03 20:17+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-03-07 09:38+0000\n"
+"Last-Translator: bojang <neo.bojang@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,7 +182,7 @@ msgstr "แ_ฟ้ม"
 
 #: src/ImportPage.vala:653
 msgid "Import _Selected"
-msgstr ""
+msgstr "นำเข้าที่เ_ลือก"
 
 #: src/ImportPage.vala:654
 msgid "Import the selected photos into your library"
@@ -190,11 +190,11 @@ msgstr "นำเข้าภาพถ่ายที่เลือกเข้
 
 #: src/ImportPage.vala:659
 msgid "Import _All"
-msgstr ""
+msgstr "นำเข้า_ทั้งหมด"
 
 #: src/ImportPage.vala:660
 msgid "Import all the photos into your library"
-msgstr ""
+msgstr "นำเข้ารูปภาพทั้งหมดลงในไลบรารี่ของคุณ"
 
 #: src/ImportPage.vala:664 src/TrashPage.vala:76 src/OfflinePage.vala:75
 #: src/PhotoPage.vala:2241 src/EventsDirectoryPage.vala:253
@@ -283,13 +283,13 @@ msgstr[0] "ต้องการลบภายถ่าย %d นี้ออ�
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
-msgstr[0] ""
+msgstr[0] "ลบ %d วิดีโอจากกล้อง ?"
 
 #: src/ImportPage.vala:1312
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] ""
+msgstr[0] "ลบ %d รูปภาพ/วิดีโอ จากกล้องหรือไม่ ?"
 
 #: src/ImportPage.vala:1320 src/Dialogs.vala:915
 msgid "_Keep"
@@ -297,7 +297,7 @@ msgstr "เ_ก็บไว้"
 
 #: src/ImportPage.vala:1339
 msgid "Removing photos/videos from camera"
-msgstr ""
+msgstr "กำลังลบ รูปภาพ/วิดีโอ ออกจากกล้อง ?"
 
 #: src/ImportPage.vala:1343
 #, c-format
@@ -401,7 +401,7 @@ msgstr "ปรับเปลี่ยน"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:22
 #: plugins/shotwell-publishing/FlickrPublishing.vala:22
 msgid "Copyright 2009-2011 Yorba Foundation"
-msgstr "สงวนลิขสิทธิ์ 2009-2010 โดย Yorba Foundation"
+msgstr "สงวนลิขสิทธิ์ 2009-2011 โดย Yorba Foundation"
 
 #: src/Resources.vala:115
 msgid "Rotate _Right"
@@ -625,11 +625,11 @@ msgstr "ตั้งค่าคะแนน"
 
 #: src/Resources.vala:189
 msgid "Change the rating of your photo"
-msgstr ""
+msgstr "เปลี่ยนการให้คะแนนภาพถ่ายของคุณ"
 
 #: src/Resources.vala:191
 msgid "_Increase"
-msgstr ""
+msgstr "_เพิ่มขึ้น"
 
 #: src/Resources.vala:192
 msgid "Increase Rating"
@@ -637,7 +637,7 @@ msgstr "ให้คะแนน"
 
 #: src/Resources.vala:193
 msgid "Increase the rating of your photo"
-msgstr ""
+msgstr "เพิ่มคะแนนภาพถ่ายของคุณ"
 
 #: src/Resources.vala:195
 msgid "_Decrease"
@@ -649,7 +649,7 @@ msgstr "ลดคะแนน"
 
 #: src/Resources.vala:197
 msgid "Decrease the rating of your photo"
-msgstr ""
+msgstr "ลดคะแนนภาพถ่ายของคุณ"
 
 #: src/Resources.vala:199
 msgid "_Unrated"
@@ -833,7 +833,7 @@ msgstr "เปิดภาพถ่ายที่เลือกด้วยโ
 
 #: src/Resources.vala:263
 msgid "Send _To..."
-msgstr ""
+msgstr "ส่งไ_ป ..."
 
 #: src/Resources.vala:264
 msgid "Send photos by mail or instant message"
@@ -841,11 +841,11 @@ msgstr ""
 
 #: src/Resources.vala:266
 msgid "_Find..."
-msgstr ""
+msgstr "_ค้นหา..."
 
 #: src/Resources.vala:267
 msgid "Find"
-msgstr ""
+msgstr "ค้นหา"
 
 #: src/Resources.vala:268
 msgid "Find an image by typing text that appears in its name or tags"
@@ -853,7 +853,7 @@ msgstr ""
 
 #: src/Resources.vala:270
 msgid "_Flag"
-msgstr ""
+msgstr "ติด_ป้าย"
 
 #: src/Resources.vala:271
 msgid "Flag the photos to work with them together"
@@ -861,11 +861,11 @@ msgstr ""
 
 #: src/Resources.vala:273
 msgid "Un_flag"
-msgstr ""
+msgstr "เลิกติด_ป้าย"
 
 #: src/Resources.vala:274
 msgid "Unflag the photos"
-msgstr ""
+msgstr "เลิกติดป้ายภาพถ่าย"
 
 #: src/Resources.vala:277
 #, c-format
@@ -1081,27 +1081,27 @@ msgstr ""
 
 #: src/Printing.vala:256
 msgid "2 images per page"
-msgstr ""
+msgstr "2 ภาพต่อหนึ่งหน้า"
 
 #: src/Printing.vala:257
 msgid "4 images per page"
-msgstr ""
+msgstr "4 ภาพต่อหนึ่งหน้า"
 
 #: src/Printing.vala:258
 msgid "6 images per page"
-msgstr ""
+msgstr "6 ภาพต่อหนึ่งหน้า"
 
 #: src/Printing.vala:259
 msgid "8 images per page"
-msgstr ""
+msgstr "8 ภาพต่อหนึ่งหน้า"
 
 #: src/Printing.vala:260
 msgid "16 images per page"
-msgstr ""
+msgstr "16 ภาพต่อหนึ่งหน้า"
 
 #: src/Printing.vala:261
 msgid "32 images per page"
-msgstr ""
+msgstr "32 ภาพต่อหนึ่งหน้า"
 
 #: src/Printing.vala:298
 msgid "Printed Image Size"
@@ -1213,7 +1213,7 @@ msgstr "ตั้งค่าภาพ"
 
 #: src/Printing.vala:1004
 msgid "Printing..."
-msgstr ""
+msgstr "กำลังพิมพ์ ..."
 
 #: src/Printing.vala:1024 src/Printing.vala:1227
 #, c-format
@@ -1237,7 +1237,7 @@ msgstr "ถังขยะ"
 
 #: src/TrashPage.vala:142
 msgid "Trash is empty"
-msgstr ""
+msgstr "ถังขยะว่างเปล่า"
 
 #: src/TrashPage.vala:155
 msgid "Delete"
@@ -1250,7 +1250,7 @@ msgstr[0] "กำลังลบภาพถ่าย"
 
 #: src/VideoSupport.vala:414
 msgid "Export Videos"
-msgstr ""
+msgstr "ส่งออกวีดีโอ"
 
 #: src/direct/DirectPhotoPage.vala:53 src/direct/DirectPhotoPage.vala:387
 msgid "_Save"
@@ -1466,7 +1466,7 @@ msgstr "ขนาด:"
 
 #: src/Properties.vala:347
 msgid "Duration:"
-msgstr ""
+msgstr "ระยะเวลา :"
 
 #: src/Properties.vala:347
 #, c-format
@@ -1551,11 +1551,11 @@ msgstr ""
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr ""
+msgstr "%a %b %d"
 
 #: src/util/misc.vala:232
 msgid "%d, %Y"
-msgstr ""
+msgstr "%d, %Y"
 
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
@@ -1728,7 +1728,7 @@ msgstr "การขยายความเข้มภาพ"
 #: src/SearchFilter.vala:407 src/SearchFilter.vala:408
 #: src/SearchFilter.vala:695 src/FlaggedPage.vala:17
 msgid "Flagged"
-msgstr ""
+msgstr "ถูกติดป้าย"
 
 #: src/SearchFilter.vala:413 src/SearchFilter.vala:414
 msgid "Photos"
@@ -1736,7 +1736,7 @@ msgstr "ภาพถ่าย"
 
 #: src/SearchFilter.vala:419 src/SearchFilter.vala:420
 msgid "Videos"
-msgstr ""
+msgstr "วิดีโอ"
 
 #: src/SearchFilter.vala:425
 msgid "RAW Photos"
@@ -1753,11 +1753,11 @@ msgstr ""
 
 #: src/SearchFilter.vala:686
 msgid "Type"
-msgstr ""
+msgstr "ประเภท"
 
 #: src/SearchFilter.vala:702
 msgid "Rating"
-msgstr ""
+msgstr "การให้คะแนน"
 
 #: src/Exporter.vala:246
 #, c-format
@@ -1787,12 +1787,12 @@ msgstr "แทนที่ทั้ง_หมด"
 
 #: src/Exporter.vala:332
 msgid "Export"
-msgstr ""
+msgstr "ส่งออก"
 
 #: src/AppDirs.vala:48
 #, c-format
 msgid "Unable to create data directory %s: %s"
-msgstr ""
+msgstr "ไม่สามารถสร้างไดเรกทอรีข้อมูล %s : %s"
 
 #: src/AppDirs.vala:84
 msgid "Pictures"
@@ -1801,12 +1801,12 @@ msgstr "ภาพถ่าย"
 #: src/AppDirs.vala:123
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
-msgstr ""
+msgstr "ไม่สามารถสร้างไดเรกทอรีชั่วคราว %s :%s"
 
 #: src/AppDirs.vala:139
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
-msgstr ""
+msgstr "ไม่สามารถสร้างไดเรกทอรีข้อมูลย่อย %s : %s"
 
 #: src/DesktopIntegration.vala:118
 #, c-format
@@ -2165,7 +2165,7 @@ msgstr[0] ""
 #: src/CollectionPage.vala:441 src/Dialogs.vala:15 src/PhotoPage.vala:2956
 msgid "Export Photo"
 msgid_plural "Export Photos"
-msgstr[0] "ส่งออกภาพถ่าย"
+msgstr[0] "ภาพถ่ายการส่งออก"
 
 #: src/CollectionPage.vala:529 src/CollectionPage.vala:544
 msgid "Rotating"
@@ -2197,7 +2197,7 @@ msgstr ""
 
 #: src/Dialogs.vala:15
 msgid "Export Video"
-msgstr ""
+msgstr "ส่งออกวิดีโอ"
 
 #: src/Dialogs.vala:41
 msgid "Export Photos"
@@ -2238,7 +2238,7 @@ msgstr ""
 
 #: src/Dialogs.vala:102
 msgid "Current"
-msgstr ""
+msgstr "ปัจจุบัน"
 
 #: src/Dialogs.vala:166
 msgid "_Format:"
@@ -2265,19 +2265,19 @@ msgstr "(และอีก %d)\n"
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] "มี %d ภาพถ่ายในไลบรารีที่ไม่ได้นำเข้า:\n"
+msgstr[0] "มี %d ภาพซ้ำที่ไม่ถูกนำเข้า:\n"
 
 #: src/Dialogs.vala:469
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] ""
+msgstr[0] "มี %d วิดีโอซ้ำที่ไม่ถูกนำเข้า: \n"
 
 #: src/Dialogs.vala:472
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] ""
+msgstr[0] "มี %d ภาพ/วิดีโอ ซ้ำที่ไม่ถูกนำเข้า: \n"
 
 #: src/Dialogs.vala:486
 #, c-format
@@ -2289,7 +2289,7 @@ msgstr[0] "%d ภาพถ่ายที่ไม่สามารถนำเ
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
+msgstr[0] "มี %d วิดีโอ นำเข้าล้มเหลวเนื่องจากความผิดพลาดของไฟล์หรือฮาร์ดแวร์ : \n"
 
 #: src/Dialogs.vala:492
 #, c-format
@@ -2297,6 +2297,7 @@ msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"มี %d ภาพ/วิดีโอ นำเข้าล้มเหลวเนื่องจากความผิดพลาดของไฟล์หรือฮาร์ดแวร์ : \n"
 
 #: src/Dialogs.vala:506
 #, c-format
@@ -2332,19 +2333,20 @@ msgstr[0] ""
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] "%d ภาพถ่ายที่ไม่สามารถนำเข้าได้เนื่องจากการกล้องผิดพลาด:\n"
+msgstr[0] "มี %d ภาพถ่ายที่ไม่สามารถนำเข้าได้เนื่องจากการผิดพลาดของกล้อง:\n"
 
 #: src/Dialogs.vala:529
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] ""
+msgstr[0] "มี %d วิดีโอที่ไม่สามารถนำเข้าได้เนื่องจากการผิดพลาดของกล้อง:\n"
 
 #: src/Dialogs.vala:532
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
 msgstr[0] ""
+"มี %d ภาพถ่าย/วิดีโอ ที่ไม่สามารถนำเข้าได้เนื่องจากการผิดพลาดของกล้อง:\n"
 
 #: src/Dialogs.vala:549
 #, c-format
@@ -2396,7 +2398,7 @@ msgstr[0] ""
 
 #: src/Dialogs.vala:617
 msgid "No photos or videos imported.\n"
-msgstr ""
+msgstr "ไม่มีรูปภาพหรือวิดีโอที่ถูกนำเข้า\n"
 
 #: src/Dialogs.vala:632
 msgid "Import Complete"
@@ -2406,23 +2408,23 @@ msgstr "นำเข้าสมบูรณ์"
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
+msgstr[0] "%d วินาที"
 
 #: src/Dialogs.vala:789
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] ""
+msgstr[0] "%d นาที"
 
 #: src/Dialogs.vala:793
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] ""
+msgstr[0] "%d ชั่วโมง"
 
 #: src/Dialogs.vala:796
 msgid "1 day"
-msgstr ""
+msgstr "1 วัน"
 
 #: src/Dialogs.vala:873
 msgid "Name:"
@@ -2628,19 +2630,19 @@ msgstr "ไ_ม่ต้องแสดงข้อความนี้อี�
 
 #: src/Dialogs.vala:1713
 msgid "(Help)"
-msgstr ""
+msgstr "(ช่วยเหลือ)"
 
 #: src/Dialogs.vala:1720 src/Dialogs.vala:1722 src/Dialogs.vala:1723
 msgid "Year"
-msgstr ""
+msgstr "ปี"
 
 #: src/Dialogs.vala:1725
 msgid "Year-Month-Day"
-msgstr ""
+msgstr "ปี-เดือน-วัน"
 
 #: src/Dialogs.vala:1941
 msgid "Invalid pattern"
-msgstr ""
+msgstr "รูปแบบไม่ถูกต้อง"
 
 #: src/Dialogs.vala:2021
 msgid ""
@@ -2756,11 +2758,11 @@ msgstr "เ_หตุการณ์"
 
 #: src/EventsDirectoryPage.vala:291
 msgid "No events"
-msgstr ""
+msgstr "ไม่มีเหตุการณ์"
 
 #: src/EventsDirectoryPage.vala:295
 msgid "No events found"
-msgstr ""
+msgstr "ไม่พบเหตุการณ์"
 
 #: src/EventsDirectoryPage.vala:377
 msgid "No Event"
@@ -2812,7 +2814,7 @@ msgstr ""
 
 #: src/LibraryWindow.vala:382
 msgid "_Find"
-msgstr ""
+msgstr "_ค้นหา"
 
 #: src/LibraryWindow.vala:383
 msgid "Find photos and videos by search criteria"
@@ -3011,15 +3013,15 @@ msgstr[0] "ไม่สามารถสำเนาภาพถ่าย %d �
 
 #: src/Commands.vala:995
 msgid "Restoring previous rating"
-msgstr ""
+msgstr "เรียกคืนคะแนนก่อนหน้านี้"
 
 #: src/Commands.vala:1005 src/Commands.vala:1006
 msgid "Increasing ratings"
-msgstr ""
+msgstr "เพิ่มการจัดอันดับ"
 
 #: src/Commands.vala:1005 src/Commands.vala:1006
 msgid "Decreasing ratings"
-msgstr ""
+msgstr "ลดการจัดอันดับ"
 
 #: src/Commands.vala:1076
 msgid "Original photo could not be adjusted."
@@ -3074,19 +3076,19 @@ msgstr "กำลังกู้คืนภาพถ่ายจากถัง
 
 #: src/Commands.vala:1502
 msgid "Flag"
-msgstr ""
+msgstr "ติดป้าย"
 
 #: src/Commands.vala:1502
 msgid "Unflag"
-msgstr ""
+msgstr "เลิกติดป้าย"
 
 #: src/Commands.vala:1503
 msgid "Flag selected photos"
-msgstr ""
+msgstr "ติดป้ายรูปภาพที่เลือก"
 
 #: src/Commands.vala:1503
 msgid "Unflag selected photos"
-msgstr ""
+msgstr "เลิกติดป้ายรูปภาพที่เลือก"
 
 #: src/Page.vala:1333
 msgid "No photos/videos"
@@ -3223,7 +3225,7 @@ msgstr ""
 
 #: plugins/shotwell-transitions/FadeEffect.vala:16
 msgid "Fade"
-msgstr ""
+msgstr "จางลง"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:16
 msgid "Crumble"
@@ -3235,11 +3237,11 @@ msgstr ""
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:77
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
-msgstr ""
+msgstr "สงวนลิขสิทธิ์ 2010 Maxim Kartashev, สงวนลิขสิทธิ์  2011 มูลนิธิ Yorba"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:16
 msgid "Slide"
-msgstr ""
+msgstr "ภาพนิ่ง"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:55
 msgid ""
@@ -3261,11 +3263,11 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:122
 msgid "Standard (720 pixels)"
-msgstr ""
+msgstr "ขนาดมาตรฐาน (720 พิกเซล)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:125
 msgid "Large (2048 pixels)"
-msgstr ""
+msgstr "ขนาดใหญ่ (2048 พิกเซล)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:258
 msgid "Testing connection to Facebook..."
@@ -3281,11 +3283,11 @@ msgstr "กำลังสร้างอัลบั้ม..."
 msgid ""
 "You are logged into Facebook as %s.\n"
 "\n"
-msgstr ""
+msgstr "คุณเข้าสู่ Facebook เป็น %s \n"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1551
 msgid "Where would you like to publish the selected photos?"
-msgstr ""
+msgstr "คุณต้องการเผยแพร่รูปภาพที่เลือกไว้หรือไม่?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1552
 msgid "Upload _size:"
@@ -3310,11 +3312,11 @@ msgstr "ฉันเท่านั้น"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1822
 msgid "All friends"
-msgstr ""
+msgstr "เพื่อนทั้งหมด"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1823
 msgid "Friends of friends"
-msgstr ""
+msgstr "เพื่อนของเพื่อน"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:45
 msgid ""
@@ -3589,15 +3591,15 @@ msgstr ""
 
 #: ui/shotwell.glade:145
 msgid "white"
-msgstr ""
+msgstr "สีขาว"
 
 #: ui/shotwell.glade:168
 msgid "black"
-msgstr ""
+msgstr "สีดำ"
 
 #: ui/shotwell.glade:214
 msgid "External Editors"
-msgstr ""
+msgstr "โปรแกรมแก้ไขภายนอก"
 
 #: ui/shotwell.glade:276
 msgid "_Watch library directory for new files"
@@ -3613,7 +3615,7 @@ msgstr ""
 
 #: ui/shotwell.glade:344
 msgid "Display"
-msgstr ""
+msgstr "แสดง"
 
 #: ui/shotwell.glade:368
 msgid "_External photo editor:"
@@ -3629,11 +3631,11 @@ msgstr ""
 
 #: ui/shotwell.glade:427
 msgid "_Background:"
-msgstr ""
+msgstr "_พื้นหลัง :"
 
 #: ui/shotwell.glade:448
 msgid "Importing"
-msgstr ""
+msgstr "กำลังนำเข้า"
 
 #: ui/shotwell.glade:469
 msgid "_Directory structure:"
@@ -3641,19 +3643,19 @@ msgstr ""
 
 #: ui/shotwell.glade:505
 msgid "_Pattern:"
-msgstr ""
+msgstr "_รูปแบบ :"
 
 #: ui/shotwell.glade:574
 msgid "Example:"
-msgstr ""
+msgstr "ตัวอย่าง :"
 
 #: ui/shotwell.glade:590
 msgid "R_ename imported files to lowercase"
-msgstr ""
+msgstr "เ_ปลี่ยนชื่อ ไฟล์ที่นำเข้าไปเป็นตัวพิมพ์เล็ก"
 
 #: ui/shotwell.glade:638
 msgid "Plugins"
-msgstr ""
+msgstr "โปรแกรมเสริม"
 
 #: ui/shotwell.glade:764
 msgid "Preparing pictures for import..."
@@ -3661,7 +3663,7 @@ msgstr ""
 
 #: ui/shotwell.glade:795
 msgid "error"
-msgstr ""
+msgstr "ผิดพลาด"
 
 #: ui/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"

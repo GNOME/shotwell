@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-03 20:17+0000\n"
+"PO-Revision-Date: 2011-03-04 18:33+0000\n"
 "Last-Translator: verayin <vera@yorba.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hr\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%\" \"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 
 #: src/AppWindow.vala:669
 #: plugins/shotwell-transitions/shotwell-transitions.vala:79
@@ -277,7 +277,6 @@ msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Izbrisati %d fotografiju iz kamere?"
 msgstr[1] "Izbrisati %d fotografije iz kamere?"
 msgstr[2] "Izbrisati %d fotografija iz kamere?"
-msgstr[3] "Izbrisati %d fotografija iz kamere?"
 
 #: src/ImportPage.vala:1309
 #, c-format
@@ -286,7 +285,6 @@ msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Izbrisati %d video iz kamere?"
 msgstr[1] "Izbrisati %d videa iz kamere?"
 msgstr[2] "Izbrisati %d videa iz kamere?"
-msgstr[3] "Izbrisati %d videa iz kamere?"
 
 #: src/ImportPage.vala:1312
 #, c-format
@@ -294,8 +292,7 @@ msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Izbrisati %d fotografiju/video iz kamere?"
 msgstr[1] "Izbrisati %d fotografije/videa iz kamere?"
-msgstr[2] "Izbrisati %d fotografije/videa iz kamere?"
-msgstr[3] "Izbrisati %d fotografija/videa iz kamere?"
+msgstr[2] "Izbrisati %d fotografija/videa iz kamere?"
 
 #: src/ImportPage.vala:1320 src/Dialogs.vala:915
 msgid "_Keep"
@@ -313,7 +310,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/ImportPage.vala:1393
 msgid "Importing..."
@@ -909,7 +905,6 @@ msgid_plural "Remove the tag \"%s\" from %d photos"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Resources.vala:302
 msgid "Delete Tag"
@@ -953,7 +948,6 @@ msgid_plural "Tag Photos as \"%s\""
 msgstr[0] "Označi fotografiju kao \"%s\""
 msgstr[1] "Označi fotografije kao \"%s\""
 msgstr[2] "Označi fotografija kao \"%s\""
-msgstr[3] "Označi fotografija kao \"%s\""
 
 #: src/Resources.vala:327
 #, c-format
@@ -962,7 +956,6 @@ msgid_plural "Tag the selected photos as \"%s\""
 msgstr[0] "Označi izabranu fotografiju kao \"%s\""
 msgstr[1] "Označi izabrane fotografije kao \"%s\""
 msgstr[2] "Označi izabranih fotografija kao \"%s\""
-msgstr[3] "Označi izabranih fotografija kao \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -971,7 +964,6 @@ msgid_plural "Remove Tag \"%s\" From _Photos"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Resources.vala:335
 #, c-format
@@ -980,7 +972,6 @@ msgid_plural "Remove Tag \"%s\" From Photos"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Resources.vala:340
 #, c-format
@@ -989,7 +980,6 @@ msgid_plural "Remove tag \"%s\" from the selected photos"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Resources.vala:345
 #, c-format
@@ -1104,7 +1094,6 @@ msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
@@ -1280,7 +1269,6 @@ msgid_plural "Deleting Photos"
 msgstr[0] "Brisanje fotografije"
 msgstr[1] "Brisanje fotografije"
 msgstr[2] "Brisanje fotografija"
-msgstr[3] "Brisanje fotografija"
 
 #: src/VideoSupport.vala:414
 msgid "Export Videos"
@@ -1467,7 +1455,6 @@ msgid_plural "%d Events"
 msgstr[0] "%d događaj"
 msgstr[1] "%d događaja"
 msgstr[2] "%d događaja"
-msgstr[3] "%d događaja"
 
 #: src/Properties.vala:296 src/EventsDirectoryPage.vala:73
 #, c-format
@@ -1475,8 +1462,7 @@ msgid "%d Photo"
 msgid_plural "%d Photos"
 msgstr[0] "%d fotografija"
 msgstr[1] "%d fotografije"
-msgstr[2] "%d fotografije"
-msgstr[3] "%d fotografija"
+msgstr[2] "%d fotografija"
 
 #: src/Properties.vala:298 src/EventsDirectoryPage.vala:71
 #, c-format
@@ -1485,7 +1471,6 @@ msgid_plural "%d Videos"
 msgstr[0] "%d video"
 msgstr[1] "%d videa"
 msgstr[2] "%d videa"
-msgstr[3] "%d videa"
 
 #: src/Properties.vala:320
 msgid "Date:"
@@ -2212,7 +2197,6 @@ msgid_plural "Export Photos/Videos"
 msgstr[0] "Izvoz fotografije/videa"
 msgstr[1] "Izvoz fotografije/videa"
 msgstr[2] "Izvoz fotografije/videa"
-msgstr[3] "Izvoz fotografije/videa"
 
 #: src/CollectionPage.vala:441 src/Dialogs.vala:15 src/PhotoPage.vala:2956
 msgid "Export Photo"
@@ -2220,7 +2204,6 @@ msgid_plural "Export Photos"
 msgstr[0] "Izvoz fotografije"
 msgstr[1] "Izvoz fotografija"
 msgstr[2] "Izvoz fotografija"
-msgstr[3] "Izvoz fotografija"
 
 #: src/CollectionPage.vala:529 src/CollectionPage.vala:544
 msgid "Rotating"
@@ -2323,7 +2306,6 @@ msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "%d duplikat nije uvezen:\n"
 msgstr[1] "%d duplikata nisu uvezena:\n"
 msgstr[2] "%d duplikata nije uvezeno:\n"
-msgstr[3] "%d duplikata nije uvezeno:\n"
 
 #: src/Dialogs.vala:469
 #, c-format
@@ -2332,7 +2314,6 @@ msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "%d duplikat nije uvezen:\n"
 msgstr[1] "%d duplikata nisu uvezena:\n"
 msgstr[2] "%d duplikata nije uvezeno:\n"
-msgstr[3] "%d duplikata nije uvezeno:\n"
 
 #: src/Dialogs.vala:472
 #, c-format
@@ -2341,7 +2322,6 @@ msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "%d duplikat nije uvezen:\n"
 msgstr[1] "%d duplikata nisu uvezena:\n"
 msgstr[2] "%d duplikata nije uvezeno:\n"
-msgstr[3] "%d duplikata nije uvezeno:\n"
 
 #: src/Dialogs.vala:486
 #, c-format
@@ -2350,7 +2330,6 @@ msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] "%d fotografija nije uvezena zbog greške na datoteci ili sklopovlju:\n"
 msgstr[1] "%d fotografije nisu uvezene zbog greške na datoteci ili sklopovlju:\n"
 msgstr[2] "%d fotografija nije uvezeno zbog greške na datoteci ili sklopovlju:\n"
-msgstr[3] "%d fotografija nije uvezeno zbog greške na datoteci ili sklopovlju:\n"
 
 #: src/Dialogs.vala:489
 #, c-format
@@ -2363,9 +2342,6 @@ msgstr[1] ""
 "%d datoteke nisu uvezene - greška na datoteci ili sklopovlju:\n"
 "\n"
 msgstr[2] ""
-"%d datoteke nije uvezeno - greška na datoteci ili sklopovlju:\n"
-"\n"
-msgstr[3] ""
 "%d datoteke nije uvezeno - greška na datoteci ili sklopovlju:\n"
 "\n"
 
@@ -2383,9 +2359,6 @@ msgstr[1] ""
 msgstr[2] ""
 "%d datoteke nije uvezeno - greška na datoteci ili sklopovlju:\n"
 "\n"
-msgstr[3] ""
-"%d datoteke nije uvezeno - greška na datoteci ili sklopovlju:\n"
-"\n"
 
 #: src/Dialogs.vala:506
 #, c-format
@@ -2398,7 +2371,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:509
 #, c-format
@@ -2411,7 +2383,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:512
 #, c-format
@@ -2424,7 +2395,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:526
 #, c-format
@@ -2439,9 +2409,6 @@ msgstr[1] ""
 msgstr[2] ""
 "%d fotografija nije uvezeno - greška na kameri:\n"
 "\n"
-msgstr[3] ""
-"%d fotografija nije uvezeno - greška na kameri:\n"
-"\n"
 
 #: src/Dialogs.vala:529
 #, c-format
@@ -2450,7 +2417,6 @@ msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] "%d video nije uvezen zbog greške na kameri:\n"
 msgstr[1] "%d videa nisu uvezena zbog greške na kameri:\n"
 msgstr[2] "%d videa nije uvezeno zbog greške na kameri:\n"
-msgstr[3] "%d videa nije uvezeno zbog greške na kameri:\n"
 
 #: src/Dialogs.vala:532
 #, c-format
@@ -2459,7 +2425,6 @@ msgid_plural "%d photos/videos failed to import due to a camera error:\n"
 msgstr[0] "%d fotografija/video nije uvezeno zbog greške na kameri:\n"
 msgstr[1] "%d fotografije/videa nisu uvezeni zbog greške na kameri:\n"
 msgstr[2] "%d fotografija/videa nije uvezeno zbog greške na kameri:\n"
-msgstr[3] "%d fotografija/videa nije uvezeno zbog greške na kameri:\n"
 
 #: src/Dialogs.vala:549
 #, c-format
@@ -2468,7 +2433,6 @@ msgid_plural "%d unsupported photos skipped:\n"
 msgstr[0] "%d fotografija preskočena, format nije podržan:\n"
 msgstr[1] "%d fotografije preskočene, format nije podržan:\n"
 msgstr[2] "%d fotografija preskočenih, format nije podržan:\n"
-msgstr[3] "%d fotografija preskočenih, format nije podržan:\n"
 
 #: src/Dialogs.vala:564
 #, c-format
@@ -2481,9 +2445,6 @@ msgstr[1] ""
 "Preskočene %d datoteke koje nisu slike.\n"
 "\n"
 msgstr[2] ""
-"Preskočeno %d datoteka koje nisu slike.\n"
-"\n"
-msgstr[3] ""
 "Preskočeno %d datoteka koje nisu slike.\n"
 "\n"
 
@@ -2500,9 +2461,6 @@ msgstr[1] ""
 msgstr[2] ""
 "Preskočeno %d fotografija - korisnički prekid.\n"
 "\n"
-msgstr[3] ""
-"Preskočeno %d fotografija - korisnički prekid.\n"
-"\n"
 
 #: src/Dialogs.vala:578
 #, c-format
@@ -2515,9 +2473,6 @@ msgstr[1] ""
 "Preskočena %d videa - korisnički prekid.\n"
 "\n"
 msgstr[2] ""
-"Preskočenih %d videa - korisnički prekid.\n"
-"\n"
-msgstr[3] ""
 "Preskočenih %d videa - korisnički prekid.\n"
 "\n"
 
@@ -2534,9 +2489,6 @@ msgstr[1] ""
 msgstr[2] ""
 "%d fotografije/videa preskočeno - korisnički prekid:\n"
 "\n"
-msgstr[3] ""
-"%d fotografije/videa preskočeno - korisnički prekid:\n"
-"\n"
 
 #: src/Dialogs.vala:595
 #, c-format
@@ -2549,9 +2501,6 @@ msgstr[1] ""
 "%d fotografije uspješno uvezeno.\n"
 "\n"
 msgstr[2] ""
-"%d fotografija uspješno uvezenih.\n"
-"\n"
-msgstr[3] ""
 "%d fotografija uspješno uvezenih.\n"
 "\n"
 
@@ -2568,9 +2517,6 @@ msgstr[1] ""
 msgstr[2] ""
 "%d videa uspješno uvezenih.\n"
 "\n"
-msgstr[3] ""
-"%d videa uspješno uvezenih.\n"
-"\n"
 
 #: src/Dialogs.vala:601
 #, c-format
@@ -2583,9 +2529,6 @@ msgstr[1] ""
 "%d fotografije/videa uspješno uvezeno.\n"
 "\n"
 msgstr[2] ""
-"%d fotografija/videa uspješno uvezenih.\n"
-"\n"
-msgstr[3] ""
 "%d fotografija/videa uspješno uvezenih.\n"
 "\n"
 
@@ -2604,7 +2547,6 @@ msgid_plural "%d seconds"
 msgstr[0] "%d sekunda"
 msgstr[1] "%d sekunde"
 msgstr[2] "%d sekundi"
-msgstr[3] "%d sekundi"
 
 #: src/Dialogs.vala:789
 #, c-format
@@ -2613,7 +2555,6 @@ msgid_plural "%d minutes"
 msgstr[0] "%d minuta"
 msgstr[1] "%d minute"
 msgstr[2] "%d minuta"
-msgstr[3] "%d minuta"
 
 #: src/Dialogs.vala:793
 #, c-format
@@ -2622,7 +2563,6 @@ msgid_plural "%d hours"
 msgstr[0] "%d sat"
 msgstr[1] "%d sata"
 msgstr[2] "%d sati"
-msgstr[3] "%d sati"
 
 #: src/Dialogs.vala:796
 msgid "1 day"
@@ -2638,7 +2578,6 @@ msgid_plural "_Trash Files"
 msgstr[0] "Premjesti u _smeće"
 msgstr[1] "Premjesti u _smeće"
 msgstr[2] "Premjesti u _smeće"
-msgstr[3] "Premjesti u _smeće"
 
 #: src/Dialogs.vala:899
 msgid "Only _Remove"
@@ -2652,7 +2591,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:941
 msgid "Re_vert External Edit"
@@ -2660,7 +2598,6 @@ msgid_plural "Re_vert External Edits"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:947
 msgid "Revert External Edit"
@@ -2668,7 +2605,6 @@ msgid_plural "Revert External Edits"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:961
 #, c-format
@@ -2677,7 +2613,6 @@ msgid_plural "This will remove %d photos from the library.  Continue?"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:968
 msgid "_Remove"
@@ -2689,7 +2624,6 @@ msgid_plural "Remove Photos From Library"
 msgstr[0] "Brisanje fotografije iz bilblioteke"
 msgstr[1] "Brisanje fotografije iz bilblioteke"
 msgstr[2] "Brisanje fotografija iz bilblioteke"
-msgstr[3] "Brisanje fotografija iz bilblioteke"
 
 #: src/Dialogs.vala:1057
 #, c-format
@@ -2722,7 +2656,6 @@ msgid_plural "_Modify original files"
 msgstr[0] "_Izmjeni orginalnu datototeku"
 msgstr[1] "_Izmjeni orginalne datototeku"
 msgstr[2] "_Izmjeni orginalnih datototeka"
-msgstr[3] "_Izmjeni orginalnih datototeka"
 
 #: src/Dialogs.vala:1287
 msgid "Original: "
@@ -2772,7 +2705,6 @@ msgid_plural "days"
 msgstr[0] "dan"
 msgstr[1] "dana"
 msgstr[2] "dana"
-msgstr[3] "dana"
 
 #: src/Dialogs.vala:1378
 msgid "hour"
@@ -2780,7 +2712,6 @@ msgid_plural "hours"
 msgstr[0] "sat"
 msgstr[1] "sata"
 msgstr[2] "sati"
-msgstr[3] "sati"
 
 #: src/Dialogs.vala:1379
 msgid "minute"
@@ -2788,7 +2719,6 @@ msgid_plural "minutes"
 msgstr[0] "minuta"
 msgstr[1] "minute"
 msgstr[2] "minuta"
-msgstr[3] "minuta"
 
 #: src/Dialogs.vala:1380
 msgid "second"
@@ -2796,7 +2726,6 @@ msgid_plural "seconds"
 msgstr[0] "sekunda"
 msgstr[1] "sekunde"
 msgstr[2] "sekundi"
-msgstr[3] "sekundi"
 
 #: src/Dialogs.vala:1424
 #, c-format
@@ -2817,10 +2746,6 @@ msgstr[1] ""
 "\n"
 "i %d ostalih."
 msgstr[2] ""
-"\n"
-"\n"
-"i %d ostalih."
-msgstr[3] ""
 "\n"
 "\n"
 "i %d ostalih."
@@ -2919,7 +2844,6 @@ msgid_plural "Removing Photos From Library"
 msgstr[0] "Micanje fotografije iz biblioteke"
 msgstr[1] "Micanje fotografije iz biblioteke"
 msgstr[2] "Micanje fotografija iz biblioteke"
-msgstr[3] "Micanje fotografija iz biblioteke"
 
 #: src/Dialogs.vala:2053
 #, c-format
@@ -2934,7 +2858,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:2057
 #, c-format
@@ -2949,7 +2872,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:2061
 #, c-format
@@ -2964,7 +2886,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:2093
 #, c-format
@@ -2975,7 +2896,6 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/Dialogs.vala:2110
 #, c-format
@@ -2984,7 +2904,6 @@ msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #: src/PhotoPage.vala:506
 msgid "Previous photo"
@@ -3014,8 +2933,7 @@ msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d fotografija/video"
 msgstr[1] "%d fotografije/videa"
-msgstr[2] "%d fotografije/videa"
-msgstr[3] "%d fotografija/videa"
+msgstr[2] "%d fotografija/videa"
 
 #: src/EventsDirectoryPage.vala:257 src/MediaPage.vala:307
 msgid "Even_ts"
@@ -3277,7 +3195,6 @@ msgid_plural "Unable to duplicate %d photos due to file errors"
 msgstr[0] "Ne mogu napraviti kopiju %d fotografije zbog greške na datoteci"
 msgstr[1] "Ne mogu napraviti kopiju %d fotografije zbog greške na datotekama"
 msgstr[2] "Ne mogu napraviti kopiju %d fotografija zbog greške na datotekama"
-msgstr[3] "Ne mogu napraviti kopiju %d fotografija zbog greške na datotekama"
 
 #: src/Commands.vala:995
 msgid "Restoring previous rating"
@@ -3309,7 +3226,6 @@ msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Orginalna fotografija se ne može podesiti"
 msgstr[1] "Orginalne fotografije se ne može podesiti"
 msgstr[2] "Orginalne fotografije se ne može podesiti"
-msgstr[3] "Orginalne fotografije se ne može podesiti"
 
 #: src/Commands.vala:1125 src/Commands.vala:1137
 msgid "Time Adjustment Error"
@@ -3322,7 +3238,6 @@ msgid_plural ""
 msgstr[0] "Na fotografiji se ne može podesiti vrijeme."
 msgstr[1] "Na fotografijama se ne može podesiti vrijeme"
 msgstr[2] "Na fotografijama se ne može podesiti vrijeme."
-msgstr[3] "Na fotografijama se ne može podesiti vrijeme."
 
 #: src/Commands.vala:1393
 msgid "Move Photos to Trash"

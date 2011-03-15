@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-03 20:17+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-03-04 18:33+0000\n"
+"Last-Translator: marianvasile <marianvasile@upcmail.ro>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1))\n"
 
 #: src/AppWindow.vala:669
 #: plugins/shotwell-transitions/shotwell-transitions.vala:79
@@ -2142,6 +2142,10 @@ msgid ""
 "Preferences</b> and enable one or more of the publishing plugins on the "
 "<b>Plugin</b> tab."
 msgstr ""
+"Shotwell nu poate publica elementele selectate deoarece nu aveți activat un "
+"modul compatibil pentru publicare. Pentru a corecta acest lucru, alegeți "
+"<b>Editare %s Preferințe</b> și activați unul sau mai multe module pentru "
+"publicare din fila <b>Module</b>."
 
 #: src/WebConnectors.vala:990
 msgid "_Close"
@@ -2265,6 +2269,8 @@ msgid ""
 "Shotwell couldn't create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
+"Shotwell nu poate crea un fișier pentru editarea acestei fotografii deoarece"
+" nu aveți drepturi de scriere pe %s."
 
 #: src/Dialogs.vala:78
 msgid ""

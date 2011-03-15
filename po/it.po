@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-03 20:17+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-03-14 13:29+0000\n"
+"Last-Translator: ElleUca <elle.uca@libero.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,7 +91,7 @@ msgstr "Informazioni su Shotwell"
 
 #: src/AppWindow.vala:502
 msgid "Fulls_creen"
-msgstr "_Schermo intero"
+msgstr "Sc_hermo intero"
 
 #: src/AppWindow.vala:503
 msgid "Use Shotwell at fullscreen"
@@ -514,7 +514,7 @@ msgstr "Regola il colore e il tono della foto"
 
 #: src/Resources.vala:149
 msgid "Re_vert to Original"
-msgstr "Ripristina _originale"
+msgstr "Ripristina ori_ginale"
 
 #: src/Resources.vala:150
 msgid "Revert to Original"
@@ -571,7 +571,7 @@ msgstr "Ripete l'ultima azione annullata"
 
 #: src/Resources.vala:168
 msgid "Re_name Event..."
-msgstr "Ri_nomina evento..."
+msgstr "_Rinomina evento..."
 
 #: src/Resources.vala:169 src/Dialogs.vala:873
 msgid "Rename Event"
@@ -583,15 +583,15 @@ msgstr "Rinomina l'evento selezionato"
 
 #: src/Resources.vala:172
 msgid "Make _Key Photo for Event"
-msgstr "Imposta come _copertina dell'evento"
+msgstr "Rendi foto c_hiave per evento"
 
 #: src/Resources.vala:173
 msgid "Make Key Photo for Event"
-msgstr "Imposta come copertina dell'evento"
+msgstr "Rendi foto chiave per evento"
 
 #: src/Resources.vala:174
 msgid "Make the selected photo the thumbnail for the event"
-msgstr "Rende la foto selezionata l'anteprima dell'evento"
+msgstr "Utilizza la foto selezionata come miniatura per l'evento"
 
 #: src/Resources.vala:176
 msgid "_New Event"
@@ -755,7 +755,7 @@ msgstr "Crea un duplicato della foto"
 
 #: src/Resources.vala:232
 msgid "_Export..."
-msgstr "_Esporta..."
+msgstr "Esp_orta..."
 
 #: src/Resources.vala:233
 msgid "Export to disk"
@@ -807,7 +807,7 @@ msgstr "Regola la data e l'ora delle foto selezionate"
 
 #: src/Resources.vala:250
 msgid "Add _Tags..."
-msgstr "A_ggiungi etichette..."
+msgstr "_Aggiungi etichette..."
 
 #: src/Resources.vala:251 src/Resources.vala:286
 msgid "Add Tags"
@@ -827,7 +827,7 @@ msgstr "Modifica le preferenze"
 
 #: src/Resources.vala:257
 msgid "_Open With External Editor"
-msgstr "_Apri con editor esterno"
+msgstr "Apri con _editor esterno"
 
 #: src/Resources.vala:258
 msgid "Open the selected photo with an external image editor"
@@ -936,7 +936,7 @@ msgstr "Rinomina etichetta"
 
 #: src/Resources.vala:318
 msgid "Modif_y Tags..."
-msgstr "M_odifica etichette..."
+msgstr "_Modifica etichette..."
 
 #: src/Resources.vala:319
 msgid "Modify Tags"
@@ -1574,11 +1574,11 @@ msgstr "Nome _utente:"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr ""
+msgstr "%a %d %b"
 
 #: src/util/misc.vala:232
 msgid "%d, %Y"
-msgstr ""
+msgstr "%d, %Y"
 
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
@@ -1751,7 +1751,7 @@ msgstr "Espansione contrasto"
 #: src/SearchFilter.vala:407 src/SearchFilter.vala:408
 #: src/SearchFilter.vala:695 src/FlaggedPage.vala:17
 msgid "Flagged"
-msgstr "Contrassegnato"
+msgstr "Con contrassegno"
 
 #: src/SearchFilter.vala:413 src/SearchFilter.vala:414
 msgid "Photos"
@@ -1824,12 +1824,12 @@ msgstr "Immagini"
 #: src/AppDirs.vala:123
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
-msgstr "Impossibile creare la directory temporanea  %s: %s"
+msgstr "Impossibile creare la directory temporanea %s: %s"
 
 #: src/AppDirs.vala:139
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
-msgstr "Impossibile creare la sottodirectory dati  a %s: %s"
+msgstr "Impossibile creare la sottodirectory dati a %s: %s"
 
 #: src/DesktopIntegration.vala:118
 #, c-format
@@ -2132,6 +2132,10 @@ msgid ""
 "Preferences</b> and enable one or more of the publishing plugins on the "
 "<b>Plugin</b> tab."
 msgstr ""
+"Non è possibile pubblicare gli oggetti selezionati perché non risulta "
+"abilitato un plugin di pubblicazione compatibile. Per rimediare a questa "
+"situazione, scegliere <b>Modifica %s Preferenze</b> e abilitare uno o più "
+"plugin di pubblicazione nelle scheda <b>Plugin</b>."
 
 #: src/WebConnectors.vala:990
 msgid "_Close"
@@ -2151,7 +2155,7 @@ msgid ""
 "Publishing to %s can't continue because communication with the service "
 "failed."
 msgstr ""
-"La pubblicazione su %s non può continuare perché non è risucita la "
+"La pubblicazione su %s non può continuare perché non è riuscita la "
 "comunicazione con il servizio."
 
 #: src/WebConnectors.vala:1019
@@ -2195,7 +2199,7 @@ msgstr "Eliminazione..."
 
 #: src/CollectionPage.vala:214 src/PhotoPage.vala:2485
 msgid "S_lideshow"
-msgstr ""
+msgstr "_Diapositive"
 
 #: src/CollectionPage.vala:215 src/PhotoPage.vala:2486
 msgid "Play a slideshow"
@@ -2255,6 +2259,8 @@ msgid ""
 "Shotwell couldn't create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
+"Non è stato possibile creare un file necessario a Shotwell per l'editing di "
+"questa foto poiché non si hanno permessi sufficienti per scrivere su %s."
 
 #: src/Dialogs.vala:78
 msgid ""
@@ -2325,12 +2331,8 @@ msgstr[1] "%d video duplicati non sono stati importati.\n"
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] ""
-"1 foto o video duplicato non è stato importato:\n"
-"\r\n"
-msgstr[1] ""
-"%d foto o video duplicati non sono stati importati:\n"
-"\r\n"
+msgstr[0] "1 foto o video duplicato non è stato importato:\n"
+msgstr[1] "%d foto o video duplicati non sono stati importati:\n"
 
 #: src/Dialogs.vala:486
 #, c-format
@@ -2355,7 +2357,6 @@ msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
 "1 foto o video non è stato importato a causa di un errore file o hardware:\n"
-"\r\n"
 msgstr[1] ""
 "%d foto o video non sono stati importati a causa di un errore file o "
 "hardware:\n"
@@ -2369,7 +2370,11 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"non è riuscita l'importazione di 1 foto perché la cartella della libreria "
+"delle foto non è scrivibile:\n"
 msgstr[1] ""
+"non è riuscita l'importazione di %d foto perché la cartella della libreria "
+"delle foto non è scrivibile:\n"
 
 #: src/Dialogs.vala:509
 #, c-format
@@ -2380,7 +2385,11 @@ msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"non è riuscita l'importazione di 1 video perché la cartella della libreria "
+"delle foto non è scrivibile:\n"
 msgstr[1] ""
+"non è riuscita l'importazione di %d video perché la cartella della libreria "
+"delle foto non è scrivibile:\n"
 
 #: src/Dialogs.vala:512
 #, c-format
@@ -2391,7 +2400,11 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"non è riuscita l'importazione di 1 foto/video perché la cartella della "
+"libreria delle foto non è scrivibile:\n"
 msgstr[1] ""
+"non è riuscita l'importazione di %d foto/video perché la cartella della "
+"libreria delle foto non è scrivibile:\n"
 
 #: src/Dialogs.vala:526
 #, c-format
@@ -2862,7 +2875,7 @@ msgstr "File sorgente della foto mancante: %s"
 
 #: src/PhotoPage.vala:2468 src/MediaPage.vala:311 src/MediaPage.vala:455
 msgid "Ta_gs"
-msgstr "_Etichette"
+msgstr "Eti_chette"
 
 #: src/PhotoPage.vala:2976
 #, c-format
@@ -2918,11 +2931,11 @@ msgstr "Importa foto dal disco nella libreria"
 
 #: src/LibraryWindow.vala:359
 msgid "Sort _Events"
-msgstr "Ordina _eventi"
+msgstr "Ordina e_venti"
 
 #: src/LibraryWindow.vala:370
 msgid "Empty T_rash"
-msgstr "Svuo_ta cestino"
+msgstr "S_vuota cestino"
 
 #: src/LibraryWindow.vala:371
 msgid "Delete all photos in the trash"
@@ -2962,7 +2975,7 @@ msgstr "Mostra le informazioni estese per la selezione"
 
 #: src/LibraryWindow.vala:412
 msgid "_Search Bar"
-msgstr "Barra di ric_erca"
+msgstr "_Barra di ricerca"
 
 #: src/LibraryWindow.vala:413
 msgid "Display the search bar"
@@ -3305,7 +3318,7 @@ msgstr "Ordina f_oto"
 
 #: src/MediaPage.vala:431
 msgid "_Play Video"
-msgstr "_Riproduci video"
+msgstr "Ri_produci video"
 
 #: src/MediaPage.vala:432
 msgid "Open the selected videos in the system video player"
@@ -3363,7 +3376,7 @@ msgstr "Sbriciolamento"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:19
 msgid "Core Slideshow Transitions"
-msgstr ""
+msgstr "Transizioni diapositive di base"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:77
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
@@ -3371,7 +3384,7 @@ msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:16
 msgid "Slide"
-msgstr ""
+msgstr "Scorrimento"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:55
 msgid ""
@@ -3618,7 +3631,7 @@ msgstr "I video appariranno in «%s»"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:966
 msgid "Video privacy _setting:"
-msgstr "_Impostazioni privacy video:"
+msgstr "Impo_stazioni privacy video:"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:1043
 msgid "Public listed"
@@ -3634,7 +3647,7 @@ msgstr "Privato"
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:24
 msgid "Core Publishing Services"
-msgstr ""
+msgstr "Servizi pubblicazione di base"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:46
 msgid ""
@@ -3683,7 +3696,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:947
 msgid "Photos _visible to:"
-msgstr "F_oto visibili a:"
+msgstr "Foto _visibili a:"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:949
 msgid "Videos _visible to:"
@@ -3756,7 +3769,7 @@ msgstr "Editor esterni"
 
 #: ui/shotwell.glade:276
 msgid "_Watch library directory for new files"
-msgstr "_Guarda la cartella della libreria per nuovi file"
+msgstr "Controllare la presenza di nuovi file nella cartella della _libreria"
 
 #: ui/shotwell.glade:302
 msgid "Metadata"
@@ -3764,7 +3777,7 @@ msgstr "Metadati"
 
 #: ui/shotwell.glade:321
 msgid "Write tags, titles, and other _metadata to photo files"
-msgstr "Scrive etichette, titoli e altri _metadati nel file della foto"
+msgstr "Scrivere etichette, titoli e altri _metadati nei file delle foto"
 
 #: ui/shotwell.glade:344
 msgid "Display"
@@ -3780,7 +3793,7 @@ msgstr "Editor RA_W esterno:"
 
 #: ui/shotwell.glade:406
 msgid "_Import photos to:"
-msgstr "I_mporta le foto in:"
+msgstr "_Importare le foto in:"
 
 #: ui/shotwell.glade:427
 msgid "_Background:"
@@ -3804,11 +3817,11 @@ msgstr "Esempio:"
 
 #: ui/shotwell.glade:590
 msgid "R_ename imported files to lowercase"
-msgstr "Rinomina i fil_e importati in minuscolo"
+msgstr "Rinominare i fil_e importati in minuscolo"
 
 #: ui/shotwell.glade:638
 msgid "Plugins"
-msgstr ""
+msgstr "Plugin"
 
 #: ui/shotwell.glade:764
 msgid "Preparing pictures for import..."
@@ -3828,8 +3841,8 @@ msgstr "_Tipo di accesso:"
 
 #: ui/yandex_publish_model.glade:81
 msgid "Disable _comments"
-msgstr "Disabilita _commenti"
+msgstr "Disabilitare i _commenti"
 
 #: ui/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
-msgstr "_Proibisce di scaricare la foto originale"
+msgstr "_Proibire lo scaricamento della foto originale"

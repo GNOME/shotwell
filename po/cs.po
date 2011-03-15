@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-03 20:17+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-03-15 13:11+0000\n"
+"Last-Translator: dstancl <dstancl@dstancl.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -109,7 +109,7 @@ msgstr ""
 
 #: src/AppWindow.vala:515
 msgid "Answers to common questions about Shotwell"
-msgstr ""
+msgstr "Odpovědi na obvyklé dotazy k programu Shotwell"
 
 #: src/AppWindow.vala:605 src/AppWindow.vala:619 src/AppWindow.vala:636
 #: src/TagPage.vala:143 src/WebConnectors.vala:995 src/Dialogs.vala:945
@@ -145,7 +145,7 @@ msgstr "Nepodařilo se zobrazit nápovědu: %s"
 #: src/AppWindow.vala:686
 #, c-format
 msgid "Unable to display FAQ: %s"
-msgstr ""
+msgstr "Nelze zobrazit FAQ: %s"
 
 #: src/ImportPage.vala:328
 msgid ""
@@ -341,7 +341,7 @@ msgstr "Nastavení"
 
 #: src/SlideshowPage.vala:43
 msgid "_Delay:"
-msgstr ""
+msgstr "Z_poždění:"
 
 #: src/SlideshowPage.vala:45 src/SlideshowPage.vala:47
 msgid "seconds"
@@ -849,15 +849,15 @@ msgstr "Poslat fotky mailem nebo rychlou (IM) zprávou"
 
 #: src/Resources.vala:266
 msgid "_Find..."
-msgstr ""
+msgstr "Na_jít..."
 
 #: src/Resources.vala:267
 msgid "Find"
-msgstr ""
+msgstr "Najít"
 
 #: src/Resources.vala:268
 msgid "Find an image by typing text that appears in its name or tags"
-msgstr ""
+msgstr "Najít obrázky, jejichž název nebo nálepka obsahuje napsaný text"
 
 #: src/Resources.vala:270
 msgid "_Flag"
@@ -1099,31 +1099,31 @@ msgstr[2] "Tím odstraníte nálepku \"%s\" %d fotografií. Pokračovat?"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
-msgstr ""
+msgstr "Vyplnit celou stránku"
 
 #: src/Printing.vala:256
 msgid "2 images per page"
-msgstr ""
+msgstr "2 obrázky na stránku"
 
 #: src/Printing.vala:257
 msgid "4 images per page"
-msgstr ""
+msgstr "4 obrázky na stránku"
 
 #: src/Printing.vala:258
 msgid "6 images per page"
-msgstr ""
+msgstr "6 obrázků na stránku"
 
 #: src/Printing.vala:259
 msgid "8 images per page"
-msgstr ""
+msgstr "8 obrázků na stránku"
 
 #: src/Printing.vala:260
 msgid "16 images per page"
-msgstr ""
+msgstr "16 obrázků na stránku"
 
 #: src/Printing.vala:261
 msgid "32 images per page"
-msgstr ""
+msgstr "32 obrázků na stránku"
 
 #: src/Printing.vala:298
 msgid "Printed Image Size"
@@ -1139,7 +1139,7 @@ msgstr "použít _vlastní velikost:"
 
 #: src/Printing.vala:318
 msgid "_Autosize:"
-msgstr ""
+msgstr "_Automatická velikost:"
 
 #: src/Printing.vala:387
 msgid "in."
@@ -1155,11 +1155,11 @@ msgstr "_Zachovat poměr stran"
 
 #: src/Printing.vala:413
 msgid "Titles"
-msgstr ""
+msgstr "Nadpisy"
 
 #: src/Printing.vala:420
 msgid "Print image _title"
-msgstr ""
+msgstr "Tisknout _název obrázku"
 
 #: src/Printing.vala:432
 msgid "Pixel Resolution"
@@ -1235,7 +1235,7 @@ msgstr "Nastavení obrázku"
 
 #: src/Printing.vala:1004
 msgid "Printing..."
-msgstr ""
+msgstr "Tiskne se..."
 
 #: src/Printing.vala:1024 src/Printing.vala:1227
 #, c-format
@@ -1259,7 +1259,7 @@ msgstr "Koš"
 
 #: src/TrashPage.vala:142
 msgid "Trash is empty"
-msgstr ""
+msgstr "Koš je prázdný"
 
 #: src/TrashPage.vala:155
 msgid "Delete"
@@ -1386,7 +1386,7 @@ msgstr "%s nepodporuje formát %s"
 #: src/direct/DirectPhotoPage.vala:247 src/direct/DirectPhotoPage.vala:445
 #, c-format
 msgid "Unable to load %s: %s"
-msgstr ""
+msgstr "Nepodařilo se načíst %s: %s"
 
 #: src/direct/DirectPhotoPage.vala:387
 msgid "_Save a Copy"
@@ -1412,11 +1412,11 @@ msgstr "Uložit jako"
 
 #: src/slideshow/TransitionEffects.vala:96
 msgid "(None)"
-msgstr ""
+msgstr "(Žádný)"
 
 #: src/slideshow/TransitionEffects.vala:292
 msgid "None"
-msgstr ""
+msgstr "Žádný"
 
 #: src/slideshow/Slideshow.vala:15
 msgid "Slideshow Transitions"
@@ -2764,7 +2764,7 @@ msgstr ""
 
 #: src/Dialogs.vala:1941
 msgid "Invalid pattern"
-msgstr ""
+msgstr "Nesprávný vzor"
 
 #: src/Dialogs.vala:2021
 msgid ""
@@ -2923,11 +2923,11 @@ msgstr "Událos_ti"
 
 #: src/EventsDirectoryPage.vala:291
 msgid "No events"
-msgstr ""
+msgstr "Žádné události"
 
 #: src/EventsDirectoryPage.vala:295
 msgid "No events found"
-msgstr ""
+msgstr "Žádné události nebyly nalezeny"
 
 #: src/EventsDirectoryPage.vala:377
 msgid "No Event"
@@ -2979,11 +2979,11 @@ msgstr "Jít na události spojené s touto fotografií"
 
 #: src/LibraryWindow.vala:382
 msgid "_Find"
-msgstr ""
+msgstr "Na_jít"
 
 #: src/LibraryWindow.vala:383
 msgid "Find photos and videos by search criteria"
-msgstr ""
+msgstr "Hledá videa a fotografie podle zadaných kritérií"
 
 #: src/LibraryWindow.vala:400
 msgid "_Basic Information"
@@ -3003,11 +3003,11 @@ msgstr "Zobrazí více informací o vybrané fotografii"
 
 #: src/LibraryWindow.vala:412
 msgid "_Search Bar"
-msgstr ""
+msgstr "Vy_hledávací panel"
 
 #: src/LibraryWindow.vala:413
 msgid "Display the search bar"
-msgstr ""
+msgstr "Zobrazit vyhledávací panel"
 
 #: src/LibraryWindow.vala:425 src/MediaPage.vala:493
 msgid "_Ascending"
@@ -3098,7 +3098,7 @@ msgstr "RAW"
 
 #: src/photos/TiffSupport.vala:87
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: src/photos/JfifSupport.vala:85
 msgid "JPEG"
@@ -3265,11 +3265,11 @@ msgstr "Odznačit vybrané fotografie"
 
 #: src/Page.vala:1333
 msgid "No photos/videos"
-msgstr ""
+msgstr "Žádné video, ani fotografie"
 
 #: src/Page.vala:1337
 msgid "No photos/videos found"
-msgstr ""
+msgstr "Nebylo nalezeno žádné video, ani fotografie"
 
 #: src/Page.vala:2545
 msgid "Photos cannot be exported to this directory."
@@ -3412,7 +3412,7 @@ msgstr ""
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:77
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
-msgstr ""
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:16
 msgid "Slide"
@@ -3438,11 +3438,11 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:122
 msgid "Standard (720 pixels)"
-msgstr ""
+msgstr "Standard (720 pixelů)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:125
 msgid "Large (2048 pixels)"
-msgstr ""
+msgstr "Velký (2048 pixelů)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:258
 msgid "Testing connection to Facebook..."
@@ -3572,7 +3572,7 @@ msgstr "Jste přihlášeni k albu Picasa jako %s."
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1040
 msgid "Videos will appear in:"
-msgstr ""
+msgstr "Videa se objeví v:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1056
 msgid "An _existing album:"
@@ -3650,7 +3650,7 @@ msgstr "Jste přihlášeni k YouTube jako %s."
 #: plugins/shotwell-publishing/YouTubePublishing.vala:943
 #, c-format
 msgid "Videos will appear in '%s'"
-msgstr ""
+msgstr "Videa se objeví v '%s'"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:966
 msgid "Video privacy _setting:"
@@ -3820,19 +3820,19 @@ msgstr "_Pozadí:"
 
 #: ui/shotwell.glade:448
 msgid "Importing"
-msgstr ""
+msgstr "Importuje se"
 
 #: ui/shotwell.glade:469
 msgid "_Directory structure:"
-msgstr ""
+msgstr "Struktura _složek"
 
 #: ui/shotwell.glade:505
 msgid "_Pattern:"
-msgstr ""
+msgstr "_Vzor:"
 
 #: ui/shotwell.glade:574
 msgid "Example:"
-msgstr ""
+msgstr "Například:"
 
 #: ui/shotwell.glade:590
 msgid "R_ename imported files to lowercase"
