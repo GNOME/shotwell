@@ -1623,7 +1623,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             int y = allocation.height - text_height;
             y = (y > 0) ? y / 2 : 0;
             
-            Gdk.cairo_set_source_color(ctx, style.white);
+            Gdk.cairo_set_source_color(ctx, unselected_color);
             ctx.move_to(x, y);
             Pango.cairo_show_layout(ctx, pango_layout);
         }
