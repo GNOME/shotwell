@@ -299,7 +299,7 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
     }
     
     public GLib.DateTime get_exposure_date_time() {
-        return new GLib.DateTime.from_unix_local(wrapped.get_timestamp());
+        return new GLib.DateTime.from_unix_local(wrapped.get_exposure_time());
     }
 }
 
