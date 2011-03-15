@@ -2786,10 +2786,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Dette vil fjerne %d videoer fra dit Shotwell-bibliotek.  Ønsker du også at flytte filerne til dit skrivebords affaldskurv?\n"
+"Dette vil fjerne video fra dit Shotwell-bibliotek.  Ønsker du også at flytte filerne til dit skrivebords affaldskurv?\n"
 "\n"
 "Denne handling kan ikke omgøres."
 msgstr[1] ""
+"Dette vil fjerne %d videoer fra dit Shotwell-bibliotek.  Ønsker du også at flytte filerne til dit skrivebords affaldskurv?\n"
+"\n"
+"Denne handling kan ikke omgøres."
 
 #: src/Dialogs.vala:2061
 #, c-format
@@ -2817,15 +2820,17 @@ msgid ""
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
 msgstr[0] ""
-"%d fotos/videoer kan ikke flyttes til dit skrivebords affaldskurv.  Slet "
+"1 foto/video kan ikke flyttes til dit skrivebords affaldskurv.  Slet "
 "disse filer?"
 msgstr[1] ""
+"%d fotos/videoer kan ikke flyttes til dit skrivebords affaldskurv.  Slet "
+"disse filer?"
 
 #: src/Dialogs.vala:2110
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] "%d Billedet eller videoen kan ikke slettes."
+msgstr[0] "Billedet eller videoen kan ikke slettes."
 msgstr[1] "%d billeder/videoer kan ikke slettes."
 
 #: src/PhotoPage.vala:506
