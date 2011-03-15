@@ -401,7 +401,6 @@ public class SearchFilterActions {
     private bool has_photos = true;
     private bool has_videos = true;
     private bool has_raw = true;
-    private bool has_text = true;
     
     public signal void flagged_toggled(bool on);
     
@@ -494,14 +493,11 @@ public class SearchFilterActions {
             }
         }
         
-        // go with default behavior of making none of the filters available
+        // go with default behavior of making none of the filters available.
         has_flagged = false;
         has_photos = false;
         has_videos = false;
         has_raw = false;
-        
-        // ... but allow text, unless the SearchCriteria says otherwise
-        has_text = true;
         
         update_sensitivities();
     }
@@ -513,7 +509,6 @@ public class SearchFilterActions {
         has_photos = tracker.all.photos > 0;
         has_videos = tracker.all.videos > 0;
         has_raw = tracker.all.raw > 0;
-        has_text = tracker.all.total > 0;
         
         update_sensitivities();
     }
@@ -525,8 +520,7 @@ public class SearchFilterActions {
         has_photos = tracker.all.photos > 0;
         has_videos = tracker.all.videos > 0;
         has_raw = tracker.all.raw > 0;
-        has_text = tracker.all.total > 0;
-        
+
         update_sensitivities();
     }
     
@@ -548,7 +542,9 @@ public class SearchFilterActions {
         set_action_sensitive("CommonDisplayFourOrHigher", allow_ratings);
         set_action_sensitive("CommonDisplayFiveOrHigher", allow_ratings);
         
-        text.set_sensitive(has_text);
+        // Ticket #3343 - Don't disable the text field, even
+        // when no searchable items are available.
+        text.set_sensitive(true);
     }
     
     private void on_flagged_value_toggled(Gtk.ToggleAction action) {
