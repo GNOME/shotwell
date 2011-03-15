@@ -378,7 +378,7 @@ public class DirectPhotoPage : EditingHostPage {
         string save_option = is_writeable ? _("_Save") : _("_Save a Copy");
 
         Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(
-            _("Lose changes to %s?").printf(photo.get_name()), save_option,
+            _("Lose changes to %s?").printf(photo.get_basename()), save_option,
             _("Close _without Saving"));
 
         if (response == Gtk.ResponseType.YES)
