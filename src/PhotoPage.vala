@@ -818,6 +818,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         deactivate_tool();
 
+        // Ticket #3255 - Checkerboard page didn't `remember` what was selected
+        // when the user went into and out of the photo page without navigating 
+        // to next or previous.
+        // Since the base class intentionally unselects everything in the parent
+        // view, reselect the currently marked photo here...
+        if ((has_photo()) && (parent_view != null)) {
+            parent_view.select_marked(parent_view.mark(parent_view.get_view_for_source(get_photo())));
+        }
+
         parent_view = null;
         get_view().clear();
     }
