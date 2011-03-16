@@ -1619,7 +1619,14 @@ public class LibraryWindow : AppWindow {
         Gtk.RadioAction? sort_events_action = get_common_action("CommonSortEventsAscending")
             as Gtk.RadioAction;
         assert(sort_events_action != null);
-        sort_events_action.set_active(Config.get_instance().get_events_sort_ascending());
+        
+        // Ticket #3321 - Event sorting order wasn't saving on exit.
+        // Instead of calling set_active against one of the toggles, call
+        // set_current_value against the entire radio group...
+        int event_sort_val = Config.get_instance().get_events_sort_ascending() ? SORT_EVENTS_ORDER_ASCENDING :
+            SORT_EVENTS_ORDER_DESCENDING;
+        
+        sort_events_action.set_current_value(event_sort_val);
     }
     
     private void start_pulse_background_progress_bar(string label, int priority) {
