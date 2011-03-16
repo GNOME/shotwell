@@ -57,10 +57,10 @@ public void unitize_terminate() {
         return unitize_terminate_points;
     }
     
-    private void dummy_init() {
+    private void dummy_init() throws Error {
     }
     
-    private void dummy_terminate() throws Error {
+    private void dummy_terminate() {
     }
     
     }

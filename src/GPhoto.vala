@@ -133,7 +133,7 @@ namespace GPhoto {
             }
         }
         
-        MemoryInputStream mins = new MemoryInputStream.from_data(raw, raw.length, null);
+        MemoryInputStream mins = new MemoryInputStream.from_data(raw, null);
         
         return new Gdk.Pixbuf.from_stream(mins, null);
     }
@@ -198,10 +198,10 @@ namespace GPhoto {
         unowned uint8[] data;
         res = camera_file.get_data_and_size(out data);
         if (res == Result.OK) {
-            uint8 *buffer = malloc(data.length);
+            uint8[] buffer = new uint8[data.length];
             Memory.copy(buffer, data, data.length);
             
-            return new MemoryInputStream.from_data(buffer, data.length, on_mins_destroyed);
+            return new MemoryInputStream.from_data(buffer, on_mins_destroyed);
         }
 
         // if not stored in memory, try copying it to a temp file and then reading out of that

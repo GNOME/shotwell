@@ -541,7 +541,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
                 throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
                     "Unable to determine if user has free or pro account");
             
-            int quota_mb_left = remaining_kb_str.to_int() / 1024;
+            int quota_mb_left = int.parse(remaining_kb_str) / 1024;
 
             parameters.quota_free_mb = quota_mb_left;
             parameters.user_kind = user_kind;

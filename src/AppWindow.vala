@@ -11,7 +11,7 @@ public class FullscreenWindow : PageWindow {
     
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
     private Gtk.UIManager ui = new Gtk.UIManager();
-    private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_LEAVE_FULLSCREEN);
+    private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.Stock.LEAVE_FULLSCREEN);
     private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton.from_stock(Resources.PIN_TOOLBAR);
     private bool is_toolbar_shown = false;
     private bool waiting_for_invoke = false;
@@ -133,7 +133,7 @@ public class FullscreenWindow : PageWindow {
     private Gtk.ActionEntry[] create_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
-        Gtk.ActionEntry leave_fullscreen = { "LeaveFullscreen", Gtk.STOCK_LEAVE_FULLSCREEN,
+        Gtk.ActionEntry leave_fullscreen = { "LeaveFullscreen", Gtk.Stock.LEAVE_FULLSCREEN,
             TRANSLATABLE, "F11", TRANSLATABLE, on_close };
         leave_fullscreen.label = _("Leave _Fullscreen");
         leave_fullscreen.tooltip = _("Leave fullscreen");
@@ -470,25 +470,25 @@ public abstract class AppWindow : PageWindow {
     private Gtk.ActionEntry[] create_common_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
-        Gtk.ActionEntry quit = { "CommonQuit", Gtk.STOCK_QUIT, TRANSLATABLE, "<Ctrl>Q",
+        Gtk.ActionEntry quit = { "CommonQuit", Gtk.Stock.QUIT, TRANSLATABLE, "<Ctrl>Q",
             TRANSLATABLE, on_quit };
         quit.label = _("_Quit");
         quit.tooltip = _("Quit Shotwell");
         actions += quit;
 
-        Gtk.ActionEntry about = { "CommonAbout", Gtk.STOCK_ABOUT, TRANSLATABLE, null,
+        Gtk.ActionEntry about = { "CommonAbout", Gtk.Stock.ABOUT, TRANSLATABLE, null,
             TRANSLATABLE, on_about };
         about.label = _("_About");
         about.tooltip = _("About Shotwell");
         actions += about;
 
-        Gtk.ActionEntry fullscreen = { "CommonFullscreen", Gtk.STOCK_FULLSCREEN,
+        Gtk.ActionEntry fullscreen = { "CommonFullscreen", Gtk.Stock.FULLSCREEN,
             TRANSLATABLE, "F11", TRANSLATABLE, on_fullscreen };
         fullscreen.label = _("Fulls_creen");
         fullscreen.tooltip = _("Use Shotwell at fullscreen");
         actions += fullscreen;
 
-        Gtk.ActionEntry help_contents = { "CommonHelpContents", Gtk.STOCK_HELP,
+        Gtk.ActionEntry help_contents = { "CommonHelpContents", Gtk.Stock.HELP,
             TRANSLATABLE, "F1", TRANSLATABLE, on_help_contents };
         help_contents.label = _("_Contents");
         help_contents.tooltip = _("More information on Shotwell");
@@ -500,25 +500,25 @@ public abstract class AppWindow : PageWindow {
         help_faq.tooltip = _("Answers to common questions about Shotwell");
         actions += help_faq;
         
-        Gtk.ActionEntry undo = { "CommonUndo", Gtk.STOCK_UNDO, TRANSLATABLE, "<Ctrl>Z",
+        Gtk.ActionEntry undo = { "CommonUndo", Gtk.Stock.UNDO, TRANSLATABLE, "<Ctrl>Z",
             TRANSLATABLE, on_undo };
         undo.label = Resources.UNDO_MENU;
         undo.tooltip = Resources.UNDO_TOOLTIP;
         actions += undo;
         
-        Gtk.ActionEntry redo = { "CommonRedo", Gtk.STOCK_REDO, TRANSLATABLE, "<Ctrl><Shift>Z",
+        Gtk.ActionEntry redo = { "CommonRedo", Gtk.Stock.REDO, TRANSLATABLE, "<Ctrl><Shift>Z",
             TRANSLATABLE, on_redo };
         redo.label = Resources.REDO_MENU;
         redo.tooltip = Resources.REDO_TOOLTIP;
         actions += redo;
 
-        Gtk.ActionEntry jump_to_file = { "CommonJumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, 
+        Gtk.ActionEntry jump_to_file = { "CommonJumpToFile", Gtk.Stock.JUMP_TO, TRANSLATABLE, 
             "<Ctrl><Shift>M", TRANSLATABLE, on_jump_to_file };
         jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
         jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
         actions += jump_to_file;
         
-        Gtk.ActionEntry select_all = { "CommonSelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE,
+        Gtk.ActionEntry select_all = { "CommonSelectAll", Gtk.Stock.SELECT_ALL, TRANSLATABLE,
             "<Ctrl>A", TRANSLATABLE, on_select_all };
         select_all.label = Resources.SELECT_ALL_MENU;
         select_all.tooltip = Resources.SELECT_ALL_TOOLTIP;

@@ -832,12 +832,18 @@ internal class FacebookRESTSession {
         string decoded_uri = Soup.URI.decode(good_login_uri);
 
         // locate the session object description string within the decoded uri
-        string session_desc = decoded_uri.str("session={");
+        string? session_desc = null;
+        int index = decoded_uri.index_of("session={");
+        if (index >= 0)
+            session_desc = decoded_uri[index:decoded_uri.length];
         if (session_desc == null)
             throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Server redirect URL contained no session description");
 
         // remove any trailing parameters from the session description string
-        string trailing_params = session_desc.chr(-1, '&');
+        string? trailing_params = null;
+        index = session_desc.index_of_char('&');
+        if (index >= 0)
+            trailing_params = session_desc[index:session_desc.length];
         if (trailing_params != null)
             session_desc = session_desc.replace(trailing_params, "");
 
@@ -1147,7 +1153,7 @@ internal class FacebookRESTTransaction {
         }
 
         message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
-            formdata_string, formdata_string.length);
+            formdata_string.data);
         is_executed = true;
         try {
             send();
@@ -1305,8 +1311,7 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
         // bind the binary data read from disk into a Soup.Buffer object so that we
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, payload,
-            payload_length);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, payload.data[0:payload_length]);
         message_parts.append_form_file("", file.get_path(), mime_type, bindable_data);
 
         // set up the Content-Disposition header for the multipart part that contains the
@@ -1468,7 +1473,8 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
 
         // strip parameters from the loaded url
         if (loaded_url.contains("?")) {
-            string params = loaded_url.chr(-1, '?');
+            int index = loaded_url.index_of_char('?');
+            string params = loaded_url[index:loaded_url.length];
             loaded_url = loaded_url.replace(params, "");
         }
 

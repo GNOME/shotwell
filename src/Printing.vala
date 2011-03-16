@@ -531,7 +531,7 @@ public class CustomPrintTab : Gtk.Fixed {
     }
 
     private bool on_ppi_entry_focus_out(Gdk.EventFocus event) {
-        set_content_ppi(ppi_entry.get_text().to_int());
+        set_content_ppi(int.parse(ppi_entry.get_text()));
         return false;
     }
 
@@ -609,13 +609,11 @@ public class CustomPrintTab : Gtk.Fixed {
     }
 
     private Measurement get_width_entry_value() {
-        return Measurement(custom_width_entry.get_text().to_double(),
-            get_user_unit_choice());
+        return Measurement(double.parse(custom_width_entry.get_text()), get_user_unit_choice());
     }
 
     private Measurement get_height_entry_value() {
-        return Measurement(custom_height_entry.get_text().to_double(),
-            get_user_unit_choice());
+        return Measurement(double.parse(custom_height_entry.get_text()), get_user_unit_choice());
     }
 
     private void on_entry_insert_text(Gtk.Editable editable, string text, int length, void *position) {

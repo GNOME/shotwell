@@ -296,7 +296,7 @@ private class UploadTransaction: Transaction {
 
         int image_part_num = message_parts.get_length();
 
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data, data_length);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data.data[0:data_length]);
         message_parts.append_form_file("", photo.get_serialized_file().get_path(), "image/jpeg", bindable_data);
 
         unowned Soup.MessageHeaders image_part_header;

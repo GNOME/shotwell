@@ -7,8 +7,12 @@
 public class LibraryWindow : AppWindow {
     public const int SIDEBAR_MIN_WIDTH = 200;
     public const int SIDEBAR_MAX_WIDTH = 320;
-    public const int PAGE_MIN_WIDTH = 
-        Thumbnail.MAX_SCALE + (CheckerboardLayout.COLUMN_GUTTER_PADDING * 2);
+    
+    public static int PAGE_MIN_WIDTH {
+        get {
+            return Thumbnail.MAX_SCALE + (CheckerboardLayout.COLUMN_GUTTER_PADDING * 2);
+        }
+    }
     
     public const int SORT_EVENTS_ORDER_ASCENDING = 0;
     public const int SORT_EVENTS_ORDER_DESCENDING = 1;
@@ -359,13 +363,13 @@ public class LibraryWindow : AppWindow {
         sort.label = _("Sort _Events");
         actions += sort;
 
-        Gtk.ActionEntry preferences = { "CommonPreferences", Gtk.STOCK_PREFERENCES, TRANSLATABLE,
+        Gtk.ActionEntry preferences = { "CommonPreferences", Gtk.Stock.PREFERENCES, TRANSLATABLE,
             null, TRANSLATABLE, on_preferences };
         preferences.label = Resources.PREFERENCES_MENU;
         preferences.tooltip = Resources.PREFERENCES_TOOLTIP;
         actions += preferences;
         
-        Gtk.ActionEntry empty = { "CommonEmptyTrash", Gtk.STOCK_CLEAR, TRANSLATABLE, null, null,
+        Gtk.ActionEntry empty = { "CommonEmptyTrash", Gtk.Stock.CLEAR, TRANSLATABLE, null, null,
             on_empty_trash };
         empty.label = _("Empty T_rash");
         empty.tooltip = _("Delete all photos in the trash");
@@ -377,7 +381,7 @@ public class LibraryWindow : AppWindow {
         jump_to_event.tooltip = _("Go to this photo's event");
         actions += jump_to_event;
         
-        Gtk.ActionEntry find = { "CommonFind", Gtk.STOCK_FIND, TRANSLATABLE, null, null,
+        Gtk.ActionEntry find = { "CommonFind", Gtk.Stock.FIND, TRANSLATABLE, null, null,
             on_find };
         find.label = _("_Find");
         find.tooltip = _("Find photos and videos by search criteria");
@@ -407,7 +411,7 @@ public class LibraryWindow : AppWindow {
         extended_props.tooltip = _("Display extended information for the selection");
         actions += extended_props;
         
-        Gtk.ToggleActionEntry searchbar = { "CommonDisplaySearchbar", Gtk.STOCK_FIND, TRANSLATABLE,
+        Gtk.ToggleActionEntry searchbar = { "CommonDisplaySearchbar", Gtk.Stock.FIND, TRANSLATABLE,
             "F8", TRANSLATABLE, on_display_searchbar, is_search_toolbar_visible };
         searchbar.label = _("_Search Bar");
         searchbar.tooltip = _("Display the search bar");
@@ -420,14 +424,14 @@ public class LibraryWindow : AppWindow {
         Gtk.RadioActionEntry[] actions = new Gtk.RadioActionEntry[0];
         
         Gtk.RadioActionEntry ascending = { "CommonSortEventsAscending",
-            Gtk.STOCK_SORT_ASCENDING, TRANSLATABLE, null, TRANSLATABLE,
+            Gtk.Stock.SORT_ASCENDING, TRANSLATABLE, null, TRANSLATABLE,
             SORT_EVENTS_ORDER_ASCENDING };
         ascending.label = _("_Ascending");
         ascending.tooltip = _("Sort photos in an ascending order");
         actions += ascending;
 
         Gtk.RadioActionEntry descending = { "CommonSortEventsDescending",
-            Gtk.STOCK_SORT_DESCENDING, TRANSLATABLE, null, TRANSLATABLE,
+            Gtk.Stock.SORT_DESCENDING, TRANSLATABLE, null, TRANSLATABLE,
             SORT_EVENTS_ORDER_DESCENDING };
         descending.label = _("D_escending");
         descending.tooltip = _("Sort photos in a descending order");
@@ -640,8 +644,8 @@ public class LibraryWindow : AppWindow {
     
     private void on_file_import() {
         Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog(_("Import From Folder"), null,
-            Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
-            Gtk.STOCK_OK, Gtk.ResponseType.OK);
+            Gtk.FileChooserAction.SELECT_FOLDER, Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, 
+            Gtk.Stock.OK, Gtk.ResponseType.OK);
         import_dialog.set_local_only(false);
         import_dialog.set_select_multiple(true);
         import_dialog.set_current_folder(import_dir);

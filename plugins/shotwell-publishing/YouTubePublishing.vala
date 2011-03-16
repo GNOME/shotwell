@@ -210,8 +210,9 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
 
         debug("EVENT: network transaction to fetch token for login completed successfully.");
-
-        string auth_substring = txn.get_response().str("Auth=");
+        
+        int index = txn.get_response().index_of("Auth=");
+        string auth_substring = txn.get_response().substring(0, index);
         auth_substring = auth_substring.chomp();
         string auth_token = auth_substring.substring(5);
 
@@ -632,8 +633,7 @@ internal class UploadTransaction : AuthenticatedTransaction {
 
         string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(
             publishable.get_publishing_name()), private_video, unlisted_video);
-        Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata,
-            metadata.length);
+        Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata.data);
         message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);
 
         // attempt to read the binary video data from disk
@@ -653,7 +653,7 @@ internal class UploadTransaction : AuthenticatedTransaction {
         // bind the binary video data read from disk into a Soup.Buffer object so that we
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, video_data, data_length);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, video_data.data[0:data_length]);
 
         message_parts.append_form_file("", publishable.get_serialized_file().get_path(), "video/mpeg",
             bindable_data);

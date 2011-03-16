@@ -1413,7 +1413,7 @@ private class PrepareFilesJob : BackgroundImportJob {
     private static int get_test_variable(string name) {
         string value = Environment.get_variable(name);
         
-        return (value == null || value.length == 0) ? 0 : value.to_int();
+        return (value == null || value.length == 0) ? 0 : int.parse(value);
     }
     
     public override void execute() {

@@ -573,15 +573,9 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     
     public virtual MediaSource? fetch_by_source_id(string source_id) {
         string[] components = source_id.split("-");
-
         assert(components.length == 2);
-
-        unowned string endptr;
-        int64 id = components[1].to_int64(out endptr, 16);
-
-        assert(endptr[0] == '\0');
-
-        return fetch_by_numeric_id(id);
+        
+        return fetch_by_numeric_id(parse_int64(components[1], 16));
     }
 
     public abstract Gee.Collection<string> get_event_source_ids(EventID event_id);

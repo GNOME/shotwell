@@ -72,25 +72,25 @@ public class KeyValueMap {
     public int get_int(string key, int def) {
         string value = map.get(key);
         
-        return (value != null) ? value.to_int() : def;
+        return (value != null) ? int.parse(value) : def;
     }
     
     public double get_double(string key, double def) {
         string value = map.get(key);
         
-        return (value != null) ? value.to_double() : def;
+        return (value != null) ? double.parse(value) : def;
     }
     
     public float get_float(string key, float def) {
         string value = map.get(key);
         
-        return (value != null) ? (float) value.to_double() : def;
+        return (value != null) ? (float) double.parse(value) : def;
     }
 
     public bool get_bool(string key, bool def) {
         string value = map.get(key);
         
-        return (value != null) ? value.to_bool() : def;
+        return (value != null) ? bool.parse(value) : def;
     }
     
     // REDEYE: redeye reduction operates on circular regions defined by

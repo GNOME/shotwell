@@ -68,7 +68,7 @@ public class DirectoryMonitor : Object {
     public const bool SUPPORT_DIR_SYMLINKS = true;
     public const bool SUPPORT_FILE_SYMLINKS = false;
     
-    protected const string SUPPLIED_ATTRIBUTES = Util.FILE_ATTRIBUTES;
+    public const string SUPPLIED_ATTRIBUTES = Util.FILE_ATTRIBUTES;
     
     private const FileMonitorFlags FILE_MONITOR_FLAGS = FileMonitorFlags.SEND_MOVED;
     private const uint DELETED_EXPIRATION_MSEC = 500;

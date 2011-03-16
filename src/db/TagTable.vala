@@ -220,11 +220,7 @@ public class TagTable : DatabaseTable {
             // a typename followed by an identifying number (e.g., "video-022354").
             if (token[0].isdigit()) {
                 // this is a legacy entry
-                unowned string endptr;
-                int64 legacy_id = token.to_int64(out endptr, 10);
-                assert(endptr[0] == '\0');
-
-                result.add(PhotoID.upgrade_photo_id_to_source_id(PhotoID(legacy_id)));
+                result.add(PhotoID.upgrade_photo_id_to_source_id(PhotoID(parse_int64(token, 10))));
             } else if (token[0].isalpha()) {
                 // this is a modern entry
                 result.add(token);
@@ -234,5 +230,4 @@ public class TagTable : DatabaseTable {
         return result;
     }
 }
-
 

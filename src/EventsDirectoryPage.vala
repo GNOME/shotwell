@@ -5,17 +5,22 @@
  */
 
 class EventDirectoryItem : CheckerboardItem {
-    public const int CROPPED_SCALE = ThumbnailCache.Size.MEDIUM.get_scale() 
-        + ((ThumbnailCache.Size.BIG.get_scale() - ThumbnailCache.Size.MEDIUM.get_scale()) / 2);
-        
-    public static Scaling squared_scaling = Scaling.to_fill_viewport(Dimensions(CROPPED_SCALE, CROPPED_SCALE));
+    private static int CROPPED_SCALE {
+        get {
+            return ThumbnailCache.Size.MEDIUM.get_scale() 
+                + ((ThumbnailCache.Size.BIG.get_scale() - ThumbnailCache.Size.MEDIUM.get_scale()) / 2);
+        }
+    }
+    
+    public static Scaling squared_scaling = Scaling.to_fill_viewport(Dimensions(CROPPED_SCALE,
+        CROPPED_SCALE));
     
     public Event event;
     
     private Gdk.Rectangle paul_lynde = Gdk.Rectangle();
     
     public EventDirectoryItem(Event event) {
-        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE), get_formatted_title(event), true,
+        base (event, Dimensions(CROPPED_SCALE, CROPPED_SCALE), get_formatted_title(event), true,
             Pango.Alignment.CENTER);
         
         this.event = event;

@@ -15,8 +15,8 @@ public File? choose_file(string current_file_basename) {
         _("Export Video") : _("Export Photo");
         
     Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(file_chooser_title,
-        AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.STOCK_CANCEL, 
-        Gtk.ResponseType.CANCEL, Gtk.STOCK_SAVE, Gtk.ResponseType.ACCEPT, null);
+        AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.Stock.CANCEL, 
+        Gtk.ResponseType.CANCEL, Gtk.Stock.SAVE, Gtk.ResponseType.ACCEPT, null);
     chooser.set_do_overwrite_confirmation(true);
     chooser.set_current_folder(current_export_dir.get_path());
     chooser.set_current_name(current_file_basename);
@@ -41,8 +41,8 @@ public File? choose_dir(string? user_title = null) {
         user_title = _("Export Photos");
 
     Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(user_title,
-        AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, 
-        Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT, null);
+        AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Gtk.Stock.CANCEL, 
+        Gtk.ResponseType.CANCEL, Gtk.Stock.OK, Gtk.ResponseType.ACCEPT, null);
     chooser.set_current_folder(current_export_dir.get_path());
     chooser.set_local_only(false);
     
@@ -183,8 +183,8 @@ public class ExportDialog : Gtk.Dialog {
         ((Gtk.VBox) get_content_area()).add(table);
         
         // add buttons to action area
-        add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL);
-        ok_button = add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        add_button(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
+        ok_button = add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
 
         ok_button.set_flags(ok_button.get_flags() | Gtk.WidgetFlags.CAN_DEFAULT | Gtk.WidgetFlags.HAS_DEFAULT);
         set_default(ok_button);
@@ -270,7 +270,7 @@ public class ExportDialog : Gtk.Dialog {
             constraint = CONSTRAINT_ARRAY[index];
             current_constraint = constraint;
             
-            scale = pixels_entry.get_text().to_int();
+            scale = int.parse(pixels_entry.get_text());
             if (constraint != ScaleConstraint.ORIGINAL)
                 assert(scale > 0);
             current_scale = scale;
@@ -364,7 +364,7 @@ public class ExportDialog : Gtk.Dialog {
     }
     
     private void on_pixels_changed() {
-        ok_button.sensitive = (pixels_entry.get_text_length() > 0) && (pixels_entry.get_text().to_int() > 0);
+        ok_button.sensitive = (pixels_entry.get_text_length() > 0) && (int.parse(pixels_entry.get_text()) > 0);
     }
     
     private void on_pixels_insert_text(string text, int length, void *position) {
@@ -695,7 +695,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         // Use a "COMPOSE" normalization to allow comparison to the position value returned by 
         // Gtk.Entry, i.e. one character=one position. Using the default normalization a character
         // like "é" or "ö" would have a length of two.
-        possible_match = possible_match.casefold().normalize(-1, NormalizeMode.ALL_COMPOSE);        
+        possible_match = possible_match.casefold().normalize(-1, NormalizeMode.ALL_COMPOSE);
         string normed_key = key.normalize(-1, NormalizeMode.ALL_COMPOSE);
         
         if (delimiter == null) {
@@ -703,7 +703,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         } else {
             if (normed_key.contains(delimiter)) {
                 // check whether cursor is before last delimiter
-                long offset = normed_key.pointer_to_offset(normed_key.rchr(-1, delimiter[0]));
+                int offset = normed_key.char_count(normed_key.last_index_of_char(delimiter[0]));
                 int position = ((Gtk.Entry) get_entry()).get_position();
                 if (position <= offset)
                     return false; // TODO: Autocompletion for tags not last in list
@@ -727,7 +727,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         string old_text = entry.get_text();
         if (old_text.length > 0) {
             if (old_text.contains(delimiter)) {
-                long start = old_text.pointer_to_offset(old_text.rchr(-1, delimiter[0]));
+                int start = old_text.char_count(old_text.last_index_of_char(delimiter[0]));
                 old_text = old_text.substring(0, start + 1) + (delimiter != " " ? " " : "");
             } else
                 old_text = "";
@@ -1008,7 +1008,7 @@ public class ProgressDialog : Gtk.Window {
         vbox_bar.pack_start(progress_bar, true, false, 0);
         
         if (cancellable != null) {
-            cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
+            cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
             cancel_button.clicked.connect(on_cancel);
             delete_event.connect(on_window_closed);
         }
@@ -1152,8 +1152,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         has_separator = false;
         set_transient_for(AppWindow.get_instance());
 
-        add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
-                    Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        add_buttons(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, 
+                    Gtk.Stock.OK, Gtk.ResponseType.OK);
         set_title(Resources.ADJUST_DATE_TIME_LABEL);
 
         calendar = new Gtk.Calendar();
@@ -1527,7 +1527,7 @@ public class WelcomeDialog : Gtk.Dialog {
     public WelcomeDialog(Gtk.Window owner) {
         bool show_fspot_import = is_fspot_import_possible();
         bool show_system_pictures_import = is_system_pictures_import_possible();
-        Gtk.Widget ok_button = add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        Gtk.Widget ok_button = add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
         set_title(_("Welcome!"));
         set_resizable(false);
         has_separator = false;
@@ -1617,7 +1617,7 @@ public class WelcomeDialog : Gtk.Dialog {
         ok_button.grab_focus();
     }
 
-    public bool execute(out bool do_fspot_import = false, out bool do_system_pictures_import = false) {
+    public bool execute(out bool do_fspot_import, out bool do_system_pictures_import) {
         show_all();
 
         bool ok = (run() == Gtk.ResponseType.OK);
@@ -1626,10 +1626,9 @@ public class WelcomeDialog : Gtk.Dialog {
         if (ok)
             show_dialog = !hide_button.get_active();
         
-        if (fspot_import_check != null)
-            do_fspot_import = fspot_import_check.get_active();
-        if (system_pictures_import_check != null)
-            do_system_pictures_import = system_pictures_import_check.get_active();
+        do_fspot_import = (fspot_import_check != null) ? fspot_import_check.get_active() : false;
+        do_system_pictures_import = 
+            (system_pictures_import_check != null) ? system_pictures_import_check.get_active() : false;
 
         destroy();
 
@@ -1944,7 +1943,7 @@ public class PreferencesDialog {
          if (is_string_empty(example) && !is_string_empty(dir_pattern_entry.text)) {
             // Invalid pattern.
             dir_pattern_example.set_text(_("Invalid pattern"));
-            dir_pattern_entry.set_icon_from_stock(Gtk.EntryIconPosition.SECONDARY, Gtk.STOCK_DIALOG_ERROR);
+            dir_pattern_entry.set_icon_from_stock(Gtk.EntryIconPosition.SECONDARY, Gtk.Stock.DIALOG_ERROR);
             dir_pattern_entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, false);
             set_allow_closing(false);
          } else {

@@ -71,8 +71,8 @@ public abstract class PhotoPreview {
         // Need to create from stream or file for decode ... catch decode error and return null,
         // different from an I/O error causing the problem
         try {
-            return new Gdk.Pixbuf.from_stream(new MemoryInputStream.from_data(flattened,
-                flattened.length, null), null);
+            return new Gdk.Pixbuf.from_stream(new MemoryInputStream.from_data(flattened, null),
+                null);
         } catch (Error err) {
             warning("Unable to decode thumbnail for %s: %s", name, err.message);
             
@@ -999,7 +999,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public Rating get_rating() {
         string? rating_string = get_first_string(RATING_TAGS);
-        return rating_string == null ? Rating.UNRATED : Rating.unserialize(rating_string.to_int());
+        return rating_string == null ? Rating.UNRATED : Rating.unserialize(int.parse(rating_string));
     }
     
     // Among photo managers, Xmp.xmp.Rating tends to be the standard way to represent ratings.

@@ -56,7 +56,7 @@ public SortedList<AppInfo> get_apps_for_mime_types(string[] mime_types) {
     // 3 loops because SortedList.contains() wasn't paying nicely with AppInfo,
     // probably because it has a special equality function
     foreach (string mime_type in mime_types) {
-        string content_type = g_content_type_from_mime_type(mime_type);
+        string content_type = ContentType.from_mime_type(mime_type);
         if (content_type == null)
             break;
         

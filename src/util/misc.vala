@@ -87,7 +87,7 @@ public string md5_file(File file) throws Error {
     
     FileInputStream fins = file.read(null);
     for (;;) {
-        size_t bytes_read = fins.read(buffer, buffer.length, null);
+        size_t bytes_read = fins.read(buffer, null);
         if (bytes_read <= 0)
             break;
         

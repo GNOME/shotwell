@@ -72,7 +72,7 @@ public abstract class GdkSniffer : PhotoFileSniffer {
         // loop through until all conditions we're searching for are met
         FileInputStream fins = file.read(null);
         for (;;) {
-            size_t bytes_read = fins.read(buffer, buffer.length, null);
+            size_t bytes_read = fins.read(buffer, null);
             if (bytes_read <= 0)
                 break;
             
@@ -83,7 +83,7 @@ public abstract class GdkSniffer : PhotoFileSniffer {
             
             // keep parsing the image until the size is discovered
             if (!size_ready || !area_prepared)
-                pixbuf_loader.write(buffer, bytes_read);
+                pixbuf_loader.write(buffer[0:bytes_read]);
             
             // if not searching for anything else, exit
             if (!calc_md5 && size_ready && area_prepared)

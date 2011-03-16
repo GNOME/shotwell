@@ -60,7 +60,7 @@ public class PngSniffer : GdkSniffer {
 
         uint8[] file_lead_sequence = new uint8[MAGIC_SEQUENCE.length];
 
-        instream.read(file_lead_sequence, MAGIC_SEQUENCE.length, null);
+        instream.read(file_lead_sequence, null);
 
         for (int i = 0; i < MAGIC_SEQUENCE.length; i++) {
             if (file_lead_sequence[i] != MAGIC_SEQUENCE[i])

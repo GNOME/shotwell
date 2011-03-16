@@ -15,7 +15,7 @@ public class BackgroundJobBatch : SortedList<BackgroundJob> {
 public class Workers {
     public const int UNLIMITED_THREADS = -1;
     
-    private ThreadPool thread_pool;
+    private ThreadPool<BackgroundJob> thread_pool;
     private AsyncQueue<BackgroundJob> queue = new AsyncQueue<BackgroundJob>();
     private EventSemaphore empty_event = new EventSemaphore();
     private int enqueued = 0;
@@ -28,7 +28,7 @@ public class Workers {
         empty_event.notify();
         
         try {
-            thread_pool = new ThreadPool(thread_start, max_threads, exclusive);
+            thread_pool = new ThreadPool<BackgroundJob>(thread_start, max_threads, exclusive);
         } catch (ThreadError err) {
             error("Unable to create thread pool: %s", err.message);
         }
@@ -79,7 +79,7 @@ public class Workers {
         }
     }
     
-    private void thread_start(void *ignored) {
+    private void thread_start(BackgroundJob ignored) {
         BackgroundJob? job;
         bool empty;
         lock (queue) {

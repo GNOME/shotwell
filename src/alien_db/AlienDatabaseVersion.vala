@@ -21,7 +21,7 @@ public class AlienDatabaseVersion : Object, Gee.Comparable<AlienDatabaseVersion>
         string[] version_items = str_version.split(separator);
         this.version = new int[version_items.length];
         for (int i = 0; i < version_items.length; i++)
-            this.version[i] = version_items[i].to_int();
+            this.version[i] = int.parse(version_items[i]);
     }
     
     public string to_string() {

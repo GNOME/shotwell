@@ -79,13 +79,13 @@ public class TrashPage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
         
-        Gtk.ActionEntry delete_action = { "Delete", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
+        Gtk.ActionEntry delete_action = { "Delete", Gtk.Stock.DELETE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_delete };
         delete_action.label = Resources.DELETE_PHOTOS_MENU;
         delete_action.tooltip = Resources.DELETE_FROM_TRASH_TOOLTIP;
         actions += delete_action;
         
-        Gtk.ActionEntry restore = { "Restore", Gtk.STOCK_UNDELETE, TRANSLATABLE, null, TRANSLATABLE,
+        Gtk.ActionEntry restore = { "Restore", Gtk.Stock.UNDELETE, TRANSLATABLE, null, TRANSLATABLE,
             on_restore };
         restore.label = Resources.RESTORE_PHOTOS_MENU;
         restore.tooltip = Resources.RESTORE_PHOTOS_TOOLTIP;

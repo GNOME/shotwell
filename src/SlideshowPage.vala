@@ -36,8 +36,8 @@ class SlideshowPage : SinglePhotoPage {
             set_modal(true);
             set_transient_for(AppWindow.get_fullscreen());
 
-            add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
-                Gtk.STOCK_OK, Gtk.ResponseType.OK);
+            add_buttons(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, 
+                Gtk.Stock.OK, Gtk.ResponseType.OK);
             set_title(_("Settings"));
 
             Gtk.Label delay_label = new Gtk.Label.with_mnemonic(_("_Delay:"));
@@ -196,28 +196,28 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // add toolbar buttons
-        Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
+        Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_BACK);
         previous_button.set_label(_("Back"));
         previous_button.set_tooltip_text(_("Go to the previous photo"));
         previous_button.clicked.connect(on_previous);
         
         toolbar.insert(previous_button, -1);
         
-        play_pause_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PAUSE);
+        play_pause_button = new Gtk.ToolButton.from_stock(Gtk.Stock.MEDIA_PAUSE);
         play_pause_button.set_label(_("Pause"));
         play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         play_pause_button.clicked.connect(on_play_pause);
         
         toolbar.insert(play_pause_button, -1);
         
-        Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
+        Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_FORWARD);
         next_button.set_label(_("Next"));
         next_button.set_tooltip_text(_("Go to the next photo"));
         next_button.clicked.connect(on_next);
         
         toolbar.insert(next_button, -1);
 
-        settings_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_PREFERENCES);
+        settings_button = new Gtk.ToolButton.from_stock(Gtk.Stock.PREFERENCES);
         settings_button.set_label(_("Settings"));
         settings_button.set_tooltip_text(_("Change slideshow settings"));
         settings_button.clicked.connect(on_change_settings);
@@ -304,11 +304,11 @@ class SlideshowPage : SinglePhotoPage {
 
     private void on_play_pause() {
         if (playing) {
-            play_pause_button.set_stock_id(Gtk.STOCK_MEDIA_PLAY);
+            play_pause_button.set_stock_id(Gtk.Stock.MEDIA_PLAY);
             play_pause_button.set_label(_("Play"));
             play_pause_button.set_tooltip_text(_("Continue the slideshow"));
         } else {
-            play_pause_button.set_stock_id(Gtk.STOCK_MEDIA_PAUSE);
+            play_pause_button.set_stock_id(Gtk.Stock.MEDIA_PAUSE);
             play_pause_button.set_label(_("Pause"));
             play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         }

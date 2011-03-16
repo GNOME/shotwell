@@ -257,9 +257,9 @@ public class Transaction {
             use_custom_payload = false;
             return;
         }
-
-        message.set_request(payload_content_type, Soup.MemoryUse.COPY, custom_payload,
-            (payload_length > 0) ? payload_length : custom_payload.length);
+        
+        ulong length = (payload_length > 0) ? payload_length : custom_payload.length;
+        message.set_request(payload_content_type, Soup.MemoryUse.COPY, custom_payload.data[0:length]);
 
         use_custom_payload = true;
     }
@@ -316,7 +316,7 @@ public class Transaction {
         }
 
         message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
-            formdata_string, formdata_string.length);
+            formdata_string.data);
         is_executed = true;
         try {
             send();
@@ -411,8 +411,7 @@ public class UploadTransaction : Transaction {
 
         int payload_part_num = message_parts.get_length();
 
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, payload,
-            payload_length);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, payload.data[0:payload_length]);
         message_parts.append_form_file("", publishable.get_serialized_file().get_path(), mime_type,
             bindable_data);
 

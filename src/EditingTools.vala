@@ -544,8 +544,8 @@ public class CropTool : EditingTool {
     private class CropToolWindow : EditingToolWindow {
         private const int CONTROL_SPACING = 8;
         
-        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.STOCK_OK);
-        public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
+        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
+        public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
         public Gtk.ComboBox constraint_combo;
         public Gtk.Button pivot_reticle_button = new Gtk.Button();
         public Gtk.Entry custom_width_entry = new Gtk.Entry();
@@ -717,8 +717,8 @@ public class CropTool : EditingTool {
     }
     
     private bool on_custom_entry_focus_out(Gdk.EventFocus event) {
-        int width = crop_tool_window.custom_width_entry.text.to_int();
-        int height = crop_tool_window.custom_height_entry.text.to_int();
+        int width = int.parse(crop_tool_window.custom_width_entry.text);
+        int height = int.parse(crop_tool_window.custom_height_entry.text);
         
         if ((width == custom_width) && (height == custom_height))
             return false;
@@ -1745,9 +1745,9 @@ public class RedeyeTool : EditingTool {
         private Gtk.Label slider_label = new Gtk.Label.with_mnemonic(_("Size:"));
 
         public Gtk.Button apply_button =
-            new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
+            new Gtk.Button.from_stock(Gtk.Stock.APPLY);
         public Gtk.Button close_button =
-            new Gtk.Button.from_stock(Gtk.STOCK_CLOSE);
+            new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
         public Gtk.HScale slider = new Gtk.HScale.with_range(
             RedeyeInstance.MIN_RADIUS, RedeyeInstance.MAX_RADIUS, 1.0);
     
@@ -2062,9 +2062,9 @@ public class AdjustTool : EditingTool {
         public Gtk.HScale shadows_slider = new Gtk.HScale.with_range(
             ShadowDetailTransformation.MIN_PARAMETER, ShadowDetailTransformation.MAX_PARAMETER,
             1.0);
-        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.STOCK_OK);
+        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
         public Gtk.Button reset_button = new Gtk.Button.with_mnemonic(_("_Reset"));
-        public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
+        public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
         public RGBHistogramManipulator histogram_manipulator = new RGBHistogramManipulator();
 
         public AdjustToolWindow(Gtk.Window container) {

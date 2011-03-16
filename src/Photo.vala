@@ -342,9 +342,9 @@ public abstract class Photo : PhotoSource {
         readers.master = row.master.file_format.create_reader(row.master.filepath);
         
         // get the file title of the Photo without using a File object, skipping the separator itself
-        char *basename = row.master.filepath.rchr(-1, Path.DIR_SEPARATOR);
+        string? basename = String.sliced_at_last_char(row.master.filepath, Path.DIR_SEPARATOR);
         if (basename != null)
-            file_title = (string) (basename + 1);
+            file_title = String.sliced_at(basename, 1);
         
         if (is_string_empty(file_title))
             file_title = row.master.filepath;
@@ -3627,12 +3627,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         assert(source_id.has_prefix(Photo.TYPENAME));
         string numeric_only = source_id.substring(Photo.TYPENAME.length, -1);
         
-        unowned string endptr;
-        int64 id = numeric_only.to_int64(out endptr, 16);
-        
-        assert(endptr[0] == '\0');
-        
-        return fetch_by_numeric_id(id);
+        return fetch_by_numeric_id(parse_int64(numeric_only, 16));
     }
 
     public override Gee.Collection<string> get_event_source_ids(EventID event_id){

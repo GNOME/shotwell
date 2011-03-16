@@ -73,7 +73,7 @@ public class FSpotMetaTable : FSpotDatabaseTable<FSpotMetaRow> {
     public int64 get_hidden_tag_id() throws DatabaseError {
         string id_str = get_data("Hidden Tag Id");
         if(id_str != null) {
-            return id_str.to_int64();
+            return int64.parse(id_str);
         } else {
             return -1;
         }

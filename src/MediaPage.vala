@@ -273,7 +273,7 @@ public abstract class MediaPage : CheckerboardPage {
         file.label = _("_File");
         actions += file;
 
-        Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
+        Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
         export.tooltip = Resources.EXPORT_TOOLTIP;
@@ -290,7 +290,7 @@ public abstract class MediaPage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
         
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE,
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
         remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_PLURAL_TOOLTIP;
@@ -314,7 +314,7 @@ public abstract class MediaPage : CheckerboardPage {
         tags.label = _("Ta_gs");
         actions += tags;
 
-        Gtk.ActionEntry new_event = { "NewEvent", Gtk.STOCK_NEW, TRANSLATABLE, "<Ctrl>N",
+        Gtk.ActionEntry new_event = { "NewEvent", Gtk.Stock.NEW, TRANSLATABLE, "<Ctrl>N",
             TRANSLATABLE, on_new_event };
         new_event.label = Resources.NEW_EVENT_MENU;
         new_event.tooltip = Resources.NEW_EVENT_TOOLTIP;
@@ -332,13 +332,13 @@ public abstract class MediaPage : CheckerboardPage {
         modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
         actions += modify_tags;
 
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.STOCK_ZOOM_IN, TRANSLATABLE,
+        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.Stock.ZOOM_IN, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
         increase_size.tooltip = _("Increase the magnification of the thumbnails");
         actions += increase_size;
 
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, TRANSLATABLE,
+        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.Stock.ZOOM_OUT, TRANSLATABLE,
             "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
         decrease_size.label = _("Zoom _Out");
         decrease_size.tooltip = _("Decrease the magnification of the thumbnails");
@@ -429,7 +429,7 @@ public abstract class MediaPage : CheckerboardPage {
         help.label = _("_Help");
         actions += help;
 
-        Gtk.ActionEntry play = { "PlayVideo", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "<Ctrl>Y",
+        Gtk.ActionEntry play = { "PlayVideo", Gtk.Stock.MEDIA_PLAY, TRANSLATABLE, "<Ctrl>Y",
             TRANSLATABLE, on_play_video };
         play.label = _("_Play Video");
         play.tooltip = _("Open the selected videos in the system video player");
@@ -491,13 +491,13 @@ public abstract class MediaPage : CheckerboardPage {
         
         Gtk.RadioActionEntry[] sort_order_actions = new Gtk.RadioActionEntry[0];
         
-        Gtk.RadioActionEntry ascending = { "SortAscending", Gtk.STOCK_SORT_ASCENDING,
+        Gtk.RadioActionEntry ascending = { "SortAscending", Gtk.Stock.SORT_ASCENDING,
             TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_ASCENDING };
         ascending.label = _("_Ascending");
         ascending.tooltip = _("Sort photos in an ascending order");
         sort_order_actions += ascending;
         
-        Gtk.RadioActionEntry descending = { "SortDescending", Gtk.STOCK_SORT_DESCENDING,
+        Gtk.RadioActionEntry descending = { "SortDescending", Gtk.Stock.SORT_DESCENDING,
             TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_DESCENDING };
         descending.label = _("D_escending");
         descending.tooltip = _("Sort photos in a descending order");

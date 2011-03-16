@@ -206,23 +206,19 @@ namespace Jpeg {
     }
 
     private int read_marker(FileInputStream fins, out Jpeg.Marker marker) throws Error {
-        uint8 byte = 0;
-        uint16 length = 0;
-        size_t bytes_read;
-
-        fins.read_all(&byte, 1, out bytes_read, null);
-        if (byte != Jpeg.MARKER_PREFIX)
+        DataInputStream dins = new DataInputStream(fins);
+        dins.set_byte_order(DataStreamByteOrder.BIG_ENDIAN);
+        
+        if (dins.read_byte() != Jpeg.MARKER_PREFIX)
             return -1;
         
-        fins.read_all(&byte, 1, out bytes_read, null);
-        marker = (Jpeg.Marker) byte;
+        marker = (Jpeg.Marker) dins.read_byte();
         if ((marker == Jpeg.Marker.SOI) || (marker == Jpeg.Marker.EOI)) {
             // no length
             return 0;
         }
         
-        fins.read_all(&length, 2, out bytes_read, null);
-        length = uint16.from_big_endian(length);
+        uint16 length = dins.read_uint16();
         if (length < 2) {
             debug("Invalid length %Xh at ofs %" + int64.FORMAT + "Xh", length, fins.tell() - 2);
             

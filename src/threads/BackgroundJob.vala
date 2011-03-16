@@ -125,16 +125,13 @@ public abstract class BackgroundJob {
     }
     
     // For the CompareFunc delegate, according to JobPriority.
-    public static int priority_compare_func(void *a, void *b) {
-        JobPriority a_priority = ((BackgroundJob *) a)->get_priority();
-        JobPriority b_priority = ((BackgroundJob *) b)->get_priority();
-        
-        return a_priority.compare(b_priority);
+    public static int priority_compare_func(BackgroundJob a, BackgroundJob b) {
+        return a.get_priority().compare(b.get_priority());
     }
     
     // For the Comparator delegate, according to JobPriority.
     public static int64 priority_comparator(void *a, void *b) {
-        return priority_compare_func(a, b);
+        return priority_compare_func((BackgroundJob) a, (BackgroundJob) b);
     }
     
     // This method is not thread-safe.  Best to set priority before the job is enqueued.

@@ -48,13 +48,13 @@ public class DirectPhotoPage : EditingHostPage {
         file.label = _("_File");
         actions += file;
 
-        Gtk.ActionEntry save = { "Save", Gtk.STOCK_SAVE, TRANSLATABLE, "<Ctrl>S", TRANSLATABLE,
+        Gtk.ActionEntry save = { "Save", Gtk.Stock.SAVE, TRANSLATABLE, "<Ctrl>S", TRANSLATABLE,
             on_save };
         save.label = _("_Save");
         save.tooltip = _("Save photo");
         actions += save;
 
-        Gtk.ActionEntry save_as = { "SaveAs", Gtk.STOCK_SAVE_AS, TRANSLATABLE,
+        Gtk.ActionEntry save_as = { "SaveAs", Gtk.Stock.SAVE_AS, TRANSLATABLE,
             "<Ctrl><Shift>S", TRANSLATABLE, on_save_as };
         save_as.label = _("Save _As...");
         save_as.tooltip = _("Save photo with a different name");
@@ -66,7 +66,7 @@ public class DirectPhotoPage : EditingHostPage {
         send_to.tooltip = Resources.SEND_TO_TOOLTIP;
         actions += send_to;
 
-        Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
+        Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         print.tooltip = _("Print the photo to a printer connected to your computer");
@@ -84,13 +84,13 @@ public class DirectPhotoPage : EditingHostPage {
         tools.label = _("_Tools");
         actions += tools;
         
-        Gtk.ActionEntry prev = { "PrevPhoto", Gtk.STOCK_GO_BACK, TRANSLATABLE, null,
+        Gtk.ActionEntry prev = { "PrevPhoto", Gtk.Stock.GO_BACK, TRANSLATABLE, null,
             TRANSLATABLE, on_previous_photo };
         prev.label = _("_Previous Photo");
         prev.tooltip = _("Previous Photo");
         actions += prev;
 
-        Gtk.ActionEntry next = { "NextPhoto", Gtk.STOCK_GO_FORWARD, TRANSLATABLE, null,
+        Gtk.ActionEntry next = { "NextPhoto", Gtk.Stock.GO_FORWARD, TRANSLATABLE, null,
             TRANSLATABLE, on_next_photo };
         next.label = _("_Next Photo");
         next.tooltip = _("Next Photo");
@@ -144,7 +144,7 @@ public class DirectPhotoPage : EditingHostPage {
         adjust.tooltip = Resources.ADJUST_TOOLTIP;
         actions += adjust;
         
-        Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,
+        Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
         revert.tooltip = Resources.REVERT_TOOLTIP;
@@ -170,25 +170,25 @@ public class DirectPhotoPage : EditingHostPage {
         help.label = _("_Help");
         actions += help;
 
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.STOCK_ZOOM_IN, TRANSLATABLE,
+        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.Stock.ZOOM_IN, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
         increase_size.tooltip = _("Increase the magnification of the photo");
         actions += increase_size;
 
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, TRANSLATABLE,
+        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.Stock.ZOOM_OUT, TRANSLATABLE,
             "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
         decrease_size.label = _("Zoom _Out");
         decrease_size.tooltip = _("Decrease the magnification of the photo");
         actions += decrease_size;
 
-        Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.STOCK_ZOOM_FIT, TRANSLATABLE,
+        Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.Stock.ZOOM_FIT, TRANSLATABLE,
             "<Ctrl>0", TRANSLATABLE, snap_zoom_to_min };
         best_fit.label = _("Fit to _Page");
         best_fit.tooltip = _("Zoom the photo to fit on the screen");
         actions += best_fit;
 
-        Gtk.ActionEntry actual_size = { "Zoom100", Gtk.STOCK_ZOOM_100, TRANSLATABLE,
+        Gtk.ActionEntry actual_size = { "Zoom100", Gtk.Stock.ZOOM_100, TRANSLATABLE,
             "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
         actual_size.label = _("Zoom _100%");
         actual_size.tooltip = _("Zoom the photo to 100% magnification");
@@ -458,8 +458,8 @@ public class DirectPhotoPage : EditingHostPage {
         }
 
         Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog(_("Save As"), 
-            AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.STOCK_CANCEL, 
-            Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
+            AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.Stock.CANCEL, 
+            Gtk.ResponseType.CANCEL, Gtk.Stock.OK, Gtk.ResponseType.OK);
         save_as_dialog.set_select_multiple(false);
         save_as_dialog.set_current_name(filename);
         save_as_dialog.set_current_folder(current_save_dir.get_path());

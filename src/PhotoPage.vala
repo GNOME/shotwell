@@ -384,8 +384,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton adjust_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.HScale zoom_slider = null;
-    private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
-    private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
+    private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_BACK);
+    private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_FORWARD);
     private EditingTool current_tool = null;
     private Gtk.ToggleToolButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
@@ -1105,7 +1105,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
         if (pixbuf == null) {
             // Create empty pixbuf.
-            pixbuf = AppWindow.get_instance().render_icon(Gtk.STOCK_MISSING_IMAGE, 
+            pixbuf = AppWindow.get_instance().render_icon(Gtk.Stock.MISSING_IMAGE, 
                 Gtk.IconSize.DIALOG, null);
             get_canvas_scaling().perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
             
@@ -2226,13 +2226,13 @@ public class LibraryPhotoPage : EditingHostPage {
         file.label = _("_File");
         actions += file;
         
-        Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
+        Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
         export.tooltip = Resources.EXPORT_TOOLTIP;
         actions += export;
 
-        Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
+        Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         print.tooltip = Resources.PRINT_TOOLTIP;
@@ -2248,7 +2248,7 @@ public class LibraryPhotoPage : EditingHostPage {
         edit.label = _("_Edit");
         actions += edit;
         
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE,
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
         remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_SINGULAR_TOOLTIP;
@@ -2272,13 +2272,13 @@ public class LibraryPhotoPage : EditingHostPage {
         tools.label = _("_Tools");
         actions += tools;
         
-        Gtk.ActionEntry prev = { "PrevPhoto", Gtk.STOCK_GO_BACK, TRANSLATABLE, null,
+        Gtk.ActionEntry prev = { "PrevPhoto", Gtk.Stock.GO_BACK, TRANSLATABLE, null,
             TRANSLATABLE, on_previous_photo };
         prev.label = _("_Previous Photo");
         prev.tooltip = _("Previous Photo");
         actions += prev;
 
-        Gtk.ActionEntry next = { "NextPhoto", Gtk.STOCK_GO_FORWARD, TRANSLATABLE, null,
+        Gtk.ActionEntry next = { "NextPhoto", Gtk.Stock.GO_FORWARD, TRANSLATABLE, null,
             TRANSLATABLE, on_next_photo };
         next.label = _("_Next Photo");
         next.tooltip = _("Next Photo");
@@ -2332,7 +2332,7 @@ public class LibraryPhotoPage : EditingHostPage {
         adjust.tooltip = Resources.ADJUST_TOOLTIP;
         actions += adjust;
         
-        Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,
+        Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
         revert.tooltip = Resources.REVERT_TOOLTIP;
@@ -2350,7 +2350,7 @@ public class LibraryPhotoPage : EditingHostPage {
         adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
         
-        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.STOCK_EDIT, TRANSLATABLE,
+        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.Stock.EDIT, TRANSLATABLE,
             "<Ctrl>Return", TRANSLATABLE, on_external_edit };
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
         external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;
@@ -2441,25 +2441,25 @@ public class LibraryPhotoPage : EditingHostPage {
         help.label = _("_Help");
         actions += help;
 
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.STOCK_ZOOM_IN, TRANSLATABLE,
+        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.Stock.ZOOM_IN, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
         increase_size.tooltip = _("Increase the magnification of the photo");
         actions += increase_size;
 
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, TRANSLATABLE,
+        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.Stock.ZOOM_OUT, TRANSLATABLE,
             "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
         decrease_size.label = _("Zoom _Out");
         decrease_size.tooltip = _("Decrease the magnification of the photo");
         actions += decrease_size;
 
-        Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.STOCK_ZOOM_FIT, TRANSLATABLE,
+        Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.Stock.ZOOM_FIT, TRANSLATABLE,
             "<Ctrl>0", TRANSLATABLE, snap_zoom_to_min };
         best_fit.label = _("Fit to _Page");
         best_fit.tooltip = _("Zoom the photo to fit on the screen");
         actions += best_fit;
 
-        Gtk.ActionEntry actual_size = { "Zoom100", Gtk.STOCK_ZOOM_100, TRANSLATABLE,
+        Gtk.ActionEntry actual_size = { "Zoom100", Gtk.Stock.ZOOM_100, TRANSLATABLE,
             "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
         actual_size.label = _("Zoom _100%");
         actual_size.tooltip = _("Zoom the photo to 100% magnification");

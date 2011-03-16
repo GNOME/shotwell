@@ -13,9 +13,21 @@ public class Thumbnail : MediaSourceItem {
     // SHOW_RATINGS (bool)
     public const string PROP_SHOW_RATINGS = "show-ratings";
     
-    public const int MIN_SCALE = 72;
-    public const int MAX_SCALE = ThumbnailCache.Size.LARGEST.get_scale();
-    public const int DEFAULT_SCALE = ThumbnailCache.Size.MEDIUM.get_scale();
+    public static int MIN_SCALE {
+        get {
+            return 72;
+        }
+    }
+    public static int MAX_SCALE {
+        get {
+            return ThumbnailCache.Size.LARGEST.get_scale();
+        }
+    }
+    public static int DEFAULT_SCALE {
+        get {
+            return ThumbnailCache.Size.MEDIUM.get_scale();
+        }
+    }
     
     public const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
     public const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;

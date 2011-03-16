@@ -250,7 +250,7 @@ class ImportPreview : MediaSourceItem {
         bool using_placeholder = (pixbuf == null);
         if (pixbuf == null) {
             if (placeholder_preview == null) {
-                placeholder_preview = AppWindow.get_instance().render_icon(Gtk.STOCK_MISSING_IMAGE, 
+                placeholder_preview = AppWindow.get_instance().render_icon(Gtk.Stock.MISSING_IMAGE, 
                     Gtk.IconSize.DIALOG, null);
                 placeholder_preview = scale_pixbuf(placeholder_preview, MAX_SCALE,
                     Gdk.InterpType.BILINEAR, true);
@@ -1404,7 +1404,7 @@ public class ImportPage : CheckerboardPage {
                 photos_string, videos_string, both_string, _("File error"));
 
             ImportUI.QuestionParams question = new ImportUI.QuestionParams(
-                question_string, Gtk.STOCK_DELETE, _("_Keep"));
+                question_string, Gtk.Stock.DELETE, _("_Keep"));
         
             if (!ImportUI.report_manifest(manifest, false, question))
                 return;
@@ -1483,7 +1483,7 @@ public class ImportQueuePage : SinglePhotoPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // Stop button
-        Gtk.ToolButton stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);
+        Gtk.ToolButton stop_button = new Gtk.ToolButton.from_stock(Gtk.Stock.STOP);
         stop_button.set_related_action(get_action("Stop"));
         
         toolbar.insert(stop_button, -1);
@@ -1515,7 +1515,7 @@ public class ImportQueuePage : SinglePhotoPage {
         file.label = _("_File");
         actions += file;
         
-        Gtk.ActionEntry stop = { "Stop", Gtk.STOCK_STOP, TRANSLATABLE, null, TRANSLATABLE,
+        Gtk.ActionEntry stop = { "Stop", Gtk.Stock.STOP, TRANSLATABLE, null, TRANSLATABLE,
             on_stop };
         stop.label = _("_Stop Import");
         stop.tooltip = _("Stop importing photos");

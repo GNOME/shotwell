@@ -491,7 +491,7 @@ public class SourceBacklink {
     // This only applies if the SourceBacklink comes from a DataSource.
     public int64 instance_id {
         get {
-            return _value.to_int64();
+            return int64.parse(_value);
         }
     }
     

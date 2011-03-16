@@ -244,16 +244,16 @@ public class RESTTransaction {
     // If, however, custom_payload is binary data (such as a JEPG), then the caller must set
     // payload_length to the byte length of the custom_payload buffer
     protected void set_custom_payload(string? custom_payload, string payload_content_type,
-        ulong payload_length = 0) {
+        long payload_length = 0) {
         assert (get_method() != HttpMethod.GET); // GET messages don't have payloads
 
         if (custom_payload == null) {
             use_custom_payload = false;
             return;
         }
-
-        message.set_request(payload_content_type, Soup.MemoryUse.COPY, custom_payload,
-            (payload_length > 0) ? payload_length : custom_payload.length);
+        
+        long length = (payload_length > 0) ? payload_length : custom_payload.length;
+        message.set_request(payload_content_type, Soup.MemoryUse.COPY, custom_payload.data[0:length]);
 
         use_custom_payload = true;
     }
@@ -380,7 +380,7 @@ public class RESTTransaction {
             }
 
             message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
-                formdata_string, formdata_string.length);
+                formdata_string.data);
             is_executed = true;
             try {
                 send();
@@ -512,7 +512,7 @@ public abstract class MediaUploadTransaction : RESTTransaction {
         // bind the binary image data read from disk into a Soup.Buffer object so that we
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data.data, data_length);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data.data[0:data_length]);
         message_parts.append_form_file("", source_file, mime_type, bindable_data);
 
         // set up the Content-Disposition header for the multipart part that contains the

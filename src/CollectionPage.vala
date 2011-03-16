@@ -131,7 +131,7 @@ public abstract class CollectionPage : MediaPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
 
-        Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
+        Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         print.tooltip = Resources.PRINT_TOOLTIP;
@@ -173,7 +173,7 @@ public abstract class CollectionPage : MediaPage {
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
 
-        Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE, null,
+        Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE, null,
             TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
         revert.tooltip = Resources.REVERT_TOOLTIP;
@@ -197,7 +197,7 @@ public abstract class CollectionPage : MediaPage {
         adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
         
-        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.STOCK_EDIT, TRANSLATABLE, "<Ctrl>Return",
+        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.Stock.EDIT, TRANSLATABLE, "<Ctrl>Return",
             TRANSLATABLE, on_external_edit };
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
         external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;

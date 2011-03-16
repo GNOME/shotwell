@@ -410,7 +410,7 @@ private class AVIMetadataLoader {
     // and the information here: 
     // http://www.eden-foundation.org/products/code/film_date_stamp/index.html
     private ulong parse_date(string sdate) {
-        if (sdate.size() == 0) {
+        if (sdate.length == 0) {
             return 0;
         }
         Date date = Date();

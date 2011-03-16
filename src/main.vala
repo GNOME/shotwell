@@ -115,7 +115,8 @@ void library_exec(string[] mounts) {
     // initialize GStreamer, but don't pass it our actual command line arguments -- we don't
     // want our end users to be able to parameterize the GStreamer configuration
     string[] fake_args = new string[0];
-    Gst.init(ref fake_args);
+    unowned string[] fake_unowned_args = fake_args;
+    Gst.init(ref fake_unowned_args);
 
     Video.init();
 
@@ -299,19 +300,39 @@ string data_dir = null;
 bool show_version = false;
 bool no_runtime_monitoring = false;
 
-const OptionEntry[] options = {
-    { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
-        N_("Path to Shotwell's private data"), N_("DIRECTORY") },
-    { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,
-        N_("Don't used JPEGs to display RAW images"), null },
-    { "no-runtime-monitoring", 0, 0, OptionArg.NONE, &no_runtime_monitoring,
-        N_("Do not monitor library directory at runtime for changes"), null },
-    { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
-        N_("Don't display startup progress meter"), null },
-    { "version", 'V', 0, OptionArg.NONE, &show_version,
-        N_("Show the application's version"), null },
-    { null }
-};
+public OptionEntry[] get_options() {
+    OptionEntry?[] entries = new OptionEntry[0];
+    
+    OptionEntry entry = OptionEntry() { long_name = "datadir", short_name = 'd', flags = 0, arg = OptionArg.FILENAME,
+        arg_data = &data_dir, description = N_("Path to Shotwell's private data"),
+        arg_description = N_("DIRECTORY") };
+    entries += entry;
+    
+    entry = OptionEntry() { long_name = "no-mimicked-images", short_name = 0, flags = 0, arg = OptionArg.NONE,
+        arg_data = &no_mimicked_images, description = N_("Don't used JPEGs to display RAW images"),
+        arg_description = null };
+    entries += entry;
+    
+    entry = OptionEntry() { long_name = "no-runtime-monitoring", short_name = 0, flags = 0, arg = OptionArg.NONE,
+        arg_data = &no_runtime_monitoring, 
+        description = N_("Do not monitor library directory at runtime for changes"),
+        arg_description = null };
+    entries += entry;
+    
+    entry = OptionEntry() { long_name = "no-startup-progress", short_name = 0, flags = 0, arg = OptionArg.NONE,
+        arg_data = &no_startup_progress, description = N_("Don't display startup progress meter"),
+        arg_description = null };
+    entries += entry;
+    
+    entry = OptionEntry() { long_name = "version", short_name = 'V', flags = 0, arg = OptionArg.NONE,
+        arg_data = &show_version, description = N_("Show the application's version"),
+        arg_description = null };
+    entries += entry;
+    
+    entries += null;
+    
+    return entries;
+}
 
 }
 
@@ -322,7 +343,8 @@ void main(string[] args) {
 
     // init GTK (valac has already called g_threads_init())
     try {
-        Gtk.init_with_args(ref args, _("[FILE]"), (OptionEntry []) CommandlineOptions.options, Resources.APP_GETTEXT_PACKAGE);
+        Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.get_options(),
+            Resources.APP_GETTEXT_PACKAGE);
     } catch (Error e) {
         print(e.message + "\n");
         print(_("Run '%s --help' to see a full list of available command line options.\n"), args[0]);

@@ -26,7 +26,7 @@ private class CheckerboardItemText {
     }
     
     private bool is_single_line() {
-        return text.chr(-1, '\n') == null;
+        return !String.contains_char(text, '\n');
     }
     
     public bool is_marked_up() {

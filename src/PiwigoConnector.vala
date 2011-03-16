@@ -118,13 +118,16 @@ public class Interactor : ServiceInteractor {
     private new string? get_pwg_id_from_transaction(RESTTransaction txn) {
         string cookie = txn.get_message().response_headers.get("Set-Cookie");
         if (cookie != "") {
-            string tmp = cookie.rstr("pwg_id=");
-            string[] values = tmp.split(";");
-            string pwg_id = values[0];
-            return pwg_id;
-        } else {
-            return "";
+            string? tmp = String.sliced_at_last_str(cookie, "pwg_id=");
+            if (tmp != null) {
+                string[] values = tmp.split(";");
+                string pwg_id = values[0];
+                
+                return pwg_id;
+            }
         }
+        
+        return "";
     }
     
     // EVENT: triggered when network login is complete
@@ -142,7 +145,7 @@ public class Interactor : ServiceInteractor {
             try {
                 RESTXmlDocument.parse_string(txn.get_response(), Transaction.get_err_code);
             } catch (PublishingError code) {
-                int code_int = code.message.to_int();
+                int code_int = int.parse(code.message);
                 if (code_int == 999) {
                     do_show_credentials_capture_pane(CredentialsCapturePane.Mode.FAILED_RETRY_USER);
                 } else {
@@ -242,7 +245,7 @@ public class Interactor : ServiceInteractor {
                 if (categories == null) {
                     categories = new Category[0];
                 }
-                categories += Category(id_string.to_int(), name);
+                categories += Category(int.parse(id_string), name);
             }
         } catch (PublishingError err) {
             post_error(err);
@@ -329,7 +332,7 @@ public class Interactor : ServiceInteractor {
             Xml.Node* id_node;
             id_node = doc.get_named_child(rsp, "id");
             string id_string = id_node->get_content();
-            int id = id_string.to_int();
+            int id = int.parse(id_string);
             parameters.convert(id);
             do_upload();
         } catch (PublishingError err) {
@@ -1209,7 +1212,7 @@ private class ImagesAddTransaction : Transaction {
         // bind the binary image data read from disk into a Soup.Buffer object so that we
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data, data_length);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data.data[0:data_length]);
         message_parts.append_form_file("", source_file, "image/jpeg", bindable_data);
 
         // set up the Content-Disposition header for the multipart part that contains the

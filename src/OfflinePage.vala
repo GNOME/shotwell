@@ -78,7 +78,7 @@ public class OfflinePage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
         
-        Gtk.ActionEntry remove = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
+        Gtk.ActionEntry remove = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_remove_from_library };
         remove.label = Resources.REMOVE_FROM_LIBRARY_MENU;
         remove.tooltip = Resources.DELETE_FROM_LIBRARY_TOOLTIP;
