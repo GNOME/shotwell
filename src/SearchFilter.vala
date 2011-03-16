@@ -946,6 +946,44 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         insert(search_box, -1);
         
         // Set background color of toolbar and update them when the configuration is updated
+        recompute_style_cascade();       
+        Config.get_instance().colors_changed.connect(on_colors_changed);
+        Config.get_instance().string_changed.connect(on_config_string_changed);
+        on_colors_changed(); // Force color change on init.
+        
+        // hook up signals to actions to be notified when they change
+        actions.flagged_toggled.connect(on_flagged_toggled);
+        actions.photos_toggled.connect(on_photos_toggled);
+        actions.videos_toggled.connect(on_videos_toggled);
+        actions.raw_toggled.connect(on_raw_toggled);
+        actions.rating_changed.connect(on_rating_changed);
+        actions.text_changed.connect(on_search_text_changed);
+        actions.criteria_changed.connect(on_criteria_changed);
+    }
+    
+    ~SearchFilterToolbar() {
+        Config.get_instance().colors_changed.disconnect(on_colors_changed);
+        Config.get_instance().string_changed.disconnect(on_config_string_changed);
+
+        actions.flagged_toggled.disconnect(on_flagged_toggled);
+        actions.photos_toggled.disconnect(on_photos_toggled);
+        actions.videos_toggled.disconnect(on_videos_toggled);
+        actions.raw_toggled.disconnect(on_raw_toggled);
+        actions.rating_changed.disconnect(on_rating_changed);
+        actions.text_changed.disconnect(on_search_text_changed);
+        actions.criteria_changed.disconnect(on_criteria_changed);
+    }
+    
+    private void on_colors_changed() {
+        modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
+        modify_base(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
+        search_box.set_bg_color(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
+        label_type.set_color(Config.get_instance().get_unselected_color());
+        label_flagged.set_color(Config.get_instance().get_unselected_color());
+        label_rating.set_color(Config.get_instance().get_unselected_color());
+    }
+    
+    private void recompute_style_cascade() {
         string toolbar_style = """
             style "search-filter-toolbar-style"
             {
@@ -963,39 +1001,13 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             widget_class "*<SearchFilterToolbar>*" style "search-filter-toolbar-style"
         """.printf(Config.get_instance().get_bg_color().to_string());
         Gtk.rc_parse_string(toolbar_style);
-        
-        Config.get_instance().colors_changed.connect(on_colors_changed);
-        on_colors_changed(); // Force color change on init.
-        
-        // hook up signals to actions to be notified when they change
-        actions.flagged_toggled.connect(on_flagged_toggled);
-        actions.photos_toggled.connect(on_photos_toggled);
-        actions.videos_toggled.connect(on_videos_toggled);
-        actions.raw_toggled.connect(on_raw_toggled);
-        actions.rating_changed.connect(on_rating_changed);
-        actions.text_changed.connect(on_search_text_changed);
-        actions.criteria_changed.connect(on_criteria_changed);
     }
     
-    ~SearchFilterToolbar() {
-        Config.get_instance().colors_changed.disconnect(on_colors_changed);
-        
-        actions.flagged_toggled.disconnect(on_flagged_toggled);
-        actions.photos_toggled.disconnect(on_photos_toggled);
-        actions.videos_toggled.disconnect(on_videos_toggled);
-        actions.raw_toggled.disconnect(on_raw_toggled);
-        actions.rating_changed.disconnect(on_rating_changed);
-        actions.text_changed.disconnect(on_search_text_changed);
-        actions.criteria_changed.disconnect(on_criteria_changed);
-    }
-    
-    private void on_colors_changed() {
-        modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
-        modify_base(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
-        search_box.set_bg_color(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
-        label_type.set_color(Config.get_instance().get_unselected_color());
-        label_flagged.set_color(Config.get_instance().get_unselected_color());
-        label_rating.set_color(Config.get_instance().get_unselected_color());
+    private void on_config_string_changed(string path, string value) {
+        if (path == Config.STRING_BG_COLOR) {
+            recompute_style_cascade();
+            this.reset_rc_styles();
+        }
     }
     
     private void on_flagged_toggled() {

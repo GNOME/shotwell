@@ -11,6 +11,7 @@ public class Config {
     public const string BOOL_COMMIT_METADATA_TO_MASTERS = PATH_SHOTWELL_PREFS + "/files/commit_metadata";
     public const string BOOL_AUTO_IMPORT_FROM_LIBRARY = PATH_SHOTWELL_PREFS + "/files/auto_import";
     public const string STRING_IMPORT_DIRECTORY = PATH_SHOTWELL_PREFS + "/files/import_dir";
+    public const string STRING_BG_COLOR = PATH_SHOTWELL_PREFS + "/ui/background_color";
     
     public const double SLIDESHOW_DELAY_MAX = 30.0;
     public const double SLIDESHOW_DELAY_MIN = 1.0;
@@ -767,7 +768,7 @@ public class Config {
     }
     
     public bool commit_bg_color() {
-        return set_string("/apps/shotwell/preferences/ui/background_color", bg_color);
+        return set_string(STRING_BG_COLOR, bg_color);
     }
 
     public string get_import_dir() {
