@@ -726,9 +726,9 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         public SearchBox(TextAction action) {
             entry = new TextActionEntry(action);
             
-            entry.primary_icon_stock = Gtk.STOCK_FIND;
+            entry.primary_icon_stock = Resources.SEARCHBOX_FIND;
             entry.primary_icon_activatable = false;
-            entry.secondary_icon_stock = Gtk.STOCK_CLEAR;
+            entry.secondary_icon_stock = Resources.SEARCHBOX_CLEAR;
             entry.secondary_icon_activatable = true;
             entry.width_chars = 23;
             entry.icon_release.connect(on_icon_release);
