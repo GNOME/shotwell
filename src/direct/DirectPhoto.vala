@@ -208,6 +208,11 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
         return file_map.has_key(file);
     }
     
+    public void reimport_photo(DirectPhoto photo) {
+        DirectPhoto reimported_photo;
+        fetch(photo.get_file(), out reimported_photo, true);
+    }
+    
     // Returns an error string if unable to fetch, null otherwise
     public string? fetch(File file, out DirectPhoto photo, bool reimport) {
         // fetch from the map first, which ensures that only one DirectPhoto exists for each file

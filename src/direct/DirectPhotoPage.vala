@@ -418,10 +418,9 @@ public class DirectPhotoPage : EditingHostPage {
             return;
         }
         
-        // Fetch the DirectPhoto. This will create a set of "dummy" values in the db until 
-        // demand_load() is called on the DirectPhoto.
+        // Fetch the DirectPhoto and reimport.
         DirectPhoto photo = DirectPhoto.global.get_file_source(dest);
-        
+        DirectPhoto.global.reimport_photo(photo);
         display_mirror_of(view_controller, photo);
     }
     
