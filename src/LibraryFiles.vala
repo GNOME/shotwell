@@ -10,13 +10,14 @@ namespace LibraryFiles {
 // Thus, when the method returns success a file may exist already, and should be overwritten.
 //
 // This function is thread safe.
-public File? generate_unique_file(string basename, PhotoMetadata? metadata, time_t ts, out bool collision)
+public File? generate_unique_file(string basename, MediaMetadata? metadata, time_t ts, out bool collision)
     throws Error {
     // use exposure timestamp over the supplied one (which probably comes from the file's
     // modified time, or is simply time()), unless it's zero, in which case use current time
+    
     time_t timestamp = ts;
     if (metadata != null) {
-        MetadataDateTime? date_time = metadata.get_exposure_date_time();
+        MetadataDateTime? date_time = metadata.get_creation_date_time();
         if (date_time != null)
             timestamp = date_time.get_timestamp();
         else if (timestamp == 0)
@@ -51,8 +52,11 @@ private File duplicate(File src, FileProgressCallback? progress_callback, bool b
         critical("Unable to access file modification for %s: %s", src.get_path(), err.message);
     }
        
-    PhotoMetadata? metadata = null;
-    if (!VideoReader.is_supported_video_file(src)) { // video files don't have EXIF metadata
+    MediaMetadata? metadata = null;
+    if (VideoReader.is_supported_video_file(src)) {
+        VideoReader reader = new VideoReader(src.get_path());
+         metadata = reader.read_metadata();
+    } else {
         PhotoFileReader reader = PhotoFileFormat.get_by_file_extension(src).create_reader(
             src.get_path());
         try {
