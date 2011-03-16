@@ -525,12 +525,16 @@ public class SearchFilterActions {
     }
     
     private void update_sensitivities() {
-        flagged.sensitive = (SearchFilterCriteria.FLAG & criteria) != 0 && has_flagged;
+        flagged.set_stock_id(((SearchFilterCriteria.FLAG & criteria) != 0 && has_flagged) ?
+            Resources.ICON_FILTER_FLAGGED : Resources.ICON_FILTER_FLAGGED_DISABLED);
         
         bool allow_media = (SearchFilterCriteria.MEDIA & criteria) != 0;
-        videos.sensitive = allow_media && has_videos;
-        photos.sensitive = allow_media && has_photos;
-        raw.sensitive = allow_media && has_raw;
+        videos.set_stock_id((allow_media && has_videos) ?
+             Resources.ICON_FILTER_VIDEOS :  Resources.ICON_FILTER_VIDEOS_DISABLED);
+        photos.set_stock_id((allow_media && has_photos) ?
+             Resources.ICON_FILTER_PHOTOS :  Resources.ICON_FILTER_PHOTOS_DISABLED);
+        raw.set_stock_id((allow_media && has_raw) ?
+             Resources.ICON_FILTER_RAW :  Resources.ICON_FILTER_RAW_DISABLED);
         
         bool allow_ratings = (SearchFilterCriteria.RATING & criteria) != 0;
         set_action_sensitive("CommonDisplayRejectedOnly", allow_ratings);
@@ -987,6 +991,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     
     private void on_colors_changed() {
         modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
+        modify_base(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
         search_box.set_bg_color(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
         label_type.set_color(Config.get_instance().get_unselected_color());
         label_flagged.set_color(Config.get_instance().get_unselected_color());

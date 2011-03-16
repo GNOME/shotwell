@@ -109,9 +109,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_PHOTOS = "shotwell-16";
     public const string ICON_SINGLE_PHOTO = "image-x-generic";
     public const string ICON_FILTER_PHOTOS = "filter-photos";
+    public const string ICON_FILTER_PHOTOS_DISABLED = "filter-photos-disabled";
     public const string ICON_FILTER_VIDEOS = "filter-videos";
+    public const string ICON_FILTER_VIDEOS_DISABLED = "filter-videos-disabled";
     public const string ICON_FILTER_RAW = "filter-raw";
+    public const string ICON_FILTER_RAW_DISABLED = "filter-raw-disabled";
     public const string ICON_FILTER_FLAGGED = "filter-flagged";
+    public const string ICON_FILTER_FLAGGED_DISABLED = "filter-flagged-disabled";
     public const string ICON_TRASH_EMPTY = "user-trash";
     public const string ICON_TRASH_FULL = "user-trash-full";
     public const string ICON_VIDEOS_PAGE = "videos-page";
@@ -652,6 +656,15 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_SINGLE_PHOTO), ICON_SINGLE_PHOTO);
         add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_CAMERAS), ICON_CAMERAS);
         
+        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_FLAGGED), 
+            ICON_FILTER_FLAGGED_DISABLED, dim_pixbuf);
+        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_PHOTOS), 
+            ICON_FILTER_PHOTOS_DISABLED, dim_pixbuf);
+        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_VIDEOS), 
+            ICON_FILTER_VIDEOS_DISABLED, dim_pixbuf);
+        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_RAW), 
+            ICON_FILTER_RAW_DISABLED, dim_pixbuf);
+        
         factory.add_default();
 
         generate_rating_strings();
@@ -752,7 +765,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         factory.add(stock_id, icon_set);
     }
     
-    private void add_stock_icon_from_themed_icon(GLib.ThemedIcon gicon, string stock_id) {
+    public delegate void AddStockIconModify(Gdk.Pixbuf pixbuf);
+    
+    private void add_stock_icon_from_themed_icon(GLib.ThemedIcon gicon, string stock_id, 
+        AddStockIconModify? modify = null) {
         Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
         icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
 
@@ -764,7 +780,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         
         try {
-            Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(info.load_icon());
+            Gdk.Pixbuf pix = info.load_icon();
+            if (modify != null) {
+                modify(pix);
+            }
+            Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pix);
                 factory.add(stock_id, icon_set);
         } catch (Error err) {
             debug("%s", err.message);
