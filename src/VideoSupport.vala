@@ -224,7 +224,7 @@ public class VideoReader {
         // Make sure process exited properly.
         int child_status = 0;
         Posix.waitpid(child_pid, out child_status, 0);
-        if (0 != child_status) {
+        if (0 != posix_wexitstatus(child_status)) {
             debug("Thumbnailer exited with error code: %d", child_status);
             buf = null;
         }
