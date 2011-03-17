@@ -719,6 +719,12 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         }
     }
     
+    // Ticket #3260 - Add a 'close' context menu to
+    // the searchbar.
+    // The close menu. Populated below in the constructor.
+    private Gtk.Menu close_menu = new Gtk.Menu();
+    private Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.CLOSE, null);
+   
     // Text search box.
     protected class SearchBox : Gtk.ToolItem {
         private TextActionEntry entry;
@@ -901,6 +907,16 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         
         ui.insert_action_group(actions.get_action_group(), 0);
         
+        // Ticket #3260 - Add a 'close' context menu to
+        // the searchbar.
+        // Prepare the close menu for use, but don't
+        // display it yet; we'll connect it to secondary
+        // click later on.
+        ((Gtk.MenuItem) close_item).show();
+        close_item.always_show_image = true;
+        close_item.activate.connect(on_context_menu_close_chosen);
+        close_menu.append(close_item);
+       
         // Type label and toggles
         label_type = new LabelToolItem(_("Type"), 10, 5);
         insert(label_type, -1);
@@ -959,6 +975,9 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.rating_changed.connect(on_rating_changed);
         actions.text_changed.connect(on_search_text_changed);
         actions.criteria_changed.connect(on_criteria_changed);
+        
+        // #3260 part II Hook up close menu.
+        popup_context_menu.connect(on_context_menu_requested);        
     }
     
     ~SearchFilterToolbar() {
@@ -972,6 +991,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.rating_changed.disconnect(on_rating_changed);
         actions.text_changed.disconnect(on_search_text_changed);
         actions.criteria_changed.disconnect(on_criteria_changed);
+        
+        popup_context_menu.disconnect(on_context_menu_requested); 
     }
     
     private void on_colors_changed() {
@@ -1007,6 +1028,29 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         if (path == Config.STRING_BG_COLOR) {
             recompute_style_cascade();
             this.reset_rc_styles();
+        }
+    }
+    
+    // Ticket #3260 part IV - display the context menu on secondary click
+    private bool on_context_menu_requested(int x, int y, int button) { 
+        close_menu.popup(null, null, null, button, Gtk.get_current_event_time()); 
+        return false;
+    }
+    
+    // Ticket #3260 part III - this runs whenever 'close'
+    // is chosen in the context menu.
+    private void on_context_menu_close_chosen() { 
+        AppWindow aw = LibraryWindow.get_app();        
+        
+        // Try to obtain the action for toggling the searchbar.  If
+        // it's null, then we're probably in direct edit mode, and 
+        // shouldn't do anything anyway.
+        Gtk.ToggleAction searchbar_toggle = aw.get_common_action("CommonDisplaySearchbar") as Gtk.ToggleAction;
+        
+        // Could we find the appropriate action?
+        if(searchbar_toggle != null) {
+            // Yes, hide the search bar.
+            searchbar_toggle.set_active(false);
         }
     }
     
