@@ -119,7 +119,6 @@ RESOURCE_FILES = \
 	trash.ui \
 	offline.ui \
 	media.ui \
-	yandex_publish_model.glade \
 	shotwell.glade \
 	set_background_dialog.glade \
 	search_bar.ui
@@ -188,7 +187,6 @@ ICON_FILES = \
 	filter-photos.png \
 	filter-videos.png \
 	filter-flagged.png
-
 
 HELP_FILES = \
 	edit-adjustments.page \
@@ -326,7 +324,7 @@ UNITIZE_STAMP := $(UNITIZE_DIR)/.unitized
 PLUGINS_DIR := plugins
 PLUGINS_SO := $(foreach plugin,$(PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
 EXTRA_PLUGINS_SO := $(foreach plugin,$(EXTRA_PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
-PLUGINS_DIST_FILES = `$(MAKE) --directory=plugins --no-print-directory listfiles`
+PLUGINS_DIST_FILES := `$(MAKE) --directory=plugins --no-print-directory listfiles`
 
 EXPANDED_PO_FILES := $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
 EXPANDED_SRC_FILES := $(UNITIZED_SRC_FILES) $(foreach src,$(UNUNITIZED_SRC_FILES),src/$(src)) \
@@ -437,13 +435,15 @@ package:
 .PHONY: dist
 dist:
 	mkdir -p $(PROGRAM)-$(VERSION)
-	cp --parents $(DIST_FILES) $(PROGRAM)-$(VERSION)
+	cp --parents --preserve $(DIST_FILES) $(PROGRAM)-$(VERSION)
 	tar --bzip2 -cvf $(DIST_TAR_BZ2) $(PROGRAM)-$(VERSION)
 	tar --gzip -cvf $(DIST_TAR_GZ) $(PROGRAM)-$(VERSION)
 	rm -rf $(PROGRAM)-$(VERSION)
 
 distclean: clean
 	rm -f configure.mk
+	rm -f $(DIST_TAR_BZ2)
+	rm -f $(DIST_TAR_GZ)
 	@$(MAKE) --directory=plugins distclean
 
 .PHONY: install

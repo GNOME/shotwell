@@ -43,10 +43,6 @@ public Spit.Module? spit_entry_point(Spit.EntryPointParams *params) {
         ? new ShotwellTransitions(params->module_file) : null;
 }
 
-// This is here to keep valac happy.
-private void dummy_main() {
-}
-
 // Base class for all transition descriptors in this module
 public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spit.Transitions.Descriptor {
     private const string ICON_FILENAME = "slideshow-plugin.png";

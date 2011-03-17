@@ -47,7 +47,3 @@ public Spit.Module? spit_entry_point(Spit.EntryPointParams *params) {
         ? new ShotwellPublishingCoreServices(params->module_file) : null;
 }
 
-// valac wants a default entry point, so valac gets a default entry point
-private void dummy_main() {
-}
-

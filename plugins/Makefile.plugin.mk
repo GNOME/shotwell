@@ -17,27 +17,51 @@ HEADER_FILES := ../shotwell-plugin-dev-1.0.vapi ../shotwell-plugin-dev-1.0.h \
 
 include ../plugins.mk
 
-# automatically include the shotwell-plugin-dev-1.0 package
+# automatically include shotwell-plugin-dev-1.0's dependencies
+PKGS := $(shell sed ':a;N;$$!ba;s/\n/ /g' ../shotwell-plugin-dev-1.0.deps) $(PKGS)
+
+# automatically include the shotwell-plugin-dev-1.0 package as a local dependency
+EXT_PKGS := $(PKGS) 
 PKGS := shotwell-plugin-dev-1.0 $(PKGS)
 
 # automatically include the Resources.vala common file
 SRC_FILES := ../common/Resources.vala $(SRC_FILES)
 
+CFILES := $(notdir $(SRC_FILES:.vala=.c))
+OFILES := $(notdir $(SRC_FILES:.vala=.o))
+
+CFLAGS := `pkg-config --print-errors --cflags $(EXT_PKGS)` -O2 -g -pipe -fPIC -nostdlib \
+	-export-dynamic
+LDFLAGS := `pkg-config --print-errors --libs $(EXT_PKGS)` $(LDFLAGS)
+DEFINES := -D_VERSION='"$(PLUGINS_VERSION)"' -DGETTEXT_PACKAGE='"shotwell"'
+
 all: $(PLUGIN).so
 
-$(PLUGIN).so: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
-	$(VALAC) -g --enable-checking --fatal-warnings --save-temps --main=dummy_main --vapidir=../ \
-		$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
-		-X -I../.. -X --shared -X -fPIC -X -D_VERSION='"$(PLUGINS_VERSION)"' \
-		-X -DGETTEXT_PACKAGE='"shotwell"' $(SRC_FILES) -o $@
+.stamp: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
+	$(VALAC) -g --enable-checking --fatal-warnings --save-temps --compile \
+		--vapidir=../ $(foreach pkg,$(PKGS),--pkg=$(pkg)) \
+		-X -I../.. -X -fPIC \
+		$(foreach dfn,$(DEFINES),-X $(dfn)) \
+		$(SRC_FILES)
+	@touch .stamp
+
+$(CFILES): .stamp
+	@
+
+$(OFILES): %.o: %.c $(CFILES)
+	$(CC) -c $(CFLAGS) $(DEFINES) -I../.. $(CFILES)
+
+$(PLUGIN).so: $(OFILES)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OFILES) -I../.. -shared -o $@
 
 .PHONY: cleantemps
 cleantemps:
 	@rm -f $(notdir $(SRC_FILES:.vala=.c)) $(notdir $(SRC_FILES:.vala=.o))
+	@rm -f .stamp
 
 .PHONY: clean
 clean: cleantemps
-	@rm -f $(PLUGIN).so
+	@rm -f $(PLUGIN).so $(OFILES) $(CFILES)
 
 .PHONY: distclean
 distclean: clean
