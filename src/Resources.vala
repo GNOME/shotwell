@@ -795,20 +795,40 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
     }
 
-    public static void launch_help(Gdk.Screen screen) throws Error {
-        // if running from the build directory, launch the help from there ... don't just search for
-        // the directory (because /usr/bin/help is a perfectly reasonable file to see), but look
-        // for the index.page, which gives a good clue that this is what we want
+    // Get the directory where our help files live.  Returns a string
+    // describing the help path we want, or, if we're installed system
+    // -wide already, returns null.
+    public static string? get_help_path() {
+        // Try looking for our 'index.page' in the build directory.
         //
         // TODO: Need to look for internationalized help before falling back on help/C
+        
         File help_dir = AppDirs.get_exec_dir().get_child("help").get_child("C");
         File help_index = help_dir.get_child("index.page");
+        
         if (help_index.query_exists(null)) {
-            // yelp (i.e. gnome-help) requires the trailing slash when executing help this way
-            string help_path = help_dir.get_path();
+            string help_path;
+
+            help_path = help_dir.get_path();
+         
             if (!help_path.has_suffix("/"))
                 help_path += "/";
             
+            // Found it.
+            return help_path;
+        }
+        
+        // "./help/C/index.page" doesn't exist, so we're installed  
+        // system-wide, and the caller should assume the default 
+        // help location. 
+        return null;
+    }
+
+    public static void launch_help(Gdk.Screen screen) throws Error {
+        string? help_path = get_help_path();
+        
+        if(help_path != null) {
+            // We're running from the build directory; use local help.
             string[] argv = new string[2];
             argv[0] = "gnome-help";
             argv[1] = help_path;
