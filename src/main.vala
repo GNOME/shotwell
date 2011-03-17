@@ -307,36 +307,34 @@ string data_dir = null;
 bool show_version = false;
 bool no_runtime_monitoring = false;
 
+private OptionEntry[]? entries = null;
+
 public OptionEntry[] get_options() {
-    OptionEntry?[] entries = new OptionEntry[0];
+    if (entries != null)
+        return entries;
     
-    OptionEntry entry = OptionEntry() { long_name = "datadir", short_name = 'd', flags = 0, arg = OptionArg.FILENAME,
-        arg_data = &data_dir, description = N_("Path to Shotwell's private data"),
-        arg_description = N_("DIRECTORY") };
-    entries += entry;
+    OptionEntry datadir = { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
+        N_("Path to Shotwell's private data"), N_("DIRECTORY") };
+    entries += datadir;
     
-    entry = OptionEntry() { long_name = "no-mimicked-images", short_name = 0, flags = 0, arg = OptionArg.NONE,
-        arg_data = &no_mimicked_images, description = N_("Don't used JPEGs to display RAW images"),
-        arg_description = null };
-    entries += entry;
+    OptionEntry no_mimics = { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,
+        N_("Don't used JPEGs to display RAW images"), null };
+    entries += no_mimics;
     
-    entry = OptionEntry() { long_name = "no-runtime-monitoring", short_name = 0, flags = 0, arg = OptionArg.NONE,
-        arg_data = &no_runtime_monitoring, 
-        description = N_("Do not monitor library directory at runtime for changes"),
-        arg_description = null };
-    entries += entry;
+    OptionEntry no_monitoring = { "no-runtime-monitoring", 0, 0, OptionArg.NONE, &no_runtime_monitoring,
+        N_("Do not monitor library directory at runtime for changes"), null };
+    entries += no_monitoring;
     
-    entry = OptionEntry() { long_name = "no-startup-progress", short_name = 0, flags = 0, arg = OptionArg.NONE,
-        arg_data = &no_startup_progress, description = N_("Don't display startup progress meter"),
-        arg_description = null };
-    entries += entry;
+    OptionEntry no_startup = { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
+        N_("Don't display startup progress meter"), null };
+    entries += no_startup;
     
-    entry = OptionEntry() { long_name = "version", short_name = 'V', flags = 0, arg = OptionArg.NONE,
-        arg_data = &show_version, description = N_("Show the application's version"),
-        arg_description = null };
-    entries += entry;
+    OptionEntry version = { "version", 'V', 0, OptionArg.NONE, &show_version, 
+        N_("Show the application's version"), null };
+    entries += version;
     
-    entries += null;
+    OptionEntry terminator = { null, 0, 0, 0, null, null, null };
+    entries += terminator;
     
     return entries;
 }
