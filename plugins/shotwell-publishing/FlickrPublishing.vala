@@ -98,6 +98,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private Spit.Publishing.PluginHost host;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private bool running = false;
+    private bool was_started = false;
     private Session session;
     private string? frob = null;
     private WebAuthenticationPane web_auth_pane = null;
@@ -629,12 +630,13 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (is_running())
             return;
 
-        if (host == null)
+        if (was_started)
             error("FlickrPublisher: start( ): can't start; this publisher is not restartable.");
 
         debug("FlickrPublisher: starting interaction.");
 
         running = true;
+        was_started = true;
 
         if (is_persistent_session_valid()) {
             session.authenticate(get_persistent_auth_token(), get_persistent_username());
@@ -657,7 +659,6 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (session != null)
             session.stop_transactions();
 
-        host = null;
         running = false;
     }
 }
