@@ -981,15 +981,12 @@ public bool remove_offline_dialog(Gtk.Window owner, int count) {
 }
 
 public class ProgressDialog : Gtk.Window {
-    // This dialog tries to guarantee that it will be visible 
-    // for at least this many milliseconds
-    public const int MINIMUM_ON_SCREEN_TIME_MSEC = 500;
-    
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private Gtk.Button cancel_button = null;
     private Cancellable cancellable;
     private uint64 last_count = uint64.MAX;
     private int update_every = 1;
+    private int minimum_on_screen_time_msec = 500;
     private ulong time_started;
     
     public ProgressDialog(Gtk.Window? owner, string text, Cancellable? cancellable = null) {
@@ -1049,6 +1046,10 @@ public class ProgressDialog : Gtk.Window {
         this.update_every = update_every;
     }
     
+    public void set_minimum_on_screen_time_msec(int minimum_on_screen_time_msec) {
+        this.minimum_on_screen_time_msec = minimum_on_screen_time_msec;
+    }
+    
     public void set_fraction(int current, int total) {
         set_percentage((double) current / (double) total);
     }
@@ -1072,13 +1073,12 @@ public class ProgressDialog : Gtk.Window {
     public bool monitor(uint64 count, uint64 total) {
         if ((last_count == uint64.MAX) || (count - last_count) >= update_every) {
             set_percentage((double) count / (double) total);
+            last_count = count;
             
             // TODO: get rid of this.  non-trivial, as some progress-monitor operations are blocking
             // and need to allow the event loop to spin
             spin_event_loop();
         }
-        
-        last_count = count;
         
         return (cancellable != null) ? !cancellable.is_cancelled() : true;
     }
@@ -1104,15 +1104,17 @@ public class ProgressDialog : Gtk.Window {
     private void maybe_show_all(double pct) {
         // Appear only after a while because some jobs may take only a 
         // fraction of second to complete so there's no point in showing progress.
-        if (!this.visible && now_ms() - time_started > MINIMUM_ON_SCREEN_TIME_MSEC) {
+        if (!this.visible && now_ms() - time_started > minimum_on_screen_time_msec) {
             // calculate percents completed in one ms
-            double pps = pct * 100.0 / MINIMUM_ON_SCREEN_TIME_MSEC;
+            double pps = pct * 100.0 / minimum_on_screen_time_msec;
             // calculate [very rough] estimate of time to complete in ms
             double ttc = 100.0 / pps;
             // If there is still more work to do for at least MINIMUM_ON_SCREEN_TIME_MSEC, 
             // finally display the dialog.
-            if (ttc > MINIMUM_ON_SCREEN_TIME_MSEC)
+            if (ttc > minimum_on_screen_time_msec) {
                 show_all(); 
+                spin_event_loop();
+            }
         }
     }
 }

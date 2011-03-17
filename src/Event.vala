@@ -274,6 +274,8 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         int count = event_rows.size;
         for (int ctr = 0; ctr < count; ctr++) {
             Event event = new Event(event_rows[ctr]);
+            if (monitor != null)
+                monitor(ctr, count);
             
             if (event.get_media_count() != 0) {
                 events.add(event);
@@ -288,7 +290,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
             unlinked.add(event);
         }
         
-        global.add_many(events, monitor);
+        global.add_many(events);
         global.init_add_many_unlinked(unlinked);
     }
     

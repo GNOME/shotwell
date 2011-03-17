@@ -3802,9 +3802,12 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
                 offline_photos.add(photo);
             else
                 all_photos.add(photo);
+            
+            if (monitor != null)
+                monitor(ctr, count);
         }
         
-        global.add_many(all_photos, monitor);
+        global.add_many(all_photos);
         global.add_many_to_trash(trashed_photos);
         global.add_many_to_offline(offline_photos);
     }

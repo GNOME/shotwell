@@ -117,23 +117,23 @@ void library_exec(string[] mounts) {
     string[] fake_args = new string[0];
     unowned string[] fake_unowned_args = fake_args;
     Gst.init(ref fake_unowned_args);
-
-    Video.init();
-
+    
     ProgressDialog progress_dialog = null;
     AggregateProgressMonitor aggregate_monitor = null;
     ProgressMonitor monitor = null;
-
+    
     if (!CommandlineOptions.no_startup_progress) {
         // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
         // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
         // objects and then populating the initial page with them.
         uint64 grand_total = (PhotoTable.get_instance().get_row_count() * 2) 
-            + EventTable.get_instance().get_row_count();
-        if (grand_total > 20000) {
+            + EventTable.get_instance().get_row_count()
+            + TagTable.get_instance().get_row_count()
+            + VideoTable.get_instance().get_row_count();
+        if (grand_total > 5000) {
             progress_dialog = new ProgressDialog(null, _("Loading Shotwell"));
-            progress_dialog.update_display_every(300);
-            spin_event_loop();
+            progress_dialog.update_display_every(100);
+            progress_dialog.set_minimum_on_screen_time_msec(250);
             
             aggregate_monitor = new AggregateProgressMonitor(grand_total, progress_dialog.monitor);
             monitor = aggregate_monitor.monitor;
@@ -142,12 +142,16 @@ void library_exec(string[] mounts) {
     
     ThumbnailCache.init();
     Tombstone.init();
-    LibraryMonitorPool.init();
+    
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("LibraryPhoto.init");
-    MediaCollectionRegistry.init();
     LibraryPhoto.init(monitor);
+    if (aggregate_monitor != null)
+        aggregate_monitor.next_step("Video.init");
+    Video.init(monitor);
     
+    LibraryMonitorPool.init();
+    MediaCollectionRegistry.init();
     MediaCollectionRegistry registry = MediaCollectionRegistry.get_instance();
     registry.register_collection(LibraryPhoto.global);
     registry.register_collection(Video.global);
@@ -155,7 +159,10 @@ void library_exec(string[] mounts) {
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("Event.init");
     Event.init(monitor);
-    Tag.init();
+    if (aggregate_monitor != null)
+        aggregate_monitor.next_step("Tag.init");
+    Tag.init(monitor);
+    
     MetadataWriter.init();
     DesktopIntegration.init();
     

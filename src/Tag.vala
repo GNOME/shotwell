@@ -366,7 +366,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         Video.global.items_destroyed.disconnect(on_sources_destroyed);
     }
     
-    public static void init() {
+    public static void init(ProgressMonitor? monitor) {
         global = new TagSourceCollection();
         
         // scoop up all the rows at once
@@ -402,6 +402,8 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             row.name = name;
             
             Tag tag = new Tag(row);
+            if (monitor != null)
+                monitor(ctr, count);
             
             if (tag.get_sources_count() != 0) {
                 tags.add(tag);

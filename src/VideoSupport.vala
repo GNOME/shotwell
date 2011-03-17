@@ -301,7 +301,7 @@ public class Video : VideoSource, Flaggable, Monitorable {
             rehydrate_backlinks(global, row.backlinks);
     }
 
-    public static void init() {
+    public static void init(ProgressMonitor? monitor = null) {
         global = new VideoSourceCollection();
         
         Gee.ArrayList<VideoRow?> all = VideoTable.get_instance().get_all();
@@ -318,6 +318,9 @@ public class Video : VideoSource, Flaggable, Monitorable {
                 offline_videos.add(video);
             else
                 all_videos.add(video);
+            
+            if (monitor != null)
+                monitor(ctr, count);
         }
 
         global.add_many_to_trash(trashed_videos);
