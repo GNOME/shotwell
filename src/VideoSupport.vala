@@ -201,8 +201,8 @@ public class VideoReader {
         // Use totem's thumbnailer, redirect output to stdout.
         string[] argv = {"totem-video-thumbnailer", "-r", video_file, "/dev/stdout"};
         try {
-            GLib.Process.spawn_async_with_pipes(null, argv, null, GLib.SpawnFlags.SEARCH_PATH,
-                null, out child_pid, null, out pipefd[0], null);
+            GLib.Process.spawn_async_with_pipes(null, argv, null, GLib.SpawnFlags.SEARCH_PATH | 
+                GLib.SpawnFlags.DO_NOT_REAP_CHILD, null, out child_pid, null, out pipefd[0], null);
             debug("Spawned thumbnailer, child pid: %d", (int) child_pid);
         } catch (Error e) {
             debug("Error spawning process: %s", e.message);
@@ -223,9 +223,12 @@ public class VideoReader {
         
         // Make sure process exited properly.
         int child_status = 0;
-        Posix.waitpid(child_pid, out child_status, 0);
-        if (0 != posix_wexitstatus(child_status)) {
-            debug("Thumbnailer exited with error code: %d", child_status);
+        int ret_waitpid = Posix.waitpid(child_pid, out child_status, 0);
+        if (ret_waitpid < 0) {
+            debug("waitpid returned error code: %d", ret_waitpid);
+            buf = null;
+        } else if (0 != posix_wexitstatus(child_status)) {
+            debug("Thumbnailer exited with error code: %d", posix_wexitstatus(child_status));
             buf = null;
         }
         
