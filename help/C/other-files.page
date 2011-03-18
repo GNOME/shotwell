@@ -9,8 +9,49 @@
 
 	<title>Photo files</title>
 
-    <p>Every photo in the Shotwell library corresponds to a file stored on your hard disk.  Shotwell has
-    several features which help you keep the Shotwell library and files on disk in sync.</p>
+    <p>
+    Every photo in the Shotwell library corresponds to a file stored on your hard disk.  Shotwell has
+    several features which help you keep the Shotwell library and files on disk in sync.
+    </p>
+    
+    <section id="dirpattern">
+        <title>Using a custom directory pattern</title>
+        <p>
+            Shotwell allows you to specify how it names directories in your library.  You can do this 
+            by changing the <gui>Directory Structure</gui> and <gui>Pattern</gui> settings in the 
+            <gui>Preferences</gui> dialog.  You may use a pre-selected pattern, or choose <gui>Custom</gui> 
+            and type in your own.
+        </p>
+
+        <p>
+            The available symbols for the directory pattern begin with a % (percent sign) and are locale-dependent.
+        </p>
+
+        <table>
+            <tr><td> </td><td> = Symbol = </td><td> = Meaning = </td><td> = Example = 
+            </td></tr><tr><td> </td><td> %Y </td><td> Year: full </td><td> 2011 
+            
+            </td></tr><tr><td> </td><td> %y </td><td> Year: two digit </td><td> 11 
+            </td></tr><tr><td> </td><td> %d </td><td> Day of the month </td><td> 3 
+            </td></tr><tr><td> </td><td> %A </td><td> Day name: full </td><td> Wednesday 
+            
+            </td></tr><tr><td> </td><td> %a </td><td> Day name: abbreviated </td><td> Wed 
+            </td></tr><tr><td> </td><td> %m </td><td> Month number </td><td> 02 
+            </td></tr><tr><td> </td><td> %b </td><td> Month name: abbreviated </td><td> Feb 
+            
+            </td></tr><tr><td> </td><td> %B </td><td> Month name: full </td><td> February 
+            </td></tr><tr><td> </td><td> %I </td><td> Hour: 12 hour format </td><td> 05 
+            </td></tr><tr><td> </td><td> %H </td><td> Hour: 24 hour format </td><td> 17 
+            
+            </td></tr><tr><td> </td><td> %M </td><td> Minute </td><td> 16 
+            </td></tr><tr><td> </td><td> %S </td><td> Second </td><td> 30 
+            </td></tr><tr><td> </td><td> %p </td><td> AM or PM </td><td> PM </td></tr>
+        </table>
+
+        <p>
+            There are other symbols available; please check the manual for strftime if you need one that isn't listed here.
+        </p>
+    </section>
     
     <section>
     <title>Automatically importing photos</title>
