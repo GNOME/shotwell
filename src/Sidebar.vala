@@ -750,7 +750,7 @@ public class Sidebar : Gtk.TreeView {
         bool has_dest = get_dest_row_at_pos(x, y, out path, out pos);
         
         // we don't want to insert between rows, only select the rows themselves
-        if (pos == Gtk.TreeViewDropPosition.BEFORE)
+        if (!has_dest || pos == Gtk.TreeViewDropPosition.BEFORE)
             set_drag_dest_row(path, Gtk.TreeViewDropPosition.INTO_OR_BEFORE);
         else if (pos == Gtk.TreeViewDropPosition.AFTER)
             set_drag_dest_row(path, Gtk.TreeViewDropPosition.INTO_OR_AFTER);
