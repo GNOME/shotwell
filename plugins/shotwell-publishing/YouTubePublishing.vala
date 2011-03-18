@@ -212,7 +212,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("EVENT: network transaction to fetch token for login completed successfully.");
         
         int index = txn.get_response().index_of("Auth=");
-        string auth_substring = txn.get_response().substring(0, index);
+        string auth_substring = txn.get_response().substring(index);
         auth_substring = auth_substring.chomp();
         string auth_token = auth_substring.substring(5);
 
