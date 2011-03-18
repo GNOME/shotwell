@@ -3191,7 +3191,7 @@ public abstract class Photo : PhotoSource {
         add_raw_redeye_instance(inst);
     }
 
-    private Gdk.Pixbuf do_redeye(owned Gdk.Pixbuf pixbuf, owned RedeyeInstance inst) {
+    private Gdk.Pixbuf do_redeye(Gdk.Pixbuf pixbuf, RedeyeInstance inst) {
         /* we remove redeye within a circular region called the "effect
            extent." the effect extent is inscribed within its "bounding
            rectangle." */
@@ -3255,7 +3255,7 @@ public abstract class Photo : PhotoSource {
         return pixbuf;
     }
 
-    private Gdk.Pixbuf red_reduce_pixel(owned Gdk.Pixbuf pixbuf, int x, int y) {
+    private Gdk.Pixbuf red_reduce_pixel(Gdk.Pixbuf pixbuf, int x, int y) {
         int px_start_byte_offset = (y * pixbuf.get_rowstride()) +
             (x * pixbuf.get_n_channels());
         

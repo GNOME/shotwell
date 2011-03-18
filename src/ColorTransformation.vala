@@ -931,7 +931,7 @@ class RGBHistogram {
         }
     }
     
-    private int correct_snap_to_quantization(owned int[] buckets, int i) {
+    private int correct_snap_to_quantization(int[] buckets, int i) {
         assert(buckets.length == 256);
         assert((i >= 0) && (i <= 255));
         
@@ -954,7 +954,7 @@ class RGBHistogram {
         return buckets[i];
     }
     
-    private int correct_snap_from_quantization(owned int[] buckets, int i) {
+    private int correct_snap_from_quantization(int[] buckets, int i) {
         assert(buckets.length == 256);
         assert((i >= 0) && (i <= 255));
         
@@ -972,7 +972,7 @@ class RGBHistogram {
         return buckets[i];
     }
 
-    private void smooth_extrema(owned int[] count_data) {
+    private void smooth_extrema(ref int[] count_data) {
         assert(count_data.length == 256);
         
         /* the blocks of code below are unrolled loops that replace values at the extrema
@@ -1065,9 +1065,9 @@ class RGBHistogram {
                 qualitative_blue_counts[i] = constrained_max_qual_count;
         }
         
-        smooth_extrema(qualitative_red_counts);
-        smooth_extrema(qualitative_green_counts);
-        smooth_extrema(qualitative_blue_counts);
+        smooth_extrema(ref qualitative_red_counts);
+        smooth_extrema(ref qualitative_green_counts);
+        smooth_extrema(ref qualitative_blue_counts);
     }
 
     public Gdk.Pixbuf get_graphic() {
