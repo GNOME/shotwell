@@ -1,6 +1,6 @@
 PROGRAM = shotwell
 
-VERSION = 0.8.90+trunk
+VERSION = 0.9.0
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -168,6 +168,8 @@ ICON_FILES = \
 	publish.png \
 	redeye.png \
 	rejected.svg \
+	searchbox-clear.svg \
+	searchbox-find.svg \
 	shotwell-16.svg \
 	shotwell-24.svg \
 	shotwell.ico \
