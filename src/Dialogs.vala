@@ -1716,7 +1716,23 @@ public class PreferencesDialog {
         raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
         
         Gtk.Label pattern_help = builder.get_object("pattern_help") as Gtk.Label;
-        pattern_help.set_markup("<a href=\"" + Resources.DIR_PATTERN_URL + "\">" + _("(Help)") + "</a>");
+
+        // Ticket #3162 - Move dir pattern blurb into Gnome help. 
+        // Because specifying a particular snippet of the help requires 
+        // us to know where its located, we can't hardcode a URL anymore;
+        // instead, we ask for the help path, and if we find it, we tell
+        // yelp to read from there, otherwise, we read from system-wide. 
+        string help_path = Resources.get_help_path();
+        
+        if (help_path == null) {
+            // We're installed system-wide, so use the system help.
+            pattern_help.set_markup("<a href=\"" + Resources.DIR_PATTERN_URI_SYSWIDE + "\">" + _("(Help)") + "</a>");
+        } else {
+            // We're being run from the build directory; we'll have to handle clicks to this
+            // link manually ourselves, due to a limitation ghelp: URIs.
+            pattern_help.set_markup("<a href=\"dummy:\">" + _("(Help)") + "</a>");
+            pattern_help.activate_link.connect(on_local_pattern_help);
+        }
         
         dir_pattern_combo = new Gtk.ComboBox.text();
         Gtk.Alignment dir_choser_align = builder.get_object("dir choser") as Gtk.Alignment;
@@ -1763,6 +1779,17 @@ public class PreferencesDialog {
         setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
         
         lowercase.set_active(Config.get_instance().get_use_lowercase_filenames());
+    }
+    
+    // Ticket #3162, part II - if we're not yet installed, then we have to manually launch
+    // the help viewer and specify the full path to the subsection we want...
+    private bool on_local_pattern_help(string ignore) {
+        try {
+            Resources.launch_help(AppWindow.get_instance().get_screen(), "?other-files");
+        } catch (Error e) {
+            message("Unable to launch help: %s", e.message);
+        }
+        return true;
     }
     
     private void populate_app_combo_box(Gtk.ComboBox combo_box, string[] mime_types,

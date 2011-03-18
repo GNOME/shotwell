@@ -20,7 +20,7 @@ namespace Resources {
     public const string YORBA_URL = "http://www.yorba.org";
     public const string WIKI_URL = "http://trac.yorba.org/wiki/Shotwell";
     public const string FAQ_URL = "http://trac.yorba.org/wiki/Shotwell/FAQ";
-    public const string DIR_PATTERN_URL = "http://trac.yorba.org/wiki/Shotwell/DirectoryPattern";
+    public const string DIR_PATTERN_URI_SYSWIDE = "ghelp:shotwell?other-files";
     
     public const string PREFIX = _PREFIX;
 
@@ -824,11 +824,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return null;
     }
 
-    public static void launch_help(Gdk.Screen screen) throws Error {
+    public static void launch_help(Gdk.Screen screen, string? anchor=null) throws Error {
         string? help_path = get_help_path();
         
         if(help_path != null) {
             // We're running from the build directory; use local help.
+            
+            // Allow the caller to request a specific page.
+            if (anchor != null) {
+                help_path +=anchor;
+            }
+                        
             string[] argv = new string[2];
             argv[0] = "gnome-help";
             argv[1] = help_path;
@@ -843,7 +849,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         
         // launch from system-installed help
-        sys_show_uri(screen, "ghelp:shotwell");
+        if (anchor != null) {
+            sys_show_uri(screen, "ghelp:shotwell" + anchor);
+        } else {
+            sys_show_uri(screen, "ghelp:shotwell");
+        }
     }
 }
 
