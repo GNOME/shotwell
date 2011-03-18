@@ -248,49 +248,49 @@ public enum Orientation {
         return rotate_dimensions(dim);
     }
 
-    public Gdk.Pixbuf rotate_pixbuf(owned Gdk.Pixbuf pixbuf) {
+    public Gdk.Pixbuf rotate_pixbuf(Gdk.Pixbuf pixbuf) {
+        Gdk.Pixbuf rotated;
         switch (this) {
             case TOP_LEFT:
                 // fine just as it is
+                rotated = pixbuf;
             break;
             
             case TOP_RIGHT:
                 // mirror
-                pixbuf = pixbuf.flip(true);
+                rotated = pixbuf.flip(true);
             break;
             
             case BOTTOM_RIGHT:
-                pixbuf = pixbuf.rotate_simple(Gdk.PixbufRotation.UPSIDEDOWN);
+                rotated = pixbuf.rotate_simple(Gdk.PixbufRotation.UPSIDEDOWN);
             break;
             
             case BOTTOM_LEFT:
                 // flip top-to-bottom
-                pixbuf = pixbuf.flip(false);
+                rotated = pixbuf.flip(false);
             break;
             
             case LEFT_TOP:
-                pixbuf = pixbuf.rotate_simple(Gdk.PixbufRotation.COUNTERCLOCKWISE);
-                pixbuf = pixbuf.flip(false);
+                rotated = pixbuf.rotate_simple(Gdk.PixbufRotation.COUNTERCLOCKWISE).flip(false);
             break;
             
             case RIGHT_TOP:
-                pixbuf = pixbuf.rotate_simple(Gdk.PixbufRotation.CLOCKWISE);
+                rotated = pixbuf.rotate_simple(Gdk.PixbufRotation.CLOCKWISE);
             break;
             
             case RIGHT_BOTTOM:
-                pixbuf = pixbuf.rotate_simple(Gdk.PixbufRotation.CLOCKWISE);
-                pixbuf = pixbuf.flip(false);
+                rotated = pixbuf.rotate_simple(Gdk.PixbufRotation.CLOCKWISE).flip(false);
             break;
             
             case LEFT_BOTTOM:
-                pixbuf = pixbuf.rotate_simple(Gdk.PixbufRotation.COUNTERCLOCKWISE);
+                rotated = pixbuf.rotate_simple(Gdk.PixbufRotation.COUNTERCLOCKWISE);
             break;
             
             default:
                 error("rotate_pixbuf: %d", this);
         }
         
-        return pixbuf;
+        return rotated;
     }
     
     // space is the unrotated dimensions the point is rotating with
