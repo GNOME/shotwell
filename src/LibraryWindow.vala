@@ -816,6 +816,9 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_display_searchbar(Gtk.Action action) {
+        if (!(get_current_page() is CheckerboardPage))
+            return;
+        
         bool display = ((Gtk.ToggleAction) action).get_active();
         
         is_search_toolbar_visible = display;
@@ -1876,10 +1879,13 @@ public class LibraryWindow : AppWindow {
         
         // Update search filter to new page.
         if (should_show_search_bar()) {
+            CheckerboardPage? searchable = page as CheckerboardPage;
+            assert(searchable != null);
+            
             // restore visibility and install filters
             search_toolbar.visible = true;
-            search_toolbar.set_view_filter(((CheckerboardPage) page).get_search_view_filter());
-            page.get_view().install_view_filter(((CheckerboardPage) page).get_search_view_filter());
+            search_toolbar.set_view_filter(searchable.get_search_view_filter());
+            page.get_view().install_view_filter(searchable.get_search_view_filter());
         } else {
             search_toolbar.visible = false;
         }

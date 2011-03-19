@@ -412,6 +412,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_view().contents_altered.connect(on_view_contents_ordering_altered);
         get_view().ordering_changed.connect(on_view_contents_ordering_altered);
         
+        // the viewport can change size independent of the window being resized (when the searchbar
+        // disappears, for example)
+        viewport.size_allocate.connect(on_viewport_resized);
+        
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         Gtk.Toolbar toolbar = get_toolbar();
         
@@ -891,8 +895,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     // See note at rebuild_caches() for usage.
     private void refresh_caches(string caller) {
-        if (has_photo())
+        if (has_photo()) {
+            debug("Refresh pixbuf caches (%s): prefetching neighbors of %s", caller,
+                get_photo().to_string());
             prefetch_neighbors(get_view(), get_photo());
+        } else {
+            debug("Refresh pixbuf caches (%s): (no photo)", caller);
+        }
     }
     
     private bool master_cache_filter(Photo photo) {
@@ -1260,6 +1269,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // is resized it scales that, which pixellates, especially scaling upward.  Once the window
         // resize is complete, we get a fresh image for the new window's size
         rebuild_caches("on_resize_finished");
+        pixbuf_dirty = true;
+        
+        update_pixbuf();
+    }
+    
+    private void on_viewport_resized() {
+        // this means the viewport (the display area) has changed, but not necessarily the
+        // toplevel window's dimensions
+        rebuild_caches("on_viewport_resized");
         pixbuf_dirty = true;
         
         update_pixbuf();

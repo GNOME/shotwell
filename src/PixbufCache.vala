@@ -280,7 +280,7 @@ public class PixbufCache : Object {
             
             Photo photo = (Photo) object;
             
-            // only interested if in this cache and not a master cache, as they never alter
+            // only interested if in this cache
             if (!cache.has_key(photo))
                 continue;
             
