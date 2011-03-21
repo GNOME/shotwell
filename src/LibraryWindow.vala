@@ -226,9 +226,8 @@ public class LibraryWindow : AppWindow {
         // monitor cursor changes to select proper page in notebook
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
         
-        // set search bar's visibility to default state and add its accelerators to the window
+        // setup search bar and add its accelerators to the window
         search_toolbar = new SearchFilterToolbar(search_actions);
-        search_toolbar.visible = is_search_toolbar_visible;
         
         create_layout(library_page);
 
@@ -518,7 +517,7 @@ public class LibraryWindow : AppWindow {
             "CommonDisplaySearchbar") as Gtk.ToggleAction;
         assert(searchbar_action != null);
         
-        search_toolbar.visible = should_show_search_bar();
+        toggle_search_bar(should_show_search_bar(), get_current_page() as CheckerboardPage);
     }
     
     public static LibraryWindow get_app() {
@@ -822,11 +821,7 @@ public class LibraryWindow : AppWindow {
         bool display = ((Gtk.ToggleAction) action).get_active();
         
         is_search_toolbar_visible = display;
-        search_toolbar.visible = display;
-        
-        // if dismissing the toolbar, reset the filter
-        if (!display)
-            search_actions.reset();
+        toggle_search_bar(should_show_search_bar(), get_current_page() as CheckerboardPage);
         
         // Ticket #3222 - remember search bar status between sessions.
         Config.get_instance().set_search_bar_hidden(is_search_toolbar_visible);
@@ -1878,17 +1873,7 @@ public class LibraryWindow : AppWindow {
         base.set_current_page(page);
         
         // Update search filter to new page.
-        if (should_show_search_bar()) {
-            CheckerboardPage? searchable = page as CheckerboardPage;
-            assert(searchable != null);
-            
-            // restore visibility and install filters
-            search_toolbar.visible = true;
-            search_toolbar.set_view_filter(searchable.get_search_view_filter());
-            page.get_view().install_view_filter(searchable.get_search_view_filter());
-        } else {
-            search_toolbar.visible = false;
-        }
+        toggle_search_bar(should_show_search_bar(), page as CheckerboardPage);
         
         sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
         sidebar.place_cursor(page);
@@ -1906,6 +1891,19 @@ public class LibraryWindow : AppWindow {
     
     private bool should_show_search_bar() {
         return (get_current_page() is CheckerboardPage) ? is_search_toolbar_visible : false;
+    }
+    
+    // Turns the search bar on or off.  Note that if show is true, page must not be null.
+    private void toggle_search_bar(bool show, CheckerboardPage? page = null) {
+        search_toolbar.visible = show;
+        if (show) {
+            assert(null != page);
+            search_toolbar.set_view_filter(page.get_search_view_filter());
+            page.get_view().install_view_filter(page.get_search_view_filter());
+        }
+        else {
+            search_actions.reset();
+        }
     }
     
     private bool is_page_selected(SidebarPage page, Gtk.TreePath path) {
