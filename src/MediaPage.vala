@@ -533,8 +533,14 @@ public abstract class MediaPage : CheckerboardPage {
         base.update_actions(selected_count, count);
     }
     
-    private void on_media_altered() {
-        update_flag_action(get_view().get_selected_count());
+    private void on_media_altered(Gee.Map<DataObject, Alteration> altered) {
+        foreach (DataObject object in altered.keys) {
+            if (altered.get(object).has_detail("metadata", "flagged")) {
+                update_flag_action(get_view().get_selected_count());
+                
+                break;
+            }
+        }
     }
     
     private void update_rating_sensitivities() {

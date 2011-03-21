@@ -306,10 +306,25 @@ public abstract class CollectionPage : MediaPage {
         }
     }
 
-    private void on_photos_altered() {
-        // since the photo can be altered externally to Shotwell now, need to make the revert
-        // command available appropriately, even if the selection doesn't change
-        set_action_sensitive("Revert", can_revert_selected());
+    private void on_photos_altered(Gee.Map<DataObject, Alteration> altered) {
+        // only check for revert if the media object is a photo and its image has changed in some 
+        // way and it's in the selection
+        foreach (DataObject object in altered.keys) {
+            DataView view = (DataView) object;
+            
+            if (!view.is_selected() || !altered.get(view).has_subject("image"))
+            continue;
+            
+            LibraryPhoto? photo = view.get_source() as LibraryPhoto;
+            if (photo == null)
+                continue;
+            
+            // since the photo can be altered externally to Shotwell now, need to make the revert
+            // command available appropriately, even if the selection doesn't change
+            set_action_sensitive("Revert", can_revert_selected());
+            
+            break;
+        }
     }
     
     private void on_print() {
