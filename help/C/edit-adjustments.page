@@ -7,7 +7,7 @@
         <desc>Change the exposure, saturation, tint, and shadows of a photo.</desc>
     </info>
 
-	<title>Color adjustments</title>
+   <title>Color adjustments</title>
 
 <p>The <gui>Adjust</gui> button opens a floating window with a histogram and sliders to adjust a photo's exposure, saturation, tint, temperature, and shadows. The histogram also has sliders to reduce the upper and lower intensity thresholds of the photograph, expanding the contrast of the middle range.</p>
 

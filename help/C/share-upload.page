@@ -9,7 +9,8 @@
 
 	<title>Publishing to the Web</title>
 
-    <p>Shotwell can publish photos and videos to the following services, each of which requires an account:</p>
+    <p>Through the use of <link xref="other-plugins">plugins</link>, Shotwell can publish photos 
+    and videos to the following services, each of which requires an account:</p>
     
     <list>
     <item><p><link href="http://facebook.com">Facebook</link></p></item>
@@ -20,7 +21,9 @@
     <item><p>Any site running the <link href="http://piwigo.org">Piwigo</link> photo gallery software (photos only)</p></item>
     </list>
     
-    <p>To publish selected photos in a collection, choose <guiseq><gui>File</gui><gui>Publish</gui></guiseq> or press the <gui>Publish</gui> toolbar button.
+    <p>To publish selected photos in a collection, choose <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> and
+    click on the <gui>Plugins</gui> tab to enable the plugin for the service you want to publish to.  Next, choose,
+     <guiseq><gui>File</gui><gui>Publish</gui></guiseq> or press the <gui>Publish</gui> toolbar button.
     You will see a dialog that lets you select a publishing service.  You will then need to log in or create an account.</p>
     
     <p>Publishing to Facebook requires you to grant certain permissions to the Shotwell Connect Facebook application.

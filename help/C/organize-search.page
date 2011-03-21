@@ -1,0 +1,27 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="search">
+
+    <info>
+        <link type="guide" xref="index#organize"/>
+        <desc>Find photos and videos in your collection by a variety of criteria.</desc>
+    </info>
+
+	<title>Searching</title>
+    
+    <p>
+        The <guiseq><gui>View</gui><gui>Search Bar</gui></guiseq> checkbox toggles the display of the
+        search bar.  From this bar, you can find, show and hide photos and videos based on title, tag,
+        rating or other options.
+    </p>
+    
+    <p>
+        To begin searching, simply enter a search keyword in the text box, or click on <gui>Flagged</gui>,
+        <gui>Rating</gui> or <gui>Type</gui>. The text search matches your keywords across tag names, 
+        photo or video titles and photos' original filenames. The <gui>Flagged</gui>,
+        <gui>Rating</gui> and <gui>Type</gui> buttons allow you to filter your collection by 
+        whether photos are flagged, their current number of stars, and whether the items shown are
+        images, videos, or raw camera files, respectively. 
+     </p>
+
+</page>

@@ -7,7 +7,7 @@
         <desc>Use a different program to edit a photo.</desc>
     </info>
 
-	<title>Edit photos with an external program</title>
+   <title>Edit photos with an external program</title>
 
     <p>You might want to use an external editor to do additional work on a photo.
     If installed, GIMP and UFRaw are the default external editors for photo and RAW editing, respectively.

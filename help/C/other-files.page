@@ -7,7 +7,7 @@
         <desc>Keep the Shotwell library in sync with photo files on disk.</desc>
     </info>
 
-	<title>Photo files</title>
+   <title>Photo files</title>
 
     <p>
     Every photo in the Shotwell library corresponds to a file stored on your hard disk.  Shotwell has
@@ -19,77 +19,110 @@
         <p>
             Shotwell allows you to specify how it names directories in your library.  You can do this 
             by changing the <gui>Directory Structure</gui> and <gui>Pattern</gui> settings in the 
-            <gui>Preferences</gui> dialog.  You may use a pre-selected pattern, or choose <gui>Custom</gui> 
+            <gui>Preferences</gui> dialog.  You may use a preselected pattern, or choose <gui>Custom</gui> 
             and type in your own.
         </p>
 
         <p>
-            The available symbols for the directory pattern begin with a % (percent sign) and are locale-dependent.
+            The available symbols for the directory pattern begin with a % (percent sign). The values 
+            these symbols produce are locale-dependent, so what you see on your computer may vary
+            from the examples below.
         </p>
 
-        <table>
-            <tr><td> </td><td> = Symbol = </td><td> = Meaning = </td><td> = Example = 
-            </td></tr><tr><td> </td><td> %Y </td><td> Year: full </td><td> 2011 
+        <table frame="all" rules="rowgroups">
+            <tbody>
+                <tr>
+                    <td><p> </p></td> <td><p><em>Symbol</em></p></td> <td><p><em>Meaning</em></p></td> <td><p><em>Example</em></p></td>
+                </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td><p> </p></td><td><p> %Y </p></td><td><p> Year: full </p></td><td><p> 2011 </p></td>
+            </tr>
+            <tr>
+                <td><p> </p></td><td><p> %y </p></td><td><p> Year: two digit </p></td><td><p> 11 </p></td>
+            </tr>
+            <tr>
+                <td><p> </p></td><td><p> %d </p></td><td><p> Day of the month </p></td><td><p> 3 </p></td>
+            </tr>
+            <tr>
+                <td><p> </p></td><td><p> %A </p></td><td><p> Day name: full </p></td><td><p> Wednesday </p></td>
+            </tr>
+            <tr>
+                <td><p> </p></td><td><p> %a </p></td><td><p> Day name: abbreviated </p></td><td><p> Wed </p></td>
+            </tr>
+            <tr>
+                <td><p> </p></td><td><p> %m </p></td><td><p> Month number </p></td><td><p> 02 </p></td>
+            </tr>
+            <tr><td><p> </p></td><td><p> %b </p></td><td><p> Month name: abbreviated </p></td><td><p> Feb 
             
-            </td></tr><tr><td> </td><td> %y </td><td> Year: two digit </td><td> 11 
-            </td></tr><tr><td> </td><td> %d </td><td> Day of the month </td><td> 3 
-            </td></tr><tr><td> </td><td> %A </td><td> Day name: full </td><td> Wednesday 
+            </p></td></tr><tr><td><p> </p></td><td><p> %B </p></td><td><p> Month name: full </p></td><td><p> February 
+            </p></td></tr><tr><td><p> </p></td><td><p> %I </p></td><td><p> Hour: 12 hour format </p></td><td><p> 05 
+            </p></td></tr><tr><td><p> </p></td><td><p> %H </p></td><td><p> Hour: 24 hour format </p></td><td><p> 17 
             
-            </td></tr><tr><td> </td><td> %a </td><td> Day name: abbreviated </td><td> Wed 
-            </td></tr><tr><td> </td><td> %m </td><td> Month number </td><td> 02 
-            </td></tr><tr><td> </td><td> %b </td><td> Month name: abbreviated </td><td> Feb 
-            
-            </td></tr><tr><td> </td><td> %B </td><td> Month name: full </td><td> February 
-            </td></tr><tr><td> </td><td> %I </td><td> Hour: 12 hour format </td><td> 05 
-            </td></tr><tr><td> </td><td> %H </td><td> Hour: 24 hour format </td><td> 17 
-            
-            </td></tr><tr><td> </td><td> %M </td><td> Minute </td><td> 16 
-            </td></tr><tr><td> </td><td> %S </td><td> Second </td><td> 30 
-            </td></tr><tr><td> </td><td> %p </td><td> AM or PM </td><td> PM </td></tr>
+            </p></td></tr><tr><td><p> </p></td><td><p> %M </p></td><td><p> Minute </p></td><td><p> 16 
+            </p></td></tr><tr><td><p> </p></td><td><p> %S </p></td><td><p> Second </p></td><td><p> 30 
+            </p></td></tr><tr><td><p> </p></td><td><p> %p </p></td><td><p> AM or PM </p></td><td><p> PM </p></td></tr>
+            </tbody>
         </table>
 
         <p>
-            There are other symbols available; please check the manual for strftime if you need one that isn't listed here.
+            There are other symbols available; please check the manual for strftime by running 
+            the command <cmd>man strftime</cmd> if you need one that isn't listed here.
         </p>
     </section>
-    
-    <section>
-    <title>Automatically importing photos</title>
-    
-    <p>Shotwell can automatically import new photos which appear in the library directory.
-    (The library directory is usually the <file>Pictures</file> directory in your home directory;
-    you can change its location in in the <gui>Preferences</gui> window.)
-    </p>
-    
-    <p>To enable auto-import,
-    check the box <gui>Watch library directory for new files</gui> in
-    the <gui>Preferences</gui> window.</p>
 
+    <section>
+       <title>Automatically importing photos</title>
+       
+       <p>Shotwell can automatically import new photos which appear in the library directory.
+       (The library directory is usually the <file>Pictures</file> directory in your home directory;
+       you can change its location in in the <gui>Preferences</gui> window.)
+       </p>
+       
+       <p>To enable auto-import,
+       check the box <gui>Watch library directory for new files</gui> in
+       the <gui>Preferences</gui> window.</p>
+       
+       <note style="advanced"><p>Shotwell can also follow symbolic links inside automatically-imported directories.</p></note>
+
+    </section>
+
+    <section>
+       <title>Automatically renaming imported photos to lowercase</title>
+       
+       <p>
+       Shotwell can automatically change the filenames of imported photos
+       to lowercase.  To enable this, choose <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>,
+       and in the <gui>Preferences</gui> window, check the <gui>Rename imported files to lowercase</gui>
+       box.
+       </p>
+    
     </section>
     
     <section>
-    <title>Writing metadata on the fly</title>
-    
-    <p>By default, Shotwell does not modify photo files, even when you edit photos or change their
-    tags or titles.  Shotwell records these changes in its own database only.</p>
-    
-    <p>To change this behavior, you can enable the checkbox
-    <gui>Write tags, titles and other metadata to photo files</gui>
-    in the <gui>Preferences</gui> dialog.  When this option is enabled, Shotwell will write
-    the following metadata to most photo files whenever you change it in Shotwell:</p>
-    
-    <list>
-    <item><p>titles</p></item>
-    <item><p>tags</p></item>
-    <item><p>ratings</p></item>
-    <item><p>rotation information</p></item>
-    <item><p>time/date</p></item>
-    </list>
-    
-    <p>Shotwell stores this information in photo files in EXIF, IPTC and/or XMP format.  Note
-    that Shotwell can write only to photo files in JPEG and PNG format, not to RAW photos
-    or to video files.  
-    </p>
+       <title>Writing metadata on the fly</title>
+       
+       <p>By default, Shotwell does not modify photo files, even when you edit photos or change their
+       tags or titles.  Shotwell records these changes in its own database only.</p>
+       
+       <p>To change this behavior, you can enable the checkbox
+       <gui>Write tags, titles and other metadata to photo files</gui>
+       in the <gui>Preferences</gui> dialog.  When this option is enabled, Shotwell will write
+       the following metadata to most photo files whenever you change it in Shotwell:</p>
+       
+       <list>
+       <item><p>titles</p></item>
+       <item><p>tags</p></item>
+       <item><p>ratings</p></item>
+       <item><p>rotation information</p></item>
+       <item><p>time/date</p></item>
+       </list>
+       
+       <p>Shotwell stores this information in photo files in EXIF, IPTC and/or XMP format.  Note
+       that Shotwell can write only to photo files in JPEG and PNG format, not to RAW photos
+       or to video files.  
+       </p>
     
     </section>
     
@@ -100,7 +133,7 @@
     When a photo file changes, Shotwell rereads the file and updates your view of the
     photo and metadata.</p>
     
-    <p>Note that Shotwell 0.8 checks all photo files for changes at startup, but only photo files contained in
+    <p>Note that Shotwell 0.9 checks all photo files for changes at startup, but only photo files contained in
     the library directory are monitored in real time after startup.  We hope to remove this limitation
     in a further release.</p>
 

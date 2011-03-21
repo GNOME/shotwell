@@ -1,0 +1,27 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="other-plugins">
+
+    <info>
+        <link type="guide" xref="index#other"/>
+        <desc>Extend Shotwell's functionality dynamically.</desc>
+    </info>
+
+	<title>Plugins</title>
+        <p>
+            Shotwell can be used with <em>plugins</em>, which are companion shared libraries that can
+            add support for new publishing destinations or new slideshow transitions.
+        </p>
+        
+        <p>
+            To see a list of installed plugins, choose <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>,
+            and in the <gui>Preferences</gui> window, click on the <gui>Plugins</gui> tab.  You'll see a list
+            of currently-installed plugins, each with a checkbox by it, and you may enable or disable each by
+            selecting or deselecting the checkbox by its name.
+        </p>
+        
+        <note style="advanced"><p>Full documentation on how to develop new plugins is available at 
+        <link href="http://trac.yorba.org/wiki/ShotwellArchWritingPlugins">http://trac.yorba.org/wiki/ShotwellArchWritingPlugins</link></p></note>
+    
+</page>
+

@@ -10,6 +10,13 @@
 	<title>Printing</title>
 
     <p>To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>.</p>
+     
+    <p>
+    Shotwell can also print multiple images in one page; to do this, select multiple images, 
+    choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>, and in the <gui>Print</gui> dialog, 
+    choose the <gui>Image Settings</gui> tab. In <gui>Image Settings</gui>, choose one of the 
+    multiple-image-per-page options under <gui>Autosize</gui>.
+    </p>
 
     <p>If you would like to set formatting, paper size, and orientation options, choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to printing.</p>
 </page>
