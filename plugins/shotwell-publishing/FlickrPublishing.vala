@@ -300,7 +300,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         running = false;
 
-        start();
+        attempt_start();
     }
 
     private void on_upload_status_updated(int file_number, double completed_fraction) {
@@ -625,32 +625,35 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     public bool is_running() {
         return running;
     }
-
+    
+    // this helper doesn't check state, merely validates and authenticates the session and installs
+    // the proper panes
+    private void attempt_start() {
+        running = true;
+        was_started = true;
+        
+        if (is_persistent_session_valid()) {
+            session.authenticate(get_persistent_auth_token(), get_persistent_username());
+            on_authenticated_session_ready();
+        } else if (WebAuthenticationPane.is_cache_dirty()) {
+            host.set_service_locked(false);
+            host.install_static_message_pane(RESTART_ERROR_MESSAGE,
+                Spit.Publishing.PluginHost.ButtonMode.CLOSE);
+        } else {
+            do_show_login_welcome_pane();
+        }
+    }
+    
     public void start() {
         if (is_running())
             return;
-
+        
         if (was_started)
             error("FlickrPublisher: start( ): can't start; this publisher is not restartable.");
-
+        
         debug("FlickrPublisher: starting interaction.");
-
-        running = true;
-        was_started = true;
-
-        if (is_persistent_session_valid()) {
-            session.authenticate(get_persistent_auth_token(), get_persistent_username());
-
-            on_authenticated_session_ready();
-        } else {
-            if (WebAuthenticationPane.is_cache_dirty()) {
-                host.set_service_locked(false);
-                host.install_static_message_pane(RESTART_ERROR_MESSAGE,
-                    Spit.Publishing.PluginHost.ButtonMode.CLOSE);
-            } else {
-                do_show_login_welcome_pane();
-            }
-        }
+        
+        attempt_start();
     }
     
     public void stop() {
