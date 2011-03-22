@@ -18,6 +18,8 @@ HEADER_FILES := ../shotwell-plugin-dev-1.0.vapi ../shotwell-plugin-dev-1.0.h \
 include ../plugins.mk
 
 # automatically include shotwell-plugin-dev-1.0's dependencies
+# NOTE: This line will generate an error when running "make dist" from the master Makefile.
+# It can be safely ignored.
 PKGS := $(shell sed ':a;N;$$!ba;s/\n/ /g' ../shotwell-plugin-dev-1.0.deps) $(PKGS)
 
 # automatically include the shotwell-plugin-dev-1.0 package as a local dependency

@@ -253,11 +253,13 @@ EXT_PKGS = \
 	gdk-x11-2.0 \
 	gee-1.0 \
 	gexiv2 \
+	gio-unix-2.0 \
+	glib-2.0 \
+	gmodule-2.0 \
 	gnome-vfs-2.0 \
 	gstreamer-0.10 \
 	gstreamer-base-0.10 \
 	gtk+-2.0 \
-	glib-2.0 \
 	gudev-1.0 \
 	libexif \
 	libgphoto2 \
@@ -265,9 +267,7 @@ EXT_PKGS = \
 	libxml-2.0 \
 	sqlite3 \
 	unique-1.0 \
-	webkit-1.0 \
-	gmodule-2.0 \
-	gio-unix-2.0
+	webkit-1.0
 
 DIRECT_LIBS =
 
@@ -280,11 +280,13 @@ EXT_PKG_VERSIONS = \
 	gconf-2.0 >= 2.22.0 \
 	gee-1.0 >= 0.5.0 \
 	gexiv2 >= 0.2.0 \
-	gnome-vfs-2.0 >= 2.24.3 \
-	gtk+-2.0 >= 2.18.0 \
+	gio-unix-2.0 >= 2.20 \
 	glib-2.0 >= 2.26.0 \
+	gmodule-2.0 >= 2.24.0 \
+	gnome-vfs-2.0 >= 2.24.2 \
 	gstreamer-0.10 >= 0.10.28 \
 	gstreamer-base-0.10 >= 0.10.28 \
+	gtk+-2.0 >= 2.18.0 \
 	gudev-1.0 >= 145 \
 	libexif >= 0.6.16 \
 	libgphoto2 >= 2.4.2 \
@@ -292,9 +294,7 @@ EXT_PKG_VERSIONS = \
 	libxml-2.0 >= 2.6.32 \
 	sqlite3 >= 3.5.9 \
 	unique-1.0 >= 1.0.0 \
-	webkit-1.0 >= 1.1.5 \
-	gmodule-2.0 >= 2.24.0 \
-	gio-unix-2.0 >= 2.20
+	webkit-1.0 >= 1.1.5
 
 DIRECT_LIBS_VERSIONS =
 
