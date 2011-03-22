@@ -11,8 +11,6 @@ all: $(ALL_PLUGINS)
 
 .PHONY: $(ALL_PLUGINS)
 $(ALL_PLUGINS):
-	echo master $(USER_VALAFLAGS)
-	echo plugins-master $(USER_VALAFLAGS)
 	@$(MAKE) --directory=$@ PLUGINS_VERSION="$(PLUGINS_VERSION)" USER_VALAFLAGS="$(USER_VALAFLAGS)"
 
 .PHONY: clean
