@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-04 18:33+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"Last-Translator: svetlisashkov <svetlisashkov@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1807,7 +1807,7 @@ msgstr ""
 #: src/AppDirs.vala:48
 #, c-format
 msgid "Unable to create data directory %s: %s"
-msgstr ""
+msgstr "Не може да се създаде папка с данни %s: %s"
 
 #: src/AppDirs.vala:84
 msgid "Pictures"
@@ -1816,7 +1816,7 @@ msgstr "Изображения"
 #: src/AppDirs.vala:123
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
-msgstr ""
+msgstr "Не може да се създаде временна папак %s: %s"
 
 #: src/AppDirs.vala:139
 #, c-format
@@ -1826,11 +1826,11 @@ msgstr ""
 #: src/DesktopIntegration.vala:118
 #, c-format
 msgid "Unable to launch Nautilus Send-To: %s"
-msgstr ""
+msgstr "Не може да се стартира Nautilus Send-To: %s"
 
 #: src/DesktopIntegration.vala:126
 msgid "Send To"
-msgstr ""
+msgstr "Изпращане до"
 
 #: src/DesktopIntegration.vala:169
 #, c-format
@@ -1840,7 +1840,7 @@ msgstr "Фонът  не можа да се изнесе в %s: %s"
 #: src/DesktopIntegration.vala:294
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
-msgstr ""
+msgstr "Прожекцията не може да бъде подготвена: %s"
 
 #: src/Dimensions.vala:17
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1057
@@ -2173,8 +2173,8 @@ msgstr "Стартиране на прожекция"
 #: src/CollectionPage.vala:440
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Изнасяне на Снимка/Видео"
+msgstr[1] "Изнасяне на Снимки/Видеа"
 
 #: src/CollectionPage.vala:441 src/Dialogs.vala:15 src/PhotoPage.vala:2956
 msgid "Export Photo"
@@ -2212,7 +2212,7 @@ msgstr ""
 
 #: src/Dialogs.vala:15
 msgid "Export Video"
-msgstr ""
+msgstr "Изнасяне на видео"
 
 #: src/Dialogs.vala:41
 msgid "Export Photos"
