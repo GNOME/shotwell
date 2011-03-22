@@ -7,5 +7,8 @@ SRC_FILES := \
 	SlideEffect.vala \
 	CrumbleEffect.vala
 
+RC_FILES := \
+	slideshow-plugin.png
+
 include ../Makefile.plugin.mk
 

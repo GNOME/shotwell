@@ -17,5 +17,11 @@ SRC_FILES := \
 	YouTubePublishing.vala \
 	../common/RESTSupport.vala
 
+RC_FILES := \
+	facebook.png \
+	flickr.png \
+	picasa.png \
+	youtube.png
+
 include ../Makefile.plugin.mk
 

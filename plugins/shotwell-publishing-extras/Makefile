@@ -14,5 +14,8 @@ SRC_FILES := \
 	YandexPublishing.vala \
 	../common/RESTSupport.vala
 
+RC_FILES := \
+	yandex_publish_model.glade
+
 include ../Makefile.plugin.mk
 

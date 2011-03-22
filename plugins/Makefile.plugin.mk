@@ -69,4 +69,5 @@ distclean: clean
 .PHONY: listfiles
 listfiles:
 	@printf "plugins/$(PLUGIN)/Makefile $(foreach file,$(SRC_FILES),plugins/$(PLUGIN)/$(file)) "
+	@printf "$(foreach rc,$(RC_FILES),plugins/$(PLUGIN)/$(rc)) "
 
