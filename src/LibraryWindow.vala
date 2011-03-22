@@ -822,6 +822,8 @@ public class LibraryWindow : AppWindow {
         
         is_search_toolbar_visible = display;
         toggle_search_bar(should_show_search_bar(), get_current_page() as CheckerboardPage);
+        if (!display)
+            search_actions.reset();
         
         // Ticket #3222 - remember search bar status between sessions.
         Config.get_instance().set_search_bar_hidden(is_search_toolbar_visible);
@@ -1900,9 +1902,6 @@ public class LibraryWindow : AppWindow {
             assert(null != page);
             search_toolbar.set_view_filter(page.get_search_view_filter());
             page.get_view().install_view_filter(page.get_search_view_filter());
-        }
-        else {
-            search_actions.reset();
         }
     }
     
