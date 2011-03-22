@@ -1,3 +1,16 @@
+shotwell (0.9.0-1~maverick1) maverick; urgency=low
+
+  * Search toolbar to filter media by type, flag, rating, or keyword.
+  * Photos and Videos pages have been combined into "Library."
+  * Support for TIFF images.
+  * Shotwell now supports all video formats recognized by Gnome via
+    mime types. 
+  * Import directory structure is now configurable.
+  * Various bug fixes.
+
+ -- Eric Gregory <eric@yorba.org>  Fri, 18 Mar 2011 18:14:31 -0800 
+
+
 shotwell (0.8.1-1~maverick1) maverick; urgency=low
 
   * Fixes a problem where Shotwell could crash unexpectedly at

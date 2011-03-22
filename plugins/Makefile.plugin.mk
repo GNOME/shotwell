@@ -38,10 +38,12 @@ DEFINES := -D_VERSION='"$(PLUGINS_VERSION)"' -DGETTEXT_PACKAGE='"shotwell"'
 all: $(PLUGIN).so
 
 .stamp: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
+	echo plugin $(USER_VALAFLAGS)
 	$(VALAC) -g --enable-checking --fatal-warnings --save-temps --compile \
 		--vapidir=../ $(foreach pkg,$(PKGS),--pkg=$(pkg)) \
 		-X -I../.. -X -fPIC \
 		$(foreach dfn,$(DEFINES),-X $(dfn)) \
+		$(USER_VALAFLAGS) \
 		$(SRC_FILES)
 	@touch .stamp
 

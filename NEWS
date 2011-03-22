@@ -1,3 +1,15 @@
+Shotwell 0.9.0 - 22 March 2011 - "The Big Salad"
+---------------------------------------------------------------------
+
+  * Search toolbar to filter media by type, flag, rating, or keyword.
+  * Photos and Videos pages have been combined into "Library."
+  * Support for TIFF images.
+  * Shotwell now supports all video formats recognized by Gnome via
+    mime types. 
+  * Import directory structure is now configurable.
+  * Various bug fixes.
+
+
 Shotwell 0.8.1 - 10 January 2011 - "The Airing of Grievances"
 ---------------------------------------------------------------------
 
