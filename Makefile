@@ -210,6 +210,7 @@ HELP_FILES = \
 	organize-flag.page \
 	organize-rating.page \
 	organize-remove.page \
+	organize-search.page \
 	organize-tag.page \
 	organize-title.page \
 	other-files.page \
