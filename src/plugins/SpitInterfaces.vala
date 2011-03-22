@@ -53,7 +53,7 @@ public int negotiate_interfaces(int min_host_interface, int max_host_interface, 
  *
  * The host application passes a pointer to this structure for the module's information.
  * The pointer should //not// be held, as it may be freed or reused by the host application
- * after calling the entry point.  The module should copy any information it may need (or hold
+ * after calling the entry point. The module should copy any information it may need (or hold
  * a GObject reference) in its own memory space.
  *
  * Note that the module //must// fill in the module_spit_interface field with the SPIT interface
@@ -173,7 +173,7 @@ public struct PluggableInfo {
     public string? website_name;
     public string? translators;
     /**
-     * An icon representing this plugin at one or more sizes.  Shotwell may select an icon 
+     * An icon representing this plugin at one or more sizes. Shotwell may select an icon 
      * according to the size that closest fits the control its being drawn in.
      */
     public Gdk.Pixbuf[]? icons;
