@@ -169,10 +169,18 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
             assert(view.get_source() is Event);
             if (is_string_empty(get_search_filter()))
                 return true;
+            
             Event source = (Event) view.get_source();
-            string title = source.get_raw_name() != null ? source.get_raw_name().down() : "";
-            if (!title.contains(get_search_filter()))
+            unowned string? event_keywords = source.get_indexable_keywords();
+            if (is_string_empty(event_keywords))
                 return false;
+            
+            // Return false if the word isn't found, true otherwise.
+            foreach (unowned string word in get_search_filter_words()) {
+                if (!event_keywords.contains(word))
+                    return false;
+            }
+            
             return true;
         }
     }

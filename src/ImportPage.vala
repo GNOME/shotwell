@@ -14,7 +14,7 @@ private class ImportSourceCollection : SourceCollection {
     }
 }
 
-abstract class ImportSource : ThumbnailSource {
+abstract class ImportSource : ThumbnailSource, Indexable {
     private string camera_name;
     private GPhoto.Camera camera;
     private int fsid;
@@ -23,6 +23,7 @@ abstract class ImportSource : ThumbnailSource {
     private ulong file_size;
     private time_t modification_time;
     private Gdk.Pixbuf? preview = null;
+    private string? indexable_keywords = null;
     
     public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder,
         string filename, ulong file_size, time_t modification_time) {
@@ -33,6 +34,7 @@ abstract class ImportSource : ThumbnailSource {
         this.filename = filename;
         this.file_size = file_size;
         this.modification_time = modification_time;
+        indexable_keywords = prepare_indexable_string(filename);
     }
     
     protected void set_preview(Gdk.Pixbuf? preview) {
@@ -99,6 +101,10 @@ abstract class ImportSource : ThumbnailSource {
             warning("Error deleting %s from %s: %s", to_string(), camera_name, result.to_full_string());
         
         return base.internal_delete_backing() && (result == GPhoto.Result.OK);
+    }
+    
+    public unowned string? get_indexable_keywords() {
+        return indexable_keywords;
     }
 }
 
@@ -527,10 +533,14 @@ public class ImportPage : CheckerboardPage {
                 }
             }
             
-            // Text filter.
-            if (!is_string_empty(get_search_filter())) {
-                if ((bool) (SearchFilterCriteria.TEXT & get_criteria())) {
-                    if (!source.get_filename().down().contains(get_search_filter()))
+            if ((bool) (SearchFilterCriteria.TEXT & get_criteria())) {
+                unowned string? keywords = source.get_indexable_keywords();
+                if (is_string_empty(keywords))
+                    return false;
+                
+                // Return false if the word isn't found, true otherwise.
+                foreach (unowned string word in get_search_filter_words()) {
+                    if (!keywords.contains(word))
                         return false;
                 }
             }
