@@ -1324,7 +1324,7 @@ public class ServiceFactory {
 
     public ServiceCapabilities? get_default_service_by_media_type(Spit.Publishing.Publisher.MediaType mtype) {
         foreach (ServiceCapabilities caps in caps_map.values) {
-            if ((caps.get_supported_media() & mtype) != 0) 
+            if ((caps.get_supported_media() & mtype) == mtype) 
                 return caps;
         }
          
