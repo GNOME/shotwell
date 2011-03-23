@@ -938,6 +938,8 @@ internal class LegacyCredentialsPane : Gtk.VBox {
     }
 
     public void installed() {
+        host.set_service_locked(false);
+
         email_entry.grab_focus();
         password_entry.set_activates_default(true);
         login_button.can_default = true;
