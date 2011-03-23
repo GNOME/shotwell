@@ -584,14 +584,9 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             sorted_set.add(p);
         }
         
-        // The sorted_publishables array exists as a workaround for a crash.  See:
-        // http://trac.yorba.org/ticket/3352 for more information.
-        Spit.Publishing.Publishable[] sorted_publishables = sorted_set.to_array();
-        Uploader uploader = new Uploader(session, sorted_publishables, parameters);
-
+        Uploader uploader = new Uploader(session, sorted_set.to_array(), parameters);
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
-
         uploader.upload(on_upload_status_updated);
     }
 
