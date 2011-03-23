@@ -55,7 +55,11 @@ private File duplicate(File src, FileProgressCallback? progress_callback, bool b
     MediaMetadata? metadata = null;
     if (VideoReader.is_supported_video_file(src)) {
         VideoReader reader = new VideoReader(src.get_path());
-         metadata = reader.read_metadata();
+        try {
+            metadata = reader.read_metadata();
+        } catch (Error err) {
+            // ignored, leave metadata as null
+        }            
     } else {
         PhotoFileReader reader = PhotoFileFormat.get_by_file_extension(src).create_reader(
             src.get_path());
