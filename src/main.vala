@@ -38,7 +38,7 @@ void library_exec(string[] mounts) {
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
     shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
     shotwell.message_received.connect(on_shotwell_message);
-
+    
     if (shotwell.is_running) {
         // send attached cameras & activate the window
         foreach (string mount in mounts) {
@@ -59,7 +59,7 @@ void library_exec(string[] mounts) {
     
     // initialize units
     try {
-        Library.unitize_init();
+        Library.app_init();
     } catch (Error err) {
         AppWindow.panic(err.message);
         
@@ -112,11 +112,7 @@ void library_exec(string[] mounts) {
         return;
     }
 
-    // initialize GStreamer, but don't pass it our actual command line arguments -- we don't
-    // want our end users to be able to parameterize the GStreamer configuration
-    string[] fake_args = new string[0];
-    unowned string[] fake_unowned_args = fake_args;
-    Gst.init(ref fake_unowned_args);
+    Video.init();
     
     ProgressDialog progress_dialog = null;
     AggregateProgressMonitor aggregate_monitor = null;
@@ -221,7 +217,7 @@ void library_exec(string[] mounts) {
     ThumbnailCache.terminate();
     Video.terminate();
 
-    Library.unitize_terminate();
+    Library.app_terminate();
 }
 
 private bool do_system_pictures_import = false;
@@ -272,7 +268,7 @@ void editing_exec(string filename) {
     
     // initialize units for direct-edit mode
     try {
-        Direct.unitize_init();
+        Direct.app_init();
     } catch (Error err) {
         AppWindow.panic(err.message);
         
@@ -296,7 +292,7 @@ void editing_exec(string filename) {
     DesktopIntegration.terminate();
     
     // terminate units for direct-edit mode
-    Direct.unitize_terminate();
+    Direct.app_terminate();
 }
 
 namespace CommandlineOptions {

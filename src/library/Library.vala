@@ -4,11 +4,13 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-namespace Unit {
-    public void init() throws Error {
-    }
-    
-    public void terminate() {
-    }
+namespace Library {
+
+public void init() throws Error {
+}
+
+public void terminate() {
+}
+
 }
 

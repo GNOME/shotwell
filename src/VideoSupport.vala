@@ -305,6 +305,12 @@ public class Video : VideoSource, Flaggable, Monitorable {
     }
 
     public static void init(ProgressMonitor? monitor = null) {
+        // initialize GStreamer, but don't pass it our actual command line arguments -- we don't
+        // want our end users to be able to parameterize the GStreamer configuration
+        string[] fake_args = new string[0];
+        unowned string[] fake_unowned_args = fake_args;
+        Gst.init(ref fake_unowned_args);
+        
         global = new VideoSourceCollection();
         
         Gee.ArrayList<VideoRow?> all = VideoTable.get_instance().get_all();

@@ -320,7 +320,7 @@ UNIT_MKS := $(foreach unit,$(UNITS),src/$(unit)/mk/$(notdir $(unit)).mk)
 include $(UNIT_MKS)
 
 UNITIZE_DIR := src/.unitize
-UNITIZE_ENTRIES := $(foreach group,$(APP_GROUPS),$(UNITIZE_DIR)/_$(group)_unitize_entry.vala)
+UNITIZE_ENTRIES := $(foreach unit,$(APP_UNITS),$(UNITIZE_DIR)/_$(unit)_unitize_entry.vala)
 UNITIZE_INITS := $(foreach nm,$(UNIT_NAMESPACES),$(UNITIZE_DIR)/_$(nm)Internals.vala)
 UNITIZE_STAMP := $(UNITIZE_DIR)/.unitized
 
@@ -561,8 +561,8 @@ $(PC_FILE): $(PC_INPUT) $(MAKE_FILES)
 
 $(UNITIZE_STAMP): $(MAKE_FILES) src/unit/rc/UnitInternals.m4 src/unit/rc/unitize_entry.m4
 	@mkdir -p $(UNITIZE_DIR)
-	@$(foreach group,$(APP_GROUPS),\
-		`m4 '--define=_APP_GROUP_=$(group)' '--define=_UNIT_ENTRY_POINTS_=$(foreach nm,$($(group)_UNITS),$(nm).init_entry,)' '--define=_UNIT_TERMINATE_POINTS_=$(foreach nm,$($(group)_UNITS),$(nm).terminate_entry,)' src/unit/rc/unitize_entry.m4 > $(UNITIZE_DIR)/_$(group)_unitize_entry.vala`)
+	@$(foreach unit,$(APP_UNITS),\
+		`m4 '--define=_APP_UNIT_=$(unit)' src/unit/rc/unitize_entry.m4 > $(UNITIZE_DIR)/_$(unit)_unitize_entry.vala`)
 	@$(foreach nm,$(UNIT_NAMESPACES),\
 		`m4 '--define=_UNIT_NAME_=$(nm)' '--define=_UNIT_USES_INITS_=$($(nm)_USES_INITS)' '--define=_UNIT_USES_TERMINATORS_=$($(nm)_USES_TERMINATORS)' src/unit/rc/UnitInternals.m4 > $(UNITIZE_DIR)/_$(nm)Internals.vala`)
 	@touch $@

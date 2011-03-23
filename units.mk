@@ -3,8 +3,9 @@
 #
 # This list is primarily used at compile time to build the executable.
 #
-# NOTE: In all unit listings, the unit-unit must be first.  Units may follow in any order
-# thereafter.
+# NOTE: The unit-unit must be first.  Units may follow in any order thereafter.
+#
+# NOTE: Be sure to add the unit to the appropriate APP_UNITS .mk file.
 UNITS = \
 	unit \
 	util \
@@ -16,39 +17,12 @@ UNITS = \
 	publishing \
 	alien_db \
 	alien_db/f_spot \
+	library \
 	direct \
 	core
 
-# Names of variables (which follow) that represent unit groups for different uses of the
-# application.  The variables should be formed as Name_UNITS.  Entry and terminate points in
-# the code will be Name.unitize_init() and Name.unitize_terminate().
-#
-# These lists are used primarily at run-time to initialize the proper units depending on the mode
-# the executable starts in.
-#
-# Note that these names can be the names of units as well.  In that case, the init and terminate
-# code will be placed in that unit's namespace.
-APP_GROUPS = Library Direct
-
-# List of units for library mode.
-Library_UNITS = \
-	Unit \
-	Util \
-	Threads \
-	Db \
-	Plugins \
-	Slideshow \
-	Photos \
-	Publishing \
-	AlienDb \
-	AlienDb.FSpot \
-	Core
-
-# List of units for direct-edit mode.
-Direct_UNITS = \
-	Unit \
-	Util \
-	Db \
-	Direct \
-	Core
-
+# Name(s) of units that represent application entry points.  These units will have init and
+# termination entry points generated: Name.unitize_init() and Name.unitize_terminate().  These
+# methods should be called in main().  They will initialize the named unit and all is prerequisite
+# units, thereby initializing the entire application.
+APP_UNITS = Library Direct
