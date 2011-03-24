@@ -443,7 +443,7 @@ public bool import_has_videos(Gee.Collection<BatchImportResult> import_collectio
 }
 
 public string get_media_specific_string(Gee.Collection<BatchImportResult> import_collection,
-    string photos_msg, string videos_msg, string both_msg, string neither_msg) {
+    string photos_msg, string videos_msg, string both_msg, string? neither_msg) {
     bool has_photos = import_has_photos(import_collection);
     bool has_videos = import_has_videos(import_collection);
         
@@ -453,15 +453,16 @@ public string get_media_specific_string(Gee.Collection<BatchImportResult> import
         return photos_msg;
     else if (has_videos)
         return videos_msg;
-    else
+    else if (neither_msg != null)
         return neither_msg;
+    else
+        assert_not_reached();
 }
 
 // Returns true if the user selected the yes action, false otherwise.
 public bool report_manifest(ImportManifest manifest, bool show_dest_id, 
     QuestionParams? question = null) {
     string message = "";
-    string file_error_message = _("File error") + "\n";
     
     if (manifest.already_imported.size > 0) {
         string photos_message = (ngettext("1 duplicate photo was not imported:\n",
@@ -475,7 +476,7 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
             manifest.already_imported.size)).printf(manifest.already_imported.size);
 
         message += get_media_specific_string(manifest.already_imported, photos_message,
-            videos_message, both_message, file_error_message);
+            videos_message, both_message, null);
         
         message += generate_import_failure_list(manifest.already_imported, show_dest_id);
     }
@@ -493,9 +494,12 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         string both_message = (ngettext("1 photo/video failed to import due to a file or hardware error:\n",
             "%d photos/videos failed to import due to a file or hardware error:\n",
             manifest.failed.size)).printf(manifest.failed.size);
+        string neither_message = (ngettext("1 file failed to import due to a file or hardware error:\n",
+            "%d files failed to import due to a file or hardware error:\n",
+            manifest.failed.size)).printf(manifest.failed.size);
         
         message += get_media_specific_string(manifest.failed, photos_message, videos_message,
-            both_message, file_error_message);
+            both_message, neither_message);
         
         message += generate_import_failure_list(manifest.failed, show_dest_id);
     }
@@ -513,9 +517,12 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         string both_message = (ngettext("1 photo/video failed to import because the photo library folder was not writable:\n",
             "%d photos/videos failed to import because the photo library folder was not writable:\n",
             manifest.write_failed.size)).printf(manifest.write_failed.size);
+        string neither_message = (ngettext("1 file failed to import because the photo library folder was not writable:\n",
+            "%d files failed to import because the photo library folder was not writable:\n",
+            manifest.write_failed.size)).printf(manifest.write_failed.size);
         
         message += get_media_specific_string(manifest.write_failed, photos_message, videos_message,
-            both_message, file_error_message);
+            both_message, neither_message);
         
         message += generate_import_failure_list(manifest.write_failed, show_dest_id);
     }
@@ -533,9 +540,12 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         string both_message = (ngettext("1 photo/video failed to import due to a camera error:\n",
             "%d photos/videos failed to import due to a camera error:\n",
             manifest.camera_failed.size)).printf(manifest.camera_failed.size);
+        string neither_message = (ngettext("1 file failed to import due to a camera error:\n",
+            "%d files failed to import due to a camera error:\n",
+            manifest.camera_failed.size)).printf(manifest.camera_failed.size);
         
         message += get_media_specific_string(manifest.camera_failed, photos_message, videos_message,
-            both_message, file_error_message);
+            both_message, neither_message);
         
         message += generate_import_failure_list(manifest.camera_failed, show_dest_id);
     }
@@ -582,9 +592,12 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         string both_message = (ngettext("1 photo/video skipped due to user cancel:\n",
             "%d photos/videos skipped due to user cancel:\n",
             manifest.aborted.size)).printf(manifest.aborted.size);
+        string neither_message = (ngettext("1 file skipped due to user cancel:\n",
+            "%d file skipped due to user cancel:\n",
+            manifest.aborted.size)).printf(manifest.aborted.size);
         
         message += get_media_specific_string(manifest.aborted, photos_message, videos_message,
-            both_message, file_error_message);
+            both_message, neither_message);
         
         message += generate_import_failure_list(manifest.aborted, show_dest_id);
     }
@@ -604,7 +617,7 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
             manifest.success.size)).printf(manifest.success.size);
         
         message += get_media_specific_string(manifest.success, photos_message, videos_message,
-            both_message, file_error_message);
+            both_message, null);
     }
     
     int total = manifest.success.size + manifest.failed.size + manifest.camera_failed.size

@@ -1409,9 +1409,12 @@ public class ImportPage : CheckerboardPage {
             string both_string = (ngettext("Delete this photo/video from camera?",
                 "Delete these %d photos/videos from camera?", 
                 manifest.success.size)).printf(manifest.success.size);
+            string neither_string = (ngettext("Delete these files from camera?",
+                "Delete these %d files from camera?", 
+                manifest.success.size)).printf(manifest.success.size);
 
             string question_string = ImportUI.get_media_specific_string(manifest.success,
-                photos_string, videos_string, both_string, _("File error"));
+                photos_string, videos_string, both_string, neither_string);
 
             ImportUI.QuestionParams question = new ImportUI.QuestionParams(
                 question_string, Gtk.Stock.DELETE, _("_Keep"));
