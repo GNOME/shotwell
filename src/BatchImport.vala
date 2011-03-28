@@ -832,8 +832,13 @@ public class BatchImport : Object {
                 
                 debug("duplicate photo detected, not importing %s", prepared_file.file.get_path());
                 
+                // Ticket #3163 - display full path, not just folder when
+                // can't import, due to duplicate.
+                //
+                // Instead of using the job's source or destination identifiers, which would be 
+                // directory the image lived in, we now use the exact path to the file.
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
-                    prepared_file.source_id, prepared_file.dest_id, ImportResult.PHOTO_EXISTS);
+                    prepared_file.file.get_path(), prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS); 
             }
             
             if (import_result != null) {
