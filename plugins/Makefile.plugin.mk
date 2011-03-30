@@ -32,8 +32,7 @@ SRC_FILES := ../common/Resources.vala $(SRC_FILES)
 CFILES := $(notdir $(SRC_FILES:.vala=.c))
 OFILES := $(notdir $(SRC_FILES:.vala=.o))
 
-CFLAGS := `pkg-config --print-errors --cflags $(EXT_PKGS)` -O2 -g -pipe -fPIC -nostdlib \
-	-export-dynamic
+CFLAGS := `pkg-config --print-errors --cflags $(EXT_PKGS)` -nostdlib -export-dynamic $(PLUGIN_CFLAGS)
 LDFLAGS := `pkg-config --print-errors --libs $(EXT_PKGS)` $(LDFLAGS)
 DEFINES := -D_VERSION='"$(PLUGINS_VERSION)"' -DGETTEXT_PACKAGE='"shotwell"'
 
