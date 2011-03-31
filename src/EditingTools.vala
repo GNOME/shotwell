@@ -1815,19 +1815,19 @@ public class RedeyeTool : EditingTool {
     
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
         wider_gray_ctx = new Cairo.Context(ctx.get_target());
-        Gdk.cairo_set_source_color(wider_gray_ctx, fetch_color("#222"));
-        wider_gray_ctx.set_line_width(1);
+        Gdk.cairo_set_source_color(wider_gray_ctx, fetch_color("#111"));
+        wider_gray_ctx.set_line_width(3);
 
         thin_white_ctx = new Cairo.Context(ctx.get_target());
-        Gdk.cairo_set_source_color(thin_white_ctx, fetch_color("#222"));
+        Gdk.cairo_set_source_color(thin_white_ctx, fetch_color("#FFF"));
         thin_white_ctx.set_line_width(1);
     }
     
     private void draw_redeye_instance(RedeyeInstance inst) {
         canvas.draw_circle(wider_gray_ctx, inst.center.x, inst.center.y,
-            inst.radius - 1);
+            inst.radius);
         canvas.draw_circle(thin_white_ctx, inst.center.x, inst.center.y,
-            inst.radius - 2);
+            inst.radius);
     }
     
     private bool on_size_slider_adjust(Gtk.ScrollType type) {
