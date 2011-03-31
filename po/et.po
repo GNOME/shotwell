@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"PO-Revision-Date: 2011-03-23 10:57+0000\n"
 "Last-Translator: mahfiaz <mahfiaz@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3739,7 +3739,7 @@ msgstr "Metaandmed"
 
 #: ui/shotwell.glade:321
 msgid "Write tags, titles, and other _metadata to photo files"
-msgstr "_Metaandmete (sildid, pealkirjad jt) fotofailidesse kirjutamine"
+msgstr "_Siltide, pealkirjade jm metateabe kirjutamine fotofailidesse"
 
 #: ui/shotwell.glade:344
 msgid "Display"

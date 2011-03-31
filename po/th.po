@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-22 15:09+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-03-30 04:17+0000\n"
+"Last-Translator: bojang <neo.bojang@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -320,7 +320,7 @@ msgstr "หยุดการนำเข้าภาพถ่าย"
 
 #: src/ImportPage.vala:1498
 msgid "Preparing to import..."
-msgstr ""
+msgstr "กำลังเตรียมการนำเข้า..."
 
 #: src/ImportPage.vala:1521
 #, c-format
@@ -1117,7 +1117,7 @@ msgstr "เ_ลือกขนาดเอง:"
 
 #: src/Printing.vala:318
 msgid "_Autosize:"
-msgstr ""
+msgstr "ขนาด_อัตโนมัติ"
 
 #: src/Printing.vala:387
 msgid "in."
@@ -1133,11 +1133,11 @@ msgstr "_สัดส่วนภาพที่ตรงกัน"
 
 #: src/Printing.vala:413
 msgid "Titles"
-msgstr ""
+msgstr "ชื่อเรื่อง"
 
 #: src/Printing.vala:420
 msgid "Print image _title"
-msgstr ""
+msgstr "พิมพ์_ชื่อภาพถ่าย"
 
 #: src/Printing.vala:432
 msgid "Pixel Resolution"
@@ -1740,11 +1740,11 @@ msgstr "วิดีโอ"
 
 #: src/SearchFilter.vala:425
 msgid "RAW Photos"
-msgstr ""
+msgstr "ภาพถ่ายดิบ"
 
 #: src/SearchFilter.vala:426
 msgid "RAW photos"
-msgstr ""
+msgstr "ภาพถ่ายดิบ"
 
 #: src/SearchFilter.vala:679
 #, c-format
@@ -1815,7 +1815,7 @@ msgstr ""
 
 #: src/DesktopIntegration.vala:126
 msgid "Send To"
-msgstr ""
+msgstr "ส่งไป"
 
 #: src/DesktopIntegration.vala:169
 #, c-format
@@ -2007,13 +2007,13 @@ msgstr ""
 #: src/publishing/PublishingPluginHost.vala:11 src/WebConnectors.vala:1126
 #: src/WebConnectors.vala:1263
 msgid "Preparing for upload"
-msgstr ""
+msgstr "กำลังเตรียมการอัพโหลด"
 
 #: src/publishing/PublishingPluginHost.vala:12 src/WebConnectors.vala:1127
 #: src/WebConnectors.vala:1203
 #, c-format
 msgid "Uploading %d of %d"
-msgstr ""
+msgstr "กำลังอัพโหลด %d จาก %d"
 
 #: src/publishing/PublishingPluginHost.vala:102
 #, c-format
@@ -2068,19 +2068,19 @@ msgstr "เผยแพร่ภาพถ่ายไ_ปยัง:"
 
 #: src/WebConnectors.vala:733
 msgid "Publish Videos"
-msgstr ""
+msgstr "เผยแพร่วิดีโอ"
 
 #: src/WebConnectors.vala:734
 msgid "Publish videos _to"
-msgstr ""
+msgstr "เผยแพร่วิดีโอไ_ปที่"
 
 #: src/WebConnectors.vala:736
 msgid "Publish Photos and Videos"
-msgstr ""
+msgstr "เผยแพร่ภาพถ่ายและวีดีโอ"
 
 #: src/WebConnectors.vala:737
 msgid "Publish photos and videos _to"
-msgstr ""
+msgstr "เผยแพร่ภาพถ่ายและวีดีโอไ_ปที่"
 
 #: src/WebConnectors.vala:820
 #, c-format
@@ -2308,6 +2308,8 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"การนำเข้าภาพถ่าย %d ภาพ ล้มเหลว "
+"เนื่องจากไม่สามารถเขียนข้อมูลลงไลบรารี่ภาพถ่ายได้\n"
 
 #: src/Dialogs.vala:509
 #, c-format
@@ -2318,6 +2320,8 @@ msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"การนำเข้าวีดีโอ %d ไฟล์ ล้มเหลว "
+"เนื่องจากไม่สามารถเขียนข้อมูลลงไลบรารี่ภาพถ่ายได้\n"
 
 #: src/Dialogs.vala:512
 #, c-format
@@ -2328,6 +2332,8 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"การนำเข้าภาพถ่าย/วีดีโอ %d ไฟล์ ล้มเหลว\n"
+"เนื่องจากไม่สามารถเขียนข้อมูลลงไลบรารี่ภาพถ่ายได้\n"
 
 #: src/Dialogs.vala:526
 #, c-format
@@ -2388,13 +2394,13 @@ msgstr[0] "%d ภาพถ่ายถูกนำเข้าเรียบร
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] ""
+msgstr[0] "%d วีดีโอถูกนำเข้าเรียบร้อย\n"
 
 #: src/Dialogs.vala:601
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] ""
+msgstr[0] "%d ภาพถ่าย/วีดีโอ ถูกนำเข้าเรียบร้อย\n"
 
 #: src/Dialogs.vala:617
 msgid "No photos or videos imported.\n"
@@ -2656,7 +2662,7 @@ msgstr ""
 
 #: src/Dialogs.vala:2027
 msgid "_Import in Place"
-msgstr ""
+msgstr "_นำเข้าสถานที่"
 
 #: src/Dialogs.vala:2028
 msgid "Import to Library"
@@ -2750,7 +2756,7 @@ msgstr "ไม่สามารถส่งออก %s: %s"
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
-msgstr[0] ""
+msgstr[0] "%d ภาพถ่าย/วีดีโอ"
 
 #: src/EventsDirectoryPage.vala:257 src/MediaPage.vala:307
 msgid "Even_ts"
@@ -2766,7 +2772,7 @@ msgstr "ไม่พบเหตุการณ์"
 
 #: src/EventsDirectoryPage.vala:377
 msgid "No Event"
-msgstr ""
+msgstr "ไม่มีเหตุการณ์"
 
 #: src/EventsDirectoryPage.vala:562
 msgid "Events"
@@ -2810,7 +2816,7 @@ msgstr ""
 
 #: src/LibraryWindow.vala:377
 msgid "Go to this photo's event"
-msgstr ""
+msgstr "ไปที่เหตุการณ์ของภาพถ่ายนี้"
 
 #: src/LibraryWindow.vala:382
 msgid "_Find"
@@ -2899,7 +2905,7 @@ msgstr "กล้อง"
 #: src/LibraryWindow.vala:1668
 #, c-format
 msgid "%s (%d%%)"
-msgstr ""
+msgstr "%s (%d%%)"
 
 #: src/LibraryWindow.vala:1701 src/LibraryWindow.vala:1709
 msgid "Updating library..."
@@ -2907,11 +2913,11 @@ msgstr ""
 
 #: src/LibraryWindow.vala:1714
 msgid "Preparing to auto-import photos..."
-msgstr ""
+msgstr "กำลังเตรียมการนำเข้าภาพถ่ายอัตโนมัติ..."
 
 #: src/LibraryWindow.vala:1719
 msgid "Auto-importing photos..."
-msgstr ""
+msgstr "กำลังนำเข้าภาพถ่ายอัตโนมัติ."
 
 #: src/LibraryWindow.vala:1724
 msgid "Writing metadata to files..."
@@ -2919,7 +2925,7 @@ msgstr ""
 
 #: src/LibraryWindow.vala:1729
 msgid "Processing RAW files..."
-msgstr ""
+msgstr "กำลังประมวลผลไฟล์ภาพถ่ายดิบ ..."
 
 #: src/photos/PngSupport.vala:31
 msgid "PNG"
@@ -3221,7 +3227,7 @@ msgstr ""
 #: src/Event.vala:695
 #, c-format
 msgid "Event %s"
-msgstr ""
+msgstr "เหตุการณ์ %s เรื่อง"
 
 #: plugins/shotwell-transitions/FadeEffect.vala:16
 msgid "Fade"
@@ -3479,7 +3485,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:1045
 msgid "Private"
-msgstr ""
+msgstr "ส่วนตัว"
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:24
 msgid "Core Publishing Services"
@@ -3607,7 +3613,7 @@ msgstr ""
 
 #: ui/shotwell.glade:302
 msgid "Metadata"
-msgstr ""
+msgstr "Metadata"
 
 #: ui/shotwell.glade:321
 msgid "Write tags, titles, and other _metadata to photo files"
@@ -3623,11 +3629,11 @@ msgstr ""
 
 #: ui/shotwell.glade:381
 msgid "External _RAW editor:"
-msgstr ""
+msgstr "โปรแกรมแก้ไขภาพถ่าย_ดิบภายนอก"
 
 #: ui/shotwell.glade:406
 msgid "_Import photos to:"
-msgstr ""
+msgstr "_นำเข้าภาพถ่ายไปที่: "
 
 #: ui/shotwell.glade:427
 msgid "_Background:"
@@ -3659,7 +3665,7 @@ msgstr "โปรแกรมเสริม"
 
 #: ui/shotwell.glade:764
 msgid "Preparing pictures for import..."
-msgstr ""
+msgstr "กำลังเตรียมภาพเพื่อนำเข้า ..."
 
 #: ui/shotwell.glade:795
 msgid "error"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"PO-Revision-Date: 2011-03-25 18:17+0000\n"
 "Last-Translator: kuromabo <md81bird@hitaki.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -105,11 +105,11 @@ msgstr "Shotwell に関する詳しい情報"
 
 #: src/AppWindow.vala:514
 msgid "_Frequently Asked Questions"
-msgstr ""
+msgstr "FAQ(_F)"
 
 #: src/AppWindow.vala:515
 msgid "Answers to common questions about Shotwell"
-msgstr ""
+msgstr "Shotwell についてよくある質問と回答"
 
 #: src/AppWindow.vala:605 src/AppWindow.vala:619 src/AppWindow.vala:636
 #: src/TagPage.vala:143 src/WebConnectors.vala:995 src/Dialogs.vala:945
@@ -145,7 +145,7 @@ msgstr "ヘルプを表示できません: %s"
 #: src/AppWindow.vala:686
 #, c-format
 msgid "Unable to display FAQ: %s"
-msgstr ""
+msgstr "FAQを表示できません: %s"
 
 #: src/ImportPage.vala:328
 msgid ""
@@ -329,7 +329,7 @@ msgstr "設定"
 
 #: src/SlideshowPage.vala:43
 msgid "_Delay:"
-msgstr ""
+msgstr "間隔(_D):"
 
 #: src/SlideshowPage.vala:45 src/SlideshowPage.vala:47
 msgid "seconds"
@@ -337,11 +337,11 @@ msgstr "秒"
 
 #: src/SlideshowPage.vala:63
 msgid "_Transition effect:"
-msgstr ""
+msgstr "トランジションの効果(_T):"
 
 #: src/SlideshowPage.vala:90
 msgid "Transition d_elay:"
-msgstr ""
+msgstr "トランジションの間隔(_E):"
 
 #: src/SlideshowPage.vala:187
 msgid "Slideshow"
@@ -837,15 +837,15 @@ msgstr "メールまたはインスタントメッセンジャで写真を送信
 
 #: src/Resources.vala:266
 msgid "_Find..."
-msgstr ""
+msgstr "検索(_F)..."
 
 #: src/Resources.vala:267
 msgid "Find"
-msgstr ""
+msgstr "検索"
 
 #: src/Resources.vala:268
 msgid "Find an image by typing text that appears in its name or tags"
-msgstr ""
+msgstr "名前やタグに表示されているテキストを入力して画像を検索します"
 
 #: src/Resources.vala:270
 msgid "_Flag"
@@ -1073,31 +1073,31 @@ msgstr[0] "%2$d 個の写真からタグ \"%1$s\" を削除します。続けま
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
-msgstr ""
+msgstr "ページ全体に合わせる"
 
 #: src/Printing.vala:256
 msgid "2 images per page"
-msgstr ""
+msgstr "ページあたり画像2枚"
 
 #: src/Printing.vala:257
 msgid "4 images per page"
-msgstr ""
+msgstr "ページあたり画像4枚"
 
 #: src/Printing.vala:258
 msgid "6 images per page"
-msgstr ""
+msgstr "ページあたり画像6枚"
 
 #: src/Printing.vala:259
 msgid "8 images per page"
-msgstr ""
+msgstr "ページあたり画像8枚"
 
 #: src/Printing.vala:260
 msgid "16 images per page"
-msgstr ""
+msgstr "ページあたり画像16枚"
 
 #: src/Printing.vala:261
 msgid "32 images per page"
-msgstr ""
+msgstr "ページあたり画像32枚"
 
 #: src/Printing.vala:298
 msgid "Printed Image Size"
@@ -1113,7 +1113,7 @@ msgstr "カスタムサイズを使用(_U):"
 
 #: src/Printing.vala:318
 msgid "_Autosize:"
-msgstr ""
+msgstr "自動サイズ調整(_A):"
 
 #: src/Printing.vala:387
 msgid "in."
@@ -1129,11 +1129,11 @@ msgstr "写真のアスペクト比に合わせる(_M)"
 
 #: src/Printing.vala:413
 msgid "Titles"
-msgstr ""
+msgstr "タイトル"
 
 #: src/Printing.vala:420
 msgid "Print image _title"
-msgstr ""
+msgstr "画像のタイトルを印刷(_T)"
 
 #: src/Printing.vala:432
 msgid "Pixel Resolution"
@@ -1145,7 +1145,7 @@ msgstr "写真の出力先(_O):"
 
 #: src/Printing.vala:453
 msgid "pixels per inch"
-msgstr "ピクセル・パー・インチ"
+msgstr "ピクセル/インチ"
 
 #: src/Printing.vala:933 src/EditingTools.vala:656
 msgid "Wallet (2 x 3 in.)"
@@ -1209,7 +1209,7 @@ msgstr "画像の設定"
 
 #: src/Printing.vala:1004
 msgid "Printing..."
-msgstr ""
+msgstr "印刷しています..."
 
 #: src/Printing.vala:1024 src/Printing.vala:1227
 #, c-format
@@ -1233,7 +1233,7 @@ msgstr "ゴミ箱"
 
 #: src/TrashPage.vala:142
 msgid "Trash is empty"
-msgstr ""
+msgstr "ゴミ箱は空です"
 
 #: src/TrashPage.vala:155
 msgid "Delete"
@@ -1360,7 +1360,7 @@ msgstr ""
 #: src/direct/DirectPhotoPage.vala:247 src/direct/DirectPhotoPage.vala:445
 #, c-format
 msgid "Unable to load %s: %s"
-msgstr ""
+msgstr "%s を読み込めません: %s"
 
 #: src/direct/DirectPhotoPage.vala:387
 msgid "_Save a Copy"
@@ -1386,15 +1386,15 @@ msgstr "別名で保存"
 
 #: src/slideshow/TransitionEffects.vala:96
 msgid "(None)"
-msgstr ""
+msgstr "(なし)"
 
 #: src/slideshow/TransitionEffects.vala:292
 msgid "None"
-msgstr ""
+msgstr "なし"
 
 #: src/slideshow/Slideshow.vala:15
 msgid "Slideshow Transitions"
-msgstr ""
+msgstr "スライドショーのトランジション"
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
 # 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
@@ -1547,11 +1547,11 @@ msgstr "ユーザ名(_U):"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr ""
+msgstr "%b月%d日 (%a)"
 
 #: src/util/misc.vala:232
 msgid "%d, %Y"
-msgstr ""
+msgstr "%d, %Y"
 
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
@@ -1608,7 +1608,7 @@ msgstr "カメラのエラーです"
 
 #: src/BatchImport.vala:61
 msgid "File write error"
-msgstr ""
+msgstr "ファイル書き込みエラー"
 
 #: src/BatchImport.vala:64
 #, c-format
@@ -1736,24 +1736,24 @@ msgstr "動画"
 
 #: src/SearchFilter.vala:425
 msgid "RAW Photos"
-msgstr ""
+msgstr "RAW 画像"
 
 #: src/SearchFilter.vala:426
 msgid "RAW photos"
-msgstr ""
+msgstr "RAW 画像"
 
 #: src/SearchFilter.vala:679
 #, c-format
 msgid "Error loading UI file %s: %s"
-msgstr ""
+msgstr "UI ファイル %s の読み込みエラー: %s"
 
 #: src/SearchFilter.vala:686
 msgid "Type"
-msgstr ""
+msgstr "種類"
 
 #: src/SearchFilter.vala:702
 msgid "Rating"
-msgstr ""
+msgstr "評価"
 
 #: src/Exporter.vala:246
 #, c-format
@@ -1884,7 +1884,7 @@ msgstr "Piwgo のインストール URL(_U):"
 
 #: src/PiwigoConnector.vala:635
 msgid "User_name:"
-msgstr ""
+msgstr "ユーザ名(_N):"
 
 #: src/PiwigoConnector.vala:637
 #: plugins/shotwell-publishing/PicasaPublishing.vala:865
@@ -2005,7 +2005,7 @@ msgstr "利用可能なコマンドラインオプションの一覧を表示す
 
 #: src/publishing/Publishing.vala:16
 msgid "Publishing"
-msgstr ""
+msgstr "公開"
 
 #: src/publishing/PublishingPluginHost.vala:11 src/WebConnectors.vala:1126
 #: src/WebConnectors.vala:1263
@@ -2021,7 +2021,7 @@ msgstr "アップロードしています %d / %d"
 #: src/publishing/PublishingPluginHost.vala:102
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred:"
-msgstr ""
+msgstr "エラーが発生したため %s への公開を続けることができません。"
 
 #: src/publishing/PublishingPluginHost.vala:105 src/WebConnectors.vala:1030
 msgid "To try publishing to another service, select one from the above menu."
@@ -2047,11 +2047,11 @@ msgstr "選択された写真の公開が完了しました。"
 
 #: src/WebConnectors.vala:670
 msgid "The selected video was successfully published."
-msgstr ""
+msgstr "選択された動画の公開が完了しました。"
 
 #: src/WebConnectors.vala:672
 msgid "The selected photo was successfully published."
-msgstr ""
+msgstr "選択された写真の公開が完了しました。"
 
 #: src/WebConnectors.vala:680
 msgid "Fetching account information..."
@@ -2093,6 +2093,8 @@ msgid ""
 "Preferences</b> and enable one or more of the publishing plugins on the "
 "<b>Plugin</b> tab."
 msgstr ""
+"一致する公開プラグインが有効になっていないため Shotwell は選択されたアイテムを公開できません。これを直すには、<b>編集 %s 設定</b> "
+"を選択して<b>プラグイン</b> タブにある公開プラグインをどれか有効にしてください。"
 
 #: src/WebConnectors.vala:990
 msgid "_Close"
@@ -2102,7 +2104,7 @@ msgstr "閉じる(_C)"
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service could not be contacted."
-msgstr "%s への公開は、サービスと連携できないため続行することができません。"
+msgstr "サービスと連携できないため %s への公開を続けることができません。"
 
 #: src/WebConnectors.vala:1016
 #, c-format
@@ -2119,13 +2121,13 @@ msgstr "プロトコルエラーのため %s への公開を続けることが�
 #: src/WebConnectors.vala:1021
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
-msgstr "%s への公開は、サービスがエラーを返したため続行することができません。"
+msgstr "サービスがエラーを返したため %s への公開を続けることができません。"
 
 #: src/WebConnectors.vala:1023
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service returned a bad response."
-msgstr "%s への公開は、サービスが誤ったレスポンスを返したため続行することができません。"
+msgstr "サービスが不正な応答を返したため %s への公開を続けることができません。"
 
 #: src/WebConnectors.vala:1026
 #, c-format
@@ -2146,7 +2148,7 @@ msgstr "削除中..."
 
 #: src/CollectionPage.vala:214 src/PhotoPage.vala:2485
 msgid "S_lideshow"
-msgstr ""
+msgstr "スライドショー(_L)"
 
 #: src/CollectionPage.vala:215 src/PhotoPage.vala:2486
 msgid "Play a slideshow"
@@ -2188,7 +2190,7 @@ msgstr "上下反転を元に戻す"
 
 #: src/CollectionPage.vala:716
 msgid "Library"
-msgstr ""
+msgstr "ライブラリ"
 
 #: src/Dialogs.vala:15
 msgid "Export Video"
@@ -2203,7 +2205,7 @@ msgstr "写真のエクスポート"
 msgid ""
 "Shotwell couldn't create a file for editing this photo because you do not "
 "have permission to write to %s."
-msgstr ""
+msgstr "%s への書き込み権限がないため、Shotwellはこの写真を編集する際にファイルを作成することができませんでした。"
 
 #: src/Dialogs.vala:78
 msgid ""
@@ -2301,7 +2303,7 @@ msgid ""
 msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
+msgstr[0] "写真ライブラリのフォルダが書き込み可能でないため %d 個の写真のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:509
 #, c-format
@@ -2311,7 +2313,7 @@ msgid ""
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
+msgstr[0] "写真ライブラリのフォルダが書き込み可能でないため %d 個の動画のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:512
 #, c-format
@@ -2321,7 +2323,7 @@ msgid ""
 msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
+msgstr[0] "写真ライブラリのフォルダが書き込み可能でないため %d 個の写真/動画のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:526
 #, c-format
@@ -2621,19 +2623,19 @@ msgstr "このメッセージを再び表示しない(_D)"
 
 #: src/Dialogs.vala:1713
 msgid "(Help)"
-msgstr ""
+msgstr "(ヘルプ)"
 
 #: src/Dialogs.vala:1720 src/Dialogs.vala:1722 src/Dialogs.vala:1723
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 #: src/Dialogs.vala:1725
 msgid "Year-Month-Day"
-msgstr ""
+msgstr "年-月-日"
 
 #: src/Dialogs.vala:1941
 msgid "Invalid pattern"
-msgstr ""
+msgstr "無効なパターン"
 
 #: src/Dialogs.vala:2021
 msgid ""
@@ -2755,11 +2757,11 @@ msgstr "イベント(_T)"
 
 #: src/EventsDirectoryPage.vala:291
 msgid "No events"
-msgstr ""
+msgstr "イベントなし"
 
 #: src/EventsDirectoryPage.vala:295
 msgid "No events found"
-msgstr ""
+msgstr "イベントが見つかりません"
 
 #: src/EventsDirectoryPage.vala:377
 msgid "No Event"
@@ -2811,11 +2813,11 @@ msgstr "この写真のイベントに移動"
 
 #: src/LibraryWindow.vala:382
 msgid "_Find"
-msgstr ""
+msgstr "検索(_F)"
 
 #: src/LibraryWindow.vala:383
 msgid "Find photos and videos by search criteria"
-msgstr ""
+msgstr "検索条件で写真とビデオを探す"
 
 #: src/LibraryWindow.vala:400
 msgid "_Basic Information"
@@ -2835,11 +2837,11 @@ msgstr "選択した写真の追加情報を表示します"
 
 #: src/LibraryWindow.vala:412
 msgid "_Search Bar"
-msgstr ""
+msgstr "検索バー(_S)"
 
 #: src/LibraryWindow.vala:413
 msgid "Display the search bar"
-msgstr ""
+msgstr "検索バーを表示"
 
 #: src/LibraryWindow.vala:425 src/MediaPage.vala:493
 msgid "_Ascending"
@@ -2928,7 +2930,7 @@ msgstr "RAW"
 
 #: src/photos/TiffSupport.vala:87
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: src/photos/JfifSupport.vala:85
 msgid "JPEG"
@@ -3089,11 +3091,11 @@ msgstr "選択された写真のフラグを外す"
 
 #: src/Page.vala:1333
 msgid "No photos/videos"
-msgstr ""
+msgstr "写真/動画がありません"
 
 #: src/Page.vala:1337
 msgid "No photos/videos found"
-msgstr ""
+msgstr "写真/動画が見つかりません"
 
 #: src/Page.vala:2545
 msgid "Photos cannot be exported to this directory."
@@ -3224,23 +3226,23 @@ msgstr "イベント %s"
 
 #: plugins/shotwell-transitions/FadeEffect.vala:16
 msgid "Fade"
-msgstr ""
+msgstr "フェード"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:16
 msgid "Crumble"
-msgstr ""
+msgstr "崩壊"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:19
 msgid "Core Slideshow Transitions"
-msgstr ""
+msgstr "メインのスライドショーのトランジション"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:77
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
-msgstr ""
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:16
 msgid "Slide"
-msgstr ""
+msgstr "スライド"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:55
 msgid ""
@@ -3262,11 +3264,11 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:122
 msgid "Standard (720 pixels)"
-msgstr ""
+msgstr "標準 (720ピクセル)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:125
 msgid "Large (2048 pixels)"
-msgstr ""
+msgstr "大 (2048ピクセル)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:258
 msgid "Testing connection to Facebook..."
@@ -3292,7 +3294,7 @@ msgstr "選択された写真をどこに公開しますか?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1552
 msgid "Upload _size:"
-msgstr ""
+msgstr "アップロードサイズ(_S):"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1621
 msgid "Publish to an e_xisting album:"
@@ -3393,7 +3395,7 @@ msgstr "%s として Picasa Web Album にログインしています。"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1040
 msgid "Videos will appear in:"
-msgstr ""
+msgstr "動画の表示先:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1056
 msgid "An _existing album:"
@@ -3470,7 +3472,7 @@ msgstr "%s として YouTube にログインしています。"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:943
 #, c-format
 msgid "Videos will appear in '%s'"
-msgstr ""
+msgstr "動画は '%s' で表示されます"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:966
 msgid "Video privacy _setting:"
@@ -3490,7 +3492,7 @@ msgstr "非公開"
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:24
 msgid "Core Publishing Services"
-msgstr ""
+msgstr "メインの公開サービス"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:46
 msgid ""
@@ -3642,27 +3644,27 @@ msgstr "背景(_B):"
 
 #: ui/shotwell.glade:448
 msgid "Importing"
-msgstr ""
+msgstr "インポート中"
 
 #: ui/shotwell.glade:469
 msgid "_Directory structure:"
-msgstr ""
+msgstr "ディレクトリ構造(_D):"
 
 #: ui/shotwell.glade:505
 msgid "_Pattern:"
-msgstr ""
+msgstr "パターン(_P):"
 
 #: ui/shotwell.glade:574
 msgid "Example:"
-msgstr ""
+msgstr "例:"
 
 #: ui/shotwell.glade:590
 msgid "R_ename imported files to lowercase"
-msgstr ""
+msgstr "インポートしたファイル名を小文字にする(_E)"
 
 #: ui/shotwell.glade:638
 msgid "Plugins"
-msgstr ""
+msgstr "プラグイン"
 
 #: ui/shotwell.glade:764
 msgid "Preparing pictures for import..."
