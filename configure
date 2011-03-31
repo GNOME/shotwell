@@ -19,6 +19,8 @@ configure_help() {
     printf "\t\t\t\t[--release]\n"
     printf "\t--prefix=PREFIX\t\tPrepend PREFIX to program installation paths.\n"
     printf "\t\t\t\t[/usr/local]\n"
+    printf "\t--libdir=LIBDIR\t\tSet system library directory name to LIBDIR\n\t\t\t\t(usually 'lib' or 'lib64').\n"
+    printf "\t\t\t\t[lib]\n"
     printf "\t--define=SYMBOL\t\tDefine a symbol for the Vala compiler.\n"
     printf "\t--with-gconf-schema-file-dir=DIR\n"
     printf "\t\t\t\tDirectory for installing schema files.\n"
@@ -65,7 +67,15 @@ do
                             
                             variables="${variables}PREFIX=$value\n"
                             ;;
-        
+
+        --libdir)           if [ ! $value ]
+                            then
+                                abort $1
+                            fi
+                            
+                            variables="${variables}LIB=$value\n"
+                            ;;
+
         --assume-pkgs)      variables="${variables}ASSUME_PKGS=1\n"
                             ;;
         

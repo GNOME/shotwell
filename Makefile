@@ -14,19 +14,19 @@ INSTALL_DATA := install -m 644
 PREFIX=/usr/local
 SCHEMA_FILE_DIR=/etc/gconf/schemas
 BUILD_RELEASE=1
+LIB=lib
 
 -include configure.mk
 
 VALAFLAGS := -g --enable-checking --thread --fatal-warnings $(USER_VALAFLAGS)
 DEFINES := _PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
-	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
+	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIBDIR='"${LIB}"'
 
 EXPORT_FLAGS = -export-dynamic
 
 SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he mk te ta
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=$(DESTDIR)$(PREFIX)/share/locale
-LIB=lib
 
 include units.mk
 include plugins/plugins.mk
@@ -556,7 +556,8 @@ ifdef INSTALL_HEADERS
 endif
 
 $(PC_FILE): $(PC_INPUT) $(MAKE_FILES)
-	m4 '--define=_VERSION_=$(VERSION)' '--define=_PREFIX_=$(PREFIX)' '--define=_REQUIREMENTS_=$(PLUGIN_PKG_REQS)' $< > $@
+	m4 '--define=_VERSION_=$(VERSION)' '--define=_PREFIX_=$(PREFIX)' '--define=_REQUIREMENTS_=$(PLUGIN_PKG_REQS)' \
+		'--define=_LIB_=$(LIB)' $< > $@
 
 $(UNITIZE_STAMP): $(MAKE_FILES) src/unit/rc/UnitInternals.m4 src/unit/rc/unitize_entry.m4
 	@mkdir -p $(UNITIZE_DIR)
