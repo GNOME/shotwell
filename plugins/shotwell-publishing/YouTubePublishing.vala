@@ -283,14 +283,15 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("EVENT: fetching account and channel information failed; response = '%s'.",
             bad_txn.get_response());
 
-        if (bad_txn.get_status_code() == 404) {
-            // if we get a 404 error (resource not found) on the initial channel fetch, then the
-            // user's channel feed doesn't exist -- this occurs when the user has a valid Google
-            // account but it hasn't yet been set up for use with YouTube. In this case, we
-            // re-display the credentials capture pane with an "account not set up" message.
-            // In addition, we deauthenticate the session. Deauth is neccessary because we
-            // did previously auth the user's account. If we get any other kind of error, we can't
-            // recover, so just post it to the user
+        if (bad_txn.get_status_code() == 404 || bad_txn.get_status_code() == 401) {
+            // if we get a 404 error (resource not found) or a 401 (level of authentication
+            // is insufficient to access the resource) on the initial channel fetch, then the
+            // user's channel feed doesn't exist and/or hasn't been linked to their Google
+            // account. This occurs when the user has a valid Google account but it hasn't
+            // yet been set up for use with YouTube. In this case, we re-display the credentials
+            // capture pane with an "account not set up" message. In addition, we deauthenticate
+            // the session. Deauth is neccessary because we did previously auth the user's
+            // account.
             session.deauthenticate();
             do_show_credentials_pane(CredentialsPane.Mode.NOT_SET_UP);
         } else if (bad_txn.get_status_code() == 403) {
@@ -868,6 +869,8 @@ internal class LegacyCredentialsPane : Gtk.VBox {
     }
 
     public void installed() {
+        host.set_service_locked(false);
+
         email_entry.grab_focus();
         password_entry.set_activates_default(true);
         login_button.can_default = true;
