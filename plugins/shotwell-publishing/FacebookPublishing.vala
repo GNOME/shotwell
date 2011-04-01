@@ -350,7 +350,11 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
         }
 
-        albums = extracted;
+        // Due to this bug: https://bugzilla.gnome.org/show_bug.cgi?id=646298, we no longer
+        // do a direct array assignment here
+        albums = new FacebookAlbum[0];
+        foreach (FacebookAlbum album in extracted)
+            albums += album;
 
         on_albums_extracted();
     }
