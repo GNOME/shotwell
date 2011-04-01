@@ -2068,7 +2068,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cwidth = viewport.allocation.width;
             cheight = viewport.allocation.height;
             
-            tool_window.move(rx + cx + (cwidth / 2) - (tool_alloc.width / 2), ry + cy + cheight);
+            int new_x = rx + cx + (cwidth / 2) - (tool_alloc.width / 2);
+            int new_y = ry + cy + cheight - ((tool_alloc.height / 4) * 3);
+            
+            // however, clamp the window so it's never off-screen initially
+            Gdk.Screen screen = get_container().get_screen();
+            new_x = new_x.clamp(0, screen.get_width() - tool_alloc.width);
+            new_y = new_y.clamp(0, screen.get_height() - tool_alloc.height);
+            
+            tool_window.move(new_x, new_y);
         } else {
             assert(get_container() is FullscreenWindow);
             
@@ -2077,7 +2085,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             Gtk.Allocation toolbar_alloc = get_toolbar().allocation;
             
             Gdk.Screen screen = get_container().get_screen();
-
             int x = screen.get_width();
             int y = screen.get_height() - toolbar_alloc.height -
                     tool_alloc.height - TOOL_WINDOW_SEPARATOR;
@@ -2096,7 +2103,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // compiz, we only want to show the window. 
         // ticket #2141 prompted this: http://trac.yorba.org/ticket/2141
         tool_window.show();
-        if (!get_window_manager().contains("compiz"))
+        if (!get_window_manager().down().contains("compiz"))
             tool_window.present();
     }
     
