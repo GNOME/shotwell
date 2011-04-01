@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-30 08:56+0000\n"
+"PO-Revision-Date: 2011-03-31 19:55+0000\n"
 "Last-Translator: svaradar83 <srikanth.varad@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2162,7 +2162,7 @@ msgstr[1] "புகைப்படங்களை ஏற்றுமதி ச�
 
 #: src/CollectionPage.vala:529 src/CollectionPage.vala:544
 msgid "Rotating"
-msgstr "சுழற்று"
+msgstr "சுழற்றல் செய்கை"
 
 #: src/CollectionPage.vala:529 src/CollectionPage.vala:544
 msgid "Undoing Rotate"
@@ -2170,7 +2170,7 @@ msgstr "செய்த சுழற்றை தவிர்"
 
 #: src/CollectionPage.vala:553
 msgid "Flipping Horizontally"
-msgstr "கிடை சுழற்று"
+msgstr "கிடை சுழற்றல் செய்கை"
 
 #: src/CollectionPage.vala:554
 msgid "Undoing Flip Horizontally"
@@ -2178,7 +2178,7 @@ msgstr "செய்த கிடை சுழற்றை தவிர்"
 
 #: src/CollectionPage.vala:563
 msgid "Flipping Vertically"
-msgstr "செங்குத்து சுழற்று"
+msgstr "செங்குத்து சுழற்றல் செய்கை"
 
 #: src/CollectionPage.vala:564
 msgid "Undoing Flip Vertically"
@@ -2979,78 +2979,78 @@ msgstr "பின்செல்"
 
 #: src/Commands.vala:623
 msgid "Undoing Revert"
-msgstr "பின்செல்வதை தவிர்"
+msgstr "பின் சென்றதை தவிர்"
 
 #: src/Commands.vala:667
 msgid "Enhancing"
-msgstr ""
+msgstr "செம்மைபாடு செய்கை"
 
 #: src/Commands.vala:667
 msgid "Undoing Enhance"
-msgstr ""
+msgstr "செய்த செம்மைபாட்டை தவிர்"
 
 #: src/Commands.vala:833
 msgid "Creating New Event"
-msgstr ""
+msgstr "புதிய நிகழ்வாக்கம்"
 
 #: src/Commands.vala:834
 msgid "Removing Event"
-msgstr ""
+msgstr "நிகழ்வு நீக்கல்"
 
 #: src/Commands.vala:843
 msgid "Moving Photos to New Event"
-msgstr ""
+msgstr "புகைப்படங்களை புதிய நிகழ்வில் அடக்கு"
 
 #: src/Commands.vala:844
 msgid "Setting Photos to Previous Event"
-msgstr ""
+msgstr "புகைப்படங்களை முன் நிகழ்வில் அடக்கு"
 
 #: src/Commands.vala:874
 msgid "Merging"
-msgstr ""
+msgstr "ஒன்றிணைப்பு"
 
 #: src/Commands.vala:875
 msgid "Unmerging"
-msgstr ""
+msgstr "ஒன்றிணைப்பை பிரி"
 
 #: src/Commands.vala:884
 msgid "Duplicating photos"
-msgstr ""
+msgstr "புகைப்படங்களை நகல்படுத்தல்"
 
 #: src/Commands.vala:884
 msgid "Removing duplicated photos"
-msgstr ""
+msgstr "நகல் புகைப்படங்களை நீக்கு"
 
 #: src/Commands.vala:907
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "கோப்புப் பிழையினால் புகைப்படத்தை நகல் செய்ய முடியவில்லை"
+msgstr[1] "கோப்புப் பிழையினால் %d புகைப்படங்களை நகல் செய்ய முடியவில்லை "
 
 #: src/Commands.vala:995
 msgid "Restoring previous rating"
-msgstr ""
+msgstr "தரங்களை முன்னிலைப்படுத்து"
 
 #: src/Commands.vala:1005 src/Commands.vala:1006
 msgid "Increasing ratings"
-msgstr ""
+msgstr "தரங்களை கூட்டு"
 
 #: src/Commands.vala:1005 src/Commands.vala:1006
 msgid "Decreasing ratings"
-msgstr ""
+msgstr "தரங்களை குறை"
 
 #: src/Commands.vala:1076
 msgid "Original photo could not be adjusted."
-msgstr ""
+msgstr "அசல் புகைப்படத்தை திருத்த முடியவில்லை."
 
 #: src/Commands.vala:1096
 msgid "Adjusting Date and Time"
-msgstr ""
+msgstr "நாள் மற்றும் நேரத்தை திருத்து"
 
 #: src/Commands.vala:1096
 msgid "Undoing Date and Time Adjustment"
-msgstr ""
+msgstr "திருத்திய நாள்/நேரத்தை தவிர்"
 
 #: src/Commands.vala:1123
 msgid "One original photo could not be adjusted."
