@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Name=Shotwell Photo Manager
+Name=Shotwell
 GenericName=Photo Manager
 Comment=Organize your photos
 Exec=shotwell %U
@@ -11,3 +11,4 @@ MimeType=x-content/image-dcf;
 Categories=Graphics;Photography;GNOME;GTK;
 X-GIO-NoFuse=true
 X-GNOME-Gettext-Domain=shotwell
+X-GNOME-FullName=Shotwell Photo Manager
