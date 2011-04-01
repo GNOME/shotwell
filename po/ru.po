@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-22 15:09+0000\n"
-"Last-Translator: boobaloo <koptev.oleg@gmail.com>\n"
+"PO-Revision-Date: 2011-03-29 06:25+0000\n"
+"Last-Translator: mmarkk <socketpair@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,8 @@ msgid "translator-credits"
 msgstr ""
 "Oleg Koptev <koptev.oleg@gmail.com>\n"
 "Yulia Poyarko <ypoyarko@redhat.com>\n"
-"Misha Shnurapet <shnurapet@fedoraproject.org>"
+"Misha Shnurapet <shnurapet@fedoraproject.org>\n"
+"Коренберг Марк <socketpair@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -278,25 +279,25 @@ msgstr "Невозможно заблокировать камеру: %s"
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
-msgstr[0] "Удалить это %d фото из камеры?"
+msgstr[0] "Удалить %d фотографию из камеры?"
 msgstr[1] "Удалить %d фотографии из камеры?"
-msgstr[2] "Удалить %d фотографию из камеры?"
+msgstr[2] "Удалить %d фотографий из камеры?"
 
 #: src/ImportPage.vala:1309
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
-msgstr[0] "Удалить это %d видео из камеры?"
+msgstr[0] "Удалить %d видеофайл из камеры?"
 msgstr[1] "Удалить %d видеофайла из камеры?"
-msgstr[2] "Удалить %d видеофайл из камеры?"
+msgstr[2] "Удалить %d видеофайлов из камеры?"
 
 #: src/ImportPage.vala:1312
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] "Удалить это %d фото/видео из камеры?"
+msgstr[0] "Удалить %d фотографию/видеофайл из камеры?"
 msgstr[1] "Удалить %d фотографии/видеофайла из камеры?"
-msgstr[2] "Удалить %d фотографию/видеофайл из камеры?"
+msgstr[2] "Удалить %d фотографий/видеофайлов из камеры?"
 
 #: src/ImportPage.vala:1320 src/Dialogs.vala:915
 msgid "_Keep"
@@ -313,7 +314,7 @@ msgid_plural ""
 "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "Невозможно удалить %d фотографию/видео из камеры из-за ошибок."
 msgstr[1] "Невозможно удалить %d фотографии/видео из камеры из-за ошибок."
-msgstr[2] "Невозможно удалить %d фотографию/видео из камеры из-за ошибок."
+msgstr[2] "Невозможно удалить %d фотографий/видео из камеры из-за ошибок."
 
 #: src/ImportPage.vala:1393
 msgid "Importing..."
@@ -426,7 +427,7 @@ msgstr "Повернуть вправо"
 
 #: src/Resources.vala:118
 msgid "Rotate the photos right (press Ctrl to rotate left)"
-msgstr "Поворот фотографии вправо (нажмите Ctrl, чтобы повернуть налево)"
+msgstr "Поворот фотографии вправо (нажмите Ctrl, чтобы повернуть влево)"
 
 #: src/Resources.vala:120
 msgid "Rotate _Left"
@@ -951,7 +952,7 @@ msgid "Tag Photo as \"%s\""
 msgid_plural "Tag Photos as \"%s\""
 msgstr[0] "Добавить метку «%s» к фотографиям"
 msgstr[1] "Добавить метку «%s» к фотографиям"
-msgstr[2] "Добавить метку «%s» к фотографии"
+msgstr[2] "Добавить метку «%s» к фотографиям"
 
 #: src/Resources.vala:327
 #, c-format
@@ -959,7 +960,7 @@ msgid "Tag the selected photo as \"%s\""
 msgid_plural "Tag the selected photos as \"%s\""
 msgstr[0] "Добавить метку «%s» к выбранным фотографиям"
 msgstr[1] "Добавить метку «%s» к выбранным фотографиям"
-msgstr[2] "Добавить метку «%s» к выбранной фотографии"
+msgstr[2] "Добавить метку «%s» к выбранной фотографиям"
 
 #: src/Resources.vala:331
 #, c-format
@@ -983,7 +984,7 @@ msgid "Remove tag \"%s\" from the selected photo"
 msgid_plural "Remove tag \"%s\" from the selected photos"
 msgstr[0] "Удалить метку «%s» с выбранных фотографий"
 msgstr[1] "Удалить метку «%s» с выбранных фотографий"
-msgstr[2] "Удалить метку «%s» с выбранной фотографии"
+msgstr[2] "Удалить метку «%s» с выбранных фотографий"
 
 #: src/Resources.vala:345
 #, c-format
@@ -1099,7 +1100,7 @@ msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
 msgstr[0] "Это действие удалит метку «%s» с %d фотографии. Продолжить?"
 msgstr[1] "Это действие удалит метку «%s» с %d фотографий. Продолжить?"
-msgstr[2] "Это действие удалит метку «%s» с %d фотографии. Продолжить?"
+msgstr[2] "Это действие удалит метку «%s» с %d фотографий. Продолжить?"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
@@ -1248,7 +1249,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Не могу напечатать фото:\n"
+"Невозможно напечатать фото:\n"
 "\n"
 "%s"
 
@@ -1274,7 +1275,7 @@ msgid "Deleting a Photo"
 msgid_plural "Deleting Photos"
 msgstr[0] "Удаление фотографий"
 msgstr[1] "Удаление фотографий"
-msgstr[2] "Удаление фотографии"
+msgstr[2] "Удаление фотографий"
 
 #: src/VideoSupport.vala:414
 msgid "Export Videos"
@@ -1460,7 +1461,7 @@ msgid "%d Event"
 msgid_plural "%d Events"
 msgstr[0] "%d событие"
 msgstr[1] "%d события"
-msgstr[2] "%d событие"
+msgstr[2] "%d событий"
 
 #: src/Properties.vala:296 src/EventsDirectoryPage.vala:73
 #, c-format
@@ -1468,7 +1469,7 @@ msgid "%d Photo"
 msgid_plural "%d Photos"
 msgstr[0] "%d фотография"
 msgstr[1] "%d фотографии"
-msgstr[2] "%d фотография"
+msgstr[2] "%d фотографий"
 
 #: src/Properties.vala:298 src/EventsDirectoryPage.vala:71
 #, c-format
@@ -2211,14 +2212,14 @@ msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Экспорт фотографий/видео"
 msgstr[1] "Экспорт фотографий/видео"
-msgstr[2] "Экспорт фотографии/видео"
+msgstr[2] "Экспорт фотографий/видео"
 
 #: src/CollectionPage.vala:441 src/Dialogs.vala:15 src/PhotoPage.vala:2956
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Экспорт фотографий"
 msgstr[1] "Экспорт фотографий"
-msgstr[2] "Экспорт фотографии"
+msgstr[2] "Экспорт фотографий"
 
 #: src/CollectionPage.vala:529 src/CollectionPage.vala:544
 msgid "Rotating"
@@ -2320,9 +2321,9 @@ msgstr "(и ещё %d)\n"
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] "%d Дубликат фото не был импортирован.\n"
+msgstr[0] "%d дубликат фото не был импортирован.\n"
 msgstr[1] "%d дубликата фото не были импортированы.\n"
-msgstr[2] "%d дубликат фото не был импортирован.\n"
+msgstr[2] "%d дубликатов фото не были импортированы.\n"
 
 #: src/Dialogs.vala:469
 #, c-format
@@ -2330,15 +2331,15 @@ msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "%d дубликат видео не был импортирован.\n"
 msgstr[1] "%d дубликата видео не были импортированы.\n"
-msgstr[2] "%d Дубликат видео не был импортирован.\n"
+msgstr[2] "%d дубликатов видео не были импортированы.\n"
 
 #: src/Dialogs.vala:472
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] "%d Дубликат фото/видео не был импортирован:\n"
-msgstr[1] "%d дубликата фото/видео не были импортированы:\n"
-msgstr[2] "%d дубликат фото/видео не были импортированы:\n"
+msgstr[0] "%d дубликат фото/видео не был импортировано:\n"
+msgstr[1] "%d дубликата фото/видео не было импортировано:\n"
+msgstr[2] "%d дубликатов фото/видео не было импортировано:\n"
 
 #: src/Dialogs.vala:486
 #, c-format
@@ -2351,7 +2352,7 @@ msgstr[1] ""
 "%d фотографии не удалось импортировать из-за ошибки файла или аппаратной "
 "ошибки:\n"
 msgstr[2] ""
-"%d Фотографию не удалось импортировать из-за ошибки файла или аппаратной "
+"%d фотографий не удалось импортировать из-за ошибки файла или аппаратной "
 "ошибки:\n"
 
 #: src/Dialogs.vala:489
@@ -2359,7 +2360,8 @@ msgstr[2] ""
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"%d Видео не удалось импортировать из-за ошибки файла или аппаратной ошибки:\n"
+"%d видео не удалось импортировать из-за ошибки файла или аппаратной "
+"ошибки:\n"
 msgstr[1] ""
 "%d видео не удалось импортировать из-за ошибки файла или аппаратной "
 "ошибки:\n"
@@ -2379,7 +2381,7 @@ msgstr[1] ""
 "Ошибка импорта %d фотографий/видео из-за файловой ошибки или аппаратной "
 "проблемы:\n"
 msgstr[2] ""
-"Ошибка импорта %d фотографии/видео из-за файловой ошибки или аппаратной "
+"Ошибка импорта %d фотографий/видео из-за файловой ошибки или аппаратной "
 "проблемы:\n"
 
 #: src/Dialogs.vala:506
@@ -2391,14 +2393,14 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"Не удалось импортировать %d фотографию, поскольку каталог библиотеки "
-"былнедоступен для записи:\n"
+"Не удалось импортировать %d фотографию, поскольку каталог библиотеки был "
+"недоступен для записи:\n"
 msgstr[1] ""
-"Не удалось импортировать %d фотографии, поскольку каталог библиотеки "
-"былнедоступен для записи:\n"
+"Не удалось импортировать %d фотографии, поскольку каталог библиотеки был "
+"недоступен для записи:\n"
 msgstr[2] ""
-"Не удалось импортировать %d фотографию, поскольку каталог библиотеки "
-"былнедоступен для записи:\n"
+"Не удалось импортировать %d фотографий, поскольку каталог библиотеки был "
+"недоступен для записи:\n"
 
 #: src/Dialogs.vala:509
 #, c-format
@@ -2442,7 +2444,7 @@ msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "Не удалось импортировать %d фотографию из-за ошибки камеры:\n"
 msgstr[1] "Не удалось импортировать %d фотографии из-за ошибки камеры:\n"
-msgstr[2] "Не удалось импортировать %d фотографию из-за ошибки камеры:\n"
+msgstr[2] "Не удалось импортировать %d фотографий из-за ошибки камеры:\n"
 
 #: src/Dialogs.vala:529
 #, c-format
@@ -2466,7 +2468,7 @@ msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
 msgstr[0] "Пропущена %d неподдерживаемая фотография:\n"
 msgstr[1] "Пропущено %d неподдерживаемые фотографии:\n"
-msgstr[2] "Пропущена %d неподдерживаемая фотография:\n"
+msgstr[2] "Пропущено %d неподдерживаемых фотографий:\n"
 
 #: src/Dialogs.vala:564
 #, c-format
@@ -2474,7 +2476,7 @@ msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "Пропущен %d файл, не являющийся изображением.\n"
 msgstr[1] "Пропущено %d файла, не являющихся изображениями.\n"
-msgstr[2] "Пропущен %d файл, не являющийся изображением.\n"
+msgstr[2] "Пропущено %d файлов, не являющихся изображениями.\n"
 
 #: src/Dialogs.vala:575
 #, c-format
@@ -2482,7 +2484,7 @@ msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "%d фотография пропущена пользователем:\n"
 msgstr[1] "%d фотографии пропущены пользователем:\n"
-msgstr[2] "%d фотография пропущена пользователем:\n"
+msgstr[2] "%d фотографий пропущены пользователем:\n"
 
 #: src/Dialogs.vala:578
 #, c-format
@@ -2498,13 +2500,13 @@ msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "%d фото/видео пропущены пользователем:\n"
 msgstr[1] "%d фото/видео пропущены пользователем:\n"
-msgstr[2] "%d Фото/видео пропущено пользователем:\n"
+msgstr[2] "%d фото/видео пропущены пользователем:\n"
 
 #: src/Dialogs.vala:595
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] "%d Фото успешно импортировано.\n"
+msgstr[0] "Успешно импортировано %d фото.\n"
 msgstr[1] "Успешно импортировано %d фото.\n"
 msgstr[2] "Успешно импортировано %d фото.\n"
 
@@ -2512,7 +2514,7 @@ msgstr[2] "Успешно импортировано %d фото.\n"
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] "%d Видео успешно импортировано.\n"
+msgstr[0] "Успешно импортировано %d видео.\n"
 msgstr[1] "Успешно импортировано %d видео.\n"
 msgstr[2] "Успешно импортировано %d видео.\n"
 
@@ -2522,7 +2524,7 @@ msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
 msgstr[0] "%d фото/видео успешно импортировано.\n"
 msgstr[1] "%d фото/видео успешно импортировано.\n"
-msgstr[2] "%d Фото/видео успешно импортировано.\n"
+msgstr[2] "%d фото/видео успешно импортировано.\n"
 
 #: src/Dialogs.vala:617
 msgid "No photos or videos imported.\n"
@@ -2538,7 +2540,7 @@ msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d секунда"
 msgstr[1] "%d секунды"
-msgstr[2] "%d секунда"
+msgstr[2] "%d секунды"
 
 #: src/Dialogs.vala:789
 #, c-format
@@ -2546,7 +2548,7 @@ msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d минута"
 msgstr[1] "%d минуты"
-msgstr[2] "%d минута"
+msgstr[2] "%d минуты"
 
 #: src/Dialogs.vala:793
 #, c-format
@@ -2554,7 +2556,7 @@ msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d час"
 msgstr[1] "%d часа"
-msgstr[2] "%d час"
+msgstr[2] "%d часов"
 
 #: src/Dialogs.vala:796
 msgid "1 day"
@@ -2569,7 +2571,7 @@ msgid "_Trash File"
 msgid_plural "_Trash Files"
 msgstr[0] "_Удалить файлы в корзину"
 msgstr[1] "_Удалить файлы в корзину"
-msgstr[2] "_Удалить файл в корзину"
+msgstr[2] "_Удалить файлы в корзину"
 
 #: src/Dialogs.vala:899
 msgid "Only _Remove"
@@ -2581,28 +2583,28 @@ msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] ""
-"Это действие уничтожит все изменения, сделанные во %d внешнем файле.  "
+"Это действие уничтожит все изменения, сделанные в %d внешнем файле.  "
 "Продолжить?"
 msgstr[1] ""
 "Это действие уничтожит все изменения, сделанные в %d внешних файлах. "
 "Продолжить?"
 msgstr[2] ""
-"Это действие уничтожит все изменения, сделанные в %d внешнем файле.  "
+"Это действие уничтожит все изменения, сделанные в %d внешних файлах. "
 "Продолжить?"
 
 #: src/Dialogs.vala:941
 msgid "Re_vert External Edit"
 msgid_plural "Re_vert External Edits"
-msgstr[0] "От_менить внешнее изменение"
+msgstr[0] "От_менить внешние изменения"
 msgstr[1] "От_менить внешние изменения"
-msgstr[2] "От_менить внешнее изменение"
+msgstr[2] "От_менить внешние изменения"
 
 #: src/Dialogs.vala:947
 msgid "Revert External Edit"
 msgid_plural "Revert External Edits"
 msgstr[0] "Отменить внешние правки"
 msgstr[1] "Отменить внешние правки"
-msgstr[2] "Отменить внешнюю правку"
+msgstr[2] "Отменить внешние правки"
 
 #: src/Dialogs.vala:961
 #, c-format
@@ -2610,7 +2612,7 @@ msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
 msgstr[0] "Это действие удалит %d фотографию из библиотеки. Продолжить?"
 msgstr[1] "Это действие удалит %d фотографии из библиотеки. Продолжить?"
-msgstr[2] "Это действие удалит %d фотографию из библиотеки. Продолжить?"
+msgstr[2] "Это действие удалит %d фотографий из библиотеки. Продолжить?"
 
 #: src/Dialogs.vala:968
 msgid "_Remove"
@@ -2621,7 +2623,7 @@ msgid "Remove Photo From Library"
 msgid_plural "Remove Photos From Library"
 msgstr[0] "Удалить фотографии из библиотеки"
 msgstr[1] "Удалить фотографии из библиотеки"
-msgstr[2] "Удалить фотографию из библиотеки"
+msgstr[2] "Удалить фотографии из библиотеки"
 
 #: src/Dialogs.vala:1057
 #, c-format
@@ -2653,7 +2655,7 @@ msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Изменить оригиналы"
 msgstr[1] "_Изменить оригиналы"
-msgstr[2] "_Изменить оригинал"
+msgstr[2] "_Изменить оригиналы"
 
 #: src/Dialogs.vala:1287
 msgid "Original: "
@@ -2702,28 +2704,28 @@ msgid "day"
 msgid_plural "days"
 msgstr[0] "день"
 msgstr[1] "дня"
-msgstr[2] "день"
+msgstr[2] "дней"
 
 #: src/Dialogs.vala:1378
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "час"
 msgstr[1] "часа"
-msgstr[2] "час"
+msgstr[2] "часов"
 
 #: src/Dialogs.vala:1379
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "минута"
 msgstr[1] "минуты"
-msgstr[2] "минута"
+msgstr[2] "минут"
 
 #: src/Dialogs.vala:1380
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "секунда"
 msgstr[1] "секунды"
-msgstr[2] "секунда"
+msgstr[2] "секунд"
 
 #: src/Dialogs.vala:1424
 #, c-format
@@ -2746,7 +2748,7 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "\n"
-"И %d другую."
+"И %d других."
 
 #: src/Dialogs.vala:1445 src/Dialogs.vala:1469
 msgid "Tags (separated by commas):"
@@ -2841,7 +2843,7 @@ msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Удалить фотографии из библиотеки"
 msgstr[1] "Удалить фотографии из библиотеки"
-msgstr[2] "Удалить фотографию из библиотеки"
+msgstr[2] "Удалить фотографии из библиотеки"
 
 #: src/Dialogs.vala:2053
 #, c-format
@@ -2862,7 +2864,7 @@ msgstr[1] ""
 "\n"
 "Это действие не может быть отменено."
 msgstr[2] ""
-"Это действие удалит %d фотографию/видео из библиотеки Shotwell. Хотите также поместить этот файл в корзину?\n"
+"Это действие удалит %d фотографий/видео из библиотеки Shotwell. Хотите также поместить эти файлы в корзину?\n"
 "\n"
 "Это действие не может быть отменено."
 
@@ -2885,7 +2887,7 @@ msgstr[1] ""
 "\n"
 "Это действие не может быть отменено."
 msgstr[2] ""
-"Это действие удалит %d видео из библиотеки Shotwell. Хотите также поместить это видео в корзину?\n"
+"Это действие удалит %d видео из библиотеки Shotwell. Хотите также поместить эти видео в корзину?\n"
 "\n"
 "Это действие не может быть отменено."
 
@@ -2908,7 +2910,7 @@ msgstr[1] ""
 "\n"
 "Это действие не может быть отменено."
 msgstr[2] ""
-"Это действие удалит %d фотографию из библиотеки Shotwell. Хотите также поместить эту фотографию в корзину?\n"
+"Это действие удалит %d фотографий из библиотеки Shotwell. Хотите также поместить эти фотографии в корзину?\n"
 "\n"
 "Это действие не может быть отменено."
 
@@ -2919,12 +2921,13 @@ msgid ""
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
 msgstr[0] ""
-"%d Фотография/видеозапись не может быть помещена в корзину.  Удалить этот файл?"
+"%d фотография/видеозапись не могут быть помещены в корзину.  Удалить эти "
+"файлы?"
 msgstr[1] ""
 "%d фотографии/видеозаписи не могут быть помещены в корзину.  Удалить эти "
 "файлы?"
 msgstr[2] ""
-"%d фотография/видеозапись не могут быть помещены в корзину.  Удалить эти "
+"%d фотографий/видеозаписей не могут быть помещены в корзину.  Удалить эти "
 "файлы?"
 
 #: src/Dialogs.vala:2110
@@ -2933,7 +2936,7 @@ msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "%d фотография/видео не могут быть удалены."
 msgstr[1] "%d фотографии/видео не могут быть удалены."
-msgstr[2] "%d Фотография/видео не может быть удалена."
+msgstr[2] "%d фотографий/видео не могут быть удалены."
 
 #: src/PhotoPage.vala:506
 msgid "Previous photo"
@@ -3225,7 +3228,7 @@ msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
 msgstr[0] "Невозможно сделать копии %d фотографии из-за ошибки файла."
 msgstr[1] "Невозможно сделать копии %d фотографий из-за ошибки файла."
-msgstr[2] "Невозможно сделать копию %d фотографии из-за ошибки файла."
+msgstr[2] "Невозможно сделать копии %d фотографий из-за ошибки файла."
 
 #: src/Commands.vala:995
 msgid "Restoring previous rating"
@@ -3256,7 +3259,7 @@ msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Следующие оригиналы фотографий не могут быть изменены."
 msgstr[1] "Следующие оригиналы фотографий не могут быть изменены."
-msgstr[2] "Следующие оригинал фотографии не может быть изменён."
+msgstr[2] "Следующие оригиналы фотографий не могут быть изменены."
 
 #: src/Commands.vala:1125 src/Commands.vala:1137
 msgid "Time Adjustment Error"
@@ -3271,7 +3274,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Для этих фотографий операция изменения времени не может быть отменена."
 msgstr[2] ""
-"Для этой фотографии операция изменения времени не может быть отменена."
+"Для этих фотографий операция изменения времени не может быть отменена."
 
 #: src/Commands.vala:1393
 msgid "Move Photos to Trash"
@@ -3640,7 +3643,7 @@ msgstr "_Предустановки размера снимка:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1214
 msgid "Small (640 x 480 pixels)"
-msgstr "Маленький (600х480 пикселей)"
+msgstr "Маленький (640х480 пикселей)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1215
 msgid "Medium (1024 x 768 pixels)"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"PO-Revision-Date: 2011-04-01 02:02+0000\n"
 "Last-Translator: Praveen_Illa <mail2ipn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: plugins/shotwell-publishing/YouTubePublishing.vala:23
 #: plugins/shotwell-publishing/FlickrPublishing.vala:23
 msgid "translator-credits"
-msgstr "అనువాదకుడి వివరాలు"
+msgstr "అనువాదకుడి-పరపతులు"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"

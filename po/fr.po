@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"PO-Revision-Date: 2011-03-24 17:13+0000\n"
 "Last-Translator: claudep <claude@2xlibre.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -629,15 +629,15 @@ msgstr "Fusionne en un seul évènement"
 
 #: src/Resources.vala:187
 msgid "_Set Rating"
-msgstr "Vote_r"
+msgstr "Note_r"
 
 #: src/Resources.vala:188
 msgid "Set Rating"
-msgstr "Effectuer un vote"
+msgstr "Attribuer une note"
 
 #: src/Resources.vala:189
 msgid "Change the rating of your photo"
-msgstr "Changer votre vote pour cette photo"
+msgstr "Changer la note de cette photo"
 
 #: src/Resources.vala:191
 msgid "_Increase"
@@ -645,39 +645,39 @@ msgstr "_Augmenter"
 
 #: src/Resources.vala:192
 msgid "Increase Rating"
-msgstr "Augmenter le vote"
+msgstr "Améliorer la note"
 
 #: src/Resources.vala:193
 msgid "Increase the rating of your photo"
-msgstr "Augmenter votre vote pour la photo"
+msgstr "Augmenter la note de cette photo"
 
 #: src/Resources.vala:195
 msgid "_Decrease"
-msgstr "_Diminuer"
+msgstr "A_baisser"
 
 #: src/Resources.vala:196
 msgid "Decrease Rating"
-msgstr "Diminuer le vote"
+msgstr "Abaisser la note"
 
 #: src/Resources.vala:197
 msgid "Decrease the rating of your photo"
-msgstr "Diminuer votre vote pour la photo"
+msgstr "Diminuer la note de cette photo"
 
 #: src/Resources.vala:199
 msgid "_Unrated"
-msgstr "_Sans score"
+msgstr "_Sans note"
 
 #: src/Resources.vala:200
 msgid "Rate Unrated"
-msgstr "Supprimer le score"
+msgstr "Enlever la note"
 
 #: src/Resources.vala:201
 msgid "Setting as unrated"
-msgstr "Supprimer le score"
+msgstr "Supprimer la note"
 
 #: src/Resources.vala:202
 msgid "Remove any ratings"
-msgstr "Supprimer tout vote"
+msgstr "Supprimer toute note"
 
 #: src/Resources.vala:204
 msgid "_Rejected"
@@ -685,15 +685,15 @@ msgstr "Re_jeter"
 
 #: src/Resources.vala:205
 msgid "Rate Rejected"
-msgstr "Voter pour rejeter"
+msgstr "Noter pour rejeter"
 
 #: src/Resources.vala:206
 msgid "Setting as rejected"
-msgstr "Voter pour rejeter"
+msgstr "Noter pour rejeter"
 
 #: src/Resources.vala:207
 msgid "Set rating to rejected"
-msgstr "Voter pour rejeter"
+msgstr "Noter pour rejeter"
 
 #: src/Resources.vala:209
 msgid "Rejected _Only"
@@ -725,11 +725,11 @@ msgstr "Afficher toutes les photos"
 
 #: src/Resources.vala:221
 msgid "_Ratings"
-msgstr "_Votes"
+msgstr "_Notes"
 
 #: src/Resources.vala:222
 msgid "Display each photo's rating"
-msgstr "Affiche le score de chaque photo"
+msgstr "Affiche la note de chaque photo"
 
 #: src/Resources.vala:224
 msgid "_Filter Photos"
@@ -991,17 +991,17 @@ msgstr "Impossible de renommer l'étiquette en « %s » car ce nom existe déj
 #: src/Resources.vala:502
 #, c-format
 msgid "Rate %s"
-msgstr "Voter pour %s"
+msgstr "Noter %s"
 
 #: src/Resources.vala:503
 #, c-format
 msgid "Set rating to %s"
-msgstr "Voter %s"
+msgstr "Donner une note à %s"
 
 #: src/Resources.vala:504
 #, c-format
 msgid "Setting rating to %s"
-msgstr "Voter avec un score de %s"
+msgstr "Attribution de note à %s"
 
 #: src/Resources.vala:506
 #, c-format
@@ -1011,7 +1011,7 @@ msgstr "Afficher %s"
 #: src/Resources.vala:507
 #, c-format
 msgid "Only show photos with a rating of %s"
-msgstr "Montrer uniquement les photos avec un score de %s"
+msgstr "Montrer uniquement les photos avec une note de %s"
 
 #: src/Resources.vala:508
 #, c-format
@@ -1026,7 +1026,7 @@ msgstr "Afficher %s ou plus"
 #: src/Resources.vala:510
 #, c-format
 msgid "Only show photos with a rating of %s or better"
-msgstr "N'afficher que les photos avec un score de %s ou plus"
+msgstr "N'afficher que les photos avec une note de %s ou plus"
 
 #: src/Resources.vala:600 src/TagPage.vala:143 src/Dialogs.vala:916
 msgid "_Delete"
@@ -3184,15 +3184,15 @@ msgstr[1] "Impossible de dupliquer %d photos à cause d'erreurs de fichier"
 
 #: src/Commands.vala:995
 msgid "Restoring previous rating"
-msgstr "Rétablir le vote précédent"
+msgstr "Rétablissement de la note précédente"
 
 #: src/Commands.vala:1005 src/Commands.vala:1006
 msgid "Increasing ratings"
-msgstr "Augmenter le vote"
+msgstr "Amélioration des notes"
 
 #: src/Commands.vala:1005 src/Commands.vala:1006
 msgid "Decreasing ratings"
-msgstr "Diminuer le vote"
+msgstr "Diminution des notes"
 
 #: src/Commands.vala:1076
 msgid "Original photo could not be adjusted."
@@ -3383,11 +3383,11 @@ msgstr "Trie les photos par date de prise de vue"
 
 #: src/MediaPage.vala:483
 msgid "By _Rating"
-msgstr "Par _vote"
+msgstr "Par _note"
 
 #: src/MediaPage.vala:484
 msgid "Sort photos by rating"
-msgstr "Trie les photos par vote"
+msgstr "Trie les photos par note"
 
 #: src/MediaPage.vala:663
 #, c-format
