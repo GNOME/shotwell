@@ -63,6 +63,7 @@ internal const string ENDPOINT_URL = "http://api.flickr.com/services/rest";
 internal const string API_KEY = "60dd96d4a2ad04888b09c9e18d82c26f";
 internal const string API_SECRET = "d0960565e03547c1";
 internal const int ORIGINAL_SIZE = -1;
+internal const string EXPIRED_SESSION_ERROR_CODE = "98";
 
 internal enum UserKind {
     PRO,
@@ -295,12 +296,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         debug("EVENT: user clicked the 'Logout' button in the publishing options pane");
 
-        session.deauthenticate();
-        invalidate_persistent_session();
-
-        running = false;
-
-        attempt_start();
+        do_logout();
     }
 
     private void on_upload_status_updated(int file_number, double completed_fraction) {
@@ -368,8 +364,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: extracting Yahoo! login frob from response xml = '%s'", xml);
         string frob = null;
         try {
-            Publishing.RESTSupport.XmlDocument response_doc =
-                Publishing.RESTSupport.XmlDocument.parse_string(xml, Transaction.validate_xml);
+            Publishing.RESTSupport.XmlDocument response_doc = Transaction.parse_flickr_response(xml);
 
             Xml.Node* root = response_doc.get_root_node();
 
@@ -442,8 +437,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         Publishing.RESTSupport.XmlDocument response_doc = null;
         try {
-            response_doc = Publishing.RESTSupport.XmlDocument.parse_string(xml,
-                Transaction.validate_xml);
+            response_doc = Transaction.parse_flickr_response(xml);
         } catch (Spit.Publishing.PublishingError err) {
             // if we get a service error during token check, it is recoverable -- it just means
             // that no authentication token is available yet -- so just spawn an event for it
@@ -521,8 +515,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void do_parse_account_info_from_xml(string xml) {
         debug("ACTION: parsing account information from xml = '%s'", xml);
         try {
-            Publishing.RESTSupport.XmlDocument response_doc =
-                Publishing.RESTSupport.XmlDocument.parse_string(xml, Transaction.validate_xml);
+            Publishing.RESTSupport.XmlDocument response_doc = Transaction.parse_flickr_response(xml);
             Xml.Node* root_node = response_doc.get_root_node();
 
             Xml.Node* user_node = response_doc.get_named_child(root_node, "user");
@@ -548,10 +541,27 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             parameters.user_kind = user_kind;
 
         } catch (Spit.Publishing.PublishingError err) {
+            // expired session errors are recoverable, so handle it and then short-circuit return.
+            // don't call post_error( ) on the plug-in host because that's intended for
+            // unrecoverable errors and will halt publishing
+            if (err is Spit.Publishing.PublishingError.EXPIRED_SESSION) {
+                do_logout();
+                return;
+            }
+
             host.post_error(err);
             return;
         }
         on_account_info_available();
+    }
+    
+    private void do_logout() {
+        session.deauthenticate();
+        invalidate_persistent_session();
+
+        running = false;
+
+        attempt_start();
     }
 
     private void do_show_publishing_options_pane() {
@@ -714,7 +724,34 @@ internal class Transaction : Publishing.RESTSupport.Transaction {
             return "No error code specified";
         }
         
+        // this error format is mandatory, because the parse_flickr_response( ) expects error
+        // messages to be in this format. If you want to change the error reporting format, you
+        // need to modify parse_flickr_response( ) to parse the new format too.
         return "%s (error code %s)".printf(errcode->get_prop("msg"), errcode->get_prop("code"));
+    }
+
+    // Flickr responses have a special flavor of expired session reporting. Expired sessions
+    // are reported as just another service error, so they have to be converted from
+    // service errors. Always use this wrapper function to parse Flickr response XML instead
+    // of the generic Publishing.RESTSupport.XmlDocument.parse_string( ) from the Yorba
+    // REST support classes. While using Publishing.RESTSupport.XmlDocument.parse_string( ) won't
+    // cause anything really bad to happen, it will make expired session errors unrecoverable,
+    // which is annoying for users.
+    public static Publishing.RESTSupport.XmlDocument parse_flickr_response(string xml)
+        throws Spit.Publishing.PublishingError {
+        Publishing.RESTSupport.XmlDocument? result = null;
+
+        try {
+            result = Publishing.RESTSupport.XmlDocument.parse_string(xml, validate_xml);
+        } catch (Spit.Publishing.PublishingError e) {
+            if (e.message.contains("(error code %s)".printf(EXPIRED_SESSION_ERROR_CODE))) {
+                throw new Spit.Publishing.PublishingError.EXPIRED_SESSION(e.message);
+            } else {
+                throw e;
+            }
+        }
+        
+        return result;
     }
 }
 
