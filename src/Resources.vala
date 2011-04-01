@@ -8,6 +8,7 @@
 extern const string _PREFIX;
 extern const string _VERSION;
 extern const string GETTEXT_PACKAGE;
+extern const string _LIBDIR;
 
 namespace Resources {
     public const string APP_TITLE = "Shotwell";
@@ -21,7 +22,9 @@ namespace Resources {
     public const string WIKI_URL = "http://trac.yorba.org/wiki/Shotwell";
     public const string FAQ_URL = "http://trac.yorba.org/wiki/Shotwell/FAQ";
     public const string DIR_PATTERN_URI_SYSWIDE = "ghelp:shotwell?other-files";
-    
+
+    private const string LIBDIR = _LIBDIR;
+
     public const string PREFIX = _PREFIX;
 
     public const double TRANSIENT_WINDOW_OPACITY = 0.90;
