@@ -19,7 +19,7 @@ configure_help() {
     printf "\t\t\t\t[--release]\n"
     printf "\t--prefix=PREFIX\t\tPrepend PREFIX to program installation paths.\n"
     printf "\t\t\t\t[/usr/local]\n"
-    printf "\t--libdir=LIBDIR\t\tSet system library directory name to LIBDIR\n\t\t\t\t(usually 'lib' or 'lib64').\n"
+    printf "\t--lib=LIBNAME\t\tSet system library directory name to LIBNAME\n\t\t\t\t(usually 'lib' or 'lib64').\n"
     printf "\t\t\t\t[lib]\n"
     printf "\t--define=SYMBOL\t\tDefine a symbol for the Vala compiler.\n"
     printf "\t--with-gconf-schema-file-dir=DIR\n"
@@ -68,7 +68,7 @@ do
                             variables="${variables}PREFIX=$value\n"
                             ;;
 
-        --libdir)           if [ ! $value ]
+        --lib)              if [ ! $value ]
                             then
                                 abort $1
                             fi
