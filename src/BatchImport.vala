@@ -1661,7 +1661,7 @@ private class PreparedFileImportJob : BackgroundJob {
                 final_file = LibraryFiles.duplicate(prepared_file.file, null, true);
                 if (final_file == null) {
                     failed = new BatchImportResult(prepared_file.job, prepared_file.file,
-                        prepared_file.source_id, prepared_file.dest_id, ImportResult.FILE_ERROR);
+                        prepared_file.file.get_path(), prepared_file.file.get_path(), ImportResult.FILE_ERROR);
                     
                     return;
                 }
@@ -1705,7 +1705,7 @@ private class PreparedFileImportJob : BackgroundJob {
         }
         
         BatchImportResult batch_result = new BatchImportResult(prepared_file.job, final_file,
-           prepared_file.source_id, prepared_file.dest_id, result);
+           final_file.get_path(), final_file.get_path(), result);
         if (batch_result.result != ImportResult.SUCCESS)
             failed = batch_result;
         else
