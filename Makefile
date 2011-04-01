@@ -373,8 +373,10 @@ VALA_LDFLAGS := `pkg-config --libs $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0`
 ifndef CFLAGS
 ifdef BUILD_DEBUG
 CFLAGS = -O0 -g -pipe -fPIC
+PLUGIN_CFLAGS = -O0 -g -pipe -fPIC
 else
 CFLAGS = -O2 -g -pipe -fPIC
+PLUGIN_CFLAGS = -O2 -g -pipe -fPIC
 endif
 endif
 
@@ -613,7 +615,8 @@ $(PLUGINS_SO) $(EXTRA_PLUGINS_SO): $(PLUGINS_DIR)
 .PHONY: $(PLUGINS_DIR)
 $(PLUGINS_DIR): $(PLUGIN_VAPI) $(PLUGIN_HEADER) $(PLUGIN_DEPS)
 	$(call check_valac_version)
-	@$(MAKE) --directory=$@ PLUGINS_VERSION="$(VERSION)" USER_VALAFLAGS="$(USER_VALAFLAGS)"
+	@$(MAKE) --directory=$@ PLUGINS_VERSION="$(VERSION)" USER_VALAFLAGS="$(USER_VALAFLAGS)" \
+		PLUGIN_CFLAGS="$(PLUGIN_CFLAGS)"
 
 .PHONY: docs
 docs:
