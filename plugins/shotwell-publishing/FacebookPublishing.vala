@@ -262,6 +262,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: showing service welcome pane.");
 
         host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_login_clicked);
+        host.set_service_locked(false);
     }
 
     private void do_test_connection_to_endpoint() {
@@ -341,6 +342,13 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             }
         } catch (Spit.Publishing.PublishingError err) {
             warning("PublishingError: %s", err.message);
+            
+            // Expired session errors are recoverable, so log out the user and do a
+            // short-circuit return to stop the error from being posted to our host
+            if (err is Spit.Publishing.PublishingError.EXPIRED_SESSION) {
+                do_logout();
+                return;
+            }
 
             // only post an error if we're running; errors tend to come in groups, so it's possible
             // another error has already posted and caused us to stop
