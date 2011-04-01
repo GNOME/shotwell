@@ -295,10 +295,12 @@ ifndef BUILD_DIR
 BUILD_DIR=src
 endif
 
-DESKTOP_APPLICATION_NAME="Shotwell Photo Manager"
+DESKTOP_APP_SHORT_NAME="Shotwell"
+DESKTOP_APP_FULL_NAME="Shotwell Photo Manager"
 DESKTOP_APPLICATION_COMMENT="Organize your photos"
 DESKTOP_APPLICATION_CLASS="Photo Manager"
-DIRECT_EDIT_DESKTOP_APPLICATION_NAME="Shotwell Photo Viewer"
+DIRECT_EDIT_DESKTOP_APP_SHORT_NAME="Shotwell"
+DIRECT_EDIT_DESKTOP_APP_FULL_NAME="Shotwell Photo Viewer"
 DIRECT_EDIT_DESKTOP_APPLICATION_CLASS="Photo Viewer"
 TEMPORARY_DESKTOP_FILES = misc/shotwell.desktop misc/shotwell-viewer.desktop
 
@@ -442,15 +444,15 @@ distclean: clean
 install:
 	cp misc/shotwell.desktop.head misc/shotwell.desktop
 	cp misc/shotwell-viewer.desktop.head misc/shotwell-viewer.desktop
-	$(foreach lang,$(SUPPORTED_LANGUAGES), echo Name[$(lang)]=`TEXTDOMAINDIR=locale-langpack \
-		LANGUAGE=$(lang) gettext --domain=shotwell $(DESKTOP_APPLICATION_NAME)` \
+	$(foreach lang,$(SUPPORTED_LANGUAGES), echo X-GNOME-FullName[$(lang)]=`TEXTDOMAINDIR=locale-langpack \
+		LANGUAGE=$(lang) gettext --domain=shotwell $(DESKTOP_APP_FULL_NAME)` \
 		>> misc/shotwell.desktop ; \
 		echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) \
 		gettext --domain=shotwell $(DESKTOP_APPLICATION_CLASS)` >> misc/shotwell.desktop ; \
 		echo Comment[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
 		--domain=shotwell $(DESKTOP_APPLICATION_COMMENT)` >> misc/shotwell.desktop ; \
-		echo Name[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
-		--domain=shotwell $(DIRECT_EDIT_DESKTOP_APPLICATION_NAME)` >> misc/shotwell-viewer.desktop ; \
+		echo X-GNOME-FullName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
+		--domain=shotwell $(DIRECT_EDIT_DESKTOP_APP_FULL_NAME)` >> misc/shotwell-viewer.desktop ; \
 		echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
 		--domain=shotwell $(DIRECT_EDIT_DESKTOP_APPLICATION_CLASS)` >> misc/shotwell-viewer.desktop ;)
 	touch $(LANG_STAMP)

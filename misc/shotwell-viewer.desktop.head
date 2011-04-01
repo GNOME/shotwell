@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Name=Shotwell Photo Viewer
+Name=Shotwell Viewer
 GenericName=Photo Viewer
 Exec=shotwell %f
 Icon=shotwell
@@ -11,3 +11,4 @@ MimeType=image/jpeg;image/png;image/x-canon-cr2;image/x-canon-crw;image/x-fuji-r
 Categories=Graphics;Viewer;Photography;GNOME;GTK;
 X-GIO-NoFuse=true
 X-GNOME-Gettext-Domain=shotwell
+X-GNOME-FullName=Shotwell Photo Viewer
