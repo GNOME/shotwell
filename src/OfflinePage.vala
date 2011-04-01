@@ -5,22 +5,7 @@
  */
 
 public class OfflinePage : CheckerboardPage {
-    public class Stub : PageStub {
-        public Stub() {
-        }
-        
-        protected override Page construct_page() {
-            return new OfflinePage(get_name());
-        }
-        
-        public override string get_name() {
-            return _("Missing Files");
-        }
-        
-        public override GLib.Icon? get_icon() {
-            return new GLib.ThemedIcon(Resources.ICON_MISSING_FILES);
-        }
-    }
+    public const string NAME = _("Missing Files");
     
     private class OfflineView : Thumbnail {
         public OfflineView(MediaSource source) {
@@ -40,8 +25,8 @@ public class OfflinePage : CheckerboardPage {
     private OfflineSearchViewFilter search_filter = new OfflineSearchViewFilter();
     private MediaViewTracker tracker;
     
-    private OfflinePage(string name) {
-        base (name);
+    public OfflinePage() {
+        base (NAME);
         
         init_item_context_menu("/OfflineContextMenu");
         init_toolbar("/OfflineToolbar");
@@ -93,10 +78,6 @@ public class OfflinePage : CheckerboardPage {
         actions += help;
         
         return actions;
-    }
-    
-    public static Stub create_stub() {
-        return new Stub();
     }
     
     public override Core.ViewTracker? get_view_tracker() {
@@ -156,14 +137,6 @@ public class OfflinePage : CheckerboardPage {
             progress.close();
         
         AppWindow.get_instance().set_normal_cursor();
-    }
-    
-    public override GLib.Icon? get_icon() {
-        return new GLib.ThemedIcon(Resources.ICON_MISSING_FILES);
-    }
-
-    public override CheckerboardItem? get_fullscreen_photo() {
-        return null;
     }
     
     public override SearchViewFilter get_search_view_filter() {

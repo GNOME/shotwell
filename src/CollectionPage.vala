@@ -375,32 +375,6 @@ public abstract class CollectionPage : MediaPage {
                 LibraryWindow.get_app().switch_to_photo_page(this, photo);
         }
     }
-
-    public override GLib.Icon? get_icon() {
-        return new GLib.ThemedIcon(Resources.ICON_PHOTOS);
-    }
-
-    public override CheckerboardItem? get_fullscreen_photo() {
-        // if a selection, use first selected photo, otherwise, no go
-        if (get_view().get_selected_count() > 0) {
-            foreach (DataView view in get_view().get_selected()) {
-                Thumbnail thumbnail = (Thumbnail) view;
-                if (thumbnail.get_media_source() is Photo)
-                    return thumbnail;
-            }
-            
-            return null;
-        }
-        
-        // no selection, so use first photo
-        foreach (DataObject object in get_view().get_all()) {
-            Thumbnail thumbnail = (Thumbnail) object;
-            if (thumbnail.get_media_source() is Photo)
-                return thumbnail;
-        }
-        
-        return null;
-    }
     
     protected override bool on_app_key_pressed(Gdk.EventKey event) {
         bool handled = true;
@@ -692,7 +666,14 @@ public abstract class CollectionPage : MediaPage {
         if (get_view().get_count() == 0)
             return;
         
-        Thumbnail thumbnail = (Thumbnail) get_fullscreen_photo();
+        // use first selected photo, else use first photo
+        Gee.List<DataSource>? sources = (get_view().get_selected_count() > 0)
+            ? get_view().get_selected_sources_of_type(typeof(LibraryPhoto))
+            : get_view().get_sources_of_type(typeof(LibraryPhoto));
+        if (sources == null || sources.size == 0)
+            return;
+        
+        Thumbnail? thumbnail = (Thumbnail?) get_view().get_view_for_source(sources[0]);
         if (thumbnail == null)
             return;
         
@@ -724,23 +705,6 @@ public abstract class CollectionPage : MediaPage {
     
     public override SearchViewFilter get_search_view_filter() {
         return search_filter;
-    }
-}
-
-public class LibraryPage : CollectionPage {
-    public LibraryPage(ProgressMonitor? monitor = null) {
-        base(_("Library"));
-        
-        foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all())
-            get_view().monitor_source_collection(sources, new CollectionViewManager(this), null, null, monitor);
-    }
-    
-    protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
-        Config.get_instance().get_library_photos_sort(out sort_order, out sort_by);
-    }
-
-    protected override void set_config_photos_sort(bool sort_order, int sort_by) {
-        Config.get_instance().set_library_photos_sort(sort_order, sort_by);
     }
 }
 

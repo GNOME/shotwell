@@ -4,14 +4,14 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-namespace Library {
+namespace Events {
 
 public void init() throws Error {
-    Library.TrashSidebarEntry.init();
+    Events.Branch.init();
 }
 
 public void terminate() {
-    Library.TrashSidebarEntry.terminate();
+    Events.Branch.terminate();
 }
 
 }

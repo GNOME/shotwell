@@ -37,16 +37,16 @@ public class LibraryWindow : AppWindow {
     // added here in the position they should appear in the sidebar.  To re-order, simply move
     // the item in this list to a new position.  These numbers should *not* persist anywhere
     // outside the app.
-    private enum ToplevelPosition {
-        LIBRARY_PAGE,
-        FLAGGED_PAGE,
-        LAST_IMPORT_PAGE,
-        CAMERAS_GROUPING,
-        IMPORT_QUEUE_PAGE,
-        EVENTS_DIRECTORY_PAGE,
-        TAGS_GROUPING,
-        TRASH_PAGE,
-        OFFLINE_PAGE
+    private enum SidebarRootPosition {
+        LIBRARY,
+        FLAGGED,
+        LAST_IMPORTED,
+        CAMERAS,
+        IMPORT_QUEUE,
+        EVENTS,
+        TAGS,
+        TRASH,
+        OFFLINE
     }
     
     protected enum TargetType {
@@ -54,7 +54,7 @@ public class LibraryWindow : AppWindow {
         MEDIA_LIST
     }
     
-    public const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
+    private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
         { "shotwell/media-id-atom", Gtk.TargetFlags.SAME_APP, TargetType.MEDIA_LIST }
     };
@@ -89,10 +89,12 @@ public class LibraryWindow : AppWindow {
     private class PageLayout : Gtk.VBox {
         private string page_name;
         private Gtk.Toolbar toolbar;
+        private Page page;
         
         public PageLayout(Page page) {
             page_name = page.get_page_name();
             toolbar = page.get_toolbar();
+            this.page = page;
             
             set_homogeneous(false);
             set_spacing(0);
@@ -114,6 +116,12 @@ public class LibraryWindow : AppWindow {
                 remove(toolbar);
             toolbar = null;
             
+            // because the appropriate Branch creates the Page, it is up to it to call destroy,
+            // so remove that as well
+            if (page is Gtk.Widget)
+                remove(page);
+            page = null;
+            
             base.destroy();
         }
     }
@@ -126,35 +134,29 @@ public class LibraryWindow : AppWindow {
     
     private Gtk.ActionGroup common_action_group = new Gtk.ActionGroup("LibraryWindowGlobalActionGroup");
     
-    // Static (default) pages
-    private LibraryPage library_page = null;
-    private MasterEventsDirectoryPage.Stub events_directory_page = null;
-    private LibraryPhotoPage photo_page = null;
-    private TrashPage.Stub trash_page = null;
-    private NoEventPage.Stub no_event_page = null;
-    private OfflinePage.Stub offline_page = null;
-    private LastImportPage.Stub last_import_page = null;
-    private FlaggedPage.Stub flagged_page = null;
-    private ImportQueuePage import_queue_page = null;
-    private bool displaying_import_queue_page = false;
     private OneShotScheduler properties_scheduler = null;
     private bool notify_library_is_home_dir = true;
     
+    // Sidebar tree and roots (ordered by SidebarRootPosition)
+    private Sidebar.Tree sidebar_tree;
+    private Library.Branch library_branch = new Library.Branch();
+    private Tags.Branch tags_branch = new Tags.Branch();
+    private Library.TrashBranch trash_branch = new Library.TrashBranch();
+    private Events.Branch events_branch = new Events.Branch();
+    private Library.OfflineBranch offline_branch = new Library.OfflineBranch();
+    private Library.FlaggedBranch flagged_branch = new Library.FlaggedBranch();
+    private Library.LastImportBranch last_import_branch = new Library.LastImportBranch();
+    private Library.ImportQueueBranch import_queue_branch = new Library.ImportQueueBranch();
+    private Camera.Branch camera_branch = new Camera.Branch();
+    
+    private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
+    
     // Dynamically added/removed pages
     private Gee.HashMap<Page, PageLayout> page_layouts = new Gee.HashMap<Page, PageLayout>();
-    private Gee.ArrayList<EventPage.Stub> event_list = new Gee.ArrayList<EventPage.Stub>();
-    private Gee.ArrayList<SubEventsDirectoryPage.Stub> events_dir_list =
-        new Gee.ArrayList<SubEventsDirectoryPage.Stub>();
-    private Gee.HashMap<Tag, TagPage.Stub> tag_map = new Gee.HashMap<Tag, TagPage.Stub>();
-    private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
-        str_hash, str_equal, direct_equal);
-
+    private LibraryPhotoPage photo_page = null;
+    
     // this is to keep track of cameras which initiate the app
     private static Gee.HashSet<string> initial_camera_uris = new Gee.HashSet<string>();
-
-    private Sidebar sidebar = new Sidebar();
-    private SidebarMarker cameras_marker = null;
-    private SidebarMarker tags_marker = null;
     
     private bool is_search_toolbar_visible = Config.get_instance().get_search_bar_hidden();
     
@@ -179,103 +181,51 @@ public class LibraryWindow : AppWindow {
     private uint background_progress_pulse_id = 0;
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
-        // prepare the default parent and orphan pages
-        // (these are never removed from the system)
-        library_page = new LibraryPage(progress_monitor);
-        last_import_page = LastImportPage.create_stub();
-        events_directory_page = MasterEventsDirectoryPage.create_stub();
-        import_queue_page = new ImportQueuePage();
-        import_queue_page.batch_removed.connect(import_queue_batch_finished);
-        trash_page = TrashPage.create_stub();
-
+        // prep sidebar and add roots
+        sidebar_tree = new Sidebar.Tree(DEST_TARGET_ENTRIES, Gdk.DragAction.ASK,
+            external_drop_handler);
+        
+        sidebar_tree.page_created.connect(on_page_created);
+        sidebar_tree.destroying_page.connect(on_destroying_page);
+        sidebar_tree.entry_selected.connect(on_sidebar_entry_selected);
+        sidebar_tree.selected_entry_removed.connect(on_sidebar_selected_entry_removed);
+        
+        sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
+        sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
+        sidebar_tree.graft(trash_branch, SidebarRootPosition.TRASH);
+        sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
+        sidebar_tree.graft(offline_branch, SidebarRootPosition.OFFLINE);
+        sidebar_tree.graft(flagged_branch, SidebarRootPosition.FLAGGED);
+        sidebar_tree.graft(last_import_branch, SidebarRootPosition.LAST_IMPORTED);
+        sidebar_tree.graft(import_queue_branch, SidebarRootPosition.IMPORT_QUEUE);
+        sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
+        
         // create and connect extended properties window
         extended_properties = new ExtendedPropertiesWindow(this);
         extended_properties.hide.connect(hide_extended_properties);
         extended_properties.show.connect(show_extended_properties);
-
-        // add the default parents and orphans to the notebook
-        add_toplevel_page(library_page, ToplevelPosition.LIBRARY_PAGE);
-        sidebar.add_toplevel(last_import_page, ToplevelPosition.LAST_IMPORT_PAGE);
-        sidebar.add_toplevel(events_directory_page, ToplevelPosition.EVENTS_DIRECTORY_PAGE);
-        sidebar.add_toplevel(trash_page, ToplevelPosition.TRASH_PAGE);
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
             on_update_properties_now);
         
-        // watch for new & removed events
-        Event.global.items_added.connect(on_added_events);
-        Event.global.items_removed.connect(on_removed_events);
-        Event.global.items_altered.connect(on_events_altered);
-        
-        // watch for new & removed tags
-        Tag.global.contents_altered.connect(on_tags_added_removed);
-        Tag.global.items_altered.connect(on_tags_altered);
-        
-        // watch for photos and videos placed offline
-        LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);
-        Video.global.offline_contents_altered.connect(on_offline_contents_altered);
-        sync_offline_page_state();
-
-        // watch for photos with no events
-        Event.global.no_event_collection_altered.connect(on_no_event_collection_altered);
-        enable_disable_no_event_page(Event.global.get_no_event_objects().size > 0);
-        
-        // start in the collection page
-        sidebar.place_cursor(library_page);
-        
-        // monitor cursor changes to select proper page in notebook
-        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
-        
         // setup search bar and add its accelerators to the window
         search_toolbar = new SearchFilterToolbar(search_actions);
         
-        create_layout(library_page);
-
+        // create the main layout & start at the Library page
+        create_layout(library_branch.get_main_page());
+        
         // settings that should persist between sessions
         load_configuration();
-
-        // add stored events
-        foreach (DataObject object in Event.global.get_all())
-            add_event_page((Event) object);
         
-        // if events exist, expand to first one
-        if (Event.global.get_count() > 0)
-            sidebar.expand_to_first_child(events_directory_page.get_marker());
-        
-        // add tags
-        foreach (DataObject object in Tag.global.get_all())
-            add_tag_page((Tag) object);
-        
-        // if tags exist, expand them
-        if (tags_marker != null)
-            sidebar.expand_branch(tags_marker);
+        foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all()) {
+            media_sources.trashcan_contents_altered.connect(on_trashcan_contents_altered);
+            media_sources.items_altered.connect(on_media_altered);
+        }
         
         // set up main window as a drag-and-drop destination (rather than each page; assume
         // a drag and drop is for general library import, which means it goes to library_page)
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES,
             Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
-        
-        // monitor the camera table for additions and removals
-        CameraTable.get_instance().camera_added.connect(add_camera_page);
-        CameraTable.get_instance().camera_removed.connect(remove_camera_page);
-        
-        // need to populate pages with what's known now by the camera table
-        foreach (DiscoveredCamera camera in CameraTable.get_instance().get_cameras())
-            add_camera_page(camera);
-        
-        // connect to sidebar signal used ommited on drag-and-drop orerations
-        sidebar.drop_received.connect(drop_received);
-        
-        // monitor various states of the media source collections to update page availability
-        foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all()) {
-            sources.trashcan_contents_altered.connect(on_trashcan_contents_altered);
-            sources.import_roll_altered.connect(sync_last_import_visibility);
-            sources.flagged_contents_altered.connect(sync_flagged_visibility);
-            sources.items_altered.connect(on_media_altered);
-        }
-        
-        sync_last_import_visibility();
-        sync_flagged_visibility();
         
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
         LibraryPhoto.mimic_manager.progress.connect(on_mimic_manager_progress);
@@ -286,29 +236,25 @@ public class LibraryWindow : AppWindow {
         
         LibraryMonitorPool.get_instance().monitor_installed.connect(on_library_monitor_installed);
         LibraryMonitorPool.get_instance().monitor_destroyed.connect(on_library_monitor_destroyed);
+        
+        CameraTable.get_instance().camera_added.connect(on_camera_added);
     }
     
     ~LibraryWindow() {
-        Event.global.items_added.disconnect(on_added_events);
-        Event.global.items_removed.disconnect(on_removed_events);
-        Event.global.items_altered.disconnect(on_events_altered);
-        
-        Tag.global.contents_altered.disconnect(on_tags_added_removed);
-        Tag.global.items_altered.disconnect(on_tags_altered);
-        
-        CameraTable.get_instance().camera_added.disconnect(add_camera_page);
-        CameraTable.get_instance().camera_removed.disconnect(remove_camera_page);
+        sidebar_tree.page_created.disconnect(on_page_created);
+        sidebar_tree.destroying_page.disconnect(on_destroying_page);
+        sidebar_tree.entry_selected.disconnect(on_sidebar_entry_selected);
+        sidebar_tree.selected_entry_removed.disconnect(on_sidebar_selected_entry_removed);
         
         unsubscribe_from_basic_information(get_current_page());
 
         extended_properties.hide.disconnect(hide_extended_properties);
         extended_properties.show.disconnect(show_extended_properties);
         
-        LibraryPhoto.global.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
-        Video.global.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
-        
-        foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all())
+        foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all()) {
+            media_sources.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
             media_sources.items_altered.disconnect(on_media_altered);
+        }
         
         MetadataWriter.get_instance().progress.disconnect(on_metadata_writer_progress);
         LibraryPhoto.mimic_manager.progress.disconnect(on_mimic_manager_progress);
@@ -319,6 +265,8 @@ public class LibraryWindow : AppWindow {
         
         LibraryMonitorPool.get_instance().monitor_installed.disconnect(on_library_monitor_installed);
         LibraryMonitorPool.get_instance().monitor_destroyed.disconnect(on_library_monitor_destroyed);
+        
+        CameraTable.get_instance().camera_added.disconnect(on_camera_added);
     }
     
     private void on_library_monitor_installed(LibraryMonitor monitor) {
@@ -526,53 +474,6 @@ public class LibraryWindow : AppWindow {
         return (LibraryWindow) instance;
     }
     
-    private static int64 get_event_directory_page_time(SubEventsDirectoryPage.Stub *stub) {
-        return (stub->get_year() * 100) + stub->get_month();
-    }
-    
-    private int64 event_branch_comparator(void *aptr, void *bptr) {
-        SidebarPage *a = (SidebarPage *) aptr;
-        SidebarPage *b = (SidebarPage *) bptr;
-        
-        int64 start_a, start_b;
-        if (a is SubEventsDirectoryPage.Stub && b is SubEventsDirectoryPage.Stub) {
-            start_a = get_event_directory_page_time((SubEventsDirectoryPage.Stub *) a);
-            start_b = get_event_directory_page_time((SubEventsDirectoryPage.Stub *) b);
-        } else if (a is NoEventPage.Stub) {
-            assert(b is SubEventsDirectoryPage.Stub || b is EventPage.Stub);
-            return get_events_sort() == SORT_EVENTS_ORDER_ASCENDING ? 1 : -1;
-        } else if (b is NoEventPage.Stub) {
-            assert(a is SubEventsDirectoryPage.Stub || a is EventPage.Stub);
-            return get_events_sort() == SORT_EVENTS_ORDER_ASCENDING ? -1 : 1;
-        } else {
-            assert(a is EventPage.Stub);
-            assert(b is EventPage.Stub);
-            
-            start_a = ((EventPage.Stub *) a)->event.get_start_time();
-            start_b = ((EventPage.Stub *) b)->event.get_start_time();
-        }
-        
-        return start_a - start_b;
-    }
-    
-    private int64 event_branch_ascending_comparator(void *a, void *b) {
-        return event_branch_comparator(a, b);
-    }
-    
-    private int64 event_branch_descending_comparator(void *a, void *b) {
-        return event_branch_comparator(b, a);
-    }
-    
-    private Comparator get_event_branch_comparator(int event_sort) {
-        if (event_sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING) {
-            return event_branch_ascending_comparator;
-        } else {
-            assert(event_sort == LibraryWindow.SORT_EVENTS_ORDER_DESCENDING);
-            
-            return event_branch_descending_comparator;
-        }
-    }
-    
     // This may be called before Debug.init(), so no error logging may be made
     public static bool is_mount_uri_supported(string uri) {
         foreach (string scheme in SUPPORTED_MOUNT_SCHEMES) {
@@ -587,6 +488,22 @@ public class LibraryWindow : AppWindow {
         return Resources.APP_LIBRARY_ROLE;
     }
     
+    public void rename_tag_in_sidebar(Tag tag) {
+        Tags.SidebarEntry? entry = tags_branch.get_entry_for_tag(tag);
+        if (entry != null)
+            sidebar_tree.rename_entry_in_place(entry);
+        else
+            debug("No tag entry found for rename");
+    }
+    
+    public void rename_event_in_sidebar(Event event) {
+        Events.EventEntry? entry = events_branch.get_entry_for_event(event);
+        if (entry != null)
+            sidebar_tree.rename_entry_in_place(entry);
+        else
+            debug("No event entry found for rename");
+    }
+    
     protected override void on_quit() {
         Config.get_instance().set_library_window_state(maximized, dimensions);
 
@@ -597,39 +514,85 @@ public class LibraryWindow : AppWindow {
         base.on_quit();
     }
     
-    protected override void on_fullscreen() {
-        CollectionPage collection = null;
-        Thumbnail start = null;
+    private Thumbnail? get_start_fullscreen_photo(CollectionPage page) {
+        ViewCollection view = page.get_view();
         
-        // This method indicates one of the shortcomings right now in our design: we need a generic
-        // way to access the collection of items each page is responsible for displaying.  Once
-        // that refactoring is done, this code should get much simpler.
+        // if a selection is present, use the first selected LibraryPhoto, otherwise do
+        // nothing; if no selection present, use the first LibraryPhoto
+        Gee.List<DataSource>? sources = (view.get_selected_count() > 0)
+            ? view.get_selected_sources_of_type(typeof(LibraryPhoto))
+            : view.get_sources_of_type(typeof(LibraryPhoto));
         
-        Page current_page = get_current_page();
-        if (current_page is CollectionPage) {
-            CheckerboardItem item = ((CollectionPage) current_page).get_fullscreen_photo();
-            if (item == null) {
-                message("No fullscreen photo for this view");
-                
-                return;
-            }
+        return (sources != null && sources.size != 0)
+            ? (Thumbnail?) view.get_view_for_source(sources[0])
+            : null;
+    }
+    
+    private bool get_fullscreen_photo(Page page, out CollectionPage collection, out Thumbnail start) {
+        // fullscreen behavior depends on the type of page being looked at
+        if (page is CollectionPage) {
+            collection = (CollectionPage) page;
+            Thumbnail? thumbnail = get_start_fullscreen_photo(collection);
+            if (thumbnail == null)
+                return false;
             
-            collection = (CollectionPage) current_page;
-            start = (Thumbnail) item;
-        } else if (current_page is EventsDirectoryPage) {
-            collection = ((EventsDirectoryPage) current_page).get_fullscreen_event();
-            start = (Thumbnail) collection.get_fullscreen_photo();
-        } else if (current_page is LibraryPhotoPage) {
-            collection = ((LibraryPhotoPage) current_page).get_controller_page();
-            start =  (Thumbnail) collection.get_view().get_view_for_source(
-                ((LibraryPhotoPage) current_page).get_photo());
-        } else {
-            message("Unable to present fullscreen view for this page");
+            start = thumbnail;
             
-            return;
+            return true;
         }
         
-        if (collection == null || start == null)
+        if (page is EventsDirectoryPage) {
+            ViewCollection view = page.get_view();
+            if (view.get_count() == 0)
+                return false;
+            
+            Event? event = (Event?) ((DataView) view.get_at(0)).get_source();
+            if (event == null)
+                return false;
+            
+            Events.EventEntry? entry = events_branch.get_entry_for_event(event);
+            if (entry == null)
+                return false;
+            
+            collection = (EventPage) entry.get_page();
+            Thumbnail? thumbnail = get_start_fullscreen_photo(collection);
+            if (thumbnail == null)
+                return false;
+            
+            start = thumbnail;
+            
+            return true;
+        }
+        
+        if (page is LibraryPhotoPage) {
+            LibraryPhotoPage photo_page = (LibraryPhotoPage) page;
+            
+            CollectionPage? controller = photo_page.get_controller_page();
+            if (controller == null)
+                return false;
+            
+            Thumbnail? thumbnail = (Thumbnail?) controller.get_view().get_view_for_source(
+                photo_page.get_photo());
+            if (thumbnail == null)
+                return false;
+            
+            collection = controller;
+            start = thumbnail;
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    protected override void on_fullscreen() {
+        Page? current_page = get_current_page();
+        if (current_page == null)
+            return;
+        
+        CollectionPage collection;
+        Thumbnail start;
+        if (!get_fullscreen_photo(current_page, out collection, out start))
             return;
         
         LibraryPhoto? photo = start.get_media_source() as LibraryPhoto;
@@ -680,14 +643,9 @@ public class LibraryWindow : AppWindow {
         // see on_fullscreen for the logic here ... both CollectionPage and EventsDirectoryPage
         // are CheckerboardPages (but in on_fullscreen have to be handled differently to locate
         // the view controller)
-        bool can_fullscreen = false;
-        if (page is CheckerboardPage) {
-            CheckerboardItem? item = ((CheckerboardPage) page).get_fullscreen_photo();
-            if (item != null)
-                can_fullscreen = item.get_source() is Photo;
-        } else if (page is LibraryPhotoPage) {
-            can_fullscreen = true;
-        }
+        CollectionPage collection;
+        Thumbnail start;
+        bool can_fullscreen = get_fullscreen_photo(page, out collection, out start);
         
         set_common_action_sensitive("CommonEmptyTrash", can_empty_trash());
         set_common_action_visible("CommonJumpToEvent", true);
@@ -699,7 +657,6 @@ public class LibraryWindow : AppWindow {
     
     private void on_trashcan_contents_altered() {
         set_common_action_sensitive("CommonEmptyTrash", can_empty_trash());
-        sidebar.update_page_icon(trash_page);
     }
     
     private bool can_empty_trash() {
@@ -774,13 +731,6 @@ public class LibraryWindow : AppWindow {
         
         Config.get_instance().set_events_sort_ascending(
             current.current_value == SORT_EVENTS_ORDER_ASCENDING);
-       
-        sidebar.sort_branch(events_directory_page.get_marker(), 
-            get_event_branch_comparator(current.current_value));
-
-        // set the tree cursor to the current page, which might have been lost in the
-        // delete/insert
-        sidebar.place_cursor(get_current_page());
     }
     
     private void on_preferences() {
@@ -848,53 +798,13 @@ public class LibraryWindow : AppWindow {
     }
 
     public void enqueue_batch_import(BatchImport batch_import, bool allow_user_cancel) {
-        if (!displaying_import_queue_page) {
-            add_toplevel_page(import_queue_page, ToplevelPosition.IMPORT_QUEUE_PAGE);
-            displaying_import_queue_page = true;
-        }
-        
-        import_queue_page.enqueue_and_schedule(batch_import, allow_user_cancel);
-    }
-    
-    private void sync_last_import_visibility() {
-        bool has_last_import = false;
-        foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all()) {
-            if (sources.get_last_import_id() != null) {
-                has_last_import = true;
-                
-                break;
-            }
-        }
-        
-        enable_disable_last_import_page(has_last_import);
-    }
-    
-    private void sync_flagged_visibility() {
-        bool has_flagged = false;
-        foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all()) {
-            if (sources.get_flagged().size > 0) {
-                has_flagged = true;
-                
-                break;
-            }
-        }
-        
-        enable_disable_flagged_page(has_flagged);
-    }
-    
-    private void import_queue_batch_finished() {
-        if (displaying_import_queue_page && import_queue_page.get_batch_count() == 0) {
-            // only hide the import queue page, as it might be used later
-            hide_page(import_queue_page, last_import_page != null ? 
-                last_import_page.get_page() : library_page);
-            displaying_import_queue_page = false;
-        }
+        import_queue_branch.enqueue_and_schedule(batch_import, allow_user_cancel);
     }
     
     private void import_reporter(ImportManifest manifest) {
         ImportUI.report_manifest(manifest, true);
     }
-
+    
     private void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library) {
         if (AppDirs.get_import_dir().get_path() == Environment.get_home_dir() && notify_library_is_home_dir) {
             Gtk.ResponseType response = AppWindow.affirm_cancel_question(
@@ -980,70 +890,17 @@ public class LibraryWindow : AppWindow {
         if (selection_data.length < 0)
             debug("failed to retrieve SelectionData");
         
-        drop_received(context, x, y, selection_data, info, time, null, null);
-    }
-
-    private void drop_received(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, 
-        SidebarPage? page) {
-        // determine if drag is internal or external
-        if (Gtk.drag_get_source_widget(context) != null)
-            drop_internal(context, x, y, selection_data, info, time, path, page);
+        // If an external drop, piggyback on the sidebar ExternalDropHandler, otherwise it's an
+        // internal drop, which isn't handled by the main window
+        if (Gtk.drag_get_source_widget(context) == null)
+            external_drop_handler(context, null, selection_data, info, time);
         else
-            drop_external(context, x, y, selection_data, info, time);
-    }
-
-    private void drop_internal(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path,
-        SidebarPage? page = null) {
-		Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.data,
-            selection_data.get_length());
-        
-        if (media.size == 0) {
             Gtk.drag_finish(context, false, false, time);
-            
-            return;
-        }
-        
-        bool success = false;
-        if (page is EventPage.Stub) {
-            Event event = ((EventPage.Stub) page).event;
-
-            Gee.ArrayList<ThumbnailView> views = new Gee.ArrayList<ThumbnailView>();
-            foreach (MediaSource current_media in media) {
-                // don't move a photo into the event it already exists in
-                if (current_media.get_event() == null || !current_media.get_event().equals(event))
-                    views.add(new ThumbnailView(current_media));
-            }
-
-            if (views.size > 0) {
-                get_command_manager().execute(new SetEventCommand(views, event));
-                success = true;
-            }
-        } else if (page is TagPage.Stub) {
-            get_command_manager().execute(new TagUntagPhotosCommand(((TagPage.Stub) page).tag, media, 
-                media.size, true));
-            success = true;
-        } else if (page is TrashPage.Stub) {
-            get_command_manager().execute(new TrashUntrashPhotosCommand(media, true));
-            success = true;
-        } else if ((path != null) && (tags_marker != null) && (tags_marker.get_path() != null) && 
-                   (path.compare(tags_marker.get_path()) == 0)) {
-            AddTagsDialog dialog = new AddTagsDialog();
-            string[]? names = dialog.execute();
-            if (names != null) {
-                get_command_manager().execute(new AddTagsCommand(names, media));
-                success = true;
-            }
-        }
-        
-        Gtk.drag_finish(context, success, false, time);
     }
-
-    private void drop_external(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint info, uint time) {
-
-        string[] uris_array = selection_data.get_uris();
+    
+    private void external_drop_handler(Gdk.DragContext context, Sidebar.Entry? entry,
+        Gtk.SelectionData data, uint info, uint time) {
+        string[] uris_array = data.get_uris();
         
         GLib.SList<string> uris = new GLib.SList<string>();
         foreach (string uri in uris_array)
@@ -1083,36 +940,26 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_library_page() {
-        switch_to_page(library_page);
-    }
-    
-    public void switch_to_events_directory_page() {
-        switch_to_page(events_directory_page.get_page());
+        switch_to_page(library_branch.get_main_page());
     }
     
     public void switch_to_event(Event event) {
-        EventPage page = load_event_page(event);
-        if (page == null) {
-            debug("Cannot find page for event %s", event.to_string());
-
-            return;
-        }
-
-        switch_to_page(page);
+        Events.EventEntry? entry = events_branch.get_entry_for_event(event);
+        if (entry != null)
+            switch_to_page(entry.get_page());
     }
     
     public void switch_to_tag(Tag tag) {
-        TagPage.Stub? stub = tag_map.get(tag);
-        assert(stub != null);
-        
-        switch_to_page(stub.get_page());
+        Tags.SidebarEntry? entry = tags_branch.get_entry_for_tag(tag);
+        if (entry != null)
+            switch_to_page(entry.get_page());
     }
     
     public void switch_to_photo_page(CollectionPage controller, Photo current) {
         assert(controller.get_view().get_view_for_source(current) != null);
         if (photo_page == null) {
             photo_page = new LibraryPhotoPage();
-            add_orphan_page(photo_page);
+            add_to_notebook(photo_page);
             
             // need to do this to allow the event loop a chance to map and realize the page
             // before switching to it
@@ -1124,337 +971,37 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_import_queue_page() {
-        switch_to_page(import_queue_page);
+        switch_to_page(import_queue_branch.get_queue_page());
     }
     
-    public EventPage? load_event_page(Event event) {
-        foreach (EventPage.Stub stub in event_list) {
-            if (stub.event.equals(event)) {
-                // this will create the EventPage if not already created
-                return (EventPage) stub.get_page();
-            }
-        }
-        
-        return null;
-    }
-    
-    private void on_added_events(Gee.Iterable<DataObject> objects) {
-        foreach (DataObject object in objects)
-            add_event_page((Event) object);
-    }
-    
-    private void on_removed_events(Gee.Iterable<DataObject> objects) {
-        foreach (DataObject object in objects)
-            remove_event_page((Event) object);
-    }
-
-    private void on_events_altered(Gee.Map<DataObject, Alteration> map) {
-        foreach (DataObject object in map.keys) {
-            Event event = (Event) object;
-            
-            foreach (EventPage.Stub stub in event_list) {
-                if (event.equals(stub.event)) {
-                    SubEventsDirectoryPage.Stub old_parent = 
-                        (SubEventsDirectoryPage.Stub) sidebar.get_parent_page(stub);
-                    
-                    // only re-add to sidebar if the event has changed directories or shares its dir
-                    if (sidebar.get_children_count(old_parent.get_marker()) > 1 || 
-                        !(old_parent.get_month() == Time.local(event.get_start_time()).month &&
-                         old_parent.get_year() == Time.local(event.get_start_time()).year)) {
-                        // this prevents the cursor from jumping back to the library photos page
-                        // should it be on this page as we re-sort by removing and reinserting it
-                        sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
-                        
-                        // remove from sidebar
-                        remove_event_tree(stub, false);
-
-                        // add to sidebar again
-                        sidebar.insert_child_sorted(find_parent_marker(stub), stub,
-                            get_event_branch_comparator(get_events_sort()));
-
-                        sidebar.expand_tree(stub.get_marker());
-                        
-                        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
-
-                        if (get_current_page() is EventPage &&
-                            ((EventPage) get_current_page()).page_event.equals(event))
-                            sidebar.place_cursor(stub);
-                    }
-                    
-                    // refresh name
-                    SidebarMarker marker = stub.get_marker();
-                    sidebar.rename(marker, event.get_name());
-                    break;
-                }
-            }
-        }
-        
-        on_update_properties();
-    }
-    
-    private void on_tags_added_removed(Gee.Iterable<DataObject>? added, Gee.Iterable<DataObject>? removed) {
-        if (added != null) {
-            foreach (DataObject object in added)
-                add_tag_page((Tag) object);
-        }
-        
-        if (removed != null) {
-            foreach (DataObject object in removed)
-                remove_tag_page((Tag) object);
-        }
-        
-        // open Tags so user sees the new ones
-        if (added != null && tags_marker != null)
-            sidebar.expand_branch(tags_marker);
-    }
-    
-    private void on_tags_altered(Gee.Map<DataObject, Alteration> map) {
-        // this prevents the cursor from jumping back to the library photos page
-        // should it be on this page as we re-sort by removing and reinserting it
-        sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
-        
-        foreach (DataObject object in map.keys) {
-            Tag tag = (Tag) object;
-            TagPage.Stub page_stub = tag_map.get(tag);
-            assert(page_stub != null);
-            
-            sidebar.rename(page_stub.get_marker(), tag.get_name());
-            sidebar.sort_branch(tags_marker, TagPage.Stub.comparator);
-        }
-        
-        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
-    }
-
-    private void sync_offline_page_state() {
-        bool enable_page = (LibraryPhoto.global.get_offline_bin_contents().size > 0) ||
-            (Video.global.get_offline_bin_contents().size > 0);
-        enable_disable_offline_page(enable_page);
-    }
-    
-    private void on_offline_contents_altered() {
-        sync_offline_page_state();
-    }
-    
-    private SidebarMarker? find_parent_marker(PageStub page) {
-        // EventPageStub
-        if (page is EventPage.Stub) {
-            time_t event_time = ((EventPage.Stub) page).event.get_start_time();
-
-            SubEventsDirectoryPage.DirectoryType type = (event_time != 0 ?
-                SubEventsDirectoryPage.DirectoryType.MONTH :
-                SubEventsDirectoryPage.DirectoryType.UNDATED);
-
-            SubEventsDirectoryPage.Stub month = find_event_dir_page(type, Time.local(event_time));
-
-            // if a month directory already exists, return it, otherwise, create a new one
-            return (month != null ? month : create_event_dir_page(type,
-                Time.local(event_time))).get_marker();
-        } else if (page is SubEventsDirectoryPage.Stub) {
-            SubEventsDirectoryPage.Stub event_dir_page = (SubEventsDirectoryPage.Stub) page;
-            // SubEventsDirectoryPageStub Month
-            if (event_dir_page.type == SubEventsDirectoryPage.DirectoryType.MONTH) {
-                SubEventsDirectoryPage.Stub year = find_event_dir_page(
-                    SubEventsDirectoryPage.DirectoryType.YEAR, event_dir_page.time);
-
-                // if a month directory already exists, return it, otherwise, create a new one
-                return (year != null ? year : create_event_dir_page(
-                    SubEventsDirectoryPage.DirectoryType.YEAR, event_dir_page.time)).get_marker();
-            }
-            
-            // SubEventsDirectoryPageStub Year && Undated
-            return events_directory_page.get_marker();
-        } else if (page is TagPage.Stub) {
-            return tags_marker;
-        }
-
-        return null;
-    }
-    
-    private SubEventsDirectoryPage.Stub? find_event_dir_page(SubEventsDirectoryPage.DirectoryType type, Time time) {
-        foreach (SubEventsDirectoryPage.Stub dir in events_dir_list) {
-            if (dir.matches(type,  time))
-                return dir;
-        }
-
-        return null;
-    }
-
-    private SubEventsDirectoryPage.Stub create_event_dir_page(SubEventsDirectoryPage.DirectoryType type, Time time) {
-        Comparator comparator = get_event_branch_comparator(get_events_sort());
-        
-        SubEventsDirectoryPage.Stub new_dir = SubEventsDirectoryPage.create_stub(type, time);
-
-        sidebar.insert_child_sorted(find_parent_marker(new_dir), new_dir,
-            comparator);
-
-        events_dir_list.add(new_dir);
-
-        return new_dir;
-    }
-    
-    private void add_tag_page(Tag tag) {
-        if (tags_marker == null) {
-            tags_marker = sidebar.add_toplevel_grouping(_("Tags"), new GLib.ThemedIcon(Resources.ICON_TAGS),
-                ToplevelPosition.TAGS_GROUPING);
-        }
-        
-        TagPage.Stub stub = TagPage.create_stub(tag);
-        sidebar.insert_child_sorted(tags_marker, stub, TagPage.Stub.comparator);
-        tag_map.set(tag, stub);
-    }
-    
-    private void remove_tag_page(Tag tag) {
-        TagPage.Stub stub = tag_map.get(tag);
-        assert(stub != null);
-        
-        remove_stub(stub, library_page, null);
-        
-        if (tag_map.size == 0 && tags_marker != null) {
-            sidebar.prune_branch(tags_marker);
-            tags_marker = null;
-        }
-    }
-    
-    private void on_no_event_collection_altered() {
-        enable_disable_no_event_page(Event.global.get_no_event_objects().size > 0);
-    }
-    
-    private void enable_disable_no_event_page(bool enable) {
-        if (enable && no_event_page == null) {
-            no_event_page = NoEventPage.create_stub();
-            sidebar.add_child(events_directory_page.get_marker(), no_event_page);
-        } else if (!enable && no_event_page != null) {
-            remove_stub(no_event_page, null, events_directory_page);
-            no_event_page = null;
-        }
-    }
-    
-    private void enable_disable_offline_page(bool enable) {
-        if (enable && offline_page == null) {
-            offline_page = OfflinePage.create_stub();
-            sidebar.add_toplevel(offline_page, ToplevelPosition.OFFLINE_PAGE);
-        } else if (!enable && offline_page != null) {
-            remove_stub(offline_page, library_page, null);
-            offline_page = null;
-        }
-    }
-
-    private void enable_disable_last_import_page(bool enable) {
-        if (enable && last_import_page == null) {
-            last_import_page = LastImportPage.create_stub();
-            sidebar.add_toplevel(last_import_page, ToplevelPosition.LAST_IMPORT_PAGE);
-        } else if (!enable && last_import_page != null) {
-            remove_stub(last_import_page, library_page, null);
-            last_import_page = null;
-        }
-    }
-    
-    private void enable_disable_flagged_page(bool enable) {
-        if (enable && flagged_page == null) {
-            flagged_page = FlaggedPage.create_stub();
-            sidebar.add_toplevel(flagged_page, ToplevelPosition.FLAGGED_PAGE);
-        } else if (!enable && flagged_page != null) {
-            remove_stub(flagged_page, library_page, null);
-            flagged_page = null;
-        }
-    }
-    
-    private void add_event_page(Event event) {
-        EventPage.Stub event_stub = EventPage.create_stub(event);
-        
-        sidebar.insert_child_sorted(find_parent_marker(event_stub), event_stub,
-            get_event_branch_comparator(get_events_sort()));
-        
-        event_list.add(event_stub);
-    }
-    
-    private void remove_event_page(Event event) {
-        // don't use load_event_page, because that will create an EventPage (which we're simply
-        // going to remove)
-        EventPage.Stub event_stub = null;
-        foreach (EventPage.Stub stub in event_list) {
-            if (stub.event.equals(event)) {
-                event_stub = stub;
-                
-                break;
-            }
-        }
-        
-        if (event_stub == null)
+    private void on_camera_added(DiscoveredCamera camera) {
+        // if this page is for a camera which initialized the app, we want to switch to that page
+        if (!initial_camera_uris.contains(camera.uri))
             return;
         
-        // remove from sidebar
-        remove_event_tree(event_stub);
-    }
-
-    private void remove_event_tree(PageStub stub, bool delete_stub = true) {
-        // grab parent page
-        SidebarPage parent = sidebar.get_parent_page(stub);
+        Camera.SidebarEntry? entry = camera_branch.get_entry_for_camera(camera);
+        if (entry == null)
+            return;
         
-        // remove from notebook and sidebar
-        if (delete_stub)
-            remove_stub(stub, null, events_directory_page);
-        else
-            sidebar.remove_page(stub);
+        ImportPage page = (ImportPage) entry.get_page();
+        File uri_file = File.new_for_uri(camera.uri);
         
-        // remove parent if empty
-        if (parent != null && !(parent is MasterEventsDirectoryPage.Stub)) {
-            assert(parent is PageStub);
-            
-            if (!sidebar.has_children(parent.get_marker()))
-                remove_event_tree((PageStub) parent);
-        }
-    }
-    
-    private void add_camera_page(DiscoveredCamera camera) {
-        ImportPage page = new ImportPage(camera.gcamera, camera.uri, camera.display_name, camera.icon);
-
-        // create the Cameras row if this is the first one
-        if (cameras_marker == null) {
-            cameras_marker = sidebar.add_toplevel_grouping(_("Cameras"), 
-                new GLib.ThemedIcon(Resources.ICON_CAMERAS), ToplevelPosition.CAMERAS_GROUPING);
+        // find the VFS mount point
+        Mount mount = null;
+        try {
+            mount = uri_file.find_enclosing_mount(null);
+        } catch (Error err) {
+            // error means not mounted
         }
         
-        camera_pages.set(camera.uri, page);
-        add_child_page(cameras_marker, page);
-
-        // automagically expand the Cameras branch so the user sees the attached camera(s)
-        sidebar.expand_branch(cameras_marker);
-        
-        // if this page is for a camera which initialized the app, we want to switch to that page
-        if (initial_camera_uris.contains(page.get_uri())) {
-            File uri_file = File.new_for_uri(page.get_uri());//page.get_uri());
-            
-            // find the VFS mount point
-            Mount mount = null;
-            try {
-                mount = uri_file.find_enclosing_mount(null);
-            } catch (Error err) {
-                // error means not mounted
-            }
-            
-            // don't unmount mass storage cameras, as they are then unavailable to gPhoto
-            if (mount != null && !camera.uri.has_prefix("file://")) {
-                if (page.unmount_camera(mount))
-                    switch_to_page(page);
-                else
-                    error_message("Unable to unmount the camera at this time.");
-            } else {
+        // don't unmount mass storage cameras, as they are then unavailable to gPhoto
+        if (mount != null && !camera.uri.has_prefix("file://")) {
+            if (page.unmount_camera(mount))
                 switch_to_page(page);
-            }
-        }
-    }
-    
-    private void remove_camera_page(DiscoveredCamera camera) {
-        // remove from page table and then from the notebook
-        ImportPage page = camera_pages.get(camera.uri);
-        camera_pages.unset(camera.uri);
-        remove_page(page, library_page);
-
-        // if no cameras present, remove row
-        if (CameraTable.get_instance().get_count() == 0 && cameras_marker != null) {
-            sidebar.prune_branch(cameras_marker);
-            cameras_marker = null;
+            else
+                error_message("Unable to unmount the camera at this time.");
+        } else {
+            switch_to_page(page);
         }
     }
     
@@ -1503,6 +1050,7 @@ public class LibraryWindow : AppWindow {
     
     private void remove_from_notebook(Page page) {
         notebook.remove_page(get_notebook_pos(page));
+        destroy_page_layout(page);
         
         // need to show_all() after pages are added and removed
         notebook.show_all();
@@ -1516,96 +1064,6 @@ public class LibraryWindow : AppWindow {
         assert(pos != -1);
         
         return pos;
-    }
-    
-    private void add_toplevel_page(Page parent, int position) {
-        add_to_notebook(parent);
-
-        sidebar.add_toplevel(parent, position);
-    }
-
-    private void add_child_page(SidebarMarker parent_marker, Page child) {
-        add_to_notebook(child);
-        
-        sidebar.add_child(parent_marker, child);
-    }
-    
-    // an orphan page is a Page that exists in the notebook (and can therefore be switched to) but
-    // is not listed in the sidebar
-    private void add_orphan_page(Page orphan) {
-        add_to_notebook(orphan);
-    }
-    
-    // This removes the page from the notebook and the sidebar, but does not actually notify it
-    // that it's been removed from the system, allowing it to be added back later.
-    private void hide_page(Page page, Page fallback_page) {
-        if (get_current_page() == page)
-            switch_to_page(fallback_page);
-        
-        debug("Hiding page %s", page.get_page_name());
-        
-        remove_from_notebook(page);
-        sidebar.remove_page(page);
-        
-        debug("Hid page %s", page.get_page_name());
-    }
-    
-    private void remove_page(Page page, Page fallback_page) {
-        // a handful of pages just don't go away
-        assert(page != library_page);
-        assert(page != photo_page);
-        assert(page != import_queue_page);
-        
-        // switch away if necessary to ensure Page is fully detached from system
-        if (get_current_page() == page)
-            switch_to_page(fallback_page);
-        
-        debug("Removing page %s", page.get_page_name());
-        
-        // detach from notebook and sidebar
-        sidebar.remove_page(page);
-        remove_from_notebook(page);
-        
-        // destroy layout if it exists, otherwise just the page
-        if (!destroy_page_layout(page))
-            page.destroy();
-        
-        debug("Removed page %s", page.get_page_name());
-    }
-    
-    private void remove_stub(PageStub stub, Page? fallback_page, PageStub? fallback_stub) {
-        // remove from appropriate list
-        if (stub is SubEventsDirectoryPage.Stub) {
-            // remove from events directory list 
-            bool removed = events_dir_list.remove((SubEventsDirectoryPage.Stub) stub);
-            assert(removed);
-        } else if (stub is EventPage.Stub) {
-            // remove from the events list
-            bool removed = event_list.remove((EventPage.Stub) stub);
-            assert(removed);
-        } else if (stub is TagPage.Stub) {
-            bool removed = tag_map.unset(((TagPage.Stub) stub).tag);
-            assert(removed);
-        }
-        
-        // remove stub (which holds a marker) from the sidebar
-        sidebar.remove_page(stub);
-        
-        if (!sidebar.is_any_page_selected()) {
-            if (fallback_page != null)
-                switch_to_page(fallback_page);
-            else if (fallback_stub != null)
-                switch_to_page(fallback_stub.get_page());
-        }
-        
-        if (stub.has_page()) {
-            // detach from notebook
-            remove_from_notebook(stub.get_page());
-            
-            // destroy page layout if it exists, otherwise just the page
-            if (!destroy_page_layout(stub.get_page()))
-                stub.get_page().destroy();
-        }
     }
     
     // check for settings that should persist between instances
@@ -1764,14 +1222,14 @@ public class LibraryWindow : AppWindow {
             // if the current theme is a standard theme (as opposed to a dark theme), then
             // use the specially-selected Yorba muted background color for the sidebar.
             // otherwise, use the theme's native background color.
-            sidebar.modify_base(Gtk.StateType.NORMAL, SIDEBAR_STANDARD_BG_COLOR);
+            sidebar_tree.modify_base(Gtk.StateType.NORMAL, SIDEBAR_STANDARD_BG_COLOR);
         }
         
         // put the sidebar in a scrolling window
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
-        scrolled_sidebar.add(sidebar);
-
+        scrolled_sidebar.add(sidebar_tree);
+        
         // divy the sidebar up into selection tree list, background progress bar, and properties
         Gtk.Frame top_frame = new Gtk.Frame(null);
         top_frame.add(scrolled_sidebar);
@@ -1808,7 +1266,7 @@ public class LibraryWindow : AppWindow {
         
         client_paned = new Gtk.HPaned();
         client_paned.pack1(sidebar_paned, false, false);
-        sidebar.set_size_request(SIDEBAR_MIN_WIDTH, -1);
+        sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
         client_paned.pack2(right_frame, true, false);
         client_paned.set_position(Config.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
@@ -1831,10 +1289,6 @@ public class LibraryWindow : AppWindow {
         if (page == get_current_page())
             return;
         
-        // open sidebar directory containing page, if any
-        if (page.get_marker() != null && page is EventPage)
-            sidebar.expand_tree(page.get_marker());
-        
         Page current_page = get_current_page();
         if (current_page != null) {
             current_page.switching_from();
@@ -1842,7 +1296,7 @@ public class LibraryWindow : AppWindow {
             // see note below about why the sidebar is uneditable while the LibraryPhotoPage is
             // visible
             if (current_page is LibraryPhotoPage)
-                sidebar.enable_editing();
+                sidebar_tree.enable_editing();
             
             Gtk.AccelGroup accel_group = current_page.ui.get_accel_group();
             if (accel_group != null)
@@ -1868,7 +1322,7 @@ public class LibraryWindow : AppWindow {
         // the user wants to return to the controlling page ... that is, in this special case, the
         // sidebar cursor is set not to the 'current' page, but the page the user came from
         if (page is LibraryPhotoPage)
-            sidebar.disable_editing();
+            sidebar_tree.disable_editing();
         
         // do this prior to changing selection, as the change will fire a cursor-changed event,
         // which will then call this function again
@@ -1877,9 +1331,12 @@ public class LibraryWindow : AppWindow {
         // Update search filter to new page.
         toggle_search_bar(should_show_search_bar(), page as CheckerboardPage);
         
-        sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
-        sidebar.place_cursor(page);
-        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
+        // Not all pages have sidebar entries
+        Sidebar.Entry? entry = page_map.get(page);
+        if (entry != null) {
+            sidebar_tree.expand_to_entry(entry);
+            sidebar_tree.place_cursor(entry, true);
+        }
         
         on_update_properties();
         
@@ -1905,88 +1362,57 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    private bool is_page_selected(SidebarPage page, Gtk.TreePath path) {
-        SidebarMarker? marker = page.get_marker();
+    private void on_page_created(Sidebar.PageRepresentative entry, Page page) {
+        assert(!page_map.has_key(page));
+        page_map.set(page, entry);
         
-        return marker != null ? path.compare(marker.get_row().get_path()) == 0 : false;
+        add_to_notebook(page);
     }
     
-    private bool select_from_collection(Gtk.TreePath path, Gee.Collection<PageStub> stubs) {
-        foreach (PageStub stub in stubs) {
-            if (is_page_selected(stub, path)) {
-                switch_to_page(stub.get_page());
-                
-                return true;
-            }
-        }
+    private void on_destroying_page(Sidebar.PageRepresentative entry, Page page) {
+        // if page is the current page, switch to fallback before destroying
+        if (page == get_current_page())
+            switch_to_page(library_branch.get_main_page());
         
-        return false;
+        remove_from_notebook(page);
+        
+        bool removed = page_map.unset(page);
+        assert(removed);
     }
     
-    private bool is_camera_selected(Gtk.TreePath path) {
-        foreach (ImportPage page in camera_pages.values) {
-            if (is_page_selected(page, path)) {
-                switch_to_page(page);
-                
-                return true;
-            }
-        }
-        return false;
+    private void on_sidebar_entry_selected(Sidebar.SelectableEntry selectable) {
+        Sidebar.PageRepresentative? page_rep = selectable as Sidebar.PageRepresentative;
+        if (page_rep != null)
+            switch_to_page(page_rep.get_page());
     }
     
-    private bool is_events_directory_selected(Gtk.TreePath path) {
-        return select_from_collection(path, events_dir_list);
-    }
-    
-    private bool is_event_selected(Gtk.TreePath path) {
-        return select_from_collection(path, event_list);
-    }
-
-    private bool is_no_event_selected(Gtk.TreePath path) {
-        if (no_event_page != null && is_page_selected(no_event_page, path)) {
-            switch_to_page(no_event_page.get_page());
+    private void on_sidebar_selected_entry_removed(Sidebar.SelectableEntry selectable) {
+        // if the currently selected item is removed, want to jump to fallback page (which
+        // depends on the item that was selected)
+        
+        // Importing... -> Last Import (if available)
+        if (selectable is Library.ImportQueueSidebarEntry && last_import_branch.get_show_branch()) {
+            switch_to_page(last_import_branch.get_main_entry().get_page());
             
-            return true;
+            return;
         }
         
-        return false;
-    }
-    
-    private bool is_tag_selected(Gtk.TreePath path) {
-        return select_from_collection(path, tag_map.values);
-    }
-    
-    private void on_sidebar_cursor_changed() {
-        Gtk.TreePath path;
-        sidebar.get_cursor(out path, null);
-        
-        if (is_page_selected(library_page, path)) {
-            switch_to_library_page();
-        } else if (is_page_selected(events_directory_page, path)) {
-            switch_to_events_directory_page();
-        } else if (import_queue_page != null && is_page_selected(import_queue_page, path)) {
-            switch_to_import_queue_page();
-        } else if (is_camera_selected(path)) {
-            // camera path selected and updated
-        } else if (is_events_directory_selected(path)) {
-            // events directory page selected and updated
-        } else if (is_event_selected(path)) {
-            // event page selected and updated
-        } else if (is_no_event_selected(path)) {
-            // no event page selected and updated
-        } else if (is_tag_selected(path)) {
-            // tag page selected and updated
-        } else if (is_page_selected(trash_page, path)) {
-            switch_to_page(trash_page.get_page());
-        } else if (offline_page != null && is_page_selected(offline_page, path)) {
-            switch_to_page(offline_page.get_page());
-        } else if (last_import_page != null && is_page_selected(last_import_page, path)) {
-            switch_to_page(last_import_page.get_page());
-        } else if (flagged_page != null && is_page_selected(flagged_page, path)) {
-            switch_to_page(flagged_page.get_page());
-        } else {
-            // nothing recognized selected
+        // Event page -> Events (master event directory)
+        if (selectable is Events.EventEntry && events_branch.get_show_branch()) {
+            switch_to_page(events_branch.get_master_entry().get_page());
+            
+            return;
         }
+        
+        // Any event directory -> Events (master event directory)
+        if (selectable is Events.DirectoryEntry && events_branch.get_show_branch()) {
+            switch_to_page(events_branch.get_master_entry().get_page());
+            
+            return;
+        }
+        
+        // basic all-around default: jump to the Library page
+        switch_to_page(library_branch.get_main_page());
     }
     
     private void subscribe_for_basic_information(Page page) {
@@ -2057,9 +1483,11 @@ public class LibraryWindow : AppWindow {
     }
     
     public override bool key_press_event(Gdk.EventKey event) {
-        if (sidebar.has_focus && sidebar.is_keypress_interpreted(event) && sidebar.key_press_event(event))
+        if (sidebar_tree.has_focus && sidebar_tree.is_keypress_interpreted(event)
+            && sidebar_tree.key_press_event(event)) {
             return true;
-            
+        }
+        
         if (base.key_press_event(event))
             return true;
         
@@ -2070,12 +1498,5 @@ public class LibraryWindow : AppWindow {
         
         return false;
     }
-
-    public void sidebar_rename_in_place(Page page) {
-        sidebar.expand_tree(page.get_marker());
-        sidebar.place_cursor(page);
-        sidebar.rename_in_place();
-    }
-    
 }
 

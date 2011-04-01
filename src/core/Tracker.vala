@@ -37,8 +37,8 @@ public class Tracker {
     
     ~Tracker() {
         if (acc != null) {
-            collection.items_added.connect(on_items_added);
-            collection.items_removed.connect(on_items_removed);
+            collection.items_added.disconnect(on_items_added);
+            collection.items_removed.disconnect(on_items_removed);
             collection.items_altered.disconnect(on_items_altered);
         }
     }

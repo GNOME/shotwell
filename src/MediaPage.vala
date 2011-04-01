@@ -873,11 +873,12 @@ public abstract class MediaPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
         
-        Gee.Collection<DataSource> sources = get_view().get_selected_sources();
+        Gee.Collection<MediaSource> sources =
+            (Gee.Collection<MediaSource>) get_view().get_selected_sources_of_type(typeof(MediaSource));
         
         // If all are flagged, then unflag, otherwise flag
         bool flag = false;
-        foreach (DataSource source in sources) {
+        foreach (MediaSource source in sources) {
             Flaggable? flaggable = source as Flaggable;
             if (flaggable != null && !flaggable.is_flagged()) {
                 flag = true;

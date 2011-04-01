@@ -470,7 +470,7 @@ public class SearchFilterActions {
     public void monitor_page_contents(Page? old_page, Page? new_page) {
         CheckerboardPage? old_tracked_page = old_page as CheckerboardPage;
         if (old_tracked_page != null) {
-            Core.ViewTracker tracker = old_tracked_page.get_view_tracker();
+            Core.ViewTracker? tracker = old_tracked_page.get_view_tracker();
             if (tracker is MediaViewTracker)
                 tracker.updated.disconnect(on_media_tracker_updated);
             else if (tracker is CameraViewTracker)
@@ -479,7 +479,7 @@ public class SearchFilterActions {
         
         CheckerboardPage? new_tracked_page = new_page as CheckerboardPage;
         if (new_tracked_page != null) {
-            Core.ViewTracker tracker = new_tracked_page.get_view_tracker();
+            Core.ViewTracker? tracker = new_tracked_page.get_view_tracker();
             if (tracker is MediaViewTracker) {
                 tracker.updated.connect(on_media_tracker_updated);
                 on_media_tracker_updated(tracker);

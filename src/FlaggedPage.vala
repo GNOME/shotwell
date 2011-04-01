@@ -5,22 +5,7 @@
  */
 
 public class FlaggedPage : CollectionPage {
-    public class Stub : PageStub {
-        public Stub() {
-        }
-        
-        protected override Page construct_page() {
-            return new FlaggedPage(get_name());
-        }
-        
-        public override string get_name() {
-            return _("Flagged");
-        }
-
-        public override GLib.Icon? get_icon() {
-            return new GLib.ThemedIcon(Resources.ICON_FLAGGED_PAGE);
-        }
-    }
+    public const string NAME = _("Flagged");
     
     private class FlaggedViewManager : CollectionViewManager {
         public FlaggedViewManager(FlaggedPage owner) {
@@ -45,17 +30,13 @@ public class FlaggedPage : CollectionPage {
     private Alteration prereq = new Alteration("metadata", "flagged");
     private FlaggedSearchViewFilter search_filter = new FlaggedSearchViewFilter();
     
-    private FlaggedPage(string name) {
-        base (name);
+    public FlaggedPage() {
+        base (NAME);
         
         view_manager = new FlaggedViewManager(this);
         
         foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all())
             get_view().monitor_source_collection(sources, view_manager, prereq);
-    }
-    
-    public static Stub create_stub() {
-        return new Stub();
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {

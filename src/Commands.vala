@@ -1521,7 +1521,7 @@ public class TrashUntrashPhotosCommand : PageCommand {
 public class FlagUnflagCommand : MultipleDataSourceAtOnceCommand {
     private bool flag;
     
-    public FlagUnflagCommand(Gee.Collection<DataSource> sources, bool flag) {
+    public FlagUnflagCommand(Gee.Collection<MediaSource> sources, bool flag) {
         base (sources,
             flag ? _("Flag") : _("Unflag"),
             flag ? _("Flag selected photos") : _("Unflag selected photos"));

@@ -4,94 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-// In order to prevent creating a slew of Pages at app startup, lazily create them as the
-// user needs them ... this may be supplemented in the future to discard unused Pages (in
-// a lifo).  This class also provides a host of information for the Sidebar and the LibraryWindow
-// to use.
-public abstract class PageStub : Object, SidebarPage {
-    private Page page = null;
-    private SidebarMarker marker = null;
-    
-    protected abstract Page construct_page();
-    
-    public abstract string get_name();
-    
-    public virtual string get_tooltip() {
-        return (page != null) ? page.get_tooltip() : get_name();
-    }
-    
-    public virtual bool is_renameable() {
-        return false;
-    }
-    
-    public virtual void rename(string new_name) {
-        get_page().rename(new_name);
-    }
-    
-    public virtual bool is_destroyable() {
-        return false;
-    }
-    
-    public virtual void destroy_source() {
-        get_page().destroy_source();
-    }
-
-    public virtual GLib.Icon? get_icon() {
-        return null;
-    }
-    
-    public bool has_page() {
-        return page != null;
-    }
-    
-    public Page get_page() {
-        if (page == null) {
-            // create the page and set its marker, if one has been supplied
-            page = construct_page();
-            debug("Created page %s", page.get_page_name());
-            if (marker != null)
-                page.set_marker(marker);
-            
-            // add this to the notebook and tell the notebook to show it (as per DevHelp)
-            LibraryWindow.get_app().add_to_notebook(page);
-        }
-
-        return page;
-    }
-    
-    public string get_sidebar_text() {
-        return (page != null) ? page.get_sidebar_text() : get_name();
-    }
-    
-    public SidebarMarker? get_marker() {
-        return (page != null) ? page.get_marker() : marker;
-    }
-    
-    public void set_marker(SidebarMarker marker) {
-        this.marker = marker;
-        if (page != null)
-            page.set_marker(marker);
-    }
-    
-    public void clear_marker() {
-        this.marker = null;
-        if (page != null)
-            page.clear_marker();
-    }
-    
-    public virtual string get_page_name() {
-        return (page != null) ? page.get_page_name() : get_name();
-    }
-    
-    public Gtk.Menu? get_page_context_menu() {
-        return get_page().get_page_context_menu();
-    }
-    
-    public bool popup_context_menu(Gtk.Menu? context_menu, Gdk.EventButton? event = null) {
-        return get_page().popup_context_menu(context_menu, event);
-    }
-}
-
 public class InjectionGroup {
     public struct Element {
         public string name;
@@ -133,7 +45,7 @@ public class InjectionGroup {
     }
 }
 
-public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
+public abstract class Page : Gtk.ScrolledWindow {
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
     
     public Gtk.UIManager ui = new Gtk.UIManager();
@@ -142,7 +54,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private ViewCollection view = null;
     private Gtk.Window container = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
-    private SidebarMarker marker = null;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
     private Gtk.Widget event_source = null;
     private bool dnd_enabled = false;
@@ -197,13 +108,15 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     // This is called by the page controller when it has removed this page ... pages should override
     // this (or the signal) to clean up
     public override void destroy() {
+        if (is_destroyed)
+            return;
+        
         // untie signals
         detach_event_source();
         detach_view_signals();
         view.close();
         
         // remove refs to external objects which may be pointing to the Page
-        clear_marker();
         clear_container();
         
         // Without destroying the menubar, Gtk spits out an assertion related to
@@ -231,34 +144,16 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         debug("Page %s Destroyed", get_page_name());
     }
     
-    public virtual GLib.Icon? get_icon() {
-        return null;
-    }
-
     public string get_page_name() {
         return page_name;
     }
     
-    public string to_string() {
-        return page_name;
-    }
-    
-    public virtual bool is_renameable() {
-        return false;
-    }
-    
-    public virtual void rename(string new_name) {
-    }
-    
-    public virtual bool is_destroyable() {
-        return false;
-    }
-    
-    public virtual void destroy_source() {
-    }
-
     public virtual void set_page_name(string page_name) {
         this.page_name = page_name;
+    }
+    
+    public string to_string() {
+        return page_name;
     }
     
     public ViewCollection get_view() {
@@ -321,26 +216,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     public Gtk.Widget? get_event_source() {
         return event_source;
-    }
-    
-    public string get_sidebar_text() {
-        return page_name;
-    }
-    
-    public string get_tooltip() {
-        return page_name;   
-    }
-    
-    public void set_marker(SidebarMarker marker) {
-        this.marker = marker;
-    }
-    
-    public SidebarMarker? get_marker() {
-        return marker;
-    }
-    
-    public void clear_marker() {
-        marker = null;
     }
     
     public virtual Gtk.MenuBar get_menubar() {
@@ -1412,8 +1287,6 @@ public abstract class CheckerboardPage : Page {
             unset_page_message();
         }
     }
-    
-    public abstract CheckerboardItem? get_fullscreen_photo();
     
     public void set_page_message(string message) {
         layout.set_message(message);

@@ -4,6 +4,23 @@
  * See the COPYING file in this distribution. 
  */
 
+// namespace for future migration of AppWindow alert and other question dialogs into single
+// place: http://trac.yorba.org/ticket/3452
+namespace Dialogs {
+
+public bool confirm_delete_tag(Tag tag) {
+    int count = tag.get_sources_count();
+    string msg = ngettext(
+        "This will remove the tag \"%s\" from one photo.  Continue?",
+        "This will remove the tag \"%s\" from %d photos.  Continue?",
+        count).printf(tag.get_name(), count);
+    
+    return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
+        Resources.DELETE_TAG_TITLE);
+}
+
+}
+
 namespace ExportUI {
 private static File current_export_dir = null;
 

@@ -695,17 +695,13 @@ public class ImportPage : CheckerboardPage {
         return tracker;
     }
     
-    public override GLib.Icon? get_icon() {
-        return icon != null ? icon : new GLib.ThemedIcon(Resources.ICON_CAMERAS);
-    }
-
     // Ticket #3304 - Import page shouldn't display confusing message
     // prior to import. 
     // TODO: replace this with approved text for "talking to camera, 
-    // please wait" once new strings are being accepted.   
+    // please wait" once new strings are being accepted.
     protected override string get_view_empty_message() {
         return ("");
-    }        
+    }
 
     private static int64 preview_comparator(void *a, void *b) {
         return ((ImportPreview *) a)->get_import_source().get_exposure_time()
@@ -834,10 +830,6 @@ public class ImportPage : CheckerboardPage {
 
         set_display_titles(display);
         Config.get_instance().set_display_photo_titles(display);
-    }
-    
-    public override CheckerboardItem? get_fullscreen_photo() {
-        return null;
     }
     
     public override void switched_to() {
@@ -1479,6 +1471,8 @@ public class ImportPage : CheckerboardPage {
 }
 
 public class ImportQueuePage : SinglePhotoPage {
+    public const string NAME = _("Importing...");
+    
     private Gee.ArrayList<BatchImport> queue = new Gee.ArrayList<BatchImport>();
     private Gee.HashSet<BatchImport> cancel_unallowed = new Gee.HashSet<BatchImport>();
     private BatchImport current_batch = null;
@@ -1490,7 +1484,7 @@ public class ImportQueuePage : SinglePhotoPage {
     public signal void batch_removed(BatchImport batch_import);
     
     public ImportQueuePage() {
-        base(_("Importing..."), false);
+        base (NAME, false);
         
         // Set up toolbar
         Gtk.Toolbar toolbar = get_toolbar();
@@ -1670,10 +1664,6 @@ public class ImportQueuePage : SinglePhotoPage {
     
     private void on_fatal_error(ImportResult result, string message) {
         AppWindow.error_message(message);
-    }
-    
-    public override GLib.Icon? get_icon() {
-        return new GLib.ThemedIcon(Resources.ICON_IMPORTING);
     }
 }
 

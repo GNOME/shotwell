@@ -19,7 +19,11 @@ UNITS = \
 	alien_db/f_spot \
 	library \
 	direct \
-	core
+	core \
+	sidebar \
+	events \
+	tags \
+	camera
 
 # Name(s) of units that represent application entry points.  These units will have init and
 # termination entry points generated: Name.unitize_init() and Name.unitize_terminate().  These

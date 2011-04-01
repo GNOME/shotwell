@@ -5,41 +5,9 @@
  */
 
 public class TagPage : CollectionPage {
-    public class Stub : PageStub {
-        public Tag tag;
-        
-        public Stub(Tag tag) {
-            this.tag = tag;
-        }
-        
-        public override GLib.Icon? get_icon() {
-            return new GLib.ThemedIcon(Resources.ICON_ONE_TAG);
-        }
-
-        public override string get_name() {
-            return tag.get_name();
-        }
-        
-        public override bool is_renameable() {
-            return (tag != null);
-        }
-        
-        public override bool is_destroyable() {
-            return (tag != null);
-        }
-
-        protected override Page construct_page() {
-            return new TagPage(tag);
-        }
-        
-        public static int64 comparator(void *a, void *b) {
-            return Tag.compare_names(((Stub *) a)->tag, ((Stub *) b)->tag);
-        }
-    }
-    
     private Tag tag;
     
-    private TagPage(Tag tag) {
+    public TagPage(Tag tag) {
         base (tag.get_name());
         
         this.tag = tag;
@@ -58,10 +26,6 @@ public class TagPage : CollectionPage {
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
         base.init_collect_ui_filenames(ui_filenames);
         ui_filenames.add("tags.ui");
-    }
-    
-    public static TagPage.Stub create_stub(Tag tag) {
-        return new Stub(tag);
     }
     
     public Tag get_tag() {
@@ -119,42 +83,19 @@ public class TagPage : CollectionPage {
         base.update_actions(selected_count, count);
     }
     
-    public override void rename(string new_name) {
-        if (is_string_empty(new_name))
-            return;
-        
-        if (!Tag.global.exists(new_name))
-            get_command_manager().execute(new RenameTagCommand(tag, new_name));
-        else if (new_name != tag.get_name())
-            AppWindow.error_message(Resources.rename_tag_exists_message(new_name));
-    }
-    
-    public override void destroy_source() {
-        on_delete_tag();
-    }
-
     private void on_rename_tag() {
-        LibraryWindow.get_app().sidebar_rename_in_place(this);
+        LibraryWindow.get_app().rename_tag_in_sidebar(tag);
     }
     
     private void on_delete_tag() {
-        int count = tag.get_sources_count();
-        string msg = ngettext(
-            "This will remove the tag \"%s\" from one photo.  Continue?",
-            "This will remove the tag \"%s\" from %d photos.  Continue?",
-            count).printf(tag.get_name(), count);
-        
-        if (!AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
-            Resources.DELETE_TAG_TITLE))
-            return;
-        
-        get_command_manager().execute(new DeleteTagCommand(tag));
+        if (Dialogs.confirm_delete_tag(tag))
+            AppWindow.get_command_manager().execute(new DeleteTagCommand(tag));
     }
     
     private void on_remove_tag_from_photos() {
         if (get_view().get_selected_count() > 0) {
             get_command_manager().execute(new TagUntagPhotosCommand(tag, 
-                (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), 
+                (Gee.Collection<MediaSource>) get_view().get_selected_sources(), 
                 get_view().get_selected_count(), false));
         }
     }

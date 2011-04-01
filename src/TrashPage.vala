@@ -5,28 +5,7 @@
  */
 
 public class TrashPage : CheckerboardPage {
-    public class Stub : PageStub {
-        public Stub() {
-        }
-        
-        protected override Page construct_page() {
-            return new TrashPage(get_name());
-        }
-        
-        public override string get_name() {
-            return _("Trash");
-        }
-        
-        public override GLib.Icon? get_icon() {
-            if (LibraryPhoto.global.get_trashcan_count() > 0)
-                return new GLib.ThemedIcon(Resources.ICON_TRASH_FULL);
-            
-            if (Video.global.get_trashcan_count() > 0)
-                return new GLib.ThemedIcon(Resources.ICON_TRASH_FULL);
-                
-            return new GLib.ThemedIcon(Resources.ICON_TRASH_EMPTY);
-        }
-    }
+    public const string NAME = _("Trash");
     
     private class TrashView : Thumbnail {
         public TrashView(MediaSource source) {
@@ -46,8 +25,8 @@ public class TrashPage : CheckerboardPage {
     private TrashSearchViewFilter search_filter = new TrashSearchViewFilter();
     private MediaViewTracker tracker;
     
-    private TrashPage(string name) {
-        base (name);
+    public TrashPage() {
+        base (NAME);
         
         init_item_context_menu("/TrashContextMenu");
         init_page_context_menu("/TrashPageMenu");
@@ -102,10 +81,6 @@ public class TrashPage : CheckerboardPage {
         return actions;
     }
     
-    public static Stub create_stub() {
-        return new Stub();
-    }
-    
     public override Core.ViewTracker? get_view_tracker() {
         return tracker;
     }
@@ -144,18 +119,9 @@ public class TrashPage : CheckerboardPage {
         get_command_manager().execute(new TrashUntrashPhotosCommand(
             (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), false));
     }
-
+    
     protected override string get_view_empty_message() {
         return _("Trash is empty");
-    }
-
-    public override GLib.Icon? get_icon() {
-        return new GLib.ThemedIcon(get_view().get_count() == 0 ? 
-            Resources.ICON_TRASH_EMPTY : Resources.ICON_TRASH_FULL);
-    }
-
-    public override CheckerboardItem? get_fullscreen_photo() {
-        return null;
     }
     
     private void on_delete() {

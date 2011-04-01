@@ -5,26 +5,7 @@
  */
 
 public class LastImportPage : CollectionPage {
-    public class Stub : PageStub {
-        public Stub() {
-        }
-        
-        protected override Page construct_page() {
-            return new LastImportPage(get_name());
-        }
-        
-        public override string get_name() {
-            return _("Last Import");
-        }
-        
-        public override GLib.Icon? get_icon() {
-            return new GLib.ThemedIcon(Resources.ICON_LAST_IMPORT);
-        }
-        
-        public override bool is_renameable() {
-            return false;
-        }
-    }
+    public const string NAME = _("Last Import");
     
     private class LastImportViewManager : CollectionViewManager {
         private ImportID import_id;
@@ -43,8 +24,8 @@ public class LastImportPage : CollectionPage {
     private ImportID last_import_id = ImportID();
     private Alteration last_import_alteration = new Alteration("metadata", "import-id");
     
-    private LastImportPage(string name) {
-        base (name);
+    public LastImportPage() {
+        base (NAME);
         
         // be notified when the import rolls change
         foreach (MediaSourceCollection col in MediaCollectionRegistry.get_instance().get_all()) {
@@ -59,10 +40,6 @@ public class LastImportPage : CollectionPage {
         foreach (MediaSourceCollection col in MediaCollectionRegistry.get_instance().get_all()) {
             col.import_roll_altered.disconnect(on_import_rolls_altered);
         }
-    }
-    
-    public static Stub create_stub() {
-        return new Stub();
     }
     
     private void on_import_rolls_altered() {

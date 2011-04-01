@@ -1103,25 +1103,24 @@ public class ViewCollection : DataCollection {
         return false;
     }
     
-    // TODO: This currently does not respect filtering.
     public int get_sources_of_type_count(Type t) {
         assert(t.is_a(typeof(DataSource)));
         
         int count = 0;
-        foreach (DataSource source in source_map.keys) {
-            if (source.get_type().is_a(t))
+        foreach (DataObject object in get_all()) {
+            if (((DataView) object).get_source().get_type().is_a(t))
                 count++;
         }
         
         return count;
     }
     
-    // TODO: This currently does not respect filtering.
-    public Gee.Collection<DataSource>? get_sources_of_type(Type t) {
+    public Gee.List<DataSource>? get_sources_of_type(Type t) {
         assert(t.is_a(typeof(DataSource)));
         
-        Gee.Collection<DataSource>? sources = null;
-        foreach (DataSource source in source_map.keys) {
+        Gee.List<DataSource>? sources = null;
+        foreach (DataObject object in get_all()) {
+            DataSource source = ((DataView) object).get_source();
             if (source.get_type().is_a(t)) {
                 if (sources == null)
                     sources = new Gee.ArrayList<DataSource>();

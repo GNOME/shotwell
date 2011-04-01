@@ -4,14 +4,14 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-namespace Library {
+namespace Tags {
 
 public void init() throws Error {
-    Library.TrashSidebarEntry.init();
+    Tags.SidebarEntry.init();
 }
 
 public void terminate() {
-    Library.TrashSidebarEntry.terminate();
+    Tags.SidebarEntry.terminate();
 }
 
 }

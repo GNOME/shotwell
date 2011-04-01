@@ -1284,8 +1284,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override void update_actions(int selected_count, int count) {
-        Gee.Collection<DataSource>? photos = get_view().get_sources_of_type(typeof(Photo));
-        bool multiple_photos = (photos != null) && (photos.size > 1);
+        bool multiple_photos = get_view().get_sources_of_type_count(typeof(Photo)) > 1;
         
         prev_button.sensitive = multiple_photos;
         next_button.sensitive = multiple_photos;

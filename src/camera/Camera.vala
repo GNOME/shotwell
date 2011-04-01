@@ -4,14 +4,14 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-namespace Library {
+namespace Camera {
 
 public void init() throws Error {
-    Library.TrashSidebarEntry.init();
+    Camera.Branch.init();
 }
 
 public void terminate() {
-    Library.TrashSidebarEntry.terminate();
+    Camera.Branch.terminate();
 }
 
 }

@@ -316,42 +316,7 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         EventDirectoryItem event = (EventDirectoryItem) item;
         LibraryWindow.get_app().switch_to_event(event.event);
     }
-
-    private EventDirectoryItem? get_fullscreen_item() {
-        // if there's a selection, use first selected event with a photo; otherwise, no go.
-        if (get_view().get_selected_count() > 0) {
-            foreach (DataView view in get_view().get_selected()) {
-                EventDirectoryItem item = (EventDirectoryItem) view;
-                if (item.event.contains_media_type(Photo.TYPENAME))
-                    return item;
-            }
-            
-            return null;
-        }
-        
-        // no selection, so use first event with photo
-        foreach (DataObject object in get_view().get_all()) {
-            EventDirectoryItem item = (EventDirectoryItem) object;
-            if (item.event.contains_media_type(Photo.TYPENAME))
-                return item;
-        }
-        
-        return null;
-    }
     
-    public EventPage? get_fullscreen_event() {
-        EventDirectoryItem item = get_fullscreen_item();
-
-        // Yeah, this sucks.  We can do better.
-        return (item != null) ? LibraryWindow.get_app().load_event_page(item.event) : null;
-    }
-    
-    public override CheckerboardItem? get_fullscreen_photo() {
-        EventPage page = get_fullscreen_event();
-        
-        return (page != null) ? page.get_fullscreen_photo() : null;
-    }
-
     private void on_sort_changed(Gtk.Action action, Gtk.Action c) {
         Gtk.RadioAction current = (Gtk.RadioAction) c;
         
@@ -390,30 +355,12 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
 }
 
 public class NoEventPage : CollectionPage {
-    static const string NO_EVENT_PAGE_NAME = _("No Event");
-    
-    public class Stub : PageStub {
-        public override GLib.Icon? get_icon() {
-            return new GLib.ThemedIcon(Resources.ICON_MISSING_FILES);
-        }
-        
-        public override string get_name() {
-            return NO_EVENT_PAGE_NAME;
-        }
-        
-        public override bool is_renameable() {
-            return false;
-        }
-        
-        protected override Page construct_page() {
-            return ((Page) new NoEventPage());
-        }
-    }
+    public const string NAME = _("No Event");
     
     // This seems very similar to EventSourceCollection -> ViewManager
     private class NoEventViewManager : CollectionViewManager {
         public NoEventViewManager(NoEventPage page) {
-            base(page);
+            base (page);
         }
         
         // this is not threadsafe
@@ -425,16 +372,12 @@ public class NoEventPage : CollectionPage {
     
     private static Alteration no_event_page_alteration = new Alteration("metadata", "event");
     
-    private NoEventPage() {
-        base(NO_EVENT_PAGE_NAME);
+    public NoEventPage() {
+        base (NAME);
         
         ViewManager filter = new NoEventViewManager(this);
         get_view().monitor_source_collection(LibraryPhoto.global, filter, no_event_page_alteration);
         get_view().monitor_source_collection(Video.global, filter, no_event_page_alteration);
-    }
-    
-    public static Stub create_stub() {
-        return new Stub();
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
@@ -448,39 +391,9 @@ public class NoEventPage : CollectionPage {
 
 
 public class EventPage : CollectionPage {
-    public class Stub : PageStub {
-        public Event event;
-
-        public Stub(Event event) {
-            this.event = event;
-        }
-
-        public override GLib.Icon? get_icon() {
-            return new GLib.ThemedIcon(Resources.ICON_ONE_EVENT);
-        }
-
-        public override string get_name() {
-            return event.get_name();
-        }
-        
-        public override string get_tooltip() {
-            return (event.has_name())
-                ? String.strip_leading_zeroes("%s - %s".printf(event.get_name(), event.get_formatted_daterange()))
-                : event.get_formatted_daterange();
-        }
-        
-        public override bool is_renameable() {
-            return (event != null);
-        }
-
-        protected override Page construct_page() {
-            return ((Page) new EventPage(event));
-        }
-    }
+    private Event page_event;
     
-    public Event page_event;
-    
-    private EventPage(Event page_event) {
+    public EventPage(Event page_event) {
         base (page_event.get_name());
         
         this.page_event = page_event;
@@ -532,10 +445,6 @@ public class EventPage : CollectionPage {
         base.update_actions(selected_count, count);
     }
     
-    public static Stub create_stub(Event event) {
-        return new Stub(event);
-    }
-    
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
         Config.get_instance().get_event_photos_sort(out sort_order, out sort_by);
     }
@@ -557,42 +466,15 @@ public class EventPage : CollectionPage {
     }
 
     private void on_rename() {
-        LibraryWindow.get_app().sidebar_rename_in_place(this);
-    }
-    
-    public override void rename(string new_name) {
-        get_command_manager().execute(new RenameEventCommand(page_event, new_name));
+        LibraryWindow.get_app().rename_event_in_sidebar(page_event);
     }
 }
 
 public class MasterEventsDirectoryPage : EventsDirectoryPage {
-    public class Stub : PageStub {
-        public Stub() {
-        }
-        
-        protected override Page construct_page() {
-            return new MasterEventsDirectoryPage(get_name());
-        }
-        
-        public override string get_name() {
-            return _("Events");
-        }
-        
-        public override GLib.Icon? get_icon() {
-            return new GLib.ThemedIcon(Resources.ICON_EVENTS);
-        }
-        
-        public override bool is_renameable() {
-            return false;
-        }
-    }
+    public const string NAME = _("Events");
     
-    private MasterEventsDirectoryPage(string name) {
-        base(name, new EventDirectoryManager(), (Gee.Collection<Event>) Event.global.get_all());
-    }
-    
-    public static Stub create_stub() {
-        return new Stub();
+    public MasterEventsDirectoryPage() {
+        base (NAME, new EventDirectoryManager(), (Gee.Collection<Event>) Event.global.get_all());
     }
 }
 
@@ -603,61 +485,9 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
         UNDATED;
     }
     
-    public class Stub : PageStub {
-        public SubEventsDirectoryPage.DirectoryType type;
-        public Time time;
-        private string page_name;
-
-        public Stub(SubEventsDirectoryPage.DirectoryType type, Time time) {
-            if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
-                this.page_name = _("Undated");
-            } else {
-                this.page_name = time.format((type == SubEventsDirectoryPage.DirectoryType.YEAR) ?
-                    _("%Y") : _("%B"));
-            }
-
-            this.type = type;
-            this.time = time;
-        }
-
-        protected override Page construct_page() {
-            return new SubEventsDirectoryPage(type, time);
-        }
-
-        public int get_month() {
-            return (type == SubEventsDirectoryPage.DirectoryType.MONTH) ? time.month : 0;
-        }
-
-        public int get_year() {
-            return time.year;
-        }
-
-        public override GLib.Icon? get_icon() {
-            return new GLib.ThemedIcon(Resources.ICON_FOLDER_CLOSED);
-        }
-
-        public override string get_name() {
-            return page_name;
-        }
-        
-        public override bool is_renameable() {
-            return false;
-        }
-        
-        public bool matches(SubEventsDirectoryPage.DirectoryType type, Time time) {
-            if (type != this.type)
-                return false;
-
-            if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
-                return true;
-            } else if (type == SubEventsDirectoryPage.DirectoryType.MONTH) {
-                return time.year == this.time.year && time.month == this.time.month;
-            } else {
-                assert(type == SubEventsDirectoryPage.DirectoryType.YEAR);
-                return time.year == this.time.year;
-            }
-        }
-    }
+    public const string UNDATED_PAGE_NAME = _("Undated");
+    public const string YEAR_FORMAT = _("%Y");
+    public const string MONTH_FORMAT = _("%B");
     
     private class SubEventDirectoryManager : EventsDirectoryPage.EventDirectoryManager {
         private int month = 0;
@@ -701,21 +531,17 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
         }
     }
 
-    private SubEventsDirectoryPage(DirectoryType type, Time time) {
+    public SubEventsDirectoryPage(DirectoryType type, Time time) {
         string page_name;
         if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
-            page_name = _("Undated");
+            page_name = UNDATED_PAGE_NAME;
         } else {
-            page_name = time.format((type == DirectoryType.YEAR) ? _("%Y") : _("%B"));
+            page_name = time.format((type == DirectoryType.YEAR) ? YEAR_FORMAT : MONTH_FORMAT);
         }
 
         base(page_name, new SubEventDirectoryManager(type, time), null); 
     }
     
-    public static Stub create_stub(DirectoryType type, Time time) {
-        return new Stub(type, time);
-    }
-
     public int get_month() {
         return ((SubEventDirectoryManager) view_manager).get_month();
     }

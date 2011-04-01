@@ -52,7 +52,6 @@ UNUNITIZED_SRC_FILES = \
 	Dialogs.vala \
 	Resources.vala \
 	Debug.vala \
-	Sidebar.vala \
 	ColorTransformation.vala \
 	EditingTools.vala \
 	CameraTable.vala \

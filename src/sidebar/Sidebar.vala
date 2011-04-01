@@ -4,14 +4,12 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-namespace Library {
+namespace Sidebar {
 
 public void init() throws Error {
-    Library.TrashSidebarEntry.init();
 }
 
 public void terminate() {
-    Library.TrashSidebarEntry.terminate();
 }
 
 }
