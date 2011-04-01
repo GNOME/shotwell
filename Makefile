@@ -40,10 +40,7 @@ UNUNITIZED_SRC_FILES = \
 	CheckerboardLayout.vala \
 	PhotoPage.vala \
 	Page.vala \
-	ImportPage.vala \
-	GPhoto.vala \
 	SortedList.vala \
-	EventsDirectoryPage.vala \
 	Dimensions.vala \
 	Box.vala \
 	Photo.vala \
@@ -54,7 +51,6 @@ UNUNITIZED_SRC_FILES = \
 	Debug.vala \
 	ColorTransformation.vala \
 	EditingTools.vala \
-	CameraTable.vala \
 	Properties.vala \
 	CustomComponents.vala \
 	Config.vala \
@@ -69,16 +65,12 @@ UNUNITIZED_SRC_FILES = \
 	LibraryFiles.vala \
 	Printing.vala \
 	Tag.vala \
-	TagPage.vala \
 	PiwigoConnector.vala \
 	Screensaver.vala \
 	MimicManager.vala \
-	TrashPage.vala \
 	Exporter.vala \
 	DirectoryMonitor.vala \
 	LibraryMonitor.vala \
-	OfflinePage.vala \
-	LastImportPage.vala \
 	VideoSupport.vala \
 	Tombstone.vala \
 	MetadataWriter.vala \
@@ -87,7 +79,6 @@ UNUNITIZED_SRC_FILES = \
 	MediaPage.vala \
 	MediaDataRepresentation.vala \
 	DesktopIntegration.vala \
-	FlaggedPage.vala \
 	MediaInterfaces.vala \
 	MediaMetadata.vala \
 	VideoMetadata.vala \

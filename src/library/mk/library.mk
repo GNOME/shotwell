@@ -17,7 +17,12 @@ UNIT_FILES := \
 	OfflineBranch.vala \
 	FlaggedBranch.vala \
 	LastImportBranch.vala \
-	ImportQueueBranch.vala
+	ImportQueueBranch.vala \
+	FlaggedPage.vala \
+	ImportQueuePage.vala \
+	LastImportPage.vala \
+	OfflinePage.vala \
+	TrashPage.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

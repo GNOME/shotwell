@@ -11,7 +11,8 @@ UNIT_DIR := tags
 #
 # NOTE: Do *not* include the unit's master file, i.e. UNIT_NAME.vala.
 UNIT_FILES := \
-	Branch.vala
+	Branch.vala \
+	TagPage.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

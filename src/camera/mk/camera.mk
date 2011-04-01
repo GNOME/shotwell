@@ -11,7 +11,10 @@ UNIT_DIR := camera
 #
 # NOTE: Do *not* include the unit's master file, i.e. UNIT_NAME.vala.
 UNIT_FILES := \
-	Branch.vala
+	Branch.vala \
+	CameraTable.vala \
+	GPhoto.vala \
+	ImportPage.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.
