@@ -378,6 +378,9 @@ else
 CFLAGS = -O2 -g -pipe -fPIC
 PLUGIN_CFLAGS = -O2 -g -pipe -fPIC
 endif
+else
+# pass defined CFLAGS on to plugins
+PLUGIN_CFLAGS = $(CFLAGS)
 endif
 
 # Required for gudev-1.0
