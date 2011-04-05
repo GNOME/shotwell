@@ -356,19 +356,23 @@ VALA_CFLAGS := `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
 
 VALA_LDFLAGS := `pkg-config --libs $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0`
 
+# REQUIRED_CFLAGS absolutely get appended to CFLAGS, whatever the
+# the value of CFLAGS in the environment
+REQUIRED_CFLAGS := -fPIC
+
 # setting CFLAGS in configure.mk overrides build type
 ifndef CFLAGS
 ifdef BUILD_DEBUG
-CFLAGS = -O0 -g -pipe -fPIC
-PLUGIN_CFLAGS = -O0 -g -pipe -fPIC
+CFLAGS = -O0 -g -pipe
+PLUGIN_CFLAGS = -O0 -g -pipe
 else
-CFLAGS = -O2 -g -pipe -fPIC
-PLUGIN_CFLAGS = -O2 -g -pipe -fPIC
+CFLAGS = -O2 -g -pipe
+PLUGIN_CFLAGS = -O2 -g -pipe
 endif
-else
-# pass defined CFLAGS on to plugins
-PLUGIN_CFLAGS = $(CFLAGS)
 endif
+
+CFLAGS += $(REQUIRED_CFLAGS)
+PLUGIN_CFLAGS += $(REQUIRED_CFLAGS)
 
 # Required for gudev-1.0
 CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE
