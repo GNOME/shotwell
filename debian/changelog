@@ -1,3 +1,23 @@
+shotwell (0.9.1-1~maverick1) maverick; urgency=low
+
+  * Fixes many crashes and other issues in publishing plugins.
+  * Fixes issues where paths and filenames are not displayed correctly after a 
+    failed import.
+  * Fixed issue where text search in event and camera import pages was a string 
+    match instead of a keyword match.
+  * For enhanced compatibility with GNOME 3, the desktop name of the Shotwell 
+    application has changed from "Shotwell Photo Manager" to simply "Shotwell".
+  * Shotwell now provides a configure script option to set the name of the system 
+    library directory to either lib or lib64.
+  * Enhanced visibility of red-eye reticle.
+  * Fixed issue where the Adjust palette could be positioned partially off-screen
+  * Plugins now respect --debug switch in configure script.
+  * The event containing undated photos could be incorrectly labelled "(null)" in 
+    the events directory page.
+
+ -- Eric Gregory <eric@yorba.org>  Mon, 4 Feb 2011 12:00:00 -0800 
+
+
 shotwell (0.9.0-1~maverick1) maverick; urgency=low
 
   * New search bar can filter by media type, rating, and text matching.
