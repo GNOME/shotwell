@@ -815,12 +815,9 @@ public class PublishingDialog : Gtk.Dialog {
         if(ServiceFactory.get_instance().get_default_service_by_media_type(media_type) == null) {
             // There are no enabled publishing services that accept this media type,
             // warn the user.
-            Gtk.MessageDialog no_publishers_enabled_dialog = new Gtk.MessageDialog.with_markup(
-                null, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK, 
+            AppWindow.error_message_with_title(_("Unable to publish"),
                 _("Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose <b>Edit %s Preferences</b> and enable one or more of the publishing plugins on the <b>Plugin</b> tab.").printf("▸"));
                     
-            no_publishers_enabled_dialog.run();
-            no_publishers_enabled_dialog.destroy();
             return;                
         }
         

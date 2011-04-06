@@ -569,6 +569,9 @@ public abstract class AppWindow : PageWindow {
         // existing message as the secondary text.
         Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup((parent != null) ? parent : get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", build_alert_body_text(title, message));
+            
+        // Occasionally, with_markup doesn't actually do anything, but set_markup always works.
+        dialog.set_markup(build_alert_body_text(title, message));
 
         dialog.use_markup = true;
         dialog.run();
