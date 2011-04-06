@@ -564,9 +564,13 @@ public abstract class AppWindow : PageWindow {
     }
     
     public static void error_message_with_title(string title, string message, Gtk.Window? parent = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
-        dialog.title = title;
+        // Per the Gnome HIG (http://library.gnome.org/devel/hig-book/2.32/windows-alert.html.en),            
+        // alert-style dialogs mustn't have titles; we use the title as the primary text, and the
+        // existing message as the secondary text.
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup((parent != null) ? parent : get_instance(),
+            Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", build_alert_body_text(title, message));
+
+        dialog.use_markup = true;
         dialog.run();
         dialog.destroy();
     }
@@ -574,8 +578,9 @@ public abstract class AppWindow : PageWindow {
     public static bool negate_affirm_question(string message, string negative, string affirmative,
         string? title = null, Gtk.Window? parent = null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
-        dialog.title = (title != null) ? title : Resources.APP_TITLE;
+            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", build_alert_body_text(title, message));
+
+        dialog.set_markup(build_alert_body_text(title, message));
         dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES);
         
         bool response = (dialog.run() == Gtk.ResponseType.YES);
@@ -587,9 +592,11 @@ public abstract class AppWindow : PageWindow {
 
     public static Gtk.ResponseType negate_affirm_cancel_question(string message, string negative,
         string affirmative, string? title = null, Gtk.Window? parent = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
-        dialog.title = (title != null) ? title : Resources.APP_TITLE;
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup((parent != null) ? parent : get_instance(),
+            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", build_alert_body_text(title, message));
+
+        dialog.use_markup = true;
+
         dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES,
             _("_Cancel"), Gtk.ResponseType.CANCEL);
         

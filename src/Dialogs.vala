@@ -690,6 +690,13 @@ public abstract class TextEntryDialogMediator {
     }
 }
 
+// This method takes primary and secondary texts and returns ready-to-use pango markup 
+// for a HIG-compliant alert dialog. Please see 
+// http://library.gnome.org/devel/hig-book/2.32/windows-alert.html.en for details.
+public string build_alert_body_text(string primary_text, string secondary_text) {
+    return "<span weight=\"Bold\" size=\"larger\">%s</span>\n%s".printf(primary_text, secondary_text);
+}
+
 // Entry completion for values separated by separators (e.g. comma in the case of tags)
 // Partly inspired by the class of the same name in gtkmm-utils by Marko Anastasov
 public class EntryMultiCompletion : Gtk.EntryCompletion {
@@ -933,7 +940,11 @@ public Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string titl
         Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", user_message);
     dialog.add_button(_("Only _Remove"), Gtk.ResponseType.NO);
     dialog.add_button(trash_action, Gtk.ResponseType.YES);
-    dialog.title = title;
+
+    // This dialog was previously created outright; we now 'hijack' 
+    // dialog's old title and use it as the primary text, along with
+    // using the message as the secondary text.
+    dialog.set_markup(build_alert_body_text(title, user_message));
     
     Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
     
@@ -950,7 +961,8 @@ public Gtk.ResponseType remove_from_filesystem_dialog(Gtk.Window owner, string t
     dialog.add_button(_("_Keep"), Gtk.ResponseType.NO);
     dialog.add_button(_("_Delete"), Gtk.ResponseType.YES);
     dialog.set_default_response( Gtk.ResponseType.NO);
-    dialog.title = title;
+   
+    dialog.set_markup(build_alert_body_text(title, user_message));
     
     Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
     
@@ -968,18 +980,21 @@ public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photo
     
     if (count == 0)
         return false;
-        
+           
+    string headline = ngettext("Revert External Edit?", "Revert External Edits?", count);
     string msg = ngettext(
         "This will destroy all changes made to the external file.  Continue?",
         "This will destroy all changes made to %d external files.  Continue?",
         count).printf(count);
+
     string action = ngettext("Re_vert External Edit", "Re_vert External Edits", count);
     
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
         Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s", msg);
     dialog.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL);
     dialog.add_button(action, Gtk.ResponseType.YES);
-    dialog.title = ngettext("Revert External Edit", "Revert External Edits", count);
+
+    dialog.set_markup(build_alert_body_text(headline, msg));
     
     Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
     
