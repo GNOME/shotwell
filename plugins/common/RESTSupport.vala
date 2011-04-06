@@ -538,7 +538,12 @@ internal abstract class BatchUploader {
         bool stop = false;
         foreach (Spit.Publishing.Publishable publishable in publishables) {
             GLib.File? file = publishable.get_serialized_file();
-            assert (file != null);
+            
+            // if the current publishable hasn't been serialized, then skip it
+            if (file == null) {
+                current_file++;
+                continue;
+            }
 
             double fraction_complete = ((double) current_file) / publishables.length;
                 if (status_updated != null)
