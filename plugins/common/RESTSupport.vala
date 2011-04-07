@@ -510,9 +510,10 @@ public string decimal_entity_encode(string source) {
         if (current_char_value < 1)
             break;
         
-        // no need to escape ASCII characters except the ampersand, which is special because
-        // XML uses it to signal the beginning of an encoded entity
-        if (current_char_value < 128 && current_char_value != '&')
+        // no need to escape ASCII characters except the ampersand, greater-than sign and less-than
+        // signs, which are special in the world of XML
+        if ((current_char_value < 128) && (current_char_value != '&') && (current_char_value != '<') &&
+            (current_char_value != '>'))
             encoded_str_builder.append_unichar(current_char.get_char_validated());
         else
             encoded_str_builder.append("&#%d;".printf(current_char_value));
