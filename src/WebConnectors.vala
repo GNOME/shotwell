@@ -562,29 +562,27 @@ public class LoginWelcomePane : PublishingDialogPane {
     public signal void login_requested();
 
     public LoginWelcomePane(string service_welcome_message) {
-        Gtk.SeparatorToolItem top_space = new Gtk.SeparatorToolItem();
-        top_space.set_draw(false);
-        Gtk.SeparatorToolItem bottom_space = new Gtk.SeparatorToolItem();
-        bottom_space.set_draw(false);
-        add(top_space);
-        top_space.set_size_request(-1, 140);
-
         Gtk.Table content_layouter = new Gtk.Table(2, 1, false);
+
+        Gtk.Alignment label_wrapper = new Gtk.Alignment(0.5f, 1.0f, 0.0f, 0.0f);
 
         Gtk.Label not_logged_in_label = new Gtk.Label("");
         not_logged_in_label.set_use_markup(true);
         not_logged_in_label.set_markup(service_welcome_message);
         not_logged_in_label.set_line_wrap(true);
         not_logged_in_label.set_size_request(PublishingDialog.STANDARD_CONTENT_LABEL_WIDTH, -1);
-        content_layouter.attach(not_logged_in_label, 0, 1, 0, 1,
+
+        label_wrapper.add(not_logged_in_label);
+
+        content_layouter.attach(label_wrapper, 0, 1, 0, 1,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
-        not_logged_in_label.set_size_request(PublishingDialog.STANDARD_CONTENT_LABEL_WIDTH, 112);
+        not_logged_in_label.set_size_request(PublishingDialog.STANDARD_CONTENT_LABEL_WIDTH, 150);
         not_logged_in_label.set_alignment(0.5f, 0.0f);
 
         login_button = new Gtk.Button.with_mnemonic(_("_Login"));
         Gtk.Alignment login_button_aligner =
-            new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);      
+            new Gtk.Alignment(0.5f, 0.25f, 0.0f, 0.0f);      
         login_button_aligner.add(login_button);
         login_button.set_size_request(PublishingDialog.STANDARD_ACTION_BUTTON_WIDTH, -1);
         login_button.clicked.connect(on_login_clicked);
@@ -593,8 +591,6 @@ public class LoginWelcomePane : PublishingDialogPane {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
         add(content_layouter);
-        add(bottom_space);
-        bottom_space.set_size_request(-1, 112);
     }
 
     private void on_login_clicked() {

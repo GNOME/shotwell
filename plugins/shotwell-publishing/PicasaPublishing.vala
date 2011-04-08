@@ -816,6 +816,7 @@ internal class LegacyCredentialsPane : Gtk.VBox {
     private const string ADDITIONAL_SECURITY_MESSAGE = _("The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below.");
     
     private const int UNIFORM_ACTION_BUTTON_WIDTH = 102;
+    private const int VERTICAL_SPACE_HEIGHT = 32;
     public const int STANDARD_CONTENT_LABEL_WIDTH = 500;
 
     private weak Spit.Publishing.PluginHost host = null;
@@ -838,7 +839,7 @@ internal class LegacyCredentialsPane : Gtk.VBox {
         Gtk.SeparatorToolItem bottom_space = new Gtk.SeparatorToolItem();
         bottom_space.set_draw(false);
         add(top_space);
-        top_space.set_size_request(-1, 40);
+        top_space.set_size_request(-1, VERTICAL_SPACE_HEIGHT);
 
         Gtk.Label intro_message_label = new Gtk.Label("");
         intro_message_label.set_line_wrap(true);
@@ -861,7 +862,7 @@ internal class LegacyCredentialsPane : Gtk.VBox {
                 Gtk.SeparatorToolItem long_message_space = new Gtk.SeparatorToolItem();
                 long_message_space.set_draw(false);
                 add(long_message_space);
-                long_message_space.set_size_request(-1, 40);
+                long_message_space.set_size_request(-1, VERTICAL_SPACE_HEIGHT);
             break;
 
             case CredentialsPane.Mode.ADDITIONAL_SECURITY:
@@ -870,7 +871,7 @@ internal class LegacyCredentialsPane : Gtk.VBox {
                 Gtk.SeparatorToolItem long_message_space = new Gtk.SeparatorToolItem();
                 long_message_space.set_draw(false);
                 add(long_message_space);
-                long_message_space.set_size_request(-1, 40);
+                long_message_space.set_size_request(-1, VERTICAL_SPACE_HEIGHT);
             break;
         }
 
@@ -911,10 +912,10 @@ internal class LegacyCredentialsPane : Gtk.VBox {
         login_button.set_size_request(UNIFORM_ACTION_BUTTON_WIDTH, -1);
         entry_widgets_table.attach(go_back_button_aligner, 0, 1, 2, 3,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 40);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, VERTICAL_SPACE_HEIGHT);
         entry_widgets_table.attach(login_button_aligner, 1, 2, 2, 3,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 40);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, VERTICAL_SPACE_HEIGHT);
         entry_widgets_table_aligner.add(entry_widgets_table);
         add(entry_widgets_table_aligner);
 
@@ -922,7 +923,7 @@ internal class LegacyCredentialsPane : Gtk.VBox {
         password_entry_label.set_mnemonic_widget(password_entry);
 
         add(bottom_space);
-        bottom_space.set_size_request(-1, 40);
+        bottom_space.set_size_request(-1, VERTICAL_SPACE_HEIGHT);
     }
 
     private void on_login_button_clicked() {
