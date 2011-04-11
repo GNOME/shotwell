@@ -18,6 +18,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     private Spit.Publishing.Publisher active_publisher = null;
     private Publishable[] publishables = null;
     private LoginCallback current_login_callback = null;
+    private bool publishing_halted = false;
     
     public ConcretePublishingHost(Service service, PublishingDialog dialog,
         Publishable[] publishables) {
@@ -122,6 +123,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
 
         clean_up();
 
+        publishing_halted = true;
         dialog = null;
     }
 
@@ -253,6 +255,9 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
             progress_pane.set_status(PREPARE_STATUS_DESCRIPTION, fraction_complete);
             
             spin_event_loop();
+
+            if (publishing_halted)
+                break;
 
             i++;
         }

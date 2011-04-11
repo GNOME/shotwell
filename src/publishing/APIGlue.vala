@@ -293,8 +293,6 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
     }
     
     public GLib.File? get_serialized_file() {
-        assert(serialized_file != null);
-
         return serialized_file;
     }
     

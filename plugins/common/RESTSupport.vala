@@ -506,9 +506,14 @@ public string decimal_entity_encode(string source) {
     while (true) {
         int current_char_value = (int) (current_char.get_char_validated());
         
+        // null character signals end of string
         if (current_char_value < 1)
             break;
-        else if (current_char_value < 128)
+        
+        // no need to escape ASCII characters except the ampersand, greater-than sign and less-than
+        // signs, which are special in the world of XML
+        if ((current_char_value < 128) && (current_char_value != '&') && (current_char_value != '<') &&
+            (current_char_value != '>'))
             encoded_str_builder.append_unichar(current_char.get_char_validated());
         else
             encoded_str_builder.append("&#%d;".printf(current_char_value));
@@ -538,7 +543,12 @@ internal abstract class BatchUploader {
         bool stop = false;
         foreach (Spit.Publishing.Publishable publishable in publishables) {
             GLib.File? file = publishable.get_serialized_file();
-            assert (file != null);
+            
+            // if the current publishable hasn't been serialized, then skip it
+            if (file == null) {
+                current_file++;
+                continue;
+            }
 
             double fraction_complete = ((double) current_file) / publishables.length;
                 if (status_updated != null)
