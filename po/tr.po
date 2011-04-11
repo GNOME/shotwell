@@ -5,11 +5,11 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.9.1+branch\n"
+"Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-03-25 00:46+0000\n"
-"Last-Translator: kara <muhammet.k@gmail.com>\n"
+"PO-Revision-Date: 2011-04-06 15:32+0000\n"
+"Last-Translator: MysD <bulutyg@gmail.com>\n"
 "Language-Team: Turkish <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,8 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Yiğit Ateş <yigitates52@gmail.com>\n"
-"Hüseyin Demirtaş <h.demirtas.l10n@gmail.com>"
+"Hüseyin Demirtaş <h.demirtas.l10n@gmail.com>\n"
+"Muhammet Yüksel <bulutyg@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -431,27 +432,27 @@ msgstr "Fotoğrafları sola çevir"
 
 #: src/Resources.vala:125
 msgid "Flip Hori_zontally"
-msgstr ""
+msgstr "Ya_tay Çevir"
 
 #: src/Resources.vala:126
 msgid "Flip Horizontally"
-msgstr ""
+msgstr "Yatay Çevir"
 
 #: src/Resources.vala:127
 msgid "Flip the photos horizontally"
-msgstr ""
+msgstr "Fotoğrafı yatay çevir"
 
 #: src/Resources.vala:129
 msgid "Flip Verti_cally"
-msgstr ""
+msgstr "Di_key Çevir"
 
 #: src/Resources.vala:130
 msgid "Flip Vertically"
-msgstr ""
+msgstr "Dikey Çevir"
 
 #: src/Resources.vala:131
 msgid "Flip the photos vertically"
-msgstr ""
+msgstr "Fotoğrafı dikey çevir"
 
 #: src/Resources.vala:133
 msgid "_Enhance"
@@ -523,7 +524,7 @@ msgstr "Esas fotoğrafa döndür"
 
 #: src/Resources.vala:156
 msgid "Set as _Desktop Background"
-msgstr ""
+msgstr "_Masaüstü Arkapılan olarak ayarla"
 
 #: src/Resources.vala:157
 msgid "Set selected image to be the new desktop background"
@@ -531,7 +532,7 @@ msgstr "Seçili görüntüyü yeni masaüstü artalanı olarak ayarla"
 
 #: src/Resources.vala:158
 msgid "Set as _Desktop Slideshow..."
-msgstr ""
+msgstr "_Masaüstü Slayt gösterisi olarak ayarla..."
 
 #: src/Resources.vala:160
 msgid "_Undo"
@@ -615,119 +616,119 @@ msgstr "Tek bir olayda birleştir"
 
 #: src/Resources.vala:187
 msgid "_Set Rating"
-msgstr ""
+msgstr "_Derecelendirmeyi Ayarla"
 
 #: src/Resources.vala:188
 msgid "Set Rating"
-msgstr ""
+msgstr "Derecelendirmeyi Ayarla"
 
 #: src/Resources.vala:189
 msgid "Change the rating of your photo"
-msgstr ""
+msgstr "Fotoğrafınızın derecelendirmesini değiştirin"
 
 #: src/Resources.vala:191
 msgid "_Increase"
-msgstr ""
+msgstr "_Derecelendirmeyi arttır"
 
 #: src/Resources.vala:192
 msgid "Increase Rating"
-msgstr ""
+msgstr "Derecelendirmeyi Arttır"
 
 #: src/Resources.vala:193
 msgid "Increase the rating of your photo"
-msgstr ""
+msgstr "Fotoğrafınızın derecelendirmesini arttır"
 
 #: src/Resources.vala:195
 msgid "_Decrease"
-msgstr ""
+msgstr "_Derecelendirmeyi Azalt"
 
 #: src/Resources.vala:196
 msgid "Decrease Rating"
-msgstr ""
+msgstr "Derecelendirmeyi Azalt"
 
 #: src/Resources.vala:197
 msgid "Decrease the rating of your photo"
-msgstr ""
+msgstr "Fotoğrafınızın derecelendirmesini azalt"
 
 #: src/Resources.vala:199
 msgid "_Unrated"
-msgstr ""
+msgstr "_Derecesiz"
 
 #: src/Resources.vala:200
 msgid "Rate Unrated"
-msgstr ""
+msgstr "Derecesiz Oran"
 
 #: src/Resources.vala:201
 msgid "Setting as unrated"
-msgstr ""
+msgstr "Derecelendirilmemiş olarak ayarla"
 
 #: src/Resources.vala:202
 msgid "Remove any ratings"
-msgstr ""
+msgstr "Derecelendirilmeyi kaldır"
 
 #: src/Resources.vala:204
 msgid "_Rejected"
-msgstr ""
+msgstr "_Reddedilmiş"
 
 #: src/Resources.vala:205
 msgid "Rate Rejected"
-msgstr ""
+msgstr "Reddedilmiş Oran"
 
 #: src/Resources.vala:206
 msgid "Setting as rejected"
-msgstr ""
+msgstr "Reddedilen olarak ayarla"
 
 #: src/Resources.vala:207
 msgid "Set rating to rejected"
-msgstr ""
+msgstr "Reddedilmiş derecelendirmeyi ayarla"
 
 #: src/Resources.vala:209
 msgid "Rejected _Only"
-msgstr ""
+msgstr "_Sadece Reddedilmiş"
 
 #: src/Resources.vala:210
 msgid "Rejected Only"
-msgstr ""
+msgstr "Sadece Reddedilmiş"
 
 #: src/Resources.vala:211
 msgid "Show only rejected photos"
-msgstr ""
+msgstr "Sadece reddedilen fotoğraf"
 
 #: src/Resources.vala:213
 msgid "All + _Rejected"
-msgstr ""
+msgstr "Tüm + _Reddedilen"
 
 #: src/Resources.vala:214 src/Resources.vala:215
 msgid "Show all photos, including rejected"
-msgstr ""
+msgstr "Reddedilen dahil olmak üzere, tüm fotoğrafları göster"
 
 #: src/Resources.vala:217
 msgid "_All Photos"
-msgstr ""
+msgstr "_Tüm Fotoğraflar"
 
 #: src/Resources.vala:218 src/Resources.vala:219
 msgid "Show all photos"
-msgstr ""
+msgstr "Tüm fotoğrafları göster"
 
 #: src/Resources.vala:221
 msgid "_Ratings"
-msgstr ""
+msgstr "_Değerlendirme"
 
 #: src/Resources.vala:222
 msgid "Display each photo's rating"
-msgstr ""
+msgstr "Ekran ve fotoğrafı derecelendir"
 
 #: src/Resources.vala:224
 msgid "_Filter Photos"
-msgstr ""
+msgstr "_Filtreli Fotoğraflar"
 
 #: src/Resources.vala:225
 msgid "Filter Photos"
-msgstr ""
+msgstr "Filtreli Fotoğraflar"
 
 #: src/Resources.vala:226
 msgid "Limit the number of photos displayed based on a filter"
-msgstr ""
+msgstr "Fotoğrafları sınırlı sayıda filtreye dayalı görüntüle"
 
 #: src/Resources.vala:228
 msgid "_Duplicate"
@@ -751,7 +752,7 @@ msgstr "Diske aktar"
 
 #: src/Resources.vala:235
 msgid "_Print..."
-msgstr ""
+msgstr "_Baskı..."
 
 #: src/Resources.vala:236 src/direct/DirectPhotoPage.vala:72
 msgid "Print the photo to a printer connected to your computer"
@@ -759,19 +760,19 @@ msgstr "Bigisayarınıza bağlı bir yazıcı ile fotoğrafı bastırın"
 
 #: src/Resources.vala:238
 msgid "Pu_blish..."
-msgstr "Ya_yımla..."
+msgstr "Ya_yınla..."
 
 #: src/Resources.vala:239
 msgid "Publish"
-msgstr "Yayımla"
+msgstr "Yayınla"
 
 #: src/Resources.vala:240
 msgid "Publish to various websites"
-msgstr "Çeşitli web sitelerinde yayımla"
+msgstr "Çeşitli web sitelerinde yayınla"
 
 #: src/Resources.vala:242
 msgid "E_dit Title..."
-msgstr ""
+msgstr "Başlık Dü_zenle..."
 
 #: src/Resources.vala:243 src/Dialogs.vala:883
 msgid "Edit Title"
@@ -779,7 +780,7 @@ msgstr "Başlık Düzenle"
 
 #: src/Resources.vala:244
 msgid "Edit title of the selected photo"
-msgstr ""
+msgstr "Seçilen fotoğraf başlığını düzenle"
 
 #: src/Resources.vala:246
 msgid "_Adjust Date and Time..."
@@ -831,11 +832,11 @@ msgstr "Seçili fotoğrafı bir RAW görüntü düzenleyicisiyle aç"
 
 #: src/Resources.vala:263
 msgid "Send _To..."
-msgstr ""
+msgstr "Gön _der..."
 
 #: src/Resources.vala:264
 msgid "Send photos by mail or instant message"
-msgstr ""
+msgstr "Posta veya anlık ileti ile fotoğraf gönder"
 
 #: src/Resources.vala:266
 msgid "_Find..."
@@ -851,7 +852,7 @@ msgstr ""
 
 #: src/Resources.vala:270
 msgid "_Flag"
-msgstr ""
+msgstr "_Bayrak"
 
 #: src/Resources.vala:271
 msgid "Flag the photos to work with them together"
@@ -1428,7 +1429,7 @@ msgstr "Öğeler:"
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
-msgstr[0] ""
+msgstr[0] "%d Olaylar"
 
 #: src/Properties.vala:296 src/EventsDirectoryPage.vala:73
 #, c-format
@@ -1440,7 +1441,7 @@ msgstr[0] ""
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
-msgstr[0] ""
+msgstr[0] "%d videolar"
 
 #: src/Properties.vala:320
 msgid "Date:"
@@ -1464,12 +1465,12 @@ msgstr "Boyut:"
 
 #: src/Properties.vala:347
 msgid "Duration:"
-msgstr ""
+msgstr "Süre:"
 
 #: src/Properties.vala:347
 #, c-format
 msgid "%.1f seconds"
-msgstr ""
+msgstr "%.1f saniye"
 
 #: src/Properties.vala:371 src/Properties.vala:375 src/Properties.vala:382
 #: src/EditingTools.vala:2077
@@ -1813,7 +1814,7 @@ msgstr "Nautilus Send-To başlatılamadı: %s"
 
 #: src/DesktopIntegration.vala:126
 msgid "Send To"
-msgstr ""
+msgstr "Gönder"
 
 #: src/DesktopIntegration.vala:169
 #, c-format
@@ -1915,7 +1916,7 @@ msgstr "_Yeni bir albüm adlandırıldı"
 
 #: src/PiwigoConnector.vala:801
 msgid "Who can see those pictures ?"
-msgstr ""
+msgstr "Kim o resimleri görebilirsiniz?"
 
 #: src/PiwigoConnector.vala:828
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1657
@@ -1941,19 +1942,19 @@ msgstr "Herkes"
 
 #: src/PiwigoConnector.vala:904
 msgid "Admins, Friends, Family, Contacts"
-msgstr ""
+msgstr "Yöneticiler, Arkadaşlar, Aile, Rehber"
 
 #: src/PiwigoConnector.vala:905
 msgid "Admins, Family, Friends"
-msgstr ""
+msgstr "Yöneticiler, Aile, Arkadaşlar"
 
 #: src/PiwigoConnector.vala:906
 msgid "Admins, Family"
-msgstr ""
+msgstr "Yöneticiler, Aile"
 
 #: src/PiwigoConnector.vala:907
 msgid "Admins"
-msgstr ""
+msgstr "Yöneticiler"
 
 #: src/main.vala:81
 #, c-format
@@ -2191,7 +2192,7 @@ msgstr ""
 
 #: src/Dialogs.vala:15
 msgid "Export Video"
-msgstr ""
+msgstr "Video Ihracatı"
 
 #: src/Dialogs.vala:41
 msgid "Export Photos"
@@ -2228,11 +2229,11 @@ msgstr "Devam _Et"
 
 #: src/Dialogs.vala:101
 msgid "Unmodified"
-msgstr ""
+msgstr "Değiştirilmemiş"
 
 #: src/Dialogs.vala:102
 msgid "Current"
-msgstr ""
+msgstr "Mevcut"
 
 #: src/Dialogs.vala:166
 msgid "_Format:"
@@ -2390,7 +2391,7 @@ msgstr[0] ""
 
 #: src/Dialogs.vala:617
 msgid "No photos or videos imported.\n"
-msgstr ""
+msgstr "Alınan resim ve videolar yok.\n"
 
 #: src/Dialogs.vala:632
 msgid "Import Complete"
@@ -2456,7 +2457,7 @@ msgstr[0] ""
 
 #: src/Dialogs.vala:968
 msgid "_Remove"
-msgstr ""
+msgstr "_Kaldır"
 
 #: src/Dialogs.vala:969
 msgid "Remove Photo From Library"
@@ -2538,22 +2539,22 @@ msgstr ""
 #: src/Dialogs.vala:1377
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
+msgstr[0] "gün"
 
 #: src/Dialogs.vala:1378
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] ""
+msgstr[0] "saat"
 
 #: src/Dialogs.vala:1379
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] ""
+msgstr[0] "dakika"
 
 #: src/Dialogs.vala:1380
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] ""
+msgstr[0] "saniye"
 
 #: src/Dialogs.vala:1424
 #, c-format

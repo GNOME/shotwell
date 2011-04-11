@@ -5,10 +5,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.9.1+branch\n"
+"Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-03-03 11:49-0800\n"
-"PO-Revision-Date: 2011-04-01 02:02+0000\n"
+"PO-Revision-Date: 2011-04-07 01:00+0000\n"
 "Last-Translator: Praveen_Illa <mail2ipn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,29 +24,29 @@ msgstr ""
 #: plugins/shotwell-publishing/YouTubePublishing.vala:23
 #: plugins/shotwell-publishing/FlickrPublishing.vala:23
 msgid "translator-credits"
-msgstr "అనువాదకుడి-పరపతులు"
+msgstr "Praveen Illa <mail2ipn@gmail.com>, 2011."
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "షాట్‌వెల్ ఫొటో నిర్వాహకి"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
-msgstr ""
+msgstr "ఫొటో నిర్వాహకి"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "మీ ఫొటోలను నిర్వహించండి"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "షాట్‌వెల్ ఫొటో వీక్షకం"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
-msgstr ""
+msgstr "ఫొటో వీక్షకం"
 
 #: src/LastImportPage.vala:17
 msgid "Last Import"
@@ -54,7 +54,7 @@ msgstr ""
 
 #: src/AppWindow.vala:57
 msgid "Pin Toolbar"
-msgstr ""
+msgstr "సాధనపట్టీని తగిలించు"
 
 #: src/AppWindow.vala:58
 msgid "Pin the toolbar open"
@@ -62,11 +62,11 @@ msgstr ""
 
 #: src/AppWindow.vala:61 src/AppWindow.vala:139
 msgid "Leave fullscreen"
-msgstr ""
+msgstr "పూర్తి తెరను వదిలిపెట్టు"
 
 #: src/AppWindow.vala:138
 msgid "Leave _Fullscreen"
-msgstr ""
+msgstr "పూర్తి తెరను వదిలిపెట్టు(_F)"
 
 #: src/AppWindow.vala:490
 msgid "_Quit"
@@ -74,7 +74,7 @@ msgstr "నిష్క్రమించు(_Q)"
 
 #: src/AppWindow.vala:491
 msgid "Quit Shotwell"
-msgstr ""
+msgstr "షాట్‌వెల్ నిష్క్రమించాలా"
 
 #: src/AppWindow.vala:496
 msgid "_About"
@@ -90,15 +90,15 @@ msgstr "పూర్తితెర(_c)"
 
 #: src/AppWindow.vala:503
 msgid "Use Shotwell at fullscreen"
-msgstr ""
+msgstr "షాట్‌వెల్‌ను పూర్తితెర వద్దవాడు"
 
 #: src/AppWindow.vala:508
 msgid "_Contents"
-msgstr ""
+msgstr "విషయసూచిక(_C)"
 
 #: src/AppWindow.vala:509
 msgid "More information on Shotwell"
-msgstr ""
+msgstr "షాట్‌వెల్ గురించిన మరింత సమాచారం"
 
 #: src/AppWindow.vala:514
 msgid "_Frequently Asked Questions"
@@ -121,6 +121,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"షాట్‌వెల్ లైబ్రరీని వాడటానికి ప్రయత్నిస్తున్నపుడు ఒక ఫేటల్ దోషం సంభవించింది.  షాట్‌వెల్ ఇక కొనసాగించలేదు.\n"
+"\n"
+"%s"
 
 #: src/AppWindow.vala:666
 #: plugins/shotwell-transitions/shotwell-transitions.vala:81
@@ -129,12 +132,12 @@ msgstr ""
 #: plugins/shotwell-publishing/YouTubePublishing.vala:25
 #: plugins/shotwell-publishing/FlickrPublishing.vala:25
 msgid "Visit the Yorba web site"
-msgstr ""
+msgstr "యోర్బ వెబ్‌సైటును సందర్శించండి"
 
 #: src/AppWindow.vala:678
 #, c-format
 msgid "Unable to display help: %s"
-msgstr ""
+msgstr "సహాయాన్ని చూపలేకపోతుంది: %s"
 
 #: src/AppWindow.vala:686
 #, c-format
@@ -2159,27 +2162,27 @@ msgstr[1] ""
 
 #: src/CollectionPage.vala:529 src/CollectionPage.vala:544
 msgid "Rotating"
-msgstr ""
+msgstr "తిప్పబడుతోంది"
 
 #: src/CollectionPage.vala:529 src/CollectionPage.vala:544
 msgid "Undoing Rotate"
-msgstr ""
+msgstr "తిప్పినదానిని రద్దుచేస్తోంది"
 
 #: src/CollectionPage.vala:553
 msgid "Flipping Horizontally"
-msgstr ""
+msgstr "అడ్డముగా తిప్పబడుతోంది"
 
 #: src/CollectionPage.vala:554
 msgid "Undoing Flip Horizontally"
-msgstr ""
+msgstr "అడ్డంగా తిప్పినదానిని రద్దుచేయి"
 
 #: src/CollectionPage.vala:563
 msgid "Flipping Vertically"
-msgstr ""
+msgstr "నిలువుగా తిప్పబడుతోంది"
 
 #: src/CollectionPage.vala:564
 msgid "Undoing Flip Vertically"
-msgstr ""
+msgstr "నిలువుగా తిప్పినదానిని రద్దుచేయి"
 
 #: src/CollectionPage.vala:716
 msgid "Library"
