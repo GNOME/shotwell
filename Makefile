@@ -568,15 +568,15 @@ ifdef INSTALL_HEADERS
 endif
 
 $(PC_FILE): $(PC_INPUT) $(MAKE_FILES)
-	m4 '--define=_VERSION_=$(VERSION)' '--define=_PREFIX_=$(PREFIX)' '--define=_REQUIREMENTS_=$(PLUGIN_PKG_REQS)' \
-		'--define=_LIB_=$(LIB)' $< > $@
+	m4 '-D_VERSION_=$(VERSION)' '-D_PREFIX_=$(PREFIX)' '-D_REQUIREMENTS_=$(PLUGIN_PKG_REQS)' \
+		'-D_LIB_=$(LIB)' $< > $@
 
 $(UNITIZE_STAMP): $(MAKE_FILES) src/unit/rc/UnitInternals.m4 src/unit/rc/unitize_entry.m4
 	@mkdir -p $(UNITIZE_DIR)
 	@$(foreach group,$(APP_GROUPS),\
 		`m4 '--define=_APP_GROUP_=$(group)' '--define=_UNIT_ENTRY_POINTS_=$(foreach nm,$($(group)_UNITS),$(nm).init_entry,)' '--define=_UNIT_TERMINATE_POINTS_=$(foreach nm,$($(group)_UNITS),$(nm).terminate_entry,)' src/unit/rc/unitize_entry.m4 > $(UNITIZE_DIR)/_$(group)_unitize_entry.vala`)
 	@$(foreach nm,$(UNIT_NAMESPACES),\
-		`m4 '--define=_UNIT_NAME_=$(nm)' '--define=_UNIT_USES_INITS_=$($(nm)_USES_INITS)' '--define=_UNIT_USES_TERMINATORS_=$($(nm)_USES_TERMINATORS)' src/unit/rc/UnitInternals.m4 > $(UNITIZE_DIR)/_$(nm)Internals.vala`)
+		`m4 '-D_UNIT_NAME_=$(nm)' '-D_UNIT_USES_INITS_=$($(nm)_USES_INITS)' '-D_UNIT_USES_TERMINATORS_=$($(nm)_USES_TERMINATORS)' src/unit/rc/UnitInternals.m4 > $(UNITIZE_DIR)/_$(nm)Internals.vala`)
 	@touch $@
 
 $(UNITIZE_INITS) $(UNITIZE_ENTRIES): $(UNITIZE_STAMP)

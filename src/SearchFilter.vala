@@ -1104,8 +1104,12 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     
     // Forces an update of the search filter.
     public void update() {
-        if (null == search_filter) 
-            return;
+        if (null == search_filter) {
+            // Search bar isn't being shown, need to toggle it.
+            LibraryWindow.get_app().show_search_bar(true);
+        }
+        
+        assert(null != search_filter);
         
         search_filter.set_search_filter(actions.text.value);
         search_filter.flagged = actions.flagged.active;

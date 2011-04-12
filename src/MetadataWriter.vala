@@ -526,8 +526,6 @@ public class MetadataWriter : Object {
         if (wait)
             workers.wait_for_empty_queue();
         
-        pending.clear();
-        
         count_cancelled_work(int.MAX, true);
     }
     

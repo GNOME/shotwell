@@ -815,17 +815,19 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_display_searchbar(Gtk.Action action) {
+        show_search_bar(((Gtk.ToggleAction) action).get_active());
+    }
+    
+    public void show_search_bar(bool display) {
         if (!(get_current_page() is CheckerboardPage))
             return;
-        
-        bool display = ((Gtk.ToggleAction) action).get_active();
-        
+            
         is_search_toolbar_visible = display;
         toggle_search_bar(should_show_search_bar(), get_current_page() as CheckerboardPage);
         if (!display)
             search_actions.reset();
         
-        // Ticket #3222 - remember search bar status between sessions.
+        // Remember search bar status between sessions.
         Config.get_instance().set_search_bar_hidden(is_search_toolbar_visible);
     }
     
