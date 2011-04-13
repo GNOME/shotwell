@@ -131,7 +131,7 @@ public void init() throws Error {
         try {
             search_for_plugins(dir);
         } catch (Error err) {
-            warning("Unable to search directory %s for plugins: %s", dir.get_path(), err.message);
+            debug("Unable to search directory %s for plugins: %s", dir.get_path(), err.message);
         }
     }
 }
