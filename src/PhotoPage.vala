@@ -2569,7 +2569,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     protected override void update_actions(int selected_count, int count) {
-        bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
+        bool multiple = get_view().get_count() > 1;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
         bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
         
@@ -2671,7 +2671,7 @@ public class LibraryPhotoPage : EditingHostPage {
         if (photo == null)
             return;
         
-        AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, get_controller(),
+        AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, get_view(),
             photo));
     }
     

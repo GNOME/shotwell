@@ -342,7 +342,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     protected override void update_actions(int selected_count, int count) {
-        bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
+        bool multiple = get_view().get_count() > 1;
         bool revert_possible = has_photo() ? get_photo().has_transformations() 
             && !get_photo_missing() : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;

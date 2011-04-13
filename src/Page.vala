@@ -160,15 +160,6 @@ public abstract class Page : Gtk.ScrolledWindow {
         return view;
     }
     
-    // Usually when a controller is needed to iterate through a page's ViewCollection, the page's
-    // own ViewCollection is the right choice.  Some pages may keep their own ViewCollection but
-    // are actually referring to another ViewController for input (such as PhotoPage, whose own
-    // ViewCollection merely refers to what's currently on the page while it uses another 
-    // ViewController to flip through a collection of thumbnails).
-    public virtual ViewCollection get_controller() {
-        return view;
-    }
-    
     public Gtk.Window? get_container() {
         return container;
     }
