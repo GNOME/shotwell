@@ -1,3 +1,20 @@
+shotwell (0.9.2-1~maverick1) maverick; urgency=low
+
+  * Resolves translation issue where shotwell.mo is installed in wrong location
+  * Fixes issue where cancelling Flickr upload can crash Shotwell
+  * Fixes issue where creating a Picasa Web album with an ampersand in the name 
+    crashes Shotwell
+  * Resolves bug where selecting "Publish" in single photo mode publishes the 
+    entire library instead of the selected photo
+  * Async I/O in publishing operations is now stopped when the user cancels the 
+    operation
+  * Issue fixed on Fedora where the text was cut off in publishing dialog
+  * Fixes issue with ratings filter where it didn't function when the search bar
+    was hidden
+
+ -- Eric Gregory <eric@yorba.org>  Mon, 11 Feb 2011 15:00:00 -0800 
+
+
 shotwell (0.9.1-1~maverick1) maverick; urgency=low
 
   * Fixes many crashes and other issues in publishing plugins.
