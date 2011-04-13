@@ -1739,10 +1739,11 @@ public class PreferencesDialog {
         dir_choser_align.add(dir_pattern_combo);
         dir_pattern_entry = builder.get_object("dir_pattern_entry") as Gtk.Entry;
         dir_pattern_example = builder.get_object("dynamic example") as Gtk.Label;
-        add_to_dir_formats(_("Year" + Path.DIR_SEPARATOR_S + "Month" + Path.DIR_SEPARATOR_S + "Day"), 
+        add_to_dir_formats(_("Year%sMonth%sDay").printf(Path.DIR_SEPARATOR_S, Path.DIR_SEPARATOR_S), 
             "%Y" + Path.DIR_SEPARATOR_S + "%m" + Path.DIR_SEPARATOR_S + "%d");
-        add_to_dir_formats(_("Year" + Path.DIR_SEPARATOR_S + "Month"), "%Y" + Path.DIR_SEPARATOR_S + "%m");
-        add_to_dir_formats(_("Year" + Path.DIR_SEPARATOR_S + "Month-Day"), 
+        add_to_dir_formats(_("Year%sMonth").printf(Path.DIR_SEPARATOR_S), "%Y" +
+            Path.DIR_SEPARATOR_S + "%m");
+        add_to_dir_formats(_("Year%sMonth-Day").printf(Path.DIR_SEPARATOR_S), 
             "%Y" + Path.DIR_SEPARATOR_S + "%m-%d");
         add_to_dir_formats(_("Year-Month-Day"), "%Y-%m-%d");
         add_to_dir_formats(_("Custom"), null); // Custom must always be last.
