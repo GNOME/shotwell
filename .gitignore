@@ -1,0 +1,14 @@
+/build
+/src/.unitize
+/configure.mk
+shotwell
+/plugins/shotwell-plugin-dev-1.0.vapi
+*.c
+*.o
+*.so
+*.h
+*.mo
+*.deps
+*.stamp
+*.pc
+*.langstamp
