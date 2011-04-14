@@ -3894,7 +3894,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
         Gdk.Pixbuf pixbuf = get_thumbnail(ThumbnailCache.Size.BIG);
         
-        return scaling.perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
+        return scaling.perform_on_pixbuf(pixbuf, Gdk.InterpType.BILINEAR, true);
     }
     
     public override void rotate(Rotation rotation) {
