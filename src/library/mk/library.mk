@@ -42,7 +42,8 @@ UNIT_USES := \
 	Sidebar \
 	Events \
 	Tags \
-	Camera
+	Camera \
+	Searches
 
 # List any additional files that are used in the build process as a part of this unit that should
 # be packaged in the tarball.  File names should be relative to the unit's home directory.

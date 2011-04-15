@@ -12,6 +12,8 @@
             <menuitem name="SendTo" action="SendTo" />
             <placeholder name="SetBackgroundPlaceholder" />
             <separator />
+            <menuitem name="NewSearch" action="CommonNewSearch" />
+            <separator />
             <menuitem name="JumpToFile" action="CommonJumpToFile" />
             <separator />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />

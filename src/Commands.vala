@@ -1408,6 +1408,50 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
     }
 }
 
+public class RenameSavedSearchCommand : SingleDataSourceCommand {
+    private SavedSearch search;
+    private string old_name;
+    private string new_name;
+    
+    public RenameSavedSearchCommand(SavedSearch search, string new_name) {
+        base (search, Resources.rename_search_label(search.get_name(), new_name), 
+            Resources.rename_search_tooltip(search.get_name()));
+            
+        this.search = search;
+        old_name = search.get_name();
+        this.new_name = new_name;
+    }
+    
+    public override void execute() {
+        if (!search.rename(new_name))
+            AppWindow.error_message(Resources.rename_search_exists_message(new_name));
+    }
+
+    public override void undo() {
+        if (!search.rename(old_name))
+            AppWindow.error_message(Resources.rename_search_exists_message(old_name));
+    }
+}
+
+public class DeleteSavedSearchCommand : SingleDataSourceCommand {
+    private SavedSearch search;
+    
+    public DeleteSavedSearchCommand(SavedSearch search) {
+        base (search, Resources.delete_search_label(search.get_name()), 
+            Resources.delete_search_tooltip(search.get_name()));
+            
+        this.search = search;
+    }
+    
+    public override void execute() {
+        SavedSearchTable.get_instance().remove(search);
+    }
+
+    public override void undo() {
+        search.reconstitute();
+    }
+}
+
 public class TrashUntrashPhotosCommand : PageCommand {
     private Gee.Collection<MediaSource> sources;
     private bool to_trash;

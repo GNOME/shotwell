@@ -1,24 +1,20 @@
 
 # UNIT_NAME is the Vala namespace.  A file named UNIT_NAME.vala must be in this directory with
 # a init() and terminate() function declared in the namespace.
-UNIT_NAME := Db
+UNIT_NAME := Searches
 
 # UNIT_DIR should match the subdirectory the files are located in.  Generally UNIT_NAME in all
 # lowercase.  The name of this file should be UNIT_DIR.mk.
-UNIT_DIR := db
+UNIT_DIR := searches
 
 # All Vala files in the unit should be listed here with no subdirectory prefix.
 #
 # NOTE: Do *not* include the unit's master file, i.e. UNIT_NAME.vala.
 UNIT_FILES := \
-    DatabaseTable.vala \
-    PhotoTable.vala \
-    EventTable.vala \
-    TagTable.vala \
-    TombstoneTable.vala \
-    VideoTable.vala \
-    VersionTable.vala \
-    SavedSearchDBTable.vala
+	Branch.vala \
+	SearchBoolean.vala \
+	SavedSearchPage.vala \
+	SavedSearchDialog.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

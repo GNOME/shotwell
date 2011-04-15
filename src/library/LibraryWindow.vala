@@ -43,6 +43,7 @@ public class LibraryWindow : AppWindow {
         LAST_IMPORTED,
         CAMERAS,
         IMPORT_QUEUE,
+        SAVED_SEARCH,
         EVENTS,
         TAGS,
         TRASH,
@@ -148,6 +149,7 @@ public class LibraryWindow : AppWindow {
     private Library.LastImportBranch last_import_branch = new Library.LastImportBranch();
     private Library.ImportQueueBranch import_queue_branch = new Library.ImportQueueBranch();
     private Camera.Branch camera_branch = new Camera.Branch();
+    private Searches.Branch saved_search_branch = new Searches.Branch();
     
     private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
     
@@ -199,6 +201,7 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.graft(last_import_branch, SidebarRootPosition.LAST_IMPORTED);
         sidebar_tree.graft(import_queue_branch, SidebarRootPosition.IMPORT_QUEUE);
         sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
+        sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
         
         // create and connect extended properties window
         extended_properties = new ExtendedPropertiesWindow(this);
@@ -339,6 +342,10 @@ public class LibraryWindow : AppWindow {
         Gtk.ActionEntry filter_photos = { "CommonFilterPhotos", null, TRANSLATABLE, null, null, null };
         filter_photos.label = Resources.FILTER_PHOTOS_MENU;
         actions += filter_photos;
+        
+        Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, null, null, on_new_search };
+        new_search.label =  _("Ne_w Search...");
+        actions += new_search;
         
         return actions;
     }
@@ -502,6 +509,14 @@ public class LibraryWindow : AppWindow {
             sidebar_tree.rename_entry_in_place(entry);
         else
             debug("No event entry found for rename");
+    }
+    
+    public void rename_search_in_sidebar(SavedSearch search) {
+        Searches.SidebarEntry? entry = saved_search_branch.get_entry_for_saved_search(search);
+        if (entry != null)
+            sidebar_tree.rename_entry_in_place(entry);
+        else
+            debug("No search entry found for rename");
     }
     
     protected override void on_quit() {
@@ -671,6 +686,10 @@ public class LibraryWindow : AppWindow {
         remove_from_app(to_remove, _("Empty Trash"),  _("Emptying Trash..."));
         
         AppWindow.get_command_manager().reset();
+    }
+    
+    private void on_new_search() {
+        (new SavedSearchDialog()).show();
     }
     
     private bool can_jump_to_event() {
@@ -953,6 +972,12 @@ public class LibraryWindow : AppWindow {
     
     public void switch_to_tag(Tag tag) {
         Tags.SidebarEntry? entry = tags_branch.get_entry_for_tag(tag);
+        if (entry != null)
+            switch_to_page(entry.get_page());
+    }
+    
+    public void switch_to_saved_search(SavedSearch search) {
+        Searches.SidebarEntry? entry = saved_search_branch.get_entry_for_saved_search(search);
         if (entry != null)
             switch_to_page(entry.get_page());
     }

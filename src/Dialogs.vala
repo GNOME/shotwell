@@ -19,6 +19,14 @@ public bool confirm_delete_tag(Tag tag) {
         Resources.DELETE_TAG_TITLE);
 }
 
+public bool confirm_delete_saved_search(SavedSearch search) {
+    string msg = _("This will remove the saved search \"%s\".  Continue?")
+        .printf(search.get_name());
+    
+    return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
+        Resources.DELETE_SAVED_SEARCH_DIALOG_TITLE);
+}
+
 }
 
 namespace ExportUI {

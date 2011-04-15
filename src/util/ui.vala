@@ -114,3 +114,16 @@ public string build_dummy_ui_string(Gtk.ActionGroup[] groups) {
     return ui_string;
 }
 
+// Turns an existing combo box into the type of combo box you would
+// have gotten had you used the .text() constructor.  This is useful
+// for when you've created the combo box in Glade, but just want to use
+// it with append_text() like a normal person.
+void gtk_combo_box_set_as_text(Gtk.ComboBox combo_box) {
+    // All of this comes from gtk_combo_box_new_text() 
+    Gtk.CellRenderer cell = new Gtk.CellRendererText();
+    Gtk.ListStore store = new Gtk.ListStore(1, typeof(string));
+    combo_box.set_model(store);
+    combo_box.pack_start(cell, true);
+    combo_box.set_attributes(cell, "text", 0, null);
+}
+
