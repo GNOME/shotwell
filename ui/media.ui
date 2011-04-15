@@ -8,8 +8,6 @@
             <separator />
             <placeholder name="FileExtrasPlaceholder" />
             <separator />
-            <menuitem name="NewSearch" action="CommonNewSearch" />
-            <separator />
             <menuitem name="JumpToFile" action="CommonJumpToFile" />
             <separator />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
@@ -51,6 +49,8 @@
                 <menuitem name="DisplayRejectedOrHigher" action="CommonDisplayRejectedOrHigher" />
                 <menuitem name="DisplayRejectedOnly" action="CommonDisplayRejectedOnly" />
             </menu>
+            <separator />
+            <menuitem name="NewSearch" action="CommonNewSearch" />
             <separator />
             <menu name="SortPhotos" action="SortPhotos">
                 <menuitem name="SortByTitle" action="SortByTitle" />

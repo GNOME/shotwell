@@ -166,7 +166,7 @@ public class SearchConditionText : SearchCondition {
         this.context = context;
     }
     
-    // Match string by operator.
+    // Match string by context.
     private bool string_match(string needle, string? haystack) {
         switch (context) {
             case Context.CONTAINS:

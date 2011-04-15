@@ -41,6 +41,8 @@
                 <menuitem name="DisplayRejectedOnly" action="CommonDisplayRejectedOnly" />
             </menu>
             <separator />
+            <menuitem name="NewSearch" action="CommonNewSearch" />
+            <separator />
             <menu name="SortEvents" action="CommonSortEvents">
                 <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
                 <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
