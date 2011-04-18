@@ -44,7 +44,8 @@ public abstract class SearchCondition {
         TITLE,
         TAG,
         EVENT_NAME,
-        FILE_NAME;
+        FILE_NAME,
+        MEDIA_TYPE;
         
         public string to_string() {
             switch (this) {
@@ -62,6 +63,9 @@ public abstract class SearchCondition {
                 
                 case SearchType.FILE_NAME:
                     return "FILE_NAME";
+                
+                case SearchType.MEDIA_TYPE:
+                    return "MEDIA_TYPE";
                 
                 default:
                     error("unrecognized search type enumeration value");
@@ -83,6 +87,9 @@ public abstract class SearchCondition {
             
             else if (str == "FILE_NAME")
                 return SearchType.FILE_NAME;
+            
+            else if (str == "MEDIA_TYPE")
+                return SearchType.MEDIA_TYPE;
             
             else
                 error("unrecognized search type name: %s", str);
@@ -190,6 +197,7 @@ public class SearchConditionText : SearchCondition {
         
         return false;
     }
+    
     // Determines whether the source is included.
     public override bool predicate(MediaSource source) {
         bool ret = false;
@@ -220,6 +228,17 @@ public class SearchConditionText : SearchCondition {
         }
         
         return ret;
+    }
+}
+
+// Condition for media type matching.
+public class SearchConditionMediaType : SearchCondition {
+    public enum Context {
+    }
+    
+    // Determines whether the source is included.
+    public override bool predicate(MediaSource source) {
+        if 
     }
 }
 
