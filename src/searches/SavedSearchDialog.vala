@@ -26,7 +26,9 @@ public class SavedSearchDialog {
             type_combo.append_text(_("Tag"));
             type_combo.append_text(_("Event name"));
             type_combo.append_text(_("File name"));
+            type_combo.append_text(_("Media type"));
             type_combo.set_active(starting_type); // Sets default.
+            type_combo.changed.connect(on_type_changed);
             // TODO: set listener
             
             remove_button = new Gtk.Button();
@@ -38,14 +40,19 @@ public class SavedSearchDialog {
             box = new Gtk.HBox(false, 8);
             box.pack_start(type_combo, false, false, 0);
             box.pack_start(align, false, false, 0);
+            box.pack_start(new Gtk.Alignment(0,0,0,0), true, true, 0); // Fill space.
             box.pack_start(remove_button, false, false, 0);
             box.show_all();
             
             set_type(SearchCondition.SearchType.ANY_TEXT);
         }
         
+        private void on_type_changed() {
+            set_type(get_search_type());
+        }
+        
         private void set_type(SearchCondition.SearchType type) {
-            // TODO
+            debug("set type");
             if (my_row != null)
                 align.remove(my_row.get_widget());
             
@@ -58,6 +65,12 @@ public class SavedSearchDialog {
                     my_row = new SearchRowText(this);
                     align.add(my_row.get_widget());
                     break;
+                    
+                case SearchCondition.SearchType.MEDIA_TYPE:
+                    my_row = new SearchRowMediaType(this);
+                    align.add(my_row.get_widget());
+                    break;
+                    
                 default:
                     assert(false);
                     break;
@@ -102,7 +115,7 @@ public class SavedSearchDialog {
         public SearchRowText(SearchRowContainer parent) {
             this.parent = parent;
             
-            // Ordering must correspond with SearchConditionText.Operator
+            // Ordering must correspond with SearchConditionText.Context
             text_context = new Gtk.ComboBox.text();
             text_context.append_text(_("contains"));
             text_context.append_text(_("is exactly"));
@@ -133,7 +146,49 @@ public class SavedSearchDialog {
             return c;
         }
     }
-
+    
+    private class SearchRowMediaType : SearchRow {
+        private Gtk.HBox box;
+        private Gtk.ComboBox media_context;
+        private Gtk.ComboBox media_type;
+        
+        private SearchRowContainer parent;
+        
+        public SearchRowMediaType(SearchRowContainer parent) {
+            this.parent = parent;
+            
+            // Ordering must correspond with SearchConditionMediaType.Context
+            media_context = new Gtk.ComboBox.text();
+            media_context.append_text(_("is"));
+            media_context.append_text(_("is not"));
+            media_context.set_active(0);
+            
+            // Ordering must correspond with SearchConditionMediaType.MediaType
+            media_type = new Gtk.ComboBox.text();
+            media_type.append_text(_("any photo"));
+            media_type.append_text(_("a raw photo"));
+            media_type.append_text(_("a video"));
+            media_type.set_active(0);
+            
+            box = new Gtk.HBox(false, 8);
+            box.pack_start(media_context, false, false, 0);
+            box.pack_start(media_type, false, false, 0);
+            box.show_all();
+        }
+        
+        public override Gtk.Widget get_widget() {
+            return box;
+        }
+        
+        public override SearchCondition get_search_condition() {
+            SearchCondition.SearchType search_type = parent.get_search_type();
+            SearchConditionMediaType.Context context = (SearchConditionMediaType.Context) media_context.get_active();
+            SearchConditionMediaType.MediaType type = (SearchConditionMediaType.MediaType) media_type.get_active();
+            SearchConditionMediaType c = new SearchConditionMediaType(search_type, context, type);
+            return c;
+        }
+    }
+    
     private Gtk.Builder builder;
     private Gtk.Dialog dialog;
     private Gtk.Button add_criteria;

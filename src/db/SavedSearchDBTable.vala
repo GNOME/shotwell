@@ -63,14 +63,35 @@ public class SavedSearchDBTable : DatabaseTable {
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
         
-        // Index on search text table.
         res = stmt.step();
         if (res != Sqlite.DONE)
             fatal("create SavedSearchDBTable_Text", res);
         
+        // Create search media type table.
+        res = db.prepare_v2("CREATE TABLE IF NOT EXISTS "
+            + "SavedSearchDBTable_MediaType "
+            + "("
+            + "id INTEGER PRIMARY KEY, "
+            + "search_id INTEGER NOT NULL, "
+            + "search_type TEXT NOT NULL, "
+            + "context TEXT NOT NULL, "
+            + "type TEXT NOT_NULL"
+            + ")", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("create SavedSearchDBTable_MediaType", res);
+        
+        // Create indexes.
         res = db.prepare_v2("CREATE INDEX IF NOT EXISTS "
             + "SavedSearchDBTable_Text_Index "
             + "ON SavedSearchDBTable_Text(search_id)", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = db.prepare_v2("CREATE INDEX IF NOT EXISTS "
+            + "SavedSearchDBTable_MediaType_Index "
+            + "ON SavedSearchDBTable_MediaType(search_id)", -1, out stmt);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -137,7 +158,30 @@ public class SavedSearchDBTable : DatabaseTable {
             
             res = stmt.step();
             if (res != Sqlite.DONE)
-                throw_error("SavedSearchDBTable.add", res);
+                throw_error("SavedSearchDBTable_Text.add", res);
+        } else if (condition is SearchConditionMediaType) {
+            SearchConditionMediaType media_type = condition as SearchConditionMediaType;
+            Sqlite.Statement stmt;
+            int res = db.prepare_v2("INSERT INTO SavedSearchDBTable_MediaType (search_id, search_type, context, "
+                + "type) VALUES (?, ?, ?, ?)", -1,
+                out stmt);
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_int64(1, id.id);
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_text(2, media_type.search_type.to_string());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_text(3, media_type.context.to_string());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_text(4, media_type.media_type.to_string());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.step();
+            if (res != Sqlite.DONE)
+                throw_error("SavedSearchDBTable_MediaType.add", res);
         } else {
             // Should never get here.
             assert(false);
@@ -167,10 +211,11 @@ public class SavedSearchDBTable : DatabaseTable {
     private Gee.List<SearchCondition> get_conditions_for_id(SavedSearchID search_id)
         throws DatabaseError {
         Gee.List<SearchCondition> list = new Gee.ArrayList<SearchCondition>();
+        Sqlite.Statement stmt;
+        int res;
         
         // Get all text conditions.
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT search_type, context, text FROM SavedSearchDBTable_Text "
+        res = db.prepare_v2("SELECT search_type, context, text FROM SavedSearchDBTable_Text "
             + "WHERE search_id=?",
             -1, out stmt);
         assert(res == Sqlite.OK);
@@ -189,6 +234,30 @@ public class SavedSearchDBTable : DatabaseTable {
                 SearchCondition.SearchType.from_string(stmt.column_text(0)), 
                 stmt.column_text(2), 
                 SearchConditionText.Context.from_string(stmt.column_text(1)));
+            
+            list.add(condition);
+        }
+        
+        // Get all media type conditions.
+        res = db.prepare_v2("SELECT search_type, context, type FROM SavedSearchDBTable_MediaType "
+            + "WHERE search_id=?",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, search_id.id);
+        assert(res == Sqlite.OK);
+        
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE)
+                break;
+            else if (res != Sqlite.ROW)
+                throw_error("SavedSearchDBTable_MediaType.get_all_rows", res);
+            
+            SearchConditionMediaType condition = new SearchConditionMediaType(
+                SearchCondition.SearchType.from_string(stmt.column_text(0)), 
+                SearchConditionMediaType.Context.from_string(stmt.column_text(1)),
+                SearchConditionMediaType.MediaType.from_string(stmt.column_text(2)));
             
             list.add(condition);
         }
