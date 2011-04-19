@@ -73,6 +73,7 @@ public class MimicManager : Object {
         
         sources.items_added.connect(on_photos_added);
         sources.item_destroyed.connect(on_photo_destroyed);
+        sources.unlinked_destroyed.connect(on_photo_destroyed);
         
         Application.get_instance().exiting.connect(on_application_exiting);
     }
@@ -80,6 +81,7 @@ public class MimicManager : Object {
     ~MimicManager() {
         sources.items_added.disconnect(on_photos_added);
         sources.item_destroyed.disconnect(on_photo_destroyed);
+        sources.unlinked_destroyed.disconnect(on_photo_destroyed);
         
         Application.get_instance().exiting.disconnect(on_application_exiting);
     }

@@ -4,6 +4,78 @@
  * See the COPYING file in this distribution. 
  */
 
+public errordomain ConfigurationError {
+    SCHEMA_NOT_AVAILABLE,
+    KEY_NOT_WRITEABLE,
+    KEY_NOT_AVAILABLE
+}
+
+private class GSettingsAdapter {
+    public static string DESKTOP_BACKGROUND_SCHEMA_NAME = "org.gnome.desktop.background";
+    public static string DESKTOP_BACKGROUND_URI_KEY_NAME = "picture-uri";
+    public static string DESKTOP_BACKGROUND_MODE_KEY_NAME = "picture-options";
+
+    private static GSettingsAdapter instance = null;
+
+    private Gee.Set<string> available_schemas;
+    
+    private GSettingsAdapter() {
+        this.available_schemas = new Gee.HashSet<string>();
+
+        foreach (string current_schema in Settings.list_schemas())
+            available_schemas.add(current_schema);
+    }
+    
+    public static GSettingsAdapter get_instance() {
+        if (instance == null)
+            instance = new GSettingsAdapter();
+
+        return instance;
+    }
+    
+    public bool is_schema_available(string schema_name) {
+        return available_schemas.contains(schema_name);
+    }
+    
+    public bool does_schema_have_key(string schema, string key) throws ConfigurationError {
+        if (!is_schema_available(schema))
+            throw new ConfigurationError.SCHEMA_NOT_AVAILABLE("schema '%s' is not available".printf(
+                schema));
+        
+        Settings settings = new Settings(schema);
+        
+        foreach(string current_key in settings.list_keys())
+            if (current_key == key)
+                return true;
+
+        return false;
+    }
+    
+    public void set_string(string schema, string key, string value) throws ConfigurationError {
+        if (!is_schema_available(schema))
+            throw new ConfigurationError.SCHEMA_NOT_AVAILABLE("schema '%s' is not available".printf(
+                schema));
+
+        Settings settings = new Settings(schema);
+        
+
+        bool success = settings.set_string(key, value);
+        if (!success)
+            throw new ConfigurationError.KEY_NOT_WRITEABLE("key '%s' is not writeable".printf(
+                key));
+    }
+    
+    public string get_string(string schema, string key) throws ConfigurationError {
+        if (!does_schema_have_key(schema, key))
+            throw new ConfigurationError.KEY_NOT_AVAILABLE(("key '%s' in schema '%s' is not " +
+                "available").printf(key, schema));
+
+        Settings settings = new Settings(schema);       
+
+        return settings.get_string(key);
+    }
+}
+
 public class Config {
     public const string PATH_SHOTWELL = "/apps/shotwell";
     public const string PATH_SHOTWELL_PREFS = PATH_SHOTWELL + "/preferences";
@@ -46,6 +118,7 @@ public class Config {
     private static Config instance = null;
     
     private GConf.Client client;
+    private GSettingsAdapter gsettings;
     private Gee.Map<string, bool> bool_defaults = new Gee.HashMap<string, bool>();
     
     public signal void colors_changed();
@@ -59,6 +132,8 @@ public class Config {
     private Config() {
         client = GConf.Client.get_default();
         assert(client != null);
+
+        gsettings = GSettingsAdapter.get_instance();
         
         // register values
         register_bool(BOOL_COMMIT_METADATA_TO_MASTERS, false);
@@ -672,10 +747,54 @@ public class Config {
     }
 
     public string get_background() {
+        // attempt to use GSettings instead of GConf if the appropriate GSettings
+        // schema is available
+        if (gsettings.is_schema_available(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME)) {
+            try {
+                // if the key we need doesn't exist, we can't do anything
+                if (!gsettings.does_schema_have_key(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME,
+                    GSettingsAdapter.DESKTOP_BACKGROUND_URI_KEY_NAME))
+                    return (string) null;
+
+                string background_uri = gsettings.get_string(
+                    GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME,
+                    GSettingsAdapter.DESKTOP_BACKGROUND_URI_KEY_NAME);
+
+                // the key could exist but just have a null value, so check for this so we
+                // don't segafault when we try to process the value
+                if (background_uri == null)
+                    return (string) null;
+
+                // GSettings gives us back a URI and what we need to return is a filename, so
+                // strip off the leading "file://" part of the URI to get a filename. This might
+                // seem brittle but let's face it, the file URI format is going to be around
+                // for a long, long time
+                return background_uri.substring(7, -1);
+            } catch (ConfigurationError err) {
+                warning("couldn't get desktop background URI via GSettings: " + err.message + ".");
+                return (string) null;
+            }
+        }
+
         return get_string("/desktop/gnome/background/picture_filename", null);
     }
 
     public bool set_background(string filename) {
+        // attempt to use GSettings instead of GConf if the appropriate GSettings
+        // schema is available
+        if (gsettings.is_schema_available(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME)) {
+            try {
+                gsettings.set_string(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME,
+                    GSettingsAdapter.DESKTOP_BACKGROUND_URI_KEY_NAME, "file://" + filename);
+                gsettings.set_string(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME,
+                    GSettingsAdapter.DESKTOP_BACKGROUND_MODE_KEY_NAME, "zoom");
+            } catch (ConfigurationError err) {
+                warning("couldn't set desktop background URI via GSettings: " + err.message + ".");
+                return false;
+            }
+            return true;
+        }
+
         if (!set_string("/desktop/gnome/background/picture_options", "zoom"))
             return false;
         return set_string("/desktop/gnome/background/picture_filename", filename);
