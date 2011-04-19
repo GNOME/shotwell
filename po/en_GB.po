@@ -2491,8 +2491,8 @@ msgstr "Name:"
 #: src/Dialogs.vala:895
 msgid "_Trash File"
 msgid_plural "_Trash Files"
-msgstr[0] "Was_tebasket File"
-msgstr[1] "Was_tebasket Files"
+msgstr[0] "_Move File"
+msgstr[1] "_Move Files"
 
 #: src/Dialogs.vala:899
 msgid "Only _Remove"
