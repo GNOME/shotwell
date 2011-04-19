@@ -29,7 +29,6 @@ public class SavedSearchDialog {
             type_combo.append_text(_("Media type"));
             type_combo.set_active(starting_type); // Sets default.
             type_combo.changed.connect(on_type_changed);
-            // TODO: set listener
             
             remove_button = new Gtk.Button();
             remove_button.set_label(" - ");
@@ -52,7 +51,6 @@ public class SavedSearchDialog {
         }
         
         private void set_type(SearchCondition.SearchType type) {
-            debug("set type");
             if (my_row != null)
                 align.remove(my_row.get_widget());
             
