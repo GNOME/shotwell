@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-04-19 13:19-0700\n"
-"PO-Revision-Date: 2011-04-20 01:40+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-04-20 13:13+0000\n"
+"Last-Translator: Tranzistors <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,37 +21,39 @@ msgstr ""
 # below if it's not already present
 #: src/AppWindow.vala:668 plugins/common/Resources.vala:28
 msgid "translator-credits"
-msgstr "Peteris Krisjanis <pecisk@gmail.com>"
+msgstr ""
+"Pēteris Krišjānis <pecisk@gmail.com>\n"
+"Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Shotwell fotogrāfiju pārvaldnieks"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
 msgid "Photo Manager"
-msgstr ""
+msgstr "Fotogrāfiju pārvaldnieks"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Organizē savas bildes"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Shotwell fotogrāfiju skatītājs"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
 msgid "Photo Viewer"
-msgstr ""
+msgstr "Fotogrāfiju skatītājs"
 
 #: src/AppWindow.vala:57
 msgid "Pin Toolbar"
-msgstr ""
+msgstr "Piefiksēt rīkjoslu"
 
 #: src/AppWindow.vala:58
 msgid "Pin the toolbar open"
-msgstr ""
+msgstr "Piefiksēt rīkjoslu atvērtu"
 
 #: src/AppWindow.vala:61 src/AppWindow.vala:139
 msgid "Leave fullscreen"
@@ -71,7 +73,7 @@ msgstr "Iziet no Shotwell"
 
 #: src/AppWindow.vala:481
 msgid "_About"
-msgstr "_Par"
+msgstr "P_ar"
 
 #: src/AppWindow.vala:482
 msgid "About Shotwell"
@@ -79,7 +81,7 @@ msgstr "Par Shotwell"
 
 #: src/AppWindow.vala:487
 msgid "Fulls_creen"
-msgstr ""
+msgstr "_Pilnekrāns"
 
 #: src/AppWindow.vala:488
 msgid "Use Shotwell at fullscreen"
@@ -95,17 +97,17 @@ msgstr "Vairāk informācijas par Shotwell"
 
 #: src/AppWindow.vala:499
 msgid "_Frequently Asked Questions"
-msgstr ""
+msgstr "_Biežāk uzdotie jautājumi"
 
 #: src/AppWindow.vala:500
 msgid "Answers to common questions about Shotwell"
-msgstr ""
+msgstr "Atbildes uz biežākajiem jautājumiem par Shotwell"
 
 #: src/AppWindow.vala:604 src/AppWindow.vala:618 src/AppWindow.vala:635
 #: src/WebConnectors.vala:988 src/Dialogs.vala:18 src/Dialogs.vala:26
 #: src/Dialogs.vala:1002 src/Dialogs.vala:1025
 msgid "_Cancel"
-msgstr "_Atsaukt"
+msgstr "At_celt"
 
 #: src/AppWindow.vala:645
 #, c-format
@@ -114,6 +116,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Gadījās fatāla kļūda, piekļūstot Shotwell bibliotēkām. Shotwell nevar turpināt.\n"
+"\n"
+"%s"
 
 #: src/AppWindow.vala:665 plugins/common/Resources.vala:9
 msgid "Visit the Yorba web site"
@@ -122,12 +127,12 @@ msgstr "Apmeklējiet Yorba tīmekļa vietni"
 #: src/AppWindow.vala:677
 #, c-format
 msgid "Unable to display help: %s"
-msgstr ""
+msgstr "Nevar parādīt palīdzību: %s"
 
 #: src/AppWindow.vala:685
 #, c-format
 msgid "Unable to display FAQ: %s"
-msgstr ""
+msgstr "Nevar parādīt BUJ: %s"
 
 #: src/SlideshowPage.vala:41 src/SlideshowPage.vala:221
 msgid "Settings"
@@ -135,7 +140,7 @@ msgstr "Iestatījumi"
 
 #: src/SlideshowPage.vala:43
 msgid "_Delay:"
-msgstr ""
+msgstr "Aizt_ure:"
 
 #: src/SlideshowPage.vala:45 src/SlideshowPage.vala:47
 msgid "seconds"
@@ -143,11 +148,11 @@ msgstr "sekundes"
 
 #: src/SlideshowPage.vala:63
 msgid "_Transition effect:"
-msgstr ""
+msgstr "Pārejas efek_ti:"
 
 #: src/SlideshowPage.vala:90
 msgid "Transition d_elay:"
-msgstr ""
+msgstr "Pār_ejas aizture:"
 
 #: src/SlideshowPage.vala:187
 msgid "Slideshow"
@@ -195,7 +200,7 @@ msgstr "Turpināt slīdrādi"
 
 #: src/Photo.vala:2747
 msgid "modified"
-msgstr ""
+msgstr "modificēts"
 
 #: src/Resources.vala:18
 #: plugins/shotwell-publishing/FacebookPublishing.vala:32
@@ -203,7 +208,7 @@ msgstr ""
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
 msgid "Copyright 2009-2011 Yorba Foundation"
-msgstr ""
+msgstr "Autortiesības 2009-2011 Yorba Foundation"
 
 #: src/Resources.vala:130
 msgid "Rotate _Right"
@@ -220,6 +225,7 @@ msgstr "Pagriezt pa labi"
 #: src/Resources.vala:133
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr ""
+"Pagriezt fotogrāfijas pa labi (piespiediet Ctrl, lai pagrieztu pa kreisi)"
 
 #: src/Resources.vala:135
 msgid "Rotate _Left"
@@ -235,27 +241,27 @@ msgstr "Pagriezt fotogrāfijas pa kreisi"
 
 #: src/Resources.vala:140
 msgid "Flip Hori_zontally"
-msgstr ""
+msgstr "Apmest hori_zontāli"
 
 #: src/Resources.vala:141
 msgid "Flip Horizontally"
-msgstr ""
+msgstr "Apmest horizontāli"
 
 #: src/Resources.vala:142
 msgid "Flip the photos horizontally"
-msgstr ""
+msgstr "Apmest fotogrāfijas horizontāli"
 
 #: src/Resources.vala:144
 msgid "Flip Verti_cally"
-msgstr ""
+msgstr "Apmest verti_kāli"
 
 #: src/Resources.vala:145
 msgid "Flip Vertically"
-msgstr ""
+msgstr "Apmest vertikāli"
 
 #: src/Resources.vala:146
 msgid "Flip the photos vertically"
-msgstr ""
+msgstr "Apmest fotogrāfijas vertikāli"
 
 #: src/Resources.vala:148
 msgid "_Enhance"
@@ -271,19 +277,19 @@ msgstr "Automātiski uzlabot fotogrāfijas izskatu"
 
 #: src/Resources.vala:152
 msgid "_Crop"
-msgstr ""
+msgstr "Ap_cirst"
 
 #: src/Resources.vala:153
 msgid "Crop"
-msgstr "Apcirpt"
+msgstr "Apcirst"
 
 #: src/Resources.vala:154
 msgid "Crop the photo's size"
-msgstr "Apcirpt fotogrāfijas izmēru"
+msgstr "Apcirst fotogrāfijas izmēru"
 
 #: src/Resources.vala:156
 msgid "_Red-eye"
-msgstr ""
+msgstr "Sa_rkanās acis"
 
 #: src/Resources.vala:157
 msgid "Red-eye"
@@ -295,7 +301,7 @@ msgstr "Samazināt vai likvidēt sarkano acu efektu fotogrāfijā"
 
 #: src/Resources.vala:160
 msgid "_Adjust"
-msgstr ""
+msgstr "Pielāg_ot"
 
 #: src/Resources.vala:161
 msgid "Adjust"
@@ -319,23 +325,23 @@ msgstr "Atgriezties pie oriģinālās fotogrāfijas"
 
 #: src/Resources.vala:168
 msgid "Revert External E_dits"
-msgstr ""
+msgstr "At_griezt ārējās izmaiņas"
 
 #: src/Resources.vala:169
 msgid "Revert to the master photo"
-msgstr ""
+msgstr "Atgriezt uz sākotnējo fotogrāfiju"
 
 #: src/Resources.vala:171
 msgid "Set as _Desktop Background"
-msgstr ""
+msgstr "Iestatīt kā _darbvirsmas fonu"
 
 #: src/Resources.vala:172
 msgid "Set selected image to be the new desktop background"
-msgstr ""
+msgstr "Iestatīt izvēlētos attēlus kā jaunos darbvirsmas fonus"
 
 #: src/Resources.vala:173
 msgid "Set as _Desktop Slideshow..."
-msgstr ""
+msgstr "Iestatīt kā _darbvirsmas slīdrādi..."
 
 #: src/Resources.vala:175
 msgid "_Undo"
@@ -351,15 +357,15 @@ msgstr "Atsaukt pēdējo darbību"
 
 #: src/Resources.vala:179
 msgid "_Redo"
-msgstr "Atkā_rtot"
+msgstr "Ata_tsaukt"
 
 #: src/Resources.vala:180
 msgid "Redo"
-msgstr "Atkārtot"
+msgstr "Atatsaukt"
 
 #: src/Resources.vala:181
 msgid "Redo the last undone action"
-msgstr "Atkārtot pēdējo atsaukto darbību"
+msgstr "Atcelt darbības atsaukšanu"
 
 #: src/Resources.vala:183
 msgid "Re_name Event..."
@@ -383,11 +389,11 @@ msgstr "Izvēlēties kā atslēgas fotogrāfiju notikumam"
 
 #: src/Resources.vala:189
 msgid "Make the selected photo the thumbnail for the event"
-msgstr "Padarīt izvēlēto fotogrāfiju par sīkattēlu notikumam"
+msgstr "Padarīt izvēlēto fotogrāfiju par sīktēlu notikumam"
 
 #: src/Resources.vala:191
 msgid "_New Event"
-msgstr "_Jauns notikums"
+msgstr "Jau_ns notikums"
 
 #: src/Resources.vala:192
 msgid "New Event"
@@ -407,7 +413,7 @@ msgstr "Pārvietot fotogrāfijas uz notikumu"
 
 #: src/Resources.vala:198
 msgid "_Merge Events"
-msgstr "_Apvienot notikumus"
+msgstr "Apvienot notiku_mus"
 
 #: src/Resources.vala:199
 msgid "Merge"
@@ -419,119 +425,119 @@ msgstr "Apvienot vienā notikumā"
 
 #: src/Resources.vala:202
 msgid "_Set Rating"
-msgstr ""
+msgstr "Ie_statīt vērtējumu"
 
 #: src/Resources.vala:203
 msgid "Set Rating"
-msgstr ""
+msgstr "Iestatīt vērtējumu"
 
 #: src/Resources.vala:204
 msgid "Change the rating of your photo"
-msgstr ""
+msgstr "Mainīt savas fotogrāfijas vērtējumu"
 
 #: src/Resources.vala:206
 msgid "_Increase"
-msgstr ""
+msgstr "Pal_ielināt"
 
 #: src/Resources.vala:207
 msgid "Increase Rating"
-msgstr ""
+msgstr "Palielināt vērtējumu"
 
 #: src/Resources.vala:208
 msgid "Increase the rating of your photo"
-msgstr ""
+msgstr "Palielināt savas fotogrāfijas vērtējumu"
 
 #: src/Resources.vala:210
 msgid "_Decrease"
-msgstr ""
+msgstr "_Samazināt"
 
 #: src/Resources.vala:211
 msgid "Decrease Rating"
-msgstr ""
+msgstr "Samazināt vērtējumu"
 
 #: src/Resources.vala:212
 msgid "Decrease the rating of your photo"
-msgstr ""
+msgstr "Samazināt savas fotogrāfijas vērtējumu"
 
 #: src/Resources.vala:214
 msgid "_Unrated"
-msgstr ""
+msgstr "_Nenovērtētas"
 
 #: src/Resources.vala:215
 msgid "Rate Unrated"
-msgstr ""
+msgstr "Vērtējums nenovērtēts"
 
 #: src/Resources.vala:216
 msgid "Setting as unrated"
-msgstr ""
+msgstr "Iestata kā nevērtētu"
 
 #: src/Resources.vala:217
 msgid "Remove any ratings"
-msgstr ""
+msgstr "Noņem jebkuru vērtējumu"
 
 #: src/Resources.vala:219
 msgid "_Rejected"
-msgstr ""
+msgstr "_Noraidīts"
 
 #: src/Resources.vala:220
 msgid "Rate Rejected"
-msgstr ""
+msgstr "Vērtējums noraidīts"
 
 #: src/Resources.vala:221
 msgid "Setting as rejected"
-msgstr ""
+msgstr "Iestata kā noraidītu"
 
 #: src/Resources.vala:222
 msgid "Set rating to rejected"
-msgstr ""
+msgstr "Iestatīt vērtējumu uz 'noraidīts'"
 
 #: src/Resources.vala:224
 msgid "Rejected _Only"
-msgstr ""
+msgstr "Tikai n_oraidītās"
 
 #: src/Resources.vala:225
 msgid "Rejected Only"
-msgstr ""
+msgstr "Tikai noraidītās"
 
 #: src/Resources.vala:226
 msgid "Show only rejected photos"
-msgstr ""
+msgstr "Rādīt tikai noraidītās fotogrāfijas"
 
 #: src/Resources.vala:228
 msgid "All + _Rejected"
-msgstr ""
+msgstr "Visas un no_raidītās"
 
 #: src/Resources.vala:229 src/Resources.vala:230
 msgid "Show all photos, including rejected"
-msgstr ""
+msgstr "Rādīt visas fotogrāfijas, tai skaita noraidītās"
 
 #: src/Resources.vala:232
 msgid "_All Photos"
-msgstr ""
+msgstr "Vis_as fotogrāfijas"
 
 #: src/Resources.vala:233 src/Resources.vala:234
 msgid "Show all photos"
-msgstr ""
+msgstr "Rādīt visas fotogrāfijas"
 
 #: src/Resources.vala:236
 msgid "_Ratings"
-msgstr ""
+msgstr "Vē_rtējumi"
 
 #: src/Resources.vala:237
 msgid "Display each photo's rating"
-msgstr ""
+msgstr "Rādīt katras fotogrāfijas vērtējumu"
 
 #: src/Resources.vala:239
 msgid "_Filter Photos"
-msgstr ""
+msgstr "_Filtrēt fotogrāfijas"
 
 #: src/Resources.vala:240
 msgid "Filter Photos"
-msgstr ""
+msgstr "Filtrēt fotogrāfijas"
 
 #: src/Resources.vala:241
 msgid "Limit the number of photos displayed based on a filter"
-msgstr ""
+msgstr "Ierobežot fotogrāfiju skaitu, ko rādīt pēc filtrēšanas"
 
 #: src/Resources.vala:243
 msgid "_Duplicate"
@@ -547,23 +553,23 @@ msgstr "Izveidot fotogrāfijas dublikātu"
 
 #: src/Resources.vala:247
 msgid "_Export..."
-msgstr ""
+msgstr "_Eksportēt..."
 
 #: src/Resources.vala:248
 msgid "Export to disk"
-msgstr ""
+msgstr "Eksportēt uz disku"
 
 #: src/Resources.vala:250
 msgid "_Print..."
-msgstr ""
+msgstr "_Drukāt..."
 
 #: src/Resources.vala:251 src/direct/DirectPhotoPage.vala:72
 msgid "Print the photo to a printer connected to your computer"
-msgstr ""
+msgstr "Drukāt fotogrāfiju ar printeri, kas ir pievienots pie datora"
 
 #: src/Resources.vala:253
 msgid "Pu_blish..."
-msgstr ""
+msgstr "Pu_blicēt..."
 
 #: src/Resources.vala:254
 msgid "Publish"
@@ -571,304 +577,304 @@ msgstr "Publicēt"
 
 #: src/Resources.vala:255
 msgid "Publish to various websites"
-msgstr ""
+msgstr "Publicēt uz dažādām tīmekļa vietnēm"
 
 #: src/Resources.vala:257
 msgid "E_dit Title..."
-msgstr ""
+msgstr "R_ediģēt nosaukumu..."
 
 #: src/Resources.vala:258 src/Dialogs.vala:929
 msgid "Edit Title"
-msgstr ""
+msgstr "Rediģēt nosaukumu"
 
 #: src/Resources.vala:259
 msgid "Edit title of the selected photo"
-msgstr ""
+msgstr "Rediģēt izvēlētās fotogrāfijas nosaukumu"
 
 #: src/Resources.vala:261
 msgid "_Adjust Date and Time..."
-msgstr ""
+msgstr "Pielāgot d_atumu un laiku..."
 
 #: src/Resources.vala:262
 msgid "Adjust Date and Time"
-msgstr ""
+msgstr "Pielāgot datumu un laiku"
 
 #: src/Resources.vala:263
 msgid "Adjust date and time of selected photos"
-msgstr ""
+msgstr "Pielāgot datumu un laiku izvēlētajām fotogrāfijām"
 
 #: src/Resources.vala:265
 msgid "Add _Tags..."
-msgstr ""
+msgstr "Pievieno_t birkas..."
 
 #: src/Resources.vala:266 src/Resources.vala:301
 msgid "Add Tags"
-msgstr ""
+msgstr "Pievienot birkas"
 
 #: src/Resources.vala:267
 msgid "Add one or more tags to the selected photos"
-msgstr ""
+msgstr "Pievienot vienu vai vairākas birkas izvēlētajām fotogrāfijām"
 
 #: src/Resources.vala:269
 msgid "_Preferences"
-msgstr ""
+msgstr "_Iestatījumi"
 
 #: src/Resources.vala:270
 msgid "Edit preferences"
-msgstr ""
+msgstr "Rediģēt iestatījumus"
 
 #: src/Resources.vala:272
 msgid "_Open With External Editor"
-msgstr ""
+msgstr "Atvērt ar ārēju redakt_oru"
 
 #: src/Resources.vala:273
 msgid "Open the selected photo with an external image editor"
-msgstr ""
+msgstr "Atvērt izvēlēto fotogrāfiju ar ārēju attēlu redaktoru"
 
 #: src/Resources.vala:275
 msgid "Open With RA_W Editor"
-msgstr ""
+msgstr "Atvērt ar RA_W redaktoru"
 
 #: src/Resources.vala:276
 msgid "Open the selected photo with a RAW image editor"
-msgstr ""
+msgstr "Atvērt izvēlēto fotogrāfiju ar RAW attēlu redaktoru"
 
 #: src/Resources.vala:278
 msgid "Send _To..."
-msgstr ""
+msgstr "Sū_tīt uz..."
 
 #: src/Resources.vala:279
 msgid "Send photos by mail or instant message"
-msgstr ""
+msgstr "Sūtīt fotogrāfijas, izmantojot e-pastu vai tūlītējo ziņojumapmaiņu"
 
 #: src/Resources.vala:281
 msgid "_Find..."
-msgstr ""
+msgstr "_Meklēt..."
 
 #: src/Resources.vala:282
 msgid "Find"
-msgstr ""
+msgstr "Meklēt"
 
 #: src/Resources.vala:283
 msgid "Find an image by typing text that appears in its name or tags"
-msgstr ""
+msgstr "Meklēt attēlu, ierakstot tekstu, kas parādās tā nosaukumā vai birkās"
 
 #: src/Resources.vala:285
 msgid "_Flag"
-msgstr ""
+msgstr "_Marķēt"
 
 #: src/Resources.vala:286
 msgid "Flag the photos to work with them together"
-msgstr ""
+msgstr "Marķēt fotogrāfijas, lai ar tām strādātu reizē"
 
 #: src/Resources.vala:288
 msgid "Un_flag"
-msgstr ""
+msgstr "Noņemt _marķējumu"
 
 #: src/Resources.vala:289
 msgid "Unflag the photos"
-msgstr ""
+msgstr "Noņemt marķējumu fotogrāfijām"
 
 #: src/Resources.vala:292
 #, c-format
 msgid "Unable to launch editor: %s"
-msgstr ""
+msgstr "Nevar palaist redaktoru: %s"
 
 #: src/Resources.vala:297
 #, c-format
 msgid "Add Tag \"%s\""
-msgstr ""
+msgstr "Pievienot birku \"%s\""
 
 #: src/Resources.vala:299
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
-msgstr ""
+msgstr "Pievienot birkas \"%s\" un \"%s\""
 
 #: src/Resources.vala:305
 #, c-format
 msgid "_Delete Tag \"%s\""
-msgstr ""
+msgstr "_Dzēst birku \"%s\""
 
 #: src/Resources.vala:309
 #, c-format
 msgid "Delete Tag \"%s\""
-msgstr ""
+msgstr "Dzēst birku \"%s\""
 
 #: src/Resources.vala:313
 #, c-format
 msgid "Remove the tag \"%s\" from one photo"
 msgid_plural "Remove the tag \"%s\" from %d photos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Noņem birku \"%s\" no %d fotogrāfijas"
+msgstr[1] "Noņem birku \"%s\" no %d fotogrāfijām"
+msgstr[2] "Noņem birku \"%s\" no %d fotogrāfijām"
 
 #: src/Resources.vala:318
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "_Dzēst meklēšanu \"%s\""
 
 #: src/Resources.vala:322
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "Dzēst saglabāto meklēšanu \"%s\""
 
 #: src/Resources.vala:325
 msgid "Delete Tag"
-msgstr ""
+msgstr "Dzēst birku"
 
 #: src/Resources.vala:328
 #, c-format
 msgid "Re_name Tag \"%s\"..."
-msgstr ""
+msgstr "Pārsaukt _birku \"%s\"..."
 
 #: src/Resources.vala:332
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
-msgstr ""
+msgstr "Pārsaukt birku \"%s\" uz \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
 msgid "Rename the tag \"%s\""
-msgstr ""
+msgstr "Pārsaukt birku \"%s\""
 
 #: src/Resources.vala:339
 msgid "Rename Tag"
-msgstr ""
+msgstr "Pārsaukt birku"
 
 #: src/Resources.vala:341
 msgid "Modif_y Tags..."
-msgstr ""
+msgstr "Mod_ificēt birkas..."
 
 #: src/Resources.vala:342
 msgid "Modify Tags"
-msgstr ""
+msgstr "Modificēt birkas"
 
 #: src/Resources.vala:343
 msgid "Modify the tags for this photo"
-msgstr ""
+msgstr "Modificēt birkas šai fotogrāfijai"
 
 #: src/Resources.vala:346
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgid_plural "Tag Photos as \"%s\""
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Fotogrāfijai pielikt birku \"%s\""
+msgstr[1] "Fotogrāfijām pielikt birku \"%s\""
+msgstr[2] "Fotogrāfijām pielikt birku \"%s\""
 
 #: src/Resources.vala:350
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgid_plural "Tag the selected photos as \"%s\""
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izvēlētajai fotogrāfijai pielikt birku \"%s\""
+msgstr[1] "Izvēlētajām fotogrāfijām pielikt birku \"%s\""
+msgstr[2] "Izvēlētajām fotogrāfijām pielikt birku \"%s\""
 
 #: src/Resources.vala:354
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
 msgid_plural "Remove Tag \"%s\" From _Photos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "No _fotogrāfijas izņemt birku \"%s\""
+msgstr[1] "No _fotogrāfijām izņemt birku \"%s\""
+msgstr[2] "No _fotogrāfijām izņemt birku \"%s\""
 
 #: src/Resources.vala:358
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgid_plural "Remove Tag \"%s\" From Photos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "No fotogrāfijas izņemt birku \"%s\""
+msgstr[1] "No fotogrāfijām izņemt birku \"%s\""
+msgstr[2] "No fotogrāfijām izņemt birku \"%s\""
 
 #: src/Resources.vala:363
 #, c-format
 msgid "Remove tag \"%s\" from the selected photo"
 msgid_plural "Remove tag \"%s\" from the selected photos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "No izvēlētās fotogrāfijas izņemt birku \"%s\""
+msgstr[1] "No izvēlētajām fotogrāfijām izņemt birku \"%s\""
+msgstr[2] "No izvēlētajām fotogrāfijām izņemt birku \"%s\""
 
 #: src/Resources.vala:368
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
-msgstr ""
+msgstr "Birku \"%s\" nevar pārsaukt, jo tāda birka jau eksistē."
 
 #: src/Resources.vala:372
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Dzēst meklēšanu \"%s\""
 
 #: src/Resources.vala:376
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr ""
+msgstr "Nevar pārsaukt meklēšanu uz \"%s\", jo tāda jau eksistē."
 
 #: src/Resources.vala:379
 msgid "Delete Search"
-msgstr ""
+msgstr "Dzēst meklēšanu"
 
 #: src/Resources.vala:382
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "Pārsaukt meklēša_nu \"%s\"..."
 
 #: src/Resources.vala:386
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "Pārsaukt meklēšanu \"%s\""
 
 #: src/Resources.vala:390
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "Pārsaukt meklēšanu \"%s\" uz \"%s\""
 
 #: src/Resources.vala:548
 #, c-format
 msgid "Rate %s"
-msgstr ""
+msgstr "Vērtēt %s"
 
 #: src/Resources.vala:549
 #, c-format
 msgid "Set rating to %s"
-msgstr ""
+msgstr "Iestatīt vērtējumu uz %s"
 
 #: src/Resources.vala:550
 #, c-format
 msgid "Setting rating to %s"
-msgstr ""
+msgstr "Iestata vērtējumu uz %s"
 
 #: src/Resources.vala:552
 #, c-format
 msgid "Display %s"
-msgstr ""
+msgstr "Rādīt %s"
 
 #: src/Resources.vala:553
 #, c-format
 msgid "Only show photos with a rating of %s"
-msgstr ""
+msgstr "Rādīt tikai bildes ar vērtējumu %s"
 
 #: src/Resources.vala:554
 #, c-format
 msgid "%s or Better"
-msgstr ""
+msgstr "%s vai labāka"
 
 #: src/Resources.vala:555
 #, c-format
 msgid "Display %s or Better"
-msgstr ""
+msgstr "Rādīt %s vai labākas"
 
 #: src/Resources.vala:556
 #, c-format
 msgid "Only show photos with a rating of %s or better"
-msgstr ""
+msgstr "Rādīt tikai bildes ar vērtējumu %s vai labāku"
 
 #: src/Resources.vala:646 src/Dialogs.vala:18 src/Dialogs.vala:26
 #: src/Dialogs.vala:970
 msgid "_Delete"
-msgstr ""
+msgstr "_Dzēst"
 
 #: src/Resources.vala:647
 msgid "Remove the selected photos from the trash"
-msgstr ""
+msgstr "Izņemt izvēlētās fotogrāfijas no miskastes"
 
 #: src/Resources.vala:648 src/Resources.vala:661
 msgid "Remove the selected photos from the library"
@@ -876,128 +882,128 @@ msgstr "Izņemt izvēlētās fotogrāfijas no bibliotēkas"
 
 #: src/Resources.vala:650
 msgid "_Restore"
-msgstr ""
+msgstr "_Atjaunot"
 
 #: src/Resources.vala:651
 msgid "Move the selected photos back into the library"
-msgstr ""
+msgstr "Pārvietot izvēlētās fotogrāfijas atpakaļ bibliotēkā"
 
 #: src/Resources.vala:653
 msgid "Show in File Mana_ger"
-msgstr "Atvērt ar Failu Pārvaldnieku"
+msgstr "Rādīt failu _pārvaldniekā"
 
 #: src/Resources.vala:654
 msgid "Open the selected photo's directory in the file manager"
-msgstr ""
+msgstr "Atvērt izvēlētās fotogrāfijas mapi failu pārvaldniekā"
 
 #: src/Resources.vala:657
 #, c-format
 msgid "Unable to open in file manager: %s"
-msgstr ""
+msgstr "Neizdevās atvērt failu pārvaldniekā: %s"
 
 #: src/Resources.vala:660
 msgid "R_emove From Library"
-msgstr ""
+msgstr "Izņ_emt no bibliotēkas"
 
 #: src/Resources.vala:662
 msgid "Remove the photo from the library"
-msgstr ""
+msgstr "Izņemt fotogrāfiju no bibliotēkas"
 
 #: src/Resources.vala:664
 msgid "_Move to Trash"
-msgstr "Pārvietot uz miskasti"
+msgstr "Pārvietot uz _miskasti"
 
 #: src/Resources.vala:665
 msgid "Move the selected photos to the trash"
-msgstr ""
+msgstr "Pārvietot izvēlēto fotogrāfiju uz miskasti"
 
 #: src/Resources.vala:666
 msgid "Move the photo to the trash"
-msgstr ""
+msgstr "Pārvietot fotogrāfiju uz miskasti"
 
 #: src/Resources.vala:668
 msgid "Select _All"
-msgstr "Izvēlēties _visas"
+msgstr "Izvēlēties vis_as"
 
 #: src/Resources.vala:669
 msgid "Select all items"
-msgstr ""
+msgstr "Izvēlēties visus vienumus"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
-msgstr ""
+msgstr "Aizpildīt visu lapu"
 
 #: src/Printing.vala:256
 msgid "2 images per page"
-msgstr ""
+msgstr "2 attēli uz lapas"
 
 #: src/Printing.vala:257
 msgid "4 images per page"
-msgstr ""
+msgstr "4 attēli uz lapas"
 
 #: src/Printing.vala:258
 msgid "6 images per page"
-msgstr ""
+msgstr "6 attēli uz lapas"
 
 #: src/Printing.vala:259
 msgid "8 images per page"
-msgstr ""
+msgstr "8 attēli uz lapas"
 
 #: src/Printing.vala:260
 msgid "16 images per page"
-msgstr ""
+msgstr "16 attēli uz lapas"
 
 #: src/Printing.vala:261
 msgid "32 images per page"
-msgstr ""
+msgstr "32 attēli uz lapas"
 
 #: src/Printing.vala:298
 msgid "Printed Image Size"
-msgstr ""
+msgstr "Drukāt attēla izmēru"
 
 #: src/Printing.vala:310
 msgid "Use a _standard size:"
-msgstr ""
+msgstr "Lietot _standarta izmēru:"
 
 #: src/Printing.vala:314
 msgid "Use a c_ustom size:"
-msgstr ""
+msgstr "Lietot pielāgot_u izmēru:"
 
 #: src/Printing.vala:318
 msgid "_Autosize:"
-msgstr ""
+msgstr "_Automātisks izmērs:"
 
 #: src/Printing.vala:387
 msgid "in."
-msgstr ""
+msgstr "colla"
 
 #: src/Printing.vala:388
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #: src/Printing.vala:407
 msgid "_Match photo aspect ratio"
-msgstr ""
+msgstr "Atbilst fotogrāfijas sa_mēram"
 
 #: src/Printing.vala:413
 msgid "Titles"
-msgstr ""
+msgstr "Nosaukumi"
 
 #: src/Printing.vala:420
 msgid "Print image _title"
-msgstr ""
+msgstr "Drukā_t attēla nosaukumu"
 
 #: src/Printing.vala:432
 msgid "Pixel Resolution"
-msgstr ""
+msgstr "Pikseļu izšķirtspēja"
 
 #: src/Printing.vala:438
 msgid "_Output photo at:"
-msgstr ""
+msgstr "Izvadīt f_otogrāfiju uz:"
 
 #: src/Printing.vala:453
 msgid "pixels per inch"
-msgstr ""
+msgstr "pikseļi uz collu"
 
 #: src/Printing.vala:931 src/EditingTools.vala:656
 msgid "Wallet (2 x 3 in.)"
@@ -1057,11 +1063,11 @@ msgstr "30 x 40 cm"
 
 #: src/Printing.vala:989
 msgid "Image Settings"
-msgstr ""
+msgstr "Attēla iestatījumi"
 
 #: src/Printing.vala:1002
 msgid "Printing..."
-msgstr ""
+msgstr "Drukā..."
 
 #: src/Printing.vala:1022 src/Printing.vala:1225
 #, c-format
@@ -1070,15 +1076,18 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Nevar izdrukāt fotogrāfiju:\n"
+"\n"
+"%s"
 
 #: src/DirectoryMonitor.vala:879
 #, c-format
 msgid "Unable to monitor %s: Not a directory (%s)"
-msgstr ""
+msgstr "Nevar pārraudzīt %s: nav mape (%s)"
 
 #: src/VideoSupport.vala:426
 msgid "Export Videos"
-msgstr ""
+msgstr "Eksportēt video"
 
 #: src/direct/DirectPhotoPage.vala:48 src/events/EventsDirectoryPage.vala:106
 #: src/library/ImportQueuePage.vala:56 src/library/TrashPage.vala:54
@@ -1097,7 +1106,7 @@ msgstr "Saglabāt fotogrāfiju"
 
 #: src/direct/DirectPhotoPage.vala:59
 msgid "Save _As..."
-msgstr "Saglabāt _kā..."
+msgstr "S_aglabāt kā..."
 
 #: src/direct/DirectPhotoPage.vala:60
 msgid "Save photo with a different name"
@@ -1113,11 +1122,11 @@ msgstr "_Fotogrāfija"
 
 #: src/direct/DirectPhotoPage.vala:84 src/PhotoPage.vala:2296
 msgid "_Tools"
-msgstr ""
+msgstr "_Rīki"
 
 #: src/direct/DirectPhotoPage.vala:89 src/PhotoPage.vala:2301
 msgid "_Previous Photo"
-msgstr "_Iepriekšējā fotogrāfija"
+msgstr "Ie_priekšējā fotogrāfija"
 
 #: src/direct/DirectPhotoPage.vala:90 src/PhotoPage.vala:2302
 msgid "Previous Photo"
@@ -1148,11 +1157,11 @@ msgstr "_Palīdzība"
 #: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2470
 #: src/MediaPage.vala:337
 msgid "Zoom _In"
-msgstr "_Tuvināt"
+msgstr "Tuv_ināt"
 
 #: src/direct/DirectPhotoPage.vala:176 src/PhotoPage.vala:2471
 msgid "Increase the magnification of the photo"
-msgstr ""
+msgstr "Palielināt fotogrāfijas palielinājumu"
 
 #: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2476
 #: src/MediaPage.vala:343
@@ -1161,33 +1170,33 @@ msgstr "Tā_lināt"
 
 #: src/direct/DirectPhotoPage.vala:182 src/PhotoPage.vala:2477
 msgid "Decrease the magnification of the photo"
-msgstr ""
+msgstr "Samazināt fotogrāfijas palielinājumu"
 
 #: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2482
 msgid "Fit to _Page"
-msgstr ""
+msgstr "Ietil_pināt lapā"
 
 #: src/direct/DirectPhotoPage.vala:188 src/PhotoPage.vala:2483
 msgid "Zoom the photo to fit on the screen"
-msgstr ""
+msgstr "Mainīt mērogu, lai fotogrāfija ietilptu ekrānā"
 
 #: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2488
 msgid "Zoom _100%"
-msgstr ""
+msgstr "Mērogs _100%"
 
 #: src/direct/DirectPhotoPage.vala:194 src/PhotoPage.vala:2489
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
-msgstr ""
+msgstr "Mainīt fotogrāfijas mērogu uz 100% palielinājumu"
 
 #: src/direct/DirectPhotoPage.vala:199 src/PhotoPage.vala:2494
 msgid "Zoom _200%"
-msgstr ""
+msgstr "Mērogs _200%"
 
 #: src/direct/DirectPhotoPage.vala:200 src/PhotoPage.vala:2495
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
-msgstr ""
+msgstr "Mainīt fotogrāfijas mērogu uz 200% palielinājumu"
 
 #: src/direct/DirectPhotoPage.vala:224
 #, c-format
@@ -1208,7 +1217,7 @@ msgstr "%s neatbalsta %s faila formātu."
 
 #: src/direct/DirectPhotoPage.vala:378
 msgid "_Save a Copy"
-msgstr ""
+msgstr "_Saglabāt kopiju"
 
 #: src/direct/DirectPhotoPage.vala:381
 #, c-format
@@ -1217,12 +1226,12 @@ msgstr "Zaudēt %s izmaiņas?"
 
 #: src/direct/DirectPhotoPage.vala:382
 msgid "Close _without Saving"
-msgstr ""
+msgstr "Aizvērt _nesaglabājot"
 
 #: src/direct/DirectPhotoPage.vala:415
 #, c-format
 msgid "Error while saving to %s: %s"
-msgstr "Kļūda saglabājot kā %s: %s"
+msgstr "Kļūda, saglabājot kā %s: %s"
 
 #: src/direct/DirectPhotoPage.vala:438 src/direct/DirectPhotoPage.vala:459
 msgid "Save As"
@@ -1230,15 +1239,15 @@ msgstr "Saglabāt kā"
 
 #: src/slideshow/TransitionEffects.vala:96
 msgid "(None)"
-msgstr ""
+msgstr "(Nekādas)"
 
 #: src/slideshow/TransitionEffects.vala:292
 msgid "None"
-msgstr ""
+msgstr "Nekādas"
 
 #: src/slideshow/Slideshow.vala:15
 msgid "Slideshow Transitions"
-msgstr ""
+msgstr "Slīdrādes pārejas"
 
 #: src/Properties.vala:38
 msgid "%I:%M %p"
@@ -1280,9 +1289,9 @@ msgstr[2] "%d fotogrāfiju"
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video"
+msgstr[1] "%d video"
+msgstr[2] "%d video"
 
 #: src/Properties.vala:320
 msgid "Date:"
@@ -1306,12 +1315,12 @@ msgstr "Izmērs:"
 
 #: src/Properties.vala:347
 msgid "Duration:"
-msgstr ""
+msgstr "Ilgums:"
 
 #: src/Properties.vala:347
 #, c-format
 msgid "%.1f seconds"
-msgstr ""
+msgstr "%.1f sekundes"
 
 #: src/Properties.vala:371 src/Properties.vala:375 src/Properties.vala:382
 #: src/EditingTools.vala:2077
@@ -1328,15 +1337,15 @@ msgstr "Faila izmērs:"
 
 #: src/Properties.vala:473
 msgid "Original dimensions:"
-msgstr ""
+msgstr "Sākotnējās dimensijas:"
 
 #: src/Properties.vala:476
 msgid "Camera make:"
-msgstr ""
+msgstr "Kameras ražotājs:"
 
 #: src/Properties.vala:479
 msgid "Camera model:"
-msgstr ""
+msgstr "Kameras modelis:"
 
 #: src/Properties.vala:482
 msgid "Flash:"
@@ -1344,19 +1353,19 @@ msgstr "Zibspuldze:"
 
 #: src/Properties.vala:484
 msgid "Focal length:"
-msgstr ""
+msgstr "Fokusa attālums:"
 
 #: src/Properties.vala:487
 msgid "Exposure bias:"
-msgstr ""
+msgstr "Ekspozīcijas nobīde:"
 
 #: src/Properties.vala:489
 msgid "GPS latitude:"
-msgstr ""
+msgstr "GPS platums:"
 
 #: src/Properties.vala:492
 msgid "GPS longitude:"
-msgstr ""
+msgstr "GPS garums:"
 
 #: src/Properties.vala:495
 msgid "Artist:"
@@ -1376,76 +1385,76 @@ msgstr "Paplašināta informācija"
 
 #: src/tags/Branch.vala:87
 msgid "Tags"
-msgstr ""
+msgstr "Birkas"
 
 #: src/searches/SavedSearchDialog.vala:24
 msgid "Any text"
-msgstr ""
+msgstr "Jebkurš teksts"
 
 #: src/searches/SavedSearchDialog.vala:25
 msgid "Title"
-msgstr ""
+msgstr "Virsraksts"
 
 #: src/searches/SavedSearchDialog.vala:26
 msgid "Tag"
-msgstr ""
+msgstr "Birka"
 
 #: src/searches/SavedSearchDialog.vala:27
 msgid "Event name"
-msgstr ""
+msgstr "Notikuma nosaukums"
 
 #: src/searches/SavedSearchDialog.vala:28
 msgid "File name"
-msgstr ""
+msgstr "Faila nosaukums"
 
 #: src/searches/SavedSearchDialog.vala:107
 msgid "contains"
-msgstr ""
+msgstr "satur"
 
 #: src/searches/SavedSearchDialog.vala:108
 msgid "is exactly"
-msgstr ""
+msgstr "ir tieši"
 
 #: src/searches/SavedSearchDialog.vala:109
 msgid "starts with"
-msgstr ""
+msgstr "sākas ar"
 
 #: src/searches/SavedSearchDialog.vala:110
 msgid "ends with"
-msgstr ""
+msgstr "beidzas ar"
 
 #: src/searches/SavedSearchDialog.vala:111
 msgid "does not contain"
-msgstr ""
+msgstr "nesatur"
 
 #: src/searches/SavedSearchDialog.vala:112
 msgid "is not set"
-msgstr ""
+msgstr "nav iestatīts"
 
 #: src/searches/SavedSearchDialog.vala:165
 msgid "any"
-msgstr ""
+msgstr "jebkurš"
 
 #: src/searches/SavedSearchDialog.vala:166
 msgid "all"
-msgstr ""
+msgstr "visi"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Saglabātās meklēšanas"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr ""
+msgstr "%a %d %b"
 
 #: src/util/misc.vala:232
 msgid "%d, %Y"
-msgstr ""
+msgstr "%d, %Y"
 
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
 msgid "%a %b %d, %Y"
-msgstr "%a %b %d, %Y"
+msgstr "%a %d %b, %Y"
 
 #: src/BatchImport.vala:25
 msgid "Success"
@@ -1481,28 +1490,28 @@ msgstr "Neatbalstīts faila formāts"
 
 #: src/BatchImport.vala:49
 msgid "Not an image file"
-msgstr ""
+msgstr "Nav attēla fails"
 
 #: src/BatchImport.vala:52
 msgid "Disk failure"
-msgstr ""
+msgstr "Diska kļūme"
 
 #: src/BatchImport.vala:55
 msgid "Disk full"
-msgstr ""
+msgstr "Disks ir pilns"
 
 #: src/BatchImport.vala:58
 msgid "Camera error"
-msgstr ""
+msgstr "Kameras kļūda"
 
 #: src/BatchImport.vala:61
 msgid "File write error"
-msgstr ""
+msgstr "Faila rakstīšanas kļūda"
 
 #: src/BatchImport.vala:64
 #, c-format
 msgid "Imported failed (%d)"
-msgstr ""
+msgstr "Neizdevās importēšana (%d)"
 
 #: src/EditingTools.vala:563
 msgid "Return to current photo dimensions"
@@ -1510,12 +1519,11 @@ msgstr "Atgriezties uz pašreizējiem fotogrāfijas izmēriem"
 
 #: src/EditingTools.vala:566
 msgid "Set the crop for this photo"
-msgstr "Iestatīt apcirpšanu šai fotogrāfijai"
+msgstr "Iestatīt apciršanu šai fotogrāfijai"
 
 #: src/EditingTools.vala:578
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr ""
-"Pārslēgt apcirpšanas četrstūri starp portreta un ainavas novietojumiem"
+msgstr "Pārslēgt apciršanas četrstūri starp portreta un ainavas novietojumiem"
 
 #: src/EditingTools.vala:648
 msgid "Unconstrained"
@@ -1561,7 +1569,7 @@ msgstr "Izņemt sarkano acu efektu izvēlētajā reģionā"
 
 #: src/EditingTools.vala:2066
 msgid "_Reset"
-msgstr "_Pārstatīt"
+msgstr "Pā_rstatīt"
 
 #: src/EditingTools.vala:2085
 msgid "Saturation:"
@@ -1614,7 +1622,7 @@ msgstr "Kontrasta palielināšana"
 #: src/SearchFilter.vala:639 src/SearchFilter.vala:640
 #: src/SearchFilter.vala:937 src/library/FlaggedPage.vala:8
 msgid "Flagged"
-msgstr ""
+msgstr "Karogoto"
 
 #: src/SearchFilter.vala:645 src/SearchFilter.vala:646
 msgid "Photos"
@@ -1622,63 +1630,63 @@ msgstr "Fotogrāfijas"
 
 #: src/SearchFilter.vala:651 src/SearchFilter.vala:652
 msgid "Videos"
-msgstr ""
+msgstr "Video"
 
 #: src/SearchFilter.vala:657
 msgid "RAW Photos"
-msgstr ""
+msgstr "RAW fotogrāfijas"
 
 #: src/SearchFilter.vala:658
 msgid "RAW photos"
-msgstr ""
+msgstr "RAW fotogrāfijas"
 
 #: src/SearchFilter.vala:904
 #, c-format
 msgid "Error loading UI file %s: %s"
-msgstr ""
+msgstr "Kļūda, ielādējot UI failu %s: %s"
 
 #: src/SearchFilter.vala:921
 msgid "Type"
-msgstr ""
+msgstr "Tips"
 
 #: src/SearchFilter.vala:948
 msgid "Rating"
-msgstr ""
+msgstr "Vertejums"
 
 #: src/Exporter.vala:246
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
-msgstr ""
+msgstr "Nevar ģenerēt %s pagaidu failu: %s"
 
 #: src/Exporter.vala:313
 msgid "Exporting"
-msgstr ""
+msgstr "Eksportē"
 
 #: src/Exporter.vala:330
 #, c-format
 msgid "File %s already exists.  Replace?"
-msgstr ""
+msgstr "Fails %s jau eksistē.  Aizvietot?"
 
 #: src/Exporter.vala:332
 msgid "_Skip"
-msgstr ""
+msgstr "Izlai_st"
 
 #: src/Exporter.vala:332
 msgid "_Replace"
-msgstr ""
+msgstr "_Aizvietot"
 
 #: src/Exporter.vala:332
 msgid "Replace _All"
-msgstr ""
+msgstr "Aizvietot _visus"
 
 #: src/Exporter.vala:332
 msgid "Export"
-msgstr ""
+msgstr "Eksportēt"
 
 #: src/AppDirs.vala:48
 #, c-format
 msgid "Unable to create data directory %s: %s"
-msgstr ""
+msgstr "Nevar izveidot datu mapi %s: %s"
 
 #: src/AppDirs.vala:84
 msgid "Pictures"
@@ -1687,30 +1695,30 @@ msgstr "Attēli"
 #: src/AppDirs.vala:123
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
-msgstr ""
+msgstr "Neizdevās izveidot pagaidu mapi %s: %s"
 
 #: src/AppDirs.vala:139
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
-msgstr ""
+msgstr "Nevar izveidot datu apakšmapi %s: %s"
 
 #: src/events/EventDirectoryItem.vala:74
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotogrāfija/video"
+msgstr[1] "%d fotogrāfijas/video"
+msgstr[2] "%d fotogrāfijas/video"
 
 #: src/events/EventPage.vala:88
 msgid "No Event"
-msgstr ""
+msgstr "Nav notikuma"
 
 #: src/events/EventsDirectoryPage.vala:118 src/library/TrashPage.vala:58
 #: src/library/OfflinePage.vala:63 src/PhotoPage.vala:2272
 #: src/camera/ImportPage.vala:757 src/MediaPage.vala:290
 msgid "_Edit"
-msgstr "_Rediģēt"
+msgstr "R_ediģēt"
 
 #: src/events/EventsDirectoryPage.vala:122 src/MediaPage.vala:310
 msgid "Even_ts"
@@ -1718,11 +1726,11 @@ msgstr "No_tikumi"
 
 #: src/events/EventsDirectoryPage.vala:156
 msgid "No events"
-msgstr ""
+msgstr "Nav notikumu"
 
 #: src/events/EventsDirectoryPage.vala:160
 msgid "No events found"
-msgstr ""
+msgstr "Nav atrastu notikumu"
 
 #: src/events/EventsDirectoryPage.vala:207
 msgid "Events"
@@ -1730,7 +1738,7 @@ msgstr "Notikumi"
 
 #: src/events/EventsDirectoryPage.vala:221
 msgid "Undated"
-msgstr ""
+msgstr "Nav datēts"
 
 #: src/events/EventsDirectoryPage.vala:222
 msgid "%Y"
@@ -1743,26 +1751,26 @@ msgstr "%B"
 #: src/DesktopIntegration.vala:118
 #, c-format
 msgid "Unable to launch Nautilus Send-To: %s"
-msgstr ""
+msgstr "Nevar palaist Nautilus sūtīt-uz: %s"
 
 #: src/DesktopIntegration.vala:126
 msgid "Send To"
-msgstr ""
+msgstr "Sūtīt uz"
 
 #: src/DesktopIntegration.vala:169
 #, c-format
 msgid "Unable to export background to %s: %s"
-msgstr ""
+msgstr "Neizdevās eksportēt fonu uz %s: %s"
 
 #: src/DesktopIntegration.vala:294
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
-msgstr ""
+msgstr "Neizdevās sagatavot darbvirsmu slīdrādei: %s"
 
 #: src/Dimensions.vala:17
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1123
 msgid "Original size"
-msgstr "Oriģinālais izmērs"
+msgstr "Sākotnējais izmērs"
 
 #: src/Dimensions.vala:20
 msgid "Width or height"
@@ -1784,49 +1792,52 @@ msgstr "Shotwell savienojumi"
 
 #: src/PiwigoConnector.vala:483
 msgid "Creating category..."
-msgstr ""
+msgstr "Izveido kategoriju..."
 
 #: src/PiwigoConnector.vala:589
 msgid ""
 "Enter the username and password associated with your Piwigo account, and the"
 " URL of your Piwigo installation."
 msgstr ""
+"Ievadiet lietotāju un paroli savam Piwigo kontu, un savas Piwigo "
+"instalācijas URL."
 
 #: src/PiwigoConnector.vala:590
 msgid ""
 "No Piwigo installation was found at this URL. Please verify the URL you "
 "entered"
 msgstr ""
+"Šajā URL nav atrasta Piwigo instalācija. Lūdzu, pārbaudiet ievadīto URL"
 
 #: src/PiwigoConnector.vala:591
 msgid "Username and/or password invalid. Please try again"
-msgstr ""
+msgstr "Lietotājvārds un/vai parole nav pareiza. Lūdzu, mēģiniet vēlreiz"
 
 #: src/PiwigoConnector.vala:625
 #, c-format
 msgid "Invalid URL"
-msgstr ""
+msgstr "Nederīgs URL"
 
 #: src/PiwigoConnector.vala:630
 #: plugins/shotwell-publishing/PicasaPublishing.vala:856
 #: plugins/shotwell-publishing/YouTubePublishing.vala:786
 #, c-format
 msgid "Unrecognized User"
-msgstr ""
+msgstr "Neatpazīts lietotājs"
 
 #: src/PiwigoConnector.vala:636
 msgid "_URL of your Piwigo installation:"
-msgstr ""
+msgstr "Piwigo instalācijas _URL:"
 
 #: src/PiwigoConnector.vala:638
 msgid "User_name:"
-msgstr ""
+msgstr "_Lietotājvārds:"
 
 #: src/PiwigoConnector.vala:640
 #: plugins/shotwell-publishing/PicasaPublishing.vala:882
 #: plugins/shotwell-publishing/YouTubePublishing.vala:812
 msgid "_Password:"
-msgstr ""
+msgstr "_Parole:"
 
 #: src/PiwigoConnector.vala:665 src/WebConnectors.vala:583
 #: plugins/shotwell-publishing/PicasaPublishing.vala:907
@@ -1837,25 +1848,25 @@ msgstr "_Pieteikties"
 #: src/PiwigoConnector.vala:741
 #, c-format
 msgid "You are logged into Piwigo as %s."
-msgstr ""
+msgstr "Jūs esat pieteicies Piwigo kā \"%s\"."
 
 #: src/PiwigoConnector.vala:758
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1061
 msgid "Photos will appear in:"
-msgstr ""
+msgstr "Fotogrāfijas parādīsies:"
 
 #: src/PiwigoConnector.vala:771
 msgid "An _existing category:"
-msgstr ""
+msgstr "_Esoša kategorija:"
 
 #: src/PiwigoConnector.vala:785
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1089
 msgid "A _new album named:"
-msgstr ""
+msgstr "Jauns albums ar _nosaukumu:"
 
 #: src/PiwigoConnector.vala:804
 msgid "Who can see those pictures ?"
-msgstr ""
+msgstr "Kurš varēs redzēt šīs fotogrāfijas?"
 
 #: src/PiwigoConnector.vala:831
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1689
@@ -1877,23 +1888,23 @@ msgstr "_Publicēt "
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1856
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1095
 msgid "Everyone"
-msgstr "Ikvienam"
+msgstr "Ikviens"
 
 #: src/PiwigoConnector.vala:907
 msgid "Admins, Friends, Family, Contacts"
-msgstr ""
+msgstr "Administratori, draugi, ģimene, kontakti"
 
 #: src/PiwigoConnector.vala:908
 msgid "Admins, Family, Friends"
-msgstr ""
+msgstr "Administratori, draugi, ģimene"
 
 #: src/PiwigoConnector.vala:909
 msgid "Admins, Family"
-msgstr ""
+msgstr "Administratori, ģimene"
 
 #: src/PiwigoConnector.vala:910
 msgid "Admins"
-msgstr ""
+msgstr "Administratori"
 
 #: src/main.vala:81
 #, c-format
@@ -1902,6 +1913,9 @@ msgid ""
 "appears it was created by Shotwell %s (schema %d).  This version is %s "
 "(schema %d).  Please use the latest version of Shotwell."
 msgstr ""
+"Jūsu fotogrāfiju bibliotēka nav savietojama ar šo Shotwell versiju. "
+"Izskatās, ka tā tika veidota ar Shotwell %s (shēma %d). Šī versija ir %s "
+"(shēma %d). Lūdzu, lietojiet jaunāko Shotwell versiju."
 
 #: src/main.vala:86
 #, c-format
@@ -1910,6 +1924,8 @@ msgid ""
 "%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
+"Shotwell nevarēja uzlabot jūsu fotogrāfiju bibliotēku no versijas %s (shēma "
+"%d) uz %s (shēma %d). Lai uzzinātu vairāk, pārbaudiet Shotwell viki lapu %s"
 
 #: src/main.vala:92
 #, c-format
@@ -1919,44 +1935,50 @@ msgid ""
 "(schema %d).  Please clear your library by deleting %s and re-import your "
 "photos."
 msgstr ""
+"Jūsu fotogrāfiju bibliotēka nav savietojama ar šo Shotwell versiju. "
+"Izskatās, ka tā tika veidota ar Shotwell %s (shēma %d). Šī versija ir %s "
+"(shēma %d). Lūdzu, attīriet savu bibliotēku, dzēšot %s un atkal importējot "
+"fotogrāfijas."
 
 #: src/main.vala:98
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %s"
-msgstr ""
+msgstr "Nezināma kļūda, mēģinot pārbaudīt Shotwell datubāzi: %s"
 
 #: src/main.vala:130
 msgid "Loading Shotwell"
-msgstr ""
+msgstr "Ielādē Shotwell"
 
 #: src/main.vala:347
 msgid "[FILE]"
-msgstr ""
+msgstr "[FAILS]"
 
 #: src/main.vala:351
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
+"Palaidiet '%s --help', lai redzētu pilnu pieejamo komandrindas iespēju "
+"sarakstu.\n"
 
 #: src/publishing/Publishing.vala:16
 msgid "Publishing"
-msgstr ""
+msgstr "Publicēšana"
 
 #: src/publishing/PublishingPluginHost.vala:11 src/WebConnectors.vala:1119
 #: src/WebConnectors.vala:1256
 msgid "Preparing for upload"
-msgstr ""
+msgstr "Gatavo augšupielādēšanai"
 
 #: src/publishing/PublishingPluginHost.vala:12 src/WebConnectors.vala:1120
 #: src/WebConnectors.vala:1196
 #, c-format
 msgid "Uploading %d of %d"
-msgstr ""
+msgstr "Augšupielādē %d no %d"
 
 #: src/publishing/PublishingPluginHost.vala:103
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred:"
-msgstr ""
+msgstr "Nevar turpināt publicēšanu uz %s, jo gadījās kļūda:"
 
 #: src/publishing/PublishingPluginHost.vala:106 src/WebConnectors.vala:1023
 msgid "To try publishing to another service, select one from the above menu."
@@ -1967,15 +1989,15 @@ msgstr ""
 #: src/WebConnectors.vala:505 plugins/common/RESTSupport.vala:409
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1316
 msgid "A temporary file needed for publishing is unavailable"
-msgstr ""
+msgstr "Publicēšanai nepieciešams pagaidu fails"
 
 #: src/WebConnectors.vala:659
 msgid "The selected photos/videos were successfully published."
-msgstr ""
+msgstr "Izvēlētās fotogrāfijas/video tika veiksmīgi publicēti."
 
 #: src/WebConnectors.vala:661
 msgid "The selected videos were successfully published."
-msgstr ""
+msgstr "Izvēlētie video tika veiksmīgi publicēti."
 
 #: src/WebConnectors.vala:663
 msgid "The selected photos were successfully published."
@@ -1983,19 +2005,19 @@ msgstr "Izvēlētās fotogrāfijas tika veiksmīgi publicētas."
 
 #: src/WebConnectors.vala:666
 msgid "The selected video was successfully published."
-msgstr ""
+msgstr "Izvēlētais video tika veiksmīgi publicēts."
 
 #: src/WebConnectors.vala:668
 msgid "The selected photo was successfully published."
-msgstr ""
+msgstr "Izvēlētā fotogrāfija tika veiksmīgi publicēta."
 
 #: src/WebConnectors.vala:676
 msgid "Fetching account information..."
-msgstr ""
+msgstr "Saņem konta informāciju..."
 
 #: src/WebConnectors.vala:682
 msgid "Logging in..."
-msgstr ""
+msgstr "Piesakās..."
 
 #: src/WebConnectors.vala:726
 msgid "Publish Photos"
@@ -2003,27 +2025,27 @@ msgstr "Publicēt fotogrāfijas"
 
 #: src/WebConnectors.vala:727
 msgid "Publish photos _to:"
-msgstr "_Publicēt fotogrāfijas:"
+msgstr "Publicēt fo_togrāfijas:"
 
 #: src/WebConnectors.vala:729
 msgid "Publish Videos"
-msgstr ""
+msgstr "Publicēt video"
 
 #: src/WebConnectors.vala:730
 msgid "Publish videos _to"
-msgstr ""
+msgstr "Publicē_t video"
 
 #: src/WebConnectors.vala:732
 msgid "Publish Photos and Videos"
-msgstr ""
+msgstr "Publicēt fotogrāfijas un video"
 
 #: src/WebConnectors.vala:733
 msgid "Publish photos and videos _to"
-msgstr ""
+msgstr "Publicēt fo_togrāfijas un video"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "Nevar publicēt"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2033,6 +2055,10 @@ msgid ""
 "Preferences</b> and enable one or more of the publishing plugins on the "
 "<b>Plugin</b> tab."
 msgstr ""
+"Shotwell nevar publicēt izvēlētos vienumus, jo jums nav aktivēts savietojams"
+" publicēšanas spraudnis. Lai to labotu, izvēlieties <b>Rediģēt %s "
+"Iestatījumi</b> un aktivējiet vienu vai vairākus publicēšanas spraudņus "
+"cilnē <b>Spraudņi</b>."
 
 #: src/WebConnectors.vala:983
 msgid "_Close"
@@ -2043,7 +2069,7 @@ msgstr "_Aizvērt"
 msgid ""
 "Publishing to %s can't continue because the service could not be contacted."
 msgstr ""
-"Publicēšana %s nevar turpināties, tāpēc ka ar servisu neizdevās sazināties."
+"Publicēšana %s nevar turpināties, tāpēc ka neizdevās sazināties ar servisu."
 
 #: src/WebConnectors.vala:1009
 #, c-format
@@ -2051,7 +2077,7 @@ msgid ""
 "Publishing to %s can't continue because communication with the service "
 "failed."
 msgstr ""
-"Publicēšana %s nevar turpināties, tāpēc ka sazināšanās ar servisu neizdevās."
+"Publicēšana %s nevar turpināties, tāpēc ka neizdevās sazināšanās ar servisu."
 
 #: src/WebConnectors.vala:1012
 #, c-format
@@ -2079,10 +2105,11 @@ msgstr "Publicēšana %s nevar turpināties kļūdas dēļ."
 #: src/WebConnectors.vala:1169
 msgid "One or more of the photos or videos to be published is unavailable"
 msgstr ""
+"Viens vai vairāki foto vai video, kas paredzēti publicēšanai, nav pieejami"
 
 #: src/library/LastImportPage.vala:8
 msgid "Last Import"
-msgstr ""
+msgstr "Pēdējais imports"
 
 #: src/library/ImportQueuePage.vala:8
 msgid "Importing..."
@@ -2098,7 +2125,7 @@ msgstr "Apturēt fotogrāfiju importēšanu"
 
 #: src/library/ImportQueuePage.vala:126
 msgid "Preparing to import..."
-msgstr ""
+msgstr "Gatavojas importēt..."
 
 #: src/library/ImportQueuePage.vala:149
 #, c-format
@@ -2107,30 +2134,30 @@ msgstr "Importētas %s"
 
 #: src/library/TrashPage.vala:8
 msgid "Trash"
-msgstr ""
+msgstr "Miskaste"
 
 #: src/library/TrashPage.vala:124
 msgid "Trash is empty"
-msgstr ""
+msgstr "Miskaste ir tukša"
 
 #: src/library/TrashPage.vala:128
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting a Photo"
 msgid_plural "Deleting Photos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Dzēš fotogrāfiju"
+msgstr[1] "Dzēš fotogrāfijas"
+msgstr[2] "Dzēš fotogrāfijas"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
-msgstr ""
+msgstr "Iztrūkstošie faili"
 
 #: src/library/OfflinePage.vala:122
 msgid "Deleting..."
-msgstr ""
+msgstr "Dzēš..."
 
 #: src/library/LibraryWindow.vala:302
 msgid "_Import From Folder..."
@@ -2142,35 +2169,35 @@ msgstr "Importēt fotogrāfijas no diska uz bibliotēku"
 
 #: src/library/LibraryWindow.vala:313
 msgid "Sort _Events"
-msgstr "Sakārtot _notikumus"
+msgstr "Kārtot _notikumus"
 
 #: src/library/LibraryWindow.vala:324
 msgid "Empty T_rash"
-msgstr ""
+msgstr "Iztukšot _miskasti"
 
 #: src/library/LibraryWindow.vala:325
 msgid "Delete all photos in the trash"
-msgstr ""
+msgstr "Dzēst visas fotogrāfijas no miskastes"
 
 #: src/library/LibraryWindow.vala:330
 msgid "View Eve_nt for Photo"
-msgstr ""
+msgstr "Skatīt fotogrāfijas _notikumu"
 
 #: src/library/LibraryWindow.vala:331
 msgid "Go to this photo's event"
-msgstr ""
+msgstr "Iet uz šo fotogrāfijas notikumu"
 
 #: src/library/LibraryWindow.vala:336
 msgid "_Find"
-msgstr ""
+msgstr "_Meklēt"
 
 #: src/library/LibraryWindow.vala:337
 msgid "Find photos and videos by search criteria"
-msgstr ""
+msgstr "Meklēt fotogrāfijas un video pēc meklēšanas kritērija"
 
 #: src/library/LibraryWindow.vala:347
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "_Jauna meklēšana..."
 
 #: src/library/LibraryWindow.vala:358
 msgid "_Basic Information"
@@ -2190,11 +2217,11 @@ msgstr "Rādīt paplašinātu informāciju par izvēli"
 
 #: src/library/LibraryWindow.vala:370
 msgid "_Search Bar"
-msgstr ""
+msgstr "Meklēšana_s josla"
 
 #: src/library/LibraryWindow.vala:371
 msgid "Display the search bar"
-msgstr ""
+msgstr "Rādīt meklēšanas joslu"
 
 #: src/library/LibraryWindow.vala:383 src/MediaPage.vala:496
 msgid "_Ascending"
@@ -2218,60 +2245,60 @@ msgstr "Importēt no mapes"
 
 #: src/library/LibraryWindow.vala:686
 msgid "Empty Trash"
-msgstr ""
+msgstr "Iztukšot miskasti"
 
 #: src/library/LibraryWindow.vala:686
 msgid "Emptying Trash..."
-msgstr ""
+msgstr "Iztukšo miskasti..."
 
 #: src/library/LibraryWindow.vala:832
 msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr ""
+msgstr "Shotwell ir nokonfigurēts, lai importētu fotogrāfijas uz mājas mapi.\n"
 
 #: src/library/LibraryWindow.vala:835
 msgid "_Import"
-msgstr ""
+msgstr "_Importēt"
 
 #: src/library/LibraryWindow.vala:835
 msgid "Library Location"
-msgstr ""
+msgstr "Bibliotēkas atrašanās vieta"
 
 #: src/library/LibraryWindow.vala:848
 msgid "Photos cannot be imported from this directory."
-msgstr ""
+msgstr "No šīs mapes fotogrāfijas nevar importēt."
 
 #: src/library/LibraryWindow.vala:1173
 #, c-format
 msgid "%s (%d%%)"
-msgstr ""
+msgstr "%s (%d%%)"
 
 #: src/library/LibraryWindow.vala:1206 src/library/LibraryWindow.vala:1214
 msgid "Updating library..."
-msgstr ""
+msgstr "Atjaunina bibliotēku..."
 
 #: src/library/LibraryWindow.vala:1219
 msgid "Preparing to auto-import photos..."
-msgstr ""
+msgstr "Gatavojas automātiski importēt fotogrāfijas..."
 
 #: src/library/LibraryWindow.vala:1224
 msgid "Auto-importing photos..."
-msgstr ""
+msgstr "Automātiski importē fotogrāfijas..."
 
 #: src/library/LibraryWindow.vala:1229
 msgid "Writing metadata to files..."
-msgstr ""
+msgstr "Failos raksta metadatus..."
 
 #: src/library/LibraryWindow.vala:1234
 msgid "Processing RAW files..."
-msgstr ""
+msgstr "Apstrādā RAW failus..."
 
 #: src/library/Branch.vala:37
 msgid "Library"
-msgstr ""
+msgstr "Bibliotēka"
 
 #: src/CollectionPage.vala:214 src/PhotoPage.vala:2516
 msgid "S_lideshow"
-msgstr ""
+msgstr "S_līdrāde"
 
 #: src/CollectionPage.vala:215 src/PhotoPage.vala:2517
 msgid "Play a slideshow"
@@ -2280,57 +2307,57 @@ msgstr "Rādīt slīdrādi"
 #: src/CollectionPage.vala:430
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Eksportēt fotogrāfiju/video"
+msgstr[1] "Eksportēt fotogrāfijas/video"
+msgstr[2] "Eksportēt fotogrāfijas/video"
 
 #: src/CollectionPage.vala:431 src/Dialogs.vala:40 src/PhotoPage.vala:2987
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Eksportēt fotogrāfiju"
-msgstr[1] "Eksportēt fotogrāfiju"
-msgstr[2] "Eksportēt fotogrāfiju"
+msgstr[1] "Eksportēt fotogrāfijas"
+msgstr[2] "Eksportēt fotogrāfijas"
 
 #: src/CollectionPage.vala:519 src/CollectionPage.vala:534
 msgid "Rotating"
-msgstr ""
+msgstr "Pagriešana"
 
 #: src/CollectionPage.vala:519 src/CollectionPage.vala:534
 msgid "Undoing Rotate"
-msgstr "Atsauc griešanu"
+msgstr "Atsauc pagriešanu"
 
 #: src/CollectionPage.vala:543
 msgid "Flipping Horizontally"
-msgstr ""
+msgstr "Apmet horizontāli"
 
 #: src/CollectionPage.vala:544
 msgid "Undoing Flip Horizontally"
-msgstr ""
+msgstr "Atsauc horizontālo apmešanu"
 
 #: src/CollectionPage.vala:553
 msgid "Flipping Vertically"
-msgstr ""
+msgstr "Apmet vertikāli"
 
 #: src/CollectionPage.vala:554
 msgid "Undoing Flip Vertically"
-msgstr ""
+msgstr "Atsauc vertikālo apmešanu"
 
 #: src/Dialogs.vala:14
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Tiks izņemta birka \"%s\" no %d fotogrāfijas. Turpināt?"
+msgstr[1] "Tiks izņemta birka \"%s\" no %d fotogrāfijām. Turpināt?"
+msgstr[2] "Tiks izņemta birka \"%s\" no %d fotogrāfijām. Turpināt?"
 
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "Šī darbība izņems saglabāto meklēšanu \"%s\". Turpināt?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
-msgstr ""
+msgstr "Eksportēt video"
 
 #: src/Dialogs.vala:66
 msgid "Export Photos"
@@ -2342,12 +2369,16 @@ msgid ""
 "Shotwell couldn't create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
+"Shotwell nevar izveidot failu šīs fotogrāfijas rediģēšanai, jo jums nav "
+"tiesību rakstīt %s."
 
 #: src/Dialogs.vala:103
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
 msgstr ""
+"Nevar eksportēt sekojošo fotogrāfiju, jo gadījās faila kļūda.\n"
+"\n"
 
 #: src/Dialogs.vala:109
 msgid ""
@@ -2355,22 +2386,25 @@ msgid ""
 "\n"
 "Would you like to continue exporting?"
 msgstr ""
+"\n"
+"\n"
+"Vai vēlaties turpināt eksportēšanu?"
 
 #: src/Dialogs.vala:110
 msgid "Con_tinue"
-msgstr ""
+msgstr "Turpinā_t"
 
 #: src/Dialogs.vala:126
 msgid "Unmodified"
-msgstr ""
+msgstr "Nemainīts"
 
 #: src/Dialogs.vala:127
 msgid "Current"
-msgstr ""
+msgstr "Pašreizējais"
 
 #: src/Dialogs.vala:191
 msgid "_Format:"
-msgstr ""
+msgstr "_Formāts:"
 
 #: src/Dialogs.vala:194
 msgid "_Quality:"
@@ -2382,52 +2416,53 @@ msgstr "_Mērogošanas ierobežojums:"
 
 #: src/Dialogs.vala:200
 msgid " _pixels"
-msgstr "_pikseļi"
+msgstr " _pikseļi"
 
 #: src/Dialogs.vala:437
 #, c-format
 msgid "(and %d more)\n"
-msgstr ""
+msgstr "(un vēl %d)\n"
 
 #: src/Dialogs.vala:493
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Netika importēta %d dublējoša fotogrāfija:\n"
+msgstr[1] "Netika importētas %d dublējošas fotogrāfijas:\n"
+msgstr[2] "Netika importētas %d dublējošas fotogrāfijas:\n"
 
 #: src/Dialogs.vala:496
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Netika importēts %d dublējošs video:\n"
+msgstr[1] "Netika importēti %d dublējoši video:\n"
+msgstr[2] "Netika importēti %d dublējoši video:\n"
 
 #: src/Dialogs.vala:499
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Netika importēta %d dublējoša fotogrāfija/video:\n"
+msgstr[1] "Netika importētas %d dublējošas fotogrāfijas/video:\n"
+msgstr[2] "Netika importētas %d dublējošas fotogrāfijas/video:\n"
 
 #: src/Dialogs.vala:513
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+"%d fotogrāfijas importēšana neizdevās dēļ faila vai aparatūras kļūdas:\n"
+msgstr[1] "%d fotogrāfiju importēšana neizdevās dēļ faila vai aparatūras kļūdas:\n"
+msgstr[2] "%d fotogrāfiju importēšana neizdevās dēļ faila vai aparatūras kļūdas:\n"
 
 #: src/Dialogs.vala:516
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video importēšana neizdevās dēļ faila vai aparatūras kļūdas:\n"
+msgstr[1] "%d video importēšana neizdevās dēļ faila vai aparatūras kļūdas:\n"
+msgstr[2] "%d video importēšana neizdevās dēļ faila vai aparatūras kļūdas:\n"
 
 #: src/Dialogs.vala:519
 #, c-format
@@ -2435,16 +2470,22 @@ msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"%d fotogrāfijas/video importēšana neizdevās dēļ faila vai aparatūras "
+"kļūdas:\n"
 msgstr[1] ""
+"%d fotogrāfiju/video importēšana neizdevās dēļ faila vai aparatūras "
+"kļūdas:\n"
 msgstr[2] ""
+"%d fotogrāfiju/video importēšana neizdevās dēļ faila vai aparatūras "
+"kļūdas:\n"
 
 #: src/Dialogs.vala:522
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d faila importēšana neizdevās dēļ faila vai aparatūras kļūdas:\n"
+msgstr[1] "%d failu importēšana neizdevās dēļ faila vai aparatūras kļūdas:\n"
+msgstr[2] "%d failu importēšana neizdevās dēļ faila vai aparatūras kļūdas:\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2455,8 +2496,11 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"%d fotogrāfijas importēšana neizdevās, jo fotogrāfiju mape nav rakstāma:\n"
 msgstr[1] ""
+"%d fotogrāfiju importēšana neizdevās, jo fotogrāfiju mape nav rakstāma:\n"
 msgstr[2] ""
+"%d fotogrāfiju importēšana neizdevās, jo fotogrāfiju mape nav rakstāma:\n"
 
 #: src/Dialogs.vala:539
 #, c-format
@@ -2466,9 +2510,9 @@ msgid ""
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video importēšana neizdevās, jo fotogrāfiju mape nav rakstāma:\n"
+msgstr[1] "%d video importēšana neizdevās, jo fotogrāfiju mape nav rakstāma:\n"
+msgstr[2] "%d video importēšana neizdevās, jo fotogrāfiju mape nav rakstāma:\n"
 
 #: src/Dialogs.vala:542
 #, c-format
@@ -2479,8 +2523,14 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"%d fotogrāfijas/video importēšana neizdevās, jo fotogrāfiju mape nav "
+"rakstāma:\n"
 msgstr[1] ""
+"%d fotogrāfiju/video importēšana neizdevās, jo fotogrāfiju mape nav "
+"rakstāma:\n"
 msgstr[2] ""
+"%d fotogrāfiju/video importēšana neizdevās, jo fotogrāfiju mape nav "
+"rakstāma:\n"
 
 #: src/Dialogs.vala:545
 #, c-format
@@ -2489,89 +2539,89 @@ msgid ""
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d faila importēšana neizdevās, jo fotogrāfiju mape nav rakstāma:\n"
+msgstr[1] "%d failu importēšana neizdevās, jo fotogrāfiju mape nav rakstāma:\n"
+msgstr[2] "%d failu importēšana neizdevās, jo fotogrāfiju mape nav rakstāma:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotogrāfijas importēšana neizdevās dēļ kameras kļūdas:\n"
+msgstr[1] "%d fotogrāfiju importēšana neizdevās dēļ kameras kļūdas:\n"
+msgstr[2] "%d fotogrāfiju importēšana neizdevās dēļ kameras kļūdas:\n"
 
 #: src/Dialogs.vala:562
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video importēšana neizdevās dēļ kameras kļūdas:\n"
+msgstr[1] "%d video importēšana neizdevās dēļ kameras kļūdas:\n"
+msgstr[2] "%d video importēšana neizdevās dēļ kameras kļūdas:\n"
 
 #: src/Dialogs.vala:565
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotogrāfijas/video importēšana neizdevās dēļ kameras kļūdas:\n"
+msgstr[1] "%d fotogrāfiju/video importēšana neizdevās dēļ kameras kļūdas:\n"
+msgstr[2] "%d fotogrāfiju/video importēšana neizdevās dēļ kameras kļūdas:\n"
 
 #: src/Dialogs.vala:568
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d faila importēšana neizdevās dēļ kameras kļūdas:\n"
+msgstr[1] "%d failu importēšana neizdevās dēļ kameras kļūdas:\n"
+msgstr[2] "%d failu importēšana neizdevās dēļ kameras kļūdas:\n"
 
 #: src/Dialogs.vala:585
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izlaista %d neatbalstīta fotogrāfija:\n"
+msgstr[1] "Izlaistas %d neatbalstītas fotogrāfijas:\n"
+msgstr[2] "Izlaistas %d neatbalstītas fotogrāfijas:\n"
 
 #: src/Dialogs.vala:600
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izlaists %d ne-attēla fails.\n"
+msgstr[1] "Izlaisti %d ne-attēla faili.\n"
+msgstr[2] "Izlaisti %d ne-attēla faili.\n"
 
 #: src/Dialogs.vala:611
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izlaista %d lietotāja atcelta fotogrāfija:\n"
+msgstr[1] "Izlaistas %d lietotāja atceltas fotogrāfijas:\n"
+msgstr[2] "Izlaistas %d lietotāja atceltas fotogrāfijas:\n"
 
 #: src/Dialogs.vala:614
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izlaists %d lietotāja atcelts video:\n"
+msgstr[1] "Izlaisti %d lietotāja atcelti video:\n"
+msgstr[2] "Izlaisti %d lietotāja atcelti video:\n"
 
 #: src/Dialogs.vala:617
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izlaista %d lietotāja atcelta fotogrāfija/video:\n"
+msgstr[1] "Izlaistas %d lietotāja atceltas fotogrāfijas/video:\n"
+msgstr[2] "Izlaistas %d lietotāja atceltas fotogrāfijas/video:\n"
 
 #: src/Dialogs.vala:620
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izlaists %d lietotāja atcelts fails:\n"
+msgstr[1] "Izlaisti %d lietotāja atcelti faili:\n"
+msgstr[2] "Izlaisti %d lietotāja atcelti faili:\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2585,21 +2635,21 @@ msgstr[2] "%d fotogrāfijas veiksmīgi importētas.\n"
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video tika veiksmīgi importēts.\n"
+msgstr[1] "%d video tika veiksmīgi importēti.\n"
+msgstr[2] "%d video tika veiksmīgi importēti.\n"
 
 #: src/Dialogs.vala:640
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotogrāfija/video tika veiksmīgi importēts.\n"
+msgstr[1] "%d fotogrāfijas/video tika veiksmīgi importēti.\n"
+msgstr[2] "%d fotogrāfijas/video tika veiksmīgi importēti.\n"
 
 #: src/Dialogs.vala:656
 msgid "No photos or videos imported.\n"
-msgstr ""
+msgstr "Neviena fotogrāfija netika importēta.\n"
 
 #: src/Dialogs.vala:671
 msgid "Import Complete"
@@ -2609,29 +2659,29 @@ msgstr "Importēšana pabeigta"
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d sekunde"
+msgstr[1] "%d sekundes"
+msgstr[2] "%d sekundes"
 
 #: src/Dialogs.vala:835
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d minūte"
+msgstr[1] "%d minūtes"
+msgstr[2] "%d minūtes"
 
 #: src/Dialogs.vala:839
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d stunda"
+msgstr[1] "%d stundas"
+msgstr[2] "%d stundas"
 
 #: src/Dialogs.vala:842
 msgid "1 day"
-msgstr ""
+msgstr "1 diena"
 
 #: src/Dialogs.vala:919
 msgid "Name:"
@@ -2640,9 +2690,9 @@ msgstr "Nosaukums:"
 #: src/Dialogs.vala:945
 msgid "_Trash File"
 msgid_plural "_Trash Files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izmes_t failu"
+msgstr[1] "Izmes_t failus"
+msgstr[2] "Izmes_t failus"
 
 #: src/Dialogs.vala:949
 msgid "Only _Remove"
@@ -2650,14 +2700,14 @@ msgstr "Tikai _izņemt"
 
 #: src/Dialogs.vala:969 src/camera/ImportPage.vala:1412
 msgid "_Keep"
-msgstr ""
+msgstr "_Paturēt"
 
 #: src/Dialogs.vala:992
 msgid "Revert External Edit?"
 msgid_plural "Revert External Edits?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Atgriezt ārējo izmaiņu?"
+msgstr[1] "Atgriezt ārējās izmaiņas?"
+msgstr[2] "Atgriezt ārējās izmaiņas?"
 
 #: src/Dialogs.vala:994
 #, c-format
@@ -2665,34 +2715,40 @@ msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] ""
+"Šī darbība iznīcinās visas izmaiņas, kas ir veiktas ar %d ārējo failu. "
+"Turpināt?"
 msgstr[1] ""
+"Šī darbība iznīcinās visas izmaiņas, kas ir veiktas ar %d ārējiem failiem. "
+"Turpināt?"
 msgstr[2] ""
+"Šī darbība iznīcinās visas izmaiņas, kas ir veiktas ar %d ārējiem failiem. "
+"Turpināt?"
 
 #: src/Dialogs.vala:998
 msgid "Re_vert External Edit"
 msgid_plural "Re_vert External Edits"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "At_griezt ārējo izmaiņu"
+msgstr[1] "At_griezt ārējās izmaiņas"
+msgstr[2] "At_griezt ārējās izmaiņas"
 
 #: src/Dialogs.vala:1019
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Šī darbība izņems %d fotogrāfiju no bibliotēkas. Turpināt?"
+msgstr[1] "Šī darbība izņems %d fotogrāfijas no bibliotēkas. Turpināt?"
+msgstr[2] "Šī darbība izņems %d fotogrāfijas no bibliotēkas. Turpināt?"
 
 #: src/Dialogs.vala:1026
 msgid "_Remove"
-msgstr ""
+msgstr "_Izņemt"
 
 #: src/Dialogs.vala:1027
 msgid "Remove Photo From Library"
 msgid_plural "Remove Photos From Library"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izņemt fotogrāfiju no bibliotēkas"
+msgstr[1] "Izņemt fotogrāfijas no bibliotēkas"
+msgstr[2] "Izņemt fotogrāfijas no bibliotēkas"
 
 #: src/Dialogs.vala:1116
 #, c-format
@@ -2701,34 +2757,34 @@ msgstr "%d%%"
 
 #: src/Dialogs.vala:1237
 msgid "AM"
-msgstr ""
+msgstr "AM"
 
 #: src/Dialogs.vala:1238
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #: src/Dialogs.vala:1239
 msgid "24 Hr"
-msgstr ""
+msgstr "24 st"
 
 #: src/Dialogs.vala:1254
 msgid "_Shift photos by the same amount"
-msgstr ""
+msgstr "Bīdīt fotogrāfija_s par vienādu daudzumu"
 
 #: src/Dialogs.vala:1259
 msgid "Set _all photos to this time"
-msgstr ""
+msgstr "Iest_atīt visas fotogrāfijas uz šo laiku"
 
 #: src/Dialogs.vala:1265
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "_Modificēt oriģinālo failu"
+msgstr[1] "_Modificēt oriģinālo failus"
+msgstr[2] "_Modificēt oriģinālo failus"
 
 #: src/Dialogs.vala:1347
 msgid "Original: "
-msgstr ""
+msgstr "Oriģināls: "
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
 # 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
@@ -2738,7 +2794,7 @@ msgstr ""
 # a list of format specifiers and their meanings.
 #: src/Dialogs.vala:1348
 msgid "%m/%d/%Y, %H:%M:%S"
-msgstr ""
+msgstr "%d.%m.%Y, %H:%M:%S"
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
 # 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
@@ -2748,7 +2804,7 @@ msgstr ""
 # a list of format specifiers and their meanings.
 #: src/Dialogs.vala:1349
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr ""
+msgstr "%d.%m.%Y, %I:%M:%S %p"
 
 #: src/Dialogs.vala:1434
 #, c-format
@@ -2756,6 +2812,8 @@ msgid ""
 "Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
+"Ekspozīcijas laiks tiks pabīdīts uz priekšu par\n"
+"%d %s, %d %s, %d %s, un %d %s."
 
 #: src/Dialogs.vala:1435
 #, c-format
@@ -2763,34 +2821,36 @@ msgid ""
 "Exposure time will be shifted backward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
+"Ekspozīcijas laiks tiks pabīdīts atpakaļ par\n"
+"%d %s, %d %s, %d %s, un %d %s."
 
 #: src/Dialogs.vala:1437
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "diena"
+msgstr[1] "dienas"
+msgstr[2] "dienu"
 
 #: src/Dialogs.vala:1438
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "stunda"
+msgstr[1] "stundas"
+msgstr[2] "stundu"
 
 #: src/Dialogs.vala:1439
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "minūte"
+msgstr[1] "minūtes"
+msgstr[2] "minūšu"
 
 #: src/Dialogs.vala:1440
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "sekunde"
+msgstr[1] "sekundes"
+msgstr[2] "sekunžu"
 
 #: src/Dialogs.vala:1484
 #, c-format
@@ -2803,97 +2863,108 @@ msgid_plural ""
 "\n"
 "And %d others."
 msgstr[0] ""
+"\n"
+"\n"
+"Un %d cits."
 msgstr[1] ""
+"\n"
+"\n"
+"Un %d citi."
 msgstr[2] ""
+"\n"
+"\n"
+"Un %d citi."
 
 #: src/Dialogs.vala:1505 src/Dialogs.vala:1529
 msgid "Tags (separated by commas):"
-msgstr ""
+msgstr "Birkas (atdalītas ar komatu):"
 
 #: src/Dialogs.vala:1586
 msgid "Welcome!"
-msgstr ""
+msgstr "Laipni lūdzam!"
 
 #: src/Dialogs.vala:1594
 #, c-format
 msgid "Welcome to Shotwell!"
-msgstr ""
+msgstr "Laipni lūdzam Shotwell!"
 
 #: src/Dialogs.vala:1599
 #, c-format
 msgid "To get started, import photos in any of these ways:"
-msgstr ""
+msgstr "Lai sāktu, importējiet fotogrāfijas kādā no šiem veidiem:"
 
 #: src/Dialogs.vala:1622
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr ""
+msgstr "Izvēlieties <span weight=\"bold\">Fails %s Importēt no mapes</span>"
 
 #: src/Dialogs.vala:1623
 msgid "Drag and drop photos onto the Shotwell window"
-msgstr ""
+msgstr "Velciet un nometiet fotogrāfijas Shotwell logā"
 
 #: src/Dialogs.vala:1624
 msgid "Connect a camera to your computer and import"
-msgstr ""
+msgstr "Pievienojiet kameru datoram un importējiet"
 
 #: src/Dialogs.vala:1633
 msgid "Import photos from your _F-Spot library"
-msgstr ""
+msgstr "Importēt fotogrāfijas no _F-Spot bibliotēkas"
 
 #: src/Dialogs.vala:1640
 #, c-format
 msgid "_Import photos from your %s folder"
-msgstr ""
+msgstr "_Importēt fotogrāfijas no savas %s mapes"
 
 #: src/Dialogs.vala:1650
 msgid "You can also import photos in any of these ways:"
-msgstr ""
+msgstr "Jūs varat arī importēt fotogrāfijas kādā no šiem veidiem:"
 
 #: src/Dialogs.vala:1662
 msgid "_Don't show this message again"
-msgstr ""
+msgstr "Vairs nerādīt šo _ziņojumu"
 
 #: src/Dialogs.vala:1782 src/Dialogs.vala:1786
 msgid "(Help)"
-msgstr ""
+msgstr "(Palīdzība)"
 
 #: src/Dialogs.vala:1795
 #, c-format
 msgid "Year%sMonth%sDay"
-msgstr ""
+msgstr "Gads%sMēnesis%sDiena"
 
 #: src/Dialogs.vala:1797
 #, c-format
 msgid "Year%sMonth"
-msgstr ""
+msgstr "Gads%sMēnesis"
 
 #: src/Dialogs.vala:1799
 #, c-format
 msgid "Year%sMonth-Day"
-msgstr ""
+msgstr "Gads%sMēnesis-Diena"
 
 #: src/Dialogs.vala:1801
 msgid "Year-Month-Day"
-msgstr ""
+msgstr "Gads-Mēnesis-Diena"
 
 #: src/Dialogs.vala:2028
 msgid "Invalid pattern"
-msgstr ""
+msgstr "Nederīgs raksts"
 
 #: src/Dialogs.vala:2108
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
 msgstr ""
+"Shotwell var kopēt fotogrāfijas jūsu bibliotēkas mapē, vai tās var tikt "
+"importētas bez kopēšanas."
 
 #: src/Dialogs.vala:2113
 msgid "Co_py Photos"
-msgstr ""
+msgstr "Ko_pēt fotogrāfijas"
 
 #: src/Dialogs.vala:2114
 msgid "_Import in Place"
-msgstr ""
+msgstr "_Importēt vietā"
 
 #: src/Dialogs.vala:2115
 msgid "Import to Library"
@@ -2901,14 +2972,14 @@ msgstr "Importēt bibliotēkā"
 
 #: src/Dialogs.vala:2125 src/PhotoPage.vala:2884
 msgid "Remove From Library"
-msgstr ""
+msgstr "Izņemt no bibliotēkas"
 
 #: src/Dialogs.vala:2126 src/PhotoPage.vala:2884
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Izņem fotogrāfiju no bibliotēkas"
+msgstr[1] "Izņem fotogrāfijas no bibliotēkas"
+msgstr[2] "Izņem fotogrāfijas no bibliotēkas"
 
 #: src/Dialogs.vala:2140
 #, c-format
@@ -2921,8 +2992,17 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Šī darbība izņems %d fotogrāfiju/video no jūsu Shotwell bibliotēkas. Vai vēlaties pārvietot šo failu uz miskasti?\n"
+"\n"
+"Šo darbību nevar atsaukt."
 msgstr[1] ""
+"Šī darbība izņems %d fotogrāfijas/video no jūsu Shotwell bibliotēkas. Vai vēlaties pārvietot šos failus uz miskasti?\n"
+"\n"
+"Šo darbību nevar atsaukt."
 msgstr[2] ""
+"Šī darbība izņems %d fotogrāfijas/video no jūsu Shotwell bibliotēkas. Vai vēlaties pārvietot šos failus uz miskasti?\n"
+"\n"
+"Šo darbību nevar atsaukt."
 
 #: src/Dialogs.vala:2144
 #, c-format
@@ -2935,8 +3015,17 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Šī darbība izņems %d video no jūsu Shotwell bibliotēkas. Vai vēlaties pārvietot šo failu uz miskasti?\n"
+"\n"
+"Šo darbību nevar atsaukt."
 msgstr[1] ""
+"Šī darbība izņems %d video no jūsu Shotwell bibliotēkas. Vai vēlaties pārvietot šos failus uz miskasti?\n"
+"\n"
+"Šo darbību nevar atsaukt."
 msgstr[2] ""
+"Šī darbība izņems %d video no jūsu Shotwell bibliotēkas. Vai vēlaties pārvietot šos failus uz miskasti?\n"
+"\n"
+"Šo darbību nevar atsaukt."
 
 #: src/Dialogs.vala:2148
 #, c-format
@@ -2949,8 +3038,17 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Šī darbība izņems %d fotogrāfiju no jūsu Shotwell bibliotēkas. Vai vēlaties pārvietot šo failu uz miskasti?\n"
+"\n"
+"Šo darbību nevar atsaukt."
 msgstr[1] ""
+"Šī darbība izņems %d fotogrāfijas no jūsu Shotwell bibliotēkas. Vai vēlaties pārvietot šos failus uz miskasti?\n"
+"\n"
+"Šo darbību nevar atsaukt."
 msgstr[2] ""
+"Šī darbība izņems %d fotogrāfijas no jūsu Shotwell bibliotēkas. Vai vēlaties pārvietot šos failus uz miskasti?\n"
+"\n"
+"Šo darbību nevar atsaukt."
 
 #: src/Dialogs.vala:2180
 #, c-format
@@ -2959,16 +3057,19 @@ msgid ""
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
 msgstr[0] ""
+"Šo %d fotogrāfiju vai video nevar pārvietot uz miskasti. Dzēst šo failu?"
 msgstr[1] ""
+"Šīs %d fotogrāfijas vai video nevar pārvietot uz miskasti. Dzēst šos failus?"
 msgstr[2] ""
+"Šīs %d fotogrāfijas vai video nevar pārvietot uz miskasti. Dzēst šos failus?"
 
 #: src/Dialogs.vala:2197
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Šo %d fotogrāfiju vai video nevar izdzēst."
+msgstr[1] "Šīs %d fotogrāfijas vai video nevar izdzēst."
+msgstr[2] "Šīs %d fotogrāfijas vai video nevar izdzēst."
 
 #: src/PhotoPage.vala:510
 msgid "Previous photo"
@@ -2985,7 +3086,7 @@ msgstr "Pazudis fotogrāfijas avota fails: %s"
 
 #: src/PhotoPage.vala:2499 src/MediaPage.vala:314 src/MediaPage.vala:458
 msgid "Ta_gs"
-msgstr ""
+msgstr "_Birkas"
 
 #: src/PhotoPage.vala:3007
 #, c-format
@@ -2994,19 +3095,19 @@ msgstr "Neizdevās eksportēt %s: %s"
 
 #: src/photos/PngSupport.vala:31
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/photos/RawSupport.vala:135
 msgid "RAW"
-msgstr ""
+msgstr "RAW"
 
 #: src/photos/TiffSupport.vala:87
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: src/photos/JfifSupport.vala:85
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: src/photos/JfifSupport.vala:180
 #, c-format
@@ -3030,51 +3131,51 @@ msgstr "Maksimālā (%d%%)"
 
 #: src/Commands.vala:647
 msgid "Reverting"
-msgstr ""
+msgstr "Atgriež"
 
 #: src/Commands.vala:647
 msgid "Undoing Revert"
-msgstr ""
+msgstr "Atsauc atgriešanu"
 
 #: src/Commands.vala:691
 msgid "Enhancing"
-msgstr ""
+msgstr "Uzlabo"
 
 #: src/Commands.vala:691
 msgid "Undoing Enhance"
-msgstr ""
+msgstr "Atsauc uzlabošanu"
 
 #: src/Commands.vala:857
 msgid "Creating New Event"
-msgstr ""
+msgstr "Izveidot jaunu notikumu"
 
 #: src/Commands.vala:858
 msgid "Removing Event"
-msgstr ""
+msgstr "Izņem notikumu"
 
 #: src/Commands.vala:867
 msgid "Moving Photos to New Event"
-msgstr ""
+msgstr "Pārvieto fotogrāfiju uz jaunu notikumu"
 
 #: src/Commands.vala:868
 msgid "Setting Photos to Previous Event"
-msgstr ""
+msgstr "Iestata fotogrāfiju uz iepriekšējo notikumu"
 
 #: src/Commands.vala:898
 msgid "Merging"
-msgstr ""
+msgstr "Apvieno"
 
 #: src/Commands.vala:899
 msgid "Unmerging"
-msgstr ""
+msgstr "Atsauc apvienošanu"
 
 #: src/Commands.vala:908
 msgid "Duplicating photos"
-msgstr ""
+msgstr "Dublē fotogrāfijas"
 
 #: src/Commands.vala:908
 msgid "Removing duplicated photos"
-msgstr ""
+msgstr "Izņem fotogrāfiju dublikātus"
 
 #: src/Commands.vala:931
 #, c-format
@@ -3086,103 +3187,104 @@ msgstr[2] "Neizdevās dublēt %d fotogrāfijas sakarā ar failu kļūdām"
 
 #: src/Commands.vala:1019
 msgid "Restoring previous rating"
-msgstr ""
+msgstr "Atjauno iepriekšējo vērtējumu"
 
 #: src/Commands.vala:1029 src/Commands.vala:1030
 msgid "Increasing ratings"
-msgstr ""
+msgstr "Palielina vērtējumus"
 
 #: src/Commands.vala:1029 src/Commands.vala:1030
 msgid "Decreasing ratings"
-msgstr ""
+msgstr "Samazina vērtējumus"
 
 #: src/Commands.vala:1100
 msgid "Original photo could not be adjusted."
-msgstr ""
+msgstr "Nevarēja pielāgot oriģinālo fotogrāfiju."
 
 #: src/Commands.vala:1120
 msgid "Adjusting Date and Time"
-msgstr ""
+msgstr "Pielāgo datumu un laiku"
 
 #: src/Commands.vala:1120
 msgid "Undoing Date and Time Adjustment"
-msgstr ""
+msgstr "Atsauc datuma un laika pielāgošanu"
 
 #: src/Commands.vala:1147
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Nevarēja pielāgot %d oriģinālo fotogrāfiju."
+msgstr[1] "Nevarēja pielāgot %d oriģinālās fotogrāfijas."
+msgstr[2] "Nevarēja pielāgot %d oriģinālās fotogrāfijas."
 
 #: src/Commands.vala:1149 src/Commands.vala:1161
 msgid "Time Adjustment Error"
-msgstr ""
+msgstr "Laika pielāgošanas kļūda"
 
 #: src/Commands.vala:1159
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Nevarēja atsaukt laika pielāgojumu sekojošajam fotogrāfijas failam."
+msgstr[1] "Nevarēja atsaukt laika regulējumu sekojošajiem fotogrāfijas failiem."
+msgstr[2] "Nevarēja atsaukt laika regulējumu sekojošajiem fotogrāfijas failiem."
 
 #: src/Commands.vala:1461
 msgid "Move Photos to Trash"
-msgstr ""
+msgstr "Pārvietot fotogrāfijas uz miskasti"
 
 #: src/Commands.vala:1461
 msgid "Restore Photos from Trash"
-msgstr ""
+msgstr "Atjaunot fotogrāfijas no miskastes"
 
 #: src/Commands.vala:1462
 msgid "Move the photos to the Shotwell trash"
-msgstr ""
+msgstr "Pārvietot fotogrāfijas uz Shotwell miskasti"
 
 #: src/Commands.vala:1462
 msgid "Restore the photos back to the Shotwell library"
-msgstr ""
+msgstr "Atjaunot fotogrāfijas atpakaļ uz Shotwell bibliotēku"
 
 #: src/Commands.vala:1481
 msgid "Moving Photos to Trash"
-msgstr ""
+msgstr "Pārvieto fotogrāfijas uz miskasti"
 
 #: src/Commands.vala:1481
 msgid "Restoring Photos From Trash"
-msgstr ""
+msgstr "Atjauno fotogrāfijas no miskastes"
 
 #: src/Commands.vala:1570
 msgid "Flag"
-msgstr ""
+msgstr "Marķēt"
 
 #: src/Commands.vala:1570
 msgid "Unflag"
-msgstr ""
+msgstr "Noņemt marķējumu"
 
 #: src/Commands.vala:1571
 msgid "Flag selected photos"
-msgstr ""
+msgstr "Marķēt izvēlētās fotogrāfijas"
 
 #: src/Commands.vala:1571
 msgid "Unflag selected photos"
-msgstr ""
+msgstr "Noņemt marķējumu no izvēlētajām fotogrāfijām"
 
 #: src/Page.vala:1215
 msgid "No photos/videos"
-msgstr ""
+msgstr "Nav fotogrāfijas/video"
 
 #: src/Page.vala:1219
 msgid "No photos/videos found"
-msgstr ""
+msgstr "Netika atrastas fotogrāfijas/video"
 
 #: src/Page.vala:2429
 msgid "Photos cannot be exported to this directory."
-msgstr ""
+msgstr "Uz šo mapi nevar eksportēt fotogrāfijas."
 
 #: src/camera/ImportPage.vala:404
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
+"Neizdevās nomonēt kameru. Mēģiniet nomontēt kameru no failu pārvaldnieka."
 
 #: src/camera/ImportPage.vala:580 src/camera/ImportPage.vala:596
 #: src/camera/Branch.vala:88
@@ -3211,30 +3313,30 @@ msgstr "Importēt _izvēlētās"
 
 #: src/camera/ImportPage.vala:747
 msgid "Import the selected photos into your library"
-msgstr ""
+msgstr "Importēt izvēlētās fotogrāfijās savā bibliotēkā"
 
 #: src/camera/ImportPage.vala:752
 msgid "Import _All"
-msgstr "Importēt _visas"
+msgstr "Importēt vis_as"
 
 #: src/camera/ImportPage.vala:753
 msgid "Import all the photos into your library"
-msgstr ""
+msgstr "Importēt visas fotogrāfijas savā bibliotēkā"
 
 #: src/camera/ImportPage.vala:877
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
 msgstr ""
-"Shotwell ir jānomontē kamera no failsistēmas, lai tai piekļūtu. Turpināt?"
+"Shotwell ir jānomontē kamera no failu sistēmas, lai tai piekļūtu. Turpināt?"
 
 #: src/camera/ImportPage.vala:883
 msgid "_Unmount"
-msgstr ""
+msgstr "No_montēt"
 
 #: src/camera/ImportPage.vala:888
 msgid "Please unmount the camera."
-msgstr "Lūdzu nomontējiet kameru."
+msgstr "Lūdzu, nomontējiet kameru."
 
 #: src/camera/ImportPage.vala:893
 msgid ""
@@ -3243,12 +3345,12 @@ msgid ""
 "camera and try again."
 msgstr ""
 "Kameru ir noslēgusi cita lietotne. Shotwell var piekļūt kamerai tikai tad, "
-"kad tā nav noslēgta. Lūdzu aizveriet jebkuru citu lietotni, kas izmanto "
+"kad tā nav noslēgta. Lūdzu, aizveriet jebkuru citu lietotni, kas izmanto "
 "kameru, un mēģiniet vēlreiz."
 
 #: src/camera/ImportPage.vala:903
 msgid "Please close any other application using the camera."
-msgstr "Lūdzu aizveriet jebkuru citu lietotni, kas izmanto kameru."
+msgstr "Lūdzu, aizveriet jebkuru citu lietotni, kas izmanto kameru."
 
 #: src/camera/ImportPage.vala:908
 #, c-format
@@ -3256,7 +3358,7 @@ msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
-"Neizdevās iegūt priekšskatus no kameras:\n"
+"Neizdevās iegūt priekšskatījumus no kameras:\n"
 "%s"
 
 #: src/camera/ImportPage.vala:925
@@ -3270,7 +3372,7 @@ msgstr "Iegūst informāciju par fotogrāfiju"
 #: src/camera/ImportPage.vala:1229
 #, c-format
 msgid "Fetching preview for %s"
-msgstr "Iegūst %s priekšskatu"
+msgstr "Iegūst %s priekšskatījumu"
 
 #: src/camera/ImportPage.vala:1321
 #, c-format
@@ -3289,38 +3391,38 @@ msgstr[2] "Izdzēst šīs %d fotogrāfijas no kameras?"
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Dzēst šo %d video no kameras?"
+msgstr[1] "Dzēst šos %d video no kameras?"
+msgstr[2] "Dzēst šos %d video no kameras?"
 
 #: src/camera/ImportPage.vala:1401
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Dzēst šo %d fotogrāfiju/video no kameras?"
+msgstr[1] "Dzēst šīs %d fotogrāfijas/video no kameras?"
+msgstr[2] "Dzēst šīs %d fotogrāfijas/video no kameras?"
 
 #: src/camera/ImportPage.vala:1404
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Dzēst šo %d failu no kameras?"
+msgstr[1] "Dzēst šos %d failus no kameras?"
+msgstr[2] "Dzēst šos %d failus no kameras?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
-msgstr ""
+msgstr "Izņem fotogrāfijas/video no kameras"
 
 #: src/camera/ImportPage.vala:1435
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural ""
 "Unable to delete %d photos/videos from the camera due to errors."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Neizdevās dzēst %d fotogrāfiju/video no kameras, jo bija kļūdas."
+msgstr[1] "Neizdevās dzēst %d fotogrāfijas/video no kameras, jo bija kļūdas."
+msgstr[2] "Neizdevās dzēst %d fotogrāfijas/video no kameras, jo bija kļūdas."
 
 #: src/camera/Branch.vala:74
 msgid "Cameras"
@@ -3329,59 +3431,59 @@ msgstr "Kameras"
 #: src/alien_db/AlienDatabaseImportDialog.vala:51
 #, c-format
 msgid "Import from default %1$s library (%2$s)"
-msgstr ""
+msgstr "Importēt no noklusētās %1$s bibliotēkas (%2$s)"
 
 #: src/alien_db/AlienDatabaseImportDialog.vala:59
 #, c-format
 msgid "Import from another %s database file:"
-msgstr ""
+msgstr "Importēt no cita %s datubāzes faila:"
 
 #: src/alien_db/AlienDatabaseImportDialog.vala:63
 #, c-format
 msgid "Import from a %s database file:"
-msgstr ""
+msgstr "Importēt no %s datubāzes faila:"
 
 #: src/alien_db/AlienDatabaseImportDialog.vala:97
 msgid "No database selected"
-msgstr ""
+msgstr "Nav izvēlēta datubāze"
 
 #: src/alien_db/AlienDatabaseImportDialog.vala:135
 #, c-format
 msgid "%s Database"
-msgstr ""
+msgstr "%s datubāze"
 
 #: src/alien_db/AlienDatabaseImportDialog.vala:155
 msgid "Shotwell failed to load the database file"
-msgstr ""
+msgstr "Shotwell neizdevās ielādēt datubāzes failu"
 
 #: src/alien_db/f_spot/FSpotDatabase.vala:57
 msgid "F-Spot"
-msgstr ""
+msgstr "F-Spot"
 
 #: src/alien_db/f_spot/FSpotDatabaseDriver.vala:220
 msgid "Import From _F-Spot..."
-msgstr ""
+msgstr "Importēt no _F-Spot..."
 
 #: src/alien_db/f_spot/FSpotDatabaseDriver.vala:221
 msgid "Import the content of an external F-Spot database"
-msgstr ""
+msgstr "Importēt fotogrāfijas no ārējas F-Spot datubāzes"
 
 #: src/alien_db/f_spot/FSpotDatabaseDriver.vala:239
 msgid "Import From F-Spot"
-msgstr ""
+msgstr "Importēt no F-Spot"
 
 #: src/db/DatabaseTable.vala:36
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
-msgstr ""
+msgstr "Nevar atvērt/izveidot fotogrāfiju datubāzi %s: kļūdas kods %d"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
-msgstr "Pielāgot sīkattēlu izmēru"
+msgstr "Pielāgot sīktēlu izmēru"
 
 #: src/MediaPage.vala:280
 msgid "Export the selected items to disk"
-msgstr ""
+msgstr "Eksportēt izvēlētos vienumus uz disku"
 
 #: src/MediaPage.vala:306
 msgid "_Photos"
@@ -3389,27 +3491,27 @@ msgstr "_Fotogrāfijas"
 
 #: src/MediaPage.vala:338
 msgid "Increase the magnification of the thumbnails"
-msgstr "Tuvināt sīkattēlus"
+msgstr "Palielināt sīktēlu palielinājumu"
 
 #: src/MediaPage.vala:344
 msgid "Decrease the magnification of the thumbnails"
-msgstr "Tālināt sīkattēlus"
+msgstr "Samazināt sīktēlu palielinājumu"
 
 #: src/MediaPage.vala:421
 msgid "Sort _Photos"
-msgstr "Sakārtot _fotogrāfijas"
+msgstr "Kārtot _fotogrāfijas"
 
 #: src/MediaPage.vala:434
 msgid "_Play Video"
-msgstr ""
+msgstr "_Atskaņot video"
 
 #: src/MediaPage.vala:435
 msgid "Open the selected videos in the system video player"
-msgstr ""
+msgstr "Atvērt izvēlētos video sistēmas video atskaņotājā"
 
 #: src/MediaPage.vala:459
 msgid "Display each photo's tags"
-msgstr ""
+msgstr "Rādīt katras fotogrāfijas birku"
 
 #: src/MediaPage.vala:474
 msgid "By _Title"
@@ -3429,11 +3531,11 @@ msgstr "Kārtot fotogrāfijas pēc uzņemšanas datuma"
 
 #: src/MediaPage.vala:486
 msgid "By _Rating"
-msgstr ""
+msgstr "Pēc vē_rtējuma"
 
 #: src/MediaPage.vala:487
 msgid "Sort photos by rating"
-msgstr ""
+msgstr "Kārtot fotogrāfijas pēc vērtējuma"
 
 #: src/MediaPage.vala:676
 #, c-format
@@ -3441,47 +3543,50 @@ msgid ""
 "Shotwell was unable to play the selected video:\n"
 "%s"
 msgstr ""
+"Shotwell nevar atskanot izvēlēto video:\n"
+"%s"
 
 #: src/Event.vala:708
 #, c-format
 msgid "Event %s"
-msgstr ""
+msgstr "Notikums %s"
 
 #: plugins/shotwell-transitions/FadeEffect.vala:20
 msgid "Fade"
-msgstr ""
+msgstr "Izgaist"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:20
 msgid "Crumble"
-msgstr ""
+msgstr "Sairt"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:21
 msgid "Core Slideshow Transitions"
-msgstr ""
+msgstr "Pamata slīdrādes pārejas"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
 msgstr ""
+"Autortiesības 2010 Maxim Kartashev, autortiesības 2011 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
 msgid "Slide"
-msgstr ""
+msgstr "Slaids"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr ""
+msgstr "Autortiesības 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
 msgid "Visit the Yandex.Fotki web site"
-msgstr ""
+msgstr "Apmeklējiet Yandex.Fotki tīmekļa vietni"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:46
 msgid "You are not currently logged into Yandex.Fotki."
-msgstr ""
+msgstr "Jūs šobrīd neesat ierakstījies Yandex.Fotki."
 
 #: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:17
 msgid "Shotwell Extra Publishing Services"
-msgstr ""
+msgstr "Shotwell Extra publicēšanas servisi"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:68
 msgid ""
@@ -3489,6 +3594,9 @@ msgid ""
 "\n"
 "If you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function."
 msgstr ""
+"Jūs pašlaik neesat pieteicies Facebook.\n"
+"\n"
+"Ja jums vēl nav Facebook konta, jūs to varat izveidot pieteikšanās procesā. Tās laikā Shotwell Connect var jums prasīt atļauju augšupielādēt fotogrāfijas un publicēt tās jūsu barotnē. Šīs atļaujas ir nepieciešamas, lai Shotwell Connect varētu darboties."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:70
 msgid ""
@@ -3500,20 +3608,20 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:135
 msgid "Standard (720 pixels)"
-msgstr ""
+msgstr "Standarta (720 pikseļi)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:138
 msgid "Large (2048 pixels)"
-msgstr ""
+msgstr "Liels (2048 pikseļi)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:272
 msgid "Testing connection to Facebook..."
-msgstr ""
+msgstr "Testē savienojumu ar Facebook..."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:458
 #: plugins/shotwell-publishing/PicasaPublishing.vala:512
 msgid "Creating album..."
-msgstr ""
+msgstr "Veido albumu..."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1582
 #, c-format
@@ -3521,14 +3629,16 @@ msgid ""
 "You are logged into Facebook as %s.\n"
 "\n"
 msgstr ""
+"Jūs esat pieteicies Facebook kā %s.\n"
+"\n"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1583
 msgid "Where would you like to publish the selected photos?"
-msgstr ""
+msgstr "Kur vēlaties publicēt izvēlētās fotogrāfijas?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1584
 msgid "Upload _size:"
-msgstr ""
+msgstr "Augšupielāde_s izmērs:"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1653
 msgid "Publish to an e_xisting album:"
@@ -3536,11 +3646,11 @@ msgstr "Publicēt e_ksistējošā albumā:"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1656
 msgid "Create a _new album named:"
-msgstr "Izveidot _jaunu albumu ar nosaukumu:"
+msgstr "Izveidot jau_nu albumu ar nosaukumu:"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1672
 msgid "Videos and new photo albums _visible to:"
-msgstr ""
+msgstr "_Video un jaunie fotogrāfiju albumi ir redzami:"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1853
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1097
@@ -3549,11 +3659,11 @@ msgstr "Tikai man pašam"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1854
 msgid "All friends"
-msgstr ""
+msgstr "Visiem draugiem"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1855
 msgid "Friends of friends"
-msgstr ""
+msgstr "Draugu draugiem"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:58
 msgid ""
@@ -3561,18 +3671,25 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
 msgstr ""
+"Jūs pašlaik neesat pieteicies Picasa interneta albumiem.\n"
+"\n"
+"Jums jau ir jābūt izveidotam Google kontam un tur ir jābūt iestatītai Picasa izmantošanai, lai turpinātu. Jūs varat iestatīt vairums kontu, izmantojot pārlūku un piesakoties Picasa interneta albumiem vismaz vienreiz."
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:813
 msgid ""
 "Enter the email address and password associated with your Picasa Web Albums "
 "account."
 msgstr ""
+"Ievadiet e-pasta adreses un paroles, kas ir saistītas ar jūsu Picasa "
+"interneta albumu kontu."
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:814
 msgid ""
 "Picasa Web Albums didn't recognize the email address and password you "
 "entered. To try again, re-enter your email address and password below."
 msgstr ""
+"Picasa interneta albumi neatpazīst ievadīto e-pasta adresi un paroli. "
+"Mēģiniet vēlreiz, atkal ievadot e-pasta adresi un paroli zemāk."
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:815
 msgid ""
@@ -3581,6 +3698,10 @@ msgid ""
 "accounts by using your browser to log into the Picasa Web Albums site at "
 "least once. To try again, re-enter your email address and password below."
 msgstr ""
+"Jūsu ievadītā e-pasta adrese atbilst Google kontam, kas nav iestatīta Picasa"
+" interneta albumu lietošanai. Jūs varat iestatīt vairums kontu, izmantojot "
+"savu pārlūku, lai pieteiktos Picasa interneta albumu vietnē vismaz vienreiz."
+" Lai mēģinātu vēlreiz, atkal ievadiet savu e-pasta adresi un paroli zemāk."
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:816
 msgid ""
@@ -3589,61 +3710,65 @@ msgid ""
 "tag by using your browser to log into Picasa Web Albums. To try again, re-"
 "enter your email address and password below."
 msgstr ""
+"Jūsu ievadītā e-pasta adrese atbilst Google kontam, kuram ir norādīts, ka ir"
+" jāizmanto papildu drošība. Jūs varat noņemt šo birku, izmantojot savu "
+"pārlūku, lai pieteiktos Picasa interneta albumiem. Lai mēģinātu vēlreiz, "
+"atkal ievadiet savu e-pasta adresi un paroli zemāk."
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:860
 #: plugins/shotwell-publishing/YouTubePublishing.vala:790
 #, c-format
 msgid "Account Not Ready"
-msgstr ""
+msgstr "Konts nav gatavs"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:869
 #: plugins/shotwell-publishing/YouTubePublishing.vala:799
 #, c-format
 msgid "Additional Security Required"
-msgstr ""
+msgstr "Nepieciešama papildu drošība"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:880
 #: plugins/shotwell-publishing/YouTubePublishing.vala:810
 msgid "_Email address:"
-msgstr ""
+msgstr "_E-pasta adrese:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:902
 #: plugins/shotwell-publishing/YouTubePublishing.vala:832
 msgid "Go _Back"
-msgstr ""
+msgstr "Iet _atpakaļ"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1037
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr ""
+msgstr "Jūs esat pieteicies Picasa interneta albumiem kā \"%s\"."
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1059
 msgid "Videos will appear in:"
-msgstr ""
+msgstr "Video parādīsies:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1075
 msgid "An _existing album:"
-msgstr ""
+msgstr "_Esošs albums:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1101
 msgid "L_ist album in public gallery"
-msgstr ""
+msgstr "L_ikt albumu publiskā galerijā"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1119
 msgid "Photo _size preset:"
-msgstr ""
+msgstr "Fotogrāfiju izmēra regulējum_s:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1233
 msgid "Small (640 x 480 pixels)"
-msgstr ""
+msgstr "Mazs (640 x 480 pikseļi)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1234
 msgid "Medium (1024 x 768 pixels)"
-msgstr ""
+msgstr "Vidējs (1024 x 768 pikseļi)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1235
 msgid "Recommended (1600 x 1200 pixels)"
-msgstr ""
+msgstr "Ieteiktais (1600 x 1200 pikseļi)"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:57
 msgid ""
@@ -3651,17 +3776,23 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."
 msgstr ""
+"Jūs pašlaik neesat pieteicies YouTube\n"
+"\n"
+"Jums jau ir jābūt izveidotam Google kontam un tur ir jābūt iestatītai YouTube izmantošanai, lai turpinātu. Jūs varat iestatīt vairums kontu, izmantojot pārlūku un piesakoties YouTube vismaz vienreiz."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:744
 msgid ""
 "Enter the email address and password associated with your YouTube account."
 msgstr ""
+"Ievadiet e-pasta adreses un paroles, kas ir saistītas ar jūsu YouTube kontu."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:745
 msgid ""
 "YouTube didn't recognize the email address and password you entered. To try "
 "again, re-enter your email address and password below."
 msgstr ""
+"YouTube neatpazīst ievadīto e-pasta adresi un paroli. Mēģiniet vēlreiz, "
+"atkal ievadot e-pasta adresi un paroli zemāk."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:746
 msgid ""
@@ -3670,6 +3801,10 @@ msgid ""
 "using your browser to log into the YouTube site at least once. To try again,"
 " re-enter your email address and password below."
 msgstr ""
+"Jūsu ievadītā e-pasta adrese atbilst Google kontam, kas nav iestatīta "
+"YouTube lietošanai Jūs varat iestatīt vairums kontu, izmantojot savu "
+"pārlūku, lai pieteiktos YouTube vietnē vismaz vienreiz. Lai mēģinātu "
+"vēlreiz, atkal ievadiet savu e-pasta adresi un paroli zemāk."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:747
 msgid ""
@@ -3678,36 +3813,40 @@ msgid ""
 "tag by using your browser to log into YouTube. To try again, re-enter your "
 "email address and password below."
 msgstr ""
+"Jūsu ievadītā e-pasta adrese atbilst Google kontam, kuram ir norādīts, ka ir"
+" jāizmanto papildu drošība Jūs varat noņemt šo birku, izmantojot savu "
+"pārlūku, lai pieteiktos YouTube. Lai mēģinātu vēlreiz, atkal ievadiet savu "
+"e-pasta adresi un paroli zemāk."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:957
 #, c-format
 msgid "You are logged into YouTube as %s."
-msgstr ""
+msgstr "Jūs esat pieteicies YouTube kā \"%s\"."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:962
 #, c-format
 msgid "Videos will appear in '%s'"
-msgstr ""
+msgstr "Video parādīsies '%s'"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:985
 msgid "Video privacy _setting:"
-msgstr ""
+msgstr "Video privātuma ie_statījumi:"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:1062
 msgid "Public listed"
-msgstr ""
+msgstr "Publiskā sarakstā"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:1063
 msgid "Public unlisted"
-msgstr ""
+msgstr "Nav publiskā sarakstā"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:1064
 msgid "Private"
-msgstr ""
+msgstr "Privāts"
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:25
 msgid "Core Publishing Services"
-msgstr ""
+msgstr "Pamata publicēšanas servisi"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:59
 msgid ""
@@ -3715,6 +3854,8 @@ msgid ""
 "\n"
 "You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
+"Jūs pašlaik neesat pieteicies Flickr\n"
+"Jums jāpiesakās Flickr kontā, lai pabeigtu pieteikšanās procesu. Pieteikšanās laikā jums īpaši jāautorizē Shotwell Connect, lai varētu sasaistīt ar Flickr kontu."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:61
 msgid ""
@@ -3726,7 +3867,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:350
 msgid "Preparing to login..."
-msgstr ""
+msgstr "Gatavojas pieteikties..."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:984
 #, c-format
@@ -3743,6 +3884,8 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
+"Jūsu bezmaksas Flickr konts ierobežo mēnesī augšupielādējamo datu apjomu.\n"
+"Šomēnes jums ir atlikuši %d megabaiti augšupielādēšanas kvotas."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:988
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
@@ -3754,11 +3897,11 @@ msgstr "Fotogrāfijas, _kas redzamas:"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1015
 msgid "Videos _visible to:"
-msgstr ""
+msgstr "Video, _kas redzami:"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1017
 msgid "Photos and videos _visible to:"
-msgstr ""
+msgstr "Fotogrāfijas un video, _kas redzami:"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1020
 msgid "Photo _size:"
@@ -3786,116 +3929,116 @@ msgstr "4096 x 3072 pikseļi"
 
 #: ui/set_background_dialog.glade:8
 msgid "Set as Desktop Slideshow"
-msgstr ""
+msgstr "Iestatīt kā darbvirsmas slīdrādi"
 
 #: ui/set_background_dialog.glade:23
 msgid "Show each photo for"
-msgstr ""
+msgstr "Rādīt katru fotogrāfiju"
 
 #: ui/set_background_dialog.glade:33
 msgid "period of time"
-msgstr ""
+msgstr "laika periods"
 
 #: ui/set_background_dialog.glade:52
 msgid "How long each photo is shown on the desktop background"
-msgstr ""
+msgstr "Cik ilgi katra fotogrāfija tiek rādīta uz darbvirsmas fona"
 
 #: ui/set_background_dialog.glade:88
 msgid "Generate desktop background slideshow"
-msgstr ""
+msgstr "Veidot darbvirsmu no fona slīdrādes"
 
 #: ui/shotwell.glade:103
 msgid "Shotwell Preferences"
-msgstr ""
+msgstr "Shotwell iestatījumi"
 
 #: ui/shotwell.glade:145
 msgid "white"
-msgstr ""
+msgstr "balts"
 
 #: ui/shotwell.glade:168
 msgid "black"
-msgstr ""
+msgstr "melns"
 
 #: ui/shotwell.glade:214
 msgid "External Editors"
-msgstr ""
+msgstr "Ārējie redaktori"
 
 #: ui/shotwell.glade:276
 msgid "_Watch library directory for new files"
-msgstr ""
+msgstr "_Sekot līdzi jauniem failiem manā bibliotēkā"
 
 #: ui/shotwell.glade:302
 msgid "Metadata"
-msgstr ""
+msgstr "Metadati"
 
 #: ui/shotwell.glade:321
 msgid "Write tags, titles, and other _metadata to photo files"
-msgstr ""
+msgstr "Rakstīt birkas, nosaukumus un citus _metadatus fotogrāfiju failos"
 
 #: ui/shotwell.glade:344
 msgid "Display"
-msgstr ""
+msgstr "Attēlot"
 
 #: ui/shotwell.glade:368
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "Ārējais fotogrāfiju r_edaktors:"
 
 #: ui/shotwell.glade:381
 msgid "External _RAW editor:"
-msgstr ""
+msgstr "Ārējais _RAW redaktors:"
 
 #: ui/shotwell.glade:406
 msgid "_Import photos to:"
-msgstr ""
+msgstr "_Importēt fotogrāfijas uz:"
 
 #: ui/shotwell.glade:427
 msgid "_Background:"
-msgstr ""
+msgstr "_Fons:"
 
 #: ui/shotwell.glade:448
 msgid "Importing"
-msgstr ""
+msgstr "Importē"
 
 #: ui/shotwell.glade:469
 msgid "_Directory structure:"
-msgstr ""
+msgstr "_Mapju struktūra:"
 
 #: ui/shotwell.glade:505
 msgid "_Pattern:"
-msgstr ""
+msgstr "Šabl_ons:"
 
 #: ui/shotwell.glade:574
 msgid "Example:"
-msgstr ""
+msgstr "Piemērs:"
 
 #: ui/shotwell.glade:590
 msgid "R_ename imported files to lowercase"
-msgstr ""
+msgstr "Pārsaukt importētos failus uz mazajiem burti_em"
 
 #: ui/shotwell.glade:638
 msgid "Plugins"
-msgstr ""
+msgstr "Spraudņi"
 
 #: ui/shotwell.glade:764
 msgid "Preparing pictures for import..."
-msgstr ""
+msgstr "Gatavo attēlus importēšanai..."
 
 #: ui/shotwell.glade:795
 msgid "error"
-msgstr ""
+msgstr "kļūda"
 
 #: ui/shotwell.glade:928
 msgid "Search"
-msgstr ""
+msgstr "Meklēt"
 
 #: ui/shotwell.glade:947
 msgid "Name of search:"
-msgstr ""
+msgstr "Meklēšanas nosaukums:"
 
 #: ui/shotwell.glade:994
 msgid "Match"
-msgstr ""
+msgstr "Atbilst"
 
 #: ui/shotwell.glade:1018
 msgid "of the following:"
-msgstr ""
+msgstr "no sekojošajiem:"
