@@ -44,7 +44,8 @@ public abstract class SearchCondition {
         TITLE,
         TAG,
         EVENT_NAME,
-        FILE_NAME;
+        FILE_NAME,
+        MEDIA_TYPE;
         
         public string to_string() {
             switch (this) {
@@ -62,6 +63,9 @@ public abstract class SearchCondition {
                 
                 case SearchType.FILE_NAME:
                     return "FILE_NAME";
+                
+                case SearchType.MEDIA_TYPE:
+                    return "MEDIA_TYPE";
                 
                 default:
                     error("unrecognized search type enumeration value");
@@ -83,6 +87,9 @@ public abstract class SearchCondition {
             
             else if (str == "FILE_NAME")
                 return SearchType.FILE_NAME;
+            
+            else if (str == "MEDIA_TYPE")
+                return SearchType.MEDIA_TYPE;
             
             else
                 error("unrecognized search type name: %s", str);
@@ -190,6 +197,7 @@ public class SearchConditionText : SearchCondition {
         
         return false;
     }
+    
     // Determines whether the source is included.
     public override bool predicate(MediaSource source) {
         bool ret = false;
@@ -220,6 +228,114 @@ public class SearchConditionText : SearchCondition {
         }
         
         return ret;
+    }
+}
+
+// Condition for media type matching.
+public class SearchConditionMediaType : SearchCondition {
+    public enum Context {
+        IS = 0,
+        IS_NOT;
+        
+        public string to_string() {
+            switch (this) {
+                case Context.IS:
+                    return "IS";
+                
+                case Context.IS_NOT:
+                    return "IS_NOT";
+                
+                default:
+                    error("unrecognized media search context enumeration value");
+            }
+        }
+        
+        public static Context from_string(string str) {
+            if (str == "IS")
+                return Context.IS;
+            
+            else if (str == "IS_NOT")
+                return Context.IS_NOT;
+            
+            else
+                error("unrecognized media search context name: %s", str);
+        }
+    }
+    
+    public enum MediaType {
+        PHOTO_ALL = 0,
+        PHOTO_RAW,
+        VIDEO;
+        
+        public string to_string() {
+            switch (this) {
+                case MediaType.PHOTO_ALL:
+                    return "PHOTO_ALL";
+                
+                case MediaType.PHOTO_RAW:
+                    return "PHOTO_RAW";
+                
+                case MediaType.VIDEO:
+                    return "VIDEO";
+                
+                default:
+                    error("unrecognized media search type enumeration value");
+            }
+        }
+        
+        public static MediaType from_string(string str) {
+            if (str == "PHOTO_ALL")
+                return MediaType.PHOTO_ALL;
+            
+            else if (str == "PHOTO_RAW")
+                return MediaType.PHOTO_RAW;
+            
+            else if (str == "VIDEO")
+                return MediaType.VIDEO;
+            
+            else
+                error("unrecognized media search type name: %s", str);
+        }
+    }
+    
+    // What to search for.
+    public MediaType media_type { get; private set; }
+    
+    // How to match.
+    public Context context { get; private set; }
+    
+    public SearchConditionMediaType(SearchCondition.SearchType search_type, Context context, MediaType media_type) {
+        this.search_type = search_type;
+        this.context = context;
+        this.media_type = media_type;
+    }
+    
+    // Determines whether the source is included.
+    public override bool predicate(MediaSource source) {
+        // For the given type, check it against the MediaSource type
+        // and the given search context.
+        switch (media_type) {
+            case MediaType.PHOTO_ALL:
+                if (source is Photo)
+                    return context == Context.IS;
+                else
+                    return context == Context.IS_NOT;
+                    
+            case MediaType.PHOTO_RAW:
+                if (source is Photo && ((Photo) source).get_master_file_format() == PhotoFileFormat.RAW)
+                    return context == Context.IS;
+                else
+                    return context == Context.IS_NOT;
+                    
+            case MediaType.VIDEO:
+                if (source is VideoSource)
+                    return context == Context.IS;
+                else
+                    return context == Context.IS_NOT;
+                    
+            default:
+                    error("unrecognized media search type enumeration value");
+        }
     }
 }
 
