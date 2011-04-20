@@ -78,13 +78,16 @@ class EventDirectoryItem : CheckerboardItem {
             count_text = ngettext("%d Photo", "%d Photos", count).printf(count);
         
         string? daterange = event.get_formatted_daterange();
+        string name = event.get_name();
         
-        if (daterange != null)
-            return "<b>%s</b>\n%s\n%s".printf(guarded_markup_escape_text(event.get_name()),
-               guarded_markup_escape_text(count_text), guarded_markup_escape_text(daterange));
-        else
-            return "<b>%s</b>\n%s".printf(guarded_markup_escape_text(event.get_name()),
+        // if we don't have a daterange or if it's the same as name, then don't print it; otherwise
+        // print it beneath the preview photo
+        if (daterange == null || daterange == name)
+            return "<b>%s</b>\n%s".printf(guarded_markup_escape_text(name),
                 guarded_markup_escape_text(count_text));
+        else
+            return "<b>%s</b>\n%s\n%s".printf(guarded_markup_escape_text(name),
+               guarded_markup_escape_text(count_text), guarded_markup_escape_text(daterange));
     }
 
     public override void exposed() {
