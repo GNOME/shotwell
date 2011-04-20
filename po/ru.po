@@ -2283,7 +2283,7 @@ msgstr "Обновление библиотеки…"
 
 #: src/library/LibraryWindow.vala:1219
 msgid "Preparing to auto-import photos..."
-msgstr "Подготовка к автоматическому импортированию фотографий…"
+msgstr "Подготовка к авто-импортированию…"
 
 #: src/library/LibraryWindow.vala:1224
 msgid "Auto-importing photos..."
