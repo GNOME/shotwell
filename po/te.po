@@ -44,13 +44,6 @@ msgstr "షాట్‌వెల్ ఫొటో వీక్షకం"
 #: src/Resources.vala:16
 msgid "Photo Viewer"
 msgstr "ఫొటో వీక్షకం"
-<<<<<<< HEAD
-
-#: src/LastImportPage.vala:17
-msgid "Last Import"
-msgstr ""
-=======
->>>>>>> bad6f3d... Updated import directory (year, month, day) translations.
 
 #: src/AppWindow.vala:57
 msgid "Pin Toolbar"

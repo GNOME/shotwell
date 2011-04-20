@@ -22,12 +22,8 @@ msgstr ""
 #: src/AppWindow.vala:668 plugins/common/Resources.vala:28
 msgid "translator-credits"
 msgstr ""
-<<<<<<< HEAD
 "Tommy He < tommy.he@linux.com>\n"
 "zheng7fu2 < zheng7fu2@gmail.com>\n"
-=======
-"翻译致谢\n"
->>>>>>> bad6f3d... Updated import directory (year, month, day) translations.
 "Xhacker Liu <liu.dongyuan@gmail.com>"
 
 # GNOME Application Name
@@ -1209,16 +1205,12 @@ msgstr ""
 "%s 不支持的文件类型\n"
 "%s"
 
-<<<<<<< HEAD
 #: src/direct/DirectPhotoPage.vala:247 src/direct/DirectPhotoPage.vala:445
 #, c-format
 msgid "Unable to load %s: %s"
 msgstr "无法装载 %s：%s"
 
 #: src/direct/DirectPhotoPage.vala:387
-=======
-#: src/direct/DirectPhotoPage.vala:378
->>>>>>> bad6f3d... Updated import directory (year, month, day) translations.
 msgid "_Save a Copy"
 msgstr "保存为副本(_S)"
 
@@ -2690,11 +2682,7 @@ msgid ""
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
 "曝光时间将会向较早时改变 \n"
-<<<<<<< HEAD
-"%d %s、%d %s、%d % 和 %d %s。"
-=======
 "%d %s、%d %s、%d %s 和 %d %s。"
->>>>>>> bad6f3d... Updated import directory (year, month, day) translations.
 
 #: src/Dialogs.vala:1435
 #, c-format
@@ -3821,24 +3809,7 @@ msgstr "准备要导入的照片..."
 msgid "error"
 msgstr "错误"
 
-<<<<<<< HEAD
 #: ui/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
 msgstr "相册 (或创建新的) (_A)："
-=======
-#: ui/shotwell.glade:928
-msgid "Search"
-msgstr ""
->>>>>>> bad6f3d... Updated import directory (year, month, day) translations.
 
-#: ui/shotwell.glade:947
-msgid "Name of search:"
-msgstr ""
-
-#: ui/shotwell.glade:994
-msgid "Match"
-msgstr ""
-
-#: ui/shotwell.glade:1018
-msgid "of the following:"
-msgstr ""
