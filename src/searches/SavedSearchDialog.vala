@@ -125,6 +125,7 @@ public class SavedSearchDialog {
             
             entry = new Gtk.Entry();
             entry.set_width_chars(25);
+            entry.set_activates_default(true);
             
             box = new Gtk.HBox(false, 8);
             box.pack_start(text_context, false, false, 0);
@@ -207,7 +208,8 @@ public class SavedSearchDialog {
         add_criteria.button_press_event.connect(on_add_criteria);
         
         search_title = builder.get_object("Search title") as Gtk.Entry;
-
+        search_title.set_activates_default(true);
+        
         row_box = builder.get_object("row_box") as Gtk.VBox;
         
         add_text_search();
