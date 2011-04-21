@@ -76,6 +76,12 @@ private class GSettingsAdapter {
     }
 }
 
+private class GConfAdapter {
+    public const string DESKTOP_BACKGROUND_DIRECTORY = "/desktop/gnome/background";
+    public const string DESKTOP_BACKGROUND_FILE_PATH = "/desktop/gnome/background/picture_filename";
+    public const string DESKTOP_BACKGROUND_MODE_PATH = "/desktop/gnome/background/picture_options";
+}
+
 public class Config {
     public const string PATH_SHOTWELL = "/apps/shotwell";
     public const string PATH_SHOTWELL_PREFS = PATH_SHOTWELL + "/preferences";
@@ -747,41 +753,52 @@ public class Config {
     }
 
     public string get_background() {
-        // attempt to use GSettings instead of GConf if the appropriate GSettings
-        // schema is available
-        if (gsettings.is_schema_available(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME)) {
-            try {
-                // if the key we need doesn't exist, we can't do anything
-                if (!gsettings.does_schema_have_key(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME,
-                    GSettingsAdapter.DESKTOP_BACKGROUND_URI_KEY_NAME))
-                    return (string) null;
+        string? from_gsettings = null;
+        string? from_gconf = null;
 
+        // get the background filename from GSettings if the schema and key we need are
+        // available
+        try {
+            if (gsettings.does_schema_have_key(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME,
+                GSettingsAdapter.DESKTOP_BACKGROUND_URI_KEY_NAME)) {
                 string background_uri = gsettings.get_string(
                     GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME,
                     GSettingsAdapter.DESKTOP_BACKGROUND_URI_KEY_NAME);
 
                 // the key could exist but just have a null value, so check for this so we
                 // don't segafault when we try to process the value
-                if (background_uri == null)
-                    return (string) null;
-
-                // GSettings gives us back a URI and what we need to return is a filename, so
-                // strip off the leading "file://" part of the URI to get a filename. This might
-                // seem brittle but let's face it, the file URI format is going to be around
-                // for a long, long time
-                return background_uri.substring(7, -1);
-            } catch (ConfigurationError err) {
-                warning("couldn't get desktop background URI via GSettings: " + err.message + ".");
-                return (string) null;
+                if (background_uri != null) {
+                    // GSettings gives us back a URI and what we need to return is a filename,
+                    // so strip off the leading "file://" part of the URI to get a filename.
+                    // This might seem brittle but let's face it: the file URI format is 
+                    // going to be the same for a long, long time
+                    from_gsettings = background_uri.substring(7, -1);
+                }
             }
+        } catch (ConfigurationError err) {
+            // this is just a debug, not a warning because even if GSettings fails to get a
+            // value, GConf might still succeed
+            debug("couldn't get desktop background URI via GSettings: " + err.message + ".");
         }
 
-        return get_string("/desktop/gnome/background/picture_filename", null);
+        // get the background filename from GConf if the key exists -- this is easier because
+        // GConf still deals in filenames (which is what Shotwell wants) instead of URIs
+        from_gconf = get_string(GConfAdapter.DESKTOP_BACKGROUND_FILE_PATH, null);
+        
+        if (from_gsettings != null)
+            debug("got desktop background filename '%s' from GSettings.", from_gsettings);
+        if (from_gconf != null)
+            debug("got desktop background filename '%s' from GConf.", from_gconf);
+        
+        // prefer GSettings since it's the way of the future
+        return (from_gsettings != null) ? from_gsettings : from_gconf;
     }
 
     public bool set_background(string filename) {
-        // attempt to use GSettings instead of GConf if the appropriate GSettings
-        // schema is available
+        bool gconf_failed = false;
+        bool gsettings_failed = false;
+        
+        // write into GSettings if the schema we need is available
         if (gsettings.is_schema_available(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME)) {
             try {
                 gsettings.set_string(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME,
@@ -789,15 +806,39 @@ public class Config {
                 gsettings.set_string(GSettingsAdapter.DESKTOP_BACKGROUND_SCHEMA_NAME,
                     GSettingsAdapter.DESKTOP_BACKGROUND_MODE_KEY_NAME, "zoom");
             } catch (ConfigurationError err) {
+                // this is a warning because the schema we want to use is available but we
+                // can't write the key -- this shouldn't happen
                 warning("couldn't set desktop background URI via GSettings: " + err.message + ".");
-                return false;
+                gsettings_failed = true;
             }
-            return true;
+        } else {
+            debug("GSettings desktop background schema isn't available; will not write " +
+                "configuration to GSettings.");
+            gsettings_failed = true;
         }
 
-        if (!set_string("/desktop/gnome/background/picture_options", "zoom"))
-            return false;
-        return set_string("/desktop/gnome/background/picture_filename", filename);
+        // write into GConf if the directory for the key exists
+        try {
+            if (client.dir_exists(GConfAdapter.DESKTOP_BACKGROUND_DIRECTORY)) {
+                gconf_failed = !set_string(GConfAdapter.DESKTOP_BACKGROUND_FILE_PATH, filename);
+                gconf_failed = gconf_failed && !set_string(GConfAdapter.DESKTOP_BACKGROUND_MODE_PATH,
+                    "zoom");
+                
+                // this is a warning because the directory we want to use exists but we
+                // can't write the key into it -- this shouldn't happen
+                if (gconf_failed)
+                    warning("couldn't set desktop background via GConf.");
+            } else {
+                debug("GConf desktop background directory doesn't exist; will not write " +
+                    "configuration to GConf.");
+                gconf_failed = true;
+            }
+        } catch (Error e) {
+            gconf_failed = true;
+            report_set_error(GConfAdapter.DESKTOP_BACKGROUND_DIRECTORY, e);
+        }
+
+        return gconf_failed && gsettings_failed;
     }
     
     public bool get_show_welcome_dialog() {
