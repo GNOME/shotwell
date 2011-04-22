@@ -1,3 +1,13 @@
+shotwell (0.9.3-1~maverick1) maverick; urgency=low
+
+  * Resolves issue where setting the desktop background didn't work in Gnome3
+  * Mimics are now deleted when a RAW photo is removed
+  * Event dates are now only shown once in the Event view
+  * Fixes a number of translation issues
+
+ -- Eric Gregory <eric@yorba.org>  Wed, 21 April 2011 15:00:00 -0800 
+
+
 shotwell (0.9.2-1~maverick1) maverick; urgency=low
 
   * Resolves translation issue where shotwell.mo is installed in wrong location

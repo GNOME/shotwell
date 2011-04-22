@@ -1,3 +1,12 @@
+Shotwell 0.9.3 - 21 April 2011 - "Without Rules There's Chaos"
+---------------------------------------------------------------------
+
+  * Resolves issue where setting the desktop background didn't work in Gnome3
+  * Mimics are now deleted when a RAW photo is removed
+  * Event dates are now only shown once in the Event view
+  * Fixes a number of translation issues
+
+
 Shotwell 0.9.2 - 11 April 2011 - "He's a Mystery Wrapped in a Twinkie"
 ---------------------------------------------------------------------
 
