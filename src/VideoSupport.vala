@@ -53,7 +53,7 @@ public class VideoReader {
     
     public static bool is_supported_video_filename(string filename) {
         string mime_type;
-        mime_type = GnomeVFS.get_mime_type_for_name(filename);
+        mime_type = ContentType.guess(filename, new uchar[0], null);
         return (mime_type.length >= 6 && mime_type[0:6] == "video/");
     }
     
