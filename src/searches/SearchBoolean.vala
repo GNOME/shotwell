@@ -7,7 +7,8 @@
 // For specifying whether a search should be ORed (any) or ANDed (all).
 public enum SearchOperator {
     ANY = 0,
-    ALL;
+    ALL,
+    NONE;
     
     public string to_string() {
         switch (this) {
@@ -16,6 +17,9 @@ public enum SearchOperator {
             
             case SearchOperator.ALL:
                 return "ALL";
+            
+            case SearchOperator.NONE:
+                return "NONE";
             
             default:
                 error("unrecognized search operator enumeration value");
@@ -28,6 +32,9 @@ public enum SearchOperator {
         
         else if (str == "ALL")
             return SearchOperator.ALL;
+        
+        else if (str == "NONE")
+            return SearchOperator.NONE;
         
         else
             error("unrecognized search operator name: %s", str);
@@ -511,16 +518,18 @@ public class SavedSearch : DataSource {
     
     public bool predicate(MediaSource source) {
         bool ret;
-        if (SearchOperator.ALL == row.operator) 
+        if (SearchOperator.ALL == row.operator || SearchOperator.NONE == row.operator)
             ret = true;
         else
             ret = false; // assumes conditions.size() > 0
         
         foreach (SearchCondition c in row.conditions) {
-            if (SearchOperator.ALL == row.operator) 
+            if (SearchOperator.ALL == row.operator)
                 ret &= c.predicate(source);
-            else
+            else if (SearchOperator.ANY == row.operator)
                 ret |= c.predicate(source);
+            else if (SearchOperator.NONE == row.operator)
+                ret &= !c.predicate(source);
         }
         return ret;
     }

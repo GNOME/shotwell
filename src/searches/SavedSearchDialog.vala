@@ -309,6 +309,7 @@ public class SavedSearchDialog {
         gtk_combo_box_set_as_text(operator);
         operator.append_text(_("any"));
         operator.append_text(_("all"));
+        operator.append_text(_("none"));
         operator.set_active(0);
         
         // Add buttons for new search.
