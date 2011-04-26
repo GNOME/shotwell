@@ -279,7 +279,7 @@ public class VideoReader {
     }
 }
 
-public class Video : VideoSource, Flaggable, Monitorable {
+public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     public const string TYPENAME = "video";
     
     public const uint64 FLAG_TRASH =    0x0000000000000001;
@@ -665,6 +665,19 @@ public class Video : VideoSource, Flaggable, Monitorable {
             return backing_row.exposure_time;
         }
     }
+    
+    public void set_exposure_time(time_t time) {
+        lock (backing_row) {
+            try {
+                VideoTable.get_instance().set_exposure_time(backing_row.video_id, time);
+            } catch (Error e) {
+                debug("Warning - %s", e.message);
+            }
+            backing_row.exposure_time = time;
+        }
+        
+        notify_altered(new Alteration("metadata", "exposure-time"));
+    }    
     
     public Dimensions get_frame_dimensions() {
         lock (backing_row) {

@@ -154,7 +154,7 @@ public enum Rating {
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're commited en
 // masse to an image file.
-public abstract class Photo : PhotoSource {
+public abstract class Photo : PhotoSource, Dateable {
     // Need to use "thumb" rather than "photo" for historical reasons -- this name is used
     // directly to load thumbnails from disk by already-existing filenames
     public const string TYPENAME = "thumb";

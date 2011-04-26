@@ -1072,35 +1072,35 @@ public class SetRatingCommand : MultipleDataSourceCommand {
 }
 
 public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
-    private Photo photo;
+    private Dateable dateable;
     private int64 time_shift;
     private bool modify_original;
 
-    public AdjustDateTimePhotoCommand(Photo photo, int64 time_shift, bool modify_original) {
-        base(photo, Resources.ADJUST_DATE_TIME_LABEL, Resources.ADJUST_DATE_TIME_TOOLTIP);
+    public AdjustDateTimePhotoCommand(Dateable dateable, int64 time_shift, bool modify_original) {
+        base(dateable, Resources.ADJUST_DATE_TIME_LABEL, Resources.ADJUST_DATE_TIME_TOOLTIP);
 
-        this.photo = photo;
+        this.dateable = dateable;
         this.time_shift = time_shift;
         this.modify_original = modify_original;
     }
 
     public override void execute() {
-        set_time(photo, photo.get_exposure_time() + (time_t) time_shift);
+        set_time(dateable, dateable.get_exposure_time() + (time_t) time_shift);
     }
 
     public override void undo() {
-        set_time(photo, photo.get_exposure_time() - (time_t) time_shift);
+        set_time(dateable, dateable.get_exposure_time() - (time_t) time_shift);
     }
 
-    private void set_time(Photo photo, time_t exposure_time) {
-        if (modify_original) {
+    private void set_time(Dateable dateable, time_t exposure_time) {
+        if (modify_original && dateable is Photo) {
             try {
-                photo.set_exposure_time_persistent(exposure_time);
+                ((Photo)dateable).set_exposure_time_persistent(exposure_time);
             } catch(GLib.Error err) {
                 AppWindow.error_message(_("Original photo could not be adjusted."));
             }
         } else {
-            photo.set_exposure_time(exposure_time);
+            dateable.set_exposure_time(exposure_time);
         }
     }
 }
@@ -1112,8 +1112,8 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
 
     // used when photos are batch changed instead of shifted uniformly
     private time_t? new_time = null;
-    private Gee.HashMap<Photo, time_t?> old_times;
-    private Gee.ArrayList<Photo> error_list;
+    private Gee.HashMap<Dateable, time_t?> old_times;
+    private Gee.ArrayList<Dateable> error_list;
 
     public AdjustDateTimePhotosCommand(Gee.Iterable<DataView> iter, int64 time_shift,
         bool keep_relativity, bool modify_originals) {
@@ -1129,17 +1129,17 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
         // this should be replaced by a first function when we migrate to Gee's List
         foreach (DataView view in iter) { 
            if (new_time == null) {
-                new_time = ((PhotoSource) view.get_source()).get_exposure_time() +
+                new_time = ((Dateable) view.get_source()).get_exposure_time() +
                     (time_t) time_shift;
                 break;
             }            
         }
 
-        old_times = new Gee.HashMap<Photo, time_t?>();
+        old_times = new Gee.HashMap<Dateable, time_t?>();
     }
 
     public override void execute() {
-        error_list = new Gee.ArrayList<Photo>();
+        error_list = new Gee.ArrayList<Dateable>();
         base.execute();
 
         if (error_list.size > 0) {
@@ -1151,7 +1151,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     }
 
     public override void undo() {
-        error_list = new Gee.ArrayList<Photo>();
+        error_list = new Gee.ArrayList<Dateable>();
         base.undo();
 
         if (error_list.size > 0) {
@@ -1162,31 +1162,36 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
         }
     }
 
-    private void set_time(Photo photo, time_t exposure_time) {
-        if (modify_originals) {
+    private void set_time(Dateable dateable, time_t exposure_time) {
+        // set_exposure_time_persistent wouldn't work on videos,
+        // since we can't actually write them from inside shotwell,
+        // so check whether we're working on a Photo or a Video
+        if (modify_originals && (dateable is Photo)) {
             try {
-                photo.set_exposure_time_persistent(exposure_time);
+                ((Photo) dateable).set_exposure_time_persistent(exposure_time);
             } catch(GLib.Error err) {
-                error_list.add(photo);
+                error_list.add(dateable);
             }
         } else {
-            photo.set_exposure_time(exposure_time);
+            // modifying originals is disabled, or this is a
+            // video
+            dateable.set_exposure_time(exposure_time);
         }
     }
 
     public override void execute_on_source(DataSource source) {
-        Photo photo = ((Photo) source);
+        Dateable dateable = ((Dateable) source);
 
-        if (keep_relativity && photo.get_exposure_time() != 0) {
-            set_time(photo, photo.get_exposure_time() + (time_t) time_shift);
+        if (keep_relativity && dateable.get_exposure_time() != 0) {
+            set_time(dateable, dateable.get_exposure_time() + (time_t) time_shift);
         } else {
-            old_times.set(photo, photo.get_exposure_time());
-            set_time(photo, new_time);
+            old_times.set(dateable, dateable.get_exposure_time());
+            set_time(dateable, new_time);
         }
     }
 
     public override void undo_on_source(DataSource source) {
-        Photo photo = ((Photo) source);
+        Dateable photo = ((Dateable) source);
 
         if (old_times.has_key(photo)) {
             set_time(photo, old_times.get(photo));

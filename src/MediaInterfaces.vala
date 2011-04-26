@@ -200,3 +200,16 @@ public interface Monitorable : MediaSource {
     }
 }
 
+//
+// Dateable
+//
+// Dateable media may have their exposure date and time set arbitrarily. 
+//
+// The set_exposure_time() method refactors the existing set_exposure_time()
+// from Photo to here in order to add this capability to videos. It should 
+// fire a "metadata:exposure-time" alteration when called.
+public interface Dateable : MediaSource {
+    public abstract void set_exposure_time(time_t target_time);    
+    
+    public abstract time_t get_exposure_time();
+}

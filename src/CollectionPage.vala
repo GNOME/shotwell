@@ -287,7 +287,11 @@ public abstract class CollectionPage : MediaPage {
         set_action_sensitive("RotateCounterclockwise", (!selection_has_videos) && has_selected);
         set_action_sensitive("FlipHorizontally", (!selection_has_videos) && has_selected);
         set_action_sensitive("FlipVertically", (!selection_has_videos) && has_selected);
-        set_action_sensitive("AdjustDateTime", (!selection_has_videos) && has_selected);
+        
+        // Allow changing of exposure time, even if there's a video in the current
+        // selection.
+        set_action_sensitive("AdjustDateTime", has_selected);
+        
         set_action_sensitive("NewEvent", has_selected);
         set_action_sensitive("AddTags", has_selected);
         set_action_sensitive("ModifyTags", one_selected);
@@ -594,7 +598,7 @@ public abstract class CollectionPage : MediaPage {
         if (get_view().get_selected_count() == 0)
             return;
 
-        PhotoSource photo_source = (PhotoSource) get_view().get_selected_at(0).get_source();
+        Dateable photo_source = (Dateable) get_view().get_selected_at(0).get_source();
 
         AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(photo_source,
             get_view().get_selected_count());

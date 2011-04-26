@@ -1177,6 +1177,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     private const int64 SECONDS_IN_MINUTE = 60;
     private const int YEAR_OFFSET = 1900;
     private bool no_original_time = false;
+    
+    private const int CALENDAR_THUMBNAIL_SCALE = 1;
 
     time_t original_time;
     Gtk.Label original_time_label;
@@ -1198,7 +1200,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
     TimeSystem previous_time_system;
 
-    public AdjustDateTimeDialog(PhotoSource source, int photo_count, bool display_options = true) {
+    public AdjustDateTimeDialog(Dateable source, int photo_count, bool display_options = true) { 
         assert(source != null);
 
         set_modal(true);
@@ -1250,12 +1252,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         set_default_response(Gtk.ResponseType.OK);
         
         relativity_radio_button = new Gtk.RadioButton.with_mnemonic(null, 
-            _("_Shift photos by the same amount"));
+            _("_Shift photos/videos by the same amount"));
         relativity_radio_button.set_active(Config.get_instance().get_keep_relativity());
         relativity_radio_button.sensitive = display_options && photo_count > 1;
 
         batch_radio_button = new Gtk.RadioButton.with_mnemonic(relativity_radio_button.get_group(),
-            _("Set _all photos to this time"));
+            _("Set _all photos/videos to this time"));
         batch_radio_button.set_active(!Config.get_instance().get_keep_relativity());
         batch_radio_button.sensitive = display_options && photo_count > 1;
         batch_radio_button.toggled.connect(on_time_changed);
@@ -1279,8 +1281,9 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         Gdk.Pixbuf preview = null;
         try {
-            preview = source.get_pixbuf(Scaling.for_viewport(Dimensions(500, 
-                display_options ? 280 : 200), false));
+            // Instead of calling get_pixbuf() here, we use the thumbnail instead;
+            // this was needed for Videos, since they don't support get_pixbuf().
+            preview = source.get_thumbnail(CALENDAR_THUMBNAIL_SCALE);
         } catch (Error err) {
             warning("Unable to fetch preview for %s", source.to_string());
         }
