@@ -45,7 +45,9 @@ public abstract class SearchCondition {
         TAG,
         EVENT_NAME,
         FILE_NAME,
-        MEDIA_TYPE;
+        MEDIA_TYPE,
+        FLAG_STATE,
+        RATING;
         
         public string to_string() {
             switch (this) {
@@ -66,6 +68,12 @@ public abstract class SearchCondition {
                 
                 case SearchType.MEDIA_TYPE:
                     return "MEDIA_TYPE";
+                
+                case SearchType.FLAG_STATE:
+                    return "FLAG_STATE";
+                
+                case SearchType.RATING:
+                    return "RATING";
                 
                 default:
                     error("unrecognized search type enumeration value");
@@ -90,6 +98,12 @@ public abstract class SearchCondition {
             
             else if (str == "MEDIA_TYPE")
                 return SearchType.MEDIA_TYPE;
+            
+            else if (str == "FLAG_STATE")
+                return SearchType.FLAG_STATE;
+            
+            else if (str == "RATING")
+                return SearchType.RATING;
             
             else
                 error("unrecognized search type name: %s", str);
@@ -336,6 +350,121 @@ public class SearchConditionMediaType : SearchCondition {
             default:
                     error("unrecognized media search type enumeration value");
         }
+    }
+}
+
+// Condition for flag state matching.
+public class SearchConditionFlagged : SearchCondition {
+    public enum State {
+        FLAGGED = 0,
+        UNFLAGGED;
+        
+        public string to_string() {
+            switch (this) {
+                case State.FLAGGED:
+                    return "FLAGGED";
+                
+                case State.UNFLAGGED:
+                    return "UNFLAGGED";
+                
+                default:
+                    error("unrecognized flagged search state enumeration value");
+            }
+        }
+        
+        public static State from_string(string str) {
+            if (str == "FLAGGED")
+                return State.FLAGGED;
+            
+            else if (str == "UNFLAGGED")
+                return State.UNFLAGGED;
+            
+            else
+                error("unrecognized flagged search state name: %s", str);
+        }
+    }
+    
+    // What to match.
+    public State state { get; private set; }
+    
+    public SearchConditionFlagged(SearchCondition.SearchType search_type, State state) {
+        this.search_type = search_type;
+        this.state = state;
+    }
+    
+    // Determines whether the source is included.
+    public override bool predicate(MediaSource source) {
+        if (state == State.FLAGGED) {
+            return ((Flaggable) source).is_flagged();
+        } else if (state == State.UNFLAGGED) {
+            return !((Flaggable) source).is_flagged();
+        } else {
+            error("unrecognized flagged search state");
+        }
+    }
+}
+
+// Condition for rating matching.
+public class SearchConditionRating : SearchCondition {
+    public enum Context {
+        AND_HIGHER = 0,
+        ONLY,
+        AND_LOWER;
+        
+        public string to_string() {
+            switch (this) {
+                case Context.AND_HIGHER:
+                    return "AND_HIGHER";
+                
+                case Context.ONLY:
+                    return "ONLY";
+                
+                case Context.AND_LOWER:
+                    return "AND_LOWER";
+                
+                default:
+                    error("unrecognized rating search context enumeration value");
+            }
+        }
+        
+        public static Context from_string(string str) {
+            if (str == "AND_HIGHER")
+                return Context.AND_HIGHER;
+            
+            else if (str == "ONLY")
+                return Context.ONLY;
+            
+            else if (str == "AND_LOWER")
+                return Context.AND_LOWER;
+            
+            else
+                error("unrecognized rating search context name: %s", str);
+        }
+    }
+    
+    // Rating to check against.
+    public Rating rating { get; private set; }
+    
+    // How to match.
+    public Context context { get; private set; }
+    
+    public SearchConditionRating(SearchCondition.SearchType search_type, Rating rating, Context context) {
+        this.search_type = search_type;
+        this.rating = rating;
+        this.context = context;
+    }
+    
+    // Determines whether the source is included.
+    public override bool predicate(MediaSource source) {
+        Rating source_rating = source.get_rating();
+        if (context == Context.AND_HIGHER)
+            return source_rating >= rating;
+        else if (context == Context.ONLY)
+            return source_rating == rating;
+        else if (context == Context.AND_LOWER)
+            return source_rating <= rating;
+        else
+            error("unknown rating search context");
     }
 }
 

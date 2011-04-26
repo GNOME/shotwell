@@ -27,6 +27,8 @@ public class SavedSearchDialog {
             type_combo.append_text(_("Event name"));
             type_combo.append_text(_("File name"));
             type_combo.append_text(_("Media type"));
+            type_combo.append_text(_("Flag state"));
+            type_combo.append_text(_("Rating"));
             type_combo.set_active(starting_type); // Sets default.
             type_combo.changed.connect(on_type_changed);
             
@@ -61,18 +63,26 @@ public class SavedSearchDialog {
                 case SearchCondition.SearchType.TAG:
                 case SearchCondition.SearchType.TITLE:
                     my_row = new SearchRowText(this);
-                    align.add(my_row.get_widget());
                     break;
                     
                 case SearchCondition.SearchType.MEDIA_TYPE:
                     my_row = new SearchRowMediaType(this);
-                    align.add(my_row.get_widget());
+                    break;
+                    
+                case SearchCondition.SearchType.FLAG_STATE:
+                    my_row = new SearchRowFlagged(this);
+                    break;
+                
+                case SearchCondition.SearchType.RATING:
+                    my_row = new SearchRowRating(this);
                     break;
                     
                 default:
                     assert(false);
                     break;
             }
+            
+            align.add(my_row.get_widget());
         }
         
         public SearchCondition.SearchType get_search_type() {
@@ -184,6 +194,86 @@ public class SavedSearchDialog {
             SearchConditionMediaType.Context context = (SearchConditionMediaType.Context) media_context.get_active();
             SearchConditionMediaType.MediaType type = (SearchConditionMediaType.MediaType) media_type.get_active();
             SearchConditionMediaType c = new SearchConditionMediaType(search_type, context, type);
+            return c;
+        }
+    }
+    
+    private class SearchRowFlagged : SearchRow {
+        private Gtk.HBox box;
+        private Gtk.ComboBox flagged_state;
+        
+        private SearchRowContainer parent;
+        
+        public SearchRowFlagged(SearchRowContainer parent) {
+            this.parent = parent;
+            
+            // Ordering must correspond with SearchConditionFlagged.State
+            flagged_state = new Gtk.ComboBox.text();
+            flagged_state.append_text(_("flagged"));
+            flagged_state.append_text(_("not flagged"));
+            flagged_state.set_active(0);
+            
+            box = new Gtk.HBox(false, 8);
+            box.pack_start(new Gtk.Label(_("Photo or video is")), false, false, 0);
+            box.pack_start(flagged_state, false, false, 0);
+            box.show_all();
+        }
+        
+        public override Gtk.Widget get_widget() {
+            return box;
+        }
+        
+        public override SearchCondition get_search_condition() {
+            SearchCondition.SearchType search_type = parent.get_search_type();
+            SearchConditionFlagged.State state = (SearchConditionFlagged.State) flagged_state.get_active();
+            SearchConditionFlagged c = new SearchConditionFlagged(search_type, state);
+            return c;
+        }
+    }
+    
+    private class SearchRowRating : SearchRow {
+        private Gtk.HBox box;
+        private Gtk.ComboBox rating;
+        private Gtk.ComboBox context;
+        
+        private SearchRowContainer parent;
+        
+        public SearchRowRating(SearchRowContainer parent) {
+            this.parent = parent;
+            
+            // Ordering must correspond with Rating
+            rating = new Gtk.ComboBox.text();
+            rating.append_text(Resources.rating_combo_box(Rating.REJECTED));
+            rating.append_text(Resources.rating_combo_box(Rating.UNRATED));
+            rating.append_text(Resources.rating_combo_box(Rating.ONE));
+            rating.append_text(Resources.rating_combo_box(Rating.TWO));
+            rating.append_text(Resources.rating_combo_box(Rating.THREE));
+            rating.append_text(Resources.rating_combo_box(Rating.FOUR));
+            rating.append_text(Resources.rating_combo_box(Rating.FIVE));
+            rating.set_active(0);
+            
+            context = new Gtk.ComboBox.text();
+            context.append_text("and higher");
+            context.append_text("only");
+            context.append_text("and lower");
+            context.set_active(0);
+            
+            box = new Gtk.HBox(false, 8);
+            box.pack_start(new Gtk.Label(_("Rating is")), false, false, 0);
+            box.pack_start(rating, false, false, 0);
+            box.pack_start(context, false, false, 0);
+            box.show_all();
+        }
+        
+        public override Gtk.Widget get_widget() {
+            return box;
+        }
+        
+        public override SearchCondition get_search_condition() {
+            SearchCondition.SearchType search_type = parent.get_search_type();
+            Rating search_rating = (Rating) rating.get_active() + Rating.REJECTED;
+            SearchConditionRating.Context search_context = (SearchConditionRating.Context) context.get_active();
+            SearchConditionRating c = new SearchConditionRating(search_type, search_rating, search_context);
             return c;
         }
     }
