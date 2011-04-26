@@ -15,6 +15,7 @@
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
             <menuitem name="Find" action="CommonFind" />
+            <menuitem name="NewSearch" action="CommonNewSearch" />
             <separator />
             <menuitem name="RemoveFromLibrary" action="RemoveFromLibrary" />
             <separator />
@@ -38,8 +39,6 @@
                 <menuitem name="DisplayRejectedOrHigher" action="CommonDisplayRejectedOrHigher" />
                 <menuitem name="DisplayRejectedOnly" action="CommonDisplayRejectedOnly" />
             </menu>
-            <separator />
-            <menuitem name="NewSearch" action="CommonNewSearch" />
             <separator />
             <menu name="SortEvents" action="CommonSortEvents">
                 <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
