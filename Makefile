@@ -246,7 +246,6 @@ EXT_PKGS = \
 	gio-unix-2.0 \
 	glib-2.0 \
 	gmodule-2.0 \
-	gnome-vfs-2.0 \
 	gstreamer-0.10 \
 	gstreamer-base-0.10 \
 	gtk+-2.0 \
@@ -273,7 +272,6 @@ EXT_PKG_VERSIONS = \
 	gio-unix-2.0 >= 2.20 \
 	glib-2.0 >= 2.26.0 \
 	gmodule-2.0 >= 2.24.0 \
-	gnome-vfs-2.0 >= 2.24.2 \
 	gstreamer-0.10 >= 0.10.28 \
 	gstreamer-base-0.10 >= 0.10.28 \
 	gtk+-2.0 >= 2.18.0 \
