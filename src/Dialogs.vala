@@ -769,11 +769,10 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         
         Gtk.Entry entry = (Gtk.Entry)get_entry();
         
-        string old_text = entry.get_text();
+        string old_text = entry.get_text().normalize(-1, NormalizeMode.ALL_COMPOSE);
         if (old_text.length > 0) {
             if (old_text.contains(delimiter)) {
-                int start = old_text.char_count(old_text.last_index_of_char(delimiter[0]));
-                old_text = old_text.substring(0, start + 1) + (delimiter != " " ? " " : "");
+                old_text = old_text.substring(0, old_text.last_index_of_char(delimiter[0]) + 1) + (delimiter != " " ? " " : "");
             } else
                 old_text = "";
         }
