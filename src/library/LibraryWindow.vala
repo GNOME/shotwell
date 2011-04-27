@@ -343,7 +343,8 @@ public class LibraryWindow : AppWindow {
         filter_photos.label = Resources.FILTER_PHOTOS_MENU;
         actions += filter_photos;
         
-        Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, null, null, on_new_search };
+        Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, "<Ctrl>S", null, 
+            on_new_search };
         new_search.label =  _("Ne_w Search...");
         actions += new_search;
         
