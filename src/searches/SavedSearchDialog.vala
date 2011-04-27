@@ -214,7 +214,7 @@ public class SavedSearchDialog {
             flagged_state.set_active(0);
             
             box = new Gtk.HBox(false, 8);
-            box.pack_start(new Gtk.Label(_("Photo or video is")), false, false, 0);
+            box.pack_start(new Gtk.Label(_("is")), false, false, 0);
             box.pack_start(flagged_state, false, false, 0);
             box.show_all();
         }
@@ -259,7 +259,7 @@ public class SavedSearchDialog {
             context.set_active(0);
             
             box = new Gtk.HBox(false, 8);
-            box.pack_start(new Gtk.Label(_("Rating is")), false, false, 0);
+            box.pack_start(new Gtk.Label(_("is")), false, false, 0);
             box.pack_start(rating, false, false, 0);
             box.pack_start(context, false, false, 0);
             box.show_all();
