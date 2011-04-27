@@ -60,6 +60,8 @@ public class Sidebar.Branch {
         }
         
         public void add_child(Node child) {
+            child.parent = this;
+
             if (children == null)
                 children = new Gee.TreeSet<Node>(comparator_wrapper);
             
@@ -88,6 +90,8 @@ public class Sidebar.Branch {
                 children = new_children;
             else
                 children = null;
+            
+            child.parent = null;
         }
         
         public void prune_children(PruneCallback cb) {
@@ -287,7 +291,6 @@ public class Sidebar.Branch {
         
         entry_node.parent.remove_child(entry_node);
         new_parent_node.add_child(entry_node);
-        entry_node.parent = new_parent_node;
         
         entry_reparented(entry, old_parent);
     }
