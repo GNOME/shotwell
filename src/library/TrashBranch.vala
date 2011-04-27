@@ -10,8 +10,7 @@ public class Library.TrashBranch : Sidebar.RootOnlyBranch {
     }
 }
 
-public class Library.TrashSidebarEntry : Sidebar.SimplePageEntry, Sidebar.ContextableEntry,
-    Sidebar.InternalDropTargetEntry {
+public class Library.TrashSidebarEntry : Sidebar.SimplePageEntry, Sidebar.InternalDropTargetEntry {
     private static Icon? full_icon = null;
     private static Icon? empty_icon = null;
     
