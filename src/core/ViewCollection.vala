@@ -1076,16 +1076,30 @@ public class ViewCollection : DataCollection {
         }
     }
     
-    // TODO: This currently does not respect filtering.
+    // This currently does not respect filtering.
     public bool has_view_for_source(DataSource source) {
-        return source_map.has_key(source);
+        return get_view_for_source(source) != null;
     }
     
-    // TODO: This currently does not respect filtering.
+    // This currently does not respect filtering.
     public DataView? get_view_for_source(DataSource source) {
         return source_map.get(source);
     }
+     
+     // Respects filtering.
+    public bool has_view_for_source_with_filtered(DataSource source) {
+        return get_view_for_source_filtered(source) != null;
+    }
     
+    // Respects filtering.
+    public DataView? get_view_for_source_filtered(DataSource source) {
+        DataView? view = source_map.get(source);
+        // Consult with filter to make sure DataView is visible.
+        if (view != null && filter != null && !filter.predicate(view))
+            return null;
+        return view;
+    }
+     
     // TODO: This currently does not respect filtering.
     public Gee.Collection<DataSource> get_sources() {
         return source_map.keys.read_only_view;
