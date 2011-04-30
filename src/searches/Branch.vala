@@ -66,7 +66,8 @@ public class Searches.Grouping : Sidebar.Grouping {
     }
 }
 
-public class Searches.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry {
+public class Searches.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
+    Sidebar.DestroyableEntry {
     private static Icon single_search_icon;
     
     private SavedSearch search;
@@ -104,5 +105,10 @@ public class Searches.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.Renameable
             AppWindow.get_command_manager().execute(new RenameSavedSearchCommand(search, new_name));
         else if (new_name != search.get_name())
             AppWindow.error_message(Resources.rename_search_exists_message(new_name));
+    }
+    
+    public void destroy_source() {
+        if (Dialogs.confirm_delete_saved_search(search))
+            AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
     }
 }
