@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-04-19 13:19-0700\n"
-"PO-Revision-Date: 2011-04-20 01:40+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-04-22 13:22+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr "ירון שהרבני <sh.yaron@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "מנהל התמונות Shotwell"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -34,11 +34,11 @@ msgstr "מנהל תמונות"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "ארגון התמונות שלך"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "מציג התמונות "
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -707,12 +707,12 @@ msgstr[1] "הסרת התגית \"%s\" מ־%d תמונות"
 #: src/Resources.vala:318
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "מ_חיקת החיפוש \"%s\""
 
 #: src/Resources.vala:322
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "מחיקת החיפוש השמור: \"%s\""
 
 #: src/Resources.vala:325
 msgid "Delete Tag"
@@ -792,31 +792,31 @@ msgstr "לא ניתן לשנות את שם התגית ל־\"%s\" כיוון שה
 #: src/Resources.vala:372
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "מחיקת החיפוש \"%s\""
 
 #: src/Resources.vala:376
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr ""
+msgstr "לא ניתן לשנות את שם החיפוש ל־\"%s\" כיוון שהחיפוש כבר קיים."
 
 #: src/Resources.vala:379
 msgid "Delete Search"
-msgstr ""
+msgstr "מחיקת החיפוש"
 
 #: src/Resources.vala:382
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "_שינוי שם החיפוש \"%s\"..."
 
 #: src/Resources.vala:386
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "שינוי שם החיפוש \"%s\""
 
 #: src/Resources.vala:390
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "שינוי שם החיפוש \"%s\" לשם \"%s\""
 
 #: src/Resources.vala:548
 #, c-format
@@ -1379,59 +1379,59 @@ msgstr "תגיות"
 
 #: src/searches/SavedSearchDialog.vala:24
 msgid "Any text"
-msgstr ""
+msgstr " כלשהו"
 
 #: src/searches/SavedSearchDialog.vala:25
 msgid "Title"
-msgstr ""
+msgstr "כותרת"
 
 #: src/searches/SavedSearchDialog.vala:26
 msgid "Tag"
-msgstr ""
+msgstr "תגית"
 
 #: src/searches/SavedSearchDialog.vala:27
 msgid "Event name"
-msgstr ""
+msgstr "שם האירוע"
 
 #: src/searches/SavedSearchDialog.vala:28
 msgid "File name"
-msgstr ""
+msgstr "שם הקובץ"
 
 #: src/searches/SavedSearchDialog.vala:107
 msgid "contains"
-msgstr ""
+msgstr "מכיל"
 
 #: src/searches/SavedSearchDialog.vala:108
 msgid "is exactly"
-msgstr ""
+msgstr "הוא בדיוק"
 
 #: src/searches/SavedSearchDialog.vala:109
 msgid "starts with"
-msgstr ""
+msgstr "מתחיל ב־"
 
 #: src/searches/SavedSearchDialog.vala:110
 msgid "ends with"
-msgstr ""
+msgstr "מסתיים ב־"
 
 #: src/searches/SavedSearchDialog.vala:111
 msgid "does not contain"
-msgstr ""
+msgstr "אינו מכיל"
 
 #: src/searches/SavedSearchDialog.vala:112
 msgid "is not set"
-msgstr ""
+msgstr "לא מוגדר"
 
 #: src/searches/SavedSearchDialog.vala:165
 msgid "any"
-msgstr ""
+msgstr "כלשהו"
 
 #: src/searches/SavedSearchDialog.vala:166
 msgid "all"
-msgstr ""
+msgstr "הכול"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "החיפושים השמורים"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2028,7 +2028,7 @@ msgstr "פרסום תמונות וקטעי וידאו _אל:"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "לא ניתן לפרסם"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2173,7 +2173,7 @@ msgstr "חיפוש תמונות וקטעי וידאו לפי קריטריוני�
 
 #: src/library/LibraryWindow.vala:347
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "_חיפוש חדש..."
 
 #: src/library/LibraryWindow.vala:358
 msgid "_Basic Information"
@@ -2326,7 +2326,7 @@ msgstr[1] "פעולה זו תסיר את התגית \"%s\" מ־%d תמונות. 
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "פעולה זו תסיר את החיפוש השמור \"%s\".  להמשיך?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2443,8 +2443,8 @@ msgstr[1] "אירע כשל ביבוא %d מהתמונות/קטעי הווידא�
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "יבוא של אחד הקבצים כשל עקב שגיאה בקובץ או בחומרה:\n"
+msgstr[1] "יבוא של %d מהקבצים נכשל עקב שגיאה בקובץ או בחומרה:\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2498,8 +2498,8 @@ msgid ""
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "יבוא אחד הקבצים נכשל כיוון שתיקיית ספריית התמונות סגורה בפני כתיבה:\n"
+msgstr[1] "יבוא %d מהקבצים נכשל כיוון שתיקיית ספריית התמונות סגורה בפני כתיבה:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2526,8 +2526,8 @@ msgstr[1] "אירע כשל ביבוא %d מהתמונות/קטעי הווידא�
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "יבוא אחד הקבצים נכשל עקב שגיאת מצלמה:\n"
+msgstr[1] "יבוא %d מהקבצים נכשל עקב שגיאת מצלמה:\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2568,8 +2568,8 @@ msgstr[1] "בוצע דילוג על %d תמונות/קטעי וידאו עקב �
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "קובץ אחד נפסח עקב ביטול המשתמש:\n"
+msgstr[1] "%d קבצים נפסחו עקב ביטול המשתמש:\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2646,8 +2646,8 @@ msgstr "_שמירה"
 #: src/Dialogs.vala:992
 msgid "Revert External Edit?"
 msgid_plural "Revert External Edits?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "האם לשחזר עריכה חיצונית?"
+msgstr[1] "האם לשחזר עריכות חיצוניות?"
 
 #: src/Dialogs.vala:994
 #, c-format
@@ -3307,8 +3307,8 @@ msgstr[1] "האם למחוק %d תמונות/קטעי וידאו אלו מהמצ
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "האם למחוק קובץ זה מהמצלמה?"
+msgstr[1] "האם למחוק %d קבצים אלה מהמצלמה?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3473,11 +3473,11 @@ msgstr "שקופית"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr ""
+msgstr "כל הזכויות שמורות 2010+ יבגני פוליאקוב <"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
 msgid "Visit the Yandex.Fotki web site"
-msgstr ""
+msgstr "ביקור באתר Yandex.Fotki"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:46
 msgid "You are not currently logged into Yandex.Fotki."
@@ -3485,7 +3485,7 @@ msgstr "לא נכנסת לשירות Yandex.Fotki."
 
 #: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:17
 msgid "Shotwell Extra Publishing Services"
-msgstr ""
+msgstr "שירותי הפרסום הנוספים של Shotwell"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:68
 msgid ""
@@ -3874,7 +3874,7 @@ msgstr "תצוגה"
 
 #: ui/shotwell.glade:368
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "עורך תמונות _חיצוני:"
 
 #: ui/shotwell.glade:381
 msgid "External _RAW editor:"
@@ -3922,16 +3922,16 @@ msgstr "שגיאה"
 
 #: ui/shotwell.glade:928
 msgid "Search"
-msgstr ""
+msgstr "חיפוש"
 
 #: ui/shotwell.glade:947
 msgid "Name of search:"
-msgstr ""
+msgstr "שם החיפוש:"
 
 #: ui/shotwell.glade:994
 msgid "Match"
-msgstr ""
+msgstr "תואם"
 
 #: ui/shotwell.glade:1018
 msgid "of the following:"
-msgstr ""
+msgstr "מהבאים:"

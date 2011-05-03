@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-04-19 13:19-0700\n"
-"PO-Revision-Date: 2011-04-20 01:40+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-04-23 10:46+0000\n"
+"Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr ""
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Shotwell-fotobeheer"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -37,11 +37,11 @@ msgstr "Fotobeheer"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Uw foto's organiseren"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Shotwell-fotoviewer"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -645,7 +645,7 @@ msgstr "Versturen _naar..."
 
 #: src/Resources.vala:279
 msgid "Send photos by mail or instant message"
-msgstr "Foto's versturen via een e-mail of expresbericht"
+msgstr "Foto's versturen via een e-mail of expressbericht"
 
 #: src/Resources.vala:281
 msgid "_Find..."
@@ -712,12 +712,12 @@ msgstr[1] "Label \"%s\" van %d foto's verwijderen"
 #: src/Resources.vala:318
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "Zoekactie \"%s\" verwij_deren"
 
 #: src/Resources.vala:322
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "Verwijder opgeslagen zoekactie: \"%s\""
 
 #: src/Resources.vala:325
 msgid "Delete Tag"
@@ -797,31 +797,31 @@ msgstr "Kon label niet hernoemen naar \"%s\" omdat dit label al bestaat."
 #: src/Resources.vala:372
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Zoekactie \"%s\" verwijderen"
 
 #: src/Resources.vala:376
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr ""
+msgstr "Kon zoekactie niet hernoemen naar \"%s\" omdat deze zoekactie al bestaat."
 
 #: src/Resources.vala:379
 msgid "Delete Search"
-msgstr ""
+msgstr "Zoekactie verwijderen"
 
 #: src/Resources.vala:382
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "Zoekactie \"%s\" her_noemen..."
 
 #: src/Resources.vala:386
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "De zoekactie \"%s\" hernoemen"
 
 #: src/Resources.vala:390
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "Hernoem zoekactie \"%s\" naar \"%s\""
 
 #: src/Resources.vala:548
 #, c-format
@@ -1388,43 +1388,43 @@ msgstr ""
 
 #: src/searches/SavedSearchDialog.vala:25
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: src/searches/SavedSearchDialog.vala:26
 msgid "Tag"
-msgstr ""
+msgstr "Label"
 
 #: src/searches/SavedSearchDialog.vala:27
 msgid "Event name"
-msgstr ""
+msgstr "Gebeurtenisnaam"
 
 #: src/searches/SavedSearchDialog.vala:28
 msgid "File name"
-msgstr ""
+msgstr "Bestandsnaam"
 
 #: src/searches/SavedSearchDialog.vala:107
 msgid "contains"
-msgstr ""
+msgstr "bevat"
 
 #: src/searches/SavedSearchDialog.vala:108
 msgid "is exactly"
-msgstr ""
+msgstr "is gelijk aan"
 
 #: src/searches/SavedSearchDialog.vala:109
 msgid "starts with"
-msgstr ""
+msgstr "begint met"
 
 #: src/searches/SavedSearchDialog.vala:110
 msgid "ends with"
-msgstr ""
+msgstr "eindigt op"
 
 #: src/searches/SavedSearchDialog.vala:111
 msgid "does not contain"
-msgstr ""
+msgstr "bevat niet"
 
 #: src/searches/SavedSearchDialog.vala:112
 msgid "is not set"
-msgstr ""
+msgstr "is niet ingesteld"
 
 #: src/searches/SavedSearchDialog.vala:165
 msgid "any"
@@ -1432,11 +1432,11 @@ msgstr ""
 
 #: src/searches/SavedSearchDialog.vala:166
 msgid "all"
-msgstr ""
+msgstr "alles"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Opgeslagen zoekacties"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2045,7 +2045,7 @@ msgstr "Foto's en video's publiceren o_p:"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "Kon niet publiceren"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2200,7 +2200,7 @@ msgstr "Foto's en video's zoeken door middel van zoekcriteria"
 
 #: src/library/LibraryWindow.vala:347
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "Nieu_we zoekactie..."
 
 #: src/library/LibraryWindow.vala:358
 msgid "_Basic Information"
@@ -2354,7 +2354,7 @@ msgstr[1] "Dit zal het label \"%s\" van %d foto's verwijderen. Doorgaan?"
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "Dit zal de opgeslagen zoekactie \"%s\" verwijderen. Doorgaan?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2485,7 +2485,9 @@ msgstr[1] ""
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"Kon 1 bestand niet importeren wegens een bestands- of hardwareprobleem:\n"
 msgstr[1] ""
+"Kon %d bestanden niet importeren wegens een bestands- of hardwareprobleem:\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2540,7 +2542,11 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"Kon 1 bestand niet importeren omdat de fotobibliotheekmap niet beschrijfbaar"
+" is:\n"
 msgstr[1] ""
+"Kon %d bestanden niet importeren omdat de fotobibliotheekmap niet "
+"beschrijfbaar is:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2567,8 +2573,8 @@ msgstr[1] "Kon %d foto's/video's niet importeren wegens een cameraprobleem:\n"
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kon 1 bestand niet importeren wegens een cameraprobleem:\n"
+msgstr[1] "Kon %d bestanden niet importeren wegens een cameraprobleem:\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2610,8 +2616,8 @@ msgstr[1] ""
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 bestand overgeslagen wegens het annuleren door de gebruiker:\n"
+msgstr[1] "%d bestanden overgeslagen wegens het annuleren door de gebruiker:\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2688,8 +2694,8 @@ msgstr "_Bewaren"
 #: src/Dialogs.vala:992
 msgid "Revert External Edit?"
 msgid_plural "Revert External Edits?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Externe verandering herstellen?"
+msgstr[1] "Externe veranderingen herstellen?"
 
 #: src/Dialogs.vala:994
 #, c-format
@@ -3360,8 +3366,8 @@ msgstr[1] "Deze %d foto's/video's van de camera verwijderen?"
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dit bestand van de camera verwijderen?"
+msgstr[1] "Deze %d bestanden van de camera verwijderen?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3525,11 +3531,11 @@ msgstr "Dia"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr ""
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
 msgid "Visit the Yandex.Fotki web site"
-msgstr ""
+msgstr "Bezoek de Yandex.Fotki-website"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:46
 msgid "You are not currently logged into Yandex.Fotki."
@@ -3537,7 +3543,7 @@ msgstr "U bent momenteel niet aangemeld op Yandex.Fotki."
 
 #: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:17
 msgid "Shotwell Extra Publishing Services"
-msgstr ""
+msgstr "Shotwell extra publiceerservices"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:68
 msgid ""
@@ -3933,7 +3939,7 @@ msgstr "Weergave"
 
 #: ui/shotwell.glade:368
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "E_xterne foto-editor:"
 
 #: ui/shotwell.glade:381
 msgid "External _RAW editor:"
@@ -3981,15 +3987,15 @@ msgstr "fout"
 
 #: ui/shotwell.glade:928
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: ui/shotwell.glade:947
 msgid "Name of search:"
-msgstr ""
+msgstr "Naam van zoekactie:"
 
 #: ui/shotwell.glade:994
 msgid "Match"
-msgstr ""
+msgstr "Overeenkomend"
 
 #: ui/shotwell.glade:1018
 msgid "of the following:"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-04-19 13:19-0700\n"
-"PO-Revision-Date: 2011-04-20 01:40+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-04-25 00:51+0000\n"
+"Last-Translator: zerng07 <pswo10680@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr "Cheng-Chia Tseng <pswo10680@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Shotwell 相片管理員"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -34,11 +34,11 @@ msgstr "相片管理程式"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "整理您的相片"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Shotwell 相片檢視器"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -206,7 +206,7 @@ msgstr "已修改"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
 msgid "Copyright 2009-2011 Yorba Foundation"
-msgstr "版權所有 2009-2011 Yorba 基金會"
+msgstr "著作權所有 2009-2011 Yorba 基金會"
 
 #: src/Resources.vala:130
 msgid "Rotate _Right"
@@ -706,12 +706,12 @@ msgstr[0] "移除「%s」標籤，共 %d 張相片"
 #: src/Resources.vala:318
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "刪除「%s」搜尋(_D)"
 
 #: src/Resources.vala:322
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "刪除儲存的搜尋：「%s」"
 
 #: src/Resources.vala:325
 msgid "Delete Tag"
@@ -786,31 +786,31 @@ msgstr "「%s」標籤已存在，因而無法重新命名標籤。"
 #: src/Resources.vala:372
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "刪除「%s」搜尋"
 
 #: src/Resources.vala:376
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr ""
+msgstr "因為該搜尋已經存在，無法重新命名搜尋為「%s」。"
 
 #: src/Resources.vala:379
 msgid "Delete Search"
-msgstr ""
+msgstr "刪除搜尋"
 
 #: src/Resources.vala:382
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "重新命名「%s」搜尋(_N)..."
 
 #: src/Resources.vala:386
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "重新命名「%s」搜尋"
 
 #: src/Resources.vala:390
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "重新命名「%s」搜尋為「%s」"
 
 #: src/Resources.vala:548
 #, c-format
@@ -1370,59 +1370,59 @@ msgstr "標籤"
 
 #: src/searches/SavedSearchDialog.vala:24
 msgid "Any text"
-msgstr ""
+msgstr "任意文字"
 
 #: src/searches/SavedSearchDialog.vala:25
 msgid "Title"
-msgstr ""
+msgstr "標題"
 
 #: src/searches/SavedSearchDialog.vala:26
 msgid "Tag"
-msgstr ""
+msgstr "標籤"
 
 #: src/searches/SavedSearchDialog.vala:27
 msgid "Event name"
-msgstr ""
+msgstr "事件名稱"
 
 #: src/searches/SavedSearchDialog.vala:28
 msgid "File name"
-msgstr ""
+msgstr "檔案名稱"
 
 #: src/searches/SavedSearchDialog.vala:107
 msgid "contains"
-msgstr ""
+msgstr "包含"
 
 #: src/searches/SavedSearchDialog.vala:108
 msgid "is exactly"
-msgstr ""
+msgstr "完全是"
 
 #: src/searches/SavedSearchDialog.vala:109
 msgid "starts with"
-msgstr ""
+msgstr "開頭為"
 
 #: src/searches/SavedSearchDialog.vala:110
 msgid "ends with"
-msgstr ""
+msgstr "結尾為"
 
 #: src/searches/SavedSearchDialog.vala:111
 msgid "does not contain"
-msgstr ""
+msgstr "不包含"
 
 #: src/searches/SavedSearchDialog.vala:112
 msgid "is not set"
-msgstr ""
+msgstr "未設定"
 
 #: src/searches/SavedSearchDialog.vala:165
 msgid "any"
-msgstr ""
+msgstr "任一"
 
 #: src/searches/SavedSearchDialog.vala:166
 msgid "all"
-msgstr ""
+msgstr "全部"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "儲存的搜尋"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -1430,7 +1430,7 @@ msgstr "%b%d日(%a)"
 
 #: src/util/misc.vala:232
 msgid "%d, %Y"
-msgstr "%d日，%Y年"
+msgstr "%Y年，%d日"
 
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
@@ -1949,7 +1949,7 @@ msgstr "正在上傳 %d/%d"
 #: src/publishing/PublishingPluginHost.vala:103
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred:"
-msgstr "無法繼續發布至 %s，因為遭遇錯誤："
+msgstr "因為遭遇錯誤，無法繼續發布至 %s："
 
 #: src/publishing/PublishingPluginHost.vala:106 src/WebConnectors.vala:1023
 msgid "To try publishing to another service, select one from the above menu."
@@ -2014,7 +2014,7 @@ msgstr "將相片與視訊發布至(_T)"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "無法發布"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2035,35 +2035,35 @@ msgstr "關閉(_C)"
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service could not be contacted."
-msgstr "無法繼續發布至 %s，因為無法連絡至該服務。"
+msgstr "因為無法連絡至該服務，無法繼續發布至 %s。"
 
 #: src/WebConnectors.vala:1009
 #, c-format
 msgid ""
 "Publishing to %s can't continue because communication with the service "
 "failed."
-msgstr "無法繼續發布至 %s，因為與該服務溝通時失敗。"
+msgstr "因為與該服務溝通時失敗，無法繼續發布至 %s。"
 
 #: src/WebConnectors.vala:1012
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
-msgstr "無法繼續發布至 %s，因為協定出現錯誤。"
+msgstr "因為協定出現錯誤，無法繼續發布至 %s。"
 
 #: src/WebConnectors.vala:1014
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
-msgstr "無法繼續發布至 %s，因為該服務傳回錯誤。"
+msgstr "因為該服務傳回錯誤，無法繼續發布至 %s。"
 
 #: src/WebConnectors.vala:1016
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service returned a bad response."
-msgstr "無法繼續發布至 %s，因為該服務傳回不良回應。"
+msgstr "因為該服務傳回不良回應，無法繼續發布至 %s。"
 
 #: src/WebConnectors.vala:1019
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
-msgstr "無法繼續發布至 %s，因為遭遇到錯誤。"
+msgstr "因為遭遇到錯誤，無法繼續發布至 %s。"
 
 #: src/WebConnectors.vala:1169
 msgid "One or more of the photos or videos to be published is unavailable"
@@ -2157,7 +2157,7 @@ msgstr "根據搜尋準則尋找相片與視訊"
 
 #: src/library/LibraryWindow.vala:347
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "新增搜尋(_W)..."
 
 #: src/library/LibraryWindow.vala:358
 msgid "_Basic Information"
@@ -2307,7 +2307,7 @@ msgstr[0] "這會移除「%s」標籤，共 %d 張相片。要繼續嗎？"
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "這會移除儲存的「%s」搜尋。要繼續嗎？"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2322,7 +2322,7 @@ msgstr "匯出相片"
 msgid ""
 "Shotwell couldn't create a file for editing this photo because you do not "
 "have permission to write to %s."
-msgstr "Shotwell 無法建立檔案以供此相片編輯，因為您尚未獲取寫入 %s 的授權。"
+msgstr "因為您尚未獲取寫入 %s 的授權，Shotwell 無法建立檔案以供此相片編輯。"
 
 #: src/Dialogs.vala:103
 msgid ""
@@ -2416,7 +2416,7 @@ msgstr[0] "由於檔案或硬體錯誤，%d 份相片/視訊匯入失敗：\n"
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] ""
+msgstr[0] "由於檔案或硬體錯誤，%d 份檔案未能匯入：\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2426,7 +2426,7 @@ msgid ""
 msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] "%d 份視訊匯入失敗，因為相片珍藏管資料夾無法寫入：\n"
+msgstr[0] "因為相片珍藏館資料夾無法寫入，%d 份視訊匯入失敗：\n"
 
 #: src/Dialogs.vala:539
 #, c-format
@@ -2436,7 +2436,7 @@ msgid ""
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] "%d 份視訊匯入失敗，因為相片珍藏管資料夾無法寫入：\n"
+msgstr[0] "因為相片珍藏館資料夾無法寫入，%d 份視訊匯入失敗：\n"
 
 #: src/Dialogs.vala:542
 #, c-format
@@ -2446,7 +2446,7 @@ msgid ""
 msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] "%d 份相片/視訊匯入失敗，因為相片珍藏管資料夾無法寫入：\n"
+msgstr[0] "因為相片珍藏館資料夾無法寫入，%d 份相片/視訊匯入失敗：\n"
 
 #: src/Dialogs.vala:545
 #, c-format
@@ -2455,7 +2455,7 @@ msgid ""
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
+msgstr[0] "因為相片珍藏館資料夾無法寫入，%d 份檔案未能匯入：\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2479,7 +2479,7 @@ msgstr[0] "由於相機錯誤，%d 份相片/視訊匯入失敗：\n"
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
+msgstr[0] "%d 份檔案未能匯入，因為相機錯誤：\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2515,7 +2515,7 @@ msgstr[0] "由於使用者取消，已略過 %d 份相片/視訊：\n"
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
+msgstr[0] "%d 檔案已略過，因為使用者取消：\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2585,7 +2585,7 @@ msgstr "保留(_K)"
 #: src/Dialogs.vala:992
 msgid "Revert External Edit?"
 msgid_plural "Revert External Edits?"
-msgstr[0] ""
+msgstr[0] "是否還原外部編輯？"
 
 #: src/Dialogs.vala:994
 #, c-format
@@ -3201,7 +3201,7 @@ msgstr[0] "要從相機刪除這 %d 份相片/視訊嗎？"
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
+msgstr[0] "要從相機刪除這 %d 份檔案嗎？"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3363,11 +3363,11 @@ msgstr "投影片"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr ""
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
 msgid "Visit the Yandex.Fotki web site"
-msgstr ""
+msgstr "造訪 Yandex.Fotki 網站"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:46
 msgid "You are not currently logged into Yandex.Fotki."
@@ -3375,7 +3375,7 @@ msgstr "您目前尚未登入 Yandex.Fotki。"
 
 #: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:17
 msgid "Shotwell Extra Publishing Services"
-msgstr ""
+msgstr "Shotwell 額外發布服務"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:68
 msgid ""
@@ -3756,7 +3756,7 @@ msgstr "顯示"
 
 #: ui/shotwell.glade:368
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "外部編輯器(_X)："
 
 #: ui/shotwell.glade:381
 msgid "External _RAW editor:"
@@ -3772,7 +3772,7 @@ msgstr "背景(_B)："
 
 #: ui/shotwell.glade:448
 msgid "Importing"
-msgstr "正在匯入.."
+msgstr "匯入"
 
 #: ui/shotwell.glade:469
 msgid "_Directory structure:"
@@ -3804,16 +3804,16 @@ msgstr "錯誤"
 
 #: ui/shotwell.glade:928
 msgid "Search"
-msgstr ""
+msgstr "搜尋"
 
 #: ui/shotwell.glade:947
 msgid "Name of search:"
-msgstr ""
+msgstr "搜尋的名稱："
 
 #: ui/shotwell.glade:994
 msgid "Match"
-msgstr ""
+msgstr "比對"
 
 #: ui/shotwell.glade:1018
 msgid "of the following:"
-msgstr ""
+msgstr "下列之中："
