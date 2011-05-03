@@ -1,4 +1,5 @@
 PROGRAM = shotwell
+PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 
 VERSION = 0.9.3+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
@@ -87,6 +88,9 @@ UNUNITIZED_SRC_FILES = \
 	VideoMonitor.vala \
 	SearchFilter.vala \
 	MediaViewTracker.vala
+
+THUMBNAILER_SRC_FILES = \
+	shotwell-video-thumbnailer.vala
 
 VAPI_FILES = \
 	libexif.vapi \
@@ -258,6 +262,12 @@ EXT_PKGS = \
 	unique-1.0 \
 	webkit-1.0
 
+THUMBNAILER_PKGS = \
+    gtk+-2.0 \
+    gee-1.0 \
+    gstreamer-0.10 \
+    gstreamer-base-0.10
+
 DIRECT_LIBS =
 
 LIBRAW_PKG = \
@@ -318,6 +328,10 @@ PLUGINS_SO := $(foreach plugin,$(PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
 EXTRA_PLUGINS_SO := $(foreach plugin,$(EXTRA_PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
 PLUGINS_DIST_FILES := `$(MAKE) --directory=plugins --no-print-directory listfiles`
 
+THUMBNAILER_DIR := thumbnailer
+THUMBNAILER_BIN := $(THUMBNAILER_DIR)/$(PROGRAM_THUMBNAILER)
+EXPANDED_THUMBNAILER_SRC_FILES := $(foreach file, $(THUMBNAILER_SRC_FILES), $(THUMBNAILER_DIR)/$(file))
+
 EXPANDED_PO_FILES := $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
 EXPANDED_SRC_FILES := $(UNITIZED_SRC_FILES) $(foreach src,$(UNUNITIZED_SRC_FILES),src/$(src)) \
 	$(UNITIZE_INITS) $(UNITIZE_ENTRIES)
@@ -341,7 +355,9 @@ DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAP
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
 	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_PO_FILES) po/shotwell.pot libraw-config \
 	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
-	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES)
+	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES) \
+	$(EXPANDED_THUMBNAILER_SRC_FILES)
+	
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
@@ -406,6 +422,7 @@ clean:
 	rm -f $(VALA_STAMP)
 	rm -rf $(PROGRAM)-$(VERSION)
 	rm -f $(PROGRAM)
+	rm -f $(THUMBNAILER_DIR)/$(PROGRAM_THUMBNAILER)
 	rm -rf $(LOCAL_LANG_DIR)
 	rm -f $(LANG_STAMP)
 	rm -f $(TEMPORARY_DESKTOP_FILES)
@@ -465,6 +482,7 @@ install:
 	touch $(LANG_STAMP)
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	$(INSTALL_PROGRAM) $(PROGRAM) $(DESTDIR)$(PREFIX)/bin
+	$(INSTALL_PROGRAM) $(THUMBNAILER_BIN) $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
@@ -525,6 +543,7 @@ endif
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
+	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM_THUMBNAILER)
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
 	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps/shotwell.svg
 	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.svg
@@ -600,8 +619,11 @@ $(EXPANDED_C_FILES): $(VALA_STAMP)
 $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) `$(LIBRAW_CONFIG) --cflags` $(CFLAGS) -o $@ $<
 
-$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
+$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN)
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) `$(LIBRAW_CONFIG) --libs` $(EXPORT_FLAGS) -o $@
+
+$(THUMBNAILER_BIN): $(EXPANDED_THUMBNAILER_SRC_FILES)
+	$(VALAC) $(EXPANDED_THUMBNAILER_SRC_FILES) -o $@ $(foreach pkg,$(THUMBNAILER_PKGS),--pkg=$(pkg))
 
 $(PLUGINS_SO) $(EXTRA_PLUGINS_SO): $(PLUGINS_DIR)
 	@

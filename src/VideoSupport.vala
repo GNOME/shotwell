@@ -37,11 +37,13 @@ public class VideoImportParams {
 
 public class VideoReader {
     private const double UNKNOWN_CLIP_DURATION = -1.0;
+    private const uint THUMBNAILER_TIMEOUT = 5000; // In milliseconds.
     
     private double clip_duration = UNKNOWN_CLIP_DURATION;
     private Gdk.Pixbuf preview_frame = null;
     private string filepath = null;
     private Gst.Element colorspace = null;
+    private GLib.Pid thumbnailer_pid = 0;
 
     public VideoReader(string filepath) {
         this.filepath = filepath;
@@ -188,8 +190,19 @@ public class VideoReader {
         thumbnail_pipeline.set_state(Gst.State.NULL);
     }
     
+    // Used by thumbnailer() to kill the external process if need be.
+    private bool on_thumbnailer_timer() {
+        debug("Thumbnailer timer called");
+        if (thumbnailer_pid != 0) {
+            debug("Killing thumbnailer process: %d", thumbnailer_pid);
+            Posix.kill(thumbnailer_pid, Posix.SIGKILL);
+        }
+        return false; // Don't call again.
+    }
+    
+    // Performs video thumbnailing.
+    // Note: not thread-safe if called from the same instance of the class.
     private Gdk.Pixbuf? thumbnailer(string video_file) {
-        GLib.Pid child_pid = 0;
         int[] pipefd = {0, 0};
         
         if (Posix.pipe(pipefd) < 0) {
@@ -198,18 +211,22 @@ public class VideoReader {
         }
         Posix.close(pipefd[1]); // Close the write end of the pipe.
         
-        // Use totem's thumbnailer, redirect output to stdout.
-        string[] argv = {"totem-video-thumbnailer", "-r", video_file, "/dev/stdout"};
+        // Use Shotwell's thumbnailer, redirect output to stdout.
+        debug("Launching thumbnailer process: %s", AppDirs.get_thumbnailer_bin().get_path());
+        string[] argv = {AppDirs.get_thumbnailer_bin().get_path(), video_file};
         try {
             GLib.Process.spawn_async_with_pipes(null, argv, null, GLib.SpawnFlags.SEARCH_PATH | 
-                GLib.SpawnFlags.DO_NOT_REAP_CHILD, null, out child_pid, null, out pipefd[0], null);
-            debug("Spawned thumbnailer, child pid: %d", (int) child_pid);
+                GLib.SpawnFlags.DO_NOT_REAP_CHILD, null, out thumbnailer_pid, null, out pipefd[0], null);
+            debug("Spawned thumbnailer, child pid: %d", (int) thumbnailer_pid);
         } catch (Error e) {
             debug("Error spawning process: %s", e.message);
-            if (child_pid != 0)
-                GLib.Process.close_pid(child_pid);
+            if (thumbnailer_pid != 0)
+                GLib.Process.close_pid(thumbnailer_pid);
             return null;
         }
+        
+        // Start timer.
+        Timeout.add(THUMBNAILER_TIMEOUT, on_thumbnailer_timer);
         
         // Read pixbuf from stream.
         Gdk.Pixbuf? buf = null;
@@ -223,7 +240,7 @@ public class VideoReader {
         
         // Make sure process exited properly.
         int child_status = 0;
-        int ret_waitpid = Posix.waitpid(child_pid, out child_status, 0);
+        int ret_waitpid = Posix.waitpid(thumbnailer_pid, out child_status, 0);
         if (ret_waitpid < 0) {
             debug("waitpid returned error code: %d", ret_waitpid);
             buf = null;
@@ -233,7 +250,8 @@ public class VideoReader {
         }
         
         Posix.close(pipefd[0]);
-        GLib.Process.close_pid(child_pid);
+        GLib.Process.close_pid(thumbnailer_pid);
+        thumbnailer_pid = 0;
         return buf;
     }
     

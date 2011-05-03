@@ -2,6 +2,7 @@
 /src/.unitize
 /configure.mk
 shotwell
+/thumbnailer/shotwell-video-thumbnailer
 /plugins/shotwell-plugin-dev-1.0.vapi
 *.c
 *.o

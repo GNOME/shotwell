@@ -177,5 +177,15 @@ class AppDirs {
                 get_child("shotwell").get_child("shotwell.log");
         }
     }
+    
+    public static File get_thumbnailer_bin() {
+        const string filename = "shotwell-video-thumbnailer";
+        File f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/thumbnailer/" + filename);
+        if (!f.query_exists()) {
+            // If we're running installed.
+            f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/" + filename);
+        }
+        return f;
+    }
 }
 
