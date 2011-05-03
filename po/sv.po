@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-04-19 13:19-0700\n"
-"PO-Revision-Date: 2011-04-20 01:40+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-04-22 10:12+0000\n"
+"Last-Translator: yeager <po@danielnylander.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Fotohanteraren Shotwell"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -36,11 +36,11 @@ msgstr "Fotohanterare"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Organisera dina foton"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Fotovisaren Shotwell"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -710,12 +710,12 @@ msgstr[1] "Ta bort taggen \"%s\" från %d foton"
 #: src/Resources.vala:318
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "_Ta bort sökningen \"%s\""
 
 #: src/Resources.vala:322
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "Ta bort sparad sökning: \"%s\""
 
 #: src/Resources.vala:325
 msgid "Delete Tag"
@@ -795,31 +795,33 @@ msgstr "Kunde inte byta namn på taggen till \"%s\" därför att taggen redan fi
 #: src/Resources.vala:372
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Ta bort sökningen \"%s\""
 
 #: src/Resources.vala:376
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
 msgstr ""
+"Kunde inte byta namn på sökningen till \"%s\" eftersom sökningen redan "
+"finns."
 
 #: src/Resources.vala:379
 msgid "Delete Search"
-msgstr ""
+msgstr "Ta bort sökning"
 
 #: src/Resources.vala:382
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "Byt _namn på sökningen \"%s\"..."
 
 #: src/Resources.vala:386
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "Byt namn på sökningen \"%s\""
 
 #: src/Resources.vala:390
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "Byt namn på sökningen \"%s\" till \"%s\""
 
 #: src/Resources.vala:548
 #, c-format
@@ -1382,59 +1384,59 @@ msgstr "Taggar"
 
 #: src/searches/SavedSearchDialog.vala:24
 msgid "Any text"
-msgstr ""
+msgstr "Valfri text"
 
 #: src/searches/SavedSearchDialog.vala:25
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: src/searches/SavedSearchDialog.vala:26
 msgid "Tag"
-msgstr ""
+msgstr "Tagg"
 
 #: src/searches/SavedSearchDialog.vala:27
 msgid "Event name"
-msgstr ""
+msgstr "Händelsenamn"
 
 #: src/searches/SavedSearchDialog.vala:28
 msgid "File name"
-msgstr ""
+msgstr "Filnamn"
 
 #: src/searches/SavedSearchDialog.vala:107
 msgid "contains"
-msgstr ""
+msgstr "innehåller"
 
 #: src/searches/SavedSearchDialog.vala:108
 msgid "is exactly"
-msgstr ""
+msgstr "är exakt"
 
 #: src/searches/SavedSearchDialog.vala:109
 msgid "starts with"
-msgstr ""
+msgstr "börjar med"
 
 #: src/searches/SavedSearchDialog.vala:110
 msgid "ends with"
-msgstr ""
+msgstr "slutar med"
 
 #: src/searches/SavedSearchDialog.vala:111
 msgid "does not contain"
-msgstr ""
+msgstr "innehåller inte"
 
 #: src/searches/SavedSearchDialog.vala:112
 msgid "is not set"
-msgstr ""
+msgstr "är inte inställd"
 
 #: src/searches/SavedSearchDialog.vala:165
 msgid "any"
-msgstr ""
+msgstr "någon"
 
 #: src/searches/SavedSearchDialog.vala:166
 msgid "all"
-msgstr ""
+msgstr "alla"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Sparade sökningar"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2039,7 +2041,7 @@ msgstr "Publicera foton och videor _till"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "Kunde inte publicera"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2195,7 +2197,7 @@ msgstr "Sök efter foton och videor med ett sökkriteria"
 
 #: src/library/LibraryWindow.vala:347
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "N_y sökning..."
 
 #: src/library/LibraryWindow.vala:358
 msgid "_Basic Information"
@@ -2349,7 +2351,7 @@ msgstr[1] "Detta kommer att ta bort taggen \"%s\" från %d foton.  Fortsätt?"
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "Detta kommer att ta bort sparade sökningen \"%s\".  Fortsätt?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2475,7 +2477,9 @@ msgstr[1] ""
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"1 fil gick inte att importera på grund av ett fil- eller maskinvarufel:\n"
 msgstr[1] ""
+"%d filer gick inte att importera på grund av ett fil- eller maskinvarufel:\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2530,7 +2534,11 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"En fil gick inte att importera på grund av att fotobibliotekets mapp inte "
+"var skrivbar:\n"
 msgstr[1] ""
+"%d filer gick inte att importera på grund av att fotobibliotekets mapp inte "
+"var skrivbar:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2557,8 +2565,8 @@ msgstr[1] "%d foton/videor gick inte att importera på grund av ett kamerafel:\n
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "En fil gick inte att importera på grund av ett kamerafel:\n"
+msgstr[1] "%d filer gick inte att importera på grund av ett kamerafel:\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2599,8 +2607,8 @@ msgstr[1] "%d foton/videor hoppades över därför att användaren avbröt:\n"
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "En fil hoppades över därför att användaren avbröt:\n"
+msgstr[1] "%d filer hoppades över därför att användaren avbröt:\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2677,8 +2685,8 @@ msgstr "_Behåll"
 #: src/Dialogs.vala:992
 msgid "Revert External Edit?"
 msgid_plural "Revert External Edits?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Återställ extern redigering?"
+msgstr[1] "Återställ externa redigeringar?"
 
 #: src/Dialogs.vala:994
 #, c-format
@@ -3343,8 +3351,8 @@ msgstr[1] "Ta bort dessa %d foton/videor från kameran?"
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ta bort dessa filer från kameran?"
+msgstr[1] "Ta bort dessa %d filer från kameran?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3507,11 +3515,11 @@ msgstr "Bild"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr ""
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
 msgid "Visit the Yandex.Fotki web site"
-msgstr ""
+msgstr "Besök webbplatsen för Yandex.Fotki"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:46
 msgid "You are not currently logged into Yandex.Fotki."
@@ -3519,7 +3527,7 @@ msgstr "Du är för närvarande inte inloggad på Yandex.Fotki."
 
 #: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:17
 msgid "Shotwell Extra Publishing Services"
-msgstr ""
+msgstr "Extra publiceringstjänster för Shotwell"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:68
 msgid ""
@@ -3915,7 +3923,7 @@ msgstr "Visning"
 
 #: ui/shotwell.glade:368
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "E_xtern fotoredigerare:"
 
 #: ui/shotwell.glade:381
 msgid "External _RAW editor:"
@@ -3963,16 +3971,16 @@ msgstr "fel"
 
 #: ui/shotwell.glade:928
 msgid "Search"
-msgstr ""
+msgstr "Sök"
 
 #: ui/shotwell.glade:947
 msgid "Name of search:"
-msgstr ""
+msgstr "Namn på sökning:"
 
 #: ui/shotwell.glade:994
 msgid "Match"
-msgstr ""
+msgstr "Matchar"
 
 #: ui/shotwell.glade:1018
 msgid "of the following:"
-msgstr ""
+msgstr "följande:"

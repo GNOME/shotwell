@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-04-19 13:19-0700\n"
-"PO-Revision-Date: 2011-04-20 01:40+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-04-20 20:22+0000\n"
+"Last-Translator: janroar <janroed@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr "Jan Roar Roed <janroed@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Shotwell fotobehandler"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -34,11 +34,11 @@ msgstr "Fotobehandler"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Organiser dine bilder"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Shotwell fotofremviser"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -707,12 +707,12 @@ msgstr[1] "Slett taggen \"%s\" fra %d bilder"
 #: src/Resources.vala:318
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "_Slett søk \"%s\""
 
 #: src/Resources.vala:322
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "Slett det lagret søk: \"%s\""
 
 #: src/Resources.vala:325
 msgid "Delete Tag"
@@ -792,31 +792,31 @@ msgstr "Kan ikke omdøpe taggen til \"%s\" fordi den allerede finnes."
 #: src/Resources.vala:372
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Slett søk \"%s\""
 
 #: src/Resources.vala:376
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr ""
+msgstr "Kan ikke endre søket til \"%s\" da søket allerede finnes."
 
 #: src/Resources.vala:379
 msgid "Delete Search"
-msgstr ""
+msgstr "slett søk"
 
 #: src/Resources.vala:382
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "Om_døp søk \"%s\""
 
 #: src/Resources.vala:386
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "omdøp søket \"%s\""
 
 #: src/Resources.vala:390
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "omdøp søk \"%s\" til \"%s\""
 
 #: src/Resources.vala:548
 #, c-format
@@ -1379,59 +1379,59 @@ msgstr "Tagger"
 
 #: src/searches/SavedSearchDialog.vala:24
 msgid "Any text"
-msgstr ""
+msgstr "allslags tekst"
 
 #: src/searches/SavedSearchDialog.vala:25
 msgid "Title"
-msgstr ""
+msgstr "Tittel"
 
 #: src/searches/SavedSearchDialog.vala:26
 msgid "Tag"
-msgstr ""
+msgstr "Tagg"
 
 #: src/searches/SavedSearchDialog.vala:27
 msgid "Event name"
-msgstr ""
+msgstr "Hendelsesnavn"
 
 #: src/searches/SavedSearchDialog.vala:28
 msgid "File name"
-msgstr ""
+msgstr "Filnavn"
 
 #: src/searches/SavedSearchDialog.vala:107
 msgid "contains"
-msgstr ""
+msgstr "inneholder"
 
 #: src/searches/SavedSearchDialog.vala:108
 msgid "is exactly"
-msgstr ""
+msgstr "er eksakt"
 
 #: src/searches/SavedSearchDialog.vala:109
 msgid "starts with"
-msgstr ""
+msgstr "starter med"
 
 #: src/searches/SavedSearchDialog.vala:110
 msgid "ends with"
-msgstr ""
+msgstr "slutter med"
 
 #: src/searches/SavedSearchDialog.vala:111
 msgid "does not contain"
-msgstr ""
+msgstr "inneholder ikke"
 
 #: src/searches/SavedSearchDialog.vala:112
 msgid "is not set"
-msgstr ""
+msgstr "er ikke satt"
 
 #: src/searches/SavedSearchDialog.vala:165
 msgid "any"
-msgstr ""
+msgstr "all"
 
 #: src/searches/SavedSearchDialog.vala:166
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Lagrede søk"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2036,7 +2036,7 @@ msgstr "Publiserer bilder og videoer _til"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "kan ikke publisere"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2190,7 +2190,7 @@ msgstr "Finn bilder og videoer via søkekriterier"
 
 #: src/library/LibraryWindow.vala:347
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "Nyt_t søk"
 
 #: src/library/LibraryWindow.vala:358
 msgid "_Basic Information"
@@ -2343,7 +2343,7 @@ msgstr[1] "Dette vil fjerne taggen \"%s\" fra %d bilder. Fortsett?"
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "Dette vil fjerne det lagrede søket \"%s\". Forsette?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2462,8 +2462,8 @@ msgstr[1] ""
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 fil ble ikke importert p.g.a en fil- eller maskinvarefeil:\n"
+msgstr[1] "%d filer ble ikke importert p.g.a en fil- eller maskinvarefeil:\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2516,7 +2516,11 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"1 fil feilet under importering fordi bildebibliotekmappen ikke var "
+"skrivbar:\n"
 msgstr[1] ""
+"%d filer feilet under importering fordi bildebibliotekmappen ikke var "
+"skrivbar:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2543,8 +2547,8 @@ msgstr[1] "%d bilder/videoer ble ikke importert p.g.a. en kamerafeil:\n"
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 fil ble ikke importert pg.a. en kamerafeil.\n"
+msgstr[1] "%d filer ble ikke importert p.g.a. en kamerafeil:\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2585,8 +2589,8 @@ msgstr[1] "%d bilder/videoer ble utelatt p.g.a. brukeren avbrøt operasjonen:\n"
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 fil utelatt p.g.a. brukeren avbrøt operasjonen.\n"
+msgstr[1] "%d filer utelatt p.g.a. brukeren avbrøt operasjonen.\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2663,8 +2667,8 @@ msgstr "_Behold"
 #: src/Dialogs.vala:992
 msgid "Revert External Edit?"
 msgid_plural "Revert External Edits?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Omgjør eksterne redigeringer?"
+msgstr[1] "Omgjør eksterne redigeringer?"
 
 #: src/Dialogs.vala:994
 #, c-format
@@ -3330,8 +3334,8 @@ msgstr[1] "Slette disse %d bildene/videoene fra kameraet?"
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vil du slette disse filene fra kameraet?"
+msgstr[1] "Vil du slette disse %d filene fra kameraet?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3494,11 +3498,11 @@ msgstr "Lysbilde"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr ""
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
 msgid "Visit the Yandex.Fotki web site"
-msgstr ""
+msgstr "Besøk nettsiden Yandex.Fotki"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:46
 msgid "You are not currently logged into Yandex.Fotki."
@@ -3506,7 +3510,7 @@ msgstr "Du er nå innlogget på Yandex.Fotki."
 
 #: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:17
 msgid "Shotwell Extra Publishing Services"
-msgstr ""
+msgstr "Shotwell Extra publiseringstjeneste"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:68
 msgid ""
@@ -3903,7 +3907,7 @@ msgstr "Display"
 
 #: ui/shotwell.glade:368
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "E_kstern bilderedigeringsprogram:"
 
 #: ui/shotwell.glade:381
 msgid "External _RAW editor:"
@@ -3951,16 +3955,16 @@ msgstr "feil"
 
 #: ui/shotwell.glade:928
 msgid "Search"
-msgstr ""
+msgstr "Søk"
 
 #: ui/shotwell.glade:947
 msgid "Name of search:"
-msgstr ""
+msgstr "Navn for søket:"
 
 #: ui/shotwell.glade:994
 msgid "Match"
-msgstr ""
+msgstr "Treff"
 
 #: ui/shotwell.glade:1018
 msgid "of the following:"
-msgstr ""
+msgstr "for de følgende:"
