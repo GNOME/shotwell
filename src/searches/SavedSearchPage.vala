@@ -53,6 +53,9 @@ public class SavedSearchPage : CollectionPage {
         Gtk.ActionEntry rename_search = { "RenameSearch", null, TRANSLATABLE, null, null, on_rename_search };
         actions += rename_search;
         
+        Gtk.ActionEntry edit_search = { "EditSearch", null, TRANSLATABLE, null, null, on_edit_search };
+        actions += edit_search;
+        
         Gtk.ActionEntry delete_search = { "DeleteSearch", null, TRANSLATABLE, null, null, on_delete_search };
         actions += delete_search;
         
@@ -68,10 +71,19 @@ public class SavedSearchPage : CollectionPage {
         LibraryWindow.get_app().rename_search_in_sidebar(search);
     }
     
+    private void on_edit_search() {
+        SavedSearchDialog ssd = new SavedSearchDialog.edit_existing(search);
+        ssd.show();
+    }
+    
     protected override void update_actions(int selected_count, int count) {
         set_action_details("RenameSearch",
             Resources.rename_search_menu(search.get_name()),
             Resources.rename_search_tooltip(search.get_name()),
+            true);
+        set_action_details("EditSearch",
+            Resources.edit_search_menu(search.get_name()),
+            Resources.edit_search_tooltip(search.get_name()),
             true);
         set_action_details("DeleteSearch",
             Resources.delete_search_menu(search.get_name()),

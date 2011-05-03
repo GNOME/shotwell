@@ -18,7 +18,20 @@ public class SavedSearchDialog {
         
         private SearchRow? my_row = null;
         
-        public SearchRowContainer(SearchCondition.SearchType starting_type = 0) {
+        public SearchRowContainer() {
+            setup_gui();
+            set_type(SearchCondition.SearchType.ANY_TEXT);
+        }
+        
+        public SearchRowContainer.edit_existing(SearchCondition sc) {
+            setup_gui();
+            set_type(sc.search_type);
+            type_combo.set_active(sc.search_type);
+            my_row.populate(sc);
+        }
+        
+        // Creates the GUI for this row.
+        private void setup_gui() {
             // Ordering must correspond with SearchCondition.SearchType
             type_combo = new Gtk.ComboBox.text();
             type_combo.append_text(_("Any text"));
@@ -29,11 +42,11 @@ public class SavedSearchDialog {
             type_combo.append_text(_("Media type"));
             type_combo.append_text(_("Flag state"));
             type_combo.append_text(_("Rating"));
-            type_combo.set_active(starting_type); // Sets default.
+            type_combo.set_active(0); // Sets default.
             type_combo.changed.connect(on_type_changed);
             
             remove_button = new Gtk.Button();
-            remove_button.set_label(" - ");
+            remove_button.set_label(" – ");
             remove_button.button_press_event.connect(on_removed);
             
             align = new Gtk.Alignment(0,0,0,0);
@@ -44,8 +57,6 @@ public class SavedSearchDialog {
             box.pack_start(new Gtk.Alignment(0,0,0,0), true, true, 0); // Fill space.
             box.pack_start(remove_button, false, false, 0);
             box.show_all();
-            
-            set_type(SearchCondition.SearchType.ANY_TEXT);
         }
         
         private void on_type_changed() {
@@ -109,8 +120,14 @@ public class SavedSearchDialog {
     
     // Represents a row-type.
     private abstract class SearchRow {
+        // Returns the GUI widget for this row. 
         public abstract Gtk.Widget get_widget();
+        
+        // Returns the search condition for this row.
         public abstract SearchCondition get_search_condition();
+        
+        // Fills out the fields in this row based on an existing search condition (for edit mode.)
+        public abstract void populate(SearchCondition sc);
     }
     
     private class SearchRowText : SearchRow {
@@ -154,6 +171,13 @@ public class SavedSearchDialog {
             SearchConditionText c = new SearchConditionText(type, text, context);
             return c;
         }
+        
+        public override void populate(SearchCondition sc) {
+            SearchConditionText? text = sc as SearchConditionText;
+            assert(text != null);
+            text_context.set_active(text.context);
+            entry.set_text(text.text);
+        }
     }
     
     private class SearchRowMediaType : SearchRow {
@@ -196,6 +220,13 @@ public class SavedSearchDialog {
             SearchConditionMediaType c = new SearchConditionMediaType(search_type, context, type);
             return c;
         }
+        
+        public override void populate(SearchCondition sc) {
+            SearchConditionMediaType? media = sc as SearchConditionMediaType;
+            assert(media != null);
+            media_context.set_active(media.context);
+            media_type.set_active(media.media_type);
+        }
     }
     
     private class SearchRowFlagged : SearchRow {
@@ -228,6 +259,12 @@ public class SavedSearchDialog {
             SearchConditionFlagged.State state = (SearchConditionFlagged.State) flagged_state.get_active();
             SearchConditionFlagged c = new SearchConditionFlagged(search_type, state);
             return c;
+        }
+        
+        public override void populate(SearchCondition sc) {
+            SearchConditionFlagged? f = sc as SearchConditionFlagged;
+            assert(f != null);
+            flagged_state.set_active(f.state);
         }
     }
     
@@ -276,6 +313,13 @@ public class SavedSearchDialog {
             SearchConditionRating c = new SearchConditionRating(search_type, search_rating, search_context);
             return c;
         }
+        
+        public override void populate(SearchCondition sc) {
+            SearchConditionRating? r = sc as SearchConditionRating;
+            assert(r != null);
+            context.set_active(r.context);
+            rating.set_active(r.rating - Rating.REJECTED);
+        }
     }
     
     private Gtk.Builder builder;
@@ -285,8 +329,52 @@ public class SavedSearchDialog {
     private Gtk.VBox row_box;
     private Gtk.Entry search_title;
     private Gee.ArrayList<SearchRowContainer> row_list = new Gee.ArrayList<SearchRowContainer>();
+    private bool edit_mode = false;
+    private SavedSearch? previous_search = null;
     
     public SavedSearchDialog() {
+        setup_dialog();
+        
+        // Default is text search.
+        add_text_search();
+        row_list.get(0).allow_removal(false);
+        
+        // Add buttons for new search.
+        Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
+        ok_button.can_default = true;
+        dialog.add_action_widget(ok_button, Gtk.ResponseType.OK);
+        dialog.add_action_widget(new Gtk.Button.from_stock(Gtk.Stock.CANCEL), Gtk.ResponseType.CANCEL);
+        dialog.set_default_response(Gtk.ResponseType.OK);
+        
+        dialog.show_all();
+    }
+    
+    public SavedSearchDialog.edit_existing(SavedSearch saved_search) {
+        previous_search = saved_search;
+        edit_mode = true;
+        setup_dialog();
+        
+        // Load existing search into dialog.
+        operator.set_active((SearchOperator) saved_search.get_operator());
+        search_title.set_text(saved_search.get_name());
+        foreach (SearchCondition sc in saved_search.get_conditions()) {
+            add_row(new SearchRowContainer.edit_existing(sc));
+        }
+        
+        if (row_list.size == 1)
+            row_list.get(0).allow_removal(false);
+        
+        // Add close button.
+        Gtk.Button close_button = new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
+        close_button.can_default = true;
+        dialog.add_action_widget(close_button, Gtk.ResponseType.OK);
+        dialog.set_default_response(Gtk.ResponseType.OK);
+        
+        dialog.show_all();
+    }
+    
+    // Builds the dialog UI.  Doesn't add buttons to the dialog or call dialog.show_all().
+    private void setup_dialog() {
         builder = AppWindow.create_builder();
         
         dialog = builder.get_object("Search criteria") as Gtk.Dialog;
@@ -302,28 +390,12 @@ public class SavedSearchDialog {
         
         row_box = builder.get_object("row_box") as Gtk.VBox;
         
-        add_text_search();
-        row_list.get(0).allow_removal(false);
-        
         operator = builder.get_object("Type of search criteria") as Gtk.ComboBox;
         gtk_combo_box_set_as_text(operator);
         operator.append_text(_("any"));
         operator.append_text(_("all"));
         operator.append_text(_("none"));
         operator.set_active(0);
-        
-        // Add buttons for new search.
-        Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
-        ok_button.can_default = true;
-        dialog.add_action_widget(ok_button, Gtk.ResponseType.OK);
-        dialog.add_action_widget(new Gtk.Button.from_stock(Gtk.Stock.CANCEL), Gtk.ResponseType.CANCEL);
-        dialog.set_default_response(Gtk.ResponseType.OK);
-        
-        dialog.show_all();
-    }
-    
-    public SavedSearchDialog.edit_existing(SavedSearch saved_search) {
-        // TODO
     }
     
     // Displays the dialog.
@@ -363,11 +435,17 @@ public class SavedSearchDialog {
 
     private void on_response(int response_id) {
         if (response_id == Gtk.ResponseType.OK) {
-            if (SavedSearchTable.get_instance().exists(search_title.get_text())) {
+            if (SavedSearchTable.get_instance().exists(search_title.get_text()) && 
+                !(edit_mode && previous_search.get_name() == search_title.get_text())) {
                 AppWindow.error_message(Resources.rename_search_exists_message(search_title.get_text()));
                 return;
             }
-                
+            
+            if (edit_mode) {
+                // Remove previous search.
+                SavedSearchTable.get_instance().remove(previous_search);
+            }
+            
             // Build the condition list from the search rows, and add our new saved search to the table.
             Gee.ArrayList<SearchCondition> conditions = new Gee.ArrayList<SearchCondition>();
             foreach (SearchRowContainer c in row_list) {

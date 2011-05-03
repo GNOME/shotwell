@@ -567,6 +567,14 @@ public class SavedSearch : DataSource {
         LibraryWindow.get_app().switch_to_saved_search(this);
         return true;
     }
+    
+    public Gee.List<SearchCondition> get_conditions() {
+        return row.conditions.read_only_view;
+    }
+    
+    public SearchOperator get_operator() {
+        return row.operator;
+    }
 }
 
 // This table contains every saved search.  It's the prefered way to add and destroy a saved 

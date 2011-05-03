@@ -282,6 +282,9 @@ public class SavedSearchDBTable : DatabaseTable {
     // Removes the conditions of a search.  Used on delete.
     private void remove_conditions_for_search_id(SavedSearchID search_id) throws DatabaseError {
         remove_conditions_for_table("SavedSearchDBTable_Text", search_id);
+        remove_conditions_for_table("SavedSearchDBTable_MediaType", search_id);
+        remove_conditions_for_table("SavedSearchDBTable_Flagged", search_id);
+        remove_conditions_for_table("SavedSearchDBTable_Rating", search_id);
     }
     
     private void remove_conditions_for_table(string table_name, SavedSearchID search_id)

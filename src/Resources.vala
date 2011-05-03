@@ -380,6 +380,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string DELETE_SAVED_SEARCH_DIALOG_TITLE = _("Delete Search");
     
+    public string edit_search_menu(string name) {
+        return _("_Edit Search \"%s\"...").printf(name);
+    }
+    
+    public string edit_search_tooltip(string name) {
+        return _("Edit the search \"%s\"").printf(name);
+    }
+    
     public string rename_search_menu(string name) {
         return _("Re_name Search \"%s\"...").printf(name);
     }
