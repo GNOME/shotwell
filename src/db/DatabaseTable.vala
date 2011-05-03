@@ -30,11 +30,23 @@ public abstract class DatabaseTable {
     public string table_name = null;
 
     public static void init(string filename) {
+        // Open DB.
         int res = Sqlite.Database.open_v2(filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, 
             null);
         if (res != Sqlite.OK)
             AppWindow.panic(_("Unable to open/create photo database %s: error code %d").printf(filename,
                 res));
+        
+        // Check if we have write access to database.
+        try {
+            File file_db = File.new_for_path(filename);
+            FileInfo info = file_db.query_info(GLib.FILE_ATTRIBUTE_ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE);
+            if (!info.get_attribute_boolean(GLib.FILE_ATTRIBUTE_ACCESS_CAN_WRITE))
+                AppWindow.panic(_("Unable to write to photo database file:\n %s").printf(filename));
+        } catch (Error e) {
+            AppWindow.panic(_("Error accessing database file:\n %s\n\nError was: \n%s").printf(filename,
+                e.message));
+        }
         
         // disable synchronized commits for performance reasons ... this is not vital, hence we
         // don't error out if this fails
