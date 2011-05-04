@@ -2659,10 +2659,6 @@ msgstr ""
 msgid "Visit the Yorba web site"
 msgstr ""
 
-#: src/AppWindow.vala:668 plugins/common/Resources.vala:28
-msgid "translator-credits"
-msgstr ""
-
 #: src/AppWindow.vala:677
 #, c-format
 msgid "Unable to display help: %s"
