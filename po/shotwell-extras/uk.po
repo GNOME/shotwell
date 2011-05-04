@@ -1,0 +1,12 @@
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "© Evgeniy Polyakov <zbr@ioremap.net>, 2010+"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Відвідати сайт Yandex.Fotki"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:46
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "Ви ще не увійшли до системи Yandex.Fotki."
