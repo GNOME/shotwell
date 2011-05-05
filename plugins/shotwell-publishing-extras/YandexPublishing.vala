@@ -4,6 +4,8 @@
  * See the COPYING file in this distribution. 
  */
 
+using Publishing.Extras;
+
 public class YandexService : Object, Spit.Pluggable, Spit.Publishing.Service {
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface, Spit.Publishing.CURRENT_INTERFACE);
@@ -19,10 +21,10 @@ public class YandexService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public void get_info(out Spit.PluggableInfo info) {
         info.authors = "Evgeniy Polyakov <zbr@ioremap.net>";
-        info.copyright = _("Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>");
+        info.copyright = _t("Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
-        info.website_name = _("Visit the Yandex.Fotki web site");
+        info.website_name = _t("Visit the Yandex.Fotki web site");
         info.website_url = "http://fotki.yandex.ru/";
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
@@ -43,7 +45,6 @@ public class YandexService : Object, Spit.Pluggable, Spit.Publishing.Service {
 namespace Publishing.Yandex {
 
 internal const string SERVICE_NAME = "Yandex.Fotki";
-internal const string SERVICE_WELCOME_MESSAGE = _("You are not currently logged into Yandex.Fotki.");
 
 private const string client_id = "52be4756dee3438792c831a75d7cd360";
 
@@ -214,6 +215,7 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
         
         try {
             builder = new Gtk.Builder();
+            builder.set_translation_domain(DOMAIN_NAME);
             builder.add_from_file(ui_file.get_path());
             builder.connect_signals(null);
             Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
@@ -627,7 +629,8 @@ public class YandexPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
 
     private void show_welcome_page() {
-        host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, start_web_auth);
+        host.install_welcome_pane(_t("You are not currently logged into Yandex.Fotki."),
+            start_web_auth);
     }
 
     public void start() {
