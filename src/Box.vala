@@ -44,11 +44,18 @@ public struct Box {
     public int bottom;
 
     public Box(int left, int top, int right, int bottom) {
-        assert(left >= 0);
-        assert(top >= 0);
-        assert(right >= left);
-        assert(bottom >= top);
-        
+        // Sanity check on top left vertex.
+        left = left.clamp(0, int.MAX);
+        top = top.clamp(0, int.MAX);
+
+        // Sanity check on dimensions - force
+        // box to be at least 1 px by 1 px.
+        if (right <= left)
+            right = left + 1;
+
+        if (bottom <= top)
+            bottom = top + 1;
+
         this.left = left;
         this.top = top;
         this.right = right;

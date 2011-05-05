@@ -489,7 +489,7 @@ public class CropTool : EditingTool {
     private const double CROP_INIT_X_PCT = 0.15;
     private const double CROP_INIT_Y_PCT = 0.15;
 
-    private const int CROP_MIN_SIZE = 50;
+    private const int CROP_MIN_SIZE = 8;
 
     private const float CROP_EXTERIOR_SATURATION = 0.00f;
     private const int CROP_EXTERIOR_RED_SHIFT = -32;
@@ -503,8 +503,8 @@ public class CropTool : EditingTool {
     private const float CUSTOM_ASPECT_RATIO = -4.0f;
     private const float COMPUTE_FROM_BASIS = -5.0f;
     private const float SEPARATOR = -6.0f;
-    private const float MIN_ASPECT_RATIO = 1.0f / 4.0f;
-    private const float MAX_ASPECT_RATIO = 4.0f;
+    private const float MIN_ASPECT_RATIO = 1.0f / 64.0f;
+    private const float MAX_ASPECT_RATIO = 64.0f;
     
     private struct ConstraintDescription {
         public string name;

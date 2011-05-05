@@ -191,7 +191,7 @@ public abstract class Photo : PhotoSource, Dateable {
     // is scaled properly.  We have to allow for some wobble here because of rounding errors and
     // precision limitations of various subsystems.  Pixel-accuracy would be best, but barring that,
     // need to just make sure the pixbuf is in the ballpark.
-    private const int SCALING_FUDGE = 8;
+    private const int SCALING_FUDGE = 32;
     
     public enum Exception {
         NONE            = 0,
