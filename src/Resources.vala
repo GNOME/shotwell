@@ -316,6 +316,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             count).printf(name, count);
     }
     
+    public const string DEFAULT_SAVED_SEARCH_NAME = _("Saved Search");
+    
     public string delete_search_menu(string name) {
         return _("_Delete Search \"%s\"").printf(name);
     }

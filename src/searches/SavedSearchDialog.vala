@@ -403,6 +403,10 @@ public class SavedSearchDialog {
     public SavedSearchDialog() {
         setup_dialog();
         
+        // Default name.
+        search_title.set_text(SavedSearchTable.get_instance().generate_unique_name());
+        search_title.select_region(0, -1); // select all
+        
         // Default is text search.
         add_text_search();
         row_list.get(0).allow_removal(false);

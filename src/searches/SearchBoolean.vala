@@ -658,4 +658,15 @@ public class SavedSearchTable {
     public bool exists(string search_name) {
         return search_map.has_key(search_name);
     }
+    
+    // Generate a unique search name (not thread safe)
+    public string generate_unique_name() {
+        for (int ctr = 1; ctr < int.MAX; ctr++) {
+            string name = "%s %d".printf(Resources.DEFAULT_SAVED_SEARCH_NAME, ctr);
+            
+            if (!exists(name))
+                return name;
+        }
+        return ""; // If all names are used (unlikely!)
+    }
 }
