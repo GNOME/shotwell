@@ -263,22 +263,17 @@ public class ViewCollection : DataCollection {
         this.mirroring_ctor = mirroring_ctor;
         this.should_mirror = should_mirror;
         
-        // used to mirror the ordering of to_mirror
-        set_comparator(mirroring_comparator, null);
-        
         // load up with current items
         on_mirror_contents_added(mirroring.get_all());
         
         mirroring.items_added.connect(on_mirror_contents_added);
         mirroring.items_removed.connect(on_mirror_contents_removed);
-        mirroring.ordering_changed.connect(on_mirror_ordering_changed);
     }
     
     public void halt_mirroring() {
         if (mirroring != null) {
             mirroring.items_added.disconnect(on_mirror_contents_added);
             mirroring.items_removed.disconnect(on_mirror_contents_removed);
-            mirroring.ordering_changed.disconnect(on_mirror_ordering_changed);
         }
         
         mirroring = null;
@@ -499,18 +494,6 @@ public class ViewCollection : DataCollection {
             notify_ordering_changed();
     }
     
-    private int64 mirroring_comparator(void *a, void *b) {
-        assert(mirroring != null);
-        
-        int aindex = mirroring.index_of_source(((DataView *) a)->get_source());
-        assert(aindex >= 0);
-        
-        int bindex = mirroring.index_of_source(((DataView *) b)->get_source());
-        assert(bindex >= 0);
-        
-        return aindex - bindex;
-    }
-    
     private void on_mirror_contents_added(Gee.Iterable<DataObject> added) {
         Gee.ArrayList<DataView> to_add = new Gee.ArrayList<DataView>();
         foreach (DataObject object in added) {
@@ -536,14 +519,6 @@ public class ViewCollection : DataCollection {
         }
         
         remove_marked(marker);
-    }
-    
-    private void on_mirror_ordering_changed() {
-        // By re-setting the comparator, this forces a resort of the collection (but only do it
-        // if the comparator is still set to the mirroring_comparator, as the user may have changed
-        // it after mirroring started)
-        if (get_comparator() == mirroring_comparator)
-            set_comparator(mirroring_comparator, null);
     }
     
     // Keep the source map and state tables synchronized
