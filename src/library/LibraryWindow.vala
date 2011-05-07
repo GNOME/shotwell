@@ -73,15 +73,17 @@ public class LibraryWindow : AppWindow {
     // LibraryPhotoPage.
     private class FullscreenPhotoPage : LibraryPhotoPage {
         private CollectionPage collection;
-        private LibraryPhoto start;
+        private Photo start;
+        private ViewCollection? view;
         
-        public FullscreenPhotoPage(CollectionPage collection, LibraryPhoto start) {
+        public FullscreenPhotoPage(CollectionPage collection, Photo start, ViewCollection? view) {
             this.collection = collection;
             this.start = start;
+            this.view = view;
         }
         
         public override void switched_to() {
-            display_for_collection(collection, start);
+            display_for_collection(collection, start, view);
             
             base.switched_to();
         }
@@ -530,7 +532,7 @@ public class LibraryWindow : AppWindow {
         base.on_quit();
     }
     
-    private Thumbnail? get_start_fullscreen_photo(CollectionPage page) {
+    private Photo? get_start_fullscreen_photo(CollectionPage page) {
         ViewCollection view = page.get_view();
         
         // if a selection is present, use the first selected LibraryPhoto, otherwise do
@@ -540,19 +542,20 @@ public class LibraryWindow : AppWindow {
             : view.get_sources_of_type(typeof(LibraryPhoto));
         
         return (sources != null && sources.size != 0)
-            ? (Thumbnail?) view.get_view_for_source(sources[0])
-            : null;
+            ? (Photo) sources[0] : null;
     }
     
-    private bool get_fullscreen_photo(Page page, out CollectionPage collection, out Thumbnail start) {
+    private bool get_fullscreen_photo(Page page, out CollectionPage collection, out Photo start,
+         out ViewCollection? view_collection = null) {
         // fullscreen behavior depends on the type of page being looked at
         if (page is CollectionPage) {
             collection = (CollectionPage) page;
-            Thumbnail? thumbnail = get_start_fullscreen_photo(collection);
-            if (thumbnail == null)
+            Photo? photo = get_start_fullscreen_photo(collection);
+            if (photo == null)
                 return false;
             
-            start = thumbnail;
+            start = photo;
+            view_collection = null;
             
             return true;
         }
@@ -571,11 +574,12 @@ public class LibraryWindow : AppWindow {
                 return false;
             
             collection = (EventPage) entry.get_page();
-            Thumbnail? thumbnail = get_start_fullscreen_photo(collection);
-            if (thumbnail == null)
+            Photo? photo = get_start_fullscreen_photo(collection);
+            if (photo == null)
                 return false;
             
-            start = thumbnail;
+            start = photo;
+            view_collection = null;
             
             return true;
         }
@@ -587,13 +591,12 @@ public class LibraryWindow : AppWindow {
             if (controller == null)
                 return false;
             
-            Thumbnail? thumbnail = (Thumbnail?) controller.get_view().get_view_for_source(
-                photo_page.get_photo());
-            if (thumbnail == null)
+            if (!photo_page.has_photo())
                 return false;
             
             collection = controller;
-            start = thumbnail;
+            start = photo_page.get_photo();
+            view_collection = photo_page.get_view();
             
             return true;
         }
@@ -607,15 +610,12 @@ public class LibraryWindow : AppWindow {
             return;
         
         CollectionPage collection;
-        Thumbnail start;
-        if (!get_fullscreen_photo(current_page, out collection, out start))
+        Photo start;
+        ViewCollection? view = null;
+        if (!get_fullscreen_photo(current_page, out collection, out start, out view))
             return;
         
-        LibraryPhoto? photo = start.get_media_source() as LibraryPhoto;
-        if (photo == null)
-            return;
-        
-        FullscreenPhotoPage fs_photo = new FullscreenPhotoPage(collection, photo);
+        FullscreenPhotoPage fs_photo = new FullscreenPhotoPage(collection, start, view);
 
         go_fullscreen(fs_photo);
     }
@@ -660,7 +660,7 @@ public class LibraryWindow : AppWindow {
         // are CheckerboardPages (but in on_fullscreen have to be handled differently to locate
         // the view controller)
         CollectionPage collection;
-        Thumbnail start;
+        Photo start;
         bool can_fullscreen = get_fullscreen_photo(page, out collection, out start);
         
         set_common_action_sensitive("CommonEmptyTrash", can_empty_trash());
