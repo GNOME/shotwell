@@ -541,7 +541,7 @@ public class EditTitleCommand : SingleDataSourceCommand {
     private string? old_title;
     
     public EditTitleCommand(MediaSource source, string new_title) {
-        base(source, Resources.EDIT_TITLE_LABEL, Resources.EDIT_TITLE_TOOLTIP);
+        base(source, Resources.EDIT_TITLE_LABEL, "");
         
         this.new_title = new_title;
         old_title = source.get_title();
@@ -561,7 +561,7 @@ public class EditMultipleTitlesCommand : MultipleDataSourceAtOnceCommand {
     public Gee.HashMap<MediaSource, string?> old_titles = new Gee.HashMap<MediaSource, string?>();
     
     public EditMultipleTitlesCommand(Gee.Collection<MediaSource> media_sources, string new_title) {
-        base (media_sources, Resources.EDIT_TITLE_LABEL, Resources.EDIT_TITLE_TOOLTIP);
+        base (media_sources, Resources.EDIT_TITLE_LABEL, "");
         
         this.new_title = new_title;
         foreach (MediaSource media in media_sources)
@@ -584,7 +584,7 @@ public class RenameEventCommand : SimpleProxyableCommand {
     private string? old_name;
     
     public RenameEventCommand(Event event, string new_name) {
-        base(event, Resources.RENAME_EVENT_LABEL, Resources.RENAME_EVENT_TOOLTIP);
+        base(event, Resources.RENAME_EVENT_LABEL, "");
         
         this.new_name = new_name;
         old_name = event.get_raw_name();
@@ -604,7 +604,7 @@ public class SetKeyPhotoCommand : SingleDataSourceCommand {
     private MediaSource old_primary_source;
     
     public SetKeyPhotoCommand(Event event, MediaSource new_primary_source) {
-        base(event, Resources.MAKE_KEY_PHOTO_LABEL, Resources.MAKE_KEY_PHOTO_TOOLTIP);
+        base(event, Resources.MAKE_KEY_PHOTO_LABEL, "");
         
         this.new_primary_source = new_primary_source;
         old_primary_source = event.get_primary_source();
@@ -621,7 +621,7 @@ public class SetKeyPhotoCommand : SingleDataSourceCommand {
 
 public class RevertSingleCommand : GenericPhotoTransformationCommand {
     public RevertSingleCommand(Photo photo) {
-        base(photo, Resources.REVERT_LABEL, Resources.REVERT_TOOLTIP);
+        base(photo, Resources.REVERT_LABEL, "");
     }
     
     public override void execute_on_photo(Photo photo) {
@@ -645,7 +645,7 @@ public class RevertSingleCommand : GenericPhotoTransformationCommand {
 public class RevertMultipleCommand : MultiplePhotoTransformationCommand {
     public RevertMultipleCommand(Gee.Iterable<DataView> iter) {
         base(iter, _("Reverting"), _("Undoing Revert"), Resources.REVERT_LABEL,
-            Resources.REVERT_TOOLTIP);
+            "");
     }
     
     public override void execute_on_source(DataSource source) {
@@ -836,7 +836,7 @@ public abstract class MovePhotosCommand : Command {
 
 public class NewEventCommand : MovePhotosCommand {
     public NewEventCommand(Gee.Iterable<DataView> iter) {
-        base(Resources.NEW_EVENT_LABEL, Resources.NEW_EVENT_TOOLTIP);
+        base(Resources.NEW_EVENT_LABEL, "");
 
         // get the primary or "key" source for the new event (which is simply the first one)
         MediaSource key_source = null;
@@ -856,7 +856,7 @@ public class NewEventCommand : MovePhotosCommand {
 
         real_command = new RealMovePhotosCommand(new_event, iter, _("Creating New Event"),
             _("Removing Event"), Resources.NEW_EVENT_LABEL,
-            Resources.NEW_EVENT_TOOLTIP);
+            "");
     }
 }
 
@@ -866,13 +866,13 @@ public class SetEventCommand : MovePhotosCommand {
 
         real_command = new RealMovePhotosCommand(new_event, iter, _("Moving Photos to New Event"),
             _("Setting Photos to Previous Event"), Resources.SET_PHOTO_EVENT_LABEL, 
-            Resources.SET_PHOTO_EVENT_TOOLTIP);
+            "");
     }
 }
 
 public class MergeEventsCommand : MovePhotosCommand {
     public MergeEventsCommand(Gee.Iterable<DataView> iter) {
-        base (Resources.MERGE_LABEL, Resources.MERGE_TOOLTIP);
+        base (Resources.MERGE_LABEL, "");
         
         // the master event is the first one found with a name, otherwise the first one in the lot
         Event master_event = null;
@@ -896,7 +896,7 @@ public class MergeEventsCommand : MovePhotosCommand {
         assert(media_thumbs.size > 0);
         
         real_command = new RealMovePhotosCommand(master_event, media_thumbs, _("Merging"), 
-            _("Unmerging"), Resources.MERGE_LABEL, Resources.MERGE_TOOLTIP);
+            _("Unmerging"), Resources.MERGE_LABEL, "");
     }
 }
 
@@ -975,7 +975,7 @@ public class SetRatingSingleCommand : SingleDataSourceCommand {
     private bool incrementing;
 
     public SetRatingSingleCommand(DataSource source, Rating rating) {
-        base (source, Resources.rating_label(rating), Resources.rating_tooltip(rating));
+        base (source, Resources.rating_label(rating), "");
         set_direct = true;
         new_rating = rating;
 
@@ -984,8 +984,7 @@ public class SetRatingSingleCommand : SingleDataSourceCommand {
 
     public SetRatingSingleCommand.inc_dec(DataSource source, bool is_incrementing) {
         base (source, is_incrementing ? Resources.INCREASE_RATING_LABEL : 
-            Resources.DECREASE_RATING_LABEL, is_incrementing ? Resources.INCREASE_RATING_TOOLTIP :
-            Resources.DECREASE_RATING_TOOLTIP);
+            Resources.DECREASE_RATING_LABEL, "");
         set_direct = false;
         incrementing = is_incrementing;
 
@@ -1017,7 +1016,7 @@ public class SetRatingCommand : MultipleDataSourceCommand {
 
     public SetRatingCommand(Gee.Iterable<DataView> iter, Rating rating) {
         base (iter, Resources.rating_progress(rating), _("Restoring previous rating"),
-            Resources.rating_label(rating), Resources.rating_tooltip(rating));
+            Resources.rating_label(rating), "");
         set_direct = true;
         new_rating = rating;
 
@@ -1029,7 +1028,7 @@ public class SetRatingCommand : MultipleDataSourceCommand {
             is_incrementing ? _("Increasing ratings") : _("Decreasing ratings"),
             is_incrementing ? _("Decreasing ratings") : _("Increasing ratings"), 
             is_incrementing ? Resources.INCREASE_RATING_LABEL : Resources.DECREASE_RATING_LABEL, 
-            is_incrementing ? Resources.INCREASE_RATING_TOOLTIP : Resources.DECREASE_RATING_TOOLTIP);
+            "");
         set_direct = false;
         incrementing = is_incrementing;
         
@@ -1077,7 +1076,7 @@ public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
     private bool modify_original;
 
     public AdjustDateTimePhotoCommand(Dateable dateable, int64 time_shift, bool modify_original) {
-        base(dateable, Resources.ADJUST_DATE_TIME_LABEL, Resources.ADJUST_DATE_TIME_TOOLTIP);
+        base(dateable, Resources.ADJUST_DATE_TIME_LABEL, "");
 
         this.dateable = dateable;
         this.time_shift = time_shift;
@@ -1118,7 +1117,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     public AdjustDateTimePhotosCommand(Gee.Iterable<DataView> iter, int64 time_shift,
         bool keep_relativity, bool modify_originals) {
         base(iter, _("Adjusting Date and Time"), _("Undoing Date and Time Adjustment"),
-            Resources.ADJUST_DATE_TIME_LABEL, Resources.ADJUST_DATE_TIME_TOOLTIP);
+            Resources.ADJUST_DATE_TIME_LABEL, "");
 
         this.time_shift = time_shift;
         this.keep_relativity = keep_relativity;
@@ -1207,7 +1206,7 @@ public class AddTagsCommand : PageCommand {
         new Gee.HashMap<SourceProxy, Gee.ArrayList<MediaSource>>();
     
     public AddTagsCommand(string[] names, Gee.Collection<MediaSource> sources) {
-        base (Resources.add_tags_label(names), Resources.ADD_TAGS_TOOLTIP);
+        base (Resources.add_tags_label(names), "");
         
         // load/create the tags here rather than in execute() so that we can merely use the proxy
         // to access it ... this is important with the redo() case, where the tags may have been
@@ -1313,7 +1312,7 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
     private Gee.ArrayList<SourceProxy> to_remove = new Gee.ArrayList<SourceProxy>();
     
     public ModifyTagsCommand(MediaSource media, Gee.Collection<Tag> new_tag_list) {
-        base (media, Resources.MODIFY_TAGS_LABEL, Resources.MODIFY_TAGS_TOOLTIP);
+        base (media, Resources.MODIFY_TAGS_LABEL, "");
         
         this.media = media;
         

@@ -316,7 +316,6 @@ public class LibraryWindow : AppWindow {
         Gtk.ActionEntry preferences = { "CommonPreferences", Gtk.Stock.PREFERENCES, TRANSLATABLE,
             null, TRANSLATABLE, on_preferences };
         preferences.label = Resources.PREFERENCES_MENU;
-        preferences.tooltip = Resources.PREFERENCES_TOOLTIP;
         actions += preferences;
         
         Gtk.ActionEntry empty = { "CommonEmptyTrash", Gtk.Stock.CLEAR, TRANSLATABLE, null, null,
@@ -328,7 +327,6 @@ public class LibraryWindow : AppWindow {
         Gtk.ActionEntry jump_to_event = { "CommonJumpToEvent", null, TRANSLATABLE, null,
             TRANSLATABLE, on_jump_to_event };
         jump_to_event.label = _("View Eve_nt for Photo");
-        jump_to_event.tooltip = _("Go to this photo's event");
         actions += jump_to_event;
         
         Gtk.ActionEntry find = { "CommonFind", Gtk.Stock.FIND, TRANSLATABLE, null, null,

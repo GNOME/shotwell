@@ -35,12 +35,10 @@ public class EventPage : CollectionPage {
         Gtk.ActionEntry make_primary = { "MakePrimary", Resources.MAKE_PRIMARY,
             TRANSLATABLE, null, TRANSLATABLE, on_make_primary };
         make_primary.label = Resources.MAKE_KEY_PHOTO_MENU;
-        make_primary.tooltip = Resources.MAKE_KEY_PHOTO_TOOLTIP;
         new_actions += make_primary;
 
         Gtk.ActionEntry rename = { "Rename", null, TRANSLATABLE, null, TRANSLATABLE, on_rename };
         rename.label = Resources.RENAME_EVENT_MENU;
-        rename.tooltip = Resources.RENAME_EVENT_TOOLTIP;
         new_actions += rename;
 
         return new_actions;

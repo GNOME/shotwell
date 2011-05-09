@@ -276,14 +276,11 @@ public abstract class MediaPage : CheckerboardPage {
         Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
-        export.tooltip = Resources.EXPORT_TOOLTIP;
-        export.tooltip = _("Export the selected items to disk");
         actions += export;
        
         Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null, 
             TRANSLATABLE, on_send_to };
         send_to.label = Resources.SEND_TO_MENU;
-        send_to.tooltip = Resources.SEND_TO_TOOLTIP;
         actions += send_to;
         
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
@@ -293,13 +290,11 @@ public abstract class MediaPage : CheckerboardPage {
         Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
-        remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_PLURAL_TOOLTIP;
         actions += remove_from_library;
         
         Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
             TRANSLATABLE, on_move_to_trash };
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
-        move_to_trash.tooltip = Resources.MOVE_TO_TRASH_PLURAL_TOOLTIP;
         actions += move_to_trash;
         
         Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null, null };
@@ -317,19 +312,16 @@ public abstract class MediaPage : CheckerboardPage {
         Gtk.ActionEntry new_event = { "NewEvent", Gtk.Stock.NEW, TRANSLATABLE, "<Ctrl>N",
             TRANSLATABLE, on_new_event };
         new_event.label = Resources.NEW_EVENT_MENU;
-        new_event.tooltip = Resources.NEW_EVENT_TOOLTIP;
         actions += new_event;
         
         Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
             on_add_tags };
         add_tags.label = Resources.ADD_TAGS_MENU;
-        add_tags.tooltip = Resources.ADD_TAGS_TOOLTIP;
         actions += add_tags;
         
         Gtk.ActionEntry modify_tags = { "ModifyTags", null, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, 
             on_modify_tags };
         modify_tags.label = Resources.MODIFY_TAGS_MENU;
-        modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
         actions += modify_tags;
 
         Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.Stock.ZOOM_IN, TRANSLATABLE,
@@ -346,7 +338,6 @@ public abstract class MediaPage : CheckerboardPage {
         
         Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>G", TRANSLATABLE, on_flag_unflag };
         flag.label = Resources.FLAG_MENU;
-        flag.tooltip = Resources.FLAG_TOOLTIP;
         actions += flag;
         
         Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
@@ -356,61 +347,51 @@ public abstract class MediaPage : CheckerboardPage {
         Gtk.ActionEntry increase_rating = { "IncreaseRating", null, TRANSLATABLE, 
             "greater", TRANSLATABLE, on_increase_rating };
         increase_rating.label = Resources.INCREASE_RATING_MENU;
-        increase_rating.tooltip = Resources.INCREASE_RATING_TOOLTIP;
         actions += increase_rating;
 
         Gtk.ActionEntry decrease_rating = { "DecreaseRating", null, TRANSLATABLE, 
             "less", TRANSLATABLE, on_decrease_rating };
         decrease_rating.label = Resources.DECREASE_RATING_MENU;
-        decrease_rating.tooltip = Resources.DECREASE_RATING_TOOLTIP;
         actions += decrease_rating;
 
         Gtk.ActionEntry rate_rejected = { "RateRejected", null, TRANSLATABLE, 
             "9", TRANSLATABLE, on_rate_rejected };
         rate_rejected.label = Resources.rating_menu(Rating.REJECTED);
-        rate_rejected.tooltip = Resources.rating_tooltip(Rating.REJECTED);
         actions += rate_rejected;
 
         Gtk.ActionEntry rate_unrated = { "RateUnrated", null, TRANSLATABLE, 
             "0", TRANSLATABLE, on_rate_unrated };
         rate_unrated.label = Resources.rating_menu(Rating.UNRATED);
-        rate_unrated.tooltip = Resources.rating_tooltip(Rating.UNRATED);
         actions += rate_unrated;
 
         Gtk.ActionEntry rate_one = { "RateOne", null, TRANSLATABLE, 
             "1", TRANSLATABLE, on_rate_one };
         rate_one.label = Resources.rating_menu(Rating.ONE);
-        rate_one.tooltip = Resources.rating_tooltip(Rating.ONE);
         actions += rate_one;
 
         Gtk.ActionEntry rate_two = { "RateTwo", null, TRANSLATABLE, 
             "2", TRANSLATABLE, on_rate_two };
         rate_two.label = Resources.rating_menu(Rating.TWO);
-        rate_two.tooltip = Resources.rating_tooltip(Rating.TWO);
         actions += rate_two;
 
         Gtk.ActionEntry rate_three = { "RateThree", null, TRANSLATABLE, 
             "3", TRANSLATABLE, on_rate_three };
         rate_three.label = Resources.rating_menu(Rating.THREE);
-        rate_three.tooltip = Resources.rating_tooltip(Rating.THREE);
         actions += rate_three;
 
         Gtk.ActionEntry rate_four = { "RateFour", null, TRANSLATABLE, 
             "4", TRANSLATABLE, on_rate_four };
         rate_four.label = Resources.rating_menu(Rating.FOUR);
-        rate_four.tooltip = Resources.rating_tooltip(Rating.FOUR);
         actions += rate_four;
 
         Gtk.ActionEntry rate_five = { "RateFive", null, TRANSLATABLE, 
             "5", TRANSLATABLE, on_rate_five };
         rate_five.label = Resources.rating_menu(Rating.FIVE);
-        rate_five.tooltip = Resources.rating_tooltip(Rating.FIVE);
         actions += rate_five;
 
         Gtk.ActionEntry edit_title = { "EditTitle", null, TRANSLATABLE, "F2", TRANSLATABLE,
             on_edit_title };
         edit_title.label = Resources.EDIT_TITLE_MENU;
-        edit_title.tooltip = Resources.EDIT_TITLE_TOOLTIP;
         actions += edit_title;
 
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
@@ -559,7 +540,7 @@ public abstract class MediaPage : CheckerboardPage {
         set_action_sensitive("Flag", selected_count > 0);
         
         string flag_label = Resources.FLAG_MENU;
-        string flag_tooltip = Resources.FLAG_TOOLTIP;
+
         if (selected_count > 0) {
             bool all_flagged = true;
             foreach (DataSource source in get_view().get_selected_sources()) {
@@ -573,14 +554,12 @@ public abstract class MediaPage : CheckerboardPage {
             
             if (all_flagged) {
                 flag_label = Resources.UNFLAG_MENU;
-                flag_tooltip = Resources.UNFLAG_TOOLTIP;
             }
         }
         
         Gtk.Action? flag_action = get_action("Flag");
         if (flag_action != null) {
             flag_action.label = flag_label;
-            flag_action.tooltip = flag_tooltip;
         }
     }
     

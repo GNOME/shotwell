@@ -139,11 +139,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string HFLIP_MENU = _("Flip Hori_zontally");
     public const string HFLIP_LABEL = _("Flip Horizontally");
-    public const string HFLIP_TOOLTIP = _("Flip the photos horizontally");
     
     public const string VFLIP_MENU = _("Flip Verti_cally");
     public const string VFLIP_LABEL = _("Flip Vertically");
-    public const string VFLIP_TOOLTIP = _("Flip the photos vertically");
     
     public const string ENHANCE_MENU = _("_Enhance");
     public const string ENHANCE_LABEL = _("Enhance");
@@ -163,7 +161,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string REVERT_MENU = _("Re_vert to Original");
     public const string REVERT_LABEL = _("Revert to Original");
-    public const string REVERT_TOOLTIP = _("Revert to the original photo");
     
     public const string REVERT_EDITABLE_MENU = _("Revert External E_dits");
     public const string REVERT_EDITABLE_TOOLTIP = _("Revert to the master photo");
@@ -174,30 +171,24 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string UNDO_MENU = _("_Undo");
     public const string UNDO_LABEL = _("Undo");
-    public const string UNDO_TOOLTIP = _("Undo the last action");
     
     public const string REDO_MENU = _("_Redo");
     public const string REDO_LABEL = _("Redo");
-    public const string REDO_TOOLTIP = _("Redo the last undone action");
     
     public const string RENAME_EVENT_MENU = _("Re_name Event...");
     public const string RENAME_EVENT_LABEL = _("Rename Event");
-    public const string RENAME_EVENT_TOOLTIP = _("Rename the selected event");
     
     public const string MAKE_KEY_PHOTO_MENU = _("Make _Key Photo for Event");
     public const string MAKE_KEY_PHOTO_LABEL = _("Make Key Photo for Event");
-    public const string MAKE_KEY_PHOTO_TOOLTIP = _("Make the selected photo the thumbnail for the event");
     
     public const string NEW_EVENT_MENU = _("_New Event");
     public const string NEW_EVENT_LABEL = _("New Event");
-    public const string NEW_EVENT_TOOLTIP = _("Create new event from the selected photos");
             
     public const string SET_PHOTO_EVENT_LABEL = _("Move Photos");
     public const string SET_PHOTO_EVENT_TOOLTIP = _("Move photos to an event");
     
     public const string MERGE_MENU = _("_Merge Events");
     public const string MERGE_LABEL = _("Merge");
-    public const string MERGE_TOOLTIP = _("Merge into a single event");
 
     public const string RATING_MENU = _("_Set Rating");
     public const string RATING_LABEL = _("Set Rating");
@@ -205,11 +196,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string INCREASE_RATING_MENU = _("_Increase");
     public const string INCREASE_RATING_LABEL = _("Increase Rating");
-    public const string INCREASE_RATING_TOOLTIP = _("Increase the rating of your photo");
     
     public const string DECREASE_RATING_MENU = _("_Decrease");
     public const string DECREASE_RATING_LABEL = _("Decrease Rating");
-    public const string DECREASE_RATING_TOOLTIP = _("Decrease the rating of your photo");
 
     public const string RATE_UNRATED_MENU = _("_Unrated");
     public const string RATE_UNRATED_COMBO_BOX = _("Unrated");
@@ -247,10 +236,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DUPLICATE_PHOTO_TOOLTIP = _("Make a duplicate of the photo");
 
     public const string EXPORT_MENU = _("_Export...");
-    public const string EXPORT_TOOLTIP = _("Export to disk");
     
     public const string PRINT_MENU = _("_Print...");
-    public const string PRINT_TOOLTIP = _("Print the photo to a printer connected to your computer");
     
     public const string PUBLISH_MENU = _("Pu_blish...");
     public const string PUBLISH_LABEL = _("Publish");
@@ -258,37 +245,28 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string EDIT_TITLE_MENU = _("E_dit Title...");
     public const string EDIT_TITLE_LABEL = _("Edit Title");
-    public const string EDIT_TITLE_TOOLTIP = _("Edit title of the selected photo");
 
     public const string ADJUST_DATE_TIME_MENU = _("_Adjust Date and Time...");
     public const string ADJUST_DATE_TIME_LABEL = _("Adjust Date and Time");
-    public const string ADJUST_DATE_TIME_TOOLTIP = _("Adjust date and time of selected photos");
     
     public const string ADD_TAGS_MENU = _("Add _Tags...");
     public const string ADD_TAGS_TITLE = _("Add Tags");
-    public const string ADD_TAGS_TOOLTIP = _("Add one or more tags to the selected photos");
 
     public const string PREFERENCES_MENU = _("_Preferences");
-    public const string PREFERENCES_TOOLTIP = _("Edit preferences");
     
     public const string EXTERNAL_EDIT_MENU = _("_Open With External Editor");
-    public const string EXTERNAL_EDIT_TOOLTIP = _("Open the selected photo with an external image editor");
     
     public const string EXTERNAL_EDIT_RAW_MENU = _("Open With RA_W Editor");
-    public const string EXTERNAL_EDIT_RAW_TOOLTIP = _("Open the selected photo with a RAW image editor");
     
     public const string SEND_TO_MENU = _("Send _To...");
-    public const string SEND_TO_TOOLTIP = _("Send photos by mail or instant message");
     
     public const string FIND_MENU = _("_Find...");
     public const string FIND_LABEL = _("Find");
     public const string FIND_TOOLTIP = _("Find an image by typing text that appears in its name or tags");
     
     public const string FLAG_MENU = _("_Flag");
-    public const string FLAG_TOOLTIP = _("Flag the photos to work with them together");
     
     public const string UNFLAG_MENU = _("Un_flag");
-    public const string UNFLAG_TOOLTIP = _("Unflag the photos");
     
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);
@@ -344,7 +322,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string MODIFY_TAGS_MENU = _("Modif_y Tags...");
     public const string MODIFY_TAGS_LABEL = _("Modify Tags");
-    public const string MODIFY_TAGS_TOOLTIP = _("Modify the tags for this photo");
     
     public string tag_photos_label(string name, int count) {
         return ngettext("Tag Photo as \"%s\"", "Tag Photos as \"%s\"", count).printf(name);
@@ -442,27 +419,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
                 return RATE_FIVE_LABEL;
             default:
                 return RATE_UNRATED_LABEL;
-        }
-    }
-    
-    private unowned string rating_tooltip(Rating rating) {
-        switch (rating) {
-            case Rating.REJECTED:
-                return RATE_REJECTED_TOOLTIP;
-            case Rating.UNRATED:
-                return RATE_UNRATED_TOOLTIP;
-            case Rating.ONE:
-                return RATE_ONE_TOOLTIP;
-            case Rating.TWO:
-                return RATE_TWO_TOOLTIP;
-            case Rating.THREE:
-                return RATE_THREE_TOOLTIP;
-            case Rating.FOUR:
-                return RATE_FOUR_TOOLTIP;
-            case Rating.FIVE:
-                return RATE_FIVE_TOOLTIP;
-            default:
-                return RATE_UNRATED_TOOLTIP;
         }
     }
     
@@ -691,12 +647,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public const string REMOVE_FROM_LIBRARY_MENU = _("R_emove From Library");
-    public const string REMOVE_FROM_LIBRARY_PLURAL_TOOLTIP = _("Remove the selected photos from the library");
-    public const string REMOVE_FROM_LIBRARY_SINGULAR_TOOLTIP = _("Remove the photo from the library");
     
     public const string MOVE_TO_TRASH_MENU = _("_Move to Trash");
-    public const string MOVE_TO_TRASH_PLURAL_TOOLTIP = _("Move the selected photos to the trash");
-    public const string MOVE_TO_TRASH_SINGULAR_TOOLTIP = _("Move the photo to the trash");
     
     public const string SELECT_ALL_MENU = _("Select _All");
     public const string SELECT_ALL_TOOLTIP = _("Select all items");

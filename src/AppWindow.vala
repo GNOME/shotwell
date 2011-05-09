@@ -473,55 +473,46 @@ public abstract class AppWindow : PageWindow {
         Gtk.ActionEntry quit = { "CommonQuit", Gtk.Stock.QUIT, TRANSLATABLE, "<Ctrl>Q",
             TRANSLATABLE, on_quit };
         quit.label = _("_Quit");
-        quit.tooltip = _("Quit Shotwell");
         actions += quit;
 
         Gtk.ActionEntry about = { "CommonAbout", Gtk.Stock.ABOUT, TRANSLATABLE, null,
             TRANSLATABLE, on_about };
         about.label = _("_About");
-        about.tooltip = _("About Shotwell");
         actions += about;
 
         Gtk.ActionEntry fullscreen = { "CommonFullscreen", Gtk.Stock.FULLSCREEN,
             TRANSLATABLE, "F11", TRANSLATABLE, on_fullscreen };
         fullscreen.label = _("Fulls_creen");
-        fullscreen.tooltip = _("Use Shotwell at fullscreen");
         actions += fullscreen;
 
         Gtk.ActionEntry help_contents = { "CommonHelpContents", Gtk.Stock.HELP,
             TRANSLATABLE, "F1", TRANSLATABLE, on_help_contents };
         help_contents.label = _("_Contents");
-        help_contents.tooltip = _("More information on Shotwell");
         actions += help_contents;
         
         Gtk.ActionEntry help_faq = { "CommonHelpFAQ", null, TRANSLATABLE, null, 
             TRANSLATABLE, on_help_faq };
         help_faq.label = _("_Frequently Asked Questions");
-        help_faq.tooltip = _("Answers to common questions about Shotwell");
         actions += help_faq;
         
         Gtk.ActionEntry undo = { "CommonUndo", Gtk.Stock.UNDO, TRANSLATABLE, "<Ctrl>Z",
             TRANSLATABLE, on_undo };
         undo.label = Resources.UNDO_MENU;
-        undo.tooltip = Resources.UNDO_TOOLTIP;
         actions += undo;
         
         Gtk.ActionEntry redo = { "CommonRedo", Gtk.Stock.REDO, TRANSLATABLE, "<Ctrl><Shift>Z",
             TRANSLATABLE, on_redo };
         redo.label = Resources.REDO_MENU;
-        redo.tooltip = Resources.REDO_TOOLTIP;
         actions += redo;
 
         Gtk.ActionEntry jump_to_file = { "CommonJumpToFile", Gtk.Stock.JUMP_TO, TRANSLATABLE, 
             "<Ctrl><Shift>M", TRANSLATABLE, on_jump_to_file };
         jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
-        jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
         actions += jump_to_file;
         
         Gtk.ActionEntry select_all = { "CommonSelectAll", Gtk.Stock.SELECT_ALL, TRANSLATABLE,
             "<Ctrl>A", TRANSLATABLE, on_select_all };
         select_all.label = Resources.SELECT_ALL_MENU;
-        select_all.tooltip = Resources.SELECT_ALL_TOOLTIP;
         actions += select_all;
         
         Gtk.ActionEntry select_none = { "CommonSelectNone", null, null,
@@ -878,12 +869,12 @@ public abstract class AppWindow : PageWindow {
     }
     
     public void decorate_undo_action() {
-        decorate_command_manager_action("CommonUndo", Resources.UNDO_MENU, Resources.UNDO_TOOLTIP,
+        decorate_command_manager_action("CommonUndo", Resources.UNDO_MENU, "",
             get_command_manager().get_undo_description());
     }
     
     public void decorate_redo_action() {
-        decorate_command_manager_action("CommonRedo", Resources.REDO_MENU, Resources.REDO_TOOLTIP,
+        decorate_command_manager_action("CommonRedo", Resources.REDO_MENU, "",
             get_command_manager().get_redo_description());
     }
     

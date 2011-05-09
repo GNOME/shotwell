@@ -1837,11 +1837,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     public void on_flip_horizontally() {
-        rotate(Rotation.MIRROR, Resources.HFLIP_LABEL, Resources.HFLIP_TOOLTIP);
+        rotate(Rotation.MIRROR, Resources.HFLIP_LABEL, "");
     }
     
     public void on_flip_vertically() {
-        rotate(Rotation.UPSIDE_DOWN, Resources.VFLIP_LABEL, Resources.VFLIP_TOOLTIP);
+        rotate(Rotation.UPSIDE_DOWN, Resources.VFLIP_LABEL, "");
     }
     
     public void on_revert() {
@@ -2253,13 +2253,11 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
-        export.tooltip = Resources.EXPORT_TOOLTIP;
         actions += export;
 
         Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
-        print.tooltip = Resources.PRINT_TOOLTIP;
         actions += print;
         
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
@@ -2275,13 +2273,11 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
-        remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_SINGULAR_TOOLTIP;
         actions += remove_from_library;
 
         Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
             TRANSLATABLE, on_move_to_trash };
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
-        move_to_trash.tooltip = Resources.MOVE_TO_TRASH_SINGULAR_TOOLTIP;
         actions += move_to_trash;
 
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
@@ -2323,13 +2319,11 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
             TRANSLATABLE, on_flip_horizontally };
         hflip.label = Resources.HFLIP_MENU;
-        hflip.tooltip = Resources.HFLIP_TOOLTIP;
         actions += hflip;
         
         Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
             TRANSLATABLE, on_flip_vertically };
         vflip.label = Resources.VFLIP_MENU;
-        vflip.tooltip = Resources.VFLIP_TOOLTIP;
         actions += vflip;
         
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
@@ -2359,37 +2353,31 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
-        revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
         
         Gtk.ActionEntry edit_title = { "EditTitle", null, TRANSLATABLE, "F2", TRANSLATABLE,
             on_edit_title };
         edit_title.label = Resources.EDIT_TITLE_MENU;
-        edit_title.tooltip = Resources.EDIT_TITLE_TOOLTIP;
         actions += edit_title;
 
         Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
             TRANSLATABLE, on_adjust_date_time };
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
-        adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
         
         Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.Stock.EDIT, TRANSLATABLE,
             "<Ctrl>Return", TRANSLATABLE, on_external_edit };
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
-        external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;
         actions += external_edit;
 
         Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, "<Ctrl><Shift>Return", 
             TRANSLATABLE, on_external_edit_raw };
         edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
-        edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
         
         Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null,
             TRANSLATABLE, on_send_to };
         send_to.label = Resources.SEND_TO_MENU;
-        send_to.tooltip = Resources.SEND_TO_TOOLTIP;
         actions += send_to;
         
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
@@ -2400,7 +2388,6 @@ public class LibraryPhotoPage : EditingHostPage {
         
         Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>G", TRANSLATABLE, on_flag_unflag };
         flag.label = Resources.FLAG_MENU;
-        flag.tooltip = Resources.FLAG_TOOLTIP;
         actions += flag;
         
         Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
@@ -2410,55 +2397,46 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry increase_rating = { "IncreaseRating", null, TRANSLATABLE, 
             "greater", TRANSLATABLE, on_increase_rating };
         increase_rating.label = Resources.INCREASE_RATING_MENU;
-        increase_rating.tooltip = Resources.INCREASE_RATING_TOOLTIP;
         actions += increase_rating;
 
         Gtk.ActionEntry decrease_rating = { "DecreaseRating", null, TRANSLATABLE, 
             "less", TRANSLATABLE, on_decrease_rating };
         decrease_rating.label = Resources.DECREASE_RATING_MENU;
-        decrease_rating.tooltip = Resources.DECREASE_RATING_TOOLTIP;
         actions += decrease_rating;
 
         Gtk.ActionEntry rate_rejected = { "RateRejected", null, TRANSLATABLE, 
             "9", TRANSLATABLE, on_rate_rejected };
         rate_rejected.label = Resources.rating_menu(Rating.REJECTED);
-        rate_rejected.tooltip = Resources.rating_tooltip(Rating.REJECTED);
         actions += rate_rejected;
 
         Gtk.ActionEntry rate_unrated = { "RateUnrated", null, TRANSLATABLE, 
             "0", TRANSLATABLE, on_rate_unrated };
         rate_unrated.label = Resources.rating_menu(Rating.UNRATED);
-        rate_unrated.tooltip = Resources.rating_tooltip(Rating.UNRATED);
         actions += rate_unrated;
 
         Gtk.ActionEntry rate_one = { "RateOne", null, TRANSLATABLE, 
             "1", TRANSLATABLE, on_rate_one };
         rate_one.label = Resources.rating_menu(Rating.ONE);
-        rate_one.tooltip = Resources.rating_tooltip(Rating.ONE);
         actions += rate_one;
 
         Gtk.ActionEntry rate_two = { "RateTwo", null, TRANSLATABLE, 
             "2", TRANSLATABLE, on_rate_two };
         rate_two.label = Resources.rating_menu(Rating.TWO);
-        rate_two.tooltip = Resources.rating_tooltip(Rating.TWO);
         actions += rate_two;
 
         Gtk.ActionEntry rate_three = { "RateThree", null, TRANSLATABLE, 
             "3", TRANSLATABLE, on_rate_three };
         rate_three.label = Resources.rating_menu(Rating.THREE);
-        rate_three.tooltip = Resources.rating_tooltip(Rating.THREE);
         actions += rate_three;
 
         Gtk.ActionEntry rate_four = { "RateFour", null, TRANSLATABLE, 
             "4", TRANSLATABLE, on_rate_four };
         rate_four.label = Resources.rating_menu(Rating.FOUR);
-        rate_four.tooltip = Resources.rating_tooltip(Rating.FOUR);
         actions += rate_four;
 
         Gtk.ActionEntry rate_five = { "RateFive", null, TRANSLATABLE, 
             "5", TRANSLATABLE, on_rate_five };
         rate_five.label = Resources.rating_menu(Rating.FIVE);
-        rate_five.tooltip = Resources.rating_tooltip(Rating.FIVE);
         actions += rate_five;
 
         Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
@@ -2502,13 +2480,11 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
             on_add_tags };
         add_tags.label = Resources.ADD_TAGS_MENU;
-        add_tags.tooltip = Resources.ADD_TAGS_TOOLTIP;
         actions += add_tags;
         
         Gtk.ActionEntry modify_tags = { "ModifyTags", null, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, 
             on_modify_tags };
         modify_tags.label = Resources.MODIFY_TAGS_MENU;
-        modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
         actions += modify_tags;
         
         Gtk.ActionEntry slideshow = { "Slideshow", null, TRANSLATABLE, "F5", TRANSLATABLE,
@@ -2613,7 +2589,6 @@ public class LibraryPhotoPage : EditingHostPage {
             bool is_flagged = ((LibraryPhoto) get_photo()).is_flagged();
             
             action.label = is_flagged ? Resources.UNFLAG_MENU : Resources.FLAG_MENU;
-            action.tooltip = is_flagged ? Resources.UNFLAG_TOOLTIP : Resources.FLAG_TOOLTIP;
             action.sensitive = true;
         } else {
             set_action_sensitive("Flag", false);

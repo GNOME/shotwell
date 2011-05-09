@@ -134,7 +134,6 @@ public abstract class CollectionPage : MediaPage {
         Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
-        print.tooltip = Resources.PRINT_TOOLTIP;
         actions += print;
         
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
@@ -158,13 +157,11 @@ public abstract class CollectionPage : MediaPage {
         Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
             TRANSLATABLE, on_flip_horizontally };
         hflip.label = Resources.HFLIP_MENU;
-        hflip.tooltip = Resources.HFLIP_TOOLTIP;
         actions += hflip;
         
         Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
             TRANSLATABLE, on_flip_vertically };
         vflip.label = Resources.VFLIP_MENU;
-        vflip.tooltip = Resources.VFLIP_TOOLTIP;
         actions += vflip;
 
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
@@ -176,7 +173,6 @@ public abstract class CollectionPage : MediaPage {
         Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE, null,
             TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
-        revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
         
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
@@ -194,19 +190,16 @@ public abstract class CollectionPage : MediaPage {
         Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
             TRANSLATABLE, on_adjust_date_time };
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
-        adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
         
         Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.Stock.EDIT, TRANSLATABLE, "<Ctrl>Return",
             TRANSLATABLE, on_external_edit };
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
-        external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;
         actions += external_edit;
         
         Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, "<Ctrl><Shift>Return", 
             TRANSLATABLE, on_external_edit_raw };
         edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
-        edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
         
         Gtk.ActionEntry slideshow = { "Slideshow", null, TRANSLATABLE, "F5", TRANSLATABLE,
@@ -544,7 +537,7 @@ public abstract class CollectionPage : MediaPage {
             return;
         
         RotateMultipleCommand command = new RotateMultipleCommand(get_view().get_selected(),
-            Rotation.MIRROR, Resources.HFLIP_LABEL, Resources.HFLIP_TOOLTIP, _("Flipping Horizontally"),
+            Rotation.MIRROR, Resources.HFLIP_LABEL, "", _("Flipping Horizontally"),
             _("Undoing Flip Horizontally"));
         get_command_manager().execute(command);
     }
@@ -554,7 +547,7 @@ public abstract class CollectionPage : MediaPage {
             return;
         
         RotateMultipleCommand command = new RotateMultipleCommand(get_view().get_selected(),
-            Rotation.UPSIDE_DOWN, Resources.VFLIP_LABEL, Resources.VFLIP_TOOLTIP, _("Flipping Vertically"),
+            Rotation.UPSIDE_DOWN, Resources.VFLIP_LABEL, "", _("Flipping Vertically"),
             _("Undoing Flip Vertically"));
         get_command_manager().execute(command);
     }

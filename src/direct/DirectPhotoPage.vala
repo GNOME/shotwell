@@ -63,7 +63,6 @@ public class DirectPhotoPage : EditingHostPage {
         Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null,
             TRANSLATABLE, on_send_to };
         send_to.label = Resources.SEND_TO_MENU;
-        send_to.tooltip = Resources.SEND_TO_TOOLTIP;
         actions += send_to;
 
         Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
@@ -111,13 +110,11 @@ public class DirectPhotoPage : EditingHostPage {
         Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
             TRANSLATABLE, on_flip_horizontally };
         hflip.label = Resources.HFLIP_MENU;
-        hflip.tooltip = Resources.HFLIP_TOOLTIP;
         actions += hflip;
         
         Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
             TRANSLATABLE, on_flip_vertically };
         vflip.label = Resources.VFLIP_MENU;
-        vflip.tooltip = Resources.VFLIP_TOOLTIP;
         actions += vflip;
         
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
@@ -147,13 +144,11 @@ public class DirectPhotoPage : EditingHostPage {
         Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
-        revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
 
         Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
             TRANSLATABLE, on_adjust_date_time };
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
-        adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
         
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
