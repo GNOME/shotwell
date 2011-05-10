@@ -13,6 +13,7 @@ configure_help() {
     printf "\n"
     printf "Options:\n"
     printf "\t-h, --help\t\tPrint this help and exit.\n"
+    printf "\t--enable-tests\t\tEnable Shotwell to run automated tests.\n"
     printf "\t--assume-pkgs\t\tTurn off package version checking.\n"
     printf "\t--build=DIR\t\tBuild secondary files in DIR.\n"
     printf "\t--debug | --release\tBuild executable for debugging or release.\n"
@@ -115,7 +116,8 @@ do
 
         --enable-build-for-glade)         variables="${variables}ENABLE_BUILD_FOR_GLADE=1\n"
                                           ;;
-        
+        --enable-tests)                   variables="${variables}ENABLE_TESTS=1\n"
+                                          ;;
         --disable-help-install)           variables="${variables}DISABLE_HELP_INSTALL=1\n"
                                           ;;
         
