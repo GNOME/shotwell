@@ -383,7 +383,7 @@ PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.or
 VALAFLAGS := $(VALAFLAGS) --vapidir=plugins/
 
 ifdef ENABLE_TESTS
-VALAFLAGS += --vapi=libshotwell.vapi -D ENABLE_TESTS=true --deps=libshotwell.deps
+VALAFLAGS += --vapi=libshotwell.vapi --define=ENABLE_TESTS
 CFLAGS += -DENABLE_TESTS
 endif
 VALA_CFLAGS := `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
