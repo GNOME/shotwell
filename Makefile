@@ -51,6 +51,7 @@ UNUNITIZED_SRC_FILES = \
 	PhotoPage.vala \
 	Page.vala \
 	SortedList.vala \
+	SortedListTests.vala \
 	Dimensions.vala \
 	Box.vala \
 	Photo.vala \
@@ -383,9 +384,11 @@ PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.or
 VALAFLAGS := $(VALAFLAGS) --vapidir=plugins/
 
 ifdef ENABLE_TESTS
-VALAFLAGS += --vapi=libshotwell.vapi --define=ENABLE_TESTS
-CFLAGS += -DENABLE_TESTS
+VALAFLAGS := $(VALAFLAGS) --vapi=libshotwell.vapi --define=ENABLE_TESTS 
+DEFINES := $(DEFINES) ENABLE_TESTS=true
+CFLAGS := $(CFLAGS) -DENABLE_TESTS
 endif
+
 VALA_CFLAGS := `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
 	$(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
 	$(foreach def,$(DEFINES),-D$(def))
@@ -645,7 +648,7 @@ endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
 	@echo Compiling Vala code...
 	@mkdir -p $(BUILD_DIR)
-	@$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
+	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
 		$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
 		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
 		$(foreach def,$(DEFINES),-X -D$(def)) \
