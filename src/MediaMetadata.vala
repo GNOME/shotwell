@@ -37,7 +37,7 @@ public struct MetadataRational {
     }
 }
 
-errordomain MetadataDateTimeError {
+public errordomain MetadataDateTimeError {
     INVALID_FORMAT,
     UNSUPPORTED_FORMAT
 }
