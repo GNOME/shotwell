@@ -648,7 +648,7 @@ endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
 	@echo Compiling Vala code...
 	@mkdir -p $(BUILD_DIR)
-	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
+	@$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
 		$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
 		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
 		$(foreach def,$(DEFINES),-X -D$(def)) \
