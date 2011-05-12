@@ -386,7 +386,6 @@ VALAFLAGS := $(VALAFLAGS) --vapidir=plugins/
 ifdef ENABLE_TESTS
 VALAFLAGS := $(VALAFLAGS) --vapi=libshotwell.vapi --define=ENABLE_TESTS 
 DEFINES := $(DEFINES) ENABLE_TESTS=true
-CFLAGS := $(CFLAGS) -DENABLE_TESTS
 endif
 
 VALA_CFLAGS := `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
