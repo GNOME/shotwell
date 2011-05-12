@@ -64,6 +64,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         typeof (Gdk.Pixbuf?)        // OPEN_PIXBUF
     );
     
+    private Gtk.UIManager ui = new Gtk.UIManager();
     private Gtk.IconTheme icon_theme;
     private Gtk.CellRendererText text_renderer;
     private ExternalDropHandler drop_handler;
@@ -75,6 +76,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     private int editing_disabled = 0;
     private bool mask_entry_selected_signal = false;
     private weak EntryWrapper? selected_wrapper = null;
+    private Gtk.Menu? default_context_menu = null;
     
     public signal void entry_selected(Sidebar.SelectableEntry selectable);
     
@@ -137,12 +139,38 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         icon_theme = Resources.get_icon_theme_engine();
         icon_theme.changed.connect(on_theme_change);
+        
+        setup_default_context_menu();
     }
     
     ~Tree() {
         text_renderer.editing_canceled.disconnect(on_editing_canceled);
         text_renderer.editing_started.disconnect(on_editing_started);
         icon_theme.changed.disconnect(on_theme_change);
+    }
+    
+    private void setup_default_context_menu() {
+        Gtk.ActionGroup group = new Gtk.ActionGroup("SidebarDefault");
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, null, null, on_new_search };
+        new_search.label = _("Ne_w Search...");
+        actions += new_search;
+        
+        group.add_actions(actions, this);
+        ui.insert_action_group(group, 0);
+        
+        File ui_file = Resources.get_ui("sidebar_default.ui");
+        try {
+            ui.add_ui_from_file(ui_file.get_path());
+        } catch (Error err) {
+            AppWindow.error_message("Error loading UI file %s: %s".printf(
+                ui_file.get_path(), err.message));
+            Application.get_instance().panic();
+        }
+        default_context_menu = (Gtk.Menu) ui.get_widget("/SidebarDefaultContextMenu");
+        
+        ui.ensure_update();
     }
     
     private bool has_wrapper(Sidebar.Entry entry) {
@@ -799,12 +827,19 @@ public class Sidebar.Tree : Gtk.TreeView {
         return true;
     }
     
+    private bool popup_default_context_menu(Gdk.EventButton event) {
+        default_context_menu.popup(null, null, null, event.button, event.time);
+        return true;
+    }
+    
     public override bool button_press_event(Gdk.EventButton event) {
         if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS) {
             // single right click
             Gtk.TreePath? path = get_path_from_event(event);
             if (path != null)
                 popup_context_menu(path, event);
+            else
+                popup_default_context_menu(event);
         } else if (event.button == 1 && event.type == Gdk.EventType.2BUTTON_PRESS) {
             // double left click
             Gtk.TreePath? path = get_path_from_event(event);
@@ -1024,6 +1059,10 @@ public class Sidebar.Tree : Gtk.TreeView {
             text_entry.editing_done();
 
         return false;
+    }
+    
+    private void on_new_search() {
+        (new SavedSearchDialog()).show();
     }
 }
 
