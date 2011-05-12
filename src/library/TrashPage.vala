@@ -126,7 +126,7 @@ public class TrashPage : CheckerboardPage {
     
     private void on_delete() {
         remove_from_app((Gee.Collection<MediaSource>) get_view().get_selected_sources(), _("Delete"), 
-            ngettext("Deleting a Photo", "Deleting Photos", get_view().get_selected_count()));
+            (get_view().get_selected_count() == 1) ? ("Deleting a Photo") : _("Deleting Photos"));
     }
     
     public override SearchViewFilter get_search_view_filter() {

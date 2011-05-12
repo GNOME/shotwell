@@ -988,13 +988,13 @@ public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photo
     if (count == 0)
         return false;
            
-    string headline = ngettext("Revert External Edit?", "Revert External Edits?", count);
+    string headline = (count == 1) ? _("Revert External Edit?") : _("Revert External Edits?");
     string msg = ngettext(
         "This will destroy all changes made to the external file.  Continue?",
         "This will destroy all changes made to %d external files.  Continue?",
         count).printf(count);
 
-    string action = ngettext("Re_vert External Edit", "Re_vert External Edits", count);
+    string action = (count == 1) ? _("Re_vert External Edit") : _("Re_vert External Edits");
     
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
         Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s", msg);
@@ -1023,7 +1023,7 @@ public bool remove_offline_dialog(Gtk.Window owner, int count) {
         Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s", msg);
     dialog.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL);
     dialog.add_button(_("_Remove"), Gtk.ResponseType.OK);
-    dialog.title = ngettext("Remove Photo From Library", "Remove Photos From Library", count);
+    dialog.title = (count == 1) ? _("Remove Photo From Library") : _("Remove Photos From Library");
     
     Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
     
@@ -1262,8 +1262,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         batch_radio_button.sensitive = display_options && photo_count > 1;
         batch_radio_button.toggled.connect(on_time_changed);
 
-        modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(ngettext(
-            "_Modify original file", "_Modify original files", photo_count));
+        modify_originals_check_button = new Gtk.CheckButton.with_mnemonic((photo_count == 1) ?
+            _("_Modify original file") : _("_Modify original files"));
         modify_originals_check_button.set_active(Config.get_instance().get_commit_metadata_to_masters() &&
             display_options);
         modify_originals_check_button.sensitive = !Config.get_instance().get_commit_metadata_to_masters() && display_options;
@@ -2125,7 +2125,7 @@ public Gtk.ResponseType copy_files_dialog() {
 
 public void remove_photos_from_library(Gee.Collection<LibraryPhoto> photos) {
     remove_from_app(photos, _("Remove From Library"),
-        ngettext("Removing Photo From Library", "Removing Photos From Library", photos.size));
+        (photos.size == 1) ? _("Removing Photo From Library") : _("Removing Photos From Library"));
 }
 
 public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_title, 
