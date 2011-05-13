@@ -1,14 +1,14 @@
-# po/shotwell-extras/ja.po
-# Japanese translation for Shotwell Extra Plugins
+# po/shotwell-extras/shotwell-extras.pot
+# PO message string template file for Shotwell Extra Plugins
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell-Extras\n"
+"Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-04-19 13:19-0700\n"
-"PO-Revision-Date: 2011-04-20 02:56+0000\n"
+"POT-Creation-Date: 2011-05-12 16:50-0700\n"
+"PO-Revision-Date: 2011-05-13 00:07+0000\n"
 "Last-Translator: verayin <vera@yorba.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,15 +17,38 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
 msgid "Visit the Yandex.Fotki web site"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:46
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:632
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "現在 Yandex.Fotki にログインしていません。"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
+msgid "_Albums (or write new):"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
+msgid "Access _type:"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
+msgid "Disable _comments"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
+msgid "_Forbid downloading original photo"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
+msgid "_Logout"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
+msgid "_Publish"
+msgstr ""

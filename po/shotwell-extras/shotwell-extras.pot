@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.9.3+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-03 18:43-0700\n"
+"POT-Creation-Date: 2011-05-12 16:50-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,21 +15,16 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:17
-msgid "Shotwell Extra Publishing Services"
-msgstr ""
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
 msgid "Visit the Yandex.Fotki web site"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:46
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:632
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr ""
 
