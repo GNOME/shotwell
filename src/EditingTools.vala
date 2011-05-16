@@ -650,8 +650,8 @@ public class CropTool : EditingTool {
         result += ConstraintDescription(_("Screen"), 0, 0, false, SCREEN_ASPECT_RATIO);
         result += ConstraintDescription(_("Original Size"), 0, 0, false, ORIGINAL_ASPECT_RATIO);
         result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
-        result += ConstraintDescription(_("SD Video (4 : 3)"), 4, 3, false);
-        result += ConstraintDescription(_("HD Video (16 : 9)"), 16, 9, false);
+        result += ConstraintDescription(_("SD Video (4 : 3)"), 4, 3, true);
+        result += ConstraintDescription(_("HD Video (16 : 9)"), 16, 9, true);
         result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
         result += ConstraintDescription(_("Wallet (2 x 3 in.)"), 3, 2, true);
         result += ConstraintDescription(_("Notecard (3 x 5 in.)"), 5, 3, true);
