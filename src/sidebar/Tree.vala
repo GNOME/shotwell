@@ -251,16 +251,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         }
         
         EntryWrapper? wrapper = get_wrapper_at_path(path);
-        
-        // "cursor-changed" gets called even if the cursor hasn't changed (but the user has clicked
-        // on the same entry), so avoid the extra work if the selection has not, in fact, changed
-        if (wrapper == selected_wrapper) {
-            if (base.cursor_changed != null)
-                base.cursor_changed();
-            
-            return;
-        }
-        
+      
         selected_wrapper = wrapper;
         
         if (editing_disabled == 0 && wrapper != null)
