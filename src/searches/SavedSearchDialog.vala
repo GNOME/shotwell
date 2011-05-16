@@ -16,6 +16,8 @@ public class SavedSearchDialog {
         private Gtk.HBox box;
         private Gtk.Alignment align;
         private Gtk.Button remove_button;
+        private SearchCondition.SearchType[] search_types;
+        private Gee.HashMap<SearchCondition.SearchType, int> search_types_index;
         
         private SearchRow? my_row = null;
         
@@ -27,23 +29,23 @@ public class SavedSearchDialog {
         public SearchRowContainer.edit_existing(SearchCondition sc) {
             setup_gui();
             set_type(sc.search_type);
-            type_combo.set_active(sc.search_type);
+            set_type_combo_box(sc.search_type);
             my_row.populate(sc);
         }
         
         // Creates the GUI for this row.
         private void setup_gui() {
-            // Ordering must correspond with SearchCondition.SearchType
+            search_types = SearchCondition.SearchType.as_array();
+            search_types_index = new Gee.HashMap<SearchCondition.SearchType, int>();
+            SearchCondition.SearchType.sort_array(ref search_types);
+            
             type_combo = new Gtk.ComboBox.text();
-            type_combo.append_text(_("Any text"));
-            type_combo.append_text(_("Title"));
-            type_combo.append_text(_("Tag"));
-            type_combo.append_text(_("Event name"));
-            type_combo.append_text(_("File name"));
-            type_combo.append_text(_("Media type"));
-            type_combo.append_text(_("Flag state"));
-            type_combo.append_text(_("Rating"));
-            type_combo.set_active(0); // Sets default.
+            for (int i = 0; i < search_types.length; i++) {
+                SearchCondition.SearchType st = search_types[i];
+                search_types_index.set(st, i);
+                type_combo.append_text(st.display_text());
+            }
+            set_type_combo_box(SearchCondition.SearchType.ANY_TEXT); // Sets default.
             type_combo.changed.connect(on_type_changed);
             
             remove_button = new Gtk.Button();
@@ -63,6 +65,10 @@ public class SavedSearchDialog {
         private void on_type_changed() {
             set_type(get_search_type());
             changed(this);
+        }
+        
+        private void set_type_combo_box(SearchCondition.SearchType st) {
+            type_combo.set_active(search_types_index.get(st));
         }
         
         private void set_type(SearchCondition.SearchType type) {
@@ -99,7 +105,7 @@ public class SavedSearchDialog {
         }
         
         public SearchCondition.SearchType get_search_type() {
-            return (SearchCondition.SearchType) type_combo.get_active();
+            return search_types[type_combo.get_active()];
         }
         
         private bool on_removed(Gdk.EventButton event) {

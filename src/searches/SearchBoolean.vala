@@ -55,6 +55,19 @@ public abstract class SearchCondition {
         MEDIA_TYPE,
         FLAG_STATE,
         RATING;
+        // Note: when adding new types, be sure to update all functions below.
+        
+        public static SearchType[] as_array() {
+            return { ANY_TEXT, TITLE, TAG, EVENT_NAME, FILE_NAME, MEDIA_TYPE, FLAG_STATE, RATING };
+        }
+        
+        // Sorts an array alphabetically by display name.
+        public static void sort_array(ref SearchType[] array) {
+            Posix.qsort(array, array.length, sizeof(SearchType), (a, b) => {
+                return utf8_cs_compare(((*(SearchType*) a)).display_text(), 
+                    ((*(SearchType*) b)).display_text());
+            });
+        }
         
         public string to_string() {
             switch (this) {
@@ -114,6 +127,37 @@ public abstract class SearchCondition {
             
             else
                 error("unrecognized search type name: %s", str);
+        }
+        
+        public string display_text() {
+            switch (this) {
+                case SearchType.ANY_TEXT:
+                    return _("Any text");
+                
+                case SearchType.TITLE:
+                    return _("Title");
+                
+                case SearchType.TAG:
+                    return _("Tag");
+                
+                case SearchType.EVENT_NAME:
+                    return _("Event name");
+                
+                case SearchType.FILE_NAME:
+                    return _("File name");
+                
+                case SearchType.MEDIA_TYPE:
+                    return _("Media type");
+                
+                case SearchType.FLAG_STATE:
+                    return _("Flag state");
+                
+                case SearchType.RATING:
+                    return _("Rating");
+                
+                default:
+                    error("unrecognized search type enumeration value");
+            }
         }
     }
     
