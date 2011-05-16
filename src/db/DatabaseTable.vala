@@ -38,14 +38,16 @@ public abstract class DatabaseTable {
                 res));
         
         // Check if we have write access to database.
-        try {
-            File file_db = File.new_for_path(filename);
-            FileInfo info = file_db.query_info(GLib.FILE_ATTRIBUTE_ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE);
-            if (!info.get_attribute_boolean(GLib.FILE_ATTRIBUTE_ACCESS_CAN_WRITE))
-                AppWindow.panic(_("Unable to write to photo database file:\n %s").printf(filename));
-        } catch (Error e) {
-            AppWindow.panic(_("Error accessing database file:\n %s\n\nError was: \n%s").printf(filename,
-                e.message));
+        if (filename != Db.IN_MEMORY_NAME) {
+            try {
+                File file_db = File.new_for_path(filename);
+                FileInfo info = file_db.query_info(GLib.FILE_ATTRIBUTE_ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE);
+                if (!info.get_attribute_boolean(GLib.FILE_ATTRIBUTE_ACCESS_CAN_WRITE))
+                    AppWindow.panic(_("Unable to write to photo database file:\n %s").printf(filename));
+            } catch (Error e) {
+                AppWindow.panic(_("Error accessing database file:\n %s\n\nError was: \n%s").printf(filename,
+                    e.message));
+            }
         }
         
         // disable synchronized commits for performance reasons ... this is not vital, hence we
