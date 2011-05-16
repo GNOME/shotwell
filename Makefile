@@ -110,21 +110,24 @@ VAPI_FILES = \
 	libraw.vapi
 
 RESOURCE_FILES = \
-	photo.ui \
 	collection.ui \
-	import.ui \
-	fullscreen.ui \
-	import_queue.ui \
+	direct.ui \
 	events_directory.ui \
 	event.ui \
-	direct.ui \
-	tags.ui \
-	trash.ui \
-	offline.ui \
+	fullscreen.ui \
+	import_queue.ui \
+	import.ui \
 	media.ui \
-	shotwell.glade \
+	offline.ui \
+	photo.ui \
+	savedsearch.ui \
+	search_bar.ui \
 	set_background_dialog.glade \
-	search_bar.ui
+	shotwell.glade \
+	shotwell.xml \
+	sidebar_default.ui \
+	tags.ui \
+	trash.ui
 
 SYS_INTEGRATION_FILES = \
 	shotwell.desktop.head \
