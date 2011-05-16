@@ -34,7 +34,7 @@
     <section>
     <title>Creating and merging events</title>
     <p>To create a new event, select the photos you would like in the new event and click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>.</p>
-    <p>To merge events, select both of the events you want to merge. You can do this by selecting one event from the sidebar, then holding down <key>Ctrl</key> and clicking the other. Then, click <guiseq><gui>Events</gui><gui>Merge Events</gui></guiseq>.</p>
+    <p>To merge events, select <guiseq><gui>Events</gui></guiseq> from the sidebar, then, while holding down <key>Ctrl</key> click on the events you want to merge in the main window area. Finally, click <guiseq><gui>Events</gui><gui>Merge Events</gui></guiseq>.</p>
     </section>
 
     <section>
