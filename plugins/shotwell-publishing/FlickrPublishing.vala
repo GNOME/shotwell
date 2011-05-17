@@ -588,13 +588,14 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         // Sort publishables in reverse-chronological order.
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
-        Gee.SortedSet<Spit.Publishing.Publishable> sorted_set = 
-            new Gee.TreeSet<Spit.Publishing.Publishable>((CompareFunc) flickr_date_time_compare_func);
+        Gee.ArrayList<Spit.Publishing.Publishable> sorted_list =
+            new Gee.ArrayList<Spit.Publishing.Publishable>();
         foreach (Spit.Publishing.Publishable p in publishables) {
-            sorted_set.add(p);
+            sorted_list.add(p);
         }
+        sorted_list.sort((CompareFunc) flickr_date_time_compare_func);
         
-        Uploader uploader = new Uploader(session, sorted_set.to_array(), parameters);
+        Uploader uploader = new Uploader(session, sorted_list.to_array(), parameters);
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
         uploader.upload(on_upload_status_updated);
