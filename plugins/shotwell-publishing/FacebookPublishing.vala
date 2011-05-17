@@ -1246,7 +1246,7 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
         base(session);
         this.publishable = publishable;
         this.file = file;
-
+        
         if (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.PHOTO) {
             mime_type = "image/jpeg";
             endpoint_url = PHOTO_ENDPOINT_URL;
@@ -1277,6 +1277,32 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
 
         return result;
     }
+    
+    private void preprocess_publishable(Spit.Publishing.Publishable publishable) {
+        if (publishable.get_media_type() != Spit.Publishing.Publisher.MediaType.PHOTO)
+            return;
+        
+        GExiv2.Metadata publishable_metadata = new GExiv2.Metadata();
+        try {
+            publishable_metadata.open_path(publishable.get_serialized_file().get_path());
+        } catch (GLib.Error err) {
+            warning("couldn't read metadata from file '%s' for upload preprocessing.",
+                publishable.get_serialized_file().get_path());
+        }
+        
+        if (!publishable_metadata.has_iptc())
+            return;
+        
+        if (publishable_metadata.has_tag("Iptc.Application2.Caption"))
+            publishable_metadata.set_tag_string("Iptc.Application2.Caption", "");
+        
+        try {
+            publishable_metadata.save_file(publishable.get_serialized_file().get_path());
+        } catch (GLib.Error err) {
+            warning("couldn't write metadata to file '%s' for upload preprocessing.",
+                publishable.get_serialized_file().get_path());
+        }
+    }
 
     protected override void sign() {
         add_argument("call_id", get_parent_session().get_next_call_id());
@@ -1287,6 +1313,7 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
     }
 
     public override void execute() throws Spit.Publishing.PublishingError {
+        preprocess_publishable(publishable);
         sign();
 
         // before they can be executed, upload requests must be signed and must
