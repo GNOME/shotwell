@@ -863,7 +863,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
 
     private WebKit.WebView webview = null;
     private Gtk.ScrolledWindow webview_frame = null;
-    private Gtk.Layout white_pane = null;
+    private Gtk.Container white_pane = null;
     private string login_url;
     private Gtk.VBox pane_widget = null;
 
@@ -875,9 +875,9 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
 
         Gdk.Color white_color;
         Gdk.Color.parse("white", out white_color);
-        Gtk.Adjustment layout_pane_adjustment = new Gtk.Adjustment(0.5, 0.0, 1.0, 0.01, 0.1, 0.1);
-        white_pane = new Gtk.Layout(layout_pane_adjustment, layout_pane_adjustment);
+        white_pane = new Gtk.EventBox();
         white_pane.modify_bg(Gtk.StateType.NORMAL, white_color);
+        white_pane.modify_base(Gtk.StateType.NORMAL, white_color);        
         pane_widget.add(white_pane);
 
         webview_frame = new Gtk.ScrolledWindow(null, null);
@@ -891,7 +891,8 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
 
         webview_frame.add(webview);
         white_pane.add(webview_frame);
-        webview.set_size_request(853, 587);
+        white_pane.set_size_request(820, 578);
+        webview.set_size_request(840, 578);
     }
     
    
@@ -904,7 +905,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     }
     
     private void on_load_started(WebKit.WebFrame origin_frame) {
-        webview_frame.hide();
+        webview.hide();
         pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
     }
 
@@ -913,7 +914,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     }
 
     public void show_page() {
-        webview_frame.show();
+        webview.show();
         pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
     }
 
