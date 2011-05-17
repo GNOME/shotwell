@@ -122,6 +122,8 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
 
         webview = new WebKit.WebView();
         webview.get_settings().enable_plugins = false;
+        webview.get_settings().enable_default_context_menu = false;
+
         webview.load_finished.connect(on_page_load);
         webview.load_started.connect(on_load_started);
         webview.navigation_requested.connect(navigation_requested);

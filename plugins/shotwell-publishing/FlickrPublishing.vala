@@ -886,6 +886,8 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
 
         webview = new WebKit.WebView();
         webview.get_settings().enable_plugins = false;
+        webview.get_settings().enable_default_context_menu = false;
+
         webview.load_finished.connect(on_load_finished);
         webview.load_started.connect(on_load_started);
 
