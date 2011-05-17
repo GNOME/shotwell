@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 04:19+0000\n"
+"Last-Translator: mahfiaz <mahfiaz@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -398,7 +398,7 @@ msgstr "_Hinnanguta"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Ilma hinnanguta"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -418,7 +418,7 @@ msgstr "_Keelatud"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Tagasi lükatud"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -606,7 +606,7 @@ msgstr[1] "Eemalda silt \"%s\" %d fotolt"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Salvestatud otsing"
 
 #: src/Resources.vala:300
 #, c-format
@@ -657,7 +657,7 @@ msgstr "Sildista fotod kui \"%s\""
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Lisa fotodele silt \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -667,7 +667,7 @@ msgstr "Valitud fotode sildistamine kui \"%s\""
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Lisa valitud fotodele silt \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -677,7 +677,7 @@ msgstr "Sildi \"%s\" eemaldamine valitud _fotodelt"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Eemalda silt \"%s\" _fotodelt"
 
 #: src/Resources.vala:341
 #, c-format
@@ -687,7 +687,7 @@ msgstr "Sildi \"%s\" eemaldamine fotodelt"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Sildi \"%s\" eemaldamine fotodelt"
 
 #: src/Resources.vala:346
 #, c-format
@@ -697,7 +697,7 @@ msgstr "Sildi \"%s\" eemaldamine valitud fotodelt"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Sildi \"%s\" eemaldamine valitud fotodelt"
 
 #: src/Resources.vala:351
 #, c-format
@@ -724,12 +724,12 @@ msgstr "Otsingu kustutamine"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_Muuda otsingut \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Otsingu \"%s\" muutmine"
 
 #: src/Resources.vala:373
 #, c-format
@@ -1319,11 +1319,11 @@ msgstr "Faili nimi"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Meedia liik"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Lipukese olek"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1357,31 +1357,31 @@ msgstr "pole määratud"
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "on"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "ei ole"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "suvaline foto"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "RAW-foto"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "video"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "lipukesega"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "ilma lipukeseta"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
@@ -1393,7 +1393,7 @@ msgstr "kõik"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "pole"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -2099,7 +2099,7 @@ msgstr "Kustuta"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Fotode kustutamine"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2252,7 +2252,7 @@ msgstr "Fotode/videote eksportimine"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Fotode/videote eksportimine"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2607,7 +2607,7 @@ msgstr "Kas võtta välised redigeerimised tagasi?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Kas võtta välised muudatused tagasi?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2625,7 +2625,7 @@ msgstr "_Taasta originaalid"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "_Võta välised muudatused tagasi"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2644,7 +2644,7 @@ msgstr "Fotode eemaldamine kogust"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Fotode andmebaasist eemaldamine"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2665,11 +2665,11 @@ msgstr "24 H"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "_Kõigi fotode/video nihutamine sama aja võrra"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "_Kõigile fotodele/videotele selle kellaaja määramine"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2677,7 +2677,7 @@ msgstr "_Muuda originaalfaile"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Muuda lähtefaile"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2874,7 +2874,7 @@ msgstr "Fotode eemaldamine kogust"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Fotode eemaldamine kogust"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3362,6 +3362,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Fotoandmebaasi faili kirjutamine pole võimalik:\n"
+"%s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3372,6 +3374,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Viga andmebaasifailiga ühendumisel:\n"
+"%s\n"
+"\n"
+"Viga oli:\n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3830,15 +3837,15 @@ msgstr "Otsi"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Otsingu nimi:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "_Sobivad"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
-msgstr ""
+msgstr "järgnevatest:"
 
 #: ui/shotwell.glade:243
 msgid "Preparing pictures for import..."

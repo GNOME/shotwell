@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 17:30+0000\n"
+"Last-Translator: zerng07 <pswo10680@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -398,7 +398,7 @@ msgstr "無評等(_U)"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "未評等"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -418,7 +418,7 @@ msgstr "退絕(_R)"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "退絕"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -605,7 +605,7 @@ msgstr[0] "移除「%s」標籤，共 %d 張相片"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "儲存的搜尋"
 
 #: src/Resources.vala:300
 #, c-format
@@ -656,7 +656,7 @@ msgstr "將相片加上「%s」標籤"
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "將相片加入「%s」標籤"
 
 #: src/Resources.vala:331
 #, c-format
@@ -666,7 +666,7 @@ msgstr "將所選相片加上「%s」標籤"
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "將所選的相片加入「%s」標籤"
 
 #: src/Resources.vala:336
 #, c-format
@@ -676,7 +676,7 @@ msgstr "從相片移除「%s」標籤(_P)"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "從相片移除「%s」標籤(_P)"
 
 #: src/Resources.vala:341
 #, c-format
@@ -686,7 +686,7 @@ msgstr "從相片移除「%s」標籤"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "從相片移除「%s」標籤"
 
 #: src/Resources.vala:346
 #, c-format
@@ -696,7 +696,7 @@ msgstr "從所選相片移除「%s」標籤"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "從所選的相片移除「%s」標籤"
 
 #: src/Resources.vala:351
 #, c-format
@@ -720,12 +720,12 @@ msgstr "刪除搜尋"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "編輯「%s」搜尋..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "編輯「%s」搜尋"
 
 #: src/Resources.vala:373
 #, c-format
@@ -1312,11 +1312,11 @@ msgstr "檔案名稱"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "媒體類型"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "旗幟狀態"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1350,31 +1350,31 @@ msgstr "未設定"
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "是"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "不是"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "任意相片"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "RAW 相片"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "視訊"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "已加上旗幟"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "未加上旗幟"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
@@ -1386,7 +1386,7 @@ msgstr "全部"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "無"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -2076,7 +2076,7 @@ msgstr "刪除"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "正在刪除相片"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2229,7 +2229,7 @@ msgstr "匯出相片/視訊"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "匯出相片/視訊"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2549,7 +2549,7 @@ msgstr "是否還原外部編輯？"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "要還原外部編輯嗎？"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2564,7 +2564,7 @@ msgstr "還原外部編輯(_V)"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "還原外部編輯(_V)"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2582,7 +2582,7 @@ msgstr "從珍藏館移除相片"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "從珍藏館移除相片"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2603,11 +2603,11 @@ msgstr "24 時制"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "以相同的量挪動相片/視訊(_S)"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "將全部相片/視訊設定為本時間(_A)"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2615,7 +2615,7 @@ msgstr "修改原始檔案(_M)"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "修改原始檔案(_M)"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2802,7 +2802,7 @@ msgstr "正在從珍藏館移除相片"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "正在從珍藏館移除相片"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3254,6 +3254,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"無法寫入相片資料庫檔案：\n"
+"%s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3264,6 +3266,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"存取資料庫檔案時發生錯誤：\n"
+"%s\n"
+"\n"
+"錯誤為：\n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3706,11 +3713,11 @@ msgstr "搜尋"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "搜尋的名稱(_N)："
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "比對(_M)"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"

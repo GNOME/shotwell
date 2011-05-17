@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 07:21+0000\n"
+"Last-Translator: raven <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/shotwell/team/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -282,11 +282,11 @@ msgstr "Dopasowuje kolor i tonację zdjęcia"
 
 #: src/Resources.vala:162
 msgid "Re_vert to Original"
-msgstr "Przy_wróć oryginalne"
+msgstr "Przy_wróć pierwotne"
 
 #: src/Resources.vala:163
 msgid "Revert to Original"
-msgstr "Przywróć oryginalne"
+msgstr "Przywróć pierwotne"
 
 #: src/Resources.vala:165
 msgid "Revert External E_dits"
@@ -294,7 +294,7 @@ msgstr "Odwróć zewnętrzne mo_dyfikacje"
 
 #: src/Resources.vala:166
 msgid "Revert to the master photo"
-msgstr "Przywraca oryginalne zdjęcie"
+msgstr "Przywraca pierwotne zdjęcie"
 
 #: src/Resources.vala:168
 msgid "Set as _Desktop Background"
@@ -398,7 +398,7 @@ msgstr "_Bez oceny"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Bez oceny"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -418,7 +418,7 @@ msgstr "_Odrzucona"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Odrzucona"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -450,7 +450,7 @@ msgstr "Wszystko + _odrzucone"
 
 #: src/Resources.vala:220 src/Resources.vala:221
 msgid "Show all photos, including rejected"
-msgstr "Wyświetla wszystkie zdjęcia, a tym odrzucone"
+msgstr "Wyświetla wszystkie zdjęcia, w tym odrzucone"
 
 #: src/Resources.vala:223
 msgid "_All Photos"
@@ -514,7 +514,7 @@ msgstr "Publikuje na różnych witrynach WWW"
 
 #: src/Resources.vala:246
 msgid "E_dit Title..."
-msgstr "Zmo_dyfikuj tytuł..."
+msgstr "Mo_dyfikuj tytuł..."
 
 #: src/Resources.vala:247 src/Dialogs.vala:928
 msgid "Edit Title"
@@ -609,7 +609,7 @@ msgstr[2] "Usuwa etykietę \"%s\" z %d zdjęć"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Zapisane wyszukiwanie"
 
 #: src/Resources.vala:300
 #, c-format
@@ -646,61 +646,61 @@ msgstr "Zmień nazwę etykiety"
 
 #: src/Resources.vala:323
 msgid "Modif_y Tags..."
-msgstr "Zm_odyfikuj etykiety..."
+msgstr "M_odyfikuj etykiety..."
 
 #: src/Resources.vala:324
 msgid "Modify Tags"
-msgstr "Zmodyfikuj etykiety"
+msgstr "Modyfikuj etykiety"
 
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photo as \"%s\""
-msgstr "Dodaje etykietę \"%s\" do zdjęć"
+msgstr "Dodaje etykietę \"%s\" do zdjęcia"
 
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Dodaje etykietę \"%s\" do zdjęć"
 
 #: src/Resources.vala:331
 #, c-format
 msgid "Tag the selected photo as \"%s\""
-msgstr "Dodaje etykietę \"%s\" do wybranych zdjęć"
+msgstr "Dodaje etykietę \"%s\" do wybranego zdjęcia"
 
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Dodaje etykietę \"%s\" do wybranych zdjęć"
 
 #: src/Resources.vala:336
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
-msgstr "Usuń etykietę \"%s\" ze _zdjęć"
+msgstr "Usuń etykietę \"%s\" ze _zdjęcia"
 
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Usuwa etykietę \"%s\" ze _zdjęć"
 
 #: src/Resources.vala:341
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
-msgstr "Usuwa etykietę \"%s\" ze zdjęć"
+msgstr "Usuwa etykietę \"%s\" ze zdjęcia"
 
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Usuwa etykietę \"%s\" ze zdjęć"
 
 #: src/Resources.vala:346
 #, c-format
 msgid "Remove tag \"%s\" from the selected photo"
-msgstr "Usuwa etykietę \"%s\" z wybranych zdjęć"
+msgstr "Usuwa etykietę \"%s\" z wybranego zdjęcia"
 
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Usuwa etykietę \"%s\" z wybranych zdjęć"
 
 #: src/Resources.vala:351
 #, c-format
@@ -728,12 +728,12 @@ msgstr "Usunięcie wyszukiwania"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "Modyfikuj wyszukiwani_e \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Modyfikuje wyszukiwanie \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
@@ -894,7 +894,7 @@ msgstr "cm"
 
 #: src/Printing.vala:407
 msgid "_Match photo aspect ratio"
-msgstr "Utrzy_muj proporcje zdjęcia"
+msgstr "Utrzy_mywanie proporcji zdjęcia"
 
 #: src/Printing.vala:413
 msgid "Titles"
@@ -1254,7 +1254,7 @@ msgstr "Rozmiar pliku:"
 
 #: src/Properties.vala:473
 msgid "Original dimensions:"
-msgstr "Wymiary oryginalne:"
+msgstr "Wymiary pierwotne:"
 
 #: src/Properties.vala:476
 msgid "Camera make:"
@@ -1326,11 +1326,11 @@ msgstr "Nazwa pliku"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Typ nośnika"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Stan flagi"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1364,31 +1364,31 @@ msgstr "nie jest ustawione"
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "jest"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "nie jest"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "wszystkie zdjęcia"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "surowe zdjęcie"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "nagranie wideo"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "oznaczone flagą"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "nie oznaczone flagą"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
@@ -1400,7 +1400,7 @@ msgstr "wszystko"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "brak"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -1478,7 +1478,7 @@ msgstr "Błąd zapisu pliku"
 #: src/BatchImport.vala:64
 #, c-format
 msgid "Imported failed (%d)"
-msgstr "Zaimportowanie nie powiodło się (%d)"
+msgstr "Zaimportowanie się nie powiodło (%d)"
 
 #: src/EditingTools.vala:563
 msgid "Return to current photo dimensions"
@@ -1507,7 +1507,7 @@ msgstr "Ekran"
 #: src/EditingTools.vala:651
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1236
 msgid "Original Size"
-msgstr "Rozmiar oryginalny"
+msgstr "Rozmiar pierwotny"
 
 #: src/EditingTools.vala:652 src/EditingTools.vala:655
 #: src/EditingTools.vala:663 src/EditingTools.vala:671
@@ -1560,7 +1560,7 @@ msgstr "Przywróć kolory"
 
 #: src/EditingTools.vala:2175
 msgid "Reset all color adjustments to original"
-msgstr "Przywraca wszystkie dostosowania kolorów do oryginalnych"
+msgstr "Przywraca wszystkie dostosowania kolorów do pierwotnych"
 
 #: src/EditingTools.vala:2504
 msgid "Temperature"
@@ -1669,9 +1669,9 @@ msgstr "Nie można utworzyć podkatalogu danych %s: %s"
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
-msgstr[0] "%d zdjęcia/nagrania wideo"
-msgstr[1] "%d zdjęć/nagrań wideo"
-msgstr[2] "%d zdjęcie/nagranie wideo"
+msgstr[0] "%d zdjęcie/nagranie wideo"
+msgstr[1] "%d zdjęcia/nagrania wideo"
+msgstr[2] "%d zdjęć/nagrań wideo"
 
 #: src/events/EventPage.vala:86
 msgid "No Event"
@@ -1733,7 +1733,7 @@ msgstr "Nie można przygotować pokazu slajdów pulpitu: %s"
 #: src/Dimensions.vala:17
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1123
 msgid "Original size"
-msgstr "Rozmiar oryginalny"
+msgstr "Rozmiar pierwotny"
 
 #: src/Dimensions.vala:20
 msgid "Width or height"
@@ -2046,7 +2046,7 @@ msgid ""
 "failed."
 msgstr ""
 "Nie można kontynuować publikowania do %s, ponieważ komunikacja z serwisem "
-"nie powiodła się."
+"się nie powiodła."
 
 #: src/WebConnectors.vala:1012
 #, c-format
@@ -2116,7 +2116,7 @@ msgstr "Usuń"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Usuwanie zdjęć"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2136,7 +2136,7 @@ msgstr "Importuje zdjęcia z dysku do kolekcji"
 
 #: src/library/LibraryWindow.vala:315
 msgid "Sort _Events"
-msgstr "Posortuj wydarz_enia"
+msgstr "Uporządkuj wydarz_enia"
 
 #: src/library/LibraryWindow.vala:325
 msgid "Empty T_rash"
@@ -2188,7 +2188,7 @@ msgstr "_Rosnąco"
 
 #: src/library/LibraryWindow.vala:385 src/MediaPage.vala:478
 msgid "Sort photos in an ascending order"
-msgstr "Sortuje zdjęcia w porządku rosnącym"
+msgstr "Porządkuje zdjęcia w porządku rosnącym"
 
 #: src/library/LibraryWindow.vala:391 src/MediaPage.vala:483
 msgid "D_escending"
@@ -2196,7 +2196,7 @@ msgstr "Mal_ejąco"
 
 #: src/library/LibraryWindow.vala:392 src/MediaPage.vala:484
 msgid "Sort photos in a descending order"
-msgstr "Sortuje zdjęcia w porządku malejącym"
+msgstr "Porządkuje zdjęcia w porządku malejącym"
 
 #: src/library/LibraryWindow.vala:622
 msgid "Import From Folder"
@@ -2267,15 +2267,15 @@ msgstr "Odtwarza pokaz slajdów"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photo/Video"
-msgstr "Eksport zdjęć/nagrań wideo"
+msgstr "Eksport zdjęcia/nagrania wideo"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Eksport zdjęć/nagrań wideo"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
-msgstr "Eksport zdjęć"
+msgstr "Eksport zdjęcia"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:66
 msgid "Export Photos"
@@ -2411,25 +2411,25 @@ msgstr[2] "%d duplikatów zdjęć/nagrań wideo nie zostało zaimportowanych:\n"
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"Zaimportowanie jednego zdjęcia nie powiodło się z powodu błędu pliku lub "
+"Zaimportowanie jednego zdjęcia się nie powiodło z powodu błędu pliku lub "
 "sprzętu:\n"
 msgstr[1] ""
-"Zaimportowanie %d zdjęć nie powiodło się z powodu błędu pliku lub sprzętu:\n"
+"Zaimportowanie %d zdjęć się nie powiodło z powodu błędu pliku lub sprzętu:\n"
 msgstr[2] ""
-"Zaimportowanie %d zdjęć nie powiodło się z powodu błędu pliku lub sprzętu:\n"
+"Zaimportowanie %d zdjęć się nie powiodło z powodu błędu pliku lub sprzętu:\n"
 
 #: src/Dialogs.vala:516
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"Zaimportowanie jednego nagrania wideo nie powiodło się z powodu błędu pliku "
+"Zaimportowanie jednego nagrania wideo się nie powiodło z powodu błędu pliku "
 "lub sprzętu:\n"
 msgstr[1] ""
-"Zaimportowanie %d nagrań wideo nie powiodło się z powodu błędu pliku lub "
+"Zaimportowanie %d nagrań wideo się nie powiodło z powodu błędu pliku lub "
 "sprzętu:\n"
 msgstr[2] ""
-"Zaimportowanie %d nagrań wideo nie powiodło się z powodu błędu pliku lub "
+"Zaimportowanie %d nagrań wideo się nie powiodło z powodu błędu pliku lub "
 "sprzętu:\n"
 
 #: src/Dialogs.vala:519
@@ -2438,13 +2438,13 @@ msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"Zaimportowanie jednego zdjęcia/nagrania wideo nie powiodło się z powodu "
+"Zaimportowanie jednego zdjęcia/nagrania wideo się nie powiodło z powodu "
 "błędu pliku lub sprzętu:\n"
 msgstr[1] ""
-"Zaimportowanie %d zdjęć/nagrań wideo nie powiodło się z powodu błędu pliku "
+"Zaimportowanie %d zdjęć/nagrań wideo się nie powiodło z powodu błędu pliku "
 "lub sprzętu:\n"
 msgstr[2] ""
-"Zaimportowanie %d zdjęć/nagrań wideo nie powiodło się z powodu błędu pliku "
+"Zaimportowanie %d zdjęć/nagrań wideo się nie powiodło z powodu błędu pliku "
 "lub sprzętu:\n"
 
 #: src/Dialogs.vala:522
@@ -2470,13 +2470,13 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"Zaimportowanie jednego zdjęcia nie powiodło się, ponieważ katalog kolekcji "
+"Zaimportowanie jednego zdjęcia się nie powiodło, ponieważ katalog kolekcji "
 "zdjęć nie jest zapisywalny:\n"
 msgstr[1] ""
-"Zaimportowanie %d zdjęć nie powiodło się, ponieważ katalog kolekcji zdjęć "
+"Zaimportowanie %d zdjęć się nie powiodło, ponieważ katalog kolekcji zdjęć "
 "nie jest zapisywalny:\n"
 msgstr[2] ""
-"Zaimportowanie %d zdjęć nie powiodło się, ponieważ katalog kolekcji zdjęć "
+"Zaimportowanie %d zdjęć się nie powiodło, ponieważ katalog kolekcji zdjęć "
 "nie jest zapisywalny:\n"
 
 #: src/Dialogs.vala:539
@@ -2488,13 +2488,13 @@ msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"Zaimportowanie jednego nagrania wideo nie powiodło się, ponieważ katalog "
+"Zaimportowanie jednego nagrania wideo się nie powiodło, ponieważ katalog "
 "kolekcji zdjęć nie jest zapisywalny:\n"
 msgstr[1] ""
-"Zaimportowanie %d nagrań wideo nie powiodło się, ponieważ katalog kolekcji "
+"Zaimportowanie %d nagrań wideo się nie powiodło, ponieważ katalog kolekcji "
 "zdjęć nie jest zapisywalny:\n"
 msgstr[2] ""
-"Zaimportowanie %d nagrań wideo nie powiodło się, ponieważ katalog kolekcji "
+"Zaimportowanie %d nagrań wideo się nie powiodło, ponieważ katalog kolekcji "
 "zdjęć nie jest zapisywalny:\n"
 
 #: src/Dialogs.vala:542
@@ -2506,13 +2506,13 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"Zaimportowanie jednego zdjęcia/nagrania wideo nie powiodło się, ponieważ "
+"Zaimportowanie jednego zdjęcia/nagrania wideo się nie powiodło, ponieważ "
 "katalog kolekcji zdjęć nie jest zapisywalny:\n"
 msgstr[1] ""
-"Zaimportowanie %d zdjęć/nagrań wideo nie powiodło się, ponieważ katalog "
+"Zaimportowanie %d zdjęć/nagrań wideo się nie powiodło, ponieważ katalog "
 "kolekcji zdjęć nie jest zapisywalny:\n"
 msgstr[2] ""
-"Zaimportowanie %d zdjęć/nagrań wideo nie powiodło się, ponieważ katalog "
+"Zaimportowanie %d zdjęć/nagrań wideo się nie powiodło, ponieważ katalog "
 "kolekcji zdjęć nie jest zapisywalny:\n"
 
 #: src/Dialogs.vala:545
@@ -2537,34 +2537,34 @@ msgstr[2] ""
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] ""
-"Zaimportowanie jednego zdjęcia nie powiodło się z powodu błędu aparatu:\n"
-msgstr[1] "Zaimportowanie %d zdjęć nie powiodło się z powodu błędu aparatu:\n"
-msgstr[2] "Zaimportowanie %d zdjęć nie powiodło się z powodu błędu aparatu:\n"
+"Zaimportowanie jednego zdjęcia się nie powiodło z powodu błędu aparatu:\n"
+msgstr[1] "Zaimportowanie %d zdjęć się nie powiodło z powodu błędu aparatu:\n"
+msgstr[2] "Zaimportowanie %d zdjęć się nie powiodło z powodu błędu aparatu:\n"
 
 #: src/Dialogs.vala:562
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] ""
-"Zaimportowanie jednego nagrania wideo nie powiodło się z powodu błędu "
+"Zaimportowanie jednego nagrania wideo się nie powiodło z powodu błędu "
 "aparatu:\n"
 msgstr[1] ""
-"Zaimportowanie %d nagrań wideo nie powiodło się z powodu błędu aparatu:\n"
+"Zaimportowanie %d nagrań wideo się nie powiodło z powodu błędu aparatu:\n"
 msgstr[2] ""
-"Zaimportowanie %d nagrań wideo nie powiodło się z powodu błędu aparatu:\n"
+"Zaimportowanie %d nagrań wideo się nie powiodło z powodu błędu aparatu:\n"
 
 #: src/Dialogs.vala:565
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
 msgstr[0] ""
-"Zaimportowanie jednego zdjęcia/nagrania wideo nie powiodło się z powodu "
+"Zaimportowanie jednego zdjęcia/nagrania wideo się nie powiodło z powodu "
 "błędu aparatu:\n"
 msgstr[1] ""
-"Zaimportowanie %d zdjęć/nagrań wideo nie powiodło się z powodu błędu "
+"Zaimportowanie %d zdjęć/nagrań wideo się nie powiodło z powodu błędu "
 "aparatu:\n"
 msgstr[2] ""
-"Zaimportowanie %d zdjęć/nagrań wideo nie powiodło się z powodu błędu "
+"Zaimportowanie %d zdjęć/nagrań wideo się nie powiodło z powodu błędu "
 "aparatu:\n"
 
 #: src/Dialogs.vala:568
@@ -2708,11 +2708,11 @@ msgstr "_Zatrzymaj"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edit?"
-msgstr "Odwrócić zewnętrzne modyfikacje?"
+msgstr "Odwrócić zewnętrzną modyfikację?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Odwrócić zewnętrzne modyfikacje?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2731,11 +2731,11 @@ msgstr[2] ""
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edit"
-msgstr "Od_wróć zewnętrzne modyfikacje"
+msgstr "Od_wróć zewnętrzną modyfikację"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "Od_wróć zewnętrzne modyfikacje"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2751,11 +2751,11 @@ msgstr "_Usuń"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photo From Library"
-msgstr "Usuwanie zdjęć z kolekcji"
+msgstr "Usuwanie zdjęcia z kolekcji"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Usuwanie zdjęć z kolekcji"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2772,23 +2772,23 @@ msgstr "PM"
 
 #: src/Dialogs.vala:1240
 msgid "24 Hr"
-msgstr "24 godzinny"
+msgstr "24-godzinny"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "Prze_suń zdjęcia/nagrania wideo o tą samą wartość"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Ust_aw wszystkie zdjęcia/nagrania wideo na ten czas"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
-msgstr "Z_modyfikuj oryginalne pliki"
+msgstr "_Modyfikuj pierwotny plik"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Modyfikuj pierwotne pliki"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2990,11 +2990,11 @@ msgstr "Usuń z kolekcji"
 
 #: src/Dialogs.vala:2128 src/PhotoPage.vala:2864
 msgid "Removing Photo From Library"
-msgstr "Usuwanie zdjęć z kolekcji"
+msgstr "Usuwanie zdjęcia z kolekcji"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Usuwanie zdjęć z kolekcji"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3214,7 +3214,7 @@ msgstr "Zmniejszanie ocen"
 
 #: src/Commands.vala:1099
 msgid "Original photo could not be adjusted."
-msgstr "Nie można dostosować oryginalnego zdjęcia."
+msgstr "Nie można dostosować pierwotnego zdjęcia."
 
 #: src/Commands.vala:1119
 msgid "Adjusting Date and Time"
@@ -3227,9 +3227,9 @@ msgstr "Cofanie dostosowania daty i czasu"
 #: src/Commands.vala:1146
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
-msgstr[0] "Nie można dostosować jednego oryginalnego zdjęcia."
-msgstr[1] "Nie można dostosować poniższych oryginalnych zdjęć."
-msgstr[2] "Nie można dostosować poniższych oryginalnych zdjęć."
+msgstr[0] "Nie można dostosować jednego pierwotnego zdjęcia."
+msgstr[1] "Nie można dostosować poniższych pierwotnych zdjęć."
+msgstr[2] "Nie można dostosować poniższych pierwotnych zdjęć."
 
 #: src/Commands.vala:1148 src/Commands.vala:1160
 msgid "Time Adjustment Error"
@@ -3500,6 +3500,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Nie można zapisać do pliku bazy danych zdjęć:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3510,6 +3512,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Błąd podczas uzyskiwania dostępu do pliku bazy danych:\n"
+" %s\n"
+"\n"
+"Błąd: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3529,7 +3536,7 @@ msgstr "Zmniejsza powiększenie miniatur"
 
 #: src/MediaPage.vala:402
 msgid "Sort _Photos"
-msgstr "_Posortuj zdjęcia"
+msgstr "_Uporządkuj zdjęcia"
 
 #: src/MediaPage.vala:415
 msgid "_Play Video"
@@ -3549,7 +3556,7 @@ msgstr "Według _tytułu"
 
 #: src/MediaPage.vala:456
 msgid "Sort photos by title"
-msgstr "Sortuje zdjęcia według tytułu"
+msgstr "Porządkuje zdjęcia według tytułu"
 
 #: src/MediaPage.vala:461
 msgid "By Exposure _Date"
@@ -3557,7 +3564,7 @@ msgstr "We_dług daty ekspozycji"
 
 #: src/MediaPage.vala:462
 msgid "Sort photos by exposure date"
-msgstr "Sortuje zdjęcia według daty ekspozycji"
+msgstr "Porządkuje zdjęcia według daty ekspozycji"
 
 #: src/MediaPage.vala:467
 msgid "By _Rating"
@@ -3565,7 +3572,7 @@ msgstr "Według _oceny"
 
 #: src/MediaPage.vala:468
 msgid "Sort photos by rating"
-msgstr "Sortuje zdjęcia według oceny"
+msgstr "Porządkuje zdjęcia według oceny"
 
 #: src/MediaPage.vala:655
 #, c-format
@@ -3966,11 +3973,11 @@ msgstr "Wyszukiwanie"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Nazwa wyszukiwania:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "_Dopasowanie"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
@@ -4038,7 +4045,7 @@ msgstr "Przykład:"
 
 #: ui/shotwell.glade:795
 msgid "R_ename imported files to lowercase"
-msgstr "_Zmiana nazw importowanych plików na małe litery"
+msgstr "_Zmienianie nazw importowanych plików na małe litery"
 
 #: ui/shotwell.glade:848
 msgid "E_xternal photo editor:"

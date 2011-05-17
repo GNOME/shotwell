@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 10:22+0000\n"
+"Last-Translator: aloriel <aloriel@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -611,7 +611,7 @@ msgstr[1] "Quitar la etiqueta «%s» de %d fotos"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Búsqueda guardada"
 
 #: src/Resources.vala:300
 #, c-format
@@ -662,7 +662,7 @@ msgstr "Etiquetar fotos como «%s»"
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Etiquetar fotos como «%s»"
 
 #: src/Resources.vala:331
 #, c-format
@@ -672,7 +672,7 @@ msgstr "Etiquetar las fotos seleccionadas como «%s»"
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Etiquetar las fotos seleccionadas como «%s»"
 
 #: src/Resources.vala:336
 #, c-format
@@ -682,7 +682,7 @@ msgstr "Quitar la etiqueta «%s» de las _fotos"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Quitar la etiqueta «%s» de las _fotos"
 
 #: src/Resources.vala:341
 #, c-format
@@ -692,7 +692,7 @@ msgstr "Quitar la etiqueta «%s» de las fotos"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Quitar la etiqueta «%s» de las fotos"
 
 #: src/Resources.vala:346
 #, c-format
@@ -702,7 +702,7 @@ msgstr "Quitar la etiqueta «%s» de las fotos seleccionadas"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Quitar la etiqueta «%s» de las fotos seleccionadas"
 
 #: src/Resources.vala:351
 #, c-format
@@ -2114,7 +2114,7 @@ msgstr "Eliminar"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Eliminando fotos"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2268,7 +2268,7 @@ msgstr "Exportar fotos/vídeos"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Exportar fotos/vídeos"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2642,7 +2642,7 @@ msgstr "¿Revertir las ediciones externas?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "¿Revertir ediciones externas?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2662,7 +2662,7 @@ msgstr "Re_vertir ediciones externas"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "Re_vertir ediciones externas"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2681,7 +2681,7 @@ msgstr "Quitar las fotos de la biblioteca"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Quitando fotos de la biblioteca"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2714,7 +2714,7 @@ msgstr "_Modificar archivos originales"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Modificar archivos originales"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2911,7 +2911,7 @@ msgstr "Quitando las fotos de la biblioteca"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Quitando fotos de la biblioteca"
 
 #: src/Dialogs.vala:2142
 #, c-format

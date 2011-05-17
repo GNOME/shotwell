@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-15 14:06+0000\n"
+"Last-Translator: yeager <po@danielnylander.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -284,11 +284,11 @@ msgstr "Justera fotots färg och ton"
 
 #: src/Resources.vala:162
 msgid "Re_vert to Original"
-msgstr "Återställ till _ursprung"
+msgstr "Återställ till _original"
 
 #: src/Resources.vala:163
 msgid "Revert to Original"
-msgstr "Återställ till ursprungsinställningar"
+msgstr "Återställ till original"
 
 #: src/Resources.vala:165
 msgid "Revert External E_dits"
@@ -400,7 +400,7 @@ msgstr "_Ej betygsatt"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Ej betygsatt"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -420,7 +420,7 @@ msgstr "_Nekat"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Nekade"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -609,7 +609,7 @@ msgstr[1] "Ta bort taggen \"%s\" från %d foton"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Sparad sökning"
 
 #: src/Resources.vala:300
 #, c-format
@@ -660,7 +660,7 @@ msgstr "Tagga foton som \"%s\""
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Tagga foton som \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -670,7 +670,7 @@ msgstr "Tagga markerade foton som \"%s\""
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Tagga markerade foton som \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -680,7 +680,7 @@ msgstr "Ta bort taggen \"%s\" från _foton"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Ta bort taggen \"%s\" från _foton"
 
 #: src/Resources.vala:341
 #, c-format
@@ -690,7 +690,7 @@ msgstr "Ta bort taggen \"%s\" från foton"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Ta bort taggen \"%s\" från foton"
 
 #: src/Resources.vala:346
 #, c-format
@@ -700,7 +700,7 @@ msgstr "Ta bort taggen \"%s\" från markerade foton"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Ta bort taggen \"%s\" från markerade foton"
 
 #: src/Resources.vala:351
 #, c-format
@@ -726,12 +726,12 @@ msgstr "Ta bort sökning"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "R_edigera sökningen \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Redigera sökningen \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
@@ -1321,11 +1321,11 @@ msgstr "Filnamn"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Mediatyp"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Flaggtillstånd"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1359,31 +1359,31 @@ msgstr "är inte inställd"
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "är"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "är inte"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "valfritt foto"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "ett råfoto"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "en video"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "flaggad"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "inte flaggad"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
@@ -1395,7 +1395,7 @@ msgstr "alla"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "ingen"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -2110,7 +2110,7 @@ msgstr "Ta bort"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Borttagning av foton"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2264,7 +2264,7 @@ msgstr "Exportera foton/videor"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Exportera foton/videor"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2641,7 +2641,7 @@ msgstr "Återställ externa redigeringar?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Återställ externa redigeringar?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2661,7 +2661,7 @@ msgstr "Åsid_osätt externa redigeringar"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "Åt_erställ externa redigeringar"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2680,7 +2680,7 @@ msgstr "Ta bort foton från bibliotek"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Ta bort foton från bibliotek"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2701,11 +2701,11 @@ msgstr "24-timmar"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "_Skifta foton/videor med samma mängd"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Ställ in _alla foton/videor till denna tid"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2713,7 +2713,7 @@ msgstr "Än_dra originalfiler"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "Än_dra originalfiler"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2910,7 +2910,7 @@ msgstr "Tar bort foton från bibliotek"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Borttagning av foton från bibliotek"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3393,6 +3393,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Kunde inte skriva till fotodatabasfilen:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3403,6 +3405,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Fel vid åtkomst till databasfilen:\n"
+" %s\n"
+"\n"
+"Felet var: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3860,11 +3867,11 @@ msgstr "Sök"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Namn på sökningen:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "_Matcha"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 10:52+0000\n"
+"Last-Translator: janroar <janroed@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -398,7 +398,7 @@ msgstr "_Urangert"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "urangert"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -418,7 +418,7 @@ msgstr "_Forkastet"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "forkastet"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -606,7 +606,7 @@ msgstr[1] "Slett taggen \"%s\" fra %d bilder"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Lagrede søk"
 
 #: src/Resources.vala:300
 #, c-format
@@ -657,7 +657,7 @@ msgstr "Tagg bildene som \"%s\""
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Tagg bildet som \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -667,7 +667,7 @@ msgstr "Tagg de valgte bildene som \"%s\""
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Tagg de utvalgte bildene som \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -677,7 +677,7 @@ msgstr "Fjern taggen \"%s\" fra _bildene"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Fjern taggen \"%s\" fra _bildene"
 
 #: src/Resources.vala:341
 #, c-format
@@ -687,7 +687,7 @@ msgstr "Fjern taggen \"%s\" fra bildene"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Fjern taggen \"%s\" fra bildene"
 
 #: src/Resources.vala:346
 #, c-format
@@ -697,7 +697,7 @@ msgstr "Fjern tagg \"%s\" fra de valgte bildene"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Fjern taggen \"%s\" fra de utvalgte bildene"
 
 #: src/Resources.vala:351
 #, c-format
@@ -721,12 +721,12 @@ msgstr "slett søk"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_Endre søk \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Endre søket \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
@@ -1316,11 +1316,11 @@ msgstr "Filnavn"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Mediatype"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Flaggtilstand"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1354,31 +1354,31 @@ msgstr "er ikke satt"
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "er"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "er ikke"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "hvilket som helst bilde"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "et RAW-bilde"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "en video"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "flagget"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "ikke flagget"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
@@ -1390,7 +1390,7 @@ msgstr "alle"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "ingen"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -2103,7 +2103,7 @@ msgstr "Slett"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Sletter bilder"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2256,7 +2256,7 @@ msgstr "Eksporter bilder / videoer"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Eksporterer bilder/videoer"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2623,7 +2623,7 @@ msgstr "Omgjør eksterne redigeringer?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "nullstille eksterne redigeringer?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2643,7 +2643,7 @@ msgstr "omgj_ør eksterne redigeringer"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "nu_llstille ekstern redigering"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2662,7 +2662,7 @@ msgstr "Fjerner bilder fra bildebiblioteket"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Fjern bilder fra bildebiblioteket"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2683,11 +2683,11 @@ msgstr "24 t."
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "_flytt bilder/videoer med den samme mengden"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Gi _alle bilder/videoer denne dato/tid"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2695,7 +2695,7 @@ msgstr "_Modifiser orginalfilene"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Modifiser originalfiler"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2892,7 +2892,7 @@ msgstr "Fjerner bilder fra bildebiblioteket"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Fjerner bilder fra bildebiblioteket"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3376,6 +3376,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"kan ikke skrive til databasefilen:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3386,6 +3388,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Feil ved tilgang til databasefilen:\n"
+" %s\n"
+"\n"
+"Feilen er: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3844,11 +3851,11 @@ msgstr "Søk"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Søkets navn:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "_Treff"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"

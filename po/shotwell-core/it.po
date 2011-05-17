@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 09:29+0000\n"
+"Last-Translator: caccolangrifata <caccolangrifata@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr ""
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Shotwell foto manager"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -39,11 +39,11 @@ msgstr "Gestore di fotografie"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Organizza le proprie foto"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Shotwell visualizzatore di foto"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -287,15 +287,15 @@ msgstr "Regola il colore e la tonalità della foto"
 
 #: src/Resources.vala:162
 msgid "Re_vert to Original"
-msgstr "Ripristina ori_ginale"
+msgstr "Ripristina l'ori_ginale"
 
 #: src/Resources.vala:163
 msgid "Revert to Original"
-msgstr "Ripristina originale"
+msgstr "Ripristina l'originale"
 
 #: src/Resources.vala:165
 msgid "Revert External E_dits"
-msgstr "Annulla _modifiche esterne"
+msgstr "Ripristina _modifiche esterne"
 
 #: src/Resources.vala:166
 msgid "Revert to the master photo"
@@ -404,7 +404,7 @@ msgstr "Sen_za giudizio"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Senza giudizio"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -424,7 +424,7 @@ msgstr "_Respinta"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Respinta"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -614,17 +614,17 @@ msgstr[1] "Rimuove l'etichetta «%s» da %d foto"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Ricerca salvata"
 
 #: src/Resources.vala:300
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "_Cancella ricerca \"%s\""
 
 #: src/Resources.vala:304
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "_Cancella ricerca salvata: \"%s\""
 
 #: src/Resources.vala:307
 msgid "Delete Tag"
@@ -665,7 +665,7 @@ msgstr "Etichetta foto come «%s»"
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Etichetta le foto come \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -675,7 +675,7 @@ msgstr "Etichetta le foto selezionate come «%s»"
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Etichetta le foto selezionate come \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -695,7 +695,7 @@ msgstr "Rimuove etichetta «%s» dalle foto"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Rimuove l'etichetta \"%s\" dalle foto"
 
 #: src/Resources.vala:346
 #, c-format
@@ -705,7 +705,7 @@ msgstr "Rimuove l'etichetta «%s» dalle foto selezionate"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Rimuovi l'etichetta \"%s\" dalle foto selezionate"
 
 #: src/Resources.vala:351
 #, c-format
@@ -715,26 +715,26 @@ msgstr "Impossibile rinominare l'etichetta in «%s» perché già esiste."
 #: src/Resources.vala:355
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Cancella ricerca \"%s\""
 
 #: src/Resources.vala:359
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr ""
+msgstr "Impossibile rinominare la ricerca \"%s\" perché esiste già."
 
 #: src/Resources.vala:362
 msgid "Delete Search"
-msgstr ""
+msgstr "Cancella ricerca"
 
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_Modifica ricerca \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Modifica ricerca \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
@@ -744,12 +744,12 @@ msgstr ""
 #: src/Resources.vala:377
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "Rinomina la ricerca \"%s\""
 
 #: src/Resources.vala:381
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "Rinomina la ricerca \"%s\" in \"%s\""
 
 #: src/Resources.vala:539
 #, c-format
@@ -1304,27 +1304,27 @@ msgstr "Etichette"
 
 #: src/searches/SavedSearchDialog.vala:38
 msgid "Any text"
-msgstr ""
+msgstr "Qualsiasi testo"
 
 #: src/searches/SavedSearchDialog.vala:39
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
 #: src/searches/SavedSearchDialog.vala:40
 msgid "Tag"
-msgstr ""
+msgstr "Etichetta"
 
 #: src/searches/SavedSearchDialog.vala:41
 msgid "Event name"
-msgstr ""
+msgstr "Nome evento"
 
 #: src/searches/SavedSearchDialog.vala:42
 msgid "File name"
-msgstr ""
+msgstr "Nome file"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Tipo media"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
@@ -1336,77 +1336,77 @@ msgstr "Giudizio"
 
 #: src/searches/SavedSearchDialog.vala:154
 msgid "contains"
-msgstr ""
+msgstr "contiene"
 
 #: src/searches/SavedSearchDialog.vala:155
 msgid "is exactly"
-msgstr ""
+msgstr "è esattamente"
 
 #: src/searches/SavedSearchDialog.vala:156
 msgid "starts with"
-msgstr ""
+msgstr "inizia con"
 
 #: src/searches/SavedSearchDialog.vala:157
 msgid "ends with"
-msgstr ""
+msgstr "finisce con"
 
 #: src/searches/SavedSearchDialog.vala:158
 msgid "does not contain"
-msgstr ""
+msgstr "non contiene"
 
 #: src/searches/SavedSearchDialog.vala:159
 msgid "is not set"
-msgstr ""
+msgstr "non è settato"
 
 #: src/searches/SavedSearchDialog.vala:219
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "è"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "non è"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "qualsiasi foto"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "una foto raw"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "un video"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "contrassegnato"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "non contrassegnato"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
-msgstr ""
+msgstr "qualsiasi"
 
 #: src/searches/SavedSearchDialog.vala:475
 msgid "all"
-msgstr ""
+msgstr "tutto"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "nessuno"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Ricerche salvate"
 
 #: src/sidebar/Tree.vala:157 src/library/LibraryWindow.vala:348
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "_Nuova ricerca..."
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2008,7 +2008,7 @@ msgstr "P_ubblica le foto e i video su:"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "Impossibile pubblicare"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2115,7 +2115,7 @@ msgstr "Elimina"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Cancellazione foto"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2268,7 +2268,7 @@ msgstr "Esporta foto/video"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Esporta foto/video"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2312,7 +2312,7 @@ msgstr[1] "Verrà rimossa l'etichetta «%s» da %d foto. Continuare?"
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "Questa azione rimuoverà la ricerca salvata \"%s\".  Continuare?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2430,8 +2430,8 @@ msgstr[1] ""
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 file non è stato importato a causa di un errore file o hardware:\n"
+msgstr[1] "%d file non sono stati importati a causa di errori file o hardware:\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2486,7 +2486,11 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"1 file non è stato importato perché la cartella della libreria non è "
+"scrivibile:\n"
 msgstr[1] ""
+"%d file non sono stati importati perché la cartella della libreria non è "
+"scrivibile:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2517,8 +2521,9 @@ msgstr[1] ""
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
+msgstr[0] "1 file non è stato importato a causa di un errore sulla fotocamera:\n"
 msgstr[1] ""
+"%d file non sono stati importati a causa di un errore sulla fotocamera:\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2561,8 +2566,8 @@ msgstr[1] ""
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 file non è stato saltato a causa dell'annullamento dell'utente:\n"
+msgstr[1] "%d file non sono stati saltati a causa dell'annullamento dell'utente:\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2638,11 +2643,11 @@ msgstr "_Mantieni"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edit?"
-msgstr ""
+msgstr "Riprostinare la modifica esterne?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Riprostinare le modifiche esterne?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2677,7 +2682,7 @@ msgstr "Rimuove le foto dalla libreria"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Rimuove la foto dalla libreria"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2710,7 +2715,7 @@ msgstr "_Modifica file originali"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Modifica il file originale"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2907,7 +2912,7 @@ msgstr "Rimozione foto dalla libreria"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Rimozione delle foto dalla libreria"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3318,8 +3323,8 @@ msgstr[1] "Eliminare queste %d foto o video dalla fotocamera?"
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Eliminare questo file dalla fotocamera?"
+msgstr[1] "Eliminare questi %d file dalla fotocamera?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3395,6 +3400,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Impossibile scrivere sul file del database delle foto:\n"
+"%s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3405,6 +3412,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Errore nell'accedere al file del database:\n"
+" %s\n"
+"\n"
+"L'errore era: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3862,19 +3874,19 @@ msgstr "Genera lo sfondo a diapositive"
 
 #: ui/shotwell.glade:8
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Nome della ricerca:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "Co_mbacia"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
-msgstr ""
+msgstr "dei seguenti:"
 
 #: ui/shotwell.glade:243
 msgid "Preparing pictures for import..."
@@ -3942,7 +3954,7 @@ msgstr "Rinominare i fil_e importati in minuscolo"
 
 #: ui/shotwell.glade:848
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "Editor di f_oto esterno:"
 
 #: ui/shotwell.glade:861
 msgid "External _RAW editor:"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-16 15:50+0000\n"
+"Last-Translator: shnurapet <shnurapet@fedoraproject.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,14 +22,14 @@ msgstr ""
 #: src/AppWindow.vala:659 plugins/common/Resources.vala:28
 msgid "translator-credits"
 msgstr ""
-"Oleg Koptev <koptev.oleg@gmail.com>\n"
-"Yulia Poyarko <ypoyarko@redhat.com>\n"
-"Misha Shnurapet <shnurapet@fedoraproject.org>\n"
-"Коренберг Марк <socketpair@gmail.com>"
+"Oleg Koptev <koptev.oleg AT gmail.com>\n"
+"Yulia Poyarko <ypoyarko AT redhat.com>\n"
+"Misha Shnurapet <shnurapet AT fedoraproject.org>\n"
+"Марк Коренберг <socketpair AT gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Менеджер фотографий Shotwell"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -38,11 +38,11 @@ msgstr "Менеджер фотографий"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Организуйте свои фотографии"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Просмотрщик фото Shotwell"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -402,7 +402,7 @@ msgstr "_Без оценки"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Без оценки"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -422,7 +422,7 @@ msgstr "_Отклонённые"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Отклонённые"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -612,17 +612,17 @@ msgstr[2] "Удалить метку «%s» с %d фотографий"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Сохраненный поиск"
 
 #: src/Resources.vala:300
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "_Удалить поиск «%s»"
 
 #: src/Resources.vala:304
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "Удалить сохранённый поиск: «%s»"
 
 #: src/Resources.vala:307
 msgid "Delete Tag"
@@ -663,47 +663,47 @@ msgstr "Добавить метку «%s» к фотографиям"
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Добавить метку «%s» к фотографиям"
 
 #: src/Resources.vala:331
 #, c-format
 msgid "Tag the selected photo as \"%s\""
-msgstr "Добавить метку «%s» к выбранной фотографиям"
+msgstr "Добавить метку «%s» к выбранной фотографии"
 
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Добавить метку «%s» к выбранным фотографиям"
 
 #: src/Resources.vala:336
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
-msgstr "Удалить метку «%s» с _фотографии"
+msgstr "Снять метку «%s» с _фотографии"
 
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Снять метку «%s» с _фотографий"
 
 #: src/Resources.vala:341
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
-msgstr "Удалить метку «%s» с фотографии"
+msgstr "Снять метку «%s» с фотографии"
 
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Снять метку «%s» с фотографий"
 
 #: src/Resources.vala:346
 #, c-format
 msgid "Remove tag \"%s\" from the selected photo"
-msgstr "Удалить метку «%s» с выбранных фотографий"
+msgstr "Снять метку «%s» с выбранной фотографии"
 
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Снять метку «%s» с выбранных фотографий"
 
 #: src/Resources.vala:351
 #, c-format
@@ -713,46 +713,48 @@ msgstr "Невозможно переименовать метку в «%s», т
 #: src/Resources.vala:355
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Удалить поиск «%s»"
 
 #: src/Resources.vala:359
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
 msgstr ""
+"Невозможно переименовать поиск в «%s», такой поисковый запрос уже "
+"существует."
 
 #: src/Resources.vala:362
 msgid "Delete Search"
-msgstr ""
+msgstr "Удалить поиск"
 
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_Редактировать поисковый запрос «%s»..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Редактировать поисковый запрос «%s»"
 
 #: src/Resources.vala:373
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "Пере_именовать поисковый запрос «%s»..."
 
 #: src/Resources.vala:377
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "Переименовать поисковый запрос «%s»"
 
 #: src/Resources.vala:381
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "Переименовать поисковый запрос «%s» в «%s»"
 
 #: src/Resources.vala:539
 #, c-format
 msgid "Rate %s"
-msgstr "Оценить на %s"
+msgstr "Оценить %s"
 
 #: src/Resources.vala:540
 #, c-format
@@ -1307,31 +1309,31 @@ msgstr "Метки"
 
 #: src/searches/SavedSearchDialog.vala:38
 msgid "Any text"
-msgstr ""
+msgstr "Любой текст"
 
 #: src/searches/SavedSearchDialog.vala:39
 msgid "Title"
-msgstr ""
+msgstr "Заголовок"
 
 #: src/searches/SavedSearchDialog.vala:40
 msgid "Tag"
-msgstr ""
+msgstr "Метка"
 
 #: src/searches/SavedSearchDialog.vala:41
 msgid "Event name"
-msgstr ""
+msgstr "Название события"
 
 #: src/searches/SavedSearchDialog.vala:42
 msgid "File name"
-msgstr ""
+msgstr "Имя файла"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Тип носителя"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Состояние обозначения"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1339,77 +1341,77 @@ msgstr "Рейтинг"
 
 #: src/searches/SavedSearchDialog.vala:154
 msgid "contains"
-msgstr ""
+msgstr "содержит"
 
 #: src/searches/SavedSearchDialog.vala:155
 msgid "is exactly"
-msgstr ""
+msgstr "точно"
 
 #: src/searches/SavedSearchDialog.vala:156
 msgid "starts with"
-msgstr ""
+msgstr "начинается с"
 
 #: src/searches/SavedSearchDialog.vala:157
 msgid "ends with"
-msgstr ""
+msgstr "оканчивается на"
 
 #: src/searches/SavedSearchDialog.vala:158
 msgid "does not contain"
-msgstr ""
+msgstr "не содержит"
 
 #: src/searches/SavedSearchDialog.vala:159
 msgid "is not set"
-msgstr ""
+msgstr "не задано"
 
 #: src/searches/SavedSearchDialog.vala:219
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "-"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "не"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "любое фото"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "цифровой негатив"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "видео"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "отмеченные"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "не отмеченные"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
-msgstr ""
+msgstr "любой"
 
 #: src/searches/SavedSearchDialog.vala:475
 msgid "all"
-msgstr ""
+msgstr "все"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "ничего"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Сохранённые поисковые запросы"
 
 #: src/sidebar/Tree.vala:157 src/library/LibraryWindow.vala:348
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "Нов_ый поиск..."
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2008,7 +2010,7 @@ msgstr "Опубликовать видео и фотографии  _на"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "Невозможно опубликовать"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2108,7 +2110,7 @@ msgstr "_Удалить"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Удаление фотографий"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2262,7 +2264,7 @@ msgstr "Экспорт фотографий/видео"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Экспорт фотографий/видео"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2307,7 +2309,7 @@ msgstr[2] "Это действие удалит метку «%s» с %d фото
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "Это удалит сохранённый поиск «%s».  Продолжить?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2445,8 +2447,13 @@ msgstr[2] ""
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"%d файл не удалось импортировать из-за ошибки файла или аппаратной ошибки:\n"
 msgstr[1] ""
+"%d файла не удалось импортировать из-за ошибки файла или аппаратной "
+"ошибки:\n"
 msgstr[2] ""
+"%d файлов не удалось импортировать из-за ошибки файла или аппаратной "
+"ошибки:\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2510,8 +2517,14 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"Не удалось импортировать %d видео, поскольку каталог библиотеки был не "
+"доступен для записи:\n"
 msgstr[1] ""
+"Не удалось импортировать %d видео, поскольку каталог библиотеки был не "
+"доступен для записи:\n"
 msgstr[2] ""
+"Не удалось импортировать %d видео, поскольку каталог библиотеки был не "
+"доступен для записи:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2541,9 +2554,9 @@ msgstr[2] "Не удалось импортировать %d фото/видео
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Не удалось импортировать %d файл из-за ошибки камеры:\n"
+msgstr[1] "Не удалось импортировать %d файла из-за ошибки камеры:\n"
+msgstr[2] "Не удалось импортировать %d файлов из-за ошибки камеры:\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2589,9 +2602,9 @@ msgstr[2] "%d фото/видео пропущены пользователем:
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d файл пропущен пользователем:\n"
+msgstr[1] "%d файла пропущено пользователем:\n"
+msgstr[2] "%d файлов пропущено пользователем:\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2674,11 +2687,11 @@ msgstr "_Оставить"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edit?"
-msgstr ""
+msgstr "Вернуть внешнее изменение?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Вернуть внешние изменения?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2701,7 +2714,7 @@ msgstr "От_менить внешние изменения"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "Вернуть _внешние изменения?"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2721,7 +2734,7 @@ msgstr "Удалить фотографии из библиотеки"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Удалить фотографии из библиотеки"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2742,11 +2755,11 @@ msgstr "24 часа"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "С_двинуть фотографии или видео на одинаковый промежуток времени"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Установить _текущее время для всех фото/видео"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2754,7 +2767,7 @@ msgstr "_Изменить оригиналы"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Изменить оригиналы"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2959,7 +2972,7 @@ msgstr "Удалить фотографии из библиотеки"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Удаление фотографий из библиотеки"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3395,9 +3408,9 @@ msgstr[2] "Удалить %d фотографий/видеофайлов из к
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Удалить %d файл из камеры?"
+msgstr[1] "Удалить эти %d файла из камеры? "
+msgstr[2] "Удалить эти %d файлов из камеры?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3471,6 +3484,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Не удаётся записать в файл базы данных фото:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3481,6 +3496,10 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Ошибка при доступе к файлу базы данных:\n"
+" %s\n"
+"ошибка: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3937,19 +3956,19 @@ msgstr "Создать слайдшоу для рабочего стола"
 
 #: ui/shotwell.glade:8
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Название поиска:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "_Совпадение"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
-msgstr ""
+msgstr "из следующих:"
 
 #: ui/shotwell.glade:243
 msgid "Preparing pictures for import..."
@@ -4017,7 +4036,7 @@ msgstr "П_еревести названия импортированных фа
 
 #: ui/shotwell.glade:848
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "Внешний _фоторедактор:"
 
 #: ui/shotwell.glade:861
 msgid "External _RAW editor:"

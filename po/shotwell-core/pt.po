@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 23:57+0000\n"
+"Last-Translator: smarquespt <smarquespt@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr ""
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Gestor de fotos Shotwell"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -39,11 +39,11 @@ msgstr "Gestor de fotos"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Organize as suas fotos"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Visualizador de fotos shotwell"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -403,7 +403,7 @@ msgstr "_Sem avalição"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Sem avaliação"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -423,7 +423,7 @@ msgstr "_Rejeitada"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Rejeitado"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -600,7 +600,7 @@ msgstr "A_pagar etiqueta \"%s\""
 #: src/Resources.vala:289
 #, c-format
 msgid "Delete Tag \"%s\""
-msgstr "Apagar a etiqueta \"%s\""
+msgstr "Apagar etiqueta \"%s\""
 
 #: src/Resources.vala:293
 #, c-format
@@ -611,17 +611,17 @@ msgstr[1] "Remover a etiqueta \"%s\" de %d fotos"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Pesquisa gravada"
 
 #: src/Resources.vala:300
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "A_pagar pesquisa \"%s\""
 
 #: src/Resources.vala:304
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "Apagar pesquisa: \"%s\""
 
 #: src/Resources.vala:307
 msgid "Delete Tag"
@@ -662,7 +662,7 @@ msgstr "Etiquetar fotos como \"%s\""
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Identificar foto como \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -672,7 +672,7 @@ msgstr "Etiquetar as fotos selecionadas como \"%s\""
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Identificar fotos selecionadas como \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -682,7 +682,7 @@ msgstr "Remover etiqueta \"%s\" das _fotos"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Remover das fotos a etiq_ueta \"%s\""
 
 #: src/Resources.vala:341
 #, c-format
@@ -692,7 +692,7 @@ msgstr "Remover etiqueta \"%s\" das fotos"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Remover das fotos a etiqueta \"%s\""
 
 #: src/Resources.vala:346
 #, c-format
@@ -702,7 +702,7 @@ msgstr "Remover etiqueta \"%s\" das fotos selecionadas"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Remover das fotos selecionadas a etiqueta \"%s\""
 
 #: src/Resources.vala:351
 #, c-format
@@ -712,41 +712,41 @@ msgstr "Incapaz de renomear etiqueta para \"%s\" pois esta já existe."
 #: src/Resources.vala:355
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Apagar pesquisa \"%s\""
 
 #: src/Resources.vala:359
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr ""
+msgstr "Não pode mudar o nome para \"%s\", pois esse nome já existe."
 
 #: src/Resources.vala:362
 msgid "Delete Search"
-msgstr ""
+msgstr "Apagar pesquisa"
 
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_Editar a pesquisa \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Editar a pesquisa \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "Mudar o _nome de \"%s\"..."
 
 #: src/Resources.vala:377
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "Renomear a pesquisa \"%s\""
 
 #: src/Resources.vala:381
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "Renomear de \"%s\" para \"%s\""
 
 #: src/Resources.vala:539
 #, c-format
@@ -1253,11 +1253,11 @@ msgstr "Dimensões originais:"
 
 #: src/Properties.vala:476
 msgid "Camera make:"
-msgstr "Câmara:"
+msgstr "Marca:"
 
 #: src/Properties.vala:479
 msgid "Camera model:"
-msgstr "Modelo da câmara:"
+msgstr "Modelo:"
 
 #: src/Properties.vala:482
 msgid "Flash:"
@@ -1301,31 +1301,31 @@ msgstr "Etiquetas"
 
 #: src/searches/SavedSearchDialog.vala:38
 msgid "Any text"
-msgstr ""
+msgstr "Qualquer texto"
 
 #: src/searches/SavedSearchDialog.vala:39
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: src/searches/SavedSearchDialog.vala:40
 msgid "Tag"
-msgstr ""
+msgstr "Etiqueta"
 
 #: src/searches/SavedSearchDialog.vala:41
 msgid "Event name"
-msgstr ""
+msgstr "Nome do evento"
 
 #: src/searches/SavedSearchDialog.vala:42
 msgid "File name"
-msgstr ""
+msgstr "Nome do ficheiro"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Tipo"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Estado da marcação"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1333,77 +1333,77 @@ msgstr "Avaliação"
 
 #: src/searches/SavedSearchDialog.vala:154
 msgid "contains"
-msgstr ""
+msgstr "contém"
 
 #: src/searches/SavedSearchDialog.vala:155
 msgid "is exactly"
-msgstr ""
+msgstr "exatamente"
 
 #: src/searches/SavedSearchDialog.vala:156
 msgid "starts with"
-msgstr ""
+msgstr "inicia com"
 
 #: src/searches/SavedSearchDialog.vala:157
 msgid "ends with"
-msgstr ""
+msgstr "termina com"
 
 #: src/searches/SavedSearchDialog.vala:158
 msgid "does not contain"
-msgstr ""
+msgstr "não contém"
 
 #: src/searches/SavedSearchDialog.vala:159
 msgid "is not set"
-msgstr ""
+msgstr "não definida"
 
 #: src/searches/SavedSearchDialog.vala:219
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "é"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "não é"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "qualquer foto"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "uma foto \"raw\""
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "um vídeo"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "marcado"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "não marcado"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
-msgstr ""
+msgstr "qualquer"
 
 #: src/searches/SavedSearchDialog.vala:475
 msgid "all"
-msgstr ""
+msgstr "tudo"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "nada"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Pesquisas gravadas"
 
 #: src/sidebar/Tree.vala:157 src/library/LibraryWindow.vala:348
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "No_va pesquisa..."
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2002,7 +2002,7 @@ msgstr "Publicar fotos e vídeos _no:"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "Não foi possível publicar"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2103,7 +2103,7 @@ msgstr "Apagar"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "A eliminar fotos"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2257,7 +2257,7 @@ msgstr "Exportar fotos/vídeos"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Exportar fotos/vídeos"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2301,7 +2301,7 @@ msgstr[1] "Isto irá remover a etiqueta \"%s\" de %d fotos. Continuar?"
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "Vai remover a pesquisa \"%s\". Continuar?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2423,8 +2423,8 @@ msgstr[1] ""
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Falha ao importar um ficheiro em virtude dum erro de equipamento:\n"
+msgstr[1] "Falha ao importar%d ficheiros em virtude dum erro de equipamento:\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2479,7 +2479,10 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"Falha ao importar um ficheiro, pois não pode escrever na pasta da galeria:\n"
 msgstr[1] ""
+"Falha ao importar %d ficheiros, pois não pode escrever na pasta da "
+"galeria:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2506,8 +2509,8 @@ msgstr[1] "Falha ao importar %d fotos/vídeos. Ocorreu um erro na câmara:\n"
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Falha ao importar 1 ficheiro em virtude dum erro da câmara:\n"
+msgstr[1] "Falha ao importar %d ficheiros em virtude dum erro da câmara:\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2548,8 +2551,8 @@ msgstr[1] "Foram ignorada(o)s %d fotos/vídeos em virtude do cancelamento:\n"
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Foi ignorado 1 ficheiro em virtude do cancelamento:\n"
+msgstr[1] "Foram ignorados %d ficheiros em virtude do cancelamento:\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2625,11 +2628,11 @@ msgstr "_Manter"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edit?"
-msgstr ""
+msgstr "Reverter a edição?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Reverter as edições?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2648,7 +2651,7 @@ msgstr "Re_verter edições externas"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "Re_verter edições"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2667,7 +2670,7 @@ msgstr "Remover fotos da galeria"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Remover fotos da galeria"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2688,11 +2691,11 @@ msgstr "24 Hr"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "De_sfocar fotos/vídeos na mesma proporção"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Definir fotos/videos para esta hora"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2700,7 +2703,7 @@ msgstr "_Modificar originais"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Modificar ficheiros originais"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2897,7 +2900,7 @@ msgstr "A remover fotos da galeria"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "A remover fotos da galeria"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3308,8 +3311,8 @@ msgstr[1] "Apagar estas %d fotos/vídeos da câmara?"
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Apagar este ficheiro da câmara?"
+msgstr[1] "Apagar estes %d ficheiros da câmara?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3382,6 +3385,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Incapaz de escrever na base de dados:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3392,6 +3397,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Erro ao aceder à base de dados:\n"
+" %s\n"
+"\n"
+"Detalhe do erro: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3851,19 +3861,19 @@ msgstr "Gerar a apresentação do ambiente de trabalho"
 
 #: ui/shotwell.glade:8
 msgid "Search"
-msgstr ""
+msgstr "Pesquisa"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Nome da pesquisa:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "_Coincide"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
-msgstr ""
+msgstr "com:"
 
 #: ui/shotwell.glade:243
 msgid "Preparing pictures for import..."
@@ -3931,7 +3941,7 @@ msgstr "Nom_ear ficheiros importados com minúsculas"
 
 #: ui/shotwell.glade:848
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "Editor e_xterno de fotos:"
 
 #: ui/shotwell.glade:861
 msgid "External _RAW editor:"

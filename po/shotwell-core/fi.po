@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 13:04+0000\n"
+"Last-Translator: artnay <jiri.gronroos@iki.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr ""
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Shotwell - valokuvien hallinta"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -37,11 +37,11 @@ msgstr "Valokuvien hallinta"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Järjestele digikuviasi"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Shotwell - valokuvien hallinta"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -82,7 +82,7 @@ msgstr "_Sisältö"
 
 #: src/AppWindow.vala:495
 msgid "_Frequently Asked Questions"
-msgstr ""
+msgstr "_Usein kysytyt kysymykset"
 
 #: src/AppWindow.vala:595 src/AppWindow.vala:609 src/AppWindow.vala:626
 #: src/WebConnectors.vala:988 src/Dialogs.vala:18 src/Dialogs.vala:26
@@ -113,7 +113,7 @@ msgstr "Ohjeiden näyttäminen ei onnistu: %s"
 #: src/AppWindow.vala:676
 #, c-format
 msgid "Unable to display FAQ: %s"
-msgstr ""
+msgstr "Usein kysyttyjen kysymysten näyttäminen epäonnistui: %s"
 
 #: src/SlideshowPage.vala:41 src/SlideshowPage.vala:221
 msgid "Settings"
@@ -121,7 +121,7 @@ msgstr "Asetukset"
 
 #: src/SlideshowPage.vala:43
 msgid "_Delay:"
-msgstr ""
+msgstr "_Viive"
 
 #: src/SlideshowPage.vala:45 src/SlideshowPage.vala:47
 msgid "seconds"
@@ -129,11 +129,11 @@ msgstr "sekuntia"
 
 #: src/SlideshowPage.vala:63
 msgid "_Transition effect:"
-msgstr ""
+msgstr "_Siirtymän tehoste:"
 
 #: src/SlideshowPage.vala:90
 msgid "Transition d_elay:"
-msgstr ""
+msgstr "Siirt_ymän viive:"
 
 #: src/SlideshowPage.vala:187
 msgid "Slideshow"
@@ -557,7 +557,7 @@ msgstr "Lähetä _kohteeseen..."
 
 #: src/Resources.vala:263
 msgid "_Find..."
-msgstr ""
+msgstr "_Etsi..."
 
 #: src/Resources.vala:264
 msgid "Find"
@@ -566,6 +566,7 @@ msgstr "Etsi"
 #: src/Resources.vala:265
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
+"Etsi kuva kirjoittamalla sen nimessä tai tunnisteissa esiintyvää tekstiä"
 
 #: src/Resources.vala:267
 msgid "_Flag"
@@ -609,17 +610,17 @@ msgstr[1] "Poista tunniste ”%s” %d kuvasta"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Tallennettu haku"
 
 #: src/Resources.vala:300
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "_Poista haku \"%s\""
 
 #: src/Resources.vala:304
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "Poista tallennettu haku: \"%s\""
 
 #: src/Resources.vala:307
 msgid "Delete Tag"
@@ -700,7 +701,7 @@ msgstr "Poista valituista kuvista tunniste ”%s”"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Poista tunniste \"%s\" valituilta kuvilta"
 
 #: src/Resources.vala:351
 #, c-format
@@ -712,7 +713,7 @@ msgstr ""
 #: src/Resources.vala:355
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Poista haku \"%s\""
 
 #: src/Resources.vala:359
 #, c-format
@@ -721,17 +722,17 @@ msgstr ""
 
 #: src/Resources.vala:362
 msgid "Delete Search"
-msgstr ""
+msgstr "Poista haku"
 
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_Muokkaa hakua \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Muokkaa hakua \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
@@ -840,7 +841,7 @@ msgstr "Valitse kaikki"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
-msgstr ""
+msgstr "Täytä koko sivu"
 
 #: src/Printing.vala:256
 msgid "2 images per page"
@@ -880,7 +881,7 @@ msgstr "Käytä _omaa kokoa:"
 
 #: src/Printing.vala:318
 msgid "_Autosize:"
-msgstr ""
+msgstr "_Automaattinen koko:"
 
 #: src/Printing.vala:387
 msgid "in."
@@ -900,7 +901,7 @@ msgstr "Otsikot"
 
 #: src/Printing.vala:420
 msgid "Print image _title"
-msgstr ""
+msgstr "Tulosta kuvan _nimi"
 
 #: src/Printing.vala:432
 msgid "Pixel Resolution"
@@ -1160,7 +1161,7 @@ msgstr ""
 
 #: src/slideshow/Slideshow.vala:15
 msgid "Slideshow Transitions"
-msgstr ""
+msgstr "Diaesityksen siirtymät"
 
 #: src/Properties.vala:38
 msgid "%I:%M %p"
@@ -1307,15 +1308,15 @@ msgstr ""
 
 #: src/searches/SavedSearchDialog.vala:40
 msgid "Tag"
-msgstr ""
+msgstr "Tunniste"
 
 #: src/searches/SavedSearchDialog.vala:41
 msgid "Event name"
-msgstr ""
+msgstr "Tapahtuman nimi"
 
 #: src/searches/SavedSearchDialog.vala:42
 msgid "File name"
-msgstr ""
+msgstr "Tiedostonimi"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
@@ -1327,27 +1328,27 @@ msgstr ""
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
-msgstr ""
+msgstr "Arvostelu"
 
 #: src/searches/SavedSearchDialog.vala:154
 msgid "contains"
-msgstr ""
+msgstr "sisältää"
 
 #: src/searches/SavedSearchDialog.vala:155
 msgid "is exactly"
-msgstr ""
+msgstr "on tarkalleen"
 
 #: src/searches/SavedSearchDialog.vala:156
 msgid "starts with"
-msgstr ""
+msgstr "alkaa"
 
 #: src/searches/SavedSearchDialog.vala:157
 msgid "ends with"
-msgstr ""
+msgstr "päättyy"
 
 #: src/searches/SavedSearchDialog.vala:158
 msgid "does not contain"
-msgstr ""
+msgstr "ei sisällä"
 
 #: src/searches/SavedSearchDialog.vala:159
 msgid "is not set"
@@ -1389,7 +1390,7 @@ msgstr ""
 
 #: src/searches/SavedSearchDialog.vala:475
 msgid "all"
-msgstr ""
+msgstr "kaikki"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
@@ -1397,11 +1398,11 @@ msgstr ""
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Tallennetut haut"
 
 #: src/sidebar/Tree.vala:157 src/library/LibraryWindow.vala:348
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "_Uusi haku"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -1466,7 +1467,7 @@ msgstr "Kameravirhe"
 
 #: src/BatchImport.vala:61
 msgid "File write error"
-msgstr ""
+msgstr "Tiedoston kirjoitusvirhe"
 
 #: src/BatchImport.vala:64
 #, c-format
@@ -1594,11 +1595,11 @@ msgstr "Videot"
 
 #: src/SearchFilter.vala:657
 msgid "RAW Photos"
-msgstr ""
+msgstr "RAW-kuvat"
 
 #: src/SearchFilter.vala:658
 msgid "RAW photos"
-msgstr ""
+msgstr "RAW-kuvat"
 
 #: src/SearchFilter.vala:904
 #, c-format
@@ -1607,7 +1608,7 @@ msgstr ""
 
 #: src/SearchFilter.vala:921
 msgid "Type"
-msgstr ""
+msgstr "Tyyppi"
 
 #: src/Exporter.vala:246
 #, c-format
@@ -1685,7 +1686,7 @@ msgstr "Ei tapahtumia"
 
 #: src/events/EventsDirectoryPage.vala:158
 msgid "No events found"
-msgstr ""
+msgstr "Tapahtumia ei löytynyt"
 
 #: src/events/EventsDirectoryPage.vala:205
 msgid "Events"
@@ -1785,7 +1786,7 @@ msgstr "Piwigo-asennuksen _osoite:"
 
 #: src/PiwigoConnector.vala:638
 msgid "User_name:"
-msgstr ""
+msgstr "_Käyttäjätunnus:"
 
 #: src/PiwigoConnector.vala:640
 #: plugins/shotwell-publishing/PicasaPublishing.vala:882
@@ -1915,7 +1916,7 @@ msgstr ""
 
 #: src/publishing/Publishing.vala:16
 msgid "Publishing"
-msgstr ""
+msgstr "Julkaisu"
 
 #: src/publishing/PublishingPluginHost.vala:11 src/WebConnectors.vala:1119
 #: src/WebConnectors.vala:1256
@@ -1931,7 +1932,7 @@ msgstr "Lähetetään %d/%d"
 #: src/publishing/PublishingPluginHost.vala:103
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred:"
-msgstr ""
+msgstr "Julkaisemista palveluun %s ei voida jatkaa virheen vuoksi:"
 
 #: src/publishing/PublishingPluginHost.vala:106 src/WebConnectors.vala:1023
 msgid "To try publishing to another service, select one from the above menu."
@@ -1958,7 +1959,7 @@ msgstr "Valittujen kuvien julkaisu onnistui."
 
 #: src/WebConnectors.vala:666
 msgid "The selected video was successfully published."
-msgstr ""
+msgstr "Valittu video julkaistiin onnistuneesti."
 
 #: src/WebConnectors.vala:668
 msgid "The selected photo was successfully published."
@@ -2127,7 +2128,7 @@ msgstr "Näytä kuvan _tapahtuma"
 
 #: src/library/LibraryWindow.vala:336
 msgid "_Find"
-msgstr ""
+msgstr "_Etsi"
 
 #: src/library/LibraryWindow.vala:337
 msgid "Find photos and videos by search criteria"
@@ -2151,7 +2152,7 @@ msgstr "Näytä lisätiedot valinnasta"
 
 #: src/library/LibraryWindow.vala:371
 msgid "_Search Bar"
-msgstr ""
+msgstr "_Hakupalkki"
 
 #: src/library/LibraryWindow.vala:372
 msgid "Display the search bar"
@@ -2232,7 +2233,7 @@ msgstr "Kirjasto"
 
 #: src/CollectionPage.vala:207 src/PhotoPage.vala:2492
 msgid "S_lideshow"
-msgstr ""
+msgstr "_Diaesitys"
 
 #: src/CollectionPage.vala:208 src/PhotoPage.vala:2493
 msgid "Play a slideshow"
@@ -2288,7 +2289,7 @@ msgstr[1] "Tämä poistaa tunnisteen ”%s” %d kuvasta. Jatketaanko?"
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "This will remove the saved search \"%s\".  Continue?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2667,7 +2668,7 @@ msgstr "_Muokkaa alkuperäisiä tiedostoja"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Muokkaa alkuperäisiä tiedostoja"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2809,22 +2810,22 @@ msgstr "_Älä näytä tätä viestiä uudestaan"
 
 #: src/Dialogs.vala:1784 src/Dialogs.vala:1788
 msgid "(Help)"
-msgstr ""
+msgstr "(Ohje)"
 
 #: src/Dialogs.vala:1797
 #, c-format
 msgid "Year%sMonth%sDay"
-msgstr ""
+msgstr "Vuosi%sKuukausi%sPäivä"
 
 #: src/Dialogs.vala:1799
 #, c-format
 msgid "Year%sMonth"
-msgstr ""
+msgstr "Vuosi%sKuukausi"
 
 #: src/Dialogs.vala:1801
 #, c-format
 msgid "Year%sMonth-Day"
-msgstr ""
+msgstr "Vuosi%sKuukausi-Päivä"
 
 #: src/Dialogs.vala:1803
 msgid "Year-Month-Day"
@@ -2832,7 +2833,7 @@ msgstr "Vuosi-Kuukausi-Päivä"
 
 #: src/Dialogs.vala:2030
 msgid "Invalid pattern"
-msgstr ""
+msgstr "Virheellinen kaava"
 
 #: src/Dialogs.vala:2110
 msgid ""
@@ -3142,7 +3143,7 @@ msgstr "Ei kuvia/videoita"
 
 #: src/Page.vala:1219
 msgid "No photos/videos found"
-msgstr ""
+msgstr "Kuvia tai videoita ei löytynyt"
 
 #: src/Page.vala:2429
 msgid "Photos cannot be exported to this directory."
@@ -3768,11 +3769,11 @@ msgstr "4096 x 3072 pikseliä"
 
 #: plugins/shotwell-transitions/FadeEffect.vala:20
 msgid "Fade"
-msgstr ""
+msgstr "Häivytys"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:20
 msgid "Crumble"
-msgstr ""
+msgstr "Mureneminen"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:21
 msgid "Core Slideshow Transitions"
@@ -3781,10 +3782,11 @@ msgstr ""
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
 msgstr ""
+"Tekijänoikeus 2010 Maxim Kartashev, Tekijänoikeus 2011 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
 msgid "Slide"
-msgstr ""
+msgstr "Liu'utus"
 
 #: ui/set_background_dialog.glade:8
 msgid "Set as Desktop Slideshow"
@@ -3812,7 +3814,7 @@ msgstr ""
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Haun nimi"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
@@ -3868,27 +3870,27 @@ msgstr "_Taustakuva:"
 
 #: ui/shotwell.glade:651
 msgid "Importing"
-msgstr ""
+msgstr "Tuonti"
 
 #: ui/shotwell.glade:672
 msgid "_Directory structure:"
-msgstr ""
+msgstr "_Kansiorakenne:"
 
 #: ui/shotwell.glade:708
 msgid "_Pattern:"
-msgstr ""
+msgstr "Kaa_va:"
 
 #: ui/shotwell.glade:779
 msgid "Example:"
-msgstr ""
+msgstr "Esimerkki:"
 
 #: ui/shotwell.glade:795
 msgid "R_ename imported files to lowercase"
-msgstr ""
+msgstr "Ni_meä tuodut tiedostot uudelleen käyttäen pieniä kirjaimia"
 
 #: ui/shotwell.glade:848
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "_Ulkoinen kuvamuokkain:"
 
 #: ui/shotwell.glade:861
 msgid "External _RAW editor:"
@@ -3900,4 +3902,4 @@ msgstr "Ulkoiset muokkaimet"
 
 #: ui/shotwell.glade:936
 msgid "Plugins"
-msgstr ""
+msgstr "Liitännäiset"

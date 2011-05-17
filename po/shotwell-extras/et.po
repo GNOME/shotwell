@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 04:21+0000\n"
+"Last-Translator: mahfiaz <mahfiaz@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,24 +31,24 @@ msgstr "Sa ei ole praegu Yandex.Fotki-sse sisse logitud."
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
-msgstr ""
+msgstr "_Albumid (või loo uus):"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
 msgid "Access _type:"
-msgstr ""
+msgstr "_Ligipääsu liik:"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
 msgid "Disable _comments"
-msgstr ""
+msgstr "_Kommentaarid keelatud"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
-msgstr ""
+msgstr "_Originaalfoto allalaadimine keelatud"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
 msgid "_Logout"
-msgstr ""
+msgstr "_Logi välja"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
 msgid "_Publish"
-msgstr ""
+msgstr "_Avalda"

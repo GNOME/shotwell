@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 21:21+0000\n"
+"Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -397,7 +397,7 @@ msgstr "Waardering verlagen"
 
 #: src/Resources.vala:203
 msgid "_Unrated"
-msgstr "Niet _waarderen"
+msgstr "Niet ge_waardeerd"
 
 #: src/Resources.vala:204
 msgid "Unrated"
@@ -417,11 +417,11 @@ msgstr "Alle waarderingen verwijderen"
 
 #: src/Resources.vala:209
 msgid "_Rejected"
-msgstr "_Afwijzen"
+msgstr "Afgewe_zen"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Afgewezen"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -611,7 +611,7 @@ msgstr[1] "Label \"%s\" van %d foto's verwijderen"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Opgeslagen zoekopdracht"
 
 #: src/Resources.vala:300
 #, c-format
@@ -662,7 +662,7 @@ msgstr "Foto's labelen als \"%s\""
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Foto's labelen als \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -672,7 +672,7 @@ msgstr "Geselecteerde foto's labelen als \"%s\""
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Geselecteerde foto's labelen als \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -682,7 +682,7 @@ msgstr "Label \"%s\" van _foto's verwijderen"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Label \"%s\" van _foto's verwijderen"
 
 #: src/Resources.vala:341
 #, c-format
@@ -692,7 +692,7 @@ msgstr "Label \"%s\" van foto's verwijderen"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Label \"%s\" van foto's verwijderen"
 
 #: src/Resources.vala:346
 #, c-format
@@ -702,7 +702,7 @@ msgstr "Label \"%s\" verwijderen van geselecteerde foto's"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Label \"%s\" van geselecteerde foto's verwijderen"
 
 #: src/Resources.vala:351
 #, c-format
@@ -726,12 +726,12 @@ msgstr "Zoekactie verwijderen"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "Zoekopdracht \"%s\" b_ewerken..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Bewerk de zoekopdracht \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
@@ -1301,7 +1301,7 @@ msgstr "Labels"
 
 #: src/searches/SavedSearchDialog.vala:38
 msgid "Any text"
-msgstr ""
+msgstr "Alle tekst"
 
 #: src/searches/SavedSearchDialog.vala:39
 msgid "Title"
@@ -1321,11 +1321,11 @@ msgstr "Bestandsnaam"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Mediatype"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Markeringsstatus"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1359,11 +1359,11 @@ msgstr "is niet ingesteld"
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "is"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "is niet"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
@@ -1371,19 +1371,19 @@ msgstr ""
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "een RAW-foto"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "een video"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "gemarkeerd"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "niet gemarkeerd"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
@@ -1395,7 +1395,7 @@ msgstr "alles"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "geen"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -2113,7 +2113,7 @@ msgstr "Verwijderen"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Foto's worden verwijderd"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2267,7 +2267,7 @@ msgstr "Foto's/video's exporteren"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Foto's/video's exporteren"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2650,7 +2650,7 @@ msgstr "Externe veranderingen herstellen?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Externe veranderingen herstellen?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2669,7 +2669,7 @@ msgstr "Externe _veranderingen ongedaan maken"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "Externe veran_deringen herstellen"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2688,7 +2688,7 @@ msgstr "Foto's uit bibliotheek verwijderen"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Foto's uit bibliotheek verwijderen"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2709,11 +2709,11 @@ msgstr "24-uur"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "Foto's/video's evenveel ver_schuiven"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Deze tijd voor _alle foto's/video's gebruiken"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2721,7 +2721,7 @@ msgstr "Originele bestanden _aanpassen"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "Originele bestanden _aanpassen"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2919,7 +2919,7 @@ msgstr "Foto's uit bibliotheek verwijderen"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Foto's uit bibliotheek verwijderen"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3409,6 +3409,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Kon foto niet schrijven naar database:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3419,6 +3421,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Fout bij toegang tot database:\n"
+" %s\n"
+"\n"
+"Fout was: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3876,15 +3883,15 @@ msgstr "Zoeken"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Naam van zoekopdracht:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "_Match"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
-msgstr ""
+msgstr "van de volgende:"
 
 #: ui/shotwell.glade:243
 msgid "Preparing pictures for import..."

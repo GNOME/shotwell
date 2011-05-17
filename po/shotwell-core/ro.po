@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 12:29+0000\n"
+"Last-Translator: marianvasile <marianvasile@upcmail.ro>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,20 +25,20 @@ msgstr " Marian Vasile <marianvasile@upcmail.ro>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Shotwell - Administrator fotografii"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
 msgid "Photo Manager"
-msgstr "Manager fotografii"
+msgstr "Administrator fotografii"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Organizați-vă fotografiile"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Shotwell - Vizualizator foto "
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -399,7 +399,7 @@ msgstr "_Fără apreciere"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Necotate"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -419,7 +419,7 @@ msgstr "_Respinsă"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Respins"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -608,17 +608,17 @@ msgstr[2] "Șterge eticheta \"%s\" din %d de fotografii"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Căutare salvată"
 
 #: src/Resources.vala:300
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "Ș_terge căutarea \"%s\""
 
 #: src/Resources.vala:304
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "Șterge căutarea salvată: \"%s\""
 
 #: src/Resources.vala:307
 msgid "Delete Tag"
@@ -659,7 +659,7 @@ msgstr "Etichetează fotografiile ca \"%s\""
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Etichetează fotografia ca \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -669,7 +669,7 @@ msgstr "Etichetează fotografiile selectate ca \"%s\""
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Etichetează fotografiile salvate ca \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -679,7 +679,7 @@ msgstr "Șterge eticheta \"%s\" din _fotografii"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Șterge eticheta \"%s\" din fo_tografii"
 
 #: src/Resources.vala:341
 #, c-format
@@ -689,7 +689,7 @@ msgstr "Șterge eticheta \"%s\" din fotografii"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr " Șterge eticheta \"%s\" din fotografii"
 
 #: src/Resources.vala:346
 #, c-format
@@ -699,7 +699,7 @@ msgstr "Șterge eticheta \"%s\" din fotografiile selectate"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Șterge eticheta \"%s\" din fotografiile selectate"
 
 #: src/Resources.vala:351
 #, c-format
@@ -709,41 +709,41 @@ msgstr "Nu se poate redenumi eticheta în \"%s\" deoarece există deja."
 #: src/Resources.vala:355
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Șterge căutarea \"%s\""
 
 #: src/Resources.vala:359
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr ""
+msgstr "Nu se poate redenumi căutarea în \"%s\" deoarece căutarea există deja."
 
 #: src/Resources.vala:362
 msgid "Delete Search"
-msgstr ""
+msgstr "Șterge căutarea"
 
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_Editează căutarea \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Editează căutarea \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "Rede_numește căutarea \"%s\"..."
 
 #: src/Resources.vala:377
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "Redenumește căutarea \"%s\""
 
 #: src/Resources.vala:381
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "Redenumește căutarea \"%s\" în \"%s\""
 
 #: src/Resources.vala:539
 #, c-format
@@ -1301,31 +1301,31 @@ msgstr "Etichete"
 
 #: src/searches/SavedSearchDialog.vala:38
 msgid "Any text"
-msgstr ""
+msgstr "Orice text"
 
 #: src/searches/SavedSearchDialog.vala:39
 msgid "Title"
-msgstr ""
+msgstr "Titlu"
 
 #: src/searches/SavedSearchDialog.vala:40
 msgid "Tag"
-msgstr ""
+msgstr "Etichetă"
 
 #: src/searches/SavedSearchDialog.vala:41
 msgid "Event name"
-msgstr ""
+msgstr "Nume eveniment"
 
 #: src/searches/SavedSearchDialog.vala:42
 msgid "File name"
-msgstr ""
+msgstr "Nume fișier"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Tip media"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Stare marcaj"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1333,77 +1333,77 @@ msgstr "Cotare"
 
 #: src/searches/SavedSearchDialog.vala:154
 msgid "contains"
-msgstr ""
+msgstr "conține"
 
 #: src/searches/SavedSearchDialog.vala:155
 msgid "is exactly"
-msgstr ""
+msgstr "este exact"
 
 #: src/searches/SavedSearchDialog.vala:156
 msgid "starts with"
-msgstr ""
+msgstr "începe cu"
 
 #: src/searches/SavedSearchDialog.vala:157
 msgid "ends with"
-msgstr ""
+msgstr "se termină cu"
 
 #: src/searches/SavedSearchDialog.vala:158
 msgid "does not contain"
-msgstr ""
+msgstr "nu conține"
 
 #: src/searches/SavedSearchDialog.vala:159
 msgid "is not set"
-msgstr ""
+msgstr "nu este stabilit"
 
 #: src/searches/SavedSearchDialog.vala:219
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "este"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "nu este"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "orice fotografie"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "o fotografie raw"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "un clip video"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "marcate"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "fără marcaje"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
-msgstr ""
+msgstr "orice"
 
 #: src/searches/SavedSearchDialog.vala:475
 msgid "all"
-msgstr ""
+msgstr "tot"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "nimic"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Căutări salvate"
 
 #: src/sidebar/Tree.vala:157 src/library/LibraryWindow.vala:348
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "Căutare no_uă"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2001,7 +2001,7 @@ msgstr "Publică fo_tografiile și clipurile pe"
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "Nu se poate publica"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2105,7 +2105,7 @@ msgstr "Şterge"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Se șterg fotografiile"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2259,7 +2259,7 @@ msgstr "Exportă fotografiile/clipurile"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Exportă fotografii/clipuri video"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2305,7 +2305,7 @@ msgstr[2] ""
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "Căutarea salvată \"%s\" va fi ștearsă.  Continuați?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2443,8 +2443,12 @@ msgstr[2] ""
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"1 fișier nu a fost importat din cauza unei erori în fișier sau de natură "
+"hardware:\n"
 msgstr[1] ""
-msgstr[2] ""
+"%d fișiere nu au fost importate din cauza unei erori în fișier sau de natură"
+" hardware:\n"
+msgstr[2] "%d de :\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2508,8 +2512,12 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"1 fișier nu a fost importat deoarece dosarul colecției foto nu permite "
+"scrierea:\n"
 msgstr[1] ""
-msgstr[2] ""
+"%d fișiere nu au fost importate deoarece dosarul colecției foto nu permite "
+"scrierea:\n"
+msgstr[2] "%d de :\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2551,9 +2559,10 @@ msgstr[2] ""
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
+msgstr[0] "1 fișier nu a fost importat din cauza unei erori a aparatului foto:\n"
 msgstr[1] ""
-msgstr[2] ""
+"%d fișiere nu au fost importate din cauza unei erori a aparatului foto:\n"
+msgstr[2] "%d de :\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2614,9 +2623,9 @@ msgstr[2] ""
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "1 fișier a fost omis, deoarece utilizatorul a anulat acțiunea:\n"
+msgstr[1] "%d fișiere au fost omise, deoarece utilizatorul a anulat acțiunea:\n"
+msgstr[2] "%d de fișiere au fost omise, deoarece utilizatorul a anulat acțiunea:\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2699,11 +2708,11 @@ msgstr "_Păstrează"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edit?"
-msgstr ""
+msgstr "Anulați editările externe?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Anulați editările externe?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2725,7 +2734,7 @@ msgstr "Anulează e_ditările externe"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "Anulează editările e_xterne"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2745,7 +2754,7 @@ msgstr "Șterge fotografiile din colecție"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Șterge fotografiile din colecție"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2766,11 +2775,11 @@ msgstr "24 de ore"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "_Modifică fotografiile/clipurile video în aceeași măsură"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Marchează to_ate fotografiile/clipurile video cu această oră și dată"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2778,7 +2787,7 @@ msgstr "_Modifică fișierele originale"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Modifică fișierul original"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2984,7 +2993,7 @@ msgstr "Se șterg fotografiile din colecție"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Se șterg fotografiile din colecție"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3417,9 +3426,9 @@ msgstr[2] "Ștergeți aceste %d de fotografii/clipuri din aparatul foto?"
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ștergeți acest fișier din aparatul foto?"
+msgstr[1] "Ștergeți aceste %d fișiere din aparatul foto?"
+msgstr[2] "Ștergeți aceste %d de fișiere din aparatul foto?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3500,6 +3509,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Nu se poate scrie în baza de date a fotografiilor:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3510,6 +3521,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Eroare la accesarea fișierului bazei de date:\n"
+" %s\n"
+"\n"
+"Eroarea a fost: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3967,19 +3983,19 @@ msgstr "Generare prezentare diapozitive ca fundal pentru desktop"
 
 #: ui/shotwell.glade:8
 msgid "Search"
-msgstr ""
+msgstr "Caută"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Nume căutare:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "Potr_ivire"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
-msgstr ""
+msgstr "din următoarele:"
 
 #: ui/shotwell.glade:243
 msgid "Preparing pictures for import..."
@@ -4047,7 +4063,7 @@ msgstr "R_edenumește fișierele importate folosind litere mici"
 
 #: ui/shotwell.glade:848
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "Editor foto e_xtern:"
 
 #: ui/shotwell.glade:861
 msgid "External _RAW editor:"

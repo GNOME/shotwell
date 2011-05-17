@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 03:47+0000\n"
+"Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -399,7 +399,7 @@ msgstr "_Без оцінки"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Без оцінки"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -419,7 +419,7 @@ msgstr "Від_кинуті"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Відкинуто"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -608,7 +608,7 @@ msgstr[2] "Вилучити мітку «%s» з %d фотографії"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Збережений пошук"
 
 #: src/Resources.vala:300
 #, c-format
@@ -659,7 +659,7 @@ msgstr "Додати до фотографії мітку «%s»"
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Додати до фотографій мітку «%s»"
 
 #: src/Resources.vala:331
 #, c-format
@@ -669,7 +669,7 @@ msgstr "Додати до позначеної фотографії мітку �
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Додати до позначених фотографій мітку «%s»"
 
 #: src/Resources.vala:336
 #, c-format
@@ -679,7 +679,7 @@ msgstr "Вилучити мітку «%s» з _фотографії"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Вилучити мітку «%s» з _фотографій"
 
 #: src/Resources.vala:341
 #, c-format
@@ -689,7 +689,7 @@ msgstr "Вилучення мітки «%s» з фотографії"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Вилучення мітки «%s» з фотографій"
 
 #: src/Resources.vala:346
 #, c-format
@@ -699,7 +699,7 @@ msgstr "Вилучити мітку «%s» з позначеної фотогр�
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Вилучити мітку «%s» з позначених фотографій"
 
 #: src/Resources.vala:351
 #, c-format
@@ -727,12 +727,12 @@ msgstr "Вилучити пошук"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "З_мінити пошук «%s»…"
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Змінити пошуку «%s»"
 
 #: src/Resources.vala:373
 #, c-format
@@ -1325,11 +1325,11 @@ msgstr "Назва файла"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Тип носія"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Стан позначення"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1363,31 +1363,31 @@ msgstr "не встановлено"
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "збігається"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "не збігається з"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "будь-яка фотографія"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "необроблена фотографія"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "відео"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "позначені"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "не позначено"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
@@ -1399,7 +1399,7 @@ msgstr "всі"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "жодна"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -2121,7 +2121,7 @@ msgstr "Вилучити"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Вилучення фотографій"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2276,7 +2276,7 @@ msgstr "Експортувати фотографію/відео"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Експортувати фотографії/відео"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2721,7 +2721,7 @@ msgstr "Скасувати зовнішні зміни?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Скасувати зовнішні зміни?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2744,7 +2744,7 @@ msgstr "С_касувати зовнішню зміну"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "С_касувати зовнішні зміни"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2764,7 +2764,7 @@ msgstr "Вилучення фотографії з бібліотеки"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Вилучення фотографій з бібліотеки"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2785,11 +2785,11 @@ msgstr "24 год."
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "Зс_унути фотографії або відео на однаковий проміжок часу"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Встановити цей час для всі_х фотографій або відео"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2797,7 +2797,7 @@ msgstr "З_мінити початковий файл"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "З_мінити початкові файли"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -3007,7 +3007,7 @@ msgstr "Вилучення фотографії з бібліотеки"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Вилучення фотографій з бібліотеки"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3529,6 +3529,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Не вдалося записати дані до файла бази даних фотографій:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3539,6 +3541,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Помилка під час спроби доступу до файла бази даних:\n"
+" %s\n"
+"\n"
+"Помилка: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -4007,11 +4014,11 @@ msgstr "Пошук"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Назва пошуку:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "Ві_дповідність"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"

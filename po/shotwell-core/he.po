@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 05:16+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -398,7 +398,7 @@ msgstr "_ללא דירוג"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "אין דירוג"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -418,7 +418,7 @@ msgstr "ד_חויהה"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "נדחה"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -606,7 +606,7 @@ msgstr[1] "הסרת התגית \"%s\" מ־%d תמונות"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "חיפוש שנשמר"
 
 #: src/Resources.vala:300
 #, c-format
@@ -657,7 +657,7 @@ msgstr "תיוג התמונות בתור \"%s\""
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "תיוג תמונות בתור \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -667,7 +667,7 @@ msgstr "תיוג התמונות הנבחרות בתור \"%s\""
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "תיוג התמונות הנבחרות בתור \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -677,7 +677,7 @@ msgstr "הסרת התגית \"%s\" מתמו_נות"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "הסרת התגית \"%s\" מה_תמונות"
 
 #: src/Resources.vala:341
 #, c-format
@@ -687,7 +687,7 @@ msgstr "הסרת התגית \"%s\" מתמונות"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "הסרת התגית \"%s\" מהתמונות"
 
 #: src/Resources.vala:346
 #, c-format
@@ -697,7 +697,7 @@ msgstr "הסרת התגית \"%s\" מהתמונות הנבחרות"
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "הסרת התגית \"%s\" מהתמונות הנבחרות"
 
 #: src/Resources.vala:351
 #, c-format
@@ -721,12 +721,12 @@ msgstr "מחיקת החיפוש"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_עריכת החיפוש \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "עריכת החיפוש \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
@@ -1316,11 +1316,11 @@ msgstr "שם הקובץ"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "סוג המדיה"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "מצב הדגלון"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1354,31 +1354,31 @@ msgstr "לא מוגדר"
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "הוא"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "אינו"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "כל תמונה שהיא"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "תמונה גולמית"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "וידאו"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "מסומן בדגלון"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "לא מסומן בדגלון"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
@@ -1390,7 +1390,7 @@ msgstr "הכול"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "אף אחד מאלה"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -2086,7 +2086,7 @@ msgstr "מחיקה"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "התמונות נמחקות"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2239,7 +2239,7 @@ msgstr "יצוא תמונות/קטעי וידאו"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "יצוא תמונות/קטעי וידאו"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2602,7 +2602,7 @@ msgstr "האם לשחזר עריכות חיצוניות?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "האם לבטל את העריכות החיצוניות?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2618,7 +2618,7 @@ msgstr "_ביטול העריכות החיצונית"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "בי_טול העריכות החיצוניות"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2637,7 +2637,7 @@ msgstr "הסרת תמונות מהספרייה"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "הסרת תמונות מהספרייה"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2658,11 +2658,11 @@ msgstr "24 שעות"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "ה_זחת התמונות/קטעי הווידאו באותו האופן"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "ה_גדרת כל התמונות/קטעי הווידאו למועד זה"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2670,7 +2670,7 @@ msgstr "_שינוי הקבצים המקוריים"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_שינוי קובצי המקור"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2867,7 +2867,7 @@ msgstr "הסרת תמונות מהספרייה"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "התמונות מוסרות מהתיקייה"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3349,6 +3349,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"לא ניתן לכתוב אל קובץ מסד נתוני התמונות:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3359,6 +3361,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"אירעה שגיאה במהלך הגישה לקובץ מסד הנתונים:\n"
+" %s\n"
+"\n"
+"השגיאה הייתה: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3811,11 +3818,11 @@ msgstr "חיפוש"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_שם החיפוש:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "ה_תאמה"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"

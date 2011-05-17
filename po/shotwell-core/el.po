@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-17 21:12+0000\n"
+"Last-Translator: thalia <saliyath@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr ""
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Διαχειριστής εικόνων Shotwell"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:15
@@ -37,11 +37,11 @@ msgstr "Διαχειριστής εικόνων"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Οργανώστε τις φωτογραφίες σας"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Προβολή εικόνων Shotwell"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:16
@@ -404,7 +404,7 @@ msgstr "_Χωρίς αξιολόγηση"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Χωρίς αξιολόγηση"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -424,7 +424,7 @@ msgstr "_Απορρίφθηκε"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Απορρίφθηκε"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -614,17 +614,17 @@ msgstr[1] "Απομάκρυνση της ετικέτας \"%s\" από %d φω�
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Αποθηκευμένη αναζήτηση"
 
 #: src/Resources.vala:300
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr ""
+msgstr "Διαγραφή _Αναζήτησης \"%s\""
 
 #: src/Resources.vala:304
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr ""
+msgstr "Διαγραφή αποθηκευμένης αναζήτησης: \"%s\""
 
 #: src/Resources.vala:307
 msgid "Delete Tag"
@@ -665,7 +665,7 @@ msgstr "Ορισμός ετικέτας στις φωτογραφίες \"%s\""
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Προσθήκη στις φωτογραφίες της ετικέτας \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -675,7 +675,7 @@ msgstr "Ορισμός ετικέτας στις επιλεγμένες φωτο
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Προσθήκη στις επιλεγμένες φωτογραφίες της ετικέτας \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -685,7 +685,7 @@ msgstr "Αφαίρεση ετικέτας \"%s\" από τις _φωτογραφ
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Αφαίρεση της ετικέτας \"%s\" από τις _επιλεγμένες φωτογραφίες"
 
 #: src/Resources.vala:341
 #, c-format
@@ -695,7 +695,7 @@ msgstr "Αφαίρεση ετικέτας \"%s\" από τις φωτογραφ�
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Αφαίρεση της ετικέτας \"%s\" από τις φωτογραφίες"
 
 #: src/Resources.vala:346
 #, c-format
@@ -705,7 +705,7 @@ msgstr "Διαγραφή της ετικέτας \"%s\" από τις επιλε
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Αφαίρεση της ετικέτας \"%s\" από τις επιλεγμένες φωτογραφίες"
 
 #: src/Resources.vala:351
 #, c-format
@@ -715,41 +715,43 @@ msgstr "Αδυναμία μετονομασίας της ετικέτας \"%s\"
 #: src/Resources.vala:355
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr ""
+msgstr "Διαγραφή της Αναζήτησης \"%s\""
 
 #: src/Resources.vala:359
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
 msgstr ""
+"Δεν ήταν δυνατή η μετονομασία της αναζήτησης σε \"%s\" γιατί η αναζήτηση "
+"αυτή υπάρχει ήδη."
 
 #: src/Resources.vala:362
 msgid "Delete Search"
-msgstr ""
+msgstr "Διαγραφή Αναζήτησης"
 
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_Επεξεργασία της αναζήτησης \"%s\"..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Επεξεργασία της αναζήτησης \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "_Μετονομασία της αναζήτησης \"%s\"..."
 
 #: src/Resources.vala:377
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr ""
+msgstr "Μετονομασία της αναζήτησης \"%s\""
 
 #: src/Resources.vala:381
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr ""
+msgstr "Μετονομασία της αναζήτησης \"%s\" σε \"%s\""
 
 #: src/Resources.vala:539
 #, c-format
@@ -1305,31 +1307,31 @@ msgstr "Ετικέτες"
 
 #: src/searches/SavedSearchDialog.vala:38
 msgid "Any text"
-msgstr ""
+msgstr "Οποιοδήποτε κείμενο"
 
 #: src/searches/SavedSearchDialog.vala:39
 msgid "Title"
-msgstr ""
+msgstr "Τίτλος"
 
 #: src/searches/SavedSearchDialog.vala:40
 msgid "Tag"
-msgstr ""
+msgstr "Ετικέτα"
 
 #: src/searches/SavedSearchDialog.vala:41
 msgid "Event name"
-msgstr ""
+msgstr "όνομα Γεγονότος"
 
 #: src/searches/SavedSearchDialog.vala:42
 msgid "File name"
-msgstr ""
+msgstr "όνομα Αρχείου"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "τύπος Μέσου"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Επισήμανση κατάστασης"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1337,77 +1339,77 @@ msgstr "Αξιολόγηση"
 
 #: src/searches/SavedSearchDialog.vala:154
 msgid "contains"
-msgstr ""
+msgstr "περιέχει"
 
 #: src/searches/SavedSearchDialog.vala:155
 msgid "is exactly"
-msgstr ""
+msgstr "είναι ακριβώς"
 
 #: src/searches/SavedSearchDialog.vala:156
 msgid "starts with"
-msgstr ""
+msgstr "αρχίζει με"
 
 #: src/searches/SavedSearchDialog.vala:157
 msgid "ends with"
-msgstr ""
+msgstr "τελειώνει με"
 
 #: src/searches/SavedSearchDialog.vala:158
 msgid "does not contain"
-msgstr ""
+msgstr "δεν περιέχει"
 
 #: src/searches/SavedSearchDialog.vala:159
 msgid "is not set"
-msgstr ""
+msgstr "δεν είναι ορισμένο"
 
 #: src/searches/SavedSearchDialog.vala:219
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "είναι"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "δεν είναι"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "οποιαδήποτε φωτογραφία"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "μια φωτογραφία raw"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "ένα βίντεο"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "με ετικέτα"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "χωρίς ετικέτα"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
-msgstr ""
+msgstr "οποιοδήποτε"
 
 #: src/searches/SavedSearchDialog.vala:475
 msgid "all"
-msgstr ""
+msgstr "όλα"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "κανένα"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr ""
+msgstr "Αποθηκευμένες Αναζητήσεις"
 
 #: src/sidebar/Tree.vala:157 src/library/LibraryWindow.vala:348
 msgid "Ne_w Search..."
-msgstr ""
+msgstr "_Νέα Αναζήτηση..."
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2015,7 +2017,7 @@ msgstr "Δημοσίευση φωτογραφιών και βίντεο _στο:
 
 #: src/WebConnectors.vala:814
 msgid "Unable to publish"
-msgstr ""
+msgstr "Δεν ήταν δυνατή η δημοσίευση"
 
 #: src/WebConnectors.vala:815
 #, c-format
@@ -2123,7 +2125,7 @@ msgstr "Διαγραφή"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Διαγραφή φωτογραφιών"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2278,7 +2280,7 @@ msgstr "Εξαγωγή φωτογραφιών/βίντεο"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Εξαγωγή Φωτογραφιών/Βίντεο"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2326,7 +2328,7 @@ msgstr[1] ""
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr ""
+msgstr "Αυτό θα αφαιρέσει την αποθηκευμένη αναζήτηση \"%s\".  Να συνεχίσει;"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2452,7 +2454,11 @@ msgstr[1] ""
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"Απέτυχε η εισαγωγή 1 αρχείου λόγω σφάλματος αρχείου ή σφάλματος του "
+"υλικού:\n"
 msgstr[1] ""
+"Απέτυχε η εισαγωγή %d αρχείων λόγω σφάλματος αρχείου ή σφάλματος του "
+"υλικού:\n"
 
 #: src/Dialogs.vala:536
 #, c-format
@@ -2507,7 +2513,11 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"Απέτυχε η εισαγωγή 1 αρχείου επειδή ο φάκελος της βιβλιοθήκης δεν ήταν "
+"εγγράψιμος:\n"
 msgstr[1] ""
+"Απέτυχε η εισαγωγή %d αρχείων επειδή ο φάκελος της βιβλιοθήκης δεν ήταν "
+"εγγράψιμος:\n"
 
 #: src/Dialogs.vala:559
 #, c-format
@@ -2542,8 +2552,8 @@ msgstr[1] ""
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Απέτυχε η εισαγωγή 1 αρχείου λόγω σφάλματος της κάμερας:\n"
+msgstr[1] "Απέτυχε η εισαγωγή %d αρχείων λόγω σφάλματος της κάμερας:\n"
 
 #: src/Dialogs.vala:585
 #, c-format
@@ -2584,8 +2594,8 @@ msgstr[1] "Παράλειψη %d φωτογραφιών/βίντεο λόγω α
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 αρχείο παραλείφθηκε λόγω ακύρωσης από το χρήστη:\n"
+msgstr[1] "%d αρχεία παραλείφθηκαν λόγω ακύρωσης από το χρήστη:\n"
 
 #: src/Dialogs.vala:634
 #, c-format
@@ -2661,11 +2671,11 @@ msgstr "_Διατήρηση"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edit?"
-msgstr ""
+msgstr "Να Αναιρεθεί η Εξωτερική Επεξεργασία; "
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Να Αναιρεθούν οι Εξωτερικές Επεξεργασίες; "
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2681,11 +2691,11 @@ msgstr[1] ""
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edit"
-msgstr "_Αναίρεση εξωτερικών επεξεργασιών"
+msgstr "_Αναίρεση εξωτερικής επεξεργασίας"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "_Αναίρεση Εξωτερικών Επεξεργασιών "
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2702,11 +2712,11 @@ msgstr "_Αφαίρεση"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photo From Library"
-msgstr "Απομάκρυνση των φωτογραφιών από τη βιβλιοθήκη"
+msgstr "Απομάκρυνση της φωτογραφίας από τη βιβλιοθήκη"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Απομάκρυνση των φωτογραφιών από τη βιβλιοθήκη"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2727,19 +2737,19 @@ msgstr "24 ώρες"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "_Μετακίνηση φωτογραφιών/βίντεο κατά την ίδια ποσότητα"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Ορισμός _όλων των φωτογραφιών/βίντεο σε αυτόν τον χρόνο"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
-msgstr "_Τροποποίηση αρχικών αρχείων"
+msgstr "_Τροποποίηση αυθεντικού αρχείου"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Τροποποίηση αυθεντικών αρχείων"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2935,11 +2945,11 @@ msgstr "Απομάκρυνση από τη Βιβλιοθήκη"
 
 #: src/Dialogs.vala:2128 src/PhotoPage.vala:2864
 msgid "Removing Photo From Library"
-msgstr "Απομάκρυνση των φωτογραφιών από τη βιβλιοθήκη"
+msgstr "Απομάκρυνση της φωτογραφίας από τη βιβλιοθήκη"
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Αφαίρεση των φωτογραφιών από τη Βιβλιοθήκη"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3358,8 +3368,8 @@ msgstr[1] "Διαγραφή αυτών των %d φωτογραφιών/βίντ
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Να διαγραφούν αυτά τα αρχεία από την κάμερα;"
+msgstr[1] "Να διαγραφούν αυτά τα %d αρχεία από την κάμερα;"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3436,6 +3446,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Δεν ήταν δυνατή η εγγραφή στη βάση δεδομένων φωτογραφιών:\n"
+" %s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3446,6 +3458,11 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Σφάλμα κατά την πρόσβαση στη βάση δεδομένων:\n"
+" %s\n"
+"\n"
+"Το σφάλμα ήταν: \n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3910,19 +3927,19 @@ msgstr "Δημιουργία προβολής διαφανειών για _πα�
 
 #: ui/shotwell.glade:8
 msgid "Search"
-msgstr ""
+msgstr "Αναζήτηση"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Όνομα της αναζήτησης:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "_Ταίριασμα"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
-msgstr ""
+msgstr "από τα παρακάτω:"
 
 #: ui/shotwell.glade:243
 msgid "Preparing pictures for import..."
@@ -3991,7 +4008,7 @@ msgstr "_Μετονομασία των εισαγόμενων αρχείων μ�
 
 #: ui/shotwell.glade:848
 msgid "E_xternal photo editor:"
-msgstr ""
+msgstr "Ε_ξωτερικός Επεξεργαστής φωτογραφιών:"
 
 #: ui/shotwell.glade:861
 msgid "External _RAW editor:"

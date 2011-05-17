@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-13 13:48+0000\n"
+"Last-Translator: nikoola <nrad@eunet.rs>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -398,7 +398,7 @@ msgstr "_Без оцене"
 
 #: src/Resources.vala:204
 msgid "Unrated"
-msgstr ""
+msgstr "Неоцењене"
 
 #: src/Resources.vala:205
 msgid "Rate Unrated"
@@ -418,7 +418,7 @@ msgstr "_Лоша"
 
 #: src/Resources.vala:210
 msgid "Rejected"
-msgstr ""
+msgstr "Одбијене"
 
 #: src/Resources.vala:211
 msgid "Rate Rejected"
@@ -607,7 +607,7 @@ msgstr[2] "Уклони ознаку \"%s\" са %d фотографија"
 
 #: src/Resources.vala:297
 msgid "Saved Search"
-msgstr ""
+msgstr "Сачуване претраге"
 
 #: src/Resources.vala:300
 #, c-format
@@ -658,7 +658,7 @@ msgstr "Означи фотографије као \"%s\""
 #: src/Resources.vala:327
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr ""
+msgstr "Означи фотографије као \"%s\""
 
 #: src/Resources.vala:331
 #, c-format
@@ -668,7 +668,7 @@ msgstr "Означи изабране фотографије као \"%s\""
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr ""
+msgstr "Означи изабране фотографије као \"%s\""
 
 #: src/Resources.vala:336
 #, c-format
@@ -678,7 +678,7 @@ msgstr "Уклони ознаку \"%s\" са _фотографија"
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Уклони ознаку \"%s\" са _фотографија"
 
 #: src/Resources.vala:341
 #, c-format
@@ -688,7 +688,7 @@ msgstr "Уклони ознаку \"%s\" са фотографија"
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr ""
+msgstr "Уклони ознаку \"%s\" са фотографија"
 
 #: src/Resources.vala:346
 #, c-format
@@ -698,7 +698,7 @@ msgstr "Уклони ознаку \"%s\" из изабраних фотогра�
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr ""
+msgstr "Уклони ознаку \"%s\" са изабраних фотографија"
 
 #: src/Resources.vala:351
 #, c-format
@@ -725,12 +725,12 @@ msgstr "Избриши претрагу"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr ""
+msgstr "_Измени претрагу \"%s\" ..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr ""
+msgstr "Измена претраге \"%s\""
 
 #: src/Resources.vala:373
 #, c-format
@@ -1323,11 +1323,11 @@ msgstr "Назив датотеке"
 
 #: src/searches/SavedSearchDialog.vala:43
 msgid "Media type"
-msgstr ""
+msgstr "Тип медија"
 
 #: src/searches/SavedSearchDialog.vala:44
 msgid "Flag state"
-msgstr ""
+msgstr "Врста ознаке"
 
 #: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
 msgid "Rating"
@@ -1361,31 +1361,31 @@ msgstr "није подешен"
 #: src/searches/SavedSearchDialog.vala:288
 #: src/searches/SavedSearchDialog.vala:353
 msgid "is"
-msgstr ""
+msgstr "јесте"
 
 #: src/searches/SavedSearchDialog.vala:220
 msgid "is not"
-msgstr ""
+msgstr "није"
 
 #: src/searches/SavedSearchDialog.vala:226
 msgid "any photo"
-msgstr ""
+msgstr "фотографија"
 
 #: src/searches/SavedSearchDialog.vala:227
 msgid "a raw photo"
-msgstr ""
+msgstr "raw фотографија"
 
 #: src/searches/SavedSearchDialog.vala:228
 msgid "a video"
-msgstr ""
+msgstr "видео"
 
 #: src/searches/SavedSearchDialog.vala:282
 msgid "flagged"
-msgstr ""
+msgstr "означена"
 
 #: src/searches/SavedSearchDialog.vala:283
 msgid "not flagged"
-msgstr ""
+msgstr "неозначена"
 
 #: src/searches/SavedSearchDialog.vala:474
 msgid "any"
@@ -1397,7 +1397,7 @@ msgstr "све"
 
 #: src/searches/SavedSearchDialog.vala:476
 msgid "none"
-msgstr ""
+msgstr "без"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -2106,7 +2106,7 @@ msgstr "Избриши"
 
 #: src/library/TrashPage.vala:129
 msgid "Deleting Photos"
-msgstr ""
+msgstr "Бришем слике"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -2259,7 +2259,7 @@ msgstr "Извоз фотографија/видеа снимака"
 
 #: src/CollectionPage.vala:428
 msgid "Export Photos/Videos"
-msgstr ""
+msgstr "Извези фотографије/видео"
 
 #: src/CollectionPage.vala:430 src/Dialogs.vala:40 src/PhotoPage.vala:2967
 msgid "Export Photo"
@@ -2676,7 +2676,7 @@ msgstr "Да ли да прихватим спошање измене?"
 
 #: src/Dialogs.vala:991
 msgid "Revert External Edits?"
-msgstr ""
+msgstr "Да ли да вратим спољне измене?"
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -2699,7 +2699,7 @@ msgstr "_Врати на спољне измене"
 
 #: src/Dialogs.vala:997
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "_Врати спољне измене"
 
 #: src/Dialogs.vala:1018
 #, c-format
@@ -2719,7 +2719,7 @@ msgstr "Уклони фотографије из збирке"
 
 #: src/Dialogs.vala:1026
 msgid "Remove Photos From Library"
-msgstr ""
+msgstr "Уклони фотографије из збирке"
 
 #: src/Dialogs.vala:1115
 #, c-format
@@ -2740,11 +2740,11 @@ msgstr "24 сата"
 
 #: src/Dialogs.vala:1255
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "_Помери слику за одређену вредност"
 
 #: src/Dialogs.vala:1260
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "Постави следећи датум на све фотографије/видео"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original file"
@@ -2752,7 +2752,7 @@ msgstr "_Измени изворне датотеке"
 
 #: src/Dialogs.vala:1266
 msgid "_Modify original files"
-msgstr ""
+msgstr "_Измени изворне датотеке"
 
 #: src/Dialogs.vala:1349
 msgid "Original: "
@@ -2957,7 +2957,7 @@ msgstr "Уклањам фотографије из збирке."
 
 #: src/Dialogs.vala:2128
 msgid "Removing Photos From Library"
-msgstr ""
+msgstr "Уклањам фотографије из збирке"
 
 #: src/Dialogs.vala:2142
 #, c-format
@@ -3471,6 +3471,8 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
+"Није могуће писати у збирку фотографија:\n"
+"%s"
 
 #: src/db/DatabaseTable.vala:47
 #, c-format
@@ -3481,6 +3483,10 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
+"Грешка приликом приступа збирци фотографија:\n"
+"%s\n"
+"Грешка је:\n"
+"%s"
 
 #: src/MediaPage.vala:141
 msgid "Adjust the size of the thumbnails"
@@ -3939,11 +3945,11 @@ msgstr "Претрага"
 
 #: ui/shotwell.glade:27
 msgid "_Name of search:"
-msgstr ""
+msgstr "_Назив претраге:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr ""
+msgstr "_Резултат"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
