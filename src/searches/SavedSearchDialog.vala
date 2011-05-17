@@ -189,7 +189,7 @@ public class SavedSearchDialog {
         public override SearchCondition get_search_condition() {
             SearchCondition.SearchType type = parent.get_search_type();
             string text = entry.get_text();
-            SearchConditionText.Context context = (SearchConditionText.Context) text_context.get_active();
+            SearchConditionText.Context context = get_text_context();
             SearchConditionText c = new SearchConditionText(type, text, context);
             return c;
         }
@@ -202,10 +202,20 @@ public class SavedSearchDialog {
         }
         
         public override bool is_complete() {
-            return entry.text.chomp() != "";
+            return entry.text.chomp() != "" || get_text_context() == SearchConditionText.Context.IS_NOT_SET;
+        }
+        
+        private SearchConditionText.Context get_text_context() {
+            return (SearchConditionText.Context) text_context.get_active();
         }
         
         private void on_changed() {
+            if (get_text_context() == SearchConditionText.Context.IS_NOT_SET) {
+                entry.hide();
+            } else {
+                entry.show();
+            }
+            
             parent.changed(parent);
         }
     }
