@@ -506,6 +506,9 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
  */
 public interface Publishable : GLib.Object {
 
+    public static const string PARAM_STRING_BASENAME    = "basename";
+    public static const string PARAM_STRING_TITLE       = "title";
+
     /**
      * Returns a handle to the file on disk to which this publishable's data has been
      * serialized.
@@ -521,10 +524,10 @@ public interface Publishable : GLib.Object {
     public abstract string get_publishing_name();
 
     /**
-     * Returns descriptive text that describes this publishable to the remote service, or
-     * null if this publishable has no description.
+     * Returns a string value from the publishable corresponding with the parameter name 
+     * provided, or null if there is no value for this name.
      */
-    public abstract string? get_publishing_description();
+    public abstract string? get_param_string(string name);
 
     /**
      * Returns an array of strings that should be used to tag or mark this publishable on the

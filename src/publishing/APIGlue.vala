@@ -10,9 +10,11 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
 
     private MediaSource wrapped;
     private GLib.File? serialized_file = null;
+    private Gee.Map<string, string> param_string = new Gee.HashMap<string, string>();
     
     public MediaSourcePublishableWrapper(MediaSource to_wrap) {
         wrapped = to_wrap;
+        setup_parameters();
     }
     
     public void clean_up() {
@@ -28,6 +30,11 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
         }
 
         serialized_file = null;
+    }
+    
+    private void setup_parameters() {
+        param_string.set(PARAM_STRING_BASENAME, wrapped.get_basename());
+        param_string.set(PARAM_STRING_TITLE, wrapped.get_title());
     }
 
     public GLib.File serialize_for_publishing(int content_major_axis,
@@ -79,11 +86,11 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
     }
 
     public string get_publishing_name() {
-        return wrapped.get_name();
+        return wrapped.get_title() != null ? wrapped.get_title() : "";
     }
 
-    public string? get_publishing_description() {
-        return null;
+    public string? get_param_string(string name) {
+        return param_string.get(name);
     }
 
     public string[] get_publishing_keywords() {

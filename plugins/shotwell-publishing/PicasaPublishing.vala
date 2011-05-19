@@ -683,7 +683,7 @@ private class AlbumCreationTransaction : AuthenticatedTransaction {
 
 internal class UploadTransaction : AuthenticatedTransaction {
     private PublishingParameters parameters;
-    private const string METADATA_TEMPLATE = "<entry xmlns='http://www.w3.org/2005/Atom'> <title>%s</title> <summary>%s</summary> <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo'/> </entry>";
+    private const string METADATA_TEMPLATE = "<entry xmlns='http://www.w3.org/2005/Atom'> <title>%s</title> %s <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo'/> </entry>";
     private Session session;
     private string mime_type;
     private Spit.Publishing.Publishable publishable;
@@ -702,10 +702,16 @@ internal class UploadTransaction : AuthenticatedTransaction {
     public override void execute() throws Spit.Publishing.PublishingError {
         // create the multipart request container
         Soup.Multipart message_parts = new Soup.Multipart("multipart/related");
+        
+        string summary = "";
+        if (publishable.get_publishing_name() != "") {
+            summary = "<summary>%s</summary>".printf(
+                Publishing.RESTSupport.decimal_entity_encode(publishable.get_publishing_name()));
+        }
 
         string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(
-            publishable.get_publishing_name()), Publishing.RESTSupport.decimal_entity_encode(
-            publishable.get_publishing_name()));
+            publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME)),
+            summary);
         Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata.data);
         message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);
 

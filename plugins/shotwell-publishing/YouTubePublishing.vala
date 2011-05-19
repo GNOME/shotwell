@@ -631,9 +631,15 @@ internal class UploadTransaction : AuthenticatedTransaction {
 
         string private_video =
             (parameters.get_privacy_setting() == PrivacySetting.PRIVATE) ? PRIVATE_XML : "";
-
-        string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(
-            publishable.get_publishing_name()), private_video, unlisted_video);
+        
+        // Set title to publishing name, but if that's empty default to filename.
+        string title = publishable.get_publishing_name();
+        if (title == "") {
+            title = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+        }
+        
+        string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(title), 
+            private_video, unlisted_video);
         Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata.data);
         message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);
 
@@ -665,7 +671,8 @@ internal class UploadTransaction : AuthenticatedTransaction {
         outbound_message.request_headers.append("Authorization", "GoogleLogin auth=%s".printf(
             session.get_auth_token()));
         outbound_message.request_headers.append("X-GData-Key", "key=%s".printf(DEVELOPER_KEY));
-        outbound_message.request_headers.append("Slug", publishable.get_publishing_name());
+        outbound_message.request_headers.append("Slug", 
+            publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME));
         set_message(outbound_message);
 
         // send the message and get its response

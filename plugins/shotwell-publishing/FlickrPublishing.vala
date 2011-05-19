@@ -794,7 +794,10 @@ private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
         GLib.HashTable<string, string> disposition_table =
             new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
-        disposition_table.insert("filename",  Soup.URI.encode(publishable.get_publishing_name(),
+        string? filename = publishable.get_publishing_name();
+        if (filename == null || filename == "")
+            filename = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+        disposition_table.insert("filename",  Soup.URI.encode(filename,
             null));
         disposition_table.insert("name", "photo");
 
