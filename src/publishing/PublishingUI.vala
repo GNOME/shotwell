@@ -344,10 +344,32 @@ public class PublishingDialog : Gtk.Dialog {
         
         return filtered_services;
     }
-    
+
+    // Because of this bug: http://trac.yorba.org/ticket/3623, we use some extreme measures. The
+    // bug occurs because, in some cases, when publishing is started asynchronous network 
+    // transactions are performed. The mechanism inside libsoup that we use to perform asynchronous
+    // network transactions isn't based on threads but is instead based on the GLib event loop. So
+    // whenever we run a network transaction, the GLib event loop gets spun. One consequence of
+    // this is that PublishingDialog.go( ) can be called multiple times. Note that since events
+    // are processed sequentially, PublishingDialog.go( ) is never called re-entrantly. It just
+    // gets called twice back-to-back in quick succession. So use a timer to do a short circuit
+    // return if this call to go( ) follows immediately on the heels of another call to go( ).
+    private static Timer since_last_start = null;
     public static void go(Gee.Collection<MediaSource> to_publish) {
         if (active_instance != null)
             return;
+        
+        if (since_last_start == null) {
+			// GLib.Timers start themselves automatically when they're created, so stop our
+            // new timer and reset it to zero 'til were ready to start timing. 
+            since_last_start = new Timer();
+            since_last_start.stop();
+            since_last_start.reset();
+        } else {
+            double elapsed = since_last_start.elapsed();
+            if (elapsed < 0.05)
+                return;
+        }
 
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
@@ -375,6 +397,9 @@ public class PublishingDialog : Gtk.Dialog {
         active_instance.run();
 
         active_instance = null;
+
+        // start timing just before we return
+        since_last_start.start();
     }
     
     private bool on_window_close(Gdk.Event evt) {
