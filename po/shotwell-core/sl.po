@@ -1979,7 +1979,7 @@ msgstr "Vaša knjižnica fotografij ni združljiva s to različico programa Shot
 #: src/main.vala:98
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %s"
-msgstr "Med poskusom preverjanja podatkovne zbirke Shotwell je prišlo do neznane napake: %d"
+msgstr "Med poskusom preverjanja podatkovne zbirke Shotwell je prišlo do neznane napake: %s"
 
 #: src/main.vala:130
 msgid "Loading Shotwell"
@@ -2941,7 +2941,7 @@ msgstr "(Pomoč)"
 #: src/Dialogs.vala:1797
 #, c-format
 msgid "Year%sMonth%sDay"
-msgstr "Leto%sMesec%Dan"
+msgstr "Leto%sMesec%sDan"
 
 #: src/Dialogs.vala:1799
 #, c-format
@@ -3498,7 +3498,7 @@ msgstr "Uvozi iz F-Spota"
 #: src/db/DatabaseTable.vala:37
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
-msgstr "Ni mogoče odpreti/ustvariti podatkovne zbirke fotografij &s: koda napake %d"
+msgstr "Ni mogoče odpreti/ustvariti podatkovne zbirke fotografij %s: koda napake %d"
 
 #: src/db/DatabaseTable.vala:45
 #, c-format
