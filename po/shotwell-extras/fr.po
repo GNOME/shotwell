@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"PO-Revision-Date: 2011-05-18 07:07+0000\n"
+"Last-Translator: claudep <claude@2xlibre.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr ""
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
 msgid "Visit the Yandex.Fotki web site"
-msgstr ""
+msgstr "Visitez le site Web Yandex.Fotki"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:632
 msgid "You are not currently logged into Yandex.Fotki."
@@ -31,24 +31,26 @@ msgstr "Vous n'êtes actuellement pas connecté à Yandex.Fotki."
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
-msgstr ""
+msgstr "_Albums (ou créer un nouveau) :"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
 msgid "Access _type:"
-msgstr ""
+msgstr "_Type d'accès :"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
 msgid "Disable _comments"
-msgstr ""
+msgstr "Désactiver les _commentaires"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
-msgstr ""
+msgstr "_Interdire le téléchargement de la photo originale"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
 msgid "_Logout"
-msgstr ""
+msgstr "Se _déconnecter"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
 msgid "_Publish"
-msgstr ""
+msgstr "_Publier"
+
+
