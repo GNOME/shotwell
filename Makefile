@@ -34,7 +34,7 @@ SYSTEM_LANG_DIR := $(DESTDIR)$(PREFIX)/share/locale
 
 VALAFLAGS := -g --enable-checking --thread --fatal-warnings $(USER_VALAFLAGS)
 DEFINES := _PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
-	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIBDIR='"${LIB}"'
+	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIB='"${LIB}"'
 
 EXPORT_FLAGS = -export-dynamic
 
