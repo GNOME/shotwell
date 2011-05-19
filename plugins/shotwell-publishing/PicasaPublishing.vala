@@ -687,6 +687,7 @@ internal class UploadTransaction : AuthenticatedTransaction {
     private Session session;
     private string mime_type;
     private Spit.Publishing.Publishable publishable;
+    private MappedFile mapped_file;
 
     public UploadTransaction(Session session, PublishingParameters parameters,
         Spit.Publishing.Publishable publishable) {
@@ -715,12 +716,9 @@ internal class UploadTransaction : AuthenticatedTransaction {
         Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata.data);
         message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);
 
-        // attempt to read the binary image data from disk
-        string photo_data;
-        size_t data_length;
+        // attempt to map the binary image data from disk into memory 
         try {
-            FileUtils.get_contents(publishable.get_serialized_file().get_path(), out photo_data,
-                out data_length);
+            mapped_file = new MappedFile(publishable.get_serialized_file().get_path(), false);
         } catch (FileError e) {
             string msg = "Picasa: couldn't read data from %s: %s".printf(
                 publishable.get_serialized_file().get_path(), e.message);
@@ -728,11 +726,13 @@ internal class UploadTransaction : AuthenticatedTransaction {
             
             throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(msg);
         }
+        unowned uint8[] photo_data = (uint8[]) mapped_file.get_contents();
+        photo_data.length = (int) mapped_file.get_length();
 
         // bind the binary image data read from disk into a Soup.Buffer object so that we
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data.data[0:data_length]);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.TEMPORARY, photo_data);
 
         message_parts.append_form_file("", publishable.get_serialized_file().get_path(), mime_type,
             bindable_data);
