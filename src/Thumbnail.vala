@@ -215,7 +215,7 @@ public class Thumbnail : MediaSourceItem {
         dim = original_dim.get_scaled(scale, true);
         
         if (exposure)
-            schedule_low_quality_fetch();
+            delayed_high_quality_fetch();
         else
             paint_empty();
         
