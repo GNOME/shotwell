@@ -89,7 +89,7 @@ public class FullscreenWindow : PageWindow {
         // call to set_default_size() saves one repaint caused by changing
         // size from default to full screen. In slideshow mode, this change
         // also causes pixbuf cache updates, so it really saves some work.
-        set_default_size(get_screen().get_width(), get_screen().get_height());
+        set_default_size(monitor.width, monitor.height);
         
         // need to create a Gdk.Window to set masks
         fullscreen();
