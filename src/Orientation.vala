@@ -424,6 +424,12 @@ public enum Orientation {
         Gdk.Point top_left, bottom_right;
         box.get_points(out top_left, out bottom_right);
         
+        top_left.x = top_left.x.clamp(0, space.width - 1);
+        top_left.y = top_left.y.clamp(0, space.height - 1);
+
+        bottom_right.x = bottom_right.x.clamp(0, space.width - 1);
+        bottom_right.y = bottom_right.y.clamp(0, space.height - 1);
+        
         top_left = rotate_point(space, top_left);
         bottom_right = rotate_point(space, bottom_right);
         

@@ -719,6 +719,16 @@ public class CropTool : EditingTool {
     private bool on_custom_entry_focus_out(Gdk.EventFocus event) {
         int width = int.parse(crop_tool_window.custom_width_entry.text);
         int height = int.parse(crop_tool_window.custom_height_entry.text);
+
+        if(width < 1) {
+            width = 1;
+            crop_tool_window.custom_width_entry.set_text("%d".printf(width));
+        }
+
+        if(height < 1) {
+            height = 1;
+            crop_tool_window.custom_height_entry.set_text("%d".printf(height));
+        }
         
         if ((width == custom_width) && (height == custom_height))
             return false;
@@ -946,10 +956,7 @@ public class CropTool : EditingTool {
 
         // PHASE 3: The new crop box may have edges that fall outside of the boundaries of
         //          the photo. Here, we rescale it such that it fits within the boundaries
-        //          of the photo. Note that we prefer scaling to translation (as does iPhoto)
-        //          because scaling preserves the center point of the box, so if the user
-        //          has framed a particular subject, the frame remains on the subject after
-        //          boundary correction.
+        //          of the photo. 
         int photo_right_edge = canvas.get_scaled_pixbuf_position().width - 1;
         int photo_bottom_edge = canvas.get_scaled_pixbuf_position().height - 1;
 
@@ -958,39 +965,16 @@ public class CropTool : EditingTool {
         int new_box_top = (int) ((scaled_center_y - (scaled_height / 2.0f)));
         int new_box_bottom = (int) ((scaled_center_y + (scaled_height / 2.0f)));
         
-        if (new_box_left < 0) {
-            float overshoot = (float) (-new_box_left);
-            float box_rescale_factor = (scaled_width - (2.0f * overshoot)) / scaled_width;
-            scaled_width *= box_rescale_factor;
-            scaled_height *= box_rescale_factor;
-        }
+        if(new_box_left < 0) new_box_left = 0;
+        if(new_box_top < 0) new_box_top = 0;
+        if(new_box_right > photo_right_edge) new_box_right = photo_right_edge;
+        if(new_box_bottom > photo_bottom_edge) new_box_bottom = photo_bottom_edge;
 
-        if (new_box_right > photo_right_edge) {
-            float overshoot = (float) (new_box_right - photo_right_edge);
-            float box_rescale_factor = (scaled_width - (2.0f * overshoot)) / scaled_width;
-            scaled_width *= box_rescale_factor;
-            scaled_height *= box_rescale_factor;
-        }
-
-        if (new_box_top < 0) {
-            float overshoot = (float) (-new_box_top);
-            float box_rescale_factor = (scaled_height - (2.0f * overshoot)) / scaled_height;
-            scaled_width *= box_rescale_factor;
-            scaled_height *= box_rescale_factor;
-        }
-
-        if (new_box_bottom > photo_bottom_edge) {
-            float overshoot = (float) (new_box_bottom - photo_bottom_edge);
-            float box_rescale_factor = (scaled_height - (2.0f * overshoot)) / scaled_height;
-            scaled_width *= box_rescale_factor;
-            scaled_height *= box_rescale_factor;
-        }
-
-        Box new_crop_box = Box((int) ((scaled_center_x - (scaled_width / 2.0f))),
-            (int) ((scaled_center_y - (scaled_height / 2.0f))),
-            (int) ((scaled_center_x + (scaled_width / 2.0f))),
-            (int) ((scaled_center_y + (scaled_height / 2.0f))));
-        
+        Box new_crop_box = Box((int) (new_box_left),
+            (int) (new_box_top),
+            (int) (new_box_right),
+            (int) (new_box_bottom));
+                
         return new_crop_box;
     }
 

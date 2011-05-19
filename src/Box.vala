@@ -217,8 +217,7 @@ public struct Box {
     // There may be overlap between the two returned Boxes.
     public BoxComplements resized_complements(Box resized, out Box horizontal, out bool horizontal_enlarged,
         out Box vertical, out bool vertical_enlarged) {
-        assert(get_width() != resized.get_width() || get_height() != resized.get_height());
-        
+
         bool horizontal_complement = true;
         if (resized.top < top) {
             // enlarged from top
