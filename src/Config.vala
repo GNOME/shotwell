@@ -597,63 +597,6 @@ public class Config {
     public string get_slideshow_transition_effect_id() {
         return get_string("/apps/shotwell/preferences/slideshow_transition/name", TransitionEffectsManager.NULL_EFFECT_ID);
     }
-    
-    public RatingFilter get_photo_rating_filter() {
-        return (RatingFilter)(get_int("/apps/shotwell/preferences/ui/photo_rating_filter", 
-            RatingFilter.UNRATED_OR_HIGHER));
-    }
-
-    public bool set_photo_rating_filter(RatingFilter filter) {
-        return set_int("/apps/shotwell/preferences/ui/photo_rating_filter", filter);
-    }
-
-    public bool set_search_bar_hidden(bool should_be_hidden) {
-        return set_bool("/apps/shotwell/preferences/ui/search_hidden", should_be_hidden);
-    }
-
-    public bool get_search_bar_hidden() {
-        return get_bool("/apps/shotwell/preferences/ui/search_hidden", false);
-    }
-
-    public string? get_search_text() {
-        return get_string("/apps/shotwell/preferences/ui/search_filter", null);
-    }
-
-    public bool set_search_text(string search) {
-        return set_string("/apps/shotwell/preferences/ui/search_filter", search);
-    }
-    
-    public bool get_search_flagged() {
-        return get_bool("/apps/shotwell/preferences/ui/search_flagged", false);
-    }
-
-    public bool set_search_flagged(bool flagged) {
-        return set_bool("/apps/shotwell/preferences/ui/search_flagged", flagged);
-    }
-    
-    public bool get_show_media_video() {
-        return get_bool("/apps/shotwell/preferences/ui/show_media_video", false);
-    }
-    
-    public bool set_show_media_video(bool b) {
-        return set_bool("/apps/shotwell/preferences/ui/show_media_video", b);
-    }
-    
-    public bool get_show_media_photos() {
-        return get_bool("/apps/shotwell/preferences/ui/show_media_photos", false);
-    }
-    
-    public bool set_show_media_photos(bool b) {
-        return set_bool("/apps/shotwell/preferences/ui/show_media_photos", b);
-    }
-    
-    public bool get_show_media_raw() {
-        return get_bool("/apps/shotwell/preferences/ui/show_media_raw", false);
-    }
-    
-    public bool set_show_media_raw(bool b) {
-        return set_bool("/apps/shotwell/preferences/ui/show_media_raw", b);
-    }
 
     public void get_library_window_state(out bool maximize, out Dimensions dimensions) {
         maximize = get_bool("/apps/shotwell/preferences/window/library_maximize", false);

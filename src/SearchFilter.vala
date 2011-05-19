@@ -424,11 +424,6 @@ public class SearchFilterActions {
         // the getters defined above should not be used until register() returns
         register();
         
-        flagged.toggled.connect(on_flagged_value_toggled);
-        photos.toggled.connect(on_photos_value_toggled);
-        videos.toggled.connect(on_videos_value_toggled);
-        raw.toggled.connect(on_raw_value_toggled);
-        rating.changed.connect(on_rating_value_changed);
         text.text_changed.connect(on_text_changed);
     }
     
@@ -551,33 +546,12 @@ public class SearchFilterActions {
         text.set_sensitive(true);
     }
     
-    private void on_flagged_value_toggled(Gtk.ToggleAction action) {
-        Config.get_instance().set_search_flagged(action.active);
-    }
-    
-    private void on_photos_value_toggled(Gtk.ToggleAction action) {
-        Config.get_instance().set_show_media_photos(action.active);
-    }
-    
-    private void on_videos_value_toggled(Gtk.ToggleAction action) {
-        Config.get_instance().set_show_media_video(action.active);
-    }
-    
-    private void on_raw_value_toggled(Gtk.ToggleAction action) {
-        Config.get_instance().set_show_media_raw(action.active);
-    }
-    
-    private void on_rating_value_changed(Gtk.RadioAction action, Gtk.RadioAction current) {
-        Config.get_instance().set_photo_rating_filter((RatingFilter) current.current_value);
-    }
-    
     private void on_text_changed(TextAction action, string? text) {
-        Config.get_instance().set_search_text(text != null ? text : "");
         text_changed(text);
     }
     
     private void register() {
-        _text = new TextAction(Config.get_instance().get_search_text());
+        _text = new TextAction();
         
         Gtk.RadioActionEntry[] view_filter_actions = new Gtk.RadioActionEntry[0];
         
@@ -629,31 +603,31 @@ public class SearchFilterActions {
         five_or_higher.tooltip = Resources.DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
         view_filter_actions += five_or_higher;
         
-        action_group.add_radio_actions(view_filter_actions, Config.get_instance().get_photo_rating_filter(),
+        action_group.add_radio_actions(view_filter_actions, RatingFilter.UNRATED_OR_HIGHER,
             on_rating_changed);
         
         Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
         
         Gtk.ToggleActionEntry flagged_action = { "CommonDisplayFlagged", Resources.ICON_FILTER_FLAGGED,
-            TRANSLATABLE, null, TRANSLATABLE, on_flagged_toggled, Config.get_instance().get_search_flagged() };
+            TRANSLATABLE, null, TRANSLATABLE, on_flagged_toggled, false };
         flagged_action.label = _("Flagged");
         flagged_action.tooltip = _("Flagged");
         toggle_actions += flagged_action;
         
         Gtk.ToggleActionEntry photos_action = { "CommonDisplayPhotos", Resources.ICON_FILTER_PHOTOS,
-            TRANSLATABLE, null, TRANSLATABLE, on_photos_toggled, Config.get_instance().get_show_media_photos() };
+            TRANSLATABLE, null, TRANSLATABLE, on_photos_toggled, false };
         photos_action.label = _("Photos");
         photos_action.tooltip = _("Photos");
         toggle_actions += photos_action;
         
         Gtk.ToggleActionEntry videos_action = { "CommonDisplayVideos", Resources.ICON_FILTER_VIDEOS,
-            TRANSLATABLE, null, TRANSLATABLE, on_videos_toggled, Config.get_instance().get_show_media_video() };
+            TRANSLATABLE, null, TRANSLATABLE, on_videos_toggled, false };
         videos_action.label = _("Videos");
         videos_action.tooltip = _("Videos");
         toggle_actions += videos_action;
         
         Gtk.ToggleActionEntry raw_action = { "CommonDisplayRaw", Resources.ICON_FILTER_RAW, TRANSLATABLE,
-            null, TRANSLATABLE, on_raw_toggled, Config.get_instance().get_show_media_raw() };
+            null, TRANSLATABLE, on_raw_toggled, false };
         raw_action.label = _("RAW Photos");
         raw_action.tooltip = _("RAW photos");
         toggle_actions += raw_action;

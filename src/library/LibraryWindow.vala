@@ -162,7 +162,7 @@ public class LibraryWindow : AppWindow {
     // this is to keep track of cameras which initiate the app
     private static Gee.HashSet<string> initial_camera_uris = new Gee.HashSet<string>();
     
-    private bool is_search_toolbar_visible = Config.get_instance().get_search_bar_hidden();
+    private bool is_search_toolbar_visible = false;
     
     // Want to instantiate this in the constructor rather than here because the search bar has its
     // own UIManager which will suck up the accelerators, and we want them to be associated with
@@ -794,9 +794,6 @@ public class LibraryWindow : AppWindow {
         toggle_search_bar(should_show_search_bar(), get_current_page() as CheckerboardPage);
         if (!display)
             search_actions.reset();
-        
-        // Remember search bar status between sessions.
-        Config.get_instance().set_search_bar_hidden(is_search_toolbar_visible);
     }
     
     private void show_extended_properties() {
