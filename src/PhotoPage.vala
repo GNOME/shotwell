@@ -2990,7 +2990,8 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_publish() {
         if (get_view().get_count() > 0)
-            PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_selected_sources());
+            PublishingUI.PublishingDialog.go(
+                (Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
     
     private void on_view_menu() {

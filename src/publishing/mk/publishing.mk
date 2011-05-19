@@ -11,6 +11,7 @@ UNIT_DIR := publishing
 #
 # NOTE: Do *not* include the unit's master file, i.e. UNIT_NAME.vala.
 UNIT_FILES := \
+	PublishingUI.vala \
 	PublishingPluginHost.vala \
 	APIGlue.vala
 

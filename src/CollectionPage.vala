@@ -521,7 +521,8 @@ public abstract class CollectionPage : MediaPage {
 
     private void on_publish() {
         if (get_view().get_selected_count() > 0)
-            PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_selected_sources());
+            PublishingUI.PublishingDialog.go(
+                (Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
 
     private void on_rotate_counterclockwise() {

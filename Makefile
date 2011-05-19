@@ -69,14 +69,12 @@ UNUNITIZED_SRC_FILES = \
 	International.vala \
 	AppDirs.vala \
 	PixbufCache.vala \
-	WebConnectors.vala \
 	CommandManager.vala \
 	Commands.vala \
 	SlideshowPage.vala \
 	LibraryFiles.vala \
 	Printing.vala \
 	Tag.vala \
-	PiwigoConnector.vala \
 	Screensaver.vala \
 	MimicManager.vala \
 	Exporter.vala \
