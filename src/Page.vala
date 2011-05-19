@@ -1249,6 +1249,29 @@ public abstract class CheckerboardPage : Page {
         get_search_view_filter().refresh.connect(on_view_filter_refresh);
         on_view_filter_refresh();
 
+        if (get_view().get_selected_count() > 0) {
+            CheckerboardItem? item = (CheckerboardItem?) get_view().get_selected_at(0);
+
+            // if item is in any way out of view, scroll to it
+            Gtk.Adjustment vadj = get_vadjustment();
+            if (!(get_adjustment_relation(vadj, item.allocation.y) == AdjustmentRelation.IN_RANGE
+                && (get_adjustment_relation(vadj, item.allocation.y + item.allocation.height) == AdjustmentRelation.IN_RANGE))) {
+
+                    // scroll to see the new item
+                    int top = 0;
+                    if (item.allocation.y < vadj.get_value()) {
+                        top = item.allocation.y;
+                        top -= CheckerboardLayout.ROW_GUTTER_PADDING / 2;
+                    } else {
+                        top = item.allocation.y + item.allocation.height - (int) vadj.get_page_size();
+                        top += CheckerboardLayout.ROW_GUTTER_PADDING / 2;
+                    }
+
+                    vadj.set_value(top);
+
+                }
+        }
+
         base.switched_to();
     }
     
