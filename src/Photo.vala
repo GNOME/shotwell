@@ -2679,12 +2679,12 @@ public abstract class Photo : PhotoSource, Dateable {
             return;
         }
 
-        // Attempt to avoid decode/encoding cycle when exporting original-sized photos, as that
-        // degrades image quality with JFIF format files. If alterations exist, but only EXIF has
+        // Attempt to avoid decode/encoding cycle when exporting original-sized photos for lossy
+        // formats, as that degrades image quality. If alterations exist, but only EXIF has
         // changed and the user hasn't requested conversion between image formats, then just copy
         // the original file and update relevant EXIF.
         if (scaling.is_unscaled() && (!has_alterations() || only_metadata_changed()) &&
-            (export_format == get_file_format())) {
+            (export_format == get_file_format()) && (get_file_format() == PhotoFileFormat.JFIF)) {
             if (export_fullsized_backing(dest_file))
                 return;
         }
