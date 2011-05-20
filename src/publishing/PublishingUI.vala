@@ -318,6 +318,12 @@ public class PublishingDialog : Gtk.Dialog {
             loaded_services += service;
         }
         
+        // Sort publishing services by name.
+        Posix.qsort(loaded_services, loaded_services.length, sizeof(Spit.Publishing.Service), 
+            (a, b) => {return utf8_cs_compare((*((Spit.Publishing.Service**) a))->get_pluggable_name(), 
+                (*((Spit.Publishing.Service**) b))->get_pluggable_name());
+        });
+        
         return loaded_services;
     }
     
