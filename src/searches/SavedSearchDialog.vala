@@ -359,9 +359,9 @@ public class SavedSearchDialog {
             rating.changed.connect(on_changed);
             
             context = new Gtk.ComboBox.text();
-            context.append_text("and higher");
-            context.append_text("only");
-            context.append_text("and lower");
+            context.append_text(_("and higher"));
+            context.append_text(_("only"));
+            context.append_text(_("and lower"));
             context.set_active(0);
             context.changed.connect(on_changed);
             
