@@ -311,9 +311,9 @@ public class Events.Branch : Sidebar.Branch {
     
     private void add_undated_event(Event event) {
         if (!has_entry(undated_entry))
-            graft(get_root(), undated_entry);
+            graft(get_root(), undated_entry, undated_event_comparator);
         
-        graft_event(undated_entry, event, undated_event_comparator);
+        graft_event(undated_entry, event);
     }
     
     private void move_to_undated_event(Event event) {
