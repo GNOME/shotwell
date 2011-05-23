@@ -1071,7 +1071,8 @@ public class CropTool : EditingTool {
     }
 
     public override bool on_keypress(Gdk.EventKey event) {
-        if (Gdk.keyval_name(event.keyval) == "KP_Enter") {
+        if ((Gdk.keyval_name(event.keyval) == "KP_Enter") ||
+            (Gdk.keyval_name(event.keyval) == "Enter")) {           
             on_crop_ok();
             return true;
         }
