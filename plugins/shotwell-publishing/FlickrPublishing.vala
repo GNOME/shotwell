@@ -585,7 +585,14 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.set_service_locked(true);
         progress_reporter = host.serialize_publishables(parameters.photo_major_axis_size);
-        
+
+        // Serialization is a long and potentially cancellable operation, so before we use
+        // the publishables, make sure that the publishing interaction is still running. If it
+        // isn't the publishing environment may be partially torn down so do a short-circuit
+        // return
+        if (!is_running())
+            return;
+
         // Sort publishables in reverse-chronological order.
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
         Gee.ArrayList<Spit.Publishing.Publishable> sorted_list =
