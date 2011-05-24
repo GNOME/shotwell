@@ -12,10 +12,14 @@ PKGS := \
 SRC_FILES := \
 	shotwell-publishing-extras.vala \
 	YandexPublishing.vala \
-	../common/RESTSupport.vala
+	PiwigoPublishing.vala \
+	../common/RESTSupport.vala \
+	../../src/util/string.vala
 
 RC_FILES := \
-	yandex_publish_model.glade
+	yandex_publish_model.glade \
+	piwigo.png \
+	piwigo_authentication_pane.glade
 
 include ../Makefile.plugin.mk
 

@@ -237,7 +237,7 @@ public class Transaction {
         return HttpMethod.from_string(message.method);
     }
 
-    protected void add_header(string key, string value) {
+    protected virtual void add_header(string key, string value) {
         message.request_headers.append(key, value);
     }
     
@@ -331,6 +331,11 @@ public class Transaction {
         assert(get_is_executed());
         return (string) message.response_body.data;
     }
+    
+    public unowned Soup.MessageHeaders get_response_headers() {
+        assert(get_is_executed());
+        return message.response_headers;
+    }
    
     public void add_argument(string name, string value) {
         arguments += Argument(name, value);
@@ -349,6 +354,7 @@ public class UploadTransaction : Transaction {
     private GLib.HashTable<string, string> binary_disposition_table = null;
     private Spit.Publishing.Publishable publishable = null;
     private string mime_type;
+    private Gee.HashMap<string, string> message_headers = null;
 
     public UploadTransaction(Session session, Spit.Publishing.Publishable publishable) {
         base (session);
@@ -356,6 +362,8 @@ public class UploadTransaction : Transaction {
         this.mime_type = media_type_to_mime_type(publishable.get_media_type());
 
         binary_disposition_table = create_default_binary_disposition_table();
+        
+        message_headers = new Gee.HashMap<string, string>();
     }
     
     public UploadTransaction.with_endpoint_url(Session session,
@@ -365,6 +373,12 @@ public class UploadTransaction : Transaction {
         this.mime_type = media_type_to_mime_type(publishable.get_media_type());
 
         binary_disposition_table = create_default_binary_disposition_table();
+        
+        message_headers = new Gee.HashMap<string, string>();
+    }
+    
+    protected override void add_header(string key, string value) {
+        message_headers.set(key, value);
     }
     
     private static string media_type_to_mime_type(Spit.Publishing.Publisher.MediaType media_type) {
@@ -422,6 +436,13 @@ public class UploadTransaction : Transaction {
 
         Soup.Message outbound_message =
             soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
+        // TODO: there must be a better way to iterate over a map
+        Gee.MapIterator<string, string> i = message_headers.map_iterator();
+        bool cont = i.first();
+        while(cont) {
+            outbound_message.request_headers.append(i.get_key(), i.get_value());
+            cont = i.next();
+        }
         set_message(outbound_message);
         
         set_is_executed(true);
