@@ -90,8 +90,11 @@ public unowned string? _tn(string msgid, string msgid_plural, ulong n) {
 private class ShotwellPublishingExtraServices : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
 
-    public ShotwellPublishingExtraServices() {
+    public ShotwellPublishingExtraServices(GLib.File module_file) {
+        GLib.File resource_directory = module_file.get_parent();
+        
         pluggables += new YandexService();
+        pluggables += new PiwigoService(resource_directory);
     }
     
     public unowned string get_module_name() {
@@ -119,6 +122,6 @@ public Spit.Module? spit_entry_point(Spit.EntryPointParams *params) {
     Publishing.Extras.configure_translation_domain();
     
     return (params->module_spit_interface != Spit.UNSUPPORTED_INTERFACE)
-        ? new ShotwellPublishingExtraServices() : null;
+        ? new ShotwellPublishingExtraServices(params->module_file) : null;
 }
 
