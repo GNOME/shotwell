@@ -430,6 +430,8 @@ define check_valadate_version
 	@ pkg-config $(VALADATE_PKG_NAME) --atleast-version=$(MIN_VALADATE_VERSION) || ( echo 'Shotwell testing requires Valadate $(MIN_VALADATE_VERSION) or greater.  You are running' `pkg-config --modversion $(VALADATE_PKG_NAME)` '\b.'; exit 1 )
 endef
 
+all: pkgcheck
+
 ifdef ENABLE_BUILD_FOR_GLADE
 all: $(PLUGINS_DIR) lib$(PROGRAM).so $(PROGRAM) $(PC_FILE)
 else
@@ -636,16 +638,6 @@ $(UNITIZE_INITS) $(UNITIZE_ENTRIES): $(UNITIZE_STAMP)
 # EXPANDED_SRC_FILES includes UNITIZE_INITS and UNITIZE_ENTRY
 $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES)
 	$(call check_valac_version)
-ifndef ASSUME_PKGS
-ifdef EXT_PKG_VERSIONS
-	@pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS) $(DIRECT_LIBS_VERSIONS)'
-else ifdef EXT_PKGS
-	@pkg-config --print-errors --exists $(EXT_PKGS) $(DIRECT_LIBS_VERSIONS)
-endif
-# Check for libraw manually
-	@$(LIBRAW_CONFIG) --exists=$(LIBRAW_VERSION)
-endif
-	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
 	@echo Compiling Vala code...
 	@mkdir -p $(BUILD_DIR)
 	@$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
@@ -695,3 +687,15 @@ glade: lib$(PROGRAM).so
 lib$(PROGRAM).so: $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) `$(LIBRAW_CONFIG) --libs` $(EXPORT_FLAGS) -shared -o $@
 
+.PHONY: pkgcheck
+pkgcheck:
+ifndef ASSUME_PKGS
+ifdef EXT_PKG_VERSIONS
+	@pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS) $(DIRECT_LIBS_VERSIONS)'
+else ifdef EXT_PKGS
+	@pkg-config --print-errors --exists $(EXT_PKGS) $(DIRECT_LIBS_VERSIONS)
+endif
+# Check for libraw manually
+	@$(LIBRAW_CONFIG) --exists=$(LIBRAW_VERSION)
+endif
+	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
