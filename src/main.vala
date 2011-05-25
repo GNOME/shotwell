@@ -32,12 +32,15 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
 }
 
 private Timer startup_timer = null;
+private bool was_already_running = false;
 
 void library_exec(string[] mounts) {
     // the library is single-instance; editing windows are one-process-per
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
     shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
     shotwell.message_received.connect(on_shotwell_message);
+
+    was_already_running = shotwell.is_running;
     
     if (shotwell.is_running) {
         // send attached cameras & activate the window
@@ -420,5 +423,16 @@ void main(string[] args) {
     Application.terminate();
     Debug.terminate();
     AppDirs.terminate();
+
+    // Back up db on successful run so we have something to roll back to if
+    // it gets corrupted in the next session.  Don't do this if another shotwell
+    // is open or if we're in direct mode.
+    if (is_string_empty(filename) && !was_already_running) {
+        string orig_path = AppDirs.get_data_subdir("data").get_child("photo.db").get_path();
+        string backup_path = orig_path + ".bak";
+        string cmdline = "cp " + orig_path + " " + backup_path;
+        Posix.system(cmdline);
+        Posix.system("sync");
+    }
 }
 

@@ -29,7 +29,7 @@ public abstract class DatabaseTable {
     
     public string table_name = null;
 
-    public static void init(string filename) {
+    private static void prepare_db(string filename) {
         // Open DB.
         int res = Sqlite.Database.open_v2(filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, 
             null);
@@ -49,7 +49,32 @@ public abstract class DatabaseTable {
                     e.message));
             }
         }
+    }
+
+    public static void init(string filename) {
+        // Open DB.
+        prepare_db(filename);
         
+        // Try a query to make sure DB is intact; if not, try to use the backup
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS VersionTable ("
+            + "id INTEGER PRIMARY KEY, "
+            + "schema_version INTEGER, "
+            + "app_version TEXT, "
+            + "user_data TEXT NULL"
+            + ")", -1, out stmt);
+
+        // Query on db failed, copy over backup and open it
+        if(res != Sqlite.OK) {
+            db = null;
+            
+            string backup_path = filename + ".bak";
+            string cmdline = "cp " + backup_path + " " + filename;
+            Posix.system(cmdline);    
+
+            prepare_db(filename);
+        }
+
         // disable synchronized commits for performance reasons ... this is not vital, hence we
         // don't error out if this fails
         res = db.exec("PRAGMA synchronous=OFF");
