@@ -4,12 +4,14 @@
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 #   <linuxned@gmail.com>, 2011
+# rob <linuxned@gmail.com>, 2011
+# verayin <vera@yorba.org>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2011-05-20 19:12-0700\n"
-"PO-Revision-Date: 2011-05-22 17:40+0000\n"
+"PO-Revision-Date: 2011-05-25 13:16+0000\n"
 "Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -617,12 +619,12 @@ msgstr "Opgeslagen zoekopdracht"
 #: src/Resources.vala:300
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr "Zoekactie \"%s\" verwij_deren"
+msgstr "Zoekopdracht \"%s\" verwij_deren"
 
 #: src/Resources.vala:304
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr "Verwijder opgeslagen zoekactie: \"%s\""
+msgstr "Verwijder opgeslagen zoekopdracht: \"%s\""
 
 #: src/Resources.vala:307
 msgid "Delete Tag"
@@ -713,16 +715,18 @@ msgstr "Kon label niet hernoemen naar \"%s\" omdat dit label al bestaat."
 #: src/Resources.vala:355
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr "Zoekactie \"%s\" verwijderen"
+msgstr "Zoekopdracht \"%s\" verwijderen"
 
 #: src/Resources.vala:359
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr "Kon zoekactie niet hernoemen naar \"%s\" omdat deze zoekactie al bestaat."
+msgstr ""
+"Kon zoekopdracht niet hernoemen naar \"%s\" omdat deze zoekopdracht al "
+"bestaat."
 
 #: src/Resources.vala:362
 msgid "Delete Search"
-msgstr "Zoekactie verwijderen"
+msgstr "Zoekopdracht verwijderen"
 
 #: src/Resources.vala:365
 #, c-format
@@ -737,17 +741,17 @@ msgstr "Bewerk de zoekopdracht \"%s\""
 #: src/Resources.vala:373
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr "Zoekactie \"%s\" her_noemen..."
+msgstr "Zoekopdracht \"%s\" her_noemen..."
 
 #: src/Resources.vala:377
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr "De zoekactie \"%s\" hernoemen"
+msgstr "De zoekopdracht \"%s\" hernoemen"
 
 #: src/Resources.vala:381
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr "Hernoem zoekactie \"%s\" naar \"%s\""
+msgstr "Hernoem zoekopdracht \"%s\" naar \"%s\""
 
 #: src/Resources.vala:539
 #, c-format
@@ -1336,7 +1340,7 @@ msgstr "is niet"
 
 #: src/searches/SavedSearchDialog.vala:242
 msgid "any photo"
-msgstr "elke foto"
+msgstr "een foto"
 
 #: src/searches/SavedSearchDialog.vala:243
 msgid "a raw photo"
@@ -1368,7 +1372,7 @@ msgstr "en lager"
 
 #: src/searches/SavedSearchDialog.vala:490
 msgid "any"
-msgstr "alle"
+msgstr "elk"
 
 #: src/searches/SavedSearchDialog.vala:491
 msgid "all"
@@ -1412,11 +1416,11 @@ msgstr "Waardering"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
-msgstr "Opgeslagen zoekacties"
+msgstr "Opgeslagen zoekopdrachten"
 
 #: src/sidebar/Tree.vala:157 src/library/LibraryWindow.vala:348
 msgid "Ne_w Search..."
-msgstr "Nieu_we zoekactie..."
+msgstr "Nieu_we zoekopdracht..."
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
@@ -2152,7 +2156,7 @@ msgstr[1] "Dit zal het label \"%s\" van %d foto's verwijderen. Doorgaan?"
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr "Dit zal de opgeslagen zoekactie \"%s\" verwijderen. Doorgaan?"
+msgstr "Dit zal de opgeslagen zoekopdracht \"%s\" verwijderen. Doorgaan?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -3777,11 +3781,11 @@ msgstr "_Naam van zoekopdracht:"
 
 #: ui/shotwell.glade:78
 msgid "_Match"
-msgstr "_Match"
+msgstr "Overeenko_mend met"
 
 #: ui/shotwell.glade:104
 msgid "of the following:"
-msgstr "van de volgende:"
+msgstr "van het volgende:"
 
 #: ui/shotwell.glade:243
 msgid "Preparing pictures for import..."
