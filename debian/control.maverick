@@ -18,7 +18,7 @@ Build-Depends: debhelper (>= 7),
  libsoup2.4-dev (>= 2.26.0),
  libsqlite3-dev (>= 3.5.9),
  libunique-dev (>= 1.0.0),
- libwebkitgtk-dev (>= 1.1.5),
+ libwebkit-dev (>= 1.1.5),
  libxml2 (>= 2.6.32),
  m4 (>= 1.4.13),
  valac (>= 0.11.7)
@@ -43,7 +43,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  libsoup2.4-1 (>= 2.26.0),
  libsqlite3-0 (>= 3.5.9),
  libunique-1.0-0 (>= 1.0.0),
- libwebkitgtk-1.0-0 (>= 1.1.5),
+ libwebkit-1.0-2 (>= 1.1.5),
  libxml2 (>= 2.6.32)
 Description: Digital photo manager
  Shotwell is a digital photo manager designed for the GNOME desktop 
