@@ -1,7 +1,7 @@
 PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 
-VERSION = 0.10.0+branch
+VERSION = 0.10.0+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
