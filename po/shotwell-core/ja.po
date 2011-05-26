@@ -3,12 +3,13 @@
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
+#   <md81bird@hitaki.net>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 15:30+0000\n"
+"POT-Creation-Date: 2011-05-20 19:12-0700\n"
+"PO-Revision-Date: 2011-05-22 05:22+0000\n"
 "Last-Translator: kuromabo <md81bird@hitaki.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +20,7 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
-#: src/AppWindow.vala:659 plugins/common/Resources.vala:28
+#: src/AppWindow.vala:661 plugins/common/Resources.vala:28
 msgid "translator-credits"
 msgstr ""
 "Shushi Kurose <md81bird@hitaki.net>\n"
@@ -84,13 +85,13 @@ msgstr "目次(_C)"
 msgid "_Frequently Asked Questions"
 msgstr "FAQ(_F)"
 
-#: src/AppWindow.vala:595 src/AppWindow.vala:609 src/AppWindow.vala:626
-#: src/WebConnectors.vala:988 src/Dialogs.vala:18 src/Dialogs.vala:26
-#: src/Dialogs.vala:1001 src/Dialogs.vala:1024
+#: src/AppWindow.vala:593 src/AppWindow.vala:611 src/AppWindow.vala:628
+#: src/publishing/PublishingUI.vala:480 src/Dialogs.vala:18
+#: src/Dialogs.vala:26 src/Dialogs.vala:1003 src/Dialogs.vala:1026
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: src/AppWindow.vala:636
+#: src/AppWindow.vala:638
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
@@ -101,16 +102,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:656 plugins/common/Resources.vala:9
+#: src/AppWindow.vala:658 plugins/common/Resources.vala:9
 msgid "Visit the Yorba web site"
 msgstr "Yorba ウェブサイトを訪問する"
 
-#: src/AppWindow.vala:668
+#: src/AppWindow.vala:670
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "ヘルプを表示できません: %s"
 
-#: src/AppWindow.vala:676
+#: src/AppWindow.vala:678
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "FAQを表示できません: %s"
@@ -331,7 +332,7 @@ msgstr "やり直し"
 msgid "Re_name Event..."
 msgstr "イベント名の変更(_N)..."
 
-#: src/Resources.vala:179 src/Dialogs.vala:918
+#: src/Resources.vala:179 src/Dialogs.vala:920
 msgid "Rename Event"
 msgstr "イベント名の変更"
 
@@ -519,7 +520,7 @@ msgstr "色々なウェブサイトに公開します"
 msgid "E_dit Title..."
 msgstr "タイトルの編集(_D)..."
 
-#: src/Resources.vala:247 src/Dialogs.vala:928
+#: src/Resources.vala:247 src/Dialogs.vala:930
 msgid "Edit Title"
 msgstr "タイトルの編集"
 
@@ -786,7 +787,7 @@ msgid "Only show photos with a rating of %s or better"
 msgstr "%s 以上の評価の写真のみ表示します"
 
 #: src/Resources.vala:637 src/Dialogs.vala:18 src/Dialogs.vala:26
-#: src/Dialogs.vala:969
+#: src/Dialogs.vala:971
 msgid "_Delete"
 msgstr "削除(_D)"
 
@@ -1173,7 +1174,7 @@ msgstr "今日"
 msgid "Yesterday"
 msgstr "昨日"
 
-#: src/Properties.vala:283 src/Dialogs.vala:928
+#: src/Properties.vala:283 src/Dialogs.vala:930
 msgid "Title:"
 msgstr "タイトル:"
 
@@ -1215,7 +1216,7 @@ msgstr "最古:"
 msgid "To:"
 msgstr "最新:"
 
-#: src/Properties.vala:338 src/EditingTools.vala:1756
+#: src/Properties.vala:338 src/EditingTools.vala:1740
 msgid "Size:"
 msgstr "サイズ:"
 
@@ -1229,63 +1230,63 @@ msgid "%.1f seconds"
 msgstr "%.1f 秒"
 
 #: src/Properties.vala:371 src/Properties.vala:375 src/Properties.vala:382
-#: src/EditingTools.vala:2088
+#: src/EditingTools.vala:2072
 msgid "Exposure:"
 msgstr "露出:"
 
-#: src/Properties.vala:468
+#: src/Properties.vala:470
 msgid "Location:"
 msgstr "場所:"
 
-#: src/Properties.vala:470
+#: src/Properties.vala:472
 msgid "File size:"
 msgstr "ファイルサイズ:"
 
-#: src/Properties.vala:473
+#: src/Properties.vala:475
 msgid "Original dimensions:"
 msgstr "オリジナルの画像サイズ:"
 
-#: src/Properties.vala:476
+#: src/Properties.vala:478
 msgid "Camera make:"
 msgstr "カメラのメーカー:"
 
-#: src/Properties.vala:479
+#: src/Properties.vala:481
 msgid "Camera model:"
 msgstr "カメラのモデル:"
 
-#: src/Properties.vala:482
+#: src/Properties.vala:484
 msgid "Flash:"
 msgstr "フラッシュ:"
 
-#: src/Properties.vala:484
+#: src/Properties.vala:486
 msgid "Focal length:"
 msgstr "焦点距離:"
 
-#: src/Properties.vala:487
+#: src/Properties.vala:489
 msgid "Exposure bias:"
 msgstr "露出補正:"
 
-#: src/Properties.vala:489
+#: src/Properties.vala:491
 msgid "GPS latitude:"
 msgstr "GPS緯度:"
 
-#: src/Properties.vala:492
+#: src/Properties.vala:494
 msgid "GPS longitude:"
 msgstr "GPS経度:"
 
-#: src/Properties.vala:495
+#: src/Properties.vala:497
 msgid "Artist:"
 msgstr "撮影者:"
 
-#: src/Properties.vala:497
+#: src/Properties.vala:499
 msgid "Copyright:"
 msgstr "著作者:"
 
-#: src/Properties.vala:499
+#: src/Properties.vala:501
 msgid "Software:"
 msgstr "ソフトウェア:"
 
-#: src/Properties.vala:508
+#: src/Properties.vala:510
 msgid "Extended Information"
 msgstr "追加情報"
 
@@ -1293,103 +1294,115 @@ msgstr "追加情報"
 msgid "Tags"
 msgstr "タグ"
 
-#: src/searches/SavedSearchDialog.vala:38
-msgid "Any text"
-msgstr "すべてのテキスト"
-
-#: src/searches/SavedSearchDialog.vala:39
-msgid "Title"
-msgstr "タイトル"
-
-#: src/searches/SavedSearchDialog.vala:40
-msgid "Tag"
-msgstr "タグ"
-
-#: src/searches/SavedSearchDialog.vala:41
-msgid "Event name"
-msgstr "イベント名"
-
-#: src/searches/SavedSearchDialog.vala:42
-msgid "File name"
-msgstr "ファイル名"
-
-#: src/searches/SavedSearchDialog.vala:43
-msgid "Media type"
-msgstr "メディアタイプ"
-
-#: src/searches/SavedSearchDialog.vala:44
-msgid "Flag state"
-msgstr ""
-
-#: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
-msgid "Rating"
-msgstr "評価"
-
-#: src/searches/SavedSearchDialog.vala:154
+#: src/searches/SavedSearchDialog.vala:160
 msgid "contains"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:155
+#: src/searches/SavedSearchDialog.vala:161
 msgid "is exactly"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:156
+#: src/searches/SavedSearchDialog.vala:162
 msgid "starts with"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:157
+#: src/searches/SavedSearchDialog.vala:163
 msgid "ends with"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:158
+#: src/searches/SavedSearchDialog.vala:164
 msgid "does not contain"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:159
+#: src/searches/SavedSearchDialog.vala:165
 msgid "is not set"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:219
-#: src/searches/SavedSearchDialog.vala:288
-#: src/searches/SavedSearchDialog.vala:353
+#: src/searches/SavedSearchDialog.vala:235
+#: src/searches/SavedSearchDialog.vala:304
+#: src/searches/SavedSearchDialog.vala:369
 msgid "is"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:220
+#: src/searches/SavedSearchDialog.vala:236
 msgid "is not"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:226
+#: src/searches/SavedSearchDialog.vala:242
 msgid "any photo"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:227
+#: src/searches/SavedSearchDialog.vala:243
 msgid "a raw photo"
 msgstr "RAW 画像"
 
-#: src/searches/SavedSearchDialog.vala:228
+#: src/searches/SavedSearchDialog.vala:244
 msgid "a video"
 msgstr "動画"
 
-#: src/searches/SavedSearchDialog.vala:282
+#: src/searches/SavedSearchDialog.vala:298
 msgid "flagged"
 msgstr "フラグ付き"
 
-#: src/searches/SavedSearchDialog.vala:283
+#: src/searches/SavedSearchDialog.vala:299
 msgid "not flagged"
 msgstr "フラグなし"
 
-#: src/searches/SavedSearchDialog.vala:474
+#: src/searches/SavedSearchDialog.vala:362
+msgid "and higher"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:363
+msgid "only"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:364
+msgid "and lower"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:490
 msgid "any"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:475
+#: src/searches/SavedSearchDialog.vala:491
 msgid "all"
 msgstr "すべて"
 
-#: src/searches/SavedSearchDialog.vala:476
+#: src/searches/SavedSearchDialog.vala:492
 msgid "none"
 msgstr "なし"
+
+#: src/searches/SearchBoolean.vala:135
+msgid "Any text"
+msgstr "すべてのテキスト"
+
+#: src/searches/SearchBoolean.vala:138
+msgid "Title"
+msgstr "タイトル"
+
+#: src/searches/SearchBoolean.vala:141
+msgid "Tag"
+msgstr "タグ"
+
+#: src/searches/SearchBoolean.vala:144
+msgid "Event name"
+msgstr "イベント名"
+
+#: src/searches/SearchBoolean.vala:147
+msgid "File name"
+msgstr "ファイル名"
+
+#: src/searches/SearchBoolean.vala:150
+msgid "Media type"
+msgstr "メディアタイプ"
+
+#: src/searches/SearchBoolean.vala:153
+msgid "Flag state"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:156 src/SearchFilter.vala:922
+msgid "Rating"
+msgstr "評価"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -1494,7 +1507,7 @@ msgid "Screen"
 msgstr "画面"
 
 #: src/EditingTools.vala:651
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1236
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1242
 msgid "Original Size"
 msgstr "オリジナルのサイズ"
 
@@ -1511,97 +1524,97 @@ msgstr "SDビデオサイズ (4:3)"
 msgid "HD Video (16 : 9)"
 msgstr "HDビデオサイズ (16:9)"
 
-#: src/EditingTools.vala:672 src/Dialogs.vala:1804
+#: src/EditingTools.vala:672 src/Dialogs.vala:1806
 msgid "Custom"
 msgstr "カスタム"
 
-#: src/EditingTools.vala:1771
+#: src/EditingTools.vala:1755
 msgid "Close the red-eye tool"
 msgstr "赤目ツールを閉じる"
 
-#: src/EditingTools.vala:1774
+#: src/EditingTools.vala:1758
 msgid "Remove any red-eye effects in the selected region"
 msgstr "選択された範囲で赤目現象を取り除きます"
 
-#: src/EditingTools.vala:2077
+#: src/EditingTools.vala:2061
 msgid "_Reset"
 msgstr "リセット(_R)"
 
-#: src/EditingTools.vala:2096
+#: src/EditingTools.vala:2080
 msgid "Saturation:"
 msgstr "彩度:"
 
-#: src/EditingTools.vala:2104
+#: src/EditingTools.vala:2088
 msgid "Tint:"
 msgstr "色合い:"
 
-#: src/EditingTools.vala:2113
+#: src/EditingTools.vala:2097
 msgid "Temperature:"
 msgstr "温度:"
 
-#: src/EditingTools.vala:2121
+#: src/EditingTools.vala:2105
 msgid "Shadows:"
 msgstr "シャドウ:"
 
-#: src/EditingTools.vala:2175
+#: src/EditingTools.vala:2159
 msgid "Reset Colors"
 msgstr "色をリセット"
 
-#: src/EditingTools.vala:2175
+#: src/EditingTools.vala:2159
 msgid "Reset all color adjustments to original"
 msgstr "すべての色調整をオリジナルの状態に戻す"
 
-#: src/EditingTools.vala:2504
+#: src/EditingTools.vala:2488
 msgid "Temperature"
 msgstr "温度"
 
-#: src/EditingTools.vala:2510
+#: src/EditingTools.vala:2494
 msgid "Tint"
 msgstr "色合い"
 
-#: src/EditingTools.vala:2516
+#: src/EditingTools.vala:2500
 msgid "Saturation"
 msgstr "彩度"
 
-#: src/EditingTools.vala:2522
+#: src/EditingTools.vala:2506
 msgid "Exposure"
 msgstr "露出"
 
-#: src/EditingTools.vala:2528
+#: src/EditingTools.vala:2512
 msgid "Shadows"
 msgstr "シャドウ"
 
-#: src/EditingTools.vala:2538
+#: src/EditingTools.vala:2522
 msgid "Contrast Expansion"
 msgstr "コントラストの拡張"
 
-#: src/SearchFilter.vala:639 src/SearchFilter.vala:640
-#: src/SearchFilter.vala:937 src/library/FlaggedPage.vala:8
+#: src/SearchFilter.vala:613 src/SearchFilter.vala:614
+#: src/SearchFilter.vala:911 src/library/FlaggedPage.vala:8
 msgid "Flagged"
 msgstr "フラグ付き"
 
-#: src/SearchFilter.vala:645 src/SearchFilter.vala:646
+#: src/SearchFilter.vala:619 src/SearchFilter.vala:620
 msgid "Photos"
 msgstr "写真"
 
-#: src/SearchFilter.vala:651 src/SearchFilter.vala:652
+#: src/SearchFilter.vala:625 src/SearchFilter.vala:626
 msgid "Videos"
 msgstr "動画"
 
-#: src/SearchFilter.vala:657
+#: src/SearchFilter.vala:631
 msgid "RAW Photos"
 msgstr "RAW 画像"
 
-#: src/SearchFilter.vala:658
+#: src/SearchFilter.vala:632
 msgid "RAW photos"
 msgstr "RAW 画像"
 
-#: src/SearchFilter.vala:904
+#: src/SearchFilter.vala:878
 #, c-format
 msgid "Error loading UI file %s: %s"
 msgstr "UI ファイル %s の読み込みエラー: %s"
 
-#: src/SearchFilter.vala:921
+#: src/SearchFilter.vala:895
 msgid "Type"
 msgstr "種類"
 
@@ -1644,12 +1657,12 @@ msgstr "データディレクトリ %s を作成できません: %s"
 msgid "Pictures"
 msgstr "画像"
 
-#: src/AppDirs.vala:123
+#: src/AppDirs.vala:124
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "一時ディレクトリ %s を作成できません: %s"
 
-#: src/AppDirs.vala:139
+#: src/AppDirs.vala:140
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "データサブディレクトリ %s を作成できません: %s"
@@ -1718,7 +1731,7 @@ msgid "Unable to prepare desktop slideshow: %s"
 msgstr "デスクトップ・スライドショーを準備できません: %s"
 
 #: src/Dimensions.vala:17
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1123
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1130
 msgid "Original size"
 msgstr "オリジナルのサイズ"
 
@@ -1733,125 +1746,6 @@ msgstr "幅"
 #: src/Dimensions.vala:26
 msgid "Height"
 msgstr "高さ"
-
-#: src/PiwigoConnector.vala:9
-#: plugins/shotwell-publishing/FacebookPublishing.vala:64
-#: plugins/shotwell-publishing/PicasaPublishing.vala:59
-msgid "Shotwell Connect"
-msgstr "Shotwell Connect"
-
-#: src/PiwigoConnector.vala:483
-msgid "Creating category..."
-msgstr "カテゴリの作成中..."
-
-#: src/PiwigoConnector.vala:589
-msgid ""
-"Enter the username and password associated with your Piwigo account, and the"
-" URL of your Piwigo installation."
-msgstr "Piwigo アカウントのユーザ名とパスワードと Piwigo のインストール URL を入力してください。"
-
-#: src/PiwigoConnector.vala:590
-msgid ""
-"No Piwigo installation was found at this URL. Please verify the URL you "
-"entered"
-msgstr "この URL には Piwigo がインストールされていません。入力した URL を確認してください。"
-
-#: src/PiwigoConnector.vala:591
-msgid "Username and/or password invalid. Please try again"
-msgstr "ユーザ名かつ/またはパスワードが無効です。もう一度試してください。"
-
-#: src/PiwigoConnector.vala:625
-#, c-format
-msgid "Invalid URL"
-msgstr "無効な URL"
-
-#: src/PiwigoConnector.vala:630
-#: plugins/shotwell-publishing/PicasaPublishing.vala:856
-#: plugins/shotwell-publishing/YouTubePublishing.vala:786
-#, c-format
-msgid "Unrecognized User"
-msgstr "認識できないユーザ"
-
-#: src/PiwigoConnector.vala:636
-msgid "_URL of your Piwigo installation:"
-msgstr "Piwgo のインストール URL(_U):"
-
-#: src/PiwigoConnector.vala:638
-msgid "User_name:"
-msgstr "ユーザ名(_N):"
-
-#: src/PiwigoConnector.vala:640
-#: plugins/shotwell-publishing/PicasaPublishing.vala:882
-#: plugins/shotwell-publishing/YouTubePublishing.vala:812
-msgid "_Password:"
-msgstr "パスワード(_P):"
-
-#: src/PiwigoConnector.vala:665 src/WebConnectors.vala:583
-#: plugins/shotwell-publishing/PicasaPublishing.vala:907
-#: plugins/shotwell-publishing/YouTubePublishing.vala:837
-msgid "_Login"
-msgstr "ログイン(_L)"
-
-#: src/PiwigoConnector.vala:741
-#, c-format
-msgid "You are logged into Piwigo as %s."
-msgstr "%s として Piwigo にログインしています。"
-
-#: src/PiwigoConnector.vala:758
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1061
-msgid "Photos will appear in:"
-msgstr "写真の表示先:"
-
-#: src/PiwigoConnector.vala:771
-msgid "An _existing category:"
-msgstr "既存のカテゴリ(_E):"
-
-#: src/PiwigoConnector.vala:785
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1089
-msgid "A _new album named:"
-msgstr "新しいアルバム名(_N):"
-
-#: src/PiwigoConnector.vala:804
-msgid "Who can see those pictures ?"
-msgstr "画像を公開する相手は?"
-
-#: src/PiwigoConnector.vala:831
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1689
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1150
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1012
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1053
-msgid "_Logout"
-msgstr "ログアウト(_L)"
-
-#: src/PiwigoConnector.vala:841
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1687
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1160
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1022
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1057
-msgid "_Publish"
-msgstr "公開(_P)"
-
-#: src/PiwigoConnector.vala:906
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1856
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1095
-msgid "Everyone"
-msgstr "全体"
-
-#: src/PiwigoConnector.vala:907
-msgid "Admins, Friends, Family, Contacts"
-msgstr "管理者、友人、家族、コンタクト先"
-
-#: src/PiwigoConnector.vala:908
-msgid "Admins, Family, Friends"
-msgstr "管理者、家族、友人"
-
-#: src/PiwigoConnector.vala:909
-msgid "Admins, Family"
-msgstr "管理者、家族"
-
-#: src/PiwigoConnector.vala:910
-msgid "Admins"
-msgstr "管理者"
 
 #: src/main.vala:81
 #, c-format
@@ -1903,92 +1797,69 @@ msgstr "[ファイル]"
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr "利用可能なコマンドラインオプションの一覧を表示するには '%s --help' を実行してください。\n"
 
-#: src/publishing/Publishing.vala:16
-msgid "Publishing"
-msgstr "公開"
+#: src/publishing/PublishingUI.vala:69
+#: plugins/shotwell-publishing/PicasaPublishing.vala:913
+#: plugins/shotwell-publishing/YouTubePublishing.vala:844
+msgid "_Login"
+msgstr "ログイン(_L)"
 
-#: src/publishing/PublishingPluginHost.vala:11 src/WebConnectors.vala:1119
-#: src/WebConnectors.vala:1256
-msgid "Preparing for upload"
-msgstr "アップロードしようとしています"
-
-#: src/publishing/PublishingPluginHost.vala:12 src/WebConnectors.vala:1120
-#: src/WebConnectors.vala:1196
-#, c-format
-msgid "Uploading %d of %d"
-msgstr "アップロードしています %d / %d"
-
-#: src/publishing/PublishingPluginHost.vala:103
-#, c-format
-msgid "Publishing to %s can't continue because an error occurred:"
-msgstr "エラーが発生したため %s への公開を続けることができません。"
-
-#: src/publishing/PublishingPluginHost.vala:106 src/WebConnectors.vala:1023
-msgid "To try publishing to another service, select one from the above menu."
-msgstr "他のサービスへの公開を試すには、上のメニューから選択してください。"
-
-#: src/WebConnectors.vala:505 plugins/common/RESTSupport.vala:409
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1316
-msgid "A temporary file needed for publishing is unavailable"
-msgstr "公開するために必要な一時ファイルが利用できません"
-
-#: src/WebConnectors.vala:659
+#: src/publishing/PublishingUI.vala:144
 msgid "The selected photos/videos were successfully published."
 msgstr "選択された写真/動画の公開が完了しました。"
 
-#: src/WebConnectors.vala:661
+#: src/publishing/PublishingUI.vala:146
 msgid "The selected videos were successfully published."
 msgstr "選択された動画の公開が完了しました。"
 
-#: src/WebConnectors.vala:663
+#: src/publishing/PublishingUI.vala:148
 msgid "The selected photos were successfully published."
 msgstr "選択された写真の公開が完了しました。"
 
-#: src/WebConnectors.vala:666
+#: src/publishing/PublishingUI.vala:151
 msgid "The selected video was successfully published."
 msgstr "選択された動画の公開が完了しました。"
 
-#: src/WebConnectors.vala:668
+#: src/publishing/PublishingUI.vala:153
 msgid "The selected photo was successfully published."
 msgstr "選択された写真の公開が完了しました。"
 
-#: src/WebConnectors.vala:676
+#: src/publishing/PublishingUI.vala:161
 msgid "Fetching account information..."
 msgstr "アカウント情報を取得しています..."
 
-#: src/WebConnectors.vala:682
+#: src/publishing/PublishingUI.vala:167
 msgid "Logging in..."
 msgstr "ログイン中..."
 
-#: src/WebConnectors.vala:726
+#: src/publishing/PublishingUI.vala:218
 msgid "Publish Photos"
 msgstr "写真の公開"
 
-#: src/WebConnectors.vala:727
+#: src/publishing/PublishingUI.vala:219
 msgid "Publish photos _to:"
 msgstr "写真の公開先(_T):"
 
-#: src/WebConnectors.vala:729
+#: src/publishing/PublishingUI.vala:221
 msgid "Publish Videos"
 msgstr "動画の公開"
 
-#: src/WebConnectors.vala:730
+#: src/publishing/PublishingUI.vala:222
 msgid "Publish videos _to"
 msgstr "動画の公開先(_T)"
 
-#: src/WebConnectors.vala:732
+#: src/publishing/PublishingUI.vala:224
 msgid "Publish Photos and Videos"
 msgstr "写真と動画の公開"
 
-#: src/WebConnectors.vala:733
+#: src/publishing/PublishingUI.vala:225
 msgid "Publish photos and videos _to"
 msgstr "写真と動画の公開先(_T)"
 
-#: src/WebConnectors.vala:814
+#: src/publishing/PublishingUI.vala:390
 msgid "Unable to publish"
 msgstr "公開できません"
 
-#: src/WebConnectors.vala:815
+#: src/publishing/PublishingUI.vala:391
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -1999,47 +1870,31 @@ msgstr ""
 "一致する公開プラグインが有効になっていないため Shotwell は選択されたアイテムを公開できません。これを直すには、<b>編集 %s 設定</b> "
 "を選択して<b>プラグイン</b> タブにある公開プラグインをどれか有効にしてください。"
 
-#: src/WebConnectors.vala:983
+#: src/publishing/PublishingUI.vala:475
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: src/WebConnectors.vala:1006
-#, c-format
-msgid ""
-"Publishing to %s can't continue because the service could not be contacted."
-msgstr "サービスと連携できないため %s への公開を続けることができません。"
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "公開"
 
-#: src/WebConnectors.vala:1009
-#, c-format
-msgid ""
-"Publishing to %s can't continue because communication with the service "
-"failed."
-msgstr "サービスとの通信に失敗したため %s への公開を続けることができません。"
+#: src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "アップロードしようとしています"
 
-#: src/WebConnectors.vala:1012
+#: src/publishing/PublishingPluginHost.vala:12
 #, c-format
-msgid "Publishing to %s can't continue due to a protocol error."
-msgstr "プロトコルエラーのため %s への公開を続けることができません。"
+msgid "Uploading %d of %d"
+msgstr "アップロードしています %d / %d"
 
-#: src/WebConnectors.vala:1014
+#: src/publishing/PublishingPluginHost.vala:81
 #, c-format
-msgid "Publishing to %s can't continue because the service returned an error."
-msgstr "サービスがエラーを返したため %s への公開を続けることができません。"
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr "エラーが発生したため %s への公開を続けることができません。"
 
-#: src/WebConnectors.vala:1016
-#, c-format
-msgid ""
-"Publishing to %s can't continue because the service returned a bad response."
-msgstr "サービスが不正な応答を返したため %s への公開を続けることができません。"
-
-#: src/WebConnectors.vala:1019
-#, c-format
-msgid "Publishing to %s can't continue because an error occurred."
-msgstr "エラーが発生したため、%s への公開を続けることができません。"
-
-#: src/WebConnectors.vala:1169
-msgid "One or more of the photos or videos to be published is unavailable"
-msgstr "公開する1つ以上の写真または動画が利用できません"
+#: src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr "他のサービスへの公開を試すには、上のメニューから選択してください。"
 
 #: src/library/LastImportPage.vala:8
 msgid "Last Import"
@@ -2174,44 +2029,44 @@ msgstr "ゴミ箱を空にする"
 msgid "Emptying Trash..."
 msgstr "ゴミ箱を空にしています..."
 
-#: src/library/LibraryWindow.vala:831
+#: src/library/LibraryWindow.vala:828
 msgid "Shotwell is configured to import photos to your home directory.\n"
 msgstr "Shotwell はホームディレクトリに写真をインポートするよう設定されています。\n"
 
-#: src/library/LibraryWindow.vala:834
+#: src/library/LibraryWindow.vala:831
 msgid "_Import"
 msgstr "インポート(_I)"
 
-#: src/library/LibraryWindow.vala:834
+#: src/library/LibraryWindow.vala:831
 msgid "Library Location"
 msgstr "ライブラリの場所"
 
-#: src/library/LibraryWindow.vala:847
+#: src/library/LibraryWindow.vala:844
 msgid "Photos cannot be imported from this directory."
 msgstr "このディレクトリから写真のインポートができませんでした."
 
-#: src/library/LibraryWindow.vala:1172
+#: src/library/LibraryWindow.vala:1169
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1205 src/library/LibraryWindow.vala:1213
+#: src/library/LibraryWindow.vala:1202 src/library/LibraryWindow.vala:1210
 msgid "Updating library..."
 msgstr "ライブラリの更新中..."
 
-#: src/library/LibraryWindow.vala:1218
+#: src/library/LibraryWindow.vala:1215
 msgid "Preparing to auto-import photos..."
 msgstr "写真の自動インポートを行なおうとしています..."
 
-#: src/library/LibraryWindow.vala:1223
+#: src/library/LibraryWindow.vala:1220
 msgid "Auto-importing photos..."
 msgstr "写真の自動インポート..."
 
-#: src/library/LibraryWindow.vala:1228
+#: src/library/LibraryWindow.vala:1225
 msgid "Writing metadata to files..."
 msgstr "ファイルにメタデータを書き込んでいます..."
 
-#: src/library/LibraryWindow.vala:1233
+#: src/library/LibraryWindow.vala:1230
 msgid "Processing RAW files..."
 msgstr "RAWファイルを処理しています..."
 
@@ -2243,27 +2098,27 @@ msgstr "写真のエクスポート"
 msgid "Export Photos"
 msgstr "写真のエクスポート"
 
-#: src/CollectionPage.vala:518 src/CollectionPage.vala:533
+#: src/CollectionPage.vala:518 src/CollectionPage.vala:534
 msgid "Rotating"
 msgstr "回転"
 
-#: src/CollectionPage.vala:518 src/CollectionPage.vala:533
+#: src/CollectionPage.vala:518 src/CollectionPage.vala:534
 msgid "Undoing Rotate"
 msgstr "回転を元に戻す"
 
-#: src/CollectionPage.vala:542
+#: src/CollectionPage.vala:543
 msgid "Flipping Horizontally"
 msgstr "左右反転"
 
-#: src/CollectionPage.vala:543
+#: src/CollectionPage.vala:544
 msgid "Undoing Flip Horizontally"
 msgstr "左右反転を元に戻す"
 
-#: src/CollectionPage.vala:552
+#: src/CollectionPage.vala:553
 msgid "Flipping Vertically"
 msgstr "上下反転"
 
-#: src/CollectionPage.vala:553
+#: src/CollectionPage.vala:554
 msgid "Undoing Flip Vertically"
 msgstr "上下反転を元に戻す"
 
@@ -2508,120 +2363,120 @@ msgstr "インポートした写真または動画はありません。\n"
 msgid "Import Complete"
 msgstr "インポート完了"
 
-#: src/Dialogs.vala:831
+#: src/Dialogs.vala:833
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d 秒"
 
-#: src/Dialogs.vala:834
+#: src/Dialogs.vala:836
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d 分"
 
-#: src/Dialogs.vala:838
+#: src/Dialogs.vala:840
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d 時間"
 
-#: src/Dialogs.vala:841
+#: src/Dialogs.vala:843
 msgid "1 day"
 msgstr "1 日"
 
-#: src/Dialogs.vala:918
+#: src/Dialogs.vala:920
 msgid "Name:"
 msgstr "名前:"
 
-#: src/Dialogs.vala:944
+#: src/Dialogs.vala:946
 msgid "_Trash File"
 msgid_plural "_Trash Files"
 msgstr[0] "ゴミ箱に捨てる(_T)"
 
-#: src/Dialogs.vala:948
+#: src/Dialogs.vala:950
 msgid "Only _Remove"
 msgstr "削除のみ(_R)"
 
-#: src/Dialogs.vala:968 src/camera/ImportPage.vala:1412
+#: src/Dialogs.vala:970 src/camera/ImportPage.vala:1412
 msgid "_Keep"
 msgstr "保持する(_K)"
 
-#: src/Dialogs.vala:991
+#: src/Dialogs.vala:993
 msgid "Revert External Edit?"
 msgstr ""
 
-#: src/Dialogs.vala:991
+#: src/Dialogs.vala:993
 msgid "Revert External Edits?"
 msgstr "外部での編集を元に戻しますか?"
 
-#: src/Dialogs.vala:993
+#: src/Dialogs.vala:995
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] "実行すると %d 個の外部ファイルに対して行なったすべての変更点を破棄します。続けますか?"
 
-#: src/Dialogs.vala:997
+#: src/Dialogs.vala:999
 msgid "Re_vert External Edit"
 msgstr "外部での編集をやめる(_V)"
 
-#: src/Dialogs.vala:997
+#: src/Dialogs.vala:999
 msgid "Re_vert External Edits"
 msgstr "外部での編集を元に戻す(_V)"
 
-#: src/Dialogs.vala:1018
+#: src/Dialogs.vala:1020
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
 msgstr[0] "実行するとライブラリから %d 個の写真を削除します。続けますか?"
 
-#: src/Dialogs.vala:1025
+#: src/Dialogs.vala:1027
 msgid "_Remove"
 msgstr "削除(_R)"
 
-#: src/Dialogs.vala:1026
+#: src/Dialogs.vala:1028
 msgid "Remove Photo From Library"
 msgstr "ライブラリから写真を削除"
 
-#: src/Dialogs.vala:1026
+#: src/Dialogs.vala:1028
 msgid "Remove Photos From Library"
 msgstr "ライブラリから写真を削除"
 
-#: src/Dialogs.vala:1115
+#: src/Dialogs.vala:1117
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:1238
+#: src/Dialogs.vala:1240
 msgid "AM"
 msgstr "午前"
 
-#: src/Dialogs.vala:1239
+#: src/Dialogs.vala:1241
 msgid "PM"
 msgstr "午後"
 
-#: src/Dialogs.vala:1240
+#: src/Dialogs.vala:1242
 msgid "24 Hr"
 msgstr "24 時間"
 
-#: src/Dialogs.vala:1255
+#: src/Dialogs.vala:1257
 msgid "_Shift photos/videos by the same amount"
 msgstr ""
 
-#: src/Dialogs.vala:1260
+#: src/Dialogs.vala:1262
 msgid "Set _all photos/videos to this time"
 msgstr ""
 
-#: src/Dialogs.vala:1266
+#: src/Dialogs.vala:1268
 msgid "_Modify original file"
 msgstr "オリジナルのファイルを変更する(_M)"
 
-#: src/Dialogs.vala:1266
+#: src/Dialogs.vala:1268
 msgid "_Modify original files"
 msgstr "オリジナルのファイルを変更(_M)"
 
-#: src/Dialogs.vala:1349
+#: src/Dialogs.vala:1351
 msgid "Original: "
 msgstr "オリジナル: "
 
@@ -2631,7 +2486,7 @@ msgstr "オリジナル: "
 # used in your language and region. The format string you enter should conform
 # to POSIX date and time formatting conventions. See the strftime manpage for
 # a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1350
+#: src/Dialogs.vala:1352
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%Y年%m月%d日 %H:%M:%S"
 
@@ -2646,11 +2501,11 @@ msgstr "%Y年%m月%d日 %H:%M:%S"
 # you
 # enter should conform to POSIX date and time formatting conventions. See the
 # strftime manpage for a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1351
+#: src/Dialogs.vala:1353
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%Y年%m月%d日 %p %I:%M:%S"
 
-#: src/Dialogs.vala:1436
+#: src/Dialogs.vala:1438
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -2659,7 +2514,7 @@ msgstr ""
 "撮影時刻を以下の時間だけ未来に進めます\n"
 "%d %s %d %s %d %s %d %s"
 
-#: src/Dialogs.vala:1437
+#: src/Dialogs.vala:1439
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -2668,27 +2523,27 @@ msgstr ""
 "撮影時刻を以下の時間だけ過去に戻します\n"
 "%d %s %d %s %d %s %d %s"
 
-#: src/Dialogs.vala:1439
+#: src/Dialogs.vala:1441
 msgid "day"
 msgid_plural "days"
 msgstr[0] "日"
 
-#: src/Dialogs.vala:1440
+#: src/Dialogs.vala:1442
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "時間"
 
-#: src/Dialogs.vala:1441
+#: src/Dialogs.vala:1443
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "分"
 
-#: src/Dialogs.vala:1442
+#: src/Dialogs.vala:1444
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "秒"
 
-#: src/Dialogs.vala:1486
+#: src/Dialogs.vala:1488
 #, c-format
 msgid ""
 "\n"
@@ -2703,112 +2558,112 @@ msgstr[0] ""
 "\n"
 "その他 %d 個"
 
-#: src/Dialogs.vala:1507 src/Dialogs.vala:1531
+#: src/Dialogs.vala:1509 src/Dialogs.vala:1533
 msgid "Tags (separated by commas):"
 msgstr "タグ (カンマ区切り):"
 
-#: src/Dialogs.vala:1588
+#: src/Dialogs.vala:1590
 msgid "Welcome!"
 msgstr "ようこそ！"
 
-#: src/Dialogs.vala:1596
+#: src/Dialogs.vala:1598
 #, c-format
 msgid "Welcome to Shotwell!"
 msgstr "ようこそ Shotwell へ！"
 
-#: src/Dialogs.vala:1601
+#: src/Dialogs.vala:1603
 #, c-format
 msgid "To get started, import photos in any of these ways:"
 msgstr "始めるには、以下のいずれかの方法で写真をインポートしてください:"
 
-#: src/Dialogs.vala:1624
+#: src/Dialogs.vala:1626
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr "<span weight=\\\"bold\\\">ファイル %s をフォルダからインポート</span> を選択する"
 
-#: src/Dialogs.vala:1625
+#: src/Dialogs.vala:1627
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Shotwell ウィンドウに写真をドラッグアンドドロップする"
 
-#: src/Dialogs.vala:1626
+#: src/Dialogs.vala:1628
 msgid "Connect a camera to your computer and import"
 msgstr "コンピュータにカメラを接続してインポートする"
 
-#: src/Dialogs.vala:1635
+#: src/Dialogs.vala:1637
 msgid "Import photos from your _F-Spot library"
 msgstr "F-Spot のライブラリから写真をインポート(_F)"
 
-#: src/Dialogs.vala:1642
+#: src/Dialogs.vala:1644
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "%s フォルダから写真をインポート(_I)"
 
-#: src/Dialogs.vala:1652
+#: src/Dialogs.vala:1654
 msgid "You can also import photos in any of these ways:"
 msgstr "以下のいずれかの方法で写真をインポートすることができます:"
 
-#: src/Dialogs.vala:1664
+#: src/Dialogs.vala:1666
 msgid "_Don't show this message again"
 msgstr "このメッセージを再び表示しない(_D)"
 
-#: src/Dialogs.vala:1784 src/Dialogs.vala:1788
+#: src/Dialogs.vala:1786 src/Dialogs.vala:1790
 msgid "(Help)"
 msgstr "(ヘルプ)"
 
-#: src/Dialogs.vala:1797
+#: src/Dialogs.vala:1799
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "年%s月%s日"
 
-#: src/Dialogs.vala:1799
+#: src/Dialogs.vala:1801
 #, c-format
 msgid "Year%sMonth"
 msgstr "年%s月"
 
-#: src/Dialogs.vala:1801
+#: src/Dialogs.vala:1803
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "年%s月-日"
 
-#: src/Dialogs.vala:1803
+#: src/Dialogs.vala:1805
 msgid "Year-Month-Day"
 msgstr "年-月-日"
 
-#: src/Dialogs.vala:2030
+#: src/Dialogs.vala:2032
 msgid "Invalid pattern"
 msgstr "無効なパターン"
 
-#: src/Dialogs.vala:2110
+#: src/Dialogs.vala:2112
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
 msgstr "Shotwell はライブラリフォルダに写真をコピーしたり、写真をコピーせずにインポートすることもできます。"
 
-#: src/Dialogs.vala:2115
+#: src/Dialogs.vala:2117
 msgid "Co_py Photos"
 msgstr "写真をコピー(_P)"
 
-#: src/Dialogs.vala:2116
+#: src/Dialogs.vala:2118
 msgid "_Import in Place"
 msgstr "元の場所でインポート(_I)"
 
-#: src/Dialogs.vala:2117
+#: src/Dialogs.vala:2119
 msgid "Import to Library"
 msgstr "ライブラリにインポート"
 
-#: src/Dialogs.vala:2127 src/PhotoPage.vala:2864
+#: src/Dialogs.vala:2129 src/PhotoPage.vala:2864
 msgid "Remove From Library"
 msgstr "ライブラリから削除"
 
-#: src/Dialogs.vala:2128 src/PhotoPage.vala:2864
+#: src/Dialogs.vala:2130 src/PhotoPage.vala:2864
 msgid "Removing Photo From Library"
 msgstr "ライブラリから写真を削除しています"
 
-#: src/Dialogs.vala:2128
+#: src/Dialogs.vala:2130
 msgid "Removing Photos From Library"
 msgstr "ライブラリから写真を削除しています"
 
-#: src/Dialogs.vala:2142
+#: src/Dialogs.vala:2144
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -2823,7 +2678,7 @@ msgstr[0] ""
 "\n"
 "このアクションは元に戻せません。"
 
-#: src/Dialogs.vala:2146
+#: src/Dialogs.vala:2148
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -2838,7 +2693,7 @@ msgstr[0] ""
 "\n"
 "このアクションは元に戻せません。"
 
-#: src/Dialogs.vala:2150
+#: src/Dialogs.vala:2152
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -2853,7 +2708,7 @@ msgstr[0] ""
 "\n"
 "このアクションは元に戻せません。"
 
-#: src/Dialogs.vala:2182
+#: src/Dialogs.vala:2184
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash.  Delete this file?"
@@ -2861,7 +2716,7 @@ msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
 msgstr[0] "%d 個の写真/動画をデスクトップのゴミ箱に移動できませんでした。これらのファイルを削除しますか?"
 
-#: src/Dialogs.vala:2199
+#: src/Dialogs.vala:2201
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -3066,7 +2921,7 @@ msgstr "写真/動画がありません"
 msgid "No photos/videos found"
 msgstr "写真/動画が見つかりません"
 
-#: src/Page.vala:2429
+#: src/Page.vala:2452
 msgid "Photos cannot be exported to this directory."
 msgstr "写真をこのディレクトリにエクスポートできません。"
 
@@ -3188,7 +3043,7 @@ msgstr[0] "カメラから %d 個の写真/動画を削除しますか?"
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] ""
+msgstr[0] "カメラから %d 個のファイルを削除しますか?"
 
 #: src/camera/ImportPage.vala:1431
 msgid "Removing photos/videos from camera"
@@ -3254,14 +3109,14 @@ msgstr "F-Spot からインポート"
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr "写真データベース %s を開く/作成できません: エラーコード %d"
 
-#: src/db/DatabaseTable.vala:45
+#: src/db/DatabaseTable.vala:46
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
 
-#: src/db/DatabaseTable.vala:47
+#: src/db/DatabaseTable.vala:48
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3341,6 +3196,16 @@ msgstr ""
 msgid "Event %s"
 msgstr "イベント %s"
 
+#: plugins/common/RESTSupport.vala:409
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1342
+msgid "A temporary file needed for publishing is unavailable"
+msgstr "公開するために必要な一時ファイルが利用できません"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:64
+#: plugins/shotwell-publishing/PicasaPublishing.vala:59
+msgid "Shotwell Connect"
+msgstr "Shotwell Connect"
+
 #: plugins/shotwell-publishing/FacebookPublishing.vala:68
 msgid ""
 "You are not currently logged into Facebook.\n"
@@ -3376,7 +3241,7 @@ msgstr "Facebook への接続テスト中..."
 msgid "Creating album..."
 msgstr "アルバムの作成中..."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1582
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1612
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -3385,38 +3250,57 @@ msgstr ""
 "%s として Facebook にログインしています。\n"
 "\n"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1583
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1613
 msgid "Where would you like to publish the selected photos?"
 msgstr "選択された写真をどこに公開しますか?"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1584
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1614
 msgid "Upload _size:"
 msgstr "アップロードサイズ(_S):"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1653
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1683
 msgid "Publish to an e_xisting album:"
 msgstr "既存のアルバムで公開する(_X):"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1656
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1686
 msgid "Create a _new album named:"
 msgstr "新しいアルバム名(_N):"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1672
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1702
 msgid "Videos and new photo albums _visible to:"
 msgstr "動画と新しいフォトアルバムを公開する範囲(_V):"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1853
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1097
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1717
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1166
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1029
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1064
+msgid "_Publish"
+msgstr "公開(_P)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1719
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1156
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1019
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1060
+msgid "_Logout"
+msgstr "ログアウト(_L)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1883
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1104
 msgid "Just me"
 msgstr "自分のみ"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1854
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1884
 msgid "All friends"
 msgstr "すべての友人"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1855
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1885
 msgid "Friends of friends"
 msgstr "友人の友人"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1886
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1102
+msgid "Everyone"
+msgstr "全体"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:58
 msgid ""
@@ -3428,13 +3312,13 @@ msgstr ""
 "\n"
 "続けるには、Google アカウントにサインアップした上で、Picasa を利用するための設定を行う必要があります。少なくとも一度ブラウザを使って Picasa ウェブアルバムのサイトにログインしておけば、ほとんどのアカウントを設定することができます。"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:813
+#: plugins/shotwell-publishing/PicasaPublishing.vala:819
 msgid ""
 "Enter the email address and password associated with your Picasa Web Albums "
 "account."
 msgstr "Picasa Web Album アカウントのメールアドレスとパスワードを入力してください。"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:814
+#: plugins/shotwell-publishing/PicasaPublishing.vala:820
 msgid ""
 "Picasa Web Albums didn't recognize the email address and password you "
 "entered. To try again, re-enter your email address and password below."
@@ -3442,7 +3326,7 @@ msgstr ""
 "Picasa "
 "ウェブアルバムは、入力されたメールアドレスやパスワードを認識しませんでした。もう一度試すには、メールアドレスとパスワードを以下で再入力してください。"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:815
+#: plugins/shotwell-publishing/PicasaPublishing.vala:821
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that isn't set up for use with Picasa Web Albums. You can set up most "
@@ -3453,7 +3337,7 @@ msgstr ""
 "アカウントのものです。少なくとも一度ブラウザを使用して Picasa ウェブ "
 "アルバムにログインすると、ほとんどのアカウントを設定することができます。もう一度試すには、メールアドレスとパスワードを以下で再入力してください。"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:816
+#: plugins/shotwell-publishing/PicasaPublishing.vala:822
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that has been tagged as requiring additional security. You can clear this "
@@ -3463,58 +3347,77 @@ msgstr ""
 "入力されたメールアドレスとパスワードは、「追加のセキュリティ設定が必要である」とタグ付けされた Google アカウントのもののようです。Picasa "
 "ウェブアルバムにブラウザでログインすると、このタグを削除することができます。もう一度試すには、メールアドレスとパスワードを以下で再入力してください。"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:860
-#: plugins/shotwell-publishing/YouTubePublishing.vala:790
+#: plugins/shotwell-publishing/PicasaPublishing.vala:862
+#: plugins/shotwell-publishing/YouTubePublishing.vala:793
+#, c-format
+msgid "Unrecognized User"
+msgstr "認識できないユーザ"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:866
+#: plugins/shotwell-publishing/YouTubePublishing.vala:797
 #, c-format
 msgid "Account Not Ready"
 msgstr "アカウントが設定されていません"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:869
-#: plugins/shotwell-publishing/YouTubePublishing.vala:799
+#: plugins/shotwell-publishing/PicasaPublishing.vala:875
+#: plugins/shotwell-publishing/YouTubePublishing.vala:806
 #, c-format
 msgid "Additional Security Required"
 msgstr "追加のセキュリティが必要です"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:880
-#: plugins/shotwell-publishing/YouTubePublishing.vala:810
+#: plugins/shotwell-publishing/PicasaPublishing.vala:886
+#: plugins/shotwell-publishing/YouTubePublishing.vala:817
 msgid "_Email address:"
 msgstr "メールアドレス(_E):"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:902
-#: plugins/shotwell-publishing/YouTubePublishing.vala:832
+#: plugins/shotwell-publishing/PicasaPublishing.vala:888
+#: plugins/shotwell-publishing/YouTubePublishing.vala:819
+msgid "_Password:"
+msgstr "パスワード(_P):"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:908
+#: plugins/shotwell-publishing/YouTubePublishing.vala:839
 msgid "Go _Back"
 msgstr "戻る(_B)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1037
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1043
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "%s として Picasa Web Album にログインしています。"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1059
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1065
 msgid "Videos will appear in:"
 msgstr "動画の表示先:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1075
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1067
+msgid "Photos will appear in:"
+msgstr "写真の表示先:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1081
 msgid "An _existing album:"
 msgstr "既存のアルバム(_E):"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1101
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1095
+msgid "A _new album named:"
+msgstr "新しいアルバム名(_N):"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1107
 msgid "L_ist album in public gallery"
 msgstr "一般公開ギャラリーのアルバムを一覧にする(_I)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1119
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1125
 msgid "Photo _size preset:"
 msgstr "プリセットの写真サイズ(_S):"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1233
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1239
 msgid "Small (640 x 480 pixels)"
 msgstr "小 (640 x 480 ピクセル)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1234
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1240
 msgid "Medium (1024 x 768 pixels)"
 msgstr "中 (1024 x 768 ピクセル)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1235
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1241
 msgid "Recommended (1600 x 1200 pixels)"
 msgstr "推奨 (1600 x 1200 ピクセル)"
 
@@ -3528,19 +3431,19 @@ msgstr ""
 "\n"
 "続けるには、Google アカウントにサインアップした上で、YouTube を利用するための設定を行う必要があります。少なくとも一度ブラウザを使って YouTube のサイトにログインしておけば、ほとんどのアカウントを設定することができます。"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:744
+#: plugins/shotwell-publishing/YouTubePublishing.vala:751
 msgid ""
 "Enter the email address and password associated with your YouTube account."
 msgstr "YouTube アカウントのメールアドレスとパスワードを入力してください。"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:745
+#: plugins/shotwell-publishing/YouTubePublishing.vala:752
 msgid ""
 "YouTube didn't recognize the email address and password you entered. To try "
 "again, re-enter your email address and password below."
 msgstr ""
 "YouTube は、入力されたメールアドレスやパスワードを認識しませんでした。もう一度試すには、以下でメールアドレスとパスワードを再入力してください。"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:746
+#: plugins/shotwell-publishing/YouTubePublishing.vala:753
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that isn't set up for use with YouTube. You can set up most accounts by "
@@ -3551,7 +3454,7 @@ msgstr ""
 "アカウントのものです。少なくとも一度ブラウザを使用して YouTube "
 "にログインすると、ほとんどのアカウントを設定することができます。もう一度試すには、メールアドレスとパスワードを以下で再入力してください。"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:747
+#: plugins/shotwell-publishing/YouTubePublishing.vala:754
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that has been tagged as requiring additional security. You can clear this "
@@ -3561,29 +3464,29 @@ msgstr ""
 "入力されたメールアドレスとパスワードは、「追加のセキュリティ設定が必要である」とタグ付けされた Google アカウントのものです。Picasa "
 "ウェブアルバムにブラウザでログインすると、このタグを削除することができます。もう一度試すには、メールアドレスとパスワードを以下で再入力してください。"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:957
+#: plugins/shotwell-publishing/YouTubePublishing.vala:964
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "%s として YouTube にログインしています。"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:962
+#: plugins/shotwell-publishing/YouTubePublishing.vala:969
 #, c-format
 msgid "Videos will appear in '%s'"
 msgstr "動画は '%s' で表示されます"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:985
+#: plugins/shotwell-publishing/YouTubePublishing.vala:992
 msgid "Video privacy _setting:"
 msgstr "動画のプライバシー設定(_S):"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1062
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1069
 msgid "Public listed"
 msgstr "公開"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1063
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1070
 msgid "Public unlisted"
 msgstr "限定公開"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1064
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1071
 msgid "Private"
 msgstr "非公開"
 
@@ -3613,7 +3516,7 @@ msgstr ""
 msgid "Preparing to login..."
 msgstr "ログインしようとしています..."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:984
+#: plugins/shotwell-publishing/FlickrPublishing.vala:991
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -3622,7 +3525,7 @@ msgstr ""
 "%s として Flickr にログインしています。\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:986
+#: plugins/shotwell-publishing/FlickrPublishing.vala:993
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -3631,43 +3534,43 @@ msgstr ""
 "あなたのフリーな Flickr アカウントは月ごとのアップロード可能なデータに制限があります。\n"
 "今月は、あなたは %d メガバイトのアップロードの割り当てが残っています。"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:988
+#: plugins/shotwell-publishing/FlickrPublishing.vala:995
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "あなたの Flickr Pro アカウントは無制限のアップロード容量が与えられています。"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1013
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1020
 msgid "Photos _visible to:"
 msgstr "写真を公開する範囲(_V):"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1015
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1022
 msgid "Videos _visible to:"
 msgstr "動画を公開する範囲(_V):"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1017
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1024
 msgid "Photos and videos _visible to:"
 msgstr "写真と動画を公開する範囲(_V):"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1020
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1027
 msgid "Photo _size:"
 msgstr "写真のサイズ(_S):"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1096
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1103
 msgid "Friends & family only"
 msgstr "友人と家族のみ"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1119
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1126
 msgid "500 x 375 pixels"
 msgstr "500 x 375 ピクセル"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1120
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1127
 msgid "1024 x 768 pixels"
 msgstr "1024 x 768 ピクセル"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1121
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1128
 msgid "2048 x 1536 pixels"
 msgstr "2048 x 1536 ピクセル"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1122
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1129
 msgid "4096 x 3072 pixels"
 msgstr "4096 x 3072 ピクセル"
 
@@ -3806,3 +3709,5 @@ msgstr "外部エディタ"
 #: ui/shotwell.glade:936
 msgid "Plugins"
 msgstr "プラグイン"
+
+

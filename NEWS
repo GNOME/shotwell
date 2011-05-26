@@ -1,3 +1,17 @@
+Shotwell 0.10 - 26 May 2011 - "The Butter Shave"
+---------------------------------------------------------------------
+
+  * Dynamic view of photo library through saved search feature
+  * Automatic database backup
+  * Adjust date/time for videos
+  * Added Valadate testing framework
+  * Shotwell video thumbnailer eliminates Totem dependency
+  * Crop tool is now more flexible
+  * Filenames no longer used as titles on Facebook and Picasa uploads
+  * Translation corrections
+  * Many bug fixes
+
+
 Shotwell 0.9.3 - 21 April 2011 - "Without Rules There's Chaos"
 ---------------------------------------------------------------------
 

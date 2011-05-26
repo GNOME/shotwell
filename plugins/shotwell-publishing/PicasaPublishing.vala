@@ -530,7 +530,14 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_service_locked(true);
 
         progress_reporter = host.serialize_publishables(parameters.get_photo_major_axis_size());
-
+        
+        // Serialization is a long and potentially cancellable operation, so before we use
+        // the publishables, make sure that the publishing interaction is still running. If it
+        // isn't the publishing environment may be partially torn down so do a short-circuit
+        // return
+        if (!is_running())
+            return;
+            
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
         Uploader uploader = new Uploader(session, publishables, parameters);
 
@@ -1192,15 +1199,16 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         string album_name;
         if (create_new_radio.get_active()) {
             album_name = new_album_entry.get_text();
+            host.set_config_string(LAST_ALBUM_CONFIG_KEY, album_name);
             bool is_public = public_check.get_active();
             publish(new PublishingParameters.to_new_album(photo_major_axis_size, album_name,
                 is_public));
         } else {
             album_name = albums[existing_albums_combo.get_active()].name;
+            host.set_config_string(LAST_ALBUM_CONFIG_KEY, album_name);
             string album_url = albums[existing_albums_combo.get_active()].url;
             publish(new PublishingParameters.to_existing_album(photo_major_axis_size, album_url));
         }
-        host.set_config_string(LAST_ALBUM_CONFIG_KEY, album_name);
     }
 
     private void on_use_existing_radio_clicked() {

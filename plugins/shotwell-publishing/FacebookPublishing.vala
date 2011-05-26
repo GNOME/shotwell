@@ -439,6 +439,13 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         progress_reporter = host.serialize_publishables(target_resolution.get_pixels());
 
+        // Serialization is a long and potentially cancellable operation, so before we use
+        // the publishables, make sure that the publishing interaction is still running. If it
+        // isn't the publishing environment may be partially torn down so do a short-circuit
+        // return
+        if (!is_running())
+            return;
+
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
         FacebookUploader uploader = new FacebookUploader(session, albums[publish_to_album].id,
             privacy_setting, publishables);

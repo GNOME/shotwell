@@ -95,7 +95,7 @@ public class SavedSearchDialog {
                 case SearchCondition.SearchType.RATING:
                     my_row = new SearchRowRating(this);
                     break;
-                    
+                
                 default:
                     assert(false);
                     break;
@@ -199,6 +199,7 @@ public class SavedSearchDialog {
             assert(text != null);
             text_context.set_active(text.context);
             entry.set_text(text.text);
+            on_changed();
         }
         
         public override bool is_complete() {
@@ -359,9 +360,9 @@ public class SavedSearchDialog {
             rating.changed.connect(on_changed);
             
             context = new Gtk.ComboBox.text();
-            context.append_text("and higher");
-            context.append_text("only");
-            context.append_text("and lower");
+            context.append_text(_("and higher"));
+            context.append_text(_("only"));
+            context.append_text(_("and lower"));
             context.set_active(0);
             context.changed.connect(on_changed);
             
@@ -443,6 +444,14 @@ public class SavedSearchDialog {
         edit_mode = true;
         setup_dialog();
         
+        // Add close button.
+        Gtk.Button close_button = new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
+        close_button.can_default = true;
+        dialog.add_action_widget(close_button, Gtk.ResponseType.OK);
+        dialog.set_default_response(Gtk.ResponseType.OK);
+        
+        dialog.show_all();
+        
         // Load existing search into dialog.
         operator.set_active((SearchOperator) saved_search.get_operator());
         search_title.set_text(saved_search.get_name());
@@ -453,13 +462,6 @@ public class SavedSearchDialog {
         if (row_list.size == 1)
             row_list.get(0).allow_removal(false);
         
-        // Add close button.
-        Gtk.Button close_button = new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
-        close_button.can_default = true;
-        dialog.add_action_widget(close_button, Gtk.ResponseType.OK);
-        dialog.set_default_response(Gtk.ResponseType.OK);
-        
-        dialog.show_all();
         set_valid(true);
     }
     

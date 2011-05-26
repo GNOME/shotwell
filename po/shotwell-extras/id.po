@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-19 19:13+0000\n"
+"POT-Creation-Date: 2011-05-20 19:12-0700\n"
+"PO-Revision-Date: 2011-05-25 19:28+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Visit the Yandex.Fotki web site"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:634
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr ""
 

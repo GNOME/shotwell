@@ -13,7 +13,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     private const double STATUS_PREPARATION_FRACTION = 0.3;
     private const double STATUS_UPLOAD_FRACTION = 0.7;
     
-    private PublishingUI.PublishingDialog dialog = null;
+    private weak PublishingUI.PublishingDialog dialog = null;
     private Spit.Publishing.Publisher active_publisher = null;
     private Publishable[] publishables = null;
     private LoginCallback current_login_callback = null;
@@ -104,7 +104,6 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         clean_up();
 
         publishing_halted = true;
-        dialog = null;
     }
     
     public void start_publishing() {
@@ -207,6 +206,9 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
 
         int i = 0;
         foreach (Spit.Publishing.Publishable publishable in publishables) {
+            if (publishing_halted || !active_publisher.is_running())
+                return null;
+
             try {
                 global::Publishing.Glue.MediaSourcePublishableWrapper wrapper =
                     (global::Publishing.Glue.MediaSourcePublishableWrapper) publishable;
@@ -224,9 +226,6 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
             progress_pane.set_status(PREPARE_STATUS_DESCRIPTION, fraction_complete);
             
             spin_event_loop();
-
-            if (publishing_halted)
-                break;
 
             i++;
         }

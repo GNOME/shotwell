@@ -468,6 +468,13 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
 
         progress_reporter = host.serialize_publishables(-1);
 
+        // Serialization is a long and potentially cancellable operation, so before we use
+        // the publishables, make sure that the publishing interaction is still running. If it
+        // isn't the publishing environment may be partially torn down so do a short-circuit
+        // return
+        if (!is_running())
+            return;
+
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
         Uploader uploader = new Uploader(session, publishables, parameters);
 

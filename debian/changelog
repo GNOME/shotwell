@@ -1,3 +1,18 @@
+shotwell (0.10.0-1~natty1) natty; urgency=low
+
+  * Dynamic view of photo library through saved search feature
+  * Automatic database backup
+  * Adjust date/time for videos
+  * Added Valadate testing framework
+  * Shotwell video thumbnailer eliminates Totem dependency
+  * Crop tool is now more flexible
+  * Filenames no longer used as titles on Facebook and Picasa uploads
+  * Translation corrections
+  * Many bug fixes
+
+ -- Eric Gregory <eric@yorba.org>  Thu, 26 May 2011 13:00:00 -0800 
+
+
 shotwell (0.9.3-1~maverick1) maverick; urgency=low
 
   * Resolves issue where setting the desktop background didn't work in Gnome3

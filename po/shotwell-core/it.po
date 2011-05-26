@@ -3,12 +3,13 @@
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
+#   <caccolangrifata@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 09:29+0000\n"
+"POT-Creation-Date: 2011-05-20 19:12-0700\n"
+"PO-Revision-Date: 2011-05-21 08:27+0000\n"
 "Last-Translator: caccolangrifata <caccolangrifata@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +20,7 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
-#: src/AppWindow.vala:659 plugins/common/Resources.vala:28
+#: src/AppWindow.vala:661 plugins/common/Resources.vala:28
 msgid "translator-credits"
 msgstr ""
 "Riccardo Albertini <ssirowain@gmail.com>\n"
@@ -86,13 +87,13 @@ msgstr "_Sommario"
 msgid "_Frequently Asked Questions"
 msgstr "Domande _frequenti"
 
-#: src/AppWindow.vala:595 src/AppWindow.vala:609 src/AppWindow.vala:626
-#: src/WebConnectors.vala:988 src/Dialogs.vala:18 src/Dialogs.vala:26
-#: src/Dialogs.vala:1001 src/Dialogs.vala:1024
+#: src/AppWindow.vala:593 src/AppWindow.vala:611 src/AppWindow.vala:628
+#: src/publishing/PublishingUI.vala:480 src/Dialogs.vala:18
+#: src/Dialogs.vala:26 src/Dialogs.vala:1003 src/Dialogs.vala:1026
 msgid "_Cancel"
 msgstr "A_nnulla"
 
-#: src/AppWindow.vala:636
+#: src/AppWindow.vala:638
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
@@ -103,16 +104,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:656 plugins/common/Resources.vala:9
+#: src/AppWindow.vala:658 plugins/common/Resources.vala:9
 msgid "Visit the Yorba web site"
 msgstr "Visita il sito web di Yorba"
 
-#: src/AppWindow.vala:668
+#: src/AppWindow.vala:670
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Impossibile mostrare il manuale: %s"
 
-#: src/AppWindow.vala:676
+#: src/AppWindow.vala:678
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Impossibile mostrare le FAQ: %s"
@@ -207,7 +208,8 @@ msgstr "Ruota in senso orario"
 
 #: src/Resources.vala:133
 msgid "Rotate the photos right (press Ctrl to rotate left)"
-msgstr "Ruota le foto verso destra (premere Ctrl per ruotare a sinistra)"
+msgstr ""
+"Ruota le foto in senso orario (premere Ctrl per ruotare in senso antiorario)"
 
 #: src/Resources.vala:135
 msgid "Rotate _Left"
@@ -219,7 +221,7 @@ msgstr "Ruota in senso antiorario"
 
 #: src/Resources.vala:138
 msgid "Rotate the photos left"
-msgstr "Ruota le foto verso sinistra"
+msgstr "Ruota le foto in senso antiorario"
 
 #: src/Resources.vala:140
 msgid "Flip Hori_zontally"
@@ -227,7 +229,7 @@ msgstr "Capovolgi ori_zzontalmente"
 
 #: src/Resources.vala:141
 msgid "Flip Horizontally"
-msgstr "Capovolgi orizzontalmente"
+msgstr "Capovolge orizzontalmente"
 
 #: src/Resources.vala:143
 msgid "Flip Verti_cally"
@@ -235,7 +237,7 @@ msgstr "Capovolgi _verticalmente"
 
 #: src/Resources.vala:144
 msgid "Flip Vertically"
-msgstr "Capovolgi verticalmente"
+msgstr "Capovolge verticalmente"
 
 #: src/Resources.vala:146
 msgid "_Enhance"
@@ -334,7 +336,7 @@ msgstr "Ripeti"
 msgid "Re_name Event..."
 msgstr "_Rinomina evento..."
 
-#: src/Resources.vala:179 src/Dialogs.vala:918
+#: src/Resources.vala:179 src/Dialogs.vala:920
 msgid "Rename Event"
 msgstr "Rinomina evento"
 
@@ -344,7 +346,7 @@ msgstr "Rendi foto c_hiave per evento"
 
 #: src/Resources.vala:182
 msgid "Make Key Photo for Event"
-msgstr "Rendi foto chiave per evento"
+msgstr "Rende foto chiave per evento"
 
 #: src/Resources.vala:184
 msgid "_New Event"
@@ -396,7 +398,7 @@ msgstr "_Diminuisci"
 
 #: src/Resources.vala:201
 msgid "Decrease Rating"
-msgstr "Diminuisci giudizio"
+msgstr "Diminuisce giudizio"
 
 #: src/Resources.vala:203
 msgid "_Unrated"
@@ -522,7 +524,7 @@ msgstr "Pubblica in vari siti web"
 msgid "E_dit Title..."
 msgstr "Modifica _titolo..."
 
-#: src/Resources.vala:247 src/Dialogs.vala:928
+#: src/Resources.vala:247 src/Dialogs.vala:930
 msgid "Edit Title"
 msgstr "Modifica titolo"
 
@@ -540,7 +542,7 @@ msgstr "_Aggiungi etichette..."
 
 #: src/Resources.vala:253 src/Resources.vala:281
 msgid "Add Tags"
-msgstr "Aggiungi etichette"
+msgstr "Aggiunge etichette"
 
 #: src/Resources.vala:255
 msgid "_Preferences"
@@ -619,12 +621,12 @@ msgstr "Ricerca salvata"
 #: src/Resources.vala:300
 #, c-format
 msgid "_Delete Search \"%s\""
-msgstr "_Cancella ricerca \"%s\""
+msgstr "_Cancella ricerca «%s»"
 
 #: src/Resources.vala:304
 #, c-format
 msgid "Delete saved search: \"%s\""
-msgstr "_Cancella ricerca salvata: \"%s\""
+msgstr "Cancella ricerca salvata: «%s»"
 
 #: src/Resources.vala:307
 msgid "Delete Tag"
@@ -675,37 +677,37 @@ msgstr "Etichetta le foto selezionate come «%s»"
 #: src/Resources.vala:332
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr "Etichetta le foto selezionate come \"%s\""
+msgstr "Etichetta le foto selezionate come «%s»"
 
 #: src/Resources.vala:336
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
-msgstr "Rimuovi l'etichetta «%s» dalle f_oto"
+msgstr "Rimuovi l'etichetta «%s» dalla f_oto"
 
 #: src/Resources.vala:337
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr ""
+msgstr "Rimuovi l'etichetta «%s» dalle f_oto"
 
 #: src/Resources.vala:341
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
-msgstr "Rimuove etichetta «%s» dalle foto"
+msgstr "Rimuove l'etichetta «%s» dalla foto"
 
 #: src/Resources.vala:342
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr "Rimuove l'etichetta \"%s\" dalle foto"
+msgstr "Rimuove l'etichetta «%s» dalle foto"
 
 #: src/Resources.vala:346
 #, c-format
 msgid "Remove tag \"%s\" from the selected photo"
-msgstr "Rimuove l'etichetta «%s» dalle foto selezionate"
+msgstr "Rimuove l'etichetta «%s» dalla foto selezionata"
 
 #: src/Resources.vala:347
 #, c-format
 msgid "Remove tag \"%s\" from the selected photos"
-msgstr "Rimuovi l'etichetta \"%s\" dalle foto selezionate"
+msgstr "Rimuovi l'etichetta «%s» dalle foto selezionate"
 
 #: src/Resources.vala:351
 #, c-format
@@ -715,12 +717,12 @@ msgstr "Impossibile rinominare l'etichetta in «%s» perché già esiste."
 #: src/Resources.vala:355
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr "Cancella ricerca \"%s\""
+msgstr "Cancella ricerca «%s»"
 
 #: src/Resources.vala:359
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr "Impossibile rinominare la ricerca \"%s\" perché esiste già."
+msgstr "Impossibile rinominare la ricerca in «%s» perché esiste già."
 
 #: src/Resources.vala:362
 msgid "Delete Search"
@@ -729,27 +731,27 @@ msgstr "Cancella ricerca"
 #: src/Resources.vala:365
 #, c-format
 msgid "_Edit Search \"%s\"..."
-msgstr "_Modifica ricerca \"%s\"..."
+msgstr "_Modifica ricerca «%s»..."
 
 #: src/Resources.vala:369
 #, c-format
 msgid "Edit the search \"%s\""
-msgstr "Modifica ricerca \"%s\""
+msgstr "Modifica ricerca «%s»"
 
 #: src/Resources.vala:373
 #, c-format
 msgid "Re_name Search \"%s\"..."
-msgstr ""
+msgstr "Ri_nomina ricerca «%s»..."
 
 #: src/Resources.vala:377
 #, c-format
 msgid "Rename the search \"%s\""
-msgstr "Rinomina la ricerca \"%s\""
+msgstr "Rinomina la ricerca «%s»"
 
 #: src/Resources.vala:381
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr "Rinomina la ricerca \"%s\" in \"%s\""
+msgstr "Rinomina la ricerca «%s» in «%s»"
 
 #: src/Resources.vala:539
 #, c-format
@@ -792,7 +794,7 @@ msgid "Only show photos with a rating of %s or better"
 msgstr "Mostra solo le foto con un giudizio di %s o migliore"
 
 #: src/Resources.vala:637 src/Dialogs.vala:18 src/Dialogs.vala:26
-#: src/Dialogs.vala:969
+#: src/Dialogs.vala:971
 msgid "_Delete"
 msgstr "_Elimina"
 
@@ -1179,7 +1181,7 @@ msgstr "Oggi"
 msgid "Yesterday"
 msgstr "Ieri"
 
-#: src/Properties.vala:283 src/Dialogs.vala:928
+#: src/Properties.vala:283 src/Dialogs.vala:930
 msgid "Title:"
 msgstr "Titolo:"
 
@@ -1224,7 +1226,7 @@ msgstr "Da:"
 msgid "To:"
 msgstr "A:"
 
-#: src/Properties.vala:338 src/EditingTools.vala:1756
+#: src/Properties.vala:338 src/EditingTools.vala:1740
 msgid "Size:"
 msgstr "Dimensione:"
 
@@ -1238,63 +1240,63 @@ msgid "%.1f seconds"
 msgstr "%.1f secondi"
 
 #: src/Properties.vala:371 src/Properties.vala:375 src/Properties.vala:382
-#: src/EditingTools.vala:2088
+#: src/EditingTools.vala:2072
 msgid "Exposure:"
 msgstr "Esposizione:"
 
-#: src/Properties.vala:468
+#: src/Properties.vala:470
 msgid "Location:"
 msgstr "Posizione:"
 
-#: src/Properties.vala:470
+#: src/Properties.vala:472
 msgid "File size:"
 msgstr "Dimensione del file:"
 
-#: src/Properties.vala:473
+#: src/Properties.vala:475
 msgid "Original dimensions:"
 msgstr "Dimensioni originali:"
 
-#: src/Properties.vala:476
+#: src/Properties.vala:478
 msgid "Camera make:"
 msgstr "Produttore fotocamera:"
 
-#: src/Properties.vala:479
+#: src/Properties.vala:481
 msgid "Camera model:"
 msgstr "Modello fotocamera:"
 
-#: src/Properties.vala:482
+#: src/Properties.vala:484
 msgid "Flash:"
 msgstr "Flash:"
 
-#: src/Properties.vala:484
+#: src/Properties.vala:486
 msgid "Focal length:"
 msgstr "Lunghezza focale:"
 
-#: src/Properties.vala:487
+#: src/Properties.vala:489
 msgid "Exposure bias:"
 msgstr "Esposizione:"
 
-#: src/Properties.vala:489
+#: src/Properties.vala:491
 msgid "GPS latitude:"
 msgstr "Latitudine GPS:"
 
-#: src/Properties.vala:492
+#: src/Properties.vala:494
 msgid "GPS longitude:"
 msgstr "Longitudine GPS:"
 
-#: src/Properties.vala:495
+#: src/Properties.vala:497
 msgid "Artist:"
 msgstr "Artista:"
 
-#: src/Properties.vala:497
+#: src/Properties.vala:499
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: src/Properties.vala:499
+#: src/Properties.vala:501
 msgid "Software:"
 msgstr "Software:"
 
-#: src/Properties.vala:508
+#: src/Properties.vala:510
 msgid "Extended Information"
 msgstr "Informazioni estese"
 
@@ -1302,103 +1304,115 @@ msgstr "Informazioni estese"
 msgid "Tags"
 msgstr "Etichette"
 
-#: src/searches/SavedSearchDialog.vala:38
-msgid "Any text"
-msgstr "Qualsiasi testo"
-
-#: src/searches/SavedSearchDialog.vala:39
-msgid "Title"
-msgstr "Titolo"
-
-#: src/searches/SavedSearchDialog.vala:40
-msgid "Tag"
-msgstr "Etichetta"
-
-#: src/searches/SavedSearchDialog.vala:41
-msgid "Event name"
-msgstr "Nome evento"
-
-#: src/searches/SavedSearchDialog.vala:42
-msgid "File name"
-msgstr "Nome file"
-
-#: src/searches/SavedSearchDialog.vala:43
-msgid "Media type"
-msgstr "Tipo media"
-
-#: src/searches/SavedSearchDialog.vala:44
-msgid "Flag state"
-msgstr ""
-
-#: src/searches/SavedSearchDialog.vala:45 src/SearchFilter.vala:948
-msgid "Rating"
-msgstr "Giudizio"
-
-#: src/searches/SavedSearchDialog.vala:154
+#: src/searches/SavedSearchDialog.vala:160
 msgid "contains"
 msgstr "contiene"
 
-#: src/searches/SavedSearchDialog.vala:155
+#: src/searches/SavedSearchDialog.vala:161
 msgid "is exactly"
 msgstr "è esattamente"
 
-#: src/searches/SavedSearchDialog.vala:156
+#: src/searches/SavedSearchDialog.vala:162
 msgid "starts with"
 msgstr "inizia con"
 
-#: src/searches/SavedSearchDialog.vala:157
+#: src/searches/SavedSearchDialog.vala:163
 msgid "ends with"
 msgstr "finisce con"
 
-#: src/searches/SavedSearchDialog.vala:158
+#: src/searches/SavedSearchDialog.vala:164
 msgid "does not contain"
 msgstr "non contiene"
 
-#: src/searches/SavedSearchDialog.vala:159
+#: src/searches/SavedSearchDialog.vala:165
 msgid "is not set"
-msgstr "non è settato"
+msgstr "non è impostato"
 
-#: src/searches/SavedSearchDialog.vala:219
-#: src/searches/SavedSearchDialog.vala:288
-#: src/searches/SavedSearchDialog.vala:353
+#: src/searches/SavedSearchDialog.vala:235
+#: src/searches/SavedSearchDialog.vala:304
+#: src/searches/SavedSearchDialog.vala:369
 msgid "is"
 msgstr "è"
 
-#: src/searches/SavedSearchDialog.vala:220
+#: src/searches/SavedSearchDialog.vala:236
 msgid "is not"
 msgstr "non è"
 
-#: src/searches/SavedSearchDialog.vala:226
+#: src/searches/SavedSearchDialog.vala:242
 msgid "any photo"
 msgstr "qualsiasi foto"
 
-#: src/searches/SavedSearchDialog.vala:227
+#: src/searches/SavedSearchDialog.vala:243
 msgid "a raw photo"
 msgstr "una foto raw"
 
-#: src/searches/SavedSearchDialog.vala:228
+#: src/searches/SavedSearchDialog.vala:244
 msgid "a video"
 msgstr "un video"
 
-#: src/searches/SavedSearchDialog.vala:282
+#: src/searches/SavedSearchDialog.vala:298
 msgid "flagged"
 msgstr "contrassegnato"
 
-#: src/searches/SavedSearchDialog.vala:283
+#: src/searches/SavedSearchDialog.vala:299
 msgid "not flagged"
 msgstr "non contrassegnato"
 
-#: src/searches/SavedSearchDialog.vala:474
+#: src/searches/SavedSearchDialog.vala:362
+msgid "and higher"
+msgstr "e maggiore"
+
+#: src/searches/SavedSearchDialog.vala:363
+msgid "only"
+msgstr "solo"
+
+#: src/searches/SavedSearchDialog.vala:364
+msgid "and lower"
+msgstr "e inferiore"
+
+#: src/searches/SavedSearchDialog.vala:490
 msgid "any"
 msgstr "qualsiasi"
 
-#: src/searches/SavedSearchDialog.vala:475
+#: src/searches/SavedSearchDialog.vala:491
 msgid "all"
 msgstr "tutto"
 
-#: src/searches/SavedSearchDialog.vala:476
+#: src/searches/SavedSearchDialog.vala:492
 msgid "none"
 msgstr "nessuno"
+
+#: src/searches/SearchBoolean.vala:135
+msgid "Any text"
+msgstr "Qualsiasi testo"
+
+#: src/searches/SearchBoolean.vala:138
+msgid "Title"
+msgstr "Titolo"
+
+#: src/searches/SearchBoolean.vala:141
+msgid "Tag"
+msgstr "Etichetta"
+
+#: src/searches/SearchBoolean.vala:144
+msgid "Event name"
+msgstr "Nome evento"
+
+#: src/searches/SearchBoolean.vala:147
+msgid "File name"
+msgstr "Nome file"
+
+#: src/searches/SearchBoolean.vala:150
+msgid "Media type"
+msgstr "Tipo media"
+
+#: src/searches/SearchBoolean.vala:153
+msgid "Flag state"
+msgstr "Stato contrassegno"
+
+#: src/searches/SearchBoolean.vala:156 src/SearchFilter.vala:922
+msgid "Rating"
+msgstr "Giudizio"
 
 #: src/searches/Branch.vala:65
 msgid "Saved Searches"
@@ -1503,7 +1517,7 @@ msgid "Screen"
 msgstr "Schermo"
 
 #: src/EditingTools.vala:651
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1236
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1242
 msgid "Original Size"
 msgstr "Dimensione originale"
 
@@ -1520,97 +1534,97 @@ msgstr "Video SD (4:3)"
 msgid "HD Video (16 : 9)"
 msgstr "Video HD (16:9)"
 
-#: src/EditingTools.vala:672 src/Dialogs.vala:1804
+#: src/EditingTools.vala:672 src/Dialogs.vala:1806
 msgid "Custom"
 msgstr "Personalizzata"
 
-#: src/EditingTools.vala:1771
+#: src/EditingTools.vala:1755
 msgid "Close the red-eye tool"
 msgstr "Chiude lo strumento occhi-rossi"
 
-#: src/EditingTools.vala:1774
+#: src/EditingTools.vala:1758
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Rimuove ogni effetto occhi-rossi nella regione selezionata"
 
-#: src/EditingTools.vala:2077
+#: src/EditingTools.vala:2061
 msgid "_Reset"
 msgstr "A_zzera"
 
-#: src/EditingTools.vala:2096
+#: src/EditingTools.vala:2080
 msgid "Saturation:"
 msgstr "Saturazione:"
 
-#: src/EditingTools.vala:2104
+#: src/EditingTools.vala:2088
 msgid "Tint:"
 msgstr "Tinta:"
 
-#: src/EditingTools.vala:2113
+#: src/EditingTools.vala:2097
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: src/EditingTools.vala:2121
+#: src/EditingTools.vala:2105
 msgid "Shadows:"
 msgstr "Ombre:"
 
-#: src/EditingTools.vala:2175
+#: src/EditingTools.vala:2159
 msgid "Reset Colors"
 msgstr "Azzera colori"
 
-#: src/EditingTools.vala:2175
+#: src/EditingTools.vala:2159
 msgid "Reset all color adjustments to original"
 msgstr "Reimposta tutte le regolazioni del colore all'originale"
 
-#: src/EditingTools.vala:2504
+#: src/EditingTools.vala:2488
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: src/EditingTools.vala:2510
+#: src/EditingTools.vala:2494
 msgid "Tint"
 msgstr "Tinta"
 
-#: src/EditingTools.vala:2516
+#: src/EditingTools.vala:2500
 msgid "Saturation"
 msgstr "Saturazione"
 
-#: src/EditingTools.vala:2522
+#: src/EditingTools.vala:2506
 msgid "Exposure"
 msgstr "Esposizione"
 
-#: src/EditingTools.vala:2528
+#: src/EditingTools.vala:2512
 msgid "Shadows"
 msgstr "Ombre"
 
-#: src/EditingTools.vala:2538
+#: src/EditingTools.vala:2522
 msgid "Contrast Expansion"
 msgstr "Espansione contrasto"
 
-#: src/SearchFilter.vala:639 src/SearchFilter.vala:640
-#: src/SearchFilter.vala:937 src/library/FlaggedPage.vala:8
+#: src/SearchFilter.vala:613 src/SearchFilter.vala:614
+#: src/SearchFilter.vala:911 src/library/FlaggedPage.vala:8
 msgid "Flagged"
 msgstr "Con contrassegno"
 
-#: src/SearchFilter.vala:645 src/SearchFilter.vala:646
+#: src/SearchFilter.vala:619 src/SearchFilter.vala:620
 msgid "Photos"
 msgstr "Foto"
 
-#: src/SearchFilter.vala:651 src/SearchFilter.vala:652
+#: src/SearchFilter.vala:625 src/SearchFilter.vala:626
 msgid "Videos"
 msgstr "Video"
 
-#: src/SearchFilter.vala:657
+#: src/SearchFilter.vala:631
 msgid "RAW Photos"
 msgstr "Foto RAW"
 
-#: src/SearchFilter.vala:658
+#: src/SearchFilter.vala:632
 msgid "RAW photos"
 msgstr "Foto RAW"
 
-#: src/SearchFilter.vala:904
+#: src/SearchFilter.vala:878
 #, c-format
 msgid "Error loading UI file %s: %s"
 msgstr "Errore nel caricare il file di interfaccia %s: %s"
 
-#: src/SearchFilter.vala:921
+#: src/SearchFilter.vala:895
 msgid "Type"
 msgstr "Tipo"
 
@@ -1653,12 +1667,12 @@ msgstr "Impossibile creare la directory dati %s: %s"
 msgid "Pictures"
 msgstr "Immagini"
 
-#: src/AppDirs.vala:123
+#: src/AppDirs.vala:124
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Impossibile creare la directory temporanea %s: %s"
 
-#: src/AppDirs.vala:139
+#: src/AppDirs.vala:140
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Impossibile creare la sottodirectory dati %s: %s"
@@ -1667,7 +1681,7 @@ msgstr "Impossibile creare la sottodirectory dati %s: %s"
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
-msgstr[0] "%d foto o video"
+msgstr[0] "%d foto/video"
 msgstr[1] "%d foto o video"
 
 #: src/events/EventPage.vala:86
@@ -1728,7 +1742,7 @@ msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Impossibile preparare lo sfondo a diapositive: %s"
 
 #: src/Dimensions.vala:17
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1123
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1130
 msgid "Original size"
 msgstr "Dimensione originale"
 
@@ -1743,129 +1757,6 @@ msgstr "Larghezza"
 #: src/Dimensions.vala:26
 msgid "Height"
 msgstr "Altezza"
-
-#: src/PiwigoConnector.vala:9
-#: plugins/shotwell-publishing/FacebookPublishing.vala:64
-#: plugins/shotwell-publishing/PicasaPublishing.vala:59
-msgid "Shotwell Connect"
-msgstr "Shotwell Connect"
-
-#: src/PiwigoConnector.vala:483
-msgid "Creating category..."
-msgstr "Creazione categoria..."
-
-#: src/PiwigoConnector.vala:589
-msgid ""
-"Enter the username and password associated with your Piwigo account, and the"
-" URL of your Piwigo installation."
-msgstr ""
-"Inserire il nome utente e la password associati all'account di Piwigo e "
-"l'URL dell'installazione di Piwigo."
-
-#: src/PiwigoConnector.vala:590
-msgid ""
-"No Piwigo installation was found at this URL. Please verify the URL you "
-"entered"
-msgstr ""
-"Nessuna installazione di Piwigo è stata trovata a questo URL. Verificare "
-"l'URL inserito"
-
-#: src/PiwigoConnector.vala:591
-msgid "Username and/or password invalid. Please try again"
-msgstr "Nome utente o password non validi. Provare nuovamente"
-
-#: src/PiwigoConnector.vala:625
-#, c-format
-msgid "Invalid URL"
-msgstr "URL non valido"
-
-#: src/PiwigoConnector.vala:630
-#: plugins/shotwell-publishing/PicasaPublishing.vala:856
-#: plugins/shotwell-publishing/YouTubePublishing.vala:786
-#, c-format
-msgid "Unrecognized User"
-msgstr "Utente non riconosciuto"
-
-#: src/PiwigoConnector.vala:636
-msgid "_URL of your Piwigo installation:"
-msgstr "_URL di installazione di Piwigo:"
-
-#: src/PiwigoConnector.vala:638
-msgid "User_name:"
-msgstr "_Nome utente:"
-
-#: src/PiwigoConnector.vala:640
-#: plugins/shotwell-publishing/PicasaPublishing.vala:882
-#: plugins/shotwell-publishing/YouTubePublishing.vala:812
-msgid "_Password:"
-msgstr "Pass_word:"
-
-#: src/PiwigoConnector.vala:665 src/WebConnectors.vala:583
-#: plugins/shotwell-publishing/PicasaPublishing.vala:907
-#: plugins/shotwell-publishing/YouTubePublishing.vala:837
-msgid "_Login"
-msgstr "_Accedi"
-
-#: src/PiwigoConnector.vala:741
-#, c-format
-msgid "You are logged into Piwigo as %s."
-msgstr "Si è connessi a Piwigo come %s."
-
-#: src/PiwigoConnector.vala:758
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1061
-msgid "Photos will appear in:"
-msgstr "Le foto appariranno in:"
-
-#: src/PiwigoConnector.vala:771
-msgid "An _existing category:"
-msgstr "Una categoria _esistente:"
-
-#: src/PiwigoConnector.vala:785
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1089
-msgid "A _new album named:"
-msgstr "Un _nuovo album chiamato:"
-
-#: src/PiwigoConnector.vala:804
-msgid "Who can see those pictures ?"
-msgstr "Chi può vedere queste immagini?"
-
-#: src/PiwigoConnector.vala:831
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1689
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1150
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1012
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1053
-msgid "_Logout"
-msgstr "_Disconnetti"
-
-#: src/PiwigoConnector.vala:841
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1687
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1160
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1022
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1057
-msgid "_Publish"
-msgstr "_Pubblica"
-
-#: src/PiwigoConnector.vala:906
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1856
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1095
-msgid "Everyone"
-msgstr "Chiunque"
-
-#: src/PiwigoConnector.vala:907
-msgid "Admins, Friends, Family, Contacts"
-msgstr "Amministratori, Amici, Famiglia, Contatti"
-
-#: src/PiwigoConnector.vala:908
-msgid "Admins, Family, Friends"
-msgstr "Amministratori, Famiglia, Amici"
-
-#: src/PiwigoConnector.vala:909
-msgid "Admins, Family"
-msgstr "Amministratori, Famiglia"
-
-#: src/PiwigoConnector.vala:910
-msgid "Admins"
-msgstr "Amministratori"
 
 #: src/main.vala:81
 #, c-format
@@ -1920,97 +1811,71 @@ msgstr "[FILE]"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Eseguire '%s --help' per un elenco completo di opzioni a riga di comando. \n"
+"Eseguire «%s --help» per un elenco completo di opzioni a riga di comando. \n"
 
-#: src/publishing/Publishing.vala:16
-msgid "Publishing"
-msgstr "Pubblicazione"
+#: src/publishing/PublishingUI.vala:69
+#: plugins/shotwell-publishing/PicasaPublishing.vala:913
+#: plugins/shotwell-publishing/YouTubePublishing.vala:844
+msgid "_Login"
+msgstr "_Accedi"
 
-#: src/publishing/PublishingPluginHost.vala:11 src/WebConnectors.vala:1119
-#: src/WebConnectors.vala:1256
-msgid "Preparing for upload"
-msgstr "Preparazione per il caricamento"
-
-#: src/publishing/PublishingPluginHost.vala:12 src/WebConnectors.vala:1120
-#: src/WebConnectors.vala:1196
-#, c-format
-msgid "Uploading %d of %d"
-msgstr "Caricamento %d di %d"
-
-#: src/publishing/PublishingPluginHost.vala:103
-#, c-format
-msgid "Publishing to %s can't continue because an error occurred:"
-msgstr ""
-"Impossibile proseguire con la pubblicazione su %s a causa di un errore:"
-
-#: src/publishing/PublishingPluginHost.vala:106 src/WebConnectors.vala:1023
-msgid "To try publishing to another service, select one from the above menu."
-msgstr ""
-"Provare la pubblicazione su un altro servizio, selezionandone uno dal menù "
-"qui sopra."
-
-#: src/WebConnectors.vala:505 plugins/common/RESTSupport.vala:409
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1316
-msgid "A temporary file needed for publishing is unavailable"
-msgstr "Un file temporaneo necessario per la pubblicazione non è disponibile"
-
-#: src/WebConnectors.vala:659
+#: src/publishing/PublishingUI.vala:144
 msgid "The selected photos/videos were successfully published."
 msgstr "Le foto o i video selezionati sono stati pubblicati correttamente."
 
-#: src/WebConnectors.vala:661
+#: src/publishing/PublishingUI.vala:146
 msgid "The selected videos were successfully published."
 msgstr "I video selezionati sono stati pubblicati correttamente."
 
-#: src/WebConnectors.vala:663
+#: src/publishing/PublishingUI.vala:148
 msgid "The selected photos were successfully published."
 msgstr "Le foto selezionate sono state pubblicate correttamente."
 
-#: src/WebConnectors.vala:666
+#: src/publishing/PublishingUI.vala:151
 msgid "The selected video was successfully published."
 msgstr "Il video selezionato è stato pubblicato correttamente."
 
-#: src/WebConnectors.vala:668
+#: src/publishing/PublishingUI.vala:153
 msgid "The selected photo was successfully published."
 msgstr "La foto selezionata è stata pubblicata correttamente."
 
-#: src/WebConnectors.vala:676
+#: src/publishing/PublishingUI.vala:161
 msgid "Fetching account information..."
 msgstr "Recupero informazioni sull'account..."
 
-#: src/WebConnectors.vala:682
+#: src/publishing/PublishingUI.vala:167
 msgid "Logging in..."
 msgstr "Accesso..."
 
-#: src/WebConnectors.vala:726
+#: src/publishing/PublishingUI.vala:218
 msgid "Publish Photos"
 msgstr "Pubblica foto"
 
-#: src/WebConnectors.vala:727
+#: src/publishing/PublishingUI.vala:219
 msgid "Publish photos _to:"
 msgstr "P_ubblica le foto su:"
 
-#: src/WebConnectors.vala:729
+#: src/publishing/PublishingUI.vala:221
 msgid "Publish Videos"
 msgstr "Pubblica video"
 
-#: src/WebConnectors.vala:730
+#: src/publishing/PublishingUI.vala:222
 msgid "Publish videos _to"
 msgstr "P_ubblica i video su:"
 
-#: src/WebConnectors.vala:732
+#: src/publishing/PublishingUI.vala:224
 msgid "Publish Photos and Videos"
 msgstr "Pubblica foto e video"
 
-#: src/WebConnectors.vala:733
+#: src/publishing/PublishingUI.vala:225
 msgid "Publish photos and videos _to"
 msgstr "P_ubblica le foto e i video su:"
 
-#: src/WebConnectors.vala:814
+#: src/publishing/PublishingUI.vala:390
 msgid "Unable to publish"
 msgstr "Impossibile pubblicare"
 
-#: src/WebConnectors.vala:815
+#: src/publishing/PublishingUI.vala:391
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -2023,58 +1888,34 @@ msgstr ""
 "situazione, scegliere <b>Modifica %s Preferenze</b> e abilitare uno o più "
 "plugin di pubblicazione nella scheda <b>Plugin</b>."
 
-#: src/WebConnectors.vala:983
+#: src/publishing/PublishingUI.vala:475
 msgid "_Close"
 msgstr "_Chiudi"
 
-#: src/WebConnectors.vala:1006
-#, c-format
-msgid ""
-"Publishing to %s can't continue because the service could not be contacted."
-msgstr ""
-"Impossibile proseguire con la pubblicazione su %s perché non si riesce a "
-"contattare il servizio."
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "Pubblicazione"
 
-#: src/WebConnectors.vala:1009
-#, c-format
-msgid ""
-"Publishing to %s can't continue because communication with the service "
-"failed."
-msgstr ""
-"Impossibile proseguire con la pubblicazione su %s perché non è riuscita la "
-"comunicazione con il servizio."
+#: src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "Preparazione per il caricamento"
 
-#: src/WebConnectors.vala:1012
+#: src/publishing/PublishingPluginHost.vala:12
 #, c-format
-msgid "Publishing to %s can't continue due to a protocol error."
-msgstr ""
-"Impossibile proseguire con la pubblicazione su %s a causa di un errore di "
-"protocollo."
+msgid "Uploading %d of %d"
+msgstr "Caricamento %d di %d"
 
-#: src/WebConnectors.vala:1014
+#: src/publishing/PublishingPluginHost.vala:81
 #, c-format
-msgid "Publishing to %s can't continue because the service returned an error."
+msgid "Publishing to %s can't continue because an error occurred:"
 msgstr ""
-"Impossibile proseguire con la pubblicazione su %s perché il servizio ha "
-"restituito un errore."
+"Impossibile proseguire con la pubblicazione su %s a causa di un errore:"
 
-#: src/WebConnectors.vala:1016
-#, c-format
-msgid ""
-"Publishing to %s can't continue because the service returned a bad response."
+#: src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
-"Impossibile proseguire con la pubblicazione su %s perché il servizio ha "
-"restituito una risposta errata."
-
-#: src/WebConnectors.vala:1019
-#, c-format
-msgid "Publishing to %s can't continue because an error occurred."
-msgstr ""
-"Impossibile proseguire con la pubblicazione su %s a causa di un errore."
-
-#: src/WebConnectors.vala:1169
-msgid "One or more of the photos or videos to be published is unavailable"
-msgstr "Una o più delle foto o dei video da pubblicare non sono disponibili"
+"Provare la pubblicazione su un altro servizio, selezionandone uno dal menù "
+"qui sopra."
 
 #: src/library/LastImportPage.vala:8
 msgid "Last Import"
@@ -2209,44 +2050,44 @@ msgstr "Svuota cestino"
 msgid "Emptying Trash..."
 msgstr "Svuotamento cestino..."
 
-#: src/library/LibraryWindow.vala:831
+#: src/library/LibraryWindow.vala:828
 msgid "Shotwell is configured to import photos to your home directory.\n"
 msgstr "Shotwell è configurato per importare le foto nella directory home.\n"
 
-#: src/library/LibraryWindow.vala:834
+#: src/library/LibraryWindow.vala:831
 msgid "_Import"
 msgstr "_Importa"
 
-#: src/library/LibraryWindow.vala:834
+#: src/library/LibraryWindow.vala:831
 msgid "Library Location"
 msgstr "Posizione libreria"
 
-#: src/library/LibraryWindow.vala:847
+#: src/library/LibraryWindow.vala:844
 msgid "Photos cannot be imported from this directory."
 msgstr "Impossibile importare le foto da questa directory."
 
-#: src/library/LibraryWindow.vala:1172
+#: src/library/LibraryWindow.vala:1169
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1205 src/library/LibraryWindow.vala:1213
+#: src/library/LibraryWindow.vala:1202 src/library/LibraryWindow.vala:1210
 msgid "Updating library..."
 msgstr "Aggiornamento libreria..."
 
-#: src/library/LibraryWindow.vala:1218
+#: src/library/LibraryWindow.vala:1215
 msgid "Preparing to auto-import photos..."
 msgstr "Preparazione per l'importazione automatica delle foto..."
 
-#: src/library/LibraryWindow.vala:1223
+#: src/library/LibraryWindow.vala:1220
 msgid "Auto-importing photos..."
 msgstr "Importazione automatica delle foto..."
 
-#: src/library/LibraryWindow.vala:1228
+#: src/library/LibraryWindow.vala:1225
 msgid "Writing metadata to files..."
 msgstr "Scrittura dei metadati nei file..."
 
-#: src/library/LibraryWindow.vala:1233
+#: src/library/LibraryWindow.vala:1230
 msgid "Processing RAW files..."
 msgstr "Elaborazione file RAW..."
 
@@ -2278,27 +2119,27 @@ msgstr "Esporta foto"
 msgid "Export Photos"
 msgstr "Esporta foto"
 
-#: src/CollectionPage.vala:518 src/CollectionPage.vala:533
+#: src/CollectionPage.vala:518 src/CollectionPage.vala:534
 msgid "Rotating"
 msgstr "Rotazione"
 
-#: src/CollectionPage.vala:518 src/CollectionPage.vala:533
+#: src/CollectionPage.vala:518 src/CollectionPage.vala:534
 msgid "Undoing Rotate"
 msgstr "Annullamento rotazione"
 
-#: src/CollectionPage.vala:542
+#: src/CollectionPage.vala:543
 msgid "Flipping Horizontally"
 msgstr "Capovolgimento orizzontale"
 
-#: src/CollectionPage.vala:543
+#: src/CollectionPage.vala:544
 msgid "Undoing Flip Horizontally"
 msgstr "Annullamento capovolgimento orizzontale"
 
-#: src/CollectionPage.vala:552
+#: src/CollectionPage.vala:553
 msgid "Flipping Vertically"
 msgstr "Capovolgimento verticale"
 
-#: src/CollectionPage.vala:553
+#: src/CollectionPage.vala:554
 msgid "Undoing Flip Vertically"
 msgstr "Annullamento capovolgimento verticale"
 
@@ -2312,7 +2153,7 @@ msgstr[1] "Verrà rimossa l'etichetta «%s» da %d foto. Continuare?"
 #: src/Dialogs.vala:23
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr "Questa azione rimuoverà la ricerca salvata \"%s\".  Continuare?"
+msgstr "Questa azione rimuoverà la ricerca salvata «%s».  Continuare?"
 
 #: src/Dialogs.vala:40
 msgid "Export Video"
@@ -2324,8 +2165,8 @@ msgid ""
 "Shotwell couldn't create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
-"Non è stato possibile creare un file necessario a Shotwell per l'editing di "
-"questa foto poiché non si hanno permessi sufficienti per scrivere su %s."
+"Non è stato possibile creare un file necessario a Shotwell per la modifica "
+"di questa foto poiché non si hanno permessi sufficienti per scrivere su %s."
 
 #: src/Dialogs.vala:103
 msgid ""
@@ -2598,58 +2439,58 @@ msgstr "Nessuna foto o video importati.\n"
 msgid "Import Complete"
 msgstr "Importazione completata"
 
-#: src/Dialogs.vala:831
+#: src/Dialogs.vala:833
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d secondo"
 msgstr[1] "%d secondi"
 
-#: src/Dialogs.vala:834
+#: src/Dialogs.vala:836
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minuto"
 msgstr[1] "%d minuti"
 
-#: src/Dialogs.vala:838
+#: src/Dialogs.vala:840
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d ora"
 msgstr[1] "%d ore"
 
-#: src/Dialogs.vala:841
+#: src/Dialogs.vala:843
 msgid "1 day"
 msgstr "1 giorno"
 
-#: src/Dialogs.vala:918
+#: src/Dialogs.vala:920
 msgid "Name:"
 msgstr "Nome:"
 
-#: src/Dialogs.vala:944
+#: src/Dialogs.vala:946
 msgid "_Trash File"
 msgid_plural "_Trash Files"
 msgstr[0] "Sposta _nel cestino"
 msgstr[1] "Sposta _nel cestino"
 
-#: src/Dialogs.vala:948
+#: src/Dialogs.vala:950
 msgid "Only _Remove"
 msgstr "_Rimuovi solamente"
 
-#: src/Dialogs.vala:968 src/camera/ImportPage.vala:1412
+#: src/Dialogs.vala:970 src/camera/ImportPage.vala:1412
 msgid "_Keep"
 msgstr "_Mantieni"
 
-#: src/Dialogs.vala:991
+#: src/Dialogs.vala:993
 msgid "Revert External Edit?"
-msgstr "Riprostinare la modifica esterne?"
-
-#: src/Dialogs.vala:991
-msgid "Revert External Edits?"
-msgstr "Riprostinare le modifiche esterne?"
+msgstr "Ripristinare la modifica esterne?"
 
 #: src/Dialogs.vala:993
+msgid "Revert External Edits?"
+msgstr "Ripristinare le modifiche esterne?"
+
+#: src/Dialogs.vala:995
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural ""
@@ -2657,67 +2498,67 @@ msgid_plural ""
 msgstr[0] "Verranno annullati tutti i cambiamenti al file esterno. Continuare?"
 msgstr[1] "Verranno annullati tutti i cambiamenti a %d file esterni. Continuare?"
 
-#: src/Dialogs.vala:997
+#: src/Dialogs.vala:999
 msgid "Re_vert External Edit"
-msgstr "A_nnulla modifiche esterne"
+msgstr "Ripristina modifica _esterna"
 
-#: src/Dialogs.vala:997
+#: src/Dialogs.vala:999
 msgid "Re_vert External Edits"
-msgstr ""
+msgstr "Ripristina modifiche _esterne"
 
-#: src/Dialogs.vala:1018
+#: src/Dialogs.vala:1020
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
 msgstr[0] "Verrà rimossa la foto dalla libreria. Continuare?"
 msgstr[1] "Verranno rimosse %d foto dalla libreria. Continuare?"
 
-#: src/Dialogs.vala:1025
+#: src/Dialogs.vala:1027
 msgid "_Remove"
 msgstr "_Rimuovi"
 
-#: src/Dialogs.vala:1026
+#: src/Dialogs.vala:1028
 msgid "Remove Photo From Library"
-msgstr "Rimuove le foto dalla libreria"
-
-#: src/Dialogs.vala:1026
-msgid "Remove Photos From Library"
 msgstr "Rimuove la foto dalla libreria"
 
-#: src/Dialogs.vala:1115
+#: src/Dialogs.vala:1028
+msgid "Remove Photos From Library"
+msgstr "Rimuove le foto dalla libreria"
+
+#: src/Dialogs.vala:1117
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:1238
+#: src/Dialogs.vala:1240
 msgid "AM"
 msgstr "AM"
 
-#: src/Dialogs.vala:1239
+#: src/Dialogs.vala:1241
 msgid "PM"
 msgstr "PM"
 
-#: src/Dialogs.vala:1240
+#: src/Dialogs.vala:1242
 msgid "24 Hr"
 msgstr "24 ore"
 
-#: src/Dialogs.vala:1255
+#: src/Dialogs.vala:1257
 msgid "_Shift photos/videos by the same amount"
-msgstr ""
+msgstr "_Sposta foto/video della stessa quantità"
 
-#: src/Dialogs.vala:1260
+#: src/Dialogs.vala:1262
 msgid "Set _all photos/videos to this time"
-msgstr ""
+msgstr "_Imposta tutte foto/video a quest'ora"
 
-#: src/Dialogs.vala:1266
+#: src/Dialogs.vala:1268
 msgid "_Modify original file"
-msgstr "_Modifica file originali"
-
-#: src/Dialogs.vala:1266
-msgid "_Modify original files"
 msgstr "_Modifica il file originale"
 
-#: src/Dialogs.vala:1349
+#: src/Dialogs.vala:1268
+msgid "_Modify original files"
+msgstr "_Modifica i file originali"
+
+#: src/Dialogs.vala:1351
 msgid "Original: "
 msgstr "Originale: "
 
@@ -2727,7 +2568,7 @@ msgstr "Originale: "
 # used in your language and region. The format string you enter should conform
 # to POSIX date and time formatting conventions. See the strftime manpage for
 # a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1350
+#: src/Dialogs.vala:1352
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d/%m/%Y %H.%M.%S"
 
@@ -2742,53 +2583,53 @@ msgstr "%d/%m/%Y %H.%M.%S"
 # you
 # enter should conform to POSIX date and time formatting conventions. See the
 # strftime manpage for a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1351
+#: src/Dialogs.vala:1353
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d/%m/%Y %I.%M.%S %p"
 
-#: src/Dialogs.vala:1436
+#: src/Dialogs.vala:1438
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
-"L'ora di scatto sarà spostata in avanti di\n"
+"L'ora dello scatto sarà spostato in avanti di\n"
 "%d %s, %d %s, %d %s, e %d %s."
 
-#: src/Dialogs.vala:1437
+#: src/Dialogs.vala:1439
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
-"L'ora di scatto sarà spostata indietro di\n"
+"L'ora dello scatto sarà spostato indietro di\n"
 "%d %s, %d %s, %d %s, e %d %s."
 
-#: src/Dialogs.vala:1439
+#: src/Dialogs.vala:1441
 msgid "day"
 msgid_plural "days"
 msgstr[0] "giorno"
 msgstr[1] "giorni"
 
-#: src/Dialogs.vala:1440
+#: src/Dialogs.vala:1442
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ora"
 msgstr[1] "ore"
 
-#: src/Dialogs.vala:1441
+#: src/Dialogs.vala:1443
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuto"
 msgstr[1] "minuti"
 
-#: src/Dialogs.vala:1442
+#: src/Dialogs.vala:1444
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "secondo"
 msgstr[1] "secondi"
 
-#: src/Dialogs.vala:1486
+#: src/Dialogs.vala:1488
 #, c-format
 msgid ""
 "\n"
@@ -2807,82 +2648,82 @@ msgstr[1] ""
 "\n"
 "E %d altre."
 
-#: src/Dialogs.vala:1507 src/Dialogs.vala:1531
+#: src/Dialogs.vala:1509 src/Dialogs.vala:1533
 msgid "Tags (separated by commas):"
 msgstr "Etichette (separate con una virgola):"
 
-#: src/Dialogs.vala:1588
+#: src/Dialogs.vala:1590
 msgid "Welcome!"
 msgstr "Benvenuti!"
 
-#: src/Dialogs.vala:1596
+#: src/Dialogs.vala:1598
 #, c-format
 msgid "Welcome to Shotwell!"
 msgstr "Benvenuti in Shotwell!"
 
-#: src/Dialogs.vala:1601
+#: src/Dialogs.vala:1603
 #, c-format
 msgid "To get started, import photos in any of these ways:"
 msgstr "Per iniziare, importare le foto in uno dei modi seguenti:"
 
-#: src/Dialogs.vala:1624
+#: src/Dialogs.vala:1626
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr "Scegliere <span weight=\"bold\">File %s Importa dalla cartella</span>"
 
-#: src/Dialogs.vala:1625
+#: src/Dialogs.vala:1627
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Trascinare e rilasciare le foto nella finestra di Shotwell"
 
-#: src/Dialogs.vala:1626
+#: src/Dialogs.vala:1628
 msgid "Connect a camera to your computer and import"
 msgstr "Connettere una fotocamera al computer e importare"
 
-#: src/Dialogs.vala:1635
+#: src/Dialogs.vala:1637
 msgid "Import photos from your _F-Spot library"
 msgstr "Importa le foto dalla libreria di _F-Spot"
 
-#: src/Dialogs.vala:1642
+#: src/Dialogs.vala:1644
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "Importa le foto dalla _cartella %s"
 
-#: src/Dialogs.vala:1652
+#: src/Dialogs.vala:1654
 msgid "You can also import photos in any of these ways:"
 msgstr "È anche possibile importare le foto in uno dei modi seguenti:"
 
-#: src/Dialogs.vala:1664
+#: src/Dialogs.vala:1666
 msgid "_Don't show this message again"
 msgstr "Non _mostrare più questo messaggio"
 
-#: src/Dialogs.vala:1784 src/Dialogs.vala:1788
+#: src/Dialogs.vala:1786 src/Dialogs.vala:1790
 msgid "(Help)"
 msgstr "(aiuto)"
 
-#: src/Dialogs.vala:1797
+#: src/Dialogs.vala:1799
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Anno%smese%sgiorno"
 
-#: src/Dialogs.vala:1799
+#: src/Dialogs.vala:1801
 #, c-format
 msgid "Year%sMonth"
 msgstr "Anno%smese"
 
-#: src/Dialogs.vala:1801
+#: src/Dialogs.vala:1803
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Anno%smese-giorno"
 
-#: src/Dialogs.vala:1803
+#: src/Dialogs.vala:1805
 msgid "Year-Month-Day"
 msgstr "Anno-mese-giorno"
 
-#: src/Dialogs.vala:2030
+#: src/Dialogs.vala:2032
 msgid "Invalid pattern"
 msgstr "Modello non valido"
 
-#: src/Dialogs.vala:2110
+#: src/Dialogs.vala:2112
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -2890,31 +2731,31 @@ msgstr ""
 "Shotwell può copiare le foto nella propria libreria o le può importare senza"
 " copiarle."
 
-#: src/Dialogs.vala:2115
+#: src/Dialogs.vala:2117
 msgid "Co_py Photos"
 msgstr "Co_pia foto"
 
-#: src/Dialogs.vala:2116
+#: src/Dialogs.vala:2118
 msgid "_Import in Place"
 msgstr "Importa _senza copiare"
 
-#: src/Dialogs.vala:2117
+#: src/Dialogs.vala:2119
 msgid "Import to Library"
 msgstr "Importa nella libreria"
 
-#: src/Dialogs.vala:2127 src/PhotoPage.vala:2864
+#: src/Dialogs.vala:2129 src/PhotoPage.vala:2864
 msgid "Remove From Library"
 msgstr "Rimuovi dalla libreria"
 
-#: src/Dialogs.vala:2128 src/PhotoPage.vala:2864
+#: src/Dialogs.vala:2130 src/PhotoPage.vala:2864
 msgid "Removing Photo From Library"
 msgstr "Rimozione foto dalla libreria"
 
-#: src/Dialogs.vala:2128
+#: src/Dialogs.vala:2130
 msgid "Removing Photos From Library"
 msgstr "Rimozione delle foto dalla libreria"
 
-#: src/Dialogs.vala:2142
+#: src/Dialogs.vala:2144
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -2933,7 +2774,7 @@ msgstr[1] ""
 "\n"
 "Questa azione non può essere ripristinata."
 
-#: src/Dialogs.vala:2146
+#: src/Dialogs.vala:2148
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -2952,7 +2793,7 @@ msgstr[1] ""
 "\n"
 "Questa azione non può essere ripristinata."
 
-#: src/Dialogs.vala:2150
+#: src/Dialogs.vala:2152
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
@@ -2971,7 +2812,7 @@ msgstr[1] ""
 "\n"
 "Questa azione non può essere ripristinata."
 
-#: src/Dialogs.vala:2182
+#: src/Dialogs.vala:2184
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash.  Delete this file?"
@@ -2984,7 +2825,7 @@ msgstr[1] ""
 "Non è possibile spostare %d foto o video nel cestino di sistema. Eliminare i"
 " file?"
 
-#: src/Dialogs.vala:2199
+#: src/Dialogs.vala:2201
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -3193,7 +3034,7 @@ msgstr "Nessuna foto/video"
 msgid "No photos/videos found"
 msgstr "Nessuna foto/video trovata"
 
-#: src/Page.vala:2429
+#: src/Page.vala:2452
 msgid "Photos cannot be exported to this directory."
 msgstr "Impossibile esportare le foto in questa directory."
 
@@ -3394,7 +3235,7 @@ msgid "Unable to open/create photo database %s: error code %d"
 msgstr ""
 "Impossibile aprire o creare il database delle foto %s: codice di errore %d"
 
-#: src/db/DatabaseTable.vala:45
+#: src/db/DatabaseTable.vala:46
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3403,7 +3244,7 @@ msgstr ""
 "Impossibile scrivere sul file del database delle foto:\n"
 "%s"
 
-#: src/db/DatabaseTable.vala:47
+#: src/db/DatabaseTable.vala:48
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3488,6 +3329,16 @@ msgstr ""
 msgid "Event %s"
 msgstr "Evento %s"
 
+#: plugins/common/RESTSupport.vala:409
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1342
+msgid "A temporary file needed for publishing is unavailable"
+msgstr "Un file temporaneo necessario per la pubblicazione non è disponibile"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:64
+#: plugins/shotwell-publishing/PicasaPublishing.vala:59
+msgid "Shotwell Connect"
+msgstr "Shotwell Connect"
+
 #: plugins/shotwell-publishing/FacebookPublishing.vala:68
 msgid ""
 "You are not currently logged into Facebook.\n"
@@ -3523,7 +3374,7 @@ msgstr "Verifica della connessione a Facebook..."
 msgid "Creating album..."
 msgstr "Creazione album..."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1582
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1612
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -3532,38 +3383,57 @@ msgstr ""
 "Si è connessi a Facebook come %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1583
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1613
 msgid "Where would you like to publish the selected photos?"
 msgstr "Dove si vogliono pubblicare le foto selezionate?"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1584
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1614
 msgid "Upload _size:"
 msgstr "Dimen_sione di invio:"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1653
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1683
 msgid "Publish to an e_xisting album:"
 msgstr "Pubblica in un album _esistente:"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1656
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1686
 msgid "Create a _new album named:"
 msgstr "Creare un n_uovo album chiamato:"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1672
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1702
 msgid "Videos and new photo albums _visible to:"
 msgstr "Album nuovo di video e foto _visibili a:"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1853
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1097
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1717
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1166
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1029
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1064
+msgid "_Publish"
+msgstr "_Pubblica"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1719
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1156
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1019
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1060
+msgid "_Logout"
+msgstr "_Disconnetti"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1883
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1104
 msgid "Just me"
 msgstr "Solo a me"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1854
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1884
 msgid "All friends"
 msgstr "Tutti gli amici"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1855
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1885
 msgid "Friends of friends"
 msgstr "Amici di amici"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1886
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1102
+msgid "Everyone"
+msgstr "Chiunque"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:58
 msgid ""
@@ -3575,7 +3445,7 @@ msgstr ""
 "\n"
 "Per continuare è necessario aver attivato un account Google e impostarlo per utilizzare Picasa. È possibile configurare la maggior parte degli account accedendo con il proprio browser web al sito di Picasa Web Album almeno una volta."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:813
+#: plugins/shotwell-publishing/PicasaPublishing.vala:819
 msgid ""
 "Enter the email address and password associated with your Picasa Web Albums "
 "account."
@@ -3583,7 +3453,7 @@ msgstr ""
 "Inserire l'indirizzo email e la password associati all'account di Picasa Web"
 " Album."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:814
+#: plugins/shotwell-publishing/PicasaPublishing.vala:820
 msgid ""
 "Picasa Web Albums didn't recognize the email address and password you "
 "entered. To try again, re-enter your email address and password below."
@@ -3591,7 +3461,7 @@ msgstr ""
 "Picasa Web Album non ha riconosciuto l'email e la password inseriti. Per "
 "riprovare, reinserire qui sotto l'indirizzo email e la password."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:815
+#: plugins/shotwell-publishing/PicasaPublishing.vala:821
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that isn't set up for use with Picasa Web Albums. You can set up most "
@@ -3604,7 +3474,7 @@ msgstr ""
 "al sito di Picasa Web Album almeno una volta. Per riprovare, reinserire "
 "l'email e la password qui sotto."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:816
+#: plugins/shotwell-publishing/PicasaPublishing.vala:822
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that has been tagged as requiring additional security. You can clear this "
@@ -3616,58 +3486,77 @@ msgstr ""
 " tale contrassegno usando il browser connettendosi a Picasa Web Album. Per "
 "riprovare, reinserire l'email e la password qui sotto."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:860
-#: plugins/shotwell-publishing/YouTubePublishing.vala:790
+#: plugins/shotwell-publishing/PicasaPublishing.vala:862
+#: plugins/shotwell-publishing/YouTubePublishing.vala:793
+#, c-format
+msgid "Unrecognized User"
+msgstr "Utente non riconosciuto"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:866
+#: plugins/shotwell-publishing/YouTubePublishing.vala:797
 #, c-format
 msgid "Account Not Ready"
 msgstr "Account non pronto"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:869
-#: plugins/shotwell-publishing/YouTubePublishing.vala:799
+#: plugins/shotwell-publishing/PicasaPublishing.vala:875
+#: plugins/shotwell-publishing/YouTubePublishing.vala:806
 #, c-format
 msgid "Additional Security Required"
 msgstr "Richiesta sicurezza aggiuntiva"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:880
-#: plugins/shotwell-publishing/YouTubePublishing.vala:810
+#: plugins/shotwell-publishing/PicasaPublishing.vala:886
+#: plugins/shotwell-publishing/YouTubePublishing.vala:817
 msgid "_Email address:"
 msgstr "Indirizzo _email:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:902
-#: plugins/shotwell-publishing/YouTubePublishing.vala:832
+#: plugins/shotwell-publishing/PicasaPublishing.vala:888
+#: plugins/shotwell-publishing/YouTubePublishing.vala:819
+msgid "_Password:"
+msgstr "Pass_word:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:908
+#: plugins/shotwell-publishing/YouTubePublishing.vala:839
 msgid "Go _Back"
 msgstr "Torna _indietro"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1037
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1043
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Si è connessi a Picasa Web Album come %s."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1059
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1065
 msgid "Videos will appear in:"
 msgstr "I video appariranno in:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1075
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1067
+msgid "Photos will appear in:"
+msgstr "Le foto appariranno in:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1081
 msgid "An _existing album:"
 msgstr "Un album _esistente:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1101
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1095
+msgid "A _new album named:"
+msgstr "Un _nuovo album chiamato:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1107
 msgid "L_ist album in public gallery"
 msgstr "E_lencare gli album in una galleria pubblica"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1119
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1125
 msgid "Photo _size preset:"
 msgstr "_Dimensione prestabilita delle foto:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1233
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1239
 msgid "Small (640 x 480 pixels)"
 msgstr "Piccola (640 × 480 pixel)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1234
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1240
 msgid "Medium (1024 x 768 pixels)"
 msgstr "Media (1024 × 768 pixel)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1235
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1241
 msgid "Recommended (1600 x 1200 pixels)"
 msgstr "Consigliata (1600 × 1200 pixel)"
 
@@ -3681,13 +3570,13 @@ msgstr ""
 "\n"
 "Per continuare è necessario aver attivato un account Google e impostarlo per utilizzare YouTube. È possibile configurare la maggior parte degli account accedendo con il proprio browser web al sito di YouTube almeno una volta."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:744
+#: plugins/shotwell-publishing/YouTubePublishing.vala:751
 msgid ""
 "Enter the email address and password associated with your YouTube account."
 msgstr ""
 "Inserire l'indirizzo email e la password associati all'account di YouTube."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:745
+#: plugins/shotwell-publishing/YouTubePublishing.vala:752
 msgid ""
 "YouTube didn't recognize the email address and password you entered. To try "
 "again, re-enter your email address and password below."
@@ -3695,7 +3584,7 @@ msgstr ""
 "YouTube non ha riconosciuto l'email e la password inseriti. Per riprovare, "
 "reinserire qui sotto l'indirizzo email e la password."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:746
+#: plugins/shotwell-publishing/YouTubePublishing.vala:753
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that isn't set up for use with YouTube. You can set up most accounts by "
@@ -3708,7 +3597,7 @@ msgstr ""
 "YouTube almeno una volta. Per riprovare, reinserire l'email e la password "
 "qui sotto."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:747
+#: plugins/shotwell-publishing/YouTubePublishing.vala:754
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that has been tagged as requiring additional security. You can clear this "
@@ -3720,29 +3609,29 @@ msgstr ""
 "possibile eliminare questa etichetta connettendosi a YouTube. Per riprovare,"
 " reinserire l'email e la password qui sotto."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:957
+#: plugins/shotwell-publishing/YouTubePublishing.vala:964
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Si è connessi a YouTube come %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:962
+#: plugins/shotwell-publishing/YouTubePublishing.vala:969
 #, c-format
 msgid "Videos will appear in '%s'"
 msgstr "I video appariranno in «%s»"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:985
+#: plugins/shotwell-publishing/YouTubePublishing.vala:992
 msgid "Video privacy _setting:"
 msgstr "Impo_stazioni privacy video:"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1062
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1069
 msgid "Public listed"
 msgstr "Pubblico in elenco"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1063
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1070
 msgid "Public unlisted"
 msgstr "Pubblico non in elenco"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1064
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1071
 msgid "Private"
 msgstr "Privato"
 
@@ -3772,7 +3661,7 @@ msgstr ""
 msgid "Preparing to login..."
 msgstr "Preparazione per l'accesso..."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:984
+#: plugins/shotwell-publishing/FlickrPublishing.vala:991
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -3781,7 +3670,7 @@ msgstr ""
 "Si è connessi a Flickr come %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:986
+#: plugins/shotwell-publishing/FlickrPublishing.vala:993
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -3790,44 +3679,44 @@ msgstr ""
 "L'account gratuito di Flickr limita la quantità di dati caricabili mensilmente.\n"
 "Questo mese rimangono a disposizione %d megabyte."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:988
+#: plugins/shotwell-publishing/FlickrPublishing.vala:995
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
 "L'account Pro di Flickr dà la possibilità di caricare foto illimitatamente."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1013
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1020
 msgid "Photos _visible to:"
 msgstr "Foto _visibili a:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1015
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1022
 msgid "Videos _visible to:"
 msgstr "Video _visibili a:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1017
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1024
 msgid "Photos and videos _visible to:"
 msgstr "Foto e video _visibili a:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1020
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1027
 msgid "Photo _size:"
 msgstr "D_imensione foto:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1096
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1103
 msgid "Friends & family only"
 msgstr "Solo amici e famiglia"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1119
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1126
 msgid "500 x 375 pixels"
 msgstr "500 × 375 pixel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1120
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1127
 msgid "1024 x 768 pixels"
 msgstr "1024 × 768 pixel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1121
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1128
 msgid "2048 x 1536 pixels"
 msgstr "2048 × 1536 pixel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1122
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1129
 msgid "4096 x 3072 pixels"
 msgstr "4096 × 3072 pixel"
 
@@ -3967,3 +3856,5 @@ msgstr "Editor esterni"
 #: ui/shotwell.glade:936
 msgid "Plugins"
 msgstr "Plugin"
+
+

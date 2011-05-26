@@ -3,13 +3,14 @@
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
+#   <dstancl@dstancl.cz>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"POT-Creation-Date: 2011-05-20 19:12-0700\n"
+"PO-Revision-Date: 2011-05-20 13:23+0000\n"
+"Last-Translator: dstancl <dstancl@dstancl.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,36 +20,38 @@ msgstr ""
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr ""
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
 msgid "Visit the Yandex.Fotki web site"
-msgstr ""
+msgstr "Navštivte stránky Yandex.Fotki"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:634
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "K Yandex.Fotki nejste přihlášeni."
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
-msgstr ""
+msgstr "_Alba (nebo nové):"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
 msgid "Access _type:"
-msgstr ""
+msgstr "_Typ přístupu:"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
 msgid "Disable _comments"
-msgstr ""
+msgstr "Zakázat _komentáře"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
-msgstr ""
+msgstr "Ne_dovolit stahovat originál"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
 msgid "_Logout"
-msgstr ""
+msgstr "_Odhlásit"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
 msgid "_Publish"
-msgstr ""
+msgstr "_Zveřejnit"
+
+
