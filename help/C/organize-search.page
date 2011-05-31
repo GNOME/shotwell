@@ -7,21 +7,55 @@
         <desc>Find photos and videos in your collection by a variety of criteria.</desc>
     </info>
 
-	<title>Searching</title>
+    <title>Searching</title>
     
     <p>
-        The <guiseq><gui>View</gui><gui>Search Bar</gui></guiseq> checkbox toggles the display of the
-        search bar.  From this bar, you can find, show and hide photos and videos based on title, tag,
-        rating or other options.
+        There are two ways to search in Shotwell: the filter toolbar, and with a saved search.  The search 
+        bar allows you to quickly search the current view for certain criteria.  Saved Searches feature
+        more complex search criteria and persist in the sidebar between sessions.
     </p>
     
-    <p>
-        To begin searching, simply enter a search keyword in the text box, or click on <gui>Flagged</gui>,
-        <gui>Rating</gui> or <gui>Type</gui>. The text search matches your keywords across tag names, 
-        photo or video titles and photos' original filenames. The <gui>Flagged</gui>,
-        <gui>Rating</gui> and <gui>Type</gui> buttons allow you to filter your collection by 
-        whether photos are flagged, their current number of stars, and whether the items shown are
-        images, videos, or raw camera files, respectively. 
-     </p>
+    <section id="searchbar">
+        <title>Search bar</title>
+            <p>
+                The <guiseq><gui>View</gui><gui>Search Bar</gui></guiseq> checkbox toggles the display of the
+                search bar.  You can also hit <keyseq><key>Ctrl</key><key>F</key></keyseq> or <key>F8</key> to
+                bring up the search bar. From this bar, you can find, show and hide photos and videos based on
+                title, tag, rating or other options.
+            </p>
+            
+            <p>
+                To begin searching, simply enter a search keyword in the text box, or click on <gui>Flagged</gui>,
+                <gui>Rating</gui> or <gui>Type</gui>. The text search matches your keywords across tag names, 
+                photo or video titles and photos' original filenames. The <gui>Flagged</gui>,
+                <gui>Rating</gui> and <gui>Type</gui> buttons allow you to filter your collection by 
+                whether photos are flagged, their current number of stars, and whether the items shown are
+                images, videos, or raw camera files, respectively. 
+            </p>
+            
+            <p>
+                Disabling the search bar or exiting Shotwell automatically resets the search bar.
+            </p>
+    </section>
+    
+    <section id="savedsearch">
+        <title>Saved search</title>
+            <p>
+                A saved search persists across Shotwell sessions, and is updated as photos and videos are added 
+                and removed from your Shotwell library.
+            </p>
+            
+            <p>
+                Create a new saved search with <guiseq><gui>Edit</gui><gui>New Search</gui></guiseq> or by hitting 
+                <keyseq><key>Ctrl</key><key>S</key></keyseq>. The dialog box allows you to enter a name for the
+                search and select whether you want to meet Any, All, or None of the criteria in the following rows.
+            </p>
+            
+            <p>
+                Each row represents a search criteria.  Use the + button to add more rows, and the - button to
+                remove a specific row.  The combo box on the left of each row selects the type of criteria.  The
+                criteria must be entered correctly before the OK button becomes available.
+            </p>
+    </section>
 
 </page>
