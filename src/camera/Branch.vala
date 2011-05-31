@@ -31,7 +31,20 @@ public class Camera.Branch : Sidebar.Branch {
     }
     
     private static int camera_comparator(Sidebar.Entry a, Sidebar.Entry b) {
-        return (a != b) ? a.get_sidebar_name().collate(b.get_sidebar_name()) : 0;
+        if (a == b) 
+            return 0;
+        
+        // Compare based on name.
+        int ret = a.get_sidebar_name().collate(b.get_sidebar_name());
+        if (ret == 0) {
+            // Cameras had same name! Fallback to URI comparison.
+            Camera.SidebarEntry? cam_a = a as Camera.SidebarEntry;
+            Camera.SidebarEntry? cam_b = b as Camera.SidebarEntry;
+            assert (cam_a != null && cam_b != null);
+            ret = cam_a.get_uri().collate(cam_b.get_uri());
+        }
+        
+        return ret;
     }
     
     public Camera.SidebarEntry? get_entry_for_camera(DiscoveredCamera camera) {
@@ -94,6 +107,10 @@ public class Camera.SidebarEntry : Sidebar.SimplePageEntry {
     
     protected override Page create_page() {
         return new ImportPage(camera.gcamera, uri, get_sidebar_name(), get_sidebar_icon());
+    }
+    
+    public string get_uri() {
+        return uri;
     }
 }
 
