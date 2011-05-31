@@ -1389,9 +1389,14 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         debug("PiwigoConnector: Uploading photo %s to category id %d with perm level %d",
             publishable.get_serialized_file().get_basename(),
             parameters.category.id, parameters.perm_level.id);
+        string name = publishable.get_publishing_name();
+        if (is_string_empty(name)) {
+            name = publishable.get_param_string(
+                Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+        }
         add_argument("method", "pwg.images.addSimple");
         add_argument("category", parameters.category.id.to_string());
-        add_argument("name", publishable.get_serialized_file().get_basename());
+        add_argument("name", name);
         add_argument("level", parameters.perm_level.id.to_string());
         if (!is_string_empty(tags))
             add_argument("tags", tags);
@@ -1406,8 +1411,7 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
 
         GLib.HashTable<string, string> disposition_table =
             new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
-        disposition_table.insert("filename",  Soup.URI.encode(
-            publishable.get_serialized_file().get_basename(), null));
+        disposition_table.insert("filename",  Soup.URI.encode(name, null));
         disposition_table.insert("name", "image");
 
         set_binary_disposition_table(disposition_table);
