@@ -584,6 +584,7 @@ ifdef INSTALL_HEADERS
 	mkdir -p $(DESTDIR)$(PREFIX)/share/vala/vapi
 	$(INSTALL_DATA) $(PLUGIN_VAPI) $(DESTDIR)$(PREFIX)/share/vala/vapi
 	$(INSTALL_DATA) $(PLUGIN_DEPS) $(DESTDIR)$(PREFIX)/share/vala/vapi
+	test -d $(DESTDIR)$(PREFIX)/$(LIB)/pkgconfig || mkdir -p $(DESTDIR)$(PREFIX)/$(LIB)/pkgconfig
 	$(INSTALL_DATA) $(PC_FILE) $(DESTDIR)$(PREFIX)/$(LIB)/pkgconfig
 endif
 
