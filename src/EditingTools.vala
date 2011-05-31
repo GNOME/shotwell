@@ -869,9 +869,9 @@ public class CropTool : EditingTool {
         crop_tool_window.layout.remove(crop_tool_window.response_layout);
 
         crop_tool_window.layout.add(crop_tool_window.constraint_combo);
-        crop_tool_window.layout.add(crop_tool_window.custom_height_entry);
-        crop_tool_window.layout.add(crop_tool_window.custom_mulsign_label);
         crop_tool_window.layout.add(crop_tool_window.custom_width_entry);
+        crop_tool_window.layout.add(crop_tool_window.custom_mulsign_label);
+        crop_tool_window.layout.add(crop_tool_window.custom_height_entry);
         crop_tool_window.layout.add(crop_tool_window.pivot_reticle_button);
         crop_tool_window.layout.add(crop_tool_window.response_layout);
         
