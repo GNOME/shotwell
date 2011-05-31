@@ -1096,11 +1096,16 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     }
 
     private void update_publish_button_sensitivity() {
-        string category_name = new_category_entry.get_text();
-        publish_button.set_sensitive(!(
-            is_string_empty(category_name.strip()) &&
-            create_new_radio.get_active()
-        ));
+        string category_name = new_category_entry.get_text().strip();
+        publish_button.set_sensitive(
+            !(
+                create_new_radio.get_active() &&
+                (
+                    is_string_empty(category_name) ||
+                    category_already_exists(category_name)
+                )
+            )
+        );
     }
     
     public Gtk.Widget get_widget() {
@@ -1137,7 +1142,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             }
             new_category_entry.set_sensitive(false);
         }
-        new_category_entry.set_text(DEFAULT_CATEGORY_NAME);
+        if (!category_already_exists(DEFAULT_CATEGORY_NAME))
+            new_category_entry.set_text(DEFAULT_CATEGORY_NAME);
         Gtk.ListStore perms_model = new Gtk.ListStore.newv({typeof(string)});
         Gtk.CellRenderer perms_renderer = new Gtk.CellRendererText();
         perms_combo.set_model(perms_model);
@@ -1176,6 +1182,17 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         for(int i = 0; i < perm_levels.length; i++) {
             if (perm_levels[i].id == permission_level_id) {
                 result = i;
+                break;
+            }
+        }
+        return result;
+    }
+    
+    private bool category_already_exists(string category_name) {
+        bool result = false;
+        foreach(Category category in existing_categories) {
+            if (category.name == category_name) {
+                result = true;
                 break;
             }
         }
