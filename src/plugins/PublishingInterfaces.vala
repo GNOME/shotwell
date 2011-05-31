@@ -520,6 +520,10 @@ public interface Publishable : GLib.Object {
 
     /**
      * Returns a name that can be used to identify this publishable to the remote service.
+     * If the publishing host cannot derive a sensible name, this method will
+     * return an empty string. Plugins should be able to handle that situation
+     * and provide a fallback value. One possible option for a fallback is:
+     * get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME)
      */
     public abstract string get_publishing_name();
 
