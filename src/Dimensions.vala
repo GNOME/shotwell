@@ -571,7 +571,10 @@ public struct ZoomState {
         if (bottom > zoomed_height)
             bottom = zoomed_height;
         result.height = bottom - result.y;
-        
+
+        result.width = result.width.clamp(1, int.MAX);
+        result.height = result.height.clamp(1, int.MAX);
+       
         return result;
     }
 

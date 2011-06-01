@@ -1920,14 +1920,17 @@ public abstract class SinglePhotoPage : Page {
             zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
                 Gdk.InterpType.BILINEAR);
         }
+
+        if (zoomed == null) {
+            return;
+        }
         
         int draw_x = (pixmap_dim.width - view_rect.width) / 2;
-        if (draw_x < 0)
-            draw_x = 0;
-        int draw_y = (pixmap_dim.height - view_rect.height) / 2;
-        if (draw_y < 0)
-            draw_y = 0;
+        draw_x = draw_x.clamp(0, int.MAX);
 
+        int draw_y = (pixmap_dim.height - view_rect.height) / 2;
+        draw_y = draw_y.clamp(0, int.MAX);
+        
         Gdk.cairo_set_source_pixbuf(pixmap_ctx, zoomed, draw_x, draw_y);
         pixmap_ctx.paint();
     }

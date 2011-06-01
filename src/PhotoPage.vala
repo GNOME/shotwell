@@ -161,11 +161,22 @@ public class ZoomBuffer : Object {
             view_rect_proj.height /= 2;
         }
 
+        // On very small images, it's possible for these to
+        // be 0, and GTK doesn't like sampling a region 0 px
+        // across.
+        view_rect_proj.width = view_rect_proj.width.clamp(1, int.MAX);
+        view_rect_proj.height = view_rect_proj.height.clamp(1, int.MAX);
+
+        view_rect.width = view_rect.width.clamp(1, int.MAX);
+        view_rect.height = view_rect.height.clamp(1, int.MAX);
+
         Gdk.Pixbuf proj_subpixbuf = new Gdk.Pixbuf.subpixbuf(sample_source_pixbuf, view_rect_proj.x,
             view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
 
         Gdk.Pixbuf zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
             Gdk.InterpType.BILINEAR);
+
+        assert(zoomed != null);
 
         return zoomed;
     }
@@ -285,6 +296,9 @@ public class ZoomBuffer : Object {
         Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle_wrt_content();
         Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(
             preview_image);
+
+        view_rect_proj.width = view_rect_proj.width.clamp(1, int.MAX);   
+        view_rect_proj.height = view_rect_proj.height.clamp(1, int.MAX);   
 
         Gdk.Pixbuf proj_subpixbuf = new Gdk.Pixbuf.subpixbuf(preview_image,
             view_rect_proj.x, view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
