@@ -1331,9 +1331,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     private void swap_in_original() {
-        Gdk.Pixbuf? original = master_cache.get_ready_pixbuf(get_photo());
-        if (original == null)
+        Gdk.Pixbuf? original;
+
+        try {
+            original = get_photo().get_master_pixbuf(cache.get_scaling());
+
+            if (original == null)
+                return;
+        }
+        catch (Error e) {
             return;
+        }
         
         // store what's currently displayed only for the duration of the shift pressing
         swapped = get_unscaled_pixbuf();
