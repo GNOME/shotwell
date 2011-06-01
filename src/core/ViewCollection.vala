@@ -61,7 +61,7 @@ public class ViewCollection : DataCollection {
     private ViewCollection mirroring = null;
     private CreateView mirroring_ctor = null;
     private CreateViewPredicate should_mirror = null;
-    private ViewFilter? filter = null;
+    private Gee.Set<ViewFilter> filters = new Gee.HashSet<ViewFilter>();
     private DataSet selected = new DataSet();
     private DataSet visible = null;
     private Gee.HashSet<DataView> frozen_views_altered = null;
@@ -117,7 +117,10 @@ public class ViewCollection : DataCollection {
     public virtual signal void geometries_altered(Gee.Collection<DataView> views) {
     }
     
-    public virtual signal void view_filter_changed(ViewFilter? old_filer, ViewFilter? new_filter) {
+    public virtual signal void view_filter_installed(ViewFilter filer) {
+    }
+    
+    public virtual signal void view_filter_removed(ViewFilter filer) {
     }
     
     public ViewCollection(string name) {
@@ -186,8 +189,12 @@ public class ViewCollection : DataCollection {
         items_visibility_changed(changed);
     }
     
-    protected virtual void notify_view_filter_changed(ViewFilter? old_filter, ViewFilter? new_filter) {
-        view_filter_changed(old_filter, new_filter);
+    protected virtual void notify_view_filter_installed(ViewFilter filter) {
+        view_filter_installed(filter);
+    }
+    
+    protected virtual void notify_view_filter_removed(ViewFilter filter) {
+        view_filter_removed(filter);
     }
     
     public override void clear() {
@@ -205,10 +212,9 @@ public class ViewCollection : DataCollection {
     public override void close() {
         halt_all_monitoring();
         halt_mirroring();
-        if (null != filter) {
-            filter.refresh.disconnect(on_view_filter_refresh);
-        }
-        filter = null;
+        foreach (ViewFilter f in filters)
+            f.refresh.disconnect(on_view_filter_refresh);
+        filters.clear();
         
         base.close();
     }
@@ -292,52 +298,49 @@ public class ViewCollection : DataCollection {
         add_many(copy_view);
     }
     
-    public void install_view_filter(ViewFilter filter) {
-        if (this.filter == filter)
+    public bool is_view_filter_installed(ViewFilter f) {
+        return filters.contains(f);
+    }
+    
+    public void install_view_filter(ViewFilter f) {
+        if (is_view_filter_installed(f))
             return;
         
-        // this currently replaces any existing ViewFilter
-        ViewFilter? old_filter = this.filter;
-        this.filter = filter;
-        this.filter.refresh.connect(on_view_filter_refresh);
+        filters.add(f);
+        f.refresh.connect(on_view_filter_refresh);
         
         // filter existing items
         on_view_filter_refresh();
         
         // notify of change after activating filter
-        notify_view_filter_changed(old_filter, filter);
+        notify_view_filter_installed(f);
+    }
+    
+    public void remove_view_filter(ViewFilter f) {
+        if (!is_view_filter_installed(f))
+            return;
+        
+        filters.remove(f);
+        f.refresh.disconnect(on_view_filter_refresh);
+        
+        // filter existing items
+        on_view_filter_refresh();
+        
+        // notify of change after activating filter
+        notify_view_filter_removed(f);
     }
     
     private void on_view_filter_refresh() {
         filter_altered_items((Gee.Collection<DataView>) base.get_all());
     }
     
-    public void reset_view_filter() {
-        if (null != this.filter)
-            filter.refresh.disconnect(on_view_filter_refresh);
-        
-        ViewFilter? old_filter = this.filter;
-        this.filter = null;
-        
-        // reset visibility of all hidden items ... can't use marker for reasons explained in
-        // reapply_view_filter().
-        Gee.ArrayList<DataView> to_show = new Gee.ArrayList<DataView>();
-        foreach (DataObject object in base.get_all()) {
-            DataView view = (DataView) object;
-            if (view.is_visible()) {
-                assert(is_visible(view));
-                
-                continue;
-            }
-            
-            to_show.add(view);
+    // Runs predicate on all filters, returns ANDed result.
+    private bool is_in_filter(DataView view) {
+        foreach (ViewFilter f in filters) {
+            if (!f.predicate(view))
+                return false;
         }
-        
-        show_items(to_show);
-        
-        // notify of change after deactivating filter
-        if (old_filter != null)
-            notify_view_filter_changed(old_filter, null);
+        return true;
     }
     
     public override bool valid_type(DataObject object) {
@@ -599,9 +602,6 @@ public class ViewCollection : DataCollection {
     }
     
     private void filter_altered_items(Gee.Collection<DataView> views) {
-        if (filter == null)
-            return;
-        
         // Can't use the marker system because ViewCollection completely overrides DataCollection
         // and hidden items cannot be marked.
         Gee.ArrayList<DataView> to_show = null;
@@ -611,7 +611,7 @@ public class ViewCollection : DataCollection {
         filter_timer.start();
 #endif
         foreach (DataView view in views) {
-            if (filter.predicate(view)) {
+            if (is_in_filter(view)) {
                 if (!view.is_visible()) {
                     if (to_show == null)
                         to_show = new Gee.ArrayList<DataView>();
@@ -1070,7 +1070,7 @@ public class ViewCollection : DataCollection {
     public DataView? get_view_for_source_filtered(DataSource source) {
         DataView? view = source_map.get(source);
         // Consult with filter to make sure DataView is visible.
-        if (view != null && filter != null && !filter.predicate(view))
+        if (view != null && !is_in_filter(view))
             return null;
         return view;
     }

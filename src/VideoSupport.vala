@@ -1095,7 +1095,7 @@ public class VideoSourceCollection : MediaSourceCollection {
     
     public bool has_basename_filesize_duplicate(string basename, uint64 filesize) {
         foreach (Video video in filesize_to_video.get(filesize)) {
-            if (video.get_master_file().get_basename() == basename)
+            if (utf8_ci_compare(video.get_master_file().get_basename(), basename) == 0)
                 return true;
         }
         

@@ -3665,7 +3665,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     
     public bool has_basename_filesize_duplicate(string basename, int64 filesize) {
         foreach (LibraryPhoto photo in filesize_to_photo.get(filesize)) {
-            if (photo.get_master_file().get_basename() == basename)
+            if (utf8_ci_compare(photo.get_master_file().get_basename(), basename) == 0)
                 return true;
         }
         
