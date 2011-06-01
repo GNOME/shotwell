@@ -505,18 +505,11 @@ public class ImportPage : CheckerboardPage {
     }
     
     private class ImportPageSearchViewFilter : SearchViewFilter {
-        // Set to true if you want to hide duplicates.
-        public bool hide_duplicates { get; set; default = false; }
-        
         public override uint get_criteria() {
             return SearchFilterCriteria.TEXT | SearchFilterCriteria.MEDIA;
         }
         
         public override bool predicate(DataView view) {
-            // Duplicate check.
-            if (hide_duplicates && ((ImportPreview) view).is_already_imported())
-                return false;
-                
             ImportSource source = ((ImportPreview) view).get_import_source();
             
             // Media type.
@@ -549,6 +542,13 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
+    // View filter for already imported filter.
+    private class HideImportedViewFilter : ViewFilter {
+        public override bool predicate(DataView view) {
+            return !((ImportPreview) view).is_already_imported();
+        }
+    }
+    
     public static GPhoto.ContextWrapper null_context = null;
     public static GPhoto.SpinIdleWrapper spin_idle_context = null;
 
@@ -567,6 +567,7 @@ public class ImportPage : CheckerboardPage {
     private ImportPage? local_ref = null;
     private GLib.Icon? icon;
     private ImportPageSearchViewFilter search_filter = new ImportPageSearchViewFilter();
+    private HideImportedViewFilter hide_imported_filter = new HideImportedViewFilter();
     private CameraViewTracker tracker;
     
     public enum RefreshResult {
@@ -1303,8 +1304,11 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_hide_imported() {
-        search_filter.hide_duplicates = hide_imported.get_active();
-        search_filter.refresh();
+        if (hide_imported.get_active()) {
+            get_view().install_view_filter(hide_imported_filter);
+        } else {
+            get_view().remove_view_filter(hide_imported_filter);
+        }
     }
     
     private void on_import_selected() {

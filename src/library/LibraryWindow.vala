@@ -427,22 +427,25 @@ public class LibraryWindow : AppWindow {
         base.switched_pages(old_page, new_page);
         
         // monitor when the ViewFilter is changed in any page
-        if (old_page != null)
-            old_page.get_view().view_filter_changed.disconnect(on_view_filter_changed);
+        if (old_page != null) {
+            old_page.get_view().view_filter_installed.disconnect(on_view_filter_installed);
+            old_page.get_view().view_filter_removed.disconnect(on_view_filter_removed);
+        }
         
-        if (new_page != null)
-            new_page.get_view().view_filter_changed.connect(on_view_filter_changed);
+        if (new_page != null) {
+            new_page.get_view().view_filter_installed.connect(on_view_filter_installed);
+            new_page.get_view().view_filter_removed.connect(on_view_filter_removed);
+        }
         
         search_actions.monitor_page_contents(old_page, new_page);
     }
     
-    private void on_view_filter_changed(ViewCollection view, ViewFilter? old_filter, ViewFilter? new_filter) {
-        // when the ViewFilter is changed, monitor when it's refreshed
-        if (old_filter != null)
-            old_filter.refresh.disconnect(on_view_filter_refreshed);
-        
-        if (new_filter != null)
-            new_filter.refresh.connect(on_view_filter_refreshed);
+    private void on_view_filter_installed(ViewFilter filter) {
+        filter.refresh.connect(on_view_filter_refreshed);
+    }
+    
+    private void on_view_filter_removed(ViewFilter filter) {
+        filter.refresh.disconnect(on_view_filter_refreshed);
     }
     
     private void on_view_filter_refreshed() {
