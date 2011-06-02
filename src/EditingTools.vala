@@ -1205,6 +1205,17 @@ public class CropTool : EditingTool {
     }
     
     public override void paint(Cairo.Context default_ctx) {
+        // fill region behind the crop surface with neutral color
+        int w;
+        int h;
+
+        canvas.get_drawing_window().get_size(out w, out h);
+
+        default_ctx.set_source_rgba(0.0, 0.0, 0.0, 1.0);
+        default_ctx.rectangle(0, 0, w, h);
+        default_ctx.fill();
+        default_ctx.paint();
+
         Cairo.Context ctx = new Cairo.Context(crop_surface);
         ctx.set_operator(Cairo.Operator.SOURCE);
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.5);
