@@ -3,7 +3,6 @@
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
-#   <md81bird@hitaki.net>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell\n"
@@ -3403,7 +3402,7 @@ msgstr "新しいアルバム名(_N):"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1107
 msgid "L_ist album in public gallery"
-msgstr "一般公開ギャラリーのアルバムを一覧にする(_I)"
+msgstr "アルバムを一般公開ギャラリーに追加する(_I)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:1125
 msgid "Photo _size preset:"
