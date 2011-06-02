@@ -52,9 +52,9 @@
             </p>
             
             <p>
-                Each row represents a search criteria.  Use the + button to add more rows, and the - button to
-                remove a specific row.  The combo box on the left of each row selects the type of criteria.  The
-                criteria must be entered correctly before the OK button becomes available.
+                Each row represents a search criterion.  Use the + button to add more rows, and the - button to
+                remove a specific row.  The combo box on the left of each row selects the type of criteria.  
+                Criteria must be entered correctly before the OK button becomes available.
             </p>
     </section>
 
