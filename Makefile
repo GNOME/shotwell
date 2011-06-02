@@ -694,7 +694,8 @@ pkgcheck:
 ifndef ASSUME_PKGS
 ifdef EXT_PKG_VERSIONS
 	@pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS) $(DIRECT_LIBS_VERSIONS)'
-else ifdef EXT_PKGS
+endif
+ifdef EXT_PKGS
 	@pkg-config --print-errors --exists $(EXT_PKGS) $(DIRECT_LIBS_VERSIONS)
 endif
 # Check for libraw manually
