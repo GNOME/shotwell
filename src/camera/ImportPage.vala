@@ -839,6 +839,7 @@ public class ImportPage : CheckerboardPage {
         base.switched_to();
         
         try_refreshing_camera(false);
+        hide_imported_filter.refresh();
     }
 
     private void try_refreshing_camera(bool fail_on_locked) {
