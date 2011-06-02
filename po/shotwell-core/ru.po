@@ -1363,15 +1363,15 @@ msgstr "не отмеченные"
 
 #: src/searches/SavedSearchDialog.vala:362
 msgid "and higher"
-msgstr ""
+msgstr "и выше"
 
 #: src/searches/SavedSearchDialog.vala:363
 msgid "only"
-msgstr ""
+msgstr "только"
 
 #: src/searches/SavedSearchDialog.vala:364
 msgid "and lower"
-msgstr ""
+msgstr "и ниже"
 
 #: src/searches/SavedSearchDialog.vala:490
 msgid "any"
