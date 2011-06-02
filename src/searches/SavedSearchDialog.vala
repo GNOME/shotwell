@@ -96,6 +96,10 @@ public class SavedSearchDialog {
                     my_row = new SearchRowRating(this);
                     break;
                 
+                case SearchCondition.SearchType.DATE:
+                    my_row = new SearchRowDate(this);
+                    break;
+                
                 default:
                     assert(false);
                     break;
@@ -406,6 +410,164 @@ public class SavedSearchDialog {
         }
     }
     
+    private class SearchRowDate : SearchRow {
+        private const string DATE_FORMAT = "%x";
+        private Gtk.HBox box;
+        private Gtk.ComboBox context;
+        private Gtk.Button label_one;
+        private Gtk.Button label_two;
+        private Gtk.Calendar cal_one;
+        private Gtk.Calendar cal_two;
+        private Gtk.Label and;
+        
+        private SearchRowContainer parent;
+        
+        public SearchRowDate(SearchRowContainer parent) {
+            this.parent = parent;
+            
+            // Ordering must correspond with Context
+            context = new Gtk.ComboBox.text();
+            context.append_text(_("is exactly"));
+            context.append_text(_("is after"));
+            context.append_text(_("is before"));
+            context.append_text(_("is between"));
+            context.append_text(_("is not set"));
+            context.set_active(0);
+            context.changed.connect(on_changed);
+            
+            cal_one = new Gtk.Calendar();
+            cal_two = new Gtk.Calendar();
+            
+            label_one = new Gtk.Button();
+            label_one.clicked.connect(on_one_clicked);
+            label_two = new Gtk.Button();
+            label_two.clicked.connect(on_two_clicked);
+            
+            and = new Gtk.Label(_("and"));
+            
+            box = new Gtk.HBox(false, 8);
+            box.pack_start(context, false, false, 0);
+            box.pack_start(label_one, false, false, 0);
+            box.pack_start(and, false, false, 0);
+            box.pack_start(label_two, false, false, 0);
+            
+            box.show_all();
+            update_date_labels();
+        }
+        
+        ~SearchRowRating() {
+            context.changed.disconnect(on_changed);
+        }
+        
+        private void update_date_labels() {
+            SearchConditionDate.Context c = (SearchConditionDate.Context) context.get_active();
+            
+            // Only show "and" and 2nd date label for between mode.
+            if (c == SearchConditionDate.Context.BETWEEN) {
+                label_one.show();
+                and.show();
+                label_two.show();
+            } else if (c == SearchConditionDate.Context.IS_NOT_SET) {
+                label_one.hide();
+                and.hide();
+                label_two.hide();
+            } else {
+                label_one.show();
+                and.hide();
+                label_two.hide();
+            }
+            
+            // Set label text to date.
+            label_one.label = get_date_one().format(DATE_FORMAT);
+            label_two.label = get_date_two().format(DATE_FORMAT);;
+        }
+        
+        public override Gtk.Widget get_widget() {
+            return box;
+        }
+        
+        private DateTime get_date_one() {
+            return new DateTime.local(cal_one.year, cal_one.month + 1, cal_one.day, 0, 0, 0.0);
+        }
+        
+        private DateTime get_date_two() {
+            return new DateTime.local(cal_two.year, cal_two.month + 1, cal_two.day, 0, 0, 0.0);
+        }
+        
+        private void set_date_one(DateTime date) {
+            cal_one.day   = date.get_day_of_month();
+            cal_one.month = date.get_month() - 1;
+            cal_one.year  = date.get_year();
+        }
+        
+        private void set_date_two(DateTime date) {
+            cal_two.day   = date.get_day_of_month();
+            cal_two.month = date.get_month() - 1;
+            cal_two.year  = date.get_year();
+        }
+        
+        public override SearchCondition get_search_condition() {
+            SearchCondition.SearchType search_type = parent.get_search_type();
+            SearchConditionDate.Context search_context = (SearchConditionDate.Context) context.get_active();
+            SearchConditionDate c = new SearchConditionDate(search_type, search_context, get_date_one(),
+                get_date_two());
+            return c;
+        }
+        
+        public override void populate(SearchCondition sc) {
+            SearchConditionDate? cond = sc as SearchConditionDate;
+            assert(cond != null);
+            context.set_active(cond.context);
+            set_date_one(cond.date_one);
+            set_date_two(cond.date_two);
+            update_date_labels();
+        }
+        
+        public override bool is_complete() {
+            return true;
+        }
+        
+        private void on_changed() {
+            parent.changed(parent);
+            update_date_labels();
+        }
+        
+        private void popup_calendar(Gtk.Calendar cal) {
+            int orig_day = cal.day;
+            int orig_month = cal.month;
+            int orig_year = cal.year;
+            Gtk.Dialog d = new Gtk.Dialog.with_buttons(null, null, 
+                Gtk.DialogFlags.MODAL, Gtk.Stock.CANCEL, Gtk.ResponseType.REJECT, 
+                Gtk.Stock.OK, Gtk.ResponseType.ACCEPT);
+            d.set_modal(true);
+            d.set_resizable(false);
+            d.set_decorated(false);
+            d.vbox.add(cal);
+            ulong id_1 = cal.day_selected.connect(()=>{update_date_labels();});
+            ulong id_2 = cal.day_selected_double_click.connect(()=>{d.close();});
+            d.show_all();
+            int res = d.run();
+            if (res != Gtk.ResponseType.ACCEPT) {
+                // User hit cancel, restore original date.
+                cal.day = orig_day;
+                cal.month = orig_month;
+                cal.year = orig_year;
+            }
+            cal.disconnect(id_1);
+            cal.disconnect(id_2);
+            d.destroy();
+            update_date_labels();
+        }
+        
+        private void on_one_clicked() {
+            popup_calendar(cal_one);
+        }
+        
+        private void on_two_clicked() {
+            popup_calendar(cal_two);
+        }
+    }
+    
     private Gtk.Builder builder;
     private Gtk.Dialog dialog;
     private Gtk.Button add_criteria;
@@ -429,10 +591,10 @@ public class SavedSearchDialog {
         row_list.get(0).allow_removal(false);
         
         // Add buttons for new search.
+        dialog.add_action_widget(new Gtk.Button.from_stock(Gtk.Stock.CANCEL), Gtk.ResponseType.CANCEL);
         Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
         ok_button.can_default = true;
         dialog.add_action_widget(ok_button, Gtk.ResponseType.OK);
-        dialog.add_action_widget(new Gtk.Button.from_stock(Gtk.Stock.CANCEL), Gtk.ResponseType.CANCEL);
         dialog.set_default_response(Gtk.ResponseType.OK);
         
         dialog.show_all();
@@ -469,7 +631,7 @@ public class SavedSearchDialog {
         search_title.changed.disconnect(on_title_changed);
     }
     
-    // Builds the dialog UI.  Doesn't add buttons to the dialog or call dialog.show_all().
+    // Builds the dialog UI.  Doesn't add buttons to the dialog or call dialog.show().
     private void setup_dialog() {
         builder = AppWindow.create_builder();
         

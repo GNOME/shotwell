@@ -54,11 +54,12 @@ public abstract class SearchCondition {
         FILE_NAME,
         MEDIA_TYPE,
         FLAG_STATE,
-        RATING;
+        RATING,
+        DATE;
         // Note: when adding new types, be sure to update all functions below.
         
         public static SearchType[] as_array() {
-            return { ANY_TEXT, TITLE, TAG, EVENT_NAME, FILE_NAME, MEDIA_TYPE, FLAG_STATE, RATING };
+            return { ANY_TEXT, TITLE, TAG, EVENT_NAME, FILE_NAME, MEDIA_TYPE, FLAG_STATE, RATING, DATE };
         }
         
         // Sorts an array alphabetically by display name.
@@ -95,6 +96,9 @@ public abstract class SearchCondition {
                 case SearchType.RATING:
                     return "RATING";
                 
+                case SearchType.DATE:
+                    return "DATE";
+                
                 default:
                     error("unrecognized search type enumeration value");
             }
@@ -125,6 +129,9 @@ public abstract class SearchCondition {
             else if (str == "RATING")
                 return SearchType.RATING;
             
+            else if (str == "DATE")
+                return SearchType.DATE;
+            
             else
                 error("unrecognized search type name: %s", str);
         }
@@ -154,6 +161,9 @@ public abstract class SearchCondition {
                 
                 case SearchType.RATING:
                     return _("Rating");
+                
+                case SearchType.DATE:
+                    return _("Date");
                 
                 default:
                     error("unrecognized search type enumeration value");
@@ -516,6 +526,110 @@ public class SearchConditionRating : SearchCondition {
             return source_rating <= rating;
         else
             error("unknown rating search context");
+    }
+}
+
+
+// Condition for date range.
+public class SearchConditionDate : SearchCondition {
+    public enum Context {
+        EXACT = 0,
+        AFTER,
+        BEFORE,
+        BETWEEN,
+        IS_NOT_SET;
+        
+        public string to_string() {
+            switch (this) {
+                case Context.EXACT:
+                    return "EXACT";
+                
+                case Context.AFTER:
+                    return "AFTER";
+                
+                case Context.BEFORE:
+                    return "BEFORE";
+                
+                case Context.BETWEEN:
+                    return "BETWEEN";
+                    
+                case Context.IS_NOT_SET:
+                    return "IS_NOT_SET";
+                
+                default:
+                    error("unrecognized date search context enumeration value");
+            }
+        }
+        
+        public static Context from_string(string str) {
+            if (str == "EXACT")
+                return Context.EXACT;
+            
+            if (str == "AFTER")
+                return Context.AFTER;
+            
+            else if (str == "BEFORE")
+                return Context.BEFORE;
+            
+            else if (str == "BETWEEN")
+                return Context.BETWEEN;
+            
+            else if (str == "IS_NOT_SET")
+                return Context.IS_NOT_SET;
+            
+            else
+                error("unrecognized date search context name: %s", str);
+        }
+    }
+    
+    // Date to check against.  Second date only used for between searches.
+    public DateTime date_one { get; private set; }
+    public DateTime date_two { get; private set; }
+    
+    // How to match.
+    public Context context { get; private set; }
+    
+    public SearchConditionDate(SearchCondition.SearchType search_type, Context context, 
+        DateTime date_one, DateTime date_two) {
+        this.search_type = search_type;
+        this.context = context;
+        if (context != context.BETWEEN || date_two.compare(date_one) >= 1) {
+            this.date_one = date_one;
+            this.date_two = date_two;
+        } else {
+            this.date_one = date_two;
+            this.date_two = date_one;
+        }
+       
+    }
+    
+    // Determines whether the source is included.
+    public override bool predicate(MediaSource source) {
+        time_t exposure_time = source.get_exposure_time();
+        if (exposure_time == 0)
+            return context == Context.IS_NOT_SET;
+        
+        DateTime dt = new DateTime.from_unix_local(exposure_time);
+        switch (context) {
+            case Context.EXACT:
+                DateTime second = date_one.add_days(1);
+                return (dt.compare(date_one) >= 0 && dt.compare(second) < 0);
+            
+            case Context.AFTER:
+                return (dt.compare(date_one) >= 0);
+            
+            case Context.BEFORE:
+                return (dt.compare(date_one) <= 0);
+            
+            case Context.BETWEEN:
+                return (dt.compare(date_one) >= 0 && dt.compare(date_two) < 0);
+            
+            case Context.IS_NOT_SET:
+                return false; // Already checked above.
+            
+            default:
+                error("unrecognized date search context enumeration value");
+        }
     }
 }
 

@@ -114,6 +114,23 @@ public class SavedSearchDBTable : DatabaseTable {
         if (res != Sqlite.DONE)
             fatal("create SavedSearchDBTable_Rating", res);
         
+        // Create date search table.
+        res = db.prepare_v2("CREATE TABLE IF NOT EXISTS "
+            + "SavedSearchDBTable_Date "
+            + "("
+            + "id INTEGER PRIMARY KEY, "
+            + "search_id INTEGER NOT NULL, "
+            + "search_type TEXT NOT NULL, "
+            + "context TEXT NOT NULL, "
+            + "date_one INTEGER NOT_NULL, "
+            + "date_two INTEGER NOT_NULL"
+            + ")", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("create SavedSearchDBTable_Rating", res);
+        
         // Create indexes.
         res = db.prepare_v2("CREATE INDEX IF NOT EXISTS "
             + "SavedSearchDBTable_Text_Index "
@@ -146,6 +163,14 @@ public class SavedSearchDBTable : DatabaseTable {
         res = stmt.step();
         if (res != Sqlite.DONE)
             fatal("create SavedSearchDBTable_Rating_Index", res);
+        
+        res = db.prepare_v2("CREATE INDEX IF NOT EXISTS "
+            + "SavedSearchDBTable_Date_Index "
+            + "ON SavedSearchDBTable_Date(search_id)", -1, out stmt);
+        assert(res == Sqlite.OK);
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("create SavedSearchDBTable_Date_Index", res);
     }
     
     public static SavedSearchDBTable get_instance() {
@@ -274,6 +299,32 @@ public class SavedSearchDBTable : DatabaseTable {
             res = stmt.step();
             if (res != Sqlite.DONE)
                 throw_error("SavedSearchDBTable_Rating.add", res);
+        } else if (condition is SearchConditionDate) {
+            SearchConditionDate date = condition as SearchConditionDate;
+            Sqlite.Statement stmt;
+            int res = db.prepare_v2("INSERT INTO SavedSearchDBTable_Date (search_id, search_type, "
+                + "context, date_one, date_two) VALUES (?, ?, ?, ?, ?)", -1,
+                out stmt);
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_int64(1, id.id);
+            assert(res == Sqlite.OK);
+            
+             res = stmt.bind_text(2, date.search_type.to_string());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_text(3, date.context.to_string());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_int64(4, date.date_one.to_unix());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_int64(5, date.date_two.to_unix());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.step();
+            if (res != Sqlite.DONE)
+                throw_error("SavedSearchDBTable_Date.add", res);
         } else {
             assert_not_reached();
         }
@@ -285,6 +336,7 @@ public class SavedSearchDBTable : DatabaseTable {
         remove_conditions_for_table("SavedSearchDBTable_MediaType", search_id);
         remove_conditions_for_table("SavedSearchDBTable_Flagged", search_id);
         remove_conditions_for_table("SavedSearchDBTable_Rating", search_id);
+        remove_conditions_for_table("SavedSearchDBTable_Date", search_id);
     }
     
     private void remove_conditions_for_table(string table_name, SavedSearchID search_id)
@@ -400,6 +452,30 @@ public class SavedSearchDBTable : DatabaseTable {
                 Rating.unserialize(stmt.column_int(1)),
                 SearchConditionRating.Context.from_string(stmt.column_text(2)));
             
+            list.add(condition);
+        }
+        
+        // Get all date conditions.
+        res = db.prepare_v2("SELECT search_type, context, date_one, date_two FROM SavedSearchDBTable_Date "
+            + "WHERE search_id=?",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, search_id.id);
+        assert(res == Sqlite.OK);
+        
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE)
+                break;
+            else if (res != Sqlite.ROW)
+                throw_error("SavedSearchDBTable_Date.get_all_rows", res);
+            
+            SearchConditionDate condition = new SearchConditionDate(
+                SearchCondition.SearchType.from_string(stmt.column_text(0)), 
+                SearchConditionDate.Context.from_string(stmt.column_text(1)),
+                new DateTime.from_unix_local(stmt.column_int64(2)),
+                new DateTime.from_unix_local(stmt.column_int64(3)));
             list.add(condition);
         }
         
