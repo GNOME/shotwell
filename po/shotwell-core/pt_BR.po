@@ -1371,15 +1371,15 @@ msgstr ""
 
 #: src/searches/SavedSearchDialog.vala:490
 msgid "any"
-msgstr ""
+msgstr "qualquer"
 
 #: src/searches/SavedSearchDialog.vala:491
 msgid "all"
-msgstr ""
+msgstr "todos"
 
 #: src/searches/SavedSearchDialog.vala:492
 msgid "none"
-msgstr ""
+msgstr "nehnum"
 
 #: src/searches/SearchBoolean.vala:135
 msgid "Any text"
