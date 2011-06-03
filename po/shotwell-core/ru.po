@@ -1383,7 +1383,7 @@ msgstr "все"
 
 #: src/searches/SavedSearchDialog.vala:492
 msgid "none"
-msgstr "ничего"
+msgstr "ни один"
 
 #: src/searches/SearchBoolean.vala:135
 msgid "Any text"

@@ -1379,7 +1379,7 @@ msgstr "všechny"
 
 #: src/searches/SavedSearchDialog.vala:492
 msgid "none"
-msgstr ""
+msgstr "žádný"
 
 #: src/searches/SearchBoolean.vala:135
 msgid "Any text"

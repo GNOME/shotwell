@@ -1369,7 +1369,7 @@ msgstr "及更低"
 
 #: src/searches/SavedSearchDialog.vala:490
 msgid "any"
-msgstr "任意"
+msgstr "任何"
 
 #: src/searches/SavedSearchDialog.vala:491
 msgid "all"
@@ -1381,7 +1381,7 @@ msgstr "无"
 
 #: src/searches/SearchBoolean.vala:135
 msgid "Any text"
-msgstr "Any text"
+msgstr "任意文字"
 
 #: src/searches/SearchBoolean.vala:138
 msgid "Title"
