@@ -18,6 +18,7 @@ UNIT_FILES := \
 	GRaw.vala \
 	GdkSupport.vala \
 	JfifSupport.vala \
+	BmpSupport.vala \
 	RawSupport.vala \
 	PngSupport.vala \
 	TiffSupport.vala
