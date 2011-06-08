@@ -19,7 +19,8 @@ SRC_FILES := \
 RC_FILES := \
 	yandex_publish_model.glade \
 	piwigo.png \
-	piwigo_authentication_pane.glade
+	piwigo_authentication_pane.glade \
+	piwigo_publishing_options_pane.glade
 
 include ../Makefile.plugin.mk
 
