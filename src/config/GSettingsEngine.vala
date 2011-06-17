@@ -26,10 +26,8 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     public GSettingsConfigurationEngine() {
         known_schemas = new Gee.HashSet<string>();
         
-        foreach (string current_schema in Settings.list_schemas()) {
-            debug("GSettingsConfigurationEngine: found schema '%s'", current_schema);
+        foreach (string current_schema in Settings.list_schemas())
             known_schemas.add(current_schema);
-        }
         
         schema_names = new string[ConfigurableProperty.NUM_PROPERTIES];
 
@@ -262,11 +260,26 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     }
     
     public string? get_string_property(ConfigurableProperty p) throws ConfigurationError {
-        return get_gs_string(schema_names[p], key_names[p]);
+        string gs_result = get_gs_string(schema_names[p], key_names[p]);
+        
+        // if we're getting the desktop background file, convert the file uri we get back from
+        // GSettings into a file path
+        string result = gs_result;
+        if (p == ConfigurableProperty.DESKTOP_BACKGROUND_FILE) {
+            result = gs_result.substring(7);
+        }
+        
+        return result;
     }
     
     public void set_string_property(ConfigurableProperty p, string? val) throws ConfigurationError {
-        set_gs_string(schema_names[p], key_names[p], val);
+        // if we're setting the desktop background file, convert the filename into a file URI
+        string converted_val = val;
+        if (p == ConfigurableProperty.DESKTOP_BACKGROUND_FILE) {
+            converted_val = "file://" + val;
+        }
+
+        set_gs_string(schema_names[p], key_names[p], converted_val);
         property_changed(p);
     }
     

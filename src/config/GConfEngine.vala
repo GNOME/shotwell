@@ -275,64 +275,40 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
     }
 
     public int get_int_property(ConfigurableProperty p) throws ConfigurationError {
-        debug("configuration system '%s': getting property '%s' with value '%d'",
-            get_name(), p.to_string(), get_gconf_int(property_paths[p]));
-
         return get_gconf_int(property_paths[p]);
     }
     
     public void set_int_property(ConfigurableProperty p, int val) throws ConfigurationError {
-        debug("configuration system '%s': setting property '%s' to value '%d'",
-            get_name(), p.to_string(), val);
-
         set_gconf_int(property_paths[p], val);
         
         property_changed(p);
     }
     
     public string? get_string_property(ConfigurableProperty p) throws ConfigurationError {
-        debug("configuration system '%s': getting property '%s' with value '%s'",
-            get_name(), p.to_string(), get_gconf_string(property_paths[p]));
-
         return get_gconf_string(property_paths[p]);
     }
     
     public void set_string_property(ConfigurableProperty p, string? val) throws ConfigurationError {
-        debug("configuration system '%s': setting property '%s' to value '%s'",
-            get_name(), p.to_string(), val);
-
         set_gconf_string(property_paths[p], val);
 
         property_changed(p);
     }
     
     public bool get_bool_property(ConfigurableProperty p) throws ConfigurationError {
-        debug("configuration system '%s': getting property '%s' with value '%s'",
-            get_name(), p.to_string(), (get_gconf_bool(property_paths[p]) ? "true" : "false"));
-
         return get_gconf_bool(property_paths[p]);
     }
     
     public void set_bool_property(ConfigurableProperty p, bool val) throws ConfigurationError {
-        debug("configuration system '%s': setting property '%s' to value '%s'",
-            get_name(), p.to_string(), (val) ? "true" : "false");
-
         set_gconf_bool(property_paths[p], val);
 
         property_changed(p);
     }
     
     public double get_double_property(ConfigurableProperty p) throws ConfigurationError {
-        debug("configuration system '%s': getting property '%s' with value '%f'",
-            get_name(), p.to_string(), get_gconf_double(property_paths[p]));
-
         return get_gconf_double(property_paths[p]);
     }
     
     public void set_double_property(ConfigurableProperty p, double val) throws ConfigurationError {
-        debug("configuration system '%s': setting property '%s' to value '%f'",
-            get_name(), p.to_string(), val);
-
         set_gconf_double(property_paths[p], val);
 
         property_changed(p);
@@ -416,7 +392,6 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
     }
     
     public FuzzyPropertyState is_plugin_enabled(string id) {
-        debug ("GConfConfigurationManager: checking if plugin '%s' is enabled.\n", id);
         try {
             bool is_enabled =
                 get_gconf_bool("/apps/shotwell/plugins/%s/enabled".printf(clean_plugin_id(id)));

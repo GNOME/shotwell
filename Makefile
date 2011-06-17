@@ -69,7 +69,6 @@ UNUNITIZED_SRC_FILES = \
 	EditingTools.vala \
 	Properties.vala \
 	CustomComponents.vala \
-	Config.vala \
 	Event.vala \
 	International.vala \
 	AppDirs.vala \
