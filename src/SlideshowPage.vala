@@ -31,7 +31,7 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.Adjustment transition_effect_adjustment;
         
         public SettingsDialog() {
-            double delay = Config.get_instance().get_slideshow_delay();
+            double delay = Config.Facade.get_instance().get_slideshow_delay();
             
             set_modal(true);
             set_transient_for(AppWindow.get_fullscreen());
@@ -47,7 +47,7 @@ class SlideshowPage : SinglePhotoPage {
             Gtk.Label units_label1 = new Gtk.Label(_("seconds"));
             units_label1.xalign = (float) 0.0;
 
-            Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX, 0.1, 1, 0);
+            Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.Facade.SLIDESHOW_DELAY_MIN, Config.Facade.SLIDESHOW_DELAY_MAX, 0.1, 1, 0);
             hscale = new Gtk.HScale(adjustment);
             hscale.set_draw_value(false);
             hscale.set_size_request(150,-1);
@@ -65,7 +65,7 @@ class SlideshowPage : SinglePhotoPage {
             transition_effect_selector_label.set_mnemonic_widget(transition_effect_selector);
             
             // get last effect id
-            string effect_id = Config.get_instance().get_slideshow_transition_effect_id();
+            string effect_id = Config.Facade.get_instance().get_slideshow_transition_effect_id();
             
             // null effect first, always, and set active in case no other one is found
             string null_display_name = TransitionEffectsManager.get_instance().get_effect_name(
@@ -90,9 +90,9 @@ class SlideshowPage : SinglePhotoPage {
             Gtk.Label transition_delay_label = new Gtk.Label.with_mnemonic(_("Transition d_elay:"));
             transition_delay_label.xalign = (float) 1.0;
             
-            double transition_delay = Config.get_instance().get_slideshow_transition_delay();
+            double transition_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
             transition_effect_adjustment = new Gtk.Adjustment(transition_delay,
-                Config.SLIDESHOW_TRANSITION_DELAY_MIN, Config.SLIDESHOW_TRANSITION_DELAY_MAX,
+                Config.Facade.SLIDESHOW_TRANSITION_DELAY_MIN, Config.Facade.SLIDESHOW_TRANSITION_DELAY_MAX,
                 0.1, 1, 0);
             transition_effect_hscale = new Gtk.HScale(transition_effect_adjustment);
             transition_effect_hscale.set_draw_value(false);
@@ -386,7 +386,7 @@ class SlideshowPage : SinglePhotoPage {
         if (!playing)
             return true;
         
-        if (timer.elapsed() < Config.get_instance().get_slideshow_delay())
+        if (timer.elapsed() < Config.Facade.get_instance().get_slideshow_delay())
             return true;
         
         on_next();
@@ -432,10 +432,10 @@ class SlideshowPage : SinglePhotoPage {
         
         if (settings_dialog.run() == Gtk.ResponseType.OK) {
             // sync with the config setting so it will persist
-            Config.get_instance().set_slideshow_delay(settings_dialog.get_delay());
+            Config.Facade.get_instance().set_slideshow_delay(settings_dialog.get_delay());
             
-            Config.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
-            Config.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
+            Config.Facade.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
+            Config.Facade.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
             
             update_transition_effect();
         }
@@ -446,8 +446,8 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private void update_transition_effect() {
-        string effect_id = Config.get_instance().get_slideshow_transition_effect_id();
-        double effect_delay = Config.get_instance().get_slideshow_transition_delay();
+        string effect_id = Config.Facade.get_instance().get_slideshow_transition_effect_id();
+        double effect_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
         
         set_transition(effect_id, (int) (effect_delay * 1000.0));
     }

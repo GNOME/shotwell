@@ -58,11 +58,11 @@ public class EventPage : CollectionPage {
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
-        Config.get_instance().get_event_photos_sort(out sort_order, out sort_by);
+        Config.Facade.get_instance().get_event_photos_sort(out sort_order, out sort_by);
     }
 
     protected override void set_config_photos_sort(bool sort_order, int sort_by) {
-        Config.get_instance().set_event_photos_sort(sort_order, sort_by);
+        Config.Facade.get_instance().set_event_photos_sort(sort_order, sort_by);
     }
     
     private void on_events_altered(Gee.Map<DataObject, Alteration> map) {
@@ -109,11 +109,11 @@ public class NoEventPage : CollectionPage {
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
-        Config.get_instance().get_event_photos_sort(out sort_order, out sort_by);
+        Config.Facade.get_instance().get_event_photos_sort(out sort_order, out sort_by);
     }
 
     protected override void set_config_photos_sort(bool sort_order, int sort_by) {
-        Config.get_instance().set_event_photos_sort(sort_order, sort_by);
+        Config.Facade.get_instance().set_event_photos_sort(sort_order, sort_by);
     }
 }
 

@@ -26,7 +26,7 @@ configure_help() {
     printf "\t--with-gconf-schema-file-dir=DIR\n"
     printf "\t\t\t\tDirectory for installing schema files.\n"
     printf "\t--disable-schemas-install\n"
-    printf "\t\t\t\tDisable the schemas installation.\n"
+    printf "\t\t\t\tDisable installation of GConf schemas;\n\t\t\t\tGSettings schemas are always installed\n"
     printf "\t--disable-desktop-update\n"
     printf "\t\t\t\tDisable desktop database update.\n"
     printf "\t--disable-icon-update\n"
@@ -36,7 +36,9 @@ configure_help() {
     printf "\t--disable-help-install\n"
     printf "\t\t\t\tDisable installation of online help.\n"
     printf "\t--disable-extra-plugins-install\n"
-    printf "\t\t\t\tDisable installtion of extra (non-core) plugins.\n"
+    printf "\t\t\t\tDisable installation of extra (non-core) plugins.\n"
+    printf "\t--use-legacy-config-system\n"
+    printf "\t\t\t\tUse GConf instead of GSettings as the configuration\n\t\t\t\tbackend for Shotwell.\n"
     printf "\t--install-headers\n"
     printf "\t\t\t\tInstall headers and VAPI files (developers only).\n"
     printf "\n"
@@ -118,9 +120,10 @@ do
                                           ;;
         --enable-tests)                   variables="${variables}ENABLE_TESTS=1\n"
                                           ;;
+        --use-legacy-config-system)       variables="${variables}USE_LEGACY_CONFIG_SYSTEM=1\n"
+                                          ;;
         --disable-help-install)           variables="${variables}DISABLE_HELP_INSTALL=1\n"
                                           ;;
-        
         --disable-extra-plugins-install)  variables="${variables}DISABLE_EXTRA_PLUGINS_INSTALL=1\n"
                                           ;;
         

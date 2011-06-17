@@ -2761,8 +2761,8 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     private static bool launch_editor(File file, PhotoFileFormat file_format) throws Error {
-        string commandline = file_format == PhotoFileFormat.RAW ? Config.get_instance().get_external_raw_app() : 
-            Config.get_instance().get_external_photo_app();
+        string commandline = file_format == PhotoFileFormat.RAW ? Config.Facade.get_instance().get_external_raw_app() : 
+            Config.Facade.get_instance().get_external_photo_app();
 
         if (is_string_empty(commandline))
             return false;

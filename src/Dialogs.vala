@@ -1220,7 +1220,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         calendar.next_year.connect(on_time_changed);
         calendar.prev_year.connect(on_time_changed);
 
-        if (Config.get_instance().get_24_hr_time())
+        if (Config.Facade.get_instance().get_use_24_hour_time())
             hour = new Gtk.SpinButton.with_range(0, 23, 1);
         else
             hour = new Gtk.SpinButton.with_range(1, 12, 1);
@@ -1255,20 +1255,20 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         
         relativity_radio_button = new Gtk.RadioButton.with_mnemonic(null, 
             _("_Shift photos/videos by the same amount"));
-        relativity_radio_button.set_active(Config.get_instance().get_keep_relativity());
+        relativity_radio_button.set_active(Config.Facade.get_instance().get_keep_relativity());
         relativity_radio_button.sensitive = display_options && photo_count > 1;
 
         batch_radio_button = new Gtk.RadioButton.with_mnemonic(relativity_radio_button.get_group(),
             _("Set _all photos/videos to this time"));
-        batch_radio_button.set_active(!Config.get_instance().get_keep_relativity());
+        batch_radio_button.set_active(!Config.Facade.get_instance().get_keep_relativity());
         batch_radio_button.sensitive = display_options && photo_count > 1;
         batch_radio_button.toggled.connect(on_time_changed);
 
         modify_originals_check_button = new Gtk.CheckButton.with_mnemonic((photo_count == 1) ?
             _("_Modify original file") : _("_Modify original files"));
-        modify_originals_check_button.set_active(Config.get_instance().get_commit_metadata_to_masters() &&
+        modify_originals_check_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters() &&
             display_options);
-        modify_originals_check_button.sensitive = !Config.get_instance().get_commit_metadata_to_masters() && display_options;
+        modify_originals_check_button.sensitive = !Config.Facade.get_instance().get_commit_metadata_to_masters() && display_options;
 
         Gtk.VBox time_content = new Gtk.VBox(false, 0);
 
@@ -1322,14 +1322,14 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         }
 
         set_time(Time.local(original_time));
-        set_original_time_label(Config.get_instance().get_24_hr_time());
+        set_original_time_label(Config.Facade.get_instance().get_use_24_hour_time());
     }
 
     private void set_time(Time time) {
         calendar.select_month(time.month, time.year + YEAR_OFFSET);
         calendar.select_day(time.day);
 
-        if (Config.get_instance().get_24_hr_time()) {
+        if (Config.Facade.get_instance().get_use_24_hour_time()) {
             hour.set_value(time.hour);
             system.set_active(TimeSystem.24HR);
         } else {
@@ -1390,12 +1390,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
             keep_relativity = relativity_radio_button.get_active();
 
             if (relativity_radio_button.sensitive)
-                Config.get_instance().set_keep_relativity(keep_relativity);
+                Config.Facade.get_instance().set_keep_relativity(keep_relativity);
 
             modify_originals = modify_originals_check_button.get_active();
 
             if (modify_originals_check_button.sensitive)
-                Config.get_instance().set_modify_originals(modify_originals);
+                Config.Facade.get_instance().set_modify_originals(modify_originals);
 
             response = true;
         }
@@ -1451,7 +1451,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         if (previous_time_system == system.get_active())
             return;
 
-        Config.get_instance().set_24_hr_time(system.get_active() == TimeSystem.24HR);
+        Config.Facade.get_instance().set_use_24_hour_time(system.get_active() == TimeSystem.24HR);
 
         if (system.get_active() == TimeSystem.24HR) {
             int time = (hour.get_value() == 12.0) ? 0 : (int) hour.get_value();
@@ -1759,7 +1759,7 @@ public class PreferencesDialog {
         
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
-            Config.get_instance().get_bg_color().red);
+            Config.Facade.get_instance().get_bg_color().red);
         bg_color_adjustment.value_changed.connect(on_value_changed);
 
         bg_color_slider = builder.get_object("bg_color_slider") as Gtk.HScale;
@@ -1819,24 +1819,24 @@ public class PreferencesDialog {
         raw_editor_combo.changed.connect(on_raw_editor_changed);
         
         Gtk.CheckButton auto_import_button = builder.get_object("autoimport") as Gtk.CheckButton;
-        auto_import_button.set_active(Config.get_instance().get_auto_import_from_library());
+        auto_import_button.set_active(Config.Facade.get_instance().get_auto_import_from_library());
         
         Gtk.CheckButton commit_metadata_button = builder.get_object("write_metadata") as Gtk.CheckButton;
-        commit_metadata_button.set_active(Config.get_instance().get_commit_metadata_to_masters());
+        commit_metadata_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
         
         dialog.map_event.connect(map_event);
     }
     
     public void populate_preference_options() {
         populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(), 
-            Config.get_instance().get_external_photo_app(), out external_photo_apps);
+            Config.Facade.get_instance().get_external_photo_app(), out external_photo_apps);
 
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(), 
-            Config.get_instance().get_external_raw_app(), out external_raw_apps);
+            Config.Facade.get_instance().get_external_raw_app(), out external_raw_apps);
         
         setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
         
-        lowercase.set_active(Config.get_instance().get_use_lowercase_filenames());
+        lowercase.set_active(Config.Facade.get_instance().get_use_lowercase_filenames());
     }
     
     // Ticket #3162, part II - if we're not yet installed, then we have to manually launch
@@ -1909,7 +1909,7 @@ public class PreferencesDialog {
     }
     
     private void setup_dir_pattern(Gtk.ComboBox combo_box, Gtk.Entry entry) {
-        string? pattern = Config.get_instance().get_directory_pattern();
+        string? pattern = Config.Facade.get_instance().get_directory_pattern();
         bool found = false;
         if (null != pattern) {
             // Locate pre-built text.
@@ -1924,7 +1924,7 @@ public class PreferencesDialog {
             }
         } else {
             // Custom path.
-            string? s = Config.get_instance().get_directory_pattern_custom();
+            string? s = Config.Facade.get_instance().get_directory_pattern_custom();
             if (!is_string_empty(s)) {
                 combo_box.set_active(path_formats.size - 1); // Assume "custom" is last.
                 found = true;
@@ -1954,25 +1954,25 @@ public class PreferencesDialog {
     // For items that should only be committed when the dialog is closed, not as soon as the change
     // is made.
     private void commit_on_close() {
-        Config.get_instance().commit_bg_color();
+        Config.Facade.get_instance().commit_bg_color();
         
         Gtk.CheckButton? autoimport = builder.get_object("autoimport") as Gtk.CheckButton;
         if (autoimport != null)
-            Config.get_instance().set_auto_import_from_library(autoimport.active);
+            Config.Facade.get_instance().set_auto_import_from_library(autoimport.active);
         
         Gtk.CheckButton? commit_metadata = builder.get_object("write_metadata") as Gtk.CheckButton;
         if (commit_metadata != null)
-            Config.get_instance().set_commit_metadata_to_masters(commit_metadata.active);
+            Config.Facade.get_instance().set_commit_metadata_to_masters(commit_metadata.active);
        
         if (lib_dir != null)
             AppDirs.set_import_dir(lib_dir);
         
         PathFormat pf = path_formats.get(dir_pattern_combo.get_active());
         if (null == pf.pattern) {
-            Config.get_instance().set_directory_pattern_custom(dir_pattern_entry.text);
-            Config.get_instance().unset_directory_pattern();
+            Config.Facade.get_instance().set_directory_pattern_custom(dir_pattern_entry.text);
+            Config.Facade.get_instance().set_directory_pattern(null);
         } else {
-            Config.get_instance().set_directory_pattern(pf.pattern);
+            Config.Facade.get_instance().set_directory_pattern(pf.pattern);
         }
     }
     
@@ -2000,7 +2000,7 @@ public class PreferencesDialog {
         if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS
             && has_only_key_modifier(event.state, Gdk.ModifierType.CONTROL_MASK)) {
             // Left Mouse Button and CTRL pressed
-            bg_color_slider.set_value(bg_color_adjustment.get_upper() - parse_color(Config.DEFAULT_BG_COLOR).red);
+            bg_color_slider.set_value(bg_color_adjustment.get_upper() - parse_color(Config.Facade.DEFAULT_BG_COLOR).red);
 
             return true;
         }
@@ -2012,7 +2012,7 @@ public class PreferencesDialog {
         PathFormat pf = path_formats.get(dir_pattern_combo.get_active());
         if (null == pf.pattern) {
             // Custom format.
-            string? dir_pattern = Config.get_instance().get_directory_pattern_custom();
+            string? dir_pattern = Config.Facade.get_instance().get_directory_pattern_custom();
             if (is_string_empty(dir_pattern))
                 dir_pattern = "";
             dir_pattern_entry.set_text(dir_pattern);
@@ -2052,7 +2052,7 @@ public class PreferencesDialog {
     }
 
     private void set_background_color(double bg_color_value) {
-        Config.get_instance().set_bg_color(to_grayscale((uint16) bg_color_value));
+        Config.Facade.get_instance().set_bg_color(to_grayscale((uint16) bg_color_value));
     }
 
     private Gdk.Color to_grayscale(uint16 color_value) {
@@ -2068,7 +2068,7 @@ public class PreferencesDialog {
     private void on_photo_editor_changed() {
         AppInfo app = external_photo_apps.get_at(photo_editor_combo.get_active());
 
-        Config.get_instance().set_external_photo_app(DesktopIntegration.get_app_open_command(app));
+        Config.Facade.get_instance().set_external_photo_app(DesktopIntegration.get_app_open_command(app));
 
         debug("setting external photo editor to: %s", DesktopIntegration.get_app_open_command(app));
 
@@ -2077,7 +2077,7 @@ public class PreferencesDialog {
     private void on_raw_editor_changed() {
         AppInfo app = external_raw_apps.get_at(raw_editor_combo.get_active());
         
-        Config.get_instance().set_external_raw_app(app.get_commandline());
+        Config.Facade.get_instance().set_external_raw_app(app.get_commandline());
         
         debug("setting external raw editor to: %s", app.get_commandline());
     }
@@ -2102,7 +2102,7 @@ public class PreferencesDialog {
     }
     
     private void on_lowercase_toggled() {
-        Config.get_instance().set_use_lowercase_filenames(lowercase.get_active());
+        Config.Facade.get_instance().set_use_lowercase_filenames(lowercase.get_active());
     }
 }
 

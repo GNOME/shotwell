@@ -727,7 +727,7 @@ public class ImportPage : CheckerboardPage {
         Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
 
         Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
-            TRANSLATABLE, on_display_titles, Config.get_instance().get_display_photo_titles() };
+            TRANSLATABLE, on_display_titles, Config.Facade.get_instance().get_display_photo_titles() };
         titles.label = _("_Titles");
         titles.tooltip = _("Display the title of each photo");
         toggle_actions += titles;
@@ -830,11 +830,11 @@ public class ImportPage : CheckerboardPage {
         bool display = ((Gtk.ToggleAction) action).get_active();
 
         set_display_titles(display);
-        Config.get_instance().set_display_photo_titles(display);
+        Config.Facade.get_instance().set_display_photo_titles(display);
     }
     
     public override void switched_to() {
-        set_display_titles(Config.get_instance().get_display_photo_titles());
+        set_display_titles(Config.Facade.get_instance().get_display_photo_titles());
         
         base.switched_to();
         

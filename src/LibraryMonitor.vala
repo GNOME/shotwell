@@ -236,15 +236,15 @@ public class LibraryMonitor : DirectoryMonitor {
     public LibraryMonitor(File root, bool recurse, bool monitoring) {
         base (root, recurse, monitoring);
         
-        // synchronize with Config
-        auto_import = Config.get_instance().get_auto_import_from_library();
-        Config.get_instance().bool_changed.connect(on_config_bool_changed);
+        // synchronize with configuration system
+        auto_import = Config.Facade.get_instance().get_auto_import_from_library();
+        Config.Facade.get_instance().auto_import_from_library_changed.connect(on_config_changed);
         
         import_queue_timer_id = Timeout.add_seconds(FLUSH_IMPORT_QUEUE_SEC, on_flush_import_queue);
     }
     
     ~LibraryMonitor() {
-        Config.get_instance().bool_changed.disconnect(on_config_bool_changed);
+        Config.Facade.get_instance().auto_import_from_library_changed.disconnect(on_config_changed);
     }
     
     public override void close() {
@@ -537,9 +537,8 @@ public class LibraryMonitor : DirectoryMonitor {
         execute_next_verify_job();
     }
     
-    private void on_config_bool_changed(string path, bool value) {
-        if (path != Config.BOOL_AUTO_IMPORT_FROM_LIBRARY)
-            return;
+    private void on_config_changed() {
+        bool value = Config.Facade.get_instance().get_auto_import_from_library();
         
         if (auto_import == value)
             return;

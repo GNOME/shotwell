@@ -57,7 +57,7 @@ public abstract class CollectionPage : MediaPage {
         show_all();
 
         // watch for updates to the external app settings
-        Config.get_instance().external_app_changed.connect(on_external_app_changed);
+        Config.Facade.get_instance().external_app_changed.connect(on_external_app_changed);
     }
 
     private static InjectionGroup create_file_menu_injectables() {
@@ -268,12 +268,12 @@ public abstract class CollectionPage : MediaPage {
         set_action_sensitive("Duplicate", has_selected && (!selection_has_videos));
         set_action_visible("ExternalEdit", (!primary_is_video));
         set_action_sensitive("ExternalEdit", 
-            one_selected && !is_string_empty(Config.get_instance().get_external_photo_app()));
+            one_selected && !is_string_empty(Config.Facade.get_instance().get_external_photo_app()));
         set_action_visible("ExternalEditRAW",
             one_selected && (!primary_is_video)
             && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
                 PhotoFileFormat.RAW
-            && !is_string_empty(Config.get_instance().get_external_raw_app()));
+            && !is_string_empty(Config.Facade.get_instance().get_external_raw_app()));
         set_action_sensitive("Revert", (!selection_has_videos) && can_revert_selected());
         set_action_sensitive("Enhance", (!selection_has_videos) && has_selected);
         set_action_sensitive("RotateClockwise", (!selection_has_videos) && has_selected);
@@ -334,7 +334,7 @@ public abstract class CollectionPage : MediaPage {
     private void on_external_app_changed() {
         int selected_count = get_view().get_selected_count();
         
-        set_action_sensitive("ExternalEdit", selected_count == 1 && Config.get_instance().get_external_photo_app() != "");
+        set_action_sensitive("ExternalEdit", selected_count == 1 && Config.Facade.get_instance().get_external_photo_app() != "");
     }
     
     // see #2020

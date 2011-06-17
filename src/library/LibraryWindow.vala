@@ -524,11 +524,11 @@ public class LibraryWindow : AppWindow {
     }
     
     protected override void on_quit() {
-        Config.get_instance().set_library_window_state(maximized, dimensions);
+        Config.Facade.get_instance().set_library_window_state(maximized, dimensions);
 
-        Config.get_instance().set_sidebar_position(client_paned.position);
+        Config.Facade.get_instance().set_sidebar_position(client_paned.position);
 
-        Config.get_instance().set_photo_thumbnail_scale(MediaPage.get_global_thumbnail_scale());
+        Config.Facade.get_instance().set_photo_thumbnail_scale(MediaPage.get_global_thumbnail_scale());
         
         base.on_quit();
     }
@@ -750,7 +750,7 @@ public class LibraryWindow : AppWindow {
     private void on_events_sort_changed(Gtk.Action action, Gtk.Action c) {
         Gtk.RadioAction current = (Gtk.RadioAction) c;
         
-        Config.get_instance().set_events_sort_ascending(
+        Config.Facade.get_instance().set_events_sort_ascending(
             current.current_value == SORT_EVENTS_ORDER_ASCENDING);
     }
     
@@ -771,7 +771,7 @@ public class LibraryWindow : AppWindow {
         }
 
         // sync the setting so it will persist
-        Config.get_instance().set_display_basic_properties(display);
+        Config.Facade.get_instance().set_display_basic_properties(display);
     }
 
     private void on_display_extended_properties(Gtk.Action action) {
@@ -814,7 +814,7 @@ public class LibraryWindow : AppWindow {
         extended_display_action.set_active(show);
 
         // sync the setting so it will persist
-        Config.get_instance().set_display_extended_properties(show);
+        Config.Facade.get_instance().set_display_extended_properties(show);
     }
 
     public void enqueue_batch_import(BatchImport batch_import, bool allow_user_cancel) {
@@ -1097,12 +1097,12 @@ public class LibraryWindow : AppWindow {
         Gtk.ToggleAction? basic_display_action = get_common_action("CommonDisplayBasicProperties")
             as Gtk.ToggleAction;
         assert(basic_display_action != null);
-        basic_display_action.set_active(Config.get_instance().get_display_basic_properties());
+        basic_display_action.set_active(Config.Facade.get_instance().get_display_basic_properties());
 
         Gtk.ToggleAction? extended_display_action = get_common_action("CommonDisplayExtendedProperties")
             as Gtk.ToggleAction;
         assert(extended_display_action != null);
-        extended_display_action.set_active(Config.get_instance().get_display_extended_properties());
+        extended_display_action.set_active(Config.Facade.get_instance().get_display_extended_properties());
 
         Gtk.RadioAction? sort_events_action = get_common_action("CommonSortEventsAscending")
             as Gtk.RadioAction;
@@ -1111,7 +1111,7 @@ public class LibraryWindow : AppWindow {
         // Ticket #3321 - Event sorting order wasn't saving on exit.
         // Instead of calling set_active against one of the toggles, call
         // set_current_value against the entire radio group...
-        int event_sort_val = Config.get_instance().get_events_sort_ascending() ? SORT_EVENTS_ORDER_ASCENDING :
+        int event_sort_val = Config.Facade.get_instance().get_events_sort_ascending() ? SORT_EVENTS_ORDER_ASCENDING :
             SORT_EVENTS_ORDER_DESCENDING;
         
         sort_events_action.set_current_value(event_sort_val);
@@ -1294,7 +1294,7 @@ public class LibraryWindow : AppWindow {
         client_paned.pack1(sidebar_paned, false, false);
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
         client_paned.pack2(right_frame, true, false);
-        client_paned.set_position(Config.get_instance().get_sidebar_position());
+        client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         notebook.set_size_request(PAGE_MIN_WIDTH, -1);
 

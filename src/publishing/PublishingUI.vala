@@ -233,7 +233,7 @@ public class PublishingDialog : Gtk.Dialog {
         service_selector_box_label.set_alignment(0.0f, 0.5f);
 
         // get the name of the service the user last used
-        string? last_used_service = Config.get_instance().get_last_used_service();
+        string? last_used_service = Config.Facade.get_instance().get_last_used_service();
 
         Spit.Publishing.Service[] loaded_services = load_services(has_photos, has_videos);
         int ticker = 0;
@@ -430,7 +430,7 @@ public class PublishingDialog : Gtk.Dialog {
         }
         assert(selected_service != null);
 
-        Config.get_instance().set_last_used_service(selected_service.get_pluggable_name());
+        Config.Facade.get_instance().set_last_used_service(selected_service.get_pluggable_name());
 
         host = new Spit.Publishing.ConcretePublishingHost(selected_service, this, publishables);
         host.start_publishing();

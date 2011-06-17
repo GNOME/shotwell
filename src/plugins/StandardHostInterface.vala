@@ -45,39 +45,39 @@ public class StandardHostInterface : Object, Spit.HostInterface {
     }
     
     public bool get_config_bool(string key, bool def) {
-        return Config.get_instance().get_plugin_bool(config_domain, config_id, key, def);
+        return Config.Facade.get_instance().get_plugin_bool(config_domain, config_id, key, def);
     }
     
     public void set_config_bool(string key, bool val) {
-        Config.get_instance().set_plugin_bool(config_domain, config_id, key, val);
+        Config.Facade.get_instance().set_plugin_bool(config_domain, config_id, key, val);
     }
     
     public int get_config_int(string key, int def) {
-        return Config.get_instance().get_plugin_int(config_domain, config_id, key, def);
+        return Config.Facade.get_instance().get_plugin_int(config_domain, config_id, key, def);
     }
     
     public void set_config_int(string key, int val) {
-        Config.get_instance().set_plugin_int(config_domain, config_id, key, val);
+        Config.Facade.get_instance().set_plugin_int(config_domain, config_id, key, val);
     }
     
     public string? get_config_string(string key, string? def) {
-        return Config.get_instance().get_plugin_string(config_domain, config_id, key, def);
+        return Config.Facade.get_instance().get_plugin_string(config_domain, config_id, key, def);
     }
     
     public void set_config_string(string key, string? val) {
-        Config.get_instance().set_plugin_string(config_domain, config_id, key, val);
+        Config.Facade.get_instance().set_plugin_string(config_domain, config_id, key, val);
     }
     
     public double get_config_double(string key, double def) {
-        return Config.get_instance().get_plugin_double(config_domain, config_id, key, def);
+        return Config.Facade.get_instance().get_plugin_double(config_domain, config_id, key, def);
     }
     
     public void set_config_double(string key, double val) {
-        Config.get_instance().set_plugin_double(config_domain, config_id, key, val);
+        Config.Facade.get_instance().set_plugin_double(config_domain, config_id, key, val);
     }
     
     public void unset_config_key(string key) {
-        Config.get_instance().unset_plugin_key(config_domain, config_id, key);
+        Config.Facade.get_instance().unset_plugin_key(config_domain, config_id, key);
     }
 }
 

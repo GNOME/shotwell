@@ -152,9 +152,9 @@ public class MetadataWriter : Object {
         foreach (string detail in INTERESTED_PHOTO_METADATA_DETAILS)
             interested_photo_details.add(detail);
         
-        // sync up with Config
-        enabled = Config.get_instance().get_commit_metadata_to_masters();
-        Config.get_instance().bool_changed.connect(on_config_bool_changed);
+        // sync up with the configuration system
+        enabled = Config.Facade.get_instance().get_commit_metadata_to_masters();
+        Config.Facade.get_instance().commit_metadata_to_masters_changed.connect(on_config_changed);
         
         // add all current photos to look for ones that are dirty and need updating
         force_rescan();
@@ -179,7 +179,7 @@ public class MetadataWriter : Object {
     }
     
     ~MetadataWriter() {
-        Config.get_instance().bool_changed.disconnect(on_config_bool_changed);
+        Config.Facade.get_instance().commit_metadata_to_masters_changed.disconnect(on_config_changed);
         
         LibraryPhoto.global.media_import_starting.disconnect(on_importing_photos);
         LibraryPhoto.global.media_import_completed.disconnect(on_photos_imported);
@@ -245,9 +245,8 @@ public class MetadataWriter : Object {
         closed = true;
     }
     
-    private void on_config_bool_changed(string path, bool value) {
-        if (path != Config.BOOL_COMMIT_METADATA_TO_MASTERS)
-            return;
+    private void on_config_changed() {
+        bool value = Config.Facade.get_instance().get_commit_metadata_to_masters();
         
         if (enabled == value)
             return;

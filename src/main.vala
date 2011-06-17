@@ -188,13 +188,13 @@ void library_exec(string[] mounts) {
 
     library_window.show_all();
 
-    if (Config.get_instance().get_show_welcome_dialog() &&
+    if (Config.Facade.get_instance().get_show_welcome_dialog() &&
         LibraryPhoto.global.get_count() == 0) {
         WelcomeDialog welcome = new WelcomeDialog(library_window);
-        Config.get_instance().set_show_welcome_dialog(welcome.execute(out do_fspot_import,
+        Config.Facade.get_instance().set_show_welcome_dialog(welcome.execute(out do_fspot_import,
             out do_system_pictures_import));
     } else {
-        Config.get_instance().set_show_welcome_dialog(false);
+        Config.Facade.get_instance().set_show_welcome_dialog(false);
     }
     
     if (do_fspot_import) {
@@ -344,6 +344,15 @@ void main(string[] args) {
     // Call AppDirs init *before* calling Gtk.init_with_args, as it will strip the
     // exec file from the array
     AppDirs.init(args[0]);
+
+    // following the GIO programming guidelines at http://developer.gnome.org/gio/2.26/ch03.html,
+    // set the GSETTINGS_SCHEMA_DIR environment variable to allow us to load GSettings schemas from 
+    // the build directory. this allows us to access local GSettings schemas without having to
+    // muck with the user's XDG_... directories, which is seriously frowned upon
+    if (AppDirs.get_install_dir() == null) {
+        GLib.Environment.set_variable("GSETTINGS_SCHEMA_DIR", AppDirs.get_exec_dir().get_path() +
+            "/misc", true);
+    }
 
     // init GTK (valac has already called g_threads_init())
     try {

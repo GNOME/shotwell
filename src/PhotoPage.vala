@@ -2233,7 +2233,7 @@ public class LibraryPhotoPage : EditingHostPage {
         LibraryPhoto.global.items_altered.connect(on_metadata_altered);
         
         // watch for updates to the external app settings
-        Config.get_instance().external_app_changed.connect(on_external_app_changed);
+        Config.Facade.get_instance().external_app_changed.connect(on_external_app_changed);
         
         // Filter out trashed files.
         get_view().install_view_filter(filter);
@@ -2244,7 +2244,7 @@ public class LibraryPhotoPage : EditingHostPage {
     ~LibraryPhotoPage() {
         LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
         LibraryPhoto.global.items_altered.disconnect(on_metadata_altered);
-        Config.get_instance().external_app_changed.disconnect(on_external_app_changed);
+        Config.Facade.get_instance().external_app_changed.disconnect(on_external_app_changed);
     }
     
     public bool not_trashed_view_filter(DataView view) {
@@ -2522,7 +2522,7 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
         
         Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>N",
-            TRANSLATABLE, on_display_ratings, Config.get_instance().get_display_photo_ratings() };
+            TRANSLATABLE, on_display_ratings, Config.Facade.get_instance().get_display_photo_ratings() };
         ratings.label = Resources.VIEW_RATINGS_MENU;
         ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;
         toggle_actions += ratings;
@@ -2556,7 +2556,7 @@ public class LibraryPhotoPage : EditingHostPage {
         
         set_display_ratings(display);
         
-        Config.get_instance().set_display_photo_ratings(display);
+        Config.Facade.get_instance().set_display_photo_ratings(display);
         repaint();
     }
 
@@ -2572,7 +2572,7 @@ public class LibraryPhotoPage : EditingHostPage {
         bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
         
         set_action_sensitive("ExternalEdit",
-            has_photo() && Config.get_instance().get_external_photo_app() != "");
+            has_photo() && Config.Facade.get_instance().get_external_photo_app() != "");
         
         set_action_sensitive("Revert", has_photo() ?
             (get_photo().has_transformations() || get_photo().has_editable()) : false);
@@ -2592,7 +2592,7 @@ public class LibraryPhotoPage : EditingHostPage {
         update_flag_action();
         
         set_action_visible("ExternalEditRAW", 
-            is_raw && Config.get_instance().get_external_raw_app() != "");
+            is_raw && Config.Facade.get_instance().get_external_raw_app() != "");
         
         base.update_actions(selected_count, count);
     }
@@ -2651,11 +2651,11 @@ public class LibraryPhotoPage : EditingHostPage {
         update_zoom_menu_item_sensitivity();
         update_rating_menu_item_sensitivity();
         
-        set_display_ratings(Config.get_instance().get_display_photo_ratings());
+        set_display_ratings(Config.Facade.get_instance().get_display_photo_ratings());
     }
     
     protected override Gdk.Pixbuf? get_bottom_left_trinket(int scale) {
-        if (!has_photo() || !Config.get_instance().get_display_photo_ratings())
+        if (!has_photo() || !Config.Facade.get_instance().get_display_photo_ratings())
             return null;
         
         return Resources.get_rating_trinket(((LibraryPhoto) get_photo()).get_rating(), scale);
@@ -2942,7 +2942,7 @@ public class LibraryPhotoPage : EditingHostPage {
 
     private void on_external_app_changed() {
         set_action_sensitive("ExternalEdit", has_photo() && 
-            Config.get_instance().get_external_photo_app() != "");
+            Config.Facade.get_instance().get_external_photo_app() != "");
     }
     
     private void on_external_edit() {

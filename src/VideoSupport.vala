@@ -354,9 +354,9 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         global.add_many_to_offline(offline_videos);
         global.add_many(all_videos);
 
-        int saved_state = Config.get_instance().get_video_interpreter_state_cookie();
+        int saved_state = Config.Facade.get_instance().get_video_interpreter_state_cookie();
         current_state = (int) Gst.Registry.get_default().get_feature_list_cookie();
-        if (saved_state == Config.NO_VIDEO_INTERPRETER_STATE) {
+        if (saved_state == Config.Facade.NO_VIDEO_INTERPRETER_STATE) {
             message("interpreter state cookie not found; assuming all video thumbnails are out of date");
             interpreter_state_changed = true;
         } else if (saved_state != current_state) {
@@ -395,7 +395,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         if (interpreter_state_changed) {
             message("saving video interpreter state to configuration system");
 
-            Config.get_instance().set_video_interpreter_state_cookie(current_state);
+            Config.Facade.get_instance().set_video_interpreter_state_cookie(current_state);
             interpreter_state_changed = false;
         }
     }

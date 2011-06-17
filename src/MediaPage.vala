@@ -230,12 +230,12 @@ public abstract class MediaPage : CheckerboardPage {
 
         get_view().freeze_notifications();
         get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, 
-            Config.get_instance().get_display_photo_titles());
+            Config.Facade.get_instance().get_display_photo_titles());
         get_view().set_property(Thumbnail.PROP_SHOW_TAGS, 
-            Config.get_instance().get_display_photo_tags());
+            Config.Facade.get_instance().get_display_photo_tags());
         get_view().set_property(Thumbnail.PROP_SIZE, get_thumb_size());
         get_view().set_property(Thumbnail.PROP_SHOW_RATINGS,
-            Config.get_instance().get_display_photo_ratings());
+            Config.Facade.get_instance().get_display_photo_ratings());
         get_view().thaw_notifications();
 
         // enable drag-and-drop export of media
@@ -423,19 +423,19 @@ public abstract class MediaPage : CheckerboardPage {
         Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
         
         Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
-            TRANSLATABLE, on_display_titles, Config.get_instance().get_display_photo_titles() };
+            TRANSLATABLE, on_display_titles, Config.Facade.get_instance().get_display_photo_titles() };
         titles.label = _("_Titles");
         titles.tooltip = _("Display the title of each photo");
         toggle_actions += titles;
         
         Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>N",
-            TRANSLATABLE, on_display_ratings, Config.get_instance().get_display_photo_ratings() };
+            TRANSLATABLE, on_display_ratings, Config.Facade.get_instance().get_display_photo_ratings() };
         ratings.label = Resources.VIEW_RATINGS_MENU;
         ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;
         toggle_actions += ratings;
 
         Gtk.ToggleActionEntry tags = { "ViewTags", null, TRANSLATABLE, "<Ctrl><Shift>G",
-            TRANSLATABLE, on_display_tags, Config.get_instance().get_display_photo_tags() };
+            TRANSLATABLE, on_display_tags, Config.Facade.get_instance().get_display_photo_tags() };
         tags.label = _("Ta_gs");
         tags.tooltip = _("Display each photo's tags");
         toggle_actions += tags;
@@ -610,7 +610,7 @@ public abstract class MediaPage : CheckerboardPage {
     
     public static int get_global_thumbnail_scale() {
         if (ZoomSliderAssembly.global_slider_adjustment == null) {
-            int persisted_scale = Config.get_instance().get_photo_thumbnail_scale();
+            int persisted_scale = Config.Facade.get_instance().get_photo_thumbnail_scale();
             ZoomSliderAssembly.global_slider_adjustment = new Gtk.Adjustment(
                 ZoomSliderAssembly.scale_to_slider(persisted_scale), 0,
                 ZoomSliderAssembly.scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
@@ -770,9 +770,9 @@ public abstract class MediaPage : CheckerboardPage {
 
         // set display options to match Configuration toggles (which can change while switched away)
         get_view().freeze_notifications();
-        set_display_titles(Config.get_instance().get_display_photo_titles());
-        set_display_ratings(Config.get_instance().get_display_photo_ratings());
-        set_display_tags(Config.get_instance().get_display_photo_tags());
+        set_display_titles(Config.Facade.get_instance().get_display_photo_titles());
+        set_display_ratings(Config.Facade.get_instance().get_display_photo_ratings());
+        set_display_tags(Config.Facade.get_instance().get_display_photo_tags());
         get_view().thaw_notifications();
 
         sync_sort();
@@ -955,7 +955,7 @@ public abstract class MediaPage : CheckerboardPage {
         
         set_display_titles(display);
         
-        Config.get_instance().set_display_photo_titles(display);
+        Config.Facade.get_instance().set_display_photo_titles(display);
     }
 
     protected virtual void on_display_ratings(Gtk.Action action) {
@@ -963,7 +963,7 @@ public abstract class MediaPage : CheckerboardPage {
         
         set_display_ratings(display);
         
-        Config.get_instance().set_display_photo_ratings(display);
+        Config.Facade.get_instance().set_display_photo_ratings(display);
     }
 
     protected virtual void on_display_tags(Gtk.Action action) {
@@ -971,7 +971,7 @@ public abstract class MediaPage : CheckerboardPage {
         
         set_display_tags(display);
         
-        Config.get_instance().set_display_photo_tags(display);
+        Config.Facade.get_instance().set_display_photo_tags(display);
     }
 
     protected abstract void get_config_photos_sort(out bool sort_order, out int sort_by);
@@ -1153,7 +1153,7 @@ public abstract class MediaPage : CheckerboardPage {
 
     public int get_thumb_size() {
         if (get_checkerboard_layout().get_scale() <= 0)
-            get_checkerboard_layout().set_scale(Config.get_instance().get_photo_thumbnail_scale());
+            get_checkerboard_layout().set_scale(Config.Facade.get_instance().get_photo_thumbnail_scale());
             
         return get_checkerboard_layout().get_scale();
     }

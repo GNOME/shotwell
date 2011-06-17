@@ -37,7 +37,7 @@ public File? generate_unique_file(string basename, MediaMetadata? metadata, time
     
     // Optionally convert to lower-case.
     string newbasename = basename;
-    if (Config.get_instance().get_use_lowercase_filenames())
+    if (Config.Facade.get_instance().get_use_lowercase_filenames())
         newbasename = newbasename.down();
     
     return global::generate_unique_file(dir, newbasename, out collision);

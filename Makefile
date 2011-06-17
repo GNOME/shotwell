@@ -33,8 +33,13 @@ LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR := $(DESTDIR)$(PREFIX)/share/locale
 
 VALAFLAGS := -g --enable-checking --thread --fatal-warnings $(USER_VALAFLAGS)
+
 DEFINES := _PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
 	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIB='"${LIB}"'
+
+ifdef USE_LEGACY_CONFIG_SYSTEM
+VALA_DEFINES := $(VALA_DEFINES) --define USE_LEGACY_CONFIG_SYSTEM
+endif
 
 EXPORT_FLAGS = -export-dynamic
 
@@ -95,7 +100,7 @@ UNUNITIZED_SRC_FILES = \
 	PhotoMonitor.vala \
 	VideoMonitor.vala \
 	SearchFilter.vala \
-	MediaViewTracker.vala
+	MediaViewTracker.vala \
 
 THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala
@@ -130,7 +135,8 @@ RESOURCE_FILES = \
 SYS_INTEGRATION_FILES = \
 	shotwell.desktop.head \
 	shotwell-viewer.desktop.head \
-	shotwell.schemas
+	shotwell.schemas \
+	org.yorba.shotwell.gschema.xml
 
 SRC_HEADER_FILES = \
 	gphoto.h
@@ -253,7 +259,6 @@ LOCAL_PKGS = \
 # added to this list
 EXT_PKGS = \
 	atk \
-	gconf-2.0 \
 	gdk-2.0 \
 	gdk-x11-2.0 \
 	gee-1.0 \
@@ -272,6 +277,9 @@ EXT_PKGS = \
 	sqlite3 \
 	unique-1.0 \
 	webkit-1.0
+ifdef USE_LEGACY_CONFIG_SYSTEM
+EXT_PKGS += gconf-2.0
+endif
 
 THUMBNAILER_PKGS = \
     gtk+-2.0 \
@@ -287,7 +295,6 @@ LIBRAW_PKG = \
 # libraw is handled separately (see note below); when libraw-config is no longer needed, the version
 # should be added to this list
 EXT_PKG_VERSIONS = \
-	gconf-2.0 >= 2.22.0 \
 	gee-1.0 >= 0.5.0 \
 	gexiv2 >= 0.2.0 \
 	gio-unix-2.0 >= 2.20 \
@@ -304,6 +311,9 @@ EXT_PKG_VERSIONS = \
 	sqlite3 >= 3.5.9 \
 	unique-1.0 >= 1.0.0 \
 	webkit-1.0 >= 1.1.5
+ifdef USE_LEGACY_CONFIG_SYSTEM
+EXT_PKG_VERSIONS += gconf-2.0 >= 2.22.0
+endif
 
 ifdef ENABLE_TESTS
 EXT_PKGS += valadate-1.0
@@ -382,7 +392,7 @@ DIST_TAR_BZ2 = $(DIST_TAR).bz2
 DIST_TAR_GZ = $(DIST_TAR).gz
 PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.gz
 
-VALAFLAGS := $(VALAFLAGS) --vapidir=plugins/
+VALAFLAGS := $(VALAFLAGS) $(VALA_DEFINES) --vapidir=plugins/
 
 ifdef ENABLE_TESTS
 VALAFLAGS := $(VALAFLAGS) --vapi=libshotwell.vapi --define=ENABLE_TESTS 
@@ -486,6 +496,7 @@ cleantemps:
 	rm -f $(LANG_STAMP)
 	rm -f $(TEMPORARY_DESKTOP_FILES)
 	@$(MAKE) --directory=plugins cleantemps
+	rm -f misc/gschemas.compiled
 
 package:
 	$(MAKE) dist
@@ -534,6 +545,9 @@ install:
 	$(INSTALL_DATA) icons/shotwell-16.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.svg
 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps
 	$(INSTALL_DATA) icons/shotwell-24.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.svg
+	mkdir -p $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
+	$(INSTALL_DATA) misc/org.yorba.shotwell.gschema.xml $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
+	glib-compile-schemas $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 ifndef DISABLE_ICON_UPDATE
 	-gtk-update-icon-cache -t -f $(DESTDIR)$(PREFIX)/share/icons/hicolor || :
 endif
@@ -620,6 +634,8 @@ ifdef INSTALL_HEADERS
 	rm -f $(foreach dep,$(PLUGIN_DEPS),$(DESTDIR)$(PREFIX)/share/vala/vapi/$(notdir $(dep)))
 	rm -f $(DESTDIR)$(PREFIX)/$(LIB)/pkgconfig/$(PC_FILE)
 endif
+	rm -f $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas/org.yorba.shotwell.gschema.xml
+	glib-compile-schemas $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 
 $(PC_FILE): $(PC_INPUT) $(MAKE_FILES)
 	m4 '-D_VERSION_=$(VERSION)' '-D_PREFIX_=$(PREFIX)' '-D_REQUIREMENTS_=$(PLUGIN_PKG_REQS)' \
@@ -659,6 +675,7 @@ $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 
 $(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN)
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) `$(LIBRAW_CONFIG) --libs` $(EXPORT_FLAGS) -o $@
+	glib-compile-schemas misc
 
 $(THUMBNAILER_BIN): $(EXPANDED_THUMBNAILER_SRC_FILES)
 	$(VALAC) $(EXPANDED_THUMBNAILER_SRC_FILES) $(VALAFLAGS) -o $@ $(foreach pkg,$(THUMBNAILER_PKGS),--pkg=$(pkg))

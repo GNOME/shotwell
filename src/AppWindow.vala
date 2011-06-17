@@ -433,10 +433,10 @@ public abstract class AppWindow : PageWindow {
 
         // restore previous size and maximization state
         if (this is LibraryWindow) {
-            Config.get_instance().get_library_window_state(out maximized, out dimensions);
+            Config.Facade.get_instance().get_library_window_state(out maximized, out dimensions);
         } else {
             assert(this is DirectWindow);
-            Config.get_instance().get_direct_window_state(out maximized, out dimensions);
+            Config.Facade.get_instance().get_direct_window_state(out maximized, out dimensions);
         }
 
         set_default_size(dimensions.width, dimensions.height);
@@ -901,8 +901,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public override bool configure_event(Gdk.EventConfigure event) {
-        if (window.get_state() == Gdk.WindowState.MAXIMIZED)
-            maximized = !maximized;
+        maximized = (window.get_state() == Gdk.WindowState.MAXIMIZED);
 
         if (!maximized)
             get_size(out dimensions.width, out dimensions.height);

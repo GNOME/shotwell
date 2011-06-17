@@ -77,8 +77,9 @@ private class PluggableRep {
         // register themselves)
         is_core = is_core_pluggable(pluggable);
         
-        // enabled defaults to false unless this Pluggable is core, in which case default is true
-        enabled = Config.get_instance().is_plugin_enabled(id, is_core);
+       FuzzyPropertyState saved_state = Config.Facade.get_instance().is_plugin_enabled(id);
+        enabled = ((is_core && (saved_state != FuzzyPropertyState.DISABLED)) ||
+            (!is_core && (saved_state == FuzzyPropertyState.ENABLED)));
         
         // inform the plugin of its activation state
         pluggable.activation(enabled);
@@ -96,7 +97,7 @@ private class PluggableRep {
             return false;
         
         this.enabled = enabled;
-        Config.get_instance().set_plugin_enabled(id, enabled);
+        Config.Facade.get_instance().set_plugin_enabled(id, enabled);
         pluggable.activation(enabled);
         
         return true;

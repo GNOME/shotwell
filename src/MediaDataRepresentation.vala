@@ -738,17 +738,14 @@ public class MediaCollectionRegistry {
             !CommandlineOptions.no_runtime_monitoring);
         LibraryMonitorPool.get_instance().replace(library_monitor, LIBRARY_MONITOR_START_DELAY_MSEC);
         
-        Config.get_instance().string_changed.connect(on_config_string_changed);
+        Config.Facade.get_instance().import_directory_changed.connect(on_import_directory_changed);
     }
     
     public static void terminate() {
-        Config.get_instance().string_changed.disconnect(on_config_string_changed);
+        Config.Facade.get_instance().import_directory_changed.disconnect(on_import_directory_changed);
     }
     
-    private static void on_config_string_changed(string path, string value) {
-        if (path != Config.STRING_IMPORT_DIRECTORY)
-            return;
-        
+    private static void on_import_directory_changed() {        
         File import_dir = AppDirs.get_import_dir();
         
         LibraryMonitor? current = LibraryMonitorPool.get_instance().get_monitor();

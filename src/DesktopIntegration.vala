@@ -158,7 +158,7 @@ public void set_background(Photo photo) {
     File save_as = AppDirs.get_data_subdir("wallpaper").get_child(
         file_format.get_default_basename("wallpaper"));
     
-    if (Config.get_instance().get_background() == save_as.get_path()) {
+    if (Config.Facade.get_instance().get_desktop_background() == save_as.get_path()) {
         save_as = AppDirs.get_data_subdir("wallpaper").get_child(
             file_format.get_default_basename("wallpaper_alt"));
     }
@@ -172,7 +172,7 @@ public void set_background(Photo photo) {
         return;
     }
     
-    Config.get_instance().set_background(save_as.get_path());
+    Config.Facade.get_instance().set_desktop_background(save_as.get_path());
     
     GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
 }
@@ -297,7 +297,7 @@ private void on_desktop_slideshow_exported(Exporter exporter) {
         return;
     }
     
-    Config.get_instance().set_background(xml_file.get_path());
+    Config.Facade.get_instance().set_desktop_background(xml_file.get_path());
 }
 
 }

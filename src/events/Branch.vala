@@ -37,7 +37,7 @@ public class Events.Branch : Sidebar.Branch {
         Event.global.no_event_collection_altered.connect(on_no_event_collection_altered);
         
         // monitor sorting criteria (see note at sort_ascending about this)
-        Config.get_instance().bool_changed.connect(on_config_bool_changed);
+        Config.Facade.get_instance().events_sort_ascending_changed.connect(on_config_changed);
     }
     
     ~Branch() {
@@ -45,7 +45,7 @@ public class Events.Branch : Sidebar.Branch {
         Event.global.items_altered.disconnect(on_events_altered);
         Event.global.no_event_collection_altered.disconnect(on_no_event_collection_altered);
         
-        Config.get_instance().bool_changed.disconnect(on_config_bool_changed);
+        Config.Facade.get_instance().events_sort_ascending_changed.disconnect(on_config_changed);
     }
     
     internal static void init() {
@@ -55,7 +55,7 @@ public class Events.Branch : Sidebar.Branch {
         single_event_icon = new ThemedIcon(Resources.ICON_ONE_EVENT);
         no_event_icon = new ThemedIcon(Resources.ICON_MISSING_FILES);
         
-        sort_ascending = Config.get_instance().get_events_sort_ascending();
+        sort_ascending = Config.Facade.get_instance().get_events_sort_ascending();
     }
     
     internal static void terminate() {
@@ -158,9 +158,8 @@ public class Events.Branch : Sidebar.Branch {
         return entry_map.get(event);
     }
     
-    private void on_config_bool_changed(string path, bool value) {
-        if (path != Config.BOOL_SORT_EVENTS_ASCENDING || sort_ascending == value)
-            return;
+    private void on_config_changed() {
+        bool value = Config.Facade.get_instance().get_events_sort_ascending();
         
         sort_ascending = value;
         reorder_all();

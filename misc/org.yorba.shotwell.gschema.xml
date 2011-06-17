@@ -1,0 +1,460 @@
+<schemalist>
+
+<schema id="org.yorba.shotwell" path="/apps/shotwell/">
+    <child name="preferences" schema="org.yorba.shotwell.preferences" />
+    <child name="sharing" schema="org.yorba.shotwell.sharing" />
+    <child name="video" schema="org.yorba.shotwell.video" />
+    <child name="printing" schema="org.yorba.shotwell.printing" />
+    <child name="plugins" schema="org.yorba.shotwell.plugins" />
+</schema>
+
+<schema id="org.yorba.shotwell.preferences" path="/apps/shotwell/preferences/">
+    <child name="ui" schema="org.yorba.shotwell.preferences.ui" />
+    <child name="slideshow" schema="org.yorba.shotwell.preferences.slideshow" />
+    <child name="window" schema="org.yorba.shotwell.preferences.window" />
+    <child name="files" schema="org.yorba.shotwell.preferences.files" />
+    <child name="editing" schema="org.yorba.shotwell.preferences.editing" />
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.ui" path="/apps/shotwell/preferences/ui/">
+    <key name="display-basic-properties" type="b">
+        <default>true</default>
+        <summary>display basic properties</summary>
+        <description>True if the basic properties pane is to be displayed, false otherwise.</description>
+    </key>
+    
+    <key name="display-extended-properties" type="b">
+        <default>false</default>
+        <summary>display extended properties</summary>
+        <description>True if the extended properties window is to be displayed, false otherwise.</description>
+    </key>
+    
+    <key name="display-photo-titles" type="b">
+        <default>false</default>
+        <summary>display photo titles</summary>
+        <description>True if photo titles are to be displayed beneath thumbnails in collection views, false otherwise.</description>
+    </key>
+    
+    <key name="display-photo-tags" type="b">
+        <default>true</default>
+        <summary>display photo tags</summary>
+        <description>True if photo tags are to be listed beneath thumbnails in collection views, false otherwise.</description>
+    </key>
+    
+    <key name="display-photo-ratings" type="b">
+        <default>true</default>
+        <summary>display photo ratings</summary>
+        <description>True if a photo's rating should be displayed as overlaid trinket, false otherwise.</description>
+    </key>
+    
+    <key name="photo-rating-filter" type="i">
+        <default>0</default>
+        <summary>rating filter level</summary>
+        <description>Determines how to filter photos based on their ratings. 1: Rejected or better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three or better, 6: Four or better, 7: Five or better.</description>
+    </key>
+    
+    <key name="events-sort-ascending" type="b">
+        <default>false</default>
+        <summary>sort events ascending</summary>
+        <description>True if events should be sorted ascending, false if descending.</description>
+    </key>
+    
+    <key name="library-photos-sort-ascending" type="b">
+        <default>false</default>
+        <summary>sort library photos ascending</summary>
+        <description>True if library photos should be sorted ascending, false if descending.</description>
+    </key>
+        
+    <key name="library-photos-sort-by" type="i">
+        <default>2</default>
+        <summary>sort library photos criteria</summary>
+        <description>A numeric code that specifies the sort criteria for photos in library views.</description>
+    </key>
+    
+    <key name="event-photos-sort-ascending" type="b">
+        <default>true</default>
+        <summary>sort event photos ascending</summary>
+        <description>True if event photos should be sorted ascending, false if descending.</description>
+    </key>
+    
+    <key name="event-photos-sort-by" type="i">
+        <default>2</default>
+        <summary>sort event photos criteria</summary>
+        <description>Specifies the sort criteria for event photos.</description>
+    </key>
+    
+    <key name="use-24-hour-time" type="b">
+        <default>false</default>
+        <summary>use 24 hour time</summary>
+        <description>True if should display times with a 24 hour clock, false if times should use AM/PM notation.</description>
+    </key>
+    
+    <key name="keep-relativity" type="b">
+        <default>true</default>
+        <summary>keep relative time between photos</summary>
+        <description>True if when adjusting time/date of photos, relative time should be maintained.  False if all photos should be set to the same time.</description>
+    </key>
+    
+    <key name="modify-originals" type="b">
+        <default>false</default>
+        <summary>modify original photo files</summary>
+        <description>True if when adjusting time/date of photos, the original files should be modified as well.  False if changes are made only in the database.</description>
+    </key>
+    
+    <key name="show-welcome-dialog" type="b">
+        <default>true</default>
+        <summary>show welcome dialog on startup</summary>
+        <description>True if, when on startup, a welcome dialog should be shown.  False if it should not be shown.</description>
+    </key>
+
+    <key name="sidebar-position" type="i">
+        <default>180</default>
+        <summary>sidebar position</summary>
+        <description>The width, in pixels, of the sidebar</description>
+    </key>
+
+    <key name="photo-thumbnail-scale" type="i">
+        <default>128</default>
+        <summary>photo thumbnail scale</summary>
+        <description>The scale of photo thumbnails, ranging from 72 to 360.</description>
+    </key>
+    
+    <key name="background-color" type="s">
+        <default>'#444'</default>
+        <summary>background color</summary>
+        <description>A grayscale color for use as the background color.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.slideshow" path="/apps/shotwell/preferences/slideshow/">
+    <key name="delay" type="d">
+        <default>3.0</default>
+        <summary>delay</summary>
+        <description>Delay (in seconds) between photos in the slideshow.</description>
+    </key>
+
+    <key name="transition-delay" type="d">
+        <default>0.3</default>
+        <summary>transition delay</summary>
+        <description>The time (in seconds) that a transition runs between photos in a slideshow</description>
+    </key>
+
+    <key name="transition-effect-id" type="s">
+        <default>""</default>
+        <summary>transition effect id</summary>
+        <description>The name of the transition effect that will be used between photos when running a slideshow</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.window" path="/apps/shotwell/preferences/window/">
+    <key name="library-maximize" type="b">
+        <default>false</default>
+        <summary>maximize library window</summary>
+        <description>True if library application is maximized, false otherwise.</description>
+    </key>
+    
+    <key name="library-width" type="i">
+        <default>1024</default>
+        <summary>width of library window</summary>
+        <description>The last recorded width of the library application window.</description>
+    </key>
+    
+    <key name="library-height" type="i">
+        <default>768</default>
+        <summary>height of library window</summary>
+        <description>The last recorded height of the library application window.</description>
+    </key>
+    
+    <key name="direct-maximize" type="b">
+        <default>false</default>
+        <summary>maximize direct-edit window</summary>
+        <description>True if direct-edit application is maximized, false otherwise.</description>
+    </key>
+    
+    <key name="direct-width" type="i">
+        <default>1024</default>
+        <summary>width of direct-edit window</summary>
+        <description>The last recorded width of the direct-edit application window.</description>
+    </key>
+    
+    <key name="direct-height" type="i">
+        <default>768</default>
+        <summary>height of direct-edit window</summary>
+        <description>The last recorded height of the direct-edit application window.</description>
+    </key>
+    
+    <key name="sidebar-position" type="i">
+        <default>180</default>
+        <summary>sidebar divider position</summary>
+        <description>The last recorded position of the divider between the sidebar and view in library application window.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.files" path="/apps/shotwell/preferences/files/">
+    <key name="import-dir" type="s">
+        <default>""</default>
+        <summary>import directory</summary>
+        <description>Directory in which imported photo files are placed.</description>
+    </key>
+    
+    <key name="auto-import" type="b">
+        <default>false</default>
+        <summary>watch library directory for new files</summary>
+        <description>If true, files added to the library directory are automatically imported.</description>
+    </key>
+    
+    <key name="commit-metadata" type="b">
+        <default>false</default>
+        <summary>write metadata to master files</summary>
+        <description>If true, changes to metadata (tags, titles, etc.) are written to the master photo file.</description>
+    </key>
+
+    <key name="use-lowercase-filenames" type="b">
+        <default>false</default>
+        <summary>use lowercase filenames</summary>
+        <description>If true, Shotwell will convert all filenames to lowercase when importing photo files</description>
+    </key>
+
+    <key name="directory-pattern" type="s">
+        <default>""</default>
+        <summary>directory pattern</summary>
+        <description>A string encoding a naming pattern that will be used to name photo directories on import.</description>
+    </key>
+
+    <key name="directory-pattern-custom" type="s">
+        <default>""</default>
+        <summary>directory pattern custom</summary>
+        <description>A string encoding a custom naming pattern that will be used to name photo directories on import.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.editing" path="/apps/shotwell/preferences/editing/">
+    <key name="external-photo-editor" type="s">
+        <default>""</default>
+        <summary>external photo editor</summary>
+        <description>External application used to edit photos.</description>
+    </key>
+    
+    <key name="external-raw-editor" type="s">
+        <default>""</default>
+        <summary>external raw editor</summary>
+        <description>External application used to edit RAW photos.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing" path="/apps/shotwell/sharing/">
+    <key name="last-used-service" type="s">
+        <default>""</default>
+        <summary>last used publishing service</summary>
+        <description>A numeric code representing the last service to which photos were published</description>
+    </key>
+    
+    <child name="facebook" schema="org.yorba.shotwell.sharing.facebook" />
+    <child name="flickr" schema="org.yorba.shotwell.sharing.flickr" />
+    <child name="picasa" schema="org.yorba.shotwell.sharing.picasa" />
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.facebook" path="/apps/shotwell/sharing/facebook/">
+    <key name="session-key" type="s">
+        <default>""</default>
+        <summary>session key</summary>
+        <description>Facebook API session key for the currently logged in session, if any</description>
+    </key>
+    
+    <key name="session-secret" type="s">
+        <default>""</default>
+        <summary>session secret</summary>
+        <description>Facebook API session secret for the currently logged in session, if any</description>
+    </key>
+
+    <key name="uid" type="s">
+        <default>""</default>
+        <summary>user i.d.</summary>
+        <description>Facebook user i.d. for the currently logged in user, if any</description>
+    </key>
+    
+    <key name="user-name" type="s">
+        <default>""</default>
+        <summary>user name</summary>
+        <description>The name of the currently logged in Facebook user, if any</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.flickr" path="/apps/shotwell/sharing/flickr/">
+    <key name="auth-token" type="s">
+        <default>""</default>
+        <summary>auth token</summary>
+        <description>The authorization token for the currently logged in Flickr user, if any</description>
+    </key>
+    
+    <key name="username" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>The user name of the currently logged in Flickr user, if any</description>
+    </key>
+    
+    <key name="default-size" type="i">
+        <default>2</default>
+        <summary>default size code</summary>
+        <description>A numeric code representing the default size for photos published to Flickr</description>
+    </key>
+    
+    <key name="visibility" type="i">
+        <default>1</default>
+        <summary>default visibility</summary>
+        <description>A numeric code representing the default visibility for photos published to Flickr</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.picasa" path="/apps/shotwell/sharing/picasa/">
+    <key name="auth-token" type="s">
+        <default>""</default>
+        <summary>auth token</summary>
+        <description>The authorization token for the currently logged in Picasa Web Albums user, if any</description>
+    </key>
+    
+    <key name="user-name" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>The user name of the currently logged in Picasa Web Albums user, if any</description>
+    </key>
+    
+    <key name="default-size" type="i">
+        <default>2</default>
+        <summary>default size</summary>
+        <description>A numeric code representing the default size for photos uploaded to Picasa Web Albums</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.video" path="/apps/shotwell/video/">
+    <key name="interpreter-state-cookie" type="i">
+        <default>-1</default>
+        <summary>interpreter state cookie</summary>
+        <description>A numeric code that captures the state of the GStreamer plug-in environment</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.printing" path="/apps/shotwell/printing/">
+    <key name="content-layout" type="i">
+        <default>3</default>
+        <summary>content layout mode</summary>
+        <description>A numeric code that describes how photos are laid out on the page during printing</description>
+    </key>
+    
+    <key name="content-ppi" type="i">
+        <default>600</default>
+        <summary>content ppi</summary>
+        <description>The number of pixels per inch (ppi) sent to the printer during printing</description>
+    </key>
+    
+    <key name="content-width" type="d">
+        <default>7.0</default>
+        <summary>content width</summary>
+        <description>The width of the printed emulsion on the page when printing</description>
+    </key>
+    
+    <key name="content-height" type="d">
+        <default>5.0</default>
+        <summary>content height</summary>
+        <description>The height of the printed emulsion on the page when printing</description>
+    </key>
+    
+    <key name="content-units" type="i">
+        <default>1</default>
+        <summary>content units</summary>
+        <description>A numeric code representing unit of measure (inches or centimeters) used when printing</description>
+    </key>
+
+    <key name="images-per-page" type="i">
+        <default>1</default>
+        <summary>images per page code</summary>
+        <description>A numeric code representing the currently selected images per page mode used when printing</description>
+    </key>
+
+    <key name="size-selection" type="i">
+        <default>3</default>
+        <summary>size selection</summary>
+        <description>The index of the current print size in a pre-defined list of standard sizes</description>
+    </key>
+    
+    <key name="match-aspect-ratio" type="b">
+        <default>true</default>
+        <summary>match aspect ratio</summary>
+        <description>Determines whether custom print sizes must match the aspect ratio of the original photo</description>
+    </key>
+
+    <key name="print-titles" type="b">
+        <default>false</default>
+        <summary>print titles</summary>
+        <description>True if the title of a photo should be printed when the photo is printed, false otherwise.</description>
+    </key>
+    
+    <key name="titles-font" type="s">
+        <default>"Sans Bold 12"</default>
+        <summary>titles font</summary>
+        <description>The name of the font to use for photo titles when they are printed.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.plugins" path="/apps/shotwell/plugins/" >
+    <child name="enable-state" schema="org.yorba.shotwell.plugins.enable-state" />
+</schema>
+
+<schema id="org.yorba.shotwell.plugins.enable-state" path="/apps/shotwell/plugins/enable-state/" >
+    <key name="publishing-facebook" type="b">
+        <default>true</default>
+        <summary>enable facebook publishing plugin</summary>
+        <description>True if the Facebook publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="publishing-flickr" type="b">
+        <default>true</default>
+        <summary>enable flickr publishing plugin</summary>
+        <description>True if the Flickr publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="publishing-picasa" type="b">
+        <default>true</default>
+        <summary>enable picasa publishing plugin</summary>
+        <description>True if the Picasa Web Albums publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="publishing-youtube" type="b">
+        <default>true</default>
+        <summary>enable youtube publishing plugin</summary>
+        <description>True if the YouTube publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="publishing-piwigo" type="b">
+        <default>false</default>
+        <summary>enable piwigo publishing plugin</summary>
+        <description>True if the Piwigo publishing plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="publishing-yandex-fotki" type="b">
+        <default>false</default>
+        <summary>enable yandex publishing plugin</summary>
+        <description>True if the Yandex.Fotki publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-crumble" type="b">
+        <default>true</default>
+        <summary>enable slideshow crumble transition</summary>
+        <description>True if the Crumble slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-fade" type="b">
+        <default>true</default>
+        <summary>enable slideshow fade transition</summary>
+        <description>True if the Fade slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-slide" type="b">
+        <default>true</default>
+        <summary>enable slideshow slide transision</summary>
+        <description>True if the Slide slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+</schema>
+
+</schemalist>
+

@@ -661,9 +661,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.items_selected.connect(on_items_selection_changed);
         view.items_unselected.connect(on_items_selection_changed);
         
-        modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
+        modify_bg(Gtk.StateType.NORMAL, Config.Facade.get_instance().get_bg_color());
 
-        Config.get_instance().colors_changed.connect(on_colors_changed);
+        Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
 
         // CheckerboardItems offer tooltips
         has_tooltip = true;
@@ -693,7 +693,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         if (parent != null)
             parent.size_allocate.disconnect(on_viewport_resized);
 
-        Config.get_instance().colors_changed.disconnect(on_colors_changed);
+        Config.Facade.get_instance().colors_changed.disconnect(on_colors_changed);
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {
@@ -1572,11 +1572,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private void set_colors(bool in_focus = true) {
         // set up selected/unselected colors
         selected_color = fetch_color(
-            Config.get_instance().get_selected_color(in_focus).to_string(), window);
+            Config.Facade.get_instance().get_selected_color(in_focus).to_string(), window);
         unselected_color = fetch_color(
-            Config.get_instance().get_unselected_color().to_string(), window);
+            Config.Facade.get_instance().get_unselected_color().to_string(), window);
         border_color = fetch_color(
-            Config.get_instance().get_border_color().to_string(), window);
+            Config.Facade.get_instance().get_border_color().to_string(), window);
         bg_color = this.get_style().bg[Gtk.StateType.NORMAL];
     }
     
@@ -1676,7 +1676,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void on_colors_changed() {
-        modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
+        modify_bg(Gtk.StateType.NORMAL, Config.Facade.get_instance().get_bg_color());
         set_colors();
     }
 

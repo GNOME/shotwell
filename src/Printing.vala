@@ -28,7 +28,7 @@ public struct PrintSettings {
     private string print_titles_font;
 
     public PrintSettings() {
-        Config config = Config.get_instance();
+        Config.Facade config = Config.Facade.get_instance();
 
         MeasurementUnit units = (MeasurementUnit) config.get_printing_content_units();
         
@@ -38,13 +38,13 @@ public struct PrintSettings {
         content_layout = (ContentLayout) config.get_printing_content_layout();
         match_aspect_ratio = config.get_printing_match_aspect_ratio();
         print_titles = config.get_printing_print_titles();
-        print_titles_font = config.get_printing_print_titles_font();
-        image_per_page_selection = config.get_image_per_page_selection();
+        print_titles_font = config.get_printing_titles_font();
+        image_per_page_selection = config.get_printing_images_per_page();
         content_ppi = config.get_printing_content_ppi();
     }
 
     public void save() {
-        Config config = Config.get_instance();
+        Config.Facade config = Config.Facade.get_instance();
 
         config.set_printing_content_units(content_width.unit);
         config.set_printing_content_width(content_width.value);
@@ -53,8 +53,8 @@ public struct PrintSettings {
         config.set_printing_content_layout(content_layout);
         config.set_printing_match_aspect_ratio(match_aspect_ratio);
         config.set_printing_print_titles(print_titles);
-        config.set_printing_print_titles_font(print_titles_font);
-        config.set_image_per_page_selection(image_per_page_selection);
+        config.set_printing_titles_font(print_titles_font);
+        config.set_printing_images_per_page(image_per_page_selection);
         config.set_printing_content_ppi(content_ppi);
     }
 

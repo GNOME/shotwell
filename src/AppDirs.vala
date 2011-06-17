@@ -62,7 +62,7 @@ class AppDirs {
     // The "import directory" is the same as the library directory, and are often used
     // interchangeably throughout the code.
     public static File get_import_dir() {
-        string path = Config.get_instance().get_import_dir();
+        string path = Config.Facade.get_instance().get_import_dir();
         if (!is_string_empty(path)) {
             // tilde -> home directory
             path = strip_pretty_path(path);
@@ -86,9 +86,9 @@ class AppDirs {
     
     // Library folder + photo folder, based on user's prefered directory pattern.
     public static File get_baked_import_dir(time_t tm) {
-        string? pattern = Config.get_instance().get_directory_pattern();
+        string? pattern = Config.Facade.get_instance().get_directory_pattern();
         if (is_string_empty(pattern))
-            pattern = Config.get_instance().get_directory_pattern_custom();
+            pattern = Config.Facade.get_instance().get_directory_pattern_custom();
         if (is_string_empty(pattern))
             pattern = "%Y" + Path.DIR_SEPARATOR_S + "%m" + Path.DIR_SEPARATOR_S + "%d"; // default
             
@@ -104,7 +104,7 @@ class AppDirs {
     }
 
     public static void set_import_dir(string path) {
-        Config.get_instance().set_import_dir(path);
+        Config.Facade.get_instance().set_import_dir(path);
     }
     
     public static File get_exec_dir() {
