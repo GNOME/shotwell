@@ -54,7 +54,7 @@ $(OFILES): %.o: %.c $(CFILES)
 	$(CC) -c $(CFLAGS) $(DEFINES) -I../.. $(CFILES)
 
 $(PLUGIN).so: $(OFILES)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OFILES) -I../.. -shared -o $@
+	$(CC) $(CFLAGS) -Wl,--no-as-needed $(LDFLAGS) $(OFILES) -I../.. -shared -o $@
 
 .PHONY: cleantemps
 cleantemps:
