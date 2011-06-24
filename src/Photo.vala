@@ -199,6 +199,7 @@ public abstract class Photo : PhotoSource, Dateable {
         CROP            = 1 << 1,
         REDEYE          = 1 << 2,
         ADJUST          = 1 << 3,
+        STRAIGHTEN      = 1 << 4,
         ALL             = 0xFFFFFFFF;
         
         public bool prohibits(Exception exception) {
@@ -2189,6 +2190,24 @@ public abstract class Photo : PhotoSource, Dateable {
             notify_altered(new Alteration("image", "crop"));
     }
     
+    private bool get_raw_straighten(out double angle) {
+        KeyValueMap map = get_transformation("straighten");
+        if (map == null)
+            return false;
+            
+        angle = map.get_double("angle", 0.0); 
+        return true;
+    }
+    
+    private void set_raw_straighten(double theta) {
+        KeyValueMap map = new KeyValueMap("straighten");
+        map.set_double("angle", theta);       
+        
+        if (set_transformation(map)) {
+            notify_altered(new Alteration("image", "straighen"));
+        }
+    }    
+    
     // All instances are against the coordinate system of the unscaled, unrotated photo.
     private RedeyeInstance[] get_raw_redeye_instances() {
         KeyValueMap map = get_transformation("redeye");
@@ -2449,17 +2468,19 @@ public abstract class Photo : PhotoSource, Dateable {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
-        double redeye_time = 0.0, crop_time = 0.0, adjustment_time = 0.0, orientation_time = 0.0;
+        double redeye_time = 0.0, crop_time = 0.0, adjustment_time = 0.0, orientation_time = 0.0,
+            straighten_time = 0.0;
 
         total_timer.start();
 #endif
         // to minimize holding the row lock, fetch everything needed for the pipeline up-front
-        bool is_scaled, is_cropped;
+        bool is_scaled, is_cropped, is_straightened;
         Dimensions scaled_image, scaled_to_viewport;
         Dimensions original = Dimensions();
         Dimensions scaled = Dimensions();
         RedeyeInstance[] redeye_instances = null;
         Box crop;
+        double straightening_angle;
         PixelTransformer transformer = null;
         Orientation orientation;
         
@@ -2475,6 +2496,8 @@ public abstract class Photo : PhotoSource, Dateable {
             redeye_instances = get_raw_redeye_instances();
             
             is_cropped = get_raw_crop(out crop);
+            
+            is_straightened = get_raw_straighten(out straightening_angle);
             
             if (has_color_adjustments())
                 transformer = get_pixel_transformer();
@@ -2494,6 +2517,19 @@ public abstract class Photo : PhotoSource, Dateable {
         //
         // Image transformation pipeline
         //
+        
+        // angle photograph so in-image horizon is aligned with horizontal
+        if (exceptions.allows(Exception.STRAIGHTEN)) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            if(is_straightened) {
+                pixbuf = rotate_arb(pixbuf, straightening_angle);
+            }
+#if MEASURE_PIPELINE
+            straighten_time = timer.elapsed();
+#endif
+        }        
         
         // redeye reduction
         if (exceptions.allows(Exception.REDEYE)) {
@@ -2560,10 +2596,10 @@ public abstract class Photo : PhotoSource, Dateable {
 #endif
         }
         
-        // this is to verify the generated pixbuf matches the scale requirements; crop and 
-        // orientation are the only transformations that change the dimensions of the pixbuf, and
-        // must be accounted for the test to be valid
-        if (is_scaled)
+        // This is to verify the generated pixbuf matches the scale requirements; crop, straighten 
+        // and orientation are all transformations that change the dimensions or aspect ratio of 
+        // the pixbuf, and must be accounted for the test to be valid.
+        if ((is_scaled) && (!is_straightened))
             assert(scaled_to_viewport.approx_equals(Dimensions.for_pixbuf(pixbuf), SCALING_FUDGE));
         
 #if MEASURE_PIPELINE
@@ -3191,6 +3227,17 @@ public abstract class Photo : PhotoSource, Dateable {
         assert(derotated.get_height() <= dim.height);
         
         set_raw_crop(derotated);
+    }
+    
+    public bool get_straighten(out double theta) {
+        if (!get_raw_straighten(out theta))
+            return false;
+             
+        return true;
+    }
+    
+    public void set_straighten(double theta) {            
+        set_raw_straighten(theta);
     }
     
     public void add_redeye_instance(RedeyeInstance inst_unscaled) {

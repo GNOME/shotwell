@@ -225,3 +225,100 @@ public Gdk.Point subtract_points(Gdk.Point p1, Gdk.Point p2) {
     return result;
 }
 
+// Converts XRGB/ARGB (Cairo)-formatted pixels to RGBA (GDK).
+void fix_cairo_pixbuf(Gdk.Pixbuf pixbuf) {
+    uchar *gdk_pixels = pixbuf.pixels;
+    for (int j = 0 ; j < pixbuf.height; ++j) {
+        uchar *p = gdk_pixels;
+        uchar *end = p + 4 * pixbuf.width;
+
+        while (p < end) {
+            uchar tmp = p[0];
+#if G_BYTE_ORDER == G_LITTLE_ENDIAN
+            p[0] = p[2];
+            p[2] = tmp;
+#else	  
+            p[0] = p[1];
+            p[1] = p[2];
+            p[2] = p[3];
+            p[3] = tmp;
+#endif
+            p += 4;
+        }
+
+      gdk_pixels += pixbuf.rowstride;
+    }
+}
+
+// Rotates a pixbuf to an arbitrary angle, given in degrees, and returns the rotated 
+// pixbuf. The caller is responsible for destroying the returned pixbuf after use.
+Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
+    angle = degrees_to_radians(angle);
+    
+    double x_min = 0.0, y_min = 0.0, x_max = 0.0, y_max = 0.0;
+    
+    double x_tmp, y_tmp;
+    
+    // Compute how much the corners of the source image will
+    // move by to determine how big the dest pixbuf should be.
+
+    // Lower left corner.
+    x_tmp = -(Math.sin(angle) * source_pixbuf.height);
+    y_tmp = (Math.cos(angle) * source_pixbuf.height);
+    
+    if(x_tmp < x_min) x_min = x_tmp;
+    if(x_tmp > x_max) x_max = x_tmp;
+
+    if(y_tmp < y_min) y_min = y_tmp;
+    if(y_tmp > y_max) y_max = y_tmp;
+    
+    // Lower right corner.
+    x_tmp = (Math.cos(angle) * source_pixbuf.width) - (Math.sin(angle) * source_pixbuf.height);
+    y_tmp = (Math.sin(angle) * source_pixbuf.width) + (Math.cos(angle) * source_pixbuf.height);
+    
+    if(x_tmp < x_min) x_min = x_tmp;
+    if(x_tmp > x_max) x_max = x_tmp;
+
+    if(y_tmp < y_min) y_min = y_tmp;
+    if(y_tmp > y_max) y_max = y_tmp;
+    
+    // Upper right corner.
+    x_tmp = (Math.cos(angle) * source_pixbuf.width); 
+    y_tmp = (Math.sin(angle) * source_pixbuf.width); 
+    
+    if(x_tmp < x_min) x_min = x_tmp;
+    if(x_tmp > x_max) x_max = x_tmp;
+
+    if(y_tmp < y_min) y_min = y_tmp;
+    if(y_tmp > y_max) y_max = y_tmp;
+    
+    Gdk.Pixbuf dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) Math.round(x_max - x_min), (int) Math.round(y_max - y_min));
+
+    Cairo.ImageSurface surface;
+    
+    if(source_pixbuf.has_alpha) {
+         surface = new Cairo.ImageSurface.for_data(
+            (uchar []) dest_pixbuf.pixels, Cairo.Format.ARGB32,
+            dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
+    } else {
+         surface = new Cairo.ImageSurface.for_data(
+            (uchar []) dest_pixbuf.pixels, Cairo.Format.RGB24,
+            dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
+    }
+            
+    Cairo.Context context = new Cairo.Context(surface);
+    
+    context.set_source_rgb(0, 0, 0);
+    context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
+    context.fill();
+    
+    context.translate(-x_min, -y_min);
+    context.rotate(angle);
+    Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
+    context.get_source().set_filter(Cairo.Filter.BEST);
+    context.paint();
+
+    fix_cairo_pixbuf(dest_pixbuf);
+
+    return dest_pixbuf;
+}

@@ -697,6 +697,20 @@ public class EnhanceMultipleCommand : MultiplePhotoTransformationCommand {
     }
 }
 
+public class StraightenCommand : GenericPhotoTransformationCommand {
+    private double theta;
+    
+    public StraightenCommand(Photo photo, double theta, string name, string explanation) {
+        base(photo, name, explanation);
+        
+        this.theta = theta;
+    }
+    
+    public override void execute_on_photo(Photo photo) {
+        photo.set_straighten(theta);
+    }
+}
+
 public class CropCommand : GenericPhotoTransformationCommand {
     private Box crop;
     
