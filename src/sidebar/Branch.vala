@@ -6,7 +6,7 @@
 
 public delegate bool Locator<G>(G item);
 
-public class Sidebar.Branch {
+public class Sidebar.Branch : Object {
     [Flags]
     public enum Options {
         NONE = 0,

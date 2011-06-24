@@ -60,9 +60,45 @@ public class Searches.Branch : Sidebar.Branch {
     }
 }
 
-public class Searches.Grouping : Sidebar.Grouping {
+public class Searches.Grouping : Sidebar.Grouping, Sidebar.Contextable {
+    private Gtk.UIManager ui = new Gtk.UIManager();
+    private Gtk.Menu? context_menu = null;
+    
     public Grouping() {
         base (_("Saved Searches"), new ThemedIcon(Gtk.Stock.FIND));
+        setup_context_menu();
+    }
+    
+    private void setup_context_menu() {
+        Gtk.ActionGroup group = new Gtk.ActionGroup("SidebarDefault");
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, null, null, on_new_search };
+        new_search.label = _("Ne_w Search...");
+        actions += new_search;
+        
+        group.add_actions(actions, this);
+        ui.insert_action_group(group, 0);
+        
+        File ui_file = Resources.get_ui("sidebar_default.ui");
+        try {
+            ui.add_ui_from_file(ui_file.get_path());
+        } catch (Error err) {
+            AppWindow.error_message("Error loading UI file %s: %s".printf(
+                ui_file.get_path(), err.message));
+            Application.get_instance().panic();
+        }
+        context_menu = (Gtk.Menu) ui.get_widget("/SidebarDefaultContextMenu");
+        
+        ui.ensure_update();
+    }
+    
+    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event) {
+        return context_menu;
+    }
+    
+    private void on_new_search() {
+        (new SavedSearchDialog()).show();
     }
 }
 

@@ -802,7 +802,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         if (wrapper == null)
             return false;
         
-        Sidebar.ContextableEntry? contextable = wrapper.entry as Sidebar.ContextableEntry;
+        Sidebar.Contextable? contextable = wrapper.entry as Sidebar.Contextable;
         if (contextable == null)
             return false;
         

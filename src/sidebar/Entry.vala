@@ -57,11 +57,6 @@ public interface Sidebar.DestroyableEntry : Sidebar.Entry {
     public abstract void destroy_source();
 }
 
-public interface Sidebar.ContextableEntry : Sidebar.Entry {
-    // Return null if the context menu should not be invoked for this event
-    public abstract Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event);
-}
-
 public interface Sidebar.InternalDropTargetEntry : Sidebar.Entry {
     // Returns true if drop was successful
     public abstract bool internal_drop_received(Gee.List<MediaSource> sources);
