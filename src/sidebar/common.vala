@@ -45,7 +45,7 @@ public class Sidebar.Grouping : Object, Sidebar.Entry, Sidebar.ExpandableEntry {
 // interfaces can be added if additional functionality is required (such as a drop target).
 // This class also handles the bookwork of creating the Page on-demand and maintaining it in memory.
 public abstract class Sidebar.SimplePageEntry : Object, Sidebar.Entry, Sidebar.SelectableEntry,
-    Sidebar.PageRepresentative, Sidebar.ContextableEntry {
+    Sidebar.PageRepresentative, Sidebar.Contextable {
     private Page? page = null;
     
     public SimplePageEntry() {
@@ -101,5 +101,10 @@ public class Sidebar.RootOnlyBranch : Sidebar.Branch {
     private static int null_comparator(Sidebar.Entry a, Sidebar.Entry b) {
         return (a != b) ? -1 : 0;
     }
+}
+
+public interface Sidebar.Contextable : Object {
+    // Return null if the context menu should not be invoked for this event
+    public abstract Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event);
 }
 
