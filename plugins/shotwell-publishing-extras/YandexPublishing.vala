@@ -145,9 +145,9 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
             string access_token = info.fetch_all()[2];
 
             debug("Load completed: %s", access_token);
+            pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
             if (access_token != null) {
                 login_succeeded(access_token);
-                pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
                 return WebKit.NavigationResponse.IGNORE;
             } else
                 login_failed();
@@ -484,7 +484,7 @@ public class YandexPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void start_upload() {
         host.set_service_locked(true);
 
-        progress_reporter = host.serialize_publishables(1024);
+        progress_reporter = host.serialize_publishables(0);
 
         options.destination_album_url = album_list.get(options.destination_album);
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
