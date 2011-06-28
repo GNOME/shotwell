@@ -78,6 +78,10 @@ public class DataSet {
         return user_comparator;
     }
     
+    public ComparatorPredicate get_comparator_predicate() {
+        return comparator_predicate;
+    }
+    
     public void set_comparator(Comparator user_comparator, ComparatorPredicate? comparator_predicate) {
         this.user_comparator = user_comparator;
         this.comparator_predicate = comparator_predicate;

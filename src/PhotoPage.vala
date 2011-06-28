@@ -1018,7 +1018,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
-    private DataView create_photo_view(DataSource source) {
+    protected virtual DataView create_photo_view(DataSource source) {
         return new PhotoView((PhotoSource) source);
     }
     

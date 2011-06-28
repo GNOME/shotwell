@@ -507,5 +507,9 @@ public class DirectPhotoPage : EditingHostPage {
                 (Gee.Collection<Photo>) get_view().get_selected_sources_of_type(typeof(Photo)));
         }
     }
+    
+    protected override DataView create_photo_view(DataSource source) {
+        return new DirectView((DirectPhoto) source);
+    }
 }
 

@@ -223,6 +223,10 @@ public class DataCollection {
         return dataset.get_comparator();
     }
     
+    public ComparatorPredicate get_comparator_predicate() {
+        return dataset.get_comparator_predicate();
+    }
+    
     public virtual void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
         dataset.set_comparator(comparator, predicate);
         notify_ordering_changed();

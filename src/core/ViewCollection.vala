@@ -268,6 +268,7 @@ public class ViewCollection : DataCollection {
         mirroring = to_mirror;
         this.mirroring_ctor = mirroring_ctor;
         this.should_mirror = should_mirror;
+        set_comparator(to_mirror.get_comparator(), to_mirror.get_comparator_predicate());
         
         // load up with current items
         on_mirror_contents_added(mirroring.get_all());
