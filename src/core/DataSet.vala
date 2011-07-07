@@ -51,7 +51,11 @@ public class DataSet {
         
         // use the order-added comparator if the user's compare returns equal, to stabilize the
         // sort
-        int64 result = user_comparator(a, b);
+        int64 result = 0;
+        
+        if (user_comparator != null)
+            result = user_comparator(a, b);
+            
         if (result == 0)
             result = order_added_comparator(a, b);
         
