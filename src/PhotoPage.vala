@@ -2766,7 +2766,8 @@ public class LibraryPhotoPage : EditingHostPage {
             case "Escape":
             case "Return":
             case "KP_Enter":
-                return_to_collection();
+                if (!(get_container() is FullscreenWindow))
+                    return_to_collection();
             break;
             
             case "Delete":
