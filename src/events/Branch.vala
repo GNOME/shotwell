@@ -150,8 +150,14 @@ public class Events.Branch : Sidebar.Branch {
             b = swap;
         }
         
-        return ((Events.EventEntry) a).get_event().get_name().collate(
+        int ret = ((Events.EventEntry) a).get_event().get_name().collate(
             ((Events.EventEntry) b).get_event().get_name());
+        
+        if (ret == 0)
+            ret = (int) (((Events.EventEntry) b).get_event().get_instance_id() - 
+                ((Events.EventEntry) a).get_event().get_instance_id());
+        
+        return ret;
     }
     
     public Events.EventEntry? get_entry_for_event(Event event) {
