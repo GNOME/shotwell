@@ -161,6 +161,10 @@ public class FullscreenWindow : PageWindow {
         AppWindow.get_instance().end_fullscreen();
     }
     
+    public void close() {
+        on_close();
+    }
+    
     public override void destroy() {
         Page? page = get_current_page();
         clear_current_page();

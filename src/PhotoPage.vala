@@ -1190,7 +1190,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.set_value(0.0);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
 
-        set_zoom_state(ZoomState(get_photo().get_dimensions(), get_surface_dim(), 0.0));
+        if (get_photo() != null)
+            set_zoom_state(ZoomState(get_photo().get_dimensions(), get_surface_dim(), 0.0));
 
         // when cancelling zoom, panning becomes impossible, so set the cursor back to
         // a left pointer in case it had been a hand-grip cursor indicating that panning
@@ -2900,9 +2901,13 @@ public class LibraryPhotoPage : EditingHostPage {
         on_next_photo();
         
         // this indicates there is only one photo in the controller, or about to be zero, so switch 
-        // to the Photos page, which is guaranteed to be there when this disappears
-        if (photo.equals(get_photo()))
+        // to the library page, which is guaranteed to be there when this disappears
+        if (photo.equals(get_photo())) {
+            if (get_container() is FullscreenWindow)
+                ((FullscreenWindow) get_container()).close();
+
             LibraryWindow.get_app().switch_to_library_page();
+        }
         
         get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
     }
