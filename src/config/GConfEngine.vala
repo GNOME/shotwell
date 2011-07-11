@@ -255,11 +255,7 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
             throw new ConfigurationError.PROPERTY_HAS_NO_VALUE(("GConfConfigurationManager: " +
                 "path = '%s'.").printf(path));
         
-        string stored = val.get_string();
-        if (is_string_empty(stored))
-            return null;
-
-        return stored;
+        return val.get_string();
     }
 
     private void set_gconf_string(string path, string value) throws ConfigurationError {
