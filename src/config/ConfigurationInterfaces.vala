@@ -232,8 +232,8 @@ public interface ConfigurationEngine : GLib.Object {
     public abstract int get_int_property(ConfigurableProperty p) throws ConfigurationError;
     public abstract void set_int_property(ConfigurableProperty p, int val) throws ConfigurationError;
     
-    public abstract string? get_string_property(ConfigurableProperty p) throws ConfigurationError;
-    public abstract void set_string_property(ConfigurableProperty p, string? val) throws ConfigurationError;
+    public abstract string get_string_property(ConfigurableProperty p) throws ConfigurationError;
+    public abstract void set_string_property(ConfigurableProperty p, string val) throws ConfigurationError;
     
     public abstract bool get_bool_property(ConfigurableProperty p) throws ConfigurationError;
     public abstract void set_bool_property(ConfigurableProperty p, bool val) throws ConfigurationError;
@@ -417,7 +417,8 @@ public abstract class ConfigurationFacade : Object {
     //
     public virtual string? get_directory_pattern() {
         try {
-            return get_engine().get_string_property(ConfigurableProperty.DIRECTORY_PATTERN);
+            string s = get_engine().get_string_property(ConfigurableProperty.DIRECTORY_PATTERN);
+            return (s == "") ? null : s;
         } catch (ConfigurationError err) {
             on_configuration_error(err);
 
@@ -427,6 +428,9 @@ public abstract class ConfigurationFacade : Object {
     
     public virtual void set_directory_pattern(string? s) {
         try {
+            if (s == null)
+                s = "";
+
             get_engine().set_string_property(ConfigurableProperty.DIRECTORY_PATTERN, s);
         } catch (ConfigurationError err) {
             on_configuration_error(err);

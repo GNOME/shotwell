@@ -259,7 +259,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         property_changed(p);
     }
     
-    public string? get_string_property(ConfigurableProperty p) throws ConfigurationError {
+    public string get_string_property(ConfigurableProperty p) throws ConfigurationError {
         string gs_result = get_gs_string(schema_names[p], key_names[p]);
         
         // if we're getting the desktop background file, convert the file uri we get back from
@@ -272,7 +272,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         return result;
     }
     
-    public void set_string_property(ConfigurableProperty p, string? val) throws ConfigurationError {
+    public void set_string_property(ConfigurableProperty p, string val) throws ConfigurationError {
         // if we're setting the desktop background file, convert the filename into a file URI
         string converted_val = val;
         if (p == ConfigurableProperty.DESKTOP_BACKGROUND_FILE) {

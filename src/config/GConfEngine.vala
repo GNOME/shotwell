@@ -244,7 +244,7 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
         }
     }
     
-    private string? get_gconf_string(string path) throws ConfigurationError {
+    private string get_gconf_string(string path) throws ConfigurationError {
         GConf.Value? val = null;
         try {
             val = client.get(path);
@@ -262,7 +262,7 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
         return stored;
     }
 
-    private void set_gconf_string(string path, string? value) throws ConfigurationError {
+    private void set_gconf_string(string path, string value) throws ConfigurationError {
         try {
             client.set_string(path, value);
         } catch (Error err) {
@@ -284,11 +284,11 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
         property_changed(p);
     }
     
-    public string? get_string_property(ConfigurableProperty p) throws ConfigurationError {
+    public string get_string_property(ConfigurableProperty p) throws ConfigurationError {
         return get_gconf_string(property_paths[p]);
     }
     
-    public void set_string_property(ConfigurableProperty p, string? val) throws ConfigurationError {
+    public void set_string_property(ConfigurableProperty p, string val) throws ConfigurationError {
         set_gconf_string(property_paths[p], val);
 
         property_changed(p);
