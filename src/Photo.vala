@@ -20,6 +20,7 @@ public enum BackingFetchMode {
 public class PhotoImportParams {
     // IN:
     public File file;
+    public File final_associated_file = null;
     public ImportID import_id;
     public PhotoFileSniffer.Options sniffer_options;
     public string? exif_md5;
@@ -33,9 +34,11 @@ public class PhotoImportParams {
     public PhotoRow row = PhotoRow();
     public Gee.Collection<string>? keywords = null;
     
-    public PhotoImportParams(File file, ImportID import_id, PhotoFileSniffer.Options sniffer_options,
-        string? exif_md5, string? thumbnail_md5, string? full_md5, Thumbnails? thumbnails = null) {
+    public PhotoImportParams(File file, File? final_associated_file, ImportID import_id, 
+        PhotoFileSniffer.Options sniffer_options, string? exif_md5, string? thumbnail_md5, string? full_md5, 
+        Thumbnails? thumbnails = null) {
         this.file = file;
+        this.final_associated_file = final_associated_file;
         this.import_id = import_id;
         this.sniffer_options = sniffer_options;
         this.exif_md5 = exif_md5;
@@ -271,14 +274,14 @@ public abstract class Photo : PhotoSource, Dateable {
     
     private struct BackingReaders {
         public PhotoFileReader master;
-        public PhotoFileReader mimic;
+        public PhotoFileReader developer;
         public PhotoFileReader editable;
     }
     
     // because fetching individual items from the database is high-overhead, store all of
     // the photo row in memory
     private PhotoRow row;
-    private BackingPhotoState editable = BackingPhotoState();
+    private BackingPhotoRow editable = new BackingPhotoRow();
     private BackingReaders readers = BackingReaders();
     private PixelTransformer transformer = null;
     private PixelTransformationBundle adjustments = null;
@@ -289,9 +292,12 @@ public abstract class Photo : PhotoSource, Dateable {
     private OneShotScheduler update_editable_attributes_scheduler = null;
     private OneShotScheduler remove_editable_scheduler = null;
     
-    // This pointer is used to determine which BackingPhotoState in the PhotoRow to be using at
+    // RAW only: developed backing photos.
+    private Gee.HashMap<RawDeveloper, BackingPhotoRow?>? developments = null;
+    
+    // This pointer is used to determine which BackingPhotoRow in the PhotoRow to be using at
     // any time.  It should only be accessed -- read or write -- when row is locked.
-    private BackingPhotoState *backing_photo_state = null;
+    private BackingPhotoRow? backing_photo_row = null;
     
     // This is fired when the photo's editable file is replaced.  The image it generates may or
     // may not be the same; the altered signal is best for that.  null is passed if the editable
@@ -351,23 +357,11 @@ public abstract class Photo : PhotoSource, Dateable {
             file_title = row.master.filepath;
         
         if (row.editable_id.id != BackingPhotoID.INVALID) {
-            BackingPhotoRow? editable_row = null;
-            try {
-                editable_row = BackingPhotoTable.get_instance().fetch(row.editable_id);
-            } catch (DatabaseError err) {
-                warning("Unable to fetch editable state for %s: %s", to_string(), err.message);
-            }
-            
-            if (editable_row != null) {
-                editable = editable_row.state;
+            BackingPhotoRow? e = get_backing_row(row.editable_id);
+            if (e != null) {
+                editable = e;
                 readers.editable = editable.file_format.create_reader(editable.filepath);
             } else {
-                try {
-                    BackingPhotoTable.get_instance().remove(row.editable_id);
-                } catch (DatabaseError err) {
-                    // ignored
-                }
-                
                 try {
                     PhotoTable.get_instance().detach_editable(ref this.row);
                 } catch (DatabaseError err) {
@@ -380,8 +374,36 @@ public abstract class Photo : PhotoSource, Dateable {
             }
         }
         
-        // set the backing photo state appropriately
-        backing_photo_state = (readers.editable == null) ? &this.row.master : &this.editable;
+        if (row.master.file_format == PhotoFileFormat.RAW) {
+            // Fetch development backing photos for RAW.
+            developments = new Gee.HashMap<RawDeveloper, BackingPhotoRow?>();
+            foreach (RawDeveloper d in RawDeveloper.as_array()) {
+                BackingPhotoID id = row.development_ids[d];
+                if (id.id != BackingPhotoID.INVALID) {
+                    BackingPhotoRow? bpr = get_backing_row(id);
+                    if (bpr != null)
+                        developments.set(d, bpr);
+                }
+            }
+        }
+        
+        // Set the backing photo state appropriately.
+        if (readers.editable != null) {
+            backing_photo_row = this.editable; 
+        } else if (row.master.file_format != PhotoFileFormat.RAW) {
+            backing_photo_row = this.row.master;
+        } else {
+            // For RAW photos, the backing photo is either the editable (above) or
+            // the selected raw development.
+            if (developments.has_key(row.developer)) {
+                BackingPhotoRow s = developments.get(row.developer);
+                backing_photo_row = s;
+                readers.developer = s.file_format.create_reader(s.filepath);
+            } else {
+                // Use backing photo.
+                backing_photo_row = this.row.master;
+            }
+        }
     }
     
     protected virtual void notify_editable_replaced(File? old_file, File? new_file) {
@@ -418,6 +440,12 @@ public abstract class Photo : PhotoSource, Dateable {
         
         detach_editable(true, false);
         
+        if (get_master_file_format() == PhotoFileFormat.RAW) {
+            foreach (RawDeveloper d in RawDeveloper.as_array()) {
+                delete_raw_development(d);
+            }
+        }
+        
         if (file != null) {
             try {
                 ret = file.trash(null);
@@ -432,22 +460,245 @@ public abstract class Photo : PhotoSource, Dateable {
         return base.internal_delete_backing() && ret;
     }
     
-    // For the MimicManager
-    public bool would_use_mimic() {
-        PhotoFileFormatFlags flags;
-        lock (readers) {
-            flags = readers.master.get_file_format().get_properties().get_flags();
+    // Fetches the backing state.  If it can't be read, the ID is flushed from the database
+    // for safety.  If the ID is invalid or any error occurs, null is returned.
+    private BackingPhotoRow? get_backing_row(BackingPhotoID id) {
+        if (id.id == BackingPhotoID.INVALID)
+            return null;
+        
+        BackingPhotoRow? backing_row = null;
+        try {
+            backing_row = BackingPhotoTable.get_instance().fetch(id);
+        } catch (DatabaseError err) {
+            warning("Unable to fetch backing state for %s: %s", to_string(), err.message);
         }
         
-        return (flags & PhotoFileFormatFlags.MIMIC_RECOMMENDED) != 0;
+        if (backing_row == null) {
+            try {
+                BackingPhotoTable.get_instance().remove(id);
+            } catch (DatabaseError err) {
+                // ignored
+            }
+            return null;
+        }
+        
+        return backing_row;
+    }
+    
+    // Determines whether a given RAW developer is available for this photo.
+    public bool is_raw_developer_available(RawDeveloper d) {
+        if (developments.has_key(d))
+            return true;
+        
+        switch (d) {
+            case RawDeveloper.SHOTWELL:
+                return true;
+                
+            case RawDeveloper.CAMERA:
+                return false;
+            
+            case RawDeveloper.EMBEDDED:
+                try {
+                    PhotoMetadata meta = get_master_metadata();
+                    if (meta.get_preview_count() > 0)
+                        return true;
+                } catch (Error e) {
+                    debug("Error accessing embedded preview. Message: %s", e.message);
+                }
+                return false;
+            
+            default:
+                assert_not_reached();
+        }
+    }
+    
+    // Reads info on a backing photo and adds it.
+    public void add_backing_photo_for_development(RawDeveloper d, BackingPhotoRow bpr) throws Error {
+        import_developed_backing_photo(ref row, d, bpr);
+        developments.set(d, bpr);
+    }
+    
+    public static void import_developed_backing_photo(ref PhotoRow row, RawDeveloper d, 
+        BackingPhotoRow bpr) throws Error {
+        File file = File.new_for_path(bpr.filepath);
+        FileInfo info = file.query_info(DirectoryMonitor.SUPPLIED_ATTRIBUTES,
+            FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        TimeVal timestamp;
+        info.get_modification_time(out timestamp);
+        
+        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(
+            file, PhotoFileSniffer.Options.GET_ALL);
+        interrogator.interrogate();
+        
+        DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
+        bpr.dim = detected.image_dim;
+        bpr.filesize = info.get_size();
+        bpr.timestamp = timestamp.tv_sec;
+        bpr.original_orientation = detected.metadata != null ? detected.metadata.get_orientation() : 
+            Orientation.TOP_LEFT;
+        
+        // Add to DB.
+        BackingPhotoTable.get_instance().add(bpr);
+        PhotoTable.get_instance().update_raw_development(ref row, d, bpr.id);
+    }
+    
+    // "Develops" a raw photo
+    private void develop_photo(RawDeveloper d) {
+        switch (d) {
+            case RawDeveloper.SHOTWELL:
+                try {
+                    // Create file and prep.
+                    BackingPhotoRow bps = d.create_backing_row_for_development(row.master.filepath);
+                    Gdk.Pixbuf? pix = null;
+                    lock (readers) {
+                        pix = get_master_pixbuf(Scaling.for_original());
+                    }
+                    
+                    if (pix == null) {
+                        debug("Could not get preview pixbuf");
+                        return;
+                    }
+                    
+                    // Write out the JPEG.
+                    PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
+                    writer.write(pix, Jpeg.Quality.HIGH);
+                    
+                    // Read in backing photo info, add to DB.
+                    add_backing_photo_for_development(d, bps);
+                } catch (Error err) {
+                    debug("Error developing photo: %s", err.message);
+                }
+            
+                break;
+                
+            case RawDeveloper.CAMERA:
+                // No development needed.
+                break;
+                
+            case RawDeveloper.EMBEDDED:
+                try {
+                    // Read in embedded JPEG.
+                    PhotoMetadata meta = get_master_metadata();
+                    uint c = meta.get_preview_count();
+                    if (c <= 0)
+                        return;
+                    PhotoPreview? prev = meta.get_preview(c - 1);
+                    if (prev == null) {
+                        debug("Could not get preview from metadata");
+                        return;
+                    }
+                    
+                    Gdk.Pixbuf? pix = prev.get_pixbuf();
+                    if (pix == null) {
+                        debug("Could not get preview pixbuf");
+                        return;
+                    }
+                    
+                    // Write out file.
+                    BackingPhotoRow bps = d.create_backing_row_for_development(row.master.filepath);
+                    PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
+                    writer.write(pix, Jpeg.Quality.HIGH);
+                    
+                    // Read in backing photo info, add to DB.
+                    add_backing_photo_for_development(d, bps);
+                } catch (Error e) {
+                    debug("Error accessing embedded preview. Message: %s", e.message);
+                    return;
+                }
+                break;
+            
+            default:
+                assert_not_reached();
+        }
+    }
+    
+    public void set_raw_developer(RawDeveloper d) {
+        if (!is_raw_developer_available(d))
+            return;
+        
+        if (!developments.has_key(d)) {
+            develop_photo(d);
+            
+            if (!developments.has_key(d))
+                return; // we tried!
+        }
+        
+        // Disgard changes.
+        revert_to_master(false);
+        
+        // Switch master to the new photo.
+        row.developer = d;
+        lock (row) {
+            backing_photo_row = developments.get(d);
+            readers.developer = backing_photo_row.file_format.create_reader(backing_photo_row.filepath);
+        }
+        set_orientation(backing_photo_row.original_orientation);
+        
+        try {
+            PhotoTable.get_instance().update_raw_development(ref row, d, backing_photo_row.id);
+        } catch (Error e) {
+            warning("Error updating database: %s", e.message);
+        }
+        notify_altered(new Alteration("image", "developer"));
+    }
+    
+    public RawDeveloper get_raw_developer() {
+        return row.developer;
+    }
+    
+    // Removes a development from the database, filesystem, etc.
+    // Returns true if a development was removed, otherwise false.
+    private bool delete_raw_development(RawDeveloper d) {
+        debug("delete raw: %s %s", this.to_string(), d.to_string());
+        if (!developments.has_key(d))
+            return false;
+        
+        bool ret = false;
+        BackingPhotoRow bpr = developments.get(d);
+        
+        lock (row) {
+            if (d != RawDeveloper.CAMERA) {
+                debug("Deleting raw development: %s", d.to_string());
+                if (bpr.filepath != null) {
+                    File f = File.new_for_path(bpr.filepath);
+                    try {
+                        f.delete();
+                    } catch (Error e) {
+                        warning("Unable to delete RAW development: %s error: %s", bpr.filepath, e.message);
+                    }
+                }
+            }
+            
+            try {
+                PhotoTable.get_instance().remove_development(ref row, d);
+                BackingPhotoTable.get_instance().remove(bpr.id);
+            } catch (Error e) {
+                warning("Database error while deleting RAW development: %s", e.message);
+            }
+            
+            ret = developments.unset(d);
+            debug("returning: %d", (int) ret);
+        }
+        
+        return ret;
+    }
+    
+    // Re-do development for photo.
+    public void redevelop_raw(RawDeveloper d) {
+        delete_raw_development(d);
+        RawDeveloper dev = d;
+        if (dev == RawDeveloper.CAMERA)
+            dev = RawDeveloper.EMBEDDED;
+        
+        set_raw_developer(dev);
     }
     
     public override BackingFileState[] get_backing_files_state() {
         BackingFileState[] backing = new BackingFileState[0];
         lock (row) {
-            backing += new BackingFileState.from_photo_state(row.master, row.md5);
+            backing += new BackingFileState.from_photo_row(row.master, row.md5);
             if (has_editable())
-                backing += new BackingFileState.from_photo_state(editable, null);
+                backing += new BackingFileState.from_photo_row(editable, null);
         }
         
         return backing;
@@ -475,48 +726,35 @@ public abstract class Photo : PhotoSource, Dateable {
         }
     }
     
-    // For the MimicManager
-    public void set_mimic_reader(PhotoFileReader mimic) {
-        if (CommandlineOptions.no_mimicked_images)
-            return;
-        
-        // Do *not* fire baseline_replaced, because the mimic produces images subjectively the same
-        // as the master.
-        lock (readers) {
-            readers.mimic = mimic;
-        }
-    }
-    
     protected PhotoFileReader? get_editable_reader() {
         lock (readers) {
             return readers.editable;
         }
     }
     
-    // Returns a reader for the head of the pipeline, which can be a mimic.
+    // Returns a reader for the head of the pipeline.
     private PhotoFileReader get_baseline_reader() {
         lock (readers) {
             if (readers.editable != null)
                 return readers.editable;
             
-            if (readers.mimic != null)
-                return readers.mimic;
+            if (readers.developer != null)
+                return readers.developer;
             
             return readers.master;
         }
     }
     
-    // Returns a reader for the photo file that is the source of the image (which the mimic
-    // is not).
+    // Returns a reader for the photo file that is the source of the image.
     private PhotoFileReader get_source_reader() {
         lock (readers) {
             return readers.editable ?? readers.master;
         }
     }
     
-    public bool is_mimicked() {
+    public bool is_developed() {
         lock (readers) {
-            return readers.mimic != null;
+            return readers.developer != null;
         }
     }
     
@@ -541,7 +779,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     public bool is_master_baseline() {
         lock (readers) {
-            return readers.mimic == null && readers.editable == null;
+            return readers.editable == null;
         }
     }
     
@@ -551,7 +789,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     public bool is_editable_baseline() {
         lock (readers) {
-            return readers.mimic == null && readers.editable != null;
+            return readers.editable != null;
         }
     }
     
@@ -559,13 +797,13 @@ public abstract class Photo : PhotoSource, Dateable {
         return has_editable();
     }
     
-    public BackingPhotoState get_master_photo_state() {
+    public BackingPhotoRow get_master_photo_row() {
         lock (row) {
             return row.master;
         }
     }
     
-    public BackingPhotoState? get_editable_photo_state() {
+    public BackingPhotoRow? get_editable_photo_row() {
         lock (row) {
             // ternary doesn't work here
             if (row.editable_id.is_valid())
@@ -800,8 +1038,9 @@ public abstract class Photo : PhotoSource, Dateable {
         }
     }
     
-    protected bool query_backing_photo_state(File file, PhotoFileSniffer.Options options,
-        out BackingPhotoState state, out DetectedPhotoInformation detected) throws Error {
+    protected BackingPhotoRow? query_backing_photo_row(File file, PhotoFileSniffer.Options options,
+        out DetectedPhotoInformation detected) throws Error {
+        BackingPhotoRow backing = new BackingPhotoRow();
         // get basic file information
         FileInfo info = null;
         try {
@@ -810,7 +1049,7 @@ public abstract class Photo : PhotoSource, Dateable {
         } catch (Error err) {
             critical("Unable to read file information for %s: %s", file.get_path(), err.message);
             
-            return false;
+            return null;
         }
         
         // sniff photo information
@@ -820,21 +1059,21 @@ public abstract class Photo : PhotoSource, Dateable {
         if (detected == null) {
             critical("Photo update: %s no longer a recognized image", to_string());
             
-            return false;
+            return null;
         }
         
         TimeVal modification_time = TimeVal();
         info.get_modification_time(out modification_time);
         
-        state.filepath = file.get_path();
-        state.timestamp = modification_time.tv_sec;
-        state.filesize = info.get_size();
-        state.file_format = detected.file_format;
-        state.dim = detected.image_dim;
-        state.original_orientation = detected.metadata != null
+        backing.filepath = file.get_path();
+        backing.timestamp = modification_time.tv_sec;
+        backing.filesize = info.get_size();
+        backing.file_format = detected.file_format;
+        backing.dim = detected.image_dim;
+        backing.original_orientation = detected.metadata != null
             ? detected.metadata.get_orientation() : Orientation.TOP_LEFT;
         
-        return true;
+        return backing;
     }
     
     public abstract class ReimportMasterState {
@@ -857,11 +1096,11 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     private class ReimportEditableStateImpl : ReimportEditableState {
-        public BackingPhotoState backing_state = BackingPhotoState();
+        public BackingPhotoRow backing_state = new BackingPhotoRow();
         public PhotoMetadata? metadata;
         public bool metadata_only = false;
         
-        public ReimportEditableStateImpl(BackingPhotoState backing_state, PhotoMetadata? metadata) {
+        public ReimportEditableStateImpl(BackingPhotoRow backing_state, PhotoMetadata? metadata) {
             this.backing_state = backing_state;
             this.metadata = metadata;
         }
@@ -872,11 +1111,11 @@ public abstract class Photo : PhotoSource, Dateable {
     public bool prepare_for_reimport_master(out ReimportMasterState reimport_state) throws Error {
         File file = get_master_reader().get_file();
         
-        BackingPhotoState state = BackingPhotoState();
         DetectedPhotoInformation detected;
-        if (!query_backing_photo_state(file, PhotoFileSniffer.Options.GET_ALL, out state, out detected)) {
+        BackingPhotoRow? backing = query_backing_photo_row(file, PhotoFileSniffer.Options.GET_ALL, 
+            out detected);
+        if (backing == null) {
             warning("Unable to retrieve photo state from %s for reimport", file.get_path());
-            
             return false;
         }
         
@@ -901,9 +1140,9 @@ public abstract class Photo : PhotoSource, Dateable {
         if (updated_row.md5 != detected.md5)
             list += "metadata:md5";
         
-        if (updated_row.master.original_orientation != state.original_orientation) {
+        if (updated_row.master.original_orientation != backing.original_orientation) {
             list += "image:orientation";
-            updated_row.orientation = state.original_orientation;
+            updated_row.orientation = backing.original_orientation;
         }
         
         if (detected.metadata != null) {
@@ -918,7 +1157,7 @@ public abstract class Photo : PhotoSource, Dateable {
                 list += "metadata:rating";
         }
         
-        updated_row.master = state;
+        updated_row.master = backing;
         updated_row.md5 = detected.md5;
         updated_row.exif_md5 = detected.exif_md5;
         updated_row.thumbnail_md5 = detected.thumbnail_md5;
@@ -982,9 +1221,9 @@ public abstract class Photo : PhotoSource, Dateable {
             return false;
         
         DetectedPhotoInformation detected;
-        BackingPhotoState backing_state = BackingPhotoState();
-        if (!query_backing_photo_state(file, PhotoFileSniffer.Options.NO_MD5, out backing_state,
-            out detected)) {
+        BackingPhotoRow backing = query_backing_photo_row(file, PhotoFileSniffer.Options.NO_MD5, 
+            out detected);
+        if (backing == null) {
             return false;
         }
         
@@ -997,7 +1236,7 @@ public abstract class Photo : PhotoSource, Dateable {
             return false;
         }
         
-        state = new ReimportEditableStateImpl(backing_state, detected.metadata);
+        state = new ReimportEditableStateImpl(backing, detected.metadata);
         
         return true;
     }
@@ -1011,7 +1250,7 @@ public abstract class Photo : PhotoSource, Dateable {
         ReimportEditableStateImpl reimport_state = (ReimportEditableStateImpl) state;
         
         if (!reimport_state.metadata_only) {
-            BackingPhotoTable.get_instance().update(editable_id, reimport_state.backing_state);
+            BackingPhotoTable.get_instance().update(reimport_state.backing_state);
             
             lock (row) {
                 editable = reimport_state.backing_state;
@@ -1307,7 +1546,7 @@ public abstract class Photo : PhotoSource, Dateable {
         PhotoTable.get_instance().commit_transaction();
     }
     
-    // Returns the file generating pixbufs, that is, the mimic or baseline if present, the backing
+    // Returns the file generating pixbufs, that is, the baseline if present, the backing
     // file if not.
     public File get_actual_file() {
         return get_baseline_reader().get_file();
@@ -1329,7 +1568,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     public PhotoFileFormat get_file_format() {
         lock (row) {
-            return backing_photo_state->file_format;
+            return backing_photo_row.file_format;
         }
     }
     
@@ -1349,7 +1588,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     public override time_t get_timestamp() {
         lock (row) {
-            return backing_photo_state->timestamp;
+            return backing_photo_row.timestamp;
         }
     }
 
@@ -1663,7 +1902,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     public override uint64 get_filesize() {
         lock (row) {
-            return backing_photo_state->filesize;
+            return backing_photo_row.filesize;
         }
     }
     
@@ -1964,13 +2203,13 @@ public abstract class Photo : PhotoSource, Dateable {
 
     public Dimensions get_raw_dimensions() {
         lock (row) {
-            return backing_photo_state->dim;
+            return backing_photo_row.dim;
         }
     }
 
     public bool has_transformations() {
         lock (row) {
-            return (row.orientation != backing_photo_state->original_orientation) 
+            return (row.orientation != backing_photo_row.original_orientation) 
                 ? true 
                 : (row.transformations != null);
         }
@@ -1985,7 +2224,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         lock (row) {
             return row.transformations == null 
-                && (row.orientation != backing_photo_state->original_orientation 
+                && (row.orientation != backing_photo_row.original_orientation 
                 || (date_time != null && row.exposure_time != date_time.get_timestamp()));
         }
     }
@@ -2002,7 +2241,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         lock (row) {
             return row.transformations != null 
-                || row.orientation != backing_photo_state->original_orientation
+                || row.orientation != backing_photo_row.original_orientation
                 || (date_time != null && row.exposure_time != date_time.get_timestamp())
                 || (get_title() != title);
         }
@@ -2058,10 +2297,10 @@ public abstract class Photo : PhotoSource, Dateable {
             transformer = null;
             adjustments = null;
             
-            if (row.orientation != backing_photo_state->original_orientation) {
+            if (row.orientation != backing_photo_row.original_orientation) {
                 PhotoTable.get_instance().set_orientation(row.photo_id, 
-                    backing_photo_state->original_orientation);
-                row.orientation = backing_photo_state->original_orientation;
+                    backing_photo_row.original_orientation);
+                row.orientation = backing_photo_row.original_orientation;
                 is_altered = true;
             }
         }
@@ -2072,7 +2311,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     public Orientation get_original_orientation() {
         lock (row) {
-            return backing_photo_state->original_orientation;
+            return backing_photo_row.original_orientation;
         }
     }
     
@@ -2423,7 +2662,9 @@ public abstract class Photo : PhotoSource, Dateable {
         double orientation_time = 0.0;
         
         total_timer.start();
+
 #endif
+        
         // get required fields all at once, to avoid holding the row lock
         Dimensions scaled_image, scaled_to_viewport;
         Orientation original_orientation;
@@ -2473,6 +2714,7 @@ public abstract class Photo : PhotoSource, Dateable {
 
         total_timer.start();
 #endif
+        
         // to minimize holding the row lock, fetch everything needed for the pipeline up-front
         bool is_scaled, is_cropped, is_straightened;
         Dimensions scaled_image, scaled_to_viewport;
@@ -2651,8 +2893,8 @@ public abstract class Photo : PhotoSource, Dateable {
                 is_master = false;
             } else if (readers.master.get_file_format().can_write_metadata()) {
                 export_reader = readers.master;
-            } else if (readers.mimic != null && readers.mimic.get_file_format().can_write_metadata()) {
-                export_reader = readers.mimic;
+            } else if (readers.developer != null && readers.developer.get_file_format().can_write_metadata()) {
+                export_reader = readers.developer;
                 is_master = false;
             }
         }
@@ -2832,13 +3074,12 @@ public abstract class Photo : PhotoSource, Dateable {
             out child_pid);
     }
     
-    // NOTE: This is a dangerous command.  It's HIGHLY recommended that this only be used with
-    // read-only PhotoFileFormats (i.e. RAW).  As of today, if the user edits their master file,
-    // it's not detected by Shotwell and things start to tip wonky.
-    public void open_master_with_external_editor() throws Error {
+    // Opens with Ufraw, etc.
+    public void open_with_raw_external_editor() throws Error {
         launch_editor(get_master_file(), get_master_file_format());
     }
     
+    // Opens with GIMP, etc.
     public void open_with_external_editor() throws Error {
         File current_editable_file = null;
         File create_editable_file = null;
@@ -2894,8 +3135,8 @@ public abstract class Photo : PhotoSource, Dateable {
         launch_editor(current_editable_file, get_file_format());
     }
     
-    public void revert_to_master() {
-        detach_editable(true, true);
+    public void revert_to_master(bool notify = true) {
+        detach_editable(true, true, notify);
     }
     
     private void start_monitoring_editable(File file) throws Error {
@@ -2987,31 +3228,35 @@ public abstract class Photo : PhotoSource, Dateable {
                 editable.filesize = info.get_size();
             }
         } else {
-            BackingPhotoState state = BackingPhotoState();
             DetectedPhotoInformation detected;
-            if (query_backing_photo_state(file, PhotoFileSniffer.Options.NO_MD5, out state,
-                out detected)) {
+            BackingPhotoRow? backing = query_backing_photo_row(file, PhotoFileSniffer.Options.NO_MD5, 
+                out detected);
+            
+            if (backing != null) {
                 // decide if updating existing editable or attaching a new one
                 if (editable_id.is_valid()) {
-                    BackingPhotoTable.get_instance().update(editable_id, state);
+                    // Use existing.
+                    backing.id = editable_id;
+                    BackingPhotoTable.get_instance().update(backing);
                     lock (row) {
-                        timestamp_changed = editable.timestamp != state.timestamp;
-                        filesize_changed = editable.filesize != state.filesize;
+                        timestamp_changed = editable.timestamp != backing.timestamp;
+                        filesize_changed = editable.filesize != backing.filesize;
                         
-                        editable = state;
-                        assert(backing_photo_state == &editable);
-                        set_orientation(backing_photo_state->original_orientation);
+                        editable = backing;
+                        backing_photo_row = editable;
+                        set_orientation(backing_photo_row.original_orientation);
                     }
                 } else {
-                    BackingPhotoRow editable_row = BackingPhotoTable.get_instance().add(state);
+                    // Create new.
+                    BackingPhotoTable.get_instance().add(backing);
                     lock (row) {
-                        timestamp_changed = editable_row.state.timestamp != state.timestamp;
-                        filesize_changed = editable_row.state.filesize != state.filesize;
+                        timestamp_changed = true;
+                        filesize_changed = true;
                         
-                        PhotoTable.get_instance().attach_editable(ref row, editable_row.id);
-                        editable = editable_row.state;
-                        backing_photo_state = &editable;
-                        set_orientation(backing_photo_state->original_orientation);
+                        PhotoTable.get_instance().attach_editable(ref row, backing.id);
+                        editable = backing;
+                        backing_photo_row = editable;
+                        set_orientation(backing_photo_row.original_orientation);
                     }
                 }
             }
@@ -3051,7 +3296,7 @@ public abstract class Photo : PhotoSource, Dateable {
             notify_altered(new Alteration.from_array(alteration_list));
     }
     
-    private void detach_editable(bool delete_editable, bool remove_transformations) {
+    private void detach_editable(bool delete_editable, bool remove_transformations, bool notify = true) {
         halt_monitoring_editable();
         
         bool has_editable = false;
@@ -3071,7 +3316,7 @@ public abstract class Photo : PhotoSource, Dateable {
                     editable_id = row.editable_id;
                     if (editable_id.is_valid())
                         PhotoTable.get_instance().detach_editable(ref row);
-                    backing_photo_state = &row.master;
+                    backing_photo_row = row.master;
                 }
             } catch (DatabaseError err) {
                 warning("Unable to remove editable from PhotoTable: %s", err.message);
@@ -3102,7 +3347,7 @@ public abstract class Photo : PhotoSource, Dateable {
             }
         }
         
-        if (has_editable || remove_transformations)
+        if ((has_editable || remove_transformations) && notify)
             notify_altered(new Alteration("image", "revert"));
     }
     
@@ -3529,9 +3774,9 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                     by_editable_file.set(editable, photo);
                 photo.editable_replaced.connect(on_editable_replaced);
                 
-                int64 master_filesize = photo.get_master_photo_state().filesize;
-                int64 editable_filesize = photo.get_editable_photo_state() != null
-                    ? photo.get_editable_photo_state().filesize
+                int64 master_filesize = photo.get_master_photo_row().filesize;
+                int64 editable_filesize = photo.get_editable_photo_row() != null
+                    ? photo.get_editable_photo_row().filesize
                     : -1;
                 filesize_to_photo.set(master_filesize, photo);
                 photo_to_master_filesize.set(photo, master_filesize);
@@ -3553,9 +3798,9 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                 }
                 photo.editable_replaced.disconnect(on_editable_replaced);
                 
-                int64 master_filesize = photo.get_master_photo_state().filesize;
-                int64 editable_filesize = photo.get_editable_photo_state() != null
-                    ? photo.get_editable_photo_state().filesize
+                int64 master_filesize = photo.get_master_photo_row().filesize;
+                int64 editable_filesize = photo.get_editable_photo_row() != null
+                    ? photo.get_editable_photo_row().filesize
                     : -1;
                 filesize_to_photo.remove(master_filesize, photo);
                 photo_to_master_filesize.unset(photo);
@@ -3598,9 +3843,9 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                     filesize_to_photo.remove(old_editable_filesize, photo);
                 }
                 
-                int64 master_filesize = photo.get_master_photo_state().filesize;
-                int64 editable_filesize = photo.get_editable_photo_state() != null
-                    ? photo.get_editable_photo_state().filesize
+                int64 master_filesize = photo.get_master_photo_row().filesize;
+                int64 editable_filesize = photo.get_editable_photo_row() != null
+                    ? photo.get_editable_photo_row().filesize
                     : -1;
                 photo_to_master_filesize.set(photo, master_filesize);
                 filesize_to_photo.set(master_filesize, photo);
@@ -3701,10 +3946,10 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     
     private void compare_backing(LibraryPhoto photo, FileInfo info,
         Gee.Collection<LibraryPhoto> matches_master, Gee.Collection<LibraryPhoto> matches_editable) {
-        if (photo.get_master_photo_state().matches_file_info(info))
+        if (photo.get_master_photo_row().matches_file_info(info))
             matches_master.add(photo);
         
-        BackingPhotoState? editable = photo.get_editable_photo_state();
+        BackingPhotoRow? editable = photo.get_editable_photo_row();
         if (editable != null && editable.matches_file_info(info))
             matches_editable.add(photo);
     }
@@ -3816,7 +4061,6 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     private const uint64 FLAG_FLAGGED =     0x0000000000000010;
     
     public static LibraryPhotoSourceCollection global = null;
-    public static MimicManager mimic_manager = null;
     
     private bool block_thumbnail_generation = false;
     private OneShotScheduler thumbnail_scheduler = null;
@@ -3839,7 +4083,6 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     
     public static void init(ProgressMonitor? monitor = null) {
         global = new LibraryPhotoSourceCollection();
-        mimic_manager = new MimicManager(global, AppDirs.get_data_subdir("mimics"));
         
         // prefetch all the photos from the database and add them to the global collection ...
         // do in batches to take advantage of add_many()
@@ -3991,12 +4234,12 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         if (editable_file != null) {
             File dupe_editable = LibraryFiles.duplicate(editable_file, on_duplicate_progress, true);
             
-            BackingPhotoState state = BackingPhotoState();
             DetectedPhotoInformation detected;
-            if (query_backing_photo_state(dupe_editable, PhotoFileSniffer.Options.NO_MD5, out state,
-                out detected)) {
-                BackingPhotoRow editable_row = BackingPhotoTable.get_instance().add(state);
-                dupe_editable_id = editable_row.id;
+            BackingPhotoRow? state = query_backing_photo_row(dupe_editable, PhotoFileSniffer.Options.NO_MD5,
+                out detected);
+            if (state != null) {
+                BackingPhotoTable.get_instance().add(state);
+                dupe_editable_id = state.id;
             }
         }
         

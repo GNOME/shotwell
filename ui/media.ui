@@ -90,6 +90,11 @@
             <menuitem name="EditTitle" action="EditTitle" />
             <placeholder name="PhotosExtrasDateTimePlaceholder" />
             <separator />
+            <menu name="RawDeveloper" action="RawDeveloper">
+                <menuitem name="RawDeveloperShotwell" action="RawDeveloperShotwell" />
+                <menuitem name="RawDeveloperCamera" action="RawDeveloperCamera" />
+            </menu>
+            <separator />
             <placeholder name="PhotosExtrasExternalsPlaceholder" />
         </menu>
 

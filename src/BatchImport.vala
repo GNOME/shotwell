@@ -139,6 +139,13 @@ public abstract class BatchImportJob {
     
     public abstract bool is_directory();
     
+    public abstract string get_basename();
+    
+    public abstract string get_path();
+    
+    // Attaches a sibling job (for RAW+JPEG)
+    public abstract void set_associated(BatchImportJob associated);
+    
     // Returns the file size of the BatchImportJob or returns a file/directory which can be queried
     // by BatchImportJob to determine it.  Returns true if the size is return, false if the File is
     // specified.
@@ -168,6 +175,7 @@ public abstract class BatchImportJob {
 public class FileImportJob : BatchImportJob {
     private File file_or_dir;
     private bool copy_to_library;
+    private FileImportJob? associated = null;
     
     public FileImportJob(File file_or_dir, bool copy_to_library) {
         this.file_or_dir = file_or_dir;
@@ -184,6 +192,18 @@ public class FileImportJob : BatchImportJob {
     
     public override bool is_directory() {
         return query_is_directory(file_or_dir);
+    }
+    
+    public override string get_basename() {
+        return file_or_dir.get_basename();
+    }
+    
+    public override string get_path() {
+        return is_directory() ? file_or_dir.get_path() : file_or_dir.get_parent().get_path();
+    }
+    
+    public override void set_associated(BatchImportJob associated) {
+        this.associated = associated as FileImportJob;
     }
     
     public override bool determine_file_size(out uint64 filesize, out File file) {
@@ -554,9 +574,6 @@ public class BatchImport : Object {
             reporter(manifest, import_roll);
         
         import_complete(manifest, import_roll);
-        
-        // resume the MimicManager
-        LibraryPhoto.mimic_manager.resume();
     }
     
     // This should be called whenever a file's import process is complete, successful or otherwise
@@ -575,9 +592,6 @@ public class BatchImport : Object {
     public void schedule() {
         assert(scheduled == false);
         scheduled = true;
-        
-        // halt the MimicManager will performing import, as it will drag the system down
-        LibraryPhoto.mimic_manager.pause();
         
         starting();
         
@@ -926,6 +940,21 @@ public class BatchImport : Object {
             } else {
                 job.ready.batch_result.result = LibraryPhoto.import_create(job.ready.photo_import_params,
                     out source);
+                
+                if (job.ready.photo_import_params.final_associated_file != null) {
+                    // Associate RAW+JPEG in database.
+                    BackingPhotoRow bpr = new BackingPhotoRow();
+                    bpr.file_format = PhotoFileFormat.JFIF;
+                    bpr.filepath = job.ready.photo_import_params.final_associated_file.get_path();
+                    debug("Associating %s with sibbling %s", ((Photo) source).get_file().get_path(),
+                        bpr.filepath);
+                    try {
+                        ((Photo) source).add_backing_photo_for_development(RawDeveloper.CAMERA, bpr);
+                    } catch (Error e) {
+                        warning("Unable to associate JPEG with RAW. File: %s Error: %s", 
+                            bpr.filepath, e.message);
+                    }
+                }
             }
             
             if (job.ready.batch_result.result != ImportResult.SUCCESS) {
@@ -1219,11 +1248,16 @@ private class FileToPrepare {
     public BatchImportJob job;
     public File? file;
     public bool copy_to_library;
+    public FileToPrepare? associated = null;
     
     public FileToPrepare(BatchImportJob job, File? file = null, bool copy_to_library = true) {
         this.job = job;
         this.file = file;
         this.copy_to_library = copy_to_library;
+    }
+    
+    public void set_associated(FileToPrepare? a) {
+        associated = a;
     }
 }
 
@@ -1265,6 +1299,65 @@ private class WorkSniffer : BackgroundImportJob {
             if (is_cancelled())
                 break;
         }
+        
+        // Time to handle RAW+JPEG pairs!
+        // Now we build a new list of all the files (but not folders) we're 
+        // importing and sort it by filename.
+        Gee.List<FileToPrepare> sorted = new Gee.ArrayList<FileToPrepare>();
+        foreach (FileToPrepare ftp in files_to_prepare) {
+            if (!ftp.job.is_directory())
+                sorted.add(ftp);
+        }
+        sorted.sort((a, b) => {
+            FileToPrepare file_a = (FileToPrepare) a;
+            FileToPrepare file_b = (FileToPrepare) b;
+            string sa = file_a.job.get_path() + "/" + file_a.job.get_basename();
+            string sb = file_b.job.get_path() + "/" + file_b.job.get_basename();
+            return utf8_cs_compare(sa, sb);
+        });
+        
+        // For each file, check if the current file is RAW.  If so, check the previous
+        // and next files to see if they're a "plus jpeg."
+        for (int i = 0; i < sorted.size; ++i) {
+            string name, ext;
+            FileToPrepare ftp = sorted.get(i);
+            disassemble_filename(ftp.job.get_basename(), out name, out ext);
+            debug("examining: %s", ftp.job.get_path());
+        
+            if (is_string_empty(ext))
+                continue;
+            
+            if (RawFileFormatProperties.get_instance().is_recognized_extension(ext)) {
+                // Got a raw file.  See if it has a pair.  If a pair is found, remove it
+                // from the list and link it to the RAW file.
+                if (i > 0 && is_paired(ftp, sorted.get(i - 1))) {
+                    FileToPrepare associated_file = sorted.get(i - 1);
+                    files_to_prepare.remove(associated_file);
+                    ftp.set_associated(associated_file);
+                } else if (i < sorted.size - 1 && is_paired(ftp, sorted.get(i + 1))) {
+                    FileToPrepare associated_file = sorted.get(i + 1);
+                    files_to_prepare.remove(associated_file);
+                    ftp.set_associated(associated_file);
+                }
+            }
+        }
+    }
+    
+    // Check if a file is paired.  The raw file must be a raw photo.  A file
+    // is "paired" if it has the same basename as the raw file, is in the same
+    // directory, and is a JPEG.
+    private bool is_paired(FileToPrepare raw, FileToPrepare maybe_paired) {
+        if (raw.job.get_path() != maybe_paired.job.get_path())
+            return false;
+            
+        string name, ext, test_name, test_ext;
+        disassemble_filename(maybe_paired.job.get_basename(), out test_name, out test_ext);
+        
+        if (!JfifFileFormatProperties.get_instance().is_recognized_extension(test_ext))
+            return false;
+        
+        disassemble_filename(raw.job.get_basename(), out name, out ext);
+        return name == test_name;
     }
     
     private void sniff_job(BatchImportJob job) throws Error {
@@ -1352,6 +1445,7 @@ private class PreparedFile {
     public BatchImportJob job;
     public ImportResult result;
     public File file;
+    public File? associated_file = null;
     public string source_id;
     public string dest_id;
     public bool copy_to_library;
@@ -1362,12 +1456,13 @@ private class PreparedFile {
     public uint64 filesize;
     public bool is_video;
     
-    public PreparedFile(BatchImportJob job, File file, string source_id, string dest_id, 
+    public PreparedFile(BatchImportJob job, File file, File? associated_file, string source_id, string dest_id, 
         bool copy_to_library, string? exif_md5, string? thumbnail_md5, string? full_md5, 
         PhotoFileFormat file_format, uint64 filesize, bool is_video = false) {
         this.job = job;
         this.result = ImportResult.SUCCESS;
         this.file = file;
+        this.associated_file = associated_file;
         this.source_id = source_id;
         this.dest_id = dest_id;
         this.copy_to_library = copy_to_library;
@@ -1436,27 +1531,21 @@ private class PrepareFilesJob : BackgroundImportJob {
             
             BatchImportJob job = file_to_prepare.job;
             File? file = file_to_prepare.file;
+            File? associated = file_to_prepare.associated != null ? file_to_prepare.associated.file : null;
             bool copy_to_library = file_to_prepare.copy_to_library;
             
             // if no file seen, then it needs to be offered/generated by the BatchImportJob
             if (file == null) {
-                try {
-                    if (!job.prepare(out file, out copy_to_library)) {
-                        report_failure(job, null, job.get_source_identifier(), 
-                             job.get_dest_identifier(), ImportResult.FILE_ERROR);
-                        
-                        continue;
-                    }
-                } catch (Error err) {
-                    report_error(job, null, job.get_source_identifier(), job.get_dest_identifier(), 
-                        err, ImportResult.FILE_ERROR);
-                    
+                if (!create_file(job, out file, out copy_to_library))
                     continue;
-                }
+            }
+            
+            if (associated == null && file_to_prepare.associated != null) {
+                create_file(file_to_prepare.associated.job, out associated, out copy_to_library);
             }
             
             PreparedFile prepared_file;
-            result = prepare_file(job, file, copy_to_library, out prepared_file);
+            result = prepare_file(job, file, associated, copy_to_library, out prepared_file);
             if (result == ImportResult.SUCCESS) {
                 prepared_files++;
                 list.add(prepared_file);
@@ -1495,8 +1584,26 @@ private class PrepareFilesJob : BackgroundImportJob {
         }
     }
     
-    private ImportResult prepare_file(BatchImportJob job, File file, bool copy_to_library,
-        out PreparedFile prepared_file) {
+    // If there's no file, call this function to get it from the batch import job.
+    private bool create_file(BatchImportJob job, out File file, out bool copy_to_library) {
+        try {
+            if (!job.prepare(out file, out copy_to_library)) {
+                report_failure(job, null, job.get_source_identifier(), 
+                     job.get_dest_identifier(), ImportResult.FILE_ERROR);
+                
+                return false;
+            }
+        } catch (Error err) {
+            report_error(job, null, job.get_source_identifier(), job.get_dest_identifier(), 
+                err, ImportResult.FILE_ERROR);
+            
+            return false;
+        }
+        return true;
+    }
+    
+    private ImportResult prepare_file(BatchImportJob job, File file, File? associated_file, 
+        bool copy_to_library, out PreparedFile prepared_file) {
         bool is_video = VideoReader.is_supported_video_file(file);
         
         if ((!is_video) && (!Photo.is_file_image(file)))
@@ -1577,7 +1684,7 @@ private class PrepareFilesJob : BackgroundImportJob {
         bool is_in_library_dir = file.has_prefix(library_dir);
         
         // notify the BatchImport this is ready to go
-        prepared_file = new PreparedFile(job, file, job.get_source_identifier(), 
+        prepared_file = new PreparedFile(job, file, associated_file, job.get_source_identifier(), 
             job.get_dest_identifier(), copy_to_library && !is_in_library_dir, exif_only_md5,        
             thumbnail_md5, full_md5, file_format, filesize, is_video);
         
@@ -1656,14 +1763,22 @@ private class PreparedFileImportJob : BackgroundJob {
         not_ready = null;
         
         File final_file = prepared_file.file;
+        File? final_associated_file = prepared_file.associated_file;
+        
         if (prepared_file.copy_to_library) {
             try {
+                // Copy file.
                 final_file = LibraryFiles.duplicate(prepared_file.file, null, true);
                 if (final_file == null) {
                     failed = new BatchImportResult(prepared_file.job, prepared_file.file,
                         prepared_file.file.get_path(), prepared_file.file.get_path(), ImportResult.FILE_ERROR);
                     
                     return;
+                }
+                
+                // Copy associated file.
+                if (final_associated_file != null) {
+                    final_associated_file = LibraryFiles.duplicate(prepared_file.associated_file, null, true);
                 }
             } catch (Error err) {
                 string filename = final_file != null ? final_file.get_path() : prepared_file.source_id;
@@ -1686,7 +1801,7 @@ private class PreparedFileImportJob : BackgroundJob {
             
             result = VideoReader.prepare_for_import(video_import_params);
         } else {
-            photo_import_params = new PhotoImportParams(final_file, import_id,
+            photo_import_params = new PhotoImportParams(final_file, final_associated_file, import_id,
                 PhotoFileSniffer.Options.GET_ALL, prepared_file.exif_md5,
                 prepared_file.thumbnail_md5, prepared_file.full_md5, new Thumbnails());
             

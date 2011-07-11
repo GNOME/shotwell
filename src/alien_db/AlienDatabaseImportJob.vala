@@ -14,6 +14,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
     private File? src_file;
     private uint64 filesize;
     private time_t exposure_time;
+    private AlienDatabaseImportJob? associated = null;
     
     public AlienDatabaseImportJob(AlienDatabaseImportSource import_source) {
         this.import_source = import_source;
@@ -38,6 +39,18 @@ public class AlienDatabaseImportJob : BatchImportJob {
     
     public override bool is_directory() {
         return false;
+    }
+    
+    public override string get_basename() {
+        return src_file.get_basename();
+    }
+    
+    public override string get_path() {
+        return src_file.get_parent().get_path();
+    }
+    
+    public override void set_associated(BatchImportJob associated) {
+        this.associated = associated as AlienDatabaseImportJob;
     }
     
     public override bool determine_file_size(out uint64 filesize, out File file) {

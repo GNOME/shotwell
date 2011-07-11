@@ -128,6 +128,7 @@ private class BasicProperties : Properties {
     private string aperture;
     private string iso;
     private double clip_duration;
+    private string raw_developer;
 
     public BasicProperties() {
     }
@@ -144,6 +145,7 @@ private class BasicProperties : Properties {
         aperture = "";
         iso = "";
         clip_duration = 0.0;
+        raw_developer = "";
     }
 
     protected override void get_single_properties(DataView view) {
@@ -181,6 +183,10 @@ private class BasicProperties : Properties {
             
             if (source is PhotoSource)
                 dimensions = ((PhotoSource) source).get_dimensions();
+            
+            if (source is Photo && ((Photo) source).get_master_file_format() == PhotoFileFormat.RAW) {
+                raw_developer = ((Photo) source).get_raw_developer().get_label();
+            }
         } else if (source is EventSource) {
             EventSource event_source = (EventSource) source;
 
@@ -345,6 +351,10 @@ private class BasicProperties : Properties {
         
         if (clip_duration > 0.0) {
             add_line(_("Duration:"), _("%.1f seconds").printf(clip_duration));
+        }
+        
+        if (raw_developer != "") {
+            add_line(_("Developer:"), raw_developer);
         }
 
         if (exposure != "" || aperture != "" || iso != "") {

@@ -256,3 +256,70 @@ public class RawReader : PhotoFileReader {
     }
 }
 
+// Development mode of a RAW photo.
+public enum RawDeveloper {
+    SHOTWELL = 0,  // Developed internally by Shotwell
+    CAMERA,        // JPEG from RAW+JPEG pair (if available)
+    EMBEDDED;      // Largest-size
+    
+    public static RawDeveloper[] as_array() {
+        return { SHOTWELL, CAMERA, EMBEDDED };
+    }
+    
+    public string to_string() {
+        switch (this) {
+            case SHOTWELL:
+                return "SHOTWELL";
+            case CAMERA:
+                return "CAMERA";
+            case EMBEDDED:
+                return "EMBEDDED";
+            default:
+                assert_not_reached();
+        }
+    }
+    
+    public static RawDeveloper from_string(string value) {
+        switch (value) {
+            case "SHOTWELL":
+                return SHOTWELL;
+            case "CAMERA":
+                return CAMERA;
+            case "EMBEDDED":
+                return EMBEDDED;
+            default:
+                assert_not_reached();
+        }
+    }
+    
+    public string get_label() {
+        switch (this) {
+            case SHOTWELL:
+                return _("Shotwell");
+            case CAMERA:
+            case EMBEDDED:
+                return _("Camera");
+            default:
+                assert_not_reached();
+        }
+    }
+    
+    // Creates a backing JPEG.
+    // raw_filepath is the full path of the imported RAW file.
+    public BackingPhotoRow create_backing_row_for_development(string raw_filepath) throws Error {
+        BackingPhotoRow ns = new BackingPhotoRow();
+        File master = File.new_for_path(raw_filepath);
+        string name, ext;
+        disassemble_filename(master.get_basename(), out name, out ext);
+        
+        string basename = name + "_" + ext + (this != CAMERA ? ("_" + this.to_string().down()) : "") 
+            + ".jpg";
+        bool c;
+        File? new_back = generate_unique_file(master.get_parent(), basename, out c);
+        claim_file(new_back);
+        ns.file_format = PhotoFileFormat.JFIF;
+        ns.filepath = new_back.get_path();
+        
+        return ns;
+    }
+}

@@ -1084,6 +1084,56 @@ public class SetRatingCommand : MultipleDataSourceCommand {
     }
 }
 
+public class SetRawDeveloperCommand : MultipleDataSourceCommand {
+    private Gee.HashMap<Photo, RawDeveloper> last_developer_map;
+    private RawDeveloper new_developer;
+
+    public SetRawDeveloperCommand(Gee.Iterable<DataView> iter, RawDeveloper developer) {
+        base (iter, _("Setting RAW developer"), _("Restoring previous RAW developer"),
+            developer.get_label(), "");
+        new_developer = developer;
+        save_source_states(iter);
+    }
+    
+    private void save_source_states(Gee.Iterable<DataView> iter) {
+        last_developer_map = new Gee.HashMap<Photo, RawDeveloper>();
+        
+        foreach (DataView view in iter) {
+            Photo? photo = view.get_source() as Photo;
+            if (is_raw_photo(photo))
+                last_developer_map[photo] = photo.get_raw_developer();
+        }
+    }
+    
+    public override void execute() {
+        base.execute();
+    }
+    
+    public override void undo() {
+        base.undo();
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        Photo? photo = source as Photo;
+        if (is_raw_photo(photo)) {
+            if (new_developer == RawDeveloper.CAMERA && !photo.is_raw_developer_available(RawDeveloper.CAMERA))
+                photo.set_raw_developer(RawDeveloper.EMBEDDED);
+            else
+                photo.set_raw_developer(new_developer);
+        }
+    }
+    
+    public override void undo_on_source(DataSource source) {
+        Photo? photo = source as Photo;
+        if (is_raw_photo(photo))
+            photo.set_raw_developer(last_developer_map[photo]);
+    }
+    
+    private bool is_raw_photo(Photo? photo) {
+        return photo != null && photo.get_master_file_format() == PhotoFileFormat.RAW;
+    }
+}
+
 public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
     private Dateable dateable;
     private int64 time_shift;

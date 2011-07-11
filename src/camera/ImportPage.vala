@@ -69,7 +69,7 @@ abstract class ImportSource : ThumbnailSource, Indexable {
         return modification_time;
     }
     
-    public Gdk.Pixbuf? get_preview() {
+    public virtual Gdk.Pixbuf? get_preview() {
         return preview;
     }
 
@@ -156,6 +156,7 @@ class PhotoImportSource : ImportSource {
     private string? preview_md5 = null;
     private PhotoMetadata? metadata = null;
     private string? exif_md5 = null;
+    private PhotoImportSource? associated = null; // JPEG source for RAW+JPEG
     
     public PhotoImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
         string filename, ulong file_size, time_t modification_time, PhotoFileFormat file_format) {
@@ -213,7 +214,20 @@ class PhotoImportSource : ImportSource {
     }
     
     public PhotoMetadata? get_metadata() {
+        if (associated != null)
+            return associated.get_metadata();
+        
         return metadata;
+    }
+    
+    public override Gdk.Pixbuf? get_preview() {
+        if (associated != null)
+            return associated.get_preview();
+            
+        if (base.get_preview() != null) 
+            return base.get_preview();
+        
+        return null;
     }
     
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
@@ -229,6 +243,14 @@ class PhotoImportSource : ImportSource {
     
     public string? get_preview_md5() {
         return preview_md5;
+    }
+    
+    public void set_associated(PhotoImportSource? associated) {
+        this.associated = associated;
+    }
+    
+    public PhotoImportSource? get_associated() {
+        return associated;
     }
 }
 
@@ -268,12 +290,16 @@ class ImportPreview : MediaSourceItem {
         // scale down if too large
         if (pixbuf.get_width() > MAX_SCALE || pixbuf.get_height() > MAX_SCALE)
             pixbuf = scale_pixbuf(pixbuf, MAX_SCALE, PhotoImportSource.INTERP, false);
-
-        // honor rotation for photos -- we don't care about videos since they can't be rotated
+        
         if (source is PhotoImportSource) {
+            // honor rotation for photos -- we don't care about videos since they can't be rotated
             PhotoImportSource photo_import_source = source as PhotoImportSource;
             if (!using_placeholder && photo_import_source.get_metadata() != null)
                 pixbuf = photo_import_source.get_metadata().get_orientation().rotate_pixbuf(pixbuf);
+            
+            if (photo_import_source.get_associated() != null) {
+                set_subtitle(_("RAW + JPEG"));
+            }
         }
         
         set_image(pixbuf);
@@ -424,6 +450,8 @@ public class ImportPage : CheckerboardPage {
         private uint64 filesize;
         private PhotoMetadata metadata;
         private time_t exposure_time;
+        private CameraImportJob? associated = null;
+        private BackingPhotoRow? associated_file = null;
         
         public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file) {
             this.context = context;
@@ -455,6 +483,18 @@ public class ImportPage : CheckerboardPage {
         
         public override string get_source_identifier() {
             return import_file.get_filename();
+        }
+        
+        public override string get_basename() {
+            return filename;
+        }
+    
+        public override string get_path() {
+            return fulldir;
+        }
+        
+        public override void set_associated(BatchImportJob associated) {
+            this.associated = associated as CameraImportJob;
         }
         
         public ImportSource get_source() {
@@ -497,10 +537,45 @@ public class ImportPage : CheckerboardPage {
                 LibraryMonitor.unblacklist_file(dest_file);
             }
             
+            // Copy over associated file, if it exists.
+            if (associated != null) {
+                try {
+                    associated_file = 
+                        RawDeveloper.CAMERA.create_backing_row_for_development(dest_file.get_path());
+                } catch (Error err) {
+                    warning("Unable to generate backing associated file for %s: %s", associated.filename,
+                        err.message);
+                }
+                
+                if (associated_file == null) {
+                    message("Unable to generate backing associated file for %s", associated.filename);
+                    return false;
+                }
+                
+                File assoc_dest = File.new_for_path(associated_file.filepath);
+                LibraryMonitor.blacklist_file(assoc_dest, "CameraImportJob.prepare");
+                try {
+                    GPhoto.save_image(context.context, camera, associated.fulldir, associated.filename, 
+                        assoc_dest);
+                } finally {
+                    LibraryMonitor.unblacklist_file(assoc_dest);
+                }
+            }
+            
             file_to_import = dest_file;
             copy_to_library = false;
             
             return true;
+        }
+        
+        public override bool complete(MediaSource source, BatchImportRoll import_roll) throws Error {
+            // Associate paired JPEG with RAW photo.
+            if (associated_file != null) {
+                Photo photo = source as Photo;
+                photo.add_backing_photo_for_development(RawDeveloper.CAMERA, associated_file);
+                return true;
+            }
+            return false;
         }
     }
     
@@ -621,6 +696,9 @@ public class ImportPage : CheckerboardPage {
         get_view().items_state_changed.connect(on_view_changed);
         get_view().contents_altered.connect(on_view_changed);
         get_view().items_visibility_changed.connect(on_view_changed);
+        
+        // Show subtitles.
+        get_view().set_property(CheckerboardItem.PROP_SHOW_SUBTITLES, true);
         
         // monitor Photos for removals, as that will change the result of the ViewFilter
         LibraryPhoto.global.contents_altered.connect(on_media_added_removed);
@@ -1011,7 +1089,11 @@ public class ImportPage : CheckerboardPage {
         }
         
         clear_all_import_sources();
-        load_previews(import_list);
+        
+        // Associate files (for RAW+JPEG)
+        auto_match_raw_jpeg(import_list);
+        
+        load_previews_and_metadata(import_list);
         
         progress_bar.visible = false;
         progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
@@ -1097,7 +1179,7 @@ public class ImportPage : CheckerboardPage {
         return append_path(basedir, folder);
     }
 
-    private bool enumerate_files(int fsid, string dir, Gee.List<ImportSource> import_list) {
+    private bool enumerate_files(int fsid, string dir, Gee.ArrayList<ImportSource> import_list) {
         string? fulldir = get_fulldir(camera, camera_name, fsid, dir);
         if (fulldir == null) {
             warning("Skipping enumerating %s: invalid folder name", dir);
@@ -1216,7 +1298,48 @@ public class ImportPage : CheckerboardPage {
         return true;
     }
     
-    private void load_previews(Gee.List<ImportSource> import_list) {
+    // Try to match RAW+JPEG pairs.
+    private void auto_match_raw_jpeg(Gee.ArrayList<ImportSource> import_list) {
+        for (int i = 0; i < import_list.size; i++) {
+            PhotoImportSource? current = import_list.get(i) as PhotoImportSource;
+            PhotoImportSource? next = (i + 1 < import_list.size) ? 
+                import_list.get(i + 1) as PhotoImportSource : null;
+            PhotoImportSource? prev = (i > 0) ? 
+                import_list.get(i - 1) as PhotoImportSource : null;
+            if (current != null && current.get_file_format() == PhotoFileFormat.RAW) {
+                string current_name;
+                string ext;
+                disassemble_filename(current.get_filename(), out current_name, out ext);
+                
+                // Try to find a matching pair.
+                PhotoImportSource? associated = null;
+                if (next != null && next.get_file_format() == PhotoFileFormat.JFIF) {
+                    string next_name;
+                    disassemble_filename(next.get_filename(), out next_name, out ext);
+                    if (next_name == current_name)
+                        associated = next;
+                }
+                if (prev != null && prev.get_file_format() == PhotoFileFormat.JFIF) {
+                    string prev_name;
+                    disassemble_filename(prev.get_filename(), out prev_name, out ext);
+                    if (prev_name == current_name)
+                        associated = prev;
+                }
+                
+                // Associate!
+                if (associated != null) {
+                    debug("Found RAW+JPEG pair: %s and %s", current.get_filename(), associated.get_filename());
+                    current.set_associated(associated);
+                    if (!import_list.remove(associated)) {
+                        debug("Unable to associate files");
+                        current.set_associated(null);
+                    }
+                }
+            }
+        }
+    }
+    
+    private void load_previews_and_metadata(Gee.List<ImportSource> import_list) {
         int loaded_photos = 0;
         foreach (ImportSource import_source in import_list) {
             string filename = import_source.get_filename();
@@ -1225,6 +1348,13 @@ public class ImportPage : CheckerboardPage {
                 warning("Skipping loading preview of %s: invalid folder name", import_source.to_string());
                 
                 continue;
+            }
+            
+            // Get JPEG pair, if available.
+            PhotoImportSource? associated = null;
+            if (import_source is PhotoImportSource && 
+                ((PhotoImportSource) import_source).get_associated() != null) {
+                associated = ((PhotoImportSource) import_source).get_associated();
             }
             
             progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
@@ -1264,8 +1394,14 @@ public class ImportPage : CheckerboardPage {
             size_t preview_raw_length = 0;
             Gdk.Pixbuf preview = null;
             try {
-                preview = GPhoto.load_preview(spin_idle_context.context, camera, fulldir,
-                    filename, out preview_raw, out preview_raw_length);
+                string preview_fulldir = fulldir;
+                string preview_filename = filename;
+                if (associated != null) {
+                    preview_fulldir = associated.get_fulldir();
+                    preview_filename = associated.get_filename();
+                }
+                preview = GPhoto.load_preview(spin_idle_context.context, camera, preview_fulldir,
+                    preview_filename, out preview_raw, out preview_raw_length);
             } catch (Error err) {
                 // only issue the warning message if we're not reading a video. GPhoto is capable
                 // of reading video previews about 50% of the time, so we don't want to put a guard
@@ -1292,6 +1428,17 @@ public class ImportPage : CheckerboardPage {
             if (import_source is PhotoImportSource)
                 (import_source as PhotoImportSource).update(preview, preview_md5, metadata,
                     exif_only_md5);
+            
+            if (associated != null) {
+                try {
+                    PhotoMetadata? associated_metadata = GPhoto.load_metadata(spin_idle_context.context, 
+                        camera, associated.get_fulldir(), associated.get_filename());
+                    associated.update(preview, preview_md5, associated_metadata, null);
+                } catch (Error err) {
+                    warning("Unable to fetch metadata for %s/%s: %s",  associated.get_fulldir(),
+                        associated.get_filename(), err.message);
+                }
+            }
             
             // *now* add to the SourceCollection, now that it is completed
             import_sources.add(import_source);
@@ -1348,7 +1495,16 @@ public class ImportPage : CheckerboardPage {
                 continue;
             }
             
-            jobs.add(new CameraImportJob(null_context, import_file));
+            CameraImportJob import_job = new CameraImportJob(null_context, import_file);
+            
+            // Maintain RAW+JPEG assocation.
+            if (import_file is PhotoImportSource && 
+                ((PhotoImportSource) import_file).get_associated() != null) {
+                import_job.set_associated(new CameraImportJob(null_context, 
+                    ((PhotoImportSource) import_file).get_associated()));
+            }
+            
+            jobs.add(import_job);
         }
         
         debug("Importing %d files from %s", jobs.size, camera_name);

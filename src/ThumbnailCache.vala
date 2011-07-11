@@ -179,6 +179,7 @@ public class ThumbnailCache : Object {
     
     public static void import_from_source(ThumbnailSource source, bool force = false)
         throws Error {
+        debug("import from source: %s", source.to_string());
         big._import_from_source(source, force);
         medium._import_from_source(source, force);
     }

@@ -2516,6 +2516,10 @@ public class LibraryPhotoPage : EditingHostPage {
         slideshow.tooltip = _("Play a slideshow");
         actions += slideshow;
         
+        Gtk.ActionEntry raw_developer = { "RawDeveloper", null, TRANSLATABLE, null, null, null };
+        raw_developer.label = _("Developer");
+        actions += raw_developer;
+        
         return actions;
     }
     
@@ -2552,6 +2556,30 @@ public class LibraryPhotoPage : EditingHostPage {
         return groups;
     }
     
+    protected override void register_radio_actions(Gtk.ActionGroup action_group) {
+        // RAW developer.
+        //get_config_photos_sort(out sort_order, out sort_by); // TODO: fetch default from config
+        
+        Gtk.RadioActionEntry[] developer_actions = new Gtk.RadioActionEntry[0];
+        
+        Gtk.RadioActionEntry dev_shotwell = { "RawDeveloperShotwell", null, TRANSLATABLE, null, TRANSLATABLE,
+            RawDeveloper.SHOTWELL };
+        string label_shotwell = RawDeveloper.SHOTWELL.get_label();
+        dev_shotwell.label = label_shotwell;
+        developer_actions += dev_shotwell;
+        
+        Gtk.RadioActionEntry dev_camera = { "RawDeveloperCamera", null, TRANSLATABLE, null, TRANSLATABLE,
+            RawDeveloper.CAMERA };
+        string label_camera = RawDeveloper.CAMERA.get_label();
+        dev_camera.label = label_camera;
+        developer_actions += dev_camera;
+        
+        // todo: change RawDeveloper.SHOTWELL to default
+        action_group.add_radio_actions(developer_actions, RawDeveloper.SHOTWELL, on_raw_developer_changed);
+        
+        base.register_radio_actions(action_group);
+    }
+    
     private void on_display_ratings(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
         
@@ -2578,8 +2606,10 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("Revert", has_photo() ?
             (get_photo().has_transformations() || get_photo().has_editable()) : false);
         
-        if (has_photo() && !get_photo_missing())
+        if (has_photo() && !get_photo_missing()) {
             update_rating_menu_item_sensitivity();
+            update_development_menu_item_sensitivity();
+        }
         
         set_action_sensitive("SetBackground", has_photo());
         
@@ -2602,6 +2632,19 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("Revert", has_photo() ?
             (get_photo().has_transformations() || get_photo().has_editable()) : false);
         update_flag_action();
+    }
+    
+    private void on_raw_developer_changed(Gtk.Action action, Gtk.Action current) {
+        developer_changed((RawDeveloper) ((Gtk.RadioAction) current).get_current_value());
+    }
+    
+    protected virtual void developer_changed(RawDeveloper rd) {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        SetRawDeveloperCommand command = new SetRawDeveloperCommand(get_view().get_selected(), rd);
+        get_command_manager().execute(command);
+        update_development_menu_item_sensitivity();
     }
     
     private void update_flag_action() {
@@ -2975,7 +3018,7 @@ public class LibraryPhotoPage : EditingHostPage {
         
         try {
             AppWindow.get_instance().set_busy_cursor();
-            get_photo().open_master_with_external_editor();
+            get_photo().open_with_raw_external_editor();
             AppWindow.get_instance().set_normal_cursor();
         } catch (Error err) {
             AppWindow.get_instance().set_normal_cursor();
@@ -3094,6 +3137,35 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("RateFive", get_photo().get_rating() != Rating.FIVE);
         set_action_sensitive("IncreaseRating", get_photo().get_rating().can_increase());
         set_action_sensitive("DecreaseRating", get_photo().get_rating().can_decrease());
+    }
+    
+    private void update_development_menu_item_sensitivity() {
+        PhotoFileFormat format = get_photo().get_master_file_format() ;
+        set_action_sensitive("RawDeveloper", format == PhotoFileFormat.RAW);
+        
+        if (format == PhotoFileFormat.RAW) {
+            // Set which developers are available.
+            set_action_sensitive("RawDeveloperShotwell", 
+                get_photo().is_raw_developer_available(RawDeveloper.SHOTWELL));
+            set_action_sensitive("RawDeveloperCamera", 
+                get_photo().is_raw_developer_available(RawDeveloper.EMBEDDED) || 
+                get_photo().is_raw_developer_available(RawDeveloper.CAMERA));;
+                
+            // Set active developer in menu.
+            switch (get_photo().get_raw_developer()) {
+                case RawDeveloper.SHOTWELL:
+                    activate_action("RawDeveloperShotwell");
+                    break;
+                
+                case RawDeveloper.CAMERA:
+                case RawDeveloper.EMBEDDED:
+                    activate_action("RawDeveloperCamera");
+                    break;
+                
+                default:
+                    assert_not_reached();
+            }
+        }
     }
 
     private void on_metadata_altered(Gee.Map<DataObject, Alteration> map) {

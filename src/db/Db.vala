@@ -223,6 +223,37 @@ private VerifyResult upgrade_database(int version) {
     
     version = 12;
     
+    //
+    // Version 13:
+    // * Added RAW development columns to Photo table.
+    //
+    
+    if (!DatabaseTable.has_column("PhotoTable", "developer")) {
+        message("upgrade_database: adding developer column to PhotoTable");
+        if (!DatabaseTable.add_column("PhotoTable", "developer", "TEXT"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    
+    if (!DatabaseTable.has_column("PhotoTable", "develop_shotwell_id")) {
+        message("upgrade_database: adding develop_shotwell_id column to PhotoTable");
+        if (!DatabaseTable.add_column("PhotoTable", "develop_shotwell_id", "INTEGER DEFAULT -1"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    
+    if (!DatabaseTable.has_column("PhotoTable", "develop_camera_id")) {
+        message("upgrade_database: adding develop_camera_id column to PhotoTable");
+        if (!DatabaseTable.add_column("PhotoTable", "develop_camera_id", "INTEGER DEFAULT -1"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    
+    if (!DatabaseTable.has_column("PhotoTable", "develop_embedded_id")) {
+        message("upgrade_database: adding develop_embedded_id column to PhotoTable");
+        if (!DatabaseTable.add_column("PhotoTable", "develop_embedded_id", "INTEGER DEFAULT -1"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 13;
+    
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     

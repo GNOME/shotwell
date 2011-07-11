@@ -233,7 +233,6 @@ public class LibraryWindow : AppWindow {
             Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
         
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
-        LibraryPhoto.mimic_manager.progress.connect(on_mimic_manager_progress);
         
         LibraryMonitor? monitor = LibraryMonitorPool.get_instance().get_monitor();
         if (monitor != null)
@@ -262,7 +261,6 @@ public class LibraryWindow : AppWindow {
         }
         
         MetadataWriter.get_instance().progress.disconnect(on_metadata_writer_progress);
-        LibraryPhoto.mimic_manager.progress.disconnect(on_mimic_manager_progress);
         
         LibraryMonitor? monitor = LibraryMonitorPool.get_instance().get_monitor();
         if (monitor != null)
@@ -1227,11 +1225,6 @@ public class LibraryWindow : AppWindow {
     private void on_metadata_writer_progress(uint completed, uint total) {
         update_background_progress_bar(_("Writing metadata to files..."),
             METADATA_WRITER_PROGRESS_PRIORITY, completed, total);
-    }
-    
-    private void on_mimic_manager_progress(int completed, int total) {
-        update_background_progress_bar(_("Processing RAW files..."),
-            MIMIC_MANAGER_PROGRESS_PRIORITY, completed, total);
     }
     
     private void create_layout(Page start_page) {

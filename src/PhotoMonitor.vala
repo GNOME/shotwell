@@ -310,7 +310,7 @@ private class PhotoMonitor : MediaMonitor {
         if (info == null)
             return;
         
-        BackingPhotoState state = photo.get_master_photo_state();
+        BackingPhotoRow state = photo.get_master_photo_row();
         if (state.matches_file_info(info))
             return;
         
@@ -330,7 +330,7 @@ private class PhotoMonitor : MediaMonitor {
         }
         
         // If state matches, done -- editables have no bearing on a photo's offline status.
-        BackingPhotoState? state = photo.get_editable_photo_state();
+        BackingPhotoRow? state = photo.get_editable_photo_row();
         if (state == null || state.matches_file_info(info))
             return;
         

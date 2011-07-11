@@ -74,38 +74,9 @@ public struct ImportID {
     }
 }
 
-public struct BackingPhotoState {
-    public string? filepath;
-    public int64 filesize;
-    public time_t timestamp;
-    public PhotoFileFormat file_format;
-    public Dimensions dim;
-    public Orientation original_orientation;
-    
-    public bool matches_file_info(FileInfo info) {
-        if (filesize != info.get_size())
-            return false;
-        
-        TimeVal modification;
-        info.get_modification_time(out modification);
-        
-        return timestamp == modification.tv_sec;
-    }
-    
-    public bool is_touched(FileInfo info) {
-        if (filesize != info.get_size())
-            return false;
-        
-        TimeVal modification;
-        info.get_modification_time(out modification);
-        
-        return timestamp != modification.tv_sec;
-    }
-}
-
 public struct PhotoRow {
     public PhotoID photo_id;
-    public BackingPhotoState master;
+    public BackingPhotoRow master;
     public time_t exposure_time;
     public ImportID import_id;
     public EventID event_id;
@@ -123,8 +94,19 @@ public struct PhotoRow {
     public BackingPhotoID editable_id;
     public bool metadata_dirty;
     
+    // Currently selected developer (RAW only)
+    public RawDeveloper developer;
+    
+    // Currently selected developer (RAW only)
+    public BackingPhotoID[] development_ids;
+    
+    
     public PhotoRow() {
+        master = new BackingPhotoRow();
         editable_id = BackingPhotoID();
+        development_ids = new BackingPhotoID[RawDeveloper.as_array().length];
+        foreach (RawDeveloper d in RawDeveloper.as_array())
+            development_ids[d] = BackingPhotoID();
     }
 }
 
@@ -157,7 +139,11 @@ public class PhotoTable : DatabaseTable {
             + "backlinks TEXT, "
             + "time_reimported INTEGER, "
             + "editable_id INTEGER DEFAULT -1, "
-            + "metadata_dirty INTEGER DEFAULT 0"
+            + "metadata_dirty INTEGER DEFAULT 0, "
+            + "developer TEXT, "
+            + "develop_shotwell_id INTEGER DEFAULT -1, "
+            + "develop_camera_id INTEGER DEFAULT -1, "
+            + "develop_embedded_id INTEGER DEFAULT -1"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -192,8 +178,8 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, "
             + "orientation, original_orientation, import_id, event_id, md5, thumbnail_md5, "
-            + "exif_md5, time_created, file_format, title, rating, editable_id) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "exif_md5, time_created, file_format, title, rating, editable_id, developer) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -234,6 +220,8 @@ public class PhotoTable : DatabaseTable {
         res = stmt.bind_int64(17, photo_row.rating.serialize());
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(18, BackingPhotoID.INVALID);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(19, photo_row.developer.to_string());
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -351,7 +339,8 @@ public class PhotoTable : DatabaseTable {
             "SELECT filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
             + "exif_md5, time_created, flags, rating, file_format, title, backlinks, "
-            + "time_reimported, editable_id, metadata_dirty "
+            + "time_reimported, editable_id, metadata_dirty, developer, develop_shotwell_id, "
+            + "develop_camera_id, develop_embedded_id "
             + "FROM PhotoTable WHERE id=?", 
             -1, out stmt);
         assert(res == Sqlite.OK);
@@ -386,6 +375,11 @@ public class PhotoTable : DatabaseTable {
         row.time_reimported = (time_t) stmt.column_int64(20);
         row.editable_id = BackingPhotoID(stmt.column_int64(21));
         row.metadata_dirty = stmt.column_int(22) != 0;
+        row.developer = stmt.column_text(23) != null ? RawDeveloper.from_string(stmt.column_text(23)) :
+            RawDeveloper.SHOTWELL;
+        row.development_ids[RawDeveloper.SHOTWELL] = BackingPhotoID(stmt.column_int64(24));
+        row.development_ids[RawDeveloper.CAMERA] = BackingPhotoID(stmt.column_int64(25));
+        row.development_ids[RawDeveloper.EMBEDDED] = BackingPhotoID(stmt.column_int64(26));
         
         return row;
     }
@@ -396,7 +390,8 @@ public class PhotoTable : DatabaseTable {
             "SELECT id, filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
             + "exif_md5, time_created, flags, rating, file_format, title, backlinks, time_reimported, "
-            + "editable_id, metadata_dirty FROM PhotoTable", 
+            + "editable_id, metadata_dirty, developer, develop_shotwell_id, develop_camera_id, " 
+            + "develop_embedded_id FROM PhotoTable", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -427,6 +422,11 @@ public class PhotoTable : DatabaseTable {
             row.time_reimported = (time_t) stmt.column_int64(21);
             row.editable_id = BackingPhotoID(stmt.column_int64(22));
             row.metadata_dirty = stmt.column_int(23) != 0;
+            row.developer = stmt.column_text(24) != null ? RawDeveloper.from_string(stmt.column_text(24)) :
+                RawDeveloper.SHOTWELL;
+            row.development_ids[RawDeveloper.SHOTWELL] = BackingPhotoID(stmt.column_int64(25));
+            row.development_ids[RawDeveloper.CAMERA] = BackingPhotoID(stmt.column_int64(26));
+            row.development_ids[RawDeveloper.EMBEDDED] = BackingPhotoID(stmt.column_int64(27));
             
             all.add(row);
         }
@@ -947,6 +947,37 @@ public class PhotoTable : DatabaseTable {
     public void set_metadata_dirty(PhotoID photo_id, bool dirty) throws DatabaseError {
         update_int_by_id_2(photo_id.id, "metadata_dirty", dirty ? 1 : 0);
     }
+    
+    public void update_raw_development(ref PhotoRow row, RawDeveloper rd, BackingPhotoID backing_photo_id) 
+        throws DatabaseError {
+        
+        string col;
+        switch (rd) {
+            case RawDeveloper.SHOTWELL:
+                col = "develop_shotwell_id";
+                break;
+            
+            case RawDeveloper.CAMERA:
+                col = "develop_camera_id";
+                break;
+            
+            case RawDeveloper.EMBEDDED:
+                col = "develop_embedded_id";
+                break;
+            
+            default:
+                assert_not_reached();
+        }
+        
+        row.development_ids[rd] = backing_photo_id;
+        update_int64_by_id_2(row.photo_id.id, col, backing_photo_id.id);
+        update_text_by_id_2(row.photo_id.id, "developer", rd.to_string());
+    }
+    
+    public void remove_development(ref PhotoRow row, RawDeveloper rd) throws DatabaseError {
+        update_raw_development(ref row, rd, BackingPhotoID());
+    }
+    
 }
 
 //
@@ -977,10 +1008,35 @@ public struct BackingPhotoID {
     }
 }
 
-public struct BackingPhotoRow {
+public class BackingPhotoRow {
     public BackingPhotoID id;
     public time_t time_created;
-    public BackingPhotoState state;
+    public string? filepath = null;
+    public int64 filesize;
+    public time_t timestamp;
+    public PhotoFileFormat file_format;
+    public Dimensions dim;
+    public Orientation original_orientation;
+    
+    public bool matches_file_info(FileInfo info) {
+        if (filesize != info.get_size())
+            return false;
+        
+        TimeVal modification;
+        info.get_modification_time(out modification);
+        
+        return timestamp == modification.tv_sec;
+    }
+    
+    public bool is_touched(FileInfo info) {
+        if (filesize != info.get_size())
+            return false;
+        
+        TimeVal modification;
+        info.get_modification_time(out modification);
+        
+        return timestamp != modification.tv_sec;
+    }
 }
 
 public class BackingPhotoTable : DatabaseTable {
@@ -1017,7 +1073,7 @@ public class BackingPhotoTable : DatabaseTable {
         return instance;
     }
     
-    public BackingPhotoRow add(BackingPhotoState state) throws DatabaseError {
+    public void add(BackingPhotoRow state) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("INSERT INTO BackingPhotoTable "
             + "(filepath, timestamp, filesize, width, height, original_orientation, "
@@ -1049,12 +1105,8 @@ public class BackingPhotoTable : DatabaseTable {
         if (res != Sqlite.DONE)
             throw_error("PhotoBackingTable.add", res);
         
-        BackingPhotoRow row = BackingPhotoRow();
-        row.id = BackingPhotoID(db.last_insert_rowid());
-        row.time_created = time_created;
-        row.state = state;
-        
-        return row;
+        state.id = BackingPhotoID(db.last_insert_rowid());
+        state.time_created = time_created;
     }
     
     public BackingPhotoRow? fetch(BackingPhotoID id) throws DatabaseError {
@@ -1073,21 +1125,21 @@ public class BackingPhotoTable : DatabaseTable {
         else if (res != Sqlite.ROW)
             throw_error("BackingPhotoTable.fetch_for_photo", res);
         
-        BackingPhotoRow row = BackingPhotoRow();
+        BackingPhotoRow row = new BackingPhotoRow();
         row.id = id;
-        row.state.filepath = stmt.column_text(0);
-        row.state.timestamp = (time_t) stmt.column_int64(1);
-        row.state.filesize = stmt.column_int64(2);
-        row.state.dim = Dimensions(stmt.column_int(3), stmt.column_int(4));
-        row.state.original_orientation = (Orientation) stmt.column_int(5);
-        row.state.file_format = PhotoFileFormat.unserialize(stmt.column_int(6));
+        row.filepath = stmt.column_text(0);
+        row.timestamp = (time_t) stmt.column_int64(1);
+        row.filesize = stmt.column_int64(2);
+        row.dim = Dimensions(stmt.column_int(3), stmt.column_int(4));
+        row.original_orientation = (Orientation) stmt.column_int(5);
+        row.file_format = PhotoFileFormat.unserialize(stmt.column_int(6));
         row.time_created = (time_t) stmt.column_int64(7);
         
         return row;
     }
     
     // Everything but filepath is updated.
-    public void update(BackingPhotoID id, BackingPhotoState state) throws DatabaseError {
+    public void update(BackingPhotoRow row) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("UPDATE BackingPhotoTable SET timestamp=?, filesize=?, "
             + "width=?, height=?, original_orientation=?, file_format=? "
@@ -1095,19 +1147,19 @@ public class BackingPhotoTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        res = stmt.bind_int64(1, state.timestamp);
+        res = stmt.bind_int64(1, row.timestamp);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, state.filesize);
+        res = stmt.bind_int64(2, row.filesize);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(3, state.dim.width);
+        res = stmt.bind_int(3, row.dim.width);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(4, state.dim.height);
+        res = stmt.bind_int(4, row.dim.height);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(5, state.original_orientation);
+        res = stmt.bind_int(5, row.original_orientation);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(6, state.file_format.serialize());
+        res = stmt.bind_int(6, row.file_format.serialize());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(7, id.id);
+        res = stmt.bind_int64(7, row.id.id);
         assert(res == Sqlite.OK);
         
         res = stmt.step();

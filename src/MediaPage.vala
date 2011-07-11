@@ -415,6 +415,22 @@ public abstract class MediaPage : CheckerboardPage {
         play.label = _("_Play Video");
         play.tooltip = _("Open the selected videos in the system video player");
         actions += play;
+        
+        Gtk.ActionEntry raw_developer = { "RawDeveloper", null, TRANSLATABLE, null, null, null };
+        raw_developer.label = _("Developer");
+        actions += raw_developer;
+        
+        // RAW developers.
+        
+        Gtk.ActionEntry dev_shotwell = { "RawDeveloperShotwell", null, TRANSLATABLE, null, TRANSLATABLE,
+            on_raw_developer_shotwell };
+        dev_shotwell.label = _("Shotwell");
+        actions += dev_shotwell;
+        
+        Gtk.ActionEntry dev_camera = { "RawDeveloperCamera", null, TRANSLATABLE, null, TRANSLATABLE,
+            on_raw_developer_camera };
+        dev_camera.label = _("Camera");
+        actions += dev_camera;
 
         return actions;
     }
@@ -439,7 +455,7 @@ public abstract class MediaPage : CheckerboardPage {
         tags.label = _("Ta_gs");
         tags.tooltip = _("Display each photo's tags");
         toggle_actions += tags;
-
+        
         return toggle_actions;
     }
     
@@ -448,6 +464,7 @@ public abstract class MediaPage : CheckerboardPage {
         int sort_by;
         get_config_photos_sort(out sort_order, out sort_by);
         
+        // Sort criteria.
         Gtk.RadioActionEntry[] sort_crit_actions = new Gtk.RadioActionEntry[0];
         
         Gtk.RadioActionEntry by_title = { "SortByTitle", null, TRANSLATABLE, null, TRANSLATABLE,
@@ -470,6 +487,7 @@ public abstract class MediaPage : CheckerboardPage {
         
         action_group.add_radio_actions(sort_crit_actions, sort_by, on_sort_changed);
         
+        // Sort order.
         Gtk.RadioActionEntry[] sort_order_actions = new Gtk.RadioActionEntry[0];
         
         Gtk.RadioActionEntry ascending = { "SortAscending", Gtk.Stock.SORT_ASCENDING,
@@ -506,6 +524,8 @@ public abstract class MediaPage : CheckerboardPage {
         set_action_sensitive("Rate", selected_count > 0);
         update_rating_sensitivities();
         
+        update_development_menu_item_sensitivity();
+        
         set_action_sensitive("PlayVideo", selected_count == 1
             && get_view().get_selected_source_at(0) is Video);
         
@@ -534,6 +554,44 @@ public abstract class MediaPage : CheckerboardPage {
         set_action_sensitive("RateFive", can_rate_selected(Rating.FIVE));
         set_action_sensitive("IncreaseRating", can_increase_selected_rating());
         set_action_sensitive("DecreaseRating", can_decrease_selected_rating());
+    }
+    
+    private void update_development_menu_item_sensitivity() {
+        if (get_view().get_selected().size == 0) {
+            set_action_sensitive("RawDeveloper", false);
+            return;
+        }
+        
+        // Collect some stats about what's selected.
+        bool avail_shotwell = false; // True if Shotwell developer is available.
+        bool avail_camera = false;   // True if camera developer is available.
+        bool is_raw = false;    // True if any RAW photos are selected
+        foreach (DataView view in get_view().get_selected()) {
+            Photo? photo = ((Thumbnail) view).get_media_source() as Photo;
+            if (photo != null && photo.get_master_file_format() == PhotoFileFormat.RAW) {
+                is_raw = true;
+                
+                if (!avail_shotwell && photo.is_raw_developer_available(RawDeveloper.SHOTWELL))
+                    avail_shotwell = true;
+                
+                if (!avail_camera && (photo.is_raw_developer_available(RawDeveloper.CAMERA) ||
+                    photo.is_raw_developer_available(RawDeveloper.EMBEDDED)))
+                    avail_camera = true;
+                
+                if (avail_shotwell && avail_camera)
+                    break; // optimization: break out of loop when all options available
+                
+            }
+        }
+        
+        // Enable/disable menu.
+        set_action_sensitive("RawDeveloper", is_raw);
+        
+        if (is_raw) {
+            // Set which developers are available.
+            set_action_sensitive("RawDeveloperShotwell", avail_shotwell);
+            set_action_sensitive("RawDeveloperCamera", avail_camera);
+        }
     }
     
     private void update_flag_action(int selected_count) {
@@ -982,6 +1040,23 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
 
         set_config_photos_sort(get_sort_order() == SORT_ORDER_ASCENDING, get_sort_criteria());
+    }
+    
+    public void on_raw_developer_shotwell(Gtk.Action action) {
+        developer_changed(RawDeveloper.SHOTWELL);
+    }
+    
+    public void on_raw_developer_camera(Gtk.Action action) {
+        developer_changed(RawDeveloper.CAMERA);
+    }
+    
+    protected virtual void developer_changed(RawDeveloper rd) {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        SetRawDeveloperCommand command = new SetRawDeveloperCommand(get_view().get_selected(), rd);
+        get_command_manager().execute(command);
+        update_development_menu_item_sensitivity();
     }
 
     protected override void set_display_titles(bool display) {

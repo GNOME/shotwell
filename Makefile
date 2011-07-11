@@ -80,7 +80,6 @@ UNUNITIZED_SRC_FILES = \
 	Printing.vala \
 	Tag.vala \
 	Screensaver.vala \
-	MimicManager.vala \
 	Exporter.vala \
 	DirectoryMonitor.vala \
 	LibraryMonitor.vala \

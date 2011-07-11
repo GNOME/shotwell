@@ -17,10 +17,10 @@ public class BackingFileState {
         this.md5 = md5;
     }
     
-    public BackingFileState.from_photo_state(BackingPhotoState photo_state, string? md5) {
-        this.filepath = photo_state.filepath;
-        this.filesize = photo_state.filesize;
-        this.modification_time = photo_state.timestamp;
+    public BackingFileState.from_photo_row(BackingPhotoRow photo_row, string? md5) {
+        this.filepath = photo_row.filepath;
+        this.filesize = photo_row.filesize;
+        this.modification_time = photo_row.timestamp;
         this.md5 = md5;
     }
     

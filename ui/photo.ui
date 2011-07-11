@@ -88,6 +88,11 @@
             <menuitem name="EditTitle" action="EditTitle" />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
             <separator />
+            <menu name="RawDeveloper" action="RawDeveloper">
+                <menuitem name="RawDeveloperShotwell" action="RawDeveloperShotwell" />
+                <menuitem name="RawDeveloperCamera" action="RawDeveloperCamera" />
+            </menu>
+            <separator />
             <menuitem name="ExternalEdit" action="ExternalEdit" />
             <menuitem name="ExternalEditRAW" action="ExternalEditRAW" />
         </menu>

@@ -633,7 +633,7 @@ public abstract class CollectionPage : MediaPage {
 
         try {
             AppWindow.get_instance().set_busy_cursor();
-            photo.open_master_with_external_editor();
+            photo.open_with_raw_external_editor();
             AppWindow.get_instance().set_normal_cursor();
         } catch (Error err) {
             AppWindow.get_instance().set_normal_cursor();

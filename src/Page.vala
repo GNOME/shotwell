@@ -216,6 +216,10 @@ public abstract class Page : Gtk.ScrolledWindow {
         return menubar;
     }
 
+    public virtual unowned Gtk.Widget get_page_ui_widget(string path) {
+        return ui.get_widget(path);
+    }
+
     public virtual Gtk.Toolbar get_toolbar() {
         return toolbar;
     }
