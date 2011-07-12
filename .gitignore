@@ -15,3 +15,4 @@ shotwell
 *.langstamp
 /src/libshotwell.vapi
 /misc/gschemas.compiled
+.valencia
