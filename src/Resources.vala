@@ -293,22 +293,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return _("Delete Tag \"%s\"").printf(name);
     }
     
-    public string delete_tag_tooltip(string name, int count) {
-        return ngettext("Remove the tag \"%s\" from one photo", "Remove the tag \"%s\" from %d photos",
-            count).printf(name, count);
-    }
-    
-    public const string DEFAULT_SAVED_SEARCH_NAME = _("Saved Search");
-    
-    public string delete_search_menu(string name) {
-        return _("_Delete Search \"%s\"").printf(name);
-    }
-    
-    public string delete_search_tooltip(string name) {
-        return _("Delete saved search: \"%s\"").printf(name);
-    }
-    
     public const string DELETE_TAG_TITLE = _("Delete Tag");
+    public const string DELETE_TAG_SIDEBAR_MENU = _("_Delete");
     
     public string rename_tag_menu(string name) {
         return _("Re_name Tag \"%s\"...").printf(name);
@@ -318,11 +304,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return _("Rename Tag \"%s\" to \"%s\"").printf(old_name, new_name);
     }
     
-    public string rename_tag_tooltip(string name) {
-        return _("Rename the tag \"%s\"").printf(name);
-    }
-    
-    public const string RENAME_TAG_TITLE = _("Rename Tag");
+    public const string RENAME_TAG_SIDEBAR_MENU = _("_Rename...");
     
     public const string MODIFY_TAGS_MENU = _("Modif_y Tags...");
     public const string MODIFY_TAGS_LABEL = _("Modify Tags");
@@ -346,45 +328,29 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             _("Remove Tag \"%s\" From Photos")).printf(name);
     }
     
-    public string untag_photos_tooltip(string name, int count) {
-        return ((count == 1) ? _("Remove tag \"%s\" from the selected photo") :
-            _("Remove tag \"%s\" from the selected photos")).printf(name);
-    }
-    
     public static string rename_tag_exists_message(string name) {
         return _("Unable to rename tag to \"%s\" because the tag already exists.").printf(name);
-    }
-    
-    public string delete_search_label(string name) {
-        return _("Delete Search \"%s\"").printf(name);
     }
     
     public static string rename_search_exists_message(string name) {
         return _("Unable to rename search to \"%s\" because the search already exists.").printf(name);
     }
     
+    public const string DEFAULT_SAVED_SEARCH_NAME = _("Saved Search");
+    
     public const string DELETE_SAVED_SEARCH_DIALOG_TITLE = _("Delete Search");
     
-    public string edit_search_menu(string name) {
-        return _("_Edit Search \"%s\"...").printf(name);
-    }
-    
-    public string edit_search_tooltip(string name) {
-        return _("Edit the search \"%s\"").printf(name);
-    }
-    
-    public string rename_search_menu(string name) {
-        return _("Re_name Search \"%s\"...").printf(name);
-    }
-    
-    public string rename_search_tooltip(string name) {
-        return _("Rename the search \"%s\"").printf(name);
-    }
+    public const string DELETE_SEARCH_MENU = _("_Delete");
+    public const string EDIT_SEARCH_MENU = _("_Edit...");
+    public const string RENAME_SEARCH_MENU = _("Re_name...");
     
     public string rename_search_label(string old_name, string new_name) {
         return _("Rename Search \"%s\" to \"%s\"").printf(old_name, new_name);
     }
-
+    
+    public string delete_search_label(string name) {
+        return _("Delete Search \"%s\"").printf(name);
+    }
     
     private unowned string rating_menu(Rating rating) {
         switch (rating) {

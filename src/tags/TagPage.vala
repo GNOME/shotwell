@@ -56,6 +56,14 @@ public class TagPage : CollectionPage {
         // label and tooltip are assigned when the menu is displayed
         actions += remove_tag;
         
+        Gtk.ActionEntry delete_tag_sidebar = { "DeleteTagSidebar", null, Resources.DELETE_TAG_SIDEBAR_MENU, 
+            null, null, on_delete_tag };
+        actions += delete_tag_sidebar;
+        
+        Gtk.ActionEntry rename_tag_sidebar = { "RenameTagSidebar", null, Resources.RENAME_TAG_SIDEBAR_MENU, 
+            null, null, on_rename_tag };
+        actions += rename_tag_sidebar;
+        
         return actions;
     }
     
@@ -69,17 +77,17 @@ public class TagPage : CollectionPage {
     protected override void update_actions(int selected_count, int count) {
         set_action_details("DeleteTag",
             Resources.delete_tag_menu(tag.get_name()),
-            Resources.delete_tag_tooltip(tag.get_name(), tag.get_sources_count()),
+            null,
             true);
         
         set_action_details("RenameTag",
             Resources.rename_tag_menu(tag.get_name()),
-            Resources.rename_tag_tooltip(tag.get_name()),
+            null,
             true);
         
         set_action_details("RemoveTagFromPhotos", 
             Resources.untag_photos_menu(tag.get_name(), selected_count),
-            Resources.untag_photos_tooltip(tag.get_name(), selected_count),
+            null,
             selected_count > 0);
         
         base.update_actions(selected_count, count);

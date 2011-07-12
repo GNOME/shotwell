@@ -78,17 +78,14 @@ public class SavedSearchPage : CollectionPage {
     
     protected override void update_actions(int selected_count, int count) {
         set_action_details("RenameSearch",
-            Resources.rename_search_menu(search.get_name()),
-            Resources.rename_search_tooltip(search.get_name()),
-            true);
+            Resources.RENAME_SEARCH_MENU,
+            null, true);
         set_action_details("EditSearch",
-            Resources.edit_search_menu(search.get_name()),
-            Resources.edit_search_tooltip(search.get_name()),
-            true);
+            Resources.EDIT_SEARCH_MENU,
+            null, true);
         set_action_details("DeleteSearch",
-            Resources.delete_search_menu(search.get_name()),
-            Resources.delete_search_tooltip(search.get_name()),
-            true);
+            Resources.DELETE_SEARCH_MENU,
+            null, true);
         base.update_actions(selected_count, count);
     }
 }
