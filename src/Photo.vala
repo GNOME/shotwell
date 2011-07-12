@@ -3560,24 +3560,30 @@ public abstract class Photo : PhotoSource, Dateable {
     private Gdk.Pixbuf red_reduce_pixel(Gdk.Pixbuf pixbuf, int x, int y) {
         int px_start_byte_offset = (y * pixbuf.get_rowstride()) +
             (x * pixbuf.get_n_channels());
+            
+        /* Due to inaccuracies in the scaler, we can occasionally 
+         * get passed a coordinate pair outside the image, causing
+         * us to walk off the array and into segfault territory.
+         * Check coords prior to drawing to prevent this...  */    
+        if ((x >= 0) && (y >= 0) && (x < pixbuf.width) && (y < pixbuf.height)) {
+            unowned uchar[] pixel_data = pixbuf.get_pixels();
         
-        unowned uchar[] pixel_data = pixbuf.get_pixels();
-        
-        /* The pupil of the human eye has no pigment, so we expect all
-           color channels to be of about equal intensity. This means that at
-           any point within the effects region, the value of the red channel
-           should be about the same as the values of the green and blue
-           channels. So set the value of the red channel to be the mean of the
-           values of the red and blue channels. This preserves achromatic
-           intensity across all channels while eliminating any extraneous flare
-           affecting the red channel only (i.e. the red-eye effect). */
-        uchar g = pixel_data[px_start_byte_offset + 1];
-        uchar b = pixel_data[px_start_byte_offset + 2];
-        
-        uchar r = (g + b) / 2;
-        
-        pixel_data[px_start_byte_offset] = r;
-        
+            /* The pupil of the human eye has no pigment, so we expect all
+               color channels to be of about equal intensity. This means that at
+               any point within the effects region, the value of the red channel
+               should be about the same as the values of the green and blue
+               channels. So set the value of the red channel to be the mean of the
+               values of the red and blue channels. This preserves achromatic
+               intensity across all channels while eliminating any extraneous flare
+               affecting the red channel only (i.e. the red-eye effect). */
+            uchar g = pixel_data[px_start_byte_offset + 1];
+            uchar b = pixel_data[px_start_byte_offset + 2];
+            
+            uchar r = (g + b) / 2;
+            
+            pixel_data[px_start_byte_offset] = r;
+        }
+
         return pixbuf;
     }
 
