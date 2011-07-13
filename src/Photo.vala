@@ -2806,8 +2806,19 @@ public abstract class Photo : PhotoSource, Dateable {
                 if (is_scaled)
                     crop = crop.get_scaled_similar(original, scaled);
                 
-                pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
-                    crop.get_height());
+                // The crop region has to move when an image is straightened, and
+                // this could potentially lead to the crop boundaries being beyond
+                // the image boundaries.  We check for this here and clip them to
+                // the image to prevent problems with GDK. 
+                Box crop_clipped = Box(crop.left, crop.top, crop.right, crop.bottom);
+                
+                crop_clipped.left = crop_clipped.left.clamp(0, pixbuf.width - 1);
+                crop_clipped.right = crop_clipped.right.clamp(0, pixbuf.width - 1);
+                crop_clipped.top = crop_clipped.top.clamp(0, pixbuf.height - 1);
+                crop_clipped.bottom = crop_clipped.bottom.clamp(0, pixbuf.height - 1);
+                
+                pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop_clipped.left, crop_clipped.top, crop_clipped.get_width(),
+                    crop_clipped.get_height());
             }
 
 #if MEASURE_PIPELINE
