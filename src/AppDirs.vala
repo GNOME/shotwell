@@ -92,7 +92,7 @@ class AppDirs {
         if (is_string_empty(pattern))
             pattern = "%Y" + Path.DIR_SEPARATOR_S + "%m" + Path.DIR_SEPARATOR_S + "%d"; // default
             
-        DateTime date = new DateTime.from_unix_utc(tm);
+        DateTime date = new DateTime.from_unix_local(tm);
         return File.new_for_path(get_import_dir().get_path() + Path.DIR_SEPARATOR_S + date.format(pattern));
     }
     
