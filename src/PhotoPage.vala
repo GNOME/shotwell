@@ -1349,7 +1349,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Gdk.Pixbuf? original;
 
         try {
-            original = get_photo().get_master_pixbuf(cache.get_scaling());
+            original = get_photo().get_unmodified_pixbuf(cache.get_scaling(), true);
 
             if (original == null)
                 return;

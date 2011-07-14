@@ -7,14 +7,15 @@
 // Specifies how pixel data is fetched from the backing file on disk.  MASTER is the original
 // backing photo of any supported photo file format; SOURCE is either the master or the editable
 // file, that is, the appropriate reference file for user display; BASELINE is an appropriate
-// file with the proviso that it may be a suitable substitute for the master and/or the editable
-// (i.e. a mimic).
+// file with the proviso that it may be a suitable substitute for the master and/or the editable.
+// UNMODIFIED represents the photo with no edits, i.e. the head of the pipeline.
 //
 // In general, callers want to use the BASELINE unless requirements are specific.
 public enum BackingFetchMode {
     SOURCE,
     BASELINE,
-    MASTER
+    MASTER,
+    UNMODIFIED
 }
 
 public class PhotoImportParams {
@@ -387,6 +388,12 @@ public abstract class Photo : PhotoSource, Dateable {
             }
         }
         
+        // Set up reader for developer.
+        if (row.master.file_format == PhotoFileFormat.RAW && developments.has_key(row.developer)) {
+            BackingPhotoRow r = developments.get(row.developer);
+            readers.developer = r.file_format.create_reader(r.filepath);
+        }
+        
         // Set the backing photo state appropriately.
         if (readers.editable != null) {
             backing_photo_row = this.editable; 
@@ -396,11 +403,9 @@ public abstract class Photo : PhotoSource, Dateable {
             // For RAW photos, the backing photo is either the editable (above) or
             // the selected raw development.
             if (developments.has_key(row.developer)) {
-                BackingPhotoRow s = developments.get(row.developer);
-                backing_photo_row = s;
-                readers.developer = s.file_format.create_reader(s.filepath);
+                backing_photo_row = developments.get(row.developer);
             } else {
-                // Use backing photo.
+                // Use row's backing photo.
                 backing_photo_row = this.row.master;
             }
         }
@@ -613,7 +618,8 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     public void set_raw_developer(RawDeveloper d) {
-        if (!is_raw_developer_available(d))
+        if (get_master_file_format() != PhotoFileFormat.RAW || !is_raw_developer_available(d) ||
+            get_raw_developer() == d)
             return;
         
         if (!developments.has_key(d)) {
@@ -715,6 +721,12 @@ public abstract class Photo : PhotoSource, Dateable {
             case BackingFetchMode.SOURCE:
                 return get_source_reader();
             
+            case BackingFetchMode.UNMODIFIED:
+                if (this.get_master_file_format() == PhotoFileFormat.RAW)
+                    return get_raw_developer_reader();
+                else
+                    return get_master_reader();
+            
             default:
                 error("Unknown backing fetch mode %s", mode.to_string());
         }
@@ -749,6 +761,13 @@ public abstract class Photo : PhotoSource, Dateable {
     private PhotoFileReader get_source_reader() {
         lock (readers) {
             return readers.editable ?? readers.master;
+        }
+    }
+    
+    // Returns the reader used for reading the RAW development.
+    private PhotoFileReader get_raw_developer_reader() {
+        lock (readers) {
+            return readers.developer;
         }
     }
     
@@ -2656,13 +2675,23 @@ public abstract class Photo : PhotoSource, Dateable {
     // Returns a raw, untransformed, scaled pixbuf from the master that has been optionally rotated
     // according to its original EXIF settings.
     public Gdk.Pixbuf get_master_pixbuf(Scaling scaling, bool rotate = true) throws Error {
+        return get_untransformed_pixbuf(scaling, rotate, BackingFetchMode.MASTER);
+    }
+    
+    // Returns a pixbuf that hasn't been modified (head of the pipeline.)
+    public Gdk.Pixbuf get_unmodified_pixbuf(Scaling scaling, bool rotate = true) throws Error {
+        return get_untransformed_pixbuf(scaling, rotate, BackingFetchMode.UNMODIFIED);
+    }
+    
+    // Returns an untransformed pixbuf with optional scaling, rotation, and fetch mode.
+    private Gdk.Pixbuf get_untransformed_pixbuf(Scaling scaling, bool rotate, BackingFetchMode fetch_mode) 
+        throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
         double orientation_time = 0.0;
         
         total_timer.start();
-
 #endif
         
         // get required fields all at once, to avoid holding the row lock
@@ -2676,7 +2705,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         // load-and-decode and scale
-        Gdk.Pixbuf pixbuf = load_raw_pixbuf(scaling, Exception.NONE, BackingFetchMode.MASTER);
+        Gdk.Pixbuf pixbuf = load_raw_pixbuf(scaling, Exception.NONE, fetch_mode);
             
         // orientation
 #if MEASURE_PIPELINE
