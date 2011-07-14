@@ -940,6 +940,7 @@ public class BatchImport : Object {
             } else {
                 job.ready.batch_result.result = LibraryPhoto.import_create(job.ready.photo_import_params,
                     out source);
+                Photo photo = source as Photo;
                 
                 if (job.ready.photo_import_params.final_associated_file != null) {
                     // Associate RAW+JPEG in database.
@@ -954,6 +955,10 @@ public class BatchImport : Object {
                         warning("Unable to associate JPEG with RAW. File: %s Error: %s", 
                             bpr.filepath, e.message);
                     }
+                    
+                    // Set the default developer for raw photos
+                    if (photo.get_master_file_format() == PhotoFileFormat.RAW)
+                        photo.set_raw_developer(Config.Facade.get_instance().get_default_raw_developer());
                 }
             }
             

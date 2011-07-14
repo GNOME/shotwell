@@ -1747,6 +1747,7 @@ public class PreferencesDialog {
     private Gtk.CheckButton lowercase;
     private Gtk.Button close_button;
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
+    private Gtk.ComboBox default_raw_developer_combo;
 
     private PreferencesDialog() {
         builder = AppWindow.create_builder();
@@ -1823,6 +1824,13 @@ public class PreferencesDialog {
         
         Gtk.CheckButton commit_metadata_button = builder.get_object("write_metadata") as Gtk.CheckButton;
         commit_metadata_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
+        
+        default_raw_developer_combo = builder.get_object("default_raw_developer") as Gtk.ComboBox;
+        gtk_combo_box_set_as_text(default_raw_developer_combo);
+        default_raw_developer_combo.append_text(RawDeveloper.SHOTWELL.get_label());
+        default_raw_developer_combo.append_text(RawDeveloper.CAMERA.get_label());
+        set_raw_developer_combo(Config.Facade.get_instance().get_default_raw_developer());
+        default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
         
         dialog.map_event.connect(map_event);
     }
@@ -2080,6 +2088,23 @@ public class PreferencesDialog {
         Config.Facade.get_instance().set_external_raw_app(app.get_commandline());
         
         debug("setting external raw editor to: %s", app.get_commandline());
+    }
+    
+    private RawDeveloper raw_developer_from_combo() {
+        if (default_raw_developer_combo.get_active() == 0)
+            return RawDeveloper.SHOTWELL;
+        return RawDeveloper.CAMERA;
+    }
+    
+    private void set_raw_developer_combo(RawDeveloper d) {
+        if (d == RawDeveloper.SHOTWELL)
+            default_raw_developer_combo.set_active(0);
+        else
+            default_raw_developer_combo.set_active(1);
+    }
+    
+    private void on_default_raw_developer_changed() {
+        Config.Facade.get_instance().set_default_raw_developer(raw_developer_from_combo());
     }
     
     private void on_current_folder_changed() {

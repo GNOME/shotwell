@@ -60,6 +60,7 @@ public enum ConfigurableProperty {
     PRINTING_PRINT_TITLES,
     PRINTING_SIZE_SELECTION,
     PRINTING_TITLES_FONT,
+    RAW_DEVELOPER_DEFAULT,
     SHOW_WELCOME_DIALOG,
     SIDEBAR_POSITION,
     SLIDESHOW_DELAY,
@@ -193,6 +194,9 @@ public enum ConfigurableProperty {
                 
             case PRINTING_TITLES_FONT:
                 return "PRINTING_TITLES_FONT";
+                
+            case RAW_DEVELOPER_DEFAULT:
+                return "RAW_DEVELOPER_DEFAULT";
                 
             case SHOW_WELCOME_DIALOG:
                 return "SHOW_WELCOME_DIALOG";
@@ -680,6 +684,30 @@ public abstract class ConfigurationFacade : Object {
         try {
             get_engine().set_string_property(ConfigurableProperty.EXTERNAL_RAW_APP,
                 external_raw_app);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    //
+    // Default RAW developer.
+    //
+    public virtual RawDeveloper get_default_raw_developer() {
+        try {
+            return RawDeveloper.from_string(get_engine().get_string_property(
+                ConfigurableProperty.RAW_DEVELOPER_DEFAULT));
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            
+            return RawDeveloper.SHOTWELL;
+        }
+    }
+    
+    public virtual void set_default_raw_developer(RawDeveloper d) {
+        try {
+            get_engine().set_string_property(ConfigurableProperty.RAW_DEVELOPER_DEFAULT,
+                d.to_string());
         } catch (ConfigurationError err) {
             on_configuration_error(err);
             return;

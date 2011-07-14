@@ -124,6 +124,12 @@
         <summary>background color</summary>
         <description>A grayscale color for use as the background color.</description>
     </key>
+    
+    <key name="raw-developer-default" type="s">
+        <default>'SHOTWELL'</default>
+        <summary>RAW developer default</summary>
+        <description>Default option for which RAW developer Shotwell will use.</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.preferences.slideshow" path="/apps/shotwell/preferences/slideshow/">

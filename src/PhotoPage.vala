@@ -2574,7 +2574,6 @@ public class LibraryPhotoPage : EditingHostPage {
         dev_camera.label = label_camera;
         developer_actions += dev_camera;
         
-        // todo: change RawDeveloper.SHOTWELL to default
         action_group.add_radio_actions(developer_actions, RawDeveloper.SHOTWELL, on_raw_developer_changed);
         
         base.register_radio_actions(action_group);

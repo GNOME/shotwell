@@ -138,6 +138,9 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
         property_paths[ConfigurableProperty.PRINTING_TITLES_FONT] =
             "/apps/shotwell/printing/print_titles_font";
 
+        property_paths[ConfigurableProperty.RAW_DEVELOPER_DEFAULT] =
+            PATH_SHOTWELL_PREFS + "/files/raw_developer_default";
+
         property_paths[ConfigurableProperty.SHOW_WELCOME_DIALOG] =
             PATH_SHOTWELL_PREFS + "/ui/show_welcome_dialog";
 
