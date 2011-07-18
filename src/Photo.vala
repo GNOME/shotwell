@@ -1161,7 +1161,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         if (updated_row.master.original_orientation != backing.original_orientation) {
             list += "image:orientation";
-            updated_row.orientation = backing.original_orientation;
+            updated_row.master.original_orientation = backing.original_orientation;
         }
         
         if (detected.metadata != null) {

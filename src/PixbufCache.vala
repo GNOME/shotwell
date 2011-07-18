@@ -291,6 +291,13 @@ public class PixbufCache : Object {
             
             Photo photo = (Photo) object;
             
+            if (in_progress.has_key(photo)) {
+                // Load is in progress, must cancel.
+                in_progress.get(photo).cancel();
+                in_progress.unset(photo);
+                continue;
+            }
+            
             // only interested if in this cache
             if (!cache.has_key(photo))
                 continue;
