@@ -99,6 +99,7 @@ UNUNITIZED_SRC_FILES = \
 	VideoMonitor.vala \
 	SearchFilter.vala \
 	MediaViewTracker.vala \
+	Upgrades.vala
 
 THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala

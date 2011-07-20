@@ -136,7 +136,7 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
     }
 
     public override PhotoFileFormatFlags get_flags() {
-        return PhotoFileFormatFlags.MIMIC_RECOMMENDED;
+        return PhotoFileFormatFlags.NONE;
     }
     
     public override string get_default_extension() {

@@ -117,6 +117,8 @@ void library_exec(string[] mounts) {
 
     Video.init();
     
+    Upgrades.init();
+    
     ProgressDialog progress_dialog = null;
     AggregateProgressMonitor aggregate_monitor = null;
     ProgressMonitor monitor = null;
@@ -128,7 +130,8 @@ void library_exec(string[] mounts) {
         uint64 grand_total = (PhotoTable.get_instance().get_row_count() * 2) 
             + EventTable.get_instance().get_row_count()
             + TagTable.get_instance().get_row_count()
-            + VideoTable.get_instance().get_row_count();
+            + VideoTable.get_instance().get_row_count()
+            + Upgrades.get_instance().get_step_count();
         if (grand_total > 5000) {
             progress_dialog = new ProgressDialog(null, _("Loading Shotwell"));
             progress_dialog.update_display_every(100);
@@ -148,6 +151,9 @@ void library_exec(string[] mounts) {
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("Video.init");
     Video.init(monitor);
+    if (aggregate_monitor != null)
+        aggregate_monitor.next_step("Upgrades.execute");
+    Upgrades.get_instance().execute();
     
     LibraryMonitorPool.init();
     MediaCollectionRegistry.init();
@@ -301,7 +307,6 @@ void editing_exec(string filename) {
 namespace CommandlineOptions {
 
 bool no_startup_progress = false;
-bool no_mimicked_images = false;
 string data_dir = null;
 bool show_version = false;
 bool no_runtime_monitoring = false;
@@ -315,10 +320,6 @@ public OptionEntry[] get_options() {
     OptionEntry datadir = { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
         N_("Path to Shotwell's private data"), N_("DIRECTORY") };
     entries += datadir;
-    
-    OptionEntry no_mimics = { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,
-        N_("Don't used JPEGs to display RAW images"), null };
-    entries += no_mimics;
     
     OptionEntry no_monitoring = { "no-runtime-monitoring", 0, 0, OptionArg.NONE, &no_runtime_monitoring,
         N_("Do not monitor library directory at runtime for changes"), null };

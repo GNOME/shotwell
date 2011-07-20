@@ -120,8 +120,10 @@ public uint64 query_total_file_size(File file_or_dir, Cancellable? cancellable =
 
 // Does not currently recurse.  Could be modified to do so.  Does not error out on first file that
 // does not delete, but logs a warning and continues.
-public void delete_all_files(File dir, Gee.Set<string>? exceptions = null, Cancellable? cancellable = null)
-    throws Error {
+// Note: if supplying a progress monitor, a file count is also required.  The count_files_in_directory()
+// function below should do the trick.
+public void delete_all_files(File dir, Gee.Set<string>? exceptions = null, ProgressMonitor? monitor = null, 
+    uint64 file_count = 0, Cancellable? cancellable = null) throws Error {
     FileType type = dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
     if (type != FileType.DIRECTORY)
         throw new IOError.NOT_DIRECTORY("%s is not a directory".printf(dir.get_path()));
@@ -129,6 +131,7 @@ public void delete_all_files(File dir, Gee.Set<string>? exceptions = null, Cance
     FileEnumerator enumerator = dir.enumerate_children("standard::name,standard::type",
         FileQueryInfoFlags.NOFOLLOW_SYMLINKS, cancellable);
     FileInfo info = null;
+    uint64 i = 0;
     while ((info = enumerator.next_file(cancellable)) != null) {
         if (info.get_file_type() != FileType.REGULAR)
             continue;
@@ -142,6 +145,9 @@ public void delete_all_files(File dir, Gee.Set<string>? exceptions = null, Cance
         } catch (Error err) {
             warning("Unable to delete file %s: %s", file.get_path(), err.message);
         }
+        
+        if (monitor != null && file_count > 0)
+            monitor(file_count, ++i);
     }
 }
 
@@ -208,5 +214,21 @@ public void skip_uint64(InputStream input, uint64 skip_amount) throws GLib.Error
             skip_amount = 0;
         }
     }
+}
+
+// Returns the number of files (and/or directories) within a directory.
+public uint64 count_files_in_directory(File dir) throws GLib.Error {
+    if (!query_is_directory(dir))
+        return 0;
+    
+    uint64 count = 0;
+    FileEnumerator enumerator = dir.enumerate_children("standard::*",
+        FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+    
+    FileInfo info = null;
+    while ((info = enumerator.next_file()) != null)
+        count++;
+    
+    return count;
 }
 

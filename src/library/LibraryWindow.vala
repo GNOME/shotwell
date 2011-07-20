@@ -31,7 +31,6 @@ public class LibraryWindow : AppWindow {
     private const int REALTIME_UPDATE_PROGRESS_PRIORITY =   40;
     private const int REALTIME_IMPORT_PROGRESS_PRIORITY =   50;
     private const int METADATA_WRITER_PROGRESS_PRIORITY =   30;
-    private const int MIMIC_MANAGER_PROGRESS_PRIORITY =     20;
     
     // This lists the order of the toplevel items in the sidebar.  New toplevel items should be
     // added here in the position they should appear in the sidebar.  To re-order, simply move

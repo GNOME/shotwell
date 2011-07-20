@@ -2912,7 +2912,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     private bool export_fullsized_backing(File file) throws Error {
-        // See if the native reader or the mimic supports writing ... if no matches, need to fall back
+        // See if the native reader supports writing ... if no matches, need to fall back
         // on a "regular" export, which requires decoding then encoding
         PhotoFileReader export_reader = null;
         bool is_master = true;

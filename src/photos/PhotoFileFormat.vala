@@ -341,7 +341,6 @@ public abstract class PhotoFileFormatDriver {
 
 public enum PhotoFileFormatFlags {
     NONE =                  0x00000000,
-    MIMIC_RECOMMENDED =     0x00000001
 }
 
 public abstract class PhotoFileFormatProperties {
