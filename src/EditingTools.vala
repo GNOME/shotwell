@@ -1072,7 +1072,8 @@ public class CropTool : EditingTool {
 
     public override bool on_keypress(Gdk.EventKey event) {
         if ((Gdk.keyval_name(event.keyval) == "KP_Enter") ||
-            (Gdk.keyval_name(event.keyval) == "Enter")) {           
+            (Gdk.keyval_name(event.keyval) == "Enter") || 
+            (Gdk.keyval_name(event.keyval) == "Return")) {
             on_crop_ok();
             return true;
         }
@@ -2049,6 +2050,17 @@ public class RedeyeTool : EditingTool {
             }
         }
     }
+    
+    public override bool on_keypress(Gdk.EventKey event) {
+        if ((Gdk.keyval_name(event.keyval) == "KP_Enter") ||
+            (Gdk.keyval_name(event.keyval) == "Enter") || 
+            (Gdk.keyval_name(event.keyval) == "Return")) {
+            on_close();
+            return true;
+        }
+
+        return base.on_keypress(event);
+    }
 }
 
 public class AdjustTool : EditingTool {
@@ -2689,6 +2701,17 @@ public class AdjustTool : EditingTool {
                 fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i + 2]) * INV_255;
             }
         }
+    }
+    
+    public override bool on_keypress(Gdk.EventKey event) {
+        if ((Gdk.keyval_name(event.keyval) == "KP_Enter") ||
+            (Gdk.keyval_name(event.keyval) == "Enter") || 
+            (Gdk.keyval_name(event.keyval) == "Return")) {
+            on_ok();
+            return true;
+        }
+
+        return base.on_keypress(event);
     }
 }
 
