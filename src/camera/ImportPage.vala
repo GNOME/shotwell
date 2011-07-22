@@ -603,9 +603,14 @@ public class ImportPage : CheckerboardPage {
                     if (!show_media_video)
                         return false;
                 } else if (source is PhotoImportSource) {
-                    if (((PhotoImportSource) source).get_file_format() == PhotoFileFormat.RAW) {
-                        if (!show_media_photos && !show_media_raw)
+                    PhotoImportSource photo = source as PhotoImportSource;
+                    if (photo.get_file_format() == PhotoFileFormat.RAW) {
+                        if (photo.get_associated() != null) {
+                            if (!show_media_photos && !show_media_raw)
+                                return false;
+                        } else if (!show_media_raw) {
                             return false;
+                        }
                     } else if (!show_media_photos)
                         return false;
                 }

@@ -30,10 +30,14 @@ public class MediaAccumulator : Object, Core.TrackerAccumulator {
         
         Photo? photo = source as Photo;
         if (photo != null) {
-            photos++;
-            
-            if (photo.get_master_file_format() == PhotoFileFormat.RAW)
+            if (photo.get_master_file_format() == PhotoFileFormat.RAW) {
                 raw++;
+            }
+            
+            if (photo.get_master_file_format() != PhotoFileFormat.RAW || 
+                photo.is_raw_developer_available(RawDeveloper.CAMERA)) {
+                photos++;
+            }
         } else if (source is VideoSource) {
             videos++;
         }
@@ -54,11 +58,15 @@ public class MediaAccumulator : Object, Core.TrackerAccumulator {
         
         Photo? photo = source as Photo;
         if (photo != null) {
-            assert(photos > 0);
-            photos--;
             if (photo.get_master_file_format() == PhotoFileFormat.RAW) {
                 assert(raw > 0);
                 raw--;
+            }
+            
+            if (photo.get_master_file_format() != PhotoFileFormat.RAW || 
+                photo.is_raw_developer_available(RawDeveloper.CAMERA)) {
+                assert(photos > 0);
+                photos--;
             }
         } else if (source is Video) {
             assert(videos > 0);
