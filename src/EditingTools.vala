@@ -30,7 +30,7 @@ public abstract class EditingToolWindow : Gtk.Window {
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.KEY_PRESS_MASK);
         focus_on_map = true;
         set_accept_focus(true);
-        set_flags(Gtk.WidgetFlags.CAN_FOCUS);
+        set_can_focus(true);
     }
     
     public override void add(Gtk.Widget widget) {
@@ -1207,10 +1207,8 @@ public class CropTool : EditingTool {
     
     public override void paint(Cairo.Context default_ctx) {
         // fill region behind the crop surface with neutral color
-        int w;
-        int h;
-
-        canvas.get_drawing_window().get_size(out w, out h);
+        int w = canvas.get_drawing_window().get_width();
+        int h = canvas.get_drawing_window().get_height();
 
         default_ctx.set_source_rgba(0.0, 0.0, 0.0, 1.0);
         default_ctx.rectangle(0, 0, w, h);
@@ -2064,8 +2062,9 @@ public class RedeyeTool : EditingTool {
 }
 
 public class AdjustTool : EditingTool {
-    const int SLIDER_WIDTH = 160;
-
+    private const int SLIDER_WIDTH = 160;
+    private const uint SLIDER_DELAY_MSEC = 100;
+    
     private class AdjustToolWindow : EditingToolWindow {
         public Gtk.HScale exposure_slider = new Gtk.HScale.with_range(
             ExposureTransformation.MIN_PARAMETER, ExposureTransformation.MAX_PARAMETER,
@@ -2099,7 +2098,6 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(exposure_slider, 1, 2, 0, 1);
             exposure_slider.set_size_request(SLIDER_WIDTH, -1);
             exposure_slider.set_draw_value(false);
-            exposure_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.Label saturation_label = new Gtk.Label.with_mnemonic(_("Saturation:"));
             saturation_label.set_alignment(0.0f, 0.5f);
@@ -2107,7 +2105,6 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(saturation_slider, 1, 2, 1, 2);
             saturation_slider.set_size_request(SLIDER_WIDTH, -1);
             saturation_slider.set_draw_value(false);
-            saturation_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.Label tint_label = new Gtk.Label.with_mnemonic(_("Tint:"));
             tint_label.set_alignment(0.0f, 0.5f);
@@ -2115,7 +2112,6 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(tint_slider, 1, 2, 2, 3);
             tint_slider.set_size_request(SLIDER_WIDTH, -1);
             tint_slider.set_draw_value(false);
-            tint_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.Label temperature_label =
                 new Gtk.Label.with_mnemonic(_("Temperature:"));
@@ -2124,7 +2120,6 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(temperature_slider, 1, 2, 3, 4);
             temperature_slider.set_size_request(SLIDER_WIDTH, -1);
             temperature_slider.set_draw_value(false);
-            temperature_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.Label shadows_label = new Gtk.Label.with_mnemonic(_("Shadows:"));
             shadows_label.set_alignment(0.0f, 0.5f);
@@ -2132,7 +2127,6 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(shadows_slider, 1, 2, 4, 5);
             shadows_slider.set_size_request(SLIDER_WIDTH, -1);
             shadows_slider.set_draw_value(false);
-            shadows_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
             button_layouter.set_homogeneous(true);
@@ -2328,6 +2322,11 @@ public class AdjustTool : EditingTool {
     private PixelTransformationBundle transformations = null;
     private float[] fp_pixel_cache = null;
     private bool disable_histogram_refresh = false;
+    private OneShotScheduler? temperature_scheduler = null;
+    private OneShotScheduler? tint_scheduler = null;
+    private OneShotScheduler? saturation_scheduler = null;
+    private OneShotScheduler? exposure_scheduler = null;
+    private OneShotScheduler? shadows_scheduler = null;
     
     private AdjustTool() {
     }
@@ -2507,30 +2506,65 @@ public class AdjustTool : EditingTool {
     }
     
     private void on_temperature_adjustment() {
+        if (temperature_scheduler == null)
+            temperature_scheduler = new OneShotScheduler("temperature", on_delayed_temperature_adjustment);
+        
+        temperature_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
+    }
+    
+    private void on_delayed_temperature_adjustment() {
         TemperatureTransformation new_temp_trans = new TemperatureTransformation(
             (float) adjust_tool_window.temperature_slider.get_value());
         slider_updated(new_temp_trans, _("Temperature"));
     }
-
+    
     private void on_tint_adjustment() {
+        if (tint_scheduler == null)
+            tint_scheduler = new OneShotScheduler("tint", on_delayed_tint_adjustment);
+        
+        tint_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
+    }
+    
+    private void on_delayed_tint_adjustment() {
         TintTransformation new_tint_trans = new TintTransformation(
             (float) adjust_tool_window.tint_slider.get_value());
         slider_updated(new_tint_trans, _("Tint"));
     }
-
+    
     private void on_saturation_adjustment() {
+        if (saturation_scheduler == null)
+            saturation_scheduler = new OneShotScheduler("saturation", on_delayed_saturation_adjustment);
+        
+        saturation_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
+    }
+    
+    private void on_delayed_saturation_adjustment() {
         SaturationTransformation new_sat_trans = new SaturationTransformation(
             (float) adjust_tool_window.saturation_slider.get_value());
         slider_updated(new_sat_trans, _("Saturation"));
     }
-
+    
     private void on_exposure_adjustment() {
+        if (exposure_scheduler == null)
+            exposure_scheduler = new OneShotScheduler("exposure", on_delayed_exposure_adjustment);
+        
+        exposure_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
+    }
+    
+    private void on_delayed_exposure_adjustment() {
         ExposureTransformation new_exp_trans = new ExposureTransformation(
             (float) adjust_tool_window.exposure_slider.get_value());
         slider_updated(new_exp_trans, _("Exposure"));
     }
     
     private void on_shadows_adjustment() {
+        if (shadows_scheduler == null)
+            shadows_scheduler = new OneShotScheduler("shadows", on_delayed_shadows_adjustment);
+        
+        shadows_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
+    }
+    
+    private void on_delayed_shadows_adjustment() {
         ShadowDetailTransformation new_shadows_trans = new ShadowDetailTransformation(
             (float) adjust_tool_window.shadows_slider.get_value());
         slider_updated(new_shadows_trans, _("Shadows"));

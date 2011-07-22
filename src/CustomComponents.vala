@@ -216,7 +216,6 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private int track_nub_start_position = 0;
 
     public RGBHistogramManipulator( ) {
-        expose_event.connect(on_expose);
         set_size_request(CONTROL_WIDTH, CONTROL_HEIGHT);
         if (dummy_slider == null)
             dummy_slider = new Gtk.HScale(null);
@@ -317,23 +316,35 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         return true;
     }
     
-    private bool on_expose(Gdk.EventExpose event) {
-        draw_trough();
-        draw_nub(left_nub_position);
-        draw_nub(right_nub_position);
-        draw_histogram_frame();
-        draw_histogram();        
+    public override bool draw(Cairo.Context ctx) {
+        Gtk.Border padding = new Gtk.Border();
+        get_style_context().get_padding(Gtk.StateFlags.NORMAL, padding);
+        
+        Gdk.Rectangle area = Gdk.Rectangle();
+        area.x = padding.left;
+        area.y = padding.top;
+        area.width = get_allocated_width() - (padding.left + padding.right);
+        area.height = get_allocated_height() - (padding.top + padding.bottom);
+        
+        draw_trough(ctx, area);
+        draw_nub(ctx, area, left_nub_position);
+        draw_nub(ctx, area, right_nub_position);
+        draw_histogram_frame(ctx, area);
+        draw_histogram(ctx, area);
+        
+        ctx.paint();
+        
         return true;
     }
     
-    private void draw_histogram_frame() {
-        Gtk.Style frame_style = Gtk.rc_get_style(dummy_frame);
-        Gtk.paint_box(frame_style, get_window(), Gtk.StateType.NORMAL, Gtk.ShadowType.NONE,
-            null, dummy_frame, null, NUB_HALF_WIDTH - 1, 1, RGBHistogram.GRAPHIC_WIDTH + 2,
-            RGBHistogram.GRAPHIC_HEIGHT + 2);
+    private void draw_histogram_frame(Cairo.Context ctx, Gdk.Rectangle area) {
+        Gtk.render_background(dummy_frame.get_style_context(), ctx, area.x, area.y, area.width,
+            area.height);
+        Gtk.render_frame(dummy_frame.get_style_context(), ctx, area.x, area.y, area.width,
+            area.height);
     }
     
-    private void draw_histogram() {
+    private void draw_histogram(Cairo.Context ctx, Gdk.Rectangle area) {
         if (histogram == null)
             return;
         
@@ -410,21 +421,21 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
             }
         }
         
-        get_window().draw_pixbuf(null, histogram_graphic, 0, 0, NUB_HALF_WIDTH, 2,
-            RGBHistogram.GRAPHIC_WIDTH, RGBHistogram.GRAPHIC_HEIGHT, Gdk.RgbDither.NONE, 0, 0);
+        Gdk.cairo_set_source_pixbuf(ctx, histogram_graphic, area.x + NUB_HALF_WIDTH, area.y + 2);
     }
     
-    private void draw_trough() {
-        int trough_x = 0;
-        int trough_y = CONTROL_HEIGHT - TROUGH_HEIGHT - TROUGH_BOTTOM_OFFSET - 1;
-        Gtk.Style slider_style = Gtk.rc_get_style(dummy_slider);
-        Gtk.paint_box(slider_style, get_window(), Gtk.StateType.NORMAL, Gtk.ShadowType.NONE,
-            null, dummy_slider, "trough", trough_x, trough_y, TROUGH_WIDTH, TROUGH_HEIGHT);
+    private void draw_trough(Cairo.Context ctx, Gdk.Rectangle area) {
+        int trough_x = area.x;
+        int trough_y = area.y + (CONTROL_HEIGHT - TROUGH_HEIGHT - TROUGH_BOTTOM_OFFSET - 1);
+        
+        Gtk.render_frame(dummy_slider.get_style_context(), ctx, trough_x, trough_y,
+            TROUGH_WIDTH, TROUGH_HEIGHT);
+        Gtk.render_slider(dummy_slider.get_style_context(), ctx, trough_x, trough_y,
+            TROUGH_WIDTH, TROUGH_HEIGHT, Gtk.Orientation.HORIZONTAL);
     }
     
-    private void draw_nub(int position) {
-        get_window().draw_pixbuf(null, nub_pixbuf, 0, 0, position, NUB_V_POSITION, NUB_SIZE,
-            NUB_SIZE, Gdk.RgbDither.NONE, 0, 0);
+    private void draw_nub(Cairo.Context ctx, Gdk.Rectangle area, int position) {
+        Gdk.cairo_set_source_pixbuf(ctx, nub_pixbuf, area.x + position, area.y + NUB_V_POSITION);
     }
     
     private void force_update() {

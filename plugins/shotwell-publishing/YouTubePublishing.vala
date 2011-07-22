@@ -949,7 +949,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private const int ACTION_BUTTON_SPACING = 48;
     private const int STANDARD_ACTION_BUTTON_WIDTH = 128;
     
-    private Gtk.ComboBox privacy_combo;
+    private Gtk.ComboBoxText privacy_combo;
     private string channel_name;
     private PrivacyDescription[] privacy_descriptions;
     private Gtk.Button publish_button;
@@ -1002,7 +1002,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
-        privacy_combo = new Gtk.ComboBox.text();
+        privacy_combo = new Gtk.ComboBoxText();
         foreach(PrivacyDescription desc in privacy_descriptions)
             privacy_combo.append_text(desc.description);
         privacy_combo.set_active(PrivacySetting.PUBLIC);

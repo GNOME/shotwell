@@ -1019,10 +1019,10 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private const string DEFAULT_SIZE_CONFIG_KEY = "default_size";
     private const string LAST_ALBUM_CONFIG_KEY = "last_album";
     
-    private Gtk.ComboBox existing_albums_combo;
+    private Gtk.ComboBoxText existing_albums_combo;
     private Gtk.Entry new_album_entry;
     private Gtk.CheckButton public_check;
-    private Gtk.ComboBox size_combo;
+    private Gtk.ComboBoxText size_combo;
     private Gtk.RadioButton use_existing_radio;
     private Gtk.RadioButton create_new_radio;
     private Album[] albums;
@@ -1091,7 +1091,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
-        existing_albums_combo = new Gtk.ComboBox.text();
+        existing_albums_combo = new Gtk.ComboBoxText();
         Gtk.Alignment existing_albums_combo_frame = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
         existing_albums_combo_frame.add(existing_albums_combo);
         main_table.attach(existing_albums_combo_frame, 2, 3, 1, 2,
@@ -1136,7 +1136,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
-            size_combo = new Gtk.ComboBox.text();
+            size_combo = new Gtk.ComboBoxText();
             foreach(SizeDescription desc in size_descriptions)
                 size_combo.append_text(desc.name);
         

@@ -7,8 +7,8 @@ PLUGIN_INTERFACES := \
 PLUGIN_PKG_REQS := \
 	gobject-2.0 \
 	glib-2.0 \
-	gdk-2.0 \
-	gtk+-2.0
+	gdk-3.0 \
+	gtk+-3.0
 
 PLUGIN_VAPI := plugins/shotwell-plugin-dev-1.0.vapi
 PLUGIN_HEADER := $(PLUGIN_VAPI:.vapi=.h)

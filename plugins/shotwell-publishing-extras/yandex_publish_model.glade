@@ -41,7 +41,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkComboBoxEntry" id="access_type_list">
+                  <object class="GtkComboBoxText" id="access_type_list">
                     <property name="visible">True</property>
                     <property name="model">liststore1</property>
                     <property name="active">0</property>
@@ -54,7 +54,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBoxEntry" id="album_list">
+                  <object class="GtkComboBoxText" id="album_list">
                     <property name="visible">True</property>
                     <property name="model">liststore2</property>
                     <property name="active">0</property>

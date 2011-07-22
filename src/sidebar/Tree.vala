@@ -956,7 +956,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         bool success = false;
         
         // internal drops are always media ID's; unserialize for the entry
-        Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.data,
+        Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.get_data(),
             selection_data.get_length());
         if (media != null && media.size > 0)
             success = targetable.internal_drop_received(media);
@@ -978,7 +978,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         else if (pos == Gtk.TreeViewDropPosition.AFTER)
             set_drag_dest_row(path, Gtk.TreeViewDropPosition.INTO_OR_AFTER);
         
-        Gdk.drag_status(context, context.suggested_action, time);
+        Gdk.drag_status(context, context.get_suggested_action(), time);
         
         return has_dest;
     }

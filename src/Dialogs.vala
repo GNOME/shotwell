@@ -137,9 +137,9 @@ public class ExportDialog : Gtk.Dialog {
     private static int current_scale = DEFAULT_SCALE;
     
     private Gtk.Table table = new Gtk.Table(0, 0, false);
-    private Gtk.ComboBox quality_combo;
-    private Gtk.ComboBox constraint_combo;
-    private Gtk.ComboBox format_combo;
+    private Gtk.ComboBoxText quality_combo;
+    private Gtk.ComboBoxText constraint_combo;
+    private Gtk.ComboBoxText format_combo;
     private Gee.ArrayList<string> format_options = new Gee.ArrayList<string>();
     private Gtk.Entry pixels_entry;
     private Gtk.Widget ok_button;
@@ -147,10 +147,9 @@ public class ExportDialog : Gtk.Dialog {
     
     public ExportDialog(string title) {
         this.title = title;
-        has_separator = false;
-        allow_grow = false;
+        resizable = false;
 
-        quality_combo = new Gtk.ComboBox.text();
+        quality_combo = new Gtk.ComboBoxText();
         int ctr = 0;
         foreach (Jpeg.Quality quality in QUALITY_ARRAY) {
             quality_combo.append_text(quality.to_string());
@@ -159,7 +158,7 @@ public class ExportDialog : Gtk.Dialog {
             ctr++;
         }
         
-        constraint_combo = new Gtk.ComboBox.text();
+        constraint_combo = new Gtk.ComboBoxText();
         ctr = 0;
         foreach (ScaleConstraint constraint in CONSTRAINT_ARRAY) {
             constraint_combo.append_text(constraint.to_string());
@@ -168,7 +167,7 @@ public class ExportDialog : Gtk.Dialog {
             ctr++;
         }
 
-        format_combo = new Gtk.ComboBox.text();
+        format_combo = new Gtk.ComboBoxText();
         format_add_option(UNMODIFIED_FORMAT_LABEL);
         format_add_option(CURRENT_FORMAT_LABEL);
         foreach (PhotoFileFormat format in PhotoFileFormat.get_writeable()) {
@@ -211,7 +210,8 @@ public class ExportDialog : Gtk.Dialog {
         add_button(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
         ok_button = add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
 
-        ok_button.set_flags(ok_button.get_flags() | Gtk.WidgetFlags.CAN_DEFAULT | Gtk.WidgetFlags.HAS_DEFAULT);
+        ok_button.set_can_default(true);
+        ok_button.has_default = true;
         set_default(ok_button);
 
         if (current_constraint == ScaleConstraint.ORIGINAL) {
@@ -1091,7 +1091,7 @@ public class ProgressDialog : Gtk.Window {
         
         // if unable to cancel the progress bar, remove the close button
         if (cancellable == null)
-            window.set_functions(Gdk.WMFunction.MOVE);
+            get_window().set_functions(Gdk.WMFunction.MOVE);
     }
     
     public void update_display_every(int update_every) {
@@ -1188,7 +1188,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     Gtk.SpinButton hour;
     Gtk.SpinButton minute;
     Gtk.SpinButton second;
-    Gtk.ComboBox system;
+    Gtk.ComboBoxText system;
     Gtk.RadioButton relativity_radio_button;
     Gtk.RadioButton batch_radio_button;
     Gtk.CheckButton modify_originals_check_button;
@@ -1207,7 +1207,6 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         set_modal(true);
         set_resizable(false);
-        has_separator = false;
         set_transient_for(AppWindow.get_instance());
 
         add_buttons(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, 
@@ -1236,7 +1235,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         second.set_width_chars(2);
         second.output.connect(on_spin_button_output);
 
-        system = new Gtk.ComboBox.text();
+        system = new Gtk.ComboBoxText();
         system.append_text(_("AM"));
         system.append_text(_("PM"));
         system.append_text(_("24 Hr"));
@@ -1304,7 +1303,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         hbox_alignment.set_padding(6, 3, 6, 6);
         hbox_alignment.add(hbox);
 
-        vbox.pack_start(hbox_alignment, true, false, 6);
+        ((Gtk.Box) get_content_area()).pack_start(hbox_alignment, true, false, 6);
 
         notification = new Gtk.Label("");
         notification.set_line_wrap(true);
@@ -1312,7 +1311,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         notification.set_size_request(-1, -1);
         notification.set_padding(12, 6);
 
-        vbox.pack_start(notification, true, true, 0);
+        ((Gtk.Box) get_content_area()).pack_start(notification, true, true, 0);
         
         original_time = source.get_exposure_time();
 
@@ -1589,7 +1588,6 @@ public class WelcomeDialog : Gtk.Dialog {
         Gtk.Widget ok_button = add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
         set_title(_("Welcome!"));
         set_resizable(false);
-        has_separator = false;
         set_type_hint(Gdk.WindowTypeHint.DIALOG);
         set_transient_for(owner);
 
@@ -1671,7 +1669,7 @@ public class WelcomeDialog : Gtk.Dialog {
         alignment.set_padding(12, 0, 12, 12);
         alignment.add(content);
 
-        vbox.pack_start(alignment, false, false, 0);
+        ((Gtk.Box) get_content_area()).pack_start(alignment, false, false, 0);
 
         ok_button.grab_focus();
     }
@@ -1737,7 +1735,7 @@ public class PreferencesDialog {
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
     private Gtk.FileChooserButton library_dir_button;
-    private Gtk.ComboBox dir_pattern_combo;
+    private Gtk.ComboBoxText dir_pattern_combo;
     private Gtk.Entry dir_pattern_entry;
     private Gtk.Label dir_pattern_example;
     private bool allow_closing = false;
@@ -1747,7 +1745,7 @@ public class PreferencesDialog {
     private Gtk.CheckButton lowercase;
     private Gtk.Button close_button;
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
-    private Gtk.ComboBox default_raw_developer_combo;
+    private Gtk.ComboBoxText default_raw_developer_combo;
 
     private PreferencesDialog() {
         builder = AppWindow.create_builder();
@@ -1792,7 +1790,7 @@ public class PreferencesDialog {
             pattern_help.activate_link.connect(on_local_pattern_help);
         }
         
-        dir_pattern_combo = new Gtk.ComboBox.text();
+        dir_pattern_combo = new Gtk.ComboBoxText();
         Gtk.Alignment dir_choser_align = builder.get_object("dir choser") as Gtk.Alignment;
         dir_choser_align.add(dir_pattern_combo);
         dir_pattern_entry = builder.get_object("dir_pattern_entry") as Gtk.Entry;
@@ -1825,8 +1823,7 @@ public class PreferencesDialog {
         Gtk.CheckButton commit_metadata_button = builder.get_object("write_metadata") as Gtk.CheckButton;
         commit_metadata_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
         
-        default_raw_developer_combo = builder.get_object("default_raw_developer") as Gtk.ComboBox;
-        gtk_combo_box_set_as_text(default_raw_developer_combo);
+        default_raw_developer_combo = builder.get_object("default_raw_developer") as Gtk.ComboBoxText;
         default_raw_developer_combo.append_text(RawDeveloper.SHOTWELL.get_label());
         default_raw_developer_combo.append_text(RawDeveloper.CAMERA.get_label());
         set_raw_developer_combo(Config.Facade.get_instance().get_default_raw_developer());

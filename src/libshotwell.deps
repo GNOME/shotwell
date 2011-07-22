@@ -1,7 +1,7 @@
 atk
 gconf-2.0
-gdk-2.0
-gdk-x11-2.0
+gdk-3.0
+gdk-x11-3.0
 gee-1.0
 gexiv2
 gio-unix-2.0
@@ -10,7 +10,7 @@ gmodule-2.0
 gnome-vfs-2.0
 gstreamer-0.10
 gstreamer-base-0.10
-gtk+-2.0
+gtk+-3.0
 gudev-1.0
 libexif
 libraw

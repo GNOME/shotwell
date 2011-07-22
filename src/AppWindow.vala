@@ -4,6 +4,11 @@
  * See the COPYING file in this distribution. 
  */
 
+// This is required due to a binding error.  This is fixed in 0.13 trunk and can be removed when
+// Shotwell is ported to that version of Vala.
+extern void gdk_device_get_position(Gdk.Device device, out unowned Gdk.Screen screen,
+    out int x, out int y);
+
 public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_INVOCATION_MSEC = 250;
     public const int TOOLBAR_DISMISSAL_SEC = 2;
@@ -199,9 +204,19 @@ public class FullscreenWindow : PageWindow {
     }
     
     private bool is_pointer_in_toolbar() {
-        int py, wy;
-        get_display().get_pointer(null, null, out py, null);
-        toolbar_window.window.get_geometry(null, out wy, null, null, null);
+        Gdk.DeviceManager? devmgr = get_display().get_device_manager();
+        if (devmgr == null) {
+            debug("No device manager for display");
+            
+            return false;
+        }
+        
+        int py;
+        gdk_device_get_position(devmgr.get_client_pointer(), null, null, out py);
+        
+        int wy;
+        toolbar_window.get_window().get_geometry(null, out wy, null, null);
+        
         return (py >= wy);
     }
     
@@ -221,7 +236,7 @@ public class FullscreenWindow : PageWindow {
     
     private void on_toolbar_realized() {
         Gtk.Requisition req;
-        toolbar_window.size_request(out req);
+        toolbar_window.get_preferred_size(null, out req);
         
         // place the toolbar in the center of the monitor along the bottom edge
         Gdk.Rectangle monitor = get_monitor_geometry();
@@ -380,7 +395,7 @@ public abstract class PageWindow : Gtk.Window {
         if (busy_counter++ > 0)
             return;
         
-        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+        get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
         spin_event_loop(10);
     }
     
@@ -392,7 +407,7 @@ public abstract class PageWindow : Gtk.Window {
             return;
         }
         
-        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
         spin_event_loop(10);
     }
     
@@ -712,7 +727,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public void show_uri(string url) throws Error {
-        sys_show_uri(window.get_screen(), url);
+        sys_show_uri(get_window().get_screen(), url);
     }
     
     protected virtual Gtk.ActionGroup[] create_common_action_groups() {
@@ -905,7 +920,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public override bool configure_event(Gdk.EventConfigure event) {
-        maximized = (window.get_state() == Gdk.WindowState.MAXIMIZED);
+        maximized = (get_window().get_state() == Gdk.WindowState.MAXIMIZED);
 
         if (!maximized)
             get_size(out dimensions.width, out dimensions.height);

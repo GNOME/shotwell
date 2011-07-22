@@ -258,8 +258,8 @@ LOCAL_PKGS = \
 # added to this list
 EXT_PKGS = \
 	atk \
-	gdk-2.0 \
-	gdk-x11-2.0 \
+	gdk-3.0 \
+	gdk-x11-3.0 \
 	gee-1.0 \
 	gexiv2 \
 	gio-unix-2.0 \
@@ -267,21 +267,22 @@ EXT_PKGS = \
 	gmodule-2.0 \
 	gstreamer-0.10 \
 	gstreamer-base-0.10 \
-	gtk+-2.0 \
+	gtk+-3.0 \
 	gudev-1.0 \
 	libexif \
 	libgphoto2 \
 	libsoup-2.4 \
 	libxml-2.0 \
 	sqlite3 \
-	unique-1.0 \
-	webkit-1.0
+	unique-3.0 \
+	webkitgtk-3.0
+
 ifdef USE_LEGACY_CONFIG_SYSTEM
 EXT_PKGS += gconf-2.0
 endif
 
 THUMBNAILER_PKGS = \
-    gtk+-2.0 \
+    gtk+-3.0 \
     gee-1.0 \
     gstreamer-0.10 \
     gstreamer-base-0.10
@@ -301,15 +302,16 @@ EXT_PKG_VERSIONS = \
 	gmodule-2.0 >= 2.24.0 \
 	gstreamer-0.10 >= 0.10.28 \
 	gstreamer-base-0.10 >= 0.10.28 \
-	gtk+-2.0 >= 2.18.0 \
+	gtk+-3.0 >= 3.0.11 \
 	gudev-1.0 >= 145 \
 	libexif >= 0.6.16 \
 	libgphoto2 >= 2.4.2 \
 	libsoup-2.4 >= 2.26.0 \
 	libxml-2.0 >= 2.6.32 \
 	sqlite3 >= 3.5.9 \
-	unique-1.0 >= 1.0.0 \
-	webkit-1.0 >= 1.1.5
+	unique-3.0 >= 3.0.0 \
+	webkitgtk-3.0 >= 1.4.0
+
 ifdef USE_LEGACY_CONFIG_SYSTEM
 EXT_PKG_VERSIONS += gconf-2.0 >= 2.22.0
 endif

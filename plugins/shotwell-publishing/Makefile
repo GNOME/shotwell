@@ -2,10 +2,10 @@
 PLUGIN := shotwell-publishing
 
 PKGS := \
-	gtk+-2.0 \
+	gtk+-3.0 \
 	libsoup-2.4 \
 	libxml-2.0 \
-	webkit-1.0 \
+	webkitgtk-3.0 \
 	gexiv2 \
 	gee-1.0
 
