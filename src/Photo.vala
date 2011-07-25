@@ -1207,7 +1207,11 @@ public abstract class Photo : PhotoSource, Dateable {
         PhotoTable.get_instance().reimport(ref reimport_state.row);
         
         lock (row) {
+            // Copy row while preserving reference to master.
+            BackingPhotoRow original_master = row.master;
             row = reimport_state.row;
+            row.master = original_master;
+            row.master.copy_from(reimport_state.row.master);
             if (!reimport_state.metadata_only)
                 internal_remove_all_transformations(false);
         }
