@@ -1037,6 +1037,18 @@ public class BackingPhotoRow {
         
         return timestamp != modification.tv_sec;
     }
+    
+    // Copies another backing photo row into this one.
+    public void copy_from(BackingPhotoRow from) {
+        id = from.id;
+        time_created = from.time_created;
+        filepath = from.filepath;
+        filesize = from.filesize;
+        timestamp = from.timestamp;
+        file_format = from.file_format;
+        dim = from.dim;
+        original_orientation = from.original_orientation;
+    }
 }
 
 public class BackingPhotoTable : DatabaseTable {
