@@ -182,9 +182,9 @@ public class Processor {
     public unowned ImageSizes get_sizes() { return sizes; }
     public unowned Thumbnail get_thumbnail() { return thumbnail; }
     [CCode (cname="libraw_dcraw_make_mem_image")]
-    public ProcessedImage make_mem_image(out Result result);
+    public ProcessedImage make_mem_image(ref Result result);
     [CCode (cname="libraw_dcraw_make_mem_thumb")]
-    public ProcessedImage make_mem_thumb(out Result result);
+    public ProcessedImage make_mem_thumb(ref Result result);
     public Result open_buffer(uint8[] buffer);
     public Result open_file(string filename);
     [CCode (cname="libraw_dcraw_process")]
