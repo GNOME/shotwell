@@ -386,6 +386,7 @@ public class ExportDialog : Gtk.Dialog {
             constraint_combo.set_sensitive(false);
             quality_combo.set_sensitive(false);
             pixels_entry.sensitive = false;
+            export_metadata.active = false;
             export_metadata.sensitive = false;
         } else if (format_combo.get_active_text() == CURRENT_FORMAT_LABEL) {
             // if the user wishes to export the media in its current format, we allow sizing but
