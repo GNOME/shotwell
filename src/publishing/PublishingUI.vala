@@ -239,11 +239,11 @@ public class PublishingDialog : Gtk.Dialog {
         int ticker = 0;
         int last_used_index = -1;
         foreach (Spit.Publishing.Service service in loaded_services) {
-            string curr_service_name = service.get_pluggable_name();
-            if (last_used_service != null && last_used_service == curr_service_name)
+            string curr_service_id = service.get_id();
+            if (last_used_service != null && last_used_service == curr_service_id)
                 last_used_index = ticker;
 
-            service_selector_box.append_text(curr_service_name);
+            service_selector_box.append_text(service.get_pluggable_name());
             ticker++;
         }
         if (last_used_index >= 0)
@@ -430,7 +430,7 @@ public class PublishingDialog : Gtk.Dialog {
         }
         assert(selected_service != null);
 
-        Config.Facade.get_instance().set_last_used_service(selected_service.get_pluggable_name());
+        Config.Facade.get_instance().set_last_used_service(selected_service.get_id());
 
         host = new Spit.Publishing.ConcretePublishingHost(selected_service, this, publishables);
         host.start_publishing();
