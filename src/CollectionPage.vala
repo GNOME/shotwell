@@ -465,7 +465,7 @@ public abstract class CollectionPage : MediaPage {
                 AppWindow.get_instance().set_busy_cursor();
                 photo.export(save_as, scaling, export_params.quality,
                     photo.get_export_format_for_parameters(export_params), export_params.mode ==
-                    ExportFormatMode.UNMODIFIED);
+                    ExportFormatMode.UNMODIFIED, export_params.export_metadata);
                 AppWindow.get_instance().set_normal_cursor();
             } catch (Error err) {
                 AppWindow.get_instance().set_normal_cursor();

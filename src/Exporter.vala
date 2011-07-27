@@ -15,12 +15,14 @@ public struct ExportFormatParameters {
     public ExportFormatMode mode;
     public PhotoFileFormat specified_format;
     public Jpeg.Quality quality;
+    public bool export_metadata;
     
     private ExportFormatParameters(ExportFormatMode mode, PhotoFileFormat specified_format,
         Jpeg.Quality quality) {
         this.mode = mode;
         this.specified_format = specified_format;
         this.quality = quality;
+        this.export_metadata = true;
     }
     
     public static ExportFormatParameters current() {
@@ -71,10 +73,11 @@ public class Exporter : Object {
         public PhotoFileFormat? format;
         public Error? err = null;
         public bool direct_copy_unmodified = false;
+        public bool export_metadata = true;
         
         public ExportJob(Exporter owner, MediaSource media, File dest, Scaling? scaling, 
             Jpeg.Quality? quality, PhotoFileFormat? format, Cancellable cancellable,
-            bool direct_copy_unmodified = false) {
+            bool direct_copy_unmodified = false, bool export_metadata = true) {
             base (owner, owner.on_exported, cancellable, owner.on_export_cancelled);
             
             assert(media is Photo || media is Video);
@@ -85,12 +88,13 @@ public class Exporter : Object {
             this.quality = quality;
             this.format = format;
             this.direct_copy_unmodified = direct_copy_unmodified;
+            this.export_metadata = export_metadata;
         }
 
         public override void execute() {
             try {
                 if (media is Photo) {
-                    ((Photo) media).export(dest, scaling, quality, format, direct_copy_unmodified);
+                    ((Photo) media).export(dest, scaling, quality, format, direct_copy_unmodified, export_metadata);
                 } else if (media is Video) {
                     ((Video) media).export(dest);
                 }
@@ -283,7 +287,7 @@ public class Exporter : Object {
             }
 
             workers.enqueue(new ExportJob(this, source, dest, scaling, export_params.quality,
-                real_export_format, cancellable, export_params.mode == ExportFormatMode.UNMODIFIED));
+                real_export_format, cancellable, export_params.mode == ExportFormatMode.UNMODIFIED, export_params.export_metadata));
             submitted++;
         }
         

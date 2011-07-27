@@ -51,7 +51,7 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
             try {
                 Scaling scaling = (content_major_axis > 0) ?
                     Scaling.for_best_fit(content_major_axis, false) : Scaling.for_original();
-                photo.export(to_file, scaling, Jpeg.Quality.HIGH, PhotoFileFormat.JFIF);
+                photo.export(to_file, scaling, Jpeg.Quality.HIGH, PhotoFileFormat.JFIF, false, !strip_metadata);
             } catch (Error err) {
                 throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
                     "unable to serialize photo '%s' for publishing.", photo.get_name());
