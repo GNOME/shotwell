@@ -2915,7 +2915,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
     }
     
-    private bool export_fullsized_backing(File file) throws Error {
+    private bool export_fullsized_backing(File file, bool export_metadata = true) throws Error {
         // See if the native reader supports writing ... if no matches, need to fall back
         // on a "regular" export, which requires decoding then encoding
         PhotoFileReader export_reader = null;
@@ -2950,8 +2950,8 @@ public abstract class Photo : PhotoSource, Dateable {
             FileCopyFlags.OVERWRITE | FileCopyFlags.TARGET_DEFAULT_PERMS, null, null);
 
         // If asking for an full-sized file and there are no alterations (transformations or EXIF)
-        // *and* this is a copy of the original backing *and* there's no user metadata or title, then done
-        if (!has_alterations() && is_master && !has_user_generated_metadata() && (get_title() == null))
+        // *and* this is a copy of the original backing *and* there's no user metadata or title *and* metadata should be exported, then done
+        if (!has_alterations() && is_master && !has_user_generated_metadata() && (get_title() == null) && export_metadata)
             return true;
         
         // copy over relevant metadata if possible, otherwise generate new metadata
@@ -2966,15 +2966,21 @@ public abstract class Photo : PhotoSource, Dateable {
         else
             metadata.set_exposure_date_time(null);
         
-        metadata.set_title(get_title());
-        metadata.set_pixel_dimensions(get_dimensions()); // created by sniffing pixbuf not metadata
-        metadata.set_orientation(get_orientation());
-        metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
+        if(export_metadata) {
+            //set metadata
+            metadata.set_title(get_title());
+            metadata.set_pixel_dimensions(get_dimensions()); // created by sniffing pixbuf not metadata
+            metadata.set_orientation(get_orientation());
+            metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
         
-        if (get_orientation() != get_original_orientation())
-            metadata.remove_exif_thumbnail();
+            if (get_orientation() != get_original_orientation())
+                metadata.remove_exif_thumbnail();
 
-        set_user_metadata_for_export(metadata);
+            set_user_metadata_for_export(metadata);
+        }
+        else
+            //delete metadata
+            metadata.clear();
 
         writer.write_metadata(metadata);
         
@@ -2993,7 +2999,7 @@ public abstract class Photo : PhotoSource, Dateable {
     //
     // This method is thread-safe.
     public void export(File dest_file, Scaling scaling, Jpeg.Quality quality,
-        PhotoFileFormat export_format, bool direct_copy_unmodified = false) throws Error {
+        PhotoFileFormat export_format, bool direct_copy_unmodified = false, bool export_metadata = true) throws Error {
         if (direct_copy_unmodified) {
             get_master_file().copy(dest_file, FileCopyFlags.OVERWRITE |
                 FileCopyFlags.TARGET_DEFAULT_PERMS, null, null);
@@ -3006,7 +3012,7 @@ public abstract class Photo : PhotoSource, Dateable {
         // the original file and update relevant EXIF.
         if (scaling.is_unscaled() && (!has_alterations() || only_metadata_changed()) &&
             (export_format == get_file_format()) && (get_file_format() == PhotoFileFormat.JFIF)) {
-            if (export_fullsized_backing(dest_file))
+            if (export_fullsized_backing(dest_file, export_metadata))
                 return;
         }
 
@@ -3030,21 +3036,28 @@ public abstract class Photo : PhotoSource, Dateable {
         if (metadata == null)
             metadata = export_format.create_metadata();
         
-        metadata.set_title(get_title());
-        metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
-        metadata.set_orientation(Orientation.TOP_LEFT);
-        metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
+        if (export_metadata) {
+            //set metadata
+            metadata.set_title(get_title());
+            metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
+            metadata.set_orientation(Orientation.TOP_LEFT);
+            metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
+        
+            if (get_exposure_time() != 0)
+                metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
+            else
+                metadata.set_exposure_date_time(null);
 
-        if (get_exposure_time() != 0)
-            metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
+            metadata.remove_tag("Exif.Iop.RelatedImageWidth");
+            metadata.remove_tag("Exif.Iop.RelatedImageHeight");
+            metadata.remove_exif_thumbnail();
+
+            if (has_user_generated_metadata())
+                set_user_metadata_for_export(metadata);
+        }
         else
-            metadata.set_exposure_date_time(null);
-        metadata.remove_tag("Exif.Iop.RelatedImageWidth");
-        metadata.remove_tag("Exif.Iop.RelatedImageHeight");
-        metadata.remove_exif_thumbnail();
-
-        if(has_user_generated_metadata())
-            set_user_metadata_for_export(metadata);
+            //delete metadata
+            metadata.clear();
         
         export_format.create_metadata_writer(dest_file.get_path()).write_metadata(metadata);
     }

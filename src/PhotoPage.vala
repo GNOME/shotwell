@@ -3052,7 +3052,7 @@ public class LibraryPhotoPage : EditingHostPage {
         try {
             get_photo().export(save_as, scaling, export_params.quality,
                 get_photo().get_export_format_for_parameters(export_params),
-                export_params.mode == ExportFormatMode.UNMODIFIED);
+                export_params.mode == ExportFormatMode.UNMODIFIED, export_params.export_metadata);
         } catch (Error err) {
             AppWindow.error_message(_("Unable to export %s: %s").printf(save_as.get_path(), err.message));
         }
