@@ -1,0 +1,25 @@
+<ui>
+
+    <menubar name="MenuBar">
+        <placeholder name="FacesMenuPlaceholder">
+            <menu name="FacesMenu" action="FacesMenu">
+                <menuitem name="RemoveFaceFromPhotos" action="RemoveFaceFromPhotos" />
+                <separator />
+                <menuitem name="RenameFace" action="RenameFace" />
+                <menuitem name="DeleteFace" action="DeleteFace" />
+            </menu>
+        </placeholder>
+    </menubar>
+    
+    <popup name="CollectionContextMenu">
+        <placeholder name="ContextFacesPlaceholder">
+            <menuitem name="ContextRemoveFaceFromPhotos" action="RemoveFaceFromPhotos" />
+        </placeholder>
+    </popup>
+    
+    <popup name="FacesContextMenu">
+        <menuitem name="ContextRenameFace" action="RenameFaceSidebar" />
+        <menuitem name="ContextDeleteFace" action="DeleteFaceSidebar" />
+    </popup>
+
+</ui>

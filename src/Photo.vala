@@ -2422,7 +2422,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
 
     // Returns the crop in the raw photo's coordinate system
-    private bool get_raw_crop(out Box crop) {
+    public bool get_raw_crop(out Box crop) {
         KeyValueMap map = get_transformation("crop");
         if (map == null)
             return false;

@@ -45,6 +45,7 @@ public class LibraryWindow : AppWindow {
         SAVED_SEARCH,
         EVENTS,
         TAGS,
+        FACES,
         TRASH,
         OFFLINE
     }
@@ -143,6 +144,7 @@ public class LibraryWindow : AppWindow {
     private Sidebar.Tree sidebar_tree;
     private Library.Branch library_branch = new Library.Branch();
     private Tags.Branch tags_branch = new Tags.Branch();
+    private Faces.Branch faces_branch = new Faces.Branch();
     private Library.TrashBranch trash_branch = new Library.TrashBranch();
     private Events.Branch events_branch = new Events.Branch();
     private Library.OfflineBranch offline_branch = new Library.OfflineBranch();
@@ -195,6 +197,7 @@ public class LibraryWindow : AppWindow {
         
         sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
         sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
+        sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
         sidebar_tree.graft(trash_branch, SidebarRootPosition.TRASH);
         sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
         sidebar_tree.graft(offline_branch, SidebarRootPosition.OFFLINE);
@@ -518,6 +521,14 @@ public class LibraryWindow : AppWindow {
             sidebar_tree.rename_entry_in_place(entry);
         else
             debug("No search entry found for rename");
+    }
+    
+    public void rename_face_in_sidebar(Face face) {
+        Faces.SidebarEntry? entry = faces_branch.get_entry_for_face(face);
+        if (entry != null)
+            sidebar_tree.rename_entry_in_place(entry);
+        else
+            assert_not_reached();
     }
     
     protected override void on_quit() {

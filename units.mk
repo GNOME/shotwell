@@ -23,6 +23,7 @@ UNITS = \
 	sidebar \
 	events \
 	tags \
+	faces \
 	camera \
 	searches \
 	config
