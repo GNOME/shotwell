@@ -7,6 +7,8 @@
         <menuitem name="ContextModifyTags" action="ModifyTags" />
         <placeholder name="ContextTagsPlaceholder" />
         <separator />
+        <placeholder name="ContextFacesPlaceholder" />
+        <separator />
         <menuitem name="ContextFlag" action="Flag" />
         <menu name="Rate" action="Rate">
             <menuitem name="RateFive" action="RateFive" />

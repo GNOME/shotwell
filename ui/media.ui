@@ -107,6 +107,8 @@
             <menuitem name="AddTags" action="AddTags" />
             <menuitem name="ModifyTags" action="ModifyTags" />
         </menu>
+        
+        <placeholder name="FacesMenuPlaceholder" />
 
         <menu name="HelpMenu" action="HelpMenu">
             <menuitem name="Contents" action="CommonHelpContents" />

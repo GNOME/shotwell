@@ -471,6 +471,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.clicked.connect(on_enhance);
         enhance_button.is_important = true;
         toolbar.insert(enhance_button, -1);
+        
+        // faces tool
+        insert_faces_button(toolbar);
 
         // separator to force next/prev buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -1609,6 +1612,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return base.on_motion(event, x, y, mask);
     }
     
+    protected override bool on_leave_notify_event() {
+        if (current_tool != null)
+            return current_tool.on_leave_notify_event();
+        
+        return base.on_leave_notify_event();
+    }
+    
     private void track_tool_window() {
         // if editing tool window is present and the user hasn't touched it, it moves with the window
         if (current_tool != null) {
@@ -1932,7 +1942,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return base.on_ctrl_released(event);
     }
     
-    private void on_tool_button_toggled(Gtk.ToggleToolButton toggle, EditingTool.Factory factory) {
+    protected void on_tool_button_toggled(Gtk.ToggleToolButton toggle, EditingTool.Factory factory) {
         // if the button is an activate, deactivate any current tool running; if the button is
         // a deactivate, deactivate the current tool and exit
         bool deactivating_only = (!toggle.active && current_editing_toggle == toggle);
@@ -2177,6 +2187,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected void unset_view_collection() {
         parent_view = null;
     }
+    
+    // This method is intentionally empty --its purpose is to allow overriding
+    // it in LibraryPhotoPage, since FacesTool must only be present in
+    // LibraryMode, but it need to be called from constructor of EditingHostPage
+    // to place it correctly in the toolbar.
+    protected virtual void insert_faces_button(Gtk.Toolbar toolbar) {
+        ;
+    }
 }
 
 //
@@ -2192,6 +2210,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private Gtk.Menu context_menu;
+    private Gtk.ToggleToolButton faces_button = null;
     private CollectionPage? return_page = null;
     private bool return_to_collection_on_release = false;
     private LibraryPhotoPageViewFilter filter = new LibraryPhotoPageViewFilter();
@@ -2494,6 +2513,12 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry raw_developer = { "RawDeveloper", null, TRANSLATABLE, null, null, null };
         raw_developer.label = _("Developer");
         actions += raw_developer;
+        
+        Gtk.ActionEntry faces = { "Faces", Resources.CROP, TRANSLATABLE, "<Ctrl>F",
+            TRANSLATABLE, toggle_faces };
+        faces.label = Resources.FACES_MENU;
+        faces.tooltip = Resources.FACES_TOOLTIP;
+        actions += faces;
         
         return actions;
     }
@@ -3166,6 +3191,23 @@ public class LibraryPhotoPage : EditingHostPage {
             return;
         
         get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
+    }
+    
+    private void on_faces_toggled() {
+        on_tool_button_toggled(faces_button, FacesTool.factory);
+    }
+    
+    protected void toggle_faces() {
+        faces_button.set_active(!faces_button.get_active());
+    }
+    
+    protected override void insert_faces_button(Gtk.Toolbar toolbar) {
+        faces_button = new Gtk.ToggleToolButton.from_stock(Resources.FACES_TOOL);
+        faces_button.set_label(Resources.FACES_LABEL);
+        faces_button.set_tooltip_text(Resources.FACES_TOOLTIP);
+        faces_button.toggled.connect(on_faces_toggled);
+        faces_button.is_important = true;
+        toolbar.insert(faces_button, -1);
     }
 }
 

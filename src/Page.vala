@@ -183,10 +183,11 @@ public abstract class Page : Gtk.ScrolledWindow {
         // interested in mouse button and motion events on the event source
         event_source.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
             | Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.POINTER_MOTION_HINT_MASK
-            | Gdk.EventMask.BUTTON_MOTION_MASK);
+            | Gdk.EventMask.BUTTON_MOTION_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         event_source.button_press_event.connect(on_button_pressed_internal);
         event_source.button_release_event.connect(on_button_released_internal);
         event_source.motion_notify_event.connect(on_motion_internal);
+        event_source.leave_notify_event.connect(on_leave_notify_event);
         event_source.scroll_event.connect(on_mousewheel_internal);
         event_source.realize.connect(on_event_source_realize);
     }
@@ -198,6 +199,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         event_source.button_press_event.disconnect(on_button_pressed_internal);
         event_source.button_release_event.disconnect(on_button_released_internal);
         event_source.motion_notify_event.disconnect(on_motion_internal);
+        event_source.leave_notify_event.disconnect(on_leave_notify_event);
         event_source.scroll_event.disconnect(on_mousewheel_internal);
         
         disable_drag_source();
@@ -969,6 +971,10 @@ public abstract class Page : Gtk.ScrolledWindow {
     protected virtual bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
         check_cursor_hiding();
 
+        return false;
+    }
+    
+    protected virtual bool on_leave_notify_event() {
         return false;
     }
     

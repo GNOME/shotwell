@@ -68,6 +68,7 @@
                 <menuitem name="Crop" action="Crop" />
                 <menuitem name="RedEye" action="RedEye" />
                 <menuitem name="Adjust" action="Adjust" />
+                <menuitem name="Faces" action="Faces" />
             </menu>
             <menuitem name="Revert" action="Revert" />
             <separator />

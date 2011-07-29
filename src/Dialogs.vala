@@ -27,6 +27,17 @@ public bool confirm_delete_saved_search(SavedSearch search) {
         Resources.DELETE_SAVED_SEARCH_DIALOG_TITLE);
 }
 
+public bool confirm_delete_face(Face face) {
+    int count = face.get_sources_count();
+    string msg = ngettext(
+        "This will remove the face \"%s\" from one photo.  Continue?",
+        "This will remove the face \"%s\" from %d photos.  Continue?",
+        count).printf(face.get_name(), count);
+    
+    return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
+        Resources.DELETE_FACE_TITLE);
+}
+
 }
 
 namespace ExportUI {
