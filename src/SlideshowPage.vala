@@ -199,7 +199,7 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_BACK);
         previous_button.set_label(_("Back"));
         previous_button.set_tooltip_text(_("Go to the previous photo"));
-        previous_button.clicked.connect(on_previous);
+        previous_button.clicked.connect(on_previous_photo);
         
         toolbar.insert(previous_button, -1);
         
@@ -213,7 +213,7 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_FORWARD);
         next_button.set_label(_("Next"));
         next_button.set_tooltip_text(_("Go to the next photo"));
-        next_button.clicked.connect(on_next);
+        next_button.clicked.connect(on_next_photo);
         
         toolbar.insert(next_button, -1);
 
@@ -319,7 +319,7 @@ class SlideshowPage : SinglePhotoPage {
         timer.start();
     }
     
-    private void on_previous() {
+    protected override void on_previous_photo() {
         DataView view = controller.get_view_for_source(current);
 
         Photo? prev_photo = null;
@@ -343,7 +343,7 @@ class SlideshowPage : SinglePhotoPage {
         advance(prev_photo, Direction.BACKWARD);
     }
     
-    private void on_next() {
+    protected override void on_next_photo() {
         DataView view = controller.get_view_for_source(current);
 
         Photo? next_photo = null;
@@ -389,7 +389,7 @@ class SlideshowPage : SinglePhotoPage {
         if (timer.elapsed() < Config.Facade.get_instance().get_slideshow_delay())
             return true;
         
-        on_next();
+        on_next_photo();
         
         return true;
     }
@@ -399,16 +399,6 @@ class SlideshowPage : SinglePhotoPage {
         switch (Gdk.keyval_name(event.keyval)) {
             case "space":
                 on_play_pause();
-            break;
-            
-            case "Left":
-            case "KP_Left":
-                on_previous();
-            break;
-            
-            case "Right":
-            case "KP_Right":
-                on_next();
             break;
             
             default:

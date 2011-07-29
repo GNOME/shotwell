@@ -1827,6 +1827,7 @@ public abstract class CheckerboardPage : Page {
 public abstract class SinglePhotoPage : Page {
     public const Gdk.InterpType FAST_INTERP = Gdk.InterpType.NEAREST;
     public const Gdk.InterpType QUALITY_INTERP = Gdk.InterpType.BILINEAR;
+    public const int KEY_REPEAT_INTERVAL_MSEC = 200;
     
     public enum UpdateReason {
         NEW_PIXBUF,
@@ -1853,6 +1854,7 @@ public abstract class SinglePhotoPage : Page {
     private bool zoom_high_quality = true;
     private ZoomState saved_zoom_state;
     private bool has_saved_zoom_state = false;
+    private uint32 last_nav_key = 0;
     
     public SinglePhotoPage(string page_name, bool scale_up_to_viewport) {
         base(page_name);
@@ -2299,6 +2301,49 @@ public abstract class SinglePhotoPage : Page {
 
     protected override bool on_context_keypress() {
         return popup_context_menu(get_page_context_menu());
+    }
+    
+    protected virtual void on_previous_photo() {
+    }
+    
+    protected virtual void on_next_photo() {
+    }
+    
+    public override bool key_press_event(Gdk.EventKey event) {
+        // if the user holds the arrow keys down, we will receive a steady stream of key press
+        // events for an operation that isn't designed for a rapid succession of output ... 
+        // we staunch the supply of new photos to under a quarter second (#533)
+        bool nav_ok = (event.time - last_nav_key) > KEY_REPEAT_INTERVAL_MSEC;
+        
+        bool handled = true;
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "Left":
+            case "KP_Left":
+            case "BackSpace":
+                if (nav_ok) {
+                    on_previous_photo();
+                    last_nav_key = event.time;
+                }
+            break;
+            
+            case "Right":
+            case "KP_Right":
+            case "space":
+                if (nav_ok) {
+                    on_next_photo();
+                    last_nav_key = event.time;
+                }
+            break;
+            
+            default:
+                handled = false;
+            break;
+        }
+        
+        if (handled)
+            return true;
+        
+        return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
 }
 

@@ -27,13 +27,11 @@ public class PixbufCache : Object {
         
         public FetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, Photo photo, 
             Scaling scaling, CompletionCallback callback) {
-            base(owner, callback, new Cancellable());
+            base(owner, callback, new Cancellable(), null, new Semaphore());
             
             this.priority = priority;
             this.photo = photo;
             this.scaling = scaling;
-            
-            set_completion_semaphore(new Semaphore());
         }
         
         public override BackgroundJob.JobPriority get_priority() {

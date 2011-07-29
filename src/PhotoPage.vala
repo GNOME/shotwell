@@ -370,7 +370,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public const int TOOL_WINDOW_SEPARATOR = 8;
     public const int PIXBUF_CACHE_COUNT = 5;
     public const int ORIGINAL_PIXBUF_CACHE_COUNT = 5;
-    public const int KEY_REPEAT_INTERVAL_MSEC = 200;
     
     private class EditingHostCanvas : PhotoCanvas {
         private EditingHostPage host_page;
@@ -403,7 +402,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private EditingTool current_tool = null;
     private Gtk.ToggleToolButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
-    private uint32 last_nav_key = 0;
     private bool photo_missing = false;
     private PixbufCache cache = null;
     private PixbufCache master_cache = null;
@@ -1685,32 +1683,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (on_zoom_slider_key_press(event))
             return true;
         
-        // if the user holds the arrow keys down, we will receive a steady stream of key press
-        // events for an operation that isn't designed for a rapid succession of output ... 
-        // we staunch the supply of new photos to under a quarter second (#533)
-        bool nav_ok = (event.time - last_nav_key) > KEY_REPEAT_INTERVAL_MSEC;
-        
         bool handled = true;
         
         switch (Gdk.keyval_name(event.keyval)) {
-            case "Left":
-            case "KP_Left":
-            case "BackSpace":
-                if (nav_ok) {
-                    on_previous_photo();
-                    last_nav_key = event.time;
-                }
-            break;
-            
-            case "Right":
-            case "KP_Right":
-            case "space":
-                if (nav_ok) {
-                    on_next_photo();
-                    last_nav_key = event.time;
-                }
-            break;
-
             // this block is only here to prevent base from moving focus to toolbar
             case "Down":
             case "KP_Down":
@@ -2129,7 +2104,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             tool_window.present();
     }
     
-    public void on_next_photo() {
+    protected override void on_next_photo() {
         deactivate_tool();
         
         if (!has_photo())
@@ -2162,7 +2137,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
-    public void on_previous_photo() {
+    protected override void on_previous_photo() {
         deactivate_tool();
         
         if (!has_photo())
