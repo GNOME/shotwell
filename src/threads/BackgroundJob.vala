@@ -111,11 +111,13 @@ public abstract class BackgroundJob {
     private int notification_priority = Priority.DEFAULT_IDLE;
     
     public BackgroundJob(Object? owner = null, CompletionCallback? callback = null,
-        Cancellable? cancellable = null, CancellationCallback? cancellation = null) {
+        Cancellable? cancellable = null, CancellationCallback? cancellation = null,
+        AbstractSemaphore? completion_semaphore = null) {
         this.owner = owner;
         this.callback = callback;
         this.cancellable = cancellable;
         this.cancellation = cancellation;
+        this.semaphore = completion_semaphore;
     }
     
     public abstract void execute();
@@ -144,22 +146,12 @@ public abstract class BackgroundJob {
         notification_priority = priority;
     }
     
-    // This method is thread-safe, however, because of race conditions between setting a semaphore
-    // and another thread waiting on it, it's best to set this before enqueuing the job.
-    public void set_completion_semaphore(AbstractSemaphore semaphore) {
-        lock (this.semaphore) {
-            this.semaphore = semaphore;
-        }
-    }
-    
     // This method is thread-safe, but only waits if a completion semaphore has been set, otherwise
     // exits immediately.  Note that blocking for a semaphore does NOT spin the event loop, so a
     // thread relying on it to continue should not use this.
     public void wait_for_completion() {
-        lock (semaphore) {
-            if (semaphore != null)
-                semaphore.wait();
-        }
+        if (semaphore != null)
+            semaphore.wait();
     }
     
     public Cancellable? get_cancellable() {
@@ -177,11 +169,8 @@ public abstract class BackgroundJob {
     
     // This should only be called by Workers.  Beware to all who fail to heed.
     public void internal_notify_completion() {
-        // notify anyone waiting
-        lock (semaphore) {
-            if (semaphore != null)
-                semaphore.notify();
-        }
+        if (semaphore != null)
+            semaphore.notify();
         
         if (callback == null && cancellation == null)
             return;
