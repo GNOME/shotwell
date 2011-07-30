@@ -650,7 +650,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         EntryWrapper? wrapper = get_wrapper(entry);
         assert(wrapper != null);
         
-        store.set(wrapper.get_iter(), Columns.TOOLTIP, tooltip);
+        store.set(wrapper.get_iter(), Columns.TOOLTIP, guarded_markup_escape_text(tooltip));
     }
     
     private void on_sidebar_icon_changed(Sidebar.Entry entry, Icon? icon) {
@@ -681,7 +681,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         EntryWrapper? wrapper = get_wrapper(entry);
         assert(wrapper != null);
         
-        store.set(wrapper.get_iter(), Columns.NAME, name);
+        store.set(wrapper.get_iter(), Columns.NAME, guarded_markup_escape_text(name));
     }
     
     private Gdk.Pixbuf? fetch_icon_pixbuf(GLib.Icon? gicon) {
