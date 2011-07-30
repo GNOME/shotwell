@@ -724,9 +724,8 @@ public abstract class TextEntryDialogMediator {
 // for a HIG-compliant alert dialog. Please see 
 // http://library.gnome.org/devel/hig-book/2.32/windows-alert.html.en for details.
 public string build_alert_body_text(string? primary_text, string? secondary_text) {
-    primary_text = (primary_text == null) ? "" : primary_text;
-    secondary_text = (secondary_text == null) ? "" : secondary_text;
-    return "<span weight=\"Bold\" size=\"larger\">%s</span>\n%s".printf(primary_text, secondary_text);
+    return "<span weight=\"Bold\" size=\"larger\">%s</span>\n%s".printf(
+        guarded_markup_escape_text(primary_text), guarded_markup_escape_text(secondary_text));
 }
 
 // Entry completion for values separated by separators (e.g. comma in the case of tags)
