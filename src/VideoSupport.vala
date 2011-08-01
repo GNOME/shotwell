@@ -304,11 +304,11 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     public const uint64 FLAG_OFFLINE =  0x0000000000000002;
     public const uint64 FLAG_FLAGGED =  0x0000000000000004;
     
-    private static bool interpreter_state_changed = false;
-    private static int current_state = -1;
-    private static bool normal_regen_complete = false;
-    private static bool offline_regen_complete = false;
-    public static VideoSourceCollection global = null;
+    private static bool interpreter_state_changed;
+    private static int current_state;
+    private static bool normal_regen_complete;
+    private static bool offline_regen_complete;
+    public static VideoSourceCollection global;
 
     private VideoRow backing_row;
     
@@ -323,11 +323,29 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     }
 
     public static void init(ProgressMonitor? monitor = null) {
+        // Must initialize static variables here.
+        // TODO: set values at declaration time once the following Vala bug is fixed:
+        //       https://bugzilla.gnome.org/show_bug.cgi?id=655594
+        interpreter_state_changed = false;
+        current_state = -1;
+        normal_regen_complete = false;
+        offline_regen_complete = false;
+    
         // initialize GStreamer, but don't pass it our actual command line arguments -- we don't
         // want our end users to be able to parameterize the GStreamer configuration
         string[] fake_args = new string[0];
         unowned string[] fake_unowned_args = fake_args;
         Gst.init(ref fake_unowned_args);
+        
+        int saved_state = Config.Facade.get_instance().get_video_interpreter_state_cookie();
+        current_state = (int) Gst.Registry.get_default().get_feature_list_cookie();
+        if (saved_state == Config.Facade.NO_VIDEO_INTERPRETER_STATE) {
+            message("interpreter state cookie not found; assuming all video thumbnails are out of date");
+            interpreter_state_changed = true;
+        } else if (saved_state != current_state) {
+            message("interpreter state has changed; video thumbnails may be out of date");
+            interpreter_state_changed = true;
+        }
         
         global = new VideoSourceCollection();
         
@@ -338,6 +356,9 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         int count = all.size;
         for (int ctr = 0; ctr < count; ctr++) {
             Video video = new Video(all.get(ctr));
+            
+            if (interpreter_state_changed)
+                video.set_is_interpretable(false);
             
             if (video.is_trashed())
                 trashed_videos.add(video);
@@ -353,16 +374,6 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         global.add_many_to_trash(trashed_videos);
         global.add_many_to_offline(offline_videos);
         global.add_many(all_videos);
-
-        int saved_state = Config.Facade.get_instance().get_video_interpreter_state_cookie();
-        current_state = (int) Gst.Registry.get_default().get_feature_list_cookie();
-        if (saved_state == Config.Facade.NO_VIDEO_INTERPRETER_STATE) {
-            message("interpreter state cookie not found; assuming all video thumbnails are out of date");
-            interpreter_state_changed = true;
-        } else if (saved_state != current_state) {
-            message("interpreter state has changed; video thumbnails may be out of date");
-            interpreter_state_changed = true;
-        }
     }
     
     public static bool has_interpreter_state_changed() {
@@ -635,9 +646,8 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     
     public override void mark_online() {
         remove_flags(FLAG_OFFLINE);
-        if ((!get_is_interpretable()) && has_interpreter_state_changed()) {
+        if ((!get_is_interpretable()) && has_interpreter_state_changed())
             check_is_interpretable();
-        }
     }
 
     public override void trash() {
@@ -773,6 +783,21 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     public bool get_is_interpretable() {
         lock (backing_row) {
             return backing_row.is_interpretable;
+        }
+    }
+    
+    private void set_is_interpretable(bool is_interpretable) {
+        lock (backing_row) {
+            if (backing_row.is_interpretable == is_interpretable)
+                return;
+            
+            backing_row.is_interpretable = is_interpretable;
+        }
+        
+        try {
+            VideoTable.get_instance().update_is_interpretable(get_video_id(), is_interpretable);
+        } catch (DatabaseError e) {
+            AppWindow.database_error(e);
         }
     }
 

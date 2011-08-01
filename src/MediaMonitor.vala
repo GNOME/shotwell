@@ -376,7 +376,6 @@ public abstract class MediaMonitor : Object {
                     to_remove = new Gee.ArrayList<Monitorable>();
                 
                 to_remove.add(updates.monitorable);
-                
                 continue;
             }
             
@@ -395,11 +394,10 @@ public abstract class MediaMonitor : Object {
                 process_updates(to_process, controller, ref op_count);
                 controller.commit();
             } catch (Error err) {
-                // TODO: The panic's string needs to be marked for translation (past string freeze)
                 if (err is DatabaseError)
                     AppWindow.database_error((DatabaseError) err);
                 else
-                    AppWindow.panic("Unable to process monitoring updates: %s".printf(err.message));
+                    AppWindow.panic(_("Unable to process monitoring updates: %s").printf(err.message));
             }
         }
         
