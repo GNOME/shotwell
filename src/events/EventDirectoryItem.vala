@@ -135,6 +135,12 @@ class EventDirectoryItem : CheckerboardItem {
         
         base.thumbnail_altered();
     }
+
+    protected override void paint_shadow(Cairo.Context ctx, Dimensions dimensions, Gdk.Point origin, 
+        int radius, float initial_alpha) {       
+        Dimensions altered = Dimensions(dimensions.width - 25, dimensions.height - 25);
+        base.paint_shadow(ctx, altered, origin, 36, initial_alpha);
+    }
     
     protected override void paint_border(Cairo.Context ctx, Dimensions object_dimensions,
         Gdk.Point object_origin, int border_width) {
