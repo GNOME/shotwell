@@ -102,9 +102,12 @@ public abstract class CheckerboardItem : ThumbnailView {
     // SHOW_SUBTITLES (bool)
     public const string PROP_SHOW_SUBTITLES = "show-subtitles";
     
-    public const int FRAME_WIDTH = 3;
+    public const int FRAME_WIDTH = 8;
     public const int LABEL_PADDING = 4;
     public const int BORDER_WIDTH = 1;
+
+    public const int SHADOW_RADIUS = 4;
+    public const float SHADOW_INITIAL_ALPHA = 0.5f;
     
     public const int TRINKET_SCALE = 12;
     public const int TRINKET_PADDING = 1;
@@ -363,7 +366,53 @@ public abstract class CheckerboardItem : ThumbnailView {
         origin.y = object_origin.y - border_width;
         return origin;
     }
-    
+
+    protected virtual void paint_shadow(Cairo.Context ctx, Dimensions dimensions, Gdk.Point origin, 
+        int radius, float initial_alpha) { 
+        double rgb_all = 0.0;
+        
+        // top right corner
+        paint_shadow_in_corner(ctx, origin.x + dimensions.width, origin.y + radius, rgb_all, radius, 
+            initial_alpha, -0.5 * Math.PI, 0);
+        // bottom right corner
+        paint_shadow_in_corner(ctx, origin.x + dimensions.width, origin.y + dimensions.height, rgb_all, 
+            radius, initial_alpha, 0, 0.5 * Math.PI);
+        // bottom left corner
+        paint_shadow_in_corner(ctx, origin.x + radius, origin.y + dimensions.height, rgb_all, radius, 
+            initial_alpha, 0.5 * Math.PI, Math.PI);
+
+        // left right 
+        Cairo.Pattern lr = new Cairo.Pattern.linear(0, origin.y + dimensions.height, 
+            0, origin.y + dimensions.height + radius);
+        lr.add_color_stop_rgba(0.0, rgb_all, rgb_all, rgb_all, initial_alpha);
+        lr.add_color_stop_rgba(1.0, rgb_all, rgb_all, rgb_all, 0.0);
+        ctx.set_source(lr);
+        ctx.rectangle(origin.x + radius, origin.y + dimensions.height, dimensions.width - radius, radius);
+        ctx.fill();
+
+        // top down
+        Cairo.Pattern td = new Cairo.Pattern.linear(origin.x + dimensions.width, 
+            0, origin.x + dimensions.width + radius, 0);
+        td.add_color_stop_rgba(0.0, rgb_all, rgb_all, rgb_all, initial_alpha);
+        td.add_color_stop_rgba(1.0, rgb_all, rgb_all, rgb_all, 0.0);
+        ctx.set_source(td);
+        ctx.rectangle(origin.x + dimensions.width, origin.y + radius, 
+            radius, dimensions.height - radius);
+        ctx.fill();
+    }
+
+    protected void paint_shadow_in_corner(Cairo.Context ctx, int x, int y, 
+	double rgb_all, float radius, float initial_alpha, double arc1, double arc2) {
+        Cairo.Pattern p = new Cairo.Pattern.radial(x, y, 0, x, y, radius);
+        p.add_color_stop_rgba(0.0, rgb_all, rgb_all, rgb_all, initial_alpha);
+        p.add_color_stop_rgba(1.0, rgb_all, rgb_all, rgb_all, 0);
+        ctx.set_source(p);
+        ctx.move_to(x, y);
+        ctx.arc(x, y, radius, arc1, arc2);
+        ctx.close_path();
+        ctx.fill(); 
+    }
+
     protected virtual void paint_border(Cairo.Context ctx, Dimensions object_dimensions,
         Gdk.Point object_origin, int border_width) {
         if (border_width == 1) {
@@ -420,6 +469,16 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         ctx.set_line_width(FRAME_WIDTH);
         Gdk.cairo_set_source_color(ctx, selected_color);
+
+        // draw shadow
+        if (border_color != null) {
+            ctx.save();
+            Dimensions shadow_dim = Dimensions();
+            shadow_dim.width = pixbuf_dim.width + BORDER_WIDTH;
+            shadow_dim.height = pixbuf_dim.height + BORDER_WIDTH;
+            paint_shadow(ctx, shadow_dim, pixbuf_origin, SHADOW_RADIUS, SHADOW_INITIAL_ALPHA);
+            ctx.restore();
+        }
         
         // draw selection border
         if (is_selected()) {
