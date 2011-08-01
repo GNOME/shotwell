@@ -114,8 +114,6 @@ void library_exec(string[] mounts) {
         
         return;
     }
-
-    Video.init();
     
     Upgrades.init();
     

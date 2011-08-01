@@ -28,6 +28,10 @@ private class VideoUpdates : MonitorableUpdates {
     public bool is_check_interpretable() {
         return check_interpretable;
     }
+    
+    public override bool is_all_updated() {
+        return (check_interpretable == false) && base.is_all_updated();
+    }
 }
 
 private class VideoMonitor : MediaMonitor {
@@ -35,6 +39,13 @@ private class VideoMonitor : MediaMonitor {
     
     public VideoMonitor(Cancellable cancellable) {
         base (Video.global, cancellable);
+                
+        foreach (DataObject obj in Video.global.get_all()) {
+            Video video = obj as Video;
+            assert (video != null);
+            if (!video.get_is_interpretable())
+                set_check_interpretable(video, true);
+        }
     }
     
     protected override MonitorableUpdates create_updates(Monitorable monitorable) {
