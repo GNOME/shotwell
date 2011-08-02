@@ -59,9 +59,9 @@ libs() {
 
 # TODO: Cannot check version of library if no .pc file installed.
 exists() {
-    if pkg-config --silence-errors --exists 'libraw_r >= $3'; then
+    if pkg-config --silence-errors --exists "libraw_r >= $1"; then
         :
-    elif pkg-config --silence-errors --exists 'libraw >= $3'; then
+    elif pkg-config --silence-errors --exists "libraw >= $1"; then
         :
     elif ! searchpath $LIB_DIRS "libraw_r.a" || ! searchpath $HEADER_DIRS "libraw/libraw.h"; then
         printf "\nPackage libraw not found\n"
