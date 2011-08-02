@@ -79,6 +79,7 @@ public class SavedSearchDialog {
                 case SearchCondition.SearchType.ANY_TEXT:
                 case SearchCondition.SearchType.EVENT_NAME:
                 case SearchCondition.SearchType.FILE_NAME:
+                case SearchCondition.SearchType.FACE:
                 case SearchCondition.SearchType.TAG:
                 case SearchCondition.SearchType.TITLE:
                     my_row = new SearchRowText(this);
