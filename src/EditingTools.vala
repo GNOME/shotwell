@@ -1782,11 +1782,10 @@ public class FacesTool : EditingTool {
         public bool on_leave_notify_event() {
             int x;
             int y;
-            int width;
-            int height;
-            
             get_pointer(out x, out y);
-            get_window().get_size(out width, out height);
+            
+            int width = get_window().get_width();
+            int height = get_window().get_height();
             
             // This check is necessary because GTK+ will throw enter/leave_notify
             // events when the pointer passes though windows, even if one window
@@ -2190,16 +2189,14 @@ public class FacesTool : EditingTool {
     
     public override void paint(Cairo.Context default_ctx) {
         // fill region behind the image surface with neutral color
-        int w;
-        int h;
-
-        canvas.get_drawing_window().get_size(out w, out h);
-
+        int w = canvas.get_drawing_window().get_width();
+        int h = canvas.get_drawing_window().get_height();
+        
         default_ctx.set_source_rgba(0.0, 0.0, 0.0, 1.0);
         default_ctx.rectangle(0, 0, w, h);
         default_ctx.fill();
         default_ctx.paint();
-
+        
         Cairo.Context ctx = new Cairo.Context(image_surface);
         ctx.set_operator(Cairo.Operator.SOURCE);
         ctx.set_source_rgba(0.0, 0.0, 0.0, 0.0);
