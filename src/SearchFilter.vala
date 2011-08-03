@@ -218,6 +218,8 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
             Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
             int tags_size = (tags != null) ? tags.size : 0;
             
+            Gee.List<Face>? faces = Face.global.fetch_for_source(source);
+            
             foreach (unowned string word in get_search_filter_words()) {
                 if (media_keywords != null && media_keywords.contains(word))
                     continue;
@@ -230,6 +232,21 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
                     for (int ctr = 0; ctr < tags_size; ctr++) {
                         unowned string? tag_keywords = tags[ctr].get_indexable_keywords();
                         if (tag_keywords != null && tag_keywords.contains(word)) {
+                            found = true;
+                            
+                            break;
+                        }
+                    }
+                    
+                    if (found)
+                        continue;
+                }
+                
+                if (faces != null) {
+                    bool found = false;
+                    foreach (Face f in faces) {
+                        unowned string? face_keywords = f.get_indexable_keywords();
+                        if (face_keywords != null && face_keywords.contains(word)) {
                             found = true;
                             
                             break;
