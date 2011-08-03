@@ -1269,27 +1269,33 @@ public class AddTagsCommand : PageCommand {
     private Gee.HashMap<SourceProxy, Gee.ArrayList<MediaSource>> map =
         new Gee.HashMap<SourceProxy, Gee.ArrayList<MediaSource>>();
     
-    public AddTagsCommand(string[] names, Gee.Collection<MediaSource> sources) {
-        base (Resources.add_tags_label(names), "");
+    public AddTagsCommand(string[] paths, Gee.Collection<MediaSource> sources) {
+        base (Resources.add_tags_label(paths), "");
         
         // load/create the tags here rather than in execute() so that we can merely use the proxy
         // to access it ... this is important with the redo() case, where the tags may have been
         // created by another proxy elsewhere
-        foreach (string name in names) {
-            Tag tag = Tag.for_name(name);
-            SourceProxy tag_proxy = tag.get_proxy();
+        foreach (string path in paths) {
+            Gee.List<string> paths_to_create =
+                HierarchicalTagUtilities.enumerate_parent_paths(path);
+            paths_to_create.add(path);
             
-            // for each Tag, only attach sources which are not already attached, otherwise undo()
-            // will not be symmetric
-            Gee.ArrayList<MediaSource> add_sources = new Gee.ArrayList<MediaSource>();
-            foreach (MediaSource source in sources) {
-                if (!tag.contains(source))
-                    add_sources.add(source);
-            }
-            
-            if (add_sources.size > 0) {
-                tag_proxy.broken.connect(on_proxy_broken);
-                map.set(tag_proxy, add_sources);
+            foreach (string create_path in paths_to_create) {
+                Tag tag = Tag.for_path(create_path);
+                SourceProxy tag_proxy = tag.get_proxy();
+                
+                // for each Tag, only attach sources which are not already attached, otherwise undo()
+                // will not be symmetric
+                Gee.ArrayList<MediaSource> add_sources = new Gee.ArrayList<MediaSource>();
+                foreach (MediaSource source in sources) {
+                    if (!tag.contains(source))
+                        add_sources.add(source);
+                }
+                
+                if (add_sources.size > 0) {
+                    tag_proxy.broken.connect(on_proxy_broken);
+                    map.set(tag_proxy, add_sources);
+                }
             }
         }
         
@@ -1334,10 +1340,12 @@ public class RenameTagCommand : SimpleProxyableCommand {
     private string old_name;
     private string new_name;
     
+    // NOTE: new_name should be a name, not a path
     public RenameTagCommand(Tag tag, string new_name) {
-        base (tag, Resources.rename_tag_label(tag.get_name(), new_name), tag.get_name());
+        base (tag, Resources.rename_tag_label(tag.get_user_visible_name(), new_name),
+            tag.get_name());
         
-        old_name = tag.get_name();
+        old_name = tag.get_user_visible_name();
         this.new_name = new_name;
     }
     
@@ -1353,11 +1361,32 @@ public class RenameTagCommand : SimpleProxyableCommand {
 }
 
 public class DeleteTagCommand : SimpleProxyableCommand {
+    Gee.List<SourceProxy>? recursive_victim_proxies = null;
+
     public DeleteTagCommand(Tag tag) {
-        base (tag, Resources.delete_tag_label(tag.get_name()), tag.get_name());
+        base (tag, Resources.delete_tag_label(tag.get_user_visible_name()), tag.get_name());
     }
     
     protected override void execute_on_source(DataSource source) {
+        Tag tag = (Tag) source;
+        
+        Gee.List<Tag>? recursive_victims = tag.get_hierarchical_children();
+        
+        // if this tag has no children just destroy it and do a short-circuit return
+        if (recursive_victims.size == 0) {
+            Tag.global.destroy_marked(Tag.global.mark(source), false);
+            return;
+        }
+        
+        // okay, this tag has children, so they need to be proxied and deleted as well
+        recursive_victim_proxies = new Gee.ArrayList<SourceProxy>();
+        
+        foreach (Tag victim in recursive_victims) {
+            recursive_victim_proxies.add(victim.get_proxy());
+
+            Tag.global.destroy_marked(Tag.global.mark(victim), false);
+        }
+        
         Tag.global.destroy_marked(Tag.global.mark(source), false);
     }
     
@@ -1365,6 +1394,36 @@ public class DeleteTagCommand : SimpleProxyableCommand {
         // merely instantiating the Tag will rehydrate it ... should always work, because the 
         // undo stack is cleared if the proxy ever breaks
         assert(source is Tag);
+               
+        if (recursive_victim_proxies != null) {
+            for (int i = recursive_victim_proxies.size - 1; i >= 0; i--) {
+                DataSource victim_source = recursive_victim_proxies.get(i).get_source();
+                assert(victim_source is Tag);
+            }
+        }
+    }
+}
+
+public class NewChildTagCommand : SimpleProxyableCommand {
+    Tag? created_child = null;
+    
+    public NewChildTagCommand(Tag tag) {
+        base (tag, _("Create Tag"), tag.get_name());
+    }
+    
+    protected override void execute_on_source(DataSource source) {
+        Tag tag = (Tag) source;
+        created_child = tag.create_new_child();
+    }
+    
+    protected override void undo_on_source(DataSource source) {
+        Tag.global.destroy_marked(Tag.global.mark(created_child), true);
+    }
+    
+    public Tag get_created_child() {
+        assert(created_child != null);
+        
+        return created_child;
     }
 }
 
@@ -1437,8 +1496,8 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
     
     public TagUntagPhotosCommand(Tag tag, Gee.Collection<MediaSource> sources, int count, bool attach) {
         base (tag,
-            attach ? Resources.tag_photos_label(tag.get_name(), count) 
-                : Resources.untag_photos_label(tag.get_name(), count),
+            attach ? Resources.tag_photos_label(tag.get_user_visible_name(), count) 
+                : Resources.untag_photos_label(tag.get_user_visible_name(), count),
             tag.get_name());
         
         this.sources = sources;

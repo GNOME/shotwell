@@ -16,6 +16,8 @@
     </popup>
     
     <popup name="TagsContextMenu">
+        <menuitem name="ContextNewChildTag" action="NewChildTagSidebar" />
+        <separator />
         <menuitem name="ContextDeleteTag" action="RenameTagSidebar" />
         <menuitem name="ContextRenameTag" action="DeleteTagSidebar" />
     </popup>

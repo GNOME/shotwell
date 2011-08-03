@@ -12,7 +12,8 @@ public class Sidebar.Branch : Object {
         NONE = 0,
         HIDE_IF_EMPTY,
         AUTO_OPEN_ON_NEW_CHILD,
-        STARTUP_EXPAND_TO_FIRST_CHILD;
+        STARTUP_EXPAND_TO_FIRST_CHILD,
+        STARTUP_OPEN_GROUPING;
         
         public bool is_hide_if_empty() {
             return (this & HIDE_IF_EMPTY) != 0;
@@ -24,6 +25,10 @@ public class Sidebar.Branch : Object {
         
         public bool is_startup_expand_to_first_child() {
             return (this & STARTUP_EXPAND_TO_FIRST_CHILD) != 0;
+        }
+        
+        public bool is_startup_open_grouping() {
+            return (this & STARTUP_OPEN_GROUPING) != 0;
         }
     }
     
@@ -236,6 +241,10 @@ public class Sidebar.Branch : Object {
     
     public bool is_startup_expand_to_first_child() {
         return options.is_startup_expand_to_first_child();
+    }
+    
+    public bool is_startup_open_grouping() {
+        return options.is_startup_open_grouping();
     }
     
     public void graft(Sidebar.Entry parent, Sidebar.Entry entry,

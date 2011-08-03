@@ -63,7 +63,11 @@ public class TagPage : CollectionPage {
         Gtk.ActionEntry rename_tag_sidebar = { "RenameTagSidebar", null, Resources.RENAME_TAG_SIDEBAR_MENU, 
             null, null, on_rename_tag };
         actions += rename_tag_sidebar;
-        
+
+        Gtk.ActionEntry new_child_tag_sidebar = { "NewChildTagSidebar", null, Resources.NEW_CHILD_TAG_SIDEBAR_MENU,
+            null, null, on_new_child_tag_sidebar };
+        actions += new_child_tag_sidebar;
+
         return actions;
     }
     
@@ -76,21 +80,29 @@ public class TagPage : CollectionPage {
     
     protected override void update_actions(int selected_count, int count) {
         set_action_details("DeleteTag",
-            Resources.delete_tag_menu(tag.get_name()),
+            Resources.delete_tag_menu(tag.get_user_visible_name()),
             null,
             true);
         
         set_action_details("RenameTag",
-            Resources.rename_tag_menu(tag.get_name()),
+            Resources.rename_tag_menu(tag.get_user_visible_name()),
             null,
             true);
         
         set_action_details("RemoveTagFromPhotos", 
-            Resources.untag_photos_menu(tag.get_name(), selected_count),
+            Resources.untag_photos_menu(tag.get_user_visible_name(), selected_count),
             null,
             selected_count > 0);
         
         base.update_actions(selected_count, count);
+    }
+    
+    private void on_new_child_tag_sidebar() {
+        NewChildTagCommand creation_command = new NewChildTagCommand(tag);
+        
+        AppWindow.get_command_manager().execute(creation_command);
+        
+        LibraryWindow.get_app().rename_tag_in_sidebar(creation_command.get_created_child());
     }
     
     private void on_rename_tag() {

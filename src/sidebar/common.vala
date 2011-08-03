@@ -39,6 +39,10 @@ public class Sidebar.Grouping : Object, Sidebar.Entry, Sidebar.ExpandableEntry {
     public string to_string() {
         return name;
     }
+    
+    public bool expand_on_select() {
+        return true;
+    }
 }
 
 // An end-node on the sidebar that represents a Page with its page context menu.  Additional 

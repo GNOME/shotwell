@@ -378,6 +378,10 @@ public abstract class Events.DirectoryEntry : Sidebar.SimplePageEntry, Sidebar.E
     public virtual Icon? get_sidebar_closed_icon() {
         return Events.Branch.closed_icon;
     }
+    
+    public bool expand_on_select() {
+        return true;
+    }
 }
 
 public class Events.MasterDirectoryEntry : Events.DirectoryEntry {

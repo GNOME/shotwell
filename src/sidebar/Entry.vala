@@ -30,6 +30,8 @@ public interface Sidebar.ExpandableEntry : Sidebar.Entry {
     public abstract Icon? get_sidebar_open_icon();
     
     public abstract Icon? get_sidebar_closed_icon();
+    
+    public abstract bool expand_on_select();
 }
 
 public interface Sidebar.SelectableEntry : Sidebar.Entry {

@@ -307,6 +307,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DELETE_TAG_TITLE = _("Delete Tag");
     public const string DELETE_TAG_SIDEBAR_MENU = _("_Delete");
     
+    public const string NEW_CHILD_TAG_SIDEBAR_MENU = _("_New");
+    
     public string rename_tag_menu(string name) {
         return _("Re_name Tag \"%s\"...").printf(name);
     }
