@@ -25,7 +25,7 @@ public class TagSourceCollection : ContainerSourceCollection {
     ~TagSourceCollection() {
         LibraryPhoto.global.source_reimported.disconnect(on_photo_source_reimported);
     }
-    
+        
     public override bool holds_type_of_source(DataSource source) {
         return source is Tag;
     }
@@ -40,18 +40,43 @@ public class TagSourceCollection : ContainerSourceCollection {
     
     public override ContainerSource? convert_backlink_to_container(SourceBacklink backlink) {
         TagID tag_id = TagID(backlink.instance_id);
-        
-        Tag? tag = fetch(tag_id);
-        if (tag != null)
-            return tag;
-        
-        foreach (ContainerSource container in get_holding_tank()) {
-            tag = (Tag) container;
-            if (tag.get_tag_id().id == tag_id.id)
-                return tag;
+        Tag? result = null;
+
+        // see if the backlinked tag is already rehydrated and available
+        Tag? tag = fetch(tag_id);        
+        if (tag != null) {
+            result = tag;
+        } else {
+            // backlinked tag wasn't already available, so look for it in the holding tank
+            foreach (ContainerSource container in get_holding_tank()) {
+                tag = (Tag) container;
+                if (tag.get_tag_id().id == tag_id.id) {
+                    result = tag;
+                    break;
+                }
+            }
+        }
+
+        // if we have pulled a hierarchical tag out of the holding tank and the tag we've pulled out
+        // has a parent, its parent might need to be promoted (because it was flattened when put
+        // into the holding tank), so check for this case and promote if necessary
+        if (result != null) {
+            if ((result.get_path().has_prefix(Tag.PATH_SEPARATOR_STRING)) &&
+                (HierarchicalTagUtilities.enumerate_parent_paths(result.get_path()).size > 0)) {
+                string top_level_with_prefix_path =
+                    HierarchicalTagUtilities.enumerate_parent_paths(result.get_path()).get(0);
+                string top_level_no_prefix_path =
+                    HierarchicalTagUtilities.hierarchical_to_flat(top_level_with_prefix_path);
+
+                foreach (ContainerSource container in get_holding_tank()) {
+                    Tag parent_candidate = (Tag) container;
+                    if (parent_candidate.get_path() == top_level_no_prefix_path)
+                        parent_candidate.promote();
+                }
+            }
         }
         
-        return null;
+        return result;
     }
     
     public Tag? fetch(TagID tag_id) {
@@ -120,9 +145,17 @@ public class TagSourceCollection : ContainerSourceCollection {
     protected override void notify_items_removed(Gee.Iterable<DataObject> removed) {
         foreach (DataObject object in removed) {
             Tag tag = (Tag) object;
-            
+                        
             bool unset = name_map.unset(tag.get_name());
             assert(unset);
+
+            // if we just removed the last child tag of a top-level hierarchical tag, then convert
+            // the top-level tag back to a flat tag
+            Tag? parent = tag.get_hierarchical_parent();
+            if ((parent != null) && (parent.get_hierarchical_parent() == null)) {
+                if (parent.get_hierarchical_children().size == 0)
+                    parent.flatten();
+            }
         }
         
         base.notify_items_removed(removed);
@@ -213,45 +246,14 @@ public class TagSourceCollection : ContainerSourceCollection {
     }
     
     private void on_photo_source_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
-        // if no metadata, do nothing (we might interpret this to remove all keywords; worth
-        // discussing)
-        if (metadata == null)
-            return;
-        
-        // get current tags and convert into a set of keywords
-        Gee.Collection<Tag>? tags = fetch_for_source(photo);
-        Gee.HashSet<string> tag_names = new Gee.HashSet<string>();
-        if (tags != null) {
-            foreach (Tag tag in tags)
-                tag_names.add(tag.get_name());
-        }
-        
-        // get keywords from the metadata
-        Gee.Set<string>? keywords = metadata.get_keywords();
-        
-        // Want to replace current tags with new tags, but to avoid thrashing, remove what's not
-        // on disk and add what is but isn't already attached to.  This is called an intersection.
-        // Unfortunately, Gee.Set doesn't have an intersection() method.
-        Gee.HashSet<string> excluded = new Gee.HashSet<string>();
-        Gee.Set<string>? intersection = intersection_of_sets(tag_names, keywords, excluded);
-        
-        // detach photo from all excluded tags
-        foreach (string exclude in excluded) {
-            Tag? tag = fetch_by_name(exclude);
-            if (tag != null)
-                tag.detach(photo);
-        }
-        
-        // attach photo to the intersection
-        if (intersection != null) {
-            foreach (string intersected in intersection)
-                Tag.for_name(intersected).attach(photo);
-        }
+        // with the introduction of HTags, all of this logic has been moved to
+        // Photo.apply_user_metadata_for_reimport( )
     }
 }
 
 public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     public const string TYPENAME = "tag";
+    public const string PATH_SEPARATOR_STRING = "/";
     
     private class TagSnapshot : SourceSnapshot {
         private TagRow row;
@@ -446,12 +448,13 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         return String.collated_equals(a, b);
     }
     
-    // Returns a Tag for the name, creating a new empty one if it does not already exist.
-    // name should have already been prepared by prep_tag_name.
-    public static Tag for_name(string name) {
+    // Returns a Tag for the path, creating a new empty one if it does not already exist.
+    // path should have already been prepared by prep_tag_name.
+    public static Tag for_path(string name) {
         Tag? tag = global.fetch_by_name(name);
-        if (tag == null)
+        if (tag == null) {
             tag = global.restore_tag_from_holding_tank(name);
+        }
         
         if (tag != null)
             return tag;
@@ -468,20 +471,77 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         return tag;
     }
     
+    public static bool exists(string path) {
+        Tag? tag = global.fetch_by_name(path);
+        if (tag == null)
+            tag = global.restore_tag_from_holding_tank(path);
+        
+        return (tag != null);
+    }
+    
+    public static Gee.Collection<Tag> get_terminal_tags(Gee.Collection<Tag> tags) {
+        Gee.Set<string> result_paths = new Gee.HashSet<string>();
+        
+        foreach (Tag tag in tags) {
+            // if it's not hierarchical, it's terminal
+            if (!tag.get_path().has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+                result_paths.add(tag.get_path());
+                continue;
+            }
+            
+            // okay, it is hierarchical
+            
+            // has it got a parent?
+            if (tag.get_hierarchical_parent() != null) {
+                // have we seen its parent? if so, remove its parent from the result set since
+                // its parent clearly isn't terminal
+                if (result_paths.contains(tag.get_hierarchical_parent().get_path()))
+                    result_paths.remove(tag.get_hierarchical_parent().get_path());
+            }
+            
+            result_paths.add(tag.get_path());
+        }
+        
+        Gee.ArrayList<Tag> result = new Gee.ArrayList<Tag>();
+        foreach (string path in result_paths) {
+            if (Tag.exists(path)) {
+                result.add(Tag.for_path(path));
+            } else {
+                foreach (Tag probed_tag in tags) {
+                    if (probed_tag.get_path() == path)
+                        result.add(probed_tag);
+                }
+            }
+        }
+        
+        return result;
+    }
+    
     public static string make_tag_string(Gee.Collection<Tag> tags, string? start = null, 
         string separator = ", ", string? end = null, bool escape = false) {
         StringBuilder builder = new StringBuilder(start ?? "");
-        int ctr = 0;
-        int count = tags.size;
-        foreach (Tag tag in tags) {
-            builder.append(escape ? guarded_markup_escape_text(tag.get_name()) : tag.get_name());
-            if (ctr++ < count - 1)
-                builder.append(separator);
+        Gee.HashSet<string> seen_tags = new Gee.HashSet<string>();
+        Gee.Collection<Tag> terminal_tags = get_terminal_tags(tags);
+        foreach (Tag tag in terminal_tags) {
+            string user_visible_name = escape ? guarded_markup_escape_text(
+                tag.get_user_visible_name()) : tag.get_user_visible_name();
+
+            if (!seen_tags.contains(user_visible_name))
+                builder.append(user_visible_name);
+
+            builder.append(separator);
         }
-        if (end != null)
-            builder.append(end);
         
-        return builder.str;
+        string built = builder.str;
+        
+        if (built.length >= separator.length)
+            if (built.substring(built.length - separator.length, separator.length) == separator);
+                built = built.substring(0, built.length - separator.length);
+        
+        if (end != null)
+            built += end;
+        
+        return built;
     }
     
     // Utility function to cleanup a tag name that comes from user input and prepare it for use
@@ -504,6 +564,52 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         return result;
     }
     
+    private void set_raw_flat_name(string name) {   
+        string? prepped_name = prep_tag_name(name);
+
+        assert(prepped_name != null);
+        assert(!prepped_name.has_prefix(Tag.PATH_SEPARATOR_STRING));
+        
+        assert(!Tag.global.exists(prepped_name));
+        
+        try {
+            TagTable.get_instance().rename(row.tag_id, prepped_name);
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+            return;
+        }
+        
+        row.name = prepped_name;
+        name_collation_key = null;
+        
+        update_indexable_keywords();
+        
+        notify_altered(new Alteration.from_list("metadata:name, indexable:keywords"));
+    }
+    
+    private void set_raw_path(string path, bool suppress_notify = false) {
+        string? prepped_path = prep_tag_name(path);
+        
+        assert(prepped_path != null);
+        assert(prepped_path.has_prefix(Tag.PATH_SEPARATOR_STRING));        
+        assert(!Tag.global.exists(prepped_path));
+        
+        try {
+            TagTable.get_instance().rename(row.tag_id, prepped_path);
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+            return;
+        }
+        
+        row.name = prepped_path;
+        name_collation_key = null;
+        
+        if (!suppress_notify) {
+            update_indexable_keywords();
+            notify_altered(new Alteration.from_list("metadata:name, indexable:keywords"));
+        }
+    }
+    
     public override string get_typename() {
         return TYPENAME;
     }
@@ -514,6 +620,108 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     
     public override string get_name() {
         return row.name;
+    }
+    
+    public string get_path() {
+        return get_name();
+    }
+    
+    public string get_user_visible_name() {
+        return HierarchicalTagUtilities.get_basename(get_path());
+    }
+    
+    public void flatten() {
+        assert (get_hierarchical_parent() == null);
+        
+        set_raw_flat_name(HierarchicalTagUtilities.hierarchical_to_flat(get_path()));
+    }
+    
+    public void promote() {
+        if (get_path().has_prefix(Tag.PATH_SEPARATOR_STRING))
+            return;
+
+        set_raw_path(Tag.PATH_SEPARATOR_STRING + get_path());
+    }
+    
+    public Tag? get_hierarchical_parent() {
+        // if this is a flat tag, it has no parent
+        if (!get_path().has_prefix(Tag.PATH_SEPARATOR_STRING))
+            return null;
+
+        Gee.List<string> components =
+            HierarchicalTagUtilities.enumerate_path_components(get_path());
+        
+        assert(components.size > 0);
+        
+        if (components.size == 1) {
+            return null;
+        }
+        
+        string parent_path = "";
+        for (int i = 0; i < (components.size - 1); i++)
+            parent_path += (Tag.PATH_SEPARATOR_STRING + components.get(i));
+        
+        return Tag.for_path(parent_path);
+    }
+    
+    /**
+     * gets all hierarchical children of a tag recursively; tags are enumerated from most-derived
+     * to least-derived
+     */
+    public Gee.List<Tag> get_hierarchical_children() {
+        Gee.ArrayList<Tag> result = new Gee.ArrayList<Tag>();
+        
+        // if it's a flag tag, it doesn't have children
+        if (!get_path().has_prefix(Tag.PATH_SEPARATOR_STRING))
+            return result;
+        
+        // default lexicographic comparison for strings ensures hierarchical tag paths will be
+        // sorted from least-derived to most-derived
+        Gee.TreeSet<string> forward_sorted_paths = new Gee.TreeSet<string>();
+        
+        string target_path = get_path();
+        foreach (string path in Tag.global.get_all_names()) {
+            if (path.has_prefix(target_path))
+                forward_sorted_paths.add(path);
+        }
+        
+        Gee.BidirIterator<string> reverse_iter = forward_sorted_paths.bidir_iterator();
+        reverse_iter.last();
+        while (reverse_iter.has_previous()) {
+            result.add(Tag.for_path(reverse_iter.get()));
+            reverse_iter.previous();
+        }
+
+        return result;
+    }
+    
+    public Tag create_new_child() {
+        string path_prefix = get_path();
+        
+        if (!path_prefix.has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+            set_raw_path(HierarchicalTagUtilities.flat_to_hierarchical(get_path()));
+            
+            path_prefix = get_path();
+        }
+        
+        string candidate_name = _("untitled");
+        uint64 counter = 0;
+        Tag? result = null;
+        do {
+            string path_candidate = path_prefix + Tag.PATH_SEPARATOR_STRING + candidate_name +
+                ((counter == 0) ? "" : (" " + counter.to_string()));
+            
+            if (!Tag.exists(path_candidate)) {
+                result = Tag.for_path(path_candidate);
+                
+                break;
+            }
+
+            counter++;
+
+        } while (counter < uint64.MAX);
+        
+        return result;
     }
     
     public string get_name_collation_key() {
@@ -552,13 +760,38 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     }
     
     private static Tag reconstitute(int64 object_id, TagRow row) {
-        // fill in the row with the new TagID for this reconstituted tag
+        // if reconstituting a hierarchical tag, we have to do some special manipulations
+        if (row.name.has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+            Gee.List<string> parent_paths =
+                HierarchicalTagUtilities.enumerate_parent_paths(row.name);
+
+            if (parent_paths.size == 0) {
+                // if reconsituting a top-level hierarchical tag, flatten its path before
+                // reconstituting it
+                row.name = HierarchicalTagUtilities.hierarchical_to_flat(row.name);
+            } else if (parent_paths.size == 1) {
+                // if reconstituting a hierarchical tag with a top-level parent, it's parent may
+                // have been flattened so handle this case
+                string immediate_parent_path = parent_paths.get(0);
+                if (!Tag.exists(immediate_parent_path)) {
+                    string flat_immediate_path =
+                        HierarchicalTagUtilities.hierarchical_to_flat(immediate_parent_path);
+                    assert(Tag.exists(flat_immediate_path));
+                    Tag.for_path(flat_immediate_path).promote();
+                }
+            } else {
+                // no name transformation is necessary for general hierarchical tag paths
+                ;
+            }
+        }
+    
+        // fill in the row with the new TagID for this reconstituted tag        
         try {
             row.tag_id = TagTable.get_instance().create_from_row(row);
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
-        
+                
         Tag tag = new Tag(row, object_id);
         global.add(tag);
         
@@ -616,27 +849,45 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     }
     
     public void attach(MediaSource source) {
-        if (!media_views.has_view_for_source(source))
-            media_views.add(new ThumbnailView(source));
+        Tag? attach_to = this;
+        while (attach_to != null) {
+            if (!attach_to.media_views.has_view_for_source(source)) {
+                attach_to.media_views.add(new ThumbnailView(source));
+            }
+
+            attach_to = attach_to.get_hierarchical_parent();
+        }
     }
     
     public void attach_many(Gee.Collection<MediaSource> sources) {
-        Gee.ArrayList<ThumbnailView> view_list = new Gee.ArrayList<ThumbnailView>();
-        foreach (MediaSource source in sources) {
-            if (!media_views.has_view_for_source(source))
-                view_list.add(new ThumbnailView(source));
+        Tag? attach_to = this;
+        while (attach_to != null) {
+            Gee.ArrayList<ThumbnailView> view_list = new Gee.ArrayList<ThumbnailView>();
+            foreach (MediaSource source in sources) {
+                if (!attach_to.media_views.has_view_for_source(source))
+                    view_list.add(new ThumbnailView(source));
+            }
+            
+            if (view_list.size > 0)
+                attach_to.media_views.add_many(view_list);
+
+            attach_to = attach_to.get_hierarchical_parent();
         }
-        
-        if (view_list.size > 0)
-            media_views.add_many(view_list);
     }
     
     public bool detach(MediaSource source) {
-        DataView? view = media_views.get_view_for_source(source);
-        if (view == null)
+        DataView? this_view = media_views.get_view_for_source(source);
+        if (this_view == null)
             return false;
+            
+        foreach (Tag child_tag in get_hierarchical_children()) {
+            DataView? child_view = child_tag.media_views.get_view_for_source(source);
+            if (child_view != null) {
+                child_tag.media_views.remove_marked(child_tag.media_views.mark(child_view));
+            }
+        }
         
-        media_views.remove_marked(media_views.mark(view));
+        media_views.remove_marked(media_views.mark(this_view));
         
         return true;
     }
@@ -649,6 +900,13 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             DataView? view = media_views.get_view_for_source(source);
             if (view == null)
                 continue;
+
+            foreach (Tag child_tag in get_hierarchical_children()) {
+                DataView? child_view = child_tag.media_views.get_view_for_source(source);
+                if (child_view != null) {
+                    child_tag.media_views.remove_marked(child_tag.media_views.mark(child_view));
+                }
+            }
             
             marker.mark(view);
             count++;
@@ -661,26 +919,53 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     
     // Returns false if the name already exists or a bad name.
     public bool rename(string name) {
+        if (name == get_user_visible_name())
+            return true;
+
         string? new_name = prep_tag_name(name);
         if (new_name == null)
             return false;
-        
-        if (Tag.global.exists(new_name))
-            return false;
-        
-        try {
-            TagTable.get_instance().rename(row.tag_id, new_name);
-        } catch (DatabaseError err) {
-            AppWindow.database_error(err);
-            return false;
+
+        // if this is a hierarchical tag, then parents and children come into play
+        if (get_path().has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+            string new_path = new_name;
+            string old_path = get_path();
+
+            Tag? parent = get_hierarchical_parent();
+            if (parent != null) {
+                new_path = parent.get_path() + PATH_SEPARATOR_STRING + new_path;
+            } else {
+                new_path = Tag.PATH_SEPARATOR_STRING + new_path;
+            }
+            
+            if (Tag.global.exists(new_path))
+                return false;
+
+            Gee.Collection<Tag> children = get_hierarchical_children();
+
+            set_raw_path(new_path, true);
+
+            foreach (Tag child in children) {
+                // keep these loop-local temporaries around -- it's useful to be able to print them
+                // out when debugging     
+                string old_child_path = child.get_path();
+                string new_child_path = old_child_path.replace(old_path, new_path);
+
+                child.set_raw_path(new_child_path, true);
+            }
+            
+            update_indexable_keywords();
+            notify_altered(new Alteration.from_list("metadata:name, indexable:keywords"));
+            foreach (Tag child in children) {
+                child.notify_altered(new Alteration.from_list("metadata:name, indexable:keywords"));
+            }
+        } else {
+            // if this is a flat tag, no problem -- just keep doing what we've always done
+            if (Tag.global.exists(new_name))
+                return false;
+            
+            set_raw_flat_name(new_name);
         }
-        
-        row.name = new_name;
-        name_collation_key = null;
-        
-        update_indexable_keywords();
-        
-        notify_altered(new Alteration.from_list("metadata:name, indexable:keywords"));
         
         return true;
     }
@@ -752,10 +1037,6 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             global.notify_container_contents_altered(this, added_sources, relinking, removed_sources,
                 unlinking);
         }
-        
-        // if no more sources, tag evaporates; do not touch "this" afterwards
-        if (media_views.get_count() == 0)
-            global.evaporate(this);
     }
     
     private void on_sources_destroyed(Gee.Collection<DataSource> sources) {

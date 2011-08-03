@@ -13,7 +13,7 @@ public bool confirm_delete_tag(Tag tag) {
     string msg = ngettext(
         "This will remove the tag \"%s\" from one photo.  Continue?",
         "This will remove the tag \"%s\" from %d photos.  Continue?",
-        count).printf(tag.get_name(), count);
+        count).printf(tag.get_user_visible_name(), count);
     
     return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
         Resources.DELETE_TAG_TITLE);
@@ -1592,8 +1592,9 @@ public class ModifyTagsDialog : TagsDialog {
         // break up by comma-delimiter, prep for use, and separate into list
         string[] tag_names = Tag.prep_tag_names(text.split(","));
 
+        // TODO: HTags compatibility
         foreach (string name in tag_names)
-            new_tags.add(Tag.for_name(name));
+            new_tags.add(Tag.for_path(name));
         
         return new_tags;
     }

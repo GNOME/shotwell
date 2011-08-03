@@ -322,8 +322,12 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         if (branch.get_show_branch()) {
             associate_branch(branch);
+            
             if (branch.is_startup_expand_to_first_child())
                 expand_to_first_child(branch.get_root());
+
+            if (branch.is_startup_open_grouping())
+                expand_to_entry(branch.get_root());
         }
         
         branch.entry_added.connect(on_branch_entry_added);

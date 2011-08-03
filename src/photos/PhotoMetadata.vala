@@ -28,6 +28,21 @@ public enum MetadataDomain {
     IPTC
 }
 
+public struct HierarchicalKeywordField {
+    public string field_name;
+    public string path_separator;
+    public bool wants_leading_separator;
+    public bool is_writeable;
+    
+    public HierarchicalKeywordField(string field_name, string path_separator,
+        bool wants_leading_separator, bool is_writeable) {
+        this.field_name = field_name;
+        this.path_separator = path_separator;
+        this.wants_leading_separator = wants_leading_separator;
+        this.is_writeable = is_writeable;
+    }
+}
+
 public abstract class PhotoPreview {
     private string name;
     private Dimensions dimensions;
@@ -821,6 +836,14 @@ public class PhotoMetadata : MediaMetadata {
         "Iptc.Application2.Keywords"
     };
     
+    private static HierarchicalKeywordField[] HIERARCHICAL_KEYWORD_TAGS = {
+        // Xmp.lr.hierarchicalSubject should be writeable but isn't due to this bug
+        // in libexiv2: http://dev.exiv2.org/issues/784
+        HierarchicalKeywordField("Xmp.lr.hierarchicalSubject", "|", false, false),
+        HierarchicalKeywordField("Xmp.digiKam.TagsList", "/", false, true),
+        HierarchicalKeywordField("Xmp.MicrosoftPhoto.LastKeywordXMP", "/", false, true)
+    };
+    
     public Gee.Set<string>? get_keywords(CompareFunc? compare_func = null) {
         Gee.Set<string> keywords = null;
         foreach (string tag in KEYWORD_TAGS) {
@@ -828,19 +851,101 @@ public class PhotoMetadata : MediaMetadata {
             if (values != null && values.size > 0) {
                 if (keywords == null)
                     keywords = create_string_set(compare_func);
-                
-                keywords.add_all(values);
+
+                foreach (string current_value in values)
+                    keywords.add(HierarchicalTagUtilities.make_flat_tag_safe(current_value));
             }
         }
         
         return (keywords != null && keywords.size > 0) ? keywords : null;
     }
     
+    private void internal_set_hierarchical_keywords(HierarchicalTagIndex? index) {
+        if (index == null) {
+            foreach (HierarchicalKeywordField current_field in HIERARCHICAL_KEYWORD_TAGS)
+                remove_tag(current_field.field_name);
+            return;
+        }
+
+        foreach (HierarchicalKeywordField current_field in HIERARCHICAL_KEYWORD_TAGS) {
+            if (!current_field.is_writeable)
+                continue;
+
+            Gee.Set<string> writeable_set = new Gee.TreeSet<string>();
+
+            foreach (string current_path in index.get_all_paths()) {
+                string writeable_path = current_path.replace(Tag.PATH_SEPARATOR_STRING,
+                    current_field.path_separator);
+                if (!current_field.wants_leading_separator)
+                    writeable_path = writeable_path.substring(1);
+
+                writeable_set.add(writeable_path);
+            }
+            
+            set_string_multiple(current_field.field_name, writeable_set);
+        }
+    }
+    
     public void set_keywords(Gee.Collection<string>? keywords, SetOption option = SetOption.ALL_DOMAINS) {
-        if (keywords != null)
-            set_all_string_multiple(KEYWORD_TAGS, keywords, option);
-        else
+        HierarchicalTagIndex htag_index = new HierarchicalTagIndex();
+        Gee.Set<string> flat_keywords = new Gee.TreeSet<string>();
+
+        if (keywords != null) {
+            foreach (string keyword in keywords) {
+                if (keyword.has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+                    Gee.Collection<string> path_components =
+                        HierarchicalTagUtilities.enumerate_path_components(keyword);
+                    foreach (string component in path_components)
+                        htag_index.add_path(component, keyword);
+                } else {
+                    flat_keywords.add(keyword);
+                }
+            }
+            
+            flat_keywords.add_all(htag_index.get_all_tags());
+        }
+
+        if (keywords != null) {
+            set_all_string_multiple(KEYWORD_TAGS, flat_keywords, option);
+            internal_set_hierarchical_keywords(htag_index);
+        } else {
             remove_tags(KEYWORD_TAGS);
+            internal_set_hierarchical_keywords(null);
+        }
+    }
+    
+    public bool has_hierarchical_keywords() {
+        foreach (HierarchicalKeywordField field in HIERARCHICAL_KEYWORD_TAGS) {
+            Gee.Collection<string>? values = get_string_multiple(field.field_name);
+            
+            if (values != null && values.size > 0)
+                return true;
+        }
+        
+        return false;
+    }
+    
+    public Gee.Set<string> get_hierarchical_keywords() {
+        assert(has_hierarchical_keywords());
+
+        Gee.Set<string> h_keywords = create_string_set(null);
+
+        foreach (HierarchicalKeywordField field in HIERARCHICAL_KEYWORD_TAGS) {
+            Gee.Collection<string>? values = get_string_multiple(field.field_name);
+            
+            if (values == null || values.size < 1)
+                continue;
+            
+            foreach (string current_value in values) {
+                string? canonicalized = HierarchicalTagUtilities.canonicalize(current_value,
+                    field.path_separator);
+
+                if (canonicalized != null)
+                    h_keywords.add(canonicalized);
+            }
+        }
+        
+        return h_keywords;
     }
     
     public bool has_orientation() {

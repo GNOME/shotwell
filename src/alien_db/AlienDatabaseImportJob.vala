@@ -72,13 +72,17 @@ public class AlienDatabaseImportJob : BatchImportJob {
             return false;
         
         AlienDatabasePhoto src_photo = import_source.get_photo();
+        //
+        // TODO: HTags compatibility
+        //
+        
         // tags
         Gee.Collection<AlienDatabaseTag> src_tags = src_photo.get_tags();
         foreach (AlienDatabaseTag src_tag in src_tags) {
             string? prepped = prepare_input_text(src_tag.get_name(), 
                 PrepareInputTextOptions.DEFAULT, DEFAULT_USER_TEXT_INPUT_LENGTH);
             if (prepped != null)
-                Tag.for_name(prepped).attach(photo);
+                Tag.for_path(prepped).attach(photo);
         }
         // event
         AlienDatabaseEvent? src_event = src_photo.get_event();

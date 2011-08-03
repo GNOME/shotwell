@@ -3916,15 +3916,42 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         Gee.HashMultiMap<Tag, LibraryPhoto> map = new Gee.HashMultiMap<Tag, LibraryPhoto>();
         foreach (MediaSource media in media_sources) {
             LibraryPhoto photo = (LibraryPhoto) media;
+            PhotoMetadata metadata = photo.get_metadata();
+            
+            // if any hierarchical tag information is available, process it first. hierarchical tag
+            // information must be processed first to avoid tag duplication, since most photo
+            // management applications that support hierarchical tags also "flatten" the
+            // hierarchical tag information as plain old tags. If a tag name appears as part of
+            // a hierarchical path, it needs to be excluded from being processed as a flat tag
+            HierarchicalTagIndex? htag_index = null;
+            if (metadata.has_hierarchical_keywords()) {
+                htag_index = HierarchicalTagUtilities.process_hierarchical_import_keywords(
+                    metadata.get_hierarchical_keywords());
+            }
+            
             if (photo.get_import_keywords() != null) {
                 foreach (string keyword in photo.get_import_keywords()) {
+                    if (htag_index != null && htag_index.is_tag_in_index(keyword))
+                        continue;
+
                     string? name = Tag.prep_tag_name(keyword);
                     if (name != null)
-                        map.set(Tag.for_name(name), photo);
+                        map.set(Tag.for_path(name), photo);
                 }
-                
-                photo.clear_import_keywords();
             }
+            
+            if (metadata.has_hierarchical_keywords()) {
+                foreach (string path in htag_index.get_all_paths()) {
+                    string? name = Tag.prep_tag_name(path);
+                    if (name != null)
+                        map.set(Tag.for_path(name), photo);
+                }
+            }
+        }
+        
+        foreach (MediaSource media in media_sources) {
+            LibraryPhoto photo = (LibraryPhoto) media;
+            photo.clear_import_keywords();
         }
         
         foreach (Tag tag in map.get_keys())
@@ -4117,11 +4144,11 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     private bool block_thumbnail_generation = false;
     private OneShotScheduler thumbnail_scheduler = null;
     private Gee.Collection<string>? import_keywords;
-    
-    private LibraryPhoto(PhotoRow row, Gee.Collection<string>? import_keywords) {
+
+    private LibraryPhoto(PhotoRow row) {
         base (row);
         
-        this.import_keywords = import_keywords;
+        this.import_keywords = null;
         
         thumbnail_scheduler = new OneShotScheduler("LibraryPhoto", generate_thumbnails);
         
@@ -4131,6 +4158,20 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         
         if ((row.flags & (FLAG_HIDDEN | FLAG_FAVORITE)) != 0)
             upgrade_rating_flags(row.flags);
+    }
+
+    private LibraryPhoto.from_import_params(PhotoImportParams import_params) {
+        base (import_params.row);
+        
+        this.import_keywords = import_params.keywords;       
+        thumbnail_scheduler = new OneShotScheduler("LibraryPhoto", generate_thumbnails);
+        
+        // if marked in a state where they're held in an orphanage, rehydrate their backlinks
+        if ((import_params.row.flags & (FLAG_TRASH | FLAG_OFFLINE)) != 0)
+            rehydrate_backlinks(global, import_params.row.backlinks);
+        
+        if ((import_params.row.flags & (FLAG_HIDDEN | FLAG_FAVORITE)) != 0)
+            upgrade_rating_flags(import_params.row.flags);
     }
     
     public static void init(ProgressMonitor? monitor = null) {
@@ -4145,7 +4186,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         int count = all.size;
         for (int ctr = 0; ctr < count; ctr++) {
             PhotoRow row = all.get(ctr);
-            LibraryPhoto photo = new LibraryPhoto(row, null);
+            LibraryPhoto photo = new LibraryPhoto(row);
             uint64 flags = row.flags;
             
             if ((flags & FLAG_TRASH) != 0)
@@ -4178,7 +4219,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
             return ImportResult.DATABASE_ERROR;
         
         // create local object but don't add to global until thumbnails generated
-        photo = new LibraryPhoto(params.row, params.keywords);
+        photo = new LibraryPhoto.from_import_params(params);
         
         return ImportResult.SUCCESS;
     }
@@ -4301,7 +4342,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         PhotoRow dupe_row = PhotoTable.get_instance().get_row(dupe_id);
         
         // build the DataSource for the duplicate
-        LibraryPhoto dupe = new LibraryPhoto(dupe_row, null);
+        LibraryPhoto dupe = new LibraryPhoto(dupe_row);
 
         // clone thumbnails
         ThumbnailCache.duplicate(this, dupe);
@@ -4459,10 +4500,40 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     }
     
     protected override void apply_user_metadata_for_reimport(PhotoMetadata metadata) {
+        HierarchicalTagIndex? new_htag_index = null;
+        
+        if (metadata.has_hierarchical_keywords()) {
+            new_htag_index = HierarchicalTagUtilities.process_hierarchical_import_keywords(
+                metadata.get_hierarchical_keywords());
+        }
+        
         Gee.Collection<string>? keywords = metadata.get_keywords();
         if (keywords != null) {
-            foreach (string keyword in keywords)
-                Tag.for_name(keyword).attach(this);
+            foreach (string keyword in keywords) {           
+                if (new_htag_index != null && new_htag_index.is_tag_in_index(keyword))
+                    continue;
+
+                string safe_keyword = HierarchicalTagUtilities.make_flat_tag_safe(keyword);
+                string promoted_keyword = HierarchicalTagUtilities.flat_to_hierarchical(
+                    safe_keyword);
+                
+                if (Tag.global.exists(safe_keyword)) {
+                    Tag.for_path(safe_keyword).attach(this);
+                    continue;
+                }
+                
+                if (Tag.global.exists(promoted_keyword)) {
+                    Tag.for_path(promoted_keyword).attach(this);
+                    continue;
+                }
+                
+                Tag.for_path(keyword).attach(this);
+            }
+        }
+        
+        if (new_htag_index != null) {
+            foreach (string path in new_htag_index.get_all_paths())
+                Tag.for_path(path).attach(this);
         }
     }
 }

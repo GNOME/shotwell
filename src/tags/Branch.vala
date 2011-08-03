@@ -11,7 +11,7 @@ public class Tags.Branch : Sidebar.Branch {
         base (new Tags.Grouping(),
             Sidebar.Branch.Options.HIDE_IF_EMPTY
                 | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD
-                | Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
+                | Sidebar.Branch.Options.STARTUP_OPEN_GROUPING,
             comparator);
         
         // seed the branch with existing tags
@@ -39,15 +39,40 @@ public class Tags.Branch : Sidebar.Branch {
             ((Tags.SidebarEntry) b).for_tag());
     }
     
-    private void on_tags_added_removed(Gee.Iterable<DataObject>? added, Gee.Iterable<DataObject>? removed) {
-        if (added != null) {
-            foreach (DataObject object in added) {
+    private void on_tags_added_removed(Gee.Iterable<DataObject>? added_raw, Gee.Iterable<DataObject>? removed) {
+        if (added_raw != null) {
+            // prepare a collection of tags guaranteed to be sorted; this is critical for
+            // hierarchical tags since it ensures that parent tags must be encountered
+            // before their children
+            Gee.SortedSet<Tag> added = new Gee.TreeSet<Tag>(Tag.compare_names);
+            foreach (DataObject object in added_raw) {
                 Tag tag = (Tag) object;
+                added.add(tag);
+            }
+                
+            foreach (Tag tag in added) {
+                // ensure that all parent tags of this tag (if any) already have sidebar
+                // entries
+                Tag? parent_tag = tag.get_hierarchical_parent();
+                while (parent_tag != null) {
+                    if (!entry_map.has_key(parent_tag)) {
+                        Tags.SidebarEntry parent_entry = new Tags.SidebarEntry(parent_tag);
+                        entry_map.set(parent_tag, parent_entry);
+                    }
+                    
+                    parent_tag = parent_tag.get_hierarchical_parent();
+                }
                 
                 Tags.SidebarEntry entry = new Tags.SidebarEntry(tag);
                 entry_map.set(tag, entry);
                 
-                graft(get_root(), entry);
+                parent_tag = tag.get_hierarchical_parent();
+                if (parent_tag != null) {
+                    Tags.SidebarEntry parent_entry = entry_map.get(parent_tag);
+                    graft(parent_entry, entry);
+                } else {
+                    graft(get_root(), entry);
+                }
             }
         }
         
@@ -75,8 +100,8 @@ public class Tags.Branch : Sidebar.Branch {
             Tags.SidebarEntry? entry = entry_map.get(tag);
             assert(entry != null);
             
-            entry.sidebar_name_changed(tag.get_name());
-            entry.sidebar_tooltip_changed(tag.get_name());
+            entry.sidebar_name_changed(tag.get_user_visible_name());
+            entry.sidebar_tooltip_changed(tag.get_user_visible_name());
             reorder(entry);
         }
     }
@@ -100,7 +125,7 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry {
 }
 
 public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
-    Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry {
+    Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry {
     private static Icon single_tag_icon;
     
     private Tag tag;
@@ -122,7 +147,7 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     }
     
     public override string get_sidebar_name() {
-        return tag.get_name();
+        return tag.get_user_visible_name();
     }
     
     public override Icon? get_sidebar_icon() {
@@ -154,6 +179,18 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
             true));
         
         return true;
+    }
+    
+    public Icon? get_sidebar_open_icon() {
+        return single_tag_icon;
+    }
+    
+    public Icon? get_sidebar_closed_icon() {
+        return single_tag_icon;
+    }
+    
+    public bool expand_on_select() {
+        return false;
     }
 }
 

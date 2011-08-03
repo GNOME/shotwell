@@ -1363,7 +1363,12 @@ public class LibraryWindow : AppWindow {
         // Not all pages have sidebar entries
         Sidebar.Entry? entry = page_map.get(page);
         if (entry != null) {
-            sidebar_tree.expand_to_entry(entry);
+            // if the corresponding sidebar entry is an expandable entry and wants to be
+            // expanded when it's selected, then expand it
+            Sidebar.ExpandableEntry expandable_entry = entry as Sidebar.ExpandableEntry;
+            if (expandable_entry != null && expandable_entry.expand_on_select())
+                sidebar_tree.expand_to_entry(entry);
+
             sidebar_tree.place_cursor(entry, true);
         }
         

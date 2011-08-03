@@ -283,7 +283,7 @@ private class BasicProperties : Properties {
 
         // display the title if a Tag page
         if (title == "" && page is TagPage)
-            title = ((TagPage) page).get_tag().get_name();
+            title = ((TagPage) page).get_tag().get_user_visible_name();
             
         if (title != "")
             add_line(_("Title:"), guarded_markup_escape_text(title));
