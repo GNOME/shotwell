@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.9.3+trunk\n"
-"Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-20 19:12-0700\n"
+"Project-Id-Version: shotwell-0.10.90+trunk\n"
+"Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
+"POT-Creation-Date: 2011-08-03 18:23-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,54 @@ msgstr ""
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:634
 msgid "You are not currently logged into Yandex.Fotki."
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:18
+msgid "label"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:35
+msgid "_URL of your Piwigo photo library"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:44
+msgid "User _name"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:57
+msgid "_Password"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:112
+msgid "_Remember Password"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:128
+msgid "Login"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:18
+msgid "Photos will appear in:"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:31
+msgid "An _existing category:"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:42
+msgid "A _new album named:"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:93
+msgid "Photos will be _visible by:"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:124
+msgid "Logout"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:137
+msgid "Publish"
 msgstr ""
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
