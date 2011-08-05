@@ -114,14 +114,3 @@ public string build_dummy_ui_string(Gtk.ActionGroup[] groups) {
     return ui_string;
 }
 
-#if ENABLE_FACES
-bool is_pointer_over(Gdk.Window window) {
-    int x, y;
-    window.get_pointer(out x, out y, null);
-    
-    int width, height;
-    window.get_size(out width, out height);
-    
-    return x >= 0 && y >= 0 && x < width && y < height;
-}
-#endif
