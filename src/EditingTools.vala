@@ -1782,20 +1782,12 @@ public class FacesTool : EditingTool {
         }
         
         public bool on_leave_notify_event() {
-            int x;
-            int y;
-            int width;
-            int height;
-            
-            get_pointer(out x, out y);
-            get_window().get_size(out width, out height);
-            
             // This check is necessary because GTK+ will throw enter/leave_notify
             // events when the pointer passes though windows, even if one window
             // belongs to a widget that is a child of the widget that throws this
             // signal. So, this check is necessary to avoid "deactivation" of
             // the label if the pointer enters one of the buttons in this FaceWidget.
-            if (x < 0 || y < 0 || x >= width || y >= height) {
+            if (!is_pointer_over(get_window())) {
                 deactivate_label();
                 
                 if (face_shape.is_editable())
@@ -2166,6 +2158,11 @@ public class FacesTool : EditingTool {
     }
     
     public override bool on_leave_notify_event() {
+        // This check is a workaround for bug #3896.
+        if (is_pointer_over(canvas.get_drawing_window()) &&
+            !is_pointer_over(faces_tool_window.get_window()))
+            return false;
+        
         if (editing_face_shape != null)
             return base.on_leave_notify_event();
         
