@@ -115,11 +115,16 @@ public string build_dummy_ui_string(Gtk.ActionGroup[] groups) {
 }
 
 bool is_pointer_over(Gdk.Window window) {
+    Gdk.DeviceManager? devmgr = window.get_display().get_device_manager();
+    if (devmgr == null) {
+        debug("No device for display");
+        
+        return false;
+    }
+    
     int x, y;
-    window.get_pointer(out x, out y, null);
+    gdk_device_get_position(devmgr.get_client_pointer(), null, out x, out y);
     
-    int width, height;
-    window.get_size(out width, out height);
-    
-    return x >= 0 && y >= 0 && x < width && y < height;
+    return x >= 0 && y >= 0 && x < window.get_width() && y < window.get_height();
 }
+
