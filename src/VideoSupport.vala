@@ -180,8 +180,7 @@ public class VideoReader {
 
         Gst.Format time_query_format = Gst.Format.TIME;
         int64 video_length = -1;
-        thumbnail_pipeline.query_duration(ref time_query_format, out video_length);
-        if (video_length != -1)
+        if (thumbnail_pipeline.query_duration(ref time_query_format, out video_length))
             clip_duration = ((double) video_length) / 1000000000.0;
         else
             throw new VideoError.CONTENTS("GStreamer couldn't extract clip duration");
