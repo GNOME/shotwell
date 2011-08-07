@@ -1427,6 +1427,34 @@ public class NewChildTagCommand : SimpleProxyableCommand {
     }
 }
 
+public class NewRootTagCommand : PageCommand {
+    Tag? created = null;
+    
+    public NewRootTagCommand() {
+        base (_("Create Tag"), "");
+    }
+    
+    protected override void execute() {
+        created = Tag.create_new_root();
+        SourceProxy tag_proxy = created.get_proxy();
+        tag_proxy.broken.connect(on_proxy_broken);
+    }
+    
+    protected override void undo() {
+        Tag.global.destroy_marked(Tag.global.mark(created), true);
+    }
+    
+    public Tag get_created_tag() {
+        assert(created != null);
+        
+        return created;
+    }
+    
+    private void on_proxy_broken() {
+        get_command_manager().reset();
+    }
+}
+
 public class ModifyTagsCommand : SingleDataSourceCommand {
     private MediaSource media;
     private Gee.ArrayList<SourceProxy> to_add = new Gee.ArrayList<SourceProxy>();

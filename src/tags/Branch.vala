@@ -107,9 +107,37 @@ public class Tags.Branch : Sidebar.Branch {
     }
 }
 
-public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry {
+public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, Sidebar.Contextable {
+    private Gtk.UIManager ui = new Gtk.UIManager();
+    private Gtk.Menu? context_menu = null;
+    
     public Grouping() {
         base (_("Tags"), new ThemedIcon(Resources.ICON_TAGS));
+        setup_context_menu();
+    }
+    
+    private void setup_context_menu() {
+        Gtk.ActionGroup group = new Gtk.ActionGroup("SidebarDefault");
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry new_search = { "CommonNewTag", null, TRANSLATABLE, null, null, on_new_tag };
+        new_search.label = Resources.NEW_CHILD_TAG_SIDEBAR_MENU;
+        actions += new_search;
+        
+        group.add_actions(actions, this);
+        ui.insert_action_group(group, 0);
+        
+        File ui_file = Resources.get_ui("tag_sidebar_context.ui");
+        try {
+            ui.add_ui_from_file(ui_file.get_path());
+        } catch (Error err) {
+            AppWindow.error_message("Error loading UI file %s: %s".printf(
+                ui_file.get_path(), err.message));
+            Application.get_instance().panic();
+        }
+        context_menu = (Gtk.Menu) ui.get_widget("/SidebarTagContextMenu");
+        
+        ui.ensure_update();
     }
     
     public bool internal_drop_received(Gee.List<MediaSource> media) {
@@ -121,6 +149,16 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry {
         AppWindow.get_command_manager().execute(new AddTagsCommand(names, media));
         
         return true;
+    }
+    
+    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event) {
+        return context_menu;
+    }
+    
+    private void on_new_tag() {
+        NewRootTagCommand creation_command = new NewRootTagCommand();
+        AppWindow.get_command_manager().execute(creation_command);
+        LibraryWindow.get_app().rename_tag_in_sidebar(creation_command.get_created_tag());
     }
 }
 

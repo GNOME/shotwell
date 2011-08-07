@@ -80,7 +80,7 @@ public class Searches.Grouping : Sidebar.Grouping, Sidebar.Contextable {
         group.add_actions(actions, this);
         ui.insert_action_group(group, 0);
         
-        File ui_file = Resources.get_ui("sidebar_default.ui");
+        File ui_file = Resources.get_ui("search_sidebar_context.ui");
         try {
             ui.add_ui_from_file(ui_file.get_path());
         } catch (Error err) {
@@ -88,7 +88,7 @@ public class Searches.Grouping : Sidebar.Grouping, Sidebar.Contextable {
                 ui_file.get_path(), err.message));
             Application.get_instance().panic();
         }
-        context_menu = (Gtk.Menu) ui.get_widget("/SidebarDefaultContextMenu");
+        context_menu = (Gtk.Menu) ui.get_widget("/SidebarSearchContextMenu");
         
         ui.ensure_update();
     }

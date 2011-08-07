@@ -695,6 +695,26 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         return result;
     }
     
+    // Gets the next "untitled" tag name available.
+    // Note: Not thread-safe.
+    private static string get_next_untitled_tag_name(string? _prefix = null) {
+        string prefix = _prefix != null ? _prefix : "";
+        string candidate_name = _("untitled");
+        uint64 counter = 0;
+        do {
+            string path_candidate = prefix + candidate_name +
+                ((counter == 0) ? "" : (" " + counter.to_string()));
+            
+            if (!Tag.exists(path_candidate))
+                return path_candidate;
+            
+            counter++;
+        } while (counter < uint64.MAX);
+        
+        // If we get here, it means all untitled tags up to uint64.MAX were used.
+        assert_not_reached();
+    }
+    
     public Tag create_new_child() {
         string path_prefix = get_path();
         
@@ -704,24 +724,11 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             path_prefix = get_path();
         }
         
-        string candidate_name = _("untitled");
-        uint64 counter = 0;
-        Tag? result = null;
-        do {
-            string path_candidate = path_prefix + Tag.PATH_SEPARATOR_STRING + candidate_name +
-                ((counter == 0) ? "" : (" " + counter.to_string()));
-            
-            if (!Tag.exists(path_candidate)) {
-                result = Tag.for_path(path_candidate);
-                
-                break;
-            }
-
-            counter++;
-
-        } while (counter < uint64.MAX);
-        
-        return result;
+        return Tag.for_path(get_next_untitled_tag_name(path_prefix + Tag.PATH_SEPARATOR_STRING));
+    }
+    
+    public static Tag create_new_root() {
+        return Tag.for_path(get_next_untitled_tag_name());
     }
     
     public string get_name_collation_key() {
