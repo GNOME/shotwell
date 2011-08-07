@@ -252,6 +252,13 @@ class PhotoImportSource : ImportSource {
     public PhotoImportSource? get_associated() {
         return associated;
     }
+    
+    public override bool internal_delete_backing() throws Error {
+        bool ret = base.internal_delete_backing();
+        if (associated != null)
+            ret &= associated.internal_delete_backing();
+        return ret;
+    }
 }
 
 class ImportPreview : MediaSourceItem {
