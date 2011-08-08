@@ -639,7 +639,10 @@ public abstract class SourceProxy {
         // it should also automatically add itself to its original collection (which is trapped
         // in on_source_added)
         DataSource new_source = reconstitute(object_id, snapshot);
-        assert(source == new_source);
+        if (source != new_source)
+            source = new_source;
+        if (object_id != source.get_object_id())
+            object_id = new_source.get_object_id();
         assert(source.get_object_id() == object_id);
         assert(membership.contains(source));
         

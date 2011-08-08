@@ -769,6 +769,13 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     private static Tag reconstitute(int64 object_id, TagRow row) {
         // if reconstituting a hierarchical tag, we have to do some special manipulations
         if (row.name.has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+            // it is possible that this tag has already been reconstituted when one of its children
+            // was reconstituted, so check for this case and return the already-reconstituted tag
+            if (Tag.exists(row.name)) {
+                return Tag.for_path(row.name);
+            }
+        
+        
             Gee.List<string> parent_paths =
                 HierarchicalTagUtilities.enumerate_parent_paths(row.name);
 
