@@ -268,6 +268,7 @@ EXT_PKGS = \
 	gstreamer-0.10 \
 	gstreamer-base-0.10 \
 	gtk+-3.0 \
+	gstreamer-pbutils-0.10 \
 	gudev-1.0 \
 	libexif \
 	libgphoto2 \
