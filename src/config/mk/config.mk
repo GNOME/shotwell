@@ -13,7 +13,8 @@ UNIT_DIR := config
 UNIT_FILES := \
     ConfigurationInterfaces.vala \
     GConfEngine.vala \
-    GSettingsEngine.vala
+    GSettingsEngine.vala \
+    HybridEngine.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

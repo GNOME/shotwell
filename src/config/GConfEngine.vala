@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-#if USE_LEGACY_CONFIG_SYSTEM
-
 public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string PATH_SHOTWELL = "/apps/shotwell";
     private const string PATH_SHOTWELL_PREFS = PATH_SHOTWELL + "/preferences";
@@ -410,6 +408,4 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
         }
     }
 }
-
-#endif
 

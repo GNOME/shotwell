@@ -50,11 +50,7 @@ public class Facade : ConfigurationFacade {
     public signal void colors_changed();
 
     private Facade() {
-#if USE_LEGACY_CONFIG_SYSTEM
-        base(new GConfConfigurationEngine());
-#else
-        base(new GSettingsConfigurationEngine());
-#endif
+        base(new HybridConfigurationEngine());
 
         bg_color_name_changed.connect(on_color_name_changed);
     }
