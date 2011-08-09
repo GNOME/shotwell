@@ -37,8 +37,6 @@ configure_help() {
     printf "\t\t\t\tDisable installation of online help.\n"
     printf "\t--disable-extra-plugins-install\n"
     printf "\t\t\t\tDisable installation of extra (non-core) plugins.\n"
-    printf "\t--use-legacy-config-system\n"
-    printf "\t\t\t\tUse GConf instead of GSettings as the configuration\n\t\t\t\tbackend for Shotwell.\n"
     printf "\t--install-headers\n"
     printf "\t\t\t\tInstall headers and VAPI files (developers only).\n"
     printf "\n"
@@ -119,8 +117,6 @@ do
         --enable-build-for-glade)         variables="${variables}ENABLE_BUILD_FOR_GLADE=1\n"
                                           ;;
         --enable-tests)                   variables="${variables}ENABLE_TESTS=1\n"
-                                          ;;
-        --use-legacy-config-system)       variables="${variables}USE_LEGACY_CONFIG_SYSTEM=1\n"
                                           ;;
         --disable-help-install)           variables="${variables}DISABLE_HELP_INSTALL=1\n"
                                           ;;
