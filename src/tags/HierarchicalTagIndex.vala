@@ -12,6 +12,28 @@ public class HierarchicalTagIndex {
         this.tag_table = new Gee.HashMap<string, Gee.ArrayList<string>>();
         this.known_paths = new Gee.TreeSet<string>();
     }
+    
+    public static HierarchicalTagIndex from_paths(Gee.Collection<string> paths) {
+        HierarchicalTagIndex result = new HierarchicalTagIndex();
+        
+        foreach (string path in paths) {
+            if (path.has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+                Gee.Collection<string> components =
+                    HierarchicalTagUtilities.enumerate_path_components(path);
+
+                foreach (string component in components)
+                    result.add_path(component, path);
+            } else {
+                result.add_path(path, path);
+            }
+        }
+        
+        return result;
+    }
+    
+    public static HierarchicalTagIndex get_global_index() {
+        return HierarchicalTagIndex.from_paths(Tag.global.get_all_names());
+    }
 
     public void add_path(string tag, string path) {
         if (!tag_table.has_key(tag)) {
@@ -37,5 +59,30 @@ public class HierarchicalTagIndex {
     public bool is_path_known(string path) {
         return known_paths.contains(path);
     }
+    
+    public string get_path_for_name(string name) {
+        if (!is_tag_in_index(name))
+            return name;
+        
+        Gee.Collection<string> paths = tag_table.get(name);
+        foreach (string path in paths) {
+            Gee.List<string> components = HierarchicalTagUtilities.enumerate_path_components(path);
+            if (components.get(components.size - 1) == name) {
+                return path;
+            }
+        }
+        
+		assert_not_reached();
+    }
+    
+    public string[] get_paths_for_names_array(string[] names) {
+        string[] result = new string[0];
+        
+        foreach (string name in names)
+            result += get_path_for_name(name);
+            
+        return result;
+    }
+    
 }
 

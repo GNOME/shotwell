@@ -870,8 +870,10 @@ public abstract class MediaPage : CheckerboardPage {
         
         AddTagsDialog dialog = new AddTagsDialog();
         string[]? names = dialog.execute();
+        
         if (names != null) {
-            get_command_manager().execute(new AddTagsCommand(names, 
+            get_command_manager().execute(new AddTagsCommand(
+                HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names),
                 (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
         }
     }
