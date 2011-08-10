@@ -1521,7 +1521,8 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
 
 public abstract class TagsDialog : TextEntryDialogMediator {
     public TagsDialog(string title, string label, string? initial_text = null) {
-        base (title, label, initial_text, Tag.global.get_all_names(), ",");
+        base (title, label, initial_text, HierarchicalTagIndex.get_global_index().get_all_tags(),
+            ",");
     }
 }
 
@@ -1541,6 +1542,9 @@ public class AddTagsDialog : TagsDialog {
     }
 
     protected override bool on_modify_validate(string text) {
+        if (text.contains(Tag.PATH_SEPARATOR_STRING))
+            return false;
+            
         // Can't simply call Tag.prep_tag_names().length because of this bug:
         // https://bugzilla.gnome.org/show_bug.cgi?id=602208
         string[] names = Tag.prep_tag_names(text.split(","));
@@ -1556,23 +1560,24 @@ public class ModifyTagsDialog : TagsDialog {
     }
     
     private static string? get_initial_text(MediaSource source) {
-        Gee.SortedSet<Tag>? sorted_tags = Tag.global.fetch_sorted_for_source(source);
-        
-        if (sorted_tags == null)
+        Gee.Collection<Tag>? source_tags = Tag.global.fetch_for_source(source);
+        if (source_tags == null)
             return null;
+
+        Gee.Collection<Tag> terminal_tags = Tag.get_terminal_tags(source_tags);
         
-        string[] tag_names = new string[0];
-		foreach (Tag tag in sorted_tags)
-            tag_names += tag.get_name();
+        Gee.SortedSet<string> tag_basenames = new Gee.TreeSet<string>();
+		foreach (Tag tag in terminal_tags)
+            tag_basenames.add(HierarchicalTagUtilities.get_basename(tag.get_path()));
         
         string? text = null;
-        foreach (string tag in tag_names) {
+        foreach (string name in tag_basenames) {
             if (text == null)
                 text = "";
             else
                 text += ", ";
             
-            text += tag;
+            text += name;
         }
         
         return text;
@@ -1591,13 +1596,19 @@ public class ModifyTagsDialog : TagsDialog {
         
         // break up by comma-delimiter, prep for use, and separate into list
         string[] tag_names = Tag.prep_tag_names(text.split(","));
+        
+        tag_names = HierarchicalTagIndex.get_global_index().get_paths_for_names_array(tag_names);
 
-        // TODO: HTags compatibility
         foreach (string name in tag_names)
             new_tags.add(Tag.for_path(name));
         
         return new_tags;
     }
+    
+    protected override bool on_modify_validate(string text) {
+        return (!text.contains(Tag.PATH_SEPARATOR_STRING));
+    }
+    
 }
 
 public class WelcomeDialog : Gtk.Dialog {

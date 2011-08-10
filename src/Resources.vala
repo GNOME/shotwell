@@ -289,9 +289,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public string add_tags_label(string[] names) {
         if (names.length == 1)
-            return _("Add Tag \"%s\"").printf(names[0]);
+            return _("Add Tag \"%s\"").printf(HierarchicalTagUtilities.get_basename(names[0]));
         else if (names.length == 2)
-            return _("Add Tags \"%s\" and \"%s\"").printf(names[0], names[1]);
+            return _("Add Tags \"%s\" and \"%s\"").printf(
+            HierarchicalTagUtilities.get_basename(names[0]),
+            HierarchicalTagUtilities.get_basename(names[1]));
         else
             return _("Add Tags");
     }

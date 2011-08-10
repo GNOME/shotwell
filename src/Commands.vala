@@ -1465,27 +1465,32 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
         
         this.media = media;
         
-        // Remove any tag that's in the original list but not the new one
+        // Prepare to remove all existing tags, if any, from the current media source.
         Gee.List<Tag>? original_tags = Tag.global.fetch_for_source(media);
         if (original_tags != null) {
             foreach (Tag tag in original_tags) {
-                if (!new_tag_list.contains(tag)) {
-                    SourceProxy proxy = tag.get_proxy();
-                    
-                    to_remove.add(proxy);
-                    proxy.broken.connect(on_proxy_broken);
-                }
+                SourceProxy proxy = tag.get_proxy();
+                to_remove.add(proxy);
+                proxy.broken.connect(on_proxy_broken);
             }
         }
         
-        // Add any tag that's in the new list but not the original
-        foreach (Tag tag in new_tag_list) {
-            if (original_tags == null || !original_tags.contains(tag)) {
-                SourceProxy proxy = tag.get_proxy();
-                
-                to_add.add(proxy);
-                proxy.broken.connect(on_proxy_broken);
-            }
+        // Prepare to add all new tags; remember, if a tag is added, its parent must be
+        // added as well. So enumerate all paths to add and then get the tags for them.
+        Gee.SortedSet<string> new_paths = new Gee.TreeSet<string>();
+        foreach (Tag new_tag in new_tag_list) {
+            string new_tag_path = new_tag.get_path();
+
+            new_paths.add(new_tag_path);
+            new_paths.add_all(HierarchicalTagUtilities.enumerate_parent_paths(new_tag_path));
+        }
+        
+        foreach (string path in new_paths) {
+            assert(Tag.exists(path));
+
+            SourceProxy proxy = Tag.for_path(path).get_proxy();
+            to_add.add(proxy);
+            proxy.broken.connect(on_proxy_broken);
         }
     }
     
@@ -1498,11 +1503,11 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
     }
     
     public override void execute() {
-        foreach (SourceProxy proxy in to_add)
-            ((Tag) proxy.get_source()).attach(media);
-        
         foreach (SourceProxy proxy in to_remove)
             ((Tag) proxy.get_source()).detach(media);
+            
+        foreach (SourceProxy proxy in to_add)
+            ((Tag) proxy.get_source()).attach(media);
     }
     
     public override void undo() {
