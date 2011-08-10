@@ -297,6 +297,7 @@ EXT_PKG_VERSIONS = \
 	gstreamer-0.10 >= 0.10.28 \
 	gstreamer-base-0.10 >= 0.10.28 \
 	gtk+-3.0 >= 3.0.11 \
+	libgstreamer-plugins-base0.10 >= 0.10.32 \
 	gudev-1.0 >= 145 \
 	libexif >= 0.6.16 \
 	libgphoto2 >= 2.4.2 \
