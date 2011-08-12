@@ -40,6 +40,7 @@ public enum ConfigurableProperty {
     EVENTS_SORT_ASCENDING,
     EXTERNAL_PHOTO_APP,
     EXTERNAL_RAW_APP,
+    HIDE_PHOTOS_ALREADY_IMPORTED,
     IMPORT_DIR,
     KEEP_RELATIVITY,
     LAST_USED_SERVICE,
@@ -134,6 +135,9 @@ public enum ConfigurableProperty {
                 
             case EXTERNAL_RAW_APP:
                 return "EXTERNAL_RAW_APP";
+            
+            case HIDE_PHOTOS_ALREADY_IMPORTED:
+                return "HIDE_PHOTOS_ALREADY_IMPORTED";
                 
             case IMPORT_DIR:
                 return "IMPORT_DIR";
@@ -713,7 +717,28 @@ public abstract class ConfigurationFacade : Object {
             return;
         }
     }
-
+    
+    //
+    // hide photos already imported
+    //
+    public virtual bool get_hide_photos_already_imported() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.HIDE_PHOTOS_ALREADY_IMPORTED);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            
+            return true;
+        }
+    }
+    
+    public virtual void set_hide_photos_already_imported(bool hide_imported) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.HIDE_PHOTOS_ALREADY_IMPORTED, hide_imported);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+    
     //
     // import dir
     //

@@ -70,6 +70,19 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/hide_photos_already_imported</key>
+            <applyto>/apps/shotwell/preferences/ui/hide_photos_already_imported</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+            
+            <locale name="en">
+                <short>selection state of "hide photos" option</short>
+                <long>Last used selection state of the "hide photos already imported" option in the import page.</long>
+            </locale>
+        </schema>
+
+        <schema>
             <key>/schemas/apps/shotwell/preferences/slideshow/delay</key>
             <applyto>/apps/shotwell/preferences/slideshow/delay</applyto>
             <type>float</type>
