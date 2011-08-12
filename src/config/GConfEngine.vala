@@ -76,6 +76,9 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
         property_paths[ConfigurableProperty.EXTERNAL_RAW_APP] =
             PATH_SHOTWELL_PREFS + "/editing/external_raw_editor";
 
+        property_paths[ConfigurableProperty.HIDE_PHOTOS_ALREADY_IMPORTED] =
+            PATH_SHOTWELL_PREFS + "/ui/hide_photos_already_imported";
+
         property_paths[ConfigurableProperty.IMPORT_DIR] =
             PATH_SHOTWELL_PREFS + "/files/import_dir";
 

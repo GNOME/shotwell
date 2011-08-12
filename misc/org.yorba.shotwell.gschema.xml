@@ -130,6 +130,12 @@
         <summary>RAW developer default</summary>
         <description>Default option for which RAW developer Shotwell will use.</description>
     </key>
+    
+    <key name="hide-photos-already-imported" type="b">
+        <default>false</default>
+        <summary>Selection state of "hide photos" option</summary>
+        <description>Last used selection state of the "hide photos already imported" option in the import page.</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.preferences.slideshow" path="/apps/shotwell/preferences/slideshow/">

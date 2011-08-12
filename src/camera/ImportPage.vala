@@ -737,7 +737,7 @@ public class ImportPage : CheckerboardPage {
         hide_imported.set_tooltip_text(_("Only display photos that have not been imported"));
         hide_imported.clicked.connect(on_hide_imported);
         hide_imported.sensitive = false;
-        hide_imported.active = false;
+        hide_imported.active = Config.Facade.get_instance().get_hide_photos_already_imported();
         Gtk.ToolItem hide_item = new Gtk.ToolItem();
         hide_item.is_important = true;
         hide_item.add(hide_imported);
@@ -1474,11 +1474,12 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_hide_imported() {
-        if (hide_imported.get_active()) {
+        if (hide_imported.get_active())
             get_view().install_view_filter(hide_imported_filter);
-        } else {
+        else
             get_view().remove_view_filter(hide_imported_filter);
-        }
+        
+        Config.Facade.get_instance().set_hide_photos_already_imported(hide_imported.get_active());
     }
     
     private void on_import_selected() {
