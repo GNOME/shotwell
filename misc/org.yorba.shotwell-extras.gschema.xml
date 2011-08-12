@@ -1,0 +1,50 @@
+<schemalist>
+
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-piwigo" path="/apps/shotwell/sharing/org-yorba-shotwell-publishing-piwigo/">
+    <key name="url" type="s">
+        <default>""</default>
+        <summary>Piwigio URL</summary>
+        <description>URL of the Piwigo server.</description>
+    </key>
+    
+    <key name="username" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>Piwigo username, if logged in.</description>
+    </key>
+    
+    <key name="password" type="s">
+        <default>""</default>
+        <summary>password</summary>
+        <description>Piwigo password, if logged in.</description>
+    </key>
+    
+    <key name="remember-password" type="b">
+        <default>false</default>
+        <summary>remember password</summary>
+        <description>If true, remember the Piwigo password.</description>
+    </key>
+    
+    <key name="last-category" type="i">
+        <default>-1</default>
+        <summary>last category</summary>
+        <description>The last selected Piwigo category.</description>
+    </key>
+    
+    <key name="last-permission-level" type="i">
+        <default>-1</default>
+        <summary>last permission level</summary>
+        <description>The last chosen Piwigo permission level.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-yandex-fotki" path="/apps/shotwell/sharing/org-yorba-shotwell-publishing-yandex-fotki/">
+    <key name="auth-token" type="s">
+        <default>""</default>
+        <summary>authentication token</summary>
+        <description>Yandex-Fotki authentication token, if logged in.</description>
+    </key>
+</schema>
+
+</schemalist>
+

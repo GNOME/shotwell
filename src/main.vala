@@ -362,7 +362,11 @@ void main(string[] args) {
         GLib.Environment.set_variable("GSETTINGS_SCHEMA_DIR", AppDirs.get_exec_dir().get_path() +
             "/misc", true);
     }
-
+    
+    // Run the gsettings-data-convert tool to migrate GConf settings to gsettings ... note that this
+    // is designed to run every execution.  See http://developer.gnome.org/gio/2.28/ch28s07.html
+    GConfConfigurationEngine.run_gsettings_data_converter();
+    
     // init GTK (valac has already called g_threads_init())
     try {
         Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.get_options(),
