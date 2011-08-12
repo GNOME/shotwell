@@ -131,7 +131,9 @@ SYS_INTEGRATION_FILES = \
 	shotwell.desktop.head \
 	shotwell-viewer.desktop.head \
 	shotwell.schemas \
-	org.yorba.shotwell.gschema.xml
+	org.yorba.shotwell.gschema.xml \
+	org.yorba.shotwell-extras.gschema.xml \
+	shotwell.convert
 
 SRC_HEADER_FILES = \
 	gphoto.h
@@ -540,7 +542,10 @@ install:
 	$(INSTALL_DATA) icons/shotwell-24.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.svg
 	mkdir -p $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 	$(INSTALL_DATA) misc/org.yorba.shotwell.gschema.xml $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
+	$(INSTALL_DATA) misc/org.yorba.shotwell-extras.gschema.xml $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 	glib-compile-schemas $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
+	mkdir -p $(DESTDIR)/usr/share/GConf/gsettings
+	$(INSTALL_DATA) misc/shotwell.convert $(DESTDIR)/usr/share/GConf/gsettings
 ifndef DISABLE_ICON_UPDATE
 	-gtk-update-icon-cache -t -f $(DESTDIR)$(PREFIX)/share/icons/hicolor || :
 endif
@@ -628,7 +633,9 @@ ifdef INSTALL_HEADERS
 	rm -f $(DESTDIR)$(PREFIX)/$(LIB)/pkgconfig/$(PC_FILE)
 endif
 	rm -f $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas/org.yorba.shotwell.gschema.xml
+	rm -f $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas/org.yorba.shotwell-extras.gschema.xml
 	glib-compile-schemas $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
+	rm -f $(DESTDIR)/usr/share/GConf/gsettings/shotwell.convert
 
 $(PC_FILE): $(PC_INPUT) $(MAKE_FILES)
 	m4 '-D_VERSION_=$(VERSION)' '-D_PREFIX_=$(PREFIX)' '-D_REQUIREMENTS_=$(PLUGIN_PKG_REQS)' \

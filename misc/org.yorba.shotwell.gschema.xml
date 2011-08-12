@@ -264,6 +264,7 @@
     <child name="facebook" schema="org.yorba.shotwell.sharing.facebook" />
     <child name="flickr" schema="org.yorba.shotwell.sharing.flickr" />
     <child name="picasa" schema="org.yorba.shotwell.sharing.picasa" />
+    <child name="youtube" schema="org.yorba.shotwell.sharing.youtube" />
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.facebook" path="/apps/shotwell/sharing/facebook/">
@@ -335,6 +336,20 @@
         <default>2</default>
         <summary>default size</summary>
         <description>A numeric code representing the default size for photos uploaded to Picasa Web Albums</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.youtube" path="/apps/shotwell/sharing/youtube/">
+    <key name="user-name" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>YouTube username for the currently logged in session, if any</description>
+    </key>
+    
+    <key name="auth-token" type="s">
+        <default>""</default>
+        <summary>authentication token</summary>
+        <description>YouTube authentication token for the currently logged in session, if any</description>
     </key>
 </schema>
 
