@@ -180,11 +180,8 @@ public class GConfConfigurationEngine : ConfigurationEngine, GLib.Object {
             if (list != null) {
                 foreach (string name in list) {
                     // shotwell.convert is the key file stored in the build misc directory
-                    if (name == "shotwell.convert") {
-                        debug("No need to convert GConf settings to gsettings: already occurred");
-                        
+                    if (name == "shotwell.convert")
                         return;
-                    }
                 }
             }
         } catch (Error err) {
