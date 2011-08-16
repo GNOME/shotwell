@@ -150,7 +150,21 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, 
         
         return true;
     }
-    
+
+    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
+        if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
+            string old_tag_path = (string) data.get_data();
+            assert (Tag.exists(old_tag_path));
+            
+            ReparentTagCommand cmd = new ReparentTagCommand(Tag.for_path(old_tag_path), "/");
+            cmd.execute();
+            
+            return true;
+        }
+        
+        return false;
+    }
+
     public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event) {
         return context_menu;
     }
@@ -163,7 +177,8 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, 
 }
 
 public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
-    Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry {
+    Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry,
+    Sidebar.InternalDragSourceEntry {
     private static Icon single_tag_icon;
     
     private Tag tag;
@@ -218,7 +233,21 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         
         return true;
     }
-    
+
+    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
+        if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
+            string old_tag_path = (string) data.get_data();
+            assert (Tag.exists(old_tag_path));
+            
+            ReparentTagCommand cmd = new ReparentTagCommand(Tag.for_path(old_tag_path), tag.get_path());
+            cmd.execute();
+            
+            return true;
+        }
+        
+        return false;
+    }
+
     public Icon? get_sidebar_open_icon() {
         return single_tag_icon;
     }
@@ -229,6 +258,11 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     
     public bool expand_on_select() {
         return false;
+    }
+
+    public void prepare_selection_data(Gtk.SelectionData data) {
+        data.set(Gdk.Atom.intern_static_string(LibraryWindow.TAG_PATH_MIME_TYPE), 0,
+            tag.get_path().data);
     }
 }
 

@@ -133,6 +133,12 @@ public class Sidebar.Tree : Gtk.TreeView {
         // Sidebar.Entry as it was added, but that's a tad too complicated for our needs
         // currently
         enable_model_drag_dest(target_entries, actions);
+
+		Gtk.TargetEntry[] source_entries = new Gtk.TargetEntry[0];
+		source_entries += target_entries[LibraryWindow.TargetType.TAG_PATH];
+        enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK, source_entries,
+            Gdk.DragAction.COPY);
+
         this.drop_handler = drop_handler;
         
         popup_menu.connect(on_context_menu_keypress);
@@ -917,9 +923,27 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         return true;
     }
+
+    public override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
+        uint info, uint time) {
+        Gtk.TreePath? selected_path = get_selected_path();
+        if (selected_path == null)
+            return;
+
+        EntryWrapper? wrapper = get_wrapper_at_path(selected_path);
+        if (wrapper == null)
+            return;
+        
+        InternalDragSourceEntry? drag_source = wrapper.entry as InternalDragSourceEntry;
+        if (drag_source == null)
+            return;
+        
+        drag_source.prepare_selection_data(selection_data);
+    }
     
     public override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
+        
         Gtk.TreePath path;
         Gtk.TreeViewDropPosition pos;
         if (!get_dest_row_at_pos(x, y, out path, out pos)) {
@@ -959,11 +983,14 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         bool success = false;
         
-        // internal drops are always media ID's; unserialize for the entry
-        Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.data,
-            selection_data.get_length());
-        if (media != null && media.size > 0)
-            success = targetable.internal_drop_received(media);
+        if (selection_data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
+            success = targetable.internal_drop_received_arbitrary(selection_data);
+        } else {
+            Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.data,
+                selection_data.get_length());
+            if (media != null && media.size > 0)
+                success = targetable.internal_drop_received(media);
+        }
         
         Gtk.drag_finish(context, success, false, time);
     }

@@ -50,14 +50,19 @@ public class LibraryWindow : AppWindow {
         OFFLINE
     }
     
-    protected enum TargetType {
+    public enum TargetType {
         URI_LIST,
-        MEDIA_LIST
+        MEDIA_LIST,
+        TAG_PATH
     }
     
-    private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
+    public const string TAG_PATH_MIME_TYPE = "shotwell/tag-path";
+    public const string MEDIA_LIST_MIME_TYPE = "shotwell/media-id-atom";
+    
+    public const Gtk.TargetEntry[] DND_TARGET_ENTRIES = {
         { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
-        { "shotwell/media-id-atom", Gtk.TargetFlags.SAME_APP, TargetType.MEDIA_LIST }
+        { MEDIA_LIST_MIME_TYPE, Gtk.TargetFlags.SAME_APP, TargetType.MEDIA_LIST },
+        { TAG_PATH_MIME_TYPE, Gtk.TargetFlags.SAME_WIDGET, TargetType.TAG_PATH }
     };
     
     // special Yorba-selected sidebar background color for standard themes (humanity,
@@ -187,7 +192,7 @@ public class LibraryWindow : AppWindow {
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
         // prep sidebar and add roots
-        sidebar_tree = new Sidebar.Tree(DEST_TARGET_ENTRIES, Gdk.DragAction.ASK,
+        sidebar_tree = new Sidebar.Tree(DND_TARGET_ENTRIES, Gdk.DragAction.ASK,
             external_drop_handler);
         
         sidebar_tree.page_created.connect(on_page_created);
@@ -231,7 +236,13 @@ public class LibraryWindow : AppWindow {
         
         // set up main window as a drag-and-drop destination (rather than each page; assume
         // a drag and drop is for general library import, which means it goes to library_page)
-        Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES,
+        Gtk.TargetEntry[] main_window_dnd_targets = {
+            DND_TARGET_ENTRIES[TargetType.URI_LIST],
+            DND_TARGET_ENTRIES[TargetType.MEDIA_LIST]
+            /* the main window accepts URI lists and media lists but not tag paths -- yet; we
+               might wish to support dropping tags onto photos at some future point */
+        };
+        Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, main_window_dnd_targets,
             Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
         
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);

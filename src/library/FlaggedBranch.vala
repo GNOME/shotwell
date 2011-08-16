@@ -53,5 +53,9 @@ public class Library.FlaggedSidebarEntry : Sidebar.SimplePageEntry, Sidebar.Inte
         
         return true;
     }
+    
+    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
+        return false;
+    }
 }
 

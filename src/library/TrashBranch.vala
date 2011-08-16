@@ -56,7 +56,11 @@ public class Library.TrashSidebarEntry : Sidebar.SimplePageEntry, Sidebar.Intern
         
         return true;
     }
-    
+
+    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
+        return false;
+    }
+
     protected override Page create_page() {
         return new TrashPage();
     }
