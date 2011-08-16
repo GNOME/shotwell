@@ -1455,6 +1455,145 @@ public class NewRootTagCommand : PageCommand {
     }
 }
 
+public class ReparentTagCommand : PageCommand {
+    string basename;
+    string from_path;
+    string to_path;
+    
+    public ReparentTagCommand(Tag tag, string new_parent_path) {
+        base (_("Move Tag \"%s\"").printf(tag.get_user_visible_name()), "");
+
+        this.basename = tag.get_user_visible_name();
+        this.from_path = tag.get_path();
+
+        bool has_children = (tag.get_hierarchical_children().size > 0);
+
+        if (new_parent_path == Tag.PATH_SEPARATOR_STRING)
+            this.to_path = (has_children) ? (Tag.PATH_SEPARATOR_STRING + basename) : basename;
+        else if (new_parent_path.has_prefix(Tag.PATH_SEPARATOR_STRING))
+            this.to_path = new_parent_path + Tag.PATH_SEPARATOR_STRING + basename;
+        else
+            this.to_path = Tag.PATH_SEPARATOR_STRING + new_parent_path + Tag.PATH_SEPARATOR_STRING +
+                basename;
+    }
+    
+    private void do_move(string from, string to) {
+        // make sure a tag corresponding to the from path exists -- this should always be true,
+        // given the way the constructor for this class works, but it's a sanity check
+        Tag? from_tag = null;
+        if (!Tag.exists(from))
+            error("do_move: can't move from tag with path '%s': tag doesn't exist.", from);
+        from_tag = Tag.for_path(from);
+        
+        // if the from tag has any children they need to be moved recursively with the from tag,
+        // so enumerate them
+        Gee.List<Tag> from_children = new Gee.ArrayList<Tag>();
+        from_children.add_all(from_tag.get_hierarchical_children());
+        
+        // make a list of all the sources in the from tag
+        Gee.Set<MediaSource> from_sources = new Gee.HashSet<MediaSource>();
+        from_sources.add_all(from_tag.get_sources());
+        
+        // keep track of which sources belong to which children since we need to recreate the
+        // child structure exactly
+        Gee.Map<string, Gee.Set<MediaSource>> child_structure =
+            new Gee.TreeMap<string, Gee.Set<MediaSource>>();
+        
+        // loop through sources and detach them
+        foreach (MediaSource source in from_sources) {
+            // detach the current source from all child tags of the from tag
+            foreach (Tag child in from_children) {
+                string child_subpath = child.get_path().replace(from + Tag.PATH_SEPARATOR_STRING,
+                    "");
+                if (!child_structure.has_key(child_subpath))
+                    child_structure.set(child_subpath, new Gee.HashSet<MediaSource>());
+                
+                if (child.contains(source)) {
+                    child_structure.get(child_subpath).add(source);
+                }
+            }
+            
+            // detach the current source from the from tag itself
+            from_tag.detach(source);
+            
+            // detach the current source from all of the parent tags of the from tag
+            Tag? current_parent = from_tag.get_hierarchical_parent();
+            while (current_parent != null) {
+                current_parent.detach(source);
+                
+                current_parent = current_parent.get_hierarchical_parent();
+            }
+        }
+        
+        // find our new parent tag (if one exists) and promote it
+        Tag? new_parent = null;
+        if (to.has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+            Gee.List<string> parent_paths = HierarchicalTagUtilities.enumerate_parent_paths(to);
+            if (parent_paths.size > 0) {
+                string immediate_parent_path = parent_paths.get(parent_paths.size - 1);
+                if (Tag.exists(immediate_parent_path))
+                    new_parent = Tag.for_path(immediate_parent_path);
+                else if (Tag.exists(immediate_parent_path.substring(1)))
+                    new_parent = Tag.for_path(immediate_parent_path.substring(1));
+                else
+                    assert_not_reached();
+            }
+        }    
+        if (new_parent != null)
+            new_parent.promote();
+
+        // get (or create) a tag for the destination path and attach all of the sources to it;
+        // also attach all of the sources to the parents of the destination tag, if any
+        Tag to_tag = Tag.for_path(to);
+        foreach (MediaSource current_from_source in from_sources) {
+            to_tag.attach(current_from_source);
+            
+            Tag? parent = to_tag.get_hierarchical_parent();
+            while (parent != null) {
+                parent.attach(current_from_source);
+            
+                parent = parent.get_hierarchical_parent();
+            }
+        }
+
+        // create our child paths, if any, and attach their sources
+        foreach (string curr_child_subpath in child_structure.keys) {
+            string curr_child_path = to_tag.get_path() + Tag.PATH_SEPARATOR_STRING +
+                curr_child_subpath;
+            Tag curr_child_tag = Tag.for_path(curr_child_path);
+            foreach (MediaSource src_in_child in child_structure.get(curr_child_subpath)) {
+                curr_child_tag.attach(src_in_child);
+            }
+        }
+        
+        // cleanup our old children
+        Tag.global.destroy_marked(Tag.global.mark_many(from_children), true);
+        
+        // cleanup our old tag -- keep in mind that when our children were removed, we
+        // may have been flattened
+        if (Tag.exists(from)) {
+            Tag.global.destroy_marked(Tag.global.mark(Tag.for_path(from)), true);
+            
+            return;
+        }
+        if (HierarchicalTagUtilities.enumerate_path_components(from).size == 1) {
+            string from_flat = HierarchicalTagUtilities.hierarchical_to_flat(from);
+            if (Tag.exists(from_flat))
+                Tag.global.destroy_marked(Tag.global.mark(Tag.for_path(from_flat)), true);
+                
+            return;
+        }
+    }
+    
+    public override void execute() {
+        do_move(from_path, to_path);
+    }
+    
+    public override void undo() {
+        do_move(to_path, from_path);
+    }
+}
+
 public class ModifyTagsCommand : SingleDataSourceCommand {
     private MediaSource media;
     private Gee.ArrayList<SourceProxy> to_add = new Gee.ArrayList<SourceProxy>();
