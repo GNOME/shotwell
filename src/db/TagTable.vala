@@ -58,6 +58,21 @@ public class TagTable : DatabaseTable {
         return instance;
     }
     
+    public static void upgrade_for_htags() {
+        TagTable table = get_instance();
+
+        try {        
+            Gee.List<TagRow?> rows = table.get_all_rows();
+            
+            foreach (TagRow row in rows) {
+                row.name = row.name.replace(Tag.PATH_SEPARATOR_STRING, "-");
+                table.rename(row.tag_id, row.name);
+            }
+        } catch (DatabaseError e) {
+            error ("TagTable: can't upgrade tag names for hierarchical tag support: %s", e.message);
+        }
+    }
+    
     public TagRow add(string name) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("INSERT INTO TagTable (name, time_created) VALUES (?, ?)", -1,

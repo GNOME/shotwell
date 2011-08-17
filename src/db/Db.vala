@@ -254,6 +254,15 @@ private VerifyResult upgrade_database(int version) {
     
     version = 13;
     
+    //
+    // Version 14:
+    // * Upgrades tag names in the TagTable for hierarchical tag support
+    //
+    
+    TagTable.upgrade_for_htags();
+    
+    version = 14;
+    
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     
