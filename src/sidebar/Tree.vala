@@ -166,7 +166,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         group.add_actions(actions, this);
         ui.insert_action_group(group, 0);
         
-        File ui_file = Resources.get_ui("search_sidebar_context.ui");
+        File ui_file = Resources.get_ui("sidebar_default_context.ui");
         try {
             ui.add_ui_from_file(ui_file.get_path());
         } catch (Error err) {
