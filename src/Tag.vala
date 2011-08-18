@@ -420,7 +420,6 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
                 continue;
             }
             
-            warning("Empty tag %s found with no backlinks, destroying", tag.to_string());
             tag.destroy_orphan(true);
         }
         
