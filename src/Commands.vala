@@ -1317,8 +1317,14 @@ public class AddTagsCommand : PageCommand {
     }
     
     public override void undo() {
-        foreach (SourceProxy tag_proxy in map.keys)
-            ((Tag) tag_proxy.get_source()).detach_many(map.get(tag_proxy));
+        foreach (SourceProxy tag_proxy in map.keys) {
+            Tag tag = (Tag) tag_proxy.get_source();
+
+            tag.detach_many(map.get(tag_proxy));
+            
+            if (tag.get_sources_count() == 0)
+                Tag.global.destroy_marked(Tag.global.mark(tag), true);
+        }
     }
     
     private void on_source_destroyed(DataSource source) {
