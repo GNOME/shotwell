@@ -11,6 +11,8 @@ namespace AlienDb {
  */
 public interface AlienDatabaseTag : Object {
     public abstract string get_name();
+    
+    public abstract AlienDatabaseTag? get_parent();
 }
 
 }

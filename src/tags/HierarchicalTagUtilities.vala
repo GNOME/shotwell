@@ -78,6 +78,18 @@ class HierarchicalTagUtilities {
         return components;
     }
     
+    /**
+     * given a list of path elements, create a fully qualified path string.
+     * For example if 'path_elements' is the list { "Animals",  "Mammals", "Elephant" }
+     * the path "/Animals/Mammals/Elephant" will be returned
+     */
+    public static string? join_path_components(string[] path_components) {
+        if (path_components.length <= 0)
+            return null;
+        string tmp = string.joinv(Tag.PATH_SEPARATOR_STRING, path_components);
+        return string.joinv(Tag.PATH_SEPARATOR_STRING, { "", tmp });
+    }
+    
     public static string get_basename(string in_path) {
         string path = flat_to_hierarchical(in_path);
 
