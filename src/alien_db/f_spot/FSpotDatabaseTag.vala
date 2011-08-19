@@ -12,13 +12,23 @@ namespace AlienDb.FSpot {
  */
 public class FSpotDatabaseTag: Object, AlienDatabaseTag {
     private FSpotTagRow row;
+    private FSpotDatabaseTag? parent;
     
-    public FSpotDatabaseTag(FSpotTagRow row) {
+    public FSpotDatabaseTag(FSpotTagRow row, FSpotDatabaseTag? parent = null) {
         this.row = row;
+        this.parent = parent;
     }
     
     public string get_name() {
         return row.name;
+    }
+    
+    public AlienDatabaseTag? get_parent() {
+        return parent;
+    }
+    
+    public FSpotDatabaseTag? get_fspot_parent() {
+        return parent;
     }
     
     public bool is_stock() {

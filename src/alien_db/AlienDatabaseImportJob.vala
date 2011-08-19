@@ -72,15 +72,15 @@ public class AlienDatabaseImportJob : BatchImportJob {
             return false;
         
         AlienDatabasePhoto src_photo = import_source.get_photo();
-        //
-        // TODO: HTags compatibility
-        //
         
         // tags
         Gee.Collection<AlienDatabaseTag> src_tags = src_photo.get_tags();
         foreach (AlienDatabaseTag src_tag in src_tags) {
-            string? prepped = prepare_input_text(src_tag.get_name(), 
-                PrepareInputTextOptions.DEFAULT, DEFAULT_USER_TEXT_INPUT_LENGTH);
+            string? prepped = HierarchicalTagUtilities.join_path_components(
+                Tag.prep_tag_names(
+                    build_path_components(src_tag)
+                )
+            );
             if (prepped != null)
                 Tag.for_path(prepped).attach(photo);
         }
@@ -102,6 +102,15 @@ public class AlienDatabaseImportJob : BatchImportJob {
         photo.set_import_id(import_roll.import_id);
         
         return true;
+    }
+    
+    private string[] build_path_components(AlienDatabaseTag tag) {
+        // use a linked list as we are always inserting in head position
+        Gee.List<string> components = new Gee.LinkedList<string>();
+        for (AlienDatabaseTag current_tag = tag; current_tag != null; current_tag = current_tag.get_parent()) {
+            components.insert(0, current_tag.get_name());
+        }
+        return components.to_array();
     }
 }
 

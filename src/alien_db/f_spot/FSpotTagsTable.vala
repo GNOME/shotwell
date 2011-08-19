@@ -6,7 +6,8 @@
 
 namespace AlienDb.FSpot {
 
-public struct FSpotTagID {
+// This needs to be a class so that it can be used as a key for a Gee.HashMap
+public class FSpotTagID {
     public const int64 INVALID = -1;
     public const int64 NULL_ID = 0;
 
@@ -143,9 +144,9 @@ public class FSpotTagsV0Behavior : FSpotTableBehavior<FSpotTagRow>, Object {
     
     public void build_row(Sqlite.Statement stmt, out FSpotTagRow row, int offset = 0) {
         row = new FSpotTagRow();
-        row.tag_id.id = stmt.column_int64(offset + 0);
+        row.tag_id = new FSpotTagID(stmt.column_int64(offset + 0));
         row.name = stmt.column_text(offset + 1);
-        row.category_id.id = stmt.column_int64(offset + 2);
+        row.category_id = new FSpotTagID(stmt.column_int64(offset + 2));
         row.is_category = (stmt.column_int(offset + 3) > 0);
         row.sort_priority = stmt.column_int(offset + 4);
         string icon_str = stmt.column_text(offset + 5);

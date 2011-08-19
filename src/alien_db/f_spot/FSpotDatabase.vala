@@ -6,6 +6,44 @@
 
 namespace AlienDb.FSpot {
 
+internal class FSpotTagsCache : Object {
+    private FSpotTagsTable tags_table;
+    private Gee.HashMap<FSpotTagID, FSpotDatabaseTag> tags_map;
+    
+    public FSpotTagsCache(FSpotTagsTable tags_table) throws DatabaseError {
+        this.tags_table = tags_table;
+        tags_map = new Gee.HashMap<FSpotTagID, FSpotDatabaseTag> ();
+    }
+    
+    public FSpotDatabaseTag get_tag(FSpotTagRow tag_row) throws DatabaseError {
+        FSpotDatabaseTag? tag = tags_map.get(tag_row.tag_id);
+        if (tag != null) {
+            return tag;
+        } else {
+            FSpotDatabaseTag? parent_tag = get_tag_from_id(tag_row.category_id);
+            FSpotDatabaseTag new_tag = new FSpotDatabaseTag(tag_row, parent_tag);
+            tags_map[tag_row.tag_id] = new_tag;
+            return new_tag;
+        }
+    }
+    
+    private FSpotDatabaseTag? get_tag_from_id(FSpotTagID tag_id) throws DatabaseError {
+        if (tag_id.is_null() || tag_id.is_invalid())
+            return null;
+        FSpotDatabaseTag? tag = tags_map.get(tag_id);
+        if (tag != null)
+            return tag;
+        FSpotTagRow? tag_row = tags_table.get_by_id(tag_id);
+        if (tag_row != null) {
+            FSpotDatabaseTag? parent_tag = get_tag_from_id(tag_row.category_id);
+            FSpotDatabaseTag new_tag = new FSpotDatabaseTag(tag_row, parent_tag);
+            tags_map[tag_id] = new_tag;
+            return new_tag;
+        }
+        return null;
+    }
+}
+
 /**
  * An implementation of AlienDatabase that is able to read from the F-Spot
  * database and extract the relevant objects.
@@ -17,6 +55,7 @@ public class FSpotDatabase : Object, AlienDatabase {
     private FSpotPhotosTable photos_table;
     private FSpotPhotoVersionsTable photo_versions_table;
     private FSpotTagsTable tags_table;
+    private FSpotTagsCache tags_cache;
     private FSpotRollsTable rolls_table;
     private int64 hidden_tag_id;
     
@@ -43,6 +82,7 @@ public class FSpotDatabase : Object, AlienDatabase {
         photos_table = new FSpotPhotosTable(fspot_db, db_behavior);
         photo_versions_table = new FSpotPhotoVersionsTable(fspot_db, db_behavior);
         tags_table = new FSpotTagsTable(fspot_db, db_behavior);
+        tags_cache = new FSpotTagsCache(tags_table);
         rolls_table = new FSpotRollsTable(fspot_db, db_behavior);
     }
     
@@ -78,17 +118,13 @@ public class FSpotDatabase : Object, AlienDatabase {
             // are heirarchical, we would need to pick a name (probably the leaf)
             try {
                 foreach (FSpotTagRow tag_row in tags_table.get_by_photo_id(photo_row.photo_id)) {
-                    FSpotDatabaseTag tag = new FSpotDatabaseTag(tag_row);
+                    FSpotDatabaseTag tag = tags_cache.get_tag(tag_row);
                     if (is_tag_hidden(tag))
                         hidden = true;
                     else if (is_tag_favorite(tag))
                         favorite = true;
                     else
-                        while (tag != null) {
-                            if(!tag.is_stock())
-                                tags.add(tag);
-                            tag = get_tag_parent(tag);
-                        }
+                        tags.add(tag);
                 }
             } catch(DatabaseError e) {
                 // log the error and leave the tag list empty
@@ -133,25 +169,10 @@ public class FSpotDatabase : Object, AlienDatabase {
         return photos;
     }
     
-    public FSpotDatabaseTag? get_tag_parent(FSpotDatabaseTag tag) {
-        FSpotDatabaseTag? parent_tag = null;
-        FSpotTagID parent_id = tag.get_row().category_id;
-        if (parent_id.is_valid() && !parent_id.is_null()) {
-            try {
-                FSpotTagRow? parent_row = tags_table.get_by_id(parent_id);
-                if (parent_row != null)
-                    parent_tag = new FSpotDatabaseTag(parent_row);
-            } catch (DatabaseError e) {
-                // ignore this error, just return null
-            }
-        }
-        return parent_tag;
-    }
-    
     public bool is_tag_event(FSpotDatabaseTag tag) {
         bool result = (FSpotTagsTable.STOCK_ICON_EVENTS == tag.get_row().stock_icon);
         if (!result) {
-            FSpotDatabaseTag? parent = get_tag_parent(tag);
+            FSpotDatabaseTag? parent = tag.get_fspot_parent();
             if (parent == null)
                 result = false;
             else
@@ -163,7 +184,7 @@ public class FSpotDatabase : Object, AlienDatabase {
     public bool is_tag_hidden(FSpotDatabaseTag tag) {
         bool result = (hidden_tag_id == tag.get_row().tag_id.id);
         if (!result) {
-            FSpotDatabaseTag? parent = get_tag_parent(tag);
+            FSpotDatabaseTag? parent = tag.get_fspot_parent();
             if (parent == null)
                 result = false;
             else
@@ -175,7 +196,7 @@ public class FSpotDatabase : Object, AlienDatabase {
     public bool is_tag_favorite(FSpotDatabaseTag tag) {
         bool result = (FSpotTagsTable.STOCK_ICON_FAV == tag.get_row().stock_icon);
         if (!result) {
-            FSpotDatabaseTag? parent = get_tag_parent(tag);
+            FSpotDatabaseTag? parent = tag.get_fspot_parent();
             if (parent == null)
                 result = false;
             else
