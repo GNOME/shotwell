@@ -1712,6 +1712,7 @@ public class CropTool : EditingTool {
     }
 }
 
+#if ENABLE_FACES
 public errordomain FaceShapeError {
     CANT_CREATE
 }
@@ -2343,6 +2344,8 @@ public class FacesTool : EditingTool {
         }
     }
 }
+
+#endif
 
 public struct RedeyeInstance {
     public const int MIN_RADIUS = 4;

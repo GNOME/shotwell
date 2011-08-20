@@ -274,7 +274,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string FLAG_MENU = _("_Flag");
     
     public const string UNFLAG_MENU = _("Un_flag");
-    
+
+#if ENABLE_FACES    
     public const string FACES_MENU = _("Faces");
     public const string FACES_LABEL = _("Faces");
     public const string FACES_TOOLTIP = _("Mark faces of people in the photo");
@@ -282,7 +283,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DELETE_FACE_TITLE = _("Delete Face");
     public const string DELETE_FACE_SIDEBAR_MENU = _("_Delete");
     public const string RENAME_FACE_SIDEBAR_MENU = _("_Rename...");
-    
+#endif
+
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);
     }
@@ -680,7 +682,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
         File icons_dir = AppDirs.get_resources_dir().get_child("icons");
         add_stock_icon(icons_dir.get_child("crop.svg"), CROP);
+#if ENABLE_FACES
         add_stock_icon(icons_dir.get_child("faces-tool.png"), FACES_TOOL);
+#endif
         add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
         add_stock_icon(icons_dir.get_child("image-adjust.svg"), ADJUST);
         add_stock_icon(icons_dir.get_child("pin-toolbar.svg"), PIN_TOOLBAR);

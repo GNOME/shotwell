@@ -128,6 +128,7 @@ bool is_pointer_over(Gdk.Window window) {
     return x >= 0 && y >= 0 && x < window.get_width() && y < window.get_height();
 }
 
+#if ENABLE_FACES
 bool is_pointer_over(Gdk.Window window) {
     int x, y;
     window.get_pointer(out x, out y, null);
@@ -137,3 +138,4 @@ bool is_pointer_over(Gdk.Window window) {
     
     return x >= 0 && y >= 0 && x < width && y < height;
 }
+#endif

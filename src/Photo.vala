@@ -4359,6 +4359,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
             }
         }
         
+#if ENABLE_FACES
         // Attach faces.
         Gee.Collection<Face>? faces = Face.global.fetch_for_source(this);
         if (faces != null) {
@@ -4372,6 +4373,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
                 }
              }
         }
+#endif
         
         return dupe;
     }
