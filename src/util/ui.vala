@@ -127,6 +127,7 @@ void gtk_combo_box_set_as_text(Gtk.ComboBox combo_box) {
     combo_box.set_attributes(cell, "text", 0, null);
 }
 
+#if ENABLE_FACES
 bool is_pointer_over(Gdk.Window window) {
     int x, y;
     window.get_pointer(out x, out y, null);
@@ -136,3 +137,4 @@ bool is_pointer_over(Gdk.Window window) {
     
     return x >= 0 && y >= 0 && x < width && y < height;
 }
+#endif

@@ -472,8 +472,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.is_important = true;
         toolbar.insert(enhance_button, -1);
         
+#if ENABLE_FACES
         // faces tool
         insert_faces_button(toolbar);
+#endif
 
         // separator to force next/prev buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -2210,7 +2212,9 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private Gtk.Menu context_menu;
+#if ENABLE_FACES
     private Gtk.ToggleToolButton faces_button = null;
+#endif
     private CollectionPage? return_page = null;
     private bool return_to_collection_on_release = false;
     private LibraryPhotoPageViewFilter filter = new LibraryPhotoPageViewFilter();
@@ -2514,11 +2518,13 @@ public class LibraryPhotoPage : EditingHostPage {
         raw_developer.label = _("Developer");
         actions += raw_developer;
         
+#if ENABLE_FACES   
         Gtk.ActionEntry faces = { "Faces", Resources.CROP, TRANSLATABLE, "<Ctrl>F",
             TRANSLATABLE, toggle_faces };
         faces.label = Resources.FACES_MENU;
         faces.tooltip = Resources.FACES_TOOLTIP;
         actions += faces;
+#endif
         
         return actions;
     }
@@ -3192,7 +3198,8 @@ public class LibraryPhotoPage : EditingHostPage {
         
         get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
     }
-    
+
+#if ENABLE_FACES       
     private void on_faces_toggled() {
         on_tool_button_toggled(faces_button, FacesTool.factory);
     }
@@ -3209,5 +3216,6 @@ public class LibraryPhotoPage : EditingHostPage {
         faces_button.is_important = true;
         toolbar.insert(faces_button, -1);
     }
+#endif
 }
 

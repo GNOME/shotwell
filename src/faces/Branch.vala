@@ -3,6 +3,9 @@
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
+ 
+
+#if ENABLE_FACES
 
 public class Faces.Branch : Sidebar.Branch {
     private Gee.HashMap<Face, Faces.SidebarEntry> entry_map = new Gee.HashMap<Face, Faces.SidebarEntry>();
@@ -139,3 +142,4 @@ public class Faces.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEnt
     }
 }
 
+#endif

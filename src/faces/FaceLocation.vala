@@ -4,6 +4,8 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
+#if ENABLE_FACES
+
 public class FaceLocation : Object {
     
     private static Gee.Map<FaceID?, Gee.Map<PhotoID?, FaceLocation>> face_photos_map;
@@ -204,3 +206,5 @@ public class FaceLocation : Object {
         this.geometry = geometry;
     }
 }
+
+#endif

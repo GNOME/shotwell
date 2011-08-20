@@ -3,7 +3,7 @@
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
-
+#if ENABLE_FACES
 public class FaceSourceCollection : ContainerSourceCollection {
     private Gee.HashMap<string, Face> name_map = new Gee.HashMap<string, Face>(Face.hash_name_string,
         Face.equal_name_strings);
@@ -677,3 +677,4 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
     }
 }
 
+#endif

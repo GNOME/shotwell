@@ -3,6 +3,8 @@
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
+ 
+#if ENABLE_FACES   
 
 public struct FaceLocationID {
     public const int64 INVALID = -1;
@@ -57,7 +59,7 @@ public class FaceLocationTable : DatabaseTable {
         
         return instance;
     }
-    
+ 
     public FaceLocationRow add(FaceID face_id, PhotoID photo_id, string geometry) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
@@ -196,3 +198,5 @@ public class FaceLocationTable : DatabaseTable {
             throw_error("FaceLocationTable.update_face_location_serialized_geometry", res);
     }
 }
+
+#endif
