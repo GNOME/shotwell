@@ -854,7 +854,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     }
     
     private void update_indexable_keywords() {
-        indexable_keywords = prepare_indexable_string(get_name());
+        indexable_keywords = prepare_indexable_string(get_user_visible_name());
     }
     
     public unowned string? get_indexable_keywords() {
