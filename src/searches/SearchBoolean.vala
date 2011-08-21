@@ -302,7 +302,7 @@ public class SearchConditionText : SearchCondition {
             Gee.List<Tag>? tag_list = Tag.global.fetch_for_source(source);
             if (null != tag_list) {
                 foreach (Tag tag in tag_list) {
-                    ret |= string_match(text, tag.get_name().down());
+                    ret |= string_match(text, tag.get_user_visible_name().down());
                 }
             } else {
                 ret |= string_match(text, null); // for IS_NOT_SET
