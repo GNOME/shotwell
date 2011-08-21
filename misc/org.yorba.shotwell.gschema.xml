@@ -125,12 +125,6 @@
         <description>A grayscale color for use as the background color.</description>
     </key>
     
-    <key name="raw-developer-default" type="s">
-        <default>'SHOTWELL'</default>
-        <summary>RAW developer default</summary>
-        <description>Default option for which RAW developer Shotwell will use.</description>
-    </key>
-    
     <key name="hide-photos-already-imported" type="b">
         <default>false</default>
         <summary>Selection state of "hide photos" option</summary>
@@ -237,6 +231,12 @@
         <default>""</default>
         <summary>directory pattern custom</summary>
         <description>A string encoding a custom naming pattern that will be used to name photo directories on import.</description>
+    </key>
+    
+    <key name="raw-developer-default" type="s">
+        <default>'SHOTWELL'</default>
+        <summary>RAW developer default</summary>
+        <description>Default option for which RAW developer Shotwell will use.</description>
     </key>
 </schema>
 
