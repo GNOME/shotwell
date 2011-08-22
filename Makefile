@@ -123,9 +123,11 @@ RESOURCE_FILES = \
 	set_background_dialog.glade \
 	shotwell.glade \
 	shotwell.xml \
-	sidebar_default.ui \
+	sidebar_default_context.ui \
 	tags.ui \
-	trash.ui
+	trash.ui \
+	search_sidebar_context.ui \
+	tag_sidebar_context.ui
 
 SYS_INTEGRATION_FILES = \
 	shotwell.desktop.head \
