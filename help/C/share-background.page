@@ -1,10 +1,12 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="background">
+      id="share-background">
 
     <info>
         <link type="guide" xref="index#share"/>
         <desc>Set your desktop background to a single photo or to a slideshow of photos.</desc>
+        
+        <link type="next" xref="share-slideshow" />
     </info>
 
 	<title>Set a desktop background or slideshow</title>

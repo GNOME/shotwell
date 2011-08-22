@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#organize"/>
         <desc>Find photos and videos in your collection by a variety of criteria.</desc>
+        
+        <link type="next" xref="tag"/>
     </info>
 
     <title>Searching</title>

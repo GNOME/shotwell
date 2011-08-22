@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#import"/>
         <desc>Shotwell can import all your photos and tags from the F-Spot photo manager.</desc>
+        
+        <link type="next" xref="import-camera"/>
     </info>
 
 	<title>Importing from F-Spot</title>

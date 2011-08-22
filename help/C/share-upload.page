@@ -1,10 +1,12 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="upload">
+      id="share-upload">
 
     <info>
         <link type="guide" xref="index#share"/>
         <desc>Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites.</desc>
+        
+        <link type="next" xref="share-send" />
     </info>
 
 	<title>Publishing to the Web</title>
@@ -15,7 +17,7 @@
     <list>
     <item><p><link href="http://facebook.com">Facebook</link></p></item>
     <item><p><link href="http://flickr.com">Flickr</link></p></item>
-    <item><p><link href="http://picasaweb.google.com">Picasa Web Albums</link></p></item>
+    <item><p><link href="http://picasaweb.google.com">Picasa Web Albums</link> and <link href="http://plus.google.com">Google+</link></p></item>
     <item><p><link href="http://youtube.com">YouTube</link> (videos only)</p></item>
     <item><p><link href="http://fotki.yandex.ru">Yandex.Fotki</link>, a photo site popular in Russia (photos only)</p></item>
     <item><p>Any site running the <link href="http://piwigo.org">Piwigo</link> photo gallery software (photos only)</p></item>
@@ -23,7 +25,7 @@
     
     <p>To publish selected photos in a collection, choose <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> and
     click on the <gui>Plugins</gui> tab to enable the plugin for the service you want to publish to.  Next, choose,
-     <guiseq><gui>File</gui><gui>Publish</gui></guiseq> or press the <gui>Publish</gui> toolbar button.
+     <guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</key></keyseq>.
     You will see a dialog that lets you select a publishing service.  You will then need to log in or create an account.</p>
     
     <p>Publishing to Facebook requires you to grant certain permissions to the Shotwell Connect Facebook application.

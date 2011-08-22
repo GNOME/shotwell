@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#other"/>
         <desc>Keep the Shotwell library in sync with photo files on disk.</desc>
+        
+        <link type="next" xref="other-plugins"/>
     </info>
 
    <title>Photo files</title>
@@ -13,6 +15,7 @@
     Every photo in the Shotwell library corresponds to a file stored on your hard disk.  Shotwell has
     several features which help you keep the Shotwell library and files on disk in sync.
     </p>
+    <links type="section" />
     
     <section id="dirpattern">
         <title>Using a custom directory pattern</title>
@@ -72,7 +75,7 @@
         </p>
     </section>
 
-    <section>
+    <section id="automatic-import">
        <title>Automatically importing photos</title>
        
        <p>Shotwell can automatically import new photos which appear in the library directory.
@@ -88,7 +91,7 @@
 
     </section>
 
-    <section>
+    <section id="automatic-rename">
        <title>Automatically renaming imported photos to lowercase</title>
        
        <p>
@@ -100,7 +103,7 @@
     
     </section>
     
-    <section>
+    <section id="writing-metadata">
        <title>Writing metadata on the fly</title>
        
        <p>By default, Shotwell does not modify photo files, even when you edit photos or change their
@@ -120,13 +123,13 @@
        </list>
        
        <p>Shotwell stores this information in photo files in EXIF, IPTC and/or XMP format.  Note
-       that Shotwell can write only to photo files in JPEG and PNG format, not to RAW photos
+       that Shotwell can write only to photo files in JPEG, PNG and TIFF format, not to BMP photos, RAW photos
        or to video files.  
        </p>
     
     </section>
     
-    <section>
+    <section id="runtime-monitoring">
     <title>Runtime monitoring</title>
     
     <p>While Shotwell is running, it notices changes made to any photo file externally.

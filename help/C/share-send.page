@@ -1,10 +1,12 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="send">
+      id="share-send">
 
     <info>
         <link type="guide" xref="index#share"/>
         <desc>Send photos via email, instant messaging or in other ways.</desc>
+        
+        <link type="next" xref="share-background" />
     </info>
 
 	<title>Sending photos</title>
@@ -13,7 +15,7 @@
     lets you send photos via email, instant messaging or in other ways.</p>
     <p>To send photos, select them in Shotwell and choose
     <guiseq><gui>File</gui><gui>Send To...</gui></guiseq>,
-    or right click the photos and choose <gui>Send To...</gui> from the context menu.
+    or right-click the photos and choose <gui>Send To...</gui> from the context menu.
     A <gui>Send To</gui> dialog box will appear which lets you choose a mechanism for
     sending the files (such as email or instant messaging) and a destination.  You can
     optionally choose to send the files in a compressed format.

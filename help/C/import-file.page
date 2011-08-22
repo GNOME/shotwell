@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#import"/>
         <desc>Import photos that are already saved on your computer.</desc>
+        
+        <link type="next" xref="import-f-spot"/>
     </info>
 
 	<title>Importing from your hard disk</title>

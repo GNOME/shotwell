@@ -5,6 +5,10 @@
     <info>
         <link type="guide" xref="index#edit"/>
         <desc>Let Shotwell improve the brightness and contrast of a photo automatically.</desc>
+        
+        <link type="seealso" xref="edit-adjustments" />
+        
+        <link type="next" xref="edit-adjustments" />
     </info>
 
    <title>Auto-enhance</title>

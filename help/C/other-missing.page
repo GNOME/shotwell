@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#other"/>
         <desc>If Shotwell can't find a photo in your library, it marks it as missing.</desc>
+        
+        <link type="next" xref="other-multiple"/>
     </info>
 
 	<title>Missing photos</title>

@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#view"/>
         <desc>Learn about different ways of viewing your photos: in a grid, filling the main window, or filling the whole screen.</desc>
+        
+        <link type="next" xref="view-sidebar"/>
     </info>
 
 	<title>Photo views</title>
@@ -19,7 +21,7 @@
 
 <section>
 <title>Viewing videos</title>
-<p>When you double click a video, Shotwell will launch an external video player to play the video.  It's not currently
+<p>When you double-click a video, Shotwell will launch an external video player to play the video.  It's not currently
 possible to display a video in full-window mode in Shotwell or to play the video within Shotwell itself.</p>
 </section>
     
