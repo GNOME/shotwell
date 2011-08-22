@@ -726,6 +726,7 @@ public class BatchImport : Object {
                     case LibraryPhotoSourceCollection.State.ONLINE:
                     case LibraryPhotoSourceCollection.State.OFFLINE:
                     case LibraryPhotoSourceCollection.State.EDITABLE:
+                    case LibraryPhotoSourceCollection.State.DEVELOPER:
                         import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
                             prepared_file.file.get_path(), prepared_file.file.get_path(),
                             ImportResult.PHOTO_EXISTS);
