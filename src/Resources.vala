@@ -31,6 +31,8 @@ namespace Resources {
     
     public const int DEFAULT_ICON_SCALE = 24;
     
+    public const int RESIZE_HANDLE_SPACER = 8;
+    
     public const string[] AUTHORS = { 
         "Jim Nelson <jim@yorba.org>", 
         "Lucas Beeler <lucas@yorba.org>",
