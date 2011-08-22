@@ -291,6 +291,12 @@
         <summary>user name</summary>
         <description>The name of the currently logged in Facebook user, if any</description>
     </key>
+    
+    <key name="default-size" type="i">
+        <default>0</default>
+        <summary>default size code</summary>
+        <description>A numeric code representing the default size for photos published to Facebook</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.flickr" path="/apps/shotwell/sharing/flickr/">
@@ -336,6 +342,12 @@
         <default>2</default>
         <summary>default size</summary>
         <description>A numeric code representing the default size for photos uploaded to Picasa Web Albums</description>
+    </key>
+    
+    <key name="last-album" type="s">
+        <default>""</default>
+        <summary>last album</summary>
+        <description>The name of the last album the user published photos to, if any</description>
     </key>
 </schema>
 

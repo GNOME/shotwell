@@ -242,6 +242,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         string? cleaned_id = clean_plugin_id(id);
         if (cleaned_id == null)
             cleaned_id = "default";
+        cleaned_id = cleaned_id.replace(".", "-");
         
         return "org.yorba.shotwell.%s.%s".printf(domain, cleaned_id);
     }
