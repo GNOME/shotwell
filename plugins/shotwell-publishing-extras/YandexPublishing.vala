@@ -109,7 +109,7 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
         this.login_url = login_url;
 
         try {
-            this.re = new Regex("(.*)#access_token=(.*)&(.*)");
+            this.re = new Regex("(.*)#access_token=([a-zA-Z0-9]*)&");
         } catch (RegexError e) {
             critical("%s", e.message);
         }
