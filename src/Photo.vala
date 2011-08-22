@@ -306,6 +306,11 @@ public abstract class Photo : PhotoSource, Dateable {
     public virtual signal void editable_replaced(File? old_file, File? new_file) {
     }
     
+    // Fired when one or more of the photo's RAW developments has been changed.  This will only
+    // be fired on RAW photos, and only when a development has been added or removed.
+    public virtual signal void raw_development_modified() {
+    }
+    
     // This is fired when the photo's baseline file (the file that generates images at the head
     // of the pipeline) is replaced.  Photo will make every sane effort to only fire this signal
     // if the new baseline is the same image-wise (i.e. the pixbufs it generates are essentially
@@ -413,6 +418,10 @@ public abstract class Photo : PhotoSource, Dateable {
     
     protected virtual void notify_editable_replaced(File? old_file, File? new_file) {
         editable_replaced(old_file, new_file);
+    }
+    
+    protected virtual void notify_raw_development_modified() {
+        raw_development_modified();
     }
     
     protected virtual void notify_baseline_replaced() {
@@ -570,6 +579,8 @@ public abstract class Photo : PhotoSource, Dateable {
                     
                     // Read in backing photo info, add to DB.
                     add_backing_photo_for_development(d, bps);
+                    
+                    notify_raw_development_modified();
                 } catch (Error err) {
                     debug("Error developing photo: %s", err.message);
                 }
@@ -606,6 +617,8 @@ public abstract class Photo : PhotoSource, Dateable {
                     
                     // Read in backing photo info, add to DB.
                     add_backing_photo_for_development(d, bps);
+                    
+                    notify_raw_development_modified();
                 } catch (Error e) {
                     debug("Error accessing embedded preview. Message: %s", e.message);
                     return;
@@ -829,6 +842,12 @@ public abstract class Photo : PhotoSource, Dateable {
                 return editable;
             else
                 return null;
+        }
+    }
+    
+    public Gee.Collection<BackingPhotoRow>? get_raw_development_photo_rows() {
+        lock (row) {
+            return developments != null ? developments.values : null;
         }
     }
     
@@ -1125,6 +1144,35 @@ public abstract class Photo : PhotoSource, Dateable {
         }
     }
     
+    public abstract class ReimportRawDevelopmentState {
+    }
+    
+    private class ReimportRawDevelopmentStateImpl : ReimportRawDevelopmentState {
+        class DevToReimport {
+            public BackingPhotoRow backing = new BackingPhotoRow();
+            public PhotoMetadata? metadata;
+            
+            public DevToReimport(BackingPhotoRow backing, PhotoMetadata? metadata) {
+                this.backing = backing;
+                this.metadata = metadata;
+            }
+        }
+        
+        public Gee.Collection<DevToReimport> list = new Gee.ArrayList<DevToReimport>();
+        public bool metadata_only = false;
+        
+        public ReimportRawDevelopmentStateImpl() {
+        }
+        
+        public void add(BackingPhotoRow backing, PhotoMetadata? metadata) {
+            list.add(new DevToReimport(backing, metadata));
+        }
+        
+        public int get_size() {
+            return list.size;
+        }
+    }
+    
     // This method is thread-safe.  If returns false the photo should be marked offline (in the
     // main UI thread).
     public bool prepare_for_reimport_master(out ReimportMasterState reimport_state) throws Error {
@@ -1237,14 +1285,10 @@ public abstract class Photo : PhotoSource, Dateable {
             notify_source_reimported(reimport_state.metadata);
     }
     
-    // This method is thread-safe.  Returns false if the photo has no associated editable.
-    public bool prepare_for_reimport_editable(out ReimportEditableState state) throws Error {
-        File? file = get_editable_file();
-        if (file == null)
-            return false;
-        
-        DetectedPhotoInformation detected;
-        BackingPhotoRow backing = query_backing_photo_row(file, PhotoFileSniffer.Options.NO_MD5, 
+    // Verifies a file for reimport.  Returns the file's detected photo info.
+    private bool verify_file_for_reimport(File file, out BackingPhotoRow backing, 
+        out DetectedPhotoInformation detected) throws Error {
+        backing = query_backing_photo_row(file, PhotoFileSniffer.Options.NO_MD5, 
             out detected);
         if (backing == null) {
             return false;
@@ -1258,6 +1302,20 @@ public abstract class Photo : PhotoSource, Dateable {
             
             return false;
         }
+        
+        return true;
+    }
+    
+    // This method is thread-safe.  Returns false if the photo has no associated editable.
+    public bool prepare_for_reimport_editable(out ReimportEditableState state) throws Error {
+        File? file = get_editable_file();
+        if (file == null)
+            return false;
+        
+        DetectedPhotoInformation detected;
+        BackingPhotoRow backing;
+        if (!verify_file_for_reimport(file, out backing, out detected))
+            return false;
         
         state = new ReimportEditableStateImpl(backing, detected.metadata);
         
@@ -1303,6 +1361,59 @@ public abstract class Photo : PhotoSource, Dateable {
         
         if (is_editable_source())
             notify_source_reimported(reimport_state.metadata);
+    }
+    
+    // This method is thread-safe.  Returns false if the photo has no associated RAW developments.
+    public bool prepare_for_reimport_raw_development(out ReimportRawDevelopmentState state) throws Error {
+        Gee.Collection<File>? files = get_raw_developer_files();
+        if (files == null)
+            return false;
+        
+        ReimportRawDevelopmentStateImpl reimport_state = new ReimportRawDevelopmentStateImpl();
+        
+        foreach (File file in files) {
+            DetectedPhotoInformation detected;
+            BackingPhotoRow backing;
+            if (!verify_file_for_reimport(file, out backing, out detected))
+                continue;
+            
+            reimport_state.add(backing, detected.metadata);
+        }
+        
+        state = reimport_state;
+        return reimport_state.get_size() > 0;
+    }
+    
+    // This method is not thread-safe.  It should be called by the main thread.
+    public void finish_reimport_raw_development(ReimportRawDevelopmentState state) throws DatabaseError {
+        if (this.get_master_file_format() != PhotoFileFormat.RAW)
+            return;
+        
+        ReimportRawDevelopmentStateImpl reimport_state = (ReimportRawDevelopmentStateImpl) state;
+        
+        foreach (ReimportRawDevelopmentStateImpl.DevToReimport dev in reimport_state.list) {
+            if (!reimport_state.metadata_only) {
+                BackingPhotoTable.get_instance().update(dev.backing);
+                
+                lock (row) {
+                    // Refresh raw developments.
+                    foreach (RawDeveloper d in RawDeveloper.as_array()) {
+                        BackingPhotoID id = row.development_ids[d];
+                        if (id.id != BackingPhotoID.INVALID) {
+                            BackingPhotoRow? bpr = get_backing_row(id);
+                            if (bpr != null)
+                                developments.set(d, bpr);
+                        }
+                    }
+                }
+            }
+        }
+        
+        string list = "metadata:name,image:orientation,metadata:rating,metadata:exposure-time";
+        if (!reimport_state.metadata_only)
+            list += "image:editable,image:baseline";
+        
+        notify_altered(new Alteration.from_list(list));
     }
     
     public override string get_typename() {
@@ -1583,6 +1694,19 @@ public abstract class Photo : PhotoSource, Dateable {
         PhotoFileReader? reader = get_editable_reader();
         
         return reader != null ? reader.get_file() : null;
+    }
+    
+    public Gee.Collection<File>? get_raw_developer_files() {
+        if (get_master_file_format() != PhotoFileFormat.RAW)
+            return null;
+        
+        Gee.ArrayList<File> ret = new Gee.ArrayList<File>();
+        lock (row) {
+            foreach (BackingPhotoRow row in developments.values)
+                ret.add(File.new_for_path(row.filepath));
+        }
+        
+        return ret;
     }
     
     public File get_source_file() {
@@ -3750,7 +3874,8 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         ONLINE,
         OFFLINE,
         TRASH,
-        EDITABLE
+        EDITABLE,
+        DEVELOPER
     }
     
     public override TransactionController transaction_controller {
@@ -3764,6 +3889,8 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     
     private TransactionController? _transaction_controller = null;
     private Gee.HashMap<File, LibraryPhoto> by_editable_file = new Gee.HashMap<File, LibraryPhoto>(
+        file_hash, file_equal);
+    private Gee.HashMap<File, LibraryPhoto> by_raw_development_file = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
     private Gee.MultiMap<int64?, LibraryPhoto> filesize_to_photo =
         new Gee.TreeMultiMap<int64?, LibraryPhoto>(int64_compare);
@@ -3826,6 +3953,12 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                     by_editable_file.set(editable, photo);
                 photo.editable_replaced.connect(on_editable_replaced);
                 
+                Gee.Collection<File> raw_list = photo.get_raw_developer_files();
+                if (raw_list != null)
+                    foreach (File f in raw_list)
+                        by_raw_development_file.set(f, photo);
+                photo.raw_development_modified.connect(on_raw_development_modified);
+                
                 int64 master_filesize = photo.get_master_photo_row().filesize;
                 int64 editable_filesize = photo.get_editable_photo_row() != null
                     ? photo.get_editable_photo_row().filesize
@@ -3849,6 +3982,12 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                     assert(is_removed);
                 }
                 photo.editable_replaced.disconnect(on_editable_replaced);
+                
+                Gee.Collection<File> raw_list = photo.get_raw_developer_files();
+                if (raw_list != null)
+                    foreach (File f in raw_list)
+                        by_raw_development_file.unset(f);
+                photo.raw_development_modified.disconnect(on_raw_development_modified);
                 
                 int64 master_filesize = photo.get_master_photo_row().filesize;
                 int64 editable_filesize = photo.get_editable_photo_row() != null
@@ -3874,6 +4013,13 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         
         if (new_file != null)
             by_editable_file.set(new_file, (LibraryPhoto) photo);
+    }
+    
+    private void on_raw_development_modified(Photo photo) {
+        Gee.Collection<File> raw_list = photo.get_raw_developer_files();
+        if (raw_list != null)
+            foreach (File f in raw_list)
+                by_raw_development_file.set(f, (LibraryPhoto) photo);
     }
     
     protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
@@ -4023,25 +4169,41 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         return by_editable_file.get(file);
     }
     
+    public LibraryPhoto? fetch_by_raw_development_file(File file) {
+        return by_raw_development_file.get(file);
+    }
+    
     private void compare_backing(LibraryPhoto photo, FileInfo info,
-        Gee.Collection<LibraryPhoto> matches_master, Gee.Collection<LibraryPhoto> matches_editable) {
+        Gee.Collection<LibraryPhoto> matches_master, Gee.Collection<LibraryPhoto> matches_editable,
+        Gee.Collection<LibraryPhoto> matches_development) {
         if (photo.get_master_photo_row().matches_file_info(info))
             matches_master.add(photo);
         
         BackingPhotoRow? editable = photo.get_editable_photo_row();
         if (editable != null && editable.matches_file_info(info))
             matches_editable.add(photo);
+        
+        Gee.Collection<BackingPhotoRow>? development = photo.get_raw_development_photo_rows();
+        if (development != null) {
+            foreach (BackingPhotoRow row in development) {
+                if (row.matches_file_info(info)) {
+                    matches_development.add(photo);
+                    
+                    break;
+                }
+            }
+        }
     }
     
     // Adds photos to both collections if their filesize and timestamp match.  Note that it's possible
     // for a single photo to be added to both collections.
     public void fetch_by_matching_backing(FileInfo info, Gee.Collection<LibraryPhoto> matches_master,
-        Gee.Collection<LibraryPhoto> matches_editable) {
+        Gee.Collection<LibraryPhoto> matches_editable, Gee.Collection<LibraryPhoto> matched_development) {
         foreach (LibraryPhoto photo in filesize_to_photo.get(info.get_size()))
-            compare_backing(photo, info, matches_master, matches_editable);
+            compare_backing(photo, info, matches_master, matches_editable, matched_development);
         
         foreach (MediaSource media in get_offline_bin_contents())
-            compare_backing((LibraryPhoto) media, info, matches_master, matches_editable);
+            compare_backing((LibraryPhoto) media, info, matches_master, matches_editable, matched_development);
     }
     
     public bool has_basename_filesize_duplicate(string basename, int64 filesize) {
@@ -4084,6 +4246,13 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         photo = fetch_by_editable_file(file);
         if (photo != null) {
             state = State.EDITABLE;
+            
+            return photo;
+        }
+        
+        photo = fetch_by_raw_development_file(file);
+        if (photo != null) {
+            state = State.DEVELOPER;
             
             return photo;
         }

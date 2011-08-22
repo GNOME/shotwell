@@ -9,11 +9,15 @@ private class PhotoUpdates : MonitorableUpdates {
     
     public bool reimport_master = false;
     public bool reimport_editable = false;
+    public bool reimport_raw_developments = false;
     public File? editable_file = null;
     public bool editable_file_info_altered = false;
+    public bool raw_developer_file_info_altered = false;
     public FileInfo? editable_file_info = null;
     public bool editable_in_alteration = false;
+    public bool raw_development_in_alteration = false;
     public bool revert_to_master = false;
+    public Gee.Collection<File> developer_files = new Gee.ArrayList<File>();
     
     public PhotoUpdates(LibraryPhoto photo) {
         base (photo);
@@ -26,6 +30,7 @@ private class PhotoUpdates : MonitorableUpdates {
         
         reimport_master = false;
         reimport_editable = false;
+        reimport_raw_developments = false;
     }
     
     public bool is_reimport_master() {
@@ -42,6 +47,10 @@ private class PhotoUpdates : MonitorableUpdates {
     
     public FileInfo? get_editable_file_info() {
         return editable_file_info;
+    }
+    
+    public Gee.Collection<File> get_raw_developer_files() {
+        return developer_files;
     }
     
     public override bool is_in_alteration() {
@@ -82,6 +91,14 @@ private class PhotoUpdates : MonitorableUpdates {
         editable_in_alteration = in_alteration;
     }
     
+    public virtual void set_raw_development_in_alteration(bool in_alteration) {
+        raw_development_in_alteration = in_alteration;
+    }
+    
+    public virtual void set_raw_developer_file_info_altered(bool altered) {
+        raw_developer_file_info_altered = altered;
+    }
+    
     public virtual void set_revert_to_master(bool revert) {
         if (revert) {
             // this means nothing any longer
@@ -91,6 +108,14 @@ private class PhotoUpdates : MonitorableUpdates {
         }
         
         revert_to_master = revert;
+    }
+    
+    public virtual void add_raw_developer_file(File file) {
+        developer_files.add(file);
+    }
+    
+    public virtual void clear_raw_developer_files() {
+        developer_files.clear();
     }
     
     public virtual void set_reimport_master(bool reimport) {
@@ -108,6 +133,13 @@ private class PhotoUpdates : MonitorableUpdates {
         reimport_editable = reimport;
     }
     
+    public virtual void set_reimport_raw_developments(bool reimport) {
+        reimport_raw_developments = reimport;
+        
+        if (reimport)
+            mark_online();
+    }
+    
     public override bool is_all_updated() {
         return base.is_all_updated()
             && reimport_master == false
@@ -116,6 +148,8 @@ private class PhotoUpdates : MonitorableUpdates {
             && editable_file_info_altered == false
             && editable_file_info == null
             && editable_in_alteration == false
+            && developer_files.size == 0
+            && raw_developer_file_info_altered == false
             && revert_to_master == false;
     }
 }
@@ -168,12 +202,37 @@ private class PhotoMonitor : MediaMonitor {
         }
     }
     
+    private class ReimportRawDevelopmentJob : BackgroundJob {
+        public LibraryPhoto photo;
+        public Photo.ReimportRawDevelopmentState state = null;
+        public bool success = false;
+        public Error err = null;
+        
+        public ReimportRawDevelopmentJob(PhotoMonitor owner, LibraryPhoto photo) {
+            base (owner, owner.on_raw_development_reimported, new Cancellable(),
+                owner.on_raw_development_reimport_cancelled);
+            
+            this.photo = photo;
+        }
+        
+        public override void execute() {
+            try {
+                success = photo.prepare_for_reimport_raw_development(out state);
+            } catch (Error err) {
+                this.err = err;
+            }
+        }
+    }
+    
     private Workers workers;
     private Gee.ArrayList<LibraryPhoto> matched_editables = new Gee.ArrayList<LibraryPhoto>();
+    private Gee.ArrayList<LibraryPhoto> matched_developments = new Gee.ArrayList<LibraryPhoto>();
     private Gee.HashMap<LibraryPhoto, ReimportMasterJob> master_reimport_pending = new Gee.HashMap<
         LibraryPhoto, ReimportMasterJob>();
     private Gee.HashMap<LibraryPhoto, ReimportEditableJob> editable_reimport_pending =
         new Gee.HashMap<LibraryPhoto, ReimportEditableJob>();
+    private Gee.HashMap<LibraryPhoto, ReimportRawDevelopmentJob> raw_developments_reimport_pending =
+        new Gee.HashMap<LibraryPhoto, ReimportRawDevelopmentJob>();
     
     public PhotoMonitor(Workers workers, Cancellable cancellable) {
         base (LibraryPhoto.global, cancellable);
@@ -201,6 +260,9 @@ private class PhotoMonitor : MediaMonitor {
             job.cancel();
         
         foreach (ReimportEditableJob job in editable_reimport_pending.values)
+            job.cancel();
+        
+        foreach (ReimportRawDevelopmentJob job in raw_developments_reimport_pending.values)
             job.cancel();
         
         base.close();
@@ -232,6 +294,7 @@ private class PhotoMonitor : MediaMonitor {
             
             case LibraryPhotoSourceCollection.State.TRASH:
             case LibraryPhotoSourceCollection.State.EDITABLE:
+            case LibraryPhotoSourceCollection.State.DEVELOPER:
             default:
                 // ignored ... trash always stays in trash, offline or not, and editables are
                 // simply attached to online/offline photos
@@ -243,22 +306,24 @@ private class PhotoMonitor : MediaMonitor {
         out MediaMonitor.DiscoveredFile result) {
         // reset with each call
         matched_editables.clear();
+        matched_developments.clear();
         
         Gee.Collection<LibraryPhoto> matched_masters = new Gee.ArrayList<LibraryPhoto>();
-        LibraryPhoto.global.fetch_by_matching_backing(info, matched_masters, matched_editables);
+        LibraryPhoto.global.fetch_by_matching_backing(info, matched_masters, matched_editables, 
+            matched_developments);
         if (matched_masters.size > 0) {
             result = MediaMonitor.DiscoveredFile.UNKNOWN;
             
             return matched_masters;
         }
         
-        if (matched_editables.size == 0) {
+        if (matched_editables.size == 0 && matched_developments.size == 0) {
             result = MediaMonitor.DiscoveredFile.UNKNOWN;
             
             return null;
         }
         
-        // for editable files, trust file characteristics alone
+        // for editable files and raw developments, trust file characteristics alone
         LibraryPhoto match = matched_editables[0];
         if (matched_editables.size > 1) {
             warning("Unknown file %s could be matched with %d photos; giving to %s, dropping others",
@@ -271,21 +336,34 @@ private class PhotoMonitor : MediaMonitor {
         
         update_editable_file(match, file);
         
-        result = MediaMonitor.DiscoveredFile.IGNORE;
+        LibraryPhoto match_raw = matched_developments[0];
+        if (matched_developments.size > 1) {
+            warning("Unknown file %s could be matched with %d photos; giving to %s, dropping others",
+                file.get_path(), matched_developments.size, match_raw.to_string());
+        }
         
+        update_raw_development_file(match_raw, file);
+        
+        result = MediaMonitor.DiscoveredFile.IGNORE;
         return null;
     }
     
     public override File[]? get_auxilliary_backing_files(Monitorable monitorable) {
         LibraryPhoto photo = (LibraryPhoto) monitorable;
+        File[] files =  new File[0];
         
-        if (!photo.has_editable())
-            return null;
+        // Editable.
+        if (photo.has_editable())
+            files += photo.get_editable_file();
         
-        File[] files = new File[1];
-        files[0] = photo.get_editable_file();
+        // Raw developments.
+        Gee.Collection<File>? raw_files = photo.get_raw_developer_files();
+        if (raw_files != null)
+            foreach (File f in raw_files)
+                files += f;
         
-        return files;
+        // Return null if no files.
+        return files.length > 0 ? files : null;
     }
     
     public override void update_backing_file_info(Monitorable monitorable, File file, FileInfo? info) {
@@ -295,6 +373,12 @@ private class PhotoMonitor : MediaMonitor {
             check_for_master_changes(photo, info);
         else if (get_editable_file(photo) != null && get_editable_file(photo).equal(file))
             check_for_editable_changes(photo, info);
+        else if (get_raw_development_files(photo) != null) {
+            foreach (File f in get_raw_development_files(photo)) {
+                if (f.equal(file))
+                    check_for_raw_development_changes(photo, info);
+            }
+        }
     }
     
     public override void notify_discovery_completing() {
@@ -342,6 +426,36 @@ private class PhotoMonitor : MediaMonitor {
         }
     }
     
+    private void check_for_raw_development_changes(LibraryPhoto photo, FileInfo? info) {
+        if (info == null) {
+            // Switch back to default for safety.
+            photo.set_raw_developer(RawDeveloper.SHOTWELL);
+            
+            return;
+        }
+        
+        Gee.Collection<BackingPhotoRow>? rows = photo.get_raw_development_photo_rows();
+        if (rows == null)
+            return;
+        
+        // Look through all possible rows, if we find a file with a matching name or info,
+        // assume we found our man.
+        foreach (BackingPhotoRow row in rows) {
+            if (row.matches_file_info(info))
+                return;
+            if (info.get_name() == row.filepath) {
+                if (row.is_touched(info)) {
+                    update_raw_development_file_info_altered(photo);
+                    update_raw_development_file_alterations_completed(photo);
+                } else {
+                    update_reimport_raw_developments(photo);
+                }
+                
+                break;
+            }
+        }
+    }
+    
     public override bool notify_file_created(File file, FileInfo info) {
         LibraryPhotoSourceCollection.State state;
         LibraryPhoto? photo = get_photo_state_by_file(file, out state);
@@ -352,6 +466,7 @@ private class PhotoMonitor : MediaMonitor {
             case LibraryPhotoSourceCollection.State.ONLINE:
             case LibraryPhotoSourceCollection.State.TRASH:
             case LibraryPhotoSourceCollection.State.EDITABLE:
+            case LibraryPhotoSourceCollection.State.DEVELOPER:
                 // do nothing, although this is unexpected
                 warning("File %s created in %s state", file.get_path(), state.to_string());
             break;
@@ -404,6 +519,12 @@ private class PhotoMonitor : MediaMonitor {
                     update_editable_file(old_photo, new_file);
                 break;
                 
+                case LibraryPhotoSourceCollection.State.DEVELOPER:
+                    mdbg("Will set new raw development file for %s to %s".printf(old_photo.to_string(),
+                        new_file.get_path()));
+                    update_raw_development_file(old_photo, new_file);
+                break;
+                
                 default:
                     error("Unknown LibraryPhoto collection state %s", old_state.to_string());
             }
@@ -420,6 +541,11 @@ private class PhotoMonitor : MediaMonitor {
                 case LibraryPhotoSourceCollection.State.EDITABLE:
                     mdbg("Will reimport editable file for %s".printf(new_photo.to_string()));
                     update_reimport_editable(new_photo);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.DEVELOPER:
+                    mdbg("Will reimport raw development file for %s".printf(new_photo.to_string()));
+                    update_reimport_raw_developments(new_photo);
                 break;
                 
                 default:
@@ -447,6 +573,10 @@ private class PhotoMonitor : MediaMonitor {
                     update_revert_to_master(old_photo);
                 break;
                 
+                case LibraryPhotoSourceCollection.State.DEVELOPER:
+                    // do nothing
+                break;
+                
                 default:
                     error("Unknown LibraryPhoto collection state %s", old_state.to_string());
             }
@@ -462,6 +592,11 @@ private class PhotoMonitor : MediaMonitor {
                 case LibraryPhotoSourceCollection.State.EDITABLE:
                     mdbg("Will reimport editable file for %s".printf(new_photo.to_string()));
                     update_reimport_editable(new_photo);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.DEVELOPER:
+                    mdbg("Will reimport raw development file for %s".printf(new_photo.to_string()));
+                    update_reimport_raw_developments(new_photo);
                 break;
                 
                 default:
@@ -491,6 +626,12 @@ private class PhotoMonitor : MediaMonitor {
                 mdbg("Will reimport editable for %s".printf(photo.to_string()));
                 update_reimport_editable(photo);
                 update_editable_file_in_alteration(photo, true);
+            break;
+            
+            case LibraryPhotoSourceCollection.State.DEVELOPER:
+                mdbg("Will reimport raw development for %s".printf(photo.to_string()));
+                update_reimport_raw_developments(photo);
+                update_raw_development_file_in_alteration(photo, true);
             break;
             
             default:
@@ -527,6 +668,12 @@ private class PhotoMonitor : MediaMonitor {
                 update_editable_file_in_alteration(photo, true);
             break;
             
+            case LibraryPhotoSourceCollection.State.DEVELOPER:
+                mdbg("Will update raw development file info for %s".printf(photo.to_string()));
+                update_raw_development_file_info_altered(photo);
+                update_raw_development_file_in_alteration(photo, true);
+            break;
+            
             default:
                 error("Unknown LibraryPhoto collection state %s", state.to_string());
         }
@@ -549,6 +696,10 @@ private class PhotoMonitor : MediaMonitor {
             
             case LibraryPhotoSourceCollection.State.EDITABLE:
                 update_editable_file_alterations_completed(photo, info);
+            break;
+            
+            case LibraryPhotoSourceCollection.State.DEVELOPER:
+                update_raw_development_file_alterations_completed(photo);
             break;
             
             default:
@@ -581,6 +732,13 @@ private class PhotoMonitor : MediaMonitor {
                 mdbg("Will revert %s to master".printf(photo.to_string()));
                 update_revert_to_master(photo);
                 update_editable_file_in_alteration(photo, false);
+            break;
+            
+            case LibraryPhotoSourceCollection.State.DEVELOPER:
+                mdbg("Will revert %s to master".printf(photo.to_string()));
+                update_revert_to_master(photo);
+                update_editable_file_in_alteration(photo, false);
+                update_raw_development_file_in_alteration(photo, false);
             break;
             
             default:
@@ -625,6 +783,34 @@ private class PhotoMonitor : MediaMonitor {
                     
                     break;
                 }
+                
+                if (updates.get_raw_developer_files() != null) {
+                    bool found = false;
+                    foreach (File raw in updates.get_raw_developer_files()) {
+                        if (raw.equal(file)) {
+                            found = true;
+                            
+                            break;
+                        }
+                    }
+                
+                    if (found) {
+                        Gee.Collection<File>? developed = photo.get_raw_developer_files();
+                        if (developed != null) {
+                            foreach (File f in developed) {
+                                if (f.equal(file)) {
+                                    real_file = f;
+                                    state = LibraryPhotoSourceCollection.State.DEVELOPER;
+                                    
+                                    break;
+                                }
+                            }
+                            
+                        }
+                        
+                        break;
+                    }
+                }
             }
         }
         
@@ -655,11 +841,26 @@ private class PhotoMonitor : MediaMonitor {
             editable_reimport_pending.get(photo).cancel();
     }
     
+    public void update_reimport_raw_developments(LibraryPhoto photo) {
+        fetch_photo_updates(photo).set_reimport_raw_developments(true);
+        
+        // cancel outstanding reimport
+        if (raw_developments_reimport_pending.has_key(photo))
+            raw_developments_reimport_pending.get(photo).cancel();
+    }
+    
     public File? get_editable_file(LibraryPhoto photo) {
         PhotoUpdates? updates = get_existing_photo_updates(photo);
         
         return (updates != null && updates.get_editable_file() != null) ? updates.get_editable_file()
             : photo.get_editable_file();
+    }
+    
+    public Gee.Collection<File>? get_raw_development_files(LibraryPhoto photo) {
+        PhotoUpdates? updates = get_existing_photo_updates(photo);
+        
+        return (updates != null && updates.get_raw_developer_files() != null) ? 
+            updates.get_raw_developer_files() : photo.get_raw_developer_files();
     }
     
     public void update_editable_file(LibraryPhoto photo, File file) {
@@ -670,6 +871,14 @@ private class PhotoMonitor : MediaMonitor {
         fetch_photo_updates(photo).set_editable_file_info_altered(true);
     }
     
+    public void update_raw_development_file(LibraryPhoto photo, File file) {
+        fetch_photo_updates(photo).add_raw_developer_file(file);
+    }
+    
+    public void update_raw_development_file_info_altered(LibraryPhoto photo) {
+        fetch_photo_updates(photo).set_raw_developer_file_info_altered(true);
+    }
+    
     public void update_editable_file_in_alteration(LibraryPhoto photo, bool in_alteration) {
         fetch_photo_updates(photo).set_editable_in_alteration(in_alteration);
     }
@@ -677,6 +886,14 @@ private class PhotoMonitor : MediaMonitor {
     public void update_editable_file_alterations_completed(LibraryPhoto photo, FileInfo info) {
         fetch_photo_updates(photo).set_editable_file_info(info);
         fetch_photo_updates(photo).set_editable_in_alteration(false);
+    }
+    
+    public void update_raw_development_file_in_alteration(LibraryPhoto photo, bool in_alteration) {
+        fetch_photo_updates(photo).set_raw_development_in_alteration(in_alteration);
+    }
+    
+    public void update_raw_development_file_alterations_completed(LibraryPhoto photo) {
+        fetch_photo_updates(photo).set_raw_development_in_alteration(false);
     }
     
     public void update_revert_to_master(LibraryPhoto photo) {
@@ -689,9 +906,11 @@ private class PhotoMonitor : MediaMonitor {
         
         Gee.Map<LibraryPhoto, File> set_editable_file = null;
         Gee.Map<LibraryPhoto, FileInfo> set_editable_file_info = null;
+        Gee.Map<LibraryPhoto, Gee.Collection<File>> set_raw_developer_files = null;
         Gee.ArrayList<LibraryPhoto> revert_to_master = null;
         Gee.ArrayList<LibraryPhoto> reimport_master = null;
         Gee.ArrayList<LibraryPhoto> reimport_editable = null;
+        Gee.ArrayList<LibraryPhoto> reimport_raw_developments = null;
         int reimport_job_count = 0;
         
         foreach (MonitorableUpdates monitorable_updates in all_updates) {
@@ -717,6 +936,15 @@ private class PhotoMonitor : MediaMonitor {
                 
                 set_editable_file_info.set(updates.photo, updates.get_editable_file_info());
                 updates.set_editable_file_info(null);
+                op_count++;
+            }
+            
+            if (updates.get_raw_developer_files() != null) {
+                if (set_raw_developer_files == null)
+                    set_raw_developer_files = new Gee.HashMap<LibraryPhoto, Gee.Collection<File>>();
+                
+                set_raw_developer_files.set(updates.photo, updates.get_raw_developer_files());
+                updates.clear_raw_developer_files();
                 op_count++;
             }
             
@@ -806,6 +1034,18 @@ private class PhotoMonitor : MediaMonitor {
                 workers.enqueue(job);
             }
         }
+        
+        if (reimport_raw_developments != null) {
+            mdbg("Reimporting %d raw developments".printf(reimport_raw_developments.size));
+            
+            foreach (LibraryPhoto photo in reimport_raw_developments) {
+                assert(!raw_developments_reimport_pending.has_key(photo));
+                
+                ReimportRawDevelopmentJob job = new ReimportRawDevelopmentJob(this, photo);
+                raw_developments_reimport_pending.set(photo, job);
+                workers.enqueue(job);
+            }
+        }
     }
     
     private void on_master_reimported(BackgroundJob j) {
@@ -873,6 +1113,33 @@ private class PhotoMonitor : MediaMonitor {
     
     private void on_editable_reimport_cancelled(BackgroundJob j) {
         bool removed = editable_reimport_pending.unset(((ReimportEditableJob) j).photo);
+        assert(removed);
+    }
+    
+    private void on_raw_development_reimported(BackgroundJob j) {
+        ReimportRawDevelopmentJob job = (ReimportRawDevelopmentJob) j;
+        
+        // no longer pending
+        bool removed = raw_developments_reimport_pending.unset(job.photo);
+        assert(removed);
+        
+        if (job.err != null) {
+            critical("Unable to reimport raw development %s: %s", job.photo.to_string(), job.err.message);
+            
+            return;
+        }
+        
+        try {
+            job.photo.finish_reimport_raw_development(job.state);
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        }
+        
+        mdbg("Reimported raw development for %s".printf(job.photo.to_string()));
+    }
+    
+    private void on_raw_development_reimport_cancelled(BackgroundJob j) {
+        bool removed = raw_developments_reimport_pending.unset(((ReimportRawDevelopmentJob) j).photo);
         assert(removed);
     }
 }
