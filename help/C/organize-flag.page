@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#organize"/>
         <desc>Flag photos to mark them as special or to work with them as a set.</desc>
+        
+        <link type="next" xref="rating"/>
     </info>
 
 	<title>Flagging photos</title>
@@ -24,7 +26,7 @@
     <section>
     <title>To flag or unflag a photo</title>
     <p>
-    To flag or unflag a photo, right click the photo and choose <gui>Flag</gui> or <gui>Unflag</gui>
+    To flag or unflag a photo, right-click the photo and choose <gui>Flag</gui> or <gui>Unflag</gui>
     from the context menu.  Or use the <keyseq><key>Ctrl</key><key>G</key></keyseq> or <key>/</key>
     shortcut keys.
     </p>

@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#other"/>
         <desc>Extend Shotwell's functionality dynamically.</desc>
+        
+        <link type="next" xref="other-missing"/>
     </info>
 
 	<title>Plugins</title>

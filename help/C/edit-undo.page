@@ -1,10 +1,14 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="undo">
+      id="edit-undo">
 
     <info>
         <link type="guide" xref="index#edit"/>
         <desc>Return a photo to its original, unedited form.</desc>
+        
+        <link type="seealso" xref="edit-nondestructive" />
+        
+        <link type="next" xref="edit-nondestructive" />
     </info>
 
 	<title>Undoing changes</title>

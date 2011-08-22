@@ -1,10 +1,12 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="crop">
+      id="edit-crop">
 
     <info>
         <link type="guide" xref="index#edit"/>
         <desc>Improve the composition of a photo by cutting out parts of it.</desc>
+        
+        <link type="next" xref="edit-external" />
     </info>
 
    <title>Cropping</title>

@@ -1,10 +1,12 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="print">
+      id="share-print">
 
     <info>
         <link type="guide" xref="index#share"/>
         <desc>Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog.</desc>
+        
+        <link type="next" xref="share-upload" />
     </info>
 
 	<title>Printing</title>

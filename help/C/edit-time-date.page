@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#edit"/>
         <desc>Change the time and date of photos if those details are incorrect.</desc>
+        
+        <link type="next" xref="edit-enhance" />
     </info>
 
 	<title>Adjust the time and date of photos</title>

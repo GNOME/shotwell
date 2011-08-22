@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#organize"/>
         <desc>Give photos a rating between 1 and 5 stars. You can reject bad photos, hiding them from view.</desc>
+        
+        <link type="next" xref="delete"/>
     </info>
 
 	<title>Ratings</title>
@@ -14,7 +16,7 @@
 
 <list>
 <item><p>Select the photo(s), then choose a rating from the top-level <guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu.</p></item>
-<item><p>Right click on the photo(s), then choose a rating from the Set Rating context menu.</p></item>
+<item><p>Right-click on the photo(s), then choose a rating from the Set Rating context menu.</p></item>
 <item><p>Select the photo(s), then press any of the shortcut keys <key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to clear the rating(s).</p></item>
 </list>
 

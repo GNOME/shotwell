@@ -5,15 +5,28 @@
     <info>
         <link type="guide" xref="index#view"/>
         <desc>The sidebar on the left of the window lists various views of your library.</desc>
+        
+        <link type="seealso" xref="event"/>
+        <link type="seealso" xref="tag"/>
+        <link type="seealso" xref="flag"/>
+        <link type="seealso" xref="search#savedsearch"/>
+        <link type="seealso" xref="import-file"/>
+        <link type="seealso" xref="import-f-spot"/>
+        <link type="seealso" xref="import-memorycard"/>
+        <link type="seealso" xref="import-camera"/>
+        
+        <link type="next" xref="view-information"/>
     </info>
 
 	<title>The sidebar</title>
 
 <p>The sidebar on the left side of the Shotwell window lists various views of your library. Although you may see the same photo in multiple views, it's only stored once on your hard drive.</p>
 
-<p>The <gui>Photos</gui> view displays all the photos in your library.</p>
+<p>The <gui>Last Import</gui> view lists your last imported photos no matter if they are imported from F-Spot, your camera, a memory card or the hard disk.</p>
 
-<p>The <gui>Videos</gui> view displays all the videos in your library.</p>
+<p>The <gui>Flagged</gui> lists all photos you had previous flagged.</p>
+
+<p>The <gui>Saved Search</gui> allows you to sort your libary by many criterias.</p>
 
 <p>The <gui>Events</gui> folder lists all events in your library.  An event is a group of photos that were taken at approximately the same time.</p>
 

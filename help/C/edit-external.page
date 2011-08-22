@@ -1,10 +1,12 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="external-edit">
+      id="edit-external">
 
     <info>
         <link type="guide" xref="index#edit"/>
         <desc>Use a different program to edit a photo.</desc>
+        
+        <link type="next" xref="edit-redeye" />
     </info>
 
    <title>Edit photos with an external program</title>

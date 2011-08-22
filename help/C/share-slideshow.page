@@ -1,13 +1,23 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="slideshow">
+      id="share-slideshow">
 
     <info>
         <link type="guide" xref="index#share"/>
         <desc>Watch a slideshow of your photos.</desc>
+        
+        <link type="next" xref="share-export" />
     </info>
 
 	<title>Slideshows</title>
 
-    <p>To see a sideshow of any collection in Shotwell, navigate to that collection and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq>.</p>
+    <p>To see a sideshow of any collection in Shotwell, navigate to that collection and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> or press <key>F5</key>.</p>
+    
+    <p>You can change some settings in a running slideshow:</p>
+    
+    <list>
+    <item><p>The duration how long an image should be shown: 1 - 30 seconds</p></item>
+    <item><p>You can select different transition effects.</p></item>
+    <item><p>The time for each transition effect: 0.1 - 1.0 seconds</p></item>
+    </list>
 </page>

@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#edit"/>
         <desc>Change the exposure, saturation, tint, and shadows of a photo.</desc>
+        
+        <link type="next" xref="edit-crop" />
     </info>
 
    <title>Color adjustments</title>

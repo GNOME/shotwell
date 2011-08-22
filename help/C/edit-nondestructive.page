@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#edit"/>
         <desc>Shotwell is a non-destructive photo editor - it does not modify your original photos.</desc>
+        
+        <link type="next" xref="edit-time-date" />
     </info>
 
 	<title>What happens to the original when I edit a photo?</title>

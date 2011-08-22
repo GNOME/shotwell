@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#share"/>
         <desc>Copy photos out of Shotwell so you can put them somewhere else.</desc>
+        
+        <link type="next" xref="share-print" />
     </info>
 
 	<title>Exporting photos</title>
@@ -14,7 +16,7 @@ a file manager window or your desktop. The new files will be full-sized copies o
 the photos in your library.</p>
 
 <p>
-Alternatively, select a set of photos and choose the <guiseq><gui>File</gui><gui>Export</gui></guiseq> command, which exports photos while letting you fine-tune the size and dimensions of your photo files.
+Alternatively, select a set of photos and choose the <guiseq><gui>File</gui><gui>Export</gui></guiseq> command or press <keyseq><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting you fine-tune the size and dimensions of your photo files.
 A window will appear allowing you to make several choices:
 </p>
 
@@ -27,16 +29,17 @@ any edits made in Shotwell.  RAW photos will be exported in their original RAW f
 <item><p>Choose <gui>Current</gui> to export photos including edits made in Shotwell.  RAW photos will be
 exported in JPEG format if you have edited them in Shotwell, and otherwise in their original RAW format.</p></item>
 <item><p>
-Or you can choose a particular image format (JPEG or PNG) to be used for exporting.  Any edits made in
+Or you can choose a particular image format (JPEG, PNG, TIFF, BMP) to be used for exporting.  Any edits made in
 Shotwell will be included, and Shotwell will convert photos to the destination format.
 </p></item>
 </list>
 </item>
 <item><p>The image quality for exporting (Low, Medium, High, or Maximum).</p></item>
 <item><p>A scaling constraint (which means how Shotwell will decide to scale the photos down), and the desired pixel size.</p></item>
+<item><p>The option whether you like to export metadatas such as tags or ratings. This can help to save your privacy if you have geolocation tags or tags which shouldn't be seen by anyone.</p></item>
 </list>
 
-<p>On export, Shotwell will write tags, titles, and other metadata to the new files.</p>
+<p>If selected, Shotwell will write tags, titles, and other metadata to the new files.</p>
 
 </page>
 

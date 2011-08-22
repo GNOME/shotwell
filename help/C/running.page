@@ -4,8 +4,11 @@
 
     <info>
         <link type="guide" xref="index"/>
-        <link type="seealso" xref="other-multiple" />
         <desc>Find Shotwell in the Applications menu, or have it start automatically when you plug in a camera.</desc>
+        
+        <link type="seealso" xref="other-multiple" />
+        
+        <link type="next" xref="formats" />
     </info>
 
 	<title>Running Shotwell</title>

@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#import"/>
         <desc>Copy photos from a digital camera.</desc>
+        
+        <link type="next" xref="import-memorycard"/>
     </info>
 
 	<title>Importing from a camera</title>

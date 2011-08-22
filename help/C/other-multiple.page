@@ -5,6 +5,8 @@
     <info>
         <link type="guide" xref="index#other"/>
         <desc>You can open Shotwell with a different photo library by using the command line.</desc>
+        
+        <link type="next" xref="other-files"/>
     </info>
 
 	<title>Multiple libraries</title>

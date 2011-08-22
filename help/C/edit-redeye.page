@@ -1,10 +1,12 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="redeye">
+      id="edit-redeye">
 
     <info>
         <link type="guide" xref="index#edit"/>
         <desc>Correct photos where people have red eyes because of the camera's flash.</desc>
+        
+        <link type="next" xref="edit-rotate" />
     </info>
 
 	<title>Removing red-eye</title>
