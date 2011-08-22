@@ -12,6 +12,13 @@ public class HybridConfigurationEngine : ConfigurationEngine, GLib.Object {
     private GSettingsConfigurationEngine gsettings = new GSettingsConfigurationEngine();
     
     public HybridConfigurationEngine() {
+        gconf.property_changed.connect(on_property_changed);
+        gsettings.property_changed.connect(on_property_changed);
+    }
+    
+    ~HybridConfigurationEngine() {
+        gconf.property_changed.disconnect(on_property_changed);
+        gsettings.property_changed.disconnect(on_property_changed);
     }
     
     public string get_name() {
@@ -95,6 +102,10 @@ public class HybridConfigurationEngine : ConfigurationEngine, GLib.Object {
 
     public void set_plugin_enabled(string id, bool enabled) {
         gsettings.set_plugin_enabled(id, enabled);
+    }
+    
+    private void on_property_changed(ConfigurableProperty p) {
+        property_changed(p);
     }
 }
 
