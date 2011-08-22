@@ -320,7 +320,7 @@ public class ExportDialog : Gtk.Dialog {
                 assert(scale > 0);
             current_scale = scale;
             
-            parameters.export_metadata = export_metadata.active;
+            parameters.export_metadata = export_metadata.sensitive ? export_metadata.active : false;
             
             if (format_combo.get_active_text() == UNMODIFIED_FORMAT_LABEL) {
                 parameters.mode = current_parameters.mode = ExportFormatMode.UNMODIFIED;
@@ -386,7 +386,6 @@ public class ExportDialog : Gtk.Dialog {
             constraint_combo.set_sensitive(false);
             quality_combo.set_sensitive(false);
             pixels_entry.sensitive = false;
-            export_metadata.active = false;
             export_metadata.sensitive = false;
         } else if (format_combo.get_active_text() == CURRENT_FORMAT_LABEL) {
             // if the user wishes to export the media in its current format, we allow sizing but
