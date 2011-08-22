@@ -399,7 +399,6 @@ private class BasicProperties : Properties {
 private class ExtendedPropertiesWindow : Gtk.Dialog {
     private ExtendedProperties properties = null;
     private const int FRAME_BORDER = 6;
-    private const int RESIZE_HANDLE_SPACER = 8;
     private Gtk.Button close_button;
 
     private class ExtendedProperties : Properties {
@@ -535,9 +534,9 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         close_button.clicked.connect(on_close_clicked);
     
         // Move the buttons away from where Unity window
-        // manager on Ubuntu 11.04 puts resize handles
+        // manager on Ubuntu puts resize handles
         Gtk.Alignment action_alignment = new Gtk.Alignment(1, 0.5f, 1, 1);
-        action_alignment.set_padding(0, 0, 0, RESIZE_HANDLE_SPACER);
+        action_alignment.set_padding(0, 0, 0, Resources.RESIZE_HANDLE_SPACER);
         action_alignment.add(close_button);
         action_area.add(action_alignment);
     }
