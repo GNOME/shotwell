@@ -129,6 +129,7 @@ private class BasicProperties : Properties {
     private string iso;
     private double clip_duration;
     private string raw_developer;
+    private string raw_assoc;
 
     public BasicProperties() {
     }
@@ -146,6 +147,7 @@ private class BasicProperties : Properties {
         iso = "";
         clip_duration = 0.0;
         raw_developer = "";
+        raw_assoc = "";
     }
 
     protected override void get_single_properties(DataView view) {
@@ -185,7 +187,9 @@ private class BasicProperties : Properties {
                 dimensions = ((PhotoSource) source).get_dimensions();
             
             if (source is Photo && ((Photo) source).get_master_file_format() == PhotoFileFormat.RAW) {
-                raw_developer = ((Photo) source).get_raw_developer().get_label();
+                Photo photo = source as Photo;
+                raw_developer = photo.get_raw_developer().get_label();
+                raw_assoc = photo.is_raw_developer_available(RawDeveloper.CAMERA) ? _("RAW + JPEG") : "";
             }
         } else if (source is EventSource) {
             EventSource event_source = (EventSource) source;
@@ -356,6 +360,10 @@ private class BasicProperties : Properties {
         if (raw_developer != "") {
             add_line(_("Developer:"), raw_developer);
         }
+        
+        // RAW+JPEG flag.
+        if (raw_assoc != "")
+            add_line("", raw_assoc);
 
         if (exposure != "" || aperture != "" || iso != "") {
             string line = null;
