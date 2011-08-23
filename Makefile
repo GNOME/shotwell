@@ -1,13 +1,14 @@
 PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 
-VERSION = 0.11.0
+VERSION = 0.11.0+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
 VALAC := valac
 VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
 MIN_VALAC_VERSION := 0.11.7
+MAX_VALAC_VERSION := 0.13.0
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 
