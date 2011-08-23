@@ -1423,16 +1423,16 @@ msgstr "Cerca no_va..."
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr "%a, %l de %d"
+msgstr "%a, %d de %b"
 
 #: src/util/misc.vala:232
 msgid "%d, %Y"
-msgstr "%l de %Y"
+msgstr "%d de %Y"
 
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
 msgid "%a %b %d, %Y"
-msgstr "%a, %l de %b de %Y"
+msgstr "%a, %d de %b de %Y"
 
 #: src/BatchImport.vala:25
 msgid "Success"
