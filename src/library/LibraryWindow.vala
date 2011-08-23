@@ -1201,6 +1201,13 @@ public class LibraryWindow : AppWindow {
         background_progress_bar.set_fraction(fraction);
         background_progress_bar.set_text(_("%s (%d%%)").printf(label, (int) (fraction * 100.0)));
         show_background_progress_bar();
+        
+#if UNITY_SUPPORT
+        //Unity launcher progress bar: init & set
+        var l = Unity.LauncherEntry.get_for_desktop_id ("shotwell.desktop");
+        l.progress = fraction;
+        l.progress_visible = true;
+#endif
     }
     
     private void clear_background_progress_bar(int priority) {
@@ -1214,6 +1221,13 @@ public class LibraryWindow : AppWindow {
         background_progress_bar.set_fraction(0.0);
         background_progress_bar.set_text("");
         hide_background_progress_bar();
+        
+#if UNITY_SUPPORT
+        //Unity launcher progress bar: reset
+        var l = Unity.LauncherEntry.get_for_desktop_id ("shotwell.desktop");
+        l.progress = 0.0;
+        l.progress_visible = false;
+#endif
     }
     
     private void show_background_progress_bar() {
