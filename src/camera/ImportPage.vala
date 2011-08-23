@@ -387,14 +387,12 @@ public class CameraAccumulator : Object, Core.TrackerAccumulator {
         total++;
         
         PhotoImportSource? photo = source as PhotoImportSource;
-        if (photo != null) {
+        if (photo != null && photo.get_file_format() != PhotoFileFormat.RAW)
             photos++;
-            
-            if (photo.get_file_format() == PhotoFileFormat.RAW)
-                raw++;
-        } else if (source is VideoImportSource) {
+        else if (photo != null && photo.get_file_format() == PhotoFileFormat.RAW)
+            raw++;
+        else if (source is VideoImportSource)
             videos++;
-        }
         
         // because of total, always fire "updated"
         return true;
@@ -406,14 +404,12 @@ public class CameraAccumulator : Object, Core.TrackerAccumulator {
         total++;
         
         PhotoImportSource? photo = source as PhotoImportSource;
-        if (photo != null) {
+        if (photo != null && photo.get_file_format() != PhotoFileFormat.RAW) {
             assert(photos > 0);
             photos--;
-            
-            if (photo.get_file_format() == PhotoFileFormat.RAW) {
-                assert(raw > 0);
-                raw--;
-            }
+        } else if (photo != null && photo.get_file_format() == PhotoFileFormat.RAW) {
+            assert(raw > 0);
+            raw--;
         } else if (source is VideoImportSource) {
             assert(videos > 0);
             videos--;
