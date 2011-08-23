@@ -46,7 +46,7 @@
                 <td><p> </p></td><td><p> %y </p></td><td><p> Year: two digit </p></td><td><p> 11 </p></td>
             </tr>
             <tr>
-                <td><p> </p></td><td><p> %d </p></td><td><p> Day of the month </p></td><td><p> 3 </p></td>
+                <td><p> </p></td><td><p> %d </p></td><td><p> Day of the month with leading zero </p></td><td><p> 03 </p></td>
             </tr>
             <tr>
                 <td><p> </p></td><td><p> %A </p></td><td><p> Day name: full </p></td><td><p> Wednesday </p></td>
@@ -55,7 +55,7 @@
                 <td><p> </p></td><td><p> %a </p></td><td><p> Day name: abbreviated </p></td><td><p> Wed </p></td>
             </tr>
             <tr>
-                <td><p> </p></td><td><p> %m </p></td><td><p> Month number </p></td><td><p> 02 </p></td>
+                <td><p> </p></td><td><p> %m </p></td><td><p> Month number with leading zero </p></td><td><p> 02 </p></td>
             </tr>
             <tr><td><p> </p></td><td><p> %b </p></td><td><p> Month name: abbreviated </p></td><td><p> Feb 
             
