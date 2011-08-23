@@ -1,3 +1,29 @@
+shotwell (0.11.0-1~natty1) natty; urgency=low
+
+  * Hierarchical tags
+  * Support for RAW+JPEG and selectable RAW developer
+  * Switched from GConf to GSettings
+  * "Hide Photos Already Imported" is now persistent
+  * New Saved Search options
+  * Mimics no longer stored in home directory
+  * Added support for BMP format
+  * Many, many bugfixes
+
+ -- Eric Gregory <eric@yorba.org>  Tue, 23 August 2011 13:00:00 -0800 
+
+
+shotwell (0.10.1-1~natty1) natty; urgency=low
+
+  * Fixes "Hide Photos Already Imported"
+  * Multiple editing bugs fixed
+  * Resolves crash when two or more cameras have the same name
+  * Documentation now includes saved searches
+  * Piwigo bugs fixed
+  * Translation updates
+
+ -- Eric Gregory <eric@yorba.org>  Fri, 3 June 2011 13:00:00 -0800 
+
+
 shotwell (0.10.0-1~natty1) natty; urgency=low
 
   * Dynamic view of photo library through saved search feature
