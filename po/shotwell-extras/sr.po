@@ -1,14 +1,14 @@
-# po/shotwell-extras/shotwell-extras.pot
-# PO message string template file for Shotwell Extra Plugins
+# po/shotwell-extras/sr.po
+# Serbian Translation for Shotwell Extra Plugins
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell\n"
-"Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 13:29+0000\n"
+"Project-Id-Version: shotwell-extras-0.11.0\n"
+"Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
+"POT-Creation-Date: 2011-08-03 18:23-0700\n"
+"PO-Revision-Date: 2011-08-04 07:13+0000\n"
 "Last-Translator: nikoola <nrad@eunet.rs>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,15 +19,63 @@ msgstr ""
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr "Сва права задржана 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Сва права задржана 2010+ Јевгениј Палиаков <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Посетите Yandex.Fotki интернет страну"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:634
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Тренутно сте пријављени на Yandex.Fotki."
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:18
+msgid "label"
+msgstr "ознака"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:35
+msgid "_URL of your Piwigo photo library"
+msgstr "_URL ваше Piwigo збирке фотографија"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:44
+msgid "User _name"
+msgstr "Корисничко _име"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:57
+msgid "_Password"
+msgstr "_Лозинка"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:112
+msgid "_Remember Password"
+msgstr "_Запамти лозинку"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:128
+msgid "Login"
+msgstr "Пријави се"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:18
+msgid "Photos will appear in:"
+msgstr "Фотографије ће се појавити у:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:31
+msgid "An _existing category:"
+msgstr "_Постојећа категорија:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:42
+msgid "A _new album named:"
+msgstr "_Нови албум је назван:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:93
+msgid "Photos will be _visible by:"
+msgstr "Ко може да _види фотографије:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:124
+msgid "Logout"
+msgstr "Одјави се"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:137
+msgid "Publish"
+msgstr "Објави"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
@@ -52,3 +100,5 @@ msgstr "_Одјави се"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
 msgid "_Publish"
 msgstr "_Објави"
+
+
