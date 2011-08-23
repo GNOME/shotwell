@@ -1,3 +1,27 @@
+Shotwell 0.11.0 - 23 August 2011 - "The Bookstore"
+---------------------------------------------------------------------
+
+  * Hierarchical tags
+  * Support for RAW+JPEG and selectable RAW developer
+  * Switched from GConf to GSettings
+  * "Hide Photos Already Imported" is now persistent
+  * New Saved Search options
+  * Mimics no longer stored in home directory
+  * Added support for BMP format
+  * Many, many bugfixes
+
+
+Shotwell 0.10.1 - 3 June 2011 - "A Vacation From Ourselves"
+---------------------------------------------------------------------
+
+  * Fixes "Hide Photos Already Imported"
+  * Multiple editing bugs fixed
+  * Resolves crash when two or more cameras have the same name
+  * Documentation now includes saved searches
+  * Piwigo bugs fixed
+  * Translation updates
+
+
 Shotwell 0.10 - 26 May 2011 - "The Butter Shave"
 ---------------------------------------------------------------------
 
