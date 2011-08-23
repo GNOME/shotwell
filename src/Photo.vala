@@ -676,15 +676,13 @@ public abstract class Photo : PhotoSource, Dateable {
         BackingPhotoRow bpr = developments.get(d);
         
         lock (row) {
-            if (d != RawDeveloper.CAMERA) {
-                debug("Deleting raw development: %s", d.to_string());
-                if (bpr.filepath != null) {
-                    File f = File.new_for_path(bpr.filepath);
-                    try {
-                        f.delete();
-                    } catch (Error e) {
-                        warning("Unable to delete RAW development: %s error: %s", bpr.filepath, e.message);
-                    }
+            debug("Deleting raw development: %s", d.to_string());
+            if (bpr.filepath != null) {
+                File f = File.new_for_path(bpr.filepath);
+                try {
+                    f.delete();
+                } catch (Error e) {
+                    warning("Unable to delete RAW development: %s error: %s", bpr.filepath, e.message);
                 }
             }
             
