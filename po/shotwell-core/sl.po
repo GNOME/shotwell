@@ -27,7 +27,7 @@ msgstr ""
 #: src/AppWindow.vala:665
 #: plugins/common/Resources.vala:28
 msgid "translator-credits"
-msgstr "Andrej Žnidaršič <andrej.znidarsic@ubuntu.com>\n"
+msgstr "Andrej Žnidaršič <andrej.znidarsic@ubuntu.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
