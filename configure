@@ -39,6 +39,8 @@ configure_help() {
     printf "\t\t\t\tDisable installation of extra (non-core) plugins.\n"
     printf "\t--install-headers\n"
     printf "\t\t\t\tInstall headers and VAPI files (developers only).\n"
+    printf "\t--unity-support\n"
+    printf "\t\t\t\tEnable support for progress bars in the Unity launcher.\n"
     printf "\n"
 }
 
@@ -124,6 +126,9 @@ do
                                           ;;
         
         --install-headers)                variables="${variables}INSTALL_HEADERS=1\n"
+                                          ;;
+        
+        --unity-support)                  variables="${variables}UNITY_SUPPORT=1\n"
                                           ;;
         
         *)                  if [ ! $value ]
