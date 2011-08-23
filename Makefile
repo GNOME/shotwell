@@ -34,6 +34,9 @@ LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR := $(DESTDIR)$(PREFIX)/share/locale
 
 VALAFLAGS := -g --enable-checking --thread --fatal-warnings $(USER_VALAFLAGS)
+ifdef UNITY_SUPPORT
+VALAFLAGS := $(VALAFLAGS) --define UNITY_SUPPORT
+endif
 
 DEFINES := _PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
 	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIB='"${LIB}"'
@@ -279,6 +282,9 @@ EXT_PKGS = \
 	unique-1.0 \
 	webkit-1.0 \
 	gconf-2.0
+ifdef UNITY_SUPPORT
+EXT_PKGS += unity
+endif
 
 THUMBNAILER_PKGS = \
     gtk+-2.0 \
