@@ -530,6 +530,7 @@ public abstract class Photo : PhotoSource, Dateable {
     public void add_backing_photo_for_development(RawDeveloper d, BackingPhotoRow bpr) throws Error {
         import_developed_backing_photo(ref row, d, bpr);
         developments.set(d, bpr);
+        notify_raw_development_modified();
     }
     
     public static void import_developed_backing_photo(ref PhotoRow row, RawDeveloper d, 
@@ -696,6 +697,8 @@ public abstract class Photo : PhotoSource, Dateable {
             ret = developments.unset(d);
             debug("returning: %d", (int) ret);
         }
+        
+        notify_raw_development_modified();
         
         return ret;
     }
@@ -1412,6 +1415,8 @@ public abstract class Photo : PhotoSource, Dateable {
             list += "image:editable,image:baseline";
         
         notify_altered(new Alteration.from_list(list));
+        
+        notify_raw_development_modified();
     }
     
     public override string get_typename() {
@@ -3967,6 +3972,15 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                     filesize_to_photo.set(editable_filesize, photo);
                     photo_to_editable_filesize.set(photo, editable_filesize);
                 }
+                
+                Gee.Collection<BackingPhotoRow>? raw_rows = photo.get_raw_development_photo_rows();
+                if (raw_rows != null) {
+                    foreach (BackingPhotoRow row in raw_rows) {
+                        if (row.filesize >= 0) {
+                            filesize_to_photo.set(row.filesize, photo);
+                        }
+                     }
+                }
             }
         }
         
@@ -3996,6 +4010,15 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                 if (editable_filesize >= 0) {
                     filesize_to_photo.remove(editable_filesize, photo);
                     photo_to_editable_filesize.unset(photo);
+                }
+                
+                Gee.Collection<BackingPhotoRow>? raw_rows = photo.get_raw_development_photo_rows();
+                if (raw_rows != null) {
+                    foreach (BackingPhotoRow row in raw_rows) {
+                        if (row.filesize >= 0) {
+                            filesize_to_photo.remove(row.filesize, photo);
+                        }
+                     }
                 }
             }
         }
