@@ -1,14 +1,14 @@
-# po/shotwell-extras/shotwell-extras.pot
-# PO message string template file for Shotwell Extra Plugins
+# po/shotwell-extras/ko.po
+# Korean Translation for Shotwell Extra Plugins
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell\n"
-"Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 09:03+0000\n"
+"Project-Id-Version: shotwell-extras-0.11.0\n"
+"Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
+"POT-Creation-Date: 2011-08-03 18:23-0700\n"
+"PO-Revision-Date: 2011-08-05 05:32+0000\n"
 "Last-Translator: boram <boramism@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,9 +25,57 @@ msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Yandex.Fotki 웹사이트 방문"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:634
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Yandex.Fotki에 로그인하지 않았습니다."
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:18
+msgid "label"
+msgstr "이름표"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:35
+msgid "_URL of your Piwigo photo library"
+msgstr "피위고 사진 라이브러리 주소(_U)"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:44
+msgid "User _name"
+msgstr "사용자 이름(_N)"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:57
+msgid "_Password"
+msgstr "암호(_P)"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:112
+msgid "_Remember Password"
+msgstr "암호 저장(_R)"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:128
+msgid "Login"
+msgstr "로그인"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:18
+msgid "Photos will appear in:"
+msgstr "다음에 사진이 나타날 것입니다:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:31
+msgid "An _existing category:"
+msgstr "존자하는 카테고리(_E):"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:42
+msgid "A _new album named:"
+msgstr "새 앨범 이름(_N):"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:93
+msgid "Photos will be _visible by:"
+msgstr "사진을 보여줄 사람(_V):"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:124
+msgid "Logout"
+msgstr "로그아웃"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:137
+msgid "Publish"
+msgstr "발행"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
@@ -52,3 +100,5 @@ msgstr "로그아웃(_L)"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
 msgid "_Publish"
 msgstr "업로드(_P)"
+
+

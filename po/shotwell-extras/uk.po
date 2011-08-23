@@ -1,14 +1,14 @@
-# po/shotwell-extras/shotwell-extras.pot
-# PO message string template file for Shotwell Extra Plugins
+# po/shotwell-extras/uk.po
+# Ukrainian Translation for Shotwell Extra Plugins
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell\n"
-"Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 03:35+0000\n"
+"Project-Id-Version: shotwell-extras-0.11.0\n"
+"Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
+"POT-Creation-Date: 2011-08-03 18:23-0700\n"
+"PO-Revision-Date: 2011-08-04 05:16+0000\n"
 "Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,9 +25,57 @@ msgstr "© Evgeniy Polyakov <zbr@ioremap.net>, 2010+"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Відвідати сайт Yandex.Fotki"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:634
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Ви ще не увійшли до системи Yandex.Fotki."
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:18
+msgid "label"
+msgstr "мітка"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:35
+msgid "_URL of your Piwigo photo library"
+msgstr "_Адреса вашої бібліотеки фотографій Piwigo"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:44
+msgid "User _name"
+msgstr "_Користувач"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:57
+msgid "_Password"
+msgstr "_Пароль"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:112
+msgid "_Remember Password"
+msgstr "_Запам’ятати пароль"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:128
+msgid "Login"
+msgstr "Увійти"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:18
+msgid "Photos will appear in:"
+msgstr "Фотографії буде показано у:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:31
+msgid "An _existing category:"
+msgstr "_Вже створеній категорії:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:42
+msgid "A _new album named:"
+msgstr "_Новому альбомі з назвою:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:93
+msgid "Photos will be _visible by:"
+msgstr "Фотографії зможуть _бачити:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:124
+msgid "Logout"
+msgstr "Вийти"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:137
+msgid "Publish"
+msgstr "Оприлюднити"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
@@ -52,3 +100,5 @@ msgstr "Ви_йти з системи"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
 msgid "_Publish"
 msgstr "_Оприлюднити"
+
+

@@ -1,15 +1,15 @@
-# po/shotwell-extras/shotwell-extras.pot
-# PO message string template file for Shotwell Extra Plugins
+# po/shotwell-extras/pt_BR.po
+# Portuguese (Brazil) Translation for Shotwell Extra Plugins
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell\n"
-"Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2011-05-12 16:50-0700\n"
-"PO-Revision-Date: 2011-05-13 00:07+0000\n"
-"Last-Translator: verayin <vera@yorba.org>\n"
+"Project-Id-Version: shotwell-extras-0.11.0\n"
+"Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
+"POT-Creation-Date: 2011-08-03 18:23-0700\n"
+"PO-Revision-Date: 2011-08-05 21:33+0000\n"
+"Last-Translator: dnoway <dnoway@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,36 +19,86 @@ msgstr ""
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr ""
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
 msgid "Visit the Yandex.Fotki web site"
-msgstr ""
+msgstr "Visite o site do Yandex.Fotki"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:634
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Você não está atualmente logado em Yandex.Fotki."
 
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:18
+msgid "label"
+msgstr "rótulo"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:35
+msgid "_URL of your Piwigo photo library"
+msgstr "_URL da sua galeria de fotos Piwigo"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:44
+msgid "User _name"
+msgstr "_Nome do usuário"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:57
+msgid "_Password"
+msgstr "_Senha"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:112
+msgid "_Remember Password"
+msgstr "Lemb_rar senha"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:128
+msgid "Login"
+msgstr "Iniciar sessão"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:18
+msgid "Photos will appear in:"
+msgstr "As fotos irão aparecer em:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:31
+msgid "An _existing category:"
+msgstr "Uma categoria _existente:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:42
+msgid "A _new album named:"
+msgstr "Um novo _novo álbum chamado:"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:93
+msgid "Photos will be _visible by:"
+msgstr "As fotos serão _visíveis por: "
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:124
+msgid "Logout"
+msgstr "Encerrar sessão"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:137
+msgid "Publish"
+msgstr "Publicar"
+
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
-msgstr ""
+msgstr "_Álbuns (ou gravar novo):"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
 msgid "Access _type:"
-msgstr ""
+msgstr "Tipo de acesso:"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
 msgid "Disable _comments"
-msgstr ""
+msgstr "Desabilitar _comentários"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
-msgstr ""
+msgstr "_Proibir o download da foto original"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
 msgid "_Logout"
-msgstr ""
+msgstr "_Sair"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
 msgid "_Publish"
-msgstr ""
+msgstr "_Publicar"
+
+

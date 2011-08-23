@@ -1,12 +1,12 @@
-# po/shotwell-extras/shotwell-extras.pot
-# PO message string template file for Shotwell Extra Plugins
+# po/shotwell-extras/mk.po
+# Macedonian Translation for Shotwell Extra Plugins
 # Copyright (C) 2009-2011 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell\n"
-"Report-Msgid-Bugs-To: vera@yorba.org\n"
+"Project-Id-Version: shotwell-extras-0.11.0\n"
+"Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2011-05-12 16:50-0700\n"
 "PO-Revision-Date: 2011-05-13 00:07+0000\n"
 "Last-Translator: verayin <vera@yorba.org>\n"
