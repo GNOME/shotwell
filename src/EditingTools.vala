@@ -216,12 +216,13 @@ public abstract class PhotoCanvas {
     // get_scaled_pixbuf_position().x and get_scaled_pixbuf_position().y
     public void paint_pixbuf(Gdk.Pixbuf pixbuf) {
         default_ctx.save();
-        if (pixbuf.get_has_alpha()) {
-            Gdk.cairo_set_source_color(default_ctx, container.style.black);
-            default_ctx.rectangle(scaled_position.x, scaled_position.y,
-                pixbuf.get_width(), pixbuf.get_height());
-            default_ctx.fill();
-        }
+        
+        // paint black background
+        Gdk.cairo_set_source_color(default_ctx, container.style.black);
+        default_ctx.rectangle(0, 0, surface_dim.width, surface_dim.height);
+        default_ctx.fill();
+
+        // paint the actual image
         Gdk.cairo_set_source_pixbuf(default_ctx, pixbuf, scaled_position.x, scaled_position.y);
         default_ctx.rectangle(scaled_position.x, scaled_position.y,
             pixbuf.get_width(), pixbuf.get_height());
