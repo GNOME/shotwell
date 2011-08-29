@@ -2781,7 +2781,7 @@ msgstr "Fotos ko_pieren"
 
 #: src/Dialogs.vala:2165
 msgid "_Import in Place"
-msgstr "_Import läuft gerade"
+msgstr "_Import durch Verlinken"
 
 #: src/Dialogs.vala:2166
 msgid "Import to Library"
