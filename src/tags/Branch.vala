@@ -107,7 +107,8 @@ public class Tags.Branch : Sidebar.Branch {
     }
 }
 
-public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, Sidebar.Contextable {
+public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, 
+    Sidebar.InternalDragSourceEntry, Sidebar.Contextable {
     private Gtk.UIManager ui = new Gtk.UIManager();
     private Gtk.Menu? context_menu = null;
     
@@ -163,6 +164,10 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, 
         }
         
         return false;
+    }
+    
+    public void prepare_selection_data(Gtk.SelectionData data) {
+        ;
     }
 
     public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event) {
