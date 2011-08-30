@@ -77,6 +77,8 @@ public class Sidebar.Tree : Gtk.TreeView {
     private bool mask_entry_selected_signal = false;
     private weak EntryWrapper? selected_wrapper = null;
     private Gtk.Menu? default_context_menu = null;
+    private bool is_internal_drag_in_progress = false;
+    private Sidebar.Entry? internal_drag_source_entry = null;
     
     public signal void entry_selected(Sidebar.SelectableEntry selectable);
     
@@ -147,12 +149,41 @@ public class Sidebar.Tree : Gtk.TreeView {
         icon_theme.changed.connect(on_theme_change);
         
         setup_default_context_menu();
+        
+        drag_begin.connect(on_drag_begin);
+        drag_end.connect(on_drag_end);
+        drag_motion.connect(on_drag_motion);
     }
     
     ~Tree() {
         text_renderer.editing_canceled.disconnect(on_editing_canceled);
         text_renderer.editing_started.disconnect(on_editing_started);
         icon_theme.changed.disconnect(on_theme_change);
+    }
+    
+    private void on_drag_begin(Gdk.DragContext ctx) {
+        is_internal_drag_in_progress = true;
+    }
+    
+    private void on_drag_end(Gdk.DragContext ctx) {
+        is_internal_drag_in_progress = false;
+        internal_drag_source_entry = null;
+    }
+    
+    private bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time_) {
+        if (is_internal_drag_in_progress && internal_drag_source_entry == null) {
+            Gtk.TreePath? path;
+            Gtk.TreeViewDropPosition position;
+            get_dest_row_at_pos(x, y, out path, out position);
+            
+            if (path != null) {
+                EntryWrapper wrapper = get_wrapper_at_path(path);
+                if (wrapper != null)
+                    internal_drag_source_entry = wrapper.entry;
+            }
+        }
+        
+        return false;
     }
     
     private void setup_default_context_menu() {
@@ -926,17 +957,29 @@ public class Sidebar.Tree : Gtk.TreeView {
 
     public override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
         uint info, uint time) {
-        Gtk.TreePath? selected_path = get_selected_path();
-        if (selected_path == null)
-            return;
-
-        EntryWrapper? wrapper = get_wrapper_at_path(selected_path);
-        if (wrapper == null)
-            return;
+        InternalDragSourceEntry? drag_source = null;
         
-        InternalDragSourceEntry? drag_source = wrapper.entry as InternalDragSourceEntry;
-        if (drag_source == null)
-            return;
+        if (internal_drag_source_entry != null) {
+            Sidebar.SelectableEntry selectable =
+                internal_drag_source_entry as Sidebar.SelectableEntry;
+            if (selectable == null) {
+                drag_source = internal_drag_source_entry as InternalDragSourceEntry;
+            }
+        }
+        
+        if (drag_source == null) {
+            Gtk.TreePath? selected_path = get_selected_path();
+            if (selected_path == null)
+                return;
+
+            EntryWrapper? wrapper = get_wrapper_at_path(selected_path);
+            if (wrapper == null)
+                return;
+            
+            drag_source = wrapper.entry as InternalDragSourceEntry;
+            if (drag_source == null)
+                return;
+        }
         
         drag_source.prepare_selection_data(selection_data);
     }
