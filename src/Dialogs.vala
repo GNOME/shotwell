@@ -10,6 +10,8 @@ namespace Dialogs {
 
 public bool confirm_delete_tag(Tag tag) {
     int count = tag.get_sources_count();
+    if (count == 0)
+        return true;
     string msg = ngettext(
         "This will remove the tag \"%s\" from one photo.  Continue?",
         "This will remove the tag \"%s\" from %d photos.  Continue?",
