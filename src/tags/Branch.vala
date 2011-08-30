@@ -156,8 +156,8 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, 
             string old_tag_path = (string) data.get_data();
             assert (Tag.exists(old_tag_path));
             
-            ReparentTagCommand cmd = new ReparentTagCommand(Tag.for_path(old_tag_path), "/");
-            cmd.execute();
+            AppWindow.get_command_manager().execute(
+                new ReparentTagCommand(Tag.for_path(old_tag_path), "/"));
             
             return true;
         }
@@ -239,8 +239,8 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
             string old_tag_path = (string) data.get_data();
             assert (Tag.exists(old_tag_path));
             
-            ReparentTagCommand cmd = new ReparentTagCommand(Tag.for_path(old_tag_path), tag.get_path());
-            cmd.execute();
+            AppWindow.get_command_manager().execute(
+                new ReparentTagCommand(Tag.for_path(old_tag_path), tag.get_path()));
             
             return true;
         }
