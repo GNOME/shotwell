@@ -154,7 +154,7 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, 
     public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
         if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
             string old_tag_path = (string) data.get_data();
-            assert (Tag.exists(old_tag_path));
+            assert (Tag.global.exists(old_tag_path));
             
             AppWindow.get_command_manager().execute(
                 new ReparentTagCommand(Tag.for_path(old_tag_path), "/"));
@@ -216,10 +216,7 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         if (prepped == null)
             return;
         
-        if (!Tag.global.exists(prepped))
-            AppWindow.get_command_manager().execute(new RenameTagCommand(tag, prepped));
-        else if (prepped != tag.get_name())
-            AppWindow.error_message(Resources.rename_tag_exists_message(prepped));
+        AppWindow.get_command_manager().execute(new RenameTagCommand(tag, prepped));
     }
     
     public void destroy_source() {
@@ -237,7 +234,7 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
         if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
             string old_tag_path = (string) data.get_data();
-            assert (Tag.exists(old_tag_path));
+            assert (Tag.global.exists(old_tag_path));
             
             AppWindow.get_command_manager().execute(
                 new ReparentTagCommand(Tag.for_path(old_tag_path), tag.get_path()));

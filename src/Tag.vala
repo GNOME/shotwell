@@ -83,8 +83,8 @@ public class TagSourceCollection : ContainerSourceCollection {
         return (Tag) fetch_by_key(tag_id.id);
     }
     
-    public bool exists(string name) {
-        return name_map.has_key(name);
+    public bool exists(string name, bool treat_htags_as_root = false) {
+        return fetch_by_name(name, treat_htags_as_root) != null;
     }
     
     public Gee.Collection<string> get_all_names() {
@@ -108,7 +108,22 @@ public class TagSourceCollection : ContainerSourceCollection {
     }
     
     // Returns null if not Tag with name exists.
-    public Tag? fetch_by_name(string name) {
+    // treat_htags_as_root: set to true if you want this function to treat htags as root tags
+    public Tag? fetch_by_name(string name, bool treat_htags_as_root = false) {
+        if (treat_htags_as_root) {
+            if (name.has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+                if (HierarchicalTagUtilities.enumerate_path_components(name).size == 1) {
+                    Tag? tag = name_map.get(HierarchicalTagUtilities.hierarchical_to_flat(name));
+                    if (tag != null)
+                        return tag;
+                 }
+            } else {
+                Tag? tag = name_map.get(HierarchicalTagUtilities.flat_to_hierarchical(name));
+                if (tag != null)
+                    return tag;
+            }
+        }
+        
         return name_map.get(name);
     }
     
@@ -450,10 +465,9 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     // Returns a Tag for the path, creating a new empty one if it does not already exist.
     // path should have already been prepared by prep_tag_name.
     public static Tag for_path(string name) {
-        Tag? tag = global.fetch_by_name(name);
-        if (tag == null) {
+        Tag? tag = global.fetch_by_name(name, true);
+        if (tag == null)
             tag = global.restore_tag_from_holding_tank(name);
-        }
         
         if (tag != null)
             return tag;
@@ -468,14 +482,6 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         global.add(tag);
         
         return tag;
-    }
-    
-    public static bool exists(string path) {
-        Tag? tag = global.fetch_by_name(path);
-        if (tag == null)
-            tag = global.restore_tag_from_holding_tank(path);
-        
-        return (tag != null);
     }
     
     public static Gee.Collection<Tag> get_terminal_tags(Gee.Collection<Tag> tags) {
@@ -503,7 +509,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         
         Gee.ArrayList<Tag> result = new Gee.ArrayList<Tag>();
         foreach (string path in result_paths) {
-            if (Tag.exists(path)) {
+            if (Tag.global.exists(path)) {
                 result.add(Tag.for_path(path));
             } else {
                 foreach (Tag probed_tag in tags) {
@@ -704,7 +710,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             string path_candidate = prefix + candidate_name +
                 ((counter == 0) ? "" : (" " + counter.to_string()));
             
-            if (!Tag.exists(path_candidate))
+            if (!Tag.global.exists(path_candidate))
                 return path_candidate;
             
             counter++;
@@ -770,7 +776,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         if (row.name.has_prefix(Tag.PATH_SEPARATOR_STRING)) {
             // it is possible that this tag has already been reconstituted when one of its children
             // was reconstituted, so check for this case and return the already-reconstituted tag
-            if (Tag.exists(row.name)) {
+            if (Tag.global.exists(row.name)) {
                 return Tag.for_path(row.name);
             }
         
@@ -786,10 +792,10 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
                 // if reconstituting a hierarchical tag with a top-level parent, it's parent may
                 // have been flattened so handle this case
                 string immediate_parent_path = parent_paths.get(0);
-                if (!Tag.exists(immediate_parent_path)) {
+                if (!Tag.global.exists(immediate_parent_path)) {
                     string flat_immediate_path =
                         HierarchicalTagUtilities.hierarchical_to_flat(immediate_parent_path);
-                    assert(Tag.exists(flat_immediate_path));
+                    assert(Tag.global.exists(flat_immediate_path));
                     Tag.for_path(flat_immediate_path).promote();
                 }
             } else {
@@ -951,7 +957,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
                 new_path = Tag.PATH_SEPARATOR_STRING + new_path;
             }
             
-            if (Tag.global.exists(new_path))
+            if (Tag.global.exists(new_path, true))
                 return false;
 
             Gee.Collection<Tag> children = get_hierarchical_children();
@@ -974,7 +980,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             }
         } else {
             // if this is a flat tag, no problem -- just keep doing what we've always done
-            if (Tag.global.exists(new_name))
+            if (Tag.global.exists(new_name, true))
                 return false;
             
             set_raw_flat_name(new_name);

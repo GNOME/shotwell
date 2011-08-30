@@ -1487,7 +1487,7 @@ public class ReparentTagCommand : PageCommand {
         // make sure a tag corresponding to the from path exists -- this should always be true,
         // given the way the constructor for this class works, but it's a sanity check
         Tag? from_tag = null;
-        if (!Tag.exists(from))
+        if (!Tag.global.exists(from))
             error("do_move: can't move from tag with path '%s': tag doesn't exist.", from);
         from_tag = Tag.for_path(from);
         
@@ -1537,9 +1537,9 @@ public class ReparentTagCommand : PageCommand {
             Gee.List<string> parent_paths = HierarchicalTagUtilities.enumerate_parent_paths(to);
             if (parent_paths.size > 0) {
                 string immediate_parent_path = parent_paths.get(parent_paths.size - 1);
-                if (Tag.exists(immediate_parent_path))
+                if (Tag.global.exists(immediate_parent_path))
                     new_parent = Tag.for_path(immediate_parent_path);
-                else if (Tag.exists(immediate_parent_path.substring(1)))
+                else if (Tag.global.exists(immediate_parent_path.substring(1)))
                     new_parent = Tag.for_path(immediate_parent_path.substring(1));
                 else
                     assert_not_reached();
@@ -1577,14 +1577,14 @@ public class ReparentTagCommand : PageCommand {
         
         // cleanup our old tag -- keep in mind that when our children were removed, we
         // may have been flattened
-        if (Tag.exists(from)) {
+        if (Tag.global.exists(from)) {
             Tag.global.destroy_marked(Tag.global.mark(Tag.for_path(from)), true);
             
             return;
         }
         if (HierarchicalTagUtilities.enumerate_path_components(from).size == 1) {
             string from_flat = HierarchicalTagUtilities.hierarchical_to_flat(from);
-            if (Tag.exists(from_flat))
+            if (Tag.global.exists(from_flat, true))
                 Tag.global.destroy_marked(Tag.global.mark(Tag.for_path(from_flat)), true);
                 
             return;
@@ -1631,7 +1631,7 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
         }
         
         foreach (string path in new_paths) {
-            assert(Tag.exists(path));
+            assert(Tag.global.exists(path));
 
             SourceProxy proxy = Tag.for_path(path).get_proxy();
             to_add.add(proxy);
