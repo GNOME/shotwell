@@ -940,10 +940,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
             Dimensions max_dim = photo.get_dimensions();
             if (current_tool != null) {
                 try {
+                    Dimensions tool_pixbuf_dim;
                     Gdk.Pixbuf? tool_pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(),
-                        photo, out max_dim);
-                    if (tool_pixbuf != null)
-                        pixbuf = tool_pixbuf;
+                        photo, out tool_pixbuf_dim);
+
+                    if (tool_pixbuf != null) {
+                         pixbuf = tool_pixbuf;
+                        max_dim = tool_pixbuf_dim;
+                    }
                 } catch(Error err) {
                     warning("Unable to fetch tool pixbuf for %s: %s", photo.to_string(), err.message);
                     set_photo_missing(true);
@@ -1247,8 +1251,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Dimensions max_dim = photo.get_dimensions();
         
         try {
+            Dimensions tool_pixbuf_dim = {0};
             if (current_tool != null)
-                pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), photo, out max_dim);
+                pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), photo, out tool_pixbuf_dim);
+                
+            if (pixbuf != null)
+                max_dim = tool_pixbuf_dim;                
         } catch (Error err) {
             warning("%s", err.message);
             set_photo_missing(true);
@@ -1403,7 +1411,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Gdk.Pixbuf unscaled;
         Dimensions max_dim = get_photo().get_dimensions();
         try {
-            unscaled = tool.get_display_pixbuf(get_canvas_scaling(), get_photo(), out max_dim);
+            Dimensions tool_pixbuf_dim = {0};           
+            unscaled = tool.get_display_pixbuf(get_canvas_scaling(), get_photo(), out tool_pixbuf_dim);
+            
+            if (unscaled != null)
+                max_dim = tool_pixbuf_dim;
         } catch (Error err) {
             warning("%s", err.message);
             set_photo_missing(true);
