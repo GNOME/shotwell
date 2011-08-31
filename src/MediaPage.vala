@@ -1060,7 +1060,15 @@ public abstract class MediaPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
         
-        SetRawDeveloperCommand command = new SetRawDeveloperCommand(get_view().get_selected(), rd);
+        // Make a list of all photos that need their developer changed.
+        Gee.ArrayList<DataView> to_set = new Gee.ArrayList<DataView>();
+        foreach (DataView view in get_view().get_selected()) {
+                Photo? p = view.get_source() as Photo;
+                if (p != null && p.get_raw_developer() != rd)
+                    to_set.add(view);
+        }
+        
+        SetRawDeveloperCommand command = new SetRawDeveloperCommand(to_set, rd);
         get_command_manager().execute(command);
         update_development_menu_item_sensitivity();
     }

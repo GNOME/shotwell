@@ -2644,7 +2644,11 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     protected virtual void developer_changed(RawDeveloper rd) {
-        if (get_view().get_selected_count() == 0)
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        Photo? photo = get_view().get_selected().get(0).get_source() as Photo;
+        if (photo == null || photo.get_raw_developer() == rd)
             return;
         
         SetRawDeveloperCommand command = new SetRawDeveloperCommand(get_view().get_selected(), rd);
