@@ -239,10 +239,23 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
         if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
             string old_tag_path = (string) data.get_data();
+
+            // if we're dragging onto ourself, it's a no-op
+            if (old_tag_path == tag.get_path())
+                return true;
+
+            // if we're dragging onto one of our children, it's a no-op
+            foreach (string parent_path in HierarchicalTagUtilities.enumerate_parent_paths(tag.get_path())) {
+                if (parent_path == old_tag_path)
+                    return true;
+            }
+
             assert (Tag.global.exists(old_tag_path));
             
+            // if we're dragging onto our parent, it's a no-op
             Tag old_tag = Tag.for_path(old_tag_path);
-            if (old_tag.get_hierarchical_parent().get_path() == tag.get_path())
+            Tag old_tag_parent = old_tag.get_hierarchical_parent();
+            if (old_tag_parent != null && old_tag_parent.get_path() == tag.get_path())
                 return true;
             
             AppWindow.get_command_manager().execute(
