@@ -241,8 +241,12 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
             string old_tag_path = (string) data.get_data();
             assert (Tag.global.exists(old_tag_path));
             
+            Tag old_tag = Tag.for_path(old_tag_path);
+            if (old_tag.get_hierarchical_parent().get_path() == tag.get_path())
+                return true;
+            
             AppWindow.get_command_manager().execute(
-                new ReparentTagCommand(Tag.for_path(old_tag_path), tag.get_path()));
+                new ReparentTagCommand(old_tag, tag.get_path()));
             
             return true;
         }

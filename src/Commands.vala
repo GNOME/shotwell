@@ -1484,6 +1484,9 @@ public class ReparentTagCommand : PageCommand {
     }
     
     private void do_move(string from, string to) {
+        if (from == to)
+            return;
+    
         // disallow dragging a parent onto one of its own children
         Gee.Collection<string> dest_parent_paths =
             HierarchicalTagUtilities.enumerate_parent_paths(to);
