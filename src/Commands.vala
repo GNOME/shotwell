@@ -1487,14 +1487,6 @@ public class ReparentTagCommand : PageCommand {
         if (from == to)
             return;
     
-        // disallow dragging a parent onto one of its own children
-        Gee.Collection<string> dest_parent_paths =
-            HierarchicalTagUtilities.enumerate_parent_paths(to);
-        foreach (string path in dest_parent_paths) {
-            if (path == from)
-                return;
-        }
-    
         // make sure a tag corresponding to the from path exists -- this should always be true,
         // given the way the constructor for this class works, but it's a sanity check
         Tag? from_tag = null;
