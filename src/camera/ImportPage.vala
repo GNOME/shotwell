@@ -581,12 +581,6 @@ public class ImportPage : CheckerboardPage {
                     photo.add_backing_photo_for_development(RawDeveloper.CAMERA, associated_file);
                     ret = true;
                 }
-                
-                // Set the default developer for raw photos
-                if (photo.get_master_file_format() == PhotoFileFormat.RAW) {
-                    photo.set_raw_developer(Config.Facade.get_instance().get_default_raw_developer());
-                    ret = true;
-                }
             }
             return ret;
         }

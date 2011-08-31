@@ -956,10 +956,15 @@ public class BatchImport : Object {
                         warning("Unable to associate JPEG with RAW. File: %s Error: %s", 
                             bpr.filepath, e.message);
                     }
+                }
+                
+                // Set the default developer for raw photos
+                if (photo.get_master_file_format() == PhotoFileFormat.RAW) {
+                    RawDeveloper d = Config.Facade.get_instance().get_default_raw_developer();
+                    if (d == RawDeveloper.CAMERA && !photo.is_raw_developer_available(d))
+                        d = RawDeveloper.EMBEDDED;
                     
-                    // Set the default developer for raw photos
-                    if (photo.get_master_file_format() == PhotoFileFormat.RAW)
-                        photo.set_raw_developer(Config.Facade.get_instance().get_default_raw_developer());
+                    photo.set_raw_developer(d);
                 }
             }
             
