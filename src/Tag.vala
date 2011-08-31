@@ -669,6 +669,22 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         return Tag.for_path(parent_path);
     }
     
+    public int get_attachment_count(MediaSource source) {
+        // if we don't contain the source, the attachment count is zero
+        if (!contains(source))
+            return 0;
+
+        // we ourselves contain the source, so that's one attachment
+        int result = 1;
+        
+        // check to see if our children contain the source
+        foreach (Tag child in get_hierarchical_children())
+            if (child.contains(source))
+                result++;
+        
+        return result;
+    }
+    
     /**
      * gets all hierarchical children of a tag recursively; tags are enumerated from most-derived
      * to least-derived

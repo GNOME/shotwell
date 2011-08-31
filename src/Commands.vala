@@ -1510,6 +1510,19 @@ public class ReparentTagCommand : PageCommand {
         
         // loop through sources and detach them
         foreach (MediaSource source in from_sources) {
+            // before we do any detachments, collect attachment counts for the from tag and each of
+            // its parents
+            int attachment_count = from_tag.get_attachment_count(source);
+            
+            Gee.Map<Tag, int?> parent_attach_counts = new Gee.HashMap<Tag, int?>();
+            Tag? current_parent = from_tag.get_hierarchical_parent();
+            while (current_parent != null) {
+                parent_attach_counts.set(current_parent,
+                    current_parent.get_attachment_count(source));
+                
+                current_parent = current_parent.get_hierarchical_parent();
+            }
+            
             // detach the current source from all child tags of the from tag
             foreach (Tag child in from_children) {
                 string child_subpath = child.get_path().replace(from + Tag.PATH_SEPARATOR_STRING,
@@ -1525,10 +1538,13 @@ public class ReparentTagCommand : PageCommand {
             // detach the current source from the from tag itself
             from_tag.detach(source);
             
-            // detach the current source from all of the parent tags of the from tag
-            Tag? current_parent = from_tag.get_hierarchical_parent();
+            // detach the current source from all of the parent tags of the from tag                       
+            current_parent = from_tag.get_hierarchical_parent();            
             while (current_parent != null) {
-                current_parent.detach(source);
+                int parent_attach_count = parent_attach_counts.get(current_parent);
+            
+                if (parent_attach_count == (attachment_count + 1))
+                    current_parent.detach(source);
                 
                 current_parent = current_parent.get_hierarchical_parent();
             }
