@@ -51,17 +51,6 @@ public class PixbufCache : Object {
             } catch (Error err) {
                 this.err = err;
             }
-            
-            try {
-                this.err = null;
-                if (pixbuf == null && photo.get_master_file_format() == PhotoFileFormat.RAW) {
-                    // Redevelop photo and try again.
-                    photo.redevelop_raw(photo.get_raw_developer());
-                    pixbuf = photo.get_pixbuf(scaling);
-                }
-            } catch (Error err) {
-                this.err = err;
-            }
         }
     }
     

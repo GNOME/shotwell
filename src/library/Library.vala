@@ -8,6 +8,7 @@ namespace Library {
 
 public void init() throws Error {
     Library.TrashSidebarEntry.init();
+    Photo.develop_raw_photos_to_files = true;
 }
 
 public void terminate() {

@@ -296,6 +296,9 @@ public abstract class Photo : PhotoSource, Dateable {
     // RAW only: developed backing photos.
     private Gee.HashMap<RawDeveloper, BackingPhotoRow?>? developments = null;
     
+    // Set to true if we want to develop RAW photos into new files.
+    public static bool develop_raw_photos_to_files { get; set; default = false; }
+    
     // This pointer is used to determine which BackingPhotoRow in the PhotoRow to be using at
     // any time.  It should only be accessed -- read or write -- when row is locked.
     private BackingPhotoRow? backing_photo_row = null;
@@ -499,10 +502,19 @@ public abstract class Photo : PhotoSource, Dateable {
         return backing_row;
     }
     
+    // Returns true if the given raw development was already made.
+    public bool is_raw_developer_complete(RawDeveloper d) {
+        lock (developments) {
+            return developments.has_key(d);
+        }
+    }
+    
     // Determines whether a given RAW developer is available for this photo.
     public bool is_raw_developer_available(RawDeveloper d) {
-        if (developments.has_key(d))
-            return true;
+        lock (developments) {
+            if (developments.has_key(d))
+                return true;
+        }
         
         switch (d) {
             case RawDeveloper.SHOTWELL:
@@ -558,6 +570,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     // "Develops" a raw photo
+    // Not thread-safe.
     private void develop_photo(RawDeveloper d) {
         switch (d) {
             case RawDeveloper.SHOTWELL:
@@ -631,34 +644,42 @@ public abstract class Photo : PhotoSource, Dateable {
         }
     }
     
+    // Sets the developer internally, but does not actually develop the backing file.
+    public void set_default_raw_developer(RawDeveloper d) {
+        lock (row) {
+            row.developer = d;
+        }
+    }
+    
+    // Sets the developer and develops the photo.
     public void set_raw_developer(RawDeveloper d) {
-        if (get_master_file_format() != PhotoFileFormat.RAW || !is_raw_developer_available(d) ||
-            get_raw_developer() == d)
+        if (get_master_file_format() != PhotoFileFormat.RAW)
             return;
-        
-        if (!developments.has_key(d)) {
-            develop_photo(d);
-            
+                
+        lock (developments) {
+            // Perform development, bail out if it doesn't work.
+            if (!is_raw_developer_complete(d))
+                develop_photo(d);
             if (!developments.has_key(d))
                 return; // we tried!
-        }
-        
-        // Disgard changes.
-        revert_to_master(false);
-        
-        // Switch master to the new photo.
-        row.developer = d;
-        lock (row) {
+            
+            // Disgard changes.
+            revert_to_master(false);
+            
+            // Switch master to the new photo.
+            row.developer = d;
             backing_photo_row = developments.get(d);
             readers.developer = backing_photo_row.file_format.create_reader(backing_photo_row.filepath);
+            
+            set_orientation(backing_photo_row.original_orientation);
+            
+            try {
+                PhotoTable.get_instance().update_raw_development(ref row, d, backing_photo_row.id);
+            } catch (Error e) {
+                warning("Error updating database: %s", e.message);
+            }
         }
-        set_orientation(backing_photo_row.original_orientation);
         
-        try {
-            PhotoTable.get_instance().update_raw_development(ref row, d, backing_photo_row.id);
-        } catch (Error e) {
-            warning("Error updating database: %s", e.message);
-        }
         notify_altered(new Alteration("image", "developer"));
     }
     
@@ -669,15 +690,15 @@ public abstract class Photo : PhotoSource, Dateable {
     // Removes a development from the database, filesystem, etc.
     // Returns true if a development was removed, otherwise false.
     private bool delete_raw_development(RawDeveloper d) {
-        debug("delete raw: %s %s", this.to_string(), d.to_string());
-        if (!developments.has_key(d))
-            return false;
-        
         bool ret = false;
-        BackingPhotoRow bpr = developments.get(d);
         
-        lock (row) {
-            debug("Deleting raw development: %s", d.to_string());
+        lock (developments) {
+            if (!developments.has_key(d))
+                return false;
+            
+            // Remove file.
+            debug("Delete raw development: %s %s", this.to_string(), d.to_string());
+            BackingPhotoRow bpr = developments.get(d);
             if (bpr.filepath != null) {
                 File f = File.new_for_path(bpr.filepath);
                 try {
@@ -687,6 +708,7 @@ public abstract class Photo : PhotoSource, Dateable {
                 }
             }
             
+            // Delete references in DB.
             try {
                 PhotoTable.get_instance().remove_development(ref row, d);
                 BackingPhotoTable.get_instance().remove(bpr.id);
@@ -695,22 +717,22 @@ public abstract class Photo : PhotoSource, Dateable {
             }
             
             ret = developments.unset(d);
-            debug("returning: %d", (int) ret);
         }
         
         notify_raw_development_modified();
-        
         return ret;
     }
     
     // Re-do development for photo.
     public void redevelop_raw(RawDeveloper d) {
-        delete_raw_development(d);
-        RawDeveloper dev = d;
-        if (dev == RawDeveloper.CAMERA)
-            dev = RawDeveloper.EMBEDDED;
-        
-        set_raw_developer(dev);
+        lock (developments) {
+            delete_raw_development(d);
+            RawDeveloper dev = d;
+            if (dev == RawDeveloper.CAMERA)
+                dev = RawDeveloper.EMBEDDED;
+            
+            set_raw_developer(dev);
+        }
     }
     
     public override BackingFileState[] get_backing_files_state() {
@@ -2853,7 +2875,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         return pixbuf;
     }
-
+    
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
         return get_pixbuf_with_options(scaling);
     }
@@ -2874,6 +2896,13 @@ public abstract class Photo : PhotoSource, Dateable {
 
         total_timer.start();
 #endif
+        
+        // If this is a RAW photo, ensure the development is ready.
+        if (Photo.develop_raw_photos_to_files &&
+            get_master_file_format() == PhotoFileFormat.RAW && 
+            (fetch_mode == BackingFetchMode.BASELINE || fetch_mode == BackingFetchMode.UNMODIFIED) &&
+            !is_raw_developer_complete(get_raw_developer()))
+                set_raw_developer(get_raw_developer());
         
         // to minimize holding the row lock, fetch everything needed for the pipeline up-front
         bool is_scaled, is_cropped, is_straightened;
