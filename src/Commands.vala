@@ -128,6 +128,7 @@ public abstract class SingleDataSourceCommand : PageCommand {
 
 public abstract class SimpleProxyableCommand : PageCommand {
     private SourceProxy proxy;
+    private Gee.HashSet<SourceProxy> proxies = new Gee.HashSet<SourceProxy>();
     
     public SimpleProxyableCommand(Proxyable proxyable, string name, string explanation) {
         base (name, explanation);
@@ -138,6 +139,7 @@ public abstract class SimpleProxyableCommand : PageCommand {
     
     ~SimpleProxyableCommand() {
         proxy.broken.disconnect(on_proxy_broken);
+        clear_added_proxies();
     }
     
     public override void execute() {
@@ -152,7 +154,28 @@ public abstract class SimpleProxyableCommand : PageCommand {
     
     protected abstract void undo_on_source(DataSource source);
     
+    // If the Command deals with other Proxyables during processing, it can add them here and the
+    // SimpleProxyableCommand will deal with created a SourceProxy and if it signals it's broken.
+    // Note that these cannot be removed programatically, but only cleared en masse; it's expected
+    // this is fine for the nature of a Command.
+    protected void add_proxyables(Gee.Collection<Proxyable> proxyables) {
+        foreach (Proxyable proxyable in proxyables) {
+            SourceProxy added_proxy = proxyable.get_proxy();
+            added_proxy.broken.connect(on_proxy_broken);
+            proxies.add(added_proxy);
+        }
+    }
+    
+    // See add_proxyables() for a note on use.
+    protected void clear_added_proxies() {
+        foreach (SourceProxy added_proxy in proxies)
+            added_proxy.broken.disconnect(on_proxy_broken);
+        
+        proxies.clear();
+    }
+    
     private void on_proxy_broken() {
+        debug("on_proxy_broken");
         get_command_manager().reset();
     }
 }
@@ -1376,23 +1399,22 @@ public class DeleteTagCommand : SimpleProxyableCommand {
     protected override void execute_on_source(DataSource source) {
         Tag tag = (Tag) source;
         
-        Gee.List<Tag>? recursive_victims = tag.get_hierarchical_children();
-        
-        // if this tag has no children just destroy it and do a short-circuit return
-        if (recursive_victims.size == 0) {
-            Tag.global.destroy_marked(Tag.global.mark(source), false);
-            return;
+        // process children first, if any
+        Gee.List<Tag> recursive_victims = tag.get_hierarchical_children();
+        if (recursive_victims.size > 0) {
+            // save proxies for these Tags and then delete, in order .. can't use mark_many() or
+            // add_proxyables() here because they make no guarantee of order
+            recursive_victim_proxies = new Gee.ArrayList<SourceProxy>();
+            foreach (Tag victim in recursive_victims) {
+                SourceProxy proxy = victim.get_proxy();
+                proxy.broken.connect(on_proxy_broken);
+                recursive_victim_proxies.add(proxy);
+                
+                Tag.global.destroy_marked(Tag.global.mark(victim), false);
+            }
         }
         
-        // okay, this tag has children, so they need to be proxied and deleted as well
-        recursive_victim_proxies = new Gee.ArrayList<SourceProxy>();
-        
-        foreach (Tag victim in recursive_victims) {
-            recursive_victim_proxies.add(victim.get_proxy());
-
-            Tag.global.destroy_marked(Tag.global.mark(victim), false);
-        }
-        
+        // destroy parent tag, which is already proxied
         Tag.global.destroy_marked(Tag.global.mark(source), false);
     }
     
@@ -1400,13 +1422,24 @@ public class DeleteTagCommand : SimpleProxyableCommand {
         // merely instantiating the Tag will rehydrate it ... should always work, because the 
         // undo stack is cleared if the proxy ever breaks
         assert(source is Tag);
-               
+        
+        // rehydrate the children, in reverse order
         if (recursive_victim_proxies != null) {
             for (int i = recursive_victim_proxies.size - 1; i >= 0; i--) {
-                DataSource victim_source = recursive_victim_proxies.get(i).get_source();
+                SourceProxy proxy = recursive_victim_proxies.get(i);
+                
+                DataSource victim_source = proxy.get_source();
                 assert(victim_source is Tag);
+                
+                proxy.broken.disconnect(on_proxy_broken);
             }
+            
+            recursive_victim_proxies = null;
         }
+    }
+    
+    private void on_proxy_broken() {
+        get_command_manager().reset();
     }
 }
 
@@ -1690,6 +1723,7 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
 public class TagUntagPhotosCommand : SimpleProxyableCommand {
     private Gee.Collection<MediaSource> sources;
     private bool attach;
+    private Gee.MultiMap<Tag, MediaSource>? detached_from = null;
     
     public TagUntagPhotosCommand(Tag tag, Gee.Collection<MediaSource> sources, int count, bool attach) {
         base (tag,
@@ -1704,26 +1738,54 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
         Video.global.item_destroyed.connect(on_source_destroyed);
     }
     
-    ~TagPhotosCommand() {
+    ~TagUntagPhotosCommand() {
         LibraryPhoto.global.item_destroyed.disconnect(on_source_destroyed);
         Video.global.item_destroyed.disconnect(on_source_destroyed);
     }
     
     public override void execute_on_source(DataSource source) {
         if (attach)
-            ((Tag) source).attach_many(sources);
+            do_attach((Tag) source);
         else
-            ((Tag) source).detach_many(sources);
+            do_detach((Tag) source);
     }
     
     public override void undo_on_source(DataSource source) {
         if (attach)
-            ((Tag) source).detach_many(sources);
+            do_detach((Tag) source);
         else
-            ((Tag) source).attach_many(sources);
+            do_attach((Tag) source);
+    }
+    
+    private void do_attach(Tag tag) {
+        // if not attaching previously detached Tags, attach and done
+        if (detached_from == null) {
+            tag.attach_many(sources);
+            
+            return;
+        }
+        
+        // reattach
+        foreach (Tag detached_tag in detached_from.get_all_keys())
+            detached_tag.attach_many(detached_from.get(detached_tag));
+        
+        detached_from = null;
+        clear_added_proxies();
+    }
+    
+    private void do_detach(Tag tag) {
+        // detaching a MediaSource from a Tag may result in the MediaSource being detached from
+        // many tags (due to heirarchical tagging), so save the MediaSources for each detached
+        // Tag for reversing the process
+        detached_from = tag.detach_many(sources);
+        
+        // since the "master" Tag (supplied in the ctor) is not necessarily the only one being
+        // saved, add proxies for all of the other ones as well
+        add_proxyables(detached_from.get_keys());
     }
     
     private void on_source_destroyed(DataSource source) {
+        debug("on_source_destroyed: %s", source.to_string());
         if (sources.contains((MediaSource) source))
             get_command_manager().reset();
     }

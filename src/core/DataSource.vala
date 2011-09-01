@@ -678,7 +678,7 @@ public abstract class SourceProxy {
     }
 }
 
-public interface Proxyable {
+public interface Proxyable : Object {
     public abstract SourceProxy get_proxy();
 }
 
