@@ -964,7 +964,7 @@ public class BatchImport : Object {
                     if (d == RawDeveloper.CAMERA && !photo.is_raw_developer_available(d))
                         d = RawDeveloper.EMBEDDED;
                     
-                    photo.set_raw_developer(d);
+                    photo.set_default_raw_developer(d);
                 }
             }
             
