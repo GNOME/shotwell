@@ -221,6 +221,9 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         if (prepped == null)
             return;
         
+        if (prepped == tag.get_user_visible_name())
+            return;
+        
         AppWindow.get_command_manager().execute(new RenameTagCommand(tag, prepped));
     }
     
