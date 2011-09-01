@@ -1109,6 +1109,7 @@ public class SetRatingCommand : MultipleDataSourceCommand {
 
 public class SetRawDeveloperCommand : MultipleDataSourceCommand {
     private Gee.HashMap<Photo, RawDeveloper> last_developer_map;
+    private Gee.HashMap<Photo, PhotoTransformationState> last_transformation_map;
     private RawDeveloper new_developer;
 
     public SetRawDeveloperCommand(Gee.Iterable<DataView> iter, RawDeveloper developer) {
@@ -1120,11 +1121,14 @@ public class SetRawDeveloperCommand : MultipleDataSourceCommand {
     
     private void save_source_states(Gee.Iterable<DataView> iter) {
         last_developer_map = new Gee.HashMap<Photo, RawDeveloper>();
+        last_transformation_map = new Gee.HashMap<Photo, PhotoTransformationState>();
         
         foreach (DataView view in iter) {
             Photo? photo = view.get_source() as Photo;
-            if (is_raw_photo(photo))
+            if (is_raw_photo(photo)) {
                 last_developer_map[photo] = photo.get_raw_developer();
+                last_transformation_map[photo] = photo.save_transformation_state();
+            }
         }
     }
     
@@ -1148,8 +1152,10 @@ public class SetRawDeveloperCommand : MultipleDataSourceCommand {
     
     public override void undo_on_source(DataSource source) {
         Photo? photo = source as Photo;
-        if (is_raw_photo(photo))
+        if (is_raw_photo(photo)) {
             photo.set_raw_developer(last_developer_map[photo]);
+            photo.load_transformation_state(last_transformation_map[photo]);
+        }
     }
     
     private bool is_raw_photo(Photo? photo) {
