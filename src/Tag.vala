@@ -909,46 +909,57 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         }
     }
     
-    public bool detach(MediaSource source) {
+    // Returns a list of Tags the MediaSource was detached from as a result of detaching it from
+    // this Tag.  (This Tag will always be in the list unless null is returned, indicating the
+    // MediaSource isn't present at all.)
+    public Gee.List<Tag>? detach(MediaSource source) {
         DataView? this_view = media_views.get_view_for_source(source);
         if (this_view == null)
-            return false;
-            
+            return null;
+        
+        Gee.List<Tag>? detached_from = new Gee.ArrayList<Tag>();
+        
         foreach (Tag child_tag in get_hierarchical_children()) {
             DataView? child_view = child_tag.media_views.get_view_for_source(source);
             if (child_view != null) {
                 child_tag.media_views.remove_marked(child_tag.media_views.mark(child_view));
+                detached_from.add(child_tag);
             }
         }
         
         media_views.remove_marked(media_views.mark(this_view));
+        detached_from.add(this);
         
-        return true;
+        return detached_from;
     }
     
-    public int detach_many(Gee.Collection<MediaSource> sources) {
-        int count = 0;
+    // Returns a map of Tags the MediaSource was detached from as a result of detaching it from
+    // this Tag.  (This Tag will always be in the list unless null is returned, indicating the
+    // MediaSource isn't present at all.)
+    public Gee.MultiMap<Tag, MediaSource>? detach_many(Gee.Collection<MediaSource> sources) {
+        Gee.MultiMap<Tag, MediaSource>? detached_from = new Gee.HashMultiMap<Tag, MediaSource>();
         
         Marker marker = media_views.start_marking();
         foreach (MediaSource source in sources) {
             DataView? view = media_views.get_view_for_source(source);
             if (view == null)
                 continue;
-
+            
             foreach (Tag child_tag in get_hierarchical_children()) {
                 DataView? child_view = child_tag.media_views.get_view_for_source(source);
                 if (child_view != null) {
                     child_tag.media_views.remove_marked(child_tag.media_views.mark(child_view));
+                    detached_from.set(child_tag, source);
                 }
             }
             
             marker.mark(view);
-            count++;
+            detached_from.set(this, source);
         }
         
         media_views.remove_marked(marker);
         
-        return count;
+        return (detached_from.size > 0) ? detached_from : null;
     }
     
     // Returns false if the name already exists or a bad name.
