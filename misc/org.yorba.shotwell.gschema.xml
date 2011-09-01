@@ -261,6 +261,12 @@
         <description>A numeric code representing the last service to which photos were published</description>
     </key>
     
+    <key name="default-service" type="i">
+        <default>1</default>
+        <summary>default publishing service</summary>
+        <description>A numeric code representing the last service to which photos were published</description>
+    </key>
+    
     <child name="facebook" schema="org.yorba.shotwell.sharing.facebook" />
     <child name="flickr" schema="org.yorba.shotwell.sharing.flickr" />
     <child name="picasa" schema="org.yorba.shotwell.sharing.picasa" />
