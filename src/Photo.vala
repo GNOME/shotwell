@@ -796,7 +796,13 @@ public abstract class Photo : PhotoSource, Dateable {
     // Returns a reader for the photo file that is the source of the image.
     private PhotoFileReader get_source_reader() {
         lock (readers) {
-            return readers.editable ?? readers.master;
+            if (readers.editable != null)
+                return readers.editable;
+            
+            if (readers.developer != null)
+                return readers.developer;
+            
+            return readers.master;
         }
     }
     
@@ -2900,7 +2906,8 @@ public abstract class Photo : PhotoSource, Dateable {
         // If this is a RAW photo, ensure the development is ready.
         if (Photo.develop_raw_photos_to_files &&
             get_master_file_format() == PhotoFileFormat.RAW && 
-            (fetch_mode == BackingFetchMode.BASELINE || fetch_mode == BackingFetchMode.UNMODIFIED) &&
+            (fetch_mode == BackingFetchMode.BASELINE || fetch_mode == BackingFetchMode.UNMODIFIED
+            || fetch_mode == BackingFetchMode.SOURCE) &&
             !is_raw_developer_complete(get_raw_developer()))
                 set_raw_developer(get_raw_developer());
         
@@ -3080,11 +3087,11 @@ public abstract class Photo : PhotoSource, Dateable {
             if (readers.editable != null && readers.editable.get_file_format().can_write_metadata()) {
                 export_reader = readers.editable;
                 is_master = false;
-            } else if (readers.master.get_file_format().can_write_metadata()) {
-                export_reader = readers.master;
             } else if (readers.developer != null && readers.developer.get_file_format().can_write_metadata()) {
                 export_reader = readers.developer;
                 is_master = false;
+            } else if (readers.master.get_file_format().can_write_metadata()) {
+                export_reader = readers.master;
             }
         }
         
