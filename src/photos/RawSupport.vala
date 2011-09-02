@@ -304,6 +304,19 @@ public enum RawDeveloper {
         }
     }
     
+    // Determines if two RAW developers are equivalent, treating camera and embedded
+    // as the same.
+    public bool is_equivalent(RawDeveloper d) {
+        if (this == d)
+            return true;
+        
+        if ((this == RawDeveloper.CAMERA && d == RawDeveloper.EMBEDDED) ||
+            (this == RawDeveloper.EMBEDDED && d == RawDeveloper.CAMERA))
+            return true;
+        
+        return false;
+    }
+    
     // Creates a backing JPEG.
     // raw_filepath is the full path of the imported RAW file.
     public BackingPhotoRow create_backing_row_for_development(string raw_filepath) throws Error {
