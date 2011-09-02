@@ -324,27 +324,32 @@ private class PhotoMonitor : MediaMonitor {
         }
         
         // for editable files and raw developments, trust file characteristics alone
-        LibraryPhoto match = matched_editables[0];
-        if (matched_editables.size > 1) {
-            warning("Unknown file %s could be matched with %d photos; giving to %s, dropping others",
-                file.get_path(), matched_editables.size, match.to_string());
-            for (int ctr = 1; ctr < matched_editables.size; ctr++) {
-                if (!matched_editables[ctr].does_editable_exist())
-                    matched_editables[ctr].revert_to_master();
+        if (matched_editables.size > 0) {
+            LibraryPhoto match = matched_editables[0];
+            if (matched_editables.size > 1) {
+                warning("Unknown file %s could be matched with %d photos; giving to %s, dropping others",
+                    file.get_path(), matched_editables.size, match.to_string());
+                for (int ctr = 1; ctr < matched_editables.size; ctr++) {
+                    if (!matched_editables[ctr].does_editable_exist())
+                        matched_editables[ctr].revert_to_master();
+                }
             }
+            
+            update_editable_file(match, file);
         }
         
-        update_editable_file(match, file);
-        
-        LibraryPhoto match_raw = matched_developments[0];
-        if (matched_developments.size > 1) {
-            warning("Unknown file %s could be matched with %d photos; giving to %s, dropping others",
-                file.get_path(), matched_developments.size, match_raw.to_string());
+        if (matched_developments.size > 0) {
+            LibraryPhoto match_raw = matched_developments[0];
+            if (matched_developments.size > 1) {
+                warning("Unknown file %s could be matched with %d photos; giving to %s, dropping others",
+                    file.get_path(), matched_developments.size, match_raw.to_string());
+            }
+            
+            update_raw_development_file(match_raw, file);
         }
-        
-        update_raw_development_file(match_raw, file);
         
         result = MediaMonitor.DiscoveredFile.IGNORE;
+        
         return null;
     }
     
