@@ -1063,9 +1063,9 @@ public abstract class MediaPage : CheckerboardPage {
         // Make a list of all photos that need their developer changed.
         Gee.ArrayList<DataView> to_set = new Gee.ArrayList<DataView>();
         foreach (DataView view in get_view().get_selected()) {
-                Photo? p = view.get_source() as Photo;
-                if (p != null && p.get_raw_developer() != rd)
-                    to_set.add(view);
+            Photo? p = view.get_source() as Photo;
+            if (p != null && (!rd.is_equivalent(p.get_raw_developer())))
+                to_set.add(view);
         }
         
         SetRawDeveloperCommand command = new SetRawDeveloperCommand(to_set, rd);

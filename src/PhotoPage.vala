@@ -2660,7 +2660,7 @@ public class LibraryPhotoPage : EditingHostPage {
             return;
         
         Photo? photo = get_view().get_selected().get(0).get_source() as Photo;
-        if (photo == null || photo.get_raw_developer() == rd)
+        if (photo == null || rd.is_equivalent(photo.get_raw_developer()))
             return;
         
         SetRawDeveloperCommand command = new SetRawDeveloperCommand(get_view().get_selected(), rd);
