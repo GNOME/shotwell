@@ -1,0 +1,54 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="other-raw">
+
+    <info>
+        <link type="guide" xref="index#other"/>
+        <desc>More about RAW support in Shotwell.</desc>
+        
+        <link type="next" xref="running" />
+    </info>
+   
+    <title>RAW support in Shotwell</title> 
+    <p>Some cameras have the ability to store data directly off the sensor
+    and into a file that contains extra color information; this is commonly
+    referred to as 'RAW' or 'camera RAW', and Shotwell supports these files
+    as well.</p>
+    
+    <p>Since RAW photographs normally cannot be displayed directly, but must
+    be first developed - that is, have their extra information interpreted and
+    readied for displaying - most cameras will either embed a JPEG inside a
+    RAW-format file, or produce a JPEG alongside the RAW file at the time the
+    snapshot is taken.  The latter is referred to throughout this document as
+    RAW+JPEG.  If you import a RAW+JPEG pair from your camera, Shotwell will
+    keep them paired and treat them as one item in your library.
+    </p>
+    
+    <note>
+        <p>
+        Shotwell cannot yet correctly import RAW+JPEG pairs from folders,
+        and will produce produce two separate image entries in your library 
+        if you import them via <gui>Import From Folders</gui>.
+        </p>
+    </note>    
+    
+    <p>When you import a RAW file, you can choose to either use the camera's
+    internally-developed JPEG or Shotwell's by selecting 
+    <guiseq><gui>Photos</gui><gui>Developer</gui></guiseq> in the menus.
+    </p>
+
+    <note>
+        <p>
+        Changing between developers will cause all edits made to a photograph
+        to be discarded.
+        </p>
+    </note>
+    
+    <p>
+    In order to publish or use a RAW photograph in most other software, it has to be
+    exported first.  Shotwell can export your RAW photos in JPEG, PNG, TIFF 
+    or BMP format, and, when publishing, will internally export a JPEG version
+    for you and publish that.  
+    </p>  
+    
+</page>
