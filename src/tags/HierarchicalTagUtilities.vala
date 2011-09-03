@@ -143,5 +143,31 @@ class HierarchicalTagUtilities {
 
         return index;
     }
+    
+    public static string get_root_path_form(string client_path) {
+        string path = client_path;
+
+        if (!Tag.global.exists(path)) {
+            if (path.has_prefix(Tag.PATH_SEPARATOR_STRING))
+                path = HierarchicalTagUtilities.hierarchical_to_flat(path);
+            else
+                path = HierarchicalTagUtilities.flat_to_hierarchical(path);
+        }
+        
+        return path;
+    }
+    
+    public static void cleanup_root_path(string path) {
+        Gee.List<string> paths = HierarchicalTagUtilities.enumerate_parent_paths(path);
+        
+        if (paths.size == 0) {
+            string actual_path = HierarchicalTagUtilities.get_root_path_form(path);
+
+            Tag t = Tag.for_path(actual_path);
+            
+            if (t.get_hierarchical_children().size == 0)
+                t.flatten();
+        }
+    }
 }
 
