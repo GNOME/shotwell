@@ -569,13 +569,11 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         return result;
     }
     
-    private void set_raw_flat_name(string name) {   
+    private void set_raw_flat_name(string name) {
         string? prepped_name = prep_tag_name(name);
 
         assert(prepped_name != null);
         assert(!prepped_name.has_prefix(Tag.PATH_SEPARATOR_STRING));
-        
-        assert(!Tag.global.exists(prepped_name));
         
         try {
             TagTable.get_instance().rename(row.tag_id, prepped_name);
@@ -638,7 +636,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     public void flatten() {
         assert (get_hierarchical_parent() == null);
         
-        set_raw_flat_name(HierarchicalTagUtilities.hierarchical_to_flat(get_path()));
+        set_raw_flat_name(get_user_visible_name());
     }
     
     public void promote() {
@@ -787,38 +785,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         return new TagProxy(this);
     }
     
-    private static Tag reconstitute(int64 object_id, TagRow row) {
-            // it is possible that this tag has already been reconstituted when one of its children
-            // was reconstituted, so check for this case and return the already-reconstituted tag
-            if (Tag.global.exists(row.name)) {
-                return Tag.for_path(row.name);
-            }
-            
-        // if reconstituting a hierarchical tag, we have to do some special manipulations
-        if (row.name.has_prefix(Tag.PATH_SEPARATOR_STRING)) {        
-            Gee.List<string> parent_paths =
-                HierarchicalTagUtilities.enumerate_parent_paths(row.name);
-
-            if (parent_paths.size == 0) {
-                // if reconsituting a top-level hierarchical tag, flatten its path before
-                // reconstituting it
-                row.name = HierarchicalTagUtilities.hierarchical_to_flat(row.name);
-            } else if (parent_paths.size == 1) {
-                // if reconstituting a hierarchical tag with a top-level parent, it's parent may
-                // have been flattened so handle this case
-                string immediate_parent_path = parent_paths.get(0);
-                if (!Tag.global.exists(immediate_parent_path)) {
-                    string flat_immediate_path =
-                        HierarchicalTagUtilities.hierarchical_to_flat(immediate_parent_path);
-                    assert(Tag.global.exists(flat_immediate_path));
-                    Tag.for_path(flat_immediate_path).promote();
-                }
-            } else {
-                // no name transformation is necessary for general hierarchical tag paths
-                ;
-            }
-        }
-    
+    public static Tag reconstitute(int64 object_id, TagRow row) {   
         // fill in the row with the new TagID for this reconstituted tag        
         try {
             row.tag_id = TagTable.get_instance().create_from_row(row);
