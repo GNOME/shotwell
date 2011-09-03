@@ -79,6 +79,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     private Gtk.Menu? default_context_menu = null;
     private bool is_internal_drag_in_progress = false;
     private Sidebar.Entry? internal_drag_source_entry = null;
+    private Gtk.TreeRowReference? old_path_ref = null;
     
     public signal void entry_selected(Sidebar.SelectableEntry selectable);
     
@@ -865,24 +866,42 @@ public class Sidebar.Tree : Gtk.TreeView {
     }
     
     public override bool button_press_event(Gdk.EventButton event) {
+        Gtk.TreePath? path = get_path_from_event(event);
+
         if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS) {
             // single right click
-            Gtk.TreePath? path = get_path_from_event(event);
             if (path != null)
                 popup_context_menu(path, event);
             else
                 popup_default_context_menu(event);
         } else if (event.button == 1 && event.type == Gdk.EventType.2BUTTON_PRESS) {
             // double left click
-            Gtk.TreePath? path = get_path_from_event(event);
             if (path != null) {
                 toggle_branch_expansion(path, false);
                 
                 if (can_rename_path(path))
                     return false;
             }
+        } else if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS) {
+            // Is this a click on an already-highlighted tree item?
+            if ((old_path_ref != null) && (old_path_ref.get_path() != null)
+                && (old_path_ref.get_path().compare(path) == 0)) {
+                // yes, don't allow single-click editing, but 
+                // pass the event on for dragging.
+                text_renderer.editable = false;
+                return base.button_press_event(event);
+            }
+            
+            // Got click on different tree item, make sure it is editable
+            // if it needs to be.
+            if (get_wrapper_at_path(path).entry is Sidebar.RenameableEntry) {
+                text_renderer.editable = true;
+            }
+            
+            // Remember what tree item is highlighted for next time.
+            old_path_ref = (path != null) ?  new Gtk.TreeRowReference(store, path) : null;
         }
-        
+
         return base.button_press_event(event);
     }
     
