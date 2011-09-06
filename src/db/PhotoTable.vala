@@ -436,7 +436,9 @@ public class PhotoTable : DatabaseTable {
     
     // Create a duplicate of the specified row.  A new byte-for-byte duplicate (including filesystem
     // metadata) of PhotoID's file  needs to back this duplicate and its editable (if exists).
-    public PhotoID duplicate(PhotoID photo_id, string new_filename, BackingPhotoID editable_id) {
+    public PhotoID duplicate(PhotoID photo_id, string new_filename, BackingPhotoID editable_id,
+        BackingPhotoID develop_shotwell, BackingPhotoID develop_camera_id, 
+        BackingPhotoID develop_embedded_id) {
         // get a copy of the original row, duplicating most (but not all) of it
         PhotoRow original = get_row(photo_id);
         
@@ -444,8 +446,9 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2("INSERT INTO PhotoTable (filename, width, height, filesize, "
             + "timestamp, exposure_time, orientation, original_orientation, import_id, event_id, "
             + "transformations, md5, thumbnail_md5, exif_md5, time_created, flags, rating, "
-            + "file_format, title, editable_id) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "file_format, title, editable_id, developer, develop_shotwell_id, develop_camera_id, "
+            + "develop_embedded_id) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -488,6 +491,15 @@ public class PhotoTable : DatabaseTable {
         res = stmt.bind_text(19, original.title);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(20, editable_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_text(21, original.developer.to_string());
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(22, develop_shotwell.id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(23, develop_camera_id.id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(24, develop_embedded_id.id);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
