@@ -1543,7 +1543,8 @@ public class ReparentTagCommand : PageCommand {
     }
     
     private Gee.Map<string, Gee.Set<MediaSource>> get_child_structure_at(string client_path) {
-        string path = HierarchicalTagUtilities.get_root_path_form(client_path);
+        string? path = HierarchicalTagUtilities.get_root_path_form(client_path);
+        assert (path != null);
 
         Gee.Map<string, Gee.Set<MediaSource>> result =
             new Gee.HashMap<string, Gee.Set<MediaSource>>();
@@ -1618,10 +1619,11 @@ public class ReparentTagCommand : PageCommand {
         src_before_state.add(from_tag.get_proxy());
         
         // save the state of the to tag's parent
+        dest_before_state = new Gee.ArrayList<SourceProxy>();
         if (to_path_parent_path != null) {
             to_path_parent_path = HierarchicalTagUtilities.get_root_path_form(to_path_parent_path);
+            assert(to_path_parent_path != null);
             assert(Tag.global.exists(to_path_parent_path));
-            dest_before_state = new Gee.ArrayList<SourceProxy>();
             dest_before_state.add(Tag.for_path(to_path_parent_path).get_proxy());
         }
 
@@ -1646,7 +1648,10 @@ public class ReparentTagCommand : PageCommand {
         for (int i = 0; i < src_before_state.size; i++)
             src_before_state.get(i).get_source();
 
-        to_path_parent_path = HierarchicalTagUtilities.get_root_path_form(to_path_parent_path);
+        if (to_path_parent_path != null) {
+            to_path_parent_path = HierarchicalTagUtilities.get_root_path_form(to_path_parent_path);
+            assert(to_path_parent_path != null);
+        }
 
         for (int i = 0; i < dest_before_state.size; i++)
             dest_before_state.get(i).get_source();

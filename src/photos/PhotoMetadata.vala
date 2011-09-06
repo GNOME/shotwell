@@ -861,11 +861,11 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     private void internal_set_hierarchical_keywords(HierarchicalTagIndex? index) {
-        if (index == null) {
-            foreach (HierarchicalKeywordField current_field in HIERARCHICAL_KEYWORD_TAGS)
-                remove_tag(current_field.field_name);
+        foreach (HierarchicalKeywordField current_field in HIERARCHICAL_KEYWORD_TAGS)
+            remove_tag(current_field.field_name);
+
+        if (index == null)
             return;
-        }
 
         foreach (HierarchicalKeywordField current_field in HIERARCHICAL_KEYWORD_TAGS) {
             if (!current_field.is_writeable)
