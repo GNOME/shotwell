@@ -539,10 +539,13 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     // Reads info on a backing photo and adds it.
+    // Note: this function was created for importing new photos.  It will not
+    // notify of changes to the developments.
     public void add_backing_photo_for_development(RawDeveloper d, BackingPhotoRow bpr) throws Error {
         import_developed_backing_photo(ref row, d, bpr);
-        developments.set(d, bpr);
-        notify_raw_development_modified();
+        lock (developments) {
+            developments.set(d, bpr);
+        }
     }
     
     public static void import_developed_backing_photo(ref PhotoRow row, RawDeveloper d, 
@@ -741,6 +744,16 @@ public abstract class Photo : PhotoSource, Dateable {
             backing += new BackingFileState.from_photo_row(row.master, row.md5);
             if (has_editable())
                 backing += new BackingFileState.from_photo_row(editable, null);
+            
+            if (is_developed()) {
+                Gee.Collection<BackingPhotoRow>? dev_rows = get_raw_development_photo_rows();
+                if (dev_rows != null) {
+                    foreach (BackingPhotoRow r in dev_rows) {
+                        debug("adding: %s", r.filepath);
+                        backing += new BackingFileState.from_photo_row(r, null);
+                    }
+                }
+            }
         }
         
         return backing;
@@ -3937,6 +3950,8 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
     private Gee.HashMap<LibraryPhoto, int64?> photo_to_editable_filesize =
         new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
+    private Gee.MultiMap<LibraryPhoto, int64?> photo_to_raw_development_filesize =
+        new Gee.TreeMultiMap<LibraryPhoto, int64?>();
     
     public virtual signal void master_reimported(LibraryPhoto photo, PhotoMetadata? metadata) {
     }
@@ -3958,11 +3973,11 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     }
     
     protected override MediaSourceHoldingTank create_trashcan() {
-        return new MediaSourceHoldingTank(this, check_if_trashed_photo, Photo.get_photo_key);
+        return new LibraryPhotoSourceHoldingTank(this, check_if_trashed_photo, Photo.get_photo_key);
     }
 
     protected override MediaSourceHoldingTank create_offline_bin() {
-        return new MediaSourceHoldingTank(this, check_if_offline_photo, Photo.get_photo_key);
+        return new LibraryPhotoSourceHoldingTank(this, check_if_offline_photo, Photo.get_photo_key);
     }
     
     public override MediaMonitor create_media_monitor(Workers workers, Cancellable cancellable) {
@@ -4014,6 +4029,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                     foreach (BackingPhotoRow row in raw_rows) {
                         if (row.filesize >= 0) {
                             filesize_to_photo.set(row.filesize, photo);
+                            photo_to_raw_development_filesize.set(photo, row.filesize);
                         }
                      }
                 }
@@ -4053,6 +4069,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                     foreach (BackingPhotoRow row in raw_rows) {
                         if (row.filesize >= 0) {
                             filesize_to_photo.remove(row.filesize, photo);
+                            photo_to_raw_development_filesize.remove(photo, row.filesize);
                         }
                      }
                 }
@@ -4072,11 +4089,33 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
             by_editable_file.set(new_file, (LibraryPhoto) photo);
     }
     
-    private void on_raw_development_modified(Photo photo) {
+    private void on_raw_development_modified(Photo _photo) {
+        LibraryPhoto? photo = _photo as LibraryPhoto;
+        if (photo == null)
+            return;
+        
+        // Unset existing files.
+        if (photo_to_raw_development_filesize.contains(photo)) {
+            foreach (int64 s in photo_to_raw_development_filesize.get(photo))
+                filesize_to_photo.remove(s, photo);
+            photo_to_raw_development_filesize.remove_all(photo);
+        }
+        
+        // Add new ones.
         Gee.Collection<File> raw_list = photo.get_raw_developer_files();
         if (raw_list != null)
             foreach (File f in raw_list)
-                by_raw_development_file.set(f, (LibraryPhoto) photo);
+                by_raw_development_file.set(f, photo);
+        
+        Gee.Collection<BackingPhotoRow>? raw_rows = photo.get_raw_development_photo_rows();
+        if (raw_rows != null) {
+            foreach (BackingPhotoRow row in raw_rows) {
+                if (row.filesize > 0) {
+                    filesize_to_photo.set(row.filesize, photo);
+                    photo_to_raw_development_filesize.set(photo, row.filesize);
+                }
+            }
+        }
     }
     
     protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
@@ -4273,7 +4312,12 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     }
     
     public LibraryPhoto? get_trashed_by_file(File file) {
-        return (LibraryPhoto?) get_trashcan().fetch_by_master_file(file);
+        LibraryPhoto? photo = (LibraryPhoto?) get_trashcan().fetch_by_master_file(file);
+        if (photo == null)
+            photo = (LibraryPhoto?) ((LibraryPhotoSourceHoldingTank) get_trashcan()).
+                fetch_by_backing_file(file);
+        
+        return photo;
     }
     
     public LibraryPhoto? get_trashed_by_md5(string md5) {
@@ -4281,7 +4325,12 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     }
     
     public LibraryPhoto? get_offline_by_file(File file) {
-        return (LibraryPhoto?) get_offline_bin().fetch_by_master_file(file);
+        LibraryPhoto? photo = (LibraryPhoto?) get_offline_bin().fetch_by_master_file(file);
+        if (photo == null)
+            photo = (LibraryPhoto?) ((LibraryPhotoSourceHoldingTank) get_offline_bin()).
+                fetch_by_backing_file(file);
+        
+        return photo;
     }
     
     public LibraryPhoto? get_offline_by_md5(string md5) {
@@ -4314,14 +4363,14 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
             return photo;
         }
         
-        photo = get_trashcan().fetch_by_master_file(file) as LibraryPhoto;
+        photo = get_trashed_by_file(file) as LibraryPhoto;
         if (photo != null) {
             state = State.TRASH;
             
             return photo;
         }
         
-        photo = get_offline_bin().fetch_by_master_file(file) as LibraryPhoto;
+        photo = get_offline_by_file(file) as LibraryPhoto;
         if (photo != null) {
             state = State.OFFLINE;
             
@@ -4776,6 +4825,113 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         if (new_htag_index != null) {
             foreach (string path in new_htag_index.get_all_paths())
                 Tag.for_path(path).attach(this);
+        }
+    }
+}
+
+// Used for trash and offline bin of LibraryPhotoSourceCollection
+public class LibraryPhotoSourceHoldingTank : MediaSourceHoldingTank {
+    private Gee.HashMap<File, LibraryPhoto> editable_file_map = new Gee.HashMap<File, LibraryPhoto>(
+        file_hash, file_equal);
+    private Gee.HashMap<File, LibraryPhoto> development_file_map = new Gee.HashMap<File, LibraryPhoto>(
+        file_hash, file_equal);
+    private Gee.MultiMap<LibraryPhoto, File> reverse_editable_file_map 
+        = new Gee.HashMultiMap<LibraryPhoto, File>(direct_hash, direct_equal, file_hash, file_equal);
+    private Gee.MultiMap<LibraryPhoto, File> reverse_development_file_map 
+        = new Gee.HashMultiMap<LibraryPhoto, File>(direct_hash, direct_equal, file_hash, file_equal);
+    
+    public LibraryPhotoSourceHoldingTank(LibraryPhotoSourceCollection sources,
+        SourceHoldingTank.CheckToKeep check_to_keep, GetSourceDatabaseKey get_key) {
+        base (sources, check_to_keep, get_key);
+    }
+    
+    public LibraryPhoto? fetch_by_backing_file(File file) {
+        LibraryPhoto? ret = null;
+        ret = editable_file_map.get(file);
+        if (ret != null)
+            return ret;
+        
+        return development_file_map.get(file);
+    }
+    
+    protected override void notify_contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+        if (added != null) {
+            foreach (DataSource source in added) {
+                LibraryPhoto photo = (LibraryPhoto) source;
+                
+                // Editable files.
+                if (photo.get_editable_file() != null) {
+                    editable_file_map.set(photo.get_editable_file(), photo);
+                    reverse_editable_file_map.set(photo, photo.get_editable_file());
+                }
+                
+                // RAW developments.
+                Gee.Collection<File>? raw_files = photo.get_raw_developer_files();
+                if (raw_files != null) {
+                    foreach (File f in raw_files) {
+                        development_file_map.set(f, photo);
+                        reverse_development_file_map.set(photo, f);
+                    }
+                }
+                
+                photo.editable_replaced.connect(on_editable_replaced);
+                photo.raw_development_modified.connect(on_raw_development_modified);
+            }
+        }
+        
+        if (removed != null) {
+            foreach (DataSource source in removed) {
+                LibraryPhoto photo = (LibraryPhoto) source;
+                foreach (File f in reverse_editable_file_map.get(photo))
+                    editable_file_map.unset(f);
+                
+                foreach (File f in reverse_development_file_map.get(photo))
+                    development_file_map.unset(f);
+                
+                reverse_editable_file_map.remove_all(photo);
+                reverse_development_file_map.remove_all(photo);
+                
+                photo.editable_replaced.disconnect(on_editable_replaced);
+                photo.raw_development_modified.disconnect(on_raw_development_modified);
+            }
+        }
+        
+        base.notify_contents_altered(added, removed);
+    }
+    
+    private void on_editable_replaced(Photo _photo, File? old_file, File? new_file) {
+        LibraryPhoto? photo = _photo as LibraryPhoto;
+        assert(photo != null);
+        
+        if (old_file != null) {
+            editable_file_map.unset(old_file);
+            reverse_editable_file_map.remove(photo, old_file);
+        }
+        
+        if (new_file != null)
+            editable_file_map.set(new_file, photo);
+            reverse_editable_file_map.set(photo, new_file);
+    }
+    
+    private void on_raw_development_modified(Photo _photo) {
+        LibraryPhoto? photo = _photo as LibraryPhoto;
+        assert(photo != null);
+        
+        // Unset existing files.
+        if (reverse_development_file_map.contains(photo)) {
+            foreach (File f in reverse_development_file_map.get(photo))
+                development_file_map.unset(f);
+            reverse_development_file_map.remove_all(photo);
+        }
+        
+        // Add new ones.
+        Gee.Collection<File> raw_list = photo.get_raw_developer_files();
+        if (raw_list != null) {
+            foreach (File f in raw_list) {
+                development_file_map.set(f, photo);
+                reverse_development_file_map.set(photo, f);
+            }
         }
     }
 }
