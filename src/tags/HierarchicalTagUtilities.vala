@@ -144,7 +144,13 @@ class HierarchicalTagUtilities {
         return index;
     }
     
-    public static string get_root_path_form(string client_path) {
+    public static string? get_root_path_form(string? client_path) {
+        if (client_path == null)
+            return null;
+
+        if (HierarchicalTagUtilities.enumerate_parent_paths(client_path).size != 0)
+            return client_path;
+
         string path = client_path;
 
         if (!Tag.global.exists(path)) {
@@ -154,18 +160,23 @@ class HierarchicalTagUtilities {
                 path = HierarchicalTagUtilities.flat_to_hierarchical(path);
         }
         
-        return path;
+        return (Tag.global.exists(path)) ? path : null;
     }
     
     public static void cleanup_root_path(string path) {
         Gee.List<string> paths = HierarchicalTagUtilities.enumerate_parent_paths(path);
         
         if (paths.size == 0) {
-            string actual_path = HierarchicalTagUtilities.get_root_path_form(path);
-
-            Tag t = Tag.for_path(actual_path);
+            string? actual_path = HierarchicalTagUtilities.get_root_path_form(path);
             
-            if (t.get_hierarchical_children().size == 0)
+            if (actual_path == null)
+                return;
+
+            Tag? t = null;
+            if (Tag.global.exists(actual_path));
+                t = Tag.for_path(actual_path);
+            
+            if (t != null && t.get_hierarchical_children().size == 0)
                 t.flatten();
         }
     }
