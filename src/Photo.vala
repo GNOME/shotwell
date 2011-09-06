@@ -893,6 +893,12 @@ public abstract class Photo : PhotoSource, Dateable {
         }
     }
     
+    public BackingPhotoRow? get_raw_development_photo_row(RawDeveloper d) {
+        lock (row) {
+            return developments != null ? developments.get(d) : null;
+        }
+    }
+    
     public PhotoFileFormat? get_editable_file_format() {
         PhotoFileReader? reader = get_editable_reader();
         if (reader == null)
@@ -4591,29 +4597,45 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         return ThumbnailCache.fetch(this, scale);
     }
     
+    // Duplicates a backing photo row, returning the ID.
+    // An invalid ID will be returned if the backing photo row is not set or is invalid.
+    private BackingPhotoID duplicate_backing_photo(BackingPhotoRow? backing) throws Error {
+        BackingPhotoID backing_id = BackingPhotoID();
+        if (backing == null || backing.filepath == null)
+            return backing_id; // empty, invalid ID
+        
+        File file = File.new_for_path(backing.filepath);
+        if (file.query_exists()) {
+            File dupe_file = LibraryFiles.duplicate(file, on_duplicate_progress, true);
+            
+            DetectedPhotoInformation detected;
+            BackingPhotoRow? state = query_backing_photo_row(dupe_file, PhotoFileSniffer.Options.NO_MD5,
+                out detected);
+            if (state != null) {
+                BackingPhotoTable.get_instance().add(state);
+                backing_id = state.id;
+            }
+        }
+        
+        return backing_id;
+    }
+    
     public LibraryPhoto duplicate() throws Error {
         // clone the master file
         File dupe_file = LibraryFiles.duplicate(get_master_file(), on_duplicate_progress, true);
         
-        // clone the editable (if exists)
-        BackingPhotoID dupe_editable_id = BackingPhotoID();
-        PhotoFileReader editable_reader = get_editable_reader();
-        File? editable_file = (editable_reader != null) ? editable_reader.get_file() : null;
-        if (editable_file != null) {
-            File dupe_editable = LibraryFiles.duplicate(editable_file, on_duplicate_progress, true);
-            
-            DetectedPhotoInformation detected;
-            BackingPhotoRow? state = query_backing_photo_row(dupe_editable, PhotoFileSniffer.Options.NO_MD5,
-                out detected);
-            if (state != null) {
-                BackingPhotoTable.get_instance().add(state);
-                dupe_editable_id = state.id;
-            }
-        }
+        // Duplicate editable and raw developments (if they exist)
+        BackingPhotoID dupe_editable_id = duplicate_backing_photo(get_editable_photo_row());
+        BackingPhotoID dupe_raw_shotwell_id = duplicate_backing_photo(
+            get_raw_development_photo_row(RawDeveloper.SHOTWELL));
+        BackingPhotoID dupe_raw_camera_id = duplicate_backing_photo(
+            get_raw_development_photo_row(RawDeveloper.CAMERA));
+        BackingPhotoID dupe_raw_embedded_id = duplicate_backing_photo(
+            get_raw_development_photo_row(RawDeveloper.EMBEDDED));
         
         // clone the row in the database for these new backing files
         PhotoID dupe_id = PhotoTable.get_instance().duplicate(get_photo_id(), dupe_file.get_path(),
-            dupe_editable_id);
+            dupe_editable_id, dupe_raw_shotwell_id, dupe_raw_camera_id, dupe_raw_embedded_id);
         PhotoRow dupe_row = PhotoTable.get_instance().get_row(dupe_id);
         
         // build the DataSource for the duplicate
