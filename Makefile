@@ -18,7 +18,6 @@ MIN_VALADATE_VERSION := 0.1.1
 
 # defaults that may be overridden by configure.mk
 PREFIX=/usr/local
-SCHEMA_FILE_DIR=/etc/gconf/schemas
 BUILD_RELEASE=1
 LIB=lib
 
@@ -136,7 +135,6 @@ RESOURCE_FILES = \
 SYS_INTEGRATION_FILES = \
 	shotwell.desktop.head \
 	shotwell-viewer.desktop.head \
-	shotwell.schemas \
 	org.yorba.shotwell.gschema.xml \
 	org.yorba.shotwell-extras.gschema.xml \
 	shotwell.convert
@@ -552,7 +550,9 @@ install:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 	$(INSTALL_DATA) misc/org.yorba.shotwell.gschema.xml $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 	$(INSTALL_DATA) misc/org.yorba.shotwell-extras.gschema.xml $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
+ifndef DISABLE_SCHEMAS_COMPILE
 	glib-compile-schemas $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
+endif
 	mkdir -p $(DESTDIR)/usr/share/GConf/gsettings
 	$(INSTALL_DATA) misc/shotwell.convert $(DESTDIR)/usr/share/GConf/gsettings
 ifndef DISABLE_ICON_UPDATE
@@ -565,12 +565,6 @@ endif
 	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)$(PREFIX)/share/applications
 ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
-endif
-ifndef DISABLE_SCHEMAS_INSTALL
-	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule misc/shotwell.schemas
-else
-	mkdir -p $(DESTDIR)$(SCHEMA_FILE_DIR)
-	$(INSTALL_DATA) misc/shotwell.schemas $(DESTDIR)$(SCHEMA_FILE_DIR)
 endif
 ifdef ENABLE_APPORT_HOOK_INSTALL
 	mkdir -p $(DESTDIR)$(PREFIX)/share/apport/package-hooks
@@ -624,11 +618,6 @@ endif
 ifndef DISABLE_HELP_INSTALL
 	rm -rf $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell
 endif
-ifndef DISABLE_SCHEMAS_INSTALL
-	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-uninstall-rule misc/shotwell.schemas
-else
-	rm -f $(DESTDIR)$(SCHEMA_FILE_DIR)/shotwell.schemas
-endif
 ifdef ENABLE_APPORT_HOOK_INSTALL
 	rm -f $(DESTDIR)$(PREFIX)/share/apport/package-hooks/shotwell.py
 endif
@@ -643,7 +632,9 @@ ifdef INSTALL_HEADERS
 endif
 	rm -f $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas/org.yorba.shotwell.gschema.xml
 	rm -f $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas/org.yorba.shotwell-extras.gschema.xml
+ifndef DISABLE_SCHEMAS_COMPILE
 	glib-compile-schemas $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
+endif
 	rm -f $(DESTDIR)/usr/share/GConf/gsettings/shotwell.convert
 
 $(PC_FILE): $(PC_INPUT) $(MAKE_FILES)

@@ -99,15 +99,7 @@ do
         --define)           variables="${variables}USER_VALAFLAGS+=--define=$value\n"
                             ;;
                             
-        --with-gconf-schema-file-dir)     if [ ! $value ]
-                                          then
-                                              abort $1
-                                          fi
-                                           
-                                          variables="${variables}SCHEMA_FILE_DIR=$value\n"
-                                          ;;
-
-        --disable-schemas-install)        variables="${variables}DISABLE_SCHEMAS_INSTALL=1\n"
+        --disable-schemas-compile)        variables="${variables}DISABLE_SCHEMAS_COMPILE=1\n"
                                           ;;
 
         --disable-desktop-update)         variables="${variables}DISABLE_DESKTOP_UPDATE=1\n"
