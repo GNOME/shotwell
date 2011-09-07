@@ -894,7 +894,7 @@ public class Sidebar.Tree : Gtk.TreeView {
             
             // Got click on different tree item, make sure it is editable
             // if it needs to be.
-            if (get_wrapper_at_path(path).entry is Sidebar.RenameableEntry) {
+            if (path != null && get_wrapper_at_path(path).entry is Sidebar.RenameableEntry) {
                 text_renderer.editable = true;
             }
             
