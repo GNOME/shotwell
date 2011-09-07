@@ -1270,6 +1270,23 @@ private class FileToPrepare {
     public void set_associated(FileToPrepare? a) {
         associated = a;
     }
+    
+    public string get_parent_path() {
+        return file != null ? file.get_parent().get_path() : job.get_path();
+    }
+    
+    public string get_path() {
+        return file != null ? file.get_path() : (File.new_for_path(job.get_path()).get_child(job.get_basename());
+    }
+    
+    public string get_basename() {
+        return file != null ? file.get_basename() : job.get_basename();
+    }
+    
+    public bool is_directory() {
+        return file != null ? (file.query_file_type(FileQueryInfoFlags.NONE) == FileType.DIRECTORY) :
+            job.is_directory();
+    }
 }
 
 private class WorkSniffer : BackgroundImportJob {
@@ -1316,14 +1333,14 @@ private class WorkSniffer : BackgroundImportJob {
         // importing and sort it by filename.
         Gee.List<FileToPrepare> sorted = new Gee.ArrayList<FileToPrepare>();
         foreach (FileToPrepare ftp in files_to_prepare) {
-            if (!ftp.job.is_directory())
+            if (!ftp.is_directory())
                 sorted.add(ftp);
         }
         sorted.sort((a, b) => {
             FileToPrepare file_a = (FileToPrepare) a;
             FileToPrepare file_b = (FileToPrepare) b;
-            string sa = file_a.job.get_path() + "/" + file_a.job.get_basename();
-            string sb = file_b.job.get_path() + "/" + file_b.job.get_basename();
+            string sa = file_a.get_path();
+            string sb = file_b.get_path();
             return utf8_cs_compare(sa, sb);
         });
         
@@ -1332,9 +1349,8 @@ private class WorkSniffer : BackgroundImportJob {
         for (int i = 0; i < sorted.size; ++i) {
             string name, ext;
             FileToPrepare ftp = sorted.get(i);
-            disassemble_filename(ftp.job.get_basename(), out name, out ext);
-            debug("examining: %s", ftp.job.get_path());
-        
+            disassemble_filename(ftp.get_basename(), out name, out ext);
+            
             if (is_string_empty(ext))
                 continue;
             
@@ -1358,16 +1374,17 @@ private class WorkSniffer : BackgroundImportJob {
     // is "paired" if it has the same basename as the raw file, is in the same
     // directory, and is a JPEG.
     private bool is_paired(FileToPrepare raw, FileToPrepare maybe_paired) {
-        if (raw.job.get_path() != maybe_paired.job.get_path())
+        if (raw.get_parent_path() != maybe_paired.get_parent_path())
             return false;
             
         string name, ext, test_name, test_ext;
-        disassemble_filename(maybe_paired.job.get_basename(), out test_name, out test_ext);
+        disassemble_filename(maybe_paired.get_basename(), out test_name, out test_ext);
         
         if (!JfifFileFormatProperties.get_instance().is_recognized_extension(test_ext))
             return false;
         
-        disassemble_filename(raw.job.get_basename(), out name, out ext);
+        disassemble_filename(raw.get_basename(), out name, out ext);
+        
         return name == test_name;
     }
     
