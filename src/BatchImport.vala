@@ -1276,7 +1276,8 @@ private class FileToPrepare {
     }
     
     public string get_path() {
-        return file != null ? file.get_path() : (File.new_for_path(job.get_path()).get_child(job.get_basename());
+        return file != null ? file.get_path() : (File.new_for_path(job.get_path()).get_child(
+            job.get_basename())).get_path();
     }
     
     public string get_basename() {
