@@ -144,8 +144,26 @@ public class AlienDatabaseImportJob : BatchImportJob {
                     build_path_components(src_tag)
                 )
             );
-            if (prepped != null)
+            if (prepped != null) {
+                if (HierarchicalTagUtilities.enumerate_path_components(prepped).size == 1) {
+                    if (prepped.has_prefix(Tag.PATH_SEPARATOR_STRING))
+                        prepped = HierarchicalTagUtilities.hierarchical_to_flat(prepped);
+                } else {
+                    Gee.List<string> parents =
+                        HierarchicalTagUtilities.enumerate_parent_paths(prepped);
+
+                    assert(parents.size > 0);
+
+                    string top_level_parent = parents.get(0);
+                    string flat_top_level_parent =
+                        HierarchicalTagUtilities.hierarchical_to_flat(top_level_parent);
+                    
+                    if (Tag.global.exists(flat_top_level_parent))
+                        Tag.for_path(flat_top_level_parent).promote();
+                }
+
                 Tag.for_path(prepped).attach(photo);
+            }
         }
         // event
         AlienDatabaseEvent? src_event = src_photo.get_event();
