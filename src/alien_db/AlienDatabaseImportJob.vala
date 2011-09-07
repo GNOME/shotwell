@@ -25,6 +25,23 @@ public class AlienDatabaseImportJob : BatchImportJob {
         exposure_time = import_source.get_exposure_time();
     }
     
+    private HierarchicalTagIndex? build_exclusion_index(Gee.Collection<AlienDatabaseTag> src_tags) {
+        Gee.Set<string> detected_htags = new Gee.HashSet<string>();
+        
+        foreach (AlienDatabaseTag src_tag in src_tags) {
+            string? prepped = HierarchicalTagUtilities.join_path_components(
+                Tag.prep_tag_names(
+                    build_path_components(src_tag)
+                )
+            );
+            
+            if (prepped != null && prepped.has_prefix(Tag.PATH_SEPARATOR_STRING))
+                detected_htags.add(prepped);
+        }
+        
+        return (detected_htags.size > 0) ? HierarchicalTagIndex.from_paths(detected_htags) : null;
+    }
+    
     public time_t get_exposure_time() {
         return exposure_time;
     }
@@ -62,6 +79,52 @@ public class AlienDatabaseImportJob : BatchImportJob {
     public override bool prepare(out File file_to_import, out bool copy_to_library) throws Error {
         file_to_import = src_file;
         copy_to_library = false;
+        
+        // Some alien photo management programs (e.g. f-spot) support hierarchical tags
+        // internally, in their own databases, but don't read and write this hierarchical tag
+        // metadata into files. Instead, they only write flat tags into files. For example, you
+        // can have a photo tagged with the hierarchical tag "/Animals/Dogs/Labrador/Billy" in
+        // the f-spot database but only "Billy" will be written out to file metadata (if metadata
+        // writing is enabled in f-spot). So what we have to do is knock out this flat tag
+        // detritus in the files before importing them. Obviously, we do this only for flat tags
+        // that are redundant (i.e., they're already being pulled in as components of hierarchical
+        // tags directly from the alien database).
+        HierarchicalTagIndex? detected_htags =
+            build_exclusion_index(import_source.get_photo().get_tags());
+        
+        PhotoMetadata src_metadata = new PhotoMetadata();
+        try {
+            src_metadata.read_from_file(src_file);
+        } catch (Error e) {
+            warning("error reading metadata from file '%s' during pre-import tag sanitization: %s",
+                src_file.get_path(), e.message);
+        }
+
+        Gee.Set<string> src_tags = src_metadata.get_keywords();
+        Gee.Set<string>? sanitized_src_tags = null;
+        if (src_tags != null && detected_htags != null) {
+            foreach (string tag in src_tags) {
+                if (!detected_htags.is_tag_in_index(tag)) {
+                    if (sanitized_src_tags == null)
+                        sanitized_src_tags = new Gee.HashSet<string>();
+                    
+                    sanitized_src_tags.add(tag);
+                } else {
+                    debug("knocking out flat tag '%s' because it's already known as a " +
+                        "hierarchical tag component", tag);
+                }
+            }
+        }
+        
+        if (sanitized_src_tags != null) {
+            src_metadata.set_keywords(sanitized_src_tags);
+            try {
+                src_metadata.write_to_file(src_file);
+            } catch (Error e) {
+                warning("error writing metadata to file '%s' during pre-import tag sanitization: %s",
+                    src_file.get_path(), e.message);
+            }
+        }
         
         return true;
     }
