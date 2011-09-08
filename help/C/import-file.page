@@ -21,10 +21,4 @@
 
     <p>Once the import is complete, you can select <gui>Last Import</gui> in the sidebar to see all photos successfully imported. The Events list will also show new entries for the dates corresponding to the imported photos.</p>
 
-    <note>
-        <p>Shotwell does not yet keep <link type="guide" xref="other-raw">RAW+JPEG</link> pairs imported from your
-        filesystem together yet, and will produce two library items if
-        these are imported.
-        </p>
-    </note>
 </page>
