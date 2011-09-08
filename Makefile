@@ -553,8 +553,10 @@ install:
 ifndef DISABLE_SCHEMAS_COMPILE
 	glib-compile-schemas $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 endif
+ifndef DISABLE_GSETTINGS_CONVERT_INSTALL
 	mkdir -p $(DESTDIR)/usr/share/GConf/gsettings
 	$(INSTALL_DATA) misc/shotwell.convert $(DESTDIR)/usr/share/GConf/gsettings
+endif
 ifndef DISABLE_ICON_UPDATE
 	-gtk-update-icon-cache -t -f $(DESTDIR)$(PREFIX)/share/icons/hicolor || :
 endif
@@ -635,7 +637,9 @@ endif
 ifndef DISABLE_SCHEMAS_COMPILE
 	glib-compile-schemas $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 endif
+ifndef DISABLE_GSETTINGS_CONVERT_INSTALL
 	rm -f $(DESTDIR)/usr/share/GConf/gsettings/shotwell.convert
+endif
 
 $(PC_FILE): $(PC_INPUT) $(MAKE_FILES)
 	m4 '-D_VERSION_=$(VERSION)' '-D_PREFIX_=$(PREFIX)' '-D_REQUIREMENTS_=$(PLUGIN_PKG_REQS)' \
