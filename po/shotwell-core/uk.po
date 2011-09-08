@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.11.0\n"
 "Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2011-08-03 18:23-0700\n"
-"PO-Revision-Date: 2011-08-04 05:31+0000\n"
+"PO-Revision-Date: 2011-08-26 07:10+0000\n"
 "Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -471,7 +471,7 @@ msgstr "Почати показ слайдів"
 
 #: src/PhotoPage.vala:2514 src/MediaPage.vala:420
 msgid "Developer"
-msgstr "Розробник"
+msgstr "Обробник"
 
 #: src/PhotoPage.vala:2930 src/Dialogs.vala:2176
 msgid "Remove From Library"
@@ -2455,8 +2455,10 @@ msgstr[2] ""
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] "Не вдалося імпортувати %d файл через помилки у роботі з фотоапаратом:\n"
-msgstr[1] "Не вдалося імпортувати %d файл через помилки у роботі з фотоапаратом:\n"
+msgstr[0] ""
+"Не вдалося імпортувати %d файл через помилки у роботі з фотоапаратом:\n"
+msgstr[1] ""
+"Не вдалося імпортувати %d файл через помилки у роботі з фотоапаратом:\n"
 msgstr[2] ""
 "Не вдалося імпортувати %d файлів через помилки у роботі з фотоапаратом:\n"
 
@@ -3096,11 +3098,11 @@ msgstr "Зменшення оцінок"
 
 #: src/Commands.vala:1092
 msgid "Setting RAW developer"
-msgstr "Встановлення розробника RAW"
+msgstr "Встановлення обробника RAW"
 
 #: src/Commands.vala:1092
 msgid "Restoring previous RAW developer"
-msgstr "Відновлення попереднього значення розробника RAW"
+msgstr "Відновлення попереднього значення обробника RAW"
 
 #: src/Commands.vala:1163
 msgid "Original photo could not be adjusted."
@@ -3528,7 +3530,7 @@ msgstr "%.1f секунд"
 
 #: src/Properties.vala:357
 msgid "Developer:"
-msgstr "Розробник:"
+msgstr "Обробник:"
 
 #: src/Properties.vala:480
 msgid "Location:"
@@ -4124,7 +4126,7 @@ msgstr "За_мінити літери у назвах імпортованих 
 
 #: ui/shotwell.glade:966
 msgid "RAW Developer"
-msgstr "Розробник RAW"
+msgstr "Обробник RAW"
 
 #: ui/shotwell.glade:1001
 msgid "_Default:"
