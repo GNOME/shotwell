@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.11.0\n"
 "Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2011-08-03 18:23-0700\n"
-"PO-Revision-Date: 2011-08-04 06:32+0000\n"
+"PO-Revision-Date: 2011-08-29 07:47+0000\n"
 "Last-Translator: zerng07 <pswo10680@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2942,7 +2942,7 @@ msgstr "無"
 
 #: src/publishing/Publishing.vala:16
 msgid "Publishing"
-msgstr "正在發布"
+msgstr "發布"
 
 #: src/publishing/PublishingUI.vala:69
 #: plugins/shotwell-publishing/YouTubePublishing.vala:851
@@ -3858,5 +3858,4 @@ msgstr "外部編輯器"
 #: ui/shotwell.glade:1161
 msgid "Plugins"
 msgstr "插件"
-
 
