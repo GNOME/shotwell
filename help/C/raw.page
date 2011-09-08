@@ -20,17 +20,9 @@
     readied for displaying - most cameras will either embed a JPEG inside a
     RAW-format file, or produce a JPEG alongside the RAW file at the time the
     snapshot is taken.  The latter is referred to throughout this document as
-    RAW+JPEG.  If you import a RAW+JPEG pair from your camera, Shotwell will
+    RAW+JPEG.  If you import a RAW+JPEG pair, Shotwell will
     keep them paired and treat them as one item in your library.
     </p>
-    
-    <note>
-        <p>
-        Shotwell cannot yet correctly import RAW+JPEG pairs from folders,
-        and will produce produce two separate image entries in your library 
-        if you import them via <gui>Import From Folders</gui>.
-        </p>
-    </note>    
     
     <p>When you import a RAW file, you can choose to either use the camera's
     internally-developed JPEG or Shotwell's by selecting 
