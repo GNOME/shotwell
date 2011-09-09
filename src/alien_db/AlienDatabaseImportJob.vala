@@ -189,7 +189,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
         // use a linked list as we are always inserting in head position
         Gee.List<string> components = new Gee.LinkedList<string>();
         for (AlienDatabaseTag current_tag = tag; current_tag != null; current_tag = current_tag.get_parent()) {
-            components.insert(0, current_tag.get_name());
+            components.insert(0, HierarchicalTagUtilities.make_flat_tag_safe(current_tag.get_name()));
         }
         return components.to_array();
     }
