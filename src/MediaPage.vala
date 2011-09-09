@@ -1165,31 +1165,20 @@ public abstract class MediaPage : CheckerboardPage {
     }
 
     protected void sync_sort() {
-        bool sort_order;
-        int sort_by;
-        get_config_photos_sort(out sort_order, out sort_by);
-
-        string path = get_sortby_path(sort_by);
-
-        bool resort_needed = false;
-
-        Gtk.RadioAction sort_by_action = (Gtk.RadioAction) ui.get_action(path);
-        if (sort_by_action != null && sort_by_action.get_current_value() != sort_by) {
-            sort_by_action.set_current_value(sort_by);
-            resort_needed = true;
-        }
-
-        Gtk.RadioAction ascending_action = 
-            (Gtk.RadioAction) ui.get_action("/MenuBar/ViewMenu/SortPhotos/SortAscending");
-
-        int sort_order_int = sort_order ? SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING;
-        if (ascending_action != null && ascending_action.get_current_value() != sort_order_int) {
-            ascending_action.set_current_value(sort_order_int);
-            resort_needed = true;
-        }
-
-        if (resort_needed)
-            get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
+        // It used to be that the config and UI could both agree on what 
+        // sort order and criteria were selected, but the sorting wouldn't
+        // match them, due to the current view's comparator not actually 
+        // being set to match, and since there was a check to see if the 
+        // config and UI matched that would frequently succeed in this case,
+        // the sorting was often wrong until the user went in and changed 
+        // it.  Because there is no tidy way to query the current view's 
+        // comparator, we now set it any time we even think the sorting 
+        // might have changed to force them to always stay in sync.
+        //
+        // Although this means we pay for a re-sort every time, in practice,
+        // this isn't terribly expensive - it _might_ take as long as .5 sec.
+        // with a media page containing over 15000 items on a modern CPU.
+        get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
     }
 
     public override void destroy() {
