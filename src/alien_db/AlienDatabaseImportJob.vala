@@ -102,9 +102,9 @@ public class AlienDatabaseImportJob : BatchImportJob {
 
         Gee.Set<string> src_tags = src_metadata.get_keywords();
         Gee.Set<string>? sanitized_src_tags = null;
-        if (src_tags != null && detected_htags != null) {
+        if (src_tags != null) {
             foreach (string tag in src_tags) {
-                if (!detected_htags.is_tag_in_index(tag)) {
+                if (detected_htags == null || !detected_htags.is_tag_in_index(tag)) {
                     if (sanitized_src_tags == null)
                         sanitized_src_tags = new Gee.HashSet<string>();
                     
@@ -116,14 +116,12 @@ public class AlienDatabaseImportJob : BatchImportJob {
             }
         }
         
-        if (sanitized_src_tags != null) {
-            src_metadata.set_keywords(sanitized_src_tags);
-            try {
-                src_metadata.write_to_file(src_file);
-            } catch (Error e) {
-                warning("error writing metadata to file '%s' during pre-import tag sanitization: %s",
-                    src_file.get_path(), e.message);
-            }
+        src_metadata.set_keywords(sanitized_src_tags);
+        try {
+            src_metadata.write_to_file(src_file);
+        } catch (Error e) {
+            warning("error writing metadata to file '%s' during pre-import tag sanitization: %s",
+                src_file.get_path(), e.message);
         }
         
         return true;
