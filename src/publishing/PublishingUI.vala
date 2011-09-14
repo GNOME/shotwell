@@ -171,6 +171,8 @@ public class LoginWaitPane : StaticMessagePane {
 public class PublishingDialog : Gtk.Dialog {
     private const int LARGE_WINDOW_WIDTH = 860;
     private const int LARGE_WINDOW_HEIGHT = 688;
+    private const int COLOSSAL_WINDOW_WIDTH = 1024;
+    private const int COLOSSAL_WINDOW_HEIGHT = 688;
     private const int STANDARD_WINDOW_WIDTH = 600;
     private const int STANDARD_WINDOW_HEIGHT = 510;
     private const int BORDER_REGION_WIDTH = 16;
@@ -451,6 +453,13 @@ public class PublishingDialog : Gtk.Dialog {
             LARGE_WINDOW_HEIGHT - BORDER_REGION_HEIGHT);
         resizable = false;
     }
+    
+    private void set_colossal_window_mode() {
+        set_size_request(COLOSSAL_WINDOW_WIDTH, COLOSSAL_WINDOW_HEIGHT);
+        central_area_layouter.set_size_request(COLOSSAL_WINDOW_WIDTH - BORDER_REGION_WIDTH,
+            COLOSSAL_WINDOW_HEIGHT - BORDER_REGION_HEIGHT);
+        resizable = false;
+    }
 
     private void set_standard_window_mode() {
         set_size_request(STANDARD_WINDOW_WIDTH, STANDARD_WINDOW_HEIGHT);
@@ -505,6 +514,8 @@ public class PublishingDialog : Gtk.Dialog {
             pane.get_preferred_geometry();
         if ((geometry_options & Spit.Publishing.DialogPane.GeometryOptions.EXTENDED_SIZE) != 0)
             set_large_window_mode();
+        else if ((geometry_options & Spit.Publishing.DialogPane.GeometryOptions.COLOSSAL_SIZE) != 0)
+            set_colossal_window_mode();
         else
             set_standard_window_mode();
 

@@ -57,13 +57,13 @@ namespace Publishing.Facebook {
 // truly, deep-down know what you're doing)
 public const string SERVICE_NAME = "facebook";
 internal const string USER_VISIBLE_NAME = "Facebook";
-internal const string API_KEY = "3afe0a1888bd340254b1587025f8d1a5";
-internal const string SIGNATURE_KEY = "sig";
+internal const string APPLICATION_ID = "162702932093";
 internal const int STANDARD_PHOTO_DIMENSION = 720;
 internal const int HIGH_PHOTO_DIMENSION = 2048;
 internal const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
-internal const string PHOTO_ENDPOINT_URL = "http://api.facebook.com/restserver.php";
-internal const string VIDEO_ENDPOINT_URL = "http://api-video.facebook.com/restserver.php";
+internal const string API_ENDPOINT_URL = "https://api.facebook.com/method/";
+internal const string PHOTO_ENDPOINT_URL = "https://api.facebook.com/restserver.php";
+internal const string VIDEO_ENDPOINT_URL = "https://api-video.facebook.com/restserver.php";
 internal const string SERVICE_WELCOME_MESSAGE =
     _("You are not currently logged into Facebook.\n\nIf you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function.");
 internal const string RESTART_ERROR_MESSAGE =
@@ -75,7 +75,6 @@ internal const string PRIVACY_OBJECT_JUST_ME = "{ 'value' : 'CUSTOM', 'friends' 
 internal const string PRIVACY_OBJECT_ALL_FRIENDS = "{ 'value' : 'ALL_FRIENDS' }";
 internal const string PRIVACY_OBJECT_FRIENDS_OF_FRIENDS = "{ 'value' : 'FRIENDS_OF_FRIENDS' }";
 internal const string PRIVACY_OBJECT_EVERYONE = "{ 'value' : 'EVERYONE' }";
-internal const string API_VERSION = "1.0";
 internal const string USER_AGENT = "Java/1.6.0_16";
 
 internal struct FacebookAlbum {
@@ -191,13 +190,11 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
 
     private bool is_persistent_session_valid() {
-        string? session_key = get_persistent_session_key();
-        string? session_secret = get_persistent_session_secret();
+        string? access_token = get_persistent_access_token();
         string? uid = get_persistent_uid();
         string? user_name = get_persistent_user_name();
 
-        bool valid = ((session_key != null) && (session_secret != null) && (uid != null) &&
-            (user_name != null));
+        bool valid = ((access_token != null) && (uid != null) && (user_name != null));
 
         if (valid)
             debug("existing Facebook session for user = '%s' found in configuration database; using it.", user_name);
@@ -207,12 +204,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         return valid;
     }
 
-    private string? get_persistent_session_key() {
-        return host.get_config_string("session_key", null);
-    }
-
-    private string? get_persistent_session_secret() {
-        return host.get_config_string("session_secret", null);
+    private string? get_persistent_access_token() {
+        return host.get_config_string("access_token", null);
     }
 
     private string? get_persistent_uid() {
@@ -223,12 +216,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         return host.get_config_string("user_name", null);
     }
 
-    private void set_persistent_session_key(string session_key) {
-        host.set_config_string("session_key", session_key);
-    }
-
-    private void set_persistent_session_secret(string session_secret) {
-        host.set_config_string("session_secret", session_secret);
+    private void set_persistent_access_token(string access_token) {
+        host.set_config_string("access_token", access_token);
     }
 
     private void set_persistent_uid(string uid) {
@@ -252,8 +241,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void invalidate_persistent_session() {
         debug("invalidating persisted Facebook session.");
 
-        set_persistent_session_key("");
-        set_persistent_session_secret("");
+        set_persistent_access_token("");
         set_persistent_uid("");
         set_persistent_user_name("");
     }
@@ -425,8 +413,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void do_save_session_information() {
         debug("ACTION: saving session information to configuration system.");
 
-        set_persistent_session_key(session.get_session_key());
-        set_persistent_session_secret(session.get_session_secret());
+        set_persistent_access_token(session.get_access_token());
         set_persistent_uid(session.get_user_id());
         set_persistent_user_name(session.get_user_name());
     }
@@ -749,8 +736,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             // a Session object and pre-authenticate it with the saved information, then simulate an
             // on_session_authenticated event to drive the rest of the interaction
             session = new FacebookRESTSession(PHOTO_ENDPOINT_URL, USER_AGENT);
-            session.authenticate_with_parameters(get_persistent_session_key(), get_persistent_uid(),
-                get_persistent_session_secret(), get_persistent_user_name());
+            session.authenticate_with_parameters(get_persistent_access_token(),
+                get_persistent_uid(), get_persistent_user_name());
             on_session_authenticated();
         } else {
             if (WebAuthenticationPane.is_cache_dirty()) {
@@ -779,9 +766,8 @@ internal class FacebookRESTSession {
     private string endpoint_url = null;
     private Soup.Session soup_session = null;
     private bool transactions_stopped = false;
-    private string? session_key = null;
+    private string? access_token = null;
     private string? uid = null;
-    private string? secret = null;
     private string? user_name = null;
 
     public signal void wire_message_unqueued(Soup.Message message);
@@ -805,6 +791,36 @@ internal class FacebookRESTSession {
 
     protected void notify_authentication_failed(Spit.Publishing.PublishingError err) {
         authentication_failed(err);
+    }
+
+    private void on_user_id_fetch_txn_completed(FacebookRESTTransaction txn) {
+        txn.completed.disconnect(on_user_id_fetch_txn_completed);
+        txn.network_error.disconnect(on_user_id_fetch_txn_error);
+
+        try {
+            FacebookRESTXmlDocument response_doc =
+                FacebookRESTXmlDocument.parse_string(txn.get_response());
+
+            Xml.Node* root_node = response_doc.get_root_node();
+
+            uid = root_node->get_content();
+            
+            message("logged in with uid = '%s'", uid);
+            
+        } catch (Spit.Publishing.PublishingError err) {
+            notify_authentication_failed(err);
+            return;
+        }
+
+        do_user_info_transaction();
+    }
+
+    private void on_user_id_fetch_txn_error(FacebookRESTTransaction txn,
+        Spit.Publishing.PublishingError err) {
+        txn.completed.disconnect(on_user_id_fetch_txn_completed);
+        txn.network_error.disconnect(on_user_id_fetch_txn_error);
+
+        notify_authentication_failed(err);
     }
 
     private void on_user_info_txn_completed(FacebookRESTTransaction txn) {
@@ -834,15 +850,35 @@ internal class FacebookRESTSession {
         notify_authentication_failed(err);
     }
 
-    public bool is_authenticated() {
-        return (session_key != null && uid != null && secret != null && user_name != null);
+    private void do_user_id_fetch_transaction() {
+        FacebookUserIDFetchTransaction user_id_fetch_txn = new FacebookUserIDFetchTransaction(this);
+        user_id_fetch_txn.completed.connect(on_user_id_fetch_txn_completed);
+        user_id_fetch_txn.network_error.connect(on_user_id_fetch_txn_error);
+        try {
+            user_id_fetch_txn.execute();
+        } catch (Spit.Publishing.PublishingError err) {
+            on_user_id_fetch_txn_error(user_id_fetch_txn, err);
+        }
+    }
+    
+    private void do_user_info_transaction() {
+        FacebookUserInfoTransaction user_info_txn = new FacebookUserInfoTransaction(this, get_user_id());
+        user_info_txn.completed.connect(on_user_info_txn_completed);
+        user_info_txn.network_error.connect(on_user_info_txn_error);
+        try {
+            user_info_txn.execute();
+        } catch (Spit.Publishing.PublishingError err) {
+            on_user_info_txn_error(user_info_txn, err);
+        }
     }
 
-    public void authenticate_with_parameters(string session_key, string uid, string secret,
-        string user_name) {
-        this.session_key = session_key;
+    public bool is_authenticated() {
+        return (access_token != null && uid != null && user_name != null);
+    }
+
+    public void authenticate_with_parameters(string access_token, string uid, string user_name) {
+        this.access_token = access_token;
         this.uid = uid;
-        this.secret = secret;
         this.user_name = user_name;
     }
 
@@ -850,56 +886,29 @@ internal class FacebookRESTSession {
         // the raw uri is percent-encoded, so decode it
         string decoded_uri = Soup.URI.decode(good_login_uri);
 
-        // locate the session object description string within the decoded uri
-        string? session_desc = null;
-        int index = decoded_uri.index_of("session={");
+        // locate the access token within the URI
+        string? access_token = null;
+        int index = decoded_uri.index_of("#access_token=");
         if (index >= 0)
-            session_desc = decoded_uri[index:decoded_uri.length];
-        if (session_desc == null)
-            throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Server redirect URL contained no session description");
+            access_token = decoded_uri[index:decoded_uri.length];
+        if (access_token == null)
+            throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Server redirect URL contained no access token");
 
         // remove any trailing parameters from the session description string
         string? trailing_params = null;
-        index = session_desc.index_of_char('&');
+        index = access_token.index_of_char('&');
         if (index >= 0)
-            trailing_params = session_desc[index:session_desc.length];
+            trailing_params = access_token[index:access_token.length];
         if (trailing_params != null)
-            session_desc = session_desc.replace(trailing_params, "");
+            access_token = access_token.replace(trailing_params, "");
 
         // remove the key from the session description string
-        session_desc = session_desc.replace("session=", "");
-
-        // remove the group open, group close, quote, list separator, and key-value
-        // delimiter characters from the session description string
-        session_desc = session_desc.replace("{", "");
-        session_desc = session_desc.replace("}", "");
-        session_desc = session_desc.replace("\"", "");
-        session_desc = session_desc.replace(",", " ");
-        session_desc = session_desc.replace(":", " ");
-
-        // parse the session description string
-        string[] session_tokens = session_desc.split(" ");
-        for (int i = 0; i < session_tokens.length; i++) {
-            if (session_tokens[i] == "session_key") {
-                session_key = session_tokens[++i];
-            } else if (session_tokens[i] == "uid") {
-                uid = session_tokens[++i];
-            } else if (session_tokens[i] == "secret") {
-                secret = session_tokens[++i];
-            }
-        }
-
-        if (session_key == null)
-            throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Session description object has no session key");
-        if (uid == null)
-            throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Session description object has no user ID");
-        if (secret == null)
-            throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Session description object has no session secret");
-
-        FacebookUserInfoTransaction user_info_txn = new FacebookUserInfoTransaction(this, get_user_id());
-        user_info_txn.completed.connect(on_user_info_txn_completed);
-        user_info_txn.network_error.connect(on_user_info_txn_error);
-        user_info_txn.execute();
+        access_token = access_token.replace("#access_token=", "");
+        
+        // we've got an access token!
+        this.access_token = access_token;
+        
+        do_user_id_fetch_transaction();
     }
 
     public string get_endpoint_url() {
@@ -914,35 +923,14 @@ internal class FacebookRESTSession {
     public bool are_transactions_stopped() {
         return transactions_stopped;
     }
-
-    public string get_api_key() {
-        return API_KEY;
-    }
-
-    public string get_session_key() {
-        assert(session_key != null);
-        return session_key;
+    
+    public string get_access_token() {
+        return access_token;
     }
 
     public string get_user_id() {
         assert(uid != null);
         return uid;
-    }
-
-    public string get_session_secret() {
-        assert(secret != null);
-        return secret;
-    }
-
-    public string get_next_call_id() {
-        TimeVal currtime = TimeVal();
-        currtime.get_current_time();
-
-        return "%u.%u".printf((uint) currtime.tv_sec, (uint) currtime.tv_usec);
-    }
-
-    public string get_api_version() {
-        return API_VERSION;
     }
 
     public string get_user_name() {
@@ -969,18 +957,10 @@ internal struct FacebookRESTArgument {
         key = creator_key;
         value = creator_val;
     }
-
-    public static int compare(void* p1, void* p2) {
-        FacebookRESTArgument* arg1 = (FacebookRESTArgument*) p1;
-        FacebookRESTArgument* arg2 = (FacebookRESTArgument*) p2;
-
-        return strcmp(arg1->key, arg2->key);
-    }
 }
 
 internal class FacebookRESTTransaction {
     private FacebookRESTArgument[] arguments;
-    private string signature_value = null;
     private bool is_executed = false;
     private weak FacebookRESTSession parent_session = null;
     private Soup.Message message = null;
@@ -1063,42 +1043,6 @@ internal class FacebookRESTTransaction {
         this.message = message;
     }
 
-    protected FacebookRESTArgument[] get_sorted_arguments() {
-        FacebookRESTArgument[] sorted_array = new FacebookRESTArgument[0];
-
-        foreach (FacebookRESTArgument arg in arguments)
-            sorted_array += arg;
-
-        qsort(sorted_array, sorted_array.length, sizeof(FacebookRESTArgument),
-            (CompareFunc) FacebookRESTArgument.compare);
-
-        return sorted_array;
-    }
-
-    protected string generate_signature(FacebookRESTArgument[] sorted_args) {
-        string hash_string = "";
-        foreach (FacebookRESTArgument arg in sorted_args)
-            hash_string = hash_string + ("%s=%s".printf(arg.key, arg.value));
-
-        return Checksum.compute_for_string(ChecksumType.MD5, (hash_string +
-            parent_session.get_session_secret()));
-    }
-
-    protected virtual void sign() {
-        add_argument("api_key", parent_session.get_api_key());
-        add_argument("session_key", parent_session.get_session_key());
-        add_argument("v", parent_session.get_api_version());
-        add_argument("call_id", parent_session.get_next_call_id());
-
-        string sig = generate_signature(get_sorted_arguments());
-
-        signature_value = sig;
-    }
-
-    protected bool get_is_signed() {
-        return (signature_value != null);
-    }
-
     protected void set_is_executed(bool is_executed) {
         this.is_executed = is_executed;
     }
@@ -1124,22 +1068,11 @@ internal class FacebookRESTTransaction {
         return FacebookHttpMethod.from_string(message.method);
     }
 
-    protected string get_signature_value() {
-        assert(get_is_signed());
-        return signature_value;
-    }
-
-    protected void set_signature_value(string signature_value) {
-        this.signature_value = signature_value;
-    }
-
     public bool get_is_executed() {
         return is_executed;
     }
 
     public virtual void execute() throws Spit.Publishing.PublishingError {
-        sign();
-
         // Facebook REST POST requests must transmit at least one argument
         if (get_method() == FacebookHttpMethod.POST)
             assert(arguments.length > 0);
@@ -1151,24 +1084,18 @@ internal class FacebookRESTTransaction {
                 Soup.URI.encode(arg.value, "&+")));
         }
 
-        // if this transaction has been signed, then we need to append the signature key-value pair
-        // to the formdata string
-        if (get_is_signed()) {
-            formdata_string = formdata_string + ("%s=%s".printf(
-                Soup.URI.encode(SIGNATURE_KEY, null), Soup.URI.encode(signature_value, null)));
-        }
-
-        debug("formdata_string = '%s'", formdata_string);
-
-        // for GET requests with arguments, append the formdata string to the endpoint url after a
-        // query divider ('?') -- but make sure to save the old (caller-specified) endpoint URL
-        // and restore it after the GET so that the underlying Soup message remains consistent
-        string old_url = null;
-        string url_with_query = null;
+        // Append the access token as the query component of the URL. For GET requests with
+        // arguments, also append the formdata string. Before doing either of these appends,
+        // make sure to save the old (caller-specified) endpoint URL and restore it after the
+        // transaction is completed so that the underlying Soup message remains consistent
+        string old_url = message.get_uri().to_string(false);
+        string postprocessed_url = old_url + "?access_token=" + parent_session.get_access_token();
         if (get_method() == FacebookHttpMethod.GET && arguments.length > 0) {
             old_url = message.get_uri().to_string(false);
-            url_with_query = get_endpoint_url() + "?" + formdata_string;
+            string url_with_query = postprocessed_url + "&" + formdata_string;
             message.set_uri(new Soup.URI(url_with_query));
+        } else {
+            message.set_uri(new Soup.URI(postprocessed_url));
         }
 
         message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
@@ -1189,18 +1116,19 @@ internal class FacebookRESTTransaction {
     }
 
     public void add_argument(string name, string value) {
-        // if a request has already been signed, it's an error to add further arguments to it
-        assert(!get_is_signed());
-
         arguments += FacebookRESTArgument(name, value);
     }
 
     public string get_endpoint_url() {
         return message.get_uri().to_string(false);
     }
+}
 
-    public FacebookRESTSession get_parent_session() {
-        return parent_session;
+internal class FacebookUserIDFetchTransaction : FacebookRESTTransaction {
+    public FacebookUserIDFetchTransaction(FacebookRESTSession session) {
+        base(session);
+
+        add_argument("method", "users.getLoggedInUser");
     }
 }
 
@@ -1233,11 +1161,6 @@ internal class FacebookEndpointTestTransaction : FacebookRESTTransaction {
         string endpoint_url) {
         base(session, FacebookHttpMethod.GET);
     }
-
-    protected override void sign() {
-        // signing is a no-op for endpoint test transactions since we don't need any authentication
-        // just to check if the remote host is alive.
-    }
 }
 
 internal class FacebookUploadTransaction : FacebookRESTTransaction {
@@ -1267,9 +1190,7 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
             error("FacebookUploadTransaction: unsupported media type.");
         }
 
-        add_argument("api_key", session.get_api_key());
-        add_argument("session_key", session.get_session_key());
-        add_argument("v", session.get_api_version());
+        add_argument("access_token", session.get_access_token());
         add_argument("method", method);
         add_argument("aid", aid);
         add_argument("privacy", privacy_setting);
@@ -1312,21 +1233,8 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
         }
     }
 
-    protected override void sign() {
-        add_argument("call_id", get_parent_session().get_next_call_id());
-
-        string sig = generate_signature(get_sorted_arguments());
-
-        set_signature_value(sig);
-    }
-
     public override void execute() throws Spit.Publishing.PublishingError {
         preprocess_publishable(publishable);
-        sign();
-
-        // before they can be executed, upload requests must be signed and must
-        // contain at least one argument
-        assert(get_is_signed());
 
         FacebookRESTArgument[] request_arguments = get_arguments();
         assert(request_arguments.length > 0);
@@ -1338,8 +1246,6 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
         foreach (FacebookRESTArgument arg in request_arguments)
             message_parts.append_form_string(arg.key, arg.value);
 
-        // append the signature key-value pair to the formdata string
-        message_parts.append_form_string(SIGNATURE_KEY, get_signature_value());
 
         // attempt to map the binary payload from disk into memory
         try {
@@ -1431,7 +1337,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     
     private const LocaleLookup[] locale_lookup_table = {
         { "es", "es-la", "ES", "es-es" },
-        { "en", "en-gb", "US", "www" },
+        { "en", "en-gb", "US", "en-us" },
         { "fr", "fr-fr", "CA", "fr-ca" },
         { "pt", "pt-br", "PT", "pt-pt" },
         { "zh", "zh-cn", "HK", "zh-hk", "TW", "zh-tw" },
@@ -1512,7 +1418,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     private string get_login_url() {
         string facebook_locale = get_system_locale_as_facebook_locale();
 
-        return "http://%s.facebook.com/login.php?api_key=%s&connect_display=popup&v=1.0&next=http://www.facebook.com/connect/login_success.html&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream,publish_stream,offline_access,photo_upload,user_photos".printf(facebook_locale, API_KEY);
+        return "https://%s.facebook.com/dialog/oauth?client_id=%s&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=offline_access,publish_stream,user_photos,user_videos&response_type=token".printf(facebook_locale, APPLICATION_ID);
     }
 
     private void on_page_load(WebKit.WebFrame origin_frame) {
@@ -1554,7 +1460,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     }
 
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.RESIZABLE;
+        return Spit.Publishing.DialogPane.GeometryOptions.COLOSSAL_SIZE;
     }
 
     public void on_pane_installed() {
