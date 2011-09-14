@@ -390,6 +390,17 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         }
     }
     
+    public static void count_media(Gee.Collection<MediaSource> media, out int photo_count,
+        out int video_count) {
+        Gee.ArrayList<MediaSource> photos = new Gee.ArrayList<MediaSource>();
+        Gee.ArrayList<MediaSource> videos = new Gee.ArrayList<MediaSource>();
+        
+        filter_media(media, photos, videos);
+        
+        photo_count = photos.size;
+        video_count = videos.size;
+    }
+    
     public static bool has_photo(Gee.Collection<MediaSource> media) {
         foreach (MediaSource current_media in media) {
             if (current_media is Photo) {

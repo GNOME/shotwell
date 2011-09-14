@@ -142,6 +142,7 @@ private class BasicProperties : Properties {
         dimensions = Dimensions(0,0);
         photo_count = -1;
         event_count = -1;
+        video_count = -1;
         exposure = "";
         aperture = "";
         iso = "";
@@ -197,7 +198,13 @@ private class BasicProperties : Properties {
             start_time = event_source.get_start_time();
             end_time = event_source.get_end_time();
 
-            photo_count = event_source.get_media_count();
+            int event_photo_count;
+            int event_video_count;
+            MediaSourceCollection.count_media(event_source.get_media(), out event_photo_count,
+                out event_video_count);
+            
+            photo_count = event_photo_count;
+            video_count = event_video_count;
         } else if (source is VideoSource || source is VideoImportSource) {
             if (source is VideoSource) {
                 Video video = (Video) source;
@@ -253,7 +260,13 @@ private class BasicProperties : Properties {
                     end_time = event_source.get_start_time();
                 }
 
-                photo_count += event_source.get_media_count();
+                int event_photo_count;
+                int event_video_count;
+                MediaSourceCollection.count_media(event_source.get_media(), out event_photo_count,
+                    out event_video_count);
+
+                photo_count += event_photo_count;
+                video_count += event_video_count;
                 event_count++;
             } else if (source is VideoSource || source is VideoImportSource) {
                 time_t exposure_time = (source is VideoSource) ?
@@ -292,7 +305,7 @@ private class BasicProperties : Properties {
         if (title != "")
             add_line(_("Title:"), guarded_markup_escape_text(title));
 
-        if (photo_count >= 0) {
+        if (photo_count >= 0 || video_count >= 0) {
             string label = _("Items:");
   
             if (event_count >= 0) {
