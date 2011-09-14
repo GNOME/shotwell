@@ -274,16 +274,10 @@
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.facebook" path="/apps/shotwell/sharing/facebook/">
-    <key name="session-key" type="s">
+    <key name="access-token" type="s">
         <default>""</default>
-        <summary>session key</summary>
-        <description>Facebook API session key for the currently logged in session, if any</description>
-    </key>
-    
-    <key name="session-secret" type="s">
-        <default>""</default>
-        <summary>session secret</summary>
-        <description>Facebook API session secret for the currently logged in session, if any</description>
+        <summary>access token</summary>
+        <description>Facebook OAuth token for the currently logged in session, if any</description>
     </key>
 
     <key name="uid" type="s">
