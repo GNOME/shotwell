@@ -36,6 +36,12 @@
         <summary>last permission level</summary>
         <description>The last chosen Piwigo permission level.</description>
     </key>
+    
+    <key name="last-photo-size" type="i">
+        <default>-1</default>
+        <summary>last photo size</summary>
+        <description>A numeric code representing the last photo size preset used when publishing to Piwigo.</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-yandex-fotki" path="/apps/shotwell/sharing/org-yorba-shotwell-publishing-yandex-fotki/">
