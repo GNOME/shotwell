@@ -64,6 +64,7 @@ internal const string ERROR_MESSAGE_401 =
 // and handle older version of the Piwigo API
 internal const string ERROR_MESSAGE_501 =
     _("The Piwigo service you specified does not recognise the method requested by Shotwell. This can happen if the Piwigo service you are trying to publish to is an old version. Please check that your Piwigo service is version 2.1 or newer.");
+internal const int ORIGINAL_SIZE = -1;
 
 internal class Category {
     public int id;
@@ -95,9 +96,20 @@ internal class PermissionLevel {
     }
 }
 
+internal class SizeEntry {
+    public int id;
+    public string name;
+
+    public SizeEntry(int id, string name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
 internal class PublishingParameters {
     public Category category = null;
     public PermissionLevel perm_level = null;
+    public SizeEntry photo_size = null;
 
     public PublishingParameters() {
     }
@@ -210,6 +222,14 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     
     private void set_last_permission_level(int last_permission_level) {
         host.set_config_int("last-permission-level", last_permission_level);
+    }
+    
+    public int get_last_photo_size() {
+        return host.get_config_int("last-photo-size", -1);
+    }
+    
+    private void set_last_photo_size(int last_photo_size) {
+        host.set_config_int("last-photo-size", last_photo_size);
     }
     
     // Actions and events implementation
@@ -568,7 +588,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.set_service_locked(false);
         PublishingOptionsPane opts_pane = new PublishingOptionsPane(
-            this, categories, get_last_category(), get_last_permission_level()
+            this, categories, get_last_category(), get_last_permission_level(), get_last_photo_size()
         );
         opts_pane.logout.connect(on_publishing_options_pane_logout_clicked);
         opts_pane.publish.connect(on_publishing_options_pane_publish_clicked);
@@ -721,14 +741,12 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: uploading pictures");
         
         host.set_service_locked(true);
-        // Save last category and permission level for next use
+        // Save last category, permission level and size for next use
         set_last_category(parameters.category.id);
         set_last_permission_level(parameters.perm_level.id);
-        // TODO: this specifies the original size but should we be smarter
-        // and ask the user in the publishing options pane similar to what the
-        // flickr plugin does?
-        // Also, should the interface have a default value?
-        progress_reporter = host.serialize_publishables(-1);
+        set_last_photo_size(parameters.photo_size.id);
+        
+        progress_reporter = host.serialize_publishables(parameters.photo_size.id);
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
         
         Uploader uploader = new Uploader(session, publishables, parameters);
@@ -1030,25 +1048,29 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private Gtk.ComboBox existing_categories_combo;
     private Gtk.Entry new_category_entry;
     private Gtk.ComboBox perms_combo;
+    private Gtk.ComboBox size_combo;
     private Gtk.Button logout_button;
     private Gtk.Button publish_button;
     
     private Category[] existing_categories;
     private PermissionLevel[] perm_levels;
+    private SizeEntry[] photo_sizes;
     
     private int last_category;
     private int last_permission_level;
+    private int last_photo_size;
 
     public signal void publish(PublishingParameters parameters);
     public signal void logout();
 
     public PublishingOptionsPane(
         PiwigoPublisher publisher, Category[] categories,
-        int last_category, int last_permission_level
+        int last_category, int last_permission_level, int last_photo_size
     ) {
         this.pane_widget = new Gtk.VBox(false, 0);
         this.last_category = last_category;
         this.last_permission_level = last_permission_level;
+        this.last_photo_size = last_photo_size;
 
         File ui_file = publisher.get_host().get_module_file().get_parent().
             get_child("piwigo_publishing_options_pane.glade");
@@ -1065,6 +1087,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBox;
             new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
             perms_combo = builder.get_object("perms_combo") as Gtk.ComboBox;
+            size_combo = builder.get_object("size_combo") as Gtk.ComboBox;
 
             logout_button = builder.get_object("logout_button") as Gtk.Button;
             logout_button.clicked.connect(on_logout_button_clicked);
@@ -1083,6 +1106,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         
         this.existing_categories = categories;
         this.perm_levels = create_perm_levels();
+        this.photo_sizes = create_sizes();
     }
     
     public Gtk.Widget get_default_widget() {
@@ -1101,6 +1125,18 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         return result;
     }
 
+    private SizeEntry[] create_sizes() {
+        SizeEntry[] result = new SizeEntry[0];
+
+        result += new SizeEntry(500, _("500 x 375 pixels"));
+        result += new SizeEntry(1024, _("1024 x 768 pixels"));
+        result += new SizeEntry(2048, _("2048 x 1536 pixels"));
+        result += new SizeEntry(4096, _("4096 x 3072 pixels"));
+        result += new SizeEntry(ORIGINAL_SIZE, _("Original size"));
+
+        return result;
+    }
+
     private void on_logout_button_clicked() {
         logout();
     }
@@ -1108,6 +1144,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private void on_publish_button_clicked() {
         PublishingParameters params = new PublishingParameters();
         params.perm_level = perm_levels[perms_combo.get_active()];
+        params.photo_size = photo_sizes[size_combo.get_active()];
         if (create_new_radio.get_active()) {
             params.category = new Category.local(new_category_entry.get_text());
         } else {
@@ -1157,8 +1194,15 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     }
     
     public void on_pane_installed() {
-        // TODO: find a better way to specify combo box models in Glade as
-        // the code below is a bit painful
+    	create_categories_combo();
+	    create_permissions_combo();
+	    create_size_combo();
+        //
+        publish_button.can_default = true;
+        update_publish_button_sensitivity();
+    }
+    
+    private void create_categories_combo() {
         Gtk.ListStore categories_model = new Gtk.ListStore.newv({typeof(string)});
         Gtk.CellRenderer categories_renderer = new Gtk.CellRendererText();
         existing_categories_combo.set_model(categories_model);
@@ -1184,6 +1228,9 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         }
         if (!category_already_exists(DEFAULT_CATEGORY_NAME))
             new_category_entry.set_text(DEFAULT_CATEGORY_NAME);
+    }
+    
+    private void create_permissions_combo() {
         Gtk.ListStore perms_model = new Gtk.ListStore.newv({typeof(string)});
         Gtk.CellRenderer perms_renderer = new Gtk.CellRendererText();
         perms_combo.set_model(perms_model);
@@ -1198,9 +1245,23 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         } else {
             perms_combo.set_active(last_permission_level_index);
         }
-        //
-        publish_button.can_default = true;
-        update_publish_button_sensitivity();
+    }
+    
+    private void create_size_combo() {
+        Gtk.ListStore size_model = new Gtk.ListStore.newv({typeof(string)});
+        Gtk.CellRenderer size_renderer = new Gtk.CellRendererText();
+        size_combo.set_model(size_model);
+        size_combo.pack_start(size_renderer, true);
+        size_combo.add_attribute(size_renderer, "text", 0);
+        foreach (SizeEntry size in photo_sizes) {
+            size_combo.append_text(size.name);
+        }
+        int last_size_index = find_size_index(last_photo_size);
+        if (last_size_index < 0) {
+            size_combo.set_active(find_size_index(ORIGINAL_SIZE));
+        } else {
+            size_combo.set_active(last_size_index);
+        }
     }
     
     public void on_pane_uninstalled() {
@@ -1221,6 +1282,17 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         int result = -1;
         for(int i = 0; i < perm_levels.length; i++) {
             if (perm_levels[i].id == permission_level_id) {
+                result = i;
+                break;
+            }
+        }
+        return result;
+    }
+    
+    private int find_size_index(int size_id) {
+        int result = -1;
+        for(int i = 0; i < photo_sizes.length; i++) {
+            if (photo_sizes[i].id == size_id) {
                 result = i;
                 break;
             }
