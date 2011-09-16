@@ -452,7 +452,17 @@ private class AVIMetadataLoader {
         
         Time time = Time();
         date.to_time(out time);
-        return time.mktime() + seconds;
+        
+        // watch for overflow (happens on quasi-bogus dates, like Year 200)
+        time_t tm = time.mktime();
+        ulong result = tm + seconds;
+        if (result < tm) {
+            debug("Overflow for timestamp in video file %s", file.get_path());
+            
+            return 0;
+        }
+        
+        return result;
     }
     
     private DateMonth month_from_string(string s) {
