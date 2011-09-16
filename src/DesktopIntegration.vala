@@ -145,8 +145,10 @@ public void send_to(Gee.Collection<MediaSource> media) {
     send_to_exporter.export(on_send_to_export_completed);
 }
 
-private void on_send_to_export_completed(Exporter exporter) {
-    files_send_to(exporter.get_exported_files());
+private void on_send_to_export_completed(Exporter exporter, bool is_cancelled) {
+    if (!is_cancelled)
+        files_send_to(exporter.get_exported_files());
+    
     send_to_exporter = null;
 }
 
@@ -276,8 +278,11 @@ public void set_background_slideshow(Gee.Collection<Photo> photos, double durati
     desktop_slideshow_exporter.export(on_desktop_slideshow_exported);
 }
 
-private void on_desktop_slideshow_exported(Exporter exporter) {
+private void on_desktop_slideshow_exported(Exporter exporter, bool is_cancelled) {
     desktop_slideshow_exporter = null;
+    
+    if (is_cancelled)
+        return;
     
     File? xml_file = null;
     BackgroundSlideshowXMLBuilder xml_builder = new BackgroundSlideshowXMLBuilder(
