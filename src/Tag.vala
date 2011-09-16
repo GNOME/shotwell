@@ -664,7 +664,10 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         for (int i = 0; i < (components.size - 1); i++)
             parent_path += (Tag.PATH_SEPARATOR_STRING + components.get(i));
         
-        return Tag.for_path(parent_path);
+        if (Tag.global.exists(parent_path))
+            return Tag.for_path(parent_path);
+        else
+            return null;
     }
     
     public int get_attachment_count(MediaSource source) {
@@ -961,7 +964,15 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
                 // keep these loop-local temporaries around -- it's useful to be able to print them
                 // out when debugging     
                 string old_child_path = child.get_path();
-                string new_child_path = old_child_path.replace(old_path, new_path);
+                
+                // find the first instance of old_path in the child path -- we want to replace
+                // the first and only the first instance
+                int old_path_index = old_child_path.index_of(old_path);
+                assert(old_path_index != -1);
+                
+                string child_subpath = old_child_path.substring(old_path_index + old_path.length);
+                
+                string new_child_path = new_path + child_subpath;
 
                 child.set_raw_path(new_child_path, true);
             }
