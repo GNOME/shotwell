@@ -4166,6 +4166,9 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
             LibraryPhoto photo = (LibraryPhoto) media;
             PhotoMetadata metadata = photo.get_metadata();
             
+            // get an index of all the htags in the application
+            HierarchicalTagIndex global_index = HierarchicalTagIndex.get_global_index();
+            
             // if any hierarchical tag information is available, process it first. hierarchical tag
             // information must be processed first to avoid tag duplication, since most photo
             // management applications that support hierarchical tags also "flatten" the
@@ -4183,6 +4186,13 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                         continue;
 
                     string? name = Tag.prep_tag_name(keyword);
+
+                    if (global_index.is_tag_in_index(name)) {
+                        string most_derived_path = global_index.get_path_for_name(name);
+                        map.set(Tag.for_path(most_derived_path), photo);
+                        continue;
+                    }
+
                     if (name != null)
                         map.set(Tag.for_path(name), photo);
                 }
