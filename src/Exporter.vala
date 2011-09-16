@@ -58,7 +58,7 @@ public class Exporter : Object {
         REPLACE_ALL
     }
     
-    public delegate void CompletionCallback(Exporter exporter);
+    public delegate void CompletionCallback(Exporter exporter, bool is_cancelled);
     
     public delegate Overwrite OverwriteCallback(Exporter exporter, File file);
     
@@ -149,7 +149,7 @@ public class Exporter : Object {
         this.cancellable = cancellable ?? new Cancellable();
         
         if (!process_queue())
-            export_completed();
+            export_completed(true);
     }
     
     private void on_exported(BackgroundJob j) {
@@ -182,12 +182,12 @@ public class Exporter : Object {
         }
         
         if (completed)
-            export_completed();
+            export_completed(false);
     }
     
     private void on_export_cancelled(BackgroundJob j) {
         if (++completed_count == to_export.size)
-            export_completed();
+            export_completed(true);
     }
     
     public File[] get_exported_files() {
@@ -294,8 +294,8 @@ public class Exporter : Object {
         return submitted > 0;
     }
     
-    private void export_completed() {
-        completion_callback(this);
+    private void export_completed(bool is_cancelled) {
+        completion_callback(this, is_cancelled);
     }
 }
 
@@ -319,7 +319,7 @@ public class ExporterUI {
             progress_dialog.monitor);
     }
     
-    private void on_export_completed(Exporter exporter) {
+    private void on_export_completed(Exporter exporter, bool is_cancelled) {
         if (progress_dialog != null) {
             progress_dialog.close();
             progress_dialog = null;
@@ -327,7 +327,7 @@ public class ExporterUI {
         
         AppWindow.get_instance().set_normal_cursor();
         
-        completion_callback(exporter);
+        completion_callback(exporter, is_cancelled);
     }
     
     private Exporter.Overwrite on_export_overwrite(Exporter exporter, File file) {
