@@ -43,6 +43,21 @@ public errordomain MetadataDateTimeError {
 }
 
 public class MetadataDateTime {
+    // known EXIF date/time formats, starting with the standard one, followed by others that have
+    // been seen in the wild ... this array is attempted sequentially, so keep that in mind if
+    // new formats are added.  Also, all formats should yield 6 int values in this order:
+    // year, month, day, hour, minute, second
+    private static string[] EXIF_DATE_TIME_FORMATS = {
+        "%d:%d:%d %d:%d:%d",
+        
+        // for Minolta DiMAGE E223 (colon, instead of space, separates day from hour in exif)
+        "%d:%d:%d:%d:%d:%d",
+        
+        // for Samsung NV10 (which uses a period instead of colons for the date and two spaces
+        // between date and time)
+        "%d.%d.%d  %d:%d:%d"
+    };
+    
     private time_t timestamp;
     
     public MetadataDateTime(time_t timestamp) {
@@ -87,15 +102,19 @@ public class MetadataDateTime {
     
     public static bool from_exif_date_time(string date_time, out time_t timestamp) {
         Time tm = Time();
-
-        if (date_time.scanf("%d:%d:%d %d:%d:%d", &tm.year, &tm.month, &tm.day, &tm.hour, &tm.minute,
-            &tm.second) != 6) {
-            // for Minolta DiMAGE E223 (colon, instead of space, separates day from hour in exif)
-            if (date_time.scanf("%d:%d:%d:%d:%d:%d", &tm.year, &tm.month, &tm.day, &tm.hour, &tm.minute,
-                &tm.second) != 6) {
-                return false;
+        
+        bool found = false;
+        foreach (string fmt in EXIF_DATE_TIME_FORMATS) {
+            if (date_time.scanf(fmt, &tm.year, &tm.month, &tm.day, &tm.hour, &tm.minute,
+                &tm.second) == 6) {
+                found = true;
+                
+                break;
             }
         }
+        
+        if (!found)
+            return false;
         
         // watch for bogosity
         if (tm.year <= 1900 || tm.month <= 0 || tm.day < 0 || tm.hour < 0 || tm.minute < 0 || tm.second < 0)
