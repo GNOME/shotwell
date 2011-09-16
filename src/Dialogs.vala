@@ -1154,13 +1154,18 @@ public class ProgressDialog : Gtk.Window {
         if ((last_count == uint64.MAX) || (count - last_count) >= update_every) {
             set_percentage((double) count / (double) total);
             last_count = count;
-            
-            // TODO: get rid of this.  non-trivial, as some progress-monitor operations are blocking
-            // and need to allow the event loop to spin
-            spin_event_loop();
         }
         
-        return (cancellable != null) ? !cancellable.is_cancelled() : true;
+        bool keep_going = (cancellable != null) ? !cancellable.is_cancelled() : true;
+        
+        // TODO: get rid of this.  non-trivial, as some progress-monitor operations are blocking
+        // and need to allow the event loop to spin
+        //
+        // Important: Since it's possible the progress dialog might be destroyed inside this call,
+        // avoid referring to "this" afterwards at all costs (in case all refs have been dropped)
+        spin_event_loop();
+        
+        return keep_going;
     }
     
     public void close() {
