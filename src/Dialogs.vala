@@ -480,15 +480,17 @@ public class QuestionParams {
 
 public bool import_has_photos(Gee.Collection<BatchImportResult> import_collection) {
     foreach (BatchImportResult current_result in import_collection) {
-        if (PhotoFileFormat.get_by_file_extension(current_result.file) != PhotoFileFormat.UNKNOWN)
+        if (current_result.file != null
+            && PhotoFileFormat.get_by_file_extension(current_result.file) != PhotoFileFormat.UNKNOWN) {
             return true;
+        }
     }
     return false;
 }
 
 public bool import_has_videos(Gee.Collection<BatchImportResult> import_collection) {
     foreach (BatchImportResult current_result in import_collection) {
-        if (VideoReader.is_supported_video_file(current_result.file))
+        if (current_result.file != null && VideoReader.is_supported_video_file(current_result.file))
             return true;
     }
     return false;
