@@ -1503,8 +1503,8 @@ public class ReparentTagCommand : PageCommand {
     Gee.List<SourceProxy>? dest_before_state = null;
     Gee.List<SourceProxy>? after_state = null;
     Gee.HashSet<MediaSource> sources_in_play = new Gee.HashSet<MediaSource>();
-    Gee.Map<Tag, Gee.Set<MediaSource>> dest_parent_attachments = null;
-    Gee.Map<Tag, Gee.Set<MediaSource>> src_parent_detachments = null;
+    Gee.Map<string, Gee.Set<MediaSource>> dest_parent_attachments = null;
+    Gee.Map<string, Gee.Set<MediaSource>> src_parent_detachments = null;
     Gee.Map<string, Gee.Set<MediaSource>> in_play_child_structure = null;
     Gee.Map<string, Gee.Set<MediaSource>> existing_dest_child_structure = null;
     
@@ -1716,13 +1716,14 @@ public class ReparentTagCommand : PageCommand {
         
         // see if this copy operation will detach any media items from the source tag's parents
         if (src_parent_detachments == null) {
-            src_parent_detachments = new Gee.HashMap<Tag, Gee.Set<MediaSource>>();
-            foreach (MediaSource source in from_tag.get_sources()) {           
+            src_parent_detachments = new Gee.HashMap<string, Gee.Set<MediaSource>>();
+            foreach (MediaSource source in from_tag.get_sources()) {
                 Tag? current_parent = from_tag.get_hierarchical_parent();
                 int running_attach_count = from_tag.get_attachment_count(source) + 1;
                 while (current_parent != null) {
-                    if (!src_parent_detachments.has_key(current_parent))
-                        src_parent_detachments.set(current_parent, new Gee.HashSet<MediaSource>());
+                    string current_parent_path = current_parent.get_path();
+                    if (!src_parent_detachments.has_key(current_parent_path))
+                        src_parent_detachments.set(current_parent_path, new Gee.HashSet<MediaSource>());
 
                     int curr_parent_attach_count = current_parent.get_attachment_count(source);
                     
@@ -1731,7 +1732,7 @@ public class ReparentTagCommand : PageCommand {
                     // if this parent tag has no other child tags that the current media item is
                     // attached to
                     if (curr_parent_attach_count == running_attach_count)
-                        src_parent_detachments.get(current_parent).add(source);
+                        src_parent_detachments.get(current_parent_path).add(source);
 
                     running_attach_count++;
                     current_parent = current_parent.get_hierarchical_parent();
@@ -1740,33 +1741,33 @@ public class ReparentTagCommand : PageCommand {
         }
         
         // perform collected detachments
-        foreach (Tag p in src_parent_detachments.keys)
+        foreach (string p in src_parent_detachments.keys)
             foreach (MediaSource s in src_parent_detachments.get(p))
-                p.detach(s);
+                Tag.for_path(p).detach(s);
     }
     
     private void do_source_parent_reattachments() {
         assert(src_parent_detachments != null);
         
-        foreach (Tag p in src_parent_detachments.keys)
+        foreach (string p in src_parent_detachments.keys)
             foreach (MediaSource s in src_parent_detachments.get(p))
-                p.attach(s);
+                Tag.for_path(p).attach(s);
     }
     
     private void do_destination_parent_detachments() {
         assert(dest_parent_attachments != null);
         
-        foreach (Tag p in dest_parent_attachments.keys)
+        foreach (string p in dest_parent_attachments.keys)
             foreach (MediaSource s in dest_parent_attachments.get(p))
-                p.detach(s);
+                Tag.for_path(p).detach(s);
     }
     
     private void do_destination_parent_reattachments() {
         assert(dest_parent_attachments != null);
         
-        foreach (Tag p in dest_parent_attachments.keys)
+        foreach (string p in dest_parent_attachments.keys)
             foreach (MediaSource s in dest_parent_attachments.get(p))
-                p.attach(s);
+                Tag.for_path(p).attach(s);
     }
     
     private void copy_subtree(string from, string to) {
@@ -1778,15 +1779,16 @@ public class ReparentTagCommand : PageCommand {
         
         // see if this copy operation will attach any new media items to the destination's parents,
         // if so, record them for later undo/redo
-        dest_parent_attachments = new Gee.HashMap<Tag, Gee.Set<MediaSource>>();
-        foreach (MediaSource source in from_tag.get_sources()) {            
+        dest_parent_attachments = new Gee.HashMap<string, Gee.Set<MediaSource>>();
+        foreach (MediaSource source in from_tag.get_sources()) {
             Tag? current_parent = to_tag.get_hierarchical_parent();
             while (current_parent != null) {
-                if (!dest_parent_attachments.has_key(current_parent))
-                    dest_parent_attachments.set(current_parent, new Gee.HashSet<MediaSource>());
+                string current_parent_path = current_parent.get_path();
+                if (!dest_parent_attachments.has_key(current_parent_path))
+                    dest_parent_attachments.set(current_parent_path, new Gee.HashSet<MediaSource>());
 
                 if (!current_parent.contains(source))
-                    dest_parent_attachments.get(current_parent).add(source);
+                    dest_parent_attachments.get(current_parent_path).add(source);
             
                 current_parent = current_parent.get_hierarchical_parent();
             }
