@@ -394,11 +394,17 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             AppWindow.database_error(err);
         }
         
-        // turn them into Tag objects
-        Gee.ArrayList<Tag> tags = new Gee.ArrayList<Tag>();
+        // turn the freshly-read TagRows into Tag objects.
+
+        // a lookup table of fully-qualified path ancestries and their  
+        // attendant tag objects, used later for finding and deleting child     
+        // tags with missing parents or incorrect source counts, then
+        // finally adding the remaining tags to the global media source list.
+        Gee.TreeMap<string, Tag> ancestry_dictionary = new Gee.TreeMap<string, Tag>();
+
         Gee.ArrayList<Tag> unlinked = new Gee.ArrayList<Tag>();
         int count = rows.size;
-        for (int ctr = 0; ctr < count; ctr++) {
+        for (int ctr = 0; ctr < count; ctr++) {                                          
             TagRow row = rows.get(ctr);
             
             // make sure the tag name is valid
@@ -421,26 +427,94 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             Tag tag = new Tag(row);
             if (monitor != null)
                 monitor(ctr, count);
+
+            ancestry_dictionary.set(tag.get_path(), tag);
             
-            if (tag.get_sources_count() != 0) {
-                tags.add(tag);
-                
+            if (tag.get_sources_count() != 0) {                          
                 continue;
             }
             
-            if (tag.has_links()) {
+            if (tag.has_links()) {                                             
                 tag.rehydrate_backlinks(global, null);
                 unlinked.add(tag);
                 
                 continue;
             }
             
+            // prevent ourselves from accidentally adding a destroyed
+            // tag later on
+            ancestry_dictionary.unset(tag.get_path());            
             tag.destroy_orphan(true);
         }
         
-        // add them all at once to the SourceCollection
-        global.add_many(tags);
+        // look through the dictionary for children with invalid source 
+        // counts and/or missing parents and reap them. we'll also flatten
+        // any top-level parents who have 0 children remaining after the reap.
+        Gee.Set<Tag> victim_set = new Gee.HashSet<Tag>();
+        Gee.Set<Tag> flatten_set = new Gee.HashSet<Tag>();
+        
+        foreach (string fq_tag_path in ancestry_dictionary.keys) { 
+            Gee.List<string> parents_to_search = 
+                HierarchicalTagUtilities.enumerate_parent_paths(fq_tag_path);
+                
+                Tag curr_child = ancestry_dictionary.get(fq_tag_path);
+            
+            foreach (string parent_path in parents_to_search) {
+                // if this tag has more sources than its parent, then we're
+                // in an inconsistent state and need to remove this tag.               
+                int child_ref_count = curr_child.get_sources_count();
+                int parent_ref_count = -1; 
+                
+                // does this parent even exist?
+                if (ancestry_dictionary.has_key(parent_path)) {
+                    // yes, get its source count and remember to check
+                    // it for flattening later.
+                    parent_ref_count = ancestry_dictionary.get(parent_path).get_sources_count();
+                    
+                    if (HierarchicalTagUtilities.enumerate_parent_paths(parent_path).size < 1) {
+                        flatten_set.add(ancestry_dictionary.get(parent_path));
+                    }
+                }
+                                
+                // do we have more sources than our parent?
+                if (child_ref_count > parent_ref_count) {
+                    // yes, ask to be reaped later. we can't kill ourselves
+                    // now because it would interfere with the dictionary's
+                    // iterator.
+                    victim_set.add(curr_child);
+
+                    // if we already know we're going to be reaped,
+                    // don't search anymore.
+                    break;
+                }
+
+                // is our parent being reaped? 
+                if (victim_set.contains(ancestry_dictionary.get(parent_path))) {
+                    // yes, we have to be reaped too.
+                    victim_set.add(curr_child);
+                    break;
+                }                
+            }
+        }
+
+        // actually reap invalid children.
+        foreach (Tag t in victim_set) { 
+            ancestry_dictionary.unset(t.get_path());
+            t.destroy_orphan(true);
+        }
+
+        // add remaining tags all at once to the SourceCollection
+        global.add_many(ancestry_dictionary.values);
         global.init_add_many_unlinked(unlinked);
+        
+        // flatten parents who have lost children as needed
+        foreach (Tag t in flatten_set) {
+            // do we have no parent and no children?
+            if ((t.get_hierarchical_children().size < 1) && (t.get_hierarchical_children().size < 1)) {
+                //yes, flatten.
+                t.flatten();
+            }
+        }
     }
     
     public static void terminate() {
