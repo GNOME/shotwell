@@ -1574,8 +1574,11 @@ public class ReparentTagCommand : PageCommand {
         return result;
     }
     
-    private void restore_child_attachments_at(string path,
-        Gee.Map<string, Gee.Set<MediaSource>> child_structure) {        
+    private void restore_child_attachments_at(string client_path,
+        Gee.Map<string, Gee.Set<MediaSource>> child_structure) {
+        
+        string? new_path = HierarchicalTagUtilities.get_root_path_form(client_path);
+        string path = (new_path != null) ? new_path : client_path;
         
         assert(Tag.global.exists(path));
         Tag tag = Tag.for_path(path);
@@ -1595,7 +1598,10 @@ public class ReparentTagCommand : PageCommand {
         }
     }
     
-    private void reattach_in_play_sources_at(string path) {
+    private void reattach_in_play_sources_at(string client_path) {
+        string? new_path = HierarchicalTagUtilities.get_root_path_form(client_path);
+        string path = (new_path != null) ? new_path : client_path;
+        
         assert(Tag.global.exists(path));
         
         Tag tag = Tag.for_path(path);
@@ -1707,14 +1713,18 @@ public class ReparentTagCommand : PageCommand {
             dest_before_state.get(i).get_source();
 
         if (to_path_parent_path != null) {
-            assert(Tag.global.exists(to_path_parent_path));
-            Tag t = Tag.for_path(to_path_parent_path);
+            string? new_path = HierarchicalTagUtilities.get_root_path_form(to_path_parent_path);
+            string path = (new_path != null) ? new_path : to_path_parent_path;  
+
+            assert(Tag.global.exists(path));
+            
+            Tag t = Tag.for_path(path);
 
             Gee.List<Tag> kids = t.get_hierarchical_children();
             foreach (Tag kidtag in kids)
                 kidtag.detach_many(kidtag.get_sources());
 
-            restore_child_attachments_at(to_path_parent_path, existing_dest_child_structure);
+            restore_child_attachments_at(path, existing_dest_child_structure);
         } else {
             assert(existing_dest_membership != null);
             Tag.for_path(to_path).detach_many(Tag.for_path(to_path).get_sources());
@@ -1874,7 +1884,11 @@ public class ReparentTagCommand : PageCommand {
         }
     }
     
-    private void destroy_subtree(string victim_path) {
+    private void destroy_subtree(string client_path) {
+        string? victim_path = HierarchicalTagUtilities.get_root_path_form(client_path);
+        if (victim_path == null)
+            victim_path = client_path;
+        
         if (!Tag.global.exists(victim_path))
             return;
             
