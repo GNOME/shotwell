@@ -156,7 +156,11 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry,
         if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
             string old_tag_path = (string) data.get_data();
             assert (Tag.global.exists(old_tag_path));
-            
+
+            // if this is already a top-level tag, do a short-circuit return
+            if (HierarchicalTagUtilities.enumerate_path_components(old_tag_path).size < 2)
+                return true;
+
             AppWindow.get_command_manager().execute(
                 new ReparentTagCommand(Tag.for_path(old_tag_path), "/"));
             
