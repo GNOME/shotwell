@@ -1587,8 +1587,8 @@ public class ReparentTagCommand : PageCommand {
             string child_path = tag.get_path() + Tag.PATH_SEPARATOR_STRING + child_subpath;
 
             if (!tag.get_path().has_prefix(Tag.PATH_SEPARATOR_STRING)) {
-                child_path = Tag.PATH_SEPARATOR_STRING + child_path;
                 tag.promote();
+                child_path = tag.get_path() + Tag.PATH_SEPARATOR_STRING + child_subpath;
             }
             
             assert(Tag.global.exists(child_path));
