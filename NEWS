@@ -1,3 +1,14 @@
+Shotwell 0.11.2 - 20 September 2011 - "Strap them to a Rickshaw"
+---------------------------------------------------------------------
+
+  * Increases stability working with hierarchical tags
+  * Importing hierarchical tags from F-Spot now works properly
+  * Fixes "server redirect contained no session key" errors in
+    the Facebook Connector
+  * Corrects problems with item counts over mixed media
+  * Various small fixes and enhancements
+
+
 Shotwell 0.11.1 - 8 September 2011 - "It's Been Flagged"
 ---------------------------------------------------------------------
 
