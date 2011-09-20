@@ -1,3 +1,15 @@
+shotwell (0.11.2-1~natty1) natty; urgency=low
+
+  * Increases stability working with hierarchical tags
+  * Importing hierarchical tags from F-Spot now works properly
+  * Fixes "server redirect contained no session key" errors in
+    the Facebook Connector
+  * Corrects problems with item counts over mixed media
+  * Various small fixes and enhancements
+
+ -- Lucas Beeler <lucas@yorba.org>  Tue, 20 September 2011 15:00:00 -0800 
+
+
 shotwell (0.11.1-1~natty1) natty; urgency=low
 
   * RAW+JPEG pairing now works on file import
