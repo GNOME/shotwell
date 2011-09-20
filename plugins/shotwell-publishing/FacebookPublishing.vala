@@ -1872,8 +1872,8 @@ internal class FacebookRESTXmlDocument {
             warning("Unable to parse error response for error message");
         }
 
-        // 102 errors occur when the session key has become invalid
-        if ((error_code != null) && (error_code->get_content() == "102")) {
+        // 190 errors occur when the session key has become invalid
+        if ((error_code != null) && (error_code->get_content() == "190")) {
             throw new Spit.Publishing.PublishingError.EXPIRED_SESSION("session key has become invalid");
         }
 
