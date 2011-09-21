@@ -37,6 +37,7 @@ public class StaticMessagePane : ConcreteDialogPane {
     public StaticMessagePane.with_pango(string msg) {
         Gtk.Label label = new Gtk.Label(null);
         label.set_markup(msg);
+        label.set_line_wrap(true);
         
         (get_widget() as Gtk.Container).add(label);
     }
