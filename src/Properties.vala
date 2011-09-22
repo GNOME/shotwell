@@ -190,7 +190,7 @@ private class BasicProperties : Properties {
             if (source is Photo && ((Photo) source).get_master_file_format() == PhotoFileFormat.RAW) {
                 Photo photo = source as Photo;
                 raw_developer = photo.get_raw_developer().get_label();
-                raw_assoc = photo.is_raw_developer_available(RawDeveloper.CAMERA) ? _("RAW + JPEG") : "";
+                raw_assoc = photo.is_raw_developer_available(RawDeveloper.CAMERA) ? _("RAW+JPEG") : "";
             }
         } else if (source is EventSource) {
             EventSource event_source = (EventSource) source;

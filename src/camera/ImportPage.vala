@@ -305,7 +305,7 @@ class ImportPreview : MediaSourceItem {
                 pixbuf = photo_import_source.get_metadata().get_orientation().rotate_pixbuf(pixbuf);
             
             if (photo_import_source.get_associated() != null) {
-                set_subtitle("<small>%s</small>".printf(_("RAW + JPEG")), true);
+                set_subtitle("<small>%s</small>".printf(_("RAW+JPEG")), true);
             }
         }
         
