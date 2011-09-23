@@ -266,7 +266,7 @@ public class FaceRectangle : FaceShape {
         int y = 0;
         
         if (canvas.get_container() == appWindow) {
-            appWindow.window.get_origin(out x, out y);
+            appWindow.get_window().get_origin(out x, out y);
             appWindow.get_current_page().get_allocation(out page_alloc);
             
             x += page_alloc.x;

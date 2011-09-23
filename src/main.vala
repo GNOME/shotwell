@@ -40,9 +40,9 @@ void library_exec(string[] mounts) {
     shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
     shotwell.message_received.connect(on_shotwell_message);
 
-    was_already_running = shotwell.is_running;
+    was_already_running = shotwell.is_running();
     
-    if (shotwell.is_running) {
+    if (was_already_running) {
         // send attached cameras & activate the window
         foreach (string mount in mounts) {
             Unique.MessageData data = new Unique.MessageData();

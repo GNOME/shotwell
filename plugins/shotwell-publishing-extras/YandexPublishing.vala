@@ -133,7 +133,7 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     private void on_page_load(WebKit.WebFrame origin_frame) {
-        pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
     }
 
     private WebKit.NavigationResponse navigation_requested (WebKit.WebFrame frame, WebKit.NetworkRequest req) {
@@ -145,7 +145,7 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
             string access_token = info.fetch_all()[2];
 
             debug("Load completed: %s", access_token);
-            pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+            pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
             if (access_token != null) {
                 login_succeeded(access_token);
                 return WebKit.NavigationResponse.IGNORE;
@@ -156,7 +156,7 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     private void on_load_started(WebKit.WebFrame frame) {
-        pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
     }
 
     public Gtk.Widget get_widget() {
@@ -189,7 +189,7 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
     private Gtk.Builder builder;
     private Gtk.Button logout_button;
     private Gtk.Button publish_button;
-    private Gtk.ComboBoxEntry album_list;
+    private Gtk.ComboBoxText album_list;
 
     private weak PublishOptions options;
 
@@ -222,7 +222,7 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
             builder.connect_signals(null);
             Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
 
-            album_list = builder.get_object ("album_list") as Gtk.ComboBoxEntry;
+            album_list = builder.get_object ("album_list") as Gtk.ComboBoxText;
             foreach (string key in list.keys)
                 album_list.append_text(key);
             
@@ -253,7 +253,7 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
         tmp = builder.get_object("disable_comments_check") as Gtk.CheckButton;
         options.disable_comments = tmp.active;
 
-        Gtk.ComboBoxEntry access_type = builder.get_object("access_type_list") as Gtk.ComboBoxEntry;
+        Gtk.ComboBoxText access_type = builder.get_object("access_type_list") as Gtk.ComboBoxText;
         options.access_type = access_type.get_active_text();
 
         publish();

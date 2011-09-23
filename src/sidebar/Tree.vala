@@ -1051,7 +1051,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         if (selection_data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
             success = targetable.internal_drop_received_arbitrary(selection_data);
         } else {
-            Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.data,
+            Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.get_data(),
                 selection_data.get_length());
             if (media != null && media.size > 0)
                 success = targetable.internal_drop_received(media);
@@ -1074,7 +1074,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         else if (pos == Gtk.TreeViewDropPosition.AFTER)
             set_drag_dest_row(path, Gtk.TreeViewDropPosition.INTO_OR_AFTER);
         
-        Gdk.drag_status(context, context.suggested_action, time);
+        Gdk.drag_status(context, context.get_suggested_action(), time);
         
         return has_dest;
     }

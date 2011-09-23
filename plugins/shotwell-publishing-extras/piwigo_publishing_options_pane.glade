@@ -62,7 +62,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="existing_categories_combo">
+                  <object class="GtkComboBoxText" id="existing_categories_combo">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                   </object>
@@ -111,7 +111,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="perms_combo">
+                  <object class="GtkComboBoxText" id="perms_combo">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                   </object>

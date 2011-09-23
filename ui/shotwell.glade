@@ -121,7 +121,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="Type of search criteria">
+                  <object class="GtkComboBoxText" id="Type of search criteria">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                   </object>
@@ -977,7 +977,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="default_raw_developer">
+                      <object class="GtkComboBoxText" id="default_raw_developer">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                       </object>

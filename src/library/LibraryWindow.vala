@@ -792,7 +792,7 @@ public class LibraryWindow : AppWindow {
             basic_properties.update_properties(get_current_page());
             bottom_frame.show();
         } else {
-            if (sidebar_paned.child2 != null) {
+            if (sidebar_paned.get_child2() != null) {
                 bottom_frame.hide();
             }
         }
@@ -889,7 +889,7 @@ public class LibraryWindow : AppWindow {
     private Gdk.DragAction get_drag_action() {
         Gdk.ModifierType mask;
         
-        window.get_pointer(null, null, out mask);
+        get_window().get_pointer(null, null, out mask);
 
         bool ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         bool alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
@@ -907,7 +907,9 @@ public class LibraryWindow : AppWindow {
     
     public override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
         Gdk.Atom target = Gtk.drag_dest_find_target(this, context, Gtk.drag_dest_get_target_list(this));
-        if (((int) target) == ((int) Gdk.Atom.NONE)) {
+        // Want to use GDK_NONE (or, properly bound, Gdk.Atom.NONE) but GTK3 doesn't have it bound
+        // See: https://bugzilla.gnome.org/show_bug.cgi?id=655094
+        if (((int) target) == 0) {
             debug("drag target is GDK_NONE");
             Gdk.drag_status(context, 0, time);
             
@@ -934,7 +936,7 @@ public class LibraryWindow : AppWindow {
     
     public override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
-        if (selection_data.length < 0)
+        if (selection_data.get_data().length < 0)
             debug("failed to retrieve SelectionData");
         
         // If an external drop, piggyback on the sidebar ExternalDropHandler, otherwise it's an
@@ -953,7 +955,8 @@ public class LibraryWindow : AppWindow {
         foreach (string uri in uris_array)
             uris.append(uri);
         
-        if (context.action == Gdk.DragAction.ASK) {
+        Gdk.DragAction selected_action = context.get_selected_action();
+        if (selected_action == Gdk.DragAction.ASK) {
             // Default action is to link, unless one or more URIs are external to the library
             Gtk.ResponseType result = Gtk.ResponseType.REJECT;
             foreach (string uri in uris) {
@@ -966,11 +969,11 @@ public class LibraryWindow : AppWindow {
             
             switch (result) {
                 case Gtk.ResponseType.ACCEPT:
-                    context.action = Gdk.DragAction.COPY;
+                    selected_action = Gdk.DragAction.COPY;
                 break;
                 
                 case Gtk.ResponseType.REJECT:
-                    context.action = Gdk.DragAction.LINK;
+                    selected_action = Gdk.DragAction.LINK;
                 break;
                 
                 default:
@@ -981,7 +984,7 @@ public class LibraryWindow : AppWindow {
             }
         }
         
-        dispatch_import_jobs(uris, "drag-and-drop", context.action == Gdk.DragAction.COPY);
+        dispatch_import_jobs(uris, "drag-and-drop", selected_action == Gdk.DragAction.COPY);
         
         Gtk.drag_finish(context, true, false, time);
     }

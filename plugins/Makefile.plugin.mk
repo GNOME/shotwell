@@ -44,6 +44,7 @@ all: $(PLUGIN).so
 		-X -I../.. -X -fPIC \
 		$(foreach dfn,$(DEFINES),-X $(dfn)) \
 		$(USER_VALAFLAGS) \
+		--vapidir=../../vapi \
 		$(SRC_FILES)
 	@touch .stamp
 

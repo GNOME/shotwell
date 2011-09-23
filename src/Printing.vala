@@ -274,7 +274,7 @@ public class CustomPrintTab : Gtk.Fixed {
     private Gtk.RadioButton image_per_page_radio = null;
     private Gtk.ComboBox image_per_page_combo = null;
     private Gtk.ComboBox standard_sizes_combo = null;
-    private Gtk.ComboBox units_combo = null;
+    private Gtk.ComboBoxText units_combo = null;
     private Gtk.Entry custom_width_entry = null;
     private Gtk.Entry custom_height_entry = null;
     private Gtk.Entry ppi_entry;
@@ -383,7 +383,7 @@ public class CustomPrintTab : Gtk.Fixed {
         custom_height_entry.insert_text.connect(on_entry_insert_text);
         custom_height_entry.focus_out_event.connect(on_height_entry_focus_out);
         Gtk.Label custom_mulsign_label = new Gtk.Label(" x ");
-        units_combo = new Gtk.ComboBox.text();
+        units_combo = new Gtk.ComboBoxText();
         units_combo.append_text(_("in."));
         units_combo.append_text(_("cm"));
         units_combo.set_active(0);

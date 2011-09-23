@@ -25,7 +25,7 @@ class SlideshowPage : SinglePhotoPage {
     private class SettingsDialog : Gtk.Dialog {
         Gtk.SpinButton delay_entry;
         Gtk.HScale hscale;
-        Gtk.ComboBox transition_effect_selector;
+        Gtk.ComboBoxText transition_effect_selector;
         Gtk.HScale transition_effect_hscale;
         Gtk.SpinButton transition_effect_entry;
         Gtk.Adjustment transition_effect_adjustment;
@@ -58,7 +58,7 @@ class SlideshowPage : SinglePhotoPage {
             delay_entry.set_numeric(true);
             delay_entry.set_activates_default(true);
 
-            transition_effect_selector = new Gtk.ComboBox.text();
+            transition_effect_selector = new Gtk.ComboBoxText();
             Gtk.Label transition_effect_selector_label = new Gtk.Label.with_mnemonic(
                 _("_Transition effect:"));
             transition_effect_selector_label.xalign = (float) 1.0;
@@ -150,7 +150,7 @@ class SlideshowPage : SinglePhotoPage {
                 Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
                 3, 0);
             
-            vbox.pack_start(tbl, true, false, 6);
+            ((Gtk.Box) get_content_area()).pack_start(tbl, true, false, 6);
             
             on_transition_changed();
         }

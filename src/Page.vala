@@ -84,7 +84,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         last_down = { -1, -1 };
         
-        set_flags(Gtk.WidgetFlags.CAN_FOCUS);
+        set_can_focus(true);
 
         popup_menu.connect(on_context_keypress);
         
@@ -178,7 +178,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         assert(this.event_source == null);
 
         this.event_source = event_source;
-        event_source.set_flags(Gtk.WidgetFlags.CAN_FOCUS);
+        event_source.set_can_focus(true);
 
         // interested in mouse button and motion events on the event source
         event_source.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
@@ -366,22 +366,29 @@ public abstract class Page : Gtk.ScrolledWindow {
         return super_pressed;
     }
     
-    private void get_modifiers(out bool ctrl, out bool alt, out bool shift, out bool super) {
+    private bool get_modifiers(out bool ctrl, out bool alt, out bool shift, out bool super) {
+        if (AppWindow.get_instance().get_window() == null)
+            return false;
+        
         int x, y;
         Gdk.ModifierType mask;
-        AppWindow.get_instance().window.get_pointer(out x, out y, out mask);
-
+        AppWindow.get_instance().get_window().get_pointer(out x, out y, out mask);
+        
         ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
         shift = (mask & Gdk.ModifierType.SHIFT_MASK) != 0;
         super = (mask & Gdk.ModifierType.MOD4_MASK) != 0; // not SUPER_MASK
+        
+        return true;
     }
 
     private void update_modifiers() {
         bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed,
             super_currently_pressed;
-        get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
-            out shift_currently_pressed, out super_currently_pressed);
+        if (!get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
+            out shift_currently_pressed, out super_currently_pressed)) {
+            return;
+        }
         
         if (ctrl_pressed && !ctrl_currently_pressed)
             on_ctrl_released(null);
@@ -658,7 +665,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         if (event_source == null)
             return false;
         
-        event_source.window.get_pointer(out x, out y, out mask);
+        event_source.get_window().get_pointer(out x, out y, out mask);
         
         if (last_down.x < 0 || last_down.y < 0)
             return true;
@@ -955,6 +962,9 @@ public abstract class Page : Gtk.ScrolledWindow {
         if ((now_ms() - last_configure_ms) < CONSIDER_CONFIGURE_HALTED_MSEC)
             return true;
         
+        Gtk.Allocation allocation;
+        get_allocation(out allocation);
+        
         if (report_move_finished)
             on_move_finished((Gdk.Rectangle) allocation);
         
@@ -1054,21 +1064,21 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
 
     protected void on_event_source_realize() {
-        assert(event_source.window != null); // the realize event means the Widget has a window
+        assert(event_source.get_window() != null); // the realize event means the Widget has a window
 
-        if (event_source.window.get_cursor() != null) {
-            last_cursor = event_source.window.get_cursor().type;
+        if (event_source.get_window().get_cursor() != null) {
+            last_cursor = event_source.get_window().get_cursor().get_cursor_type();
             return;
         }
 
         // no custom cursor defined, check parents
-        Gdk.Window? parent_window = event_source.window;
+        Gdk.Window? parent_window = event_source.get_window();
         do {
             parent_window = parent_window.get_parent();
         } while (parent_window != null && parent_window.get_cursor() == null);
         
         if (parent_window != null)
-            last_cursor = parent_window.get_cursor().type;
+            last_cursor = parent_window.get_cursor().get_cursor_type();
     }
 
     public void set_cursor_hide_time(int hide_time) {
@@ -1103,7 +1113,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         last_cursor = cursor_type;
 
         if (!cursor_hidden && event_source != null)
-            event_source.window.set_cursor(new Gdk.Cursor(cursor_type));
+            event_source.get_window().set_cursor(new Gdk.Cursor(cursor_type));
     }
 
     private void check_cursor_hiding() {
@@ -1123,7 +1133,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         cursor_hidden = true;
 
         if (event_source != null)
-            event_source.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.BLANK_CURSOR));
+            event_source.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.BLANK_CURSOR));
 
         return false;
     }
@@ -1889,8 +1899,8 @@ public abstract class SinglePhotoPage : Page {
             | Gdk.EventMask.SUBSTRUCTURE_MASK);
         
         viewport.size_allocate.connect(on_viewport_resize);
-        canvas.expose_event.connect(on_canvas_exposed);
-
+        canvas.draw.connect(on_canvas_exposed);
+        
         set_event_source(canvas);
     }
     
@@ -1949,7 +1959,7 @@ public abstract class SinglePhotoPage : Page {
 
     protected void on_interactive_zoom(ZoomState interactive_zoom_state) {
         assert(is_zoom_supported());
-        Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.window);
+        Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.get_window());
         
         Gdk.cairo_set_source_color(pixmap_ctx, canvas.get_style().black);
         pixmap_ctx.paint();
@@ -1965,7 +1975,7 @@ public abstract class SinglePhotoPage : Page {
 
     protected void on_interactive_pan(ZoomState interactive_zoom_state) {
         assert(is_zoom_supported());
-        Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.window);
+        Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.get_window());
         
         Gdk.cairo_set_source_color(pixmap_ctx, canvas.style.black);
         pixmap_ctx.paint();
@@ -2115,13 +2125,13 @@ public abstract class SinglePhotoPage : Page {
     }
     
     public void invalidate(Gdk.Rectangle rect) {
-        if (canvas.window != null)
-            canvas.window.invalidate_rect(rect, false);
+        if (canvas.get_window() != null)
+            canvas.get_window().invalidate_rect(rect, false);
     }
     
     public void invalidate_all() {
-        if (canvas.window != null)
-            canvas.window.invalidate_rect(null, false);
+        if (canvas.get_window() != null)
+            canvas.get_window().invalidate_rect(null, false);
     }
     
     private void on_viewport_resize() {
@@ -2136,13 +2146,7 @@ public abstract class SinglePhotoPage : Page {
         repaint();
     }
     
-    private bool on_canvas_exposed(Gdk.EventExpose event) {
-        // to avoid multiple exposes
-        if (event.count > 0)
-            return false;
-        
-        Cairo.Context exposed_ctx = Gdk.cairo_create(canvas.window);
-        
+    private bool on_canvas_exposed(Cairo.Context exposed_ctx) {
         // draw pixmap onto canvas unless it's not been instantiated, in which case draw black
         // (so either old image or contents of another page is not left on screen)
         if (pixmap != null)
@@ -2150,7 +2154,7 @@ public abstract class SinglePhotoPage : Page {
         else
             Gdk.cairo_set_source_color(exposed_ctx, canvas.style.black);
         
-        exposed_ctx.rectangle(event.area.x, event.area.y, event.area.width, event.area.height);
+        exposed_ctx.rectangle(0, 0, get_allocated_width(), get_allocated_height());
         exposed_ctx.paint();
         
         return true;
@@ -2202,11 +2206,14 @@ public abstract class SinglePhotoPage : Page {
         }
         
         // no image or window, no painting
-        if (unscaled == null || canvas.window == null)
+        if (unscaled == null || canvas.get_window() == null)
             return;
         
-        int width = viewport.allocation.width;
-        int height = viewport.allocation.height;
+        Gtk.Allocation allocation;
+        viewport.get_allocation(out allocation);
+        
+        int width = allocation.width;
+        int height = allocation.height;
         
         if (width <= 0 || height <= 0)
             return;
@@ -2284,7 +2291,7 @@ public abstract class SinglePhotoPage : Page {
     
     private void init_pixmap(int width, int height) {
         assert(unscaled != null);
-        assert(canvas.window != null);
+        assert(canvas.get_window() != null);
         
         // Cairo backing surface (manual double-buffering)
         pixmap = new Cairo.ImageSurface(Cairo.Format.ARGB32, width, height);
@@ -2382,7 +2389,7 @@ public class DragAndDropHandler {
         this.page = page;
         this.event_source = page.get_event_source();
         assert(event_source != null);
-        assert((event_source.flags & Gtk.WidgetFlags.NO_WINDOW) == 0);
+        assert(event_source.get_has_window());
         
         // Need to do this because static member variables are not properly handled
         if (XDS_ATOM == null)
@@ -2438,7 +2445,7 @@ public class DragAndDropHandler {
         }
         
         // set the XDS property to indicate an XDS save is available
-        Gdk.property_change(context.source_window, XDS_ATOM, TEXT_ATOM, 8, Gdk.PropMode.REPLACE,
+        Gdk.property_change(context.get_source_window(), XDS_ATOM, TEXT_ATOM, 8, Gdk.PropMode.REPLACE,
             XDS_FAKE_TARGET, XDS_FAKE_TARGET.length);
     }
     
@@ -2455,7 +2462,7 @@ public class DragAndDropHandler {
                 uchar[] data = new uchar[4096];
                 Gdk.Atom actual_type;
                 int actual_format = 0;
-                bool fetched = Gdk.property_get(context.source_window, XDS_ATOM, TEXT_ATOM,
+                bool fetched = Gdk.property_get(context.get_source_window(), XDS_ATOM, TEXT_ATOM,
                     0, data.length, 0, out actual_type, out actual_format, out data);
                 
                 // the destination path is actually for our XDS_FAKE_TARGET, use its parent

@@ -1045,10 +1045,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private Gtk.Builder builder;
     private Gtk.RadioButton use_existing_radio;
     private Gtk.RadioButton create_new_radio;
-    private Gtk.ComboBox existing_categories_combo;
+    private Gtk.ComboBoxText existing_categories_combo;
     private Gtk.Entry new_category_entry;
-    private Gtk.ComboBox perms_combo;
-    private Gtk.ComboBox size_combo;
+    private Gtk.ComboBoxText perms_combo;
+    private Gtk.ComboBoxText size_combo;
     private Gtk.Button logout_button;
     private Gtk.Button publish_button;
     
@@ -1084,10 +1084,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             
             use_existing_radio = builder.get_object("use_existing_radio") as Gtk.RadioButton;
             create_new_radio = builder.get_object("create_new_radio") as Gtk.RadioButton;
-            existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBox;
+            existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBoxText;
             new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
-            perms_combo = builder.get_object("perms_combo") as Gtk.ComboBox;
-            size_combo = builder.get_object("size_combo") as Gtk.ComboBox;
+            perms_combo = builder.get_object("perms_combo") as Gtk.ComboBoxText;
+            size_combo = builder.get_object("size_combo") as Gtk.ComboBoxText;
 
             logout_button = builder.get_object("logout_button") as Gtk.Button;
             logout_button.clicked.connect(on_logout_button_clicked);

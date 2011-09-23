@@ -536,7 +536,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.KEY_PRESS_MASK);
         focus_on_map = true;
         set_accept_focus(true);
-        set_flags(Gtk.WidgetFlags.CAN_FOCUS);
+        set_can_focus(true);
         set_title(_("Extended Information"));
         set_size_request(300,-1);
         set_default_size(520, -1);
@@ -550,7 +550,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         Gtk.Alignment alignment = new Gtk.Alignment(0.5f,0.5f,1,1);
         alignment.add(properties);
         alignment.set_padding(4, 4, 4, 4);
-        vbox.add(alignment);
+        ((Gtk.Box) get_content_area()).add(alignment);
         close_button = new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
         close_button.clicked.connect(on_close_clicked);
     
@@ -559,7 +559,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         Gtk.Alignment action_alignment = new Gtk.Alignment(1, 0.5f, 1, 1);
         action_alignment.set_padding(0, 0, 0, Resources.RESIZE_HANDLE_SPACER);
         action_alignment.add(close_button);
-        action_area.add(action_alignment);
+        ((Gtk.Container) get_action_area()).add(action_alignment);
     }
 
     ~ExtendedPropertiesWindow() {

@@ -1422,7 +1422,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     }
 
     private void on_page_load(WebKit.WebFrame origin_frame) {
-        pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
 
         string loaded_url = origin_frame.get_uri().dup();
 
@@ -1448,7 +1448,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     }
 
     private void on_load_started(WebKit.WebFrame frame) {
-        pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
     }
 
     public static bool is_cache_dirty() {
@@ -1530,7 +1530,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
     private Gtk.RadioButton use_existing_radio = null;
     private Gtk.RadioButton create_new_radio = null;
-    private Gtk.ComboBox existing_albums_combo = null;
+    private Gtk.ComboBoxText existing_albums_combo = null;
     private Gtk.ComboBox visibility_combo = null;
     private Gtk.Entry new_album_entry = null;
     private Gtk.Button publish_button = null;
@@ -1601,7 +1601,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         Gtk.HBox use_existing_layouter = new Gtk.HBox(false, 8);
         use_existing_layouter.add(use_existing_radio);
-        existing_albums_combo = new Gtk.ComboBox.text();
+        existing_albums_combo = new Gtk.ComboBoxText();
         Gtk.Alignment existing_combo_aligner = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
         existing_combo_aligner.add(existing_albums_combo);
         use_existing_layouter.add(existing_combo_aligner);
@@ -1722,7 +1722,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     }
 
     private Gtk.ComboBox create_visibility_combo() {
-        Gtk.ComboBox result = new Gtk.ComboBox.text();
+        Gtk.ComboBoxText result = new Gtk.ComboBoxText();
 
         foreach (PrivacyDescription p in privacy_descriptions)
             result.append_text(p.description);
@@ -1732,7 +1732,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
 
     private Gtk.ComboBox create_resolution_combo() {
-        Gtk.ComboBox result = new Gtk.ComboBox.text();
+        Gtk.ComboBoxText result = new Gtk.ComboBoxText();
 
         foreach (Resolution res in possible_resolutions)
             result.append_text(res.get_name());

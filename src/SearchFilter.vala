@@ -1149,11 +1149,17 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     private void position_filter_popup(Gtk.Menu menu, out int x, out int y, out bool push_in) {
         menu.realize();
         int rx, ry;
-        AppWindow.get_instance().window.get_root_origin(out rx, out ry);
+        AppWindow.get_instance().get_window().get_root_origin(out rx, out ry);
         
-        x = rx + rating_button.allocation.x;
-        y = ry + rating_button.allocation.y + rating_button.allocation.height +
-            AppWindow.get_instance().get_current_page().get_menubar().allocation.height;
+        Gtk.Allocation rating_button_allocation;
+        rating_button.get_allocation(out rating_button_allocation);
+        
+        Gtk.Allocation menubar_allocation;
+        AppWindow.get_instance().get_current_page().get_menubar().get_allocation(out menubar_allocation);
+        
+        x = rx + rating_button_allocation.x;
+        y = ry + rating_button_allocation.y + rating_button_allocation.height +
+            menubar_allocation.height;
 
         push_in = false;
     }

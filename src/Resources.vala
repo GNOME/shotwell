@@ -877,13 +877,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             if (anchor != null) {
                 help_path +=anchor;
             }
-                        
+            
             string[] argv = new string[2];
             argv[0] = "gnome-help";
             argv[1] = help_path;
+            argv[2] = null;
             
             Pid pid;
-            if (Gdk.spawn_on_screen(screen, AppDirs.get_exec_dir().get_path(), argv, null,
+            if (Process.spawn_async(AppDirs.get_exec_dir().get_path(), argv, null,
                 SpawnFlags.SEARCH_PATH | SpawnFlags.STDERR_TO_DEV_NULL, null, out pid)) {
                 return;
             }

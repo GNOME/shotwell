@@ -918,7 +918,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     
     private void on_load_started(WebKit.WebFrame origin_frame) {
         webview.hide();
-        pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
     }
 
     public static bool is_cache_dirty() {
@@ -927,12 +927,12 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
 
     public void show_page() {
         webview.show();
-        pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
     }
 
     public void interaction_completed() {
         cache_dirty = true;
-        pane_widget.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
     }
     
     public Gtk.Widget get_widget() {
@@ -1113,7 +1113,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     }
 
     private Gtk.ComboBox create_visibility_combo() {
-        Gtk.ComboBox result = new Gtk.ComboBox.text();
+        Gtk.ComboBoxText result = new Gtk.ComboBoxText();
 
         if (visibilities == null)
             visibilities = create_visibilities();
@@ -1139,7 +1139,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     }
 
     private Gtk.ComboBox create_size_combo() {
-        Gtk.ComboBox result = new Gtk.ComboBox.text();
+        Gtk.ComboBoxText result = new Gtk.ComboBoxText();
 
         if (sizes == null)
             sizes = create_sizes();

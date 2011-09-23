@@ -375,7 +375,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         private EditingHostPage host_page;
         
         public EditingHostCanvas(EditingHostPage host_page) {
-            base(host_page.get_container(), host_page.canvas.window, host_page.get_photo(),
+            base(host_page.get_container(), host_page.canvas.get_window(), host_page.get_photo(),
                 host_page.get_cairo_context(), host_page.get_surface_dim(), host_page.get_scaled_pixbuf(),
                 host_page.get_scaled_pixbuf_position());
             
@@ -1079,7 +1079,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Pango.Layout pango_layout = create_pango_layout(message);
         int text_width, text_height;
         pango_layout.get_pixel_size(out text_width, out text_height);
-
+        
+        Gtk.Allocation allocation;
+        get_allocation(out allocation);
+        
         int x = allocation.width - text_width;
         x = (x > 0) ? x / 2 : 0;
         
@@ -1204,7 +1207,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // a left pointer in case it had been a hand-grip cursor indicating that panning
         // was possible; the null guards are required because zoom can be cancelled at
         // any time
-        if (canvas != null && canvas.window != null)
+        if (canvas != null && canvas.get_window() != null)
             set_page_cursor(Gdk.CursorType.LEFT_PTR);
         
         repaint();
@@ -2075,19 +2078,23 @@ public abstract class EditingHostPage : SinglePhotoPage {
         tool_window.show_all();
         tool_window.hide();
         
-        Gtk.Allocation tool_alloc = tool_window.allocation;
+        Gtk.Allocation tool_alloc;
+        tool_window.get_allocation(out tool_alloc);
         
         if (get_container() == AppWindow.get_instance()) {
             // Normal: position crop tool window centered on viewport/canvas at the bottom,
             // straddling the canvas and the toolbar
             int rx, ry;
-            get_container().window.get_root_origin(out rx, out ry);
+            get_container().get_window().get_root_origin(out rx, out ry);
+            
+            Gtk.Allocation viewport_allocation;
+            viewport.get_allocation(out viewport_allocation);
             
             int cx, cy, cwidth, cheight;
-            cx = viewport.allocation.x;
-            cy = viewport.allocation.y;
-            cwidth = viewport.allocation.width;
-            cheight = viewport.allocation.height;
+            cx = viewport_allocation.x;
+            cy = viewport_allocation.y;
+            cwidth = viewport_allocation.width;
+            cheight = viewport_allocation.height;
             
             int new_x = rx + cx + (cwidth / 2) - (tool_alloc.width / 2);
             int new_y = ry + cy + cheight - ((tool_alloc.height / 4) * 3);
@@ -2103,7 +2110,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             
             // Fullscreen: position crop tool window centered on screen at the bottom, just above the
             // toolbar
-            Gtk.Allocation toolbar_alloc = get_toolbar().allocation;
+            Gtk.Allocation toolbar_alloc;
+            get_toolbar().get_allocation(out toolbar_alloc);
             
             Gdk.Screen screen = get_container().get_screen();
             int x = screen.get_width();

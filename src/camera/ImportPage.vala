@@ -741,7 +741,7 @@ public class ImportPage : CheckerboardPage {
         toolbar.insert(separator, -1);
         
         // progress bar in center of toolbar
-        progress_bar.set_orientation(Gtk.ProgressBarOrientation.LEFT_TO_RIGHT);
+        progress_bar.set_orientation(Gtk.Orientation.HORIZONTAL);
         progress_bar.visible = false;
         Gtk.ToolItem progress_item = new Gtk.ToolItem();
         progress_item.set_expand(true);

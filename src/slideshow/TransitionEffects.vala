@@ -220,14 +220,6 @@ public class TransitionClock {
         repaint();
     }
     
-    // This is a convenience method for paint().
-    public bool paint_drawable(Gdk.Drawable drawable) {
-        int width, height;
-        drawable.get_size(out width, out height);
-        
-        return paint(Gdk.cairo_create(drawable), width, height);
-    }
-    
     // Call this whenever using a TransitionClock in the expose event.  Returns false if the
     // transition has completed, in which case the caller should paint the final result.
     public bool paint(Cairo.Context ctx, int width, int height) {

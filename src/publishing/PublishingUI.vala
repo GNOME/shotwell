@@ -184,7 +184,7 @@ public class PublishingDialog : Gtk.Dialog {
 
     private static PublishingDialog active_instance = null;
     
-    private Gtk.ComboBox service_selector_box;
+    private Gtk.ComboBoxText service_selector_box;
     private Gtk.Label service_selector_box_label;
     private Gtk.VBox central_area_layouter;
     private Gtk.Button close_cancel_button;
@@ -229,7 +229,7 @@ public class PublishingDialog : Gtk.Dialog {
         }
         set_title(title);
 
-        service_selector_box = new Gtk.ComboBox.text();
+        service_selector_box = new Gtk.ComboBoxText();
         service_selector_box.set_active(0);
         service_selector_box_label = new Gtk.Label.with_mnemonic(label);
         service_selector_box_label.set_mnemonic_widget(service_selector_box);
@@ -280,13 +280,13 @@ public class PublishingDialog : Gtk.Dialog {
         
         central_area_layouter = new Gtk.VBox(false, 0);
 
-        vbox.pack_start(service_area_wrapper, false, false, 0);
-        vbox.pack_start(central_area_layouter, true, true, 0);
+        ((Gtk.Box) get_content_area()).pack_start(service_area_wrapper, false, false, 0);
+        ((Gtk.Box) get_content_area()).pack_start(central_area_layouter, true, true, 0);
         
         close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
         close_cancel_button.set_can_default(true);
         close_cancel_button.clicked.connect(on_close_cancel_clicked);
-        action_area.add(close_cancel_button);
+        ((Gtk.Container) get_action_area()).add(close_cancel_button);
 
         set_standard_window_mode();
         
