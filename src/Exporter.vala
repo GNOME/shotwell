@@ -111,10 +111,10 @@ public class Exporter : Object {
     private bool avoid_copying;
     private int completed_count = 0;
     private Workers workers = new Workers(Workers.threads_per_cpu(), false);
-    private CompletionCallback? completion_callback = null;
-    private ExportFailedCallback? error_callback = null;
-    private OverwriteCallback? overwrite_callback = null;
-    private ProgressMonitor? monitor = null;
+    private unowned CompletionCallback? completion_callback = null;
+    private unowned ExportFailedCallback? error_callback = null;
+    private unowned OverwriteCallback? overwrite_callback = null;
+    private unowned ProgressMonitor? monitor = null;
     private Cancellable cancellable;
     private bool replace_all = false;
     private bool aborted = false;
@@ -303,7 +303,7 @@ public class ExporterUI {
     private Exporter exporter;
     private Cancellable cancellable = new Cancellable();
     private ProgressDialog? progress_dialog = null;
-    private Exporter.CompletionCallback? completion_callback = null;
+    private unowned Exporter.CompletionCallback? completion_callback = null;
     
     public ExporterUI(Exporter exporter) {
         this.exporter = exporter;

@@ -133,7 +133,7 @@ public delegate bool ProgressMonitor(uint64 current, uint64 total);
 // only a count, but the total is known by the caller.
 public class UnknownTotalMonitor {
     private uint64 total;
-    private ProgressMonitor wrapped_monitor;
+    private unowned ProgressMonitor wrapped_monitor;
     
     public UnknownTotalMonitor(uint64 total, ProgressMonitor wrapped_monitor) {
         this.total = total;
@@ -149,7 +149,7 @@ public class UnknownTotalMonitor {
 // a single ProgressMonitor.
 public class AggregateProgressMonitor {
     private uint64 grand_total;
-    private ProgressMonitor wrapped_monitor;
+    private unowned ProgressMonitor wrapped_monitor;
     private uint64 aggregate_count = 0;
     private uint64 last_count = uint64.MAX;
     

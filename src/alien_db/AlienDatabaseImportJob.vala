@@ -76,6 +76,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
     }
     
     public override bool determine_file_size(out uint64 filesize, out File file) {
+        file = null;
         filesize = this.filesize;
         
         return true;

@@ -455,8 +455,11 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public bool get_long(string tag, out long value) {
-        if (!has_tag(tag))
+        if (!has_tag(tag)) {
+            value = 0;
+            
             return false;
+        }
         
         value = exiv2.get_tag_long(tag);
         
@@ -468,6 +471,8 @@ public class PhotoMetadata : MediaMetadata {
             if (get_long(tag, out value))
                 return true;
         }
+        
+        value = 0;
         
         return false;
     }
@@ -482,7 +487,12 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public bool get_rational(string tag, out MetadataRational rational) {
-        return exiv2.get_exif_tag_rational(tag, out rational.numerator, out rational.denominator);
+        int numerator, denominator;
+        bool result = exiv2.get_exif_tag_rational(tag, out numerator, out denominator);
+        
+        rational = MetadataRational(numerator, denominator);
+        
+        return result;
     }
     
     public bool get_first_rational(string[] tags, out MetadataRational rational) {
@@ -490,6 +500,8 @@ public class PhotoMetadata : MediaMetadata {
             if (get_rational(tag, out rational))
                 return true;
         }
+        
+        rational = MetadataRational(0, 0);
         
         return false;
     }
@@ -971,8 +983,12 @@ public class PhotoMetadata : MediaMetadata {
     
     public bool get_gps(out double longitude, out string long_ref, out double latitude, out string lat_ref,
         out double altitude) {
-        if (!exiv2.get_gps_info(out longitude, out latitude, out altitude))
+        if (!exiv2.get_gps_info(out longitude, out latitude, out altitude)) {
+            long_ref = null;
+            lat_ref = null;
+            
             return false;
+        }
         
         long_ref = get_string("Exif.GPSInfo.GPSLongitudeRef");
         lat_ref = get_string("Exif.GPSInfo.GPSLatitudeRef");

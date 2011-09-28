@@ -100,8 +100,11 @@ namespace GPhoto {
     
     public bool get_info(Context context, Camera camera, string folder, string filename,
         out CameraFileInfo info) throws Error {
-        if (folder.length > MAX_BASEDIR_LENGTH || filename.length > MAX_FILENAME_LENGTH)
+        if (folder.length > MAX_BASEDIR_LENGTH || filename.length > MAX_FILENAME_LENGTH) {
+            info = {};
+            
             return false;
+        }
         
         Result res = camera.get_file_info(folder, filename, out info, context);
         if (res != Result.OK)
@@ -114,8 +117,11 @@ namespace GPhoto {
     public Gdk.Pixbuf? load_preview(Context context, Camera camera, string folder, string filename,
         out uint8[] raw, out size_t raw_length) throws Error {
         raw = load_file_into_buffer(context, camera, folder, filename, GPhoto.CameraFileType.PREVIEW);
-        if (raw == null)
+        if (raw == null) {
+            raw_length = 0;
+            
             return null;
+        }
         
         raw_length = raw.length;
         

@@ -140,13 +140,21 @@ public class DirectoryMonitor : Object {
             FileInfo? local_info = info;
             if (local_info == null) {
                 local_info = map.get(file);
-                if (local_info == null)
+                if (local_info == null) {
+                    normalized = null;
+                    id = null;
+                    
                     return false;
+                }
             }
             
             string? file_id = get_file_info_id(local_info);
-            if (file_id == null)
+            if (file_id == null) {
+                normalized = null;
+                id = null;
+                
                 return false;
+            }
             
             File? known_file = id_map.get(file_id);
             
@@ -1362,6 +1370,9 @@ public class DirectoryMonitor : Object {
             
             return true;
         }
+        
+        old_file = null;
+        old_file_info = null;
         
         return false;
     }

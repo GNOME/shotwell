@@ -574,7 +574,11 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool get_fullscreen_photo(Page page, out CollectionPage collection, out Photo start,
-         out ViewCollection? view_collection = null) {
+        out ViewCollection? view_collection = null) {
+        collection = null;
+        start = null;
+        view_collection = null;
+        
         // fullscreen behavior depends on the type of page being looked at
         if (page is CollectionPage) {
             collection = (CollectionPage) page;

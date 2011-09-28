@@ -77,7 +77,7 @@ public class ThumbnailCache : Object {
         public PhotoFileFormat source_format;
         public Dimensions dim;
         public Gdk.InterpType interp;
-        public AsyncFetchCallback callback;
+        public unowned AsyncFetchCallback callback;
         public Gdk.Pixbuf unscaled;
         public Gdk.Pixbuf scaled = null;
         public Error err = null;

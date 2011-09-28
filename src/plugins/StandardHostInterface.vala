@@ -16,7 +16,7 @@ public class StandardHostInterface : Object, Spit.HostInterface {
         this.config_domain = config_domain;
         config_id = parse_key(pluggable.get_id());
         module_file = get_pluggable_module_file(pluggable);
-        pluggable.get_info(out info);
+        pluggable.get_info(ref info);
     }
     
     private static string parse_key(string id) {

@@ -27,7 +27,7 @@ public class PicasaService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return "Picasa Web Albums";
     }
     
-    public void get_info(out Spit.PluggableInfo info) {
+    public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Lucas Beeler";
         info.copyright = _("Copyright 2009-2011 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;

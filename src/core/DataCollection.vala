@@ -219,11 +219,11 @@ public class DataCollection {
         return true;
     }
     
-    public Comparator get_comparator() {
+    public unowned Comparator get_comparator() {
         return dataset.get_comparator();
     }
     
-    public ComparatorPredicate get_comparator_predicate() {
+    public unowned ComparatorPredicate get_comparator_predicate() {
         return dataset.get_comparator_predicate();
     }
     

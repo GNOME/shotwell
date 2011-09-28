@@ -334,6 +334,9 @@ public class ExportDialog : Gtk.Dialog {
                 if (current_parameters.specified_format == PhotoFileFormat.JFIF)
                     parameters.quality = current_parameters.quality = QUALITY_ARRAY[quality_combo.get_active()];
             }
+        } else {
+            scale = 0;
+            constraint = ScaleConstraint.ORIGINAL;
         }
         
         destroy();
@@ -892,7 +895,7 @@ public class SetBackgroundSlideshowDialog {
 public class TextEntryDialog : Gtk.Dialog {
     public delegate bool OnModifyValidateType(string text);
     
-    private OnModifyValidateType on_modify_validate;
+    private unowned OnModifyValidateType on_modify_validate;
     private Gtk.Entry entry;
     private Gtk.Builder builder;
     
@@ -1431,6 +1434,10 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
                 Config.Facade.get_instance().set_modify_originals(modify_originals);
 
             response = true;
+        } else {
+            time_shift = 0;
+            keep_relativity = true;
+            modify_originals = false;
         }
 
         destroy();

@@ -182,7 +182,7 @@ public class FullscreenWindow : PageWindow {
         base.destroy();
     }
     
-    public override bool delete_event(Gdk.Event event) {
+    public override bool delete_event(Gdk.EventAny event) {
         on_close();
         AppWindow.get_instance().destroy();
         

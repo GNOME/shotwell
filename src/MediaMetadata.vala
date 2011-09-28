@@ -101,6 +101,8 @@ public class MetadataDateTime {
     }
     
     public static bool from_exif_date_time(string date_time, out time_t timestamp) {
+        timestamp = 0;
+        
         Time tm = Time();
         
         bool found = false;

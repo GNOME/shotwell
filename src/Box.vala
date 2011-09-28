@@ -43,7 +43,7 @@ public struct Box {
     public int right;
     public int bottom;
 
-    public Box(int left, int top, int right, int bottom) {
+    public Box(int left = 0, int top = 0, int right = 0, int bottom = 0) {
         // Sanity check on top left vertex.
         left = left.clamp(0, int.MAX);
         top = top.clamp(0, int.MAX);
@@ -142,11 +142,8 @@ public struct Box {
     }
     
     public void get_points(out Gdk.Point top_left, out Gdk.Point bottom_right) {
-        top_left.x = left;
-        top_left.y = top;
-        
-        bottom_right.x = right;
-        bottom_right.y = bottom;
+        top_left = { left, top };
+        bottom_right = { right, bottom };
     }
     
     public Gdk.Rectangle get_rectangle() {
@@ -217,7 +214,7 @@ public struct Box {
     // There may be overlap between the two returned Boxes.
     public BoxComplements resized_complements(Box resized, out Box horizontal, out bool horizontal_enlarged,
         out Box vertical, out bool vertical_enlarged) {
-
+        
         bool horizontal_complement = true;
         if (resized.top < top) {
             // enlarged from top
@@ -236,6 +233,8 @@ public struct Box {
             horizontal = Box(resized.left, bottom, resized.right, resized.bottom);
             horizontal_enlarged = true;
         } else {
+            horizontal = Box();
+            horizontal_enlarged = false;
             horizontal_complement = false;
         }
         
@@ -257,9 +256,11 @@ public struct Box {
             vertical = Box(right, resized.top, resized.right, resized.bottom);
             vertical_enlarged = true;
         } else {
+            vertical = Box();
+            vertical_enlarged = false;
             vertical_complement = false;
         }
-
+        
         return BoxComplements.derive(horizontal_complement, vertical_complement);
     }
     
@@ -282,6 +283,8 @@ public struct Box {
             horizontal_shifted = Box(shifted.left, bottom, shifted.right, shifted.bottom);
         } else {
             // no vertical shift
+            horizontal_this = Box();
+            horizontal_shifted = Box();
             horizontal_complement = false;
         }
         
@@ -296,6 +299,8 @@ public struct Box {
             vertical_shifted = Box(right, shifted.top, shifted.right, shifted.bottom);
         } else {
             // no horizontal shift
+            vertical_this = Box();
+            vertical_shifted = Box();
             vertical_complement = false;
         }
         

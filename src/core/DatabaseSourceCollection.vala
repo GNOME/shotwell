@@ -13,7 +13,7 @@ public delegate int64 GetSourceDatabaseKey(DataSource source);
 // TODO: This would be better implemented as an observer class, possibly with an interface to
 // force subclasses to provide a fetch_by_key() method.
 public abstract class DatabaseSourceCollection : SourceCollection {
-    private GetSourceDatabaseKey source_key_func;
+    private unowned GetSourceDatabaseKey source_key_func;
     private Gee.HashMap<int64?, DataSource> map = new Gee.HashMap<int64?, DataSource>(int64_hash, 
         int64_equal, direct_equal);
         
@@ -53,7 +53,7 @@ public abstract class DatabaseSourceCollection : SourceCollection {
 }
 
 public class DatabaseSourceHoldingTank : SourceHoldingTank {
-    private GetSourceDatabaseKey get_key;
+    private unowned GetSourceDatabaseKey get_key;
     private Gee.HashMap<int64?, DataSource> map = new Gee.HashMap<int64?, DataSource>(int64_hash,
         int64_equal);
     

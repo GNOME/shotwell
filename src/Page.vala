@@ -367,8 +367,14 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     private bool get_modifiers(out bool ctrl, out bool alt, out bool shift, out bool super) {
-        if (AppWindow.get_instance().get_window() == null)
+        if (AppWindow.get_instance().get_window() == null) {
+            ctrl = false;
+            alt = false;
+            shift = false;
+            super = false;
+            
             return false;
+        }
         
         int x, y;
         Gdk.ModifierType mask;
@@ -662,8 +668,13 @@ public abstract class Page : Gtk.ScrolledWindow {
     //
     // For more information, see: https://bugzilla.gnome.org/show_bug.cgi?id=599937
     public bool get_event_source_pointer(out int x, out int y, out Gdk.ModifierType mask) {
-        if (event_source == null)
+        if (event_source == null) {
+            x = 0;
+            y = 0;
+            mask = 0;
+            
             return false;
+        }
         
         event_source.get_window().get_pointer(out x, out y, out mask);
         

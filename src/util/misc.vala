@@ -255,7 +255,7 @@ public delegate void OneShotCallback();
 
 public class OneShotScheduler {
     private string name;
-    private OneShotCallback callback;
+    private unowned OneShotCallback callback;
     private uint scheduled = 0;
     
     public OneShotScheduler(string name, OneShotCallback callback) {

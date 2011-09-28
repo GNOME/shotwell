@@ -54,8 +54,8 @@ public class ManifestWidgetMediator {
         
         string id = ids[0];
         
-        Spit.PluggableInfo info;
-        if (!get_pluggable_info(id, out info)) {
+        Spit.PluggableInfo info = Spit.PluggableInfo();
+        if (!get_pluggable_info(id, ref info)) {
             warning("Unable to retrieve information for plugin %s", id);
             
             return;
@@ -199,8 +199,8 @@ private class ManifestListView : Gtk.TreeView {
                 if (!get_pluggable_enabled(pluggable.get_id(), out enabled))
                     continue;
                 
-                Spit.PluggableInfo info;
-                pluggable.get_info(out info);
+                Spit.PluggableInfo info = Spit.PluggableInfo();
+                pluggable.get_info(ref info);
                 
                 icon = (info.icons != null && info.icons.length > 0) 
                     ? info.icons[0]
@@ -244,8 +244,11 @@ private class ManifestListView : Gtk.TreeView {
     private bool get_renderer_from_pos(int x, int y, out Gtk.TreePath path, out Gtk.CellRenderer renderer) {
         // get the TreePath and column for the position
         Gtk.TreeViewColumn column;
-        if (!get_path_at_pos(x, y, out path, out column, null, null))
+        if (!get_path_at_pos(x, y, out path, out column, null, null)) {
+            renderer = null;
+            
             return false;
+        }
         
         Gdk.Rectangle cell_area = Gdk.Rectangle();
         get_cell_area(path, column, out cell_area);
@@ -267,6 +270,8 @@ private class ManifestListView : Gtk.TreeView {
             
             pixel_x += width;
         }
+        
+        renderer = null;
         
         return false;
     }

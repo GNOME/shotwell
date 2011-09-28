@@ -454,6 +454,8 @@ public abstract class EditingTool {
     // a pixbuf with unsaved tool edits in it).  That can be handled in the paint() virtual method.
     public virtual Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, Photo photo,
         out Dimensions max_dim) throws Error {
+        max_dim = Dimensions();
+        
         return null;
     }
     
@@ -1129,8 +1131,11 @@ public class CropTool : EditingTool {
         out Dimensions max_dim) throws Error {
         // show the uncropped photo for editing, but return null if no crop so the current pixbuf
         // is used
-        if (!photo.has_crop())
+        if (!photo.has_crop()) {
+            max_dim = Dimensions();
+            
             return null;
+        }
         
         max_dim = photo.get_original_dimensions();
         
@@ -3098,8 +3103,11 @@ public class AdjustTool : EditingTool {
 
     public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, Photo photo, 
         out Dimensions max_dim) throws Error {
-        if (!photo.has_color_adjustments())
+        if (!photo.has_color_adjustments()) {
+            max_dim = Dimensions();
+            
             return null;
+        }
         
         max_dim = photo.get_dimensions();
         

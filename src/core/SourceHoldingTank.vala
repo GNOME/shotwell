@@ -26,7 +26,7 @@ public class SourceHoldingTank {
     public delegate bool CheckToKeep(DataSource source, Alteration alteration);
     
     private SourceCollection sources;
-    private CheckToKeep check_to_keep;
+    private unowned CheckToKeep check_to_keep;
     private DataSet tank = new DataSet();
     private Gee.HashSet<DataSource> relinks = new Gee.HashSet<DataSource>();
     private Gee.HashSet<DataSource> unlinking = new Gee.HashSet<DataSource>();

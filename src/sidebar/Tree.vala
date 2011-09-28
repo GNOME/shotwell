@@ -67,7 +67,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     private Gtk.UIManager ui = new Gtk.UIManager();
     private Gtk.IconTheme icon_theme;
     private Gtk.CellRendererText text_renderer;
-    private ExternalDropHandler drop_handler;
+    private unowned ExternalDropHandler drop_handler;
     private Gtk.Entry? text_entry = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = new Gee.HashMap<string, Gdk.Pixbuf>();
     private Gee.HashMap<Sidebar.Entry, EntryWrapper> entry_map =
@@ -137,8 +137,8 @@ public class Sidebar.Tree : Gtk.TreeView {
         // currently
         enable_model_drag_dest(target_entries, actions);
 
-		Gtk.TargetEntry[] source_entries = new Gtk.TargetEntry[0];
-		source_entries += target_entries[LibraryWindow.TargetType.TAG_PATH];
+        Gtk.TargetEntry[] source_entries = new Gtk.TargetEntry[0];
+        source_entries += target_entries[LibraryWindow.TargetType.TAG_PATH];
         enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK, source_entries,
             Gdk.DragAction.COPY);
 

@@ -549,7 +549,7 @@ internal abstract class BatchUploader {
     private int current_file = 0;
     private Spit.Publishing.Publishable[] publishables = null;
     private Session session = null;
-	private Spit.Publishing.ProgressCallback? status_updated = null;
+	private unowned Spit.Publishing.ProgressCallback? status_updated = null;
 
     public signal void upload_complete(int num_photos_published);
     public signal void upload_error(Spit.Publishing.PublishingError err);

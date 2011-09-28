@@ -21,7 +21,7 @@ public class AlienDatabaseImportDialog : Gtk.Dialog {
     private Gtk.Notebook message_notebook;
     private Gtk.ProgressBar prepare_progress_bar;
     private Gtk.Label error_message_label;
-    private BatchImport.ImportReporter reporter;
+    private unowned BatchImport.ImportReporter reporter;
     
     public void set_builder(Gtk.Builder builder) {
         this.builder = builder;

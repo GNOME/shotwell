@@ -59,8 +59,8 @@ public class ViewCollection : DataCollection {
     private Gee.HashMultiMap<SourceCollection, MonitorImpl> monitors = new Gee.HashMultiMap<
         SourceCollection, MonitorImpl>();
     private ViewCollection mirroring = null;
-    private CreateView mirroring_ctor = null;
-    private CreateViewPredicate should_mirror = null;
+    private unowned CreateView mirroring_ctor = null;
+    private unowned CreateViewPredicate should_mirror = null;
     private Gee.Set<ViewFilter> filters = new Gee.HashSet<ViewFilter>();
     private DataSet selected = new DataSet();
     private DataSet visible = null;
@@ -736,11 +736,13 @@ public class ViewCollection : DataCollection {
     
     public bool get_immediate_neighbors(DataSource home, out DataSource? next,
         out DataSource? prev, string? type_selector = null) {
+        next = null;
+        prev = null;
+        
         DataView home_view = get_view_for_source(home);
         if (home_view == null)
             return false;
         
-        next = null;
         DataView? next_view = get_next(home_view);
         while (next_view != home_view) {
             if ((type_selector == null) || (next_view.get_source().get_typename() == type_selector)) {
@@ -750,7 +752,6 @@ public class ViewCollection : DataCollection {
             next_view = get_next(next_view);
         }
         
-        prev = null;
         DataView? prev_view = get_previous(home_view);
         while (prev_view != home_view) {
             if ((type_selector == null) || (prev_view.get_source().get_typename() == type_selector)) {

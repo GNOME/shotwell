@@ -63,7 +63,7 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
     
     public abstract unowned string get_pluggable_name();
     
-    public void get_info(out Spit.PluggableInfo info) {
+    public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Maxim Kartashev";
         info.copyright = _("Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;

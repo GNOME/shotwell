@@ -28,7 +28,7 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return "Piwigo";
     }
     
-    public void get_info(out Spit.PluggableInfo info) {
+    public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Bruno Girin";
         info.copyright = _("Copyright 2009-2011 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;

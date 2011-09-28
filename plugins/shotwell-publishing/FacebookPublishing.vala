@@ -27,7 +27,7 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return "Facebook";
     }
 
-    public void get_info(out Spit.PluggableInfo info) {
+    public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Lucas Beeler";
         info.copyright = _("Copyright 2009-2011 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
@@ -1924,7 +1924,7 @@ internal class FacebookUploader {
     private FacebookRESTSession session = null;
     private string aid;
     private string privacy_setting;
-    private Spit.Publishing.ProgressCallback? status_updated = null;
+    private unowned Spit.Publishing.ProgressCallback? status_updated = null;
 
     public signal void upload_complete(int num_photos_published);
     public signal void upload_error(Spit.Publishing.PublishingError err);

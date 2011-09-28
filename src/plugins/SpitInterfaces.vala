@@ -225,7 +225,7 @@ public interface Pluggable : Object {
     /**
      * Returns extra information about the Pluggable that is used to identify it to the user.
      */
-    public abstract void get_info(out PluggableInfo info);
+    public abstract void get_info(ref PluggableInfo info);
     
     /**
      * Called when the Pluggable is enabled (activated) or disabled (deactivated).

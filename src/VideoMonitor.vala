@@ -88,8 +88,11 @@ private class VideoMonitor : MediaMonitor {
         out Monitorable monitorable) {
         VideoSourceCollection.State state;
         Video? video = get_state(file, out state);
-        if (video == null)
+        if (video == null) {
+            monitorable = null;
+            
             return MediaMonitor.DiscoveredFile.UNKNOWN;
+        }
         
         switch (state) {
             case VideoSourceCollection.State.ONLINE:
@@ -101,6 +104,8 @@ private class VideoMonitor : MediaMonitor {
             case VideoSourceCollection.State.TRASH:
             default:
                 // ignored ... trash always stays in trash
+                monitorable = null;
+                
                 return MediaMonitor.DiscoveredFile.IGNORE;
         }
     }

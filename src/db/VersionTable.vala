@@ -42,6 +42,8 @@ public class VersionTable : DatabaseTable {
             if (res != Sqlite.DONE)
                 fatal("get_version", res);
             
+            app_version = null;
+            
             return -1;
         }
         

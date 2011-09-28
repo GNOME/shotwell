@@ -481,6 +481,8 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     }
     
     public static ImportResult import_create(VideoImportParams params, out Video video) {
+        video = null;
+        
         // add to the database
         try {
             if (VideoTable.get_instance().add(ref params.row).is_invalid())
@@ -951,6 +953,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
 
 public class VideoSourceCollection : MediaSourceCollection {
     public enum State {
+        UNKNOWN,
         ONLINE,
         OFFLINE,
         TRASH
@@ -1060,6 +1063,8 @@ public class VideoSourceCollection : MediaSourceCollection {
             
             return video;
         }
+        
+        state = State.UNKNOWN;
         
         return null;
     }

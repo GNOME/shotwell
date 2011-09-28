@@ -148,6 +148,8 @@ public class CameraTable {
         
         debug("USB ESP: current_camera_count=%d port=%s", current_camera_count, port);
         
+        full_port = null;
+        
         // if GPhoto detects one camera, and USB reports one camera, all is swell
         if (current_camera_count == 1 && usb_cameras.length == 1) {
             full_port = usb_cameras[0];

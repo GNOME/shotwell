@@ -9,8 +9,7 @@ ifndef VALAC
 VALAC := valac
 endif
 VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
-MIN_VALAC_VERSION := 0.11.7
-MAX_VALAC_VERSION := 0.13.0
+MIN_VALAC_VERSION := 0.14.0
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 

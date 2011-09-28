@@ -248,20 +248,23 @@ public string? get_pluggable_name(string id) {
         ? pluggable_rep.pluggable.get_pluggable_name() : null;
 }
 
-public bool get_pluggable_info(string id, out Spit.PluggableInfo info) {
+public bool get_pluggable_info(string id, ref Spit.PluggableInfo info) {
     PluggableRep? pluggable_rep = pluggable_table.get(id);
     if (pluggable_rep == null || !pluggable_rep.activated)
         return false;
     
-    pluggable_rep.pluggable.get_info(out info);
+    pluggable_rep.pluggable.get_info(ref info);
     
     return true;
 }
 
 public bool get_pluggable_enabled(string id, out bool enabled) {
     PluggableRep? pluggable_rep = pluggable_table.get(id);
-    if (pluggable_rep == null || !pluggable_rep.activated)
+    if (pluggable_rep == null || !pluggable_rep.activated) {
+        enabled = false;
+        
         return false;
+    }
     
     enabled = pluggable_rep.is_enabled();
     

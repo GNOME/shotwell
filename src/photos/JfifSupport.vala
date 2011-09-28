@@ -145,6 +145,9 @@ namespace Jpeg {
     public const uint8 MARKER_PREFIX = 0xFF;
     
     public enum Marker {
+        // Could also be 0xFF according to spec
+        INVALID = 0x00,
+        
         SOI = 0xD8,
         EOI = 0xD9,
         
@@ -206,6 +209,8 @@ namespace Jpeg {
     }
 
     private int read_marker(FileInputStream fins, out Jpeg.Marker marker) throws Error {
+        marker = Jpeg.Marker.INVALID;
+        
         DataInputStream dins = new DataInputStream(fins);
         dins.set_byte_order(DataStreamByteOrder.BIG_ENDIAN);
         

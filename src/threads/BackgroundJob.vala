@@ -81,7 +81,7 @@ public abstract class BackgroundJob {
     }
     
     private class NotificationJob {
-        public NotificationCallback callback;
+        public unowned NotificationCallback callback;
         public BackgroundJob background_job;
         public NotificationObject? user;
         
@@ -96,9 +96,9 @@ public abstract class BackgroundJob {
     private static Gee.ArrayList<NotificationJob> notify_queue = new Gee.ArrayList<NotificationJob>();
     
     private Object owner;
-    private CompletionCallback callback;
+    private unowned CompletionCallback callback;
     private Cancellable cancellable;
-    private CancellationCallback cancellation;
+    private unowned CancellationCallback cancellation;
     private BackgroundJob self = null;
     private AbstractSemaphore semaphore = null;
     

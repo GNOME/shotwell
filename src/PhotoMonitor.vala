@@ -282,8 +282,11 @@ private class PhotoMonitor : MediaMonitor {
         out Monitorable monitorable) {
         LibraryPhotoSourceCollection.State state;
         LibraryPhoto? photo = get_photo_state_by_file(file, out state);
-        if (photo == null)
+        if (photo == null) {
+            monitorable = null;
+            
             return MediaMonitor.DiscoveredFile.UNKNOWN;
+        }
         
         switch (state) {
             case LibraryPhotoSourceCollection.State.ONLINE:
@@ -298,6 +301,8 @@ private class PhotoMonitor : MediaMonitor {
             default:
                 // ignored ... trash always stays in trash, offline or not, and editables are
                 // simply attached to online/offline photos
+                monitorable = null;
+                
                 return MediaMonitor.DiscoveredFile.IGNORE;
         }
     }

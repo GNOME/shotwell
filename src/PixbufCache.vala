@@ -75,7 +75,7 @@ public class PixbufCache : Object {
     private PhotoType type;
     private int max_count;
     private Scaling scaling;
-    private CacheFilter? filter;
+    private unowned CacheFilter? filter;
     private Gee.HashMap<Photo, Gdk.Pixbuf> cache = new Gee.HashMap<Photo, Gdk.Pixbuf>();
     private Gee.ArrayList<Photo> lru = new Gee.ArrayList<Photo>();
     private Gee.HashMap<Photo, FetchJob> in_progress = new Gee.HashMap<Photo, FetchJob>();

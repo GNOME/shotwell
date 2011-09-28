@@ -34,7 +34,7 @@ public class TimedQueue<G> {
     }
     
     private uint hold_msec;
-    private DequeuedCallback<G> callback;
+    private unowned DequeuedCallback<G> callback;
     private EqualFunc equal_func;
     private int priority;
     private uint timer_id = 0;

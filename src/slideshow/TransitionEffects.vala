@@ -125,7 +125,7 @@ public class TransitionClock {
     private OpTimer paint_timer;
     private Spit.Transitions.Visuals? visuals = null;
     private Spit.Transitions.Motion? motion = null;
-    private RepaintCallback? repaint = null;
+    private unowned RepaintCallback? repaint = null;
     private uint timer_id = 0;
     private ulong time_started = 0;
     private int frame_number = 0;
@@ -284,7 +284,7 @@ public class NullTransitionDescriptor : Object, Spit.Pluggable, Spit.Transitions
         return _("None");
     }
     
-    public void get_info(out Spit.PluggableInfo info) {
+    public void get_info(ref Spit.PluggableInfo info) {
     }
     
     public void activation(bool enabled) {

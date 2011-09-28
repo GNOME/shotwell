@@ -71,7 +71,7 @@ public class DirectWindow : AppWindow {
         base.on_quit();
     }
     
-    public override bool delete_event(Gdk.Event event) {
+    public override bool delete_event(Gdk.EventAny event) {
         if (!get_direct_page().check_quit())
             return true;
         

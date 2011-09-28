@@ -24,7 +24,7 @@ public int64 file_comparator(void *a, void *b) {
 
 public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
     private Gee.ArrayList<G> list;
-    private Comparator? cmp;
+    private unowned Comparator? cmp;
     
     public SortedList(Comparator? cmp = null) {
         this.list = new Gee.ArrayList<G>();

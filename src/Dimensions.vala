@@ -316,6 +316,8 @@ public struct Scaling {
     }
     
     public bool is_best_fit(Dimensions original, out int pixels) {
+        pixels = 0;
+        
         if (scale == NO_SCALE)
             return false;
         
@@ -333,6 +335,8 @@ public struct Scaling {
     }
     
     public bool is_best_fit_dimensions(Dimensions original, out Dimensions scaled) {
+        scaled = Dimensions();
+        
         if (scale == NO_SCALE)
             return false;
         
@@ -352,6 +356,8 @@ public struct Scaling {
     }
     
     public bool is_for_viewport(Dimensions original, out Dimensions scaled) {
+        scaled = Dimensions();
+        
         if (scale != NO_SCALE)
             return false;
         
@@ -373,6 +379,8 @@ public struct Scaling {
     }
     
     public bool is_fill_viewport(Dimensions original, out Dimensions scaled) {
+        scaled = Dimensions();
+        
         if (constraint != ScaleConstraint.FILL_VIEWPORT)
             return false;
         

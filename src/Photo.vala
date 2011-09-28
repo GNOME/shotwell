@@ -1126,6 +1126,8 @@ public abstract class Photo : PhotoSource, Dateable {
     
     protected BackingPhotoRow? query_backing_photo_row(File file, PhotoFileSniffer.Options options,
         out DetectedPhotoInformation detected) throws Error {
+        detected = null;
+        
         BackingPhotoRow backing = new BackingPhotoRow();
         // get basic file information
         FileInfo info = null;
@@ -1224,6 +1226,8 @@ public abstract class Photo : PhotoSource, Dateable {
     // This method is thread-safe.  If returns false the photo should be marked offline (in the
     // main UI thread).
     public bool prepare_for_reimport_master(out ReimportMasterState reimport_state) throws Error {
+        reimport_state = null;
+        
         File file = get_master_reader().get_file();
         
         DetectedPhotoInformation detected;
@@ -1356,6 +1360,8 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // This method is thread-safe.  Returns false if the photo has no associated editable.
     public bool prepare_for_reimport_editable(out ReimportEditableState state) throws Error {
+        state = null;
+        
         File? file = get_editable_file();
         if (file == null)
             return false;
@@ -1413,6 +1419,8 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // This method is thread-safe.  Returns false if the photo has no associated RAW developments.
     public bool prepare_for_reimport_raw_development(out ReimportRawDevelopmentState state) throws Error {
+        state = null;
+        
         Gee.Collection<File>? files = get_raw_developer_files();
         if (files == null)
             return false;
@@ -2354,6 +2362,8 @@ public abstract class Photo : PhotoSource, Dateable {
     // unsupported) or the file is unavailable.
     public bool persist_master_metadata(PhotoMetadata metadata, out ReimportMasterState state)
         throws Error {
+        state = null;
+        
         PhotoFileReader master_reader = get_master_reader();
         
         if (!master_reader.get_file_format().can_write_metadata())
@@ -2375,6 +2385,8 @@ public abstract class Photo : PhotoSource, Dateable {
     
     public bool persist_editable_metadata(PhotoMetadata metadata, out ReimportEditableState state)
         throws Error {
+        state = null;
+        
         PhotoFileReader? editable_reader = get_editable_reader();
         if (editable_reader == null)
             return false;
@@ -2597,6 +2609,8 @@ public abstract class Photo : PhotoSource, Dateable {
 
     // Returns the crop in the raw photo's coordinate system
     public bool get_raw_crop(out Box crop) {
+        crop = Box();
+        
         KeyValueMap map = get_transformation("crop");
         if (map == null)
             return false;
@@ -2628,10 +2642,14 @@ public abstract class Photo : PhotoSource, Dateable {
     
     private bool get_raw_straighten(out double angle) {
         KeyValueMap map = get_transformation("straighten");
-        if (map == null)
-            return false;
+        if (map == null) {
+            angle = 0.0;
             
+            return false;
+        }
+        
         angle = map.get_double("angle", 0.0); 
+        
         return true;
     }
     
@@ -3678,8 +3696,11 @@ public abstract class Photo : PhotoSource, Dateable {
     // Returns the crop against the coordinate system of the rotated photo
     public bool get_crop(out Box crop) {
         Box raw;
-        if (!get_raw_crop(out raw))
+        if (!get_raw_crop(out raw)) {
+            crop = Box();
+            
             return false;
+        }
         
         Dimensions dim = get_raw_dimensions();
         Orientation orientation = get_orientation();
@@ -3929,6 +3950,7 @@ public abstract class Photo : PhotoSource, Dateable {
 
 public class LibraryPhotoSourceCollection : MediaSourceCollection {
     public enum State {
+        UNKNOWN,
         ONLINE,
         OFFLINE,
         TRASH,
@@ -4393,6 +4415,8 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
             return photo;
         }
         
+        state = State.UNKNOWN;
+        
         return null;
     }
 
@@ -4506,8 +4530,11 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     public static ImportResult import_create(PhotoImportParams params, out LibraryPhoto photo) {
         // add to the database
         PhotoID photo_id = PhotoTable.get_instance().add(ref params.row);
-        if (photo_id.is_invalid())
+        if (photo_id.is_invalid()) {
+            photo = null;
+            
             return ImportResult.DATABASE_ERROR;
+        }
         
         // create local object but don't add to global until thumbnails generated
         photo = new LibraryPhoto.from_import_params(params);

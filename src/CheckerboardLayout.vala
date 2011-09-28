@@ -1664,7 +1664,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         bg_color = this.get_style().bg[Gtk.StateType.NORMAL];
     }
     
-    public override void size_allocate(Gdk.Rectangle allocation) {
+    public override void size_allocate(Gtk.Allocation allocation) {
         base.size_allocate(allocation);
         
         viewport_resized();

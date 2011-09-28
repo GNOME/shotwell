@@ -509,12 +509,16 @@ public class ImportPage : CheckerboardPage {
         }
         
         public override bool determine_file_size(out uint64 filesize, out File file) {
+            file = null;
             filesize = this.filesize;
             
             return true;
         }
         
         public override bool prepare(out File file_to_import, out bool copy_to_library) throws Error {
+            file_to_import = null;
+            copy_to_library = false;
+            
             File dest_file = null;
             try {
                 bool collision;

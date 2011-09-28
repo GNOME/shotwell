@@ -19,7 +19,7 @@ public class YandexService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return "Yandex.Fotki";
     }
     
-    public void get_info(out Spit.PluggableInfo info) {
+    public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Evgeniy Polyakov <zbr@ioremap.net>";
         info.copyright = _t("Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>");
         info.translators = Resources.TRANSLATORS;

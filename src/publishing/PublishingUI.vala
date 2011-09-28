@@ -411,7 +411,7 @@ public class PublishingDialog : Gtk.Dialog {
         since_last_start.start();
     }
     
-    private bool on_window_close(Gdk.Event evt) {
+    private bool on_window_close(Gdk.EventAny evt) {
         host.stop_publishing();
         host = null;
         hide();

@@ -594,6 +594,8 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         if (exposure_time == 0 && event_name == null) {
             debug("Skipping event assignment to %s: no exposure time and no event name", media.to_string());
             
+            new_event = false;
+            
             return null;
         }
         
@@ -623,6 +625,8 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
+        
+        new_event = false;
         
         return null;
     }

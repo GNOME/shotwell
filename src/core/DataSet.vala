@@ -29,8 +29,8 @@ public delegate bool ComparatorPredicate(DataObject object, Alteration alteratio
 public class DataSet {
     private SortedList<DataObject> list = new SortedList<DataObject>();
     private Gee.HashSet<DataObject> hash_set = new Gee.HashSet<DataObject>();
-    private Comparator user_comparator = null;
-    private ComparatorPredicate? comparator_predicate = null;
+    private unowned Comparator user_comparator = null;
+    private unowned ComparatorPredicate? comparator_predicate = null;
     
     public DataSet() {
         reset_comparator();
@@ -78,11 +78,11 @@ public class DataSet {
         list.resort(order_added_comparator);
     }
     
-    public Comparator get_comparator() {
+    public unowned Comparator get_comparator() {
         return user_comparator;
     }
     
-    public ComparatorPredicate get_comparator_predicate() {
+    public unowned ComparatorPredicate get_comparator_predicate() {
         return comparator_predicate;
     }
     

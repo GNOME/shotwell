@@ -317,8 +317,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     }
     
     public override bool draw(Cairo.Context ctx) {
-        Gtk.Border padding = new Gtk.Border();
-        get_style_context().get_padding(Gtk.StateFlags.NORMAL, padding);
+        Gtk.Border padding = get_style_context().get_padding(Gtk.StateFlags.NORMAL);
         
         Gdk.Rectangle area = Gdk.Rectangle();
         area.x = padding.left;

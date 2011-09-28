@@ -207,6 +207,7 @@ public class FileImportJob : BatchImportJob {
     }
     
     public override bool determine_file_size(out uint64 filesize, out File file) {
+        filesize = 0;
         file = file_or_dir;
         
         return false;
@@ -373,7 +374,7 @@ public class BatchImport : Object {
     private string name;
     private uint64 completed_bytes = 0;
     private uint64 total_bytes = 0;
-    private ImportReporter reporter;
+    private unowned ImportReporter reporter;
     private ImportManifest manifest;
     private bool scheduled = false;
     private bool completed = false;
@@ -1517,7 +1518,7 @@ private class PrepareFilesJob : BackgroundImportJob {
     public int prepared_files = 0;
     
     private Gee.List<FileToPrepare> files_to_prepare;
-    private NotificationCallback notification;
+    private unowned NotificationCallback notification;
     private File library_dir;
     
     // these are for debugging and testing only
@@ -1633,6 +1634,8 @@ private class PrepareFilesJob : BackgroundImportJob {
     
     private ImportResult prepare_file(BatchImportJob job, File file, File? associated_file, 
         bool copy_to_library, out PreparedFile prepared_file) {
+        prepared_file = null;
+        
         bool is_video = VideoReader.is_supported_video_file(file);
         
         if ((!is_video) && (!Photo.is_file_image(file)))

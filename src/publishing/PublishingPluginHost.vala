@@ -16,7 +16,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     private weak PublishingUI.PublishingDialog dialog = null;
     private Spit.Publishing.Publisher active_publisher = null;
     private Publishable[] publishables = null;
-    private LoginCallback current_login_callback = null;
+    private unowned LoginCallback current_login_callback = null;
     private bool publishing_halted = false;
     private Spit.Publishing.Publisher.MediaType media_type =
         Spit.Publishing.Publisher.MediaType.NONE;
