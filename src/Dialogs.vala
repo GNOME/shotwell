@@ -924,6 +924,7 @@ public class TextEntryDialog : Gtk.Dialog {
         }
         
         set_default_response(Gtk.ResponseType.OK);
+        set_has_resize_grip(false);
     }
 
     public string? execute() {
@@ -1724,6 +1725,8 @@ public class WelcomeDialog : Gtk.Dialog {
 
         ((Gtk.Box) get_content_area()).pack_start(alignment, false, false, 0);
 
+		set_has_resize_grip(false);
+        
         ok_button.grab_focus();
     }
 
@@ -1808,6 +1811,7 @@ public class PreferencesDialog {
         dialog.set_transient_for(AppWindow.get_instance());
         dialog.delete_event.connect(on_delete);
         dialog.response.connect(on_close);
+        dialog.set_has_resize_grip(false);
         
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 

@@ -31,6 +31,7 @@ public abstract class EditingToolWindow : Gtk.Window {
         focus_on_map = true;
         set_accept_focus(true);
         set_can_focus(true);
+        set_has_resize_grip(false);
     }
     
     public override void add(Gtk.Widget widget) {

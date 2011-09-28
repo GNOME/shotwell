@@ -554,12 +554,11 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         close_button = new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
         close_button.clicked.connect(on_close_clicked);
     
-        // Move the buttons away from where Unity window
-        // manager on Ubuntu puts resize handles
         Gtk.Alignment action_alignment = new Gtk.Alignment(1, 0.5f, 1, 1);
-        action_alignment.set_padding(0, 0, 0, Resources.RESIZE_HANDLE_SPACER);
         action_alignment.add(close_button);
         ((Gtk.Container) get_action_area()).add(action_alignment);
+        
+        set_has_resize_grip(false);
     }
 
     ~ExtendedPropertiesWindow() {

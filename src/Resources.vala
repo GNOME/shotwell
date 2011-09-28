@@ -30,9 +30,7 @@ namespace Resources {
     public const double TRANSIENT_WINDOW_OPACITY = 0.90;
     
     public const int DEFAULT_ICON_SCALE = 24;
-    
-    public const int RESIZE_HANDLE_SPACER = 8;
-    
+   
     public const string[] AUTHORS = { 
         "Jim Nelson <jim@yorba.org>", 
         "Lucas Beeler <lucas@yorba.org>",

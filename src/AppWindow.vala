@@ -321,6 +321,8 @@ public abstract class PageWindow : Gtk.Window {
         // the current page needs to know when modifier keys are pressed
         add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK
             | Gdk.EventMask.STRUCTURE_MASK);
+            
+        set_has_resize_grip(false);
     }
     
     public Page? get_current_page() {
