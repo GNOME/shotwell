@@ -279,8 +279,7 @@ EXT_PKGS = \
 	libxml-2.0 \
 	sqlite3 \
 	unique-3.0 \
-	webkitgtk-3.0 \
-	gconf-2.0
+	webkitgtk-3.0 
 ifdef UNITY_SUPPORT
 EXT_PKGS += unity
 endif
@@ -316,8 +315,7 @@ EXT_PKG_VERSIONS = \
 	libxml-2.0 >= 2.6.32 \
 	sqlite3 >= 3.5.9 \
 	unique-3.0 >= 3.0.0 \
-	webkitgtk-3.0 >= 1.4.0 \
-	gconf-2.0 >= 2.22.0
+	webkitgtk-3.0 >= 1.4.0 
 
 ifdef ENABLE_TESTS
 EXT_PKGS += valadate-1.0

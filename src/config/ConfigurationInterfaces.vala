@@ -8,7 +8,7 @@ public errordomain ConfigurationError {
     PROPERTY_HAS_NO_VALUE,
     /**
       * the underlying configuration engine reported an error; the error is
-      * specific to the configuration engine in use (e.g., GConf, GSettings)
+      * specific to the configuration engine in use (e.g., GSettings)
       * and is usually meaningless to client code */
     ENGINE_ERROR,
 }

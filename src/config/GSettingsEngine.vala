@@ -415,4 +415,46 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
             critical("GSettingsConfigurationEngine: error: %s", err.message);
         }
     }
+    
+    // This method will convert Shotwell's GConf settings to gsettings by executing an external
+    // application.  This can be executed any number of times without causing problems.  It first
+    // checks if the Shotwell settings have been converted, and if not, runs the program.
+    public static void run_gsettings_data_converter() {
+        try {
+            KeyFile keyfile = new KeyFile();
+            keyfile.load_from_data_dirs("gsettings-data-convert", null, KeyFileFlags.NONE);
+            
+            // search to see if Shotwell's GConf settings have already been converted
+            string[]? list = keyfile.get_string_list("State", "converted");
+            if (list != null) {
+                foreach (string name in list) {
+                    // shotwell.convert is the key file stored in the build misc directory
+                    if (name == "shotwell.convert")
+                        return;
+                }
+            }
+        } catch (Error err) {
+            message("Error loading or parsing gsettings convert keyfile: %s", err.message);
+        }
+        
+        debug("Converting GConf settings to gsettings...");
+        
+        // Conversion hasn't occurred, do it now
+        // (Note that running this program multiple times is not a problem, so if the above
+        // logic fails, no worries.  See http://developer.gnome.org/gio/2.28/ch28s07.html)
+        try {
+            string so, se;
+            int ec;
+            Process.spawn_command_line_sync("gsettings-data-convert", out so, out se, out ec);
+            if (ec != 0) {
+                message("Error %d running gsettings-data-convert: stdout=\"%s\" stderr=\"%s\"",
+                    ec, so, se);
+            }
+            
+            debug("GConf to gsettings conversion completed");
+        } catch (Error err) {
+            message("Error running gsettings-data-convert: %s", err.message);
+        }
+    }
+    
 }
