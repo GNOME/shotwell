@@ -199,7 +199,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private const int CONTROL_WIDTH = TROUGH_WIDTH + 2;
     private const int CONTROL_HEIGHT = 118;
     private const int NUB_V_POSITION = CONTROL_HEIGHT - TROUGH_HEIGHT - TROUGH_BOTTOM_OFFSET
-        - (NUB_SIZE - TROUGH_HEIGHT) / 2 - NUB_V_NUDGE - 1;
+        - (NUB_SIZE - TROUGH_HEIGHT) / 2 - NUB_V_NUDGE - 2;
     private int left_nub_max = 255 - NUB_SIZE - 1;
     private int right_nub_min = NUB_SIZE + 1;
 
@@ -325,14 +325,12 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         area.width = get_allocated_width() - (padding.left + padding.right);
         area.height = get_allocated_height() - (padding.top + padding.bottom);
         
+        draw_histogram_frame(ctx, area);
+        draw_histogram(ctx, area);
         draw_trough(ctx, area);
         draw_nub(ctx, area, left_nub_position);
         draw_nub(ctx, area, right_nub_position);
-        draw_histogram_frame(ctx, area);
-        draw_histogram(ctx, area);
-        
-        ctx.paint();
-        
+
         return true;
     }
     
@@ -421,6 +419,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         }
         
         Gdk.cairo_set_source_pixbuf(ctx, histogram_graphic, area.x + NUB_HALF_WIDTH, area.y + 2);
+        ctx.paint();
     }
     
     private void draw_trough(Cairo.Context ctx, Gdk.Rectangle area) {
@@ -435,6 +434,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     
     private void draw_nub(Cairo.Context ctx, Gdk.Rectangle area, int position) {
         Gdk.cairo_set_source_pixbuf(ctx, nub_pixbuf, area.x + position, area.y + NUB_V_POSITION);
+        ctx.paint();
     }
     
     private void force_update() {
