@@ -43,6 +43,9 @@ public enum ConfigurableProperty {
     HIDE_PHOTOS_ALREADY_IMPORTED,
     IMPORT_DIR,
     KEEP_RELATIVITY,
+    LAST_CROP_HEIGHT,
+    LAST_CROP_MENU_CHOICE,
+    LAST_CROP_WIDTH,
     LAST_USED_SERVICE,
     LIBRARY_PHOTOS_SORT_ASCENDING,
     LIBRARY_PHOTOS_SORT_BY,
@@ -144,7 +147,16 @@ public enum ConfigurableProperty {
                 
             case KEEP_RELATIVITY:
                 return "KEEP_RELATIVITY";
-                
+
+            case LAST_CROP_HEIGHT:
+                return "LAST_CROP_HEIGHT";
+
+            case LAST_CROP_MENU_CHOICE:
+                return "LAST_CROP_MENU_CHOICE";
+
+            case LAST_CROP_WIDTH:
+                return "LAST_CROP_WIDTH";
+
             case LAST_USED_SERVICE:
                 return "LAST_USED_SERVICE";
                 
@@ -408,7 +420,7 @@ public abstract class ConfigurationFacade : Object {
             return "";
         }
     }
-    
+
     public virtual void set_desktop_background(string filename) {
         try {
             get_engine().set_string_property(ConfigurableProperty.DESKTOP_BACKGROUND_FILE,
@@ -782,6 +794,70 @@ public abstract class ConfigurationFacade : Object {
     }
 
     //
+    // last crop height
+    //
+    public virtual int get_last_crop_height() {
+        try {
+            return get_engine().get_int_property(ConfigurableProperty.LAST_CROP_HEIGHT);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return 1;
+        }
+    }
+
+    public virtual void set_last_crop_height(int choice) {
+        try {
+            get_engine().set_int_property(ConfigurableProperty.LAST_CROP_HEIGHT, choice);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // last crop menu choice
+    //
+    public virtual int get_last_crop_menu_choice() {
+        try {
+            return get_engine().get_int_property(ConfigurableProperty.LAST_CROP_MENU_CHOICE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            // in the event we can't get a reasonable value from the configuration engine, we
+            // return the empty string since it won't match the name of any existing publishing
+            // service -- this will cause the publishing subsystem to select the first service
+            // loaded that supports the user's media type
+            return 0;
+        }
+    }
+
+    public virtual void set_last_crop_menu_choice(int choice) {
+        try {
+            get_engine().set_int_property(ConfigurableProperty.LAST_CROP_MENU_CHOICE, choice);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // last crop width
+    //
+    public virtual int get_last_crop_width() {
+        try {
+            return get_engine().get_int_property(ConfigurableProperty.LAST_CROP_WIDTH);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return 1;
+        }
+    }
+
+    public virtual void set_last_crop_width(int choice) {
+        try {
+            get_engine().set_int_property(ConfigurableProperty.LAST_CROP_WIDTH, choice);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
     // last used service
     //
     public virtual string get_last_used_service() {
@@ -913,7 +989,7 @@ public abstract class ConfigurationFacade : Object {
             return 5.0;
         }
     }
-    
+
     public virtual void set_printing_content_height(double content_height) {
         try {
             get_engine().set_double_property(ConfigurableProperty.PRINTING_CONTENT_HEIGHT,

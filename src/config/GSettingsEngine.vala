@@ -15,6 +15,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string VIDEO_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".video";
     private const string PRINTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".printing";
     private const string SHARING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".sharing";
+    private const string CROP_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".crop-settings";
     private const string SYSTEM_DESKTOP_SCHEMA_NAME = "org.gnome.desktop.background";
     private const string PLUGINS_ENABLE_DISABLE_SCHEMA_NAME = ROOT_SCHEMA_NAME +
         ".plugins.enable-state";
@@ -54,6 +55,9 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.HIDE_PHOTOS_ALREADY_IMPORTED] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.IMPORT_DIR] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.KEEP_RELATIVITY] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.LAST_CROP_HEIGHT] = CROP_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.LAST_CROP_MENU_CHOICE] = CROP_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.LAST_CROP_WIDTH] = CROP_SCHEMA_NAME;
         schema_names[ConfigurableProperty.LAST_USED_SERVICE] = SHARING_SCHEMA_NAME;
         schema_names[ConfigurableProperty.LIBRARY_PHOTOS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.LIBRARY_PHOTOS_SORT_BY] = UI_PREFS_SCHEMA_NAME;
@@ -107,6 +111,9 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.HIDE_PHOTOS_ALREADY_IMPORTED] = "hide-photos-already-imported";
         key_names[ConfigurableProperty.IMPORT_DIR] = "import-dir";
         key_names[ConfigurableProperty.KEEP_RELATIVITY] = "keep-relativity";
+        key_names[ConfigurableProperty.LAST_CROP_HEIGHT] = "last-crop-height";
+        key_names[ConfigurableProperty.LAST_CROP_MENU_CHOICE] = "last-crop-menu-choice";
+        key_names[ConfigurableProperty.LAST_CROP_WIDTH] = "last-crop-width";
         key_names[ConfigurableProperty.LAST_USED_SERVICE] = "last-used-service";
         key_names[ConfigurableProperty.LIBRARY_PHOTOS_SORT_ASCENDING] = "library-photos-sort-ascending";
         key_names[ConfigurableProperty.LIBRARY_PHOTOS_SORT_BY] = "library-photos-sort-by";

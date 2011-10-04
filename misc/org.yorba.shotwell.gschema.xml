@@ -240,6 +240,24 @@
     </key>
 </schema>
 
+<schema id="org.yorba.shotwell.crop-settings" path="/apps/shotwell/crop-settings/">
+    <key name="last-crop-menu-choice" type="i">
+        <default>1</default>
+        <summary>Most-recently-used crop aspect ratio menu choice.</summary>
+        <description>A numeric code representing the last crop menu choice the user made.</description>
+    </key>
+    <key name="last-crop-width" type="i">
+        <default>1</default>
+        <summary>Most-recently-used crop custom aspect ratio's numerator.</summary>
+        <description>A nonzero, positive integer representing the width part of the last custom crop ratio the user entered.</description>
+    </key>
+    <key name="last-crop-height" type="i">
+        <default>1</default>
+        <summary>Most-recently-used crop custom aspect ratio's denominator.</summary>
+        <description>A nonzero, positive integer representing the height part of the last custom crop ratio the user entered.</description>
+    </key>
+</schema>
+
 <schema id="org.yorba.shotwell.preferences.editing" path="/apps/shotwell/preferences/editing/">
     <key name="external-photo-editor" type="s">
         <default>""</default>

@@ -834,9 +834,12 @@ public class CropTool : EditingTool {
         } else {
             set_normal_constraint_mode();
 
-            if (selected_constraint.aspect_ratio != ANY_ASPECT_RATIO) {
-                custom_init_width = selected_constraint.basis_width;
-                custom_init_height = selected_constraint.basis_height;
+            if (selected_constraint.aspect_ratio != ANY_ASPECT_RATIO) { 
+                // user may have switched away from 'Custom' without
+                // accepting, so set these to default back to saved
+                // values.
+                custom_init_width = Config.Facade.get_instance().get_last_crop_width();
+                custom_init_height = Config.Facade.get_instance().get_last_crop_height();
                 custom_aspect_ratio = ((float) custom_init_width) / ((float) custom_init_height);
             }
         }
@@ -846,7 +849,7 @@ public class CropTool : EditingTool {
         if (!get_selected_constraint().is_pivotable)
             reticle_orientation = ReticleOrientation.LANDSCAPE;
 
-        if (get_constraint_aspect_ratio() != pre_aspect_ratio) {
+        if (get_constraint_aspect_ratio() != pre_aspect_ratio) {                
             Box new_crop = constrain_crop(scaled_crop);
             
             crop_resized(new_crop);
@@ -1007,6 +1010,7 @@ public class CropTool : EditingTool {
         
         // set up the constraint combo box
         crop_tool_window.constraint_combo.set_model(constraint_list);
+        crop_tool_window.constraint_combo.set_active(Config.Facade.get_instance().get_last_crop_menu_choice());
 
         // set up the pivot reticle button
         update_pivot_button_state();
@@ -1032,13 +1036,43 @@ public class CropTool : EditingTool {
         scaled_crop = crop.get_scaled_similar(uncropped_dim, 
             Dimensions.for_rectangle(canvas.get_scaled_pixbuf_position()));
         
-        custom_init_width = scaled_crop.get_width();
-        custom_init_height = scaled_crop.get_height();
+        // get the custom width and height from the saved config and
+        // set up the initial custom values with it.
+        custom_width = Config.Facade.get_instance().get_last_crop_width();
+        custom_height = Config.Facade.get_instance().get_last_crop_height();
+        custom_init_width = custom_width;
+        custom_init_height = custom_height;
         pre_aspect_ratio = ((float) custom_init_width) / ((float) custom_init_height);
         
         constraint_mode = ConstraintMode.NORMAL;
 
         base.activate(canvas);
+        
+        // make sure the window has its regular size before going into 
+        // custom mode, which will resize it and needs to save the old
+        // size first.
+        crop_tool_window.show_all();
+        crop_tool_window.hide();
+
+        // was 'custom' the most-recently-chosen menu item?
+        if (constraints[Config.Facade.get_instance().get_last_crop_menu_choice()].aspect_ratio == 
+            CUSTOM_ASPECT_RATIO) {
+            // yes, switch to custom mode, make the entry fields appear.
+            set_custom_constraint_mode();
+        }
+        
+        // since we no longer just run with the default, but rather
+        // a saved value, we'll behave as if the saved constraint has
+        // just been changed to so that everything gets updated and 
+        // the canvas stays in sync.
+        Box new_crop = constrain_crop(scaled_crop);
+            
+        crop_resized(new_crop);
+        scaled_crop = new_crop;
+        canvas.invalidate_area(new_crop);
+        canvas.repaint();
+            
+        pre_aspect_ratio = get_constraint_aspect_ratio();           
     }
     
     private void bind_canvas_handlers(PhotoCanvas canvas) {
@@ -1243,6 +1277,14 @@ public class CropTool : EditingTool {
     }
     
     private void on_crop_ok() {
+        // user's clicked OK, save the combobox choice and width/height.
+        // safe to do, even if not in 'custom' mode - the previous values
+        // will just get saved again.
+        Config.Facade.get_instance().set_last_crop_menu_choice(
+            crop_tool_window.constraint_combo.get_active());
+        Config.Facade.get_instance().set_last_crop_width(custom_width);
+        Config.Facade.get_instance().set_last_crop_height(custom_height);
+        
         // scale screen-coordinate crop to photo's coordinate system
         Box crop = scaled_crop.get_scaled_similar(
             Dimensions.for_rectangle(canvas.get_scaled_pixbuf_position()), 
