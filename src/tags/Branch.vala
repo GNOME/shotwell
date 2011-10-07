@@ -224,8 +224,13 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         string? prepped = Tag.prep_tag_name(new_name);
         if (prepped == null)
             return;
+
+        prepped = prepped.replace("/", "");
         
         if (prepped == tag.get_user_visible_name())
+            return;
+        
+        if (prepped == "")
             return;
         
         AppWindow.get_command_manager().execute(new RenameTagCommand(tag, prepped));
