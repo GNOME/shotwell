@@ -356,7 +356,8 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         // the framed area is inset and slightly smaller than the overall histogram
         // control area
         Gdk.Rectangle framed_area = area;
-        framed_area.x += 4;
+        framed_area.x += 5;
+        framed_area.y += 1;
         framed_area.width -= 8;
         framed_area.height -= 12;
         
@@ -364,7 +365,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         stylectx.save();
         
         stylectx.set_path(frame_draw_path);
-        stylectx.add_class(Gtk.STYLE_CLASS_ENTRY);
+        stylectx.add_class(Gtk.STYLE_CLASS_TROUGH);
         stylectx.set_junction_sides(Gtk.JunctionSides.TOP | Gtk.JunctionSides.BOTTOM |
             Gtk.JunctionSides.LEFT | Gtk.JunctionSides.RIGHT);
 
