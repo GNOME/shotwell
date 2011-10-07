@@ -501,7 +501,7 @@ public bool import_has_videos(Gee.Collection<BatchImportResult> import_collectio
 }
 
 public string get_media_specific_string(Gee.Collection<BatchImportResult> import_collection,
-    string photos_msg, string videos_msg, string both_msg, string? neither_msg) {
+    string photos_msg, string videos_msg, string both_msg, string neither_msg) {
     bool has_photos = import_has_photos(import_collection);
     bool has_videos = import_has_videos(import_collection);
         
@@ -511,10 +511,8 @@ public string get_media_specific_string(Gee.Collection<BatchImportResult> import
         return photos_msg;
     else if (has_videos)
         return videos_msg;
-    else if (neither_msg != null)
-        return neither_msg;
     else
-        assert_not_reached();
+        return neither_msg;
 }
 
 // Returns true if the user selected the yes action, false otherwise.
@@ -534,7 +532,7 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
             manifest.already_imported.size)).printf(manifest.already_imported.size);
 
         message += get_media_specific_string(manifest.already_imported, photos_message,
-            videos_message, both_message, null);
+            videos_message, both_message, both_message);
         
         message += generate_import_failure_list(manifest.already_imported, show_dest_id);
     }
@@ -675,7 +673,7 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
             manifest.success.size)).printf(manifest.success.size);
         
         message += get_media_specific_string(manifest.success, photos_message, videos_message,
-            both_message, null);
+            both_message, "");
     }
     
     int total = manifest.success.size + manifest.failed.size + manifest.camera_failed.size
