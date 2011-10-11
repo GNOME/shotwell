@@ -1,3 +1,14 @@
+Shotwell 0.11.3 - 11 October 2011 - "All Old People Steal"
+---------------------------------------------------------------------
+
+  * Fixes a critical issue where Shotwell could crash immediately
+    following a photo import
+  * Fixes a critical issue where Shotwell could crash if the user
+    entered a tag name containing a slash ("/") character
+  * Long error messages in the Publishing dialog box are now wrapped
+    correctly
+
+
 Shotwell 0.11.2 - 20 September 2011 - "Strap them to a Rickshaw"
 ---------------------------------------------------------------------
 
