@@ -1658,6 +1658,12 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0)
             add(album_mode_wrapper);
+
+        Gtk.Alignment visibility_vspacer = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
+        visibility_vspacer.set_padding(0, 8, 0, 0);
+        visibility_vspacer.add(new Gtk.HBox(false, 0));
+
+        add(visibility_vspacer);    
         add(visibility_layouter);
 
         // Ticket #2916 - if the user is uploading photographs, allow
