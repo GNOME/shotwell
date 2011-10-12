@@ -1,3 +1,15 @@
+shotwell (0.11.3-1~natty1) natty; urgency=low
+
+  * Fixes a critical issue where Shotwell could crash immediately
+    following a photo import
+  * Fixes a critical issue where Shotwell could crash if the user
+    entered a tag name containing a slash ("/") character
+  * Long error messages in the Publishing dialog box are now wrapped
+    correctly
+
+ -- Lucas Beeler <lucas@yorba.org>  Tue, 11 October 2011 14:20:00 -0800 
+
+
 shotwell (0.11.2-1~natty1) natty; urgency=low
 
   * Increases stability working with hierarchical tags
