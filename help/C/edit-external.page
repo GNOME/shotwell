@@ -9,16 +9,46 @@
         <link type="next" xref="edit-redeye" />
     </info>
 
-   <title>Edit photos with an external program</title>
+    <title>
+        Edit photos with an external program
+    </title>
 
-    <p>You might want to use an external editor to do additional work on a photo.
-    If installed, GIMP and UFRaw are the default external editors for photo and RAW editing, respectively.
-    If these programs are not installed, you must select your preferred editors by choosing <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down menus of installed applications.</p>
+    <p>
+        You might want to use an external editor to do additional work on a photo.
+        If installed, GIMP and UFRaw are the default external editors for photo and RAW editing, 
+        respectively.  If these programs are not installed, you must select your preferred 
+        editors by choosing <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> and selecting
+        editors from drop-down menus of installed applications.
+    </p>
 
-    <p>Once your editors have been set, select a photo and choose <guiseq><gui>Photos</gui><gui>Open With External Editor</gui></guiseq> to open the photo with the external editor.
-    Likewise, if the original photo is a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></guiseq> to edit the RAW file directly with the set RAW editor.</p>
+    <p>
+        Once your editors have been set, select a photo and choose <guiseq><gui>Photos</gui>
+        <gui>Open With External Editor</gui></guiseq> to open the photo with the external editor.
+        Likewise, if the original photo is a RAW file, select <guiseq><gui>Photos</gui><gui>Open 
+        With RAW Editor</gui></guiseq> to edit the RAW file directly with the set RAW editor.
+    </p>
 
-    <p>When you complete your edits and save the file, Shotwell will detect the changes and update the photo.
-    When external edits have been made, press the <key>Shift</key> key in full-window view to show the externally-edited photo rather than the original.
-    Reverting to original, however, will erase any external edits.</p>
+    <p>
+        When you complete your edits and save the file, Shotwell will detect the changes and 
+        update the photo.   When external edits have been made, press and hold the 
+        <key>Shift</key> key in full-window view to show the original photo rather than the 
+        externally-edited one.
+    </p>
+                            
+    <p>
+        Reverting to original will erase any external edits.
+    </p>
+    
+    <note>
+        <p>
+            If you externally edit a RAW photo and save the result to another image, such as a
+            JPEG or PNG, Shotwell cannot automatically determine that the original RAW and the 
+            new image should be paired.
+        </p>
+            
+        <p>    
+            If you want to work within the resulting image within Shotwell, you'll need to 
+            import it yourself.
+        </p>
+    </note>    
 </page>
