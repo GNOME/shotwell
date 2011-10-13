@@ -1,3 +1,10 @@
+Shotwell 0.11.4 - 13 October 2011 - "The Pony Remark"
+---------------------------------------------------------------------
+
+  * Fixes two collection concurrent access issues that could cause
+    Shotwell to crash during F-Spot import.
+
+
 Shotwell 0.11.3 - 11 October 2011 - "All Old People Steal"
 ---------------------------------------------------------------------
 
