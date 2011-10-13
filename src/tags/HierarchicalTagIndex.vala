@@ -13,7 +13,9 @@ public class HierarchicalTagIndex {
         this.known_paths = new Gee.TreeSet<string>();
     }
     
-    public static HierarchicalTagIndex from_paths(Gee.Collection<string> paths) {
+    public static HierarchicalTagIndex from_paths(Gee.Collection<string> client_paths) {
+        Gee.Collection<string> paths = client_paths.read_only_view;
+
         HierarchicalTagIndex result = new HierarchicalTagIndex();
         
         foreach (string path in paths) {
@@ -45,7 +47,7 @@ public class HierarchicalTagIndex {
     }
     
     public Gee.Collection<string> get_all_paths() {
-        return known_paths;
+        return known_paths.read_only_view;
     }
     
     public bool is_tag_in_index(string tag) {
