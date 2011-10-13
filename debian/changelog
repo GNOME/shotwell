@@ -1,3 +1,11 @@
+shotwell (0.11.4-1~natty1) natty; urgency=low
+
+  * Fixes two collection concurrent access issues that could cause
+    Shotwell to crash during F-Spot import.
+
+ -- Lucas Beeler <lucas@yorba.org>  Tue, 13 October 2011 13:43:11 -0800 
+
+
 shotwell (0.11.3-1~natty1) natty; urgency=low
 
   * Fixes a critical issue where Shotwell could crash immediately
