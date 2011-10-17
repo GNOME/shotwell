@@ -153,6 +153,7 @@ public abstract class BatchImportJob {
     // filesize should only be returned if BatchImportJob represents a single file.
     public abstract bool determine_file_size(out uint64 filesize, out File file_or_dir);
     
+    // NOTE: prepare( ) is called from a background thread in the worker pool
     public abstract bool prepare(out File file_to_import, out bool copy_to_library) throws Error;
     
     // Completes the import for the new library photo once it's been imported.
@@ -161,6 +162,8 @@ public abstract class BatchImportJob {
     // that have been successfully imported.
     //
     // Returns true if any action was taken, false otherwise.
+    //
+    // NOTE: complete( )is called from the foreground thread
     public virtual bool complete(MediaSource source, BatchImportRoll import_roll) throws Error {
         return false;
     }

@@ -15,6 +15,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
     private uint64 filesize;
     private time_t exposure_time;
     private AlienDatabaseImportJob? associated = null;
+    private HierarchicalTagIndex? detected_htags = null;
     
     public AlienDatabaseImportJob(AlienDatabaseImportSource import_source) {
         this.import_source = import_source;
@@ -86,15 +87,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
         file_to_import = src_file;
         copy_to_library = false;
         
-        HierarchicalTagIndex? detected_htags =
-            build_exclusion_index(import_source.get_photo().get_tags());
-        
-        if (detected_htags != null) {
-            Gee.Collection<string> paths = detected_htags.get_all_paths();
-
-            foreach (string path in paths)
-                Tag.for_path(path);
-        }
+        detected_htags = build_exclusion_index(import_source.get_photo().get_tags());
         
         return true;
     }
@@ -107,6 +100,13 @@ public class AlienDatabaseImportJob : BatchImportJob {
         AlienDatabasePhoto src_photo = import_source.get_photo();
         
         // tags
+        if (detected_htags != null) {
+            Gee.Collection<string> paths = detected_htags.get_all_paths();
+
+            foreach (string path in paths)
+                Tag.for_path(path);
+        }
+        
         Gee.Collection<AlienDatabaseTag> src_tags = src_photo.get_tags();
         foreach (AlienDatabaseTag src_tag in src_tags) {
             string? prepped = HierarchicalTagUtilities.join_path_components(
