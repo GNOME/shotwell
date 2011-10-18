@@ -1,3 +1,11 @@
+Shotwell 0.11.5 - 18 October 2011 - "I hate anyone that ever had a pony"
+---------------------------------------------------------------------
+
+  * Fixes a collection concurrent access issue that could cause
+    Shotwell to crash during F-Spot import for users still
+    affected by this issue even after installing Shotwell 0.11.4.
+
+
 Shotwell 0.11.4 - 13 October 2011 - "The Pony Remark"
 ---------------------------------------------------------------------
 
