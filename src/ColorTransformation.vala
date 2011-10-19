@@ -1180,7 +1180,8 @@ public class IntensityHistogram {
     }
 
     public float get_cumulative_probability(int level) {
-        assert((level >= 0) && (level < 256));
+        // clamp out-of-range pixels to prevent crashing. 
+        level = level.clamp(0, 255);
         return cumulative_probabilities[level];
     }
 }
