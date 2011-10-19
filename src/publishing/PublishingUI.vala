@@ -94,6 +94,9 @@ public class ProgressPane : ConcreteDialogPane {
         progress_bar = new Gtk.ProgressBar();
         secondary_text = new Gtk.Label("");
         
+        // force 'Publishing x of y' message to appear
+        progress_bar.set_show_text(true);
+        
         Gtk.HBox progress_bar_wrapper = new Gtk.HBox(false, 0);
         Gtk.SeparatorToolItem left_padding = new Gtk.SeparatorToolItem();
         left_padding.set_size_request(10, -1);
