@@ -1309,6 +1309,22 @@ public class LibraryWindow : AppWindow {
 
         // pad the bottom frame (properties)
         Gtk.Alignment bottom_alignment = new Gtk.Alignment(0, 0.5f, 1, 0);
+        Gtk.CssProvider css_provider = new Gtk.CssProvider();
+        
+        string properties_frame_style = """.frame {
+                                            color: lighter (@theme_fg_color);
+                                            border-style: inset;
+                                            border-width: 1;
+                                        }""";
+        
+        try {
+            css_provider.load_from_data(properties_frame_style, -1);
+            bottom_frame.get_style_context().add_provider(css_provider, 
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (Error e) {
+            warning("Unable to set properties frame style.");
+        }
+        
         bottom_alignment.set_padding(10, 10, 6, 0);
         bottom_alignment.add(basic_properties);
 
