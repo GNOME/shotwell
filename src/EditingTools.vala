@@ -514,7 +514,7 @@ public class CropTool : EditingTool {
     private const float MIN_ASPECT_RATIO = 1.0f / 64.0f;
     private const float MAX_ASPECT_RATIO = 64.0f;
     
-    private struct ConstraintDescription {
+    private class ConstraintDescription {
         public string name;
         public int basis_width;
         public int basis_height;
@@ -653,31 +653,31 @@ public class CropTool : EditingTool {
     private static ConstraintDescription[] create_constraints() {
         ConstraintDescription[] result = new ConstraintDescription[0];
 
-        result += ConstraintDescription(_("Unconstrained"), 0, 0, false, ANY_ASPECT_RATIO);
-        result += ConstraintDescription(_("Square"), 1, 1, false);
-        result += ConstraintDescription(_("Screen"), 0, 0, true, SCREEN_ASPECT_RATIO);
-        result += ConstraintDescription(_("Original Size"), 0, 0, true, ORIGINAL_ASPECT_RATIO);
-        result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
-        result += ConstraintDescription(_("SD Video (4 : 3)"), 4, 3, true);
-        result += ConstraintDescription(_("HD Video (16 : 9)"), 16, 9, true);
-        result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
-        result += ConstraintDescription(_("Wallet (2 x 3 in.)"), 3, 2, true);
-        result += ConstraintDescription(_("Notecard (3 x 5 in.)"), 5, 3, true);
-        result += ConstraintDescription(_("4 x 6 in."), 6, 4, true);
-        result += ConstraintDescription(_("5 x 7 in."), 7, 5, true);
-        result += ConstraintDescription(_("8 x 10 in."), 10, 8, true);
-        result += ConstraintDescription(_("11 x 14 in."), 14, 11, true);
-        result += ConstraintDescription(_("16 x 20 in."), 20, 16, true);
-        result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
-        result += ConstraintDescription(_("Metric Wallet (9 x 13 cm)"), 13, 9, true);
-        result += ConstraintDescription(_("Postcard (10 x 15 cm)"), 15, 10, true);
-        result += ConstraintDescription(_("13 x 18 cm"), 18, 13, true);
-        result += ConstraintDescription(_("18 x 24 cm"), 24, 18, true);
-        result += ConstraintDescription(_("20 x 30 cm"), 30, 20, true);
-        result += ConstraintDescription(_("24 x 40 cm"), 40, 24, true);
-        result += ConstraintDescription(_("30 x 40 cm"), 40, 30, true);
-        result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
-        result += ConstraintDescription(_("Custom"), 0, 0, true, CUSTOM_ASPECT_RATIO);
+        result += new ConstraintDescription(_("Unconstrained"), 0, 0, false, ANY_ASPECT_RATIO);
+        result += new ConstraintDescription(_("Square"), 1, 1, false);
+        result += new ConstraintDescription(_("Screen"), 0, 0, true, SCREEN_ASPECT_RATIO);
+        result += new ConstraintDescription(_("Original Size"), 0, 0, true, ORIGINAL_ASPECT_RATIO);
+        result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
+        result += new ConstraintDescription(_("SD Video (4 : 3)"), 4, 3, true);
+        result += new ConstraintDescription(_("HD Video (16 : 9)"), 16, 9, true);
+        result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
+        result += new ConstraintDescription(_("Wallet (2 x 3 in.)"), 3, 2, true);
+        result += new ConstraintDescription(_("Notecard (3 x 5 in.)"), 5, 3, true);
+        result += new ConstraintDescription(_("4 x 6 in."), 6, 4, true);
+        result += new ConstraintDescription(_("5 x 7 in."), 7, 5, true);
+        result += new ConstraintDescription(_("8 x 10 in."), 10, 8, true);
+        result += new ConstraintDescription(_("11 x 14 in."), 14, 11, true);
+        result += new ConstraintDescription(_("16 x 20 in."), 20, 16, true);
+        result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
+        result += new ConstraintDescription(_("Metric Wallet (9 x 13 cm)"), 13, 9, true);
+        result += new ConstraintDescription(_("Postcard (10 x 15 cm)"), 15, 10, true);
+        result += new ConstraintDescription(_("13 x 18 cm"), 18, 13, true);
+        result += new ConstraintDescription(_("18 x 24 cm"), 24, 18, true);
+        result += new ConstraintDescription(_("20 x 30 cm"), 30, 20, true);
+        result += new ConstraintDescription(_("24 x 40 cm"), 40, 24, true);
+        result += new ConstraintDescription(_("30 x 40 cm"), 40, 30, true);
+        result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
+        result += new ConstraintDescription(_("Custom"), 0, 0, true, CUSTOM_ASPECT_RATIO);
 
         return result;
     }

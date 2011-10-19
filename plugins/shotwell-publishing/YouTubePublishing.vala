@@ -933,11 +933,11 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 }
 
 internal class LegacyPublishingOptionsPane : Gtk.VBox {
-    private struct PrivacyDescription {
-        private string description;
-        private PrivacySetting privacy_setting;
+    private class PrivacyDescription {
+        public string description;
+        public PrivacySetting privacy_setting;
 
-        PrivacyDescription(string description, PrivacySetting privacy_setting) {
+        public PrivacyDescription(string description, PrivacySetting privacy_setting) {
             this.description = description;
             this.privacy_setting = privacy_setting;
         }
@@ -1073,9 +1073,9 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private PrivacyDescription[] create_privacy_descriptions() {
         PrivacyDescription[] result = new PrivacyDescription[0];
 
-        result += PrivacyDescription(_("Public listed"), PrivacySetting.PUBLIC);
-        result += PrivacyDescription(_("Public unlisted"), PrivacySetting.UNLISTED);
-        result += PrivacyDescription(_("Private"), PrivacySetting.PRIVATE);
+        result += new PrivacyDescription(_("Public listed"), PrivacySetting.PUBLIC);
+        result += new PrivacyDescription(_("Public unlisted"), PrivacySetting.UNLISTED);
+        result += new PrivacyDescription(_("Private"), PrivacySetting.PRIVATE);
 
         return result;
     }

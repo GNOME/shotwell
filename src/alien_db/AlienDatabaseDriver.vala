@@ -7,9 +7,9 @@
 namespace AlienDb {
 
 /**
- * A simple struct to represent an alien database driver ID.
+ * A simple class to represent an alien database driver ID.
  */
-public struct AlienDatabaseDriverID {
+public class AlienDatabaseDriverID {
     public string id;
     
     public AlienDatabaseDriverID(string id) {

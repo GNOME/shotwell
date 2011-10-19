@@ -22,7 +22,7 @@ public struct EventID {
     }
 }
 
-public struct EventRow {
+public class EventRow {
     public EventID event_id;
     public string? name;
     public time_t time_created;
@@ -89,7 +89,7 @@ public class EventTable : DatabaseTable {
         if (res != Sqlite.DONE)
             throw_error("EventTable.create", res);
         
-        EventRow row = EventRow();
+        EventRow row = new EventRow();
         row.event_id = EventID(db.last_insert_rowid());
         row.name = null;
         row.primary_source_id = primary_source_id;
@@ -138,7 +138,7 @@ public class EventTable : DatabaseTable {
         if (stmt.step() != Sqlite.ROW)
             return null;
         
-        EventRow row = EventRow();
+        EventRow row = new EventRow();
         row.event_id = event_id;
         row.name = stmt.column_text(0);
         if (row.name != null && row.name.length == 0)
@@ -170,7 +170,7 @@ public class EventTable : DatabaseTable {
                 break;
             }
 
-            EventRow row = EventRow();
+            EventRow row = new EventRow();
 
             row.event_id = EventID(stmt.column_int64(0));
             row.name = stmt.column_text(1);

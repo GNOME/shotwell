@@ -22,7 +22,7 @@ public struct TagID {
     }
 }
 
-public struct TagRow {
+public class TagRow {
     public TagID tag_id;
     public string name;
     public Gee.Set<string>? source_id_list;
@@ -90,7 +90,7 @@ public class TagTable : DatabaseTable {
         if (res != Sqlite.DONE)
             throw_error("TagTable.add", res);
         
-        TagRow row = TagRow();
+        TagRow row = new TagRow();
         row.tag_id = TagID(db.last_insert_rowid());
         row.name = name;
         row.source_id_list = null;
@@ -147,7 +147,7 @@ public class TagTable : DatabaseTable {
         else if (res != Sqlite.ROW)
             throw_error("TagTable.get_row", res);
         
-        TagRow row = TagRow();
+        TagRow row = new TagRow();
         row.tag_id = tag_id;
         row.name = stmt.column_text(0);
         row.source_id_list = unserialize_source_ids(stmt.column_text(1));
@@ -172,7 +172,7 @@ public class TagTable : DatabaseTable {
                 throw_error("TagTable.get_all_rows", res);
             
             // res == Sqlite.ROW
-            TagRow row = TagRow();
+            TagRow row = new TagRow();
             row.tag_id = TagID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
             row.source_id_list = unserialize_source_ids(stmt.column_text(2));

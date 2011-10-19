@@ -22,7 +22,7 @@ public struct FaceID {
     }
 }
 
-public struct FaceRow {
+public class FaceRow {
     public FaceID face_id;
     public string name;
     public time_t time_created;
@@ -73,7 +73,7 @@ public class FaceTable : DatabaseTable {
         if (res != Sqlite.DONE)
             throw_error("FaceTable.add", res);
         
-        FaceRow row = FaceRow();
+        FaceRow row = new FaceRow();
         row.face_id = FaceID(db.last_insert_rowid());
         row.name = name;
         row.time_created = time_created;
@@ -126,7 +126,7 @@ public class FaceTable : DatabaseTable {
         else if (res != Sqlite.ROW)
             throw_error("FaceTable.get_row", res);
         
-        FaceRow row = FaceRow();
+        FaceRow row = new FaceRow();
         row.face_id = face_id;
         row.name = stmt.column_text(0);
         row.time_created = (time_t) stmt.column_int64(1);
@@ -150,7 +150,7 @@ public class FaceTable : DatabaseTable {
                 throw_error("FaceTable.get_all_rows", res);
             
             // res == Sqlite.ROW
-            FaceRow row = FaceRow();
+            FaceRow row = new FaceRow();
             row.face_id = FaceID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
             row.time_created = (time_t) stmt.column_int64(2);

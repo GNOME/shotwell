@@ -19,7 +19,7 @@ public errordomain AlienDatabaseError {
 /**
  * A simple struct to represent an alien database ID.
  */
-public struct AlienDatabaseID {
+public class AlienDatabaseID {
     public AlienDatabaseDriverID driver_id;
     public string driver_specific_uri;
     
@@ -33,7 +33,7 @@ public struct AlienDatabaseID {
         if (uri_elements.length < 2) {
             error("Cannot create alien database ID from URI: %s", db_uri);
         } else {
-            this.driver_id = AlienDatabaseDriverID(uri_elements[0]);
+            this.driver_id = new AlienDatabaseDriverID(uri_elements[0]);
             this.driver_specific_uri = uri_elements[1];
         }
     }

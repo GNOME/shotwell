@@ -10,7 +10,7 @@ public enum ContentLayout {
     IMAGE_PER_PAGE
 }
 
-public struct PrintSettings {
+public class PrintSettings {
     public const int MIN_CONTENT_PPI = 72;    /* 72 ppi is the pixel resolution of a 14" VGA
                                                  display -- it's standard for historical reasons */
     public const int MAX_CONTENT_PPI = 1200;  /* 1200 ppi is appropriate for a 3600 dpi imagesetter
@@ -845,7 +845,7 @@ public class CustomPrintTab : Gtk.Fixed {
     }
 
     public PrintSettings get_local_settings() {
-        PrintSettings result = PrintSettings();
+        PrintSettings result = new PrintSettings();
 
         result.set_content_width(get_content_width());
         result.set_content_height(get_content_height());
@@ -897,7 +897,7 @@ public class PrintJob : Gtk.PrintOperation {
     }
 }
 
-public struct StandardPrintSize {
+public class StandardPrintSize {
     public StandardPrintSize(string name, Measurement width, Measurement height) {
         this.name = name;
         this.width = width;
@@ -922,55 +922,55 @@ public class PrintManager {
     
     private PrintManager() {
         user_page_setup = new Gtk.PageSetup();
-        settings = PrintSettings();
+        settings = new PrintSettings();
     }
 
     public StandardPrintSize[] get_standard_sizes() {
         StandardPrintSize[] result = new StandardPrintSize[0];
 
-        result += StandardPrintSize(_("Wallet (2 x 3 in.)"),
+        result += new StandardPrintSize(_("Wallet (2 x 3 in.)"),
             Measurement(3, MeasurementUnit.INCHES),
             Measurement(2, MeasurementUnit.INCHES));
-        result += StandardPrintSize(_("Notecard (3 x 5 in.)"),
+        result += new StandardPrintSize(_("Notecard (3 x 5 in.)"),
             Measurement(5, MeasurementUnit.INCHES),
             Measurement(3, MeasurementUnit.INCHES));
-        result += StandardPrintSize(_("4 x 6 in."),
+        result += new StandardPrintSize(_("4 x 6 in."),
             Measurement(6, MeasurementUnit.INCHES),
             Measurement(4, MeasurementUnit.INCHES));
-        result += StandardPrintSize(_("5 x 7 in."),
+        result += new StandardPrintSize(_("5 x 7 in."),
             Measurement(7, MeasurementUnit.INCHES),
             Measurement(5, MeasurementUnit.INCHES));
-        result += StandardPrintSize(_("8 x 10 in."),
+        result += new StandardPrintSize(_("8 x 10 in."),
             Measurement(10, MeasurementUnit.INCHES),
             Measurement(8, MeasurementUnit.INCHES));
-        result += StandardPrintSize(_("11 x 14 in."),
+        result += new StandardPrintSize(_("11 x 14 in."),
             Measurement(14, MeasurementUnit.INCHES),
             Measurement(11, MeasurementUnit.INCHES));
-        result += StandardPrintSize(_("16 x 20 in."),
+        result += new StandardPrintSize(_("16 x 20 in."),
             Measurement(20, MeasurementUnit.INCHES),
             Measurement(16, MeasurementUnit.INCHES));
-        result += StandardPrintSize(("-"),
+        result += new StandardPrintSize(("-"),
             Measurement(0, MeasurementUnit.INCHES),
             Measurement(0, MeasurementUnit.INCHES));
-        result += StandardPrintSize(_("Metric Wallet (9 x 13 cm)"),
+        result += new StandardPrintSize(_("Metric Wallet (9 x 13 cm)"),
             Measurement(13, MeasurementUnit.CENTIMETERS),
             Measurement(9, MeasurementUnit.CENTIMETERS));
-        result += StandardPrintSize(_("Postcard (10 x 15 cm)"),
+        result += new StandardPrintSize(_("Postcard (10 x 15 cm)"),
             Measurement(15, MeasurementUnit.CENTIMETERS),
             Measurement(10, MeasurementUnit.CENTIMETERS));
-        result += StandardPrintSize(_("13 x 18 cm"),
+        result += new StandardPrintSize(_("13 x 18 cm"),
             Measurement(18, MeasurementUnit.CENTIMETERS),
             Measurement(13, MeasurementUnit.CENTIMETERS));
-        result += StandardPrintSize(_("18 x 24 cm"),
+        result += new StandardPrintSize(_("18 x 24 cm"),
             Measurement(24, MeasurementUnit.CENTIMETERS),
             Measurement(18, MeasurementUnit.CENTIMETERS));
-        result += StandardPrintSize(_("20 x 30 cm"),
+        result += new StandardPrintSize(_("20 x 30 cm"),
             Measurement(30, MeasurementUnit.CENTIMETERS),
             Measurement(20, MeasurementUnit.CENTIMETERS));
-        result += StandardPrintSize(_("24 x 40 cm"),
+        result += new StandardPrintSize(_("24 x 40 cm"),
             Measurement(40, MeasurementUnit.CENTIMETERS),
             Measurement(24, MeasurementUnit.CENTIMETERS));
-        result += StandardPrintSize(_("30 x 40 cm"),
+        result += new StandardPrintSize(_("30 x 40 cm"),
             Measurement(40, MeasurementUnit.CENTIMETERS),
             Measurement(30, MeasurementUnit.CENTIMETERS));
 

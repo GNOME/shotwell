@@ -65,7 +65,7 @@ public class FSpotDatabase : Object, AlienDatabase {
     }
     
     public FSpotDatabase.from_file(FSpotDatabaseDriver driver, File db_file) throws DatabaseError, AlienDatabaseError {
-        this.id = AlienDatabaseID(driver.get_id(), db_file.get_path());
+        this.id = new AlienDatabaseID(driver.get_id(), db_file.get_path());
         initialize(driver, db_file.get_path());
     }
     

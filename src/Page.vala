@@ -5,7 +5,7 @@
  */
 
 public class InjectionGroup {
-    public struct Element {
+    public class Element {
         public string name;
         public string action;
         public Gtk.UIManagerItemType kind;
@@ -33,15 +33,15 @@ public class InjectionGroup {
     }
     
     public void add_menu_item(string name, string? action = null) {
-        elements.add(Element(name, action, Gtk.UIManagerItemType.MENUITEM));
+        elements.add(new Element(name, action, Gtk.UIManagerItemType.MENUITEM));
     }
     
     public void add_menu(string name, string? action = null) {
-        elements.add(Element(name, action, Gtk.UIManagerItemType.MENU));
+        elements.add(new Element(name, action, Gtk.UIManagerItemType.MENU));
     }
     
     public void add_separator() {
-        elements.add(Element("", null, Gtk.UIManagerItemType.SEPARATOR));
+        elements.add(new Element("", null, Gtk.UIManagerItemType.SEPARATOR));
     }
 }
 

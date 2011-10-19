@@ -22,12 +22,12 @@ public struct SavedSearchID {
     }
 }
 
-public struct SavedSearchRow {
+public class SavedSearchRow {
     public SavedSearchID search_id;
     
     public string name;
-    private SearchOperator operator;
-    private Gee.List<SearchCondition> conditions;
+    public SearchOperator operator;
+    public Gee.List<SearchCondition> conditions;
 }
 
 public class SavedSearchDBTable : DatabaseTable {
@@ -196,7 +196,7 @@ public class SavedSearchDBTable : DatabaseTable {
         if (res != Sqlite.DONE)
             throw_error("SavedSearchDBTable.add", res);
         
-        SavedSearchRow row = SavedSearchRow();
+        SavedSearchRow row = new SavedSearchRow();
         row.search_id = SavedSearchID(db.last_insert_rowid());
         row.name = name;
         row.operator = operator;
@@ -527,7 +527,7 @@ public class SavedSearchDBTable : DatabaseTable {
         else if (res != Sqlite.ROW)
             throw_error("SavedSearchDBTable.get_row", res);
         
-        SavedSearchRow row = SavedSearchRow();
+        SavedSearchRow row = new SavedSearchRow();
         row.search_id = search_id;
         row.name = stmt.column_text(0);
         row.operator = SearchOperator.from_string(stmt.column_text(1));
@@ -550,7 +550,7 @@ public class SavedSearchDBTable : DatabaseTable {
             else if (res != Sqlite.ROW)
                 throw_error("SavedSearchDBTable.get_all_rows", res);
             
-            SavedSearchRow row = SavedSearchRow();
+            SavedSearchRow row = new SavedSearchRow();
             row.search_id = SavedSearchID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
             row.operator = SearchOperator.from_string(stmt.column_text(2));

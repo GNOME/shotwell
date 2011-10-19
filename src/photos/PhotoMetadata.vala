@@ -28,7 +28,7 @@ public enum MetadataDomain {
     IPTC
 }
 
-public struct HierarchicalKeywordField {
+public class HierarchicalKeywordField {
     public string field_name;
     public string path_separator;
     public bool wants_leading_separator;
@@ -851,9 +851,9 @@ public class PhotoMetadata : MediaMetadata {
     private static HierarchicalKeywordField[] HIERARCHICAL_KEYWORD_TAGS = {
         // Xmp.lr.hierarchicalSubject should be writeable but isn't due to this bug
         // in libexiv2: http://dev.exiv2.org/issues/784
-        HierarchicalKeywordField("Xmp.lr.hierarchicalSubject", "|", false, false),
-        HierarchicalKeywordField("Xmp.digiKam.TagsList", "/", false, true),
-        HierarchicalKeywordField("Xmp.MicrosoftPhoto.LastKeywordXMP", "/", false, true)
+        new HierarchicalKeywordField("Xmp.lr.hierarchicalSubject", "|", false, false),
+        new HierarchicalKeywordField("Xmp.digiKam.TagsList", "/", false, true),
+        new HierarchicalKeywordField("Xmp.MicrosoftPhoto.LastKeywordXMP", "/", false, true)
     };
     
     public Gee.Set<string>? get_keywords(CompareFunc? compare_func = null) {

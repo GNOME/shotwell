@@ -70,12 +70,12 @@ internal enum UserKind {
     FREE,
 }
 
-internal struct VisibilitySpecification {
+internal class VisibilitySpecification {
     public int friends_level;
     public int family_level;
     public int everyone_level;
 
-    VisibilitySpecification(int friends_level, int family_level, int everyone_level) {
+    public VisibilitySpecification(int friends_level, int family_level, int everyone_level) {
         this.friends_level = friends_level;
         this.family_level = family_level;
         this.everyone_level = everyone_level;
@@ -952,21 +952,21 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
 }
 
 internal class LegacyPublishingOptionsPane : Gtk.VBox {
-    private struct SizeEntry {
-        string title;
-        int size;
+    private class SizeEntry {
+        public string title;
+        public int size;
 
-        SizeEntry(string creator_title, int creator_size) {
+        public SizeEntry(string creator_title, int creator_size) {
             title = creator_title;
             size = creator_size;
         }
     }
 
-    private struct VisibilityEntry {
-        VisibilitySpecification specification;
-        string title;
+    private class VisibilityEntry {
+        public VisibilitySpecification specification;
+        public string title;
 
-        VisibilityEntry(string creator_title, VisibilitySpecification creator_specification) {
+        public VisibilityEntry(string creator_title, VisibilitySpecification creator_specification) {
             specification = creator_specification;
             title = creator_title;
         }
@@ -1105,9 +1105,9 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private VisibilityEntry[] create_visibilities() {
         VisibilityEntry[] result = new VisibilityEntry[0];
 
-        result += VisibilityEntry(_("Everyone"), VisibilitySpecification(1, 1, 1));
-        result += VisibilityEntry(_("Friends & family only"), VisibilitySpecification(1, 1, 0));
-        result += VisibilityEntry(_("Just me"), VisibilitySpecification(0, 0, 0));
+        result += new VisibilityEntry(_("Everyone"), new VisibilitySpecification(1, 1, 1));
+        result += new VisibilityEntry(_("Friends & family only"), new VisibilitySpecification(1, 1, 0));
+        result += new VisibilityEntry(_("Just me"), new VisibilitySpecification(0, 0, 0));
 
         return result;
     }
@@ -1129,11 +1129,11 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private SizeEntry[] create_sizes() {
         SizeEntry[] result = new SizeEntry[0];
 
-        result += SizeEntry(_("500 x 375 pixels"), 500);
-        result += SizeEntry(_("1024 x 768 pixels"), 1024);
-        result += SizeEntry(_("2048 x 1536 pixels"), 2048);
-        result += SizeEntry(_("4096 x 3072 pixels"), 4096);
-        result += SizeEntry(_("Original size"), ORIGINAL_SIZE);
+        result += new SizeEntry(_("500 x 375 pixels"), 500);
+        result += new SizeEntry(_("1024 x 768 pixels"), 1024);
+        result += new SizeEntry(_("2048 x 1536 pixels"), 2048);
+        result += new SizeEntry(_("4096 x 3072 pixels"), 4096);
+        result += new SizeEntry(_("Original size"), ORIGINAL_SIZE);
 
         return result;
     }

@@ -297,7 +297,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         }
         
         public override void notify_broken() {
-            row = TagRow();
+            row = new TagRow();
             sources.clear();
             
             base.notify_broken();

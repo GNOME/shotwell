@@ -153,7 +153,7 @@ public class FSpotDatabaseDriver : Object, AlienDatabaseDriver {
     }
     
     public AlienDatabaseDriverID get_id() {
-        return AlienDatabaseDriverID(FSPOT_DRIVER_ID);
+        return new  AlienDatabaseDriverID(FSPOT_DRIVER_ID);
     }
     
     public string get_display_name() {
@@ -179,7 +179,7 @@ public class FSpotDatabaseDriver : Object, AlienDatabaseDriver {
         foreach (File db_file in db_files) {
             if (db_file.query_exists(null)) {
                 discovered_databases.add(new DiscoveredAlienDatabase(
-                    AlienDatabaseID(get_id(), db_file.get_path())
+                    new AlienDatabaseID(get_id(), db_file.get_path())
                 ));
                 message("Discovered database: %s", db_file.get_path());
             }
@@ -224,14 +224,14 @@ public class FSpotDatabaseDriver : Object, AlienDatabaseDriver {
     
     public static bool is_available() {
         AlienDatabaseDriver? driver = AlienDatabaseHandler.get_instance().get_driver(
-            AlienDatabaseDriverID(FSPOT_DRIVER_ID));
+            new AlienDatabaseDriverID(FSPOT_DRIVER_ID));
         
         return (driver != null) ? driver.get_discovered_databases().size > 0 : false;
     }
     
     public static void do_import(BatchImport.ImportReporter? report_to_when_done = null) {
         AlienDatabaseDriver? driver = AlienDatabaseHandler.get_instance().get_driver(
-            AlienDatabaseDriverID(FSPOT_DRIVER_ID));
+            new AlienDatabaseDriverID(FSPOT_DRIVER_ID));
         if (driver == null)
             return;
         

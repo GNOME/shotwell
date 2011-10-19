@@ -95,7 +95,7 @@ public enum HttpMethod {
     }
 }
 
-public struct Argument {
+public class Argument {
     public string key;
     public string value;
 
@@ -338,7 +338,7 @@ public class Transaction {
     }
    
     public void add_argument(string name, string value) {
-        arguments += Argument(name, value);
+        arguments += new Argument(name, value);
     }
     
     public string? get_endpoint_url() {

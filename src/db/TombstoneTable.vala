@@ -22,7 +22,7 @@ public struct TombstoneID {
     }
 }
 
-public struct TombstoneRow {
+public class TombstoneRow {
     public TombstoneID id;
     public string filepath;
     public int64 filesize;
@@ -88,7 +88,7 @@ public class TombstoneTable : DatabaseTable {
         if (res != Sqlite.DONE)
             throw_error("TombstoneTable.add", res);
         
-        TombstoneRow row = TombstoneRow();
+        TombstoneRow row = new TombstoneRow();
         row.id = TombstoneID(db.last_insert_rowid());
         row.filepath = filepath;
         row.filesize = filesize;
@@ -119,7 +119,7 @@ public class TombstoneTable : DatabaseTable {
             else if (res != Sqlite.ROW)
                 throw_error("TombstoneTable.fetch_all", res);
             
-            TombstoneRow row = TombstoneRow();
+            TombstoneRow row = new TombstoneRow();
             row.id = TombstoneID(stmt.column_int64(0));
             row.filepath = stmt.column_text(1);
             row.filesize = stmt.column_int64(2);

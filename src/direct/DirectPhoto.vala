@@ -51,7 +51,7 @@ public class DirectPhoto : Photo {
     public static ImportResult internal_import(File file, out DirectPhoto photo) {
         PhotoImportParams params = new PhotoImportParams.create_placeholder(file, ImportID.generate());
         Photo.create_pre_import(params);
-        PhotoTable.get_instance().add(ref params.row);
+        PhotoTable.get_instance().add(params.row);
         
         photo = new DirectPhoto(params.row);
         

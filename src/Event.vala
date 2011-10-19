@@ -129,7 +129,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         }
         
         public override void notify_broken() {
-            row = EventRow();
+            row = new EventRow();
             primary_source = null;
             attached_sources.clear();
             

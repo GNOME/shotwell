@@ -23,7 +23,7 @@ public class VideoImportParams {
     public Thumbnails? thumbnails;
     
     // OUT:
-    public VideoRow row = VideoRow();
+    public VideoRow row = new VideoRow();
     
     public VideoImportParams(File file, ImportID import_id, string? md5,
         Thumbnails? thumbnails = null, time_t exposure_time_override = 0) {
@@ -485,7 +485,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         
         // add to the database
         try {
-            if (VideoTable.get_instance().add(ref params.row).is_invalid())
+            if (VideoTable.get_instance().add(params.row).is_invalid())
                 return ImportResult.DATABASE_ERROR;
         } catch (DatabaseError err) {
             return ImportResult.DATABASE_ERROR;

@@ -32,7 +32,7 @@ public class PhotoImportParams {
     public Thumbnails? thumbnails;
     
     // OUT:
-    public PhotoRow row = PhotoRow();
+    public PhotoRow row = new PhotoRow();
     public Gee.Collection<string>? keywords = null;
     
     public PhotoImportParams(File file, File? final_associated_file, ImportID import_id, 
@@ -273,7 +273,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
     }
     
-    private struct BackingReaders {
+    private class BackingReaders {
         public PhotoFileReader master;
         public PhotoFileReader developer;
         public PhotoFileReader editable;
@@ -283,7 +283,7 @@ public abstract class Photo : PhotoSource, Dateable {
     // the photo row in memory
     private PhotoRow row;
     private BackingPhotoRow editable = new BackingPhotoRow();
-    private BackingReaders readers = BackingReaders();
+    private BackingReaders readers = new BackingReaders();
     private PixelTransformer transformer = null;
     private PixelTransformationBundle adjustments = null;
     // because file_title is determined by data in row, it should only be accessed when row is locked
@@ -1168,7 +1168,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     private class ReimportMasterStateImpl : ReimportMasterState {
-        public PhotoRow row = PhotoRow();
+        public PhotoRow row = new PhotoRow();
         public PhotoMetadata? metadata;
         public string[] alterations;
         public bool metadata_only = false;
@@ -1248,7 +1248,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         // start with existing row and update appropriate fields
-        PhotoRow updated_row = PhotoRow();
+        PhotoRow updated_row = new PhotoRow();
         lock (row) {
             updated_row = row;
         }
@@ -4529,7 +4529,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     // as they are stored in the database.
     public static ImportResult import_create(PhotoImportParams params, out LibraryPhoto photo) {
         // add to the database
-        PhotoID photo_id = PhotoTable.get_instance().add(ref params.row);
+        PhotoID photo_id = PhotoTable.get_instance().add(params.row);
         if (photo_id.is_invalid()) {
             photo = null;
             

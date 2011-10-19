@@ -117,7 +117,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
                 }
             }
 
-            result += Album(name_val, url_val);
+            result += new Album(name_val, url_val);
         }
 
         return result;
@@ -585,11 +585,11 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
 }
 
-internal struct Album {
-    string name;
-    string url;
+internal class Album {
+    public string name;
+    public string url;
 
-    Album(string name, string url) {
+    public Album(string name, string url) {
         this.name = name;
         this.url = url;
     }
@@ -1001,11 +1001,11 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 }
 
 internal class LegacyPublishingOptionsPane : Gtk.VBox {
-    private struct SizeDescription {
-        string name;
-        int major_axis_pixels;
+    private class SizeDescription {
+        public string name;
+        public int major_axis_pixels;
 
-        SizeDescription(string name, int major_axis_pixels) {
+        public SizeDescription(string name, int major_axis_pixels) {
             this.name = name;
             this.major_axis_pixels = major_axis_pixels;
         }
@@ -1244,10 +1244,10 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private SizeDescription[] create_size_descriptions() {
         SizeDescription[] result = new SizeDescription[0];
 
-        result += SizeDescription(_("Small (640 x 480 pixels)"), 640);
-        result += SizeDescription(_("Medium (1024 x 768 pixels)"), 1024);
-        result += SizeDescription(_("Recommended (1600 x 1200 pixels)"), 1600);
-        result += SizeDescription(_("Original Size"), PublishingParameters.ORIGINAL_SIZE);
+        result += new SizeDescription(_("Small (640 x 480 pixels)"), 640);
+        result += new SizeDescription(_("Medium (1024 x 768 pixels)"), 1024);
+        result += new SizeDescription(_("Recommended (1600 x 1200 pixels)"), 1600);
+        result += new SizeDescription(_("Original Size"), PublishingParameters.ORIGINAL_SIZE);
 
         return result;
     }

@@ -24,7 +24,7 @@ public struct FaceLocationID {
     }
 }
 
-public struct FaceLocationRow {
+public class FaceLocationRow {
     public FaceLocationID face_location_id;
     public FaceID face_id;
     public PhotoID photo_id;
@@ -78,7 +78,7 @@ public class FaceLocationTable : DatabaseTable {
         if (res != Sqlite.DONE)
             throw_error("FaceLocationTable.add", res);
         
-        FaceLocationRow row = FaceLocationRow();
+        FaceLocationRow row = new FaceLocationRow();
         row.face_location_id = FaceLocationID(db.last_insert_rowid());
         row.face_id = face_id;
         row.photo_id = photo_id;
@@ -104,7 +104,7 @@ public class FaceLocationTable : DatabaseTable {
                 throw_error("FaceLocationTable.get_all_rows", res);
             
             // res == Sqlite.ROW
-            FaceLocationRow row = FaceLocationRow();
+            FaceLocationRow row = new FaceLocationRow();
             row.face_location_id = FaceLocationID(stmt.column_int64(0));
             row.face_id = FaceID(stmt.column_int64(1));
             row.photo_id = PhotoID(stmt.column_int64(2));

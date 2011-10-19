@@ -77,11 +77,11 @@ internal const string PRIVACY_OBJECT_FRIENDS_OF_FRIENDS = "{ 'value' : 'FRIENDS_
 internal const string PRIVACY_OBJECT_EVERYONE = "{ 'value' : 'EVERYONE' }";
 internal const string USER_AGENT = "Java/1.6.0_16";
 
-internal struct FacebookAlbum {
-    string name;
-    string id;
+internal class FacebookAlbum {
+    public string name;
+    public string id;
 
-    FacebookAlbum(string creator_name, string creator_id) {
+    public FacebookAlbum(string creator_name, string creator_id) {
         name = creator_name;
         id = creator_id;
     }
@@ -325,7 +325,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
                 if (name_val != "Profile Pictures")
                     if (lookup_album(name_val) == NO_ALBUM)
-                        extracted += FacebookAlbum(name_val, aid_val);
+                        extracted += new FacebookAlbum(name_val, aid_val);
 
             }
         } catch (Spit.Publishing.PublishingError err) {
@@ -445,7 +445,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_create_album(string album_name) {
         debug("ACTION: creating new photo album with name '%s'", album_name);
-        albums += FacebookAlbum(album_name, "");
+        albums += new FacebookAlbum(album_name, "");
 
         host.set_service_locked(true);
 
@@ -949,7 +949,7 @@ internal class FacebookRESTSession {
     }
 }
 
-internal struct FacebookRESTArgument {
+internal class FacebookRESTArgument {
     public string key;
     public string value;
 
@@ -1116,7 +1116,7 @@ internal class FacebookRESTTransaction {
     }
 
     public void add_argument(string name, string value) {
-        arguments += FacebookRESTArgument(name, value);
+        arguments += new FacebookRESTArgument(name, value);
     }
 
     public string get_endpoint_url() {
@@ -1326,61 +1326,73 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
         pane_widget.add(webview_frame);
     }
     
-    private struct LocaleLookup {
+    private class LocaleLookup {
         public string prefix;
         public string translation;
         public string? exception_code;
         public string? exception_translation;
         public string? exception_code_2;
         public string? exception_translation_2;
+        
+        public LocaleLookup(string prefix, string translation, string? exception_code = null, 
+            string? exception_translation  = null, string? exception_code_2  = null, 
+            string? exception_translation_2 = null) {
+            this.prefix = prefix;
+            this.translation = translation;
+            this.exception_code = exception_code;
+            this.exception_translation = exception_translation;
+            this.exception_code_2 = exception_code_2;
+            this.exception_translation_2 = exception_translation_2;
+        }
+        
     }
     
-    private const LocaleLookup[] locale_lookup_table = {
-        { "es", "es-la", "ES", "es-es" },
-        { "en", "en-gb", "US", "en-us" },
-        { "fr", "fr-fr", "CA", "fr-ca" },
-        { "pt", "pt-br", "PT", "pt-pt" },
-        { "zh", "zh-cn", "HK", "zh-hk", "TW", "zh-tw" },
-        { "af", "af-za" },
-        { "ar", "ar-ar" },
-        { "nb", "nb-no" },
-        { "no", "nb-no" },
-        { "id", "id-id" },
-        { "ms", "ms-my" },
-        { "ca", "ca-es" },
-        { "cs", "cs-cz" },
-        { "cy", "cy-gb" },
-        { "da", "da-dk" },
-        { "de", "de-de" },
-        { "tl", "tl-ph" },
-        { "ko", "ko-kr" },
-        { "hr", "hr-hr" },
-        { "it", "it-it" },
-        { "lt", "lt-lt" },
-        { "hu", "hu-hu" },
-        { "nl", "nl-nl" },
-        { "ja", "ja-jp" },
-        { "nb", "nb-no" },
-        { "no", "nb-no" },
-        { "pl", "pl-pl" },
-        { "ro", "ro-ro" },
-        { "ru", "ru-ru" },
-        { "sk", "sk-sk" },
-        { "sl", "sl-sl" },
-        { "sv", "sv-se" },
-        { "th", "th-th" },
-        { "vi", "vi-vn" },
-        { "tr", "tr-tr" },
-        { "el", "el-gr" },
-        { "bg", "bg-bg" },
-        { "sr", "sr-rs" },
-        { "he", "he-il" },
-        { "hi", "hi-in" },
-        { "bn", "bn-in" },
-        { "pa", "pa-in" },
-        { "ta", "ta-in" },
-        { "te", "te-in" },
-        { "ml", "ml-in" }
+    private LocaleLookup[] locale_lookup_table = {
+        new LocaleLookup( "es", "es-la", "ES", "es-es" ),
+        new LocaleLookup( "en", "en-gb", "US", "en-us" ),
+        new LocaleLookup( "fr", "fr-fr", "CA", "fr-ca" ),
+        new LocaleLookup( "pt", "pt-br", "PT", "pt-pt" ),
+        new LocaleLookup( "zh", "zh-cn", "HK", "zh-hk", "TW", "zh-tw" ),
+        new LocaleLookup( "af", "af-za" ),
+        new LocaleLookup( "ar", "ar-ar" ),
+        new LocaleLookup( "nb", "nb-no" ),
+        new LocaleLookup( "no", "nb-no" ),
+        new LocaleLookup( "id", "id-id" ),
+        new LocaleLookup( "ms", "ms-my" ),
+        new LocaleLookup( "ca", "ca-es" ),
+        new LocaleLookup( "cs", "cs-cz" ),
+        new LocaleLookup( "cy", "cy-gb" ),
+        new LocaleLookup( "da", "da-dk" ),
+        new LocaleLookup( "de", "de-de" ),
+        new LocaleLookup( "tl", "tl-ph" ),
+        new LocaleLookup( "ko", "ko-kr" ),
+        new LocaleLookup( "hr", "hr-hr" ),
+        new LocaleLookup( "it", "it-it" ),
+        new LocaleLookup( "lt", "lt-lt" ),
+        new LocaleLookup( "hu", "hu-hu" ),
+        new LocaleLookup( "nl", "nl-nl" ),
+        new LocaleLookup( "ja", "ja-jp" ),
+        new LocaleLookup( "nb", "nb-no" ),
+        new LocaleLookup( "no", "nb-no" ),
+        new LocaleLookup( "pl", "pl-pl" ),
+        new LocaleLookup( "ro", "ro-ro" ),
+        new LocaleLookup( "ru", "ru-ru" ),
+        new LocaleLookup( "sk", "sk-sk" ),
+        new LocaleLookup( "sl", "sl-sl" ),
+        new LocaleLookup( "sv", "sv-se" ),
+        new LocaleLookup( "th", "th-th" ),
+        new LocaleLookup( "vi", "vi-vn" ),
+        new LocaleLookup( "tr", "tr-tr" ),
+        new LocaleLookup( "el", "el-gr" ),
+        new LocaleLookup( "bg", "bg-bg" ),
+        new LocaleLookup( "sr", "sr-rs" ),
+        new LocaleLookup( "he", "he-il" ),
+        new LocaleLookup( "hi", "hi-in" ),
+        new LocaleLookup( "bn", "bn-in" ),
+        new LocaleLookup( "pa", "pa-in" ),
+        new LocaleLookup( "ta", "ta-in" ),
+        new LocaleLookup( "te", "te-in" ),
+        new LocaleLookup( "ml", "ml-in" )
     };
     
     private string get_system_locale_as_facebook_locale() {
@@ -1512,11 +1524,11 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 }
 
 internal class LegacyPublishingOptionsPane : Gtk.VBox {
-    private struct PrivacyDescription {
-        private string description;
-        private string privacy_setting;
+    private class PrivacyDescription {
+        public string description;
+        public string privacy_setting;
 
-        PrivacyDescription(string description, string privacy_setting) {
+        public PrivacyDescription(string description, string privacy_setting) {
             this.description = description;
             this.privacy_setting = privacy_setting;
         }
@@ -1799,10 +1811,10 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private PrivacyDescription[] create_privacy_descriptions() {
         PrivacyDescription[] result = new PrivacyDescription[0];
 
-        result += PrivacyDescription(_("Just me"), PRIVACY_OBJECT_JUST_ME);
-        result += PrivacyDescription(_("All friends"), PRIVACY_OBJECT_ALL_FRIENDS);
-        result += PrivacyDescription(_("Friends of friends"), PRIVACY_OBJECT_FRIENDS_OF_FRIENDS);
-        result += PrivacyDescription(_("Everyone"), PRIVACY_OBJECT_EVERYONE);
+        result += new PrivacyDescription(_("Just me"), PRIVACY_OBJECT_JUST_ME);
+        result += new PrivacyDescription(_("All friends"), PRIVACY_OBJECT_ALL_FRIENDS);
+        result += new PrivacyDescription(_("Friends of friends"), PRIVACY_OBJECT_FRIENDS_OF_FRIENDS);
+        result += new PrivacyDescription(_("Everyone"), PRIVACY_OBJECT_EVERYONE);
 
         return result;
     }

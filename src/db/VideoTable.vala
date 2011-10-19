@@ -34,7 +34,7 @@ public struct VideoID {
     }
 }
 
-public struct VideoRow {
+public class VideoRow {
     public VideoID video_id;
     public string filepath;
     public int64 filesize;
@@ -108,7 +108,7 @@ public class VideoTable : DatabaseTable {
        
     // VideoRow.video_id, event_id, time_created are ignored on input. All fields are set on exit
     // with values stored in the database.
-    public VideoID add(ref VideoRow video_row) throws DatabaseError {
+    public VideoID add(VideoRow video_row) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
             "INSERT INTO VideoTable (filename, width, height, clip_duration, is_interpretable, "
@@ -196,7 +196,7 @@ public class VideoTable : DatabaseTable {
         if (stmt.step() != Sqlite.ROW)
             return null;
         
-        VideoRow row = VideoRow();
+        VideoRow row = new VideoRow();
         row.video_id = video_id;
         row.filepath = stmt.column_text(0);
         row.width = stmt.column_int(1);
@@ -231,7 +231,7 @@ public class VideoTable : DatabaseTable {
         Gee.ArrayList<VideoRow?> all = new Gee.ArrayList<VideoRow?>();
         
         while ((res = stmt.step()) == Sqlite.ROW) {
-            VideoRow row = VideoRow();
+            VideoRow row = new VideoRow();
             row.video_id.id = stmt.column_int64(0);
             row.filepath = stmt.column_text(1);
             row.width = stmt.column_int(2);

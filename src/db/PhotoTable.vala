@@ -74,7 +74,7 @@ public struct ImportID {
     }
 }
 
-public struct PhotoRow {
+public class PhotoRow {
     public PhotoID photo_id;
     public BackingPhotoRow master;
     public time_t exposure_time;
@@ -173,7 +173,7 @@ public class PhotoTable : DatabaseTable {
     
     // PhotoRow.photo_id, event_id, master.orientation, flags, and time_created are ignored on input.
     // All fields are set on exit with values stored in the database.  editable_id field is ignored.
-    public PhotoID add(ref PhotoRow photo_row) {
+    public PhotoID add(PhotoRow photo_row) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
             "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, "
@@ -351,7 +351,7 @@ public class PhotoTable : DatabaseTable {
         if (stmt.step() != Sqlite.ROW)
             return null;
             
-        PhotoRow row = PhotoRow();
+        PhotoRow row = new PhotoRow();
         row.photo_id = photo_id;
         row.master.filepath = stmt.column_text(0);
         row.master.dim = Dimensions(stmt.column_int(1), stmt.column_int(2));
@@ -398,7 +398,7 @@ public class PhotoTable : DatabaseTable {
         Gee.ArrayList<PhotoRow?> all = new Gee.ArrayList<PhotoRow?>();
         
         while ((res = stmt.step()) == Sqlite.ROW) {
-            PhotoRow row = PhotoRow();
+            PhotoRow row = new PhotoRow();
             row.photo_id.id = stmt.column_int64(0);
             row.master.filepath = stmt.column_text(1);
             row.master.dim = Dimensions(stmt.column_int(2), stmt.column_int(3));

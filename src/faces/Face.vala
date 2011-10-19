@@ -205,7 +205,7 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         }
         
         public override void notify_broken() {
-            row = FaceRow();
+            row = new FaceRow();
             sources.clear();
             
             base.notify_broken();
