@@ -5,7 +5,7 @@ shotwell (0.11.5-1~natty1) natty; urgency=low
     affected by this issue even after installing the Shotwell
     0.11.4 update.
 
- -- Lucas Beeler <lucas@yorba.org>  Tue, 18 October 2011 12:02:25 -0800 
+ -- Lucas Beeler <lucas@yorba.org>  Tue, 18 Oct 2011 12:02:25 -0800 
 
 
 shotwell (0.11.4-1~natty1) natty; urgency=low
@@ -13,7 +13,7 @@ shotwell (0.11.4-1~natty1) natty; urgency=low
   * Fixes two collection concurrent access issues that could cause
     Shotwell to crash during F-Spot import.
 
- -- Lucas Beeler <lucas@yorba.org>  Tue, 13 October 2011 13:43:11 -0800 
+ -- Lucas Beeler <lucas@yorba.org>  Tue, 13 Oct 2011 13:43:11 -0800 
 
 
 shotwell (0.11.3-1~natty1) natty; urgency=low
@@ -25,7 +25,7 @@ shotwell (0.11.3-1~natty1) natty; urgency=low
   * Long error messages in the Publishing dialog box are now wrapped
     correctly
 
- -- Lucas Beeler <lucas@yorba.org>  Tue, 11 October 2011 14:20:00 -0800 
+ -- Lucas Beeler <lucas@yorba.org>  Tue, 11 Oct 2011 14:20:00 -0800 
 
 
 shotwell (0.11.2-1~natty1) natty; urgency=low
@@ -37,7 +37,7 @@ shotwell (0.11.2-1~natty1) natty; urgency=low
   * Corrects problems with item counts over mixed media
   * Various small fixes and enhancements
 
- -- Lucas Beeler <lucas@yorba.org>  Tue, 20 September 2011 15:00:00 -0800 
+ -- Lucas Beeler <lucas@yorba.org>  Tue, 20 Sep 2011 15:00:00 -0800 
 
 
 shotwell (0.11.1-1~natty1) natty; urgency=low
@@ -49,7 +49,7 @@ shotwell (0.11.1-1~natty1) natty; urgency=low
   * Resolved internationalization problems
   * Various small fixes and enhancements
 
- -- Eric Gregory <eric@yorba.org>  Thu, 8 September 2011 13:00:00 -0800 
+ -- Eric Gregory <eric@yorba.org>  Thu, 8 Sep 2011 13:00:00 -0800 
 
 
 shotwell (0.11.0-1~natty1) natty; urgency=low
@@ -63,7 +63,7 @@ shotwell (0.11.0-1~natty1) natty; urgency=low
   * Added support for BMP format
   * Many, many bugfixes
 
- -- Eric Gregory <eric@yorba.org>  Tue, 23 August 2011 13:00:00 -0800 
+ -- Eric Gregory <eric@yorba.org>  Tue, 23 Aug 2011 13:00:00 -0800 
 
 
 shotwell (0.10.1-1~natty1) natty; urgency=low
@@ -75,7 +75,7 @@ shotwell (0.10.1-1~natty1) natty; urgency=low
   * Piwigo bugs fixed
   * Translation updates
 
- -- Eric Gregory <eric@yorba.org>  Fri, 3 June 2011 13:00:00 -0800 
+ -- Eric Gregory <eric@yorba.org>  Fri, 3 Jun 2011 13:00:00 -0800 
 
 
 shotwell (0.10.0-1~natty1) natty; urgency=low
@@ -100,7 +100,7 @@ shotwell (0.9.3-1~maverick1) maverick; urgency=low
   * Event dates are now only shown once in the Event view
   * Fixes a number of translation issues
 
- -- Eric Gregory <eric@yorba.org>  Wed, 21 April 2011 15:00:00 -0800 
+ -- Eric Gregory <eric@yorba.org>  Wed, 21 Apr 2011 15:00:00 -0800 
 
 
 shotwell (0.9.2-1~maverick1) maverick; urgency=low
