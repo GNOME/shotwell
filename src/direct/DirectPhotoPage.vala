@@ -300,6 +300,12 @@ public class DirectPhotoPage : EditingHostPage {
         get_command_manager().reset();
     }
     
+    protected override bool on_double_click(Gdk.EventButton event) {
+        AppWindow.get_instance().end_fullscreen();
+        
+        return base.on_double_click(event);
+    }    
+    
     protected override void update_ui(bool missing) {
         bool sensitivity = !missing;
         

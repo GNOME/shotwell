@@ -78,6 +78,16 @@ public class DirectWindow : AppWindow {
         return (base.delete_event != null) ? base.delete_event(event) : false;
     }
 
+    public override bool button_press_event(Gdk.EventButton event) {
+        if (event.type == Gdk.EventType.2BUTTON_PRESS) {
+            on_fullscreen();
+
+            return true;
+        }
+        
+        return false;
+    }
+
     public override bool key_press_event(Gdk.EventKey event) {
         // check for an escape
         if (Gdk.keyval_name(event.keyval) == "Escape") {
