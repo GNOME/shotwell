@@ -1298,7 +1298,8 @@ public class LibraryWindow : AppWindow {
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
         scrolled_sidebar.add(sidebar_tree);
-        
+        scrolled_sidebar.set_shadow_type(Gtk.ShadowType.IN);
+                
         // divy the sidebar up into selection tree list, background progress bar, and properties
         Gtk.Frame top_frame = new Gtk.Frame(null);
         top_frame.add(scrolled_sidebar);
@@ -1319,6 +1320,10 @@ public class LibraryWindow : AppWindow {
         
         try {
             css_provider.load_from_data(properties_frame_style, -1);
+
+            scrolled_sidebar.get_style_context().add_provider(css_provider, 
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
             bottom_frame.get_style_context().add_provider(css_provider, 
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
         } catch (Error e) {
