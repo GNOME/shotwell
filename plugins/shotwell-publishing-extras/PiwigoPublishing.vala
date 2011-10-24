@@ -1203,11 +1203,6 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     }
     
     private void create_categories_combo() {
-        Gtk.ListStore categories_model = new Gtk.ListStore.newv({typeof(string)});
-        Gtk.CellRenderer categories_renderer = new Gtk.CellRendererText();
-        existing_categories_combo.set_model(categories_model);
-        existing_categories_combo.pack_start(categories_renderer, true);
-        existing_categories_combo.add_attribute(categories_renderer, "text", 0);
         foreach (Category cat in existing_categories) {
             existing_categories_combo.append_text(cat.name);
         }
@@ -1231,11 +1226,6 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     }
     
     private void create_permissions_combo() {
-        Gtk.ListStore perms_model = new Gtk.ListStore.newv({typeof(string)});
-        Gtk.CellRenderer perms_renderer = new Gtk.CellRendererText();
-        perms_combo.set_model(perms_model);
-        perms_combo.pack_start(perms_renderer, true);
-        perms_combo.add_attribute(perms_renderer, "text", 0);
         foreach (PermissionLevel perm in perm_levels) {
             perms_combo.append_text(perm.name);
         }
@@ -1248,11 +1238,6 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     }
     
     private void create_size_combo() {
-        Gtk.ListStore size_model = new Gtk.ListStore.newv({typeof(string)});
-        Gtk.CellRenderer size_renderer = new Gtk.CellRendererText();
-        size_combo.set_model(size_model);
-        size_combo.pack_start(size_renderer, true);
-        size_combo.add_attribute(size_renderer, "text", 0);
         foreach (SizeEntry size in photo_sizes) {
             size_combo.append_text(size.name);
         }
