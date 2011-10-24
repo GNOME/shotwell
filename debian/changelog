@@ -1,3 +1,9 @@
+shotwell (0.11.5+trunk-1~oneiric) oneiric; urgency=low
+
+  * Trunk build for Oneiric.
+
+ -- Eric Gregory <eric@polaris>  Mon, 24 Oct 2011 11:38:45 -0700
+
 shotwell (0.11.5-1~natty1) natty; urgency=low
 
   * Fixes a collection concurrent access issue that could cause
