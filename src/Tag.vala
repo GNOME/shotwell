@@ -775,7 +775,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         // sorted from least-derived to most-derived
         Gee.TreeSet<string> forward_sorted_paths = new Gee.TreeSet<string>();
         
-        string target_path = get_path();
+        string target_path = get_path() + Tag.PATH_SEPARATOR_STRING;
         foreach (string path in Tag.global.get_all_names()) {
             if (path.has_prefix(target_path))
                 forward_sorted_paths.add(path);
