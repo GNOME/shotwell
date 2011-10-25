@@ -897,5 +897,31 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             sys_show_uri(screen, "ghelp:shotwell");
         }
     }
+    
+    public const int ALL_DATA = -1;
+    
+    public static void style_widget(Gtk.Widget widget, string stylesheet) {
+        Gtk.CssProvider styler = new Gtk.CssProvider();
+        
+        try {
+            styler.load_from_data(stylesheet, ALL_DATA);
+        } catch (Error e) {
+            warning("couldn't parse widget stylesheet '%s': %s", stylesheet,
+                e.message);
+            // short-circuit return -- if the stylesheet couldn't be interpreted
+            // then we can't do anything more
+            return;
+        }
+        
+        widget.get_style_context().add_provider(styler,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
+    
+    public const string INSET_FRAME_STYLESHEET =
+    """.frame {
+           color: lighter (@theme_fg_color);
+           border-style: inset;
+           border-width: 1;
+       }""";
 }
 
