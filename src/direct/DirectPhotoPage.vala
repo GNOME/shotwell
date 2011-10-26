@@ -407,11 +407,11 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
-        PhotoFileFormat format, bool copy_unmodified = false) {
+        PhotoFileFormat format, bool copy_unmodified = false, bool save_metadata = true) {
         Scaling scaling = Scaling.for_constraint(constraint, scale, false);
         
         try {
-            get_photo().export(dest, scaling, quality, format, copy_unmodified);
+            get_photo().export(dest, scaling, quality, format, copy_unmodified, save_metadata);
         } catch (Error err) {
             AppWindow.error_message(_("Error while saving to %s: %s").printf(dest.get_path(),
                 err.message));
@@ -473,7 +473,8 @@ public class DirectPhotoPage : EditingHostPage {
             // loaded right into the new one)
             drop_if_dirty = true;
             save(File.new_for_uri(save_as_dialog.get_uri()), scale, constraint, export_params.quality,
-                effective_export_format, export_params.mode == ExportFormatMode.UNMODIFIED);
+                effective_export_format, export_params.mode == ExportFormatMode.UNMODIFIED, 
+                export_params.export_metadata);
             drop_if_dirty = false;
 
             current_save_dir = File.new_for_path(save_as_dialog.get_current_folder());

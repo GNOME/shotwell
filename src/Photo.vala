@@ -3216,6 +3216,13 @@ public abstract class Photo : PhotoSource, Dateable {
                 return;
         }
 
+        // Copy over existing metadata from source if available, or create new metadata and 
+        // save it for later export below.  This has to happen before the format writer writes
+        // out the modified image, as that write will strip the existing exif data.
+        PhotoMetadata? metadata = get_metadata();
+        if (metadata == null)
+            metadata = export_format.create_metadata();       
+
         if (!export_format.can_write())
             export_format = PhotoFileFormat.get_system_default_format();
 
@@ -3226,18 +3233,14 @@ public abstract class Photo : PhotoSource, Dateable {
         
         Gdk.Pixbuf pixbuf = get_pixbuf_with_options(scaling, Exception.NONE,
             BackingFetchMode.SOURCE);
-        
+
         writer.write(pixbuf, quality);
-        
+
         debug("Setting EXIF for %s", writer.get_filepath());
-        
-        // copy over existing metadata from source if available
-        PhotoMetadata? metadata = get_metadata();
-        if (metadata == null)
-            metadata = export_format.create_metadata();
-        
+
+        // Do we need to save metadata to this file?
         if (export_metadata) {
-            //set metadata
+            //Yes, set metadata obtained above.
             metadata.set_title(get_title());
             metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
             metadata.set_orientation(Orientation.TOP_LEFT);
@@ -3255,9 +3258,10 @@ public abstract class Photo : PhotoSource, Dateable {
             if (has_user_generated_metadata())
                 set_user_metadata_for_export(metadata);
         }
-        else
-            //delete metadata
+        else {
+            //No, delete metadata.
             metadata.clear();
+        }
         
         export_format.create_metadata_writer(dest_file.get_path()).write_metadata(metadata);
     }
