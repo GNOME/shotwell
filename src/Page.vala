@@ -91,6 +91,8 @@ public abstract class Page : Gtk.ScrolledWindow {
         init_ui();
         
         realize.connect(attach_view_signals);
+        
+        Resources.style_widget(this, Resources.SCROLL_FRAME_STYLESHEET);
     }
     
     ~Page() {
@@ -1198,6 +1200,8 @@ public abstract class CheckerboardPage : Page {
         viewport.set_border_width(0);
         viewport.set_shadow_type(Gtk.ShadowType.NONE);
         
+        Resources.style_widget(viewport, Resources.VIEWPORT_STYLESHEET);
+        
         viewport.add(layout);
         
         // want to set_adjustments before adding to ScrolledWindow to let our signal handlers
@@ -1214,6 +1218,8 @@ public abstract class CheckerboardPage : Page {
         
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        
+        Resources.style_widget(this, Resources.PAGE_STYLESHEET);
     }
     
     public void init_item_context_menu(string path) {

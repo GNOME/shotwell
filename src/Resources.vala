@@ -918,10 +918,39 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public const string INSET_FRAME_STYLESHEET =
-    """.frame {
-           color: lighter (@theme_fg_color);
-           border-style: inset;
-           border-width: 1;
-       }""";
+        """ .frame {
+               border-style: inset;
+               border-width: 1;
+           }""";
+           
+    public const string SCROLL_FRAME_STYLESHEET =
+        """ GtkScrolledWindow {
+               border-width: 0;
+               border-style: none;
+               border-radius: 0;
+               padding: 0;
+           }
+           
+            .frame {
+                border-width: 1;
+                border-style: inset;
+            }""";
+
+    public const string PAGE_STYLESHEET =
+        """ .frame {
+               border-width: 1;
+               border-style: inset;
+               border-radius: 0;
+               
+               padding: 0;
+           }""";
+    
+    public const string VIEWPORT_STYLESHEET =
+        """ GtkViewport {
+               border-width: 1;
+               border-style: inset;
+               border-radius: 0;
+               padding: 0;
+           }""";
 }
 

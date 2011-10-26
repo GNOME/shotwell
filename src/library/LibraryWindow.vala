@@ -1311,7 +1311,7 @@ public class LibraryWindow : AppWindow {
         // pad the bottom frame (properties)
         Gtk.Alignment bottom_alignment = new Gtk.Alignment(0, 0.5f, 1, 0);
 
-        Resources.style_widget(scrolled_sidebar, Resources.INSET_FRAME_STYLESHEET);
+        Resources.style_widget(scrolled_sidebar, Resources.SCROLL_FRAME_STYLESHEET);
         Resources.style_widget(bottom_frame, Resources.INSET_FRAME_STYLESHEET);
         
         bottom_alignment.set_padding(10, 10, 6, 0);
