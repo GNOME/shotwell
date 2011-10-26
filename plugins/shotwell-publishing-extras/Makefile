@@ -1,7 +1,7 @@
 
 PLUGIN := shotwell-publishing-extras
 
-PKGS := \
+PLUGIN_PKGS := \
 	gtk+-3.0 \
 	libsoup-2.4 \
 	libxml-2.0 \

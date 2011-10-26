@@ -23,8 +23,8 @@ include ../plugins.mk
 PKGS := $(shell sed ':a;N;$$!ba;s/\n/ /g' ../shotwell-plugin-dev-1.0.deps) $(PKGS)
 
 # automatically include the shotwell-plugin-dev-1.0 package as a local dependency
-EXT_PKGS := $(PKGS) 
-PKGS := shotwell-plugin-dev-1.0 $(PKGS)
+EXT_PKGS := $(PKGS)
+PKGS := shotwell-plugin-dev-1.0 $(PKGS) $(PLUGIN_PKGS)
 
 # automatically include the Resources.vala common file
 SRC_FILES := ../common/Resources.vala $(SRC_FILES)
@@ -32,8 +32,8 @@ SRC_FILES := ../common/Resources.vala $(SRC_FILES)
 CFILES := $(notdir $(SRC_FILES:.vala=.c))
 OFILES := $(notdir $(SRC_FILES:.vala=.o))
 
-CFLAGS := `pkg-config --print-errors --cflags $(EXT_PKGS)` -nostdlib -export-dynamic $(PLUGIN_CFLAGS)
-LDFLAGS := `pkg-config --print-errors --libs $(EXT_PKGS)` $(LDFLAGS)
+CFLAGS := `pkg-config --print-errors --cflags $(EXT_PKGS) $(PLUGIN_PKGS)` -nostdlib -export-dynamic $(PLUGIN_CFLAGS)
+LIBS := `pkg-config --print-errors --libs $(EXT_PKGS) $(PLUGIN_PKGS)`
 DEFINES := -D_VERSION='"$(PLUGINS_VERSION)"' -DGETTEXT_PACKAGE='"shotwell"'
 
 all: $(PLUGIN).so
@@ -55,7 +55,7 @@ $(OFILES): %.o: %.c $(CFILES)
 	$(CC) -c $(CFLAGS) $(DEFINES) -I../.. $(CFILES)
 
 $(PLUGIN).so: $(OFILES)
-	$(CC) $(CFLAGS) -Wl,--no-as-needed $(LDFLAGS) $(OFILES) -I../.. -shared -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) -shared $(OFILES) $(LIBS) -o $@
 
 .PHONY: cleantemps
 cleantemps:
