@@ -301,7 +301,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // This pointer is used to determine which BackingPhotoRow in the PhotoRow to be using at
     // any time.  It should only be accessed -- read or write -- when row is locked.
-    private BackingPhotoRow? backing_photo_row = null;
+    protected BackingPhotoRow? backing_photo_row = null;
     
     // This is fired when the photo's editable file is replaced.  The image it generates may or
     // may not be the same; the altered signal is best for that.  null is passed if the editable

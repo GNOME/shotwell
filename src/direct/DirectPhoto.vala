@@ -27,11 +27,23 @@ public class DirectPhoto : Photo {
     
     public static void terminate() {
     }
+
+    // Gets the dimensions of this photo's pixbuf when scaled to original
+    // size and saves them where get_raw_dimensions can find them.
+    private void save_dims() {
+        try {
+            backing_photo_row.dim = Dimensions.for_pixbuf(get_pixbuf(Scaling.for_original()));
+        } catch (Error e) {
+            warning("Dimensions for image %s could not be gotten.", to_string());
+        }
+    }
     
     // Loads a photo on demand.
     public ImportResult demand_load() {
-        if (loaded)
+        if (loaded) {
+            save_dims();
             return ImportResult.SUCCESS;
+        }
 
         Photo.ReimportMasterState reimport_state;
         try {
@@ -43,6 +55,7 @@ public class DirectPhoto : Photo {
         }
 
         loaded = true;
+        save_dims();
         return ImportResult.SUCCESS;
     }
     
