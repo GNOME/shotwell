@@ -226,7 +226,7 @@ public class ExportDialog : Gtk.Dialog {
         add_control(export_metadata, 1, 4);
         export_metadata.active = true;
         
-        ((Gtk.VBox) get_content_area()).add(table);
+        ((Gtk.Box) get_content_area()).add(table);
         
         // add buttons to action area
         add_button(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
