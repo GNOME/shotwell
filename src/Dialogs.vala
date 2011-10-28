@@ -819,11 +819,12 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
     // Find last string after any delimiter
     private static string get_last_part(string s, string delimiter) {
         string[] split = s.split(delimiter);
-        int i = 0;
-        while (split[i+1] != null)
-            i++;
         
-        return split[i];
+        if((split != null) && (split[0] != null)) {
+            return split[split.length - 1];
+        } else {
+            return "";
+        }
     }
 }
 
