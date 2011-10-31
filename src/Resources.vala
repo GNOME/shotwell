@@ -898,9 +898,25 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
     }
     
+    public string to_css_color(Gdk.Color color) {
+        int r = (int) ((((double) color.red) / uint16.MAX) * 255);
+        int g = (int) ((((double) color.green) / uint16.MAX) * 255);
+        int b = (int) ((((double) color.blue) / uint16.MAX) * 255);
+        
+        return "rgb(%d, %d, %d)".printf(r, g, b);
+    }
+    
     public const int ALL_DATA = -1;
     
+    private static Gee.Map<Gtk.Widget, Gtk.CssProvider> providers = null;
+    
     public static void style_widget(Gtk.Widget widget, string stylesheet) {
+        if (providers == null)
+            providers = new Gee.HashMap<Gtk.Widget, Gtk.CssProvider>();
+
+        if (providers.has_key(widget))
+            widget.get_style_context().remove_provider(providers.get(widget));
+
         Gtk.CssProvider styler = new Gtk.CssProvider();
         
         try {
@@ -915,6 +931,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         
         widget.get_style_context().add_provider(styler,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        providers.set(widget, styler);
     }
     
     public const string INSET_FRAME_STYLESHEET =
@@ -952,5 +970,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
                border-radius: 0;
                padding: 0;
            }""";
+
+    public const string TOOLBAR_STYLESHEET_TEMPLATE =
+        """ .toolbar {
+                background-color: %s;
+                border-width: 1;
+                border-color: #aaa;
+                border-style: solid;
+            }""";
 }
 
