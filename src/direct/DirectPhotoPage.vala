@@ -360,6 +360,12 @@ public class DirectPhotoPage : EditingHostPage {
         
         set_action_sensitive("SetBackground", has_photo());
         
+        if (has_photo()) {
+            set_action_sensitive("Crop", CropTool.is_available(get_photo(), Scaling.for_original()));
+            set_action_sensitive("RedEye", RedeyeTool.is_available(get_photo(), 
+                Scaling.for_original()));
+        }
+                
         base.update_actions(selected_count, count);
     }
     

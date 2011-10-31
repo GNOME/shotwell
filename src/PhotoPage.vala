@@ -2644,7 +2644,13 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("RotateCounterclockwise", rotate_possible);
         set_action_sensitive("FlipHorizontally", rotate_possible);
         set_action_sensitive("FlipVertically", rotate_possible);
-        
+
+        if (has_photo()) {
+            set_action_sensitive("Crop", CropTool.is_available(get_photo(), Scaling.for_original()));
+            set_action_sensitive("RedEye", RedeyeTool.is_available(get_photo(), 
+                Scaling.for_original()));
+        }
+                 
         update_flag_action();
         
         set_action_visible("ExternalEditRAW", 
