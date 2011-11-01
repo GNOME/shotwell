@@ -972,11 +972,55 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
            }""";
 
     public const string TOOLBAR_STYLESHEET_TEMPLATE =
-        """ .toolbar {
-                background-color: %s;
+        """
+             @define-color primary-bg %s;
+             
+            .toolbar {
+                background-color: @primary-bg;
                 border-width: 1;
-                border-color: #aaa;
+                border-color: shade (@primary-bg, 0.75);
                 border-style: solid;
+            }""";
+
+    public const string SEARCH_BUTTON_STYLESHEET_TEMPLATE =
+        """ 
+             @define-color primary-bg %s;
+             
+            .button {
+                background-image: none;
+                background-color: @primary-bg;
+                border-style: none;
+                margin: 5;
+                
+                -unico-border-gradient: none;
+                -unico-outer-stroke-width: 0;
+                -unico-outer-stroke-gradient: none;
+                -unico-glow-radius: 0;
+                -unico-inner-stroke-width: 0;
+                -unico-inner-stroke-color: shade (@primary-bg, 1.1);
+            }
+            
+            .button:prelight {
+                border-style: solid;
+                border-width: 1;
+                border-color: shade (@primary-bg, 1.1);
+                
+                -unico-inner-stroke-color: shade (@primary-bg, 1.1);
+                -unico-inner-stroke-width: 0;
+
+                -unico-outer-stroke-width: 1;
+                -unico-outer-stroke-color: shade (@primary-bg, 0.8);
+            }
+            
+            .button:active {
+                background-image: none;
+                background-color: shade (@primary-bg, 0.75);
+                border-style: solid;
+                border-width: 1;
+                border-color: shade (@primary-bg, 0.6);
+                
+                -unico-outer-stroke-width: 1;
+                -unico-outer-stroke-color: shade (@primary-bg, 1.1);
             }""";
 }
 

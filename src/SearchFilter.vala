@@ -439,6 +439,14 @@ public class SearchFilterActions {
     
     public signal void text_changed(string? text);
     
+    /**
+     * fired when the kinds of media present in the current view change (e.g., a video becomes
+     * available in the view through a new import operation or no raw photos are available in
+     * the view anymore because the last one was moved to the trash)
+     */
+    public signal void media_context_changed(bool has_photos, bool has_videos, bool has_raw,
+        bool has_flagged);
+    
     // Ticket #3290 - Hide some search bar fields when they
     // cannot be used.
     // Part 1 - we use this to announce when the criteria have changed,
@@ -569,6 +577,8 @@ public class SearchFilterActions {
         // Ticket #3343 - Don't disable the text field, even
         // when no searchable items are available.
         text.set_sensitive(true);
+        
+        media_context_changed(has_photos, has_videos, has_raw, has_flagged);
     }
     
     private void on_text_changed(TextAction action, string? text) {
@@ -679,6 +689,22 @@ public class SearchFilterActions {
     private void on_raw_toggled(Gtk.Action action) {
         raw_toggled(((Gtk.ToggleAction) action).active);
     }
+    
+    public bool get_has_photos() {
+        return has_photos;
+    }
+    
+    public bool get_has_videos() {
+        return has_videos;
+    }
+    
+    public bool get_has_raw() {
+        return has_raw;
+    }
+    
+    public bool get_has_flagged() {
+        return has_flagged;
+    }
 }
 
 public class SearchFilterToolbar : Gtk.Toolbar {
@@ -712,9 +738,46 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         }
     }
     
-    private class ToggleActionToolButton : Gtk.ToggleToolButton {
-        public ToggleActionToolButton(Gtk.Action action) {
-            set_related_action(action);
+    private class ToggleActionToolButton : Gtk.ToolItem {
+        private Gtk.ToggleButton button;
+        private Gtk.ToggleAction action;
+
+        public ToggleActionToolButton(Gtk.ToggleAction action) {
+            this.action = action;
+            button = new Gtk.ToggleButton();
+            button.set_can_focus(false);
+            button.set_active(action.active);
+            button.clicked.connect(on_button_activate);
+
+            restyle();
+            
+            this.add(button);
+        }
+        
+        ~ToggleActionButton() {
+            button.clicked.disconnect(on_button_activate);
+        }
+        
+        private void on_button_activate() {
+            action.activate();
+        }
+        
+        public void set_icon_name(string icon_name) {
+            Gtk.Image? image = null;
+            if (icon_name.contains("disabled"))
+                image = new Gtk.Image.from_stock(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
+            else
+                image = new Gtk.Image.from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
+
+            button.set_image(image);
+        }
+        
+        public void restyle() {
+            string bgcolorname =
+                Resources.to_css_color(Config.Facade.get_instance().get_bg_color());
+            string stylesheet = Resources.SEARCH_BUTTON_STYLESHEET_TEMPLATE.printf(bgcolorname);
+            
+            Resources.style_widget(button, stylesheet);
         }
     }
     
@@ -768,12 +831,32 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     }
     
     // Handles ratings filters.
-    protected class RatingFilterButton : Gtk.ToolButton {
+    protected class RatingFilterButton : Gtk.ToolItem {
         public Gtk.Menu filter_popup = null;
+        public Gtk.Button button;
+        
+        public signal void clicked();
         
         public RatingFilterButton() {
-            set_icon_widget(get_filter_icon(RatingFilter.UNRATED_OR_HIGHER));
+            button = new Gtk.Button();
+            button.set_image(get_filter_icon(RatingFilter.UNRATED_OR_HIGHER));
+            button.set_can_focus(false);
+
+            button.clicked.connect(on_clicked);
+
+            restyle();
+            
             set_homogeneous(false);
+            
+            this.add(button);
+        }
+        
+        ~RatingFilterButton() {
+            button.clicked.disconnect(on_clicked);
+        }
+        
+        private void on_clicked() {
+            clicked();
         }
         
         private Gtk.Widget get_filter_icon(RatingFilter filter) {
@@ -847,7 +930,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         }
 
         public void set_filter_icon(RatingFilter filter) {
-            set_icon_widget(get_filter_icon(filter));
+            button.set_image(get_filter_icon(filter));
             set_size_request(get_filter_button_size(filter), -1);
             set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
             show_all();
@@ -855,6 +938,14 @@ public class SearchFilterToolbar : Gtk.Toolbar {
 
         private int get_filter_button_size(RatingFilter filter) {
             return get_filter_icon_size(filter) + 2 * FILTER_BUTTON_MARGIN;
+        }
+
+        public void restyle() {
+            string bgcolorname =
+                Resources.to_css_color(Config.Facade.get_instance().get_bg_color());
+            string stylesheet = Resources.SEARCH_BUTTON_STYLESHEET_TEMPLATE.printf(bgcolorname);
+            
+            Resources.style_widget(button, stylesheet);
         }
     }
     
@@ -887,6 +978,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     
     public SearchFilterToolbar(SearchFilterActions actions) {
         this.actions = actions;
+        actions.media_context_changed.connect(on_media_context_changed);
         search_box = new SearchBox(actions.text);
         
         set_name("search-filter-toolbar");
@@ -970,11 +1062,16 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.criteria_changed.connect(on_criteria_changed);
         
         // #3260 part II Hook up close menu.
-        popup_context_menu.connect(on_context_menu_requested);        
+        popup_context_menu.connect(on_context_menu_requested);
+        
+        on_media_context_changed(actions.get_has_photos(), actions.get_has_videos(),
+            actions.get_has_raw(), actions.get_has_flagged());
     }
     
     ~SearchFilterToolbar() {
         Config.Facade.get_instance().bg_color_name_changed.disconnect(on_bg_color_name_changed);
+        
+        actions.media_context_changed.disconnect(on_media_context_changed);
 
         actions.flagged_toggled.disconnect(on_flagged_toggled);
         actions.photos_toggled.disconnect(on_photos_toggled);
@@ -987,6 +1084,29 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         popup_context_menu.disconnect(on_context_menu_requested); 
     }
     
+    private void on_media_context_changed(bool has_photos, bool has_videos, bool has_raw,
+        bool has_flagged) {
+        if (has_photos)
+            toolbtn_photos.set_icon_name(Resources.ICON_FILTER_PHOTOS);
+        else
+            toolbtn_photos.set_icon_name(Resources.ICON_FILTER_PHOTOS_DISABLED);
+
+        if (has_videos)
+            toolbtn_videos.set_icon_name(Resources.ICON_FILTER_VIDEOS);
+        else
+            toolbtn_videos.set_icon_name(Resources.ICON_FILTER_VIDEOS_DISABLED);
+
+        if (has_raw)
+            toolbtn_raw.set_icon_name(Resources.ICON_FILTER_RAW);
+        else
+            toolbtn_raw.set_icon_name(Resources.ICON_FILTER_RAW_DISABLED);
+
+        if (has_flagged)
+            toolbtn_flag.set_icon_name(Resources.ICON_FILTER_FLAGGED);
+        else
+            toolbtn_flag.set_icon_name(Resources.ICON_FILTER_FLAGGED_DISABLED);
+    }
+    
     private void on_bg_color_name_changed() {
         string bgcolorname =
             Resources.to_css_color(Config.Facade.get_instance().get_bg_color());
@@ -996,6 +1116,12 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         label_type.set_color(Config.Facade.get_instance().get_unselected_color());
         label_flagged.set_color(Config.Facade.get_instance().get_unselected_color());
         label_rating.set_color(Config.Facade.get_instance().get_unselected_color());
+        
+        toolbtn_photos.restyle();
+        toolbtn_videos.restyle();
+        toolbtn_raw.restyle();
+        toolbtn_flag.restyle();
+        
     }
     
     // Ticket #3260 part IV - display the context menu on secondary click
@@ -1119,7 +1245,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     private void position_filter_popup(Gtk.Menu menu, out int x, out int y, out bool push_in) {
         menu.realize();
         int rx, ry;
-        AppWindow.get_instance().get_window().get_root_origin(out rx, out ry);
+        rating_button.get_window().get_root_origin(out rx, out ry);
         
         Gtk.Allocation rating_button_allocation;
         rating_button.get_allocation(out rating_button_allocation);
@@ -1127,9 +1253,11 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         Gtk.Allocation menubar_allocation;
         AppWindow.get_instance().get_current_page().get_menubar().get_allocation(out menubar_allocation);
         
-        x = rx + rating_button_allocation.x;
+        int sidebar_w = Config.Facade.get_instance().get_sidebar_position();
+        
+        x = rx + rating_button_allocation.x + sidebar_w;
         y = ry + rating_button_allocation.y + rating_button_allocation.height +
-            menubar_allocation.height;
+                menubar_allocation.height;
 
         push_in = false;
     }
