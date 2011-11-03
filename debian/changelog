@@ -1,3 +1,12 @@
+shotwell (0.11.6-1~natty1) natty; urgency=low
+
+  * Fixes a critical bug in which adding or modifying
+    tags in the single-photo view could result in the
+    loss of tag data.
+
+ -- Lucas Beeler <lucas@yorba.org>  Thu, 3 November 2011 14:57:12 -0800 
+
+
 shotwell (0.11.5-1~natty1) natty; urgency=low
 
   * Fixes a collection concurrent access issue that could cause
