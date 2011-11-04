@@ -1919,6 +1919,9 @@ public abstract class SinglePhotoPage : Page {
         canvas.draw.connect(on_canvas_exposed);
         
         set_event_source(canvas);
+        
+        // style the viewport
+        Resources.style_widget(viewport, Resources.VIEWPORT_STYLESHEET);
     }
     
     public bool is_transition_in_progress() {
