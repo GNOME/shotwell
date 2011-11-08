@@ -39,6 +39,7 @@ public class ImportQueuePage : SinglePhotoPage {
         Gtk.ToolItem progress_item = new Gtk.ToolItem();
         progress_item.set_expand(true);
         progress_item.add(progress_bar);
+        progress_bar.set_show_text(true);
         
         toolbar.insert(progress_item, -1);
     }

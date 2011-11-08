@@ -1087,6 +1087,7 @@ public class ProgressDialog : Gtk.Window {
         set_type_hint(Gdk.WindowTypeHint.DIALOG);
         
         progress_bar.set_size_request(300, -1);
+        progress_bar.set_show_text(true);
         
         Gtk.VBox vbox_bar = new Gtk.VBox(false, 0);
         vbox_bar.pack_start(progress_bar, true, false, 0);

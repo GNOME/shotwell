@@ -261,6 +261,8 @@ public class LibraryWindow : AppWindow {
         LibraryMonitorPool.get_instance().monitor_destroyed.connect(on_library_monitor_destroyed);
         
         CameraTable.get_instance().camera_added.connect(on_camera_added);
+        
+        background_progress_bar.set_show_text(true);
     }
     
     ~LibraryWindow() {
