@@ -1,5 +1,13 @@
+Shotwell 0.11.6 - 3 November 2011 - "I know you can't, and I'm positive that
+                                     you won't"
+----------------------------------------------------------------------------
+
+  * Fixes a critical bug in which adding or modifying tags in the
+    single-photo view could result in the loss of tag data
+
+
 Shotwell 0.11.5 - 18 October 2011 - "I hate anyone that ever had a pony"
----------------------------------------------------------------------
+------------------------------------------------------------------------
 
   * Fixes a collection concurrent access issue that could cause
     Shotwell to crash during F-Spot import for users still

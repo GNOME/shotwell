@@ -1,8 +1,18 @@
+shotwell (0.11.6+trunk-1~oneiric1) oneiric; urgency=low
+
+  * Fixes a critical bug in which adding or modifying
+    tags in the single-photo view could result in the
+    loss of tag data.
+
+ -- Lucas Beeler <lucas@yorba.org>  Thu, 3 Nov 2011 14:57:12 -0800
+
+
 shotwell (0.11.5+trunk-1~oneiric) oneiric; urgency=low
 
   * Trunk build for Oneiric.
 
  -- Eric Gregory <eric@polaris>  Mon, 24 Oct 2011 11:38:45 -0700
+
 
 shotwell (0.11.5-1~natty1) natty; urgency=low
 
