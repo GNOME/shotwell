@@ -989,6 +989,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             .button {
                 background-image: none;
                 background-color: @primary-bg;
+                border-image: none;
                 border-style: none;
                 margin: 5;
                 
