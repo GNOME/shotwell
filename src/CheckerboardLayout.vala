@@ -665,6 +665,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     // For a 40% alpha channel
     private const double SELECTION_ALPHA = 0.40;
     
+    // The number of pixels that the scrollbars of Gtk.ScrolledWindows allocate for themselves
+    // before their final size is computed. This must be taken into account when computing
+    // the width of this widget. This value was 0 in Gtk+ 2.x but is 1 in Gtk+ 3.x. See
+    // ticket #3870 (http://redmine.yorba.org/issues/3870) for more information
+    private const int SCROLLBAR_PLACEHOLDER_WIDTH = 1;
+    
     private class LayoutRow {
         public int y;
         public int height;
@@ -795,7 +801,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             debug("on_viewport_resized: due_to_reflow=%s set_size_request %dx%d",
                 size_allocate_due_to_reflow.to_string(), parent_allocation.width, req.height);
 #endif
-            set_size_request(parent_allocation.width, req.height);
+            set_size_request(parent_allocation.width - SCROLLBAR_PLACEHOLDER_WIDTH, req.height);
         } else {
             // set the layout's width and height to always match the parent's
             set_size_request(parent_allocation.width, parent_allocation.height);
