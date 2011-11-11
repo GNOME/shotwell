@@ -3460,8 +3460,8 @@ public abstract class Photo : PhotoSource, Dateable {
             
         // Have we _not_ got an editable attached yet?    
         if (editable_id.is_invalid()) {
-			// Yes, try to create and attach one.
-			if (backing != null) {
+            // Yes, try to create and attach one.
+            if (backing != null) {
                 BackingPhotoTable.get_instance().add(backing);
                 lock (row) {
                     timestamp_changed = true;
@@ -3477,7 +3477,7 @@ public abstract class Photo : PhotoSource, Dateable {
         } 
                
         if (only_attributes) {  
-			// This should only be possible if the editable exists already.
+            // This should only be possible if the editable exists already.
             assert(editable_id.is_valid());
             
             FileInfo info;
@@ -3503,24 +3503,24 @@ public abstract class Photo : PhotoSource, Dateable {
                 editable.filesize = info.get_size();
             }
         } else {
-			// Not just a file-attribute-only change.
-			if (editable_id.is_valid() && !is_new_editable) {
-				// Only check these if we didn't just have to create
-				// this editable, since, with a newly-created editable,
-				// the file size and modification time are by definition
-				// freshly-changed.
-				backing.id = editable_id;
-				BackingPhotoTable.get_instance().update(backing);
-				lock (row) {
-					timestamp_changed = editable.timestamp != backing.timestamp;
-					filesize_changed = editable.filesize != backing.filesize;
-					
-					editable = backing;
-					backing_photo_row = editable;
-					set_orientation(backing_photo_row.original_orientation);
-				}
-			}
-		}			
+            // Not just a file-attribute-only change.
+            if (editable_id.is_valid() && !is_new_editable) {
+                // Only check these if we didn't just have to create
+                // this editable, since, with a newly-created editable,
+                // the file size and modification time are by definition
+                // freshly-changed.
+                backing.id = editable_id;
+                BackingPhotoTable.get_instance().update(backing);
+                lock (row) {
+                    timestamp_changed = editable.timestamp != backing.timestamp;
+                    filesize_changed = editable.filesize != backing.filesize;
+                    
+                    editable = backing;
+                    backing_photo_row = editable;
+                    set_orientation(backing_photo_row.original_orientation);
+                }
+            }
+        }           
         
         // if a new reader was specified, install that and begin using it
         if (new_reader != null) {
