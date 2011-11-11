@@ -247,7 +247,7 @@ public class PhotoTable : DatabaseTable {
     // and the md5 fields.  When the method returns, time_reimported and master.orientation has been 
     // updated.  editable_id is ignored.  transformations are untouched; use
     // remove_all_transformations() if necessary.
-    public void reimport(ref PhotoRow row) throws DatabaseError {
+    public void reimport(PhotoRow row) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
             "UPDATE PhotoTable SET width = ?, height = ?, filesize = ?, timestamp = ?, "
@@ -296,7 +296,7 @@ public class PhotoTable : DatabaseTable {
     }
 
     public bool master_exif_updated(PhotoID photoID, int64 filesize, long timestamp, 
-        string md5, string? exif_md5, string? thumbnail_md5, ref PhotoRow row) {
+        string md5, string? exif_md5, string? thumbnail_md5, PhotoRow row) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
             "UPDATE PhotoTable SET filesize = ?, timestamp = ?, md5 = ?, exif_md5 = ?,"
@@ -944,13 +944,13 @@ public class PhotoTable : DatabaseTable {
         update_text_by_id_2(photo_id.id, "backlinks", backlinks != null ? backlinks : "");
     }
     
-    public void attach_editable(ref PhotoRow row, BackingPhotoID editable_id) throws DatabaseError {
+    public void attach_editable(PhotoRow row, BackingPhotoID editable_id) throws DatabaseError {
         update_int64_by_id_2(row.photo_id.id, "editable_id", editable_id.id);
         
         row.editable_id = editable_id;
     }
     
-    public void detach_editable(ref PhotoRow row) throws DatabaseError {
+    public void detach_editable(PhotoRow row) throws DatabaseError {
         update_int64_by_id_2(row.photo_id.id, "editable_id", BackingPhotoID.INVALID);
         
         row.editable_id = BackingPhotoID();
@@ -960,7 +960,7 @@ public class PhotoTable : DatabaseTable {
         update_int_by_id_2(photo_id.id, "metadata_dirty", dirty ? 1 : 0);
     }
     
-    public void update_raw_development(ref PhotoRow row, RawDeveloper rd, BackingPhotoID backing_photo_id) 
+    public void update_raw_development(PhotoRow row, RawDeveloper rd, BackingPhotoID backing_photo_id) 
         throws DatabaseError {
         
         string col;
@@ -986,8 +986,8 @@ public class PhotoTable : DatabaseTable {
         update_text_by_id_2(row.photo_id.id, "developer", rd.to_string());
     }
     
-    public void remove_development(ref PhotoRow row, RawDeveloper rd) throws DatabaseError {
-        update_raw_development(ref row, rd, BackingPhotoID());
+    public void remove_development(PhotoRow row, RawDeveloper rd) throws DatabaseError {
+        update_raw_development(row, rd, BackingPhotoID());
     }
     
 }

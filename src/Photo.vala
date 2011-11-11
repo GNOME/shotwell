@@ -372,7 +372,7 @@ public abstract class Photo : PhotoSource, Dateable {
                 readers.editable = editable.file_format.create_reader(editable.filepath);
             } else {
                 try {
-                    PhotoTable.get_instance().detach_editable(ref this.row);
+                    PhotoTable.get_instance().detach_editable(this.row);
                 } catch (DatabaseError err) {
                     // ignored
                 }
@@ -542,13 +542,13 @@ public abstract class Photo : PhotoSource, Dateable {
     // Note: this function was created for importing new photos.  It will not
     // notify of changes to the developments.
     public void add_backing_photo_for_development(RawDeveloper d, BackingPhotoRow bpr) throws Error {
-        import_developed_backing_photo(ref row, d, bpr);
+        import_developed_backing_photo(row, d, bpr);
         lock (developments) {
             developments.set(d, bpr);
         }
     }
     
-    public static void import_developed_backing_photo(ref PhotoRow row, RawDeveloper d, 
+    public static void import_developed_backing_photo(PhotoRow row, RawDeveloper d, 
         BackingPhotoRow bpr) throws Error {
         File file = File.new_for_path(bpr.filepath);
         FileInfo info = file.query_info(DirectoryMonitor.SUPPLIED_ATTRIBUTES,
@@ -569,7 +569,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         // Add to DB.
         BackingPhotoTable.get_instance().add(bpr);
-        PhotoTable.get_instance().update_raw_development(ref row, d, bpr.id);
+        PhotoTable.get_instance().update_raw_development(row, d, bpr.id);
     }
     
     // "Develops" a raw photo
@@ -677,7 +677,7 @@ public abstract class Photo : PhotoSource, Dateable {
             set_orientation(backing_photo_row.original_orientation);
             
             try {
-                PhotoTable.get_instance().update_raw_development(ref row, d, backing_photo_row.id);
+                PhotoTable.get_instance().update_raw_development(row, d, backing_photo_row.id);
             } catch (Error e) {
                 warning("Error updating database: %s", e.message);
             }
@@ -713,7 +713,7 @@ public abstract class Photo : PhotoSource, Dateable {
             
             // Delete references in DB.
             try {
-                PhotoTable.get_instance().remove_development(ref row, d);
+                PhotoTable.get_instance().remove_development(row, d);
                 BackingPhotoTable.get_instance().remove(bpr.id);
             } catch (Error e) {
                 warning("Database error while deleting RAW development: %s", e.message);
@@ -1304,7 +1304,7 @@ public abstract class Photo : PhotoSource, Dateable {
     public void finish_reimport_master(ReimportMasterState state) throws DatabaseError {
         ReimportMasterStateImpl reimport_state = (ReimportMasterStateImpl) state;
         
-        PhotoTable.get_instance().reimport(ref reimport_state.row);
+        PhotoTable.get_instance().reimport(reimport_state.row);
         
         lock (row) {
             // Copy row while preserving reference to master.
@@ -2096,7 +2096,7 @@ public abstract class Photo : PhotoSource, Dateable {
         bool success;
         lock (row) {
             success = PhotoTable.get_instance().master_exif_updated(get_photo_id(), info.get_size(),
-                timestamp.tv_sec, detected.md5, detected.exif_md5, detected.thumbnail_md5, ref row);
+                timestamp.tv_sec, detected.md5, detected.exif_md5, detected.thumbnail_md5, row);
         }
         
         if (success)
@@ -3447,12 +3447,37 @@ public abstract class Photo : PhotoSource, Dateable {
             return;
         }
         
+        bool timestamp_changed = false;
+        bool filesize_changed = false;
+        bool is_new_editable = false;
+
         BackingPhotoID editable_id = get_editable_id();
         File file = reader.get_file();
         
-        bool timestamp_changed = false;
-        bool filesize_changed = false;
-        if (only_attributes) {
+        DetectedPhotoInformation detected;
+        BackingPhotoRow? backing = query_backing_photo_row(file, PhotoFileSniffer.Options.NO_MD5, 
+            out detected);        
+            
+        // Have we _not_ got an editable attached yet?    
+        if (editable_id.is_invalid()) {
+			// Yes, try to create and attach one.
+			if (backing != null) {
+                BackingPhotoTable.get_instance().add(backing);
+                lock (row) {
+                    timestamp_changed = true;
+                    filesize_changed = true;
+                         
+                    PhotoTable.get_instance().attach_editable(row, backing.id);
+                    editable = backing;
+                    backing_photo_row = editable;
+                    set_orientation(backing_photo_row.original_orientation);
+                }
+            }
+            is_new_editable = true;            
+        } 
+               
+        if (only_attributes) {  
+			// This should only be possible if the editable exists already.
             assert(editable_id.is_valid());
             
             FileInfo info;
@@ -3478,39 +3503,24 @@ public abstract class Photo : PhotoSource, Dateable {
                 editable.filesize = info.get_size();
             }
         } else {
-            DetectedPhotoInformation detected;
-            BackingPhotoRow? backing = query_backing_photo_row(file, PhotoFileSniffer.Options.NO_MD5, 
-                out detected);
-            
-            if (backing != null) {
-                // decide if updating existing editable or attaching a new one
-                if (editable_id.is_valid()) {
-                    // Use existing.
-                    backing.id = editable_id;
-                    BackingPhotoTable.get_instance().update(backing);
-                    lock (row) {
-                        timestamp_changed = editable.timestamp != backing.timestamp;
-                        filesize_changed = editable.filesize != backing.filesize;
-                        
-                        editable = backing;
-                        backing_photo_row = editable;
-                        set_orientation(backing_photo_row.original_orientation);
-                    }
-                } else {
-                    // Create new.
-                    BackingPhotoTable.get_instance().add(backing);
-                    lock (row) {
-                        timestamp_changed = true;
-                        filesize_changed = true;
-                        
-                        PhotoTable.get_instance().attach_editable(ref row, backing.id);
-                        editable = backing;
-                        backing_photo_row = editable;
-                        set_orientation(backing_photo_row.original_orientation);
-                    }
-                }
-            }
-        }
+			// Not just a file-attribute-only change.
+			if (editable_id.is_valid() && !is_new_editable) {
+				// Only check these if we didn't just have to create
+				// this editable, since, with a newly-created editable,
+				// the file size and modification time are by definition
+				// freshly-changed.
+				backing.id = editable_id;
+				BackingPhotoTable.get_instance().update(backing);
+				lock (row) {
+					timestamp_changed = editable.timestamp != backing.timestamp;
+					filesize_changed = editable.filesize != backing.filesize;
+					
+					editable = backing;
+					backing_photo_row = editable;
+					set_orientation(backing_photo_row.original_orientation);
+				}
+			}
+		}			
         
         // if a new reader was specified, install that and begin using it
         if (new_reader != null) {
@@ -3565,7 +3575,7 @@ public abstract class Photo : PhotoSource, Dateable {
                 lock (row) {
                     editable_id = row.editable_id;
                     if (editable_id.is_valid())
-                        PhotoTable.get_instance().detach_editable(ref row);
+                        PhotoTable.get_instance().detach_editable(row);
                     backing_photo_row = row.master;
                 }
             } catch (DatabaseError err) {
