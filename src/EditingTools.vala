@@ -42,6 +42,10 @@ public abstract class EditingToolWindow : Gtk.Window {
         return user_moved;
     }
 
+    public override bool key_press_event(Gdk.EventKey event) {
+       return AppWindow.get_instance().key_press_event(event); 
+    }
+
     public override bool button_press_event(Gdk.EventButton event) {
         // LMB only
         if (event.button != 1)
