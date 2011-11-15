@@ -411,7 +411,7 @@ public class DirectPhotoPage : EditingHostPage {
     protected override bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
         return (old_photo != null) ? check_ok_to_close_photo(old_photo) : true;
     }
-    
+
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
         PhotoFileFormat format, bool copy_unmodified = false, bool save_metadata = true) {
         Scaling scaling = Scaling.for_constraint(constraint, scale, false);
@@ -421,16 +421,21 @@ public class DirectPhotoPage : EditingHostPage {
         } catch (Error err) {
             AppWindow.error_message(_("Error while saving to %s: %s").printf(dest.get_path(),
                 err.message));
-            
+
             return;
         }
-        
+
         // Fetch the DirectPhoto and reimport.
-        DirectPhoto photo = DirectPhoto.global.get_file_source(dest);
+        DirectPhoto photo;
+        DirectPhoto.global.fetch(dest, out photo, true);
+
+        DirectView tmp_view = new DirectView(photo);
+        view_controller.add(tmp_view);
+
         DirectPhoto.global.reimport_photo(photo);
         display_mirror_of(view_controller, photo);
     }
-    
+
     private void on_save() {
         if (!get_photo().has_alterations() || !get_photo().get_file_format().can_write() || 
             get_photo_missing())
