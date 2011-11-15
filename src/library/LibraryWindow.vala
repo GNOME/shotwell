@@ -202,8 +202,11 @@ public class LibraryWindow : AppWindow {
     private int system_menubar_height = 20; // give this a default value, even
                                             // though we expect its value to be
                                             // reset in the c-tor
+    private bool has_appmenu;
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
+        has_appmenu = Resources.is_appmenu_installed();
+
         // prep sidebar and add roots
         sidebar_tree = new Sidebar.Tree(DND_TARGET_ENTRIES, Gdk.DragAction.ASK,
             external_drop_handler);
@@ -238,25 +241,30 @@ public class LibraryWindow : AppWindow {
         // setup search bar and add its accelerators to the window
         search_toolbar = new SearchFilterToolbar(search_actions);
         
-        // set up the menu bar wrapper; see the comment on its declaration above
-        // for more information on what the menu bar wrapper does
-        menubar_wrapper = new Gtk.VBox(true, 0);
-        menubar_wrapper.set_size_request(-1, 32); // give it a non-zero height
-                                                  // to trigger allocation on
-                                                  // realize
-        layout.pack_start(menubar_wrapper, false, false, 0);
-        
-		// use a dummy menu bar widget to compute the height of menu bars on this
-        // system. we need to know the height of menu bars to fix the height of
-        // menubar_wrapper, as described above
-        Gtk.Widget dummy_menubar = new Gtk.MenuBar();
-        ((Gtk.MenuShell) dummy_menubar).append(new Gtk.MenuItem.with_label("dummy"));
-        menubar_wrapper.add(dummy_menubar);
+        // we only go through these menu bar wrapper shenanigans when Unity appmenu
+        // *isn't* installed
+        Gtk.Widget? dummy_menubar = null;
+        if (!has_appmenu) {
+            // set up the menu bar wrapper; see the comment on its declaration above
+            // for more information on what the menu bar wrapper does
+            menubar_wrapper = new Gtk.VBox(true, 0);
+            menubar_wrapper.set_size_request(-1, 32); // give it a non-zero height
+                                                      // to trigger allocation on
+                                                      // realize
+            layout.pack_start(menubar_wrapper, false, false, 0);
+            
+		    // use a dummy menu bar widget to compute the height of menu bars on this
+            // system. we need to know the height of menu bars to fix the height of
+            // menubar_wrapper, as described above
+            dummy_menubar = new Gtk.MenuBar();
+            ((Gtk.MenuShell) dummy_menubar).append(new Gtk.MenuItem.with_label("dummy"));
+            menubar_wrapper.add(dummy_menubar);
 
-        // we can't capture the height of the dummy menu bar until it's been
-        // realized, so connect a signal handler so we're notified of this
-        // event
-        dummy_menubar.realize.connect(on_dummy_menubar_realize);
+            // we can't capture the height of the dummy menu bar until it's been
+            // realized, so connect a signal handler so we're notified of this
+            // event
+            dummy_menubar.realize.connect(on_dummy_menubar_realize);
+        }
         
         // create the main layout & start at the Library page
         create_layout(library_branch.get_main_page());
@@ -297,8 +305,10 @@ public class LibraryWindow : AppWindow {
         // them up in the execution sequence risks getting us into a situation
         // where they're executed before the system_menubar_height has been
         // captured from the dummy menu bar
-        menubar_wrapper.remove(dummy_menubar);
-        menubar_wrapper.set_size_request(-1, system_menubar_height);
+        if (!has_appmenu) {
+            menubar_wrapper.remove(dummy_menubar);
+            menubar_wrapper.set_size_request(-1, system_menubar_height);
+        }
     }
 
     private void on_dummy_menubar_realize(Gtk.Widget dummy_menubar) {
@@ -1433,9 +1443,18 @@ public class LibraryWindow : AppWindow {
         notebook.set_current_page(get_notebook_pos(page));
         
         // switch menus
-        if (current_page != null)
-            menubar_wrapper.remove(current_page.get_menubar());
-        menubar_wrapper.add(page.get_menubar());
+        if (has_appmenu) {
+            if (current_page != null)
+                layout.remove(current_page.get_menubar());
+    
+            layout.pack_start(page.get_menubar(), false, false, 0);
+        } else {
+            if (current_page != null)
+                menubar_wrapper.remove(current_page.get_menubar());
+
+            menubar_wrapper.add(page.get_menubar());
+        }
+
         
         Gtk.AccelGroup accel_group = page.ui.get_accel_group();
         if (accel_group != null)
