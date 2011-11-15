@@ -660,6 +660,10 @@ public class ImportPage : CheckerboardPage {
     private ImportPageSearchViewFilter search_filter = new ImportPageSearchViewFilter();
     private HideImportedViewFilter hide_imported_filter = new HideImportedViewFilter();
     private CameraViewTracker tracker;
+#if UNITY_SUPPORT
+    //UnityProgressBar: init
+    UnityProgressBar uniprobar = new UnityProgressBar(UnityProgressBarImportance.MEDIUM);
+#endif
     
     public enum RefreshResult {
         OK,
@@ -1110,7 +1114,17 @@ public class ImportPage : CheckerboardPage {
         // Associate files (for RAW+JPEG)
         auto_match_raw_jpeg(import_list);
         
+#if UNITY_SUPPORT
+        //UnityProgressBar: try to draw progress bar
+        uniprobar.set_visible(true);
+#endif
+        
         load_previews_and_metadata(import_list);
+        
+#if UNITY_SUPPORT
+        //UnityProgressBar: reset
+        uniprobar.reset();
+#endif
         
         progress_bar.visible = false;
         progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
@@ -1461,6 +1475,10 @@ public class ImportPage : CheckerboardPage {
             import_sources.add(import_source);
             
             progress_bar.set_fraction((double) (++loaded_photos) / (double) import_list.size);
+#if UNITY_SUPPORT
+            //UnityProgressBar: set progress
+            uniprobar.set_progress((double) (loaded_photos) / (double) import_list.size);
+#endif
             
             // spin the event loop so the UI doesn't freeze
             if (!spin_event_loop())

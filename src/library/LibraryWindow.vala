@@ -204,6 +204,11 @@ public class LibraryWindow : AppWindow {
                                             // reset in the c-tor
     private bool has_appmenu;
     
+#if UNITY_SUPPORT
+    //UnityProgressBar: init
+    UnityProgressBar uniprobar = new UnityProgressBar(UnityProgressBarImportance.LOW);
+#endif
+    
     public LibraryWindow(ProgressMonitor progress_monitor) {
         has_appmenu = Resources.is_appmenu_installed();
 
@@ -1267,10 +1272,9 @@ public class LibraryWindow : AppWindow {
         show_background_progress_bar();
         
 #if UNITY_SUPPORT
-        //Unity launcher progress bar: init & set
-        var l = Unity.LauncherEntry.get_for_desktop_id ("shotwell.desktop");
-        l.progress = fraction;
-        l.progress_visible = true;
+        //UnityProgressBar: try to draw & set progress
+        uniprobar.set_visible(true);
+        uniprobar.set_progress(fraction);
 #endif
     }
     
@@ -1287,10 +1291,8 @@ public class LibraryWindow : AppWindow {
         hide_background_progress_bar();
         
 #if UNITY_SUPPORT
-        //Unity launcher progress bar: reset
-        var l = Unity.LauncherEntry.get_for_desktop_id ("shotwell.desktop");
-        l.progress = 0.0;
-        l.progress_visible = false;
+        //UnityProgressBar: reset
+        uniprobar.reset();
 #endif
     }
     

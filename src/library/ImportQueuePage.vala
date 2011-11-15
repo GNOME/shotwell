@@ -12,6 +12,10 @@ public class ImportQueuePage : SinglePhotoPage {
     private BatchImport current_batch = null;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private bool stopped = false;
+#if UNITY_SUPPORT
+    //UnityProgressBar: init
+    UnityProgressBar uniprobar = new UnityProgressBar(UnityProgressBarImportance.HIGH);
+#endif
     
     public signal void batch_added(BatchImport batch_import);
     
@@ -42,6 +46,10 @@ public class ImportQueuePage : SinglePhotoPage {
         progress_bar.set_show_text(true);
         
         toolbar.insert(progress_item, -1);
+#if UNITY_SUPPORT
+        //UnityProgressBar: try to draw progress bar
+        uniprobar.set_visible(true);
+#endif
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
@@ -132,6 +140,10 @@ public class ImportQueuePage : SinglePhotoPage {
         double pct = (completed_bytes <= total_bytes) ? (double) completed_bytes / (double) total_bytes
             : 0.0;
         progress_bar.set_fraction(pct);
+#if UNITY_SUPPORT
+        //UnityProgressBar: set progress
+        uniprobar.set_progress(pct);
+#endif
     }
     
     private void on_imported(ThumbnailSource source, Gdk.Pixbuf pixbuf, int to_follow) {
@@ -180,6 +192,10 @@ public class ImportQueuePage : SinglePhotoPage {
             progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
             progress_bar.set_text("");
             progress_bar.set_fraction(0.0);
+#if UNITY_SUPPORT
+            //UnityProgressBar: reset
+            uniprobar.reset();
+#endif
 
             // blank the display
             blank_display();

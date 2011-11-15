@@ -100,6 +100,10 @@ UNUNITIZED_SRC_FILES = \
 	SearchFilter.vala \
 	MediaViewTracker.vala \
 	Upgrades.vala
+ifdef UNITY_SUPPORT
+UNUNITIZED_SRC_FILES := $(UNUNITIZED_SRC_FILES) \
+	UnityProgressBar.vala
+endif
 
 THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala
@@ -279,7 +283,7 @@ EXT_PKGS = \
 	libxml-2.0 \
 	sqlite3 \
 	unique-3.0 \
-	webkitgtk-3.0 
+	webkitgtk-3.0
 ifdef UNITY_SUPPORT
 EXT_PKGS += unity
 endif
