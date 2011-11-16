@@ -2966,9 +2966,18 @@ public class LibraryPhotoPage : EditingHostPage {
         remove_from_app(photos, _("Remove From Library"), _("Removing Photo From Library"));
     }
     
-    private void on_move_to_trash() {
+    private void on_move_to_trash() {        
         if (!has_photo())
             return;
+        
+        // Temporarily prevent the application from switching pages if we're viewing
+        // the current photo from within an Event page.  This is needed because the act of 
+        // trashing images from an Event causes it to be renamed, which causes it to change 
+        // positions in the sidebar, and the selection moves with it, causing the app to
+        // inappropriately switch to the Event page. 
+        if (return_page is EventPage) {
+            LibraryWindow.get_app().set_page_switching_enabled(false);
+        }
         
         LibraryPhoto photo = (LibraryPhoto) get_photo();
         
@@ -2981,13 +2990,18 @@ public class LibraryPhotoPage : EditingHostPage {
         // this indicates there is only one photo in the controller, or about to be zero, so switch 
         // to the library page, which is guaranteed to be there when this disappears
         if (photo.equals(get_photo())) {
+            // If this is the last photo in an Event, then trashing it
+            // _should_ cause us to switch pages, so re-enable it here. 
+            LibraryWindow.get_app().set_page_switching_enabled(true);
+            
             if (get_container() is FullscreenWindow)
                 ((FullscreenWindow) get_container()).close();
 
             LibraryWindow.get_app().switch_to_library_page();
         }
-        
+
         get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
+        LibraryWindow.get_app().set_page_switching_enabled(true);
     }
     
     private void on_flag_unflag() {

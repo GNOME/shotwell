@@ -162,6 +162,7 @@ public class LibraryWindow : AppWindow {
     private Library.ImportQueueBranch import_queue_branch = new Library.ImportQueueBranch();
     private Camera.Branch camera_branch = new Camera.Branch();
     private Searches.Branch saved_search_branch = new Searches.Branch();
+    private bool page_switching_enabled = true;
     
     private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
     
@@ -258,7 +259,7 @@ public class LibraryWindow : AppWindow {
                                                       // realize
             layout.pack_start(menubar_wrapper, false, false, 0);
             
-		    // use a dummy menu bar widget to compute the height of menu bars on this
+            // use a dummy menu bar widget to compute the height of menu bars on this
             // system. we need to know the height of menu bars to fix the height of
             // menubar_wrapper, as described above
             dummy_menubar = new Gtk.MenuBar();
@@ -1421,7 +1422,14 @@ public class LibraryWindow : AppWindow {
         switch_to_page(page);
     }
     
+    public void set_page_switching_enabled(bool should_enable) {
+        page_switching_enabled = should_enable;
+    }
+    
     public void switch_to_page(Page page) {
+        if (!page_switching_enabled)
+            return;
+        
         if (page == get_current_page())
             return;
         
