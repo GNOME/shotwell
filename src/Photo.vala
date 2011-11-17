@@ -2441,13 +2441,25 @@ public abstract class Photo : PhotoSource, Dateable {
     public bool has_alterations() {
         MetadataDateTime? date_time = null;
         string? title = null;
-        
+
         PhotoMetadata? metadata = get_metadata();
         if (metadata != null) {
             date_time = metadata.get_exposure_date_time();
             title = metadata.get_title();
+        } 
+
+        // Does this photo contain any date/time info?
+        if (date_time == null) {
+            // No, use file timestamp as date/time.
+            lock (row) {
+                // Did we manually set an exposure date?
+                if(backing_photo_row.timestamp != row.exposure_time) {
+                    // Yes, we need to save this.
+                    return true;            
+                }
+            }
         }
-        
+
         lock (row) {
             return row.transformations != null 
                 || row.orientation != backing_photo_row.original_orientation
