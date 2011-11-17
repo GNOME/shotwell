@@ -2150,16 +2150,21 @@ public class PreferencesDialog {
     }
     
     private void on_photo_editor_changed() {
-        AppInfo app = external_photo_apps.get_at(photo_editor_combo.get_active());
+        int photo_app_choice_index = (photo_editor_combo.get_active() < external_photo_apps.size) ? 
+            photo_editor_combo.get_active() : external_photo_apps.size;
+            
+        AppInfo app = external_photo_apps.get_at(photo_app_choice_index);
 
         Config.Facade.get_instance().set_external_photo_app(DesktopIntegration.get_app_open_command(app));
 
         debug("setting external photo editor to: %s", DesktopIntegration.get_app_open_command(app));
-
     }
     
     private void on_raw_editor_changed() {
-        AppInfo app = external_raw_apps.get_at(raw_editor_combo.get_active());
+        int raw_app_choice_index = (raw_editor_combo.get_active() < external_raw_apps.size) ? 
+            raw_editor_combo.get_active() : external_raw_apps.size;
+        
+        AppInfo app = external_raw_apps.get_at(raw_app_choice_index);
         
         Config.Facade.get_instance().set_external_raw_app(app.get_commandline());
         
