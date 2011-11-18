@@ -1114,7 +1114,7 @@ public class SetRawDeveloperCommand : MultipleDataSourceCommand {
 
     public SetRawDeveloperCommand(Gee.Iterable<DataView> iter, RawDeveloper developer) {
         base (iter, _("Setting RAW developer"), _("Restoring previous RAW developer"),
-            developer.get_label(), "");
+            _("Set Developer"), "");
         new_developer = developer;
         save_source_states(iter);
     }
