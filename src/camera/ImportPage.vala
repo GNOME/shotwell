@@ -800,7 +800,7 @@ public class ImportPage : CheckerboardPage {
     // TODO: replace this with approved text for "talking to camera, 
     // please wait" once new strings are being accepted.
     protected override string get_view_empty_message() {
-        return ("");
+        return _("Starting import, please wait...");
     }
 
     private static int64 preview_comparator(void *a, void *b) {
