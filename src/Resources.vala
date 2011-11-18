@@ -803,7 +803,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         try {
             pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
         } catch (Error err) {
-            error("%s", err.message);
+            critical("Unable to load stock icon %s: %s", stock_id, err.message);
         }
         
         Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pixbuf);
