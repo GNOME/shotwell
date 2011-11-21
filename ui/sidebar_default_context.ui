@@ -1,6 +1,7 @@
 <ui>
     <popup name="SidebarDefaultContextMenu">
         <menuitem name="NewSearch" action="CommonNewSearch" />
+        <menuitem name="NewTag" action="CommonNewTag" />
     </popup>
 </ui>
 

@@ -194,6 +194,10 @@ public class Sidebar.Tree : Gtk.TreeView {
         Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, null, null, on_new_search };
         new_search.label = _("Ne_w Search...");
         actions += new_search;
+
+        Gtk.ActionEntry new_tag = { "CommonNewTag", null, TRANSLATABLE, null, null, on_new_tag };
+        new_tag.label = _("New _Tag...");
+        actions += new_tag;
         
         group.add_actions(actions, this);
         ui.insert_action_group(group, 0);
@@ -1151,5 +1155,11 @@ public class Sidebar.Tree : Gtk.TreeView {
     private void on_new_search() {
         (new SavedSearchDialog()).show();
     }
+
+    private void on_new_tag() {
+        NewRootTagCommand creation_command = new NewRootTagCommand();
+        AppWindow.get_command_manager().execute(creation_command);
+        LibraryWindow.get_app().rename_tag_in_sidebar(creation_command.get_created_tag());
+    }    
 }
 
