@@ -40,6 +40,12 @@ public class Tags.Branch : Sidebar.Branch {
     }
     
     private void on_tags_added_removed(Gee.Iterable<DataObject>? added_raw, Gee.Iterable<DataObject>? removed) {
+        // Store the tag whose page we'll eventually want to go to,
+        // since this is lost when a tag is reparented (pruning a currently-
+        // highlighted entry from the tree causes the highlight to go to the library,
+        // and reparenting requires pruning the old location (along with adding the new one)).
+        Tag? restore_point = null;
+                
         if (added_raw != null) {
             // prepare a collection of tags guaranteed to be sorted; this is critical for
             // hierarchical tags since it ensures that parent tags must be encountered
@@ -49,7 +55,7 @@ public class Tags.Branch : Sidebar.Branch {
                 Tag tag = (Tag) object;
                 added.add(tag);
             }
-                
+                            
             foreach (Tag tag in added) {
                 // ensure that all parent tags of this tag (if any) already have sidebar
                 // entries
@@ -61,6 +67,7 @@ public class Tags.Branch : Sidebar.Branch {
                     }
                     
                     parent_tag = parent_tag.get_hierarchical_parent();
+                    
                 }
                 
                 Tags.SidebarEntry entry = new Tags.SidebarEntry(tag);
@@ -73,6 +80,10 @@ public class Tags.Branch : Sidebar.Branch {
                 } else {
                     graft(get_root(), entry);
                 }
+                
+                // Save the most-recently-processed on tag.  During a reparenting,
+                // this will be the only tag processed.
+                restore_point = tag;
             }
         }
         
@@ -87,6 +98,12 @@ public class Tags.Branch : Sidebar.Branch {
                 assert(is_removed);
                 
                 prune(entry);
+            }
+        }
+        
+        if (AppWindow.get_instance() != null) {
+            if((restore_point != null) && (LibraryWindow.get_app() != null)) {
+                LibraryWindow.get_app().switch_to_tag(restore_point);
             }
         }
     }
