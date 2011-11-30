@@ -451,7 +451,6 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         // counts and/or missing parents and reap them. we'll also flatten
         // any top-level parents who have 0 children remaining after the reap.
         Gee.Set<Tag> victim_set = new Gee.HashSet<Tag>();
-        Gee.Set<Tag> flatten_set = new Gee.HashSet<Tag>();
         
         foreach (string fq_tag_path in ancestry_dictionary.keys) { 
             Gee.List<string> parents_to_search = 
@@ -467,13 +466,8 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
                 
                 // does this parent even exist?
                 if (ancestry_dictionary.has_key(parent_path)) {
-                    // yes, get its source count and remember to check
-                    // it for flattening later.
+                    // yes, get its source count.
                     parent_ref_count = ancestry_dictionary.get(parent_path).get_sources_count();
-                    
-                    if (HierarchicalTagUtilities.enumerate_parent_paths(parent_path).size < 1) {
-                        flatten_set.add(ancestry_dictionary.get(parent_path));
-                    }
                 }
                                 
                 // do we have more sources than our parent?
@@ -507,10 +501,11 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         global.add_many(ancestry_dictionary.values);
         global.init_add_many_unlinked(unlinked);
         
-        // flatten parents who have lost children as needed
-        foreach (Tag t in flatten_set) {
+        // flatten root tags who have zero children; this will catch
+        // both parents whose children were reaped and corrupted parents.
+        foreach (Tag t in ancestry_dictionary.values) {
             // do we have no parent and no children?
-            if ((t.get_hierarchical_children().size < 1) && (t.get_hierarchical_children().size < 1)) {
+            if ((t.get_hierarchical_children().size < 1) && (t.get_hierarchical_parent() == null)) {
                 //yes, flatten.
                 t.flatten();
             }
@@ -766,6 +761,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
      */
     public Gee.List<Tag> get_hierarchical_children() {
         Gee.ArrayList<Tag> result = new Gee.ArrayList<Tag>();
+        Gee.ArrayList<Tag> result_reversed = new Gee.ArrayList<Tag>();
         
         // if it's a flag tag, it doesn't have children
         if (!get_path().has_prefix(Tag.PATH_SEPARATOR_STRING))
@@ -781,11 +777,12 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
                 forward_sorted_paths.add(path);
         }
         
-        Gee.BidirIterator<string> reverse_iter = forward_sorted_paths.bidir_iterator();
-        reverse_iter.last();
-        while (reverse_iter.has_previous()) {
-            result.add(Tag.for_path(reverse_iter.get()));
-            reverse_iter.previous();
+        foreach (string tmp in forward_sorted_paths) {
+            result_reversed.add(Tag.for_path(tmp));
+        }
+        
+        for (int index = result_reversed.size - 1; index >= 0; index--) {
+            result.add(result_reversed[index]);
         }
 
         return result;
