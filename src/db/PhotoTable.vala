@@ -332,7 +332,24 @@ public class PhotoTable : DatabaseTable {
         
         return true;
     }
-    
+
+    // Force corrupted orientations to a safe value.  
+    //
+    // In previous versions of Shotwell, this field could be written to
+    // the DB as a zero due to Vala 0.14 breaking the way it handled
+    // objects passed as 'ref' arguments to methods. 
+    // 
+    // For further details, please see http://redmine.yorba.org/issues/4354 and 
+    // https://bugzilla.gnome.org/show_bug.cgi?id=663818 .
+    private void validate_orientation(PhotoRow row) {
+        if ((row.orientation < Orientation.MIN) ||
+            (row.orientation > Orientation.MAX)) {
+            // orientation was corrupted; set it to top left.
+            set_orientation(row.photo_id, Orientation.MIN);
+            row.orientation = Orientation.MIN;
+        }
+    }
+        
     public PhotoRow? get_row(PhotoID photo_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
@@ -427,6 +444,8 @@ public class PhotoTable : DatabaseTable {
             row.development_ids[RawDeveloper.SHOTWELL] = BackingPhotoID(stmt.column_int64(25));
             row.development_ids[RawDeveloper.CAMERA] = BackingPhotoID(stmt.column_int64(26));
             row.development_ids[RawDeveloper.EMBEDDED] = BackingPhotoID(stmt.column_int64(27));
+            
+            validate_orientation(row);
             
             all.add(row);
         }
