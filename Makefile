@@ -1,7 +1,7 @@
 PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 
-VERSION = 0.11.6+trunk
+VERSION = 0.11.90
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -109,6 +109,8 @@ THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala
 
 VAPI_FILES = \
+	unique-3.0.vapi \
+	webkitgtk-3.0.vapi \
 	libexif.vapi \
 	libgphoto2.vapi \
 	ExtendedPosix.vapi \
