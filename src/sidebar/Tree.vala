@@ -1146,9 +1146,9 @@ public class Sidebar.Tree : Gtk.TreeView {
     }
 
     private bool on_editing_focus_out(Gdk.EventFocus event) {
-        if (text_entry.editable)
-            text_entry.editing_done();
-
+        // We'll return false here, in case other parts of the app
+        // want to know if the button press event that caused
+        // us to lose focus have been fully handled.
         return false;
     }
     
