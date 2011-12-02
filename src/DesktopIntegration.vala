@@ -141,7 +141,7 @@ public void send_to(Gee.Collection<MediaSource> media) {
         return;
     
     send_to_exporter = new ExporterUI(new Exporter.for_temp_file(media,
-        Scaling.for_constraint(constraint, scale, false), export_params, true));
+        Scaling.for_constraint(constraint, scale, false), export_params));
     send_to_exporter.export(on_send_to_export_completed);
 }
 
@@ -273,7 +273,7 @@ public void set_background_slideshow(Gee.Collection<Photo> photos, double durati
     
     Exporter exporter = new Exporter(photos, wallpaper_dir,
         Scaling.to_fill_screen(AppWindow.get_instance()), ExportFormatParameters.current(),
-        false, true);
+        true);
     desktop_slideshow_exporter = new ExporterUI(exporter);
     desktop_slideshow_exporter.export(on_desktop_slideshow_exported);
 }

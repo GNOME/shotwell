@@ -108,7 +108,6 @@ public class Exporter : Object {
     private File[] exported_files;
     private File? dir;
     private Scaling scaling;
-    private bool avoid_copying;
     private int completed_count = 0;
     private Workers workers = new Workers(Workers.threads_per_cpu(), false);
     private unowned CompletionCallback? completion_callback = null;
@@ -121,22 +120,20 @@ public class Exporter : Object {
     private ExportFormatParameters export_params;
 
     public Exporter(Gee.Collection<MediaSource> to_export, File? dir, Scaling scaling,
-        ExportFormatParameters export_params, bool avoid_copying, bool auto_replace_all = false) {
+        ExportFormatParameters export_params, bool auto_replace_all = false) {
         this.to_export.add_all(to_export);
         this.dir = dir;
         this.scaling = scaling;
         this.export_params = export_params;
-        this.avoid_copying = avoid_copying;
         this.replace_all = auto_replace_all;
     }
        
     public Exporter.for_temp_file(Gee.Collection<MediaSource> to_export, Scaling scaling,
-        ExportFormatParameters export_params, bool avoid_copying) {
+        ExportFormatParameters export_params) {
         this.to_export.add_all(to_export);
         this.dir = null;
         this.scaling = scaling;
         this.export_params = export_params;
-        this.avoid_copying = avoid_copying;
     }
 
     // This should be called only once; the object does not reset its internal state when completed.
@@ -208,21 +205,6 @@ public class Exporter : Object {
                 basename = ((Video) source).get_basename();
             }
             assert(basename != null);
-
-            if (avoid_copying) {
-                if (source is Video)
-                    use_source_file = source.get_master_file();
-                else if (source is Photo) {
-                    Photo photo = (Photo) source;
-
-                    if (export_params.mode == ExportFormatMode.UNMODIFIED) {
-                        use_source_file = photo.get_master_file();
-                    } else {
-                        if (!photo.is_export_required(scaling, real_export_format))
-                            use_source_file = photo.get_source_file();
-                    }
-                }
-            }
             
             if (use_source_file != null) {
                 exported_files += use_source_file;

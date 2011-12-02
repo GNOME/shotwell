@@ -480,8 +480,7 @@ public abstract class CollectionPage : MediaPage {
         if (export_dir == null)
             return;
         
-        exporter = new ExporterUI(new Exporter(export_list, export_dir, scaling, export_params,
-            false));
+        exporter = new ExporterUI(new Exporter(export_list, export_dir, scaling, export_params));
         exporter.export(on_export_completed);
     }
     

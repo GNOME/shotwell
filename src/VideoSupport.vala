@@ -408,7 +408,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
 		// in place export is relatively easy -- provide a fast, separate code path for it
         if (export_in_place) {
              ExporterUI temp_exporter = new ExporterUI(new Exporter.for_temp_file(videos,
-                Scaling.for_original(), ExportFormatParameters.unmodified(), true));
+                Scaling.for_original(), ExportFormatParameters.unmodified()));
              temp_exporter.export(done);
              return temp_exporter;
         }
@@ -443,7 +443,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
             return null;
         
         ExporterUI exporter = new ExporterUI(new Exporter(videos, export_dir,
-            Scaling.for_original(), ExportFormatParameters.unmodified(), false));
+            Scaling.for_original(), ExportFormatParameters.unmodified()));
         exporter.export(done);
 
         return exporter;
