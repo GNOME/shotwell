@@ -369,7 +369,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         stylectx.set_junction_sides(Gtk.JunctionSides.TOP | Gtk.JunctionSides.BOTTOM |
             Gtk.JunctionSides.LEFT | Gtk.JunctionSides.RIGHT);
 
-        Gtk.render_frame(stylectx, ctx, framed_area.x, framed_area.y, framed_area.width,
+        stylectx.render_frame(ctx, framed_area.x, framed_area.y, framed_area.width,
             framed_area.height);
 
         stylectx.restore();
@@ -466,7 +466,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         stylectx.set_path(slider_draw_path);
         stylectx.add_class(Gtk.STYLE_CLASS_TROUGH);
 
-        Gtk.render_activity(stylectx, ctx, trough_x, trough_y, TROUGH_WIDTH, TROUGH_HEIGHT);
+        stylectx.render_activity(ctx, trough_x, trough_y, TROUGH_WIDTH, TROUGH_HEIGHT);
 
         stylectx.restore();
     }
