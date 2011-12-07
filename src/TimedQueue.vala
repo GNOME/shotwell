@@ -261,7 +261,10 @@ public class HashTimedQueue<G> : TimedQueue<G> {
     }
     
     private void removed(G item) {
-        assert(item_count.has_key(item));
+        // item in question is either already removed
+        // or was never added, safe to do nothing here
+        if (!item_count.has_key(item))
+            return;
         
         int count = item_count.get(item);
         assert(count > 0);
