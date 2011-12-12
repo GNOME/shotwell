@@ -9,7 +9,7 @@ ifndef VALAC
 VALAC := valac
 endif
 VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
-MIN_VALAC_VERSION := 0.14.1
+MIN_VALAC_VERSION := 0.15.0
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 
@@ -109,6 +109,7 @@ THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala
 
 VAPI_FILES = \
+	gdk-3.0.vapi \
 	unique-3.0.vapi \
 	webkitgtk-3.0.vapi \
 	libexif.vapi \

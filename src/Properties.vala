@@ -500,7 +500,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             add_line(_("Location:"), (file_path != "" && file_path != null) ? file_path : NO_VALUE);
 
             add_line(_("File size:"), (filesize > 0) ? 
-                format_size_for_display((int64) filesize) : NO_VALUE);
+                format_size((int64) filesize) : NO_VALUE);
 
             add_line(_("Original dimensions:"), (original_dim != null && original_dim.has_area()) ?
                 "%d &#215; %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
