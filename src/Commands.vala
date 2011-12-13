@@ -772,9 +772,9 @@ public class AdjustColorsCommand : GenericPhotoTransformationCommand {
 }
 
 public class RedeyeCommand : GenericPhotoTransformationCommand {
-    private RedeyeInstance redeye_instance;
+    private EditingTools.RedeyeInstance redeye_instance;
     
-    public RedeyeCommand(Photo photo, RedeyeInstance redeye_instance, string name,
+    public RedeyeCommand(Photo photo, EditingTools.RedeyeInstance redeye_instance, string name,
         string explanation) {
         base(photo, name, explanation);
         

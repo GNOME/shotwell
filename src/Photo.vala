@@ -2675,15 +2675,15 @@ public abstract class Photo : PhotoSource, Dateable {
     }    
     
     // All instances are against the coordinate system of the unscaled, unrotated photo.
-    private RedeyeInstance[] get_raw_redeye_instances() {
+    private EditingTools.RedeyeInstance[] get_raw_redeye_instances() {
         KeyValueMap map = get_transformation("redeye");
         if (map == null)
-            return new RedeyeInstance[0];
+            return new EditingTools.RedeyeInstance[0];
         
         int num_points = map.get_int("num_points", -1);
         assert(num_points > 0);
 
-        RedeyeInstance[] res = new RedeyeInstance[num_points];
+        EditingTools.RedeyeInstance[] res = new EditingTools.RedeyeInstance[num_points];
 
         Gdk.Point default_point = {0};
         default_point.x = -1;
@@ -2709,7 +2709,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
 
     // All instances are against the coordinate system of the unrotated photo.
-    private void add_raw_redeye_instance(RedeyeInstance redeye) {
+    private void add_raw_redeye_instance(EditingTools.RedeyeInstance redeye) {
         KeyValueMap map = get_transformation("redeye");
         if (map == null) {
             map = new KeyValueMap("redeye");
@@ -2965,7 +2965,7 @@ public abstract class Photo : PhotoSource, Dateable {
         Dimensions scaled_image, scaled_to_viewport;
         Dimensions original = Dimensions();
         Dimensions scaled = Dimensions();
-        RedeyeInstance[] redeye_instances = null;
+        EditingTools.RedeyeInstance[] redeye_instances = null;
         Box crop;
         double straightening_angle;
         PixelTransformer transformer = null;
@@ -3023,7 +3023,7 @@ public abstract class Photo : PhotoSource, Dateable {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            foreach (RedeyeInstance instance in redeye_instances) {
+            foreach (EditingTools.RedeyeInstance instance in redeye_instances) {
                 // redeye is stored in raw coordinates; need to scale to scaled image coordinates
                 if (is_scaled) {
                     instance.center = coord_scaled_in_space(instance.center.x, instance.center.y, 
@@ -3760,15 +3760,15 @@ public abstract class Photo : PhotoSource, Dateable {
         set_raw_straighten(theta);
     }
     
-    public void add_redeye_instance(RedeyeInstance inst_unscaled) {
-        Gdk.Rectangle bounds_rect_unscaled = RedeyeInstance.to_bounds_rect(inst_unscaled);
+    public void add_redeye_instance(EditingTools.RedeyeInstance inst_unscaled) {
+        Gdk.Rectangle bounds_rect_unscaled = EditingTools.RedeyeInstance.to_bounds_rect(inst_unscaled);
         Gdk.Rectangle bounds_rect_raw = unscaled_to_raw_rect(bounds_rect_unscaled);
-        RedeyeInstance inst = RedeyeInstance.from_bounds_rect(bounds_rect_raw);
+        EditingTools.RedeyeInstance inst = EditingTools.RedeyeInstance.from_bounds_rect(bounds_rect_raw);
         
         add_raw_redeye_instance(inst);
     }
 
-    private Gdk.Pixbuf do_redeye(Gdk.Pixbuf pixbuf, RedeyeInstance inst) {
+    private Gdk.Pixbuf do_redeye(Gdk.Pixbuf pixbuf, EditingTools.RedeyeInstance inst) {
         /* we remove redeye within a circular region called the "effect
            extent." the effect extent is inscribed within its "bounding
            rectangle." */

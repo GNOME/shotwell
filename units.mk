@@ -11,6 +11,7 @@ UNITS = \
 	util \
 	threads \
 	db \
+	editing_tools \
 	plugins \
 	slideshow \
 	photos \

@@ -371,7 +371,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public const int PIXBUF_CACHE_COUNT = 5;
     public const int ORIGINAL_PIXBUF_CACHE_COUNT = 5;
     
-    private class EditingHostCanvas : PhotoCanvas {
+    private class EditingHostCanvas : EditingTools.PhotoCanvas {
         private EditingHostPage host_page;
         
         public EditingHostCanvas(EditingHostPage host_page) {
@@ -399,7 +399,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.HScale zoom_slider = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_FORWARD);
-    private EditingTool current_tool = null;
+    private EditingTools.EditingTool current_tool = null;
     private Gtk.ToggleToolButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
     private bool photo_missing = false;
@@ -1322,9 +1322,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Scaling scaling = get_canvas_scaling();
         
         rotate_button.sensitive = photo != null ? is_rotate_available(photo) : false;
-        crop_button.sensitive = photo != null ? CropTool.is_available(photo, scaling) : false;
-        redeye_button.sensitive = photo != null ? RedeyeTool.is_available(photo, scaling) : false;
-        adjust_button.sensitive = photo != null ? AdjustTool.is_available(photo, scaling) : false;
+        crop_button.sensitive = photo != null ? EditingTools.CropTool.is_available(photo, scaling) : false;
+        redeye_button.sensitive = photo != null ? EditingTools.RedeyeTool.is_available(photo, scaling) : false;
+        adjust_button.sensitive = photo != null ? EditingTools.AdjustTool.is_available(photo, scaling) : false;
         enhance_button.sensitive = photo != null ? is_enhance_available(photo) : false;
         
         base.update_actions(selected_count, count);
@@ -1397,7 +1397,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
 
-    private void activate_tool(EditingTool tool) {
+    private void activate_tool(EditingTools.EditingTool tool) {
         // cancel any zoom -- we don't currently allow tools to be used when an image is zoomed,
         // though we may at some point in the future.
         save_zoom_state();
@@ -1434,7 +1434,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             set_pixbuf(unscaled, max_dim);
         
         // create the PhotoCanvas object for a two-way interface to the tool
-        PhotoCanvas photo_canvas = new EditingHostCanvas(this);
+        EditingTools.PhotoCanvas photo_canvas = new EditingHostCanvas(this);
 
         // hook tool into event system and activate it
         current_tool = tool;
@@ -1452,7 +1452,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (current_tool == null)
             return;
 
-        EditingTool tool = current_tool;
+        EditingTools.EditingTool tool = current_tool;
         current_tool = null;
         
         // deactivate with the tool taken out of the hooks
@@ -1639,7 +1639,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void track_tool_window() {
         // if editing tool window is present and the user hasn't touched it, it moves with the window
         if (current_tool != null) {
-            EditingToolWindow tool_window = current_tool.get_tool_window();
+            EditingTools.EditingToolWindow tool_window = current_tool.get_tool_window();
             if (tool_window != null && !tool_window.has_user_moved())
                 place_tool_window();
         }
@@ -1959,7 +1959,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return base.on_ctrl_released(event);
     }
     
-    protected void on_tool_button_toggled(Gtk.ToggleToolButton toggle, EditingTool.Factory factory) {
+    protected void on_tool_button_toggled(Gtk.ToggleToolButton toggle, EditingTools.EditingTool.Factory factory) {
         // if the button is an activate, deactivate any current tool running; if the button is
         // a deactivate, deactivate the current tool and exit
         bool deactivating_only = (!toggle.active && current_editing_toggle == toggle);
@@ -1975,7 +1975,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         current_editing_toggle = toggle;
         
         // create the tool, hook its signals, and activate
-        EditingTool tool = factory();
+        EditingTools.EditingTool tool = factory();
         tool.activated.connect(on_tool_activated);
         tool.deactivated.connect(on_tool_deactivated);
         tool.applied.connect(on_tool_applied);
@@ -2027,15 +2027,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void on_crop_toggled() {
-        on_tool_button_toggled(crop_button, CropTool.factory);
+        on_tool_button_toggled(crop_button, EditingTools.CropTool.factory);
     }
 
     private void on_redeye_toggled() {
-        on_tool_button_toggled(redeye_button, RedeyeTool.factory);
+        on_tool_button_toggled(redeye_button, EditingTools.RedeyeTool.factory);
     }
     
     private void on_adjust_toggled() {
-        on_tool_button_toggled(adjust_button, AdjustTool.factory);
+        on_tool_button_toggled(adjust_button, EditingTools.AdjustTool.factory);
     }
     
     public bool is_enhance_available(Photo photo) {
@@ -2046,7 +2046,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // because running multiple tools at once is not currently supported, deactivate any current
         // tool; however, there is a special case of running enhancement while the AdjustTool is
         // open, so allow for that
-        if (!(current_tool is AdjustTool)) {
+        if (!(current_tool is EditingTools.AdjustTool)) {
             deactivate_tool();
             
             cancel_zoom();
@@ -2055,7 +2055,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!has_photo())
             return;
         
-        AdjustTool adjust_tool = current_tool as AdjustTool;
+        EditingTools.AdjustTool adjust_tool = current_tool as EditingTools.AdjustTool;
         if (adjust_tool != null) {
             adjust_tool.enhance();
             
@@ -2070,7 +2070,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (current_tool == null)
             return;
         
-        EditingToolWindow tool_window = current_tool.get_tool_window();
+        EditingTools.EditingToolWindow tool_window = current_tool.get_tool_window();
         if (tool_window == null)
             return;
         
@@ -2119,7 +2119,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                     tool_alloc.height - TOOL_WINDOW_SEPARATOR;
             
             // put larger adjust tool off to the side
-            if (current_tool is AdjustTool) {
+            if (current_tool is EditingTools.AdjustTool) {
                 x = x * 3 / 4;
             } else {
                 x = (x - tool_alloc.width) / 2;
@@ -2646,8 +2646,8 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("FlipVertically", rotate_possible);
 
         if (has_photo()) {
-            set_action_sensitive("Crop", CropTool.is_available(get_photo(), Scaling.for_original()));
-            set_action_sensitive("RedEye", RedeyeTool.is_available(get_photo(), 
+            set_action_sensitive("Crop", EditingTools.CropTool.is_available(get_photo(), Scaling.for_original()));
+            set_action_sensitive("RedEye", EditingTools.RedeyeTool.is_available(get_photo(), 
                 Scaling.for_original()));
         }
                  

@@ -66,7 +66,6 @@ UNUNITIZED_SRC_FILES = \
 	Resources.vala \
 	Debug.vala \
 	ColorTransformation.vala \
-	EditingTools.vala \
 	Properties.vala \
 	CustomComponents.vala \
 	Event.vala \
