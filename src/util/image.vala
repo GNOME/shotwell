@@ -1,7 +1,7 @@
 /* Copyright 2009-2011 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 bool is_color_parsable(string spec) {
@@ -17,7 +17,7 @@ Gdk.Color fetch_color(string spec) {
     Gdk.Color color;
     if (!Gdk.Color.parse(spec, out color))
         error("Can't parse color %s", spec);
-    
+
     return color;
 }
 
@@ -34,10 +34,10 @@ Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp, boo
     Dimensions scaled = original.get_scaled(scale, scale_up);
     if ((original.width == scaled.width) && (original.height == scaled.height))
         return pixbuf;
-    
+
     // use sane minimums ... scale_simple will hang if this is too low
     scaled = scaled.with_min(MIN_SCALED_WIDTH, MIN_SCALED_HEIGHT);
-    
+
     return pixbuf.scale_simple(scaled.width, scaled.height, interp);
 }
 
@@ -45,10 +45,10 @@ Gdk.Pixbuf resize_pixbuf(Gdk.Pixbuf pixbuf, Dimensions resized, Gdk.InterpType i
     Dimensions original = Dimensions.for_pixbuf(pixbuf);
     if (original.width == resized.width && original.height == resized.height)
         return pixbuf;
-    
+
     // use sane minimums ... scale_simple will hang if this is too low
     resized = resized.with_min(MIN_SCALED_WIDTH, MIN_SCALED_HEIGHT);
-    
+
     return pixbuf.scale_simple(resized.width, resized.height, interp);
 }
 
@@ -60,19 +60,19 @@ void draw_rounded_corners_filled(Cairo.Context ctx, Dimensions dim, Gdk.Point or
     ctx.paint();
 }
 
-void context_rounded_corners(Cairo.Context cx, Dimensions dim, Gdk.Point origin, 
+void context_rounded_corners(Cairo.Context cx, Dimensions dim, Gdk.Point origin,
     double radius_proportion) {
     // establish a reasonable range
     radius_proportion = radius_proportion.clamp(2.0, 100.0);
-    
+
     double left = origin.x;
     double top = origin.y;
     double right = origin.x + dim.width;
     double bottom = origin.y + dim.height;
-    
+
     // the radius of the corners is proportional to the distance of the minor axis
     double radius = ((double) dim.minor_axis()) / radius_proportion;
-    
+
     // create context and clipping region, starting from the top right arc and working around
     // clockwise
     cx.move_to(left, top);
@@ -92,7 +92,7 @@ public void shift_colors(Gdk.Pixbuf pixbuf, int red, int green, int blue, int al
     assert(green >= -255 && green <= 255);
     assert(blue >= -255 && blue <= 255);
     assert(alpha >= -255 && alpha <= 255);
-    
+
     int width = pixbuf.get_width();
     int height = pixbuf.get_height();
     int rowstride = pixbuf.get_rowstride();
@@ -105,19 +105,19 @@ public void shift_colors(Gdk.Pixbuf pixbuf, int red, int green, int blue, int al
 
     for (int y = 0; y < height; y++) {
         int y_offset = y * rowstride;
-        
+
         for (int x = 0; x < width; x++) {
             int offset = y_offset + (x * channels);
-            
+
             if (red != 0)
                 pixels[offset] = shift_color_byte(pixels[offset], red);
-            
+
             if (green != 0)
                 pixels[offset + 1] = shift_color_byte(pixels[offset + 1], green);
-            
+
             if (blue != 0)
                 pixels[offset + 2] = shift_color_byte(pixels[offset + 2], blue);
-            
+
             if (alpha != 0 && channels >= 4)
                 pixels[offset + 3] = shift_color_byte(pixels[offset + 3], alpha);
         }
@@ -139,18 +139,18 @@ bool coord_in_rectangle(int x, int y, Gdk.Rectangle rect) {
 Gdk.Point coord_scaled_in_space(int x, int y, Dimensions original, Dimensions scaled) {
     double x_scale, y_scale;
     original.get_scale_ratios(scaled, out x_scale, out y_scale);
-    
+
     Gdk.Point point = Gdk.Point();
     point.x = (int) Math.round(x * x_scale);
     point.y = (int) Math.round(y * y_scale);
-    
+
     // watch for rounding errors
     if (point.x >= scaled.width)
         point.x = scaled.width - 1;
-    
+
     if (point.y >= scaled.height)
         point.y = scaled.height - 1;
-    
+
     return point;
 }
 
@@ -168,7 +168,7 @@ public Gdk.Rectangle clamp_rectangle(Gdk.Rectangle original, Dimensions max) {
     rect.y = original.y.clamp(0, max.height);
     rect.width = original.width.clamp(0, max.width);
     rect.height = original.height.clamp(0, max.height);
-    
+
     return rect;
 }
 
@@ -177,15 +177,15 @@ public Gdk.Rectangle clamp_rectangle(Gdk.Rectangle original, Dimensions max) {
 int radius_scaled_in_space(int radius, Dimensions original, Dimensions scaled) {
     double x_scale, y_scale;
     original.get_scale_ratios(scaled, out x_scale, out y_scale);
-    
+
     // using floor() or round() both present problems, since the two values could straddle any FP
     // boundary ... instead, look for a reasonable delta
     if (Math.fabs(x_scale - y_scale) > 1.0)
         return -1;
-    
+
     return (int) Math.round(radius * x_scale);
 }
-	
+
 public Gdk.Point scale_point(Gdk.Point p, double factor) {
     Gdk.Point result = {0};
     result.x = (int) (factor * p.x + 0.5);
@@ -222,7 +222,7 @@ void fix_cairo_pixbuf(Gdk.Pixbuf pixbuf) {
 #if G_BYTE_ORDER == G_LITTLE_ENDIAN
             p[0] = p[2];
             p[2] = tmp;
-#else	  
+#else
             p[0] = p[1];
             p[1] = p[2];
             p[2] = p[3];
@@ -235,52 +235,40 @@ void fix_cairo_pixbuf(Gdk.Pixbuf pixbuf) {
     }
 }
 
-// Rotates a pixbuf to an arbitrary angle, given in degrees, and returns the rotated 
-// pixbuf. The caller is responsible for destroying the returned pixbuf after use.
+// Rotates a pixbuf to an arbitrary angle, given in degrees, and returns the rotated
+// pixbuf, cropped to maintain the aspect ratio of the original.
+// The caller is responsible for destroying and/or un-reffing the returned pixbuf after use.
 Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
+    // if the straightening angle has been reset
+    // or was never set in the first place, nothing
+    // needs to be done to the source image.
+    if (angle == 0.0) {
+        return source_pixbuf;
+    }
+
     angle = degrees_to_radians(angle);
-    
-    double x_min = 0.0, y_min = 0.0, x_max = 0.0, y_max = 0.0;
-    
-    double x_tmp, y_tmp;
-    
-    // Compute how much the corners of the source image will
-    // move by to determine how big the dest pixbuf should be.
 
-    // Lower left corner.
-    x_tmp = -(Math.sin(angle) * source_pixbuf.height);
-    y_tmp = (Math.cos(angle) * source_pixbuf.height);
-    
-    if(x_tmp < x_min) x_min = x_tmp;
-    if(x_tmp > x_max) x_max = x_tmp;
+    // compute how much we'll have to resize (_not_ scale) the
+    // image by to maintain the aspect ratio with the current angle.
+    double shrink_factor;
 
-    if(y_tmp < y_min) y_min = y_tmp;
-    if(y_tmp > y_max) y_max = y_tmp;
-    
-    // Lower right corner.
-    x_tmp = (Math.cos(angle) * source_pixbuf.width) - (Math.sin(angle) * source_pixbuf.height);
-    y_tmp = (Math.sin(angle) * source_pixbuf.width) + (Math.cos(angle) * source_pixbuf.height);
-    
-    if(x_tmp < x_min) x_min = x_tmp;
-    if(x_tmp > x_max) x_max = x_tmp;
+    if (source_pixbuf.width > source_pixbuf.height) {
+        shrink_factor = 1.0 + (Math.fabs(Math.sin(angle)) *
+            ((double)source_pixbuf.width / (double)source_pixbuf.height));
+    } else {
+        shrink_factor = 1.0 + (Math.fabs(Math.sin(angle)) *
+            ((double)source_pixbuf.height / (double)source_pixbuf.width));
+    }
 
-    if(y_tmp < y_min) y_min = y_tmp;
-    if(y_tmp > y_max) y_max = y_tmp;
-    
-    // Upper right corner.
-    x_tmp = (Math.cos(angle) * source_pixbuf.width); 
-    y_tmp = (Math.sin(angle) * source_pixbuf.width); 
-    
-    if(x_tmp < x_min) x_min = x_tmp;
-    if(x_tmp > x_max) x_max = x_tmp;
+    // create the output image with the same aspect ratio, but
+    // appropriately shrunken size.
+    double w_tmp = source_pixbuf.width / shrink_factor;
+    double h_tmp = source_pixbuf.height / shrink_factor;
 
-    if(y_tmp < y_min) y_min = y_tmp;
-    if(y_tmp > y_max) y_max = y_tmp;
-    
-    Gdk.Pixbuf dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) Math.round(x_max - x_min), (int) Math.round(y_max - y_min));
+    Gdk.Pixbuf dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) w_tmp, (int) h_tmp);
 
     Cairo.ImageSurface surface;
-    
+
     if(source_pixbuf.has_alpha) {
          surface = new Cairo.ImageSurface.for_data(
             (uchar []) dest_pixbuf.pixels, Cairo.Format.ARGB32,
@@ -290,19 +278,26 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
             (uchar []) dest_pixbuf.pixels, Cairo.Format.RGB24,
             dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
     }
-            
+
     Cairo.Context context = new Cairo.Context(surface);
-    
+
+    // actually draw the source image, at an angle, onto
+    // the destination one, along with appropriate translations
+    // to make sure it stays centered.
     context.set_source_rgb(0, 0, 0);
     context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
     context.fill();
-    
-    context.translate(-x_min, -y_min);
+
+    context.translate(w_tmp / 2.0, h_tmp / 2.0);
     context.rotate(angle);
+    context.translate(-source_pixbuf.width / 2.0, -source_pixbuf.height / 2.0);
+
     Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
     context.get_source().set_filter(Cairo.Filter.BEST);
     context.paint();
 
+    // prepare the newly-drawn image for use by
+    // the rest of the pipeline.
     fix_cairo_pixbuf(dest_pixbuf);
 
     return dest_pixbuf;
