@@ -302,3 +302,43 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
 
     return dest_pixbuf;
 }
+
+// Rotates a point around the center of an image to an arbitrary angle, given in degrees,
+// and returns the rotated point, using computations similar to rotate_arb()'s.
+// Needed primarily for the redeye tool.
+Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double angle) {
+    // angle of 0 degrees or angle was never set?
+    if (angle == 0.0) {
+        // nothing needs to be done.
+        return source_point;
+    }
+
+    angle = degrees_to_radians(angle);
+
+    double shrink_factor;
+
+    if (img_w > img_h) {
+        shrink_factor = 1.0 + (Math.fabs(Math.sin(angle)) *
+            ((double) img_w / (double) img_h));
+    } else {
+        shrink_factor = 1.0 + (Math.fabs(Math.sin(angle)) *
+            ((double) img_h / (double) img_w));
+    }
+
+    double dest_x_tmp = (source_point.x - (img_w / 2.0)) / shrink_factor;
+    double dest_y_tmp = (source_point.y - (img_h / 2.0)) / shrink_factor;
+    double rot_tmp = dest_x_tmp;
+    
+    dest_x_tmp = (Math.cos(angle * -1.0) * dest_x_tmp) - (Math.sin(angle * -1.0) * dest_y_tmp);
+    dest_y_tmp = (Math.sin(angle * -1.0) * rot_tmp) + (Math.cos(angle * -1.0) * dest_y_tmp);
+    
+    dest_x_tmp += (img_w / 2.0);
+    dest_y_tmp += (img_h / 2.0);
+
+    Gdk.Point dest_point = Gdk.Point();
+    dest_point.x = (int) dest_x_tmp;
+    dest_point.y = (int) dest_y_tmp;
+
+    return dest_point;
+}
+    

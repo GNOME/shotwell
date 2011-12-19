@@ -2569,6 +2569,17 @@ public class RedeyeTool : EditingTool {
         
         RedeyeInstance instance_unscaled =
             RedeyeInstance.from_bounds_rect(bounds_rect_unscaled);
+
+        // transform screen coords back to image coords,
+        // taking into account straightening angle.
+        int img_w = canvas.get_photo().get_master_dimensions().width;
+        int img_h = canvas.get_photo().get_master_dimensions().height;
+
+        double theta = 0.0;
+
+        canvas.get_photo().get_straighten(out theta);
+
+        instance_unscaled.center = rotate_point_arb(instance_unscaled.center, img_w, img_h, theta);
         
         RedeyeCommand command = new RedeyeCommand(canvas.get_photo(), instance_unscaled,
             Resources.RED_EYE_LABEL, Resources.RED_EYE_TOOLTIP);

@@ -3005,19 +3005,6 @@ public abstract class Photo : PhotoSource, Dateable {
         // Image transformation pipeline
         //
         
-        // angle photograph so in-image horizon is aligned with horizontal
-        if (exceptions.allows(Exception.STRAIGHTEN)) {
-#if MEASURE_PIPELINE
-            timer.start();
-#endif
-            if(is_straightened) {
-                pixbuf = rotate_arb(pixbuf, straightening_angle);
-            }
-#if MEASURE_PIPELINE
-            straighten_time = timer.elapsed();
-#endif
-        }        
-        
         // redeye reduction
         if (exceptions.allows(Exception.REDEYE)) {
 #if MEASURE_PIPELINE
@@ -3038,6 +3025,19 @@ public abstract class Photo : PhotoSource, Dateable {
             redeye_time = timer.elapsed();
 #endif
         }
+
+        // angle photograph so in-image horizon is aligned with horizontal
+        if (exceptions.allows(Exception.STRAIGHTEN)) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            if(is_straightened) {
+                pixbuf = rotate_arb(pixbuf, straightening_angle);
+            }
+#if MEASURE_PIPELINE
+            straighten_time = timer.elapsed();
+#endif
+        }       
 
         // crop
         if (exceptions.allows(Exception.CROP)) {
