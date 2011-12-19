@@ -1,0 +1,4151 @@
+# Vietnamese Translation for Shotwell Core Components
+#
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the shotwell package.
+# Dương 'Yang' ヤン Hà Nguyễn https://launchpad.net/~cmpitg, 2010.
+# Lê Hoàng Phương https://launchpad.net/~herophuong93, 2010.
+# Vu Do Quynh <vdquynh@gmail.com>, 2010-2011.
+# Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell-0.11.90+trunk\n"
+"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
+"POT-Creation-Date: 2011-08-03 18:23-0700\n"
+"PO-Revision-Date: 2011-12-19 17:06+0700\n"
+"Last-Translator: Nguyễn Thái Ngọc Duy <pclouds@gmail.com>\n"
+"Language-Team: Vietnamese <vi@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2011-12-19 09:32+0000\n"
+"X-Generator: Launchpad (build 14538)\n"
+
+#: src/AppWindow.vala:665 plugins/common/Resources.vala:28
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Dương \"Yang\" ヤン Hà Nguyễn (cmpitg) https://launchpad.net/~cmpitg\n"
+"  Lê Hoàng Phương https://launchpad.net/~herophuong93\n"
+"  Vu Do Quynh https://launchpad.net/~vu-do-quynh"
+
+msgid "Shotwell Photo Manager"
+msgstr "Trình Quản lý Ảnh Shotwell"
+
+#: src/Resources.vala:15
+msgid "Photo Manager"
+msgstr "Trình Quản lý Ảnh"
+
+msgid "Organize your photos"
+msgstr "Quản lý hình ảnh của bạn"
+
+msgid "Shotwell Photo Viewer"
+msgstr "Trình Xem Ảnh Shotwell"
+
+#: src/Resources.vala:16
+msgid "Photo Viewer"
+msgstr "Trình Xem Ảnh"
+
+#: src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "Đang nhập..."
+
+#: src/library/ImportQueuePage.vala:56 src/library/OfflinePage.vala:59
+#: src/library/TrashPage.vala:54 src/PhotoPage.vala:2267
+#: src/camera/ImportPage.vala:835 src/direct/DirectPhotoPage.vala:48
+#: src/MediaPage.vala:273 src/events/EventsDirectoryPage.vala:106
+msgid "_File"
+msgstr "_Tệp"
+
+#: src/library/ImportQueuePage.vala:61
+msgid "_Stop Import"
+msgstr "_Dừng Nhập ảnh"
+
+#: src/library/ImportQueuePage.vala:62
+msgid "Stop importing photos"
+msgstr "Dừng nhập ảnh"
+
+#: src/library/ImportQueuePage.vala:66 src/library/OfflinePage.vala:73
+#: src/library/TrashPage.vala:74 src/PhotoPage.vala:2301
+#: src/camera/ImportPage.vala:855 src/direct/DirectPhotoPage.vala:161
+#: src/MediaPage.vala:398 src/events/EventsDirectoryPage.vala:110
+msgid "_View"
+msgstr "_Xem"
+
+#: src/library/ImportQueuePage.vala:70 src/library/OfflinePage.vala:77
+#: src/library/TrashPage.vala:78 src/PhotoPage.vala:2460
+#: src/camera/ImportPage.vala:859 src/direct/DirectPhotoPage.vala:165
+#: src/MediaPage.vala:410 src/events/EventsDirectoryPage.vala:114
+msgid "_Help"
+msgstr "Trợ _Giúp"
+
+#: src/library/ImportQueuePage.vala:126
+msgid "Preparing to import..."
+msgstr "Đang chuẩn bị nhập..."
+
+#: src/library/ImportQueuePage.vala:149
+#, c-format
+msgid "Imported %s"
+msgstr "Đã nhập %s"
+
+#: src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "Thiếu Tệp"
+
+#: src/library/OfflinePage.vala:63 src/library/TrashPage.vala:58
+#: src/PhotoPage.vala:2287 src/camera/ImportPage.vala:851
+#: src/MediaPage.vala:287 src/events/EventsDirectoryPage.vala:118
+msgid "_Edit"
+msgstr "_Sửa"
+
+#: src/library/OfflinePage.vala:122
+msgid "Deleting..."
+msgstr "Đang xoá..."
+
+#: src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "Sọt rác"
+
+#: src/library/TrashPage.vala:124
+msgid "Trash is empty"
+msgstr "Sọt rác trống"
+
+#: src/library/TrashPage.vala:128
+msgid "Delete"
+msgstr "Xoá"
+
+#: src/library/TrashPage.vala:129
+msgid "Deleting Photos"
+msgstr "Đang xoá ảnh"
+
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:635
+#: src/SearchFilter.vala:636 src/SearchFilter.vala:933
+msgid "Flagged"
+msgstr "Đã đánh dấu"
+
+#: src/library/LibraryWindow.vala:304
+msgid "_Import From Folder..."
+msgstr "_Nhập Từ Thư mục..."
+
+#: src/library/LibraryWindow.vala:305
+msgid "Import photos from disk to library"
+msgstr "Nhập ảnh từ đĩa sang thư viện"
+
+#: src/library/LibraryWindow.vala:315
+msgid "Sort _Events"
+msgstr "Sắp xếp _Sự kiện"
+
+#: src/library/LibraryWindow.vala:325
+msgid "Empty T_rash"
+msgstr "Đổ _rác"
+
+#: src/library/LibraryWindow.vala:326
+msgid "Delete all photos in the trash"
+msgstr "Xoá tất cả các ảnh từ trong thùng rác"
+
+#: src/library/LibraryWindow.vala:331
+msgid "View Eve_nt for Photo"
+msgstr "Xem sự _kiện liên quan đến Ảnh"
+
+#: src/library/LibraryWindow.vala:336
+msgid "_Find"
+msgstr "_Tìm"
+
+#: src/library/LibraryWindow.vala:337
+msgid "Find photos and videos by search criteria"
+msgstr "Tìm ảnh và video theo tiêu chuẩn"
+
+#: src/library/LibraryWindow.vala:348 src/sidebar/Tree.vala:157
+#: src/searches/Branch.vala:77
+msgid "Ne_w Search..."
+msgstr "Tìm kiếm _Mới..."
+
+#: src/library/LibraryWindow.vala:359
+msgid "_Basic Information"
+msgstr "Thông tin _Cơ bản"
+
+#: src/library/LibraryWindow.vala:360
+msgid "Display basic information for the selection"
+msgstr "Hiển thị thông tin cơ bản cho sự lựa chọn"
+
+#: src/library/LibraryWindow.vala:365
+msgid "E_xtended Information"
+msgstr "Thông tin _mở rộng"
+
+#: src/library/LibraryWindow.vala:366
+msgid "Display extended information for the selection"
+msgstr "Hiển thị thông tin rộng rãi cho sự lựa chọn"
+
+#: src/library/LibraryWindow.vala:371
+msgid "_Search Bar"
+msgstr "_Thanh Tìm kiếm"
+
+#: src/library/LibraryWindow.vala:372
+msgid "Display the search bar"
+msgstr "Hiện thị thanh tìm kiếm"
+
+#: src/library/LibraryWindow.vala:384 src/MediaPage.vala:495
+msgid "_Ascending"
+msgstr "Tăng _dần"
+
+#: src/library/LibraryWindow.vala:385 src/MediaPage.vala:496
+msgid "Sort photos in an ascending order"
+msgstr "Sắp xếp ảnh theo hạng tăng dần"
+
+#: src/library/LibraryWindow.vala:391 src/MediaPage.vala:501
+msgid "D_escending"
+msgstr "_Giảm dần"
+
+#: src/library/LibraryWindow.vala:392 src/MediaPage.vala:502
+msgid "Sort photos in a descending order"
+msgstr "Sắp xếp ảnh theo thứ tự giảm dần"
+
+#: src/library/LibraryWindow.vala:633
+msgid "Import From Folder"
+msgstr "Nhập Từ Thư mục"
+
+#: src/library/LibraryWindow.vala:696
+msgid "Empty Trash"
+msgstr "Đổ Rác"
+
+#: src/library/LibraryWindow.vala:696
+msgid "Emptying Trash..."
+msgstr "Đang đổ rác..."
+
+#: src/library/LibraryWindow.vala:839
+msgid "Shotwell is configured to import photos to your home directory.\n"
+msgstr "Shotwell mặc định nhập ảnh vào thư mục nhà của bạn.\n"
+
+#: src/library/LibraryWindow.vala:842
+msgid "_Import"
+msgstr "_Nhập"
+
+#: src/library/LibraryWindow.vala:842
+msgid "Library Location"
+msgstr "Địa điểm Thư viện"
+
+#: src/library/LibraryWindow.vala:855
+msgid "Photos cannot be imported from this directory."
+msgstr "Không nhập được ảnh từ thư mục này."
+
+#: src/library/LibraryWindow.vala:1180
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/library/LibraryWindow.vala:1213 src/library/LibraryWindow.vala:1221
+msgid "Updating library..."
+msgstr "Đang cập nhật thư viện..."
+
+#: src/library/LibraryWindow.vala:1226
+msgid "Preparing to auto-import photos..."
+msgstr "Đang chuẩn bị nhập ảnh tự động..."
+
+#: src/library/LibraryWindow.vala:1231
+msgid "Auto-importing photos..."
+msgstr "Đang nhập ảnh tự dộng..."
+
+#: src/library/LibraryWindow.vala:1236
+msgid "Writing metadata to files..."
+msgstr "Đang ghi siêu thông tin vào tệp..."
+
+#: src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "Lần Nhập Cuối cùng"
+
+#: src/library/Branch.vala:37
+msgid "Library"
+msgstr "Thư viện"
+
+#: src/VideoSupport.vala:455
+msgid "Export Videos"
+msgstr "Xuất video"
+
+#: src/main.vala:84
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr ""
+"Thư viện ảnh của bạn không thích hợp với phiên bản Shotwell này. Nó đã được "
+"tạo bởi Shotwell %s (schema %d). Phiên bản Shotwell ở đây là %s (schema %d). "
+"Vậy vui lòng dùng phiên bản mới nhất của Shotwell."
+
+#: src/main.vala:89
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"Shotwell không nâng cấp được thư viện ảnh của bạn từ phiên bản %s (schema "
+"%d) lên %s (schema %d). Để biết thêm thông tin vui lòng đọc thông tin trên "
+"Wiki Shotwell tại %s"
+
+#: src/main.vala:95
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"Thư viện ảnh của bạn không thích hợp với phiên bản này của Shotwell. Hình "
+"như nó đã được tạo bởi Shotwell phiên bản %s (schema %d). Phiên bản ở đây là "
+"%s (schema %d). Vậy vui lòng làm lại thư viện ảnh bằng cách xóa %s và nhập "
+"lại các ảnh của bạn."
+
+#: src/main.vala:101
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr "Lỗi không rõ trong khi kiểm tra cơ sở dữ liệu Shotwell: %s"
+
+#: src/main.vala:136
+msgid "Loading Shotwell"
+msgstr "Đang nạp Shotwell"
+
+#: src/main.vala:368
+msgid "[FILE]"
+msgstr "[TỆP]"
+
+#: src/main.vala:372
+#, c-format
+msgid ""
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Chạy lệnh '%s --help' để xem danh sách các tùy chọn dòng lệnh có sẵn.\n"
+
+#: src/BatchImport.vala:25
+msgid "Success"
+msgstr "Thành công"
+
+#: src/BatchImport.vala:28
+msgid "File error"
+msgstr "Lỗi tệp"
+
+#: src/BatchImport.vala:31
+msgid "Unable to decode file"
+msgstr "Không giải mã được tệp"
+
+#: src/BatchImport.vala:34
+msgid "Database error"
+msgstr "Lỗi cơ sở dữ liệu"
+
+#: src/BatchImport.vala:37
+msgid "User aborted import"
+msgstr "Người dùng đã bỏ cuộc nhập"
+
+#: src/BatchImport.vala:40
+msgid "Not a file"
+msgstr "Không phải là tệp"
+
+#: src/BatchImport.vala:43
+msgid "File already exists in database"
+msgstr "Tệp đã có rồi trong cơ sở dữ liệu"
+
+#: src/BatchImport.vala:46
+msgid "Unsupported file format"
+msgstr "Đinh dạng tệp không được hỗ trợ"
+
+#: src/BatchImport.vala:49
+msgid "Not an image file"
+msgstr "Không phải là tệp ảnh"
+
+#: src/BatchImport.vala:52
+msgid "Disk failure"
+msgstr "Đĩa bị lỗi"
+
+#: src/BatchImport.vala:55
+msgid "Disk full"
+msgstr "Đĩa đã đầy"
+
+#: src/BatchImport.vala:58
+msgid "Camera error"
+msgstr "Lỗi máy ảnh"
+
+#: src/BatchImport.vala:61
+msgid "File write error"
+msgstr "Lỗi ghi tệp"
+
+#: src/BatchImport.vala:64
+#, c-format
+msgid "Imported failed (%d)"
+msgstr "Nhập ảnh đã thất bại (%d)"
+
+#: src/PhotoPage.vala:525
+msgid "Previous photo"
+msgstr "Ảnh chụp trước"
+
+#: src/PhotoPage.vala:530
+msgid "Next photo"
+msgstr "Ảnh chụp tiếp"
+
+#: src/PhotoPage.vala:1773
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "Tệp ảnh gốc đang thiếu: %s"
+
+#: src/PhotoPage.vala:2305 src/direct/DirectPhotoPage.vala:79
+msgid "_Photo"
+msgstr "Ảnh chụ_p"
+
+#: src/PhotoPage.vala:2309 src/direct/DirectPhotoPage.vala:83
+msgid "_Tools"
+msgstr "_Công cụ"
+
+#: src/PhotoPage.vala:2314 src/direct/DirectPhotoPage.vala:88
+msgid "_Previous Photo"
+msgstr "Ảnh chụp _Trước"
+
+#: src/PhotoPage.vala:2315 src/direct/DirectPhotoPage.vala:89
+msgid "Previous Photo"
+msgstr "Ảnh Trước"
+
+#: src/PhotoPage.vala:2320 src/direct/DirectPhotoPage.vala:94
+msgid "_Next Photo"
+msgstr "Ảnh chụp T_iếp"
+
+#: src/PhotoPage.vala:2321 src/direct/DirectPhotoPage.vala:95
+msgid "Next Photo"
+msgstr "Ảnh chụp Tiếp"
+
+#: src/PhotoPage.vala:2465 src/direct/DirectPhotoPage.vala:170
+#: src/MediaPage.vala:329
+msgid "Zoom _In"
+msgstr "Phóng t_o"
+
+#: src/PhotoPage.vala:2466 src/direct/DirectPhotoPage.vala:171
+msgid "Increase the magnification of the photo"
+msgstr "Tăng độ phóng to của ảnh"
+
+#: src/PhotoPage.vala:2471 src/direct/DirectPhotoPage.vala:176
+#: src/MediaPage.vala:335
+msgid "Zoom _Out"
+msgstr "Thu _nhỏ"
+
+#: src/PhotoPage.vala:2472 src/direct/DirectPhotoPage.vala:177
+msgid "Decrease the magnification of the photo"
+msgstr "Giảm độ phóng to của ảnh"
+
+#: src/PhotoPage.vala:2477 src/direct/DirectPhotoPage.vala:182
+msgid "Fit to _Page"
+msgstr "Ảnh vừa T_rang"
+
+#: src/PhotoPage.vala:2478 src/direct/DirectPhotoPage.vala:183
+msgid "Zoom the photo to fit on the screen"
+msgstr "Zoom ảnh cho vừa màn hình"
+
+#: src/PhotoPage.vala:2483 src/direct/DirectPhotoPage.vala:188
+#, no-c-format
+msgid "Zoom _100%"
+msgstr "Zoom _100%"
+
+#: src/PhotoPage.vala:2484 src/direct/DirectPhotoPage.vala:189
+#, no-c-format
+msgid "Zoom the photo to 100% magnification"
+msgstr "Zoom ảnh đến độ phóng 100%"
+
+#: src/PhotoPage.vala:2489 src/direct/DirectPhotoPage.vala:194
+#, no-c-format
+msgid "Zoom _200%"
+msgstr "Zoom _200%"
+
+#: src/PhotoPage.vala:2490 src/direct/DirectPhotoPage.vala:195
+#, no-c-format
+msgid "Zoom the photo to 200% magnification"
+msgstr "Zoom ảnh đến độ phóng to 200%"
+
+#: src/PhotoPage.vala:2494 src/MediaPage.vala:309 src/MediaPage.vala:455
+msgid "Ta_gs"
+msgstr "T_hẻ"
+
+#: src/PhotoPage.vala:2509 src/CollectionPage.vala:207
+msgid "S_lideshow"
+msgstr "_Xem hình tự động"
+
+#: src/PhotoPage.vala:2510 src/CollectionPage.vala:208
+msgid "Play a slideshow"
+msgstr "Chiếu ảnh slideshow"
+
+#: src/PhotoPage.vala:2514 src/MediaPage.vala:420
+msgid "Developer"
+msgstr "Người phát triển"
+
+#: src/PhotoPage.vala:2930 src/Dialogs.vala:2176
+msgid "Remove From Library"
+msgstr "Loại bỏ Từ Thư viện"
+
+#: src/PhotoPage.vala:2930 src/Dialogs.vala:2177
+msgid "Removing Photo From Library"
+msgstr "Đang Loại bỏ Ảnh từ Thư viện"
+
+#: src/PhotoPage.vala:3037 src/CollectionPage.vala:430 src/Dialogs.vala:51
+msgid "Export Photo"
+msgstr "Xuất ảnh"
+
+#: src/PhotoPage.vala:3057
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "Không xuất được %s: %s"
+
+#: src/DesktopIntegration.vala:118
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "Không khởi động được trình Gửi-Tới của Nautilus: %s"
+
+#: src/DesktopIntegration.vala:126
+msgid "Send To"
+msgstr "Gửi Tới"
+
+#: src/DesktopIntegration.vala:169
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "Không xuất được nền đến %s: %s"
+
+#: src/DesktopIntegration.vala:294
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "Không chuẩn bị được xem ảnh tự động: %s"
+
+#: src/tags/Branch.vala:112
+msgid "Tags"
+msgstr "Thẻ"
+
+#: src/SlideshowPage.vala:41 src/SlideshowPage.vala:221
+msgid "Settings"
+msgstr "Thiết lập"
+
+#: src/SlideshowPage.vala:43
+msgid "_Delay:"
+msgstr "Khoảng _trễ:"
+
+#: src/SlideshowPage.vala:45 src/SlideshowPage.vala:47
+msgid "seconds"
+msgstr "giây"
+
+#: src/SlideshowPage.vala:63
+msgid "_Transition effect:"
+msgstr "_Hiệu lực chuyển tiếp:"
+
+#: src/SlideshowPage.vala:90
+msgid "Transition d_elay:"
+msgstr "Kh_oảng trễ chuyển tiếp:"
+
+#: src/SlideshowPage.vala:187
+msgid "Slideshow"
+msgstr "Trình chiếu ảnh"
+
+#: src/SlideshowPage.vala:200
+msgid "Back"
+msgstr "Lùi"
+
+#: src/SlideshowPage.vala:201
+msgid "Go to the previous photo"
+msgstr "Quay về ảnh trước"
+
+#: src/SlideshowPage.vala:207 src/SlideshowPage.vala:312
+msgid "Pause"
+msgstr "Tạm dừng"
+
+#: src/SlideshowPage.vala:208 src/SlideshowPage.vala:313
+msgid "Pause the slideshow"
+msgstr "Tạm dừng chiếu ảnh"
+
+#: src/SlideshowPage.vala:214
+msgid "Next"
+msgstr "Tiếp"
+
+#: src/SlideshowPage.vala:215
+msgid "Go to the next photo"
+msgstr "Đi đến ảnh kế tiếp"
+
+#: src/SlideshowPage.vala:222
+msgid "Change slideshow settings"
+msgstr "Thay đổi thiết lập chiếu ảnh"
+
+#: src/SlideshowPage.vala:276
+msgid "All photo source files are missing."
+msgstr "Tất cả các tệp ảnh gốc đang thiếu."
+
+#: src/SlideshowPage.vala:308
+msgid "Play"
+msgstr "Chiếu ảnh"
+
+#: src/SlideshowPage.vala:309
+msgid "Continue the slideshow"
+msgstr "Tiếp tục chiếu ảnh"
+
+#: src/photos/JfifSupport.vala:85
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/photos/JfifSupport.vala:180
+#, c-format
+msgid "Low (%d%%)"
+msgstr "Thấp (%d%%)"
+
+#: src/photos/JfifSupport.vala:183
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "Trung (%d%%)"
+
+#: src/photos/JfifSupport.vala:186
+#, c-format
+msgid "High (%d%%)"
+msgstr "Cao (%d%%)"
+
+#: src/photos/JfifSupport.vala:189
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "Tối đa (%d%%)"
+
+#: src/photos/BmpSupport.vala:33
+msgid "BMP"
+msgstr "BMP"
+
+#: src/photos/PngSupport.vala:31
+msgid "PNG"
+msgstr "PNG"
+
+#: src/photos/RawSupport.vala:135
+msgid "RAW"
+msgstr "RAW"
+
+#: src/photos/RawSupport.vala:298 src/MediaPage.vala:427
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: src/photos/RawSupport.vala:301 src/camera/ImportPage.vala:671
+#: src/camera/ImportPage.vala:687 src/camera/Branch.vala:101
+#: src/MediaPage.vala:432
+msgid "Camera"
+msgstr "Máy ảnh"
+
+#: src/photos/TiffSupport.vala:87
+msgid "TIFF"
+msgstr "TIFF"
+
+#: src/camera/ImportPage.vala:301
+msgid "RAW + JPEG"
+msgstr "RAW + JPEG"
+
+#: src/camera/ImportPage.vala:430
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr ""
+"Không unmount (tháo gắn kết) được máy ảnh. Bạn hãy unmount máy ảnh thông qua "
+"trình quản lý tệp."
+
+#: src/camera/ImportPage.vala:729
+msgid "Hide photos already imported"
+msgstr "Che giấu các ảnh đã nhập rồi"
+
+#: src/camera/ImportPage.vala:730
+msgid "Only display photos that have not been imported"
+msgstr "Chỉ hiển thị những ảnh chưa được nhập"
+
+#: src/camera/ImportPage.vala:824 src/MediaPage.vala:443
+msgid "_Titles"
+msgstr "_Tên"
+
+#: src/camera/ImportPage.vala:825 src/MediaPage.vala:444
+msgid "Display the title of each photo"
+msgstr "Hiển thị tiêu đề mỗi ảnh"
+
+#: src/camera/ImportPage.vala:840
+msgid "Import _Selected"
+msgstr "Nhập _Lựa chọn"
+
+#: src/camera/ImportPage.vala:841
+msgid "Import the selected photos into your library"
+msgstr "Nhập ảnh đã chọn vào thư viện của bạn"
+
+#: src/camera/ImportPage.vala:846
+msgid "Import _All"
+msgstr "Nhập _Tất"
+
+#: src/camera/ImportPage.vala:847
+msgid "Import all the photos into your library"
+msgstr "Nhập tất cả các ảnh vào thư viện"
+
+#: src/camera/ImportPage.vala:972
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr ""
+"Shotwell cần unmount máy ảnh trên hệ thống tập tin để có thể truy cập. Tiếp "
+"tục?"
+
+#: src/camera/ImportPage.vala:978
+msgid "_Unmount"
+msgstr "_Unmount (Gỡ bỏ)"
+
+#: src/camera/ImportPage.vala:983
+msgid "Please unmount the camera."
+msgstr "Vui lòng gỡ bỏ máy ảnh"
+
+#: src/camera/ImportPage.vala:988
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr ""
+"Máy ảnh bị một ứng dụng khác khoá lại. Shotwell chỉ truy cập được máy ảnh "
+"sao khi đã bỏ khoá. Vui lòng đóng lại bất kỳ ứng dụng nào khác đang sử dụng "
+"máy ảnh để thử lại."
+
+#: src/camera/ImportPage.vala:998
+msgid "Please close any other application using the camera."
+msgstr "Vui lòng đóng lại bất kỳ ứng dụng nào đang dùng máy ảnh"
+
+#: src/camera/ImportPage.vala:1003
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+"Không lấy được ảnh xem trước từ máy ảnh:\n"
+"%s"
+
+#: src/camera/ImportPage.vala:1020
+msgid "Unmounting..."
+msgstr "Đang umount (gỡ gắn kết)..."
+
+#: src/camera/ImportPage.vala:1089
+msgid "Fetching photo information"
+msgstr "Đang lấy thông tin về ảnh"
+
+#: src/camera/ImportPage.vala:1376
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "Đang lấy ảnh xem thử cho %s"
+
+#: src/camera/ImportPage.vala:1488
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "Không khoá được máy ảnh: %s"
+
+#: src/camera/ImportPage.vala:1571
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "Xoá %d ảnh này từ máy ảnh?"
+
+#: src/camera/ImportPage.vala:1574
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "Xoá %d video này từ máy ảnh?"
+
+#: src/camera/ImportPage.vala:1577
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "Xoá %d ảnh/video này từ máy ảnh?"
+
+#: src/camera/ImportPage.vala:1580
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "Xoá %d ảnh từ máy ảnh?"
+
+#: src/camera/ImportPage.vala:1588 src/Dialogs.vala:991
+msgid "_Keep"
+msgstr "_Giữ"
+
+#: src/camera/ImportPage.vala:1607
+msgid "Removing photos/videos from camera"
+msgstr "Đang xoá ảnh/video từ máy ảnh"
+
+#: src/camera/ImportPage.vala:1611
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural ""
+"Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] "Không xoá được %d ảnh/video từ máy ảnh do đã gặp lỗi."
+
+#: src/camera/Branch.vala:87
+msgid "Cameras"
+msgstr "Máy ảnh"
+
+#: src/AppDirs.vala:48
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "Không tạo được thư mục %s: %s"
+
+#: src/AppDirs.vala:84
+msgid "Pictures"
+msgstr "Ảnh"
+
+#: src/AppDirs.vala:124
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "Không tạo được thư mục tạm thời %s: %s"
+
+#: src/AppDirs.vala:140
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "Không tạo được thư mục phụ cho số liệu %s: %s"
+
+#: src/direct/DirectPhotoPage.vala:53 src/direct/DirectPhotoPage.vala:373
+msgid "_Save"
+msgstr "_Lưu"
+
+#: src/direct/DirectPhotoPage.vala:54
+msgid "Save photo"
+msgstr "Lưu ảnh"
+
+#: src/direct/DirectPhotoPage.vala:59
+msgid "Save _As..."
+msgstr "Lư_u Thành..."
+
+#: src/direct/DirectPhotoPage.vala:60
+msgid "Save photo with a different name"
+msgstr "Lưu ảnh với một tên khác"
+
+#: src/direct/DirectPhotoPage.vala:71
+msgid "Print the photo to a printer connected to your computer"
+msgstr "In ảnh dùng một máy in đã gắn với máy tính"
+
+#: src/direct/DirectPhotoPage.vala:75
+msgid "Edit"
+msgstr "Sửa"
+
+#: src/direct/DirectPhotoPage.vala:219
+#, c-format
+msgid "%s does not exist."
+msgstr "%s không có thật."
+
+#: src/direct/DirectPhotoPage.vala:221
+#, c-format
+msgid "%s is not a file."
+msgstr "%s không phải là tệp."
+
+#: src/direct/DirectPhotoPage.vala:223
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr ""
+"%s không hỗ trợ định dạng tệp của\n"
+"%s."
+
+#: src/direct/DirectPhotoPage.vala:373
+msgid "_Save a Copy"
+msgstr "_Lưu bản sao"
+
+#: src/direct/DirectPhotoPage.vala:376
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "Bỏ các thay đổi cho %s?"
+
+#: src/direct/DirectPhotoPage.vala:377
+msgid "Close _without Saving"
+msgstr "Đóng _không Lưu"
+
+#: src/direct/DirectPhotoPage.vala:410
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "Lỗi khi đang lưu đến %s: %s"
+
+#: src/direct/DirectPhotoPage.vala:433 src/direct/DirectPhotoPage.vala:454
+msgid "Save As"
+msgstr "Lưu Thành"
+
+#: src/AppWindow.vala:57
+msgid "Pin Toolbar"
+msgstr "Cố định Thanh công cụ"
+
+#: src/AppWindow.vala:58
+msgid "Pin the toolbar open"
+msgstr "Cố định Thanh công cụ mở"
+
+#: src/AppWindow.vala:61 src/AppWindow.vala:139
+msgid "Leave fullscreen"
+msgstr "Thoát chế độ toàn màn hình"
+
+#: src/AppWindow.vala:138
+msgid "Leave _Fullscreen"
+msgstr "Thoát chế độ _Toàn màn hình"
+
+#: src/AppWindow.vala:479
+msgid "_Quit"
+msgstr "T_hoát"
+
+#: src/AppWindow.vala:484
+msgid "_About"
+msgstr "G_iới thiệu"
+
+#: src/AppWindow.vala:489
+msgid "Fulls_creen"
+msgstr "Toàn _Màn hình"
+
+#: src/AppWindow.vala:494
+msgid "_Contents"
+msgstr "_Nội dung"
+
+#: src/AppWindow.vala:499
+msgid "_Frequently Asked Questions"
+msgstr "_Các câu hỏi thường gặp"
+
+#: src/AppWindow.vala:597 src/AppWindow.vala:615 src/AppWindow.vala:632
+#: src/Dialogs.vala:18 src/Dialogs.vala:26 src/Dialogs.vala:37
+#: src/Dialogs.vala:1024 src/Dialogs.vala:1047
+#: src/publishing/PublishingUI.vala:480
+msgid "_Cancel"
+msgstr "_Thôi"
+
+#: src/AppWindow.vala:642
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"Lỗi nghiêm trọng khi truy cập thư viện Shotwell. Không thể tiếp tục.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:662 plugins/common/Resources.vala:9
+msgid "Visit the Yorba web site"
+msgstr "Tham quan trang web Yorba"
+
+#: src/AppWindow.vala:674
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "Không thể hiển thị trợ giúp: %s"
+
+#: src/AppWindow.vala:682
+#, c-format
+msgid "Unable to display FAQ: %s"
+msgstr "Không hiện thị được FAQ: %s"
+
+#: src/Printing.vala:255
+msgid "Fill the entire page"
+msgstr "Dùng toàn trang"
+
+#: src/Printing.vala:256
+msgid "2 images per page"
+msgstr "2 ảnh mỗi trang"
+
+#: src/Printing.vala:257
+msgid "4 images per page"
+msgstr "4 ảnh mỗi trang"
+
+#: src/Printing.vala:258
+msgid "6 images per page"
+msgstr "6 ảnh mỗi trang"
+
+#: src/Printing.vala:259
+msgid "8 images per page"
+msgstr "8 ảnh mỗi trang"
+
+#: src/Printing.vala:260
+msgid "16 images per page"
+msgstr "16 ảnh mỗi trang"
+
+#: src/Printing.vala:261
+msgid "32 images per page"
+msgstr "32 ảnh mỗi trang"
+
+#: src/Printing.vala:298
+msgid "Printed Image Size"
+msgstr "Kích thước hình in"
+
+#: src/Printing.vala:310
+msgid "Use a _standard size:"
+msgstr "Dùng _kích thước chuẩn:"
+
+#: src/Printing.vala:314
+msgid "Use a c_ustom size:"
+msgstr "Dùng kích thước th_eo ý:"
+
+#: src/Printing.vala:318
+msgid "_Autosize:"
+msgstr "Tự chỉnh _kích thước"
+
+#: src/Printing.vala:387
+msgid "in."
+msgstr "in."
+
+#: src/Printing.vala:388
+msgid "cm"
+msgstr "cm"
+
+#: src/Printing.vala:407
+msgid "_Match photo aspect ratio"
+msgstr "_Khớp với tỷ lệ kích thước của ảnh"
+
+#: src/Printing.vala:413
+msgid "Titles"
+msgstr "Tiêu đề"
+
+#: src/Printing.vala:420
+msgid "Print image _title"
+msgstr "In t_iêu đề ảnh"
+
+#: src/Printing.vala:432
+msgid "Pixel Resolution"
+msgstr "Độ Phân giải Pixel"
+
+#: src/Printing.vala:438
+msgid "_Output photo at:"
+msgstr "_Xuất ảnh với:"
+
+#: src/Printing.vala:453
+msgid "pixels per inch"
+msgstr "pixels mỗi inch"
+
+#: src/Printing.vala:931 src/EditingTools.vala:660
+msgid "Wallet (2 x 3 in.)"
+msgstr "Ví (5 x 7,5 cm)"
+
+#: src/Printing.vala:934 src/EditingTools.vala:661
+msgid "Notecard (3 x 5 in.)"
+msgstr "Thẻ ghi nhớ (7,5 x 12,5 cm)"
+
+#: src/Printing.vala:937 src/EditingTools.vala:662
+msgid "4 x 6 in."
+msgstr "10 x 15 cm"
+
+#: src/Printing.vala:940 src/EditingTools.vala:663
+msgid "5 x 7 in."
+msgstr "12,5 x 17,5 cm"
+
+#: src/Printing.vala:943 src/EditingTools.vala:664
+msgid "8 x 10 in."
+msgstr "20 x 25 cm"
+
+#: src/Printing.vala:946 src/EditingTools.vala:665
+msgid "11 x 14 in."
+msgstr "27,5 x 35 cm"
+
+#: src/Printing.vala:949 src/EditingTools.vala:666
+msgid "16 x 20 in."
+msgstr "40 x 50 cm"
+
+#: src/Printing.vala:955 src/EditingTools.vala:668
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr "Vỉ (9 x 13 cm)"
+
+#: src/Printing.vala:958 src/EditingTools.vala:669
+msgid "Postcard (10 x 15 cm)"
+msgstr "Bưu thiếp (10 x 15 cm)"
+
+#: src/Printing.vala:961 src/EditingTools.vala:670
+msgid "13 x 18 cm"
+msgstr "13 x 18 cm"
+
+#: src/Printing.vala:964 src/EditingTools.vala:671
+msgid "18 x 24 cm"
+msgstr "18 x 24 cm"
+
+#: src/Printing.vala:967 src/EditingTools.vala:672
+msgid "20 x 30 cm"
+msgstr "20 x 30 cm"
+
+#: src/Printing.vala:970 src/EditingTools.vala:673
+msgid "24 x 40 cm"
+msgstr "24 x 40 cm"
+
+#: src/Printing.vala:973 src/EditingTools.vala:674
+msgid "30 x 40 cm"
+msgstr "30 x 40 cm"
+
+#: src/Printing.vala:989
+msgid "Image Settings"
+msgstr "Thiết lập ảnh"
+
+#: src/Printing.vala:1002
+msgid "Printing..."
+msgstr "Đang in..."
+
+#: src/Printing.vala:1022 src/Printing.vala:1225
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"Không in được ảnh:\n"
+"\n"
+"%s"
+
+#: src/faces/FacePage.vala:47
+msgid "F_aces"
+msgstr "Mặ_t"
+
+#: src/faces/Branch.vala:87 src/Resources.vala:278 src/Resources.vala:279
+msgid "Faces"
+msgstr "Mặt"
+
+#: src/Resources.vala:18
+#: plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: plugins/shotwell-publishing/FlickrPublishing.vala:32
+#: plugins/shotwell-publishing/PicasaPublishing.vala:32
+msgid "Copyright 2009-2011 Yorba Foundation"
+msgstr "Bản quyền 2009-2011 Yorba Foundation"
+
+#: src/Resources.vala:133
+msgid "Rotate _Right"
+msgstr "Xoay _Phải"
+
+#: src/Resources.vala:134 src/Resources.vala:139
+msgid "Rotate"
+msgstr "Xoay"
+
+#: src/Resources.vala:135
+msgid "Rotate Right"
+msgstr "Xoay sang Phải"
+
+#: src/Resources.vala:136
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "Xoay ảnh bên phải (nhấn Ctrl để xoay trái)"
+
+#: src/Resources.vala:138
+msgid "Rotate _Left"
+msgstr "Xoay _Trái"
+
+#: src/Resources.vala:140
+msgid "Rotate Left"
+msgstr "Xoay sang Trái"
+
+#: src/Resources.vala:141
+msgid "Rotate the photos left"
+msgstr "Xoay ảnh sang trái"
+
+#: src/Resources.vala:143
+msgid "Flip Hori_zontally"
+msgstr "Lật N_gang"
+
+#: src/Resources.vala:144
+msgid "Flip Horizontally"
+msgstr "Lật Ngang"
+
+#: src/Resources.vala:146
+msgid "Flip Verti_cally"
+msgstr "Lật _Dọc"
+
+#: src/Resources.vala:147
+msgid "Flip Vertically"
+msgstr "Lật Dọc"
+
+#: src/Resources.vala:149
+msgid "_Enhance"
+msgstr "Tối ư_u"
+
+#: src/Resources.vala:150
+msgid "Enhance"
+msgstr "Tối ưu"
+
+#: src/Resources.vala:151
+msgid "Automatically improve the photo's appearance"
+msgstr "Tự động tối ưu diện mạo của ảnh"
+
+#: src/Resources.vala:153
+msgid "_Crop"
+msgstr "_Xén"
+
+#: src/Resources.vala:154
+msgid "Crop"
+msgstr "Xén"
+
+#: src/Resources.vala:155
+msgid "Crop the photo's size"
+msgstr "Xén bất kích thước của ảnh"
+
+#: src/Resources.vala:157
+msgid "_Straighten"
+msgstr "_Làm thẳng"
+
+#: src/Resources.vala:158
+msgid "Straighten"
+msgstr "Làm thẳng"
+
+#: src/Resources.vala:159
+msgid "Straightens the photo"
+msgstr "Làm thẳng ảnh"
+
+#: src/Resources.vala:161
+msgid "_Red-eye"
+msgstr "_Mắt đỏ"
+
+#: src/Resources.vala:162
+msgid "Red-eye"
+msgstr "Mắt đỏ"
+
+#: src/Resources.vala:163
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "Giảm hoặc bỏ mọi hiệu ứng mắt đỏ trong ảnh"
+
+#: src/Resources.vala:165
+msgid "_Adjust"
+msgstr "Điều _chỉnh"
+
+#: src/Resources.vala:166
+msgid "Adjust"
+msgstr "Điều chỉnh"
+
+#: src/Resources.vala:167
+msgid "Adjust the photo's color and tone"
+msgstr "Điều chỉnh sắc màu của ảnh"
+
+#: src/Resources.vala:169
+msgid "Re_vert to Original"
+msgstr "_Quay về Ảnh gốc"
+
+#: src/Resources.vala:170
+msgid "Revert to Original"
+msgstr "Quay về Ảnh gốc"
+
+#: src/Resources.vala:172
+msgid "Revert External E_dits"
+msgstr "Khôi _phục thay đổi gây ra do trình chỉnh sửa khác"
+
+#: src/Resources.vala:173
+msgid "Revert to the master photo"
+msgstr "Quay lại đến ảnh chủ"
+
+#: src/Resources.vala:175
+msgid "Set as _Desktop Background"
+msgstr "Làm Nền _Màn hình"
+
+#: src/Resources.vala:176
+msgid "Set selected image to be the new desktop background"
+msgstr "Chọn ảnh này làm nền màn hình mới"
+
+#: src/Resources.vala:177
+msgid "Set as _Desktop Slideshow..."
+msgstr "Đặt thành Chuyển hình tự động cho _Màn hình nền..."
+
+#: src/Resources.vala:179
+msgid "_Undo"
+msgstr "_Hoàn tác"
+
+#: src/Resources.vala:180
+msgid "Undo"
+msgstr "Hoàn tác"
+
+#: src/Resources.vala:182
+msgid "_Redo"
+msgstr "_Làm lại"
+
+#: src/Resources.vala:183
+msgid "Redo"
+msgstr "Làm lại"
+
+#: src/Resources.vala:185
+msgid "Re_name Event..."
+msgstr "Đổi _Tên Sự kiện..."
+
+#: src/Resources.vala:186 src/Dialogs.vala:941
+msgid "Rename Event"
+msgstr "Đổi tên của Sự kiện"
+
+#: src/Resources.vala:188
+msgid "Make _Key Photo for Event"
+msgstr "Làm ảnh _Biểu tượng cho Sự kiện"
+
+#: src/Resources.vala:189
+msgid "Make Key Photo for Event"
+msgstr "Làm Ảnh Biểu tượng cho Sự kiện"
+
+#: src/Resources.vala:191
+msgid "_New Event"
+msgstr "_Sự kiện Mới"
+
+#: src/Resources.vala:192
+msgid "New Event"
+msgstr "Sự kiện Mới"
+
+#: src/Resources.vala:194
+msgid "Move Photos"
+msgstr "Di chuyển Ảnh"
+
+#: src/Resources.vala:195
+msgid "Move photos to an event"
+msgstr "Chuyển ảnh vào một sự kiện"
+
+#: src/Resources.vala:197
+msgid "_Merge Events"
+msgstr "_Kết hợp Sự kiện"
+
+#: src/Resources.vala:198
+msgid "Merge"
+msgstr "Kết hợp"
+
+#: src/Resources.vala:200
+msgid "_Set Rating"
+msgstr "_Xếp Loại"
+
+#: src/Resources.vala:201
+msgid "Set Rating"
+msgstr "Xếp Loại"
+
+#: src/Resources.vala:202
+msgid "Change the rating of your photo"
+msgstr "Đổi giá trị xếp loại các ảnh"
+
+#: src/Resources.vala:204
+msgid "_Increase"
+msgstr "_Nâng cấp"
+
+#: src/Resources.vala:205
+msgid "Increase Rating"
+msgstr "Nâng Hạng Xếp loại"
+
+#: src/Resources.vala:207
+msgid "_Decrease"
+msgstr "_Giảm"
+
+#: src/Resources.vala:208
+msgid "Decrease Rating"
+msgstr "Giảm hạng Xếp loại"
+
+#: src/Resources.vala:210
+msgid "_Unrated"
+msgstr "Chưa Đánh _giá"
+
+#: src/Resources.vala:211
+msgid "Unrated"
+msgstr "Chưa đánh giá"
+
+#: src/Resources.vala:212
+msgid "Rate Unrated"
+msgstr "Xếp Loại Ảnh Chưa Đánh giá"
+
+#: src/Resources.vala:213
+msgid "Setting as unrated"
+msgstr "Đánh dấu là chưa đánh giá"
+
+#: src/Resources.vala:214
+msgid "Remove any ratings"
+msgstr "Bỏ mọi đánh giá"
+
+#: src/Resources.vala:216
+msgid "_Rejected"
+msgstr "_Từ chối"
+
+#: src/Resources.vala:217
+msgid "Rejected"
+msgstr "Đã từ chối"
+
+#: src/Resources.vala:218
+msgid "Rate Rejected"
+msgstr "Sự Đáng giá bị Từ chối"
+
+#: src/Resources.vala:219
+msgid "Setting as rejected"
+msgstr "Đánh dấu là đã bị từ chối"
+
+#: src/Resources.vala:220
+msgid "Set rating to rejected"
+msgstr "Xếp loại là đã bị từ chối"
+
+#: src/Resources.vala:222
+msgid "Rejected _Only"
+msgstr "Chỉ ảnh Từ _chối"
+
+#: src/Resources.vala:223
+msgid "Rejected Only"
+msgstr "Chỉ ảnh Từ chối"
+
+#: src/Resources.vala:224
+msgid "Show only rejected photos"
+msgstr "Chỉ hiện ảnh đã từ chối"
+
+#: src/Resources.vala:226
+msgid "All + _Rejected"
+msgstr "Tất cả + _Bị Từ chối"
+
+#: src/Resources.vala:227 src/Resources.vala:228
+msgid "Show all photos, including rejected"
+msgstr "Hiển thị tất cả các ảnh, kể cả ảnh đã bị từ chối"
+
+#: src/Resources.vala:230
+msgid "_All Photos"
+msgstr "_Tất cả các Ảnh"
+
+#: src/Resources.vala:231 src/Resources.vala:232
+msgid "Show all photos"
+msgstr "Hiển thị tất cả các ảnh"
+
+#: src/Resources.vala:234
+msgid "_Ratings"
+msgstr "_Xếp hạng"
+
+#: src/Resources.vala:235
+msgid "Display each photo's rating"
+msgstr "Hiển thị sự xếp loại đánh giá của từng ảnh"
+
+#: src/Resources.vala:237
+msgid "_Filter Photos"
+msgstr "_Lọc Ảnh"
+
+#: src/Resources.vala:238
+msgid "Filter Photos"
+msgstr "Lọc qua các ảnh"
+
+#: src/Resources.vala:239
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "Hạn chế số lượng ảnh được hiển thị trên cơ sở bộ lọc"
+
+#: src/Resources.vala:241
+msgid "_Duplicate"
+msgstr "_Nhân đôi"
+
+#: src/Resources.vala:242
+msgid "Duplicate"
+msgstr "Nhân đôi"
+
+#: src/Resources.vala:243
+msgid "Make a duplicate of the photo"
+msgstr "Nhân đôi bản ảnh"
+
+#: src/Resources.vala:245
+msgid "_Export..."
+msgstr "_Xuất..."
+
+#: src/Resources.vala:247
+msgid "_Print..."
+msgstr "_In..."
+
+#: src/Resources.vala:249
+msgid "Pu_blish..."
+msgstr "Công _bố..."
+
+#: src/Resources.vala:250
+msgid "Publish"
+msgstr "Công bố"
+
+#: src/Resources.vala:251
+msgid "Publish to various websites"
+msgstr "Công bố lên các trang web"
+
+#: src/Resources.vala:253
+msgid "E_dit Title..."
+msgstr "_Sửa Tên..."
+
+#: src/Resources.vala:254 src/Dialogs.vala:951
+msgid "Edit Title"
+msgstr "Sửa Tiêu đề"
+
+#: src/Resources.vala:256
+msgid "_Adjust Date and Time..."
+msgstr "_Chỉnh lại Ngày và Thời gian..."
+
+#: src/Resources.vala:257
+msgid "Adjust Date and Time"
+msgstr "Chỉnh Ngày và Thời gian"
+
+#: src/Resources.vala:259
+msgid "Add _Tags..."
+msgstr "Bổ sung _Thẻ..."
+
+#: src/Resources.vala:260 src/Resources.vala:296
+msgid "Add Tags"
+msgstr "Bổ sung Thẻ"
+
+#: src/Resources.vala:262
+msgid "_Preferences"
+msgstr "Tù_y thích"
+
+#: src/Resources.vala:264
+msgid "_Open With External Editor"
+msgstr "_Mở với trình soạn ngoại"
+
+#: src/Resources.vala:266
+msgid "Open With RA_W Editor"
+msgstr "Mở với trình soạn RA_W"
+
+#: src/Resources.vala:268
+msgid "Send _To..."
+msgstr "_Gửi Đến..."
+
+#: src/Resources.vala:270
+msgid "_Find..."
+msgstr "Tì_m..."
+
+#: src/Resources.vala:271
+msgid "Find"
+msgstr "Tìm"
+
+#: src/Resources.vala:272
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr "Tìm một ảnh nhờ văn bản trong tên hoặc thẻ đánh dấu của ảnh"
+
+#: src/Resources.vala:274
+msgid "_Flag"
+msgstr "Đánh _dấu"
+
+#: src/Resources.vala:276
+msgid "Un_flag"
+msgstr "Bỏ _dấu"
+
+#: src/Resources.vala:280
+msgid "Mark faces of people in the photo"
+msgstr "Đán dấu những mặt của người trong ảnh"
+
+#: src/Resources.vala:281
+msgid "Modify Faces"
+msgstr "Thay đổi mặt"
+
+#: src/Resources.vala:282
+msgid "Delete Face"
+msgstr "Xoá Mặt"
+
+#: src/Resources.vala:283 src/Resources.vala:308 src/Resources.vala:356
+#: src/Resources.vala:650 src/Dialogs.vala:18 src/Dialogs.vala:26
+#: src/Dialogs.vala:37 src/Dialogs.vala:992
+msgid "_Delete"
+msgstr "_Xoá"
+
+#: src/Resources.vala:284 src/Resources.vala:320
+msgid "_Rename..."
+msgstr "Th_ay tên..."
+
+#: src/Resources.vala:287
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "Không khởi động được trình soạn: %s"
+
+#: src/Resources.vala:292
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "Thêm Thẻ \"%s\""
+
+#: src/Resources.vala:294
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "Thêm các Thẻ \"%s\" và \"%s\""
+
+#: src/Resources.vala:300
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "_Xoá Thẻ \"%s\""
+
+#: src/Resources.vala:304
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "Xoá Thẻ \"%s\""
+
+#: src/Resources.vala:307
+msgid "Delete Tag"
+msgstr "Xoá Thẻ"
+
+#: src/Resources.vala:310
+msgid "_New"
+msgstr "_Mới"
+
+#: src/Resources.vala:313
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "Đổ_i Tên Thẻ \"%s\"..."
+
+#: src/Resources.vala:317
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "Đổi Thẻ \"%s\" thành \"%s\""
+
+#: src/Resources.vala:322
+msgid "Modif_y Tags..."
+msgstr "Chỉ_nh Thẻ..."
+
+#: src/Resources.vala:323
+msgid "Modify Tags"
+msgstr "Chỉnh Thẻ"
+
+#: src/Resources.vala:326
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "Gắn thẻ \"%s\" vào ảnh"
+
+#: src/Resources.vala:326
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "Gắn thẻ \"%s\" vào các ảnh"
+
+#: src/Resources.vala:330
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "Gắn thẻ \"%s\" vào ảnh đã chọn"
+
+#: src/Resources.vala:331
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "Gắn thẻ \"%s\" vào các ảnh đã chọn"
+
+#: src/Resources.vala:335
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "Xoá Thẻ \"%s\" Từ Ản_h"
+
+#: src/Resources.vala:336
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "Xóa thẻ \"%s\" từ các ả_nh"
+
+#: src/Resources.vala:340
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "Xoá Thẻ \"%s\" Từ Ảnh"
+
+#: src/Resources.vala:341
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "Xóa thẻ \"%s\" từ các ảnh"
+
+#: src/Resources.vala:345
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr "Không đổi tên thẻ sang \"%s\" được do đã có thẻ với tên này rồi."
+
+#: src/Resources.vala:349
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr "Không thể đổi tên tìm kiếm thành \"%s\" vì tìm kiếm đó đã tồn tại."
+
+#: src/Resources.vala:352
+msgid "Saved Search"
+msgstr "Kết quả tìm kiếm đã lưu"
+
+#: src/Resources.vala:354
+msgid "Delete Search"
+msgstr "Xoá tìm kiếm"
+
+#: src/Resources.vala:357
+msgid "_Edit..."
+msgstr "_Sửa..."
+
+#: src/Resources.vala:358
+msgid "Re_name..."
+msgstr "Đổi _tên"
+
+#: src/Resources.vala:361
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "Đổi tên tìm kiếm \"%s\" thành \"%s\""
+
+#: src/Resources.vala:365
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "Xóa tìm kiếm \"%s\""
+
+#: src/Resources.vala:369
+#, c-format
+msgid "Unable to rename face to \"%s\" because the face already exists."
+msgstr "Không đổi tên mặt thành \"%s\" được do đã có rồi."
+
+#: src/Resources.vala:373
+#, c-format
+msgid "Remove Face \"%s\" From _Photo"
+msgstr "Bỏ Mặt \"%s\" Ra _Khỏi Ảnh"
+
+#: src/Resources.vala:374
+#, c-format
+msgid "Remove Face \"%s\" From _Photos"
+msgstr "Bỏ Mặt \"%s\" Ra _Khỏi các Ảnh"
+
+#: src/Resources.vala:378
+#, c-format
+msgid "Remove Face \"%s\" From Photo"
+msgstr "Bỏ Mặt \"%s\" Ra Khỏi Ảnh"
+
+#: src/Resources.vala:379
+#, c-format
+msgid "Remove Face \"%s\" From Photos"
+msgstr "Bỏ Mặt \"%s\" Ra Khỏi các Ảnh"
+
+#: src/Resources.vala:383
+#, c-format
+msgid "Re_name Face \"%s\"..."
+msgstr "Thay _tên Mặt \"%s\"..."
+
+#: src/Resources.vala:387
+#, c-format
+msgid "Rename Face \"%s\" to \"%s\""
+msgstr "Đổi tên Mặt từ \"%s\" thành \"%s\""
+
+#: src/Resources.vala:391
+#, c-format
+msgid "_Delete Face \"%s\""
+msgstr "_Xoá Mặt \"%s\""
+
+#: src/Resources.vala:395
+#, c-format
+msgid "Delete Face \"%s\""
+msgstr "_Xoá Mặt \"%s\""
+
+#: src/Resources.vala:552
+#, c-format
+msgid "Rate %s"
+msgstr "Đánh giá %s"
+
+#: src/Resources.vala:553
+#, c-format
+msgid "Set rating to %s"
+msgstr "Xếp bậc đánh giá cho %s"
+
+#: src/Resources.vala:554
+#, c-format
+msgid "Setting rating to %s"
+msgstr "Đang xếp bậc đánh giá cho %s"
+
+#: src/Resources.vala:556
+#, c-format
+msgid "Display %s"
+msgstr "Hiển thị %s"
+
+#: src/Resources.vala:557
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "Chỉ hiển thị ảnh với bậc %s"
+
+#: src/Resources.vala:558
+#, c-format
+msgid "%s or Better"
+msgstr "%s hoặc Tốt hơn"
+
+#: src/Resources.vala:559
+#, c-format
+msgid "Display %s or Better"
+msgstr "Hiển thị %s hoặc Hơn"
+
+#: src/Resources.vala:560
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr "Chỉ hiển thị ảnh có bậc đánh giá bằng %s hoặc tốt hơn"
+
+#: src/Resources.vala:651
+msgid "Remove the selected photos from the trash"
+msgstr "Lấy những ảnh đã chọn ra khỏi thùng rác"
+
+#: src/Resources.vala:652
+msgid "Remove the selected photos from the library"
+msgstr "Bỏ những ảnh đã chọn ra khỏi thư viện"
+
+#: src/Resources.vala:654
+msgid "_Restore"
+msgstr "_Khôi phục"
+
+#: src/Resources.vala:655
+msgid "Move the selected photos back into the library"
+msgstr "Chuyển lại các ảnh đã chọn vào thư viện"
+
+#: src/Resources.vala:657
+msgid "Show in File Mana_ger"
+msgstr "Hiển thị trong Trình Quản lý Tệp"
+
+#: src/Resources.vala:658
+msgid "Open the selected photo's directory in the file manager"
+msgstr "Mở thư mục chứa ảnh trong trình quản lý tệp"
+
+#: src/Resources.vala:661
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "Không mở được trong trình quản lý ảnh: %s"
+
+#: src/Resources.vala:664
+msgid "R_emove From Library"
+msgstr "_Xoá Khỏi Thư viện"
+
+#: src/Resources.vala:666
+msgid "_Move to Trash"
+msgstr "Chu_yển vào Sọt rác"
+
+#: src/Resources.vala:668
+msgid "Select _All"
+msgstr "Chọn _Tất cả"
+
+#: src/Resources.vala:669
+msgid "Select all items"
+msgstr "Chọn tất cả các mục"
+
+#: src/CollectionPage.vala:428
+msgid "Export Photo/Video"
+msgstr "Xuất khẩu Ảnh/Video"
+
+#: src/CollectionPage.vala:428
+msgid "Export Photos/Videos"
+msgstr "Xuất khẩu Ảnh/Video"
+
+#: src/CollectionPage.vala:430 src/Dialogs.vala:77
+msgid "Export Photos"
+msgstr "Xuất Ảnh"
+
+#: src/CollectionPage.vala:518 src/CollectionPage.vala:534
+msgid "Rotating"
+msgstr "Đang xoay"
+
+#: src/CollectionPage.vala:518 src/CollectionPage.vala:534
+msgid "Undoing Rotate"
+msgstr "Đang bỏ xoay ảnh"
+
+#: src/CollectionPage.vala:543
+msgid "Flipping Horizontally"
+msgstr "Đang lật ảnh theo chiều ngang"
+
+#: src/CollectionPage.vala:544
+msgid "Undoing Flip Horizontally"
+msgstr "Đang bỏ thao tác lật ảnh theo chiều ngang"
+
+#: src/CollectionPage.vala:553
+msgid "Flipping Vertically"
+msgstr "Đang lật ảnh theo chiều thẳng đứng"
+
+#: src/CollectionPage.vala:554
+msgid "Undoing Flip Vertically"
+msgstr "Đang bỏ thao tác lật ảnh theo chiều thẳng đứng"
+
+#: src/util/misc.vala:231 src/util/misc.vala:236
+msgid "%a %b %d"
+msgstr "%a %d %b"
+
+#: src/util/misc.vala:232
+msgid "%d, %Y"
+msgstr "%d, %Y"
+
+#: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
+#: src/util/misc.vala:251
+msgid "%a %b %d, %Y"
+msgstr "%a %d %b, %Y"
+
+#: src/MediaPage.vala:141
+msgid "Adjust the size of the thumbnails"
+msgstr "Thay đổi kích thước các ảnh thu nhỏ"
+
+#: src/MediaPage.vala:301
+msgid "_Photos"
+msgstr "Ả_nh"
+
+#: src/MediaPage.vala:305 src/events/EventsDirectoryPage.vala:122
+msgid "Even_ts"
+msgstr "Sự _kiện"
+
+#: src/MediaPage.vala:330
+msgid "Increase the magnification of the thumbnails"
+msgstr "Tăng độ phóng các ảnh thu nhỏ"
+
+#: src/MediaPage.vala:336
+msgid "Decrease the magnification of the thumbnails"
+msgstr "Giảm độ phóng to các ảnh thu nhỏ"
+
+#: src/MediaPage.vala:402
+msgid "Sort _Photos"
+msgstr "Sắp _xếp ảnh"
+
+#: src/MediaPage.vala:415
+msgid "_Play Video"
+msgstr "_Phát Video"
+
+#: src/MediaPage.vala:416
+msgid "Open the selected videos in the system video player"
+msgstr "Mở video đã chọn với trình xem phim của hệ thống"
+
+#: src/MediaPage.vala:456
+msgid "Display each photo's tags"
+msgstr "Hiển thị thẻ mỗi ảnh"
+
+#: src/MediaPage.vala:472
+msgid "By _Title"
+msgstr "Theo Tê_n"
+
+#: src/MediaPage.vala:473
+msgid "Sort photos by title"
+msgstr "Sắp xếp ảnh theo tên"
+
+#: src/MediaPage.vala:478
+msgid "By Exposure _Date"
+msgstr "Theo Ngày_Chụp"
+
+#: src/MediaPage.vala:479
+msgid "Sort photos by exposure date"
+msgstr "Sắp xếp ảnh theo ngày chụp"
+
+#: src/MediaPage.vala:484
+msgid "By _Rating"
+msgstr "Theo _Hạng xếp"
+
+#: src/MediaPage.vala:485
+msgid "Sort photos by rating"
+msgstr "Sắp xếp ảnh theo hạng xếp"
+
+#: src/MediaPage.vala:713
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"Shotwell không chơi được video đã chọn:\n"
+"%s"
+
+#: src/EditingTools.vala:567
+msgid "Return to current photo dimensions"
+msgstr "Hoàn lại kích thước ảnh hiện tại"
+
+#: src/EditingTools.vala:570
+msgid "Set the crop for this photo"
+msgstr "Thiết lập vùng cắt ảnh này"
+
+#: src/EditingTools.vala:582
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr "Xoay vùng thu cắt ảnh 90 độ"
+
+#: src/EditingTools.vala:652
+msgid "Unconstrained"
+msgstr "Không giới hạn"
+
+#: src/EditingTools.vala:653
+msgid "Square"
+msgstr "Vuông"
+
+#: src/EditingTools.vala:654
+msgid "Screen"
+msgstr "Màn hình"
+
+#: src/EditingTools.vala:655
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1250
+msgid "Original Size"
+msgstr "Kích thước gốc"
+
+#: src/EditingTools.vala:656 src/EditingTools.vala:659
+#: src/EditingTools.vala:667 src/EditingTools.vala:675
+msgid "-"
+msgstr "-"
+
+#: src/EditingTools.vala:657
+msgid "SD Video (4 : 3)"
+msgstr "SD Video (4 : 3)"
+
+#: src/EditingTools.vala:658
+msgid "HD Video (16 : 9)"
+msgstr "HD Video (16 : 9)"
+
+#: src/EditingTools.vala:676 src/Dialogs.vala:1829
+msgid "Custom"
+msgstr "Tuỳ chọn"
+
+#: src/EditingTools.vala:1838
+msgid "Close the Faces tool without saving changes"
+msgstr "Đóng lại công cụ Mặt không lưu lại những thay đổi"
+
+#: src/EditingTools.vala:1841
+msgid "Save changes and close the Faces tool"
+msgstr "Lưu lại những thay đổi và đóng lại công cụ Mặt"
+
+#: src/EditingTools.vala:1846 src/EditingTools.vala:1871
+msgid "Click and drag to tag a face"
+msgstr "Nhấn và kéo để đánh dấu một mặt"
+
+#: src/EditingTools.vala:1866
+#, c-format
+msgid "Click to edit face <i>%s</i>"
+msgstr "Nhấn vào để sửa dôi mặt <i>%s</i>"
+
+#: src/EditingTools.vala:1875
+msgid "Stop dragging to add your face and name it."
+msgstr "Ngừng kéo để bổ sung mặt và đặt tên."
+
+#: src/EditingTools.vala:1879
+msgid "Type a name for this face, then press Enter"
+msgstr "Gõ tên cho mặt này và nhấn Enter"
+
+#: src/EditingTools.vala:1883
+msgid "Move or modify the face shape or name and press Enter"
+msgstr "Di chuyển hoặc sửa dổi khuôn mặt hay tên và nhấn Enter"
+
+#: src/EditingTools.vala:2394 src/Properties.vala:344
+msgid "Size:"
+msgstr "Kích thước:"
+
+#: src/EditingTools.vala:2409
+msgid "Close the red-eye tool"
+msgstr "Đóng công cụ mắt đỏ"
+
+#: src/EditingTools.vala:2412
+msgid "Remove any red-eye effects in the selected region"
+msgstr "Loại bỏ hiện tương mắt đỏ trong vùng đã chọn"
+
+#: src/EditingTools.vala:2726
+msgid "_Reset"
+msgstr "Đặt _lại"
+
+#: src/EditingTools.vala:2737 src/Properties.vala:381 src/Properties.vala:385
+#: src/Properties.vala:392
+msgid "Exposure:"
+msgstr "Phơi sáng:"
+
+#: src/EditingTools.vala:2745
+msgid "Saturation:"
+msgstr "Độ bão hoà:"
+
+#: src/EditingTools.vala:2753
+msgid "Tint:"
+msgstr "Sắc:"
+
+#: src/EditingTools.vala:2762
+msgid "Temperature:"
+msgstr "Nhiệt độ:"
+
+#: src/EditingTools.vala:2770
+msgid "Shadows:"
+msgstr "Bóng đổ:"
+
+#: src/EditingTools.vala:2824
+msgid "Reset Colors"
+msgstr "Đặt lại Màu"
+
+#: src/EditingTools.vala:2824
+msgid "Reset all color adjustments to original"
+msgstr "Đặt lại tất cả các màu về giá trị gốc"
+
+#: src/EditingTools.vala:3153
+msgid "Temperature"
+msgstr "Nhiệt độ"
+
+#: src/EditingTools.vala:3159
+msgid "Tint"
+msgstr "Sắc"
+
+#: src/EditingTools.vala:3165
+msgid "Saturation"
+msgstr "Độ bão hoà"
+
+#: src/EditingTools.vala:3171
+msgid "Exposure"
+msgstr "Phơi sáng"
+
+#: src/EditingTools.vala:3177
+msgid "Shadows"
+msgstr "Bóng đổ"
+
+#: src/EditingTools.vala:3187
+msgid "Contrast Expansion"
+msgstr "Mở rộng độ tương phản"
+
+#: src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "Không theo dõi được các bản cập nhật: %s"
+
+#: src/events/EventsDirectoryPage.vala:154
+msgid "No events"
+msgstr "Không có sự kiện"
+
+#: src/events/EventsDirectoryPage.vala:158
+msgid "No events found"
+msgstr "Không tìm được sự kiện"
+
+#: src/events/EventsDirectoryPage.vala:205
+msgid "Events"
+msgstr "Sự kiện"
+
+#: src/events/EventsDirectoryPage.vala:219
+msgid "Undated"
+msgstr "Không có ngày"
+
+#: src/events/EventsDirectoryPage.vala:220
+msgid "%Y"
+msgstr "%Y"
+
+#: src/events/EventsDirectoryPage.vala:221
+msgid "%B"
+msgstr "%B"
+
+#: src/events/EventDirectoryItem.vala:74
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d ảnh/video"
+
+#: src/events/EventDirectoryItem.vala:76 src/Properties.vala:304
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d Video"
+
+#: src/events/EventDirectoryItem.vala:78 src/Properties.vala:302
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d Ảnh"
+
+#: src/events/EventPage.vala:86
+msgid "No Event"
+msgstr "Không có sự kiện"
+
+#: src/Exporter.vala:250
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "Không tạo được tệp tạm thời cho %s: %s"
+
+#: src/Exporter.vala:317
+msgid "Exporting"
+msgstr "Đang xuất"
+
+#: src/Exporter.vala:334
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "Tệp %s đã có rồi. Thay thế?"
+
+#: src/Exporter.vala:336
+msgid "_Skip"
+msgstr "_Bỏ qua"
+
+#: src/Exporter.vala:336
+msgid "_Replace"
+msgstr "Th_ay thế"
+
+#: src/Exporter.vala:336
+msgid "Replace _All"
+msgstr "Thấy thế Tất _cả"
+
+#: src/Exporter.vala:336
+msgid "Export"
+msgstr "Xuất"
+
+#: src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "Không mở hoặc không tạo được ngân hàng ảnh %s: lỗi sai %d"
+
+#: src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr ""
+"Không viết được vào cơ sở dữ liệu ảnh:\n"
+" %s"
+
+#: src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr ""
+"Lỗi khi đang truy cập cơ sở dữ liệu ảnh:\n"
+" %s\n"
+"\n"
+"Lỗi gặp là: \n"
+"%s"
+
+#: src/Dialogs.vala:14
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "Sẽ xoá bỏ thẻ \"%s\" từ %d ảnh. Tiếp tục?"
+
+#: src/Dialogs.vala:23
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr "Sẽ loại bỏ bộ tìm kiếm đã lưu \"%s\". Tiếp tục không?"
+
+#: src/Dialogs.vala:33
+#, c-format
+msgid "This will remove the face \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the face \"%s\" from %d photos.  Continue?"
+msgstr[0] "Sẽ loại bỏ mặt \"%s\" từ %d ảnh. Tiếp tục không?"
+
+#: src/Dialogs.vala:51
+msgid "Export Video"
+msgstr "Xuất Video"
+
+#: src/Dialogs.vala:105
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr ""
+"Shotwell không tạo ra được một tệp để sửa lại tấm ảnh này do bạn không có "
+"quyền viết vào %s."
+
+#: src/Dialogs.vala:114
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr ""
+"Không xuất được ảnh sau do lỗi tệp.\n"
+"\n"
+
+#: src/Dialogs.vala:120
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr ""
+"\n"
+"\n"
+"Bạn có muốn tiếp tục xuất ảnh không?"
+
+#: src/Dialogs.vala:121
+msgid "Con_tinue"
+msgstr "Tiếp _tục"
+
+#: src/Dialogs.vala:137
+msgid "Unmodified"
+msgstr "Không bị thay đổi"
+
+#: src/Dialogs.vala:138
+msgid "Current"
+msgstr "Hiện tại"
+
+#: src/Dialogs.vala:203
+msgid "_Format:"
+msgstr "Định _dạng:"
+
+#: src/Dialogs.vala:206
+msgid "_Quality:"
+msgstr "_Chất lượng:"
+
+#: src/Dialogs.vala:209
+msgid "_Scaling constraint:"
+msgstr "_Giới hạn tỷ lệ:"
+
+#: src/Dialogs.vala:212
+msgid " _pixels"
+msgstr " _pixels"
+
+#: src/Dialogs.vala:220
+msgid "Export metadata"
+msgstr "Xuất metadata"
+
+#: src/Dialogs.vala:459
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(và thêm %d)\n"
+
+#: src/Dialogs.vala:515
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "Đã không nhập %d ảnh đúp:\n"
+
+#: src/Dialogs.vala:518
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "%d bản video không nhập:\n"
+
+#: src/Dialogs.vala:521
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "%d ảnh/video trùng lặp không nhập:\n"
+
+#: src/Dialogs.vala:535
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] "Không nhập được %d ảnh do lỗi tệp hoặc phần cứng:\n"
+
+#: src/Dialogs.vala:538
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Nhập %d video đã thất bại do lỗi trong tệp hoặc do lỗi phần cứng:\n"
+
+#: src/Dialogs.vala:541
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] "%d ảnh/video không nhập được do lỗi tệp hoặc phần cứng:\n"
+
+#: src/Dialogs.vala:544
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] "Nhập %d tệp không thành công do lỗi tệp hoặc lỗi phần cứng:\n"
+
+#: src/Dialogs.vala:558
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"%d ảnh không nhập được do thư mục thư viện ảnh không có phép ghi lại:\n"
+
+#: src/Dialogs.vala:561
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"%d video không nhập được do thư mục thư viện ảnh không có phép ghi lại:\n"
+
+#: src/Dialogs.vala:564
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"%d ảnh/video không nhập được do thư mục thư viện ảnh không có phép ghi lại:\n"
+
+#: src/Dialogs.vala:567
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Nhập %d tệp không thành công do không ghi vào được thư mục chứa thư viện "
+"ảnh:\n"
+
+#: src/Dialogs.vala:581
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] "%d ảnh không nhập được do lỗi với máy ảnh:\n"
+
+#: src/Dialogs.vala:584
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] "%d video không nhập được do lỗi máy ảnh:\n"
+
+#: src/Dialogs.vala:587
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] "%d ảnh/video không nhập được do lỗi máy ảnh:\n"
+
+#: src/Dialogs.vala:590
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] "Nhập %d tệp không thành công do lỗi máy ảnh:\n"
+
+#: src/Dialogs.vala:607
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "Bỏ qua %d ảnh không hỗ trợ:\n"
+
+#: src/Dialogs.vala:622
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] "Bỏ qua %d tệp không ảnh.\n"
+
+#: src/Dialogs.vala:633
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] "Bỏ qua %d ảnh do người dùng hủy tác vụ:\n"
+
+#: src/Dialogs.vala:636
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] "%d video đã bỏ qua do người dùng bỏ qua:\n"
+
+#: src/Dialogs.vala:639
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] "%d ảnh/video đã bỏ qua do người dùng bỏ qua:\n"
+
+#: src/Dialogs.vala:642
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] "Bỏ %d tệp theo lệnh của người dùng:\n"
+
+#: src/Dialogs.vala:656
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "Đã nhập thành công %d ảnh.\n"
+
+#: src/Dialogs.vala:659
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "%d video được nhập thành công.\n"
+
+#: src/Dialogs.vala:662
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "%d ảnh/video được nhập thành công.\n"
+
+#: src/Dialogs.vala:678
+msgid "No photos or videos imported.\n"
+msgstr "Không có ảnh hoặc video được nhập.\n"
+
+#: src/Dialogs.vala:693
+msgid "Import Complete"
+msgstr "Thao tác nhập đã hoàn thành"
+
+#: src/Dialogs.vala:854
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d giây"
+
+#: src/Dialogs.vala:857
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d phút"
+
+#: src/Dialogs.vala:861
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d giờ"
+
+#: src/Dialogs.vala:864
+msgid "1 day"
+msgstr "1 ngày"
+
+#: src/Dialogs.vala:941
+msgid "Name:"
+msgstr "Tên:"
+
+#: src/Dialogs.vala:951 src/Properties.vala:289
+msgid "Title:"
+msgstr "Tiêu đề:"
+
+#: src/Dialogs.vala:967
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "_Những tệp trong Thùng rác"
+
+#: src/Dialogs.vala:971
+msgid "Only _Remove"
+msgstr "Chỉ _Loại bỏ"
+
+#: src/Dialogs.vala:1014
+msgid "Revert External Edit?"
+msgstr "Đổi ngược lại những thay đổi bên ngoài?"
+
+#: src/Dialogs.vala:1014
+msgid "Revert External Edits?"
+msgstr "Đổi ngược lại những thay đổi bên ngoài?"
+
+#: src/Dialogs.vala:1016
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] ""
+"Tác vụ này sẽ bỏ tất cả những thay đổi cho %d tệp bên ngoài. Tiếp tục?"
+
+#: src/Dialogs.vala:1020
+msgid "Re_vert External Edit"
+msgstr "Đổi _Ngược lại Thay đổi bên Ngoài"
+
+#: src/Dialogs.vala:1020
+msgid "Re_vert External Edits"
+msgstr "Đổi _Ngược lại những Thay đổi bên Ngoài"
+
+#: src/Dialogs.vala:1041
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "Sẽ xoá %d ảnh ra khỏi thư viện. Tiếp tục?"
+
+#: src/Dialogs.vala:1048
+msgid "_Remove"
+msgstr "_Xóa"
+
+#: src/Dialogs.vala:1049
+msgid "Remove Photo From Library"
+msgstr "Loại bỏ ảnh ra khỏi thư viện"
+
+#: src/Dialogs.vala:1049
+msgid "Remove Photos From Library"
+msgstr "Loại bỏ những ảnh ra khỏi thư viện"
+
+#: src/Dialogs.vala:1138
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/Dialogs.vala:1261
+msgid "AM"
+msgstr "sáng"
+
+#: src/Dialogs.vala:1262
+msgid "PM"
+msgstr "chiều"
+
+#: src/Dialogs.vala:1263
+msgid "24 Hr"
+msgstr "24 Giờ"
+
+#: src/Dialogs.vala:1278
+msgid "_Shift photos/videos by the same amount"
+msgstr "Dịch chuyển ảnh/video cùng thời lượng"
+
+#: src/Dialogs.vala:1283
+msgid "Set _all photos/videos to this time"
+msgstr "Đạt _tất cả ảnh/video theo giờ này"
+
+#: src/Dialogs.vala:1289
+msgid "_Modify original file"
+msgstr "_Sửa tệp gốc"
+
+#: src/Dialogs.vala:1289
+msgid "_Modify original files"
+msgstr "_Sửa những tệp gốc"
+
+#: src/Dialogs.vala:1372
+msgid "Original: "
+msgstr "Gốc: "
+
+#: src/Dialogs.vala:1373
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%H:%M:%S, %d/%m/%Y"
+
+#: src/Dialogs.vala:1374
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%I:%M:%S %p, %d/%m/%Y"
+
+#: src/Dialogs.vala:1459
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Thời gian phơi sáng sẽ được giảm một khoảng\n"
+"%d %s, %d %s, %d %s, và %d %s."
+
+#: src/Dialogs.vala:1460
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Thời gian phơi sáng sẽ được tăng một khoảng\n"
+"%d %s, %d %s, %d %s, và %d %s."
+
+#: src/Dialogs.vala:1462
+msgid "day"
+msgid_plural "days"
+msgstr[0] "ngày"
+
+#: src/Dialogs.vala:1463
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "giờ"
+
+#: src/Dialogs.vala:1464
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "phút"
+
+#: src/Dialogs.vala:1465
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "giây"
+
+#: src/Dialogs.vala:1509
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"Và %d khác."
+
+#: src/Dialogs.vala:1530 src/Dialogs.vala:1554
+msgid "Tags (separated by commas):"
+msgstr "Thẻ đánh dấu (phân tách bằng dấu phẩy):"
+
+#: src/Dialogs.vala:1612
+msgid "Welcome!"
+msgstr "Chào mừng bạn!"
+
+#: src/Dialogs.vala:1620
+#, c-format
+msgid "Welcome to Shotwell!"
+msgstr "Chào mừng đã đến với Shotwell!"
+
+#: src/Dialogs.vala:1625
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr "Để bắt đầu, bạn có thể nhập ảnh với những cách sau đây:"
+
+#: src/Dialogs.vala:1648
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr "Chọn <span weight=\"bold\">Nhập Tệp %s từ Thư mục</span>"
+
+#: src/Dialogs.vala:1649
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "Kéo và thả ảnh vào cửa sổ Shotwell"
+
+#: src/Dialogs.vala:1650
+msgid "Connect a camera to your computer and import"
+msgstr "Kết nối một máy ảnh và nhập ảnh vào máy tính"
+
+#: src/Dialogs.vala:1659
+msgid "Import photos from your _F-Spot library"
+msgstr "Nhập ảnh từ thư viện _F-Spot"
+
+#: src/Dialogs.vala:1666
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "_Nhập ảnh từ thư mục %s"
+
+#: src/Dialogs.vala:1676
+msgid "You can also import photos in any of these ways:"
+msgstr "Bạn cũng có thể nhập ảnh bằng những cách sau đây:"
+
+#: src/Dialogs.vala:1688
+msgid "_Don't show this message again"
+msgstr "_Không hiển thị thông báo này nữa"
+
+#: src/Dialogs.vala:1809 src/Dialogs.vala:1813
+msgid "(Help)"
+msgstr "(Trợ giúp)"
+
+#: src/Dialogs.vala:1822
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "Năm%sTháng%sNgày"
+
+#: src/Dialogs.vala:1824
+#, c-format
+msgid "Year%sMonth"
+msgstr "Năm%sTháng"
+
+#: src/Dialogs.vala:1826
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "Năm%sTháng-Ngày"
+
+#: src/Dialogs.vala:1828
+msgid "Year-Month-Day"
+msgstr "Năm-Tháng-Ngày"
+
+#: src/Dialogs.vala:2062
+msgid "Invalid pattern"
+msgstr "Mẫu không hợp lệ"
+
+#: src/Dialogs.vala:2159
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr ""
+"Shotwell có thể chép ảnh vào thự mục thư viện ảnh hoặc có thể nhầp ảnh mà "
+"không chép."
+
+#: src/Dialogs.vala:2164
+msgid "Co_py Photos"
+msgstr "_Chép Ảnh"
+
+#: src/Dialogs.vala:2165
+msgid "_Import in Place"
+msgstr "_Nhập Ảnh"
+
+#: src/Dialogs.vala:2166
+msgid "Import to Library"
+msgstr "Nhập vào Thư viện"
+
+#: src/Dialogs.vala:2177
+msgid "Removing Photos From Library"
+msgstr "Xoá ảnh ra khỏi thư viện"
+
+#: src/Dialogs.vala:2191
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also "
+"like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you "
+"also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Bạn sẽ loại bỏ %d ảnh/video ra khỏi thư viện Shotwell. Bạn có muốn chuyển "
+"các tệp vào sọt rác không?\n"
+"\n"
+"Hành động sẽ không hoàn lại được."
+
+#: src/Dialogs.vala:2195
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Bạn sẽ loại bỏ %d video từ thư viện Shotwell. Bán có muốn chuyển các tệp vào "
+"sọt rác không?\n"
+"\n"
+"Hành động này không thể hoàn lại."
+
+#: src/Dialogs.vala:2199
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Sẽ xoá %d ảnh ra khỏi thư viện Shotwell. Có muốn chuyển tệp vào thùng rác "
+"không?\n"
+"\n"
+"Hành động này không thể hoàn lại."
+
+#: src/Dialogs.vala:2231
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] "%d ảnh/video không chuyển được vào sọt rác. Có xóa tệp không?"
+
+#: src/Dialogs.vala:2248
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "%d ảnh/video không xóa được."
+
+#: src/alien_db/AlienDatabaseImportDialog.vala:51
+#, c-format
+msgid "Import from default %1$s library (%2$s)"
+msgstr "Nhập từ thư viện mặc định %1$s (%2$s)"
+
+#: src/alien_db/AlienDatabaseImportDialog.vala:59
+#, c-format
+msgid "Import from another %s database file:"
+msgstr "Nhập từ một tệp cơ sở dữ liệu %s khác:"
+
+#: src/alien_db/AlienDatabaseImportDialog.vala:63
+#, c-format
+msgid "Import from a %s database file:"
+msgstr "Nhập từ một tệp cơ sở dữ liệu %s:"
+
+#: src/alien_db/AlienDatabaseImportDialog.vala:97
+msgid "No database selected"
+msgstr "Chưa chọn cơ sở dữ liệu"
+
+#: src/alien_db/AlienDatabaseImportDialog.vala:135
+#, c-format
+msgid "%s Database"
+msgstr "Cơ sở dữ liệu %s"
+
+#: src/alien_db/AlienDatabaseImportDialog.vala:155
+msgid "Shotwell failed to load the database file"
+msgstr "Shotwell nạp dữ liệu thất bại"
+
+#: src/alien_db/f_spot/FSpotDatabaseDriver.vala:220
+msgid "Import From _F-Spot..."
+msgstr "Nhập từ _F-Spot..."
+
+#: src/alien_db/f_spot/FSpotDatabaseDriver.vala:221
+msgid "Import the content of an external F-Spot database"
+msgstr "Nhập khẩu số liệu từ một cơ sở dữ liệu F-Spot bên ngoài"
+
+#: src/alien_db/f_spot/FSpotDatabaseDriver.vala:239
+msgid "Import From F-Spot"
+msgstr "Nhập Từ F-Spot"
+
+#: src/alien_db/f_spot/FSpotDatabase.vala:57
+msgid "F-Spot"
+msgstr "F-Spot"
+
+#: src/Page.vala:1225
+msgid "No photos/videos"
+msgstr "Không có ảnh/video"
+
+#: src/Page.vala:1229
+msgid "No photos/videos found"
+msgstr "Không tìm được ảnh/video"
+
+#: src/Page.vala:2510
+msgid "Photos cannot be exported to this directory."
+msgstr "Không xuất được ảnh sang thư mục này."
+
+#: src/Tag.vala:707
+msgid "untitled"
+msgstr "không tên"
+
+#: src/Commands.vala:647
+msgid "Reverting"
+msgstr "Đang hoàn tác"
+
+#: src/Commands.vala:647
+msgid "Undoing Revert"
+msgstr "Đang bỏ hoàn tác"
+
+#: src/Commands.vala:691
+msgid "Enhancing"
+msgstr "Cải thiện"
+
+#: src/Commands.vala:691
+msgid "Undoing Enhance"
+msgstr "Đang bỏ Cải tiến"
+
+#: src/Commands.vala:871
+msgid "Creating New Event"
+msgstr "Đang tạo Sự kiện Mới"
+
+#: src/Commands.vala:872
+msgid "Removing Event"
+msgstr "Đang bỏ Sự kiện"
+
+#: src/Commands.vala:881
+msgid "Moving Photos to New Event"
+msgstr "Đang Chuyển Ảnh đến Sự kiện Mới"
+
+#: src/Commands.vala:882
+msgid "Setting Photos to Previous Event"
+msgstr "Đang Xếp lại Ảnh cho Sự kiện Trước"
+
+#: src/Commands.vala:912
+msgid "Merging"
+msgstr "Đang hợp nhất"
+
+#: src/Commands.vala:913
+msgid "Unmerging"
+msgstr "Đang bỏ hợp nhất"
+
+#: src/Commands.vala:922
+msgid "Duplicating photos"
+msgstr "Đang sao chép ảnh"
+
+#: src/Commands.vala:922
+msgid "Removing duplicated photos"
+msgstr "Đang bỏ các ảnh đúp"
+
+#: src/Commands.vala:945
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "Không sao chép được %d ảnh do lỗi tệp"
+
+#: src/Commands.vala:1032
+msgid "Restoring previous rating"
+msgstr "Đang khôi phục lại sự xếp hạng trước đây"
+
+#: src/Commands.vala:1042 src/Commands.vala:1043
+msgid "Increasing ratings"
+msgstr "Tăng hạng"
+
+#: src/Commands.vala:1042 src/Commands.vala:1043
+msgid "Decreasing ratings"
+msgstr "Giảm hạng"
+
+#: src/Commands.vala:1092
+msgid "Setting RAW developer"
+msgstr "Thiết lập RAW developer"
+
+#: src/Commands.vala:1092
+msgid "Restoring previous RAW developer"
+msgstr "Hoàn lại RAW developer trước"
+
+#: src/Commands.vala:1163
+msgid "Original photo could not be adjusted."
+msgstr "Không chỉnh lại được ảnh gốc."
+
+#: src/Commands.vala:1183
+msgid "Adjusting Date and Time"
+msgstr "Đang chỉnh lại Ngày và Giờ"
+
+#: src/Commands.vala:1183
+msgid "Undoing Date and Time Adjustment"
+msgstr "Đang thôi chỉnh lại Ngày và Giờ"
+
+#: src/Commands.vala:1210
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "Một hoặc những ảnh sau đây không chỉnh lại được."
+
+#: src/Commands.vala:1212 src/Commands.vala:1224
+msgid "Time Adjustment Error"
+msgstr "Lỗi Chỉnh lại Thời gian"
+
+#: src/Commands.vala:1222
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] ""
+"Không thể khôi phục lại thời gian đã được chỉnh trong những tệp ảnh sau đây."
+
+#: src/Commands.vala:1411
+msgid "Create Tag"
+msgstr "Tạo thẻ đánh dấu"
+
+#: src/Commands.vala:1583
+msgid "Move Photos to Trash"
+msgstr "Đưa Ảnh vào Thùng rác"
+
+#: src/Commands.vala:1583
+msgid "Restore Photos from Trash"
+msgstr "Đưa Ảnh ra khởi Thùng rác"
+
+#: src/Commands.vala:1584
+msgid "Move the photos to the Shotwell trash"
+msgstr "Đưa ảnh vào thùng rác của Shotwell"
+
+#: src/Commands.vala:1584
+msgid "Restore the photos back to the Shotwell library"
+msgstr "Đưa ảnh quay về thư viện ảnh của Shotwell"
+
+#: src/Commands.vala:1603
+msgid "Moving Photos to Trash"
+msgstr "Đang Chuyển Ảnh vào Thùng rác"
+
+#: src/Commands.vala:1603
+msgid "Restoring Photos From Trash"
+msgstr "Đang Lấy Ảnh Ra khỏi Thùng rác"
+
+#: src/Commands.vala:1692
+msgid "Flag"
+msgstr "Đánh dấu"
+
+#: src/Commands.vala:1692
+msgid "Unflag"
+msgstr "Bỏ đánh dấu"
+
+#: src/Commands.vala:1693
+msgid "Flag selected photos"
+msgstr "Đánh dấu các ảnh đã chọn"
+
+#: src/Commands.vala:1693
+msgid "Unflag selected photos"
+msgstr "Bỏ đánh dấu các ảnh đã chọn"
+
+#: src/slideshow/Slideshow.vala:15
+msgid "Slideshow Transitions"
+msgstr "Hiệu ứng Chuyển tiếp khi Xem hình tự động"
+
+#: src/slideshow/TransitionEffects.vala:96
+msgid "(None)"
+msgstr "(Không có)"
+
+#: src/slideshow/TransitionEffects.vala:292
+msgid "None"
+msgstr "Không có"
+
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "Công bố"
+
+#: src/publishing/PublishingUI.vala:69
+#: plugins/shotwell-publishing/YouTubePublishing.vala:851
+#: plugins/shotwell-publishing/PicasaPublishing.vala:920
+msgid "_Login"
+msgstr "Đăn_g nhập"
+
+#: src/publishing/PublishingUI.vala:144
+msgid "The selected photos/videos were successfully published."
+msgstr "Những ảnh/video đã chọn đã đươc xuất bản thành công."
+
+#: src/publishing/PublishingUI.vala:146
+msgid "The selected videos were successfully published."
+msgstr "Những video đã chọn đã được xuất bản thành công."
+
+#: src/publishing/PublishingUI.vala:148
+msgid "The selected photos were successfully published."
+msgstr "Những ảnh chọn đã được công bố thàng công."
+
+#: src/publishing/PublishingUI.vala:151
+msgid "The selected video was successfully published."
+msgstr "Bản video đã chọn đã được xuất bản thành công."
+
+#: src/publishing/PublishingUI.vala:153
+msgid "The selected photo was successfully published."
+msgstr "Tấm ảnh đã chọn đã được xuất bản thành công."
+
+#: src/publishing/PublishingUI.vala:161
+msgid "Fetching account information..."
+msgstr "Đang lấy thông tin về tài khoản..."
+
+#: src/publishing/PublishingUI.vala:167
+msgid "Logging in..."
+msgstr "Đang đăng nhập vào..."
+
+#: src/publishing/PublishingUI.vala:218
+msgid "Publish Photos"
+msgstr "Công bố Ảnh"
+
+#: src/publishing/PublishingUI.vala:219
+msgid "Publish photos _to:"
+msgstr "Công bố ảnh đến _trang:"
+
+#: src/publishing/PublishingUI.vala:221
+msgid "Publish Videos"
+msgstr "Công bố video"
+
+#: src/publishing/PublishingUI.vala:222
+msgid "Publish videos _to"
+msgstr "_Công bố video đến"
+
+#: src/publishing/PublishingUI.vala:224
+msgid "Publish Photos and Videos"
+msgstr "Công bố Ảnh và Video"
+
+#: src/publishing/PublishingUI.vala:225
+msgid "Publish photos and videos _to"
+msgstr "_Công bố ảnh và video đến"
+
+#: src/publishing/PublishingUI.vala:390
+msgid "Unable to publish"
+msgstr "Không công bố được"
+
+#: src/publishing/PublishingUI.vala:391
+#, c-format
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugin</b> tab."
+msgstr ""
+"Shotwell không xuất bản những thứ đã chọn do không có một trình xuất bản nào "
+"đã được kích hoạt. Để kích hoạt một hoặc nhiều trình xuất bản, bạn hãy chọn "
+"<b>Edit %s Preferences</b> rồi chọn thẻ <b>Plugin</b>"
+
+#: src/publishing/PublishingUI.vala:475
+msgid "_Close"
+msgstr "Đón_g"
+
+#: src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "Chuẩn bị đưa lên mạng"
+
+#: src/publishing/PublishingPluginHost.vala:12
+#, c-format
+msgid "Uploading %d of %d"
+msgstr "Đưa lên mạng %d của %d"
+
+#: src/publishing/PublishingPluginHost.vala:81
+#, c-format
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr "Không tiếp tục công bố cho %s được do gặp lỗi:"
+
+#: src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr "Để công bố thử sang một dịch vụ khác, hãy chọn trong thực đơn trên."
+
+#: src/searches/SavedSearchDialog.vala:165
+msgid "contains"
+msgstr "chứa"
+
+#: src/searches/SavedSearchDialog.vala:166
+#: src/searches/SavedSearchDialog.vala:431
+msgid "is exactly"
+msgstr "chính xác là"
+
+#: src/searches/SavedSearchDialog.vala:167
+msgid "starts with"
+msgstr "bắt đầu bằng"
+
+#: src/searches/SavedSearchDialog.vala:168
+msgid "ends with"
+msgstr "kết thúc bằng"
+
+#: src/searches/SavedSearchDialog.vala:169
+msgid "does not contain"
+msgstr "không chứa"
+
+#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:435
+msgid "is not set"
+msgstr "chưa xác định"
+
+#: src/searches/SavedSearchDialog.vala:241
+#: src/searches/SavedSearchDialog.vala:310
+#: src/searches/SavedSearchDialog.vala:375
+msgid "is"
+msgstr "là"
+
+#: src/searches/SavedSearchDialog.vala:242
+msgid "is not"
+msgstr "không là"
+
+#: src/searches/SavedSearchDialog.vala:248
+msgid "any photo"
+msgstr "bất kỳ ảnh nào"
+
+#: src/searches/SavedSearchDialog.vala:249
+msgid "a raw photo"
+msgstr "ảnh thô"
+
+#: src/searches/SavedSearchDialog.vala:250
+msgid "a video"
+msgstr "video"
+
+#: src/searches/SavedSearchDialog.vala:304
+msgid "flagged"
+msgstr "gắn cờ"
+
+#: src/searches/SavedSearchDialog.vala:305
+msgid "not flagged"
+msgstr "không gắn cờ"
+
+#: src/searches/SavedSearchDialog.vala:368
+msgid "and higher"
+msgstr "và cao hơn"
+
+#: src/searches/SavedSearchDialog.vala:369
+msgid "only"
+msgstr "chỉ duy nhất"
+
+#: src/searches/SavedSearchDialog.vala:370
+msgid "and lower"
+msgstr "và thấp hơn"
+
+#: src/searches/SavedSearchDialog.vala:432
+msgid "is after"
+msgstr "nằm sau"
+
+#: src/searches/SavedSearchDialog.vala:433
+msgid "is before"
+msgstr "nằm trước"
+
+#: src/searches/SavedSearchDialog.vala:434
+msgid "is between"
+msgstr "nằm giữa"
+
+#: src/searches/SavedSearchDialog.vala:447
+msgid "and"
+msgstr "và"
+
+#: src/searches/SavedSearchDialog.vala:655
+msgid "any"
+msgstr "bất kỳ"
+
+#: src/searches/SavedSearchDialog.vala:656
+msgid "all"
+msgstr "toàn bộ"
+
+#: src/searches/SavedSearchDialog.vala:657
+msgid "none"
+msgstr "không"
+
+#: src/searches/SearchBoolean.vala:150
+msgid "Any text"
+msgstr "Văn bản bất kỳ"
+
+#: src/searches/SearchBoolean.vala:153
+msgid "Title"
+msgstr "Tiêu đề"
+
+#: src/searches/SearchBoolean.vala:156
+msgid "Tag"
+msgstr "Thẻ"
+
+#: src/searches/SearchBoolean.vala:159
+msgid "Event name"
+msgstr "Tên sự kiện"
+
+#: src/searches/SearchBoolean.vala:162
+msgid "File name"
+msgstr "Tên tập tin"
+
+#: src/searches/SearchBoolean.vala:165
+msgid "Face"
+msgstr "Mặt"
+
+#: src/searches/SearchBoolean.vala:168
+msgid "Media type"
+msgstr "Loại phương tiện truyền thông"
+
+#: src/searches/SearchBoolean.vala:171
+msgid "Flag state"
+msgstr "Đánh dấu tình trạng"
+
+#: src/searches/SearchBoolean.vala:174 src/SearchFilter.vala:944
+msgid "Rating"
+msgstr "Đánh giá"
+
+#: src/searches/SearchBoolean.vala:177
+msgid "Date"
+msgstr "Ngày"
+
+#: src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "Lưu lại tìm kiếm"
+
+#: src/Photo.vala:3081
+msgid "modified"
+msgstr "đã sửa"
+
+#: src/SearchFilter.vala:641 src/SearchFilter.vala:642
+msgid "Photos"
+msgstr "Ảnh chụp"
+
+#: src/SearchFilter.vala:647 src/SearchFilter.vala:648
+msgid "Videos"
+msgstr "Video"
+
+#: src/SearchFilter.vala:653
+msgid "RAW Photos"
+msgstr "Ảnh dạng RAW"
+
+#: src/SearchFilter.vala:654
+msgid "RAW photos"
+msgstr "Ảnh dạng RAW"
+
+#: src/SearchFilter.vala:900
+#, c-format
+msgid "Error loading UI file %s: %s"
+msgstr "Lỗi khi nạp tệp UI %s: %s"
+
+#: src/SearchFilter.vala:917
+msgid "Type"
+msgstr "Loại"
+
+#: src/Event.vala:708
+#, c-format
+msgid "Event %s"
+msgstr "Sự kiện %s"
+
+#: src/DirectoryMonitor.vala:879
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "Không giám sát được %s: Không phải là thư mục (%s)"
+
+#: src/Properties.vala:38
+msgid "%I:%M %p"
+msgstr "%I:%M %p"
+
+#: src/Properties.vala:50
+msgid "Today"
+msgstr "Hôm nay"
+
+#: src/Properties.vala:52
+msgid "Yesterday"
+msgstr "Hôm qua"
+
+#: src/Properties.vala:292
+msgid "Items:"
+msgstr "Mục:"
+
+#: src/Properties.vala:295
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "%d Sự kiện"
+
+#: src/Properties.vala:326
+msgid "Date:"
+msgstr "Ngày tháng:"
+
+#: src/Properties.vala:330
+msgid "Time:"
+msgstr "Thời gian:"
+
+#: src/Properties.vala:333 src/Properties.vala:338
+msgid "From:"
+msgstr "Từ:"
+
+#: src/Properties.vala:334 src/Properties.vala:339
+msgid "To:"
+msgstr "Đến:"
+
+#: src/Properties.vala:353
+msgid "Duration:"
+msgstr "Thời lượng:"
+
+#: src/Properties.vala:353
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f giây"
+
+#: src/Properties.vala:357
+msgid "Developer:"
+msgstr "Developer:"
+
+#: src/Properties.vala:480
+msgid "Location:"
+msgstr "Địa điểm:"
+
+#: src/Properties.vala:482
+msgid "File size:"
+msgstr "Kích cỡ tập tin:"
+
+#: src/Properties.vala:485
+msgid "Original dimensions:"
+msgstr "Kích thước gốc:"
+
+#: src/Properties.vala:488
+msgid "Camera make:"
+msgstr "Hiệu máy ảnh:"
+
+#: src/Properties.vala:491
+msgid "Camera model:"
+msgstr "Mã mođen máy ảnh:"
+
+#: src/Properties.vala:494
+msgid "Flash:"
+msgstr "Đèn Flash:"
+
+#: src/Properties.vala:496
+msgid "Focal length:"
+msgstr "Tiêu cự:"
+
+#: src/Properties.vala:499
+msgid "Exposure bias:"
+msgstr "Bù sáng:"
+
+#: src/Properties.vala:501
+msgid "GPS latitude:"
+msgstr "Vĩ độ GPS:"
+
+#: src/Properties.vala:504
+msgid "GPS longitude:"
+msgstr "Kinh độ GPS:"
+
+#: src/Properties.vala:507
+msgid "Artist:"
+msgstr "Nghệ sĩ:"
+
+#: src/Properties.vala:509
+msgid "Copyright:"
+msgstr "Bản quyền:"
+
+#: src/Properties.vala:511
+msgid "Software:"
+msgstr "Phần mềm:"
+
+#: src/Properties.vala:520
+msgid "Extended Information"
+msgstr "Thông tin mở rộng"
+
+#: src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1137
+msgid "Original size"
+msgstr "Kích thước gốc"
+
+#: src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "Chiều rộng hoặc chiều cao"
+
+#: src/Dimensions.vala:23
+msgid "Width"
+msgstr "Chiều rộng"
+
+#: src/Dimensions.vala:26
+msgid "Height"
+msgstr "Chiều cao"
+
+#: plugins/common/RESTSupport.vala:423
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1349
+msgid "A temporary file needed for publishing is unavailable"
+msgstr "Đang thiếu một tệp tạm thời cần thiết cho sự xuất bản"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:64
+#: plugins/shotwell-publishing/PicasaPublishing.vala:59
+msgid "Shotwell Connect"
+msgstr "Shotwell Connect (Kết nối Shotwell)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:68
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"Bạn chưa đăng nhập vào Facebook.\n"
+"\n"
+"Nếu bạn chưa có tài khoản Facebook, bạn có thể tự tạo ra trong quá trình "
+"đăng nhập. Lúc đó, Shotwell Connect có thể xin phép tải ảnh lên vào tài "
+"khoản của bạn. Việc cho phép này cần thiết cho Shotwell Connect được hoạt "
+"động thành công."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:70
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Bạn đã đăng nhập vào và đăng xuất ra khỏi Facebook trong phiên làm việc với "
+"Shotwell này.\n"
+"Để tiếp tục công bố ảnh lên Facebook, thoát và khởi động lại Shotwell,  rồi "
+"thử công bố lại một lần nữa."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:135
+msgid "Standard (720 pixels)"
+msgstr "Chuẩn (720 pixels)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:138
+msgid "Large (2048 pixels)"
+msgstr "Lớn (2048 pixels)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:272
+msgid "Testing connection to Facebook..."
+msgstr "Đang thử nối với Facebook..."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:465
+#: plugins/shotwell-publishing/PicasaPublishing.vala:512
+msgid "Creating album..."
+msgstr "Đang tạo album ảnh..."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1619
+#, c-format
+msgid ""
+"You are logged into Facebook as %s.\n"
+"\n"
+msgstr ""
+"Bạn đã đăng nhập vào Facebook như %s.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1620
+msgid "Where would you like to publish the selected photos?"
+msgstr "Bạn muốn công bố các ảnh đã chọn ở đâu?"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1621
+msgid "Upload _size:"
+msgstr "_Kích thước tải lên:"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1690
+msgid "Publish to an e_xisting album:"
+msgstr "Công bố vào một album _sẵn có:"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1693
+msgid "Create a _new album named:"
+msgstr "Tạo một album _mới với tên:"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1709
+msgid "Videos and new photo albums _visible to:"
+msgstr "Cho phép _xem video và quyển ảnh mới:"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1724
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1036
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1071
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1173
+msgid "_Publish"
+msgstr "Công _bố"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1726
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1026
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1067
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1163
+msgid "_Logout"
+msgstr "Đăng _xuất"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1890
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1111
+msgid "Just me"
+msgstr "Cho riêng mình"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1891
+msgid "All friends"
+msgstr "Tất cả các bạn bè"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1892
+msgid "Friends of friends"
+msgstr "Bạn của bạn"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1893
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1109
+msgid "Everyone"
+msgstr "Mọi người"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:57
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"Bạn chưa đăng nhập vào YouTube.\n"
+"\n"
+"Bạn đã phải đăng ký một tài khoản Google và thiết lập dùng nó với YouTube để "
+"được tiếp tục. Bạn có thể thiết lập đa số các tài khoản bằng cách dùng trình "
+"duyệt web đăng nập vào YouTube tối thiểu một lần."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:758
+msgid ""
+"Enter the email address and password associated with your YouTube account."
+msgstr ""
+"Vui lòng gõ địa chỉ email và mật mã đi kèm với tài khoản YouTube của bạn."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:759
+msgid ""
+"YouTube didn't recognize the email address and password you entered. To try "
+"again, re-enter your email address and password below."
+msgstr ""
+"YouTube không nhận ra địa chỉ email và mật mã mà bạn đã gõ. Để thử một lần "
+"nữa, hãy gõ lại địa chỉ email và mật mã dưới đây."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:760
+msgid ""
+"The email address and password you entered correspond to a Google account "
+"that isn't set up for use with YouTube. You can set up most accounts by "
+"using your browser to log into the YouTube site at least once. To try again, "
+"re-enter your email address and password below."
+msgstr ""
+"Bạn đã nhập vào địa chỉ email và mật mã của một tài khoản Google chưa được "
+"thiết lập để dùng với YouTube. Bạn có thể thiết lập đa số các tài khoản bằng "
+"cách dùng trình duyệt web đăng nập vào YouTube tối thiểu một lần. Để thử một "
+"lần nữa, hãy gõ lại địa chỉ email và mật mã dưới đây."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:761
+msgid ""
+"The email address and password you entered correspond to a Google account "
+"that has been tagged as requiring additional security. You can clear this "
+"tag by using your browser to log into YouTube. To try again, re-enter your "
+"email address and password below."
+msgstr ""
+"Bạn đã nhập vào địa chỉ email và mật mã của một tài khoản Google có đánh dấu "
+"yêu cầu thêm chế độ an toàn. Để laọi bỏ dấu đó, bạn có thể dùng trình duyệt "
+"web để đăng nhập vào YouTube. Để thử một lần nữa, hãy gõ lại địa chỉ email "
+"và mật mã dưới đây."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:800
+#: plugins/shotwell-publishing/PicasaPublishing.vala:869
+#, c-format
+msgid "Unrecognized User"
+msgstr "Không Nhận ra Người dùng"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:804
+#: plugins/shotwell-publishing/PicasaPublishing.vala:873
+#, c-format
+msgid "Account Not Ready"
+msgstr "Tài khoản Chưa Sẵn sàng"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:813
+#: plugins/shotwell-publishing/PicasaPublishing.vala:882
+#, c-format
+msgid "Additional Security Required"
+msgstr "Yêu cầu Thêm An ninh"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:824
+#: plugins/shotwell-publishing/PicasaPublishing.vala:893
+msgid "_Email address:"
+msgstr "Địa chỉ _Email:"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:826
+#: plugins/shotwell-publishing/PicasaPublishing.vala:895
+msgid "_Password:"
+msgstr "_Mật khẩu:"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:846
+#: plugins/shotwell-publishing/PicasaPublishing.vala:915
+msgid "Go _Back"
+msgstr "Quay _Lại"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:971
+#, c-format
+msgid "You are logged into YouTube as %s."
+msgstr "Bạn đã đăng nhập vào YouTube như %s."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:976
+#, c-format
+msgid "Videos will appear in '%s'"
+msgstr "Video sẽ xuất hiện trong '%s'"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:999
+msgid "Video privacy _setting:"
+msgstr "Thiết lập chế độ _riêng tư cho video:"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1076
+msgid "Public listed"
+msgstr "Công khai"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1077
+msgid "Public unlisted"
+msgstr "Công cộng không trong danh sách"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:1078
+msgid "Private"
+msgstr "Riêng tư"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:59
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"You must have already signed up for a Flickr account to complete the login "
+"process. During login you will have to specifically authorize Shotwell "
+"Connect to link to your Flickr account."
+msgstr ""
+"Bạn chưa đăng nhập vào Flickr.\n"
+"\n"
+"Bạn phải có một tài khoản Flickr mới có thể đăng nhập vào. Trong quá trình "
+"đăng nhập bạn sẽ cần cho phép Shotwell Connect được lập liên kết đến tài "
+"khoản Flickr của bạn."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Bạn đã đăng nhập và đăng xuất ra khỏi Flickr trong phiên làm việc với "
+"Shotwell này.\n"
+"Để tiếp tục công bố cho Flickr, thoát và khởi động lại Shotwell, rồi thử "
+"công bố lại một lần nữa."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:350
+msgid "Preparing to login..."
+msgstr "Đang chuẩn bị đăng nhập..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:998
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr ""
+"Bạn đã đăng nhập vào Flickr với tên %s.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1000
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"Tài khoản Flickr của bạn hạn chế khối lương số liệu mà bạn có thể tải lên "
+"mỗi tháng.\n"
+"Tháng này, bạn còn %d MB để tải lên ảnh."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1002
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr "Tài khoản Flickr của bạn cho phép tải lên ảnh vô hạn."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1027
+msgid "Photos _visible to:"
+msgstr "_Quyền xem ảnh cho:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1029
+msgid "Videos _visible to:"
+msgstr "Video được cho _xem cho:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1031
+msgid "Photos and videos _visible to:"
+msgstr "Ảnh và video được cho _xem cho:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1034
+msgid "Photo _size:"
+msgstr "Kích _thước ảnh:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1110
+msgid "Friends & family only"
+msgstr "Chỉ có bạn và gia đình"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1133
+msgid "500 x 375 pixels"
+msgstr "500 x 375 điểm ảnh pixels"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1134
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 điểm ảnh pixels"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1135
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 điểm ảnh pixels"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1136
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 điểm ảnh pixels"
+
+#: plugins/shotwell-publishing/shotwell-publishing.vala:25
+msgid "Core Publishing Services"
+msgstr "Dịch vụ Công bố Chính"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with Picasa to continue. You can set up most accounts by using your browser "
+"to log into the Picasa Web Albums site at least once."
+msgstr ""
+"Bạn chưa đăng nhập vào Picasa Web Albums.\n"
+"\n"
+"Bạn cần có một tài khoản Google và thiết lập nó để dùng Picasa mới tiếp tục "
+"được. Bạn có thể thiết lập đa số các tài khoản bằng cách truy cập vào trang "
+"web Picasa Web Albums tối thiểu một lần."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:826
+msgid ""
+"Enter the email address and password associated with your Picasa Web Albums "
+"account."
+msgstr ""
+"Hãy gõ địa chỉ điện thư và mật khẩu đi kèm với tải khoản Picasa Web Albums "
+"của bạn."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:827
+msgid ""
+"Picasa Web Albums didn't recognize the email address and password you "
+"entered. To try again, re-enter your email address and password below."
+msgstr ""
+"Picasa Web Albums không nhận địa chỉ điện thư và mật khẩu bạn đã cung cấp. "
+"Muốn thử lại, vui lòng gõ lại địa chỉ điện thư và mật khẩu ở dưới đây."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:828
+msgid ""
+"The email address and password you entered correspond to a Google account "
+"that isn't set up for use with Picasa Web Albums. You can set up most "
+"accounts by using your browser to log into the Picasa Web Albums site at "
+"least once. To try again, re-enter your email address and password below."
+msgstr ""
+"Địa chỉ điện thư và mật khẩu đã gõ vào thuộc một tài khoản Google chưa được "
+"thiết lập để dùng với Picasa Web Albums. Bạn có thể thiết lập tài khoản bằng "
+"cách truy cập vào trang web Picasa Web Albums tối thiểu 1 lần. Để thử lại, "
+"vui lòng gõ lại địa chỉ điện thư và mật khẩu ở dưới đây."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:829
+msgid ""
+"The email address and password you entered correspond to a Google account "
+"that has been tagged as requiring additional security. You can clear this "
+"tag by using your browser to log into Picasa Web Albums. To try again, re-"
+"enter your email address and password below."
+msgstr ""
+"Địa chỉ điện thư và mật khẩu bạn vừa mới gõ là của một tài khoản Google đã "
+"được đánh dấu cần thêm an ninh. Bạn có thể bỏ sự đánh dấu đó bằng cách dùng "
+"trình duyệt web truy cập vào tài khoản Picasa Web Albums. Để thử lại, vui "
+"lòng gõ lại địa chỉ điện thư và mật khảu ở dưới đây."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1050
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "Bận đăng nhập vào Picasa Web Albums như %s."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1072
+msgid "Videos will appear in:"
+msgstr "Video sẽ xuất hiện trong:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1074
+msgid "Photos will appear in:"
+msgstr "Ảnh sẽ hiện thị trong:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1088
+msgid "An _existing album:"
+msgstr "Một tập ảnh đang _có:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1102
+msgid "A _new album named:"
+msgstr "Một tập ảnh _mới mang tên:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1114
+msgid "L_ist album in public gallery"
+msgstr "L_iệt kê tập ảnh trong phòng trưng bày công cộng"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1132
+msgid "Photo _size preset:"
+msgstr "Kích _thước ảnh mặc đinh:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1247
+msgid "Small (640 x 480 pixels)"
+msgstr "Nhỏ (640 x480 pixels)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1248
+msgid "Medium (1024 x 768 pixels)"
+msgstr "Trung (1024 x 768 pixels)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1249
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "Kiến nghị (1600 x 1200 pixels)"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:21
+msgid "Core Slideshow Transitions"
+msgstr "Quá trình chuyển đổi ảnh chiếu chủ yếu"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:68
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
+msgstr "Bản quyền 2010 Maxim Kartashev, Bản quyền 2011 Yorba Foundation"
+
+#: plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "Ảnh chiếu"
+
+#: plugins/shotwell-transitions/FadeEffect.vala:20
+msgid "Fade"
+msgstr "Mờ dần"
+
+#: plugins/shotwell-transitions/CrumbleEffect.vala:20
+msgid "Crumble"
+msgstr "Sụp đổ"
+
+#: ui/set_background_dialog.glade:8
+msgid "Set as Desktop Slideshow"
+msgstr "Thiết lập thành Trình xem ảnh tự động"
+
+#: ui/set_background_dialog.glade:23
+msgid "Show each photo for"
+msgstr "Hiện thị mỗi ảnh trong"
+
+#: ui/set_background_dialog.glade:33
+msgid "period of time"
+msgstr "thời gian"
+
+#: ui/set_background_dialog.glade:52
+msgid "How long each photo is shown on the desktop background"
+msgstr "Khoảng bao lâu mỗi ảnh sẽ được hiện thị trên màn hình nền"
+
+#: ui/set_background_dialog.glade:88
+msgid "Generate desktop background slideshow"
+msgstr "Tạo ra một trình xem ảnh tự động cho màn hình nền"
+
+#: ui/shotwell.glade:9
+msgid "Search"
+msgstr "Tìm kiếm"
+
+#: ui/shotwell.glade:48
+msgid "_Name of search:"
+msgstr "_Tên cuộc tìm kiếm:"
+
+#: ui/shotwell.glade:111
+msgid "_Match"
+msgstr "_Khớp"
+
+#: ui/shotwell.glade:140
+msgid "of the following:"
+msgstr "theo sau đây:"
+
+#: ui/shotwell.glade:289
+msgid "Preparing pictures for import..."
+msgstr "Chuẩn bị ảnh để nhập..."
+
+#: ui/shotwell.glade:326
+msgid "error"
+msgstr "lỗi"
+
+#: ui/shotwell.glade:480
+msgid "Shotwell Preferences"
+msgstr "Tùy thích Shotwell"
+
+#: ui/shotwell.glade:557
+msgid "white"
+msgstr "trắng"
+
+#: ui/shotwell.glade:584
+msgid "black"
+msgstr "đen"
+
+#: ui/shotwell.glade:632
+msgid "_Watch library directory for new files"
+msgstr "_Giám sát tệp mới trong thư mục thư viện"
+
+#: ui/shotwell.glade:661
+msgid "Metadata"
+msgstr "Siêu Thông tin"
+
+#: ui/shotwell.glade:681
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr ""
+"Viết thẻ đánh dấu, chủ đề, và những siêu thông tin khác vào các tệp ảnh"
+
+#: ui/shotwell.glade:707
+msgid "Display"
+msgstr "Hiển thị"
+
+#: ui/shotwell.glade:728
+msgid "_Import photos to:"
+msgstr "Nhậ_p ảnh vào:"
+
+#: ui/shotwell.glade:751
+msgid "_Background:"
+msgstr "_Nền:"
+
+#: ui/shotwell.glade:774
+msgid "Importing"
+msgstr "Đang nhập"
+
+#: ui/shotwell.glade:797
+msgid "_Directory structure:"
+msgstr "Cấu trúc _thư mục:"
+
+#: ui/shotwell.glade:837
+msgid "_Pattern:"
+msgstr "_Mẫu:"
+
+#: ui/shotwell.glade:920
+msgid "Example:"
+msgstr "Ví dụ:"
+
+#: ui/shotwell.glade:937
+msgid "R_ename imported files to lowercase"
+msgstr "Đặt lại tên tệp đã nhập dùng chữ nhỏ."
+
+#: ui/shotwell.glade:966
+msgid "RAW Developer"
+msgstr "RAW Developer"
+
+#: ui/shotwell.glade:1001
+msgid "_Default:"
+msgstr "_Mặc định:"
+
+#: ui/shotwell.glade:1054
+msgid "E_xternal photo editor:"
+msgstr "Trình sửa ảnh n_goại:"
+
+#: ui/shotwell.glade:1070
+msgid "External _RAW editor:"
+msgstr "Trình soạn _RAW ngoại"
+
+#: ui/shotwell.glade:1134
+msgid "External Editors"
+msgstr "Các trình soạn ngoại"
+
+#: ui/shotwell.glade:1161
+msgid "Plugins"
+msgstr "Phần mở rộng"
+
+#~ msgid "About Shotwell"
+#~ msgstr "Về Shotwell"
+
+#~ msgid "More information on Shotwell"
+#~ msgstr "Thêm thông tin về Shotwell"
+
+#~ msgid "Use Shotwell at fullscreen"
+#~ msgstr "Dùng Shotwell ở chế độ toàn màn hình"
+
+#~ msgid "Quit Shotwell"
+#~ msgstr "Đóng Shotwell"
+
+#~ msgid "Flip the photos horizontally"
+#~ msgstr "Lật ảnh theo chiều ngang"
+
+#~ msgid "Revert to the original photo"
+#~ msgstr "Trở lại với diện mạo ảnh gốc"
+
+#~ msgid "Undo the last action"
+#~ msgstr "Hủy hành động cuối cùng"
+
+#~ msgid "Redo the last undone action"
+#~ msgstr "Làm lại hành động vừa mới hủy"
+
+#~ msgid "Rename the selected event"
+#~ msgstr "Đổi tên của sự kiện đã chọn"
+
+#~ msgid "Create new event from the selected photos"
+#~ msgstr "Tạo ra một sự kiện mới với các ảnh đã chọn"
+
+#~ msgid "Make the selected photo the thumbnail for the event"
+#~ msgstr "Lấy ảnh đã chọn làm ảnh đại diện cho sự kiện"
+
+#~ msgid "Increase the rating of your photo"
+#~ msgstr "Nâng hạng xếp loại của ảnh"
+
+#~ msgid "Merge into a single event"
+#~ msgstr "Kết hợp thành một sự kiện"
+
+#~ msgid "Decrease the rating of your photo"
+#~ msgstr "Giảm hạng xếp loại của ảnh"
+
+#~ msgid "Edit title of the selected photo"
+#~ msgstr "Sửa tên của ảnh đã chọn"
+
+#~ msgid "Export to disk"
+#~ msgstr "Xuất sang đĩa"
+
+#~ msgid "Edit preferences"
+#~ msgstr "Thiết lập tùy thích"
+
+#~ msgid "Add one or more tags to the selected photos"
+#~ msgstr "Gắn một hoặc nhiều thẻ cho các ảnh đã chọn"
+
+#~ msgid "Adjust date and time of selected photos"
+#~ msgstr "Chỉnh ngày và thời gian của những ảnh đã chọn"
+
+#~ msgid "Open the selected photo with an external image editor"
+#~ msgstr "Mở ảnh đã chọn với một trình soạn ảnh ngoại"
+
+#~ msgid "Open the selected photo with a RAW image editor"
+#~ msgstr "Mở ảnh đã chọn với một trình sửa ảnh theo định dạng RAW"
+
+#~ msgid "Modify the tags for this photo"
+#~ msgstr "Thay đổi các thẻ cho ảnh này"
+
+#~ msgid "Rename Tag"
+#~ msgstr "Đổi Tên Thẻ"
+
+#, c-format
+#~ msgid "Rename the tag \"%s\""
+#~ msgstr "Đổi tên thẻ \"%s\""
+
+#, c-format
+#~ msgid "Remove tag \"%s\" from the selected photo"
+#~ msgid_plural "Remove tag \"%s\" from the selected photos"
+#~ msgstr[0] "Xoá thẻ \"%s\" từ ảnh đã chọn"
+
+#~ msgid "Remove the photo from the library"
+#~ msgstr "Xoá bỏ ảnh ra khỏi thư viện"
+
+#~ msgid "Move the selected photos to the trash"
+#~ msgstr "Chuyển các ảnh đã chọn vào sọt rác"
+
+#~ msgid "Move the photo to the trash"
+#~ msgstr "Chuyển ảnh đã chọn vào sọt rác"
+
+#~ msgid "Deleting a Photo"
+#~ msgid_plural "Deleting Photos"
+#~ msgstr[0] "Xoá Ảnh"
+
+#, c-format
+#~ msgid ""
+#~ "Publishing to %s can't continue because communication with the service "
+#~ "failed."
+#~ msgstr ""
+#~ "Công bố đến %s không tiếp tục được do giao tiếp với dịch vụ thất bại."
+
+#, c-format
+#~ msgid ""
+#~ "Publishing to %s can't continue because the service could not be contacted."
+#~ msgstr ""
+#~ "Công bố đến %s không tiếp tục được do không liên hệ được với dịch vụ."
+
+#, c-format
+#~ msgid ""
+#~ "Publishing to %s can't continue because the service returned an error."
+#~ msgstr "Công bố đến %s không tiếp tục được do dịch vụ báo lỗi."
+
+#, c-format
+#~ msgid "Publishing to %s can't continue due to a protocol error."
+#~ msgstr "Công bố đến %s không tiếp tục được do lỗi giao thức."
+
+#, c-format
+#~ msgid "Publishing to %s can't continue because an error occurred."
+#~ msgstr "Công bố đến %s không tiếp tục được do bị lỗi."
+
+#, c-format
+#~ msgid ""
+#~ "Publishing to %s can't continue because the service returned a bad response."
+#~ msgstr "Công bố đến %s không tiếp tục được do dịch vụ trả lời sai."
+
+#, c-format
+#~ msgid "Remove the tag \"%s\" from one photo"
+#~ msgid_plural "Remove the tag \"%s\" from %d photos"
+#~ msgstr[0] "Xoá bỏ thẻ \"%s\" từ %d ảnh"
+
+#~ msgid "Flip the photos vertically"
+#~ msgstr "Lật ảnh theo chiều cao"
+
+#~ msgid "_Shift photos by the same amount"
+#~ msgstr "_Chuyển ảnh với cùng một lượng"
+
+#~ msgid "Set _all photos to this time"
+#~ msgstr "Áp _dụng thời gian này cho tất cả các ảnh"
+
+#~ msgid "Answers to common questions about Shotwell"
+#~ msgstr "Những câu trả lời cho câu hỏi thông thường về Shotwell"
+
+#~ msgid "Send photos by mail or instant message"
+#~ msgstr "Gửi ảnh qua mail hoặc tin nhắn"
+
+#~ msgid "You are not currently logged into Yandex.Fotki."
+#~ msgstr "Bạn chưa đăng nhập vào Yandex.Fotki."
+
+#~ msgid "_URL of your Piwigo installation:"
+#~ msgstr "_URL của trang Piwigo của bạn:"
+
+#, c-format
+#~ msgid "Invalid URL"
+#~ msgstr "URL sai"
+
+#~ msgid ""
+#~ "No Piwigo installation was found at this URL. Please verify the URL you "
+#~ "entered"
+#~ msgstr ""
+#~ "Không tìm được trang Piwigo tại URL này. Vui lòng kiểm tra lại địa chỉ URL"
+
+#~ msgid ""
+#~ "Enter the username and password associated with your Piwigo account, and the "
+#~ "URL of your Piwigo installation."
+#~ msgstr ""
+#~ "Vui lòng gõ tên đăng nhập và mật khẩu của tài khoản Piwigo, và URL của trang "
+#~ "Piwigo của bạn."
+
+#~ msgid "Creating category..."
+#~ msgstr "Đang tạo thể loại"
+
+#~ msgid "User_name:"
+#~ msgstr "Tê_n người dùng:"
+
+#~ msgid "Who can see those pictures ?"
+#~ msgstr "Ai xem được những ảnh đó?"
+
+#~ msgid "Admins, Friends, Family, Contacts"
+#~ msgstr "Người quản trị, Bạn bè, Họ hàng, Người quen"
+
+#, c-format
+#~ msgid "You are logged into Piwigo as %s."
+#~ msgstr "Bạn đã đăng nhập vào Piwigo như %s."
+
+#~ msgid "An _existing category:"
+#~ msgstr "Một thể _loại đang có"
+
+#~ msgid "Admins"
+#~ msgstr "Người quản trị"
+
+#~ msgid "Admins, Family, Friends"
+#~ msgstr "Người quản trị, Bạn bè, Họ hàng"
+
+#~ msgid "Admins, Family"
+#~ msgstr "Người quản trị, Họ hàng"
+
+#~ msgid "One or more of the photos or videos to be published is unavailable"
+#~ msgstr "Một hoặc nhiều tấm ảnh/video định xuất bản đang thiếu."
+
+#~ msgid "Flag the photos to work with them together"
+#~ msgstr "Đánh dấu những ảnh để làm việc chung"
+
+#~ msgid "Unflag the photos"
+#~ msgstr "Bỏ dấu những ảnh có dấu"
+
+#~ msgid "Username and/or password invalid. Please try again"
+#~ msgstr "Tên người dùng và/hoặc mật mã không đúng. Vui lòng thử lại"
+
+#~ msgid "Processing RAW files..."
+#~ msgstr "Đang xử lý tệp dạng RAW..."
+
+#~ msgid "Export the selected items to disk"
+#~ msgstr "Xuất những mục đã chọn ra đĩa"
+
+#~ msgid "Go to this photo's event"
+#~ msgstr "Đến sư kiện của ảnh này"
+
+#, c-format
+#~ msgid "_Delete Search \"%s\""
+#~ msgstr "_Xóa tìm kiếm \"%s\""
+
+#, c-format
+#~ msgid "Delete saved search: \"%s\""
+#~ msgstr "Xóa tìm kiếm đã lưu: \"%s\""
+
+#, c-format
+#~ msgid "Rename the search \"%s\""
+#~ msgstr "Đổi tên tìm kiếm \"%s\""
+
+#, c-format
+#~ msgid "Re_name Search \"%s\"..."
+#~ msgstr "Đổi _tên tìm kiếm \"%s\"..."
