@@ -404,9 +404,9 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
 
         Gee.ArrayList<Tag> unlinked = new Gee.ArrayList<Tag>();
         int count = rows.size;
-        for (int ctr = 0; ctr < count; ctr++) {                                          
+        for (int ctr = 0; ctr < count; ctr++) {
             TagRow row = rows.get(ctr);
-            
+
             // make sure the tag name is valid
             string? name = prep_tag_name(row.name);
             if (name == null) {
@@ -418,40 +418,29 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
                 } catch (DatabaseError err) {
                     warning("Unable to delete tag \"%s\": %s", row.name, err.message);
                 }
-                
+
                 continue;
             }
-            
+
             row.name = name;
-            
+
             Tag tag = new Tag(row);
             if (monitor != null)
                 monitor(ctr, count);
 
             ancestry_dictionary.set(tag.get_path(), tag);
-            
-            if (tag.get_sources_count() != 0) {                          
-                continue;
-            }
-            
-            if (tag.has_links()) {                                             
+
+            if (tag.has_links()) {
                 tag.rehydrate_backlinks(global, null);
                 unlinked.add(tag);
-                
-                continue;
             }
-            
-            // prevent ourselves from accidentally adding a destroyed
-            // tag later on
-            ancestry_dictionary.unset(tag.get_path());            
-            tag.destroy_orphan(true);
         }
-        
+
         // look through the dictionary for children with invalid source 
         // counts and/or missing parents and reap them. we'll also flatten
         // any top-level parents who have 0 children remaining after the reap.
         Gee.Set<Tag> victim_set = new Gee.HashSet<Tag>();
-        
+
         foreach (string fq_tag_path in ancestry_dictionary.keys) { 
             Gee.List<string> parents_to_search = 
                 HierarchicalTagUtilities.enumerate_parent_paths(fq_tag_path);
