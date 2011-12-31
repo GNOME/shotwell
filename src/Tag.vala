@@ -585,13 +585,19 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         StringBuilder builder = new StringBuilder(start ?? "");
         Gee.HashSet<string> seen_tags = new Gee.HashSet<string>();
         Gee.Collection<Tag> terminal_tags = get_terminal_tags(tags);
+        Gee.ArrayList<string> sorted_tags = new Gee.ArrayList<string>();
         foreach (Tag tag in terminal_tags) {
             string user_visible_name = escape ? guarded_markup_escape_text(
                 tag.get_user_visible_name()) : tag.get_user_visible_name();
 
             if (!seen_tags.contains(user_visible_name))
-                builder.append(user_visible_name);
-
+                sorted_tags.add(user_visible_name);
+        }
+        
+        sorted_tags.sort();
+        Gee.Iterator<string> iter = sorted_tags.iterator();
+        while(iter.next()) {
+            builder.append(iter.get());
             builder.append(separator);
         }
         
