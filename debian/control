@@ -20,7 +20,7 @@ Build-Depends: debhelper (>= 7),
  libwebkitgtk-3.0-dev (>= 1.4.3),
  libxml2 (>= 2.6.32),
  m4 (>= 1.4.13),
- vala-0.16 (>= 0.15.0)
+ valac-0.16 (>= 0.15.0)
 Standards-Version: 3.8.3
 Homepage: http://www.yorba.org/shotwell
 
