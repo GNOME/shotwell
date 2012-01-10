@@ -1455,8 +1455,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
         EditingTools.EditingTool tool = current_tool;
         current_tool = null;
         
-        // deactivate with the tool taken out of the hooks
+        // deactivate with the tool taken out of the hooks and
+        // disconnect any signals we may have connected on activating
         tool.deactivate();
+
+        tool.activated.disconnect(on_tool_activated);
+        tool.deactivated.disconnect(on_tool_deactivated);
+        tool.applied.disconnect(on_tool_applied);
+        tool.cancelled.disconnect(on_tool_cancelled);
+        tool.aborted.disconnect(on_tool_aborted);
+
         tool = null;
         
         // only null the toggle when the tool is completely deactivated; that is, deactive the tool
