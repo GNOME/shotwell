@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the shotwell package.
 # Dương 'Yang' ヤン Hà Nguyễn https://launchpad.net/~cmpitg, 2010.
 # Lê Hoàng Phương https://launchpad.net/~herophuong93, 2010.
-# Vu Do Quynh <vdquynh@gmail.com>, 2010-2011.
+# Vu Do Quynh <vdquynh@gmail.com>, 2010-2012.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2010.
 #
 msgid ""
@@ -1087,8 +1087,8 @@ msgstr "Mặt"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
 #: plugins/shotwell-publishing/PicasaPublishing.vala:32
-msgid "Copyright 2009-2011 Yorba Foundation"
-msgstr "Bản quyền 2009-2011 Yorba Foundation"
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "Bản quyền 2009-2012 Yorba Foundation"
 
 #: src/Resources.vala:133
 msgid "Rotate _Right"
@@ -3780,7 +3780,7 @@ msgid "Core Slideshow Transitions"
 msgstr "Quá trình chuyển đổi ảnh chiếu chủ yếu"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
 msgstr "Bản quyền 2010 Maxim Kartashev, Bản quyền 2011 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20

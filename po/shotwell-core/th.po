@@ -1,6 +1,6 @@
 # po/shotwell-core/th.po
 # Thai Translation for Shotwell Core Components
-# Copyright (C) 2009-2011 Yorba Foundation
+# Copyright (C) 2009-2012 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
@@ -187,8 +187,8 @@ msgstr "ปรับเปลี่ยน"
 #: plugins/shotwell-publishing/PicasaPublishing.vala:32
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
-msgid "Copyright 2009-2011 Yorba Foundation"
-msgstr "สงวนลิขสิทธิ์ 2009-2011 โดย Yorba Foundation"
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "สงวนลิขสิทธิ์ 2009-2012 โดย Yorba Foundation"
 
 #: src/Resources.vala:130
 msgid "Rotate _Right"
@@ -3575,7 +3575,7 @@ msgid "Core Slideshow Transitions"
 msgstr ""
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
 msgstr "สงวนลิขสิทธิ์ 2010 Maxim Kartashev, สงวนลิขสิทธิ์  2011 มูลนิธิ Yorba"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20

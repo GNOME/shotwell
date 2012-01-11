@@ -1,6 +1,6 @@
 # po/shotwell-core/te.po
 # Telugu Translation for Shotwell Core Components
-# Copyright (C) 2009-2011 Yorba Foundation
+# Copyright (C) 2009-2012 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
@@ -1089,7 +1089,7 @@ msgstr "ముఖాలు"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
 #: plugins/shotwell-publishing/PicasaPublishing.vala:32
-msgid "Copyright 2009-2011 Yorba Foundation"
+msgid "Copyright 2009-2012 Yorba Foundation"
 msgstr "నకలుహక్కు 2009-2010 యోర్బ ఫౌండేషన్"
 
 #: src/Resources.vala:133
@@ -3837,7 +3837,7 @@ msgid "Core Slideshow Transitions"
 msgstr "స్లైడ్ ప్రదర్శన మారు మూల విధములు"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
 msgstr "నకలుహక్కులు 2010 మాక్జిమ్ కార్టషెవ్, నకలుహక్కులు 2011 యోర్బా ఫౌండేషన్"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20

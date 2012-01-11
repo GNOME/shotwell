@@ -1,6 +1,6 @@
 # po/shotwell-core/ru.po
 # Russian Translation for Shotwell Core Components
-# Copyright (C) 2009-2011 Yorba Foundation
+# Copyright (C) 2009-2012 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
@@ -1098,8 +1098,8 @@ msgstr "Лица"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
 #: plugins/shotwell-publishing/PicasaPublishing.vala:32
-msgid "Copyright 2009-2011 Yorba Foundation"
-msgstr "Авторские права 2009-2011 Yorba Foundation"
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "Авторские права 2009-2012 Yorba Foundation"
 
 #: src/Resources.vala:133
 msgid "Rotate _Right"
@@ -3960,7 +3960,7 @@ msgid "Core Slideshow Transitions"
 msgstr "Основные эффекты переходов"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
 msgstr "Авторские права 2010 Максим Карташев, 2011 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20

@@ -1,6 +1,6 @@
 # po/shotwell-core/sl.po
 # Slovenian Translation for Shotwell Core Components
-# Copyright (C) 2009-2011 Yorba Foundation
+# Copyright (C) 2009-2012 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 #
 msgid ""
@@ -1153,8 +1153,8 @@ msgstr "Obrazi"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
 #: plugins/shotwell-publishing/PicasaPublishing.vala:32
-msgid "Copyright 2009-2011 Yorba Foundation"
-msgstr "Avtorske pravice 2009-2011 Yorba Foundation"
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "Avtorske pravice 2009-2012 Yorba Foundation"
 
 #: src/Resources.vala:133
 msgid "Rotate _Right"
@@ -3953,7 +3953,7 @@ msgid "Core Slideshow Transitions"
 msgstr "Osnovni prehodi predstavitev"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
 msgstr "Avtorske pravice © 2010 Maxim Kartashev, Avtorske pravice 2011 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20

@@ -1,6 +1,6 @@
 # po/shotwell-core/pt_BR.po
 # Portuguese (Brazil) Translation for Shotwell Core Components
-# Copyright (C) 2009-2011 Yorba Foundation
+# Copyright (C) 2009-2012 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
@@ -1098,7 +1098,7 @@ msgstr "Faces"
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
 #: plugins/shotwell-publishing/PicasaPublishing.vala:32
-msgid "Copyright 2009-2011 Yorba Foundation"
+msgid "Copyright 2009-2012 Yorba Foundation"
 msgstr "Copyright 2009-2010 Fundação Yorba"
 
 #: src/Resources.vala:133
@@ -3881,8 +3881,8 @@ msgid "Core Slideshow Transitions"
 msgstr "Transições principais de exibição de slides"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011 Fundação Yorba"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Fundação Yorba"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
 msgid "Slide"

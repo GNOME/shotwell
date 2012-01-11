@@ -1,6 +1,6 @@
 # po/shotwell-core/tr.po
 # Turkish Translation for Shotwell Core Components
-# Copyright (C) 2009-2011 Yorba Foundation
+# Copyright (C) 2009-2012 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
@@ -187,7 +187,7 @@ msgstr "değiştirilmiş"
 #: plugins/shotwell-publishing/PicasaPublishing.vala:32
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
-msgid "Copyright 2009-2011 Yorba Foundation"
+msgid "Copyright 2009-2012 Yorba Foundation"
 msgstr "Telif Hakkı 2009-2010 Yorba Vakfı"
 
 #: src/Resources.vala:130
@@ -3568,7 +3568,7 @@ msgid "Core Slideshow Transitions"
 msgstr ""
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
 msgstr ""
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20

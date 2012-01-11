@@ -1,6 +1,6 @@
 # po/shotwell-core/zh_CN.po
 # Chinese (Mainland China / PRC) Translation for Shotwell Core Components
-# Copyright (C) 2009-2011 Yorba Foundation
+# Copyright (C) 2009-2012 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 msgid ""
@@ -189,8 +189,8 @@ msgstr "修改"
 #: plugins/shotwell-publishing/PicasaPublishing.vala:32
 #: plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: plugins/shotwell-publishing/FlickrPublishing.vala:32
-msgid "Copyright 2009-2011 Yorba Foundation"
-msgstr "版权所有 2009-2011 Yorba 基金会"
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "版权所有 2009-2012 Yorba 基金会"
 
 #: src/Resources.vala:130
 msgid "Rotate _Right"
@@ -3585,7 +3585,7 @@ msgid "Core Slideshow Transitions"
 msgstr "主要幻灯片变换"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
 msgstr "版权所有 2010 Maxim Kartashev，版权所有 2009-2010 Yorba Foundation"
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
