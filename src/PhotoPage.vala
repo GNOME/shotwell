@@ -395,6 +395,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton crop_button = null;
     private Gtk.ToggleToolButton redeye_button = null;
     private Gtk.ToggleToolButton adjust_button = null;
+    private Gtk.ToggleToolButton straighten_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.HScale zoom_slider = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_BACK);
@@ -471,6 +472,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.clicked.connect(on_enhance);
         enhance_button.is_important = true;
         toolbar.insert(enhance_button, -1);
+        
+        // straightening tool
+        straighten_button = new Gtk.ToggleToolButton.from_stock(Gtk.Stock.REFRESH);
+        straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
+        straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
+        straighten_button.toggled.connect(on_straighten_toggled);
+        straighten_button.is_important = true;
+        toolbar.insert(straighten_button, -1);
         
 #if ENABLE_FACES
         // faces tool
@@ -2032,6 +2041,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     protected void toggle_adjust() {
         adjust_button.set_active(!adjust_button.get_active());
+    }
+
+    private void on_straighten_toggled() {
+        on_tool_button_toggled(straighten_button, EditingTools.StraightenTool.factory);
     }
     
     private void on_crop_toggled() {

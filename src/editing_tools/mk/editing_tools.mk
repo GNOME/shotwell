@@ -10,7 +10,8 @@ UNIT_DIR := editing_tools
 # All Vala files in the unit should be listed here with no subdirectory prefix.
 #
 # NOTE: Do *not* include the unit's master file, i.e. UNIT_NAME.vala.
-UNIT_FILES :=
+UNIT_FILES := \
+	StraightenTool.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

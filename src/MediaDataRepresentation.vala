@@ -169,7 +169,7 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     public abstract void increase_rating();
     public abstract void decrease_rating();
     
-    public abstract Dimensions get_dimensions();
+    public abstract Dimensions get_dimensions(Photo.Exception disallowed_steps = Photo.Exception.NONE);
 
     // A preview pixbuf is one that can be quickly generated and scaled as a preview. For media
     // type that support transformations (i.e. photos) it is fully transformed.

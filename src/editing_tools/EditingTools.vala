@@ -320,18 +320,44 @@ public abstract class PhotoCanvas {
         ctx.stroke();
     }
 
-    public void draw_horizontal_line(Cairo.Context ctx, int x, int y, int width) {
-        x += scaled_position.x;
-        y += scaled_position.y;
+    /**
+     * Draw a horizontal line into the specified Cairo context at the specified position, taking
+     * into account the scaled position of the image unless directed otherwise.
+     *
+     * @param ctx The drawing context of the surface we're drawing to.
+     * @param x The horizontal position to place the line at.
+     * @param y The vertical position to place the line at.
+     * @param width The length of the line.
+     * @param use_scaled_pos Whether to use absolute window positioning or take into account the 
+     *      position of the scaled image.
+     */
+    public void draw_horizontal_line(Cairo.Context ctx, int x, int y, int width, bool use_scaled_pos = true) {
+        if (use_scaled_pos) {
+            x += scaled_position.x;
+            y += scaled_position.y;
+        }
 
         ctx.move_to(x + 0.5, y + 0.5);
         ctx.line_to(x + width - 1, y + 0.5);
         ctx.stroke();
     }
 
-    public void draw_vertical_line(Cairo.Context ctx, int x, int y, int height) {
-        x += scaled_position.x;
-        y += scaled_position.y;
+    /**
+     * Draw a vertical line into the specified Cairo context at the specified position, taking
+     * into account the scaled position of the image unless directed otherwise.
+     *
+     * @param ctx The drawing context of the surface we're drawing to.
+     * @param x The horizontal position to place the line at.
+     * @param y The vertical position to place the line at.
+     * @param width The length of the line.
+     * @param use_scaled_pos Whether to use absolute window positioning or take into account the 
+     *      position of the scaled image.
+     */
+    public void draw_vertical_line(Cairo.Context ctx, int x, int y, int height, bool use_scaled_pos = true) {
+        if (use_scaled_pos) {
+            x += scaled_position.x;
+            y += scaled_position.y;
+        }
 
         ctx.move_to(x + 0.5, y + 0.5);
         ctx.line_to(x + 0.5, y + height - 1);
@@ -1189,17 +1215,9 @@ public class CropTool : EditingTool {
 
     public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, Photo photo,
         out Dimensions max_dim) throws Error {
-        // show the uncropped photo for editing, but return null if no crop so the current pixbuf
-        // is used
-        if (!photo.has_crop()) {
-            max_dim = Dimensions();
-
-            return null;
-        }
-
         max_dim = photo.get_original_dimensions();
 
-        return photo.get_pixbuf_with_options(scaling, Photo.Exception.CROP);
+        return photo.get_pixbuf_with_options(scaling, Photo.Exception.CROP, false);
     }
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {

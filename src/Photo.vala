@@ -2243,13 +2243,67 @@ public abstract class Photo : PhotoSource, Dateable {
         file_exif_updated();
     }
     
-    // Returns cropped and rotated dimensions
-    public override Dimensions get_dimensions() {
-        Box crop;
-        if (get_crop(out crop))
-            return crop.get_dimensions();
-        
-        return get_original_dimensions();
+    /**
+     * Returns the width and height of the Photo after various
+     * arbitrary stages of the pipeline have been applied in
+     * the same order they're applied in get_pixbuf_with_options.
+     * With no argument passed, it works exactly like the
+     * previous incarnation did.
+     *
+     * @param disallowed_steps Which pipeline steps should NOT
+     *      be taken into account when computing image dimensions
+     *      (matching the convention set by get_pixbuf_with_options()).
+     *      Pipeline steps that do not affect the image geometry are
+     *      ignored.
+     */
+    public override Dimensions get_dimensions(Exception disallowed_steps = Exception.NONE) {
+        // The raw dimensions of the incoming image prior to the pipeline.
+        Dimensions returned_dims = get_master_dimensions();
+
+        // Compute how much the image would be resized by after rotating and/or mirroring.
+        if (disallowed_steps.allows(Exception.ORIENTATION)) {
+            Orientation ori_tmp = get_orientation();
+
+            // Is this image rotated 90 or 270 degrees?
+            switch (ori_tmp) {
+                case Orientation.LEFT_TOP:
+                case Orientation.RIGHT_TOP:
+                case Orientation.LEFT_BOTTOM:
+                case Orientation.RIGHT_BOTTOM:
+                    // Yes, swap width and height of raw dimensions.
+                    int width_tmp = returned_dims.width;
+
+                    returned_dims.width = returned_dims.height;
+                    returned_dims.height = width_tmp;
+                break;
+
+                default:
+                    // No, only mirrored or rotated 180; do nothing.
+                break;
+            }
+        }
+
+        // Compute how much the image would be resized by after straightening.
+        if (disallowed_steps.allows(Exception.STRAIGHTEN)) {
+            double shrink_factor;
+            double angle = 0.0;
+
+            get_straighten(out angle);
+
+            shrink_factor = compute_shrink_factor(returned_dims.width, returned_dims.height, angle);
+
+            returned_dims.width = (int)(returned_dims.width / shrink_factor);
+            returned_dims.height = (int)(returned_dims.height / shrink_factor);
+        }
+
+        // Compute how much the image would be resized by after cropping.
+        if (disallowed_steps.allows(Exception.CROP)) {
+            Box crop;
+            if (get_crop(out crop)) {
+                returned_dims = crop.get_dimensions();
+            }
+        }
+        return returned_dims;
     }
     
     // This method *must* be called with row locked.
@@ -2921,6 +2975,7 @@ public abstract class Photo : PhotoSource, Dateable {
 #endif
         if (rotate)
             pixbuf = original_orientation.rotate_pixbuf(pixbuf);
+            
 #if MEASURE_PIPELINE
         orientation_time = timer.elapsed();
         
@@ -2942,7 +2997,9 @@ public abstract class Photo : PhotoSource, Dateable {
     // Note that an unscaled fetch can be extremely expensive, and it's far better to specify an 
     // appropriate scale.
     public Gdk.Pixbuf get_pixbuf_with_options(Scaling scaling, Exception exceptions =
-        Exception.NONE, BackingFetchMode fetch_mode = BackingFetchMode.BASELINE) throws Error {
+        Exception.NONE, bool autocrop_on_straighten = true, BackingFetchMode fetch_mode =
+        BackingFetchMode.BASELINE) throws Error {
+            
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
@@ -3007,6 +3064,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         // redeye reduction
         if (exceptions.allows(Exception.REDEYE)) {
+            
 #if MEASURE_PIPELINE
             timer.start();
 #endif
@@ -3026,19 +3084,6 @@ public abstract class Photo : PhotoSource, Dateable {
 #endif
         }
 
-        // angle photograph so in-image horizon is aligned with horizontal
-        if (exceptions.allows(Exception.STRAIGHTEN)) {
-#if MEASURE_PIPELINE
-            timer.start();
-#endif
-            if(is_straightened) {
-                pixbuf = rotate_arb(pixbuf, straightening_angle);
-            }
-#if MEASURE_PIPELINE
-            straighten_time = timer.elapsed();
-#endif
-        }       
-
         // crop
         if (exceptions.allows(Exception.CROP)) {
 #if MEASURE_PIPELINE
@@ -3050,15 +3095,65 @@ public abstract class Photo : PhotoSource, Dateable {
                 // if the crop is smaller than the viewport)
                 if (is_scaled)
                     crop = crop.get_scaled_similar(original, scaled);
-                
-                pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
-                    crop.get_height());
+
+                // ensure the crop region stays inside the scaled image boundaries and is
+                // at least 1 px by 1 px; this is needed as a work-around for inaccuracies
+                // which can occur when zooming.
+                crop.left = crop.left.clamp(0, pixbuf.width - 2);
+                crop.top = crop.top.clamp(0, pixbuf.height - 2);
+
+                crop.right = crop.right.clamp(crop.left + 1, pixbuf.width - 1);
+                crop.bottom = crop.bottom.clamp(crop.top + 1, pixbuf.height - 1);
+
+                // if the image has been straightened, we'll compute the crop region's
+                // coordinates here, but we'll cut out the actual crop region -after-
+                // applying the straightening operation, so that the sides of the image
+                // stay axially aligned.
+                //
+                // is this image straightened?
+                if (!is_straightened) {
+                    // no, we can cut out a sub-pixbuf here.
+                    pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
+                        crop.get_height());
+                } else {
+                    // yes, rotate the crop region's upper left corner with the image.
+                        /// TODO: what should we do here, if anything?
+                }
+
+                // since the crop region is allowed to move anywhere within a 
+                // straightened image, don't restrict it to the auto-crop region.
+                autocrop_on_straighten = false;                
             }
 
 #if MEASURE_PIPELINE
             crop_time = timer.elapsed();
 #endif
         }
+
+        // angle photograph so in-image horizon is aligned with horizontal
+        if (exceptions.allows(Exception.STRAIGHTEN)) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            if (is_straightened) {
+                pixbuf = rotate_arb(pixbuf, straightening_angle, autocrop_on_straighten);
+
+                if (is_cropped && exceptions.allows(Exception.CROP)) {
+                    // cut out the cropping region here, so the image data is angled
+                    // properly, but the top, bottom and sides of the image are axially-aligned.
+
+                    pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
+                        crop.get_height());
+                }    
+            }
+            
+#if MEASURE_PIPELINE
+            straighten_time = timer.elapsed();
+#endif
+        }
+
+    
+        
         
         // color adjustment
         if (exceptions.allows(Exception.ADJUST)) {
@@ -3244,7 +3339,7 @@ public abstract class Photo : PhotoSource, Dateable {
             writer.get_filepath(), export_format.to_string());
         
         Gdk.Pixbuf pixbuf = get_pixbuf_with_options(scaling, Exception.NONE,
-            BackingFetchMode.SOURCE);
+            true, BackingFetchMode.SOURCE);
 
         writer.write(pixbuf, quality);
 

@@ -235,10 +235,46 @@ void fix_cairo_pixbuf(Gdk.Pixbuf pixbuf) {
     }
 }
 
-// Rotates a pixbuf to an arbitrary angle, given in degrees, and returns the rotated
-// pixbuf, cropped to maintain the aspect ratio of the original.
-// The caller is responsible for destroying and/or un-reffing the returned pixbuf after use.
-Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
+/**
+ * @brief Returns the ratio between the larger of the two dimensions of a source image and the
+ * largest arbitrarily-rotated destination sub-image that could be gotten from it at the specified
+ * angle while preserving the aspect ratio.
+ *
+ * @note The angle should be given in degrees.
+ *
+ * @param src_width The width of the source image.
+ * @param src_height The height of the incoming image.
+ * @param angle The angle the source image is being rotated by.
+ */
+double compute_shrink_factor(double src_width, double src_height, double angle) {
+    double shrink_factor;
+    double rad_angle = degrees_to_radians(angle);
+
+    // Compute the size of the largest subimage that has the same aspect ratio as the original
+    // with the same center as the original that can be obtained from angled version of the
+    // original.
+    //  
+    // The larger dimension determines how much we'll need to shrink the viewable
+    // area of the image by.
+    if (src_width > src_height) {
+        shrink_factor = 1.0 + (Math.fabs(Math.sin(rad_angle)) *
+            (src_width / src_height));
+    } else {
+        shrink_factor = 1.0 + (Math.fabs(Math.sin(rad_angle)) *
+            (src_height / src_width));
+    }
+
+    return shrink_factor;
+}
+
+/**
+ * @brief Rotates a pixbuf to an arbitrary angle, given in degrees, and returns the rotated pixbuf,
+ * cropped to maintain the aspect ratio of the original unless specified otherwise.
+ *
+ * @param source_pixbuf The source image that needs to be angled.
+ * @param angle The angle the source image should be rotated by.
+ */ 
+Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle, bool should_autocrop = true) {
     // if the straightening angle has been reset
     // or was never set in the first place, nothing
     // needs to be done to the source image.
@@ -246,56 +282,117 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
         return source_pixbuf;
     }
 
-    angle = degrees_to_radians(angle);
+    Gdk.Pixbuf dest_pixbuf = null;
 
-    // compute how much we'll have to resize (_not_ scale) the
-    // image by to maintain the aspect ratio with the current angle.
-    double shrink_factor;
+    if (should_autocrop) {
+        // compute how much we'll have to resize (_not_ scale) the
+        // image by to maintain the aspect ratio with the current angle.
+        double shrink_factor = compute_shrink_factor(source_pixbuf.width, source_pixbuf.height, angle);
 
-    if (source_pixbuf.width > source_pixbuf.height) {
-        shrink_factor = 1.0 + (Math.fabs(Math.sin(angle)) *
-            ((double)source_pixbuf.width / (double)source_pixbuf.height));
+        // create the output image with the same aspect ratio, but
+        // appropriately shrunken size.
+        double w_tmp = source_pixbuf.width / shrink_factor;
+        double h_tmp = source_pixbuf.height / shrink_factor;
+
+        dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) w_tmp, (int) h_tmp);
+
+        Cairo.ImageSurface surface;
+
+        if(source_pixbuf.has_alpha) {
+             surface = new Cairo.ImageSurface.for_data(
+                (uchar []) dest_pixbuf.pixels, Cairo.Format.ARGB32,
+                dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
+        } else {
+             surface = new Cairo.ImageSurface.for_data(
+                (uchar []) dest_pixbuf.pixels, Cairo.Format.RGB24,
+                dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
+        }
+
+        Cairo.Context context = new Cairo.Context(surface);
+
+        // actually draw the source image, at an angle, onto
+        // the destination one, along with appropriate translations
+        // to make sure it stays centered.
+        context.set_source_rgb(0, 0, 0);
+        context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
+        context.fill();
+
+        context.translate(w_tmp / 2.0, h_tmp / 2.0);
+        context.rotate(degrees_to_radians(angle));
+        context.translate(-source_pixbuf.width / 2.0, -source_pixbuf.height / 2.0);
+
+        Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
+        context.get_source().set_filter(Cairo.Filter.BEST);
+        context.paint();
     } else {
-        shrink_factor = 1.0 + (Math.fabs(Math.sin(angle)) *
-            ((double)source_pixbuf.height / (double)source_pixbuf.width));
+        // Do not autocrop; include the areas unfilled by the rotated photo
+        // as part of the returned pixbuf.
+
+        // Compute how much the corners of the source image will
+        // move by to determine how big the dest pixbuf should be.
+
+        double x_min = 0.0, y_min = 0.0, x_max = 0.0, y_max = 0.0;
+        double x_tmp, y_tmp;        
+
+        // Lower left corner.
+        x_tmp = -(Math.sin(degrees_to_radians(angle)) * source_pixbuf.height);
+        y_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.height);
+        
+        if(x_tmp < x_min) x_min = x_tmp;
+        if(x_tmp > x_max) x_max = x_tmp;
+
+        if(y_tmp < y_min) y_min = y_tmp;
+        if(y_tmp > y_max) y_max = y_tmp;
+        
+        // Lower right corner.
+        x_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.width) - (Math.sin(degrees_to_radians(angle)) * source_pixbuf.height);
+        y_tmp = (Math.sin(degrees_to_radians(angle)) * source_pixbuf.width) + (Math.cos(degrees_to_radians(angle)) * source_pixbuf.height);
+        
+        if(x_tmp < x_min) x_min = x_tmp;
+        if(x_tmp > x_max) x_max = x_tmp;
+
+        if(y_tmp < y_min) y_min = y_tmp;
+        if(y_tmp > y_max) y_max = y_tmp;
+        
+        // Upper right corner.
+        x_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.width); 
+        y_tmp = (Math.sin(degrees_to_radians(angle)) * source_pixbuf.width); 
+        
+        if(x_tmp < x_min) x_min = x_tmp;
+        if(x_tmp > x_max) x_max = x_tmp;
+
+        if(y_tmp < y_min) y_min = y_tmp;
+        if(y_tmp > y_max) y_max = y_tmp;
+        
+        dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) Math.round(x_max - x_min), (int) Math.round(y_max - y_min));
+
+        Cairo.ImageSurface surface;
+        
+        if(source_pixbuf.has_alpha) {
+             surface = new Cairo.ImageSurface.for_data(
+                (uchar []) dest_pixbuf.pixels, Cairo.Format.ARGB32,
+                dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
+        } else {
+             surface = new Cairo.ImageSurface.for_data(
+                (uchar []) dest_pixbuf.pixels, Cairo.Format.RGB24,
+                dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
+        }
+                
+        Cairo.Context context = new Cairo.Context(surface);
+        
+        context.set_source_rgb(0, 0, 0);
+        context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
+        context.fill();
+        
+        context.translate(-x_min, -y_min);
+        context.rotate(degrees_to_radians(angle));
+        Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
+        context.get_source().set_filter(Cairo.Filter.BEST);
+        context.paint();
     }
 
-    // create the output image with the same aspect ratio, but
-    // appropriately shrunken size.
-    double w_tmp = source_pixbuf.width / shrink_factor;
-    double h_tmp = source_pixbuf.height / shrink_factor;
-
-    Gdk.Pixbuf dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) w_tmp, (int) h_tmp);
-
-    Cairo.ImageSurface surface;
-
-    if(source_pixbuf.has_alpha) {
-         surface = new Cairo.ImageSurface.for_data(
-            (uchar []) dest_pixbuf.pixels, Cairo.Format.ARGB32,
-            dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
-    } else {
-         surface = new Cairo.ImageSurface.for_data(
-            (uchar []) dest_pixbuf.pixels, Cairo.Format.RGB24,
-            dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
-    }
-
-    Cairo.Context context = new Cairo.Context(surface);
-
-    // actually draw the source image, at an angle, onto
-    // the destination one, along with appropriate translations
-    // to make sure it stays centered.
-    context.set_source_rgb(0, 0, 0);
-    context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
-    context.fill();
-
-    context.translate(w_tmp / 2.0, h_tmp / 2.0);
-    context.rotate(angle);
-    context.translate(-source_pixbuf.width / 2.0, -source_pixbuf.height / 2.0);
-
-    Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
-    context.get_source().set_filter(Cairo.Filter.BEST);
-    context.paint();
-
+    assert(dest_pixbuf != null);
+    
     // prepare the newly-drawn image for use by
     // the rest of the pipeline.
     fix_cairo_pixbuf(dest_pixbuf);
@@ -303,9 +400,19 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
     return dest_pixbuf;
 }
 
-// Rotates a point around the center of an image to an arbitrary angle, given in degrees,
-// and returns the rotated point, using computations similar to rotate_arb()'s.
-// Needed primarily for the redeye tool.
+/**
+ * @brief Rotates a point around the center of an image to an arbitrary angle, given in degrees,
+ * and returns the rotated point, using computations similar to rotate_arb()'s. Needed primarily
+ * for the interaction between the redeye tool and the straighten tool.
+ *
+ * @note May be subject to slight inaccuracy as Gdk points' coordinates may only be in whole pixels,
+ * so the fractional component is lost.
+ *
+ * @param source_point The point to be rotated and scaled.
+ * @param img_w The width of the source image.
+ * @param img_h The height of the source image.
+ * @param angle The angle the source image is to be rotated by to straighten it.
+ */
 Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double angle) {
     // angle of 0 degrees or angle was never set?
     if (angle == 0.0) {
@@ -313,21 +420,12 @@ Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double 
         return source_point;
     }
 
-    angle = degrees_to_radians(angle);
+    double shrink_factor = compute_shrink_factor(img_w, img_h, angle);
 
-    double shrink_factor;
-
-    if (img_w > img_h) {
-        shrink_factor = 1.0 + (Math.fabs(Math.sin(angle)) *
-            ((double) img_w / (double) img_h));
-    } else {
-        shrink_factor = 1.0 + (Math.fabs(Math.sin(angle)) *
-            ((double) img_h / (double) img_w));
-    }
-
-    double dest_x_tmp = (source_point.x - (img_w / 2.0)) / shrink_factor;
-    double dest_y_tmp = (source_point.y - (img_h / 2.0)) / shrink_factor;
+    double dest_x_tmp = (source_point.x - ((img_w / shrink_factor) / 2.0)); 
+    double dest_y_tmp = (source_point.y - ((img_h / shrink_factor) / 2.0)); 
     double rot_tmp = dest_x_tmp;
+    angle = degrees_to_radians(angle);
     
     dest_x_tmp = (Math.cos(angle * -1.0) * dest_x_tmp) - (Math.sin(angle * -1.0) * dest_y_tmp);
     dest_y_tmp = (Math.sin(angle * -1.0) * rot_tmp) + (Math.cos(angle * -1.0) * dest_y_tmp);

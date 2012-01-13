@@ -405,7 +405,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         if (videos.size == 0)
             return null;
         
-		// in place export is relatively easy -- provide a fast, separate code path for it
+        // in place export is relatively easy -- provide a fast, separate code path for it
         if (export_in_place) {
              ExporterUI temp_exporter = new ExporterUI(new Exporter.for_temp_file(videos,
                 Scaling.for_original(), ExportFormatParameters.unmodified()));
@@ -701,7 +701,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         }
     }
 
-    public override Dimensions get_dimensions() {
+    public override Dimensions get_dimensions(Photo.Exception disallowed_steps = Photo.Exception.NONE) {
         return get_frame_dimensions();
     }
     
