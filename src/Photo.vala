@@ -2258,7 +2258,7 @@ public abstract class Photo : PhotoSource, Dateable {
      */
     public override Dimensions get_dimensions(Exception disallowed_steps = Exception.NONE) {
         // The raw dimensions of the incoming image prior to the pipeline.
-        Dimensions returned_dims = get_master_dimensions();
+        Dimensions returned_dims = get_raw_dimensions();
 
         // Compute how much the image would be resized by after rotating and/or mirroring.
         if (disallowed_steps.allows(Exception.ORIENTATION)) {
