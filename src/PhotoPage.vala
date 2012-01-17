@@ -449,6 +449,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         crop_button.is_important = true;
         toolbar.insert(crop_button, -1);
 
+        // straightening tool
+        straighten_button = new Gtk.ToggleToolButton.from_stock(Gtk.Stock.REFRESH);
+        straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
+        straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
+        straighten_button.toggled.connect(on_straighten_toggled);
+        straighten_button.is_important = true;
+        toolbar.insert(straighten_button, -1);
+
         // redeye reduction tool
         redeye_button = new Gtk.ToggleToolButton.from_stock(Resources.REDEYE);
         redeye_button.set_label(Resources.RED_EYE_LABEL);
@@ -472,14 +480,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.clicked.connect(on_enhance);
         enhance_button.is_important = true;
         toolbar.insert(enhance_button, -1);
-        
-        // straightening tool
-        straighten_button = new Gtk.ToggleToolButton.from_stock(Gtk.Stock.REFRESH);
-        straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
-        straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
-        straighten_button.toggled.connect(on_straighten_toggled);
-        straighten_button.is_important = true;
-        toolbar.insert(straighten_button, -1);
         
 #if ENABLE_FACES
         // faces tool
