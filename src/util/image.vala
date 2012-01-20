@@ -236,6 +236,66 @@ void fix_cairo_pixbuf(Gdk.Pixbuf pixbuf) {
 }
 
 /**
+ * Finds the size of the smallest axially-aligned rectangle that could contain
+ * a rectangle src_width by src_height, rotated by angle.
+ *
+ * @param src_width The width of the incoming rectangle.
+ * @param src_height The height of the incoming rectangle.
+ * @param angle The amount to rotate by, given in degrees.
+ * @param dest_width The width of the computed rectangle.
+ * @param dest_height The height of the computed rectangle.
+ */ 
+void compute_arb_rotated_size(double src_width, double src_height, double angle,
+    out double dest_width, out double dest_height)
+{
+    // Image hasn't been straightened; nothing needs to
+    // be done to the incoming values.
+    if (angle == 0.0) {
+        dest_width = src_width;
+        dest_height = src_height;
+        return;
+    }
+    
+    // Compute how much the corners of the source image will
+    // move by to determine how big the dest image should be.
+    double x_min = 0.0, y_min = 0.0, x_max = 0.0, y_max = 0.0;
+    double x_tmp, y_tmp;        
+
+    // Lower left corner.
+    x_tmp = -(Math.sin(degrees_to_radians(angle)) * src_height);
+    y_tmp = (Math.cos(degrees_to_radians(angle)) * src_height);
+    
+    x_min = double.min(x_tmp, x_min);
+    x_max = double.max(x_tmp, x_max);
+
+    y_min = double.min(y_tmp, y_min);
+    y_max = double.max(y_tmp, y_max);
+    
+    // Lower right corner.
+    x_tmp = (Math.cos(degrees_to_radians(angle)) * src_width) - (Math.sin(degrees_to_radians(angle)) * src_height);
+    y_tmp = (Math.sin(degrees_to_radians(angle)) * src_width) + (Math.cos(degrees_to_radians(angle)) * src_height);
+    
+    x_min = double.min(x_tmp, x_min);
+    x_max = double.max(x_tmp, x_max);
+
+    y_min = double.min(y_tmp, y_min);
+    y_max = double.max(y_tmp, y_max);
+    
+    // Upper right corner.
+    x_tmp = (Math.cos(degrees_to_radians(angle)) * src_width); 
+    y_tmp = (Math.sin(degrees_to_radians(angle)) * src_width); 
+    
+    x_min = double.min(x_tmp, x_min);
+    x_max = double.max(x_tmp, x_max);
+
+    y_min = double.min(y_tmp, y_min);
+    y_max = double.max(y_tmp, y_max);
+     
+    dest_width = x_max - x_min;
+    dest_height = y_max - y_min;
+}
+
+/**
  * @brief Returns the ratio between the larger of the two dimensions of a source image and the
  * largest arbitrarily-rotated destination sub-image that could be gotten from it at the specified
  * angle while preserving the aspect ratio.
@@ -268,13 +328,12 @@ double compute_shrink_factor(double src_width, double src_height, double angle) 
 }
 
 /**
- * @brief Rotates a pixbuf to an arbitrary angle, given in degrees, and returns the rotated pixbuf,
- * cropped to maintain the aspect ratio of the original unless specified otherwise.
+ * @brief Rotates a pixbuf to an arbitrary angle, given in degrees, and returns the rotated pixbuf.
  *
  * @param source_pixbuf The source image that needs to be angled.
  * @param angle The angle the source image should be rotated by.
  */ 
-Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle, bool should_autocrop = true) {
+Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
     // if the straightening angle has been reset
     // or was never set in the first place, nothing
     // needs to be done to the source image.
@@ -284,113 +343,69 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle, bool should_autocr
 
     Gdk.Pixbuf dest_pixbuf = null;
 
-    if (should_autocrop) {
-        // compute how much we'll have to resize (_not_ scale) the
-        // image by to maintain the aspect ratio with the current angle.
-        double shrink_factor = compute_shrink_factor(source_pixbuf.width, source_pixbuf.height, angle);
+    // Compute how much the corners of the source image will
+    // move by to determine how big the dest pixbuf should be.
 
-        // create the output image with the same aspect ratio, but
-        // appropriately shrunken size.
-        double w_tmp = source_pixbuf.width / shrink_factor;
-        double h_tmp = source_pixbuf.height / shrink_factor;
+    double x_min = 0.0, y_min = 0.0, x_max = 0.0, y_max = 0.0;
+    double x_tmp, y_tmp;        
 
-        dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) w_tmp, (int) h_tmp);
+    // Lower left corner.
+    x_tmp = -(Math.sin(degrees_to_radians(angle)) * source_pixbuf.height);
+    y_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.height);
 
-        Cairo.ImageSurface surface;
 
-        if(source_pixbuf.has_alpha) {
-             surface = new Cairo.ImageSurface.for_data(
-                (uchar []) dest_pixbuf.pixels, Cairo.Format.ARGB32,
-                dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
-        } else {
-             surface = new Cairo.ImageSurface.for_data(
-                (uchar []) dest_pixbuf.pixels, Cairo.Format.RGB24,
-                dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
-        }
+    x_min = double.min(x_tmp, x_min);
+    x_max = double.max(x_tmp, x_max);
 
-        Cairo.Context context = new Cairo.Context(surface);
+    y_min = double.min(y_tmp, y_min);
+    y_max = double.max(y_tmp, y_max);
+    
+    // Lower right corner.
+    x_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.width) - (Math.sin(degrees_to_radians(angle)) * source_pixbuf.height);
+    y_tmp = (Math.sin(degrees_to_radians(angle)) * source_pixbuf.width) + (Math.cos(degrees_to_radians(angle)) * source_pixbuf.height);
+    
+    x_min = double.min(x_tmp, x_min);
+    x_max = double.max(x_tmp, x_max);
 
-        // actually draw the source image, at an angle, onto
-        // the destination one, along with appropriate translations
-        // to make sure it stays centered.
-        context.set_source_rgb(0, 0, 0);
-        context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
-        context.fill();
+    y_min = double.min(y_tmp, y_min);
+    y_max = double.max(y_tmp, y_max);
+    
+    // Upper right corner.
+    x_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.width); 
+    y_tmp = (Math.sin(degrees_to_radians(angle)) * source_pixbuf.width); 
+    
+    x_min = double.min(x_tmp, x_min);
+    x_max = double.max(x_tmp, x_max);
 
-        context.translate(w_tmp / 2.0, h_tmp / 2.0);
-        context.rotate(degrees_to_radians(angle));
-        context.translate(-source_pixbuf.width / 2.0, -source_pixbuf.height / 2.0);
+    y_min = double.min(y_tmp, y_min);
+    y_max = double.max(y_tmp, y_max);
+    
+    dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) Math.round(x_max - x_min), (int) Math.round(y_max - y_min));
 
-        Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
-        context.get_source().set_filter(Cairo.Filter.BEST);
-        context.paint();
+    Cairo.ImageSurface surface;
+    
+    if(source_pixbuf.has_alpha) {
+         surface = new Cairo.ImageSurface.for_data(
+            (uchar []) dest_pixbuf.pixels, Cairo.Format.ARGB32,
+            dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
     } else {
-        // Do not autocrop; include the areas unfilled by the rotated photo
-        // as part of the returned pixbuf.
-
-        // Compute how much the corners of the source image will
-        // move by to determine how big the dest pixbuf should be.
-
-        double x_min = 0.0, y_min = 0.0, x_max = 0.0, y_max = 0.0;
-        double x_tmp, y_tmp;        
-
-        // Lower left corner.
-        x_tmp = -(Math.sin(degrees_to_radians(angle)) * source_pixbuf.height);
-        y_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.height);
-        
-        if(x_tmp < x_min) x_min = x_tmp;
-        if(x_tmp > x_max) x_max = x_tmp;
-
-        if(y_tmp < y_min) y_min = y_tmp;
-        if(y_tmp > y_max) y_max = y_tmp;
-        
-        // Lower right corner.
-        x_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.width) - (Math.sin(degrees_to_radians(angle)) * source_pixbuf.height);
-        y_tmp = (Math.sin(degrees_to_radians(angle)) * source_pixbuf.width) + (Math.cos(degrees_to_radians(angle)) * source_pixbuf.height);
-        
-        if(x_tmp < x_min) x_min = x_tmp;
-        if(x_tmp > x_max) x_max = x_tmp;
-
-        if(y_tmp < y_min) y_min = y_tmp;
-        if(y_tmp > y_max) y_max = y_tmp;
-        
-        // Upper right corner.
-        x_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.width); 
-        y_tmp = (Math.sin(degrees_to_radians(angle)) * source_pixbuf.width); 
-        
-        if(x_tmp < x_min) x_min = x_tmp;
-        if(x_tmp > x_max) x_max = x_tmp;
-
-        if(y_tmp < y_min) y_min = y_tmp;
-        if(y_tmp > y_max) y_max = y_tmp;
-        
-        dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) Math.round(x_max - x_min), (int) Math.round(y_max - y_min));
-
-        Cairo.ImageSurface surface;
-        
-        if(source_pixbuf.has_alpha) {
-             surface = new Cairo.ImageSurface.for_data(
-                (uchar []) dest_pixbuf.pixels, Cairo.Format.ARGB32,
-                dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
-        } else {
-             surface = new Cairo.ImageSurface.for_data(
-                (uchar []) dest_pixbuf.pixels, Cairo.Format.RGB24,
-                dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
-        }
-                
-        Cairo.Context context = new Cairo.Context(surface);
-        
-        context.set_source_rgb(0, 0, 0);
-        context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
-        context.fill();
-        
-        context.translate(-x_min, -y_min);
-        context.rotate(degrees_to_radians(angle));
-        Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
-        context.get_source().set_filter(Cairo.Filter.BEST);
-        context.paint();
+         surface = new Cairo.ImageSurface.for_data(
+            (uchar []) dest_pixbuf.pixels, Cairo.Format.RGB24,
+            dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
     }
-
+            
+    Cairo.Context context = new Cairo.Context(surface);
+    
+    context.set_source_rgb(0, 0, 0);
+    context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
+    context.fill();
+    
+    context.translate(-x_min, -y_min);
+    context.rotate(degrees_to_radians(angle));
+    Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
+    context.get_source().set_filter(Cairo.Filter.BEST);
+    context.paint();
+    
     assert(dest_pixbuf != null);
     
     // prepare the newly-drawn image for use by

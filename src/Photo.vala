@@ -2285,15 +2285,15 @@ public abstract class Photo : PhotoSource, Dateable {
 
         // Compute how much the image would be resized by after straightening.
         if (disallowed_steps.allows(Exception.STRAIGHTEN)) {
-            double shrink_factor;
+            double x_size, y_size;
             double angle = 0.0;
 
             get_straighten(out angle);
 
-            shrink_factor = compute_shrink_factor(returned_dims.width, returned_dims.height, angle);
+            compute_arb_rotated_size(returned_dims.width, returned_dims.height, angle, out x_size, out y_size);
 
-            returned_dims.width = (int)(returned_dims.width / shrink_factor);
-            returned_dims.height = (int)(returned_dims.height / shrink_factor);
+            returned_dims.width = (int) (x_size);
+            returned_dims.height = (int) (y_size);
         }
 
         // Compute how much the image would be resized by after cropping.
@@ -2997,8 +2997,7 @@ public abstract class Photo : PhotoSource, Dateable {
     // Note that an unscaled fetch can be extremely expensive, and it's far better to specify an 
     // appropriate scale.
     public Gdk.Pixbuf get_pixbuf_with_options(Scaling scaling, Exception exceptions =
-        Exception.NONE, bool autocrop_on_straighten = true, BackingFetchMode fetch_mode =
-        BackingFetchMode.BASELINE) throws Error {
+        Exception.NONE, BackingFetchMode fetch_mode = BackingFetchMode.BASELINE) throws Error {
             
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
@@ -3119,10 +3118,6 @@ public abstract class Photo : PhotoSource, Dateable {
                     // yes, rotate the crop region's upper left corner with the image.
                         /// TODO: what should we do here, if anything?
                 }
-
-                // since the crop region is allowed to move anywhere within a 
-                // straightened image, don't restrict it to the auto-crop region.
-                autocrop_on_straighten = false;                
             }
 
 #if MEASURE_PIPELINE
@@ -3136,7 +3131,7 @@ public abstract class Photo : PhotoSource, Dateable {
             timer.start();
 #endif
             if (is_straightened) {
-                pixbuf = rotate_arb(pixbuf, straightening_angle, autocrop_on_straighten);
+                pixbuf = rotate_arb(pixbuf, straightening_angle);
 
                 if (is_cropped && exceptions.allows(Exception.CROP)) {
                     // cut out the cropping region here, so the image data is angled
@@ -3339,7 +3334,7 @@ public abstract class Photo : PhotoSource, Dateable {
             writer.get_filepath(), export_format.to_string());
         
         Gdk.Pixbuf pixbuf = get_pixbuf_with_options(scaling, Exception.NONE,
-            true, BackingFetchMode.SOURCE);
+            BackingFetchMode.SOURCE);
 
         writer.write(pixbuf, quality);
 

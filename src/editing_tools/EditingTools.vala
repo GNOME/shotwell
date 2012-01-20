@@ -1217,7 +1217,7 @@ public class CropTool : EditingTool {
         out Dimensions max_dim) throws Error {
         max_dim = photo.get_original_dimensions();
 
-        return photo.get_pixbuf_with_options(scaling, Photo.Exception.CROP, false);
+        return photo.get_pixbuf_with_options(scaling, Photo.Exception.CROP);
     }
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
