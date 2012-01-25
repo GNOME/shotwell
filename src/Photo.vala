@@ -196,6 +196,10 @@ public abstract class Photo : PhotoSource, Dateable {
     // precision limitations of various subsystems.  Pixel-accuracy would be best, but barring that,
     // need to just make sure the pixbuf is in the ballpark.
     private const int SCALING_FUDGE = 64;
+
+    // The number of seconds we should hold onto a precached copy of the original image; if
+    // it hasn't been accessed in this many seconds, discard it to conserve memory.
+    private const int PRECACHE_TIME_TO_LIVE = 180;
     
     public enum Exception {
         NONE            = 0,
@@ -292,6 +296,23 @@ public abstract class Photo : PhotoSource, Dateable {
     private OneShotScheduler reimport_editable_scheduler = null;
     private OneShotScheduler update_editable_attributes_scheduler = null;
     private OneShotScheduler remove_editable_scheduler = null;
+
+    // The first time we have to run the pipeline on an image, we'll precache
+    // a copy of the unscaled, unmodified version; this allows us to operate
+    // directly on the image data quickly without re-fetching it at the top
+    // of the pipeline, which can cause significant lag with larger images.
+    //
+    // This adds a small amount of (automatically garbage-collected) memory
+    // overhead, but greatly simplifies the pipeline, since scaling can now
+    // be blithely ignored, and most of the pixel operations are fast enough
+    // that the app remains responsive, even with 10MP images.
+    //
+    // In order to make sure we discard unneeded precaches in a timely fashion,
+    // we spawn a timer when the unmodified pixbuf is first precached; if the
+    // timer elapses and the pixbuf hasn't been needed again since then, we'll
+    // discard it and free up the memory.
+    private Gdk.Pixbuf unmodified_precached = null;
+    private GLib.Timer secs_since_access = null;
     
     // RAW only: developed backing photos.
     private Gee.HashMap<RawDeveloper, BackingPhotoRow?>? developments = null;
@@ -2989,6 +3010,22 @@ public abstract class Photo : PhotoSource, Dateable {
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
         return get_pixbuf_with_options(scaling);
     }
+
+    public bool discard_prefetched() {
+        if (secs_since_access == null)
+            return false;
+        
+        double tmp;
+        if (secs_since_access.elapsed(out tmp) > PRECACHE_TIME_TO_LIVE) {
+            debug("pipeline not run in over %d seconds, discarding cached original for %s",
+                PRECACHE_TIME_TO_LIVE, to_string());
+            unmodified_precached = null;
+            secs_since_access = null;
+            return false;
+        }
+
+        return true;
+    }
     
     // Returns a fully transformed and scaled pixbuf.  Transformations may be excluded via the mask.
     // If the image is smaller than the scaling, it will be returned in its actual size.  The
@@ -3018,7 +3055,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         // to minimize holding the row lock, fetch everything needed for the pipeline up-front
         bool is_scaled, is_cropped, is_straightened;
-        Dimensions scaled_image, scaled_to_viewport;
+        Dimensions scaled_to_viewport;
         Dimensions original = Dimensions();
         Dimensions scaled = Dimensions();
         EditingTools.RedeyeInstance[] redeye_instances = null;
@@ -3028,14 +3065,12 @@ public abstract class Photo : PhotoSource, Dateable {
         Orientation orientation;
         
         lock (row) {
-            // it's possible for get_raw_pixbuf to not return an image scaled to the spec'd scaling,
-            // particularly when the raw crop is smaller than the viewport
-            is_scaled = calculate_pixbuf_dimensions(scaling, exceptions, out scaled_image,
-                out scaled_to_viewport);
+            original = get_dimensions(Exception.ALL);
+            scaled = scaling.get_scaled_dimensions(get_dimensions(exceptions));
+            scaled_to_viewport = scaled;
             
-            if (is_scaled)
-                original = get_raw_dimensions();
-            
+            is_scaled = !(get_dimensions().equals(scaled));
+                        
             redeye_instances = get_raw_redeye_instances();
             
             is_cropped = get_raw_crop(out crop);
@@ -3051,11 +3086,24 @@ public abstract class Photo : PhotoSource, Dateable {
         //
         // Image load-and-decode
         //
-        
-        Gdk.Pixbuf pixbuf = load_raw_pixbuf(scaling, exceptions, fetch_mode);
-        
-        if (is_scaled)
-            scaled = Dimensions.for_pixbuf(pixbuf);
+
+        // If we don't have it already, precache the original... 
+        if (unmodified_precached == null) {
+            unmodified_precached = load_raw_pixbuf(Scaling.for_original(), Exception.ALL, BackingFetchMode.SOURCE);
+            secs_since_access = new GLib.Timer();
+            GLib.Timeout.add_seconds(5, (GLib.SourceFunc)discard_prefetched);
+            debug("spawning new precache timeout for %s", this.to_string()); 
+        }
+
+        // ...and copy it into an internal scratch image. This is what we'll
+        // operate upon and eventually display.
+        Gdk.Pixbuf pixbuf = unmodified_precached.copy();
+
+        // remember to delete the cached copy if it isn't being used.
+        secs_since_access.start();
+        debug("pipeline being run against %s, timer restarted.", this.to_string());
+
+        assert(pixbuf != null);
         
         //
         // Image transformation pipeline
@@ -3068,60 +3116,10 @@ public abstract class Photo : PhotoSource, Dateable {
             timer.start();
 #endif
             foreach (EditingTools.RedeyeInstance instance in redeye_instances) {
-                // redeye is stored in raw coordinates; need to scale to scaled image coordinates
-                if (is_scaled) {
-                    instance.center = coord_scaled_in_space(instance.center.x, instance.center.y, 
-                        original, scaled);
-                    instance.radius = radius_scaled_in_space(instance.radius, original, scaled);
-                    assert(instance.radius != -1);
-                }
-                
                 pixbuf = do_redeye(pixbuf, instance);
             }
 #if MEASURE_PIPELINE
             redeye_time = timer.elapsed();
-#endif
-        }
-
-        // crop
-        if (exceptions.allows(Exception.CROP)) {
-#if MEASURE_PIPELINE
-            timer.start();
-#endif
-            if (is_cropped) {
-                // crop is stored in raw coordinates; need to scale to scaled image coordinates;
-                // also, no need to do this if the image itself was unscaled (which can happen
-                // if the crop is smaller than the viewport)
-                if (is_scaled)
-                    crop = crop.get_scaled_similar(original, scaled);
-
-                // ensure the crop region stays inside the scaled image boundaries and is
-                // at least 1 px by 1 px; this is needed as a work-around for inaccuracies
-                // which can occur when zooming.
-                crop.left = crop.left.clamp(0, pixbuf.width - 2);
-                crop.top = crop.top.clamp(0, pixbuf.height - 2);
-
-                crop.right = crop.right.clamp(crop.left + 1, pixbuf.width - 1);
-                crop.bottom = crop.bottom.clamp(crop.top + 1, pixbuf.height - 1);
-
-                // if the image has been straightened, we'll compute the crop region's
-                // coordinates here, but we'll cut out the actual crop region -after-
-                // applying the straightening operation, so that the sides of the image
-                // stay axially aligned.
-                //
-                // is this image straightened?
-                if (!is_straightened) {
-                    // no, we can cut out a sub-pixbuf here.
-                    pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
-                        crop.get_height());
-                } else {
-                    // yes, rotate the crop region's upper left corner with the image.
-                        /// TODO: what should we do here, if anything?
-                }
-            }
-
-#if MEASURE_PIPELINE
-            crop_time = timer.elapsed();
 #endif
         }
 
@@ -3132,14 +3130,6 @@ public abstract class Photo : PhotoSource, Dateable {
 #endif
             if (is_straightened) {
                 pixbuf = rotate_arb(pixbuf, straightening_angle);
-
-                if (is_cropped && exceptions.allows(Exception.CROP)) {
-                    // cut out the cropping region here, so the image data is angled
-                    // properly, but the top, bottom and sides of the image are axially-aligned.
-
-                    pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
-                        crop.get_height());
-                }    
             }
             
 #if MEASURE_PIPELINE
@@ -3147,21 +3137,31 @@ public abstract class Photo : PhotoSource, Dateable {
 #endif
         }
 
-    
-        
-        
-        // color adjustment
-        if (exceptions.allows(Exception.ADJUST)) {
+        // crop
+        if (exceptions.allows(Exception.CROP)) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            if (transformer != null)
-                transformer.transform_pixbuf(pixbuf);
+            if (is_cropped) {
+
+                // ensure the crop region stays inside the scaled image boundaries and is
+                // at least 1 px by 1 px; this is needed as a work-around for inaccuracies
+                // which can occur when zooming.
+                crop.left = crop.left.clamp(0, pixbuf.width - 2);
+                crop.top = crop.top.clamp(0, pixbuf.height - 2);
+
+                crop.right = crop.right.clamp(crop.left + 1, pixbuf.width - 1);
+                crop.bottom = crop.bottom.clamp(crop.top + 1, pixbuf.height - 1);
+
+                pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
+                     crop.get_height());
+            }
+
 #if MEASURE_PIPELINE
-            adjustment_time = timer.elapsed();
+            crop_time = timer.elapsed();
 #endif
         }
-
+    
         // orientation (all modifications are stored in unrotated coordinate system)
         if (exceptions.allows(Exception.ORIENTATION)) {
 #if MEASURE_PIPELINE
@@ -3173,18 +3173,36 @@ public abstract class Photo : PhotoSource, Dateable {
 #endif
         }
         
-        // This is to verify the generated pixbuf matches the scale requirements; crop, straighten 
-        // and orientation are all transformations that change the dimensions or aspect ratio of 
-        // the pixbuf, and must be accounted for the test to be valid.
-        if ((is_scaled) && (!is_straightened))
-            assert(scaled_to_viewport.approx_equals(Dimensions.for_pixbuf(pixbuf), SCALING_FUDGE));
-        
 #if MEASURE_PIPELINE
         debug("PIPELINE %s (%s): redeye=%lf crop=%lf adjustment=%lf orientation=%lf total=%lf",
             to_string(), scaling.to_string(), redeye_time, crop_time, adjustment_time, 
             orientation_time, total_timer.elapsed());
 #endif
-        
+
+        // scale the scratch image, as needed.
+        if (is_scaled) {
+            pixbuf = pixbuf.scale_simple(scaled_to_viewport.width, scaled_to_viewport.height, Gdk.InterpType.BILINEAR);
+        }
+
+        // color adjustment; we do this dead last, since, if an image has been scaled down,
+        // it may allow us to reduce the amount of pixel arithmetic, increasing responsiveness.
+        if (exceptions.allows(Exception.ADJUST)) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            if (transformer != null)
+                transformer.transform_pixbuf(pixbuf);
+#if MEASURE_PIPELINE
+            adjustment_time = timer.elapsed();
+#endif
+        }        
+
+        // This is to verify the generated pixbuf matches the scale requirements; crop, straighten 
+        // and orientation are all transformations that change the dimensions or aspect ratio of 
+        // the pixbuf, and must be accounted for the test to be valid.
+        if ((is_scaled) && (!is_straightened))
+            assert(scaled_to_viewport.approx_equals(Dimensions.for_pixbuf(pixbuf), SCALING_FUDGE));
+
         return pixbuf;
     }
     
@@ -3818,7 +3836,7 @@ public abstract class Photo : PhotoSource, Dateable {
             return false;
         }
         
-        Dimensions dim = get_raw_dimensions();
+        Dimensions dim = get_dimensions(Exception.CROP | Exception.ORIENTATION);
         Orientation orientation = get_orientation();
         
         crop = orientation.rotate_box(dim, raw);
@@ -3828,7 +3846,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // Sets the crop against the coordinate system of the rotated photo
     public void set_crop(Box crop) {
-        Dimensions dim = get_raw_dimensions();
+        Dimensions dim = get_dimensions(Exception.CROP | Exception.ORIENTATION);
         Orientation orientation = get_orientation();
 
         Box derotated = orientation.derotate_box(dim, crop);

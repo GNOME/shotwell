@@ -136,24 +136,6 @@ bool coord_in_rectangle(int x, int y, Gdk.Rectangle rect) {
     return (x >= rect.x && x < (rect.x + rect.width) && y >= rect.y && y <= (rect.y + rect.height));
 }
 
-Gdk.Point coord_scaled_in_space(int x, int y, Dimensions original, Dimensions scaled) {
-    double x_scale, y_scale;
-    original.get_scale_ratios(scaled, out x_scale, out y_scale);
-
-    Gdk.Point point = Gdk.Point();
-    point.x = (int) Math.round(x * x_scale);
-    point.y = (int) Math.round(y * y_scale);
-
-    // watch for rounding errors
-    if (point.x >= scaled.width)
-        point.x = scaled.width - 1;
-
-    if (point.y >= scaled.height)
-        point.y = scaled.height - 1;
-
-    return point;
-}
-
 public bool rectangles_equal(Gdk.Rectangle a, Gdk.Rectangle b) {
     return (a.x == b.x) && (a.y == b.y) && (a.width == b.width) && (a.height == b.height);
 }
@@ -170,20 +152,6 @@ public Gdk.Rectangle clamp_rectangle(Gdk.Rectangle original, Dimensions max) {
     rect.height = original.height.clamp(0, max.height);
 
     return rect;
-}
-
-// Can only scale a radius when the scale is proportional; returns -1 if not.  Only two points of
-// precision are considered here.
-int radius_scaled_in_space(int radius, Dimensions original, Dimensions scaled) {
-    double x_scale, y_scale;
-    original.get_scale_ratios(scaled, out x_scale, out y_scale);
-
-    // using floor() or round() both present problems, since the two values could straddle any FP
-    // boundary ... instead, look for a reasonable delta
-    if (Math.fabs(x_scale - y_scale) > 1.0)
-        return -1;
-
-    return (int) Math.round(radius * x_scale);
 }
 
 public Gdk.Point scale_point(Gdk.Point p, double factor) {

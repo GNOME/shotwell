@@ -1070,7 +1070,7 @@ public class CropTool : EditingTool {
         bind_window_handlers();
 
         // obtain crop dimensions and paint against the uncropped photo
-        Dimensions uncropped_dim = canvas.get_photo().get_original_dimensions();
+        Dimensions uncropped_dim = canvas.get_photo().get_dimensions(Photo.Exception.CROP);
 
         Box crop;
         if (!canvas.get_photo().get_crop(out crop)) {
@@ -1215,7 +1215,7 @@ public class CropTool : EditingTool {
 
     public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, Photo photo,
         out Dimensions max_dim) throws Error {
-        max_dim = photo.get_original_dimensions();
+        max_dim = photo.get_dimensions(Photo.Exception.CROP);
 
         return photo.get_pixbuf_with_options(scaling, Photo.Exception.CROP);
     }
@@ -1236,7 +1236,7 @@ public class CropTool : EditingTool {
 
     private void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
         Dimensions new_dim = Dimensions.for_pixbuf(scaled);
-        Dimensions uncropped_dim = canvas.get_photo().get_original_dimensions();
+        Dimensions uncropped_dim = canvas.get_photo().get_dimensions(Photo.Exception.CROP);
 
         // rescale to full crop
         Box crop = scaled_crop.get_scaled_similar(old_dim, uncropped_dim);
@@ -1331,7 +1331,7 @@ public class CropTool : EditingTool {
         // scale screen-coordinate crop to photo's coordinate system
         Box crop = scaled_crop.get_scaled_similar(
             Dimensions.for_rectangle(canvas.get_scaled_pixbuf_position()),
-            canvas.get_photo().get_original_dimensions());
+            canvas.get_photo().get_dimensions(Photo.Exception.CROP));
 
         // crop the current pixbuf and offer it to the editing host
         Gdk.Pixbuf cropped = new Gdk.Pixbuf.subpixbuf(canvas.get_scaled_pixbuf(), scaled_crop.left,
@@ -2590,8 +2590,8 @@ public class RedeyeTool : EditingTool {
 
         // transform screen coords back to image coords,
         // taking into account straightening angle.
-        int img_w = canvas.get_photo().get_master_dimensions().width;
-        int img_h = canvas.get_photo().get_master_dimensions().height;
+        int img_w = canvas.get_photo().get_dimensions(Photo.Exception.STRAIGHTEN | Photo.Exception.CROP).width;
+        int img_h = canvas.get_photo().get_dimensions(Photo.Exception.STRAIGHTEN | Photo.Exception.CROP).height;
 
         double theta = 0.0;
 
