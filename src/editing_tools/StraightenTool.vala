@@ -2,7 +2,7 @@
 /* Copyright 2009-2011 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 namespace EditingTools {
@@ -45,7 +45,7 @@ public class StraightenTool : EditingTool {
 
             Gtk.HBox slider_layout = new Gtk.HBox(false, CONTROL_SPACING);
             slider_layout.add(angle_slider);
-    
+
             Gtk.HBox button_layout = new Gtk.HBox(false, CONTROL_SPACING);
             button_layout.add(cancel_button);
             button_layout.add(reset_button);
@@ -58,12 +58,12 @@ public class StraightenTool : EditingTool {
             main_layout.add(button_layout);
 
             add(main_layout);
-            
+
             reset_button.clicked.connect(on_reset_clicked);
 
             set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
         }
-        
+
         private void on_reset_clicked() {
             angle_slider.set_value(0.0);
         }
@@ -81,7 +81,11 @@ public class StraightenTool : EditingTool {
     private int photo_width;
     private int photo_height;
     private double photo_angle = 0.0;
-                                                
+
+    // should we use a nicer-but-more-expensive filter
+    // when repainting the rotated image?
+    bool use_high_qual = false;
+
     private StraightenTool() {
     }
 
@@ -101,6 +105,12 @@ public class StraightenTool : EditingTool {
         deactivate();
     }
 
+    private bool on_slider_released(Gdk.EventButton geb) {
+        use_high_qual = true;
+        this.canvas.repaint();
+        return false;
+    }
+
     /**
      * Spawn the tool window, set up the scratch surfaces and prepare the straightening
      * tool for use.  If a valid pixbuf of the incoming Photo can't be loaded for any
@@ -116,20 +126,20 @@ public class StraightenTool : EditingTool {
 
         // fetch what the image currently looks like, scaled to fit the preview size.
         try {
-            low_res_tmp = 
+            low_res_tmp =
                 canvas.get_photo().get_pixbuf_with_options(Scaling.for_best_fit(TEMP_PIXBUF_SIZE, true),
                     Photo.Exception.STRAIGHTEN);
         } catch (Error e) {
             warning("A pixbuf for %s couldn't be fetched.", canvas.get_photo().to_string());
             low_res_tmp = new Gdk.Pixbuf(Gdk.Colorspace.RGB, false, 8, 1, 1);
         }
-        
+
         // copy image data from photo into a cairo surface.
         photo_surf = new Cairo.ImageSurface(Cairo.Format.ARGB32, low_res_tmp.width, low_res_tmp.height);
-        Cairo.Context ctx = new Cairo.Context(photo_surf);                                   
-        Gdk.cairo_set_source_pixbuf(ctx, low_res_tmp, 0, 0);                 
+        Cairo.Context ctx = new Cairo.Context(photo_surf);
+        Gdk.cairo_set_source_pixbuf(ctx, low_res_tmp, 0, 0);
         ctx.rectangle(0, 0, low_res_tmp.width, low_res_tmp.height);
-        ctx.fill();       
+        ctx.fill();
         ctx.paint();
 
         // prepare rotation surface and context. we paint a rotated,
@@ -137,7 +147,7 @@ public class StraightenTool : EditingTool {
         rotate_surf = new Cairo.ImageSurface(Cairo.Format.ARGB32, low_res_tmp.width, low_res_tmp.height);
         rotate_ctx = new Cairo.Context(rotate_surf);
 
-        photo_width = low_res_tmp.width;        
+        photo_width = low_res_tmp.width;
         photo_height = low_res_tmp.height;
 
         window = new StraightenToolWindow(canvas.get_container());
@@ -148,12 +158,12 @@ public class StraightenTool : EditingTool {
         // with the slider set to that value.
         double incoming_angle = 0.0;
         canvas.get_photo().get_straighten(out incoming_angle);
-            
+
         window.angle_slider.set_value(incoming_angle);
         photo_angle = incoming_angle;
 
         string tmp = "%2.0f°".printf(incoming_angle);
-        window.angle_label.set_text(tmp);         
+        window.angle_label.set_text(tmp);
 
         window.show_all();
     }
@@ -173,18 +183,22 @@ public class StraightenTool : EditingTool {
         window.ok_button.clicked.connect(on_ok_clicked);
         window.cancel_button.clicked.connect(on_cancel_clicked);
         window.angle_slider.value_changed.connect(on_angle_changed);
+        window.angle_slider.button_release_event.connect(on_slider_released);
     }
 
     private void unbind_window_handlers() {
         window.ok_button.clicked.disconnect(on_ok_clicked);
         window.cancel_button.clicked.disconnect(on_cancel_clicked);
         window.angle_slider.value_changed.disconnect(on_angle_changed);
+        window.angle_slider.button_release_event.disconnect(on_slider_released);
     }
 
     private void on_angle_changed() {
         photo_angle = window.angle_slider.get_value();
         string tmp = "%2.0f°".printf(window.angle_slider.get_value());
-        window.angle_label.set_text(tmp); 
+        window.angle_label.set_text(tmp);
+
+        use_high_qual = false;
 
         this.canvas.repaint();
     }
@@ -196,14 +210,14 @@ public class StraightenTool : EditingTool {
     public override EditingToolWindow? get_tool_window() {
         return window;
     }
-    
+
     /**
      * Render a smaller, rotated version of the image, with a grid superimposed over it.
      *
      * @param ctx The rendering context of a 'scratch' Cairo surface.  The tool makes its own
      *      surfaces and contexts so it can have things set up exactly like it wants them, so
      *      it's not used.
-     */ 
+     */
     public override void paint(Cairo.Context ctx) {
         int w = canvas.get_drawing_window().get_width();
         int h = canvas.get_drawing_window().get_height();
@@ -243,28 +257,32 @@ public class StraightenTool : EditingTool {
     private void draw_rotated_source(Cairo.Surface src_surf, Cairo.Context dest_ctx,
         int src_width, int src_height, double angle) {
         double angle_internal = degrees_to_radians(angle);
-            
+
         // rotate the image, taking into account that both the scale of
         // the image and the position of the upper left corner must change
         // to properly zoom in on the center.
-        
+
         dest_ctx.identity_matrix();
 
         dest_ctx.translate(src_width / 2.0f, src_height / 2.0f);
         dest_ctx.rotate(angle_internal);
 
-        double shrink_factor = compute_shrink_factor(src_width, src_height, angle); 
+        double shrink_factor = compute_shrink_factor(src_width, src_height, angle);
         dest_ctx.scale(shrink_factor, shrink_factor);
-        
+
         dest_ctx.translate(-photo_width / 2.0f, -photo_height / 2.0f);
 
         dest_ctx.set_source_surface(src_surf, 0, 0);
-        dest_ctx.get_source().set_filter(Cairo.Filter.NEAREST);
+        if (use_high_qual) {
+            dest_ctx.get_source().set_filter(Cairo.Filter.BEST);
+        } else {
+            dest_ctx.get_source().set_filter(Cairo.Filter.NEAREST);
+        }
         dest_ctx.rectangle(0, 0, src_width, src_height);
         dest_ctx.fill();
         dest_ctx.paint();
     }
-     
+
     /**
      * Superimpose a faint grid over the supplied image.
      *
@@ -278,10 +296,10 @@ public class StraightenTool : EditingTool {
 
         int half_height = height >> 1;
         int quarter_height = height >> 2;
-        
+
         dest_ctx.identity_matrix();
-        dest_ctx.set_source_rgba(1.0, 1.0, 1.0, 1.0); 
-        
+        dest_ctx.set_source_rgba(1.0, 1.0, 1.0, 1.0);
+
         canvas.draw_horizontal_line(dest_ctx, 0, 0, width, false);
         canvas.draw_horizontal_line(dest_ctx, 0, half_height, width, false);
         canvas.draw_horizontal_line(dest_ctx, 0, photo_height, width, false);
