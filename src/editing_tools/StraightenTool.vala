@@ -14,7 +14,7 @@ namespace EditingTools {
 public class StraightenTool : EditingTool {
     private const double MIN_ANGLE = -15.0;
     private const double MAX_ANGLE = 15.0;
-    private const double INCREMENT = 0.05;
+    private const double INCREMENT = 0.1;
     private const int MIN_SLIDER_SIZE = 250;
     private const int TEMP_PIXBUF_SIZE = 640;
 
@@ -163,7 +163,7 @@ public class StraightenTool : EditingTool {
         window.angle_slider.set_value(incoming_angle);
         photo_angle = incoming_angle;
 
-        string tmp = "%2.0f°".printf(incoming_angle);
+        string tmp = "%2.1f°".printf(incoming_angle);
         window.angle_label.set_text(tmp);
 
         window.show_all();
@@ -209,7 +209,7 @@ public class StraightenTool : EditingTool {
 
     private void on_angle_changed() {
         photo_angle = window.angle_slider.get_value();
-        string tmp = "%2.0f°".printf(window.angle_slider.get_value());
+        string tmp = "%2.1f°".printf(window.angle_slider.get_value());
         window.angle_label.set_text(tmp);
 
         use_high_qual = false;
