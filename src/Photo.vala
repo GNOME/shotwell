@@ -2265,7 +2265,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     /**
-     * Returns the width and height of the Photo after various
+     * @brief Returns the width and height of the Photo after various
      * arbitrary stages of the pipeline have been applied in
      * the same order they're applied in get_pixbuf_with_options.
      * With no argument passed, it works exactly like the
@@ -3027,12 +3027,17 @@ public abstract class Photo : PhotoSource, Dateable {
         return true;
     }
     
-    // Returns a fully transformed and scaled pixbuf.  Transformations may be excluded via the mask.
-    // If the image is smaller than the scaling, it will be returned in its actual size.  The
-    // caller is responsible for scaling thereafter.
-    //
-    // Note that an unscaled fetch can be extremely expensive, and it's far better to specify an 
-    // appropriate scale.
+    /**
+     * @brief Returns a fully transformed and scaled pixbuf.  Transformations may be excluded via
+     * the mask. If the image is smaller than the scaling, it will be returned in its actual size.
+     * The caller is responsible for scaling thereafter.
+     *
+     * @param scaling A scaling object that describes the size the output pixbuf should be.
+     * @param exceptions The parts of the pipeline that should be skipped; defaults to NONE if
+     *      left unset.
+     * @param fetch_mode The fetch mode; if left unset, defaults to BASELINE so that
+     *      we get the image exactly as it is in the file.
+     */ 
     public Gdk.Pixbuf get_pixbuf_with_options(Scaling scaling, Exception exceptions =
         Exception.NONE, BackingFetchMode fetch_mode = BackingFetchMode.BASELINE) throws Error {
             

@@ -123,6 +123,7 @@ public class StraightenTool : EditingTool {
 
         base.activate(canvas);
         this.canvas = canvas;
+        bind_canvas_handlers(this.canvas);
 
         // fetch what the image currently looks like, scaled to fit the preview size.
         try {
@@ -176,7 +177,20 @@ public class StraightenTool : EditingTool {
             window.hide();
             window = null;
         }
+
+        if (canvas != null) {
+            unbind_canvas_handlers(canvas);
+        }
+        
         base.deactivate();
+    }
+
+    private void bind_canvas_handlers(PhotoCanvas canvas) {
+        canvas.resized_scaled_pixbuf.connect(on_resized_pixbuf);
+    }
+
+    private void unbind_canvas_handlers(PhotoCanvas canvas) {
+        canvas.resized_scaled_pixbuf.disconnect(on_resized_pixbuf);
     }
 
     private void bind_window_handlers() {
@@ -201,6 +215,66 @@ public class StraightenTool : EditingTool {
         use_high_qual = false;
 
         this.canvas.repaint();
+    }
+
+    /**
+     * @brief Called by the EditingHostPage when a resize event occurs. If the paintable
+     * region is less than 640 by 640, we discard the old surface and make a new one to fit it.
+     */
+    private void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
+        Dimensions canvas_dims = canvas.get_surface_dim();
+        bool need_resizing = false;
+
+        // paintable region is smaller than the preferred preview size?
+        if ((canvas_dims.width < TEMP_PIXBUF_SIZE) || (canvas_dims.height < TEMP_PIXBUF_SIZE)) {
+            need_resizing = true;
+        }
+
+        // paintable region is large enough to hold the preferred preview size, but
+        // preview is too small?
+        if (((canvas_dims.width >= TEMP_PIXBUF_SIZE) && (canvas_dims.height >= TEMP_PIXBUF_SIZE)) &&
+            (photo_width < TEMP_PIXBUF_SIZE) && (photo_height < TEMP_PIXBUF_SIZE)) {
+            need_resizing = true;
+        }
+
+        // only discard and remake the surface if we actually need to.
+        if (need_resizing) {
+            int scaled_size = (canvas_dims.width < canvas_dims.height) ? canvas_dims.width :
+                canvas_dims.height;
+
+            if (scaled_size > TEMP_PIXBUF_SIZE)
+                scaled_size = TEMP_PIXBUF_SIZE;
+
+            Gdk.Pixbuf low_res_tmp = null;
+
+            try {
+                low_res_tmp =
+                    canvas.get_photo().get_pixbuf_with_options(Scaling.for_best_fit(scaled_size, true),
+                        Photo.Exception.STRAIGHTEN);
+            } catch (Error e) {
+                warning("A pixbuf for %s couldn't be fetched.", canvas.get_photo().to_string());
+                low_res_tmp = new Gdk.Pixbuf(Gdk.Colorspace.RGB, false, 8, 1, 1);
+            }
+
+            photo_surf = null;
+            rotate_surf = null;
+
+            // copy image data from photo into a cairo surface.
+            photo_surf = new Cairo.ImageSurface(Cairo.Format.ARGB32, low_res_tmp.width, low_res_tmp.height);
+            Cairo.Context ctx = new Cairo.Context(photo_surf);
+            Gdk.cairo_set_source_pixbuf(ctx, low_res_tmp, 0, 0);
+            ctx.rectangle(0, 0, low_res_tmp.width, low_res_tmp.height);
+            ctx.fill();
+            ctx.paint();
+
+            // prepare rotation surface and context. we paint a rotated,
+            // low-res copy of the image into it, followed by a faint grid.
+            rotate_surf = new Cairo.ImageSurface(Cairo.Format.ARGB32, low_res_tmp.width, low_res_tmp.height);
+            rotate_ctx = new Cairo.Context(rotate_surf);
+
+            photo_width = low_res_tmp.width;
+            photo_height = low_res_tmp.height;
+        }
     }
 
     /**
