@@ -64,6 +64,8 @@ internal const string ERROR_MESSAGE_401 =
 // and handle older version of the Piwigo API
 internal const string ERROR_MESSAGE_501 =
     _("The Piwigo service you specified does not recognise the method requested by Shotwell. This can happen if the Piwigo service you are trying to publish to is an old version. Please check that your Piwigo service is version 2.1 or newer.");
+internal const string ERROR_MESSAGE_GENERIC =
+    _("An error message occured when publishing to Piwigo. Please try again.");
 internal const int ORIGINAL_SIZE = -1;
 
 internal class Category {
@@ -307,6 +309,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             login_trans.execute();
         } catch (Spit.Publishing.PublishingError err) {
+            debug("ERROR: do_network_login");
             do_show_error(err);
         }
     }
@@ -357,8 +360,10 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             } catch (Spit.Publishing.PublishingError code) {
                 int code_int = int.parse(code.message);
                 if (code_int == 999) {
+                    debug("ERROR: on_login_network_complete, code 999");
                     do_show_authentication_pane(AuthenticationPane.Mode.FAILED_RETRY_USER);
                 } else {
+                    debug("ERROR: on_login_network_complete");
                     do_show_error(err);
                 }
             }
@@ -423,6 +428,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             try {
                 status_txn.execute();
             } catch (Spit.Publishing.PublishingError err) {
+                debug("ERROR: do_fetch_session_status, not authenticated");
                 do_show_error(err);
             }
         } else {
@@ -433,6 +439,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             try {
                 status_txn.execute();
             } catch (Spit.Publishing.PublishingError err) {
+                debug("ERROR: do_fetch_session_status, authenticated");
                 do_show_error(err);
             }
         }
@@ -470,10 +477,12 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
                     set_persistent_username(session.get_username());
                     do_fetch_categories();
                 } catch (Spit.Publishing.PublishingError err2) {
+                    debug("ERROR: on_session_get_status_complete, inner");
                     do_show_error(err2);
                     return;
                 }
             } catch (Spit.Publishing.PublishingError err) {
+                debug("ERROR: on_session_get_status_complete, outer");
                 do_show_error(err);
                 return;
             }
@@ -516,6 +525,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             cat_trans.execute();
         } catch (Spit.Publishing.PublishingError err) {
+            debug("ERROR: do_fetch_categories");
             do_show_error(err);
         }
     }
@@ -557,6 +567,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
                 categories += new Category(int.parse(id_string), name);
             }
         } catch (Spit.Publishing.PublishingError err) {
+            debug("ERROR: on_category_fetch_complete");
             do_show_error(err);
             return;
         }
@@ -608,6 +619,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             logout_trans.execute();
         } catch (Spit.Publishing.PublishingError err) {
+            debug("ERROR: on_publishing_options_pane_logout_clicked");
             do_show_error(err);
         }
     }
@@ -688,6 +700,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             creation_trans.execute();
         } catch (Spit.Publishing.PublishingError err) {
+            debug("ERROR: do_create_category");
             do_show_error(err);
         }
     }
@@ -717,6 +730,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             parameters.category.id = id;
             do_upload();
         } catch (Spit.Publishing.PublishingError err) {
+            debug("ERROR: on_category_add_complete");
             do_show_error(err);
         }
     }
@@ -816,26 +830,41 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         Spit.Publishing.PublishingError err
     ) {
         debug("EVENT: on_network_error");
-        // TODO: add more special error cases as and when required
-        if(err.message.has_prefix("401"))
-            do_show_error_message(ERROR_MESSAGE_401);
-        else if(err.message.has_prefix("501"))
-            do_show_error_message(ERROR_MESSAGE_501);
-        else
-            do_show_error(err);
+        do_show_error(err);
     }
     
     /**
      * Action to display an error to the user.
      */
     private void do_show_error(Spit.Publishing.PublishingError e) {
-        do_show_error_message(e.message);
+        debug("ACTION: do_show_error");
+        string error_type = "UNKNOWN";
+        if (e is Spit.Publishing.PublishingError.NO_ANSWER) {
+            do_show_authentication_pane(AuthenticationPane.Mode.FAILED_RETRY_URL);
+            return;
+        } else if(e is Spit.Publishing.PublishingError.COMMUNICATION_FAILED) {
+            error_type = "COMMUNICATION_FAILED";
+        } else if(e is Spit.Publishing.PublishingError.PROTOCOL_ERROR) {
+            error_type = "PROTOCOL_ERROR";
+        } else if(e is Spit.Publishing.PublishingError.SERVICE_ERROR) {
+            error_type = "SERVICE_ERROR";
+        } else if(e is Spit.Publishing.PublishingError.MALFORMED_RESPONSE) {
+            error_type = "MALFORMED_RESPONSE";
+        } else if(e is Spit.Publishing.PublishingError.LOCAL_FILE_ERROR) {
+            error_type = "LOCAL_FILE_ERROR";
+        } else if(e is Spit.Publishing.PublishingError.EXPIRED_SESSION) {
+            error_type = "EXPIRED_SESSION";
+        }
+        
+        debug("Unhandled error: type=%s; message='%s'".printf(error_type, e.message));
+        do_show_error_message(ERROR_MESSAGE_GENERIC);
     }
     
     /**
      * Action to display an error message to the user.
      */
     private void do_show_error_message(string message) {
+        debug("ACTION: do_show_error_message");
         host.install_static_message_pane(message,
                 Spit.Publishing.PluginHost.ButtonMode.CLOSE);
     }
