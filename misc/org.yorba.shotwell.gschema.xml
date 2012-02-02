@@ -383,6 +383,14 @@
     </key>
 </schema>
 
+<schema id="org.yorba.shotwell.dataimports" path="/apps/shotwell/dataimports/">
+    <key name="last-used-dataimports-service" type="s">
+        <default>""</default>
+        <summary>last used import service</summary>
+        <description>A numeric code representing the last service from which photos were imported</description>
+    </key>
+</schema>
+
 <schema id="org.yorba.shotwell.video" path="/apps/shotwell/video/">
     <key name="interpreter-state-cookie" type="i">
         <default>-1</default>
@@ -492,6 +500,12 @@
         <default>false</default>
         <summary>enable yandex publishing plugin</summary>
         <description>True if the Yandex.Fotki publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="dataimports-fspot" type="b">
+        <default>true</default>
+        <summary>enable F-Spot import plugin</summary>
+        <description>True if the F-Spot import plugin is enabled, false otherwise</description>
     </key>
 
     <key name="transitions-crumble" type="b">

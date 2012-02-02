@@ -5,7 +5,8 @@
             <menuitem name="Stop" action="Stop" />
             <separator />
             <menuitem name="Import" action="CommonFileImport" />
-            <placeholder name="CommonImportFromAlienDbPlaceholder" />
+            <!--<placeholder name="CommonImportFromAlienDbPlaceholder" />-->
+            <menuitem name="ImportExternal" action="ExternalLibraryImport" />
             <separator />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
             <separator />

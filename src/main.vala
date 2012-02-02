@@ -204,20 +204,25 @@ void library_exec(string[] mounts) {
 
     library_window.show_all();
 
+    WelcomeServiceEntry[] selected_import_entries = new WelcomeServiceEntry[0];
     if (Config.Facade.get_instance().get_show_welcome_dialog() &&
         LibraryPhoto.global.get_count() == 0) {
         WelcomeDialog welcome = new WelcomeDialog(library_window);
-        Config.Facade.get_instance().set_show_welcome_dialog(welcome.execute(out do_fspot_import,
+        Config.Facade.get_instance().set_show_welcome_dialog(welcome.execute(out selected_import_entries,
             out do_system_pictures_import));
     } else {
         Config.Facade.get_instance().set_show_welcome_dialog(false);
     }
     
-    if (do_fspot_import) {
-        // TODO: remove dependency on FSpot
-        AlienDb.FSpot.FSpotDatabaseDriver.do_import(report_fspot_import);
-    } else if (do_system_pictures_import) { /* else-if because f-spot import will run the system
-                                               pictures import automatically if it's requested */
+    if (selected_import_entries.length > 0) {
+        do_external_import = true;
+        foreach (WelcomeServiceEntry entry in selected_import_entries)
+            entry.execute();
+    } 
+    if (do_system_pictures_import) {
+        /*  Do the system import even if other plugins have run as some plugins may not
+            as some plugins may not import pictures from the system folder.
+         */
         run_system_pictures_import();
     }
     
@@ -244,9 +249,9 @@ void library_exec(string[] mounts) {
 }
 
 private bool do_system_pictures_import = false;
-private bool do_fspot_import = false;
+private bool do_external_import = false;
 
-public void run_system_pictures_import(ImportManifest? fspot_exclusion_manifest = null) {
+public void run_system_pictures_import(ImportManifest? external_exclusion_manifest = null) {
     if (!do_system_pictures_import)
         return;
 
@@ -256,27 +261,20 @@ public void run_system_pictures_import(ImportManifest? fspot_exclusion_manifest 
     LibraryWindow library_window = (LibraryWindow) AppWindow.get_instance();
     
     BatchImport batch_import = new BatchImport(jobs, "startup_import",
-        report_system_pictures_import, null, null, null, null, fspot_exclusion_manifest);
+        report_system_pictures_import, null, null, null, null, external_exclusion_manifest);
     library_window.enqueue_batch_import(batch_import, true);
 
     library_window.switch_to_import_queue_page();
 }
 
-private void report_fspot_import(ImportManifest manifest, BatchImportRoll import_roll) {
-    ImportUI.report_manifest(manifest, true);
-    
-    if (do_system_pictures_import)
-       run_system_pictures_import(manifest);
-}
-
 private void report_system_pictures_import(ImportManifest manifest, BatchImportRoll import_roll) {
-    /* Don't report the manifest to the user if F-Spot import was done and the entire manifest
+    /* Don't report the manifest to the user if exteral import was done and the entire manifest
        is empty. An empty manifest in this case results from files that were already imported
-       in the F-Spot import phase being skipped. Note that we are testing against manifest.all,
+       in the external import phase being skipped. Note that we are testing against manifest.all,
        not manifest.success; manifest.all is zero when no files were enqueued for import in the
        first place and the only way this happens is if all files were skipped -- even failed
        files are counted in manifest.all */
-    if (do_fspot_import && (manifest.all.size == 0))
+    if (do_external_import && (manifest.all.size == 0))
         return;
 
     ImportUI.report_manifest(manifest, true);

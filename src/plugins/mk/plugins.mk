@@ -15,7 +15,8 @@ UNIT_FILES := \
 	SpitInterfaces.vala \
 	TransitionsInterfaces.vala \
 	StandardHostInterface.vala \
-	ManifestWidget.vala
+	ManifestWidget.vala \
+	DataImportsInterfaces.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.

@@ -15,6 +15,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string VIDEO_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".video";
     private const string PRINTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".printing";
     private const string SHARING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".sharing";
+    private const string IMPORTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".dataimports";
     private const string CROP_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".crop-settings";
     private const string SYSTEM_DESKTOP_SCHEMA_NAME = "org.gnome.desktop.background";
     private const string PLUGINS_ENABLE_DISABLE_SCHEMA_NAME = ROOT_SCHEMA_NAME +
@@ -59,6 +60,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.LAST_CROP_MENU_CHOICE] = CROP_SCHEMA_NAME;
         schema_names[ConfigurableProperty.LAST_CROP_WIDTH] = CROP_SCHEMA_NAME;
         schema_names[ConfigurableProperty.LAST_USED_SERVICE] = SHARING_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.LAST_USED_DATAIMPORTS_SERVICE] = IMPORTING_SCHEMA_NAME;
         schema_names[ConfigurableProperty.LIBRARY_PHOTOS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.LIBRARY_PHOTOS_SORT_BY] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.LIBRARY_WINDOW_HEIGHT] = WINDOW_PREFS_SCHEMA_NAME;
@@ -115,6 +117,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.LAST_CROP_MENU_CHOICE] = "last-crop-menu-choice";
         key_names[ConfigurableProperty.LAST_CROP_WIDTH] = "last-crop-width";
         key_names[ConfigurableProperty.LAST_USED_SERVICE] = "last-used-service";
+        key_names[ConfigurableProperty.LAST_USED_DATAIMPORTS_SERVICE] = "last-used-dataimports-service";
         key_names[ConfigurableProperty.LIBRARY_PHOTOS_SORT_ASCENDING] = "library-photos-sort-ascending";
         key_names[ConfigurableProperty.LIBRARY_PHOTOS_SORT_BY] = "library-photos-sort-by";
         key_names[ConfigurableProperty.LIBRARY_WINDOW_HEIGHT] = "library-height";

@@ -3,7 +3,8 @@
     <menubar name="MenuBar">
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Import" action="CommonFileImport" />
-            <placeholder name="CommonImportFromAlienDbPlaceholder" />
+            <!--<placeholder name="CommonImportFromAlienDbPlaceholder" />-->
+            <menuitem name="ImportExternal" action="ExternalLibraryImport" />
             <menuitem name="Export" action="Export" />
             <separator />
             <placeholder name="PrintPlaceholder" />

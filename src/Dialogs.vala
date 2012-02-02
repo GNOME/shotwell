@@ -1665,13 +1665,27 @@ public class ModifyTagsDialog : TagsDialog {
     
 }
 
+public interface WelcomeServiceEntry : GLib.Object {
+    public abstract string get_service_name();
+    
+    public abstract void execute();
+}
+
 public class WelcomeDialog : Gtk.Dialog {
     Gtk.CheckButton hide_button;
-    Gtk.CheckButton? fspot_import_check = null;
     Gtk.CheckButton? system_pictures_import_check = null;
-
+    Gtk.CheckButton[] external_import_checks = new Gtk.CheckButton[0];
+    WelcomeServiceEntry[] external_import_entries = new WelcomeServiceEntry[0];
+    Gtk.Label secondary_text;
+    Gtk.Label instruction_header;
+    Gtk.VBox import_content;
+    Gtk.VBox import_action_checkbox_packer;
+    Gtk.VBox external_import_action_checkbox_packer;
+    Spit.DataImports.WelcomeImportMetaHost import_meta_host;
+    bool import_content_already_installed = false;
+    
     public WelcomeDialog(Gtk.Window owner) {
-        bool show_fspot_import = is_fspot_import_possible();
+        import_meta_host = new Spit.DataImports.WelcomeImportMetaHost(this);
         bool show_system_pictures_import = is_system_pictures_import_possible();
         Gtk.Widget ok_button = add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
         set_title(_("Welcome!"));
@@ -1683,30 +1697,22 @@ public class WelcomeDialog : Gtk.Dialog {
         primary_text.set_markup(
             "<span size=\"large\" weight=\"bold\">%s</span>".printf(_("Welcome to Shotwell!")));
         primary_text.set_alignment(0, 0.5f);
-        Gtk.Label secondary_text = new Gtk.Label("");
-        if (!(show_fspot_import || show_system_pictures_import)) {
-            secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
-                _("To get started, import photos in any of these ways:")));
-        }
+        secondary_text = new Gtk.Label("");
+        secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
+            _("To get started, import photos in any of these ways:")));
         secondary_text.set_alignment(0, 0.5f);
         Gtk.Image image = new Gtk.Image.from_pixbuf(Resources.get_icon(Resources.ICON_APP, 50));
         
-        Gtk.Widget? header_text = null;
-        if (show_fspot_import || show_system_pictures_import) {
-            header_text = primary_text;
-        } else {
-            header_text = new Gtk.VBox(false, 0);
-            
-            ((Gtk.VBox) header_text).pack_start(primary_text, false, false, 5);
-            ((Gtk.VBox) header_text).pack_start(secondary_text, false, false, 0);
-        }
+        Gtk.VBox header_text = new Gtk.VBox(false, 0);
+        header_text.pack_start(primary_text, false, false, 5);
+        header_text.pack_start(secondary_text, false, false, 0);
 
         Gtk.HBox header_content = new Gtk.HBox(false, 12);
         header_content.pack_start(image, false, false, 0);
         header_content.pack_start(header_text, false, false, 0);
 
         Gtk.Label instructions = new Gtk.Label("");
-        string indent_prefix = (show_fspot_import || show_system_pictures_import) ? "   " : "";
+        string indent_prefix = "   "; // we can't tell what the indent prefix is going to be so assume we need one
         instructions.set_markup(((indent_prefix + "&#8226; %s\n") + (indent_prefix + "&#8226; %s\n")
             + (indent_prefix + "&#8226; %s")).printf(
             _("Choose <span weight=\"bold\">File %s Import From Folder</span>").printf("▸"),
@@ -1714,39 +1720,30 @@ public class WelcomeDialog : Gtk.Dialog {
             _("Connect a camera to your computer and import")));
         instructions.set_alignment(0, 0.5f);
         
-        Gtk.VBox? import_action_checkbox_packer = null;
-        if (show_fspot_import || show_system_pictures_import) {
-            import_action_checkbox_packer = new Gtk.VBox(false, 2);
-            
-            if (show_fspot_import) {
-                fspot_import_check = new Gtk.CheckButton.with_mnemonic(
-                    _("Import photos from your _F-Spot library"));
-                import_action_checkbox_packer.add(fspot_import_check);
-                fspot_import_check.set_active(true);
-            }
-            
-            if (show_system_pictures_import) {
-                system_pictures_import_check = new Gtk.CheckButton.with_mnemonic(
-                    _("_Import photos from your %s folder").printf(
-                    get_display_pathname(AppDirs.get_import_dir())));
-                import_action_checkbox_packer.add(system_pictures_import_check);
-                system_pictures_import_check.set_active(true);
-            }
+        import_action_checkbox_packer = new Gtk.VBox(false, 2);
+        
+        external_import_action_checkbox_packer = new Gtk.VBox(false, 2);
+        import_action_checkbox_packer.add(external_import_action_checkbox_packer);
+        
+        if (show_system_pictures_import) {
+            system_pictures_import_check = new Gtk.CheckButton.with_mnemonic(
+                _("_Import photos from your %s folder").printf(
+                get_display_pathname(AppDirs.get_import_dir())));
+            import_action_checkbox_packer.add(system_pictures_import_check);
+            system_pictures_import_check.set_active(true);
         }
         
-        Gtk.Label? instruction_header = null;
-        if (show_fspot_import || show_system_pictures_import) {
-            instruction_header = new Gtk.Label(
-                _("You can also import photos in any of these ways:"));
-            instruction_header.set_alignment(0.0f, 0.5f);
-        }
+        instruction_header = new Gtk.Label(
+            _("You can also import photos in any of these ways:"));
+        instruction_header.set_alignment(0.0f, 0.5f);
+        instruction_header.set_margin_top(20);
         
         Gtk.VBox content = new Gtk.VBox(false, 16);
         content.pack_start(header_content, true, true, 0);
-        if (show_fspot_import || show_system_pictures_import) {
-            content.add(import_action_checkbox_packer);
-            content.add(instruction_header);
-        }
+        import_content = new Gtk.VBox(false, 2);
+        content.add(import_content);
+        //content.add(import_action_checkbox_packer);
+        //content.add(instruction_header);
         content.pack_start(instructions, false, false, 0);
 
         hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don't show this message again"));
@@ -1762,9 +1759,36 @@ public class WelcomeDialog : Gtk.Dialog {
 		set_has_resize_grip(false);
         
         ok_button.grab_focus();
+        
+        install_import_content();
+        
+        import_meta_host.start();
+    }
+    
+    private void install_import_content() {
+        if (
+            (external_import_checks.length > 0 || system_pictures_import_check != null) &&
+            (import_content_already_installed == false)
+        ) {
+            secondary_text.set_markup("");
+            import_content.add(import_action_checkbox_packer);
+            import_content.add(instruction_header);
+            import_content_already_installed = true;
+        }
+    }
+    
+    public void install_service_entry(WelcomeServiceEntry entry) {
+        debug("WelcomeDialog: Installing service entry for %s".printf(entry.get_service_name()));
+        external_import_entries += entry;
+        Gtk.CheckButton entry_check = new Gtk.CheckButton.with_label(
+            _("Import photos from your %s library").printf(entry.get_service_name()));
+        external_import_checks += entry_check;
+        entry_check.set_active(true);
+        external_import_action_checkbox_packer.add(entry_check);
+        install_import_content();
     }
 
-    public bool execute(out bool do_fspot_import, out bool do_system_pictures_import) {
+    public bool execute(out WelcomeServiceEntry[] selected_import_entries, out bool do_system_pictures_import) {
         show_all();
 
         bool ok = (run() == Gtk.ResponseType.OK);
@@ -1773,7 +1797,13 @@ public class WelcomeDialog : Gtk.Dialog {
         if (ok)
             show_dialog = !hide_button.get_active();
         
-        do_fspot_import = (fspot_import_check != null) ? fspot_import_check.get_active() : false;
+        // Use a temporary variable as += cannot be used on parameters
+        WelcomeServiceEntry[] result = new WelcomeServiceEntry[0];
+        for (int i = 0; i < external_import_entries.length; i++) {
+            if (external_import_checks[i].get_active() == true)
+                result += external_import_entries[i];
+        }
+        selected_import_entries = result;
         do_system_pictures_import = 
             (system_pictures_import_check != null) ? system_pictures_import_check.get_active() : false;
 
@@ -1797,10 +1827,6 @@ public class WelcomeDialog : Gtk.Dialog {
         } catch (Error e) {
             return false;
         }
-    }
-    
-    private static bool is_fspot_import_possible() {
-        return AlienDb.FSpot.FSpotDatabaseDriver.is_available();
     }
 }
 

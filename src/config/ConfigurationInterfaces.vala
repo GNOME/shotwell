@@ -47,6 +47,7 @@ public enum ConfigurableProperty {
     LAST_CROP_MENU_CHOICE,
     LAST_CROP_WIDTH,
     LAST_USED_SERVICE,
+    LAST_USED_DATAIMPORTS_SERVICE,
     LIBRARY_PHOTOS_SORT_ASCENDING,
     LIBRARY_PHOTOS_SORT_BY,
     LIBRARY_WINDOW_HEIGHT,
@@ -159,6 +160,9 @@ public enum ConfigurableProperty {
 
             case LAST_USED_SERVICE:
                 return "LAST_USED_SERVICE";
+                
+            case LAST_USED_DATAIMPORTS_SERVICE:
+                return "LAST_USED_DATAIMPORTS_SERVICE";
                 
             case LIBRARY_PHOTOS_SORT_ASCENDING:
                 return "LIBRARY_PHOTOS_SORT_ASCENDING";
@@ -876,6 +880,30 @@ public abstract class ConfigurationFacade : Object {
     public virtual void set_last_used_service(string service_name) {
         try {
             get_engine().set_string_property(ConfigurableProperty.LAST_USED_SERVICE, service_name);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // last used import service
+    //
+    public virtual string get_last_used_dataimports_service() {
+        try {
+            return get_engine().get_string_property(ConfigurableProperty.LAST_USED_DATAIMPORTS_SERVICE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            // in the event we can't get a reasonable value from the configuration engine, we
+            // return the empty string since it won't match the name of any existing import
+            // service -- this will cause the import subsystem to select the first service
+            // loaded
+            return "";
+        }
+    }
+    
+    public virtual void set_last_used_dataimports_service(string service_name) {
+        try {
+            get_engine().set_string_property(ConfigurableProperty.LAST_USED_DATAIMPORTS_SERVICE, service_name);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
         }

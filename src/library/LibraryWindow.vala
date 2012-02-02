@@ -388,11 +388,12 @@ public class LibraryWindow : AppWindow {
         import.tooltip = _("Import photos from disk to library");
         actions += import;
         
-        // Add one action per alien database driver
-        foreach (AlienDb.AlienDatabaseDriver driver in AlienDb.AlienDatabaseHandler.get_instance().get_drivers()) {
-            Gtk.ActionEntry import_from_alien_db = driver.get_action_entry();
-            actions += import_from_alien_db;
-        }
+        Gtk.ActionEntry import_from_external = {
+            "ExternalLibraryImport", Resources.IMPORT, TRANSLATABLE,
+            "<Ctrl>E", TRANSLATABLE, on_external_library_import
+        };
+        import_from_external.label = _("Import from _Another Application...");
+        actions += import_from_external;
 
         Gtk.ActionEntry sort = { "CommonSortEvents", null, TRANSLATABLE, null, null, null };
         sort.label = _("Sort _Events");
@@ -499,11 +500,6 @@ public class LibraryWindow : AppWindow {
     
     public override void replace_common_placeholders(Gtk.UIManager ui) {
         base.replace_common_placeholders(ui);
-        
-        // Adds one menu entry per alien database driver
-        AlienDb.AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/MenuBar/FileMenu/CommonImportFromAlienDbPlaceholder"
-        );
     }
     
     protected override void switched_pages(Page? old_page, Page? new_page) {
@@ -742,6 +738,12 @@ public class LibraryWindow : AppWindow {
         
         import_dir = import_dialog.get_current_folder();
         import_dialog.destroy();
+    }
+    
+    private void on_external_library_import() {
+        Gtk.Dialog import_dialog = DataImportsUI.DataImportsDialog.get_or_create_instance();
+        
+        import_dialog.run();
     }
     
     protected override void update_common_action_availability(Page? old_page, Page? new_page) {
