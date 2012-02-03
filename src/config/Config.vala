@@ -29,7 +29,7 @@ public class Facade : ConfigurationFacade {
     public const string DEFAULT_BG_COLOR = "#444";
     public const int NO_VIDEO_INTERPRETER_STATE = -1;
 
-    private const uint BLACK_THRESHOLD = 40000;
+    private const double BLACK_THRESHOLD = 0.61;
     private const string DARK_SELECTED_COLOR = "#0AD";
     private const string LIGHT_SELECTED_COLOR = "#2DF";
     private const string DARK_UNSELECTED_COLOR = "#000";
@@ -66,7 +66,7 @@ public class Facade : ConfigurationFacade {
         colors_changed();
     }
 
-    private void set_text_colors(Gdk.Color bg_color) {
+    private void set_text_colors(Gdk.RGBA bg_color) {
         // since bg color is greyscale, we only need to compare the red value to the threshold,
         // which determines whether the background is dark enough to need light text and selection
         // colors or vice versa
@@ -92,14 +92,14 @@ public class Facade : ConfigurationFacade {
         set_text_colors(parse_color(bg_color));
     }
 
-    public Gdk.Color get_bg_color() {
+    public Gdk.RGBA get_bg_color() {
         if (is_string_empty(bg_color))
             get_colors();
 
         return parse_color(bg_color);
     }
 
-    public Gdk.Color get_selected_color(bool in_focus = true) {
+    public Gdk.RGBA get_selected_color(bool in_focus = true) {
         if (in_focus) {
             if (is_string_empty(selected_color))
                 get_colors();
@@ -113,21 +113,21 @@ public class Facade : ConfigurationFacade {
         }
     }
     
-    public Gdk.Color get_unselected_color() {
+    public Gdk.RGBA get_unselected_color() {
         if (is_string_empty(unselected_color))
             get_colors();
 
         return parse_color(unselected_color);
     }
 
-    public Gdk.Color get_border_color() {
+    public Gdk.RGBA get_border_color() {
         if (is_string_empty(border_color))
             get_colors();
 
         return parse_color(border_color);
     }
     
-    public void set_bg_color(Gdk.Color color) {
+    public void set_bg_color(Gdk.RGBA color) {
         bg_color = color.to_string();
         set_bg_color_name(bg_color);
         

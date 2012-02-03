@@ -33,7 +33,7 @@ EXTRAS_SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR := $(DESTDIR)$(PREFIX)/share/locale
 
-VALAFLAGS := -g --enable-checking --thread --fatal-warnings $(USER_VALAFLAGS)
+VALAFLAGS := -g --enable-checking --thread --fatal-warnings --enable-deprecated $(USER_VALAFLAGS)
 ifdef UNITY_SUPPORT
 VALAFLAGS := $(VALAFLAGS) --define UNITY_SUPPORT
 endif
@@ -108,7 +108,6 @@ THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala
 
 VAPI_FILES = \
-	gdk-3.0.vapi \
 	unique-3.0.vapi \
 	webkitgtk-3.0.vapi \
 	libexif.vapi \

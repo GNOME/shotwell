@@ -117,7 +117,7 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
             // as not present, and not some other problem (which may be intermittant)
             if (info == null) {
                 try {
-                    info = yield file.query_info_async(FILE_ATTRIBUTE_STANDARD_NAME,
+                    info = yield file.query_info_async(FileAttribute.STANDARD_NAME,
                         FileQueryInfoFlags.NOFOLLOW_SYMLINKS, Priority.LOW, cancellable);
                 } catch (Error err) {
                     // watch for cancellation, which signals it's time to go

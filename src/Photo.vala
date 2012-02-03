@@ -574,8 +574,7 @@ public abstract class Photo : PhotoSource, Dateable {
         File file = File.new_for_path(bpr.filepath);
         FileInfo info = file.query_info(DirectoryMonitor.SUPPLIED_ATTRIBUTES,
             FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        TimeVal timestamp;
-        info.get_modification_time(out timestamp);
+        TimeVal timestamp = info.get_modification_time();
         
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(
             file, PhotoFileSniffer.Options.GET_ALL);
@@ -1013,8 +1012,7 @@ public abstract class Photo : PhotoSource, Dateable {
             return ImportResult.UNSUPPORTED_FORMAT;
         }
         
-        TimeVal timestamp;
-        info.get_modification_time(out timestamp);
+        TimeVal timestamp = info.get_modification_time();
         
         // if all MD5s supplied, don't sniff for them
         if (params.exif_md5 != null && params.thumbnail_md5 != null && params.full_md5 != null)
@@ -1171,8 +1169,7 @@ public abstract class Photo : PhotoSource, Dateable {
             return null;
         }
         
-        TimeVal modification_time = TimeVal();
-        info.get_modification_time(out modification_time);
+        TimeVal modification_time = info.get_modification_time();
         
         backing.filepath = file.get_path();
         backing.timestamp = modification_time.tv_sec;
@@ -1219,7 +1216,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     private class ReimportRawDevelopmentStateImpl : ReimportRawDevelopmentState {
-        class DevToReimport {
+        public class DevToReimport {
             public BackingPhotoRow backing = new BackingPhotoRow();
             public PhotoMetadata? metadata;
             
@@ -1512,8 +1509,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // Use this only if the master file's modification time has been changed (i.e. touched)
     public void set_master_timestamp(FileInfo info) {
-        TimeVal modification;
-        info.get_modification_time(out modification);
+        TimeVal modification = info.get_modification_time();
         
         try {
             lock (row) {
@@ -1537,8 +1533,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // Use this only if the editable file's modification time has been changed (i.e. touched)
     public void update_editable_modification_time(FileInfo info) throws DatabaseError {
-        TimeVal modification;
-        info.get_modification_time(out modification);
+        TimeVal modification = info.get_modification_time();
         
         bool altered = false;
         lock (row) {
@@ -2096,8 +2091,7 @@ public abstract class Photo : PhotoSource, Dateable {
             error("Unable to read file information for %s: %s", to_string(), err.message);
         }
         
-        TimeVal timestamp = TimeVal();
-        info.get_modification_time(out timestamp);
+        TimeVal timestamp = info.get_modification_time();
         
         // interrogate file for photo information
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file);
@@ -3615,8 +3609,7 @@ public abstract class Photo : PhotoSource, Dateable {
                 return;
             }
             
-            TimeVal timestamp;
-            info.get_modification_time(out timestamp);
+            TimeVal timestamp = info.get_modification_time();
         
             BackingPhotoTable.get_instance().update_attributes(editable_id, timestamp.tv_sec,
                 info.get_size());
@@ -4022,7 +4015,7 @@ public abstract class Photo : PhotoSource, Dateable {
             lower_right.y = temp;
         }
         
-        Gdk.Rectangle raw_rect = {0};
+        Gdk.Rectangle raw_rect = Gdk.Rectangle();
         raw_rect.x = upper_left.x;
         raw_rect.y = upper_left.y;
         raw_rect.width = lower_right.x - upper_left.x;

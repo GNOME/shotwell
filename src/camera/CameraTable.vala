@@ -208,7 +208,7 @@ public class CameraTable {
     
     private string? get_name_for_uuid(string uuid) {
         foreach (Volume volume in volume_monitor.get_volumes()) {
-            if (volume.get_identifier(VOLUME_IDENTIFIER_KIND_UUID) == uuid) {
+            if (volume.get_identifier(VolumeIdentifier.UUID) == uuid) {
                 return volume.get_name();
             }
         }
@@ -217,7 +217,7 @@ public class CameraTable {
     
     private GLib.Icon? get_icon_for_uuid(string uuid) {
         foreach (Volume volume in volume_monitor.get_volumes()) {
-            if (volume.get_identifier(VOLUME_IDENTIFIER_KIND_UUID) == uuid) {
+            if (volume.get_identifier(VolumeIdentifier.UUID) == uuid) {
                 return volume.get_icon();
             }
         }

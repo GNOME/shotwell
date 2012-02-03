@@ -559,7 +559,7 @@ public struct ZoomState {
         int zoomed_width = get_zoomed_width();
         int zoomed_height = get_zoomed_height();
 
-        Gdk.Rectangle result = {0};
+        Gdk.Rectangle result = Gdk.Rectangle();
 
         if (viewport_dimensions.width < zoomed_width) {
             result.x = viewport_center.x - (viewport_dimensions.width / 2);
@@ -598,7 +598,7 @@ public struct ZoomState {
     public Gdk.Rectangle get_viewing_rectangle_wrt_screen() {
         Gdk.Rectangle wrt_content = get_viewing_rectangle_wrt_content();
 
-        Gdk.Rectangle result = {0};
+        Gdk.Rectangle result = Gdk.Rectangle();
         result.x = (viewport_dimensions.width / 2) - (wrt_content.width / 2);
         if (result.x < 0)
             result.x = 0;
@@ -622,7 +622,7 @@ public struct ZoomState {
         
         Gdk.Rectangle viewing_rectangle = get_viewing_rectangle_wrt_content();
 
-        Gdk.Rectangle result = {0};
+        Gdk.Rectangle result = Gdk.Rectangle();
         result.x = (int) (viewing_rectangle.x * scale);
         result.x = result.x.clamp(0, for_pixbuf.width);
         result.y = (int) (viewing_rectangle.y * scale);

@@ -898,10 +898,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
     }
     
-    public string to_css_color(Gdk.Color color) {
-        int r = (int) ((((double) color.red) / uint16.MAX) * 255);
-        int g = (int) ((((double) color.green) / uint16.MAX) * 255);
-        int b = (int) ((((double) color.blue) / uint16.MAX) * 255);
+    public string to_css_color(Gdk.RGBA color) {
+        int r = (int) (color.red * 255);
+        int g = (int) (color.green * 255);
+        int b = (int) (color.blue * 255);
         
         return "rgb(%d, %d, %d)".printf(r, g, b);
     }

@@ -41,8 +41,8 @@ public abstract class DatabaseTable {
         if (filename != Db.IN_MEMORY_NAME) {
             try {
                 File file_db = File.new_for_path(filename);
-                FileInfo info = file_db.query_info(GLib.FILE_ATTRIBUTE_ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE);
-                if (!info.get_attribute_boolean(GLib.FILE_ATTRIBUTE_ACCESS_CAN_WRITE))
+                FileInfo info = file_db.query_info(FileAttribute.ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE);
+                if (!info.get_attribute_boolean(FileAttribute.ACCESS_CAN_WRITE))
                     AppWindow.panic(_("Unable to write to photo database file:\n %s").printf(filename));
             } catch (Error e) {
                 AppWindow.panic(_("Error accessing database file:\n %s\n\nError was: \n%s").printf(filename,

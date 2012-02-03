@@ -380,7 +380,8 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         int x, y;
         Gdk.ModifierType mask;
-        AppWindow.get_instance().get_window().get_pointer(out x, out y, out mask);
+        AppWindow.get_instance().get_window().get_device_position(Gdk.Display.get_default().
+            get_device_manager().get_client_pointer(), out x, out y, out mask);
         
         ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
@@ -678,7 +679,8 @@ public abstract class Page : Gtk.ScrolledWindow {
             return false;
         }
         
-        event_source.get_window().get_pointer(out x, out y, out mask);
+        event_source.get_window().get_device_position(Gdk.Display.get_default().get_device_manager()
+            .get_client_pointer(), out x, out y, out mask);
         
         if (last_down.x < 0 || last_down.y < 0)
             return true;
@@ -1004,7 +1006,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     private bool on_motion_internal(Gdk.EventMotion event) {
         int x, y;
         Gdk.ModifierType mask;
-        if (event.is_hint) {
+        if (event.is_hint == 1) {
             get_event_source_pointer(out x, out y, out mask);
         } else {
             x = (int) event.x;
@@ -1981,7 +1983,7 @@ public abstract class SinglePhotoPage : Page {
         assert(is_zoom_supported());
         Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.get_window());
         
-        Gdk.cairo_set_source_color(pixmap_ctx, canvas.get_style().black);
+        set_source_color_from_string(pixmap_ctx, "#000");
         pixmap_ctx.paint();
         
         bool old_quality_setting = zoom_high_quality;
@@ -1997,7 +1999,7 @@ public abstract class SinglePhotoPage : Page {
         assert(is_zoom_supported());
         Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.get_window());
         
-        Gdk.cairo_set_source_color(pixmap_ctx, canvas.style.black);
+        set_source_color_from_string(pixmap_ctx, "#000");
         pixmap_ctx.paint();
         
         bool old_quality_setting = zoom_high_quality;
@@ -2015,7 +2017,7 @@ public abstract class SinglePhotoPage : Page {
 
     protected virtual void cancel_zoom() {
         if (pixmap != null) {
-            Gdk.cairo_set_source_color(pixmap_ctx, canvas.style.black);
+            set_source_color_from_string(pixmap_ctx, "#000");
             pixmap_ctx.paint();
         }
     }
@@ -2172,7 +2174,7 @@ public abstract class SinglePhotoPage : Page {
         if (pixmap != null)
             exposed_ctx.set_source_surface(pixmap, 0, 0);
         else
-            Gdk.cairo_set_source_color(exposed_ctx, canvas.style.black);
+            set_source_color_from_string(exposed_ctx, "#000");
         
         exposed_ctx.rectangle(0, 0, get_allocated_width(), get_allocated_height());
         exposed_ctx.paint();
@@ -2188,14 +2190,15 @@ public abstract class SinglePhotoPage : Page {
     
     protected virtual void paint(Cairo.Context ctx, Dimensions ctx_dim) {
         if (is_zoom_supported() && (!static_zoom_state.is_default())) {
-            Gdk.cairo_set_source_color(ctx, canvas.style.black);
+            set_source_color_from_string(ctx, "#000");
             ctx.rectangle(0, 0, pixmap_dim.width, pixmap_dim.height);
             ctx.fill();
             
             render_zoomed_to_pixmap(static_zoom_state);
         } else if (!transition_clock.paint(ctx, ctx_dim.width, ctx_dim.height)) {
             // transition is not running, so paint the full image on a black background
-            Gdk.cairo_set_source_color(ctx, canvas.style.black);
+            set_source_color_from_string(ctx, "#000");
+            
             ctx.rectangle(0, 0, pixmap_dim.width, pixmap_dim.height);
             ctx.fill();
             
@@ -2299,7 +2302,7 @@ public abstract class SinglePhotoPage : Page {
         
         if (direction != null && !transition_clock.is_in_progress()) {
             Spit.Transitions.Visuals visuals = new Spit.Transitions.Visuals(old_scaled,
-                old_scaled_pos, scaled, scaled_pos, canvas.style.black);
+                old_scaled_pos, scaled, scaled_pos, parse_color("#000"));
             
             transition_clock.start(visuals, direction.to_transition_direction(), transition_duration_msec,
                 repaint_pixmap);
@@ -2325,7 +2328,8 @@ public abstract class SinglePhotoPage : Page {
         
         // Cairo context for drawing text on the pixmap
         text_ctx = new Cairo.Context(pixmap);
-        Gdk.cairo_set_source_color(text_ctx, canvas.style.white);
+        set_source_color_from_string(text_ctx, "#fff");
+        
         
         // no need to resize canvas, viewport does that automatically
         
@@ -2398,7 +2402,7 @@ public class DragAndDropHandler {
     
     private static Gdk.Atom? XDS_ATOM = null;
     private static Gdk.Atom? TEXT_ATOM = null;
-    private static uchar[]? XDS_FAKE_TARGET = null;
+    private static uint8[]? XDS_FAKE_TARGET = null;
     
     private weak Page page;
     private Gtk.Widget event_source;
@@ -2466,7 +2470,7 @@ public class DragAndDropHandler {
         
         // set the XDS property to indicate an XDS save is available
         Gdk.property_change(context.get_source_window(), XDS_ATOM, TEXT_ATOM, 8, Gdk.PropMode.REPLACE,
-            XDS_FAKE_TARGET, XDS_FAKE_TARGET.length);
+            XDS_FAKE_TARGET);
     }
     
     private void on_drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,

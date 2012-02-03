@@ -202,8 +202,8 @@ public class ZoomBuffer : Object {
                 Gdk.Rectangle curr_rect = zoom_state.get_viewing_rectangle_wrt_content();
                 Gdk.Rectangle pre_rect =
                     demand_transform_zoom_state.get_viewing_rectangle_wrt_content();
-                Gdk.Rectangle transfer_src_rect = {0};
-                Gdk.Rectangle transfer_dest_rect = {0};
+                Gdk.Rectangle transfer_src_rect = Gdk.Rectangle();
+                Gdk.Rectangle transfer_dest_rect = Gdk.Rectangle();
                                  
                 transfer_src_rect.x = (curr_rect.x - pre_rect.x).clamp(0, pre_rect.width);
                 transfer_src_rect.y = (curr_rect.y - pre_rect.y).clamp(0, pre_rect.height);
@@ -1800,7 +1800,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
         
         if (photo_missing && has_photo()) {
-            Gdk.cairo_set_source_color(ctx, canvas.style.black);
+            set_source_color_from_string(ctx, "#000");
             ctx.rectangle(0, 0, get_surface_dim().width, get_surface_dim().height);
             ctx.fill();
             ctx.paint();

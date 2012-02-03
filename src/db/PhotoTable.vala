@@ -1053,20 +1053,14 @@ public class BackingPhotoRow {
         if (filesize != info.get_size())
             return false;
         
-        TimeVal modification;
-        info.get_modification_time(out modification);
-        
-        return timestamp == modification.tv_sec;
+        return timestamp == info.get_modification_time().tv_sec;
     }
     
     public bool is_touched(FileInfo info) {
         if (filesize != info.get_size())
             return false;
         
-        TimeVal modification;
-        info.get_modification_time(out modification);
-        
-        return timestamp != modification.tv_sec;
+        return timestamp != info.get_modification_time().tv_sec;
     }
     
     // Copies another backing photo row into this one.

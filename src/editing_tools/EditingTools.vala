@@ -142,7 +142,7 @@ public abstract class PhotoCanvas {
         upper_left = active_to_unscaled_point(upper_left);
         lower_right = active_to_unscaled_point(lower_right);
 
-        Gdk.Rectangle unscaled_rect = {0};
+        Gdk.Rectangle unscaled_rect = Gdk.Rectangle();
         unscaled_rect.x = upper_left.x;
         unscaled_rect.y = upper_left.y;
         unscaled_rect.width = lower_right.x - upper_left.x;
@@ -172,7 +172,7 @@ public abstract class PhotoCanvas {
         upper_left = user_to_active_point(upper_left);
         lower_right = user_to_active_point(lower_right);
 
-        Gdk.Rectangle active_rect = {0};
+        Gdk.Rectangle active_rect = Gdk.Rectangle();
         active_rect.x = upper_left.x;
         active_rect.y = upper_left.y;
         active_rect.width = lower_right.x - upper_left.x;
@@ -244,7 +244,7 @@ public abstract class PhotoCanvas {
         default_ctx.save();
 
         // paint black background
-        Gdk.cairo_set_source_color(default_ctx, container.style.black);
+        set_source_color_from_string(default_ctx, "#000");
         default_ctx.rectangle(0, 0, surface_dim.width, surface_dim.height);
         default_ctx.fill();
 
@@ -259,7 +259,7 @@ public abstract class PhotoCanvas {
     public void paint_pixbuf_area(Gdk.Pixbuf pixbuf, Box source_area) {
         default_ctx.save();
         if (pixbuf.get_has_alpha()) {
-            Gdk.cairo_set_source_color(default_ctx, container.style.black);
+            set_source_color_from_string(default_ctx, "#000");
             default_ctx.rectangle(scaled_position.x + source_area.left,
                 scaled_position.y + source_area.top,
                 source_area.get_width(), source_area.get_height());
@@ -827,15 +827,15 @@ public class CropTool : EditingTool {
         return false;
     }
 
-    private void on_width_insert_text(string text, int length, void *position) {
-        on_entry_insert_text(crop_tool_window.custom_width_entry, text, length, position);
+    private void on_width_insert_text(string text, int length, ref int position) {
+        on_entry_insert_text(crop_tool_window.custom_width_entry, text, length, ref position);
     }
 
-    private void on_height_insert_text(string text, int length, void *position) {
-        on_entry_insert_text(crop_tool_window.custom_height_entry, text, length, position);
+    private void on_height_insert_text(string text, int length, ref int position) {
+        on_entry_insert_text(crop_tool_window.custom_height_entry, text, length, ref position);
     }
 
-    private void on_entry_insert_text(Gtk.Entry sender, string text, int length, void *position) {
+    private void on_entry_insert_text(Gtk.Entry sender, string text, int length, ref int position) {
         if (entry_insert_in_progress)
             return;
 
@@ -853,7 +853,7 @@ public class CropTool : EditingTool {
         }
 
         if (new_text.length > 0)
-            sender.insert_text(new_text, (int) new_text.length, position);
+            sender.insert_text(new_text, (int) new_text.length, ref position);
 
         Signal.stop_emission_by_name(sender, "insert-text");
 
@@ -1222,15 +1222,15 @@ public class CropTool : EditingTool {
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
         wide_black_ctx = new Cairo.Context(ctx.get_target());
-        Gdk.cairo_set_source_color(wide_black_ctx, fetch_color("#000"));
+        set_source_color_from_string(wide_black_ctx, "#000");
         wide_black_ctx.set_line_width(1);
 
         wide_white_ctx = new Cairo.Context(ctx.get_target());
-        Gdk.cairo_set_source_color(wide_white_ctx, fetch_color("#FFF"));
+        set_source_color_from_string(wide_white_ctx, "#FFF");
         wide_white_ctx.set_line_width(1);
 
         thin_white_ctx = new Cairo.Context(ctx.get_target());
-        Gdk.cairo_set_source_color(thin_white_ctx, fetch_color("#FFF"));
+        set_source_color_from_string(thin_white_ctx, "#FFF");
         thin_white_ctx.set_line_width(0.5);
     }
 
@@ -2454,7 +2454,7 @@ public struct RedeyeInstance {
     }
 
     public static Gdk.Rectangle to_bounds_rect(EditingTools.RedeyeInstance inst) {
-        Gdk.Rectangle result = {0};
+        Gdk.Rectangle result = Gdk.Rectangle();
         result.x = inst.center.x - inst.radius;
         result.y = inst.center.y - inst.radius;
         result.width = 2 * inst.radius;
@@ -2552,11 +2552,11 @@ public class RedeyeTool : EditingTool {
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
         wider_gray_ctx = new Cairo.Context(ctx.get_target());
-        Gdk.cairo_set_source_color(wider_gray_ctx, fetch_color("#111"));
+        set_source_color_from_string(wider_gray_ctx, "#111");
         wider_gray_ctx.set_line_width(3);
 
         thin_white_ctx = new Cairo.Context(ctx.get_target());
-        Gdk.cairo_set_source_color(thin_white_ctx, fetch_color("#FFF"));
+        set_source_color_from_string(thin_white_ctx, "#FFF");
         thin_white_ctx.set_line_width(1);
     }
 

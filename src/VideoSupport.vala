@@ -83,8 +83,7 @@ public class VideoReader {
             return ImportResult.UNSUPPORTED_FORMAT;
         }
         
-        TimeVal timestamp;
-        info.get_modification_time(out timestamp);
+        TimeVal timestamp = info.get_modification_time();
         
         // make sure params has a valid md5
         assert(params.md5 != null);
@@ -722,8 +721,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     }
     
     public void set_master_timestamp(FileInfo info) {
-        TimeVal time_val;
-        info.get_modification_time(out time_val);
+        TimeVal time_val = info.get_modification_time();
         
         try {
             lock (backing_row) {
@@ -1073,10 +1071,7 @@ public class VideoSourceCollection : MediaSourceCollection {
         if (video.get_filesize() != info.get_size())
             return;
         
-        TimeVal modification;
-        info.get_modification_time(out modification);
-        
-        if (video.get_timestamp() == modification.tv_sec)
+        if (video.get_timestamp() == info.get_modification_time().tv_sec)
             matching_master.add(video);
     }
     

@@ -69,7 +69,7 @@ public class LibraryWindow : AppWindow {
     
     // special Yorba-selected sidebar background color for standard themes (humanity,
     // clearlooks, etc.); dark themes use the theme's native background color
-    public static Gdk.Color SIDEBAR_STANDARD_BG_COLOR = parse_color("#EEE");
+    public static Gdk.RGBA SIDEBAR_STANDARD_BG_COLOR = parse_color("#EEE");
     
     // Max brightness value to trigger SIDEBAR_STANDARD_BG_COLOR 
     public const uint16 STANDARD_COMPONENT_MINIMUM = 0xe000;
@@ -961,7 +961,8 @@ public class LibraryWindow : AppWindow {
     private Gdk.DragAction get_drag_action() {
         Gdk.ModifierType mask;
         
-        get_window().get_pointer(null, null, out mask);
+        get_window().get_device_position(Gdk.Display.get_default().get_device_manager()
+            .get_client_pointer(), null, null, out mask);
 
         bool ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         bool alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
@@ -1356,7 +1357,7 @@ public class LibraryWindow : AppWindow {
             // if the current theme is a standard theme (as opposed to a dark theme), then
             // use the specially-selected Yorba muted background color for the sidebar.
             // otherwise, use the theme's native background color.
-            sidebar_tree.modify_base(Gtk.StateType.NORMAL, SIDEBAR_STANDARD_BG_COLOR);
+            sidebar_tree.override_color(Gtk.StateFlags.NORMAL, SIDEBAR_STANDARD_BG_COLOR);
         }
         
         // put the sidebar in a scrolling window

@@ -89,10 +89,10 @@ public class Visuals : Object {
     /**
      * Returns the background color of the viewport.
      */
-    public Gdk.Color bg_color { get; private set; }
+    public Gdk.RGBA bg_color { get; private set; }
     
     public Visuals(Gdk.Pixbuf? from_pixbuf, Gdk.Rectangle from_pos, Gdk.Pixbuf? to_pixbuf,
-        Gdk.Rectangle to_pos, Gdk.Color bg_color) {
+        Gdk.Rectangle to_pos, Gdk.RGBA bg_color) {
         this.from_pixbuf = from_pixbuf;
         this.from_pos = from_pos;
         this.to_pixbuf = to_pixbuf;

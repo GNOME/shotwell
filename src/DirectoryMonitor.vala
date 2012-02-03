@@ -256,7 +256,7 @@ public class DirectoryMonitor : Object {
             // This *only* retrieves the file ID, which is then used to obtain the in-memory file
             // information.
             try {
-                info = file.query_info(FILE_ATTRIBUTE_ID_FILE, UNKNOWN_INFO_FLAGS, cancellable);
+                info = file.query_info(FileAttribute.ID_FILE, UNKNOWN_INFO_FLAGS, cancellable);
             } catch (Error err) {
                 warning("Unable to query file ID of %s: %s", file.get_path(), err.message);
                 
@@ -266,7 +266,7 @@ public class DirectoryMonitor : Object {
             if (!is_file_symlink_supported(info))
                 return null;
             
-            string? id = info.get_attribute_string(FILE_ATTRIBUTE_ID_FILE);
+            string? id = info.get_attribute_string(FileAttribute.ID_FILE);
             if (id == null)
                 return null;
             
@@ -284,8 +284,7 @@ public class DirectoryMonitor : Object {
             
             // get all the interesting matchable items from the supplied FileInfo
             int64 match_size = match.get_size();
-            TimeVal match_time;
-            match.get_modification_time(out match_time);
+            TimeVal match_time = match.get_modification_time();
             
             foreach (File file in map.keys) {
                 FileInfo info = map.get(file);
@@ -298,8 +297,7 @@ public class DirectoryMonitor : Object {
                 if (match_size != info.get_size())
                     continue;
                 
-                TimeVal time;
-                info.get_modification_time(out time);
+                TimeVal time = info.get_modification_time();
                 
                 if (time.tv_sec != match_time.tv_sec)
                     continue;

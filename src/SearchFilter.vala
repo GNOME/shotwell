@@ -733,8 +733,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             }
         }
         
-        public void set_color(Gdk.Color color) {
-            label.modify_fg(Gtk.StateType.NORMAL, color);
+        public void set_color(Gdk.RGBA color) {
+            label.override_color(Gtk.StateFlags.NORMAL, color);
         }
     }
     

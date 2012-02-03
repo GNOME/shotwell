@@ -79,7 +79,7 @@ public uint64 query_total_file_size(File file_or_dir, Cancellable? cancellable =
     if (type == FileType.REGULAR) {
         FileInfo info = null;
         try {
-            info = file_or_dir.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
+            info = file_or_dir.query_info(FileAttribute.STANDARD_SIZE, 
                 FileQueryInfoFlags.NOFOLLOW_SYMLINKS, cancellable);
         } catch (Error err) {
             if (err is IOError.CANCELLED)
@@ -97,7 +97,7 @@ public uint64 query_total_file_size(File file_or_dir, Cancellable? cancellable =
         
     FileEnumerator enumerator;
     try {
-        enumerator = file_or_dir.enumerate_children(FILE_ATTRIBUTE_STANDARD_NAME,
+        enumerator = file_or_dir.enumerate_children(FileAttribute.STANDARD_NAME,
             FileQueryInfoFlags.NOFOLLOW_SYMLINKS, cancellable);
         if (enumerator == null)
             return 0;
@@ -152,13 +152,10 @@ public void delete_all_files(File dir, Gee.Set<string>? exceptions = null, Progr
 }
 
 public time_t query_file_modified(File file) throws Error {
-    FileInfo info = file.query_info(FILE_ATTRIBUTE_TIME_MODIFIED, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
+    FileInfo info = file.query_info(FileAttribute.TIME_MODIFIED, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
         null);
 
-    TimeVal timestamp = TimeVal();
-    info.get_modification_time(out timestamp);
-    
-    return timestamp.tv_sec;
+    return info.get_modification_time().tv_sec;
 }
 
 public bool query_is_directory(File file) {
@@ -199,7 +196,7 @@ public string strip_pretty_path(string path) {
 }
 
 public string? get_file_info_id(FileInfo info) {
-    return info.get_attribute_string(FILE_ATTRIBUTE_ID_FILE);
+    return info.get_attribute_string(FileAttribute.ID_FILE);
 }
 
 // Breaks a uint64 skip amount into several smaller skips.
@@ -230,5 +227,20 @@ public uint64 count_files_in_directory(File dir) throws GLib.Error {
         count++;
     
     return count;
+}
+
+// Replacement for deprecated Gio.file_equal
+public bool file_equal(void* _a, void* _b) {
+    File? a = _a as File;
+    File? b = _b as File;
+    
+    return (a != null && b != null) ? a.equal(b) : false;
+}
+
+// Replacement for deprecated Gio.file_hash
+public uint file_hash(void* _file) {
+    File? file = _file as File;
+    
+    return file != null ? file.hash() : 0;
 }
 

@@ -435,7 +435,7 @@ public class ExportDialog : Gtk.Dialog {
         ok_button.sensitive = (pixels_entry.get_text_length() > 0) && (int.parse(pixels_entry.get_text()) > 0);
     }
     
-    private void on_pixels_insert_text(string text, int length, void *position) {
+    private void on_pixels_insert_text(string text, int length, ref int position) {
         // This is necessary because SignalHandler.block_by_func() is not properly bound
         if (in_insert)
             return;
@@ -454,7 +454,7 @@ public class ExportDialog : Gtk.Dialog {
         }
         
         if (new_text.length > 0)
-            pixels_entry.insert_text(new_text, (int) new_text.length, position);
+            pixels_entry.insert_text(new_text, (int) new_text.length, ref position);
         
         Signal.stop_emission_by_name(pixels_entry, "insert-text");
         
@@ -2115,7 +2115,8 @@ public class PreferencesDialog {
     }
     
     private void on_value_changed() {
-        set_background_color(bg_color_adjustment.get_upper() - bg_color_adjustment.get_value());
+        set_background_color((double)(bg_color_adjustment.get_upper() - 
+            bg_color_adjustment.get_value()) / 65535.0);
     }
 
     private bool on_bg_color_reset(Gdk.EventButton event) {
@@ -2174,15 +2175,16 @@ public class PreferencesDialog {
     }
 
     private void set_background_color(double bg_color_value) {
-        Config.Facade.get_instance().set_bg_color(to_grayscale((uint16) bg_color_value));
+        Config.Facade.get_instance().set_bg_color(to_grayscale(bg_color_value));
     }
 
-    private Gdk.Color to_grayscale(uint16 color_value) {
-        Gdk.Color color = Gdk.Color();
+    private Gdk.RGBA to_grayscale(double color_value) {
+        Gdk.RGBA color = Gdk.RGBA();
         
         color.red = color_value;
         color.green = color_value;
         color.blue = color_value;
+        color.alpha = 1.0;
         
         return color;
     }

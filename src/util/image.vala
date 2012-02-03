@@ -9,21 +9,21 @@ bool is_color_parsable(string spec) {
     return Gdk.Color.parse(spec, out color);
 }
 
-Gdk.Color parse_color(string spec) {
+Gdk.RGBA parse_color(string spec) {
     return fetch_color(spec);
 }
 
-Gdk.Color fetch_color(string spec) {
-    Gdk.Color color;
-    if (!Gdk.Color.parse(spec, out color))
+Gdk.RGBA fetch_color(string spec) {
+    Gdk.RGBA rgba = Gdk.RGBA();
+    if (!rgba.parse(spec))
         error("Can't parse color %s", spec);
-
-    return color;
+    
+    return rgba;
 }
 
-void set_source_color_with_alpha(Cairo.Context ctx, Gdk.Color color, double alpha) {
-    ctx.set_source_rgba((double) color.red / 65535.0, (double) color.green / 65535.0,
-        (double) color.blue / 65535.0, alpha);
+void set_source_color_from_string(Cairo.Context ctx, string spec) {
+    Gdk.RGBA rgba = fetch_color(spec);
+    ctx.set_source_rgb(rgba.red, rgba.green, rgba.blue);
 }
 
 private const int MIN_SCALED_WIDTH = 10;

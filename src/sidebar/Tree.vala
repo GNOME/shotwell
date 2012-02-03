@@ -817,7 +817,8 @@ public class Sidebar.Tree : Gtk.TreeView {
     private Gtk.TreePath? get_path_from_event(Gdk.EventButton event) {
         int x, y;
         Gdk.ModifierType mask;
-        event.window.get_pointer(out x, out y, out mask);
+        event.window.get_device_position(Gdk.Display.get_default().get_device_manager().
+            get_client_pointer(), out x, out y, out mask);
         
         int cell_x, cell_y;
         Gtk.TreePath path;
