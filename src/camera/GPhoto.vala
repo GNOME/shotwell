@@ -182,27 +182,7 @@ namespace GPhoto {
             preview_md5 = Checksum.compute_for_bytes(ChecksumType.MD5, raw);
         }
         
-        // Try to make sure last two bytes are JPEG footer.
-        // This is necessary because GPhoto sometimes includes a few extra bytes. See
-        // Yorba bug #2905 and the following GPhoto bug:
-        // http://sourceforge.net/tracker/?func=detail&aid=3141521&group_id=8874&atid=108874
-
-        var raw_length = raw.get_size ();
-        if (raw_length > 32) {
-            for (var i = raw_length - 2; i > raw_length - 32; i--) {
-                if (raw.get((int) i) == Jpeg.MARKER_PREFIX && raw.get((int) i + 1) == Jpeg.Marker.EOI) {
-                    debug("Adjusted length of thumbnail for: %s", filename);
-                    raw_length = i + 2;
-                    break;
-                }
-            }
-        }
-
-        if (raw_length != raw.get_size()) {
-            out_bytes = new Bytes.from_bytes (raw, 0, raw_length);
-        } else {
-            out_bytes = raw;
-        }
+        out_bytes = raw;
         preview_md5 = Checksum.compute_for_bytes(ChecksumType.MD5, out_bytes);
 
         MemoryInputStream mins = new MemoryInputStream.from_bytes (raw);
