@@ -201,11 +201,12 @@ namespace GPhoto {
         // if entire file fits in memory, return a stream from that ... can't merely wrap
         // MemoryInputStream around the camera_file buffer, as that will be destroyed when the
         // function returns
-        unowned uint8[] data;
-        res = camera_file.get_data_and_size(out data);
+        unowned uint8 *data;
+        ulong data_len;
+        res = camera_file.get_data_and_size(out data, out data_len);
         if (res == Result.OK) {
-            uint8[] buffer = new uint8[data.length];
-            Memory.copy(buffer, data, data.length);
+            uint8[] buffer = new uint8[data_len];
+            Memory.copy(buffer, data, buffer.length);
             
             return new MemoryInputStream.from_data(buffer, on_mins_destroyed);
         }
@@ -239,12 +240,13 @@ namespace GPhoto {
         
         // if buffer can be loaded into memory, return a copy of that (can't return buffer itself
         // as it will be destroyed when the camera_file is unref'd)
-        unowned uint8[] data;
-        res = camera_file.get_data_and_size(out data);
+        unowned uint8 *data;
+        ulong data_len;
+        res = camera_file.get_data_and_size(out data, out data_len);
         if (res != Result.OK)
             return null;
         
-        uint8[] buffer = new uint8[data.length];
+        uint8[] buffer = new uint8[data_len];
         Memory.copy(buffer, data, buffer.length);
         
         return buffer;

@@ -104,7 +104,7 @@ namespace GPhoto {
     public class CameraFile {
         [CCode (cname="gp_file_new")]
         public static Result create(out CameraFile file);
-        public Result get_data_and_size(out unowned uint8[] data);
+        public Result get_data_and_size(out uint8 *data, out ulong data_len);
         public Result save(string filename);
         public Result slurp(uint8[] data, out size_t readlen);
     }
