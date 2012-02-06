@@ -53,6 +53,12 @@ public abstract class EditingToolWindow : Gtk.Window {
         set_accept_focus(true);
         set_can_focus(true);
         set_has_resize_grip(false);
+
+        Log.set_handler("Gdk", LogLevelFlags.LEVEL_WARNING, suppress_warnings);
+    }
+
+    ~EditingToolWindow() {
+        Log.set_handler("Gdk", LogLevelFlags.LEVEL_WARNING, Log.default_handler);   
     }
 
     public override void add(Gtk.Widget widget) {
@@ -64,7 +70,10 @@ public abstract class EditingToolWindow : Gtk.Window {
     }
 
     public override bool key_press_event(Gdk.EventKey event) {
-       return AppWindow.get_instance().key_press_event(event);
+        if (base.key_press_event(event)) {
+            return true;
+        }
+        return AppWindow.get_instance().key_press_event(event);
     }
 
     public override bool button_press_event(Gdk.EventButton event) {
@@ -80,7 +89,7 @@ public abstract class EditingToolWindow : Gtk.Window {
 
     public override void realize() {
         set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
-
+        
         base.realize();
     }
 }

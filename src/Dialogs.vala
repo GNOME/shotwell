@@ -49,15 +49,6 @@ public bool confirm_delete_face(Face face) {
 namespace ExportUI {
 private static File current_export_dir = null;
 
-// Dummy function for suppressing 'could not stat file' errors
-// generated when saving into a previously non-existant file -
-// please see https://bugzilla.gnome.org/show_bug.cgi?id=662814
-// This should be removed once GTK 3.4 is widely available, as
-// it is slated to correct the problem.
-public void suppress_warnings(string? log_domain, LogLevelFlags log_levels, string message) {
-    // do nothing.
-}
-
 public File? choose_file(string current_file_basename) {
     if (current_export_dir == null)
         current_export_dir = File.new_for_path(Environment.get_home_dir());
@@ -1621,7 +1612,7 @@ public class ModifyTagsDialog : TagsDialog {
         Gee.Collection<Tag> terminal_tags = Tag.get_terminal_tags(source_tags);
         
         Gee.SortedSet<string> tag_basenames = new Gee.TreeSet<string>();
-		foreach (Tag tag in terminal_tags)
+        foreach (Tag tag in terminal_tags)
             tag_basenames.add(HierarchicalTagUtilities.get_basename(tag.get_path()));
         
         string? text = null;
@@ -1756,7 +1747,7 @@ public class WelcomeDialog : Gtk.Dialog {
 
         ((Gtk.Box) get_content_area()).pack_start(alignment, false, false, 0);
 
-		set_has_resize_grip(false);
+        set_has_resize_grip(false);
         
         ok_button.grab_focus();
         

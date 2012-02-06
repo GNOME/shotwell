@@ -354,6 +354,16 @@ public class OpTimer {
     }
 }
 
+// Dummy function for suppressing 'could not stat file' errors
+// generated when saving into a previously non-existant file -
+// please see https://bugzilla.gnome.org/show_bug.cgi?id=662814
+// and to work around a spurious warning given by GDK when a
+// key press event is passed from a child class' event handler
+// to a parent's; (gnome bug pending, but see https://bugzilla.redhat.com/show_bug.cgi?id=665568).
+public void suppress_warnings(string? log_domain, LogLevelFlags log_levels, string message) {
+    // do nothing.
+}
+
 public bool is_twentyfour_hr_time_system() {
     // if no AM/PM designation is found, the location is set to use a 24 hr time system
     return is_string_empty(Time.local(0).format("%p"));
