@@ -2,11 +2,9 @@
 <glade-catalog name="Shotwell" library="libshotwell.so" depends="gtk+">
     <glade-widget-classes>
         <glade-widget-class name="TextEntryDialog" generic-name="text_entry_dialog" title="TextEntryDialog" />
-        <glade-widget-class name="AlienDbAlienDatabaseImportDialog" generic-name="alien_database_import_dialog" title="AlienDatabaseImportDialog" />
     </glade-widget-classes>
 
     <glade-widget-group name="ShotwellObjects" title="Shotwell Objects">
         <glade-widget-class-ref name="TextEntryDialog"/>
-        <glade-widget-class-ref name="AlienDbAlienDatabaseImportDialog"/>
     </glade-widget-group>
 </glade-catalog>

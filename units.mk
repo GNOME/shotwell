@@ -16,8 +16,6 @@ UNITS = \
 	slideshow \
 	photos \
 	publishing \
-	alien_db \
-	alien_db/f_spot \
 	library \
 	direct \
 	core \

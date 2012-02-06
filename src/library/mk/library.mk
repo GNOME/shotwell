@@ -36,8 +36,6 @@ UNIT_USES := \
 	Slideshow \
 	Photos \
 	Publishing \
-	AlienDb \
-	AlienDb.FSpot \
 	Core \
 	Sidebar \
 	Events \
