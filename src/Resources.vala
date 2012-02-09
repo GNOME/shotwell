@@ -943,7 +943,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string INSET_FRAME_STYLESHEET =
         """ .frame {
                border-style: inset;
-               border-width: 1;
+               border-width: 1px;
            }""";
            
     public const string SCROLL_FRAME_STYLESHEET =
@@ -955,13 +955,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
            }
            
             .frame {
-                border-width: 1;
+                border-width: 1px;
                 border-style: inset;
             }""";
 
     public const string PAGE_STYLESHEET =
         """ .frame {
-               border-width: 1;
+               border-width: 1px;
                border-style: inset;
                border-radius: 0;
                
@@ -970,7 +970,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string VIEWPORT_STYLESHEET =
         """ GtkViewport {
-               border-width: 1;
+               border-width: 1px;
                border-style: inset;
                border-radius: 0;
                padding: 0;
@@ -982,7 +982,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
              
             .toolbar {
                 background-color: @primary-bg;
-                border-width: 1;
+                border-width: 1px;
                 border-color: shade (@primary-bg, 0.75);
                 border-style: solid;
             }""";
@@ -996,7 +996,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
                 background-color: @primary-bg;
                 border-image: none;
                 border-style: none;
-                margin: 5;
+                margin: 5px;
                 
                 -unico-border-gradient: none;
                 -unico-outer-stroke-width: 0;
@@ -1008,13 +1008,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             
             .button:prelight {
                 border-style: solid;
-                border-width: 1;
+                border-width: 1px;
                 border-color: shade (@primary-bg, 1.1);
                 
                 -unico-inner-stroke-color: shade (@primary-bg, 1.1);
                 -unico-inner-stroke-width: 0;
 
-                -unico-outer-stroke-width: 1;
+                -unico-outer-stroke-width: 1px;
                 -unico-outer-stroke-color: shade (@primary-bg, 0.8);
             }
             
@@ -1022,10 +1022,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
                 background-image: none;
                 background-color: shade (@primary-bg, 0.75);
                 border-style: solid;
-                border-width: 1;
+                border-width: 1px;
                 border-color: shade (@primary-bg, 0.6);
                 
-                -unico-outer-stroke-width: 1;
+                -unico-outer-stroke-width: 1px;
                 -unico-outer-stroke-color: shade (@primary-bg, 1.1);
             }""";
 }
