@@ -3843,14 +3843,17 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     // Sets the crop against the coordinate system of the rotated photo
-    public void set_crop(Box crop) {
+    public void set_crop(Box crop) {                                                                
         Dimensions dim = get_dimensions(Exception.CROP | Exception.ORIENTATION);
         Orientation orientation = get_orientation();
 
         Box derotated = orientation.derotate_box(dim, crop);
-        
-        assert(derotated.get_width() <= dim.width);
-        assert(derotated.get_height() <= dim.height);
+
+        derotated.left = derotated.left.clamp(0, dim.width - 2);
+        derotated.right = derotated.right.clamp(derotated.left, dim.width - 1);
+
+        derotated.top = derotated.top.clamp(0, dim.height - 2);
+        derotated.bottom = derotated.bottom.clamp(derotated.top, dim.height - 1);
         
         set_raw_crop(derotated);
     }

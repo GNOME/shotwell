@@ -16,8 +16,8 @@ public class StraightenTool : EditingTool {
     private const double MAX_ANGLE = 15.0;
     private const double INCREMENT = 0.1;
     private const int MIN_SLIDER_SIZE = 250;
-    private const int TEMP_PIXBUF_SIZE = 640;
-
+    private const int TEMP_PIXBUF_SIZE = 768;
+    
     private class StraightenToolWindow : EditingToolWindow {
         public const int CONTROL_SPACING = 8;
 
@@ -33,8 +33,8 @@ public class StraightenTool : EditingTool {
          *
          * @param container The application's main window.
          */
-        public StraightenToolWindow(Gtk.Window container) { 
-            base(container);                               
+        public StraightenToolWindow(Gtk.Window container) {
+            base(container);
 
             angle_slider.set_min_slider_size(MIN_SLIDER_SIZE);
             angle_slider.set_value(0.0);
@@ -86,6 +86,17 @@ public class StraightenTool : EditingTool {
     // when repainting the rotated image?
     bool use_high_qual = false;
 
+    // the current crop region, along with a scaled version
+    // for use in the preview. depending on how the image is
+    // angled, we may have to set this to force the corners
+    // of the crop region to stay inside the image.
+    private Box crop_region;
+    private Gdk.Point crop_region_center;
+    private Box preview_crop_region;
+
+    private double offset_x = 0;
+    private double offset_y = 0;
+
     private StraightenTool() {
     }
 
@@ -93,9 +104,48 @@ public class StraightenTool : EditingTool {
         return new StraightenTool();
     }
 
+    /**
+     * @brief Signal handler for when the 'OK' button has been clicked.  Computes where a previously-
+     * set crop region should have rotated to (to match the Photo's straightening angle).
+     *
+     * @note After this has been called against a Photo, it will always have a crop region; in the
+     * case of a previously-uncropped Photo, the crop region will be set to the original dimensions
+     * of the photo and centered at the Photo's center.
+     */
     private void on_ok_clicked() {
         assert(canvas.get_photo() != null);
-        canvas.get_photo().set_straighten(window.angle_slider.get_value());
+
+        // compute where the crop box should be now and set the image's
+        // current crop to it
+        double slider_val = window.angle_slider.get_value();
+
+        Gdk.Point new_crop_center = Gdk.Point();
+
+        Dimensions dim_tmp = canvas.get_photo().get_dimensions(
+            Photo.Exception.STRAIGHTEN | Photo.Exception.CROP);
+
+        new_crop_center = rotate_point_arb(crop_region_center, dim_tmp.width, dim_tmp.height,
+            slider_val);
+
+        int crop_width = crop_region.get_width();
+        int crop_height = crop_region.get_height();
+
+        crop_region.left = new_crop_center.x - (crop_width / 2);
+        crop_region.right = new_crop_center.x + (crop_width / 2);
+
+        crop_region.top = new_crop_center.y - (crop_height / 2);
+        crop_region.bottom = new_crop_center.y + (crop_height / 2);
+
+        // set the new photo angle
+        canvas.get_photo().set_straighten(slider_val);
+
+        // set the new photo crop
+        canvas.get_photo().set_crop(crop_region);
+
+        // prevent weird bugs with undo; the following line should
+        // be removed once #4475 has been implemented.
+        AppWindow.get_command_manager().reset();
+
         canvas.repaint();
         deactivate();
     }
@@ -112,7 +162,7 @@ public class StraightenTool : EditingTool {
     }
 
     /**
-     * Spawn the tool window, set up the scratch surfaces and prepare the straightening
+     * @brief Spawn the tool window, set up the scratch surfaces and prepare the straightening
      * tool for use.  If a valid pixbuf of the incoming Photo can't be loaded for any
      * reason, the tool will use a 1x1 temporary image instead to avoid crashing.
      *
@@ -125,14 +175,71 @@ public class StraightenTool : EditingTool {
         this.canvas = canvas;
         bind_canvas_handlers(this.canvas);
 
-        // fetch what the image currently looks like, scaled to fit the preview size.
+        Dimensions dim_tmp = canvas.get_photo().get_dimensions(
+            Photo.Exception.STRAIGHTEN | Photo.Exception.CROP);
+
+        if (!canvas.get_photo().get_crop(out crop_region)) {
+            crop_region.left = 0;
+            crop_region.right = dim_tmp.width;
+
+            crop_region.top = 0;
+            crop_region.bottom = dim_tmp.height;
+        }
+
+        // read the photo's current angle and start the tool with the slider set to that value. we
+        // also use this to de-rotate the crop region
+        double incoming_angle = 0.0;
+        canvas.get_photo().get_straighten(out incoming_angle);
+
+        // compute and store the current crop region, de-rotated. later, if the angle of the photo
+        // has changed, we'll re-rotate it as needed and set the crop to that rotated version
+        crop_region_center = Gdk.Point();
+
+        crop_region_center.x = (int) Math.round((crop_region.left + crop_region.right) / 2.0);
+        crop_region_center.y = (int) Math.round((crop_region.top + crop_region.bottom) / 2.0);
+
+        crop_region_center = derotate_point_arb(crop_region_center, dim_tmp.width, dim_tmp.height,
+            incoming_angle);
+
+        crop_region.left = crop_region_center.x - (crop_region.get_width() >> 1);
+        crop_region.right = crop_region_center.x + (crop_region_center.x - crop_region.left);
+
+        crop_region.top = crop_region_center.y - (crop_region.get_height() >> 1);
+        crop_region.bottom = crop_region_center.y + (crop_region_center.y - crop_region.top);
+
+        // fetch what the image looks like prior to any pipeline steps, scaled to fit the preview size.
+        int desired_size = (dim_tmp.width > dim_tmp.height) ? dim_tmp.width : dim_tmp.height;
+        desired_size = (desired_size < TEMP_PIXBUF_SIZE) ? desired_size : TEMP_PIXBUF_SIZE;
+
         try {
             low_res_tmp =
-                canvas.get_photo().get_pixbuf_with_options(Scaling.for_best_fit(TEMP_PIXBUF_SIZE, true),
-                    Photo.Exception.STRAIGHTEN);
+                canvas.get_photo().get_pixbuf_with_options(Scaling.for_best_fit(desired_size, true),
+                    Photo.Exception.STRAIGHTEN | Photo.Exception.CROP);
         } catch (Error e) {
             warning("A pixbuf for %s couldn't be fetched.", canvas.get_photo().to_string());
             low_res_tmp = new Gdk.Pixbuf(Gdk.Colorspace.RGB, false, 8, 1, 1);
+        }
+
+        // create a scaled copy of the crop region; this will determine the size of
+        // the preview pixbuf, as well as the center of rotation during previewing.
+        double preview_crop_scale_factor = low_res_tmp.width / (double) dim_tmp.width;
+
+        preview_crop_region = Box();
+
+        preview_crop_region.left = (int) Math.round(crop_region.left * preview_crop_scale_factor);
+        preview_crop_region.right = (int) Math.round(crop_region.right * preview_crop_scale_factor);
+
+        preview_crop_region.top = (int) Math.round(crop_region.top * preview_crop_scale_factor);
+        preview_crop_region.bottom = (int) Math.round(crop_region.bottom * preview_crop_scale_factor);
+
+        compute_arb_rotated_size(low_res_tmp.width, low_res_tmp.height, incoming_angle, out offset_x, out offset_y);
+
+        if (incoming_angle > 0.0) {
+            offset_x = offset_x - low_res_tmp.width;
+            offset_y = 0;
+        } else {
+            offset_x = 0;
+            offset_y = offset_y - low_res_tmp.height;
         }
 
         // copy image data from photo into a cairo surface.
@@ -145,21 +252,18 @@ public class StraightenTool : EditingTool {
 
         // prepare rotation surface and context. we paint a rotated,
         // low-res copy of the image into it, followed by a faint grid.
-        rotate_surf = new Cairo.ImageSurface(Cairo.Format.ARGB32, low_res_tmp.width, low_res_tmp.height);
+        rotate_surf = new Cairo.ImageSurface(Cairo.Format.ARGB32, preview_crop_region.get_width(),
+            preview_crop_region.get_height());
         rotate_ctx = new Cairo.Context(rotate_surf);
 
-        photo_width = low_res_tmp.width;
-        photo_height = low_res_tmp.height;
+        photo_width = preview_crop_region.get_width();
+        photo_height = preview_crop_region.get_height();
 
         window = new StraightenToolWindow(canvas.get_container());
 
         bind_window_handlers();
 
-        // read the photo's current angle and start the tool
-        // with the slider set to that value.
-        double incoming_angle = 0.0;
-        canvas.get_photo().get_straighten(out incoming_angle);
-
+        // prepare ths slider for display
         window.angle_slider.set_value(incoming_angle);
         photo_angle = incoming_angle;
 
@@ -169,6 +273,9 @@ public class StraightenTool : EditingTool {
         window.show_all();
     }
 
+    /**
+     * Tears down the tool window and frees resources.
+     */
     public override void deactivate() {
         if(window != null) {
 
@@ -181,7 +288,7 @@ public class StraightenTool : EditingTool {
         if (canvas != null) {
             unbind_canvas_handlers(canvas);
         }
-        
+
         base.deactivate();
     }
 
@@ -223,17 +330,22 @@ public class StraightenTool : EditingTool {
      */
     private void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
         Dimensions canvas_dims = canvas.get_surface_dim();
+        Dimensions img_dims = canvas.get_photo().get_dimensions(
+            Photo.Exception.STRAIGHTEN | Photo.Exception.CROP);
         bool need_resizing = false;
 
+        int desired_size = (img_dims.width > img_dims.height) ? img_dims.width : img_dims.height;
+        desired_size = (desired_size < TEMP_PIXBUF_SIZE) ? desired_size : TEMP_PIXBUF_SIZE;
+
         // paintable region is smaller than the preferred preview size?
-        if ((canvas_dims.width < TEMP_PIXBUF_SIZE) || (canvas_dims.height < TEMP_PIXBUF_SIZE)) {
+        if ((canvas_dims.width < desired_size) || (canvas_dims.height < desired_size)) {
             need_resizing = true;
         }
 
         // paintable region is large enough to hold the preferred preview size, but
         // preview is too small?
-        if (((canvas_dims.width >= TEMP_PIXBUF_SIZE) && (canvas_dims.height >= TEMP_PIXBUF_SIZE)) &&
-            (photo_width < TEMP_PIXBUF_SIZE) && (photo_height < TEMP_PIXBUF_SIZE)) {
+        if (((canvas_dims.width >= desired_size) && (canvas_dims.height >= desired_size)) &&
+            (photo_width < desired_size) && (photo_height < desired_size)) {
             need_resizing = true;
         }
 
@@ -242,15 +354,15 @@ public class StraightenTool : EditingTool {
             int scaled_size = (canvas_dims.width < canvas_dims.height) ? canvas_dims.width :
                 canvas_dims.height;
 
-            if (scaled_size > TEMP_PIXBUF_SIZE)
-                scaled_size = TEMP_PIXBUF_SIZE;
+            if (scaled_size > desired_size)
+                scaled_size = desired_size;
 
             Gdk.Pixbuf low_res_tmp = null;
 
             try {
                 low_res_tmp =
                     canvas.get_photo().get_pixbuf_with_options(Scaling.for_best_fit(scaled_size, true),
-                        Photo.Exception.STRAIGHTEN);
+                        Photo.Exception.STRAIGHTEN | Photo.Exception.CROP);
             } catch (Error e) {
                 warning("A pixbuf for %s couldn't be fetched.", canvas.get_photo().to_string());
                 low_res_tmp = new Gdk.Pixbuf(Gdk.Colorspace.RGB, false, 8, 1, 1);
@@ -332,19 +444,27 @@ public class StraightenTool : EditingTool {
         int src_width, int src_height, double angle) {
         double angle_internal = degrees_to_radians(angle);
 
-        // rotate the image, taking into account that both the scale of
-        // the image and the position of the upper left corner must change
-        // to properly zoom in on the center.
+        // fill area behind rotated image with neutral color to avoid 'ghosting'.
+        // this should be removed after #4612 has been addressed.
+        dest_ctx.identity_matrix();
+        dest_ctx.set_source_rgba(0.0, 0.0, 0.0, 1.0);
+        dest_ctx.rectangle(0, 0, preview_crop_region.get_width(), preview_crop_region.get_height());
+        dest_ctx.fill();
 
+        // rotate the image, taking into account that the position of the
+        // upper left corner must change depending on rotation amount and direction
+        // and  translate so center of preview crop region is now center of rotation
         dest_ctx.identity_matrix();
 
-        dest_ctx.translate(src_width / 2.0f, src_height / 2.0f);
+        dest_ctx.translate(-preview_crop_region.left, -preview_crop_region.top);
+
+        dest_ctx.translate((preview_crop_region.left + preview_crop_region.right) / 2.0,
+            (preview_crop_region.top + preview_crop_region.bottom) / 2.0);
+            
         dest_ctx.rotate(angle_internal);
 
-        double shrink_factor = compute_shrink_factor(src_width, src_height, angle);
-        dest_ctx.scale(shrink_factor, shrink_factor);
-
-        dest_ctx.translate(-photo_width / 2.0f, -photo_height / 2.0f);
+        dest_ctx.translate((preview_crop_region.left + preview_crop_region.right) / -2.0,
+            (preview_crop_region.top + preview_crop_region.bottom) / -2.0);
 
         dest_ctx.set_source_surface(src_surf, 0, 0);
         if (use_high_qual) {

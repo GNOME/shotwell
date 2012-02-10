@@ -264,38 +264,6 @@ void compute_arb_rotated_size(double src_width, double src_height, double angle,
 }
 
 /**
- * @brief Returns the ratio between the larger of the two dimensions of a source image and the
- * largest arbitrarily-rotated destination sub-image that could be gotten from it at the specified
- * angle while preserving the aspect ratio.
- *
- * @note The angle should be given in degrees.
- *
- * @param src_width The width of the source image.
- * @param src_height The height of the incoming image.
- * @param angle The angle the source image is being rotated by.
- */
-double compute_shrink_factor(double src_width, double src_height, double angle) {
-    double shrink_factor;
-    double rad_angle = degrees_to_radians(angle);
-
-    // Compute the size of the largest subimage that has the same aspect ratio as the original
-    // with the same center as the original that can be obtained from angled version of the
-    // original.
-    //  
-    // The larger dimension determines how much we'll need to shrink the viewable
-    // area of the image by.
-    if (src_width > src_height) {
-        shrink_factor = 1.0 + (Math.fabs(Math.sin(rad_angle)) *
-            (src_width / src_height));
-    } else {
-        shrink_factor = 1.0 + (Math.fabs(Math.sin(rad_angle)) *
-            (src_height / src_width));
-    }
-
-    return shrink_factor;
-}
-
-/**
  * @brief Rotates a pixbuf to an arbitrary angle, given in degrees, and returns the rotated pixbuf.
  *
  * @param source_pixbuf The source image that needs to be angled.
@@ -314,41 +282,10 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
     // Compute how much the corners of the source image will
     // move by to determine how big the dest pixbuf should be.
 
-    double x_min = 0.0, y_min = 0.0, x_max = 0.0, y_max = 0.0;
     double x_tmp, y_tmp;        
 
-    // Lower left corner.
-    x_tmp = -(Math.sin(degrees_to_radians(angle)) * source_pixbuf.height);
-    y_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.height);
-
-
-    x_min = double.min(x_tmp, x_min);
-    x_max = double.max(x_tmp, x_max);
-
-    y_min = double.min(y_tmp, y_min);
-    y_max = double.max(y_tmp, y_max);
-    
-    // Lower right corner.
-    x_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.width) - (Math.sin(degrees_to_radians(angle)) * source_pixbuf.height);
-    y_tmp = (Math.sin(degrees_to_radians(angle)) * source_pixbuf.width) + (Math.cos(degrees_to_radians(angle)) * source_pixbuf.height);
-    
-    x_min = double.min(x_tmp, x_min);
-    x_max = double.max(x_tmp, x_max);
-
-    y_min = double.min(y_tmp, y_min);
-    y_max = double.max(y_tmp, y_max);
-    
-    // Upper right corner.
-    x_tmp = (Math.cos(degrees_to_radians(angle)) * source_pixbuf.width); 
-    y_tmp = (Math.sin(degrees_to_radians(angle)) * source_pixbuf.width); 
-    
-    x_min = double.min(x_tmp, x_min);
-    x_max = double.max(x_tmp, x_max);
-
-    y_min = double.min(y_tmp, y_min);
-    y_max = double.max(y_tmp, y_max);
-    
-    dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) Math.round(x_max - x_min), (int) Math.round(y_max - y_min));
+    compute_arb_rotated_size(source_pixbuf.width, source_pixbuf.height, angle, out x_tmp, out y_tmp);
+    dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) Math.round(x_tmp), (int) Math.round(y_tmp));
 
     Cairo.ImageSurface surface;
     
@@ -368,7 +305,12 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
     context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
     context.fill();
     
-    context.translate(-x_min, -y_min);
+    if (angle > 0.0) {
+        context.translate((x_tmp - source_pixbuf.width), 0.0);
+    } else {
+        context.translate(0.0, (y_tmp - source_pixbuf.height));
+    }
+    
     context.rotate(degrees_to_radians(angle));
     Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
     context.get_source().set_filter(Cairo.Filter.BEST);
@@ -384,16 +326,16 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
 }
 
 /**
- * @brief Rotates a point around the center of an image to an arbitrary angle, given in degrees,
- * and returns the rotated point, using computations similar to rotate_arb()'s. Needed primarily
- * for the interaction between the redeye tool and the straighten tool.
+ * @brief Rotates a point around the upper left corner of an image to an arbitrary angle,
+ * given in degrees, and returns the rotated point, translated such that it, along with its attendant
+ * image, are in positive x, positive y.
  *
  * @note May be subject to slight inaccuracy as Gdk points' coordinates may only be in whole pixels,
  * so the fractional component is lost.
  *
  * @param source_point The point to be rotated and scaled.
- * @param img_w The width of the source image.
- * @param img_h The height of the source image.
+ * @param img_w The width of the source image (unrotated).
+ * @param img_h The height of the source image (unrotated).
  * @param angle The angle the source image is to be rotated by to straighten it.
  */
 Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double angle) {
@@ -403,18 +345,23 @@ Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double 
         return source_point;
     }
 
-    double shrink_factor = compute_shrink_factor(img_w, img_h, angle);
-
-    double dest_x_tmp = (source_point.x - ((img_w / shrink_factor) / 2.0)); 
-    double dest_y_tmp = (source_point.y - ((img_h / shrink_factor) / 2.0)); 
+    double dest_width_tmp;
+    double dest_height_tmp;
+    compute_arb_rotated_size(img_w, img_h, angle, out dest_width_tmp, out dest_height_tmp);
+    
+    double dest_x_tmp = source_point.x; 
+    double dest_y_tmp = source_point.y; 
     double rot_tmp = dest_x_tmp;
     angle = degrees_to_radians(angle);
     
-    dest_x_tmp = (Math.cos(angle * -1.0) * dest_x_tmp) - (Math.sin(angle * -1.0) * dest_y_tmp);
-    dest_y_tmp = (Math.sin(angle * -1.0) * rot_tmp) + (Math.cos(angle * -1.0) * dest_y_tmp);
-    
-    dest_x_tmp += (img_w / 2.0);
-    dest_y_tmp += (img_h / 2.0);
+    dest_x_tmp = (Math.cos(angle) * dest_x_tmp) - (Math.sin(angle) * dest_y_tmp);
+    dest_y_tmp = (Math.sin(angle) * rot_tmp) + (Math.cos(angle) * dest_y_tmp);
+
+    if (angle > 0.0) {
+        dest_x_tmp += (dest_width_tmp - img_w);
+    } else {
+        dest_y_tmp += (dest_height_tmp - img_h);
+    }
 
     Gdk.Point dest_point = Gdk.Point();
     dest_point.x = (int) dest_x_tmp;
@@ -423,3 +370,48 @@ Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double 
     return dest_point;
 }
     
+/**
+ * @brief <u>De</u>rotates a point around the upper left corner of an image from an arbitrary angle,
+ * given in degrees, and returns the de-rotated point, taking into account any translation necessary
+ * to make sure all of the rotated image stays in positive x, positive y.
+ *
+ * @note May be subject to slight inaccuracy as Gdk points' coordinates may only be in whole pixels,
+ * so the fractional component is lost.
+ *
+ * @param source_point The point to be de-rotated.
+ * @param img_w The width of the source image (unrotated).
+ * @param img_h The height of the source image (unrotated).
+ * @param angle The angle the source image is to be rotated by to straighten it.
+ */
+Gdk.Point derotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double angle) {
+    // angle of 0 degrees or angle was never set?
+    if (angle == 0.0) {
+        // nothing needs to be done.
+        return source_point;
+    }
+
+    double dest_width_tmp;
+    double dest_height_tmp;
+    compute_arb_rotated_size(img_w, img_h, angle, out dest_width_tmp, out dest_height_tmp);
+    
+    double dest_x_tmp = source_point.x; 
+    double dest_y_tmp = source_point.y;
+
+    if (angle > 0.0) {
+        dest_x_tmp -= (dest_width_tmp - img_w);
+    } else {
+        dest_y_tmp -= (dest_height_tmp - img_h);
+    }
+    
+    double rot_tmp = dest_x_tmp;
+    angle = degrees_to_radians(angle);
+    
+    dest_x_tmp = (Math.cos(-angle) * dest_x_tmp) - (Math.sin(-angle) * dest_y_tmp);
+    dest_y_tmp = (Math.sin(-angle) * rot_tmp) + (Math.cos(-angle) * dest_y_tmp);
+
+    Gdk.Point dest_point = Gdk.Point();
+    dest_point.x = (int) Math.round(dest_x_tmp);
+    dest_point.y = (int) Math.round(dest_y_tmp);
+
+    return dest_point;
+}
