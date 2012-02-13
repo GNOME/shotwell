@@ -1070,8 +1070,10 @@ public class CropTool : EditingTool {
 
         // set up the constraint combo box
         crop_tool_window.constraint_combo.set_model(constraint_list);
-        crop_tool_window.constraint_combo.set_active(Config.Facade.get_instance().get_last_crop_menu_choice());
-
+        if(!canvas.get_photo().has_crop()) {
+            crop_tool_window.constraint_combo.set_active(Config.Facade.get_instance().get_last_crop_menu_choice());
+        }
+        
         // set up the pivot reticle button
         update_pivot_button_state();
         reticle_orientation = ReticleOrientation.LANDSCAPE;
@@ -1080,6 +1082,7 @@ public class CropTool : EditingTool {
 
         // obtain crop dimensions and paint against the uncropped photo
         Dimensions uncropped_dim = canvas.get_photo().get_dimensions(Photo.Exception.CROP);
+
 
         Box crop;
         if (!canvas.get_photo().get_crop(out crop)) {
@@ -1115,10 +1118,12 @@ public class CropTool : EditingTool {
         crop_tool_window.hide();
 
         // was 'custom' the most-recently-chosen menu item?
-        if (constraints[Config.Facade.get_instance().get_last_crop_menu_choice()].aspect_ratio ==
-            CUSTOM_ASPECT_RATIO) {
-            // yes, switch to custom mode, make the entry fields appear.
-            set_custom_constraint_mode();
+        if(!canvas.get_photo().has_crop()) {
+            if (constraints[Config.Facade.get_instance().get_last_crop_menu_choice()].aspect_ratio ==
+                CUSTOM_ASPECT_RATIO) {
+                // yes, switch to custom mode, make the entry fields appear.
+                set_custom_constraint_mode();
+            }
         }
 
         // since we no longer just run with the default, but rather
