@@ -652,7 +652,8 @@ public class SearchConditionDate : SearchCondition {
                 return (dt.compare(date_one) <= 0);
             
             case Context.BETWEEN:
-                return (dt.compare(date_one) >= 0 && dt.compare(date_two) < 0);
+                DateTime second = date_two.add_days(1);
+                return (dt.compare(date_one) >= 0 && dt.compare(second) < 0);
             
             case Context.IS_NOT_SET:
                 return false; // Already checked above.
