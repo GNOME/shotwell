@@ -66,6 +66,7 @@
             <menu name="Tools" action="Tools">
                 <menuitem name="Enhance" action="Enhance" />
                 <menuitem name="Crop" action="Crop" />
+                <menuitem name="Straighten" action="Straighten" />
                 <menuitem name="RedEye" action="RedEye" />
                 <menuitem name="Adjust" action="Adjust" />
 <!--                <menuitem name="Faces" action="Faces" />		remove when re-enabling faces -->

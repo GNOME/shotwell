@@ -2035,6 +2035,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         crop_button.set_active(!crop_button.get_active());
     }
 
+    protected void toggle_straighten() {
+        straighten_button.set_active(!straighten_button.get_active());
+    }
+
     protected void toggle_redeye() {
         redeye_button.set_active(!redeye_button.get_active());
     }
@@ -2399,6 +2403,12 @@ public class LibraryPhotoPage : EditingHostPage {
         crop.label = Resources.CROP_MENU;
         crop.tooltip = Resources.CROP_TOOLTIP;
         actions += crop;
+        
+        Gtk.ActionEntry straighten = { "Straighten", Gtk.Stock.REFRESH, TRANSLATABLE, "<Ctrl>A",
+            TRANSLATABLE, toggle_straighten };
+        straighten.label = Resources.STRAIGHTEN_MENU;
+        straighten.tooltip = Resources.STRAIGHTEN_TOOLTIP;
+        actions += straighten;
         
         Gtk.ActionEntry red_eye = { "RedEye", Resources.REDEYE, TRANSLATABLE, "<Ctrl>Y",
             TRANSLATABLE, toggle_redeye };

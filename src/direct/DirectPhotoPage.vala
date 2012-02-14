@@ -129,6 +129,12 @@ public class DirectPhotoPage : EditingHostPage {
         crop.tooltip = Resources.CROP_TOOLTIP;
         actions += crop;
         
+        Gtk.ActionEntry straighten = { "Straighten", Gtk.Stock.REFRESH, TRANSLATABLE, "<Ctrl>A",
+            TRANSLATABLE, toggle_straighten };
+        straighten.label = Resources.STRAIGHTEN_MENU;
+        straighten.tooltip = Resources.STRAIGHTEN_TOOLTIP;
+        actions += straighten;
+        
         Gtk.ActionEntry red_eye = { "RedEye", Resources.REDEYE, TRANSLATABLE, "<Ctrl>Y",
             TRANSLATABLE, toggle_redeye };
         red_eye.label = Resources.RED_EYE_MENU;
@@ -331,6 +337,7 @@ public class DirectPhotoPage : EditingHostPage {
         set_action_sensitive("FlipVertically", sensitivity);
         set_action_sensitive("Enhance", sensitivity);
         set_action_sensitive("Crop", sensitivity);
+        set_action_sensitive("Straighten", sensitivity);
         set_action_sensitive("RedEye", sensitivity);
         set_action_sensitive("Adjust", sensitivity);
         set_action_sensitive("Revert", sensitivity);
