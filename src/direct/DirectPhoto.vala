@@ -31,8 +31,9 @@ public class DirectPhoto : Photo {
     // Gets the dimensions of this photo's pixbuf when scaled to original
     // size and saves them where get_raw_dimensions can find them.
     private void save_dims() {
-        try {
-            backing_photo_row.dim = Dimensions.for_pixbuf(get_pixbuf(Scaling.for_original()));
+        try {                                                                       
+            backing_photo_row.dim = Dimensions.for_pixbuf(get_pixbuf_with_options(Scaling.for_original(),
+                Exception.CROP | Exception.STRAIGHTEN | Exception.ORIENTATION));
         } catch (Error e) {
             warning("Dimensions for image %s could not be gotten.", to_string());
         }
