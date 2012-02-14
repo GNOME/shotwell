@@ -704,6 +704,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         notify_altered(new Alteration("image", "developer"));
+        discard_prefetched(true);
     }
     
     public RawDeveloper get_raw_developer() {
@@ -2980,7 +2981,7 @@ public abstract class Photo : PhotoSource, Dateable {
                 out scaled_to_viewport);
             original_orientation = get_original_orientation();
         }
-        
+
         // load-and-decode and scale
         Gdk.Pixbuf pixbuf = load_raw_pixbuf(scaling, Exception.NONE, fetch_mode);
             
@@ -2990,35 +2991,78 @@ public abstract class Photo : PhotoSource, Dateable {
 #endif
         if (rotate)
             pixbuf = original_orientation.rotate_pixbuf(pixbuf);
-            
+
 #if MEASURE_PIPELINE
         orientation_time = timer.elapsed();
-        
+
         debug("MASTER PIPELINE %s (%s): orientation=%lf total=%lf", to_string(), scaling.to_string(),
             orientation_time, total_timer.elapsed());
 #endif
-        
+
         return pixbuf;
     }
-    
+
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
         return get_pixbuf_with_options(scaling);
     }
 
-    public bool discard_prefetched() {
-        if (secs_since_access == null)
-            return false;
-        
-        double tmp;
-        if (secs_since_access.elapsed(out tmp) > PRECACHE_TIME_TO_LIVE) {
-            debug("pipeline not run in over %d seconds, discarding cached original for %s",
-                PRECACHE_TIME_TO_LIVE, to_string());
-            unmodified_precached = null;
-            secs_since_access = null;
-            return false;
+    /**
+     * @brief Populates the cached version of the unmodified image.
+     */
+    public void populate_prefetched() throws Error {
+        lock (unmodified_precached) {
+            // If we don't have it already, precache the original...
+            if (unmodified_precached == null) {
+                unmodified_precached = load_raw_pixbuf(Scaling.for_original(), Exception.ALL, BackingFetchMode.SOURCE);
+                secs_since_access = new GLib.Timer();
+                GLib.Timeout.add_seconds(5, (GLib.SourceFunc)discard_prefetched);
+                debug("spawning new precache timeout for %s", this.to_string()); 
+            }
         }
+    }
 
-        return true;
+    /**
+     * @brief Get a copy of what's in the cache.
+     *
+     * @return A Pixbuf with the image data from unmodified_precached.
+     */
+    public Gdk.Pixbuf? get_prefetched_copy() {
+        lock (unmodified_precached) {
+            if (unmodified_precached == null) {
+                try {
+                    populate_prefetched();
+                } catch (Error e) {
+                    warning("raw pixbuf for %s could not be loaded", this.to_string());
+                    return null;
+                }
+            }
+
+            return unmodified_precached.copy();
+        }
+    }
+
+    /**
+     * @brief Discards the cached version of the unmodified image.
+     *
+     * @param immed Whether the cached version should be discarded now, or not.
+     */
+    public bool discard_prefetched(bool immed = false) {
+        lock (unmodified_precached) {
+            if (secs_since_access == null)
+                return false;
+            
+            double tmp;
+            if ((secs_since_access.elapsed(out tmp) > PRECACHE_TIME_TO_LIVE) || (immed)) {
+                debug("pipeline not run in over %d seconds or got immediate command, discarding" + 
+                    "cached original for %s",
+                    PRECACHE_TIME_TO_LIVE, to_string());
+                unmodified_precached = null;
+                secs_since_access = null;
+                return false;
+            }
+
+            return true;
+        }
     }
     
     /**
@@ -3034,7 +3078,7 @@ public abstract class Photo : PhotoSource, Dateable {
      */ 
     public Gdk.Pixbuf get_pixbuf_with_options(Scaling scaling, Exception exceptions =
         Exception.NONE, BackingFetchMode fetch_mode = BackingFetchMode.BASELINE) throws Error {
-            
+
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
@@ -3043,7 +3087,7 @@ public abstract class Photo : PhotoSource, Dateable {
 
         total_timer.start();
 #endif
-        
+
         // If this is a RAW photo, ensure the development is ready.
         if (Photo.develop_raw_photos_to_files &&
             get_master_file_format() == PhotoFileFormat.RAW && 
@@ -3051,7 +3095,7 @@ public abstract class Photo : PhotoSource, Dateable {
             || fetch_mode == BackingFetchMode.SOURCE) &&
             !is_raw_developer_complete(get_raw_developer()))
                 set_raw_developer(get_raw_developer());
-        
+
         // to minimize holding the row lock, fetch everything needed for the pipeline up-front
         bool is_scaled, is_cropped, is_straightened;
         Dimensions scaled_to_viewport;
@@ -3062,7 +3106,7 @@ public abstract class Photo : PhotoSource, Dateable {
         double straightening_angle;
         PixelTransformer transformer = null;
         Orientation orientation;
-        
+
         lock (row) {
             original = get_dimensions(Exception.ALL);
             scaled = scaling.get_scaled_dimensions(get_dimensions(exceptions));
@@ -3073,30 +3117,21 @@ public abstract class Photo : PhotoSource, Dateable {
             redeye_instances = get_raw_redeye_instances();
             
             is_cropped = get_raw_crop(out crop);
-            
+
             is_straightened = get_raw_straighten(out straightening_angle);
             
             if (has_color_adjustments())
                 transformer = get_pixel_transformer();
-            
+
             orientation = get_orientation();
         }
         
         //
         // Image load-and-decode
         //
+        populate_prefetched();
 
-        // If we don't have it already, precache the original... 
-        if (unmodified_precached == null) {
-            unmodified_precached = load_raw_pixbuf(Scaling.for_original(), Exception.ALL, BackingFetchMode.SOURCE);
-            secs_since_access = new GLib.Timer();
-            GLib.Timeout.add_seconds(5, (GLib.SourceFunc)discard_prefetched);
-            debug("spawning new precache timeout for %s", this.to_string()); 
-        }
-
-        // ...and copy it into an internal scratch image. This is what we'll
-        // operate upon and eventually display.
-        Gdk.Pixbuf pixbuf = unmodified_precached.copy();
+        Gdk.Pixbuf pixbuf = get_prefetched_copy();
 
         // remember to delete the cached copy if it isn't being used.
         secs_since_access.start();
@@ -3204,6 +3239,7 @@ public abstract class Photo : PhotoSource, Dateable {
 
         return pixbuf;
     }
+
     
     //
     // File export
@@ -3532,7 +3568,7 @@ public abstract class Photo : PhotoSource, Dateable {
         editable_monitor = null;
     }
     
-    private void attach_editable(PhotoFileFormat file_format, File file) throws Error {
+    private void attach_editable(PhotoFileFormat file_format, File file) throws Error { 
         // remove the transformations ... this must be done before attaching the editable, as these 
         // transformations are in the master's coordinate system, not the editable's ... don't 
         // notify photo is altered *yet* because update_editable will notify, and want to avoid 
@@ -3546,8 +3582,6 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     public void reimport_editable() throws Error {
-        // remove transformations, for much the same reasons as attach_editable().
-        internal_remove_all_transformations(false);
         update_editable(false, null);
     }
     
@@ -3771,9 +3805,16 @@ public abstract class Photo : PhotoSource, Dateable {
                 // ignored
             break;
         }
+
+        // at this point, any image date we have cached is stale,
+        // so delete it and force the pipeline to re-fetch it
+        discard_prefetched(true);
     }
     
     private void on_reimport_editable() {
+        // delete old image data and force the pipeline to load new from file.
+        discard_prefetched(true);
+        
         debug("Reimporting editable for %s", to_string());
         try {
             reimport_editable();
