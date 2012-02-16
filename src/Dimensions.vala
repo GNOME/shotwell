@@ -101,13 +101,13 @@ public struct Dimensions {
     }
     
     public Dimensions with_min(int min_width, int min_height) {
-        Dimensions min = Dimensions();
-        min.width = (width > min_width) ? width : min_width;
-        min.height = (height > min_height) ? height : min_height;
-        
-        return min;
+        return Dimensions(int.max(width, min_width), int.max(height, min_height));
     }
     
+    public Dimensions with_max(int max_width, int max_height) {
+        return Dimensions(int.min(width, max_width), int.min(height, max_height));
+    }
+
     public Dimensions get_scaled(int scale, bool scale_up) {
         assert(scale > 0);
         
