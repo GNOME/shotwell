@@ -2779,7 +2779,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
 
     // All instances are against the coordinate system of the unrotated photo.
-    private void add_raw_redeye_instance(EditingTools.RedeyeInstance redeye) {
+    public void add_redeye_instance(EditingTools.RedeyeInstance redeye) {
         KeyValueMap map = get_transformation("redeye");
         if (map == null) {
             map = new KeyValueMap("redeye");
@@ -3910,14 +3910,6 @@ public abstract class Photo : PhotoSource, Dateable {
         set_raw_straighten(theta);
     }
     
-    public void add_redeye_instance(EditingTools.RedeyeInstance inst_unscaled) {
-        Gdk.Rectangle bounds_rect_unscaled = EditingTools.RedeyeInstance.to_bounds_rect(inst_unscaled);
-        Gdk.Rectangle bounds_rect_raw = unscaled_to_raw_rect(bounds_rect_unscaled);
-        EditingTools.RedeyeInstance inst = EditingTools.RedeyeInstance.from_bounds_rect(bounds_rect_raw);
-        
-        add_raw_redeye_instance(inst);
-    }
-
     private Gdk.Pixbuf do_redeye(Gdk.Pixbuf pixbuf, EditingTools.RedeyeInstance inst) {
         /* we remove redeye within a circular region called the "effect
            extent." the effect extent is inscribed within its "bounding

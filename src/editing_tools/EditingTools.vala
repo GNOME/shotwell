@@ -124,6 +124,10 @@ public abstract class PhotoCanvas {
     public signal void resized_scaled_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled,
         Gdk.Rectangle scaled_position);
 
+    public Gdk.Rectangle unscaled_to_raw_rect(Gdk.Rectangle rectangle) {
+        return photo.unscaled_to_raw_rect(rectangle);
+    }
+
     public Gdk.Point active_to_unscaled_point(Gdk.Point active_point) {
         Gdk.Rectangle scaled_position = get_scaled_pixbuf_position();
         Dimensions unscaled_dims = photo.get_dimensions();
@@ -2598,22 +2602,25 @@ public class RedeyeTool : EditingTool {
             canvas.user_to_active_rect(bounds_rect_user);
         Gdk.Rectangle bounds_rect_unscaled =
             canvas.active_to_unscaled_rect(bounds_rect_active);
+        Gdk.Rectangle bounds_rect_raw =
+            canvas.unscaled_to_raw_rect(bounds_rect_unscaled);
 
-        RedeyeInstance instance_unscaled =
-            RedeyeInstance.from_bounds_rect(bounds_rect_unscaled);
+        RedeyeInstance instance_raw =
+            RedeyeInstance.from_bounds_rect(bounds_rect_raw);
 
         // transform screen coords back to image coords,
         // taking into account straightening angle.
-        int img_w = canvas.get_photo().get_dimensions(Photo.Exception.STRAIGHTEN | Photo.Exception.CROP).width;
-        int img_h = canvas.get_photo().get_dimensions(Photo.Exception.STRAIGHTEN | Photo.Exception.CROP).height;
+        Dimensions dimensions = canvas.get_photo().get_dimensions(
+            Photo.Exception.STRAIGHTEN | Photo.Exception.CROP);
 
         double theta = 0.0;
 
         canvas.get_photo().get_straighten(out theta);
 
-        instance_unscaled.center = rotate_point_arb(instance_unscaled.center, img_w, img_h, theta);
+        instance_raw.center = derotate_point_arb(instance_raw.center,
+                                                 dimensions.width, dimensions.height, theta);
 
-        RedeyeCommand command = new RedeyeCommand(canvas.get_photo(), instance_unscaled,
+        RedeyeCommand command = new RedeyeCommand(canvas.get_photo(), instance_raw,
             Resources.RED_EYE_LABEL, Resources.RED_EYE_TOOLTIP);
         AppWindow.get_command_manager().execute(command);
     }
