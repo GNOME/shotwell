@@ -75,16 +75,12 @@ transitions-fade = /apps/shotwell/plugins/org.yorba.shotwell.transitions.fade/en
 transitions-slide = /apps/shotwell/plugins/org.yorba.shotwell.transitions.slide/enabled
 
 [org.yorba.shotwell.sharing.facebook]
-session-key = /apps/shotwell/sharing/facebook/session_key
-session-secret = /apps/shotwell/sharing/facebook/session_secret
 uid = /apps/shotwell/sharing/facebook/uid
 user-name = /apps/shotwell/sharing/facebook/user_name
 default-size = /apps/shotwell/sharing/facebook/default_size
 
 [org.yorba.shotwell.sharing.flickr]
-auth-token = /apps/shotwell/sharing/flickr/auth_token
 default-size = /apps/shotwell/sharing/flickr/default_size
-username = /apps/shotwell/sharing/flickr/username
 visibility = /apps/shotwell/sharing/flickr/visibility
 
 [org.yorba.shotwell.sharing.picasa]
