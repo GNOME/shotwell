@@ -35,6 +35,14 @@ private class CoreImporter {
         foreach (ImportableMediaItem src_item in items) {
             DataImportSource import_source = new DataImportSource(src_item);
             
+            if (!import_source.was_backing_file_found()) {
+                message("Skipping import of %s: backing file not found", 
+                    import_source.get_filename());
+                failed.add(new DataImportJob(import_source));
+                
+                continue;
+            }
+            
             if (import_source.is_already_imported()) {
                 message("Skipping import of %s: checksum detected in library", 
                     import_source.get_filename());

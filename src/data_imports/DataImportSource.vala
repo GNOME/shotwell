@@ -15,6 +15,7 @@ namespace Spit.DataImports {
  * absolute minimum required to run the import job.
  */
 public class DataImportSource {
+    private bool backing_file_found;
     private ImportableMediaItem db_photo;
     private string? title = null;
     private string? preview_md5 = null;
@@ -24,41 +25,57 @@ public class DataImportSource {
     
     public DataImportSource(ImportableMediaItem db_photo) {
         this.db_photo = db_photo;
-        File photo = File.new_for_path(db_photo.get_folder_path()).
-            get_child(db_photo.get_filename());
         
-        PhotoMetadata? metadata = new PhotoMetadata();
-        try {
-            metadata.read_from_file(photo);
-        } catch(Error e) {
-            warning("Could not get file metadata for %s: %s", get_filename(), e.message);
-            metadata = null;
+        // A well-behaved plugin will ensure that the path and file name are
+        // not null but we check just in case
+        string folder_path = db_photo.get_folder_path();
+        string filename = db_photo.get_filename();
+        File? photo = null;
+        if (folder_path != null && filename != null) {
+            photo = File.new_for_path(db_photo.get_folder_path()).
+                get_child(db_photo.get_filename());
+                
+            backing_file_found = photo.query_exists();
+        } else {
+            backing_file_found = false;
         }
         
-        title = (metadata != null) ? metadata.get_title() : null;
-        exposure_time = (metadata != null) ? metadata.get_exposure_date_time() : null;
-        PhotoPreview? preview = metadata != null ? metadata.get_preview(0) : null;
-        if (preview != null) {
+        if (photo != null && backing_file_found) {
+            PhotoMetadata? metadata = new PhotoMetadata();
             try {
-                uint8[] preview_raw = preview.flatten();
-                preview_md5 = md5_binary(preview_raw, preview_raw.length);
+                metadata.read_from_file(photo);
             } catch(Error e) {
-                warning("Could not get raw preview for %s: %s", get_filename(), e.message);
+                warning("Could not get file metadata for %s: %s", get_filename(), e.message);
+                metadata = null;
             }
-        }
+            
+            title = (metadata != null) ? metadata.get_title() : null;
+            exposure_time = (metadata != null) ? metadata.get_exposure_date_time() : null;
+            PhotoPreview? preview = metadata != null ? metadata.get_preview(0) : null;
+            if (preview != null) {
+                try {
+                    uint8[] preview_raw = preview.flatten();
+                    preview_md5 = md5_binary(preview_raw, preview_raw.length);
+                } catch(Error e) {
+                    warning("Could not get raw preview for %s: %s", get_filename(), e.message);
+                }
+            }
 #if TRACE_MD5
-        debug("Photo MD5 %s: preview=%s", get_filename(), preview_md5);
+            debug("Photo MD5 %s: preview=%s", get_filename(), preview_md5);
 #endif
-        
-        try {
-            file_size = query_total_file_size(photo);
-        } catch(Error e) {
-            warning("Could not get file size for %s: %s", get_filename(), e.message);
-        }
-        try {
-            modification_time = query_file_modified(photo);
-        } catch(Error e) {
-            warning("Could not get modification time for %s: %s", get_filename(), e.message);
+            
+            try {
+                file_size = query_total_file_size(photo);
+            } catch(Error e) {
+                warning("Could not get file size for %s: %s", get_filename(), e.message);
+            }
+            try {
+                modification_time = query_file_modified(photo);
+            } catch(Error e) {
+                warning("Could not get modification time for %s: %s", get_filename(), e.message);
+            }
+        } else {
+            debug ("Photo file %s not found".printf(photo.get_path()));
         }
     }
     
@@ -107,6 +124,10 @@ public class DataImportSource {
         return (preview_md5 != null) 
             ? LibraryPhoto.has_nontrash_duplicate(null, preview_md5, null, get_file_format())
             : false;
+    }
+    
+    public bool was_backing_file_found() {
+        return backing_file_found;
     }
 }
 

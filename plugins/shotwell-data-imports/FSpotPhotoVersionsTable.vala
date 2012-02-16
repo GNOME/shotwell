@@ -13,8 +13,8 @@ public class FSpotPhotoVersionRow : Object {
     public int64 photo_id;
     public int64 version_id;
     public string name;
-    public File base_path;
-    public string filename;
+    public File? base_path;
+    public string? filename;
     public string md5_sum;
     public bool is_protected;
 }
@@ -90,9 +90,12 @@ public class FSpotPhotoVersionsV0Behavior : FSpotTableBehavior<FSpotPhotoVersion
         row.version_id = stmt.column_int64(offset + 1);
         row.name = stmt.column_text(offset + 2);
 
-        File uri = File.new_for_uri(stmt.column_text(offset + 3));
-        row.base_path = uri.get_parent();
-        row.filename = uri.get_basename();
+        string? full_path = stmt.column_text(offset + 3);
+        if (full_path != null) {
+            File uri = File.new_for_uri(full_path);
+            row.base_path = uri.get_parent();
+            row.filename = uri.get_basename();
+        }
 
         row.md5_sum = "";
         row.is_protected = false;
@@ -128,9 +131,12 @@ public class FSpotPhotoVersionsV9Behavior : FSpotTableBehavior<FSpotPhotoVersion
         row.version_id = stmt.column_int64(offset + 1);
         row.name = stmt.column_text(offset + 2);
 
-        File uri = File.new_for_uri(stmt.column_text(offset + 3));
-        row.base_path = uri.get_parent();
-        row.filename = uri.get_basename();
+        string? full_path = stmt.column_text(offset + 3);
+        if (full_path != null) {
+            File uri = File.new_for_uri(full_path);
+            row.base_path = uri.get_parent();
+            row.filename = uri.get_basename();
+        }
 
         row.md5_sum = "";
         row.is_protected = (stmt.column_int(offset + 4) > 0);
@@ -166,9 +172,12 @@ public class FSpotPhotoVersionsV16Behavior : FSpotTableBehavior<FSpotPhotoVersio
         row.version_id = stmt.column_int64(offset + 1);
         row.name = stmt.column_text(offset + 2);
 
-        File uri = File.new_for_uri(stmt.column_text(offset + 3));
-        row.base_path = uri.get_parent();
-        row.filename = uri.get_basename();
+        string? full_path = stmt.column_text(offset + 3);
+        if (full_path != null) {
+            File uri = File.new_for_uri(full_path);
+            row.base_path = uri.get_parent();
+            row.filename = uri.get_basename();
+        }
 
         row.md5_sum = stmt.column_text(offset + 4);
         row.is_protected = (stmt.column_int(offset + 5) > 0);
@@ -204,8 +213,14 @@ public class FSpotPhotoVersionsV17Behavior : FSpotTableBehavior<FSpotPhotoVersio
         row.photo_id = stmt.column_int64(offset + 0);
         row.version_id = stmt.column_int64(offset + 1);
         row.name = stmt.column_text(offset + 2);
-        row.base_path = File.new_for_uri(stmt.column_text(offset + 3));
-        row.filename = GLib.Uri.unescape_string(stmt.column_text(offset + 4));
+        
+        string? base_path = stmt.column_text(offset + 3);
+        string? filename = stmt.column_text(offset + 4);
+        if (base_path != null && filename != null) {
+            row.base_path = File.new_for_uri(base_path);
+            row.filename = filename;
+        }
+        
         row.md5_sum = stmt.column_text(offset + 5);
         row.is_protected = (stmt.column_int(offset + 6) > 0);
     }
@@ -239,8 +254,14 @@ public class FSpotPhotoVersionsV18Behavior : FSpotTableBehavior<FSpotPhotoVersio
         row.photo_id = stmt.column_int64(offset + 0);
         row.version_id = stmt.column_int64(offset + 1);
         row.name = stmt.column_text(offset + 2);
-        row.base_path = File.new_for_uri(stmt.column_text(offset + 3));
-        row.filename = GLib.Uri.unescape_string(stmt.column_text(offset + 4));
+        
+        string? base_path = stmt.column_text(offset + 3);
+        string? filename = stmt.column_text(offset + 4);
+        if (base_path != null && filename != null) {
+            row.base_path = File.new_for_uri(base_path);
+            row.filename = filename;
+        }
+        
         row.md5_sum = stmt.column_text(offset + 5);
         row.is_protected = (stmt.column_int(offset + 6) > 0);
     }

@@ -92,6 +92,8 @@ public class FSpotImportableItem : Spit.DataImports.ImportableMediaItem, GLib.Ob
     private FSpotImportableTag[] tags;
     private FSpotImportableEvent? event;
     private FSpotImportableRating rating;
+    private string folder_path;
+    private string filename;
     
     public FSpotImportableItem(
         DataImports.FSpot.Db.FSpotPhotoRow photo_row,
@@ -115,6 +117,27 @@ public class FSpotImportableItem : Spit.DataImports.ImportableMediaItem, GLib.Ob
             this.rating = new FSpotImportableRating(5);
         else
             this.rating = new FSpotImportableRating(FSpotImportableRating.UNRATED);
+            
+        // store path and filename
+        folder_path = (photo_version_row != null) ?
+            photo_version_row.base_path.get_path() :
+            photo_row.base_path.get_path();
+        filename = (photo_version_row != null) ?
+            photo_version_row.filename :
+            photo_row.filename;
+        
+        // In theory, neither field should be null at that point but belts
+        // and braces don't hurt
+        if (folder_path != null && filename != null) {
+            // check if file exist and if not decode as URL
+            File photo = File.new_for_path(folder_path).get_child(filename);
+                
+            // If file not found, parse as URI and store back
+            if (!photo.query_exists()) {
+                folder_path = decode_url(folder_path);
+                filename = decode_url(filename);
+            }
+        }
     }
     
     public Spit.DataImports.ImportableTag[] get_tags() {
@@ -129,15 +152,11 @@ public class FSpotImportableItem : Spit.DataImports.ImportableMediaItem, GLib.Ob
     }
     
     public string get_folder_path() {
-        return (photo_version_row != null) ?
-            photo_version_row.base_path.get_path() :
-            photo_row.base_path.get_path();
+        return folder_path;
     }
     
     public string get_filename() {
-        return (photo_version_row != null) ?
-            photo_version_row.filename :
-            photo_row.filename;
+        return filename;
     }
     
     public string? get_title() {
@@ -146,6 +165,33 @@ public class FSpotImportableItem : Spit.DataImports.ImportableMediaItem, GLib.Ob
     
     public Spit.DataImports.ImportableRating get_rating() {
         return rating;
+    }
+    
+    private string decode_url(string url) {
+        StringBuilder builder = new StringBuilder();
+        for (int idx = 0; idx < url.length; ) {
+            int cidx = url.index_of_char('%', idx);
+            if (cidx > idx) {
+                builder.append(url.slice(idx, cidx));
+            }
+            if (cidx >= 0) {
+                if (cidx < url.length - 2) {
+                    char c1 = url.get(cidx + 1);
+                    char c2 = url.get(cidx + 2);
+                    if (c1.isxdigit() && c1.isxdigit()) {
+                        int ccode = 0x10 * c1.xdigit_value() + c2.xdigit_value();
+                        builder.append_c((char)ccode);
+                    }
+                    idx = cidx + 3;
+                } else {
+                    idx = cidx + 1;
+                }
+            } else {
+                builder.append(url.substring(idx));
+                idx = url.length;
+            }
+        }
+        return builder.str;
     }
 }
 
@@ -420,29 +466,40 @@ public class FSpotDataImporter : Spit.DataImports.DataImporter, GLib.Object {
             try {
                 Gee.ArrayList<DataImports.FSpot.Db.FSpotPhotoVersionRow> photo_versions =
                     database.photo_versions_table.get_by_photo_id(photo_row.photo_id);
-                bool photo_versions_added = false;
+                bool photo_versions_added = false;   // set to true if at least one version was added
+                bool photo_versions_skipped = false; // set to true if at least one version was skipped due to missing file details
                 foreach (DataImports.FSpot.Db.FSpotPhotoVersionRow photo_version_row in photo_versions) {
-                    importable_items += new FSpotImportableItem(
-                        photo_row, photo_version_row, roll_row, tags, event, hidden, favorite
-                    );
-                    photo_versions_added = true;
+                    if (photo_version_row.base_path != null && photo_version_row.filename != null) {
+                        importable_items += new FSpotImportableItem(
+                            photo_row, photo_version_row, roll_row, tags, event, hidden, favorite
+                        );
+                        photo_versions_added = true;
+                    } else {
+                        photo_versions_skipped = true;
+                    }
                 }
                 
-                // older versions of F-Spot (0.4.3.1 at least, perhaps later) did not maintain photo_versions,
+                // Older versions of F-Spot (0.4.3.1 at least, perhaps later) did not maintain photo_versions,
                 // this handles that case
-                if (!photo_versions_added) {
-                    importable_items += new FSpotImportableItem(
-                        photo_row, null, roll_row, tags, event, hidden, favorite
-                    );
+                // It also handles the case when we had to skip any photo version due to missing
+                // file details
+                if (photo_versions_skipped || !photo_versions_added) {
+                    if (photo_row.base_path != null && photo_row.filename != null) {
+                        importable_items += new FSpotImportableItem(
+                            photo_row, null, roll_row, tags, event, hidden, favorite
+                        );
+                    }
                 }
             } catch (DatabaseError e) {
                 // if we can't load the different versions, do the best we can
                 // and create one photo from the photo row that was found earlier
                 message("Failed to retrieve versions for photo ID %ld: %s", (long) photo_row.photo_id,
                     e.message);
-                importable_items += new FSpotImportableItem(
-                    photo_row, null, roll_row, tags, event, hidden, favorite
-                );
+                if (photo_row.base_path != null && photo_row.filename != null) {
+                    importable_items += new FSpotImportableItem(
+                        photo_row, null, roll_row, tags, event, hidden, favorite
+                    );
+                }
             }
             // If the importer is still running, import the items and loop,
             // otherwise break the loop

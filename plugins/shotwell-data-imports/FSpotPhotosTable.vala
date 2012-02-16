@@ -12,8 +12,8 @@ namespace DataImports.FSpot.Db {
 public class FSpotPhotoRow : Object {
     public int64 photo_id;
     public time_t time;
-    public File base_path;
-    public string filename;
+    public File? base_path;
+    public string? filename;
     public string description;
     public int64 roll_id;
     public int64 default_version_id;
@@ -75,8 +75,14 @@ public class FSpotPhotosV0Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object {
         row = new FSpotPhotoRow();
         row.photo_id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
-        row.base_path = File.new_for_uri(stmt.column_text(offset + 2));
-        row.filename = stmt.column_text(offset + 3);
+        
+        string? base_path = stmt.column_text(offset + 2);
+        string? filename = stmt.column_text(offset + 3);
+        if (base_path != null && filename != null) {
+            row.base_path = File.new_for_uri(base_path);
+            row.filename = filename;
+        }
+        
         row.description = stmt.column_text(offset + 4);
         row.roll_id = INVALID_ID;
         row.default_version_id = stmt.column_int64(offset + 5);
@@ -113,8 +119,14 @@ public class FSpotPhotosV5Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object {
         row = new FSpotPhotoRow();
         row.photo_id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
-        row.base_path = File.new_for_uri(stmt.column_text(offset + 2));
-        row.filename = stmt.column_text(offset + 3);
+        
+        string? base_path = stmt.column_text(offset + 2);
+        string? filename = stmt.column_text(offset + 3);
+        if (base_path != null && filename != null) {
+            row.base_path = File.new_for_uri(base_path);
+            row.filename = filename;
+        }
+        
         row.description = stmt.column_text(offset + 4);
         row.roll_id = stmt.column_int64(offset + 5);
         row.default_version_id = stmt.column_int64(offset + 6);
@@ -153,9 +165,12 @@ public class FSpotPhotosV7Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object {
         row.photo_id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
 
-        File uri = File.new_for_uri(stmt.column_text(offset + 2));
-        row.base_path = uri.get_parent();
-        row.filename = uri.get_basename();
+        string? full_path = stmt.column_text(offset + 2);
+        if (full_path != null) {
+            File uri = File.new_for_uri(full_path);
+            row.base_path = uri.get_parent();
+            row.filename = uri.get_basename();
+        }
 
         row.description = stmt.column_text(offset + 3);
         row.roll_id = stmt.column_int64(offset + 4);
@@ -193,9 +208,12 @@ public class FSpotPhotosV11Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object 
         row.photo_id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
 
-        File uri = File.new_for_uri(stmt.column_text(offset + 2));
-        row.base_path = uri.get_parent();
-        row.filename = uri.get_basename();
+        string? full_path = stmt.column_text(offset + 2);
+        if (full_path != null) {
+            File uri = File.new_for_uri(full_path);
+            row.base_path = uri.get_parent();
+            row.filename = uri.get_basename();
+        }
 
         row.description = stmt.column_text(offset + 3);
         row.roll_id = stmt.column_int64(offset + 4);
@@ -233,9 +251,12 @@ public class FSpotPhotosV16Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object 
         row.photo_id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
 
-        File uri = File.new_for_uri(stmt.column_text(offset + 2));
-        row.base_path = uri.get_parent();
-        row.filename = uri.get_basename();
+        string? full_path = stmt.column_text(offset + 2);
+        if (full_path != null) {
+            File uri = File.new_for_uri(full_path);
+            row.base_path = uri.get_parent();
+            row.filename = uri.get_basename();
+        }
 
         row.description = stmt.column_text(offset + 3);
         row.roll_id = stmt.column_int64(offset + 4);
@@ -273,8 +294,14 @@ public class FSpotPhotosV17Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object 
         row = new FSpotPhotoRow();
         row.photo_id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
-        row.base_path = File.new_for_uri(stmt.column_text(offset + 2));
-        row.filename = stmt.column_text(offset + 3);
+        
+        string? base_path = stmt.column_text(offset + 2);
+        string? filename = stmt.column_text(offset + 3);
+        if (base_path != null && filename != null) {
+            row.base_path = File.new_for_uri(base_path);
+            row.filename = filename;
+        }
+        
         row.description = stmt.column_text(offset + 4);
         row.roll_id = stmt.column_int64(offset + 5);
         row.default_version_id = stmt.column_int64(offset + 6);
@@ -309,8 +336,14 @@ public class FSpotPhotosV18Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object 
         row = new FSpotPhotoRow();
         row.photo_id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
-        row.base_path = File.new_for_uri(stmt.column_text(offset + 2));
-        row.filename = stmt.column_text(offset + 3);
+        
+        string? base_path = stmt.column_text(offset + 2);
+        string? filename = stmt.column_text(offset + 3);
+        if (base_path != null && filename != null) {
+            row.base_path = File.new_for_uri(base_path);
+            row.filename = filename;
+        }
+        
         row.description = stmt.column_text(offset + 4);
         row.roll_id = stmt.column_int64(offset + 5);
         row.default_version_id = stmt.column_int64(offset + 6);
