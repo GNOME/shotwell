@@ -23,5 +23,8 @@ RC_FILES := \
 	picasa.png \
 	youtube.png
 
+CUSTOM_VAPI_PKGS := \
+    hmac-glib
+
 include ../Makefile.plugin.mk
 

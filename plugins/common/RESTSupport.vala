@@ -5,7 +5,6 @@
  */
 
 extern Soup.Message soup_form_request_new_from_multipart(string uri, Soup.Multipart multipart);
-extern void qsort(void *p, size_t num, size_t size, GLib.CompareFunc func);
 
 namespace Publishing.RESTSupport {
 
@@ -110,6 +109,15 @@ public class Argument {
 
         return strcmp(arg1->key, arg2->key);
     }
+    
+    public static Argument[] sort(Argument[] inputArray) {
+        Gee.TreeSet<Argument> sorted_args = new Gee.TreeSet<Argument>(Argument.compare);
+
+        foreach (Argument arg in inputArray)
+            sorted_args.add(arg);
+
+        return sorted_args.to_array();
+    }
 }
 
 public class Transaction {
@@ -196,20 +204,12 @@ public class Transaction {
                 get_endpoint_url());
     }
 
-    protected Argument[] get_arguments() {
+    public Argument[] get_arguments() {
         return arguments;
     }
     
-    protected Argument[] get_sorted_arguments() {
-        Argument[] sorted_array = new Argument[0];
-
-        foreach (Argument arg in arguments)
-            sorted_array += arg;
-
-        qsort(sorted_array, sorted_array.length, sizeof(Argument),
-            (CompareFunc) Argument.compare);
-
-        return sorted_array;
+    public Argument[] get_sorted_arguments() {
+        return Argument.sort(get_arguments());
     }
     
     protected void set_is_executed(bool is_executed) {
@@ -233,7 +233,7 @@ public class Transaction {
             throw err;
      }
 
-    protected HttpMethod get_method() {
+    public HttpMethod get_method() {
         return HttpMethod.from_string(message.method);
     }
 
@@ -299,11 +299,12 @@ public class Transaction {
 
         // concatenate the REST arguments array into an HTTP formdata string
         string formdata_string = "";
-        foreach (Argument arg in arguments) {
-            formdata_string = formdata_string + ("%s=%s&".printf(Soup.URI.encode(arg.key, "&"),
-                Soup.URI.encode(arg.value, "&+")));
+        for (int i = 0; i < arguments.length; i++) {
+            formdata_string += ("%s=%s".printf(arguments[i].key, arguments[i].value));
+            if (i < arguments.length - 1)
+                formdata_string += "&";
         }
-
+        
         // for GET requests with arguments, append the formdata string to the endpoint url after a
         // query divider ('?') -- but make sure to save the old (caller-specified) endpoint URL
         // and restore it after the GET so that the underlying Soup message remains consistent
@@ -313,12 +314,15 @@ public class Transaction {
             old_url = message.get_uri().to_string(false);
             url_with_query = get_endpoint_url() + "?" + formdata_string;
             message.set_uri(new Soup.URI(url_with_query));
+        } else {
+            message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
+                formdata_string.data);
         }
 
-        message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
-            formdata_string.data);
         is_executed = true;
+
         try {
+            debug("sending message to URI = '%s'", message.get_uri().to_string(false));
             send();
         } finally {
             // if old_url is non-null, then restore it

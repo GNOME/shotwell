@@ -318,13 +318,19 @@
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.flickr" path="/apps/shotwell/sharing/flickr/">
-    <key name="auth-token" type="s">
+    <key name="access-phase-token" type="s">
         <default>""</default>
-        <summary>auth token</summary>
+        <summary>OAuth Access Phase Token</summary>
         <description>The authorization token for the currently logged in Flickr user, if any</description>
     </key>
-    
-    <key name="username" type="s">
+
+    <key name="access-phase-token-secret" type="s">
+        <default>""</default>
+        <summary>OAuth Access Phase Token Secret</summary>
+        <description>The cryptographic secret used to sign requests against the authorization token for the currently logged in Flickr user, if any</description>
+    </key>
+
+    <key name="access-phase-username" type="s">
         <default>""</default>
         <summary>username</summary>
         <description>The user name of the currently logged in Flickr user, if any</description>

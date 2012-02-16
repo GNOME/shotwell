@@ -40,7 +40,7 @@ all: $(PLUGIN).so
 
 .stamp: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
 	$(VALAC) -g --enable-checking --fatal-warnings --save-temps --compile \
-		--vapidir=../ $(foreach pkg,$(PKGS),--pkg=$(pkg)) \
+		--vapidir=../ $(foreach pkg,$(PKGS),--pkg=$(pkg)) $(foreach pkg,$(CUSTOM_VAPI_PKGS),--pkg=$(pkg)) \
 		-X -I../.. -X -fPIC \
 		$(foreach dfn,$(DEFINES),-X $(dfn)) \
 		$(USER_VALAFLAGS) \
