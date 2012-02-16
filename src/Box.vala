@@ -77,6 +77,11 @@ public struct Box {
             int.max(corner1.x, corner2.x), int.max(corner1.y, corner2.y));
     }
     
+    public static Box from_center(Gdk.Point center, int width, int height) {
+        return Box(center.x - (width / 2), center.y - (height / 2),
+                   center.x + (width / 2), center.y + (height / 2));
+    }
+    
     public int get_width() {
         assert(right >= left);
         
@@ -154,6 +159,10 @@ public struct Box {
         rect.height = get_height();
         
         return rect;
+    }
+    
+    public Gdk.Point get_center() {
+        return { (left + right) / 2, (top + bottom) / 2 };
     }
     
     public Box rotate_clockwise(Dimensions space) {
