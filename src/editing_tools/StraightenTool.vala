@@ -136,15 +136,10 @@ public class StraightenTool : EditingTool {
         crop_region.top = new_crop_center.y - (crop_height / 2);
         crop_region.bottom = new_crop_center.y + (crop_height / 2);
 
-        // set the new photo angle
-        canvas.get_photo().set_straighten(slider_val);
-
-        // set the new photo crop
-        canvas.get_photo().set_crop(crop_region);
-
-        // prevent weird bugs with undo; the following line should
-        // be removed once #4475 has been implemented.
-        AppWindow.get_command_manager().reset();
+        StraightenCommand command = new StraightenCommand(
+            canvas.get_photo(), slider_val, crop_region,
+            Resources.STRAIGHTEN_LABEL, Resources.STRAIGHTEN_TOOLTIP);
+        AppWindow.get_command_manager().execute(command);            
 
         canvas.repaint();
         deactivate();

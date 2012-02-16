@@ -722,15 +722,18 @@ public class EnhanceMultipleCommand : MultiplePhotoTransformationCommand {
 
 public class StraightenCommand : GenericPhotoTransformationCommand {
     private double theta;
+    private Box crop;   // straightening can change the crop rectangle
     
-    public StraightenCommand(Photo photo, double theta, string name, string explanation) {
+    public StraightenCommand(Photo photo, double theta, Box crop, string name, string explanation) {
         base(photo, name, explanation);
         
         this.theta = theta;
+        this.crop = crop;
     }
     
     public override void execute_on_photo(Photo photo) {
         photo.set_straighten(theta);
+        photo.set_crop(crop);
     }
 }
 

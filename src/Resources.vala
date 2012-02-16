@@ -156,7 +156,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string STRAIGHTEN_MENU = _("_Straighten");
     public const string STRAIGHTEN_LABEL = _("Straighten");    
-    public const string STRAIGHTEN_TOOLTIP = _("Straightens the photo");    
+    public const string STRAIGHTEN_TOOLTIP = _("Straighten the photo");    
     
     public const string RED_EYE_MENU = _("_Red-eye");
     public const string RED_EYE_LABEL = _("Red-eye");
