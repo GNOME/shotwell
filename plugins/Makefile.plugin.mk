@@ -10,7 +10,9 @@
 # NOTE: This file is called from the cwd of each directory, hence the relative paths should be
 # read as such.
 
+ifndef VALAC
 VALAC := valac
+endif
 MAKE_FILES := Makefile ../Makefile.plugin.mk ../plugins.mk
 HEADER_FILES := ../shotwell-plugin-dev-1.0.vapi ../shotwell-plugin-dev-1.0.h \
 	../shotwell-plugin-dev-1.0.deps
