@@ -236,27 +236,20 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
         return source_pixbuf;
     }
 
-    Gdk.Pixbuf dest_pixbuf = null;
-
     // Compute how much the corners of the source image will
     // move by to determine how big the dest pixbuf should be.
 
-    double x_tmp, y_tmp;        
+    double x_tmp, y_tmp;
+    compute_arb_rotated_size(source_pixbuf.width, source_pixbuf.height, angle,
+                             out x_tmp, out y_tmp);
+                             
+    Gdk.Pixbuf dest_pixbuf = new Gdk.Pixbuf(
+            Gdk.Colorspace.RGB, true, 8, (int) Math.round(x_tmp), (int) Math.round(y_tmp));
 
-    compute_arb_rotated_size(source_pixbuf.width, source_pixbuf.height, angle, out x_tmp, out y_tmp);
-    dest_pixbuf = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, (int) Math.round(x_tmp), (int) Math.round(y_tmp));
-
-    Cairo.ImageSurface surface;
-    
-    if(source_pixbuf.has_alpha) {
-         surface = new Cairo.ImageSurface.for_data(
-            (uchar []) dest_pixbuf.pixels, Cairo.Format.ARGB32,
-            dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
-    } else {
-         surface = new Cairo.ImageSurface.for_data(
-            (uchar []) dest_pixbuf.pixels, Cairo.Format.RGB24,
-            dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
-    }
+    Cairo.ImageSurface surface = new Cairo.ImageSurface.for_data(
+        (uchar []) dest_pixbuf.pixels,
+        source_pixbuf.has_alpha ? Cairo.Format.ARGB32 : Cairo.Format.RGB24,
+        dest_pixbuf.width, dest_pixbuf.height, dest_pixbuf.rowstride);
             
     Cairo.Context context = new Cairo.Context(surface);
     
@@ -264,18 +257,13 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
     context.rectangle(0, 0, dest_pixbuf.width, dest_pixbuf.height);
     context.fill();
     
-    if (angle > 0.0) {
-        context.translate((x_tmp - source_pixbuf.width), 0.0);
-    } else {
-        context.translate(0.0, (y_tmp - source_pixbuf.height));
-    }
-    
+    context.translate(dest_pixbuf.width / 2, dest_pixbuf.height / 2);
     context.rotate(degrees_to_radians(angle));
+    context.translate(- source_pixbuf.width / 2, - source_pixbuf.height / 2);
+    
     Gdk.cairo_set_source_pixbuf(context, source_pixbuf, 0, 0);
     context.get_source().set_filter(Cairo.Filter.BEST);
     context.paint();
-    
-    assert(dest_pixbuf != null);
     
     // prepare the newly-drawn image for use by
     // the rest of the pipeline.
@@ -297,36 +285,30 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
  * @param img_h The height of the source image (unrotated).
  * @param angle The angle the source image is to be rotated by to straighten it.
  */
-Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double angle) {
+Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double angle,
+                           bool invert = false) {
     // angle of 0 degrees or angle was never set?
     if (angle == 0.0) {
         // nothing needs to be done.
         return source_point;
     }
 
-    double dest_width_tmp;
-    double dest_height_tmp;
-    compute_arb_rotated_size(img_w, img_h, angle, out dest_width_tmp, out dest_height_tmp);
+    double dest_width;
+    double dest_height;
+    compute_arb_rotated_size(img_w, img_h, angle, out dest_width, out dest_height);
     
-    double dest_x_tmp = source_point.x; 
-    double dest_y_tmp = source_point.y; 
-    double rot_tmp = dest_x_tmp;
-    angle = degrees_to_radians(angle);
+    Cairo.Matrix matrix = new Cairo.Matrix.identity();
+    matrix.translate(dest_width / 2, dest_height / 2);
+    matrix.rotate(degrees_to_radians(angle));
+    matrix.translate(- img_w / 2, - img_h / 2);
+    if (invert)
+        assert(matrix.invert() == Cairo.Status.SUCCESS);
     
-    dest_x_tmp = (Math.cos(angle) * dest_x_tmp) - (Math.sin(angle) * dest_y_tmp);
-    dest_y_tmp = (Math.sin(angle) * rot_tmp) + (Math.cos(angle) * dest_y_tmp);
-
-    if (angle > 0.0) {
-        dest_x_tmp += (dest_width_tmp - img_w);
-    } else {
-        dest_y_tmp += (dest_height_tmp - img_h);
-    }
-
-    Gdk.Point dest_point = Gdk.Point();
-    dest_point.x = (int) dest_x_tmp;
-    dest_point.y = (int) dest_y_tmp;
-
-    return dest_point;
+    double dest_x = source_point.x; 
+    double dest_y = source_point.y;
+    matrix.transform_point(ref dest_x, ref dest_y);
+    
+    return { (int) dest_x, (int) dest_y };
 }
     
 /**
@@ -343,34 +325,5 @@ Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double 
  * @param angle The angle the source image is to be rotated by to straighten it.
  */
 Gdk.Point derotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double angle) {
-    // angle of 0 degrees or angle was never set?
-    if (angle == 0.0) {
-        // nothing needs to be done.
-        return source_point;
-    }
-
-    double dest_width_tmp;
-    double dest_height_tmp;
-    compute_arb_rotated_size(img_w, img_h, angle, out dest_width_tmp, out dest_height_tmp);
-    
-    double dest_x_tmp = source_point.x; 
-    double dest_y_tmp = source_point.y;
-
-    if (angle > 0.0) {
-        dest_x_tmp -= (dest_width_tmp - img_w);
-    } else {
-        dest_y_tmp -= (dest_height_tmp - img_h);
-    }
-    
-    double rot_tmp = dest_x_tmp;
-    angle = degrees_to_radians(angle);
-    
-    dest_x_tmp = (Math.cos(-angle) * dest_x_tmp) - (Math.sin(-angle) * dest_y_tmp);
-    dest_y_tmp = (Math.sin(-angle) * rot_tmp) + (Math.cos(-angle) * dest_y_tmp);
-
-    Gdk.Point dest_point = Gdk.Point();
-    dest_point.x = (int) Math.round(dest_x_tmp);
-    dest_point.y = (int) Math.round(dest_y_tmp);
-
-    return dest_point;
+    return rotate_point_arb(source_point, img_w, img_h, angle, true);
 }
