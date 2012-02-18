@@ -214,53 +214,12 @@ void fix_cairo_pixbuf(Gdk.Pixbuf pixbuf) {
  * @param dest_height The height of the computed rectangle.
  */ 
 void compute_arb_rotated_size(double src_width, double src_height, double angle,
-    out double dest_width, out double dest_height)
-{
-    // Image hasn't been straightened; nothing needs to
-    // be done to the incoming values.
-    if (angle == 0.0) {
-        dest_width = src_width;
-        dest_height = src_height;
-        return;
-    }
+    out double dest_width, out double dest_height) {
     
-    // Compute how much the corners of the source image will
-    // move by to determine how big the dest image should be.
-    double x_min = 0.0, y_min = 0.0, x_max = 0.0, y_max = 0.0;
-    double x_tmp, y_tmp;        
-
-    // Lower left corner.
-    x_tmp = -(Math.sin(degrees_to_radians(angle)) * src_height);
-    y_tmp = (Math.cos(degrees_to_radians(angle)) * src_height);
-    
-    x_min = double.min(x_tmp, x_min);
-    x_max = double.max(x_tmp, x_max);
-
-    y_min = double.min(y_tmp, y_min);
-    y_max = double.max(y_tmp, y_max);
-    
-    // Lower right corner.
-    x_tmp = (Math.cos(degrees_to_radians(angle)) * src_width) - (Math.sin(degrees_to_radians(angle)) * src_height);
-    y_tmp = (Math.sin(degrees_to_radians(angle)) * src_width) + (Math.cos(degrees_to_radians(angle)) * src_height);
-    
-    x_min = double.min(x_tmp, x_min);
-    x_max = double.max(x_tmp, x_max);
-
-    y_min = double.min(y_tmp, y_min);
-    y_max = double.max(y_tmp, y_max);
-    
-    // Upper right corner.
-    x_tmp = (Math.cos(degrees_to_radians(angle)) * src_width); 
-    y_tmp = (Math.sin(degrees_to_radians(angle)) * src_width); 
-    
-    x_min = double.min(x_tmp, x_min);
-    x_max = double.max(x_tmp, x_max);
-
-    y_min = double.min(y_tmp, y_min);
-    y_max = double.max(y_tmp, y_max);
-     
-    dest_width = x_max - x_min;
-    dest_height = y_max - y_min;
+    angle = Math.fabs(degrees_to_radians(angle));
+    assert(angle <= Math.PI_2);
+    dest_width = src_width * Math.cos(angle) + src_height * Math.sin(angle);
+    dest_height = src_height * Math.cos(angle) + src_width * Math.sin(angle);
 }
 
 /**
