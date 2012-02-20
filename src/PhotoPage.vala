@@ -450,7 +450,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(crop_button, -1);
 
         // straightening tool
-        straighten_button = new Gtk.ToggleToolButton.from_stock(Gtk.Stock.REFRESH);
+        straighten_button = new Gtk.ToggleToolButton.from_stock(Resources.STRAIGHTEN);
         straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
         straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
         straighten_button.toggled.connect(on_straighten_toggled);

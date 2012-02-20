@@ -60,6 +60,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string HFLIP = "object-flip-horizontal";
     public const string VFLIP = "object-flip-vertical";
     public const string CROP = "shotwell-crop";
+    public const string STRAIGHTEN = "shotwell-straighten";
     public const string REDEYE = "shotwell-redeye";
     public const string ADJUST = "shotwell-adjust";
     public const string PIN_TOOLBAR = "shotwell-pin-toolbar";
@@ -690,6 +691,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("pin-toolbar.svg"), PIN_TOOLBAR);
         add_stock_icon(icons_dir.get_child("make-primary.svg"), MAKE_PRIMARY);
         add_stock_icon(icons_dir.get_child("import.svg"), IMPORT);
+        add_stock_icon(icons_dir.get_child("straighten.svg"), STRAIGHTEN);
         add_stock_icon(icons_dir.get_child("import-all.png"), IMPORT_ALL);
         add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
         add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
