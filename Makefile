@@ -108,13 +108,14 @@ THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala
 
 VAPI_FILES = \
-	unique-3.0.vapi \
-	webkitgtk-3.0.vapi \
+	ExtendedPosix.vapi \
+	hmac-glib.vapi \
+	LConv.vapi \
 	libexif.vapi \
 	libgphoto2.vapi \
-	ExtendedPosix.vapi \
-	LConv.vapi \
-	libraw.vapi
+	libraw.vapi \
+	unique-3.0.vapi \
+	webkitgtk-3.0.vapi
 
 RESOURCE_FILES = \
 	collection.ui \
