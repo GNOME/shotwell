@@ -210,7 +210,7 @@ public class DataImportsDialog : Gtk.Dialog {
         resizable = false;
         delete_event.connect(on_window_close);
         
-        string title = _("Import from Another Application");
+        string title = _("Import From Application");
         string label = _("Import media _from:");
         
         set_title(title);
