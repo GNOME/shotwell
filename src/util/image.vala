@@ -327,3 +327,38 @@ Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double 
 Gdk.Point derotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double angle) {
     return rotate_point_arb(source_point, img_w, img_h, angle, true);
 }
+
+
+// Force an axially-aligned box to be inside a rotated rectangle.
+Box clamp_inside_rotated_image(Box src, int img_w, int img_h, double angle_deg,
+    bool preserve_geom) {
+
+    Gdk.Point top_left = derotate_point_arb({src.left, src.top}, img_w, img_h, angle_deg);
+    Gdk.Point top_right = derotate_point_arb({src.right, src.top}, img_w, img_h, angle_deg);
+    Gdk.Point bottom_left = derotate_point_arb({src.left, src.bottom}, img_w, img_h, angle_deg);
+    Gdk.Point bottom_right = derotate_point_arb({src.right, src.bottom}, img_w, img_h, angle_deg);
+    
+    double angle = degrees_to_radians(angle_deg);
+    int top_offset = 0, bottom_offset = 0, left_offset = 0, right_offset = 0;
+    
+    int top = int.min(top_left.y, top_right.y);
+    if (top < 0)
+        top_offset = (int) ((0 - top) * Math.cos(angle));
+        
+    int bottom = int.max(bottom_left.y, bottom_right.y);
+    if (bottom > img_h)
+        bottom_offset = (int) ((img_h - bottom) * Math.cos(angle));
+        
+    int left = int.min(top_left.x, bottom_left.x);
+    if (left < 0)
+        left_offset = (int) ((0 - left) * Math.cos(angle));
+        
+    int right = int.max(top_right.x, bottom_right.x);
+    if (right > img_w)
+        right_offset = (int) ((img_w - right) * Math.cos(angle));
+
+    return preserve_geom ? src.get_offset(left_offset + right_offset, top_offset + bottom_offset)
+                         : Box(src.left + left_offset, src.top + top_offset,
+                               src.right + right_offset, src.bottom + bottom_offset);
+}
+

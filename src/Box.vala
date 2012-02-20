@@ -102,6 +102,20 @@ public struct Box {
         return (left == box.left && top == box.top && right == box.right && bottom == box.bottom);
     }
     
+    // Adjust width, preserving the box's center.
+    public void adjust_width(int width) {
+        int center_x = (left + right) / 2;
+        left = center_x - (width / 2);
+        right = center_x + (width / 2);
+    }
+
+    // Adjust height, preserving the box's center.
+    public void adjust_height(int height) {
+        int center_y = (top + bottom) / 2;
+        top = center_y - (height / 2);
+        bottom = center_y + (height / 2);
+    }
+    
     public Box get_scaled(Dimensions scaled) {
         double x_scale, y_scale;
         get_dimensions().get_scale_ratios(scaled, out x_scale, out y_scale);

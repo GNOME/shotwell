@@ -1000,57 +1000,24 @@ public class CropTool : EditingTool {
         if (user_aspect_ratio == ANY_ASPECT_RATIO)
             return crop;
 
-        float scaled_width = (float) crop.get_width();
-        float scaled_height = (float) crop.get_height();
-        float scaled_center_x = ((float) crop.left) + (scaled_width / 2.0f);
-        float scaled_center_y = ((float) crop.top) + (scaled_height / 2.0f);
-        float scaled_aspect_ratio = scaled_width / scaled_height;
-
-        // Crop positioning in the presence of constraint is a three-phase process
-
-        // PHASE 1: Naively rescale the width and the height of the box so that it has the
-        //          user-specified aspect ratio. Even in this initial transformation, the
-        //          box's center and minor axis length are preserved. Preserving the center
-        //          is especially important since this way the subject that the user has framed
-        //          within the crop reticle is preserved.
-        if (scaled_aspect_ratio > 1.0f)
-            scaled_width = scaled_height;
-        else
-            scaled_height = scaled_width;
-        scaled_width *= user_aspect_ratio;
-
-        // PHASE 2: Now that the box has the correct aspect ratio, grow it or shrink it such
-        //          that it has the same area that it had prior to constraint. This prevents
-        //          the box from growing or shrinking erratically as constraints are set and
-        //          unset.
+        // PHASE 1: Scale to the desired aspect ratio, preserving area and center.
         float old_area = (float) (crop.get_width() * crop.get_height());
-        float new_area = scaled_width * scaled_height;
-        float area_correct_factor = (float) Math.sqrt(old_area / new_area);
-        scaled_width *= area_correct_factor;
-        scaled_height *= area_correct_factor;
+        crop.adjust_height((int) Math.sqrt(old_area / user_aspect_ratio));
+        crop.adjust_width((int) Math.sqrt(old_area * user_aspect_ratio));
+        
+        // PHASE 2: Crop to the image boundary.
+        Dimensions image_size = get_photo_dimensions();
+        double angle;
+        canvas.get_photo().get_straighten(out angle);
+        crop = clamp_inside_rotated_image(crop, image_size.width, image_size.height, angle, false);
 
-        // PHASE 3: The new crop box may have edges that fall outside of the boundaries of
-        //          the photo. Here, we rescale it such that it fits within the boundaries
-        //          of the photo.
-        int photo_right_edge = canvas.get_scaled_pixbuf_position().width - 1;
-        int photo_bottom_edge = canvas.get_scaled_pixbuf_position().height - 1;
-
-        int new_box_left = (int) ((scaled_center_x - (scaled_width / 2.0f)));
-        int new_box_right = (int) ((scaled_center_x + (scaled_width / 2.0f)));
-        int new_box_top = (int) ((scaled_center_y - (scaled_height / 2.0f)));
-        int new_box_bottom = (int) ((scaled_center_y + (scaled_height / 2.0f)));
-
-        if(new_box_left < 0) new_box_left = 0;
-        if(new_box_top < 0) new_box_top = 0;
-        if(new_box_right > photo_right_edge) new_box_right = photo_right_edge;
-        if(new_box_bottom > photo_bottom_edge) new_box_bottom = photo_bottom_edge;
-
-        Box new_crop_box = Box((int) (new_box_left),
-            (int) (new_box_top),
-            (int) (new_box_right),
-            (int) (new_box_bottom));
-
-        return new_crop_box;
+        // PHASE 3: Crop down to the aspect ratio if necessary.
+        if (crop.get_width() >= crop.get_height() * user_aspect_ratio)  // possibly too wide
+            crop.adjust_width((int) (crop.get_height() * user_aspect_ratio));
+        else    // possibly too tall
+            crop.adjust_height((int) (crop.get_width() / user_aspect_ratio));
+        
+        return crop;
     }
 
     public override void activate(PhotoCanvas canvas) {
@@ -1086,7 +1053,6 @@ public class CropTool : EditingTool {
 
         // obtain crop dimensions and paint against the uncropped photo
         Dimensions uncropped_dim = canvas.get_photo().get_dimensions(Photo.Exception.CROP);
-
 
         Box crop;
         if (!canvas.get_photo().get_crop(out crop)) {
@@ -1416,19 +1382,26 @@ public class CropTool : EditingTool {
         }
     }
 
-    private void revert_crop(out int left, out int top, out int right, out int bottom) {
-        left = scaled_crop.left;
-        top = scaled_crop.top;
-        right = scaled_crop.right;
-        bottom = scaled_crop.bottom;
-    }
-
     private int eval_radial_line(double center_x, double center_y, double bounds_x,
         double bounds_y, double user_x) {
         double decision_slope = (bounds_y - center_y) / (bounds_x - center_x);
         double decision_intercept = bounds_y - (decision_slope * bounds_x);
 
         return (int) (decision_slope * user_x + decision_intercept);
+    }
+
+    // Return the dimensions of the uncropped source photo scaled to canvas coordinates.
+    private Dimensions get_photo_dimensions() {
+        Dimensions photo_dims = canvas.get_photo().get_dimensions(Photo.Exception.CROP);
+        Dimensions surface_dims = canvas.get_surface_dim();
+        double scale_factor = double.min((double) surface_dims.width / photo_dims.width,
+                                         (double) surface_dims.height / photo_dims.height);
+
+        photo_dims = canvas.get_photo().get_dimensions(
+            Photo.Exception.CROP | Photo.Exception.STRAIGHTEN);
+
+        return { (int) (photo_dims.width * scale_factor),
+                 (int) (photo_dims.height * scale_factor) };
     }
 
     private bool on_canvas_manipulation(int x, int y) {
@@ -1456,8 +1429,6 @@ public class CropTool : EditingTool {
         int bottom = scaled_crop.bottom;
 
         // get extra geometric information needed to enforce constraints
-        int photo_right_edge = canvas.get_scaled_pixbuf().width - 1;
-        int photo_bottom_edge = canvas.get_scaled_pixbuf().height - 1;
         int center_x = (left + right) / 2;
         int center_y = (top + bottom) / 2;
 
@@ -1626,16 +1597,13 @@ public class CropTool : EditingTool {
         // constraint).
         int width = right - left + 1;
         int height = bottom - top + 1;
-        if (get_constraint_aspect_ratio() == ANY_ASPECT_RATIO) {
-            if (left < 0)
-                left = 0;
-            if (top < 0)
-                top = 0;
-            if (right > photo_right_edge)
-                right = photo_right_edge;
-            if (bottom > photo_bottom_edge)
-                bottom = photo_bottom_edge;
 
+        Dimensions photo_dims = get_photo_dimensions();
+        double angle;
+        canvas.get_photo().get_straighten(out angle);
+        
+        Box new_crop;
+        if (get_constraint_aspect_ratio() == ANY_ASPECT_RATIO) {
             width = right - left + 1;
             height = bottom - top + 1;
 
@@ -1676,15 +1644,28 @@ public class CropTool : EditingTool {
                 default:
                 break;
             }
+
+            // preliminary crop region has been chosen, now clamp it inside the
+            // image as needed.
+
+            new_crop = clamp_inside_rotated_image(
+                Box(left, top, right, bottom),
+                photo_dims.width, photo_dims.height, angle,
+                in_manipulation == BoxLocation.INSIDE);
+                
         } else {
-            if ((left < 0) || (top < 0) || (right > photo_right_edge) ||
-                (bottom > photo_bottom_edge) || (width < CROP_MIN_SIZE) ||
-                (height < CROP_MIN_SIZE)) {
-                    revert_crop(out left, out top, out right, out bottom);
+            // one of the constrained modes is active; revert instead of clamping so
+            // that aspect ratio stays intact
+
+            new_crop = Box(left, top, right, bottom);
+            Box adjusted = clamp_inside_rotated_image(new_crop,
+                photo_dims.width, photo_dims.height, angle,
+                in_manipulation == BoxLocation.INSIDE);
+            
+            if (adjusted != new_crop || width < CROP_MIN_SIZE || height < CROP_MIN_SIZE) {
+                new_crop = scaled_crop;     // revert crop move
             }
         }
-
-        Box new_crop = Box(left, top, right, bottom);
 
         if (in_manipulation != BoxLocation.INSIDE)
             crop_resized(new_crop);
@@ -1743,31 +1724,9 @@ public class CropTool : EditingTool {
         erase_crop_tool(scaled_crop);
         canvas.invalidate_area(scaled_crop);
 
-        Box scaled_horizontal;
-        Box scaled_vertical;
-        Box new_horizontal;
-        Box new_vertical;
-        BoxComplements complements = scaled_crop.shifted_complements(new_crop, out scaled_horizontal,
-            out scaled_vertical, out new_horizontal, out new_vertical);
+        set_area_alpha(scaled_crop, 0.5);
+        set_area_alpha(new_crop, 0.0);
 
-        if (complements == BoxComplements.HORIZONTAL || complements == BoxComplements.BOTH) {
-            // paint in the horizontal complements appropriately
-            set_area_alpha(scaled_horizontal, 0.5);
-            set_area_alpha(new_horizontal, 0.0);
-        }
-
-        if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH) {
-            // paint in vertical complements appropriately
-            set_area_alpha(scaled_vertical, 0.5);
-            set_area_alpha(new_vertical, 0.0);
-        }
-
-        if (complements == BoxComplements.NONE) {
-            // this means the two boxes have no intersection, not that they're equal ... since
-            // there's no intersection, fill in both new and old with apropriate pixbufs
-            set_area_alpha(scaled_crop, 0.5);
-            set_area_alpha(new_crop, 0.0);
-        }
 
         // paint crop in new location
         paint_crop_tool(new_crop);
