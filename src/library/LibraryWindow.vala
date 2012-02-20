@@ -392,7 +392,7 @@ public class LibraryWindow : AppWindow {
             "ExternalLibraryImport", Resources.IMPORT, TRANSLATABLE,
             "<Ctrl>E", TRANSLATABLE, on_external_library_import
         };
-        import_from_external.label = _("Import from _Another Application...");
+        import_from_external.label = _("Import From _Application...");
         actions += import_from_external;
 
         Gtk.ActionEntry sort = { "CommonSortEvents", null, TRANSLATABLE, null, null, null };
