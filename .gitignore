@@ -3,6 +3,8 @@ shotwell
 /build
 /configure.mk
 /misc/gschemas.compiled
+/misc/shotwell.desktop
+/misc/shotwell-viewer.desktop
 /plugins/shotwell-plugin-dev-1.0.vapi
 /src/libshotwell.vapi
 /src/.unitize
