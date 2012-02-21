@@ -1396,6 +1396,7 @@ public class CropTool : EditingTool {
         Dimensions surface_dims = canvas.get_surface_dim();
         double scale_factor = double.min((double) surface_dims.width / photo_dims.width,
                                          (double) surface_dims.height / photo_dims.height);
+        scale_factor = double.min(scale_factor, 1.0);
 
         photo_dims = canvas.get_photo().get_dimensions(
             Photo.Exception.CROP | Photo.Exception.STRAIGHTEN);
