@@ -390,7 +390,7 @@ public class LibraryWindow : AppWindow {
         
         Gtk.ActionEntry import_from_external = {
             "ExternalLibraryImport", Resources.IMPORT, TRANSLATABLE,
-            "<Ctrl>E", TRANSLATABLE, on_external_library_import
+            null, TRANSLATABLE, on_external_library_import
         };
         import_from_external.label = _("Import From _Application...");
         actions += import_from_external;
