@@ -194,6 +194,7 @@ ICON_FILES = \
 	shotwell-street.jpg \
 	shotwell.svg \
 	sprocket.png \
+	straighten.svg \
 	three-star-filter-plus.svg \
 	three-stars.svg \
 	two-star-filter-plus.svg \
