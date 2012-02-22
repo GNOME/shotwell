@@ -297,10 +297,8 @@ public class DataImportsDialog : Gtk.Dialog {
     }
     
     private bool on_window_close(Gdk.EventAny evt) {
-        host.stop_importing();
-        host = null;
-        hide();
-        destroy();
+        debug("DataImportsDialog: on_window_close( ): invoked.");
+        terminate();
         
         return true;
     }
@@ -338,6 +336,7 @@ public class DataImportsDialog : Gtk.Dialog {
         host = null;
         hide();
         destroy();
+        instance = null;
     }
     
     private void set_large_window_mode() {
