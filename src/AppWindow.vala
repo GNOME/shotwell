@@ -714,7 +714,7 @@ public abstract class AppWindow : PageWindow {
             return;
         
         try {
-            AppWindow.get_instance().show_file_uri(media.get_master_file().get_parent());
+           AppWindow.get_instance().show_file_uri(media.get_master_file());
         } catch (Error err) {
             AppWindow.error_message(Resources.jump_to_file_failed(err));
         }
@@ -725,7 +725,12 @@ public abstract class AppWindow : PageWindow {
     }
     
     public void show_file_uri(File file) throws Error {
-        show_uri(file.get_uri());
+        // if file manager is nautilus then pass the full path to file; otherwise pass
+        // the enclosing directory
+        if(get_nautilus_install_location() != null)
+            show_file_in_nautilus(file.get_uri());
+        else
+            show_uri(file.get_parent().get_uri());
     }
     
     public void show_uri(string url) throws Error {

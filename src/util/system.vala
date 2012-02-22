@@ -15,8 +15,16 @@ File? get_sys_install_dir(File exec_dir) {
     return exec_dir.has_prefix(prefix_dir) ? prefix_dir : null;
 }
 
+string get_nautilus_install_location() {
+    return Environment.find_program_in_path("nautilus");
+}
+
 void sys_show_uri(Gdk.Screen screen, string uri) throws Error {
     Gtk.show_uri(screen, uri, Gdk.CURRENT_TIME);
+}
+
+void show_file_in_nautilus(string filename) throws Error {
+    GLib.Process.spawn_command_line_async(get_nautilus_install_location() + " " + filename);
 }
 
 int posix_wexitstatus(int status) {
