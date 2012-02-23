@@ -372,6 +372,14 @@ public class DirectPhotoPage : EditingHostPage {
             set_action_sensitive("RedEye", EditingTools.RedeyeTool.is_available(get_photo(), 
                 Scaling.for_original()));
         }
+
+        // can't write to raws, and trapping the output JPEG here is tricky,
+        // so don't allow date/time changes here.
+        if (get_photo() != null) {
+            set_action_sensitive("AdjustDateTime", (get_photo().get_file_format() != PhotoFileFormat.RAW));
+        } else {
+            set_action_sensitive("AdjustDateTime", false);
+        }
                 
         base.update_actions(selected_count, count);
     }
