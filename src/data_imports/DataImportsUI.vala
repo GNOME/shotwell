@@ -6,6 +6,9 @@
 
 namespace DataImportsUI {
 
+internal const string NO_PLUGINS_ENABLED_MESSAGE =
+    _("You do not have any data imports plugins enabled.\n\nIn order to use the Import From Application functionality, you need to have at least one data imports plugin enabled. Plugins can be enabled in the Preferences dialog.");
+
 public class ConcreteDialogPane : Spit.DataImports.DialogPane, GLib.Object {
     private Gtk.VBox pane_widget;
     
@@ -215,58 +218,64 @@ public class DataImportsDialog : Gtk.Dialog {
         
         set_title(title);
 
-        service_selector_box = new Gtk.ComboBoxText();
-        service_selector_box.set_active(0);
-        service_selector_box_label = new Gtk.Label.with_mnemonic(label);
-        service_selector_box_label.set_mnemonic_widget(service_selector_box);
-        service_selector_box_label.set_alignment(0.0f, 0.5f);
-
-        // get the name of the service the user last used
-        string? last_used_service = Config.Facade.get_instance().get_last_used_dataimports_service();
-
         Spit.DataImports.Service[] loaded_services = Spit.DataImports.load_services();
-        int ticker = 0;
-        int last_used_index = -1;
-        foreach (Spit.DataImports.Service service in loaded_services) {
-            string curr_service_id = service.get_id();
-            if (last_used_service != null && last_used_service == curr_service_id)
-                last_used_index = ticker;
-
-            service_selector_box.append_text(service.get_pluggable_name());
-            ticker++;
-        }
-        if (last_used_index >= 0)
-            service_selector_box.set_active(last_used_index);
-        else
+        
+        if (loaded_services.length > 0) {
+            // Install the service selector part only if there is at least one
+            // service to select from
+            service_selector_box = new Gtk.ComboBoxText();
             service_selector_box.set_active(0);
+            service_selector_box_label = new Gtk.Label.with_mnemonic(label);
+            service_selector_box_label.set_mnemonic_widget(service_selector_box);
+            service_selector_box_label.set_alignment(0.0f, 0.5f);
 
-        service_selector_box.changed.connect(on_service_changed);
+            // get the name of the service the user last used
+            string? last_used_service = Config.Facade.get_instance().get_last_used_dataimports_service();
 
-        /* the wrapper is not an extraneous widget -- it's necessary to prevent the service
-           selection box from growing and shrinking whenever its parent's size changes.
-           When wrapped inside a Gtk.Alignment, the Alignment grows and shrinks instead of
-           the service selection box. */
-        Gtk.Alignment service_selector_box_wrapper = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
-        service_selector_box_wrapper.add(service_selector_box);
+            int ticker = 0;
+            int last_used_index = -1;
+            foreach (Spit.DataImports.Service service in loaded_services) {
+                string curr_service_id = service.get_id();
+                if (last_used_service != null && last_used_service == curr_service_id)
+                    last_used_index = ticker;
 
-        Gtk.HBox service_selector_layouter = new Gtk.HBox(false, 8);
-        service_selector_layouter.set_border_width(12);
-        service_selector_layouter.add(service_selector_box_label);
-        service_selector_layouter.add(service_selector_box_wrapper);
+                service_selector_box.append_text(service.get_pluggable_name());
+                ticker++;
+            }
+            if (last_used_index >= 0)
+                service_selector_box.set_active(last_used_index);
+            else
+                service_selector_box.set_active(0);
+
+            service_selector_box.changed.connect(on_service_changed);
+
+            /* the wrapper is not an extraneous widget -- it's necessary to prevent the service
+               selection box from growing and shrinking whenever its parent's size changes.
+               When wrapped inside a Gtk.Alignment, the Alignment grows and shrinks instead of
+               the service selection box. */
+            Gtk.Alignment service_selector_box_wrapper = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
+            service_selector_box_wrapper.add(service_selector_box);
+
+            Gtk.HBox service_selector_layouter = new Gtk.HBox(false, 8);
+            service_selector_layouter.set_border_width(12);
+            service_selector_layouter.add(service_selector_box_label);
+            service_selector_layouter.add(service_selector_box_wrapper);
+            
+            /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
+               rest of the dialog */
+            Gtk.VBox service_area_layouter = new Gtk.VBox(false, 0);
+            service_area_layouter.add(service_selector_layouter);
+            Gtk.HSeparator service_central_separator = new Gtk.HSeparator();
+            service_area_layouter.add(service_central_separator);
+            
+            Gtk.Alignment service_area_wrapper = new Gtk.Alignment(0.0f, 0.0f, 1.0f, 0.0f);
+            service_area_wrapper.add(service_area_layouter);
+
+            ((Gtk.Box) get_content_area()).pack_start(service_area_wrapper, false, false, 0);
+        }
         
-        /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
-           rest of the dialog */
-        Gtk.VBox service_area_layouter = new Gtk.VBox(false, 0);
-        service_area_layouter.add(service_selector_layouter);
-        Gtk.HSeparator service_central_separator = new Gtk.HSeparator();
-        service_area_layouter.add(service_central_separator);
-
-        Gtk.Alignment service_area_wrapper = new Gtk.Alignment(0.0f, 0.0f, 1.0f, 0.0f);
-        service_area_wrapper.add(service_area_layouter);
-        
+        // Intall the central area in all cases
         central_area_layouter = new Gtk.VBox(false, 0);
-
-        ((Gtk.Box) get_content_area()).pack_start(service_area_wrapper, false, false, 0);
         ((Gtk.Box) get_content_area()).pack_start(central_area_layouter, true, true, 0);
         
         close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
@@ -276,8 +285,14 @@ public class DataImportsDialog : Gtk.Dialog {
 
         set_standard_window_mode();
         
-        // trigger the selected service
-        on_service_changed();
+        if (loaded_services.length > 0) {
+            // trigger the selected service if at least one service is available
+            on_service_changed();
+        } else {
+            // otherwise, install a message pane advising the user what to do
+            install_pane(new StaticMessagePane.with_pango(NO_PLUGINS_ENABLED_MESSAGE));
+            set_close_button_mode();
+        }
         
         show_all();
     }
