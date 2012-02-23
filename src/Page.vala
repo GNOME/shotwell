@@ -1911,14 +1911,11 @@ public abstract class SinglePhotoPage : Page {
         
         add(viewport);
 
-        // Work around an Ubuntu Ambiance style change that causes GtkDrawingAreas to have
-        // transparent backgrounds, causing odd display quirks.  The color we set here is
-        // arbitrary.
-        // See https://bugs.launchpad.net/light-themes/+bug/931630 .
-        canvas.override_background_color(Gtk.StateFlags.NORMAL, parse_color("#000"));
-        
+        // We used to disable GTK double buffering here.  We've had to reenable it
+        // due to this bug: http://redmine.yorba.org/issues/4775 .  
+        //
         // all painting happens in pixmap, and is sent to the window wholesale in on_canvas_expose
-        canvas.set_double_buffered(false);
+        // canvas.set_double_buffered(false);
         
         canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
             | Gdk.EventMask.SUBSTRUCTURE_MASK);
