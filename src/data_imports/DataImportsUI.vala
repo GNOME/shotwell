@@ -10,10 +10,10 @@ internal const string NO_PLUGINS_ENABLED_MESSAGE =
     _("You do not have any data imports plugins enabled.\n\nIn order to use the Import From Application functionality, you need to have at least one data imports plugin enabled. Plugins can be enabled in the Preferences dialog.");
 
 public class ConcreteDialogPane : Spit.DataImports.DialogPane, GLib.Object {
-    private Gtk.VBox pane_widget;
+    private Gtk.Box pane_widget;
     
     public ConcreteDialogPane() {
-        pane_widget = new Gtk.VBox(false, 8);
+        pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
     }
     
     public Gtk.Widget get_widget() {
@@ -34,7 +34,7 @@ public class ConcreteDialogPane : Spit.DataImports.DialogPane, GLib.Object {
 public class StaticMessagePane : ConcreteDialogPane {
     public StaticMessagePane(string message_string) {
         Gtk.Label message_label = new Gtk.Label(message_string);
-        (get_widget() as Gtk.Container).add(message_label);
+        (get_widget() as Gtk.Box).pack_start(message_label, true, true, 0);
     }
     
     public StaticMessagePane.with_pango(string msg) {
@@ -42,7 +42,7 @@ public class StaticMessagePane : ConcreteDialogPane {
         label.set_markup(msg);
         label.set_line_wrap(true);
         
-        (get_widget() as Gtk.Container).add(label);
+        (get_widget() as Gtk.Box).pack_start(label, true, true, 0);
     }
 }
 
@@ -63,7 +63,7 @@ public class LibrarySelectionPane : ConcreteDialogPane {
         
         this.host = host;
         
-        Gtk.Box content_box = new Gtk.VBox(false, 8);
+        Gtk.Box content_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
         content_box.set_margin_left(30);
         content_box.set_margin_right(30);
         Gtk.Label welcome_label = new Gtk.Label(null);
@@ -123,7 +123,7 @@ public class LibrarySelectionPane : ConcreteDialogPane {
         button_box.add(import_button);
         content_box.pack_end(button_box, true, false, 6);
         
-        (get_widget() as Gtk.Container).add(content_box);
+        (get_widget() as Gtk.Box).pack_start(content_box, true, true, 0);
         
         set_import_button_sensitivity();
     }
@@ -169,7 +169,7 @@ public class ProgressPane : ConcreteDialogPane {
     private Gtk.ProgressBar progress_bar;
     
     public ProgressPane(string message) {
-        Gtk.Box content_box = new Gtk.VBox(false, 8);
+        Gtk.Box content_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
         message_label = new Gtk.Label(message);
         content_box.pack_start(message_label, true, true, 6);
         progress_bar = new Gtk.ProgressBar();
@@ -203,7 +203,7 @@ public class DataImportsDialog : Gtk.Dialog {
 
     private Gtk.ComboBoxText service_selector_box;
     private Gtk.Label service_selector_box_label;
-    private Gtk.VBox central_area_layouter;
+    private Gtk.Box central_area_layouter;
     private Gtk.Button close_cancel_button;
     private Spit.DataImports.DialogPane active_pane;
     private Spit.DataImports.ConcreteDataImportsHost host;
@@ -256,15 +256,15 @@ public class DataImportsDialog : Gtk.Dialog {
             Gtk.Alignment service_selector_box_wrapper = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
             service_selector_box_wrapper.add(service_selector_box);
 
-            Gtk.HBox service_selector_layouter = new Gtk.HBox(false, 8);
+            Gtk.Box service_selector_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             service_selector_layouter.set_border_width(12);
             service_selector_layouter.add(service_selector_box_label);
-            service_selector_layouter.add(service_selector_box_wrapper);
+            service_selector_layouter.pack_start(service_selector_box_wrapper, true, true, 0);
             
             /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
                rest of the dialog */
-            Gtk.VBox service_area_layouter = new Gtk.VBox(false, 0);
-            service_area_layouter.add(service_selector_layouter);
+            Gtk.Box service_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            service_area_layouter.pack_start(service_selector_layouter, true, true, 0);
             Gtk.HSeparator service_central_separator = new Gtk.HSeparator();
             service_area_layouter.add(service_central_separator);
             
@@ -275,7 +275,7 @@ public class DataImportsDialog : Gtk.Dialog {
         }
         
         // Intall the central area in all cases
-        central_area_layouter = new Gtk.VBox(false, 0);
+        central_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         ((Gtk.Box) get_content_area()).pack_start(central_area_layouter, true, true, 0);
         
         close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
@@ -414,7 +414,7 @@ public class DataImportsDialog : Gtk.Dialog {
             central_area_layouter.remove(active_pane.get_widget());
         }
 
-        central_area_layouter.add(pane.get_widget());
+        central_area_layouter.pack_start(pane.get_widget(), true, true, 0);
         show_all();
 
         Spit.DataImports.DialogPane.GeometryOptions geometry_options =

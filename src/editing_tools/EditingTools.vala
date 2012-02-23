@@ -624,8 +624,8 @@ public class CropTool : EditingTool {
         public Gtk.Entry custom_height_entry = new Gtk.Entry();
         public Gtk.Label custom_mulsign_label = new Gtk.Label.with_mnemonic("x");
         public Gtk.Entry most_recently_edited = null;
-        public Gtk.HBox response_layout = null;
-        public Gtk.HBox layout = null;
+        public Gtk.Box response_layout = null;
+        public Gtk.Box layout = null;
         public int normal_width = -1;
         public int normal_height = -1;
 
@@ -654,11 +654,12 @@ public class CropTool : EditingTool {
             custom_height_entry.set_width_chars(4);
             custom_height_entry.editable = true;
 
-            response_layout = new Gtk.HBox(true, CONTROL_SPACING);
+            response_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
+            response_layout.homogeneous = true;
             response_layout.add(cancel_button);
             response_layout.add(ok_button);
 
-            layout = new Gtk.HBox(false, CONTROL_SPACING);
+            layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
             layout.add(constraint_combo);
             layout.add(pivot_reticle_button);
             layout.add(response_layout);
@@ -1887,7 +1888,7 @@ public class FacesTool : EditingTool {
         public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
 
         private EditingPhase editing_phase = EditingPhase.NOT_EDITING;
-        private Gtk.HBox response_layout = null;
+        private Gtk.Box response_layout = null;
         private Gtk.HSeparator buttons_text_separator = null;
         private Gtk.Label help_text = null;
         private Gtk.VBox face_widgets_layout = null;
@@ -1902,15 +1903,15 @@ public class FacesTool : EditingTool {
             ok_button.set_tooltip_text(_("Save changes and close the Faces tool"));
             ok_button.set_image_position(Gtk.PositionType.LEFT);
 
-            face_widgets_layout = new Gtk.VBox(false, CONTROL_SPACING);
+            face_widgets_layout = new Gtk.Box(Gtk.Orientation.VERTICAL, CONTROL_SPACING);
 
             help_text = new Gtk.Label(_("Click and drag to tag a face"));
 
-            response_layout = new Gtk.HBox(false, CONTROL_SPACING);
+            response_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
             response_layout.add(cancel_button);
             response_layout.add(ok_button);
 
-            layout = new Gtk.VBox(false, CONTROL_SPACING);
+            layout = new Gtk.Box(Gtk.Orientation.VERTICAL, CONTROL_SPACING);
             layout.pack_start(face_widgets_layout, false);
             layout.pack_start(help_text, false);
             layout.pack_start(new Gtk.HSeparator(), false);
@@ -2007,14 +2008,14 @@ public class FacesTool : EditingTool {
 
         public Gtk.Entry entry;
 
-        private Gtk.HBox layout = null;
+        private Gtk.Box layout = null;
 
         public EditingFaceToolWindow(Gtk.Window container) {
             base(container);
 
             entry = new Gtk.Entry();
 
-            layout = new Gtk.HBox(false, CONTROL_SPACING);
+            layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
             layout.add(entry);
 
             add(layout);
@@ -2478,7 +2479,7 @@ public class RedeyeTool : EditingTool {
             apply_button.set_tooltip_text(_("Remove any red-eye effects in the selected region"));
             apply_button.set_image_position(Gtk.PositionType.LEFT);
 
-            Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
+            Gtk.Box layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
             layout.add(slider_label);
             layout.add(slider);
             layout.add(close_button);
@@ -2851,7 +2852,7 @@ public class AdjustTool : EditingTool {
             shadows_slider.set_size_request(SLIDER_WIDTH, -1);
             shadows_slider.set_draw_value(false);
 
-            Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
+            Gtk.Box button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             button_layouter.set_homogeneous(true);
             button_layouter.pack_start(cancel_button, true, true, 1);
             button_layouter.pack_start(reset_button, true, true, 1);
@@ -2860,7 +2861,7 @@ public class AdjustTool : EditingTool {
             Gtk.Alignment histogram_aligner = new Gtk.Alignment(0.5f, 0.0f, 0.0f, 0.0f);
             histogram_aligner.add(histogram_manipulator);
 
-            Gtk.VBox pane_layouter = new Gtk.VBox(false, 8);
+            Gtk.Box pane_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
             pane_layouter.add(histogram_aligner);
             pane_layouter.add(slider_organizer);
             pane_layouter.add(button_layouter);

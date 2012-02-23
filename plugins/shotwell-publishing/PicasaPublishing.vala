@@ -847,12 +847,7 @@ internal class LegacyCredentialsPane : Gtk.VBox {
         this.host = host;
         this.username = username;
 
-        Gtk.SeparatorToolItem top_space = new Gtk.SeparatorToolItem();
-        top_space.set_draw(false);
-        Gtk.SeparatorToolItem bottom_space = new Gtk.SeparatorToolItem();
-        bottom_space.set_draw(false);
-        add(top_space);
-        top_space.set_size_request(-1, VERTICAL_SPACE_HEIGHT);
+        add(gtk_vspacer(VERTICAL_SPACE_HEIGHT));
 
         Gtk.Label intro_message_label = new Gtk.Label("");
         intro_message_label.set_line_wrap(true);
@@ -872,19 +867,13 @@ internal class LegacyCredentialsPane : Gtk.VBox {
             case CredentialsPane.Mode.NOT_SET_UP:
                 intro_message_label.set_markup("<b>%s</b>\n\n%s".printf(_("Account Not Ready"),
                     NOT_SET_UP_MESSAGE));
-                Gtk.SeparatorToolItem long_message_space = new Gtk.SeparatorToolItem();
-                long_message_space.set_draw(false);
-                add(long_message_space);
-                long_message_space.set_size_request(-1, VERTICAL_SPACE_HEIGHT);
+                add(gtk_vspacer(VERTICAL_SPACE_HEIGHT));
             break;
 
             case CredentialsPane.Mode.ADDITIONAL_SECURITY:
                 intro_message_label.set_markup("<b>%s</b>\n\n%s".printf(_("Additional Security Required"),
                     ADDITIONAL_SECURITY_MESSAGE));
-                Gtk.SeparatorToolItem long_message_space = new Gtk.SeparatorToolItem();
-                long_message_space.set_draw(false);
-                add(long_message_space);
-                long_message_space.set_size_request(-1, VERTICAL_SPACE_HEIGHT);
+                add(gtk_vspacer(VERTICAL_SPACE_HEIGHT));
             break;
         }
 
@@ -935,8 +924,7 @@ internal class LegacyCredentialsPane : Gtk.VBox {
         email_entry_label.set_mnemonic_widget(email_entry);
         password_entry_label.set_mnemonic_widget(password_entry);
 
-        add(bottom_space);
-        bottom_space.set_size_request(-1, VERTICAL_SPACE_HEIGHT);
+        add(gtk_vspacer(VERTICAL_SPACE_HEIGHT));
     }
 
     private void on_login_button_clicked() {
@@ -1041,10 +1029,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         this.host = host;
         size_descriptions = create_size_descriptions();
 
-        Gtk.SeparatorToolItem top_pusher = new Gtk.SeparatorToolItem();
-        top_pusher.set_draw(false);
-        top_pusher.set_size_request(-1, 8);
-        add(top_pusher);
+        add(gtk_vspacer(8));
 
         Gtk.Label login_identity_label =
             new Gtk.Label(_("You are logged into Picasa Web Albums as %s.").printf(
@@ -1052,15 +1037,9 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         add(login_identity_label);
 
-        Gtk.VBox vert_packer = new Gtk.VBox(false, 0);
-        Gtk.SeparatorToolItem packer_top_padding = new Gtk.SeparatorToolItem();
-        packer_top_padding.set_draw(false);
-        packer_top_padding.set_size_request(-1, PACKER_VERTICAL_PADDING);
+        Gtk.Box vert_packer = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
-        Gtk.SeparatorToolItem identity_table_spacer = new Gtk.SeparatorToolItem();
-        identity_table_spacer.set_draw(false);
-        identity_table_spacer.set_size_request(-1, INTERSTITIAL_VERTICAL_SPACING);
-        vert_packer.add(identity_table_spacer);
+        vert_packer.add(gtk_vspacer(INTERSTITIAL_VERTICAL_SPACING));
 
         Gtk.Table main_table = new Gtk.Table(6, 3, false);
 
@@ -1078,10 +1057,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
-        Gtk.SeparatorToolItem suboption_indent_spacer = new Gtk.SeparatorToolItem();
-        suboption_indent_spacer.set_draw(false);
-        suboption_indent_spacer.set_size_request(2, -1);
-        main_table.attach(suboption_indent_spacer, 0, 1, 1, 2,
+        main_table.attach(gtk_hspacer(2), 0, 1, 1, 2,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
@@ -1116,10 +1092,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
-        Gtk.SeparatorToolItem album_size_spacer = new Gtk.SeparatorToolItem();
-        album_size_spacer.set_draw(false);
-        album_size_spacer.set_size_request(-1, INTERSTITIAL_VERTICAL_SPACING / 2);
-        main_table.attach(album_size_spacer, 2, 3, 4, 5,
+        main_table.attach(gtk_vspacer(INTERSTITIAL_VERTICAL_SPACING / 2), 2, 3, 4, 5,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
@@ -1153,12 +1126,10 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         vert_packer.add(main_table);
 
-        Gtk.SeparatorToolItem table_button_spacer = new Gtk.SeparatorToolItem();
-        table_button_spacer.set_draw(false);
-        table_button_spacer.set_size_request(-1, INTERSTITIAL_VERTICAL_SPACING);
-        vert_packer.add(table_button_spacer);
+        vert_packer.add(gtk_vspacer(INTERSTITIAL_VERTICAL_SPACING));
 
-        Gtk.HBox action_button_layouter = new Gtk.HBox(true, 0);
+        Gtk.Box action_button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+        action_button_layouter.homogeneous = true;
 
         Gtk.Button logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
         logout_button.clicked.connect(on_logout_clicked);
@@ -1166,10 +1137,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         Gtk.Alignment logout_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         logout_button_aligner.add(logout_button);
         action_button_layouter.add(logout_button_aligner);
-        Gtk.SeparatorToolItem button_spacer = new Gtk.SeparatorToolItem();
-        button_spacer.set_draw(false);
-        button_spacer.set_size_request(ACTION_BUTTON_SPACING, -1);
-        action_button_layouter.add(button_spacer);
+        action_button_layouter.add(gtk_hspacer(ACTION_BUTTON_SPACING));
         publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button.clicked.connect(on_publish_clicked);
         publish_button.set_size_request(ACTION_BUTTON_WIDTH, -1);
@@ -1182,10 +1150,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         vert_packer.add(action_button_wrapper);
 
-        Gtk.SeparatorToolItem packer_bottom_padding = new Gtk.SeparatorToolItem();
-        packer_bottom_padding.set_draw(false);
-        packer_bottom_padding.set_size_request(-1, 2 * PACKER_VERTICAL_PADDING);
-        vert_packer.add(packer_bottom_padding);
+        vert_packer.add(gtk_vspacer(2 * PACKER_VERTICAL_PADDING));
 
         Gtk.Alignment vert_packer_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         vert_packer_wrapper.add(vert_packer);

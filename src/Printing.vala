@@ -290,7 +290,8 @@ public class CustomPrintTab : Gtk.Fixed {
     public CustomPrintTab(PrintJob source_job) {
         this.source_job = source_job;
 
-        Gtk.VBox inner_wrapper = new Gtk.VBox(true, 8);
+        Gtk.Box inner_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
+        inner_wrapper.homogeneous = true;
 
         Gtk.Table master_layouter = new Gtk.Table(9, 3, false);
 
@@ -373,7 +374,7 @@ public class CustomPrintTab : Gtk.Fixed {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
 
-        Gtk.HBox custom_entries_layouter = new Gtk.HBox(false, 0);
+        Gtk.Box custom_entries_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         custom_width_entry = new Gtk.Entry();
         custom_width_entry.set_size_request(48, -1);
         custom_width_entry.insert_text.connect(on_entry_insert_text);
@@ -391,10 +392,7 @@ public class CustomPrintTab : Gtk.Fixed {
         custom_entries_layouter.add(custom_height_entry);
         custom_entries_layouter.add(custom_mulsign_label);
         custom_entries_layouter.add(custom_width_entry);
-        Gtk.SeparatorToolItem pre_units_spacer = new Gtk.SeparatorToolItem();
-        pre_units_spacer.set_size_request(2, -1);
-        pre_units_spacer.set_draw(false);
-        custom_entries_layouter.add(pre_units_spacer);
+        custom_entries_layouter.add(gtk_hspacer(2));
         Gtk.Alignment units_combo_aligner =
             new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
         units_combo_aligner.add(units_combo);
@@ -441,7 +439,7 @@ public class CustomPrintTab : Gtk.Fixed {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
 
-        Gtk.HBox ppi_entry_layouter = new Gtk.HBox(false, 0);
+        Gtk.Box ppi_entry_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         ppi_entry = new Gtk.Entry();
         ppi_entry.focus_out_event.connect(on_ppi_entry_focus_out);
         ppi_entry.insert_text.connect(on_ppi_entry_insert_text);
@@ -453,25 +451,16 @@ public class CustomPrintTab : Gtk.Fixed {
         Gtk.Label ppi_units_label = new Gtk.Label(_("pixels per inch"));
         ppi_entry_layouter.add(ppi_units_label);
         ppi_units_label.set_alignment(0.0f, 0.5f);
-        Gtk.SeparatorToolItem ppi_entry_right_padding = new Gtk.SeparatorToolItem();
-        ppi_entry_right_padding.set_size_request(-1, -1);
-        ppi_entry_right_padding.set_draw(false);
-        ppi_entry_layouter.add(ppi_entry_right_padding);
+        ppi_entry_layouter.add(gtk_expand());
         master_layouter.attach(ppi_entry_layouter, 2, 3, 8, 9,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
 
-        Gtk.HBox horiz_packer = new Gtk.HBox(false, 8);
+        Gtk.Box horiz_packer = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
         horiz_packer.add(master_layouter);
-        Gtk.SeparatorToolItem right_padding = new Gtk.SeparatorToolItem();
-        right_padding.set_size_request(50, -1);
-        right_padding.set_draw(false);
-        horiz_packer.add(right_padding);
+        horiz_packer.add(gtk_hspacer(50));
         inner_wrapper.add(horiz_packer);
-        Gtk.SeparatorToolItem bottom_padding = new Gtk.SeparatorToolItem();
-        bottom_padding.set_size_request(-1, 40);
-        bottom_padding.set_draw(false);
-        inner_wrapper.add(bottom_padding);
+        inner_wrapper.add(gtk_vspacer(40));
 
         put(inner_wrapper, 8, 8);
         inner_wrapper.set_size_request(400, 340);

@@ -129,3 +129,21 @@ bool is_pointer_over(Gdk.Window window) {
     return x >= 0 && y >= 0 && x < window.get_width() && y < window.get_height();
 }
 #endif
+
+Gtk.Widget gtk_expand() {
+    Gtk.Box b = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+    b.expand = true;
+    return b;
+}
+
+Gtk.Widget gtk_hspacer(int pixels) {
+    Gtk.Box b = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+    b.set_size_request(pixels, -1);
+    return b;   
+}
+
+Gtk.Widget gtk_vspacer(int pixels) {
+    Gtk.Box b = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+    b.set_size_request(-1, pixels);
+    return b;   
+}

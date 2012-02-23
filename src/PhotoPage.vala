@@ -492,7 +492,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         separator.set_draw(false);
         toolbar.insert(separator, -1);
         
-        Gtk.HBox zoom_group = new Gtk.HBox(false, 0);
+        Gtk.Box zoom_group = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         
         Gtk.Image zoom_out = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_OUT,
             Resources.ICON_ZOOM_SCALE));

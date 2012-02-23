@@ -677,12 +677,12 @@ internal class PinEntryPane : Spit.Publishing.DialogPane, GLib.Object {
     public signal void proceed(PinEntryPane sender, string authorization_pin);
 
     public PinEntryPane() {
-        Gtk.VBox pane_wrapper = new Gtk.VBox(false, 8);
+        Gtk.Box pane_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
         Gtk.Label explanatory_text = new Gtk.Label(_("Enter the confirmation number which appears after you log into Flickr in your Web browser"));
 
         pane_wrapper.add(explanatory_text);
         
-        Gtk.HBox pin_entry_wrapper = new Gtk.HBox(false, 12);
+        Gtk.Box pin_entry_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12);
         
         Gtk.Label pin_entry_caption = new Gtk.Label.with_mnemonic(_("Authorization _Number:"));
         
@@ -690,18 +690,10 @@ internal class PinEntryPane : Spit.Publishing.DialogPane, GLib.Object {
         
         pin_entry_caption.set_mnemonic_widget(pin_entry);
         
-        Gtk.SeparatorToolItem h_spacer1 = new Gtk.SeparatorToolItem();
-        h_spacer1.set_size_request(48, -1);
-        h_spacer1.set_draw(false);
-
-        Gtk.SeparatorToolItem h_spacer2 = new Gtk.SeparatorToolItem();
-        h_spacer2.set_size_request(58, -1);
-        h_spacer2.set_draw(false);
-
-        pin_entry_wrapper.add(h_spacer1);
+        pin_entry_wrapper.add(gtk_hspacer(48));
         pin_entry_wrapper.add(pin_entry_caption);
         pin_entry_wrapper.add(pin_entry);
-        pin_entry_wrapper.add(h_spacer2);
+        pin_entry_wrapper.add(gtk_hspacer(58));
 
         pane_wrapper.add(pin_entry_wrapper);
 
@@ -711,11 +703,7 @@ internal class PinEntryPane : Spit.Publishing.DialogPane, GLib.Object {
         continue_button_wrapper.add(continue_button);
         
         pane_wrapper.add(continue_button_wrapper);
-        
-        Gtk.SeparatorToolItem v_spacer2 = new Gtk.SeparatorToolItem();
-        v_spacer2.set_size_request(-1, 80);
-        v_spacer2.set_draw(false);
-        pane_wrapper.add(v_spacer2);
+        pane_wrapper.add(gtk_vspacer(80));
         
         widget = pane_wrapper;
         
@@ -1144,26 +1132,14 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             upload_label_text += _("Your Flickr Pro account entitles you to unlimited uploads.");
         }
 
-        Gtk.SeparatorToolItem top_space = new Gtk.SeparatorToolItem();
-        top_space.set_draw(false);
-        Gtk.SeparatorToolItem bottom_space = new Gtk.SeparatorToolItem();
-        bottom_space.set_draw(false);
-        add(top_space);
-        top_space.set_size_request(-1, 32);
+        add(gtk_vspacer(32));
 
         Gtk.Label upload_info_label = new Gtk.Label(upload_label_text);
         add(upload_info_label);
 
-        Gtk.SeparatorToolItem upload_combos_spacer = new Gtk.SeparatorToolItem();
-        upload_combos_spacer.set_draw(false);
-        add(upload_combos_spacer);
-        upload_combos_spacer.set_size_request(-1, 32);
+        add(gtk_vspacer(32));
 
-        Gtk.HBox combos_layouter_padder = new Gtk.HBox(false, 8);
-        Gtk.SeparatorToolItem combos_left_padding = new Gtk.SeparatorToolItem();
-        combos_left_padding.set_draw(false);
-        Gtk.SeparatorToolItem combos_right_padding = new Gtk.SeparatorToolItem();
-        combos_right_padding.set_draw(false);
+        Gtk.Box combos_layouter_padder = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
         Gtk.Table combos_layouter = new Gtk.Table(2, 2, false);
         combos_layouter.set_row_spacing(0, 12);
         string visibility_label_text = _("Photos _visible to:");
@@ -1196,15 +1172,12 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             combos_layouter.attach_defaults(size_label_aligner, 0, 1, 1, 2);
             combos_layouter.attach_defaults(size_combo_aligner, 1, 2, 1, 2);
         }
-        combos_layouter_padder.add(combos_left_padding);
-        combos_layouter_padder.add(combos_layouter);
-        combos_layouter_padder.add(combos_right_padding);
+        combos_layouter_padder.pack_start(gtk_expand(), true, true, 0);
+        combos_layouter_padder.pack_start(combos_layouter, true, true, 0);
+        combos_layouter_padder.pack_start(gtk_expand(), true, true, 0);
         add(combos_layouter_padder);
 
-        Gtk.SeparatorToolItem combos_buttons_spacer = new Gtk.SeparatorToolItem();
-        combos_buttons_spacer.set_draw(false);
-        add(combos_buttons_spacer);
-        combos_buttons_spacer.set_size_request(-1, 32);
+        add(gtk_vspacer(32));
 
         Gtk.Alignment logout_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
@@ -1214,24 +1187,17 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button_aligner.add(publish_button);
         publish_button.clicked.connect(on_publish_clicked);
-        Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
-        Gtk.SeparatorToolItem buttons_left_padding = new Gtk.SeparatorToolItem();
-        buttons_left_padding.set_draw(false);
-        Gtk.SeparatorToolItem buttons_right_padding = new Gtk.SeparatorToolItem();
-        buttons_right_padding.set_draw(false);
-        Gtk.SeparatorToolItem buttons_interspacing = new Gtk.SeparatorToolItem();
-        buttons_interspacing.set_draw(false);
-        button_layouter.add(buttons_left_padding);
+        Gtk.Box button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+        button_layouter.add(gtk_expand());
         button_layouter.add(logout_button_aligner);
-        button_layouter.add(buttons_interspacing);
+        button_layouter.add(gtk_expand());
         button_layouter.add(publish_button_aligner);
-        button_layouter.add(buttons_right_padding);
+        button_layouter.add(gtk_expand());
         add(button_layouter);
         logout_button.set_size_request(ACTION_BUTTON_WIDTH, -1);
         publish_button.set_size_request(ACTION_BUTTON_WIDTH, -1);
 
-        add(bottom_space);
-        bottom_space.set_size_request(-1, 32);
+        add(gtk_vspacer(32));
     }
 
     private void on_logout_clicked() {

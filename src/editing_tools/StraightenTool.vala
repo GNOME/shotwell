@@ -43,19 +43,19 @@ public class StraightenTool : EditingTool {
             description_label.set_padding(0,0);
             angle_label.set_padding(0,0);
 
-            Gtk.HBox slider_layout = new Gtk.HBox(false, CONTROL_SPACING);
-            slider_layout.add(angle_slider);
+            Gtk.Box slider_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
+            slider_layout.pack_start(angle_slider, true, true, 0);
 
-            Gtk.HBox button_layout = new Gtk.HBox(false, CONTROL_SPACING);
-            button_layout.add(cancel_button);
-            button_layout.add(reset_button);
-            button_layout.add(ok_button);
+            Gtk.Box button_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
+            button_layout.pack_start(cancel_button, true, true, 0);
+            button_layout.pack_start(reset_button, true, true, 0);
+            button_layout.pack_start(ok_button, true, true, 0);
 
-            Gtk.HBox main_layout = new Gtk.HBox(false, 0);
-            main_layout.add(description_label);
-            main_layout.add(slider_layout);
-            main_layout.add(angle_label);
-            main_layout.add(button_layout);
+            Gtk.Box main_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            main_layout.pack_start(description_label, true, true, 0);
+            main_layout.pack_start(slider_layout, true, true, 0);
+            main_layout.pack_start(angle_label, true, true, 0);
+            main_layout.pack_start(button_layout, true, true, 0);
 
             add(main_layout);
 

@@ -96,7 +96,7 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    private class PageLayout : Gtk.VBox {
+    private class PageLayout : Gtk.Box {
         private string page_name;
         private Gtk.Toolbar toolbar;
         private Page page;
@@ -105,7 +105,8 @@ public class LibraryWindow : AppWindow {
             page_name = page.get_page_name();
             toolbar = page.get_toolbar();
             this.page = page;
-            
+
+            set_orientation(Gtk.Orientation.VERTICAL);
             set_homogeneous(false);
             set_spacing(0);
             
@@ -181,7 +182,7 @@ public class LibraryWindow : AppWindow {
     private SearchFilterActions search_actions = new SearchFilterActions();
     private SearchFilterToolbar search_toolbar;
     
-    private Gtk.VBox top_section = new Gtk.VBox(false, 0);
+    private Gtk.Box top_section = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.Frame background_progress_frame = new Gtk.Frame(null);
     private Gtk.ProgressBar background_progress_bar = new Gtk.ProgressBar();
     private bool background_progress_displayed = false;
@@ -190,7 +191,7 @@ public class LibraryWindow : AppWindow {
     private ExtendedPropertiesWindow extended_properties;
     
     private Gtk.Notebook notebook = new Gtk.Notebook();
-    private Gtk.Box layout = new Gtk.VBox(false, 0);
+    private Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     
     private int current_progress_priority = 0;
     private uint background_progress_pulse_id = 0;
@@ -199,7 +200,7 @@ public class LibraryWindow : AppWindow {
     // a fixed-size container widget so as to prevent flickering due to
     // size reallocation when we swap-in and swap-out menu bars on changing
     // pages
-    private Gtk.Container menubar_wrapper;
+    private Gtk.Box menubar_wrapper;
     private int system_menubar_height = 20; // give this a default value, even
                                             // though we expect its value to be
                                             // reset in the c-tor
@@ -253,7 +254,8 @@ public class LibraryWindow : AppWindow {
         if (!has_appmenu) {
             // set up the menu bar wrapper; see the comment on its declaration above
             // for more information on what the menu bar wrapper does
-            menubar_wrapper = new Gtk.VBox(true, 0);
+            menubar_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            menubar_wrapper.homogeneous = true;
             menubar_wrapper.set_size_request(-1, 32); // give it a non-zero height
                                                       // to trigger allocation on
                                                       // realize
@@ -1399,7 +1401,7 @@ public class LibraryWindow : AppWindow {
         Gtk.Frame right_frame = new Gtk.Frame(null);
         right_frame.set_shadow_type(Gtk.ShadowType.IN);
         
-        Gtk.VBox right_vbox = new Gtk.VBox(false, 0);
+        Gtk.Box right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         right_frame.add(right_vbox);
         right_vbox.pack_start(search_toolbar, false, false, 0);
         right_vbox.pack_start(notebook, true, true, 0);

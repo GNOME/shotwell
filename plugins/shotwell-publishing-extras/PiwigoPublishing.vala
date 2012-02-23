@@ -942,7 +942,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
     private const string FAILED_RETRY_URL_MESSAGE = _("Shotwell cannot contact your Piwigo photo library. Please verify the URL you entered");
     private const string FAILED_RETRY_USER_MESSAGE = _("Username and/or password invalid. Please try again");
 
-    private Gtk.VBox pane_widget = null;
+    private Gtk.Box pane_widget = null;
     private Gtk.Builder builder;
     private Gtk.Entry url_entry;
     private Gtk.Entry username_entry;
@@ -953,7 +953,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
     public signal void login(string url, string user, string password, bool remember_password);
 
     public AuthenticationPane(PiwigoPublisher publisher, Mode mode = Mode.INTRO) {
-        this.pane_widget = new Gtk.VBox(false, 0);
+        this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
         File ui_file = publisher.get_host().get_module_file().get_parent().
             get_child("piwigo_authentication_pane.glade");
@@ -1070,7 +1070,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
 
     private const string DEFAULT_CATEGORY_NAME = _("Shotwell Connect");
 
-    private Gtk.VBox pane_widget = null;
+    private Gtk.Box pane_widget = null;
     private Gtk.Builder builder;
     private Gtk.RadioButton use_existing_radio;
     private Gtk.RadioButton create_new_radio;
@@ -1096,7 +1096,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         PiwigoPublisher publisher, Category[] categories,
         int last_category, int last_permission_level, int last_photo_size
     ) {
-        this.pane_widget = new Gtk.VBox(false, 0);
+        this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         this.last_category = last_category;
         this.last_permission_level = last_permission_level;
         this.last_photo_size = last_photo_size;
@@ -1129,6 +1129,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             new_category_entry.changed.connect(on_new_category_entry_changed);
 
             align.reparent(pane_widget);
+			pane_widget.set_child_packing(align, true, true, 0, Gtk.PackType.START);
         } catch (Error e) {
             warning("Could not load UI: %s", e.message);
         }

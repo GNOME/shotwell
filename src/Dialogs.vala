@@ -220,7 +220,7 @@ public class ExportDialog : Gtk.Dialog {
         Gtk.Label pixels_label = new Gtk.Label.with_mnemonic(_(" _pixels"));
         pixels_label.set_mnemonic_widget(pixels_entry);
         
-        Gtk.HBox pixels_box = new Gtk.HBox(false, 0);
+        Gtk.Box pixels_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         pixels_box.pack_start(pixels_entry, false, false, 0);
         pixels_box.pack_end(pixels_label, false, false, 0);
         add_control(pixels_box, 1, 3);
@@ -1096,7 +1096,7 @@ public class ProgressDialog : Gtk.Window {
         progress_bar.set_size_request(300, -1);
         progress_bar.set_show_text(true);
         
-        Gtk.VBox vbox_bar = new Gtk.VBox(false, 0);
+        Gtk.Box vbox_bar = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         vbox_bar.pack_start(progress_bar, true, false, 0);
         
         if (cancellable != null) {
@@ -1105,7 +1105,7 @@ public class ProgressDialog : Gtk.Window {
             delete_event.connect(on_window_closed);
         }
         
-        Gtk.HBox hbox = new Gtk.HBox(false, 8);
+        Gtk.Box hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
         hbox.pack_start(vbox_bar, true, false, 0);
         if (cancel_button != null)
             hbox.pack_end(cancel_button, false, false, 0);
@@ -1114,7 +1114,7 @@ public class ProgressDialog : Gtk.Window {
         primary_text_label.set_markup("<span weight=\"bold\">%s</span>".printf(text));
         primary_text_label.set_alignment(0, 0.5f);
 
-        Gtk.VBox vbox = new Gtk.VBox(false, 12);
+        Gtk.Box vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
         vbox.pack_start(primary_text_label, false, false, 0);
         vbox.pack_start(hbox, true, false, 0);
 
@@ -1304,7 +1304,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         system.append_text(_("24 Hr"));
         system.changed.connect(on_time_system_changed);
 
-        Gtk.HBox clock = new Gtk.HBox(false, 0);
+        Gtk.Box clock = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
 
         clock.pack_start(hour, false, false, 3);
         clock.pack_start(new Gtk.Label(":"), false, false, 3); // internationalize?
@@ -1332,7 +1332,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
             display_options);
         modify_originals_check_button.sensitive = !Config.Facade.get_instance().get_commit_metadata_to_masters() && display_options;
 
-        Gtk.VBox time_content = new Gtk.VBox(false, 0);
+        Gtk.Box time_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
         time_content.pack_start(calendar, true, false, 3);
         time_content.pack_start(clock, true, false, 3);
@@ -1352,13 +1352,13 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
             warning("Unable to fetch preview for %s", source.to_string());
         }
         
-        Gtk.VBox image_content = new Gtk.VBox(false, 0);
+        Gtk.Box image_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         Gtk.Image image = (preview != null) ? new Gtk.Image.from_pixbuf(preview) : new Gtk.Image();
         original_time_label = new Gtk.Label(null);
         image_content.pack_start(image, true, false, 3);
         image_content.pack_start(original_time_label, true, false, 3);
 
-        Gtk.HBox hbox = new Gtk.HBox(false, 0);
+        Gtk.Box hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         hbox.pack_start(image_content, true, false, 6);
         hbox.pack_start(time_content, true, false, 6);
 
@@ -1669,9 +1669,9 @@ public class WelcomeDialog : Gtk.Dialog {
     WelcomeServiceEntry[] external_import_entries = new WelcomeServiceEntry[0];
     Gtk.Label secondary_text;
     Gtk.Label instruction_header;
-    Gtk.VBox import_content;
-    Gtk.VBox import_action_checkbox_packer;
-    Gtk.VBox external_import_action_checkbox_packer;
+    Gtk.Box import_content;
+    Gtk.Box import_action_checkbox_packer;
+    Gtk.Box external_import_action_checkbox_packer;
     Spit.DataImports.WelcomeImportMetaHost import_meta_host;
     bool import_content_already_installed = false;
     
@@ -1694,11 +1694,11 @@ public class WelcomeDialog : Gtk.Dialog {
         secondary_text.set_alignment(0, 0.5f);
         Gtk.Image image = new Gtk.Image.from_pixbuf(Resources.get_icon(Resources.ICON_APP, 50));
         
-        Gtk.VBox header_text = new Gtk.VBox(false, 0);
+        Gtk.Box header_text = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         header_text.pack_start(primary_text, false, false, 5);
         header_text.pack_start(secondary_text, false, false, 0);
 
-        Gtk.HBox header_content = new Gtk.HBox(false, 12);
+        Gtk.Box header_content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12);
         header_content.pack_start(image, false, false, 0);
         header_content.pack_start(header_text, false, false, 0);
 
@@ -1711,9 +1711,9 @@ public class WelcomeDialog : Gtk.Dialog {
             _("Connect a camera to your computer and import")));
         instructions.set_alignment(0, 0.5f);
         
-        import_action_checkbox_packer = new Gtk.VBox(false, 2);
+        import_action_checkbox_packer = new Gtk.Box(Gtk.Orientation.VERTICAL, 2);
         
-        external_import_action_checkbox_packer = new Gtk.VBox(false, 2);
+        external_import_action_checkbox_packer = new Gtk.Box(Gtk.Orientation.VERTICAL, 2);
         import_action_checkbox_packer.add(external_import_action_checkbox_packer);
         
         if (show_system_pictures_import) {
@@ -1729,12 +1729,10 @@ public class WelcomeDialog : Gtk.Dialog {
         instruction_header.set_alignment(0.0f, 0.5f);
         instruction_header.set_margin_top(20);
         
-        Gtk.VBox content = new Gtk.VBox(false, 16);
+        Gtk.Box content = new Gtk.Box(Gtk.Orientation.VERTICAL, 16);
         content.pack_start(header_content, true, true, 0);
-        import_content = new Gtk.VBox(false, 2);
+        import_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 2);
         content.add(import_content);
-        //content.add(import_action_checkbox_packer);
-        //content.add(instruction_header);
         content.pack_start(instructions, false, false, 0);
 
         hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don't show this message again"));

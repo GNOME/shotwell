@@ -13,7 +13,7 @@ public class SavedSearchDialog {
         public signal void changed(SearchRowContainer this_row);
         
         private Gtk.ComboBoxText type_combo;
-        private Gtk.HBox box;
+        private Gtk.Box box;
         private Gtk.Alignment align;
         private Gtk.Button remove_button;
         private SearchCondition.SearchType[] search_types;
@@ -54,7 +54,7 @@ public class SavedSearchDialog {
             
             align = new Gtk.Alignment(0,0,0,0);
         
-            box = new Gtk.HBox(false, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             box.pack_start(type_combo, false, false, 0);
             box.pack_start(align, false, false, 0);
             box.pack_start(new Gtk.Alignment(0,0,0,0), true, true, 0); // Fill space.
@@ -153,7 +153,7 @@ public class SavedSearchDialog {
     }
     
     private class SearchRowText : SearchRow {
-        private Gtk.HBox box;
+        private Gtk.Box box;
         private Gtk.ComboBoxText text_context;
         private Gtk.Entry entry;
         
@@ -178,7 +178,7 @@ public class SavedSearchDialog {
             entry.set_activates_default(true);
             entry.changed.connect(on_changed);
             
-            box = new Gtk.HBox(false, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             box.pack_start(text_context, false, false, 0);
             box.pack_start(entry, false, false, 0);
             box.show_all();
@@ -229,7 +229,7 @@ public class SavedSearchDialog {
     }
     
     private class SearchRowMediaType : SearchRow {
-        private Gtk.HBox box;
+        private Gtk.Box box;
         private Gtk.ComboBoxText media_context;
         private Gtk.ComboBoxText media_type;
         
@@ -253,7 +253,7 @@ public class SavedSearchDialog {
             media_type.set_active(0);
             media_type.changed.connect(on_changed);
             
-            box = new Gtk.HBox(false, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             box.pack_start(media_context, false, false, 0);
             box.pack_start(media_type, false, false, 0);
             box.show_all();
@@ -293,7 +293,7 @@ public class SavedSearchDialog {
     }
     
     private class SearchRowFlagged : SearchRow {
-        private Gtk.HBox box;
+        private Gtk.Box box;
         private Gtk.ComboBoxText flagged_state;
         
         private SearchRowContainer parent;
@@ -308,7 +308,7 @@ public class SavedSearchDialog {
             flagged_state.set_active(0);
             flagged_state.changed.connect(on_changed);
             
-            box = new Gtk.HBox(false, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             box.pack_start(new Gtk.Label(_("is")), false, false, 0);
             box.pack_start(flagged_state, false, false, 0);
             box.show_all();
@@ -345,7 +345,7 @@ public class SavedSearchDialog {
     }
     
     private class SearchRowRating : SearchRow {
-        private Gtk.HBox box;
+        private Gtk.Box box;
         private Gtk.ComboBoxText rating;
         private Gtk.ComboBoxText context;
         
@@ -373,7 +373,7 @@ public class SavedSearchDialog {
             context.set_active(0);
             context.changed.connect(on_changed);
             
-            box = new Gtk.HBox(false, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             box.pack_start(new Gtk.Label(_("is")), false, false, 0);
             box.pack_start(rating, false, false, 0);
             box.pack_start(context, false, false, 0);
@@ -415,7 +415,7 @@ public class SavedSearchDialog {
     
     private class SearchRowDate : SearchRow {
         private const string DATE_FORMAT = "%x";
-        private Gtk.HBox box;
+        private Gtk.Box box;
         private Gtk.ComboBoxText context;
         private Gtk.Button label_one;
         private Gtk.Button label_two;
@@ -448,7 +448,7 @@ public class SavedSearchDialog {
             
             and = new Gtk.Label(_("and"));
             
-            box = new Gtk.HBox(false, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             box.pack_start(context, false, false, 0);
             box.pack_start(label_one, false, false, 0);
             box.pack_start(and, false, false, 0);
@@ -575,7 +575,7 @@ public class SavedSearchDialog {
     private Gtk.Dialog dialog;
     private Gtk.Button add_criteria;
     private Gtk.ComboBoxText operator;
-    private Gtk.VBox row_box;
+    private Gtk.Box row_box;
     private Gtk.Entry search_title;
     private Gee.ArrayList<SearchRowContainer> row_list = new Gee.ArrayList<SearchRowContainer>();
     private bool edit_mode = false;
@@ -650,7 +650,7 @@ public class SavedSearchDialog {
         search_title.set_activates_default(true);
         search_title.changed.connect(on_title_changed);
         
-        row_box = builder.get_object("row_box") as Gtk.VBox;
+        row_box = builder.get_object("row_box") as Gtk.Box;
         
         operator = builder.get_object("Type of search criteria") as Gtk.ComboBoxText;
         operator.append_text(_("any"));

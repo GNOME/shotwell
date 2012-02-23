@@ -7,10 +7,10 @@
 namespace PublishingUI {
 
 public class ConcreteDialogPane : Spit.Publishing.DialogPane, GLib.Object {
-    private Gtk.VBox pane_widget;
+    private Gtk.Box pane_widget;
     
     public ConcreteDialogPane() {
-        pane_widget = new Gtk.VBox(false, 8);
+        pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
     }
     
     public Gtk.Widget get_widget() {
@@ -31,7 +31,7 @@ public class ConcreteDialogPane : Spit.Publishing.DialogPane, GLib.Object {
 public class StaticMessagePane : ConcreteDialogPane {
     public StaticMessagePane(string message_string) {
         Gtk.Label message_label = new Gtk.Label(message_string);
-        (get_widget() as Gtk.Container).add(message_label);
+        (get_widget() as Gtk.Box).pack_start(message_label, true, true, 0);
     }
     
     public StaticMessagePane.with_pango(string msg) {
@@ -39,7 +39,7 @@ public class StaticMessagePane : ConcreteDialogPane {
         label.set_markup(msg);
         label.set_line_wrap(true);
         
-        (get_widget() as Gtk.Container).add(label);
+        (get_widget() as Gtk.Box).pack_start(label, true, true, 0);
     }
 }
 
@@ -78,7 +78,7 @@ public class LoginWelcomePane : ConcreteDialogPane {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
 
-        (get_widget() as Gtk.Container).add(content_layouter);
+        (get_widget() as Gtk.Box).pack_start(content_layouter, true, true, 0);
     }
 
     private void on_login_clicked() {
@@ -97,28 +97,15 @@ public class ProgressPane : ConcreteDialogPane {
         // force 'Publishing x of y' message to appear
         progress_bar.set_show_text(true);
         
-        Gtk.HBox progress_bar_wrapper = new Gtk.HBox(false, 0);
-        Gtk.SeparatorToolItem left_padding = new Gtk.SeparatorToolItem();
-        left_padding.set_size_request(10, -1);
-        left_padding.set_draw(false);
-        Gtk.SeparatorToolItem right_padding = new Gtk.SeparatorToolItem();
-        right_padding.set_size_request(10, -1);
-        right_padding.set_draw(false);
-        progress_bar_wrapper.add(left_padding);
-        progress_bar_wrapper.add(progress_bar);
-        progress_bar_wrapper.add(right_padding);
+        Gtk.Box progress_bar_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+        progress_bar_wrapper.pack_start(gtk_hspacer(10), true, true, 0);
+        progress_bar_wrapper.pack_start(progress_bar, true, true, 0);
+        progress_bar_wrapper.pack_start(gtk_hspacer(10), true, true, 0);
 
-        Gtk.SeparatorToolItem top_padding = new Gtk.SeparatorToolItem();
-        top_padding.set_size_request(-1, 100);
-        top_padding.set_draw(false);
-        Gtk.SeparatorToolItem bottom_padding = new Gtk.SeparatorToolItem();
-        bottom_padding.set_size_request(-1, 100);
-        bottom_padding.set_draw(false);
-        
-        (get_widget() as Gtk.Container).add(top_padding);
-        (get_widget() as Gtk.Container).add(progress_bar_wrapper);
-        (get_widget() as Gtk.Container).add(secondary_text);
-        (get_widget() as Gtk.Container).add(bottom_padding);
+        (get_widget() as Gtk.Box).pack_start(gtk_vspacer(100), true, true, 0);
+        (get_widget() as Gtk.Box).pack_start(progress_bar_wrapper, true, true, 0);
+        (get_widget() as Gtk.Box).pack_start(secondary_text, true, true, 0);
+        (get_widget() as Gtk.Box).pack_start(gtk_vspacer(100), true, true, 0);
     }
 
     public void set_text(string text) {
@@ -189,7 +176,7 @@ public class PublishingDialog : Gtk.Dialog {
     
     private Gtk.ComboBoxText service_selector_box;
     private Gtk.Label service_selector_box_label;
-    private Gtk.VBox central_area_layouter;
+    private Gtk.Box central_area_layouter;
     private Gtk.Button close_cancel_button;
     private Spit.Publishing.DialogPane active_pane;
     private Spit.Publishing.Publishable[] publishables;
@@ -266,25 +253,24 @@ public class PublishingDialog : Gtk.Dialog {
         Gtk.Alignment service_selector_box_wrapper = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
         service_selector_box_wrapper.add(service_selector_box);
 
-        Gtk.HBox service_selector_layouter = new Gtk.HBox(false, 8);
+        Gtk.Box service_selector_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
         service_selector_layouter.set_border_width(12);
         service_selector_layouter.add(service_selector_box_label);
-        service_selector_layouter.add(service_selector_box_wrapper);
+        service_selector_layouter.pack_start(service_selector_box_wrapper, true, true, 0);
         
         /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
            rest of the dialog */
-        Gtk.VBox service_area_layouter = new Gtk.VBox(false, 0);
+        Gtk.Box service_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         service_area_layouter.add(service_selector_layouter);
-        Gtk.HSeparator service_central_separator = new Gtk.HSeparator();
-        service_area_layouter.add(service_central_separator);
+        service_area_layouter.add(new Gtk.HSeparator());
 
         Gtk.Alignment service_area_wrapper = new Gtk.Alignment(0.0f, 0.0f, 1.0f, 0.0f);
         service_area_wrapper.add(service_area_layouter);
         
-        central_area_layouter = new Gtk.VBox(false, 0);
+        central_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
-        ((Gtk.Box) get_content_area()).pack_start(service_area_wrapper, false, false, 0);
-        ((Gtk.Box) get_content_area()).pack_start(central_area_layouter, true, true, 0);
+        get_content_area().pack_start(service_area_wrapper, false, false, 0);
+        get_content_area().pack_start(central_area_layouter, true, true, 0);
         
         close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
         close_cancel_button.set_can_default(true);
@@ -511,7 +497,7 @@ public class PublishingDialog : Gtk.Dialog {
             central_area_layouter.remove(active_pane.get_widget());
         }
 
-        central_area_layouter.add(pane.get_widget());
+        central_area_layouter.pack_start(pane.get_widget(), true, true, 0);
         show_all();
 
         Spit.Publishing.DialogPane.GeometryOptions geometry_options =

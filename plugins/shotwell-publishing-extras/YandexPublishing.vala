@@ -96,7 +96,7 @@ internal class Session : Publishing.RESTSupport.Session {
 
 internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
     private WebKit.WebView webview = null;
-    private Gtk.VBox pane_widget = null;
+    private Gtk.Box pane_widget = null;
     private Gtk.ScrolledWindow webview_frame = null;
 
     private Regex re;
@@ -114,7 +114,7 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
             critical("%s", e.message);
         }
 
-        pane_widget = new Gtk.VBox(false, 0);
+        pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
         webview_frame = new Gtk.ScrolledWindow(null, null);
         webview_frame.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
@@ -129,7 +129,7 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
         webview.navigation_requested.connect(navigation_requested);
 
         webview_frame.add(webview);
-        pane_widget.add(webview_frame);
+        pane_widget.pack_start(webview_frame, true, true, 0);
     }
 
     private void on_page_load(WebKit.WebFrame origin_frame) {
@@ -185,7 +185,7 @@ internal class PublishOptions {
 }
 
 internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
-    private Gtk.VBox box;
+    private Gtk.Box box;
     private Gtk.Builder builder;
     private Gtk.Button logout_button;
     private Gtk.Button publish_button;
@@ -211,7 +211,7 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
         Spit.Publishing.PluginHost host) {
         this.options = options;
 
-        box = new Gtk.VBox(false, 0);
+        box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         
         File ui_file = host.get_module_file().get_parent().get_child("yandex_publish_model.glade");
         
@@ -235,6 +235,7 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
             logout_button.clicked.connect(on_logout_clicked);
 
             align.reparent(box);
+			box.set_child_packing(align, true, true, 0, Gtk.PackType.START);
         } catch (Error e) {
             warning("Could not load UI: %s", e.message);
         }

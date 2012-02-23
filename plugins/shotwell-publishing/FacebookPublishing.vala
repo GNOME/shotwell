@@ -1301,7 +1301,7 @@ internal class FacebookCreateAlbumTransaction : FacebookRESTTransaction {
 
 internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     private WebKit.WebView webview = null;
-    private Gtk.VBox pane_widget = null;
+    private Gtk.Box pane_widget = null;
     private Gtk.ScrolledWindow webview_frame = null;
     private static bool cache_dirty = false;
 
@@ -1309,7 +1309,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     public signal void login_failed();
 
     public WebAuthenticationPane() {
-        pane_widget = new Gtk.VBox(false, 0);
+        pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
         webview_frame = new Gtk.ScrolledWindow(null, null);
         webview_frame.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
@@ -1323,7 +1323,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
         webview.load_started.connect(on_load_started);
 
         webview_frame.add(webview);
-        pane_widget.add(webview_frame);
+        pane_widget.pack_start(webview_frame, true, true, 0);
     }
     
     private class LocaleLookup {
@@ -1579,31 +1579,22 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         set_border_width(16);
 
-        Gtk.SeparatorToolItem top_padding = new Gtk.SeparatorToolItem();
-        top_padding.set_size_request(-1, 50);
-        top_padding.set_draw(false);
-        add(top_padding);
+        add(gtk_vspacer(50));
 
-        Gtk.HBox how_to_label_layouter = new Gtk.HBox(false, 8);
+        Gtk.Box how_to_label_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
 
         string label_text = HEADER_LABEL_TEXT.printf(username);
         if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0)
             label_text += PHOTOS_LABEL_TEXT;
         how_to_label = new Gtk.Label(label_text);
 
-        Gtk.SeparatorToolItem how_to_pusher = new Gtk.SeparatorToolItem();
-        how_to_pusher.set_draw(false);
-        how_to_label_layouter.add(how_to_label);
-        how_to_label_layouter.add(how_to_pusher);
-        how_to_pusher.set_size_request(100, -1);
+        how_to_label_layouter.pack_start(how_to_label, true, true, 0);
+        how_to_label_layouter.pack_start(gtk_hspacer(100), true, true, 0);
         add(how_to_label_layouter);
 
-        Gtk.SeparatorToolItem how_to_albums_spacing = new Gtk.SeparatorToolItem();
-        how_to_albums_spacing.set_size_request(-1, CONTENT_GROUP_SPACING);
-        how_to_albums_spacing.set_draw(false);
-        add(how_to_albums_spacing);
+        add(gtk_vspacer(CONTENT_GROUP_SPACING));
 
-        Gtk.VBox album_mode_layouter = new Gtk.VBox(false, 8);
+        Gtk.Box album_mode_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
         use_existing_radio = new Gtk.RadioButton.with_mnemonic(null,
             _("Publish to an e_xisting album:"));
         use_existing_radio.clicked.connect(on_use_existing_toggled);
@@ -1611,17 +1602,17 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             _("Create a _new album named:"));
         create_new_radio.clicked.connect(on_create_new_toggled);
 
-        Gtk.HBox use_existing_layouter = new Gtk.HBox(false, 8);
+        Gtk.Box use_existing_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
         use_existing_layouter.add(use_existing_radio);
         existing_albums_combo = new Gtk.ComboBoxText();
         Gtk.Alignment existing_combo_aligner = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
         existing_combo_aligner.add(existing_albums_combo);
         use_existing_layouter.add(existing_combo_aligner);
 
-        Gtk.HBox create_new_layouter = new Gtk.HBox(false, 8);
-        create_new_layouter.add(create_new_radio);
+        Gtk.Box create_new_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+        create_new_layouter.pack_start(create_new_radio, true, true, 0);
         new_album_entry = new Gtk.Entry();
-        create_new_layouter.add(new_album_entry);
+        create_new_layouter.pack_start(new_album_entry, true, true, 0);
         new_album_entry.set_size_request(142, -1);
 
         Gtk.Label visibility_label = new Gtk.Label.with_mnemonic(_("Videos and new photo albums _visible to:"));
@@ -1635,30 +1626,24 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         visibility_combo.set_active(0);
         visibility_combo_aligner.add(visibility_combo);
 
-        Gtk.HBox visibility_layouter = new Gtk.HBox(false, 8);
-        visibility_layouter.add(visibility_label_aligner);
-        visibility_layouter.add(visibility_combo_aligner);
+        Gtk.Box visibility_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+        visibility_layouter.pack_start(visibility_label_aligner, true, true, 0);
+        visibility_layouter.pack_start(visibility_combo_aligner, true, true, 0);
 
         publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button.clicked.connect(on_publish_button_clicked);
         logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
         logout_button.clicked.connect(on_logout_button_clicked);
-        Gtk.HBox buttons_layouter = new Gtk.HBox(false, 8);
-        Gtk.SeparatorToolItem buttons_left_padding = new Gtk.SeparatorToolItem();
-        buttons_left_padding.set_draw(false);
-        Gtk.SeparatorToolItem buttons_right_padding = new Gtk.SeparatorToolItem();
-        buttons_right_padding.set_draw(false);
-        Gtk.SeparatorToolItem buttons_central_padding = new Gtk.SeparatorToolItem();
-        buttons_central_padding.set_draw(false);
-        buttons_layouter.add(buttons_left_padding);
+        Gtk.Box buttons_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+        buttons_layouter.add(gtk_expand());
         Gtk.Alignment logout_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         logout_button_aligner.add(logout_button);
         Gtk.Alignment publish_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         publish_button_aligner.add(publish_button);
         buttons_layouter.add(logout_button_aligner);
-        buttons_layouter.add(buttons_central_padding);
+        buttons_layouter.add(gtk_expand());
         buttons_layouter.add(publish_button_aligner);
-        buttons_layouter.add(buttons_right_padding);
+        buttons_layouter.add(gtk_expand());
         publish_button.set_size_request(STANDARD_ACTION_BUTTON_WIDTH, -1);
         logout_button.set_size_request(STANDARD_ACTION_BUTTON_WIDTH, -1);
 
@@ -1673,7 +1658,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         Gtk.Alignment visibility_vspacer = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         visibility_vspacer.set_padding(0, 8, 0, 0);
-        visibility_vspacer.add(new Gtk.HBox(false, 0));
+        visibility_vspacer.add(new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0));
 
         add(visibility_vspacer);    
         add(visibility_layouter);
@@ -1681,7 +1666,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         // Ticket #2916 - if the user is uploading photographs, allow
         // them to choose what resolution they should be uploaded at.
         if((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) {
-            Gtk.HBox resolution_layouter = new Gtk.HBox(false, 8);
+            Gtk.Box resolution_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
 
             // Create the controls. Each control is assigned to a
             // Gtk.Alignment to try to make it easier to line up.
@@ -1701,23 +1686,16 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             resolution_label_aligner.left_padding = CONTENT_GROUP_SPACING;
             resolution_label_aligner.add(resolution_label);
 
-            Gtk.SeparatorToolItem resolution_pusher = new Gtk.SeparatorToolItem();
-            resolution_pusher.set_size_request(-1,-1);
-            resolution_pusher.set_draw(false);
-
             Gtk.Alignment resolution_pusher_aligner = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-            resolution_pusher_aligner.add(resolution_pusher);
+            resolution_pusher_aligner.add(gtk_expand());
 
-            resolution_layouter.add(resolution_label_aligner);
-            resolution_layouter.add(resolution_pusher_aligner);
-            resolution_layouter.add(resolution_combo_aligner);
+            resolution_layouter.pack_start(resolution_label_aligner, true, true, 0);
+            resolution_layouter.pack_start(resolution_pusher_aligner, true, true, 0);
+            resolution_layouter.pack_start(resolution_combo_aligner, true, true, 0);
 
             // Actually add them to the pane.  We move them down slightly,
             // since they're not logically related to gallery privacy.
-            Gtk.SeparatorToolItem resolution_padding = new Gtk.SeparatorToolItem();
-            resolution_padding.set_size_request(-1, CONTENT_GROUP_SPACING);
-            resolution_padding.set_draw(false);
-            add(resolution_padding);
+            add(gtk_vspacer(CONTENT_GROUP_SPACING));
             add(resolution_layouter);
         }
 
@@ -1726,17 +1704,11 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         // or a new gallery.
         visibility_combo.set_sensitive((create_new_radio.active) || ((media_type & Spit.Publishing.Publisher.MediaType.VIDEO) != 0));
 
-        Gtk.SeparatorToolItem albums_buttons_spacing = new Gtk.SeparatorToolItem();
-        albums_buttons_spacing.set_size_request(-1, CONTENT_GROUP_SPACING);
-        albums_buttons_spacing.set_draw(false);
-        add(albums_buttons_spacing);
+        add(gtk_vspacer(CONTENT_GROUP_SPACING));
 
         add(buttons_layouter);
 
-        Gtk.SeparatorToolItem bottom_padding = new Gtk.SeparatorToolItem();
-        bottom_padding.set_size_request(-1, 50);
-        bottom_padding.set_draw(false);
-        add(bottom_padding);
+        add(gtk_vspacer(50));
     }
 
     private Gtk.ComboBox create_visibility_combo() {
