@@ -876,9 +876,10 @@ public class Sidebar.Tree : Gtk.TreeView {
     public override bool button_press_event(Gdk.EventButton event) {
         Gtk.TreePath? path = get_path_from_event(event);
 
-        // user clicked on empty area?
-        if (path == null)
+        // user clicked on empty area, but isn't trying to spawn a context menu?
+        if ((path == null) && (event.button != 3)) {
             return true;
+        }
 
         if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS) {
             // single right click
