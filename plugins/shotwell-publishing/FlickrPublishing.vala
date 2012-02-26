@@ -680,9 +680,10 @@ internal class PinEntryPane : Spit.Publishing.DialogPane, GLib.Object {
 
     public PinEntryPane() {
         Gtk.Box pane_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
-        Gtk.Label explanatory_text = new Gtk.Label(_("Enter the confirmation number which appears after you log into Flickr in your Web browser"));
+        Gtk.Label explanatory_text = new Gtk.Label(
+            _("Enter the confirmation number which appears after you log into Flickr in your Web browser."));
 
-        pane_wrapper.add(explanatory_text);
+        pane_wrapper.pack_start(explanatory_text, true, true, 0);
         
         Gtk.Box pin_entry_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12);
         
@@ -692,20 +693,20 @@ internal class PinEntryPane : Spit.Publishing.DialogPane, GLib.Object {
         
         pin_entry_caption.set_mnemonic_widget(pin_entry);
         
-        pin_entry_wrapper.add(gtk_hspacer(48));
-        pin_entry_wrapper.add(pin_entry_caption);
-        pin_entry_wrapper.add(pin_entry);
-        pin_entry_wrapper.add(gtk_hspacer(58));
+        pin_entry_wrapper.pack_start(gtk_hspacer(48), true, true, 0);
+        pin_entry_wrapper.pack_start(pin_entry_caption, true, true, 0);
+        pin_entry_wrapper.pack_start(pin_entry, true, true, 0);
+        pin_entry_wrapper.pack_start(gtk_hspacer(58), true, true, 0);
 
-        pane_wrapper.add(pin_entry_wrapper);
+        pane_wrapper.pack_start(pin_entry_wrapper, true, true, 0);
 
         continue_button = new Gtk.Button.with_mnemonic(_("Con_tinue"));
         continue_button.set_size_request(92, -1);
         Gtk.Alignment continue_button_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         continue_button_wrapper.add(continue_button);
         
-        pane_wrapper.add(continue_button_wrapper);
-        pane_wrapper.add(gtk_vspacer(80));
+        pane_wrapper.pack_start(continue_button_wrapper, true, true, 0);
+        pane_wrapper.pack_start(gtk_vspacer(80), true, true, 0);
         
         widget = pane_wrapper;
         
