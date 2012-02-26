@@ -7,6 +7,7 @@ PLUGIN_PKGS := \
 	libxml-2.0 \
 	webkitgtk-3.0 \
 	gexiv2 \
+	rest-0.7 \
 	gee-1.0
 
 SRC_FILES := \
@@ -23,9 +24,6 @@ RC_FILES := \
 	flickr.png \
 	picasa.png \
 	youtube.png
-
-CUSTOM_VAPI_PKGS := \
-    hmac-glib
 
 include ../Makefile.plugin.mk
 

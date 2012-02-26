@@ -4,6 +4,8 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
+extern string hmac_sha1(string key, string message);
+
 public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
     private const string ICON_FILENAME = "flickr.png";
 
@@ -1001,18 +1003,11 @@ internal class Session : Publishing.RESTSupport.Session {
         debug("signing key = '%s'", signing_key);
 
         // compute the signature
-        string signature = compute_hmac_for_string(ChecksumType.SHA1, signing_key,
-            signing_key.length, signature_base_string, signature_base_string.length);
-
-        // Now that we've got the signature, go through all manner of encoding shenanigans -- from
-        // hex to ASCII to Base64 then percent-encoded with overrides to transform the signature
-        // into the format Yahoo! wants
-        signature = hex_to_ascii(signature);
-        signature = Base64.encode(signature.data);
+        string signature = hmac_sha1(signing_key, signature_base_string);
         signature = Soup.URI.encode(signature, ENCODE_RFC_3986_EXTRA);
-        
-        debug("request signature = '%s'", signature);
-        
+
+        debug("signature = '%s'", signature);
+
         if (upload_txn != null)
             upload_txn.add_authorization_header_field("oauth_signature", signature);
         else
@@ -1057,23 +1052,6 @@ internal class Session : Publishing.RESTSupport.Session {
     public string get_access_phase_token_secret() {
         assert(access_phase_token_secret != null);
         return access_phase_token_secret;
-    }
-    
-    private static string hex_to_ascii(string s) {
-        assert(s.length % 2 == 0);
-        
-        string result = "";
-        
-        for (int window_start = 0; window_start < s.length; window_start += 2) {
-            string window = "0x" + s.substring(window_start, 2);
-
-            int n = 0;
-            window.scanf("%x", &n);
-
-            result += "%c".printf((char) n);
-        }
-        
-        return result;
     }
     
     public string get_username() {

@@ -109,7 +109,6 @@ THUMBNAILER_SRC_FILES = \
 
 VAPI_FILES = \
 	ExtendedPosix.vapi \
-	hmac-glib.vapi \
 	LConv.vapi \
 	libexif.vapi \
 	libgphoto2.vapi \
