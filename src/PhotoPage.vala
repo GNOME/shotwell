@@ -2121,7 +2121,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cwidth = viewport_allocation.width;
             cheight = viewport_allocation.height;
             
-            int new_x = rx + cx + (cwidth / 2) - (tool_alloc.width / 2);
+            int new_x = rx + cx + (cwidth / 2);
             int new_y = ry + cy + cheight - ((tool_alloc.height / 4) * 3);
             
             // however, clamp the window so it's never off-screen initially
