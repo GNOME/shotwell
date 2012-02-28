@@ -1073,6 +1073,43 @@ public class ImportPage : CheckerboardPage {
         import_sources.destroy_marked(marker, false);
     }
     
+    /**
+     * @brief Returns whether the current device has a given directory or not.
+     *
+     * @param fsid The file system id of the camera or other device to search.
+     * @param dir The path to start searching from.
+     * @param search_target The name of the directory to look for.
+     */
+    private bool check_directory_exists(int fsid, string dir, string search_target) {
+        string? fulldir = get_fulldir(camera, camera_name, fsid, dir);
+        GPhoto.Result result;
+        GPhoto.CameraList folders;
+
+        result = GPhoto.CameraList.create(out folders);
+        if (result != GPhoto.Result.OK) {
+            // couldn't create a list - can't determine whether specified dir is present
+            return false;
+        }
+
+        result = camera.list_folders(fulldir, folders, spin_idle_context.context);
+        if (result != GPhoto.Result.OK) {
+            // fetching the list failed - can't determine whether specified dir is present
+            return false;
+        }
+
+        int list_len = folders.count();
+
+        for(int list_index = 0; list_index < list_len; list_index++) {
+            string tmp;
+
+            folders.get_name(list_index, out tmp);
+            if (tmp == search_target) {
+                return true;
+            }
+        }
+
+        return false;
+    }
     private RefreshResult refresh_camera() {
         if (busy)
             return RefreshResult.BUSY;
@@ -1090,7 +1127,7 @@ public class ImportPage : CheckerboardPage {
         update_status(true, refreshed);
         
         on_view_changed();
-        
+
         progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
         progress_bar.set_text(_("Fetching photo information"));
         progress_bar.set_fraction(0.0);
@@ -1104,11 +1141,19 @@ public class ImportPage : CheckerboardPage {
         refresh_result = camera.get_storageinfo(&sifs, out count, spin_idle_context.context);
         if (refresh_result == GPhoto.Result.OK) {
             for (int fsid = 0; fsid < count; fsid++) {
-                if (!enumerate_files(fsid, "/", import_list))
-                    break;
+                if (check_directory_exists(fsid, "/", "DCIM")) {
+                    if (!enumerate_files(fsid, "/DCIM", import_list))
+                        break;
+                } else if (check_directory_exists(fsid, "/", "dcim")) {
+                    if (!enumerate_files(fsid, "/dcim", import_list))
+                        break;
+                } else {
+                    if (!enumerate_files(fsid, "/", import_list))
+                        break;
+                }
             }
         }
-        
+
         clear_all_import_sources();
         
         // Associate files (for RAW+JPEG)
