@@ -80,7 +80,7 @@ public class DirectPhotoPage : EditingHostPage {
         actions += photo;
         
         Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, null };
-        tools.label = _("_Tools");
+        tools.label = _("T_ools");
         actions += tools;
         
         Gtk.ActionEntry prev = { "PrevPhoto", Gtk.Stock.GO_BACK, TRANSLATABLE, null,

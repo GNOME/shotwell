@@ -2355,7 +2355,7 @@ public class LibraryPhotoPage : EditingHostPage {
         actions += photo;
         
         Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, null };
-        tools.label = _("_Tools");
+        tools.label = _("T_ools");
         actions += tools;
         
         Gtk.ActionEntry prev = { "PrevPhoto", Gtk.Stock.GO_BACK, TRANSLATABLE, null,
@@ -2566,7 +2566,7 @@ public class LibraryPhotoPage : EditingHostPage {
         actions += slideshow;
         
         Gtk.ActionEntry raw_developer = { "RawDeveloper", null, TRANSLATABLE, null, null, null };
-        raw_developer.label = _("Developer");
+        raw_developer.label = _("_Developer");
         actions += raw_developer;
         
 #if ENABLE_FACES   

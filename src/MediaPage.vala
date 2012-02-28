@@ -417,7 +417,7 @@ public abstract class MediaPage : CheckerboardPage {
         actions += play;
         
         Gtk.ActionEntry raw_developer = { "RawDeveloper", null, TRANSLATABLE, null, null, null };
-        raw_developer.label = _("Developer");
+        raw_developer.label = _("_Developer");
         actions += raw_developer;
         
         // RAW developers.

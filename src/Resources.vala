@@ -251,7 +251,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string PUBLISH_LABEL = _("Publish");
     public const string PUBLISH_TOOLTIP = _("Publish to various websites");
 
-    public const string EDIT_TITLE_MENU = _("E_dit Title...");
+    public const string EDIT_TITLE_MENU = _("Edit _Title...");
     public const string EDIT_TITLE_LABEL = _("Edit Title");
 
     public const string ADJUST_DATE_TIME_MENU = _("_Adjust Date and Time...");
@@ -262,7 +262,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string PREFERENCES_MENU = _("_Preferences");
     
-    public const string EXTERNAL_EDIT_MENU = _("_Open With External Editor");
+    public const string EXTERNAL_EDIT_MENU = _("Open With E_xternal Editor");
     
     public const string EXTERNAL_EDIT_RAW_MENU = _("Open With RA_W Editor");
     
