@@ -145,6 +145,22 @@ public class StraightenTool : EditingTool {
         return false;
     }
 
+    public override bool on_keypress(Gdk.EventKey event) {
+        if ((Gdk.keyval_name(event.keyval) == "KP_Enter") ||
+            (Gdk.keyval_name(event.keyval) == "Enter") ||
+            (Gdk.keyval_name(event.keyval) == "Return")) {
+            on_ok_clicked();
+            return true;
+        }
+
+        if (Gdk.keyval_name(event.keyval) == "Escape") {
+            on_cancel_clicked();
+            return true;
+        }
+
+        return base.on_keypress(event);
+    }
+
     private void prepare_image() {
         Dimensions canvas_dims = canvas.get_surface_dim();
         Dimensions viewport = canvas_dims.with_max(TEMP_PIXBUF_SIZE, TEMP_PIXBUF_SIZE);
@@ -278,6 +294,7 @@ public class StraightenTool : EditingTool {
     }
 
     private void bind_window_handlers() {
+        window.key_press_event.connect(on_keypress);
         window.ok_button.clicked.connect(on_ok_clicked);
         window.cancel_button.clicked.connect(on_cancel_clicked);
         window.angle_slider.value_changed.connect(on_angle_changed);
@@ -285,6 +302,7 @@ public class StraightenTool : EditingTool {
     }
 
     private void unbind_window_handlers() {
+        window.key_press_event.disconnect(on_keypress);
         window.ok_button.clicked.disconnect(on_ok_clicked);
         window.cancel_button.clicked.disconnect(on_cancel_clicked);
         window.angle_slider.value_changed.disconnect(on_angle_changed);

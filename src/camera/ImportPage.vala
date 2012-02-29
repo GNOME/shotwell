@@ -1072,7 +1072,7 @@ public class ImportPage : CheckerboardPage {
         marker.mark_all();
         import_sources.destroy_marked(marker, false);
     }
-    
+
     /**
      * @brief Returns whether the current device has a given directory or not.
      *
@@ -1107,9 +1107,9 @@ public class ImportPage : CheckerboardPage {
                 return true;
             }
         }
-
         return false;
     }
+
     private RefreshResult refresh_camera() {
         if (busy)
             return RefreshResult.BUSY;
@@ -1123,7 +1123,7 @@ public class ImportPage : CheckerboardPage {
             
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         }
-        
+
         update_status(true, refreshed);
         
         on_view_changed();
@@ -1555,7 +1555,7 @@ public class ImportPage : CheckerboardPage {
             
             return;
         }
-        
+
         update_status(true, refreshed);
         
         on_view_changed();
