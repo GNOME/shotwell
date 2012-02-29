@@ -748,6 +748,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             button.set_can_focus(false);
             button.set_active(action.active);
             button.clicked.connect(on_button_activate);
+            button.set_has_tooltip(true);
 
             restyle();
             
@@ -933,6 +934,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             button.set_image(get_filter_icon(filter));
             set_size_request(get_filter_button_size(filter), -1);
             set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
+            set_has_tooltip(true);
             show_all();
         }
 
@@ -1008,9 +1010,14 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         label_type = new LabelToolItem(_("Type"), 10, 5);
         insert(label_type, -1);
         
-        toolbtn_photos = new ToggleActionToolButton(actions.photos); 
+        toolbtn_photos = new ToggleActionToolButton(actions.photos);
+        toolbtn_photos.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayPhotos").tooltip);
+        
         toolbtn_videos = new ToggleActionToolButton(actions.videos);
+        toolbtn_videos.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayVideos").tooltip);
+        
         toolbtn_raw = new ToggleActionToolButton(actions.raw);
+        toolbtn_raw.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayRaw").tooltip);
         
         insert(toolbtn_photos, -1);
         insert(toolbtn_videos, -1);
@@ -1025,6 +1032,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         insert(label_flagged, -1);
         
         toolbtn_flag = new ToggleActionToolButton(actions.flagged);
+        toolbtn_flag.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayFlagged").tooltip);
+        
         insert(toolbtn_flag, -1);
         
         // separator
@@ -1235,8 +1244,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         // are shown and/or hidden as needed.
         sepr_mediatype_flagged.visible = (label_type.visible && label_flagged.visible);
 
-        sepr_flagged_rating.visible = ((label_type.visible && label_rating.visible) || 
-        	(label_flagged.visible && label_rating.visible));
+        sepr_flagged_rating.visible = ((label_type.visible && label_rating.visible) ||
+            (label_flagged.visible && label_rating.visible));
 
         // Send update to view collection.
         search_filter.refresh();
