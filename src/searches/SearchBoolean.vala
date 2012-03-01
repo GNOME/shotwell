@@ -269,8 +269,9 @@ public class SearchConditionText : SearchCondition {
     private bool string_match(string needle, string? haystack) {
         switch (context) {
             case Context.CONTAINS:
+            case Context.DOES_NOT_CONTAIN:
                 return !is_string_empty(haystack) && haystack.contains(needle);
-                
+
             case Context.IS_EXACTLY:
                 return !is_string_empty(haystack) && haystack == needle;
                 
@@ -279,10 +280,7 @@ public class SearchConditionText : SearchCondition {
                 
             case Context.ENDS_WITH:
                 return !is_string_empty(haystack) && haystack.has_suffix(needle);
-                
-            case Context.DOES_NOT_CONTAIN:
-                return is_string_empty(haystack) || !haystack.contains(needle);
-                
+
             case Context.IS_NOT_SET:
                 return (is_string_empty(haystack));
         }
@@ -319,7 +317,7 @@ public class SearchConditionText : SearchCondition {
             ret |= string_match(text, source.get_basename().down());
         }
 
-#if ENABLE_FACES           
+#if ENABLE_FACES
         if (SearchType.ANY_TEXT == search_type || SearchType.FACE == search_type) {
             Gee.List<Face>? face_list = Face.global.fetch_for_source(source);
             if (null != face_list) {
@@ -330,9 +328,9 @@ public class SearchConditionText : SearchCondition {
                 ret |= string_match(text, null); // for IS_NOT_SET
             }
         }
-#endif        
-     
-        return ret;
+#endif
+
+        return (context == Context.DOES_NOT_CONTAIN) ? !ret : ret;
     }
 }
 
