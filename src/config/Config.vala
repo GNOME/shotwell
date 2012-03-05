@@ -128,7 +128,9 @@ public class Facade : ConfigurationFacade {
     }
     
     public void set_bg_color(Gdk.RGBA color) {
-        bg_color = color.to_string();
+        uint8 col_tmp = (uint8) (color.red * 255.0);
+        
+        bg_color = "#%02X%02X%02X".printf(col_tmp, col_tmp, col_tmp);
         set_bg_color_name(bg_color);
         
         set_text_colors(color);

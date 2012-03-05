@@ -1864,7 +1864,7 @@ public class PreferencesDialog {
         
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
-            Config.Facade.get_instance().get_bg_color().red);
+            (Config.Facade.get_instance().get_bg_color().red * 65535.0));
         bg_color_adjustment.value_changed.connect(on_value_changed);
 
         bg_color_slider = builder.get_object("bg_color_slider") as Gtk.HScale;
