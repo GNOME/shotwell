@@ -1823,7 +1823,7 @@ msgstr "Annuler le miroir vertical"
 
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr "%a %d"
+msgstr "%a %d %b"
 
 #: src/util/misc.vala:232
 msgid "%d, %Y"
