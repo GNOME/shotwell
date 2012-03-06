@@ -997,7 +997,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
                 background-image: none;
                 background-color: @primary-bg;
                 border-image: none;
-                border-color: @primary-bg;
+                border-color: shade (@primary-bg, 0.75) @primary-bg shade (@primary-bg, 0.75) @primary-bg;
                 border-style: solid;
                 margin: 5px;
                 

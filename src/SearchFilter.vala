@@ -1130,6 +1130,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         toolbtn_videos.restyle();
         toolbtn_raw.restyle();
         toolbtn_flag.restyle();
+        rating_button.restyle();
         
     }
     
