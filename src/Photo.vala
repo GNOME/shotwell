@@ -285,7 +285,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // because fetching individual items from the database is high-overhead, store all of
     // the photo row in memory
-    private PhotoRow row;
+    protected PhotoRow row;
     private BackingPhotoRow editable = new BackingPhotoRow();
     private BackingReaders readers = new BackingReaders();
     private PixelTransformer transformer = null;

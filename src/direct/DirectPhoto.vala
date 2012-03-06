@@ -15,7 +15,26 @@ public class DirectPhoto : Photo {
     private DirectPhoto(PhotoRow row) {
         base (row);
     }
-    
+
+    /**
+     * @brief Because all transformations are discarded on reimport by design, including
+     * Orientation, a JFIF file that is only rotated or flipped, then saved, has the orientation
+     * change the user made before saving removed (recall that fetch() remembers which images it
+     * has seen before and will only add a file to the file map once; every time it sees it
+     * again after this is considered a reimport). This will set the orientation to the
+     * specified value, fixing up both the row and the backing row.
+     *
+     * @warning Only reimported JFIF files should need this; non-lossy image types have their
+     * actual pixels physically rotated in the file when they're exported.
+     *
+     * @param dest The orientation to set the photo to; usually, this should be a value
+     * obtained by calling get_orientation() prior to export()ing a DirectPhoto.
+     */
+    public void fixup_orientation_after_reimport(Orientation dest) {
+        row.orientation = dest;
+        backing_photo_row.original_orientation = dest;
+    }
+
     public static void init(File initial_file) {
         global = new DirectPhotoSourceCollection(initial_file);
         DirectPhoto photo;
@@ -223,6 +242,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     public void reimport_photo(DirectPhoto photo) {
+        photo.discard_prefetched(true);
         DirectPhoto reimported_photo;
         fetch(photo.get_file(), out reimported_photo, true);
     }
@@ -236,16 +256,30 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
             
             if (reimport) {
                 try {
+                    Orientation ori_tmp = Orientation.TOP_LEFT;
+                    bool should_restore_ori = false;
+
+                    if ((photo.only_metadata_changed()) ||
+                        (photo.get_file_format() == PhotoFileFormat.JFIF)) {
+                        ori_tmp = photo.get_orientation();
+                        should_restore_ori = true;
+                    }
+
                     Photo.ReimportMasterState reimport_state;
-                    if (photo.prepare_for_reimport_master(out reimport_state))
+                    if (photo.prepare_for_reimport_master(out reimport_state)) {
                         photo.finish_reimport_master(reimport_state);
-                    else
+                        if (should_restore_ori) {
+                            photo.fixup_orientation_after_reimport(ori_tmp);
+                        }
+                    }
+                    else {
                         reason = ImportResult.FILE_ERROR.to_string();
+                    }
                 } catch (Error err) {
                     reason = err.message;
                 }
             }
-            
+
             return reason;
         }
         
