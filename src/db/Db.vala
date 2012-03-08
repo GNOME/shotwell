@@ -263,6 +263,22 @@ private VerifyResult upgrade_database(int version) {
     
     version = 14;
     
+    //
+    // Version 15:
+    // * Upgrades the version number to prevent Shotwell 0.11 users from opening
+    //   Shotwell 0.12 databases. While the database schema hasn't changed,
+    //   straighten was only partially implemented in 0.11 but is fully
+    //   implemented in 0.12, so when 0.11 users open an 0.12 database with
+    //   straightening information, they see partially and/or incorrectly
+    //   rotated photos.
+    //
+    
+    version =  15;
+    
+    //
+    // Finalize the upgrade process
+    //
+    
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     
