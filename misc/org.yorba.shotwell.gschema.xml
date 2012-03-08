@@ -497,7 +497,7 @@
     </key>
 
     <key name="publishing-piwigo" type="b">
-        <default>false</default>
+        <default>true</default>
         <summary>enable piwigo publishing plugin</summary>
         <description>True if the Piwigo publishing plugin is enabled, false otherwise</description>
     </key>
