@@ -7,12 +7,12 @@
 public class RawFileFormatDriver : PhotoFileFormatDriver {
     private static RawFileFormatDriver instance = null;
     
+    public static void init() {
+        instance = new RawFileFormatDriver();
+        RawFileFormatProperties.init();
+    }
+    
     public static RawFileFormatDriver get_instance() {
-        lock (instance) {
-            if (instance == null)
-                instance = new RawFileFormatDriver();
-        }
-        
         return instance;
     }
     
@@ -118,12 +118,11 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
     
     private static RawFileFormatProperties instance = null;
     
+    public static void init() {
+        instance = new RawFileFormatProperties();
+    }
+    
     public static RawFileFormatProperties get_instance() {
-        lock (instance) {
-            if (instance == null)
-                instance = new RawFileFormatProperties();
-        }
-        
         return instance;
     }
     

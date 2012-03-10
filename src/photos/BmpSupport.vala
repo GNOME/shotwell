@@ -10,17 +10,16 @@ class BmpFileFormatProperties : PhotoFileFormatProperties {
     private static string[] KNOWN_EXTENSIONS = { "bmp", "dib" };
     private static string[] KNOWN_MIME_TYPES = { GPhoto.MIME.BMP };
 
-    private static BmpFileFormatProperties singleton_instance = null;
+    private static BmpFileFormatProperties instance = null;
 
-    public static BmpFileFormatProperties get_instance() {
-        lock (singleton_instance) {
-            if (singleton_instance == null)
-                singleton_instance = new BmpFileFormatProperties();
-        }
-        
-        return singleton_instance;
+    public static void init() {
+        instance = new BmpFileFormatProperties();
     }
-
+    
+    public static BmpFileFormatProperties get_instance() {
+        return instance;
+    }
+    
     public override PhotoFileFormat get_file_format() {
         return PhotoFileFormat.BMP;
     }
@@ -138,15 +137,15 @@ public class BmpMetadataWriter : PhotoFileMetadataWriter {
 }
              
 public class BmpFileFormatDriver : PhotoFileFormatDriver {
-    private static BmpFileFormatDriver singleton_instance = null;
+    private static BmpFileFormatDriver instance = null;
+
+    public static void init() {
+        instance = new BmpFileFormatDriver();
+        BmpFileFormatProperties.init();
+    }
     
     public static BmpFileFormatDriver get_instance() {
-        lock (singleton_instance) {
-            if (singleton_instance == null)
-                singleton_instance = new BmpFileFormatDriver();
-        }
-        
-        return singleton_instance;
+        return instance;
     }
     
     public override PhotoFileFormatProperties get_properties() {

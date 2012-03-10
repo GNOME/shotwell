@@ -6,13 +6,13 @@
 
 public class JfifFileFormatDriver : PhotoFileFormatDriver {
     private static JfifFileFormatDriver instance = null;
+
+    public static void init() {
+        instance = new JfifFileFormatDriver();
+        JfifFileFormatProperties.init();
+    }
     
     public static JfifFileFormatDriver get_instance() {
-        lock (instance) {
-            if (instance == null)
-                instance = new JfifFileFormatDriver();
-        }
-        
         return instance;
     }
     
@@ -59,13 +59,12 @@ public class JfifFileFormatProperties : PhotoFileFormatProperties {
     };
         
     private static JfifFileFormatProperties instance = null;
+
+    public static void init() {
+        instance = new JfifFileFormatProperties();
+    }
     
     public static JfifFileFormatProperties get_instance() {
-        lock (instance) {
-            if (instance == null)
-                instance = new JfifFileFormatProperties();
-        }
-        
         return instance;
     }
     

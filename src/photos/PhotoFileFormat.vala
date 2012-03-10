@@ -211,6 +211,33 @@ public enum PhotoFileFormat {
         }
     }
     
+    public void init() {
+        switch (this) {
+            case JFIF:
+                JfifFileFormatDriver.init();
+                break;
+            
+            case RAW:
+                RawFileFormatDriver.init();
+                break;
+            
+            case PNG:
+                PngFileFormatDriver.init();
+                break;
+            
+            case TIFF:
+                Photos.TiffFileFormatDriver.init();
+                break;
+            
+            case BMP:
+                Photos.BmpFileFormatDriver.init();
+                break;
+
+            default:
+                error("Unsupported file format %s", this.to_string());
+        }
+    }
+    
     private PhotoFileFormatDriver get_driver() {
         switch (this) {
             case JFIF:

@@ -8,17 +8,16 @@ class PngFileFormatProperties : PhotoFileFormatProperties {
     private static string[] KNOWN_EXTENSIONS = { "png" };
     private static string[] KNOWN_MIME_TYPES = { "image/png" };
 
-    private static PngFileFormatProperties singleton_instance = null;
+    private static PngFileFormatProperties instance = null;
 
-    public static PngFileFormatProperties get_instance() {
-        lock (singleton_instance) {
-            if (singleton_instance == null)
-                singleton_instance = new PngFileFormatProperties();
-        }
-        
-        return singleton_instance;
+    public static void init() {
+        instance = new PngFileFormatProperties();
     }
-
+    
+    public static PngFileFormatProperties get_instance() {
+        return instance;
+    }
+    
     public override PhotoFileFormat get_file_format() {
         return PhotoFileFormat.PNG;
     }
@@ -136,15 +135,15 @@ public class PngMetadataWriter : PhotoFileMetadataWriter {
 }
 
 public class PngFileFormatDriver : PhotoFileFormatDriver {
-    private static PngFileFormatDriver singleton_instance = null;
+    private static PngFileFormatDriver instance = null;
+    
+    public static void init() {
+        instance = new PngFileFormatDriver();
+        PngFileFormatProperties.init();
+    }
     
     public static PngFileFormatDriver get_instance() {
-        lock (singleton_instance) {
-            if (singleton_instance == null)
-                singleton_instance = new PngFileFormatDriver();
-        }
-        
-        return singleton_instance;
+        return instance;
     }
     
     public override PhotoFileFormatProperties get_properties() {

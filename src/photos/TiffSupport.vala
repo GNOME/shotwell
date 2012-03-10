@@ -9,12 +9,12 @@ namespace Photos {
 public class TiffFileFormatDriver : PhotoFileFormatDriver {
     private static TiffFileFormatDriver instance = null;
     
+    public static void init() {
+        instance = new TiffFileFormatDriver();
+        TiffFileFormatProperties.init();
+    }
+    
     public static TiffFileFormatDriver get_instance() {
-        lock (instance) {
-            if (instance == null)
-                instance = new TiffFileFormatDriver();
-        }
-        
         return instance;
     }
     
@@ -62,12 +62,11 @@ private class TiffFileFormatProperties : PhotoFileFormatProperties {
     
     private static TiffFileFormatProperties instance = null;
     
+    public static void init() {
+        instance = new TiffFileFormatProperties();
+    }
+    
     public static TiffFileFormatProperties get_instance() {
-        lock (instance) {
-            if (instance == null)
-                instance = new TiffFileFormatProperties();
-        }
-        
         return instance;
     }
     

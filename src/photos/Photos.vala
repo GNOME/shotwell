@@ -20,6 +20,8 @@ public void preconfigure() {
 }
 
 public void init() throws Error {
+    foreach (PhotoFileFormat format in PhotoFileFormat.get_supported())
+        format.init();
 }
 
 public void terminate() {
