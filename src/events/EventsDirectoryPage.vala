@@ -126,7 +126,7 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         rename.label = Resources.RENAME_EVENT_MENU;
         actions += rename;
        
-        Gtk.ActionEntry merge = { "Merge", Resources.MERGE, TRANSLATABLE, null, TRANSLATABLE,
+        Gtk.ActionEntry merge = { "Merge", Resources.MERGE, TRANSLATABLE, null, null,
             on_merge };
         merge.label = Resources.MERGE_MENU;
         actions += merge;
