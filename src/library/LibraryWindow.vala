@@ -198,13 +198,8 @@ public class LibraryWindow : AppWindow {
 
     // the menubar_wrapper wraps the menu bar for this LibraryWindow inside
     // a fixed-size container widget so as to prevent flickering due to
-    // size reallocation when we swap-in and swap-out menu bars on changing
-    // pages
+    // size reallocation when we swap-in and swap-out menu bars on changing pages
     private Gtk.Box menubar_wrapper;
-    private int system_menubar_height = 20; // give this a default value, even
-                                            // though we expect its value to be
-                                            // reset in the c-tor
-    private bool has_appmenu;
     
 #if UNITY_SUPPORT
     //UnityProgressBar: init
@@ -212,8 +207,6 @@ public class LibraryWindow : AppWindow {
 #endif
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
-        has_appmenu = Resources.is_appmenu_installed();
-
         // prep sidebar and add roots
         sidebar_tree = new Sidebar.Tree(DND_TARGET_ENTRIES, Gdk.DragAction.ASK,
             external_drop_handler);
@@ -248,32 +241,11 @@ public class LibraryWindow : AppWindow {
         // setup search bar and add its accelerators to the window
         search_toolbar = new SearchFilterToolbar(search_actions);
         
-        // we only go through these menu bar wrapper shenanigans when Unity appmenu
-        // *isn't* installed
-        Gtk.Widget? dummy_menubar = null;
-        if (!has_appmenu) {
-            // set up the menu bar wrapper; see the comment on its declaration above
-            // for more information on what the menu bar wrapper does
-            menubar_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-            menubar_wrapper.homogeneous = true;
-            menubar_wrapper.set_size_request(-1, 32); // give it a non-zero height
-                                                      // to trigger allocation on
-                                                      // realize
-            layout.pack_start(menubar_wrapper, false, false, 0);
+        // set up the menu bar wrapper; see the comment on its declaration above
+        // for more information on what the menu bar wrapper does
+        menubar_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+        layout.add(menubar_wrapper);
             
-            // use a dummy menu bar widget to compute the height of menu bars on this
-            // system. we need to know the height of menu bars to fix the height of
-            // menubar_wrapper, as described above
-            dummy_menubar = new Gtk.MenuBar();
-            ((Gtk.MenuShell) dummy_menubar).append(new Gtk.MenuItem.with_label("dummy"));
-            menubar_wrapper.add(dummy_menubar);
-
-            // we can't capture the height of the dummy menu bar until it's been
-            // realized, so connect a signal handler so we're notified of this
-            // event
-            dummy_menubar.realize.connect(on_dummy_menubar_realize);
-        }
-        
         // create the main layout & start at the Library page
         create_layout(library_branch.get_main_page());
         
@@ -309,28 +281,8 @@ public class LibraryWindow : AppWindow {
         
         background_progress_bar.set_show_text(true);
         
-        // these lines must remain at the end of the constructor. moving
-        // them up in the execution sequence risks getting us into a situation
-        // where they're executed before the system_menubar_height has been
-        // captured from the dummy menu bar
-        if (!has_appmenu) {
-            menubar_wrapper.remove(dummy_menubar);
-            menubar_wrapper.set_size_request(-1, system_menubar_height);
-        }
     }
 
-    private void on_dummy_menubar_realize(Gtk.Widget dummy_menubar) {
-        Gtk.Allocation dummy_allocation;
-        dummy_menubar.get_allocation(out dummy_allocation);
-
-        // capture the system menu bar height so we can fix the size of the
-        // menubar_wrapper
-        system_menubar_height = dummy_allocation.height;
-
-        // capturing the system menu bar height is a one-shot operation
-        dummy_menubar.realize.disconnect(on_dummy_menubar_realize);
-    }
-    
     ~LibraryWindow() {
         sidebar_tree.page_created.disconnect(on_page_created);
         sidebar_tree.destroying_page.disconnect(on_destroying_page);
@@ -1458,18 +1410,17 @@ public class LibraryWindow : AppWindow {
         notebook.set_current_page(get_notebook_pos(page));
         
         // switch menus
-        if (has_appmenu) {
-            if (current_page != null)
-                layout.remove(current_page.get_menubar());
-    
-            layout.pack_start(page.get_menubar(), false, false, 0);
-        } else {
-            if (current_page != null)
-                menubar_wrapper.remove(current_page.get_menubar());
+        if (current_page != null) {
+            // Fix the menubar wrapper's size to avoid a GTK relayout, which would cause flashing.
+            Gtk.Allocation allocation;
+            menubar_wrapper.get_allocation(out allocation);
+            if (allocation.height > 1)
+                menubar_wrapper.set_size_request(-1, allocation.height);
 
-            menubar_wrapper.add(page.get_menubar());
+            menubar_wrapper.remove(current_page.get_menubar());
         }
 
+        menubar_wrapper.add(page.get_menubar());
         
         Gtk.AccelGroup accel_group = page.ui.get_accel_group();
         if (accel_group != null)

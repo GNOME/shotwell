@@ -937,11 +937,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         providers.set(widget, styler);
     }
     
-    public bool is_appmenu_installed() {
-        File appmenu_lib = File.new_for_path("/usr/lib/gtk-3.0/3.0.0/menuproxies/libappmenu.so");
-        return appmenu_lib.query_exists();
-    }
-    
     public const string INSET_FRAME_STYLESHEET =
         """ .frame {
                border-style: inset;
