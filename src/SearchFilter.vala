@@ -797,10 +797,12 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             
             entry.primary_icon_stock = Resources.SEARCHBOX_FIND;
             entry.primary_icon_activatable = false;
-            entry.secondary_icon_stock = Resources.SEARCHBOX_CLEAR;
+            entry.secondary_icon_stock = null;
             entry.secondary_icon_activatable = true;
             entry.width_chars = 23;
             entry.icon_release.connect(on_icon_release);
+            entry.key_press_event.connect(on_key_typed);
+            entry.key_release_event.connect(on_key_typed);
             entry.key_press_event.connect(on_escape_key); 
             add(entry);
         }
@@ -808,15 +810,27 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         ~SearchBox() {
             entry.icon_release.disconnect(on_icon_release);
             entry.key_press_event.disconnect(on_escape_key);
+            entry.key_press_event.disconnect(on_key_typed);
+            entry.key_release_event.disconnect(on_key_typed);
         }
         
         private void on_icon_release(Gtk.EntryIconPosition pos, Gdk.Event event) {
             if (Gtk.EntryIconPosition.SECONDARY == pos)
                 entry.get_text_action().clear();
+            entry.secondary_icon_stock = null;
         }
         
         public void get_focus() {
             entry.has_focus = true;
+        }
+        
+        private bool on_key_typed(Gdk.EventKey e) {
+            if (entry.get_text().length > 0)
+                entry.secondary_icon_stock = Resources.SEARCHBOX_CLEAR;
+            else
+                entry.secondary_icon_stock = null;
+            
+            return false;
         }
         
         // Ticket #3124 - user should be able to clear 
