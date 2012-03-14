@@ -419,8 +419,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
 
     private void do_upload() {
-        assert(publish_to_album != NO_ALBUM);
-        debug("ACTION: uploading photos to album '%s'", albums[publish_to_album].name);
+        debug("ACTION: uploading photos to album '%s'",
+            publish_to_album == NO_ALBUM ? "(none)" : albums[publish_to_album].name);
 
         host.set_service_locked(true);
 
@@ -434,7 +434,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
 
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
-        FacebookUploader uploader = new FacebookUploader(session, albums[publish_to_album].id,
+        FacebookUploader uploader = new FacebookUploader(session,
+            publish_to_album == NO_ALBUM ? null : albums[publish_to_album].id,
             privacy_setting, publishables);
 
         uploader.upload_complete.connect(on_upload_complete);
@@ -618,7 +619,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         do_logout();
     }
 
-    public void on_publishing_options_pane_publish(string target_album, string privacy_setting, Resolution target_resolution) {
+    public void on_publishing_options_pane_publish(string? target_album, string privacy_setting,
+                                                   Resolution target_resolution) {
         if (!is_running())
             return;
 
@@ -627,7 +629,10 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         this.privacy_setting = privacy_setting;
         this.target_resolution = target_resolution;
 
-        if (lookup_album(target_album) != NO_ALBUM) {
+        if (target_album == null) {
+            publish_to_album = NO_ALBUM;
+            do_upload();
+        } else if (lookup_album(target_album) != NO_ALBUM) {
             publish_to_album = lookup_album(target_album);
             do_upload();
         } else {
@@ -1172,7 +1177,7 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
     private string method;
     private MappedFile mapped_file = null;
 
-    public FacebookUploadTransaction(FacebookRESTSession session, string aid, string privacy_setting,
+    public FacebookUploadTransaction(FacebookRESTSession session, string? aid, string privacy_setting,
         Spit.Publishing.Publishable publishable, File file) {
         base(session);
         this.publishable = publishable;
@@ -1192,7 +1197,10 @@ internal class FacebookUploadTransaction : FacebookRESTTransaction {
 
         add_argument("access_token", session.get_access_token());
         add_argument("method", method);
-        add_argument("aid", aid);
+        if (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.PHOTO) {
+            assert(aid != null);
+            add_argument("aid", aid);   // only photos are published to albums
+        }
         add_argument("privacy", privacy_setting);
 
         binary_disposition_table = create_default_binary_disposition_table();
@@ -1487,7 +1495,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private LegacyPublishingOptionsPane wrapped = null;
 
     public signal void logout();
-    public signal void publish(string target_album, string privacy_setting, Resolution target_resolution);
+    public signal void publish(string? target_album, string privacy_setting, Resolution target_resolution);
 
     public PublishingOptionsPane(string username, FacebookAlbum[] albums,
         Spit.Publishing.Publisher.MediaType media_type, FacebookPublisher publisher) {
@@ -1498,7 +1506,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         logout();
     }
 
-    private void notify_publish(string target_album, string privacy_setting, Resolution target_resolution) {
+    private void notify_publish(string? target_album, string privacy_setting, Resolution target_resolution) {
         publish(target_album, privacy_setting, target_resolution);
     }
 
@@ -1560,7 +1568,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private Spit.Publishing.Publisher.MediaType media_type;
 
     public signal void logout();
-    public signal void publish(string target_album, string privacy_setting, Resolution target_resolution);
+    public signal void publish(string? target_album, string privacy_setting, Resolution target_resolution);
 
     public LegacyPublishingOptionsPane(string username, FacebookAlbum[] albums,
         Spit.Publishing.Publisher.MediaType media_type, FacebookPublisher publisher) {
@@ -1594,26 +1602,35 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         add(gtk_vspacer(CONTENT_GROUP_SPACING));
 
-        Gtk.Box album_mode_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
-        use_existing_radio = new Gtk.RadioButton.with_mnemonic(null,
-            _("Publish to an e_xisting album:"));
-        use_existing_radio.clicked.connect(on_use_existing_toggled);
-        create_new_radio = new Gtk.RadioButton.with_mnemonic(use_existing_radio.get_group(),
-            _("Create a _new album named:"));
-        create_new_radio.clicked.connect(on_create_new_toggled);
+        if (publishing_photos()) {
+            Gtk.Box album_mode_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
+            use_existing_radio = new Gtk.RadioButton.with_mnemonic(null,
+                _("Publish to an e_xisting album:"));
+            use_existing_radio.clicked.connect(on_use_existing_toggled);
+            create_new_radio = new Gtk.RadioButton.with_mnemonic(use_existing_radio.get_group(),
+                _("Create a _new album named:"));
+            create_new_radio.clicked.connect(on_create_new_toggled);
 
-        Gtk.Box use_existing_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-        use_existing_layouter.add(use_existing_radio);
-        existing_albums_combo = new Gtk.ComboBoxText();
-        Gtk.Alignment existing_combo_aligner = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
-        existing_combo_aligner.add(existing_albums_combo);
-        use_existing_layouter.add(existing_combo_aligner);
+            Gtk.Box use_existing_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            use_existing_layouter.add(use_existing_radio);
+            existing_albums_combo = new Gtk.ComboBoxText();
+            Gtk.Alignment existing_combo_aligner = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
+            existing_combo_aligner.add(existing_albums_combo);
+            use_existing_layouter.add(existing_combo_aligner);
 
-        Gtk.Box create_new_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-        create_new_layouter.pack_start(create_new_radio, true, true, 0);
-        new_album_entry = new Gtk.Entry();
-        create_new_layouter.pack_start(new_album_entry, true, true, 0);
-        new_album_entry.set_size_request(142, -1);
+            Gtk.Box create_new_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            create_new_layouter.pack_start(create_new_radio, true, true, 0);
+            new_album_entry = new Gtk.Entry();
+            create_new_layouter.pack_start(new_album_entry, true, true, 0);
+            new_album_entry.set_size_request(142, -1);
+
+            album_mode_layouter.add(use_existing_layouter);
+            album_mode_layouter.add(create_new_layouter);
+
+            Gtk.Alignment album_mode_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
+            album_mode_wrapper.add(album_mode_layouter);
+            add(album_mode_wrapper);
+        }
 
         Gtk.Label visibility_label = new Gtk.Label.with_mnemonic(_("Videos and new photo albums _visible to:"));
 
@@ -1647,15 +1664,6 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         publish_button.set_size_request(STANDARD_ACTION_BUTTON_WIDTH, -1);
         logout_button.set_size_request(STANDARD_ACTION_BUTTON_WIDTH, -1);
 
-        album_mode_layouter.add(use_existing_layouter);
-        album_mode_layouter.add(create_new_layouter);
-
-        Gtk.Alignment album_mode_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        album_mode_wrapper.add(album_mode_layouter);
-
-        if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0)
-            add(album_mode_wrapper);
-
         Gtk.Alignment visibility_vspacer = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         visibility_vspacer.set_padding(0, 8, 0, 0);
         visibility_vspacer.add(new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0));
@@ -1665,7 +1673,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
         // Ticket #2916 - if the user is uploading photographs, allow
         // them to choose what resolution they should be uploaded at.
-        if((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) {
+        if (publishing_photos()) {
             Gtk.Box resolution_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
 
             // Create the controls. Each control is assigned to a
@@ -1702,13 +1710,19 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         // Ticket #3175, part 2: make sure this widget starts out sensitive
         // if it needs to by checking whether we're starting with a video
         // or a new gallery.
-        visibility_combo.set_sensitive((create_new_radio.active) || ((media_type & Spit.Publishing.Publisher.MediaType.VIDEO) != 0));
+        visibility_combo.set_sensitive(
+            (create_new_radio != null && create_new_radio.active) ||
+            ((media_type & Spit.Publishing.Publisher.MediaType.VIDEO) != 0));
 
         add(gtk_vspacer(CONTENT_GROUP_SPACING));
 
         add(buttons_layouter);
 
         add(gtk_vspacer(50));
+    }
+
+    private bool publishing_photos() {
+        return (media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0;
     }
 
     private Gtk.ComboBox create_visibility_combo() {
@@ -1768,12 +1782,19 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private void on_publish_button_clicked() {
         string album_name;
         string privacy_setting = privacy_descriptions[visibility_combo.get_active()].privacy_setting;
-        Resolution resolution_setting = possible_resolutions[resolution_combo.get_active()];
 
-        if (use_existing_radio.active) {
-            album_name = existing_albums_combo.get_active_text();
+        Resolution resolution_setting;
+
+        if (publishing_photos()) {        
+            resolution_setting = possible_resolutions[resolution_combo.get_active()];
+            if (use_existing_radio.active) {
+                album_name = existing_albums_combo.get_active_text();
+            } else {
+                album_name = new_album_entry.get_text();
+            }
         } else {
-            album_name = new_album_entry.get_text();
+            resolution_setting = Resolution.STANDARD;
+            album_name = null;
         }
 
         publish(album_name, privacy_setting, resolution_setting);
@@ -1801,35 +1822,38 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     }
 
     public void installed() {
-        if (albums.length == 0) {
-            create_new_radio.set_active(true);
-            new_album_entry.set_text(DEFAULT_ALBUM_NAME);
-            existing_albums_combo.set_sensitive(false);
-            use_existing_radio.set_sensitive(false);
-        } else {
-            int default_album_seq_num = -1;
-            int ticker = 0;
-            foreach (FacebookAlbum album in albums) {
-                existing_albums_combo.append_text(album.name);
-                if (album.name == DEFAULT_ALBUM_NAME)
-                    default_album_seq_num = ticker;
-                ticker++;
-            }
-            if (default_album_seq_num != -1) {
-                existing_albums_combo.set_active(default_album_seq_num);
-                use_existing_radio.set_active(true);
-                new_album_entry.set_sensitive(false);
-             }
-            else {
+        if (publishing_photos()) {
+            if (albums.length == 0) {
                 create_new_radio.set_active(true);
-                existing_albums_combo.set_active(0);
-                existing_albums_combo.set_sensitive(false);
                 new_album_entry.set_text(DEFAULT_ALBUM_NAME);
+                existing_albums_combo.set_sensitive(false);
+                use_existing_radio.set_sensitive(false);
+            } else {
+                int default_album_seq_num = -1;
+                int ticker = 0;
+                foreach (FacebookAlbum album in albums) {
+                    existing_albums_combo.append_text(album.name);
+                    if (album.name == DEFAULT_ALBUM_NAME)
+                        default_album_seq_num = ticker;
+                    ticker++;
+                }
+                if (default_album_seq_num != -1) {
+                    existing_albums_combo.set_active(default_album_seq_num);
+                    use_existing_radio.set_active(true);
+                    new_album_entry.set_sensitive(false);
+                }
+                else {
+                    create_new_radio.set_active(true);
+                    existing_albums_combo.set_active(0);
+                    existing_albums_combo.set_sensitive(false);
+                    new_album_entry.set_text(DEFAULT_ALBUM_NAME);
+                }
             }
         }
-
-       publish_button.grab_focus();
+        
+        publish_button.grab_focus();
     }
+
 }
 
 internal class FacebookRESTXmlDocument {
@@ -1919,7 +1943,7 @@ internal class FacebookUploader {
     public signal void upload_complete(int num_photos_published);
     public signal void upload_error(Spit.Publishing.PublishingError err);
 
-    public FacebookUploader(FacebookRESTSession session, string aid, string privacy_setting,
+    public FacebookUploader(FacebookRESTSession session, string? aid, string privacy_setting,
         Spit.Publishing.Publishable[] publishables) {
         this.publishables = publishables;
         this.aid = aid;
