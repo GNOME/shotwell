@@ -616,7 +616,7 @@ public class CropTool : EditingTool {
     private class CropToolWindow : EditingToolWindow {
         private const int CONTROL_SPACING = 8;
 
-        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
+        public Gtk.Button ok_button = new Gtk.Button.with_label(Resources.CROP_LABEL);
         public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
         public Gtk.ComboBox constraint_combo;
         public Gtk.Button pivot_reticle_button = new Gtk.Button();
