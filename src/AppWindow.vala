@@ -597,6 +597,7 @@ public abstract class AppWindow : PageWindow {
 
         dialog.set_markup(build_alert_body_text(title, message));
         dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES);
+        dialog.set_urgency_hint(true);
         
         bool response = (dialog.run() == Gtk.ResponseType.YES);
 

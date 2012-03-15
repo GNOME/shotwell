@@ -313,10 +313,13 @@ public class ExporterUI {
     }
     
     private Exporter.Overwrite on_export_overwrite(Exporter exporter, File file) {
+        progress_dialog.set_modal(false);
         string question = _("File %s already exists.  Replace?").printf(file.get_basename());
         Gtk.ResponseType response = AppWindow.negate_affirm_all_cancel_question(question, 
             _("_Skip"), _("_Replace"), _("Replace _All"), _("Export"));
         
+        progress_dialog.set_modal(true);
+
         switch (response) {
             case Gtk.ResponseType.APPLY:
                 return Exporter.Overwrite.REPLACE_ALL;
