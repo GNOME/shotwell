@@ -497,7 +497,8 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         public override void internal_update_properties(Page page) {
             base.internal_update_properties(page);
 
-            add_line(_("Location:"), (file_path != "" && file_path != null) ? file_path : NO_VALUE);
+            add_line(_("Location:"), (file_path != "" && file_path != null) ? 
+				file_path.replace("&", "&amp;") : NO_VALUE);
 
             add_line(_("File size:"), (filesize > 0) ? 
                 format_size((int64) filesize) : NO_VALUE);
