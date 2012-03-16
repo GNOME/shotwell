@@ -71,8 +71,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "applications-internet";
     public const string MERGE = "shotwell-merge-events";
-    public const string SEARCHBOX_FIND = "shotwell-searchbox-find";
-    public const string SEARCHBOX_CLEAR = "shotwell-searchbox-clear";
     public const string FACES_TOOL = "faces";
 
     public const string ICON_APP = "shotwell.svg";
@@ -696,8 +694,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
         add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
         add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
-        add_stock_icon(icons_dir.get_child("searchbox-find.svg"), SEARCHBOX_FIND);
-        add_stock_icon(icons_dir.get_child("searchbox-clear.svg"), SEARCHBOX_CLEAR);
         add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FLAGGED_PAGE), ICON_FLAGGED_PAGE);
         add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_VIDEOS_PAGE), ICON_VIDEOS_PAGE);
         add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_SINGLE_PHOTO), ICON_SINGLE_PHOTO);

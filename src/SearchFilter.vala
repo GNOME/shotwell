@@ -795,7 +795,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         public SearchBox(TextAction action) {
             entry = new TextActionEntry(action);
             
-            entry.primary_icon_stock = Resources.SEARCHBOX_FIND;
+            entry.primary_icon_name = "edit-find-symbolic";
             entry.primary_icon_activatable = false;
             entry.secondary_icon_stock = null;
             entry.secondary_icon_activatable = true;
@@ -826,7 +826,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         
         private bool on_key_typed(Gdk.EventKey e) {
             if (entry.get_text().length > 0)
-                entry.secondary_icon_stock = Resources.SEARCHBOX_CLEAR;
+                entry.secondary_icon_name = "edit-clear-symbolic";
             else
                 entry.secondary_icon_stock = null;
             
