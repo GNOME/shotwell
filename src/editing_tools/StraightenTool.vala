@@ -105,6 +105,10 @@ public class StraightenTool : EditingTool {
         return new StraightenTool();
     }
 
+    public static bool is_available(Photo photo, Scaling scaling) {
+        return true;
+    }
+
     /**
      * @brief Signal handler for when the 'OK' button has been clicked.  Computes where a previously-
      * set crop region should have rotated to (to match the Photo's straightening angle).
@@ -128,7 +132,7 @@ public class StraightenTool : EditingTool {
             Box.from_center(new_crop_center,
                 (int) (rotate_scale * crop_width), (int) (rotate_scale * crop_height)),
             Resources.STRAIGHTEN_LABEL, Resources.STRAIGHTEN_TOOLTIP);
-        AppWindow.get_command_manager().execute(command);            
+        AppWindow.get_command_manager().execute(command);
 
         canvas.repaint();
         deactivate();

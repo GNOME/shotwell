@@ -798,7 +798,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     // Called before the photo changes.
-    protected virtual void photo_changing(Photo new_photo) {}
+    protected virtual void photo_changing(Photo new_photo) {
+        set_photo_missing(!new_photo.get_file().query_exists());
+        update_ui(photo_missing);
+    }
     
     private void set_photo(Photo photo) {
         zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
@@ -1068,14 +1071,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     protected virtual void update_ui(bool missing) {
         bool sensitivity = !missing;
-        
+
         rotate_button.sensitive = sensitivity;
         crop_button.sensitive = sensitivity;
+        straighten_button.sensitive = sensitivity;
         redeye_button.sensitive = sensitivity;
         adjust_button.sensitive = sensitivity;
         enhance_button.sensitive = sensitivity;
         zoom_slider.sensitive = sensitivity;
-        
+
         deactivate_tool();
     }
     
@@ -1330,12 +1334,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Photo? photo = get_photo();
         Scaling scaling = get_canvas_scaling();
         
-        rotate_button.sensitive = photo != null ? is_rotate_available(photo) : false;
-        crop_button.sensitive = photo != null ? EditingTools.CropTool.is_available(photo, scaling) : false;
-        redeye_button.sensitive = photo != null ? EditingTools.RedeyeTool.is_available(photo, scaling) : false;
-        adjust_button.sensitive = photo != null ? EditingTools.AdjustTool.is_available(photo, scaling) : false;
-        enhance_button.sensitive = photo != null ? is_enhance_available(photo) : false;
-        
+        rotate_button.sensitive = ((photo != null) && (!photo_missing)) ?
+            is_rotate_available(photo) : false;
+        crop_button.sensitive = ((photo != null) && (!photo_missing)) ?
+            EditingTools.CropTool.is_available(photo, scaling) : false;
+        redeye_button.sensitive = ((photo != null) && (!photo_missing)) ?
+            EditingTools.RedeyeTool.is_available(photo, scaling) : false;
+        adjust_button.sensitive = ((photo != null) && (!photo_missing)) ?
+            EditingTools.AdjustTool.is_available(photo, scaling) : false;
+        enhance_button.sensitive = ((photo != null) && (!photo_missing)) ?
+            is_enhance_available(photo) : false;
+        straighten_button.sensitive = ((photo != null) && (!photo_missing)) ?
+            EditingTools.StraightenTool.is_available(photo, scaling) : false;
+                    
         base.update_actions(selected_count, count);
     }
     
