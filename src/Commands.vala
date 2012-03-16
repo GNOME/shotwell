@@ -1353,9 +1353,6 @@ public class AddTagsCommand : PageCommand {
             Tag tag = (Tag) tag_proxy.get_source();
 
             tag.detach_many(map.get(tag_proxy));
-            
-            if (tag.get_sources_count() == 0)
-                Tag.global.destroy_marked(Tag.global.mark(tag), true);
         }
     }
     
