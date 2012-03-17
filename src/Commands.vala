@@ -2026,6 +2026,7 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
     private Gee.Collection<MediaSource> sources;
     private bool attach;
     private Gee.MultiMap<Tag, MediaSource>? detached_from = null;
+    private Gee.List<Tag>? attached_to = null;
     
     public TagUntagPhotosCommand(Tag tag, Gee.Collection<MediaSource> sources, int count, bool attach) {
         base (tag,
@@ -2064,6 +2065,15 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
         if (detached_from == null) {
             tag.attach_many(sources);
             
+            attached_to = new Gee.ArrayList<Tag>();
+            
+            Tag curr_tmp = tag;
+            
+            while (curr_tmp != null) {
+                attached_to.add(curr_tmp);
+                curr_tmp = curr_tmp.get_hierarchical_parent();
+            }
+            
             return;
         }
         
@@ -2076,14 +2086,26 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
     }
     
     private void do_detach(Tag tag) {
-        // detaching a MediaSource from a Tag may result in the MediaSource being detached from
-        // many tags (due to heirarchical tagging), so save the MediaSources for each detached
-        // Tag for reversing the process
-        detached_from = tag.detach_many(sources);
-        
-        // since the "master" Tag (supplied in the ctor) is not necessarily the only one being
-        // saved, add proxies for all of the other ones as well
-        add_proxyables(detached_from.get_keys());
+        if (attached_to == null) {
+            // detaching a MediaSource from a Tag may result in the MediaSource being detached from
+            // many tags (due to heirarchical tagging), so save the MediaSources for each detached
+            // Tag for reversing the process
+            detached_from = tag.detach_many(sources);
+            
+            // since the "master" Tag (supplied in the ctor) is not necessarily the only one being
+            // saved, add proxies for all of the other ones as well
+            add_proxyables(detached_from.get_keys());
+        } else {
+            foreach (Tag t in attached_to) {
+                foreach (MediaSource ms in sources) {
+                    // is this photo/video attached to this tag elsewhere?
+                    if (t.get_attachment_count(ms) < 2) {
+                        //no, remove it.
+                        t.detach(ms);
+                    }
+                }
+            }
+        }
     }
     
     private void on_source_destroyed(DataSource source) {
