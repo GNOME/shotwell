@@ -1633,7 +1633,7 @@ msgstr[0] ""
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] "ข้ามภาพถ่ายหรือวิดีโอ %d ภาพ เนื่องจากผู้ใช้ยกเลิก: \\n"
+msgstr[0] "ข้ามภาพถ่ายหรือวิดีโอ %d ภาพ เนื่องจากผู้ใช้ยกเลิก: \n"
 
 #: src/Dialogs.vala:654
 #, c-format

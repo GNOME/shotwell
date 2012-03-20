@@ -1852,7 +1852,7 @@ msgstr[5] ""
 
 #: src/Dialogs.vala:690
 msgid "No photos or videos imported.\n"
-msgstr "لم يتم إستراد أي صور أو فيديو\\n"
+msgstr "لم يتم إستراد أي صور أو فيديو\n"
 
 #: src/Dialogs.vala:705
 msgid "Import Complete"
