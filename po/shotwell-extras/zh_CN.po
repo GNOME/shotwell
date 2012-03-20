@@ -3,13 +3,18 @@
 # Copyright (C) 2009-2012 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
+# Translators:
+#   <lovenemesis@gmail.com>, 2011.
+# lovenemesis <lovenemesis@gmail.com>, 2011.
+# lsbeeler <lucas@yorba.org>, 2011.
+# Tommy He <lovenemesis@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.11.1\n"
-"Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2011-05-20 19:12-0700\n"
-"PO-Revision-Date: 2011-05-21 15:29+0000\n"
-"Last-Translator: lovenemesis <lovenemesis@gmail.com>\n"
+"Project-Id-Version: shotwell-extras-0.12\n"
+"Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
+"POT-Creation-Date: 2012-03-05 15:14-0800\n"
+"PO-Revision-Date: 2012-03-07 02:05+0000\n"
+"Last-Translator: Tommy He <lovenemesis@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,9 +30,61 @@ msgstr "版权所有 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "访问 Yandex Fotki 网站"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:634
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "您当前未登陆至 Yandex.Fotki。"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:27
+msgid "label"
+msgstr "标签"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:49
+msgid "_URL of your Piwigo photo library"
+msgstr "您的 Piwigo 照片库 _URL(_)"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:59
+msgid "User _name"
+msgstr "用户名(_)"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:73
+msgid "_Password"
+msgstr "密码(_)"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:130
+msgid "_Remember Password"
+msgstr "记住密码(_R)"
+
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:151
+msgid "Login"
+msgstr "登录"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:21
+msgid "Photos will appear in:"
+msgstr "照片将出现在："
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:37
+msgid "An _existing category:"
+msgstr "一个已有的分类(_)："
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:49
+msgid "A _new album named:"
+msgstr "一个新相册名为(_)："
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:104
+msgid "Photos will be _visible by:"
+msgstr "照片可见(_V)："
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:131
+msgid "Photo size:"
+msgstr "照片尺寸："
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:164
+msgid "Logout"
+msgstr "登出"
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:178
+msgid "Publish"
+msgstr "发布"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
@@ -52,5 +109,3 @@ msgstr "登出(_L)"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
 msgid "_Publish"
 msgstr "发布(_P)"
-
-
