@@ -24,8 +24,9 @@ LIB=lib
 
 -include configure.mk
 
-CORE_SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk \
-    ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he mk te ta vi
+CORE_SUPPORTED_LANGUAGES= ia hi ta_IN te_IN fr de it es pl et sv sk lv pt bg bn nl da zh_CN \
+    el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR \
+    eu he mk te ta vi
 
 EXTRAS_SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk \
     ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he mk te ta vi
