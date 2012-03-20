@@ -358,6 +358,11 @@ void main(string[] args) {
     // exec file from the array
     AppDirs.init(args[0]);
 
+    // This has to be done before the AppWindow is created in order to ensure the XMP
+    // parser is initialized in a thread-safe fashion; please see 
+    // http://redmine.yorba.org/issues/4120 for details.
+    GExiv2.initialize();
+
     // following the GIO programming guidelines at http://developer.gnome.org/gio/2.26/ch03.html,
     // set the GSETTINGS_SCHEMA_DIR environment variable to allow us to load GSettings schemas from 
     // the build directory. this allows us to access local GSettings schemas without having to

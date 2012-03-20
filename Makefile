@@ -306,7 +306,7 @@ LIBRAW_PKG = \
 # should be added to this list
 EXT_PKG_VERSIONS = \
 	gee-1.0 >= 0.5.0 \
-	gexiv2 >= 0.3.90 \
+	gexiv2 >= 0.3.92 \
 	gio-unix-2.0 >= 2.20 \
 	glib-2.0 >= 2.30.0 \
 	gmodule-2.0 >= 2.24.0 \
