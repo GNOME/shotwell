@@ -873,11 +873,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             return;
 
         in_center_on_anchor = true;
-
-        // update the vadjustment's upper manually rather than waiting for GTK to do so
-        // because subsequent calculations and settings rely on it ... updating upper 
-        // will only happen later, when this event finishes
-        vadjustment.set_upper(upper);
   
         double anchor_pos = anchor.allocation.y + (anchor.allocation.height / 2) - 
             (vadjustment.get_page_size() / 2);
