@@ -4,11 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-// Need this due to this bug:
-// https://bugzilla.gnome.org/show_bug.cgi?id=642635
-extern bool gtk_tree_view_column_cell_get_position(Gtk.TreeViewColumn column, Gtk.CellRenderer renderer,
-    out int start_pos, out int width);
-
 namespace Plugins {
 
 public class ManifestWidgetMediator {
@@ -240,42 +235,7 @@ private class ManifestListView : Gtk.TreeView {
         
         return id;
     }
-    
-    private bool get_renderer_from_pos(int x, int y, out Gtk.TreePath path, out Gtk.CellRenderer renderer) {
-        // get the TreePath and column for the position
-        Gtk.TreeViewColumn column;
-        if (!get_path_at_pos(x, y, out path, out column, null, null)) {
-            renderer = null;
-            
-            return false;
-        }
-        
-        Gdk.Rectangle cell_area = Gdk.Rectangle();
-        get_cell_area(path, column, out cell_area);
-        
-        int conv_x, conv_y;
-        convert_bin_window_to_widget_coords(cell_area.x, cell_area.y, out conv_x, out conv_y);
-        
-        int pixel_x = conv_x;
-        foreach (Gtk.CellRenderer column_renderer in column.get_cells()) {
-            int x_offset, width;
-            if (!gtk_tree_view_column_cell_get_position(column, column_renderer, out x_offset, out width))
-                continue;
-            
-            if (x >= pixel_x && x <= (pixel_x + width)) {
-                renderer = column_renderer;
-                
-                return true;
-            }
-            
-            pixel_x += width;
-        }
-        
-        renderer = null;
-        
-        return false;
-    }
-    
+
     // Because we want each row to left-align and not for each column to line up in a grid
     // (otherwise the checkboxes -- hidden or not -- would cause the rest of the row to line up
     // along the icon's left edge), we put all the renderers into a single column.  However, the
@@ -283,21 +243,22 @@ private class ManifestListView : Gtk.TreeView {
     // whether or not the actual checkbox hit-tests.
     //
     // The only way found to work around this is to capture the button-down event and do our own
-    // hit-testing against the renderers, and treat a hit against the checkbox renderer as a 
-    // toggle event.  Can't rely on the "toggle" signal here, however, because that's being fired
-    // whenever the row is clicked, and can't easily suppress it here because that causes the 
-    // selection mechanism to fail.  Could simulate selection here, but now this little hack has
-    // grown into a reimplementation of default behavior.
+    // hit-testing.
     public override bool button_press_event(Gdk.EventButton event) {
         Gtk.TreePath path;
-        Gtk.CellRenderer renderer;
-        if (!get_renderer_from_pos((int) event.x, (int) event.y, out path, out renderer))
+        Gtk.TreeViewColumn col;
+        int cellx;
+        int celly;
+        if (!get_path_at_pos((int) event.x, (int) event.y, out path, out col, out cellx,
+            out celly))
             return base.button_press_event(event);
         
-        if (!(renderer is Gtk.CellRendererToggle))
+        // if the mouse event hit-point has an x-coordinate between ICON_SIZE and (2 * ICON_SIZE),
+        // then the event occurred inside the enable/disable checkbox; short-circuit return if
+        // cellx is not between ICON_SIZE and (2 * ICON_SIZE), otherwise proceed
+        if (cellx < ICON_SIZE || cellx > (2 * ICON_SIZE))
             return base.button_press_event(event);
-        
-        // checkbox was clicked, reflect that in the model
+
         Gtk.TreeIter iter;
         string? id = get_id_at_path(path, out iter);
         if (id == null)
