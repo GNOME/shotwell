@@ -59,13 +59,11 @@
             <menuitem name="About" action="CommonAbout" />
         </menu>
     </menubar>
-    
-    <popup name="DirectContextMenu">
-        <menuitem name="ContextEnhance" action="Enhance" />
-        <menuitem name="ContextRevert" action="Revert" />
-        <separator />
-        <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
-        <menuitem name="ContextSendTo" action="SendTo" />
-    </popup>
 
+    <popup name="DirectContextMenu">
+        <placeholder name="ContextJumpPlaceholder">
+            <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
+        </placeholder>
+    </popup>
+    
 </ui>

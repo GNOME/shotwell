@@ -94,47 +94,13 @@ public class LibraryWindow : AppWindow {
             
             base.switched_to();
         }
-    }
-    
-    private class PageLayout : Gtk.Box {
-        private string page_name;
-        private Gtk.Toolbar toolbar;
-        private Page page;
-        
-        public PageLayout(Page page) {
-            page_name = page.get_page_name();
-            toolbar = page.get_toolbar();
-            this.page = page;
 
-            set_orientation(Gtk.Orientation.VERTICAL);
-            set_homogeneous(false);
-            set_spacing(0);
-            
-            pack_start(page, true, true, 0);
-            pack_end(toolbar, false, false, 0);
+        protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+            // We intentionally don't call the base class here since we don't want the
+            // top-level menu in photo.ui.
+            ui_filenames.add("photo_context.ui");
         }
         
-        ~PageLayout() {
-#if TRACE_DTORS
-            debug("DTOR: PageLayout for %s", page_name);
-#endif
-        }
-        
-        public override void destroy() {
-            // because Page destroys all its own widgets, need to prevent a double-destroy on
-            // the toolbar
-            if (toolbar is Gtk.Widget)
-                remove(toolbar);
-            toolbar = null;
-            
-            // because the appropriate Branch creates the Page, it is up to it to call destroy,
-            // so remove that as well
-            if (page is Gtk.Widget)
-                remove(page);
-            page = null;
-            
-            base.destroy();
-        }
     }
 
     private string import_dir = Environment.get_home_dir();
@@ -167,8 +133,6 @@ public class LibraryWindow : AppWindow {
     
     private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
     
-    // Dynamically added/removed pages
-    private Gee.HashMap<Page, PageLayout> page_layouts = new Gee.HashMap<Page, PageLayout>();
     private LibraryPhotoPage photo_page = null;
     
     // this is to keep track of cameras which initiate the app
@@ -192,14 +156,10 @@ public class LibraryWindow : AppWindow {
     
     private Gtk.Notebook notebook = new Gtk.Notebook();
     private Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+    private Gtk.Box right_vbox;
     
     private int current_progress_priority = 0;
     private uint background_progress_pulse_id = 0;
-
-    // the menubar_wrapper wraps the menu bar for this LibraryWindow inside
-    // a fixed-size container widget so as to prevent flickering due to
-    // size reallocation when we swap-in and swap-out menu bars on changing pages
-    private Gtk.Box menubar_wrapper;
     
 #if UNITY_SUPPORT
     //UnityProgressBar: init
@@ -241,11 +201,20 @@ public class LibraryWindow : AppWindow {
         // setup search bar and add its accelerators to the window
         search_toolbar = new SearchFilterToolbar(search_actions);
         
-        // set up the menu bar wrapper; see the comment on its declaration above
-        // for more information on what the menu bar wrapper does
-        menubar_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        layout.add(menubar_wrapper);
-            
+        try {
+            File ui_file = Resources.get_ui("top.ui");
+            ui.add_ui_from_file(ui_file.get_path());
+        } catch (Error e) {
+            error(e.message);
+        }
+        
+        Gtk.MenuBar? menubar = ui.get_widget("/MenuBar") as Gtk.MenuBar;
+        layout.add(menubar);
+        
+        // We never want to invoke show_all() on the menubar since that will show empty menus,
+        // which should be hidden.
+        menubar.no_show_all = true;
+        
         // create the main layout & start at the Library page
         create_layout(library_branch.get_main_page());
         
@@ -385,7 +354,41 @@ public class LibraryWindow : AppWindow {
             on_new_search };
         new_search.label =  _("Ne_w Search...");
         actions += new_search;
+
+		// top-level menus
         
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
+        file.label = _("_File");
+        actions += file;
+
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
+        edit.label = _("_Edit");
+        actions += edit;
+
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
+        view.label = _("_View");
+        actions += view;
+
+        Gtk.ActionEntry photo = { "PhotoMenu", null, TRANSLATABLE, null, null, null };
+        photo.label = _("_Photo");
+        actions += photo;
+
+        Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null, null };
+        photos.label = _("_Photos");
+        actions += photos;
+
+        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, null };
+        event.label = _("Even_ts");
+        actions += event;
+
+        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
+        tags.label = _("Ta_gs");
+        actions += tags;
+
+        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
+        help.label = _("_Help");
+        actions += help;
+
         return actions;
     }
     
@@ -1087,44 +1090,13 @@ public class LibraryWindow : AppWindow {
             switch_to_page(page);
         }
     }
-    
-    private PageLayout? get_page_layout(Page page) {
-        return page_layouts.get(page);
-    }
-    
-    private PageLayout create_page_layout(Page page) {
-        PageLayout layout = new PageLayout(page);
-        page_layouts.set(page, layout);
-        
-        return layout;
-    }
-    
-    private bool destroy_page_layout(Page page) {
-        PageLayout? layout = get_page_layout(page);
-        if (layout == null)
-            return false;
-        
-        // destroy the layout, which destroys the page
-        layout.destroy();
-        
-        bool unset = page_layouts.unset(page);
-        assert(unset);
-        
-        return true;
-    }
-    
+
     // This should only be called by LibraryWindow and PageStub.
     public void add_to_notebook(Page page) {
-        // get/create layout for this page (if the page is hidden the layout has already been
-        // created)
-        PageLayout? layout = get_page_layout(page);
-        if (layout == null)
-            layout = create_page_layout(page);
-        
         // need to show all before handing over to notebook
-        layout.show_all();
+        page.show_all();
         
-        int pos = notebook.append_page(layout, null);
+        int pos = notebook.append_page(page, null);
         assert(pos >= 0);
         
         // need to show_all() after pages are added and removed
@@ -1132,21 +1104,10 @@ public class LibraryWindow : AppWindow {
     }
     
     private void remove_from_notebook(Page page) {
-        notebook.remove_page(get_notebook_pos(page));
-        destroy_page_layout(page);
+        notebook.remove(page);
         
         // need to show_all() after pages are added and removed
         notebook.show_all();
-    }
-    
-    private int get_notebook_pos(Page page) {
-        PageLayout? layout = get_page_layout(page);
-        assert(layout != null);
-        
-        int pos = notebook.page_num(layout);
-        assert(pos != -1);
-        
-        return pos;
     }
     
     // check for settings that should persist between instances
@@ -1353,7 +1314,7 @@ public class LibraryWindow : AppWindow {
         Gtk.Frame right_frame = new Gtk.Frame(null);
         right_frame.set_shadow_type(Gtk.ShadowType.IN);
         
-        Gtk.Box right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+        right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         right_frame.add(right_vbox);
         right_vbox.pack_start(search_toolbar, false, false, 0);
         right_vbox.pack_start(notebook, true, true, 0);
@@ -1392,6 +1353,10 @@ public class LibraryWindow : AppWindow {
         
         Page current_page = get_current_page();
         if (current_page != null) {
+            Gtk.Toolbar toolbar = current_page.get_toolbar();
+            if (toolbar != null)
+                right_vbox.remove(toolbar);
+
             current_page.switching_from();
             
             // see note below about why the sidebar is uneditable while the LibraryPhotoPage is
@@ -1399,32 +1364,15 @@ public class LibraryWindow : AppWindow {
             if (current_page is LibraryPhotoPage)
                 sidebar_tree.enable_editing();
             
-            Gtk.AccelGroup accel_group = current_page.ui.get_accel_group();
-            if (accel_group != null)
-                remove_accel_group(accel_group);
-            
             // old page unsubscribes to these signals (new page subscribes below)
             unsubscribe_from_basic_information(current_page);
         }
         
-        notebook.set_current_page(get_notebook_pos(page));
+        notebook.set_current_page(notebook.page_num(page));
         
-        // switch menus
-        if (current_page != null) {
-            // Fix the menubar wrapper's size to avoid a GTK relayout, which would cause flashing.
-            Gtk.Allocation allocation;
-            menubar_wrapper.get_allocation(out allocation);
-            if (allocation.height > 1)
-                menubar_wrapper.set_size_request(-1, allocation.height);
-
-            menubar_wrapper.remove(current_page.get_menubar());
-        }
-
-        menubar_wrapper.add(page.get_menubar());
-        
-        Gtk.AccelGroup accel_group = page.ui.get_accel_group();
-        if (accel_group != null)
-            add_accel_group(accel_group);
+        // do this prior to changing selection, as the change will fire a cursor-changed event,
+        // which will then call this function again
+        base.set_current_page(page);
         
         // if the visible page is the LibraryPhotoPage, we need to prevent single-click inline
         // renaming in the sidebar because a single click while in the LibraryPhotoPage indicates
@@ -1432,10 +1380,6 @@ public class LibraryWindow : AppWindow {
         // sidebar cursor is set not to the 'current' page, but the page the user came from
         if (page is LibraryPhotoPage)
             sidebar_tree.disable_editing();
-        
-        // do this prior to changing selection, as the change will fire a cursor-changed event,
-        // which will then call this function again
-        base.set_current_page(page);
         
         // Update search filter to new page.
         toggle_search_bar(should_show_search_bar(), page as CheckerboardPage);
@@ -1460,6 +1404,12 @@ public class LibraryWindow : AppWindow {
         subscribe_for_basic_information(get_current_page());
         
         page.switched_to();
+        
+        Gtk.Toolbar toolbar = page.get_toolbar();
+        if (toolbar != null) {
+            right_vbox.add(toolbar);
+            toolbar.show_all();
+        }
     }
     
     private bool should_show_search_bar() {

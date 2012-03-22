@@ -15,7 +15,6 @@ public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
     
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
-    private Gtk.UIManager ui = new Gtk.UIManager();
     private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.Stock.LEAVE_FULLSCREEN);
     private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton.from_stock(Resources.PIN_TOOLBAR);
     private bool is_toolbar_shown = false;
@@ -40,13 +39,6 @@ public class FullscreenWindow : PageWindow {
         ui.insert_action_group(action_group, 0);
         ui.ensure_update();
 
-        // add the accelerators for the hosted page as well
-        Gtk.AccelGroup hosted_accel_group = page.ui.get_accel_group();
-        if (hosted_accel_group != null)
-            add_accel_group(hosted_accel_group);
-        
-        // the local accelerator group must come after host accelerator group so that they cover the
-        // old accelerator group bindings
         Gtk.AccelGroup accel_group = ui.get_accel_group();
         if (accel_group != null)
             add_accel_group(accel_group);
@@ -311,6 +303,8 @@ public class FullscreenWindow : PageWindow {
 // various notifications.  It is the responsibility of the subclass to notify Pages when they're
 // switched to and from, and other aspects of the Page interface.
 public abstract class PageWindow : Gtk.Window {
+    protected Gtk.UIManager ui = new Gtk.UIManager();
+
     private Page current_page = null;
     private int busy_counter = 0;
     
@@ -323,6 +317,10 @@ public abstract class PageWindow : Gtk.Window {
             | Gdk.EventMask.STRUCTURE_MASK);
             
         set_has_resize_grip(false);
+    }
+    
+    public Gtk.UIManager get_ui_manager() {
+        return ui;
     }
     
     public Page? get_current_page() {
@@ -431,7 +429,6 @@ public abstract class AppWindow : PageWindow {
     
     // the AppWindow maintains its own UI manager because the first UIManager an action group is
     // added to is the one that claims its accelerators
-    protected Gtk.UIManager ui = new Gtk.UIManager();
     protected Gtk.ActionGroup[] common_action_groups;
     protected bool maximized = false;
     protected Dimensions dimensions;

@@ -50,14 +50,6 @@ public class TrashPage : CheckerboardPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
-        file.label = _("_File");
-        actions += file;
-        
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
-        edit.label = _("_Edit");
-        actions += edit;
-        
         Gtk.ActionEntry delete_action = { "Delete", Gtk.Stock.DELETE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_delete };
         delete_action.label = Resources.DELETE_PHOTOS_MENU;
@@ -69,14 +61,6 @@ public class TrashPage : CheckerboardPage {
         restore.label = Resources.RESTORE_PHOTOS_MENU;
         restore.tooltip = Resources.RESTORE_PHOTOS_TOOLTIP;
         actions += restore;
-        
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
-        view.label = _("_View");
-        actions += view;
-        
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
-        help.label = _("_Help");
-        actions += help;
         
         return actions;
     }

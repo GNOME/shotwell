@@ -1,0 +1,10 @@
+<ui>
+    <popup name="DirectContextMenu">
+        <menuitem name="ContextEnhance" action="Enhance" />
+        <menuitem name="ContextRevert" action="Revert" />
+        <separator />
+        <placeholder name="ContextJumpPlaceholder" />
+        <menuitem name="ContextSendTo" action="SendTo" />
+    </popup>
+</ui>
+

@@ -726,69 +726,76 @@ public class ImportPage : CheckerboardPage {
         
         init_item_context_menu("/ImportContextMenu");
         init_page_context_menu("/ImportContextMenu");
-        
-        // Set up toolbar
-        Gtk.Toolbar toolbar = get_toolbar();
-        
-        // hide duplicates checkbox
-        hide_imported = new Gtk.CheckButton.with_label(_("Hide photos already imported"));
-        hide_imported.set_tooltip_text(_("Only display photos that have not been imported"));
-        hide_imported.clicked.connect(on_hide_imported);
-        hide_imported.sensitive = false;
-        hide_imported.active = Config.Facade.get_instance().get_hide_photos_already_imported();
-        Gtk.ToolItem hide_item = new Gtk.ToolItem();
-        hide_item.is_important = true;
-        hide_item.add(hide_imported);
-        
-        toolbar.insert(hide_item, -1);
-        
-        // separator to force buttons to right side of toolbar
-        Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-        separator.set_draw(false);
-        
-        toolbar.insert(separator, -1);
-        
-        // progress bar in center of toolbar
-        progress_bar.set_orientation(Gtk.Orientation.HORIZONTAL);
-        progress_bar.visible = false;
-        Gtk.ToolItem progress_item = new Gtk.ToolItem();
-        progress_item.set_expand(true);
-        progress_item.add(progress_bar);
-        progress_bar.set_show_text(true);
-        
-        toolbar.insert(progress_item, -1);
-        
-        // Find button
-        Gtk.ToggleToolButton find_button = new Gtk.ToggleToolButton();
-        find_button.set_related_action(get_action("CommonDisplaySearchbar"));
-        
-        toolbar.insert(find_button, -1);
-        
-        // Separator
-        toolbar.insert(new Gtk.SeparatorToolItem(), -1);
-        
-        // Import selected
-        Gtk.ToolButton import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
-        import_selected_button.set_related_action(get_action("ImportSelected"));
-        
-        toolbar.insert(import_selected_button, -1);
-        
-        // Import all
-        Gtk.ToolButton import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
-        import_all_button.set_related_action(get_action("ImportAll"));
-        
-        toolbar.insert(import_all_button, -1);
-
-        // restrain the recalcitrant rascal!  prevents the progress bar from being added to the
-        // show_all queue so we have more control over its visibility
-        progress_bar.set_no_show_all(true);
-        
-        show_all();
     }
     
     ~ImportPage() {
         LibraryPhoto.global.contents_altered.disconnect(on_media_added_removed);
         Video.global.contents_altered.disconnect(on_media_added_removed);
+    }
+    
+    public override Gtk.Toolbar get_toolbar() {
+        if (toolbar == null) {
+            base.get_toolbar();
+
+            // hide duplicates checkbox
+            hide_imported = new Gtk.CheckButton.with_label(_("Hide photos already imported"));
+            hide_imported.set_tooltip_text(_("Only display photos that have not been imported"));
+            hide_imported.clicked.connect(on_hide_imported);
+            hide_imported.sensitive = false;
+            hide_imported.active = Config.Facade.get_instance().get_hide_photos_already_imported();
+            Gtk.ToolItem hide_item = new Gtk.ToolItem();
+            hide_item.is_important = true;
+            hide_item.add(hide_imported);
+            
+            toolbar.insert(hide_item, -1);
+            
+            // separator to force buttons to right side of toolbar
+            Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
+            separator.set_draw(false);
+            
+            toolbar.insert(separator, -1);
+            
+            // progress bar in center of toolbar
+            progress_bar.set_orientation(Gtk.Orientation.HORIZONTAL);
+            progress_bar.visible = false;
+            Gtk.ToolItem progress_item = new Gtk.ToolItem();
+            progress_item.set_expand(true);
+            progress_item.add(progress_bar);
+            progress_bar.set_show_text(true);
+            
+            toolbar.insert(progress_item, -1);
+            
+            // Find button
+            Gtk.ToggleToolButton find_button = new Gtk.ToggleToolButton();
+            find_button.set_related_action(get_action("CommonDisplaySearchbar"));
+            
+            toolbar.insert(find_button, -1);
+            
+            // Separator
+            toolbar.insert(new Gtk.SeparatorToolItem(), -1);
+            
+            // Import selected
+            Gtk.ToolButton import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
+            import_selected_button.set_related_action(get_action("ImportSelected"));
+            
+            toolbar.insert(import_selected_button, -1);
+            
+            // Import all
+            Gtk.ToolButton import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
+            import_all_button.set_related_action(get_action("ImportAll"));
+            
+            toolbar.insert(import_all_button, -1);
+
+            // restrain the recalcitrant rascal!  prevents the progress bar from being added to the
+            // show_all queue so we have more control over its visibility
+            progress_bar.set_no_show_all(true);
+            
+            update_toolbar_state();
+            
+            show_all();
+        }
+        
+        return toolbar;
     }
     
     public override Core.ViewTracker? get_view_tracker() {
@@ -837,10 +844,6 @@ public class ImportPage : CheckerboardPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
-        file.label = _("_File");
-        actions += file;
-
         Gtk.ActionEntry import_selected = { "ImportSelected", Resources.IMPORT,
             TRANSLATABLE, null, null, on_import_selected };
         import_selected.label = _("Import _Selected");
@@ -852,18 +855,6 @@ public class ImportPage : CheckerboardPage {
         import_all.label = _("Import _All");
         import_all.tooltip = _("Import all the photos into your library");
         actions += import_all;
-        
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
-        edit.label = _("_Edit");
-        actions += edit;
-
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
-        view.label = _("_View");
-        actions += view;
-
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
-        help.label = _("_Help");
-        actions += help;
 
         return actions;
     }
@@ -912,13 +903,19 @@ public class ImportPage : CheckerboardPage {
         
         on_view_changed();
     }
+
+    private void update_toolbar_state() {
+        if (hide_imported != null)
+            hide_imported.sensitive = !busy && refreshed && (get_view().get_unfiltered_count() > 0);
+    }
     
     private void on_view_changed() {
         set_action_sensitive("ImportSelected", !busy && refreshed && get_view().get_selected_count() > 0);
         set_action_sensitive("ImportAll", !busy && refreshed && get_view().get_count() > 0);
-        hide_imported.sensitive = !busy && refreshed && (get_view().get_unfiltered_count() > 0);
         AppWindow.get_instance().set_common_action_sensitive("CommonSelectAll",
             !busy && (get_view().get_count() > 0));
+
+        update_toolbar_state();
     }
     
     private void on_media_added_removed() {

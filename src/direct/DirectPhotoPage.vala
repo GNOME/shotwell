@@ -5,7 +5,6 @@
  */
 
 public class DirectPhotoPage : EditingHostPage {
-    private Gtk.Menu context_menu;
     private File initial_file;
     private DirectViewCollection? view_controller = null;
     private File current_save_dir;
@@ -24,8 +23,6 @@ public class DirectPhotoPage : EditingHostPage {
         view_controller = new DirectViewCollection();
         current_save_dir = file.get_parent();
         
-        context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
-        
         DirectPhoto.global.items_altered.connect(on_photos_altered);
         
         get_view().selection_group_altered.connect(on_selection_group_altered);
@@ -38,6 +35,7 @@ public class DirectPhotoPage : EditingHostPage {
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
         base.init_collect_ui_filenames(ui_filenames);
         
+        ui_filenames.add("direct_context.ui");
         ui_filenames.add("direct.ui");
     }
     
@@ -253,6 +251,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
 
     protected override bool on_context_buttonpress(Gdk.EventButton event) {
+        Gtk.Menu context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
         popup_context_menu(context_menu, event);
 
         return true;
@@ -546,3 +545,14 @@ public class DirectPhotoPage : EditingHostPage {
     }
 }
 
+public class DirectFullscreenPhotoPage : DirectPhotoPage {
+    public DirectFullscreenPhotoPage(File file) {
+        base(file);
+    }
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        // We intentionally avoid calling the base class implementation since we don't want
+        // direct.ui.
+        ui_filenames.add("direct_context.ui");
+    }
+}

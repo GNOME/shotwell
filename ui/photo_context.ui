@@ -1,0 +1,34 @@
+<ui>
+    <popup name="PhotoContextMenu">
+        <menuitem name="ContextEnhance" action="Enhance" />
+        <menuitem name="ContextRevert" action="Revert" />
+        <separator />
+        <menuitem name="ContextAddTags" action="AddTags" />
+        <menuitem name="ContextModifyTags" action="ModifyTags" />
+        <placeholder name="ContextTagsPlaceholder" />
+        <separator />
+        <menuitem name="ContextFlag" action="Flag" />
+        <menu name="Rate" action="Rate">
+            <menuitem name="RateFive" action="RateFive" />
+            <menuitem name="RateFour" action="RateFour" />
+            <menuitem name="RateThree" action="RateThree" />
+            <menuitem name="RateTwo" action="RateTwo" />
+            <menuitem name="RateOne" action="RateOne" />
+            <menuitem name="RateUnrated" action="RateUnrated" />
+            <menuitem name="RateRejected" action="RateRejected" />
+            <separator />
+            <menuitem name="IncreaseRating" action="IncreaseRating" />
+            <menuitem name="DecreaseRating" action="DecreaseRating" />
+        </menu>
+        <separator />
+        <menuitem name="ContextEditTitle" action="EditTitle" />
+        <menuitem name="ContextExternalEdit" action="ExternalEdit" />
+        <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
+        <separator />
+        <placeholder name="ContextJumpPlaceholder" />
+        <menuitem name="ContextSendTo" action="SendTo" />
+        <separator />
+        <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
+    </popup>
+
+</ui>

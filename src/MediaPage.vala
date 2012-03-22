@@ -225,7 +225,6 @@ public abstract class MediaPage : CheckerboardPage {
         
         tracker = new MediaViewTracker(get_view());
         
-        get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
         get_view().items_altered.connect(on_media_altered);
 
         get_view().freeze_notifications();
@@ -269,10 +268,6 @@ public abstract class MediaPage : CheckerboardPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
-        file.label = _("_File");
-        actions += file;
-
         Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
@@ -282,10 +277,6 @@ public abstract class MediaPage : CheckerboardPage {
             TRANSLATABLE, on_send_to };
         send_to.label = Resources.SEND_TO_MENU;
         actions += send_to;
-        
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
-        edit.label = _("_Edit");
-        actions += edit;
         
         Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
@@ -297,18 +288,6 @@ public abstract class MediaPage : CheckerboardPage {
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
         actions += move_to_trash;
         
-        Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null, null };
-        photos.label = _("_Photos");
-        actions += photos;
-
-        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, null };
-        event.label = _("Even_ts");
-        actions += event;
-
-        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
-        tags.label = _("Ta_gs");
-        actions += tags;
-
         Gtk.ActionEntry new_event = { "NewEvent", Gtk.Stock.NEW, TRANSLATABLE, "<Ctrl>N",
             TRANSLATABLE, on_new_event };
         new_event.label = Resources.NEW_EVENT_MENU;
@@ -394,10 +373,6 @@ public abstract class MediaPage : CheckerboardPage {
         edit_title.label = Resources.EDIT_TITLE_MENU;
         actions += edit_title;
 
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
-        view.label = _("_View");
-        actions += view;
-
         Gtk.ActionEntry sort_photos = { "SortPhotos", null, TRANSLATABLE, null, null, null };
         sort_photos.label = _("Sort _Photos");
         actions += sort_photos;
@@ -406,10 +381,6 @@ public abstract class MediaPage : CheckerboardPage {
         filter_photos.label = Resources.FILTER_PHOTOS_MENU;
         actions += filter_photos;
         
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
-        help.label = _("_Help");
-        actions += help;
-
         Gtk.ActionEntry play = { "PlayVideo", Gtk.Stock.MEDIA_PLAY, TRANSLATABLE, "<Ctrl>Y",
             TRANSLATABLE, on_play_video };
         play.label = _("_Play Video");
@@ -1044,10 +1015,12 @@ public abstract class MediaPage : CheckerboardPage {
 
     protected abstract void set_config_photos_sort(bool sort_order, int sort_by);
 
-    protected virtual void on_sort_changed() {
-        get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
-
-        set_config_photos_sort(get_sort_order() == SORT_ORDER_ASCENDING, get_sort_criteria());
+    public virtual void on_sort_changed() {
+        int sort_by = get_menu_sort_by();
+        bool sort_order = get_menu_sort_order();
+        
+        set_view_comparator(sort_by, sort_order);
+        set_config_photos_sort(sort_order, sort_by);
     }
     
     public void on_raw_developer_shotwell(Gtk.Action action) {
@@ -1083,73 +1056,70 @@ public abstract class MediaPage : CheckerboardPage {
             action.set_active(display);
     }
 
-    protected int get_sort_criteria() {
-        // any member of the group knows the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/MenuBar/ViewMenu/SortPhotos/SortByTitle");
+    private Gtk.RadioAction sort_by_title_action() {
+        Gtk.RadioAction action = (Gtk.RadioAction) get_action("SortByTitle");
         assert(action != null);
-        
-        int value = action.get_current_value();
+        return action;
+    }
 
-        return value;
-    }
-    
-    protected int get_sort_order() {
-        // any member of the group knows the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/MenuBar/ViewMenu/SortPhotos/SortAscending");
+    private Gtk.RadioAction sort_ascending_action() {
+        Gtk.RadioAction action = (Gtk.RadioAction) get_action("SortAscending");
         assert(action != null);
-        
-        int value = action.get_current_value();
-        
-        return value;
+        return action;
+    }
+
+    protected int get_menu_sort_by() {
+        // any member of the group knows the current value
+        return sort_by_title_action().get_current_value();
     }
     
-    protected bool is_sort_ascending() {
-        return get_sort_order() == SORT_ORDER_ASCENDING;
-    }
-       
-    protected Comparator get_sort_comparator() {
-        switch (get_sort_criteria()) {
-            case SortBy.TITLE:
-                if (is_sort_ascending())
-                    return Thumbnail.title_ascending_comparator;
-                else
-                    return Thumbnail.title_descending_comparator;
-            
-            case SortBy.EXPOSURE_DATE:
-                if (is_sort_ascending())
-                    return Thumbnail.exposure_time_ascending_comparator;
-                else
-                    return Thumbnail.exposure_time_desending_comparator;
-            
-            case SortBy.RATING:
-                if (is_sort_ascending())
-                    return Thumbnail.rating_ascending_comparator;
-                else
-                    return Thumbnail.rating_descending_comparator;
-            
-            default:
-                error("Unknown sort criteria: %s", get_sort_criteria().to_string());
-        }
+    protected void set_menu_sort_by(int val) {
+        sort_by_title_action().set_current_value(val);
     }
     
-    protected ComparatorPredicate get_sort_comparator_predicate() {
-        switch (get_sort_criteria()) {
+    protected bool get_menu_sort_order() {
+        // any member of the group knows the current value
+        return sort_ascending_action().get_current_value() == SORT_ORDER_ASCENDING;
+    }
+    
+    protected void set_menu_sort_order(bool ascending) {
+        sort_ascending_action().set_current_value(
+            ascending ? SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING);
+    }
+    
+    void set_view_comparator(int sort_by, bool ascending) {
+        Comparator comparator;
+        ComparatorPredicate predicate;
+        
+        switch (sort_by) {
             case SortBy.TITLE:
-                return Thumbnail.title_comparator_predicate;
+                if (ascending)
+                    comparator = Thumbnail.title_ascending_comparator;
+                else comparator = Thumbnail.title_descending_comparator;
+                predicate = Thumbnail.title_comparator_predicate;
+                break;
             
             case SortBy.EXPOSURE_DATE:
-                return Thumbnail.exposure_time_comparator_predicate;
+                if (ascending)
+                    comparator = Thumbnail.exposure_time_ascending_comparator;
+                else comparator = Thumbnail.exposure_time_desending_comparator;
+                predicate = Thumbnail.exposure_time_comparator_predicate;
+                break;
             
             case SortBy.RATING:
-                return Thumbnail.rating_comparator_predicate;
+                if (ascending)
+                    comparator = Thumbnail.rating_ascending_comparator;
+                else comparator = Thumbnail.rating_descending_comparator;
+                predicate = Thumbnail.rating_comparator_predicate;
+                break;
             
             default:
-                error("Unknown sort criteria: %s", get_sort_criteria().to_string());
+                error("Unknown sort criteria: %s", get_menu_sort_by().to_string());
         }
+        
+        get_view().set_comparator(comparator, predicate);
     }
-          
+
     protected string get_sortby_path(int sort_by) {
         switch(sort_by) {
             case SortBy.TITLE:
@@ -1180,7 +1150,15 @@ public abstract class MediaPage : CheckerboardPage {
         // Although this means we pay for a re-sort every time, in practice,
         // this isn't terribly expensive - it _might_ take as long as .5 sec.
         // with a media page containing over 15000 items on a modern CPU.
-        get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
+        
+        bool sort_ascending;
+        int sort_by;
+        get_config_photos_sort(out sort_ascending, out sort_by);
+        
+        set_menu_sort_by(sort_by);
+        set_menu_sort_order(sort_ascending);
+        
+        set_view_comparator(sort_by, sort_ascending);
     }
 
     public override void destroy() {

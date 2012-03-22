@@ -37,29 +37,37 @@ public abstract class CollectionPage : MediaPage {
         init_item_context_menu("/CollectionContextMenu");
         init_toolbar("/CollectionToolbar");
         
-        // separator to force slider to right side of toolbar
-        Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-        separator.set_expand(true);
-        separator.set_draw(false);
-        get_toolbar().insert(separator, -1);
-
-        Gtk.SeparatorToolItem drawn_separator = new Gtk.SeparatorToolItem();
-        drawn_separator.set_expand(false);
-        drawn_separator.set_draw(true);
-        
-        get_toolbar().insert(drawn_separator, -1);
-        
-        // zoom slider assembly
-        MediaPage.ZoomSliderAssembly zoom_slider_assembly = create_zoom_slider_assembly();
-        connect_slider(zoom_slider_assembly);
-        get_toolbar().insert(zoom_slider_assembly, -1);
-        
         show_all();
 
         // watch for updates to the external app settings
         Config.Facade.get_instance().external_app_changed.connect(on_external_app_changed);
     }
 
+    public override Gtk.Toolbar get_toolbar() {
+        if (toolbar == null) {
+            base.get_toolbar();
+            
+            // separator to force slider to right side of toolbar
+            Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
+            separator.set_expand(true);
+            separator.set_draw(false);
+            get_toolbar().insert(separator, -1);
+
+            Gtk.SeparatorToolItem drawn_separator = new Gtk.SeparatorToolItem();
+            drawn_separator.set_expand(false);
+            drawn_separator.set_draw(true);
+            
+            get_toolbar().insert(drawn_separator, -1);
+            
+            // zoom slider assembly
+            MediaPage.ZoomSliderAssembly zoom_slider_assembly = create_zoom_slider_assembly();
+            connect_slider(zoom_slider_assembly);
+            get_toolbar().insert(zoom_slider_assembly, -1);
+        }
+        
+        return toolbar;
+    }
+    
     private static InjectionGroup create_file_menu_injectables() {
         InjectionGroup group = new InjectionGroup("/MenuBar/FileMenu/FileExtrasPlaceholder");
         

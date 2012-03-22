@@ -16,10 +16,7 @@ public class DirectWindow : AppWindow {
         
         update_title(file, false);
         
-        // add accelerators
-        Gtk.AccelGroup accel_group = direct_photo_page.ui.get_accel_group();
-        if (accel_group != null)
-            add_accel_group(accel_group);
+        direct_photo_page.switched_to();
         
         // simple layout: menu on top, photo in center, toolbar along bottom (mimicking the
         // PhotoPage in the library, but without the sidebar)
@@ -29,8 +26,6 @@ public class DirectWindow : AppWindow {
         layout.pack_end(direct_photo_page.get_toolbar(), false, false, 0);
         
         add(layout);
-        
-        direct_photo_page.switched_to();
     }
     
     public static DirectWindow get_app() {
@@ -49,7 +44,7 @@ public class DirectWindow : AppWindow {
     protected override void on_fullscreen() {
         File file = get_direct_page().get_current_file();
         
-        go_fullscreen(new DirectPhotoPage(file));
+        go_fullscreen(new DirectFullscreenPhotoPage(file));
     }
     
     public override string get_app_role() {

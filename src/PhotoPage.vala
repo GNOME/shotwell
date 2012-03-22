@@ -2267,7 +2267,6 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
-    private Gtk.Menu context_menu;
 #if ENABLE_FACES
     private Gtk.ToggleToolButton faces_button = null;
 #endif
@@ -2277,8 +2276,6 @@ public class LibraryPhotoPage : EditingHostPage {
     
     public LibraryPhotoPage() {
         base(LibraryPhoto.global, "Photo");
-        
-        context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
         
         // monitor view to update UI elements
         get_view().items_altered.connect(on_photos_altered);
@@ -2317,15 +2314,12 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
         base.init_collect_ui_filenames(ui_filenames);
         
+        ui_filenames.add("photo_context.ui");
         ui_filenames.add("photo.ui");
     }
     
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
-        file.label = _("_File");
-        actions += file;
         
         Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
@@ -2343,10 +2337,6 @@ public class LibraryPhotoPage : EditingHostPage {
         publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
         
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
-        edit.label = _("_Edit");
-        actions += edit;
-        
         Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
@@ -2360,10 +2350,6 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
         view.label = _("_View");
         actions += view;
-        
-        Gtk.ActionEntry photo = { "PhotoMenu", null, TRANSLATABLE, null, null, null };
-        photo.label = _("_Photo");
-        actions += photo;
         
         Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, null };
         tools.label = _("T_ools");
@@ -2522,10 +2508,6 @@ public class LibraryPhotoPage : EditingHostPage {
         rate_five.label = Resources.rating_menu(Rating.FIVE);
         actions += rate_five;
 
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
-        help.label = _("_Help");
-        actions += help;
-
         Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.Stock.ZOOM_IN, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
@@ -2556,10 +2538,6 @@ public class LibraryPhotoPage : EditingHostPage {
         max_size.tooltip = _("Zoom the photo to 200% magnification");
         actions += max_size;
 
-        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
-        tags.label = _("Ta_gs");
-        actions += tags;
-        
         Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
             on_add_tags };
         add_tags.label = Resources.ADD_TAGS_MENU;
@@ -2979,14 +2957,20 @@ public class LibraryPhotoPage : EditingHostPage {
         return base.on_left_released(event);
     }
     
+    private Gtk.Menu get_context_menu() {
+        Gtk.Menu menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
+        assert(menu != null);
+        return menu;
+    }
+    
     protected override bool on_context_buttonpress(Gdk.EventButton event) {
-        popup_context_menu(context_menu, event);
+        popup_context_menu(get_context_menu(), event);
 
         return true;
     }
 
     protected override bool on_context_keypress() {
-        popup_context_menu(context_menu);
+        popup_context_menu(get_context_menu());
         
         return true;
     }

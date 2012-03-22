@@ -48,16 +48,17 @@ public class InjectionGroup {
 public abstract class Page : Gtk.ScrolledWindow {
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
     
-    public Gtk.UIManager ui = new Gtk.UIManager();
+    protected Gtk.UIManager ui;
+    protected Gtk.Toolbar toolbar;
+    protected bool in_view = false;
     
     private string page_name;
     private ViewCollection view = null;
     private Gtk.Window container = null;
-    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
+    private string toolbar_path;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
     private Gtk.Widget event_source = null;
     private bool dnd_enabled = false;
-    private bool in_view = false;
     private ulong last_configure_ms = 0;
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
@@ -76,6 +77,8 @@ public abstract class Page : Gtk.ScrolledWindow {
     private OneShotScheduler? update_actions_scheduler = null;
     private Gtk.ActionGroup? action_group = null;
     private Gtk.ActionGroup[]? common_action_groups = null;
+    
+    private uint[] merge_ids = new uint[0];
     
     protected Page(string page_name) {
         this.page_name = page_name;
@@ -101,12 +104,6 @@ public abstract class Page : Gtk.ScrolledWindow {
 #endif
     }
     
-    private void destroy_ui_manager_widgets(Gtk.UIManagerItemType item_type) {
-        SList<weak Gtk.Widget> toplevels = ui.get_toplevels(item_type);
-        for (int ctr = 0; ctr < toplevels.length(); ctr++)
-            toplevels.nth(ctr).data.destroy();
-    }
-    
     // This is called by the page controller when it has removed this page ... pages should override
     // this (or the signal) to clean up
     public override void destroy() {
@@ -121,19 +118,8 @@ public abstract class Page : Gtk.ScrolledWindow {
         // remove refs to external objects which may be pointing to the Page
         clear_container();
         
-        // Without destroying the menubar, Gtk spits out an assertion related to
-        // a Gtk.AccelLabel being unable to disconnect a signal from the UI Manager's
-        // Gtk.AccelGroup because the AccelGroup has already been finalized.  This only
-        // happens during a drag-and-drop operation where the Page is destroyed.
-        // Destroying the menubar explicitly solves this problem.  These calls go through and
-        // ensure *all* widgets created by the UI manager are destroyed.
-        destroy_ui_manager_widgets(Gtk.UIManagerItemType.MENUBAR);
-        destroy_ui_manager_widgets(Gtk.UIManagerItemType.TOOLBAR);
-        destroy_ui_manager_widgets(Gtk.UIManagerItemType.POPUP);
-        
-        // toolbars (as of yet) are not created by the UI Manager and need to be destroyed
-        // explicitly
-        toolbar.destroy();
+        if (toolbar != null)
+            toolbar.destroy();
         
         // halt any pending callbacks
         if (update_actions_scheduler != null)
@@ -170,6 +156,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         assert(this.container == null);
         
         this.container = container;
+        ui = ((PageWindow) container).get_ui_manager();
     }
     
     public virtual void clear_container() {
@@ -226,6 +213,9 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
 
     public virtual Gtk.Toolbar get_toolbar() {
+        if (toolbar == null)
+            toolbar = toolbar_path == null ? new Gtk.Toolbar() :
+                                             ui.get_widget(toolbar_path) as Gtk.Toolbar;
         return toolbar;
     }
     
@@ -235,10 +225,14 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     public virtual void switching_from() {
         in_view = false;
+        remove_ui();
+        if (toolbar_path != null)
+            toolbar = null;
     }
     
     public virtual void switched_to() {
         in_view = true;
+        add_ui();
         update_modifiers();
     }
     
@@ -443,15 +437,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     private void init_ui() {
-        // Collect all UI filenames and load them into the UI manager
-        Gee.List<string> ui_filenames = new Gee.ArrayList<string>();
-        init_collect_ui_filenames(ui_filenames);
-        if (ui_filenames.size == 0)
-            message("No UI file specified for %s", get_page_name());
-        
-        foreach (string ui_filename in ui_filenames)
-            init_load_ui(ui_filename);
-        
         action_group = new Gtk.ActionGroup("PageActionGroup");
         
         // Collect all Gtk.Actions and add them to the Page's Gtk.ActionGroup
@@ -471,18 +456,28 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         // Get global (common) action groups from the application window
         common_action_groups = AppWindow.get_instance().get_common_action_groups();
+    }
+    
+    private void add_ui() {
+        // Collect all UI filenames and load them into the UI manager
+        Gee.List<string> ui_filenames = new Gee.ArrayList<string>();
+        init_collect_ui_filenames(ui_filenames);
+        if (ui_filenames.size == 0)
+            message("No UI file specified for %s", get_page_name());
         
-        // Add all ActionGroups to the UIManager
+        foreach (string ui_filename in ui_filenames)
+            init_load_ui(ui_filename);
+            
         ui.insert_action_group(action_group, 0);
-        foreach (Gtk.ActionGroup group in common_action_groups)
-            ui.insert_action_group(group, 0);
-        
+
         // Collect injected UI elements and add them to the UI manager
         InjectionGroup[] injection_groups = init_collect_injection_groups();
         foreach (InjectionGroup group in injection_groups) {
             foreach (InjectionGroup.Element element in group.get_elements()) {
-                ui.add_ui(ui.new_merge_id(), group.get_path(), element.name, element.action,
+                uint merge_id = ui.new_merge_id();
+                ui.add_ui(merge_id, group.get_path(), element.name, element.action,
                     element.kind, false);
+                merge_ids += merge_id;
             }
         }
         
@@ -491,11 +486,17 @@ public abstract class Page : Gtk.ScrolledWindow {
         ui.ensure_update();
     }
     
+    private void remove_ui() {
+        for (int i = merge_ids.length - 1 ; i >= 0 ; --i)
+            ui.remove_ui(merge_ids[i]);
+        ui.remove_action_group(action_group);
+        merge_ids.resize(0);
+        
+        ui.ensure_update();
+    }
+    
     public void init_toolbar(string path) {
-        // safely replace existing toolbar (so get_toolbar() never returns null)
-        Gtk.Toolbar? ui_toolbar = ui.get_widget(path) as Gtk.Toolbar;
-        if (ui_toolbar != null)
-            toolbar = ui_toolbar;
+        toolbar_path = path;
     }
    
     // Called from "realize"
@@ -552,7 +553,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         File ui_file = Resources.get_ui(ui_filename);
         
         try {
-            ui.add_ui_from_file(ui_file.get_path());
+            merge_ids += ui.add_ui_from_file(ui_file.get_path());
         } catch (Error err) {
             AppWindow.error_message("Error loading UI file %s: %s".printf(
                 ui_file.get_path(), err.message));
@@ -1160,8 +1161,8 @@ public abstract class CheckerboardPage : Page {
     private const int AUTOSCROLL_TICKS_MSEC = 50;
     
     private CheckerboardLayout layout;
-    private Gtk.Menu item_context_menu = null;
-    private Gtk.Menu page_context_menu = null;
+    private string item_context_menu_path = null;
+    private string page_context_menu_path = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     protected CheckerboardItem anchor = null;
     protected CheckerboardItem cursor = null;
@@ -1226,11 +1227,11 @@ public abstract class CheckerboardPage : Page {
     }
     
     public void init_item_context_menu(string path) {
-        item_context_menu = (Gtk.Menu) ui.get_widget(path);
+        item_context_menu_path = path;
     }
 
     public void init_page_context_menu(string path) {
-        page_context_menu = (Gtk.Menu) ui.get_widget(path);
+        page_context_menu_path = path;
     }
     
     public Gtk.Menu? get_context_menu() {
@@ -1240,11 +1241,17 @@ public abstract class CheckerboardPage : Page {
     }
     
     public virtual Gtk.Menu? get_item_context_menu() {
-        return item_context_menu;
+        Gtk.Menu menu = (Gtk.Menu) ui.get_widget(item_context_menu_path);
+        assert(menu != null);
+        return menu;
     }
     
     public override Gtk.Menu? get_page_context_menu() {
-        return page_context_menu;
+        if (page_context_menu_path == null)
+            return null;
+        Gtk.Menu menu = (Gtk.Menu) ui.get_widget(page_context_menu_path);
+        assert(menu != null);
+        return menu;
     }
     
     protected override bool on_context_keypress() {

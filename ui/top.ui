@@ -1,0 +1,12 @@
+<ui>
+    <menubar name="MenuBar">
+        <menu name="FileMenu" action="FileMenu" />
+        <menu name="EditMenu" action="EditMenu" />  
+        <menu name="ViewMenu" action="ViewMenu" />
+        <menu name="PhotoMenu" action="PhotoMenu" />
+        <menu name="PhotosMenu" action="PhotosMenu" />
+        <menu name="EventsMenu" action="EventsMenu" />
+        <menu name="TagsMenu" action="TagsMenu" />
+        <menu name="HelpMenu" action="HelpMenu" />
+    </menubar>
+</ui>

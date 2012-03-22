@@ -61,23 +61,11 @@ public class ImportQueuePage : SinglePhotoPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
-        file.label = _("_File");
-        actions += file;
-        
         Gtk.ActionEntry stop = { "Stop", Gtk.Stock.STOP, TRANSLATABLE, null, TRANSLATABLE,
             on_stop };
         stop.label = _("_Stop Import");
         stop.tooltip = _("Stop importing photos");
         actions += stop;
-
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
-        view.label = _("_View");
-        actions += view;
-
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
-        help.label = _("_Help");
-        actions += help;
 
         return actions;
     }
