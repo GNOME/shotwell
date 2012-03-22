@@ -2112,7 +2112,8 @@ public class PreferencesDialog {
         if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS
             && has_only_key_modifier(event.state, Gdk.ModifierType.CONTROL_MASK)) {
             // Left Mouse Button and CTRL pressed
-            bg_color_slider.set_value(bg_color_adjustment.get_upper() - parse_color(Config.Facade.DEFAULT_BG_COLOR).red);
+            bg_color_slider.set_value(bg_color_adjustment.get_upper() - 
+                (parse_color(Config.Facade.DEFAULT_BG_COLOR).red * 65536.0f));
             on_value_changed();
 
             return true;
