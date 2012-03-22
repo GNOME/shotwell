@@ -1376,13 +1376,13 @@ public class HermiteGammaApproximationFunction {
 }
 
 namespace AutoEnhance {
-    const int SHADOW_DETECT_MIN_INTENSITY = 4;
-    const int SHADOW_DETECT_MAX_INTENSITY = 128;
+    const int SHADOW_DETECT_MIN_INTENSITY = 8;
+    const int SHADOW_DETECT_MAX_INTENSITY = 100;
     const int SHADOW_DETECT_INTENSITY_RANGE = SHADOW_DETECT_MAX_INTENSITY -
             SHADOW_DETECT_MIN_INTENSITY;
-    const float SHADOW_MODE_HIGH_DISCARD_MASS = 0.03f;
-    const float SHADOW_AGGRESSIVENESS_MUL = 0.5f;
-    const int EMPIRICAL_DARK = 50;
+    const float SHADOW_MODE_HIGH_DISCARD_MASS = 0.02f;
+    const float SHADOW_AGGRESSIVENESS_MUL = 0.4f;
+    const int EMPIRICAL_DARK = 30;
 
 public PixelTransformationBundle create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf) {
     PixelTransformationBundle adjustments = new PixelTransformationBundle();
@@ -1410,7 +1410,7 @@ public PixelTransformationBundle create_auto_enhance_adjustments(Gdk.Pixbuf pixb
        determined threshold below which pixels appear very dark), regardless of the
        percent of pixels in it, then perform shadow detail enhancement. Otherwise,
        skip shadow detail enhancement and perform a traditional contrast expansion */
-    if ((pct_in_range > 40.0f) || (shadow_mean_intensity < EMPIRICAL_DARK)) {
+    if ((pct_in_range > 40.0f) || (pct_in_range > 20.0f) && (shadow_mean_intensity < EMPIRICAL_DARK)) {
         float shadow_trans_effect_size = ((((float) SHADOW_DETECT_MAX_INTENSITY) -
             ((float) shadow_mean_intensity)) / ((float) SHADOW_DETECT_INTENSITY_RANGE)) *
             ShadowDetailTransformation.MAX_PARAMETER;
