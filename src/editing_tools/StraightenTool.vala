@@ -15,7 +15,9 @@ public class StraightenTool : EditingTool {
     private const double MIN_ANGLE = -15.0;
     private const double MAX_ANGLE = 15.0;
     private const double INCREMENT = 0.1;
-    private const int MIN_SLIDER_SIZE = 250;
+    private const int MIN_SLIDER_SIZE = 160;
+    private const int MIN_LABEL_SIZE = 100;
+    private const int MIN_BUTTON_SIZE = 84;
     private const int TEMP_PIXBUF_SIZE = 768;
     
     private class StraightenToolWindow : EditingToolWindow {
@@ -37,16 +39,21 @@ public class StraightenTool : EditingTool {
             base(container);
 
             angle_slider.set_min_slider_size(MIN_SLIDER_SIZE);
+            angle_slider.set_size_request(MIN_SLIDER_SIZE, -1);
             angle_slider.set_value(0.0);
             angle_slider.set_draw_value(false);
 
-            description_label.set_padding(0,0);
-            angle_label.set_padding(0,0);
+            description_label.set_padding(CONTROL_SPACING, 0);
+            angle_label.set_padding(0, 0);
+            angle_label.set_size_request(MIN_LABEL_SIZE,-1);
 
             Gtk.Box slider_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
             slider_layout.pack_start(angle_slider, true, true, 0);
 
             Gtk.Box button_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
+            cancel_button.set_size_request(MIN_BUTTON_SIZE, -1);
+            reset_button.set_size_request(MIN_BUTTON_SIZE, -1);
+            ok_button.set_size_request(MIN_BUTTON_SIZE, -1);
             button_layout.pack_start(cancel_button, true, true, 0);
             button_layout.pack_start(reset_button, true, true, 0);
             button_layout.pack_start(ok_button, true, true, 0);
