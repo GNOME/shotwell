@@ -5,7 +5,7 @@
  */
 
 public class LibraryWindow : AppWindow {
-    public const int SIDEBAR_MIN_WIDTH = 200;
+    public const int SIDEBAR_MIN_WIDTH = 224;
     public const int SIDEBAR_MAX_WIDTH = 320;
     
     public static int PAGE_MIN_WIDTH {
