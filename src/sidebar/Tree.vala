@@ -856,10 +856,15 @@ public class Sidebar.Tree : Gtk.TreeView {
         if (contextable == null)
             return false;
         
+        // First select the sidebar item so that its context menu will be available.        
+        Sidebar.SelectableEntry? selectable = wrapper.entry as Sidebar.SelectableEntry;
+        if (selectable != null)
+            entry_selected(selectable);
+                
         Gtk.Menu? context_menu = contextable.get_sidebar_context_menu(event);
         if (context_menu == null)
             return false;
-        
+
         if (event != null)
             context_menu.popup(null, null, null, event.button, event.time);
         else
