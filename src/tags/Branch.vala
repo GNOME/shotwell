@@ -191,7 +191,7 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry,
         ;
     }
 
-    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event) {
+    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton? event) {
         return context_menu;
     }
     

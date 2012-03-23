@@ -93,7 +93,7 @@ public class Searches.Grouping : Sidebar.Grouping, Sidebar.Contextable {
         ui.ensure_update();
     }
     
-    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event) {
+    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton? event) {
         return context_menu;
     }
     

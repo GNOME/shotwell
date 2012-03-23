@@ -91,7 +91,7 @@ public abstract class Sidebar.SimplePageEntry : Object, Sidebar.Entry, Sidebar.S
         page = null;
     }
     
-    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event) {
+    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton? event) {
         return get_page().get_page_context_menu();
     }
 }
@@ -109,6 +109,6 @@ public class Sidebar.RootOnlyBranch : Sidebar.Branch {
 
 public interface Sidebar.Contextable : Object {
     // Return null if the context menu should not be invoked for this event
-    public abstract Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton event);
+    public abstract Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton? event);
 }
 
