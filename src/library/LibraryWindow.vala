@@ -573,8 +573,6 @@ public class LibraryWindow : AppWindow {
         Config.Facade.get_instance().set_library_window_state(maximized, dimensions);
 
         Config.Facade.get_instance().set_sidebar_position(client_paned.position);
-
-        Config.Facade.get_instance().set_photo_thumbnail_scale(MediaPage.get_global_thumbnail_scale());
         
         base.on_quit();
     }

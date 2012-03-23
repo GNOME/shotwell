@@ -112,9 +112,8 @@ public abstract class MediaPage : CheckerboardPage {
     }
 
     protected class ZoomSliderAssembly : Gtk.ToolItem {
-        public static Gtk.Adjustment global_slider_adjustment = null;
-
         private Gtk.HScale slider;
+        private Gtk.Adjustment adjustment;
         
         public signal void zoom_changed();
 
@@ -131,10 +130,13 @@ public abstract class MediaPage : CheckerboardPage {
             
             zoom_group.pack_start(zoom_out_box, false, false, 0);
 
-            // triggers lazy init of the global slider adjustment if it hasn't already been init'd
-            get_global_thumbnail_scale();
+            // virgin ZoomSliderAssemblies are created such that they have whatever value is
+            // persisted in the configuration system for the photo thumbnail scale
+            int persisted_scale = Config.Facade.get_instance().get_photo_thumbnail_scale();
+            adjustment = new Gtk.Adjustment(ZoomSliderAssembly.scale_to_slider(persisted_scale), 0,
+                ZoomSliderAssembly.scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
 
-            slider = new Gtk.HScale(global_slider_adjustment);
+            slider = new Gtk.HScale(adjustment);
             slider.value_changed.connect(on_slider_changed);
             slider.set_draw_value(false);
             slider.set_size_request(200, -1);
@@ -214,6 +216,13 @@ public abstract class MediaPage : CheckerboardPage {
         public int get_scale() {
             return slider_to_scale(slider.get_value());
         }
+        
+        public void set_scale(int scale) {
+            if (get_scale() == scale)
+                return;
+
+            slider.set_value(scale_to_slider(scale));
+        }
     }
     
     private ZoomSliderAssembly? connected_slider = null;
@@ -239,14 +248,6 @@ public abstract class MediaPage : CheckerboardPage {
 
         // enable drag-and-drop export of media
         dnd_handler = new DragAndDropHandler(this);
-    }
-    
-    private static void set_global_thumbnail_scale(int new_scale) {
-        if (get_global_thumbnail_scale() == new_scale)
-            return;
-
-        ZoomSliderAssembly.global_slider_adjustment.set_value(
-            ZoomSliderAssembly.scale_to_slider(new_scale));
     }
    
     private static int compute_zoom_scale_increase(int current_scale) {
@@ -636,17 +637,6 @@ public abstract class MediaPage : CheckerboardPage {
     public ZoomSliderAssembly create_zoom_slider_assembly() {
         return new ZoomSliderAssembly();
     }
-    
-    public static int get_global_thumbnail_scale() {
-        if (ZoomSliderAssembly.global_slider_adjustment == null) {
-            int persisted_scale = Config.Facade.get_instance().get_photo_thumbnail_scale();
-            ZoomSliderAssembly.global_slider_adjustment = new Gtk.Adjustment(
-                ZoomSliderAssembly.scale_to_slider(persisted_scale), 0,
-                ZoomSliderAssembly.scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
-        }
-
-        return ZoomSliderAssembly.slider_to_scale(ZoomSliderAssembly.global_slider_adjustment.get_value());
-    }
 
     protected override bool on_mousewheel_up(Gdk.EventScroll event) {
         if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -792,11 +782,6 @@ public abstract class MediaPage : CheckerboardPage {
     public override void switched_to() {
         base.switched_to();
         
-        // the global thumbnail scale could've changed while another page was displayed, so
-        // make sure that this page's thumb size matches the global thumbnail scale
-        if (get_global_thumbnail_scale() != get_thumb_size())
-            set_thumb_size(get_global_thumbnail_scale());
-
         // set display options to match Configuration toggles (which can change while switched away)
         get_view().freeze_notifications();
         set_display_titles(Config.Facade.get_instance().get_display_photo_titles());
@@ -806,10 +791,34 @@ public abstract class MediaPage : CheckerboardPage {
 
         sync_sort();
     }
+    
+    public override void switching_from() {
+        disconnect_slider();
+
+        base.switching_from();
+    }
 
     protected void connect_slider(ZoomSliderAssembly slider) {
         connected_slider = slider;
         connected_slider.zoom_changed.connect(on_zoom_changed);
+        load_persistent_thumbnail_scale();
+    }
+    
+    private void save_persistent_thumbnail_scale() {
+        if (connected_slider == null)
+            return;
+            
+        Config.Facade.get_instance().set_photo_thumbnail_scale(connected_slider.get_scale());
+    }
+    
+    private void load_persistent_thumbnail_scale() {
+        if (connected_slider == null)
+            return;
+
+        int persistent_scale = Config.Facade.get_instance().get_photo_thumbnail_scale();
+
+        connected_slider.set_scale(persistent_scale);
+        set_thumb_size(persistent_scale);
     }
     
     protected void disconnect_slider() {
@@ -823,6 +832,8 @@ public abstract class MediaPage : CheckerboardPage {
     protected virtual void on_zoom_changed() {
         if (connected_slider != null)
             set_thumb_size(connected_slider.get_scale());
+
+        save_persistent_thumbnail_scale();
     }
     
     protected abstract void on_export();
@@ -1172,7 +1183,7 @@ public abstract class MediaPage : CheckerboardPage {
             connected_slider.increase_step();
         } else {
             int new_scale = compute_zoom_scale_increase(get_thumb_size());
-            set_global_thumbnail_scale(new_scale);
+            save_persistent_thumbnail_scale();
             set_thumb_size(new_scale);
         }
     }
@@ -1182,7 +1193,7 @@ public abstract class MediaPage : CheckerboardPage {
             connected_slider.decrease_step();
         } else {
             int new_scale = compute_zoom_scale_decrease(get_thumb_size());
-            set_global_thumbnail_scale(new_scale);
+            save_persistent_thumbnail_scale();
             set_thumb_size(new_scale);
         }
     }
