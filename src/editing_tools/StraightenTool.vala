@@ -359,6 +359,7 @@ public class StraightenTool : EditingTool {
 
         // draw the rotated photo and grid.
         draw_rotated_source(photo_surf, rotate_ctx, view_width, view_height, photo_angle);
+        rotate_ctx.set_line_width(1.0);
         draw_superimposed_grid(rotate_ctx, view_width, view_height);
 
         // fill region behind the rotation surface with neutral color.
@@ -436,11 +437,11 @@ public class StraightenTool : EditingTool {
 
         canvas.draw_horizontal_line(dest_ctx, 0, 0, width, false);
         canvas.draw_horizontal_line(dest_ctx, 0, half_height, width, false);
-        canvas.draw_horizontal_line(dest_ctx, 0, view_height, width, false);
+        canvas.draw_horizontal_line(dest_ctx, 0, view_height - 1, width, false);
 
-        canvas.draw_vertical_line(dest_ctx, 0, 0, height, false);
-        canvas.draw_vertical_line(dest_ctx, half_width, 0, height, false);
-        canvas.draw_vertical_line(dest_ctx, width, 0, height, false);
+        canvas.draw_vertical_line(dest_ctx, 0, 0, height + 1, false);
+        canvas.draw_vertical_line(dest_ctx, half_width, 0, height + 1, false);
+        canvas.draw_vertical_line(dest_ctx, width - 1, 0, height + 1, false);
 
         dest_ctx.set_source_rgba(1.0, 1.0, 1.0, 0.33);
 
