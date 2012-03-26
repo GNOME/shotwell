@@ -3053,7 +3053,7 @@ public abstract class Photo : PhotoSource, Dateable {
             
             double tmp;
             if ((secs_since_access.elapsed(out tmp) > PRECACHE_TIME_TO_LIVE) || (immed)) {
-                debug("pipeline not run in over %d seconds or got immediate command, discarding" + 
+                debug("pipeline not run in over %d seconds or got immediate command, discarding " + 
                     "cached original for %s",
                     PRECACHE_TIME_TO_LIVE, to_string());
                 unmodified_precached = null;

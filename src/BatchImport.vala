@@ -952,7 +952,7 @@ public class BatchImport : Object {
                     BackingPhotoRow bpr = new BackingPhotoRow();
                     bpr.file_format = PhotoFileFormat.JFIF;
                     bpr.filepath = job.ready.photo_import_params.final_associated_file.get_path();
-                    debug("Associating %s with sibbling %s", ((Photo) source).get_file().get_path(),
+                    debug("Associating %s with sibling %s", ((Photo) source).get_file().get_path(),
                         bpr.filepath);
                     try {
                         ((Photo) source).add_backing_photo_for_development(RawDeveloper.CAMERA, bpr);
