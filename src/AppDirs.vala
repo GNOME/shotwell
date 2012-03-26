@@ -9,6 +9,7 @@ class AppDirs {
     
     private static File exec_dir;
     private static File data_dir = null;
+    private static File tmp_dir = null;
     
     // Because this is called prior to Debug.init(), this function cannot do any logging calls
     public static void init(string arg0) {
@@ -112,17 +113,16 @@ class AppDirs {
     }
     
     public static File get_temp_dir() {
-        // Because multiple instances of the app can run at the same time, place temp files in
-        // subdir named after process ID
-        File tmp_dir = File.new_for_path(Environment.get_tmp_dir()).get_child(
-            "shotwell-%d".printf((int) Posix.getuid())).get_child(
-            "%d".printf((int) Posix.getpid()));
-        try {
-            if (!tmp_dir.query_exists(null))
-                tmp_dir.make_directory_with_parents(null);
-        } catch (Error err) {
-            AppWindow.panic(_("Unable to create temporary directory %s: %s").printf(
-                tmp_dir.get_path(), err.message));
+        if (tmp_dir == null) {
+            tmp_dir = File.new_for_path(DirUtils.mkdtemp (Environment.get_tmp_dir() + "/shotwell-XXXXXX"));
+            
+            try {
+                if (!tmp_dir.query_exists(null))
+                    tmp_dir.make_directory_with_parents(null);
+            } catch (Error err) {
+                AppWindow.panic(_("Unable to create temporary directory %s: %s").printf(
+                    tmp_dir.get_path(), err.message));
+            }
         }
         
         return tmp_dir;
