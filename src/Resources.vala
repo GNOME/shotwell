@@ -36,6 +36,7 @@ namespace Resources {
         "Lucas Beeler <lucas@yorba.org>",
         "Allison Barlow <allison@yorba.org>",
         "Eric Gregory <eric@yorba.org>",
+        "Clinton Rogers <clinton@yorba.org>",
         null
     };
 
