@@ -1386,7 +1386,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
         new LocaleLookup( "ro", "ro-ro" ),
         new LocaleLookup( "ru", "ru-ru" ),
         new LocaleLookup( "sk", "sk-sk" ),
-        new LocaleLookup( "sl", "sl-sl" ),
+        new LocaleLookup( "sl", "sl-si" ),
         new LocaleLookup( "sv", "sv-se" ),
         new LocaleLookup( "th", "th-th" ),
         new LocaleLookup( "vi", "vi-vn" ),
