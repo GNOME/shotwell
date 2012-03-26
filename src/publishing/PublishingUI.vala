@@ -353,19 +353,21 @@ public class PublishingDialog : Gtk.Dialog {
     // gets called twice back-to-back in quick succession. So use a timer to do a short circuit
     // return if this call to go( ) follows immediately on the heels of another call to go( ).
     private static Timer since_last_start = null;
+    private static bool elapsed_is_valid = false;
     public static void go(Gee.Collection<MediaSource> to_publish) {
         if (active_instance != null)
             return;
-        
+
         if (since_last_start == null) {
-			// GLib.Timers start themselves automatically when they're created, so stop our
+            // GLib.Timers start themselves automatically when they're created, so stop our
             // new timer and reset it to zero 'til were ready to start timing. 
             since_last_start = new Timer();
             since_last_start.stop();
             since_last_start.reset();
+            elapsed_is_valid = false;
         } else {
             double elapsed = since_last_start.elapsed();
-            if (elapsed < 0.05)
+            if ((elapsed < 0.05) && (elapsed_is_valid))
                 return;
         }
 
@@ -381,15 +383,15 @@ public class PublishingDialog : Gtk.Dialog {
             // warn the user.
             AppWindow.error_message_with_title(_("Unable to publish"),
                 _("Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose <b>Edit %s Preferences</b> and enable one or more of the publishing plugins on the <b>Plugin</b> tab.").printf("▸"));
-                    
-            return;                
+
+            return;
         }
         
         // If we get down here, it means that at least one publishing service 
         // was found that could accept this type of media, so continue normally.
 
         debug("PublishingDialog.go( )");
-        
+
         active_instance = new PublishingDialog(to_publish);
         
         active_instance.run();
@@ -398,6 +400,7 @@ public class PublishingDialog : Gtk.Dialog {
 
         // start timing just before we return
         since_last_start.start();
+        elapsed_is_valid = true;
     }
     
     private bool on_window_close(Gdk.EventAny evt) {
