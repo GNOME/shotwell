@@ -2132,7 +2132,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cwidth = viewport_allocation.width;
             cheight = viewport_allocation.height;
             
-            int new_x = rx + cx + (cwidth / 2);
+            // it isn't clear why, but direct mode seems to want to position tool windows
+            // differently than library mode...
+            int new_x = (this is DirectPhotoPage) ? (rx + cx + (cwidth / 2) - (tool_alloc.width / 2)) :
+                (rx + cx + (cwidth / 2));
             int new_y = ry + cy + cheight - ((tool_alloc.height / 4) * 3);
             
             // however, clamp the window so it's never off-screen initially
