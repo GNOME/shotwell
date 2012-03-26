@@ -738,6 +738,11 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     public bool rename(string? name) {
         string? new_name = prep_event_name(name);
         
+        // Allow rename to date but it should go dynamic, so set name to ""
+        if (new_name == get_formatted_daterange()) {
+            new_name = "";
+        }
+        
         bool renamed = event_table.rename(event_id, new_name);
         if (renamed) {
             raw_name = new_name;
