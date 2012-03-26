@@ -1092,6 +1092,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private SizeEntry[] sizes = null;
     private PublishingParameters parameters = null;
     private FlickrPublisher publisher = null;
+    private Spit.Publishing.Publisher.MediaType media_type;
 
     public signal void publish();
     public signal void logout();
@@ -1100,6 +1101,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         Spit.Publishing.Publisher.MediaType media_type) {
         this.parameters = parameters;
         this.publisher = publisher;
+        this.media_type = media_type;
 
         visibilities = create_visibilities();
         sizes = create_sizes();
@@ -1186,7 +1188,9 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private void on_publish_clicked() {
         parameters.visibility_specification =
             visibilities[visibility_combo.get_active()].specification;
-        parameters.photo_major_axis_size = sizes[size_combo.get_active()].size;
+            
+        if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0)
+            parameters.photo_major_axis_size = sizes[size_combo.get_active()].size;
 
         publish();
     }
