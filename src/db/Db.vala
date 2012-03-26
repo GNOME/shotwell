@@ -59,8 +59,10 @@ public VerifyResult verify_database(out string app_version, out int schema_versi
     return VerifyResult.OK;
 }
 
-private VerifyResult upgrade_database(int version) {
-    assert(version < DatabaseTable.SCHEMA_VERSION);
+private VerifyResult upgrade_database(int input_version) {
+    assert(input_version < DatabaseTable.SCHEMA_VERSION);
+    
+    int version = input_version;
     
     // No upgrade available from version 1.
     if (version == 1)
@@ -259,7 +261,8 @@ private VerifyResult upgrade_database(int version) {
     // * Upgrades tag names in the TagTable for hierarchical tag support
     //
     
-    TagTable.upgrade_for_htags();
+    if (input_version < 14)
+        TagTable.upgrade_for_htags();
     
     version = 14;
     
