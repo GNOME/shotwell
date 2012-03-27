@@ -622,6 +622,7 @@
                               <object class="GtkLabel" id="patern">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="mnemonic_widget">dir_pattern_entry</property>
                                 <property name="xalign">0</property>
                                 <property name="label" translatable="yes">_Pattern:</property>
                                 <property name="use_underline">True</property>
