@@ -1,3 +1,15 @@
+Shotwell 0.12.0 - 27 March 2012 - "A Counter-Clockwise Swirl"
+----------------------------------------------------------------------------
+
+  * Adds straighten tool
+  * Ported from GTK 2 to GTK 3
+  * Better handling of importing from Android devices
+  * Facebook and Flickr login now use OAuth authentication
+  * Numerous enhancements to the plugin subsystem
+  * The F-Spot importer is now implemented as a plugin
+  * Many, many bugfixes and stability enhancements
+
+
 Shotwell 0.11.6 - 3 November 2011 - "I know you can't, and I'm positive that
                                      you won't"
 ----------------------------------------------------------------------------

@@ -1,3 +1,16 @@
+shotwell (0.12.0+trunk-1~oneiric1) oneiric; urgency=low
+
+  * Adds straighten tool
+  * Ported from GTK 2 to GTK 3
+  * Better handling of importing from Android devices
+  * Facebook and Flickr login now use OAuth authentication
+  * Numerous enhancements to the plugin subsystem
+  * The F-Spot importer is now implemented as a plugin
+  * Many, many bugfixes and stability enhancements
+
+ -- Clint Rogers <clinton@yorba.org>  Tue, 27 Mar 2012 12:18:54 -0700
+
+
 shotwell (0.11.6+trunk-1~oneiric1) oneiric; urgency=low
 
   * Fixes a critical bug in which adding or modifying
