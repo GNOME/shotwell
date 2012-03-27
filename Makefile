@@ -1,7 +1,7 @@
 PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 
-VERSION = 0.11.93+trunk
+VERSION = 0.12.0
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -137,6 +137,8 @@ RESOURCE_FILES = \
 	tags.ui \
 	trash.ui \
 	search_sidebar_context.ui \
+	top.ui \
+	photo_context.ui \
 	tag_sidebar_context.ui
 
 SYS_INTEGRATION_FILES = \
