@@ -735,9 +735,14 @@ public abstract class TextEntryDialogMediator {
 // This method takes primary and secondary texts and returns ready-to-use pango markup 
 // for a HIG-compliant alert dialog. Please see 
 // http://library.gnome.org/devel/hig-book/2.32/windows-alert.html.en for details.
-public string build_alert_body_text(string? primary_text, string? secondary_text) {
+public string build_alert_body_text(string? primary_text, string? secondary_text, bool should_escape = true) {
+    if (should_escape) {
+        return "<span weight=\"Bold\" size=\"larger\">%s</span>\n%s".printf(
+            guarded_markup_escape_text(primary_text), guarded_markup_escape_text(secondary_text));
+    }
+    
     return "<span weight=\"Bold\" size=\"larger\">%s</span>\n%s".printf(
-        guarded_markup_escape_text(primary_text), guarded_markup_escape_text(secondary_text));
+        guarded_markup_escape_text(primary_text), secondary_text);
 }
 
 // Entry completion for values separated by separators (e.g. comma in the case of tags)
