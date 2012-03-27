@@ -186,8 +186,6 @@ ICON_FILES = \
 	publish.png \
 	redeye.png \
 	rejected.svg \
-	searchbox-clear.svg \
-	searchbox-find.svg \
 	shotwell-16.svg \
 	shotwell-24.svg \
 	shotwell.ico \
