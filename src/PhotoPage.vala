@@ -893,7 +893,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
             break;
         }
     }
-    
+
+    protected void enable_rotate(bool should_enable) {
+        rotate_button.set_sensitive(should_enable);
+    }
+
     // This function should be called if the viewport has changed and the pixbuf cache needs to be
     // regenerated.  Use refresh_caches() if the contents of the ViewCollection have changed
     // but not the viewport.
@@ -1334,7 +1338,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Photo? photo = get_photo();
         Scaling scaling = get_canvas_scaling();
         
-        rotate_button.sensitive = ((photo != null) && (!photo_missing)) ?
+        rotate_button.sensitive = ((photo != null) && (!photo_missing) && photo.check_can_rotate()) ?
             is_rotate_available(photo) : false;
         crop_button.sensitive = ((photo != null) && (!photo_missing)) ?
             EditingTools.CropTool.is_available(photo, scaling) : false;

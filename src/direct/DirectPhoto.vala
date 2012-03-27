@@ -9,6 +9,8 @@ public class DirectPhoto : Photo {
     
     public static DirectPhotoSourceCollection global = null;
     
+    public signal void can_rotate_changed(bool b);
+    
     private Gdk.Pixbuf preview = null;
     private bool loaded = false;
     
@@ -102,6 +104,19 @@ public class DirectPhoto : Photo {
         return scaling.perform_on_pixbuf(preview, Gdk.InterpType.BILINEAR, true);
     }
     
+    public override void rotate(Rotation rotation) {
+        can_rotate_now = false;
+        can_rotate_changed(false);
+        base.rotate(rotation);
+    }
+
+    public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
+        Gdk.Pixbuf ret = base.get_pixbuf(scaling);
+        can_rotate_changed(true);
+        can_rotate_now = true;
+        return ret;
+    }
+
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
         return (get_metadata().get_preview_count() == 0) ? null :
             get_orientation().rotate_pixbuf(get_metadata().get_preview(0).get_pixbuf());

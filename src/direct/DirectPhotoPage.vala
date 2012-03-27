@@ -243,7 +243,21 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     protected override void photo_changing(Photo new_photo) {
+        if (get_photo() != null) {
+            DirectPhoto tmp = get_photo() as DirectPhoto;
+            
+            if (tmp != null) {
+                tmp.can_rotate_changed.disconnect(on_dphoto_can_rotate_changed);
+            }
+        }
+
         ((DirectPhoto) new_photo).demand_load();
+        
+        DirectPhoto tmp = new_photo as DirectPhoto;
+        
+        if (tmp != null) {
+            tmp.can_rotate_changed.connect(on_dphoto_can_rotate_changed);
+        }        
     }
     
     public File get_current_file() {
@@ -539,6 +553,10 @@ public class DirectPhotoPage : EditingHostPage {
                 (Gee.Collection<Photo>) get_view().get_selected_sources_of_type(typeof(Photo)));
         }
     }
+    
+    private void on_dphoto_can_rotate_changed(bool should_allow_rotation) {
+        enable_rotate(should_allow_rotation);
+    }   
     
     protected override DataView create_photo_view(DataSource source) {
         return new DirectView((DirectPhoto) source);

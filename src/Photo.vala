@@ -296,6 +296,8 @@ public abstract class Photo : PhotoSource, Dateable {
     private OneShotScheduler reimport_editable_scheduler = null;
     private OneShotScheduler update_editable_attributes_scheduler = null;
     private OneShotScheduler remove_editable_scheduler = null;
+    
+    protected bool can_rotate_now = true;
 
     // The first time we have to run the pipeline on an image, we'll precache
     // a copy of the unscaled, unmodified version; this allows us to operate
@@ -2626,6 +2628,10 @@ public abstract class Photo : PhotoSource, Dateable {
             notify_altered(new Alteration("image", "orientation"));
         
         return committed;
+    }
+
+    public bool check_can_rotate() {
+        return can_rotate_now;
     }
 
     public virtual void rotate(Rotation rotation) {
