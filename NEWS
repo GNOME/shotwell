@@ -1,3 +1,10 @@
+Shotwell 0.12.1 - 28 March 2012 - "Oh No, Not The Knuckle..."
+----------------------------------------------------------------------------
+
+  * Corrects a critical issue where the application could not be started in
+    direct-edit mode.
+
+
 Shotwell 0.12.0 - 27 March 2012 - "A Counter-Clockwise Swirl"
 ----------------------------------------------------------------------------
 

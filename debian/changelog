@@ -1,3 +1,11 @@
+shotwell (0.12.1-1~oneiric1) oneiric; urgency=low
+
+  * Corrects a critical issue where the application could
+    not be started in direct-edit mode.
+    
+ -- Clint Rogers <clinton@yorba.org>  Tue, 28 Mar 2012 12:18:54 -0700
+ 
+ 
 shotwell (0.12.0+trunk-1~oneiric1) oneiric; urgency=low
 
   * Adds straighten tool
