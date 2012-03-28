@@ -120,6 +120,7 @@ VAPI_FILES = \
 RESOURCE_FILES = \
 	collection.ui \
 	direct.ui \
+	direct_context.ui \
 	events_directory.ui \
 	event.ui \
 	fullscreen.ui \
@@ -128,18 +129,18 @@ RESOURCE_FILES = \
 	media.ui \
 	offline.ui \
 	photo.ui \
+	photo_context.ui \
 	savedsearch.ui \
 	search_bar.ui \
+	search_sidebar_context.ui \
 	set_background_dialog.glade \
 	shotwell.glade \
 	shotwell.xml \
 	sidebar_default_context.ui \
+	tag_sidebar_context.ui \
 	tags.ui \
-	trash.ui \
-	search_sidebar_context.ui \
 	top.ui \
-	photo_context.ui \
-	tag_sidebar_context.ui
+	trash.ui 
 
 SYS_INTEGRATION_FILES = \
 	shotwell.desktop.head \
