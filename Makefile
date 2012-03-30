@@ -236,6 +236,8 @@ HELP_FILES = \
 	other-files.page \
 	other-missing.page \
 	other-multiple.page \
+	other-plugins.page \
+	raw.page \
 	running.page \
 	share-background.page \
 	share-export.page \
