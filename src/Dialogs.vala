@@ -1723,7 +1723,8 @@ public class WelcomeDialog : Gtk.Dialog {
         
         if (show_system_pictures_import) {
             system_pictures_import_check = new Gtk.CheckButton.with_mnemonic(
-                _("_Import photos from your Pictures folder"));
+                _("_Import photos from your %s folder").printf(
+                get_display_pathname(AppDirs.get_import_dir())));
             import_action_checkbox_packer.add(system_pictures_import_check);
             system_pictures_import_check.set_active(true);
         }
