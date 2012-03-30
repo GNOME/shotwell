@@ -196,6 +196,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string MERGE_MENU = _("_Merge Events");
     public const string MERGE_LABEL = _("Merge");
+    public const string MERGE_TOOLTIP = _("Combine events into a single event");
 
     public const string RATING_MENU = _("_Set Rating");
     public const string RATING_LABEL = _("Set Rating");
