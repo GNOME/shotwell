@@ -346,9 +346,12 @@ public class DataImportsDialog : Gtk.Dialog {
     
     private void terminate() {
         debug("DataImportsDialog: terminate( ): invoked.");
-        
-        host.stop_importing();
-        host = null;
+
+        if (host != null) {
+            host.stop_importing();
+            host = null;
+        }
+
         hide();
         destroy();
         instance = null;
