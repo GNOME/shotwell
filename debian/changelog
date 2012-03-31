@@ -1,3 +1,9 @@
+shotwell (0.12.1-2~oneiric1) oneiric; urgency=low
+
+  * Rebuild 0.12.1 for Oneiric with updated gexiv2.
+
+ -- Adam Dingle <adam@yorba.org>  Sat, 31 Mar 2012 12:56:39 -0700
+
 shotwell (0.12.1-1~oneiric1) oneiric; urgency=low
 
   * Corrects a critical issue where the application could
