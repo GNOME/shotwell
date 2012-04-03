@@ -73,7 +73,7 @@ msgstr "高さ"
 # a list of format specifiers and their meanings.
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr "%b月%d日 (%a)"
+msgstr "%Y年%m月%d"
 
 # The string %d, %Y is a format string that describes the day of each month as
 # a decimal from (d%) and the year as a decimal (%Y) including the century.
@@ -81,7 +81,7 @@ msgstr "%b月%d日 (%a)"
 # a list of format specifiers and their meanings.
 #: src/util/misc.vala:232
 msgid "%d, %Y"
-msgstr "%d, %Y"
+msgstr "%d日"
 
 # The string %a %b %d, %Y is a format string that describes the abbreviated
 # weekday (%a), abbreviated month (%b), day of each month as a decimal from
