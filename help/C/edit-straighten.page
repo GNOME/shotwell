@@ -1,0 +1,28 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="edit-straighten">
+      
+    <info>
+        <link type="guide" xref="index#edit"/>
+        <desc>Straighten a photo so that its horizon appears level.</desc>
+        
+   	<link type="next" xref="edit-undo" />
+    </info>
+    
+    	<title>Straighten photos</title>
+    	
+<p>The straighten tools allows photos to be leveled and straightened. The straighten tool is only available in full-window or fullscreen mode. </p>
+
+ <steps>
+     <item>
+      <p>Click <gui>Straighten</gui>. The straighten slider will appear. Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</key></keyseq>.</p>
+     </item>
+     <item>
+      <p>Drag the slider to achieve the desired degree of straightening.</p>
+     </item>
+     <item>
+      <p>Press <gui>OK</gui> when finished.</p>
+     </item>
+ </steps>
+
+</page>	

@@ -136,7 +136,7 @@
     When a photo file changes, Shotwell rereads the file and updates your view of the
     photo and metadata.</p>
     
-    <p>Note that Shotwell 0.9 checks all photo files for changes at startup, but only photo files contained in
+    <p>Note that Shotwell checks all photo files for changes at startup, but only photo files contained in
     the library directory are monitored in real time after startup.  We hope to remove this limitation
     in a further release.</p>
 

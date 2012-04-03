@@ -218,6 +218,7 @@ HELP_FILES = \
 	edit-nondestructive.page \
 	edit-redeye.page \
 	edit-rotate.page \
+	edit-straighten.page \
 	edit-time-date.page \
 	edit-undo.page \
 	formats.page \
