@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.12.0\n"
-"Report-Msgid-Bugs-To: Lucas Stephen Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2011-08-03 18:23-0700\n"
+"Project-Id-Version: shotwell-extras-0.12.2\n"
+"Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
+"POT-Creation-Date: 2012-03-30 15:35-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,74 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:33
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:850
+msgid "An error message occured when publishing to Piwigo. Please try again."
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:931
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:932
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
+"entered"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:933
+msgid "Username and/or password invalid. Please try again"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1061
+msgid "Shotwell Connect"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1139
+msgid "Everyone"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1140
+msgid "Admins, Friends, Family, Contacts"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1141
+msgid "Admins, Family, Friends"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1142
+msgid "Admins, Family"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1143
+msgid "Admins"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1151
+msgid "500 x 375 pixels"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1152
+msgid "1024 x 768 pixels"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1153
+msgid "2048 x 1536 pixels"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1154
+msgid "4096 x 3072 pixels"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1155
+msgid "Original size"
+msgstr ""
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
@@ -24,55 +92,59 @@ msgstr ""
 msgid "Visit the Yandex.Fotki web site"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:634
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:18
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:27
 msgid "label"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:35
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:49
 msgid "_URL of your Piwigo photo library"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:44
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:59
 msgid "User _name"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:57
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:73
 msgid "_Password"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:112
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:130
 msgid "_Remember Password"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:128
+#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:151
 msgid "Login"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:18
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:21
 msgid "Photos will appear in:"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:31
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:37
 msgid "An _existing category:"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:42
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:49
 msgid "A _new album named:"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:93
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:104
 msgid "Photos will be _visible by:"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:124
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:131
+msgid "Photo size:"
+msgstr ""
+
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:164
 msgid "Logout"
 msgstr ""
 
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:137
+#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:178
 msgid "Publish"
 msgstr ""
 
