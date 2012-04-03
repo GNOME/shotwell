@@ -1046,17 +1046,30 @@ public abstract class MediaPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
         
+        // Check if any photo has edits
+
+        // Display warning only when edits could be destroyed
+        bool need_warn = false;
+
         // Make a list of all photos that need their developer changed.
         Gee.ArrayList<DataView> to_set = new Gee.ArrayList<DataView>();
         foreach (DataView view in get_view().get_selected()) {
             Photo? p = view.get_source() as Photo;
-            if (p != null && (!rd.is_equivalent(p.get_raw_developer())))
+            if (p != null && (!rd.is_equivalent(p.get_raw_developer()))) {
                 to_set.add(view);
+                
+                if (p.has_transformations()) {
+                    need_warn = true;
+                }
+            }
         }
         
-        SetRawDeveloperCommand command = new SetRawDeveloperCommand(to_set, rd);
-        get_command_manager().execute(command);
-        update_development_menu_item_sensitivity();
+        if (!need_warn || Dialogs.confirm_warn_developer_changed(to_set.size)) {
+            SetRawDeveloperCommand command = new SetRawDeveloperCommand(to_set, rd);
+            get_command_manager().execute(command);
+
+            update_development_menu_item_sensitivity();
+        }
     }
 
     protected override void set_display_titles(bool display) {

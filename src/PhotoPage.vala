@@ -2704,9 +2704,15 @@ public class LibraryPhotoPage : EditingHostPage {
         if (photo == null || rd.is_equivalent(photo.get_raw_developer()))
             return;
         
-        SetRawDeveloperCommand command = new SetRawDeveloperCommand(get_view().get_selected(), rd);
-        get_command_manager().execute(command);
-        update_development_menu_item_sensitivity();
+        // Check if any photo has edits
+        // Display warning only when edits could be destroyed
+        if (!photo.has_transformations() || Dialogs.confirm_warn_developer_changed(1)) {
+            SetRawDeveloperCommand command = new SetRawDeveloperCommand(get_view().get_selected(),
+                rd);
+            get_command_manager().execute(command);
+            
+            update_development_menu_item_sensitivity();
+        }
     }
     
     private void update_flag_action() {
