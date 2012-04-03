@@ -62,28 +62,9 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-# For events that span exactly two days, the dates in the event name are
-# formatted like so: "Tuesday, Feb 14-15, YYYY", where YYYY is a four-digit year.  
-# This string is the "Tuesday, Feb 14" portion. You should translate %a %b %d so 
-# that it describes a day of the week, a month, and a calendar day in the format 
-# used in your language and region. The format string you enter should conform to 
-# POSIX date and time formatting conventions. Please see the strftime manpage for
-# a list of format specifiers and their meanings.
-#: src/util/misc.vala:231 src/util/misc.vala:236
-msgid "%a %b %d"
-msgstr ""
-
-# For events that span exactly two days, the dates in the event name are
-# formatted like so: "Tuesday, Feb 14-15, YYYY", where YYYY is a four-digit year.  
-# This string is the "15, YYYY" portion. You should translate %d, %Y so that it 
-# describes a calendar day and a four-digit year in the format used in your 
-# language and region. The format string you enter should conform to POSIX 
-# date and time formatting conventions. Please see the strftime manpage for
-# a list of format specifiers and their meanings.
-#: src/util/misc.vala:232
-msgid "%d, %Y"
-msgstr ""
-
+# This is a date and time format string corresponding to a US-style long-form
+# date (e.g. "Wednesday April 4 2012"). You should translate this string into
+# a long-form date appropriate to your language, country and region
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
 msgid "%a %b %d, %Y"
@@ -2442,7 +2423,6 @@ msgstr ""
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr ""
-
 
 #: src/Resources.vala:18 plugins/shotwell-publishing/FlickrPublishing.vala:34
 #: plugins/shotwell-publishing/FacebookPublishing.vala:32
