@@ -8,10 +8,10 @@
 # Yuri Chornoivan <yurchor@ukr.net>, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.12\n"
+"Project-Id-Version: shotwell-extras-0.12.2\n"
 "Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
-"POT-Creation-Date: 2012-03-05 15:14-0800\n"
-"PO-Revision-Date: 2012-03-06 04:57+0000\n"
+"POT-Creation-Date: 2012-03-30 15:35-0700\n"
+"PO-Revision-Date: 2012-03-31 06:13+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:33
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "© Yorba Foundation, 2009–2012"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:850
+msgid "An error message occured when publishing to Piwigo. Please try again."
+msgstr "Під час спроби оприлюднення даних на Piwigo було отримано повідомлення про помилку. Будь ласка, повторіть спробу."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:931
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr "Вкажіть адресу вашої бібліотеки фотографій Piwigo, а також ім’я користувача і пароль, пов’язані з вашим обліковим записом Piwigo, до якого прив’язано бібліотеку."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:932
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you"
+" entered"
+msgstr "Shotwell не вдалося встановити зв’язок з вашою бібліотекою фотографій Piwigo. Будь ласка, перевірте, чи правильно вказано адресу."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:933
+msgid "Username and/or password invalid. Please try again"
+msgstr "Некоректні значення імені користувача і/або пароля. Будь ласка, повторіть спробу."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1061
+msgid "Shotwell Connect"
+msgstr "З’єднувач Shotwell"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1139
+msgid "Everyone"
+msgstr "Будь-хто"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1140
+msgid "Admins, Friends, Family, Contacts"
+msgstr "Адміністратори, друзі, родичі, контакти"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1141
+msgid "Admins, Family, Friends"
+msgstr "Адміністратори, родичі, друзі"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1142
+msgid "Admins, Family"
+msgstr "Адміністратори, родичі"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1143
+msgid "Admins"
+msgstr "Адміністратори"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1151
+msgid "500 x 375 pixels"
+msgstr "500⨯375 пікселів"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1152
+msgid "1024 x 768 pixels"
+msgstr "1024⨯768 пікселів"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1153
+msgid "2048 x 1536 pixels"
+msgstr "2048⨯1536 пікселів"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1154
+msgid "4096 x 3072 pixels"
+msgstr "4096⨯3072 пікселів"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1155
+msgid "Original size"
+msgstr "Початковий розмір"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"

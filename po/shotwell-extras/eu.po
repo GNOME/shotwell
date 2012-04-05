@@ -9,10 +9,10 @@
 # lsbeeler <lucas@yorba.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.12\n"
+"Project-Id-Version: shotwell-extras-0.12.2\n"
 "Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
-"POT-Creation-Date: 2012-03-05 15:14-0800\n"
-"PO-Revision-Date: 2012-03-06 20:37+0000\n"
+"POT-Creation-Date: 2012-03-30 15:35-0700\n"
+"PO-Revision-Date: 2012-04-05 06:08+0000\n"
 "Last-Translator: assar <asiersar@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:33
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "Copyright 2009-2012 Yorba Foundation"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:850
+msgid "An error message occured when publishing to Piwigo. Please try again."
+msgstr "Errorea gertatu da Piwigon argitaratzean. Saiatu berriro."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:931
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr "Sartu zure Piwigo argazki-liburutegiaren URLa eta zure liburutegi horretarako duzun Piwigo kontuaren erabiltzaile-izena eta pasahitza."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:932
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you"
+" entered"
+msgstr "Shotwellek ezin izan du zure Piwigo argazki-liburutegiarekin kontaktuan jarri. Egiaztatu URLa ongi sartu duzula."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:933
+msgid "Username and/or password invalid. Please try again"
+msgstr "Erabiltzaile-izena edo pasahitz okerra. Saiatu berriro."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1061
+msgid "Shotwell Connect"
+msgstr "Shotwell Connect"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1139
+msgid "Everyone"
+msgstr "Edozein"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1140
+msgid "Admins, Friends, Family, Contacts"
+msgstr "Adminak, lagunak, familia, kontaktuak"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1141
+msgid "Admins, Family, Friends"
+msgstr "Adminak, familia, lagunak"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1142
+msgid "Admins, Family"
+msgstr "Adminak, familia"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1143
+msgid "Admins"
+msgstr "Adminak"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1151
+msgid "500 x 375 pixels"
+msgstr "500 x 375 pixel"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1152
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 pixel"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1153
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 pixel"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1154
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 pixel"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1155
+msgid "Original size"
+msgstr "Jatorrizko tamaina"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"

@@ -8,10 +8,10 @@
 # Piotr Drąg <piotrdrag@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.12\n"
+"Project-Id-Version: shotwell-extras-0.12.2\n"
 "Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
-"POT-Creation-Date: 2012-03-05 15:14-0800\n"
-"PO-Revision-Date: 2012-03-06 15:40+0000\n"
+"POT-Creation-Date: 2012-03-30 15:35-0700\n"
+"PO-Revision-Date: 2012-03-31 15:16+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.net/projects/p/shotwell/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:33
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "Copyright 2009-2012 Yorba Foundation"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:850
+msgid "An error message occured when publishing to Piwigo. Please try again."
+msgstr "Wystąpił komunikat błędu podczas publikowania w serwisie Piwigo. Proszę spróbować ponownie."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:931
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr "Proszę podać adres URL kolekcji zdjęć serwisu Piwigo oraz nazwę użytkownika i hasło powiązane z kontem w serwisie Piwigo dla tej kolekcji."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:932
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you"
+" entered"
+msgstr "Program Shotwell nie może połączyć się z kolekcją zdjęć serwisu Piwigo. Proszę sprawdzić podany adres URL"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:933
+msgid "Username and/or password invalid. Please try again"
+msgstr "Nazwa użytkownika i/lub hasło jest nieprawidłowe. Proszę spróbować ponownie"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1061
+msgid "Shotwell Connect"
+msgstr "Połączenie programu Shotwell"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1139
+msgid "Everyone"
+msgstr "Wszyscy"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1140
+msgid "Admins, Friends, Family, Contacts"
+msgstr "Administratorzy, przyjaciele, rodzina, kontakty"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1141
+msgid "Admins, Family, Friends"
+msgstr "Administratorzy, rodzina, przyjaciele"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1142
+msgid "Admins, Family"
+msgstr "Administratorzy, rodzina"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1143
+msgid "Admins"
+msgstr "Administratorzy"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1151
+msgid "500 x 375 pixels"
+msgstr "500x375 pikseli"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1152
+msgid "1024 x 768 pixels"
+msgstr "1024x768 pikseli"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1153
+msgid "2048 x 1536 pixels"
+msgstr "2048x1536 pikseli"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1154
+msgid "4096 x 3072 pixels"
+msgstr "4096x3072 piksele"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1155
+msgid "Original size"
+msgstr "Pierwotny rozmiar"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"

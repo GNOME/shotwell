@@ -8,10 +8,10 @@
 # Nikola Radovanović <nrad@eunet.rs>, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.12\n"
+"Project-Id-Version: shotwell-extras-0.12.2\n"
 "Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
-"POT-Creation-Date: 2012-03-05 15:14-0800\n"
-"PO-Revision-Date: 2012-03-06 21:26+0000\n"
+"POT-Creation-Date: 2012-03-30 15:35-0700\n"
+"PO-Revision-Date: 2012-03-31 20:51+0000\n"
 "Last-Translator: Nikola Radovanović <nrad@eunet.rs>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sr\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:33
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "Сва права задржана © 2009-2012 Yorba фондација"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:850
+msgid "An error message occured when publishing to Piwigo. Please try again."
+msgstr "Појавила се грешка приликом објављивања на Piwigo. Молим, покушајте поново."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:931
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr "Унесите интернет адресу ваше Piwigo збирке слика као и корисничко име и лозинку за приступ Piwigo налогу те збирке слика."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:932
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you"
+" entered"
+msgstr "Фото-бунар није успео да приступи Piwigo збирци слика. Молим, проверите унету интернет адресу."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:933
+msgid "Username and/or password invalid. Please try again"
+msgstr "Корисничко име и/или лозинка нису исправни. Молим, покушајте поново."
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1061
+msgid "Shotwell Connect"
+msgstr "Фото-бунар повезивање"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1139
+msgid "Everyone"
+msgstr "Сви"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1140
+msgid "Admins, Friends, Family, Contacts"
+msgstr "Администратори, породица, пријатељи и контакти"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1141
+msgid "Admins, Family, Friends"
+msgstr "Администратори, породица и пријатељи"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1142
+msgid "Admins, Family"
+msgstr "Администратори и породица"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1143
+msgid "Admins"
+msgstr "Администратори"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1151
+msgid "500 x 375 pixels"
+msgstr "500 x 375 тачака"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1152
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 тачака"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1153
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 тачака"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1154
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 тачака"
+
+#: plugins/shotwell-publishing-extras/PiwigoPublishing.vala:1155
+msgid "Original size"
+msgstr "Изворне димензије"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
