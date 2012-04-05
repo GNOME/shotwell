@@ -1,5 +1,6 @@
+#if UNITY_SUPPORT
 public class UnityProgressBar : Object {
-    
+
     private static Unity.LauncherEntry l = Unity.LauncherEntry.get_for_desktop_id("shotwell.desktop");
     private static UnityProgressBar? visible_uniprobar;
     
@@ -12,7 +13,7 @@ public class UnityProgressBar : Object {
         progress = 0.0;
         visible = false;
     }
-    
+
     ~UnityProgressBar () {
         if (visible_uniprobar == this) {
             reset_progress_bar();
@@ -31,7 +32,7 @@ public class UnityProgressBar : Object {
         progress = percent;
         update_visibility();
     }
-    
+
     private void update_visibility () {
         if (this.visible) {
             //already a progress bar set
@@ -90,3 +91,4 @@ public enum UnityProgressBarImportance {
     MEDIUM,
     HIGH
 }
+#endif

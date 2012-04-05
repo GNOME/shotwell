@@ -99,11 +99,8 @@ UNUNITIZED_SRC_FILES = \
 	VideoMonitor.vala \
 	SearchFilter.vala \
 	MediaViewTracker.vala \
-	Upgrades.vala
-ifdef UNITY_SUPPORT
-UNUNITIZED_SRC_FILES := $(UNUNITIZED_SRC_FILES) \
-	UnityProgressBar.vala
-endif
+	UnityProgressBar.vala \
+	Upgrades.vala 
 
 THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala
