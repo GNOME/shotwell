@@ -436,20 +436,45 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             }
         }
 
+        Gee.Set<Tag> victim_set = new Gee.HashSet<Tag>();
+
+        // look through the dictionary for pathological pairs of tags like so:
+        // 'Tag Name' and '/Tag Name'; if we see these, merge the media sources
+        // from '/Tag Name' into 'Tag Name' and delete the hierarchical version.
+        foreach (string fq_tag_path in ancestry_dictionary.keys) {
+            if (HierarchicalTagUtilities.enumerate_parent_paths(fq_tag_path).size < 1) {
+                if ((fq_tag_path.has_prefix(Tag.PATH_SEPARATOR_STRING)) &&
+                    (ancestry_dictionary.contains(HierarchicalTagUtilities.hierarchical_to_flat(fq_tag_path)))) {
+                    victim_set.add(ancestry_dictionary.get(fq_tag_path));
+                }
+            }
+        }
+
+        foreach (Tag tag in victim_set) {
+            Gee.Collection<MediaSource> source_collection = tag.get_sources();
+            string flat_version = tag.get_user_visible_name();
+            global.fetch_by_name(flat_version).attach_many(source_collection);
+
+            ancestry_dictionary.unset(tag.get_path());
+
+            tag.detach_many(tag.get_sources());
+            tag.destroy_orphan(true);
+        }
+
         // look through the dictionary for children with invalid source 
         // counts and/or missing parents and reap them. we'll also flatten
         // any top-level parents who have 0 children remaining after the reap.
-        Gee.Set<Tag> victim_set = new Gee.HashSet<Tag>();
+        victim_set.clear();
 
-        foreach (string fq_tag_path in ancestry_dictionary.keys) { 
-            Gee.List<string> parents_to_search = 
+        foreach (string fq_tag_path in ancestry_dictionary.keys) {
+            Gee.List<string> parents_to_search =
                 HierarchicalTagUtilities.enumerate_parent_paths(fq_tag_path);
-                
-                Tag curr_child = ancestry_dictionary.get(fq_tag_path);
-            
+
+            Tag curr_child = ancestry_dictionary.get(fq_tag_path);
+
             foreach (string parent_path in parents_to_search) {
                 // if this tag has more sources than its parent, then we're
-                // in an inconsistent state and need to remove this tag.               
+                // in an inconsistent state and need to remove this tag.
                 int child_ref_count = curr_child.get_sources_count();
                 int parent_ref_count = -1; 
                 
@@ -476,7 +501,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
                     // yes, we have to be reaped too.
                     victim_set.add(curr_child);
                     break;
-                }                
+                }
             }
         }
 
