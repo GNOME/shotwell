@@ -4867,22 +4867,6 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
             }
         }
         
-#if ENABLE_FACES
-        // Attach faces.
-        Gee.Collection<Face>? faces = Face.global.fetch_for_source(this);
-        if (faces != null) {
-            foreach (Face face in faces) {
-                FaceLocation? location = FaceLocation.get_face_location(face.get_face_id(), 
-                    this.get_photo_id());
-                if (location != null) {
-                    face.attach(dupe);
-                    FaceLocation.create(face.get_face_id(), dupe.get_photo_id(), 
-                        location.get_serialized_geometry());
-                }
-             }
-        }
-#endif
-        
         return dupe;
     }
     

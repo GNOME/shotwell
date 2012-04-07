@@ -72,7 +72,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "applications-internet";
     public const string MERGE = "shotwell-merge-events";
-    public const string FACES_TOOL = "faces";
 
     public const string ICON_APP = "shotwell.svg";
     public const string ICON_APP16 = "shotwell-16.svg";
@@ -107,8 +106,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_ONE_EVENT = "one-event";
     public const string ICON_ONE_TAG = "one-tag";
     public const string ICON_TAGS = "multiple-tags";
-    public const string ICON_ONE_FACE = "one-face";
-    public const string ICON_FACES = "many-faces";
     public const string ICON_FOLDER_CLOSED = "folder";
     public const string ICON_FOLDER_OPEN = "folder-open";
     public const string ICON_IMPORTING = "go-down";
@@ -276,16 +273,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string UNFLAG_MENU = _("Un_flag");
 
-#if ENABLE_FACES    
-    public const string FACES_MENU = _("Faces");
-    public const string FACES_LABEL = _("Faces");
-    public const string FACES_TOOLTIP = _("Mark faces of people in the photo");
-    public const string MODIFY_FACES_LABEL = _("Modify Faces");
-    public const string DELETE_FACE_TITLE = _("Delete Face");
-    public const string DELETE_FACE_SIDEBAR_MENU = _("_Delete");
-    public const string RENAME_FACE_SIDEBAR_MENU = _("_Rename...");
-#endif
-
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);
     }
@@ -368,36 +355,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public string delete_search_label(string name) {
         return _("Delete Search \"%s\"").printf(name);
-    }
-    
-    public static string rename_face_exists_message(string name) {
-        return _("Unable to rename face to \"%s\" because the face already exists.").printf(name);
-    }
-    
-    public string remove_face_from_photos_menu(string name, int count) {
-        return ((count == 1) ? _("Remove Face \"%s\" From _Photo") :
-            _("Remove Face \"%s\" From _Photos")).printf(name);
-    }
-    
-    public string remove_face_from_photos_label(string name, int count) {
-        return ((count == 1) ? _("Remove Face \"%s\" From Photo") :
-            _("Remove Face \"%s\" From Photos")).printf(name);
-    }
-    
-    public string rename_face_menu(string name) {
-        return _("Re_name Face \"%s\"...").printf(name);
-    }
-    
-    public string rename_face_label(string old_name, string new_name) {
-        return _("Rename Face \"%s\" to \"%s\"").printf(old_name, new_name);
-    }
-    
-    public string delete_face_menu(string name) {
-        return _("_Delete Face \"%s\"").printf(name);
-    }
-    
-    public string delete_face_label(string name) {
-        return _("Delete Face \"%s\"").printf(name);
     }
     
     private unowned string rating_menu(Rating rating) {
@@ -683,9 +640,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
         File icons_dir = AppDirs.get_resources_dir().get_child("icons");
         add_stock_icon(icons_dir.get_child("crop.svg"), CROP);
-#if ENABLE_FACES
-        add_stock_icon(icons_dir.get_child("faces-tool.png"), FACES_TOOL);
-#endif
         add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
         add_stock_icon(icons_dir.get_child("image-adjust.svg"), ADJUST);
         add_stock_icon(icons_dir.get_child("pin-toolbar.svg"), PIN_TOOLBAR);

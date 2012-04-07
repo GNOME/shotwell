@@ -18,9 +18,7 @@ UNIT_FILES := \
     TombstoneTable.vala \
     VideoTable.vala \
     VersionTable.vala \
-    SavedSearchDBTable.vala \
-    FaceTable.vala \
-    FaceLocationTable.vala
+    SavedSearchDBTable.vala
 
 # Any unit this unit relies upon (and should be initialized before it's initialized) should
 # be listed here using its Vala namespace.
