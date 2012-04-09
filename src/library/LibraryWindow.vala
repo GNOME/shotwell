@@ -502,7 +502,10 @@ public class LibraryWindow : AppWindow {
         Gtk.ToggleAction? searchbar_action = get_current_page().get_common_action(
             "CommonDisplaySearchbar") as Gtk.ToggleAction;
         assert(searchbar_action != null);
-        
+
+        // Make sure rejected pictures are not being displayed on startup
+        init_view_filter(get_current_page() as CheckerboardPage);
+
         toggle_search_bar(should_show_search_bar(), get_current_page() as CheckerboardPage);
     }
     
@@ -1390,7 +1393,12 @@ public class LibraryWindow : AppWindow {
             toolbar.show_all();
         }
     }
-    
+
+    private void init_view_filter(CheckerboardPage page) {
+        search_toolbar.set_view_filter(page.get_search_view_filter());
+        page.get_view().install_view_filter(page.get_search_view_filter());
+    }
+
     private bool should_show_search_bar() {
         return (get_current_page() is CheckerboardPage) ? is_search_toolbar_visible : false;
     }
