@@ -236,6 +236,9 @@ public abstract class Page : Gtk.ScrolledWindow {
         update_modifiers();
     }
     
+    public virtual void ready() {
+    }
+    
     public bool is_in_view() {
         return in_view;
     }

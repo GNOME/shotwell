@@ -1408,6 +1408,8 @@ public class LibraryWindow : AppWindow {
             right_vbox.add(toolbar);
             toolbar.show_all();
         }
+
+        page.ready();
     }
     
     private bool should_show_search_bar() {
