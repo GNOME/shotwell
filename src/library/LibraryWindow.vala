@@ -1392,6 +1392,8 @@ public class LibraryWindow : AppWindow {
             right_vbox.add(toolbar);
             toolbar.show_all();
         }
+
+        page.ready();
     }
 
     private void init_view_filter(CheckerboardPage page) {

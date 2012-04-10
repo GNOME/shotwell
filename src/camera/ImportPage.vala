@@ -933,7 +933,9 @@ public class ImportPage : CheckerboardPage {
         set_display_titles(Config.Facade.get_instance().get_display_photo_titles());
         
         base.switched_to();
-        
+    }
+
+    public override void ready() {
         try_refreshing_camera(false);
         hide_imported_filter.refresh();
     }
