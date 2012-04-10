@@ -723,12 +723,17 @@ public abstract class AppWindow : PageWindow {
     }
     
     public void show_file_uri(File file) throws Error {
+        string tmp;
+        
         // if file manager is nautilus then pass the full path to file; otherwise pass
         // the enclosing directory
-        if(get_nautilus_install_location() != null)
-            show_file_in_nautilus(file.get_uri());
-        else
-            show_uri(file.get_parent().get_uri());
+        if(get_nautilus_install_location() != null) {
+            tmp = file.get_uri().replace("'","\\\'");
+            show_file_in_nautilus(tmp);
+        } else {
+            tmp = file.get_parent().get_uri().replace("'","\\\'");
+            show_uri(tmp);
+        }
     }
     
     public void show_uri(string url) throws Error {
