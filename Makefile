@@ -390,9 +390,8 @@ DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAP
 	
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
-DIST_TAR_BZ2 = $(DIST_TAR).bz2
-DIST_TAR_GZ = $(DIST_TAR).gz
-PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.gz
+DIST_TAR_XZ = $(DIST_TAR).xz
+PACKAGE_ORIG_XZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.xz
 
 VALAFLAGS := $(VALAFLAGS) $(VALA_DEFINES) --vapidir=plugins/
 
@@ -498,22 +497,19 @@ cleantemps:
 
 package:
 	$(MAKE) dist
-	cp $(DIST_TAR_GZ) $(PACKAGE_ORIG_GZ)
-	rm -f $(DIST_TAR_GZ)
-	rm -f $(DIST_TAR_BZ2)
+	cp $(DIST_TAR_XZ) $(PACKAGE_ORIG_XZ)
+	rm -f $(DIST_TAR_XZ)
 
 .PHONY: dist
 dist:
 	mkdir -p $(PROGRAM)-$(VERSION)
 	cp --parents --preserve $(DIST_FILES) $(PROGRAM)-$(VERSION)
-	tar --bzip2 -cvf $(DIST_TAR_BZ2) $(PROGRAM)-$(VERSION)
-	tar --gzip -cvf $(DIST_TAR_GZ) $(PROGRAM)-$(VERSION)
+	tar --xz -cvf $(DIST_TAR_XZ) $(PROGRAM)-$(VERSION)
 	rm -rf $(PROGRAM)-$(VERSION)
 
 distclean: clean
 	rm -f configure.mk
-	rm -f $(DIST_TAR_BZ2)
-	rm -f $(DIST_TAR_GZ)
+	rm -f $(DIST_TAR_XZ)
 	@$(MAKE) --directory=plugins distclean
 
 .PHONY: install
