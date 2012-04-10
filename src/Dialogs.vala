@@ -1918,6 +1918,8 @@ public class PreferencesDialog {
         dir_pattern_combo.changed.connect(on_dir_pattern_combo_changed);
         dir_pattern_entry.changed.connect(on_dir_pattern_entry_changed);
         
+        (builder.get_object("dir_structure_label") as Gtk.Label).set_mnemonic_widget(dir_pattern_combo);
+        
         lowercase = builder.get_object("lowercase") as Gtk.CheckButton;
         lowercase.toggled.connect(on_lowercase_toggled);
         
