@@ -796,13 +796,13 @@ internal class LegacyCredentialsPane : Gtk.VBox {
             break;
 
             case CredentialsPane.Mode.NOT_SET_UP:
-                intro_message_label.set_markup("<b>%s</b>\n\n%s".printf(_("The email address and password you entered correspond to a Google account that isn't set up for use with YouTube. You can set up most accounts by using your browser to log into YouTube and then uploading any video. To try again, re-enter your email address and password below."),
+                intro_message_label.set_markup("<b>%s</b>\n\n%s".printf(_("Account Not Ready"),
                     NOT_SET_UP_MESSAGE));
                 add(gtk_vspacer(40));
             break;
 
             case CredentialsPane.Mode.ADDITIONAL_SECURITY:
-                intro_message_label.set_markup("<b>%s</b>\n\n%s".printf(_("The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into YouTube. To try again, re-enter your email address and password below."),
+                intro_message_label.set_markup("<b>%s</b>\n\n%s".printf(_("Additional Security Required"),
                     ADDITIONAL_SECURITY_MESSAGE));
                 add(gtk_vspacer(40));
             break;
