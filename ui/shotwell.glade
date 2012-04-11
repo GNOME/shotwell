@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-requires Shotwell 0.0 -->
-  <!-- interface-naming-policy project-wide -->
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkDialog" id="Search criteria">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -13,12 +11,13 @@
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox6">
+      <object class="GtkBox" id="dialog-vbox6">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="search dialog buttons">
+          <object class="GtkButtonBox" id="search dialog buttons">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
@@ -38,7 +37,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkHBox" id="hbox3">
+              <object class="GtkBox" id="hbox3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
@@ -64,8 +63,6 @@
                     <property name="width_chars">20</property>
                     <property name="primary_icon_activatable">False</property>
                     <property name="secondary_icon_activatable">False</property>
-                    <property name="primary_icon_sensitive">True</property>
-                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -100,7 +97,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkHBox" id="hbox2">
+              <object class="GtkBox" id="hbox2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">10</property>
@@ -152,6 +149,7 @@
                 <child>
                   <object class="GtkButton" id="Add search button">
                     <property name="label"> + </property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -186,9 +184,10 @@
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="row_box">
+          <object class="GtkBox" id="row_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
               <placeholder/>
             </child>
@@ -208,9 +207,10 @@
     <property name="page_increment">1000</property>
     <property name="page_size">1000</property>
   </object>
-  <object class="GtkVBox" id="plugin-manifest">
+  <object class="GtkBox" id="plugin-manifest">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
     <child>
       <object class="GtkAlignment" id="plugin-list-alignment">
         <property name="visible">True</property>
@@ -220,7 +220,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="hscrollbar_policy">never</property>
-            <property name="vscrollbar_policy">automatic</property>
             <property name="shadow_type">etched-in</property>
             <child>
               <placeholder/>
@@ -242,6 +241,7 @@
         <child>
           <object class="GtkButton" id="about-plugin-button">
             <property name="label">gtk-about</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -271,17 +271,19 @@
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox3">
+      <object class="GtkBox" id="dialog-vbox3">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area3">
+          <object class="GtkButtonBox" id="dialog-action_area3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="close_button">
                 <property name="label">gtk-close</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
@@ -335,7 +337,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="slider container">
+                      <object class="GtkBox" id="slider container">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="spacing">6</property>
@@ -419,6 +421,7 @@
                         <child>
                           <object class="GtkCheckButton" id="autoimport">
                             <property name="label" translatable="yes">_Watch library directory for new files</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -468,6 +471,7 @@
                         <child>
                           <object class="GtkCheckButton" id="write_metadata">
                             <property name="label" translatable="yes">Write tags, titles, and other _metadata to photo files</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -614,17 +618,17 @@
                         <property name="can_focus">False</property>
                         <property name="left_padding">34</property>
                         <child>
-                          <object class="GtkHBox" id="hbox1">
+                          <object class="GtkBox" id="hbox1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
                               <object class="GtkLabel" id="patern">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="mnemonic_widget">dir_pattern_entry</property>
                                 <property name="xalign">0</property>
                                 <property name="label" translatable="yes">_Pattern:</property>
                                 <property name="use_underline">True</property>
+                                <property name="mnemonic_widget">dir_pattern_entry</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -665,8 +669,6 @@
                             <property name="invisible_char">•</property>
                             <property name="primary_icon_activatable">False</property>
                             <property name="secondary_icon_activatable">False</property>
-                            <property name="primary_icon_sensitive">True</property>
-                            <property name="secondary_icon_sensitive">True</property>
                           </object>
                         </child>
                       </object>
@@ -724,6 +726,7 @@
                         <child>
                           <object class="GtkCheckButton" id="lowercase">
                             <property name="label" translatable="yes">R_ename imported files to lowercase</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -821,7 +824,7 @@
                 <property name="yalign">0</property>
                 <property name="yscale">0</property>
                 <child>
-                  <object class="GtkHBox" id="hbox4">
+                  <object class="GtkBox" id="hbox4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -830,9 +833,10 @@
                         <property name="can_focus">False</property>
                         <property name="left_padding">6</property>
                         <child>
-                          <object class="GtkVBox" id="vbox2">
+                          <object class="GtkBox" id="vbox2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
                             <property name="spacing">6</property>
                             <child>
                               <object class="GtkLabel" id="label7">
@@ -876,9 +880,10 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkVBox" id="vbox3">
+                      <object class="GtkBox" id="vbox3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <property name="spacing">6</property>
                         <child>
                           <object class="GtkComboBox" id="external_photo_editor_combo">
@@ -973,26 +978,28 @@
       <action-widget response="-5">close_button</action-widget>
     </action-widgets>
   </object>
-  <object class="TextEntryDialog" id="text_entry_dialog1">
+  <object class="GtkDialog" id="text_entry_dialog1">
     <property name="can_focus">False</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox2">
+      <object class="GtkBox" id="dialog-vbox2">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="can_default">True</property>
         <property name="has_default">True</property>
+        <property name="orientation">vertical</property>
         <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area2">
+          <object class="GtkButtonBox" id="dialog-action_area2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button1">
                 <property name="label">gtk-cancel</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -1008,6 +1015,7 @@
             <child>
               <object class="GtkButton" id="button2">
                 <property name="label">gtk-ok</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
@@ -1057,8 +1065,6 @@
                 <property name="width_chars">30</property>
                 <property name="primary_icon_activatable">False</property>
                 <property name="secondary_icon_activatable">False</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
                 <signal name="changed" handler="text_entry_dialog_on_entry_changed" object="text_entry_dialog1" swapped="yes"/>
               </object>
               <packing>
