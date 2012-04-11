@@ -19,6 +19,76 @@ public class StraightenTool : EditingTool {
     private const int MIN_LABEL_SIZE = 100;
     private const int MIN_BUTTON_SIZE = 84;
     private const int TEMP_PIXBUF_SIZE = 768;
+    private const double GUIDE_DASH[2] = {10, 10};
+
+    private class StraightenGuide {
+        private bool is_active = false;
+        private int x[2]; // start & end drag coords
+        private int y[2];
+        private double angle0; // current angle
+
+        public void reset(int x, int y, double angle) {
+            this.x = {x, x};
+            this.y = {y, y};
+            this.is_active = true;
+            this.angle0 = angle;
+        }
+        
+        public bool update(int x, int y) {
+            if (this.is_active) {
+                this.x[1] = x;
+                this.y[1] = y;
+                return true;
+            }
+
+            return false;
+        }
+        
+        public void clear() {
+            this.is_active = false;
+        }
+
+        public double? get_angle() {
+            double dx = x[1] - x[0];
+            double dy = y[1] - y[0];
+
+            // minimum radius to consider: discard clicks
+            if (dy*dy + dx*dx < 40)
+                return null;
+
+            // distinguish guides closer to horizontal or vertical
+            if (Math.fabs(dy) > Math.fabs(dx))
+                return angle0 + Math.atan(dx / dy) / Math.PI * 180;
+            else
+                return angle0 - Math.atan(dy / dx) / Math.PI * 180;
+        }
+
+        public void draw(Cairo.Context ctx) {
+            if (!is_active)
+                return;
+            
+            double angle = get_angle() ?? 0.0;
+            if (angle == 0.0)
+                return;
+                
+            double alpha = 1.0;
+            if (angle < MIN_ANGLE || angle > MAX_ANGLE)
+                alpha = 0.35;
+                
+            // b&w dashing so it will be more visible on
+            // different backgrounds.
+            ctx.set_source_rgba(0.0, 0.0, 0.0, alpha);
+            ctx.set_dash(GUIDE_DASH,  GUIDE_DASH[0] / 2);
+            ctx.move_to(x[0] + 0.5, y[0] + 0.5);
+            ctx.line_to(x[1] + 0.5, y[1] + 0.5);
+            ctx.stroke();
+            ctx.set_dash(GUIDE_DASH, -GUIDE_DASH[0] / 2);
+            ctx.set_source_rgba(1.0, 1.0, 1.0, alpha); 
+            ctx.move_to(x[0] + 0.5, y[0] + 0.5);
+            ctx.line_to(x[1] + 0.5, y[1] + 0.5);
+            ctx.stroke();
+        }
+    }
     
     private class StraightenToolWindow : EditingToolWindow {
         public const int CONTROL_SPACING = 8;
@@ -93,11 +163,13 @@ public class StraightenTool : EditingTool {
 
     // should we use a nicer-but-more-expensive filter
     // when repainting the rotated image?
-    bool use_high_qual = false;
+    bool use_high_qual = true;
 
     private Gdk.Point crop_center;  // original center in image coordinates
     private int crop_width;
     private int crop_height;
+
+    private StraightenGuide guide = new StraightenGuide();
     
     // As the crop box rotates, we adjust its center and/or scale it so that it fits in the image.
     private Gdk.Point rotated_center;   // in image coordinates
@@ -141,19 +213,56 @@ public class StraightenTool : EditingTool {
             Resources.STRAIGHTEN_LABEL, Resources.STRAIGHTEN_TOOLTIP);
         AppWindow.get_command_manager().execute(command);
 
-        canvas.repaint();
+        high_qual_repaint();
         deactivate();
     }
 
     private void on_cancel_clicked() {
-        canvas.repaint();
+        high_qual_repaint();
         deactivate();
     }
 
-    private bool on_slider_released(Gdk.EventButton geb) {
+    private void high_qual_repaint(){
         use_high_qual = true;
+        update_rotated_surface();
         this.canvas.repaint();
+    }
+
+    private bool on_slider_released(Gdk.EventButton e) {
+        high_qual_repaint();
+
         return false;
+    }
+
+    private bool on_slider_scroll(Gdk.EventScroll e) {
+        // this doesn't work as expected (jaggy), because
+        // on_angle_changed gets called inmediately after.
+        high_qual_repaint();
+        return false;
+    }
+
+    private bool on_slider_key_released(Gdk.EventKey e) {
+        high_qual_repaint();
+        return false;
+    }
+
+    public override void on_left_click(int x, int y) {
+        guide.reset(x, y, photo_angle);
+    }
+
+    public override void on_left_released(int x, int y) {
+        guide.update(x, y);
+        double? a = guide.get_angle();
+        guide.clear();
+        if (a != null) {
+            window.angle_slider.set_value(a);
+            high_qual_repaint();
+        }
+    }
+
+    public override void on_motion(int x, int y, Gdk.ModifierType mask) {
+        if (guide.update(x, y))
+            canvas.repaint();
     }
 
     public override bool on_keypress(Gdk.EventKey event) {
@@ -264,6 +373,9 @@ public class StraightenTool : EditingTool {
 
         prepare_image();
 
+        // set crosshair cursor
+        canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.CROSSHAIR));
+
         window = new StraightenToolWindow(canvas.get_container());
         bind_window_handlers();
 
@@ -274,6 +386,7 @@ public class StraightenTool : EditingTool {
         string tmp = "%2.1f°".printf(incoming_angle);
         window.angle_label.set_text(tmp);
 
+        high_qual_repaint();
         window.show_all();
     }
 
@@ -291,6 +404,7 @@ public class StraightenTool : EditingTool {
 
         if (canvas != null) {
             unbind_canvas_handlers(canvas);
+            canvas.get_drawing_window().set_cursor(null);
         }
 
         base.deactivate();
@@ -310,6 +424,8 @@ public class StraightenTool : EditingTool {
         window.cancel_button.clicked.connect(on_cancel_clicked);
         window.angle_slider.value_changed.connect(on_angle_changed);
         window.angle_slider.button_release_event.connect(on_slider_released);
+        window.angle_slider.scroll_event.connect(on_slider_scroll);
+        window.angle_slider.key_release_event.connect(on_slider_key_released);
     }
 
     private void unbind_window_handlers() {
@@ -318,6 +434,8 @@ public class StraightenTool : EditingTool {
         window.cancel_button.clicked.disconnect(on_cancel_clicked);
         window.angle_slider.value_changed.disconnect(on_angle_changed);
         window.angle_slider.button_release_event.disconnect(on_slider_released);
+        window.angle_slider.scroll_event.disconnect(on_slider_scroll);
+        window.angle_slider.key_release_event.disconnect(on_slider_key_released);
     }
 
     private void on_angle_changed() {
@@ -328,6 +446,7 @@ public class StraightenTool : EditingTool {
         use_high_qual = false;
 
         adjust_for_rotation();
+        update_rotated_surface();
         this.canvas.repaint();
     }
 
@@ -347,6 +466,15 @@ public class StraightenTool : EditingTool {
     }
 
     /**
+     * Draw the rotated photo and grid.
+     */
+    private void update_rotated_surface() {        
+        draw_rotated_source(photo_surf, rotate_ctx, view_width, view_height, photo_angle);
+        rotate_ctx.set_line_width(1.0);
+        draw_superimposed_grid(rotate_ctx, view_width, view_height);
+    }
+
+    /**
      * Render a smaller, rotated version of the image, with a grid superimposed over it.
      *
      * @param ctx The rendering context of a 'scratch' Cairo surface.  The tool makes its own
@@ -356,11 +484,6 @@ public class StraightenTool : EditingTool {
     public override void paint(Cairo.Context ctx) {
         int w = canvas.get_drawing_window().get_width();
         int h = canvas.get_drawing_window().get_height();
-
-        // draw the rotated photo and grid.
-        draw_rotated_source(photo_surf, rotate_ctx, view_width, view_height, photo_angle);
-        rotate_ctx.set_line_width(1.0);
-        draw_superimposed_grid(rotate_ctx, view_width, view_height);
 
         // fill region behind the rotation surface with neutral color.
         canvas.get_default_ctx().identity_matrix();
@@ -378,6 +501,8 @@ public class StraightenTool : EditingTool {
         // reset the 'modelview' matrix, since when the canvas is not in
         // 'tool' mode, it 'expects' things to be set up a certain way.
         canvas.get_default_ctx().identity_matrix();
+
+        guide.draw(canvas.get_default_ctx());
     }
 
     /**

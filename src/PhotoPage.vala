@@ -1577,8 +1577,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // report all releases, as it's possible the user click and dragged from inside the
         // pixbuf to the gutters
-        if (current_tool != null)
-            current_tool.on_left_released((int) event.x, (int) event.y);
+        if (current_tool == null)
+            return false;
+        
+        current_tool.on_left_released((int) event.x, (int) event.y);
+
+        if (current_tool.get_tool_window() != null)
+            current_tool.get_tool_window().present();
         
         return false;
     }
@@ -1634,6 +1639,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
         if (current_tool != null) {
             current_tool.on_motion(x, y, mask);
+
+            // this requests more events after "hints"
+            Gdk.Event.request_motions(event);
+
             return true;
         }
         
