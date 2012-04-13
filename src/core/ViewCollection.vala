@@ -569,36 +569,42 @@ public class ViewCollection : DataCollection {
         foreach (DataObject object in removed) {
             DataView view = (DataView) object;
 
-            bool is_removed = source_map.unset(view.get_source());
-            assert(is_removed);
-            
-            if (view.is_selected()) {
-                // hidden items may be selected, but they won't be in the selected pool
-                assert(selected.contains(view) == view.is_visible());
-                
-                if (view.is_visible()) {
-                    if (selected_removed == null)
-                        selected_removed = new Gee.ArrayList<DataView>();
-                    
-                    selected_removed.add(view);
+            // It's possible for execution to get here in direct mode with the source
+            // in question already having been removed from the source map, but the
+            // double removal is unimportant to direct mode, so if this happens, the
+            // remove is skipped the second time (to prevent crashing).
+            if (source_map.has_key(view.get_source())) {
+                bool is_removed = source_map.unset(view.get_source());
+                assert(is_removed);
+
+                if (view.is_selected()) {
+                    // hidden items may be selected, but they won't be in the selected pool
+                    assert(selected.contains(view) == view.is_visible());
+
+                    if (view.is_visible()) {
+                        if (selected_removed == null)
+                            selected_removed = new Gee.ArrayList<DataView>();
+
+                        selected_removed.add(view);
+                    }
+                }
+
+                if (view.is_visible() && visible != null) {
+                    is_removed = visible.remove(view);
+                    assert(is_removed);
                 }
             }
-            
-            if (view.is_visible() && visible != null) {
-                is_removed = visible.remove(view);
-                assert(is_removed);
-            }
         }
-        
+
         if (selected_removed != null) {
             remove_many_selected(selected_removed);
-            
+
             // If a selected item was removed, only fire the selected_removed signal, as the total
             // selection character of the ViewCollection has changed, but not the individual items'
             // state.
             notify_selection_group_altered();
         }
-        
+
         base.notify_items_removed(removed);
     }
     
