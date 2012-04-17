@@ -719,7 +719,7 @@ public abstract class TextEntryDialogMediator {
     public TextEntryDialogMediator(string title, string label, string? initial_text = null,
         Gee.Collection<string>? completion_list = null, string? completion_delimiter = null) {
         Gtk.Builder builder = AppWindow.create_builder();
-        dialog = builder.get_object("text_entry_dialog1") as TextEntryDialog;
+        dialog = (TextEntryDialog) builder.get_object("text_entry_dialog1");
         dialog.set_builder(builder);
         dialog.setup(on_modify_validate, title, label, initial_text, completion_list, completion_delimiter);
     }

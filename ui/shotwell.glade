@@ -978,7 +978,7 @@
       <action-widget response="-5">close_button</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkDialog" id="text_entry_dialog1">
+  <object class="TextEntryDialog" id="text_entry_dialog1">
     <property name="can_focus">False</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
