@@ -16,6 +16,8 @@ SRC_FILES := \
 	PicasaPublishing.vala \
 	FlickrPublishing.vala \
 	YouTubePublishing.vala \
+	PiwigoPublishing.vala \
+	../../src/util/string.vala \
 	../common/RESTSupport.vala \
 	../common/ui.vala
 
@@ -23,6 +25,9 @@ RC_FILES := \
 	facebook.png \
 	flickr.png \
 	picasa.png \
+	piwigo.png \
+	piwigo_authentication_pane.glade \
+	piwigo_publishing_options_pane.glade \
 	youtube.png
 
 include ../Makefile.plugin.mk

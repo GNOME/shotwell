@@ -3,7 +3,6 @@
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
-using Publishing.Extras;
 
 public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
     private const string ICON_FILENAME = "piwigo.png";
@@ -30,7 +29,7 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Bruno Girin";
-        info.copyright = _t("Copyright 2009-2012 Yorba Foundation");
+        info.copyright = _("Copyright 2009-2012 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -680,7 +679,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         assert(category.is_local());
 
         host.set_service_locked(true);
-        host.install_static_message_pane(_("Creating album %s...".printf(category.name)));
+        host.install_static_message_pane(_("Creating album %s...").printf(category.name));
 
         CategoriesAddTransaction creation_trans = new CategoriesAddTransaction(
             session, category.name.strip());
@@ -847,7 +846,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
         
         debug("Unhandled error: type=%s; message='%s'".printf(error_type, e.message));
-        do_show_error_message(_t("An error message occured when publishing to Piwigo. Please try again."));
+        do_show_error_message(_("An error message occured when publishing to Piwigo. Please try again."));
     }
     
     /**
@@ -928,9 +927,9 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
         FAILED_RETRY_URL,
         FAILED_RETRY_USER
     }
-    private static string INTRO_MESSAGE = _t("Enter the URL of your Piwigo photo library as well as the username and password associated with your Piwigo account for that library.");
-    private static string FAILED_RETRY_URL_MESSAGE = _t("Shotwell cannot contact your Piwigo photo library. Please verify the URL you entered");
-    private static string FAILED_RETRY_USER_MESSAGE = _t("Username and/or password invalid. Please try again");
+    private static string INTRO_MESSAGE = _("Enter the URL of your Piwigo photo library as well as the username and password associated with your Piwigo account for that library.");
+    private static string FAILED_RETRY_URL_MESSAGE = _("Shotwell cannot contact your Piwigo photo library. Please verify the URL you entered");
+    private static string FAILED_RETRY_USER_MESSAGE = _("Username and/or password invalid. Please try again");
 
     private Gtk.Box pane_widget = null;
     private Gtk.Builder builder;
@@ -950,7 +949,6 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
         
         try {
             builder = new Gtk.Builder();
-            builder.set_translation_domain(DOMAIN_NAME);
             builder.add_from_file(ui_file.get_path());
             builder.connect_signals(null);
             Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
@@ -1058,7 +1056,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
  */
 internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
 
-    private static string DEFAULT_CATEGORY_NAME = _t("Shotwell Connect");
+    private static string DEFAULT_CATEGORY_NAME = _("Shotwell Connect");
 
     private Gtk.Box pane_widget = null;
     private Gtk.Builder builder;
@@ -1096,7 +1094,6 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         
         try {
             builder = new Gtk.Builder();
-            builder.set_translation_domain(DOMAIN_NAME);
             builder.add_from_file(ui_file.get_path());
             builder.connect_signals(null);
             Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
@@ -1136,11 +1133,11 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private PermissionLevel[] create_perm_levels() {
         PermissionLevel[] result = new PermissionLevel[0];
 
-        result += new PermissionLevel(0, _t("Everyone"));
-        result += new PermissionLevel(1, _t("Admins, Friends, Family, Contacts"));
-        result += new PermissionLevel(2, _t("Admins, Family, Friends"));
-        result += new PermissionLevel(4, _t("Admins, Family"));
-        result += new PermissionLevel(8, _t("Admins"));
+        result += new PermissionLevel(0, _("Everyone"));
+        result += new PermissionLevel(1, _("Admins, Friends, Family, Contacts"));
+        result += new PermissionLevel(2, _("Admins, Family, Friends"));
+        result += new PermissionLevel(4, _("Admins, Family"));
+        result += new PermissionLevel(8, _("Admins"));
 
         return result;
     }
@@ -1148,11 +1145,11 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private SizeEntry[] create_sizes() {
         SizeEntry[] result = new SizeEntry[0];
 
-        result += new SizeEntry(500, _t("500 x 375 pixels"));
-        result += new SizeEntry(1024, _t("1024 x 768 pixels"));
-        result += new SizeEntry(2048, _t("2048 x 1536 pixels"));
-        result += new SizeEntry(4096, _t("4096 x 3072 pixels"));
-        result += new SizeEntry(ORIGINAL_SIZE, _t("Original size"));
+        result += new SizeEntry(500, _("500 x 375 pixels"));
+        result += new SizeEntry(1024, _("1024 x 768 pixels"));
+        result += new SizeEntry(2048, _("2048 x 1536 pixels"));
+        result += new SizeEntry(4096, _("4096 x 3072 pixels"));
+        result += new SizeEntry(ORIGINAL_SIZE, _("Original size"));
 
         return result;
     }

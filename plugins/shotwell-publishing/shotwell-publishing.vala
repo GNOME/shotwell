@@ -6,7 +6,7 @@
 
 extern const string _VERSION;
 
-// "core services" are: Facebook, Flickr, Picasa Web Albums, and YouTube
+// "core services" are: Facebook, Flickr, Picasa Web Albums, Piwigo and YouTube
 private class ShotwellPublishingCoreServices : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
 
@@ -19,6 +19,7 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
         pluggables += new PicasaService(resource_directory);
         pluggables += new FlickrService(resource_directory);
         pluggables += new YouTubeService(resource_directory);
+        pluggables += new PiwigoService(resource_directory);
     }
     
     public unowned string get_module_name() {

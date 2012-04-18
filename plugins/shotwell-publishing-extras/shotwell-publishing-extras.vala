@@ -91,10 +91,7 @@ private class ShotwellPublishingExtraServices : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
 
     public ShotwellPublishingExtraServices(GLib.File module_file) {
-        GLib.File resource_directory = module_file.get_parent();
-        
         pluggables += new YandexService();
-        pluggables += new PiwigoService(resource_directory);
     }
     
     public unowned string get_module_name() {
