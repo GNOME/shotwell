@@ -26,11 +26,11 @@ public class MetadataWriter : Object {
         
         public CommitJob(MetadataWriter owner, LibraryPhoto photo, Gee.Set<string>? keywords) {
             base (owner, owner.on_update_completed, new Cancellable(), owner.on_update_cancelled);
-            
+
             this.photo = photo;
             current_keywords = keywords;
         }
-        
+
         public override void execute() {
             try {
                 commit_master();
@@ -101,9 +101,23 @@ public class MetadataWriter : Object {
                     : null);
                 changed = true;
             }
-            
+
             // tags (keywords) ... replace (or clear) entirely rather than union or intersection
-            if (!equal_sets(current_keywords, metadata.get_keywords())) {
+            Gee.Set<string> safe_keywords = new Gee.HashSet<string>();
+
+            // Since the tags are stored in an image file's `keywords' field in
+            // non-hierarchical format, before checking whether the tags that
+            // should be associated with this image have been written, we'll need
+            // to produce non-hierarchical versions of the tags to be tested.
+            // get_user_visible_name() does this by returning the most deeply-nested
+            // portion of a given hierarchical tag; that is, for a tag "/a/b/c",
+            // it'll return "c", which is exactly the form we want here.
+            foreach(string tmp in current_keywords) {
+                Tag tag = Tag.for_path(tmp);
+                safe_keywords.add(tag.get_user_visible_name());
+            }
+
+            if (!equal_sets(safe_keywords, metadata.get_keywords())) {
                 metadata.set_keywords(current_keywords);
                 changed = true;
             }
@@ -151,7 +165,7 @@ public class MetadataWriter : Object {
         // convert all interested metadata Alteration details into lookup hash
         foreach (string detail in INTERESTED_PHOTO_METADATA_DETAILS)
             interested_photo_details.add(detail);
-        
+
         // sync up with the configuration system
         enabled = Config.Facade.get_instance().get_commit_metadata_to_masters();
         Config.Facade.get_instance().commit_metadata_to_masters_changed.connect(on_config_changed);
