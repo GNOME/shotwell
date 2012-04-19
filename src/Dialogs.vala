@@ -719,7 +719,8 @@ public abstract class TextEntryDialogMediator {
     public TextEntryDialogMediator(string title, string label, string? initial_text = null,
         Gee.Collection<string>? completion_list = null, string? completion_delimiter = null) {
         Gtk.Builder builder = AppWindow.create_builder();
-        dialog = (TextEntryDialog) builder.get_object("text_entry_dialog1");
+        dialog = new TextEntryDialog();
+        dialog.get_content_area().add((Gtk.Box) builder.get_object("dialog-vbox2"));
         dialog.set_builder(builder);
         dialog.setup(on_modify_validate, title, label, initial_text, completion_list, completion_delimiter);
     }
@@ -906,6 +907,9 @@ public class TextEntryDialog : Gtk.Dialog {
     private unowned OnModifyValidateType on_modify_validate;
     private Gtk.Entry entry;
     private Gtk.Builder builder;
+    private Gtk.Button button1;
+    private Gtk.Button button2;
+    private Gtk.ButtonBox action_area_box;
     
     public void set_builder(Gtk.Builder builder) {
         this.builder = builder;
@@ -925,7 +929,14 @@ public class TextEntryDialog : Gtk.Dialog {
         entry = builder.get_object("entry") as Gtk.Entry;
         entry.set_text(initial_text != null ? initial_text : "");
         entry.grab_focus();
-
+        entry.changed.connect(on_entry_changed);
+        
+        action_area_box = (Gtk.ButtonBox) get_action_area();
+        action_area_box.set_layout(Gtk.ButtonBoxStyle.END);
+        
+        button1 = (Gtk.Button) add_button(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
+        button2 = (Gtk.Button) add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
+                
         if (completion_list != null) { // Textfield with autocompletion
             EntryMultiCompletion completion = new EntryMultiCompletion(completion_list,
                 completion_delimiter);
@@ -947,6 +958,7 @@ public class TextEntryDialog : Gtk.Dialog {
         if (run() == Gtk.ResponseType.OK)
             text = entry.get_text();
         
+        entry.changed.disconnect(on_entry_changed);
         destroy();
         
         return text;
@@ -954,6 +966,7 @@ public class TextEntryDialog : Gtk.Dialog {
     
     public void on_entry_changed() {
         set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
+        button2.set_sensitive(true);
     }
 }
 
