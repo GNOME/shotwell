@@ -9,6 +9,9 @@ PLUGINS_RC := \
 	plugins/shotwell-publishing/flickr.png \
 	plugins/shotwell-publishing/picasa.png \
 	plugins/shotwell-publishing/youtube.png \
+	plugins/shotwell-publishing/piwigo.png \
+	plugins/shotwell-publishing/piwigo_authentication_pane.glade \
+	plugins/shotwell-publishing/piwigo_publishing_options_pane.glade \
 	plugins/shotwell-transitions/slideshow-plugin.png
 
 EXTRA_PLUGINS := \
@@ -16,9 +19,6 @@ EXTRA_PLUGINS := \
 
 EXTRA_PLUGINS_RC := \
 	plugins/shotwell-publishing-extras/yandex_publish_model.glade \
-	plugins/shotwell-publishing-extras/piwigo.png \
-	plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade \
-	plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade \
 	plugins/shotwell-data-imports/f-spot-24.png
 
 ALL_PLUGINS := $(PLUGINS) $(EXTRA_PLUGINS)
