@@ -413,7 +413,7 @@ public class FSpotDataImporter : Spit.DataImports.DataImporter, GLib.Object {
             host.post_error_message(ERROR_CANT_READ_TAGS_TABLE);
             return;
         }
-        host.install_import_progress_pane(_("Preparation to import"));
+        host.install_import_progress_pane(_("Preparing to import"));
         try {
             all_photos = database.photos_table.get_all();
         } catch(DatabaseError e) {
