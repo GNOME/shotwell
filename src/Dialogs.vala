@@ -1100,8 +1100,7 @@ public class ProgressDialog : Gtk.Window {
     private int minimum_on_screen_time_msec = 500;
     private ulong time_started;
 #if UNITY_SUPPORT
-    //UnityProgressBar: init
-    UnityProgressBar uniprobar = new UnityProgressBar(UnityProgressBarImportance.HIGH);
+    UnityProgressBar uniprobar = UnityProgressBar.get_instance();
 #endif
     
     public ProgressDialog(Gtk.Window? owner, string text, Cancellable? cancellable = null) {

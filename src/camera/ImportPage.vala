@@ -660,9 +660,9 @@ public class ImportPage : CheckerboardPage {
     private ImportPageSearchViewFilter search_filter = new ImportPageSearchViewFilter();
     private HideImportedViewFilter hide_imported_filter = new HideImportedViewFilter();
     private CameraViewTracker tracker;
+
 #if UNITY_SUPPORT
-    //UnityProgressBar: init
-    UnityProgressBar uniprobar = new UnityProgressBar(UnityProgressBarImportance.MEDIUM);
+    UnityProgressBar uniprobar = UnityProgressBar.get_instance();
 #endif
     
     public enum RefreshResult {
