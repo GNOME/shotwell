@@ -1206,8 +1206,8 @@ public class ExpansionTransformation : HSVTransformation {
         
         float HIGH_KINK_MASS = 1.0f - HIGH_DISCARD_MASS;
         high_kink = 255;
-        while (histogram.get_cumulative_probability(high_kink) > HIGH_KINK_MASS)
-            high_kink--;
+        while ((histogram.get_cumulative_probability(high_kink) > HIGH_KINK_MASS) && (high_kink > 0))
+                 high_kink--;
 
         build_remap_table();
     }
