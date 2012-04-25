@@ -1,27 +1,33 @@
+/* Copyright 2010-2012 Yorba Foundation
+ *
+ * This software is licensed under the GNU Lesser General Public License
+ * (version 2.1 or later).  See the COPYING file in this distribution.
+ */
+
 #if UNITY_SUPPORT
 public class UnityProgressBar : Object {
 
     private static Unity.LauncherEntry l = Unity.LauncherEntry.get_for_desktop_id("shotwell.desktop");
     private static UnityProgressBar? visible_uniprobar;
-    
-    private UnityProgressBarImportance importance;
+
     private double progress;
     private bool visible;
-    
-    public UnityProgressBar(UnityProgressBarImportance importance) {
-        this.importance = importance;
+
+    public static UnityProgressBar get_instance() {
+        if (visible_uniprobar == null) {
+            visible_uniprobar = new UnityProgressBar();
+        }
+
+        return visible_uniprobar;
+    }
+
+    private UnityProgressBar() {
         progress = 0.0;
         visible = false;
     }
 
     ~UnityProgressBar () {
-        if (visible_uniprobar == this) {
-            reset_progress_bar();
-        }
-    }
-    
-    public UnityProgressBarImportance get_importance () {
-        return importance;
+        reset_progress_bar();
     }
     
     public double get_progress () {
@@ -34,19 +40,7 @@ public class UnityProgressBar : Object {
     }
 
     private void update_visibility () {
-        if (this.visible) {
-            //already a progress bar set
-            //overwrite when more important
-            if (visible_uniprobar != null) {
-                if (visible_uniprobar.importance < this.importance || visible_uniprobar == this) {
-                    set_progress_bar(this, progress);
-                }
-            }
-            //set; nothing else there
-            else {
-                set_progress_bar(this, progress);
-            }
-        }
+        set_progress_bar(this, progress);
     }
     
     public bool get_visible () {
@@ -55,16 +49,16 @@ public class UnityProgressBar : Object {
     
     public void set_visible (bool visible) {
         this.visible = visible;
-        
-        //if not visible and currently displayed, remove Unitys progress bar
-        if (!visible && visible_uniprobar == this)
+
+        if (!visible) {
+            //if not visible and currently displayed, remove Unity progress bar
             reset_progress_bar();
-        
-        //update_visibility if this progress bar wants to be drawn
-        if (visible)
-            update_visibility();
+        } else {
+            //update_visibility if this progress bar wants to be drawn
+            update_visibility();            
+        }
     }
-    
+
     public void reset () {
         set_visible(false);
         progress = 0.0;
@@ -86,9 +80,4 @@ public class UnityProgressBar : Object {
     }
 }
 
-public enum UnityProgressBarImportance {
-    LOW,
-    MEDIUM,
-    HIGH
-}
 #endif

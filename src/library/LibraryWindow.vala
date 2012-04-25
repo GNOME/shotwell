@@ -157,7 +157,7 @@ public class LibraryWindow : AppWindow {
     
 #if UNITY_SUPPORT
     //UnityProgressBar: init
-    UnityProgressBar uniprobar = new UnityProgressBar(UnityProgressBarImportance.LOW);
+    UnityProgressBar uniprobar = UnityProgressBar.get_instance();
 #endif
     
     public LibraryWindow(ProgressMonitor progress_monitor) {

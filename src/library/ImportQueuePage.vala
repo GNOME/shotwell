@@ -12,9 +12,9 @@ public class ImportQueuePage : SinglePhotoPage {
     private BatchImport current_batch = null;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private bool stopped = false;
+
 #if UNITY_SUPPORT
-    //UnityProgressBar: init
-    UnityProgressBar uniprobar = new UnityProgressBar(UnityProgressBarImportance.HIGH);
+    UnityProgressBar uniprobar = UnityProgressBar.get_instance();
 #endif
     
     public signal void batch_added(BatchImport batch_import);
