@@ -830,7 +830,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
                 help_path +=anchor;
             }
             
-            string[] argv = new string[2];
+            string[] argv = new string[3];
             argv[0] = "gnome-help";
             argv[1] = help_path;
             argv[2] = null;
