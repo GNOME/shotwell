@@ -234,6 +234,7 @@
         <property name="margin_right">7</property>
         <property name="margin_bottom">2</property>
         <property name="invisible_char">●</property>
+        <property name="activates_default">True</property>
       </object>
       <packing>
         <property name="expand">False</property>
