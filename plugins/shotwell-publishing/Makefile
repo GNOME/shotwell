@@ -23,6 +23,7 @@ SRC_FILES := \
 
 RC_FILES := \
 	facebook.png \
+	facebook_publishing_options_pane.glade \
 	flickr.png \
 	picasa.png \
 	piwigo.png \
