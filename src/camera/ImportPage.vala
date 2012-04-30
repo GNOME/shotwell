@@ -1140,13 +1140,43 @@ public class ImportPage : CheckerboardPage {
         refresh_result = camera.get_storageinfo(&sifs, out count, spin_idle_context.context);
         if (refresh_result == GPhoto.Result.OK) {
             for (int fsid = 0; fsid < count; fsid++) {
+                // Check well-known video and image paths first to prevent accidental
+                // scanning of undesired directories (which can cause user annoyance with
+                // some smartphones or camera-equipped media players)
+                bool got_well_known_dir = false;
+
+                // Check common paths for most primarily-still cameras, many (most?) smartphones
                 if (check_directory_exists(fsid, "/", "DCIM")) {
-                    if (!enumerate_files(fsid, "/DCIM", import_list))
-                        break;
-                } else if (check_directory_exists(fsid, "/", "dcim")) {
-                    if (!enumerate_files(fsid, "/dcim", import_list))
-                        break;
-                } else {
+                    enumerate_files(fsid, "/DCIM", import_list);
+                    got_well_known_dir = true;
+                }
+                if (check_directory_exists(fsid, "/", "dcim")) {
+                    enumerate_files(fsid, "/dcim", import_list);
+                    got_well_known_dir = true;
+                }
+
+                // Check common paths for AVCHD camcorders, primarily-still
+                // cameras that shoot .mts video files
+                if (check_directory_exists(fsid, "/PRIVATE/", "AVCHD")) {
+                    enumerate_files(fsid, "/PRIVATE/AVCHD", import_list);
+                    got_well_known_dir = true;
+                }
+                if (check_directory_exists(fsid, "/private/", "avchd")) {
+                    enumerate_files(fsid, "/private/avchd", import_list);
+                    got_well_known_dir = true;
+                }
+                if (check_directory_exists(fsid, "/", "AVCHD")) {
+                    enumerate_files(fsid, "/AVCHD", import_list);
+                    got_well_known_dir = true;
+                }
+                if (check_directory_exists(fsid, "/", "avchd")) {
+                    enumerate_files(fsid, "/avchd", import_list);
+                    got_well_known_dir = true;
+                }
+
+                // Didn't find any of the common directories we know about
+                // already - try scanning from device root.
+                if (!got_well_known_dir) {
                     if (!enumerate_files(fsid, "/", import_list))
                         break;
                 }
@@ -1154,7 +1184,7 @@ public class ImportPage : CheckerboardPage {
         }
 
         clear_all_import_sources();
-        
+
         // Associate files (for RAW+JPEG)
         auto_match_raw_jpeg(import_list);
         
