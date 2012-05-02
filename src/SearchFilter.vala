@@ -406,6 +406,7 @@ public class SearchFilterActions {
     private bool has_photos = true;
     private bool has_videos = true;
     private bool has_raw = true;
+    private bool can_filter_by_stars = true;
     
     public signal void flagged_toggled(bool on);
     
@@ -487,6 +488,8 @@ public class SearchFilterActions {
         
         CheckerboardPage? new_tracked_page = new_page as CheckerboardPage;
         if (new_tracked_page != null) {
+            can_filter_by_stars = true;
+            
             Core.ViewTracker? tracker = new_tracked_page.get_view_tracker();
             if (tracker is MediaViewTracker) {
                 tracker.updated.connect(on_media_tracker_updated);
@@ -506,6 +509,7 @@ public class SearchFilterActions {
         has_photos = false;
         has_videos = false;
         has_raw = false;
+        can_filter_by_stars = false;
         
         update_sensitivities();
     }
@@ -545,14 +549,14 @@ public class SearchFilterActions {
              Resources.ICON_FILTER_RAW :  Resources.ICON_FILTER_RAW_DISABLED);
         
         bool allow_ratings = (SearchFilterCriteria.RATING & criteria) != 0;
-        set_action_sensitive("CommonDisplayRejectedOnly", allow_ratings);
-        set_action_sensitive("CommonDisplayRejectedOrHigher", allow_ratings);
-        set_action_sensitive("CommonDisplayUnratedOrHigher", allow_ratings);
-        set_action_sensitive("CommonDisplayOneOrHigher", allow_ratings);
-        set_action_sensitive("CommonDisplayTwoOrHigher", allow_ratings);
-        set_action_sensitive("CommonDisplayThreeOrHigher", allow_ratings);
-        set_action_sensitive("CommonDisplayFourOrHigher", allow_ratings);
-        set_action_sensitive("CommonDisplayFiveOrHigher", allow_ratings);
+        set_action_sensitive("CommonDisplayRejectedOnly", allow_ratings & can_filter_by_stars);
+        set_action_sensitive("CommonDisplayRejectedOrHigher", allow_ratings & can_filter_by_stars);
+        set_action_sensitive("CommonDisplayUnratedOrHigher", allow_ratings & can_filter_by_stars);
+        set_action_sensitive("CommonDisplayOneOrHigher", allow_ratings & can_filter_by_stars);
+        set_action_sensitive("CommonDisplayTwoOrHigher", allow_ratings & can_filter_by_stars);
+        set_action_sensitive("CommonDisplayThreeOrHigher", allow_ratings & can_filter_by_stars);
+        set_action_sensitive("CommonDisplayFourOrHigher", allow_ratings & can_filter_by_stars);
+        set_action_sensitive("CommonDisplayFiveOrHigher", allow_ratings & can_filter_by_stars);
         
         // Ticket #3343 - Don't disable the text field, even
         // when no searchable items are available.
