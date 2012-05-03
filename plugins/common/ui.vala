@@ -4,12 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-Gtk.Widget gtk_expand() {
-    Gtk.Box b = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-    b.expand = true;
-    return b;
-}
-
 Gtk.Widget gtk_hspacer(int pixels) {
     Gtk.Box b = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
     b.set_size_request(pixels, -1);

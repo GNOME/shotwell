@@ -560,8 +560,24 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.set_service_locked(false);
 
+        Gtk.Builder builder = new Gtk.Builder();
+
+        try {
+            // the trailing get_path() is required, since add_from_file can't cope
+            // with File objects directly and expects a pathname instead.
+            builder.add_from_file(
+                host.get_module_file().get_parent().
+                get_child("flickr_publishing_options_pane.glade").get_path());
+        } catch (Error e) {
+            warning("Could not parse UI file! Error: %s.", e.message);
+            host.post_error(
+                new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
+                    _("A file required for publishing is unavailable. Publishing to Flickr can't continue.")));
+            return;
+        }
+
         publishing_options_pane = new PublishingOptionsPane(this, parameters,
-            host.get_publishable_media_type());
+            host.get_publishable_media_type(), builder);
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         host.install_dialog_pane(publishing_options_pane);
@@ -1061,7 +1077,7 @@ internal class Session : Publishing.RESTSupport.Session {
     }
 }
 
-internal class LegacyPublishingOptionsPane : Gtk.VBox {
+internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private class SizeEntry {
         public string title;
         public int size;
@@ -1082,12 +1098,15 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         }
     }
 
-    private const int ACTION_BUTTON_WIDTH = 128;
-
+    private Gtk.Builder builder;
+    private Gtk.Box pane_widget = null;
+    private Gtk.Label visibility_label = null;
+    private Gtk.Label upload_info_label = null;
+    private Gtk.Label size_label = null;
     private Gtk.Button logout_button = null;
     private Gtk.Button publish_button = null;
-    private Gtk.ComboBox visibility_combo = null;
-    private Gtk.ComboBox size_combo = null;
+    private Gtk.ComboBoxText visibility_combo = null;
+    private Gtk.ComboBoxText size_combo = null;
     private VisibilityEntry[] visibilities = null;
     private SizeEntry[] sizes = null;
     private PublishingParameters parameters = null;
@@ -1097,8 +1116,22 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     public signal void publish();
     public signal void logout();
 
-    public LegacyPublishingOptionsPane(FlickrPublisher publisher, PublishingParameters parameters,
-        Spit.Publishing.Publisher.MediaType media_type) {
+    public PublishingOptionsPane(FlickrPublisher publisher, PublishingParameters parameters,
+        Spit.Publishing.Publisher.MediaType media_type, Gtk.Builder builder) {
+        this.builder = builder;
+        assert(builder != null);
+        assert(builder.get_objects().length() > 0);
+        
+        // pull in the necessary widgets from the glade file
+        pane_widget = (Gtk.Box) this.builder.get_object("flickr_pane");
+        visibility_label = (Gtk.Label) this.builder.get_object("visibility_label");
+        upload_info_label = (Gtk.Label) this.builder.get_object("upload_info_label");
+        logout_button = (Gtk.Button) this.builder.get_object("logout_button");
+        publish_button = (Gtk.Button) this.builder.get_object("publish_button");
+        visibility_combo = (Gtk.ComboBoxText) this.builder.get_object("visibility_combo");
+        size_combo = (Gtk.ComboBoxText) this.builder.get_object("size_combo");
+        size_label = (Gtk.Label) this.builder.get_object("size_label");
+        
         this.parameters = parameters;
         this.publisher = publisher;
         this.media_type = media_type;
@@ -1113,16 +1146,8 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             upload_label_text += _("Your Flickr Pro account entitles you to unlimited uploads.");
         }
 
-        add(gtk_vspacer(32));
+        upload_info_label.set_label(upload_label_text);
 
-        Gtk.Label upload_info_label = new Gtk.Label(upload_label_text);
-        add(upload_info_label);
-
-        add(gtk_vspacer(32));
-
-        Gtk.Box combos_layouter_padder = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-        Gtk.Table combos_layouter = new Gtk.Table(2, 2, false);
-        combos_layouter.set_row_spacing(0, 12);
         string visibility_label_text = _("Photos _visible to:");
         if ((media_type == Spit.Publishing.Publisher.MediaType.VIDEO)) {
             visibility_label_text = _("Videos _visible to:");
@@ -1130,55 +1155,23 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
                                    Spit.Publishing.Publisher.MediaType.VIDEO))) {
             visibility_label_text = _("Photos and videos _visible to:");
         }
-        Gtk.Label visibility_label = new Gtk.Label.with_mnemonic(visibility_label_text);
-        Gtk.Label size_label = new Gtk.Label.with_mnemonic(_("Photo _size:"));
-        Gtk.Alignment visibility_combo_aligner = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        visibility_combo = create_visibility_combo();
+        
+        visibility_label.set_label(visibility_label_text);
+
+        populate_visibility_combo();
         visibility_combo.changed.connect(on_visibility_changed);
-        visibility_label.set_mnemonic_widget(visibility_combo);
-        visibility_combo_aligner.add(visibility_combo);
-        Gtk.Alignment size_combo_aligner = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        size_combo = create_size_combo();
-        size_label.set_mnemonic_widget(size_combo);
-        size_combo.changed.connect(on_size_changed);
-        size_combo_aligner.add(size_combo);
-        Gtk.Alignment vis_label_aligner = new Gtk.Alignment(0.0f, 0.5f, 0, 0);
-        vis_label_aligner.add(visibility_label);
-        Gtk.Alignment size_label_aligner = new Gtk.Alignment(0.0f, 0.5f, 0, 0);
-        size_label_aligner.add(size_label);
-        combos_layouter.attach_defaults(vis_label_aligner, 0, 1, 0, 1);
-        combos_layouter.attach_defaults(visibility_combo_aligner, 1, 2, 0, 1);
 
-        if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) {
-            combos_layouter.attach_defaults(size_label_aligner, 0, 1, 1, 2);
-            combos_layouter.attach_defaults(size_combo_aligner, 1, 2, 1, 2);
+        if ((media_type != Spit.Publishing.Publisher.MediaType.VIDEO)) {
+            populate_size_combo();
+            size_combo.changed.connect(on_size_changed);
+        } else {
+            // publishing -only- video - don't let the user manipulate the photo size choices.
+            size_combo.set_sensitive(false);
+            size_label.set_sensitive(false);
         }
-        combos_layouter_padder.pack_start(gtk_expand(), true, true, 0);
-        combos_layouter_padder.pack_start(combos_layouter, true, true, 0);
-        combos_layouter_padder.pack_start(gtk_expand(), true, true, 0);
-        add(combos_layouter_padder);
 
-        add(gtk_vspacer(32));
-
-        Gtk.Alignment logout_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
         logout_button.clicked.connect(on_logout_clicked);
-        logout_button_aligner.add(logout_button);
-        Gtk.Alignment publish_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
-        publish_button_aligner.add(publish_button);
         publish_button.clicked.connect(on_publish_clicked);
-        Gtk.Box button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-        button_layouter.add(gtk_expand());
-        button_layouter.add(logout_button_aligner);
-        button_layouter.add(gtk_expand());
-        button_layouter.add(publish_button_aligner);
-        button_layouter.add(gtk_expand());
-        add(button_layouter);
-        logout_button.set_size_request(ACTION_BUTTON_WIDTH, -1);
-        publish_button.set_size_request(ACTION_BUTTON_WIDTH, -1);
-
-        add(gtk_vspacer(32));
     }
 
     private void on_logout_clicked() {
@@ -1188,7 +1181,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private void on_publish_clicked() {
         parameters.visibility_specification =
             visibilities[visibility_combo.get_active()].specification;
-            
+
         if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0)
             parameters.photo_major_axis_size = sizes[size_combo.get_active()].size;
 
@@ -1205,18 +1198,14 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         return result;
     }
 
-    private Gtk.ComboBox create_visibility_combo() {
-        Gtk.ComboBoxText result = new Gtk.ComboBoxText();
-
+    private void populate_visibility_combo() {
         if (visibilities == null)
             visibilities = create_visibilities();
 
         foreach (VisibilityEntry v in visibilities)
-            result.append_text(v.title);
+            visibility_combo.append_text(v.title);
 
-        result.set_active(publisher.get_persistent_visibility());
-
-        return result;
+        visibility_combo.set_active(publisher.get_persistent_visibility());
     }
 
     private SizeEntry[] create_sizes() {
@@ -1231,18 +1220,14 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         return result;
     }
 
-    private Gtk.ComboBox create_size_combo() {
-        Gtk.ComboBoxText result = new Gtk.ComboBoxText();
-
+    private void populate_size_combo() {
         if (sizes == null)
             sizes = create_sizes();
 
         foreach (SizeEntry e in sizes)
-            result.append_text(e.title);
+            size_combo.append_text(e.title);
 
-        result.set_active(publisher.get_persistent_default_size());
-
-        return result;
+        size_combo.set_active(publisher.get_persistent_default_size());
     }
 
     private void on_size_changed() {
@@ -1251,18 +1236,6 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
 
     private void on_visibility_changed() {
         publisher.set_persistent_visibility(visibility_combo.get_active());
-    }
-}
-
-internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
-    private LegacyPublishingOptionsPane wrapped = null;
-
-    public signal void publish();
-    public signal void logout();
-
-    public PublishingOptionsPane(FlickrPublisher publisher, PublishingParameters parameters,
-        Spit.Publishing.Publisher.MediaType media_type) {
-        wrapped = new LegacyPublishingOptionsPane(publisher, parameters, media_type);
     }
     
     protected void notify_publish() {
@@ -1274,7 +1247,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     public Gtk.Widget get_widget() {
-        return wrapped;
+        return pane_widget;
     }
     
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
@@ -1282,13 +1255,13 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
     
     public void on_pane_installed() {        
-        wrapped.publish.connect(notify_publish);
-        wrapped.logout.connect(notify_logout);
+        publish.connect(notify_publish);
+        logout.connect(notify_logout);
     }
     
     public void on_pane_uninstalled() {
-        wrapped.publish.disconnect(notify_publish);
-        wrapped.logout.disconnect(notify_logout);
+        publish.disconnect(notify_publish);
+        logout.disconnect(notify_logout);
     }
 }
 
