@@ -174,7 +174,10 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         Gee.Iterator<ContainerSource> iter = holding_tank.iterator();
         while (iter.next()) {
             ContainerSource container = iter.get();
-            if (!container.has_links()) {
+            
+            // By design, we no longer discard 'orphan' tags, that is, tags with zero media sources
+            // remaining, since empty tags are explicitly allowed to persist as of the 0.12 dev cycle.
+            if ((!container.has_links()) && !(container is Tag)) {
                 iter.remove();
                 container.destroy_orphan(true);
             }
