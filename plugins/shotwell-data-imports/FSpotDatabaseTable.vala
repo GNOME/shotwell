@@ -9,7 +9,7 @@ namespace DataImports.FSpot.Db {
 /**
  * This class represents a generic F-Spot table.
  */
-public abstract class FSpotDatabaseTable<T> : DatabaseTable {
+public abstract class FSpotDatabaseTable<T> : ImportableDatabaseTable {
     protected unowned Sqlite.Database fspot_db;
     protected FSpotTableBehavior<T> behavior;
     

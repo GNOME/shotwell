@@ -13,7 +13,7 @@ public errordomain DatabaseError {
     TYPESPEC
 }
 
-public abstract class DatabaseTable {
+public abstract class ImportableDatabaseTable {
     
     protected static Sqlite.Database db;
     
