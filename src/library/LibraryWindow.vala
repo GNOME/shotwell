@@ -63,14 +63,7 @@ public class LibraryWindow : AppWindow {
         { MEDIA_LIST_MIME_TYPE, Gtk.TargetFlags.SAME_APP, TargetType.MEDIA_LIST },
         { TAG_PATH_MIME_TYPE, Gtk.TargetFlags.SAME_WIDGET, TargetType.TAG_PATH }
     };
-    
-    // special Yorba-selected sidebar background color for standard themes (humanity,
-    // clearlooks, etc.); dark themes use the theme's native background color
-    public static Gdk.RGBA SIDEBAR_STANDARD_BG_COLOR = parse_color("#EEE");
-    
-    // Max brightness value to trigger SIDEBAR_STANDARD_BG_COLOR 
-    public const uint16 STANDARD_COMPONENT_MINIMUM = 0xe000;
-    
+
     // In fullscreen mode, want to use LibraryPhotoPage, but fullscreen has different requirements,
     // esp. regarding when the widget is realized and when it should first try and throw them image
     // on the page.  This handles this without introducing lots of special cases in
@@ -1244,18 +1237,6 @@ public class LibraryWindow : AppWindow {
         // use a Notebook to hold all the pages, which are switched when a sidebar child is selected
         notebook.set_show_tabs(false);
         notebook.set_show_border(false);
-        
-        Gtk.Settings settings = Gtk.Settings.get_default();
-        HashTable<string, Gdk.Color?> color_table = settings.color_hash;
-        Gdk.Color? base_color = color_table.lookup("base_color");
-        if (base_color != null && (base_color.red > STANDARD_COMPONENT_MINIMUM &&
-            base_color.green > STANDARD_COMPONENT_MINIMUM &&
-            base_color.blue > STANDARD_COMPONENT_MINIMUM)) {
-            // if the current theme is a standard theme (as opposed to a dark theme), then
-            // use the specially-selected Yorba muted background color for the sidebar.
-            // otherwise, use the theme's native background color.
-            sidebar_tree.override_color(Gtk.StateFlags.NORMAL, SIDEBAR_STANDARD_BG_COLOR);
-        }
         
         // put the sidebar in a scrolling window
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);
