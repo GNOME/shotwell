@@ -253,10 +253,10 @@ private class ManifestListView : Gtk.TreeView {
             out celly))
             return base.button_press_event(event);
         
-        // if the mouse event hit-point has an x-coordinate between ICON_SIZE and (2 * ICON_SIZE),
-        // then the event occurred inside the enable/disable checkbox; short-circuit return if
-        // cellx is not between ICON_SIZE and (2 * ICON_SIZE), otherwise proceed
-        if (cellx < ICON_SIZE || cellx > (2 * ICON_SIZE))
+        // Perform custom hit testing as described above. The first cell in the column is offset
+        // from the left edge by whatever size the group description icon is allocated (including
+        // padding).
+        if (cellx < (ICON_SIZE + ICON_X_PADDING) || cellx > (2 * (ICON_X_PADDING + ICON_SIZE)))
             return base.button_press_event(event);
 
         Gtk.TreeIter iter;
