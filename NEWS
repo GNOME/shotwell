@@ -1,3 +1,15 @@
+Shotwell 0.12.3 - 9 May 2012 - "It was a million to one shot, Doc."
+----------------------------------------------------------------------------
+
+  * Corrects an issue where tags could be inappropriately removed from a
+    library.
+  * Enhances support for AVCHD-capable cameras.
+  * Prevents a soft lockup that could occur when certain very dark images
+    were autoenhanced.
+  * Corrects an issue where pressing the zoom hotkeys in certain parts
+    of the application could cause a crash.
+
+
 Shotwell 0.12.2 - 9 April 2012 - "It's Made From Fusilli Pasta"
 ----------------------------------------------------------------------------
 

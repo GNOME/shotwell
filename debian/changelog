@@ -1,3 +1,16 @@
+shotwell (0.12.3-1~oneiric1) oneiric; urgency=low
+
+  * Corrects an issue where tags could be inappropriately removed from a
+    library.
+  * Enhances support for AVCHD-capable cameras.
+  * Prevents a soft lockup that could occur when certain very dark images
+    were autoenhanced.
+  * Corrects an issue where pressing the zoom hotkeys in certain parts
+    of the application could cause a crash.
+    
+ -- Clint Rogers <clinton@yorba.org>  Wed, 9 May 2012 11:22:00 -0700
+ 
+
 shotwell (0.12.2-1~oneiric1) oneiric; urgency=low
 
   * Corrects an issue where graphical corruption of the UI could
