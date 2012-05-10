@@ -1212,6 +1212,7 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         result += new SizeDescription(_("Small (640 x 480 pixels)"), 640);
         result += new SizeDescription(_("Medium (1024 x 768 pixels)"), 1024);
         result += new SizeDescription(_("Recommended (1600 x 1200 pixels)"), 1600);
+        result += new SizeDescription(_("Google+ (2048 x 1536 pixels)"), 2048);
         result += new SizeDescription(_("Original Size"), PublishingParameters.ORIGINAL_SIZE);
 
         return result;
