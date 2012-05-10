@@ -1193,6 +1193,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         result += new VisibilityEntry(_("Everyone"), new VisibilitySpecification(1, 1, 1));
         result += new VisibilityEntry(_("Friends & family only"), new VisibilitySpecification(1, 1, 0));
+        result += new VisibilityEntry(_("Family only"), new VisibilitySpecification(0, 1, 0));
+        result += new VisibilityEntry(_("Friends only"), new VisibilitySpecification(1, 0, 0));
         result += new VisibilityEntry(_("Just me"), new VisibilitySpecification(0, 0, 0));
 
         return result;
