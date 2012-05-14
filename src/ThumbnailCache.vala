@@ -158,7 +158,7 @@ public class ThumbnailCache : Object {
     
     private ThumbnailCache(Size size, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
         Jpeg.Quality quality = DEFAULT_QUALITY) {
-        cache_dir = AppDirs.get_data_subdir("thumbs", "thumbs%d".printf(size.get_scale()));
+        cache_dir = AppDirs.get_cache_subdir("thumbs", "thumbs%d".printf(size.get_scale()));
         this.size = size;
         this.max_cached_bytes = max_cached_bytes;
         this.interp = interp;

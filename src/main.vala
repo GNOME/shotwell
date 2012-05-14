@@ -407,9 +407,12 @@ void main(string[] args) {
     // set custom data directory if it's been supplied
     if (CommandlineOptions.data_dir != null)
         AppDirs.set_data_dir(CommandlineOptions.data_dir);
+    else
+        AppDirs.try_migrate_data();
     
     // Verify the private data directory before continuing
     AppDirs.verify_data_dir();
+    AppDirs.verify_cache_dir();
     
     // init internationalization with the default system locale
     InternationalSupport.init(Resources.APP_GETTEXT_PACKAGE, args);

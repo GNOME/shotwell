@@ -5,7 +5,7 @@
  */
 
 class AppDirs {
-    private const string DEFAULT_DATA_DIR = ".shotwell";
+    private const string DEFAULT_DATA_DIR = "shotwell";
     
     private static File exec_dir;
     private static File data_dir = null;
@@ -25,7 +25,43 @@ class AppDirs {
     public static File get_home_dir() {
         return File.new_for_path(Environment.get_home_dir());
     }
+
+    public static File get_cache_dir() {
+        return File.new_for_path(Environment.get_user_cache_dir()).get_child(DEFAULT_DATA_DIR);
+    }
     
+    public static void try_migrate_data() {
+        File new_dir = get_data_dir();
+        File old_dir = get_home_dir().get_child(".shotwell");
+        if (new_dir.query_exists() || !old_dir.query_exists())
+            return;
+
+        File cache_dir = get_cache_dir();
+        Posix.mode_t mask = Posix.umask(0700);
+        if (!cache_dir.query_exists()) {
+            try {
+                cache_dir.make_directory_with_parents(null);
+            } catch (Error err) {
+                AppWindow.panic(_("Unable to create cache directory %s: %s").printf(cache_dir.get_path(),
+                                                                                    err.message));
+            }
+        }
+        GLib.FileUtils.rename(old_dir.get_child("thumbs").get_path(), cache_dir.get_child("thumbs").get_path());
+
+        if (!new_dir.get_parent().query_exists()) {
+            try {
+              new_dir.get_parent().make_directory_with_parents(null);
+            } catch (Error err) {
+                AppWindow.panic(_("Unable to create data directory %s: %s").printf(new_dir.get_parent().get_path(),
+                                                                                   err.message));
+            }
+        }
+        GLib.FileUtils.rename(old_dir.get_path(), new_dir.get_path());
+        GLib.FileUtils.chmod(new_dir.get_path(), 0700);
+
+        Posix.umask(mask);
+    }
+
     // This can only be called once, and it better be called at startup
     public static void set_data_dir(string user_data_dir) requires (!is_string_empty(user_data_dir)) {
         assert(data_dir == null);
@@ -51,13 +87,24 @@ class AppDirs {
         }
     }
     
+    public static void verify_cache_dir() {
+        File cache_dir = get_cache_dir();
+        try {
+            if (!cache_dir.query_exists(null))
+                cache_dir.make_directory_with_parents(null);
+        } catch (Error err) {
+            AppWindow.panic(_("Unable to create cache directory %s: %s").printf(cache_dir.get_path(),
+                err.message));
+        }
+    }
+
     // Return the directory in which Shotwell is installed, or null if uninstalled.
     public static File? get_install_dir() {
         return get_sys_install_dir(exec_dir);
     }
     
     public static File get_data_dir() {
-        return (data_dir == null) ? get_home_dir().get_child(DEFAULT_DATA_DIR) : data_dir;
+        return (data_dir == null) ? File.new_for_path(Environment.get_user_data_dir()).get_child(DEFAULT_DATA_DIR) : data_dir;
     }
     
     // The "import directory" is the same as the library directory, and are often used
@@ -130,6 +177,22 @@ class AppDirs {
     
     public static File get_data_subdir(string name, string? subname = null) {
         File subdir = get_data_dir().get_child(name);
+        if (subname != null)
+            subdir = subdir.get_child(subname);
+
+        try {
+            if (!subdir.query_exists(null))
+                subdir.make_directory_with_parents(null);
+        } catch (Error err) {
+            AppWindow.panic(_("Unable to create data subdirectory %s: %s").printf(subdir.get_path(),
+                err.message));
+        }
+        
+        return subdir;
+    }
+
+    public static File get_cache_subdir(string name, string? subname = null) {
+        File subdir = get_cache_dir().get_child(name);
         if (subname != null)
             subdir = subdir.get_child(subname);
 
