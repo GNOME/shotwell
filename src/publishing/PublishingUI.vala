@@ -7,7 +7,7 @@
 namespace PublishingUI {
 
 public class ConcreteDialogPane : Spit.Publishing.DialogPane, GLib.Object {
-    private Gtk.Box pane_widget;
+    protected Gtk.Box pane_widget;
     
     public ConcreteDialogPane() {
         pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
@@ -87,25 +87,14 @@ public class LoginWelcomePane : ConcreteDialogPane {
 }
 
 public class ProgressPane : ConcreteDialogPane {
-    private Gtk.ProgressBar progress_bar;
-    private Gtk.Label secondary_text;
+    private Gtk.Builder builder = null;
+    private Gtk.ProgressBar progress_bar = null;
 
     public ProgressPane() {
-        progress_bar = new Gtk.ProgressBar();
-        secondary_text = new Gtk.Label("");
-        
-        // force 'Publishing x of y' message to appear
-        progress_bar.set_show_text(true);
-        
-        Gtk.Box progress_bar_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        progress_bar_wrapper.pack_start(gtk_hspacer(10), true, true, 0);
-        progress_bar_wrapper.pack_start(progress_bar, true, true, 0);
-        progress_bar_wrapper.pack_start(gtk_hspacer(10), true, true, 0);
+        builder = AppWindow.create_builder();
 
-        (get_widget() as Gtk.Box).pack_start(gtk_vspacer(100), true, true, 0);
-        (get_widget() as Gtk.Box).pack_start(progress_bar_wrapper, true, true, 0);
-        (get_widget() as Gtk.Box).pack_start(secondary_text, true, true, 0);
-        (get_widget() as Gtk.Box).pack_start(gtk_vspacer(100), true, true, 0);
+        pane_widget = (Gtk.Box) builder.get_object("progress_pane_widget");
+        progress_bar = (Gtk.ProgressBar) builder.get_object("publishing_progress_bar");
     }
 
     public void set_text(string text) {
