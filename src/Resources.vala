@@ -255,6 +255,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ADJUST_DATE_TIME_LABEL = _("Adjust Date and Time");
     
     public const string ADD_TAGS_MENU = _("Add _Tags...");
+    public const string ADD_TAGS_CONTEXT_MENU = _("_Add Tags...");
     public const string ADD_TAGS_TITLE = _("Add Tags");
 
     public const string PREFERENCES_MENU = _("_Preferences");
@@ -264,6 +265,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string EXTERNAL_EDIT_RAW_MENU = _("Open With RA_W Editor");
     
     public const string SEND_TO_MENU = _("Send _To...");
+    public const string SEND_TO_CONTEXT_MENU = _("Send T_o...");
     
     public const string FIND_MENU = _("_Find...");
     public const string FIND_LABEL = _("Find");

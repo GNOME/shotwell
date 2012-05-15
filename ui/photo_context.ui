@@ -3,7 +3,7 @@
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
-        <menuitem name="ContextAddTags" action="AddTags" />
+        <menuitem name="ContextAddTags" action="AddTagsContextMenu" />
         <menuitem name="ContextModifyTags" action="ModifyTags" />
         <placeholder name="ContextTagsPlaceholder" />
         <separator />
@@ -26,7 +26,7 @@
         <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
         <separator />
         <placeholder name="ContextJumpPlaceholder" />
-        <menuitem name="ContextSendTo" action="SendTo" />
+        <menuitem name="ContextSendTo" action="SendToContextMenu" />
         <separator />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
     </popup>

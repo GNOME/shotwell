@@ -273,11 +273,18 @@ public abstract class MediaPage : CheckerboardPage {
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
         actions += export;
-       
+
         Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null, 
             TRANSLATABLE, on_send_to };
         send_to.label = Resources.SEND_TO_MENU;
         actions += send_to;
+
+        // This is identical to the above action, except that it has different 
+        // mnemonics and is _only_ for use in the context menu.
+        Gtk.ActionEntry send_to_context_menu = { "SendToContextMenu", "document-send", TRANSLATABLE, null,
+            TRANSLATABLE, on_send_to };
+        send_to_context_menu.label = Resources.SEND_TO_CONTEXT_MENU;
+        actions += send_to_context_menu;
         
         Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
@@ -293,12 +300,19 @@ public abstract class MediaPage : CheckerboardPage {
             TRANSLATABLE, on_new_event };
         new_event.label = Resources.NEW_EVENT_MENU;
         actions += new_event;
-        
+
         Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
             on_add_tags };
         add_tags.label = Resources.ADD_TAGS_MENU;
         actions += add_tags;
-        
+
+        // This is identical to the above action, except that it has different 
+        // mnemonics and is _only_ for use in the context menu.
+        Gtk.ActionEntry add_tags_context_menu = { "AddTagsContextMenu", null, TRANSLATABLE, "<Ctrl>A", TRANSLATABLE,
+            on_add_tags };
+        add_tags_context_menu.label = Resources.ADD_TAGS_CONTEXT_MENU;
+        actions += add_tags_context_menu;
+
         Gtk.ActionEntry modify_tags = { "ModifyTags", null, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, 
             on_modify_tags };
         modify_tags.label = Resources.MODIFY_TAGS_MENU;

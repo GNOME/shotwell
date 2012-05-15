@@ -3,7 +3,7 @@
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
-        <menuitem name="ContextAddTags" action="AddTags" />
+        <menuitem name="ContextAddTags" action="AddTagsContextMenu" />
         <menuitem name="ContextModifyTags" action="ModifyTags" />
         <placeholder name="ContextTagsPlaceholder" />
         <separator />
@@ -29,7 +29,7 @@
         <separator />
         <menuitem name="ContextJumpToEvent" action="CommonJumpToEvent" />
         <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
-        <menuitem name="ContextSendTo" action="SendTo" />
+        <menuitem name="ContextSendTo" action="SendToContextMenu" />
         <separator />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
     </popup>

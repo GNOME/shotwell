@@ -2557,7 +2557,19 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry raw_developer = { "RawDeveloper", null, TRANSLATABLE, null, null, null };
         raw_developer.label = _("_Developer");
         actions += raw_developer;
-        
+
+        // These are identical to add_tags and send_to, except that they have
+        // different mnemonics and are _only_ for use in the context menu.
+        Gtk.ActionEntry send_to_context_menu = { "SendToContextMenu", "document-send", TRANSLATABLE, null,
+            TRANSLATABLE, on_send_to };
+        send_to_context_menu.label = Resources.SEND_TO_CONTEXT_MENU;
+        actions += send_to_context_menu;        
+
+        Gtk.ActionEntry add_tags_context_menu = { "AddTagsContextMenu", null, TRANSLATABLE, "<Ctrl>A", TRANSLATABLE,
+            on_add_tags };
+        add_tags_context_menu.label = Resources.ADD_TAGS_CONTEXT_MENU;
+        actions += add_tags_context_menu;
+
         return actions;
     }
     
