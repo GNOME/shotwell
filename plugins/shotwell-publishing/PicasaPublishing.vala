@@ -495,8 +495,23 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_show_publishing_options_pane() {
         debug("ACTION: showing publishing options pane.");
-        
-        PublishingOptionsPane opts_pane = new PublishingOptionsPane(host, username, albums, media_type);
+        Gtk.Builder builder = new Gtk.Builder();
+
+        try {
+            // the trailing get_path() is required, since add_from_file can't cope
+            // with File objects directly and expects a pathname instead.
+            builder.add_from_file(
+                host.get_module_file().get_parent().
+                get_child("picasa_publishing_options_pane.glade").get_path());
+        } catch (Error e) {
+            warning("Could not parse UI file! Error: %s.", e.message);
+            host.post_error(
+                new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
+                    _("A file required for publishing is unavailable. Publishing to Picasa can't continue.")));
+            return;
+        }
+
+        PublishingOptionsPane opts_pane = new PublishingOptionsPane(host, username, albums, media_type, builder);
         opts_pane.publish.connect(on_publishing_options_publish);
         opts_pane.logout.connect(on_publishing_options_logout);
         host.install_dialog_pane(opts_pane);
@@ -950,45 +965,7 @@ internal class LegacyCredentialsPane : Gtk.VBox {
 }
 
 internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
-    private LegacyPublishingOptionsPane wrapped = null;
-
-    public signal void publish(PublishingParameters parameters);
-    public signal void logout();
-
-    public PublishingOptionsPane(Spit.Publishing.PluginHost host, string username, Album[] albums, Spit.Publishing.Publisher.MediaType media_type) {
-        wrapped = new LegacyPublishingOptionsPane(host, username, albums, media_type);
-    }
     
-    protected void notify_publish(PublishingParameters parameters) {
-        publish(parameters);
-    }
-    
-    protected void notify_logout() {
-        logout();
-    }
-
-    public Gtk.Widget get_widget() {
-        return wrapped;
-    }
-    
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-    
-    public void on_pane_installed() {        
-        wrapped.publish.connect(notify_publish);
-        wrapped.logout.connect(notify_logout);
-        
-        wrapped.installed();
-    }
-    
-    public void on_pane_uninstalled() {
-        wrapped.publish.disconnect(notify_publish);
-        wrapped.logout.disconnect(notify_logout);
-    }
-}
-
-internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private class SizeDescription {
         public string name;
         public int major_axis_pixels;
@@ -999,163 +976,79 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         }
     }
 
-    private const int PACKER_VERTICAL_PADDING = 16;
-    private const int PACKER_HORIZ_PADDING = 128;
-    private const int INTERSTITIAL_VERTICAL_SPACING = 20;
-    private const int ACTION_BUTTON_SPACING = 48;
-    private const int ACTION_BUTTON_WIDTH = 128;
     private const string DEFAULT_SIZE_CONFIG_KEY = "default_size";
     private const string LAST_ALBUM_CONFIG_KEY = "last_album";
     
-    private Gtk.ComboBoxText existing_albums_combo;
-    private Gtk.Entry new_album_entry;
-    private Gtk.CheckButton public_check;
-    private Gtk.ComboBoxText size_combo;
-    private Gtk.RadioButton use_existing_radio;
-    private Gtk.RadioButton create_new_radio;
+    private Gtk.Builder builder = null;
+    
+    private Gtk.Box pane_widget = null;
+    private Gtk.Label login_identity_label = null;
+    private Gtk.Label publish_to_label = null;
+    private Gtk.RadioButton use_existing_radio = null;
+    private Gtk.ComboBoxText existing_albums_combo = null;
+    private Gtk.RadioButton create_new_radio = null;
+    private Gtk.Entry new_album_entry = null;
+    private Gtk.CheckButton public_check = null;
+    private Gtk.ComboBoxText size_combo = null;
+    private Gtk.Button publish_button = null;
+    private Gtk.Button logout_button = null;
+    
     private Album[] albums;
     private SizeDescription[] size_descriptions;
-    private Gtk.Button publish_button;
     private string username;
     private weak Spit.Publishing.PluginHost host;
 
     public signal void publish(PublishingParameters parameters);
     public signal void logout();
 
-    public LegacyPublishingOptionsPane(Spit.Publishing.PluginHost host, string username, 
-        Album[] albums, Spit.Publishing.Publisher.MediaType media_type) {
+    public PublishingOptionsPane(Spit.Publishing.PluginHost host, string username, 
+        Album[] albums, Spit.Publishing.Publisher.MediaType media_type, Gtk.Builder builder) {
         this.username = username;
         this.albums = albums;
         this.host = host;
         size_descriptions = create_size_descriptions();
 
-        add(gtk_vspacer(8));
+        this.builder = builder;
+        assert(builder != null);
+        assert(builder.get_objects().length() > 0);
 
-        Gtk.Label login_identity_label =
-            new Gtk.Label(_("You are logged into Picasa Web Albums as %s.").printf(
-            username));
+        // pull in all widgets from builder.
+        pane_widget = (Gtk.Box) builder.get_object("picasa_pane_widget");
+        login_identity_label = (Gtk.Label) builder.get_object("login_identity_label");
+        publish_to_label = (Gtk.Label) builder.get_object("publish_to_label");
+        use_existing_radio = (Gtk.RadioButton) builder.get_object("use_existing_radio");
+        existing_albums_combo = (Gtk.ComboBoxText) builder.get_object("existing_albums_combo");
+        create_new_radio = (Gtk.RadioButton) builder.get_object("create_new_radio");
+        new_album_entry = (Gtk.Entry) builder.get_object("new_album_entry");
+        public_check = (Gtk.CheckButton) builder.get_object("public_check");
+        size_combo = (Gtk.ComboBoxText) builder.get_object("size_combo");
+        publish_button = (Gtk.Button) builder.get_object("publish_button");
+        logout_button = (Gtk.Button) builder.get_object("logout_button");
 
-        add(login_identity_label);
+        // populate any widgets whose contents are programmatically-generated.
+        login_identity_label.set_label(_("You are logged into Picasa Web Albums as %s.").printf(username));
 
-        Gtk.Box vert_packer = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-
-        vert_packer.add(gtk_vspacer(INTERSTITIAL_VERTICAL_SPACING));
-
-        Gtk.Table main_table = new Gtk.Table(6, 3, false);
-
-        // Ticket #3212, part II - If we're onluy uploading video, alter the         
-        // 'will appear in' message to reflect this.          
-        Gtk.Label publish_to_label;
-
-        if((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) == 0) 
-            publish_to_label = new Gtk.Label(_("Videos will appear in:"));
-        else
-            publish_to_label = new Gtk.Label(_("Photos will appear in:"));
-            
-        publish_to_label.set_alignment(0.0f, 0.5f);
-        main_table.attach(publish_to_label, 0, 2, 0, 1,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        main_table.attach(gtk_hspacer(2), 0, 1, 1, 2,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        use_existing_radio = new Gtk.RadioButton.with_mnemonic(null, _("An _existing album:"));
-        use_existing_radio.clicked.connect(on_use_existing_radio_clicked);
-        main_table.attach(use_existing_radio, 1, 2, 1, 2,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        existing_albums_combo = new Gtk.ComboBoxText();
-        Gtk.Alignment existing_albums_combo_frame = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        existing_albums_combo_frame.add(existing_albums_combo);
-        main_table.attach(existing_albums_combo_frame, 2, 3, 1, 2,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        create_new_radio = new Gtk.RadioButton.with_mnemonic(use_existing_radio.get_group(),
-            _("A _new album named:"));
-        create_new_radio.clicked.connect(on_create_new_radio_clicked);
-        main_table.attach(create_new_radio, 1, 2, 2, 3,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        new_album_entry = new Gtk.Entry();
-        new_album_entry.changed.connect(on_new_album_entry_changed);
-        main_table.attach(new_album_entry, 2, 3, 2, 3,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        public_check = new Gtk.CheckButton.with_mnemonic(_("L_ist album in public gallery"));
-        main_table.attach(public_check, 2, 3, 3, 4,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        main_table.attach(gtk_vspacer(INTERSTITIAL_VERTICAL_SPACING / 2), 2, 3, 4, 5,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        // Ticket #3212 - Only display the size chooser if we're uploading a
-        // photograph, since resizing of video isn't supported.
-        // 
-        // If the media_type argument doesn't tell us we're getting at least
-        // one photo, do not create or add these widgets.
-        if((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0) {
-            Gtk.Label size_label = new Gtk.Label.with_mnemonic(_("Photo _size preset:"));
-            size_label.set_alignment(0.0f, 0.5f);
-            
-            main_table.attach(size_label, 0, 2, 5, 6,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-            size_combo = new Gtk.ComboBoxText();
-            foreach(SizeDescription desc in size_descriptions)
+        if((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) == 0) {
+            publish_to_label.set_label(_("Videos will appear in:"));
+            size_combo.set_visible(false);
+            size_combo.set_sensitive(false);
+        }
+        else {
+            publish_to_label.set_label(_("Photos will appear in:"));
+            foreach(SizeDescription desc in size_descriptions) {
                 size_combo.append_text(desc.name);
-        
+            }
+            size_combo.set_visible(true);
+            size_combo.set_sensitive(true);
             size_combo.set_active(host.get_config_int(DEFAULT_SIZE_CONFIG_KEY, 0));
-            Gtk.Alignment size_combo_frame = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        
-            size_combo_frame.add(size_combo);
-            main_table.attach(size_combo_frame, 2, 3, 5, 6,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-            size_label.set_mnemonic_widget(size_combo);
         }
 
-        vert_packer.add(main_table);
-
-        vert_packer.add(gtk_vspacer(INTERSTITIAL_VERTICAL_SPACING));
-
-        Gtk.Box action_button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        action_button_layouter.homogeneous = true;
-
-        Gtk.Button logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
+        // connect all signals.
+        use_existing_radio.clicked.connect(on_use_existing_radio_clicked);
+        create_new_radio.clicked.connect(on_create_new_radio_clicked);
+        new_album_entry.changed.connect(on_new_album_entry_changed);
         logout_button.clicked.connect(on_logout_clicked);
-        logout_button.set_size_request(ACTION_BUTTON_WIDTH, -1);
-        Gtk.Alignment logout_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        logout_button_aligner.add(logout_button);
-        action_button_layouter.add(logout_button_aligner);
-        action_button_layouter.add(gtk_hspacer(ACTION_BUTTON_SPACING));
-        publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button.clicked.connect(on_publish_clicked);
-        publish_button.set_size_request(ACTION_BUTTON_WIDTH, -1);
-        Gtk.Alignment publish_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        publish_button_aligner.add(publish_button);
-        action_button_layouter.add(publish_button_aligner);
-
-        Gtk.Alignment action_button_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        action_button_wrapper.add(action_button_layouter);
-
-        vert_packer.add(action_button_wrapper);
-
-        vert_packer.add(gtk_vspacer(2 * PACKER_VERTICAL_PADDING));
-
-        Gtk.Alignment vert_packer_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        vert_packer_wrapper.add(vert_packer);
-
-        add(vert_packer_wrapper);
     }
 
     private void on_publish_clicked() {
@@ -1249,6 +1142,34 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
             }
         }
         update_publish_button_sensitivity();
+    }
+    
+    protected void notify_publish(PublishingParameters parameters) {
+        publish(parameters);
+    }
+    
+    protected void notify_logout() {
+        logout();
+    }
+
+    public Gtk.Widget get_widget() {
+        return pane_widget;
+    }
+    
+    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
+    }
+    
+    public void on_pane_installed() {       
+        installed();
+         
+        publish.connect(notify_publish);
+        logout.connect(notify_logout);
+    }
+    
+    public void on_pane_uninstalled() {
+        publish.disconnect(notify_publish);
+        logout.disconnect(notify_logout);
     }
 }
 

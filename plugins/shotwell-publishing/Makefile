@@ -26,6 +26,7 @@ RC_FILES := \
 	facebook_publishing_options_pane.glade \
 	flickr.png \
 	picasa.png \
+	picasa_publishing_options_pane.glade \
 	piwigo.png \
 	piwigo_authentication_pane.glade \
 	piwigo_publishing_options_pane.glade \
