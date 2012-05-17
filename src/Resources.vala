@@ -21,6 +21,7 @@ namespace Resources {
     public const string YORBA_URL = "http://www.yorba.org";
     public const string WIKI_URL = "http://redmine.yorba.org/projects/shotwell/wiki/Shotwell";
     public const string FAQ_URL = "http://redmine.yorba.org/projects/shotwell/wiki/ShotwellFAQ";
+    public const string BUG_DB_URL = "http://redmine.yorba.org/projects/shotwell/issues/new";
     public const string DIR_PATTERN_URI_SYSWIDE = "ghelp:shotwell?other-files";
 
     private const string LIB = _LIB;

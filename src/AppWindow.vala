@@ -513,6 +513,11 @@ public abstract class AppWindow : PageWindow {
         help_faq.label = _("_Frequently Asked Questions");
         actions += help_faq;
         
+        Gtk.ActionEntry help_report_problem = { "CommonHelpReportProblem", null, TRANSLATABLE, null, 
+            TRANSLATABLE, on_help_report_problem };
+        help_report_problem.label = _("_Report a Problem...");
+        actions += help_report_problem;
+
         Gtk.ActionEntry undo = { "CommonUndo", Gtk.Stock.UNDO, TRANSLATABLE, "<Ctrl>Z",
             TRANSLATABLE, on_undo };
         undo.label = Resources.UNDO_MENU;
@@ -690,6 +695,14 @@ public abstract class AppWindow : PageWindow {
             Resources.launch_help(get_screen());
         } catch (Error err) {
             error_message(_("Unable to display help: %s").printf(err.message));
+        }
+    }
+
+    private void on_help_report_problem() {
+        try {
+            show_uri(Resources.BUG_DB_URL);
+        } catch (Error err) {
+            error_message(_("Unable to navigate to bug database: %s").printf(err.message));
         }
     }
     
