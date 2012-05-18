@@ -4768,7 +4768,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         import_keywords = null;
     }
     
-    protected override void notify_altered(Alteration alteration) {
+    public override void notify_altered(Alteration alteration) {
         // generate new thumbnails in the background
         if (!block_thumbnail_generation && alteration.has_subject("image"))
             thumbnail_scheduler.at_priority_idle(Priority.LOW);
