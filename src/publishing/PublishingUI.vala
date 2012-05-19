@@ -44,41 +44,21 @@ public class StaticMessagePane : ConcreteDialogPane {
 }
 
 public class LoginWelcomePane : ConcreteDialogPane {
-    private Gtk.Button login_button;
+    private Gtk.Button login_button = null;
+    private Gtk.Label not_logged_in_label = null;
+    private Gtk.Builder builder = null;
 
     public signal void login_requested();
 
     public LoginWelcomePane(string service_welcome_message) {
-        Gtk.Table content_layouter = new Gtk.Table(2, 1, false);
+        builder = AppWindow.create_builder();
+        pane_widget = builder.get_object("welcome_pane_widget") as Gtk.Box;
+        login_button = builder.get_object("login_button") as Gtk.Button;
+        not_logged_in_label = builder.get_object("not_logged_in_label") as Gtk.Label;
 
-        Gtk.Alignment label_wrapper = new Gtk.Alignment(0.5f, 1.0f, 0.0f, 0.0f);
-
-        Gtk.Label not_logged_in_label = new Gtk.Label("");
+        login_button.clicked.connect(on_login_clicked);
         not_logged_in_label.set_use_markup(true);
         not_logged_in_label.set_markup(service_welcome_message);
-        not_logged_in_label.set_line_wrap(true);
-        not_logged_in_label.set_size_request(PublishingDialog.STANDARD_CONTENT_LABEL_WIDTH, -1);
-
-        label_wrapper.add(not_logged_in_label);
-
-        content_layouter.attach(label_wrapper, 0, 1, 0, 1,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
-        not_logged_in_label.set_size_request(PublishingDialog.STANDARD_CONTENT_LABEL_WIDTH, 150);
-        not_logged_in_label.set_alignment(0.5f, 0.0f);
-
-        login_button = new Gtk.Button.with_mnemonic(_("_Login"));
-        Gtk.Alignment login_button_aligner =
-            new Gtk.Alignment(0.5f, 0.25f, 0.0f, 0.0f);      
-        login_button_aligner.add(login_button);
-        login_button.set_size_request(PublishingDialog.STANDARD_ACTION_BUTTON_WIDTH, -1);
-        login_button.clicked.connect(on_login_clicked);
-
-        content_layouter.attach(login_button_aligner, 0, 1, 1, 2,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
-
-        (get_widget() as Gtk.Box).pack_start(content_layouter, true, true, 0);
     }
 
     private void on_login_clicked() {

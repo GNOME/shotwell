@@ -1040,4 +1040,49 @@
       </packing>
     </child>
   </object>
+  <object class="GtkBox" id="welcome_pane_widget">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkLabel" id="not_logged_in_label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin_left">16</property>
+        <property name="margin_right">16</property>
+        <property name="margin_top">97</property>
+        <property name="margin_bottom">24</property>
+        <property name="label" translatable="yes">This is populated  from within the code; 
+changes made here will not display. </property>
+        <property name="wrap">True</property>
+        <property name="max_width_chars">70</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="login_button">
+        <property name="label" translatable="yes">_Login</property>
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="margin_left">256</property>
+        <property name="margin_right">240</property>
+        <property name="margin_top">80</property>
+        <property name="margin_bottom">16</property>
+        <property name="use_action_appearance">False</property>
+        <property name="use_underline">True</property>
+        <property name="image_position">top</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+  </object>
 </interface>
