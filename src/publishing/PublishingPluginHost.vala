@@ -83,7 +83,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         msg += GLib.Markup.printf_escaped("\n\n<i>%s</i>\n\n", err.message);
         msg += _("To try publishing to another service, select one from the above menu.");
         
-        dialog.install_pane(new PublishingUI.StaticMessagePane.with_pango(msg));
+        dialog.install_pane(new PublishingUI.StaticMessagePane(msg, true));
         dialog.set_close_button_mode();
         dialog.unlock_service();
 
@@ -131,7 +131,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         Spit.Publishing.PluginHost.ButtonMode button_mode) {
         set_button_mode(button_mode);
 
-        dialog.install_pane(new PublishingUI.StaticMessagePane.with_pango(markup));
+        dialog.install_pane(new PublishingUI.StaticMessagePane(markup, true));
     }
     
     public void install_success_pane() {

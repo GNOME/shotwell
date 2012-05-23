@@ -29,17 +29,21 @@ public class ConcreteDialogPane : Spit.Publishing.DialogPane, GLib.Object {
 }
 
 public class StaticMessagePane : ConcreteDialogPane {
-    public StaticMessagePane(string message_string) {
-        Gtk.Label message_label = new Gtk.Label(message_string);
-        (get_widget() as Gtk.Box).pack_start(message_label, true, true, 0);
-    }
+    private Gtk.Builder builder = null;
+    private Gtk.Label msg_label = null;
     
-    public StaticMessagePane.with_pango(string msg) {
-        Gtk.Label label = new Gtk.Label(null);
-        label.set_markup(msg);
-        label.set_line_wrap(true);
-        
-        (get_widget() as Gtk.Box).pack_start(label, true, true, 0);
+    public StaticMessagePane(string message_string, bool enable_markup = false) {
+        builder = AppWindow.create_builder();
+        msg_label = builder.get_object("static_msg_label") as Gtk.Label;
+        pane_widget = builder.get_object("static_msg_pane_widget") as Gtk.Box;
+
+        if (enable_markup) {
+            msg_label.set_markup(message_string);
+            msg_label.set_line_wrap(true);
+            msg_label.set_use_markup(true);
+        } else {
+            msg_label.set_label(message_string);
+        }
     }
 }
 
