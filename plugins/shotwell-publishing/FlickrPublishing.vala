@@ -425,7 +425,19 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void do_show_pin_entry_pane() {
         debug("ACTION: showing PIN entry pane");
         
-        PinEntryPane pin_entry_pane = new PinEntryPane();
+        Gtk.Builder builder = new Gtk.Builder();
+        
+        try {
+            builder.add_from_file(host.get_module_file().get_parent().get_child("flickr_pin_entry_pane.glade").get_path());
+        } catch (Error e) {
+            warning("Could not parse UI file! Error: %s.", e.message);
+            host.post_error(
+                new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
+                    _("A file required for publishing is unavailable. Publishing to Flickr can't continue.")));
+            return;        
+        }
+        
+        PinEntryPane pin_entry_pane = new PinEntryPane(builder);
         pin_entry_pane.proceed.connect(on_pin_entry_proceed);
         host.install_dialog_pane(pin_entry_pane);
     }
@@ -688,45 +700,28 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 }
 
 internal class PinEntryPane : Spit.Publishing.DialogPane, GLib.Object {
-    private Gtk.Widget? widget = null;
-    private Gtk.Button? continue_button = null;
-    private Gtk.Entry? pin_entry = null;
-    
+    private Gtk.Box pane_widget = null;
+    private Gtk.Button continue_button = null;
+    private Gtk.Entry pin_entry = null;
+    private Gtk.Label pin_entry_caption = null;
+    private Gtk.Label explanatory_text = null;
+    private Gtk.Builder builder = null;
+
     public signal void proceed(PinEntryPane sender, string authorization_pin);
 
-    public PinEntryPane() {
-        Gtk.Box pane_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
-        Gtk.Label explanatory_text = new Gtk.Label(
-            _("Enter the confirmation number which appears after you log into Flickr in your Web browser."));
-
-        pane_wrapper.pack_start(explanatory_text, true, true, 0);
+    public PinEntryPane(Gtk.Builder builder) {
+        this.builder = builder;
+        assert(builder != null);
+        assert(builder.get_objects().length() > 0);        
         
-        Gtk.Box pin_entry_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 12);
+        explanatory_text = builder.get_object("explanatory_text") as Gtk.Label;
+        pin_entry_caption = builder.get_object("pin_entry_caption") as Gtk.Label;
+        pin_entry = builder.get_object("pin_entry") as Gtk.Entry;
+        continue_button = builder.get_object("continue_button") as Gtk.Button;
         
-        Gtk.Label pin_entry_caption = new Gtk.Label.with_mnemonic(_("Authorization _Number:"));
+        pane_widget = builder.get_object("pane_widget") as Gtk.Box;
         
-        pin_entry = new Gtk.Entry();
-        
-        pin_entry_caption.set_mnemonic_widget(pin_entry);
-        
-        pin_entry_wrapper.pack_start(gtk_hspacer(48), true, true, 0);
-        pin_entry_wrapper.pack_start(pin_entry_caption, true, true, 0);
-        pin_entry_wrapper.pack_start(pin_entry, true, true, 0);
-        pin_entry_wrapper.pack_start(gtk_hspacer(58), true, true, 0);
-
-        pane_wrapper.pack_start(pin_entry_wrapper, true, true, 0);
-
-        continue_button = new Gtk.Button.with_mnemonic(_("Con_tinue"));
-        continue_button.set_size_request(92, -1);
-        Gtk.Alignment continue_button_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        continue_button_wrapper.add(continue_button);
-        
-        pane_wrapper.pack_start(continue_button_wrapper, true, true, 0);
-        pane_wrapper.pack_start(gtk_vspacer(80), true, true, 0);
-        
-        widget = pane_wrapper;
-        
-        widget.show_all();
+        pane_widget.show_all();
         
         on_pin_entry_contents_changed();
     }
@@ -740,7 +735,7 @@ internal class PinEntryPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     public Gtk.Widget get_widget() {
-        return widget;
+        return pane_widget;
     }
     
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
