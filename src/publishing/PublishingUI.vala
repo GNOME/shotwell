@@ -7,12 +7,13 @@
 namespace PublishingUI {
 
 public class ConcreteDialogPane : Spit.Publishing.DialogPane, GLib.Object {
-    protected Gtk.Box pane_widget;
-    
+    protected Gtk.Box pane_widget = null;
+    protected Gtk.Builder builder = null;
+
     public ConcreteDialogPane() {
-        pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
+        builder = AppWindow.create_builder();
     }
-    
+
     public Gtk.Widget get_widget() {
         return pane_widget;
     }
@@ -29,11 +30,10 @@ public class ConcreteDialogPane : Spit.Publishing.DialogPane, GLib.Object {
 }
 
 public class StaticMessagePane : ConcreteDialogPane {
-    private Gtk.Builder builder = null;
     private Gtk.Label msg_label = null;
-    
+
     public StaticMessagePane(string message_string, bool enable_markup = false) {
-        builder = AppWindow.create_builder();
+        base();
         msg_label = builder.get_object("static_msg_label") as Gtk.Label;
         pane_widget = builder.get_object("static_msg_pane_widget") as Gtk.Box;
 
@@ -50,12 +50,11 @@ public class StaticMessagePane : ConcreteDialogPane {
 public class LoginWelcomePane : ConcreteDialogPane {
     private Gtk.Button login_button = null;
     private Gtk.Label not_logged_in_label = null;
-    private Gtk.Builder builder = null;
 
     public signal void login_requested();
 
     public LoginWelcomePane(string service_welcome_message) {
-        builder = AppWindow.create_builder();
+        base();
         pane_widget = builder.get_object("welcome_pane_widget") as Gtk.Box;
         login_button = builder.get_object("login_button") as Gtk.Button;
         not_logged_in_label = builder.get_object("not_logged_in_label") as Gtk.Label;
@@ -71,12 +70,10 @@ public class LoginWelcomePane : ConcreteDialogPane {
 }
 
 public class ProgressPane : ConcreteDialogPane {
-    private Gtk.Builder builder = null;
     private Gtk.ProgressBar progress_bar = null;
 
     public ProgressPane() {
-        builder = AppWindow.create_builder();
-
+        base();
         pane_widget = (Gtk.Box) builder.get_object("progress_pane_widget");
         progress_bar = (Gtk.ProgressBar) builder.get_object("publishing_progress_bar");
     }
@@ -173,7 +170,7 @@ public class PublishingDialog : Gtk.Dialog {
                 has_videos = true;
             else
                 assert_not_reached();
-            
+
             publishables += publishable;
         }
 
