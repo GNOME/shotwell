@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkBox" id="youtube_pane_widget">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">1</property>
+    <child>
+      <object class="GtkLabel" id="login_identity_label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin_top">24</property>
+        <property name="margin_bottom">32</property>
+        <property name="label" comments="This string is altered in the code, so it's safe to ignore it during translation.">'you are logged in as $name'
+(populated in the application code)</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="padding">4</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="publish_to_label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin_top">8</property>
+        <property name="margin_bottom">64</property>
+        <property name="label" comments="This string does not require translation and may be safely skipped.">videos will appear in
+(populated in the application code.)</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="box1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin_left">40</property>
+        <property name="margin_right">40</property>
+        <property name="margin_top">16</property>
+        <property name="homogeneous">True</property>
+        <child>
+          <object class="GtkLabel" id="privacy_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">16</property>
+            <property name="margin_right">16</property>
+            <property name="xpad">10</property>
+            <property name="label" translatable="yes">Video privacy _setting:</property>
+            <property name="use_underline">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="privacy_combo">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">16</property>
+            <property name="margin_right">32</property>
+            <property name="entry_text_column">0</property>
+            <property name="id_column">1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="padding">4</property>
+        <property name="position">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="button_area_box">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin_left">112</property>
+        <property name="margin_right">112</property>
+        <property name="margin_top">48</property>
+        <property name="margin_bottom">24</property>
+        <property name="spacing">128</property>
+        <property name="homogeneous">True</property>
+        <child>
+          <object class="GtkButton" id="logout_button">
+            <property name="label" translatable="yes">_Logout</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="use_action_appearance">False</property>
+            <property name="use_underline">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="publish_button">
+            <property name="label" translatable="yes">_Publish</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="use_action_appearance">False</property>
+            <property name="use_underline">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">4</property>
+      </packing>
+    </child>
+  </object>
+</interface>

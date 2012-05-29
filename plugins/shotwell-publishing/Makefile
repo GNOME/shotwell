@@ -32,7 +32,8 @@ RC_FILES := \
 	piwigo.png \
 	piwigo_authentication_pane.glade \
 	piwigo_publishing_options_pane.glade \
-	youtube.png
+	youtube.png \
+	youtube_publishing_options_pane.glade
 
 include ../Makefile.plugin.mk
 

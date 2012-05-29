@@ -1,14 +1,14 @@
 /* Copyright 2009-2012 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
     private const string ICON_FILENAME = "youtube.png";
 
     private static Gdk.Pixbuf[] icon_pixbuf_set = null;
-    
+
     public YouTubeService(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
             icon_pixbuf_set = Resources.load_icon_set(resource_directory.get_child(ICON_FILENAME));
@@ -18,15 +18,15 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,
             Spit.Publishing.CURRENT_INTERFACE);
     }
-    
+
     public unowned string get_id() {
         return "org.yorba.shotwell.publishing.youtube";
     }
-    
+
     public unowned string get_pluggable_name() {
         return "YouTube";
     }
-    
+
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Jani Monoses";
         info.copyright = _("Copyright 2009-2012 Yorba Foundation");
@@ -38,7 +38,7 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.license = Resources.LICENSE;
         info.icons = icon_pixbuf_set;
     }
-    
+
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {
         return new Publishing.YouTube.YouTubePublisher(this, host);
     }
@@ -46,7 +46,7 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
     public Spit.Publishing.Publisher.MediaType get_supported_media() {
         return Spit.Publishing.Publisher.MediaType.VIDEO;
     }
-    
+
     public void activation(bool enabled) {
     }
 }
@@ -92,7 +92,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
         this.host = host;
         this.session = new Session();
     }
-    
+
     private string extract_channel_name(Xml.Node* document_root) throws
         Spit.Publishing.PublishingError {
         string result = "";
@@ -134,19 +134,19 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
 
         return result;
     }
-    
+
     internal string? get_persistent_username() {
         return host.get_config_string("user_name", null);
     }
-    
+
     internal string? get_persistent_auth_token() {
         return host.get_config_string("auth_token", null);
     }
-    
+
     internal void set_persistent_username(string username) {
         host.set_config_string("user_name", username);
     }
-    
+
     internal void set_persistent_auth_token(string auth_token) {
         host.set_config_string("auth_token", auth_token);
     }
@@ -157,7 +157,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
         host.unset_config_key("user_name");
         host.unset_config_key("auth_token");
     }
-    
+
     internal bool is_persistent_session_available() {
         return (get_persistent_username() != null && get_persistent_auth_token() != null);
     }
@@ -165,7 +165,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
     public bool is_running() {
         return running;
     }
-    
+
     public Spit.Publishing.Service get_service() {
         return service;
     }
@@ -173,7 +173,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
     private void on_service_welcome_login() {
         if (!is_running())
             return;
-        
+
         debug("EVENT: user clicked 'Login' in welcome pane.");
 
         do_show_credentials_pane(CredentialsPane.Mode.INTRO);
@@ -182,7 +182,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
     private void on_credentials_go_back() {
         if (!is_running())
             return;
-            
+
         debug("EVENT: user clicked 'Go Back' in credentials pane.");
 
         do_show_service_welcome_pane();
@@ -190,8 +190,8 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void on_credentials_login(string username, string password) {
         if (!is_running())
-            return;    
-    
+            return;
+
         debug("EVENT: user clicked 'Login' in credentials pane.");
 
         this.username = username;
@@ -210,7 +210,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
 
         debug("EVENT: network transaction to fetch token for login completed successfully.");
-        
+
         int index = txn.get_response().index_of("Auth=");
         string auth_substring = txn.get_response().substring(index);
         auth_substring = auth_substring.chomp();
@@ -255,7 +255,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
 
         debug("EVENT: an authenticated session has become available.");
-        
+
         do_save_auth_info();
         do_fetch_account_information();
     }
@@ -320,7 +320,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
     private void on_publishing_options_publish(PublishingParameters parameters) {
         if (!is_running())
             return;
-                
+
         debug("EVENT: user clicked 'Publish' in the publishing options pane.");
 
         this.parameters = parameters;
@@ -370,10 +370,10 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_service_welcome_login);
     }
-    
+
     private void do_show_credentials_pane(CredentialsPane.Mode mode) {
         debug("ACTION: showing credentials capture pane in %s mode.", mode.to_string());
-        
+
         CredentialsPane creds_pane = new CredentialsPane(host, mode);
         creds_pane.go_back.connect(on_credentials_go_back);
         creds_pane.login.connect(on_credentials_login);
@@ -383,7 +383,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_network_login(string username, string password) {
         debug("ACTION: running network login transaction for user = '%s'.", username);
-        
+
         host.install_login_wait_pane();
 
         TokenFetchTransaction fetch_trans = new TokenFetchTransaction(session, username, password);
@@ -398,12 +398,12 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
             on_token_fetch_error(fetch_trans, err);
         }
     }
-    
+
     private void do_save_auth_info() {
         debug("ACTION: saving authentication information to configuration system.");
-        
+
         assert(session.is_authenticated());
-        
+
         set_persistent_auth_token(session.get_auth_token());
         set_persistent_username(session.get_username());
     }
@@ -418,7 +418,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
             new ChannelDirectoryTransaction(session);
         directory_trans.network_error.connect(on_initial_channel_fetch_error);
         directory_trans.completed.connect(on_initial_channel_fetch_complete);
-        
+
         try {
             directory_trans.execute();
         } catch (Spit.Publishing.PublishingError err) {
@@ -452,8 +452,21 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_show_publishing_options_pane() {
         debug("ACTION: showing publishing options pane.");
-        
-        PublishingOptionsPane opts_pane = new PublishingOptionsPane(host, username, channel_name);
+
+        Gtk.Builder builder = new Gtk.Builder();
+
+        try {
+            builder.add_from_file(
+                host.get_module_file().get_parent().get_child("youtube_publishing_options_pane.glade").get_path());
+        } catch (Error e) {
+            warning("Could not parse UI file! Error: %s.", e.message);
+            host.post_error(
+                new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
+                    _("A file required for publishing is unavailable. Publishing to Youtube can't continue.")));
+            return;
+        }
+
+        PublishingOptionsPane opts_pane = new PublishingOptionsPane(host, username, channel_name, builder);
         opts_pane.publish.connect(on_publishing_options_publish);
         opts_pane.logout.connect(on_publishing_options_logout);
         host.install_dialog_pane(opts_pane);
@@ -490,7 +503,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_service_locked(false);
         host.install_success_pane();
     }
-    
+
     public void start() {
         if (is_running())
             return;
@@ -499,7 +512,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
             error("YouTubePublisher: start( ): can't start; this publisher is not restartable.");
 
         debug("YouTubePublisher: starting interaction.");
-        
+
         running = true;
 
         if (is_persistent_session_available()) {
@@ -536,10 +549,10 @@ internal class Session : Publishing.RESTSupport.Session {
     public void authenticate(string auth_token, string username) {
         this.auth_token = auth_token;
         this.username = username;
-        
+
         notify_authenticated();
     }
-    
+
     public void deauthenticate() {
         auth_token = null;
         username = null;
@@ -548,7 +561,7 @@ internal class Session : Publishing.RESTSupport.Session {
     public string? get_username() {
         return username;
     }
-    
+
     public string? get_auth_token() {
         return auth_token;
     }
@@ -638,14 +651,14 @@ internal class UploadTransaction : AuthenticatedTransaction {
 
         string private_video =
             (parameters.get_privacy_setting() == PrivacySetting.PRIVATE) ? PRIVATE_XML : "";
-        
+
         // Set title to publishing name, but if that's empty default to filename.
         string title = publishable.get_publishing_name();
         if (title == "") {
             title = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
         }
-        
-        string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(title), 
+
+        string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(title),
             private_video, unlisted_video);
         Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata.data);
         message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);
@@ -660,7 +673,7 @@ internal class UploadTransaction : AuthenticatedTransaction {
             string msg = "YouTube: couldn't read data from %s: %s".printf(
                 publishable.get_serialized_file().get_path(), e.message);
             warning("%s", msg);
-            
+
             throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(msg);
         }
 
@@ -678,7 +691,7 @@ internal class UploadTransaction : AuthenticatedTransaction {
         outbound_message.request_headers.append("Authorization", "GoogleLogin auth=%s".printf(
             session.get_auth_token()));
         outbound_message.request_headers.append("X-GData-Key", "key=%s".printf(DEVELOPER_KEY));
-        outbound_message.request_headers.append("Slug", 
+        outbound_message.request_headers.append("Slug",
             publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME));
         set_message(outbound_message);
 
@@ -724,11 +737,11 @@ internal class CredentialsPane : Spit.Publishing.DialogPane, GLib.Object {
         string? username = null) {
             wrapped = new LegacyCredentialsPane(host, mode, username);
     }
-    
+
     protected void notify_go_back() {
         go_back();
     }
-    
+
     protected void notify_login(string email, string password) {
         login(email, password);
     }
@@ -736,18 +749,18 @@ internal class CredentialsPane : Spit.Publishing.DialogPane, GLib.Object {
     public Gtk.Widget get_widget() {
         return wrapped;
     }
-    
+
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
         return Spit.Publishing.DialogPane.GeometryOptions.NONE;
     }
-    
-    public void on_pane_installed() {        
+
+    public void on_pane_installed() {
         wrapped.go_back.connect(notify_go_back);
         wrapped.login.connect(notify_login);
-        
+
         wrapped.installed();
     }
-    
+
     public void on_pane_uninstalled() {
         wrapped.go_back.disconnect(notify_go_back);
         wrapped.login.disconnect(notify_login);
@@ -759,7 +772,7 @@ internal class LegacyCredentialsPane : Gtk.VBox {
     private const string FAILED_RETRY_MESSAGE = _("YouTube didn't recognize the email address and password you entered. To try again, re-enter your email address and password below.");
     private const string NOT_SET_UP_MESSAGE = _("The email address and password you entered correspond to a Google account that isn't set up for use with YouTube. You can set up most accounts by using your browser to log into the YouTube site at least once. To try again, re-enter your email address and password below.");
     private const string ADDITIONAL_SECURITY_MESSAGE = _("The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into YouTube. To try again, re-enter your email address and password below.");
-    
+
     private const int UNIFORM_ACTION_BUTTON_WIDTH = 102;
     public const int STANDARD_CONTENT_LABEL_WIDTH = 500;
 
@@ -881,46 +894,6 @@ internal class LegacyCredentialsPane : Gtk.VBox {
 }
 
 internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
-    private LegacyPublishingOptionsPane wrapped = null;
-
-    public signal void publish(PublishingParameters parameters);
-    public signal void logout();
-
-    public PublishingOptionsPane(Spit.Publishing.PluginHost host, string username,
-        string channel_name) {
-        wrapped = new LegacyPublishingOptionsPane(host, username, channel_name);
-    }
-    
-    protected void notify_publish(PublishingParameters parameters) {
-        publish(parameters);
-    }
-    
-    protected void notify_logout() {
-        logout();
-    }
-
-    public Gtk.Widget get_widget() {
-        return wrapped;
-    }
-    
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-    
-    public void on_pane_installed() {        
-        wrapped.publish.connect(notify_publish);
-        wrapped.logout.connect(notify_logout);
-        
-        wrapped.installed();
-    }
-    
-    public void on_pane_uninstalled() {
-        wrapped.publish.disconnect(notify_publish);
-        wrapped.logout.disconnect(notify_logout);
-    }
-}
-
-internal class LegacyPublishingOptionsPane : Gtk.VBox {
     private class PrivacyDescription {
         public string description;
         public PrivacySetting privacy_setting;
@@ -931,96 +904,50 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
         }
     }
 
-    private const int PACKER_VERTICAL_PADDING = 16;
-    private const int PACKER_HORIZ_PADDING = 128;
-    private const int INTERSTITIAL_VERTICAL_SPACING = 20;
-    private const int ACTION_BUTTON_SPACING = 48;
-    private const int STANDARD_ACTION_BUTTON_WIDTH = 128;
-    
-    private Gtk.ComboBoxText privacy_combo;
-    private string channel_name;
-    private PrivacyDescription[] privacy_descriptions;
-    private Gtk.Button publish_button;
-
     public signal void publish(PublishingParameters parameters);
     public signal void logout();
 
-    public LegacyPublishingOptionsPane(Spit.Publishing.PluginHost host, string username,
-        string channel_name) {
+    private Gtk.Box pane_widget = null;
+    private Gtk.ComboBoxText privacy_combo = null;
+    private Gtk.Label publish_to_label = null;
+    private Gtk.Label login_identity_label = null;
+    private Gtk.Button publish_button = null;
+    private Gtk.Button logout_button = null;
+    private Gtk.Builder builder = null;
+    private Gtk.Label privacy_label = null;
+
+    private string channel_name;
+    private PrivacyDescription[] privacy_descriptions;
+
+    public PublishingOptionsPane(Spit.Publishing.PluginHost host, string username,
+        string channel_name, Gtk.Builder builder) {
         this.channel_name = channel_name;
         this.privacy_descriptions = create_privacy_descriptions();
 
-        add(gtk_vspacer(8));
+        this.builder = builder;
+        assert(builder != null);
+        assert(builder.get_objects().length() > 0);
 
-        Gtk.Label login_identity_label =
-            new Gtk.Label(_("You are logged into YouTube as %s.").printf(username));
+        login_identity_label = this.builder.get_object("login_identity_label") as Gtk.Label;
+        privacy_combo = this.builder.get_object("privacy_combo") as Gtk.ComboBoxText;
+        publish_to_label = this.builder.get_object("publish_to_label") as Gtk.Label;
+        publish_button = this.builder.get_object("publish_button") as Gtk.Button;
+        logout_button = this.builder.get_object("logout_button") as Gtk.Button;
+        pane_widget = this.builder.get_object("youtube_pane_widget") as Gtk.Box;
+        privacy_label = this.builder.get_object("privacy_label") as Gtk.Label;
 
-        add(login_identity_label);
+        login_identity_label.set_label(_("You are logged into YouTube as %s.").printf(username));
+        publish_to_label.set_label(_("Videos will appear in '%s'").printf(channel_name));
 
-        Gtk.Label publish_to_label =
-            new Gtk.Label(_("Videos will appear in '%s'").printf(channel_name));
-
-        add(publish_to_label);
-
-        Gtk.Box vert_packer = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-
-        vert_packer.add(gtk_vspacer(INTERSTITIAL_VERTICAL_SPACING));
-
-        Gtk.Table main_table = new Gtk.Table(6, 3, false);
-
-        main_table.attach(gtk_hspacer(2), 0, 1, 1, 2,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        Gtk.Label privacy_label = new Gtk.Label.with_mnemonic(_("Video privacy _setting:"));
-        privacy_label.set_alignment(0.0f, 0.5f);
-        main_table.attach(privacy_label, 0, 2, 5, 6,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
-
-        privacy_combo = new Gtk.ComboBoxText();
-        foreach(PrivacyDescription desc in privacy_descriptions)
+        foreach(PrivacyDescription desc in privacy_descriptions) {
             privacy_combo.append_text(desc.description);
-        privacy_combo.set_active(PrivacySetting.PUBLIC);
-        Gtk.Alignment privacy_combo_frame = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        privacy_combo_frame.add(privacy_combo);
-        main_table.attach(privacy_combo_frame, 2, 3, 5, 6,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
+        }
 
+        privacy_combo.set_active(PrivacySetting.PUBLIC);
         privacy_label.set_mnemonic_widget(privacy_combo);
 
-        vert_packer.add(main_table);
-
-        vert_packer.add(gtk_vspacer(INTERSTITIAL_VERTICAL_SPACING));
-
-        Gtk.Box action_button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        action_button_layouter.homogeneous = true;
-
-        Gtk.Button logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
         logout_button.clicked.connect(on_logout_clicked);
-        logout_button.set_size_request(STANDARD_ACTION_BUTTON_WIDTH, -1);
-        Gtk.Alignment logout_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        logout_button_aligner.add(logout_button);
-        action_button_layouter.add(logout_button_aligner);
-        action_button_layouter.add(gtk_hspacer(ACTION_BUTTON_SPACING));
-        publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button.clicked.connect(on_publish_clicked);
-        publish_button.set_size_request(STANDARD_ACTION_BUTTON_WIDTH, -1);
-        Gtk.Alignment publish_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        publish_button_aligner.add(publish_button);
-        action_button_layouter.add(publish_button_aligner);
-
-        Gtk.Alignment action_button_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        action_button_wrapper.add(action_button_layouter);
-
-        vert_packer.add(action_button_wrapper);
-        vert_packer.add(gtk_vspacer(2 * PACKER_VERTICAL_PADDING));
-
-        Gtk.Alignment vert_packer_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
-        vert_packer_wrapper.add(vert_packer);
-
-        add(vert_packer_wrapper);
     }
 
     private void on_publish_clicked() {
@@ -1051,6 +978,35 @@ internal class LegacyPublishingOptionsPane : Gtk.VBox {
     public void installed() {
         update_publish_button_sensitivity();
     }
+
+    protected void notify_publish(PublishingParameters parameters) {
+        publish(parameters);
+    }
+
+    protected void notify_logout() {
+        logout();
+    }
+
+    public Gtk.Widget get_widget() {
+        assert (pane_widget != null);
+        return pane_widget;
+    }
+
+    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
+    }
+
+    public void on_pane_installed() {
+        publish.connect(notify_publish);
+        logout.connect(notify_logout);
+
+        installed();
+    }
+
+    public void on_pane_uninstalled() {
+        publish.disconnect(notify_publish);
+        logout.disconnect(notify_logout);
+    }
 }
 
 internal class Uploader : Publishing.RESTSupport.BatchUploader {
@@ -1059,10 +1015,10 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
     public Uploader(Session session, Spit.Publishing.Publishable[] publishables,
         PublishingParameters parameters) {
         base(session, publishables);
-        
+
         this.parameters = parameters;
     }
-    
+
     protected override Publishing.RESTSupport.Transaction create_transaction(
         Spit.Publishing.Publishable publishable) {
         return new UploadTransaction((Session) get_session(), parameters,
