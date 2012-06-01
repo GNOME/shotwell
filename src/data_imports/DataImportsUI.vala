@@ -118,7 +118,7 @@ public class LibrarySelectionPane : ConcreteDialogPane {
             else
                 debug("LibrarySelectionPane: Library or file should be selected.");
         });
-        Gtk.ButtonBox button_box = new Gtk.HButtonBox();
+        Gtk.ButtonBox button_box = new Gtk.ButtonBox(Gtk.Orientation.HORIZONTAL);
         button_box.layout_style = Gtk.ButtonBoxStyle.CENTER;
         button_box.add(import_button);
         content_box.pack_end(button_box, true, false, 6);
@@ -265,7 +265,7 @@ public class DataImportsDialog : Gtk.Dialog {
                rest of the dialog */
             Gtk.Box service_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             service_area_layouter.pack_start(service_selector_layouter, true, true, 0);
-            Gtk.HSeparator service_central_separator = new Gtk.HSeparator();
+            Gtk.Separator service_central_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
             service_area_layouter.add(service_central_separator);
             
             Gtk.Alignment service_area_wrapper = new Gtk.Alignment(0.0f, 0.0f, 1.0f, 0.0f);

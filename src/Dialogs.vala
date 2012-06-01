@@ -1879,7 +1879,7 @@ public class PreferencesDialog {
     private Gtk.Dialog dialog;
     private Gtk.Builder builder;
     private Gtk.Adjustment bg_color_adjustment;
-    private Gtk.HScale bg_color_slider;
+    private Gtk.Scale bg_color_slider;
     private Gtk.ComboBox photo_editor_combo;
     private Gtk.ComboBox raw_editor_combo;
     private SortedList<AppInfo> external_raw_apps;
@@ -1912,7 +1912,7 @@ public class PreferencesDialog {
             (Config.Facade.get_instance().get_bg_color().red * 65535.0));
         bg_color_adjustment.value_changed.connect(on_value_changed);
 
-        bg_color_slider = builder.get_object("bg_color_slider") as Gtk.HScale;
+        bg_color_slider = builder.get_object("bg_color_slider") as Gtk.Scale;
         bg_color_slider.button_press_event.connect(on_bg_color_reset);
 
         library_dir_button = builder.get_object("library_dir_button") as Gtk.FileChooserButton;

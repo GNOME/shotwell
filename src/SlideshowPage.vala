@@ -24,9 +24,9 @@ class SlideshowPage : SinglePhotoPage {
     
     private class SettingsDialog : Gtk.Dialog {
         Gtk.SpinButton delay_entry;
-        Gtk.HScale hscale;
+        Gtk.Scale hscale;
         Gtk.ComboBoxText transition_effect_selector;
-        Gtk.HScale transition_effect_hscale;
+        Gtk.Scale transition_effect_hscale;
         Gtk.SpinButton transition_effect_entry;
         Gtk.Adjustment transition_effect_adjustment;
         
@@ -48,7 +48,7 @@ class SlideshowPage : SinglePhotoPage {
             units_label1.xalign = (float) 0.0;
 
             Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.Facade.SLIDESHOW_DELAY_MIN, Config.Facade.SLIDESHOW_DELAY_MAX, 0.1, 1, 0);
-            hscale = new Gtk.HScale(adjustment);
+            hscale = new Gtk.Scale(Gtk.Orientation.HORIZONTAL, adjustment);
             hscale.set_draw_value(false);
             hscale.set_size_request(150,-1);
             delay_label.set_mnemonic_widget(hscale);
@@ -94,7 +94,7 @@ class SlideshowPage : SinglePhotoPage {
             transition_effect_adjustment = new Gtk.Adjustment(transition_delay,
                 Config.Facade.SLIDESHOW_TRANSITION_DELAY_MIN, Config.Facade.SLIDESHOW_TRANSITION_DELAY_MAX,
                 0.1, 1, 0);
-            transition_effect_hscale = new Gtk.HScale(transition_effect_adjustment);
+            transition_effect_hscale = new Gtk.Scale(Gtk.Orientation.HORIZONTAL,transition_effect_adjustment);
             transition_effect_hscale.set_draw_value(false);
             transition_effect_hscale.set_size_request(150, -1);
             

@@ -397,7 +397,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton adjust_button = null;
     private Gtk.ToggleToolButton straighten_button = null;
     private Gtk.ToolButton enhance_button = null;
-    private Gtk.HScale zoom_slider = null;
+    private Gtk.Scale zoom_slider = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_FORWARD);
     private EditingTools.EditingTool current_tool = null;
@@ -501,7 +501,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_group.pack_start(zoom_out_box, false, false, 0);
 
         // zoom slider
-        zoom_slider = new Gtk.HScale(new Gtk.Adjustment(0.0, 0.0, 1.1, 0.1, 0.1, 0.1));
+        zoom_slider = new Gtk.Scale(Gtk.Orientation.HORIZONTAL, new Gtk.Adjustment(0.0, 0.0, 1.1, 0.1, 0.1, 0.1));
         zoom_slider.set_draw_value(false);
         zoom_slider.set_size_request(120, -1);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);

@@ -112,7 +112,7 @@ public abstract class MediaPage : CheckerboardPage {
     }
 
     protected class ZoomSliderAssembly : Gtk.ToolItem {
-        private Gtk.HScale slider;
+        private Gtk.Scale slider;
         private Gtk.Adjustment adjustment;
         
         public signal void zoom_changed();
@@ -136,7 +136,7 @@ public abstract class MediaPage : CheckerboardPage {
             adjustment = new Gtk.Adjustment(ZoomSliderAssembly.scale_to_slider(persisted_scale), 0,
                 ZoomSliderAssembly.scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
 
-            slider = new Gtk.HScale(adjustment);
+            slider = new Gtk.Scale(Gtk.Orientation.HORIZONTAL, adjustment);
             slider.value_changed.connect(on_slider_changed);
             slider.set_draw_value(false);
             slider.set_size_request(200, -1);

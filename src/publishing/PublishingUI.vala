@@ -232,7 +232,7 @@ public class PublishingDialog : Gtk.Dialog {
            rest of the dialog */
         Gtk.Box service_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         service_area_layouter.add(service_selector_layouter);
-        service_area_layouter.add(new Gtk.HSeparator());
+        service_area_layouter.add(new Gtk.Separator(Gtk.Orientation.HORIZONTAL));
 
         Gtk.Alignment service_area_wrapper = new Gtk.Alignment(0.0f, 0.0f, 1.0f, 0.0f);
         service_area_wrapper.add(service_area_layouter);

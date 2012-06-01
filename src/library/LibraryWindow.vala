@@ -95,8 +95,8 @@ public class LibraryWindow : AppWindow {
 
     private string import_dir = Environment.get_home_dir();
 
-    private Gtk.VPaned sidebar_paned = new Gtk.VPaned();
-    private Gtk.HPaned client_paned = new Gtk.HPaned();
+    private Gtk.Paned sidebar_paned = new Gtk.Paned(Gtk.Orientation.VERTICAL);
+    private Gtk.Paned client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
     private Gtk.Frame bottom_frame = new Gtk.Frame(null);
     
     private Gtk.ActionGroup common_action_group = new Gtk.ActionGroup("LibraryWindowGlobalActionGroup");
@@ -1282,7 +1282,7 @@ public class LibraryWindow : AppWindow {
         right_vbox.pack_start(search_toolbar, false, false, 0);
         right_vbox.pack_start(notebook, true, true, 0);
         
-        client_paned = new Gtk.HPaned();
+        client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
         client_paned.pack1(sidebar_paned, false, false);
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
         client_paned.pack2(right_frame, true, false);

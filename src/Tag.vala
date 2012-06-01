@@ -444,7 +444,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         foreach (string fq_tag_path in ancestry_dictionary.keys) {
             if (HierarchicalTagUtilities.enumerate_parent_paths(fq_tag_path).size < 1) {
                 if ((fq_tag_path.has_prefix(Tag.PATH_SEPARATOR_STRING)) &&
-                    (ancestry_dictionary.contains(HierarchicalTagUtilities.hierarchical_to_flat(fq_tag_path)))) {
+                    (ancestry_dictionary.has_key(HierarchicalTagUtilities.hierarchical_to_flat(fq_tag_path)))) {
                     victim_set.add(ancestry_dictionary.get(fq_tag_path));
                 }
             }
