@@ -1692,6 +1692,7 @@ public class WelcomeDialog : Gtk.Dialog {
     Gtk.Box external_import_action_checkbox_packer;
     Spit.DataImports.WelcomeImportMetaHost import_meta_host;
     bool import_content_already_installed = false;
+    bool ok_clicked = false;
     
     public WelcomeDialog(Gtk.Window owner) {
         import_meta_host = new Spit.DataImports.WelcomeImportMetaHost(this);
@@ -1771,7 +1772,7 @@ public class WelcomeDialog : Gtk.Dialog {
         
         import_meta_host.start();
     }
-    
+
     private void install_import_content() {
         if (
             (external_import_checks.length > 0 || system_pictures_import_check != null) &&
@@ -1795,15 +1796,41 @@ public class WelcomeDialog : Gtk.Dialog {
         install_import_content();
     }
 
-    public bool execute(out WelcomeServiceEntry[] selected_import_entries, out bool do_system_pictures_import) {
-        show_all();
+    /**
+     * Connected to the 'response' signal.  This is part of a workaround
+     * for the fact that run()-ning this dialog can interfere with displaying
+     * images from a camera; please see #4997 for details.
+     */
+    private void on_dismiss(int resp) {
+        if (resp == Gtk.ResponseType.OK) {
+            ok_clicked = true;
+        }
+        hide();
+        Gtk.main_quit();
+    }
 
-        bool ok = (run() == Gtk.ResponseType.OK);
+    public bool execute(out WelcomeServiceEntry[] selected_import_entries, out bool do_system_pictures_import) {
+        // it's unsafe to call run() here - it interferes with displaying
+        // images from a camera - so we process the dialog ourselves.
+        response.connect(on_dismiss);
+        show_all();
+        show();
+
+        // this will block the thread we're in until a matching call
+        // to main_quit() is encountered; this happens when either the window
+        // is closed or OK is clicked.
+        Gtk.main();
+        
+        // at this point, the inner main loop will have been exited.
+        // we've got the response, so we don't need this signal anymore.
+        response.disconnect(on_dismiss);
+
+        bool ok = ok_clicked;
         bool show_dialog = true;
 
         if (ok)
             show_dialog = !hide_button.get_active();
-        
+
         // Use a temporary variable as += cannot be used on parameters
         WelcomeServiceEntry[] result = new WelcomeServiceEntry[0];
         for (int i = 0; i < external_import_entries.length; i++) {
