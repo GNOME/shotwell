@@ -1829,7 +1829,7 @@ public class RedeyeTool : EditingTool {
             new Gtk.Button.from_stock(Gtk.Stock.APPLY);
         public Gtk.Button close_button =
             new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
-        public Gtk.HScale slider = new Gtk.HScale.with_range(
+        public Gtk.Scale slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             RedeyeInstance.MIN_RADIUS, RedeyeInstance.MAX_RADIUS, 1.0);
 
         public RedeyeToolWindow(Gtk.Window container) {
@@ -2155,18 +2155,18 @@ public class AdjustTool : EditingTool {
     private const uint SLIDER_DELAY_MSEC = 100;
 
     private class AdjustToolWindow : EditingToolWindow {
-        public Gtk.HScale exposure_slider = new Gtk.HScale.with_range(
+        public Gtk.Scale exposure_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             ExposureTransformation.MIN_PARAMETER, ExposureTransformation.MAX_PARAMETER,
             1.0);
-        public Gtk.HScale saturation_slider = new Gtk.HScale.with_range(
+        public Gtk.Scale saturation_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             SaturationTransformation.MIN_PARAMETER, SaturationTransformation.MAX_PARAMETER,
             1.0);
-        public Gtk.HScale tint_slider = new Gtk.HScale.with_range(
+        public Gtk.Scale tint_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             TintTransformation.MIN_PARAMETER, TintTransformation.MAX_PARAMETER, 1.0);
-        public Gtk.HScale temperature_slider = new Gtk.HScale.with_range(
+        public Gtk.Scale temperature_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             TemperatureTransformation.MIN_PARAMETER, TemperatureTransformation.MAX_PARAMETER,
             1.0);
-        public Gtk.HScale shadows_slider = new Gtk.HScale.with_range(
+        public Gtk.Scale shadows_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             ShadowDetailTransformation.MIN_PARAMETER, ShadowDetailTransformation.MAX_PARAMETER,
             1.0);
         public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
@@ -2678,7 +2678,7 @@ public class AdjustTool : EditingTool {
     }
 
     private bool on_hscale_reset(Gtk.Widget widget, Gdk.EventButton event) {
-        Gtk.HScale source = (Gtk.HScale) widget;
+        Gtk.Scale source = (Gtk.Scale) widget;
 
         if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS
             && has_only_key_modifier(event.state, Gdk.ModifierType.CONTROL_MASK)) {

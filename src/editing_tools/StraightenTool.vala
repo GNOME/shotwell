@@ -93,7 +93,7 @@ public class StraightenTool : EditingTool {
     private class StraightenToolWindow : EditingToolWindow {
         public const int CONTROL_SPACING = 8;
 
-        public Gtk.HScale angle_slider = new Gtk.HScale.with_range(MIN_ANGLE, MAX_ANGLE, INCREMENT);
+        public Gtk.Scale angle_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL, MIN_ANGLE, MAX_ANGLE, INCREMENT);
         public Gtk.Label angle_label = new Gtk.Label("");
         public Gtk.Label description_label = new Gtk.Label(_("Angle:"));
         public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
@@ -325,7 +325,7 @@ public class StraightenTool : EditingTool {
         // First compute a scaling factor that will let the rotated box fit in the image.
         rotate_scale = double.min(image_dims.width / width, image_dims.height / height);
         rotate_scale = double.min(rotate_scale, 1.0);
-        
+
         // Now nudge the box into the image if necessary.
         rotated_center = crop_center;
         int radius_x = (int) (rotate_scale * width / 2);
