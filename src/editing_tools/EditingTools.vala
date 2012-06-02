@@ -731,16 +731,20 @@ public class CropTool : EditingTool {
         result += new ConstraintDescription(_("4 x 6 in."), 6, 4, true);
         result += new ConstraintDescription(_("5 x 7 in."), 7, 5, true);
         result += new ConstraintDescription(_("8 x 10 in."), 10, 8, true);
+        result += new ConstraintDescription(_("Letter (8.5 x 11 in.)"), 85, 110, true);
         result += new ConstraintDescription(_("11 x 14 in."), 14, 11, true);
+        result += new ConstraintDescription(_("Tabloid (11 x 17 in.)"), 17, 11, true);
         result += new ConstraintDescription(_("16 x 20 in."), 20, 16, true);
         result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
         result += new ConstraintDescription(_("Metric Wallet (9 x 13 cm)"), 13, 9, true);
         result += new ConstraintDescription(_("Postcard (10 x 15 cm)"), 15, 10, true);
         result += new ConstraintDescription(_("13 x 18 cm"), 18, 13, true);
         result += new ConstraintDescription(_("18 x 24 cm"), 24, 18, true);
+        result += new ConstraintDescription(_("A4 (210 x 297 mm)"), 210, 297, true);
         result += new ConstraintDescription(_("20 x 30 cm"), 30, 20, true);
         result += new ConstraintDescription(_("24 x 40 cm"), 40, 24, true);
         result += new ConstraintDescription(_("30 x 40 cm"), 40, 30, true);
+        result += new ConstraintDescription(_("A3 (297 x 420 mm)"), 420, 297, true);
         result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
         result += new ConstraintDescription(_("Custom"), 0, 0, true, CUSTOM_ASPECT_RATIO);
 
