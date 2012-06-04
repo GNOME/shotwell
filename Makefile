@@ -408,7 +408,7 @@ VALA_LDFLAGS := `pkg-config --libs $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0`
 
 # REQUIRED_CFLAGS absolutely get appended to CFLAGS, whatever the
 # the value of CFLAGS in the environment
-REQUIRED_CFLAGS := -fPIC
+REQUIRED_CFLAGS := -fPIC -fno-stack-protector
 
 # setting CFLAGS in configure.mk overrides build type
 ifndef CFLAGS
