@@ -1052,8 +1052,13 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     private void on_publish_clicked() {
-        host.set_config_int(DEFAULT_SIZE_CONFIG_KEY, size_combo.get_active());
-        int photo_major_axis_size = size_descriptions[size_combo.get_active()].major_axis_pixels;
+        // size_combo won't have been set to anything useful if this is the first time we've
+        // published to Picasa, and/or we've only published video before, so it may be negative,
+        // indicating nothing was selected. Clamp it to a valid value...
+        int size_combo_last_active = (size_combo.get_active() >= 0) ? size_combo.get_active() : 0;
+        
+        host.set_config_int(DEFAULT_SIZE_CONFIG_KEY, size_combo_last_active);
+        int photo_major_axis_size = size_descriptions[size_combo_last_active].major_axis_pixels;
         string album_name;
         if (create_new_radio.get_active()) {
             album_name = new_album_entry.get_text();
