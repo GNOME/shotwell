@@ -705,7 +705,7 @@ private class AlbumCreationTransaction : AuthenticatedTransaction {
 
 internal class UploadTransaction : AuthenticatedTransaction {
     private PublishingParameters parameters;
-    private const string METADATA_TEMPLATE = "<entry xmlns='http://www.w3.org/2005/Atom'> <title>%s</title> %s <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo'/> </entry>";
+    private const string METADATA_TEMPLATE = "<?xml version=\"1.0\" ?><atom:entry xmlns:atom='http://www.w3.org/2005/Atom' xmlns:mrss='http://search.yahoo.com/mrss/'> <atom:title>%s</atom:title> %s <atom:category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo'/> %s </atom:entry>";
     private Session session;
     private string mime_type;
     private Spit.Publishing.Publishable publishable;
@@ -725,16 +725,22 @@ internal class UploadTransaction : AuthenticatedTransaction {
     public override void execute() throws Spit.Publishing.PublishingError {
         // create the multipart request container
         Soup.Multipart message_parts = new Soup.Multipart("multipart/related");
-        
+
         string summary = "";
         if (publishable.get_publishing_name() != "") {
-            summary = "<summary>%s</summary>".printf(
+            summary = "<atom:summary>%s</atom:summary>".printf(
                 Publishing.RESTSupport.decimal_entity_encode(publishable.get_publishing_name()));
+        }
+
+        string[] keywords = publishable.get_publishing_keywords();
+        string keywords_string = "";
+        if (keywords.length > 0) {
+            keywords_string = "<mrss:group><mrss:keywords>%s</mrss:keywords></mrss:group>".printf(string.joinv(", ", keywords));
         }
 
         string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(
             publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME)),
-            summary);
+            summary, keywords_string);
         Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata.data);
         message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);
 
