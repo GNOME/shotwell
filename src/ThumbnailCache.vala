@@ -514,7 +514,7 @@ public class ThumbnailCache : Object {
 
         // see if this is too large to keep in memory
         if(data.bytes > MAX_INMEMORY_DATA_SIZE) {
-            debug("Persistant thumbnail [%s] too large to cache in memory", thumbnail_name);
+            debug("Persistent thumbnail [%s] too large to cache in memory", thumbnail_name);
 
             return;
         }
