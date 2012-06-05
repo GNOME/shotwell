@@ -1498,7 +1498,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     }
 
     private void on_time_changed() {
-        int64 time_shift = (int64) (get_time() - original_time);
+        int64 time_shift = ((int64) get_time() - (int64) original_time);
 
         previous_time_system = (TimeSystem) system.get_active();
 
