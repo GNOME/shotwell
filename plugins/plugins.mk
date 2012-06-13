@@ -12,6 +12,8 @@ PLUGINS_RC := \
 	plugins/shotwell-publishing/flickr_pin_entry_pane.glade \
 	plugins/shotwell-publishing/picasa.png \
 	plugins/shotwell-publishing/picasa_publishing_options_pane.glade \
+    plugins/shotwell-publishing/picasa_auth_code_entry_pane.glade \
+    plugins/shotwell-publishing/picasa_not_set_up_pane.glade \
 	plugins/shotwell-publishing/youtube.png \
 	plugins/shotwell-publishing/youtube_publishing_options_pane.glade \
 	plugins/shotwell-publishing/piwigo.png \

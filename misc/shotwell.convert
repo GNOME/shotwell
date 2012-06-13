@@ -84,8 +84,6 @@ default-size = /apps/shotwell/sharing/flickr/default_size
 visibility = /apps/shotwell/sharing/flickr/visibility
 
 [org.yorba.shotwell.sharing.picasa]
-user-name = /apps/shotwell/sharing/picasa/user_name
-auth-token = /apps/shotwell/sharing/picasa/auth_token
 default-size = /apps/shotwell/sharing/picasa/default_size
 last-album = /apps/shotwell/sharing/picasa/last_album
 

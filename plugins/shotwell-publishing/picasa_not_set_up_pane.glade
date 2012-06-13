@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkBox" id="pane_widget">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox" id="box2">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel" id="headline_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">32</property>
+            <property name="xalign">0</property>
+            <property name="xpad">16</property>
+            <property name="ypad">4</property>
+            <property name="label" translatable="yes">Account Not Ready</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="explanatory_text">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">32</property>
+            <property name="margin_right">32</property>
+            <property name="margin_top">8</property>
+            <property name="xpad">16</property>
+            <property name="label" translatable="yes" context="This message appears when the user attempts to log in to Picasa with a Google account that isn't yet configured for use with Picasa yet.">The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. Once you've used your browser to set up a Picasa Web Albums account, click Continue to try to log in again.</property>
+            <property name="wrap">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="continue_button">
+        <property name="label" translatable="yes">_Continue</property>
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="margin_left">192</property>
+        <property name="margin_right">192</property>
+        <property name="margin_top">64</property>
+        <property name="margin_bottom">16</property>
+        <property name="use_action_appearance">False</property>
+        <property name="use_underline">True</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+  </object>
+</interface>

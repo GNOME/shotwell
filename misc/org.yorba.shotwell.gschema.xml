@@ -350,16 +350,10 @@
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.picasa" path="/apps/shotwell/sharing/picasa/">
-    <key name="auth-token" type="s">
+    <key name="refresh-token" type="s">
         <default>""</default>
-        <summary>auth token</summary>
-        <description>The authorization token for the currently logged in Picasa Web Albums user, if any</description>
-    </key>
-    
-    <key name="user-name" type="s">
-        <default>""</default>
-        <summary>username</summary>
-        <description>The user name of the currently logged in Picasa Web Albums user, if any</description>
+        <summary>refresh token</summary>
+        <description>The OAuth token used to refresh the Picasa Web Albums session for the currently logged in user, if any.</description>
     </key>
     
     <key name="default-size" type="i">
