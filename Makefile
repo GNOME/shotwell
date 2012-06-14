@@ -13,6 +13,8 @@ MIN_VALAC_VERSION := 0.15.2
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 
+export MIN_GLIB_VERSION=2.30.0
+
 # needed for testing
 VALADATE_PKG_NAME := valadate-1.0
 MIN_VALADATE_VERSION := 0.1.1
@@ -303,7 +305,7 @@ EXT_PKG_VERSIONS = \
 	gee-1.0 >= 0.5.0 \
 	gexiv2 >= 0.3.92 \
 	gio-unix-2.0 >= 2.20 \
-	glib-2.0 >= 2.30.0 \
+	glib-2.0 >= $(MIN_GLIB_VERSION) \
 	gmodule-2.0 >= 2.24.0 \
 	gstreamer-0.10 >= 0.10.28 \
 	gstreamer-base-0.10 >= 0.10.28 \
