@@ -20,6 +20,7 @@ public class StraightenTool : EditingTool {
     private const int MIN_BUTTON_SIZE = 84;
     private const int TEMP_PIXBUF_SIZE = 768;
     private const double GUIDE_DASH[2] = {10, 10};
+    private const int REPAINT_ON_STOP_DELAY_MSEC = 100;
 
     private class StraightenGuide {
         private bool is_active = false;
@@ -163,7 +164,8 @@ public class StraightenTool : EditingTool {
 
     // should we use a nicer-but-more-expensive filter
     // when repainting the rotated image?
-    bool use_high_qual = true;
+    private bool use_high_qual = true;
+    private OneShotScheduler? slider_sched = null;
 
     private Gdk.Point crop_center;  // original center in image coordinates
     private int crop_width;
@@ -227,23 +229,9 @@ public class StraightenTool : EditingTool {
         update_rotated_surface();
         this.canvas.repaint();
     }
-
-    private bool on_slider_released(Gdk.EventButton e) {
+    
+    private void on_slider_stopped_delayed() {
         high_qual_repaint();
-
-        return false;
-    }
-
-    private bool on_slider_scroll(Gdk.EventScroll e) {
-        // this doesn't work as expected (jaggy), because
-        // on_angle_changed gets called inmediately after.
-        high_qual_repaint();
-        return false;
-    }
-
-    private bool on_slider_key_released(Gdk.EventKey e) {
-        high_qual_repaint();
-        return false;
     }
 
     public override void on_left_click(int x, int y) {
@@ -423,9 +411,6 @@ public class StraightenTool : EditingTool {
         window.ok_button.clicked.connect(on_ok_clicked);
         window.cancel_button.clicked.connect(on_cancel_clicked);
         window.angle_slider.value_changed.connect(on_angle_changed);
-        window.angle_slider.button_release_event.connect(on_slider_released);
-        window.angle_slider.scroll_event.connect(on_slider_scroll);
-        window.angle_slider.key_release_event.connect(on_slider_key_released);
     }
 
     private void unbind_window_handlers() {
@@ -433,15 +418,16 @@ public class StraightenTool : EditingTool {
         window.ok_button.clicked.disconnect(on_ok_clicked);
         window.cancel_button.clicked.disconnect(on_cancel_clicked);
         window.angle_slider.value_changed.disconnect(on_angle_changed);
-        window.angle_slider.button_release_event.disconnect(on_slider_released);
-        window.angle_slider.scroll_event.disconnect(on_slider_scroll);
-        window.angle_slider.key_release_event.disconnect(on_slider_key_released);
     }
 
     private void on_angle_changed() {
         photo_angle = window.angle_slider.get_value();
         string tmp = "%2.1f°".printf(window.angle_slider.get_value());
         window.angle_label.set_text(tmp);
+
+        if (slider_sched == null)
+            slider_sched = new OneShotScheduler("straighten", on_slider_stopped_delayed);
+        slider_sched.after_timeout(REPAINT_ON_STOP_DELAY_MSEC, true);
 
         use_high_qual = false;
 
