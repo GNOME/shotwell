@@ -601,10 +601,20 @@ public abstract class CollectionPage : MediaPage {
         if (get_view().get_selected_count() == 0)
             return;
 
+        bool selected_has_videos = false;
+        bool only_videos_selected = true;
+        
+        foreach (DataView dv in get_view().get_selected()) {
+            if (dv.get_source() is Video)
+                selected_has_videos = true;
+            else
+                only_videos_selected = false;
+        }
+
         Dateable photo_source = (Dateable) get_view().get_selected_at(0).get_source();
 
         AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(photo_source,
-            get_view().get_selected_count());
+            get_view().get_selected_count(), true, selected_has_videos, only_videos_selected);
 
         int64 time_shift;
         bool keep_relativity, modify_originals;

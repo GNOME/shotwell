@@ -1283,14 +1283,15 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
     TimeSystem previous_time_system;
 
-    public AdjustDateTimeDialog(Dateable source, int photo_count, bool display_options = true) { 
+    public AdjustDateTimeDialog(Dateable source, int photo_count, bool display_options = true,
+        bool contains_video = false, bool only_video = false) {
         assert(source != null);
 
         set_modal(true);
         set_resizable(false);
         set_transient_for(AppWindow.get_instance());
 
-        add_buttons(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, 
+        add_buttons(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL,
                     Gtk.Stock.OK, Gtk.ResponseType.OK);
         set_title(Resources.ADJUST_DATE_TIME_LABEL);
 
@@ -1344,11 +1345,18 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         batch_radio_button.sensitive = display_options && photo_count > 1;
         batch_radio_button.toggled.connect(on_time_changed);
 
-        modify_originals_check_button = new Gtk.CheckButton.with_mnemonic((photo_count == 1) ?
-            _("_Modify original file") : _("_Modify original files"));
+        if (contains_video) {
+            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic((photo_count == 1) ?
+                _("_Modify original photo file") : _("_Modify original photo files"));
+        } else {
+            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic((photo_count == 1) ?
+                _("_Modify original file") : _("_Modify original files"));
+        }
+
         modify_originals_check_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters() &&
             display_options);
-        modify_originals_check_button.sensitive = !Config.Facade.get_instance().get_commit_metadata_to_masters() && display_options;
+        modify_originals_check_button.sensitive = (!only_video) &&
+            (!Config.Facade.get_instance().get_commit_metadata_to_masters() && display_options);
 
         Gtk.Box time_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
