@@ -6,6 +6,7 @@
 
 public class Application {
     private static Application instance = null;
+    private Gtk.Application app_object;
     
     public virtual signal void starting() {
     }
@@ -17,6 +18,7 @@ public class Application {
     private bool exiting_fired = false;
     
     private Application() {
+        app_object = new Gtk.Application("org.yorba.shotwell",  GLib.ApplicationFlags.FLAGS_NONE);
     }
     
     public static void init() {
@@ -37,11 +39,13 @@ public class Application {
     public void start() {
         if (running)
             return;
-        
+            
         running = true;
         
         starting();
-        Gtk.main();
+        app_object.add_window(AppWindow.get_instance());
+        
+        app_object.run();
         
         running = false;
     }
@@ -55,7 +59,10 @@ public class Application {
         exiting_fired = true;
         
         exiting(false);
-        Gtk.main_quit();
+        if(Gtk.main_level() > 0) 
+            Gtk.main_quit();
+    
+        app_object.quit();
     }
     
     // This will fire the exiting signal with panicked set to true, but only if exit() hasn't
