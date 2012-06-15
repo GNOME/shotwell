@@ -34,7 +34,7 @@ SRC_FILES := ../common/Resources.vala $(SRC_FILES)
 CFILES := $(notdir $(SRC_FILES:.vala=.c))
 OFILES := $(notdir $(SRC_FILES:.vala=.o))
 
-CFLAGS := `pkg-config --print-errors --cflags $(EXT_PKGS) $(PLUGIN_PKGS)` -nostdlib -export-dynamic $(PLUGIN_CFLAGS) -fno-stack-protector
+CFLAGS := `pkg-config --print-errors --cflags $(EXT_PKGS) $(PLUGIN_PKGS)` -nostdlib -export-dynamic $(PLUGIN_CFLAGS)
 LIBS := `pkg-config --print-errors --libs $(EXT_PKGS) $(PLUGIN_PKGS)`
 DEFINES := -D_VERSION='"$(PLUGINS_VERSION)"' -DGETTEXT_PACKAGE='"shotwell"'
 
