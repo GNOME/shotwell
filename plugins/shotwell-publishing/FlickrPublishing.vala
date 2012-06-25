@@ -887,7 +887,12 @@ private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
         string? filename = publishable.get_publishing_name();
         if (filename == null || filename == "")
             filename = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
-        disposition_table.insert("filename",  Soup.URI.encode(filename, ""));
+
+        /// TODO: This may need to be revisited to send the title separately; please see
+        /// http://www.flickr.com/services/api/upload.api.html for more details.
+        disposition_table.insert("filename",  Soup.URI.encode(
+            publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME), null));
+
         disposition_table.insert("name", "photo");
 
         set_binary_disposition_table(disposition_table);
