@@ -117,7 +117,7 @@ public class ProcessedImage {
         
         // A regular mem image comes back with raw RGB data ready for pixbuf (data buffer is shared
         // between the ProcessedImage and the Gdk.Pixbuf)
-        pixbuf = new Gdk.Pixbuf.from_data(image.data, Gdk.Colorspace.RGB, false, image.bits,
+        pixbuf = new Gdk.Pixbuf.with_unowned_data(image.data, Gdk.Colorspace.RGB, false, image.bits,
             image.width, image.height, image.width * image.colors, null);
     }
     
