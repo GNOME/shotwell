@@ -98,6 +98,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     public Tree(Gtk.TargetEntry[] target_entries, Gdk.DragAction actions,
         ExternalDropHandler drop_handler) {
         set_model(store);
+        get_style_context().add_class("sidebar");
         
         Gtk.TreeViewColumn text_column = new Gtk.TreeViewColumn();
         text_column.set_sizing(Gtk.TreeViewColumnSizing.FIXED);

@@ -1243,7 +1243,8 @@ public class LibraryWindow : AppWindow {
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
         scrolled_sidebar.add(sidebar_tree);
         scrolled_sidebar.set_shadow_type(Gtk.ShadowType.IN);
-                
+        get_style_context().add_class("sidebar-pane-separator");
+        
         // divy the sidebar up into selection tree list, background progress bar, and properties
         Gtk.Frame top_frame = new Gtk.Frame(null);
         top_frame.add(scrolled_sidebar);
