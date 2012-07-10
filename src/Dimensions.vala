@@ -41,10 +41,11 @@ public struct Dimensions {
     public int height;
     
     public Dimensions(int width = 0, int height = 0) {
-        assert((width >= 0) && (height >= 0));
-
-        this.width = width;
-        this.height = height;
+        if ((width < 0) || (height < 0))
+            warning("Tried to construct a Dimensions object with negative width or height - forcing sensible default values.");
+        
+        this.width = width.clamp(0, width);
+        this.height = height.clamp(0, height);
     }
     
     public static Dimensions for_pixbuf(Gdk.Pixbuf pixbuf) {
