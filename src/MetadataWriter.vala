@@ -112,23 +112,25 @@ public class MetadataWriter : Object {
             // get_user_visible_name() does this by returning the most deeply-nested
             // portion of a given hierarchical tag; that is, for a tag "/a/b/c",
             // it'll return "c", which is exactly the form we want here.
-            foreach(string tmp in current_keywords) {
-                Tag tag = Tag.for_path(tmp);
-                safe_keywords.add(tag.get_user_visible_name());
+            if (current_keywords != null) {
+                foreach(string tmp in current_keywords) {
+                    Tag tag = Tag.for_path(tmp);
+                    safe_keywords.add(tag.get_user_visible_name());
+                }
             }
 
             if (!equal_sets(safe_keywords, metadata.get_keywords())) {
                 metadata.set_keywords(current_keywords);
                 changed = true;
             }
-            
+
             // orientation
             Orientation current_orientation = photo.get_orientation();
             if (current_orientation != metadata.get_orientation()) {
                 metadata.set_orientation(current_orientation);
                 changed = true;
             }
-            
+
             // add the software name/version only if updating the metadata in the file
             if (changed)
                 metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
