@@ -34,8 +34,15 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
             foreach (DataObject object in removed) {
                 Tombstone tombstone = (Tombstone) object;
                 
-                bool is_removed = file_map.unset(tombstone.get_file());
-                assert(is_removed);
+                // do we actually have this file?
+                if (file_map.has_key(tombstone.get_file())) {
+                    // yes, try to remove it.
+                    bool is_removed = file_map.unset(tombstone.get_file());
+                    assert(is_removed);
+                }
+                // if the hashmap didn't have the file to begin with,
+                // we're already in the state we wanted to be in, so our
+                // work is done; no need to assert.
             }
         }
         
