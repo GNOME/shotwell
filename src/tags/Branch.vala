@@ -100,12 +100,6 @@ public class Tags.Branch : Sidebar.Branch {
                 prune(entry);
             }
         }
-        
-        if (AppWindow.get_instance() != null) {
-            if((restore_point != null) && (LibraryWindow.get_app() != null)) {
-                LibraryWindow.get_app().switch_to_tag(restore_point);
-            }
-        }
     }
     
     private void on_tags_altered(Gee.Map<DataObject, Alteration> altered) {
