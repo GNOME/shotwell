@@ -9,51 +9,21 @@ enum ShotwellCommand {
     MOUNTED_CAMERA = 1
 }
 
-Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.MessageData data, 
-    uint timestamp) {
-    Unique.Response response = Unique.Response.OK;
-    
-    switch (command) {
-        case ShotwellCommand.MOUNTED_CAMERA:
-            LibraryWindow.get_app().mounted_camera_shell_notification(data.get_text(), false);
-        break;
-        
-        case Unique.Command.ACTIVATE:
-            LibraryWindow.get_app().present_with_time(timestamp);
-        break;
-        
-        default:
-            // should be Unique.Response.PASSTHROUGH, but value isn't bound in vapi
-            response = (Unique.Response) 4;
-        break;
-    }
-    
-    return response;
-}
-
 private Timer startup_timer = null;
 private bool was_already_running = false;
 
 void library_exec(string[] mounts) {
-    // the library is single-instance; editing windows are one-process-per
-    Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
-    shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
-    shotwell.message_received.connect(on_shotwell_message);
-
-    was_already_running = shotwell.is_running();
+    was_already_running = Application.get_is_remote();
     
     if (was_already_running) {
-        // send attached cameras & activate the window
-        foreach (string mount in mounts) {
-            Unique.MessageData data = new Unique.MessageData();
-            data.set_text(mount, -1);
-            
-            shotwell.send_message((int) ShotwellCommand.MOUNTED_CAMERA, data);
-        }
-        
-        shotwell.send_message((int) Unique.Command.ACTIVATE, null);
-        
-        // notified running app; this one exits
+        // Send attached cameras out to the primary instance.
+        // The primary instance will get a 'command-line' signal with mounts[]
+        // as an argument, and an 'activate', which will present the window.
+        //
+        // This will also take care of killing us when it sees that another
+        // instance was already registered.
+        Application.present_primary_instance();
+        Application.send_to_primary_instance(mounts);
         return;
     }
     
@@ -402,7 +372,10 @@ void main(string[] args) {
     message("Shotwell %s %s",
         is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
         Resources.APP_VERSION);
-    Application.init();
+        
+    // Have a filename here?  If so, configure ourselves for direct
+    // mode, otherwise, default to library mode.
+    Application.init(!is_string_empty(filename));
     
     // set custom data directory if it's been supplied
     if (CommandlineOptions.data_dir != null)

@@ -1036,10 +1036,6 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_camera_added(DiscoveredCamera camera) {
-        // if this page is for a camera which initialized the app, we want to switch to that page
-        if (!initial_camera_uris.contains(camera.uri))
-            return;
-        
         Camera.SidebarEntry? entry = camera_branch.get_entry_for_camera(camera);
         if (entry == null)
             return;

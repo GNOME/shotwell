@@ -1309,7 +1309,7 @@ public class ImportPage : CheckerboardPage {
             
             return true;
         }
-        
+
         for (int ctr = 0; ctr < files.count(); ctr++) {
             string filename;
             refresh_result = files.get_name(ctr, out filename);
@@ -1358,8 +1358,7 @@ public class ImportPage : CheckerboardPage {
                 progress_bar.pulse();
                 
                 // spin the event loop so the UI doesn't freeze
-                if (!spin_event_loop())
-                    return false;
+                spin_event_loop();
             } catch (Error err) {
                 warning("Error while enumerating files in %s: %s", fulldir, err.message);
                 
@@ -1555,8 +1554,7 @@ public class ImportPage : CheckerboardPage {
 #endif
             
             // spin the event loop so the UI doesn't freeze
-            if (!spin_event_loop())
-                break;
+            spin_event_loop();
         }
     }
     
