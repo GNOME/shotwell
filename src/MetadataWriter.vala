@@ -566,7 +566,11 @@ public class MetadataWriter : Object {
     }
     
     private void on_photo_dequeued(LibraryPhoto photo) {
-        assert(!pending.has_key(photo));
+        if (!pending.has_key(photo)) {
+            // if this photo is not in the queue to begin with,
+            // nothing needs to happen here...
+            return;
+        }
         
         if (!enabled) {
             count_cancelled_work(1, true);
