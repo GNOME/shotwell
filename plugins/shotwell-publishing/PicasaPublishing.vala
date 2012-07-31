@@ -70,7 +70,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     private Album[] albums = null;
     private PublishingParameters parameters = null;
     private Spit.Publishing.Publisher.MediaType media_type =
-		Spit.Publishing.Publisher.MediaType.NONE;
+        Spit.Publishing.Publisher.MediaType.NONE;
 
     public PicasaPublisher(Spit.Publishing.Service service,
         Spit.Publishing.PluginHost host) {
@@ -146,9 +146,9 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.unset_config_key("refresh_token");
     }
     
-	internal bool is_persistent_session_available() {
-		return get_persistent_refresh_token() != null;
-	}
+    internal bool is_persistent_session_available() {
+        return get_persistent_refresh_token() != null;
+    }
 
     public bool is_running() {
         return running;
@@ -213,44 +213,44 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
     
     private void on_not_set_up_pane_proceed(NotSetUpMessagePane sender) {
-    	debug("EVENT: user clicked 'Continue' in Account Not Set Up Message Pane.");
-    	
-    	sender.proceed.disconnect(on_not_set_up_pane_proceed);
+        debug("EVENT: user clicked 'Continue' in Account Not Set Up Message Pane.");
+        
+        sender.proceed.disconnect(on_not_set_up_pane_proceed);
     
-    	do_launch_browser_for_authorization();
+        do_launch_browser_for_authorization();
     }
     
     private void on_refresh_access_token_transaction_completed(Publishing.RESTSupport.Transaction
-		txn) {
-		txn.completed.disconnect(on_refresh_access_token_transaction_completed);
-		txn.network_error.disconnect(on_refresh_access_token_transaction_error);
-		
+        txn) {
+        txn.completed.disconnect(on_refresh_access_token_transaction_completed);
+        txn.network_error.disconnect(on_refresh_access_token_transaction_error);
+        
         if (!is_running())
             return;
 
         if (session.is_authenticated()) // ignore these events if the session is already auth'd
             return;
 
-		debug("EVENT: refresh access token transaction completed successfully.");
-		
-		do_extract_tokens(txn.get_response());
+        debug("EVENT: refresh access token transaction completed successfully.");
+        
+        do_extract_tokens(txn.get_response());
     }
     
     private void on_refresh_access_token_transaction_error(Publishing.RESTSupport.Transaction txn,
-    	Spit.Publishing.PublishingError err) {
-		txn.completed.disconnect(on_refresh_access_token_transaction_completed);
-		txn.network_error.disconnect(on_refresh_access_token_transaction_error);
-		
+        Spit.Publishing.PublishingError err) {
+        txn.completed.disconnect(on_refresh_access_token_transaction_completed);
+        txn.network_error.disconnect(on_refresh_access_token_transaction_error);
+        
         if (!is_running())
             return;
 
         if (session.is_authenticated()) // ignore these events if the session is already auth'd
             return;
 
-    	debug("EVENT: refresh access token transaction caused a network error.");
-    	
-    	host.post_error(err);    	
-	}
+        debug("EVENT: refresh access token transaction caused a network error.");
+        
+        host.post_error(err);       
+    }
 
     private void on_session_authenticated() {
         session.authenticated.disconnect(on_session_authenticated);
@@ -264,22 +264,22 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
     
     private void on_fetch_username_transaction_completed(Publishing.RESTSupport.Transaction txn) {
-    	txn.completed.disconnect(on_fetch_username_transaction_completed);
-    	txn.network_error.disconnect(on_fetch_username_transaction_error);
-    	
-    	debug("EVENT: username fetch transaction completed successfully.");
+        txn.completed.disconnect(on_fetch_username_transaction_completed);
+        txn.network_error.disconnect(on_fetch_username_transaction_error);
+        
+        debug("EVENT: username fetch transaction completed successfully.");
 
-		do_extract_username(txn.get_response());
+        do_extract_username(txn.get_response());
         do_fetch_account_information();
     }
     
     private void on_fetch_username_transaction_error(Publishing.RESTSupport.Transaction txn,
-    	Spit.Publishing.PublishingError err) {
-    	txn.completed.disconnect(on_fetch_username_transaction_completed);
-    	txn.network_error.disconnect(on_fetch_username_transaction_error);
+        Spit.Publishing.PublishingError err) {
+        txn.completed.disconnect(on_fetch_username_transaction_completed);
+        txn.network_error.disconnect(on_fetch_username_transaction_error);
 
-    	debug("EVENT: username fetch transaction caused a network error");
-	}
+        debug("EVENT: username fetch transaction caused a network error");
+    }
 
     private void on_initial_album_fetch_complete(Publishing.RESTSupport.Transaction txn) {
         txn.completed.disconnect(on_initial_album_fetch_complete);
@@ -312,9 +312,9 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
             // deauthenticate the session. Deauth is neccessary because must've previously auth'd
             // the user's account to even be able to query the album feed.
             session.deauthenticate();
-			do_show_not_set_up_pane();
+            do_show_not_set_up_pane();
         } else {
-			// If we get any other kind of error, we can't recover, so just post it to the user
+            // If we get any other kind of error, we can't recover, so just post it to the user
             host.post_error(err);
         }
     }
@@ -517,15 +517,15 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (response_obj.has_member("refresh_token")) {
             string refresh_token = response_obj.get_string_member("refresh_token");
 
-	        if (refresh_token != "")
-				on_refresh_token_available(refresh_token);
+            if (refresh_token != "")
+                on_refresh_token_available(refresh_token);
         }
         
         if (response_obj.has_member("access_token")) {
             string access_token = response_obj.get_string_member("access_token");
 
-	        if (access_token != "")
-				on_access_token_available(access_token);
+            if (access_token != "")
+                on_access_token_available(access_token);
         }
     }
     
@@ -547,15 +547,15 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (response_obj.has_member("name")) {
             string username = response_obj.get_string_member("name");
 
-	        if (username != "")
-				this.username = username;
+            if (username != "")
+                this.username = username;
         }
         
         if (response_obj.has_member("access_token")) {
             string access_token = response_obj.get_string_member("access_token");
 
-	        if (access_token != "")
-				on_access_token_available(access_token);
+            if (access_token != "")
+                on_access_token_available(access_token);
         }
     }
     
@@ -566,20 +566,20 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
     
     private void do_refresh_session(string refresh_token) {
-    	debug("ACTION: using OAuth refresh token to refresh session.");
-    	
-    	host.install_login_wait_pane();
-    	
-    	RefreshAccessTokenTransaction txn = new RefreshAccessTokenTransaction(session, refresh_token);
-    	
-    	txn.completed.connect(on_refresh_access_token_transaction_completed);
-    	txn.network_error.connect(on_refresh_access_token_transaction_error);
-    	
-    	try {
-    		txn.execute();
-    	} catch (Spit.Publishing.PublishingError err) {
-    		host.post_error(err);
-    	}
+        debug("ACTION: using OAuth refresh token to refresh session.");
+        
+        host.install_login_wait_pane();
+        
+        RefreshAccessTokenTransaction txn = new RefreshAccessTokenTransaction(session, refresh_token);
+        
+        txn.completed.connect(on_refresh_access_token_transaction_completed);
+        txn.network_error.connect(on_refresh_access_token_transaction_error);
+        
+        try {
+            txn.execute();
+        } catch (Spit.Publishing.PublishingError err) {
+            host.post_error(err);
+        }
     }
     
     private void do_authenticate_session(string token) {
@@ -590,8 +590,8 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
     
     private void do_show_not_set_up_pane() {
-    	debug("ACTION: showing account not set up message pane");
-    	
+        debug("ACTION: showing account not set up message pane");
+        
         Gtk.Builder builder = new Gtk.Builder();
         
         try {
@@ -611,20 +611,20 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
 
     private void do_fetch_username() {
-    	debug("ACTION: running network transaction to fetch username.");
+        debug("ACTION: running network transaction to fetch username.");
 
-		host.install_login_wait_pane();
-		host.set_service_locked(true);
-		
-		UsernameFetchTransaction txn = new UsernameFetchTransaction(session);
-		txn.completed.connect(on_fetch_username_transaction_completed);
-		txn.network_error.connect(on_fetch_username_transaction_error);
-		
-		try {
-			txn.execute();
-		} catch (Error err) {
-			host.post_error(err);
-		}
+        host.install_login_wait_pane();
+        host.set_service_locked(true);
+        
+        UsernameFetchTransaction txn = new UsernameFetchTransaction(session);
+        txn.completed.connect(on_fetch_username_transaction_completed);
+        txn.network_error.connect(on_fetch_username_transaction_error);
+        
+        try {
+            txn.execute();
+        } catch (Error err) {
+            host.post_error(err);
+        }
     }
 
     private void do_fetch_account_information() {
@@ -756,7 +756,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         running = true;
 
         if (is_persistent_session_available()) {
-        	do_refresh_session(get_persistent_refresh_token());
+            do_refresh_session(get_persistent_refresh_token());
         } else {
             do_show_service_welcome_pane();
         }
@@ -823,16 +823,16 @@ internal class GetAccessTokensTransaction : Publishing.RESTSupport.Transaction {
 }
 
 internal class RefreshAccessTokenTransaction : Publishing.RESTSupport.Transaction {
-	private const string ENDPOINT_URL = "https://accounts.google.com/o/oauth2/token";
-	
-	public RefreshAccessTokenTransaction(Session session, string refresh_token) {
-		base.with_endpoint_url(session, ENDPOINT_URL);
-	
-		add_argument("client_id", OAUTH_CLIENT_ID);
-		add_argument("client_secret", OAUTH_CLIENT_SECRET);
-		add_argument("refresh_token", refresh_token);
-		add_argument("grant_type", "refresh_token");
-	}
+    private const string ENDPOINT_URL = "https://accounts.google.com/o/oauth2/token";
+    
+    public RefreshAccessTokenTransaction(Session session, string refresh_token) {
+        base.with_endpoint_url(session, ENDPOINT_URL);
+    
+        add_argument("client_id", OAUTH_CLIENT_ID);
+        add_argument("client_secret", OAUTH_CLIENT_SECRET);
+        add_argument("refresh_token", refresh_token);
+        add_argument("grant_type", "refresh_token");
+    }
 }
 
 internal class AuthenticatedTransaction : Publishing.RESTSupport.Transaction {
@@ -851,11 +851,11 @@ internal class AuthenticatedTransaction : Publishing.RESTSupport.Transaction {
 }
 
 internal class UsernameFetchTransaction : AuthenticatedTransaction {
-	private const string ENDPOINT_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
-	
-	public UsernameFetchTransaction(Session session) {
-		base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
-	}
+    private const string ENDPOINT_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
+    
+    public UsernameFetchTransaction(Session session) {
+        base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
+    }
 }
 
 internal class AlbumDirectoryTransaction : AuthenticatedTransaction {
@@ -1254,7 +1254,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         return Spit.Publishing.DialogPane.GeometryOptions.NONE;
     }
     
-    public void on_pane_installed() {       
+    public void on_pane_installed() {
         installed();
          
         publish.connect(notify_publish);
