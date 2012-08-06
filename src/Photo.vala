@@ -1748,13 +1748,13 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // Also makes sense to freeze the SourceCollection during this operation.
     public static void set_many_editable_file(Gee.Map<Photo, File> map) throws DatabaseError {
-        PhotoTable.get_instance().begin_transaction();
+        DatabaseTable.begin_transaction();
         
         Gee.MapIterator<Photo, File> map_iter = map.map_iterator();
         while (map_iter.next())
             map_iter.get_key().set_editable_file(map_iter.get_value());
         
-        PhotoTable.get_instance().commit_transaction();
+        DatabaseTable.commit_transaction();
     }
     
     // Returns the file generating pixbufs, that is, the baseline if present, the backing

@@ -1221,7 +1221,7 @@ public class PrintManager {
     private void add_title_to_canvas(double x, double y, string title, PrintJob job, Gtk.PrintContext job_context) {
         Cairo.Context dc = job_context.get_cairo_context();
         double dpi = job.get_local_settings().get_content_ppi();
-        var title_font_description = new Pango.FontDescription().from_string(job.get_local_settings().get_print_titles_font());
+        var title_font_description = Pango.FontDescription.from_string(job.get_local_settings().get_print_titles_font());
         var title_layout = Pango.cairo_create_layout(dc);
         Pango.Context context = title_layout.get_context();
         Pango.cairo_context_set_resolution (context, dpi);

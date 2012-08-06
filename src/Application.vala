@@ -88,7 +88,7 @@ public class Application {
 
         LibraryWindow lw = AppWindow.get_instance() as LibraryWindow;
         if ((lw != null) && (!get_is_direct())) {
-            lw.get_app().present();
+            LibraryWindow.get_app().present();
         }
     }
 

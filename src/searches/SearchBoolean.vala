@@ -592,7 +592,7 @@ public class SearchConditionDate : SearchCondition {
         DateTime date_one, DateTime date_two) {
         this.search_type = search_type;
         this.context = context;
-        if (context != context.BETWEEN || date_two.compare(date_one) >= 1) {
+        if (context != Context.BETWEEN || date_two.compare(date_one) >= 1) {
             this.date_one = date_one;
             this.date_two = date_two;
         } else {
