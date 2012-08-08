@@ -283,6 +283,7 @@ EXT_PKGS = \
 	gudev-1.0 \
 	libexif \
 	libgphoto2 \
+	json-glib-1.0 \
 	libraw \
 	libsoup-2.4 \
 	libxml-2.0 \
