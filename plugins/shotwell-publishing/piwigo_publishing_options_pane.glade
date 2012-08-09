@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkWindow" id="publishing_options_pane">
     <property name="can_focus">False</property>
     <child>
@@ -10,9 +10,10 @@
         <property name="xscale">0.5</property>
         <property name="yscale">0.5</property>
         <child>
-          <object class="GtkVBox" id="vbox1">
+          <object class="GtkBox" id="vbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
@@ -86,8 +87,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHSeparator" id="hseparator1">
+                  <object class="GtkSeparator" id="hseparator1">
                     <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
                     <property name="can_focus">False</property>
                   </object>
                   <packing>
@@ -156,8 +158,9 @@
               </packing>
             </child>
             <child>
-              <object class="GtkHButtonBox" id="hbuttonbox1">
+              <object class="GtkButtonBox" id="hbuttonbox1">
                 <property name="visible">True</property>
+                <property name="orientation">horizontal</property>
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkButton" id="logout_button">
