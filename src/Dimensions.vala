@@ -283,17 +283,30 @@ public struct Scaling {
     
     public static Scaling for_widget(Gtk.Widget widget, bool scale_up) {
         Dimensions viewport = Dimensions.for_widget_allocation(widget);
-        assert(viewport.has_area());
-        
+
+        // Because it seems that Gtk.Application realizes the main window and its
+        // attendant widgets lazily, it's possible to get here with the PhotoPage's
+        // canvas believing it is 1px by 1px, which can lead to a scaling that
+        // gdk_pixbuf_scale_simple can't handle.
+        //
+        // If we get here, and the widget we're being drawn into is 1x1, then, most likely,
+        // it's not fully realized yet (since nothing in Shotwell requires this), so just
+        // ignore it and return something safe instead.
+        if ((viewport.width <= 1) || (viewport.height <= 1))
+            return for_original();
+
         return Scaling(ScaleConstraint.DIMENSIONS, NO_SCALE, viewport, scale_up);
     }
     
     public static Scaling to_fill_viewport(Dimensions viewport) {
-        assert(viewport.has_area());
-        
+        // Please see the comment in Scaling.for_widget as to why this is
+        // required.
+        if ((viewport.width <= 1) || (viewport.height <= 1))
+            return for_original();
+
         return Scaling(ScaleConstraint.FILL_VIEWPORT, NO_SCALE, viewport, true);
     }
-    
+
     public static Scaling to_fill_screen(Gtk.Window window) {
         return to_fill_viewport(get_screen_dimensions(window));
     }
