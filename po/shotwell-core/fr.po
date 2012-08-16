@@ -775,8 +775,8 @@ msgstr "Erreur de l'ajustement de la date"
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
-msgstr[0] "L'ajustement de l'heure n'a pas pu être annulé sur le fichier photo suivant."
-msgstr[1] "L'ajustement de l'heure n'a pas pu être annulé sur les fichiers photo suivants."
+msgstr[0] "L'ajustement de l'heure ne pourrait être annulé sur le fichier photo sélectionné."
+msgstr[1] "L'ajustement de l'heure ne pourrait être annulé sur les fichiers photo sélectionnés."
 
 #: src/Commands.vala:1459 src/Commands.vala:1482
 msgid "Create Tag"
