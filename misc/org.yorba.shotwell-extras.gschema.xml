@@ -42,6 +42,12 @@
         <summary>last photo size</summary>
         <description>A numeric code representing the last photo size preset used when publishing to Piwigo.</description>
     </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Piwigo should have their metadata removed first</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-yandex-fotki" path="/apps/shotwell/sharing/org-yorba-shotwell-publishing-yandex-fotki/">

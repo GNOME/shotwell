@@ -159,6 +159,14 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_config_string("access_phase_token_secret", secret);
     }
 
+    private bool get_persistent_strip_metadata() {
+        return host.get_config_bool("strip_metadata", false);
+    }
+    
+    private void set_persistent_strip_metadata(bool strip_metadata) {
+        host.set_config_bool("strip_metadata", strip_metadata);
+    }    
+
     private void on_welcome_pane_login_clicked() {
         if (!running)
             return;
@@ -293,7 +301,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         do_show_publishing_options_pane();
     }
 
-    private void on_publishing_options_pane_publish() {
+    private void on_publishing_options_pane_publish(bool strip_metadata) {
         publishing_options_pane.publish.disconnect(on_publishing_options_pane_publish);
         publishing_options_pane.logout.disconnect(on_publishing_options_pane_logout);
         
@@ -301,7 +309,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
 
         debug("EVENT: user clicked the 'Publish' button in the publishing options pane");
-        do_publish();
+        do_publish(strip_metadata);
     }
 
     private void on_publishing_options_pane_logout() {
@@ -589,7 +597,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
 
         publishing_options_pane = new PublishingOptionsPane(this, parameters,
-            host.get_publishable_media_type(), builder);
+            host.get_publishable_media_type(), builder, get_persistent_strip_metadata());
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         host.install_dialog_pane(publishing_options_pane);
@@ -600,11 +608,12 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         return a.get_exposure_date_time().compare(b.get_exposure_date_time());
     }
 
-    private void do_publish() {
+    private void do_publish(bool strip_metadata) {
+        set_persistent_strip_metadata(strip_metadata);
         debug("ACTION: uploading media items to remote server.");
 
         host.set_service_locked(true);
-        progress_reporter = host.serialize_publishables(parameters.photo_major_axis_size);
+        progress_reporter = host.serialize_publishables(parameters.photo_major_axis_size, strip_metadata);
 
         // Serialization is a long and potentially cancellable operation, so before we use
         // the publishables, make sure that the publishing interaction is still running. If it
@@ -622,7 +631,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
         sorted_list.sort((CompareFunc) flickr_date_time_compare_func);
         
-        Uploader uploader = new Uploader(session, sorted_list.to_array(), parameters);
+        Uploader uploader = new Uploader(session, sorted_list.to_array(), parameters, strip_metadata);
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
         uploader.upload(on_upload_status_updated);
@@ -1107,17 +1116,18 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private Gtk.Button publish_button = null;
     private Gtk.ComboBoxText visibility_combo = null;
     private Gtk.ComboBoxText size_combo = null;
+    private Gtk.CheckButton strip_metadata_check = null;
     private VisibilityEntry[] visibilities = null;
     private SizeEntry[] sizes = null;
     private PublishingParameters parameters = null;
     private FlickrPublisher publisher = null;
     private Spit.Publishing.Publisher.MediaType media_type;
 
-    public signal void publish();
+    public signal void publish(bool strip_metadata);
     public signal void logout();
 
     public PublishingOptionsPane(FlickrPublisher publisher, PublishingParameters parameters,
-        Spit.Publishing.Publisher.MediaType media_type, Gtk.Builder builder) {
+        Spit.Publishing.Publisher.MediaType media_type, Gtk.Builder builder, bool strip_metadata) {
         this.builder = builder;
         assert(builder != null);
         assert(builder.get_objects().length() > 0);
@@ -1131,7 +1141,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         visibility_combo = (Gtk.ComboBoxText) this.builder.get_object("visibility_combo");
         size_combo = (Gtk.ComboBoxText) this.builder.get_object("size_combo");
         size_label = (Gtk.Label) this.builder.get_object("size_label");
-        
+        strip_metadata_check = (Gtk.CheckButton) this.builder.get_object("strip_metadata_check");
+
         this.parameters = parameters;
         this.publisher = publisher;
         this.media_type = media_type;
@@ -1169,6 +1180,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
             size_combo.set_sensitive(false);
             size_label.set_sensitive(false);
         }
+        
+        strip_metadata_check.set_active(strip_metadata);
 
         logout_button.clicked.connect(on_logout_clicked);
         publish_button.clicked.connect(on_publish_clicked);
@@ -1185,7 +1198,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0)
             parameters.photo_major_axis_size = sizes[size_combo.get_active()].size;
 
-        publish();
+        publish(strip_metadata_check.get_active());
     }
 
     private VisibilityEntry[] create_visibilities() {
@@ -1241,7 +1254,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
     
     protected void notify_publish() {
-        publish();
+        publish(strip_metadata_check.get_active());
     }
     
     protected void notify_logout() {
@@ -1269,12 +1282,14 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
 internal class Uploader : Publishing.RESTSupport.BatchUploader {
     private PublishingParameters parameters;
+    private bool strip_metadata;
 
     public Uploader(Session session, Spit.Publishing.Publishable[] publishables,
-        PublishingParameters parameters) {
+        PublishingParameters parameters, bool strip_metadata) {
         base(session, publishables);
         
         this.parameters = parameters;
+        this.strip_metadata = strip_metadata;
     }
     
     private void preprocess_publishable(Spit.Publishing.Publishable publishable) {

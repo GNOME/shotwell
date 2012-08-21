@@ -11,7 +11,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">40</property>
+        <property name="spacing">24</property>
         <child>
           <object class="GtkLabel" id="upload_info_label">
             <property name="visible">True</property>
@@ -34,6 +34,7 @@ so changes made here will not display)</property>
             <property name="can_focus">False</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
+            <property name="margin_bottom">8</property>
             <property name="row_spacing">8</property>
             <property name="column_spacing">24</property>
             <child>
@@ -96,6 +97,27 @@ so changes made here will not display)</property>
                 <property name="height">1</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkCheckButton" id="strip_metadata_check">
+                <property name="label" translatable="yes">_Remove location, tag and camera-identifying data before uploading</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">center</property>
+                <property name="margin_top">16</property>
+                <property name="use_action_appearance">False</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0.17000000178813934</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">2</property>
+                <property name="width">2</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -109,7 +131,8 @@ so changes made here will not display)</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">center</property>
-            <property name="spacing">48</property>
+            <property name="margin_bottom">8</property>
+            <property name="spacing">64</property>
             <property name="homogeneous">True</property>
             <child>
               <object class="GtkButton" id="logout_button">
@@ -151,7 +174,6 @@ so changes made here will not display)</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="padding">1</property>
             <property name="position">2</property>
           </packing>
         </child>

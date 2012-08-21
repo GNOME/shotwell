@@ -110,6 +110,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     private Spit.Publishing.Service service;
     private Spit.Publishing.PluginHost host;
     private bool running = false;
+    private bool strip_metadata = false;
     private Session session;
     private Category[] categories = null;
     private PublishingParameters parameters = null;
@@ -221,6 +222,14 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     
     private void set_last_photo_size(int last_photo_size) {
         host.set_config_int("last-photo-size", last_photo_size);
+    }
+    
+    private bool get_metadata_removal_choice() {
+        return host.get_config_bool("strip_metadata", false);
+    }
+    
+    private void set_metadata_removal_choice(bool strip_metadata) {
+        host.set_config_bool("strip_metadata", strip_metadata);
     }
     
     // Actions and events implementation
@@ -588,8 +597,8 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.set_service_locked(false);
         PublishingOptionsPane opts_pane = new PublishingOptionsPane(
-            this, categories, get_last_category(), get_last_permission_level(), get_last_photo_size()
-        );
+            this, categories, get_last_category(), get_last_permission_level(), get_last_photo_size(),
+            get_metadata_removal_choice());
         opts_pane.logout.connect(on_publishing_options_pane_logout_clicked);
         opts_pane.publish.connect(on_publishing_options_pane_publish_clicked);
         host.install_dialog_pane(opts_pane, Spit.Publishing.PluginHost.ButtonMode.CLOSE);
@@ -652,14 +661,16 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      *
      * @param parameters the publishing parameters
      */
-    private void on_publishing_options_pane_publish_clicked(PublishingParameters parameters) {
+    private void on_publishing_options_pane_publish_clicked(PublishingParameters parameters,
+        bool strip_metadata) {
         debug("EVENT: on_publishing_options_pane_publish_clicked");
         this.parameters = parameters;
+        this.strip_metadata = strip_metadata;
 
         if (parameters.category.is_local()) {
             do_create_category(parameters.category);
         } else {
-            do_upload();
+            do_upload(this.strip_metadata);
         }
     }
     
@@ -717,7 +728,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             string id_string = id_node->get_content();
             int id = int.parse(id_string);
             parameters.category.id = id;
-            do_upload();
+            do_upload(strip_metadata);
         } catch (Spit.Publishing.PublishingError err) {
             debug("ERROR: on_category_add_complete");
             do_show_error(err);
@@ -740,7 +751,8 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     /**
      * Upload action: the big one, the one we've been waiting for!
      */
-    private void do_upload() {
+    private void do_upload(bool strip_metadata) {
+        this.strip_metadata = strip_metadata;
         debug("ACTION: uploading pictures");
         
         host.set_service_locked(true);
@@ -748,8 +760,9 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         set_last_category(parameters.category.id);
         set_last_permission_level(parameters.perm_level.id);
         set_last_photo_size(parameters.photo_size.id);
-        
-        progress_reporter = host.serialize_publishables(parameters.photo_size.id);
+        set_metadata_removal_choice(strip_metadata);
+
+        progress_reporter = host.serialize_publishables(parameters.photo_size.id, this.strip_metadata);
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
         
         Uploader uploader = new Uploader(session, publishables, parameters);
@@ -1066,6 +1079,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private Gtk.Entry new_category_entry;
     private Gtk.ComboBoxText perms_combo;
     private Gtk.ComboBoxText size_combo;
+    private Gtk.CheckButton strip_metadata_check = null;
     private Gtk.Button logout_button;
     private Gtk.Button publish_button;
     
@@ -1077,12 +1091,13 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private int last_permission_level;
     private int last_photo_size;
 
-    public signal void publish(PublishingParameters parameters);
+    public signal void publish(PublishingParameters parameters, bool strip_metadata);
     public signal void logout();
 
     public PublishingOptionsPane(
         PiwigoPublisher publisher, Category[] categories,
-        int last_category, int last_permission_level, int last_photo_size
+        int last_category, int last_permission_level, int last_photo_size,
+        bool strip_metadata_enabled
     ) {
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         this.last_category = last_category;
@@ -1105,6 +1120,9 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             perms_combo = builder.get_object("perms_combo") as Gtk.ComboBoxText;
             size_combo = builder.get_object("size_combo") as Gtk.ComboBoxText;
 
+            strip_metadata_check = builder.get_object("strip_metadata_check") as Gtk.CheckButton;
+            strip_metadata_check.set_active(strip_metadata_enabled);
+
             logout_button = builder.get_object("logout_button") as Gtk.Button;
             logout_button.clicked.connect(on_logout_button_clicked);
 
@@ -1116,7 +1134,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             new_category_entry.changed.connect(on_new_category_entry_changed);
 
             align.reparent(pane_widget);
-			pane_widget.set_child_packing(align, true, true, 0, Gtk.PackType.START);
+            pane_widget.set_child_packing(align, true, true, 0, Gtk.PackType.START);
         } catch (Error e) {
             warning("Could not load UI: %s", e.message);
         }
@@ -1167,7 +1185,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         } else {
             params.category = existing_categories[existing_categories_combo.get_active()];
         }
-        publish(params);
+        publish(params, strip_metadata_check.get_active());
     }
     
     // UI interaction
@@ -1211,10 +1229,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     }
     
     public void on_pane_installed() {
-    	create_categories_combo();
-	    create_permissions_combo();
-	    create_size_combo();
-        //
+        create_categories_combo();
+        create_permissions_combo();
+        create_size_combo();
+
         publish_button.can_default = true;
         update_publish_button_sensitivity();
     }

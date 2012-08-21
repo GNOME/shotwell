@@ -36,11 +36,13 @@
                 <child>
                   <object class="GtkRadioButton" id="use_existing_radio">
                     <property name="label" translatable="yes">An _existing category:</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
+                    <property name="xalign">0.5</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                   </object>
@@ -48,11 +50,13 @@
                 <child>
                   <object class="GtkRadioButton" id="create_new_radio">
                     <property name="label" translatable="yes">A _new album named:</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
+                    <property name="xalign">0.5</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">use_existing_radio</property>
@@ -89,7 +93,6 @@
                 <child>
                   <object class="GtkSeparator" id="hseparator1">
                     <property name="visible">True</property>
-                    <property name="orientation">horizontal</property>
                     <property name="can_focus">False</property>
                   </object>
                   <packing>
@@ -158,13 +161,31 @@
               </packing>
             </child>
             <child>
+              <object class="GtkCheckButton" id="strip_metadata_check">
+                <property name="label" translatable="yes">_Remove location, tag and camera-identifying data before uploading</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0.10000000149011612</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkButtonBox" id="hbuttonbox1">
                 <property name="visible">True</property>
-                <property name="orientation">horizontal</property>
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkButton" id="logout_button">
                     <property name="label" translatable="yes">Logout</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -179,6 +200,7 @@
                 <child>
                   <object class="GtkButton" id="publish_button">
                     <property name="label" translatable="yes">Publish</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -194,7 +216,7 @@
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>

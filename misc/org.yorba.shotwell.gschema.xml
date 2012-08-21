@@ -315,6 +315,12 @@
         <summary>default size code</summary>
         <description>A numeric code representing the default size for photos published to Facebook</description>
     </key>
+    
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Facebook should have their metadata removed first</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.flickr" path="/apps/shotwell/sharing/flickr/">
@@ -347,6 +353,12 @@
         <summary>default visibility</summary>
         <description>A numeric code representing the default visibility for photos published to Flickr</description>
     </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Flickr should have their metadata removed first</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.picasa" path="/apps/shotwell/sharing/picasa/">
@@ -366,6 +378,12 @@
         <default>""</default>
         <summary>last album</summary>
         <description>The name of the last album the user published photos to, if any</description>
+    </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Picasa should have their metadata removed first</description>
     </key>
 </schema>
 

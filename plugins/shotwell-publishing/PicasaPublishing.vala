@@ -65,6 +65,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private weak Spit.Publishing.Service service = null;
     private bool running = false;
+    private bool strip_metadata = false;
     private Session session;
     private string username = "[unknown]";
     private Album[] albums = null;
@@ -135,10 +136,18 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     internal string? get_persistent_refresh_token() {
         return host.get_config_string("refresh_token", null);
     }
-    
+   
     internal void set_persistent_refresh_token(string token) {
         host.set_config_string("refresh_token", token);
     }
+
+    internal bool get_persistent_strip_metadata() {
+        return host.get_config_bool("strip_metadata", false);
+    }
+    
+    internal void set_persistent_strip_metadata(bool strip_metadata) {
+        host.set_config_bool("strip_metadata", strip_metadata);
+    }    
 
     internal void invalidate_persistent_session() {
         debug("invalidating persisted Picasa Web Albums session.");
@@ -331,9 +340,12 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         do_show_service_welcome_pane();
     }
 
-    private void on_publishing_options_publish(PublishingParameters parameters) {
+    private void on_publishing_options_publish(PublishingParameters parameters, 
+        bool strip_metadata) {
         if (!is_running())
             return;
+            
+        this.strip_metadata = strip_metadata;
                 
         debug("EVENT: user clicked 'Publish' in the publishing options pane.");
 
@@ -342,7 +354,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (parameters.is_to_new_album()) {
             do_create_album(parameters);
         } else {
-            do_upload();
+            do_upload(this.strip_metadata);
         }
     }
 
@@ -381,7 +393,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
         parameters.convert(response_albums[0].url);
 
-        do_upload();
+        do_upload(this.strip_metadata);
     }
 
     private void on_album_creation_error(Publishing.RESTSupport.Transaction bad_txn,
@@ -686,7 +698,8 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
         }
 
-        PublishingOptionsPane opts_pane = new PublishingOptionsPane(host, username, albums, media_type, builder);
+        PublishingOptionsPane opts_pane = new PublishingOptionsPane(host, username, albums, media_type, builder,
+            get_persistent_strip_metadata());
         opts_pane.publish.connect(on_publishing_options_publish);
         opts_pane.logout.connect(on_publishing_options_logout);
         host.install_dialog_pane(opts_pane);
@@ -714,12 +727,15 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
     }
 
-    private void do_upload() {
+    private void do_upload(bool strip_metadata) {
+        set_persistent_strip_metadata(strip_metadata);        
+        
         debug("ACTION: uploading media items to remote server.");
 
         host.set_service_locked(true);
 
-        progress_reporter = host.serialize_publishables(parameters.get_photo_major_axis_size());
+        progress_reporter = host.serialize_publishables(parameters.get_photo_major_axis_size(), 
+            strip_metadata);
         
         // Serialization is a long and potentially cancellable operation, so before we use
         // the publishables, make sure that the publishing interaction is still running. If it
@@ -1079,6 +1095,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private Gtk.Entry new_album_entry = null;
     private Gtk.CheckButton public_check = null;
     private Gtk.ComboBoxText size_combo = null;
+    private Gtk.CheckButton strip_metadata_check = null;
     private Gtk.Button publish_button = null;
     private Gtk.Button logout_button = null;
     
@@ -1087,11 +1104,12 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private string username;
     private weak Spit.Publishing.PluginHost host;
 
-    public signal void publish(PublishingParameters parameters);
+    public signal void publish(PublishingParameters parameters, bool strip_metadata);
     public signal void logout();
 
     public PublishingOptionsPane(Spit.Publishing.PluginHost host, string username, 
-        Album[] albums, Spit.Publishing.Publisher.MediaType media_type, Gtk.Builder builder) {
+        Album[] albums, Spit.Publishing.Publisher.MediaType media_type, Gtk.Builder builder,
+        bool strip_metadata) {
         this.username = username;
         this.albums = albums;
         this.host = host;
@@ -1111,11 +1129,14 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         new_album_entry = (Gtk.Entry) builder.get_object("new_album_entry");
         public_check = (Gtk.CheckButton) builder.get_object("public_check");
         size_combo = (Gtk.ComboBoxText) builder.get_object("size_combo");
+        strip_metadata_check = (Gtk.CheckButton) this.builder.get_object("strip_metadata_check");
         publish_button = (Gtk.Button) builder.get_object("publish_button");
         logout_button = (Gtk.Button) builder.get_object("logout_button");
 
         // populate any widgets whose contents are programmatically-generated.
         login_identity_label.set_label(_("You are logged into Picasa Web Albums as %s.").printf(username));
+        strip_metadata_check.set_active(strip_metadata);
+
 
         if((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) == 0) {
             publish_to_label.set_label(_("Videos will appear in:"));
@@ -1154,12 +1175,12 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
             host.set_config_string(LAST_ALBUM_CONFIG_KEY, album_name);
             bool is_public = public_check.get_active();
             publish(new PublishingParameters.to_new_album(photo_major_axis_size, album_name,
-                is_public));
+                is_public), strip_metadata_check.get_active());
         } else {
             album_name = albums[existing_albums_combo.get_active()].name;
             host.set_config_string(LAST_ALBUM_CONFIG_KEY, album_name);
             string album_url = albums[existing_albums_combo.get_active()].url;
-            publish(new PublishingParameters.to_existing_album(photo_major_axis_size, album_url));
+            publish(new PublishingParameters.to_existing_album(photo_major_axis_size, album_url), strip_metadata_check.get_active());
         }
     }
 
@@ -1239,7 +1260,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
     
     protected void notify_publish(PublishingParameters parameters) {
-        publish(parameters);
+        publish(parameters, strip_metadata_check.get_active());
     }
     
     protected void notify_logout() {

@@ -166,6 +166,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private WebAuthenticationPane web_auth_pane = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private weak Spit.Publishing.Service service = null;
+    private bool strip_metadata = false;
     private bool running = false;
 
     private Resolution target_resolution = Resolution.HIGH;
@@ -215,6 +216,10 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private string? get_persistent_user_name() {
         return host.get_config_string("user_name", null);
     }
+    
+    private bool get_persistent_strip_metadata() {
+        return host.get_config_bool("strip_metadata", false);
+    }
 
     private void set_persistent_access_token(string access_token) {
         host.set_config_string("access_token", access_token);
@@ -226,6 +231,10 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void set_persistent_user_name(string user_name) {
         host.set_config_string("user_name", user_name);
+    }
+    
+    private void set_persistent_strip_metadata(bool strip_metadata) {
+        host.set_config_bool("strip_metadata", strip_metadata);
     }
 
     // Part of the fix for #3232. These have to be 
@@ -376,7 +385,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
 
         PublishingOptionsPane publishing_options_pane = new PublishingOptionsPane(
-            session.get_user_name(), albums, host.get_publishable_media_type(), this, builder);
+            session.get_user_name(), albums, host.get_publishable_media_type(), this, builder,
+            get_persistent_strip_metadata());
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         host.install_dialog_pane(publishing_options_pane,
@@ -433,13 +443,16 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         set_persistent_user_name(session.get_user_name());
     }
 
-    private void do_upload() {
+    private void do_upload(bool strip_metadata) {
+        this.strip_metadata = strip_metadata;
+        set_persistent_strip_metadata(this.strip_metadata);
+        
         debug("ACTION: uploading photos to album '%s'",
             publish_to_album == NO_ALBUM ? "(none)" : albums[publish_to_album].name);
 
         host.set_service_locked(true);
 
-        progress_reporter = host.serialize_publishables(target_resolution.get_pixels());
+        progress_reporter = host.serialize_publishables(target_resolution.get_pixels(), this.strip_metadata);
 
         // Serialization is a long and potentially cancellable operation, so before we use
         // the publishables, make sure that the publishing interaction is still running. If it
@@ -635,7 +648,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
 
     public void on_publishing_options_pane_publish(string? target_album, string privacy_setting,
-                                                   Resolution target_resolution) {
+        Resolution target_resolution, bool strip_metadata) {
         if (!is_running())
             return;
 
@@ -646,10 +659,10 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         if (target_album == null) {
             publish_to_album = NO_ALBUM;
-            do_upload();
+            do_upload(strip_metadata);
         } else if (lookup_album(target_album) != NO_ALBUM) {
             publish_to_album = lookup_album(target_album);
-            do_upload();
+            do_upload(strip_metadata);
         } else {
             do_create_album(target_album);
         }
@@ -685,7 +698,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         debug("EVENT: successfully extracted aid.");
 
-        do_upload();
+        do_upload(this.strip_metadata);
     }
 
     private void on_upload_status_updated(int file_number, double completed_fraction) {
@@ -1514,6 +1527,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private Gtk.ComboBoxText existing_albums_combo = null;
     private Gtk.ComboBoxText visibility_combo = null;
     private Gtk.Entry new_album_entry = null;
+    private Gtk.CheckButton strip_metadata_check = null;
     private Gtk.Button publish_button = null;
     private Gtk.Button logout_button = null;
     private Gtk.Label how_to_label = null;
@@ -1533,7 +1547,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private const int STANDARD_ACTION_BUTTON_WIDTH = 128;
 
     public signal void logout();
-    public signal void publish(string? target_album, string privacy_setting, Resolution target_resolution);
+    public signal void publish(string? target_album, string privacy_setting, Resolution target_resolution, bool strip_metadata);
 
     private class PrivacyDescription {
         public string description;
@@ -1546,7 +1560,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     public PublishingOptionsPane(string username, FacebookAlbum[] albums,
-        Spit.Publishing.Publisher.MediaType media_type, FacebookPublisher publisher, Gtk.Builder builder) {
+        Spit.Publishing.Publisher.MediaType media_type, FacebookPublisher publisher, Gtk.Builder builder, 
+        bool strip_metadata) {
 
         this.builder = builder;
         assert(builder != null);
@@ -1575,6 +1590,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         new_album_entry = (Gtk.Entry) this.builder.get_object("new_album_entry");
         resolution_combo = (Gtk.ComboBoxText) this.builder.get_object("resolution_combo");
         how_to_label = (Gtk.Label) this.builder.get_object("how_to_label");
+        strip_metadata_check = (Gtk.CheckButton) this.builder.get_object("strip_metadata_check");
 
         create_new_radio.clicked.connect(on_create_new_toggled);
         use_existing_radio.clicked.connect(on_use_existing_toggled);
@@ -1583,6 +1599,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0)
             label_text += PHOTOS_LABEL_TEXT;
         how_to_label.set_label(label_text);
+        strip_metadata_check.set_active(strip_metadata);
 
         setup_visibility_combo();
         visibility_combo.set_active(0);
@@ -1674,7 +1691,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
             album_name = null;
         }
 
-        publish(album_name, privacy_setting, resolution_setting);
+        publish(album_name, privacy_setting, resolution_setting, strip_metadata_check.get_active());
     }
 
     private PrivacyDescription[] create_privacy_descriptions() {
@@ -1735,7 +1752,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     private void notify_publish(string? target_album, string privacy_setting, Resolution target_resolution) {
-        publish(target_album, privacy_setting, target_resolution);
+        publish(target_album, privacy_setting, target_resolution, strip_metadata_check.get_active());
     }
 
     public Gtk.Widget get_widget() {
