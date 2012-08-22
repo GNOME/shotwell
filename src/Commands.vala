@@ -1168,6 +1168,7 @@ public class SetRawDeveloperCommand : MultipleDataSourceCommand {
 
 public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
     private Dateable dateable;
+    private Event? prev_event;
     private int64 time_shift;
     private bool modify_original;
 
@@ -1181,10 +1182,24 @@ public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
 
     public override void execute() {
         set_time(dateable, dateable.get_exposure_time() + (time_t) time_shift);
+
+        prev_event = dateable.get_event();
+
+        ViewCollection all_events = new ViewCollection("tmp");
+        
+        foreach (DataObject dobj in Event.global.get_all()) {
+            Event event = dobj as Event;
+            if (event != null) {
+                all_events.add(new EventView(event));
+            }
+        }
+        Event.generate_single_event(dateable, all_events, null);
     }
 
     public override void undo() {
         set_time(dateable, dateable.get_exposure_time() - (time_t) time_shift);
+
+        dateable.set_event(prev_event);
     }
 
     private void set_time(Dateable dateable, time_t exposure_time) {
@@ -1204,6 +1219,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     private int64 time_shift;
     private bool keep_relativity;
     private bool modify_originals;
+    private Gee.Map<Dateable, Event?> prev_events;
 
     // used when photos are batch changed instead of shifted uniformly
     private time_t? new_time = null;
@@ -1221,13 +1237,17 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
 
         // TODO: implement modify originals option
 
+        prev_events = new Gee.HashMap<Dateable, Event?>();
+
         // this should be replaced by a first function when we migrate to Gee's List
-        foreach (DataView view in iter) { 
-           if (new_time == null) {
+        foreach (DataView view in iter) {
+            prev_events.set(view.get_source() as Dateable, (view.get_source() as MediaSource).get_event());
+            
+            if (new_time == null) {
                 new_time = ((Dateable) view.get_source()).get_exposure_time() +
                     (time_t) time_shift;
                 break;
-            }            
+            }
         }
 
         old_times = new Gee.HashMap<Dateable, time_t?>();
@@ -1236,12 +1256,24 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     public override void execute() {
         error_list = new Gee.ArrayList<Dateable>();
         base.execute();
-
+        
         if (error_list.size > 0) {
             multiple_object_error_dialog(error_list, 
                 ngettext("One original photo could not be adjusted.",
                 "The following original photos could not be adjusted.", error_list.size), 
                 _("Time Adjustment Error"));
+        }
+
+        ViewCollection all_events = new ViewCollection("tmp");
+
+        foreach (Dateable d in prev_events.keys) {
+                foreach (DataObject dobj in Event.global.get_all()) {
+                Event event = dobj as Event;
+                if (event != null) {
+                    all_events.add(new EventView(event));
+                }
+            }
+            Event.generate_single_event(d, all_events, null);
         }
     }
 
@@ -1283,6 +1315,16 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
             old_times.set(dateable, dateable.get_exposure_time());
             set_time(dateable, new_time);
         }
+
+        ViewCollection all_events = new ViewCollection("tmp");
+
+        foreach (DataObject dobj in Event.global.get_all()) {
+            Event event = dobj as Event;
+            if (event != null) {
+                all_events.add(new EventView(event));
+            }
+        }
+        Event.generate_single_event(dateable, all_events, null);
     }
 
     public override void undo_on_source(DataSource source) {
@@ -1294,6 +1336,8 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
         } else {
             set_time(photo, photo.get_exposure_time() - (time_t) time_shift);
         }
+        
+        (source as MediaSource).set_event(prev_events.get(source as Dateable));
     }
 }
 

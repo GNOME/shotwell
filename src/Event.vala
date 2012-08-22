@@ -296,7 +296,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     
     public static void terminate() {
     }
-    
+
     private static int64 view_comparator(void *a, void *b) {
         return ((MediaSource) ((ThumbnailView *) a)->get_source()).get_exposure_time()
             - ((MediaSource) ((ThumbnailView *) b)->get_source()).get_exposure_time() ;
@@ -593,12 +593,11 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         
         if (exposure_time == 0 && event_name == null) {
             debug("Skipping event assignment to %s: no exposure time and no event name", media.to_string());
-            
             new_event = false;
-            
+
             return null;
         }
-        
+
         int count = events_so_far.get_count();
         for (int ctr = 0; ctr < count; ctr++) {
             Event event = (Event) ((EventView) events_so_far.get_at(ctr)).get_source();
@@ -620,7 +619,6 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
             events_so_far.add(new EventView(event));
             
             new_event = true;
-            
             return event;
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
@@ -641,7 +639,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         Event? event = generate_event(media, events_so_far, event_name, out new_event);
         if (event == null)
             return;
-        
+
         media.set_event(event);
         
         if (new_event)
