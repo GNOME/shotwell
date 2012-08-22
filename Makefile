@@ -41,6 +41,10 @@ ifdef UNITY_SUPPORT
 VALAFLAGS := $(VALAFLAGS) --define UNITY_SUPPORT
 endif
 
+ifdef WITH_GPHOTO_25
+VALAFLAGS := $(VALAFLAGS) --define WITH_GPHOTO_25
+endif
+
 DEFINES := _PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
 	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIB='"${LIB}"'
 
@@ -111,10 +115,15 @@ VAPI_FILES = \
 	ExtendedPosix.vapi \
 	LConv.vapi \
 	libexif.vapi \
-	libgphoto2.vapi \
 	libraw.vapi \
 	unique-3.0.vapi \
 	webkitgtk-3.0.vapi
+
+ifdef WITH_GPHOTO_25
+VAPI_FILES +=gphoto-2.5/libgphoto2.vapi
+else
+VAPI_FILES +=gphoto-2.4/libgphoto2.vapi
+endif
 
 RESOURCE_FILES = \
 	collection.ui \
@@ -258,6 +267,13 @@ HELP_IMAGES = \
 
 VAPI_DIRS = \
 	./vapi
+
+ifdef WITH_GPHOTO_25
+VAPI_DIRS += ./vapi/gphoto-2.5
+else
+VAPI_DIRS += ./vapi/gphoto-2.4
+endif
+
 
 HEADER_DIRS = \
 	./vapi
@@ -706,6 +722,8 @@ lib$(PROGRAM).so: $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
 
 .PHONY: pkgcheck
 pkgcheck:
+	@if ! test -f configure.mk; then echo "Please run ./configure first."; exit 2; fi 
+
 ifndef ASSUME_PKGS
 ifdef EXT_PKG_VERSIONS
 	@pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS) $(DIRECT_LIBS_VERSIONS)'

@@ -266,19 +266,27 @@ public class CameraTable {
         DiscoveredCamera[] missing = new DiscoveredCamera[0];
         foreach (DiscoveredCamera camera in camera_map.values) {
             GPhoto.PortInfo port_info;
+            string tmp_path;
+            
             do_op(camera.gcamera.get_port_info(out port_info), 
                 "retrieve missing camera port information");
+            
+#if WITH_GPHOTO_25
+            port_info.get_path(out tmp_path);
+#else
+            tmp_path = port_info.path;
+#endif
             
             GPhoto.CameraAbilities abilities;
             do_op(camera.gcamera.get_abilities(out abilities), "retrieve camera abilities");
             
-            if (detected_map.has_key(port_info.path)) {
-                debug("Found camera for %s @ %s in detected map", abilities.model, port_info.path);
+            if (detected_map.has_key(tmp_path)) {
+                debug("Found camera for %s @ %s in detected map", abilities.model, tmp_path);
                 
                 continue;
             }
             
-            debug("%s @ %s missing", abilities.model, port_info.path);
+            debug("%s @ %s missing", abilities.model, tmp_path);
             
             missing += camera;
         }
@@ -286,15 +294,22 @@ public class CameraTable {
         // have to remove from hash map outside of iterator
         foreach (DiscoveredCamera camera in missing) {
             GPhoto.PortInfo port_info;
+            string tmp_path;
+            
             do_op(camera.gcamera.get_port_info(out port_info),
                 "retrieve missing camera port information");
+#if WITH_GPHOTO_25
+            port_info.get_path(out tmp_path);
+#else
+            tmp_path = port_info.path;
+#endif
             
             GPhoto.CameraAbilities abilities;
             do_op(camera.gcamera.get_abilities(out abilities), "retrieve missing camera abilities");
 
-            debug("Removing from camera table: %s @ %s", abilities.model, port_info.path);
+            debug("Removing from camera table: %s @ %s", abilities.model, tmp_path);
 
-            camera_map.unset(get_port_uri(port_info.path));
+            camera_map.unset(get_port_uri(tmp_path));
             
             camera_removed(camera);
         }
@@ -340,10 +355,17 @@ public class CameraTable {
                 do_op((GPhoto.Result) index, "lookup port %s".printf(port));
             
             GPhoto.PortInfo port_info;
+            string tmp_path;
+            
             do_op(port_info_list.get_info(index, out port_info), "get port info for %s".printf(port));
+#if WITH_GPHOTO_25
+            port_info.get_path(out tmp_path);
+#else
+            tmp_path = port_info.path;
+#endif            
             
             // this should match, every time
-            assert(port == port_info.path);
+            assert(port == tmp_path);
             
             index = abilities_list.lookup_model(name);
             if (index < 0)

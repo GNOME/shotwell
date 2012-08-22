@@ -24,20 +24,22 @@ namespace GPhoto {
         
         public virtual void idle() {
         }
-        
-        public virtual void error(string format, void *va_list) {
+
+#if WITH_GPHOTO_25
+
+        public virtual void error(string text, void *data) {
+        }
+
+        public virtual void status(string text, void *data) {
+        }
+
+        public virtual void message(string text, void *data) {
         }
         
-        public virtual void status(string format, void *va_list) {
+        public virtual void progress_start(float current, string text, void *data) {
         }
         
-        public virtual void message(string format, void *va_list) {
-        }
-        
-        public virtual void progress_start(float target, string format, void *va_list) {
-        }
-        
-        public virtual void progress_update(float current) {
+        public virtual void progress_update(float current, void *data) {
         }
         
         public virtual void progress_stop() {
@@ -47,31 +49,83 @@ namespace GPhoto {
             idle();
         }
 
-        private void on_error(Context context, string format, void *va_list) {
-            error(format, va_list);
+        private void on_error(Context context, string text) {
+            error(text, null);
         }
         
-        private void on_status(Context context, string format, void *va_list) {
-            status(format, va_list);
+        private void on_status(Context context, string text) {
+            status(text, null);
         }
         
-        private void on_message(Context context, string format, void *va_list) {
-            message(format, va_list);
+        private void on_message(Context context, string text) {
+            message(text, null);
         }
         
-        private uint on_progress_start(Context context, float target, string format, void *va_list) {
-            progress_start(target, format, va_list);
+        private uint on_progress_start(Context context, float target, string text) {
+            progress_start(target, text, null);
             
             return 0;
         }
         
         private void on_progress_update(Context context, uint id, float current) {
-            progress_update(current);
+            progress_update(current, null);
         }
         
         private void on_progress_stop(Context context, uint id) {
             progress_stop();
         }
+
+#else
+
+        public virtual void error(string format, void *va_list) {
+        }
+
+        public virtual void status(string format, void *va_list) {
+        }
+
+        public virtual void message(string format, void *va_list) {
+        }
+
+        public virtual void progress_start(float target, string format, void *va_list) {
+        }
+
+        public virtual void progress_update(float current) {
+        }
+
+        public virtual void progress_stop() {
+        }
+
+        private void on_idle(Context context) {
+            idle();
+        }
+
+        private void on_error(Context context, string format, void *va_list) {
+            error(format, va_list);
+        }
+
+        private void on_status(Context context, string format, void *va_list) {
+            status(format, va_list);
+        }
+
+        private void on_message(Context context, string format, void *va_list) {
+            message(format, va_list);
+        }
+
+        private uint on_progress_start(Context context, float target, string format, void *va_list) {
+            progress_start(target, format, va_list);
+            
+            return 0;
+        }
+
+        private void on_progress_update(Context context, uint id, float current) {
+            progress_update(current);
+        }
+
+        private void on_progress_stop(Context context, uint id) {
+            progress_stop();
+        }
+
+#endif
     }
     
     public class SpinIdleWrapper : ContextWrapper {
@@ -83,14 +137,21 @@ namespace GPhoto {
             
             spin_event_loop();
         }
-        
-        public override void progress_update(float current) {
-            base.progress_update(current);
-            
+#if WITH_GPHOTO_25  
+        public override void progress_update(float current, void *data) {
+            base.progress_update(current, data);
+
             spin_event_loop();
         }
+#else
+        public override void progress_update(float current) {
+            base.progress_update(current);
+
+            spin_event_loop();
+        }
+#endif
     }
-    
+
     // For CameraFileInfoFile, CameraFileInfoPreview, and CameraStorageInformation.  See:
     // http://trac.yorba.org/ticket/1851
     // https://bugzilla.redhat.com/show_bug.cgi?id=585676
