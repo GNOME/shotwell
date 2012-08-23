@@ -157,8 +157,6 @@ public class Application {
         system_app.activate.disconnect(on_activated);
         system_app.startup.disconnect(on_activated);
 
-        system_app.remove_window(AppWindow.get_instance());
-
         running = false;
     }
 
