@@ -33,18 +33,21 @@ public class Application {
             // storage device and camera mounts).
             system_app = new Gtk.Application("org.yorba.shotwell", GLib.ApplicationFlags.HANDLES_OPEN |
                 GLib.ApplicationFlags.HANDLES_COMMAND_LINE);
+        }
 
-            // registering is only important for uniqueness, so we do it here.
-            try {
-                system_app.register();
-            } catch (Error e) {
-                panic();
-            }
+        // GLib will assert if we don't do this...
+        try {
+            system_app.register();
+        } catch (Error e) {
+            panic();
         }
         
         direct = is_direct;
 
-        system_app.command_line.connect(on_command_line);
+        if (!direct) {
+            system_app.command_line.connect(on_command_line);
+        }
+
         system_app.activate.connect(on_activated);
         system_app.startup.connect(on_activated);
     }
@@ -153,7 +156,10 @@ public class Application {
         system_app.add_window(AppWindow.get_instance());
         system_app_run_retval = system_app.run(argv);
 
-        system_app.command_line.disconnect(on_command_line);
+        if (!direct) {
+            system_app.command_line.disconnect(on_command_line);
+        }
+
         system_app.activate.disconnect(on_activated);
         system_app.startup.disconnect(on_activated);
 
