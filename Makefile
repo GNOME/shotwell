@@ -120,9 +120,9 @@ VAPI_FILES = \
 	webkitgtk-3.0.vapi
 
 ifdef WITH_GPHOTO_25
-VAPI_FILES +=gphoto-2.5/libgphoto2.vapi
+GPHOTO_VAPI_FILE = vapi/gphoto-2.5/libgphoto2.vapi
 else
-VAPI_FILES +=gphoto-2.4/libgphoto2.vapi
+GPHOTO_VAPI_FILE = vapi/gphoto-2.4/libgphoto2.vapi
 endif
 
 RESOURCE_FILES = \
@@ -405,6 +405,7 @@ DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAP
 	po/shotwell-core/shotwell.pot po/shotwell-extras/shotwell-extras.pot \
 	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
 	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES) \
+	vapi/gphoto-2.5/libgphoto2.vapi vapi/gphoto-2.4/libgphoto2.vapi \
 	$(EXPANDED_THUMBNAILER_SRC_FILES)
 	
 
@@ -668,7 +669,7 @@ $(UNITIZE_INITS) $(UNITIZE_ENTRIES): $(UNITIZE_STAMP)
 	@
 
 # EXPANDED_SRC_FILES includes UNITIZE_INITS and UNITIZE_ENTRY
-$(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES)
+$(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(GPHOTO_VAPI_FILE) $(EXPANDED_SRC_HEADER_FILES)
 	$(call check_valac_version)
 	@echo Compiling Vala code...
 	@mkdir -p $(BUILD_DIR)
