@@ -16,7 +16,7 @@ public class Library.FlaggedBranch : Sidebar.RootOnlyBranch {
     
     ~FlaggedBranch() {
         foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all())
-            media_sources.trashcan_contents_altered.disconnect(on_flagged_contents_altered);
+            media_sources.flagged_contents_altered.disconnect(on_flagged_contents_altered);
     }
     
     private void on_flagged_contents_altered() {
