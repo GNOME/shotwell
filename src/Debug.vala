@@ -136,8 +136,11 @@ namespace Debug {
     }
 
     private void critical_handler(string? domain, LogLevelFlags flags, string message) {
-        if (is_enabled(LogLevelFlags.LEVEL_CRITICAL))
+        if (is_enabled(LogLevelFlags.LEVEL_CRITICAL)) {
             log(log_err, "CRT", message);
+            if (log_file_stream != null)
+                log(stderr, "CRT", message);    // also log to console
+        }
     }
 }
 
