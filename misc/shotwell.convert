@@ -22,6 +22,7 @@ use-24-hour-time = /apps/shotwell/preferences/ui/twentyfour_hr_time
 delay = /apps/shotwell/preferences/slideshow/delay
 transition-delay = /apps/shotwell/preferences/slideshow_transition/delay
 transition-effect-id = /apps/shotwell/preferences/slideshow_transition/name
+show-title = /apps/shotwell/preferences/slideshow/show-title
 
 [org.yorba.shotwell.preferences.window]
 direct-height = /apps/shotwell/preferences/window/direct_height

@@ -71,6 +71,7 @@ public enum ConfigurableProperty {
     SLIDESHOW_DELAY,
     SLIDESHOW_TRANSITION_DELAY,
     SLIDESHOW_TRANSITION_EFFECT_ID,
+    SLIDESHOW_SHOW_TITLE,
     USE_24_HOUR_TIME,
     USE_LOWERCASE_FILENAMES,
     VIDEO_INTERPRETER_STATE_COOKIE,
@@ -232,6 +233,9 @@ public enum ConfigurableProperty {
                 
             case SLIDESHOW_TRANSITION_EFFECT_ID:
                 return "SLIDESHOW_TRANSITION_EFFECT_ID";
+            
+            case SLIDESHOW_SHOW_TITLE:
+                return "SLIDESHOW_SHOW_TITLE";
                 
             case USE_24_HOUR_TIME:
                 return "USE_24_HOUR_TIME";
@@ -1336,7 +1340,28 @@ public abstract class ConfigurationFacade : Object {
             on_configuration_error(err);
         }
     }
+    
+    //
+    // Slideshow show title
+    //
+    public virtual bool get_slideshow_show_title() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.SLIDESHOW_SHOW_TITLE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
 
+            return false;
+        }
+    }
+    
+    public virtual void set_slideshow_show_title(bool show_title) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.SLIDESHOW_SHOW_TITLE, show_title);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+    
     //
     // use 24 hour time
     //

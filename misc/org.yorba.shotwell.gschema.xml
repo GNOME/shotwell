@@ -150,6 +150,12 @@
         <summary>transition effect id</summary>
         <description>The name of the transition effect that will be used between photos when running a slideshow</description>
     </key>
+    
+    <key name="show-title" type="b">
+        <default>false</default>
+        <summary>Show title</summary>
+        <description>Whether to show the title of a photo during the slideshow</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.preferences.window" path="/apps/shotwell/preferences/window/">
