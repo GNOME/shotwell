@@ -56,6 +56,10 @@ public class CameraTable {
     }
     
     private bool delayed_init() {
+        // We disable this here so cameras that are already connected at the time
+        // the application is launched don't interfere with normal navigation...
+        ((LibraryWindow) AppWindow.get_instance()).set_page_switching_enabled(false);
+        
         try {
             init_camera_table();
         } catch (GPhotoError err) {
@@ -70,6 +74,9 @@ public class CameraTable {
             warning("Unable to update camera table: %s", err.message);
         }
         
+        // ...and re-enable it here, so that cameras connected -after- the initial
+        // populating of the table will trigger a switch to the import page, as before.
+        ((LibraryWindow) AppWindow.get_instance()).set_page_switching_enabled(true);
         return false;
     }
     
