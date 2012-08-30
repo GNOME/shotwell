@@ -364,7 +364,8 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         Gtk.StyleContext stylectx = dummy_frame.get_style_context();
         stylectx.save();
         
-        stylectx.set_path(frame_draw_path);
+        stylectx.get_path().append_type(typeof(Gtk.Frame));
+        stylectx.get_path().iter_add_class(0, "default");
         stylectx.add_class(Gtk.STYLE_CLASS_TROUGH);
         stylectx.set_junction_sides(Gtk.JunctionSides.TOP | Gtk.JunctionSides.BOTTOM |
             Gtk.JunctionSides.LEFT | Gtk.JunctionSides.RIGHT);
@@ -463,7 +464,8 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         Gtk.StyleContext stylectx = dummy_slider.get_style_context();
         stylectx.save();
         
-        stylectx.set_path(slider_draw_path);
+        stylectx.get_path().append_type(typeof(Gtk.Scale));
+        stylectx.get_path().iter_add_class(0, "scale");
         stylectx.add_class(Gtk.STYLE_CLASS_TROUGH);
 
         stylectx.render_activity(ctx, trough_x, trough_y, TROUGH_WIDTH, TROUGH_HEIGHT);
