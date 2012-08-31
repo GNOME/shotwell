@@ -11,7 +11,7 @@ build: build-stamp
 build-stamp: configure
 	dh_testdir
 	./configure --prefix=/usr --disable-schemas-install --disable-desktop-update --disable-icon-update
-	$(MAKE) USER_VALAFLAGS="--vapidir=/usr/share/vala/vapi --vapidir=/usr/share/vala-0.10/vapi"
+	$(MAKE) USER_VALAFLAGS="--vapidir=/usr/share/vala/vapi"
 	touch $@
 
 clean: 
