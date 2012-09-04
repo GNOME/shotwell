@@ -1152,7 +1152,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         PermissionLevel[] result = new PermissionLevel[0];
 
         result += new PermissionLevel(0, _("Everyone"));
-        result += new PermissionLevel(1, _("Admins, Friends, Family, Contacts"));
+        result += new PermissionLevel(1, _("Admins, Family, Friends, Contacts"));
         result += new PermissionLevel(2, _("Admins, Family, Friends"));
         result += new PermissionLevel(4, _("Admins, Family"));
         result += new PermissionLevel(8, _("Admins"));
