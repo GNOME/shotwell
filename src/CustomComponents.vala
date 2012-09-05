@@ -340,9 +340,9 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         Gdk.Rectangle area = Gdk.Rectangle();
         area.x = padding.left;
         area.y = padding.top;
-        area.width = get_allocated_width() - (padding.left + padding.right);
-        area.height = get_allocated_height() - (padding.top + padding.bottom);
-        
+        area.width = RGBHistogram.GRAPHIC_WIDTH + padding.right;
+        area.height = RGBHistogram.GRAPHIC_HEIGHT + padding.bottom;
+
         draw_histogram_frame(ctx, area);
         draw_histogram(ctx, area);
         draw_trough(ctx, area);
@@ -457,7 +457,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         ctx.paint();
     }
     
-    private void draw_trough(Cairo.Context ctx, Gdk.Rectangle area) {
+    private void draw_trough(Cairo.Context ctx, Gdk.Rectangle area) { 
         int trough_x = area.x;
         int trough_y = area.y + (CONTROL_HEIGHT - TROUGH_HEIGHT - TROUGH_BOTTOM_OFFSET - 3);
         
