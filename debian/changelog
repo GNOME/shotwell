@@ -1,3 +1,20 @@
+shotwell (0.12.90-1~precise1) precise; urgency=low
+
+  * This is an interim development release in preparation for 0.13.0.
+  * Migrated away from libunique and over to GtkApplication.
+  * Added support for building against libgphoto2 2.5.
+  * Added an option to remove sensitive data from images before
+    publishing them.
+  * Vastly-improved handling of dates before 1969 on 32-bit versions.
+  * Reworked the Picasa publishing plugin to use OAuth.
+  * Missing thumbnails are now automatically regenerated during startup
+  * The straightening tool has been enhanced to allow the user to visually
+    reposition the image by drawing a line.
+  * Many bug fixes.
+    
+ -- Clint Rogers <clinton@yorba.org>  Sat, 8 Sep 2012 09:15:30 -0700
+
+
 shotwell (0.12.3-1~oneiric1) oneiric; urgency=low
 
   * Corrects an issue where tags could be inappropriately removed from a
@@ -9,7 +26,7 @@ shotwell (0.12.3-1~oneiric1) oneiric; urgency=low
     of the application could cause a crash.
     
  -- Clint Rogers <clinton@yorba.org>  Wed, 9 May 2012 11:22:00 -0700
- 
+
 
 shotwell (0.12.2-1~oneiric1) oneiric; urgency=low
 
