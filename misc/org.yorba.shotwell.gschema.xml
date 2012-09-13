@@ -525,6 +525,12 @@
         <summary>enable yandex publishing plugin</summary>
         <description>True if the Yandex.Fotki publishing plugin is enabled, false otherwise</description>
     </key>
+    
+    <key name="publishing-tumblr" type="b">
+        <default>false</default>
+        <summary>enable tumblr publishing plugin</summary>
+        <description>True if the Tumblr publishing plugin is enabled, false otherwise</description>
+    </key>
 
     <key name="dataimports-fspot" type="b">
         <default>true</default>

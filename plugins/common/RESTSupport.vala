@@ -355,10 +355,10 @@ public class Transaction {
 }
 
 public class UploadTransaction : Transaction {
-    private GLib.HashTable<string, string> binary_disposition_table = null;
-    private Spit.Publishing.Publishable publishable = null;
-    private string mime_type;
-    private Gee.HashMap<string, string> message_headers = null;
+    protected GLib.HashTable<string, string> binary_disposition_table = null;
+    protected Spit.Publishing.Publishable publishable = null;
+    protected string mime_type;
+    protected Gee.HashMap<string, string> message_headers = null;
 
     public UploadTransaction(Session session, Spit.Publishing.Publishable publishable) {
         base (session);

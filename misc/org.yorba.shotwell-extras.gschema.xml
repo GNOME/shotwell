@@ -58,5 +58,31 @@
     </key>
 </schema>
 
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-tumblr" path="/apps/shotwell/sharing/org-yorba-shotwell-publishing-tumblr/">
+    <key name="token" type="s">
+        <default>""</default>
+        <summary>Token</summary>
+        <description>The token to access tumblr</description>
+    </key>
+    
+    <key name="token-secret" type="s">
+        <default>""</default>
+        <summary>Secret token</summary>
+        <description>The secret token to sign oauth requests</description>
+    </key>
+    
+    <key name="default-size" type="i">
+        <default>2</default>
+        <summary>default size</summary>
+        <description>A numeric code representing the default size for photos uploaded to Tumblr</description>
+    </key>
+    
+    <key name="default-blog" type="i">
+        <default>0</default>
+        <summary>default blog</summary>
+        <description>The name of the default blog of the user, if any</description>
+    </key>
+</schema>
+
 </schemalist>
 
