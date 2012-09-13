@@ -3,6 +3,7 @@ Version=1.0
 Name=Shotwell
 GenericName=Photo Manager
 Comment=Organize your photos
+Keywords=Camera;Picture;Photo;
 Exec=shotwell %U
 Icon=shotwell
 Terminal=false
