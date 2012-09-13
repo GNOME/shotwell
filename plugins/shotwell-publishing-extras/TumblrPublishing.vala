@@ -1037,8 +1037,7 @@ internal class Session : Publishing.RESTSupport.Session {
     }
 
     public override bool is_authenticated() {
-        return (access_phase_token != null && access_phase_token_secret != null &&
-            username != null);
+        return (access_phase_token != null && access_phase_token_secret != null);
     }
 
     public void authenticate_from_persistent_credentials(string token, string secret) {
