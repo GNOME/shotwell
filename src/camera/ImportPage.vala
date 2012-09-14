@@ -1174,6 +1174,17 @@ public class ImportPage : CheckerboardPage {
                     got_well_known_dir = true;
                 }
 
+                // Check common video paths for some Sony primarily-still
+                // cameras
+                if (check_directory_exists(fsid, "/PRIVATE/", "SONY")) {
+                    enumerate_files(fsid, "/PRIVATE/SONY", import_list);
+                    got_well_known_dir = true;
+                }
+                if (check_directory_exists(fsid, "/private/", "sony")) {
+                    enumerate_files(fsid, "/private/sony", import_list);
+                    got_well_known_dir = true;
+                }
+
                 // Didn't find any of the common directories we know about
                 // already - try scanning from device root.
                 if (!got_well_known_dir) {
