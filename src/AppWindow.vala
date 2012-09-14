@@ -147,8 +147,11 @@ public class FullscreenWindow : PageWindow {
             return true;
         }
 
-       // ...then let the base class take over
-       return (base.key_press_event != null) ? base.key_press_event(event) : false;
+        // Make sure this event gets propagated to the underlying window...
+        AppWindow.get_instance().key_press_event(event);
+
+        // ...then let the base class take over
+        return (base.key_press_event != null) ? base.key_press_event(event) : false;
     }
     
     private void on_close() {
