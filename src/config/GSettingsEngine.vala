@@ -469,4 +469,18 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         }
     }
     
+    /*! @brief Migrates settings data over from old-style /apps/ paths to /org/yorba/ ones.
+     *  Should only be called ONCE, during DB upgrading; otherwise, stale data may be copied
+     *  over newer data by accident.
+     */
+    public static void run_gsettings_migrator() {
+        string cmd_line = AppDirs.get_settings_migrator_bin().get_path();
+
+        try {
+            Process.spawn_command_line_sync(cmd_line);
+        } catch (Error err) {
+            message("Error running shotwell-settings-migrator: %s", err.message);
+        }
+    }
+
 }

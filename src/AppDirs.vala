@@ -251,5 +251,15 @@ class AppDirs {
         }
         return f;
     }
+
+    public static File get_settings_migrator_bin() {
+        const string filename = "shotwell-settings-migrator";
+        File f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/settings-migrator/" + filename);
+        if (!f.query_exists()) {
+            // If we're running installed.
+            f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/" + filename);
+        }
+        return f;
+    }
 }
 

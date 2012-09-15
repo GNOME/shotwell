@@ -1,6 +1,6 @@
 <schemalist>
 
-<schema id="org.yorba.shotwell" path="/apps/shotwell/">
+<schema id="org.yorba.shotwell" path="/org/yorba/shotwell/">
     <child name="preferences" schema="org.yorba.shotwell.preferences" />
     <child name="sharing" schema="org.yorba.shotwell.sharing" />
     <child name="video" schema="org.yorba.shotwell.video" />
@@ -8,7 +8,7 @@
     <child name="plugins" schema="org.yorba.shotwell.plugins" />
 </schema>
 
-<schema id="org.yorba.shotwell.preferences" path="/apps/shotwell/preferences/">
+<schema id="org.yorba.shotwell.preferences" path="/org/yorba/shotwell/preferences/">
     <child name="ui" schema="org.yorba.shotwell.preferences.ui" />
     <child name="slideshow" schema="org.yorba.shotwell.preferences.slideshow" />
     <child name="window" schema="org.yorba.shotwell.preferences.window" />
@@ -16,7 +16,7 @@
     <child name="editing" schema="org.yorba.shotwell.preferences.editing" />
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.ui" path="/apps/shotwell/preferences/ui/">
+<schema id="org.yorba.shotwell.preferences.ui" path="/org/yorba/shotwell/preferences/ui/">
     <key name="display-basic-properties" type="b">
         <default>true</default>
         <summary>display basic properties</summary>
@@ -132,7 +132,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.slideshow" path="/apps/shotwell/preferences/slideshow/">
+<schema id="org.yorba.shotwell.preferences.slideshow" path="/org/yorba/shotwell/preferences/slideshow/">
     <key name="delay" type="d">
         <default>3.0</default>
         <summary>delay</summary>
@@ -158,7 +158,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.window" path="/apps/shotwell/preferences/window/">
+<schema id="org.yorba.shotwell.preferences.window" path="/org/yorba/shotwell/preferences/window/">
     <key name="library-maximize" type="b">
         <default>false</default>
         <summary>maximize library window</summary>
@@ -202,7 +202,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.files" path="/apps/shotwell/preferences/files/">
+<schema id="org.yorba.shotwell.preferences.files" path="/org/yorba/shotwell/preferences/files/">
     <key name="import-dir" type="s">
         <default>""</default>
         <summary>import directory</summary>
@@ -246,7 +246,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.crop-settings" path="/apps/shotwell/crop-settings/">
+<schema id="org.yorba.shotwell.crop-settings" path="/org/yorba/shotwell/crop-settings/">
     <key name="last-crop-menu-choice" type="i">
         <default>1</default>
         <summary>Most-recently-used crop aspect ratio menu choice.</summary>
@@ -264,7 +264,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.editing" path="/apps/shotwell/preferences/editing/">
+<schema id="org.yorba.shotwell.preferences.editing" path="/org/yorba/shotwell/preferences/editing/">
     <key name="external-photo-editor" type="s">
         <default>""</default>
         <summary>external photo editor</summary>
@@ -278,7 +278,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing" path="/apps/shotwell/sharing/">
+<schema id="org.yorba.shotwell.sharing" path="/org/yorba/shotwell/sharing/">
     <key name="last-used-service" type="s">
         <default>""</default>
         <summary>last used publishing service</summary>
@@ -297,7 +297,7 @@
     <child name="youtube" schema="org.yorba.shotwell.sharing.youtube" />
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.facebook" path="/apps/shotwell/sharing/facebook/">
+<schema id="org.yorba.shotwell.sharing.facebook" path="/org/yorba/shotwell/sharing/facebook/">
     <key name="access-token" type="s">
         <default>""</default>
         <summary>access token</summary>
@@ -329,7 +329,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.flickr" path="/apps/shotwell/sharing/flickr/">
+<schema id="org.yorba.shotwell.sharing.flickr" path="/org/yorba/shotwell/sharing/flickr/">
     <key name="access-phase-token" type="s">
         <default>""</default>
         <summary>OAuth Access Phase Token</summary>
@@ -367,7 +367,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.picasa" path="/apps/shotwell/sharing/picasa/">
+<schema id="org.yorba.shotwell.sharing.picasa" path="/org/yorba/shotwell/sharing/picasa/">
     <key name="refresh-token" type="s">
         <default>""</default>
         <summary>refresh token</summary>
@@ -393,7 +393,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.youtube" path="/apps/shotwell/sharing/youtube/">
+<schema id="org.yorba.shotwell.sharing.youtube" path="/org/yorba/shotwell/sharing/youtube/">
     <key name="user-name" type="s">
         <default>""</default>
         <summary>username</summary>
@@ -407,7 +407,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.dataimports" path="/apps/shotwell/dataimports/">
+<schema id="org.yorba.shotwell.dataimports" path="/org/yorba/shotwell/dataimports/">
     <key name="last-used-dataimports-service" type="s">
         <default>""</default>
         <summary>last used import service</summary>
@@ -415,7 +415,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.video" path="/apps/shotwell/video/">
+<schema id="org.yorba.shotwell.video" path="/org/yorba/shotwell/video/">
     <key name="interpreter-state-cookie" type="i">
         <default>-1</default>
         <summary>interpreter state cookie</summary>
@@ -423,7 +423,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.printing" path="/apps/shotwell/printing/">
+<schema id="org.yorba.shotwell.printing" path="/org/yorba/shotwell/printing/">
     <key name="content-layout" type="i">
         <default>3</default>
         <summary>content layout mode</summary>
@@ -485,11 +485,11 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.plugins" path="/apps/shotwell/plugins/" >
+<schema id="org.yorba.shotwell.plugins" path="/org/yorba/shotwell/plugins/" >
     <child name="enable-state" schema="org.yorba.shotwell.plugins.enable-state" />
 </schema>
 
-<schema id="org.yorba.shotwell.plugins.enable-state" path="/apps/shotwell/plugins/enable-state/" >
+<schema id="org.yorba.shotwell.plugins.enable-state" path="/org/yorba/shotwell/plugins/enable-state/" >
     <key name="publishing-facebook" type="b">
         <default>true</default>
         <summary>enable facebook publishing plugin</summary>

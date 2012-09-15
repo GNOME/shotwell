@@ -279,6 +279,22 @@ private VerifyResult upgrade_database(int input_version) {
     version =  15;
     
     //
+    // Version 16:
+    // * Migration of dconf settings data from /apps/shotwell to /org/yorba/shotwell.
+    //
+    //   The database itself doesn't change; this is to force the path migration to
+    //   occur.
+    //
+
+    if (input_version < 16) {
+        // Run the settings migrator to copy settings data from /apps/shotwell to /org/yorba/shotwell.
+        // Please see https://mail.gnome.org/archives/desktop-devel-list/2011-February/msg00064.html
+        GSettingsConfigurationEngine.run_gsettings_migrator();
+    }
+    
+    version = 16;
+    
+    //
     // Finalize the upgrade process
     //
     

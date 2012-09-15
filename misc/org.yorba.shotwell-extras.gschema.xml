@@ -1,6 +1,6 @@
 <schemalist>
 
-<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-piwigo" path="/apps/shotwell/sharing/org-yorba-shotwell-publishing-piwigo/">
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-piwigo" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-piwigo/">
     <key name="url" type="s">
         <default>""</default>
         <summary>Piwigio URL</summary>
@@ -50,7 +50,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-yandex-fotki" path="/apps/shotwell/sharing/org-yorba-shotwell-publishing-yandex-fotki/">
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-yandex-fotki" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-yandex-fotki/">
     <key name="auth-token" type="s">
         <default>""</default>
         <summary>authentication token</summary>
@@ -58,7 +58,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-tumblr" path="/apps/shotwell/sharing/org-yorba-shotwell-publishing-tumblr/">
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-tumblr" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-tumblr/">
     <key name="token" type="s">
         <default>""</default>
         <summary>Token</summary>
