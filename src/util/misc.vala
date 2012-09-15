@@ -228,19 +228,19 @@ public string format_local_datespan(Time from_date, Time to_date) {
         // are these consecutive dates?
         if ((from_date.month == to_date.month) && (from_date.day == (to_date.day - 1))) {
             // Yes; display like so: Sat, July 4 - 5, 20X6
-            from_format =  _("%a %b %d");
-            to_format = _("%d, %Y");
+            from_format =  Resources.get_start_multiday_span_format_string();
+            to_format = Resources.get_end_multiday_span_format_string();
         } else {
             // No, but they're in the same year; display in shortened
             // form: Sat, July 4 - Mon, July 6, 20X6
-            from_format = _("%a %b %d");
-            to_format = _("%a %b %d, %Y");
+            from_format = Resources.get_start_multimonth_span_format_string();
+            to_format = Resources.get_end_multimonth_span_format_string();
         }
     } else {
         // Span crosses a year boundary, use long form dates
         // for both start and end date.
-        from_format = _("%a %b %d, %Y");
-        to_format = _("%a %b %d, %Y");
+        from_format = Resources.get_long_date_format_string();
+        to_format = Resources.get_long_date_format_string();
     }
      
     return String.strip_leading_zeroes("%s - %s".printf(from_date.format(from_format),
@@ -248,7 +248,7 @@ public string format_local_datespan(Time from_date, Time to_date) {
 }
 
 public string format_local_date(Time date) {
-    return String.strip_leading_zeroes(date.format(_("%a %b %d, %Y")));
+    return String.strip_leading_zeroes(date.format(Resources.get_long_date_format_string()));
 }
 
 public delegate void OneShotCallback();

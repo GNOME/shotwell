@@ -637,6 +637,12 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
     Gee.HashMap<string, Gdk.Pixbuf> scaled_icon_cache = null;
     
+    private string HH_MM_FORMAT_STRING = null;
+    private string LONG_DATE_FORMAT_STRING = null;
+    private string START_MULTIDAY_DATE_FORMAT_STRING = null;
+    private string END_MULTIDAY_DATE_FORMAT_STRING = null;
+    private string START_MULTIMONTH_DATE_FORMAT_STRING = null;
+        
     public void init () {
         // load application-wide stock icons as IconSets
         factory = new Gtk.IconFactory();
@@ -673,6 +679,97 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public void terminate() {
+    }
+    
+    /**
+     * @brief Helper for getting a format string that matches the
+     * user's LC_TIME settings from the system.  This is intended 
+     * to help support the use case where a user wants the text 
+     * from one locale, but the timestamp format of another.
+     * 
+     * Stolen wholesale from code written for Geary by Jim Nelson
+     * and from Marcel Stimberg's original patch to Shotwell to 
+     * try to fix this; both are graciously thanked for their help.
+     */
+    private void fetch_lc_time_format() {
+        // temporarily unset LANGUAGE, as it interferes with LC_TIME
+        // and friends.
+        string? old_language = Environment.get_variable("LANGUAGE");
+        if (old_language != null) {
+            Environment.unset_variable("LANGUAGE");
+        }
+        
+        // switch LC_MESSAGES to LC_TIME...
+        string? old_messages = Intl.setlocale(LocaleCategory.MESSAGES, null);
+        string? lc_time = Intl.setlocale(LocaleCategory.TIME, null);
+        
+        if (lc_time != null) {
+            Intl.setlocale(LocaleCategory.MESSAGES, lc_time);
+        }
+        
+        // ...precache the timestamp string...
+        HH_MM_FORMAT_STRING = _("%I:%M %p");
+        LONG_DATE_FORMAT_STRING = _("%a %b %d, %Y");
+        START_MULTIDAY_DATE_FORMAT_STRING = _("%a %b %d");
+        END_MULTIDAY_DATE_FORMAT_STRING = _("%d, %Y");
+        START_MULTIMONTH_DATE_FORMAT_STRING = _("%a %b %d");
+        
+        // ...put everything back like we found it.
+        if (old_messages != null) {
+            Intl.setlocale(LocaleCategory.MESSAGES, old_messages);
+        }
+        
+        if (old_language != null) {
+            Environment.set_variable("LANGUAGE", old_language, true);
+        }
+    }
+    
+    /**
+     * @brief Returns a precached format string that matches the
+     * user's LC_TIME settings.  
+     */
+    public string get_hh_mm_format_string() {
+        if (HH_MM_FORMAT_STRING == null) {
+            fetch_lc_time_format();
+        }
+        
+        return HH_MM_FORMAT_STRING;
+    }
+    
+    public string get_long_date_format_string() {
+        if (LONG_DATE_FORMAT_STRING == null) {
+            fetch_lc_time_format();
+        }
+        
+        return LONG_DATE_FORMAT_STRING;
+    }
+    
+    public string get_start_multiday_span_format_string() {
+        if (START_MULTIDAY_DATE_FORMAT_STRING == null) {
+            fetch_lc_time_format();
+        }
+        
+        return START_MULTIDAY_DATE_FORMAT_STRING;
+    }
+
+    public string get_end_multiday_span_format_string() {
+        if (END_MULTIDAY_DATE_FORMAT_STRING == null) {
+            fetch_lc_time_format();
+        }
+        
+        return END_MULTIDAY_DATE_FORMAT_STRING;
+    }
+
+    public string get_start_multimonth_span_format_string() {
+        if (START_MULTIMONTH_DATE_FORMAT_STRING == null) {
+            fetch_lc_time_format();
+        }
+        
+        return START_MULTIMONTH_DATE_FORMAT_STRING;
+    }
+
+    public string get_end_multimonth_span_format_string() {
+        return get_long_date_format_string();
     }
 
     public File get_ui(string filename) {

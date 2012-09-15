@@ -35,7 +35,7 @@ private abstract class Properties : Gtk.Table {
     }
     
     protected string get_prettyprint_time(Time time) {
-        string timestring = time.format(_("%I:%M %p"));
+        string timestring = time.format(Resources.get_hh_mm_format_string());
         
         if (timestring[0] == '0')
             timestring = timestring.substring(1, -1);
