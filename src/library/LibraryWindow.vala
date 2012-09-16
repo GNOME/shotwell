@@ -497,11 +497,11 @@ public class LibraryWindow : AppWindow {
         assert(searchbar_action != null);
 
         // Make sure rejected pictures are not being displayed on startup
-        Page tmp = get_current_page() as CheckerboardPage;
-        if (tmp != null)
-            init_view_filter(tmp);
+        CheckerboardPage? current_page = get_current_page() as CheckerboardPage;
+        if (current_page != null)
+            init_view_filter(current_page);
 
-        toggle_search_bar(should_show_search_bar(), get_current_page() as CheckerboardPage);
+        toggle_search_bar(should_show_search_bar(), current_page);
     }
     
     public static LibraryWindow get_app() {
