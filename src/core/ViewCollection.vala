@@ -705,7 +705,42 @@ public class ViewCollection : DataCollection {
     public virtual DataView? get_first() {
         return (get_count() > 0) ? (DataView?) get_at(0) : null;
     }
-    
+
+    /**
+     * @brief A helper method for places in the app that need a
+     *  non-rejected media source (namely Events, when looking to
+     *  automatically choose a thumbnail).
+     *
+     * @note If every view in this collection is rejected, we
+     *  return the first view; this is intentional.  This prevents
+     *  pathological events that have nothing but rejected images
+     *  in them from breaking.
+     */
+    public virtual DataView? get_first_unrejected() {
+        // We have no media, unrejected or otherwise...
+        if (get_count() < 1)
+            return null;
+
+        // Loop through media we do have...
+        DataView dv = get_first();
+        int num_views = get_count();
+
+        while ((dv != null) && (index_of(dv) < (num_views - 1))) {
+            MediaSource tmp = dv.get_source() as MediaSource;
+
+            if ((tmp != null) && (tmp.get_rating() != Rating.REJECTED)) {
+                // ...found a good one; return it.
+                return dv;
+            } else {
+                dv = get_next(dv);
+            }
+        }
+
+        // Got to the end of the collection, none found, need to return
+        // _something_...
+        return get_first();
+    }
+
     public virtual DataView? get_last() {
         return (get_count() > 0) ? (DataView?) get_at(get_count() - 1) : null;
     }

@@ -203,11 +203,11 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
             global.notify_container_contents_altered(this, event_thumbs, false, null, false);
         }
         
-        // get the primary source for monitoring; if not available, use the first source in the
-        // event
+        // get the primary source for monitoring; if not available, use the first unrejected
+        // source in the event
         primary_source = MediaCollectionRegistry.get_instance().fetch_media(event_row.primary_source_id);
         if (primary_source == null && view.get_count() > 0) {
-            primary_source = (MediaSource) ((DataView) view.get_at(0)).get_source();
+            primary_source = (MediaSource) ((DataView) view.get_first_unrejected()).get_source();
             event_table.set_primary_source_id(event_id, primary_source.get_source_id());
         }
         
@@ -388,7 +388,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         foreach (MediaSource current_source in media) {
             if (current_source == primary_source) {
                 if (get_media_count() > 0)
-                    set_primary_source((MediaSource) view.get_first().get_source());
+                    set_primary_source((MediaSource) view.get_first_unrejected().get_source());
                 else
                     release_primary_source();
                 
@@ -419,16 +419,23 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         
         // If the primary source was lost in the unlink, reestablish it now.
         if (primary_source == null)
-            set_primary_source((MediaSource) view.get_first().get_source());
+            set_primary_source((MediaSource) view.get_first_unrejected().get_source());
         
         base.notify_relinking(sources);
     }
 
-    // This gets called when one or more media items inside this event gets 
-    // modified in some fashion. If the media item's date changes and the
-    // event was previously undated, the name of the event needs to change 
-    // as well; all of that happens automatically in here.
-    private void on_media_altered(Gee.Map<DataObject, Alteration> items) { 
+    /** @brief This gets called when one or more media items inside this
+     *  event gets modified in some fashion. If the media item's date changes
+     *  and the event was previously undated, the name of the event needs to
+     *  change as well; all of that happens automatically in here.
+     *
+     *  In addition, if the _rating_ of one or more media items has changed,
+     *  the thumbnail of this event may need to change, as the primary
+     *  image may have been rejected and should not be the thumbnail anymore.
+     */
+    private void on_media_altered(Gee.Map<DataObject, Alteration> items) {
+        bool should_remake_thumb = false;
+         
         foreach (Alteration alteration in items.values) {
             if (alteration.has_detail("metadata", "exposure-time")) {
                 
@@ -441,8 +448,23 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
                 
                 break;
             }
+            
+            if (alteration.has_detail("metadata", "rating"))
+                should_remake_thumb = true;
         }
-    }    
+        
+        assert(get_primary_source() is MediaSource);
+        
+        if (should_remake_thumb) {
+            // check whether we actually need to remake this thumbnail...
+            if ((get_primary_source() == null) || (get_primary_source().get_rating() == Rating.REJECTED)) {
+                // yes, rejected - drop it and get a new one...
+                set_primary_source((MediaSource) view.get_first_unrejected().get_source());
+            }
+
+            // ...otherwise, if the primary source wasn't rejected, just leave it alone.
+        }
+    }
     
     // This creates an empty event with a primary source.  NOTE: This does not add the source to
     // the event.  That must be done manually.
