@@ -5,11 +5,10 @@
 # 
 # Translators:
 #   <deresh@gmail.com>, 2012.
-# lsbeeler <lucas@yorba.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.12\n"
-"Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
+"Project-Id-Version: shotwell-extras-0.13\n"
+"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2012-03-05 15:14-0800\n"
 "PO-Revision-Date: 2012-03-06 01:46+0000\n"
 "Last-Translator: laurakh <laura@yorba.org>\n"
@@ -31,58 +30,6 @@ msgstr "Posjeti Yandex.Fotki internet stranicu"
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Trenutno niste prijavljeni u Yandex.Fotki."
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:27
-msgid "label"
-msgstr "label"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:49
-msgid "_URL of your Piwigo photo library"
-msgstr "_URL vaše Piwigo slikovne biblioteke"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:59
-msgid "User _name"
-msgstr "Korisničko _ime"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:73
-msgid "_Password"
-msgstr "_Lozinka"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:130
-msgid "_Remember Password"
-msgstr "_Zapamti lozinku"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:151
-msgid "Login"
-msgstr "Prijava"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:21
-msgid "Photos will appear in:"
-msgstr "Fotografije će se pojaviti u:"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:37
-msgid "An _existing category:"
-msgstr "_Postojećoj kategoriji:"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:49
-msgid "A _new album named:"
-msgstr "_Novom albumu imena:"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:104
-msgid "Photos will be _visible by:"
-msgstr "Fotografije će biti vidljive:"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:131
-msgid "Photo size:"
-msgstr ""
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:164
-msgid "Logout"
-msgstr "Odjava"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:178
-msgid "Publish"
-msgstr "Objava"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"

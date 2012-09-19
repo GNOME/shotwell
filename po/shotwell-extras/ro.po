@@ -4,12 +4,11 @@
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 # Translators:
-# lsbeeler <lucas@yorba.org>, 2011.
 # Vasile Marian <marianvasile@upcmail.ro>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.12\n"
-"Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
+"Project-Id-Version: shotwell-extras-0.13\n"
+"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2012-03-05 15:14-0800\n"
 "PO-Revision-Date: 2012-03-07 09:41+0000\n"
 "Last-Translator: Vasile Marian <marianvasile@upcmail.ro>\n"
@@ -31,58 +30,6 @@ msgstr "Vizitați site-ul web Yandex.Fotki"
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Nu sunteți autentificat pe Yandex.Fotki."
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:27
-msgid "label"
-msgstr "etichetă"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:49
-msgid "_URL of your Piwigo photo library"
-msgstr "_URL-ul colecției dumneavoastră Piwigo"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:59
-msgid "User _name"
-msgstr "_Nume utilizator"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:73
-msgid "_Password"
-msgstr "_Parolă"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:130
-msgid "_Remember Password"
-msgstr "_Reține parola"
-
-#: plugins/shotwell-publishing-extras/piwigo_authentication_pane.glade:151
-msgid "Login"
-msgstr "Autentificare"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:21
-msgid "Photos will appear in:"
-msgstr "Fotografiile vor apărea în:"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:37
-msgid "An _existing category:"
-msgstr "O categorie _existentă:"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:49
-msgid "A _new album named:"
-msgstr "Un album _nou denumit:"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:104
-msgid "Photos will be _visible by:"
-msgstr "Fotografiilr vor fi _vizibile pentru:"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:131
-msgid "Photo size:"
-msgstr "Dimensiune fotografie:"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:164
-msgid "Logout"
-msgstr "Deconectare"
-
-#: plugins/shotwell-publishing-extras/piwigo_publishing_options_pane.glade:178
-msgid "Publish"
-msgstr "Publică"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
