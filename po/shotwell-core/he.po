@@ -4,40 +4,42 @@
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 # Translators:
+# Dovix Dovix <dovix2003@gmail.com>, 2012.
 # verayin <vera@yorba.org>, 2011.
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2011, 2012.
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2011-2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.12\n"
-"Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
-"POT-Creation-Date: 2012-03-05 15:14-0800\n"
-"PO-Revision-Date: 2012-03-07 08:13+0000\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Project-Id-Version: shotwell-0.13\n"
+"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
+"POT-Creation-Date: 2012-09-13 13:32-0700\n"
+"PO-Revision-Date: 2012-09-16 09:40+0000\n"
+"Last-Translator: Dovix Dovix <dovix2003@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
-#: src/AppWindow.vala:665 plugins/common/Resources.vala:28
+#: src/AppWindow.vala:688 plugins/common/Resources.vala:28
 msgid "translator-credits"
 msgstr "ירון שהרבני <sh.yaron@gmail.com>"
 
-#: src/Dimensions.vala:17
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1225
-msgid "Original size"
-msgstr "הגודל המקורי"
+# GNOME Application Class ("Generic Name")
+#: src/Resources.vala:15
+msgid "Photo Manager"
+msgstr "מנהל תמונות"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "מנהל התמונות Shotwell"
 
-#: src/Dimensions.vala:20
-msgid "Width or height"
-msgstr "רוחב או גובה"
+# GNOME Application Class for Direct Edit Mode
+#: src/Resources.vala:16
+msgid "Photo Viewer"
+msgstr "מציג תמונות"
 
 # GNOME Application Comment
 msgid "Organize your photos"
@@ -47,95 +49,296 @@ msgstr "ארגון התמונות שלך"
 msgid "Shotwell Photo Viewer"
 msgstr "מציג התמונות "
 
-# GNOME Application Class for Direct Edit Mode
-#: src/Resources.vala:16
-msgid "Photo Viewer"
-msgstr "מציג תמונות"
+# GNOME Application Keywords
+msgid "Camera;Picture;Photo;"
+msgstr "מצלמה;תמונה;צילום;"
 
-# GNOME Application Class ("Generic Name")
-#: src/Resources.vala:15
-msgid "Photo Manager"
-msgstr "מנהל תמונות"
+#: src/AppWindow.vala:54
+msgid "Pin Toolbar"
+msgstr "הצמדת סרגל הכלים"
 
-#: src/Dimensions.vala:23
-msgid "Width"
-msgstr "רוחב"
+#: src/AppWindow.vala:55
+msgid "Pin the toolbar open"
+msgstr "הצמדת סרגל הכלים שיישאר פתוח"
 
-#: src/Dimensions.vala:26
-msgid "Height"
-msgstr "גובה"
+#: src/AppWindow.vala:58 src/AppWindow.vala:136
+msgid "Leave fullscreen"
+msgstr "יציאה ממסך מלא"
 
-# The string %a %b %d is a format string that describes the abbreviated
-# weekday (%a), abbreviated month (%b) and day of each month as a decimal from
-# (d%). See the strftime manpage for
-# a list of format specifiers and their meanings.
-#: src/util/misc.vala:231 src/util/misc.vala:236
-msgid "%a %b %d"
-msgstr "%a ה־%d ב%b"
+#: src/AppWindow.vala:135
+msgid "Leave _Fullscreen"
+msgstr "יציאה ממסך מ_לא"
 
-# The string %d, %Y is a format string that describes the day of each month as
-# a decimal from (d%) and the year as a decimal (%Y) including the century.
-# See the strftime manpage for
-# a list of format specifiers and their meanings.
-#: src/util/misc.vala:232
-msgid "%d, %Y"
-msgstr "%d %Y"
+#: src/AppWindow.vala:493
+msgid "_Quit"
+msgstr "י_ציאה"
 
-# The string %a %b %d, %Y is a format string that describes the abbreviated
-# weekday (%a), abbreviated month (%b), day of each month as a decimal from
-# (d%) and the year as a decimal including the century (%Y). See the strftime
-# manpage for
-# a list of format specifiers and their meanings.
-#: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
-#: src/util/misc.vala:251
-msgid "%a %b %d, %Y"
-msgstr "%a ה־%b ב%d, %Y"
+#: src/AppWindow.vala:498
+msgid "_About"
+msgstr "על _אודות"
 
-#: src/db/DatabaseTable.vala:37
-#, c-format
-msgid "Unable to open/create photo database %s: error code %d"
-msgstr "לא ניתן לפתוח/ליצור מסד נתוני תמונות %s: קוד השגיאה %d"
+#: src/AppWindow.vala:503
+msgid "Fulls_creen"
+msgstr "מ_סך מלא"
 
-#: src/db/DatabaseTable.vala:46
-#, c-format
-msgid ""
-"Unable to write to photo database file:\n"
-" %s"
-msgstr "לא ניתן לכתוב אל קובץ מסד נתוני התמונות:\n %s"
+#: src/AppWindow.vala:508
+msgid "_Contents"
+msgstr "_תכנים"
 
-#: src/db/DatabaseTable.vala:48
+#: src/AppWindow.vala:513
+msgid "_Frequently Asked Questions"
+msgstr "שאלות _נפוצות"
+
+#: src/AppWindow.vala:518
+msgid "_Report a Problem..."
+msgstr "_דווח על בעיה..."
+
+#: src/AppWindow.vala:617 src/AppWindow.vala:638 src/AppWindow.vala:655
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1058
+#: src/Dialogs.vala:1081 src/publishing/PublishingUI.vala:453
+#: src/data_imports/DataImportsUI.vala:399
+msgid "_Cancel"
+msgstr "_ביטול"
+
+#: src/AppWindow.vala:665
 #, c-format
 msgid ""
-"Error accessing database file:\n"
-" %s\n"
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
 "\n"
-"Error was: \n"
 "%s"
-msgstr "אירעה שגיאה במהלך הגישה לקובץ מסד הנתונים:\n %s\n\nהשגיאה הייתה: \n%s"
+msgstr "אירעה שגיאה קריטית בעת הגישה לספרייה של Shotwell. ‏Shotwell לא תוכל להמשיך.\n\n%s"
 
-#: src/MediaMonitor.vala:400
+#: src/AppWindow.vala:685 plugins/common/Resources.vala:9
+msgid "Visit the Yorba web site"
+msgstr "ביקור באתר של Yorba"
+
+#: src/AppWindow.vala:697
 #, c-format
-msgid "Unable to process monitoring updates: %s"
-msgstr "לא ניתן לעבד את עדכוני המעקב: %s"
+msgid "Unable to display help: %s"
+msgstr "לא ניתן להציג את העזרה: %s"
 
-#: src/DesktopIntegration.vala:118
+#: src/AppWindow.vala:705
 #, c-format
-msgid "Unable to launch Nautilus Send-To: %s"
-msgstr "לא ניתן לטעון את Nautilus Send-To: ‏%s"
+msgid "Unable to navigate to bug database: %s"
+msgstr "אין אפשרות לגלוש למסד נתוני התקלות: %s"
 
-#: src/DesktopIntegration.vala:126
-msgid "Send To"
-msgstr "שליחה אל"
-
-#: src/DesktopIntegration.vala:171
+#: src/AppWindow.vala:713
 #, c-format
-msgid "Unable to export background to %s: %s"
-msgstr "לא ניתן לייצא את הרקע אל %s:‏ %s"
+msgid "Unable to display FAQ: %s"
+msgstr "לא ניתן להציג את השאלות הנפוצות: %s"
 
-#: src/DesktopIntegration.vala:299
+#: src/Properties.vala:38
+msgid "%I:%M %p"
+msgstr "%H:%M"
+
+#: src/Properties.vala:50
+msgid "Today"
+msgstr "היום"
+
+#: src/Properties.vala:52
+msgid "Yesterday"
+msgstr "אתמול"
+
+#: src/Properties.vala:193 src/camera/ImportPage.vala:308
 #, c-format
-msgid "Unable to prepare desktop slideshow: %s"
-msgstr "לא ניתן להכין את מצגת שולחן העבודה: %s"
+msgid "RAW+JPEG"
+msgstr "RAW+JPEG"
+
+#: src/Properties.vala:306 src/Dialogs.vala:985
+msgid "Title:"
+msgstr "כותרת:"
+
+#: src/Properties.vala:309
+msgid "Items:"
+msgstr "פריטים:"
+
+#: src/Properties.vala:312
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "אירוע אחד"
+msgstr[1] "%d אירועים"
+
+#: src/Properties.vala:319 src/events/EventDirectoryItem.vala:78
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "תמונה אחת"
+msgstr[1] "%d תמונות"
+
+#: src/Properties.vala:321 src/events/EventDirectoryItem.vala:76
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "קטע וידאו אחד"
+msgstr[1] "%d קטעי וידאו"
+
+#: src/Properties.vala:343
+msgid "Date:"
+msgstr "תאריך:"
+
+#: src/Properties.vala:347
+msgid "Time:"
+msgstr "שעה:"
+
+#: src/Properties.vala:350 src/Properties.vala:355
+msgid "From:"
+msgstr "מ־:"
+
+#: src/Properties.vala:351 src/Properties.vala:356
+msgid "To:"
+msgstr "עד:"
+
+#: src/Properties.vala:361 src/editing_tools/EditingTools.vala:1830
+msgid "Size:"
+msgstr "גודל:"
+
+#: src/Properties.vala:370
+msgid "Duration:"
+msgstr "משך:"
+
+#: src/Properties.vala:370
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f שניות"
+
+#: src/Properties.vala:374
+msgid "Developer:"
+msgstr "מתכנת:"
+
+#: src/Properties.vala:402 src/Properties.vala:406 src/Properties.vala:413
+#: src/editing_tools/EditingTools.vala:2188
+msgid "Exposure:"
+msgstr "חשיפה:"
+
+#: src/Properties.vala:500
+msgid "Location:"
+msgstr "מיקום:"
+
+#: src/Properties.vala:503
+msgid "File size:"
+msgstr "גודל הקובץ:"
+
+#: src/Properties.vala:506
+msgid "Original dimensions:"
+msgstr "הממדים המקוריים:"
+
+#: src/Properties.vala:509
+msgid "Camera make:"
+msgstr "יצרן המצלמה:"
+
+#: src/Properties.vala:512
+msgid "Camera model:"
+msgstr "דגם המצלמה:"
+
+#: src/Properties.vala:515
+msgid "Flash:"
+msgstr "מבזק:"
+
+#: src/Properties.vala:517
+msgid "Focal length:"
+msgstr "אורך מוקדי:"
+
+#: src/Properties.vala:520
+msgid "Exposure bias:"
+msgstr "הטיית חשיפה:"
+
+#: src/Properties.vala:522
+msgid "GPS latitude:"
+msgstr "קו רוחב GPS:"
+
+#: src/Properties.vala:525
+msgid "GPS longitude:"
+msgstr "קו אורך GPS:"
+
+#: src/Properties.vala:528
+msgid "Artist:"
+msgstr "אמן:"
+
+#: src/Properties.vala:530
+msgid "Copyright:"
+msgstr "זכויות יוצרים:"
+
+#: src/Properties.vala:532
+msgid "Software:"
+msgstr "תכנה:"
+
+#: src/Properties.vala:541
+msgid "Extended Information"
+msgstr "פרטים מורחבים"
+
+#: src/main.vala:54
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr "ספריית התמונות שלך אינה נתמכת בגרסה זו של Shotwell. נראה כי הספרייה נוצרה באמצעות Shotwell %s (סכמה %d). גרסה זו הנה %s (סכמה %d). נא להשתמש בגרסה העדכנית ביותר של Shotwell."
+
+#: src/main.vala:59
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr "לא עלה בידי Shotwell לשדרג את ספריית התמונות שלך מגרסה %s (סכמה%d) לגרסה %s (סכמה %d).  למידע נוסף ניתן לבקר באתר הוויקי של Shotwell בכתובת %s"
+
+#: src/main.vala:65
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr "ספריית התמונות שלך אינה תואמת לגרסה זו של Shotwell.  נראה כי ספרייה זו נוצרה על ידי Shotwell %s (סכמה%d).  גרסה זו הנה %s (סכמה %d).  נא לפנות את ספריית התמונות שלך על ידי מחיקת %s ויבוא התמונות שלך מחדש."
+
+#: src/main.vala:71
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr "אירעה שגיאה בלתי ידועה בעת הניסיון לאימות מסד הנתונים של Shotwell: %s"
+
+#: src/main.vala:104
+msgid "Loading Shotwell"
+msgstr "Loading Shotwell"
+
+#: src/main.vala:334
+msgid "[FILE]"
+msgstr "[FILE]"
+
+#: src/main.vala:338
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr "Run '%s --help' to see a full list of available command line options.\n"
+
+#: src/Exporter.vala:232
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "לא ניתן ליצור את הקובץ הזמני עבור %s:‏ %s"
+
+#: src/Exporter.vala:299
+msgid "Exporting"
+msgstr "יצוא"
+
+#: src/Exporter.vala:317
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "הקובץ %s כבר קיים.  להחליף?"
+
+#: src/Exporter.vala:319
+msgid "_Skip"
+msgstr "_דילוג"
+
+#: src/Exporter.vala:319
+msgid "_Replace"
+msgstr "ה_חלפה"
+
+#: src/Exporter.vala:319
+msgid "Replace _All"
+msgstr "החלפת ה_כול"
+
+#: src/Exporter.vala:319
+msgid "Export"
+msgstr "יצוא"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
@@ -233,39 +436,39 @@ msgstr "5 x‏ 7 אינטש"
 msgid "8 x 10 in."
 msgstr "8 x‏ 10 אינטש"
 
-#: src/Printing.vala:937 src/editing_tools/EditingTools.vala:734
+#: src/Printing.vala:937 src/editing_tools/EditingTools.vala:735
 msgid "11 x 14 in."
 msgstr "11 x‏ 14 אינטש"
 
-#: src/Printing.vala:940 src/editing_tools/EditingTools.vala:735
+#: src/Printing.vala:940 src/editing_tools/EditingTools.vala:737
 msgid "16 x 20 in."
 msgstr "‏16 x‏ 20 אינטש"
 
-#: src/Printing.vala:946 src/editing_tools/EditingTools.vala:737
+#: src/Printing.vala:946 src/editing_tools/EditingTools.vala:739
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr "9 x‏ 13 ס״מ"
 
-#: src/Printing.vala:949 src/editing_tools/EditingTools.vala:738
+#: src/Printing.vala:949 src/editing_tools/EditingTools.vala:740
 msgid "Postcard (10 x 15 cm)"
 msgstr "גלויה (10 x‏ 15 ס״מ)"
 
-#: src/Printing.vala:952 src/editing_tools/EditingTools.vala:739
+#: src/Printing.vala:952 src/editing_tools/EditingTools.vala:741
 msgid "13 x 18 cm"
 msgstr "13 x‏ 18 ס״מ"
 
-#: src/Printing.vala:955 src/editing_tools/EditingTools.vala:740
+#: src/Printing.vala:955 src/editing_tools/EditingTools.vala:742
 msgid "18 x 24 cm"
 msgstr "18 x‏ 24 ס״מ"
 
-#: src/Printing.vala:958 src/editing_tools/EditingTools.vala:741
+#: src/Printing.vala:958 src/editing_tools/EditingTools.vala:744
 msgid "20 x 30 cm"
 msgstr "20 x‏ 30 ס״מ"
 
-#: src/Printing.vala:961 src/editing_tools/EditingTools.vala:742
+#: src/Printing.vala:961 src/editing_tools/EditingTools.vala:745
 msgid "24 x 40 cm"
 msgstr "24 x‏ 40 ס״מ"
 
-#: src/Printing.vala:964 src/editing_tools/EditingTools.vala:743
+#: src/Printing.vala:964 src/editing_tools/EditingTools.vala:746
 msgid "30 x 40 cm"
 msgstr "30 x‏ 40 ס״מ"
 
@@ -285,385 +488,51 @@ msgid ""
 "%s"
 msgstr "לא ניתן להדפיס את התמונה:\n\n%s"
 
-#: src/MediaPage.vala:141
-msgid "Adjust the size of the thumbnails"
-msgstr "התאמת גודל התמונות הממוזערות"
+#: src/Page.vala:1265
+msgid "No photos/videos"
+msgstr "אין תמונות/קטעי וידאו"
 
-#: src/MediaPage.vala:273 src/camera/ImportPage.vala:841
-#: src/PhotoPage.vala:2316 src/events/EventsDirectoryPage.vala:106
-#: src/library/OfflinePage.vala:59 src/library/ImportQueuePage.vala:65
-#: src/library/TrashPage.vala:54 src/direct/DirectPhotoPage.vala:48
-msgid "_File"
-msgstr "_קובץ"
+#: src/Page.vala:1269
+msgid "No photos/videos found"
+msgstr "לא נמצאו תמונות/קטעי וידאו"
 
-#: src/MediaPage.vala:287 src/camera/ImportPage.vala:857
-#: src/PhotoPage.vala:2336 src/events/EventsDirectoryPage.vala:118
-#: src/library/OfflinePage.vala:63 src/library/TrashPage.vala:58
-msgid "_Edit"
-msgstr "ע_ריכה"
+#: src/Page.vala:2555
+msgid "Photos cannot be exported to this directory."
+msgstr "לא ניתן לייצא תמונות לתיקייה זו."
 
-#: src/MediaPage.vala:301
-msgid "_Photos"
-msgstr "_תמונות"
+#: src/SearchFilter.vala:632 src/SearchFilter.vala:633
+#: src/SearchFilter.vala:1029 src/library/FlaggedPage.vala:8
+msgid "Flagged"
+msgstr "סימון בדגל"
 
-#: src/MediaPage.vala:305 src/events/EventsDirectoryPage.vala:122
-msgid "Even_ts"
-msgstr "_אירועים"
+#: src/SearchFilter.vala:638 src/SearchFilter.vala:639
+msgid "Photos"
+msgstr "תמונות"
 
-#: src/MediaPage.vala:309 src/MediaPage.vala:455 src/PhotoPage.vala:2549
-msgid "Ta_gs"
-msgstr "ת_גיות"
+#: src/SearchFilter.vala:644 src/SearchFilter.vala:645
+msgid "Videos"
+msgstr "קטעי וידאו"
 
-#: src/MediaPage.vala:329 src/PhotoPage.vala:2520
-#: src/direct/DirectPhotoPage.vala:176
-msgid "Zoom _In"
-msgstr "הת_קרבות"
+#: src/SearchFilter.vala:650
+msgid "RAW Photos"
+msgstr "תמונות גולמיות (RAW)"
 
-#: src/MediaPage.vala:330
-msgid "Increase the magnification of the thumbnails"
-msgstr "הגדלת רמת התקריב בתמונות הממוזערות"
+#: src/SearchFilter.vala:651
+msgid "RAW photos"
+msgstr "תמונות גולמיות (RAW)"
 
-#: src/MediaPage.vala:335 src/PhotoPage.vala:2526
-#: src/direct/DirectPhotoPage.vala:182
-msgid "Zoom _Out"
-msgstr "התר_חקות"
-
-#: src/MediaPage.vala:336
-msgid "Decrease the magnification of the thumbnails"
-msgstr "הקטנת רמת התקריב בתמונות הממוזערות"
-
-#: src/MediaPage.vala:398 src/camera/ImportPage.vala:861
-#: src/PhotoPage.vala:2350 src/events/EventsDirectoryPage.vala:110
-#: src/library/OfflinePage.vala:73 src/library/ImportQueuePage.vala:75
-#: src/library/TrashPage.vala:74 src/direct/DirectPhotoPage.vala:167
-msgid "_View"
-msgstr "ת_צוגה"
-
-#: src/MediaPage.vala:402
-msgid "Sort _Photos"
-msgstr "_סידור תמונות"
-
-#: src/MediaPage.vala:410 src/camera/ImportPage.vala:865
-#: src/PhotoPage.vala:2515 src/events/EventsDirectoryPage.vala:114
-#: src/library/OfflinePage.vala:77 src/library/ImportQueuePage.vala:79
-#: src/library/TrashPage.vala:78 src/direct/DirectPhotoPage.vala:171
-msgid "_Help"
-msgstr "ע_זרה"
-
-#: src/MediaPage.vala:415
-msgid "_Play Video"
-msgstr "נגינת _וידאו"
-
-#: src/MediaPage.vala:416
-msgid "Open the selected videos in the system video player"
-msgstr "פתיחת קטעי הווידאו הנבחרים בנגן הווידאו של המערכת"
-
-#: src/MediaPage.vala:420 src/PhotoPage.vala:2569
-msgid "_Developer"
-msgstr "מ_תכנת"
-
-#: src/MediaPage.vala:427 src/photos/RawSupport.vala:298
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#: src/MediaPage.vala:432 src/camera/ImportPage.vala:676
-#: src/camera/ImportPage.vala:692 src/camera/Branch.vala:101
-#: src/photos/RawSupport.vala:301
-msgid "Camera"
-msgstr "מצלמה"
-
-#: src/MediaPage.vala:443 src/camera/ImportPage.vala:830
-msgid "_Titles"
-msgstr "_כותרות"
-
-#: src/MediaPage.vala:444 src/camera/ImportPage.vala:831
-msgid "Display the title of each photo"
-msgstr "הצגת הכותרת של כל תמונה"
-
-#: src/MediaPage.vala:456
-msgid "Display each photo's tags"
-msgstr "הצגת התגיות עבור כל תמונה"
-
-#: src/MediaPage.vala:472
-msgid "By _Title"
-msgstr "לפי _כותרת"
-
-#: src/MediaPage.vala:473
-msgid "Sort photos by title"
-msgstr "סידור התמונות לפי כותרת"
-
-#: src/MediaPage.vala:478
-msgid "By Exposure _Date"
-msgstr "לפי תאריך _חשיפה"
-
-#: src/MediaPage.vala:479
-msgid "Sort photos by exposure date"
-msgstr "דירוג התמונות לפי תאריך החשיפה"
-
-#: src/MediaPage.vala:484
-msgid "By _Rating"
-msgstr "לפי _דירוג"
-
-#: src/MediaPage.vala:485
-msgid "Sort photos by rating"
-msgstr "סידור התמונות לפי דירוג"
-
-#: src/MediaPage.vala:495 src/library/LibraryWindow.vala:470
-msgid "_Ascending"
-msgstr "_עולה"
-
-#: src/MediaPage.vala:496 src/library/LibraryWindow.vala:471
-msgid "Sort photos in an ascending order"
-msgstr "סידור התמונות בסדר עולה"
-
-#: src/MediaPage.vala:501 src/library/LibraryWindow.vala:477
-msgid "D_escending"
-msgstr "_יורד"
-
-#: src/MediaPage.vala:502 src/library/LibraryWindow.vala:478
-msgid "Sort photos in a descending order"
-msgstr "סידור התמונות בסדר יורד"
-
-#: src/MediaPage.vala:713
+#: src/SearchFilter.vala:991
 #, c-format
-msgid ""
-"Shotwell was unable to play the selected video:\n"
-"%s"
-msgstr "לא הייתה באפשרות Shotwell לנגן את הווידאו הבא:\n%s"
+msgid "Error loading UI file %s: %s"
+msgstr "שגיאה בטעינת קובץ מנשק המשתמש %s: %s"
 
-#: src/camera/ImportPage.vala:308 src/Properties.vala:193
-#, c-format
-msgid "RAW+JPEG"
-msgstr "RAW+JPEG"
+#: src/SearchFilter.vala:1008
+msgid "Type"
+msgstr "סוג"
 
-#: src/camera/ImportPage.vala:433
-msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
-msgstr "לא ניתן לנתק את המצלמה.  יש לנסות לנתק את המצלמה ממנהל הקבצים."
-
-#: src/camera/ImportPage.vala:734
-msgid "Hide photos already imported"
-msgstr "הסתרת תמונות שכבר יובאו"
-
-#: src/camera/ImportPage.vala:735
-msgid "Only display photos that have not been imported"
-msgstr "יש להציג תמונות שלא יובאו בלבד"
-
-#: src/camera/ImportPage.vala:803
-msgid "Starting import, please wait..."
-msgstr "הייבוא מתחיל, נא להמתין..."
-
-#: src/camera/ImportPage.vala:846
-msgid "Import _Selected"
-msgstr "יבוא ה_נבחרות"
-
-#: src/camera/ImportPage.vala:847
-msgid "Import the selected photos into your library"
-msgstr "יבוא התמונות הנבחרות לספרייה שלך"
-
-#: src/camera/ImportPage.vala:852
-msgid "Import _All"
-msgstr "יבוא ה_כול"
-
-#: src/camera/ImportPage.vala:853
-msgid "Import all the photos into your library"
-msgstr "יבוא כל התמונות לספרייה שלך"
-
-#: src/camera/ImportPage.vala:978
-msgid ""
-"Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
-msgstr "על Shotwell לנתק את המצלמה ממערכת הקבצים כדי לגשת אליה.  האם להמשיך?"
-
-#: src/camera/ImportPage.vala:984
-msgid "_Unmount"
-msgstr "_ניתוק"
-
-#: src/camera/ImportPage.vala:989
-msgid "Please unmount the camera."
-msgstr "נא לנתק את מערכת הקבצים של המצלמה."
-
-#: src/camera/ImportPage.vala:994
-msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
-"camera and try again."
-msgstr "המצלמה נעולה על ידי יישום אחר.  Shotwell יכולה לגשת למצלמה רק כאשר אינה נעולה.  נא לסגור כל יישום אחר המשתמש במצלמה ולנסות שוב."
-
-#: src/camera/ImportPage.vala:1004
-msgid "Please close any other application using the camera."
-msgstr "נא לסגור כל יישום אחר המשתמש במצלמה."
-
-#: src/camera/ImportPage.vala:1009
-#, c-format
-msgid ""
-"Unable to fetch previews from the camera:\n"
-"%s"
-msgstr "לא ניתן לקבל את התצוגות המקדימות מהמצלמה:\n%s"
-
-#: src/camera/ImportPage.vala:1026
-msgid "Unmounting..."
-msgstr "מתבצע ניתוק..."
-
-#: src/camera/ImportPage.vala:1132
-msgid "Fetching photo information"
-msgstr "פרטי התמונה מתקבלים"
-
-#: src/camera/ImportPage.vala:1437
-#, c-format
-msgid "Fetching preview for %s"
-msgstr "התצוגה המקדימה עבור %s מתקבלת"
-
-#: src/camera/ImportPage.vala:1554
-#, c-format
-msgid "Unable to lock camera: %s"
-msgstr "לא ניתן לנעול את המצלמה: %s"
-
-#: src/camera/ImportPage.vala:1637
-#, c-format
-msgid "Delete this photo from camera?"
-msgid_plural "Delete these %d photos from camera?"
-msgstr[0] "האם למחוק תמונה זו מהמצלמה?"
-msgstr[1] "האם למחוק %d תמונות אלה מהמצלמה?"
-
-#: src/camera/ImportPage.vala:1640
-#, c-format
-msgid "Delete this video from camera?"
-msgid_plural "Delete these %d videos from camera?"
-msgstr[0] "האם למחוק קטע וידאו זה מהמצלמה?"
-msgstr[1] "האם למחוק %d קטעי וידאו אלה?"
-
-#: src/camera/ImportPage.vala:1643
-#, c-format
-msgid "Delete this photo/video from camera?"
-msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] "האם למחוק תמונה/וידאו אלו  מהמצלמה?"
-msgstr[1] "האם למחוק %d תמונות/קטעי וידאו אלו מהמצלמה?"
-
-#: src/camera/ImportPage.vala:1646
-#, c-format
-msgid "Delete these files from camera?"
-msgid_plural "Delete these %d files from camera?"
-msgstr[0] "האם למחוק קובץ זה מהמצלמה?"
-msgstr[1] "האם למחוק %d קבצים אלה מהמצלמה?"
-
-#: src/camera/ImportPage.vala:1654 src/Dialogs.vala:1006
-msgid "_Keep"
-msgstr "_שמירה"
-
-#: src/camera/ImportPage.vala:1673
-msgid "Removing photos/videos from camera"
-msgstr "התמונות/קטעי הווידאו מוסרים מהמצלמה"
-
-#: src/camera/ImportPage.vala:1677
-#, c-format
-msgid "Unable to delete %d photo/video from the camera due to errors."
-msgid_plural ""
-"Unable to delete %d photos/videos from the camera due to errors."
-msgstr[0] "לא ניתן למחוק תמונה אחת/וידאו אחד מהמצלמה עקב שגיאות."
-msgstr[1] "לא ניתן למחוק %d תמונות/קטעי וידאו מהמצלמה עקב שגיאות."
-
-#: src/camera/Branch.vala:87
-msgid "Cameras"
-msgstr "מצלמות"
-
-#: src/PhotoPage.vala:536
-msgid "Previous photo"
-msgstr "התמונה הקודמת"
-
-#: src/PhotoPage.vala:541
-msgid "Next photo"
-msgstr "התמונה הבאה"
-
-#: src/PhotoPage.vala:1807
-#, c-format
-msgid "Photo source file missing: %s"
-msgstr "קובץ המקור לתמונה חסר: %s"
-
-#: src/PhotoPage.vala:2354 src/direct/DirectPhotoPage.vala:79
-msgid "_Photo"
-msgstr "_תמונה"
-
-#: src/PhotoPage.vala:2358 src/direct/DirectPhotoPage.vala:83
-msgid "T_ools"
-msgstr "_כלים"
-
-#: src/PhotoPage.vala:2363 src/direct/DirectPhotoPage.vala:88
-msgid "_Previous Photo"
-msgstr "התמונה ה_קודמת"
-
-#: src/PhotoPage.vala:2364 src/direct/DirectPhotoPage.vala:89
-msgid "Previous Photo"
-msgstr "התמונה הקודמת"
-
-#: src/PhotoPage.vala:2369 src/direct/DirectPhotoPage.vala:94
-msgid "_Next Photo"
-msgstr "התמונה ה_באה"
-
-#: src/PhotoPage.vala:2370 src/direct/DirectPhotoPage.vala:95
-msgid "Next Photo"
-msgstr "התמונה הבאה"
-
-#: src/PhotoPage.vala:2521 src/direct/DirectPhotoPage.vala:177
-msgid "Increase the magnification of the photo"
-msgstr "התקרבות לתמונה"
-
-#: src/PhotoPage.vala:2527 src/direct/DirectPhotoPage.vala:183
-msgid "Decrease the magnification of the photo"
-msgstr "התרחקות מהתמונה"
-
-#: src/PhotoPage.vala:2532 src/direct/DirectPhotoPage.vala:188
-msgid "Fit to _Page"
-msgstr "ה_תאמה לעמוד"
-
-#: src/PhotoPage.vala:2533 src/direct/DirectPhotoPage.vala:189
-msgid "Zoom the photo to fit on the screen"
-msgstr "הגדרת תקריב התמונה כך שתוצג במלואה במסך"
-
-#: src/PhotoPage.vala:2538 src/direct/DirectPhotoPage.vala:194
-#, no-c-format
-msgid "Zoom _100%"
-msgstr "תקריב _100%"
-
-#: src/PhotoPage.vala:2539 src/direct/DirectPhotoPage.vala:195
-#, no-c-format
-msgid "Zoom the photo to 100% magnification"
-msgstr "הגדרת התקריב לכדי הגדלה של 100%"
-
-#: src/PhotoPage.vala:2544 src/direct/DirectPhotoPage.vala:200
-#, no-c-format
-msgid "Zoom _200%"
-msgstr "תקריב _200%"
-
-#: src/PhotoPage.vala:2545 src/direct/DirectPhotoPage.vala:201
-#, no-c-format
-msgid "Zoom the photo to 200% magnification"
-msgstr "הגדרת התקריב לכדי הגדלה של 200%"
-
-#: src/PhotoPage.vala:2564 src/CollectionPage.vala:207
-msgid "S_lideshow"
-msgstr "מ_צגת"
-
-#: src/PhotoPage.vala:2565 src/CollectionPage.vala:208
-msgid "Play a slideshow"
-msgstr "הפעלת מצגת"
-
-#: src/PhotoPage.vala:2997 src/Dialogs.vala:2264
-msgid "Remove From Library"
-msgstr "הסרה מהספרייה"
-
-#: src/PhotoPage.vala:2997 src/Dialogs.vala:2265
-msgid "Removing Photo From Library"
-msgstr "הסרת תמונות מהספרייה"
-
-#: src/PhotoPage.vala:3118 src/CollectionPage.vala:430 src/Dialogs.vala:57
-msgid "Export Photo"
-msgstr "יצוא תמונות"
-
-#: src/PhotoPage.vala:3138
-#, c-format
-msgid "Unable to export %s: %s"
-msgstr "לא ניתן לייצא את %s:‏ %s"
+#: src/SearchFilter.vala:1042 src/searches/SearchBoolean.vala:164
+msgid "Rating"
+msgstr "דירוג"
 
 #: src/Commands.vala:670
 msgid "Reverting"
@@ -744,87 +613,357 @@ msgstr "מתכנת ה־RAW הקודם משוחזר"
 msgid "Set Developer"
 msgstr "הגדרת מתכנת"
 
-#: src/Commands.vala:1195
+#: src/Commands.vala:1210
 msgid "Original photo could not be adjusted."
 msgstr "לא ניתן להתאים את התמונה המקורית."
 
-#: src/Commands.vala:1215
+#: src/Commands.vala:1231
 msgid "Adjusting Date and Time"
 msgstr "התאריך והשעה מכוונים"
 
-#: src/Commands.vala:1215
+#: src/Commands.vala:1231
 msgid "Undoing Date and Time Adjustment"
 msgstr "כיוון התאריך והשעה מבוטלים"
 
-#: src/Commands.vala:1242
+#: src/Commands.vala:1262
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "לא ניתן להתאים תמונה מקורית אחת."
 msgstr[1] "לא ניתן להתאים את התמונות המקוריות שלהלן."
 
-#: src/Commands.vala:1244 src/Commands.vala:1256
+#: src/Commands.vala:1264 src/Commands.vala:1288
 msgid "Time Adjustment Error"
 msgstr "שגיאה בכיוון הזמן"
 
-#: src/Commands.vala:1254
+#: src/Commands.vala:1286
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
 msgstr[0] "לא ניתן לבטל את כיוון הזמן לקובץ התמונה הבא."
 msgstr[1] "לא ניתן לבטל את כיוון הזמן לקובצי התמונה הבאים."
 
-#: src/Commands.vala:1459 src/Commands.vala:1482
+#: src/Commands.vala:1500 src/Commands.vala:1523
 msgid "Create Tag"
 msgstr "יצירת תגית"
 
-#: src/Commands.vala:1517
+#: src/Commands.vala:1558
 #, c-format
 msgid "Move Tag \"%s\""
 msgstr "העברת התגית „%s“"
 
-#: src/Commands.vala:2147
+#: src/Commands.vala:2210
 msgid "Move Photos to Trash"
 msgstr "העברת תמונות לאשפה"
 
-#: src/Commands.vala:2147
+#: src/Commands.vala:2210
 msgid "Restore Photos from Trash"
 msgstr "שחזור תמונות מהאשפה"
 
-#: src/Commands.vala:2148
+#: src/Commands.vala:2211
 msgid "Move the photos to the Shotwell trash"
 msgstr "העברת התמונות לאשפה של Shotwell"
 
-#: src/Commands.vala:2148
+#: src/Commands.vala:2211
 msgid "Restore the photos back to the Shotwell library"
 msgstr "שחזור תמונות מהאשפה של Shotwell"
 
-#: src/Commands.vala:2167
+#: src/Commands.vala:2230
 msgid "Moving Photos to Trash"
 msgstr "תמונות מועברות לאשפה"
 
-#: src/Commands.vala:2167
+#: src/Commands.vala:2230
 msgid "Restoring Photos From Trash"
 msgstr "תמונות משוחזרות מהאשפה"
 
-#: src/Commands.vala:2256
+#: src/Commands.vala:2319
 msgid "Flag"
 msgstr "סימון בדגל"
 
-#: src/Commands.vala:2256
+#: src/Commands.vala:2319
 msgid "Unflag"
 msgstr "ביטול הדגל"
 
-#: src/Commands.vala:2257
+#: src/Commands.vala:2320
 msgid "Flag selected photos"
 msgstr "סימון התמונה הנבחרת בדגל"
 
-#: src/Commands.vala:2257
+#: src/Commands.vala:2320
 msgid "Unflag selected photos"
 msgstr "ביטול הדגל לתמונה הנבחרת"
 
-#: src/Photo.vala:3440
+#: src/CollectionPage.vala:215 src/PhotoPage.vala:2553
+msgid "S_lideshow"
+msgstr "מ_צגת"
+
+#: src/CollectionPage.vala:216 src/PhotoPage.vala:2554
+msgid "Play a slideshow"
+msgstr "הפעלת מצגת"
+
+#: src/CollectionPage.vala:436
+msgid "Export Photo/Video"
+msgstr "יצוא תמונות/קטעי וידאו"
+
+#: src/CollectionPage.vala:436
+msgid "Export Photos/Videos"
+msgstr "יצוא תמונות/קטעי וידאו"
+
+#: src/CollectionPage.vala:438 src/PhotoPage.vala:3123 src/Dialogs.vala:58
+msgid "Export Photo"
+msgstr "יצוא תמונות"
+
+#: src/CollectionPage.vala:438 src/Dialogs.vala:87
+msgid "Export Photos"
+msgstr "יצוא תמונות"
+
+#: src/CollectionPage.vala:525 src/CollectionPage.vala:541
+msgid "Rotating"
+msgstr "סיבוב"
+
+#: src/CollectionPage.vala:525 src/CollectionPage.vala:541
+msgid "Undoing Rotate"
+msgstr "ביטול הסיבוב"
+
+#: src/CollectionPage.vala:550
+msgid "Flipping Horizontally"
+msgstr "היפוך אופקי"
+
+#: src/CollectionPage.vala:551
+msgid "Undoing Flip Horizontally"
+msgstr "ביטול היפוך אופקי"
+
+#: src/CollectionPage.vala:560
+msgid "Flipping Vertically"
+msgstr "היפוך אנכי"
+
+#: src/CollectionPage.vala:561
+msgid "Undoing Flip Vertically"
+msgstr "ביטול היפוך אנכי"
+
+#: src/Photo.vala:3446
 msgid "modified"
 msgstr "השתנתה"
+
+#: src/VideoSupport.vala:440
+msgid "Export Videos"
+msgstr "יצוא קטעי וידאו"
+
+#: src/SlideshowPage.vala:42 src/SlideshowPage.vala:234
+msgid "Settings"
+msgstr "הגדרות"
+
+#: src/SlideshowPage.vala:44
+msgid "_Delay:"
+msgstr "ה_שהיה:"
+
+#: src/SlideshowPage.vala:46 src/SlideshowPage.vala:48
+msgid "seconds"
+msgstr "שניות"
+
+#: src/SlideshowPage.vala:64
+msgid "_Transition effect:"
+msgstr "_אפקט מעבר:"
+
+#: src/SlideshowPage.vala:91
+msgid "Transition d_elay:"
+msgstr "ה_שהיית המעבר:"
+
+#: src/SlideshowPage.vala:109
+msgid "Show t_itle"
+msgstr "הצג _כותרת"
+
+#: src/SlideshowPage.vala:200
+msgid "Slideshow"
+msgstr "מצגת"
+
+#: src/SlideshowPage.vala:213
+msgid "Back"
+msgstr "הקודמת"
+
+#: src/SlideshowPage.vala:214
+msgid "Go to the previous photo"
+msgstr "מעבר לתמונה הקודמת"
+
+#: src/SlideshowPage.vala:220 src/SlideshowPage.vala:325
+msgid "Pause"
+msgstr "השהייה"
+
+#: src/SlideshowPage.vala:221 src/SlideshowPage.vala:326
+msgid "Pause the slideshow"
+msgstr "השהיית המצגת"
+
+#: src/SlideshowPage.vala:227
+msgid "Next"
+msgstr "הבאה"
+
+#: src/SlideshowPage.vala:228
+msgid "Go to the next photo"
+msgstr "מעבר לתמונה הבאה"
+
+#: src/SlideshowPage.vala:235
+msgid "Change slideshow settings"
+msgstr "שינוי הגדרות המצגת"
+
+#: src/SlideshowPage.vala:289
+msgid "All photo source files are missing."
+msgstr "כל קובצי המקור של התמונות חסרים."
+
+#: src/SlideshowPage.vala:321
+msgid "Play"
+msgstr "הצגה"
+
+#: src/SlideshowPage.vala:322
+msgid "Continue the slideshow"
+msgstr "המשך בהצגת המצגת"
+
+#: src/direct/DirectPhotoPage.vala:46 src/library/LibraryWindow.vala:345
+msgid "_File"
+msgstr "_קובץ"
+
+#: src/direct/DirectPhotoPage.vala:51 src/direct/DirectPhotoPage.vala:413
+msgid "_Save"
+msgstr "_שמירה"
+
+#: src/direct/DirectPhotoPage.vala:52
+msgid "Save photo"
+msgstr "שמירת התמונה"
+
+#: src/direct/DirectPhotoPage.vala:57
+msgid "Save _As..."
+msgstr "שמירה _בשם..."
+
+#: src/direct/DirectPhotoPage.vala:58
+msgid "Save photo with a different name"
+msgstr "שמירת תמונה בשם אחר"
+
+#: src/direct/DirectPhotoPage.vala:69
+msgid "Print the photo to a printer connected to your computer"
+msgstr "הדפסת התמונה במדפסת המחוברת למחשב שלך"
+
+#: src/direct/DirectPhotoPage.vala:73
+msgid "Edit"
+msgstr "עריכה"
+
+#: src/direct/DirectPhotoPage.vala:77 src/library/LibraryWindow.vala:357
+msgid "_Photo"
+msgstr "_תמונה"
+
+#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2355
+msgid "T_ools"
+msgstr "_כלים"
+
+#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2360
+msgid "_Previous Photo"
+msgstr "התמונה ה_קודמת"
+
+#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2361
+msgid "Previous Photo"
+msgstr "התמונה הקודמת"
+
+#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2366
+msgid "_Next Photo"
+msgstr "התמונה ה_באה"
+
+#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2367
+msgid "Next Photo"
+msgstr "התמונה הבאה"
+
+#: src/direct/DirectPhotoPage.vala:165 src/PhotoPage.vala:2351
+#: src/library/LibraryWindow.vala:353
+msgid "_View"
+msgstr "ת_צוגה"
+
+#: src/direct/DirectPhotoPage.vala:169 src/library/LibraryWindow.vala:373
+msgid "_Help"
+msgstr "ע_זרה"
+
+#: src/direct/DirectPhotoPage.vala:174 src/PhotoPage.vala:2513
+#: src/MediaPage.vala:323
+msgid "Zoom _In"
+msgstr "הת_קרבות"
+
+#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2514
+msgid "Increase the magnification of the photo"
+msgstr "התקרבות לתמונה"
+
+#: src/direct/DirectPhotoPage.vala:180 src/PhotoPage.vala:2519
+#: src/MediaPage.vala:329
+msgid "Zoom _Out"
+msgstr "התר_חקות"
+
+#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2520
+msgid "Decrease the magnification of the photo"
+msgstr "התרחקות מהתמונה"
+
+#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2525
+msgid "Fit to _Page"
+msgstr "ה_תאמה לעמוד"
+
+#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2526
+msgid "Zoom the photo to fit on the screen"
+msgstr "הגדרת תקריב התמונה כך שתוצג במלואה במסך"
+
+#: src/direct/DirectPhotoPage.vala:192 src/PhotoPage.vala:2531
+#, no-c-format
+msgid "Zoom _100%"
+msgstr "תקריב _100%"
+
+#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2532
+#, no-c-format
+msgid "Zoom the photo to 100% magnification"
+msgstr "הגדרת התקריב לכדי הגדלה של 100%"
+
+#: src/direct/DirectPhotoPage.vala:198 src/PhotoPage.vala:2537
+#, no-c-format
+msgid "Zoom _200%"
+msgstr "תקריב _200%"
+
+#: src/direct/DirectPhotoPage.vala:199 src/PhotoPage.vala:2538
+#, no-c-format
+msgid "Zoom the photo to 200% magnification"
+msgstr "הגדרת התקריב לכדי הגדלה של 200%"
+
+#: src/direct/DirectPhotoPage.vala:223
+#, c-format
+msgid "%s does not exist."
+msgstr "%s אינו קיים."
+
+#: src/direct/DirectPhotoPage.vala:225
+#, c-format
+msgid "%s is not a file."
+msgstr "%s אינו סוג קובץ."
+
+#: src/direct/DirectPhotoPage.vala:227
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr "ל־%s אין תמיכה במבנה הקובץ\n%s."
+
+#: src/direct/DirectPhotoPage.vala:413
+msgid "_Save a Copy"
+msgstr "שמירת _עותק"
+
+#: src/direct/DirectPhotoPage.vala:416
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "האם לאבד את השינויים לקובץ %s?"
+
+#: src/direct/DirectPhotoPage.vala:417
+msgid "Close _without Saving"
+msgstr "סגירה _ללא שמירה"
+
+#: src/direct/DirectPhotoPage.vala:450
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "שגיאה בעת השמירה אל %s: ‏%s"
+
+#: src/direct/DirectPhotoPage.vala:478 src/direct/DirectPhotoPage.vala:499
+msgid "Save As"
+msgstr "שמירה בשם"
+
+#: src/Tag.vala:815
+msgid "untitled"
+msgstr "ללא שם"
 
 #: src/slideshow/Slideshow.vala:15
 msgid "Slideshow Transitions"
@@ -838,190 +977,1376 @@ msgstr "(אין)"
 msgid "None"
 msgstr "אין"
 
-#: src/SearchFilter.vala:648 src/SearchFilter.vala:649
-#: src/SearchFilter.vala:1031 src/library/FlaggedPage.vala:8
-msgid "Flagged"
-msgstr "סימון בדגל"
+#: src/AppDirs.vala:45 src/AppDirs.vala:96
+#, c-format
+msgid "Unable to create cache directory %s: %s"
+msgstr "אין אפשרות לייצר את ספריית המטמון %s: %s"
 
-#: src/SearchFilter.vala:654 src/SearchFilter.vala:655
-msgid "Photos"
+#: src/AppDirs.vala:55 src/AppDirs.vala:85
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "לא ניתן ליצור את תיקייה הנתונים %s:‏ %s"
+
+#: src/AppDirs.vala:132
+msgid "Pictures"
 msgstr "תמונות"
 
-#: src/SearchFilter.vala:660 src/SearchFilter.vala:661
-msgid "Videos"
-msgstr "קטעי וידאו"
-
-#: src/SearchFilter.vala:666
-msgid "RAW Photos"
-msgstr "תמונות גולמיות (RAW)"
-
-#: src/SearchFilter.vala:667
-msgid "RAW photos"
-msgstr "תמונות גולמיות (RAW)"
-
-#: src/SearchFilter.vala:993
+#: src/AppDirs.vala:170
 #, c-format
-msgid "Error loading UI file %s: %s"
-msgstr "שגיאה בטעינת קובץ מנשק המשתמש %s: %s"
+msgid "Unable to create temporary directory %s: %s"
+msgstr "לא ניתן ליצור את התיקייה הזמנית %s:‏ %s"
 
-#: src/SearchFilter.vala:1010
-msgid "Type"
-msgstr "סוג"
+#: src/AppDirs.vala:187 src/AppDirs.vala:203
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "לא ניתן ליצור את תת־תיקיית הנתונים %s: ‏%s"
 
-#: src/SearchFilter.vala:1044 src/searches/SearchBoolean.vala:180
-msgid "Rating"
-msgstr "דירוג"
+#: src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1170
+msgid "Original size"
+msgstr "הגודל המקורי"
 
-#: src/SlideshowPage.vala:41 src/SlideshowPage.vala:221
-msgid "Settings"
-msgstr "הגדרות"
+#: src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "רוחב או גובה"
 
-#: src/SlideshowPage.vala:43
-msgid "_Delay:"
-msgstr "ה_שהיה:"
+#: src/Dimensions.vala:23
+msgid "Width"
+msgstr "רוחב"
 
-#: src/SlideshowPage.vala:45 src/SlideshowPage.vala:47
-msgid "seconds"
-msgstr "שניות"
+#: src/Dimensions.vala:26
+msgid "Height"
+msgstr "גובה"
 
-#: src/SlideshowPage.vala:63
-msgid "_Transition effect:"
-msgstr "_אפקט מעבר:"
+#: src/tags/Branch.vala:127
+msgid "Tags"
+msgstr "תגיות"
 
-#: src/SlideshowPage.vala:90
-msgid "Transition d_elay:"
-msgstr "ה_שהיית המעבר:"
+#: src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "לא ניתן לעבד את עדכוני המעקב: %s"
 
-#: src/SlideshowPage.vala:187
-msgid "Slideshow"
-msgstr "מצגת"
+#: src/sidebar/Tree.vala:196 src/library/LibraryWindow.vala:339
+#: src/searches/Branch.vala:77
+msgid "Ne_w Saved Search..."
+msgstr "חיפוש _שמור חדש..."
 
-#: src/SlideshowPage.vala:200
-msgid "Back"
-msgstr "הקודמת"
+#: src/sidebar/Tree.vala:200
+msgid "New _Tag..."
+msgstr "תגית _חדשה..."
 
-#: src/SlideshowPage.vala:201
-msgid "Go to the previous photo"
-msgstr "מעבר לתמונה הקודמת"
+#: src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "לא ניתן לפתוח/ליצור מסד נתוני תמונות %s: קוד השגיאה %d"
 
-#: src/SlideshowPage.vala:207 src/SlideshowPage.vala:312
-msgid "Pause"
-msgstr "השהייה"
+#: src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr "לא ניתן לכתוב אל קובץ מסד נתוני התמונות:\n %s"
 
-#: src/SlideshowPage.vala:208 src/SlideshowPage.vala:313
-msgid "Pause the slideshow"
-msgstr "השהיית המצגת"
+#: src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr "אירעה שגיאה במהלך הגישה לקובץ מסד הנתונים:\n %s\n\nהשגיאה הייתה: \n%s"
 
-#: src/SlideshowPage.vala:214
-msgid "Next"
-msgstr "הבאה"
+#: src/PhotoPage.vala:531
+msgid "Previous photo"
+msgstr "התמונה הקודמת"
 
-#: src/SlideshowPage.vala:215
-msgid "Go to the next photo"
-msgstr "מעבר לתמונה הבאה"
+#: src/PhotoPage.vala:536
+msgid "Next photo"
+msgstr "התמונה הבאה"
 
-#: src/SlideshowPage.vala:222
-msgid "Change slideshow settings"
-msgstr "שינוי הגדרות המצגת"
+#: src/PhotoPage.vala:1826
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "קובץ המקור לתמונה חסר: %s"
 
-#: src/SlideshowPage.vala:276
-msgid "All photo source files are missing."
-msgstr "כל קובצי המקור של התמונות חסרים."
+#: src/PhotoPage.vala:2558 src/MediaPage.vala:406
+msgid "_Developer"
+msgstr "מ_תכנת"
 
-#: src/SlideshowPage.vala:308
-msgid "Play"
-msgstr "הצגה"
+#: src/PhotoPage.vala:3002 src/Dialogs.vala:2321
+msgid "Remove From Library"
+msgstr "הסרה מהספרייה"
 
-#: src/SlideshowPage.vala:309
-msgid "Continue the slideshow"
-msgstr "המשך בהצגת המצגת"
+#: src/PhotoPage.vala:3002 src/Dialogs.vala:2322
+msgid "Removing Photo From Library"
+msgstr "הסרת תמונות מהספרייה"
 
-#: src/publishing/PublishingUI.vala:70
-#: plugins/shotwell-publishing/PicasaPublishing.vala:909
-#: plugins/shotwell-publishing/YouTubePublishing.vala:840
-msgid "_Login"
-msgstr "_כניסה"
+#: src/PhotoPage.vala:3143
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "לא ניתן לייצא את %s:‏ %s"
 
-#: src/publishing/PublishingUI.vala:135
+#: src/library/Branch.vala:37
+msgid "Library"
+msgstr "ספרייה"
+
+#: src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "קבצים חסרים"
+
+#: src/library/OfflinePage.vala:106
+msgid "Deleting..."
+msgstr "מחיקה..."
+
+#: src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "סל האשפה"
+
+#: src/library/TrashPage.vala:108
+msgid "Trash is empty"
+msgstr "סל האשפה ריק"
+
+#: src/library/TrashPage.vala:112
+msgid "Delete"
+msgstr "מחיקה"
+
+#: src/library/TrashPage.vala:113
+msgid "Deleting Photos"
+msgstr "התמונות נמחקות"
+
+#: src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "היבוא האחרון"
+
+#: src/library/LibraryWindow.vala:294
+msgid "_Import From Folder..."
+msgstr "י_בוא מתיקייה..."
+
+#: src/library/LibraryWindow.vala:295
+msgid "Import photos from disk to library"
+msgstr "יבוא תמונות מהכונן לספרייה"
+
+#: src/library/LibraryWindow.vala:302
+msgid "Import From _Application..."
+msgstr "ייבוא מ_יישום..."
+
+#: src/library/LibraryWindow.vala:306
+msgid "Sort _Events"
+msgstr "מיון _אירועים"
+
+#: src/library/LibraryWindow.vala:316
+msgid "Empty T_rash"
+msgstr "פינוי ה_אשפה"
+
+#: src/library/LibraryWindow.vala:317
+msgid "Delete all photos in the trash"
+msgstr "מחיקת כל התמונות באשפה"
+
+#: src/library/LibraryWindow.vala:322
+msgid "View Eve_nt for Photo"
+msgstr "צפייה ב_אירוע עבור תמונה"
+
+#: src/library/LibraryWindow.vala:327
+msgid "_Find"
+msgstr "_חיפוש"
+
+#: src/library/LibraryWindow.vala:328
+msgid "Find photos and videos by search criteria"
+msgstr "חיפוש תמונות וקטעי וידאו לפי קריטריונים של חיפוש"
+
+#: src/library/LibraryWindow.vala:349
+msgid "_Edit"
+msgstr "ע_ריכה"
+
+#: src/library/LibraryWindow.vala:361
+msgid "_Photos"
+msgstr "_תמונות"
+
+#: src/library/LibraryWindow.vala:365
+msgid "Even_ts"
+msgstr "_אירועים"
+
+#: src/library/LibraryWindow.vala:369 src/MediaPage.vala:441
+msgid "Ta_gs"
+msgstr "ת_גיות"
+
+#: src/library/LibraryWindow.vala:384
+msgid "_Basic Information"
+msgstr "פרטים _בסיסיים"
+
+#: src/library/LibraryWindow.vala:385
+msgid "Display basic information for the selection"
+msgstr "הצגת פרטים בסיסיים עבור הבחירה"
+
+#: src/library/LibraryWindow.vala:390
+msgid "E_xtended Information"
+msgstr "_פרטים מורחבים"
+
+#: src/library/LibraryWindow.vala:391
+msgid "Display extended information for the selection"
+msgstr "הצגת פרטים מורחבים עבור הבחירה"
+
+#: src/library/LibraryWindow.vala:396
+msgid "_Search Bar"
+msgstr "_סרגל חיפוש"
+
+#: src/library/LibraryWindow.vala:397
+msgid "Display the search bar"
+msgstr "הצגת סרגל החיפוש"
+
+#: src/library/LibraryWindow.vala:409 src/MediaPage.vala:481
+msgid "_Ascending"
+msgstr "_עולה"
+
+#: src/library/LibraryWindow.vala:410 src/MediaPage.vala:482
+msgid "Sort photos in an ascending order"
+msgstr "סידור התמונות בסדר עולה"
+
+#: src/library/LibraryWindow.vala:416 src/MediaPage.vala:487
+msgid "D_escending"
+msgstr "_יורד"
+
+#: src/library/LibraryWindow.vala:417 src/MediaPage.vala:488
+msgid "Sort photos in a descending order"
+msgstr "סידור התמונות בסדר יורד"
+
+#: src/library/LibraryWindow.vala:650
+msgid "Import From Folder"
+msgstr "יבוא מתיקייה"
+
+#: src/library/LibraryWindow.vala:719
+msgid "Empty Trash"
+msgstr "פינוי האשפה"
+
+#: src/library/LibraryWindow.vala:719
+msgid "Emptying Trash..."
+msgstr "האשפה מתרוקנת..."
+
+#: src/library/LibraryWindow.vala:862
+msgid "Shotwell is configured to import photos to your home directory.\n"
+msgstr "Shotwell מוגדרת לייבא תמונות לתיקיית הבית שלך.\n"
+
+#: src/library/LibraryWindow.vala:865 src/data_imports/DataImportsUI.vala:112
+msgid "_Import"
+msgstr "י_בוא"
+
+#: src/library/LibraryWindow.vala:865
+msgid "Library Location"
+msgstr "מיקום הספרייה"
+
+#: src/library/LibraryWindow.vala:878
+msgid "Photos cannot be imported from this directory."
+msgstr "לא ניתן לייבא תמונות לתיקייה זו."
+
+#: src/library/LibraryWindow.vala:1161
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/library/LibraryWindow.vala:1205 src/library/LibraryWindow.vala:1213
+msgid "Updating library..."
+msgstr "הספרייה מתעדכנת..."
+
+#: src/library/LibraryWindow.vala:1218
+msgid "Preparing to auto-import photos..."
+msgstr "בהכנות ליבוא תמונות באופן אוטומטי...."
+
+#: src/library/LibraryWindow.vala:1223
+msgid "Auto-importing photos..."
+msgstr "התמונות מיובאות אוטומטית..."
+
+#: src/library/LibraryWindow.vala:1228
+msgid "Writing metadata to files..."
+msgstr "נתוני העל נכתבים לקבצים..."
+
+#: src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "מתבצע יבוא..."
+
+#: src/library/ImportQueuePage.vala:66
+msgid "_Stop Import"
+msgstr "ע_צירת היבוא"
+
+#: src/library/ImportQueuePage.vala:67
+msgid "Stop importing photos"
+msgstr "עצירת יבוא התמונות"
+
+#: src/library/ImportQueuePage.vala:123
+msgid "Preparing to import..."
+msgstr "בהכנות ליבוא..."
+
+#: src/library/ImportQueuePage.vala:150
+#, c-format
+msgid "Imported %s"
+msgstr "יובאו %s"
+
+#: src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "החיפושים השמורים"
+
+#: src/searches/SavedSearchDialog.vala:164
+msgid "contains"
+msgstr "מכיל"
+
+#: src/searches/SavedSearchDialog.vala:165
+#: src/searches/SavedSearchDialog.vala:430
+msgid "is exactly"
+msgstr "הוא בדיוק"
+
+#: src/searches/SavedSearchDialog.vala:166
+msgid "starts with"
+msgstr "מתחיל ב־"
+
+#: src/searches/SavedSearchDialog.vala:167
+msgid "ends with"
+msgstr "מסתיים ב־"
+
+#: src/searches/SavedSearchDialog.vala:168
+msgid "does not contain"
+msgstr "אינו מכיל"
+
+#: src/searches/SavedSearchDialog.vala:169
+#: src/searches/SavedSearchDialog.vala:434
+msgid "is not set"
+msgstr "לא מוגדר"
+
+#: src/searches/SavedSearchDialog.vala:240
+#: src/searches/SavedSearchDialog.vala:309
+#: src/searches/SavedSearchDialog.vala:374
+msgid "is"
+msgstr "הוא"
+
+#: src/searches/SavedSearchDialog.vala:241
+msgid "is not"
+msgstr "אינו"
+
+#: src/searches/SavedSearchDialog.vala:247
+msgid "any photo"
+msgstr "כל תמונה שהיא"
+
+#: src/searches/SavedSearchDialog.vala:248
+msgid "a raw photo"
+msgstr "תמונה גולמית"
+
+#: src/searches/SavedSearchDialog.vala:249
+msgid "a video"
+msgstr "וידאו"
+
+#: src/searches/SavedSearchDialog.vala:303
+msgid "flagged"
+msgstr "מסומן בדגלון"
+
+#: src/searches/SavedSearchDialog.vala:304
+msgid "not flagged"
+msgstr "לא מסומן בדגלון"
+
+#: src/searches/SavedSearchDialog.vala:367
+msgid "and higher"
+msgstr "ומעלה"
+
+#: src/searches/SavedSearchDialog.vala:368
+msgid "only"
+msgstr "בלבד"
+
+#: src/searches/SavedSearchDialog.vala:369
+msgid "and lower"
+msgstr "ומטה"
+
+#: src/searches/SavedSearchDialog.vala:431
+msgid "is after"
+msgstr "הוא לאחר"
+
+#: src/searches/SavedSearchDialog.vala:432
+msgid "is before"
+msgstr "הוא לפני"
+
+#: src/searches/SavedSearchDialog.vala:433
+msgid "is between"
+msgstr "הוא בין"
+
+#: src/searches/SavedSearchDialog.vala:446
+msgid "and"
+msgstr "וגם"
+
+#: src/searches/SavedSearchDialog.vala:653
+msgid "any"
+msgstr "כלשהו"
+
+#: src/searches/SavedSearchDialog.vala:654
+msgid "all"
+msgstr "הכול"
+
+#: src/searches/SavedSearchDialog.vala:655
+msgid "none"
+msgstr "אף אחד מאלה"
+
+#: src/searches/SearchBoolean.vala:143
+msgid "Any text"
+msgstr " כלשהו"
+
+#: src/searches/SearchBoolean.vala:146
+msgid "Title"
+msgstr "כותרת"
+
+#: src/searches/SearchBoolean.vala:149
+msgid "Tag"
+msgstr "תגית"
+
+#: src/searches/SearchBoolean.vala:152
+msgid "Event name"
+msgstr "שם האירוע"
+
+#: src/searches/SearchBoolean.vala:155
+msgid "File name"
+msgstr "שם הקובץ"
+
+#: src/searches/SearchBoolean.vala:158
+msgid "Media type"
+msgstr "סוג המדיה"
+
+#: src/searches/SearchBoolean.vala:161
+msgid "Flag state"
+msgstr "מצב הדגלון"
+
+#: src/searches/SearchBoolean.vala:167
+msgid "Date"
+msgstr "תאריך"
+
+#: src/DesktopIntegration.vala:118
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "לא ניתן לטעון את Nautilus Send-To: ‏%s"
+
+#: src/DesktopIntegration.vala:126
+msgid "Send To"
+msgstr "שליחה אל"
+
+#: src/DesktopIntegration.vala:171
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "לא ניתן לייצא את הרקע אל %s:‏ %s"
+
+#: src/DesktopIntegration.vala:299
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "לא ניתן להכין את מצגת שולחן העבודה: %s"
+
+#: src/Dialogs.vala:16
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "פעולה זו תסיר את התגית \"%s\" מתמונה %d. להמשיך?"
+msgstr[1] "פעולה זו תסיר את התגית \"%s\" מ־%d תמונות. להמשיך?"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1026
+#: src/Resources.vala:303 src/Resources.vala:351 src/Resources.vala:615
+msgid "_Delete"
+msgstr "מ_חיקה"
+
+#: src/Dialogs.vala:25
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr "פעולה זו תסיר את החיפוש השמור \"%s\".  להמשיך?"
+
+#: src/Dialogs.vala:35
+#, c-format
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] "החלפת מפתחים תבטל את כל השינויים שביצעת בתמונה זו ב-Shotwell."
+msgstr[1] "החלפת מפתחים תבטל את כל השינויים שביצעת בתמונות אלו ב-Shotwell."
+
+#: src/Dialogs.vala:39
+msgid "_Switch Developer"
+msgstr "ה_חלף מפתח"
+
+#: src/Dialogs.vala:58
+msgid "Export Video"
+msgstr "יצוא וידאו"
+
+#: src/Dialogs.vala:115
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr "אין באפשרות Shotwell ליצור קובץ לעריכת תמונה זו כיוון שאין לך הרשאות לכתוב אל %s."
+
+#: src/Dialogs.vala:124
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr "לא ניתן לייצא את התמונה הבאה עקב שגיאת קובץ.\n\n"
+
+#: src/Dialogs.vala:130
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr "\n\nהאם ברצונך להמשיך ביצוא?"
+
+#: src/Dialogs.vala:131
+msgid "Con_tinue"
+msgstr "המ_שך"
+
+#: src/Dialogs.vala:147
+msgid "Unmodified"
+msgstr "ללא שינוי"
+
+#: src/Dialogs.vala:148
+msgid "Current"
+msgstr "נוכחי"
+
+#: src/Dialogs.vala:212
+msgid "_Format:"
+msgstr "מ_בנה:"
+
+#: src/Dialogs.vala:215
+msgid "_Quality:"
+msgstr "_איכות:"
+
+#: src/Dialogs.vala:218
+msgid "_Scaling constraint:"
+msgstr "_אילוץ שמירת יחס:"
+
+#: src/Dialogs.vala:221
+msgid " _pixels"
+msgstr " _פיקסלים"
+
+#: src/Dialogs.vala:229
+msgid "Export metadata"
+msgstr "יצוא נתוני העל"
+
+#: src/Dialogs.vala:472
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(ועוד %d)\n"
+
+#: src/Dialogs.vala:528
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "תמונה משוכפלת אחת לא יובאה:\n"
+msgstr[1] "%d תמונות משוכפלות לא יובאו:\n"
+
+#: src/Dialogs.vala:531
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "קטע וידאו משוכפל אחד לא יובא:\n"
+msgstr[1] "%d קטעי וידאו משוכפלים לא יובאו:\n"
+
+#: src/Dialogs.vala:534
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "תמונה משוכפלת או קטע וידאו משוכפל לא יובאו:\n"
+msgstr[1] "%d תמונות/קטעי וידאו משוכפלים לא יובאו:\n"
+
+#: src/Dialogs.vala:548
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] "אירע כשל ביבוא אחת התמונות עקב שגיאת חומרה או קובץ:\n"
+msgstr[1] "אירע כשל ביבוא %d מהתמונות עקב שגיאת חומרה או קובץ:\n"
+
+#: src/Dialogs.vala:551
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] "אירע כשל ביבוא אחד מקטעי הווידאו עקב שגיאת חומרה או קובץ:\n"
+msgstr[1] "אירע כשל ביבוא %d מהתמונות או מקטעי הווידאו עקב שגיאת חומרה או קובץ:\n"
+
+#: src/Dialogs.vala:554
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] "אירע כשל ביבוא אחת התמונות/אחד מקטעי הווידאו עקב שגיאת חומרה או קובץ:\n"
+msgstr[1] "אירע כשל ביבוא %d מהתמונות/קטעי הווידאו עקב שגיאת חומרה או קובץ:\n"
+
+#: src/Dialogs.vala:557
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] "יבוא של אחד הקבצים כשל עקב שגיאה בקובץ או בחומרה:\n"
+msgstr[1] "יבוא של %d מהקבצים נכשל עקב שגיאה בקובץ או בחומרה:\n"
+
+#: src/Dialogs.vala:571
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "היבוא של אחת מהתמונות נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
+msgstr[1] "היבוא של %d התמונות נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
+
+#: src/Dialogs.vala:574
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "היבוא של אחד מקטעי הווידאו נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
+msgstr[1] "היבוא של %d קטעי הווידאו נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
+
+#: src/Dialogs.vala:577
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "היבוא של 1 מהתמונות/מקטעי הווידאו נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
+msgstr[1] "היבוא של %d מהתמונות/מקטעי הווידאו נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
+
+#: src/Dialogs.vala:580
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "יבוא אחד הקבצים נכשל כיוון שתיקיית ספריית התמונות סגורה בפני כתיבה:\n"
+msgstr[1] "יבוא %d מהקבצים נכשל כיוון שתיקיית ספריית התמונות סגורה בפני כתיבה:\n"
+
+#: src/Dialogs.vala:594
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] "אירע כשל ביבוא אחת מהתמונות עקב שגיאה במצלמה:\n"
+msgstr[1] "אירע כשל ביבוא %d מהתמונות עקב שגיאה במצלמה:\n"
+
+#: src/Dialogs.vala:597
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] "אירע כשל ביבוא אחד מקטעי הווידאו עקב שגיאה במצלמה:\n"
+msgstr[1] "אירע כשל ביבוא %d מקטעי הווידאו עקב שגיאה במצלמה:\n"
+
+#: src/Dialogs.vala:600
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] "אירע כשל ביבוא אחת מהתמונות/אחד מקטעי הווידאו עקב שגיאה במצלמה:\n"
+msgstr[1] "אירע כשל ביבוא %d מהתמונות/קטעי הווידאו עקב שגיאה במצלמה:\n"
+
+#: src/Dialogs.vala:603
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] "יבוא אחד הקבצים נכשל עקב שגיאת מצלמה:\n"
+msgstr[1] "יבוא %d מהקבצים נכשל עקב שגיאת מצלמה:\n"
+
+#: src/Dialogs.vala:620
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "בוצע דילוג על תמונה אחת שאינה נתמכת:\n"
+msgstr[1] "בוצע דילוג על %d תמונות שאינן נתמכות:\n"
+
+#: src/Dialogs.vala:635
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] "בוצע דילוג על קובץ אחד שאינו תמונה.\n"
+msgstr[1] "בוצע דילוג על %d קבצים שאינם תמונה.\n"
+
+#: src/Dialogs.vala:646
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] "בוצע דילוג על תמונה אחת עקב ביטול המשתמש:\n"
+msgstr[1] "בוצע דילוג על %d תמונות עקב ביטול המשתמש:\n"
+
+#: src/Dialogs.vala:649
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] "בוצע דילוג על וידאו אחד עקב ביטול המשתמש:\n"
+msgstr[1] "בוצע דילוג על %d קטעי וידאו עקב ביטול המשתמש:\n"
+
+#: src/Dialogs.vala:652
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] "בוצע דילוג על תמונה אחת/וידאו אחד עקב ביטול המשתמש:\n"
+msgstr[1] "בוצע דילוג על %d תמונות/קטעי וידאו עקב ביטול המשתמש:\n"
+
+#: src/Dialogs.vala:655
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] "קובץ אחד נפסח עקב ביטול המשתמש:\n"
+msgstr[1] "%d קבצים נפסחו עקב ביטול המשתמש:\n"
+
+#: src/Dialogs.vala:669
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "תמונה אחת יובאה בהצלחה.\n"
+msgstr[1] "%d תמונות יובאו בהצלחה.\n"
+
+#: src/Dialogs.vala:672
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "קטע וידאו אחד יובא בהצלחה.\n"
+msgstr[1] "%d קטעי וידאו יובאו בהצלחה.\n"
+
+#: src/Dialogs.vala:675
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "תמונה אחת/וידאו אחד יובאו בהצלחה.\n"
+msgstr[1] "%d תמונות/קטעי וידאו יובאו בהצלחה.\n"
+
+#: src/Dialogs.vala:691
+msgid "No photos or videos imported.\n"
+msgstr "לא יובאו כלל תמונות או קטעי וידאו.\n"
+
+#: src/Dialogs.vala:706
+msgid "Import Complete"
+msgstr "היבוא הושלם"
+
+#: src/Dialogs.vala:874
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "שנייה אחת"
+msgstr[1] "%d שניות"
+
+#: src/Dialogs.vala:877
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "דקה אחת"
+msgstr[1] "%d דקות"
+
+#: src/Dialogs.vala:881
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "שעה אחת"
+msgstr[1] "%d שעות"
+
+#: src/Dialogs.vala:884
+msgid "1 day"
+msgstr "יום אחד"
+
+#: src/Dialogs.vala:975 src/Resources.vala:184
+msgid "Rename Event"
+msgstr "שינוי שם האירוע"
+
+#: src/Dialogs.vala:975
+msgid "Name:"
+msgstr "שם:"
+
+#: src/Dialogs.vala:985 src/Resources.vala:253
+msgid "Edit Title"
+msgstr "עריכת הכותרת"
+
+#: src/Dialogs.vala:1001
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "שליחת קובץ ל_אשפה"
+msgstr[1] "שליחת קבצים ל_אשפה"
+
+#: src/Dialogs.vala:1005
+msgid "Only _Remove"
+msgstr "ה_סרה בלבד"
+
+#: src/Dialogs.vala:1025 src/camera/ImportPage.vala:1681
+msgid "_Keep"
+msgstr "_שמירה"
+
+#: src/Dialogs.vala:1048
+msgid "Revert External Edit?"
+msgstr "האם לשחזר עריכות חיצוניות?"
+
+#: src/Dialogs.vala:1048
+msgid "Revert External Edits?"
+msgstr "האם לבטל את העריכות החיצוניות?"
+
+#: src/Dialogs.vala:1050
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] "פעולה זו תשמיד את כל השינויים שבוצעו בקובץ החיצוני. להמשיך?"
+msgstr[1] "פעולה זו תשמיד את כל השינויים שבוצעו ב־%d קבצים חיצוניים. להמשיך?"
+
+#: src/Dialogs.vala:1054
+msgid "Re_vert External Edit"
+msgstr "_ביטול העריכות החיצונית"
+
+#: src/Dialogs.vala:1054
+msgid "Re_vert External Edits"
+msgstr "בי_טול העריכות החיצוניות"
+
+#: src/Dialogs.vala:1075
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "פעולה זו תסיר את התמונה מהספרייה.  להמשיך?"
+msgstr[1] "פעולה זו תסיר %d תמונות מהספרייה.  להמשיך?"
+
+#: src/Dialogs.vala:1082
+msgid "_Remove"
+msgstr "ה_סרה"
+
+#: src/Dialogs.vala:1083
+msgid "Remove Photo From Library"
+msgstr "הסרת תמונות מהספרייה"
+
+#: src/Dialogs.vala:1083
+msgid "Remove Photos From Library"
+msgstr "הסרת תמונות מהספרייה"
+
+#: src/Dialogs.vala:1176
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/Dialogs.vala:1321
+msgid "AM"
+msgstr "AM"
+
+#: src/Dialogs.vala:1322
+msgid "PM"
+msgstr "PM"
+
+#: src/Dialogs.vala:1323
+msgid "24 Hr"
+msgstr "24 שעות"
+
+#: src/Dialogs.vala:1338
+msgid "_Shift photos/videos by the same amount"
+msgstr "ה_זחת התמונות/קטעי הווידאו באותו האופן"
+
+#: src/Dialogs.vala:1343
+msgid "Set _all photos/videos to this time"
+msgstr "ה_גדרת כל התמונות/קטעי הווידאו למועד זה"
+
+#: src/Dialogs.vala:1350
+msgid "_Modify original photo file"
+msgstr "שנה את קובץ התמונה ה_מקורית"
+
+#: src/Dialogs.vala:1350
+msgid "_Modify original photo files"
+msgstr "שנה את קבצי התמונה ה_מקורית"
+
+#: src/Dialogs.vala:1353
+msgid "_Modify original file"
+msgstr "_שינוי הקבצים המקוריים"
+
+#: src/Dialogs.vala:1353
+msgid "_Modify original files"
+msgstr "_שינוי קובצי המקור"
+
+#: src/Dialogs.vala:1439
+msgid "Original: "
+msgstr "מקור:"
+
+# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
+# 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
+# %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format
+# used in your language and region. The format string you enter should conform
+# to POSIX date and time formatting conventions. See the strftime manpage for
+# a list of format specifiers and their meanings.
+# 
+#: src/Dialogs.vala:1440
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%d/%m/%Y, %H:%M:%S"
+
+# The string %m/%d/%y, %I:%M:%S %p is a format string that describes a
+# U.S.-style
+# 12 hour date and time with an am/pm specifier (e.g. 9/22/2009, 1:15:04 PM).
+# You
+# should translate %m/%d/%y, %I:%M:%S %p so that it describes the 12 hour date
+# and time format used in your language and region. If 12 hour time isn't used
+# in
+# your region, then use a format string for 24 hour time. The format string
+# you
+# enter should conform to POSIX date and time formatting conventions. See the
+# strftime manpage for a list of format specifiers and their meanings.
+# 
+#: src/Dialogs.vala:1441
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%d/%m/%Y, %I:%M:%S %p"
+
+#: src/Dialogs.vala:1530
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr "זמן החשיפה יוארך ב־\n%d %s, %d %s, %d %sו־ %d %s."
+
+#: src/Dialogs.vala:1531
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr "זמן החשיפה יוקדם ב־\n%d %s, %d %s, %d %sו־ %d %s."
+
+#: src/Dialogs.vala:1533
+msgid "day"
+msgid_plural "days"
+msgstr[0] "יום"
+msgstr[1] "ימים"
+
+#: src/Dialogs.vala:1534
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "שעה"
+msgstr[1] "שעות"
+
+#: src/Dialogs.vala:1535
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "דקה"
+msgstr[1] "דקות"
+
+#: src/Dialogs.vala:1536
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "שנייה"
+msgstr[1] "שניות"
+
+#: src/Dialogs.vala:1580
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] "\n\nואחד נוסף"
+msgstr[1] "\n\nו־%d נוספים."
+
+#: src/Dialogs.vala:1602 src/Dialogs.vala:1629
+msgid "Tags (separated by commas):"
+msgstr "תגיות (מופרדות בפסיקים):"
+
+#: src/Dialogs.vala:1709
+msgid "Welcome!"
+msgstr "ברוך בואך!"
+
+#: src/Dialogs.vala:1716
+#, c-format
+msgid "Welcome to Shotwell!"
+msgstr "ברוך בואך ל־Shotwell!"
+
+#: src/Dialogs.vala:1720
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr "כדי להתחיל יש לייבא תמונות באחת מהדרכים הבאות:"
+
+#: src/Dialogs.vala:1736
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr "יש לבחור ב<span weight=\"bold\">קובץ %s יבוא מתיקייה</span>"
+
+#: src/Dialogs.vala:1737
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "לגרור ולהשליך תמונות לחלון של Shotwell"
+
+#: src/Dialogs.vala:1738
+msgid "Connect a camera to your computer and import"
+msgstr "לחבר מצלמה למחשב שלך ולייבא ממנה"
+
+#: src/Dialogs.vala:1748
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "י_בוא תמונות מתיקיית ה־%s שלך"
+
+#: src/Dialogs.vala:1755
+msgid "You can also import photos in any of these ways:"
+msgstr "ניתן לייבא תמונות בכל אחת מהדרכים הבאות:"
+
+#: src/Dialogs.vala:1765
+msgid "_Don't show this message again"
+msgstr "_אין להציג הודעה זו שוב"
+
+#: src/Dialogs.vala:1800
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "יבוא תמונות מספריית ה־%s שלך"
+
+#: src/Dialogs.vala:1944 src/Dialogs.vala:1948
+msgid "(Help)"
+msgstr "(עזרה)"
+
+#: src/Dialogs.vala:1957
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "שנה%sחודש%sיום"
+
+#: src/Dialogs.vala:1959
+#, c-format
+msgid "Year%sMonth"
+msgstr "שנה%sחודש"
+
+#: src/Dialogs.vala:1961
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "שנה%sחודש-יום"
+
+#: src/Dialogs.vala:1963
+msgid "Year-Month-Day"
+msgstr "שנה-חודש-יום"
+
+#: src/Dialogs.vala:1964 src/editing_tools/EditingTools.vala:749
+msgid "Custom"
+msgstr "התאמה אישית"
+
+#: src/Dialogs.vala:2201
+msgid "Invalid pattern"
+msgstr "התבנית שגויה"
+
+#: src/Dialogs.vala:2304
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr "באפשרות Shotwell להעתיק את התמונות לספרייה שלך או לייבא את התמונות מבלי להעתיק אותן."
+
+#: src/Dialogs.vala:2309
+msgid "Co_py Photos"
+msgstr "ה_עתקת תמונות"
+
+#: src/Dialogs.vala:2310
+msgid "_Import in Place"
+msgstr "יבוא ל_כאן"
+
+#: src/Dialogs.vala:2311
+msgid "Import to Library"
+msgstr "יבוא לספרייה"
+
+#: src/Dialogs.vala:2322
+msgid "Removing Photos From Library"
+msgstr "התמונות מוסרות מהתיקייה"
+
+#: src/Dialogs.vala:2336
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] "פעולה זו תסיר את התמונה/סרטון הווידאו מספריית ה־Shotwell שלך.  האם ברצונך להעביר את הקבצים לאשפה של שולחן העבודה שלך?\n\nלא ניתן לבטל פעולה זו. %d"
+msgstr[1] "פעולה זו תסיר %d תמונות/סרטוני וידאו מספריית ה־Shotwell שלך.  האם ברצונך להעביר את הקבצים לאשפה של שולחן העבודה שלך?\n\nלא ניתן לבטל פעולה זו."
+
+#: src/Dialogs.vala:2340
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] "פעולה זו תסיר את סרטון הווידאו מספריית ה־Shotwell שלך.  האם בנוסף על כך ברצונך להעביר את הקובץ לאשפה?\n\nלא ניתן לבטל פעולה זו. %d"
+msgstr[1] "פעולה זו תסיר את %d סרטוני הווידאו מספריית ה־Shotwell שלך.  האם בנוסף על כך ברצונך להעביר את הקובץ לאשפה?\n\nלא ניתן לבטל פעולה זו."
+
+#: src/Dialogs.vala:2344
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] "פעולה זו תסיר את התמונה מספריית ה־Shotwell שלך.\nהאם ברצונך להעביר את הקובץ לסל האשפה שלך?\n\nלא ניתן לבטל פעולה זו."
+msgstr[1] "פעולה זו תסיר %d תמונות מספריית ה־Shotwell שלך.\nהאם ברצונך להעביר את הקובץ לסל האשפה שלך?\n\nלא ניתן לבטל פעולה זו."
+
+#: src/Dialogs.vala:2376
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] "לא ניתן להעביר את התמונה/וידאו לאשפה של שולחן העבודה שלך.  האם למחוק קובץ זה?"
+msgstr[1] "לא ניתן להעביר %d תמונות/קטעי וידאו לאשפה של שולחן העבודה שלך.  האם למחוק קבצים אלו?"
+
+#: src/Dialogs.vala:2393
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "לא ניתן למחוק את התמונה או את הווידאו."
+msgstr[1] "לא ניתן למחוק %d תמונות/קטעי וידאו."
+
+#: src/photos/TiffSupport.vala:86
+msgid "TIFF"
+msgstr "TIFF"
+
+#: src/photos/JfifSupport.vala:84
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/photos/JfifSupport.vala:182
+#, c-format
+msgid "Low (%d%%)"
+msgstr "נמוכה (%d%%)"
+
+#: src/photos/JfifSupport.vala:185
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "בינונית (%d%%)"
+
+#: src/photos/JfifSupport.vala:188
+#, c-format
+msgid "High (%d%%)"
+msgstr "גבוהה (%d%%)"
+
+#: src/photos/JfifSupport.vala:191
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "מרבית (%d%%)"
+
+#: src/photos/RawSupport.vala:134
+msgid "RAW"
+msgstr "RAW"
+
+#: src/photos/RawSupport.vala:297 src/MediaPage.vala:413
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: src/photos/RawSupport.vala:300 src/camera/Branch.vala:101
+#: src/camera/ImportPage.vala:676 src/camera/ImportPage.vala:692
+#: src/MediaPage.vala:418
+msgid "Camera"
+msgstr "מצלמה"
+
+#: src/photos/BmpSupport.vala:32
+msgid "BMP"
+msgstr "BMP"
+
+#: src/photos/PngSupport.vala:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/camera/Branch.vala:87
+msgid "Cameras"
+msgstr "מצלמות"
+
+#: src/camera/ImportPage.vala:433
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr "לא ניתן לנתק את המצלמה.  יש לנסות לנתק את המצלמה ממנהל הקבצים."
+
+#: src/camera/ImportPage.vala:741
+msgid "Hide photos already imported"
+msgstr "הסתרת תמונות שכבר יובאו"
+
+#: src/camera/ImportPage.vala:742
+msgid "Only display photos that have not been imported"
+msgstr "יש להציג תמונות שלא יובאו בלבד"
+
+#: src/camera/ImportPage.vala:810
+msgid "Starting import, please wait..."
+msgstr "הייבוא מתחיל, נא להמתין..."
+
+#: src/camera/ImportPage.vala:837 src/MediaPage.vala:429
+msgid "_Titles"
+msgstr "_כותרות"
+
+#: src/camera/ImportPage.vala:838 src/MediaPage.vala:430
+msgid "Display the title of each photo"
+msgstr "הצגת הכותרת של כל תמונה"
+
+#: src/camera/ImportPage.vala:849
+msgid "Import _Selected"
+msgstr "יבוא ה_נבחרות"
+
+#: src/camera/ImportPage.vala:850
+msgid "Import the selected photos into your library"
+msgstr "יבוא התמונות הנבחרות לספרייה שלך"
+
+#: src/camera/ImportPage.vala:855
+msgid "Import _All"
+msgstr "יבוא ה_כול"
+
+#: src/camera/ImportPage.vala:856
+msgid "Import all the photos into your library"
+msgstr "יבוא כל התמונות לספרייה שלך"
+
+#: src/camera/ImportPage.vala:977
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr "על Shotwell לנתק את המצלמה ממערכת הקבצים כדי לגשת אליה.  האם להמשיך?"
+
+#: src/camera/ImportPage.vala:983
+msgid "_Unmount"
+msgstr "_ניתוק"
+
+#: src/camera/ImportPage.vala:988
+msgid "Please unmount the camera."
+msgstr "נא לנתק את מערכת הקבצים של המצלמה."
+
+#: src/camera/ImportPage.vala:993
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr "המצלמה נעולה על ידי יישום אחר.  Shotwell יכולה לגשת למצלמה רק כאשר אינה נעולה.  נא לסגור כל יישום אחר המשתמש במצלמה ולנסות שוב."
+
+#: src/camera/ImportPage.vala:1003
+msgid "Please close any other application using the camera."
+msgstr "נא לסגור כל יישום אחר המשתמש במצלמה."
+
+#: src/camera/ImportPage.vala:1008
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr "לא ניתן לקבל את התצוגות המקדימות מהמצלמה:\n%s"
+
+#: src/camera/ImportPage.vala:1025
+msgid "Unmounting..."
+msgstr "מתבצע ניתוק..."
+
+#: src/camera/ImportPage.vala:1131
+msgid "Fetching photo information"
+msgstr "פרטי התמונה מתקבלים"
+
+#: src/camera/ImportPage.vala:1465
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "התצוגה המקדימה עבור %s מתקבלת"
+
+#: src/camera/ImportPage.vala:1581
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "לא ניתן לנעול את המצלמה: %s"
+
+#: src/camera/ImportPage.vala:1664
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "האם למחוק תמונה זו מהמצלמה?"
+msgstr[1] "האם למחוק %d תמונות אלה מהמצלמה?"
+
+#: src/camera/ImportPage.vala:1667
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "האם למחוק קטע וידאו זה מהמצלמה?"
+msgstr[1] "האם למחוק %d קטעי וידאו אלה?"
+
+#: src/camera/ImportPage.vala:1670
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "האם למחוק תמונה/וידאו אלו  מהמצלמה?"
+msgstr[1] "האם למחוק %d תמונות/קטעי וידאו אלו מהמצלמה?"
+
+#: src/camera/ImportPage.vala:1673
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "האם למחוק קובץ זה מהמצלמה?"
+msgstr[1] "האם למחוק %d קבצים אלה מהמצלמה?"
+
+#: src/camera/ImportPage.vala:1700
+msgid "Removing photos/videos from camera"
+msgstr "התמונות/קטעי הווידאו מוסרים מהמצלמה"
+
+#: src/camera/ImportPage.vala:1704
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural ""
+"Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] "לא ניתן למחוק תמונה אחת/וידאו אחד מהמצלמה עקב שגיאות."
+msgstr[1] "לא ניתן למחוק %d תמונות/קטעי וידאו מהמצלמה עקב שגיאות."
+
+#: src/publishing/PublishingUI.vala:105
 msgid "The selected photos/videos were successfully published."
 msgstr "התמונה/וידאו הנבחרים פורסמו בהצלחה."
 
-#: src/publishing/PublishingUI.vala:137
+#: src/publishing/PublishingUI.vala:107
 msgid "The selected videos were successfully published."
 msgstr "קטעי הווידאו פורסמו בהצלחה."
 
-#: src/publishing/PublishingUI.vala:139
+#: src/publishing/PublishingUI.vala:109
 msgid "The selected photos were successfully published."
 msgstr "התמונות הנבחרות פורסמו בהצלחה."
 
-#: src/publishing/PublishingUI.vala:142
+#: src/publishing/PublishingUI.vala:112
 msgid "The selected video was successfully published."
 msgstr "קטע הווידאו הנבחר פורסם בהצלחה."
 
-#: src/publishing/PublishingUI.vala:144
+#: src/publishing/PublishingUI.vala:114
 msgid "The selected photo was successfully published."
 msgstr "התמונה הנבחרת פורסמה בהצלחה."
 
-#: src/publishing/PublishingUI.vala:152
+#: src/publishing/PublishingUI.vala:122
 msgid "Fetching account information..."
 msgstr "פרטי החשבון מתקבלים..."
 
-#: src/publishing/PublishingUI.vala:158
+#: src/publishing/PublishingUI.vala:128
 msgid "Logging in..."
 msgstr "בהליכי כניסה..."
 
-#: src/publishing/PublishingUI.vala:211
+#: src/publishing/PublishingUI.vala:181
 msgid "Publish Photos"
 msgstr "פרסום תמונות"
 
-#: src/publishing/PublishingUI.vala:212
+#: src/publishing/PublishingUI.vala:182
 msgid "Publish photos _to:"
 msgstr "פרסום תמונות _אל:"
 
-#: src/publishing/PublishingUI.vala:214
+#: src/publishing/PublishingUI.vala:184
 msgid "Publish Videos"
 msgstr "פרסום קטעי וידאו"
 
-#: src/publishing/PublishingUI.vala:215
+#: src/publishing/PublishingUI.vala:185
 msgid "Publish videos _to"
 msgstr "פרסום קטעי וידאו _אל:"
 
-#: src/publishing/PublishingUI.vala:217
+#: src/publishing/PublishingUI.vala:187
 msgid "Publish Photos and Videos"
 msgstr "פרסום תמונות וקטעי וידאו"
 
-#: src/publishing/PublishingUI.vala:218
+#: src/publishing/PublishingUI.vala:188
 msgid "Publish photos and videos _to"
 msgstr "פרסום תמונות וקטעי וידאו _אל:"
 
-#: src/publishing/PublishingUI.vala:382
+#: src/publishing/PublishingUI.vala:354
 msgid "Unable to publish"
 msgstr "לא ניתן לפרסם"
 
-#: src/publishing/PublishingUI.vala:383
+#: src/publishing/PublishingUI.vala:355
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
 "Preferences</b> and enable one or more of the publishing plugins on the "
-"<b>Plugin</b> tab."
-msgstr "אין באפשרות Shotwell לפרסם את הפריטים הנבחרים כיוון שאין לך תוסף פרסום תואם פעיל. כדי לתקן את הבעיה הזאת יש לבחור ב<b>עריכה %s העדפות</b> ולהפעיל אחד או יותר מתוספי הפרסום בלשונית <b>תוספים</b>."
+"<b>Plugins</b> tab."
+msgstr "Shotwell אינו יכול להעלות את התכנים המבוקשים מאחר ואין תוסף טעינה מתאים לשרות הנדרש. על מנת לתקן זאת, בחר באפשרות <b>ערוך העדפות %s</b> והפעל את אחד או יותר מתוספי ההעלאה בלשונית <b>תוספים</b>."
 
-#: src/publishing/PublishingUI.vala:474
-#: src/data_imports/DataImportsUI.vala:391
+#: src/publishing/PublishingUI.vala:448
+#: src/data_imports/DataImportsUI.vala:394
 msgid "_Close"
 msgstr "_סגירה"
-
-#: src/publishing/PublishingUI.vala:479 src/AppWindow.vala:614
-#: src/AppWindow.vala:632 src/AppWindow.vala:649 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:41 src/Dialogs.vala:1039
-#: src/Dialogs.vala:1062 src/data_imports/DataImportsUI.vala:396
-msgid "_Cancel"
-msgstr "_ביטול"
-
-#: src/publishing/Publishing.vala:16
-msgid "Publishing"
-msgstr "פרסום"
 
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
@@ -1041,333 +2366,681 @@ msgstr "לא ניתן להמשיך בפרסום אל %s כיוון שאירעה 
 msgid "To try publishing to another service, select one from the above menu."
 msgstr "כדי לנסות לפרסם לשירות אחד, יש לבחור באחד מהתפריט שלהלן."
 
-#: src/events/EventDirectoryItem.vala:74
-#, c-format
-msgid "%d Photo/Video"
-msgid_plural "%d Photos/Videos"
-msgstr[0] "%d תמונות/קטעי וידאו"
-msgstr[1] "תמונה/וידאו %d"
-
-#: src/events/EventDirectoryItem.vala:76 src/Properties.vala:321
-#, c-format
-msgid "%d Video"
-msgid_plural "%d Videos"
-msgstr[0] "קטע וידאו אחד"
-msgstr[1] "%d קטעי וידאו"
-
-#: src/events/EventDirectoryItem.vala:78 src/Properties.vala:319
-#, c-format
-msgid "%d Photo"
-msgid_plural "%d Photos"
-msgstr[0] "תמונה אחת"
-msgstr[1] "%d תמונות"
-
-#: src/events/EventPage.vala:86
-msgid "No Event"
-msgstr "אין אירועים"
-
-#: src/events/EventsDirectoryPage.vala:154
-msgid "No events"
-msgstr "אין אירועים"
-
-#: src/events/EventsDirectoryPage.vala:158
-msgid "No events found"
-msgstr "לא נמצאו אירועים"
-
-#: src/events/EventsDirectoryPage.vala:205
-msgid "Events"
-msgstr "אירועים"
-
-#: src/events/EventsDirectoryPage.vala:219
-msgid "Undated"
-msgstr "ללא תאריך"
-
-#: src/events/EventsDirectoryPage.vala:220
-msgid "%Y"
-msgstr "%Y"
-
-#: src/events/EventsDirectoryPage.vala:221
-msgid "%B"
-msgstr "%B"
-
-#: src/VideoSupport.vala:440
-msgid "Export Videos"
-msgstr "יצוא קטעי וידאו"
-
-#: src/main.vala:84
-#, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please use the latest version of Shotwell."
-msgstr "ספריית התמונות שלך אינה נתמכת בגרסה זו של Shotwell. נראה כי הספרייה נוצרה באמצעות Shotwell %s (סכמה %d). גרסה זו הנה %s (סכמה %d). נא להשתמש בגרסה העדכנית ביותר של Shotwell."
-
-#: src/main.vala:89
-#, c-format
-msgid ""
-"Shotwell was unable to upgrade your photo library from version %s (schema "
-"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
-"at %s"
-msgstr "לא עלה בידי Shotwell לשדרג את ספריית התמונות שלך מגרסה %s (סכמה%d) לגרסה %s (סכמה %d).  למידע נוסף ניתן לבקר באתר הוויקי של Shotwell בכתובת %s"
-
-#: src/main.vala:95
-#, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please clear your library by deleting %s and re-import your "
-"photos."
-msgstr "ספריית התמונות שלך אינה תואמת לגרסה זו של Shotwell.  נראה כי ספרייה זו נוצרה על ידי Shotwell %s (סכמה%d).  גרסה זו הנה %s (סכמה %d).  נא לפנות את ספריית התמונות שלך על ידי מחיקת %s ויבוא התמונות שלך מחדש."
-
-#: src/main.vala:101
-#, c-format
-msgid "Unknown error attempting to verify Shotwell's database: %s"
-msgstr "אירעה שגיאה בלתי ידועה בעת הניסיון לאימות מסד הנתונים של Shotwell: %s"
-
-#: src/main.vala:138
-msgid "Loading Shotwell"
-msgstr "Loading Shotwell"
-
-#: src/main.vala:376
-msgid "[FILE]"
-msgstr "[FILE]"
-
-#: src/main.vala:380
-#, c-format
-msgid "Run '%s --help' to see a full list of available command line options.\n"
-msgstr "Run '%s --help' to see a full list of available command line options.\n"
-
-#: src/AppWindow.vala:62
-msgid "Pin Toolbar"
-msgstr "הצמדת סרגל הכלים"
-
-#: src/AppWindow.vala:63
-msgid "Pin the toolbar open"
-msgstr "הצמדת סרגל הכלים שיישאר פתוח"
-
-#: src/AppWindow.vala:66 src/AppWindow.vala:144
-msgid "Leave fullscreen"
-msgstr "יציאה ממסך מלא"
-
-#: src/AppWindow.vala:143
-msgid "Leave _Fullscreen"
-msgstr "יציאה ממסך מ_לא"
-
-#: src/AppWindow.vala:496
-msgid "_Quit"
-msgstr "י_ציאה"
-
-#: src/AppWindow.vala:501
-msgid "_About"
-msgstr "על _אודות"
-
-#: src/AppWindow.vala:506
-msgid "Fulls_creen"
-msgstr "מ_סך מלא"
-
-#: src/AppWindow.vala:511
-msgid "_Contents"
-msgstr "_תכנים"
-
-#: src/AppWindow.vala:516
-msgid "_Frequently Asked Questions"
-msgstr "שאלות _נפוצות"
-
-#: src/AppWindow.vala:659
-#, c-format
-msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
-"\n"
-"%s"
-msgstr "אירעה שגיאה קריטית בעת הגישה לספרייה של Shotwell. ‏Shotwell לא תוכל להמשיך.\n\n%s"
-
-#: src/AppWindow.vala:679 plugins/common/Resources.vala:9
-msgid "Visit the Yorba web site"
-msgstr "ביקור באתר של Yorba"
-
-#: src/AppWindow.vala:691
-#, c-format
-msgid "Unable to display help: %s"
-msgstr "לא ניתן להציג את העזרה: %s"
-
-#: src/AppWindow.vala:699
-#, c-format
-msgid "Unable to display FAQ: %s"
-msgstr "לא ניתן להציג את השאלות הנפוצות: %s"
-
-#: src/Properties.vala:38
-msgid "%I:%M %p"
-msgstr "%H:%M"
-
-#: src/Properties.vala:50
-msgid "Today"
-msgstr "היום"
-
-#: src/Properties.vala:52
-msgid "Yesterday"
-msgstr "אתמול"
-
-#: src/Properties.vala:306 src/Dialogs.vala:966
-msgid "Title:"
-msgstr "כותרת:"
-
-#: src/Properties.vala:309
-msgid "Items:"
-msgstr "פריטים:"
-
-#: src/Properties.vala:312
-#, c-format
-msgid "%d Event"
-msgid_plural "%d Events"
-msgstr[0] "אירוע אחד"
-msgstr[1] "%d אירועים"
-
-#: src/Properties.vala:343
-msgid "Date:"
-msgstr "תאריך:"
-
-#: src/Properties.vala:347
-msgid "Time:"
-msgstr "שעה:"
-
-#: src/Properties.vala:350 src/Properties.vala:355
-msgid "From:"
-msgstr "מ־:"
-
-#: src/Properties.vala:351 src/Properties.vala:356
-msgid "To:"
-msgstr "עד:"
-
-#: src/Properties.vala:361 src/editing_tools/EditingTools.vala:2461
-msgid "Size:"
-msgstr "גודל:"
-
-#: src/Properties.vala:370
-msgid "Duration:"
-msgstr "משך:"
-
-#: src/Properties.vala:370
-#, c-format
-msgid "%.1f seconds"
-msgstr "%.1f שניות"
-
-#: src/Properties.vala:374
-msgid "Developer:"
-msgstr "מתכנת:"
-
-#: src/Properties.vala:402 src/Properties.vala:406 src/Properties.vala:413
-#: src/editing_tools/EditingTools.vala:2819
-msgid "Exposure:"
-msgstr "חשיפה:"
-
-#: src/Properties.vala:500
-msgid "Location:"
-msgstr "מיקום:"
-
-#: src/Properties.vala:502
-msgid "File size:"
-msgstr "גודל הקובץ:"
-
-#: src/Properties.vala:505
-msgid "Original dimensions:"
-msgstr "הממדים המקוריים:"
-
-#: src/Properties.vala:508
-msgid "Camera make:"
-msgstr "יצרן המצלמה:"
-
-#: src/Properties.vala:511
-msgid "Camera model:"
-msgstr "דגם המצלמה:"
-
-#: src/Properties.vala:514
-msgid "Flash:"
-msgstr "מבזק:"
-
-#: src/Properties.vala:516
-msgid "Focal length:"
-msgstr "אורך מוקדי:"
-
-#: src/Properties.vala:519
-msgid "Exposure bias:"
-msgstr "הטיית חשיפה:"
-
-#: src/Properties.vala:521
-msgid "GPS latitude:"
-msgstr "קו רוחב GPS:"
-
-#: src/Properties.vala:524
-msgid "GPS longitude:"
-msgstr "קו אורך GPS:"
-
-#: src/Properties.vala:527
-msgid "Artist:"
-msgstr "אמן:"
-
-#: src/Properties.vala:529
-msgid "Copyright:"
-msgstr "זכויות יוצרים:"
-
-#: src/Properties.vala:531
-msgid "Software:"
-msgstr "תכנה:"
-
-#: src/Properties.vala:540
-msgid "Extended Information"
-msgstr "פרטים מורחבים"
-
-#: src/Tag.vala:790
-msgid "untitled"
-msgstr "ללא שם"
-
-#: src/Event.vala:712
-#, c-format
-msgid "Event %s"
-msgstr "האירוע %s"
-
-#: src/faces/FacePage.vala:49
-msgid "F_aces"
-msgstr "פ_רצופים"
-
-#: src/faces/Branch.vala:90 src/Resources.vala:280 src/Resources.vala:281
-msgid "Faces"
-msgstr "פרצופים"
-
-#: src/CollectionPage.vala:428
-msgid "Export Photo/Video"
-msgstr "יצוא תמונות/קטעי וידאו"
-
-#: src/CollectionPage.vala:428
-msgid "Export Photos/Videos"
-msgstr "יצוא תמונות/קטעי וידאו"
-
-#: src/CollectionPage.vala:430 src/Dialogs.vala:86
-msgid "Export Photos"
-msgstr "יצוא תמונות"
-
-#: src/CollectionPage.vala:517 src/CollectionPage.vala:533
-msgid "Rotating"
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "פרסום"
+
+#: src/Resources.vala:18 plugins/shotwell-publishing/PicasaPublishing.vala:32
+#: plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:32
+#: plugins/shotwell-data-imports/FSpotImporter.vala:34
+msgid "Copyright 2009-2012 Yorba Foundation"
+msgstr "כל הזכויות שמורות 2009‏-2012 לעמותת יורבה"
+
+#: src/Resources.vala:131
+msgid "Rotate _Right"
+msgstr "סיבוב _ימינה"
+
+#: src/Resources.vala:132 src/Resources.vala:137
+msgid "Rotate"
 msgstr "סיבוב"
 
-#: src/CollectionPage.vala:517 src/CollectionPage.vala:533
-msgid "Undoing Rotate"
-msgstr "ביטול הסיבוב"
+#: src/Resources.vala:133
+msgid "Rotate Right"
+msgstr "סיבוב ימינה"
 
-#: src/CollectionPage.vala:542
-msgid "Flipping Horizontally"
+#: src/Resources.vala:134
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "סיבוב התמונות ימינה (לחיצה על Ctrl כדי לסובב שמאלה)"
+
+#: src/Resources.vala:136
+msgid "Rotate _Left"
+msgstr "סיבוב _שמאלה"
+
+#: src/Resources.vala:138
+msgid "Rotate Left"
+msgstr "סיבוב שמאלה"
+
+#: src/Resources.vala:139
+msgid "Rotate the photos left"
+msgstr "סיבוב התמונה שמאלה"
+
+#: src/Resources.vala:141
+msgid "Flip Hori_zontally"
+msgstr "היפוך או_פקית"
+
+#: src/Resources.vala:142
+msgid "Flip Horizontally"
 msgstr "היפוך אופקי"
 
-#: src/CollectionPage.vala:543
-msgid "Undoing Flip Horizontally"
-msgstr "ביטול היפוך אופקי"
+#: src/Resources.vala:144
+msgid "Flip Verti_cally"
+msgstr "היפוך א_נכי"
 
-#: src/CollectionPage.vala:552
-msgid "Flipping Vertically"
+#: src/Resources.vala:145
+msgid "Flip Vertically"
 msgstr "היפוך אנכי"
 
-#: src/CollectionPage.vala:553
-msgid "Undoing Flip Vertically"
-msgstr "ביטול היפוך אנכי"
+#: src/Resources.vala:147
+msgid "_Enhance"
+msgstr "_שיפור"
+
+#: src/Resources.vala:148
+msgid "Enhance"
+msgstr "שיפור"
+
+#: src/Resources.vala:149
+msgid "Automatically improve the photo's appearance"
+msgstr "שיפור חזות התמונה אוטומטית"
+
+#: src/Resources.vala:151
+msgid "_Crop"
+msgstr "_חיתוך"
+
+#: src/Resources.vala:152
+msgid "Crop"
+msgstr "חיתוך"
+
+#: src/Resources.vala:153
+msgid "Crop the photo's size"
+msgstr "חיתוך גודל התמונה"
+
+#: src/Resources.vala:155
+msgid "_Straighten"
+msgstr "יי_שור"
+
+#: src/Resources.vala:156
+msgid "Straighten"
+msgstr "יישור"
+
+#: src/Resources.vala:157
+msgid "Straighten the photo"
+msgstr "יישור התמונה"
+
+#: src/Resources.vala:159
+msgid "_Red-eye"
+msgstr "_עיניים אדומות"
+
+#: src/Resources.vala:160
+msgid "Red-eye"
+msgstr "עיניים אדומות"
+
+#: src/Resources.vala:161
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "הפחתת או העלמת אפקטים של עיניים אדומות בתמונה"
+
+#: src/Resources.vala:163
+msgid "_Adjust"
+msgstr "ה_תאמה"
+
+#: src/Resources.vala:164
+msgid "Adjust"
+msgstr "התאמה"
+
+#: src/Resources.vala:165
+msgid "Adjust the photo's color and tone"
+msgstr "התאמת גוון וצבע התמונה"
+
+#: src/Resources.vala:167
+msgid "Re_vert to Original"
+msgstr "_שחזור למקור"
+
+#: src/Resources.vala:168
+msgid "Revert to Original"
+msgstr "שחזור למקור"
+
+#: src/Resources.vala:170
+msgid "Revert External E_dits"
+msgstr "ביטול עריכות _חיצוניות"
+
+#: src/Resources.vala:171
+msgid "Revert to the master photo"
+msgstr "שחזור לתמונה הראשית"
+
+#: src/Resources.vala:173
+msgid "Set as _Desktop Background"
+msgstr "הגדרה כ_רקע שולחן העבודה"
+
+#: src/Resources.vala:174
+msgid "Set selected image to be the new desktop background"
+msgstr "הגדרת התמונה הנבחרת כרקע החדש לשולחן העבודה"
+
+#: src/Resources.vala:175
+msgid "Set as _Desktop Slideshow..."
+msgstr "הגדרה כ_מצגת שולחן העבודה..."
+
+#: src/Resources.vala:177
+msgid "_Undo"
+msgstr "_ביטול"
+
+#: src/Resources.vala:178
+msgid "Undo"
+msgstr "ביטול"
+
+#: src/Resources.vala:180
+msgid "_Redo"
+msgstr "ביצוע _חוזר"
+
+#: src/Resources.vala:181
+msgid "Redo"
+msgstr "ביצוע חוזר"
+
+#: src/Resources.vala:183
+msgid "Re_name Event..."
+msgstr "החלפת _שם האירוע..."
+
+#: src/Resources.vala:186
+msgid "Make _Key Photo for Event"
+msgstr "הגדרה לתמונה המיי_צגת לאירוע"
+
+#: src/Resources.vala:187
+msgid "Make Key Photo for Event"
+msgstr "הגדרה לתמונה המייצגת לאירוע"
+
+#: src/Resources.vala:189
+msgid "_New Event"
+msgstr "_אירוע חדש"
+
+#: src/Resources.vala:190
+msgid "New Event"
+msgstr "אירוע חדש"
+
+#: src/Resources.vala:192
+msgid "Move Photos"
+msgstr "העברת תמונות"
+
+#: src/Resources.vala:193
+msgid "Move photos to an event"
+msgstr "העברת תמונות לאירוע"
+
+#: src/Resources.vala:195
+msgid "_Merge Events"
+msgstr "מי_זוג אירועים"
+
+#: src/Resources.vala:196
+msgid "Merge"
+msgstr "מיזוג"
+
+#: src/Resources.vala:197
+msgid "Combine events into a single event"
+msgstr "חבר ארועים לארוע בודד"
+
+#: src/Resources.vala:199
+msgid "_Set Rating"
+msgstr "ה_גדרת דירוג"
+
+#: src/Resources.vala:200
+msgid "Set Rating"
+msgstr "הגדרת דירוג"
+
+#: src/Resources.vala:201
+msgid "Change the rating of your photo"
+msgstr "שינוי הדירוג לתמונה שלך"
+
+#: src/Resources.vala:203
+msgid "_Increase"
+msgstr "ה_גדלה"
+
+#: src/Resources.vala:204
+msgid "Increase Rating"
+msgstr "הגדלת הדירוג"
+
+#: src/Resources.vala:206
+msgid "_Decrease"
+msgstr "ה_פחתה"
+
+#: src/Resources.vala:207
+msgid "Decrease Rating"
+msgstr "הפחתת הדירוג"
+
+#: src/Resources.vala:209
+msgid "_Unrated"
+msgstr "_ללא דירוג"
+
+#: src/Resources.vala:210
+msgid "Unrated"
+msgstr "אין דירוג"
+
+#: src/Resources.vala:211
+msgid "Rate Unrated"
+msgstr "ביטול הדירוג"
+
+#: src/Resources.vala:212
+msgid "Setting as unrated"
+msgstr "הגדרה כלא מדורגת"
+
+#: src/Resources.vala:213
+msgid "Remove any ratings"
+msgstr "הסרת כל הדירוגים"
+
+#: src/Resources.vala:215
+msgid "_Rejected"
+msgstr "ד_חויהה"
+
+#: src/Resources.vala:216
+msgid "Rejected"
+msgstr "נדחה"
+
+#: src/Resources.vala:217
+msgid "Rate Rejected"
+msgstr "דירוג דחויה"
+
+#: src/Resources.vala:218
+msgid "Setting as rejected"
+msgstr "דרג כדחויה"
+
+#: src/Resources.vala:219
+msgid "Set rating to rejected"
+msgstr "הגדרת הדירוג לדחויה"
+
+#: src/Resources.vala:221
+msgid "Rejected _Only"
+msgstr "נדחות _בלבד"
+
+#: src/Resources.vala:222
+msgid "Rejected Only"
+msgstr "הנדחות בלבד"
+
+#: src/Resources.vala:223
+msgid "Show only rejected photos"
+msgstr "הצגות התמונות שנדחו בלבד"
+
+#: src/Resources.vala:225
+msgid "All + _Rejected"
+msgstr "הכול + _דחויות"
+
+#: src/Resources.vala:226 src/Resources.vala:227
+msgid "Show all photos, including rejected"
+msgstr "הצגת כל התמונות, לרבות אלו שנדחו"
+
+#: src/Resources.vala:229
+msgid "_All Photos"
+msgstr "_כל התמונות"
+
+#: src/Resources.vala:230 src/Resources.vala:231
+msgid "Show all photos"
+msgstr "הצגת כל התמונות"
+
+#: src/Resources.vala:233
+msgid "_Ratings"
+msgstr "_דירוגים"
+
+#: src/Resources.vala:234
+msgid "Display each photo's rating"
+msgstr "הצגת הדירוג של כל תמונה"
+
+#: src/Resources.vala:236
+msgid "_Filter Photos"
+msgstr "_סינון תמונות"
+
+#: src/Resources.vala:237
+msgid "Filter Photos"
+msgstr "סינון תמונות"
+
+#: src/Resources.vala:238
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "הגבלת מספר התמונות המוצגות בהתאם למסנן"
+
+#: src/Resources.vala:240
+msgid "_Duplicate"
+msgstr "_שכפול"
+
+#: src/Resources.vala:241
+msgid "Duplicate"
+msgstr "שכפול"
+
+#: src/Resources.vala:242
+msgid "Make a duplicate of the photo"
+msgstr "שכפול התמונה"
+
+#: src/Resources.vala:244
+msgid "_Export..."
+msgstr "י_צוא..."
+
+#: src/Resources.vala:246
+msgid "_Print..."
+msgstr "ה_דפסה..."
+
+#: src/Resources.vala:248
+msgid "Pu_blish..."
+msgstr "פ_רסום..."
+
+#: src/Resources.vala:249
+msgid "Publish"
+msgstr "פרסום"
+
+#: src/Resources.vala:250
+msgid "Publish to various websites"
+msgstr "פרסום למגוון של אתרים"
+
+#: src/Resources.vala:252
+msgid "Edit _Title..."
+msgstr "_עריכת הכותרת..."
+
+#: src/Resources.vala:255
+msgid "_Adjust Date and Time..."
+msgstr "_כיוון התאריך והשעה..."
+
+#: src/Resources.vala:256
+msgid "Adjust Date and Time"
+msgstr "כיוון תאריך ושעה"
+
+#: src/Resources.vala:258
+msgid "Add _Tags..."
+msgstr "הוספת _תגיות..."
+
+#: src/Resources.vala:259
+msgid "_Add Tags..."
+msgstr "_הוסף תגיות..."
+
+#: src/Resources.vala:260 src/Resources.vala:291
+msgid "Add Tags"
+msgstr "הוספת תגיות"
+
+#: src/Resources.vala:262
+msgid "_Preferences"
+msgstr "ה_עדפות"
+
+#: src/Resources.vala:264
+msgid "Open With E_xternal Editor"
+msgstr "פתיחה בעורך _חיצוני"
+
+#: src/Resources.vala:266
+msgid "Open With RA_W Editor"
+msgstr "פתיחה באמצעות _עורך RAW"
+
+#: src/Resources.vala:268
+msgid "Send _To..."
+msgstr "שליחה _אל..."
+
+#: src/Resources.vala:269
+msgid "Send T_o..."
+msgstr "_שלח ל..."
+
+#: src/Resources.vala:271
+msgid "_Find..."
+msgstr "חיפוש..."
+
+#: src/Resources.vala:272
+msgid "Find"
+msgstr "חיפוש"
+
+#: src/Resources.vala:273
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr "חיפוש תמונה על ידי הקלדת הטקסט המופיע בשמה או בתגיות שלה"
+
+#: src/Resources.vala:275
+msgid "_Flag"
+msgstr "סימון ב_דגל"
+
+#: src/Resources.vala:277
+msgid "Un_flag"
+msgstr "_ביטול הדגל"
+
+#: src/Resources.vala:280
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "לא ניתן להפעיל את העורך: %s"
+
+#: src/Resources.vala:285
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "הוספת התגית \"%s\""
+
+#: src/Resources.vala:287
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "הוספת התגיות \"%s\" ו \"%s\""
+
+#: src/Resources.vala:295
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "מ_חיקת התגית \"%s\""
+
+#: src/Resources.vala:299
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "מחיקת התגית \"%s\""
+
+#: src/Resources.vala:302
+msgid "Delete Tag"
+msgstr "מחיקת תגית"
+
+#: src/Resources.vala:305
+msgid "_New"
+msgstr "_חדש"
+
+#: src/Resources.vala:308
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "_שינוי שם התגית \"%s\"..."
+
+#: src/Resources.vala:312
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "שינוי שם התגית \"%s\" ל־\"%s\""
+
+#: src/Resources.vala:315
+msgid "_Rename..."
+msgstr "_שינוי שם..."
+
+#: src/Resources.vala:317
+msgid "Modif_y Tags..."
+msgstr "ה_חלפת תגיות..."
+
+#: src/Resources.vala:318
+msgid "Modify Tags"
+msgstr "החלפת התגיות"
+
+#: src/Resources.vala:321
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "תיוג התמונות בתור \"%s\""
+
+#: src/Resources.vala:321
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "תיוג תמונות בתור \"%s\""
+
+#: src/Resources.vala:325
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "תיוג התמונות הנבחרות בתור \"%s\""
+
+#: src/Resources.vala:326
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "תיוג התמונות הנבחרות בתור \"%s\""
+
+#: src/Resources.vala:330
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "הסרת התגית \"%s\" מתמו_נות"
+
+#: src/Resources.vala:331
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "הסרת התגית \"%s\" מה_תמונות"
+
+#: src/Resources.vala:335
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "הסרת התגית \"%s\" מתמונות"
+
+#: src/Resources.vala:336
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "הסרת התגית \"%s\" מהתמונות"
+
+#: src/Resources.vala:340
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr "לא ניתן לשנות את שם התגית ל־\"%s\" כיוון שהתגית כבר קיימת."
+
+#: src/Resources.vala:344
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr "לא ניתן לשנות את שם החיפוש ל־\"%s\" כיוון שהחיפוש כבר קיים."
+
+#: src/Resources.vala:347
+msgid "Saved Search"
+msgstr "חיפוש שנשמר"
+
+#: src/Resources.vala:349
+msgid "Delete Search"
+msgstr "מחיקת החיפוש"
+
+#: src/Resources.vala:352
+msgid "_Edit..."
+msgstr "ע_ריכה..."
+
+#: src/Resources.vala:353
+msgid "Re_name..."
+msgstr "_שינוי שם..."
+
+#: src/Resources.vala:356
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "שינוי שם החיפוש \"%s\" לשם \"%s\""
+
+#: src/Resources.vala:360
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "מחיקת החיפוש \"%s\""
+
+#: src/Resources.vala:517
+#, c-format
+msgid "Rate %s"
+msgstr "דירוג %s"
+
+#: src/Resources.vala:518
+#, c-format
+msgid "Set rating to %s"
+msgstr "הגדרת הדירוג ל־%s"
+
+#: src/Resources.vala:519
+#, c-format
+msgid "Setting rating to %s"
+msgstr "הדירוג מוגדר ל־%s"
+
+#: src/Resources.vala:521
+#, c-format
+msgid "Display %s"
+msgstr "הצגת %s"
+
+#: src/Resources.vala:522
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "יש להציג תמונות בדירוג %s בלבד"
+
+#: src/Resources.vala:523
+#, c-format
+msgid "%s or Better"
+msgstr "%s ומעלה"
+
+#: src/Resources.vala:524
+#, c-format
+msgid "Display %s or Better"
+msgstr "הצגת %s ומעלה"
+
+#: src/Resources.vala:525
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr "רק תמונות בעלות דירוג של %s ומעלה"
+
+#: src/Resources.vala:616
+msgid "Remove the selected photos from the trash"
+msgstr "הסרת התמונות הנבחרות מהאשפה"
+
+#: src/Resources.vala:617
+msgid "Remove the selected photos from the library"
+msgstr "הסרת התמונות הנבחרות מהספרייה."
+
+#: src/Resources.vala:619
+msgid "_Restore"
+msgstr "_שחזור"
+
+#: src/Resources.vala:620
+msgid "Move the selected photos back into the library"
+msgstr "העברת התמונות הנבחרות בחזרה לספרייה"
+
+#: src/Resources.vala:622
+msgid "Show in File Mana_ger"
+msgstr "הצ_גה במנהל הקבצים"
+
+#: src/Resources.vala:623
+msgid "Open the selected photo's directory in the file manager"
+msgstr "פתיחת תיקיית התמונה הנבחרת במנהל הקבצים"
+
+#: src/Resources.vala:626
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "לא ניתן לפתוח במנהל הקבצים: %s"
+
+#: src/Resources.vala:629
+msgid "R_emove From Library"
+msgstr "ה_סרה מהספרייה"
+
+#: src/Resources.vala:631
+msgid "_Move to Trash"
+msgstr "ה_עברה לאשפה"
+
+#: src/Resources.vala:633
+msgid "Select _All"
+msgstr "בחירת ה_כול"
+
+#: src/Resources.vala:634
+msgid "Select all items"
+msgstr "בחירת כל הפריטים"
+
+# For events that span exactly two days, the dates in the event name are
+# formatted like so: "Tuesday, Feb 14-15, YYYY", where YYYY is a four-digit
+# year.
+# This string is the "Tuesday, Feb 14" portion. You should translate %a %b %d
+# so
+# that it describes a day of the week, a month, and a calendar day in the
+# format
+# used in your language and region. The format string you enter should conform
+# to
+# POSIX date and time formatting conventions. Please see the strftime(3)
+# manpage
+# for a list of format specifiers and their meanings.
+# 
+#: src/util/misc.vala:231 src/util/misc.vala:236
+msgid "%a %b %d"
+msgstr "%a ה־%d ב%b"
+
+# For events that span exactly two days, the dates in the event name are
+# formatted like so: "Tuesday, Feb 14-15, YYYY", where YYYY is a four-digit
+# year.
+# This string is the "15, YYYY" portion. You should translate %d, %Y so that
+# it
+# describes a calendar day and a four-digit year in the format used in your
+# language and region. The format string you enter should conform to POSIX
+# date and time formatting conventions. Please see the strftime(3) manpage for
+# a list of format specifiers and their meanings.
+# 
+#: src/util/misc.vala:232
+msgid "%d, %Y"
+msgstr "%d %Y"
+
+# This is a date and time format string corresponding to a US-style long-form
+# date (e.g. "Wednesday April 4, 2012"). You should translate this string into
+# a long-form date appropriate to your language, country and region. See the
+# strftime(3) man page for more information about what format specifiers are
+# available.
+# 
+#: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
+#: src/util/misc.vala:251
+msgid "%a %b %d, %Y"
+msgstr "%a ה־%b ב%d, %Y"
+
+#: src/DirectoryMonitor.vala:885
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "לא ניתן לעקוב אחר %s: לא תיקייה (%s)"
 
 #: src/BatchImport.vala:25
 msgid "Success"
@@ -1426,1749 +3099,143 @@ msgstr "שגיאת כתיבה לקובץ"
 msgid "Imported failed (%d)"
 msgstr "המיובאות כשלו (%d)"
 
-#: src/Dialogs.vala:16
-#, c-format
-msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] "פעולה זו תסיר את התגית \"%s\" מתמונה %d. להמשיך?"
-msgstr[1] "פעולה זו תסיר את התגית \"%s\" מ־%d תמונות. להמשיך?"
+#: src/MediaPage.vala:143
+msgid "Adjust the size of the thumbnails"
+msgstr "התאמת גודל התמונות הממוזערות"
 
-#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:41
-#: src/Dialogs.vala:1007 src/Resources.vala:285 src/Resources.vala:313
-#: src/Resources.vala:361 src/Resources.vala:655
-msgid "_Delete"
-msgstr "מ_חיקה"
+#: src/MediaPage.vala:324
+msgid "Increase the magnification of the thumbnails"
+msgstr "הגדלת רמת התקריב בתמונות הממוזערות"
 
-#: src/Dialogs.vala:25
-#, c-format
-msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr "פעולה זו תסיר את החיפוש השמור \"%s\".  להמשיך?"
+#: src/MediaPage.vala:330
+msgid "Decrease the magnification of the thumbnails"
+msgstr "הקטנת רמת התקריב בתמונות הממוזערות"
 
-#: src/Dialogs.vala:37
-#, c-format
-msgid "This will remove the face \"%s\" from one photo.  Continue?"
-msgid_plural "This will remove the face \"%s\" from %d photos.  Continue?"
-msgstr[0] "פעולה זו תסיר את הפרצוף \"%s\" מתמונה אחת.  האם להמשיך?"
-msgstr[1] "פעולה זו תסיר את הפרצוף \"%s\" מ־%d תמונות.  להמשיך?"
+#: src/MediaPage.vala:392
+msgid "Sort _Photos"
+msgstr "_סידור תמונות"
 
-#: src/Dialogs.vala:57
-msgid "Export Video"
-msgstr "יצוא וידאו"
+#: src/MediaPage.vala:401
+msgid "_Play Video"
+msgstr "נגינת _וידאו"
 
-#: src/Dialogs.vala:114
+#: src/MediaPage.vala:402
+msgid "Open the selected videos in the system video player"
+msgstr "פתיחת קטעי הווידאו הנבחרים בנגן הווידאו של המערכת"
+
+#: src/MediaPage.vala:442
+msgid "Display each photo's tags"
+msgstr "הצגת התגיות עבור כל תמונה"
+
+#: src/MediaPage.vala:458
+msgid "By _Title"
+msgstr "לפי _כותרת"
+
+#: src/MediaPage.vala:459
+msgid "Sort photos by title"
+msgstr "סידור התמונות לפי כותרת"
+
+#: src/MediaPage.vala:464
+msgid "By Exposure _Date"
+msgstr "לפי תאריך _חשיפה"
+
+#: src/MediaPage.vala:465
+msgid "Sort photos by exposure date"
+msgstr "דירוג התמונות לפי תאריך החשיפה"
+
+#: src/MediaPage.vala:470
+msgid "By _Rating"
+msgstr "לפי _דירוג"
+
+#: src/MediaPage.vala:471
+msgid "Sort photos by rating"
+msgstr "סידור התמונות לפי דירוג"
+
+#: src/MediaPage.vala:688
 #, c-format
 msgid ""
-"Shotwell couldn't create a file for editing this photo because you do not "
-"have permission to write to %s."
-msgstr "אין באפשרות Shotwell ליצור קובץ לעריכת תמונה זו כיוון שאין לך הרשאות לכתוב אל %s."
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr "לא הייתה באפשרות Shotwell לנגן את הווידאו הבא:\n%s"
 
-#: src/Dialogs.vala:123
+#: src/Event.vala:710
+#, c-format
+msgid "Event %s"
+msgstr "האירוע %s"
+
+#: src/events/EventPage.vala:86
+msgid "No Event"
+msgstr "אין אירועים"
+
+#: src/events/EventDirectoryItem.vala:74
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d תמונות/קטעי וידאו"
+msgstr[1] "תמונה/וידאו %d"
+
+#: src/events/EventsDirectoryPage.vala:134
+msgid "No events"
+msgstr "אין אירועים"
+
+#: src/events/EventsDirectoryPage.vala:138
+msgid "No events found"
+msgstr "לא נמצאו אירועים"
+
+#: src/events/EventsDirectoryPage.vala:185
+msgid "Events"
+msgstr "אירועים"
+
+#: src/events/EventsDirectoryPage.vala:199
+msgid "Undated"
+msgstr "ללא תאריך"
+
+#: src/events/EventsDirectoryPage.vala:200
+msgid "%Y"
+msgstr "%Y"
+
+#: src/events/EventsDirectoryPage.vala:201
+msgid "%B"
+msgstr "%B"
+
+#: src/data_imports/DataImportsUI.vala:10
 msgid ""
-"Unable to export the following photo due to a file error.\n"
+"You do not have any data imports plugins enabled.\n"
 "\n"
-msgstr "לא ניתן לייצא את התמונה הבאה עקב שגיאת קובץ.\n\n"
+"In order to use the Import From Application functionality, you need to have at least one data imports plugin enabled. Plugins can be enabled in the Preferences dialog."
+msgstr "אין לך שום תוספי יבוא נתונים פעילים.\n\nעל מנת להשתמש בתכונת הייבוא מתוך יישום צריך שיהיה לך לפחות תוסף אחד של יבוא נתונים פעיל. ניתן להפעיל תוספים בדו־שיח ההעדפות."
 
-#: src/Dialogs.vala:129
-msgid ""
-"\n"
-"\n"
-"Would you like to continue exporting?"
-msgstr "\n\nהאם ברצונך להמשיך ביצוא?"
+#: src/data_imports/DataImportsUI.vala:100
+msgid "Database file:"
+msgstr "קובץ מסד נתונים:"
 
-#: src/Dialogs.vala:130 plugins/shotwell-publishing/FlickrPublishing.vala:703
-msgid "Con_tinue"
-msgstr "המ_שך"
+#: src/data_imports/DataImportsUI.vala:216
+msgid "Import From Application"
+msgstr "יבוא מיישום"
 
-#: src/Dialogs.vala:146
-msgid "Unmodified"
-msgstr "ללא שינוי"
+#: src/data_imports/DataImportsUI.vala:217
+msgid "Import media _from:"
+msgstr "יבוא מדיה מהמי_קום:"
 
-#: src/Dialogs.vala:147
-msgid "Current"
-msgstr "נוכחי"
+#: src/data_imports/DataImports.vala:22
+msgid "Data Imports"
+msgstr "יבוא נתונים"
 
-#: src/Dialogs.vala:211
-msgid "_Format:"
-msgstr "מ_בנה:"
-
-#: src/Dialogs.vala:214
-msgid "_Quality:"
-msgstr "_איכות:"
-
-#: src/Dialogs.vala:217
-msgid "_Scaling constraint:"
-msgstr "_אילוץ שמירת יחס:"
-
-#: src/Dialogs.vala:220
-msgid " _pixels"
-msgstr " _פיקסלים"
-
-#: src/Dialogs.vala:228
-msgid "Export metadata"
-msgstr "יצוא נתוני העל"
-
-#: src/Dialogs.vala:471
-#, c-format
-msgid "(and %d more)\n"
-msgstr "(ועוד %d)\n"
-
-#: src/Dialogs.vala:527
-#, c-format
-msgid "1 duplicate photo was not imported:\n"
-msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] "תמונה משוכפלת אחת לא יובאה:\n"
-msgstr[1] "%d תמונות משוכפלות לא יובאו:\n"
-
-#: src/Dialogs.vala:530
-#, c-format
-msgid "1 duplicate video was not imported:\n"
-msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] "קטע וידאו משוכפל אחד לא יובא:\n"
-msgstr[1] "%d קטעי וידאו משוכפלים לא יובאו:\n"
-
-#: src/Dialogs.vala:533
-#, c-format
-msgid "1 duplicate photo/video was not imported:\n"
-msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] "תמונה משוכפלת או קטע וידאו משוכפל לא יובאו:\n"
-msgstr[1] "%d תמונות/קטעי וידאו משוכפלים לא יובאו:\n"
-
-#: src/Dialogs.vala:547
-#, c-format
-msgid "1 photo failed to import due to a file or hardware error:\n"
-msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] "אירע כשל ביבוא אחת התמונות עקב שגיאת חומרה או קובץ:\n"
-msgstr[1] "אירע כשל ביבוא %d מהתמונות עקב שגיאת חומרה או קובץ:\n"
-
-#: src/Dialogs.vala:550
-#, c-format
-msgid "1 video failed to import due to a file or hardware error:\n"
-msgid_plural "%d videos failed to import due to a file or hardware error:\n"
-msgstr[0] "אירע כשל ביבוא אחד מקטעי הווידאו עקב שגיאת חומרה או קובץ:\n"
-msgstr[1] "אירע כשל ביבוא %d מהתמונות או מקטעי הווידאו עקב שגיאת חומרה או קובץ:\n"
-
-#: src/Dialogs.vala:553
-#, c-format
-msgid "1 photo/video failed to import due to a file or hardware error:\n"
-msgid_plural ""
-"%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] "אירע כשל ביבוא אחת התמונות/אחד מקטעי הווידאו עקב שגיאת חומרה או קובץ:\n"
-msgstr[1] "אירע כשל ביבוא %d מהתמונות/קטעי הווידאו עקב שגיאת חומרה או קובץ:\n"
-
-#: src/Dialogs.vala:556
-#, c-format
-msgid "1 file failed to import due to a file or hardware error:\n"
-msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] "יבוא של אחד הקבצים כשל עקב שגיאה בקובץ או בחומרה:\n"
-msgstr[1] "יבוא של %d מהקבצים נכשל עקב שגיאה בקובץ או בחומרה:\n"
-
-#: src/Dialogs.vala:570
-#, c-format
-msgid ""
-"1 photo failed to import because the photo library folder was not "
-"writable:\n"
-msgid_plural ""
-"%d photos failed to import because the photo library folder was not "
-"writable:\n"
-msgstr[0] "היבוא של אחת מהתמונות נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
-msgstr[1] "היבוא של %d התמונות נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
-
-#: src/Dialogs.vala:573
-#, c-format
-msgid ""
-"1 video failed to import because the photo library folder was not "
-"writable:\n"
-msgid_plural ""
-"%d videos failed to import because the photo library folder was not "
-"writable:\n"
-msgstr[0] "היבוא של אחד מקטעי הווידאו נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
-msgstr[1] "היבוא של %d קטעי הווידאו נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
-
-#: src/Dialogs.vala:576
-#, c-format
-msgid ""
-"1 photo/video failed to import because the photo library folder was not "
-"writable:\n"
-msgid_plural ""
-"%d photos/videos failed to import because the photo library folder was not "
-"writable:\n"
-msgstr[0] "היבוא של 1 מהתמונות/מקטעי הווידאו נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
-msgstr[1] "היבוא של %d מהתמונות/מקטעי הווידאו נכשל כיוון שהתיקייה בה נמצאת ספריית התמונות אינה ניתנת לכתיבה:\n"
-
-#: src/Dialogs.vala:579
-#, c-format
-msgid ""
-"1 file failed to import because the photo library folder was not writable:\n"
-msgid_plural ""
-"%d files failed to import because the photo library folder was not "
-"writable:\n"
-msgstr[0] "יבוא אחד הקבצים נכשל כיוון שתיקיית ספריית התמונות סגורה בפני כתיבה:\n"
-msgstr[1] "יבוא %d מהקבצים נכשל כיוון שתיקיית ספריית התמונות סגורה בפני כתיבה:\n"
-
-#: src/Dialogs.vala:593
-#, c-format
-msgid "1 photo failed to import due to a camera error:\n"
-msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] "אירע כשל ביבוא אחת מהתמונות עקב שגיאה במצלמה:\n"
-msgstr[1] "אירע כשל ביבוא %d מהתמונות עקב שגיאה במצלמה:\n"
-
-#: src/Dialogs.vala:596
-#, c-format
-msgid "1 video failed to import due to a camera error:\n"
-msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] "אירע כשל ביבוא אחד מקטעי הווידאו עקב שגיאה במצלמה:\n"
-msgstr[1] "אירע כשל ביבוא %d מקטעי הווידאו עקב שגיאה במצלמה:\n"
-
-#: src/Dialogs.vala:599
-#, c-format
-msgid "1 photo/video failed to import due to a camera error:\n"
-msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] "אירע כשל ביבוא אחת מהתמונות/אחד מקטעי הווידאו עקב שגיאה במצלמה:\n"
-msgstr[1] "אירע כשל ביבוא %d מהתמונות/קטעי הווידאו עקב שגיאה במצלמה:\n"
-
-#: src/Dialogs.vala:602
-#, c-format
-msgid "1 file failed to import due to a camera error:\n"
-msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] "יבוא אחד הקבצים נכשל עקב שגיאת מצלמה:\n"
-msgstr[1] "יבוא %d מהקבצים נכשל עקב שגיאת מצלמה:\n"
-
-#: src/Dialogs.vala:619
-#, c-format
-msgid "1 unsupported photo skipped:\n"
-msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] "בוצע דילוג על תמונה אחת שאינה נתמכת:\n"
-msgstr[1] "בוצע דילוג על %d תמונות שאינן נתמכות:\n"
-
-#: src/Dialogs.vala:634
-#, c-format
-msgid "1 non-image file skipped.\n"
-msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "בוצע דילוג על קובץ אחד שאינו תמונה.\n"
-msgstr[1] "בוצע דילוג על %d קבצים שאינם תמונה.\n"
-
-#: src/Dialogs.vala:645
-#, c-format
-msgid "1 photo skipped due to user cancel:\n"
-msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] "בוצע דילוג על תמונה אחת עקב ביטול המשתמש:\n"
-msgstr[1] "בוצע דילוג על %d תמונות עקב ביטול המשתמש:\n"
-
-#: src/Dialogs.vala:648
-#, c-format
-msgid "1 video skipped due to user cancel:\n"
-msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] "בוצע דילוג על וידאו אחד עקב ביטול המשתמש:\n"
-msgstr[1] "בוצע דילוג על %d קטעי וידאו עקב ביטול המשתמש:\n"
-
-#: src/Dialogs.vala:651
-#, c-format
-msgid "1 photo/video skipped due to user cancel:\n"
-msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] "בוצע דילוג על תמונה אחת/וידאו אחד עקב ביטול המשתמש:\n"
-msgstr[1] "בוצע דילוג על %d תמונות/קטעי וידאו עקב ביטול המשתמש:\n"
-
-#: src/Dialogs.vala:654
-#, c-format
-msgid "1 file skipped due to user cancel:\n"
-msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] "קובץ אחד נפסח עקב ביטול המשתמש:\n"
-msgstr[1] "%d קבצים נפסחו עקב ביטול המשתמש:\n"
-
-#: src/Dialogs.vala:668
-#, c-format
-msgid "1 photo successfully imported.\n"
-msgid_plural "%d photos successfully imported.\n"
-msgstr[0] "תמונה אחת יובאה בהצלחה.\n"
-msgstr[1] "%d תמונות יובאו בהצלחה.\n"
-
-#: src/Dialogs.vala:671
-#, c-format
-msgid "1 video successfully imported.\n"
-msgid_plural "%d videos successfully imported.\n"
-msgstr[0] "קטע וידאו אחד יובא בהצלחה.\n"
-msgstr[1] "%d קטעי וידאו יובאו בהצלחה.\n"
-
-#: src/Dialogs.vala:674
-#, c-format
-msgid "1 photo/video successfully imported.\n"
-msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] "תמונה אחת/וידאו אחד יובאו בהצלחה.\n"
-msgstr[1] "%d תמונות/קטעי וידאו יובאו בהצלחה.\n"
-
-#: src/Dialogs.vala:690
-msgid "No photos or videos imported.\n"
-msgstr "לא יובאו כלל תמונות או קטעי וידאו.\n"
-
-#: src/Dialogs.vala:705
-msgid "Import Complete"
-msgstr "היבוא הושלם"
-
-#: src/Dialogs.vala:867
-#, c-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "שנייה אחת"
-msgstr[1] "%d שניות"
-
-#: src/Dialogs.vala:870
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "דקה אחת"
-msgstr[1] "%d דקות"
-
-#: src/Dialogs.vala:874
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "שעה אחת"
-msgstr[1] "%d שעות"
-
-#: src/Dialogs.vala:877
-msgid "1 day"
-msgstr "יום אחד"
-
-#: src/Dialogs.vala:956 src/Resources.vala:187
-msgid "Rename Event"
-msgstr "שינוי שם האירוע"
-
-#: src/Dialogs.vala:956
-msgid "Name:"
-msgstr "שם:"
-
-#: src/Dialogs.vala:966 src/Resources.vala:255
-msgid "Edit Title"
-msgstr "עריכת הכותרת"
-
-#: src/Dialogs.vala:982
-msgid "_Trash File"
-msgid_plural "_Trash Files"
-msgstr[0] "שליחת קובץ ל_אשפה"
-msgstr[1] "שליחת קבצים ל_אשפה"
-
-#: src/Dialogs.vala:986
-msgid "Only _Remove"
-msgstr "ה_סרה בלבד"
-
-#: src/Dialogs.vala:1029
-msgid "Revert External Edit?"
-msgstr "האם לשחזר עריכות חיצוניות?"
-
-#: src/Dialogs.vala:1029
-msgid "Revert External Edits?"
-msgstr "האם לבטל את העריכות החיצוניות?"
-
-#: src/Dialogs.vala:1031
-#, c-format
-msgid "This will destroy all changes made to the external file.  Continue?"
-msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
-msgstr[0] "פעולה זו תשמיד את כל השינויים שבוצעו בקובץ החיצוני. להמשיך?"
-msgstr[1] "פעולה זו תשמיד את כל השינויים שבוצעו ב־%d קבצים חיצוניים. להמשיך?"
-
-#: src/Dialogs.vala:1035
-msgid "Re_vert External Edit"
-msgstr "_ביטול העריכות החיצונית"
-
-#: src/Dialogs.vala:1035
-msgid "Re_vert External Edits"
-msgstr "בי_טול העריכות החיצוניות"
-
-#: src/Dialogs.vala:1056
-#, c-format
-msgid "This will remove the photo from the library.  Continue?"
-msgid_plural "This will remove %d photos from the library.  Continue?"
-msgstr[0] "פעולה זו תסיר את התמונה מהספרייה.  להמשיך?"
-msgstr[1] "פעולה זו תסיר %d תמונות מהספרייה.  להמשיך?"
-
-#: src/Dialogs.vala:1063
-msgid "_Remove"
-msgstr "ה_סרה"
-
-#: src/Dialogs.vala:1064
-msgid "Remove Photo From Library"
-msgstr "הסרת תמונות מהספרייה"
-
-#: src/Dialogs.vala:1064
-msgid "Remove Photos From Library"
-msgstr "הסרת תמונות מהספרייה"
-
-#: src/Dialogs.vala:1158
-#, c-format
-msgid "%d%%"
-msgstr "%d%%"
-
-#: src/Dialogs.vala:1302
-msgid "AM"
-msgstr "AM"
-
-#: src/Dialogs.vala:1303
-msgid "PM"
-msgstr "PM"
-
-#: src/Dialogs.vala:1304
-msgid "24 Hr"
-msgstr "24 שעות"
-
-#: src/Dialogs.vala:1319
-msgid "_Shift photos/videos by the same amount"
-msgstr "ה_זחת התמונות/קטעי הווידאו באותו האופן"
-
-#: src/Dialogs.vala:1324
-msgid "Set _all photos/videos to this time"
-msgstr "ה_גדרת כל התמונות/קטעי הווידאו למועד זה"
-
-#: src/Dialogs.vala:1330
-msgid "_Modify original file"
-msgstr "_שינוי הקבצים המקוריים"
-
-#: src/Dialogs.vala:1330
-msgid "_Modify original files"
-msgstr "_שינוי קובצי המקור"
-
-#: src/Dialogs.vala:1413
-msgid "Original: "
-msgstr "מקור:"
-
-# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
-# 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
-# %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format
-# used in your language and region. The format string you enter should conform
-# to POSIX date and time formatting conventions. See the strftime manpage for
-# a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1414
-msgid "%m/%d/%Y, %H:%M:%S"
-msgstr "%d/%m/%Y, %H:%M:%S"
-
-# The string %m/%d/%y, %I:%M:%S %p is a format string that describes a
-# U.S.-style
-# 12 hour date and time with an am/pm specifier (e.g. 9/22/2009, 1:15:04 PM).
-# You
-# should translate %m/%d/%y, %I:%M:%S %p so that it describes the 12 hour date
-# and time format used in your language and region. If 12 hour time isn't used
-# in
-# your region, then use a format string for 24 hour time. The format string
-# you
-# enter should conform to POSIX date and time formatting conventions. See the
-# strftime manpage for a list of format specifiers and their meanings.
-#: src/Dialogs.vala:1415
-msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%d/%m/%Y, %I:%M:%S %p"
-
-#: src/Dialogs.vala:1504
-#, c-format
-msgid ""
-"Exposure time will be shifted forward by\n"
-"%d %s, %d %s, %d %s, and %d %s."
-msgstr "זמן החשיפה יוארך ב־\n%d %s, %d %s, %d %sו־ %d %s."
-
-#: src/Dialogs.vala:1505
-#, c-format
-msgid ""
-"Exposure time will be shifted backward by\n"
-"%d %s, %d %s, %d %s, and %d %s."
-msgstr "זמן החשיפה יוקדם ב־\n%d %s, %d %s, %d %sו־ %d %s."
-
-#: src/Dialogs.vala:1507
-msgid "day"
-msgid_plural "days"
-msgstr[0] "יום"
-msgstr[1] "ימים"
-
-#: src/Dialogs.vala:1508
-msgid "hour"
-msgid_plural "hours"
-msgstr[0] "שעה"
-msgstr[1] "שעות"
-
-#: src/Dialogs.vala:1509
-msgid "minute"
-msgid_plural "minutes"
-msgstr[0] "דקה"
-msgstr[1] "דקות"
-
-#: src/Dialogs.vala:1510
-msgid "second"
-msgid_plural "seconds"
-msgstr[0] "שנייה"
-msgstr[1] "שניות"
-
-#: src/Dialogs.vala:1554
-#, c-format
-msgid ""
-"\n"
-"\n"
-"And %d other."
-msgid_plural ""
-"\n"
-"\n"
-"And %d others."
-msgstr[0] "\n\nואחד נוסף"
-msgstr[1] "\n\nו־%d נוספים."
-
-#: src/Dialogs.vala:1576 src/Dialogs.vala:1603
-msgid "Tags (separated by commas):"
-msgstr "תגיות (מופרדות בפסיקים):"
-
-#: src/Dialogs.vala:1682
-msgid "Welcome!"
-msgstr "ברוך בואך!"
-
-#: src/Dialogs.vala:1689
-#, c-format
-msgid "Welcome to Shotwell!"
-msgstr "ברוך בואך ל־Shotwell!"
-
-#: src/Dialogs.vala:1693
-#, c-format
-msgid "To get started, import photos in any of these ways:"
-msgstr "כדי להתחיל יש לייבא תמונות באחת מהדרכים הבאות:"
-
-#: src/Dialogs.vala:1709
-#, c-format
-msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "יש לבחור ב<span weight=\"bold\">קובץ %s יבוא מתיקייה</span>"
-
-#: src/Dialogs.vala:1710
-msgid "Drag and drop photos onto the Shotwell window"
-msgstr "לגרור ולהשליך תמונות לחלון של Shotwell"
-
-#: src/Dialogs.vala:1711
-msgid "Connect a camera to your computer and import"
-msgstr "לחבר מצלמה למחשב שלך ולייבא ממנה"
-
-#: src/Dialogs.vala:1721
-#, c-format
-msgid "_Import photos from your %s folder"
-msgstr "י_בוא תמונות מתיקיית ה־%s שלך"
-
-#: src/Dialogs.vala:1728
-msgid "You can also import photos in any of these ways:"
-msgstr "ניתן לייבא תמונות בכל אחת מהדרכים הבאות:"
-
-#: src/Dialogs.vala:1738
-msgid "_Don't show this message again"
-msgstr "_אין להציג הודעה זו שוב"
-
-#: src/Dialogs.vala:1773
-#, c-format
-msgid "Import photos from your %s library"
-msgstr "יבוא תמונות מספריית ה־%s שלך"
-
-#: src/Dialogs.vala:1891 src/Dialogs.vala:1895
-msgid "(Help)"
-msgstr "(עזרה)"
-
-#: src/Dialogs.vala:1904
-#, c-format
-msgid "Year%sMonth%sDay"
-msgstr "שנה%sחודש%sיום"
-
-#: src/Dialogs.vala:1906
-#, c-format
-msgid "Year%sMonth"
-msgstr "שנה%sחודש"
-
-#: src/Dialogs.vala:1908
-#, c-format
-msgid "Year%sMonth-Day"
-msgstr "שנה%sחודש-יום"
-
-#: src/Dialogs.vala:1910
-msgid "Year-Month-Day"
-msgstr "שנה-חודש-יום"
-
-#: src/Dialogs.vala:1911 src/editing_tools/EditingTools.vala:745
-msgid "Custom"
-msgstr "התאמה אישית"
-
-#: src/Dialogs.vala:2144
-msgid "Invalid pattern"
-msgstr "התבנית שגויה"
-
-#: src/Dialogs.vala:2247
-msgid ""
-"Shotwell can copy the photos into your library folder or it can import them "
-"without copying."
-msgstr "באפשרות Shotwell להעתיק את התמונות לספרייה שלך או לייבא את התמונות מבלי להעתיק אותן."
-
-#: src/Dialogs.vala:2252
-msgid "Co_py Photos"
-msgstr "ה_עתקת תמונות"
-
-#: src/Dialogs.vala:2253
-msgid "_Import in Place"
-msgstr "יבוא ל_כאן"
-
-#: src/Dialogs.vala:2254
-msgid "Import to Library"
-msgstr "יבוא לספרייה"
-
-#: src/Dialogs.vala:2265
-msgid "Removing Photos From Library"
-msgstr "התמונות מוסרות מהתיקייה"
-
-#: src/Dialogs.vala:2279
-#, c-format
-msgid ""
-"This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
-"\n"
-"This action cannot be undone."
-msgid_plural ""
-"This will remove %d photos/videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
-"\n"
-"This action cannot be undone."
-msgstr[0] "פעולה זו תסיר את התמונה/סרטון הווידאו מספריית ה־Shotwell שלך.  האם ברצונך להעביר את הקבצים לאשפה של שולחן העבודה שלך?\n\nלא ניתן לבטל פעולה זו. %d"
-msgstr[1] "פעולה זו תסיר %d תמונות/סרטוני וידאו מספריית ה־Shotwell שלך.  האם ברצונך להעביר את הקבצים לאשפה של שולחן העבודה שלך?\n\nלא ניתן לבטל פעולה זו."
-
-#: src/Dialogs.vala:2283
-#, c-format
-msgid ""
-"This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
-"\n"
-"This action cannot be undone."
-msgid_plural ""
-"This will remove %d videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
-"\n"
-"This action cannot be undone."
-msgstr[0] "פעולה זו תסיר את סרטון הווידאו מספריית ה־Shotwell שלך.  האם בנוסף על כך ברצונך להעביר את הקובץ לאשפה?\n\nלא ניתן לבטל פעולה זו. %d"
-msgstr[1] "פעולה זו תסיר את %d סרטוני הווידאו מספריית ה־Shotwell שלך.  האם בנוסף על כך ברצונך להעביר את הקובץ לאשפה?\n\nלא ניתן לבטל פעולה זו."
-
-#: src/Dialogs.vala:2287
-#, c-format
-msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
-"\n"
-"This action cannot be undone."
-msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
-"\n"
-"This action cannot be undone."
-msgstr[0] "פעולה זו תסיר את התמונה מספריית ה־Shotwell שלך.\nהאם ברצונך להעביר את הקובץ לסל האשפה שלך?\n\nלא ניתן לבטל פעולה זו."
-msgstr[1] "פעולה זו תסיר %d תמונות מספריית ה־Shotwell שלך.\nהאם ברצונך להעביר את הקובץ לסל האשפה שלך?\n\nלא ניתן לבטל פעולה זו."
-
-#: src/Dialogs.vala:2319
-#, c-format
-msgid ""
-"The photo or video cannot be moved to your desktop trash.  Delete this file?"
-msgid_plural ""
-"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
-msgstr[0] "לא ניתן להעביר את התמונה/וידאו לאשפה של שולחן העבודה שלך.  האם למחוק קובץ זה?"
-msgstr[1] "לא ניתן להעביר %d תמונות/קטעי וידאו לאשפה של שולחן העבודה שלך.  האם למחוק קבצים אלו?"
-
-#: src/Dialogs.vala:2336
-#, c-format
-msgid "The photo or video cannot be deleted."
-msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] "לא ניתן למחוק את התמונה או את הווידאו."
-msgstr[1] "לא ניתן למחוק %d תמונות/קטעי וידאו."
-
-#: src/library/LibraryWindow.vala:389
-msgid "_Import From Folder..."
-msgstr "י_בוא מתיקייה..."
-
-#: src/library/LibraryWindow.vala:390
-msgid "Import photos from disk to library"
-msgstr "יבוא תמונות מהכונן לספרייה"
-
-#: src/library/LibraryWindow.vala:397
-msgid "Import From _Application..."
-msgstr "ייבוא מ_יישום..."
-
-#: src/library/LibraryWindow.vala:401
-msgid "Sort _Events"
-msgstr "מיון _אירועים"
-
-#: src/library/LibraryWindow.vala:411
-msgid "Empty T_rash"
-msgstr "פינוי ה_אשפה"
-
-#: src/library/LibraryWindow.vala:412
-msgid "Delete all photos in the trash"
-msgstr "מחיקת כל התמונות באשפה"
-
-#: src/library/LibraryWindow.vala:417
-msgid "View Eve_nt for Photo"
-msgstr "צפייה ב_אירוע עבור תמונה"
-
-#: src/library/LibraryWindow.vala:422
-msgid "_Find"
-msgstr "_חיפוש"
-
-#: src/library/LibraryWindow.vala:423
-msgid "Find photos and videos by search criteria"
-msgstr "חיפוש תמונות וקטעי וידאו לפי קריטריונים של חיפוש"
-
-#: src/library/LibraryWindow.vala:434 src/searches/Branch.vala:77
-#: src/sidebar/Tree.vala:195
-msgid "Ne_w Search..."
-msgstr "_חיפוש חדש..."
-
-#: src/library/LibraryWindow.vala:445
-msgid "_Basic Information"
-msgstr "פרטים _בסיסיים"
-
-#: src/library/LibraryWindow.vala:446
-msgid "Display basic information for the selection"
-msgstr "הצגת פרטים בסיסיים עבור הבחירה"
-
-#: src/library/LibraryWindow.vala:451
-msgid "E_xtended Information"
-msgstr "_פרטים מורחבים"
-
-#: src/library/LibraryWindow.vala:452
-msgid "Display extended information for the selection"
-msgstr "הצגת פרטים מורחבים עבור הבחירה"
-
-#: src/library/LibraryWindow.vala:457
-msgid "_Search Bar"
-msgstr "_סרגל חיפוש"
-
-#: src/library/LibraryWindow.vala:458
-msgid "Display the search bar"
-msgstr "הצגת סרגל החיפוש"
-
-#: src/library/LibraryWindow.vala:720
-msgid "Import From Folder"
-msgstr "יבוא מתיקייה"
-
-#: src/library/LibraryWindow.vala:789
-msgid "Empty Trash"
-msgstr "פינוי האשפה"
-
-#: src/library/LibraryWindow.vala:789
-msgid "Emptying Trash..."
-msgstr "האשפה מתרוקנת..."
-
-#: src/library/LibraryWindow.vala:932
-msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr "Shotwell מוגדרת לייבא תמונות לתיקיית הבית שלך.\n"
-
-#: src/library/LibraryWindow.vala:935 src/data_imports/DataImportsUI.vala:112
-msgid "_Import"
-msgstr "י_בוא"
-
-#: src/library/LibraryWindow.vala:935
-msgid "Library Location"
-msgstr "מיקום הספרייה"
-
-#: src/library/LibraryWindow.vala:948
-msgid "Photos cannot be imported from this directory."
-msgstr "לא ניתן לייבא תמונות לתיקייה זו."
-
-#: src/library/LibraryWindow.vala:1277
-#, c-format
-msgid "%s (%d%%)"
-msgstr "%s (%d%%)"
-
-#: src/library/LibraryWindow.vala:1321 src/library/LibraryWindow.vala:1329
-msgid "Updating library..."
-msgstr "הספרייה מתעדכנת..."
-
-#: src/library/LibraryWindow.vala:1334
-msgid "Preparing to auto-import photos..."
-msgstr "בהכנות ליבוא תמונות באופן אוטומטי...."
-
-#: src/library/LibraryWindow.vala:1339
-msgid "Auto-importing photos..."
-msgstr "התמונות מיובאות אוטומטית..."
-
-#: src/library/LibraryWindow.vala:1344
-msgid "Writing metadata to files..."
-msgstr "נתוני העל נכתבים לקבצים..."
-
-#: src/library/OfflinePage.vala:8
-msgid "Missing Files"
-msgstr "קבצים חסרים"
-
-#: src/library/OfflinePage.vala:122
-msgid "Deleting..."
-msgstr "מחיקה..."
-
-#: src/library/ImportQueuePage.vala:8
-msgid "Importing..."
-msgstr "מתבצע יבוא..."
-
-#: src/library/ImportQueuePage.vala:70
-msgid "_Stop Import"
-msgstr "ע_צירת היבוא"
-
-#: src/library/ImportQueuePage.vala:71
-msgid "Stop importing photos"
-msgstr "עצירת יבוא התמונות"
-
-#: src/library/ImportQueuePage.vala:135
-msgid "Preparing to import..."
-msgstr "בהכנות ליבוא..."
-
-#: src/library/ImportQueuePage.vala:162
-#, c-format
-msgid "Imported %s"
-msgstr "יובאו %s"
-
-#: src/library/LastImportPage.vala:8
-msgid "Last Import"
-msgstr "היבוא האחרון"
-
-#: src/library/TrashPage.vala:8
-msgid "Trash"
-msgstr "סל האשפה"
-
-#: src/library/TrashPage.vala:124
-msgid "Trash is empty"
-msgstr "סל האשפה ריק"
-
-#: src/library/TrashPage.vala:128
-msgid "Delete"
-msgstr "מחיקה"
-
-#: src/library/TrashPage.vala:129
-msgid "Deleting Photos"
-msgstr "התמונות נמחקות"
-
-#: src/library/Branch.vala:37
-msgid "Library"
-msgstr "ספרייה"
-
-#: src/photos/TiffSupport.vala:87
-msgid "TIFF"
-msgstr "TIFF"
-
-#: src/photos/PngSupport.vala:31
-msgid "PNG"
-msgstr "PNG"
-
-#: src/photos/JfifSupport.vala:85
-msgid "JPEG"
-msgstr "JPEG"
-
-#: src/photos/JfifSupport.vala:183
-#, c-format
-msgid "Low (%d%%)"
-msgstr "נמוכה (%d%%)"
-
-#: src/photos/JfifSupport.vala:186
-#, c-format
-msgid "Medium (%d%%)"
-msgstr "בינונית (%d%%)"
-
-#: src/photos/JfifSupport.vala:189
-#, c-format
-msgid "High (%d%%)"
-msgstr "גבוהה (%d%%)"
-
-#: src/photos/JfifSupport.vala:192
-#, c-format
-msgid "Maximum (%d%%)"
-msgstr "מרבית (%d%%)"
-
-#: src/photos/RawSupport.vala:135
-msgid "RAW"
-msgstr "RAW"
-
-#: src/photos/BmpSupport.vala:33
-msgid "BMP"
-msgstr "BMP"
-
-#: src/searches/SavedSearchDialog.vala:167
-msgid "contains"
-msgstr "מכיל"
-
-#: src/searches/SavedSearchDialog.vala:168
-#: src/searches/SavedSearchDialog.vala:433
-msgid "is exactly"
-msgstr "הוא בדיוק"
-
-#: src/searches/SavedSearchDialog.vala:169
-msgid "starts with"
-msgstr "מתחיל ב־"
-
-#: src/searches/SavedSearchDialog.vala:170
-msgid "ends with"
-msgstr "מסתיים ב־"
-
-#: src/searches/SavedSearchDialog.vala:171
-msgid "does not contain"
-msgstr "אינו מכיל"
-
-#: src/searches/SavedSearchDialog.vala:172
-#: src/searches/SavedSearchDialog.vala:437
-msgid "is not set"
-msgstr "לא מוגדר"
-
-#: src/searches/SavedSearchDialog.vala:243
-#: src/searches/SavedSearchDialog.vala:312
-#: src/searches/SavedSearchDialog.vala:377
-msgid "is"
-msgstr "הוא"
-
-#: src/searches/SavedSearchDialog.vala:244
-msgid "is not"
-msgstr "אינו"
-
-#: src/searches/SavedSearchDialog.vala:250
-msgid "any photo"
-msgstr "כל תמונה שהיא"
-
-#: src/searches/SavedSearchDialog.vala:251
-msgid "a raw photo"
-msgstr "תמונה גולמית"
-
-#: src/searches/SavedSearchDialog.vala:252
-msgid "a video"
-msgstr "וידאו"
-
-#: src/searches/SavedSearchDialog.vala:306
-msgid "flagged"
-msgstr "מסומן בדגלון"
-
-#: src/searches/SavedSearchDialog.vala:307
-msgid "not flagged"
-msgstr "לא מסומן בדגלון"
-
-#: src/searches/SavedSearchDialog.vala:370
-msgid "and higher"
-msgstr "ומעלה"
-
-#: src/searches/SavedSearchDialog.vala:371
-msgid "only"
-msgstr "בלבד"
-
-#: src/searches/SavedSearchDialog.vala:372
-msgid "and lower"
-msgstr "ומטה"
-
-#: src/searches/SavedSearchDialog.vala:434
-msgid "is after"
-msgstr "הוא לאחר"
-
-#: src/searches/SavedSearchDialog.vala:435
-msgid "is before"
-msgstr "הוא לפני"
-
-#: src/searches/SavedSearchDialog.vala:436
-msgid "is between"
-msgstr "הוא בין"
-
-#: src/searches/SavedSearchDialog.vala:449
-msgid "and"
-msgstr "וגם"
-
-#: src/searches/SavedSearchDialog.vala:656
-msgid "any"
-msgstr "כלשהו"
-
-#: src/searches/SavedSearchDialog.vala:657
-msgid "all"
-msgstr "הכול"
-
-#: src/searches/SavedSearchDialog.vala:658
-msgid "none"
-msgstr "אף אחד מאלה"
-
-#: src/searches/SearchBoolean.vala:156
-msgid "Any text"
-msgstr " כלשהו"
-
-#: src/searches/SearchBoolean.vala:159
-msgid "Title"
-msgstr "כותרת"
-
-#: src/searches/SearchBoolean.vala:162
-msgid "Tag"
-msgstr "תגית"
-
-#: src/searches/SearchBoolean.vala:165
-msgid "Event name"
-msgstr "שם האירוע"
-
-#: src/searches/SearchBoolean.vala:168
-msgid "File name"
-msgstr "שם הקובץ"
-
-#: src/searches/SearchBoolean.vala:171
-msgid "Face"
-msgstr "פרצוף"
-
-#: src/searches/SearchBoolean.vala:174
-msgid "Media type"
-msgstr "סוג המדיה"
-
-#: src/searches/SearchBoolean.vala:177
-msgid "Flag state"
-msgstr "מצב הדגלון"
-
-#: src/searches/SearchBoolean.vala:183
-msgid "Date"
-msgstr "תאריך"
-
-#: src/searches/Branch.vala:68
-msgid "Saved Searches"
-msgstr "החיפושים השמורים"
-
-#: src/sidebar/Tree.vala:199
-msgid "New _Tag..."
-msgstr "תגית _חדשה..."
-
-#: src/AppDirs.vala:48
-#, c-format
-msgid "Unable to create data directory %s: %s"
-msgstr "לא ניתן ליצור את תיקייה הנתונים %s:‏ %s"
-
-#: src/AppDirs.vala:84
-msgid "Pictures"
-msgstr "תמונות"
-
-#: src/AppDirs.vala:124
-#, c-format
-msgid "Unable to create temporary directory %s: %s"
-msgstr "לא ניתן ליצור את התיקייה הזמנית %s:‏ %s"
-
-#: src/AppDirs.vala:140
-#, c-format
-msgid "Unable to create data subdirectory %s: %s"
-msgstr "לא ניתן ליצור את תת־תיקיית הנתונים %s: ‏%s"
-
-#: src/Resources.vala:18 plugins/shotwell-publishing/FlickrPublishing.vala:34
-#: plugins/shotwell-publishing/FacebookPublishing.vala:32
-#: plugins/shotwell-publishing/PicasaPublishing.vala:32
-#: plugins/shotwell-publishing/YouTubePublishing.vala:32
-msgid "Copyright 2009-2012 Yorba Foundation"
-msgstr "כל הזכויות שמורות 2009‏-2012 לעמותת יורבה"
-
-#: src/Resources.vala:134
-msgid "Rotate _Right"
-msgstr "סיבוב _ימינה"
-
-#: src/Resources.vala:135 src/Resources.vala:140
-msgid "Rotate"
-msgstr "סיבוב"
-
-#: src/Resources.vala:136
-msgid "Rotate Right"
-msgstr "סיבוב ימינה"
-
-#: src/Resources.vala:137
-msgid "Rotate the photos right (press Ctrl to rotate left)"
-msgstr "סיבוב התמונות ימינה (לחיצה על Ctrl כדי לסובב שמאלה)"
-
-#: src/Resources.vala:139
-msgid "Rotate _Left"
-msgstr "סיבוב _שמאלה"
-
-#: src/Resources.vala:141
-msgid "Rotate Left"
-msgstr "סיבוב שמאלה"
-
-#: src/Resources.vala:142
-msgid "Rotate the photos left"
-msgstr "סיבוב התמונה שמאלה"
-
-#: src/Resources.vala:144
-msgid "Flip Hori_zontally"
-msgstr "היפוך או_פקית"
-
-#: src/Resources.vala:145
-msgid "Flip Horizontally"
-msgstr "היפוך אופקי"
-
-#: src/Resources.vala:147
-msgid "Flip Verti_cally"
-msgstr "היפוך א_נכי"
-
-#: src/Resources.vala:148
-msgid "Flip Vertically"
-msgstr "היפוך אנכי"
-
-#: src/Resources.vala:150
-msgid "_Enhance"
-msgstr "_שיפור"
-
-#: src/Resources.vala:151
-msgid "Enhance"
-msgstr "שיפור"
-
-#: src/Resources.vala:152
-msgid "Automatically improve the photo's appearance"
-msgstr "שיפור חזות התמונה אוטומטית"
-
-#: src/Resources.vala:154
-msgid "_Crop"
-msgstr "_חיתוך"
-
-#: src/Resources.vala:155
-msgid "Crop"
-msgstr "חיתוך"
-
-#: src/Resources.vala:156
-msgid "Crop the photo's size"
-msgstr "חיתוך גודל התמונה"
-
-#: src/Resources.vala:158
-msgid "_Straighten"
-msgstr "יי_שור"
-
-#: src/Resources.vala:159
-msgid "Straighten"
-msgstr "יישור"
-
-#: src/Resources.vala:160
-msgid "Straighten the photo"
-msgstr "יישור התמונה"
-
-#: src/Resources.vala:162
-msgid "_Red-eye"
-msgstr "_עיניים אדומות"
-
-#: src/Resources.vala:163
-msgid "Red-eye"
-msgstr "עיניים אדומות"
-
-#: src/Resources.vala:164
-msgid "Reduce or eliminate any red-eye effects in the photo"
-msgstr "הפחתת או העלמת אפקטים של עיניים אדומות בתמונה"
-
-#: src/Resources.vala:166
-msgid "_Adjust"
-msgstr "ה_תאמה"
-
-#: src/Resources.vala:167
-msgid "Adjust"
-msgstr "התאמה"
-
-#: src/Resources.vala:168
-msgid "Adjust the photo's color and tone"
-msgstr "התאמת גוון וצבע התמונה"
-
-#: src/Resources.vala:170
-msgid "Re_vert to Original"
-msgstr "_שחזור למקור"
-
-#: src/Resources.vala:171
-msgid "Revert to Original"
-msgstr "שחזור למקור"
-
-#: src/Resources.vala:173
-msgid "Revert External E_dits"
-msgstr "ביטול עריכות _חיצוניות"
-
-#: src/Resources.vala:174
-msgid "Revert to the master photo"
-msgstr "שחזור לתמונה הראשית"
-
-#: src/Resources.vala:176
-msgid "Set as _Desktop Background"
-msgstr "הגדרה כ_רקע שולחן העבודה"
-
-#: src/Resources.vala:177
-msgid "Set selected image to be the new desktop background"
-msgstr "הגדרת התמונה הנבחרת כרקע החדש לשולחן העבודה"
-
-#: src/Resources.vala:178
-msgid "Set as _Desktop Slideshow..."
-msgstr "הגדרה כ_מצגת שולחן העבודה..."
-
-#: src/Resources.vala:180
-msgid "_Undo"
-msgstr "_ביטול"
-
-#: src/Resources.vala:181
-msgid "Undo"
-msgstr "ביטול"
-
-#: src/Resources.vala:183
-msgid "_Redo"
-msgstr "ביצוע _חוזר"
-
-#: src/Resources.vala:184
-msgid "Redo"
-msgstr "ביצוע חוזר"
-
-#: src/Resources.vala:186
-msgid "Re_name Event..."
-msgstr "החלפת _שם האירוע..."
-
-#: src/Resources.vala:189
-msgid "Make _Key Photo for Event"
-msgstr "הגדרה לתמונה המיי_צגת לאירוע"
-
-#: src/Resources.vala:190
-msgid "Make Key Photo for Event"
-msgstr "הגדרה לתמונה המייצגת לאירוע"
-
-#: src/Resources.vala:192
-msgid "_New Event"
-msgstr "_אירוע חדש"
-
-#: src/Resources.vala:193
-msgid "New Event"
-msgstr "אירוע חדש"
-
-#: src/Resources.vala:195
-msgid "Move Photos"
-msgstr "העברת תמונות"
-
-#: src/Resources.vala:196
-msgid "Move photos to an event"
-msgstr "העברת תמונות לאירוע"
-
-#: src/Resources.vala:198
-msgid "_Merge Events"
-msgstr "מי_זוג אירועים"
-
-#: src/Resources.vala:199
-msgid "Merge"
-msgstr "מיזוג"
-
-#: src/Resources.vala:201
-msgid "_Set Rating"
-msgstr "ה_גדרת דירוג"
-
-#: src/Resources.vala:202
-msgid "Set Rating"
-msgstr "הגדרת דירוג"
-
-#: src/Resources.vala:203
-msgid "Change the rating of your photo"
-msgstr "שינוי הדירוג לתמונה שלך"
-
-#: src/Resources.vala:205
-msgid "_Increase"
-msgstr "ה_גדלה"
-
-#: src/Resources.vala:206
-msgid "Increase Rating"
-msgstr "הגדלת הדירוג"
-
-#: src/Resources.vala:208
-msgid "_Decrease"
-msgstr "ה_פחתה"
-
-#: src/Resources.vala:209
-msgid "Decrease Rating"
-msgstr "הפחתת הדירוג"
-
-#: src/Resources.vala:211
-msgid "_Unrated"
-msgstr "_ללא דירוג"
-
-#: src/Resources.vala:212
-msgid "Unrated"
-msgstr "אין דירוג"
-
-#: src/Resources.vala:213
-msgid "Rate Unrated"
-msgstr "ביטול הדירוג"
-
-#: src/Resources.vala:214
-msgid "Setting as unrated"
-msgstr "הגדרה כלא מדורגת"
-
-#: src/Resources.vala:215
-msgid "Remove any ratings"
-msgstr "הסרת כל הדירוגים"
-
-#: src/Resources.vala:217
-msgid "_Rejected"
-msgstr "ד_חויהה"
-
-#: src/Resources.vala:218
-msgid "Rejected"
-msgstr "נדחה"
-
-#: src/Resources.vala:219
-msgid "Rate Rejected"
-msgstr "דירוג דחויה"
-
-#: src/Resources.vala:220
-msgid "Setting as rejected"
-msgstr "דרג כדחויה"
-
-#: src/Resources.vala:221
-msgid "Set rating to rejected"
-msgstr "הגדרת הדירוג לדחויה"
-
-#: src/Resources.vala:223
-msgid "Rejected _Only"
-msgstr "נדחות _בלבד"
-
-#: src/Resources.vala:224
-msgid "Rejected Only"
-msgstr "הנדחות בלבד"
-
-#: src/Resources.vala:225
-msgid "Show only rejected photos"
-msgstr "הצגות התמונות שנדחו בלבד"
-
-#: src/Resources.vala:227
-msgid "All + _Rejected"
-msgstr "הכול + _דחויות"
-
-#: src/Resources.vala:228 src/Resources.vala:229
-msgid "Show all photos, including rejected"
-msgstr "הצגת כל התמונות, לרבות אלו שנדחו"
-
-#: src/Resources.vala:231
-msgid "_All Photos"
-msgstr "_כל התמונות"
-
-#: src/Resources.vala:232 src/Resources.vala:233
-msgid "Show all photos"
-msgstr "הצגת כל התמונות"
-
-#: src/Resources.vala:235
-msgid "_Ratings"
-msgstr "_דירוגים"
-
-#: src/Resources.vala:236
-msgid "Display each photo's rating"
-msgstr "הצגת הדירוג של כל תמונה"
-
-#: src/Resources.vala:238
-msgid "_Filter Photos"
-msgstr "_סינון תמונות"
-
-#: src/Resources.vala:239
-msgid "Filter Photos"
-msgstr "סינון תמונות"
-
-#: src/Resources.vala:240
-msgid "Limit the number of photos displayed based on a filter"
-msgstr "הגבלת מספר התמונות המוצגות בהתאם למסנן"
-
-#: src/Resources.vala:242
-msgid "_Duplicate"
-msgstr "_שכפול"
-
-#: src/Resources.vala:243
-msgid "Duplicate"
-msgstr "שכפול"
-
-#: src/Resources.vala:244
-msgid "Make a duplicate of the photo"
-msgstr "שכפול התמונה"
-
-#: src/Resources.vala:246
-msgid "_Export..."
-msgstr "י_צוא..."
-
-#: src/Resources.vala:248
-msgid "_Print..."
-msgstr "ה_דפסה..."
-
-#: src/Resources.vala:250
-msgid "Pu_blish..."
-msgstr "פ_רסום..."
-
-#: src/Resources.vala:251
-msgid "Publish"
-msgstr "פרסום"
-
-#: src/Resources.vala:252
-msgid "Publish to various websites"
-msgstr "פרסום למגוון של אתרים"
-
-#: src/Resources.vala:254
-msgid "Edit _Title..."
-msgstr "_עריכת הכותרת..."
-
-#: src/Resources.vala:257
-msgid "_Adjust Date and Time..."
-msgstr "_כיוון התאריך והשעה..."
-
-#: src/Resources.vala:258
-msgid "Adjust Date and Time"
-msgstr "כיוון תאריך ושעה"
-
-#: src/Resources.vala:260
-msgid "Add _Tags..."
-msgstr "הוספת _תגיות..."
-
-#: src/Resources.vala:261 src/Resources.vala:301
-msgid "Add Tags"
-msgstr "הוספת תגיות"
-
-#: src/Resources.vala:263
-msgid "_Preferences"
-msgstr "ה_עדפות"
-
-#: src/Resources.vala:265
-msgid "Open With E_xternal Editor"
-msgstr "פתיחה בעורך _חיצוני"
-
-#: src/Resources.vala:267
-msgid "Open With RA_W Editor"
-msgstr "פתיחה באמצעות _עורך RAW"
-
-#: src/Resources.vala:269
-msgid "Send _To..."
-msgstr "שליחה _אל..."
-
-#: src/Resources.vala:271
-msgid "_Find..."
-msgstr "חיפוש..."
-
-#: src/Resources.vala:272
-msgid "Find"
-msgstr "חיפוש"
-
-#: src/Resources.vala:273
-msgid "Find an image by typing text that appears in its name or tags"
-msgstr "חיפוש תמונה על ידי הקלדת הטקסט המופיע בשמה או בתגיות שלה"
-
-#: src/Resources.vala:275
-msgid "_Flag"
-msgstr "סימון ב_דגל"
-
-#: src/Resources.vala:277
-msgid "Un_flag"
-msgstr "_ביטול הדגל"
-
-#: src/Resources.vala:282
-msgid "Mark faces of people in the photo"
-msgstr "סימון הפרצופים של אנשים בתמונות שלך"
-
-#: src/Resources.vala:283
-msgid "Modify Faces"
-msgstr "שינוי הפרצופים"
-
-#: src/Resources.vala:284
-msgid "Delete Face"
-msgstr "מחיקת פרצוף"
-
-#: src/Resources.vala:286 src/Resources.vala:325
-msgid "_Rename..."
-msgstr "_שינוי שם..."
-
-#: src/Resources.vala:290
-#, c-format
-msgid "Unable to launch editor: %s"
-msgstr "לא ניתן להפעיל את העורך: %s"
-
-#: src/Resources.vala:295
-#, c-format
-msgid "Add Tag \"%s\""
-msgstr "הוספת התגית \"%s\""
-
-#: src/Resources.vala:297
-#, c-format
-msgid "Add Tags \"%s\" and \"%s\""
-msgstr "הוספת התגיות \"%s\" ו \"%s\""
-
-#: src/Resources.vala:305
-#, c-format
-msgid "_Delete Tag \"%s\""
-msgstr "מ_חיקת התגית \"%s\""
-
-#: src/Resources.vala:309
-#, c-format
-msgid "Delete Tag \"%s\""
-msgstr "מחיקת התגית \"%s\""
-
-#: src/Resources.vala:312
-msgid "Delete Tag"
-msgstr "מחיקת תגית"
-
-#: src/Resources.vala:315
-msgid "_New"
-msgstr "_חדש"
-
-#: src/Resources.vala:318
-#, c-format
-msgid "Re_name Tag \"%s\"..."
-msgstr "_שינוי שם התגית \"%s\"..."
-
-#: src/Resources.vala:322
-#, c-format
-msgid "Rename Tag \"%s\" to \"%s\""
-msgstr "שינוי שם התגית \"%s\" ל־\"%s\""
-
-#: src/Resources.vala:327
-msgid "Modif_y Tags..."
-msgstr "ה_חלפת תגיות..."
-
-#: src/Resources.vala:328
-msgid "Modify Tags"
-msgstr "החלפת התגיות"
-
-#: src/Resources.vala:331
-#, c-format
-msgid "Tag Photo as \"%s\""
-msgstr "תיוג התמונות בתור \"%s\""
-
-#: src/Resources.vala:331
-#, c-format
-msgid "Tag Photos as \"%s\""
-msgstr "תיוג תמונות בתור \"%s\""
-
-#: src/Resources.vala:335
-#, c-format
-msgid "Tag the selected photo as \"%s\""
-msgstr "תיוג התמונות הנבחרות בתור \"%s\""
-
-#: src/Resources.vala:336
-#, c-format
-msgid "Tag the selected photos as \"%s\""
-msgstr "תיוג התמונות הנבחרות בתור \"%s\""
-
-#: src/Resources.vala:340
-#, c-format
-msgid "Remove Tag \"%s\" From _Photo"
-msgstr "הסרת התגית \"%s\" מתמו_נות"
-
-#: src/Resources.vala:341
-#, c-format
-msgid "Remove Tag \"%s\" From _Photos"
-msgstr "הסרת התגית \"%s\" מה_תמונות"
-
-#: src/Resources.vala:345
-#, c-format
-msgid "Remove Tag \"%s\" From Photo"
-msgstr "הסרת התגית \"%s\" מתמונות"
-
-#: src/Resources.vala:346
-#, c-format
-msgid "Remove Tag \"%s\" From Photos"
-msgstr "הסרת התגית \"%s\" מהתמונות"
-
-#: src/Resources.vala:350
-#, c-format
-msgid "Unable to rename tag to \"%s\" because the tag already exists."
-msgstr "לא ניתן לשנות את שם התגית ל־\"%s\" כיוון שהתגית כבר קיימת."
-
-#: src/Resources.vala:354
-#, c-format
-msgid "Unable to rename search to \"%s\" because the search already exists."
-msgstr "לא ניתן לשנות את שם החיפוש ל־\"%s\" כיוון שהחיפוש כבר קיים."
-
-#: src/Resources.vala:357
-msgid "Saved Search"
-msgstr "חיפוש שנשמר"
-
-#: src/Resources.vala:359
-msgid "Delete Search"
-msgstr "מחיקת החיפוש"
-
-#: src/Resources.vala:362
-msgid "_Edit..."
-msgstr "ע_ריכה..."
-
-#: src/Resources.vala:363
-msgid "Re_name..."
-msgstr "_שינוי שם..."
-
-#: src/Resources.vala:366
-#, c-format
-msgid "Rename Search \"%s\" to \"%s\""
-msgstr "שינוי שם החיפוש \"%s\" לשם \"%s\""
-
-#: src/Resources.vala:370
-#, c-format
-msgid "Delete Search \"%s\""
-msgstr "מחיקת החיפוש \"%s\""
-
-#: src/Resources.vala:374
-#, c-format
-msgid "Unable to rename face to \"%s\" because the face already exists."
-msgstr "לא ניתן לשנות את שם הפרצוף ל־\"%s\" כיוון שהפרצוף גם קיים."
-
-#: src/Resources.vala:378
-#, c-format
-msgid "Remove Face \"%s\" From _Photo"
-msgstr "הסרת הפרצוף \"%s\" מ_תמונה"
-
-#: src/Resources.vala:379
-#, c-format
-msgid "Remove Face \"%s\" From _Photos"
-msgstr "הסרת הפרצוף \"%s\" מ_תמונות"
-
-#: src/Resources.vala:383
+#: src/data_imports/DataImportsPluginHost.vala:65
+#: src/data_imports/DataImportsPluginHost.vala:78
 #, c-format
-msgid "Remove Face \"%s\" From Photo"
-msgstr "הסרת הפרצוף \"%s\" מתמונה"
+msgid "%s Database"
+msgstr "מסד נתונים %s"
 
-#: src/Resources.vala:384
+#: src/data_imports/DataImportsPluginHost.vala:148
+#: src/data_imports/DataImportsPluginHost.vala:294
 #, c-format
-msgid "Remove Face \"%s\" From Photos"
-msgstr "הסרת הפרצוף \"%s\" מתמונות"
-
-#: src/Resources.vala:388
-#, c-format
-msgid "Re_name Face \"%s\"..."
-msgstr "שינוי ש_ם הפרצוף \"%s\"..."
-
-#: src/Resources.vala:392
-#, c-format
-msgid "Rename Face \"%s\" to \"%s\""
-msgstr "שינוי שם הפרצוף \"%s\" ל־\"%s\""
-
-#: src/Resources.vala:396
-#, c-format
-msgid "_Delete Face \"%s\""
-msgstr "מ_חיקת הפרצוף \"%s\""
-
-#: src/Resources.vala:400
-#, c-format
-msgid "Delete Face \"%s\""
-msgstr "מחיקת הפרצוף \"%s\""
-
-#: src/Resources.vala:557
-#, c-format
-msgid "Rate %s"
-msgstr "דירוג %s"
-
-#: src/Resources.vala:558
-#, c-format
-msgid "Set rating to %s"
-msgstr "הגדרת הדירוג ל־%s"
-
-#: src/Resources.vala:559
-#, c-format
-msgid "Setting rating to %s"
-msgstr "הדירוג מוגדר ל־%s"
-
-#: src/Resources.vala:561
-#, c-format
-msgid "Display %s"
-msgstr "הצגת %s"
-
-#: src/Resources.vala:562
-#, c-format
-msgid "Only show photos with a rating of %s"
-msgstr "יש להציג תמונות בדירוג %s בלבד"
-
-#: src/Resources.vala:563
-#, c-format
-msgid "%s or Better"
-msgstr "%s ומעלה"
-
-#: src/Resources.vala:564
-#, c-format
-msgid "Display %s or Better"
-msgstr "הצגת %s ומעלה"
-
-#: src/Resources.vala:565
-#, c-format
-msgid "Only show photos with a rating of %s or better"
-msgstr "רק תמונות בעלות דירוג של %s ומעלה"
-
-#: src/Resources.vala:656
-msgid "Remove the selected photos from the trash"
-msgstr "הסרת התמונות הנבחרות מהאשפה"
-
-#: src/Resources.vala:657
-msgid "Remove the selected photos from the library"
-msgstr "הסרת התמונות הנבחרות מהספרייה."
-
-#: src/Resources.vala:659
-msgid "_Restore"
-msgstr "_שחזור"
-
-#: src/Resources.vala:660
-msgid "Move the selected photos back into the library"
-msgstr "העברת התמונות הנבחרות בחזרה לספרייה"
-
-#: src/Resources.vala:662
-msgid "Show in File Mana_ger"
-msgstr "הצ_גה במנהל הקבצים"
-
-#: src/Resources.vala:663
-msgid "Open the selected photo's directory in the file manager"
-msgstr "פתיחת תיקיית התמונה הנבחרת במנהל הקבצים"
-
-#: src/Resources.vala:666
-#, c-format
-msgid "Unable to open in file manager: %s"
-msgstr "לא ניתן לפתוח במנהל הקבצים: %s"
-
-#: src/Resources.vala:669
-msgid "R_emove From Library"
-msgstr "ה_סרה מהספרייה"
-
-#: src/Resources.vala:671
-msgid "_Move to Trash"
-msgstr "ה_עברה לאשפה"
-
-#: src/Resources.vala:673
-msgid "Select _All"
-msgstr "בחירת ה_כול"
-
-#: src/Resources.vala:674
-msgid "Select all items"
-msgstr "בחירת כל הפריטים"
-
-#: src/DirectoryMonitor.vala:885
-#, c-format
-msgid "Unable to monitor %s: Not a directory (%s)"
-msgstr "לא ניתן לעקוב אחר %s: לא תיקייה (%s)"
-
-#: src/direct/DirectPhotoPage.vala:53 src/direct/DirectPhotoPage.vala:400
-msgid "_Save"
-msgstr "_שמירה"
-
-#: src/direct/DirectPhotoPage.vala:54
-msgid "Save photo"
-msgstr "שמירת התמונה"
-
-#: src/direct/DirectPhotoPage.vala:59
-msgid "Save _As..."
-msgstr "שמירה _בשם..."
-
-#: src/direct/DirectPhotoPage.vala:60
-msgid "Save photo with a different name"
-msgstr "שמירת תמונה בשם אחר"
-
-#: src/direct/DirectPhotoPage.vala:71
-msgid "Print the photo to a printer connected to your computer"
-msgstr "הדפסת התמונה במדפסת המחוברת למחשב שלך"
-
-#: src/direct/DirectPhotoPage.vala:75
-msgid "Edit"
-msgstr "עריכה"
-
-#: src/direct/DirectPhotoPage.vala:225
-#, c-format
-msgid "%s does not exist."
-msgstr "%s אינו קיים."
-
-#: src/direct/DirectPhotoPage.vala:227
-#, c-format
-msgid "%s is not a file."
-msgstr "%s אינו סוג קובץ."
-
-#: src/direct/DirectPhotoPage.vala:229
-#, c-format
-msgid ""
-"%s does not support the file format of\n"
-"%s."
-msgstr "ל־%s אין תמיכה במבנה הקובץ\n%s."
-
-#: src/direct/DirectPhotoPage.vala:400
-msgid "_Save a Copy"
-msgstr "שמירת _עותק"
-
-#: src/direct/DirectPhotoPage.vala:403
-#, c-format
-msgid "Lose changes to %s?"
-msgstr "האם לאבד את השינויים לקובץ %s?"
-
-#: src/direct/DirectPhotoPage.vala:404
-msgid "Close _without Saving"
-msgstr "סגירה _ללא שמירה"
-
-#: src/direct/DirectPhotoPage.vala:437
-#, c-format
-msgid "Error while saving to %s: %s"
-msgstr "שגיאה בעת השמירה אל %s: ‏%s"
-
-#: src/direct/DirectPhotoPage.vala:465 src/direct/DirectPhotoPage.vala:486
-msgid "Save As"
-msgstr "שמירה בשם"
+msgid "Importing from %s can't continue because an error occurred:"
+msgstr "הייבוא מהמיקום %s לא יכול להימשך עקב השגיאה שאירעה:"
 
-#: src/tags/Branch.vala:133
-msgid "Tags"
-msgstr "תגיות"
+#: src/data_imports/DataImportsPluginHost.vala:151
+msgid "To try importing from another service, select one from the above menu."
+msgstr "כדי לנסות לייבוא משירות אחר, נא לבחור באחר מהתפריט שלהלן."
 
 #: src/editing_tools/EditingTools.vala:635
 msgid "Return to current photo dimensions"
@@ -3195,14 +3262,14 @@ msgid "Screen"
 msgstr "מסך"
 
 #: src/editing_tools/EditingTools.vala:724
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1215
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1224
 msgid "Original Size"
 msgstr "הגודל המקורי"
 
 #: src/editing_tools/EditingTools.vala:725
 #: src/editing_tools/EditingTools.vala:728
-#: src/editing_tools/EditingTools.vala:736
-#: src/editing_tools/EditingTools.vala:744
+#: src/editing_tools/EditingTools.vala:738
+#: src/editing_tools/EditingTools.vala:748
 msgid "-"
 msgstr "-"
 
@@ -3214,304 +3281,155 @@ msgstr "וידאו SD‏ (4 : 3)"
 msgid "HD Video (16 : 9)"
 msgstr "וידאו HD‏ (16 : 9)"
 
-#: src/editing_tools/EditingTools.vala:1900
-msgid "Close the Faces tool without saving changes"
-msgstr "סגירת כלי הפנים מבלי לשמור את השינויים"
+#: src/editing_tools/EditingTools.vala:734
+msgid "Letter (8.5 x 11 in.)"
+msgstr "Letter (8.5 x 11 אינץ')"
 
-#: src/editing_tools/EditingTools.vala:1903
-msgid "Save changes and close the Faces tool"
-msgstr "שמירת השינויים וסגירת כלי הפרצופים"
+#: src/editing_tools/EditingTools.vala:736
+msgid "Tabloid (11 x 17 in.)"
+msgstr "Tabloid (11 x 17 אינץ')"
 
-#: src/editing_tools/EditingTools.vala:1908
-#: src/editing_tools/EditingTools.vala:1933
-msgid "Click and drag to tag a face"
-msgstr "יש ללחוץ ולגרור כדי לתייג פרצוף"
+#: src/editing_tools/EditingTools.vala:743
+msgid "A4 (210 x 297 mm)"
+msgstr "A4 (210 x 297 מ\"מ)"
 
-#: src/editing_tools/EditingTools.vala:1928
-#, c-format
-msgid "Click to edit face <i>%s</i>"
-msgstr "יש ללחוץ כדי לערוך את הפרצוף %s"
+#: src/editing_tools/EditingTools.vala:747
+msgid "A3 (297 x 420 mm)"
+msgstr "A3 (297 x 420 מ\"מ)"
 
-#: src/editing_tools/EditingTools.vala:1937
-msgid "Stop dragging to add your face and name it."
-msgstr "יש לעצור את הגרירה כדי להוסיף את הפרצוף שלך ולתת לו שם."
-
-#: src/editing_tools/EditingTools.vala:1941
-msgid "Type a name for this face, then press Enter"
-msgstr "יש להזין שם עבור פרצוף זה ואז ללחוץ על Enter"
-
-#: src/editing_tools/EditingTools.vala:1945
-msgid "Move or modify the face shape or name and press Enter"
-msgstr "ניתן לשנות את צורת הפרצוף או את שמו ואז ללחוץ על Enter"
-
-#: src/editing_tools/EditingTools.vala:2476
+#: src/editing_tools/EditingTools.vala:1845
 msgid "Close the red-eye tool"
 msgstr "סגירת הכלי לעיניים אדומות"
 
-#: src/editing_tools/EditingTools.vala:2479
+#: src/editing_tools/EditingTools.vala:1848
 msgid "Remove any red-eye effects in the selected region"
 msgstr "הסרת אפקטים של עין אדומה באזור הנבחר"
 
-#: src/editing_tools/EditingTools.vala:2808
-#: src/editing_tools/StraightenTool.vala:29
+#: src/editing_tools/EditingTools.vala:2177
+#: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_איפוס"
 
-#: src/editing_tools/EditingTools.vala:2826
+#: src/editing_tools/EditingTools.vala:2195
 msgid "Saturation:"
 msgstr "רוויה:"
 
-#: src/editing_tools/EditingTools.vala:2833
+#: src/editing_tools/EditingTools.vala:2202
 msgid "Tint:"
 msgstr "גוון:"
 
-#: src/editing_tools/EditingTools.vala:2841
+#: src/editing_tools/EditingTools.vala:2210
 msgid "Temperature:"
 msgstr "טמפרטורה:"
 
-#: src/editing_tools/EditingTools.vala:2848
+#: src/editing_tools/EditingTools.vala:2217
 msgid "Shadows:"
 msgstr "צללים:"
 
-#: src/editing_tools/EditingTools.vala:2901
+#: src/editing_tools/EditingTools.vala:2270
 msgid "Reset Colors"
 msgstr "איפוס הצבעים"
 
-#: src/editing_tools/EditingTools.vala:2901
+#: src/editing_tools/EditingTools.vala:2270
 msgid "Reset all color adjustments to original"
 msgstr "איפוס כל ההתאמות לצבע המקורי"
 
-#: src/editing_tools/EditingTools.vala:3245
+#: src/editing_tools/EditingTools.vala:2614
 msgid "Temperature"
 msgstr "טמפרטורה"
 
-#: src/editing_tools/EditingTools.vala:3258
+#: src/editing_tools/EditingTools.vala:2627
 msgid "Tint"
 msgstr "גוון"
 
-#: src/editing_tools/EditingTools.vala:3271
+#: src/editing_tools/EditingTools.vala:2640
 msgid "Saturation"
 msgstr "רוויה"
 
-#: src/editing_tools/EditingTools.vala:3284
+#: src/editing_tools/EditingTools.vala:2653
 msgid "Exposure"
 msgstr "חשיפה"
 
-#: src/editing_tools/EditingTools.vala:3297
+#: src/editing_tools/EditingTools.vala:2666
 msgid "Shadows"
 msgstr "צללים"
 
-#: src/editing_tools/EditingTools.vala:3307
+#: src/editing_tools/EditingTools.vala:2676
 msgid "Contrast Expansion"
 msgstr "הרחבת הניגודיות"
 
-#: src/editing_tools/StraightenTool.vala:26
+#: src/editing_tools/StraightenTool.vala:99
 msgid "Angle:"
 msgstr "זווית:"
 
-#: src/Page.vala:1254
-msgid "No photos/videos"
-msgstr "אין תמונות/קטעי וידאו"
-
-#: src/Page.vala:1258
-msgid "No photos/videos found"
-msgstr "לא נמצאו תמונות/קטעי וידאו"
-
-#: src/Page.vala:2544
-msgid "Photos cannot be exported to this directory."
-msgstr "לא ניתן לייצא תמונות לתיקייה זו."
-
-#: src/Exporter.vala:232
-#, c-format
-msgid "Unable to generate a temporary file for %s: %s"
-msgstr "לא ניתן ליצור את הקובץ הזמני עבור %s:‏ %s"
-
-#: src/Exporter.vala:299
-msgid "Exporting"
-msgstr "יצוא"
-
-#: src/Exporter.vala:316
-#, c-format
-msgid "File %s already exists.  Replace?"
-msgstr "הקובץ %s כבר קיים.  להחליף?"
-
-#: src/Exporter.vala:318
-msgid "_Skip"
-msgstr "_דילוג"
-
-#: src/Exporter.vala:318
-msgid "_Replace"
-msgstr "ה_חלפה"
-
-#: src/Exporter.vala:318
-msgid "Replace _All"
-msgstr "החלפת ה_כול"
-
-#: src/Exporter.vala:318
-msgid "Export"
-msgstr "יצוא"
-
-#: src/data_imports/DataImportsUI.vala:10
-msgid ""
-"You do not have any data imports plugins enabled.\n"
-"\n"
-"In order to use the Import From Application functionality, you need to have at least one data imports plugin enabled. Plugins can be enabled in the Preferences dialog."
-msgstr "אין לך שום תוספי יבוא נתונים פעילים.\n\nעל מנת להשתמש בתכונת הייבוא מתוך יישום צריך שיהיה לך לפחות תוסף אחד של יבוא נתונים פעיל. ניתן להפעיל תוספים בדו־שיח ההעדפות."
-
-#: src/data_imports/DataImportsUI.vala:100
-msgid "Database file:"
-msgstr "קובץ מסד נתונים:"
-
-#: src/data_imports/DataImportsUI.vala:216
-msgid "Import From Application"
-msgstr "יבוא מיישום"
-
-#: src/data_imports/DataImportsUI.vala:217
-msgid "Import media _from:"
-msgstr "יבוא מדיה מהמי_קום:"
-
-#: src/data_imports/DataImportsPluginHost.vala:65
-#: src/data_imports/DataImportsPluginHost.vala:78
-#, c-format
-msgid "%s Database"
-msgstr "מסד נתונים %s"
-
-#: src/data_imports/DataImportsPluginHost.vala:148
-#: src/data_imports/DataImportsPluginHost.vala:294
-#, c-format
-msgid "Importing from %s can't continue because an error occurred:"
-msgstr "הייבוא מהמיקום %s לא יכול להימשך עקב השגיאה שאירעה:"
-
-#: src/data_imports/DataImportsPluginHost.vala:151
-msgid "To try importing from another service, select one from the above menu."
-msgstr "כדי לנסות לייבוא משירות אחר, נא לבחור באחר מהתפריט שלהלן."
-
-#: src/data_imports/DataImports.vala:22
-msgid "Data Imports"
-msgstr "יבוא נתונים"
-
 #: plugins/common/RESTSupport.vala:427
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1255
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1291
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "קובץ זמני הנחוץ לצורכי פרסום אינו זמין"
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:25
-msgid "Core Publishing Services"
-msgstr "שירותי פרסום של הליבה"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:61
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
 msgid ""
-"You are not currently logged into Flickr.\n"
+"You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"Click Login to log into Flickr in your Web browser.  You will have to authorize Shotwell Connect to link to your Flickr account."
-msgstr "לא נכנסת ל־Flickr.\n\nיש ללחוץ על כניסה כדי להיכנס ל־Flickr בדפדפן שלך.  יהיה עליך לאמת את Shotwell Connect כדי לקשר אל חשבון ה־Flickr שלך."
+"Click Login to log into Picasa Web Albums in your Web browser. You will have to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr "אינך מחובר לאתר Picasa Web Albums.\n\nהקלק על התחבר בכדי להכנס לחשבונך ב-Picasa Web Albums בדפדפן שלך. תצטרך לאשר ל-Shotwell להתחבר על מנת לקשר לחשבון Picasa Web Albums שלך."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:63
-msgid ""
-"You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
-msgstr "כבר נכנסת ויצאת מ־Flick במהלך הפעלה זו של Shotwell.\nכדי להמשיך לפרסם ל־Flickr, עליך לצאת ולהפעיל מחדש את Shotwell ואז לנסות לפרסם שוב."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:367
-msgid "Preparing for login..."
-msgstr "בהכנות לכניסה..."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:437
-msgid "Verifying authorization..."
-msgstr "האימות בווידוא..."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:684
-msgid ""
-"Enter the confirmation number which appears after you log into Flickr in "
-"your Web browser."
-msgstr "נא להזין את מספר האימות שמופיע לאחר הכניסה ל־Flickr בדפדפן שלך."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:690
-msgid "Authorization _Number:"
-msgstr "מספר ה_אימות:"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1107
-#, c-format
-msgid ""
-"You are logged into Flickr as %s.\n"
-"\n"
-msgstr "נכנסת ל־Flickr בשם %s.\n\n"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1109
-#, c-format
-msgid ""
-"Your free Flickr account limits how much data you can upload per month.\n"
-"This month, you have %d megabytes remaining in your upload quota."
-msgstr "חשבונך הפטור מתשלום ב־Flickr מגביל את כמות המידע שניתן להעלות בחודש.\nהחודש, נותרו לך %d מגה בתים במכסת ההעלאה שלך."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1111
-msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr "חשבון ה־Flickr Pro שלך מזכה אותך בכמויות העלאה בלתי מוגבלות."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1124
-msgid "Photos _visible to:"
-msgstr "התמונות _גלויות לעיני:"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1126
-msgid "Videos _visible to:"
-msgstr "קטעי הווי_דאו גלוים לעיני:"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1129
-msgid "Photos and videos _visible to:"
-msgstr "הת_מונות וקטעי הווידאו גלויים לעיני:"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1132
-msgid "Photo _size:"
-msgstr "גו_דל התמונות:"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1162
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1635
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1134
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1000
-msgid "_Logout"
-msgstr "י_ציאה"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1166
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1633
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1141
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1007
-msgid "_Publish"
-msgstr "_פרסום"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1197
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1789
-msgid "Everyone"
-msgstr "כולם"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1198
-msgid "Friends & family only"
-msgstr "חברים ומשפחה בלבד"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1199
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1786
-msgid "Just me"
-msgstr "רק לי"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1221
-msgid "500 x 375 pixels"
-msgstr "500 x‏ 375 פיקסלים"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1222
-msgid "1024 x 768 pixels"
-msgstr "1024 x‏ 768 פיקסלים"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1223
-msgid "2048 x 1536 pixels"
-msgstr "2048 x‏ 1536 פיקסלים"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1224
-msgid "4096 x 3072 pixels"
-msgstr "4096 x‏ 3072 פיקסלים"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:63
 #: plugins/shotwell-publishing/PicasaPublishing.vala:59
+#: plugins/shotwell-publishing/FacebookPublishing.vala:63
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1072
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:466
+msgid "couldn't launch system web browser to complete Picasa Web Albums login"
+msgstr "נכשלה הפעלת דפדפן האינטרנט לצורך השלמת ההתחברות לאתר Picasa Web Akbums"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:485
+#: plugins/shotwell-publishing/PicasaPublishing.vala:616
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa Web "
+"Albums can't continue."
+msgstr "קובץ הנדרש להעלאת התוכן אינו זמין. העלאת התוכן ל-Picasa Web Akbums לא תוכל להתבצע."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:697
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa can't "
+"continue."
+msgstr "קובץ הנדרש להעלאת התוכן אינו זמין. העלאת התוכן ל-Picasa לא תוכל להתבצע."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:715
+#: plugins/shotwell-publishing/FacebookPublishing.vala:481
+msgid "Creating album..."
+msgstr "אלבום נוצר..."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1137
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "נכנסת ל־Picasa Web Albums בשם %s."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1142
+msgid "Videos will appear in:"
+msgstr "קטעי הווידאו יופיעו בתוך:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1147
+msgid "Photos will appear in:"
+msgstr "התמונות יופיעו תחת:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1220
+msgid "Small (640 x 480 pixels)"
+msgstr "קטנה (640 x‏ 480 פיקסלים)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1221
+msgid "Medium (1024 x 768 pixels)"
+msgstr "בינונית (1024 x‏ 768 פיקסלים)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1222
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "מומלצת (1600 x‏ 1200 פיקסלים)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:1223
+msgid "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 פיקסלים)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:68
 msgid ""
@@ -3534,158 +3452,49 @@ msgstr "רגיל (720 פיקסלים)"
 msgid "Large (2048 pixels)"
 msgstr "גדול (2048 פיקסלים)"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:260
+#: plugins/shotwell-publishing/FacebookPublishing.vala:269
 msgid "Testing connection to Facebook..."
 msgstr "החיבור ל־Facebook נבדק..."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:452
-#: plugins/shotwell-publishing/PicasaPublishing.vala:512
-msgid "Creating album..."
-msgstr "אלבום נוצר..."
+#: plugins/shotwell-publishing/FacebookPublishing.vala:383
+msgid ""
+"A file required for publishing is unavailable. Publishing to Facebook can't "
+"continue."
+msgstr "קובץ הנדרש להעלאת התוכן אינו זמין. העלאת התוכן ל-Facebook לא תוכל להתבצע."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1537
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1543
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
 "\n"
 msgstr "נכנסת ל־Facebook בשם %s.\n\n"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1538
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1544
 msgid "Where would you like to publish the selected photos?"
 msgstr "להיכן ברצונך לפרסם את התמונות הנבחרות?"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1539
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1545
 msgid "Upload _size:"
 msgstr "גודל הה_עלאה:"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1599
-msgid "Publish to an e_xisting album:"
-msgstr "פרסום לאלבום _קיים:"
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1700
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
+msgid "Just me"
+msgstr "רק לי"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1602
-msgid "Create a _new album named:"
-msgstr "יצירת אלבום _חדש בשם:"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1618
-msgid "Videos and new photo albums _visible to:"
-msgstr "קטעי הווידאו והתמונות החדשים _גלויים לעיני:"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1787
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1701
 msgid "All friends"
 msgstr "כל החברים"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1788
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1702
 msgid "Friends of friends"
 msgstr "חברים של חברים"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:58
-msgid ""
-"You are not currently logged into Picasa Web Albums.\n"
-"\n"
-"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
-msgstr "נכון לעכשיו לא נכנסת לחשבונך ב־Picasa Web Albums.\n\nלבטח כבר נרשמת לחשבון ב־Google והגדרת אותו לשימוש עם Picasa כדי להמשיך. ניתן להגדיר את רוב החשבונות באמצעות הדפדפן שלך על ידי כניסה לאתר Picasa Web Albums פעם אחת לפחות."
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:826
-msgid ""
-"Enter the email address and password associated with your Picasa Web Albums "
-"account."
-msgstr "נא להזין את כתובת הדוא״ל והססמה המשויכות לחשבונך ב־Picasa Web Albums."
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:827
-msgid ""
-"Picasa Web Albums didn't recognize the email address and password you "
-"entered. To try again, re-enter your email address and password below."
-msgstr "השירות Picasa Web Albums לא זיהה את כתובת הדוא״ל והססמה שהזנת. כדי לנסות שוב יש להזין את הססמה וכתובת הדוא״ל שלך פעם נוספת להלן."
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:828
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that isn't set up for use with Picasa Web Albums. You can set up most "
-"accounts by using your browser to log into the Picasa Web Albums site at "
-"least once. To try again, re-enter your email address and password below."
-msgstr "כתובת הדוא״ל והססמה שהזנת אינן תואמות לחשבון ה־Google שמוגדר לשימוש עם Picasa Web Albums. באפשרותך להגדיר את רוב החשבונות באמצעות הדפדפן שלך על ידי כניסה ל־Picasa Web Albums. כדי לנסות שוב, יש להזין את כתובת הדוא״ל והססמה שלך פעם נוספת להלן."
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:829
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that has been tagged as requiring additional security. You can clear this "
-"tag by using your browser to log into Picasa Web Albums. To try again, re-"
-"enter your email address and password below."
-msgstr "כתובת הדוא״ל והססמה שהזנת אינן תואמות לחשבון ה־Google שתויג כדורש אבטחה נוספת. ניתן למחוק תגית באמצעות הדפדפן שלך על ידי כניסה ל־Picasa Web Albums. כדי לנסות שוב, יש להזין את כתובת הדוא״ל והססמה שלך פעם נוספת להלן."
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:864
-#: plugins/shotwell-publishing/YouTubePublishing.vala:795
-#, c-format
-msgid "Unrecognized User"
-msgstr "משתמש בלתי מוכר"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:868
-#: plugins/shotwell-publishing/YouTubePublishing.vala:799
-#, c-format
-msgid "Account Not Ready"
-msgstr "החשבון לא מוכן"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:874
-#: plugins/shotwell-publishing/YouTubePublishing.vala:805
-#, c-format
-msgid "Additional Security Required"
-msgstr "נדרשת אבטחה נוספת"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:882
-#: plugins/shotwell-publishing/YouTubePublishing.vala:813
-msgid "_Email address:"
-msgstr "כתובת _דוא״ל:"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:884
-#: plugins/shotwell-publishing/YouTubePublishing.vala:815
-msgid "_Password:"
-msgstr "_ססמה:"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:904
-#: plugins/shotwell-publishing/YouTubePublishing.vala:835
-msgid "Go _Back"
-msgstr "ח_זרה"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1035
-#, c-format
-msgid "You are logged into Picasa Web Albums as %s."
-msgstr "נכנסת ל־Picasa Web Albums בשם %s."
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1051
-msgid "Videos will appear in:"
-msgstr "קטעי הווידאו יופיעו בתוך:"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1053
-msgid "Photos will appear in:"
-msgstr "התמונות יופיעו תחת:"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1064
-msgid "An _existing album:"
-msgstr "אלבום _קיים:"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1078
-msgid "A _new album named:"
-msgstr "אלבום חדש _בשם:"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1090
-msgid "L_ist album in public gallery"
-msgstr "ה_צגת האלבום בגלריה ציבורית"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1105
-msgid "Photo _size preset:"
-msgstr "ערכת _גודל התמונה:"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1212
-msgid "Small (640 x 480 pixels)"
-msgstr "קטנה (640 x‏ 480 פיקסלים)"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1213
-msgid "Medium (1024 x 768 pixels)"
-msgstr "בינונית (1024 x‏ 768 פיקסלים)"
-
-#: plugins/shotwell-publishing/PicasaPublishing.vala:1214
-msgid "Recommended (1600 x 1200 pixels)"
-msgstr "מומלצת (1600 x‏ 1200 פיקסלים)"
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1703
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1154
+msgid "Everyone"
+msgstr "כולם"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:57
 msgid ""
@@ -3694,18 +3503,24 @@ msgid ""
 "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."
 msgstr "נכון לעכשיו לא נכנסת לשירות YouTube.\n\nכדי להמשיך אמור להיות ברשותך חשבון Google המוגדר לשימוש בשילוב YouTube. ניתן להגדיר את רוב החשבונות על ידי שימוש בדפדפן האינטרנט שלך כדי להיכנס ל־YouTube לפחות פעם אחת."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:758
+#: plugins/shotwell-publishing/YouTubePublishing.vala:465
+msgid ""
+"A file required for publishing is unavailable. Publishing to Youtube can't "
+"continue."
+msgstr "קובץ הנדרש להעלאת התוכן אינו זמין. העלאת התוכן ל-Youtube לא תוכל להתבצע."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:771
 msgid ""
 "Enter the email address and password associated with your YouTube account."
 msgstr "נא להזין את כתובת הדוא״ל והססמה המשויכים לחשבון ה־YouTube שלך."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:759
+#: plugins/shotwell-publishing/YouTubePublishing.vala:772
 msgid ""
 "YouTube didn't recognize the email address and password you entered. To try "
 "again, re-enter your email address and password below."
 msgstr "שירות ה־YouTube לא זיהה את כתובת הדוא״ל והססמה שהזנת. כדי לנסות שוב, עליך להזין מחדש את כתובת הדוא״ל והססמה שלך להלן."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:760
+#: plugins/shotwell-publishing/YouTubePublishing.vala:773
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that isn't set up for use with YouTube. You can set up most accounts by "
@@ -3713,7 +3528,7 @@ msgid ""
 " re-enter your email address and password below."
 msgstr "כתובת הדוא״ל והססמה שהזנת תואמים לחשבון ב־Google שלא הוגדר לשימוש ב־YouTube לפחות פעם אחת. כדי לנסות שוב, יש להזין מחדש את הדוא״ל והססמה להלן."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:761
+#: plugins/shotwell-publishing/YouTubePublishing.vala:774
 msgid ""
 "The email address and password you entered correspond to a Google account "
 "that has been tagged as requiring additional security. You can clear this "
@@ -3721,35 +3536,203 @@ msgid ""
 "email address and password below."
 msgstr "כתובת הדוא״ל והססמה שהזנת תואמות לחשבון Google שתויג כדורש אבטחה נוספת. ניתן למחוק תגית באמצעות הדפדפן שלך על ידי כניסה ל־YouTube. כדי לנסות שוב, יש להזין את כתובת הדוא״ל והססמה שלך פעם נוספת להלן."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:956
+#: plugins/shotwell-publishing/YouTubePublishing.vala:808
+#, c-format
+msgid "Unrecognized User"
+msgstr "משתמש בלתי מוכר"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:812
+#, c-format
+msgid "Account Not Ready"
+msgstr "החשבון לא מוכן"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:818
+#, c-format
+msgid "Additional Security Required"
+msgstr "נדרשת אבטחה נוספת"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:826
+msgid "_Email address:"
+msgstr "כתובת _דוא״ל:"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:828
+msgid "_Password:"
+msgstr "_ססמה:"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:848
+msgid "Go _Back"
+msgstr "ח_זרה"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:853
+msgid "_Login"
+msgstr "_כניסה"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:939
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "נכנסת ל־YouTube בשם %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:961
+#: plugins/shotwell-publishing/YouTubePublishing.vala:940
 #, c-format
 msgid "Videos will appear in '%s'"
 msgstr "קטעי הווידאו יופיעו בתוך '%s'"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:975
-msgid "Video privacy _setting:"
-msgstr "הגדרות ה_פרטיות של הווידאו:"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1043
+#: plugins/shotwell-publishing/YouTubePublishing.vala:970
 msgid "Public listed"
 msgstr "הצגה ציבורית"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1044
+#: plugins/shotwell-publishing/YouTubePublishing.vala:971
 msgid "Public unlisted"
 msgstr "לא מוצג לכלל הציבור"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:1045
+#: plugins/shotwell-publishing/YouTubePublishing.vala:972
 msgid "Private"
 msgstr "פרטי"
 
-#: plugins/shotwell-transitions/SlideEffect.vala:20
-msgid "Slide"
-msgstr "שקופית"
+#: plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Login to log into Flickr in your Web browser.  You will have to authorize Shotwell Connect to link to your Flickr account."
+msgstr "לא נכנסת ל־Flickr.\n\nיש ללחוץ על כניסה כדי להיכנס ל־Flickr בדפדפן שלך.  יהיה עליך לאמת את Shotwell Connect כדי לקשר אל חשבון ה־Flickr שלך."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:63
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
+msgstr "כבר נכנסת ויצאת מ־Flick במהלך הפעלה זו של Shotwell.\nכדי להמשיך לפרסם ל־Flickr, עליך לצאת ולהפעיל מחדש את Shotwell ואז לנסות לפרסם שוב."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "בהכנות לכניסה..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: plugins/shotwell-publishing/FlickrPublishing.vala:595
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can't "
+"continue."
+msgstr "קובץ הנדרש להעלאת התוכן אינו זמין. העלאת התוכן ל-Flickr לא תוכל להתבצע."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "האימות בווידוא..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1153
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr "נכנסת ל־Flickr בשם %s.\n\n"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr "חשבונך הפטור מתשלום ב־Flickr מגביל את כמות המידע שניתן להעלות בחודש.\nהחודש, נותרו לך %d מגה בתים במכסת ההעלאה שלך."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1157
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr "חשבון ה־Flickr Pro שלך מזכה אותך בכמויות העלאה בלתי מוגבלות."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1162
+msgid "Photos _visible to:"
+msgstr "התמונות _גלויות לעיני:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
+msgid "Videos _visible to:"
+msgstr "קטעי הווי_דאו גלוים לעיני:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1167
+msgid "Photos and videos _visible to:"
+msgstr "הת_מונות וקטעי הווידאו גלויים לעיני:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
+msgid "Friends & family only"
+msgstr "חברים ומשפחה בלבד"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+msgid "Family only"
+msgstr "רק משפחה"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
+msgid "Friends only"
+msgstr "רק חברים"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1229
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1166
+msgid "500 x 375 pixels"
+msgstr "500 x‏ 375 פיקסלים"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1230
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1167
+msgid "1024 x 768 pixels"
+msgstr "1024 x‏ 768 פיקסלים"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1168
+msgid "2048 x 1536 pixels"
+msgstr "2048 x‏ 1536 פיקסלים"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1169
+msgid "4096 x 3072 pixels"
+msgstr "4096 x‏ 3072 פיקסלים"
+
+#: plugins/shotwell-publishing/shotwell-publishing.vala:26
+msgid "Core Publishing Services"
+msgstr "שירותי פרסום של הליבה"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:693
+#, c-format
+msgid "Creating album %s..."
+msgstr "מייצר אלבום %s…"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:862
+msgid "An error message occured when publishing to Piwigo. Please try again."
+msgstr "חלה שגיאה בעת הטעינה ל-Piwigo. אנא נסה שנית."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:943
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr "הזן את כתובת האתר של ספריית התמונות Piwigo שלך וכן את שם המשתמש והסיסמה לגישה לחשבון -Piwigo שלך עבור ספריה זו."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:944
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you"
+" entered"
+msgstr "Shotwell אינו יכול להתחבר לספריית התמונות Piwigo. אנא בדוק את כתובת האתר שהזנת"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:945
+msgid "Username and/or password invalid. Please try again"
+msgstr "שם המשתמש ו/או הסיסמה אינם נכונים. אנא נסה שנית"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:977
+#, c-format
+msgid "Invalid URL"
+msgstr "כתובת אתר לא תקינה"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:982
+#, c-format
+msgid "Invalid User Name or Password"
+msgstr "שם משתמש או סיסמא אינם נכונים"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1155
+msgid "Admins, Family, Friends, Contacts"
+msgstr "מנהלי מערכת, משפחה, חברים, אנשי קשר"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1156
+msgid "Admins, Family, Friends"
+msgstr "מנהלי מערכת, משפחה, חברים"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1157
+msgid "Admins, Family"
+msgstr "מנהלי מערכת, משפחה"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1158
+msgid "Admins"
+msgstr "מנהלי מערכת"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:21
 msgid "Core Slideshow Transitions"
@@ -3767,118 +3750,189 @@ msgstr "התפוררות"
 msgid "Fade"
 msgstr "עמעום"
 
+#: plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "שקופית"
+
+#: plugins/shotwell-data-imports/shotwell-data-imports.vala:22
+msgid "Core Data Import Services"
+msgstr "שרותי ייבוא מידע בסיסי"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:56
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select a library to import, either by selecting one of the existing libraries found by Shotwell or by selecting an alternative F-Spot database file."
+msgstr "ברוך בואך לשרות ייבוא הספריה של F-Spot.\n\nאנא בחר ספריה לייבוא, או ע\"י בחירת אחת הספריות שאותרו ע\"י Shotwell או ע\"י בחירת קובץ מסד נתונים של F-Spot."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:58
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select an F-Spot database file."
+msgstr "ברוך בואך לשרות ייבוא הספריה של F-Spot.\n\nאנא בחר קובץ מסד נתונים של F-Spot."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:60
+msgid "Manually select an F-Spot database file to import:"
+msgstr "בחר באופן ידני קובץ מסד נתונים של F-Spot לטעינה:"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:62
+msgid ""
+"Cannot open the selected F-Spot database file: the file does not exist or is"
+" not an F-Spot database"
+msgstr "אין אפשרות לפתוח את קובץ מסד הנתונים של F-Spot: הקובץ לא קיים או שאינו קובץ מסד נתונים"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:64
+msgid ""
+"Cannot open the selected F-Spot database file: this version of the F-Spot "
+"database is not supported by Shotwell"
+msgstr "אין אפשרות לפתוח את קובץ מסד הנתונים של F-Spot: גרסת הקובץ אינה נתמכת ע\"י Shotwell"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:66
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags "
+"table"
+msgstr "אין אפשרות לפתוח את קובץ מסד הנתונים של F-Spot: חלה שגיאה בעת טעינת טבלת התגיות"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:68
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading photos "
+"table"
+msgstr "אין אפשרות לפתוח את קובץ מסד הנתונים של F-Spot: חלה שגיאה בעת טעינת טבלת התמונות."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:70
+#, c-format
+msgid ""
+"Shotwell has found %d photos in the F-Spot library and is currently importing them. Duplicates will be automatically detected and removed.\n"
+"\n"
+"You can close this dialog and start using Shotwell while the import is taking place in the background."
+msgstr "Shotwell מצא %d תמונות בספריית F-Spot והן מיובאות כרגע.תמונות כפולות יזוהו ויוסרו באופן אוטומטי.\n\nבאפשרותך לסגור חלונית זו ולהתחיל להשתמש ב-Shotwell בזמן שהייבוא מתבצע ברקע."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:84
+#, c-format
+msgid "F-Spot library: %s"
+msgstr "ספריית F-Spot: %s"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:416
+msgid "Preparing to import"
+msgstr "מתכונן לייבוא"
+
 #: ui/set_background_dialog.glade:14
 msgid "Set as Desktop Slideshow"
 msgstr "הגדרה כמצגת שולחן העבודה"
 
-#: ui/set_background_dialog.glade:29
-msgid "Show each photo for"
-msgstr "הצגת כל תמונה למשך"
-
-#: ui/set_background_dialog.glade:39
-msgid "period of time"
-msgstr "משך הזמן"
-
-#: ui/set_background_dialog.glade:58
-msgid "How long each photo is shown on the desktop background"
-msgstr "כמה זמן תופיע כל תמונה ברקע שולחן העבודה"
-
-#: ui/set_background_dialog.glade:94
+#: ui/set_background_dialog.glade:55
 msgid "Generate desktop background slideshow"
 msgstr "יצירת מצגת לרקע שולחן העבודה"
 
-#: ui/shotwell.glade:9
+#: ui/set_background_dialog.glade:82
+msgid "Show each photo for"
+msgstr "הצגת כל תמונה למשך"
+
+#: ui/set_background_dialog.glade:94
+msgid "period of time"
+msgstr "משך הזמן"
+
+#: ui/set_background_dialog.glade:116
+msgid "How long each photo is shown on the desktop background"
+msgstr "כמה זמן תופיע כל תמונה ברקע שולחן העבודה"
+
+#: ui/shotwell.glade:7
 msgid "Search"
 msgstr "חיפוש"
 
-#: ui/shotwell.glade:48
+#: ui/shotwell.glade:47
 msgid "_Name of search:"
 msgstr "_שם החיפוש:"
 
-#: ui/shotwell.glade:111
+#: ui/shotwell.glade:108
 msgid "_Match"
 msgstr "ה_תאמה"
 
-#: ui/shotwell.glade:140
+#: ui/shotwell.glade:137
 msgid "of the following:"
 msgstr "מהבאים:"
 
-#: ui/shotwell.glade:269
+#: ui/shotwell.glade:220
+msgid "label"
+msgstr "תגית"
+
+#: ui/shotwell.glade:309
 msgid "Shotwell Preferences"
 msgstr "Shotwell העדפות"
 
-#: ui/shotwell.glade:346
+#: ui/shotwell.glade:388
 msgid "white"
 msgstr "לבן"
 
-#: ui/shotwell.glade:373
+#: ui/shotwell.glade:415
 msgid "black"
 msgstr "שחור"
 
-#: ui/shotwell.glade:421
+#: ui/shotwell.glade:463
 msgid "_Watch library directory for new files"
 msgstr "מ_עקב אחר התיקייה של הספרייה לגילוי קבצים חדשים"
 
-#: ui/shotwell.glade:450
+#: ui/shotwell.glade:493
 msgid "Metadata"
 msgstr "נתוני על"
 
-#: ui/shotwell.glade:470
+#: ui/shotwell.glade:513
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "ניתן לכתוב תגיות, כותרות ונתוני על נוספים לקובצי תמונה"
 
-#: ui/shotwell.glade:496
+#: ui/shotwell.glade:540
 msgid "Display"
 msgstr "תצוגה"
 
-#: ui/shotwell.glade:517
+#: ui/shotwell.glade:561
 msgid "_Import photos to:"
 msgstr "י_בוא תמונות אל:"
 
-#: ui/shotwell.glade:540
+#: ui/shotwell.glade:584
 msgid "_Background:"
 msgstr "_רקע:"
 
-#: ui/shotwell.glade:563
+#: ui/shotwell.glade:607
 msgid "Importing"
 msgstr "בהליכי יבוא"
 
-#: ui/shotwell.glade:586
+#: ui/shotwell.glade:630
 msgid "_Directory structure:"
 msgstr "מבנה ה_תיקיות:"
 
-#: ui/shotwell.glade:626
+#: ui/shotwell.glade:669
 msgid "_Pattern:"
 msgstr "ת_בנית:"
 
-#: ui/shotwell.glade:709
+#: ui/shotwell.glade:751
 msgid "Example:"
 msgstr "דוגמה:"
 
-#: ui/shotwell.glade:726
+#: ui/shotwell.glade:768
 msgid "R_ename imported files to lowercase"
 msgstr "שי_נוי שמות כל הקבצים המיובאים לאותיות קטנות"
 
-#: ui/shotwell.glade:755
+#: ui/shotwell.glade:798
 msgid "RAW Developer"
 msgstr "מתכנת ה־RAW"
 
-#: ui/shotwell.glade:790
-msgid "_Default:"
-msgstr "_בררת מחדל:"
+#: ui/shotwell.glade:833
+msgid "De_fault:"
+msgstr "_ברירת מחדל"
 
-#: ui/shotwell.glade:843
+#: ui/shotwell.glade:887
 msgid "E_xternal photo editor:"
 msgstr "עורך תמונות _חיצוני:"
 
-#: ui/shotwell.glade:859
+#: ui/shotwell.glade:903
 msgid "External _RAW editor:"
 msgstr "עורך RAW _חיצוני:"
 
-#: ui/shotwell.glade:923
+#: ui/shotwell.glade:968
 msgid "External Editors"
 msgstr "עורכים חיצוניים"
 
-#: ui/shotwell.glade:950
+#: ui/shotwell.glade:995
 msgid "Plugins"
 msgstr "תוספים"

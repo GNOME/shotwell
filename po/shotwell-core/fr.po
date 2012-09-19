@@ -4,6 +4,7 @@
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 # Translators:
+# Lucas Beeler <lucas@yorba.org>, 2009.
 # Alexandre Franke <alexandre.franke@gmail.com>, 2011.
 #   <claude@2xlibre.net>, 2011, 2012.
 # claudep <claude@2xlibre.net>, 2011.
@@ -13,8 +14,8 @@
 # verayin <vera@yorba.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.12\n"
-"Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
+"Project-Id-Version: shotwell-0.13\n"
+"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2012-03-05 15:14-0800\n"
 "PO-Revision-Date: 2012-03-07 09:18+0000\n"
 "Last-Translator: claudep <claude@2xlibre.net>\n"
@@ -29,7 +30,7 @@ msgstr ""
 # below if it's not already present
 #: src/AppWindow.vala:665 plugins/common/Resources.vala:28
 msgid "translator-credits"
-msgstr "Gabriel Bousquet <gbousque@clipper.ens.fr>\nAlexandre Franke <alexandre.franke@gmail.com>\nPablo Martin-Gomez <pablo.martin-gomez@laposte.net>\nClaude Paroz <claude@2xlibre.net>"
+msgstr "Lucas Beeler <lucas@yorba.org>\nGabriel Bousquet <gbousque@clipper.ens.fr>\nAlexandre Franke <alexandre.franke@gmail.com>\nPablo Martin-Gomez <pablo.martin-gomez@laposte.net>\nClaude Paroz <claude@2xlibre.net>"
 
 #: src/Dimensions.vala:17
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1225

@@ -7,8 +7,8 @@
 # Rahul Ghose <hansum.rahul@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.12\n"
-"Report-Msgid-Bugs-To: Laura Khalil <laura@yorba.org>\n"
+"Project-Id-Version: shotwell-0.13\n"
+"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2012-03-05 15:14-0800\n"
 "PO-Revision-Date: 2012-03-06 01:45+0000\n"
 "Last-Translator: laurakh <laura@yorba.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 # below if it's not already present
 #: src/AppWindow.vala:665 plugins/common/Resources.vala:28
 msgid "translator-credits"
-msgstr "অনুবাদক ‌‌- credits"
+msgstr "Rahul Ghose <hansum.rahul@gmail.com>"
 
 #: src/Dimensions.vala:17
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1225
