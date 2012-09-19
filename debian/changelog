@@ -1,18 +1,17 @@
-shotwell (0.12.90-1~precise1) precise; urgency=low
+shotwell (0.13.0-1~precise1) precise; urgency=low
 
-  * This is an interim development release in preparation for 0.13.0.
-  * Migrated away from libunique and over to GtkApplication.
-  * Added support for building against libgphoto2 2.5.
-  * Added an option to remove sensitive data from images before
-    publishing them.
-  * Vastly-improved handling of dates before 1969 on 32-bit versions.
-  * Reworked the Picasa publishing plugin to use OAuth.
-  * Missing thumbnails are now automatically regenerated during startup
-  * The straightening tool has been enhanced to allow the user to visually
-    reposition the image by drawing a line.
-  * Many bug fixes.
+  * The Shotwell Extras plugins now include support for
+    publishing photos to Tumblr
+  * Shotwell correctly handles dates before 1969
+  * Shotwell lets you remove sensitive information from photos
+    before publishing them to social media sites
+  * Shotwell regenerates thumbnails automatically, making 
+    migrating libraries between computers easier
+  * The Picasa connector now uses OAuth authentication for
+    enhanced security
+  * Bug fixes and translation updates
     
- -- Clint Rogers <clinton@yorba.org>  Sat, 8 Sep 2012 09:15:30 -0700
+ -- Lucas Beeler <lucas@yorba.org>  Wed, 19 Sep 2012 16:08:22 -0700
 
 
 shotwell (0.12.3-1~oneiric1) oneiric; urgency=low

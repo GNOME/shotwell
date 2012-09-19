@@ -2,7 +2,7 @@ PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 PROGRAM_MIGRATOR = shotwell-settings-migrator
 
-VERSION = 0.12.90+trunk
+VERSION = 0.13.0
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -29,10 +29,10 @@ LIB=lib
 
 CORE_SUPPORTED_LANGUAGES= ia hi ta_IN te_IN fr de it es pl et sv sk lv pt bg bn nl da zh_CN \
     el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR \
-    eu he mk te ta vi
+    eu he mk te ta vi or km
 
 EXTRAS_SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk \
-    ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he mk te ta vi
+    ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he mk te ta eo or
 
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR := $(DESTDIR)$(PREFIX)/share/locale
@@ -356,6 +356,7 @@ DESKTOP_APP_SHORT_NAME="Shotwell"
 DESKTOP_APP_FULL_NAME="Shotwell Photo Manager"
 DESKTOP_APPLICATION_COMMENT="Organize your photos"
 DESKTOP_APPLICATION_CLASS="Photo Manager"
+DESKTOP_APP_KEYWORDS="Camera;Picture;Photo;"
 DIRECT_EDIT_DESKTOP_APP_SHORT_NAME="Shotwell"
 DIRECT_EDIT_DESKTOP_APP_FULL_NAME="Shotwell Photo Viewer"
 DIRECT_EDIT_DESKTOP_APPLICATION_CLASS="Photo Viewer"
@@ -547,6 +548,8 @@ install:
 		gettext --domain=shotwell $(DESKTOP_APPLICATION_CLASS)` >> misc/shotwell.desktop ; \
 		echo Comment[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
 		--domain=shotwell $(DESKTOP_APPLICATION_COMMENT)` >> misc/shotwell.desktop ; \
+		echo Keywords[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
+		--domain=shotwell $(DESKTOP_APP_KEYWORDS)` >> misc/shotwell.desktop ; \
 		echo X-GNOME-FullName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
 		--domain=shotwell $(DIRECT_EDIT_DESKTOP_APP_FULL_NAME)` >> misc/shotwell-viewer.desktop ; \
 		echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \

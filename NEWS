@@ -1,17 +1,16 @@
-Shotwell 0.12.90 - 8 September 2012 - "Peanuts, Coffee, Soda, and Magazines."
+Shotwell 0.13.0 - 19 September 2012 - "Peanuts, Coffee, Soda, and Magazines"
 ----------------------------------------------------------------------------
 
-  * This is an interim development release in preparation for 0.13.0.
-  * Migrated away from libunique and over to GtkApplication.
-  * Added support for building against libgphoto2 2.5.
-  * Added an option to remove sensitive data from images before
-    publishing them.
-  * Vastly-improved handling of dates before 1969 on 32-bit versions.
-  * Reworked the Picasa publishing plugin to use OAuth.
-  * Missing thumbnails are now automatically regenerated during startup
-  * The straightening tool has been enhanced to allow the user to visually
-    reposition the image by drawing a line.
-  * Many bug fixes.
+  * The Shotwell Extras plugins now include support for
+    publishing photos to Tumblr
+  * Shotwell correctly handles dates before 1969
+  * Shotwell lets you remove sensitive information from photos
+    before publishing them to social media sites
+  * Shotwell regenerates thumbnails automatically, making 
+    migrating libraries between computers easier
+  * The Picasa connector now uses OAuth authentication for
+    enhanced security
+  * Bug fixes and translation updates
 
 
 Shotwell 0.12.3 - 9 May 2012 - "It was a million to one shot, Doc."
