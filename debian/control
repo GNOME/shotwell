@@ -29,26 +29,7 @@ Homepage: http://www.yorba.org/shotwell
 
 Package: shotwell
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, 
- libatk1.0-0 (>= 1.30.0),
- libexif12 (>= 0.6.16),
- libgee2 (>= 0.5.0),
- libgexiv2-1 (>= 0.3.90),
- libglib2.0-0 (>= 2.26.0),
- libgphoto2-2 (>= 2.4.2),
- libgstreamer0.10-0 (>= 0.10.28),
- libgstreamer-plugins-base0.10-0 (>= 0.10.32),
- libgtk-3-0 (>= 3.0.0),
- libgudev-1.0-0 (>= 145),
- libjson-glib-1.0-0,
- librest-0.7-0 (>= 0.7.10),
- librsvg2-common (>= 2.14.0),
- libsoup2.4-1 (>= 2.26.0),
- libsqlite3-0 (>= 3.5.9),
- libunique-3.0-0 (>= 3.0.0),
- libunity (>= 5.10.0),
- libwebkitgtk-3.0-0 (>= 1.4.3),
- libxml2 (>= 2.6.32)
+Depends: ${shlibs:Depends}, ${misc:Depends}, librsvg2-common, dbus-x11, dconf-tools
 Description: Digital photo manager
  Shotwell is a digital photo manager designed for the GNOME desktop 
  environment. It allows you to import photos from disk or camera, organize 
