@@ -415,8 +415,10 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
 
     private void on_publishing_options_pane_publish() {
-        publishing_options_pane.publish.disconnect(on_publishing_options_pane_publish);
-        publishing_options_pane.logout.disconnect(on_publishing_options_pane_logout);
+        if (publishing_options_pane != null) {
+            publishing_options_pane.publish.disconnect(on_publishing_options_pane_publish);
+            publishing_options_pane.logout.disconnect(on_publishing_options_pane_logout);
+        }
         
         if (!is_running())
             return;
@@ -426,8 +428,10 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
 
     private void on_publishing_options_pane_logout() {
-        publishing_options_pane.publish.disconnect(on_publishing_options_pane_publish);
-        publishing_options_pane.logout.disconnect(on_publishing_options_pane_logout);
+        if (publishing_options_pane != null) {
+            publishing_options_pane.publish.disconnect(on_publishing_options_pane_publish);
+            publishing_options_pane.logout.disconnect(on_publishing_options_pane_logout);
+        }
 
         if (!is_running())
             return;
