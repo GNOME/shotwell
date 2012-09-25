@@ -1185,6 +1185,16 @@ public class ImportPage : CheckerboardPage {
                     got_well_known_dir = true;
                 }
 
+                // Check common video paths for Sony NEX3, PSP addon camera 
+                if (check_directory_exists(fsid, "/", "MP_ROOT")) {
+                    enumerate_files(fsid, "/MP_ROOT", import_list);
+                    got_well_known_dir = true;
+                }
+                if (check_directory_exists(fsid, "/", "mp_root")) {
+                    enumerate_files(fsid, "/mp_root", import_list);
+                    got_well_known_dir = true;
+                }
+                
                 // Didn't find any of the common directories we know about
                 // already - try scanning from device root.
                 if (!got_well_known_dir) {
