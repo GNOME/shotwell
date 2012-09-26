@@ -558,7 +558,8 @@ install:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	$(INSTALL_PROGRAM) $(PROGRAM) $(DESTDIR)$(PREFIX)/bin
 	$(INSTALL_PROGRAM) $(THUMBNAILER_BIN) $(DESTDIR)$(PREFIX)/bin
-	$(INSTALL_PROGRAM) $(MIGRATOR_BIN) $(DESTDIR)$(PREFIX)/bin
+	mkdir -p $(DESTDIR)$(PREFIX)/libexec/shotwell
+	$(INSTALL_PROGRAM) $(MIGRATOR_BIN) $(DESTDIR)$(PREFIX)/libexec/shotwell
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps

@@ -474,7 +474,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
      *  over newer data by accident.
      */
     public static void run_gsettings_migrator() {
-        string cmd_line = AppDirs.get_settings_migrator_bin().get_path();
+        string cmd_line = "sh " + AppDirs.get_settings_migrator_bin().get_path();
 
         try {
             Process.spawn_command_line_sync(cmd_line);
