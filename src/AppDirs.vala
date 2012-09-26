@@ -10,6 +10,7 @@ class AppDirs {
     private static File exec_dir;
     private static File data_dir = null;
     private static File tmp_dir = null;
+    private static File libexec_dir = null;
     
     // Because this is called prior to Debug.init(), this function cannot do any logging calls
     public static void init(string arg0) {
@@ -96,6 +97,23 @@ class AppDirs {
             AppWindow.panic(_("Unable to create cache directory %s: %s").printf(cache_dir.get_path(),
                 err.message));
         }
+    }
+    
+    /**
+     * @brief Returns the build directory if not installed yet, or a path
+     * to where any helper applets we need will live if installed.
+     */
+    public static File get_libexec_dir() {
+        if (libexec_dir == null) {
+            if (get_install_dir() == null) {
+                // not installed yet - use wherever we were run from
+                libexec_dir = get_exec_dir();
+            } else {
+                libexec_dir = File.new_for_path(Resources.PREFIX + "/libexec/shotwell");
+            }
+        }
+
+        return libexec_dir;
     }
 
     // Return the directory in which Shotwell is installed, or null if uninstalled.
@@ -254,10 +272,10 @@ class AppDirs {
 
     public static File get_settings_migrator_bin() {
         const string filename = "shotwell-settings-migrator";
-        File f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/settings-migrator/" + filename);
+        File f = File.new_for_path(AppDirs.get_libexec_dir().get_path() + "/settings-migrator/" + filename);
         if (!f.query_exists()) {
             // If we're running installed.
-            f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/" + filename);
+            f = File.new_for_path(AppDirs.get_libexec_dir().get_path() + "/" + filename);
         }
         return f;
     }

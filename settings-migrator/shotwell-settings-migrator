@@ -26,5 +26,8 @@ dconf dump /apps/shotwell/ > $temp_file_path
 # ...and into officially-blessed one.
 dconf load /org/yorba/shotwell/ < $temp_file_path
 
+# Clean out the stale paths...
+dconf reset -f /apps/shotwell/
+
 # temp file not needed anymore, zap it.
 rm -f $temp_file_path
