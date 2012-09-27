@@ -50,7 +50,7 @@ msgstr "Shotwell 相片檢視器"
 
 # GNOME Application Keywords
 msgid "Camera;Picture;Photo;"
-msgstr "相機;圖片;相片;攝影"
+msgstr "相機;圖片;相片;攝影;"
 
 #: src/AppWindow.vala:54
 msgid "Pin Toolbar"

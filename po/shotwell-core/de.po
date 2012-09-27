@@ -63,7 +63,7 @@ msgstr "Shotwell Fotobetrachter"
 
 # GNOME Application Keywords
 msgid "Camera;Picture;Photo;"
-msgstr "Kamera;Bild;Foto"
+msgstr "Kamera;Bild;Foto;"
 
 #: src/AppWindow.vala:54
 msgid "Pin Toolbar"

@@ -57,7 +57,7 @@ msgstr "عارض الصور شُتْ‌وِل"
 
 # GNOME Application Keywords
 msgid "Camera;Picture;Photo;"
-msgstr "كاميرا;صورة;صور"
+msgstr "كاميرا;صورة;صور;"
 
 #: src/AppWindow.vala:54
 msgid "Pin Toolbar"
