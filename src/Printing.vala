@@ -268,7 +268,8 @@ private enum PrintLayout {
 public class CustomPrintTab : Gtk.Fixed {
     private const int INCHES_COMBO_CHOICE = 0;
     private const int CENTIMETERS_COMBO_CHOICE = 1;
-    
+
+    private Gtk.Box custom_image_settings_pane = null;
     private Gtk.RadioButton standard_size_radio = null;
     private Gtk.RadioButton custom_size_radio = null;
     private Gtk.RadioButton image_per_page_radio = null;
@@ -289,48 +290,21 @@ public class CustomPrintTab : Gtk.Fixed {
 
     public CustomPrintTab(PrintJob source_job) {
         this.source_job = source_job;
+        Gtk.Builder builder = AppWindow.create_builder();
 
-        Gtk.Box inner_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
-        inner_wrapper.homogeneous = true;
+        // an enclosing box for every widget on this tab...
+        custom_image_settings_pane = builder.get_object("box_ImgSettingsPane") as Gtk.Box;
 
-        Gtk.Table master_layouter = new Gtk.Table(9, 3, false);
-
-        Gtk.Label image_size_header = new Gtk.Label("");
-        image_size_header.set_markup("<b>" + _("Printed Image Size") + "</b>");
-        master_layouter.attach(image_size_header, 0, 3, 0, 1,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
-        image_size_header.set_alignment(0.0f, 0.5f);
-
-        Gtk.Label indenter = new Gtk.Label(" ");
-        master_layouter.attach(indenter, 0, 1, 1, 2,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
-
-        standard_size_radio = new Gtk.RadioButton.with_mnemonic(null,
-            _("Use a _standard size:"));
+        standard_size_radio = builder.get_object("radio_UseStandardSize") as Gtk.RadioButton;
         standard_size_radio.clicked.connect(on_radio_group_click);
-        standard_size_radio.set_alignment(0.0f, 0.5f);
-        custom_size_radio = new Gtk.RadioButton.with_mnemonic(
-            standard_size_radio.get_group(), _("Use a c_ustom size:"));
-        custom_size_radio.set_alignment(0.0f, 0.5f);
+        
+        custom_size_radio = builder.get_object("radio_UseCustomSize") as Gtk.RadioButton;
         custom_size_radio.clicked.connect(on_radio_group_click);
-        image_per_page_radio = new Gtk.RadioButton.with_mnemonic(
-            standard_size_radio.get_group(), _("_Autosize:"));
-        image_per_page_radio.set_alignment(0.0f, 0.5f);
+
+        image_per_page_radio = builder.get_object("radio_Autosize") as Gtk.RadioButton;
         image_per_page_radio.clicked.connect(on_radio_group_click);
 
-        master_layouter.attach(standard_size_radio, 1, 2, 1, 2,
-             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 8);
-        master_layouter.attach(custom_size_radio, 1, 2, 2, 3,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
-        master_layouter.attach(image_per_page_radio, 1, 2, 4, 5,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
-
-        image_per_page_combo = new Gtk.ComboBox();
+        image_per_page_combo = builder.get_object("combo_Autosize") as Gtk.ComboBox;
         Gtk.CellRendererText image_per_page_combo_text_renderer =
             new Gtk.CellRendererText();
         image_per_page_combo.pack_start(image_per_page_combo_text_renderer, true);
@@ -344,15 +318,9 @@ public class CustomPrintTab : Gtk.Fixed {
             image_per_page_combo_store.set_value(iter, 0, layout.to_string());
         }
         image_per_page_combo.set_model(image_per_page_combo_store);
-        Gtk.Alignment image_per_page_combo_aligner =
-            new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        image_per_page_combo_aligner.add(image_per_page_combo);
-        master_layouter.attach(image_per_page_combo_aligner, 2, 3, 4, 5,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
 
         StandardPrintSize[] standard_sizes = PrintManager.get_instance().get_standard_sizes();
-        standard_sizes_combo = new Gtk.ComboBox();
+        standard_sizes_combo = builder.get_object("combo_StdSizes") as Gtk.ComboBox;
         Gtk.CellRendererText standard_sizes_combo_text_renderer =
             new Gtk.CellRendererText();
         standard_sizes_combo.pack_start(standard_sizes_combo_text_renderer, true);
@@ -367,103 +335,30 @@ public class CustomPrintTab : Gtk.Fixed {
             standard_sizes_combo_store.set_value(iter, 0, size.name);
         }
         standard_sizes_combo.set_model(standard_sizes_combo_store);
-        Gtk.Alignment standard_sizes_combo_aligner =
-            new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        standard_sizes_combo_aligner.add(standard_sizes_combo);
-        master_layouter.attach(standard_sizes_combo_aligner, 2, 3, 1, 2,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
 
-        Gtk.Box custom_entries_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        custom_width_entry = new Gtk.Entry();
-        custom_width_entry.set_size_request(48, -1);
+        custom_width_entry = builder.get_object("entry_CustomWidth") as Gtk.Entry;
         custom_width_entry.insert_text.connect(on_entry_insert_text);
         custom_width_entry.focus_out_event.connect(on_width_entry_focus_out);
-        custom_height_entry = new Gtk.Entry();
-        custom_height_entry.set_size_request(48, -1);
+
+        custom_height_entry = builder.get_object("entry_CustomHeight") as Gtk.Entry;
         custom_height_entry.insert_text.connect(on_entry_insert_text);
         custom_height_entry.focus_out_event.connect(on_height_entry_focus_out);
-        Gtk.Label custom_mulsign_label = new Gtk.Label(" x ");
-        units_combo = new Gtk.ComboBoxText();
+
+        units_combo = builder.get_object("combo_Units") as Gtk.ComboBoxText;
         units_combo.append_text(_("in."));
         units_combo.append_text(_("cm"));
         units_combo.set_active(0);
         units_combo.changed.connect(on_units_combo_changed);
-        custom_entries_layouter.add(custom_height_entry);
-        custom_entries_layouter.add(custom_mulsign_label);
-        custom_entries_layouter.add(custom_width_entry);
-        custom_entries_layouter.add(gtk_hspacer(2));
-        Gtk.Alignment units_combo_aligner =
-            new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        units_combo_aligner.add(units_combo);
-        custom_entries_layouter.add(units_combo_aligner);
-        master_layouter.attach(custom_entries_layouter, 2, 3, 2, 3,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
 
-        aspect_ratio_check =
-            new Gtk.CheckButton.with_mnemonic(_("_Match photo aspect ratio"));
-        master_layouter.attach(aspect_ratio_check, 2, 3, 3, 4,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
+        aspect_ratio_check = builder.get_object("check_MatchAspectRatio") as Gtk.CheckButton;
+        title_print_check = builder.get_object("check_PrintImageTitle") as Gtk.CheckButton;
+        title_print_font = builder.get_object("fntbn_TitleFont") as Gtk.FontButton;
 
-        Gtk.Label title_header = new Gtk.Label("");
-        title_header.set_markup("<b>" + _("Titles") + "</b>");
-        master_layouter.attach(title_header, 0, 2, 5, 6,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
-        title_header.set_alignment(0.0f, 0.5f);
-
-        title_print_check =
-            new Gtk.CheckButton.with_mnemonic(_("Print image _title"));
-        master_layouter.attach(title_print_check, 1, 2, 6, 7,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
-
-        title_print_font =
-            new Gtk.FontButton();
-        master_layouter.attach(title_print_font, 2, 3, 6, 7,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
-
-        Gtk.Label ppi_header = new Gtk.Label("");
-        ppi_header.set_markup("<b>" + _("Pixel Resolution") + "</b>");
-        master_layouter.attach(ppi_header, 0, 2, 7, 8,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
-        ppi_header.set_alignment(0.0f, 0.5f);
-
-        Gtk.Label ppi_entry_title = new Gtk.Label.with_mnemonic(_("_Output photo at:"));
-        ppi_entry_title.set_alignment(0.0f, 0.5f);
-        master_layouter.attach(ppi_entry_title, 1, 2, 8, 9,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
-
-        Gtk.Box ppi_entry_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        ppi_entry = new Gtk.Entry();
-        ppi_entry.focus_out_event.connect(on_ppi_entry_focus_out);
+        ppi_entry = builder.get_object("entry_PixelsPerInch") as Gtk.Entry;
         ppi_entry.insert_text.connect(on_ppi_entry_insert_text);
-        ppi_entry.set_size_request(60, -1);
-        Gtk.Alignment ppi_entry_aligner =
-            new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
-        ppi_entry_aligner.add(ppi_entry);
-        ppi_entry_layouter.add(ppi_entry_aligner);
-        Gtk.Label ppi_units_label = new Gtk.Label(_("pixels per inch"));
-        ppi_entry_layouter.add(ppi_units_label);
-        ppi_units_label.set_alignment(0.0f, 0.5f);
-        ppi_entry_layouter.add(gtk_expand());
-        master_layouter.attach(ppi_entry_layouter, 2, 3, 8, 9,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
+        ppi_entry.focus_out_event.connect(on_ppi_entry_focus_out);
 
-        Gtk.Box horiz_packer = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-        horiz_packer.add(master_layouter);
-        horiz_packer.add(gtk_hspacer(50));
-        inner_wrapper.add(horiz_packer);
-        inner_wrapper.add(gtk_vspacer(40));
-
-        put(inner_wrapper, 8, 8);
-        inner_wrapper.set_size_request(400, 340);
+        this.add(custom_image_settings_pane);
 
         sync_state_from_job(source_job);
 
