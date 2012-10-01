@@ -1,6 +1,7 @@
 PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 PROGRAM_MIGRATOR = shotwell-settings-migrator
+PROGRAM_FACEDETECT = shotwell-facedetect
 
 VERSION = 0.13.0+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
@@ -111,6 +112,9 @@ UNUNITIZED_SRC_FILES = \
 
 THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala
+
+FACEDETECT_SRC_FILES = \
+	shotwell-facedetect.cpp
 
 VAPI_FILES = \
 	ExtendedPosix.vapi \
@@ -317,6 +321,12 @@ THUMBNAILER_PKGS = \
     gstreamer-0.10 \
     gstreamer-base-0.10
 
+FACEDETECT_LIBS = \
+    opencv_core \
+    opencv_objdetect \
+    opencv_highgui \
+    opencv_imgproc
+
 DIRECT_LIBS =
 
 EXT_PKG_VERSIONS = \
@@ -383,6 +393,10 @@ EXPANDED_THUMBNAILER_SRC_FILES := $(foreach file, $(THUMBNAILER_SRC_FILES), $(TH
 MIGRATOR_DIR := settings-migrator
 MIGRATOR_BIN := $(MIGRATOR_DIR)/$(PROGRAM_MIGRATOR)
 
+FACEDETECT_DIR := facedetect
+FACEDETECT_BIN := $(FACEDETECT_DIR)/$(PROGRAM_FACEDETECT)
+EXPANDED_FACEDETECT_SRC_FILES := $(foreach file, $(FACEDETECT_SRC_FILES), $(FACEDETECT_DIR)/$(file))
+
 EXPANDED_CORE_PO_FILES := $(foreach po,$(CORE_SUPPORTED_LANGUAGES),po/shotwell-core/$(po).po)
 EXPANDED_EXTRAS_PO_FILES := $(foreach po,$(EXTRAS_SUPPORTED_LANGUAGES),po/shotwell-extras/$(po).po)
 
@@ -423,6 +437,15 @@ VALAFLAGS := $(VALAFLAGS) $(VALA_DEFINES) --vapidir=plugins/
 ifdef ENABLE_TESTS
 VALAFLAGS := $(VALAFLAGS) --vapi=libshotwell.vapi --define=ENABLE_TESTS 
 DEFINES := $(DEFINES) ENABLE_TESTS=true
+endif
+
+ifdef ENABLE_FACES
+DIST_FILES := $(DIST_FILES) $(EXPANDED_FACEDETECT_SRC_FILES) $(FACEDETECT_DIR)/facedetect-haarcascade.xml
+
+CXX = gcc -Wall
+
+VALAFLAGS := $(VALAFLAGS) --define=ENABLE_FACES 
+DEFINES := $(DEFINES) ENABLE_FACES=true
 endif
 
 VALA_CFLAGS := `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
@@ -498,6 +521,7 @@ clean:
 	rm -rf $(PROGRAM)-$(VERSION)
 	rm -f $(PROGRAM)
 	rm -f $(THUMBNAILER_DIR)/$(PROGRAM_THUMBNAILER)
+	$(if $(ENABLE_FACES), rm -f $(FACEDETECT_DIR)/$(PROGRAM_FACEDETECT))
 	rm -rf $(LOCAL_LANG_DIR)
 	rm -f $(LANG_STAMP)
 	rm -f $(TEMPORARY_DESKTOP_FILES)
@@ -560,6 +584,9 @@ install:
 	$(INSTALL_PROGRAM) $(THUMBNAILER_BIN) $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)/libexec/shotwell
 	$(INSTALL_PROGRAM) $(MIGRATOR_BIN) $(DESTDIR)$(PREFIX)/libexec/shotwell
+	$(if $(ENABLE_FACES), mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/$(FACEDETECT_DIR))
+	$(if $(ENABLE_FACES), $(INSTALL_PROGRAM) $(FACEDETECT_BIN) $(DESTDIR)$(PREFIX)/bin)
+	$(if $(ENABLE_FACES), $(INSTALL_DATA) $(FACEDETECT_DIR)/facedetect-haarcascade.xml $(DESTDIR)$(PREFIX)/share/shotwell/$(FACEDETECT_DIR)/facedetect-haarcascade.xml)
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
@@ -630,6 +657,7 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM_THUMBNAILER)
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM_MIGRATOR)
+	$(if $(ENABLE_FACES), rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM_FACEDETECT))
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
 	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps/shotwell.svg
 	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.svg
@@ -699,12 +727,16 @@ $(EXPANDED_C_FILES): $(VALA_STAMP)
 $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
-$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN)
+$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN) $(FACEDETECT_BIN)
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(LDFLAGS) $(RESOURCES) $(VALA_LDFLAGS) $(EXPORT_FLAGS) -o $@
 	glib-compile-schemas misc
 
 $(THUMBNAILER_BIN): $(EXPANDED_THUMBNAILER_SRC_FILES)
 	$(VALAC) $(EXPANDED_THUMBNAILER_SRC_FILES) $(VALAFLAGS) -o $@ $(foreach pkg,$(THUMBNAILER_PKGS),--pkg=$(pkg))
+
+$(FACEDETECT_BIN): $(EXPANDED_FACEDETECT_SRC_FILES)
+	$(if $(ENABLE_FACES), \
+	$(CXX) $(EXPANDED_FACEDETECT_SRC_FILES) $(foreach lib,$(FACEDETECT_LIBS),-l$(lib)) -o $@)
 
 $(PLUGINS_SO) $(EXTRA_PLUGINS_SO): $(PLUGINS_DIR)
 	@

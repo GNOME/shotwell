@@ -9,6 +9,7 @@ shotwell
 /src/libshotwell.vapi
 /src/.unitize
 /thumbnailer/shotwell-video-thumbnailer
+/facedetect/shotwell-facedetect
 *.c
 *.deps
 *.h
