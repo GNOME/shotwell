@@ -168,7 +168,7 @@ public class Exporter : Object {
         }
         
         if (!aborted && monitor != null) {
-            if (!monitor(completed_count, to_export.size)) {
+            if (!monitor(completed_count, to_export.size, false)) {
                 aborted = true;
                 
                 if (!completed)
