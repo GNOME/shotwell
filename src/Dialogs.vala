@@ -2277,7 +2277,7 @@ public class PreferencesDialog {
     }
     
     private void on_current_folder_changed() {
-        lib_dir = library_dir_button.get_current_folder();
+        lib_dir = library_dir_button.get_filename();
     }
     
     private bool map_event() {
