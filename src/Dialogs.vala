@@ -1192,7 +1192,7 @@ public class ProgressDialog : Gtk.Window {
     }
     
     // This can be used as a ProgressMonitor delegate.
-    public bool monitor(uint64 count, uint64 total) {
+    public bool monitor(uint64 count, uint64 total, bool do_event_loop = true) {
         if ((last_count == uint64.MAX) || (count - last_count) >= update_every) {
             set_percentage((double) count / (double) total);
             last_count = count;
@@ -1205,7 +1205,9 @@ public class ProgressDialog : Gtk.Window {
         //
         // Important: Since it's possible the progress dialog might be destroyed inside this call,
         // avoid referring to "this" afterwards at all costs (in case all refs have been dropped)
-        spin_event_loop();
+        
+        if (do_event_loop)
+            spin_event_loop();
         
         return keep_going;
     }
