@@ -4,11 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-// This is required due to a binding error.  This is fixed in 0.13 trunk and can be removed when
-// Shotwell is ported to that version of Vala.
-extern void gdk_device_get_position(Gdk.Device device, out unowned Gdk.Screen screen,
-    out int x, out int y);
-
 public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_INVOCATION_MSEC = 250;
     public const int TOOLBAR_DISMISSAL_SEC = 2;
@@ -207,11 +202,11 @@ public class FullscreenWindow : PageWindow {
         }
         
         int py;
-        gdk_device_get_position(devmgr.get_client_pointer(), null, null, out py);
+        devmgr.get_client_pointer().get_position(null, null, out py);
         
         int wy;
         toolbar_window.get_window().get_geometry(null, out wy, null, null);
-        
+
         return (py >= wy);
     }
     
