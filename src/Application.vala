@@ -189,6 +189,25 @@ public class Application {
         Posix.exit(1);
     }
 
+    /**
+     * @brief Allows the caller to ask for some part of the desktop session's functionality to
+     * be prevented from running; wrapper for Gtk.Application.inhibit().
+     *
+     * @note The return value is a 'cookie' that needs to be passed to 'uninhibit' to turn
+     * off a requested inhibition and should be saved by the caller.
+     */ 
+    public uint inhibit(Gtk.ApplicationInhibitFlags what, string? reason="none given") {
+        return system_app.inhibit(AppWindow.get_instance(), what, reason);
+    }
+
+    /**
+     * @brief Turns off a previously-requested inhibition. Wrapper for
+     * Gtk.Application.uninhibit().
+     */
+    public void uninhibit(uint cookie) {
+        system_app.uninhibit(cookie);
+    }
+
     public int get_run_return_value() {
         return system_app_run_retval;
     }
