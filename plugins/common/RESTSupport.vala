@@ -501,7 +501,15 @@ public class XmlDocument {
         CheckForErrorResponse check_for_error_response) throws Spit.Publishing.PublishingError {
         if (input_string == null || input_string.length == 0)
             throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Empty XML string");
-        
+
+        // Does this even start and end with the right characters?
+        if (!input_string.chug().chomp().has_prefix("<") ||
+            !input_string.chug().chomp().has_suffix(">")) {
+            // Didn't start or end with a < or > and can't be parsed as XML - treat as malformed.
+            throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Unable to parse XML " +
+                "document");
+        }
+
         // Don't want blanks to be included as text nodes, and want the XML parser to tolerate
         // tolerable XML
         Xml.Doc* doc = Xml.Parser.read_memory(input_string, (int) input_string.length, null, null,
@@ -509,9 +517,16 @@ public class XmlDocument {
         if (doc == null)
             throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Unable to parse XML " +
                 "document");
+
+        // Since 'doc' is the top level, if it has no children, something is wrong
+        // with the XML; we cannot continue normally here.
+        if (doc->children == null) {
+            throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Unable to parse XML " +
+                "document");
+        }
         
         XmlDocument rest_doc = new XmlDocument(doc);
-        
+
         string? result = check_for_error_response(rest_doc);
         if (result != null)
             throw new Spit.Publishing.PublishingError.SERVICE_ERROR("%s", result);
