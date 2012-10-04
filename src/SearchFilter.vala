@@ -1174,11 +1174,20 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     private void on_search_text_changed() {
         update();
     }
-    
+
     private void on_rating_changed() {
+        AppWindow aw = LibraryWindow.get_app();
+
+        if (aw == null)
+            return;
+
+        Gtk.ToggleAction searchbar_toggle = aw.get_common_action("CommonDisplaySearchbar") as Gtk.ToggleAction;
+        if(searchbar_toggle != null)
+            searchbar_toggle.set_active(true);
+
         update();
     }
-    
+
     // Ticket #3290, part II - listen for criteria change signals,
     // and show or hide widgets based on the criteria we just 
     // changed to.
