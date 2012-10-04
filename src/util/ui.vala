@@ -35,22 +35,9 @@ public enum Direction {
     }
 }
 
-// Returns false if Gtk.quit() was called
-public bool spin_event_loop(int max = -1) {
-    if (max == 0)
-        return true;
-    
-    while (Gtk.events_pending()) {
-        if (Gtk.main_iteration())
-            return false;
-        
-        if (max > 0) {
-            if (--max <= 0)
-                break;
-        }
-    }
-    
-    return true;
+public void spin_event_loop() {
+    while (Gtk.events_pending())
+        Gtk.main_iteration();
 }
 
 public AdjustmentRelation get_adjustment_relation(Gtk.Adjustment adjustment, int value) {

@@ -394,7 +394,7 @@ public abstract class PageWindow : Gtk.Window {
             return;
         
         get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
-        spin_event_loop(10);
+        spin_event_loop();
     }
     
     public void set_normal_cursor() {
@@ -406,7 +406,7 @@ public abstract class PageWindow : Gtk.Window {
         }
         
         get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-        spin_event_loop(10);
+        spin_event_loop();
     }
     
 }
