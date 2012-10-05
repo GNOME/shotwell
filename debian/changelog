@@ -1,3 +1,28 @@
+shotwell (0.13.1-1~precise1) precise; urgency=low
+
+  * Fixes an issue in which Shotwell would crash after deleting
+    all photos present in a view
+  * Fixes an issue where Shotwell would not include all
+    selected photos during a Nautilus "Send To..." export
+    operation
+  * Corrects a problem in which the file chooser dialog
+    used to select Shotwell's library location would
+    inappropriately select the parent directory of the chosen
+    directory
+  * Shotwell now properly inhibits the system screensaver when
+    playing a slideshow
+  * Fixes an issue in which the search filter bar could become
+    invisible even though a filter was being applied
+  * A progress bar now correctly appears during long batch
+    rotate and auto-enhance operations
+  * Shotwell no longer crashes when certain kinds of malformed
+    responses are received from remote servers during photo
+    publishing
+  * Corrected translation and desktop integration errors
+    
+ -- Lucas Beeler <lucas@yorba.org>  Fri, 5 Oct 2012 11:09:17 -0700
+
+
 shotwell (0.13.0-1~precise1) precise; urgency=low
 
   * The Shotwell Extras plugins now include support for
