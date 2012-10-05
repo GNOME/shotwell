@@ -1392,6 +1392,9 @@ public class LibraryWindow : AppWindow {
             assert(null != page);
             search_toolbar.set_view_filter(page.get_search_view_filter());
             page.get_view().install_view_filter(page.get_search_view_filter());
+        } else {
+            if (page != null)
+                page.get_view().remove_view_filter(page.get_search_view_filter());
         }
     }
     
