@@ -101,6 +101,7 @@ internal class PublishingParameters {
     public Category category = null;
     public PermissionLevel perm_level = null;
     public SizeEntry photo_size = null;
+    public bool title_as_comment = false;
 
     public PublishingParameters() {
     }
@@ -222,6 +223,14 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     
     private void set_last_photo_size(int last_photo_size) {
         host.set_config_int("last-photo-size", last_photo_size);
+    }
+    
+    private bool get_last_title_as_comment() {
+        return host.get_config_bool("last-title-as-comment", false);
+    }
+    
+    private void set_last_title_as_comment(bool title_as_comment) {
+        host.set_config_bool("last-title-as-comment", title_as_comment);
     }
     
     private bool get_metadata_removal_choice() {
@@ -598,7 +607,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_service_locked(false);
         PublishingOptionsPane opts_pane = new PublishingOptionsPane(
             this, categories, get_last_category(), get_last_permission_level(), get_last_photo_size(),
-            get_metadata_removal_choice());
+            get_last_title_as_comment(), get_metadata_removal_choice());
         opts_pane.logout.connect(on_publishing_options_pane_logout_clicked);
         opts_pane.publish.connect(on_publishing_options_pane_publish_clicked);
         host.install_dialog_pane(opts_pane, Spit.Publishing.PluginHost.ButtonMode.CLOSE);
@@ -760,6 +769,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         set_last_category(parameters.category.id);
         set_last_permission_level(parameters.perm_level.id);
         set_last_photo_size(parameters.photo_size.id);
+        set_last_title_as_comment(parameters.title_as_comment);
         set_metadata_removal_choice(strip_metadata);
 
         progress_reporter = host.serialize_publishables(parameters.photo_size.id, this.strip_metadata);
@@ -1080,6 +1090,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private Gtk.ComboBoxText perms_combo;
     private Gtk.ComboBoxText size_combo;
     private Gtk.CheckButton strip_metadata_check = null;
+    private Gtk.CheckButton title_as_comment_check = null;
     private Gtk.Button logout_button;
     private Gtk.Button publish_button;
     
@@ -1090,6 +1101,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private int last_category;
     private int last_permission_level;
     private int last_photo_size;
+    private bool last_title_as_comment;
 
     public signal void publish(PublishingParameters parameters, bool strip_metadata);
     public signal void logout();
@@ -1097,12 +1109,13 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     public PublishingOptionsPane(
         PiwigoPublisher publisher, Category[] categories,
         int last_category, int last_permission_level, int last_photo_size,
-        bool strip_metadata_enabled
+        bool last_title_as_comment, bool strip_metadata_enabled
     ) {
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         this.last_category = last_category;
         this.last_permission_level = last_permission_level;
         this.last_photo_size = last_photo_size;
+        this.last_title_as_comment = last_title_as_comment;
 
         File ui_file = publisher.get_host().get_module_file().get_parent().
             get_child("piwigo_publishing_options_pane.glade");
@@ -1122,6 +1135,9 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
 
             strip_metadata_check = builder.get_object("strip_metadata_check") as Gtk.CheckButton;
             strip_metadata_check.set_active(strip_metadata_enabled);
+
+            title_as_comment_check = builder.get_object("title_as_comment_check") as Gtk.CheckButton;
+            title_as_comment_check.set_active(last_title_as_comment);
 
             logout_button = builder.get_object("logout_button") as Gtk.Button;
             logout_button.clicked.connect(on_logout_button_clicked);
@@ -1180,6 +1196,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         PublishingParameters params = new PublishingParameters();
         params.perm_level = perm_levels[perms_combo.get_active()];
         params.photo_size = photo_sizes[size_combo.get_active()];
+        params.title_as_comment = title_as_comment_check.get_active();
         if (create_new_radio.get_active()) {
             params.category = new Category.local(new_category_entry.get_text());
         } else {
@@ -1522,13 +1539,21 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
             publishable.get_serialized_file().get_basename(),
             parameters.category.id, parameters.perm_level.id);
         string name = publishable.get_publishing_name();
-        if (is_string_empty(name)) {
+        if (!is_string_empty(name)) {
+            if (parameters.title_as_comment) {
+                add_argument("comment", name);
+            } else {
+                add_argument("name", name);
+            }
+        } else {
+            // keep the old behaviour that if the title is not set
+            // then reuse the file name as name
             name = publishable.get_param_string(
                 Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+            add_argument("name", name);
         }
         add_argument("method", "pwg.images.addSimple");
         add_argument("category", parameters.category.id.to_string());
-        add_argument("name", name);
         add_argument("level", parameters.perm_level.id.to_string());
         if (!is_string_empty(tags))
             add_argument("tags", tags);
