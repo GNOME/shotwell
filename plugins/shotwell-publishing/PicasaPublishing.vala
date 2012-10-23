@@ -938,9 +938,23 @@ internal class UploadTransaction : AuthenticatedTransaction {
         string[] keywords = publishable.get_publishing_keywords();
         string keywords_string = "";
         if (keywords.length > 0) {
-            keywords_string = "<mrss:group><mrss:keywords>%s</mrss:keywords></mrss:group>".printf(string.joinv(", ", keywords));
-        }
+		    for (int i = 0; i < keywords.length; i++) {
+                string[] tmp;
 
+                if (keywords[i].has_prefix("/"))
+                    tmp = keywords[i].substring(1).split("/");
+		        else
+                    tmp = keywords[i].split("/"); 
+
+                if (keywords_string.length > 0)
+                    keywords_string = string.join(", ", keywords_string, string.joinv(", ", tmp));
+                else
+                    keywords_string = string.joinv(", ", tmp);
+            }
+
+            keywords_string = "<mrss:group><mrss:keywords>%s</mrss:keywords></mrss:group>".printf(keywords_string);
+        }
+        
         string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(
             publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME)),
             summary, keywords_string);
