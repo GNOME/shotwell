@@ -178,7 +178,7 @@ public interface DialogPane : GLib.Object {
 
         /**
          * If this bit is set, when the associated pane is installed, the on-screen publishing
-         * dialog box will grow to accomodate a full-width 1024 pixel web page. If both
+         * dialog box will grow to accommodate a full-width 1024 pixel web page. If both
          * EXTENDED_SIZE and COLOSSAL_SIZE are set, EXTENDED_SIZE takes precedence.
          */
         COLOSSAL_SIZE = 1 << 2;

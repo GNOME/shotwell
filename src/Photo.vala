@@ -156,7 +156,7 @@ public enum Rating {
 
 // Photo is an abstract class that allows for applying transformations on-the-fly to a
 // particular photo without modifying the backing image file.  The interface allows for
-// transformations to be stored persistently elsewhere or in memory until they're commited en
+// transformations to be stored persistently elsewhere or in memory until they're committed en
 // masse to an image file.
 public abstract class Photo : PhotoSource, Dateable {
     // Need to use "thumb" rather than "photo" for historical reasons -- this name is used

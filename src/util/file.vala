@@ -6,7 +6,7 @@
 
 // Returns true if the file is claimed, false if it exists, and throws an Error otherwise.  The file
 // will be created when the function exits and should be overwritten.  Note that the file is not
-// held open; claiming a file is merely based on its existance.
+// held open; claiming a file is merely based on its existence.
 //
 // This function is thread-safe.
 public bool claim_file(File file) throws Error {

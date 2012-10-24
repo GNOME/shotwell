@@ -3685,7 +3685,7 @@ msgid "Creating album %s..."
 msgstr ""
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:862
-msgid "An error message occured when publishing to Piwigo. Please try again."
+msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:943

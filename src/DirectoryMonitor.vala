@@ -1100,7 +1100,7 @@ public class DirectoryMonitor : Object {
             break;
             
             default:
-                // artifically complete it
+                // artificially complete it
                 query_info.completed = true;
                 process_query_queue(query_info);
             break;

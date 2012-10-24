@@ -869,7 +869,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
         
         debug("Unhandled error: type=%s; message='%s'".printf(error_type, e.message));
-        do_show_error_message(_("An error message occured when publishing to Piwigo. Please try again."));
+        do_show_error_message(_("An error message occurred when publishing to Piwigo. Please try again."));
     }
     
     /**

@@ -128,7 +128,7 @@ public class ThemeLoader {
         
         /* If the image data loaded from disk didn't contain NUM_SUPPORTED_INTENSITIES
            colors, then we can't unambiguously map the colors in the loaded image data
-           to theme colors on the user's system, so propogate an error */
+           to theme colors on the user's system, so propagate an error */
         if (colors.size != NUM_SUPPORTED_INTENSITIES)
             error("ThemeLoader: load_icon: pixbuf does not contain the correct number " +
                 "of unique colors");

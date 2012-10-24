@@ -150,7 +150,7 @@ class AppDirs {
         return get_home_dir().get_child(_("Pictures"));
     }
     
-    // Library folder + photo folder, based on user's prefered directory pattern.
+    // Library folder + photo folder, based on user's preferred directory pattern.
     public static File get_baked_import_dir(time_t tm) {
         string? pattern = Config.Facade.get_instance().get_directory_pattern();
         if (is_string_empty(pattern))

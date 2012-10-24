@@ -8,7 +8,7 @@ public delegate int64 GetSourceDatabaseKey(DataSource source);
 
 // A DatabaseSourceCollection is a SourceCollection that understands database keys (IDs) and the
 // nature that a row in a database can only be instantiated once in the system, and so it tracks
-// their existance in a map so they can be fetched by their key.
+// their existence in a map so they can be fetched by their key.
 //
 // TODO: This would be better implemented as an observer class, possibly with an interface to
 // force subclasses to provide a fetch_by_key() method.

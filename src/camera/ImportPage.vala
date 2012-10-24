@@ -1626,7 +1626,7 @@ public class ImportPage : CheckerboardPage {
             
             CameraImportJob import_job = new CameraImportJob(null_context, import_file);
             
-            // Maintain RAW+JPEG assocation.
+            // Maintain RAW+JPEG association.
             if (import_file is PhotoImportSource && 
                 ((PhotoImportSource) import_file).get_associated() != null) {
                 import_job.set_associated(new CameraImportJob(null_context, 

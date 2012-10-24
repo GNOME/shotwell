@@ -1459,7 +1459,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         current_tool = tool;
         current_tool.activate(photo_canvas);
         
-        // if the tool has an auxilliary window, move it properly on the screen
+        // if the tool has an auxiliary window, move it properly on the screen
         place_tool_window();
 
         // repaint entire view, with the tool now hooked in

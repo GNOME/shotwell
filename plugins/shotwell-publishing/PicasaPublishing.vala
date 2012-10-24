@@ -318,7 +318,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
             // user's album feed doesn't exist -- this occurs when the user has a valid Google
             // account but it hasn't yet been set up for use with Picasa. In this case, we
             // display an informational pane with an "account not set up" message. In addition, we
-            // deauthenticate the session. Deauth is neccessary because must've previously auth'd
+            // deauthenticate the session. Deauth is necessary because we must've previously auth'd
             // the user's account to even be able to query the album feed.
             session.deauthenticate();
             do_show_not_set_up_pane();

@@ -84,7 +84,7 @@ class ShotwellThumbnailer {
 
                 // Get the snapshot buffer format now. We set the caps on the appsink so
                 // that it can only be an rgb buffer. The only thing we have not specified
-                // on the caps is the height, which is dependant on the pixel-aspect-ratio
+                // on the caps is the height, which is dependent on the pixel-aspect-ratio
                 // of the source material.
                 caps = buffer.get_caps();
                 if (caps == null) {

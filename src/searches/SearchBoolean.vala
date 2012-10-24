@@ -735,7 +735,7 @@ public class SavedSearch : DataSource {
     }
 }
 
-// This table contains every saved search.  It's the prefered way to add and destroy a saved 
+// This table contains every saved search.  It's the preferred way to add and destroy a saved 
 // search as well, since this table's create/destroy methods are tied to the database.
 public class SavedSearchTable {
     private static SavedSearchTable? instance = null;

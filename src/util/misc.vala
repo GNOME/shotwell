@@ -355,7 +355,7 @@ public class OpTimer {
 }
 
 // Dummy function for suppressing 'could not stat file' errors
-// generated when saving into a previously non-existant file -
+// generated when saving into a previously non-existent file -
 // please see https://bugzilla.gnome.org/show_bug.cgi?id=662814
 // and to work around a spurious warning given by GDK when a
 // key press event is passed from a child class' event handler
