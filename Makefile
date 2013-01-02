@@ -321,7 +321,7 @@ DIRECT_LIBS =
 
 EXT_PKG_VERSIONS = \
 	gee-1.0 >= 0.5.0 \
-	gexiv2 >= 0.3.92 \
+	gexiv2 >= 0.4.1 \
 	gio-unix-2.0 >= 2.20 \
 	glib-2.0 >= $(MIN_GLIB_VERSION) \
 	gmodule-2.0 >= 2.24.0 \
