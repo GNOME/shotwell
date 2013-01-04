@@ -191,7 +191,8 @@ public class MetadataWriter : Object {
         
         Application.get_instance().exiting.connect(on_application_exiting);
         
-        LibraryMonitorPool.get_instance().get_monitor().discovery_completed.connect(on_discovery_completed);
+        LibraryMonitorPool.get_instance().monitor_installed.connect(on_monitor_installed);
+        LibraryMonitorPool.get_instance().monitor_destroyed.connect(on_monitor_destroyed);
     }
     
     ~MetadataWriter() {
@@ -213,7 +214,8 @@ public class MetadataWriter : Object {
         
         Application.get_instance().exiting.disconnect(on_application_exiting);
         
-        LibraryMonitorPool.get_instance().get_monitor().discovery_completed.disconnect(on_discovery_completed);
+        LibraryMonitorPool.get_instance().monitor_installed.disconnect(on_monitor_installed);
+        LibraryMonitorPool.get_instance().monitor_destroyed.disconnect(on_monitor_destroyed);
     }
     
     public static void init() {
@@ -276,6 +278,14 @@ public class MetadataWriter : Object {
     
     private void on_application_exiting() {
         close();
+    }
+    
+    private void on_monitor_installed(LibraryMonitor monitor) {
+        monitor.discovery_completed.connect(on_discovery_completed);
+    }
+
+    private void on_monitor_destroyed(LibraryMonitor monitor) {
+        monitor.discovery_completed.disconnect(on_discovery_completed);
     }
     
     private void on_discovery_completed() {

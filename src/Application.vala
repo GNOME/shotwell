@@ -15,6 +15,9 @@ public class Application {
 
     public virtual signal void exiting(bool panicked) {
     }
+    
+    public virtual signal void init_done() {
+    }
 
     private bool running = false;
     private bool exiting_fired = false;

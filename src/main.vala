@@ -139,6 +139,8 @@ void library_exec(string[] mounts) {
     MetadataWriter.init();
     DesktopIntegration.init();
     
+    Application.get_instance().init_done();
+    
     // create main library application window
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("LibraryWindow");

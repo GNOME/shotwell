@@ -739,16 +739,23 @@ public class MediaCollectionRegistry {
         new Gee.HashMap<string, MediaSourceCollection>();
     
     private MediaCollectionRegistry() {
+        Application.get_instance().init_done.connect(on_init_done);
+    }
+    
+    ~MediaCollectionRegistry() {
+        Application.get_instance().init_done.disconnect(on_init_done);
+    }
+    
+    private void on_init_done() {
+        // install the default library monitor
+        LibraryMonitor library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true,
+            !CommandlineOptions.no_runtime_monitoring);
+
+        LibraryMonitorPool.get_instance().replace(library_monitor, LIBRARY_MONITOR_START_DELAY_MSEC);
     }
     
     public static void init() {
         instance = new MediaCollectionRegistry();
-        
-        // install the default library monitor
-        LibraryMonitor library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true,
-            !CommandlineOptions.no_runtime_monitoring);
-        LibraryMonitorPool.get_instance().replace(library_monitor, LIBRARY_MONITOR_START_DELAY_MSEC);
-        
         Config.Facade.get_instance().import_directory_changed.connect(on_import_directory_changed);
     }
     
