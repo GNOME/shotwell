@@ -447,6 +447,12 @@
         <summary>use title as comment for uploads to Piwigo</summary>
         <description>Whether images being uploaded to Piwigo should have their comment set from the title if it is set</description>
     </key>
+
+    <key name="last-no-upload-tags" type="b">
+        <default>false</default>
+        <summary>do not upload tags when uploading to Piwigo</summary>
+        <description>Whether images being uploaded to Piwigo should have their tags removed on upload, such that these tags will not appear on the remote Piwigo server.</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.youtube" path="/org/yorba/shotwell/sharing/youtube/">
