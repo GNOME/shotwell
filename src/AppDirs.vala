@@ -28,7 +28,9 @@ class AppDirs {
     }
 
     public static File get_cache_dir() {
-        return File.new_for_path(Environment.get_user_cache_dir()).get_child(DEFAULT_DATA_DIR);
+        return ((data_dir == null) ?
+            File.new_for_path(Environment.get_user_cache_dir()).get_child(DEFAULT_DATA_DIR) :
+            data_dir);
     }
     
     public static void try_migrate_data() {
