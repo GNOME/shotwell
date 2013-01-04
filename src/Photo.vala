@@ -615,7 +615,12 @@ public abstract class Photo : PhotoSource, Dateable {
                     // Write out the JPEG.
                     PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
                     writer.write(pix, Jpeg.Quality.HIGH);
-                    
+
+                    // Write out metadata
+                    PhotoMetadata meta = get_master_metadata();
+                    PhotoFileMetadataWriter mwriter = PhotoFileFormat.JFIF.create_metadata_writer(bps.filepath);
+                    mwriter.write_metadata(meta);
+
                     // Read in backing photo info, add to DB.
                     add_backing_photo_for_development(d, bps);
                     
@@ -653,7 +658,11 @@ public abstract class Photo : PhotoSource, Dateable {
                     BackingPhotoRow bps = d.create_backing_row_for_development(row.master.filepath);
                     PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
                     writer.write(pix, Jpeg.Quality.HIGH);
-                    
+
+                    // Write out metadata
+                    PhotoFileMetadataWriter mwriter = PhotoFileFormat.JFIF.create_metadata_writer(bps.filepath);
+                    mwriter.write_metadata(meta);
+
                     // Read in backing photo info, add to DB.
                     add_backing_photo_for_development(d, bps);
                     
