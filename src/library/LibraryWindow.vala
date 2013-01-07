@@ -397,6 +397,12 @@ public class LibraryWindow : AppWindow {
         searchbar.tooltip = _("Display the search bar");
         actions += searchbar;
         
+        Gtk.ToggleActionEntry sidebar = { "CommonDisplaySidebar", null, TRANSLATABLE,
+            "F9", TRANSLATABLE, on_display_sidebar, is_sidebar_visible() };
+        sidebar.label = _("S_idebar");
+        sidebar.tooltip = _("Display the sidebar");
+        actions += sidebar;
+        
         return actions;
     }
     
@@ -502,6 +508,9 @@ public class LibraryWindow : AppWindow {
             init_view_filter(current_page);
 
         toggle_search_bar(should_show_search_bar(), current_page);
+        
+        // Sidebar
+        set_sidebar_visible(is_sidebar_visible());
     }
     
     public static LibraryWindow get_app() {
@@ -830,6 +839,20 @@ public class LibraryWindow : AppWindow {
         toggle_search_bar(should_show_search_bar(), get_current_page() as CheckerboardPage);
         if (!display)
             search_actions.reset();
+    }
+    
+    private void on_display_sidebar(Gtk.Action action) {
+        set_sidebar_visible(((Gtk.ToggleAction) action).get_active());
+        
+    }
+    
+    private void set_sidebar_visible(bool visible) {
+        sidebar_paned.set_visible(visible);
+        Config.Facade.get_instance().set_display_sidebar(visible);
+    }
+    
+    private bool is_sidebar_visible() {
+        return Config.Facade.get_instance().get_display_sidebar();
     }
     
     private void show_extended_properties() {

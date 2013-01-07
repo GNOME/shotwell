@@ -29,6 +29,12 @@
         <description>True if the extended properties window is to be displayed, false otherwise.</description>
     </key>
     
+    <key name="display-sidebar" type="b">
+        <default>true</default>
+        <summary>display sidebar</summary>
+        <description>True if the sidebar is to be displayed, false otherwise.</description>
+    </key>
+    
     <key name="display-photo-titles" type="b">
         <default>false</default>
         <summary>display photo titles</summary>

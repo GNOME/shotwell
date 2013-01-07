@@ -34,6 +34,7 @@
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
             <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
+            <menuitem name="DisplaySidebar" action="CommonDisplaySidebar" />
             <separator />
             <menuitem name="ViewRatings" action="ViewRatings" />
             <separator />

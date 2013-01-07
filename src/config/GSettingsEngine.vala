@@ -45,6 +45,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.DIRECT_WINDOW_WIDTH] = WINDOW_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_BASIC_PROPERTIES] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_EXTENDED_PROPERTIES] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.DISPLAY_SIDEBAR] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_RATINGS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_TAGS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_TITLES] = UI_PREFS_SCHEMA_NAME;
@@ -103,6 +104,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.DIRECT_WINDOW_WIDTH] = "direct-width";
         key_names[ConfigurableProperty.DISPLAY_BASIC_PROPERTIES] = "display-basic-properties";
         key_names[ConfigurableProperty.DISPLAY_EXTENDED_PROPERTIES] = "display-extended-properties";
+        key_names[ConfigurableProperty.DISPLAY_SIDEBAR] = "display-sidebar";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_RATINGS] = "display-photo-ratings";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_TAGS] = "display-photo-tags";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_TITLES] = "display-photo-titles";
