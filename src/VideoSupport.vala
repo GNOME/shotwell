@@ -163,8 +163,8 @@ public class VideoReader {
                 file.get_path()));
         
         try {
-            Gst.Discoverer d = new Gst.Discoverer((Gst.ClockTime) (Gst.SECOND * 5));
-            Gst.DiscovererInfo info = d.discover_uri(file.get_uri());
+            Gst.PbUtils.Discoverer d = new Gst.PbUtils.Discoverer((Gst.ClockTime) (Gst.SECOND * 5));
+            Gst.PbUtils.DiscovererInfo info = d.discover_uri(file.get_uri());
             
             clip_duration = ((double) info.get_duration()) / 1000000000.0;
             
@@ -172,7 +172,7 @@ public class VideoReader {
             // TODO: Note that TAG_DATE can be changed to TAG_DATE_TIME in the future
             // (and the corresponding output struct) in order to implement #2836.
             Date? video_date = null;
-            if (info.get_tags() != null && info.get_tags().get_date(Gst.TAG_DATE, out video_date)) {
+            if (info.get_tags() != null && info.get_tags().get_date(Gst.Tags.DATE, out video_date)) {
                 timestamp = new DateTime.local(video_date.get_year(), video_date.get_month(), 
                     video_date.get_day(), 0, 0, 0);
             }
@@ -323,7 +323,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         Gst.init(ref fake_unowned_args);
         
         int saved_state = Config.Facade.get_instance().get_video_interpreter_state_cookie();
-        current_state = (int) Gst.Registry.get_default().get_feature_list_cookie();
+        current_state = (int) Gst.Registry.get().get_feature_list_cookie();
         if (saved_state == Config.Facade.NO_VIDEO_INTERPRETER_STATE) {
             message("interpreter state cookie not found; assuming all video thumbnails are out of date");
             interpreter_state_changed = true;

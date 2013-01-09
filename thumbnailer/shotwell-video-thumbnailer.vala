@@ -10,22 +10,15 @@
 // Shotwell Thumbnailer takes in a video file and returns a thumbnail to stdout.  This is
 // a replacement for totem-video-thumbnailer
 class ShotwellThumbnailer {
-    const string caps_string = """video/x-raw-rgb,bpp = (int) 32, depth = (int) 32,
-                                      endianness = (int) BIG_ENDIAN,
-                                      red_mask = (int)   0xFF000000,
-                                      green_mask = (int) 0x00FF0000,
-                                      blue_mask = (int)  0x0000FF00,
-                                      width = (int) [ 1, max ],
-                                      height = (int) [ 1, max ],
-                                      framerate = (fraction) [ 0, max ]""";
+    const string caps_string = """video/x-raw,format=RGB,bpp=32,depth=32,pixel-aspect-ratio=1/1""";
     
     public static int main(string[] args) {
         Gst.Element pipeline, sink;
         int width, height;
-        Gst.Buffer buffer;
+        Gst.Sample sample;
         string descr;
         Gdk.Pixbuf pixbuf;
-        int64 position;
+        int64 duration, position;
         Gst.StateChangeReturn ret;
         bool res;
         
@@ -36,7 +29,7 @@ class ShotwellThumbnailer {
             return 1;
         }
         
-        descr = "filesrc location=\"%s\" ! decodebin2 ! ffmpegcolorspace ! ".printf(args[1]) + 
+        descr = "filesrc location=\"%s\" ! decodebin ! videoconvert ! videoscale ! ".printf(args[1]) +
             "appsink name=sink caps=\"%s\"".printf(caps_string);
         
         try {
@@ -64,29 +57,41 @@ class ShotwellThumbnailer {
                 stderr.printf("Failed to play the file: couldn't get state.\n");
                 return 3;
             }
-            
-            // Seek to the a position in the file. Most files have a black first frame so
-            // by seeking to somewhere else we have a bigger chance of getting something
-            // more interesting. An optimization would be to detect black images and then
-            // seek a little more.
-            position = (int64) (Gst.Format.PERCENT_MAX * 0.05);
-            pipeline.seek_simple(Gst.Format.PERCENT, Gst.SeekFlags.KEY_UNIT | Gst.SeekFlags.FLUSH , position);
-            
-            // Get the preroll buffer from appsink, this block untils appsink really
-            // prerolls.
-            GLib.Signal.emit_by_name(sink, "pull-preroll", out buffer, null);
-            
+
+            /* get the duration */
+            pipeline.query_duration (Gst.Format.TIME, out duration);
+
+            if (duration != -1) {
+                /* we have a duration, seek to 5% */
+                position = duration * 5 / 100;
+            } else {
+                /* no duration, seek to 1 second, this could EOS */
+                position = 1 * Gst.SECOND;
+            }
+
+            /* seek to the a position in the file. Most files have a black first frame so
+             * by seeking to somewhere else we have a bigger chance of getting something
+             * more interesting. An optimisation would be to detect black images and then
+             * seek a little more */
+            pipeline.seek_simple (Gst.Format.TIME, Gst.SeekFlags.KEY_UNIT | Gst.SeekFlags.FLUSH, position);
+
+            /* get the preroll buffer from appsink, this block untils appsink really
+             * prerolls */
+            GLib.Signal.emit_by_name (sink, "pull-preroll", out sample, null);
+
             // if we have a buffer now, convert it to a pixbuf. It's possible that we
             // don't have a buffer because we went EOS right away or had an error.
-            if (buffer != null) {
+            if (sample != null) {
+                Gst.Buffer buffer;
                 Gst.Caps caps;
                 Gst.Structure s;
+                Gst.MapInfo mapinfo;
 
                 // Get the snapshot buffer format now. We set the caps on the appsink so
                 // that it can only be an rgb buffer. The only thing we have not specified
                 // on the caps is the height, which is dependent on the pixel-aspect-ratio
                 // of the source material.
-                caps = buffer.get_caps();
+                caps = sample.get_caps();
                 if (caps == null) {
                     stderr.printf("could not get snapshot format\n");
                     return 5;
@@ -101,14 +106,18 @@ class ShotwellThumbnailer {
                     stderr.printf("Could not get snapshot dimension\n");
                     return 6;
                 }
-                
+
+                buffer = sample.get_buffer();
+                buffer.map(out mapinfo, Gst.MapFlags.READ);
+
                 // Create pixmap from buffer and save, gstreamer video buffers have a stride
                 // that is rounded up to the nearest multiple of 4.
-                pixbuf = new Gdk.Pixbuf.from_data(buffer.data, Gdk.Colorspace.RGB, true, 8, 
-                    width, height, width * 4, null);
+                pixbuf = new Gdk.Pixbuf.from_data(mapinfo.data, Gdk.Colorspace.RGB, false, 8,
+                    width, height, (((width * 3)+3)&~3), null);
                 
                 // Save the pixbuf.
                 pixbuf.save("/dev/stdout", "png");
+                buffer.unmap(mapinfo);
             } else {
                 stderr.printf("Could not make snapshot\n");
                 return 10;

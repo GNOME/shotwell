@@ -37,7 +37,7 @@ EXTRAS_SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR := $(DESTDIR)$(PREFIX)/share/locale
 
-VALAFLAGS := -g --enable-checking --thread --fatal-warnings --enable-deprecated $(USER_VALAFLAGS)
+VALAFLAGS := -g --enable-checking --thread --fatal-warnings --enable-deprecated --enable-experimental $(USER_VALAFLAGS)
 ifdef UNITY_SUPPORT
 VALAFLAGS := $(VALAFLAGS) --define UNITY_SUPPORT
 endif
@@ -293,9 +293,9 @@ EXT_PKGS = \
 	gio-unix-2.0 \
 	glib-2.0 \
 	gmodule-2.0 \
-	gstreamer-0.10 \
-	gstreamer-base-0.10 \
-	gstreamer-pbutils-0.10 \
+	gstreamer-1.0 \
+	gstreamer-base-1.0 \
+	gstreamer-pbutils-1.0 \
 	gtk+-3.0 \
 	gudev-1.0 \
 	libexif \
@@ -314,8 +314,8 @@ endif
 THUMBNAILER_PKGS = \
     gtk+-3.0 \
     gee-1.0 \
-    gstreamer-0.10 \
-    gstreamer-base-0.10
+    gstreamer-1.0 \
+    gstreamer-base-1.0
 
 DIRECT_LIBS =
 
@@ -325,10 +325,10 @@ EXT_PKG_VERSIONS = \
 	gio-unix-2.0 >= 2.20 \
 	glib-2.0 >= $(MIN_GLIB_VERSION) \
 	gmodule-2.0 >= 2.24.0 \
-	gstreamer-0.10 >= 0.10.28 \
-	gstreamer-base-0.10 >= 0.10.28 \
-	gstreamer-plugins-base-0.10 >= 0.10.32 \
-	gstreamer-pbutils-0.10 >= 0.10.32 \
+	gstreamer-1.0 >= 1.0.0 \
+	gstreamer-base-1.0 >= 1.0.0 \
+	gstreamer-plugins-base-1.0 >= 1.0.0 \
+	gstreamer-pbutils-1.0 >= 1.0.0 \
 	gtk+-3.0 >= 3.0.11 \
 	gudev-1.0 >= 145 \
 	libexif >= 0.6.16 \
@@ -683,7 +683,7 @@ $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(GPHOTO_VAPI_FILE) 
 	$(call check_valac_version)
 	@echo Compiling Vala code...
 	@mkdir -p $(BUILD_DIR)
-	@$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
+	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
 		$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
 		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
 		$(foreach def,$(DEFINES),-X -D$(def)) \
