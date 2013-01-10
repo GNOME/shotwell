@@ -127,15 +127,18 @@ do
         --unity-support)                  variables="${variables}UNITY_SUPPORT=1\n"
                                           ;;
         
-        *)                  if [ ! $value ]
+        *)                  if [ `echo $option | grep '\-\-'` ]
                             then
-                                abort $1
+                                # we've hit a bogus '--' -type argument, don't accept it.
+                                abort $option
                             fi
                             
+                            # this argument isn't for us; pass it on to the makefile phase.
                             variables="${variables}${option}=${value}\n"
                             ;;
     esac
-    
+
+    value=""
     shift
 done
 
