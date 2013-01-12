@@ -25,7 +25,8 @@ UNITS = \
 	camera \
 	searches \
 	config \
-	data_imports
+	data_imports \
+	folders
 
 # Name(s) of units that represent application entry points.  These units will have init and
 # termination entry points generated: Name.unitize_init() and Name.unitize_terminate().  These

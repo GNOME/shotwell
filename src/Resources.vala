@@ -109,6 +109,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_TAGS = "multiple-tags";
     public const string ICON_FOLDER_CLOSED = "folder";
     public const string ICON_FOLDER_OPEN = "folder-open";
+    public const string ICON_FOLDER_DOCUMENTS = "folder-documents";
     public const string ICON_IMPORTING = "go-down";
     public const string ICON_LAST_IMPORT = "document-open-recent";
     public const string ICON_MISSING_FILES = "process-stop";

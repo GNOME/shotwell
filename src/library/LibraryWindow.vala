@@ -44,6 +44,7 @@ public class LibraryWindow : AppWindow {
         IMPORT_QUEUE,
         SAVED_SEARCH,
         EVENTS,
+        FOLDERS,
         TAGS,
         TRASH,
         OFFLINE
@@ -108,6 +109,7 @@ public class LibraryWindow : AppWindow {
     private Sidebar.Tree sidebar_tree;
     private Library.Branch library_branch = new Library.Branch();
     private Tags.Branch tags_branch = new Tags.Branch();
+    private Folders.Branch folders_branch = new Folders.Branch();
     private Library.TrashBranch trash_branch = new Library.TrashBranch();
     private Events.Branch events_branch = new Events.Branch();
     private Library.OfflineBranch offline_branch = new Library.OfflineBranch();
@@ -165,6 +167,7 @@ public class LibraryWindow : AppWindow {
         
         sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
         sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
+        sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
         sidebar_tree.graft(trash_branch, SidebarRootPosition.TRASH);
         sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
         sidebar_tree.graft(offline_branch, SidebarRootPosition.OFFLINE);
