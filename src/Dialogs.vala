@@ -918,7 +918,7 @@ public class TextEntryDialog : Gtk.Dialog {
     public void setup(OnModifyValidateType? modify_validate, string title, string label, 
         string? initial_text, Gee.Collection<string>? completion_list, string? completion_delimiter) {
         set_title(title);
-        set_resizable(false);
+        set_resizable(true);
         set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         on_modify_validate = modify_validate;
