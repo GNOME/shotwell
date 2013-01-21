@@ -109,11 +109,11 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
         // inside the user's Pictures directory
         if (file.has_prefix(AppDirs.get_import_dir())) {
             File parent = file;
-            while(!parent.equal(AppDirs.get_import_dir())) {
+            while (!parent.equal(AppDirs.get_import_dir())) {
                 parent = parent.get_parent();
-                if (parent == null)
+                if ((parent == null) || (parent.equal(AppDirs.get_import_dir())))
                     break;
-                
+
                 try {
                     if (!query_is_directory_empty(parent))
                         break;
