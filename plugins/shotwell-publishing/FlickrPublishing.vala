@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 extern string hmac_sha1(string key, string message);
@@ -31,7 +31,7 @@ public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Lucas Beeler";
-        info.copyright = _("Copyright 2009-2012 Yorba Foundation");
+        info.copyright = _("Copyright 2009-2013 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;

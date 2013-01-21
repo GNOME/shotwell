@@ -1,6 +1,6 @@
 # po/shotwell-core/or.po
 # Oriya Translation for Shotwell Core Components
-# Copyright (C) 2009-2012 Yorba Foundation
+# Copyright (C) 2009-2013 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 # Translators:
@@ -2374,8 +2374,8 @@ msgstr "ପ୍ରକାଶନ କରୁଅଛି"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:34
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: plugins/shotwell-data-imports/FSpotImporter.vala:34
-msgid "Copyright 2009-2012 Yorba Foundation"
-msgstr "Copyright 2009-2012 Yorba Foundation"
+msgid "Copyright 2009-2013 Yorba Foundation"
+msgstr "Copyright 2009-2013 Yorba Foundation"
 
 #: src/Resources.vala:131
 msgid "Rotate _Right"
@@ -3737,7 +3737,7 @@ msgid "Core Slideshow Transitions"
 msgstr ""
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
 msgstr ""
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:20

@@ -1,6 +1,6 @@
 # po/shotwell-core/sr.po
 # Serbian Translation for Shotwell Core Components
-# Copyright (C) 2009-2012 Yorba Foundation
+# Copyright (C) 2009-2013 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 # Translators:
@@ -2429,7 +2429,7 @@ msgstr "Објављивање"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:34
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: plugins/shotwell-data-imports/FSpotImporter.vala:34
-msgid "Copyright 2009-2012 Yorba Foundation"
+msgid "Copyright 2009-2013 Yorba Foundation"
 msgstr "Сва права задржана © 2009-2012 Yorba фондација"
 
 #: src/Resources.vala:131
@@ -3793,7 +3793,7 @@ msgid "Core Slideshow Transitions"
 msgstr "Основни прелаз покретног приказа"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
 msgstr "Ауторска права 2010 Максим Карташев, Ауторска права 2011-2012 Yorba Фондација"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:20

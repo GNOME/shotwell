@@ -1,6 +1,6 @@
 # po/shotwell-core/he.po
 # Hebrew Translation for Shotwell Core Components
-# Copyright (C) 2009-2012 Yorba Foundation
+# Copyright (C) 2009-2013 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 # Translators:
@@ -2376,7 +2376,7 @@ msgstr "פרסום"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:34
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: plugins/shotwell-data-imports/FSpotImporter.vala:34
-msgid "Copyright 2009-2012 Yorba Foundation"
+msgid "Copyright 2009-2013 Yorba Foundation"
 msgstr "כל הזכויות שמורות 2009‏-2012 לעמותת יורבה"
 
 #: src/Resources.vala:131
@@ -3739,7 +3739,7 @@ msgid "Core Slideshow Transitions"
 msgstr "מעברי ליבה של מצגות"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
 msgstr "כל הזכויות שמורות 2010 ל־Maxim Kartashev, כל הזכויות שמורות 2011‏-2012 לעמותת יורבה"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:20

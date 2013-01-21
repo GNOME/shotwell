@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 // defined by ./configure or Makefile and included by gcc -D
@@ -15,7 +15,7 @@ namespace Resources {
     public const string APP_LIBRARY_ROLE = _("Photo Manager");
     public const string APP_DIRECT_ROLE = _("Photo Viewer");
     public const string APP_VERSION = _VERSION;
-    public const string COPYRIGHT = _("Copyright 2009-2012 Yorba Foundation");
+    public const string COPYRIGHT = _("Copyright 2009-2013 Yorba Foundation");
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string YORBA_URL = "http://www.yorba.org";

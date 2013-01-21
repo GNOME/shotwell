@@ -1,7 +1,7 @@
 /* Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 using Publishing.Extras;

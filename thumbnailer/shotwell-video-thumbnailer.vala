@@ -1,10 +1,10 @@
-/* Copyright 2011-2012 Yorba Foundation
+/* Copyright 2011-2013 Yorba Foundation
  * 
  * This is a Vala-rewrite of GStreamer snapshot example. Adapted from earlier 
  * work from Wim Taymans.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 // Shotwell Thumbnailer takes in a video file and returns a thumbnail to stdout.  This is

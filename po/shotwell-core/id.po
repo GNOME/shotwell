@@ -1,6 +1,6 @@
 # po/shotwell-core/id.po
 # Indonesian Translation for Shotwell Core Components
-# Copyright (C) 2009-2012 Yorba Foundation
+# Copyright (C) 2009-2013 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 # Translators:
@@ -2323,7 +2323,7 @@ msgstr "Kirimkan"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:34
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: plugins/shotwell-data-imports/FSpotImporter.vala:34
-msgid "Copyright 2009-2012 Yorba Foundation"
+msgid "Copyright 2009-2013 Yorba Foundation"
 msgstr "Hak Cipta 2009-2012 Lembaga Yorba"
 
 #: src/Resources.vala:131
@@ -3685,7 +3685,7 @@ msgid "Core Slideshow Transitions"
 msgstr "Peralihan Salindia Utama"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:68
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2012 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
 msgstr "Hak Cipta 2010 Maxim Kartashev, Hak Cipta 2011-2012 Lembaga Yorba"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:20
