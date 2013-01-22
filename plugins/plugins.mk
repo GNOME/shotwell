@@ -26,7 +26,8 @@ EXTRA_PLUGINS := \
 
 EXTRA_PLUGINS_RC := \
 	plugins/shotwell-publishing-extras/yandex_publish_model.glade \
-	plugins/shotwell-data-imports/f-spot-24.png
+	plugins/shotwell-data-imports/f-spot-24.png \
+	plugins/shotwell-publishing-extras/tumblr.png
 
 ALL_PLUGINS := $(PLUGINS) $(EXTRA_PLUGINS)
 
