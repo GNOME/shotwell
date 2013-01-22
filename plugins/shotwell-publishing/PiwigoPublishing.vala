@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
@@ -29,7 +29,7 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Bruno Girin";
-        info.copyright = _("Copyright 2009-2012 Yorba Foundation");
+        info.copyright = _("Copyright 2009-2013 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -60,18 +60,24 @@ internal const int ORIGINAL_SIZE = -1;
 internal class Category {
     public int id;
     public string name;
+    public string display_name;
+    public string uppercats;
     public static const int NO_ID = -1;
 
-    public Category(int id, string name) {
+    public Category(int id, string name, string uppercats) {
         this.id = id;
         this.name = name;
+        this.uppercats = uppercats;
     }
     
-    public Category.local(string name) {
+    public Category.local(string name, int parent_id) {
         this.id = NO_ID;
         this.name = name;
+        // for new categories abuse the uppercats value for
+        // the id of the new parent!
+        this.uppercats = parent_id.to_string();
     }
-    
+
     public bool is_local() {
         return this.id == NO_ID;
     }
@@ -101,6 +107,8 @@ internal class PublishingParameters {
     public Category category = null;
     public PermissionLevel perm_level = null;
     public SizeEntry photo_size = null;
+    public bool title_as_comment = false;
+    public bool no_upload_tags = false;
 
     public PublishingParameters() {
     }
@@ -222,6 +230,22 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     
     private void set_last_photo_size(int last_photo_size) {
         host.set_config_int("last-photo-size", last_photo_size);
+    }
+    
+    private bool get_last_title_as_comment() {
+        return host.get_config_bool("last-title-as-comment", false);
+    }
+    
+    private void set_last_title_as_comment(bool title_as_comment) {
+        host.set_config_bool("last-title-as-comment", title_as_comment);
+    }
+    
+    private bool get_last_no_upload_tags() {
+        return host.get_config_bool("last-no-upload-tags", false);
+    }
+    
+    private void set_last_no_upload_tags(bool no_upload_tags) {
+        host.set_config_bool("last-no-upload-tags", no_upload_tags);
     }
     
     private bool get_metadata_removal_choice() {
@@ -446,7 +470,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     /**
      * Event triggered when the get session status action completes successfully.
      *
-     * This event being triggered confirms that the session is valid and can be
+     * This event being triggered confirms that the session is valid and can becyclonic enema
      * used. If the session is not fully authenticated yet, this event finalises
      * session authentication. It then triggers the fetch categories action.
      */
@@ -553,16 +577,42 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             Xml.Node* categories_node = root->first_element_child();
             Xml.Node* category_node_iter = categories_node->children;
             Xml.Node* name_node;
+            Xml.Node* uppercats_node;
             string name = "";
             string id_string = "";
+            string uppercats = "";
             for ( ; category_node_iter != null; category_node_iter = category_node_iter->next) {
                 name_node = doc.get_named_child(category_node_iter, "name");
                 name = name_node->get_content();
+                uppercats_node = doc.get_named_child(category_node_iter, "uppercats");
+                uppercats = (string)uppercats_node->get_content();
                 id_string = category_node_iter->get_prop("id");
                 if (categories == null) {
                     categories = new Category[0];
                 }
-                categories += new Category(int.parse(id_string), name);
+                categories += new Category(int.parse(id_string), name, uppercats);
+            }
+            // compute the display name for the categories
+            // currently done by an unnecessary triple loop
+            // one could make a loop that goes over the categories
+            // and creates a list of back references cat_id -> index
+            // but since cat_ids are not guaranteed to be continuous
+            // that needs a perl hash ;-)
+            for(int i = 0; i < categories.length; i++) {
+                string[] upcatids = categories[i].uppercats.split(",");
+                var builder = new StringBuilder();
+                for (int j=0; j < upcatids.length; j++) {
+                    builder.append ("/ ");
+                    // search for the upper category
+                    for (int k=0; k < categories.length; k++) {
+                        if (upcatids[j] == categories[k].id.to_string()) {
+                            builder.append (categories[k].name);
+                            break;
+                        }
+                    }
+                    builder.append (" ");
+                }
+                categories[i].display_name = builder.str;
             }
         } catch (Spit.Publishing.PublishingError err) {
             debug("ERROR: on_category_fetch_complete");
@@ -598,7 +648,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_service_locked(false);
         PublishingOptionsPane opts_pane = new PublishingOptionsPane(
             this, categories, get_last_category(), get_last_permission_level(), get_last_photo_size(),
-            get_metadata_removal_choice());
+            get_last_title_as_comment(), get_last_no_upload_tags(), get_metadata_removal_choice());
         opts_pane.logout.connect(on_publishing_options_pane_logout_clicked);
         opts_pane.publish.connect(on_publishing_options_pane_publish_clicked);
         host.install_dialog_pane(opts_pane, Spit.Publishing.PluginHost.ButtonMode.CLOSE);
@@ -693,7 +743,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.install_static_message_pane(_("Creating album %s...").printf(category.name));
 
         CategoriesAddTransaction creation_trans = new CategoriesAddTransaction(
-            session, category.name.strip());
+            session, category.name.strip(), int.parse(category.uppercats));
         creation_trans.network_error.connect(on_category_add_error);
         creation_trans.completed.connect(on_category_add_complete);
         
@@ -760,6 +810,8 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         set_last_category(parameters.category.id);
         set_last_permission_level(parameters.perm_level.id);
         set_last_photo_size(parameters.photo_size.id);
+        set_last_title_as_comment(parameters.title_as_comment);
+        set_last_no_upload_tags(parameters.no_upload_tags);
         set_metadata_removal_choice(strip_metadata);
 
         progress_reporter = host.serialize_publishables(parameters.photo_size.id, this.strip_metadata);
@@ -859,7 +911,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
         
         debug("Unhandled error: type=%s; message='%s'".printf(error_type, e.message));
-        do_show_error_message(_("An error message occured when publishing to Piwigo. Please try again."));
+        do_show_error_message(_("An error message occurred when publishing to Piwigo. Please try again."));
     }
     
     /**
@@ -1077,9 +1129,13 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private Gtk.RadioButton create_new_radio;
     private Gtk.ComboBoxText existing_categories_combo;
     private Gtk.Entry new_category_entry;
+    private Gtk.Label within_existing_label;
+    private Gtk.ComboBoxText within_existing_combo;
     private Gtk.ComboBoxText perms_combo;
     private Gtk.ComboBoxText size_combo;
     private Gtk.CheckButton strip_metadata_check = null;
+    private Gtk.CheckButton title_as_comment_check = null;
+    private Gtk.CheckButton no_upload_tags_check = null;
     private Gtk.Button logout_button;
     private Gtk.Button publish_button;
     
@@ -1090,6 +1146,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private int last_category;
     private int last_permission_level;
     private int last_photo_size;
+    private bool last_title_as_comment;
+    private bool last_no_upload_tags;
 
     public signal void publish(PublishingParameters parameters, bool strip_metadata);
     public signal void logout();
@@ -1097,12 +1155,14 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     public PublishingOptionsPane(
         PiwigoPublisher publisher, Category[] categories,
         int last_category, int last_permission_level, int last_photo_size,
-        bool strip_metadata_enabled
+        bool last_title_as_comment, bool last_no_upload_tags, bool strip_metadata_enabled
     ) {
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         this.last_category = last_category;
         this.last_permission_level = last_permission_level;
         this.last_photo_size = last_photo_size;
+        this.last_title_as_comment = last_title_as_comment;
+        this.last_no_upload_tags = last_no_upload_tags;
 
         File ui_file = publisher.get_host().get_module_file().get_parent().
             get_child("piwigo_publishing_options_pane.glade");
@@ -1117,11 +1177,19 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             create_new_radio = builder.get_object("create_new_radio") as Gtk.RadioButton;
             existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBoxText;
             new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
+            within_existing_label = builder.get_object ("within_existing_label") as Gtk.Label;
+            within_existing_combo = builder.get_object ("within_existing_combo") as Gtk.ComboBoxText;
             perms_combo = builder.get_object("perms_combo") as Gtk.ComboBoxText;
             size_combo = builder.get_object("size_combo") as Gtk.ComboBoxText;
 
             strip_metadata_check = builder.get_object("strip_metadata_check") as Gtk.CheckButton;
             strip_metadata_check.set_active(strip_metadata_enabled);
+
+            title_as_comment_check = builder.get_object("title_as_comment_check") as Gtk.CheckButton;
+            title_as_comment_check.set_active(last_title_as_comment);
+
+            no_upload_tags_check = builder.get_object("no_upload_tags_check") as Gtk.CheckButton;
+            no_upload_tags_check.set_active(last_no_upload_tags);
 
             logout_button = builder.get_object("logout_button") as Gtk.Button;
             logout_button.clicked.connect(on_logout_button_clicked);
@@ -1132,6 +1200,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             use_existing_radio.clicked.connect(on_use_existing_radio_clicked);
             create_new_radio.clicked.connect(on_create_new_radio_clicked);
             new_category_entry.changed.connect(on_new_category_entry_changed);
+            within_existing_combo.changed.connect(on_existing_combo_changed);
 
             align.reparent(pane_widget);
             pane_widget.set_child_packing(align, true, true, 0, Gtk.PackType.START);
@@ -1180,8 +1249,19 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         PublishingParameters params = new PublishingParameters();
         params.perm_level = perm_levels[perms_combo.get_active()];
         params.photo_size = photo_sizes[size_combo.get_active()];
+        params.title_as_comment = title_as_comment_check.get_active();
+        params.no_upload_tags = no_upload_tags_check.get_active();
         if (create_new_radio.get_active()) {
-            params.category = new Category.local(new_category_entry.get_text());
+            int a = within_existing_combo.get_active();
+            if (a == 0) {
+                params.category = new Category.local(new_category_entry.get_text(), 0);
+            } else {
+                // the list in existing_categories and in the within_existing_combo are shifted
+                // by 1, since we add the root
+                a--;
+                params.category = new Category.local(new_category_entry.get_text(),
+                    existing_categories[a].id);
+            }
         } else {
             params.category = existing_categories[existing_categories_combo.get_active()];
         }
@@ -1192,12 +1272,16 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private void on_use_existing_radio_clicked() {
         existing_categories_combo.set_sensitive(true);
         new_category_entry.set_sensitive(false);
+        within_existing_label.set_sensitive(false);
+        within_existing_combo.set_sensitive(false);
         existing_categories_combo.grab_focus();
         update_publish_button_sensitivity();
     }
 
     private void on_create_new_radio_clicked() {
         new_category_entry.set_sensitive(true);
+        within_existing_label.set_sensitive(true);
+        within_existing_combo.set_sensitive(true);
         existing_categories_combo.set_sensitive(false);
         new_category_entry.grab_focus();
         update_publish_button_sensitivity();
@@ -1207,14 +1291,26 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         update_publish_button_sensitivity();
     }
 
+    private void on_existing_combo_changed() {
+        update_publish_button_sensitivity();
+    }
+
     private void update_publish_button_sensitivity() {
         string category_name = new_category_entry.get_text().strip();
+        int a = within_existing_combo.get_active();
+        string search_name;
+        if (a <= 0) {
+            search_name = "/ " + category_name;
+        } else {
+            a--;
+            search_name = existing_categories[a].display_name + "/ " + category_name;
+        }
         publish_button.set_sensitive(
             !(
                 create_new_radio.get_active() &&
                 (
                     is_string_empty(category_name) ||
-                    category_already_exists(category_name)
+                    category_already_exists(search_name)
                 )
             )
         );
@@ -1230,6 +1326,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     
     public void on_pane_installed() {
         create_categories_combo();
+        create_within_categories_combo();
         create_permissions_combo();
         create_size_combo();
 
@@ -1239,7 +1336,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     
     private void create_categories_combo() {
         foreach (Category cat in existing_categories) {
-            existing_categories_combo.append_text(cat.name);
+            existing_categories_combo.append_text(cat.display_name);
         }
         if (existing_categories.length == 0) {
             // if no existing categories, disable the option to choose one
@@ -1258,6 +1355,18 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         }
         if (!category_already_exists(DEFAULT_CATEGORY_NAME))
             new_category_entry.set_text(DEFAULT_CATEGORY_NAME);
+    }
+
+    private void create_within_categories_combo() {
+        // root menu
+        within_existing_combo.append_text("/ ");
+        foreach (Category cat in existing_categories) {
+            within_existing_combo.append_text(cat.display_name);
+        }
+        // by default select root album as target
+        within_existing_label.set_sensitive(false);
+        within_existing_combo.set_active(0);
+        within_existing_combo.set_sensitive(false);
     }
     
     private void create_permissions_combo() {
@@ -1323,7 +1432,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private bool category_already_exists(string category_name) {
         bool result = false;
         foreach(Category category in existing_categories) {
-            if (category.name == category_name) {
+            if (category.display_name.strip() == category_name) {
                 result = true;
                 break;
             }
@@ -1473,6 +1582,7 @@ private class CategoriesGetListTransaction : Transaction {
         base.authenticated(session);
         
         add_argument("method", "pwg.categories.getList");
+        add_argument("recursive", "true");
     }
 }
 
@@ -1522,16 +1632,25 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
             publishable.get_serialized_file().get_basename(),
             parameters.category.id, parameters.perm_level.id);
         string name = publishable.get_publishing_name();
-        if (is_string_empty(name)) {
+        if (!is_string_empty(name)) {
+            if (parameters.title_as_comment) {
+                add_argument("comment", name);
+            } else {
+                add_argument("name", name);
+            }
+        } else {
+            // keep the old behaviour that if the title is not set
+            // then reuse the file name as name
             name = publishable.get_param_string(
                 Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+            add_argument("name", name);
         }
         add_argument("method", "pwg.images.addSimple");
         add_argument("category", parameters.category.id.to_string());
-        add_argument("name", name);
         add_argument("level", parameters.perm_level.id.to_string());
-        if (!is_string_empty(tags))
-            add_argument("tags", tags);
+        if (!parameters.no_upload_tags)
+            if (!is_string_empty(tags))
+                add_argument("tags", tags);
         // TODO: update the Publishable interface so that it gives access to
         // the image's meta-data where the author (artist) is kept
         /*if (!is_string_empty(author))

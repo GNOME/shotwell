@@ -1,7 +1,7 @@
-/* Copyright 2011-2012 Yorba Foundation
+/* Copyright 2011-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 // For specifying whether a search should be ORed (any) or ANDed (all).
@@ -764,7 +764,7 @@ public class SavedSearch : DataSource {
     }
 }
 
-// This table contains every saved search.  It's the prefered way to add and destroy a saved 
+// This table contains every saved search.  It's the preferred way to add and destroy a saved 
 // search as well, since this table's create/destroy methods are tied to the database.
 public class SavedSearchTable {
     private static SavedSearchTable? instance = null;

@@ -1,7 +1,7 @@
-/* Copyright 2011-2012 Yorba Foundation
+/* Copyright 2011-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 // Bitfield values used to specify which search bar features we want.
@@ -1194,11 +1194,20 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     private void on_search_text_changed() {
         update();
     }
-    
+
     private void on_rating_changed() {
+        AppWindow aw = LibraryWindow.get_app();
+
+        if (aw == null)
+            return;
+
+        Gtk.ToggleAction searchbar_toggle = aw.get_common_action("CommonDisplaySearchbar") as Gtk.ToggleAction;
+        if(searchbar_toggle != null)
+            searchbar_toggle.set_active(true);
+
         update();
     }
-    
+
     // Ticket #3290, part II - listen for criteria change signals,
     // and show or hide widgets based on the criteria we just 
     // changed to.

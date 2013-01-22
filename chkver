@@ -1,9 +1,9 @@
 #! /bin/bash
 #
-# Copyright 2009-2012 Yorba Foundation
+# Copyright 2009-2013 Yorba Foundation
 #
 # This software is licensed under the GNU LGPL (version 2.1 or later).
-# See the COPYING file in this distribution. 
+# See the COPYING file in this distribution.
 #
 # chkver <min | max> <major.minor.revision> <min|max major.minor.revision>
 #

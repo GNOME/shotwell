@@ -1,3 +1,27 @@
+Shotwell 0.13.1 - 5 October 2012 - "A Date at the Diplomat's Club"
+----------------------------------------------------------------------------
+
+  * Fixes an issue in which Shotwell would crash after deleting
+    all photos present in a view
+  * Fixes an issue where Shotwell would not include all
+    selected photos during a Nautilus "Send To..." export
+    operation
+  * Corrects a problem in which the file chooser dialog
+    used to select Shotwell's library location would
+    inappropriately select the parent directory of the chosen
+    directory
+  * Shotwell now properly inhibits the system screensaver when
+    playing a slideshow
+  * Fixes an issue in which the search filter bar could become
+    invisible even though a filter was being applied
+  * A progress bar now correctly appears during long batch
+    rotate and auto-enhance operations
+  * Shotwell no longer crashes when certain kinds of malformed
+    responses are received from remote servers during photo
+    publishing
+  * Corrected translation and desktop integration errors
+
+
 Shotwell 0.13.0 - 19 September 2012 - "Peanuts, Coffee, Soda, and Magazines"
 ----------------------------------------------------------------------------
 

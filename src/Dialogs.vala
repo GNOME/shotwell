@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 // namespace for future migration of AppWindow alert and other question dialogs into single
@@ -933,7 +933,7 @@ public class TextEntryDialog : Gtk.Dialog {
     public void setup(OnModifyValidateType? modify_validate, string title, string label, 
         string? initial_text, Gee.Collection<string>? completion_list, string? completion_delimiter) {
         set_title(title);
-        set_resizable(false);
+        set_resizable(true);
         set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         on_modify_validate = modify_validate;
@@ -1207,7 +1207,7 @@ public class ProgressDialog : Gtk.Window {
     }
     
     // This can be used as a ProgressMonitor delegate.
-    public bool monitor(uint64 count, uint64 total) {
+    public bool monitor(uint64 count, uint64 total, bool do_event_loop = true) {
         if ((last_count == uint64.MAX) || (count - last_count) >= update_every) {
             set_percentage((double) count / (double) total);
             last_count = count;
@@ -1220,7 +1220,9 @@ public class ProgressDialog : Gtk.Window {
         //
         // Important: Since it's possible the progress dialog might be destroyed inside this call,
         // avoid referring to "this" afterwards at all costs (in case all refs have been dropped)
-        spin_event_loop();
+        
+        if (do_event_loop)
+            spin_event_loop();
         
         return keep_going;
     }
@@ -2290,7 +2292,7 @@ public class PreferencesDialog {
     }
     
     private void on_current_folder_changed() {
-        lib_dir = library_dir_button.get_current_folder();
+        lib_dir = library_dir_button.get_filename();
     }
     
     private bool map_event() {

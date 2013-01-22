@@ -2,7 +2,7 @@
  * Author: Jeroen Arnoldus (b.j.arnoldus@bja-electronics.nl)
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 

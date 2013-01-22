@@ -1,7 +1,7 @@
-/* Copyright 2010-2012 Yorba Foundation
+/* Copyright 2010-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 public class MediaSourceItem : CheckerboardItem {
@@ -986,10 +986,14 @@ public abstract class MediaPage : CheckerboardPage {
     private void on_remove_from_library() {
         remove_photos_from_library((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
     }
-    
+
     protected virtual void on_move_to_trash() {
-        CheckerboardItem? restore_point = get_view().get_next(cursor) as CheckerboardItem; 
-        
+        CheckerboardItem? restore_point = null;
+
+        if (cursor != null) {
+            restore_point = get_view().get_next(cursor) as CheckerboardItem;
+        }
+
         if (get_view().get_selected_count() > 0) {
             get_command_manager().execute(new TrashUntrashPhotosCommand(
                 (Gee.Collection<MediaSource>) get_view().get_selected_sources(), true));

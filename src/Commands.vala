@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 // PageCommand stores the current page when a Command is created.  Subclasses can call return_to_page()
@@ -791,7 +791,7 @@ public class RedeyeCommand : GenericPhotoTransformationCommand {
 
 public abstract class MovePhotosCommand : Command {
     // Piggyback on a private command so that processing to determine new_event can occur before
-    // contruction, if needed
+    // construction, if needed
     protected class RealMovePhotosCommand : MultipleDataSourceCommand {
         private SourceProxy new_event_proxy = null;
         private Gee.HashMap<MediaSource, SourceProxy?> old_events = new Gee.HashMap<

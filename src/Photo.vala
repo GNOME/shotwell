@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 // Specifies how pixel data is fetched from the backing file on disk.  MASTER is the original
@@ -156,7 +156,7 @@ public enum Rating {
 
 // Photo is an abstract class that allows for applying transformations on-the-fly to a
 // particular photo without modifying the backing image file.  The interface allows for
-// transformations to be stored persistently elsewhere or in memory until they're commited en
+// transformations to be stored persistently elsewhere or in memory until they're committed en
 // masse to an image file.
 public abstract class Photo : PhotoSource, Dateable {
     // Need to use "thumb" rather than "photo" for historical reasons -- this name is used
@@ -615,7 +615,12 @@ public abstract class Photo : PhotoSource, Dateable {
                     // Write out the JPEG.
                     PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
                     writer.write(pix, Jpeg.Quality.HIGH);
-                    
+
+                    // Write out metadata
+                    PhotoMetadata meta = get_master_metadata();
+                    PhotoFileMetadataWriter mwriter = PhotoFileFormat.JFIF.create_metadata_writer(bps.filepath);
+                    mwriter.write_metadata(meta);
+
                     // Read in backing photo info, add to DB.
                     add_backing_photo_for_development(d, bps);
                     
@@ -653,7 +658,11 @@ public abstract class Photo : PhotoSource, Dateable {
                     BackingPhotoRow bps = d.create_backing_row_for_development(row.master.filepath);
                     PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
                     writer.write(pix, Jpeg.Quality.HIGH);
-                    
+
+                    // Write out metadata
+                    PhotoFileMetadataWriter mwriter = PhotoFileFormat.JFIF.create_metadata_writer(bps.filepath);
+                    mwriter.write_metadata(meta);
+
                     // Read in backing photo info, add to DB.
                     add_backing_photo_for_development(d, bps);
                     
@@ -680,8 +689,10 @@ public abstract class Photo : PhotoSource, Dateable {
     public void set_raw_developer(RawDeveloper d) {
         if (get_master_file_format() != PhotoFileFormat.RAW)
             return;
-                
+            
         lock (developments) {
+            RawDeveloper stale_raw_developer = row.developer;
+            
             // Perform development, bail out if it doesn't work.
             if (!is_raw_developer_complete(d))
                 develop_photo(d);
@@ -703,6 +714,20 @@ public abstract class Photo : PhotoSource, Dateable {
             } catch (Error e) {
                 warning("Error updating database: %s", e.message);
             }
+            
+            // Is the 'stale' development _NOT_ a camera-supplied one?
+            //
+            // NOTE: When a raw is first developed, both 'stale' and 'incoming' developers
+            // will be the same, so the second test is required for correct operation.
+            if ((stale_raw_developer != RawDeveloper.CAMERA) &&
+                (stale_raw_developer != row.developer)) {
+                // The 'stale' non-Shotwell development we're using was
+                // created by us, not the camera, so discard it...
+                delete_raw_development(stale_raw_developer);
+            }
+            
+            // Otherwise, don't delete the paired JPEG, since it is user/camera-created
+            // and is to be preserved.
         }
         
         notify_altered(new Alteration("image", "developer"));

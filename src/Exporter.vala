@@ -1,7 +1,7 @@
-/* Copyright 2010-2012 Yorba Foundation
+/* Copyright 2010-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 public enum ExportFormatMode {
@@ -168,7 +168,7 @@ public class Exporter : Object {
         }
         
         if (!aborted && monitor != null) {
-            if (!monitor(completed_count, to_export.size)) {
+            if (!monitor(completed_count, to_export.size, false)) {
                 aborted = true;
                 
                 if (!completed)

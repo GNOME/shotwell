@@ -1,7 +1,7 @@
-/* Copyright 2011-2012 Yorba Foundation
+/* Copyright 2011-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 public enum AdjustmentRelation {
@@ -35,22 +35,9 @@ public enum Direction {
     }
 }
 
-// Returns false if Gtk.quit() was called
-public bool spin_event_loop(int max = -1) {
-    if (max == 0)
-        return true;
-    
-    while (Gtk.events_pending()) {
-        if (Gtk.main_iteration())
-            return false;
-        
-        if (max > 0) {
-            if (--max <= 0)
-                break;
-        }
-    }
-    
-    return true;
+public void spin_event_loop() {
+    while (Gtk.events_pending())
+        Gtk.main_iteration();
 }
 
 public AdjustmentRelation get_adjustment_relation(Gtk.Adjustment adjustment, int value) {
@@ -124,26 +111,10 @@ bool is_pointer_over(Gdk.Window window) {
     }
     
     int x, y;
-    gdk_device_get_position(devmgr.get_client_pointer(), null, out x, out y);
+    devmgr.get_client_pointer().get_position(null, out x, out y);
+    //gdk_device_get_position(devmgr.get_client_pointer(), null, out x, out y);
     
     return x >= 0 && y >= 0 && x < window.get_width() && y < window.get_height();
 }
 #endif
 
-Gtk.Widget gtk_expand() {
-    Gtk.Box b = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-    b.expand = true;
-    return b;
-}
-
-Gtk.Widget gtk_hspacer(int pixels) {
-    Gtk.Box b = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-    b.set_size_request(pixels, -1);
-    return b;   
-}
-
-Gtk.Widget gtk_vspacer(int pixels) {
-    Gtk.Box b = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-    b.set_size_request(-1, pixels);
-    return b;   
-}

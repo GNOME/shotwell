@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 extern void qsort(void *p, size_t num, size_t size, GLib.CompareFunc func);
@@ -128,7 +128,7 @@ public class ThemeLoader {
         
         /* If the image data loaded from disk didn't contain NUM_SUPPORTED_INTENSITIES
            colors, then we can't unambiguously map the colors in the loaded image data
-           to theme colors on the user's system, so propogate an error */
+           to theme colors on the user's system, so propagate an error */
         if (colors.size != NUM_SUPPORTED_INTENSITIES)
             error("ThemeLoader: load_icon: pixbuf does not contain the correct number " +
                 "of unique colors");

@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 //
@@ -1100,7 +1100,7 @@ public class DirectoryMonitor : Object {
             break;
             
             default:
-                // artifically complete it
+                // artificially complete it
                 query_info.completed = true;
                 process_query_queue(query_info);
             break;

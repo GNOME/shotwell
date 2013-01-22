@@ -1,13 +1,8 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
-
-// This is required due to a binding error.  This is fixed in 0.13 trunk and can be removed when
-// Shotwell is ported to that version of Vala.
-extern void gdk_device_get_position(Gdk.Device device, out unowned Gdk.Screen screen,
-    out int x, out int y);
 
 public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_INVOCATION_MSEC = 250;
@@ -207,11 +202,11 @@ public class FullscreenWindow : PageWindow {
         }
         
         int py;
-        gdk_device_get_position(devmgr.get_client_pointer(), null, null, out py);
+        devmgr.get_client_pointer().get_position(null, null, out py);
         
         int wy;
         toolbar_window.get_window().get_geometry(null, out wy, null, null);
-        
+
         return (py >= wy);
     }
     
@@ -399,7 +394,7 @@ public abstract class PageWindow : Gtk.Window {
             return;
         
         get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
-        spin_event_loop(10);
+        spin_event_loop();
     }
     
     public void set_normal_cursor() {
@@ -411,7 +406,7 @@ public abstract class PageWindow : Gtk.Window {
         }
         
         get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-        spin_event_loop(10);
+        spin_event_loop();
     }
     
 }

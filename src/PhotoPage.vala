@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 public class ZoomBuffer : Object {
@@ -1464,7 +1464,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         current_tool = tool;
         current_tool.activate(photo_canvas);
         
-        // if the tool has an auxilliary window, move it properly on the screen
+        // if the tool has an auxiliary window, move it properly on the screen
         place_tool_window();
 
         // repaint entire view, with the tool now hooked in

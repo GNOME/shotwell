@@ -1,7 +1,7 @@
-/* Copyright 2011-2012 Yorba Foundation
+/* Copyright 2011-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 // SingletonCollection is a read-only collection designed to hold exactly one item in it.  This
@@ -127,7 +127,7 @@ public delegate bool MarkedAction(DataObject object, Object? user);
 
 // A ProgressMonitor allows for notifications of progress on operations on multiple items (via
 // the marked interfaces).  Return false if the operation is cancelled and should end immediately.
-public delegate bool ProgressMonitor(uint64 current, uint64 total);
+public delegate bool ProgressMonitor(uint64 current, uint64 total, bool do_event_loop = true);
 
 // UnknownTotalMonitor is useful when an interface cannot report the total count to a ProgressMonitor,
 // only a count, but the total is known by the caller.

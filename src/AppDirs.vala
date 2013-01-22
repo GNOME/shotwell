@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 class AppDirs {
@@ -28,7 +28,9 @@ class AppDirs {
     }
 
     public static File get_cache_dir() {
-        return File.new_for_path(Environment.get_user_cache_dir()).get_child(DEFAULT_DATA_DIR);
+        return ((data_dir == null) ?
+            File.new_for_path(Environment.get_user_cache_dir()).get_child(DEFAULT_DATA_DIR) :
+            data_dir);
     }
     
     public static void try_migrate_data() {
@@ -150,7 +152,7 @@ class AppDirs {
         return get_home_dir().get_child(_("Pictures"));
     }
     
-    // Library folder + photo folder, based on user's prefered directory pattern.
+    // Library folder + photo folder, based on user's preferred directory pattern.
     public static File get_baked_import_dir(time_t tm) {
         string? pattern = Config.Facade.get_instance().get_directory_pattern();
         if (is_string_empty(pattern))

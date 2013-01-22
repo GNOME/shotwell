@@ -1,7 +1,7 @@
-/* Copyright 2010-2012 Yorba Foundation
+/* Copyright 2010-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 public class BackingFileState {
@@ -109,11 +109,11 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
         // inside the user's Pictures directory
         if (file.has_prefix(AppDirs.get_import_dir())) {
             File parent = file;
-            while(!parent.equal(AppDirs.get_import_dir())) {
+            while (!parent.equal(AppDirs.get_import_dir())) {
                 parent = parent.get_parent();
-                if (parent == null)
+                if ((parent == null) || (parent.equal(AppDirs.get_import_dir())))
                     break;
-                
+
                 try {
                     if (!query_is_directory_empty(parent))
                         break;
@@ -739,16 +739,23 @@ public class MediaCollectionRegistry {
         new Gee.HashMap<string, MediaSourceCollection>();
     
     private MediaCollectionRegistry() {
+        Application.get_instance().init_done.connect(on_init_done);
+    }
+    
+    ~MediaCollectionRegistry() {
+        Application.get_instance().init_done.disconnect(on_init_done);
+    }
+    
+    private void on_init_done() {
+        // install the default library monitor
+        LibraryMonitor library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true,
+            !CommandlineOptions.no_runtime_monitoring);
+
+        LibraryMonitorPool.get_instance().replace(library_monitor, LIBRARY_MONITOR_START_DELAY_MSEC);
     }
     
     public static void init() {
         instance = new MediaCollectionRegistry();
-        
-        // install the default library monitor
-        LibraryMonitor library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true,
-            !CommandlineOptions.no_runtime_monitoring);
-        LibraryMonitorPool.get_instance().replace(library_monitor, LIBRARY_MONITOR_START_DELAY_MSEC);
-        
         Config.Facade.get_instance().import_directory_changed.connect(on_import_directory_changed);
     }
     

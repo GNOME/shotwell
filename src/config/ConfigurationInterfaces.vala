@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 public errordomain ConfigurationError {
@@ -32,6 +32,7 @@ public enum ConfigurableProperty {
     DIRECT_WINDOW_WIDTH,
     DISPLAY_BASIC_PROPERTIES,
     DISPLAY_EXTENDED_PROPERTIES,
+    DISPLAY_SIDEBAR,
     DISPLAY_PHOTO_RATINGS,
     DISPLAY_PHOTO_TAGS,
     DISPLAY_PHOTO_TITLES,
@@ -116,6 +117,9 @@ public enum ConfigurableProperty {
                 
             case DISPLAY_EXTENDED_PROPERTIES:
                 return "DISPLAY_EXTENDED_PROPERTIES";
+                
+            case DISPLAY_SIDEBAR:
+                return "DISPLAY_SIDEBAR";
                 
             case DISPLAY_PHOTO_RATINGS:
                 return "DISPLAY_PHOTO_RATINGS";
@@ -552,6 +556,27 @@ public abstract class ConfigurationFacade : Object {
         try {
             get_engine().set_bool_property(ConfigurableProperty.DISPLAY_EXTENDED_PROPERTIES,
                 display);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // display sidebar
+    //
+    public virtual bool get_display_sidebar() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.DISPLAY_SIDEBAR);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return false;
+        }
+    }
+    
+    public virtual void set_display_sidebar(bool display) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.DISPLAY_SIDEBAR, display);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
         }

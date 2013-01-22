@@ -1,4 +1,4 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -29,7 +29,7 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Jani Monoses";
-        info.copyright = _("Copyright 2009-2012 Yorba Foundation");
+        info.copyright = _("Copyright 2009-2013 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -290,7 +290,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
             // account. This occurs when the user has a valid Google account but it hasn't
             // yet been set up for use with YouTube. In this case, we re-display the credentials
             // capture pane with an "account not set up" message. In addition, we deauthenticate
-            // the session. Deauth is neccessary because we did previously auth the user's
+            // the session. Deauth is necessary because we did previously auth the user's
             // account.
             session.deauthenticate();
             do_show_credentials_pane(CredentialsPane.Mode.NOT_SET_UP);

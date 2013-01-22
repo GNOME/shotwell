@@ -1,7 +1,7 @@
-/* Copyright 2010-2012 Yorba Foundation
+/* Copyright 2010-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 private class PhotoUpdates : MonitorableUpdates {
@@ -287,16 +287,7 @@ private class PhotoMonitor : MediaMonitor {
             
             return MediaMonitor.DiscoveredFile.UNKNOWN;
         }
-        
-        if (!ThumbnailCache.exists(photo)) {
-            try {
-                ThumbnailCache.import_from_source(photo, true);
-                photo.notify_altered(new Alteration("image","thumbnail"));
-            } catch (Error e) {
-                // thumbnail for this object was already broken, so nothing got worse.
-            }
-        }
-        
+
         switch (state) {
             case LibraryPhotoSourceCollection.State.ONLINE:
             case LibraryPhotoSourceCollection.State.OFFLINE:

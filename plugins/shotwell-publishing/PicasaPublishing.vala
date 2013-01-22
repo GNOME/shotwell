@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 public class PicasaService : Object, Spit.Pluggable, Spit.Publishing.Service {
@@ -29,7 +29,7 @@ public class PicasaService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Lucas Beeler";
-        info.copyright = _("Copyright 2009-2012 Yorba Foundation");
+        info.copyright = _("Copyright 2009-2013 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -318,7 +318,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
             // user's album feed doesn't exist -- this occurs when the user has a valid Google
             // account but it hasn't yet been set up for use with Picasa. In this case, we
             // display an informational pane with an "account not set up" message. In addition, we
-            // deauthenticate the session. Deauth is neccessary because must've previously auth'd
+            // deauthenticate the session. Deauth is necessary because we must've previously auth'd
             // the user's account to even be able to query the album feed.
             session.deauthenticate();
             do_show_not_set_up_pane();
@@ -938,9 +938,23 @@ internal class UploadTransaction : AuthenticatedTransaction {
         string[] keywords = publishable.get_publishing_keywords();
         string keywords_string = "";
         if (keywords.length > 0) {
-            keywords_string = "<mrss:group><mrss:keywords>%s</mrss:keywords></mrss:group>".printf(string.joinv(", ", keywords));
-        }
+		    for (int i = 0; i < keywords.length; i++) {
+                string[] tmp;
 
+                if (keywords[i].has_prefix("/"))
+                    tmp = keywords[i].substring(1).split("/");
+		        else
+                    tmp = keywords[i].split("/"); 
+
+                if (keywords_string.length > 0)
+                    keywords_string = string.join(", ", keywords_string, string.joinv(", ", tmp));
+                else
+                    keywords_string = string.joinv(", ", tmp);
+            }
+
+            keywords_string = "<mrss:group><mrss:keywords>%s</mrss:keywords></mrss:group>".printf(keywords_string);
+        }
+        
         string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(
             publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME)),
             summary, keywords_string);

@@ -1,7 +1,7 @@
-/* Copyright 2010-2012 Yorba Foundation
+/* Copyright 2010-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 public class TombstoneSourceCollection : DatabaseSourceCollection {
@@ -102,7 +102,7 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
     // This initiates a scan of the tombstoned files, resurrecting them if the file is no longer
     // present on disk.  If a DirectoryMonitor is supplied, the scan will use that object's FileInfo
     // if available.  If not available or not supplied, the scan will query for the file's
-    // existance.
+    // existence.
     //
     // Note that this call is non-blocking.
     public void launch_scan(DirectoryMonitor? monitor, Cancellable? cancellable) {
@@ -132,7 +132,7 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
                         break;
                     
                     if (!(err is IOError.NOT_FOUND)) {
-                        warning("Unable to check for existance of tombstoned file %s: %s",
+                        warning("Unable to check for existence of tombstoned file %s: %s",
                             file.get_path(), err.message);
                     }
                 }

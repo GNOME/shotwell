@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution. 
+ * See the COPYING file in this distribution.
  */
 
 private class ImportSourceCollection : SourceCollection {
@@ -1626,7 +1626,7 @@ public class ImportPage : CheckerboardPage {
             
             CameraImportJob import_job = new CameraImportJob(null_context, import_file);
             
-            // Maintain RAW+JPEG assocation.
+            // Maintain RAW+JPEG association.
             if (import_file is PhotoImportSource && 
                 ((PhotoImportSource) import_file).get_associated() != null) {
                 import_job.set_associated(new CameraImportJob(null_context, 

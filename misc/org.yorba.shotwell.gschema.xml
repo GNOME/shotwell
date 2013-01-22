@@ -29,6 +29,12 @@
         <description>True if the extended properties window is to be displayed, false otherwise.</description>
     </key>
     
+    <key name="display-sidebar" type="b">
+        <default>true</default>
+        <summary>display sidebar</summary>
+        <description>True if the sidebar is to be displayed, false otherwise.</description>
+    </key>
+    
     <key name="display-photo-titles" type="b">
         <default>false</default>
         <summary>display photo titles</summary>
@@ -440,6 +446,18 @@
         <default>false</default>
         <summary>remove sensitive info from uploads</summary>
         <description>Whether images being uploaded to Piwigo should have their metadata removed first</description>
+    </key>
+
+    <key name="last-title-as-comment" type="b">
+        <default>false</default>
+        <summary>use title as comment for uploads to Piwigo</summary>
+        <description>Whether images being uploaded to Piwigo should have their comment set from the title if it is set</description>
+    </key>
+
+    <key name="last-no-upload-tags" type="b">
+        <default>false</default>
+        <summary>do not upload tags when uploading to Piwigo</summary>
+        <description>Whether images being uploaded to Piwigo should have their tags removed on upload, such that these tags will not appear on the remote Piwigo server.</description>
     </key>
 </schema>
 

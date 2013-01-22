@@ -1,7 +1,7 @@
-/* Copyright 2011 Yorba Foundation
+/* Copyright 2011-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 /* This file is the master unit file for the DataImports unit.  It should be edited to include

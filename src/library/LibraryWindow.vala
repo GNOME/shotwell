@@ -1,7 +1,7 @@
-/* Copyright 2009-2012 Yorba Foundation
+/* Copyright 2009-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 public class LibraryWindow : AppWindow {
@@ -44,6 +44,7 @@ public class LibraryWindow : AppWindow {
         IMPORT_QUEUE,
         SAVED_SEARCH,
         EVENTS,
+        FOLDERS,
         TAGS,
 #if ENABLE_FACES   
         FACES,
@@ -111,6 +112,7 @@ public class LibraryWindow : AppWindow {
     private Sidebar.Tree sidebar_tree;
     private Library.Branch library_branch = new Library.Branch();
     private Tags.Branch tags_branch = new Tags.Branch();
+    private Folders.Branch folders_branch = new Folders.Branch();
 #if ENABLE_FACES   
     private Faces.Branch faces_branch = new Faces.Branch();
 #endif
@@ -171,6 +173,7 @@ public class LibraryWindow : AppWindow {
         
         sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
         sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
+        sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
 #if ENABLE_FACES   
         sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
 #endif
@@ -406,6 +409,12 @@ public class LibraryWindow : AppWindow {
         searchbar.tooltip = _("Display the search bar");
         actions += searchbar;
         
+        Gtk.ToggleActionEntry sidebar = { "CommonDisplaySidebar", null, TRANSLATABLE,
+            "F9", TRANSLATABLE, on_display_sidebar, is_sidebar_visible() };
+        sidebar.label = _("S_idebar");
+        sidebar.tooltip = _("Display the sidebar");
+        actions += sidebar;
+        
         return actions;
     }
     
@@ -511,6 +520,9 @@ public class LibraryWindow : AppWindow {
             init_view_filter(current_page);
 
         toggle_search_bar(should_show_search_bar(), current_page);
+        
+        // Sidebar
+        set_sidebar_visible(is_sidebar_visible());
     }
     
     public static LibraryWindow get_app() {
@@ -849,6 +861,20 @@ public class LibraryWindow : AppWindow {
         toggle_search_bar(should_show_search_bar(), get_current_page() as CheckerboardPage);
         if (!display)
             search_actions.reset();
+    }
+    
+    private void on_display_sidebar(Gtk.Action action) {
+        set_sidebar_visible(((Gtk.ToggleAction) action).get_active());
+        
+    }
+    
+    private void set_sidebar_visible(bool visible) {
+        sidebar_paned.set_visible(visible);
+        Config.Facade.get_instance().set_display_sidebar(visible);
+    }
+    
+    private bool is_sidebar_visible() {
+        return Config.Facade.get_instance().get_display_sidebar();
     }
     
     private void show_extended_properties() {
@@ -1411,6 +1437,9 @@ public class LibraryWindow : AppWindow {
             assert(null != page);
             search_toolbar.set_view_filter(page.get_search_view_filter());
             page.get_view().install_view_filter(page.get_search_view_filter());
+        } else {
+            if (page != null)
+                page.get_view().remove_view_filter(page.get_search_view_filter());
         }
     }
     

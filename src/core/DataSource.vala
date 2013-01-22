@@ -1,7 +1,7 @@
-/* Copyright 2011-2012 Yorba Foundation
+/* Copyright 2011-2013 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 //
@@ -361,7 +361,7 @@ public abstract class DataSource : DataObject {
     // or has been unlinked from one. It should not be used otherwise.  (In particular, don't
     // automate destroys by removing and then calling this method -- that will happen automatically.)
     // To destroy a DataSource already integrated into a SourceCollection, call
-    // SourceCollection.destroy_marked().  Returns true if the operation completed succesfully,
+    // SourceCollection.destroy_marked().  Returns true if the operation completed successfully,
     // otherwise it will return false.
     public bool destroy_orphan(bool delete_backing) {
         bool ret = true;
@@ -386,7 +386,7 @@ public abstract class DataSource : DataObject {
         return ret;
     }
 
-    // DataViews subscribe to the DataSource to inform it of their existance.  Not only does this
+    // DataViews subscribe to the DataSource to inform it of their existence.  Not only does this
     // allow for signal reflection (i.e. DataSource.altered -> DataView.altered) it also makes
     // them first-in-line for notification of destruction, so they can remove themselves from 
     // their ViewCollections automatically.

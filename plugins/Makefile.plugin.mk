@@ -4,7 +4,7 @@
 # Requires PLUGIN and SRC_FILES be set to the name of the plugin binary (minus extension) and that 
 # the directory is registered in plugins.mk.
 #
-# To use, include this file in each plug-in directory's Makefile after setting apropriate variables.
+# To use, include this file in each plug-in directory's Makefile after setting appropriate variables.
 # Also be sure that each plug-in has a dummy_main() function to satisfy valac's linkage.
 #
 # NOTE: This file is called from the cwd of each directory, hence the relative paths should be
