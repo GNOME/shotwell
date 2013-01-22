@@ -689,8 +689,10 @@ public abstract class Photo : PhotoSource, Dateable {
     public void set_raw_developer(RawDeveloper d) {
         if (get_master_file_format() != PhotoFileFormat.RAW)
             return;
-                
+            
         lock (developments) {
+            RawDeveloper stale_raw_developer = row.developer;
+            
             // Perform development, bail out if it doesn't work.
             if (!is_raw_developer_complete(d))
                 develop_photo(d);
@@ -712,6 +714,20 @@ public abstract class Photo : PhotoSource, Dateable {
             } catch (Error e) {
                 warning("Error updating database: %s", e.message);
             }
+            
+            // Is the 'stale' development _NOT_ a camera-supplied one?
+            //
+            // NOTE: When a raw is first developed, both 'stale' and 'incoming' developers
+            // will be the same, so the second test is required for correct operation.
+            if ((stale_raw_developer != RawDeveloper.CAMERA) &&
+                (stale_raw_developer != row.developer)) {
+                // The 'stale' non-Shotwell development we're using was
+                // created by us, not the camera, so discard it...
+                delete_raw_development(stale_raw_developer);
+            }
+            
+            // Otherwise, don't delete the paired JPEG, since it is user/camera-created
+            // and is to be preserved.
         }
         
         notify_altered(new Alteration("image", "developer"));
