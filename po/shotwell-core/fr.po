@@ -1259,7 +1259,7 @@ msgstr "%.1f secondes"
 
 #: src/Properties.vala:374
 msgid "Developer:"
-msgstr "Révélateur[nbsp]:"
+msgstr "Révélateur :"
 
 #: src/Properties.vala:402 src/Properties.vala:406 src/Properties.vala:413
 #: src/editing_tools/EditingTools.vala:2819
