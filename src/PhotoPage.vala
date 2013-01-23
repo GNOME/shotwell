@@ -794,7 +794,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     // Called before the photo changes.
     protected virtual void photo_changing(Photo new_photo) {
-        set_photo_missing(!new_photo.get_file().query_exists());
+        // If this is a raw image with a missing development, we can regenerate it,
+        // so don't mark it as missing.
+        if (new_photo.get_file_format() == PhotoFileFormat.RAW)
+            set_photo_missing(false);
+        else
+            set_photo_missing(!new_photo.get_file().query_exists());
+        
         update_ui(photo_missing);
     }
     

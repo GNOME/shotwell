@@ -525,10 +525,12 @@ public abstract class Photo : PhotoSource, Dateable {
         return backing_row;
     }
     
-    // Returns true if the given raw development was already made.
+    // Returns true if the given raw development was already made and the developed image 
+    // exists on disk.
     public bool is_raw_developer_complete(RawDeveloper d) {
         lock (developments) {
-            return developments.has_key(d);
+            return developments.has_key(d) &&
+                FileUtils.test(developments.get(d).filepath, FileTest.EXISTS);
         }
     }
     
@@ -694,8 +696,15 @@ public abstract class Photo : PhotoSource, Dateable {
             RawDeveloper stale_raw_developer = row.developer;
             
             // Perform development, bail out if it doesn't work.
-            if (!is_raw_developer_complete(d))
+            if (!is_raw_developer_complete(d)) {
                 develop_photo(d);
+                try {
+                    populate_prefetched();
+                } catch (Error e) {
+                    // couldn't reload the freshly-developed image, nothing to display
+                    return;
+                }
+            }
             if (!developments.has_key(d))
                 return; // we tried!
             
