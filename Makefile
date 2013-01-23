@@ -158,6 +158,8 @@ SYS_INTEGRATION_FILES = \
 	org.yorba.shotwell-extras.gschema.xml \
 	shotwell.convert
 
+SCHEMA_FILES := $(shell ls misc/*.gschema.xml)
+
 SRC_HEADER_FILES = \
 	gphoto.h
 
@@ -699,8 +701,11 @@ $(EXPANDED_C_FILES): $(VALA_STAMP)
 $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
-$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN)
+$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN) misc/gschemas.compiled
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(LDFLAGS) $(RESOURCES) $(VALA_LDFLAGS) $(EXPORT_FLAGS) -o $@
+
+misc/gschemas.compiled: $(SCHEMA_FILES)
+	rm -f misc/gschemas.compiled
 	glib-compile-schemas misc
 
 $(THUMBNAILER_BIN): $(EXPANDED_THUMBNAILER_SRC_FILES)
