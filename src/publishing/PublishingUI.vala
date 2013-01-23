@@ -144,13 +144,15 @@ public class PublishingDialog : Gtk.Dialog {
 
     private static PublishingDialog active_instance = null;
     
-    private Gtk.ComboBoxText service_selector_box;
+    private Gtk.ListStore service_selector_box_model;
+    private Gtk.ComboBox service_selector_box;
     private Gtk.Label service_selector_box_label;
     private Gtk.Box central_area_layouter;
     private Gtk.Button close_cancel_button;
     private Spit.Publishing.DialogPane active_pane;
     private Spit.Publishing.Publishable[] publishables;
     private Spit.Publishing.ConcretePublishingHost host;
+    private Spit.PluggableInfo info;
 
     protected PublishingDialog(Gee.Collection<MediaSource> to_publish) {
         assert(to_publish.size > 0);
@@ -189,8 +191,19 @@ public class PublishingDialog : Gtk.Dialog {
         }
         set_title(title);
 
-        service_selector_box = new Gtk.ComboBoxText();
+        service_selector_box_model = new Gtk.ListStore(2, typeof(Gdk.Pixbuf), typeof(string));
+        service_selector_box = new Gtk.ComboBox.with_model(service_selector_box_model);
+
+        Gtk.CellRendererPixbuf renderer_pix = new Gtk.CellRendererPixbuf();
+        service_selector_box.pack_start(renderer_pix,true);
+        service_selector_box.add_attribute(renderer_pix, "pixbuf", 0);
+
+        Gtk.CellRendererText renderer_text = new Gtk.CellRendererText();
+        service_selector_box.pack_start(renderer_text,true);
+        service_selector_box.add_attribute(renderer_text, "text", 1);
+
         service_selector_box.set_active(0);
+        
         service_selector_box_label = new Gtk.Label.with_mnemonic(label);
         service_selector_box_label.set_mnemonic_widget(service_selector_box);
         service_selector_box_label.set_alignment(0.0f, 0.5f);
@@ -199,20 +212,36 @@ public class PublishingDialog : Gtk.Dialog {
         string? last_used_service = Config.Facade.get_instance().get_last_used_service();
 
         Spit.Publishing.Service[] loaded_services = load_services(has_photos, has_videos);
-        int ticker = 0;
-        int last_used_index = -1;
-        foreach (Spit.Publishing.Service service in loaded_services) {
-            string curr_service_id = service.get_id();
-            if (last_used_service != null && last_used_service == curr_service_id)
-                last_used_index = ticker;
 
-            service_selector_box.append_text(service.get_pluggable_name());
-            ticker++;
+        Gtk.TreeIter iter;
+
+        foreach (Spit.Publishing.Service service in loaded_services) {
+            service_selector_box_model.append(out iter);
+
+            string curr_service_id = service.get_id();
+
+            service.get_info(ref info);
+
+            if (null != info.icons && 0 < info.icons.length) {
+                // check if the icons object is set -- if set use that icon
+                service_selector_box_model.set(iter, 0, info.icons[0], 1,
+                    service.get_pluggable_name());
+                
+                // in case the icons object is not set on the next iteration
+                info.icons[0] = Resources.get_icon(Resources.ICON_GENERIC_PLUGIN);
+            } else {
+                // if icons object is null or zero length use a generic icon
+                service_selector_box_model.set(iter, 0, Resources.get_icon(
+                    Resources.ICON_GENERIC_PLUGIN), 1, service.get_pluggable_name());
+            }
+            
+            if (last_used_service == null) {
+                service_selector_box.set_active_iter(iter);
+                last_used_service = service.get_id();
+            } else if (last_used_service == curr_service_id) {
+                service_selector_box.set_active_iter(iter);
+            }
         }
-        if (last_used_index >= 0)
-            service_selector_box.set_active(last_used_index);
-        else
-            service_selector_box.set_active(0);
 
         service_selector_box.changed.connect(on_service_changed);
 
@@ -384,7 +413,23 @@ public class PublishingDialog : Gtk.Dialog {
     }
 
     private void on_service_changed() {
-        string service_name = service_selector_box.get_active_text();
+        Gtk.TreeIter iter;
+        bool have_active_iter = false;
+        have_active_iter = service_selector_box.get_active_iter(out iter);
+        
+        // this occurs when the user removes the last active publisher
+        if (!have_active_iter) {
+            // default to the first in the list (as good as any)
+            service_selector_box.set_active(0);
+            
+            // and get active again
+            service_selector_box.get_active_iter(out iter);
+        }
+        
+        Value service_name_val;
+        service_selector_box_model.get_value(iter, 1, out service_name_val);
+        
+        string service_name = (string) service_name_val;
         
         Spit.Publishing.Service? selected_service = null;
         Spit.Publishing.Service[] services = load_all_services();
