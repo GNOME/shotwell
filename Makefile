@@ -162,6 +162,8 @@ SYS_INTEGRATION_FILES = \
 	org.yorba.shotwell-extras.gschema.xml \
 	shotwell.convert
 
+SCHEMA_FILES := $(shell ls misc/*.gschema.xml)
+
 SRC_HEADER_FILES = \
 	gphoto.h
 
@@ -366,7 +368,7 @@ DESKTOP_APP_SHORT_NAME="Shotwell"
 DESKTOP_APP_FULL_NAME="Shotwell Photo Manager"
 DESKTOP_APPLICATION_COMMENT="Organize your photos"
 DESKTOP_APPLICATION_CLASS="Photo Manager"
-DESKTOP_APP_KEYWORDS="Camera;Picture;Photo;"
+DESKTOP_APP_KEYWORDS="album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 DIRECT_EDIT_DESKTOP_APP_SHORT_NAME="Shotwell"
 DIRECT_EDIT_DESKTOP_APP_FULL_NAME="Shotwell Photo Viewer"
 DIRECT_EDIT_DESKTOP_APPLICATION_CLASS="Photo Viewer"
@@ -727,8 +729,11 @@ $(EXPANDED_C_FILES): $(VALA_STAMP)
 $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
-$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN) $(FACEDETECT_BIN)
+$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN) $(FACEDETECT_BIN) misc/gschemas.compiled
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(LDFLAGS) $(RESOURCES) $(VALA_LDFLAGS) $(EXPORT_FLAGS) -o $@
+
+misc/gschemas.compiled: $(SCHEMA_FILES)
+	rm -f misc/gschemas.compiled
 	glib-compile-schemas misc
 
 $(THUMBNAILER_BIN): $(EXPANDED_THUMBNAILER_SRC_FILES)
