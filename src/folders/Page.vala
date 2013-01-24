@@ -17,14 +17,17 @@ public class Folders.Page : CollectionPage {
         public override bool include_in_view(DataSource source) {
             int maxdepth = 10;
             int depth = 0;
+
             File myfile = ((MediaSource) source).get_file();
+
             while (myfile.has_parent(null) && depth < maxdepth) {
-              if(myfile.get_parent().equal(dir))
-                return true;
+                if (myfile.get_parent().equal(dir))
+                    return true;
               
-              myfile = myfile.get_parent();
-              depth++;
+                myfile = myfile.get_parent();
+                depth++;
             }
+            
             return false;
         }
     }
