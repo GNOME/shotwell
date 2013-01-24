@@ -95,7 +95,7 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
 
     protected bool delete_original_file() {
         bool ret = false;
-        File file = get_file();
+        File file = get_master_file();
         
         try {
             ret = file.trash(null);
