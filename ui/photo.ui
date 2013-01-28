@@ -88,6 +88,7 @@
             </menu>
             <separator />
             <menuitem name="EditTitle" action="EditTitle" />
+            <menuitem name="EditComment" action="EditComment" />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
             <separator />
             <menu name="RawDeveloper" action="RawDeveloper">

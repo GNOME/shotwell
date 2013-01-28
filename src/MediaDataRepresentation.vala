@@ -80,9 +80,10 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     }
     
     private void update_indexable_keywords() {
-        string[] indexables = new string[2];
+        string[] indexables = new string[3];
         indexables[0] = get_title();
         indexables[1] = get_basename();
+        indexables[2] = get_comment();
         
         indexable_keywords = prepare_indexable_strings(indexables);
     }
@@ -157,11 +158,18 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     public abstract BackingFileState[] get_backing_files_state();
     
     public abstract string? get_title();
+    public abstract string? get_comment();
     public abstract void set_title(string? title);
+    public abstract void set_comment(string? comment);
     
     public static string? prep_title(string? title) {
         return prepare_input_text(title, 
             PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.EMPTY_IS_NULL, DEFAULT_USER_TEXT_INPUT_LENGTH);
+    }
+
+    public static string? prep_comment(string? comment) {
+        return prepare_input_text(comment,
+            PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF & ~PrepareInputTextOptions.EMPTY_IS_NULL, DEFAULT_USER_TEXT_INPUT_LENGTH);
     }
     
     public abstract Rating get_rating();

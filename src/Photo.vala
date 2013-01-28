@@ -375,6 +375,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         // normalize user text
         this.row.title = prep_title(this.row.title);
+        this.row.comment = prep_comment(this.row.comment);
         
         // don't need to lock the struct in the constructor (and to do so would hurt startup
         // time)
@@ -1084,6 +1085,7 @@ public abstract class Photo : PhotoSource, Dateable {
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
         string title = "";
+        string comment = "";
         Rating rating = Rating.UNRATED;
         
 #if TRACE_MD5
@@ -1098,6 +1100,7 @@ public abstract class Photo : PhotoSource, Dateable {
             
             orientation = detected.metadata.get_orientation();
             title = detected.metadata.get_title();
+            comment = detected.metadata.get_comment();
             params.keywords = detected.metadata.get_keywords();
             rating = detected.metadata.get_rating();
         }
@@ -1132,6 +1135,7 @@ public abstract class Photo : PhotoSource, Dateable {
         params.row.flags = 0;
         params.row.master.file_format = detected.file_format;
         params.row.title = title;
+        params.row.comment = comment;
         params.row.rating = rating;
         
         if (params.thumbnails != null) {
@@ -1171,6 +1175,7 @@ public abstract class Photo : PhotoSource, Dateable {
         params.row.flags = 0;
         params.row.master.file_format = PhotoFileFormat.JFIF;
         params.row.title = null;
+        params.row.comment = null;
         params.row.rating = Rating.UNRATED;
         
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(params.file, params.sniffer_options);
@@ -1331,6 +1336,9 @@ public abstract class Photo : PhotoSource, Dateable {
             if (updated_row.title != detected.metadata.get_title())
                 list += "metadata:name";
             
+            if (updated_row.comment != detected.metadata.get_comment())
+                list += "metadata:comment";
+            
             if (updated_row.rating != detected.metadata.get_rating())
                 list += "metadata:rating";
         }
@@ -1349,6 +1357,7 @@ public abstract class Photo : PhotoSource, Dateable {
                 updated_row.exposure_time = date_time.get_timestamp();
             
             updated_row.title = detected.metadata.get_title();
+            updated_row.comment = detected.metadata.get_comment();
             updated_row.rating = detected.metadata.get_rating();
         }
         
@@ -1457,6 +1466,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         if (reimport_state.metadata != null) {
             set_title(reimport_state.metadata.get_title());
+            set_comment(reimport_state.metadata.get_comment());
             set_rating(reimport_state.metadata.get_rating());
             apply_user_metadata_for_reimport(reimport_state.metadata);
         }
@@ -2197,6 +2207,12 @@ public abstract class Photo : PhotoSource, Dateable {
         }
     }
 
+    public override string? get_comment() {
+        lock (row) {
+            return row.comment;
+        }
+    }
+
     public override void set_title(string? title) {
         string? new_title = prep_title(title);
         
@@ -2212,6 +2228,23 @@ public abstract class Photo : PhotoSource, Dateable {
         
         if (committed)
             notify_altered(new Alteration("metadata", "name"));
+    }
+    
+    public override void set_comment(string? comment) {
+        string? new_comment = prep_comment(comment);
+        
+        bool committed = false;
+        lock (row) {
+            if (new_comment == row.comment)
+                return;
+            
+            committed = PhotoTable.get_instance().set_comment(row.photo_id, new_comment);
+            if (committed)
+                row.comment = new_comment;
+        }
+        
+        if (committed)
+            notify_altered(new Alteration("metadata", "comment"));
     }
     
     public void set_import_id(ImportID import_id) {
@@ -2255,6 +2288,34 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         set_title(title);
+        
+        file_exif_updated();
+    }
+
+    public void set_comment_persistent(string? comment) throws Error {
+        PhotoFileReader source = get_source_reader();
+        
+        // Try to write to backing file
+        if (!source.get_file_format().can_write_metadata()) {
+            warning("No photo file writer available for %s", source.get_filepath());
+            
+            set_comment(comment);
+            
+            return;
+        }
+        
+        PhotoMetadata metadata = source.read_metadata();
+        metadata.set_comment(comment);
+        
+        PhotoFileMetadataWriter writer = source.create_metadata_writer();
+        LibraryMonitor.blacklist_file(source.get_file(), "Photo.set_persistent_comment");
+        try {
+            writer.write_metadata(metadata);
+        } finally {
+            LibraryMonitor.unblacklist_file(source.get_file());
+        }
+        
+        set_comment(comment);
         
         file_exif_updated();
     }
@@ -2551,11 +2612,13 @@ public abstract class Photo : PhotoSource, Dateable {
     public bool has_alterations() {
         MetadataDateTime? date_time = null;
         string? title = null;
+        string? comment = null;
 
         PhotoMetadata? metadata = get_metadata();
         if (metadata != null) {
             date_time = metadata.get_exposure_date_time();
             title = metadata.get_title();
+            comment = metadata.get_comment();
         } 
 
         // Does this photo contain any date/time info?
@@ -2574,8 +2637,10 @@ public abstract class Photo : PhotoSource, Dateable {
             return row.transformations != null 
                 || row.orientation != backing_photo_row.original_orientation
                 || (date_time != null && row.exposure_time != date_time.get_timestamp())
+                || (get_comment() != comment)
                 || (get_title() != title);
         }
+
     }
     
     public PhotoTransformationState save_transformation_state() {
@@ -3350,7 +3415,8 @@ public abstract class Photo : PhotoSource, Dateable {
 
         // If asking for an full-sized file and there are no alterations (transformations or EXIF)
         // *and* this is a copy of the original backing *and* there's no user metadata or title *and* metadata should be exported, then done
-        if (!has_alterations() && is_master && !has_user_generated_metadata() && (get_title() == null) && export_metadata)
+        if (!has_alterations() && is_master && !has_user_generated_metadata() &&
+            (get_title() == null) && (get_comment() == null) && export_metadata)
             return true;
         
         // copy over relevant metadata if possible, otherwise generate new metadata
@@ -3368,6 +3434,7 @@ public abstract class Photo : PhotoSource, Dateable {
         if(export_metadata) {
             //set metadata
             metadata.set_title(get_title());
+            metadata.set_comment(get_comment());
             metadata.set_pixel_dimensions(get_dimensions()); // created by sniffing pixbuf not metadata
             metadata.set_orientation(get_orientation());
             metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
@@ -3441,6 +3508,7 @@ public abstract class Photo : PhotoSource, Dateable {
         if (export_metadata) {
             //Yes, set metadata obtained above.
             metadata.set_title(get_title());
+            metadata.set_comment(get_comment());
             metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
             metadata.set_orientation(Orientation.TOP_LEFT);
             metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);

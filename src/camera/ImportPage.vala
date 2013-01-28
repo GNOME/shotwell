@@ -267,7 +267,7 @@ class ImportPreview : MediaSourceItem {
     private static Gdk.Pixbuf placeholder_preview = null;
     
     public ImportPreview(ImportSource source) {
-        base(source, Dimensions(), source.get_name());
+        base(source, Dimensions(), source.get_name(), null);
 
         // draw sprocket holes as visual indications on video previews
         if (source is VideoImportSource)

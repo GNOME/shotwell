@@ -36,6 +36,7 @@ public enum ConfigurableProperty {
     DISPLAY_PHOTO_RATINGS,
     DISPLAY_PHOTO_TAGS,
     DISPLAY_PHOTO_TITLES,
+    DISPLAY_PHOTO_COMMENTS,
     EVENT_PHOTOS_SORT_ASCENDING,
     EVENT_PHOTOS_SORT_BY,
     EVENTS_SORT_ASCENDING,
@@ -129,6 +130,9 @@ public enum ConfigurableProperty {
                 
             case DISPLAY_PHOTO_TITLES:
                 return "DISPLAY_PHOTO_TITLES";
+                
+            case DISPLAY_PHOTO_COMMENTS:
+                return "DISPLAY_PHOTO_COMMENTS";
                 
             case EVENT_PHOTOS_SORT_ASCENDING:
                 return "EVENT_PHOTOS_SORT_ASCENDING";
@@ -640,6 +644,27 @@ public abstract class ConfigurationFacade : Object {
     public virtual void set_display_photo_titles(bool display) {
         try {
             get_engine().set_bool_property(ConfigurableProperty.DISPLAY_PHOTO_TITLES, display);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // display photo comments
+    //
+    public virtual bool get_display_photo_comments() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.DISPLAY_PHOTO_COMMENTS);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return false;
+        }
+    }
+    
+    public virtual void set_display_photo_comments(bool display) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.DISPLAY_PHOTO_COMMENTS, display);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
         }

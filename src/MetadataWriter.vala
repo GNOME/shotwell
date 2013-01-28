@@ -15,7 +15,7 @@ public class MetadataWriter : Object {
     public const uint COMMIT_DELAY_MSEC = 3000;
     public const uint COMMIT_SPACING_MSEC = 50;
     
-    private const string[] INTERESTED_PHOTO_METADATA_DETAILS = { "name", "rating", "exposure-time" };
+    private const string[] INTERESTED_PHOTO_METADATA_DETAILS = { "name", "comment", "rating", "exposure-time" };
     
     private class CommitJob : BackgroundJob {
         public LibraryPhoto photo;
@@ -79,6 +79,13 @@ public class MetadataWriter : Object {
             string? current_title = photo.get_title();
             if (current_title != metadata.get_title()) {
                 metadata.set_title(current_title);
+                changed = true;
+            }
+            
+            // comment
+            string? current_comment = photo.get_comment();
+            if (current_comment != metadata.get_comment()) {
+                metadata.set_comment(current_comment);
                 changed = true;
             }
             

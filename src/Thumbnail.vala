@@ -47,8 +47,9 @@ public class Thumbnail : MediaSourceItem {
     private bool exposure = false;
     
     public Thumbnail(MediaSource media, int scale = DEFAULT_SCALE) {
-        base (media, media.get_dimensions().get_scaled(scale, true), media.get_name());
-        
+        base (media, media.get_dimensions().get_scaled(scale, true), media.get_name(),
+            media.get_comment());
+
         this.media = media;
         this.scale = scale;
         
@@ -64,6 +65,7 @@ public class Thumbnail : MediaSourceItem {
         // initialize title and tags text line so they're properly accounted for when the display
         // size is calculated
         update_title(true);
+        update_comment(true);
         update_tags(true);
     }
 
@@ -123,9 +125,21 @@ public class Thumbnail : MediaSourceItem {
             set_title("");
     }
     
+    private void update_comment(bool init = false) {
+        string comment = media.get_comment();
+        if (is_string_empty(comment))
+            clear_comment();
+        else if (!init)
+            set_comment(comment);
+        else
+            set_comment("");
+    }
+
     protected override void notify_altered(Alteration alteration) {
         if (exposure && alteration.has_detail("metadata", "name"))
             update_title();
+        if (exposure && alteration.has_detail("metadata", "comment"))
+            update_comment();
         
         base.notify_altered(alteration);
     }
@@ -355,6 +369,7 @@ public class Thumbnail : MediaSourceItem {
             schedule_low_quality_fetch();
         
         update_title();
+        update_comment();
         update_tags();
         
         base.exposed();

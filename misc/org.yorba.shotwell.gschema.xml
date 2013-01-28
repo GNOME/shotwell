@@ -41,6 +41,12 @@
         <description>True if photo titles are to be displayed beneath thumbnails in collection views, false otherwise.</description>
     </key>
     
+    <key name="display-photo-comments" type="b">
+        <default>false</default>
+        <summary>display photo comments</summary>
+        <description>True if photo comments are to be displayed beneath thumbnails in collection views, false otherwise.</description>
+    </key>
+    
     <key name="display-photo-tags" type="b">
         <default>true</default>
         <summary>display photo tags</summary>

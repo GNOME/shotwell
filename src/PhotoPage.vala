@@ -1953,6 +1953,22 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_command_manager().execute(command);
     }
 
+    public void on_edit_comment() {
+        LibraryPhoto item;
+        if (get_photo() is LibraryPhoto)
+            item = get_photo() as LibraryPhoto;
+        else
+            return;
+        
+        EditCommentDialog edit_comment_dialog = new EditCommentDialog(item.get_comment());
+        string? new_comment = edit_comment_dialog.execute();
+        if (new_comment == null)
+            return;
+        
+        EditCommentCommand command = new EditCommentCommand(item, new_comment);
+        get_command_manager().execute(command);
+    }
+
     public void on_adjust_date_time() {
         if (!has_photo())
             return;
@@ -2434,6 +2450,11 @@ public class LibraryPhotoPage : EditingHostPage {
             on_edit_title };
         edit_title.label = Resources.EDIT_TITLE_MENU;
         actions += edit_title;
+
+        Gtk.ActionEntry edit_comment = { "EditComment", null, TRANSLATABLE, "F3", TRANSLATABLE,
+            on_edit_comment };
+        edit_comment.label = Resources.EDIT_COMMENT_MENU;
+        actions += edit_comment;
 
         Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
             TRANSLATABLE, on_adjust_date_time };

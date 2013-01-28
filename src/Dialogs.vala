@@ -734,6 +734,27 @@ public abstract class TextEntryDialogMediator {
     }
 }
 
+public abstract class MultiTextEntryDialogMediator {
+    private MultiTextEntryDialog dialog;
+    
+    public MultiTextEntryDialogMediator(string title, string label, string? initial_text = null) {
+        Gtk.Builder builder = AppWindow.create_builder();
+        dialog = new MultiTextEntryDialog();
+        dialog.get_content_area().add((Gtk.Box) builder.get_object("dialog-vbox4"));
+        dialog.set_builder(builder);
+        dialog.setup(on_modify_validate, title, label, initial_text);
+    }
+    
+    protected virtual bool on_modify_validate(string text) {
+        return true;
+    }
+
+    protected string? _execute() {
+        return dialog.execute();
+    }
+}
+
+
 // This method takes primary and secondary texts and returns ready-to-use pango markup 
 // for a HIG-compliant alert dialog. Please see 
 // http://library.gnome.org/devel/hig-book/2.32/windows-alert.html.en for details.
@@ -970,6 +991,60 @@ public class TextEntryDialog : Gtk.Dialog {
     }
 }
 
+public class MultiTextEntryDialog : Gtk.Dialog {
+    public delegate bool OnModifyValidateType(string text);
+    
+    private unowned OnModifyValidateType on_modify_validate;
+    private Gtk.TextView entry;
+    private Gtk.Builder builder;
+    private Gtk.Button button1;
+    private Gtk.Button button2;
+    private Gtk.ButtonBox action_area_box;
+    
+    public void set_builder(Gtk.Builder builder) {
+        this.builder = builder;
+    }
+    
+    public void setup(OnModifyValidateType? modify_validate, string title, string label, string? initial_text) {
+        set_title(title);
+        set_resizable(true);
+        set_default_size(500,300);
+        set_parent_window(AppWindow.get_instance().get_parent_window());
+        set_transient_for(AppWindow.get_instance());
+        on_modify_validate = modify_validate;
+        
+        Gtk.Label name_label = builder.get_object("label9") as Gtk.Label;
+        name_label.set_text(label);
+        
+        entry = builder.get_object("textview1") as Gtk.TextView;
+        entry.buffer = new Gtk.TextBuffer(null);
+        entry.buffer.text = (initial_text != null ? initial_text : "");
+        
+        entry.grab_focus();
+        
+        action_area_box = (Gtk.ButtonBox) get_action_area();
+        action_area_box.set_layout(Gtk.ButtonBoxStyle.END);
+        
+        button1 = (Gtk.Button) add_button(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
+        button2 = (Gtk.Button) add_button(Gtk.Stock.SAVE, Gtk.ResponseType.OK);
+        
+        set_has_resize_grip(true);
+    }
+        
+    public string? execute() {
+        string? text = null;
+        
+        show_all();
+        
+        if (run() == Gtk.ResponseType.OK)
+            text = entry.buffer.text;
+        
+        destroy();
+        
+        return text;
+    }
+}
+
 public class EventRenameDialog : TextEntryDialogMediator {
     public EventRenameDialog(string? event_name) {
         base (_("Rename Event"), _("Name:"), event_name);
@@ -987,6 +1062,20 @@ public class EditTitleDialog : TextEntryDialogMediator {
     
     public virtual string? execute() {
         return MediaSource.prep_title(_execute());
+    }
+    
+    protected override bool on_modify_validate(string text) {
+        return true;
+    }
+}
+
+public class EditCommentDialog : MultiTextEntryDialogMediator {
+    public EditCommentDialog(string? photo_comment) {
+        base (_("Edit Comment"), _("Comment:"), photo_comment);
+    }
+    
+    public virtual string? execute() {
+        return MediaSource.prep_comment(_execute());
     }
     
     protected override bool on_modify_validate(string text) {

@@ -89,6 +89,7 @@ public class PhotoRow {
     public uint64 flags;
     public Rating rating;
     public string title;
+    public string comment;
     public string? backlinks;
     public time_t time_reimported;
     public BackingPhotoID editable_id;
@@ -143,7 +144,8 @@ public class PhotoTable : DatabaseTable {
             + "developer TEXT, "
             + "develop_shotwell_id INTEGER DEFAULT -1, "
             + "develop_camera_id INTEGER DEFAULT -1, "
-            + "develop_embedded_id INTEGER DEFAULT -1"
+            + "develop_embedded_id INTEGER DEFAULT -1, "
+            + "comment TEXT"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -178,8 +180,8 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, "
             + "orientation, original_orientation, import_id, event_id, md5, thumbnail_md5, "
-            + "exif_md5, time_created, file_format, title, rating, editable_id, developer) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "exif_md5, time_created, file_format, title, rating, editable_id, developer, comment) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -222,6 +224,8 @@ public class PhotoTable : DatabaseTable {
         res = stmt.bind_int64(18, BackingPhotoID.INVALID);
         assert(res == Sqlite.OK);
         res = stmt.bind_text(19, photo_row.developer.to_string());
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(20, photo_row.comment);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -357,7 +361,7 @@ public class PhotoTable : DatabaseTable {
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
             + "exif_md5, time_created, flags, rating, file_format, title, backlinks, "
             + "time_reimported, editable_id, metadata_dirty, developer, develop_shotwell_id, "
-            + "develop_camera_id, develop_embedded_id "
+            + "develop_camera_id, develop_embedded_id, comment "
             + "FROM PhotoTable WHERE id=?", 
             -1, out stmt);
         assert(res == Sqlite.OK);
@@ -397,6 +401,7 @@ public class PhotoTable : DatabaseTable {
         row.development_ids[RawDeveloper.SHOTWELL] = BackingPhotoID(stmt.column_int64(24));
         row.development_ids[RawDeveloper.CAMERA] = BackingPhotoID(stmt.column_int64(25));
         row.development_ids[RawDeveloper.EMBEDDED] = BackingPhotoID(stmt.column_int64(26));
+        row.comment = stmt.column_text(27);
         
         return row;
     }
@@ -408,7 +413,7 @@ public class PhotoTable : DatabaseTable {
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
             + "exif_md5, time_created, flags, rating, file_format, title, backlinks, time_reimported, "
             + "editable_id, metadata_dirty, developer, develop_shotwell_id, develop_camera_id, " 
-            + "develop_embedded_id FROM PhotoTable", 
+            + "develop_embedded_id, comment FROM PhotoTable", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -444,6 +449,7 @@ public class PhotoTable : DatabaseTable {
             row.development_ids[RawDeveloper.SHOTWELL] = BackingPhotoID(stmt.column_int64(25));
             row.development_ids[RawDeveloper.CAMERA] = BackingPhotoID(stmt.column_int64(26));
             row.development_ids[RawDeveloper.EMBEDDED] = BackingPhotoID(stmt.column_int64(27));
+            row.comment = stmt.column_text(28);
             
             validate_orientation(row);
             
@@ -466,8 +472,8 @@ public class PhotoTable : DatabaseTable {
             + "timestamp, exposure_time, orientation, original_orientation, import_id, event_id, "
             + "transformations, md5, thumbnail_md5, exif_md5, time_created, flags, rating, "
             + "file_format, title, editable_id, developer, develop_shotwell_id, develop_camera_id, "
-            + "develop_embedded_id) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "develop_embedded_id, comment) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -520,6 +526,8 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(24, develop_embedded_id.id);
         assert(res == Sqlite.OK);
+        res = stmt.bind_text(25, original.comment);
+        assert(res == Sqlite.OK);
         
         res = stmt.step();
         if (res != Sqlite.DONE) {
@@ -534,6 +542,10 @@ public class PhotoTable : DatabaseTable {
     
     public bool set_title(PhotoID photo_id, string? new_title) {
        return update_text_by_id(photo_id.id, "title", new_title != null ? new_title : "");
+    }
+    
+    public bool set_comment(PhotoID photo_id, string? new_comment) {
+       return update_text_by_id(photo_id.id, "comment", new_comment != null ? new_comment : "");
     }
     
     public void set_filepath(PhotoID photo_id, string filepath) throws DatabaseError {

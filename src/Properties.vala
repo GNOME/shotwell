@@ -13,23 +13,50 @@ private abstract class Properties : Gtk.Table {
         set_homogeneous(false);
     }
 
-    protected void add_line(string label_text, string info_text) {
+    protected void add_line(string label_text, string info_text, bool multi_line = false) {
         Gtk.Label label = new Gtk.Label("");
-        Gtk.Label info = new Gtk.Label("");
-        
+        Gtk.Widget info;
+
         label.set_justify(Gtk.Justification.RIGHT);
         
         label.set_markup(GLib.Markup.printf_escaped("<span font_weight=\"bold\">%s</span>", label_text));
-        info.set_markup(is_string_empty(info_text) ? "" : info_text);
-        
-        label.set_alignment(1, (float) 5e-1);
-        info.set_alignment(0, (float) 5e-1);
-        
-        info.set_ellipsize(Pango.EllipsizeMode.END);
-        info.set_selectable(true);
-        
+
+        if (multi_line) {
+            Gtk.ScrolledWindow info_scroll = new Gtk.ScrolledWindow(null, null);
+            info_scroll.shadow_type = Gtk.ShadowType.ETCHED_IN;
+            Gtk.TextView view = new Gtk.TextView();
+            // by default TextView widgets have a white background, which
+            // makes sense during editing. In this instance we only *show*
+            // the content and thus want that the parent's background color
+            // is inherited to the TextView
+            Gtk.StyleContext context = info_scroll.get_style_context();
+            view.override_background_color (Gtk.StateFlags.NORMAL,
+                context.get_background_color(Gtk.StateFlags.NORMAL));
+            view.set_wrap_mode(Gtk.WrapMode.WORD);
+            view.set_cursor_visible(false);
+            view.set_editable(false);
+            view.buffer.text = is_string_empty(info_text) ? "" : info_text;
+            info_scroll.add(view);
+            label.set_alignment(1, 0);
+            info = (Gtk.Widget) info_scroll;
+        } else {
+            Gtk.Label info_label = new Gtk.Label("");
+            info_label.set_markup(is_string_empty(info_text) ? "" : info_text);
+            info_label.set_alignment(0, (float) 5e-1);
+            info_label.set_ellipsize(Pango.EllipsizeMode.END);
+            info_label.set_selectable(true);
+            label.set_alignment(1, (float) 5e-1);
+            info = (Gtk.Widget) info_label;
+        }
+
         attach(label, 0, 1, line_count, line_count + 1, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL, 0, 0);
-        attach_defaults(info, 1, 2, line_count, line_count + 1);
+
+        if (multi_line) {
+            attach(info, 1, 2, line_count, line_count + 1, Gtk.AttachOptions.FILL,
+                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 0, 0);
+        } else {
+            attach_defaults(info, 1, 2, line_count, line_count + 1);
+        }
 
         line_count++;
     }
@@ -440,6 +467,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         private string copyright;
         private string software;
         private string exposure_bias;
+        private string comment;
             
         protected override void clear_properties() {
             base.clear_properties();
@@ -459,6 +487,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             copyright = "";
             software = "";
             exposure_bias = "";
+            comment = "";
         }
 
         protected override void get_single_properties(DataView view) {
@@ -470,8 +499,9 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             
             file_path = media.get_file().get_path();
             filesize = media.get_filesize();
+            comment = media.get_comment();
 
-            // as of right now, all extended properties other than filesize & filepath aren't
+            // as of right now, all extended properties other than filesize, filepath & comment aren't
             // applicable to non-photo media types, so if the current media source isn't a photo,
             // just do a short-circuit return
             Photo photo = media as Photo;
@@ -530,6 +560,9 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             add_line(_("Copyright:"), (copyright != "" && copyright != null) ? copyright : NO_VALUE);
     
             add_line(_("Software:"), (software != "" && software != null) ? software : NO_VALUE);
+            
+            bool has_comment = (comment != "" && comment != null);
+            add_line(_("Comment:"), has_comment ? comment : NO_VALUE, has_comment);
         }
     }
 

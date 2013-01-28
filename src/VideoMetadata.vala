@@ -8,6 +8,7 @@ public class VideoMetadata : MediaMetadata {
     
     private MetadataDateTime timestamp = null;
     private string title = null;
+    private string comment = null;
    
     public VideoMetadata() {
     }
@@ -20,12 +21,15 @@ public class VideoMetadata : MediaMetadata {
         if (quicktime.is_supported()) {
             timestamp = quicktime.get_creation_date_time();
             title = quicktime.get_title();
+	    // TODO is there an quicktime.get_comment ??
+            comment = null;
             return;
         }    
         AVIMetadataLoader avi = new AVIMetadataLoader(file);
         if (avi.is_supported()) {
             timestamp = avi.get_creation_date_time();
             title = avi.get_title();
+            comment = null;
             return;
         }
         
@@ -38,6 +42,10 @@ public class VideoMetadata : MediaMetadata {
     
     public override string? get_title() {
         return title;
+    }
+    
+    public override string? get_comment() {
+        return comment;
     }
     
 }
