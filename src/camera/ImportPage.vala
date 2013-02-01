@@ -548,7 +548,8 @@ public class ImportPage : CheckerboardPage {
             if (associated != null) {
                 try {
                     associated_file = 
-                        RawDeveloper.CAMERA.create_backing_row_for_development(dest_file.get_path());
+                        RawDeveloper.CAMERA.create_backing_row_for_development(dest_file.get_path(),
+                            associated.get_basename());
                 } catch (Error err) {
                     warning("Unable to generate backing associated file for %s: %s", associated.filename,
                         err.message);

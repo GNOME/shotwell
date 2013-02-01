@@ -572,6 +572,7 @@ public abstract class Photo : PhotoSource, Dateable {
         lock (developments) {
             developments.set(d, bpr);
         }
+        notify_altered(new Alteration("image", "developer"));
     }
     
     public static void import_developed_backing_photo(PhotoRow row, RawDeveloper d, 
@@ -692,6 +693,12 @@ public abstract class Photo : PhotoSource, Dateable {
     public void set_raw_developer(RawDeveloper d) {
         if (get_master_file_format() != PhotoFileFormat.RAW)
             return;
+        
+        // If the caller has asked for 'embedded', but there's a camera development
+        // available, always prefer that instead, as it's likely to be of higher
+        // quality and resolution.
+        if (is_raw_developer_available(RawDeveloper.CAMERA) && (d == RawDeveloper.EMBEDDED))
+            d = RawDeveloper.CAMERA;
             
         lock (developments) {
             RawDeveloper stale_raw_developer = row.developer;
