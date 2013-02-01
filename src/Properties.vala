@@ -497,7 +497,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             if (media == null)
                 return;
             
-            file_path = media.get_file().get_path();
+            file_path = media.get_master_file().get_path();
             filesize = media.get_filesize();
             comment = media.get_comment();
 
@@ -528,7 +528,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             base.internal_update_properties(page);
 
             add_line(_("Location:"), (file_path != "" && file_path != null) ? 
-				file_path.replace("&", "&amp;") : NO_VALUE);
+                file_path.replace("&", "&amp;") : NO_VALUE);
 
             add_line(_("File size:"), (filesize > 0) ? 
                 format_size((int64) filesize) : NO_VALUE);
