@@ -27,7 +27,7 @@ public enum Direction {
                 return Spit.Transitions.Direction.FORWARD;
             
             case BACKWARD:
-                return Spit.Transitions.Direction.FORWARD;
+                return Spit.Transitions.Direction.BACKWARD;
             
             default:
                 error("Unknown Direction %s", this.to_string());

@@ -1870,6 +1870,12 @@ public abstract class CheckerboardPage : Page {
         get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, display);
         get_view().thaw_notifications();
     }
+
+    protected virtual void set_display_comments(bool display) {
+        get_view().freeze_notifications();
+        get_view().set_property(CheckerboardItem.PROP_SHOW_COMMENTS, display);
+        get_view().thaw_notifications();
+    }
 }
 
 public abstract class SinglePhotoPage : Page {

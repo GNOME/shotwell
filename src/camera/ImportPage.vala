@@ -267,7 +267,7 @@ class ImportPreview : MediaSourceItem {
     private static Gdk.Pixbuf placeholder_preview = null;
     
     public ImportPreview(ImportSource source) {
-        base(source, Dimensions(), source.get_name());
+        base(source, Dimensions(), source.get_name(), null);
 
         // draw sprocket holes as visual indications on video previews
         if (source is VideoImportSource)
@@ -548,7 +548,8 @@ public class ImportPage : CheckerboardPage {
             if (associated != null) {
                 try {
                     associated_file = 
-                        RawDeveloper.CAMERA.create_backing_row_for_development(dest_file.get_path());
+                        RawDeveloper.CAMERA.create_backing_row_for_development(dest_file.get_path(),
+                            associated.get_basename());
                 } catch (Error err) {
                     warning("Unable to generate backing associated file for %s: %s", associated.filename,
                         err.message);

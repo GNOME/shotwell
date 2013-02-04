@@ -295,6 +295,24 @@ private VerifyResult upgrade_database(int input_version) {
     version = 16;
     
     //
+    // Version 17:
+    // * Added comment column to PhotoTable and VideoTable
+    //
+    
+    if (!DatabaseTable.has_column("PhotoTable", "comment")) {
+        message("upgrade_database: adding comment column to PhotoTable");
+        if (!DatabaseTable.add_column("PhotoTable", "comment", "TEXT"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    if (!DatabaseTable.has_column("VideoTable", "comment")) {
+        message("upgrade_database: adding comment column to VideoTable");
+        if (!DatabaseTable.add_column("VideoTable", "comment", "TEXT"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 17;
+    
+    //
     // Finalize the upgrade process
     //
     

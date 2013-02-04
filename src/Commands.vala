@@ -579,6 +579,26 @@ public class EditTitleCommand : SingleDataSourceCommand {
     }
 }
 
+public class EditCommentCommand : SingleDataSourceCommand {
+    private string new_comment;
+    private string? old_comment;
+    
+    public EditCommentCommand(MediaSource source, string new_comment) {
+        base(source, Resources.EDIT_COMMENT_LABEL, "");
+        
+        this.new_comment = new_comment;
+        old_comment = source.get_comment();
+    }
+    
+    public override void execute() {
+        ((MediaSource) source).set_comment(new_comment);
+    }
+    
+    public override void undo() {
+        ((MediaSource) source).set_comment(old_comment);
+    }
+}
+
 public class EditMultipleTitlesCommand : MultipleDataSourceAtOnceCommand {
     public string new_title;
     public Gee.HashMap<MediaSource, string?> old_titles = new Gee.HashMap<MediaSource, string?>();
@@ -599,6 +619,29 @@ public class EditMultipleTitlesCommand : MultipleDataSourceAtOnceCommand {
     public override void undo_on_all(Gee.Collection<DataSource> sources) {
         foreach (DataSource source in sources)
             ((MediaSource) source).set_title(old_titles.get((MediaSource) source));
+    }
+}
+
+public class EditMultipleCommentsCommand : MultipleDataSourceAtOnceCommand {
+    public string new_comment;
+    public Gee.HashMap<MediaSource, string?> old_comments = new Gee.HashMap<MediaSource, string?>();
+    
+    public EditMultipleCommentsCommand(Gee.Collection<MediaSource> media_sources, string new_comment) {
+        base (media_sources, Resources.EDIT_COMMENT_LABEL, "");
+        
+        this.new_comment = new_comment;
+        foreach (MediaSource media in media_sources)
+            old_comments.set(media, media.get_comment());
+    }
+    
+    public override void execute_on_all(Gee.Collection<DataSource> sources) {
+        foreach (DataSource source in sources)
+            ((MediaSource) source).set_comment(new_comment);
+    }
+    
+    public override void undo_on_all(Gee.Collection<DataSource> sources) {
+        foreach (DataSource source in sources)
+            ((MediaSource) source).set_comment(old_comments.get((MediaSource) source));
     }
 }
 

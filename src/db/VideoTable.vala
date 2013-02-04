@@ -53,6 +53,7 @@ public class VideoRow {
     public string? backlinks;
     public time_t time_reimported;
     public uint64 flags;
+    public string comment;
 }
 
 public class VideoTable : DatabaseTable {
@@ -78,7 +79,8 @@ public class VideoTable : DatabaseTable {
             + "title TEXT, "
             + "backlinks TEXT, "
             + "time_reimported INTEGER, "
-            + "flags INTEGER DEFAULT 0 "
+            + "flags INTEGER DEFAULT 0, "
+	        + "comment TEXT "
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -112,8 +114,8 @@ public class VideoTable : DatabaseTable {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
             "INSERT INTO VideoTable (filename, width, height, clip_duration, is_interpretable, "
-            + "filesize, timestamp, exposure_time, import_id, event_id, md5, time_created, title) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "filesize, timestamp, exposure_time, import_id, event_id, md5, time_created, title, comment) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -144,6 +146,8 @@ public class VideoTable : DatabaseTable {
         res = stmt.bind_int64(12, time_created);
         assert(res == Sqlite.OK);
         res = stmt.bind_text(13, video_row.title);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(14, video_row.comment);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -186,7 +190,7 @@ public class VideoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT filename, width, height, clip_duration, is_interpretable, filesize, timestamp, "
             + "exposure_time, import_id, event_id, md5, time_created, rating, title, backlinks, "
-            + "time_reimported, flags FROM VideoTable WHERE id=?", 
+            + "time_reimported, flags, comment FROM VideoTable WHERE id=?", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -215,6 +219,7 @@ public class VideoTable : DatabaseTable {
         row.backlinks = stmt.column_text(14);
         row.time_reimported = (time_t) stmt.column_int64(15);
         row.flags = stmt.column_int64(16);
+        row.comment = stmt.column_text(17);
         
         return row;
     }
@@ -224,7 +229,7 @@ public class VideoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT id, filename, width, height, clip_duration, is_interpretable, filesize, "
             + "timestamp, exposure_time, import_id, event_id, md5, time_created, rating, title, "
-            + "backlinks, time_reimported, flags FROM VideoTable", 
+            + "backlinks, time_reimported, flags, comment FROM VideoTable", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -250,6 +255,7 @@ public class VideoTable : DatabaseTable {
             row.backlinks = stmt.column_text(15);
             row.time_reimported = (time_t) stmt.column_int64(16);
             row.flags = stmt.column_int64(17);
+            row.comment = stmt.column_text(18);
             
             all.add(row);
         }
@@ -263,6 +269,10 @@ public class VideoTable : DatabaseTable {
     
     public void set_title(VideoID video_id, string? new_title) throws DatabaseError {
        update_text_by_id_2(video_id.id, "title", new_title != null ? new_title : "");
+    }
+    
+    public void set_comment(VideoID video_id, string? new_comment) throws DatabaseError {
+       update_text_by_id_2(video_id.id, "comment", new_comment != null ? new_comment : "");
     }
     
     public void set_exposure_time(VideoID video_id, time_t time) throws DatabaseError {

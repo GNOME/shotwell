@@ -90,6 +90,7 @@ public class VideoReader {
 
         time_t exposure_time = params.exposure_time_override;
         string title = "";
+        string comment = "";
         
         VideoReader reader = new VideoReader(file);
         bool is_interpretable = true;
@@ -116,8 +117,11 @@ public class VideoReader {
                 exposure_time = creation_date_time.get_timestamp();
             
             string? video_title = metadata.get_title();
+            string? video_comment = metadata.get_comment();
             if (video_title != null)
                 title = video_title;
+            if (video_comment != null)
+                comment = video_comment;
         } catch (Error err) {
             warning("Unable to read video metadata: %s", err.message);
         }
@@ -142,6 +146,7 @@ public class VideoReader {
         params.row.md5 = params.md5;
         params.row.time_created = 0;
         params.row.title = title;
+        params.row.comment = comment;
         params.row.backlinks = "";
         params.row.time_reimported = 0;
         params.row.flags = 0;
@@ -581,6 +586,34 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
 
         notify_altered(new Alteration("metadata", "name"));
     }
+
+    public override string? get_comment() {
+        lock (backing_row) {
+            return backing_row.comment;
+        }
+    }
+
+    public override void set_comment(string? comment) {
+        string? new_comment = prep_title(comment);
+        
+        lock (backing_row) {
+            if (backing_row.comment == new_comment)
+                return;
+
+            try {
+                VideoTable.get_instance().set_comment(backing_row.video_id, new_comment);
+            } catch (DatabaseError e) {
+                AppWindow.database_error(e);
+                return;
+            }
+            // if we didn't short-circuit return in the catch clause above, then the change was
+            // successfully committed to the database, so update it in the in-memory row cache
+            backing_row.comment = new_comment;
+        }
+
+        notify_altered(new Alteration("metadata", "comment"));
+    }
+
 
     public override Rating get_rating() {
         lock (backing_row) {

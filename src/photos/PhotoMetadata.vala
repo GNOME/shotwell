@@ -315,12 +315,12 @@ public class PhotoMetadata : MediaMetadata {
         return GExiv2.Metadata.get_tag_description(tag);
     }
     
-    public string? get_string(string tag) {
-        return prepare_input_text(exiv2.get_tag_string(tag), PREPARE_STRING_OPTIONS, DEFAULT_USER_TEXT_INPUT_LENGTH);
+    public string? get_string(string tag, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS) {
+        return prepare_input_text(exiv2.get_tag_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
     }
     
-    public string? get_string_interpreted(string tag) {
-        return prepare_input_text(exiv2.get_tag_interpreted_string(tag), PREPARE_STRING_OPTIONS, DEFAULT_USER_TEXT_INPUT_LENGTH);
+    public string? get_string_interpreted(string tag, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS) {
+        return prepare_input_text(exiv2.get_tag_interpreted_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
     }
     
     public string? get_first_string(string[] tags) {
@@ -386,8 +386,8 @@ public class PhotoMetadata : MediaMetadata {
         return null;
     }
     
-    public void set_string(string tag, string value) {
-        string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS, DEFAULT_USER_TEXT_INPUT_LENGTH);
+    public void set_string(string tag, string value, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS) {
+        string? prepped = prepare_input_text(value, options, DEFAULT_USER_TEXT_INPUT_LENGTH);
         if (prepped == null) {
             warning("Not setting tag %s to string %s: invalid UTF-8", tag, value);
             
@@ -841,6 +841,17 @@ public class PhotoMetadata : MediaMetadata {
         } else {
             remove_tags(STANDARD_TITLE_TAGS);
         }
+    }
+    
+    public override string? get_comment() {
+        return get_string("Exif.Photo.UserComment", PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF);
+    }
+    
+    public void set_comment(string? comment) {
+        if (!is_string_empty(comment))
+            set_string("Exif.Photo.UserComment", comment, PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF);
+        else
+            remove_tag("Exif.Photo.UserComment");
     }
     
     private static string[] KEYWORD_TAGS = {

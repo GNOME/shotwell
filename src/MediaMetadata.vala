@@ -13,6 +13,8 @@ public abstract class MediaMetadata {
     public abstract MetadataDateTime? get_creation_date_time();
     
     public abstract string? get_title();
+
+    public abstract string? get_comment();
 }
 
 public struct MetadataRational {

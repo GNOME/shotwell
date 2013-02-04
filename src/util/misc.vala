@@ -105,6 +105,12 @@ public string md5_file(File file) throws Error {
 
 // Once generic functions are available in Vala, this could be genericized.
 public bool equal_sets(Gee.Set<string>? a, Gee.Set<string>? b) {
+    if ((a != null && a.size == 0) && (b == null))
+        return true;
+    
+    if ((a == null) && (b != null && b.size == 0))
+        return true;
+    
     if ((a == null && b != null) || (a != null && b == null))
         return false;
     

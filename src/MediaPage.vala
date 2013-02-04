@@ -12,9 +12,9 @@ public class MediaSourceItem : CheckerboardItem {
 
     // preserve the same constructor arguments and semantics as CheckerboardItem so that we're
     // a drop-in replacement
-    public MediaSourceItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title,
-        bool marked_up = false, Pango.Alignment alignment = Pango.Alignment.LEFT) {
-        base(source, initial_pixbuf_dim, title, marked_up, alignment);
+    public MediaSourceItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title, 
+        string? comment, bool marked_up = false, Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        base(source, initial_pixbuf_dim, title, comment, marked_up, alignment);
         if (basis_sprocket_pixbuf == null)
             basis_sprocket_pixbuf = Resources.load_icon("sprocket.png", 0);
     }
@@ -239,6 +239,8 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().freeze_notifications();
         get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, 
             Config.Facade.get_instance().get_display_photo_titles());
+        get_view().set_property(CheckerboardItem.PROP_SHOW_COMMENTS, 
+            Config.Facade.get_instance().get_display_photo_comments());
         get_view().set_property(Thumbnail.PROP_SHOW_TAGS, 
             Config.Facade.get_instance().get_display_photo_tags());
         get_view().set_property(Thumbnail.PROP_SIZE, get_thumb_size());
@@ -388,6 +390,11 @@ public abstract class MediaPage : CheckerboardPage {
         edit_title.label = Resources.EDIT_TITLE_MENU;
         actions += edit_title;
 
+        Gtk.ActionEntry edit_comment = { "EditComment", null, TRANSLATABLE, "F3", TRANSLATABLE,
+            on_edit_comment };
+        edit_comment.label = Resources.EDIT_COMMENT_MENU;
+        actions += edit_comment;
+
         Gtk.ActionEntry sort_photos = { "SortPhotos", null, TRANSLATABLE, null, null, null };
         sort_photos.label = _("Sort _Photos");
         actions += sort_photos;
@@ -429,6 +436,12 @@ public abstract class MediaPage : CheckerboardPage {
         titles.label = _("_Titles");
         titles.tooltip = _("Display the title of each photo");
         toggle_actions += titles;
+        
+        Gtk.ToggleActionEntry comments = { "ViewComment", null, TRANSLATABLE, "<Ctrl><Shift>C",
+            TRANSLATABLE, on_display_comments, Config.Facade.get_instance().get_display_photo_comments() };
+        comments.label = _("_Comments");
+        comments.tooltip = _("Display the comment of each photo");
+        toggle_actions += comments;
         
         Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>N",
             TRANSLATABLE, on_display_ratings, Config.Facade.get_instance().get_display_photo_ratings() };
@@ -497,6 +510,7 @@ public abstract class MediaPage : CheckerboardPage {
     protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("Export", selected_count > 0);
         set_action_sensitive("EditTitle", selected_count > 0);
+        set_action_sensitive("EditComment", selected_count > 0);
         set_action_sensitive("IncreaseSize", get_thumb_size() < Thumbnail.MAX_SCALE);
         set_action_sensitive("DecreaseSize", get_thumb_size() > Thumbnail.MIN_SCALE);
         set_action_sensitive("RemoveFromLibrary", selected_count > 0);
@@ -799,6 +813,7 @@ public abstract class MediaPage : CheckerboardPage {
         // set display options to match Configuration toggles (which can change while switched away)
         get_view().freeze_notifications();
         set_display_titles(Config.Facade.get_instance().get_display_photo_titles());
+        set_display_comments(Config.Facade.get_instance().get_display_photo_comments());
         set_display_ratings(Config.Facade.get_instance().get_display_photo_ratings());
         set_display_tags(Config.Facade.get_instance().get_display_photo_tags());
         get_view().thaw_notifications();
@@ -1016,12 +1031,32 @@ public abstract class MediaPage : CheckerboardPage {
             get_command_manager().execute(new EditMultipleTitlesCommand(media_sources, new_title));
     }
 
+    protected virtual void on_edit_comment() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        Gee.List<MediaSource> media_sources = (Gee.List<MediaSource>) get_view().get_selected_sources();
+        
+        EditCommentDialog edit_comment_dialog = new EditCommentDialog(media_sources[0].get_comment());
+        string? new_comment = edit_comment_dialog.execute();
+        if (new_comment != null)
+            get_command_manager().execute(new EditMultipleCommentsCommand(media_sources, new_comment));
+    }
+
     protected virtual void on_display_titles(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
         
         set_display_titles(display);
         
         Config.Facade.get_instance().set_display_photo_titles(display);
+    }
+
+    protected virtual void on_display_comments(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+        
+        set_display_comments(display);
+        
+        Config.Facade.get_instance().set_display_photo_comments(display);
     }
 
     protected virtual void on_display_ratings(Gtk.Action action) {
@@ -1094,6 +1129,14 @@ public abstract class MediaPage : CheckerboardPage {
         base.set_display_titles(display);
     
         Gtk.ToggleAction? action = get_action("ViewTitle") as Gtk.ToggleAction;
+        if (action != null)
+            action.set_active(display);
+    }
+
+    protected override void set_display_comments(bool display) {
+        base.set_display_comments(display);
+    
+        Gtk.ToggleAction? action = get_action("ViewComment") as Gtk.ToggleAction;
         if (action != null)
             action.set_active(display);
     }

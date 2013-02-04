@@ -99,6 +99,8 @@ public abstract class CheckerboardItem : ThumbnailView {
     // Collection properties CheckerboardItem understands
     // SHOW_TITLES (bool)
     public const string PROP_SHOW_TITLES = "show-titles";
+    // SHOW_COMMENTS (bool)
+    public const string PROP_SHOW_COMMENTS = "show-comments";
     // SHOW_SUBTITLES (bool)
     public const string PROP_SHOW_SUBTITLES = "show-subtitles";
     
@@ -120,6 +122,8 @@ public abstract class CheckerboardItem : ThumbnailView {
     private bool exposure = false;
     private CheckerboardItemText? title = null;
     private bool title_visible = true;
+    private CheckerboardItemText? comment = null;
+    private bool comment_visible = true;
     private CheckerboardItemText? subtitle = null;
     private bool subtitle_visible = false;
     private Gdk.Pixbuf pixbuf = null;
@@ -130,12 +134,20 @@ public abstract class CheckerboardItem : ThumbnailView {
     private int row = -1;
     private int horizontal_trinket_offset = 0;
     
-    public CheckerboardItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title,
+    public CheckerboardItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title, string? comment,
         bool marked_up = false, Pango.Alignment alignment = Pango.Alignment.LEFT) {
         base(source);
         
         pixbuf_dim = initial_pixbuf_dim;
         this.title = new CheckerboardItemText(title, alignment, marked_up);
+        // on the checkboard page we display the comment in 
+        // one line, i.e., replacing all newlines with spaces.
+        // that means that the display will contain "..." if the comment
+        // is too long.
+        // warning: changes here have to be done in set_comment, too!
+        if (comment != null)
+            this.comment = new CheckerboardItemText(comment.replace("\n", " "), alignment,
+                marked_up);
         
         // Don't calculate size here, wait for the item to be assigned to a ViewCollection
         // (notify_membership_changed) and calculate when the collection's property settings
@@ -148,6 +160,10 @@ public abstract class CheckerboardItem : ThumbnailView {
     
     public string get_title() {
         return (title != null) ? title.get_text() : "";
+    }
+    
+    public string get_comment() {
+        return (comment != null) ? comment.get_text() : "";
     }
     
     public void set_title(string text, bool marked_up = false,
@@ -184,6 +200,42 @@ public abstract class CheckerboardItem : ThumbnailView {
         recalc_size("set_title_visible");
         notify_view_altered();
     }
+    
+    public void set_comment(string text, bool marked_up = false,
+        Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        if (comment != null && comment.is_set_to(text, marked_up, alignment))
+            return;
+        
+        comment = new CheckerboardItemText(text.replace("\n", " "), alignment, marked_up);
+        
+        if (comment_visible) {
+            recalc_size("set_comment");
+            notify_view_altered();
+        }
+    }
+    
+    public void clear_comment() {
+        if (comment == null)
+            return;
+        
+        comment = null;
+        
+        if (comment_visible) {
+            recalc_size("clear_comment");
+            notify_view_altered();
+        }
+    }
+    
+    private void set_comment_visible(bool visible) {
+        if (comment_visible == visible)
+            return;
+        
+        comment_visible = visible;
+        
+        recalc_size("set_comment_visible");
+        notify_view_altered();
+    }
+    
     
     public string get_subtitle() {
         return (subtitle != null) ? subtitle.get_text() : "";
@@ -226,11 +278,17 @@ public abstract class CheckerboardItem : ThumbnailView {
     
     protected override void notify_membership_changed(DataCollection? collection) {
         bool title_visible = (bool) get_collection_property(PROP_SHOW_TITLES, true);
+        bool comment_visible = (bool) get_collection_property(PROP_SHOW_COMMENTS, true);
         bool subtitle_visible = (bool) get_collection_property(PROP_SHOW_SUBTITLES, false);
         
         bool altered = false;
         if (this.title_visible != title_visible) {
             this.title_visible = title_visible;
+            altered = true;
+        }
+        
+        if (this.comment_visible != comment_visible) {
+            this.comment_visible = comment_visible;
             altered = true;
         }
         
@@ -251,6 +309,10 @@ public abstract class CheckerboardItem : ThumbnailView {
         switch (name) {
             case PROP_SHOW_TITLES:
                 set_title_visible((bool) val);
+            break;
+            
+            case PROP_SHOW_COMMENTS:
+                set_comment_visible((bool) val);
             break;
             
             case PROP_SHOW_SUBTITLES:
@@ -277,6 +339,9 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         if (title != null)
             title.clear_pango_layout();
+        
+        if (comment != null)
+            comment.clear_pango_layout();
         
         if (subtitle != null)
             subtitle.clear_pango_layout();
@@ -328,6 +393,8 @@ public abstract class CheckerboardItem : ThumbnailView {
         // only add in the text heights if they're displayed
         int title_height = (title != null && title_visible)
             ? title.get_height() + LABEL_PADDING : 0;
+        int comment_height = (comment != null && comment_visible)
+            ? comment.get_height() + LABEL_PADDING : 0;
         int subtitle_height = (subtitle != null && subtitle_visible)
             ? subtitle.get_height() + LABEL_PADDING : 0;
         
@@ -338,11 +405,12 @@ public abstract class CheckerboardItem : ThumbnailView {
         // height is frame width (two sides) + frame padding (two sides) + height of pixbuf
         // + height of text + label padding (between pixbuf and text)
         requisition.height = (FRAME_WIDTH * 2) + (BORDER_WIDTH * 2)
-            + pixbuf_dim.height + title_height + subtitle_height;
+            + pixbuf_dim.height + title_height + comment_height + subtitle_height;
         
 #if TRACE_REFLOW_ITEMS
-        debug("recalc_size %s: %s title_height=%d subtitle_height=%d requisition=%s", 
-            get_source().get_name(), reason, title_height, subtitle_height, requisition.to_string());
+        debug("recalc_size %s: %s title_height=%d comment_height=%d subtitle_height=%d requisition=%s", 
+            get_source().get_name(), reason, title_height, comment_height, subtitle_height,
+            requisition.to_string());
 #endif
         
         if (!requisition.approx_equals(old_requisition)) {
@@ -524,6 +592,18 @@ public abstract class CheckerboardItem : ThumbnailView {
             text_y += title.get_height() + LABEL_PADDING;
         }
         
+        if (comment != null && comment_visible) {
+            comment.allocation.x = allocation.x + FRAME_WIDTH;
+            comment.allocation.y = text_y;
+            comment.allocation.width = pixbuf_dim.width;
+            comment.allocation.height = comment.get_height();
+            
+            ctx.move_to(comment.allocation.x, comment.allocation.y);
+            Pango.cairo_show_layout(ctx, comment.get_pango_layout(pixbuf_dim.width));
+            
+            text_y += comment.get_height() + LABEL_PADDING;
+        }
+        
         if (subtitle != null && subtitle_visible) {
             subtitle.allocation.x = allocation.x + FRAME_WIDTH;
             subtitle.allocation.y = text_y;
@@ -653,6 +733,9 @@ public abstract class CheckerboardItem : ThumbnailView {
     public bool query_tooltip(int x, int y, Gtk.Tooltip tooltip) {
         if (title != null && title_visible && coord_in_rectangle(x, y, title.allocation))
             return query_tooltip_on_text(title, tooltip);
+        
+        if (comment != null && comment_visible && coord_in_rectangle(x, y, comment.allocation))
+            return query_tooltip_on_text(comment, tooltip);
         
         if (subtitle != null && subtitle_visible && coord_in_rectangle(x, y, subtitle.allocation))
             return query_tooltip_on_text(subtitle, tooltip);
