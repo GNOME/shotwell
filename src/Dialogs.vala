@@ -940,6 +940,7 @@ public class TextEntryDialog : Gtk.Dialog {
         string? initial_text, Gee.Collection<string>? completion_list, string? completion_delimiter) {
         set_title(title);
         set_resizable(true);
+        set_default_size (350, 104);
         set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         on_modify_validate = modify_validate;
