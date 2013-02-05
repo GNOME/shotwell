@@ -686,6 +686,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             }
         } else {
             // we're publishing only videos and we don't need an album name
+            do_upload();
         }
     }
     
@@ -1077,25 +1078,30 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         publish_button.clicked.connect(on_publish_button_clicked);
         logout_button.clicked.connect(on_logout_button_clicked);
-
-        // Ticket #2916 - if the user is uploading photographs, allow
-        // them to choose what resolution they should be uploaded at.
-        if (publishing_photos()) {
-            setup_resolution_combo();
-
-            // Ticket #3232 - Remember facebook size settings.
-            resolution_combo.set_active(publisher.get_persistent_default_size());
-            resolution_combo.changed.connect(on_size_changed);
-        }
-
+        
+        setup_resolution_combo();
+        resolution_combo.set_active(publisher.get_persistent_default_size());
+        resolution_combo.changed.connect(on_size_changed);
+        
         // Ticket #3175, part 2: make sure this widget starts out sensitive
         // if it needs to by checking whether we're starting with a video
         // or a new gallery.
         visibility_combo.set_sensitive(
             (create_new_radio != null && create_new_radio.active) ||
             ((media_type & Spit.Publishing.Publisher.MediaType.VIDEO) != 0));
+        
+        // if publishing only videos, disable all photo-specific controls
+        if (media_type == Spit.Publishing.Publisher.MediaType.VIDEO) {
+            strip_metadata_check.set_active(false);
+            strip_metadata_check.set_sensitive(false);
+            resolution_combo.set_sensitive(false);
+            use_existing_radio.set_sensitive(false);
+            create_new_radio.set_sensitive(false);
+            existing_albums_combo.set_sensitive(false);
+            new_album_entry.set_sensitive(false);
+        }
     }
-
+    
     private bool publishing_photos() {
         return (media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0;
     }
@@ -1257,7 +1263,8 @@ internal abstract class GraphMessage {
 
 internal class GraphSession {
     private abstract class GraphMessageImpl : GraphMessage {
-        private const string ENDPOINT_URI = "https://graph.facebook.com/";
+        private const string STANDARD_ENDPOINT_URI = "https://graph.facebook.com/";
+        private const string SPECIAL_VIDEO_UPLOAD_URI = "https://graph-video.facebook.com/";
         
         public Publishing.RESTSupport.HttpMethod method;
         public string uri;
@@ -1267,15 +1274,17 @@ internal class GraphSession {
         public int bytes_so_far;
         
         public GraphMessageImpl(GraphSession host_session, Publishing.RESTSupport.HttpMethod method,
-            string relative_uri, string access_token) {
+            string relative_uri, string access_token, bool use_video_upload_uri = false) {
             this.method = method;
             this.access_token = access_token;
             this.host_session = host_session;
             this.bytes_so_far = 0;
             
+            string endpoint_uri = (use_video_upload_uri) ? SPECIAL_VIDEO_UPLOAD_URI :
+                STANDARD_ENDPOINT_URI;
             try {
                 Regex starting_slashes = new Regex("^/+");
-                this.uri = ENDPOINT_URI + starting_slashes.replace(relative_uri, -1, 0, "");
+                this.uri = endpoint_uri + starting_slashes.replace(relative_uri, -1, 0, "");
             } catch (RegexError err) {
                 assert_not_reached();
             }
@@ -1387,7 +1396,8 @@ internal class GraphSession {
         public GraphUploadMessage(GraphSession host_session, string access_token,
             string relative_uri, Spit.Publishing.Publishable publishable,
             bool suppress_titling) {
-            base(host_session, Publishing.RESTSupport.HttpMethod.POST, relative_uri, access_token);
+            base(host_session, Publishing.RESTSupport.HttpMethod.POST, relative_uri, access_token,
+                publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO);
             
             this.publishable = publishable;
             
@@ -1415,8 +1425,11 @@ internal class GraphSession {
             if (!suppress_titling && publishable_title != "")
                 mp_envelope.append_form_string("name", publishable_title);
 
+            string source_file_mime_type =
+                (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
+                "video" : "image/jpeg";
             mp_envelope.append_form_file("source", publishable.get_serialized_file().get_basename(),
-                "image/jpeg", image_data);
+                source_file_mime_type, image_data);
             
             mp_envelope.to_message(soup_message.request_headers, soup_message.request_body);
         }
@@ -1509,6 +1522,9 @@ internal class GraphSession {
     
     public void send_message(GraphMessage message) {
         GraphMessageImpl real_message = (GraphMessageImpl) message;
+        
+        debug("making HTTP request to URI: " + real_message.soup_message.uri.to_string(false));
+        
         if (real_message.prepare_for_transmission()) {
             manage_message(message);
             soup_session.queue_message(real_message.soup_message, real_message.on_finished);
@@ -1547,9 +1563,11 @@ internal class Uploader {
             current_file++;
             return;
         }
-
-        GraphMessage upload_message = session.new_upload("/%s/photos".printf(
-            publishing_params.get_target_album_id()), publishable,
+        
+        string resource_uri =
+            (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.PHOTO) ?
+            "/%s/photos".printf(publishing_params.get_target_album_id()) : "/me/videos";
+        GraphMessage upload_message = session.new_upload(resource_uri, publishable,
             publishing_params.strip_metadata);
 
         upload_message.data_transmitted.connect(on_chunk_transmitted);
