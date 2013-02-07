@@ -324,10 +324,13 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
                 Json.Object current_album = album_list.get_object_element(i);
                 string album_id = current_album.get_string_member("id");
                 string album_name = current_album.get_string_member("name");
-                bool can_upload = current_album.get_boolean_member("can_upload");
-                
-                if (can_upload)
-                    publishing_params.add_album(album_name, album_id);
+
+                // Note that we are completely ignoring the "can_upload" flag in the list of albums
+                // that we pulled from facebook eariler -- effectively, we add every album to the
+                // publishing_params album list regardless of the value of its can_upload flag. In
+                // the future we may wish to make adding to the publishing_params album list
+                // conditional on the value of the can_upload flag being true
+                publishing_params.add_album(album_name, album_id);
             }
         } catch (Error error) {
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(error.message));
