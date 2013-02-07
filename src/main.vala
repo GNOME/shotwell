@@ -95,7 +95,7 @@ void library_exec(string[] mounts) {
         // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
         // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
         // objects and then populating the initial page with them.
-        uint64 grand_total = (PhotoTable.get_instance().get_row_count() * 2) 
+        uint64 grand_total = PhotoTable.get_instance().get_row_count()
             + EventTable.get_instance().get_row_count()
             + TagTable.get_instance().get_row_count()
             + VideoTable.get_instance().get_row_count()
