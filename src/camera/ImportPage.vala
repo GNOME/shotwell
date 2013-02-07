@@ -585,6 +585,7 @@ public class ImportPage : CheckerboardPage {
                 if (associated_file != null) {
                     photo.add_backing_photo_for_development(RawDeveloper.CAMERA, associated_file);
                     ret = true;
+                    photo.set_raw_developer(Config.Facade.get_instance().get_default_raw_developer());
                 }
             }
             return ret;
