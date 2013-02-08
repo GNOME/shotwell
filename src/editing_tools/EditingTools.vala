@@ -54,6 +54,8 @@ public abstract class EditingToolWindow : Gtk.Window {
         set_can_focus(true);
         set_has_resize_grip(false);
 
+        // Needed to prevent the (spurious) 'This event was synthesised outside of GDK'
+        // warnings after a keypress.
         Log.set_handler("Gdk", LogLevelFlags.LEVEL_WARNING, suppress_warnings);
     }
 
