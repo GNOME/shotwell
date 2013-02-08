@@ -1273,7 +1273,7 @@ internal class GraphSession {
         public string uri;
         public string access_token;
         public Soup.Message soup_message;
-        public GraphSession host_session;
+        public weak GraphSession host_session;
         public int bytes_so_far;
         
         public GraphMessageImpl(GraphSession host_session, Publishing.RESTSupport.HttpMethod method,
@@ -1368,7 +1368,6 @@ internal class GraphSession {
                 failed(error);
 
             host_session.unmanage_message(this);
-            host_session = null;
         }
     }
     
