@@ -73,14 +73,18 @@ public abstract class EventSource : ThumbnailSource {
     }
     
     public abstract time_t get_start_time();
-
+    
     public abstract time_t get_end_time();
-
+    
     public abstract uint64 get_total_filesize();
     
     public abstract int get_media_count();
     
     public abstract Gee.Collection<MediaSource> get_media();
+    
+    public abstract string? get_comment();
+    
+    public abstract bool set_comment(string? comment);
 }
 
 //

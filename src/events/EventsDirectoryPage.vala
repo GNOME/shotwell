@@ -51,6 +51,9 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
             event_comparator_predicate);
         get_view().monitor_source_collection(Event.global, view_manager, null, initial_events);
         
+        get_view().set_property(Event.PROP_SHOW_COMMENTS,
+            Config.Facade.get_instance().get_display_event_comments());
+        
         init_item_context_menu("/EventsDirectoryContextMenu");
 
         this.view_manager = view_manager;
@@ -111,9 +114,26 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         merge.label = Resources.MERGE_MENU;
         actions += merge;
         
+        Gtk.ActionEntry comment = { "EditComment", null, TRANSLATABLE, null, Resources.EDIT_COMMENT_MENU,
+            on_edit_comment };
+        comment.label = Resources.EDIT_COMMENT_MENU;
+        actions += comment;
+        
         return actions;
     }
     
+    protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
+        Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
+        
+        Gtk.ToggleActionEntry comments = { "ViewComment", null, TRANSLATABLE, "<Ctrl><Shift>C",
+            TRANSLATABLE, on_display_comments, Config.Facade.get_instance().get_display_event_comments() };
+        comments.label = _("_Comments");
+        comments.tooltip = _("Display the comment of each event");
+        toggle_actions += comments;
+        
+        return toggle_actions;
+    }
+
     protected override void init_actions(int selected_count, int count) {
         base.init_actions(selected_count, count);
         
@@ -126,6 +146,7 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         set_action_sensitive("Merge", selected_count > 1);
         set_action_important("Merge", true);
         set_action_sensitive("Rename", selected_count == 1);
+        set_action_sensitive("EditComment", selected_count == 1);
         
         base.update_actions(selected_count, count);
     }
@@ -168,12 +189,36 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         get_command_manager().execute(command);
     }
     
+    protected void on_edit_comment() {
+        // only edit one at a time
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        EventDirectoryItem item = (EventDirectoryItem) get_view().get_selected_at(0);
+        
+        EditCommentDialog edit_comment_dialog = new EditCommentDialog(item.event.get_comment());
+        string? new_comment = edit_comment_dialog.execute();
+        if (new_comment == null)
+            return;
+        
+        EditEventCommentCommand command = new EditEventCommentCommand(item.event, new_comment);
+        get_command_manager().execute(command);
+    }
+    
     private void on_merge() {
         if (get_view().get_selected_count() <= 1)
             return;
         
         MergeEventsCommand command = new MergeEventsCommand(get_view().get_selected());
         get_command_manager().execute(command);
+    }
+    
+    private void on_display_comments(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+        
+        set_display_comments(display);
+        
+        Config.Facade.get_instance().set_display_event_comments(display);
     }
     
     public override SearchViewFilter get_search_view_filter() {

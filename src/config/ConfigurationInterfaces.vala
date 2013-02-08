@@ -31,6 +31,7 @@ public enum ConfigurableProperty {
     DIRECT_WINDOW_MAXIMIZE,
     DIRECT_WINDOW_WIDTH,
     DISPLAY_BASIC_PROPERTIES,
+    DISPLAY_EVENT_COMMENTS,
     DISPLAY_EXTENDED_PROPERTIES,
     DISPLAY_SIDEBAR,
     DISPLAY_PHOTO_RATINGS,
@@ -133,6 +134,9 @@ public enum ConfigurableProperty {
                 
             case DISPLAY_PHOTO_COMMENTS:
                 return "DISPLAY_PHOTO_COMMENTS";
+                
+            case DISPLAY_EVENT_COMMENTS:
+                return "DISPLAY_EVENT_COMMENTS";
                 
             case EVENT_PHOTOS_SORT_ASCENDING:
                 return "EVENT_PHOTOS_SORT_ASCENDING";
@@ -665,6 +669,27 @@ public abstract class ConfigurationFacade : Object {
     public virtual void set_display_photo_comments(bool display) {
         try {
             get_engine().set_bool_property(ConfigurableProperty.DISPLAY_PHOTO_COMMENTS, display);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // display event comments
+    //
+    public virtual bool get_display_event_comments() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.DISPLAY_EVENT_COMMENTS);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return false;
+        }
+    }
+    
+    public virtual void set_display_event_comments(bool display) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.DISPLAY_EVENT_COMMENTS, display);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
         }

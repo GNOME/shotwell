@@ -665,6 +665,26 @@ public class RenameEventCommand : SimpleProxyableCommand {
     }
 }
 
+public class EditEventCommentCommand : SimpleProxyableCommand {
+    private string new_comment;
+    private string? old_comment;
+    
+    public EditEventCommentCommand(Event event, string new_comment) {
+        base(event, Resources.EDIT_COMMENT_LABEL, "");
+        
+        this.new_comment = new_comment;
+        old_comment = event.get_comment();
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        ((Event) source).set_comment(new_comment);
+    }
+    
+    public override void undo_on_source(DataSource source) {
+        ((Event) source).set_comment(old_comment);
+    }
+}
+
 public class SetKeyPhotoCommand : SingleDataSourceCommand {
     private MediaSource new_primary_source;
     private MediaSource old_primary_source;

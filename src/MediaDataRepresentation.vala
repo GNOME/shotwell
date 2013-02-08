@@ -160,7 +160,7 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     public abstract string? get_title();
     public abstract string? get_comment();
     public abstract void set_title(string? title);
-    public abstract void set_comment(string? comment);
+    public abstract bool set_comment(string? comment);
     
     public static string? prep_title(string? title) {
         return prepare_input_text(title, 

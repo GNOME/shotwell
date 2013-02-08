@@ -313,6 +313,19 @@ private VerifyResult upgrade_database(int input_version) {
     version = 17;
     
     //
+    // Version 18:
+    // * Added comment column to EventTable
+    //
+    
+    if (!DatabaseTable.has_column("EventTable", "comment")) {
+        message("upgrade_database: adding comment column to EventTable");
+        if (!DatabaseTable.add_column("EventTable", "comment", "TEXT"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 18;
+    
+    //
     // Finalize the upgrade process
     //
     

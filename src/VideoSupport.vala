@@ -593,25 +593,27 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         }
     }
 
-    public override void set_comment(string? comment) {
+    public override bool set_comment(string? comment) {
         string? new_comment = prep_title(comment);
         
         lock (backing_row) {
             if (backing_row.comment == new_comment)
-                return;
+                return true;
 
             try {
                 VideoTable.get_instance().set_comment(backing_row.video_id, new_comment);
             } catch (DatabaseError e) {
                 AppWindow.database_error(e);
-                return;
+                return false;
             }
             // if we didn't short-circuit return in the catch clause above, then the change was
             // successfully committed to the database, so update it in the in-memory row cache
             backing_row.comment = new_comment;
         }
-
+        
         notify_altered(new Alteration("metadata", "comment"));
+
+        return true;
     }
 
 

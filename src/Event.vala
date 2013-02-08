@@ -94,6 +94,9 @@ public class EventSourceCollection : ContainerSourceCollection {
 public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     public const string TYPENAME = "event";
     
+    // SHOW_COMMENTS (bool)
+    public const string PROP_SHOW_COMMENTS = "show-comments";
+    
     // In 24-hour time.
     public const int EVENT_BOUNDARY_HOUR = 4;
     
@@ -172,6 +175,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     private bool unlinking = false;
     private bool relinking = false;
     private string? indexable_keywords = null;
+    private string? comment = null;
     
     private Event(EventRow event_row, int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
@@ -181,6 +185,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         
         this.event_id = event_row.event_id;
         this.raw_name = event_row.name;
+        this.comment = event_row.comment;
         
         Gee.Collection<string> event_source_ids =
             MediaCollectionRegistry.get_instance().get_source_ids_for_event_id(event_id);
@@ -470,7 +475,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     // the event.  That must be done manually.
     public static Event? create_empty_event(MediaSource source) {
         try {
-            Event event = new Event(EventTable.get_instance().create(source.get_source_id()));
+            Event event = new Event(EventTable.get_instance().create(source.get_source_id(), null));
             global.add(event);
             
             debug("Created empty event %s", event.to_string());
@@ -634,7 +639,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         
         // no Event so far fits the bill for this photo or video, so create a new one
         try {
-            Event event = new Event(EventTable.get_instance().create(media.get_source_id()));
+            Event event = new Event(EventTable.get_instance().create(media.get_source_id(), null));
             if (event_name != null)
                 event.rename(event_name);
             
@@ -755,6 +760,10 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         return raw_name;
     }
     
+    public override string? get_comment() {
+        return comment;
+    }
+    
     public bool rename(string? name) {
         string? new_name = prep_event_name(name);
         
@@ -771,6 +780,18 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         }
         
         return renamed;
+    }
+    
+    public override bool set_comment(string? comment) {
+        string? new_comment = MediaSource.prep_comment(comment);
+        
+        bool committed = event_table.set_comment(event_id, new_comment);
+        if (committed) {
+            this.comment = new_comment;
+            notify_altered(new Alteration.from_list("metadata:comment, indexable:keywords"));
+        }
+        
+        return committed;
     }
     
     public time_t get_creation_time() {

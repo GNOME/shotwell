@@ -2237,13 +2237,13 @@ public abstract class Photo : PhotoSource, Dateable {
             notify_altered(new Alteration("metadata", "name"));
     }
     
-    public override void set_comment(string? comment) {
+    public override bool set_comment(string? comment) {
         string? new_comment = prep_comment(comment);
         
         bool committed = false;
         lock (row) {
             if (new_comment == row.comment)
-                return;
+                return true;
             
             committed = PhotoTable.get_instance().set_comment(row.photo_id, new_comment);
             if (committed)
@@ -2252,6 +2252,8 @@ public abstract class Photo : PhotoSource, Dateable {
         
         if (committed)
             notify_altered(new Alteration("metadata", "comment"));
+
+        return committed;
     }
     
     public void set_import_id(ImportID import_id) {

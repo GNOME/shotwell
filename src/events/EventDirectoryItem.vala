@@ -20,7 +20,7 @@ class EventDirectoryItem : CheckerboardItem {
     private Gdk.Rectangle paul_lynde = Gdk.Rectangle();
     
     public EventDirectoryItem(Event event) {
-        base (event, Dimensions(CROPPED_SCALE, CROPPED_SCALE), get_formatted_title(event), null, true,
+        base (event, Dimensions(CROPPED_SCALE, CROPPED_SCALE), get_formatted_title(event), event.get_comment(), true,
             Pango.Alignment.CENTER);
         
         this.event = event;
@@ -113,6 +113,7 @@ class EventDirectoryItem : CheckerboardItem {
     }
     
     private void on_events_altered(Gee.Map<DataObject, Alteration> map) {
+        update_comment();
         if (map.has_key(event))
             set_title(get_formatted_title(event), true, Pango.Alignment.CENTER);
     }
@@ -161,6 +162,16 @@ class EventDirectoryItem : CheckerboardItem {
         context_rounded_corners(ctx, dimensions, origin, 6.0);
         Gdk.cairo_set_source_pixbuf(ctx, pixbuf, origin.x, origin.y);
         ctx.paint();
+    }
+
+    private void update_comment(bool init = false) {
+        string comment = event.get_comment();
+        if (is_string_empty(comment))
+            clear_comment();
+        else if (!init)
+            set_comment(comment);
+        else
+            set_comment("");
     }
 }
 

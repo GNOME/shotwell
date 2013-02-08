@@ -47,6 +47,12 @@
         <description>True if photo comments are to be displayed beneath thumbnails in collection views, false otherwise.</description>
     </key>
     
+    <key name="display-event-comments" type="b">
+        <default>false</default>
+        <summary>display event comments</summary>
+        <description>True if event comments are to be displayed beneath thumbnails in event views, false otherwise.</description>
+    </key>
+    
     <key name="display-photo-tags" type="b">
         <default>true</default>
         <summary>display photo tags</summary>

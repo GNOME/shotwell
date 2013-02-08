@@ -50,6 +50,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_TAGS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_TITLES] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_COMMENTS] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.DISPLAY_EVENT_COMMENTS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
@@ -110,6 +111,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.DISPLAY_PHOTO_TAGS] = "display-photo-tags";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_TITLES] = "display-photo-titles";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_COMMENTS] = "display-photo-comments";
+        key_names[ConfigurableProperty.DISPLAY_EVENT_COMMENTS] = "display-event-comments";
         key_names[ConfigurableProperty.EVENT_PHOTOS_SORT_ASCENDING] = "event-photos-sort-ascending";
         key_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = "event-photos-sort-by";
         key_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = "events-sort-ascending";

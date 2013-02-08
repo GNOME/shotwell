@@ -28,6 +28,8 @@
             <menuitem name="DisplaySearchbar" action="CommonDisplaySearchbar" />
             <menuitem name="DisplaySidebar" action="CommonDisplaySidebar" />
             <separator />
+            <menuitem name="ViewComment" action="ViewComment" />
+            <separator />
             <menu name="SortEvents" action="CommonSortEvents">
                 <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
                 <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
@@ -39,6 +41,7 @@
         <menu name="EventsMenu" action="EventsMenu">
             <menuitem name="EventMerge" action="Merge" />
             <menuitem name="EventRename" action="Rename" />
+            <menuitem name="EditComment" action="EditComment" />
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
@@ -53,6 +56,7 @@
     <popup name="EventsDirectoryContextMenu">
         <menuitem name="ContextMerge" action="Merge" />
         <menuitem name="ContextRename" action="Rename" />
+        <menuitem name="ContextEditComment" action="EditComment" />
     </popup>
 
 </ui>

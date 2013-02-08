@@ -27,6 +27,7 @@ public class EventRow {
     public string? name;
     public time_t time_created;
     public string? primary_source_id;
+    public string? comment;
 }
 
 public class EventTable : DatabaseTable {
@@ -39,7 +40,8 @@ public class EventTable : DatabaseTable {
             + "name TEXT, "
             + "primary_photo_id INTEGER, "
             + "time_created INTEGER,"
-            + "primary_source_id TEXT"
+            + "primary_source_id TEXT,"
+            + "comment TEXT"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -69,12 +71,12 @@ public class EventTable : DatabaseTable {
         return null;
     }
     
-    public EventRow create(string? primary_source_id) throws DatabaseError {
+    public EventRow create(string? primary_source_id, string? comment) throws DatabaseError {
         assert(primary_source_id != null && primary_source_id != "");
     
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "INSERT INTO EventTable (primary_source_id, time_created) VALUES (?, ?)",
+            "INSERT INTO EventTable (primary_source_id, time_created, comment) VALUES (?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -83,6 +85,8 @@ public class EventTable : DatabaseTable {
         res = stmt.bind_text(1, primary_source_id);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(2, time_created);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(3, comment);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -94,6 +98,7 @@ public class EventTable : DatabaseTable {
         row.name = null;
         row.primary_source_id = primary_source_id;
         row.time_created = time_created;
+        row.comment = comment;
         
         return row;
     }
@@ -103,7 +108,7 @@ public class EventTable : DatabaseTable {
     // the primary photo ID).
     public EventID create_from_row(EventRow row) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("INSERT INTO EventTable (name, primary_photo_id, primary_source_id, time_created) VALUES (?, ?, ?, ?)",
+        int res = db.prepare_v2("INSERT INTO EventTable (name, primary_photo_id, primary_source_id, time_created, comment) VALUES (?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -114,6 +119,8 @@ public class EventTable : DatabaseTable {
         res = stmt.bind_text(3, row.primary_source_id);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(4, row.time_created);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(5, row.comment);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -129,7 +136,7 @@ public class EventTable : DatabaseTable {
     public EventRow? get_row(EventID event_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "SELECT name, primary_photo_id, primary_source_id, time_created FROM EventTable WHERE id=?", -1, out stmt);
+            "SELECT name, primary_photo_id, primary_source_id, time_created, comment FROM EventTable WHERE id=?", -1, out stmt);
         assert(res == Sqlite.OK);
         
         res = stmt.bind_int64(1, event_id.id);
@@ -145,6 +152,7 @@ public class EventTable : DatabaseTable {
             row.name = null;
         row.primary_source_id = source_id_upgrade(stmt.column_int64(1), stmt.column_text(2));
         row.time_created = (time_t) stmt.column_int64(3);
+        row.comment = stmt.column_text(4);
         
         return row;
     }
@@ -155,7 +163,7 @@ public class EventTable : DatabaseTable {
     
     public Gee.ArrayList<EventRow?> get_events() {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT id, name, primary_photo_id, primary_source_id, time_created FROM EventTable",
+        int res = db.prepare_v2("SELECT id, name, primary_photo_id, primary_source_id, time_created, comment FROM EventTable",
             -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -176,6 +184,7 @@ public class EventTable : DatabaseTable {
             row.name = stmt.column_text(1);
             row.primary_source_id = source_id_upgrade(stmt.column_int64(2), stmt.column_text(3));
             row.time_created = (time_t) stmt.column_int64(4);            
+            row.comment = stmt.column_text(5);
 
             event_rows.add(row);
         }
@@ -216,6 +225,11 @@ public class EventTable : DatabaseTable {
         
         return (time_t) stmt.column_int64(0);
     }
+
+    public bool set_comment(EventID event_id, string new_comment) {
+        return update_text_by_id(event_id.id, "comment", new_comment != null ? new_comment : "");
+    }
+    
 }
 
 

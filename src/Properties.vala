@@ -52,7 +52,7 @@ private abstract class Properties : Gtk.Table {
         attach(label, 0, 1, line_count, line_count + 1, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL, 0, 0);
 
         if (multi_line) {
-            attach(info, 1, 2, line_count, line_count + 1, Gtk.AttachOptions.FILL,
+            attach(info, 1, 2, line_count, line_count + 1, Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
                 Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 0, 0);
         } else {
             attach_defaults(info, 1, 2, line_count, line_count + 1);
@@ -451,6 +451,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
 
     private class ExtendedProperties : Properties {
         private const string NO_VALUE = "";
+        // Photo stuff
         private string file_path;
         private uint64 filesize;
         private Dimensions? original_dim;
@@ -467,6 +468,12 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         private string copyright;
         private string software;
         private string exposure_bias;
+        
+        // Event stuff
+        // nothing here which is not already shown in the BasicProperties but
+        // comments, which are common, see below
+        
+        // common stuff
         private string comment;
             
         protected override void clear_properties() {
@@ -493,74 +500,84 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         protected override void get_single_properties(DataView view) {
             base.get_single_properties(view);
             
-            MediaSource media = view.get_source() as MediaSource;
-            if (media == null)
+            DataSource source = view.get_source();
+            if (source == null)
                 return;
             
-            file_path = media.get_master_file().get_path();
-            filesize = media.get_filesize();
-            comment = media.get_comment();
+            if (source is PhotoSource || source is PhotoImportSource) {
+                MediaSource media = (MediaSource) source;
+                file_path = media.get_master_file().get_path();
+                filesize = media.get_filesize();
 
-            // as of right now, all extended properties other than filesize, filepath & comment aren't
-            // applicable to non-photo media types, so if the current media source isn't a photo,
-            // just do a short-circuit return
-            Photo photo = media as Photo;
-            if (photo == null)
-                return;
+                // as of right now, all extended properties other than filesize, filepath & comment aren't
+                // applicable to non-photo media types, so if the current media source isn't a photo,
+                // just do a short-circuit return
+                Photo photo = media as Photo;
+                if (photo == null)
+                    return;
             
-            PhotoMetadata? metadata = photo.get_metadata();
-            if (metadata == null)
-                return;
+                PhotoMetadata? metadata = photo.get_metadata();
+                if (metadata == null)
+                    return;
             
-            original_dim = metadata.get_pixel_dimensions();
-            camera_make = metadata.get_camera_make();
-            camera_model = metadata.get_camera_model();
-            flash = metadata.get_flash_string();
-            focal_length = metadata.get_focal_length_string();
-            metadata.get_gps(out gps_long, out gps_long_ref, out gps_lat, out gps_lat_ref, out gps_alt);
-            artist = metadata.get_artist();
-            copyright = metadata.get_copyright();
-            software = metadata.get_software();
-            exposure_bias = metadata.get_exposure_bias();
+                original_dim = metadata.get_pixel_dimensions();
+                camera_make = metadata.get_camera_make();
+                camera_model = metadata.get_camera_model();
+                flash = metadata.get_flash_string();
+                focal_length = metadata.get_focal_length_string();
+                metadata.get_gps(out gps_long, out gps_long_ref, out gps_lat, out gps_lat_ref, out gps_alt);
+                artist = metadata.get_artist();
+                copyright = metadata.get_copyright();
+                software = metadata.get_software();
+                exposure_bias = metadata.get_exposure_bias();
+                comment = media.get_comment();
+            } else if (source is EventSource) {
+                Event event = (Event) source;
+                comment = event.get_comment();
+            }
         }
         
         public override void internal_update_properties(Page page) {
             base.internal_update_properties(page);
 
-            add_line(_("Location:"), (file_path != "" && file_path != null) ? 
-                file_path.replace("&", "&amp;") : NO_VALUE);
+            if (page is EventsDirectoryPage) {
+                // nothing special to be done for now for Events
+            } else {
+                add_line(_("Location:"), (file_path != "" && file_path != null) ? 
+                    file_path.replace("&", "&amp;") : NO_VALUE);
 
-            add_line(_("File size:"), (filesize > 0) ? 
-                format_size((int64) filesize) : NO_VALUE);
+                add_line(_("File size:"), (filesize > 0) ? 
+                    format_size((int64) filesize) : NO_VALUE);
 
-            add_line(_("Original dimensions:"), (original_dim != null && original_dim.has_area()) ?
-                "%d &#215; %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
+                add_line(_("Original dimensions:"), (original_dim != null && original_dim.has_area()) ?
+                    "%d &#215; %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
 
-            add_line(_("Camera make:"), (camera_make != "" && camera_make != null) ?
-                camera_make : NO_VALUE);
+                add_line(_("Camera make:"), (camera_make != "" && camera_make != null) ?
+                    camera_make : NO_VALUE);
 
-            add_line(_("Camera model:"), (camera_model != "" && camera_model != null) ?
-                camera_model : NO_VALUE);
+                add_line(_("Camera model:"), (camera_model != "" && camera_model != null) ?
+                    camera_model : NO_VALUE);
 
-            add_line(_("Flash:"), (flash != "" && flash != null) ? flash : NO_VALUE);
+                add_line(_("Flash:"), (flash != "" && flash != null) ? flash : NO_VALUE);
 
-            add_line(_("Focal length:"), (focal_length != "" && focal_length != null) ?
-                focal_length : NO_VALUE);
+                add_line(_("Focal length:"), (focal_length != "" && focal_length != null) ?
+                    focal_length : NO_VALUE);
 
-            add_line(_("Exposure bias:"), (exposure_bias != "" && exposure_bias != null) ? exposure_bias : NO_VALUE);
+                add_line(_("Exposure bias:"), (exposure_bias != "" && exposure_bias != null) ? exposure_bias : NO_VALUE);
             
-            add_line(_("GPS latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
-                gps_lat_ref != null) ? "%f °%s".printf(gps_lat, gps_lat_ref) : NO_VALUE);
+                add_line(_("GPS latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
+                    gps_lat_ref != null) ? "%f °%s".printf(gps_lat, gps_lat_ref) : NO_VALUE);
             
-            add_line(_("GPS longitude:"), (gps_long != -1 && gps_long_ref != "" && 
-                gps_long_ref != null) ? "%f °%s".printf(gps_long, gps_long_ref) : NO_VALUE);
+                add_line(_("GPS longitude:"), (gps_long != -1 && gps_long_ref != "" && 
+                    gps_long_ref != null) ? "%f °%s".printf(gps_long, gps_long_ref) : NO_VALUE);
 
-            add_line(_("Artist:"), (artist != "" && artist != null) ? artist : NO_VALUE);
+                add_line(_("Artist:"), (artist != "" && artist != null) ? artist : NO_VALUE);
 
-            add_line(_("Copyright:"), (copyright != "" && copyright != null) ? copyright : NO_VALUE);
+                add_line(_("Copyright:"), (copyright != "" && copyright != null) ? copyright : NO_VALUE);
     
-            add_line(_("Software:"), (software != "" && software != null) ? software : NO_VALUE);
-            
+                add_line(_("Software:"), (software != "" && software != null) ? software : NO_VALUE);
+            }
+
             bool has_comment = (comment != "" && comment != null);
             add_line(_("Comment:"), has_comment ? comment : NO_VALUE, has_comment);
         }
