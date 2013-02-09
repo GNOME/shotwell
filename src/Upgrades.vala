@@ -15,6 +15,9 @@ public class Upgrades {
     private Upgrades() {
         // Add all upgrade tasks here.
         add(new MimicsRemovalTask());
+        
+        if (Application.get_instance().get_raw_thumbs_fix_required())
+            add(new FixupRawThumbnailsTask());
     }
     
     // Call this to initialize the subsystem.
@@ -84,4 +87,29 @@ private class MimicsRemovalTask : Object, UpgradeTask {
     }
 }
 
+// Deletes 'stale' thumbnails from camera raw files whose default developer was
+// CAMERA and who may have been incorrectly generated from the embedded preview by
+// previous versions of the application that had bug 4692.
+private class FixupRawThumbnailsTask : Object, UpgradeTask {
+    public uint64 get_step_count() {
+        int num_raw_files = 0;
+        
+        foreach (PhotoRow phr in PhotoTable.get_instance().get_all()) {
+            if (phr.master.file_format == PhotoFileFormat.RAW)
+                num_raw_files++;
+        }
+        return num_raw_files;
+    }
+    
+    public void execute(ProgressMonitor? monitor = null) {
+        debug("Executing thumbnail deletion and fixup");
+        
+        foreach (PhotoRow phr in PhotoTable.get_instance().get_all()) {
+            if ((phr.master.file_format == PhotoFileFormat.RAW) &&
+                (phr.developer == RawDeveloper.CAMERA)) {
+                ThumbnailCache.remove(LibraryPhoto.global.fetch(phr.photo_id));
+            }
+        }
+    }
+}
 

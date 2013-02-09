@@ -326,6 +326,21 @@ private VerifyResult upgrade_database(int input_version) {
     version = 18;
     
     //
+    // Version 19:
+    // * Deletion and regeneration of camera-raw thumbnails from previous versions,
+    //   since they're likely to be incorrect.
+    //
+    //   The database itself doesn't change; this is to force the thumbnail fixup to
+    //   occur.
+    //
+    
+    if  (input_version < 19) {
+        Application.get_instance().set_raw_thumbs_fix_required(true);
+    }
+    
+    version = 19;
+    
+    //
     // Finalize the upgrade process
     //
     
