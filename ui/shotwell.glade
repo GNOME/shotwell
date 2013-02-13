@@ -630,17 +630,24 @@
       </packing>
     </child>
     <child>
-      <object class="GtkTextView" id="textview1">
+      <object class="GtkScrolledWindow" id="scrolledwindow1">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="margin_left">7</property>
-        <property name="margin_right">7</property>
-        <property name="margin_bottom">2</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="border_width">1</property>
-        <property name="wrap_mode">word</property>
-        <property name="accepts_tab">False</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTextView" id="textview1">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="margin_left">7</property>
+            <property name="margin_right">7</property>
+            <property name="margin_bottom">2</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="border_width">1</property>
+            <property name="wrap_mode">word</property>
+            <property name="accepts_tab">False</property>
+          </object>
+        </child>
       </object>
       <packing>
         <property name="expand">True</property>

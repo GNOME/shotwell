@@ -100,6 +100,8 @@ class EventDirectoryItem : CheckerboardItem {
             critical("Unable to fetch preview for %s: %s", event.to_string(), err.message);
         }
         
+        update_comment();
+        
         base.exposed();
     }
     

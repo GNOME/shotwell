@@ -169,7 +169,7 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
 
     public static string? prep_comment(string? comment) {
         return prepare_input_text(comment,
-            PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF & ~PrepareInputTextOptions.EMPTY_IS_NULL, DEFAULT_USER_TEXT_INPUT_LENGTH);
+            PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF & ~PrepareInputTextOptions.EMPTY_IS_NULL, -1);
     }
     
     public abstract Rating get_rating();

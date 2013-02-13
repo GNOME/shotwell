@@ -1017,7 +1017,11 @@ public class MultiTextEntryDialog : Gtk.Dialog {
         Gtk.Label name_label = builder.get_object("label9") as Gtk.Label;
         name_label.set_text(label);
         
+        Gtk.ScrolledWindow scrolled = builder.get_object("scrolledwindow1") as Gtk.ScrolledWindow;
+        scrolled.set_shadow_type (Gtk.ShadowType.ETCHED_IN);
+        
         entry = builder.get_object("textview1") as Gtk.TextView;
+        entry.set_wrap_mode (Gtk.WrapMode.WORD);
         entry.buffer = new Gtk.TextBuffer(null);
         entry.buffer.text = (initial_text != null ? initial_text : "");
         
