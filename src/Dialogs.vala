@@ -955,17 +955,17 @@ public class TextEntryDialog : Gtk.Dialog {
         
         action_area_box = (Gtk.ButtonBox) get_action_area();
         action_area_box.set_layout(Gtk.ButtonBoxStyle.END);
-
+        
         button1 = (Gtk.Button) add_button(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
-        button2 = (Gtk.Button) add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
+        button2 = (Gtk.Button) add_button(Gtk.Stock.SAVE, Gtk.ResponseType.OK);
         set_default_response(Gtk.ResponseType.OK);
-
+        
         if (completion_list != null) { // Textfield with autocompletion
             EntryMultiCompletion completion = new EntryMultiCompletion(completion_list,
                 completion_delimiter);
             entry.set_completion(completion);
         }
-
+        
         set_default_response(Gtk.ResponseType.OK);
         set_has_resize_grip(false);
     }
