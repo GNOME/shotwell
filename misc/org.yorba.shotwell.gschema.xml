@@ -462,8 +462,8 @@
 
     <key name="last-title-as-comment" type="b">
         <default>false</default>
-        <summary>use title as comment for uploads to Piwigo</summary>
-        <description>Whether images being uploaded to Piwigo should have their comment set from the title if it is set</description>
+        <summary>if title is set and comment unset, use title as comment for uploads to Piwigo</summary>
+        <description>Whether images being uploaded to Piwigo should have their comment set from the title if title is set and comment unset</description>
     </key>
 
     <key name="last-no-upload-tags" type="b">

@@ -35,6 +35,7 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
     private void setup_parameters() {
         param_string.set(PARAM_STRING_BASENAME, wrapped.get_basename());
         param_string.set(PARAM_STRING_TITLE, wrapped.get_title());
+        param_string.set(PARAM_STRING_COMMENT, wrapped.get_comment());
     }
 
     public GLib.File serialize_for_publishing(int content_major_axis,

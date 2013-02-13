@@ -207,7 +207,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="title_as_comment_check">
-                <property name="label" translatable="yes">_If a title is set, use it for the comment/description field</property>
+                <property name="label" translatable="yes">_If a title is set and comment unset, use title as comment</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>

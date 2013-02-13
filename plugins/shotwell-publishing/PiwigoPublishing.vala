@@ -1632,18 +1632,30 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
             publishable.get_serialized_file().get_basename(),
             parameters.category.id, parameters.perm_level.id);
         string name = publishable.get_publishing_name();
-        if (!is_string_empty(name)) {
-            if (parameters.title_as_comment) {
-                add_argument("comment", name);
-            } else {
-                add_argument("name", name);
-            }
-        } else {
-            // keep the old behaviour that if the title is not set
-            // then reuse the file name as name
+        string comment = publishable.get_param_string(
+            Spit.Publishing.Publishable.PARAM_STRING_COMMENT);
+        if (is_string_empty(name)) {
             name = publishable.get_param_string(
                 Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
             add_argument("name", name);
+            if (!is_string_empty(comment)) {
+                add_argument("comment", comment);
+            }
+        } else {
+            // name is set
+            if (!is_string_empty(comment)) {
+                add_argument("name", name);
+                add_argument("comment", comment);
+            } else {
+                // name is set, comment is unset
+                // for backward compatibility with people having used 
+                // the title as comment field, keep this option
+                if (parameters.title_as_comment) {
+                    add_argument("comment", name);
+                } else {
+                    add_argument("name", name);
+                }
+            }
         }
         add_argument("method", "pwg.images.addSimple");
         add_argument("category", parameters.category.id.to_string());

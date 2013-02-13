@@ -515,6 +515,7 @@ public interface Publishable : GLib.Object {
 
     public static const string PARAM_STRING_BASENAME    = "basename";
     public static const string PARAM_STRING_TITLE       = "title";
+    public static const string PARAM_STRING_COMMENT     = "comment";
 
     /**
      * Returns a handle to the file on disk to which this publishable's data has been
