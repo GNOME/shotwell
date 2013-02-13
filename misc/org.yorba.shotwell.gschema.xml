@@ -632,8 +632,32 @@
 
     <key name="transitions-slide" type="b">
         <default>true</default>
-        <summary>enable slideshow slide transision</summary>
+        <summary>enable slideshow slide transition</summary>
         <description>True if the Slide slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="transitions-clock" type="b">
+        <default>true</default>
+        <summary>enable slideshow clock transition</summary>
+        <description>True if the Clock slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="transitions-circle" type="b">
+        <default>true</default>
+        <summary>enable slideshow circle transition</summary>
+        <description>True if the Circle slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="transitions-circles" type="b">
+        <default>true</default>
+        <summary>enable slideshow circle transition</summary>
+        <description>True if the Circles slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="transitions-blinds" type="b">
+        <default>true</default>
+        <summary>enable slideshow slide transition</summary>
+        <description>True if the Blinds slideshow transition plugin is enabled, false otherwise</description>
     </key>
 </schema>
 

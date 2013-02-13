@@ -11,6 +11,10 @@ public void init() throws Error {
     core_ids += "org.yorba.shotwell.transitions.crumble";
     core_ids += "org.yorba.shotwell.transitions.fade";
     core_ids += "org.yorba.shotwell.transitions.slide";
+    core_ids += "org.yorba.shotwell.transitions.blinds";
+    core_ids += "org.yorba.shotwell.transitions.circle";
+    core_ids += "org.yorba.shotwell.transitions.circles";
+    core_ids += "org.yorba.shotwell.transitions.clock";
     
     Plugins.register_extension_point(typeof(Spit.Transitions.Descriptor), _("Slideshow Transitions"),
         Resources.ICON_SLIDESHOW_EXTENSION_POINT, core_ids);
