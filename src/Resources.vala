@@ -642,6 +642,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     Gee.HashMap<string, Gdk.Pixbuf> scaled_icon_cache = null;
     
     private string HH_MM_FORMAT_STRING = null;
+    private string HH_MM_SS_FORMAT_STRING = null;
     private string LONG_DATE_FORMAT_STRING = null;
     private string START_MULTIDAY_DATE_FORMAT_STRING = null;
     private string END_MULTIDAY_DATE_FORMAT_STRING = null;
@@ -712,7 +713,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         
         // ...precache the timestamp string...
-        HH_MM_FORMAT_STRING = _("%I:%M %p");
+        HH_MM_FORMAT_STRING = _("%-I:%M %p");
+        HH_MM_SS_FORMAT_STRING = _("%-I:%M:%S %p");
         LONG_DATE_FORMAT_STRING = _("%a %b %d, %Y");
         START_MULTIDAY_DATE_FORMAT_STRING = _("%a %b %d");
         END_MULTIDAY_DATE_FORMAT_STRING = _("%d, %Y");
@@ -738,6 +740,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         
         return HH_MM_FORMAT_STRING;
+    }
+    
+    public string get_hh_mm_ss_format_string() {
+        if (HH_MM_SS_FORMAT_STRING == null) {
+            fetch_lc_time_format();
+        }
+        
+        return HH_MM_SS_FORMAT_STRING;
     }
     
     public string get_long_date_format_string() {

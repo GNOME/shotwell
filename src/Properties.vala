@@ -69,7 +69,16 @@ private abstract class Properties : Gtk.Table {
         
         return timestring;
     }
-
+    
+    protected string get_prettyprint_time_with_seconds(Time time) {
+        string timestring = time.format(Resources.get_hh_mm_ss_format_string());
+        
+        if (timestring[0] == '0')
+            timestring = timestring.substring(1, -1);
+        
+        return timestring;
+    }
+    
     protected string get_prettyprint_date(Time date) {
         string date_string = null;
         Time today = Time.local(time_t());
@@ -468,6 +477,8 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         private string copyright;
         private string software;
         private string exposure_bias;
+        private string exposure_date;
+        private string exposure_time;
         
         // Event stuff
         // nothing here which is not already shown in the BasicProperties but
@@ -494,6 +505,8 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             copyright = "";
             software = "";
             exposure_bias = "";
+            exposure_date = "";
+            exposure_time = "";
             comment = "";
         }
 
@@ -530,6 +543,9 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
                 copyright = metadata.get_copyright();
                 software = metadata.get_software();
                 exposure_bias = metadata.get_exposure_bias();
+                time_t exposure_time_obj = metadata.get_exposure_date_time().get_timestamp();
+                exposure_date = get_prettyprint_date(Time.local(exposure_time_obj));
+                exposure_time = get_prettyprint_time_with_seconds(Time.local(exposure_time_obj));
                 comment = media.get_comment();
             } else if (source is EventSource) {
                 Event event = (Event) source;
@@ -562,7 +578,13 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
 
                 add_line(_("Focal length:"), (focal_length != "" && focal_length != null) ?
                     focal_length : NO_VALUE);
-
+                
+                add_line(_("Exposure date:"), (exposure_date != "" && exposure_date != null) ?
+                    exposure_date : NO_VALUE);
+                
+                add_line(_("Exposure time:"), (exposure_time != "" && exposure_time != null) ?
+                   exposure_time : NO_VALUE);
+                
                 add_line(_("Exposure bias:"), (exposure_bias != "" && exposure_bias != null) ? exposure_bias : NO_VALUE);
             
                 add_line(_("GPS latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
