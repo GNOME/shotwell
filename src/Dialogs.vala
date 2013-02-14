@@ -1827,9 +1827,12 @@ public class WelcomeDialog : Gtk.Dialog {
 
         Gtk.Label instructions = new Gtk.Label("");
         string indent_prefix = "   "; // we can't tell what the indent prefix is going to be so assume we need one
+        
+        string arrow_glyph = (get_direction() == Gtk.TextDirection.RTL) ? "◂" : "▸";
+        
         instructions.set_markup(((indent_prefix + "&#8226; %s\n") + (indent_prefix + "&#8226; %s\n")
             + (indent_prefix + "&#8226; %s")).printf(
-            _("Choose <span weight=\"bold\">File %s Import From Folder</span>").printf("▸"),
+            _("Choose <span weight=\"bold\">File %s Import From Folder</span>").printf(arrow_glyph),
             _("Drag and drop photos onto the Shotwell window"),
             _("Connect a camera to your computer and import")));
         instructions.set_alignment(0, 0.5f);
