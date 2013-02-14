@@ -397,7 +397,7 @@ public class PhotoTable : DatabaseTable {
         row.editable_id = BackingPhotoID(stmt.column_int64(21));
         row.metadata_dirty = stmt.column_int(22) != 0;
         row.developer = stmt.column_text(23) != null ? RawDeveloper.from_string(stmt.column_text(23)) :
-            RawDeveloper.SHOTWELL;
+            RawDeveloper.CAMERA;
         row.development_ids[RawDeveloper.SHOTWELL] = BackingPhotoID(stmt.column_int64(24));
         row.development_ids[RawDeveloper.CAMERA] = BackingPhotoID(stmt.column_int64(25));
         row.development_ids[RawDeveloper.EMBEDDED] = BackingPhotoID(stmt.column_int64(26));
@@ -445,7 +445,7 @@ public class PhotoTable : DatabaseTable {
             row.editable_id = BackingPhotoID(stmt.column_int64(22));
             row.metadata_dirty = stmt.column_int(23) != 0;
             row.developer = stmt.column_text(24) != null ? RawDeveloper.from_string(stmt.column_text(24)) :
-                RawDeveloper.SHOTWELL;
+                RawDeveloper.CAMERA;
             row.development_ids[RawDeveloper.SHOTWELL] = BackingPhotoID(stmt.column_int64(25));
             row.development_ids[RawDeveloper.CAMERA] = BackingPhotoID(stmt.column_int64(26));
             row.development_ids[RawDeveloper.EMBEDDED] = BackingPhotoID(stmt.column_int64(27));

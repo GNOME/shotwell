@@ -2081,8 +2081,8 @@ public class PreferencesDialog {
         commit_metadata_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
         
         default_raw_developer_combo = builder.get_object("default_raw_developer") as Gtk.ComboBoxText;
-        default_raw_developer_combo.append_text(RawDeveloper.SHOTWELL.get_label());
         default_raw_developer_combo.append_text(RawDeveloper.CAMERA.get_label());
+        default_raw_developer_combo.append_text(RawDeveloper.SHOTWELL.get_label());
         set_raw_developer_combo(Config.Facade.get_instance().get_default_raw_developer());
         default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
         
@@ -2355,12 +2355,12 @@ public class PreferencesDialog {
     
     private RawDeveloper raw_developer_from_combo() {
         if (default_raw_developer_combo.get_active() == 0)
-            return RawDeveloper.SHOTWELL;
-        return RawDeveloper.CAMERA;
+            return RawDeveloper.CAMERA;
+        return RawDeveloper.SHOTWELL;
     }
     
     private void set_raw_developer_combo(RawDeveloper d) {
-        if (d == RawDeveloper.SHOTWELL)
+        if (d == RawDeveloper.CAMERA)
             default_raw_developer_combo.set_active(0);
         else
             default_raw_developer_combo.set_active(1);

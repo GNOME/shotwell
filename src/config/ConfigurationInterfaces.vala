@@ -799,7 +799,7 @@ public abstract class ConfigurationFacade : Object {
         } catch (ConfigurationError err) {
             on_configuration_error(err);
             
-            return RawDeveloper.SHOTWELL;
+            return RawDeveloper.CAMERA;
         }
     }
     
