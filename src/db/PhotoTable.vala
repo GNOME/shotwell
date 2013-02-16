@@ -1014,7 +1014,9 @@ public class PhotoTable : DatabaseTable {
         
         row.development_ids[rd] = backing_photo_id;
         update_int64_by_id_2(row.photo_id.id, col, backing_photo_id.id);
-        update_text_by_id_2(row.photo_id.id, "developer", rd.to_string());
+        
+        if (backing_photo_id != BackingPhotoID.INVALID)
+            update_text_by_id_2(row.photo_id.id, "developer", rd.to_string());
     }
     
     public void remove_development(PhotoRow row, RawDeveloper rd) throws DatabaseError {
