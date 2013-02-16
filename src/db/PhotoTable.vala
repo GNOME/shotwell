@@ -1015,7 +1015,7 @@ public class PhotoTable : DatabaseTable {
         row.development_ids[rd] = backing_photo_id;
         update_int64_by_id_2(row.photo_id.id, col, backing_photo_id.id);
         
-        if (backing_photo_id != BackingPhotoID.INVALID)
+        if (backing_photo_id.id != BackingPhotoID.INVALID)
             update_text_by_id_2(row.photo_id.id, "developer", rd.to_string());
     }
     
