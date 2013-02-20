@@ -285,19 +285,19 @@ public OptionEntry[] get_options() {
         return entries;
     
     OptionEntry datadir = { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
-        N_("Path to Shotwell's private data"), N_("DIRECTORY") };
+        _("Path to Shotwell's private data"), _("DIRECTORY") };
     entries += datadir;
     
     OptionEntry no_monitoring = { "no-runtime-monitoring", 0, 0, OptionArg.NONE, &no_runtime_monitoring,
-        N_("Do not monitor library directory at runtime for changes"), null };
+        _("Do not monitor library directory at runtime for changes"), null };
     entries += no_monitoring;
     
     OptionEntry no_startup = { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
-        N_("Don't display startup progress meter"), null };
+        _("Don't display startup progress meter"), null };
     entries += no_startup;
     
     OptionEntry version = { "version", 'V', 0, OptionArg.NONE, &show_version, 
-        N_("Show the application's version"), null };
+        _("Show the application's version"), null };
     entries += version;
     
     OptionEntry terminator = { null, 0, 0, 0, null, null, null };
