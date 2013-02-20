@@ -266,13 +266,17 @@ class ImportPreview : MediaSourceItem {
     
     private static Gdk.Pixbuf placeholder_preview = null;
     
+    private DuplicatedFile? duplicated_file;
+    
     public ImportPreview(ImportSource source) {
         base(source, Dimensions(), source.get_name(), null);
-
+        
+        this.duplicated_file = null;
+        
         // draw sprocket holes as visual indications on video previews
         if (source is VideoImportSource)
             set_enable_sprockets(true);
-
+        
         // scale down pixbuf if necessary
         Gdk.Pixbuf pixbuf = null;
         try {
@@ -321,6 +325,10 @@ class ImportPreview : MediaSourceItem {
             // ignore trashed duplicates
             if (!is_string_empty(preview_md5)
                 && LibraryPhoto.has_nontrash_duplicate(null, preview_md5, null, file_format)) {
+                
+                duplicated_file = DuplicatedFile.create_from_photo_id(
+                    LibraryPhoto.get_nontrash_duplicate(null, preview_md5, null, file_format));
+                
                 return true;
             }
             
@@ -333,6 +341,11 @@ class ImportPreview : MediaSourceItem {
                 if (filesize <= int64.MAX) {
                     if (LibraryPhoto.global.has_basename_filesize_duplicate(
                         get_import_source().get_filename(), (int64) filesize)) {
+                        
+                        duplicated_file = DuplicatedFile.create_from_photo_id(
+                            LibraryPhoto.global.get_basename_filesize_duplicate(
+                            get_import_source().get_filename(), (int64) filesize));
+                        
                         return true;
                     }
                 }
@@ -344,11 +357,17 @@ class ImportPreview : MediaSourceItem {
         VideoImportSource video_import_source = get_import_source() as VideoImportSource;
         if (video_import_source != null) {
             // Unlike photos, if a video does have a thumbnail (i.e. gphoto2 can retrieve one from
-            // a sidebar file), it will be unavailable to Shotwell during the import process, so
+            // a sidecar file), it will be unavailable to Shotwell during the import process, so
             // no comparison is available.  Instead, like RAW files, use name and filesize to
             // do a less-reliable but better-than-nothing comparison
             if (Video.global.has_basename_filesize_duplicate(video_import_source.get_filename(),
                 video_import_source.get_filesize())) {
+                
+                duplicated_file = DuplicatedFile.create_from_video_id(
+                    Video.global.get_basename_filesize_duplicate(
+                    video_import_source.get_filename(),
+                    video_import_source.get_filesize()));
+                
                 return true;
             }
             
@@ -356,6 +375,13 @@ class ImportPreview : MediaSourceItem {
         }
         
         return false;
+    }
+    
+    public DuplicatedFile? get_duplicated_file() {
+        if (!is_already_imported())
+            return null;
+        
+        return duplicated_file;
     }
     
     public ImportSource get_import_source() {
@@ -455,10 +481,13 @@ public class ImportPage : CheckerboardPage {
         private time_t exposure_time;
         private CameraImportJob? associated = null;
         private BackingPhotoRow? associated_file = null;
+        private DuplicatedFile? duplicated_file;
         
-        public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file) {
+        public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file,
+            DuplicatedFile? duplicated_file = null) {
             this.context = context;
             this.import_file = import_file;
+            this.duplicated_file = duplicated_file;
             
             // stash everything called in prepare(), as it may/will be called from a separate thread
             camera = import_file.get_camera();
@@ -474,6 +503,10 @@ public class ImportPage : CheckerboardPage {
         
         public time_t get_exposure_time() {
             return exposure_time;
+        }
+        
+        public override DuplicatedFile? get_duplicated_file() {
+            return duplicated_file;
         }
 
         public override time_t get_exposure_time_override() {
@@ -1621,7 +1654,9 @@ public class ImportPage : CheckerboardPage {
             if (preview.is_already_imported()) {
                 message("Skipping import of %s: checksum detected in library", 
                     import_file.get_filename());
-                already_imported.add(new CameraImportJob(null_context, import_file));
+                
+                already_imported.add(new CameraImportJob(null_context, import_file,
+                    preview.get_duplicated_file()));
                 
                 continue;
             }

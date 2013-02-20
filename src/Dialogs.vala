@@ -456,6 +456,9 @@ public class ExportDialog : Gtk.Dialog {
 
 namespace ImportUI {
 private const int REPORT_FAILURE_COUNT = 4;
+internal const string SAVE_RESULTS_BUTTON_NAME = _("Save Details...");
+internal const string SAVE_RESULTS_FILE_CHOOSER_TITLE = _("Save Details");
+internal const int SAVE_RESULTS_RESPONSE_ID = 1024;
 
 private string? generate_import_failure_list(Gee.List<BatchImportResult> failed, bool show_dest_id) {
     if (failed.size == 0)
@@ -519,7 +522,118 @@ public string get_media_specific_string(Gee.Collection<BatchImportResult> import
         return neither_msg;
 }
 
-// Returns true if the user selected the yes action, false otherwise.
+public string create_result_report_from_manifest(ImportManifest manifest) {
+    StringBuilder builder = new StringBuilder();
+    
+    string header = _("Import Results Report") + " (Shotwell " + Resources.APP_VERSION + " @ " +
+        TimeVal().to_iso8601() + ")\n\n";
+    builder.append(header);
+    
+    string subhead = (ngettext("Attempted to import %d file.", "Attempted to import %d files.",
+        manifest.all.size)).printf(manifest.all.size);
+    subhead += " ";
+    subhead += (ngettext("Of these, %d file was successfully imported.",
+        "Of these, %d files were successfully imported.", manifest.success.size)).printf(
+        manifest.success.size);
+    subhead += "\n\n";
+    builder.append(subhead);
+    
+    string current_file_summary = "";
+    
+    //
+    // Duplicates
+    //
+    if (manifest.already_imported.size > 0) {
+        builder.append(_("Duplicate Photos/Videos Not Imported:") + "\n\n");
+        
+        foreach (BatchImportResult result in manifest.already_imported) {
+            current_file_summary = result.src_identifier + " " +
+            _("duplicates existing media item") + "\n\t" +
+            result.duplicate_of.get_file().get_path() + "\n\n";
+            
+            builder.append(current_file_summary);
+        }
+    }
+    
+    //
+    // Files Not Imported Due to Camera Errors
+    //
+    if (manifest.camera_failed.size > 0) {
+        builder.append(_("Photos/Videos Not Imported Due to Camera Errors:") + "\n\n");
+        
+        foreach (BatchImportResult result in manifest.camera_failed) {
+            current_file_summary = result.src_identifier + "\n\t" + _("error message:") + " " +
+            result.errmsg + "\n\n";
+            
+            builder.append(current_file_summary);
+        }
+    }
+    
+    //
+    // Files Not Imported Because They Weren't Recognized as Photos or Videos
+    //
+    if (manifest.skipped_files.size > 0) {
+        builder.append(_("Files Not Imported Because They Weren't Recognized as Photos or Videos:")
+            + "\n\n");
+        
+        foreach (BatchImportResult result in manifest.skipped_files) {
+            current_file_summary = result.src_identifier + "\n\t" + _("error message:") + " " +
+            result.errmsg + "\n\n";
+            
+            builder.append(current_file_summary);
+        }
+    }
+    
+    //
+    // Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
+    //
+    if (manifest.skipped_photos.size > 0) {
+        builder.append(_("Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands:")
+            + "\n\n");
+        
+        foreach (BatchImportResult result in manifest.skipped_photos) {
+            current_file_summary = result.src_identifier + "\n\t" + _("error message:") + " " +
+                result.errmsg + "\n\n";
+            
+            builder.append(current_file_summary);
+        }
+    }
+    
+    //
+    // Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
+    //
+    if (manifest.write_failed.size > 0) {
+        builder.append(_("Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library:")
+             + "\n\n");
+        
+        foreach (BatchImportResult result in manifest.write_failed) {
+            current_file_summary = (_("couldn't copy %s\n\tto %s")).printf(result.src_identifier,
+            result.dest_identifier) + "\n\t" + _("error message:") + " " +
+            result.errmsg + "\n\n";
+
+            builder.append(current_file_summary);
+        }
+    }
+    
+    //
+    // Photos/Videos Not Imported for Other Reasons
+    //
+    if (manifest.failed.size > 0) {
+        builder.append(_("Photos/Videos Not Imported for Other Reasons:") + "\n\n");
+        
+        foreach (BatchImportResult result in manifest.failed) {
+            current_file_summary = result.src_identifier + "\n\t" + _("error message:") + " " +
+            result.errmsg + "\n\n";
+            
+            builder.append(current_file_summary);
+        }
+    }
+    
+    return builder.str;
+}
+
+// Summarizes the contents of an import manifest in an on-screen message window. Returns
+// true if the user selected the yes action, false otherwise.
 public bool report_manifest(ImportManifest manifest, bool show_dest_id, 
     QuestionParams? question = null) {
     string message = "";
@@ -691,26 +805,76 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         message += _("No photos or videos imported.\n");
     
     Gtk.MessageDialog dialog = null;
+    int dialog_response = Gtk.ResponseType.NONE;
     if (question == null) {
         dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
-            Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "%s", message);
+            Gtk.MessageType.INFO, Gtk.ButtonsType.NONE, "%s", message);
+        dialog.title = _("Import Complete");
+        Gtk.Widget save_results_button = dialog.add_button(ImportUI.SAVE_RESULTS_BUTTON_NAME,
+            ImportUI.SAVE_RESULTS_RESPONSE_ID);
+        save_results_button.set_visible(manifest.success.size < manifest.all.size);
+        Gtk.Widget ok_button = dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        dialog.set_default(ok_button);
+        
+        Gtk.Window dialog_parent = (Gtk.Window) dialog.get_parent();
+        dialog_response = dialog.run();
+        dialog.destroy();
+        
+        if (dialog_response == ImportUI.SAVE_RESULTS_RESPONSE_ID)
+            save_import_results(dialog_parent, create_result_report_from_manifest(manifest));
+
     } else {
         message += ("\n" + question.question);
-    
+        
         dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
             Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
-        dialog.add_button(question.no_button, Gtk.ResponseType.NO);
+        dialog.title = _("Import Complete");
+        Gtk.Widget save_results_button = dialog.add_button(ImportUI.SAVE_RESULTS_BUTTON_NAME,
+            ImportUI.SAVE_RESULTS_RESPONSE_ID);
+        save_results_button.set_visible(manifest.success.size < manifest.all.size);
+        Gtk.Widget no_button = dialog.add_button(question.no_button, Gtk.ResponseType.NO);
         dialog.add_button(question.yes_button, Gtk.ResponseType.YES);
+        dialog.set_default(no_button);
+        
+        dialog_response = dialog.run();
+        while (dialog_response == ImportUI.SAVE_RESULTS_RESPONSE_ID) {
+            save_import_results(dialog, create_result_report_from_manifest(manifest));
+            dialog_response = dialog.run();
+        }
+        
+        dialog.hide();
+        dialog.destroy();
     }
     
-    dialog.title = _("Import Complete");
-    
-    bool yes = (dialog.run() == Gtk.ResponseType.YES);
-    
-    dialog.destroy();
-    
-    return yes;
+    return (dialog_response == Gtk.ResponseType.YES);
 }
+
+internal void save_import_results(Gtk.Window? chooser_dialog_parent, string results_log) {
+    Gtk.FileChooserDialog chooser_dialog = new Gtk.FileChooserDialog(
+        ImportUI.SAVE_RESULTS_FILE_CHOOSER_TITLE, chooser_dialog_parent, Gtk.FileChooserAction.SAVE,
+        Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, Gtk.Stock.SAVE, Gtk.ResponseType.ACCEPT, null);
+    chooser_dialog.set_do_overwrite_confirmation(true);
+    chooser_dialog.set_current_folder(Environment.get_home_dir());
+    chooser_dialog.set_current_name("Shotwell Import Log.txt");
+    chooser_dialog.set_local_only(false);
+    
+    int dialog_result = chooser_dialog.run();
+    File? chosen_file = chooser_dialog.get_file();
+    chooser_dialog.hide();
+    chooser_dialog.destroy();
+    
+    if (dialog_result == Gtk.ResponseType.ACCEPT && chosen_file != null) {
+        try {
+            FileOutputStream outstream = chosen_file.replace(null, false, FileCreateFlags.NONE);
+            outstream.write(results_log.data);
+            outstream.close();
+        } catch (Error err) {
+            critical("couldn't save import results to log file %s: %s", chosen_file.get_path(),
+                err.message);
+        }
+    }
+}
+
 }
 
 public abstract class TextEntryDialogMediator {

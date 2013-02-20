@@ -1139,12 +1139,17 @@ public class VideoSourceCollection : MediaSourceCollection {
         base.notify_contents_altered(added, removed);
     }
     
-    public bool has_basename_filesize_duplicate(string basename, uint64 filesize) {
+    public VideoID get_basename_filesize_duplicate(string basename, uint64 filesize) {
         foreach (Video video in filesize_to_video.get(filesize)) {
             if (utf8_ci_compare(video.get_master_file().get_basename(), basename) == 0)
-                return true;
+                return video.get_video_id();
         }
         
-        return false;
+        return VideoID(); // the default constructor of the VideoID struct creates an invalid
+                          // video id, which is just what we want in this case
+    }
+    
+    public bool has_basename_filesize_duplicate(string basename, uint64 filesize) {
+        return get_basename_filesize_duplicate(basename, filesize).is_valid();
     }
 }

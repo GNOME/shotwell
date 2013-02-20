@@ -4629,13 +4629,18 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
             compare_backing((LibraryPhoto) media, info, matches_master, matches_editable, matched_development);
     }
     
-    public bool has_basename_filesize_duplicate(string basename, int64 filesize) {
+    public PhotoID get_basename_filesize_duplicate(string basename, int64 filesize) {
         foreach (LibraryPhoto photo in filesize_to_photo.get(filesize)) {
             if (utf8_ci_compare(photo.get_master_file().get_basename(), basename) == 0)
-                return true;
+                return photo.get_photo_id();
         }
         
-        return false;
+        return PhotoID(); // default constructor for PhotoIDs will create an invalid ID --
+                          // this is just the behavior that we want
+    }
+    
+    public bool has_basename_filesize_duplicate(string basename, int64 filesize) {
+        return get_basename_filesize_duplicate(basename, filesize).is_valid();
     }
     
     public LibraryPhoto? get_trashed_by_file(File file) {
@@ -5067,18 +5072,23 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     
     public static bool has_nontrash_duplicate(File? file, string? thumbnail_md5, string? full_md5,
         PhotoFileFormat file_format) {
+        return get_nontrash_duplicate(file, thumbnail_md5, full_md5, file_format).is_valid();
+    }
+    
+    public static PhotoID get_nontrash_duplicate(File? file, string? thumbnail_md5,
+        string? full_md5, PhotoFileFormat file_format) {
         PhotoID[]? ids = get_duplicate_ids(file, thumbnail_md5, full_md5, file_format);
         
         if (ids == null || ids.length == 0)
-            return false;
+            return PhotoID(); // return an invalid PhotoID
         
         foreach (PhotoID id in ids) {
             LibraryPhoto photo = LibraryPhoto.global.fetch(id);
             if (photo != null && !photo.is_trashed())
-                return true;
+                return id;
         }
         
-        return false;
+        return PhotoID();
     }
 
     protected override bool has_user_generated_metadata() {
