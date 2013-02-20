@@ -97,7 +97,7 @@ public class StraightenTool : EditingTool {
         public Gtk.Scale angle_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL, MIN_ANGLE, MAX_ANGLE, INCREMENT);
         public Gtk.Label angle_label = new Gtk.Label("");
         public Gtk.Label description_label = new Gtk.Label(_("Angle:"));
-        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
+        public Gtk.Button ok_button = new Gtk.Button.with_mnemonic(_("_Straighten"));
         public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
         public Gtk.Button reset_button = new Gtk.Button.with_mnemonic(_("_Reset"));
 
