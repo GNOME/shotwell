@@ -601,11 +601,14 @@ public abstract class Photo : PhotoSource, Dateable {
     // "Develops" a raw photo
     // Not thread-safe.
     private void develop_photo(RawDeveloper d) {
+        bool wrote_img_to_disk = false;
+        BackingPhotoRow bps = null;
+        
         switch (d) {
             case RawDeveloper.SHOTWELL:
                 try {
                     // Create file and prep.
-                    BackingPhotoRow bps = d.create_backing_row_for_development(row.master.filepath);
+                    bps = d.create_backing_row_for_development(row.master.filepath);
                     Gdk.Pixbuf? pix = null;
                     lock (readers) {
                         pix = get_master_pixbuf(Scaling.for_original());
@@ -619,20 +622,37 @@ public abstract class Photo : PhotoSource, Dateable {
                     // Write out the JPEG.
                     PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
                     writer.write(pix, Jpeg.Quality.HIGH);
-
-                    // Write out metadata
+                    
+                    // Remember that we wrote it (we'll only get here if writing
+                    // the jpeg doesn't throw an exception).  We do this because
+                    // some cameras' output has non-spec-compliant exif segments
+                    // larger than 64k (exiv2 can't cope with this), so saving
+                    // metadata to the development could fail, but we want to use
+                    // it anyway since the image portion is still valid...
+                    wrote_img_to_disk = true;
+                    
+                    // Write out metadata. An exception could get thrown here as
+                    // well, hence the separate check for being able to save the
+                    // image above...
                     PhotoMetadata meta = get_master_metadata();
                     PhotoFileMetadataWriter mwriter = PhotoFileFormat.JFIF.create_metadata_writer(bps.filepath);
                     mwriter.write_metadata(meta);
-
-                    // Read in backing photo info, add to DB.
-                    add_backing_photo_for_development(d, bps);
-                    
-                    notify_raw_development_modified();
                 } catch (Error err) {
                     debug("Error developing photo: %s", err.message);
+                } finally {
+                    if (wrote_img_to_disk) {
+                        try {
+                            // Read in backing photo info, add to DB.
+                            add_backing_photo_for_development(d, bps);
+                            
+                            notify_raw_development_modified();
+                        } catch (Error e) {
+                            debug("Error adding backing photo as development. Message: %s",
+                                e.message);
+                        }
+                    }
                 }
-            
+                
                 break;
                 
             case RawDeveloper.CAMERA:
@@ -659,21 +679,32 @@ public abstract class Photo : PhotoSource, Dateable {
                     }
                     
                     // Write out file.
-                    BackingPhotoRow bps = d.create_backing_row_for_development(row.master.filepath);
+                    bps = d.create_backing_row_for_development(row.master.filepath);
                     PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
                     writer.write(pix, Jpeg.Quality.HIGH);
-
+                    
+                    // Remember that we wrote it (see above
+                    // case for why this is necessary).
+                    wrote_img_to_disk = true;
+                    
                     // Write out metadata
                     PhotoFileMetadataWriter mwriter = PhotoFileFormat.JFIF.create_metadata_writer(bps.filepath);
                     mwriter.write_metadata(meta);
-
-                    // Read in backing photo info, add to DB.
-                    add_backing_photo_for_development(d, bps);
-                    
-                    notify_raw_development_modified();
                 } catch (Error e) {
                     debug("Error accessing embedded preview. Message: %s", e.message);
                     return;
+                } finally {
+                    if (wrote_img_to_disk) {
+                        try {
+                            // Read in backing photo info, add to DB.
+                            add_backing_photo_for_development(d, bps);
+                            
+                            notify_raw_development_modified();
+                        } catch (Error e) {
+                            debug("Error adding backing photo as development. Message: %s",
+                                e.message);
+                        }
+                    }
                 }
                 break;
             

@@ -529,9 +529,28 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
                 if (photo == null)
                     return;
             
-                PhotoMetadata? metadata = photo.get_metadata();
+                PhotoMetadata? metadata;
+
+                try {
+                    // For some raw files, the developments may not contain metadata (please
+                    // see the comment about cameras generating 'crazy' exif segments in
+                    // Photo.develop_photo() for why), and so we'll want to display what was
+                    // in the original raw file instead.
+                    metadata = photo.get_master_metadata();
+                } catch (Error e) {
+                    metadata = photo.get_metadata();
+                }
+                
                 if (metadata == null)
                     return;
+                
+                // Fix up any timestamp weirdness.
+                //
+                // If the exposure date wasn't properly set (the most likely cause of this
+                // is a raw with a metadataless development), use the one from the photo
+                // row.
+                if (metadata.get_exposure_date_time() == null)
+                    metadata.set_exposure_date_time(new MetadataDateTime(photo.get_timestamp()));
             
                 original_dim = metadata.get_pixel_dimensions();
                 camera_make = metadata.get_camera_make();
