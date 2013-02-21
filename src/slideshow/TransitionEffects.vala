@@ -7,13 +7,14 @@
 
 public class TransitionEffectsManager {
     public const string NULL_EFFECT_ID = NullTransitionDescriptor.EFFECT_ID;
-    
+    public const string RANDOM_EFFECT_ID = RandomEffectDescriptor.EFFECT_ID;
     private static TransitionEffectsManager? instance = null;
     
     // effects are stored by effect ID
     private Gee.Map<string, Spit.Transitions.Descriptor> effects = new Gee.HashMap<
         string, Spit.Transitions.Descriptor>();
     private Spit.Transitions.Descriptor null_descriptor = new NullTransitionDescriptor();
+    private Spit.Transitions.Descriptor random_descriptor = new RandomEffectDescriptor();
     
     private TransitionEffectsManager() {
         load_transitions();
@@ -27,9 +28,10 @@ public class TransitionEffectsManager {
     private void load_transitions() {
         effects.clear();
         
-        // add null effect first
+        // add null and random effect first
         effects.set(null_descriptor.get_id(), null_descriptor);
-        
+        effects.set(random_descriptor.get_id(),random_descriptor);
+
         // load effects from plug-ins
         Gee.Collection<Spit.Pluggable> pluggables = Plugins.get_pluggables_for_type(
             typeof(Spit.Transitions.Descriptor));
@@ -322,4 +324,28 @@ public class NullEffect : Object, Spit.Transitions.Effect {
     public void cancel() {
     }
 }
+public class RandomEffectDescriptor : Object, Spit.Pluggable, Spit.Transitions.Descriptor {
+    public const string EFFECT_ID = "org.yorba.shotwell.transitions.random";
 
+    public int get_pluggable_interface(int min_host_version, int max_host_version) {
+        return Spit.Transitions.CURRENT_INTERFACE;
+    }
+
+    public unowned string get_id() {
+        return EFFECT_ID;
+    }
+    
+    public unowned string get_pluggable_name() {
+        return _("Random");
+    }
+
+    public void get_info(ref Spit.PluggableInfo info) {
+    }
+    
+    public void activation(bool enabled) {
+    }
+
+    public Spit.Transitions.Effect create(Spit.HostInterface host) {
+        return new NullEffect();
+    }
+}

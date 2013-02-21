@@ -17,6 +17,7 @@ class SlideshowPage : SinglePhotoPage {
     private Timer timer = new Timer();
     private bool playing = true;
     private bool exiting = false;
+    private string[] transitions;
 
     private Screensaver screensaver;
 
@@ -201,6 +202,13 @@ class SlideshowPage : SinglePhotoPage {
         
         this.sources = sources;
         this.controller = controller;
+        
+        Gee.Collection<string> pluggables = TransitionEffectsManager.get_instance().get_effect_ids();
+        Gee.ArrayList<string> a = new Gee.ArrayList<string>();
+        a.add_all(pluggables);
+        a.remove(NullTransitionDescriptor.EFFECT_ID);
+        a.remove(RandomEffectDescriptor.EFFECT_ID);
+        transitions = a.to_array();
         current = start;
         
         update_transition_effect();
@@ -377,6 +385,11 @@ class SlideshowPage : SinglePhotoPage {
             }
         }
 
+        if (Config.Facade.get_instance().get_slideshow_transition_effect_id() ==
+            RandomEffectDescriptor.EFFECT_ID) {
+            random_transition_effect();
+        }
+        
         advance(next_photo, Direction.FORWARD);
     }
     
@@ -453,6 +466,14 @@ class SlideshowPage : SinglePhotoPage {
         string effect_id = Config.Facade.get_instance().get_slideshow_transition_effect_id();
         double effect_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
         
+        set_transition(effect_id, (int) (effect_delay * 1000.0));
+    }
+    
+    private void random_transition_effect() {
+        int random = Random.int_range(0, transitions.length);
+        string effect_id = transitions[random];
+        double effect_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
+     
         set_transition(effect_id, (int) (effect_delay * 1000.0));
     }
     
