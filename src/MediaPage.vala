@@ -1199,7 +1199,10 @@ public abstract class MediaPage : CheckerboardPage {
                 break;
             
             default:
-                error("Unknown sort criteria: %s", get_menu_sort_by().to_string());
+                debug("Unknown sort criteria: %s", get_menu_sort_by().to_string());
+                comparator = Thumbnail.title_descending_comparator;
+                predicate = Thumbnail.title_comparator_predicate;
+                break;
         }
         
         get_view().set_comparator(comparator, predicate);
@@ -1217,7 +1220,8 @@ public abstract class MediaPage : CheckerboardPage {
                 return "/MenuBar/ViewMenu/SortPhotos/SortByRating";
             
             default:
-                error("Unknown sort criteria: %d", sort_by);
+                debug("Unknown sort criteria: %d", sort_by);
+                return "/MenuBar/ViewMenu/SortPhotos/SortByTitle";
         }
     }
 
