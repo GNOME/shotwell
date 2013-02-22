@@ -19,6 +19,9 @@ private class ShotwellTransitions : Object, Spit.Module {
         pluggables += new CircleEffectDescriptor(resource_directory);
         pluggables += new CirclesEffectDescriptor(resource_directory);
         pluggables += new ClockEffectDescriptor(resource_directory);
+        pluggables += new SquaresEffectDescriptor(resource_directory);
+        pluggables += new ChessEffectDescriptor(resource_directory);
+        pluggables += new StripesEffectDescriptor(resource_directory);
     }
     
     public unowned string get_module_name() {

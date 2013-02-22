@@ -659,6 +659,24 @@
         <summary>enable slideshow slide transition</summary>
         <description>True if the Blinds slideshow transition plugin is enabled, false otherwise</description>
     </key>
+
+    <key name="transitions-squares" type="b">
+        <default>true</default>
+        <summary>enable slideshow squares transition</summary>
+        <description>True if the Squares slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-stripes" type="b">
+        <default>true</default>
+        <summary>enable slideshow stripes transition</summary>
+        <description>True if the Stripes slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-chess" type="b">
+        <default>true</default>
+        <summary>enable slideshow chess transition</summary>
+        <description>True if the Chess-Board slideshow transition plugin is enabled, false otherwise</description>
+    </key>
 </schema>
 
 </schemalist>

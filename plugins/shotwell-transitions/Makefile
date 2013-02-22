@@ -9,6 +9,9 @@ SRC_FILES := \
 	BlindsEffect.vala \
 	CircleEffect.vala \
 	CirclesEffect.vala \
+	SquaresEffect.vala \
+	StripesEffect.vala \
+	ChessEffect.vala \
 	ClockEffect.vala
 
 RC_FILES := \
