@@ -520,7 +520,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             if (source is PhotoSource || source is PhotoImportSource) {
                 MediaSource media = (MediaSource) source;
                 file_path = media.get_master_file().get_path();
-                filesize = media.get_filesize();
+                filesize = media.get_master_filesize();
 
                 // as of right now, all extended properties other than filesize, filepath & comment aren't
                 // applicable to non-photo media types, so if the current media source isn't a photo,
