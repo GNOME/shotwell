@@ -479,6 +479,8 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         private string exposure_bias;
         private string exposure_date;
         private string exposure_time;
+        private bool is_raw;
+        private string? development_path;
         
         // Event stuff
         // nothing here which is not already shown in the BasicProperties but
@@ -520,6 +522,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             if (source is PhotoSource || source is PhotoImportSource) {
                 MediaSource media = (MediaSource) source;
                 file_path = media.get_master_file().get_path();
+                development_path = media.get_file().get_path();
                 filesize = media.get_master_filesize();
 
                 // as of right now, all extended properties other than filesize, filepath & comment aren't
@@ -551,7 +554,8 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
                 // row.
                 if (metadata.get_exposure_date_time() == null)
                     metadata.set_exposure_date_time(new MetadataDateTime(photo.get_timestamp()));
-            
+                
+                is_raw = (photo.get_master_file_format() == PhotoFileFormat.RAW);
                 original_dim = metadata.get_pixel_dimensions();
                 camera_make = metadata.get_camera_make();
                 camera_model = metadata.get_camera_model();
@@ -583,6 +587,9 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
 
                 add_line(_("File size:"), (filesize > 0) ? 
                     format_size((int64) filesize) : NO_VALUE);
+
+                if (is_raw)
+                    add_line(_("Current Development:"), development_path);
 
                 add_line(_("Original dimensions:"), (original_dim != null && original_dim.has_area()) ?
                     "%d &#215; %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
