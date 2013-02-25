@@ -60,22 +60,25 @@ internal const int ORIGINAL_SIZE = -1;
 internal class Category {
     public int id;
     public string name;
+    public string comment;
     public string display_name;
     public string uppercats;
     public static const int NO_ID = -1;
 
-    public Category(int id, string name, string uppercats) {
+    public Category(int id, string name, string uppercats, string? comment = "") {
         this.id = id;
         this.name = name;
         this.uppercats = uppercats;
+        this.comment = comment;
     }
     
-    public Category.local(string name, int parent_id) {
+    public Category.local(string name, int parent_id, string? comment = "") {
         this.id = NO_ID;
         this.name = name;
         // for new categories abuse the uppercats value for
         // the id of the new parent!
         this.uppercats = parent_id.to_string();
+        this.comment = comment;
     }
 
     public bool is_local() {
@@ -743,7 +746,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.install_static_message_pane(_("Creating album %s...").printf(category.name));
 
         CategoriesAddTransaction creation_trans = new CategoriesAddTransaction(
-            session, category.name.strip(), int.parse(category.uppercats));
+            session, category.name.strip(), int.parse(category.uppercats), category.comment);
         creation_trans.network_error.connect(on_category_add_error);
         creation_trans.completed.connect(on_category_add_complete);
         
@@ -1138,6 +1141,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private Gtk.CheckButton no_upload_tags_check = null;
     private Gtk.Button logout_button;
     private Gtk.Button publish_button;
+    private Gtk.TextView album_comment;
+    private Gtk.Label album_comment_label;
     
     private Category[] existing_categories;
     private PermissionLevel[] perm_levels;
@@ -1179,6 +1184,11 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
             within_existing_label = builder.get_object ("within_existing_label") as Gtk.Label;
             within_existing_combo = builder.get_object ("within_existing_combo") as Gtk.ComboBoxText;
+
+            album_comment = builder.get_object ("album_comment") as Gtk.TextView;
+            album_comment.buffer = new Gtk.TextBuffer(null);
+            album_comment_label = builder.get_object ("album_comment_label") as Gtk.Label;
+
             perms_combo = builder.get_object("perms_combo") as Gtk.ComboBoxText;
             size_combo = builder.get_object("size_combo") as Gtk.ComboBoxText;
 
@@ -1211,6 +1221,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         this.existing_categories = categories;
         this.perm_levels = create_perm_levels();
         this.photo_sizes = create_sizes();
+        this.album_comment.buffer.set_text(get_common_comment_if_possible(publisher));
     }
     
     public Gtk.Widget get_default_widget() {
@@ -1252,15 +1263,16 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         params.title_as_comment = title_as_comment_check.get_active();
         params.no_upload_tags = no_upload_tags_check.get_active();
         if (create_new_radio.get_active()) {
+            string uploadcomment = album_comment.buffer.text.strip();
             int a = within_existing_combo.get_active();
             if (a == 0) {
-                params.category = new Category.local(new_category_entry.get_text(), 0);
+                params.category = new Category.local(new_category_entry.get_text(), 0, uploadcomment);
             } else {
                 // the list in existing_categories and in the within_existing_combo are shifted
                 // by 1, since we add the root
                 a--;
                 params.category = new Category.local(new_category_entry.get_text(),
-                    existing_categories[a].id);
+                    existing_categories[a].id, uploadcomment);
             }
         } else {
             params.category = existing_categories[existing_categories_combo.get_active()];
@@ -1275,6 +1287,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         within_existing_label.set_sensitive(false);
         within_existing_combo.set_sensitive(false);
         existing_categories_combo.grab_focus();
+        album_comment_label.set_sensitive(false);
+        album_comment.set_sensitive(false);
         update_publish_button_sensitivity();
     }
 
@@ -1282,6 +1296,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         new_category_entry.set_sensitive(true);
         within_existing_label.set_sensitive(true);
         within_existing_combo.set_sensitive(true);
+        album_comment_label.set_sensitive(true);
+        album_comment.set_sensitive(true);
         existing_categories_combo.set_sensitive(false);
         new_category_entry.grab_focus();
         update_publish_button_sensitivity();
@@ -1334,6 +1350,31 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         update_publish_button_sensitivity();
     }
     
+    private string get_common_comment_if_possible(PiwigoPublisher publisher) {
+        // we have to determine whether all the publishing items
+        // belong to the same event
+        Spit.Publishing.Publishable[] publishables = publisher.get_host().get_publishables();
+        string common = "";
+        bool isfirst = true;
+        if (publishables != null) {
+            foreach (Spit.Publishing.Publishable pub in publishables) {
+                string cur = pub.get_param_string(
+                    Spit.Publishing.Publishable.PARAM_STRING_EVENTCOMMENT);
+                if (isfirst) {
+                    common = cur;
+                    isfirst = false;
+                } else {
+                    if (cur != common) {
+                        common = "";
+                        break;
+                    }
+                }
+            }
+        }
+        debug("PiwigoConnector: found common event comment %s\n", common);
+        return common;
+    }
+
     private void create_categories_combo() {
         foreach (Category cat in existing_categories) {
             existing_categories_combo.append_text(cat.display_name);
@@ -1343,6 +1384,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             existing_categories_combo.set_sensitive(false);
             use_existing_radio.set_sensitive(false);
             create_new_radio.set_active(true);
+            album_comment.set_sensitive(true);
+            album_comment_label.set_sensitive(true);
             new_category_entry.grab_focus();
         } else {
             int last_category_index = find_category_index(last_category);
@@ -1352,6 +1395,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
                 existing_categories_combo.set_active(last_category_index);
             }
             new_category_entry.set_sensitive(false);
+            album_comment.set_sensitive(false);
+            album_comment_label.set_sensitive(false);
         }
         if (!category_already_exists(DEFAULT_CATEGORY_NAME))
             new_category_entry.set_text(DEFAULT_CATEGORY_NAME);
@@ -1595,7 +1640,7 @@ private class SessionLogoutTransaction : Transaction {
 }
 
 private class CategoriesAddTransaction : Transaction {
-    public CategoriesAddTransaction(Session session, string category, int parent_id = 0) {
+    public CategoriesAddTransaction(Session session, string category, int parent_id = 0, string? comment = "") {
         base.authenticated(session);
 
         add_argument("method", "pwg.categories.add");
@@ -1603,6 +1648,10 @@ private class CategoriesAddTransaction : Transaction {
 
         if (parent_id != 0) {
             add_argument("parent", parent_id.to_string());
+        }
+
+        if (comment != "") {
+            add_argument("comment", comment);
         }
     }
 }
