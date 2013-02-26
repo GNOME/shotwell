@@ -3537,31 +3537,51 @@ public abstract class Photo : PhotoSource, Dateable {
         debug("Saving transformed version of %s to %s in file format %s", to_string(),
             writer.get_filepath(), export_format.to_string());
         
-        Gdk.Pixbuf pixbuf = get_pixbuf_with_options(scaling, Exception.NONE,
-            BackingFetchMode.SOURCE);
-
+        Gdk.Pixbuf pixbuf;
+        
+        // Since JPEGs can store their own orientation, we save the pixels
+        // directly and let the orientation field do the rotation...
+        if (get_file_format() == PhotoFileFormat.JFIF) {
+            pixbuf = get_pixbuf_with_options(scaling, Exception.ORIENTATION,
+                BackingFetchMode.SOURCE);
+        } else {
+            // Non-JPEG image - we'll need to save the rotated pixels.
+            pixbuf = get_pixbuf_with_options(scaling, Exception.NONE,
+                BackingFetchMode.SOURCE);
+        }
+        
         writer.write(pixbuf, quality);
-
+        
         debug("Setting EXIF for %s", writer.get_filepath());
-
+        
         // Do we need to save metadata to this file?
         if (export_metadata) {
             //Yes, set metadata obtained above.
             metadata.set_title(get_title());
             metadata.set_comment(get_comment());
-            metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
-            metadata.set_orientation(Orientation.TOP_LEFT);
             metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
-        
+            
+            // Also, becausee JPEGs can store their own orientation, we'll save
+            // the original dimensions directly and let the orientation field do
+            // the rotation there, too...
+            if (get_file_format() == PhotoFileFormat.JFIF) {
+                metadata.set_pixel_dimensions(get_dimensions(Exception.ORIENTATION));
+                metadata.set_orientation(get_orientation());
+            } else {
+                // Non-JPEG image - we'll need to save the rotated dimensions.
+                metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
+                metadata.set_orientation(Orientation.TOP_LEFT);
+            }
+            
             if (get_exposure_time() != 0)
                 metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
             else
                 metadata.set_exposure_date_time(null);
-
+            
             metadata.remove_tag("Exif.Iop.RelatedImageWidth");
             metadata.remove_tag("Exif.Iop.RelatedImageHeight");
             metadata.remove_exif_thumbnail();
-
+            
             if (has_user_generated_metadata())
                 set_user_metadata_for_export(metadata);
         }
