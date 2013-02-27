@@ -40,8 +40,8 @@ public abstract class SearchViewFilter : ViewFilter {
     private bool rating_allow_higher = true;
     
     // Rating to filter by.
-    private Rating rating = Rating.REJECTED;
-    private RatingFilter rating_filter = RatingFilter.REJECTED_OR_HIGHER;
+    private Rating rating = Rating.UNRATED;
+    private RatingFilter rating_filter = RatingFilter.UNRATED_OR_HIGHER;
     
     // Show flagged only if set to true.
     public bool flagged { get; set; default = false; }
@@ -247,6 +247,16 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
         }
         
         return true;
+    }
+}
+
+public class DisabledViewFilter : SearchViewFilter {
+    public override bool predicate(DataView view) {
+        return true;
+    }
+    
+    public override uint get_criteria() {
+        return SearchFilterCriteria.RATING;
     }
 }
 
@@ -946,17 +956,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             string stylesheet = Resources.SEARCH_BUTTON_STYLESHEET_TEMPLATE.printf(bgcolorname);
             
             Resources.style_widget(button, stylesheet);
-        }
-    }
-    
-    // Used to disable the toolbar.
-    private class DisabledViewFilter : SearchViewFilter {
-        public override bool predicate(DataView view) {
-            return true;
-        }
-        
-        public override uint get_criteria() {
-            return SearchFilterCriteria.NONE;
         }
     }
     

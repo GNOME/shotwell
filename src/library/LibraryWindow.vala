@@ -1420,7 +1420,7 @@ public class LibraryWindow : AppWindow {
             page.get_view().install_view_filter(page.get_search_view_filter());
         } else {
             if (page != null)
-                page.get_view().remove_view_filter(page.get_search_view_filter());
+                page.get_view().install_view_filter(new DisabledViewFilter());
         }
     }
     
