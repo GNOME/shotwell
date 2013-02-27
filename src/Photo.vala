@@ -611,7 +611,11 @@ public abstract class Photo : PhotoSource, Dateable {
                     bps = d.create_backing_row_for_development(row.master.filepath);
                     Gdk.Pixbuf? pix = null;
                     lock (readers) {
-                        pix = get_master_pixbuf(Scaling.for_original());
+                        // Don't rotate this pixbuf before writing it out. We don't
+                        // need to because we'll display it using the orientation
+                        // from the parent raw file, so rotating it here would cause
+                        // portrait images to rotate _twice_...
+                        pix = get_master_pixbuf(Scaling.for_original(), false);
                     }
                     
                     if (pix == null) {
