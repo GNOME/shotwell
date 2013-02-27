@@ -41,11 +41,16 @@ public class MetadataWriter : Object {
         }
         
         private void commit_master() throws Error {
+            // If we have an editable, any orientation changes should be written only to it;
+            // otherwise, we'll end up ruining the original, and as such, breaking the
+            // ability to revert to it.
+            bool skip_orientation = photo.has_editable();
+            
             if (!photo.get_master_file_format().can_write_metadata())
                 return;
             
             PhotoMetadata metadata = photo.get_master_metadata();
-            if (update_metadata(metadata)) {
+            if (update_metadata(metadata, skip_orientation)) {
                 LibraryMonitor.blacklist_file(photo.get_master_file(), "MetadataWriter.commit_master");
                 try {
                     photo.persist_master_metadata(metadata, out reimport_master_state);
@@ -72,7 +77,7 @@ public class MetadataWriter : Object {
             }
         }
         
-        private bool update_metadata(PhotoMetadata metadata) {
+        private bool update_metadata(PhotoMetadata metadata, bool skip_orientation = false) {
             bool changed = false;
             
             // title (caption)
@@ -132,10 +137,12 @@ public class MetadataWriter : Object {
             }
 
             // orientation
-            Orientation current_orientation = photo.get_orientation();
-            if (current_orientation != metadata.get_orientation()) {
-                metadata.set_orientation(current_orientation);
-                changed = true;
+            if (!skip_orientation) {
+                Orientation current_orientation = photo.get_orientation();
+                if (current_orientation != metadata.get_orientation()) {
+                    metadata.set_orientation(current_orientation);
+                    changed = true;
+                }
             }
 
             // add the software name/version only if updating the metadata in the file
