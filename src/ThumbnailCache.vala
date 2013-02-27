@@ -297,7 +297,17 @@ public class ThumbnailCache : Object {
         foreach (Size size in ALL_SIZES) {
             Dimensions dim = size.get_scaling().get_scaled_dimensions(original_dim);
             
-            Gdk.Pixbuf thumbnail = reader.scaled_read(original_dim, dim);
+            Gdk.Pixbuf? thumbnail = null;
+            try {
+                thumbnail = reader.scaled_read(original_dim, dim);
+            } catch (Error err) {
+                // if the scaled read generated an error, catch it and try to do an unscaled read
+                // followed by a downsample. If the call to unscaled_read() below throws an error,
+                // just propagate it up to the caller
+                thumbnail = reader.unscaled_read();
+                thumbnail = thumbnail.scale_simple(dim.width, dim.height, Gdk.InterpType.HYPER);
+            }
+
             thumbnail = orientation.rotate_pixbuf(thumbnail);
             
             thumbnails.set(size, thumbnail);
