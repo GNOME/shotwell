@@ -35,6 +35,12 @@
         <description>True if the sidebar is to be displayed, false otherwise.</description>
     </key>
     
+    <key name="display-search-bar" type="b">
+        <default>false</default>
+        <summary>display search bar</summary>
+        <description>True if the Search/Filter Toolbar is to be displayed, false otherwise.</description>
+    </key>
+    
     <key name="display-photo-titles" type="b">
         <default>false</default>
         <summary>display photo titles</summary>

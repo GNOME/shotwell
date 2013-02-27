@@ -831,7 +831,9 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_display_searchbar(Gtk.Action action) {
-        show_search_bar(((Gtk.ToggleAction) action).get_active());
+        bool is_shown = ((Gtk.ToggleAction) action).get_active();
+        Config.Facade.get_instance().set_display_search_bar(is_shown);
+        show_search_bar(is_shown);
     }
     
     public void show_search_bar(bool display) {
@@ -1120,6 +1122,11 @@ public class LibraryWindow : AppWindow {
             as Gtk.ToggleAction;
         assert(extended_display_action != null);
         extended_display_action.set_active(Config.Facade.get_instance().get_display_extended_properties());
+        
+        Gtk.ToggleAction? search_bar_display_action = get_common_action("CommonDisplaySearchbar")
+            as Gtk.ToggleAction;
+        assert(search_bar_display_action != null);
+        search_bar_display_action.set_active(Config.Facade.get_instance().get_display_search_bar());
 
         Gtk.RadioAction? sort_events_action = get_common_action("CommonSortEventsAscending")
             as Gtk.RadioAction;
