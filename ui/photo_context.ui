@@ -20,6 +20,10 @@
             <menuitem name="IncreaseRating" action="IncreaseRating" />
             <menuitem name="DecreaseRating" action="DecreaseRating" />
         </menu>
+        <menu name="RawDeveloper" action="RawDeveloper">
+            <menuitem name="RawDeveloperShotwell" action="RawDeveloperShotwell" />
+            <menuitem name="RawDeveloperCamera" action="RawDeveloperCamera" />
+        </menu>
         <separator />
         <menuitem name="ContextEditTitle" action="EditTitle" />
         <menuitem name="ContextEditComment" action="EditComment" />
