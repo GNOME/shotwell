@@ -2375,19 +2375,45 @@ public class TrashUntrashPhotosCommand : PageCommand {
 }
 
 public class FlagUnflagCommand : MultipleDataSourceAtOnceCommand {
+    private const int MIN_PROGRESS_BAR_THRESHOLD = 1000;
+    private const string FLAG_SELECTED_STRING = _("Flag selected photos");
+    private const string UNFLAG_SELECTED_STRING = _("Unflag selected photos");
+    
     private bool flag;
+    private ProgressDialog progress_dialog = null;
     
     public FlagUnflagCommand(Gee.Collection<MediaSource> sources, bool flag) {
         base (sources,
             flag ? _("Flag") : _("Unflag"),
-            flag ? _("Flag selected photos") : _("Unflag selected photos"));
+            flag ? FLAG_SELECTED_STRING : UNFLAG_SELECTED_STRING);
         
         this.flag = flag;
+        
+        if (sources.size >= MIN_PROGRESS_BAR_THRESHOLD) {
+            progress_dialog = new ProgressDialog(null,
+                flag ? FLAG_SELECTED_STRING : UNFLAG_SELECTED_STRING);
+            
+            progress_dialog.show_all();
+        }
     }
     
     public override void execute_on_all(Gee.Collection<DataSource> sources) {
-        foreach (DataSource source in sources)
+        int num_processed = 0;
+        
+        foreach (DataSource source in sources) {
             flag_unflag(source, flag);
+            
+            num_processed++;
+            
+            if (progress_dialog != null) {
+                progress_dialog.set_fraction(num_processed, sources.size);
+                progress_dialog.queue_draw();
+                spin_event_loop();
+            }
+        }
+        
+        if (progress_dialog != null)
+            progress_dialog.hide();
     }
     
     public override void undo_on_all(Gee.Collection<DataSource> sources) {
