@@ -844,7 +844,7 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public override string? get_comment() {
-        return get_string("Exif.Photo.UserComment", PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF);
+        return get_string_interpreted("Exif.Photo.UserComment", PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF);
     }
     
     public void set_comment(string? comment) {
