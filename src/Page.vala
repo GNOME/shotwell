@@ -2491,8 +2491,13 @@ public class DragAndDropHandler {
         }
         
         // set the XDS property to indicate an XDS save is available
+#if VALA_0_20
+        Gdk.property_change(context.get_source_window(), XDS_ATOM, TEXT_ATOM, 8, Gdk.PropMode.REPLACE,
+            XDS_FAKE_TARGET, 1);
+#else
         Gdk.property_change(context.get_source_window(), XDS_ATOM, TEXT_ATOM, 8, Gdk.PropMode.REPLACE,
             XDS_FAKE_TARGET);
+#endif
     }
     
     private void on_drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
