@@ -260,7 +260,7 @@ public class PhotoMetadata : MediaMetadata {
         if (compare_func == null)
             return new Gee.HashSet<string>();
         else
-            return new Gee.TreeSet<string>(compare_func);
+            return new FixedTreeSet<string>(compare_func);
     }
     
     public Gee.Collection<string>? get_tags(MetadataDomain domain, CompareFunc? compare_func = null) {
@@ -894,7 +894,7 @@ public class PhotoMetadata : MediaMetadata {
             if (!current_field.is_writeable)
                 continue;
 
-            Gee.Set<string> writeable_set = new Gee.TreeSet<string>();
+            Gee.Set<string> writeable_set = new FixedTreeSet<string>();
 
             foreach (string current_path in index.get_all_paths()) {
                 string writeable_path = current_path.replace(Tag.PATH_SEPARATOR_STRING,
@@ -911,7 +911,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public void set_keywords(Gee.Collection<string>? keywords, SetOption option = SetOption.ALL_DOMAINS) {
         HierarchicalTagIndex htag_index = new HierarchicalTagIndex();
-        Gee.Set<string> flat_keywords = new Gee.TreeSet<string>();
+        Gee.Set<string> flat_keywords = new FixedTreeSet<string>();
 
         if (keywords != null) {
             foreach (string keyword in keywords) {

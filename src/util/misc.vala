@@ -375,4 +375,16 @@ public bool is_twentyfour_hr_time_system() {
     return is_string_empty(Time.local(0).format("%p"));
 }
 
-
+/** @brief Work-around for a problem in libgee where a TreeSet can leak references when it
+ * goes out of scope; please see https://bugzilla.gnome.org/show_bug.cgi?id=695045 for more
+ * details. This class merely wraps it and adds a call to clear() to the destructor.
+ */
+public class FixedTreeSet<G> : Gee.TreeSet<G> {
+    public FixedTreeSet(CompareFunc? comp_func = null) {
+        base(comp_func);
+    }
+    
+    ~FixedTreeSet() {
+        clear();
+    }
+}
