@@ -507,8 +507,12 @@ public class DirectoryMonitor : Object {
     }
     
     protected virtual void internal_notify_file_discovered(File file, FileInfo info) {
-        bool updated = files.update(file, info);
-        assert(updated);
+        if (!files.update(file, info)) {
+            debug("DirectoryMonitor.internal_notify_file_discovered: %s discovered but not added to file map",
+                file.get_path());
+            
+            return;
+        }
         
         notify_file_discovered(file, info);
     }
