@@ -24,6 +24,10 @@ public class LibraryWindow : AppWindow {
     };
     
     private const int BACKGROUND_PROGRESS_PULSE_MSEC = 250;
+
+    // If we're not operating on at least this many files, don't display the progress
+    // bar at all; otherwise, it'll go by too quickly, giving the appearance of a glitch.
+    const int MIN_PROGRESS_BAR_FILES = 20;
     
     // these values reflect the priority various background operations have when reporting
     // progress to the LibraryWindow progress bar ... higher values give priority to those reports
@@ -1245,8 +1249,12 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_library_monitor_auto_update_progress(int completed_files, int total_files) {
-        update_background_progress_bar(_("Updating library..."), REALTIME_UPDATE_PROGRESS_PRIORITY,
-            completed_files, total_files);
+        if (total_files < MIN_PROGRESS_BAR_FILES)
+            clear_background_progress_bar(REALTIME_UPDATE_PROGRESS_PRIORITY);
+        else {
+            update_background_progress_bar(_("Updating library..."), REALTIME_UPDATE_PROGRESS_PRIORITY,
+                completed_files, total_files);
+        }
     }
     
     private void on_library_monitor_auto_import_preparing() {
@@ -1260,8 +1268,12 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_metadata_writer_progress(uint completed, uint total) {
-        update_background_progress_bar(_("Writing metadata to files..."),
-            METADATA_WRITER_PROGRESS_PRIORITY, completed, total);
+        if (total < MIN_PROGRESS_BAR_FILES)
+            clear_background_progress_bar(METADATA_WRITER_PROGRESS_PRIORITY);
+        else {
+            update_background_progress_bar(_("Writing metadata to files..."),
+                METADATA_WRITER_PROGRESS_PRIORITY, completed, total);
+        }
     }
     
     private void create_layout(Page start_page) {
