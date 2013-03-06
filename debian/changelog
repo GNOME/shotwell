@@ -1,3 +1,10 @@
+shotwell (0.14.0pr1-1~precise1) precise; urgency=low
+
+  * 0.14.0 pre-release
+
+ -- Jim Nelson <jim@yorba.org>  Wed, 06 Mar 2013 12:27:58 -0800
+
+
 shotwell (0.13.1-1~precise1) precise; urgency=low
 
   * Fixes an issue in which Shotwell would crash after deleting
