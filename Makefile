@@ -117,7 +117,6 @@ VAPI_FILES = \
 	LConv.vapi \
 	libexif.vapi \
 	libraw.vapi \
-	unique-3.0.vapi \
 	webkitgtk-3.0.vapi
 
 ifdef WITH_GPHOTO_25
@@ -307,7 +306,6 @@ EXT_PKGS = \
 	libsoup-2.4 \
 	libxml-2.0 \
 	sqlite3 \
-	unique-3.0 \
 	webkitgtk-3.0
 ifdef UNITY_SUPPORT
 EXT_PKGS += unity
@@ -339,7 +337,6 @@ EXT_PKG_VERSIONS = \
 	libsoup-2.4 >= 2.26.0 \
 	libxml-2.0 >= 2.6.32 \
 	sqlite3 >= 3.5.9 \
-	unique-3.0 >= 3.0.0 \
 	webkitgtk-3.0 >= 1.4.0 
 
 ifdef ENABLE_TESTS
