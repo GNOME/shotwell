@@ -18,6 +18,20 @@ public class EventPage : CollectionPage {
         Event.global.items_altered.connect(on_events_altered);
     }
     
+    protected override bool on_app_key_pressed(Gdk.EventKey event) {
+        // If and only if one image is selected, propagate F2 to the rest of
+        // the window, otherwise, consume it here - if we don't do this, it'll
+        // either let us re-title multiple images at the same time or
+        // spuriously highlight the event name in the sidebar for editing...
+        if (Gdk.keyval_name(event.keyval) == "F2") {
+            if (get_view().get_selected_count() != 1) {
+                return true; 
+            }
+        }
+         
+        return base.on_app_key_pressed(event);
+    }
+    
     ~EventPage() {
         Event.global.items_altered.disconnect(on_events_altered);
         get_view().halt_mirroring();
