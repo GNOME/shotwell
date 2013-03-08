@@ -53,7 +53,11 @@ public class MediaAccumulator : Object, Core.TrackerAccumulator {
     public bool uninclude(DataObject object) {
         DataSource source = ((DataView) object).get_source();
         
-        assert(total > 0);
+        if (total < 1) {
+            warning("Tried to remove DataObject %s from empty %s (%s)".printf(object.to_string(),
+                get_type().name(), to_string()));
+            return false;
+        }
         total--;
         
         Photo? photo = source as Photo;
