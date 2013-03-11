@@ -493,6 +493,8 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             base.clear_properties();
 
             file_path = "";
+            development_path = "";
+            is_raw = false;
             filesize = 0;
             original_dim = Dimensions(0, 0);
             camera_make = "";
