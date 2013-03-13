@@ -37,7 +37,7 @@ public class VideoImportParams {
 
 public class VideoReader {
     private const double UNKNOWN_CLIP_DURATION = -1.0;
-    private const uint THUMBNAILER_TIMEOUT = 5000; // In milliseconds.
+    private const uint THUMBNAILER_TIMEOUT = 10000; // In milliseconds.
     
     private double clip_duration = UNKNOWN_CLIP_DURATION;
     private Gdk.Pixbuf preview_frame = null;
