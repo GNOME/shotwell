@@ -18,7 +18,7 @@
 #   verayin <vera@yorba.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.14.0pr1\n"
+"Project-Id-Version: shotwell-0.14.0\n"
 "Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2013-02-25 15:16-0800\n"
 "PO-Revision-Date: 2013-03-04 14:33+0000\n"
@@ -984,7 +984,7 @@ msgstr "Ajouter des é_tiquettes..."
 
 #: src/Resources.vala:263
 msgid "_Add Tags..."
-msgstr "Ajouter des tags"
+msgstr "_Ajouter des étiquettes..."
 
 #: src/Resources.vala:264 src/Resources.vala:295
 msgid "Add Tags"

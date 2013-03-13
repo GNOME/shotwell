@@ -9,10 +9,10 @@
 #   verayin <vera@yorba.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.14.0pr1\n"
+"Project-Id-Version: shotwell-0.14.0\n"
 "Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2013-02-25 15:16-0800\n"
-"PO-Revision-Date: 2013-03-04 13:24+0000\n"
+"PO-Revision-Date: 2013-03-08 20:11+0000\n"
 "Last-Translator: Rob van den Berg <linuxned@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Shotwell-fotoviewer"
 # GNOME Application Keywords
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
-msgstr ""
+msgstr "album;camera;camera´s;bijsnijden;bewerken;verbeteren;exporteren;afbeelding;afbeeldingen;importeren;organiseren;foto;fotograaf;foto´s;fotografie;afdrukken;publiceren;draaien;delen;labels;video;facebook;flickr;picasa;youtube;piwigo;"
 
 #: src/db/DatabaseTable.vala:37
 #, c-format
@@ -3867,7 +3867,7 @@ msgstr "Google+ (2048 x 1536 pixels)"
 
 #: plugins/shotwell-transitions/ChessEffect.vala:20
 msgid "Chess"
-msgstr ""
+msgstr "Schaakbord"
 
 #: plugins/shotwell-transitions/StripesEffect.vala:20
 msgid "Stripes"
@@ -3887,7 +3887,7 @@ msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
-msgstr ""
+msgstr "Lamellen"
 
 #: plugins/shotwell-transitions/SquaresEffect.vala:20
 msgid "Squares"

@@ -14,7 +14,7 @@
 # Марк Коренберг <socketpair@gmail.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.13\n"
+"Project-Id-Version: shotwell-0.14.0\n"
 "Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2012-03-05 15:14-0800\n"
 "PO-Revision-Date: 2012-03-07 05:19+0000\n"
@@ -77,7 +77,7 @@ msgstr "Высота"
 # a list of format specifiers and their meanings.
 #: src/util/misc.vala:231 src/util/misc.vala:236
 msgid "%a %b %d"
-msgstr "%a %b %d"
+msgstr "%a %d %b"
 
 # The string %d, %Y is a format string that describes the day of each month as
 # a decimal from (d%) and the year as a decimal (%Y) including the century.
@@ -95,7 +95,7 @@ msgstr "%d, %Y"
 #: src/util/misc.vala:237 src/util/misc.vala:242 src/util/misc.vala:243
 #: src/util/misc.vala:251
 msgid "%a %b %d, %Y"
-msgstr "%a %b %d, %Y"
+msgstr "%a %d %b, %Y"
 
 #: src/db/DatabaseTable.vala:37
 #, c-format

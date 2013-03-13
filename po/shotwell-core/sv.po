@@ -9,7 +9,7 @@
 # verayin <vera@yorba.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.13\n"
+"Project-Id-Version: shotwell-0.14.0\n"
 "Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2012-03-05 15:14-0800\n"
 "PO-Revision-Date: 2012-03-07 02:20+0000\n"
@@ -1197,7 +1197,7 @@ msgid "Unable to display FAQ: %s"
 msgstr "Kunde inte visa frågor och svar: %s"
 
 #: src/Properties.vala:38
-msgid "%I:%M %p"
+msgid "%-I:%M %p"
 msgstr "%H.%M"
 
 #: src/Properties.vala:50
