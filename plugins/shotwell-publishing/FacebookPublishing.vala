@@ -1255,6 +1255,28 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 }
 
+internal enum Endpoint {
+    DEFAULT,
+    VIDEO,
+    TEST_CONNECTION;
+    
+    public string to_uri() {
+        switch (this) {
+            case DEFAULT:
+                return "https://graph.facebook.com/";
+                
+            case VIDEO:
+                return "https://graph-video.facebook.com/";
+                
+            case TEST_CONNECTION:
+                return "https://www.facebook.com/";
+                
+            default:
+                assert_not_reached();
+        }
+    }
+}
+
 internal abstract class GraphMessage {
     public signal void completed();
     public signal void failed(Spit.Publishing.PublishingError err);
@@ -1266,9 +1288,6 @@ internal abstract class GraphMessage {
 
 internal class GraphSession {
     private abstract class GraphMessageImpl : GraphMessage {
-        private const string STANDARD_ENDPOINT_URI = "https://graph.facebook.com/";
-        private const string SPECIAL_VIDEO_UPLOAD_URI = "https://graph-video.facebook.com/";
-        
         public Publishing.RESTSupport.HttpMethod method;
         public string uri;
         public string access_token;
@@ -1277,14 +1296,13 @@ internal class GraphSession {
         public int bytes_so_far;
         
         public GraphMessageImpl(GraphSession host_session, Publishing.RESTSupport.HttpMethod method,
-            string relative_uri, string access_token, bool use_video_upload_uri = false) {
+            string relative_uri, string access_token, Endpoint endpoint = Endpoint.DEFAULT) {
             this.method = method;
             this.access_token = access_token;
             this.host_session = host_session;
             this.bytes_so_far = 0;
             
-            string endpoint_uri = (use_video_upload_uri) ? SPECIAL_VIDEO_UPLOAD_URI :
-                STANDARD_ENDPOINT_URI;
+            string endpoint_uri = endpoint.to_uri();
             try {
                 Regex starting_slashes = new Regex("^/+");
                 this.uri = endpoint_uri + starting_slashes.replace(relative_uri, -1, 0, "");
@@ -1384,7 +1402,8 @@ internal class GraphSession {
     
     private class GraphEndpointProbeMessage : GraphMessageImpl {
         public GraphEndpointProbeMessage(GraphSession host_session) {
-            base(host_session, Publishing.RESTSupport.HttpMethod.GET, "/", "");
+            base(host_session, Publishing.RESTSupport.HttpMethod.GET, "/", "",
+                Endpoint.TEST_CONNECTION);
 
             soup_message = new Soup.Message.from_uri(method.to_string(), new Soup.URI(uri));
             soup_message.wrote_body_data.connect(on_wrote_body_data);
@@ -1399,7 +1418,8 @@ internal class GraphSession {
             string relative_uri, Spit.Publishing.Publishable publishable,
             bool suppress_titling) {
             base(host_session, Publishing.RESTSupport.HttpMethod.POST, relative_uri, access_token,
-                publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO);
+                (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
+                Endpoint.VIDEO : Endpoint.DEFAULT);
             
             this.publishable = publishable;
             
