@@ -603,7 +603,8 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             txn.execute();
         } catch (Spit.Publishing.PublishingError err) {
-            host.post_error(err);
+            // don't post an error to the host -- let the error handler signal connected above
+            // handle the problem
         }
     }
     
