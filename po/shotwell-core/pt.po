@@ -53,7 +53,7 @@ msgstr "Visualizador de fotos shotwell"
 # GNOME Application Keywords
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
-msgstr "álbum;câmara;câmaras;cortar;editar;melhorar;exportar;galeria;iamgem;imagens;importar;ou"
+msgstr "álbum;câmara;câmaras;cortar;editar;melhorar;exportar;galeria;iamgem;imagens;importar;ou;"
 
 #: src/db/DatabaseTable.vala:37
 #, c-format
