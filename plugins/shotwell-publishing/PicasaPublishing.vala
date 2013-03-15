@@ -57,8 +57,8 @@ namespace Publishing.Picasa {
 internal const string SERVICE_WELCOME_MESSAGE = 
     _("You are not currently logged into Picasa Web Albums.\n\nClick Login to log into Picasa Web Albums in your Web browser. You will have to authorize Shotwell Connect to link to your Picasa Web Albums account.");
 internal const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
-internal const string OAUTH_CLIENT_ID = "1073902228337.apps.googleusercontent.com";
-internal const string OAUTH_CLIENT_SECRET = "tcZxcw_HeyUbq4IIuOF1uq8u";
+internal const string OAUTH_CLIENT_ID = "1073902228337-gm4uf5etk25s0hnnm0g7uv2tm2bm1j0b.apps.googleusercontent.com";
+internal const string OAUTH_CLIENT_SECRET = "_kA4RZz72xqed4DqfO7xMmMN";
 
 public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
     private weak Spit.Publishing.PluginHost host = null;
@@ -255,6 +255,13 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         if (session.is_authenticated()) // ignore these events if the session is already auth'd
             return;
+        
+        // 400 errors indicate that the OAuth client ID and secret have become invalid. In most
+        // cases, this can be fixed by logging the user out
+        if (txn.get_status_code() == 400) {
+            do_logout();
+            return;
+        }
 
         debug("EVENT: refresh access token transaction caused a network error.");
         
@@ -334,10 +341,7 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         debug("EVENT: user clicked 'Logout' in the publishing options pane.");
 
-        session.deauthenticate();
-        invalidate_persistent_session();
-
-        do_show_service_welcome_pane();
+        do_logout();
     }
 
     private void on_publishing_options_publish(PublishingParameters parameters, 
@@ -451,6 +455,15 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: showing service welcome pane.");
 
         host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_service_welcome_login);
+    }
+    
+    private void do_logout() {
+        debug("ACTION: logging out user.");
+        
+        session.deauthenticate();
+        invalidate_persistent_session();
+
+        do_show_service_welcome_pane();
     }
     
     private void do_launch_browser_for_authorization() {
