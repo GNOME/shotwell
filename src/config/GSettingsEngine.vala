@@ -239,6 +239,14 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
 
         schema_object.set_string(key, value);
     }
+    
+    private void reset_gs_to_default(string schema, string key) throws ConfigurationError {
+        check_key_valid(schema, key);
+
+        Settings schema_object = new Settings(schema);
+
+        schema_object.reset(key);
+    }
 
     private static string? clean_plugin_id(string id) {
         string cleaned = id.replace("/", "-");
@@ -411,7 +419,13 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     }
 
     public void unset_plugin_key(string domain, string id, string key) {
-        ; // "unsetting" has no meaning in the world of GSettings
+        string schema_name = make_plugin_schema_name(domain, id);
+        
+        try {
+            reset_gs_to_default(schema_name, make_gsettings_key(key));
+        } catch (ConfigurationError err) {
+            critical("GSettingsConfigurationEngine: error: %s", err.message);
+        }
     }
     
     public FuzzyPropertyState is_plugin_enabled(string id) {
