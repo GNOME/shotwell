@@ -38,6 +38,9 @@ public class VideoImportParams {
 public class VideoReader {
     private const double UNKNOWN_CLIP_DURATION = -1.0;
     private const uint THUMBNAILER_TIMEOUT = 10000; // In milliseconds.
+
+    // File extensions for video containers that pack only metadata as per the AVCHD spec
+    private const string[] METADATA_ONLY_FILE_EXTENSIONS = { "bdm", "bdmv", "cpi", "mpl" };
     
     private double clip_duration = UNKNOWN_CLIP_DURATION;
     private Gdk.Pixbuf preview_frame = null;
@@ -56,7 +59,23 @@ public class VideoReader {
     public static bool is_supported_video_filename(string filename) {
         string mime_type;
         mime_type = ContentType.guess(filename, new uchar[0], null);
-        return (mime_type.length >= 6 && mime_type[0:6] == "video/");
+        if (mime_type.length >= 6 && mime_type[0:6] == "video/") {
+            string? extension = null;
+            string? name = null;
+            disassemble_filename(filename, out name, out extension);
+            
+            if (extension == null)
+                return true;
+
+            foreach (string s in METADATA_ONLY_FILE_EXTENSIONS) {
+                if (utf8_ci_compare(s, extension) == 0)
+                    return false;
+            }
+                
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public static ImportResult prepare_for_import(VideoImportParams params) {
