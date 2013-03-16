@@ -572,6 +572,14 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
                 exposure_date = get_prettyprint_date(Time.local(exposure_time_obj));
                 exposure_time = get_prettyprint_time_with_seconds(Time.local(exposure_time_obj));
                 comment = media.get_comment();
+                
+                // Fix up dimensions if they couldn't be read normally.
+                if ((source is Photo) && ((original_dim == null) || (!original_dim.has_area()))) {
+                    debug("Original dimensions could not be read from metadata for %s, \
+                        falling back to current pixbuf dimensions.".printf(source.to_string()));
+                    original_dim = ((Photo) source).get_dimensions();
+                }
+                
             } else if (source is EventSource) {
                 Event event = (Event) source;
                 comment = event.get_comment();
