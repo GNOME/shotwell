@@ -2,7 +2,7 @@ PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 PROGRAM_MIGRATOR = shotwell-settings-migrator
 
-VERSION = 0.14.0pr1+trunk
+VERSION = 0.14.0
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -321,7 +321,7 @@ DIRECT_LIBS =
 
 EXT_PKG_VERSIONS = \
 	gee-1.0 >= 0.5.0 \
-	gexiv2 >= 0.4.1 \
+	gexiv2 >= 0.4.90 \
 	gio-unix-2.0 >= 2.20 \
 	glib-2.0 >= $(MIN_GLIB_VERSION) \
 	gmodule-2.0 >= 2.24.0 \

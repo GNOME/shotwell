@@ -1,3 +1,27 @@
+Shotwell 0.14.0 - 18 March 2013 - "The Baby Shower"
+----------------------------------------------------------------------------
+
+  * A folder tree in the sidebar provides a directory-hierarchy
+    view of your Shotwell library
+  * Dramatically improved user experience for RAW photographers:
+    long-standing bugs involving RAW developer switching have been
+    fixed
+  * Comprehensive logging of photo and video import, including the
+    ability to save an import log file to disk. The log tracks which
+    files were detected as duplicates as well as files that couldn't
+    be imported due to disk or camera problems.
+  * The Facebook Connector now uses the Facebook Graph API,
+    resulting in a smoother, more stable experience uploading photos
+    and videos to Facebook. As a bonus, Shotwell photo titles now
+    appear as Facebook photo captions!
+  * The Shotwell video subsystem now relies on GStreamer 1.0, making
+    for easier, more stable video import, better video thumbnails,
+    and better handling of video metadata
+  * New slideshow effects, improved Piwigo support, the ability to
+    show and hide the main Shotwell sidebar, and numerous bug fixes
+    and translation updates!
+
+
 Shotwell 0.13.1 - 5 October 2012 - "A Date at the Diplomat's Club"
 ----------------------------------------------------------------------------
 
