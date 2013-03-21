@@ -201,6 +201,11 @@ public abstract class Photo : PhotoSource, Dateable {
     // it hasn't been accessed in this many seconds, discard it to conserve memory.
     private const int PRECACHE_TIME_TO_LIVE = 180;
     
+    // Minimum raw embedded preview size we're willing to accept; any smaller than this, and 
+    // it's probably intended primarily for use only as a thumbnail and won't look good on the
+    // PhotoPage.
+    private const int MIN_EMBEDDED_SIZE = 1024;
+    
     public enum Exception {
         NONE            = 0,
         ORIENTATION     = 1 << 0,
@@ -552,8 +557,28 @@ public abstract class Photo : PhotoSource, Dateable {
             case RawDeveloper.EMBEDDED:
                 try {
                     PhotoMetadata meta = get_master_metadata();
-                    if (meta.get_preview_count() > 0)
+                    uint num_previews = meta.get_preview_count();
+                    
+                    if (num_previews > 0) {
+                        PhotoPreview? prev = meta.get_preview(num_previews - 1);
+
+                        // Embedded preview could not be fetched?
+                        if (prev == null)
+                            return false;
+                        
+                        Dimensions dims = prev.get_pixel_dimensions();
+                        
+                        // Largest embedded preview was an unacceptable size?
+                        int preview_major_axis = (dims.width > dims.height) ? dims.width : dims.height;
+                        if (preview_major_axis < MIN_EMBEDDED_SIZE)
+                            return false;
+                        
+                        // Preview was a supported size, use it.
                         return true;
+                    }
+                    
+                    // Image has no embedded preview at all.
+                    return false;
                 } catch (Error e) {
                     debug("Error accessing embedded preview. Message: %s", e.message);
                 }
@@ -734,6 +759,11 @@ public abstract class Photo : PhotoSource, Dateable {
         // quality and resolution.
         if (is_raw_developer_available(RawDeveloper.CAMERA) && (d == RawDeveloper.EMBEDDED))
             d = RawDeveloper.CAMERA;
+            
+        // If the embedded preview is too small to be used in the PhotoPage, don't
+        // allow EMBEDDED to be chosen.
+        if (!is_raw_developer_available(RawDeveloper.EMBEDDED))
+            d = RawDeveloper.SHOTWELL;
             
         lock (developments) {
             RawDeveloper stale_raw_developer = row.developer;
