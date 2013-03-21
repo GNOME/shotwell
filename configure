@@ -146,7 +146,14 @@ done
 pkg-config --atleast-version 2.5 libgphoto2
 if [ $? == 1 ]
 then 
-    printf "Detected libGPhoto 2.4.x - using default code path.\n";
+    pkg-config --atleast-version 2.4 libgphoto2
+    if [ $? == 1 ]
+    then
+        printf "No compatible libGPhoto installation found. Configuration cannot continue.\n";
+        exit 1
+    else
+        printf "Detected libGPhoto 2.4.x - using default code path.\n";
+    fi
 else
     printf "Detected libGPhoto 2.5.x - using 2.5-aware code path.\n";
     variables="${variables}WITH_GPHOTO_25=1\n"
