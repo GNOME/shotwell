@@ -346,7 +346,7 @@ public class LibraryWindow : AppWindow {
         new_search.label =  _("Ne_w Saved Search...");
         actions += new_search;
 
-		// top-level menus
+        // top-level menus
         
         Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
         file.label = _("_File");
@@ -1404,6 +1404,9 @@ public class LibraryWindow : AppWindow {
         }
         
         on_update_properties();
+        
+        if (page is CheckerboardPage)
+            init_view_filter((CheckerboardPage)page);
         
         page.show_all();
         
