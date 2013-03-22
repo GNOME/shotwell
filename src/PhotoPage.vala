@@ -2197,12 +2197,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             tool_window.move(x, y);
         }
         
-        // we need both show & present so we get keyboard focus in metacity, but due to a bug in
-        // compiz, we only want to show the window. 
-        // ticket #2141 prompted this: http://trac.yorba.org/ticket/2141
         tool_window.show();
-        if (!get_window_manager().down().contains("compiz"))
-            tool_window.present();
+        tool_window.present();
     }
     
     protected override void on_next_photo() {

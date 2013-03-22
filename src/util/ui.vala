@@ -86,10 +86,6 @@ public bool has_only_key_modifier(Gdk.ModifierType field, Gdk.ModifierType mask)
         | Gdk.ModifierType.META_MASK)) == mask;
 }
 
-public string get_window_manager() {
-    return Gdk.X11Screen.get_window_manager_name(AppWindow.get_instance().get_screen());
-}
-
 public string build_dummy_ui_string(Gtk.ActionGroup[] groups) {
     string ui_string = "<ui>";
     foreach (Gtk.ActionGroup group in groups) {

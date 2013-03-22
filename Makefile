@@ -288,7 +288,6 @@ LOCAL_PKGS = \
 EXT_PKGS = \
 	atk \
 	gdk-3.0 \
-	gdk-x11-3.0 \
 	gee-1.0 \
 	gexiv2 \
 	gio-unix-2.0 \
