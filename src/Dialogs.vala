@@ -614,6 +614,21 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
             builder.append(current_file_summary);
         }
     }
+
+    //
+    // Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
+    //
+    if (manifest.corrupt_files.size > 0) {
+        builder.append(_("Photos/Videos Not Imported Because Files Are Corrupt:")
+             + "\n\n");
+        
+        foreach (BatchImportResult result in manifest.corrupt_files) {
+            current_file_summary = result.src_identifier + "\n\t" + _("error message:") + " |" +
+                result.errmsg + "|\n\n";
+
+            builder.append(current_file_summary);
+        }
+    }
     
     //
     // Photos/Videos Not Imported for Other Reasons
@@ -723,6 +738,29 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         
         message += generate_import_failure_list(manifest.camera_failed, show_dest_id);
     }
+
+    if (manifest.corrupt_files.size > 0) {
+        if (message.length > 0)
+            message += "\n";
+        
+        string photos_message = (ngettext("1 photo failed to import because it was corrupt:\n",
+            "%d photos failed to import because they were corrupt:\n",
+            manifest.corrupt_files.size)).printf(manifest.corrupt_files.size);
+        string videos_message = (ngettext("1 video failed to import because it was corrupt:\n",
+            "%d videos failed to import because they were corrupt:\n",
+            manifest.corrupt_files.size)).printf(manifest.corrupt_files.size);
+        string both_message = (ngettext("1 photo/video failed to import because it was corrupt:\n",
+            "%d photos/videos failed to import because they were corrupt:\n",
+            manifest.corrupt_files.size)).printf(manifest.corrupt_files.size);
+        string neither_message = (ngettext("1 file failed to import because it was corrupt:\n",
+            "%d files failed to import because it was corrupt:\n",
+            manifest.corrupt_files.size)).printf(manifest.corrupt_files.size);
+        
+        message += get_media_specific_string(manifest.corrupt_files, photos_message, videos_message,
+            both_message, neither_message);
+        
+        message += generate_import_failure_list(manifest.corrupt_files, show_dest_id);
+    }
     
     if (manifest.skipped_photos.size > 0) {
         if (message.length > 0)
@@ -795,7 +833,7 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
     }
     
     int total = manifest.success.size + manifest.failed.size + manifest.camera_failed.size
-        + manifest.skipped_photos.size + manifest.skipped_files.size
+        + manifest.skipped_photos.size + manifest.skipped_files.size + manifest.corrupt_files.size
         + manifest.already_imported.size + manifest.aborted.size + manifest.write_failed.size;
     assert(total == manifest.all.size);
     

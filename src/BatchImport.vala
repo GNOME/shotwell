@@ -17,7 +17,8 @@ public enum ImportResult {
     DISK_FAILURE,
     DISK_FULL,
     CAMERA_ERROR,
-    FILE_WRITE_ERROR;
+    FILE_WRITE_ERROR,
+    PIXBUF_CORRUPT_IMAGE;
     
     public string to_string() {
         switch (this) {
@@ -59,6 +60,9 @@ public enum ImportResult {
             
             case FILE_WRITE_ERROR:
                 return _("File write error");
+
+            case PIXBUF_CORRUPT_IMAGE:
+                return _("Corrupt image file");
             
             default:
                 return _("Imported failed (%d)").printf((int) this);
@@ -123,6 +127,23 @@ public enum ImportResult {
                 return ImportResult.FILE_ERROR;
         } else if (err is GPhotoError) {
             return ImportResult.CAMERA_ERROR;
+        } else if (err is Gdk.PixbufError) {
+            Gdk.PixbufError pixbuferr = (Gdk.PixbufError) err;
+
+            if (pixbuferr is Gdk.PixbufError.CORRUPT_IMAGE)
+                return ImportResult.PIXBUF_CORRUPT_IMAGE;
+            else if (pixbuferr is Gdk.PixbufError.INSUFFICIENT_MEMORY)
+                return default_result;
+            else if (pixbuferr is Gdk.PixbufError.BAD_OPTION)
+                return default_result;
+            else if (pixbuferr is Gdk.PixbufError.UNKNOWN_TYPE)
+                return ImportResult.UNSUPPORTED_FORMAT;
+            else if (pixbuferr is Gdk.PixbufError.UNSUPPORTED_OPERATION)
+                return default_result;
+            else if (pixbuferr is Gdk.PixbufError.FAILED)
+                return default_result;
+            else
+                return default_result;
         }
         
         return default_result;
@@ -294,6 +315,7 @@ public class ImportManifest {
     public Gee.List<BatchImportResult> skipped_files = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> aborted = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> already_imported = new Gee.ArrayList<BatchImportResult>();
+    public Gee.List<BatchImportResult> corrupt_files = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> all = new Gee.ArrayList<BatchImportResult>();
     
     public ImportManifest(Gee.List<BatchImportJob>? prefailed = null,
@@ -353,6 +375,10 @@ public class ImportManifest {
             
             case ImportResult.FILE_WRITE_ERROR:
                 write_failed.add(batch_result);
+            break;
+            
+            case ImportResult.PIXBUF_CORRUPT_IMAGE:
+                corrupt_files.add(batch_result);
             break;
             
             default:
