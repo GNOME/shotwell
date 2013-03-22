@@ -104,6 +104,12 @@ void library_exec(string[] mounts) {
             progress_dialog = new ProgressDialog(null, _("Loading Shotwell"));
             progress_dialog.update_display_every(100);
             progress_dialog.set_minimum_on_screen_time_msec(250);
+            try {
+                string icon_path = AppDirs.get_resources_dir().get_child("icons").get_child("shotwell.svg").get_path();
+                progress_dialog.icon = new Gdk.Pixbuf.from_file(icon_path);
+            } catch (Error err) {
+                debug("Warning - could not load application icon for loading window: %s", err.message);
+            }
             
             aggregate_monitor = new AggregateProgressMonitor(grand_total, progress_dialog.monitor);
             monitor = aggregate_monitor.monitor;
