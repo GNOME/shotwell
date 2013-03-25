@@ -1387,15 +1387,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void swap_in_original() {
         Gdk.Pixbuf? original;
 
-        try {
-            original = get_photo().get_unmodified_pixbuf(cache.get_scaling(), true);
+        original = get_photo().get_prefetched_copy();
 
-            if (original == null)
-                return;
-        }
-        catch (Error e) {
+        if (original == null)
             return;
-        }
         
         // store what's currently displayed only for the duration of the shift pressing
         swapped = get_unscaled_pixbuf();
