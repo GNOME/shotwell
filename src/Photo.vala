@@ -3595,18 +3595,6 @@ public abstract class Photo : PhotoSource, Dateable {
             metadata.set_comment(get_comment());
             metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
             
-            // Also, becausee JPEGs can store their own orientation, we'll save
-            // the original dimensions directly and let the orientation field do
-            // the rotation there, too...
-            if (get_file_format() == PhotoFileFormat.JFIF) {
-                metadata.set_pixel_dimensions(get_dimensions(Exception.ORIENTATION));
-                metadata.set_orientation(get_orientation());
-            } else {
-                // Non-JPEG image - we'll need to save the rotated dimensions.
-                metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
-                metadata.set_orientation(Orientation.TOP_LEFT);
-            }
-            
             if (get_exposure_time() != 0)
                 metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
             else
@@ -3622,6 +3610,19 @@ public abstract class Photo : PhotoSource, Dateable {
         else {
             //No, delete metadata.
             metadata.clear();
+        }
+        
+        // Even if we were told to trash camera-identifying data, we need
+        // to make sure the orientation propagates. Also, because JPEGs
+        // can store their own orientation, we'll save the original dimensions
+        // directly and let the orientation field do the rotation there.
+        if (get_file_format() == PhotoFileFormat.JFIF) {
+            metadata.set_pixel_dimensions(get_dimensions(Exception.ORIENTATION));
+            metadata.set_orientation(get_orientation());
+        } else {
+            // Non-JPEG image - we'll need to save the rotated dimensions.
+            metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
+            metadata.set_orientation(Orientation.TOP_LEFT);
         }
         
         export_format.create_metadata_writer(dest_file.get_path()).write_metadata(metadata);
