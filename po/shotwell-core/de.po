@@ -1008,11 +1008,11 @@ msgstr "Mit RA_W-Editor öffnen"
 
 #: src/Resources.vala:272
 msgid "Send _To..."
-msgstr "_Senden an …"
+msgstr "_Senden an..."
 
 #: src/Resources.vala:273
 msgid "Send T_o..."
-msgstr "Senden _An"
+msgstr "Senden _an..."
 
 #: src/Resources.vala:275
 msgid "_Find..."
