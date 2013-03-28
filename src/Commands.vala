@@ -892,8 +892,19 @@ public abstract class MovePhotosCommand : Command {
         }
         
         public override void execute() {
-            // switch to new event page first (to prevent flicker if other pages are destroyed)
-            LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
+            if ((LibraryWindow.get_app().get_current_page() is EventPage)) {
+                
+                Event evt = ((EventPage) LibraryWindow.get_app().get_current_page()).get_event();
+                
+                // Will moving these empty this event?
+                if (evt.get_media_count() == source_list.size) {
+                    // Yes - jump away from this event, since it will have zero
+                    // entries and is going to be removed.
+                    LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
+                }
+                
+                // Otherwise - don't jump; users found the jumping disconcerting.
+            }
             
             // create the new event
             base.execute();
