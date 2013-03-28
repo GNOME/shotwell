@@ -984,7 +984,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     }
 
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.COLOSSAL_SIZE;
+        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
     }
 
     public void on_pane_installed() {
@@ -1328,65 +1328,6 @@ internal class GraphSession {
             
             data_transmitted(bytes_so_far, (int) soup_message.request_body.length);
         }
-    
-        public void on_finished(Soup.Session session, Soup.Message msg) {
-            assert(msg == soup_message);
-            
-            msg.wrote_body_data.disconnect(on_wrote_body_data);
-            
-            Spit.Publishing.PublishingError? error = null;
-            switch (msg.status_code) {
-                case Soup.KnownStatusCode.OK:
-                case Soup.KnownStatusCode.CREATED: // HTTP code 201 (CREATED) signals that a new
-                                                   // resource was created in response to a PUT
-                                                   // or POST
-                break;
-                
-                case EXPIRED_SESSION_STATUS_CODE:
-                    error = new Spit.Publishing.PublishingError.EXPIRED_SESSION(
-                        "OAuth Access Token has Expired. Logout user.", get_uri(), msg.status_code);
-                break;
-                
-                case Soup.KnownStatusCode.CANT_RESOLVE:
-                case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
-                    error = new Spit.Publishing.PublishingError.NO_ANSWER(
-                        "Unable to resolve %s (error code %u)", get_uri(), msg.status_code);
-                break;
-                
-                case Soup.KnownStatusCode.CANT_CONNECT:
-                case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
-                    error = new Spit.Publishing.PublishingError.NO_ANSWER(
-                        "Unable to connect to %s (error code %u)", get_uri(), msg.status_code);
-                break;
-                
-                default:
-                    // status codes below 100 are used by Soup, 100 and above are defined HTTP
-                    // codes
-                    if (msg.status_code >= 100) {
-                        error = new Spit.Publishing.PublishingError.NO_ANSWER(
-                            "Service %s returned HTTP status code %u %s", get_uri(),
-                            msg.status_code, msg.reason_phrase);
-                    } else {
-                        error = new Spit.Publishing.PublishingError.NO_ANSWER(
-                            "Failure communicating with %s (error code %u)", get_uri(),
-                            msg.status_code);
-                    }
-                break;
-            }
-
-            // All valid communication with Facebook involves body data in the response
-            if (error == null)
-                if (msg.response_body.data == null || msg.response_body.data.length == 0)
-                    error = new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                        "No response data from %s", get_uri());
-            
-            if (error == null)
-                completed();
-            else
-                failed(error);
-
-            host_session.unmanage_message(this);
-        }
     }
     
     private class GraphQueryMessage : GraphMessageImpl {
@@ -1490,25 +1431,101 @@ internal class GraphSession {
     
     private Soup.Session soup_session;
     private string? access_token;
-    private Gee.Set<GraphMessage> messages;
+    private GraphMessage? current_message;
     
     public GraphSession() {
         this.soup_session = new Soup.SessionAsync();
+        this.soup_session.request_unqueued.connect(on_request_unqueued);
+        this.soup_session.timeout = 15;
         this.access_token = null;
-        this.messages = new Gee.HashSet<GraphMessage>();
+        this.current_message = null;
     }
+
+    ~GraphSession() {
+         soup_session.request_unqueued.disconnect(on_request_unqueued);
+     }
     
     private void manage_message(GraphMessage msg) {
-        assert(!messages.contains(msg));
+        assert(current_message == null);
         
-        messages.add(msg);
+        current_message = msg;
     }
     
     private void unmanage_message(GraphMessage msg) {
-        assert(messages.contains(msg));
+        assert(current_message != null);
         
-        messages.remove(msg);
+        current_message = null;
     }
+
+     private void on_request_unqueued(Soup.Message msg) {
+        assert(current_message != null);
+        GraphMessageImpl real_message = (GraphMessageImpl) current_message;
+        assert(real_message.soup_message == msg);
+        
+        // these error types are always recoverable given the unique behavior of the Facebook
+        // endpoint, so try again
+        if (msg.status_code == Soup.KnownStatusCode.IO_ERROR ||
+            msg.status_code == Soup.KnownStatusCode.MALFORMED ||
+            msg.status_code == Soup.KnownStatusCode.TRY_AGAIN) {
+            real_message.bytes_so_far = 0;
+            soup_session.queue_message(msg, null);
+            return;
+        }
+        
+        unmanage_message(real_message);
+        msg.wrote_body_data.disconnect(real_message.on_wrote_body_data);
+        
+        Spit.Publishing.PublishingError? error = null;
+        switch (msg.status_code) {
+            case Soup.KnownStatusCode.OK:
+            case Soup.KnownStatusCode.CREATED: // HTTP code 201 (CREATED) signals that a new
+                                               // resource was created in response to a PUT
+                                               // or POST
+            break;
+            
+            case EXPIRED_SESSION_STATUS_CODE:
+                error = new Spit.Publishing.PublishingError.EXPIRED_SESSION(
+                    "OAuth Access Token has Expired. Logout user.", real_message.get_uri(), msg.status_code);
+            break;
+            
+            case Soup.KnownStatusCode.CANT_RESOLVE:
+            case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
+                error = new Spit.Publishing.PublishingError.NO_ANSWER(
+                    "Unable to resolve %s (error code %u)", real_message.get_uri(), msg.status_code);
+            break;
+            
+            case Soup.KnownStatusCode.CANT_CONNECT:
+            case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
+                error = new Spit.Publishing.PublishingError.NO_ANSWER(
+                    "Unable to connect to %s (error code %u)", real_message.get_uri(), msg.status_code);
+            break;
+            
+            default:
+                // status codes below 100 are used by Soup, 100 and above are defined HTTP
+                // codes
+                if (msg.status_code >= 100) {
+                    error = new Spit.Publishing.PublishingError.NO_ANSWER(
+                        "Service %s returned HTTP status code %u %s", real_message.get_uri(),
+                        msg.status_code, msg.reason_phrase);
+                } else {
+                    error = new Spit.Publishing.PublishingError.NO_ANSWER(
+                        "Failure communicating with %s (error code %u)", real_message.get_uri(),
+                        msg.status_code);
+                }
+            break;
+        }
+
+        // All valid communication with Facebook involves body data in the response
+        if (error == null)
+            if (msg.response_body.data == null || msg.response_body.data.length == 0)
+                error = new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
+                    "No response data from %s", real_message.get_uri());
+        
+        if (error == null)
+            real_message.completed();
+        else
+            real_message.failed(error);
+     }
     
     public void authenticate(string access_token) {
         this.access_token = access_token;
@@ -1549,7 +1566,7 @@ internal class GraphSession {
         
         if (real_message.prepare_for_transmission()) {
             manage_message(message);
-            soup_session.queue_message(real_message.soup_message, real_message.on_finished);
+            soup_session.queue_message(real_message.soup_message, null);
         }
     }
     
