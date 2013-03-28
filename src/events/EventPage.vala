@@ -18,6 +18,10 @@ public class EventPage : CollectionPage {
         Event.global.items_altered.connect(on_events_altered);
     }
     
+    public Event get_event() {
+        return page_event;
+    }
+    
     protected override bool on_app_key_pressed(Gdk.EventKey event) {
         // If and only if one image is selected, propagate F2 to the rest of
         // the window, otherwise, consume it here - if we don't do this, it'll
