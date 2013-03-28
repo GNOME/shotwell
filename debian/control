@@ -3,6 +3,7 @@ Section: gnome
 Priority: optional
 Maintainer: Jim Nelson <jim@yorba.org>
 Build-Depends: debhelper (>= 7), 
+ desktop-file-utils (>= 0.13),
  libatk1.0-dev (>= 1.30.0),
  libexif-dev (>= 0.6.16),
  libgee-dev (>= 0.5.0),
