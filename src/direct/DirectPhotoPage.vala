@@ -70,7 +70,7 @@ public class DirectPhotoPage : EditingHostPage {
         actions += print;
         
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
-        edit.label = _("Edit");
+        edit.label = _("_Edit");
         actions += edit;
 
         Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null, null };
