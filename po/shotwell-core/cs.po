@@ -8,12 +8,13 @@
 #   <dstancl@dstancl.cz>, 2011, 2012.
 #   lzap <lzap@seznam.cz>, 2011.
 #   Petr Šimáček <petr.simacek@gmail.com>, 2013.
+#   verayin <vera@yorba.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.14.0\n"
 "Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2013-02-25 15:16-0800\n"
-"PO-Revision-Date: 2013-02-28 06:31+0000\n"
+"PO-Revision-Date: 2013-03-22 05:40+0000\n"
 "Last-Translator: petr.simacek <petr.simacek@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -796,7 +797,7 @@ msgstr "Spojit"
 
 #: src/Resources.vala:198
 msgid "Combine events into a single event"
-msgstr "Zkombinujte události do jediné události"
+msgstr "Sloučit události do jedné"
 
 #: src/Resources.vala:200
 msgid "_Set Rating"
@@ -3137,7 +3138,7 @@ msgstr[2] "_Vyhodit soubory"
 
 #: src/Dialogs.vala:1263
 msgid "Only _Remove"
-msgstr "Jen _odstranit"
+msgstr "Jen _odstranit z knihovny"
 
 #: src/Dialogs.vala:1306
 msgid "Revert External Edit?"
@@ -3867,7 +3868,7 @@ msgstr "Neveřejné"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:972
 msgid "Private"
-msgstr "soukromé"
+msgstr "Soukromé"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:58
 msgid ""
@@ -3964,11 +3965,11 @@ msgstr "Snímek"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:20
 msgid "Crumble"
-msgstr "rozpadání"
+msgstr "Rozpadání"
 
 #: plugins/shotwell-transitions/FadeEffect.vala:20
 msgid "Fade"
-msgstr "slábnutí"
+msgstr "Slábnutí"
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""

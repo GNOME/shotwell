@@ -4,14 +4,16 @@
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 # Translators:
-#  <buitenzorg812@gmail.com>, 2012.
-#  <kokabiel9@gmail.com>, 2012.
+#   <aftian@yahoo.com>, 2012.
+#   <bu0ncu3@yahoo.com>, 2012.
+#   <buitenzorg812@gmail.com>, 2012.
+#   <kokabiel9@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-extras-0.14.0\n"
 "Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2012-09-13 13:32-0700\n"
-"PO-Revision-Date: 2012-09-16 13:52+0000\n"
+"POT-Creation-Date: 2013-02-25 15:16-0800\n"
+"PO-Revision-Date: 2013-01-02 15:22+0000\n"
 "Last-Translator: Rahman Yusri Aftian <aftian@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,21 +22,9 @@ msgstr ""
 "Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
-msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr "Hak cipta 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
-msgid "Visit the Yandex.Fotki web site"
-msgstr "Kunjuni laman web Yandex.Fotki"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
-msgid "You are not currently logged into Yandex.Fotki."
-msgstr "Saat ini Anda tidak tercatat masuk di Yandex.Fotki."
-
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
 msgid "Copyright 2012 BJA Electronics"
-msgstr ""
+msgstr "Hak Cipta 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
 msgid "500 x 375 pixels"
@@ -46,47 +36,59 @@ msgstr "1024 x 768 piksel"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
 msgid "1280 x 853 pixels"
-msgstr ""
+msgstr "1280 x 853 piksel"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
 #, c-format
 msgid "'%s' isn't a valid response to an OAuth authentication request"
-msgstr ""
+msgstr "'%s' permintaan otentikasi OAuth ke yang tidak valid"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:557
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
 msgid ""
 "TumblrPublisher: start( ): can't start; this publisher is not restartable."
-msgstr ""
+msgstr "TumblrPublisher: start(): tidak dapat memulai, penerbit ini tidak restartable."
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:585
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
 msgid "Enter the username and password associated with your Tumblr account."
-msgstr ""
+msgstr "Masukkan nama pengguna dan kata sandi yang berhubungan dengan akun Tumblr anda."
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
 msgid "Username and/or password invalid. Please try again"
 msgstr "Nama pengguna dan/atau kata sandi salah. Silahkan coba lagi"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:616
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
 msgid "Invalid User Name or Password"
-msgstr ""
+msgstr "Nama Pengguna dan Kata Sandi salah"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:756
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
 #, c-format
 msgid "Could not load UI: %s"
-msgstr ""
+msgstr "Tidak dapat membuka UI: %s"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:738
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
 "\n"
-msgstr ""
+msgstr "Anda belum masuk ke Tumblr sebagai %s.\n\n"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:967
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
 msgid "A temporary file needed for publishing is unavailable"
-msgstr ""
+msgstr "Berkas sementara tidak tersedia untuk diterbitkan"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Hak Cipta 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Kunjungi situs Yandex.Fotki"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "Anda belum masuk ke Yandex.Fotki."
 
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
 msgid "label"
@@ -94,15 +96,15 @@ msgstr "label"
 
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:49
 msgid "_Email address"
-msgstr ""
+msgstr "_Alamat Email"
 
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:59
 msgid "_Password"
-msgstr "_Sandi"
+msgstr "_Kata Sandi"
 
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:107
 msgid "Login"
-msgstr "Catat masuk"
+msgstr "Masuk"
 
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:19
 msgid ""
@@ -110,20 +112,20 @@ msgid ""
 "\n"
 "(this label's string is populated and set inside the code, \n"
 "so changes made here will not display)"
-msgstr ""
+msgstr "Anda masuk ke Tumblr sebagai (name).\n\n(rangkaian label ini dihuni and diatur dalam kode, \njadi perubahan yang dibuat disini tidak akan tampak)"
 
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
 msgid "Blogs:"
-msgstr ""
+msgstr "Blog:"
 
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
 msgid "Photo _size:"
-msgstr ""
+msgstr "Ukuran _foto:"
 
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
 msgid "_Logout"
-msgstr "_Catat keluar"
+msgstr "_Keluar"
 
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
@@ -132,16 +134,16 @@ msgstr "_Terbitkan"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
-msgstr "_Album (atau buat baru):"
+msgstr "_Album (atau tulis baru):"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
 msgid "Access _type:"
-msgstr "_Jenis akses:"
+msgstr "Jenis _akses:"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
 msgid "Disable _comments"
-msgstr "_Matikan komentar"
+msgstr "Nonaktifkan _komentar"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
-msgstr "_Dilarang untuk mengunduh gambar asli"
+msgstr "_Dilarang mengunduh foto asli"
