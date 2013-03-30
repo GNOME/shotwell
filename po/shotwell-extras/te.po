@@ -4,20 +4,79 @@
 # This file is distributed under the GNU LGPL, version 2.1.
 # 
 # Translators:
-# ప్రవీణ్ ఇళ్ళ <mail2ipn@gmail.com>, 2011, 2012.
+#   Krishnababu Krothapalli <kkrothap@redhat.com>, 2012.
+#   lsbeeler <lucas@yorba.org>, 2011.
+# ప్రవీణ్ ఇళ్ళ <mail2ipn@gmail.com>, 2011-2012.
+# ప్రవీణ్ యిళ్ళ <mail2ipn@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-extras-0.14.0\n"
 "Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2012-03-05 15:14-0800\n"
-"PO-Revision-Date: 2012-03-07 18:42+0000\n"
-"Last-Translator: ప్రవీణ్ ఇళ్ళ <mail2ipn@gmail.com>\n"
+"POT-Creation-Date: 2013-02-25 15:16-0800\n"
+"PO-Revision-Date: 2012-09-25 13:21+0000\n"
+"Last-Translator: Krishnababu Krothapalli <krisnababu@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: te\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
+msgid "Copyright 2012 BJA Electronics"
+msgstr "కాపీరైట్ 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
+msgid "500 x 375 pixels"
+msgstr "500 x 375 పిక్సెళ్ళు"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:108
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 పిక్సెళ్ళు"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
+msgid "1280 x 853 pixels"
+msgstr "1280 x 853 పిగ్జెల్స్"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr "OAuth ధృవీకరణ అభ్యర్ధనకు '%s' చెల్లునటువంటి స్పందనకాదు"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr "TumblrPublisher: start( ): ప్రారంభించలేదు; ఈ ప్రచురణకర్త పునఃప్రారంభించదగ్గది కాదు."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "మీరు Tumblr ఖాతాకు చెందిన వాడుకరిపేరు మరియు సంకేతపదం ప్రవేశపెట్టుము."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
+msgid "Username and/or password invalid. Please try again"
+msgstr "వాడుకరిపేరు మరియు/లేదా సంకేతపదం తప్పు. దయచేసి మరలా ప్రయత్నించండి"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
+msgid "Invalid User Name or Password"
+msgstr "చెల్లని వాడుకరి పేరు లేదా సంకేతపదం"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "UI లోడు చేయలేదు: %s"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr "మీరు Tumblr కు %s వలే లాగినై వున్నారు.\n\n"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
+msgid "A temporary file needed for publishing is unavailable"
+msgstr "ప్రచురణకు అవసరమైన తాత్కాలిక ఫైలు అందుబాటులో లేదు"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
@@ -30,6 +89,48 @@ msgstr "Yandex.Fotki వెబ్‌సైటుని సందర్శిం�
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "మీరు ప్రస్తుతం Yandex.Fotki లోనికి ప్రవేశించిలేరు."
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
+msgid "label"
+msgstr "లేబుల్"
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:49
+msgid "_Email address"
+msgstr "ఈమెయిల్ చిరునామా (_E)"
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:59
+msgid "_Password"
+msgstr "సంకేతపదం (_P)"
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:107
+msgid "Login"
+msgstr "ప్రవేశించు"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Tumblr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr "మీరు Tumblr కు (name) వలే లాగినై వున్నారు.\n\n(ఈ లేబుల్ యొక్క స్ట్రింగ్ కొడ్ లోపల అమర్చబడివుంది, \nకనుక యిక్కడ చేసిన మార్పులు ప్రదర్శించబడవు)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
+msgid "Blogs:"
+msgstr "బ్లాగ్స్:"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
+msgid "Photo _size:"
+msgstr "ఫోటో పరిమాణం (_s):"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
+msgid "_Logout"
+msgstr "నిష్క్రమించు (_L)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
+msgid "_Publish"
+msgstr "ప్రచురించు (_P)"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
 msgid "_Albums (or write new):"
@@ -46,11 +147,3 @@ msgstr "వ్యాఖ్యలను అచేతనపరుచు (_c)"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
 msgid "_Forbid downloading original photo"
 msgstr "అసలు ఫొటో డౌన్‌లోడును నిషేదించు (_F)"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
-msgid "_Logout"
-msgstr "నిష్క్రమించు (_L)"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
-msgid "_Publish"
-msgstr "ప్రచురించు (_P)"
