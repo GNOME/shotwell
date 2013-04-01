@@ -71,7 +71,8 @@ msgstr "Δεν ήταν δυνατή η φόρτωση της διεπιφάνε
 msgid ""
 "You are logged into Tumblr as %s.\n"
 "\n"
-msgstr "Είστε συνδεδεμένοι στο Tumblr ως %s. \\n\\n"
+msgstr "Είστε συνδεδεμένοι στο Tumblr ως %s. \n"
+"\n"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
 msgid "A temporary file needed for publishing is unavailable"
