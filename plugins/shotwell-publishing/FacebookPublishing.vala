@@ -1357,10 +1357,16 @@ internal class GraphSession {
         
         public GraphUploadMessage(GraphSession host_session, string access_token,
             string relative_uri, Spit.Publishing.Publishable publishable,
-            bool suppress_titling) {
+            bool suppress_titling, string? resource_privacy = null) {
             base(host_session, Publishing.RESTSupport.HttpMethod.POST, relative_uri, access_token,
                 (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
                 Endpoint.VIDEO : Endpoint.DEFAULT);
+            
+            // Video uploads require a privacy string at the per-resource level. Since they aren't
+            // placed in albums, they can't inherit their privacy settings from their containing
+            // album like photos do
+            assert(publishable.get_media_type() != Spit.Publishing.Publisher.MediaType.VIDEO ||
+                resource_privacy != null);
             
             this.publishable = publishable;
             
@@ -1383,6 +1389,9 @@ internal class GraphSession {
             Soup.Multipart mp_envelope = new Soup.Multipart("multipart/form-data");
             
             mp_envelope.append_form_string("access_token", access_token);
+            
+            if (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO)
+                mp_envelope.append_form_string("privacy", resource_privacy);
             
             string publishable_title = publishable.get_publishing_name();
             if (!suppress_titling && publishable_title != "")
@@ -1413,7 +1422,7 @@ internal class GraphSession {
             string album_name, string album_privacy) {
             base(host_session, Publishing.RESTSupport.HttpMethod.POST, "/me/albums", access_token);
             
-            assert(album_privacy != null || album_privacy != "");
+            assert(album_privacy != null && album_privacy != "");
             
             this.soup_message = new Soup.Message.from_uri(method.to_string(), new Soup.URI(uri));
             
@@ -1550,9 +1559,9 @@ internal class GraphSession {
     }
 
     public GraphMessage new_upload(string resource_path, Spit.Publishing.Publishable publishable,
-        bool suppress_titling) {
+        bool suppress_titling, string? resource_privacy = null) {
         return new GraphUploadMessage(this, access_token, resource_path, publishable,
-            suppress_titling);
+            suppress_titling, resource_privacy);
     }
     
     public GraphMessage new_create_album(string album_name, string privacy) {
@@ -1606,8 +1615,11 @@ internal class Uploader {
         string resource_uri =
             (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.PHOTO) ?
             "/%s/photos".printf(publishing_params.get_target_album_id()) : "/me/videos";
+        string? resource_privacy =
+            (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
+            publishing_params.privacy_object : null;
         GraphMessage upload_message = session.new_upload(resource_uri, publishable,
-            publishing_params.strip_metadata);
+            publishing_params.strip_metadata, resource_privacy);
 
         upload_message.data_transmitted.connect(on_chunk_transmitted);
         upload_message.completed.connect(on_message_completed);
