@@ -2,7 +2,7 @@ PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 PROGRAM_MIGRATOR = shotwell-settings-migrator
 
-VERSION = 0.14.0+branch
+VERSION = 0.14.1
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
