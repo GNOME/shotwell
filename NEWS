@@ -1,3 +1,23 @@
+Shotwell 0.14.1 - 3 April 2013 - "The Core, Stem, Seeds, Everything"
+----------------------------------------------------------------------------
+
+  * Fixes a critical issue where Shotwell could close unexpectedly
+    when working with RAW photos in direct-edit mode
+  * The Facebook Connector now recovers smoothly from type 7
+    errors
+  * EXIF-oriented photos uploaded to Facebook now appear in their
+    correct orientation, even when the strip metadata option is
+    turned on in the Facebook Connector
+  * Fixes an issue where incorrect view filter settings were
+    applied on tag and event pages
+  * The Camera Developer is now disabled for RAW images that lack
+    a suitable paired or embedded JPEG
+  * Updated translations for many languages, including an updated
+    Catalan translation that corrects a problem where incorrect
+    event dates were displayed
+  * Assorted smaller bug fixes
+
+
 Shotwell 0.14.0 - 18 March 2013 - "The Baby Shower"
 ----------------------------------------------------------------------------
 
