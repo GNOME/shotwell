@@ -1,3 +1,27 @@
+shotwell (0.14.1-1~quantal1) quantal; urgency=low
+
+  * Fixes a critical issue where Shotwell could
+    close unexpectedly when working with RAW photos
+    in direct-edit mode
+  * The Facebook Connector now recovers smoothly
+    from type 7 errors
+  * EXIF-oriented photos uploaded to Facebook now
+    appear in their correct orientation, even when
+    the strip metadata option is turned on
+  * Fixes an issue where incorrect view filter
+    settings were applied on tag and event pages
+  * The Camera Developer is now disabled for RAW
+    images that lack a suitable paired or embedded
+    JPEG preview
+  * Updated translations for many languages,
+    including an updated Catalan translation that
+    corrects a problem where incorrect event dates
+    were displayed
+  * Assorted other bug fixes
+
+ -- Lucas Beeler <lucas@yorba.org>  Wed, 3 Apr 2013 10:59:20 -0700
+
+
 shotwell (0.14.0-1~quantal1) quantal; urgency=low
 
   * A folder tree in the sidebar provides a directory-
