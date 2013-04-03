@@ -1386,9 +1386,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
     private void swap_in_original() {
         Gdk.Pixbuf? original;
-
-        original = get_photo().get_prefetched_copy();
-
+        
+        original =
+            get_photo().get_original_orientation().rotate_pixbuf(get_photo().get_prefetched_copy());
+        
         if (original == null)
             return;
         
