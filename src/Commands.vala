@@ -892,8 +892,8 @@ public abstract class MovePhotosCommand : Command {
         }
         
         public override void execute() {
+            // Are we at an event page already?
             if ((LibraryWindow.get_app().get_current_page() is EventPage)) {
-                
                 Event evt = ((EventPage) LibraryWindow.get_app().get_current_page()).get_event();
                 
                 // Will moving these empty this event?
@@ -902,9 +902,17 @@ public abstract class MovePhotosCommand : Command {
                     // entries and is going to be removed.
                     LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
                 }
+            } else {
+                // We're in a library or tag page.
                 
-                // Otherwise - don't jump; users found the jumping disconcerting.
+                // Are we moving these to a newly-created (and therefore empty) event?
+                if (((Event) new_event_proxy.get_source()).get_media_count() == 0) {
+                    // Yes - jump to the new event.
+                    LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
+                }
             }
+            
+            // Otherwise - don't jump; users found the jumping disconcerting.
             
             // create the new event
             base.execute();
