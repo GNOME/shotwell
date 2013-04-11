@@ -4,13 +4,12 @@
  * See the COPYING file in this distribution.
  */
 
-private abstract class Properties : Gtk.Table {
+private abstract class Properties : Gtk.Grid {
     uint line_count = 0;
 
     public Properties() {
         row_spacing = 0;
         column_spacing = 6;
-        set_homogeneous(false);
     }
 
     protected void add_line(string label_text, string info_text, bool multi_line = false) {
@@ -49,13 +48,12 @@ private abstract class Properties : Gtk.Table {
             info = (Gtk.Widget) info_label;
         }
 
-        attach(label, 0, 1, line_count, line_count + 1, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL, 0, 0);
+        attach(label, 0, (int) line_count, 1, 1);
 
         if (multi_line) {
-            attach(info, 1, 2, line_count, line_count + 1, Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 0, 0);
+            attach(info, 1, (int) line_count, 1, 2);
         } else {
-            attach_defaults(info, 1, 2, line_count, line_count + 1);
+            attach(info, 1, (int) line_count, 1, 1);
         }
 
         line_count++;
