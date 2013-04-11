@@ -12,6 +12,9 @@ public class ImportQueuePage : SinglePhotoPage {
     private BatchImport current_batch = null;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private bool stopped = false;
+    private const int PULSE_WAIT_TIMEOUT = 2500; // in msec.
+    private const int EVENT_SPIN_TIMEOUT = 1000;
+    private bool pulsing = false;
 
 #if UNITY_SUPPORT
     UnityProgressBar uniprobar = UnityProgressBar.get_instance();
@@ -128,10 +131,31 @@ public class ImportQueuePage : SinglePhotoPage {
         double pct = (completed_bytes <= total_bytes) ? (double) completed_bytes / (double) total_bytes
             : 0.0;
         progress_bar.set_fraction(pct);
+        pulsing = false;
+        if (completed_bytes < total_bytes)
+            Timeout.add(PULSE_WAIT_TIMEOUT, on_pulse_wait);
+        
 #if UNITY_SUPPORT
         //UnityProgressBar: set progress
         uniprobar.set_progress(pct);
 #endif
+    }
+    
+    // If we've gone a set amount of time without a progress bar update, switch back
+    // to pulsing; this is most likely to happen on larger files where the app should
+    // animate to let the user know it is still loading and not wedged.
+    private bool on_pulse_wait() {
+        progress_bar.pulse();
+        pulsing = true;
+        // Try to force the ui to animate at least a little (due to i/o,
+        // it doesn't always happen as reliably as we'd like).
+        Timeout.add(EVENT_SPIN_TIMEOUT, event_loop_spinner);
+        return false;
+    }
+    
+    private bool event_loop_spinner() {
+        spin_event_loop();
+        return pulsing;
     }
     
     private void on_imported(ThumbnailSource source, Gdk.Pixbuf pixbuf, int to_follow) {
@@ -152,6 +176,7 @@ public class ImportQueuePage : SinglePhotoPage {
     
     private void on_import_complete(BatchImport batch_import, ImportManifest manifest,
         BatchImportRoll import_roll) {
+        
         assert(batch_import == current_batch);
         current_batch = null;
         
