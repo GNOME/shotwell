@@ -2397,6 +2397,8 @@ public class FlagUnflagCommand : MultipleDataSourceAtOnceCommand {
     private const int MIN_PROGRESS_BAR_THRESHOLD = 1000;
     private const string FLAG_SELECTED_STRING = _("Flag selected photos");
     private const string UNFLAG_SELECTED_STRING = _("Unflag selected photos");
+    private const string FLAG_PROGRESS = _("Flagging selected photos");
+    private const string UNFLAG_PROGRESS = _("Unflagging selected photos");
     
     private bool flag;
     private ProgressDialog progress_dialog = null;
@@ -2410,7 +2412,7 @@ public class FlagUnflagCommand : MultipleDataSourceAtOnceCommand {
         
         if (sources.size >= MIN_PROGRESS_BAR_THRESHOLD) {
             progress_dialog = new ProgressDialog(null,
-                flag ? FLAG_SELECTED_STRING : UNFLAG_SELECTED_STRING);
+                flag ? FLAG_PROGRESS : UNFLAG_PROGRESS);
             
             progress_dialog.show_all();
         }
