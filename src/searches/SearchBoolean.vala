@@ -277,14 +277,19 @@ public class SearchConditionText : SearchCondition {
         bool ret = false;
         
         if (SearchType.ANY_TEXT == search_type || SearchType.TITLE == search_type) {
-            ret |= string_match(text, (source.get_title() != null) ? source.get_title().down() : null);
+            string title = source.get_title();
+            if(title != null){
+                ret |= string_match(text, String.remove_diacritics(title.down()));
+            }
         }
         
         if (SearchType.ANY_TEXT == search_type || SearchType.TAG == search_type) {
             Gee.List<Tag>? tag_list = Tag.global.fetch_for_source(source);
             if (null != tag_list) {
+                string itag;
                 foreach (Tag tag in tag_list) {
-                    ret |= string_match(text, tag.get_user_visible_name().down());
+                    itag = tag.get_searchable_name().down(); // get_searchable already remove diacritics
+                    ret |= string_match(text, itag);
                 }
             } else {
                 ret |= string_match(text, null); // for IS_NOT_SET
@@ -293,12 +298,12 @@ public class SearchConditionText : SearchCondition {
         
         if (SearchType.ANY_TEXT == search_type || SearchType.EVENT_NAME == search_type) {
             string? event_name = (null != source.get_event()) ? 
-                source.get_event().get_name().down() : null;
+                String.remove_diacritics(source.get_event().get_name().down()) : null;
             ret |= string_match(text, event_name);
         }
         
         if (SearchType.ANY_TEXT == search_type || SearchType.FILE_NAME == search_type) {
-            ret |= string_match(text, source.get_basename().down());
+            ret |= string_match(text, String.remove_diacritics(source.get_basename().down()));
         }
 
         return (context == Context.DOES_NOT_CONTAIN) ? !ret : ret;

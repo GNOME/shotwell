@@ -19,7 +19,9 @@ public interface Indexable : DataSource {
     public abstract unowned string? get_indexable_keywords();
     
     public static string? prepare_indexable_string(string? str) {
-        return !is_string_empty(str) ? str.down() : null;
+        if(is_string_empty(str))
+            return null;
+        return String.remove_diacritics(str.down());
     }
     
     public static string? prepare_indexable_strings(string[]? strs) {

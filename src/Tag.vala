@@ -721,6 +721,11 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     public string get_user_visible_name() {
         return HierarchicalTagUtilities.get_basename(get_path());
     }
+
+    public string get_searchable_name() {
+        string istring = HierarchicalTagUtilities.get_basename(get_path()).down().normalize();
+        return String.remove_diacritics(istring);
+    }
     
     public void flatten() {
         assert (get_hierarchical_parent() == null);
@@ -936,7 +941,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     }
     
     private void update_indexable_keywords() {
-        indexable_keywords = prepare_indexable_string(get_user_visible_name());
+        indexable_keywords = prepare_indexable_string(get_searchable_name());
     }
     
     public unowned string? get_indexable_keywords() {

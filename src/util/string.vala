@@ -12,14 +12,17 @@ public inline bool is_string_empty(string? s) {
     return (s == null || s[0] == '\0');
 }
 
+// utf8 case sensitive compare
 public int utf8_cs_compare(void *a, void *b) {
     return ((string) a).collate((string) b);
 }
 
+// utf8 case insensitive compare
 public int utf8_ci_compare(void *a, void *b) {
     return ((string) a).down().collate(((string) b).down());
 }
 
+// utf8 array to string
 public string uchar_array_to_string(uchar[] data, int length = -1) {
     if (length < 0)
         length = data.length;
@@ -35,6 +38,7 @@ public string uchar_array_to_string(uchar[] data, int length = -1) {
     return builder.str;
 }
 
+// string to uchar array
 public uchar[] string_to_uchar_array(string str) {
     uchar[] data = new uchar[0];
     for (int ctr = 0; ctr < str.length; ctr++)
@@ -175,6 +179,26 @@ public string strip_leading_zeroes(string str) {
     }
     
     return stripped.str;
+}
+
+public string remove_diacritics(string istring) {
+    var builder = new StringBuilder ();
+    unichar ch;
+    int i = 0;
+    while(istring.get_next_char(ref i, out ch)) {
+        switch(ch.type()) {
+            case UnicodeType.CONTROL:
+            case UnicodeType.FORMAT:
+            case UnicodeType.UNASSIGNED:
+            case UnicodeType.NON_SPACING_MARK:
+            case UnicodeType.COMBINING_MARK:
+            case UnicodeType.ENCLOSING_MARK:
+            // Ignore those
+                continue;
+        }
+        builder.append_unichar(ch);
+    }
+    return builder.str;
 }
 
 public string to_hex_string(string str) {
