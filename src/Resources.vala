@@ -478,19 +478,20 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
     }
 
-    // TODO: remove unicode stars from the code, replace with HTML escape
+    private const int[] rating_thresholds = { 0, 1, 25, 50, 75, 99 };
+
     private string get_stars(Rating rating) {
         switch (rating) {
             case Rating.ONE:
-                return "★";
+                return "\xE2\x98\x85";
             case Rating.TWO:
-                return "★★";
+                return "\xE2\x98\x85\xE2\x98\x85";
             case Rating.THREE:
-                return "★★★";
+                return "\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85";
             case Rating.FOUR:
-                return "★★★★";
+                return "\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85";
             case Rating.FIVE:
-                return "★★★★★";
+                return "\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85";
             default:
                 return "";
         }
