@@ -7,8 +7,11 @@ GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
 ifndef VALAC
-VALAC := valac
+VALAC := $(shell which valac)
+else
+VALAC := $(shell which $VALAC)
 endif
+
 VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
 MIN_VALAC_VERSION := 0.18.0
 INSTALL_PROGRAM := install
@@ -446,8 +449,8 @@ PLUGIN_CFLAGS = -O2 -g -pipe
 endif
 endif
 
-CFLAGS += $(REQUIRED_CFLAGS)
-PLUGIN_CFLAGS += $(REQUIRED_CFLAGS)
+CFLAGS += $(PROFILE_FLAGS) $(REQUIRED_CFLAGS)
+PLUGIN_CFLAGS += $(PROFILE_FLAGS) $(REQUIRED_CFLAGS)
 
 # Required for gudev-1.0
 CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE

@@ -18,6 +18,7 @@ configure_help() {
     printf "\t--build=DIR\t\tBuild secondary files in DIR.\n"
     printf "\t--debug | --release\tBuild executable for debugging or release.\n"
     printf "\t\t\t\t[--release]\n"
+    printf "\t--profile\t\tEnable profiling support during C compile & link.\n"
     printf "\t--prefix=PREFIX\t\tPrepend PREFIX to program installation paths.\n"
     printf "\t\t\t\t[/usr/local]\n"
     printf "\t--lib=LIBNAME\t\tSet system library directory name to LIBNAME\n\t\t\t\t(usually 'lib' or 'lib64').\n"
@@ -92,6 +93,9 @@ do
                             ;;
         
         --debug)            variables="${variables}BUILD_RELEASE=\nBUILD_DEBUG=1\n"
+                            ;;
+        
+        --profile)          variables="${variables}PROFILE_FLAGS=-pg\n"
                             ;;
         
         --release)          variables="${variables}BUILD_DEBUG=\nBUILD_RELEASE=1\n"
