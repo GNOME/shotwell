@@ -3575,7 +3575,8 @@ public abstract class Photo : PhotoSource, Dateable {
         
         // Since JPEGs can store their own orientation, we save the pixels
         // directly and let the orientation field do the rotation...
-        if (get_file_format() == PhotoFileFormat.JFIF) {
+        if ((get_file_format() == PhotoFileFormat.JFIF) || 
+            (get_file_format() == PhotoFileFormat.RAW)) {
             pixbuf = get_pixbuf_with_options(scaling, Exception.ORIENTATION,
                 BackingFetchMode.SOURCE);
         } else {
@@ -3616,7 +3617,8 @@ public abstract class Photo : PhotoSource, Dateable {
         // to make sure the orientation propagates. Also, because JPEGs
         // can store their own orientation, we'll save the original dimensions
         // directly and let the orientation field do the rotation there.
-        if (get_file_format() == PhotoFileFormat.JFIF) {
+        if ((get_file_format() == PhotoFileFormat.JFIF) || 
+            (get_file_format() == PhotoFileFormat.RAW)) {
             metadata.set_pixel_dimensions(get_dimensions(Exception.ORIENTATION));
             metadata.set_orientation(get_orientation());
         } else {
