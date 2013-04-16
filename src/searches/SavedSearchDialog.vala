@@ -80,6 +80,7 @@ public class SavedSearchDialog {
                 case SearchCondition.SearchType.EVENT_NAME:
                 case SearchCondition.SearchType.FILE_NAME:
                 case SearchCondition.SearchType.TAG:
+                case SearchCondition.SearchType.COMMENT:
                 case SearchCondition.SearchType.TITLE:
                     my_row = new SearchRowText(this);
                     break;

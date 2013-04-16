@@ -55,11 +55,12 @@ public abstract class SearchCondition {
         MEDIA_TYPE,
         FLAG_STATE,
         RATING,
+        COMMENT,
         DATE;
         // Note: when adding new types, be sure to update all functions below.
         
         public static SearchType[] as_array() {
-            return { ANY_TEXT, TITLE, TAG, EVENT_NAME, FILE_NAME, 
+            return { ANY_TEXT, TITLE, TAG, COMMENT, EVENT_NAME, FILE_NAME, 
                      MEDIA_TYPE, FLAG_STATE, RATING, DATE };
         }
         
@@ -81,6 +82,9 @@ public abstract class SearchCondition {
                 
                 case SearchType.TAG:
                     return "TAG";
+
+                case SearchType.COMMENT:
+                    return "COMMENT";
                 
                 case SearchType.EVENT_NAME:
                     return "EVENT_NAME";
@@ -114,6 +118,9 @@ public abstract class SearchCondition {
             
             else if (str == "TAG")
                 return SearchType.TAG;
+
+            else if (str == "COMMENT")
+                return SearchType.COMMENT;
             
             else if (str == "EVENT_NAME")
                 return SearchType.EVENT_NAME;
@@ -148,6 +155,9 @@ public abstract class SearchCondition {
                 case SearchType.TAG:
                     return _("Tag");
                 
+                case SearchType.COMMENT:
+                    return _("Comment");
+
                 case SearchType.EVENT_NAME:
                     return _("Event name");
                 
@@ -276,6 +286,7 @@ public class SearchConditionText : SearchCondition {
     public override bool predicate(MediaSource source) {
         bool ret = false;
         
+        // title
         if (SearchType.ANY_TEXT == search_type || SearchType.TITLE == search_type) {
             string title = source.get_title();
             if(title != null){
@@ -283,6 +294,7 @@ public class SearchConditionText : SearchCondition {
             }
         }
         
+        // tags
         if (SearchType.ANY_TEXT == search_type || SearchType.TAG == search_type) {
             Gee.List<Tag>? tag_list = Tag.global.fetch_for_source(source);
             if (null != tag_list) {
@@ -296,12 +308,21 @@ public class SearchConditionText : SearchCondition {
             }
         }
         
+        // event name
         if (SearchType.ANY_TEXT == search_type || SearchType.EVENT_NAME == search_type) {
             string? event_name = (null != source.get_event()) ? 
                 String.remove_diacritics(source.get_event().get_name().down()) : null;
             ret |= string_match(text, event_name);
         }
+
+        // comment
+        if (SearchType.ANY_TEXT == search_type || SearchType.COMMENT == search_type) {
+            string? comment = source.get_comment();
+            if(null != comment)
+                ret |= string_match(text, String.remove_diacritics(comment.down()));
+        }
         
+        // file name
         if (SearchType.ANY_TEXT == search_type || SearchType.FILE_NAME == search_type) {
             ret |= string_match(text, String.remove_diacritics(source.get_basename().down()));
         }

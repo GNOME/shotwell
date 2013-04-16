@@ -340,6 +340,16 @@ private VerifyResult upgrade_database(int input_version) {
     
     version = 19;
     
+    // 
+    // Version 20:
+    // * No change to database schema but fixing issue #6541 ("Saved searches should be aware of
+    //   comments") added a new enumeration value that is stored in the SavedSearchTable. The
+    //   presence of this heretofore unseen enumeration value will cause prior versions of
+    //   Shotwell to yarf, so we bump the version here to ensure this doesn't happen
+    //
+    
+    version = 20;
+    
     //
     // Finalize the upgrade process
     //
