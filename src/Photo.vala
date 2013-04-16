@@ -206,6 +206,11 @@ public abstract class Photo : PhotoSource, Dateable {
     // PhotoPage.
     private const int MIN_EMBEDDED_SIZE = 1024;
     
+    // Here, we cache the exposure time to avoid paying to access the row every time we
+    // need to know it. This is initially set in the constructor, and updated whenever
+    // the exposure time is set (please see set_exposure_time() for details).
+    private time_t cached_exposure_time;
+    
     public enum Exception {
         NONE            = 0,
         ORIENTATION     = 1 << 0,
@@ -446,6 +451,8 @@ public abstract class Photo : PhotoSource, Dateable {
                 backing_photo_row = this.row.master;
             }
         }
+
+        cached_exposure_time = this.row.exposure_time;
     }
     
     protected virtual void notify_editable_replaced(File? old_file, File? new_file) {
@@ -2262,11 +2269,9 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     public override time_t get_exposure_time() {
-        lock (row) {
-            return row.exposure_time;
-        }
+        return cached_exposure_time;
     }
-    
+   
     public override string get_basename() {
         lock (row) {
             return file_title;
@@ -2398,8 +2403,10 @@ public abstract class Photo : PhotoSource, Dateable {
         bool committed;
         lock (row) {
             committed = PhotoTable.get_instance().set_exposure_time(row.photo_id, time);
-            if (committed)
+            if (committed) {
                 row.exposure_time = time;
+                cached_exposure_time = time;
+            }
         }
         
         if (committed)
