@@ -345,8 +345,11 @@ void main(string[] args) {
     }
     
     if (CommandlineOptions.show_version) {
-        print("%s %s\n", Resources.APP_TITLE, Resources.APP_VERSION);
-        
+        if (Resources.GIT_VERSION != null)
+            print("%s %s (%s)\n", Resources.APP_TITLE, Resources.APP_VERSION, Resources.GIT_VERSION);
+        else
+            print("%s %s\n", Resources.APP_TITLE, Resources.APP_VERSION);
+
         AppDirs.terminate();
         
         return;
@@ -373,9 +376,15 @@ void main(string[] args) {
     }
     
     Debug.init(is_string_empty(filename) ? Debug.LIBRARY_PREFIX : Debug.VIEWER_PREFIX);
-    message("Shotwell %s %s",
-        is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
-        Resources.APP_VERSION);
+
+    if (Resources.GIT_VERSION != null)
+        message("Shotwell %s %s (%s)",
+            is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
+            Resources.APP_VERSION, Resources.GIT_VERSION);
+    else
+        message("Shotwell %s %s",
+            is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
+            Resources.APP_VERSION);
         
     // Have a filename here?  If so, configure ourselves for direct
     // mode, otherwise, default to library mode.

@@ -3,6 +3,7 @@ PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 PROGRAM_MIGRATOR = shotwell-settings-migrator
 
 VERSION = 0.14.1+trunk
+GITVER := $(shell git log -n 1 2>/dev/null | head -n 1 | awk '{print $$2}')
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -53,6 +54,11 @@ endif
 
 DEFINES := _PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
 	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIB='"${LIB}"'
+
+ifdef GITVER
+DEFINES := $(DEFINES) _GIT_VERSION='"$(GITVER)"'
+VALAFLAGS := $(VALAFLAGS) --define=_GITVERSION
+endif
 
 EXPORT_FLAGS = -export-dynamic
 

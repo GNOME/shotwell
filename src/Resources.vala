@@ -9,12 +9,20 @@ extern const string _PREFIX;
 extern const string _VERSION;
 extern const string GETTEXT_PACKAGE;
 extern const string _LIB;
+extern const string? _GIT_VERSION;
 
 namespace Resources {
     public const string APP_TITLE = "Shotwell";
     public const string APP_LIBRARY_ROLE = _("Photo Manager");
     public const string APP_DIRECT_ROLE = _("Photo Viewer");
     public const string APP_VERSION = _VERSION;
+
+#if _GITVERSION
+    public const string? GIT_VERSION = _GIT_VERSION;
+#else
+    public const string? GIT_VERSION = null;
+#endif
+
     public const string COPYRIGHT = _("Copyright 2009-2013 Yorba Foundation");
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
