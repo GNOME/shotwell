@@ -32,7 +32,17 @@ public class Folders.Branch : Sidebar.Branch {
         if (a == b)
             return 0;
         
-        return strcmp(((Folders.SidebarEntry) a).collation, ((Folders.SidebarEntry) b).collation);
+        int coll_key_equality = strcmp(((Folders.SidebarEntry) a).collation,
+            ((Folders.SidebarEntry) b).collation);
+        
+        if (coll_key_equality == 0) {
+            // Collation keys were the same, double-check that
+            // these really are the same string...
+            return strcmp(((Folders.SidebarEntry) a).get_sidebar_name(), 
+                ((Folders.SidebarEntry) b).get_sidebar_name());
+        }
+        
+        return coll_key_equality;
     }
     
     private void on_media_contents_altered(Gee.Iterable<DataObject>? added, Gee.Iterable<DataObject>? removed) {
