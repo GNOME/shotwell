@@ -1285,6 +1285,7 @@ public class LibraryWindow : AppWindow {
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
         scrolled_sidebar.add(sidebar_tree);
+        scrolled_sidebar.get_style_context().add_class(Gtk.STYLE_CLASS_SIDEBAR);
         scrolled_sidebar.set_shadow_type(Gtk.ShadowType.IN);
         get_style_context().add_class("sidebar-pane-separator");
         
