@@ -69,8 +69,7 @@ public class ViewCollection : DataCollection {
     
     // TODO: source-to-view mapping ... for now, only one view is allowed for each source.
     // This may need to change in the future.
-    private Gee.HashMap<DataSource, DataView> source_map = new Gee.HashMap<DataSource, DataView>(
-        direct_hash, direct_equal, direct_equal);
+    private Gee.HashMap<DataSource, DataView> source_map = new Gee.HashMap<DataSource, DataView>();
     
     // Signal aggregator.
     public virtual signal void items_selected(Gee.Iterable<DataView> selected) {

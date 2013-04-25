@@ -21,8 +21,8 @@ public struct VideoID {
         return (id != INVALID);
     }
     
-    public static uint hash(void *a) {
-        return int64_hash(&((VideoID *) a)->id);
+    public static uint hash(VideoID? a) {
+        return int64_hash(a.id);
     }
     
     public static bool equal(void *a, void *b) {

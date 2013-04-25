@@ -20,11 +20,11 @@ public struct PhotoID {
     public bool is_valid() {
         return (id != INVALID);
     }
-    
-    public static uint hash(void *a) {
-        return int64_hash(&((PhotoID *) a)->id);
+
+    public uint hash() {
+        return int64_hash(id);
     }
-    
+
     public static bool equal(void *a, void *b) {
         return ((PhotoID *) a)->id == ((PhotoID *) b)->id;
     }
@@ -59,14 +59,9 @@ public struct ImportID {
         return (id != INVALID);
     }
     
-    public static int compare_func(void *a, void *b) {
-        int64 cmp = comparator(a, b);
-        if (cmp < 0)
-            return -1;
-        else if (cmp > 0)
-            return 1;
-        else
-            return 0;
+    public static int compare_func(ImportID? a, ImportID? b) {
+        assert (a != null && b != null);
+        return (int) (a.id - b.id);
     }
     
     public static int64 comparator(void *a, void *b) {
@@ -763,8 +758,7 @@ public class PhotoTable : DatabaseTable {
             if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                 return null;
             
-            Gee.HashMap<string, KeyValueMap> map = new Gee.HashMap<string, KeyValueMap>(str_hash,
-                str_equal, direct_equal);
+            Gee.HashMap<string, KeyValueMap> map = new Gee.HashMap<string, KeyValueMap>();
             
             string[] objects = keyfile.get_groups();
             foreach (string object in objects) {

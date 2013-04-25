@@ -6,8 +6,7 @@
 
 public class KeyValueMap {
     private string group;
-    private Gee.HashMap<string, string> map = new Gee.HashMap<string, string>(str_hash, str_equal,
-        str_equal);
+    private Gee.HashMap<string, string> map = new Gee.HashMap<string, string>();
     
     public KeyValueMap(string group) {
         this.group = group;

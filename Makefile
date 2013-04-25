@@ -299,7 +299,7 @@ LOCAL_PKGS = \
 EXT_PKGS = \
 	atk \
 	gdk-3.0 \
-	gee-1.0 \
+	gee-0.8 \
 	gexiv2 \
 	gio-unix-2.0 \
 	glib-2.0 \
@@ -323,14 +323,14 @@ endif
 
 THUMBNAILER_PKGS = \
     gtk+-3.0 \
-    gee-1.0 \
+    gee-0.8 \
     gstreamer-1.0 \
     gstreamer-base-1.0
 
 DIRECT_LIBS =
 
 EXT_PKG_VERSIONS = \
-	gee-1.0 >= 0.5.0 \
+	gee-0.8 >= 0.8.0 \
 	gexiv2 >= 0.4.90 \
 	gio-unix-2.0 >= 2.20 \
 	glib-2.0 >= $(MIN_GLIB_VERSION) \

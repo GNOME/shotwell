@@ -10,7 +10,7 @@ PLUGIN_PKG_REQS := \
 	glib-2.0 \
 	gdk-3.0 \
 	gtk+-3.0 \
-	gee-1.0
+	gee-0.8
 
 PLUGIN_VAPI := plugins/shotwell-plugin-dev-1.0.vapi
 PLUGIN_HEADER := $(PLUGIN_VAPI:.vapi=.h)

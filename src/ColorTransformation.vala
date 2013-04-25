@@ -50,7 +50,7 @@ public struct RGBAnalyticPixel {
         return (uchar)(blue * 255.0f);
     }
 
-    public bool equals(ref RGBAnalyticPixel rhs) {
+    public bool equals(RGBAnalyticPixel? rhs) {
         return ((red == rhs.red) && (green == rhs.green) && (blue == rhs.blue));
     }
 

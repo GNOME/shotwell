@@ -11,7 +11,7 @@
 // This collection cannot be used to store null.
 
 public class SingletonCollection<G> : Gee.AbstractCollection<G> {
-    private class SingletonIterator<G> : Gee.Iterator<G>, Object {
+    private class SingletonIterator<G> : Object, Gee.Traversable<G>, Gee.Iterator<G> {
         private SingletonCollection<G> c;
         private bool done = false;
         private G? current = null;
@@ -20,11 +20,16 @@ public class SingletonCollection<G> : Gee.AbstractCollection<G> {
             this.c = c;
         }
         
-        public bool first() {
-            done = false;
-            current = c.object;
-            
-            return current != null;
+        public bool read_only {
+            get { return done; }
+        }
+        
+        public bool valid {
+            get { return done; }
+        }
+        
+        public bool foreach(Gee.ForallFunc<G> f) {
+            return f(c.object);
         }
         
         public new G? get() {
@@ -59,6 +64,10 @@ public class SingletonCollection<G> : Gee.AbstractCollection<G> {
     
     public SingletonCollection(G object) {
         this.object = object;
+    }
+    
+    public override bool read_only {
+        get { return false; }
     }
     
     public override bool add(G object) {

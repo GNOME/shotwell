@@ -2849,7 +2849,7 @@ public abstract class Photo : PhotoSource, Dateable {
     private bool set_transformation(KeyValueMap trans) {
         lock (row) {
             if (row.transformations == null)
-                row.transformations = new Gee.HashMap<string, KeyValueMap>(str_hash, str_equal, direct_equal);
+                row.transformations = new Gee.HashMap<string, KeyValueMap>();
             
             row.transformations.set(trans.get_group(), trans);
             
@@ -4359,9 +4359,9 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     private Gee.MultiMap<int64?, LibraryPhoto> filesize_to_photo =
         new Gee.TreeMultiMap<int64?, LibraryPhoto>(int64_compare);
     private Gee.HashMap<LibraryPhoto, int64?> photo_to_master_filesize =
-        new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
+        new Gee.HashMap<LibraryPhoto, int64?>(null, null, int64_equal);
     private Gee.HashMap<LibraryPhoto, int64?> photo_to_editable_filesize =
-        new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
+        new Gee.HashMap<LibraryPhoto, int64?>(null, null, int64_equal);
     private Gee.MultiMap<LibraryPhoto, int64?> photo_to_raw_development_filesize =
         new Gee.TreeMultiMap<LibraryPhoto, int64?>();
     
@@ -5276,9 +5276,9 @@ public class LibraryPhotoSourceHoldingTank : MediaSourceHoldingTank {
     private Gee.HashMap<File, LibraryPhoto> development_file_map = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
     private Gee.MultiMap<LibraryPhoto, File> reverse_editable_file_map 
-        = new Gee.HashMultiMap<LibraryPhoto, File>(direct_hash, direct_equal, file_hash, file_equal);
+        = new Gee.HashMultiMap<LibraryPhoto, File>(null, null, file_hash, file_equal);
     private Gee.MultiMap<LibraryPhoto, File> reverse_development_file_map 
-        = new Gee.HashMultiMap<LibraryPhoto, File>(direct_hash, direct_equal, file_hash, file_equal);
+        = new Gee.HashMultiMap<LibraryPhoto, File>(null, null, file_hash, file_equal);
     
     public LibraryPhotoSourceHoldingTank(LibraryPhotoSourceCollection sources,
         SourceHoldingTank.CheckToKeep check_to_keep, GetSourceDatabaseKey get_key) {

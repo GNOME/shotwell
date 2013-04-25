@@ -468,7 +468,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
 	    	debug("ACTION: add publishable");
             sorted_list.add(p);
         }
-        sorted_list.sort((CompareFunc) tumblr_date_time_compare_func);
+        sorted_list.sort(tumblr_date_time_compare_func);
 		string blog_url = this.blogs[get_persistent_default_blog()].url;
     
         Uploader uploader = new Uploader(session, sorted_list.to_array(),blog_url);
@@ -995,7 +995,7 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
         // TODO: there must be a better way to iterate over a map
         Gee.MapIterator<string, string> i = base.message_headers.map_iterator();
-        bool cont = i.first();
+        bool cont = i.next();
         while(cont) {
             outbound_message.request_headers.append(i.get_key(), i.get_value());
             cont = i.next();

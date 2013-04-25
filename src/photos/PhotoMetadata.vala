@@ -255,7 +255,7 @@ public class PhotoMetadata : MediaMetadata {
         return exiv2.has_tag(tag);
     }
     
-    private Gee.Set<string> create_string_set(CompareFunc? compare_func) {
+    private Gee.Set<string> create_string_set(CompareDataFunc<string>? compare_func) {
         // ternary doesn't work here
         if (compare_func == null)
             return new Gee.HashSet<string>();
@@ -263,7 +263,8 @@ public class PhotoMetadata : MediaMetadata {
             return new FixedTreeSet<string>(compare_func);
     }
     
-    public Gee.Collection<string>? get_tags(MetadataDomain domain, CompareFunc? compare_func = null) {
+    public Gee.Collection<string>? get_tags(MetadataDomain domain,
+        CompareDataFunc<string>? compare_func = null) {
         string[] tags = null;
         switch (domain) {
             case MetadataDomain.EXIF:
@@ -289,7 +290,7 @@ public class PhotoMetadata : MediaMetadata {
         return collection;
     }
     
-    public Gee.Collection<string> get_all_tags(CompareFunc? compare_func = null) {
+    public Gee.Collection<string> get_all_tags(CompareDataFunc<string>? compare_func = null) {
         Gee.Collection<string> all_tags = create_string_set(compare_func);
         
         Gee.Collection<string>? exif_tags = get_tags(MetadataDomain.EXIF);
@@ -867,7 +868,7 @@ public class PhotoMetadata : MediaMetadata {
         new HierarchicalKeywordField("Xmp.MicrosoftPhoto.LastKeywordXMP", "/", false, true)
     };
     
-    public Gee.Set<string>? get_keywords(CompareFunc? compare_func = null) {
+    public Gee.Set<string>? get_keywords(CompareDataFunc<string>? compare_func = null) {
         Gee.Set<string> keywords = null;
         foreach (string tag in KEYWORD_TAGS) {
             Gee.Collection<string>? values = get_string_multiple(tag);

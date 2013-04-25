@@ -32,8 +32,7 @@ public class CameraTable {
     private GPhoto.CameraAbilitiesList abilities_list;
     private VolumeMonitor volume_monitor;
     
-    private Gee.HashMap<string, DiscoveredCamera> camera_map = new Gee.HashMap<string, DiscoveredCamera>(
-        str_hash, str_equal, direct_equal);
+    private Gee.HashMap<string, DiscoveredCamera> camera_map = new Gee.HashMap<string, DiscoveredCamera>();
 
     public signal void camera_added(DiscoveredCamera camera);
     
@@ -241,8 +240,7 @@ public class CameraTable {
         do_op(GPhoto.CameraList.create(out camera_list), "create camera list");
         do_op(abilities_list.detect(port_info_list, camera_list, null_context), "detect cameras");
         
-        Gee.HashMap<string, string> detected_map = new Gee.HashMap<string, string>(str_hash, str_equal,
-            str_equal);
+        Gee.HashMap<string, string> detected_map = new Gee.HashMap<string, string>();
         
         // walk the USB chain and find all PTP cameras; this is necessary for usb_esp
         string[] usb_cameras = get_all_usb_cameras();

@@ -173,16 +173,11 @@ public class ThemeLoader {
         return (int) (255.0f * (pixel_val_1.light_value - pixel_val_2.light_value));
     }
     
-    private static bool rgb_pixel_equal_func(void* pixval1, void* pixval2) {
-        RGBAnalyticPixel pixel_val_1 = * ((RGBAnalyticPixel*) pixval1);
-        RGBAnalyticPixel pixel_val_2 = * ((RGBAnalyticPixel*) pixval2);
-        
-        return (pixel_val_1.equals(ref pixel_val_2));
+    private static bool rgb_pixel_equal_func(RGBAnalyticPixel? p1, RGBAnalyticPixel? p2) {
+        return (p1.equals(p2));
     }
 
-    private static uint rgb_pixel_hash_func(void* pixval) {
-        RGBAnalyticPixel pixel_val = * ((RGBAnalyticPixel*) pixval);
-        
+    private static uint rgb_pixel_hash_func(RGBAnalyticPixel? pixel_val) {        
         return pixel_val.hash_code();
     }
 }

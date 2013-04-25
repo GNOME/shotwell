@@ -102,12 +102,12 @@ public class Alteration {
         return new Gee.HashMultiMap<string, string>(case_hash, case_equal, case_hash, case_equal);
     }
     
-    private static bool case_equal(void *a, void *b) {
-        return equal_values((string) a, (string) b);
+    private static bool case_equal(string? a, string? b) {
+        return equal_values(a, b);
     }
     
-    private static uint case_hash(void *a) {
-        return hash_value((string) a);
+    private static uint case_hash(string? a) {
+        return hash_value(a);
     }
     
     private static inline bool equal_values(string str1, string str2) {

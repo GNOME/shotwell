@@ -334,7 +334,7 @@ public class Events.Branch : Sidebar.Branch {
     }
     
     private void graft_event(Sidebar.Entry parent, Event event,
-        CompareFunc<Sidebar.Entry>? comparator = null) {
+        CompareDataFunc<Sidebar.Entry>? comparator = null) {
         Events.EventEntry entry = new Events.EventEntry(event);
         entry_map.set(event, entry);
         

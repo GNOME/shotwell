@@ -217,7 +217,7 @@ public string? get_pluggable_module_id(Spit.Pluggable needle) {
     return (module_rep != null) ? module_rep.spit_module.get_id() : null;
 }
 
-public Gee.Collection<ExtensionPoint> get_extension_points(CompareFunc? compare_func = null) {
+public Gee.Collection<ExtensionPoint> get_extension_points(CompareDataFunc? compare_func = null) {
     Gee.Collection<ExtensionPoint> sorted = new FixedTreeSet<ExtensionPoint>(compare_func);
     sorted.add_all(extension_points.values);
     
@@ -225,7 +225,7 @@ public Gee.Collection<ExtensionPoint> get_extension_points(CompareFunc? compare_
 }
 
 public Gee.Collection<Spit.Pluggable> get_pluggables_for_type(Type type,
-    CompareFunc? compare_func = null, bool include_disabled = false) {
+    CompareDataFunc? compare_func = null, bool include_disabled = false) {
     // if this triggers it means the extension point didn't register itself at init() time
     assert(extension_points.has_key(type));
     

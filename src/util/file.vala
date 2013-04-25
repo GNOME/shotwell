@@ -230,17 +230,12 @@ public uint64 count_files_in_directory(File dir) throws GLib.Error {
 }
 
 // Replacement for deprecated Gio.file_equal
-public bool file_equal(void* _a, void* _b) {
-    File? a = _a as File;
-    File? b = _b as File;
-    
+public bool file_equal(File? a, File? b) {
     return (a != null && b != null) ? a.equal(b) : false;
 }
 
 // Replacement for deprecated Gio.file_hash
-public uint file_hash(void* _file) {
-    File? file = _file as File;
-    
+public uint file_hash(File? file) {
     return file != null ? file.hash() : 0;
 }
 

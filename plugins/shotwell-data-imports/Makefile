@@ -4,7 +4,7 @@ PLUGIN := shotwell-data-imports
 PLUGIN_PKGS := \
 	gtk+-3.0 \
 	gexiv2 \
-	gee-1.0 \
+	gee-0.8 \
 	sqlite3
 
 SRC_FILES := \

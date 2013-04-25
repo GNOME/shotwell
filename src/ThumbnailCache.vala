@@ -184,9 +184,8 @@ public class ThumbnailCache : Object {
     private ulong max_cached_bytes;
     private Gdk.InterpType interp;
     private Jpeg.Quality quality;
-    private Gee.HashMap<string, ImageData> cache_map = new Gee.HashMap<string, ImageData>(
-        str_hash, str_equal, direct_equal);
-    private Gee.ArrayList<string> cache_lru = new Gee.ArrayList<string>(str_equal);
+    private Gee.HashMap<string, ImageData> cache_map = new Gee.HashMap<string, ImageData>();
+    private Gee.ArrayList<string> cache_lru = new Gee.ArrayList<string>();
     private ulong cached_bytes = 0;
     
     private ThumbnailCache(Size size, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,

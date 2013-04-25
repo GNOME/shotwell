@@ -629,7 +629,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         foreach (Spit.Publishing.Publishable p in publishables) {
             sorted_list.add(p);
         }
-        sorted_list.sort((CompareFunc) flickr_date_time_compare_func);
+        sorted_list.sort(flickr_date_time_compare_func);
         
         Uploader uploader = new Uploader(session, sorted_list.to_array(), parameters, strip_metadata);
         uploader.upload_complete.connect(on_upload_complete);

@@ -171,7 +171,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
     private const int DISCOVERED_FILES_BATCH_ADD = 500;
     private Gee.Collection<DirectPhoto> prepared_photos = new Gee.ArrayList<DirectPhoto>();
     private Gee.HashMap<File, DirectPhoto> file_map = new Gee.HashMap<File, DirectPhoto>(file_hash, 
-        file_equal, direct_equal);
+        file_equal);
     private DirectoryMonitor monitor;
     
     public DirectPhotoSourceCollection(File initial_file) {

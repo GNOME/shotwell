@@ -22,7 +22,7 @@ public int64 file_comparator(void *a, void *b) {
     return strcmp(g_utf8_collate_key_for_filename(path_a), g_utf8_collate_key_for_filename(path_b));
 }
 
-public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
+public class SortedList<G> : Object, Gee.Traversable<G>, Gee.Iterable<G>, Gee.Collection<G> {
     private Gee.ArrayList<G> list;
     private unowned Comparator? cmp;
     
@@ -35,8 +35,16 @@ public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
         get { return typeof(G); } 
     }
     
+    public bool read_only {
+        get { return list.read_only; }
+    }
+    
     public Gee.Iterator<G?> iterator() {
         return list.iterator();
+    }
+    
+    public bool foreach(Gee.ForallFunc<G> f) {
+        return list.foreach(f);
     }
     
     public bool add(G? item) {

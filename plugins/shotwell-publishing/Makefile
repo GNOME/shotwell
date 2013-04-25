@@ -8,7 +8,7 @@ PLUGIN_PKGS := \
 	webkitgtk-3.0 \
 	gexiv2 \
 	rest-0.7 \
-	gee-1.0 \
+	gee-0.8 \
 	json-glib-1.0
 
 SRC_FILES := \

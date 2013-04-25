@@ -103,11 +103,8 @@ public class Argument {
         this.value = value;
     }
 
-    public static int compare(void* p1, void* p2) {
-        Argument* arg1 = (Argument*) p1;
-        Argument* arg2 = (Argument*) p2;
-
-        return strcmp(arg1->key, arg2->key);
+    public static int compare(Argument arg1, Argument arg2) {
+        return strcmp(arg1.key, arg2.key);
     }
     
     public static Argument[] sort(Argument[] inputArray) {
@@ -442,7 +439,7 @@ public class UploadTransaction : Transaction {
             soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
         // TODO: there must be a better way to iterate over a map
         Gee.MapIterator<string, string> i = message_headers.map_iterator();
-        bool cont = i.first();
+        bool cont = i.next();
         while(cont) {
             outbound_message.request_headers.append(i.get_key(), i.get_value());
             cont = i.next();
@@ -666,7 +663,7 @@ public string asciify_string(string s) {
  * details. This class merely wraps it and adds a call to clear() to the destructor.
  */
 public class FixedTreeSet<G> : Gee.TreeSet<G> {
-    public FixedTreeSet(CompareFunc? comp_func = null) {
+    public FixedTreeSet(CompareDataFunc<G>? comp_func = null) {
         base(comp_func);
     }
     

@@ -6,7 +6,7 @@ PLUGIN_PKGS := \
 	libsoup-2.4 \
 	libxml-2.0 \
 	webkitgtk-3.0 \
-	gee-1.0 \
+	gee-0.8 \
 	rest-0.7 \
 	json-glib-1.0
 

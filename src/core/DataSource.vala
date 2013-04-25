@@ -517,17 +517,12 @@ public class SourceBacklink {
         return "Backlink %s=%s".printf(name, value);
     }
     
-    public static uint hash_func(void *key) {
-        SourceBacklink *backlink = (SourceBacklink *) key;
-        
-        return str_hash(backlink->_name) ^ str_hash(backlink->_value);
+    public static uint hash_func(SourceBacklink? backlink) {        
+        return str_hash(backlink._name) ^ str_hash(backlink._value);
     }
     
-    public static bool equal_func(void *a, void *b) {
-        SourceBacklink *alink = (SourceBacklink *) a;
-        SourceBacklink *blink = (SourceBacklink *) b;
-        
-        return str_equal(alink->_name, blink->_name) && str_equal(alink->_value, blink->_value);
+    public static bool equal_func(SourceBacklink? alink, SourceBacklink? blink) {       
+        return str_equal(alink._name, blink._name) && str_equal(alink._value, blink._value);
     }
 }
 

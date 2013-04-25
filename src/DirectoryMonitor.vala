@@ -128,8 +128,8 @@ public class DirectoryMonitor : Object {
     private class FileInfoMap {
         private Gee.HashMap<File, FileInfo> map = new Gee.HashMap<File, FileInfo>(file_hash,
             file_equal);
-        private Gee.HashMap<string, File> id_map = new Gee.HashMap<string, File>(str_hash,
-            str_equal, file_equal);
+        private Gee.HashMap<string, File> id_map = new Gee.HashMap<string, File>(null, null,
+            file_equal);
         
         public FileInfoMap() {
         }
