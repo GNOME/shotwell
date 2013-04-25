@@ -6,11 +6,12 @@ shotwell
 /misc/shotwell.desktop
 /misc/shotwell-viewer.desktop
 /plugins/shotwell-plugin-dev-1.0.vapi
+/plugins/shotwell-plugin-dev-1.0.deps
 /src/libshotwell.vapi
 /src/.unitize
 /thumbnailer/shotwell-video-thumbnailer
+/src/libshotwell.deps
 *.c
-*.deps
 *.h
 *.langstamp
 *.mo

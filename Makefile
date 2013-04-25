@@ -128,7 +128,14 @@ VAPI_FILES = \
 	LConv.vapi \
 	libexif.vapi \
 	libraw.vapi \
-	webkitgtk-3.0.vapi
+	webkitgtk-3.0.vapi \
+	unique-3.0.vapi \
+	unity.vapi
+
+DEPS_FILES = \
+	webkitgtk-3.0.deps \
+	unique-3.0.deps \
+	unity.deps
 
 ifdef WITH_GPHOTO_25
 GPHOTO_VAPI_FILE = vapi/gphoto-2.5/libgphoto2.vapi
@@ -403,6 +410,7 @@ EXPANDED_OBJ_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FIL
 EXPANDED_SYS_INTEGRATION_FILES := $(foreach file,$(SYS_INTEGRATION_FILES),misc/$(file))
 EXPANDED_ICON_FILES := $(foreach file,$(ICON_FILES),icons/$(file))
 EXPANDED_VAPI_FILES := $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
+EXPANDED_DEPS_FILES := $(foreach deps,$(DEPS_FILES),vapi/$(deps))
 EXPANDED_SRC_HEADER_FILES := $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
 EXPANDED_RESOURCE_FILES := $(foreach res,$(RESOURCE_FILES),ui/$(res))
 EXPANDED_HELP_FILES := $(foreach file,$(HELP_FILES),help/C/$(file))
@@ -414,8 +422,9 @@ PC_INPUT := shotwell-plugin-dev-1.0.m4
 PC_FILE := $(PC_INPUT:.m4=.pc)
 
 DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAPI_FILES) \
-	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
-	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_CORE_PO_FILES) $(EXPANDED_EXTRAS_PO_FILES) \
+	$(EXPANDED_DEPS_FILES) $(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) \
+	$(EXPANDED_ICON_FILES) $(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_CORE_PO_FILES) \
+	$(EXPANDED_EXTRAS_PO_FILES) \
 	po/shotwell-core/shotwell.pot po/shotwell-extras/shotwell-extras.pot \
 	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
 	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES) \
