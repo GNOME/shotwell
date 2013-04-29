@@ -996,17 +996,44 @@ public class MergeEventsCommand : MovePhotosCommand {
     public MergeEventsCommand(Gee.Iterable<DataView> iter) {
         base (Resources.MERGE_LABEL, "");
         
-        // the master event is the first one found with a name, otherwise the first one in the lot
+        // Because it requires fewer operations to merge small events onto large ones,
+        // rather than the other way round, we try to choose the event with the most
+        // sources as the 'master', preferring named events over unnamed ones so that
+        // names can persist.
         Event master_event = null;
+        int named_evt_src_count = 0;
+        int unnamed_evt_src_count = 0;
         Gee.ArrayList<ThumbnailView> media_thumbs = new Gee.ArrayList<ThumbnailView>();
         
         foreach (DataView view in iter) {
             Event event = (Event) view.get_source();
             
-            if (master_event == null)
+            // First event we've examined?
+            if (master_event == null) {
+                // Yes. Make it the master for now and remember it as
+                // having the most sources (out of what we've seen so far).
                 master_event = event;
-            else if (!master_event.has_name() && event.has_name())
-                master_event = event;
+                unnamed_evt_src_count = master_event.get_media_count();
+                if (event.has_name())
+                    named_evt_src_count = master_event.get_media_count();
+            } else {
+                // No. Check whether this event has a name and whether
+                // it has more sources than any other we've seen...
+                if (event.has_name()) {
+                    if (event.get_media_count() > named_evt_src_count) {
+                        named_evt_src_count = event.get_media_count();
+                        master_event = event;
+                    }
+                } else if (named_evt_src_count == 0) {
+                    // Per the original app design, named events -always- trump
+                    // unnamed ones, so only choose an unnamed one if we haven't
+                    // seen any named ones yet.
+                    if (event.get_media_count() > unnamed_evt_src_count) {
+                        unnamed_evt_src_count = event.get_media_count();
+                        master_event = event;
+                    }
+                }
+            }
             
             // store all media sources in this operation; they will be moved to the master event
             // (keep proxies of their original event for undo)
