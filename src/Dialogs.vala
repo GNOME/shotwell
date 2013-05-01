@@ -157,7 +157,7 @@ public class ExportDialog : Gtk.Dialog {
     private static ExportFormatParameters current_parameters = ExportFormatParameters.current();
     private static int current_scale = DEFAULT_SCALE;
     
-    private Gtk.Table table = new Gtk.Table(0, 0, false);
+    private Gtk.Grid table = new Gtk.Grid();
     private Gtk.ComboBoxText quality_combo;
     private Gtk.ComboBoxText constraint_combo;
     private Gtk.ComboBoxText format_combo;
@@ -230,12 +230,19 @@ public class ExportDialog : Gtk.Dialog {
         add_control(export_metadata, 1, 4);
         export_metadata.active = true;
         
+        table.set_row_spacing(4);
+        table.set_column_spacing(4);
+        table.set_margin_top(4);
+        table.set_margin_bottom(4);
+        table.set_margin_left(4);
+        table.set_margin_right(4);
+        
         ((Gtk.Box) get_content_area()).add(table);
         
         // add buttons to action area
         add_button(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
         ok_button = add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
-
+        
         ok_button.set_can_default(true);
         ok_button.has_default = true;
         set_default(ok_button);
@@ -269,7 +276,8 @@ public class ExportDialog : Gtk.Dialog {
     
     private PhotoFileFormat get_specified_format() {
         int index = format_combo.get_active();
-        assert(index >= NUM_SPECIAL_FORMATS);
+        if (index < NUM_SPECIAL_FORMATS)
+            index = NUM_SPECIAL_FORMATS;
 
         index -= NUM_SPECIAL_FORMATS;
         PhotoFileFormat[] writeable_formats = PhotoFileFormat.get_writeable();
@@ -359,16 +367,14 @@ public class ExportDialog : Gtk.Dialog {
         
         left_aligned.add(new_label);
         
-        table.attach(left_aligned, x, x + 1, y, y + 1, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL, 
-            10, 5);
+        table.attach(left_aligned, x, y, 1, 1);
     }
     
     private void add_control(Gtk.Widget widget, int x, int y) {
         Gtk.Alignment left_aligned = new Gtk.Alignment(0, 0.5f, 0, 0);
         left_aligned.add(widget);
         
-        table.attach(left_aligned, x, x + 1, y, y + 1, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL,
-            10, 5);
+        table.attach(left_aligned, x, y, 1, 1);
     }
     
     private void on_constraint_changed() {
