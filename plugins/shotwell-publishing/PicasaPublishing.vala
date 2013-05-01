@@ -595,7 +595,8 @@ public class PicasaPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         host.install_login_wait_pane();
         
-        RefreshAccessTokenTransaction txn = new RefreshAccessTokenTransaction(session, refresh_token);
+        RefreshAccessTokenTransaction txn = new RefreshAccessTokenTransaction(session,
+            refresh_token);
         
         txn.completed.connect(on_refresh_access_token_transaction_completed);
         txn.network_error.connect(on_refresh_access_token_transaction_error);

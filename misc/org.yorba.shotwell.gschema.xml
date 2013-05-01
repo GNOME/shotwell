@@ -480,16 +480,10 @@
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.youtube" path="/org/yorba/shotwell/sharing/youtube/">
-    <key name="user-name" type="s">
+    <key name="refresh-token" type="s">
         <default>""</default>
-        <summary>username</summary>
-        <description>YouTube username for the currently logged in session, if any</description>
-    </key>
-    
-    <key name="auth-token" type="s">
-        <default>""</default>
-        <summary>authentication token</summary>
-        <description>YouTube authentication token for the currently logged in session, if any</description>
+        <summary>refresh token</summary>
+        <description>The OAuth token used to refresh the YouTube session for the currently logged in user, if any.</description>
     </key>
 </schema>
 

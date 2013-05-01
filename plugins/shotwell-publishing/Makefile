@@ -19,8 +19,7 @@ SRC_FILES := \
 	YouTubePublishing.vala \
 	PiwigoPublishing.vala \
 	../../src/util/string.vala \
-	../common/RESTSupport.vala \
-	../common/ui.vala
+	../common/RESTSupport.vala
 
 RC_FILES := \
 	facebook.png \
