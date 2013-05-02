@@ -857,7 +857,7 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         Gtk.Widget save_results_button = dialog.add_button(ImportUI.SAVE_RESULTS_BUTTON_NAME,
             ImportUI.SAVE_RESULTS_RESPONSE_ID);
         save_results_button.set_visible(manifest.success.size < manifest.all.size);
-        Gtk.Widget ok_button = dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        Gtk.Widget ok_button = dialog.add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
         dialog.set_default(ok_button);
         
         Gtk.Window dialog_parent = (Gtk.Window) dialog.get_parent();
