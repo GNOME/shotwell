@@ -2183,45 +2183,53 @@ public class AdjustTool : EditingTool {
         public AdjustToolWindow(Gtk.Window container) {
             base(container);
 
-            Gtk.Table slider_organizer = new Gtk.Table(4, 2, false);
-            slider_organizer.set_row_spacings(12);
-            slider_organizer.set_col_spacings(12);
+            Gtk.Grid slider_organizer = new Gtk.Grid();
+            slider_organizer.set_column_homogeneous(false);
+            slider_organizer.set_row_spacing(12);
+            slider_organizer.set_column_spacing(12);
+            slider_organizer.set_margin_left(12);
+            slider_organizer.set_margin_bottom(12);
 
             Gtk.Label exposure_label = new Gtk.Label.with_mnemonic(_("Exposure:"));
             exposure_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(exposure_label, 0, 1, 0, 1);
-            slider_organizer.attach_defaults(exposure_slider, 1, 2, 0, 1);
+            slider_organizer.attach(exposure_label, 0, 0, 1, 1);
+            slider_organizer.attach(exposure_slider, 1, 0, 1, 1);
             exposure_slider.set_size_request(SLIDER_WIDTH, -1);
             exposure_slider.set_draw_value(false);
-
+            exposure_slider.set_margin_right(0);
+            
             Gtk.Label saturation_label = new Gtk.Label.with_mnemonic(_("Saturation:"));
             saturation_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(saturation_label, 0, 1, 1, 2);
-            slider_organizer.attach_defaults(saturation_slider, 1, 2, 1, 2);
+            slider_organizer.attach(saturation_label, 0, 1, 1, 1);
+            slider_organizer.attach(saturation_slider, 1, 1, 1, 1);
             saturation_slider.set_size_request(SLIDER_WIDTH, -1);
             saturation_slider.set_draw_value(false);
+            saturation_slider.set_margin_right(0);
 
             Gtk.Label tint_label = new Gtk.Label.with_mnemonic(_("Tint:"));
             tint_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(tint_label, 0, 1, 2, 3);
-            slider_organizer.attach_defaults(tint_slider, 1, 2, 2, 3);
+            slider_organizer.attach(tint_label, 0, 2, 1, 1);
+            slider_organizer.attach(tint_slider, 1, 2, 1, 1);
             tint_slider.set_size_request(SLIDER_WIDTH, -1);
             tint_slider.set_draw_value(false);
+            tint_slider.set_margin_right(0);
 
             Gtk.Label temperature_label =
                 new Gtk.Label.with_mnemonic(_("Temperature:"));
             temperature_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(temperature_label, 0, 1, 3, 4);
-            slider_organizer.attach_defaults(temperature_slider, 1, 2, 3, 4);
+            slider_organizer.attach(temperature_label, 0, 3, 1, 1);
+            slider_organizer.attach(temperature_slider, 1, 3, 1, 1);
             temperature_slider.set_size_request(SLIDER_WIDTH, -1);
             temperature_slider.set_draw_value(false);
+            temperature_slider.set_margin_right(0);
 
             Gtk.Label shadows_label = new Gtk.Label.with_mnemonic(_("Shadows:"));
             shadows_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(shadows_label, 0, 1, 4, 5);
-            slider_organizer.attach_defaults(shadows_slider, 1, 2, 4, 5);
+            slider_organizer.attach(shadows_label, 0, 4, 1, 1);
+            slider_organizer.attach(shadows_slider, 1, 4, 1, 1);
             shadows_slider.set_size_request(SLIDER_WIDTH, -1);
             shadows_slider.set_draw_value(false);
+            shadows_slider.set_margin_right(0);
 
             Gtk.Box button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             button_layouter.set_homogeneous(true);
@@ -2229,8 +2237,9 @@ public class AdjustTool : EditingTool {
             button_layouter.pack_start(reset_button, true, true, 1);
             button_layouter.pack_start(ok_button, true, true, 1);
 
-            Gtk.Alignment histogram_aligner = new Gtk.Alignment(0.5f, 0.0f, 0.0f, 0.0f);
+            Gtk.Alignment histogram_aligner = new Gtk.Alignment(0.0f, 0.0f, 0.0f, 0.0f);
             histogram_aligner.add(histogram_manipulator);
+            histogram_aligner.set_padding(12, 8, 12, 12);
 
             Gtk.Box pane_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
             pane_layouter.add(histogram_aligner);
