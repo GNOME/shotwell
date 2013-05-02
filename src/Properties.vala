@@ -519,7 +519,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             if (source == null)
                 return;
             
-            if (source is PhotoSource || source is PhotoImportSource) {
+            if (source is MediaSource) {
                 MediaSource media = (MediaSource) source;
                 file_path = media.get_master_file().get_path();
                 development_path = media.get_file().get_path();
