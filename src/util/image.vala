@@ -297,7 +297,7 @@ Gdk.Point rotate_point_arb(Gdk.Point source_point, int img_w, int img_h, double 
     double dest_height;
     compute_arb_rotated_size(img_w, img_h, angle, out dest_width, out dest_height);
     
-    Cairo.Matrix matrix = new Cairo.Matrix.identity();
+    Cairo.Matrix matrix = Cairo.Matrix.identity();
     matrix.translate(dest_width / 2, dest_height / 2);
     matrix.rotate(degrees_to_radians(angle));
     matrix.translate(- img_w / 2, - img_h / 2);
