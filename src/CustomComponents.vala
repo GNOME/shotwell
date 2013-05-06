@@ -217,7 +217,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         set_size_request(CONTROL_WIDTH, CONTROL_HEIGHT);
         
         if (dummy_slider == null)
-            dummy_slider = new Gtk.HScale(null);
+            dummy_slider = new Gtk.Scale(Gtk.Orientation.HORIZONTAL, null);
             
         if (dummy_frame == null)
             dummy_frame = new Gtk.Frame(null);
