@@ -152,8 +152,10 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
     
     public override void stop() {
         debug("YouTubePublisher: stopped.");
-        
+
         running = false;
+
+        get_session().stop_transactions();
     }
     
     private string extract_channel_name_helper(Xml.Node* document_root) throws
@@ -289,11 +291,11 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         Spit.Publishing.PublishingError err) {
         uploader.upload_complete.disconnect(on_upload_complete);
         uploader.upload_error.disconnect(on_upload_error);
-        
-        debug("EVENT: uploader reports upload error = '%s'.", err.message);
 
         if (!is_running())
             return;
+
+        debug("EVENT: uploader reports upload error = '%s'.", err.message);
 
         get_host().post_error(err);
     }
