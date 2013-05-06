@@ -672,5 +672,491 @@ public class FixedTreeSet<G> : Gee.TreeSet<G> {
     }
 }
 
+public abstract class GoogleSession : Session {
+    public abstract string get_user_name();
+    public abstract string get_access_token();
+    public abstract string get_refresh_token();
+    public abstract void deauthenticate();
+}
+
+public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
+    private const string OAUTH_CLIENT_ID = "1073902228337-gm4uf5etk25s0hnnm0g7uv2tm2bm1j0b.apps.googleusercontent.com";
+    private const string OAUTH_CLIENT_SECRET = "_kA4RZz72xqed4DqfO7xMmMN";
+    
+    private class GoogleSessionImpl : GoogleSession {
+        public string? access_token;
+        public string? user_name;
+        public string? refresh_token;
+        
+        public GoogleSessionImpl() {
+            this.access_token = null;
+            this.user_name = null;
+            this.refresh_token = null;
+        }
+        
+        public override bool is_authenticated() {
+            return (access_token != null);
+        }
+        
+        public override string get_user_name() {
+            assert (user_name != null);
+            return user_name;
+        }
+        
+        public override string get_access_token() {
+            assert(is_authenticated());
+            return access_token;
+        }
+        
+        public override string get_refresh_token() {
+            assert(refresh_token != null);
+            return refresh_token;
+        }
+        
+        public override void deauthenticate() {
+            access_token = null;
+            user_name = null;
+            refresh_token = null;
+        }
+    }
+    
+    private class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
+        public static bool cache_dirty = false;
+        
+        private WebKit.WebView webview;
+        private Gtk.Box pane_widget;
+        private Gtk.ScrolledWindow webview_frame;
+        private string auth_sequence_start_url;
+
+        public signal void authorized(string auth_code);
+
+        public WebAuthenticationPane(string auth_sequence_start_url) {
+            this.auth_sequence_start_url = auth_sequence_start_url;
+
+            pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+
+            webview_frame = new Gtk.ScrolledWindow(null, null);
+            webview_frame.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
+            webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+
+            webview = new WebKit.WebView();
+            webview.get_settings().enable_plugins = false;
+            webview.get_settings().enable_default_context_menu = false;
+
+            webview.load_finished.connect(on_page_load);
+            webview.load_started.connect(on_load_started);
+
+            webview_frame.add(webview);
+            pane_widget.pack_start(webview_frame, true, true, 0);
+        }
+        
+        public static bool is_cache_dirty() {
+            return cache_dirty;
+        }
+        
+        private void on_page_load(WebKit.WebFrame origin_frame) {
+            pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+            
+            string page_title = webview.get_title();
+            if (page_title.index_of("state=connect") > 0) {
+                int auth_code_field_start = page_title.index_of("code=");
+                if (auth_code_field_start < 0)
+                    return;
+
+                string auth_code =
+                    page_title.substring(auth_code_field_start + 5); // 5 = "code=".length
+
+                cache_dirty = true;
+
+                authorized(auth_code);
+            }
+        }
+
+        private void on_load_started(WebKit.WebFrame frame) {
+            pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+        }
+        
+        public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+            return Spit.Publishing.DialogPane.GeometryOptions.NONE;
+        }
+        
+        public Gtk.Widget get_widget() {
+            return pane_widget;
+        }
+
+        public void on_pane_installed() {
+            webview.open(auth_sequence_start_url);
+        }
+
+        public void on_pane_uninstalled() {
+        }
+    }
+    
+    private class GetAccessTokensTransaction : Publishing.RESTSupport.Transaction {
+        private const string ENDPOINT_URL = "https://accounts.google.com/o/oauth2/token";
+        
+        public GetAccessTokensTransaction(Session session, string auth_code) {
+            base.with_endpoint_url(session, ENDPOINT_URL);
+            
+            add_argument("code", auth_code);
+            add_argument("client_id", OAUTH_CLIENT_ID);
+            add_argument("client_secret", OAUTH_CLIENT_SECRET);
+            add_argument("redirect_uri", "urn:ietf:wg:oauth:2.0:oob");
+            add_argument("grant_type", "authorization_code");
+        }
+    }
+
+    private class RefreshAccessTokenTransaction : Publishing.RESTSupport.Transaction {
+        private const string ENDPOINT_URL = "https://accounts.google.com/o/oauth2/token";
+        
+        public RefreshAccessTokenTransaction(Session session) {
+            base.with_endpoint_url(session, ENDPOINT_URL);
+        
+            add_argument("client_id", OAUTH_CLIENT_ID);
+            add_argument("client_secret", OAUTH_CLIENT_SECRET);
+            add_argument("refresh_token", ((GoogleSession) session).get_refresh_token());
+            add_argument("grant_type", "refresh_token");
+        }
+    }
+
+    public class AuthenticatedTransaction : Publishing.RESTSupport.Transaction {
+        private AuthenticatedTransaction.with_endpoint_url(GoogleSession session,
+            string endpoint_url, Publishing.RESTSupport.HttpMethod method) {
+            base.with_endpoint_url(session, endpoint_url, method);
+        }
+
+        public AuthenticatedTransaction(GoogleSession session, string endpoint_url,
+            Publishing.RESTSupport.HttpMethod method) {
+            base.with_endpoint_url(session, endpoint_url, method);
+            assert(session.is_authenticated());
+
+            add_header("Authorization", "Bearer " + session.get_access_token());
+        }
+    }
+
+    private class UsernameFetchTransaction : AuthenticatedTransaction {
+        private const string ENDPOINT_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
+        
+        public UsernameFetchTransaction(GoogleSession session) {
+            base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
+        }
+    }
+    
+    private string scope;
+    private GoogleSessionImpl session;
+    private WebAuthenticationPane? web_auth_pane;
+    private weak Spit.Publishing.PluginHost host;
+    private weak Spit.Publishing.Service service;
+    
+    protected GooglePublisher(Spit.Publishing.Service service, Spit.Publishing.PluginHost host,
+        string scope) {
+        this.scope = scope;
+        this.session = new GoogleSessionImpl();
+        this.service = service;
+        this.host = host;
+        this.web_auth_pane = null;
+    }
+    
+    private void on_web_auth_pane_authorized(string auth_code) {
+        web_auth_pane.authorized.disconnect(on_web_auth_pane_authorized);
+        
+        debug("EVENT: user authorized scope %s with auth_code %s", scope, auth_code);
+        
+        if (!is_running())
+            return;
+        
+        do_get_access_tokens(auth_code);
+    }
+
+    private void on_get_access_tokens_complete(Publishing.RESTSupport.Transaction txn) {
+        txn.completed.disconnect(on_get_access_tokens_complete);
+        txn.network_error.disconnect(on_get_access_tokens_error);
+
+        debug("EVENT: network transaction to exchange authorization code for access tokens " +
+            "completed successfully.");
+
+        if (!is_running())
+            return;
+
+        do_extract_tokens(txn.get_response());
+    }
+
+    private void on_get_access_tokens_error(Publishing.RESTSupport.Transaction txn,
+        Spit.Publishing.PublishingError err) {
+        txn.completed.disconnect(on_get_access_tokens_complete);
+        txn.network_error.disconnect(on_get_access_tokens_error);
+
+        debug("EVENT: network transaction to exchange authorization code for access tokens " +
+            "failed; response = '%s'", txn.get_response());
+
+        if (!is_running())
+            return;
+
+        host.post_error(err);
+    }
+
+    private void on_refresh_access_token_transaction_completed(Publishing.RESTSupport.Transaction
+        txn) {
+        txn.completed.disconnect(on_refresh_access_token_transaction_completed);
+        txn.network_error.disconnect(on_refresh_access_token_transaction_error);
+
+        debug("EVENT: refresh access token transaction completed successfully.");
+
+        if (!is_running())
+            return;
+
+        if (session.is_authenticated()) // ignore these events if the session is already auth'd
+            return;
+        
+        do_extract_tokens(txn.get_response());
+    }
+    
+    private void on_refresh_access_token_transaction_error(Publishing.RESTSupport.Transaction txn,
+        Spit.Publishing.PublishingError err) {
+        txn.completed.disconnect(on_refresh_access_token_transaction_completed);
+        txn.network_error.disconnect(on_refresh_access_token_transaction_error);
+
+        debug("EVENT: refresh access token transaction caused a network error.");
+
+        if (!is_running())
+            return;
+
+        if (session.is_authenticated()) // ignore these events if the session is already auth'd
+            return;
+        
+        // 400 errors indicate that the OAuth client ID and secret have become invalid. In most
+        // cases, this can be fixed by logging the user out
+        if (txn.get_status_code() == 400) {
+            do_logout();
+            return;
+        }
+        
+        host.post_error(err);       
+    }
+
+    private void on_refresh_token_available(string token) {
+        debug("EVENT: an OAuth refresh token has become available; token = '%s'.", token);
+
+        if (!is_running())
+            return;
+
+        session.refresh_token = token;
+    }
+    
+    private void on_access_token_available(string token) {
+        debug("EVENT: an OAuth access token has become available; token = '%s'.", token);
+
+        if (!is_running())
+            return;
+
+        session.access_token = token;
+        
+        do_fetch_username();
+    }
+
+    private void on_fetch_username_transaction_completed(Publishing.RESTSupport.Transaction txn) {
+        txn.completed.disconnect(on_fetch_username_transaction_completed);
+        txn.network_error.disconnect(on_fetch_username_transaction_error);
+        
+        debug("EVENT: username fetch transaction completed successfully.");
+
+        if (!is_running())
+            return;
+
+        do_extract_username(txn.get_response());
+    }
+    
+    private void on_fetch_username_transaction_error(Publishing.RESTSupport.Transaction txn,
+        Spit.Publishing.PublishingError err) {
+        txn.completed.disconnect(on_fetch_username_transaction_completed);
+        txn.network_error.disconnect(on_fetch_username_transaction_error);
+
+        debug("EVENT: username fetch transaction caused a network error");
+
+        if (!is_running())
+            return;
+
+        host.post_error(err);
+    }
+
+    private void do_get_access_tokens(string auth_code) {
+        debug("ACTION: exchanging authorization code for access & refresh tokens");
+        
+        host.install_login_wait_pane();
+        
+        GetAccessTokensTransaction tokens_txn = new GetAccessTokensTransaction(session, auth_code);
+        tokens_txn.completed.connect(on_get_access_tokens_complete);
+        tokens_txn.network_error.connect(on_get_access_tokens_error);
+        
+        try {
+            tokens_txn.execute();
+        } catch (Spit.Publishing.PublishingError err) {
+            host.post_error(err);
+        }
+    }
+    
+    private void do_hosted_web_authentication() {
+        debug("ACTION: running OAuth authentication flow in hosted web pane.");
+        
+        string user_authorization_url = "https://accounts.google.com/o/oauth2/auth?" +
+            "response_type=code&" +
+            "client_id=" + OAUTH_CLIENT_ID + "&" +
+            "redirect_uri=" + Soup.URI.encode("urn:ietf:wg:oauth:2.0:oob", null) + "&" +
+            "scope=" + Soup.URI.encode(scope, null) + "+" +
+            Soup.URI.encode("https://www.googleapis.com/auth/userinfo.profile", null) + "&" +
+            "state=connect&" +
+            "access_type=offline&" +
+            "approval_prompt=force";
+
+        web_auth_pane = new WebAuthenticationPane(user_authorization_url);
+        web_auth_pane.authorized.connect(on_web_auth_pane_authorized);
+        
+        host.install_dialog_pane(web_auth_pane);
+        
+    }
+
+    private void do_exchange_refresh_token_for_access_token() {
+        debug("ACTION: exchanging OAuth refresh token for OAuth access token.");
+        
+        host.install_login_wait_pane();
+        
+        RefreshAccessTokenTransaction txn = new RefreshAccessTokenTransaction(session);
+        
+        txn.completed.connect(on_refresh_access_token_transaction_completed);
+        txn.network_error.connect(on_refresh_access_token_transaction_error);
+        
+        try {
+            txn.execute();
+        } catch (Spit.Publishing.PublishingError err) {
+            host.post_error(err);
+        }
+    }
+
+    private void do_extract_tokens(string response_body) {
+        debug("ACTION: extracting OAuth tokens from body of server response");
+        
+        Json.Parser parser = new Json.Parser();
+        
+        try {
+            parser.load_from_data(response_body);
+        } catch (Error err) {
+            host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
+                "Couldn't parse JSON response: " + err.message));
+            return;
+        }
+        
+        Json.Object response_obj = parser.get_root().get_object();
+        
+        if ((!response_obj.has_member("access_token")) && (!response_obj.has_member("refresh_token"))) {
+            host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
+                "neither access_token nor refresh_token not present in server response"));
+            return;
+        }
+
+        if (response_obj.has_member("refresh_token")) {
+            string refresh_token = response_obj.get_string_member("refresh_token");
+
+            if (refresh_token != "")
+                on_refresh_token_available(refresh_token);
+        }
+        
+        if (response_obj.has_member("access_token")) {
+            string access_token = response_obj.get_string_member("access_token");
+
+            if (access_token != "")
+                on_access_token_available(access_token);
+        }
+    }
+
+    private void do_fetch_username() {
+        debug("ACTION: running network transaction to fetch username.");
+
+        host.install_login_wait_pane();
+        host.set_service_locked(true);
+        
+        UsernameFetchTransaction txn = new UsernameFetchTransaction(session);
+        txn.completed.connect(on_fetch_username_transaction_completed);
+        txn.network_error.connect(on_fetch_username_transaction_error);
+        
+        try {
+            txn.execute();
+        } catch (Error err) {
+            host.post_error(err);
+        }
+    }
+
+    private void do_extract_username(string response_body) {
+        debug("ACTION: extracting username from body of server response");
+        
+        Json.Parser parser = new Json.Parser();
+        
+        try {
+            parser.load_from_data(response_body);
+        } catch (Error err) {
+            host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
+                "Couldn't parse JSON response: " + err.message));
+            return;
+        }
+        
+        Json.Object response_obj = parser.get_root().get_object();
+
+        if (response_obj.has_member("name")) {
+            string username = response_obj.get_string_member("name");
+
+            if (username != "")
+                session.user_name = username;
+        }
+        
+        if (response_obj.has_member("access_token")) {
+            string access_token = response_obj.get_string_member("access_token");
+
+            if (access_token != "")
+                session.access_token = access_token;
+        }
+        
+        // by the time we get a username, the session should be authenticated, or else something
+        // really tragic has happened
+        assert(session.is_authenticated());
+        
+        on_login_flow_complete();
+    }
+
+    protected weak Spit.Publishing.PluginHost get_host() {
+        return host;
+    }
+
+    protected GoogleSession get_session() {
+        return session;
+    }
+
+    protected void start_oauth_flow(string? refresh_token = null) {
+        if (refresh_token != null) {
+            session.refresh_token = refresh_token;
+            do_exchange_refresh_token_for_access_token();
+        } else {
+            if (WebAuthenticationPane.is_cache_dirty()) {
+                host.install_static_message_pane(_("You have already logged in and out of this service during this Shotwell session.\n\nTo continue publishing to the selected service, quit and restart Shotwell, then try publishing again."));
+                return;
+            }
+
+            do_hosted_web_authentication();
+        }
+    }
+    
+    protected abstract void on_login_flow_complete();
+    
+    protected abstract void do_logout();
+    
+    public abstract bool is_running();
+    
+    public abstract void start();
+    
+    public abstract void stop();
+    
+    public Spit.Publishing.Service get_service() {
+        return service;
+    }
+}
+
 }
 

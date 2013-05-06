@@ -28,7 +28,7 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
     }
 
     public void get_info(ref Spit.PluggableInfo info) {
-        info.authors = "Jani Monoses\nLucas Beeler";
+        info.authors = "Jani Monoses, Lucas Beeler";
         info.copyright = _("Copyright 2009-2013 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
@@ -57,8 +57,6 @@ private const string SERVICE_WELCOME_MESSAGE =
     _("You are not currently logged into YouTube.\n\nYou must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once.");
 private const string DEVELOPER_KEY =
     "AI39si5VEpzWK0z-pzo4fonEj9E4driCpEs9lK8y3HJsbbebIIRWqW3bIyGr42bjQv-N3siAfqVoM8XNmtbbp5x2gpbjiSAMTQ";
-internal const string OAUTH_CLIENT_ID = "1073902228337-gm4uf5etk25s0hnnm0g7uv2tm2bm1j0b.apps.googleusercontent.com";
-internal const string OAUTH_CLIENT_SECRET = "_kA4RZz72xqed4DqfO7xMmMN";
     
 private enum PrivacySetting {
     PUBLIC,
@@ -67,36 +65,98 @@ private enum PrivacySetting {
 }
 
 private class PublishingParameters {
-    private PrivacySetting privacy_setting;
+    private PrivacySetting privacy;
+    private string? channel_name;
+    private string? user_name;
 
-    public PublishingParameters(PrivacySetting privacy_setting) {
-        this.privacy_setting = privacy_setting;
+    public PublishingParameters() {
+        this.privacy = PrivacySetting.PRIVATE;
+        this.channel_name = null;
+        this.user_name = null;
     }
 
-    public PrivacySetting get_privacy_setting() {
-        return this.privacy_setting;
+    public PrivacySetting get_privacy() {
+        return this.privacy;
+    }
+    
+    public void set_privacy(PrivacySetting privacy) {
+        this.privacy = privacy;
+    }
+    
+    public string? get_channel_name() {
+        return channel_name;
+    }
+    
+    public void set_channel_name(string? channel_name) {
+        this.channel_name = channel_name;
+    }
+    
+    public string? get_user_name() {
+        return user_name;
+    }
+    
+    public void set_user_name(string? user_name) {
+        this.user_name = user_name;
     }
 }
 
-public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
-    private weak Spit.Publishing.PluginHost host = null;
-    private Spit.Publishing.ProgressCallback progress_reporter = null;
-    private weak Spit.Publishing.Service service = null;
-    private bool running = false;
-    private Session session;
-    private string? username = null;
-    private PublishingParameters parameters = null;
-    private string? channel_name = null;
-    private WebAuthenticationPane? web_auth_pane = null;
+public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
+    private class ChannelDirectoryTransaction :
+        Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
+        private const string ENDPOINT_URL = "http://gdata.youtube.com/feeds/users/default";
 
-    public YouTubePublisher(Spit.Publishing.Service service,
-        Spit.Publishing.PluginHost host) {
-        this.service = service;
-        this.host = host;
-        this.session = new Session();
+        public ChannelDirectoryTransaction(Publishing.RESTSupport.GoogleSession session) {
+            base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
+        }
+
+        public static string? validate_xml(Publishing.RESTSupport.XmlDocument doc) {
+            Xml.Node* document_root = doc.get_root_node();
+            if ((document_root->name == "feed") || (document_root->name == "entry"))
+                return null;
+            else
+                return "response root node isn't a <feed> or <entry>";
+        }
+    }
+    
+    private bool running;
+    private string? refresh_token;
+    private PublishingParameters publishing_parameters;
+    private Spit.Publishing.ProgressCallback? progress_reporter;
+
+    public YouTubePublisher(Spit.Publishing.Service service, Spit.Publishing.PluginHost host) {
+        base(service, host, "https://gdata.youtube.com/");
+        
+        this.running = false;
+        this.refresh_token = host.get_config_string("refresh_token", null);
+        this.publishing_parameters = new PublishingParameters();
+        this.progress_reporter = null;
     }
 
-    private string extract_channel_name(Xml.Node* document_root) throws
+    public override bool is_running() {
+        return running;
+    }
+    
+    public override void start() {
+        debug("YouTubePublisher: started.");
+        
+        if (is_running())
+            return;
+
+        running = true;
+        
+        if (refresh_token == null)
+            do_show_service_welcome_pane();
+        else
+            start_oauth_flow(refresh_token);
+    }
+    
+    public override void stop() {
+        debug("YouTubePublisher: stopped.");
+        
+        running = false;
+    }
+    
+    private string extract_channel_name_helper(Xml.Node* document_root) throws
         Spit.Publishing.PublishingError {
         string result = "";
 
@@ -137,172 +197,24 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
 
         return result;
     }
-
-    internal void set_persistent_refresh_token(string token) {
-        host.set_config_string("refresh_token", token);
-    }
-
-    internal string? get_persistent_refresh_token() {
-        return host.get_config_string("refresh_token", null);
-    }
-
-    internal void invalidate_persistent_session() {
-        debug("invalidating persisted YouTube session.");
-
-        host.unset_config_key("refresh_name");
-    }
-
-    internal bool is_persistent_session_available() {
-        return (get_persistent_refresh_token() != null);
-    }
-
-    public bool is_running() {
-        return running;
-    }
-
-    public Spit.Publishing.Service get_service() {
-        return service;
-    }
-
+    
     private void on_service_welcome_login() {
         debug("EVENT: user clicked 'Login' in welcome pane.");
 
         if (!is_running())
             return;
         
-        do_web_authentication();
+        start_oauth_flow(refresh_token);
     }
     
-    private void on_web_auth_pane_authorized(string auth_code) {
-        web_auth_pane.authorized.disconnect(on_web_auth_pane_authorized);
+    protected override void on_login_flow_complete() {
+        debug("EVENT: OAuth login flow complete.");
         
-        debug("EVENT: user authorized application; auth_code = '%s'", auth_code);
+        get_host().set_config_string("refresh_token", get_session().get_refresh_token());
+
+        publishing_parameters.set_user_name(get_session().get_user_name());
         
-        if (!is_running())
-            return;
-        
-        do_get_access_tokens(auth_code);
-    }
-
-    private void on_get_access_tokens_complete(Publishing.RESTSupport.Transaction txn) {
-        txn.completed.disconnect(on_get_access_tokens_complete);
-        txn.network_error.disconnect(on_get_access_tokens_error);
-
-        debug("EVENT: network transaction to exchange authorization code for access tokens " +
-            "completed successfully.");
-
-        if (!is_running())
-            return;
-
-        do_extract_tokens(txn.get_response());
-    }
-    
-    private void on_get_access_tokens_error(Publishing.RESTSupport.Transaction txn,
-        Spit.Publishing.PublishingError err) {
-        txn.completed.disconnect(on_get_access_tokens_complete);
-        txn.network_error.disconnect(on_get_access_tokens_error);
-
-        debug("EVENT: network transaction to exchange authorization code for access tokens " +
-            "failed; response = '%s'", txn.get_response());
-
-        if (!is_running())
-            return;
-
-        host.post_error(err);
-    }
-
-    private void on_refresh_token_available(string token) {
-        debug("EVENT: an OAuth refresh token has become available.");
-
-        if (!is_running())
-            return;
-
-        do_save_refresh_token_to_configuration_system(token);
-    }
-    
-    private void on_access_token_available(string token) {
-        debug("EVENT: an OAuth access token has become available.");
-
-        if (!is_running())
-            return;
-
-        do_authenticate_session(token);
-    }
-
-    private void on_refresh_access_token_transaction_completed(Publishing.RESTSupport.Transaction
-        txn) {
-        txn.completed.disconnect(on_refresh_access_token_transaction_completed);
-        txn.network_error.disconnect(on_refresh_access_token_transaction_error);
-
-        debug("EVENT: refresh access token transaction completed successfully.");
-
-        if (!is_running())
-            return;
-
-        if (session.is_authenticated()) // ignore these events if the session is already auth'd
-            return;
-        
-        do_extract_tokens(txn.get_response());
-    }
-    
-    private void on_refresh_access_token_transaction_error(Publishing.RESTSupport.Transaction txn,
-        Spit.Publishing.PublishingError err) {
-        txn.completed.disconnect(on_refresh_access_token_transaction_completed);
-        txn.network_error.disconnect(on_refresh_access_token_transaction_error);
-
-        debug("EVENT: refresh access token transaction caused a network error.");
-
-        if (!is_running())
-            return;
-
-        if (session.is_authenticated()) // ignore these events if the session is already auth'd
-            return;
-        
-        // 400 errors indicate that the OAuth client ID and secret have become invalid. In most
-        // cases, this can be fixed by logging the user out
-        if (txn.get_status_code() == 400) {
-            do_logout();
-            return;
-        }
-        
-        host.post_error(err);       
-    }
-
-    private void on_fetch_username_transaction_completed(Publishing.RESTSupport.Transaction txn) {
-        txn.completed.disconnect(on_fetch_username_transaction_completed);
-        txn.network_error.disconnect(on_fetch_username_transaction_error);
-        
-        debug("EVENT: username fetch transaction completed successfully.");
-
-        if (!is_running())
-            return;
-
-        do_extract_username(txn.get_response());
         do_fetch_account_information();
-    }
-    
-    private void on_fetch_username_transaction_error(Publishing.RESTSupport.Transaction txn,
-        Spit.Publishing.PublishingError err) {
-        txn.completed.disconnect(on_fetch_username_transaction_completed);
-        txn.network_error.disconnect(on_fetch_username_transaction_error);
-
-        debug("EVENT: username fetch transaction caused a network error");
-
-        if (!is_running())
-            return;
-
-        host.post_error(err);
-    }
-
-    private void on_session_authenticated() {
-        session.authenticated.disconnect(on_session_authenticated);
-
-        debug("EVENT: an authenticated session has become available.");
-
-        if (!is_running())
-            return;
-        
-        do_fetch_username();
     }
 
     private void on_initial_channel_fetch_complete(Publishing.RESTSupport.Transaction txn) {
@@ -328,7 +240,7 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
         if (!is_running())
             return;
 
-        host.post_error(err);
+        get_host().post_error(err);
     }
 
     private void on_publishing_options_logout() {
@@ -340,10 +252,8 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
         do_logout();
     }
 
-    private void on_publishing_options_publish(PublishingParameters parameters) {
+    private void on_publishing_options_publish() {
         debug("EVENT: user clicked 'Publish' in the publishing options pane.");
-
-        this.parameters = parameters;
 
         if (!is_running())
             return;
@@ -385,181 +295,29 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
         if (!is_running())
             return;
 
-        host.post_error(err);
+        get_host().post_error(err);
     }
 
     private void do_show_service_welcome_pane() {
         debug("ACTION: showing service welcome pane.");
 
-        host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_service_welcome_login);
+        get_host().install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_service_welcome_login);
     }
     
-    private void do_web_authentication() {
-        debug("ACTION: running OAuth web authentication flow in hosted web pane.");
-        
-        string user_authorization_url = "https://accounts.google.com/o/oauth2/auth?" +
-            "response_type=code&" +
-            "client_id=" + OAUTH_CLIENT_ID + "&" +
-            "redirect_uri=" + Soup.URI.encode("urn:ietf:wg:oauth:2.0:oob", null) + "&" +
-            "scope=" + Soup.URI.encode("https://gdata.youtube.com/", null) + "+" +
-            Soup.URI.encode("https://www.googleapis.com/auth/userinfo.profile", null) + "&" +
-            "state=connect&" +
-            "access_type=offline&" +
-            "approval_prompt=force";
-
-        web_auth_pane = new WebAuthenticationPane(user_authorization_url);
-        web_auth_pane.authorized.connect(on_web_auth_pane_authorized);
-        
-        host.install_dialog_pane(web_auth_pane);
-    }
-    
-    private void do_get_access_tokens(string auth_code) {
-        debug("ACTION: exchanging authorization code for access & refresh tokens");
-        
-        host.install_login_wait_pane();
-        
-        GetAccessTokensTransaction tokens_txn = new GetAccessTokensTransaction(session, auth_code);
-        tokens_txn.completed.connect(on_get_access_tokens_complete);
-        tokens_txn.network_error.connect(on_get_access_tokens_error);
-        
-        try {
-            tokens_txn.execute();
-        } catch (Spit.Publishing.PublishingError err) {
-            debug("publishing error: %s", err.message);
-        }
-    }
-    
-    private void do_extract_tokens(string response_body) {
-        debug("ACTION: extracting OAuth tokens from body of server response");
-        
-        Json.Parser parser = new Json.Parser();
-        
-        try {
-            parser.load_from_data(response_body);
-        } catch (Error err) {
-            host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                "Couldn't parse JSON response: " + err.message));
-            return;
-        }
-        
-        Json.Object response_obj = parser.get_root().get_object();
-        
-        if ((!response_obj.has_member("access_token")) && (!response_obj.has_member("refresh_token"))) {
-            host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                "neither access_token nor refresh_token not present in server response"));
-            return;
-        }
-
-        if (response_obj.has_member("refresh_token")) {
-            string refresh_token = response_obj.get_string_member("refresh_token");
-
-            if (refresh_token != "")
-                on_refresh_token_available(refresh_token);
-        }
-        
-        if (response_obj.has_member("access_token")) {
-            string access_token = response_obj.get_string_member("access_token");
-
-            if (access_token != "")
-                on_access_token_available(access_token);
-        }
-    }
-
-    private void do_save_refresh_token_to_configuration_system(string token) {
-        debug("ACTION: saving OAuth refresh token to configuration system");
-        
-        set_persistent_refresh_token(token);
-    }
-    
-    private void do_authenticate_session(string token) {
-        debug("ACTION: authenticating session.");
-        
-        session.authenticated.connect(on_session_authenticated);
-        session.authenticate(token);
-    }
-
-    private void do_refresh_session(string refresh_token) {
-        debug("ACTION: using OAuth refresh token to refresh session.");
-        
-        host.install_login_wait_pane();
-        
-        RefreshAccessTokenTransaction txn = new RefreshAccessTokenTransaction(session,
-            refresh_token);
-        
-        txn.completed.connect(on_refresh_access_token_transaction_completed);
-        txn.network_error.connect(on_refresh_access_token_transaction_error);
-        
-        try {
-            txn.execute();
-        } catch (Spit.Publishing.PublishingError err) {
-            // don't post an error to the host -- let the error handler signal connected above
-            // handle the problem
-        }
-    }
-
-    private void do_fetch_username() {
-        debug("ACTION: running network transaction to fetch username.");
-
-        host.install_login_wait_pane();
-        host.set_service_locked(true);
-        
-        UsernameFetchTransaction txn = new UsernameFetchTransaction(session);
-        txn.completed.connect(on_fetch_username_transaction_completed);
-        txn.network_error.connect(on_fetch_username_transaction_error);
-        
-        try {
-            txn.execute();
-        } catch (Error err) {
-            host.post_error(err);
-        }
-    }
-
-    private void do_extract_username(string response_body) {
-        debug("ACTION: extracting username from body of server response");
-        
-        Json.Parser parser = new Json.Parser();
-        
-        try {
-            parser.load_from_data(response_body);
-        } catch (Error err) {
-            host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                "Couldn't parse JSON response: " + err.message));
-            return;
-        }
-        
-        Json.Object response_obj = parser.get_root().get_object();
-
-        if (response_obj.has_member("name")) {
-            string username = response_obj.get_string_member("name");
-
-            if (username != "")
-                this.username = username;
-        }
-        
-        if (response_obj.has_member("access_token")) {
-            string access_token = response_obj.get_string_member("access_token");
-
-            if (access_token != "")
-                on_access_token_available(access_token);
-        }
-    }
-
     private void do_fetch_account_information() {
-        debug("ACTION: fetching account and channel information.");
+        debug("ACTION: fetching channel information.");
 
-        host.install_account_fetch_wait_pane();
-        host.set_service_locked(true);
+        get_host().install_account_fetch_wait_pane();
+        get_host().set_service_locked(true);
 
         ChannelDirectoryTransaction directory_trans =
-            new ChannelDirectoryTransaction(session);
+            new ChannelDirectoryTransaction(get_session());
         directory_trans.network_error.connect(on_initial_channel_fetch_error);
         directory_trans.completed.connect(on_initial_channel_fetch_complete);
 
         try {
             directory_trans.execute();
         } catch (Spit.Publishing.PublishingError err) {
-            // don't just post the error and stop publishing -- 404 and 403 errors are
-            // recoverable
             on_initial_channel_fetch_error(directory_trans, err);
         }
     }
@@ -572,14 +330,15 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
             response_doc = Publishing.RESTSupport.XmlDocument.parse_string(
                 transaction.get_response(), ChannelDirectoryTransaction.validate_xml);
         } catch (Spit.Publishing.PublishingError err) {
-            host.post_error(err);
+            get_host().post_error(err);
             return;
         }
 
         try {
-            channel_name = extract_channel_name(response_doc.get_root_node());
+            publishing_parameters.set_channel_name(extract_channel_name_helper(
+                response_doc.get_root_node()));
         } catch (Spit.Publishing.PublishingError err) {
-            host.post_error(err);
+            get_host().post_error(err);
             return;
         }
 
@@ -593,29 +352,32 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
 
         try {
             builder.add_from_file(
-                host.get_module_file().get_parent().get_child("youtube_publishing_options_pane.glade").get_path());
+                get_host().get_module_file().get_parent().get_child("youtube_publishing_options_pane.glade").get_path());
         } catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);
-            host.post_error(
+            get_host().post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
                     _("A file required for publishing is unavailable. Publishing to Youtube can't continue.")));
             return;
         }
 
-        PublishingOptionsPane opts_pane = new PublishingOptionsPane(host, username, channel_name, builder);
+        PublishingOptionsPane opts_pane = new PublishingOptionsPane(get_host(), builder,
+            publishing_parameters);
         opts_pane.publish.connect(on_publishing_options_publish);
         opts_pane.logout.connect(on_publishing_options_logout);
-        host.install_dialog_pane(opts_pane);
+        get_host().install_dialog_pane(opts_pane);
 
-        host.set_service_locked(false);
+        get_host().set_service_locked(false);
     }
 
     private void do_upload() {
         debug("ACTION: uploading media items to remote server.");
 
-        host.set_service_locked(true);
+        get_host().set_service_locked(true);
+        get_host().install_account_fetch_wait_pane();
+        
 
-        progress_reporter = host.serialize_publishables(-1);
+        progress_reporter = get_host().serialize_publishables(-1);
 
         // Serialization is a long and potentially cancellable operation, so before we use
         // the publishables, make sure that the publishing interaction is still running. If it
@@ -624,8 +386,8 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
         if (!is_running())
             return;
 
-        Spit.Publishing.Publishable[] publishables = host.get_publishables();
-        Uploader uploader = new Uploader(session, publishables, parameters);
+        Spit.Publishing.Publishable[] publishables = get_host().get_publishables();
+        Uploader uploader = new Uploader(get_session(), publishables, publishing_parameters);
 
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
@@ -636,140 +398,141 @@ public class YouTubePublisher : Spit.Publishing.Publisher, GLib.Object {
     private void do_show_success_pane() {
         debug("ACTION: showing success pane.");
 
-        host.set_service_locked(false);
-        host.install_success_pane();
+        get_host().set_service_locked(false);
+        get_host().install_success_pane();
     }
 
-    private void do_logout() {
+    protected override void do_logout() {
         debug("ACTION: logging out user.");
         
-        session.deauthenticate();
-        invalidate_persistent_session();
+        get_session().deauthenticate();
+        refresh_token = null;
+        get_host().unset_config_key("refresh_token");
+          
 
         do_show_service_welcome_pane();
     }
+}
 
-    public void start() {
-        if (is_running())
-            return;
+internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
+    private class PrivacyDescription {
+        public string description;
+        public PrivacySetting privacy_setting;
 
-        if (host == null)
-            error("YouTubePublisher: start( ): can't start; this publisher is not restartable.");
-
-        debug("YouTubePublisher: starting interaction.");
-
-        running = true;
-
-        if (is_persistent_session_available()) {
-            do_refresh_session(get_persistent_refresh_token());
-        } else {
-            do_show_service_welcome_pane();
+        public PrivacyDescription(string description, PrivacySetting privacy_setting) {
+            this.description = description;
+            this.privacy_setting = privacy_setting;
         }
     }
 
-    public void stop() {
-        debug("YouTubePublisher: stop( ) invoked.");
+    public signal void publish();
+    public signal void logout();
 
-        if (session != null)
-            session.stop_transactions();
+    private Gtk.Box pane_widget = null;
+    private Gtk.ComboBoxText privacy_combo = null;
+    private Gtk.Label publish_to_label = null;
+    private Gtk.Label login_identity_label = null;
+    private Gtk.Button publish_button = null;
+    private Gtk.Button logout_button = null;
+    private Gtk.Builder builder = null;
+    private Gtk.Label privacy_label = null;
+    private PrivacyDescription[] privacy_descriptions;
+    private PublishingParameters publishing_parameters;
 
-        host = null;
-        running = false;
+    public PublishingOptionsPane(Spit.Publishing.PluginHost host, Gtk.Builder builder,
+        PublishingParameters publishing_parameters) {
+        this.privacy_descriptions = create_privacy_descriptions();
+        this.publishing_parameters = publishing_parameters;
+
+        this.builder = builder;
+        assert(builder != null);
+        assert(builder.get_objects().length() > 0);
+
+        login_identity_label = this.builder.get_object("login_identity_label") as Gtk.Label;
+        privacy_combo = this.builder.get_object("privacy_combo") as Gtk.ComboBoxText;
+        publish_to_label = this.builder.get_object("publish_to_label") as Gtk.Label;
+        publish_button = this.builder.get_object("publish_button") as Gtk.Button;
+        logout_button = this.builder.get_object("logout_button") as Gtk.Button;
+        pane_widget = this.builder.get_object("youtube_pane_widget") as Gtk.Box;
+        privacy_label = this.builder.get_object("privacy_label") as Gtk.Label;
+
+        login_identity_label.set_label(_("You are logged into YouTube as %s.").printf(
+            publishing_parameters.get_user_name()));
+        publish_to_label.set_label(_("Videos will appear in '%s'").printf(
+            publishing_parameters.get_channel_name()));
+
+        foreach(PrivacyDescription desc in privacy_descriptions) {
+            privacy_combo.append_text(desc.description);
+        }
+
+        privacy_combo.set_active(PrivacySetting.PUBLIC);
+        privacy_label.set_mnemonic_widget(privacy_combo);
+
+        logout_button.clicked.connect(on_logout_clicked);
+        publish_button.clicked.connect(on_publish_clicked);
+    }
+
+    private void on_publish_clicked() {
+        publishing_parameters.set_privacy(
+            privacy_descriptions[privacy_combo.get_active()].privacy_setting);
+
+        publish();
+    }
+
+    private void on_logout_clicked() {
+        logout();
+    }
+
+    private void update_publish_button_sensitivity() {
+        publish_button.set_sensitive(true);
+    }
+
+    private PrivacyDescription[] create_privacy_descriptions() {
+        PrivacyDescription[] result = new PrivacyDescription[0];
+
+        result += new PrivacyDescription(_("Public listed"), PrivacySetting.PUBLIC);
+        result += new PrivacyDescription(_("Public unlisted"), PrivacySetting.UNLISTED);
+        result += new PrivacyDescription(_("Private"), PrivacySetting.PRIVATE);
+
+        return result;
+    }
+
+
+    public void installed() {
+        update_publish_button_sensitivity();
+    }
+
+    protected void notify_publish() {
+        publish();
+    }
+
+    protected void notify_logout() {
+        logout();
+    }
+
+    public Gtk.Widget get_widget() {
+        assert (pane_widget != null);
+        return pane_widget;
+    }
+
+    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
+    }
+
+    public void on_pane_installed() {
+        publish.connect(notify_publish);
+        logout.connect(notify_logout);
+
+        installed();
+    }
+
+    public void on_pane_uninstalled() {
+        publish.disconnect(notify_publish);
+        logout.disconnect(notify_logout);
     }
 }
 
-internal class Session : Publishing.RESTSupport.Session {
-    private string? auth_token = null;
-
-    public Session() {
-    }
-
-    public override bool is_authenticated() {
-        return (auth_token != null);
-    }
-
-    public void authenticate(string auth_token) {
-        this.auth_token = auth_token;
-        
-        notify_authenticated();
-    }
-    
-    public void deauthenticate() {
-        auth_token = null;
-    }
-    
-    public string? get_auth_token() {
-        return auth_token;
-    }
-}
-
-internal class GetAccessTokensTransaction : Publishing.RESTSupport.Transaction {
-    private const string ENDPOINT_URL = "https://accounts.google.com/o/oauth2/token";
-    
-    public GetAccessTokensTransaction(Session session, string auth_code) {
-        base.with_endpoint_url(session, ENDPOINT_URL);
-        
-        add_argument("code", auth_code);
-        add_argument("client_id", OAUTH_CLIENT_ID);
-        add_argument("client_secret", OAUTH_CLIENT_SECRET);
-        add_argument("redirect_uri", "urn:ietf:wg:oauth:2.0:oob");
-        add_argument("grant_type", "authorization_code");
-    }
-}
-
-internal class RefreshAccessTokenTransaction : Publishing.RESTSupport.Transaction {
-    private const string ENDPOINT_URL = "https://accounts.google.com/o/oauth2/token";
-    
-    public RefreshAccessTokenTransaction(Session session, string refresh_token) {
-        base.with_endpoint_url(session, ENDPOINT_URL);
-    
-        add_argument("client_id", OAUTH_CLIENT_ID);
-        add_argument("client_secret", OAUTH_CLIENT_SECRET);
-        add_argument("refresh_token", refresh_token);
-        add_argument("grant_type", "refresh_token");
-    }
-}
-
-internal class AuthenticatedTransaction : Publishing.RESTSupport.Transaction {
-    private AuthenticatedTransaction.with_endpoint_url(Session session, string endpoint_url,
-        Publishing.RESTSupport.HttpMethod method) {
-        base.with_endpoint_url(session, endpoint_url, method);
-    }
-
-    public AuthenticatedTransaction(Session session, string endpoint_url,
-        Publishing.RESTSupport.HttpMethod method) {
-        base.with_endpoint_url(session, endpoint_url, method);
-        assert(session.is_authenticated());
-
-        add_header("Authorization", "Bearer " + session.get_auth_token());
-    }
-}
-
-internal class UsernameFetchTransaction : AuthenticatedTransaction {
-    private const string ENDPOINT_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
-    
-    public UsernameFetchTransaction(Session session) {
-        base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
-    }
-}
-
-internal class ChannelDirectoryTransaction : AuthenticatedTransaction {
-    private const string ENDPOINT_URL = "http://gdata.youtube.com/feeds/users/default";
-
-    public ChannelDirectoryTransaction(Session session) {
-        base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
-    }
-
-    public static string? validate_xml(Publishing.RESTSupport.XmlDocument doc) {
-        Xml.Node* document_root = doc.get_root_node();
-        if ((document_root->name == "feed") || (document_root->name == "entry"))
-            return null;
-        else
-            return "response root node isn't a <feed> or <entry>";
-    }
-}
-
-internal class UploadTransaction : AuthenticatedTransaction {
+internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
     private const string ENDPOINT_URL = "http://uploads.gdata.youtube.com/feeds/api/users/default/uploads";
     private const string UNLISTED_XML = "<yt:accessControl action='list' permission='denied'/>";
     private const string PRIVATE_XML = "<yt:private/>";
@@ -787,11 +550,11 @@ internal class UploadTransaction : AuthenticatedTransaction {
                                                     %s
                                                 </entry>""";
     private PublishingParameters parameters;
-    private Session session;
+    private Publishing.RESTSupport.GoogleSession session;
     private Spit.Publishing.Publishable publishable;
 
-    public UploadTransaction(Session session, PublishingParameters parameters,
-        Spit.Publishing.Publishable publishable) {
+    public UploadTransaction(Publishing.RESTSupport.GoogleSession session,
+        PublishingParameters parameters, Spit.Publishing.Publishable publishable) {
         base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.POST);
         assert(session.is_authenticated());
         this.session = session;
@@ -804,10 +567,10 @@ internal class UploadTransaction : AuthenticatedTransaction {
         Soup.Multipart message_parts = new Soup.Multipart("multipart/related");
 
         string unlisted_video =
-            (parameters.get_privacy_setting() == PrivacySetting.UNLISTED) ? UNLISTED_XML : "";
+            (parameters.get_privacy() == PrivacySetting.UNLISTED) ? UNLISTED_XML : "";
 
         string private_video =
-            (parameters.get_privacy_setting() == PrivacySetting.PRIVATE) ? PRIVATE_XML : "";
+            (parameters.get_privacy() == PrivacySetting.PRIVATE) ? PRIVATE_XML : "";
 
         // Set title to publishing name, but if that's empty default to filename.
         string title = publishable.get_publishing_name();
@@ -837,10 +600,11 @@ internal class UploadTransaction : AuthenticatedTransaction {
         // bind the binary video data read from disk into a Soup.Buffer object so that we
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, video_data.data[0:data_length]);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY,
+            video_data.data[0:data_length]);
 
-        message_parts.append_form_file("", publishable.get_serialized_file().get_path(), "video/mpeg",
-            bindable_data);
+        message_parts.append_form_file("", publishable.get_serialized_file().get_path(),
+            "video/mpeg", bindable_data);
         // create a message that can be sent over the wire whose payload is the multipart container
         // that we've been building up
         Soup.Message outbound_message =
@@ -848,7 +612,8 @@ internal class UploadTransaction : AuthenticatedTransaction {
         outbound_message.request_headers.append("X-GData-Key", "key=%s".printf(DEVELOPER_KEY));
         outbound_message.request_headers.append("Slug",
             publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME));
-        outbound_message.request_headers.append("Authorization", "Bearer " + session.get_auth_token());
+        outbound_message.request_headers.append("Authorization", "Bearer " +
+            session.get_access_token());
         set_message(outbound_message);
 
         // send the message and get its response
@@ -857,193 +622,11 @@ internal class UploadTransaction : AuthenticatedTransaction {
     }
 }
 
-internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
-    private WebKit.WebView webview = null;
-    private Gtk.Box pane_widget = null;
-    private Gtk.ScrolledWindow webview_frame = null;
-    private string auth_sequence_start_url;
-
-    public signal void authorized(string access_code);
-
-    public WebAuthenticationPane(string auth_sequence_start_url) {
-        this.auth_sequence_start_url = auth_sequence_start_url;
-
-        pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-
-        webview_frame = new Gtk.ScrolledWindow(null, null);
-        webview_frame.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
-        webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-
-        webview = new WebKit.WebView();
-        webview.get_settings().enable_plugins = false;
-        webview.get_settings().enable_default_context_menu = false;
-
-        webview.load_finished.connect(on_page_load);
-        webview.load_started.connect(on_load_started);
-
-        webview_frame.add(webview);
-        pane_widget.pack_start(webview_frame, true, true, 0);
-    }
-    
-    private void on_page_load(WebKit.WebFrame origin_frame) {
-        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-        
-        string page_title = webview.get_title();
-        if (page_title.index_of("state=connect") > 0) {
-            int auth_code_field_start = page_title.index_of("code=");
-            if (auth_code_field_start < 0)
-                return;
-
-            string auth_code =
-                page_title.substring(auth_code_field_start + 5); // 5 = "code=".length
-            
-            stdout.printf("auth_code = %s.\n", auth_code);
-            
-            authorized(auth_code);
-        }
-    }
-
-    private void on_load_started(WebKit.WebFrame frame) {
-        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
-    }
-    
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-    
-    public Gtk.Widget get_widget() {
-        return pane_widget;
-    }
-
-    public void on_pane_installed() {
-        webview.open(auth_sequence_start_url);
-    }
-
-    public void on_pane_uninstalled() {
-    }
-}
-
-internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
-    private class PrivacyDescription {
-        public string description;
-        public PrivacySetting privacy_setting;
-
-        public PrivacyDescription(string description, PrivacySetting privacy_setting) {
-            this.description = description;
-            this.privacy_setting = privacy_setting;
-        }
-    }
-
-    public signal void publish(PublishingParameters parameters);
-    public signal void logout();
-
-    private Gtk.Box pane_widget = null;
-    private Gtk.ComboBoxText privacy_combo = null;
-    private Gtk.Label publish_to_label = null;
-    private Gtk.Label login_identity_label = null;
-    private Gtk.Button publish_button = null;
-    private Gtk.Button logout_button = null;
-    private Gtk.Builder builder = null;
-    private Gtk.Label privacy_label = null;
-
-    private string channel_name;
-    private PrivacyDescription[] privacy_descriptions;
-
-    public PublishingOptionsPane(Spit.Publishing.PluginHost host, string username,
-        string channel_name, Gtk.Builder builder) {
-        this.channel_name = channel_name;
-        this.privacy_descriptions = create_privacy_descriptions();
-
-        this.builder = builder;
-        assert(builder != null);
-        assert(builder.get_objects().length() > 0);
-
-        login_identity_label = this.builder.get_object("login_identity_label") as Gtk.Label;
-        privacy_combo = this.builder.get_object("privacy_combo") as Gtk.ComboBoxText;
-        publish_to_label = this.builder.get_object("publish_to_label") as Gtk.Label;
-        publish_button = this.builder.get_object("publish_button") as Gtk.Button;
-        logout_button = this.builder.get_object("logout_button") as Gtk.Button;
-        pane_widget = this.builder.get_object("youtube_pane_widget") as Gtk.Box;
-        privacy_label = this.builder.get_object("privacy_label") as Gtk.Label;
-
-        login_identity_label.set_label(_("You are logged into YouTube as %s.").printf(username));
-        publish_to_label.set_label(_("Videos will appear in '%s'").printf(channel_name));
-
-        foreach(PrivacyDescription desc in privacy_descriptions) {
-            privacy_combo.append_text(desc.description);
-        }
-
-        privacy_combo.set_active(PrivacySetting.PUBLIC);
-        privacy_label.set_mnemonic_widget(privacy_combo);
-
-        logout_button.clicked.connect(on_logout_clicked);
-        publish_button.clicked.connect(on_publish_clicked);
-    }
-
-    private void on_publish_clicked() {
-        PrivacySetting privacy_setting = privacy_descriptions[privacy_combo.get_active()].privacy_setting;
-
-        publish(new PublishingParameters(privacy_setting));
-    }
-
-    private void on_logout_clicked() {
-        logout();
-    }
-
-    private void update_publish_button_sensitivity() {
-        publish_button.set_sensitive(true);
-    }
-
-    private PrivacyDescription[] create_privacy_descriptions() {
-        PrivacyDescription[] result = new PrivacyDescription[0];
-
-        result += new PrivacyDescription(_("Public listed"), PrivacySetting.PUBLIC);
-        result += new PrivacyDescription(_("Public unlisted"), PrivacySetting.UNLISTED);
-        result += new PrivacyDescription(_("Private"), PrivacySetting.PRIVATE);
-
-        return result;
-    }
-
-
-    public void installed() {
-        update_publish_button_sensitivity();
-    }
-
-    protected void notify_publish(PublishingParameters parameters) {
-        publish(parameters);
-    }
-
-    protected void notify_logout() {
-        logout();
-    }
-
-    public Gtk.Widget get_widget() {
-        assert (pane_widget != null);
-        return pane_widget;
-    }
-
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-
-    public void on_pane_installed() {
-        publish.connect(notify_publish);
-        logout.connect(notify_logout);
-
-        installed();
-    }
-
-    public void on_pane_uninstalled() {
-        publish.disconnect(notify_publish);
-        logout.disconnect(notify_logout);
-    }
-}
-
 internal class Uploader : Publishing.RESTSupport.BatchUploader {
     private PublishingParameters parameters;
 
-    public Uploader(Session session, Spit.Publishing.Publishable[] publishables,
-        PublishingParameters parameters) {
+    public Uploader(Publishing.RESTSupport.GoogleSession session,
+        Spit.Publishing.Publishable[] publishables, PublishingParameters parameters) {
         base(session, publishables);
 
         this.parameters = parameters;
@@ -1051,8 +634,8 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
 
     protected override Publishing.RESTSupport.Transaction create_transaction(
         Spit.Publishing.Publishable publishable) {
-        return new UploadTransaction((Session) get_session(), parameters,
-            get_current_publishable());
+        return new UploadTransaction((Publishing.RESTSupport.GoogleSession) get_session(),
+            parameters, get_current_publishable());
     }
 }
 
