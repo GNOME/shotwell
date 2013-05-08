@@ -1130,12 +1130,12 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
     }
 
     protected void start_oauth_flow(string? refresh_token = null) {
-        if (refresh_token != null) {
+        if (refresh_token != null && refresh_token != "") {
             session.refresh_token = refresh_token;
             do_exchange_refresh_token_for_access_token();
         } else {
             if (WebAuthenticationPane.is_cache_dirty()) {
-                host.install_static_message_pane(_("You have already logged in and out of this service during this Shotwell session.\n\nTo continue publishing to the selected service, quit and restart Shotwell, then try publishing again."));
+                host.install_static_message_pane(_("You have already logged in and out of a Google service during this Shotwell session.\n\nTo continue publishing to Google services, quit and restart Shotwell, then try publishing again."));
                 return;
             }
 

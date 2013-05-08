@@ -198,7 +198,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         install_progress_pane();
         PublishingUI.ProgressPane progress_pane =
             (PublishingUI.ProgressPane) dialog.get_active_pane();
-        
+
         // spin the event loop right after installing the progress_pane so that the progress_pane
         // will appear and let the user know that something is going on while file serialization
         // takes place
