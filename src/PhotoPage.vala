@@ -3139,7 +3139,7 @@ public class LibraryPhotoPage : EditingHostPage {
         if (!has_photo())
             return;
         
-        ExportDialog export_dialog = new ExportDialog(_("Export Photo"));
+        ExportDialog export_dialog = new ExportDialog(_("Export Photo"), get_photo().get_file_format().can_write_image());
         
         int scale;
         ScaleConstraint constraint;

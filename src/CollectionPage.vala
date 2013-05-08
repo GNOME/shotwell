@@ -435,8 +435,18 @@ public abstract class CollectionPage : MediaPage {
         if (has_some_videos)
             title = (export_list.size == 1) ? _("Export Photo/Video") : _("Export Photos/Videos");
         else
-            title = (export_list.size == 1) ?  _("Export Photo") : _("Export Photos");
-        ExportDialog export_dialog = new ExportDialog(title);
+            title = (export_list.size == 1) ? _("Export Photo") : _("Export Photos");
+        
+        // check if every file in the export list is supported for export or not
+        bool can_export_current = false;
+        
+        foreach (MediaSource p in export_list) {
+            if ((p is Photo) && (((Photo) p).get_master_file_format().can_write_image())) {
+                can_export_current = true;
+            }
+        }
+        
+        ExportDialog export_dialog = new ExportDialog(title, can_export_current);
 
         // Setting up the parameters object requires a bit of thinking about what the user wants.
         // If the selection contains only photos, then we do what we've done in previous versions

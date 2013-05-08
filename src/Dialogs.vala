@@ -166,8 +166,9 @@ public class ExportDialog : Gtk.Dialog {
     private Gtk.Entry pixels_entry;
     private Gtk.Widget ok_button;
     private bool in_insert = false;
+    private bool can_write_current = false;
     
-    public ExportDialog(string title) {
+    public ExportDialog(string title, bool can_write) {
         this.title = title;
         resizable = false;
 
@@ -191,7 +192,14 @@ public class ExportDialog : Gtk.Dialog {
 
         format_combo = new Gtk.ComboBoxText();
         format_add_option(UNMODIFIED_FORMAT_LABEL);
-        format_add_option(CURRENT_FORMAT_LABEL);
+        
+        // don't display 'Current' if this format doesn't have write support
+        this.can_write_current = can_write;
+        
+        if (can_write) {
+            format_add_option(CURRENT_FORMAT_LABEL);
+        }
+        
         foreach (PhotoFileFormat format in PhotoFileFormat.get_writeable()) {
             format_add_option(format.get_properties().get_user_visible_name());
         }
@@ -276,6 +284,7 @@ public class ExportDialog : Gtk.Dialog {
     
     private PhotoFileFormat get_specified_format() {
         int index = format_combo.get_active();
+
         if (index < NUM_SPECIAL_FORMATS)
             index = NUM_SPECIAL_FORMATS;
 
@@ -306,6 +315,11 @@ public class ExportDialog : Gtk.Dialog {
     public bool execute(out int scale, out ScaleConstraint constraint,
         ref ExportFormatParameters parameters) {
         show_all();
+
+        // if we can't export to this format, force the export format mode to be specified.
+        if(!can_write_current) {
+            parameters.mode = ExportFormatMode.SPECIFIED;
+        }
 
         // if the export format mode isn't set to last (i.e., don't use the persisted settings),
         // reset the scale constraint to original size
@@ -413,7 +427,7 @@ public class ExportDialog : Gtk.Dialog {
             constraint_combo.set_sensitive(true);
             quality_combo.set_sensitive(false);
             pixels_entry.sensitive = !original;
-            export_metadata.sensitive = true;
+            export_metadata.sensitive = get_specified_format().can_write_metadata();
         } else {
             // if the user has chosen a specific format, then allow JPEG quality customization if
             // the format is JPEG and the user is re-sizing the image, otherwise, disallow JPEG
@@ -421,7 +435,7 @@ public class ExportDialog : Gtk.Dialog {
             constraint_combo.set_sensitive(true);
             bool jpeg = get_specified_format() == PhotoFileFormat.JFIF;
             quality_combo.sensitive = !original && jpeg;
-            export_metadata.sensitive = true;
+            export_metadata.sensitive = get_specified_format().can_write_metadata();
         }
     }
     

@@ -31,7 +31,7 @@ namespace PhotoFileFormatData {
     
     public PhotoFileFormat[] get_writeable() {
         if (writeable == null)
-            writeable = find_applicable((format) => { return format.can_write(); });
+            writeable = find_applicable((format) => { return format.can_write_image(); });
         
         return writeable;
     }

@@ -123,7 +123,14 @@ public void send_to(Gee.Collection<MediaSource> media) {
     if (media.size == 0 || send_to_exporter != null)
         return;
     
-    ExportDialog dialog = new ExportDialog(_("Send To"));
+    bool can_export_current = true;
+    
+    foreach (MediaSource p in media) {
+        if ((p is Photo) && (!((Photo) p).get_file_format().can_write_image()))
+            can_export_current = false;
+    }
+    
+    ExportDialog dialog = new ExportDialog(_("Send To"), can_export_current);
 
     // determine the mix of media in the export collection -- if it contains only
     // videos then we can use the Video.export_many( ) fast path and not have to

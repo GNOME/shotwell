@@ -475,7 +475,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void on_save_as() {
-        ExportDialog export_dialog = new ExportDialog(_("Save As"));
+        ExportDialog export_dialog = new ExportDialog(_("Save As"), get_photo().get_file_format().can_write_image());
         
         int scale;
         ScaleConstraint constraint;
