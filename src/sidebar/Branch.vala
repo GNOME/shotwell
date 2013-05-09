@@ -43,10 +43,10 @@ public class Sidebar.Branch : Object {
         public Gee.SortedSet<Node>? children = null;
         
         public Node(Sidebar.Entry entry, Node? parent,
-            CompareDataFunc<Sidebar.Entry> comparator) {
+            owned CompareDataFunc<Sidebar.Entry> comparator) {
             this.entry = entry;
             this.parent = parent;
-            this.comparator = comparator;
+            this.comparator = (owned) comparator;
         }
         
         private static int comparator_wrapper(Node? a, Node? b) {
@@ -172,16 +172,16 @@ public class Sidebar.Branch : Object {
             cb(this);
         }
         
-        public void change_comparator(CompareDataFunc<Sidebar.Entry> comparator, bool recursive,
+        public void change_comparator(owned CompareDataFunc<Sidebar.Entry> comparator, bool recursive,
             ChildrenReorderedCallback cb) {
-            this.comparator = comparator;
+            this.comparator = (owned) comparator;
             
             // reorder children, but need to do manual recursion to set comparator
             reorder_children(false, cb);
             
             if (recursive) {
                 foreach (Node child in children)
-                    child.change_comparator(comparator, true, cb);
+                    child.change_comparator((owned) comparator, true, cb);
             }
         }
     }
@@ -204,11 +204,19 @@ public class Sidebar.Branch : Object {
     
     public signal void show_branch(bool show);
     
-    public Branch(Sidebar.Entry root, Options options, CompareDataFunc<Sidebar.Entry> default_comparator,
-        CompareDataFunc<Sidebar.Entry>? root_comparator = null) {
-        this.default_comparator = default_comparator;
-        this.root = new Node(root, null,
-            (root_comparator != null) ? root_comparator : default_comparator);
+    public Branch(Sidebar.Entry root, Options options, 
+        owned CompareDataFunc<Sidebar.Entry> default_comparator,
+        owned CompareDataFunc<Sidebar.Entry>? root_comparator = null) {
+        this.default_comparator = (owned) default_comparator;
+        
+        CompareDataFunc<Sidebar.Entry>? broken_ternary_workaround;
+        
+        if (root_comparator != null)
+            broken_ternary_workaround = (owned) root_comparator;
+        else
+            broken_ternary_workaround = (owned) default_comparator;
+
+        this.root = new Node(root, null, (owned) broken_ternary_workaround);
         this.options = options;
         
         map.set(root, this.root);
@@ -246,7 +254,7 @@ public class Sidebar.Branch : Object {
     }
     
     public void graft(Sidebar.Entry parent, Sidebar.Entry entry,
-        CompareDataFunc<Sidebar.Entry>? comparator = null) {
+        owned CompareDataFunc<Sidebar.Entry>? comparator = null) {
         assert(map.has_key(parent));
         assert(!map.has_key(entry));
         
@@ -254,8 +262,15 @@ public class Sidebar.Branch : Object {
             set_show_branch(true);
         
         Node parent_node = map.get(parent);
-        Node entry_node = new Node(entry, parent_node,
-            (comparator != null) ? comparator : default_comparator);
+        
+        CompareDataFunc<Sidebar.Entry>? broken_ternary_workaround;
+        
+        if (comparator != null)
+            broken_ternary_workaround = (owned) comparator;
+        else
+            broken_ternary_workaround = (owned) default_comparator;
+        
+        Node entry_node = new Node(entry, parent_node, (owned) broken_ternary_workaround);
         
         parent_node.add_child(entry_node);
         map.set(entry, entry_node);
@@ -332,16 +347,16 @@ public class Sidebar.Branch : Object {
         entry_node.reorder_children(recursive, children_reordered_callback);
     }
     
-    public void change_all_comparators(CompareDataFunc<Sidebar.Entry>? comparator) {
-        root.change_comparator(comparator, true, children_reordered_callback);
+    public void change_all_comparators(owned CompareDataFunc<Sidebar.Entry>? comparator) {
+        root.change_comparator((owned) comparator, true, children_reordered_callback);
     }
     
     public void change_comparator(Sidebar.Entry entry, bool recursive,
-        CompareDataFunc<Sidebar.Entry>? comparator) {
+        owned CompareDataFunc<Sidebar.Entry>? comparator) {
         Node? entry_node = map.get(entry);
         assert(entry_node != null);
         
-        entry_node.change_comparator(comparator, recursive, children_reordered_callback);
+        entry_node.change_comparator((owned) comparator, recursive, children_reordered_callback);
     }
     
     public int get_child_count(Sidebar.Entry parent) {

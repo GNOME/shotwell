@@ -255,16 +255,16 @@ public class PhotoMetadata : MediaMetadata {
         return exiv2.has_tag(tag);
     }
     
-    private Gee.Set<string> create_string_set(CompareDataFunc<string>? compare_func) {
+    private Gee.Set<string> create_string_set(owned CompareDataFunc<string>? compare_func) {
         // ternary doesn't work here
         if (compare_func == null)
             return new Gee.HashSet<string>();
         else
-            return new FixedTreeSet<string>(compare_func);
+            return new FixedTreeSet<string>((owned) compare_func);
     }
     
     public Gee.Collection<string>? get_tags(MetadataDomain domain,
-        CompareDataFunc<string>? compare_func = null) {
+        owned CompareDataFunc<string>? compare_func = null) {
         string[] tags = null;
         switch (domain) {
             case MetadataDomain.EXIF:
@@ -283,15 +283,16 @@ public class PhotoMetadata : MediaMetadata {
         if (tags == null || tags.length == 0)
             return null;
         
-        Gee.Collection<string> collection = create_string_set(compare_func);
+        Gee.Collection<string> collection = create_string_set((owned) compare_func);
         foreach (string tag in tags)
             collection.add(tag);
         
         return collection;
     }
     
-    public Gee.Collection<string> get_all_tags(CompareDataFunc<string>? compare_func = null) {
-        Gee.Collection<string> all_tags = create_string_set(compare_func);
+    public Gee.Collection<string> get_all_tags(
+        owned CompareDataFunc<string>? compare_func = null) {
+        Gee.Collection<string> all_tags = create_string_set((owned) compare_func);
         
         Gee.Collection<string>? exif_tags = get_tags(MetadataDomain.EXIF);
         if (exif_tags != null && exif_tags.size > 0)
@@ -868,13 +869,13 @@ public class PhotoMetadata : MediaMetadata {
         new HierarchicalKeywordField("Xmp.MicrosoftPhoto.LastKeywordXMP", "/", false, true)
     };
     
-    public Gee.Set<string>? get_keywords(CompareDataFunc<string>? compare_func = null) {
+    public Gee.Set<string>? get_keywords(owned CompareDataFunc<string>? compare_func = null) {
         Gee.Set<string> keywords = null;
         foreach (string tag in KEYWORD_TAGS) {
             Gee.Collection<string>? values = get_string_multiple(tag);
             if (values != null && values.size > 0) {
                 if (keywords == null)
-                    keywords = create_string_set(compare_func);
+                    keywords = create_string_set((owned) compare_func);
 
                 foreach (string current_value in values)
                     keywords.add(HierarchicalTagUtilities.make_flat_tag_safe(current_value));

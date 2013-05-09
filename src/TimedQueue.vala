@@ -35,7 +35,7 @@ public class TimedQueue<G> {
     
     private uint hold_msec;
     private unowned DequeuedCallback<G> callback;
-    private Gee.EqualDataFunc equal_func;
+    private Gee.EqualDataFunc<G> equal_func;
     private int priority;
     private uint timer_id = 0;
     private SortedList<Element<G>> queue;
@@ -50,11 +50,15 @@ public class TimedQueue<G> {
     // finding a workaround, namely using a delegate:
     // https://bugzilla.gnome.org/show_bug.cgi?id=628639
     public TimedQueue(uint hold_msec, DequeuedCallback<G> callback,
-        Gee.EqualDataFunc? equal_func = null, int priority = Priority.DEFAULT) {
+        owned Gee.EqualDataFunc? equal_func = null, int priority = Priority.DEFAULT) {
         this.hold_msec = hold_msec;
         this.callback = callback;
-        this.equal_func = (equal_func != null) ? equal_func :
-            Gee.Functions.get_equal_func_for(typeof(G));
+        
+        if (equal_func != null)
+            this.equal_func = (owned) equal_func;
+        else
+            this.equal_func = (Gee.EqualDataFunc<G>) (Gee.Functions.get_equal_func_for(typeof(G)));
+            
         this.priority = priority;
         
         queue = new SortedList<Element<G>>(Element.comparator);
@@ -211,11 +215,11 @@ public class HashTimedQueue<G> : TimedQueue<G> {
     private Gee.HashMap<G, int> item_count;
     
     public HashTimedQueue(uint hold_msec, DequeuedCallback<G> callback,
-        Gee.HashDataFunc<G>? hash_func = null, Gee.EqualDataFunc<G>? equal_func = null,
+        owned Gee.HashDataFunc<G>? hash_func = null, owned Gee.EqualDataFunc<G>? equal_func = null,
         int priority = Priority.DEFAULT) {
-        base (hold_msec, callback, equal_func, priority);
+        base (hold_msec, callback, (owned) equal_func, priority);
         
-        item_count = new Gee.HashMap<G, int>(hash_func, equal_func);
+        item_count = new Gee.HashMap<G, int>((owned) hash_func, (owned) equal_func);
     }
     
     protected override void notify_dequeued(G item) {

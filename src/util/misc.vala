@@ -380,8 +380,8 @@ public bool is_twentyfour_hr_time_system() {
  * details. This class merely wraps it and adds a call to clear() to the destructor.
  */
 public class FixedTreeSet<G> : Gee.TreeSet<G> {
-    public FixedTreeSet(CompareDataFunc<G>? comp_func = null) {
-        base(comp_func);
+    public FixedTreeSet(owned CompareDataFunc<G>? comp_func = null) {
+        base((owned) comp_func);
     }
     
     ~FixedTreeSet() {

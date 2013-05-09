@@ -663,8 +663,8 @@ public string asciify_string(string s) {
  * details. This class merely wraps it and adds a call to clear() to the destructor.
  */
 public class FixedTreeSet<G> : Gee.TreeSet<G> {
-    public FixedTreeSet(CompareDataFunc<G>? comp_func = null) {
-        base(comp_func);
+    public FixedTreeSet(owned CompareDataFunc<G>? comp_func = null) {
+        base((owned) comp_func);
     }
     
     ~FixedTreeSet() {
@@ -1121,7 +1121,7 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
         on_login_flow_complete();
     }
 
-    protected weak Spit.Publishing.PluginHost get_host() {
+    protected unowned Spit.Publishing.PluginHost get_host() {
         return host;
     }
 
