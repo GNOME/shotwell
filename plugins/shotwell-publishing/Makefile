@@ -28,8 +28,6 @@ RC_FILES := \
 	flickr_publishing_options_pane.glade \
 	flickr_pin_entry_pane.glade \
 	picasa.png \
-	picasa_auth_code_entry_pane.glade \
-    picasa_not_set_up_pane.glade \
 	picasa_publishing_options_pane.glade \
 	piwigo.png \
 	piwigo_authentication_pane.glade \

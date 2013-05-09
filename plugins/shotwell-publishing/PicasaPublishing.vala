@@ -786,14 +786,6 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         }
         update_publish_button_sensitivity();
     }
-    
-    protected void notify_publish() {
-        publish();
-    }
-    
-    protected void notify_logout() {
-        logout();
-    }
 
     public Gtk.Widget get_widget() {
         return pane_widget;
@@ -805,14 +797,9 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     
     public void on_pane_installed() {
         installed();
-         
-        publish.connect(notify_publish);
-        logout.connect(notify_logout);
     }
     
     public void on_pane_uninstalled() {
-        publish.disconnect(notify_publish);
-        logout.disconnect(notify_logout);
     }
 }
 
