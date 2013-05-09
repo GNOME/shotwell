@@ -24,8 +24,8 @@ public abstract class AbstractSemaphore {
     }
     
     private Type type;
-    private Mutex mutex = new Mutex();
-    private Cond monitor = new Cond();
+    private Mutex mutex = Mutex();
+    private Cond monitor = Cond();
     
     public AbstractSemaphore(Type type) {
         assert(type == Type.SERIAL || type == Type.BROADCAST);
