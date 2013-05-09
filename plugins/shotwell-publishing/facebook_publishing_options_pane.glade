@@ -37,11 +37,9 @@ anything put into this field won't display)</property>
             <child>
               <object class="GtkRadioButton" id="use_existing_radio">
                 <property name="label" translatable="yes">Publish to an e_xisting album:</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
@@ -57,12 +55,10 @@ anything put into this field won't display)</property>
             <child>
               <object class="GtkRadioButton" id="create_new_radio">
                 <property name="label" translatable="yes">Create a _new album named:</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="margin_bottom">8</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="active">True</property>
@@ -176,12 +172,10 @@ anything put into this field won't display)</property>
         </child>
         <child>
           <object class="GtkCheckButton" id="strip_metadata_check">
-            <property name="label" translatable="yes">_Remove location, tag and camera-identifying data before uploading</property>
-            <property name="use_action_appearance">False</property>
+            <property name="label" translatable="yes">_Remove location, camera, and other identifying information before uploading</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="use_action_appearance">False</property>
             <property name="use_underline">True</property>
             <property name="xalign">0.10000000149011612</property>
             <property name="draw_indicator">True</property>
@@ -201,11 +195,9 @@ anything put into this field won't display)</property>
             <child>
               <object class="GtkButton" id="logout_button">
                 <property name="label" translatable="yes">_Logout</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -218,11 +210,9 @@ anything put into this field won't display)</property>
             <child>
               <object class="GtkButton" id="publish_button">
                 <property name="label" translatable="yes">_Publish</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>

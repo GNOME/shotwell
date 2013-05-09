@@ -99,14 +99,12 @@ so changes made here will not display)</property>
             </child>
             <child>
               <object class="GtkCheckButton" id="strip_metadata_check">
-                <property name="label" translatable="yes">_Remove location, tag and camera-identifying data before uploading</property>
-                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">_Remove location, camera, and other identifying information before uploading</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">center</property>
                 <property name="margin_top">16</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0.17000000178813934</property>
                 <property name="draw_indicator">True</property>
@@ -137,12 +135,10 @@ so changes made here will not display)</property>
             <child>
               <object class="GtkButton" id="logout_button">
                 <property name="label" translatable="yes">_Logout</property>
-                <property name="use_action_appearance">False</property>
                 <property name="width_request">96</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -155,12 +151,10 @@ so changes made here will not display)</property>
             <child>
               <object class="GtkButton" id="publish_button">
                 <property name="label" translatable="yes">_Publish</property>
-                <property name="use_action_appearance">False</property>
                 <property name="width_request">96</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>

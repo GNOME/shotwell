@@ -73,11 +73,9 @@
             <child>
               <object class="GtkRadioButton" id="use_existing_radio">
                 <property name="label" translatable="yes">An _existing album:</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="active">True</property>
@@ -94,11 +92,9 @@
             <child>
               <object class="GtkRadioButton" id="create_new_radio">
                 <property name="label" translatable="yes">A _new album named:</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="yalign">0.47999998927116394</property>
@@ -115,11 +111,9 @@
             <child>
               <object class="GtkCheckButton" id="public_check">
                 <property name="label" translatable="yes">L_ist album in public gallery</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
@@ -181,15 +175,13 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="strip_metadata_check">
-                <property name="label" translatable="yes">_Remove location, tag and camera-identifying data before uploading </property>
-                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">_Remove location, camera, and other identifying information before uploading</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">center</property>
                 <property name="margin_top">16</property>
                 <property name="hexpand">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0.20000000298023224</property>
                 <property name="draw_indicator">True</property>
@@ -235,11 +227,9 @@
         <child>
           <object class="GtkButton" id="logout_button">
             <property name="label" translatable="yes">_Logout</property>
-            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="use_action_appearance">False</property>
             <property name="use_underline">True</property>
           </object>
           <packing>
@@ -251,11 +241,9 @@
         <child>
           <object class="GtkButton" id="publish_button">
             <property name="label" translatable="yes">_Publish</property>
-            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="use_action_appearance">False</property>
             <property name="use_underline">True</property>
           </object>
           <packing>

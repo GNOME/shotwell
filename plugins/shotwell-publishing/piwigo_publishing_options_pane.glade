@@ -38,11 +38,9 @@
                 <child>
                   <object class="GtkRadioButton" id="use_existing_radio">
                     <property name="label" translatable="yes">An _existing category:</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="xalign">1</property>
                     <property name="active">True</property>
@@ -52,11 +50,9 @@
                 <child>
                   <object class="GtkRadioButton" id="create_new_radio">
                     <property name="label" translatable="yes">A _new album named:</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="xalign">1</property>
                     <property name="active">True</property>
@@ -227,12 +223,10 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="strip_metadata_check">
-                <property name="label" translatable="yes">_Remove location, tag and camera-identifying data before uploading</property>
-                <property name="use_action_appearance">False</property>
+                <property name="label" translatable="yes">_Remove location, camera, and other identifying information before uploading</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
@@ -246,11 +240,9 @@
             <child>
               <object class="GtkCheckButton" id="title_as_comment_check">
                 <property name="label" translatable="yes">_If a title is set and comment unset, use title as comment</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
@@ -264,11 +256,9 @@
             <child>
               <object class="GtkCheckButton" id="no_upload_tags_check">
                 <property name="label" translatable="yes">_Do no upload tags</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
@@ -286,11 +276,9 @@
                 <child>
                   <object class="GtkButton" id="logout_button">
                     <property name="label" translatable="yes">Logout</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_action_appearance">False</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -301,11 +289,9 @@
                 <child>
                   <object class="GtkButton" id="publish_button">
                     <property name="label" translatable="yes">Publish</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_action_appearance">False</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
