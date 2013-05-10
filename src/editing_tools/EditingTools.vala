@@ -2172,9 +2172,15 @@ public class AdjustTool : EditingTool {
         public Gtk.Scale temperature_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             TemperatureTransformation.MIN_PARAMETER, TemperatureTransformation.MAX_PARAMETER,
             1.0);
+
         public Gtk.Scale shadows_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             ShadowDetailTransformation.MIN_PARAMETER, ShadowDetailTransformation.MAX_PARAMETER,
             1.0);
+
+        public Gtk.Scale highlights_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
+            HighlightDetailTransformation.MIN_PARAMETER, HighlightDetailTransformation.MAX_PARAMETER,
+            1.0);
+
         public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
         public Gtk.Button reset_button = new Gtk.Button.with_mnemonic(_("_Reset"));
         public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
@@ -2230,6 +2236,13 @@ public class AdjustTool : EditingTool {
             shadows_slider.set_size_request(SLIDER_WIDTH, -1);
             shadows_slider.set_draw_value(false);
             shadows_slider.set_margin_right(0);
+
+            Gtk.Label highlights_label = new Gtk.Label.with_mnemonic(_("Highlights:"));
+            highlights_label.set_alignment(0.0f, 0.5f);
+            slider_organizer.attach(highlights_label, 0, 5, 1, 1);
+            slider_organizer.attach(highlights_slider, 1, 5, 1, 1);
+            highlights_slider.set_size_request(SLIDER_WIDTH, -1);
+            highlights_slider.set_draw_value(false);
 
             Gtk.Box button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             button_layouter.set_homogeneous(true);
@@ -2431,6 +2444,7 @@ public class AdjustTool : EditingTool {
     private OneShotScheduler? saturation_scheduler = null;
     private OneShotScheduler? exposure_scheduler = null;
     private OneShotScheduler? shadows_scheduler = null;
+    private OneShotScheduler? highlights_scheduler = null;
 
     private AdjustTool() {
     }
@@ -2466,6 +2480,12 @@ public class AdjustTool : EditingTool {
             transformations.get_transformation(PixelTransformationType.SHADOWS);
         histogram_transformer.attach_transformation(shadows_trans);
         adjust_tool_window.shadows_slider.set_value(shadows_trans.get_parameter());
+
+        /* set up highlights */
+        HighlightDetailTransformation highlights_trans = (HighlightDetailTransformation)
+            transformations.get_transformation(PixelTransformationType.HIGHLIGHTS);
+        histogram_transformer.attach_transformation(highlights_trans);
+        adjust_tool_window.highlights_slider.set_value(highlights_trans.get_parameter());
 
         /* set up temperature & tint */
         TemperatureTransformation temp_trans = (TemperatureTransformation)
@@ -2677,6 +2697,19 @@ public class AdjustTool : EditingTool {
         slider_updated(new_shadows_trans, _("Shadows"));
     }
 
+    private void on_highlights_adjustment() {
+        if (highlights_scheduler == null)
+            highlights_scheduler = new OneShotScheduler("highlights", on_delayed_highlights_adjustment);
+
+        highlights_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
+    }
+
+    private void on_delayed_highlights_adjustment() {
+        HighlightDetailTransformation new_highlights_trans = new HighlightDetailTransformation(
+            (float) adjust_tool_window.highlights_slider.get_value());
+        slider_updated(new_highlights_trans, _("Highlights"));
+    }
+
     private void on_histogram_constraint() {
         int expansion_black_point =
             adjust_tool_window.histogram_manipulator.get_left_nub_position();
@@ -2723,6 +2756,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.value_changed.connect(on_tint_adjustment);
         adjust_tool_window.temperature_slider.value_changed.connect(on_temperature_adjustment);
         adjust_tool_window.shadows_slider.value_changed.connect(on_shadows_adjustment);
+        adjust_tool_window.highlights_slider.value_changed.connect(on_highlights_adjustment);
         adjust_tool_window.histogram_manipulator.nub_position_changed.connect(on_histogram_constraint);
 
         adjust_tool_window.saturation_slider.button_press_event.connect(on_hscale_reset);
@@ -2730,6 +2764,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.temperature_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.shadows_slider.button_press_event.connect(on_hscale_reset);
+        adjust_tool_window.highlights_slider.button_press_event.connect(on_hscale_reset);
     }
 
     private void unbind_window_handlers() {
@@ -2741,6 +2776,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.value_changed.disconnect(on_tint_adjustment);
         adjust_tool_window.temperature_slider.value_changed.disconnect(on_temperature_adjustment);
         adjust_tool_window.shadows_slider.value_changed.disconnect(on_shadows_adjustment);
+        adjust_tool_window.highlights_slider.value_changed.disconnect(on_highlights_adjustment);
         adjust_tool_window.histogram_manipulator.nub_position_changed.disconnect(on_histogram_constraint);
 
         adjust_tool_window.saturation_slider.button_press_event.disconnect(on_hscale_reset);
@@ -2748,6 +2784,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.temperature_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.shadows_slider.button_press_event.disconnect(on_hscale_reset);
+        adjust_tool_window.highlights_slider.button_press_event.disconnect(on_hscale_reset);
     }
 
     public bool enhance() {
@@ -2795,6 +2832,11 @@ public class AdjustTool : EditingTool {
             case PixelTransformationType.SHADOWS:
                 adjust_tool_window.shadows_slider.set_value(
                     ((ShadowDetailTransformation) transformation).get_parameter());
+            break;
+
+            case PixelTransformationType.HIGHLIGHTS:
+                adjust_tool_window.highlights_slider.set_value(
+                    ((HighlightDetailTransformation) transformation).get_parameter());
             break;
 
             case PixelTransformationType.EXPOSURE:
