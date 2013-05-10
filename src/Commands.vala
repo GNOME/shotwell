@@ -856,6 +856,7 @@ public abstract class MovePhotosCommand : Command {
     // Piggyback on a private command so that processing to determine new_event can occur before
     // construction, if needed
     protected class RealMovePhotosCommand : MultipleDataSourceCommand {
+        private Gee.ArrayList<MediaSource>? attach_list = null;
         private SourceProxy new_event_proxy = null;
         private Gee.HashMap<MediaSource, SourceProxy?> old_events = new Gee.HashMap<
             MediaSource, SourceProxy?>();
@@ -915,11 +916,24 @@ public abstract class MovePhotosCommand : Command {
             // Otherwise - don't jump; users found the jumping disconcerting.
             
             // create the new event
+            attach_list = new Gee.ArrayList<MediaSource>();
+            
             base.execute();
+            
+            if ((Event?) new_event_proxy.get_source() != null) {
+                try {
+                    DatabaseTable.begin_transaction();
+                    ((Event) new_event_proxy.get_source()).attach_many(attach_list);
+                    DatabaseTable.commit_transaction();
+                } catch (Error e) {
+                    warning("Couldn't commit database transaction: %s", e.message);
+                }
+            }
         }
         
         public override void execute_on_source(DataSource source) {
-            ((MediaSource) source).set_event((Event?) new_event_proxy.get_source());
+            ((MediaSource) source).set_event((Event?) new_event_proxy.get_source(), true);
+            attach_list.add(source as MediaSource);
         }
         
         public override void undo_on_source(DataSource source) {

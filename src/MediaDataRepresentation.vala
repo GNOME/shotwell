@@ -214,7 +214,11 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
         return event;
     }
 
-    public bool set_event(Event? new_event) {
+    /** @brief Set the event this media source belongs to. If 'batch_attach_later' is true,
+     *  instead of the Event object attaching this immediately, it's assumed that the caller
+     *  and the caller will add it later as part of a larger collection with attach_many().
+     */
+    public bool set_event(Event? new_event, bool batch_attach_later = false) {
         EventID event_id = (new_event != null) ? new_event.get_event_id() : EventID();
         if (get_event_id().id == event_id.id)
             return true;
@@ -223,15 +227,16 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
         if (committed) {
             if (event != null)
                 event.detach(this);
-
-            if (new_event != null)
-                new_event.attach(this);
+            
+            if (new_event != null) {
+                if (!batch_attach_later)
+                    new_event.attach(this);
+            }
             
             event = new_event;
             
             notify_altered(new Alteration("metadata", "event"));
         }
-
         return committed;
     }
     
