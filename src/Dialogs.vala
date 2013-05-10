@@ -1283,8 +1283,9 @@ public class EditTitleDialog : TextEntryDialogMediator {
 }
 
 public class EditCommentDialog : MultiTextEntryDialogMediator {
-    public EditCommentDialog(string? photo_comment) {
-        base (_("Edit Comment"), _("Comment:"), photo_comment);
+    public EditCommentDialog(string? comment, bool is_event = false) {
+        string title_tmp = (is_event) ? _("Edit Event Comment") : _("Edit Photo/Video Comment");
+        base(title_tmp, _("Comment:"), comment);
     }
     
     public virtual string? execute() {

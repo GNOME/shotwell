@@ -59,9 +59,9 @@ public class EventPage : CollectionPage {
         rename.label = Resources.RENAME_EVENT_MENU;
         new_actions += rename;
 
-        Gtk.ActionEntry comment = { "EditComment", null, TRANSLATABLE, null, Resources.EDIT_COMMENT_MENU,
-            on_edit_comment };
-        comment.label = Resources.EDIT_COMMENT_MENU;
+        Gtk.ActionEntry comment = { "EditEventComment", null, TRANSLATABLE, null,
+            Resources.EDIT_EVENT_COMMENT_MENU, on_edit_comment};
+        comment.label = Resources.EDIT_EVENT_COMMENT_MENU;
         new_actions += comment;
 
         return new_actions;
@@ -81,7 +81,7 @@ public class EventPage : CollectionPage {
 
         // this is always valid; if the user has right-clicked in an empty area,
         // change the comment on the event itself.
-        set_action_sensitive("EditComment", true);
+        set_action_sensitive("EditEventComment", true);
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
@@ -99,7 +99,8 @@ public class EventPage : CollectionPage {
     
     protected override void on_edit_comment() {
         if (get_view().get_selected_count() == 0) {
-            EditCommentDialog edit_comment_dialog = new EditCommentDialog(page_event.get_comment());
+            EditCommentDialog edit_comment_dialog = new EditCommentDialog(page_event.get_comment(),
+                true);
             string? new_comment = edit_comment_dialog.execute();
             if (new_comment == null)
                 return;

@@ -264,6 +264,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string EDIT_COMMENT_MENU = _("Edit _Comment...");
     public const string EDIT_COMMENT_LABEL = _("Edit Comment");
 
+    public const string EDIT_EVENT_COMMENT_MENU = _("Edit Event _Comment...");
+    public const string EDIT_EVENT_COMMENT_LABEL = _("Edit Event Comment");
+
     public const string ADJUST_DATE_TIME_MENU = _("_Adjust Date and Time...");
     public const string ADJUST_DATE_TIME_LABEL = _("Adjust Date and Time");
     
