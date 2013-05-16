@@ -1262,7 +1262,7 @@ msgstr "Sélectionner tous les éléments"
 # 
 #: src/Resources.vala:716
 msgid "%-I:%M %p"
-msgstr ""
+msgstr "%-H:%M"
 
 # The string below is a format string that describes a U.S.-style
 # time at a seconds-level of precision (e.g. "8:18:27 PM"). You should
@@ -2189,7 +2189,7 @@ msgstr "%.1f secondes"
 
 #: src/Properties.vala:410
 msgid "Developer:"
-msgstr "Révélateur[nbsp]:"
+msgstr "Révélateur :"
 
 #: src/Properties.vala:438 src/Properties.vala:442 src/Properties.vala:449
 #: src/editing_tools/EditingTools.vala:2190
