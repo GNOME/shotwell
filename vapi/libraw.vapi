@@ -104,7 +104,6 @@ public struct OutputParams {
     public float threshold;
     public bool half_size;
     public bool four_color_rgb;
-    public int document_mode;
     public int highlight;
     public bool use_auto_wb;
     public bool use_camera_wb;
