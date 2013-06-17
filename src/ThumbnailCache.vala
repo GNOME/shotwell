@@ -481,7 +481,7 @@ public class ThumbnailCache : Object {
             src_source.get_preferred_thumbnail_format());
         
         try {
-            src_file.copy(dest_file, FileCopyFlags.ALL_METADATA, null, null);
+            src_file.copy(dest_file, FileCopyFlags.ALL_METADATA | FileCopyFlags.OVERWRITE, null, null);
         } catch (Error err) {
             AppWindow.panic("%s".printf(err.message));
         }
