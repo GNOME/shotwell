@@ -555,6 +555,7 @@ internal class UploadTransaction :
                     keywords_string = string.joinv(", ", tmp);
             }
 
+            keywords_string = Publishing.RESTSupport.decimal_entity_encode(keywords_string);
             keywords_string = "<mrss:group><mrss:keywords>%s</mrss:keywords></mrss:group>".printf(keywords_string);
         }
         
