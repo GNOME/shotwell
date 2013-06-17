@@ -18,7 +18,7 @@ MIN_VALAC_VERSION := 0.18.0
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 
-export MIN_GLIB_VERSION=2.30.0
+export MIN_GLIB_VERSION=2.33.0
 
 # needed for testing
 VALADATE_PKG_NAME := valadate-1.0
@@ -346,13 +346,14 @@ EXT_PKG_VERSIONS = \
 	gstreamer-base-1.0 >= 1.0.0 \
 	gstreamer-plugins-base-1.0 >= 1.0.0 \
 	gstreamer-pbutils-1.0 >= 1.0.0 \
-	gtk+-3.0 >= 3.0.11 \
+	gtk+-3.0 >= 3.4.0 \
 	gudev-1.0 >= 145 \
 	libexif >= 0.6.16 \
 	libgphoto2 >= 2.4.2 \
 	libraw >= 0.13.2 \
 	libsoup-2.4 >= 2.26.0 \
 	libxml-2.0 >= 2.6.32 \
+	rest-0.7 >= 0.7 \
 	sqlite3 >= 3.5.9 \
 	webkitgtk-3.0 >= 1.4.0 
 
