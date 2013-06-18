@@ -18,7 +18,7 @@ MIN_VALAC_VERSION := 0.18.0
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 
-export MIN_GLIB_VERSION=2.33.0
+export MIN_GLIB_VERSION=2.30.0
 
 # needed for testing
 VALADATE_PKG_NAME := valadate-1.0
