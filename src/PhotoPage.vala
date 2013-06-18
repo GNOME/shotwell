@@ -2837,7 +2837,13 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override void update_ui(bool missing) {
         bool sensitivity = !missing;
         
-        set_action_sensitive("SendTo", sensitivity);
+        if (DesktopIntegration.use_send_to()) {
+            set_action_sensitive("SendTo", sensitivity);
+        } else {
+            set_action_visible("SendTo", false);
+            set_action_visible ("SendToContextMenu", false);
+        }
+        
         set_action_sensitive("Publish", sensitivity);
         set_action_sensitive("Print", sensitivity);
         set_action_sensitive("CommonJumpToFile", sensitivity);

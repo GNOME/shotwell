@@ -86,8 +86,27 @@ public string? get_app_open_command(AppInfo app_info) {
     return str != null ? str : app_info.get_executable();
 }
 
-public bool is_send_to_installed() {
-    return send_to_installed;
+public bool use_send_to() {
+    if (!send_to_installed)
+        return false;
+    
+    // check for email client, which should be the only thing that Send To launches now; see:
+    // https://bugzilla.gnome.org/show_bug.cgi?id=680983
+    GLib.AppInfo? app_info = GLib.AppInfo.get_default_for_uri_scheme("mailto");
+    if (app_info == null)
+        return false;
+    
+    switch (app_info.get_name()) {
+        case "Evolution":
+        case "Balsa":
+        case "Sylpheed":
+        case "Thunderbird":
+        case "Geary Mail":
+        case "Geary":
+            return true;
+    }
+    
+    return false;
 }
 
 public void files_send_to(File[] files) {

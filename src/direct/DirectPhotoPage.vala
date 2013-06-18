@@ -330,7 +330,12 @@ public class DirectPhotoPage : EditingHostPage {
         
         set_action_sensitive("Save", sensitivity);
         set_action_sensitive("SaveAs", sensitivity);
-        set_action_sensitive("SendTo", sensitivity);
+        
+        if (DesktopIntegration.use_send_to())
+            set_action_sensitive("SendTo", sensitivity);
+        else
+            set_action_visible("SendTo", false);
+        
         set_action_sensitive("Publish", sensitivity);
         set_action_sensitive("Print", sensitivity);
         set_action_sensitive("CommonJumpToFile", sensitivity);
