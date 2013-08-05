@@ -44,16 +44,25 @@ public class Folders.Branch : Sidebar.Branch {
         
         return coll_key_equality;
     }
+
+    private void on_master_source_replaced(MediaSource media_source, File old_file, File new_file) {
+        remove_entry(old_file);
+        add_entry(media_source);
+    }
     
     private void on_media_contents_altered(Gee.Iterable<DataObject>? added, Gee.Iterable<DataObject>? removed) {
         if (added != null) {
-            foreach (DataObject object in added)
+            foreach (DataObject object in added) {
                 add_entry((MediaSource) object);
+                ((MediaSource) object).master_replaced.connect(on_master_source_replaced);
+            }
         }
         
         if (removed != null) {
-            foreach (DataObject object in removed)
-                remove_entry((MediaSource) object);
+            foreach (DataObject object in removed) {
+                remove_entry(((MediaSource) object).get_file());
+                ((MediaSource) object).master_replaced.disconnect(on_master_source_replaced);
+            }
         }
     }
     
@@ -97,8 +106,8 @@ public class Folders.Branch : Sidebar.Branch {
         }
     }
     
-    void remove_entry(MediaSource media) {
-        Folders.SidebarEntry? folder_entry = entries.get(media.get_file().get_parent());
+    private void remove_entry(File file) {
+        Folders.SidebarEntry? folder_entry = entries.get(file.get_parent());
         if (folder_entry == null)
             return;
         
