@@ -78,7 +78,7 @@ class ShotwellThumbnailer {
             if (sample != null) {
                 Gst.Buffer buffer;
                 Gst.Caps caps;
-                Gst.Structure s;
+                unowned Gst.Structure s;
                 Gst.MapInfo mapinfo;
 
                 // Get the snapshot buffer format now. We set the caps on the appsink so

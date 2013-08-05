@@ -156,7 +156,7 @@ public class FullscreenWindow : PageWindow {
         AppWindow.get_instance().end_fullscreen();
     }
     
-    public void close() {
+    public new void close() {
         on_close();
     }
     

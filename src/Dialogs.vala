@@ -1515,7 +1515,7 @@ public class ProgressDialog : Gtk.Window {
         return keep_going;
     }
     
-    public void close() {
+    public new void close() {
 #if UNITY_SUPPORT
         //UnityProgressBar: reset
         uniprobar.reset();
