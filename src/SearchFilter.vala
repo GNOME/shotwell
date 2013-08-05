@@ -315,61 +315,6 @@ public class TextAction {
     }
 }
 
-public class TextActionEntry : Gtk.Entry {
-    private TextAction action;
-    
-    public TextActionEntry(TextAction action) {
-        this.action = action;
-        
-        set_nullable_text(action.value);
-        
-        action.text_changed.connect(on_action_text_changed);
-        action.sensitivity_changed.connect(on_sensitivity_changed);
-        action.visibility_changed.connect(on_visibility_changed);
-        
-        buffer.deleted_text.connect(on_entry_changed);
-        buffer.inserted_text.connect(on_entry_changed);
-    }
-    
-    ~TextActionEntry() {
-        action.text_changed.disconnect(on_action_text_changed);
-        action.sensitivity_changed.disconnect(on_sensitivity_changed);
-        action.visibility_changed.disconnect(on_visibility_changed);
-        
-        buffer.deleted_text.disconnect(on_entry_changed);
-        buffer.inserted_text.disconnect(on_entry_changed);
-    }
-    
-    public TextAction get_text_action() {
-        return action;
-    }
-    
-    private void on_action_text_changed(string? text) {
-        buffer.deleted_text.disconnect(on_entry_changed);
-        buffer.inserted_text.disconnect(on_entry_changed);
-        set_nullable_text(text);
-        buffer.deleted_text.connect(on_entry_changed);
-        buffer.inserted_text.connect(on_entry_changed);
-    }
-    
-    private void on_entry_changed() {
-        action.text_changed.disconnect(on_action_text_changed);
-        action.set_text(get_text());
-        action.text_changed.connect(on_action_text_changed);
-    }
-    
-    private void on_sensitivity_changed(bool sensitive) {
-        this.sensitive = sensitive;
-    }
-    
-    private void on_visibility_changed(bool visible) {
-        ((Gtk.Widget) this).visible = visible;
-    }
-    
-    private void set_nullable_text(string? text) {
-        set_text(text != null ? text : "");
-    }
-}
 
 public class SearchFilterActions {
     public unowned Gtk.ToggleAction? flagged {
@@ -781,61 +726,78 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     // The close menu. Populated below in the constructor.
     private Gtk.Menu close_menu = new Gtk.Menu();
     private Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.CLOSE, null);
-   
+
     // Text search box.
     protected class SearchBox : Gtk.ToolItem {
-        private TextActionEntry entry;
+        private Gtk.SearchEntry search_entry;
+        private TextAction action;
         
         public SearchBox(TextAction action) {
-            entry = new TextActionEntry(action);
+            this.action = action;
+            search_entry = new Gtk.SearchEntry();
             
-            entry.primary_icon_name = "edit-find-symbolic";
-            entry.primary_icon_activatable = false;
-            entry.secondary_icon_stock = null;
-            entry.secondary_icon_activatable = true;
-            entry.width_chars = 23;
-            entry.icon_release.connect(on_icon_release);
-            entry.key_press_event.connect(on_key_typed);
-            entry.key_release_event.connect(on_key_typed);
-            entry.key_press_event.connect(on_escape_key); 
-            add(entry);
+            search_entry.width_chars = 23;
+            search_entry.key_press_event.connect(on_escape_key); 
+            add(search_entry);
+            
+            set_nullable_text(action.value);
+            
+            action.text_changed.connect(on_action_text_changed);
+            action.sensitivity_changed.connect(on_sensitivity_changed);
+            action.visibility_changed.connect(on_visibility_changed);
+            
+            search_entry.buffer.deleted_text.connect(on_entry_changed);
+            search_entry.buffer.inserted_text.connect(on_entry_changed);
         }
         
         ~SearchBox() {
-            entry.icon_release.disconnect(on_icon_release);
-            entry.key_press_event.disconnect(on_escape_key);
-            entry.key_press_event.disconnect(on_key_typed);
-            entry.key_release_event.disconnect(on_key_typed);
-        }
-        
-        private void on_icon_release(Gtk.EntryIconPosition pos, Gdk.Event event) {
-            if (Gtk.EntryIconPosition.SECONDARY == pos)
-                entry.get_text_action().clear();
-            entry.secondary_icon_stock = null;
+            action.text_changed.disconnect(on_action_text_changed);
+            action.sensitivity_changed.disconnect(on_sensitivity_changed);
+            action.visibility_changed.disconnect(on_visibility_changed);
+            
+            search_entry.buffer.deleted_text.disconnect(on_entry_changed);
+            search_entry.buffer.inserted_text.disconnect(on_entry_changed);
         }
         
         public void get_focus() {
-            entry.has_focus = true;
-        }
-        
-        private bool on_key_typed(Gdk.EventKey e) {
-            if (entry.get_text().length > 0)
-                entry.secondary_icon_name = "edit-clear-symbolic";
-            else
-                entry.secondary_icon_stock = null;
-            
-            return false;
+            search_entry.has_focus = true;
         }
         
         // Ticket #3124 - user should be able to clear 
         // the search textbox by typing 'Esc'. 
         private bool on_escape_key(Gdk.EventKey e) { 
             if(Gdk.keyval_name(e.keyval) == "Escape")
-                entry.get_text_action().clear(); 
+                action.clear();
             
-            // Continue processing this event, since the 
-            // text entry functionality needs to see it too. 
+           // Continue processing this event, since the 
+           // text entry functionality needs to see it too. 
             return false; 
+        }
+        
+        private void on_action_text_changed(string? text) {
+            search_entry.buffer.deleted_text.disconnect(on_entry_changed);
+            search_entry.buffer.inserted_text.disconnect(on_entry_changed);
+            set_nullable_text(text);
+            search_entry.buffer.deleted_text.connect(on_entry_changed);
+            search_entry.buffer.inserted_text.connect(on_entry_changed);
+        }
+        
+        private void on_entry_changed() {
+            action.text_changed.disconnect(on_action_text_changed);
+            action.set_text(search_entry.get_text());
+            action.text_changed.connect(on_action_text_changed);
+        }
+        
+        private void on_sensitivity_changed(bool sensitive) {
+            this.sensitive = sensitive;
+        }
+        
+        private void on_visibility_changed(bool visible) {
+            ((Gtk.Widget) this).visible = visible;
+        }
+        
+        private void set_nullable_text(string? text) {
+            search_entry.set_text(text != null ? text : "");
         }
     }
     
