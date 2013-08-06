@@ -153,7 +153,7 @@ namespace GPhoto {
     }
 
     // For CameraFileInfoFile, CameraFileInfoPreview, and CameraStorageInformation.  See:
-    // http://trac.yorba.org/ticket/1851
+    // http://redmine.yorba.org/issues/1851
     // https://bugzilla.redhat.com/show_bug.cgi?id=585676
     // https://sourceforge.net/tracker/?func=detail&aid=3000198&group_id=8874&atid=108874
     public const int MAX_FILENAME_LENGTH = 63;
@@ -174,13 +174,60 @@ namespace GPhoto {
         
         return true;
     }
+
+    // Libgphoto will in some instances refuse to get metadata from a camera, but the camera is accessable as a
+    // filesystem.  In these cases shotwell can access the file directly. See:
+    // http://redmine.yorba.org/issues/2959
+    public PhotoMetadata? get_fallback_metadata(Camera camera, Context context, string folder, string filename) {
+        GPhoto.CameraStorageInformation *sifs = null;
+        int count = 0;
+        camera.get_storageinfo(&sifs, out count, context);
+        
+        GPhoto.PortInfo port_info;
+        camera.get_port_info(out port_info);
+        
+        string path;
+#if WITH_GPHOTO_25
+        port_info.get_path(out path);
+#else
+        path = port_info.path;
+#endif
+        
+        string prefix = "disk:";
+        if(path.has_prefix(prefix))
+            path = path[prefix.length:path.length];
+        else
+            return null;
+        
+        PhotoMetadata? metadata = new PhotoMetadata();
+        try {
+            metadata.read_from_file(File.new_for_path(path + folder + "/" + filename));
+        } catch {
+            metadata = null;
+        }
+        
+        return metadata;
+    }
     
     public Gdk.Pixbuf? load_preview(Context context, Camera camera, string folder, string filename,
         out uint8[] raw, out size_t raw_length) throws Error {
-        raw = load_file_into_buffer(context, camera, folder, filename, GPhoto.CameraFileType.PREVIEW);
+        raw = null;
+        raw_length = 0;
+        
+        try {
+            raw = load_file_into_buffer(context, camera, folder, filename, GPhoto.CameraFileType.PREVIEW);
+        } catch {
+            PhotoMetadata metadata = get_fallback_metadata(camera, context, folder, filename);
+            if(null == metadata)
+                return null;
+            if(0 == metadata.get_preview_count())
+                return null;
+            PhotoPreview? preview = metadata.get_preview(metadata.get_preview_count() - 1);
+            raw = preview.flatten();
+        }
+        
         if (raw == null) {
             raw_length = 0;
-            
             return null;
         }
         
@@ -234,8 +281,13 @@ namespace GPhoto {
     
     public PhotoMetadata? load_metadata(Context context, Camera camera, string folder, string filename)
         throws Error {
-        uint8[] camera_raw = load_file_into_buffer(context, camera, folder, filename,
-            GPhoto.CameraFileType.EXIF);
+        uint8[] camera_raw = null;
+        try {
+            camera_raw = load_file_into_buffer(context, camera, folder, filename, GPhoto.CameraFileType.EXIF);
+        } catch {
+            return get_fallback_metadata(camera, context, folder, filename);
+        }
+        
         if (camera_raw == null || camera_raw.length == 0)
             return null;
         
