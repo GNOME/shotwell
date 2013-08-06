@@ -53,7 +53,7 @@ public class Events.Branch : Sidebar.Branch {
         closed_icon = new ThemedIcon(Resources.ICON_FOLDER_CLOSED);
         events_icon = new ThemedIcon(Resources.ICON_EVENTS);
         single_event_icon = new ThemedIcon(Resources.ICON_ONE_EVENT);
-        no_event_icon = new ThemedIcon(Resources.ICON_MISSING_FILES);
+        no_event_icon = new ThemedIcon(Resources.ICON_NO_EVENT);
         
         sort_ascending = Config.Facade.get_instance().get_events_sort_ascending();
     }

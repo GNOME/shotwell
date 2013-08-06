@@ -208,6 +208,7 @@ ICON_FILES = \
 	merge.svg \
 	multiple-events.png \
 	multiple-tags.png \
+	no-event.svg \
 	noninterpretable-video.png \
 	one-event.png \
 	one-star-filter-plus.svg \

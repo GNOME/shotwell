@@ -113,6 +113,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_CAMERAS = "camera-photo";
     public const string ICON_EVENTS = "multiple-events";
     public const string ICON_ONE_EVENT = "one-event";
+    public const string ICON_NO_EVENT = "no-event";
     public const string ICON_ONE_TAG = "one-tag";
     public const string ICON_TAGS = "multiple-tags";
     public const string ICON_FOLDER_CLOSED = "folder";
