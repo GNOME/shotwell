@@ -248,8 +248,7 @@ namespace GPhoto {
         }
         
         MemoryInputStream mins = new MemoryInputStream.from_data(raw, null);
-        
-        return new Gdk.Pixbuf.from_stream(mins, null);
+        return new Gdk.Pixbuf.from_stream_at_scale(mins, ImportPreview.MAX_SCALE, ImportPreview.MAX_SCALE, true, null);
     }
     
     public Gdk.Pixbuf? load_image(Context context, Camera camera, string folder, string filename) 
