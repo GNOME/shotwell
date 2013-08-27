@@ -29,6 +29,9 @@ public class ThumbnailCache : Object {
     public const Jpeg.Quality DEFAULT_QUALITY = Jpeg.Quality.HIGH;
     public const int MAX_INMEMORY_DATA_SIZE = 512 * 1024;
     
+    // Some code relies on Size's pixel values being manipulated and then using Size's methods,
+    // so be careful before changing any of these values (and especially careful before arbitrarily
+    // manipulating a Size enum)
     public enum Size {
         LARGEST = 360,
         BIG = 360,
@@ -293,23 +296,24 @@ public class ThumbnailCache : Object {
     // supplied image file.
     public static void generate_for_photo(Thumbnails thumbnails, PhotoFileReader reader,
         Orientation orientation, Dimensions original_dim) throws Error {
-        foreach (Size size in ALL_SIZES) {
-            Dimensions dim = size.get_scaling().get_scaled_dimensions(original_dim);
-            
-            Gdk.Pixbuf? thumbnail = null;
-            try {
-                thumbnail = reader.scaled_read(original_dim, dim);
-            } catch (Error err) {
-                // if the scaled read generated an error, catch it and try to do an unscaled read
-                // followed by a downsample. If the call to unscaled_read() below throws an error,
-                // just propagate it up to the caller
-                thumbnail = reader.unscaled_read();
-                thumbnail = thumbnail.scale_simple(dim.width, dim.height, Gdk.InterpType.HYPER);
-            }
+        // Taking advantage of Size's values matching their pixel size
+        Size max_size = Size.BIG * 2;
+        Dimensions dim = max_size.get_scaling().get_scaled_dimensions(original_dim);
+        Gdk.Pixbuf? largest_thumbnail = null;
+        try {
+            largest_thumbnail = reader.scaled_read(original_dim, dim);
+        } catch (Error err) {
+            // if the scaled read generated an error, catch it and try to do an unscaled read
+            // followed by a downsample. If the call to unscaled_read() below throws an error,
+            // just propagate it up to the caller
+            largest_thumbnail = reader.unscaled_read();
+        }
+        largest_thumbnail = orientation.rotate_pixbuf(largest_thumbnail);
+        Dimensions largest_thumb_dimensions = Dimensions.for_pixbuf(largest_thumbnail);
 
-            thumbnail = orientation.rotate_pixbuf(thumbnail);
-            
-            thumbnails.set(size, thumbnail);
+        foreach (Size size in ALL_SIZES) {
+            dim = size.get_scaling().get_scaled_dimensions(largest_thumb_dimensions);
+            thumbnails.set(size, largest_thumbnail.scale_simple(dim.width, dim.height, Gdk.InterpType.HYPER));
         }
     }
     
