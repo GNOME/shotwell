@@ -448,6 +448,7 @@ public abstract class EditingTool {
 
     private EditingToolWindow tool_window = null;
     protected Cairo.Surface surface;
+    public string name;
 
     [CCode (has_target=false)]
     public delegate EditingTool Factory();
@@ -463,7 +464,8 @@ public abstract class EditingTool {
 
     public signal void aborted();
 
-    public EditingTool() {
+    public EditingTool(string name) {
+        this.name = name;
     }
 
     // base.activate() should always be called by an overriding member to ensure the base class
@@ -705,6 +707,7 @@ public class CropTool : EditingTool {
     private float pre_aspect_ratio = ANY_ASPECT_RATIO;
 
     private CropTool() {
+        base("CropTool");
     }
 
     public static CropTool factory() {
@@ -1873,6 +1876,7 @@ public class RedeyeTool : EditingTool {
     private Gdk.Pixbuf current_pixbuf = null;
 
     private RedeyeTool() {
+        base("RedeyeTool");
     }
 
     public static RedeyeTool factory() {
@@ -2447,6 +2451,7 @@ public class AdjustTool : EditingTool {
     private OneShotScheduler? highlights_scheduler = null;
 
     private AdjustTool() {
+        base("AdjustTool");
     }
 
     public static AdjustTool factory() {

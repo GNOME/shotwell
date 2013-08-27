@@ -412,6 +412,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool is_pan_in_progress = false;
     private double saved_slider_val = 0.0;
     private ZoomBuffer? zoom_buffer = null;
+    private Gee.HashMap<string, int> last_locations = new Gee.HashMap<string, int>();
     
     public EditingHostPage(SourceCollection sources, string name) {
         base(name, false);
@@ -1475,6 +1476,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         EditingTools.EditingTool tool = current_tool;
         current_tool = null;
+
+        // save the position of the tool
+        EditingTools.EditingToolWindow? tool_window = tool.get_tool_window();
+        if (tool_window != null && tool_window.has_user_moved()) {
+            int last_location_x, last_location_y;
+            tool_window.get_position(out last_location_x, out last_location_y);            
+            last_locations[tool.name + "_x"] = last_location_x;
+            last_locations[tool.name + "_y"] = last_location_y;
+        }
         
         // deactivate with the tool taken out of the hooks and
         // disconnect any signals we may have connected on activating
@@ -1688,7 +1698,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         base.on_move(rect);
     }
-    
+
+    protected override void on_move_finished(Gdk.Rectangle rect) {
+        last_locations.clear();
+
+        base.on_move_finished(rect);
+    }
+
     private bool on_keyboard_pan_event(Gdk.EventKey event) {
         ZoomState current_zoom_state = get_zoom_state();
         Gdk.Point viewport_center = current_zoom_state.get_viewport_center();
@@ -2142,57 +2158,63 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         Gtk.Allocation tool_alloc;
         tool_window.get_allocation(out tool_alloc);
+        int x, y;
         
-        if (get_container() == AppWindow.get_instance()) {
-            // Normal: position crop tool window centered on viewport/canvas at the bottom,
-            // straddling the canvas and the toolbar
-            int rx, ry;
-            get_container().get_window().get_root_origin(out rx, out ry);
-            
-            Gtk.Allocation viewport_allocation;
-            viewport.get_allocation(out viewport_allocation);
-            
-            int cx, cy, cwidth, cheight;
-            cx = viewport_allocation.x;
-            cy = viewport_allocation.y;
-            cwidth = viewport_allocation.width;
-            cheight = viewport_allocation.height;
-            
-            // it isn't clear why, but direct mode seems to want to position tool windows
-            // differently than library mode...
-            int new_x = (this is DirectPhotoPage) ? (rx + cx + (cwidth / 2) - (tool_alloc.width / 2)) :
-                (rx + cx + (cwidth / 2));
-            int new_y = ry + cy + cheight - ((tool_alloc.height / 4) * 3);
-            
-            // however, clamp the window so it's never off-screen initially
-            Gdk.Screen screen = get_container().get_screen();
-            new_x = new_x.clamp(0, screen.get_width() - tool_alloc.width);
-            new_y = new_y.clamp(0, screen.get_height() - tool_alloc.height);
-            
-            tool_window.move(new_x, new_y);
+        // Check if the last location of the adjust tool is stored.
+        if (last_locations.has_key(current_tool.name + "_x")) {
+            x = last_locations[current_tool.name + "_x"];
+            y = last_locations[current_tool.name + "_y"];
         } else {
-            assert(get_container() is FullscreenWindow);
-            
-            // Fullscreen: position crop tool window centered on screen at the bottom, just above the
-            // toolbar
-            Gtk.Allocation toolbar_alloc;
-            get_toolbar().get_allocation(out toolbar_alloc);
-            
-            Gdk.Screen screen = get_container().get_screen();
-            int x = screen.get_width();
-            int y = screen.get_height() - toolbar_alloc.height -
-                    tool_alloc.height - TOOL_WINDOW_SEPARATOR;
-            
-            // put larger adjust tool off to the side
-            if (current_tool is EditingTools.AdjustTool) {
-                x = x * 3 / 4;
+            // No stored position
+            if (get_container() == AppWindow.get_instance()) {
+                
+                // Normal: position crop tool window centered on viewport/canvas at the bottom,
+                // straddling the canvas and the toolbar
+                int rx, ry;
+                get_container().get_window().get_root_origin(out rx, out ry);
+                
+                Gtk.Allocation viewport_allocation;
+                viewport.get_allocation(out viewport_allocation);
+                
+                int cx, cy, cwidth, cheight;
+                cx = viewport_allocation.x;
+                cy = viewport_allocation.y;
+                cwidth = viewport_allocation.width;
+                cheight = viewport_allocation.height;
+                
+                // it isn't clear why, but direct mode seems to want to position tool windows
+                // differently than library mode...
+                x = (this is DirectPhotoPage) ? (rx + cx + (cwidth / 2) - (tool_alloc.width / 2)) :
+                    (rx + cx + (cwidth / 2));
+                y = ry + cy + cheight - ((tool_alloc.height / 4) * 3);
             } else {
-                x = (x - tool_alloc.width) / 2;
+                assert(get_container() is FullscreenWindow);
+                
+                // Fullscreen: position crop tool window centered on screen at the bottom, just above the
+                // toolbar
+                Gtk.Allocation toolbar_alloc;
+                get_toolbar().get_allocation(out toolbar_alloc);
+                
+                Gdk.Screen screen = get_container().get_screen();
+                x = screen.get_width();
+                y = screen.get_height() - toolbar_alloc.height -
+                        tool_alloc.height - TOOL_WINDOW_SEPARATOR;
+                
+                // put larger adjust tool off to the side
+                if (current_tool is EditingTools.AdjustTool) {
+                    x = x * 3 / 4;
+                } else {
+                    x = (x - tool_alloc.width) / 2;
+                }
             }
-            
-            tool_window.move(x, y);
         }
         
+        // however, clamp the window so it's never off-screen initially
+        Gdk.Screen screen = get_container().get_screen();
+        x = x.clamp(0, screen.get_width() - tool_alloc.width);
+        y = y.clamp(0, screen.get_height() - tool_alloc.height);
+        
+        tool_window.move(x, y);
         tool_window.show();
         tool_window.present();
     }
