@@ -550,12 +550,14 @@ misc/shotwell.desktop: misc/shotwell.desktop.head $(EXPANDED_CORE_PO_FILES)
 		--domain=shotwell $(DESKTOP_APPLICATION_COMMENT)` >> misc/shotwell.desktop ; \
 		echo Keywords[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
 		--domain=shotwell $(DESKTOP_APP_KEYWORDS)` >> misc/shotwell.desktop ;) 
+ifndef DISABLE_DESKTOP_VALIDATE
 	@ desktop-file-validate misc/shotwell.desktop 1>misc/shotwell.desktop.errors 2>&1; \
 	if test -s misc/shotwell.desktop.errors; then \
 		echo -e "\nThe file misc/shotwell.desktop.head or one of the .po files contains errors and may need to be edited.\nPlease see the file misc/shotwell.desktop.errors for details."; \
 		exit 1; \
 	else rm -f misc/shotwell.desktop.errors; \
 	fi
+endif
 	
 misc/shotwell-viewer.desktop: misc/shotwell-viewer.desktop.head $(EXPANDED_CORE_PO_FILES)
 	cp misc/shotwell-viewer.desktop.head misc/shotwell-viewer.desktop
@@ -565,12 +567,14 @@ misc/shotwell-viewer.desktop: misc/shotwell-viewer.desktop.head $(EXPANDED_CORE_
 		--domain=shotwell $(DIRECT_EDIT_DESKTOP_APP_FULL_NAME)` >> misc/shotwell-viewer.desktop ; \
 		echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
 		--domain=shotwell $(DIRECT_EDIT_DESKTOP_APPLICATION_CLASS)` >> misc/shotwell-viewer.desktop ;)
+ifndef DISABLE_DESKTOP_VALIDATE
 	@ desktop-file-validate misc/shotwell-viewer.desktop 1>misc/shotwell-viewer.desktop.errors 2>&1; \
 	if test -s misc/shotwell-viewer.desktop.errors; then \
 		echo -e S"\nThe file misc/shotwell-viewer.desktop.head or one of the .po files contains errors and may need to be edited.\nPlease see the file misc/shotwell-viewer.desktop.errors for details."; \
 		exit 1; \
 	else rm -f misc/shotwell-viewer.desktop.errors; \
 	fi
+endif
 
 .PHONY: desktop
 desktop: misc/shotwell.desktop misc/shotwell-viewer.desktop
@@ -791,4 +795,6 @@ ifdef EXT_PKGS
 endif
 endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
+ifndef DISABLE_DESKTOP_VALIDATE
 	@ type desktop-file-validate > /dev/null || ( echo 'desktop-file-validate (usually found in the desktop-file-utils package) is missing and is required to build Shotwell. ' ; exit 1 )
+endif

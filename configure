@@ -35,6 +35,8 @@ Options:
                             Disable installing the gsettings-data-convert file.
     --disable-desktop-update
                             Disable desktop database update.
+    --disable-desktop-validate
+                            Disable validation of .desktop files.
     --disable-icon-update
                             Disable icon cache update.
     --enable-build-for-glade
@@ -118,6 +120,9 @@ do
                                                 ;;
         
         --disable-desktop-update)         variables="${variables}DISABLE_DESKTOP_UPDATE=1\n"
+                                          ;;
+
+        --disable-desktop-validate)       variables="${variables}DISABLE_DESKTOP_VALIDATE=1\n"
                                           ;;
 
         --disable-icon-update)            variables="${variables}DISABLE_ICON_UPDATE=1\n"
