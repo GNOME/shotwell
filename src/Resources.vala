@@ -158,6 +158,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ENHANCE_LABEL = _("Enhance");
     public const string ENHANCE_TOOLTIP = _("Automatically improve the photo's appearance");
     
+    public const string COPY_ADJUSTMENTS_MENU = _("_Copy Color Adjustments");
+    public const string COPY_ADJUSTMENTS_LABEL = _("Copy Color Adjustments");
+    public const string COPY_ADJUSTMENTS_TOOLTIP = _("Copy the color adjustments applied to the photo");
+    
+    public const string PASTE_ADJUSTMENTS_MENU = _("_Paste Color Adjustments");
+    public const string PASTE_ADJUSTMENTS_LABEL = _("Paste Color Adjustments");
+    public const string PASTE_ADJUSTMENTS_TOOLTIP = _("Apply copied color adjustments to the selected photos");
+    
     public const string CROP_MENU = _("_Crop");
     public const string CROP_LABEL = _("Crop");
     public const string CROP_TOOLTIP = _("Crop the photo's size");

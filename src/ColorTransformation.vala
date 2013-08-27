@@ -231,10 +231,24 @@ public enum PixelTransformationType {
 }
 
 public class PixelTransformationBundle {
+    private static PixelTransformationBundle? copied_color_adjustments = null;
+    
     private Gee.HashMap<int, PixelTransformation> map = new Gee.HashMap<int, PixelTransformation>(
         Gee.Functions.get_hash_func_for(typeof(int)), Gee.Functions.get_equal_func_for(typeof(int)));
     
     public PixelTransformationBundle() {
+    }
+    
+    public static PixelTransformationBundle? get_copied_color_adjustments() {
+        return copied_color_adjustments;
+    }
+    
+    public static void set_copied_color_adjustments(PixelTransformationBundle adjustments) {
+        copied_color_adjustments = adjustments;
+    }
+    
+    public static bool has_copied_color_adjustments() {
+        return copied_color_adjustments != null;
     }
     
     public void set(PixelTransformation transformation) {

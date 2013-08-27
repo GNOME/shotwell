@@ -2143,6 +2143,22 @@ public abstract class EditingHostPage : SinglePhotoPage {
         EnhanceSingleCommand command = new EnhanceSingleCommand(get_photo());
         get_command_manager().execute(command);
     }
+    
+    public void on_copy_adjustments() {
+        if (!has_photo())
+            return;
+        PixelTransformationBundle.set_copied_color_adjustments(get_photo().get_color_adjustments()); 
+    }
+    
+    public void on_paste_adjustments() {
+        PixelTransformationBundle? copied_adjustments = PixelTransformationBundle.get_copied_color_adjustments();
+        if (!has_photo() || copied_adjustments == null)
+            return;
+            
+        AdjustColorsSingleCommand command = new AdjustColorsSingleCommand(get_photo(), copied_adjustments,
+            Resources.PASTE_ADJUSTMENTS_LABEL, Resources.PASTE_ADJUSTMENTS_TOOLTIP);
+        get_command_manager().execute(command);
+    }
 
     private void place_tool_window() {
         if (current_tool == null)
@@ -2431,6 +2447,18 @@ public class LibraryPhotoPage : EditingHostPage {
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
         
+        Gtk.ActionEntry copy_adjustments = { "CopyColorAdjustments", null, TRANSLATABLE,
+            "<Ctrl><Shift>C", TRANSLATABLE, on_copy_adjustments};
+        copy_adjustments.label = Resources.COPY_ADJUSTMENTS_MENU;
+        copy_adjustments.tooltip = Resources.COPY_ADJUSTMENTS_TOOLTIP;
+        actions += copy_adjustments;
+        
+        Gtk.ActionEntry paste_adjustments = { "PasteColorAdjustments", null, TRANSLATABLE,
+            "<Ctrl><Shift>V", TRANSLATABLE, on_paste_adjustments};
+        paste_adjustments.label = Resources.PASTE_ADJUSTMENTS_MENU;
+        paste_adjustments.tooltip = Resources.PASTE_ADJUSTMENTS_TOOLTIP;
+        actions += paste_adjustments;
+        
         Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>O",
             TRANSLATABLE, toggle_crop };
         crop.label = Resources.CROP_MENU;
@@ -2702,6 +2730,9 @@ public class LibraryPhotoPage : EditingHostPage {
         }
         
         set_action_sensitive("SetBackground", has_photo());
+        
+        set_action_sensitive("CopyColorAdjustments", (has_photo() && get_photo().has_color_adjustments()));
+        set_action_sensitive("PasteColorAdjustments", PixelTransformationBundle.has_copied_color_adjustments());
         
         set_action_sensitive("PrevPhoto", multiple);
         set_action_sensitive("NextPhoto", multiple);

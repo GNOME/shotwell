@@ -2623,7 +2623,7 @@ public class AdjustTool : EditingTool {
 
         get_tool_window().hide();
 
-        applied(new AdjustColorsCommand(canvas.get_photo(), transformations,
+        applied(new AdjustColorsSingleCommand(canvas.get_photo(), transformations,
             Resources.ADJUST_LABEL, Resources.ADJUST_TOOLTIP), draw_to_pixbuf,
             canvas.get_photo().get_dimensions(), false);
     }

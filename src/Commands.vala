@@ -814,10 +814,10 @@ public class CropCommand : GenericPhotoTransformationCommand {
     }
 }
 
-public class AdjustColorsCommand : GenericPhotoTransformationCommand {
+public class AdjustColorsSingleCommand : GenericPhotoTransformationCommand {
     private PixelTransformationBundle transformations;
     
-    public AdjustColorsCommand(Photo photo, PixelTransformationBundle transformations,
+    public AdjustColorsSingleCommand(Photo photo, PixelTransformationBundle transformations,
         string name, string explanation) {
         base(photo, name, explanation);
         
@@ -833,7 +833,23 @@ public class AdjustColorsCommand : GenericPhotoTransformationCommand {
     }
     
     public override bool can_compress(Command command) {
-        return command is AdjustColorsCommand;
+        return command is AdjustColorsSingleCommand;
+    }
+}
+
+public class AdjustColorsMultipleCommand : MultiplePhotoTransformationCommand {
+    private PixelTransformationBundle transformations;
+    
+    public AdjustColorsMultipleCommand(Gee.Iterable<DataView> iter,
+        PixelTransformationBundle transformations, string name, string explanation) {
+        base(iter, _("Applying Color Transformations"), _("Undoing Color Transformations"),
+            name, explanation);
+        
+        this.transformations = transformations;
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        ((Photo) source).set_color_adjustments(transformations);
     }
 }
 

@@ -108,6 +108,9 @@ public abstract class CollectionPage : MediaPage {
         group.add_separator();
         group.add_menu_item("Enhance");
         group.add_menu_item("Revert");
+        group.add_separator();
+        group.add_menu_item("CopyColorAdjustments");
+        group.add_menu_item("PasteColorAdjustments");
         
         return group;
     }
@@ -177,6 +180,18 @@ public abstract class CollectionPage : MediaPage {
         enhance.label = Resources.ENHANCE_MENU;
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
+
+        Gtk.ActionEntry copy_adjustments = { "CopyColorAdjustments", null, TRANSLATABLE,
+            "<Ctrl><Shift>C", TRANSLATABLE, on_copy_adjustments};
+        copy_adjustments.label = Resources.COPY_ADJUSTMENTS_MENU;
+        copy_adjustments.tooltip = Resources.COPY_ADJUSTMENTS_TOOLTIP;
+        actions += copy_adjustments;
+
+        Gtk.ActionEntry paste_adjustments = { "PasteColorAdjustments", null, TRANSLATABLE,
+            "<Ctrl><Shift>V", TRANSLATABLE, on_paste_adjustments};
+        paste_adjustments.label = Resources.PASTE_ADJUSTMENTS_MENU;
+        paste_adjustments.tooltip = Resources.PASTE_ADJUSTMENTS_TOOLTIP;
+        actions += paste_adjustments;
 
         Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE, null,
             TRANSLATABLE, on_revert };
@@ -284,6 +299,10 @@ public abstract class CollectionPage : MediaPage {
             && !is_string_empty(Config.Facade.get_instance().get_external_raw_app()));
         set_action_sensitive("Revert", (!selection_has_videos) && can_revert_selected());
         set_action_sensitive("Enhance", (!selection_has_videos) && has_selected);
+        set_action_sensitive("CopyColorAdjustments", (!selection_has_videos) && one_selected &&
+            ((Photo) get_view().get_selected_at(0).get_source()).has_color_adjustments());
+        set_action_sensitive("PasteColorAdjustments", (!selection_has_videos) && has_selected &&
+            PixelTransformationBundle.has_copied_color_adjustments());
         set_action_sensitive("RotateClockwise", (!selection_has_videos) && has_selected);
         set_action_sensitive("RotateCounterclockwise", (!selection_has_videos) && has_selected);
         set_action_sensitive("FlipHorizontally", (!selection_has_videos) && has_selected);
@@ -577,6 +596,23 @@ public abstract class CollectionPage : MediaPage {
         }
         
         RevertMultipleCommand command = new RevertMultipleCommand(get_view().get_selected());
+        get_command_manager().execute(command);
+    }
+    
+    public void on_copy_adjustments() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        Photo photo = (Photo) get_view().get_selected_at(0).get_source();
+        PixelTransformationBundle.set_copied_color_adjustments(photo.get_color_adjustments()); 
+    }
+    
+    public void on_paste_adjustments() {
+        PixelTransformationBundle? copied_adjustments = PixelTransformationBundle.get_copied_color_adjustments();
+        if (get_view().get_selected_count() == 0 || copied_adjustments == null)
+            return;
+        
+        AdjustColorsMultipleCommand command = new AdjustColorsMultipleCommand(get_view().get_selected(),
+            copied_adjustments, Resources.PASTE_ADJUSTMENTS_LABEL, Resources.PASTE_ADJUSTMENTS_TOOLTIP);
         get_command_manager().execute(command);
     }
     

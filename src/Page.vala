@@ -19,6 +19,7 @@ public class InjectionGroup {
     
     private string path;
     private Gee.ArrayList<Element?> elements = new Gee.ArrayList<Element?>();
+    private int separator_id = 0;
     
     public InjectionGroup(string path) {
         this.path = path;
@@ -41,7 +42,7 @@ public class InjectionGroup {
     }
     
     public void add_separator() {
-        elements.add(new Element("", null, Gtk.UIManagerItemType.SEPARATOR));
+        elements.add(new Element("%d-separator".printf(separator_id++), null, Gtk.UIManagerItemType.SEPARATOR));
     }
 }
 

@@ -73,6 +73,9 @@
             </menu>
             <menuitem name="Revert" action="Revert" />
             <separator />
+            <menuitem name="CopyColorAdjustments" action="CopyColorAdjustments" />
+            <menuitem name="PasteColorAdjustments" action="PasteColorAdjustments" />
+            <separator/>
             <menuitem name="Flag" action="Flag" />
             <menu name="Rate" action="Rate">
                 <menuitem name="RateFive" action="RateFive" />
