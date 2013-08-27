@@ -97,6 +97,22 @@ public class SavedSearchDBTable : DatabaseTable {
         res = stmt.step();
         if (res != Sqlite.DONE)
             fatal("create SavedSearchDBTable_Flagged", res);
+            
+        // Create modified search table.
+        res = db.prepare_v2("CREATE TABLE IF NOT EXISTS "
+            + "SavedSearchDBTable_Modified "
+            + "("
+            + "id INTEGER PRIMARY KEY, "
+            + "search_id INTEGER NOT NULL, "
+            + "search_type TEXT NOT NULL, "
+            + "context TEXT NOT NULL, "
+            + "modified_state TEXT NOT NULL"
+            + ")", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("create SavedSearchDBTable_Modified", res);
         
         // Create rating search table.
         res = db.prepare_v2("CREATE TABLE IF NOT EXISTS "
@@ -155,6 +171,14 @@ public class SavedSearchDBTable : DatabaseTable {
         res = stmt.step();
         if (res != Sqlite.DONE)
             fatal("create SavedSearchDBTable_Flagged_Index", res);
+        
+        res = db.prepare_v2("CREATE INDEX IF NOT EXISTS "
+            + "SavedSearchDBTable_Modified_Index "
+            + "ON SavedSearchDBTable_Modified(search_id)", -1, out stmt);
+        assert(res == Sqlite.OK);
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("create SavedSearchDBTable_Modified_Index", res);
         
         res = db.prepare_v2("CREATE INDEX IF NOT EXISTS "
             + "SavedSearchDBTable_Rating_Index "
@@ -276,6 +300,29 @@ public class SavedSearchDBTable : DatabaseTable {
             res = stmt.step();
             if (res != Sqlite.DONE)
                 throw_error("SavedSearchDBTable_Flagged.add", res);
+        } else if (condition is SearchConditionModified) {
+            SearchConditionModified modified_state = condition as SearchConditionModified;
+            Sqlite.Statement stmt;
+            int res = db.prepare_v2("INSERT INTO SavedSearchDBTable_Modified (search_id, search_type, context, "
+                + "modified_state) VALUES (?, ?, ?, ?)", -1,
+                out stmt);
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_int64(1, id.id);
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_text(2, modified_state.search_type.to_string());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_text(3, modified_state.context.to_string());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.bind_text(4, modified_state.state.to_string());
+            assert(res == Sqlite.OK);
+            
+            res = stmt.step();
+            if (res != Sqlite.DONE)
+                throw_error("SavedSearchDBTable_Modified.add", res);
         } else if (condition is SearchConditionRating) {
             SearchConditionRating rating = condition as SearchConditionRating;
             Sqlite.Statement stmt;
@@ -335,6 +382,7 @@ public class SavedSearchDBTable : DatabaseTable {
         remove_conditions_for_table("SavedSearchDBTable_Text", search_id);
         remove_conditions_for_table("SavedSearchDBTable_MediaType", search_id);
         remove_conditions_for_table("SavedSearchDBTable_Flagged", search_id);
+        remove_conditions_for_table("SavedSearchDBTable_Modified", search_id);
         remove_conditions_for_table("SavedSearchDBTable_Rating", search_id);
         remove_conditions_for_table("SavedSearchDBTable_Date", search_id);
     }
@@ -427,6 +475,30 @@ public class SavedSearchDBTable : DatabaseTable {
             SearchConditionFlagged condition = new SearchConditionFlagged(
                 SearchCondition.SearchType.from_string(stmt.column_text(0)), 
                 SearchConditionFlagged.State.from_string(stmt.column_text(1)));
+            
+            list.add(condition);
+        }
+        
+        // Get all modified state conditions.
+        res = db.prepare_v2("SELECT search_type, context, modified_state FROM SavedSearchDBTable_Modified "
+            + "WHERE search_id=?",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, search_id.id);
+        assert(res == Sqlite.OK);
+        
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE)
+                break;
+            else if (res != Sqlite.ROW)
+                throw_error("SavedSearchDBTable_Modified.get_all_rows", res);
+            
+            SearchConditionModified condition = new SearchConditionModified(
+                SearchCondition.SearchType.from_string(stmt.column_text(0)),
+                SearchConditionModified.Context.from_string(stmt.column_text(1)),
+                SearchConditionModified.State.from_string(stmt.column_text(2)));
             
             list.add(condition);
         }
