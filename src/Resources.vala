@@ -1105,5 +1105,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
                 -unico-outer-stroke-width: 1px;
                 -unico-outer-stroke-color: shade (@primary-bg, 1.1);
             }""";
+    
+    public const string ONIMAGE_FONT_COLOR = "#000000";
+    public const string ONIMAGE_FONT_BACKGROUND = "rgba(255,255,255,0.5)";
 }
 
