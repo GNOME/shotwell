@@ -410,10 +410,12 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private void random_transition_effect() {
-        int random = Random.int_range(0, transitions.length);
-        string effect_id = transitions[random];
         double effect_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
-     
+        string effect_id = TransitionEffectsManager.NULL_EFFECT_ID;
+        if (0 < transitions.length) {
+            int random = Random.int_range(0, transitions.length);
+            effect_id = transitions[random];
+        }
         set_transition(effect_id, (int) (effect_delay * 1000.0));
     }
     
