@@ -2,7 +2,7 @@ PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 PROGRAM_MIGRATOR = shotwell-settings-migrator
 
-VERSION = 0.14.1+trunk
+VERSION = 0.15.0pr1
 GITVER := $(shell git log -n 1 2>/dev/null | head -n 1 | awk '{print $$2}')
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
@@ -14,7 +14,7 @@ VALAC := $(shell which $VALAC)
 endif
 
 VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
-MIN_VALAC_VERSION := 0.18.0
+MIN_VALAC_VERSION := 0.20.1
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 
