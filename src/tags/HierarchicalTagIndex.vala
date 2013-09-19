@@ -10,7 +10,7 @@ public class HierarchicalTagIndex {
     
     public HierarchicalTagIndex( ) {
         this.tag_table = new Gee.HashMap<string, Gee.ArrayList<string>>();
-        this.known_paths = new FixedTreeSet<string>();
+        this.known_paths = new Gee.TreeSet<string>();
     }
     
     public static HierarchicalTagIndex from_paths(Gee.Collection<string> client_paths) {

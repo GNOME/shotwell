@@ -341,7 +341,7 @@ THUMBNAILER_PKGS = \
 DIRECT_LIBS =
 
 EXT_PKG_VERSIONS = \
-	gee-0.8 >= 0.8.0 \
+	gee-0.8 >= 0.8.5 \
 	gexiv2 >= 0.4.90 \
 	gio-unix-2.0 >= 2.20 \
 	glib-2.0 >= $(MIN_GLIB_VERSION) \

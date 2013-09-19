@@ -218,7 +218,7 @@ public string? get_pluggable_module_id(Spit.Pluggable needle) {
 }
 
 public Gee.Collection<ExtensionPoint> get_extension_points(owned CompareDataFunc? compare_func = null) {
-    Gee.Collection<ExtensionPoint> sorted = new FixedTreeSet<ExtensionPoint>((owned) compare_func);
+    Gee.Collection<ExtensionPoint> sorted = new Gee.TreeSet<ExtensionPoint>((owned) compare_func);
     sorted.add_all(extension_points.values);
     
     return sorted;
@@ -229,7 +229,7 @@ public Gee.Collection<Spit.Pluggable> get_pluggables_for_type(Type type,
     // if this triggers it means the extension point didn't register itself at init() time
     assert(extension_points.has_key(type));
     
-    Gee.Collection<Spit.Pluggable> for_type = new FixedTreeSet<Spit.Pluggable>((owned) compare_func);
+    Gee.Collection<Spit.Pluggable> for_type = new Gee.TreeSet<Spit.Pluggable>((owned) compare_func);
     foreach (PluggableRep pluggable_rep in pluggable_table.values) {
         if (pluggable_rep.activated 
             && pluggable_rep.pluggable.get_type().is_a(type) 

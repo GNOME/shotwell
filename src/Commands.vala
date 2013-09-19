@@ -2145,7 +2145,7 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
         
         // Prepare to add all new tags; remember, if a tag is added, its parent must be
         // added as well. So enumerate all paths to add and then get the tags for them.
-        Gee.SortedSet<string> new_paths = new FixedTreeSet<string>();
+        Gee.SortedSet<string> new_paths = new Gee.TreeSet<string>();
         foreach (Tag new_tag in new_tag_list) {
             string new_tag_path = new_tag.get_path();
 

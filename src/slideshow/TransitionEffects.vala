@@ -72,7 +72,7 @@ public class TransitionEffectsManager {
     }
     
     public Gee.Collection<string> get_effect_names(owned CompareDataFunc? comparator = null) {
-        Gee.Collection<string> effect_names = new FixedTreeSet<string>((owned) comparator);
+        Gee.Collection<string> effect_names = new Gee.TreeSet<string>((owned) comparator);
         foreach (Spit.Transitions.Descriptor desc in effects.values)
             effect_names.add(desc.get_pluggable_name());
         

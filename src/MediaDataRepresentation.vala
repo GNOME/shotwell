@@ -347,7 +347,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         file_hash, file_equal);
     private Gee.MultiMap<ImportID?, MediaSource> import_rolls =
         new Gee.TreeMultiMap<ImportID?, MediaSource>(ImportID.compare_func);
-    private FixedTreeSet<ImportID?> sorted_import_ids = new FixedTreeSet<ImportID?>(ImportID.compare_func);
+    private Gee.TreeSet<ImportID?> sorted_import_ids = new Gee.TreeSet<ImportID?>(ImportID.compare_func);
     private Gee.Set<MediaSource> flagged = new Gee.HashSet<MediaSource>();
     
     // This signal is fired when MediaSources are added to the collection due to a successful import.

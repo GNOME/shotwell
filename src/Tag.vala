@@ -221,7 +221,7 @@ public class TagSourceCollection : ContainerSourceCollection {
             
             Gee.SortedSet<Tag>? sorted_tags = sorted_source_map.get(source);
             if (sorted_tags == null) {
-                sorted_tags = new FixedTreeSet<Tag>(Tag.compare_names);
+                sorted_tags = new Gee.TreeSet<Tag>(Tag.compare_names);
                 sorted_source_map.set(source, sorted_tags);
             }
             
@@ -791,7 +791,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         
         // default lexicographic comparison for strings ensures hierarchical tag paths will be
         // sorted from least-derived to most-derived
-        FixedTreeSet<string> forward_sorted_paths = new FixedTreeSet<string>();
+        Gee.TreeSet<string> forward_sorted_paths = new Gee.TreeSet<string>();
         
         string target_path = get_path() + Tag.PATH_SEPARATOR_STRING;
         foreach (string path in Tag.global.get_all_names()) {

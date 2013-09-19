@@ -50,7 +50,7 @@ public class Tags.Branch : Sidebar.Branch {
             // prepare a collection of tags guaranteed to be sorted; this is critical for
             // hierarchical tags since it ensures that parent tags must be encountered
             // before their children
-            Gee.SortedSet<Tag> added = new FixedTreeSet<Tag>(Tag.compare_names);
+            Gee.SortedSet<Tag> added = new Gee.TreeSet<Tag>(Tag.compare_names);
             foreach (DataObject object in added_raw) {
                 Tag tag = (Tag) object;
                 added.add(tag);
