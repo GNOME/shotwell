@@ -437,9 +437,9 @@ private class AVIMetadataLoader {
         Date date = Date();
         uint seconds = 0;
         int year, month, day, hour, min, sec;
-        string weekday = "";
-        string monthstr = "";
-
+        char weekday[4];
+        char monthstr[4];
+        
         if (sdate[0].isdigit()) {
             // Format is: 2005:08:17 11:42:43
             // Format is: 2010/11/30/ 19:42
@@ -459,7 +459,7 @@ private class AVIMetadataLoader {
                   out min, out sec, out year)) {
                 return 0; // Error
             }
-            date.set_dmy((DateDay) day, month_from_string(monthstr), (DateYear) year);
+            date.set_dmy((DateDay) day, month_from_string((string) monthstr), (DateYear) year);
             seconds = sec + min * 60 + hour * 3600;
         }
         
