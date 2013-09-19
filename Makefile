@@ -14,7 +14,7 @@ VALAC := $(shell which $VALAC)
 endif
 
 VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
-MIN_VALAC_VERSION := 0.20.1
+MIN_VALAC_VERSION := 0.21.2
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 
