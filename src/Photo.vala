@@ -2497,7 +2497,7 @@ public abstract class Photo : PhotoSource, Dateable {
         // Compute how much the image would be resized by after cropping.
         if (disallowed_steps.allows(Exception.CROP)) {
             Box crop;
-            if (get_crop(out crop)) {
+            if (get_crop(out crop, disallowed_steps)) {
                 returned_dims = crop.get_dimensions();
             }
         }
@@ -4083,7 +4083,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     // Returns the crop against the coordinate system of the rotated photo
-    public bool get_crop(out Box crop) {
+    public bool get_crop(out Box crop, Exception exceptions = Exception.NONE) {
         Box raw;
         if (!get_raw_crop(out raw)) {
             crop = Box();
@@ -4094,7 +4094,10 @@ public abstract class Photo : PhotoSource, Dateable {
         Dimensions dim = get_dimensions(Exception.CROP | Exception.ORIENTATION);
         Orientation orientation = get_orientation();
         
-        crop = orientation.rotate_box(dim, raw);
+        if(exceptions.allows(Exception.ORIENTATION))
+            crop = orientation.rotate_box(dim, raw);
+        else
+            crop = raw;
         
         return true;
     }
