@@ -346,6 +346,7 @@ public abstract class CollectionPage : MediaPage {
             // since the photo can be altered externally to Shotwell now, need to make the revert
             // command available appropriately, even if the selection doesn't change
             set_action_sensitive("Revert", can_revert_selected());
+            set_action_sensitive("CopyColorAdjustments", photo.has_color_adjustments());
             
             break;
         }
