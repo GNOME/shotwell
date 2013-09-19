@@ -10,7 +10,7 @@
 // Shotwell Thumbnailer takes in a video file and returns a thumbnail to stdout.  This is
 // a replacement for totem-video-thumbnailer
 class ShotwellThumbnailer {
-    const string caps_string = """video/x-raw,format=RGB,bpp=32,depth=32,pixel-aspect-ratio=1/1""";
+    const string caps_string = """video/x-raw,format=RGB,pixel-aspect-ratio=1/1""";
     
     public static int main(string[] args) {
         Gst.Element pipeline, sink;
