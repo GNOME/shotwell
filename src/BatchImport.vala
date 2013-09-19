@@ -836,12 +836,42 @@ public class BatchImport : Object {
                     prepared_file.full_md5);
                 assert(duplicate_ids.length > 0);
                 
-                DuplicatedFile duplicated_file =
+                DuplicatedFile? duplicated_file =
                     DuplicatedFile.create_from_video_id(duplicate_ids[0]);
+                
+                ImportResult result_code = ImportResult.PHOTO_EXISTS;
+                if (mark_duplicates_online) {
+                    Video? dupe_video =
+                        (Video) Video.global.get_offline_bin().fetch_by_master_file(prepared_file.file);
+                    if (dupe_video == null)
+                        dupe_video = (Video) Video.global.get_offline_bin().fetch_by_md5(prepared_file.full_md5);
                     
+                    if(dupe_video != null) {
+                        debug("duplicate video found offline, marking as online: %s",
+                            prepared_file.file.get_path());
+                        
+                        dupe_video.set_master_file(prepared_file.file);
+                        dupe_video.mark_online();
+                        
+                        duplicated_file = null;
+                        
+                        manifest.imported.add(dupe_video);
+                        report_progress(dupe_video.get_filesize());
+                        file_import_complete();
+                        
+                        result_code = ImportResult.SUCCESS;
+                    }
+                }
+                
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
                     prepared_file.file.get_path(), prepared_file.file.get_path(), duplicated_file,
-                    ImportResult.PHOTO_EXISTS);
+                    result_code);
+                
+                if (result_code == ImportResult.SUCCESS) {
+                    manifest.add_result(import_result);
+                    
+                    continue;
+                }
             }
             
             if (get_in_current_import(prepared_file) != null) {
