@@ -26,6 +26,11 @@ Options:
                             (usually 'lib' or 'lib64').
                             [lib]
     --libdir LIBNAME        Equivalent to --lib=LIBNAME
+    --libexec=LIBEXECDIR    Set utility executable to LIBEXECDIR
+                            (usually 'PREFIX/libexec/shotwell').
+                            [PREFIX/libexec/shotwell]
+    --libexec LIBEXECDIR    Equivalent to --libexec=LIBEXECDIR
+
     --define=SYMBOL         Define a symbol for the Vala compiler.
 
 
@@ -87,6 +92,15 @@ do
                             fi
                             
                             variables="${variables}LIB=$value\n"
+                            ;;
+
+        --libexec)          if [ ! $value ]
+                            then
+                                shift
+                                value=$1
+                            fi
+                            
+                            variables="${variables}LIBEXECDIR=$value\n"
                             ;;
 
         --assume-pkgs)      variables="${variables}ASSUME_PKGS=1\n"

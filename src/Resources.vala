@@ -9,6 +9,7 @@ extern const string _PREFIX;
 extern const string _VERSION;
 extern const string GETTEXT_PACKAGE;
 extern const string _LIB;
+extern const string _LIBEXECDIR;
 extern const string? _GIT_VERSION;
 
 namespace Resources {
@@ -33,6 +34,8 @@ namespace Resources {
     public const string DIR_PATTERN_URI_SYSWIDE = "ghelp:shotwell?other-files";
 
     private const string LIB = _LIB;
+    private const string LIBEXECDIR = _LIBEXECDIR;
+
 
     public const string PREFIX = _PREFIX;
 

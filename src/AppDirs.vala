@@ -111,7 +111,7 @@ class AppDirs {
                 // not installed yet - use wherever we were run from
                 libexec_dir = get_exec_dir();
             } else {
-                libexec_dir = File.new_for_path(Resources.PREFIX + "/libexec/shotwell");
+                libexec_dir = File.new_for_path(Resources.LIBEXECDIR);
             }
         }
 
@@ -264,10 +264,10 @@ class AppDirs {
     
     public static File get_thumbnailer_bin() {
         const string filename = "shotwell-video-thumbnailer";
-        File f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/thumbnailer/" + filename);
+        File f = File.new_for_path(AppDirs.get_libexec_dir().get_path() + "/thumbnailer/" + filename);
         if (!f.query_exists()) {
             // If we're running installed.
-            f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/" + filename);
+            f = File.new_for_path(AppDirs.get_libexec_dir().get_path() + "/" + filename);
         }
         return f;
     }
