@@ -604,7 +604,8 @@ public abstract class CollectionPage : MediaPage {
         if (get_view().get_selected_count() != 1)
             return;
         Photo photo = (Photo) get_view().get_selected_at(0).get_source();
-        PixelTransformationBundle.set_copied_color_adjustments(photo.get_color_adjustments()); 
+        PixelTransformationBundle.set_copied_color_adjustments(photo.get_color_adjustments());
+        set_action_sensitive("PasteColorAdjustments", true);
     }
     
     public void on_paste_adjustments() {

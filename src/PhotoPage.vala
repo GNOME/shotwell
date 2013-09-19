@@ -2147,7 +2147,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public void on_copy_adjustments() {
         if (!has_photo())
             return;
-        PixelTransformationBundle.set_copied_color_adjustments(get_photo().get_color_adjustments()); 
+        PixelTransformationBundle.set_copied_color_adjustments(get_photo().get_color_adjustments());
+        set_action_sensitive("PasteColorAdjustments", true);
     }
     
     public void on_paste_adjustments() {
