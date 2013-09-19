@@ -14,7 +14,6 @@ Usage:
 
 Options:
     -h, --help              Print this help and exit.
-    --enable-tests          Enable Shotwell to run automated tests.
     --assume-pkgs           Turn off package version checking.
     --build=DIR             Build secondary files in DIR.
     --debug | --release	    Build executable for debugging or release.
@@ -143,8 +142,6 @@ do
                                           ;;
 
         --enable-build-for-glade)         variables="${variables}ENABLE_BUILD_FOR_GLADE=1\n"
-                                          ;;
-        --enable-tests)                   variables="${variables}ENABLE_TESTS=1\n"
                                           ;;
         --disable-help-install)           variables="${variables}DISABLE_HELP_INSTALL=1\n"
                                           ;;
