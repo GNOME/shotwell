@@ -109,7 +109,7 @@ public class Exporter : Object {
     private File? dir;
     private Scaling scaling;
     private int completed_count = 0;
-    private Workers workers = new Workers(Workers.threads_per_cpu(), false);
+    private Workers workers = new Workers(Workers.threads_per_cpu(1, 4), false);
     private unowned CompletionCallback? completion_callback = null;
     private unowned ExportFailedCallback? error_callback = null;
     private unowned OverwriteCallback? overwrite_callback = null;
