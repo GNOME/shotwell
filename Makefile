@@ -425,8 +425,7 @@ DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAP
 	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
 	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES) \
 	vapi/gphoto-2.5/libgphoto2.vapi vapi/gphoto-2.4/libgphoto2.vapi \
-	$(EXPANDED_THUMBNAILER_SRC_FILES) $(MIGRATOR_BIN)
-	
+	$(EXPANDED_THUMBNAILER_SRC_FILES) $(MIGRATOR_BIN) potgen-shotwell
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_XZ = $(DIST_TAR).xz
@@ -512,6 +511,9 @@ package:
 	$(MAKE) dist
 	cp $(DIST_TAR_XZ) $(PACKAGE_ORIG_XZ)
 	rm -f $(DIST_TAR_XZ)
+
+pot_file:
+	./potgen-shotwell
 
 misc/shotwell.desktop: misc/shotwell.desktop.head $(EXPANDED_CORE_PO_FILES)
 	cp misc/shotwell.desktop.head misc/shotwell.desktop
