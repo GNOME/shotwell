@@ -169,18 +169,18 @@ public class Transaction {
 
     protected void check_response(Soup.Message message) throws Spit.Publishing.PublishingError {
         switch (message.status_code) {
-            case Soup.Status.OK:
-            case Soup.Status.CREATED: // HTTP code 201 (CREATED) signals that a new
+            case Soup.KnownStatusCode.OK:
+            case Soup.KnownStatusCode.CREATED: // HTTP code 201 (CREATED) signals that a new
                                                // resource was created in response to a PUT or POST
             break;
             
-            case Soup.Status.CANT_RESOLVE:
-            case Soup.Status.CANT_RESOLVE_PROXY:
+            case Soup.KnownStatusCode.CANT_RESOLVE:
+            case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
                 throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to resolve %s (error code %u)",
                     get_endpoint_url(), message.status_code);
             
-            case Soup.Status.CANT_CONNECT:
-            case Soup.Status.CANT_CONNECT_PROXY:
+            case Soup.KnownStatusCode.CANT_CONNECT:
+            case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
                 throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to connect to %s (error code %u)",
                     get_endpoint_url(), message.status_code);
             

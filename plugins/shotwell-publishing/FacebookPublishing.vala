@@ -1473,9 +1473,9 @@ internal class GraphSession {
         
         // these error types are always recoverable given the unique behavior of the Facebook
         // endpoint, so try again
-        if (msg.status_code == Soup.Status.IO_ERROR ||
-            msg.status_code == Soup.Status.MALFORMED ||
-            msg.status_code == Soup.Status.TRY_AGAIN) {
+        if (msg.status_code == Soup.KnownStatusCode.IO_ERROR ||
+            msg.status_code == Soup.KnownStatusCode.MALFORMED ||
+            msg.status_code == Soup.KnownStatusCode.TRY_AGAIN) {
             real_message.bytes_so_far = 0;
             soup_session.queue_message(msg, null);
             return;
@@ -1486,8 +1486,8 @@ internal class GraphSession {
         
         Spit.Publishing.PublishingError? error = null;
         switch (msg.status_code) {
-            case Soup.Status.OK:
-            case Soup.Status.CREATED: // HTTP code 201 (CREATED) signals that a new
+            case Soup.KnownStatusCode.OK:
+            case Soup.KnownStatusCode.CREATED: // HTTP code 201 (CREATED) signals that a new
                                                // resource was created in response to a PUT
                                                // or POST
             break;
@@ -1497,14 +1497,14 @@ internal class GraphSession {
                     "OAuth Access Token has Expired. Logout user.", real_message.get_uri(), msg.status_code);
             break;
             
-            case Soup.Status.CANT_RESOLVE:
-            case Soup.Status.CANT_RESOLVE_PROXY:
+            case Soup.KnownStatusCode.CANT_RESOLVE:
+            case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
                 error = new Spit.Publishing.PublishingError.NO_ANSWER(
                     "Unable to resolve %s (error code %u)", real_message.get_uri(), msg.status_code);
             break;
             
-            case Soup.Status.CANT_CONNECT:
-            case Soup.Status.CANT_CONNECT_PROXY:
+            case Soup.KnownStatusCode.CANT_CONNECT:
+            case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
                 error = new Spit.Publishing.PublishingError.NO_ANSWER(
                     "Unable to connect to %s (error code %u)", real_message.get_uri(), msg.status_code);
             break;

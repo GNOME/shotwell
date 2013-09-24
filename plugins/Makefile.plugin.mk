@@ -41,7 +41,7 @@ DEFINES := -D_VERSION='"$(PLUGINS_VERSION)"' -DGETTEXT_PACKAGE='"shotwell"'
 all: $(PLUGIN).so
 
 .stamp: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
-	$(VALAC) --target-glib=$(MIN_GLIB_VERSION) -g --enable-checking --fatal-warnings --save-temps --compile \
+	$(VALAC) --target-glib=$(MIN_GLIB_VERSION) -g --enable-checking --fatal-warnings --save-temps --compile --enable-deprecated \
 		--vapidir=../ $(foreach pkg,$(PKGS),--pkg=$(pkg)) $(foreach pkg,$(CUSTOM_VAPI_PKGS),--pkg=$(pkg)) \
 		-X -I../.. -X -fPIC \
 		$(foreach dfn,$(DEFINES),-X $(dfn)) \
