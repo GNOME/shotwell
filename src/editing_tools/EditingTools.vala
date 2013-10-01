@@ -622,6 +622,10 @@ public class CropTool : EditingTool {
                 aspect_ratio = new_aspect_ratio;
             is_pivotable = new_pivotable;
         }
+        
+        public bool is_separator() {
+            return !is_pivotable && aspect_ratio == SEPARATOR;
+        }
     }
 
     private enum ReticleOrientation {
@@ -1052,7 +1056,13 @@ public class CropTool : EditingTool {
         
         return crop;
     }
-
+    
+    private ConstraintDescription? get_last_constraint(out int index) {
+        index = Config.Facade.get_instance().get_last_crop_menu_choice();
+        
+        return (index < constraints.length) ? constraints[index] : null;
+    }
+    
     public override void activate(PhotoCanvas canvas) {
         bind_canvas_handlers(canvas);
 
@@ -1075,7 +1085,10 @@ public class CropTool : EditingTool {
         // set up the constraint combo box
         crop_tool_window.constraint_combo.set_model(constraint_list);
         if(!canvas.get_photo().has_crop()) {
-            crop_tool_window.constraint_combo.set_active(Config.Facade.get_instance().get_last_crop_menu_choice());
+            int index;
+            ConstraintDescription? desc = get_last_constraint(out index);
+            if (desc != null && !desc.is_separator())
+                crop_tool_window.constraint_combo.set_active(index);
         }
         
         // set up the pivot reticle button
@@ -1122,11 +1135,9 @@ public class CropTool : EditingTool {
 
         // was 'custom' the most-recently-chosen menu item?
         if(!canvas.get_photo().has_crop()) {
-            if (constraints[Config.Facade.get_instance().get_last_crop_menu_choice()].aspect_ratio ==
-                CUSTOM_ASPECT_RATIO) {
-                // yes, switch to custom mode, make the entry fields appear.
+            ConstraintDescription? desc = get_last_constraint(null);
+            if (desc != null && !desc.is_separator() && desc.aspect_ratio == CUSTOM_ASPECT_RATIO)
                 set_custom_constraint_mode();
-            }
         }
 
         // since we no longer just run with the default, but rather
