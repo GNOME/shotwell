@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2013 Yorba Foundation (shotwell@yorba.org) -->
+<application>
+  <id type="desktop">shotwell.desktop</id>
+  <licence>CC0</licence>
+  <summary>Popular photo manager</summary>
+  <description>
+    <p>
+      Shotwell is an easy-to-use, fast photo organizer designed for the GNOME desktop.
+      It allows you to import photos from your camera or disk, organize them by date and subject
+      matter, even ratings.  It also offers basic photo editing, like crop, red-eye correction,
+      color adjustments, and straighten.  Shotwell's non-destructive photo editor does not alter
+      your master photos, making it easy to experiment and correct errors.
+    </p>
+    <p>
+      When ready, Shotwell can upload your photos to various web sites, such as Facebook, Flickr,
+      Picasa (Google Plus), and more.
+    </p>
+    <p>
+      Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats.
+  </description>
+  <url type="homepage">http://www.yorba.org/projects/shotwell/</url>
+  <screenshots>
+    <screenshot type="default">http://www.yorba.org/wp-content/uploads/2013/02/harbor.png</screenshot>
+    <screenshot>http://www.yorba.org/wp-content/uploads/2013/02/import-300x155.png</screenshot>
+    <screenshot>http://www.yorba.org/wp-content/uploads/2013/02/organize-300x197.png</screenshot>
+    <screenshot>http://www.yorba.org/wp-content/uploads/2013/02/edit-300x247.png</screenshot>
+    <screenshot>http://www.yorba.org/wp-content/uploads/2013/02/publish-300x213.png</screenshot>
+  </screenshots>
+  <updatecontact>shotwell@yorba.org</updatecontact>
+  <project_group>GNOME</project_group>
+</application>

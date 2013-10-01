@@ -167,6 +167,7 @@ RESOURCE_FILES = \
 	trash.ui 
 
 SYS_INTEGRATION_FILES = \
+	shotwell.appdata.xml \
 	shotwell.desktop.head \
 	shotwell-viewer.desktop.head \
 	org.yorba.shotwell.gschema.xml \
@@ -601,6 +602,7 @@ endif
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
 	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)$(PREFIX)/share/applications
 	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)$(PREFIX)/share/applications
+	$(INSTALL_DATA) misc/shotwell.appdata.xml $(DESTDIR)$(PREFIX)/share/appdata
 ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
@@ -654,6 +656,7 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.svg
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell-viewer.desktop
+	rm -f $(DESTDIR)$(PREFIX)/share/appdata/shotwell.appdata.xml
 ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
