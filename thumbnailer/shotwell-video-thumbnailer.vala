@@ -80,6 +80,7 @@ class ShotwellThumbnailer {
                 Gst.Caps caps;
                 unowned Gst.Structure s;
                 Gst.MapInfo mapinfo;
+                uint8[]? pngdata;
 
                 // Get the snapshot buffer format now. We set the caps on the appsink so
                 // that it can only be an rgb buffer. The only thing we have not specified
@@ -110,7 +111,8 @@ class ShotwellThumbnailer {
                     width, height, (((width * 3)+3)&~3), null);
                 
                 // Save the pixbuf.
-                pixbuf.save("/dev/stdout", "png");
+                pixbuf.save_to_buffer(out pngdata, "png");
+                stdout.write(pngdata);
                 buffer.unmap(mapinfo);
             } else {
                 stderr.printf("Could not make snapshot\n");
