@@ -1,3 +1,14 @@
+Shotwell 0.15.0 - 3 October 2013 - "Fruit's a Gamble"
+-----------------------------------------------------
+
+  * Copy and paste color adjustments between photos
+  * Highlights detail adjustment
+  * YouTube plugin now uses OAuth / OpenID
+  * Videos in Missing Files now re-import properly
+  * Improvements when thumbnailing videos
+  * Numerous bug fixes
+
+
 Shotwell 0.14.1 - 3 April 2013 - "The Core, Stem, Seeds, Everything"
 ----------------------------------------------------------------------------
 
