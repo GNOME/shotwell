@@ -1,3 +1,9 @@
+shotwell (0.15.0-2~raring1) raring; urgency=low
+
+  * Update to latest gexiv2
+
+ -- Charles Lindsay <chaz@yorba.org>  Fri, 04 Oct 2013 12:51:06 -0700
+
 shotwell (0.15.0-1~raring2) raring; urgency=low
 
   * Copy and paste color adjustments between photos
