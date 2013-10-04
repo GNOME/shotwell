@@ -1,33 +1,22 @@
-# po/shotwell-extras/tr.po
-# Turkish Translation for Shotwell Extra Plugins
+# po/shotwell-extras/shotwell-extras.pot
+# PO Message String Template File for Shotwell Extra Plugins
 # Copyright (C) 2009-2013 Yorba Foundation
-# This file is distributed under the GNU LGPL, version 2.1.
+# See COPYING for license.
 # 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.14.0\n"
-"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2012-09-13 13:32-0700\n"
-"PO-Revision-Date: 2012-09-15 17:38+0000\n"
+"Project-Id-Version: shotwell-extras-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
 "Last-Translator: Ferhat Tunctan <ferhattnctn66@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/shotwell/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
-msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr "Telif Hakkı 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
-msgid "Visit the Yandex.Fotki web site"
-msgstr "Yandex.Fotki web sitesini ziyaret edin"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
-msgid "You are not currently logged into Yandex.Fotki."
-msgstr "Şu anda Yandex.Fotki için oturum açmış değilsiniz."
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
 msgid "Copyright 2012 BJA Electronics"
@@ -51,39 +40,51 @@ msgstr "1280 x 853 piksel"
 msgid "'%s' isn't a valid response to an OAuth authentication request"
 msgstr "'% s' bir OAuth kimlik doğrulama isteği için geçerli bir yanıt değildir"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:557
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
 msgid ""
 "TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgstr "TumblrPublisher: start( ): başlatılamıyor; bu yayımcı yeniden başlatılabilir değildir."
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:585
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
 msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Lütfen Tumblr hesabınızla ilişkili kullanıcı adınızı ve şifrenizi giriniz."
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
 msgid "Username and/or password invalid. Please try again"
 msgstr "Kullanıcı adı ve/veya şifre geçersiz. Lütfen tekrar deneyin"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:616
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
 msgid "Invalid User Name or Password"
 msgstr "Geçersiz Kullanıcı Adı veya Şifre"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:756
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "Kullanıcı arayüzü yüklenemedi: %s"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:738
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
 "\n"
 msgstr "%s olarak Tumblr'a giriş yaptınız.\n\n"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:967
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Yayımlama için gerekli geçici bir dosya kullanılamıyor"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Telif Hakkı 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Yandex.Fotki web sitesini ziyaret edin"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "Şu anda Yandex.Fotki için oturum açmış değilsiniz."
 
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
 msgid "label"

@@ -1,18 +1,18 @@
-# po/shotwell-extras/cs.po
-# Assamese Translation for Shotwell Extra Plugins
+# po/shotwell-extras/shotwell-extras.pot
+# PO Message String Template File for Shotwell Extra Plugins
 # Copyright (C) 2009-2013 Yorba Foundation
-# This file is distributed under the GNU LGPL, version 2.1.
+# See COPYING for license.
 # 
 # Translators:
-#   <ngoswami@redhat.com>, 2012.
+# ngoswami <ngoswami@redhat.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.14.0\n"
-"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2013-02-25 15:16-0800\n"
-"PO-Revision-Date: 2012-09-25 09:14+0000\n"
+"Project-Id-Version: shotwell-extras-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
 "Last-Translator: ngoswami <ngoswami@redhat.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Assamese (http://www.transifex.com/projects/p/shotwell/language/as/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

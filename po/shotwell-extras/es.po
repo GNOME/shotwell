@@ -1,28 +1,84 @@
-# po/shotwell-extras/es.po
-# Spanish Translation for Shotwell Extra Plugins
+# po/shotwell-extras/shotwell-extras.pot
+# PO Message String Template File for Shotwell Extra Plugins
 # Copyright (C) 2009-2013 Yorba Foundation
-# This file is distributed under the GNU LGPL, version 2.1.
+# See COPYING for license.
 # 
 # Translators:
-# Adolfo Jayme Barrientos <fitoschido@gmail.com>, 2011-2012.
-# freddy  sequera <nemecis000@gmail.com>, 2011.
-# Jorge González <aloriel@gmail.com>, 2011.
-# lsbeeler <lucas@yorba.org>, 2011.
-# Matias Menich <und34d@gmail.com>, 2012.
-# Rodrigo Cares <rcares@gmail.com>, 2012.
+# Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2011-2012
+# freddy  sequera <nemecis000@gmail.com>, 2011
+# Jorge González <aloriel@gmail.com>, 2011
+# lsbeeler <lucas@yorba.org>, 2011
+# Matias Menich <und34d@gmail.com>, 2012
+# Rodrigo Cares <rcares@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.14.0\n"
-"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2012-09-13 13:32-0700\n"
-"PO-Revision-Date: 2012-09-14 11:37+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: shotwell-extras-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitoschido@ubuntu.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/shotwell/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Copyright 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
+msgid "500 x 375 pixels"
+msgstr "500 × 375 píxeles"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:108
+msgid "1024 x 768 pixels"
+msgstr "1024 × 768 píxeles"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
+msgid "1280 x 853 pixels"
+msgstr "1280 × 853 píxeles"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr "«%s» no es una respuesta válida a una solicitud de autenticación OAuth"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr "TumblrPublisher: start( ): no puede iniciar, este publicador no es reiniciable."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "Escriba el nombre de usuario y contraseña asociados con su cuenta de Tumblr."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
+msgid "Username and/or password invalid. Please try again"
+msgstr "Usuario y/o contraseña no válidos. Inténtelo de nuevo."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
+msgid "Invalid User Name or Password"
+msgstr "Nombre de usuario o contraseña no válidos"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "No se pudo cargar la IU: %s"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr "Ha iniciado sesión en Tumblr como %s.\n\n"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
+msgid "A temporary file needed for publishing is unavailable"
+msgstr "No está disponible un archivo temporal necesario para la publicación"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
@@ -35,62 +91,6 @@ msgstr "Visitar el sitio web de Yandex.Fotki"
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Actualmente no ha iniciado sesión en Yandex.Fotki."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
-msgid "Copyright 2012 BJA Electronics"
-msgstr "Copyright 2012 BJA Electronics"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-msgid "500 x 375 pixels"
-msgstr "500 x 375 pixels"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:108
-msgid "1024 x 768 pixels"
-msgstr "1024 x 768 pixels"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
-msgid "1280 x 853 pixels"
-msgstr "1280 × 853 píxeles"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
-#, c-format
-msgid "'%s' isn't a valid response to an OAuth authentication request"
-msgstr "«%s» no es una respuesta válida a una solicitud de autenticación OAuth"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:557
-msgid ""
-"TumblrPublisher: start( ): can't start; this publisher is not restartable."
-msgstr "TumblrPublisher: start( ): no puede iniciar, este publicador no es reiniciable."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:585
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr "Escriba el nombre de usuario y contraseña asociados con su cuenta de Tumblr."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
-msgid "Username and/or password invalid. Please try again"
-msgstr "Usuario y/o contraseña inválida. Intenta nuevamente."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:616
-msgid "Invalid User Name or Password"
-msgstr "Nombre de usuario o contraseña no válidos"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:756
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "No se pudo cargar la IU: %s"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:738
-#, c-format
-msgid ""
-"You are logged into Tumblr as %s.\n"
-"\n"
-msgstr "Ha iniciado sesión en Tumblr como %s.\n\n"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:967
-msgid "A temporary file needed for publishing is unavailable"
-msgstr "No está disponible un archivo temporal necesario para la publicación"
 
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
 msgid "label"
@@ -127,7 +127,7 @@ msgstr "_Tamaño de la foto:"
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
 msgid "_Logout"
-msgstr "_Salir"
+msgstr "Cerrar _sesión"
 
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129

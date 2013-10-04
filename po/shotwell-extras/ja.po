@@ -1,38 +1,26 @@
-# po/shotwell-extras/ja.po
-# Japanese Translation for Shotwell Extra Plugins
+# po/shotwell-extras/shotwell-extras.pot
+# PO Message String Template File for Shotwell Extra Plugins
 # Copyright (C) 2009-2013 Yorba Foundation
-# This file is distributed under the GNU LGPL, version 2.1.
+# See COPYING for license.
 # 
 # Translators:
-# Kiyoto Hashida <khashida@redhat.com>, 2012.
-# kuromabo <md81bird@hitaki.net>, 2011.
-# lsbeeler <lucas@yorba.org>, 2011.
-#   <md81bird@hitaki.net>, 2011, 2012.
+# Kiyoto Hashida <khashida@redhat.com>, 2012
+# kuromabo <md81bird@hitaki.net>, 2011
+# lsbeeler <lucas@yorba.org>, 2011
+# kuromabo <md81bird@hitaki.net>, 2011, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.14.0\n"
-"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2012-09-13 13:32-0700\n"
-"PO-Revision-Date: 2012-09-18 00:49+0000\n"
+"Project-Id-Version: shotwell-extras-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
 "Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/shotwell/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
-msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
-msgid "Visit the Yandex.Fotki web site"
-msgstr "ウェブサイト Yandex.Fotki を見てください"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
-msgid "You are not currently logged into Yandex.Fotki."
-msgstr "現在 Yandex.Fotki にログインしていません。"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
 msgid "Copyright 2012 BJA Electronics"
@@ -56,39 +44,51 @@ msgstr "1280 x 853 ピクセル"
 msgid "'%s' isn't a valid response to an OAuth authentication request"
 msgstr "'%s' は、OAuth の認証要求に対して有効な応答ではありません"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:557
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
 msgid ""
 "TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgstr "TumblrPublisher: start( ): 開始できません; このパブリッシャーは開始不能です。"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:585
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
 msgid "Enter the username and password associated with your Tumblr account."
 msgstr "ご使用のTumblr アカウントに関連したユーザー名とパスワードを記入します。"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
 msgid "Username and/or password invalid. Please try again"
 msgstr "ユーザー名もしくはパスワードが違います。再試行してください。"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:616
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
 msgid "Invalid User Name or Password"
 msgstr "ユーザー名かパスワードが無効です"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:756
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "UI を読み込めません: %s"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:738
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
 "\n"
 msgstr "%s としてTumblr にログインしています。\n\n\n\n\n"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:967
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "発行に必要な一時ファイルが使用できません"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "ウェブサイト Yandex.Fotki を見てください"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "現在 Yandex.Fotki にログインしていません。"
 
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
 msgid "label"

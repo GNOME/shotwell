@@ -32,11 +32,11 @@ endif
 
 CORE_SUPPORTED_LANGUAGES= ia hi te fr de it es pl et sv sk lv pt bg bn nl da zh_CN \
     el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR \
-    eu he mk ta vi or km af as gu kn ml mr
+    eu he mk ta vi or km af as gu kn ml mr af_ZA bn_IN id_ID ky nn_NO ta_IN te_IN tr_TR
 
 EXTRAS_SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk \
     ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he mk te ta eo or hi \
-    as kn ml mr
+    as kn ml mr bn_IN gu id_ID nn_NO tr_TR vi
     
 
 LOCAL_LANG_DIR=locale-langpack

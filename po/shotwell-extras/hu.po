@@ -1,36 +1,26 @@
-# po/shotwell-extras/hu.po
-# Hungarian Translation for Shotwell Extra Plugins
+# po/shotwell-extras/shotwell-extras.pot
+# PO Message String Template File for Shotwell Extra Plugins
 # Copyright (C) 2009-2013 Yorba Foundation
-# This file is distributed under the GNU LGPL, version 2.1.
+# See COPYING for license.
 # 
 # Translators:
-#   <kelemeng@gnome.hu>, 2012.
-#   L. Csordas <csola48@gmail.com>, 2012.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2012
+# kelemeng <kelemeng@gnome.hu>, 2012
+# L. Csordas <csola48@gmail.com>, 2012
+# lsbeeler <lucas@yorba.org>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-extras-0.14.0\n"
-"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2012-09-13 13:32-0700\n"
-"PO-Revision-Date: 2012-09-15 13:04+0000\n"
-"Last-Translator: L. Csordas <csola48@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: shotwell-extras-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
+"Last-Translator: kelemeng <kelemeng@gnome.hu>\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/shotwell/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
-msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
-msgid "Visit the Yandex.Fotki web site"
-msgstr "A Yandex.Fotki weboldal felkeresése"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
-msgid "You are not currently logged into Yandex.Fotki."
-msgstr "Jelenleg nincs bejelentkezve a Yandex.Fotki oldalra."
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
 msgid "Copyright 2012 BJA Electronics"
@@ -52,41 +42,53 @@ msgstr "1280 x 853 pixel"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
 #, c-format
 msgid "'%s' isn't a valid response to an OAuth authentication request"
-msgstr ""
+msgstr "„%s” nem érvényes válasz OAuth hitelesítési kérésre"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:557
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
 msgid ""
 "TumblrPublisher: start( ): can't start; this publisher is not restartable."
-msgstr ""
+msgstr "TumblrPublisher: start( ): nem lehet elindítani, ez a közzétevő nem indítható újra."
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:585
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
 msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Adja meg a felhasználó nevet és a jelszót a társított Tumblr fiókhoz"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
 msgid "Username and/or password invalid. Please try again"
 msgstr "A felhasználónév és/vagy jelszó érvénytelen. Próbálja újra"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:616
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
 msgid "Invalid User Name or Password"
 msgstr "Érvénytelen felhasználó név vagy jelszó"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:756
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
 #, c-format
 msgid "Could not load UI: %s"
-msgstr ""
+msgstr "A felület nem tölthető be: %s"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:738
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
 "\n"
-msgstr ""
+msgstr "Bejelentkezett a Tumblr-re %s néven.\n\n"
 
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:967
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
 msgid "A temporary file needed for publishing is unavailable"
-msgstr ""
+msgstr "A közzétételhez szükséges ideiglenes fájl nem érhető el"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "A Yandex.Fotki weboldal felkeresése"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "Jelenleg nincs bejelentkezve a Yandex.Fotki oldalra."
 
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
 msgid "label"
@@ -110,15 +112,15 @@ msgid ""
 "\n"
 "(this label's string is populated and set inside the code, \n"
 "so changes made here will not display)"
-msgstr ""
+msgstr "Bejelentkezett a Tumblr-re, mint (name).\n\n(ez a szöveg a kódon belül lesz feltöltve)"
 
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
 msgid "Blogs:"
-msgstr ""
+msgstr "Blogok:"
 
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
 msgid "Photo _size:"
-msgstr ""
+msgstr "Fénykép _mérete:"
 
 #: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
 #: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
