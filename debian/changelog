@@ -1,4 +1,4 @@
-shotwell (0.15.0-1~raring1) raring; urgency=low
+shotwell (0.15.0-1~raring2) raring; urgency=low
 
   * Copy and paste color adjustments between photos
   * Highlights detail adjustment
@@ -7,7 +7,7 @@ shotwell (0.15.0-1~raring1) raring; urgency=low
   * Improvements when thumbnailing videos
   * Numerous bug fixes
 
--- Jim Nelson <jim@yorba.org>  Thu, 03 Oct 2013 16:33:28 -0700
+ -- Jim Nelson <jim@yorba.org>  Thu, 03 Oct 2013 16:33:28 -0700
 
 
 shotwell (0.14.1-1~quantal1) quantal; urgency=low
