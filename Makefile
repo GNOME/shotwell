@@ -10,7 +10,7 @@ BUILD_ROOT = 1
 ifndef VALAC
 VALAC := $(shell which valac)
 else
-VALAC := $(shell which $VALAC)
+VALAC := $(shell which $(VALAC))
 endif
 
 VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
