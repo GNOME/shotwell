@@ -2930,7 +2930,7 @@ public abstract class Photo : PhotoSource, Dateable {
         map.set_double("angle", theta);       
         
         if (set_transformation(map)) {
-            notify_altered(new Alteration("image", "straighen"));
+            notify_altered(new Alteration("image", "straighten"));
         }
     }    
     
