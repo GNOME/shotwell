@@ -72,7 +72,19 @@ public class DirectPhotoPage : EditingHostPage {
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
         edit.label = _("_Edit");
         actions += edit;
-
+        
+        Gtk.ActionEntry move_to_trash = { "MoveToTrash", Gtk.Stock.DISCARD, TRANSLATABLE, "Delete",
+            TRANSLATABLE, on_move_to_trash };
+        move_to_trash.label = _("Move to _Trash");
+        move_to_trash.tooltip = _("Move the current photo to the desktop Trash");
+        actions += move_to_trash;
+        
+        Gtk.ActionEntry delete_photo = { "Delete", Gtk.Stock.DELETE, TRANSLATABLE, "<Shift>Delete",
+            TRANSLATABLE, on_delete_photo };
+        delete_photo.label = _("_Delete");
+        delete_photo.tooltip = _("Delete the current photo");
+        actions += delete_photo;
+        
         Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null, null };
         photo.label = _("_Photo");
         actions += photo;
@@ -337,6 +349,8 @@ public class DirectPhotoPage : EditingHostPage {
         
         set_action_sensitive("CommonUndo", sensitivity);
         set_action_sensitive("CommonRedo", sensitivity);
+        set_action_sensitive("MoveToTrash", sensitivity);
+        set_action_sensitive("Delete", sensitivity);
         
         set_action_sensitive("IncreaseSize", sensitivity);
         set_action_sensitive("DecreaseSize", sensitivity);
@@ -552,6 +566,17 @@ public class DirectPhotoPage : EditingHostPage {
             PrintManager.get_instance().spool_photo(
                 (Gee.Collection<Photo>) get_view().get_selected_sources_of_type(typeof(Photo)));
         }
+    }
+    
+    private void on_move_to_trash() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        Marker marker = DirectPhoto.global.mark_many(get_view().get_selected_sources());
+        DirectPhoto.global.destroy_marked(marker, true);
+    }
+    
+    private void on_delete_photo() {
     }
     
     private void on_dphoto_can_rotate_changed(bool should_allow_rotation) {

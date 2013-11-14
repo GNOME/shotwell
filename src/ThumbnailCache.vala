@@ -520,6 +520,7 @@ public class ThumbnailCache : Object {
         
         // remove from disk
         try {
+            debug("Deleting thumbnail %s", file.get_path());
             file.delete(null);
         } catch (Error err) {
             // ignored

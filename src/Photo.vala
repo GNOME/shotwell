@@ -500,6 +500,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         if (file != null) {
+            debug("Trashing %s", file.get_path());
             try {
                 ret = file.trash(null);
             } catch (Error err) {
@@ -507,6 +508,8 @@ public abstract class Photo : PhotoSource, Dateable {
                 message("Unable to move editable %s for %s to trash: %s", file.get_path(), 
                     to_string(), err.message);
             }
+        } else {
+            debug("Not trashing, no file");
         }
         
         // Return false if parent method failed.
@@ -5154,6 +5157,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     }
     
     public override void destroy() {
+        debug("Destroying %s", to_string());
         PhotoID photo_id = get_photo_id();
 
         // remove all cached thumbnails
