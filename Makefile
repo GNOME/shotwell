@@ -474,9 +474,9 @@ include src/plugins/mk/interfaces.mk
 
 $(LANG_STAMP): $(EXPANDED_CORE_PO_FILES) $(EXPANDED_EXTRAS_PO_FILES)
 	@$(foreach po,$(CORE_SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
-		msgfmt -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell.mo po/shotwell-core/$(po).po`)
+		msgfmt -c -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell.mo po/shotwell-core/$(po).po`)
 	@$(foreach po,$(EXTRAS_SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
-		msgfmt -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell-extras.mo po/shotwell-extras/$(po).po`)
+		msgfmt -c -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell-extras.mo po/shotwell-extras/$(po).po`)
 	@touch $(LANG_STAMP)
 
 clean:

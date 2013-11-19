@@ -1508,7 +1508,6 @@ msgid "Zoom _100%"
 msgstr "बड़ा-छोटा करें _100%"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "फ़ोटो को 100% आवर्द्धन के लिए बड़ा-छोटा करें"
 
@@ -1517,7 +1516,6 @@ msgid "Zoom _200%"
 msgstr "बड़ा-छोटा करें _200%"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "फ़ोटो को 200% आवर्द्धन के लिए बड़ा-छोटा करें"
 

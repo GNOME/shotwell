@@ -189,13 +189,17 @@ public class DirectPhotoPage : EditingHostPage {
 
         Gtk.ActionEntry actual_size = { "Zoom100", Gtk.Stock.ZOOM_100, TRANSLATABLE,
             "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
+        /// xgettext:no-c-format
         actual_size.label = _("Zoom _100%");
+        /// xgettext:no-c-format
         actual_size.tooltip = _("Zoom the photo to 100% magnification");
         actions += actual_size;
         
         Gtk.ActionEntry max_size = { "Zoom200", null, TRANSLATABLE,
             "<Ctrl>2", TRANSLATABLE, snap_zoom_to_max };
+        /// xgettext:no-c-format
         max_size.label = _("Zoom _200%");
+        /// xgettext:no-c-format
         max_size.tooltip = _("Zoom the photo to 200% magnification");
         actions += max_size;
 
