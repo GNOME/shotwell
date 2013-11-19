@@ -1509,7 +1509,7 @@ msgid "Zoom _100%"
 msgstr "100% జూమ్ (_1)"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "ఫొటోను 100% వృద్ధికరణ వరకూ జూమ్ చేయండి"
 
@@ -1518,7 +1518,7 @@ msgid "Zoom _200%"
 msgstr "200% జూమ్ (_2)"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "ఫొటోను 200% వృద్ధికరణ వరకూ జూమ్ చేయండి"
 

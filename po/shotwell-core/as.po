@@ -1507,7 +1507,7 @@ msgid "Zoom _100%"
 msgstr "জুম কৰক ১০০% (_1)"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "ফ'টোক ১০০% মেগ্নিফিকেষণলে জুম কৰক"
 
@@ -1516,7 +1516,7 @@ msgid "Zoom _200%"
 msgstr "জুম কৰক ২০০% (_2)"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "ফ'টোক ২০০% মেগ্নিফিকেষণলে জুম কৰক"
 

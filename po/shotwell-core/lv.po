@@ -1565,7 +1565,7 @@ msgid "Zoom _100%"
 msgstr "Mērogs _100%"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Mainīt fotogrāfijas mērogu uz 100% palielinājumu"
 
@@ -1574,7 +1574,7 @@ msgid "Zoom _200%"
 msgstr "Mērogs _200%"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Mainīt fotogrāfijas mērogu uz 200% palielinājumu"
 

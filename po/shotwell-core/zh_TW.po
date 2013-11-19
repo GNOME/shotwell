@@ -1451,7 +1451,7 @@ msgid "Zoom _100%"
 msgstr "拉至 _100%"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "將相片拉至 100% 倍率"
 
@@ -1460,7 +1460,7 @@ msgid "Zoom _200%"
 msgstr "拉至 _200%"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "將相片拉至 200% 倍率"
 

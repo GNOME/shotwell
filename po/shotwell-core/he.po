@@ -1509,7 +1509,7 @@ msgid "Zoom _100%"
 msgstr "תקריב _100%"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "הגדרת התקריב לכדי הגדלה של 100%"
 
@@ -1518,7 +1518,7 @@ msgid "Zoom _200%"
 msgstr "תקריב _200%"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "הגדרת התקריב לכדי הגדלה של 200%"
 

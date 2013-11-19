@@ -1451,7 +1451,7 @@ msgid "Zoom _100%"
 msgstr "_100% ದಷ್ಟು ಹಿಗ್ಗಿಸು "
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "ಫೋಟೊವನ್ನು 100% ಮ್ಯಾಗ್ನಿಫಿಕೇಶನ್‌ನಷ್ಟು ಹಿಗ್ಗಿಸು"
 
@@ -1460,7 +1460,7 @@ msgid "Zoom _200%"
 msgstr "_200% ದಷ್ಟು ಹಿಗ್ಗಿಸು "
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "ಫೋಟೊವನ್ನು 200% ಮ್ಯಾಗ್ನಿಫಿಕೇಶನ್‌ನಷ್ಟು ಹಿಗ್ಗಿಸು"
 

@@ -1507,7 +1507,7 @@ msgid "Zoom _100%"
 msgstr "_Зумирај 100%"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Зумирање на фотографијата со 100% зголемување "
 
@@ -1516,7 +1516,7 @@ msgid "Zoom _200%"
 msgstr "_Зумирај 200%"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Зумирање на фотографијата со 200% "
 

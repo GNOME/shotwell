@@ -9,6 +9,9 @@
 #  <bu0ncu3@yahoo.com>, 2012
 # elementary Indonesia <elementaryindo@gmail.com>, 2012
 #  <kokabiel9@gmail.com>, 2012
+# Mohamad Hasan Al Banna, 2013
+# Rahman Yusri Aftian <aftian@yahoo.com>, 2013
+# Malsasa <teknoloid@gmail.com>, 2012
 # verayin <vera@yorba.org>, 2011
 msgid ""
 msgstr ""
@@ -17,11 +20,11 @@ msgstr ""
 "POT-Creation-Date: 2013-09-20 11:55-0700\n"
 "PO-Revision-Date: 2013-09-20 19:30+0000\n"
 "Last-Translator: yorbajim <jim@yorba.org>\n"
-"Language-Team: Indonesian (http://www.transifex.com/projects/p/shotwell/language/id/)\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/projects/p/shotwell/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
+"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: src/Event.vala:737
@@ -389,7 +392,7 @@ msgstr "Pencarian Tersimpan"
 #: src/searches/Branch.vala:77 src/library/LibraryWindow.vala:346
 #: src/sidebar/Tree.vala:195
 msgid "Ne_w Saved Search..."
-msgstr ""
+msgstr "Pencarian Tersimpan B_aru"
 
 #: src/main.vala:54
 #, c-format
@@ -1314,7 +1317,7 @@ msgstr[0] "Foto/video %d tidak dapat dihapus"
 
 #: src/folders/Branch.vala:141
 msgid "Folders"
-msgstr ""
+msgstr "Folder"
 
 #: src/tags/Branch.vala:127
 msgid "Tags"
@@ -1454,7 +1457,7 @@ msgid "Zoom _100%"
 msgstr "Zum _100%"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Zum foto ke perbesaran 100%"
 
@@ -1463,7 +1466,7 @@ msgid "Zoom _200%"
 msgstr "Zum _200%"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Zum foto ke perbesaran 200%"
 
@@ -1648,7 +1651,7 @@ msgstr "Turunkan rating"
 
 #: src/Commands.vala:1244
 msgid "Setting RAW developer"
-msgstr ""
+msgstr "Atur RAW pengembang"
 
 #: src/Commands.vala:1244
 msgid "Restoring previous RAW developer"
@@ -2622,7 +2625,7 @@ msgstr ""
 
 #: src/Resources.vala:277
 msgid "Edit Comment"
-msgstr ""
+msgstr "Sunting Komentar"
 
 #: src/Resources.vala:279
 msgid "Edit Event _Comment..."
@@ -3111,7 +3114,7 @@ msgstr "Kunjungi situs Yorba"
 
 #: src/AppWindow.vala:686 plugins/common/Resources.vala:28
 msgid "translator-credits"
-msgstr "Dani Pratomo <elementaryindo@gmail.com> Mohammad Anwari <mdamt@di.blankon.in>"
+msgstr "Dani Pratomo <elementaryindo@gmail.com> Mohammad Anwari <mdamt@di.blankon.in> Mohamad Hasan Al Banna <se7entime@gmail.com>"
 
 #: src/AppWindow.vala:695
 #, c-format
@@ -3289,7 +3292,7 @@ msgstr "Tidak ada"
 
 #: src/slideshow/TransitionEffects.vala:339
 msgid "Random"
-msgstr ""
+msgstr "Acak"
 
 #: src/slideshow/Slideshow.vala:22
 msgid "Slideshow Transitions"
@@ -3496,7 +3499,7 @@ msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
 "Click Login to log into Flickr in your Web browser.  You will have to authorize Shotwell Connect to link to your Flickr account."
-msgstr ""
+msgstr "Anda masih belum masuk ke Flickr.\n\nKlik Masuk untuk masuk ke Flickr pada peramban Web anda.  Anda diharuskan memberikan izin Shotwell menyambungkan ke akun Flickr anda."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:63
 msgid ""
@@ -3796,7 +3799,7 @@ msgstr ""
 
 #: plugins/shotwell-data-imports/shotwell-data-imports.vala:22
 msgid "Core Data Import Services"
-msgstr ""
+msgstr "Servis Impor Data Inti"
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -3832,13 +3835,13 @@ msgstr "Tidak dapat membuka berkas basis data F-Spot terpilih: versi basis data 
 msgid ""
 "Cannot read the selected F-Spot database file: error while reading tags "
 "table"
-msgstr ""
+msgstr "Tidak dapat membaca berkas basis data F-Spot terpilih: kesalahan saat membaca tabel tag"
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:68
 msgid ""
 "Cannot read the selected F-Spot database file: error while reading photos "
 "table"
-msgstr ""
+msgstr "Tidak dapat membaca berkas basis data F-Spot terpilih: kesalahan saat membaca tabel foto"
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:70
 #, c-format
@@ -3846,7 +3849,7 @@ msgid ""
 "Shotwell has found %d photos in the F-Spot library and is currently importing them. Duplicates will be automatically detected and removed.\n"
 "\n"
 "You can close this dialog and start using Shotwell while the import is taking place in the background."
-msgstr ""
+msgstr "Shotwell menemukan %d foto pada daftar F-Spot dan sedang mengimpornya. Foto yang sama akan otomatis terdeteksi dan dihapus.\n\nAnda dapat menutup dialog ini dan mulai menggunakan Shotwell saat proses impor berlangsung di belakang."
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:84
 #, c-format
@@ -4050,11 +4053,11 @@ msgstr ""
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:39
 msgid "Publish to an e_xisting album:"
-msgstr "Kirim ke album yang _sudah ada:"
+msgstr ""
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:57
 msgid "Create a _new album named:"
-msgstr "Buat album baru dengan _nama:"
+msgstr ""
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:139
 msgid "Videos and new photo albums _visible to:"
@@ -4116,16 +4119,16 @@ msgstr ""
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:75
 msgid "An _existing album:"
-msgstr "Album _yang ada:"
+msgstr ""
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:94
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:52
 msgid "A _new album named:"
-msgstr "Album baru dengan _nama:"
+msgstr "Nama album _baru:"
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:113
 msgid "L_ist album in public gallery"
-msgstr "Daftar album publ_ik"
+msgstr ""
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:134
 msgid ""
@@ -4135,15 +4138,15 @@ msgstr ""
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:150
 msgid "Photo _size preset:"
-msgstr "Preset uku_ran foto:"
+msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.glade:49
 msgid "_URL of your Piwigo photo library"
-msgstr ""
+msgstr "_URL dari pustaka gambar Piwigo Anda"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.glade:59
 msgid "User _name"
-msgstr ""
+msgstr "_Nama pengguna"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.glade:73
 msgid "_Password"
@@ -4151,7 +4154,7 @@ msgstr "_Kata Sandi"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.glade:130
 msgid "_Remember Password"
-msgstr ""
+msgstr "_Ingat Sandi"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.glade:151
 msgid "Login"
@@ -4159,11 +4162,11 @@ msgstr "Masuk"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:40
 msgid "An _existing category:"
-msgstr ""
+msgstr "Direktori yang _ada:"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:121
 msgid "Photos will be _visible by:"
-msgstr ""
+msgstr "Gambar akan bisa _dilihat oleh:"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:149
 msgid "Photo size:"
@@ -4187,8 +4190,8 @@ msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:278
 msgid "Logout"
-msgstr ""
+msgstr "Catat keluar"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:55
 msgid "Video privacy _setting:"
-msgstr "Pengaturan privasi video"
+msgstr ""

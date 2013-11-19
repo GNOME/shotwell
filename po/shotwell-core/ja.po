@@ -1457,7 +1457,7 @@ msgid "Zoom _100%"
 msgstr "100% ズーム(_1)"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "写真を 100% の倍率にします"
 
@@ -1466,7 +1466,7 @@ msgid "Zoom _200%"
 msgstr "200% ズーム(_2)"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "写真を 200% の倍率にします"
 
