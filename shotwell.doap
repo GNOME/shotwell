@@ -6,7 +6,7 @@
          xmlns="http://usefulinc.com/ns/doap#">
 
   <name xml:lang="en">shotwell</name>
-  <shortdesc xml:lang="en">digital photo organizer</shortdesc>
+  <shortdesc xml:lang="en">Digital photo organizer</shortdesc>
   <homepage rdf:resource="http://www.yorba.org/projects/shotwell/" />
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/shotwell-list" />
   <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=shotwell" />
