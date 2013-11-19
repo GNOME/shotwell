@@ -313,6 +313,34 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     public const uint64 FLAG_OFFLINE =  0x0000000000000002;
     public const uint64 FLAG_FLAGGED =  0x0000000000000004;
     
+    public class InterpretableResults {
+        internal Video video;
+        internal bool update_interpretable = false;
+        internal bool is_interpretable = false;
+        internal Gdk.Pixbuf? new_thumbnail = null;
+        
+        public InterpretableResults(Video video) {
+            this.video = video;
+        }
+        
+        public void foreground_finish() {
+            if (update_interpretable)
+                video.set_is_interpretable(is_interpretable);
+            
+            if (new_thumbnail != null) {
+                try {
+                    ThumbnailCache.replace(video, ThumbnailCache.Size.BIG, new_thumbnail);
+                    ThumbnailCache.replace(video, ThumbnailCache.Size.MEDIUM, new_thumbnail);
+                    
+                    video.notify_thumbnail_altered();
+                } catch (Error err) {
+                    message("Unable to update video thumbnails for %s: %s", video.to_string(),
+                        err.message);
+                }
+            }
+        }
+    }
+    
     private static bool interpreter_state_changed;
     private static int current_state;
     private static bool normal_regen_complete;
@@ -687,8 +715,9 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     
     public override void mark_online() {
         remove_flags(FLAG_OFFLINE);
+        
         if ((!get_is_interpretable()) && has_interpreter_state_changed())
-            check_is_interpretable();
+            check_is_interpretable().foreground_finish();
     }
 
     public override void trash() {
@@ -840,58 +869,49 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
             AppWindow.database_error(e);
         }
     }
-
-    public void check_is_interpretable() {
-        VideoReader backing_file_reader = new VideoReader(get_file());
-
+    
+    // Intended to be called from a background thread but can be called from foreground as well.
+    // Caller should call InterpretableResults.foreground_process() only from foreground thread,
+    // however
+    public InterpretableResults check_is_interpretable() {
+        InterpretableResults results = new InterpretableResults(this);
+        
         double clip_duration = -1.0;
         Gdk.Pixbuf? preview_frame = null;
-
+        
+        VideoReader backing_file_reader = new VideoReader(get_file());
         try {
             clip_duration = backing_file_reader.read_clip_duration();
             preview_frame = backing_file_reader.read_preview_frame();
         } catch (VideoError e) {
-            // if we catch an error on an interpretable video here, then this video was
-            // interpretable in the past but has now become non-interpretable (e.g. its
-            // codec was removed from the users system).
-            if (get_is_interpretable()) {
-                lock (backing_row) {
-                    backing_row.is_interpretable = false;
-                }
-                
-                try {
-                    VideoTable.get_instance().update_is_interpretable(get_video_id(), false);
-                } catch (DatabaseError e) {
-                    AppWindow.database_error(e);
-                }
-            }
-            return;
-        }
-
-        if (get_is_interpretable())
-            return;
-
-        debug("video %s has become interpretable", get_file().get_basename());
-
-        try {
-            ThumbnailCache.replace(this, ThumbnailCache.Size.BIG, preview_frame);
-            ThumbnailCache.replace(this, ThumbnailCache.Size.MEDIUM, preview_frame);
-        } catch (Error e) {
-            critical("video has become interpretable but couldn't replace cached thumbnails");
-        }
-
-        lock (backing_row) {
-            backing_row.is_interpretable = true;
-            backing_row.clip_duration = clip_duration;
-        }
-
-        try {
-            VideoTable.get_instance().update_is_interpretable(get_video_id(), true);
-        } catch (DatabaseError e) {
-            AppWindow.database_error(e);
+            // if we catch an error on an interpretable video here, then this video is
+            // non-interpretable (e.g. its codec is not present on the users system).
+            results.update_interpretable = get_is_interpretable();
+            results.is_interpretable = false;
+            
+            return results;
         }
         
-        notify_thumbnail_altered();
+        // if already marked interpretable, this is only confirming what we already knew
+        if (get_is_interpretable()) {
+            results.update_interpretable = false;
+            results.is_interpretable = true;
+            
+            return results;
+        }
+        
+        debug("video %s has become interpretable", get_file().get_basename());
+        
+        // save this here, this can be done in background thread
+        lock (backing_row) {
+            backing_row.clip_duration = clip_duration;
+        }
+        
+        results.update_interpretable = true;
+        results.is_interpretable = true;
+        results.new_thumbnail = preview_frame;
+        
+        return results;
     }
     
     public override void destroy() {

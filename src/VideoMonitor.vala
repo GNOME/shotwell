@@ -40,7 +40,11 @@ private class VideoMonitor : MediaMonitor {
     // Performs interpretable check on video. In a background job because
     // this will create a new thumbnail for the video.
     private class VideoInterpretableCheckJob : BackgroundJob {
-        private Video video;
+        // IN
+        public Video video;
+        
+        // OUT
+        public Video.InterpretableResults? results = null;
         
         public VideoInterpretableCheckJob(Video video, CompletionCallback? callback = null) {
             base (video, callback);
@@ -48,7 +52,7 @@ private class VideoMonitor : MediaMonitor {
         }
         
         public override void execute() {
-            video.check_is_interpretable();
+            results = video.check_is_interpretable();
         }
     }
     
@@ -284,7 +288,11 @@ private class VideoMonitor : MediaMonitor {
         }
     }
     
-    void on_interpretable_check_complete(BackgroundJob job) {
+    void on_interpretable_check_complete(BackgroundJob j) {
+        VideoInterpretableCheckJob job = (VideoInterpretableCheckJob) j;
+        
+        job.results.foreground_finish();
+        
         --background_jobs;
         if (background_jobs <= 0)
             Video.notify_normal_thumbs_regenerated();
