@@ -1,3 +1,11 @@
+shotwell (0.15.1-1~raring1) raring; urgency=low
+
+  * Install Tumblr plugin resources
+  * Fix crash when video thumbnails are being inspected and created
+
+ -- Jim Nelson <jim@yorba.org>  Tue, 19 Nov 2013 16:28:43 -0800
+
+
 shotwell (0.15.0-2~raring1) raring; urgency=low
 
   * Update to latest gexiv2
