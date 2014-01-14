@@ -737,11 +737,33 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         
         // ...precache the timestamp string...
+        /// Locale-specific time format for 12-hour time, i.e. 8:31 PM
+        /// Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         HH_MM_FORMAT_STRING = _("%-I:%M %p");
+        
+        /// Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
+        /// Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         HH_MM_SS_FORMAT_STRING = _("%-I:%M:%S %p");
+        
+        /// Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         LONG_DATE_FORMAT_STRING = _("%a %b %d, %Y");
+        
+        /// Locale-specific starting date format for multi-date strings,
+        /// i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         START_MULTIDAY_DATE_FORMAT_STRING = _("%a %b %d");
+        
+        /// Locale-specific ending date format for multi-date strings,
+        /// i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         END_MULTIDAY_DATE_FORMAT_STRING = _("%d, %Y");
+        
+        /// Locale-specific calendar date format for multi-month strings,
+        /// i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         START_MULTIMONTH_DATE_FORMAT_STRING = _("%a %b %d");
         
         // ...put everything back like we found it.
