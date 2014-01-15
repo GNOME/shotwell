@@ -1,0 +1,4597 @@
+# po/shotwell-core/shotwell.pot
+# PO message string template file for Shotwell Core Components
+# Copyright (C) 2009-2013 Yorba Foundation
+# See COPYING for license.
+#
+#
+# Translators:
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2011-2012
+# kelemeng <kelemeng@gnome.hu>, 2011
+# verayin <vera@yorba.org>, 2011
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2012
+# kelemeng <kelemeng@gnome.hu>, 2012
+# L. Csordas <csola48@gmail.com>, 2012
+# lsbeeler <lucas@yorba.org>, 2011
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
+"Last-Translator: kelemeng <kelemeng@gnome.hu>\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/shotwell/"
+"language/hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Event.vala:737
+#, c-format
+msgid "Event %s"
+msgstr "%s események"
+
+#: src/camera/Branch.vala:87
+msgid "Cameras"
+msgstr "Fényképezőgépek"
+
+#: src/camera/Branch.vala:101 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:300
+#: src/MediaPage.vala:425
+msgid "Camera"
+msgstr "Fényképezőgép"
+
+#: src/camera/ImportPage.vala:312 src/Properties.vala:227
+#, c-format
+msgid "RAW+JPEG"
+msgstr "RAW+JPEG"
+
+#: src/camera/ImportPage.vala:459
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr ""
+"A fényképezőgép leválasztása nem sikerült, próbálja meg a fájlkezelőből "
+"leválasztani."
+
+#: src/camera/ImportPage.vala:776
+msgid "Hide photos already imported"
+msgstr "Már importált fényképek elrejtése"
+
+#: src/camera/ImportPage.vala:777
+msgid "Only display photos that have not been imported"
+msgstr "Csak a nem importált fényképek megjelenítése"
+
+#: src/camera/ImportPage.vala:845
+msgid "Starting import, please wait..."
+msgstr "Importálás kezdése, kis türelmet…"
+
+#: src/camera/ImportPage.vala:872 src/MediaPage.vala:436
+msgid "_Titles"
+msgstr "_Címek"
+
+#: src/camera/ImportPage.vala:873 src/MediaPage.vala:437
+msgid "Display the title of each photo"
+msgstr "Fényképek címeinek megjelenítése"
+
+#: src/camera/ImportPage.vala:884
+msgid "Import _Selected"
+msgstr "_Kijelöltek importálása"
+
+#: src/camera/ImportPage.vala:885
+msgid "Import the selected photos into your library"
+msgstr "Kijelölt fényképek importálása a gyűjteményébe"
+
+#: src/camera/ImportPage.vala:890
+msgid "Import _All"
+msgstr "Összes im_portálása"
+
+#: src/camera/ImportPage.vala:891
+msgid "Import all the photos into your library"
+msgstr "Minden fénykép importálása a gyűjteményébe"
+
+#: src/camera/ImportPage.vala:1012
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr ""
+"A Shotwellnek le kell választania a fényképezőgépet a fájlrendszerről az "
+"eléréséhez. Folytatja?"
+
+#: src/camera/ImportPage.vala:1018
+msgid "_Unmount"
+msgstr "_Leválasztás"
+
+#: src/camera/ImportPage.vala:1023
+msgid "Please unmount the camera."
+msgstr "Válassza le a fényképezőgépet."
+
+#: src/camera/ImportPage.vala:1028
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr ""
+"A fényképezőgépet egy másik alkalmazás zárolta, így a Shotwell nem tudja "
+"használni. Zárja be a fényképezőgépet használó összes alkalmazást, majd "
+"próbálja újra."
+
+#: src/camera/ImportPage.vala:1038
+msgid "Please close any other application using the camera."
+msgstr "Zárja be a fényképezőgépet használó összes alkalmazást."
+
+#: src/camera/ImportPage.vala:1043
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+"Nem tölthetők le az előnézetek a fényképezőgépről:\n"
+"%s"
+
+#: src/camera/ImportPage.vala:1060
+msgid "Unmounting..."
+msgstr "Leválasztás…"
+
+#: src/camera/ImportPage.vala:1166
+msgid "Fetching photo information"
+msgstr "Fénykép-információk lekérése"
+
+#: src/camera/ImportPage.vala:1521
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "%s előnézetének lekérése"
+
+#: src/camera/ImportPage.vala:1637
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "A fényképezőgép nem zárolható: %s"
+
+#: src/camera/ImportPage.vala:1722
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "Törli a fényképet a fényképezőgépről?"
+msgstr[1] "Töröl %d fényképet a fényképezőgépről?"
+
+#: src/camera/ImportPage.vala:1725
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "Törli a videót a fényképezőgépről?"
+msgstr[1] "Töröl %d videót a fényképezőgépről?"
+
+#: src/camera/ImportPage.vala:1728
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "Törli a fényképet/videót a fényképezőgépről?"
+msgstr[1] "Töröl %d fényképet/videót a fényképezőgépről?"
+
+#: src/camera/ImportPage.vala:1731
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "Törli ezt a fájlt a fényképezőgépről?"
+msgstr[1] "Törli ezt a(z) %d fájlt a fényképezőgépről?"
+
+#: src/camera/ImportPage.vala:1739 src/Dialogs.vala:1328
+msgid "_Keep"
+msgstr "_Megtartás"
+
+#: src/camera/ImportPage.vala:1758
+msgid "Removing photos/videos from camera"
+msgstr "Fényképek/videók eltávolítása a fényképezőgépről"
+
+#: src/camera/ImportPage.vala:1762
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] "Hiba történt, %d fénykép/videó nem törölhető a fényképezőgépről."
+msgstr[1] "Hiba történt, %d fénykép/videó nem törölhető a fényképezőgépről."
+
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2623
+msgid "S_lideshow"
+msgstr "_Diavetítés"
+
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2624
+msgid "Play a slideshow"
+msgstr "Diavetítés indítása"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photo/Video"
+msgstr "Fényképek/videók exportálása"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photos/Videos"
+msgstr "Fényképek/videók exportálása"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:58 src/PhotoPage.vala:3196
+msgid "Export Photo"
+msgstr "Fényképek exportálása"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:87
+msgid "Export Photos"
+msgstr "Fényképek exportálása"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Rotating"
+msgstr "Forgatás"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Undoing Rotate"
+msgstr "Forgatás visszavonása"
+
+#: src/CollectionPage.vala:570
+msgid "Flipping Horizontally"
+msgstr "Tükrözés vízszintesen"
+
+#: src/CollectionPage.vala:571
+msgid "Undoing Flip Horizontally"
+msgstr "Vízszintes tükrözés visszavonása"
+
+#: src/CollectionPage.vala:580
+msgid "Flipping Vertically"
+msgstr "Tükrözés függőlegesen"
+
+#: src/CollectionPage.vala:581
+msgid "Undoing Flip Vertically"
+msgstr "Függőleges tükrözés visszavonása"
+
+#: src/searches/SearchBoolean.vala:157
+msgid "Any text"
+msgstr "Bármilyen szöveg"
+
+#: src/searches/SearchBoolean.vala:160
+msgid "Title"
+msgstr "Cím"
+
+#: src/searches/SearchBoolean.vala:163
+msgid "Tag"
+msgstr "Címke"
+
+#: src/searches/SearchBoolean.vala:166
+msgid "Comment"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:169
+msgid "Event name"
+msgstr "Eseménynév"
+
+#: src/searches/SearchBoolean.vala:172
+msgid "File name"
+msgstr "Fájlnév"
+
+#: src/searches/SearchBoolean.vala:175
+msgid "Media type"
+msgstr "Adathordozó típusa"
+
+#: src/searches/SearchBoolean.vala:178
+msgid "Flag state"
+msgstr "Jelölő állapota"
+
+#: src/searches/SearchBoolean.vala:181
+msgid "Photo state"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:1003
+msgid "Rating"
+msgstr "Értékelés"
+
+#: src/searches/SearchBoolean.vala:187
+msgid "Date"
+msgstr "Dátum"
+
+#: src/searches/SavedSearchDialog.vala:169
+msgid "contains"
+msgstr "tartalmazza"
+
+#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:497
+msgid "is exactly"
+msgstr "pontosan ez"
+
+#: src/searches/SavedSearchDialog.vala:171
+msgid "starts with"
+msgstr "ezzel kezdődik"
+
+#: src/searches/SavedSearchDialog.vala:172
+msgid "ends with"
+msgstr "ezzel végződik"
+
+#: src/searches/SavedSearchDialog.vala:173
+msgid "does not contain"
+msgstr "nem tartalmazza"
+
+#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:501
+msgid "is not set"
+msgstr "nincs beállítva"
+
+#: src/searches/SavedSearchDialog.vala:245
+#: src/searches/SavedSearchDialog.vala:376
+#: src/searches/SavedSearchDialog.vala:441
+msgid "is"
+msgstr "="
+
+#: src/searches/SavedSearchDialog.vala:246
+msgid "is not"
+msgstr "nem"
+
+#: src/searches/SavedSearchDialog.vala:252
+msgid "any photo"
+msgstr "bármely fotó"
+
+#: src/searches/SavedSearchDialog.vala:253
+msgid "a raw photo"
+msgstr "nyers fotó"
+
+#: src/searches/SavedSearchDialog.vala:254
+msgid "a video"
+msgstr "videó"
+
+#: src/searches/SavedSearchDialog.vala:308
+msgid "has"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:309
+msgid "has no"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:314
+msgid "modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:315
+msgid "internal modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:316
+msgid "external modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:370
+msgid "flagged"
+msgstr "megjelölt"
+
+#: src/searches/SavedSearchDialog.vala:371
+msgid "not flagged"
+msgstr "jelöletlen"
+
+#: src/searches/SavedSearchDialog.vala:434
+msgid "and higher"
+msgstr "és nagyobb"
+
+#: src/searches/SavedSearchDialog.vala:435
+msgid "only"
+msgstr "csak"
+
+#: src/searches/SavedSearchDialog.vala:436
+msgid "and lower"
+msgstr "és kisebb"
+
+#: src/searches/SavedSearchDialog.vala:498
+msgid "is after"
+msgstr "után volt"
+
+#: src/searches/SavedSearchDialog.vala:499
+msgid "is before"
+msgstr "előtte volt"
+
+#: src/searches/SavedSearchDialog.vala:500
+msgid "is between"
+msgstr "ezek közt"
+
+#: src/searches/SavedSearchDialog.vala:513
+msgid "and"
+msgstr "és"
+
+#: src/searches/SavedSearchDialog.vala:720
+msgid "any"
+msgstr "bármely"
+
+#: src/searches/SavedSearchDialog.vala:721
+msgid "all"
+msgstr "összes"
+
+#: src/searches/SavedSearchDialog.vala:722
+msgid "none"
+msgstr "nincs"
+
+#: src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "Mentett keresések"
+
+#: src/searches/Branch.vala:77 src/library/LibraryWindow.vala:346
+#: src/sidebar/Tree.vala:195
+msgid "Ne_w Saved Search..."
+msgstr "Új _mentett keresés…"
+
+#: src/main.vala:54
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr ""
+"A fényképgyűjteménye nem kompatibilis ezzel a Shotwell verzióval. Úgy tűnik, "
+"a Shotwell %s verzióval (%d. séma) készült, míg a jelenlegi verzió: %s (%d. "
+"séma). Próbálja meg a Shotwell legfrissebb verzióját használni."
+
+#: src/main.vala:59
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"A Shotwell nem volt képes frissíteni az Ön fényképgyűjteményét %s verzióról "
+"(%d. séma) %s verzióra (%d. séma). További információkért nézze meg a "
+"Shotwell wikit itt: %s"
+
+#: src/main.vala:65
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"A fényképgyűjteménye nem kompatibilis ezzel a Shotwell verzióval. Úgy tűnik, "
+"a Shotwell %s verzióval (%d. séma) készült, míg a jelenlegi verzió: %s (%d. "
+"séma). Ürítse ki a gyűjteményt a(z) %s törlésével, és importálja újra a "
+"fényképeit."
+
+#: src/main.vala:71
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr "Ismeretlen hiba a Shotwell adatbázisának ellenőrzésekor: %s"
+
+#: src/main.vala:104
+msgid "Loading Shotwell"
+msgstr "A Shotwell betöltése"
+
+#: src/main.vala:294
+msgid "Path to Shotwell's private data"
+msgstr "A Shotwell privát adatainak útvonala"
+
+#: src/main.vala:294
+msgid "DIRECTORY"
+msgstr "KÖNYVTÁR"
+
+#: src/main.vala:298
+msgid "Do not monitor library directory at runtime for changes"
+msgstr "Ne figyelje a változásokat a gyűjteménykönyvtárban futás közben"
+
+#: src/main.vala:302
+msgid "Don't display startup progress meter"
+msgstr "Ne jelenítse meg az indítási folyamatjelzőt"
+
+#: src/main.vala:306
+msgid "Show the application's version"
+msgstr "Az alkalmazás verziószámának megjelenítése"
+
+#: src/main.vala:338
+msgid "[FILE]"
+msgstr "[FÁJL]"
+
+#: src/main.vala:342
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"A parancssori paraméterek teljes listája a „%s --help” paranccsal íratható "
+"ki.\n"
+
+#: src/Properties.vala:84
+msgid "Today"
+msgstr "Ma"
+
+#: src/Properties.vala:86
+msgid "Yesterday"
+msgstr "Tegnap"
+
+#: src/Properties.vala:340 src/Dialogs.vala:1273
+msgid "Title:"
+msgstr "Cím:"
+
+#: src/Properties.vala:343
+msgid "Items:"
+msgstr "Elemek:"
+
+#: src/Properties.vala:346
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "%d esemény"
+msgstr[1] "%d esemény"
+
+#: src/Properties.vala:353 src/events/EventDirectoryItem.vala:87
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d fénykép"
+msgstr[1] "%d fénykép"
+
+#: src/Properties.vala:355 src/events/EventDirectoryItem.vala:85
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d videó"
+msgstr[1] "%d videó"
+
+#: src/Properties.vala:377
+msgid "Date:"
+msgstr "Dátum:"
+
+#: src/Properties.vala:381
+msgid "Time:"
+msgstr "Idő:"
+
+#: src/Properties.vala:384 src/Properties.vala:389
+msgid "From:"
+msgstr "Ettől:"
+
+#: src/Properties.vala:385 src/Properties.vala:390
+msgid "To:"
+msgstr "Eddig:"
+
+#: src/Properties.vala:395 src/editing_tools/EditingTools.vala:1850
+msgid "Size:"
+msgstr "Méret:"
+
+#: src/Properties.vala:404
+msgid "Duration:"
+msgstr "Hossz:"
+
+#: src/Properties.vala:404
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f másodperc"
+
+#: src/Properties.vala:408
+msgid "Developer:"
+msgstr "Előhívó:"
+
+#: src/Properties.vala:436 src/Properties.vala:440 src/Properties.vala:447
+#: src/editing_tools/EditingTools.vala:2218
+msgid "Exposure:"
+msgstr "Expozíció:"
+
+#: src/Properties.vala:585
+msgid "Location:"
+msgstr "Hely:"
+
+#: src/Properties.vala:588
+msgid "File size:"
+msgstr "Fájl mérete:"
+
+#: src/Properties.vala:592
+msgid "Current Development:"
+msgstr "Jelenlegi előhívás:"
+
+#: src/Properties.vala:594
+msgid "Original dimensions:"
+msgstr "Eredeti méretek:"
+
+#: src/Properties.vala:597
+msgid "Camera make:"
+msgstr "Fényképezőgép gyártója:"
+
+#: src/Properties.vala:600
+msgid "Camera model:"
+msgstr "Fényképezőgép típusa:"
+
+#: src/Properties.vala:603
+msgid "Flash:"
+msgstr "Vaku:"
+
+#: src/Properties.vala:605
+msgid "Focal length:"
+msgstr "Fókusztávolság:"
+
+#: src/Properties.vala:608
+msgid "Exposure date:"
+msgstr "Exponálás dátuma:"
+
+#: src/Properties.vala:611
+msgid "Exposure time:"
+msgstr "Exponálási idő:"
+
+#: src/Properties.vala:614
+msgid "Exposure bias:"
+msgstr "Expozícióeltolás:"
+
+#: src/Properties.vala:616
+msgid "GPS latitude:"
+msgstr "GPS szélesség:"
+
+#: src/Properties.vala:619
+msgid "GPS longitude:"
+msgstr "GPS hosszúság:"
+
+#: src/Properties.vala:622
+msgid "Artist:"
+msgstr "Készítő:"
+
+#: src/Properties.vala:624
+msgid "Copyright:"
+msgstr "Copyright:"
+
+#: src/Properties.vala:626
+msgid "Software:"
+msgstr "Szoftver:"
+
+#: src/Properties.vala:630 src/Dialogs.vala:1288
+msgid "Comment:"
+msgstr "Megjegyzés:"
+
+#: src/Properties.vala:639
+msgid "Extended Information"
+msgstr "Bővebb információk"
+
+#: src/Dialogs.vala:16
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "Ez eltávolítja a(z) „%s” címkét egy fényképről. Folytatja?"
+msgstr[1] "Ez eltávolítja a(z) „%s” címkét %d fényképről. Folytatja?"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1361
+#: src/Dialogs.vala:1384 src/data_imports/DataImportsUI.vala:399
+#: src/AppWindow.vala:615 src/AppWindow.vala:636 src/AppWindow.vala:653
+#: src/publishing/PublishingUI.vala:498
+msgid "_Cancel"
+msgstr "Mé_gse"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1329
+#: src/Resources.vala:330 src/Resources.vala:378 src/Resources.vala:643
+msgid "_Delete"
+msgstr "_Törlés"
+
+#: src/Dialogs.vala:25
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr "Ezzel törli a(z) „%s” mentett keresést. Folytatja?"
+
+#: src/Dialogs.vala:35
+#, c-format
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] ""
+"Az előhívók váltása a fénykép minden, a Shotwellben végzett módosítását "
+"visszavonja"
+msgstr[1] ""
+"Az előhívók váltása a fényképek minden, a Shotwellben végzett módosítását "
+"visszavonja"
+
+#: src/Dialogs.vala:39
+msgid "_Switch Developer"
+msgstr "_Előhívó váltása"
+
+#: src/Dialogs.vala:58
+msgid "Export Video"
+msgstr "Videó exportálása"
+
+#: src/Dialogs.vala:115
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr ""
+"A Shotwell nem tudott létrehozni fájlt a fénykép szerkesztéséhez, mert nincs "
+"jogosultsága ide írni: %s."
+
+#: src/Dialogs.vala:124
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr ""
+"A következő fényképek exportálása fájlhiba miatt nem lehetséges.\n"
+"\n"
+
+#: src/Dialogs.vala:130
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr ""
+"\n"
+"\n"
+"Szeretné folytatni az exportálást?"
+
+#: src/Dialogs.vala:131
+msgid "Con_tinue"
+msgstr "Foly_tatás"
+
+#: src/Dialogs.vala:147
+msgid "Unmodified"
+msgstr "Módosítatlan"
+
+#: src/Dialogs.vala:148
+msgid "Current"
+msgstr "Jelenlegi"
+
+#: src/Dialogs.vala:212
+msgid "_Format:"
+msgstr "_Formátum:"
+
+#: src/Dialogs.vala:215
+msgid "_Quality:"
+msgstr "_Minőség:"
+
+#: src/Dialogs.vala:218
+msgid "_Scaling constraint:"
+msgstr "_Méretezési megszorítás:"
+
+#: src/Dialogs.vala:221
+msgid " _pixels"
+msgstr " ké_ppont"
+
+#: src/Dialogs.vala:229
+msgid "Export metadata"
+msgstr "Metaadatok exportálása"
+
+#: src/Dialogs.vala:465
+msgid "Save Details..."
+msgstr "Részletek mentése…"
+
+#: src/Dialogs.vala:466
+msgid "Save Details"
+msgstr "Részletek mentése"
+
+#: src/Dialogs.vala:481
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(és még %d)\n"
+
+#: src/Dialogs.vala:534
+msgid "Import Results Report"
+msgstr "Importálás eredményei jelentés"
+
+#: src/Dialogs.vala:538
+#, c-format
+msgid "Attempted to import %d file."
+msgid_plural "Attempted to import %d files."
+msgstr[0] "Kísérlet történt %d fájl importálására."
+msgstr[1] "Kísérlet történt %d fájl importálására."
+
+#: src/Dialogs.vala:541
+#, c-format
+msgid "Of these, %d file was successfully imported."
+msgid_plural "Of these, %d files were successfully imported."
+msgstr[0] "Ebből %d fájl lett sikeresen importálva."
+msgstr[1] "Ebből %d fájl lett sikeresen importálva."
+
+#: src/Dialogs.vala:553
+msgid "Duplicate Photos/Videos Not Imported:"
+msgstr "Nem importált, duplikált fotók/videók:"
+
+#: src/Dialogs.vala:557
+msgid "duplicates existing media item"
+msgstr "Duplikálja a meglévő médiaelemet"
+
+#: src/Dialogs.vala:568
+msgid "Photos/Videos Not Imported Due to Camera Errors:"
+msgstr "A fényképezőgép hibája miatt nem importált fotók/videók:"
+
+#: src/Dialogs.vala:571 src/Dialogs.vala:586 src/Dialogs.vala:601
+#: src/Dialogs.vala:617 src/Dialogs.vala:632 src/Dialogs.vala:646
+msgid "error message:"
+msgstr "hibaüzenet:"
+
+#: src/Dialogs.vala:582
+msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgstr ""
+"Fotóként vagy videóként fel nem ismert, és emiatt nem importált fájlok:"
+
+#: src/Dialogs.vala:597
+msgid ""
+"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Understands:"
+msgstr ""
+"A Shotwell által nem értelmezhető formátumú, és emiatt nem importált fotók/"
+"videók:"
+
+#: src/Dialogs.vala:612
+msgid ""
+"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Library:"
+msgstr ""
+"A Shotwell által a gyűjteménybe nem másolható, és emiatt nem importált fotók/"
+"videók:"
+
+#: src/Dialogs.vala:616
+#, c-format
+msgid ""
+"couldn't copy %s\n"
+"\tto %s"
+msgstr ""
+"%s nem másolható\n"
+"\tide: %s"
+
+#: src/Dialogs.vala:628
+msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
+msgstr ""
+
+#: src/Dialogs.vala:643
+msgid "Photos/Videos Not Imported for Other Reasons:"
+msgstr "Más okból nem importált fotók/videók:"
+
+#: src/Dialogs.vala:663
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "%d duplikált fénykép nem lett importálva:\n"
+msgstr[1] "%d duplikált fénykép nem lett importálva:\n"
+
+#: src/Dialogs.vala:666
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "%d duplikált videó nem lett importálva:\n"
+msgstr[1] "%d duplikált videó nem lett importálva:\n"
+
+#: src/Dialogs.vala:669
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "%d duplikált fénykép/videó nem lett importálva:\n"
+msgstr[1] "%d duplikált fénykép/videó nem lett importálva:\n"
+
+#: src/Dialogs.vala:683
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgstr[1] ""
+"%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+
+#: src/Dialogs.vala:686
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] "%d videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgstr[1] "%d videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+
+#: src/Dialogs.vala:689
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgstr[1] ""
+"%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+
+#: src/Dialogs.vala:692
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] "%d fájlt nem sikerült importálni hardver- vagy fájlhiba miatt:\n"
+msgstr[1] "%d fájlt nem sikerült importálni hardver- vagy fájlhiba miatt:\n"
+
+#: src/Dialogs.vala:706
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"%d fényképet nem sikerült importálni, mert a fényképgyűjtemény mappája nem "
+"írható:\n"
+msgstr[1] ""
+"%d fényképet nem sikerült importálni, mert a fényképgyűjtemény mappája nem "
+"írható:\n"
+
+#: src/Dialogs.vala:709
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"%d videót nem sikerült importálni, mert a fényképgyűjtemény mappája nem "
+"írható:\n"
+msgstr[1] ""
+"%d fényképet nem sikerült importálni, mert a fényképgyűjtemény mappája nem "
+"írható:\n"
+
+#: src/Dialogs.vala:712
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"%d fényképet/videót nem sikerült importálni, mert a fényképgyűjtemény "
+"mappája nem írható:\n"
+msgstr[1] ""
+"%d fényképet/videót nem sikerült importálni, mert a fényképgyűjtemény "
+"mappája nem írható:\n"
+
+#: src/Dialogs.vala:715
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"A fényképgyűjtemény mappája nem írható, emiatt %d fájl importálása nem "
+"sikerült:\n"
+msgstr[1] ""
+"A fényképgyűjtemény mappája nem írható, emiatt %d fájl importálása nem "
+"sikerült:\n"
+
+#: src/Dialogs.vala:729
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] "%d fényképet nem sikerült importálni fényképezőgép-hiba miatt:\n"
+msgstr[1] "%d fényképet nem sikerült importálni fényképezőgép-hiba miatt:\n"
+
+#: src/Dialogs.vala:732
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] "%d videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
+msgstr[1] "%d videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
+
+#: src/Dialogs.vala:735
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] ""
+"%d fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
+msgstr[1] ""
+"%d fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
+
+#: src/Dialogs.vala:738
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] "%d fájlt nem sikerült importálni fényképezőgép-hiba miatt:\n"
+msgstr[1] "%d fájlt nem sikerült importálni fényképezőgép-hiba miatt:\n"
+
+#: src/Dialogs.vala:752
+#, c-format
+msgid "1 photo failed to import because it was corrupt:\n"
+msgid_plural "%d photos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:755
+#, c-format
+msgid "1 video failed to import because it was corrupt:\n"
+msgid_plural "%d videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:758
+#, c-format
+msgid "1 photo/video failed to import because it was corrupt:\n"
+msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:761
+#, c-format
+msgid "1 file failed to import because it was corrupt:\n"
+msgid_plural "%d files failed to import because it was corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:778
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "%d nem támogatott formátumú fénykép kihagyva:\n"
+msgstr[1] "%d nem támogatott formátumú fénykép kihagyva:\n"
+
+#: src/Dialogs.vala:793
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] "%d nem képfájl kihagyva.\n"
+msgstr[1] "%d nem képfájl kihagyva.\n"
+
+#: src/Dialogs.vala:804
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] "%d fénykép a felhasználó utasítására kihagyva.\n"
+msgstr[1] "%d fénykép a felhasználó utasítására kihagyva.\n"
+
+#: src/Dialogs.vala:807
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] "%d videó a felhasználó utasítására kihagyva:\n"
+msgstr[1] "%d videó a felhasználó utasítására kihagyva:\n"
+
+#: src/Dialogs.vala:810
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] "%d fénykép/videó a felhasználó utasítására kihagyva:\n"
+msgstr[1] "%d fénykép/videó a felhasználó utasítására kihagyva:\n"
+
+#: src/Dialogs.vala:813
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] "%d fájl a felhasználó utasítására kihagyva:\n"
+msgstr[1] "%d fájl a felhasználó utasítására kihagyva:\n"
+
+#: src/Dialogs.vala:827
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "%d fénykép sikeresen importálva.\n"
+msgstr[1] "%d fénykép sikeresen importálva.\n"
+
+#: src/Dialogs.vala:830
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "%d videó sikeresen importálva.\n"
+msgstr[1] "%d videó sikeresen importálva.\n"
+
+#: src/Dialogs.vala:833
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "%d fénykép/videó sikeresen importálva.\n"
+msgstr[1] "%d fénykép/videó sikeresen importálva.\n"
+
+#: src/Dialogs.vala:849
+msgid "No photos or videos imported.\n"
+msgstr "Nem lettek importálva fényképek vagy videók.\n"
+
+#: src/Dialogs.vala:856 src/Dialogs.vala:875
+msgid "Import Complete"
+msgstr "Importálás kész"
+
+#: src/Dialogs.vala:1103
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d másodperc"
+msgstr[1] "%d másodperc"
+
+#: src/Dialogs.vala:1106
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d perc"
+msgstr[1] "%d perc"
+
+#: src/Dialogs.vala:1110
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d óra"
+msgstr[1] "%d óra"
+
+#: src/Dialogs.vala:1113
+msgid "1 day"
+msgstr "1 nap"
+
+#: src/Dialogs.vala:1263 src/Resources.vala:205
+msgid "Rename Event"
+msgstr "Esemény átnevezése"
+
+#: src/Dialogs.vala:1263
+msgid "Name:"
+msgstr "Név:"
+
+#: src/Dialogs.vala:1273 src/Resources.vala:274
+msgid "Edit Title"
+msgstr "Cím szerkesztése"
+
+#: src/Dialogs.vala:1287 src/Resources.vala:280
+msgid "Edit Event Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1287
+msgid "Edit Photo/Video Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1304
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "_Fájl eltávolítása"
+msgstr[1] "_Fájlok eltávolítása"
+
+#: src/Dialogs.vala:1308
+msgid "Only _Remove"
+msgstr "_Csak eltávolítás"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edit?"
+msgstr "Visszavonja a külső szerkesztést?"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edits?"
+msgstr "Visszavonja a külső szerkesztéseket?"
+
+#: src/Dialogs.vala:1353
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] "Ezzel a külső fájlon végzett minden változtatás elvész. Folytatja?"
+msgstr[1] ""
+"Ezzel a külső %d fájlon végzett minden változtatás elvész. Folytatja?"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edit"
+msgstr "Külső szerkesztés _visszavonása"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edits"
+msgstr "Külső szerkesztések _visszavonása"
+
+#: src/Dialogs.vala:1378
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "Ezzel eltávolítja a fényképet a gyűjteményből. Folytatja?"
+msgstr[1] "Ezzel eltávolít %d fényképet a gyűjteményből. Folytatja?"
+
+#: src/Dialogs.vala:1385
+msgid "_Remove"
+msgstr "_Eltávolítás"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photo From Library"
+msgstr "Fénykép eltávolítása a gyűjteményből"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photos From Library"
+msgstr "Fényképek eltávolítása a gyűjteményből"
+
+#: src/Dialogs.vala:1479
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/Dialogs.vala:1626
+msgid "AM"
+msgstr "DE"
+
+#: src/Dialogs.vala:1627
+msgid "PM"
+msgstr "DU"
+
+#: src/Dialogs.vala:1628
+msgid "24 Hr"
+msgstr "24 óra"
+
+#: src/Dialogs.vala:1643
+msgid "_Shift photos/videos by the same amount"
+msgstr "Fotók/videók _eltolása azonos mennyiséggel"
+
+#: src/Dialogs.vala:1648
+msgid "Set _all photos/videos to this time"
+msgstr "Min_den fotó/videó beállítása erre az időre"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo file"
+msgstr "Eredeti fényképfájl _módosítása"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo files"
+msgstr "Eredeti fényképfájlok _módosítása"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original file"
+msgstr "Eredeti fájl _módosítása"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original files"
+msgstr "Eredeti fájlok _módosítása"
+
+#: src/Dialogs.vala:1744
+msgid "Original: "
+msgstr "Eredeti: "
+
+#: src/Dialogs.vala:1745
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%Y. %m. %d., %k.%M.%S"
+
+#: src/Dialogs.vala:1746
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%Y. %m. %d., %l.%M.%S %p"
+
+#: src/Dialogs.vala:1835
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"A képek készítése előre lesz tolva ennyivel:\n"
+"%d %s, %d %s, %d %s, és %d %s."
+
+#: src/Dialogs.vala:1836
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"A képek készítése vissza lesz tolva ennyivel:\n"
+"%d %s, %d %s, %d %s, és %d %s."
+
+#: src/Dialogs.vala:1838
+msgid "day"
+msgid_plural "days"
+msgstr[0] "nap"
+msgstr[1] "nap"
+
+#: src/Dialogs.vala:1839
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "óra"
+msgstr[1] "óra"
+
+#: src/Dialogs.vala:1840
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "perc"
+msgstr[1] "perc"
+
+#: src/Dialogs.vala:1841
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "másodperc"
+msgstr[1] "másodperc"
+
+#: src/Dialogs.vala:1885
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"És %d egyéb."
+msgstr[1] ""
+"\n"
+"\n"
+"És %d egyéb."
+
+#: src/Dialogs.vala:1907 src/Dialogs.vala:1934
+msgid "Tags (separated by commas):"
+msgstr "Címkék (vesszővel elválasztva):"
+
+#: src/Dialogs.vala:2014
+msgid "Welcome!"
+msgstr "Üdvözöljük!"
+
+#: src/Dialogs.vala:2021
+#, c-format
+msgid "Welcome to Shotwell!"
+msgstr "Üdvözöljük a Shotwellben!"
+
+#: src/Dialogs.vala:2025
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr "Az alábbi módokon importálhatja fényképeit:"
+
+#: src/Dialogs.vala:2044
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr ""
+"Válassza a <span weight=\"bold\">Fájl %s Importálás mappából</span> "
+"menüpontot"
+
+#: src/Dialogs.vala:2045
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "Húzza fényképeit a Shotwell ablakába"
+
+#: src/Dialogs.vala:2046
+msgid "Connect a camera to your computer and import"
+msgstr ""
+"Csatlakoztasson egy fényképezőgépet a számítógéphez, és importálja a "
+"fényképeit"
+
+#: src/Dialogs.vala:2056
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "Fényképek i_mportálása a(z) %s mappájából"
+
+#: src/Dialogs.vala:2063
+msgid "You can also import photos in any of these ways:"
+msgstr "Fényképeket a következő módokon is importálhat:"
+
+#: src/Dialogs.vala:2073
+msgid "_Don't show this message again"
+msgstr "_Ne jelenjen meg ez az üzenet többé"
+
+#: src/Dialogs.vala:2108
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "Fényképek importálása a(z) %s gyűjteményéből"
+
+#: src/Dialogs.vala:2252 src/Dialogs.vala:2256
+msgid "(Help)"
+msgstr "(Súgó)"
+
+#: src/Dialogs.vala:2265
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "Év%sHónap%sNap"
+
+#: src/Dialogs.vala:2267
+#, c-format
+msgid "Year%sMonth"
+msgstr "Év%sHónap"
+
+#: src/Dialogs.vala:2269
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "Év%sHónap-Nap"
+
+#: src/Dialogs.vala:2271
+msgid "Year-Month-Day"
+msgstr "Év-Hónap-Nap"
+
+#: src/Dialogs.vala:2272 src/editing_tools/EditingTools.vala:777
+msgid "Custom"
+msgstr "Egyéni"
+
+#: src/Dialogs.vala:2509
+msgid "Invalid pattern"
+msgstr "Érvénytelen minta"
+
+#: src/Dialogs.vala:2612
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr ""
+"A Shotwell átmásolhatja a fényképeket a gyűjtemény könyvtárába, vagy "
+"importálhatja azokat másolás nélkül is."
+
+#: src/Dialogs.vala:2617
+msgid "Co_py Photos"
+msgstr "Fény_képek másolása"
+
+#: src/Dialogs.vala:2618
+msgid "_Import in Place"
+msgstr "_Importálás"
+
+#: src/Dialogs.vala:2619
+msgid "Import to Library"
+msgstr "Importálás a gyűjteménybe"
+
+#: src/Dialogs.vala:2629 src/PhotoPage.vala:3075
+msgid "Remove From Library"
+msgstr "Eltávolítás a gyűjteményből"
+
+#: src/Dialogs.vala:2630 src/PhotoPage.vala:3075
+msgid "Removing Photo From Library"
+msgstr "Fényképek eltávolítás a gyűjteményből"
+
+#: src/Dialogs.vala:2630
+msgid "Removing Photos From Library"
+msgstr "Fényképek eltávolítása a gyűjteményből"
+
+#: src/Dialogs.vala:2644
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also "
+"like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you "
+"also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Ezzel eltávolítja a Shotwell gyűjteményből a fényképet/videót. Szeretné a "
+"fájlt a Kukába is áthelyezni?\n"
+"\n"
+"Ez a művelet nem vonható vissza."
+msgstr[1] ""
+"Ezzel eltávolít a Shotwell gyűjteményből %d fényképet/videót. Szeretné a "
+"fájlokat a Kukába is áthelyezni?\n"
+"\n"
+"Ez a művelet nem vonható vissza."
+
+#: src/Dialogs.vala:2648
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Ezzel eltávolítja a Shotwell gyűjteményből a videót. Szeretné a fájlt a "
+"Kukába is áthelyezni?\n"
+"\n"
+"Ez a művelet nem vonható vissza."
+msgstr[1] ""
+"Ezzel eltávolít a Shotwell gyűjteményből %d videót. Szeretné a fájlokat a "
+"Kukába is áthelyezni?\n"
+"\n"
+"Ez a művelet nem vonható vissza."
+
+#: src/Dialogs.vala:2652
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Ezzel eltávolítja a Shotwell gyűjteményből a fényképet. Szeretné a fájlt a "
+"Kukába is áthelyezni?\n"
+"\n"
+"Ez a művelet nem vonható vissza."
+msgstr[1] ""
+"Ezzel eltávolít a Shotwell gyűjteményből %d fényképet. Szeretné a fájlt a "
+"Kukába is áthelyezni?\n"
+"\n"
+"Ez a művelet nem vonható vissza."
+
+#: src/Dialogs.vala:2684
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] "%d fotó vagy videó nem helyezhető át a Kukába. Törli a fájlt?"
+msgstr[1] "%d fotó vagy videó nem helyezhető át a Kukába. Törli a fájlokat?"
+
+#: src/Dialogs.vala:2701
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "%d fotó vagy videó nem törölhető."
+msgstr[1] "%d fotó vagy videó nem törölhető."
+
+#: src/folders/Branch.vala:141
+msgid "Folders"
+msgstr "Mappák"
+
+#: src/tags/Branch.vala:127
+msgid "Tags"
+msgstr "Címkék"
+
+#: src/BatchImport.vala:26
+msgid "Success"
+msgstr "Sikerült"
+
+#: src/BatchImport.vala:29
+msgid "File error"
+msgstr "Fájlhiba"
+
+#: src/BatchImport.vala:32
+msgid "Unable to decode file"
+msgstr "Nem dekódolható a fájl"
+
+#: src/BatchImport.vala:35
+msgid "Database error"
+msgstr "Adatbázishiba"
+
+#: src/BatchImport.vala:38
+msgid "User aborted import"
+msgstr "A felhasználó megszakította az importálást"
+
+#: src/BatchImport.vala:41
+msgid "Not a file"
+msgstr "Nem fájl"
+
+#: src/BatchImport.vala:44
+msgid "File already exists in database"
+msgstr "A fájl már létezik az adatbázisban"
+
+#: src/BatchImport.vala:47
+msgid "Unsupported file format"
+msgstr "Nem támogatott fájlformátum"
+
+#: src/BatchImport.vala:50
+msgid "Not an image file"
+msgstr "Nem képfájl"
+
+#: src/BatchImport.vala:53
+msgid "Disk failure"
+msgstr "Lemezhiba"
+
+#: src/BatchImport.vala:56
+msgid "Disk full"
+msgstr "Betelt a lemez"
+
+#: src/BatchImport.vala:59
+msgid "Camera error"
+msgstr "Fényképezőgép-hiba"
+
+#: src/BatchImport.vala:62
+msgid "File write error"
+msgstr "Fájlírási hiba"
+
+#: src/BatchImport.vala:65
+msgid "Corrupt image file"
+msgstr ""
+
+#: src/BatchImport.vala:68
+#, c-format
+msgid "Imported failed (%d)"
+msgstr "Az importálás meghiúsult (%d)"
+
+#: src/Photo.vala:3656
+msgid "modified"
+msgstr "módosítva"
+
+#: src/PhotoPage.vala:532
+msgid "Previous photo"
+msgstr "Előző fénykép"
+
+#: src/PhotoPage.vala:537
+msgid "Next photo"
+msgstr "Következő fénykép"
+
+#: src/PhotoPage.vala:1844
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "A fénykép forrásfájlja hiányzik: %s"
+
+#: src/PhotoPage.vala:2404 src/library/LibraryWindow.vala:360
+#: src/direct/DirectPhotoPage.vala:165
+msgid "_View"
+msgstr "_Nézet"
+
+#: src/PhotoPage.vala:2408 src/direct/DirectPhotoPage.vala:81
+msgid "T_ools"
+msgstr "_Eszközök"
+
+#: src/PhotoPage.vala:2413 src/direct/DirectPhotoPage.vala:86
+msgid "_Previous Photo"
+msgstr "_Előző fénykép"
+
+#: src/PhotoPage.vala:2414 src/direct/DirectPhotoPage.vala:87
+msgid "Previous Photo"
+msgstr "Előző fénykép"
+
+#: src/PhotoPage.vala:2419 src/direct/DirectPhotoPage.vala:92
+msgid "_Next Photo"
+msgstr "_Következő fénykép"
+
+#: src/PhotoPage.vala:2420 src/direct/DirectPhotoPage.vala:93
+msgid "Next Photo"
+msgstr "Következő fénykép"
+
+#: src/PhotoPage.vala:2583 src/direct/DirectPhotoPage.vala:174
+#: src/MediaPage.vala:325
+msgid "Zoom _In"
+msgstr "_Nagyítás"
+
+#: src/PhotoPage.vala:2584 src/direct/DirectPhotoPage.vala:175
+msgid "Increase the magnification of the photo"
+msgstr "Fénykép nagyításának növelése"
+
+#: src/PhotoPage.vala:2589 src/direct/DirectPhotoPage.vala:180
+#: src/MediaPage.vala:331
+msgid "Zoom _Out"
+msgstr "_Kicsinyítés"
+
+#: src/PhotoPage.vala:2590 src/direct/DirectPhotoPage.vala:181
+msgid "Decrease the magnification of the photo"
+msgstr "Fénykép nagyításának csökkentése"
+
+#: src/PhotoPage.vala:2595 src/direct/DirectPhotoPage.vala:186
+msgid "Fit to _Page"
+msgstr "_Teljes oldal"
+
+#: src/PhotoPage.vala:2596 src/direct/DirectPhotoPage.vala:187
+msgid "Zoom the photo to fit on the screen"
+msgstr "Képernyő kitöltése a fényképpel"
+
+#: src/PhotoPage.vala:2601 src/direct/DirectPhotoPage.vala:192
+msgid "Zoom _100%"
+msgstr "_100% nagyítás"
+
+#: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
+msgid "Zoom the photo to 100% magnification"
+msgstr "Fénykép 100%-os nagyítása"
+
+#: src/PhotoPage.vala:2607 src/direct/DirectPhotoPage.vala:198
+msgid "Zoom _200%"
+msgstr "_200% nagyítás"
+
+#: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
+msgid "Zoom the photo to 200% magnification"
+msgstr "Fénykép 200%-os nagyítása"
+
+#: src/PhotoPage.vala:2628 src/MediaPage.vala:413
+msgid "_Developer"
+msgstr "_Előhívó"
+
+#: src/PhotoPage.vala:3216
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "%s exportálása sikertelen: %s"
+
+#: src/data_imports/DataImportsPluginHost.vala:65
+#: src/data_imports/DataImportsPluginHost.vala:78
+#, c-format
+msgid "%s Database"
+msgstr "%s adatbázis"
+
+#: src/data_imports/DataImportsPluginHost.vala:148
+#: src/data_imports/DataImportsPluginHost.vala:294
+#, c-format
+msgid "Importing from %s can't continue because an error occurred:"
+msgstr "Az importálás innen: %s egy hiba miatt nem folytatódhat:"
+
+#: src/data_imports/DataImportsPluginHost.vala:151
+msgid "To try importing from another service, select one from the above menu."
+msgstr ""
+"Egy másik szolgáltatásból való importáláshoz válasszon egyet a fenti menüből."
+
+#: src/data_imports/DataImports.vala:22
+msgid "Data Imports"
+msgstr "Adatimportálások"
+
+#: src/data_imports/DataImportsUI.vala:10
+msgid ""
+"You do not have any data imports plugins enabled.\n"
+"\n"
+"In order to use the Import From Application functionality, you need to have "
+"at least one data imports plugin enabled. Plugins can be enabled in the "
+"Preferences dialog."
+msgstr ""
+"Nincsenek engedélyezve adatimportáló bővítmények.\n"
+"\n"
+"Az Importálás alkalmazásból funkció használatához engedélyeznie kell "
+"legalább egy adatimportáló bővítményt. A bővítmények a Beállítások ablakban "
+"engedélyezhetők."
+
+#: src/data_imports/DataImportsUI.vala:100
+msgid "Database file:"
+msgstr "Adatbázisfájl:"
+
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:899
+msgid "_Import"
+msgstr "_Importálás"
+
+#: src/data_imports/DataImportsUI.vala:216
+msgid "Import From Application"
+msgstr "Importálás alkalmazásból"
+
+#: src/data_imports/DataImportsUI.vala:217
+msgid "Import media _from:"
+msgstr "Mé_dia importálása innen:"
+
+#: src/data_imports/DataImportsUI.vala:394
+#: src/publishing/PublishingUI.vala:493
+msgid "_Close"
+msgstr "_Bezárás"
+
+#: src/SlideshowPage.vala:49 src/SlideshowPage.vala:182
+msgid "Settings"
+msgstr "Beállítások"
+
+#: src/SlideshowPage.vala:141 src/Screensaver.vala:18
+msgid "Slideshow"
+msgstr "Diavetítés"
+
+#: src/SlideshowPage.vala:161
+msgid "Back"
+msgstr "Vissza"
+
+#: src/SlideshowPage.vala:162
+msgid "Go to the previous photo"
+msgstr "Ugrás az előző fényképre"
+
+#: src/SlideshowPage.vala:168 src/SlideshowPage.vala:273
+msgid "Pause"
+msgstr "Szünet"
+
+#: src/SlideshowPage.vala:169 src/SlideshowPage.vala:274
+msgid "Pause the slideshow"
+msgstr "Diavetítés szüneteltetése"
+
+#: src/SlideshowPage.vala:175
+msgid "Next"
+msgstr "Következő"
+
+#: src/SlideshowPage.vala:176
+msgid "Go to the next photo"
+msgstr "Ugrás a következő fényképre"
+
+#: src/SlideshowPage.vala:183
+msgid "Change slideshow settings"
+msgstr "Diavetítés beállításainak módosítása"
+
+#: src/SlideshowPage.vala:237
+msgid "All photo source files are missing."
+msgstr "Az összes fénykép forrásfájlja elveszett."
+
+#: src/SlideshowPage.vala:269
+msgid "Play"
+msgstr "Lejátszás"
+
+#: src/SlideshowPage.vala:270
+msgid "Continue the slideshow"
+msgstr "Diavetítés folytatása"
+
+#: src/Commands.vala:733
+msgid "Reverting"
+msgstr "Visszaállítás"
+
+#: src/Commands.vala:733
+msgid "Undoing Revert"
+msgstr "Visszaállítás visszavonása"
+
+#: src/Commands.vala:777
+msgid "Enhancing"
+msgstr "Kiemelés"
+
+#: src/Commands.vala:777
+msgid "Undoing Enhance"
+msgstr "Kiemelés visszavonása"
+
+#: src/Commands.vala:845
+msgid "Applying Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:845
+msgid "Undoing Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:995
+msgid "Creating New Event"
+msgstr "Új esemény létrehozása"
+
+#: src/Commands.vala:996
+msgid "Removing Event"
+msgstr "Esemény eltávolítása"
+
+#: src/Commands.vala:1005
+msgid "Moving Photos to New Event"
+msgstr "Fényképek áthelyezése az új eseménybe"
+
+#: src/Commands.vala:1006
+msgid "Setting Photos to Previous Event"
+msgstr "Fényképek átállítása az előző eseményre"
+
+#: src/Commands.vala:1063
+msgid "Merging"
+msgstr "Egyesítés"
+
+#: src/Commands.vala:1064
+msgid "Unmerging"
+msgstr "Szétválasztás"
+
+#: src/Commands.vala:1073
+msgid "Duplicating photos"
+msgstr "Fényképek duplikálása"
+
+#: src/Commands.vala:1073
+msgid "Removing duplicated photos"
+msgstr "Többszörösen jelenlévő fényképek eltávolítása"
+
+#: src/Commands.vala:1096
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "Fájlhiba miatt a fénykép nem duplikálható"
+msgstr[1] "Fájlhiba miatt %d fénykép nem duplikálható"
+
+#: src/Commands.vala:1183
+msgid "Restoring previous rating"
+msgstr "Korábbi értékelés visszaállítása"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Increasing ratings"
+msgstr "Értékelés csökkentése"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Decreasing ratings"
+msgstr "Értékelés növelése"
+
+#: src/Commands.vala:1244
+msgid "Setting RAW developer"
+msgstr "RAW előhívó beállítása"
+
+#: src/Commands.vala:1244
+msgid "Restoring previous RAW developer"
+msgstr "Előző RAW előhívó visszaállítása"
+
+#: src/Commands.vala:1245
+msgid "Set Developer"
+msgstr "Az előhívó beállítása"
+
+#: src/Commands.vala:1335
+msgid "Original photo could not be adjusted."
+msgstr "Az eredeti fénykép nem módosítható."
+
+#: src/Commands.vala:1356
+msgid "Adjusting Date and Time"
+msgstr "Dátum és idő módosítása"
+
+#: src/Commands.vala:1356
+msgid "Undoing Date and Time Adjustment"
+msgstr "Dátum és idő módosításának visszavonása"
+
+#: src/Commands.vala:1387
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "Az eredeti fénykép nem módosítható."
+msgstr[1] "A következő eredeti fényképek nem módosíthatók."
+
+#: src/Commands.vala:1389 src/Commands.vala:1413
+msgid "Time Adjustment Error"
+msgstr "Hiba az idő megváltoztatásakor"
+
+#: src/Commands.vala:1411
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] "Az időmódosítás nem vonható vissza a következő fényképen."
+msgstr[1] "Az időmódosítás nem vonható vissza a következő fényképeken."
+
+#: src/Commands.vala:1625 src/Commands.vala:1648
+msgid "Create Tag"
+msgstr "Címke létrehozása"
+
+#: src/Commands.vala:1683
+#, c-format
+msgid "Move Tag \"%s\""
+msgstr "„%s” címke mozgatása"
+
+#: src/Commands.vala:2335
+msgid "Move Photos to Trash"
+msgstr "Fényképek áthelyezése a Kukába"
+
+#: src/Commands.vala:2335
+msgid "Restore Photos from Trash"
+msgstr "Fényképek visszaállítása a Kukából"
+
+#: src/Commands.vala:2336
+msgid "Move the photos to the Shotwell trash"
+msgstr "Fényképek áthelyezése a Shotwell kukájába"
+
+#: src/Commands.vala:2336
+msgid "Restore the photos back to the Shotwell library"
+msgstr "Fényképek visszaállítása a Shotwell gyűjteményébe"
+
+#: src/Commands.vala:2355
+msgid "Moving Photos to Trash"
+msgstr "Fényképek áthelyezése a Kukába"
+
+#: src/Commands.vala:2355
+msgid "Restoring Photos From Trash"
+msgstr "Fényképek visszaállítása a Kukából"
+
+#: src/Commands.vala:2441
+msgid "Flag selected photos"
+msgstr "Kiválasztott fényképek megjelölése"
+
+#: src/Commands.vala:2442
+msgid "Unflag selected photos"
+msgstr "Kiválasztott fényképek megjelölésének törlése"
+
+#: src/Commands.vala:2443
+msgid "Flagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2444
+msgid "Unflagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2451
+msgid "Flag"
+msgstr "Megjelölés"
+
+#: src/Commands.vala:2451
+msgid "Unflag"
+msgstr "Jelölés törlése"
+
+#: src/photos/RawSupport.vala:134
+msgid "RAW"
+msgstr "RAW"
+
+#: src/photos/RawSupport.vala:297 src/MediaPage.vala:420
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: src/photos/BmpSupport.vala:32
+msgid "BMP"
+msgstr "BMP"
+
+#: src/photos/JfifSupport.vala:84
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/photos/JfifSupport.vala:182
+#, c-format
+msgid "Low (%d%%)"
+msgstr "Alacsony (%d%%)"
+
+#: src/photos/JfifSupport.vala:185
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "Közepes (%d%%)"
+
+#: src/photos/JfifSupport.vala:188
+#, c-format
+msgid "High (%d%%)"
+msgstr "Magas (%d%%)"
+
+#: src/photos/JfifSupport.vala:191
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "Maximum (%d%%)"
+
+#: src/photos/PngSupport.vala:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/photos/TiffSupport.vala:86
+msgid "TIFF"
+msgstr "TIFF"
+
+#: src/Page.vala:1268
+msgid "No photos/videos"
+msgstr "Nincsenek fényképek/videók"
+
+#: src/Page.vala:1272
+msgid "No photos/videos found"
+msgstr "Nem találhatók fényképek/videók"
+
+#: src/Page.vala:2569
+msgid "Photos cannot be exported to this directory."
+msgstr "Nem exportálhatók fényképek ebbe a könyvtárba."
+
+#: src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "A megfigyelés frissítései nem dolgozhatók fel: %s"
+
+#: src/Printing.vala:255
+msgid "Fill the entire page"
+msgstr "Teljes oldal kitöltése"
+
+#: src/Printing.vala:256
+msgid "2 images per page"
+msgstr "2 kép oldalanként"
+
+#: src/Printing.vala:257
+msgid "4 images per page"
+msgstr "4 kép oldalanként"
+
+#: src/Printing.vala:258
+msgid "6 images per page"
+msgstr "6 kép oldalanként"
+
+#: src/Printing.vala:259
+msgid "8 images per page"
+msgstr "8 kép oldalanként"
+
+#: src/Printing.vala:260
+msgid "16 images per page"
+msgstr "16 kép oldalanként"
+
+#: src/Printing.vala:261
+msgid "32 images per page"
+msgstr "32 kép oldalanként"
+
+#: src/Printing.vala:348
+msgid "in."
+msgstr "hüvelyk"
+
+#: src/Printing.vala:349
+msgid "cm"
+msgstr "cm"
+
+#: src/Printing.vala:817 src/editing_tools/EditingTools.vala:757
+msgid "Wallet (2 x 3 in.)"
+msgstr "Tárca (2 x 3 hüvelyk)"
+
+#: src/Printing.vala:820 src/editing_tools/EditingTools.vala:758
+msgid "Notecard (3 x 5 in.)"
+msgstr "Jegyzettömb (3 x 5 hüvelyk)"
+
+#: src/Printing.vala:823 src/editing_tools/EditingTools.vala:759
+msgid "4 x 6 in."
+msgstr "4 x 6 hüvelyk"
+
+#: src/Printing.vala:826 src/editing_tools/EditingTools.vala:760
+msgid "5 x 7 in."
+msgstr "5 x 7 hüvelyk"
+
+#: src/Printing.vala:829 src/editing_tools/EditingTools.vala:761
+msgid "8 x 10 in."
+msgstr "8 x 10 hüvelyk"
+
+#: src/Printing.vala:832 src/editing_tools/EditingTools.vala:763
+msgid "11 x 14 in."
+msgstr "11 x 14 hüvelyk"
+
+#: src/Printing.vala:835 src/editing_tools/EditingTools.vala:765
+msgid "16 x 20 in."
+msgstr "16 x 20 hüvelyk"
+
+#: src/Printing.vala:841 src/editing_tools/EditingTools.vala:767
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr "Metrikus tárca (9 x 13 cm)"
+
+#: src/Printing.vala:844 src/editing_tools/EditingTools.vala:768
+msgid "Postcard (10 x 15 cm)"
+msgstr "Képeslap (10 x 15 cm)"
+
+#: src/Printing.vala:847 src/editing_tools/EditingTools.vala:769
+msgid "13 x 18 cm"
+msgstr "13 x 18 cm"
+
+#: src/Printing.vala:850 src/editing_tools/EditingTools.vala:770
+msgid "18 x 24 cm"
+msgstr "18 x 24 cm"
+
+#: src/Printing.vala:853 src/editing_tools/EditingTools.vala:772
+msgid "20 x 30 cm"
+msgstr "20 x 30 cm"
+
+#: src/Printing.vala:856 src/editing_tools/EditingTools.vala:773
+msgid "24 x 40 cm"
+msgstr "24 x 40 cm"
+
+#: src/Printing.vala:859 src/editing_tools/EditingTools.vala:774
+msgid "30 x 40 cm"
+msgstr "30 x 40 cm"
+
+#: src/Printing.vala:875
+msgid "Image Settings"
+msgstr "Képbeállítások"
+
+#: src/Printing.vala:888
+msgid "Printing..."
+msgstr "Nyomtatás…"
+
+#: src/Printing.vala:908 src/Printing.vala:1111
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"A fénykép nem nyomtatható:\n"
+"\n"
+"%s"
+
+#: src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "A fénykép-adatbázis (%s) nem nyitható meg/hozható létre: hibakód: %d"
+
+#: src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr ""
+"Nem lehet írni a fényképadatbázis-fájlba:\n"
+" %s"
+
+#: src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr ""
+"Hiba az adatbázisfájl elérésekor:\n"
+" %s\n"
+"\n"
+"A hibaüzenet: \n"
+"%s"
+
+#: src/VideoSupport.vala:464
+msgid "Export Videos"
+msgstr "Videók exportálása"
+
+#: src/DesktopIntegration.vala:118
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "A Nautilus küldés nem indítható el: %s"
+
+#: src/DesktopIntegration.vala:126
+msgid "Send To"
+msgstr "Küldés"
+
+#: src/DesktopIntegration.vala:171
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "A háttér exportálása sikertelen ide: %s: %s"
+
+#: src/DesktopIntegration.vala:299
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "Az asztali diavetítés nem készíthető elő: %s"
+
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:587
+#: src/SearchFilter.vala:588 src/SearchFilter.vala:990
+msgid "Flagged"
+msgstr "Megjelölve"
+
+#: src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "Kuka"
+
+#: src/library/TrashPage.vala:108
+msgid "Trash is empty"
+msgstr "A Kuka üres"
+
+#: src/library/TrashPage.vala:112
+msgid "Delete"
+msgstr "Törlés"
+
+#: src/library/TrashPage.vala:113
+msgid "Deleting Photos"
+msgstr "Fényképek törlése"
+
+#: src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "Hiányzó fájlok"
+
+#: src/library/OfflinePage.vala:106
+msgid "Deleting..."
+msgstr "Törlés…"
+
+#: src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "Utolsó importálás"
+
+#: src/library/LibraryWindow.vala:301
+msgid "_Import From Folder..."
+msgstr "_Importálás mappából…"
+
+#: src/library/LibraryWindow.vala:302
+msgid "Import photos from disk to library"
+msgstr "Fényképek importálása a gyűjteménybe lemezről"
+
+#: src/library/LibraryWindow.vala:309
+msgid "Import From _Application..."
+msgstr "Importálás _alkalmazásból…"
+
+#: src/library/LibraryWindow.vala:313
+msgid "Sort _Events"
+msgstr "_Események rendezése"
+
+#: src/library/LibraryWindow.vala:323
+msgid "Empty T_rash"
+msgstr "_Kuka ürítése"
+
+#: src/library/LibraryWindow.vala:324
+msgid "Delete all photos in the trash"
+msgstr "Minden fénykép törlése a Kukában"
+
+#: src/library/LibraryWindow.vala:329
+msgid "View Eve_nt for Photo"
+msgstr "Fénykép _eseményének megjelenítése"
+
+#: src/library/LibraryWindow.vala:334
+msgid "_Find"
+msgstr "_Keresés"
+
+#: src/library/LibraryWindow.vala:335
+msgid "Find photos and videos by search criteria"
+msgstr "Fényképek és videók keresése keresőkifejezésekkel"
+
+#: src/library/LibraryWindow.vala:352 src/direct/DirectPhotoPage.vala:46
+msgid "_File"
+msgstr "_Fájl"
+
+#: src/library/LibraryWindow.vala:356 src/direct/DirectPhotoPage.vala:73
+msgid "_Edit"
+msgstr "S_zerkesztés"
+
+#: src/library/LibraryWindow.vala:364 src/direct/DirectPhotoPage.vala:77
+msgid "_Photo"
+msgstr "_Fénykép"
+
+#: src/library/LibraryWindow.vala:368
+msgid "_Photos"
+msgstr "Fény_képek"
+
+#: src/library/LibraryWindow.vala:372
+msgid "Even_ts"
+msgstr "_Események"
+
+#: src/library/LibraryWindow.vala:376 src/MediaPage.vala:454
+msgid "Ta_gs"
+msgstr "Cí_mkék"
+
+#: src/library/LibraryWindow.vala:380 src/direct/DirectPhotoPage.vala:169
+msgid "_Help"
+msgstr "_Súgó"
+
+#: src/library/LibraryWindow.vala:391
+msgid "_Basic Information"
+msgstr "_Alapvető információk"
+
+#: src/library/LibraryWindow.vala:392
+msgid "Display basic information for the selection"
+msgstr "Kijelöltek alapvető információinak megjelenítése"
+
+#: src/library/LibraryWindow.vala:397
+msgid "E_xtended Information"
+msgstr "_További információk"
+
+#: src/library/LibraryWindow.vala:398
+msgid "Display extended information for the selection"
+msgstr "Kijelöltek további információinak megjelenítése"
+
+#: src/library/LibraryWindow.vala:403
+msgid "_Search Bar"
+msgstr "Keresősá_v"
+
+#: src/library/LibraryWindow.vala:404
+msgid "Display the search bar"
+msgstr "A keresősáv megjelenítése"
+
+#: src/library/LibraryWindow.vala:409
+msgid "S_idebar"
+msgstr "_Oldalsáv"
+
+#: src/library/LibraryWindow.vala:410
+msgid "Display the sidebar"
+msgstr "Az oldalsáv megjelenítése"
+
+#: src/library/LibraryWindow.vala:422 src/MediaPage.vala:494
+msgid "_Ascending"
+msgstr "_Növekvő"
+
+#: src/library/LibraryWindow.vala:423 src/MediaPage.vala:495
+msgid "Sort photos in an ascending order"
+msgstr "Fényképek növekvő sorrendbe rendezése"
+
+#: src/library/LibraryWindow.vala:429 src/MediaPage.vala:500
+msgid "D_escending"
+msgstr "_Csökkenő"
+
+#: src/library/LibraryWindow.vala:430 src/MediaPage.vala:501
+msgid "Sort photos in a descending order"
+msgstr "Fényképek csökkenő sorrendbe rendezése"
+
+#: src/library/LibraryWindow.vala:668
+msgid "Import From Folder"
+msgstr "Importálás mappából"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Empty Trash"
+msgstr "Kuka ürítése"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Emptying Trash..."
+msgstr "Kuka ürítése…"
+
+#: src/library/LibraryWindow.vala:896
+msgid "Shotwell is configured to import photos to your home directory.\n"
+msgstr ""
+"Shotwell az importált fényképeket az Ön saját könyvtárába helyezi el.\n"
+
+#: src/library/LibraryWindow.vala:899
+msgid "Library Location"
+msgstr "Gyűjtemény helye"
+
+#: src/library/LibraryWindow.vala:912
+msgid "Photos cannot be imported from this directory."
+msgstr "Ebből a könyvtárból nem importálhatók fényképek."
+
+#: src/library/LibraryWindow.vala:1200
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/library/LibraryWindow.vala:1244 src/library/LibraryWindow.vala:1255
+msgid "Updating library..."
+msgstr "Gyűjtemény frissítése…"
+
+#: src/library/LibraryWindow.vala:1261
+msgid "Preparing to auto-import photos..."
+msgstr "Felkészülés fényképek automatikus importáláshoz…"
+
+#: src/library/LibraryWindow.vala:1266
+msgid "Auto-importing photos..."
+msgstr "Fényképek automatikus importálása…"
+
+#: src/library/LibraryWindow.vala:1274
+msgid "Writing metadata to files..."
+msgstr "Metaadatok írása a fájlokba…"
+
+#: src/library/Branch.vala:37
+msgid "Library"
+msgstr "Gyűjtemény"
+
+#: src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "Importálás…"
+
+#: src/library/ImportQueuePage.vala:66
+msgid "_Stop Import"
+msgstr "Importálás l_eállítása"
+
+#: src/library/ImportQueuePage.vala:67
+msgid "Stop importing photos"
+msgstr "Fényképek importálásának leállítása"
+
+#: src/library/ImportQueuePage.vala:123
+msgid "Preparing to import..."
+msgstr "Importálás előkészítése…"
+
+#: src/library/ImportQueuePage.vala:150
+#, c-format
+msgid "Imported %s"
+msgstr "%s importálva"
+
+#: src/direct/DirectPhotoPage.vala:51 src/direct/DirectPhotoPage.vala:413
+msgid "_Save"
+msgstr "M_entés"
+
+#: src/direct/DirectPhotoPage.vala:52
+msgid "Save photo"
+msgstr "Fénykép mentése"
+
+#: src/direct/DirectPhotoPage.vala:57
+msgid "Save _As..."
+msgstr "Men_tés másként…"
+
+#: src/direct/DirectPhotoPage.vala:58
+msgid "Save photo with a different name"
+msgstr "Fénykép mentése más névvel"
+
+#: src/direct/DirectPhotoPage.vala:69
+msgid "Print the photo to a printer connected to your computer"
+msgstr "Fénykép nyomtatása a számítógéphez csatlakozó nyomtatón"
+
+#: src/direct/DirectPhotoPage.vala:223
+#, c-format
+msgid "%s does not exist."
+msgstr "%s nem létezik."
+
+#: src/direct/DirectPhotoPage.vala:225
+#, c-format
+msgid "%s is not a file."
+msgstr "%s nem fájl."
+
+#: src/direct/DirectPhotoPage.vala:227
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr ""
+"%s nem támogatja a következő fájlformátumát:\n"
+"%s."
+
+#: src/direct/DirectPhotoPage.vala:413
+msgid "_Save a Copy"
+msgstr "_Másolat mentése"
+
+#: src/direct/DirectPhotoPage.vala:416
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "Eldobja a(z) %s változtatásait?"
+
+#: src/direct/DirectPhotoPage.vala:417
+msgid "Close _without Saving"
+msgstr "Bezárás mentés _nélkül"
+
+#: src/direct/DirectPhotoPage.vala:450
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "Hiba a(z) %s helyre mentéskor: %s"
+
+#: src/direct/DirectPhotoPage.vala:478 src/direct/DirectPhotoPage.vala:499
+msgid "Save As"
+msgstr "Mentés másként"
+
+#: src/DirectoryMonitor.vala:889
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "%s nem figyelhető: nem könyvtár (%s)"
+
+#: src/Resources.vala:17
+msgid "Photo Manager"
+msgstr "Fényképkezelő"
+
+#: src/Resources.vala:18
+msgid "Photo Viewer"
+msgstr "Fotómegjelenítő"
+
+#: src/Resources.vala:27 plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:32
+#: plugins/shotwell-publishing/PicasaPublishing.vala:32
+#: plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: plugins/shotwell-data-imports/FSpotImporter.vala:34
+msgid "Copyright 2009-2013 Yorba Foundation"
+msgstr "Copyright 2009-2013 Yorba Foundation"
+
+#: src/Resources.vala:144
+msgid "Rotate _Right"
+msgstr "Forgatás j_obbra"
+
+#: src/Resources.vala:145 src/Resources.vala:150
+msgid "Rotate"
+msgstr "Forgatás"
+
+#: src/Resources.vala:146
+msgid "Rotate Right"
+msgstr "Forgatás jobbra"
+
+#: src/Resources.vala:147
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "Fényképek forgatása jobbra (Ctrl = balra forgatás)"
+
+#: src/Resources.vala:149
+msgid "Rotate _Left"
+msgstr "Forgatás _balra"
+
+#: src/Resources.vala:151
+msgid "Rotate Left"
+msgstr "Forgatás balra"
+
+#: src/Resources.vala:152
+msgid "Rotate the photos left"
+msgstr "Fényképek forgatása balra"
+
+#: src/Resources.vala:154
+msgid "Flip Hori_zontally"
+msgstr "_Vízszintes tükrözés"
+
+#: src/Resources.vala:155
+msgid "Flip Horizontally"
+msgstr "Tükrözés vízszintesen"
+
+#: src/Resources.vala:157
+msgid "Flip Verti_cally"
+msgstr "_Függőleges tükrözés"
+
+#: src/Resources.vala:158
+msgid "Flip Vertically"
+msgstr "Tükrözés függőlegesen"
+
+#: src/Resources.vala:160
+msgid "_Enhance"
+msgstr "_Feljavítás"
+
+#: src/Resources.vala:161
+msgid "Enhance"
+msgstr "Feljavítás"
+
+#: src/Resources.vala:162
+msgid "Automatically improve the photo's appearance"
+msgstr "Fényképek megjelenésének automatikus javítása"
+
+#: src/Resources.vala:164
+msgid "_Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:165
+msgid "Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:166
+msgid "Copy the color adjustments applied to the photo"
+msgstr ""
+
+#: src/Resources.vala:168
+msgid "_Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:169
+msgid "Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:170
+msgid "Apply copied color adjustments to the selected photos"
+msgstr ""
+
+#: src/Resources.vala:172
+msgid "_Crop"
+msgstr "_Levágás"
+
+#: src/Resources.vala:173
+msgid "Crop"
+msgstr "Levágás"
+
+#: src/Resources.vala:174
+msgid "Crop the photo's size"
+msgstr "Levágás a fénykép méretéből"
+
+#: src/Resources.vala:176 src/editing_tools/StraightenTool.vala:100
+msgid "_Straighten"
+msgstr "Ki_egyenesítés"
+
+#: src/Resources.vala:177
+msgid "Straighten"
+msgstr "Kiegyenesítés"
+
+#: src/Resources.vala:178
+msgid "Straighten the photo"
+msgstr "A fénykép kiegyenesítése"
+
+#: src/Resources.vala:180
+msgid "_Red-eye"
+msgstr "Vö_rösszem-hatás"
+
+#: src/Resources.vala:181
+msgid "Red-eye"
+msgstr "Vörösszem-hatás"
+
+#: src/Resources.vala:182
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "Vörösszem-hatás csökkentése vagy eltávolítása a fényképről"
+
+#: src/Resources.vala:184
+msgid "_Adjust"
+msgstr "Mó_dosítás"
+
+#: src/Resources.vala:185
+msgid "Adjust"
+msgstr "Módosítás"
+
+#: src/Resources.vala:186
+msgid "Adjust the photo's color and tone"
+msgstr "Fénykép színének és tónusának módosítása"
+
+#: src/Resources.vala:188
+msgid "Re_vert to Original"
+msgstr "_Vissza az eredetihez"
+
+#: src/Resources.vala:189
+msgid "Revert to Original"
+msgstr "Vissza az eredetihez"
+
+#: src/Resources.vala:191
+msgid "Revert External E_dits"
+msgstr "_Külső szerkesztések visszavonása"
+
+#: src/Resources.vala:192
+msgid "Revert to the master photo"
+msgstr "Visszatérés az eredeti fényképhez"
+
+#: src/Resources.vala:194
+msgid "Set as _Desktop Background"
+msgstr "Beállítás _asztalháttérként"
+
+#: src/Resources.vala:195
+msgid "Set selected image to be the new desktop background"
+msgstr "Kiválasztott fénykép beállítása asztalháttérként"
+
+#: src/Resources.vala:196
+msgid "Set as _Desktop Slideshow..."
+msgstr "Beállítás asztali _diavetítésként…"
+
+#: src/Resources.vala:198
+msgid "_Undo"
+msgstr "_Visszavonás:"
+
+#: src/Resources.vala:199
+msgid "Undo"
+msgstr "Visszavonás"
+
+#: src/Resources.vala:201
+msgid "_Redo"
+msgstr "Új_ra:"
+
+#: src/Resources.vala:202
+msgid "Redo"
+msgstr "Újra"
+
+#: src/Resources.vala:204
+msgid "Re_name Event..."
+msgstr "Esemé_ny átnevezése…"
+
+#: src/Resources.vala:207
+msgid "Make _Key Photo for Event"
+msgstr "_Esemény kulcsképévé tétel"
+
+#: src/Resources.vala:208
+msgid "Make Key Photo for Event"
+msgstr "Esemény kulcsképévé tétel"
+
+#: src/Resources.vala:210
+msgid "_New Event"
+msgstr "Új esemé_ny"
+
+#: src/Resources.vala:211
+msgid "New Event"
+msgstr "Új esemény"
+
+#: src/Resources.vala:213
+msgid "Move Photos"
+msgstr "Fényképek áthelyezése"
+
+#: src/Resources.vala:214
+msgid "Move photos to an event"
+msgstr "Fényképek áthelyezése eseménybe"
+
+#: src/Resources.vala:216
+msgid "_Merge Events"
+msgstr "_Események egyesítése"
+
+#: src/Resources.vala:217
+msgid "Merge"
+msgstr "Egyesítés"
+
+#: src/Resources.vala:218
+msgid "Combine events into a single event"
+msgstr "Események egyesítése egyetlen eseménnyé"
+
+#: src/Resources.vala:220
+msgid "_Set Rating"
+msgstr "É_rtékelés megadása"
+
+#: src/Resources.vala:221
+msgid "Set Rating"
+msgstr "Értékelés megadása"
+
+#: src/Resources.vala:222
+msgid "Change the rating of your photo"
+msgstr "Fénykép értékelésének módosítása"
+
+#: src/Resources.vala:224
+msgid "_Increase"
+msgstr "_Növelés"
+
+#: src/Resources.vala:225
+msgid "Increase Rating"
+msgstr "Értékelés növelése"
+
+#: src/Resources.vala:227
+msgid "_Decrease"
+msgstr "_Csökkentés"
+
+#: src/Resources.vala:228
+msgid "Decrease Rating"
+msgstr "Értékelés csökkentése"
+
+#: src/Resources.vala:230
+msgid "_Unrated"
+msgstr "É_rtékeletlen"
+
+#: src/Resources.vala:231
+msgid "Unrated"
+msgstr "Értékeletlen"
+
+#: src/Resources.vala:232
+msgid "Rate Unrated"
+msgstr "Értékelés törlése"
+
+#: src/Resources.vala:233
+msgid "Setting as unrated"
+msgstr "Beállítás értékeletlenre"
+
+#: src/Resources.vala:234
+msgid "Remove any ratings"
+msgstr "Minden értékelés eltávolítása"
+
+#: src/Resources.vala:236
+msgid "_Rejected"
+msgstr "_Visszautasított"
+
+#: src/Resources.vala:237
+msgid "Rejected"
+msgstr "Visszautasítva"
+
+#: src/Resources.vala:238
+msgid "Rate Rejected"
+msgstr "Értékelés visszautasítottként"
+
+#: src/Resources.vala:239
+msgid "Setting as rejected"
+msgstr "Beállítás visszautasítottra"
+
+#: src/Resources.vala:240
+msgid "Set rating to rejected"
+msgstr "Értékelés beállítása visszautasítottra"
+
+#: src/Resources.vala:242
+msgid "Rejected _Only"
+msgstr "_Csak visszautasított"
+
+#: src/Resources.vala:243
+msgid "Rejected Only"
+msgstr "Csak visszautasított"
+
+#: src/Resources.vala:244
+msgid "Show only rejected photos"
+msgstr "Csak a visszautasított fényképek megjelenítése"
+
+#: src/Resources.vala:246
+msgid "All + _Rejected"
+msgstr "Összes + _visszautasított"
+
+#: src/Resources.vala:247 src/Resources.vala:248
+msgid "Show all photos, including rejected"
+msgstr "Összes fénykép megjelenítése, a visszautasítottak is"
+
+#: src/Resources.vala:250
+msgid "_All Photos"
+msgstr "Öss_zes fénykép"
+
+#: src/Resources.vala:251 src/Resources.vala:252
+msgid "Show all photos"
+msgstr "Összes fénykép megjelenítése"
+
+#: src/Resources.vala:254
+msgid "_Ratings"
+msgstr "É_rtékelések"
+
+#: src/Resources.vala:255
+msgid "Display each photo's rating"
+msgstr "A fényképek értékelésének megjelenítése"
+
+#: src/Resources.vala:257
+msgid "_Filter Photos"
+msgstr "_Fényképek szűrése"
+
+#: src/Resources.vala:258
+msgid "Filter Photos"
+msgstr "Fényképek szűrése"
+
+#: src/Resources.vala:259
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "A megjelenített fényképek számának korlátozása szűrővel"
+
+#: src/Resources.vala:261
+msgid "_Duplicate"
+msgstr "_Többszörözés"
+
+#: src/Resources.vala:262
+msgid "Duplicate"
+msgstr "Többszörözés"
+
+#: src/Resources.vala:263
+msgid "Make a duplicate of the photo"
+msgstr "Másolat készítése a fényképről"
+
+#: src/Resources.vala:265
+msgid "_Export..."
+msgstr "_Exportálás…"
+
+#: src/Resources.vala:267
+msgid "_Print..."
+msgstr "_Nyomtatás…"
+
+#: src/Resources.vala:269
+msgid "Pu_blish..."
+msgstr "Kö_zzététel…"
+
+#: src/Resources.vala:270
+msgid "Publish"
+msgstr "Közzététel"
+
+#: src/Resources.vala:271
+msgid "Publish to various websites"
+msgstr "Közzététel különböző weboldalakon"
+
+#: src/Resources.vala:273
+msgid "Edit _Title..."
+msgstr "_Cím szerkesztése…"
+
+#: src/Resources.vala:276
+msgid "Edit _Comment..."
+msgstr "Megjegyzés s_zerkesztése…"
+
+#: src/Resources.vala:277
+msgid "Edit Comment"
+msgstr "A megjegyzés szerkesztése"
+
+#: src/Resources.vala:279
+msgid "Edit Event _Comment..."
+msgstr ""
+
+#: src/Resources.vala:282
+msgid "_Adjust Date and Time..."
+msgstr "_Dátum és idő módosítása…"
+
+#: src/Resources.vala:283
+msgid "Adjust Date and Time"
+msgstr "Dátum és idő módosítása"
+
+#: src/Resources.vala:285
+msgid "Add _Tags..."
+msgstr "_Címkék hozzáadása…"
+
+#: src/Resources.vala:286
+msgid "_Add Tags..."
+msgstr "Címkék hozzáadása…"
+
+#: src/Resources.vala:287 src/Resources.vala:318
+msgid "Add Tags"
+msgstr "Címkék hozzáadása"
+
+#: src/Resources.vala:289
+msgid "_Preferences"
+msgstr "_Beállítások"
+
+#: src/Resources.vala:291
+msgid "Open With E_xternal Editor"
+msgstr "Megnyitás külső _szerkesztővel"
+
+#: src/Resources.vala:293
+msgid "Open With RA_W Editor"
+msgstr "Megnyitás RA_W szerkesztővel"
+
+#: src/Resources.vala:295
+msgid "Send _To..."
+msgstr "Kül_dés…"
+
+#: src/Resources.vala:296
+msgid "Send T_o..."
+msgstr "Küldés _célja…"
+
+#: src/Resources.vala:298
+msgid "_Find..."
+msgstr "_Keresés…"
+
+#: src/Resources.vala:299
+msgid "Find"
+msgstr "Keresés"
+
+#: src/Resources.vala:300
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr "Kép keresése a névben vagy a címkékben megjelenő szöveg beírásával"
+
+#: src/Resources.vala:302
+msgid "_Flag"
+msgstr "_Megjelölés"
+
+#: src/Resources.vala:304
+msgid "Un_flag"
+msgstr "Megjelölés _törlése"
+
+#: src/Resources.vala:307
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "A szerkesztő nem indítható el: %s"
+
+#: src/Resources.vala:312
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "„%s” címke hozzáadása"
+
+#: src/Resources.vala:314
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "„%s” és „%s” címke hozzáadása"
+
+#: src/Resources.vala:322
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "„%s” címke _törlése"
+
+#: src/Resources.vala:326
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "„%s” címke törlése"
+
+#: src/Resources.vala:329
+msgid "Delete Tag"
+msgstr "Címke törlése"
+
+#: src/Resources.vala:332
+msgid "_New"
+msgstr "Ú_j"
+
+#: src/Resources.vala:335
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "„%s” címke át_nevezése…"
+
+#: src/Resources.vala:339
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "„%s” címke átnevezése erre: „%s”"
+
+#: src/Resources.vala:342
+msgid "_Rename..."
+msgstr "Át_nevezés…"
+
+#: src/Resources.vala:344
+msgid "Modif_y Tags..."
+msgstr "Cí_mkék módosítása…"
+
+#: src/Resources.vala:345
+msgid "Modify Tags"
+msgstr "Címkék módosítása"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "Fényképek címkézése ezzel: „%s”"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "Fényképek címkézése ezzel: „%s”"
+
+#: src/Resources.vala:352
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "Kiválasztott fényképek címkézése ezzel: „%s”"
+
+#: src/Resources.vala:353
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "Kiválasztott fényképek címkézése ezzel: „%s”"
+
+#: src/Resources.vala:357
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "„%s” címke _eltávolítása a fényképről"
+
+#: src/Resources.vala:358
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "„%s” címke _eltávolítása a fényképekről"
+
+#: src/Resources.vala:362
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "„%s” címke eltávolítása a fényképről"
+
+#: src/Resources.vala:363
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "„%s” címke eltávolítása a fényképekről"
+
+#: src/Resources.vala:367
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr "A címke nem nevezhető át erre: „%s”, mert a címke már létezik."
+
+#: src/Resources.vala:371
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr "Nem lehet átnevezni a keresést erre: „%s”, mert a keresés már létezik."
+
+#: src/Resources.vala:374
+msgid "Saved Search"
+msgstr "Mentett keresés"
+
+#: src/Resources.vala:376
+msgid "Delete Search"
+msgstr "Keresés törlése"
+
+#: src/Resources.vala:379
+msgid "_Edit..."
+msgstr "S_zerkesztés…"
+
+#: src/Resources.vala:380
+msgid "Re_name..."
+msgstr "Át_nevezés…"
+
+#: src/Resources.vala:383
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "„%s” keresés átnevezése erre: „%s”"
+
+#: src/Resources.vala:387
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "„%s” keresés törlése"
+
+#: src/Resources.vala:545
+#, c-format
+msgid "Rate %s"
+msgstr "%s értékelés"
+
+#: src/Resources.vala:546
+#, c-format
+msgid "Set rating to %s"
+msgstr "Értékelés beállítása erre: %s"
+
+#: src/Resources.vala:547
+#, c-format
+msgid "Setting rating to %s"
+msgstr "Értékelés beállítása erre: %s"
+
+#: src/Resources.vala:549
+#, c-format
+msgid "Display %s"
+msgstr "%s megjelenítése"
+
+#: src/Resources.vala:550
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "Csak azon fényképek megjelenítése, amelyek értékelése %s"
+
+#: src/Resources.vala:551
+#, c-format
+msgid "%s or Better"
+msgstr "%s vagy jobb"
+
+#: src/Resources.vala:552
+#, c-format
+msgid "Display %s or Better"
+msgstr "%s vagy jobb megjelenítése"
+
+#: src/Resources.vala:553
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr "Csak azon fényképek mutatása, amelyek értékelése %s vagy jobb"
+
+#: src/Resources.vala:644
+msgid "Remove the selected photos from the trash"
+msgstr "Kijelölt fényképek eltávolítása a Kukából"
+
+#: src/Resources.vala:645
+msgid "Remove the selected photos from the library"
+msgstr "Kijelölt fényképek eltávolítása a gyűjteményből"
+
+#: src/Resources.vala:647
+msgid "_Restore"
+msgstr "_Visszaállítás"
+
+#: src/Resources.vala:648
+msgid "Move the selected photos back into the library"
+msgstr "Kijelölt fényképek visszaállítása a gyűjteménybe"
+
+#: src/Resources.vala:650
+msgid "Show in File Mana_ger"
+msgstr "_Megjelenítés a fájlkezelőben"
+
+#: src/Resources.vala:651
+msgid "Open the selected photo's directory in the file manager"
+msgstr "Kijelölt fénykép könyvtárának megnyitása a fájlkezelőben"
+
+#: src/Resources.vala:654
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "Nem nyitható meg a fájlkezelőben: %s"
+
+#: src/Resources.vala:657
+msgid "R_emove From Library"
+msgstr "_Eltávolítás a gyűjteményből"
+
+#: src/Resources.vala:659
+msgid "_Move to Trash"
+msgstr "Á_thelyezés a Kukába"
+
+#: src/Resources.vala:661
+msgid "Select _All"
+msgstr "Összes _kijelölése"
+
+#: src/Resources.vala:662
+msgid "Select all items"
+msgstr "Minden elem kijelölése"
+
+#: src/Resources.vala:740
+msgid "%-I:%M %p"
+msgstr "%H.%M"
+
+#: src/Resources.vala:741
+msgid "%-I:%M:%S %p"
+msgstr "%H.%M.%S"
+
+#: src/Resources.vala:742
+msgid "%a %b %d, %Y"
+msgstr "%Y. %b. %d., %a"
+
+#: src/Resources.vala:743 src/Resources.vala:745
+msgid "%a %b %d"
+msgstr "%a. %b. %d"
+
+#: src/Resources.vala:744
+msgid "%d, %Y"
+msgstr "%Y. %d."
+
+#: src/editing_tools/StraightenTool.vala:99
+msgid "Angle:"
+msgstr "Szög:"
+
+#: src/editing_tools/StraightenTool.vala:102
+#: src/editing_tools/EditingTools.vala:2204
+msgid "_Reset"
+msgstr "_Visszaállítás"
+
+#: src/editing_tools/EditingTools.vala:661
+msgid "Return to current photo dimensions"
+msgstr "Aktuális fényképméretek visszaállítása"
+
+#: src/editing_tools/EditingTools.vala:664
+msgid "Set the crop for this photo"
+msgstr "Képkivágás beállítása a képhez"
+
+#: src/editing_tools/EditingTools.vala:676
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr "A kivágási téglalap forgatása az álló és fekvő tájolások között"
+
+#: src/editing_tools/EditingTools.vala:749
+msgid "Unconstrained"
+msgstr "Korlátlan"
+
+#: src/editing_tools/EditingTools.vala:750
+msgid "Square"
+msgstr "Négyzet"
+
+#: src/editing_tools/EditingTools.vala:751
+msgid "Screen"
+msgstr "Képernyő"
+
+#: src/editing_tools/EditingTools.vala:752
+#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+msgid "Original Size"
+msgstr "Eredeti méret"
+
+#: src/editing_tools/EditingTools.vala:753
+#: src/editing_tools/EditingTools.vala:756
+#: src/editing_tools/EditingTools.vala:766
+#: src/editing_tools/EditingTools.vala:776
+msgid "-"
+msgstr "-"
+
+#: src/editing_tools/EditingTools.vala:754
+msgid "SD Video (4 : 3)"
+msgstr "SD videó (4 : 3)"
+
+#: src/editing_tools/EditingTools.vala:755
+msgid "HD Video (16 : 9)"
+msgstr "HD videó (16 : 9)"
+
+#: src/editing_tools/EditingTools.vala:762
+msgid "Letter (8.5 x 11 in.)"
+msgstr "Letter (8.5 x 11 hüvelyk)"
+
+#: src/editing_tools/EditingTools.vala:764
+msgid "Tabloid (11 x 17 in.)"
+msgstr "Tabloid (11 x 17 hüvelyk)"
+
+#: src/editing_tools/EditingTools.vala:771
+msgid "A4 (210 x 297 mm)"
+msgstr "A4 (210 x 297 mm)"
+
+#: src/editing_tools/EditingTools.vala:775
+msgid "A3 (297 x 420 mm)"
+msgstr "A3 (297 x 420 mm)"
+
+#: src/editing_tools/EditingTools.vala:1865
+msgid "Close the red-eye tool"
+msgstr "Vörösszem-effektus eszköz bezárása"
+
+#: src/editing_tools/EditingTools.vala:1868
+msgid "Remove any red-eye effects in the selected region"
+msgstr "Minden vörösszem-effektus eltávolítása a kijelölt területről"
+
+#: src/editing_tools/EditingTools.vala:2226
+msgid "Saturation:"
+msgstr "Telítettség:"
+
+#: src/editing_tools/EditingTools.vala:2234
+msgid "Tint:"
+msgstr "Árnyalat:"
+
+#: src/editing_tools/EditingTools.vala:2243
+msgid "Temperature:"
+msgstr "Hőmérséklet:"
+
+#: src/editing_tools/EditingTools.vala:2251
+msgid "Shadows:"
+msgstr "Árnyékok:"
+
+#: src/editing_tools/EditingTools.vala:2259
+msgid "Highlights:"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset Colors"
+msgstr "Színek visszaállítása"
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset all color adjustments to original"
+msgstr "Minden színmódosítás elvetése"
+
+#: src/editing_tools/EditingTools.vala:2665
+msgid "Temperature"
+msgstr "Hőmérséklet"
+
+#: src/editing_tools/EditingTools.vala:2678
+msgid "Tint"
+msgstr "Árnyalat"
+
+#: src/editing_tools/EditingTools.vala:2691
+msgid "Saturation"
+msgstr "Telítettség"
+
+#: src/editing_tools/EditingTools.vala:2704
+msgid "Exposure"
+msgstr "Expozíció"
+
+#: src/editing_tools/EditingTools.vala:2717
+msgid "Shadows"
+msgstr "Árnyékok"
+
+#: src/editing_tools/EditingTools.vala:2730
+msgid "Highlights"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2740
+msgid "Contrast Expansion"
+msgstr "Kontraszt növelése"
+
+#: src/AppWindow.vala:49
+msgid "Pin Toolbar"
+msgstr "Eszköztár rögzítése"
+
+#: src/AppWindow.vala:50
+msgid "Pin the toolbar open"
+msgstr "Eszköztár rögzítése nyitva"
+
+#: src/AppWindow.vala:53 src/AppWindow.vala:131
+msgid "Leave fullscreen"
+msgstr "Teljes képernyő elhagyása"
+
+#: src/AppWindow.vala:130
+msgid "Leave _Fullscreen"
+msgstr "Teljes képernyő _elhagyása"
+
+#: src/AppWindow.vala:491
+msgid "_Quit"
+msgstr "_Kilépés"
+
+#: src/AppWindow.vala:496
+msgid "_About"
+msgstr "_Névjegy"
+
+#: src/AppWindow.vala:501
+msgid "Fulls_creen"
+msgstr "Teljes ké_pernyő"
+
+#: src/AppWindow.vala:506
+msgid "_Contents"
+msgstr "_Tartalom"
+
+#: src/AppWindow.vala:511
+msgid "_Frequently Asked Questions"
+msgstr "_Gyakran ismételt kérdések"
+
+#: src/AppWindow.vala:516
+msgid "_Report a Problem..."
+msgstr "_Hiba jelentése…"
+
+#: src/AppWindow.vala:663
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"Végzetes hiba történt a Shotwell gyűjtemény megnyitása közben, a Shotwell "
+"futása nem folytatódhat.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:683 plugins/common/Resources.vala:9
+msgid "Visit the Yorba web site"
+msgstr "Keresse fel a Yorba weboldalát"
+
+#: src/AppWindow.vala:686 plugins/common/Resources.vala:28
+msgid "translator-credits"
+msgstr ""
+"Peter Bojtos <ptr at ulx dot hu>\n"
+"Nikolas Slivka <snicore at gmail dot com>\n"
+"Laszlo Csordas <csola48 at gmail dot com>\n"
+"Kelemen Gábor <kelemeng at gnome dot hu>\n"
+"Kökéndy Ákos https://launchpad.net/~kokendy-akos\n"
+"Robert Roth https://launchpad.net/~evfool\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Adamyno https://launchpad.net/~adam-pretz\n"
+"  Gabor Kelemen https://launchpad.net/~kelemeng\n"
+"  KAMI https://launchpad.net/~kami911\n"
+"  Kökéndy Ákos https://launchpad.net/~kokendy-akos\n"
+"  Laura Khalil https://launchpad.net/~loura\n"
+"  Peter Bojtos https://launchpad.net/~ptr-ulx\n"
+"  Richard Somlói https://launchpad.net/~ricsipontaz\n"
+"  Robert Roth https://launchpad.net/~evfool\n"
+"  Vera Yin https://launchpad.net/~vera-yorba\n"
+"  csola48 https://launchpad.net/~mail-csordaslaszlo"
+
+#: src/AppWindow.vala:695
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "Nem lehet megjeleníteni a súgót: %s"
+
+#: src/AppWindow.vala:703
+#, c-format
+msgid "Unable to navigate to bug database: %s"
+msgstr "Nem nyitható meg a hibaadatbázis: %s"
+
+#: src/AppWindow.vala:711
+#, c-format
+msgid "Unable to display FAQ: %s"
+msgstr "Nem jeleníthető meg a GyIK: %s"
+
+#: src/Tag.vala:817
+msgid "untitled"
+msgstr "névtelen"
+
+#: src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+msgid "Original size"
+msgstr "Eredeti méret"
+
+#: src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "Szélesség vagy magasság"
+
+#: src/Dimensions.vala:23
+msgid "Width"
+msgstr "Szélesség"
+
+#: src/Dimensions.vala:26
+msgid "Height"
+msgstr "Magasság"
+
+#: src/MediaPage.vala:143
+msgid "Adjust the size of the thumbnails"
+msgstr "A bélyegképek méretének beállítása"
+
+#: src/MediaPage.vala:326
+msgid "Increase the magnification of the thumbnails"
+msgstr "Bélyegképek nagyítása"
+
+#: src/MediaPage.vala:332
+msgid "Decrease the magnification of the thumbnails"
+msgstr "Bélyegképek kicsinyítése"
+
+#: src/MediaPage.vala:399
+msgid "Sort _Photos"
+msgstr "Fényképek _rendezése"
+
+#: src/MediaPage.vala:408
+msgid "_Play Video"
+msgstr "_Videó lejátszása"
+
+#: src/MediaPage.vala:409
+msgid "Open the selected videos in the system video player"
+msgstr "Kijelölt videók megnyitása a rendszer videolejátszójában"
+
+#: src/MediaPage.vala:442 src/events/EventsDirectoryPage.vala:130
+msgid "_Comments"
+msgstr "_Megjegyzések"
+
+#: src/MediaPage.vala:443
+msgid "Display the comment of each photo"
+msgstr "Az egyes képek megjegyzéseinek megjelenítése"
+
+#: src/MediaPage.vala:455
+msgid "Display each photo's tags"
+msgstr "Fényképek címkéinek megjelenítése"
+
+#: src/MediaPage.vala:471
+msgid "By _Title"
+msgstr "_Cím szerint"
+
+#: src/MediaPage.vala:472
+msgid "Sort photos by title"
+msgstr "Fényképek rendezése cím szerint"
+
+#: src/MediaPage.vala:477
+msgid "By Exposure _Date"
+msgstr "_Készítés dátuma"
+
+#: src/MediaPage.vala:478
+msgid "Sort photos by exposure date"
+msgstr "Fényképek rendezése készítésük dátuma szerint"
+
+#: src/MediaPage.vala:483
+msgid "By _Rating"
+msgstr "É_rtékelés szerint"
+
+#: src/MediaPage.vala:484
+msgid "Sort photos by rating"
+msgstr "Fényképek rendezése értékelés szerint"
+
+#: src/MediaPage.vala:702
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"A Shotwell nem tudta lejátszani a kijelölt videót:\n"
+"%s"
+
+#: src/events/EventDirectoryItem.vala:83
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d fotó/videó"
+msgstr[1] "%d fotó/videó"
+
+#: src/events/EventsDirectoryPage.vala:131
+msgid "Display the comment of each event"
+msgstr "Az egyes események megjegyzéseinek megjelenítése"
+
+#: src/events/EventsDirectoryPage.vala:155
+msgid "No events"
+msgstr "Nincsenek események"
+
+#: src/events/EventsDirectoryPage.vala:159
+msgid "No events found"
+msgstr "Nem találhatók események"
+
+#: src/events/EventsDirectoryPage.vala:230
+msgid "Events"
+msgstr "Események"
+
+#: src/events/EventsDirectoryPage.vala:244
+msgid "Undated"
+msgstr "Keltezetlen"
+
+#: src/events/EventsDirectoryPage.vala:245
+msgid "%Y"
+msgstr "%Y"
+
+#: src/events/EventsDirectoryPage.vala:246
+msgid "%B"
+msgstr "%B"
+
+#: src/events/EventPage.vala:129
+msgid "No Event"
+msgstr "Nincs esemény"
+
+#: src/AppDirs.vala:48 src/AppDirs.vala:99
+#, c-format
+msgid "Unable to create cache directory %s: %s"
+msgstr "Nem hozható létre a gyorsítótár könyvtára (%s): %s"
+
+#: src/AppDirs.vala:58 src/AppDirs.vala:88
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "Nem hozható létre az adatkönyvtár (%s): %s"
+
+#: src/AppDirs.vala:152
+msgid "Pictures"
+msgstr "Képek"
+
+#: src/AppDirs.vala:190
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "Nem hozható létre az ideiglenes könyvtár (%s): %s"
+
+#: src/AppDirs.vala:207 src/AppDirs.vala:223
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "Nem hozható létre az adatalkönyvtár (%s): %s"
+
+#: src/slideshow/TransitionEffects.vala:98
+msgid "(None)"
+msgstr "(Nincs)"
+
+#: src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Nincs"
+
+#: src/slideshow/TransitionEffects.vala:339
+msgid "Random"
+msgstr "Véletlenszerű"
+
+#: src/slideshow/Slideshow.vala:22
+msgid "Slideshow Transitions"
+msgstr "Diavetítés átmenetei"
+
+#: src/Exporter.vala:232
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "Nem generálható ideiglenes fájl ehhez: %s: %s"
+
+#: src/Exporter.vala:299
+msgid "Exporting"
+msgstr "Exportálás"
+
+#: src/Exporter.vala:317
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "A fájl (%s) már létezik. Lecseréli?"
+
+#: src/Exporter.vala:319
+msgid "_Skip"
+msgstr "_Kihagyás"
+
+#: src/Exporter.vala:319
+msgid "_Replace"
+msgstr "_Csere"
+
+#: src/Exporter.vala:319
+msgid "Replace _All"
+msgstr "Öss_zes cseréje"
+
+#: src/Exporter.vala:319
+msgid "Export"
+msgstr "Exportálás"
+
+#: src/SearchFilter.vala:593 src/SearchFilter.vala:594
+msgid "Photos"
+msgstr "Fényképek"
+
+#: src/SearchFilter.vala:599 src/SearchFilter.vala:600
+msgid "Videos"
+msgstr "Videók"
+
+#: src/SearchFilter.vala:605
+msgid "RAW Photos"
+msgstr "RAW fényképek"
+
+#: src/SearchFilter.vala:606
+msgid "RAW photos"
+msgstr "RAW fényképek"
+
+#: src/SearchFilter.vala:952
+#, c-format
+msgid "Error loading UI file %s: %s"
+msgstr "Hiba a(z) %s felületfájl betöltésekor: %s"
+
+#: src/SearchFilter.vala:969
+msgid "Type"
+msgstr "Típus"
+
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "Közzététel"
+
+#: src/publishing/PublishingUI.vala:105
+msgid "The selected photos/videos were successfully published."
+msgstr "A kijelölt fényképek/videók sikeresen közzétéve."
+
+#: src/publishing/PublishingUI.vala:107
+msgid "The selected videos were successfully published."
+msgstr "A kijelölt videók sikeresen közzétéve."
+
+#: src/publishing/PublishingUI.vala:109
+msgid "The selected photos were successfully published."
+msgstr "A kijelölt fényképek sikeresen közzétéve."
+
+#: src/publishing/PublishingUI.vala:112
+msgid "The selected video was successfully published."
+msgstr "A kijelölt videó sikeresen közzétéve."
+
+#: src/publishing/PublishingUI.vala:114
+msgid "The selected photo was successfully published."
+msgstr "A kijelölt fénykép sikeresen közzétéve."
+
+#: src/publishing/PublishingUI.vala:122
+msgid "Fetching account information..."
+msgstr "Fiókinformációk letöltése…"
+
+#: src/publishing/PublishingUI.vala:128
+msgid "Logging in..."
+msgstr "Bejelentkezés…"
+
+#: src/publishing/PublishingUI.vala:183
+msgid "Publish Photos"
+msgstr "Fényképek közzététele"
+
+#: src/publishing/PublishingUI.vala:184
+msgid "Publish photos _to:"
+msgstr "_Fényképek közzététele ide:"
+
+#: src/publishing/PublishingUI.vala:186
+msgid "Publish Videos"
+msgstr "Videók közzététele"
+
+#: src/publishing/PublishingUI.vala:187
+msgid "Publish videos _to"
+msgstr "_Videók közzététele ide:"
+
+#: src/publishing/PublishingUI.vala:189
+msgid "Publish Photos and Videos"
+msgstr "Fényképek és videók közzététele"
+
+#: src/publishing/PublishingUI.vala:190
+msgid "Publish photos and videos _to"
+msgstr "Fényképek és vi_deók közzététele ide:"
+
+#: src/publishing/PublishingUI.vala:383
+msgid "Unable to publish"
+msgstr "Nem sikerült közzétenni"
+
+#: src/publishing/PublishingUI.vala:384
+#, c-format
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugins</b> tab."
+msgstr ""
+"A Shotwell nem képes közzétenni a kijelölt elemeket, mert nincs engedélyezve "
+"a megfelelő közzétételi bővítmény. Ennek javításához válassza a(z) <b>%s "
+"beállításainak szerkesztése</b> menüpontot, és engedélyezze az egyik "
+"közzétételi bővítményt a <b>Bővítmények</b> lapon."
+
+#: src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "Előkészítés a feltöltéshez"
+
+#: src/publishing/PublishingPluginHost.vala:12
+#, c-format
+msgid "Uploading %d of %d"
+msgstr "%d/%d feltöltése"
+
+#: src/publishing/PublishingPluginHost.vala:81
+#, c-format
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr "A közzététel egy hiba miatt nem folytatódhat erre: %s:"
+
+#: src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr ""
+"Próbálja másik szolgáltatáson közzétenni, válasszon egyet a fenti menüből."
+
+#: src/sidebar/Tree.vala:199
+msgid "New _Tag..."
+msgstr "Új _címke…"
+
+#: plugins/common/RESTSupport.vala:424
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
+msgid "A temporary file needed for publishing is unavailable"
+msgstr "A közzétételhez szükséges ideiglenes fájl nem érhető el"
+
+#: plugins/common/RESTSupport.vala:1138
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:57
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"Nincs bejelentkezve a YouTube-ra.\n"
+"\n"
+"A folytatáshoz rendelkeznie kell egy Google fiókkal, és be kell azt "
+"állítania a YouTube-bal való használathoz. A legtöbb fiókot a böngészőből is "
+"beállíthatja, ha bejelentkezik a YouTube oldalon legalább egyszer."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:362
+msgid ""
+"A file required for publishing is unavailable. Publishing to Youtube can't "
+"continue."
+msgstr ""
+"Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Youtube-ra "
+"nem folytatódhat."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:461
+#, c-format
+msgid "You are logged into YouTube as %s."
+msgstr "Bejelentkezett a YouTube-ra %s néven."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:463
+#, c-format
+msgid "Videos will appear in '%s'"
+msgstr "A videók itt jelennek meg: „%s”"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:495
+msgid "Public listed"
+msgstr "Nyilvános, felsorolt"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:496
+msgid "Public unlisted"
+msgstr "Nyilvános, felsorolatlan"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:497
+msgid "Private"
+msgstr "Magánjellegű"
+
+#: plugins/shotwell-publishing/shotwell-publishing.vala:26
+msgid "Core Publishing Services"
+msgstr "Alap közzétételi szolgáltatások"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Login to log into Flickr in your Web browser.  You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"Jelenleg nincs bejelentkezve Flickr-re\n"
+"\n"
+"Kattintson a Bejelentkezés gombra a bejelentkezéshez a Flickr fiókjába a "
+"böngészőből. A bejelentkezés során jogosultságot kell adnia a Shotwell "
+"Connectnek, hogy hozzáférjen a Flickr fiókjához."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:63
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"A Shotwell használata közben már bejelentkezett a Flickr-re, és "
+"kijelentkezett onnan.\n"
+"A Flickr-re való feltöltés folytatásához indítsa újra a Shotwellt, és "
+"próbálja újra a feltöltést."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "Felkészülés a bejelentkezésre…"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: plugins/shotwell-publishing/FlickrPublishing.vala:595
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can't "
+"continue."
+msgstr ""
+"Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Flickrre "
+"nem folytatódhat."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "Felhatalmazás ellenőrzése…"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1153
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr ""
+"Bejelentkezett a Flickr-re %s néven.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"Az ingyenes Flickr fiókja korlátozza a havonta feltölthető adatmennyiséget.\n"
+"Ebben a hónapban még %d MB feltöltésére van lehetősége."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1157
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr "Az Ön Flickr Pro fiókja korlátlan feltöltést engedélyez."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1162
+msgid "Photos _visible to:"
+msgstr "A _fényképeket láthatja:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
+msgid "Videos _visible to:"
+msgstr "A _videókat láthatja:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1167
+msgid "Photos and videos _visible to:"
+msgstr "A _fényképeket/videókat láthatja:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1182
+msgid "Everyone"
+msgstr "Mindenki"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
+msgid "Friends & family only"
+msgstr "Csak barátok és család"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+msgid "Family only"
+msgstr "Csak család"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
+msgid "Friends only"
+msgstr "Csak barátok"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1180
+msgid "Just me"
+msgstr "Csak én"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1229
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
+msgid "500 x 375 pixels"
+msgstr "500 x 375 képpont"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1230
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:108
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 képpont"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 képpont"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 képpont"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:746
+#, c-format
+msgid "Creating album %s..."
+msgstr "%s album létrehozása…"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:917
+msgid "An error message occurred when publishing to Piwigo. Please try again."
+msgstr "Hibaüzenet érkezett a Piwigon való közzététel során. Próbálja újra."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:998
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+"Adja meg a Piwigo fotógyűjteményének URL-címét, valamint az ahhoz tartozó "
+"Piwigo fiókjának felhasználónevét és jelszavát."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:999
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
+"entered"
+msgstr ""
+"A Shotwell nem éri el a Piwigo fotógyűjteményét. Ellenőrizze a megadott URL-"
+"címet."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
+msgid "Username and/or password invalid. Please try again"
+msgstr "A felhasználónév és/vagy jelszó érvénytelen. Próbálja újra"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1032
+#, c-format
+msgid "Invalid URL"
+msgstr "Érvénytelen URL"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
+#, fuzzy, c-format
+msgid "Invalid User Name or Password"
+msgstr ""
+"Érvénytelen felhasználó név vagy jelszó"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1127
+#: plugins/shotwell-publishing/PicasaPublishing.vala:59
+#: plugins/shotwell-publishing/FacebookPublishing.vala:61
+msgid "Shotwell Connect"
+msgstr "Shotwell kapcsolat"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+msgid "Admins, Family, Friends, Contacts"
+msgstr "Adminok, család, barátok, partnerek"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+msgid "Admins, Family, Friends"
+msgstr "Adminok, család, barátok"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+msgid "Admins, Family"
+msgstr "Adminok, család"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+msgid "Admins"
+msgstr "Adminok"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Login to log into Picasa Web Albums in your Web browser. You will have "
+"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"Jelenleg nincs bejelentkezve Picasa Webalbumokba.\n"
+"\n"
+"Kattintson a Bejelentkezés gombra a bejelentkezéshez a Picasa Webalbumokba a "
+"böngészőből. A bejelentkezés során jogosultságot kell adnia a Shotwell "
+"Connectnek, hogy hozzáférjen a Picasa Webalbumokhoz."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa can't "
+"continue."
+msgstr ""
+"Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Picasara "
+"nem folytatódhat."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:379
+#: plugins/shotwell-publishing/FacebookPublishing.vala:347
+msgid "Creating album..."
+msgstr "Album létrehozása…"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "Bejelentkezett a Picasa Webalbumokba %s néven."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+msgid "Videos will appear in:"
+msgstr "A videók itt jelennek meg:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+msgid "Photos will appear in:"
+msgstr "A fényképek itt fognak megjelenni:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+msgid "Small (640 x 480 pixels)"
+msgstr "Kicsi (640 x 480 képpont)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+msgid "Medium (1024 x 768 pixels)"
+msgstr "Közepes (1024 x 768 képpont)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "Ajánlott (1600 x 1200 képpont)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+msgid "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 képpont)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:63
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"Jelenleg nincs bejelentkezve a Facebookra.\n"
+"\n"
+"Ha nincs még Facebook fiókja, a bejelentkezés során létrehozhat egyet. "
+"Engedélyeznie kell a fényképek feltöltését, és a falon való közzétételét. "
+"Ezek az engedélyek szükségesek a Shotwell kapcsolat működéséhez."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:65
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"A Shotwell használata közben már bejelentkezett a Facebookra, és "
+"kijelentkezett onnan.\n"
+"A Facebookra való feltöltés folytatásához indítsa újra a Shotwellt, és "
+"próbálja újra a feltöltést."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:86
+msgid "Standard (720 pixels)"
+msgstr "Szabványos (720 képpont)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:89
+msgid "Large (2048 pixels)"
+msgstr "Nagy (2048 képpont)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:254
+msgid "Testing connection to Facebook..."
+msgstr "Kapcsolat tesztelése a Facebookhoz…"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:374
+msgid ""
+"A file required for publishing is unavailable. Publishing to Facebook can't "
+"continue."
+msgstr ""
+"Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Facebookra "
+"nem folytatódhat."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#, c-format
+msgid ""
+"You are logged into Facebook as %s.\n"
+"\n"
+msgstr ""
+"Bejelentkezett a Facebookra %s néven.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1020
+msgid "Where would you like to publish the selected photos?"
+msgstr "Hová szeretné feltölteni a kijelölt fényképeket?"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1021
+msgid "Upload _size:"
+msgstr "Feltöltés _mérete:"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1181
+msgid "Friends"
+msgstr "Barátok"
+
+#: plugins/shotwell-transitions/CrumbleEffect.vala:20
+msgid "Crumble"
+msgstr "Összecsuklás"
+
+#: plugins/shotwell-transitions/ChessEffect.vala:20
+msgid "Chess"
+msgstr "Sakk"
+
+#: plugins/shotwell-transitions/CirclesEffect.vala:20
+msgid "Circles"
+msgstr "Körök"
+
+#: plugins/shotwell-transitions/BlindsEffect.vala:20
+msgid "Blinds"
+msgstr "Lamellák"
+
+#: plugins/shotwell-transitions/StripesEffect.vala:20
+msgid "Stripes"
+msgstr "Csíkok"
+
+#: plugins/shotwell-transitions/ClockEffect.vala:20
+msgid "Clock"
+msgstr "Óra"
+
+#: plugins/shotwell-transitions/CircleEffect.vala:20
+msgid "Circle"
+msgstr "Kör"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+msgid "Core Slideshow Transitions"
+msgstr "Alap diaátmenetek"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:75
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+
+#: plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "Dia"
+
+#: plugins/shotwell-transitions/FadeEffect.vala:20
+msgid "Fade"
+msgstr "Elhalványodás"
+
+#: plugins/shotwell-transitions/SquaresEffect.vala:20
+msgid "Squares"
+msgstr "Négyzetek"
+
+#: plugins/shotwell-data-imports/shotwell-data-imports.vala:22
+msgid "Core Data Import Services"
+msgstr "Alap adatimportáló szolgáltatások"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:56
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select a library to import, either by selecting one of the existing "
+"libraries found by Shotwell or by selecting an alternative F-Spot database "
+"file."
+msgstr ""
+"Üdvözli az F-Spot gyűjteményimportáló szolgáltatás.\n"
+"\n"
+"Válasszon egy importálandó gyűjteményt a Shotwell által talált egyik meglévő "
+"gyűjtemény kiválasztásával, vagy egy alternatív F-Spot adatbázisfájl "
+"kiválasztásával."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:58
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select an F-Spot database file."
+msgstr ""
+"Üdvözli az F-Spot gyűjteményimportáló szolgáltatás.\n"
+"\n"
+"Válasszon egy F-Spot adatbázisfájlt."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:60
+msgid "Manually select an F-Spot database file to import:"
+msgstr "Importálandó F-Spot adatbázisfájl kiválasztása:"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:62
+msgid ""
+"Cannot open the selected F-Spot database file: the file does not exist or is "
+"not an F-Spot database"
+msgstr ""
+"A kijelölt F-Spot adatbázisfájl nem nyitható meg: a fájl nem létezik, vagy "
+"nem F-Spot adatbázis"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:64
+msgid ""
+"Cannot open the selected F-Spot database file: this version of the F-Spot "
+"database is not supported by Shotwell"
+msgstr ""
+"A kijelölt F-Spot adatbázisfájl nem nyitható meg: a Shotwell nem támogatja "
+"az F-Spot adatbázis ezen verzióját"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:66
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr ""
+"A kijelölt F-Spot adatbázisfájl nem olvasható: hiba a címketábla olvasásakor"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:68
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading photos "
+"table"
+msgstr ""
+"A kijelölt F-Spot adatbázisfájl nem olvasható: hiba a fényképtábla "
+"olvasásakor"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:70
+#, c-format
+msgid ""
+"Shotwell has found %d photos in the F-Spot library and is currently "
+"importing them. Duplicates will be automatically detected and removed.\n"
+"\n"
+"You can close this dialog and start using Shotwell while the import is "
+"taking place in the background."
+msgstr ""
+"A Shotwell %d fényképet talált az F-Spot gyűjteményben, és éppen importálja "
+"ezeket. A többször szereplő képek felismerésre és eltávolításra kerülnek.\n"
+"\n"
+"Bezárhatja ezt az ablakot, és megkezdheti a Shotwell használatát mialatt az "
+"importálás a háttérben folytatódik."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:84
+#, c-format
+msgid "F-Spot library: %s"
+msgstr "F-Spot gyűjtemény: %s"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:416
+msgid "Preparing to import"
+msgstr "Importálás előkészítése"
+
+#: ui/set_background_dialog.glade:14
+msgid "Set as Desktop Slideshow"
+msgstr "Beállítás asztali diavetítésként"
+
+#: ui/set_background_dialog.glade:55
+msgid "Generate desktop background slideshow"
+msgstr "Asztalháttér-diavetítés készítése"
+
+#: ui/set_background_dialog.glade:82
+msgid "Show each photo for"
+msgstr "Minden fénykép megjelenítése"
+
+#: ui/set_background_dialog.glade:94
+msgid "period of time"
+msgstr "ennyi ideig"
+
+#: ui/set_background_dialog.glade:116
+msgid "How long each photo is shown on the desktop background"
+msgstr "Az egyes fényképek meddig jelenjenek meg asztalháttérként"
+
+#: ui/shotwell.glade:7
+msgid "Search"
+msgstr "Keresés"
+
+#: ui/shotwell.glade:47
+msgid "_Name of search:"
+msgstr "Keresés _neve:"
+
+#: ui/shotwell.glade:108
+msgid "_Match"
+msgstr "Illes_zkedjen"
+
+#: ui/shotwell.glade:137
+msgid "of the following:"
+msgstr "a következőkkel:"
+
+#: ui/shotwell.glade:218
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Nyomtatott képméret</b>"
+
+#: ui/shotwell.glade:235
+msgid "Use a _standard size:"
+msgstr "_Szabványos méret használata:"
+
+#: ui/shotwell.glade:278
+msgid "Use a c_ustom size:"
+msgstr "_Egyéni méret használata:"
+
+#: ui/shotwell.glade:368
+msgid "_Match photo aspect ratio"
+msgstr "Fénykép _méretarányának megtartása"
+
+#: ui/shotwell.glade:392
+msgid "_Autosize:"
+msgstr "_Automatikus méret:"
+
+#: ui/shotwell.glade:432
+msgid "<b>Titles</b>"
+msgstr "<b>Címek</b>"
+
+#: ui/shotwell.glade:449
+msgid "Print image _title"
+msgstr "Kép _címének nyomtatása"
+
+#: ui/shotwell.glade:493
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Felbontás képpontban</b>"
+
+#: ui/shotwell.glade:513
+msgid "_Output photo at:"
+msgstr "_Kimenő fénykép:"
+
+#: ui/shotwell.glade:548
+msgid "pixels per inch"
+msgstr "képpont hüvelykenként"
+
+#: ui/shotwell.glade:581 ui/shotwell.glade:623
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:27
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
+#, fuzzy
+msgid "label"
+msgstr ""
+"címke"
+
+#: ui/shotwell.glade:719
+msgid "Shotwell Preferences"
+msgstr "Shotwell beállítások"
+
+#: ui/shotwell.glade:796
+msgid "white"
+msgstr "fehér"
+
+#: ui/shotwell.glade:823
+msgid "black"
+msgstr "fekete"
+
+#: ui/shotwell.glade:871
+msgid "_Watch library directory for new files"
+msgstr "Új _fájlok figyelése a gyűjteménykönyvtárban"
+
+#: ui/shotwell.glade:900
+msgid "Metadata"
+msgstr "Metaadatok"
+
+#: ui/shotwell.glade:920
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr "_Címkék, címek és más metaadatok fényképfájlokba írása"
+
+#: ui/shotwell.glade:946
+msgid "Display"
+msgstr "Megjelenítés"
+
+#: ui/shotwell.glade:967
+msgid "_Import photos to:"
+msgstr "Fényképek i_mportálása ide:"
+
+#: ui/shotwell.glade:990
+msgid "_Background:"
+msgstr "_Háttér:"
+
+#: ui/shotwell.glade:1013
+msgid "Importing"
+msgstr "Importálás"
+
+#: ui/shotwell.glade:1036
+msgid "_Directory structure:"
+msgstr "_Könyvtárszerkezet:"
+
+#: ui/shotwell.glade:1075
+msgid "_Pattern:"
+msgstr "_Minta:"
+
+#: ui/shotwell.glade:1157
+msgid "Example:"
+msgstr "Példa:"
+
+#: ui/shotwell.glade:1174
+msgid "R_ename imported files to lowercase"
+msgstr "_Importált fájlok átnevezése kisbetűssé"
+
+#: ui/shotwell.glade:1203
+msgid "RAW Developer"
+msgstr "RAW előhívó"
+
+#: ui/shotwell.glade:1238
+msgid "De_fault:"
+msgstr "_Alapértelmezett:"
+
+#: ui/shotwell.glade:1292
+msgid "E_xternal photo editor:"
+msgstr "Külső _fotószerkesztő:"
+
+#: ui/shotwell.glade:1308
+msgid "External _RAW editor:"
+msgstr "Külső _RAW szerkesztő:"
+
+#: ui/shotwell.glade:1373
+msgid "External Editors"
+msgstr "Külső szerkesztők"
+
+#: ui/shotwell.glade:1400
+msgid "Plugins"
+msgstr "Bővítmények"
+
+#: ui/shotwell.glade:1469
+msgid "_Delay:"
+msgstr "_Késleltetés:"
+
+#: ui/shotwell.glade:1485
+msgid "_Transition effect:"
+msgstr "Átmenet _effektus:"
+
+#: ui/shotwell.glade:1501
+msgid "Transition d_elay:"
+msgstr "Átmenet _késleltetése:"
+
+#: ui/shotwell.glade:1513
+msgid "Show t_itle"
+msgstr "_Cím megjelenítése"
+
+#: ui/shotwell.glade:1603 ui/shotwell.glade:1616
+msgid "seconds"
+msgstr "másodperc"
+
+#: ui/shotwell.glade:1696
+msgid "_Login"
+msgstr "Bejele_ntkezés"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:21
+msgid ""
+" (text depends on fb username and is modified in the app - \n"
+"anything put into this field won't display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:39
+msgid "Publish to an e_xisting album:"
+msgstr "Közzététel _meglévő albumban:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:57
+msgid "Create a _new album named:"
+msgstr "Új _album létrehozása ezen a néven:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:139
+msgid "Videos and new photo albums _visible to:"
+msgstr "A _videókat és új fényképalbumokat láthatja:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:175
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:102
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:178
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:226
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:197
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:137
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:229
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:99
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
+msgid "_Logout"
+msgstr "_Kijelentkezés"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:212
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:153
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:243
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:115
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
+msgid "_Publish"
+msgstr "Közzé_tétel"
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:16
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr ""
+"Írja be a megerősítési számot, amely a Flickr-be való bejelentkezés után "
+"jelenik meg a böngészőjében."
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:37
+msgid "Authorization _Number:"
+msgstr "_Hitelesítési szám:"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Flickr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:44
+msgid "_visibility label (populated in the code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:61
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
+msgid "Photo _size:"
+msgstr "Fénykép _mérete:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:18
+msgid ""
+"'you are logged in as $name'\n"
+"(populated in the application code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:75
+msgid "An _existing album:"
+msgstr "_Egy létező album:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:94
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:52
+msgid "A _new album named:"
+msgstr "Új _album, a neve:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:113
+msgid "L_ist album in public gallery"
+msgstr "Alb_um listázása a nyilvános galériában"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:134
+msgid ""
+"$mediatype will appear in\n"
+"(populated in code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:150
+msgid "Photo _size preset:"
+msgstr "Fénykép_méret előbeállítása:"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:49
+msgid "_URL of your Piwigo photo library"
+msgstr "Piwigo fotógyűjtemény URL-címe"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:59
+msgid "User _name"
+msgstr "_Felhasználónév"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:73
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:59
+msgid "_Password"
+msgstr "_Jelszó"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:130
+msgid "_Remember Password"
+msgstr "_Jelszó megjegyzése"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:151
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:107
+msgid "Login"
+msgstr "Bejelentkezés"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:40
+msgid "An _existing category:"
+msgstr "Egy létező _kategória:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:121
+msgid "Photos will be _visible by:"
+msgstr "Fényképek lát_hatók lesznek:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:149
+msgid "Photo size:"
+msgstr "Fénykép mérete:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:176
+msgid "within category:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:210
+msgid "Album comment:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:242
+msgid "_If a title is set and comment unset, use title as comment"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:258
+msgid "_Do no upload tags"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:278
+msgid "Logout"
+msgstr "Kijelentkezés"
+
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:55
+msgid "Video privacy _setting:"
+msgstr "Videók _magánszféra-beállítása:"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Copyright 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
+msgid "1280 x 853 pixels"
+msgstr "1280 x 853 pixel"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr "„%s” nem érvényes válasz OAuth hitelesítési kérésre"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start( ): nem lehet elindítani, ez a közzétevő nem "
+"indítható újra."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "Adja meg a felhasználó nevet és a jelszót a társított Tumblr fiókhoz"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "A felület nem tölthető be: %s"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Bejelentkezett a Tumblr-re %s néven.\n"
+"\n"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "A Yandex.Fotki weboldal felkeresése"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "Jelenleg nincs bejelentkezve a Yandex.Fotki oldalra."
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:49
+msgid "_Email address"
+msgstr "_E-mail cím"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Tumblr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+"Bejelentkezett a Tumblr-re, mint (name).\n"
+"\n"
+"(ez a szöveg a kódon belül lesz feltöltve)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
+msgid "Blogs:"
+msgstr "Blogok:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
+msgid "_Albums (or write new):"
+msgstr "_Albumok (vagy új írása):"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
+msgid "Access _type:"
+msgstr "Hozzáférés típusa:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
+msgid "Disable _comments"
+msgstr "H_ozzászólások letiltása"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
+msgid "_Forbid downloading original photo"
+msgstr "_Eredeti kép letöltésének megtiltása"

@@ -6,9 +6,6 @@
  */
 
 
-using Publishing.Extras;
-
-
 extern string hmac_sha1(string key, string message);
 public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
    private const string ICON_FILENAME = "tumblr.png";
@@ -35,7 +32,7 @@ public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Jeroen Arnoldus";
-        info.copyright = _t("Copyright 2012 BJA Electronics");
+        info.copyright = _("Copyright 2012 BJA Electronics");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -104,9 +101,9 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private SizeEntry[] create_sizes() {
         SizeEntry[] result = new SizeEntry[0];
 
-        result += new SizeEntry(_t("500 x 375 pixels"), 500);
-        result += new SizeEntry(_t("1024 x 768 pixels"), 1024);
-        result += new SizeEntry(_t("1280 x 853 pixels"), 1280);
+        result += new SizeEntry(_("500 x 375 pixels"), 500);
+        result += new SizeEntry(_("1024 x 768 pixels"), 1024);
+        result += new SizeEntry(_("1280 x 853 pixels"), 1280);
 //Larger images make no sense for Tumblr
 //        result += new SizeEntry(_("2048 x 1536 pixels"), 2048);
 //        result += new SizeEntry(_("4096 x 3072 pixels"), 4096);
@@ -310,7 +307,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
             
             if (split_pair.length != 2)
                 host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                    _t("'%s' isn't a valid response to an OAuth authentication request")));
+                    _("'%s' isn't a valid response to an OAuth authentication request")));
 
             if (split_pair[0] == "oauth_token")
                 oauth_token = split_pair[1];
@@ -320,7 +317,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         if (oauth_token == null || oauth_token_secret == null)
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                _t("'%s' isn't a valid response to an OAuth authentication request")));
+                _("'%s' isn't a valid response to an OAuth authentication request")));
         
         session.set_access_phase_credentials(oauth_token, oauth_token_secret);
     }
@@ -558,7 +555,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
         
         if (was_started)
-            error(_t("TumblrPublisher: start( ): can't start; this publisher is not restartable."));
+            error(_("TumblrPublisher: start( ): can't start; this publisher is not restartable."));
         
         debug("TumblrPublisher: starting interaction.");
         
@@ -586,8 +583,8 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
         INTRO,
         FAILED_RETRY_USER
     }
-    private static string INTRO_MESSAGE = _t("Enter the username and password associated with your Tumblr account.");
-    private static string FAILED_RETRY_USER_MESSAGE = _t("Username and/or password invalid. Please try again");
+    private static string INTRO_MESSAGE = _("Enter the username and password associated with your Tumblr account.");
+    private static string FAILED_RETRY_USER_MESSAGE = _("Username and/or password invalid. Please try again");
 
     private Gtk.Box pane_widget = null;
     private Gtk.Builder builder;
@@ -616,7 +613,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
                     break;
 
                 case Mode.FAILED_RETRY_USER:
-                    message_label.set_markup("<b>%s</b>\n\n%s".printf(_t(
+                    message_label.set_markup("<b>%s</b>\n\n%s".printf(_(
                         "Invalid User Name or Password"), FAILED_RETRY_USER_MESSAGE));
                     break;
             }
@@ -636,7 +633,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
             align.reparent(pane_widget);
             publisher.get_host().set_dialog_default_widget(login_button);
         } catch (Error e) {
-            warning(_t("Could not load UI: %s"), e.message);
+            warning(_("Could not load UI: %s"), e.message);
         }
     }
     
@@ -739,7 +736,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 			blog_label = (Gtk.Label) this.builder.get_object("blog_label");
 
 
-			string upload_label_text = _t("You are logged into Tumblr as %s.\n\n").printf(this.username);
+			string upload_label_text = _("You are logged into Tumblr as %s.\n\n").printf(this.username);
 			upload_info_label.set_label(upload_label_text);
 
 			populate_blog_combo();
@@ -757,7 +754,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 			logout_button.clicked.connect(on_logout_clicked);
 			publish_button.clicked.connect(on_publish_clicked);
         } catch (Error e) {
-			warning(_t("Could not load UI: %s"), e.message);
+			warning(_("Could not load UI: %s"), e.message);
         }
     }
 
@@ -968,7 +965,7 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
         } catch (FileError e) {
             throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                _t("A temporary file needed for publishing is unavailable"));
+                _("A temporary file needed for publishing is unavailable"));
 
 		}
 

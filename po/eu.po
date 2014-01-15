@@ -1,0 +1,4624 @@
+# po/shotwell-core/shotwell.pot
+# PO message string template file for Shotwell Core Components
+# Copyright (C) 2009-2013 Yorba Foundation
+# See COPYING for license.
+#
+#
+# Translators:
+# assar <asiersar@yahoo.com>, 2013
+# assar <asiersar@yahoo.com>, 2011-2012
+# assar <asiersar@yahoo.com>, 2011
+# verayin <vera@yorba.org>, 2011
+# assar <asiersar@yahoo.com>, 2012
+# lsbeeler <lucas@yorba.org>, 2011
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
+"Last-Translator: assar <asiersar@yahoo.com>\n"
+"Language-Team: Basque (http://www.transifex.com/projects/p/shotwell/language/"
+"eu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Event.vala:737
+#, c-format
+msgid "Event %s"
+msgstr "%s gertaera"
+
+#: src/camera/Branch.vala:87
+msgid "Cameras"
+msgstr "Kamerak"
+
+#: src/camera/Branch.vala:101 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:300
+#: src/MediaPage.vala:425
+msgid "Camera"
+msgstr "Kamera"
+
+#: src/camera/ImportPage.vala:312 src/Properties.vala:227
+#, c-format
+msgid "RAW+JPEG"
+msgstr "RAW+JPEG"
+
+#: src/camera/ImportPage.vala:459
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr ""
+"Ezin  izan da kamera desmuntatu.  Saiatu kamera fitxategi-kudeatzailetik "
+"desmuntatzen."
+
+#: src/camera/ImportPage.vala:776
+msgid "Hide photos already imported"
+msgstr "Ezkutatu jadanik inportatu diren argazkiak"
+
+#: src/camera/ImportPage.vala:777
+msgid "Only display photos that have not been imported"
+msgstr "Inportatu ez diren argazkiak soilik erakutsi"
+
+#: src/camera/ImportPage.vala:845
+msgid "Starting import, please wait..."
+msgstr "Inportazioa hastera doa, itxaron..."
+
+#: src/camera/ImportPage.vala:872 src/MediaPage.vala:436
+msgid "_Titles"
+msgstr "_Izenburuak"
+
+#: src/camera/ImportPage.vala:873 src/MediaPage.vala:437
+msgid "Display the title of each photo"
+msgstr "Erakutsi argazki bakoitzaren izenburua"
+
+#: src/camera/ImportPage.vala:884
+msgid "Import _Selected"
+msgstr "Inportatu _hautatuak"
+
+#: src/camera/ImportPage.vala:885
+msgid "Import the selected photos into your library"
+msgstr "Inportatu hautatutako argazkiak zure liburutegira"
+
+#: src/camera/ImportPage.vala:890
+msgid "Import _All"
+msgstr "Inportatu _denak"
+
+#: src/camera/ImportPage.vala:891
+msgid "Import all the photos into your library"
+msgstr "Inportatu argazki guztiak zure liburutegira"
+
+#: src/camera/ImportPage.vala:1012
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr ""
+"Shotwell-ek kamera desmuntatu behar du hura atzitu ahal izateko.  Jarraitu?"
+
+#: src/camera/ImportPage.vala:1018
+msgid "_Unmount"
+msgstr "_Desmuntatu"
+
+#: src/camera/ImportPage.vala:1023
+msgid "Please unmount the camera."
+msgstr "Desmuntatu kamera."
+
+#: src/camera/ImportPage.vala:1028
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr ""
+"Beste aplikazio batek kamera blokeatuta dauka.  Kamerak desblokeatuta egon "
+"behar du Shotwell-ek hura atzitu ahal dezan.  Itxi kamera erabiltzen ari den "
+"beste edozein aplikazioa eta saiatu berriro."
+
+#: src/camera/ImportPage.vala:1038
+msgid "Please close any other application using the camera."
+msgstr "Itxi kamera erabiltzen ari den beste edozein aplikazio."
+
+#: src/camera/ImportPage.vala:1043
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+"Ezin izan dira aurrebistak kameratik hartu:\n"
+"%s"
+
+#: src/camera/ImportPage.vala:1060
+msgid "Unmounting..."
+msgstr "Desmuntatzen..."
+
+#: src/camera/ImportPage.vala:1166
+msgid "Fetching photo information"
+msgstr "Argazkien informazioa eskuratzen"
+
+#: src/camera/ImportPage.vala:1521
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "%s-(e)ren aurrebista eskuratzen"
+
+#: src/camera/ImportPage.vala:1637
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "Ezin izan da kamera blokeatu: %s"
+
+#: src/camera/ImportPage.vala:1722
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "Argazki hau kameratik ezabatu nahi duzu?"
+msgstr[1] "%d argazki hauek kameratik ezabatu nahi dituzu?"
+
+#: src/camera/ImportPage.vala:1725
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "Bideo hau kameratik ezabatu nahi duzu?"
+msgstr[1] "%d bideo hauek kameratik ezabatu nahi dituzu?"
+
+#: src/camera/ImportPage.vala:1728
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "Argazki/bideo hau kameratik ezabatu nahi duzu?"
+msgstr[1] "%d argazki/bideo hauek kameratik ezabatu nahi dituzu?"
+
+#: src/camera/ImportPage.vala:1731
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "Ezabatu fitxategi hauek kameratik?"
+msgstr[1] "Ezabatu %d argazki hauek kameratik?"
+
+#: src/camera/ImportPage.vala:1739 src/Dialogs.vala:1328
+msgid "_Keep"
+msgstr "_Mantendu"
+
+#: src/camera/ImportPage.vala:1758
+msgid "Removing photos/videos from camera"
+msgstr "Argazkiak/bideoak kameratik kentzen"
+
+#: src/camera/ImportPage.vala:1762
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] ""
+"Ezin izan da argazki/bideo %d ezabatu kameratik erroreak gertatu direlako."
+msgstr[1] ""
+"Ezin izan dira %d argazki/bideo ezabatu kameratik erroreak gertatu direlako."
+
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2623
+msgid "S_lideshow"
+msgstr "_Diapositiba-aurkezpena"
+
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2624
+msgid "Play a slideshow"
+msgstr "Erreproduzitu diapositiba-aurkezpena"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photo/Video"
+msgstr "Esportatu argazkia/bideoa"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photos/Videos"
+msgstr "Esportatu argazkiak/bideoak"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:58 src/PhotoPage.vala:3196
+msgid "Export Photo"
+msgstr "Esportatu argazkia"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:87
+msgid "Export Photos"
+msgstr "Esportatu argazkiak"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Rotating"
+msgstr "Biratzen"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Undoing Rotate"
+msgstr "Biraketa desegiten"
+
+#: src/CollectionPage.vala:570
+msgid "Flipping Horizontally"
+msgstr "Horizontalki iraultzen"
+
+#: src/CollectionPage.vala:571
+msgid "Undoing Flip Horizontally"
+msgstr "Iraultze horizontala desegiten"
+
+#: src/CollectionPage.vala:580
+msgid "Flipping Vertically"
+msgstr "Bertikalki iraultzen"
+
+#: src/CollectionPage.vala:581
+msgid "Undoing Flip Vertically"
+msgstr "Iraultze bertikala desegiten"
+
+#: src/searches/SearchBoolean.vala:157
+msgid "Any text"
+msgstr "Edozein testu"
+
+#: src/searches/SearchBoolean.vala:160
+msgid "Title"
+msgstr "Izenburua"
+
+#: src/searches/SearchBoolean.vala:163
+msgid "Tag"
+msgstr "Etiketa"
+
+#: src/searches/SearchBoolean.vala:166
+msgid "Comment"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:169
+msgid "Event name"
+msgstr "Gertaera-izenak"
+
+#: src/searches/SearchBoolean.vala:172
+msgid "File name"
+msgstr "Fitxategi-izenak"
+
+#: src/searches/SearchBoolean.vala:175
+msgid "Media type"
+msgstr "Multimedia-mota"
+
+#: src/searches/SearchBoolean.vala:178
+msgid "Flag state"
+msgstr "Bandera-egoera"
+
+#: src/searches/SearchBoolean.vala:181
+msgid "Photo state"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:1003
+msgid "Rating"
+msgstr "Balorazioa"
+
+#: src/searches/SearchBoolean.vala:187
+msgid "Date"
+msgstr "Data"
+
+#: src/searches/SavedSearchDialog.vala:169
+msgid "contains"
+msgstr "dauka:"
+
+#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:497
+msgid "is exactly"
+msgstr "zehatz-mehatz da:"
+
+#: src/searches/SavedSearchDialog.vala:171
+msgid "starts with"
+msgstr "honekin hasten da:"
+
+#: src/searches/SavedSearchDialog.vala:172
+msgid "ends with"
+msgstr "honekin amaitzen da:"
+
+#: src/searches/SavedSearchDialog.vala:173
+msgid "does not contain"
+msgstr "ez dauka:"
+
+#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:501
+msgid "is not set"
+msgstr "ez dago ezarria"
+
+#: src/searches/SavedSearchDialog.vala:245
+#: src/searches/SavedSearchDialog.vala:376
+#: src/searches/SavedSearchDialog.vala:441
+msgid "is"
+msgstr "da"
+
+#: src/searches/SavedSearchDialog.vala:246
+msgid "is not"
+msgstr "ez da"
+
+#: src/searches/SavedSearchDialog.vala:252
+msgid "any photo"
+msgstr "edozein argazki"
+
+#: src/searches/SavedSearchDialog.vala:253
+msgid "a raw photo"
+msgstr "argazki gordina"
+
+#: src/searches/SavedSearchDialog.vala:254
+msgid "a video"
+msgstr "bideoa"
+
+#: src/searches/SavedSearchDialog.vala:308
+msgid "has"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:309
+msgid "has no"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:314
+msgid "modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:315
+msgid "internal modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:316
+msgid "external modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:370
+msgid "flagged"
+msgstr "banderaduna"
+
+#: src/searches/SavedSearchDialog.vala:371
+msgid "not flagged"
+msgstr "banderarik gabea"
+
+#: src/searches/SavedSearchDialog.vala:434
+msgid "and higher"
+msgstr "eta altuagoa"
+
+#: src/searches/SavedSearchDialog.vala:435
+msgid "only"
+msgstr "soilik"
+
+#: src/searches/SavedSearchDialog.vala:436
+msgid "and lower"
+msgstr "eta baxuagoa"
+
+#: src/searches/SavedSearchDialog.vala:498
+msgid "is after"
+msgstr "data honen ondoren:"
+
+#: src/searches/SavedSearchDialog.vala:499
+msgid "is before"
+msgstr "data honen aurretik:"
+
+#: src/searches/SavedSearchDialog.vala:500
+msgid "is between"
+msgstr "data hauen artean:"
+
+#: src/searches/SavedSearchDialog.vala:513
+msgid "and"
+msgstr "eta"
+
+#: src/searches/SavedSearchDialog.vala:720
+msgid "any"
+msgstr "edozein"
+
+#: src/searches/SavedSearchDialog.vala:721
+msgid "all"
+msgstr "dena"
+
+#: src/searches/SavedSearchDialog.vala:722
+msgid "none"
+msgstr "ezer ez"
+
+#: src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "Gordetako bilaketak"
+
+#: src/searches/Branch.vala:77 src/library/LibraryWindow.vala:346
+#: src/sidebar/Tree.vala:195
+msgid "Ne_w Saved Search..."
+msgstr "Go_rdetako bilaketa berria..."
+
+#: src/main.vala:54
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr ""
+"Zure argazki-liburutegia ez da bateragarria Shotwell-en bertsio honekin.  "
+"Itxura batean Shotwell %s bertsioarekin (%d eskema) sortu zen.  Bertsio hau "
+"%s (%d eskema) da.  Erabili Shotwell-en azken bertsioa."
+
+#: src/main.vala:59
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"Shotwell-ek ezin izan du zure argazki-liburutegia eguneratu %s bertsiotik "
+"(%d eskema) %s bertsiora (%d eskema).  Informazio gehiagorako begiartu "
+"Shotwell-en wiki-a %s helbidean"
+
+#: src/main.vala:65
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"Zure argazki-liburutegia ez da bateragarria Shotwell-en bertsio honekin.  "
+"Itxura batean Shotwell %s bertsioarekin (%d eskema) sortu zen.  Bertsio hau "
+"%s (%d eskema) da.  Garbitu zure liburutegia %s ezabatuta eta inportatu "
+"berriro zure argazkiak."
+
+#: src/main.vala:71
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr "Errore ezezaguna gertatu da Shotwell-en datu-basea egiaztatzean: %s"
+
+#: src/main.vala:104
+msgid "Loading Shotwell"
+msgstr "Shotwell kargatzen"
+
+#: src/main.vala:294
+msgid "Path to Shotwell's private data"
+msgstr "Shotwell-en datu pribatuetarako bidea"
+
+#: src/main.vala:294
+msgid "DIRECTORY"
+msgstr "DIREKTORIOA"
+
+#: src/main.vala:298
+msgid "Do not monitor library directory at runtime for changes"
+msgstr ""
+"Ez monitorizatu liburutegien direktorioa aldaketen bila exekuzio-denboran"
+
+#: src/main.vala:302
+msgid "Don't display startup progress meter"
+msgstr "Ez erakutsi abioaren aurrerapenaren neurgailua"
+
+#: src/main.vala:306
+msgid "Show the application's version"
+msgstr "Erakutsi aplikazioaren bertsioa"
+
+#: src/main.vala:338
+msgid "[FILE]"
+msgstr "[FILE]"
+
+#: src/main.vala:342
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Exekutatu '%s --help' komando-lerroko aukeren zerrenda osoa ikusteko.\n"
+
+#: src/Properties.vala:84
+msgid "Today"
+msgstr "Gaur"
+
+#: src/Properties.vala:86
+msgid "Yesterday"
+msgstr "Atzo"
+
+#: src/Properties.vala:340 src/Dialogs.vala:1273
+msgid "Title:"
+msgstr "Izenburua:"
+
+#: src/Properties.vala:343
+msgid "Items:"
+msgstr "Elementuak:"
+
+#: src/Properties.vala:346
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "Gertaera %d"
+msgstr[1] "%d gertaera"
+
+#: src/Properties.vala:353 src/events/EventDirectoryItem.vala:87
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d argazki"
+msgstr[1] "%d argazki"
+
+#: src/Properties.vala:355 src/events/EventDirectoryItem.vala:85
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "Bideo %d"
+msgstr[1] "%d bideo"
+
+#: src/Properties.vala:377
+msgid "Date:"
+msgstr "Data:"
+
+#: src/Properties.vala:381
+msgid "Time:"
+msgstr "Ordua:"
+
+#: src/Properties.vala:384 src/Properties.vala:389
+msgid "From:"
+msgstr "Noiztik:"
+
+#: src/Properties.vala:385 src/Properties.vala:390
+msgid "To:"
+msgstr "Noiz arte:"
+
+#: src/Properties.vala:395 src/editing_tools/EditingTools.vala:1850
+msgid "Size:"
+msgstr "Tamaina:"
+
+#: src/Properties.vala:404
+msgid "Duration:"
+msgstr "Iraupena:"
+
+#: src/Properties.vala:404
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f segundo"
+
+#: src/Properties.vala:408
+msgid "Developer:"
+msgstr "Garatzailea:"
+
+#: src/Properties.vala:436 src/Properties.vala:440 src/Properties.vala:447
+#: src/editing_tools/EditingTools.vala:2218
+msgid "Exposure:"
+msgstr "Esposizioa:"
+
+#: src/Properties.vala:585
+msgid "Location:"
+msgstr "Kokapena:"
+
+#: src/Properties.vala:588
+msgid "File size:"
+msgstr "Fitxategi-tamaina:"
+
+#: src/Properties.vala:592
+msgid "Current Development:"
+msgstr "Uneko garapena:"
+
+#: src/Properties.vala:594
+msgid "Original dimensions:"
+msgstr "Jatorrizko neurria:"
+
+#: src/Properties.vala:597
+msgid "Camera make:"
+msgstr "Kamera-marka:"
+
+#: src/Properties.vala:600
+msgid "Camera model:"
+msgstr "Kamera-modeloa:"
+
+#: src/Properties.vala:603
+msgid "Flash:"
+msgstr "Flash-a:"
+
+#: src/Properties.vala:605
+msgid "Focal length:"
+msgstr "Foku-distanzia:"
+
+#: src/Properties.vala:608
+msgid "Exposure date:"
+msgstr "Esposizio-data:"
+
+#: src/Properties.vala:611
+msgid "Exposure time:"
+msgstr "Esposizio-ordua:"
+
+#: src/Properties.vala:614
+msgid "Exposure bias:"
+msgstr "Esposizio-joera:"
+
+#: src/Properties.vala:616
+msgid "GPS latitude:"
+msgstr "GPS latitudea:"
+
+#: src/Properties.vala:619
+msgid "GPS longitude:"
+msgstr "GPS longitudea:"
+
+#: src/Properties.vala:622
+msgid "Artist:"
+msgstr "Artista:"
+
+#: src/Properties.vala:624
+msgid "Copyright:"
+msgstr "Copyright-a:"
+
+#: src/Properties.vala:626
+msgid "Software:"
+msgstr "Software-a:"
+
+#: src/Properties.vala:630 src/Dialogs.vala:1288
+msgid "Comment:"
+msgstr "Iruzkina:"
+
+#: src/Properties.vala:639
+msgid "Extended Information"
+msgstr "Informazio gehigarria"
+
+#: src/Dialogs.vala:16
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "Honek \"%s\" etiketa kenduko du argazki batetik.  Jarraitu?"
+msgstr[1] "Honek \"%s\" etiketa kenduko du %d argazkitatik.  Jarraitu?"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1361
+#: src/Dialogs.vala:1384 src/data_imports/DataImportsUI.vala:399
+#: src/AppWindow.vala:615 src/AppWindow.vala:636 src/AppWindow.vala:653
+#: src/publishing/PublishingUI.vala:498
+msgid "_Cancel"
+msgstr "_Utzi"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1329
+#: src/Resources.vala:330 src/Resources.vala:378 src/Resources.vala:643
+msgid "_Delete"
+msgstr "_Ezabatu"
+
+#: src/Dialogs.vala:25
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr "Honek gordetako \"%s\" bilaketa kenduko du.  Jarraitu?"
+
+#: src/Dialogs.vala:35
+#, c-format
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] ""
+"Garatzaileak txandakatzeak argazki honi Shotwell-en egin dizkiozun aldaketa "
+"guztiak desegingo ditu"
+msgstr[1] ""
+"Garatzaileak txandakatzeak argazki hauei Shotwell-en egin dizkiezun aldaketa "
+"guztiak desegingo ditu"
+
+#: src/Dialogs.vala:39
+msgid "_Switch Developer"
+msgstr "_Txandakatu garatzailea"
+
+#: src/Dialogs.vala:58
+msgid "Export Video"
+msgstr "Esportatu bideoa"
+
+#: src/Dialogs.vala:115
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+
+#: src/Dialogs.vala:124
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr ""
+"Ezin izan da hurrengo argazkia esportatu fitxategi-errore baten erruz.\n"
+"\n"
+
+#: src/Dialogs.vala:130
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr ""
+"\n"
+"\n"
+"Esportazioarekin jarraitu nahi al duzu?"
+
+#: src/Dialogs.vala:131
+msgid "Con_tinue"
+msgstr "Jarrai_tu"
+
+#: src/Dialogs.vala:147
+msgid "Unmodified"
+msgstr "Aldatu gabea"
+
+#: src/Dialogs.vala:148
+msgid "Current"
+msgstr "Unekoa"
+
+#: src/Dialogs.vala:212
+msgid "_Format:"
+msgstr "_Formatua:"
+
+#: src/Dialogs.vala:215
+msgid "_Quality:"
+msgstr "_Kalitatea:"
+
+#: src/Dialogs.vala:218
+msgid "_Scaling constraint:"
+msgstr "E_skala-murriztapena:"
+
+#: src/Dialogs.vala:221
+msgid " _pixels"
+msgstr " _pixel"
+
+#: src/Dialogs.vala:229
+msgid "Export metadata"
+msgstr "Esportatu metadatuak"
+
+#: src/Dialogs.vala:465
+msgid "Save Details..."
+msgstr "Gorde xehetasunak..."
+
+#: src/Dialogs.vala:466
+msgid "Save Details"
+msgstr "Gorde xehetasunak"
+
+#: src/Dialogs.vala:481
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(eta %d gehiago)\n"
+
+#: src/Dialogs.vala:534
+msgid "Import Results Report"
+msgstr "Inportazio-emaitzen txostena"
+
+#: src/Dialogs.vala:538
+#, c-format
+msgid "Attempted to import %d file."
+msgid_plural "Attempted to import %d files."
+msgstr[0] "Fitxategi %d inportatzeko saiakera egin da."
+msgstr[1] "%d fitxategi inportatzeko saiakera egin da."
+
+#: src/Dialogs.vala:541
+#, c-format
+msgid "Of these, %d file was successfully imported."
+msgid_plural "Of these, %d files were successfully imported."
+msgstr[0] "Horietatik, fitxategi %d ongi inportatu da."
+msgstr[1] "Horietatik, %d fitxategi ongi inportatu dira."
+
+#: src/Dialogs.vala:553
+msgid "Duplicate Photos/Videos Not Imported:"
+msgstr "Bikoiztu inportatu ez diren argazkiak/bideoak:"
+
+#: src/Dialogs.vala:557
+msgid "duplicates existing media item"
+msgstr "existitzen diren multimedia-elementuak bikoizten ditu"
+
+#: src/Dialogs.vala:568
+msgid "Photos/Videos Not Imported Due to Camera Errors:"
+msgstr "Kamera-erroreen erruz inportatu ez diren argazkiak/bideoak:"
+
+#: src/Dialogs.vala:571 src/Dialogs.vala:586 src/Dialogs.vala:601
+#: src/Dialogs.vala:617 src/Dialogs.vala:632 src/Dialogs.vala:646
+msgid "error message:"
+msgstr "errore-mezua:"
+
+#: src/Dialogs.vala:582
+msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgstr ""
+"Argazki edo bideo gisa ez ezagutzeagatik inportatu ez diren fitxategiak:"
+
+#: src/Dialogs.vala:597
+msgid ""
+"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Understands:"
+msgstr ""
+"Shotwell-ek ulertzen duen formatu batean ez egoteagatik inportatu ez diren "
+"argazkiak/bideoak:"
+
+#: src/Dialogs.vala:612
+msgid ""
+"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Library:"
+msgstr ""
+"Shotwell-ek bere liburutegira kopiatu ezin izateagatik inportatu ez diren "
+"argazkiak/bideoak:"
+
+#: src/Dialogs.vala:616
+#, c-format
+msgid ""
+"couldn't copy %s\n"
+"\tto %s"
+msgstr ""
+"ezin kopiatu %s\n"
+"\thona: %s"
+
+#: src/Dialogs.vala:628
+msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
+msgstr ""
+
+#: src/Dialogs.vala:643
+msgid "Photos/Videos Not Imported for Other Reasons:"
+msgstr "Beste arrazoi batzuengatik inportatu ez diren argazkiak/bideoak:"
+
+#: src/Dialogs.vala:663
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "Ez da inportatu argazki bikoiztu bat:\n"
+msgstr[1] "Ez dira inportatu %d argazki bikoiztu:\n"
+
+#: src/Dialogs.vala:666
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "Ez da inportatu bideo bikoiztu bat:\n"
+msgstr[1] "Ez da inportatu %d bideo bikoiztu:\n"
+
+#: src/Dialogs.vala:669
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "Ez da inportatu argazki/bideo bikoiztu bat:\n"
+msgstr[1] "Ez dira inportatu %d argazki/bideo bikoiztu:\n"
+
+#: src/Dialogs.vala:683
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Argazki baten inportazioak huts egin du fitxategi- edo hardware-errore baten "
+"erruz:\n"
+msgstr[1] ""
+"%d argazkiren inportazioak huts egin du fitxategi- edo hardware-erroreen "
+"erruz:\n"
+
+#: src/Dialogs.vala:686
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Bideo baten inportazioak huts egin du fitxategi- edo hardware-errore baten "
+"erruz:\n"
+msgstr[1] ""
+"%d bideoren inportazioak huts egin du fitxategi- edo hardware-erroreen "
+"erruz:\n"
+
+#: src/Dialogs.vala:689
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Argazki/bideo baten inportazioak huts egin du fitxategi- edo hardware-errore "
+"baten erruz:\n"
+msgstr[1] ""
+"%d argazkiren/bideoren inportazioak huts egin du fitxategi- edo hardware-"
+"erroreen erruz:\n"
+
+#: src/Dialogs.vala:692
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Ezin izan da fitxategi 1 inportatu fitxategian edo hardwarean errorea egon "
+"delako:\n"
+msgstr[1] ""
+"Ezin izan dira %d fitxategi inportatu fitxategian edo hardwarean errorea "
+"egon delako:\n"
+
+#: src/Dialogs.vala:706
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Argazki baten inportazioak huts egin du argazki-liburutegiaren karpetan "
+"idazteko baimen ezagatik:\n"
+msgstr[1] ""
+"%d argazkiren inportazioak huts egin du argazki-liburutegiaren karpetan "
+"idazteko baimen ezagatik:\n"
+
+#: src/Dialogs.vala:709
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Bideo baten inportazioak huts egin du argazki-liburutegiaren karpetan "
+"idazteko baimen ezagatik:\n"
+msgstr[1] ""
+"%d bideoren inportazioak huts egin du argazki-liburutegiaren karpetan "
+"idazteko baimen ezagatik:\n"
+
+#: src/Dialogs.vala:712
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Argazki/bideo baten inportazioak huts egin du argazki-liburutegiaren "
+"karpetan idazteko baimen ezagatik:\n"
+msgstr[1] ""
+"%d bideo/argazkiren inportazioak huts egin du argazki-liburutegiaren "
+"karpetan idazteko baimen ezagatik:\n"
+
+#: src/Dialogs.vala:715
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Ezin izan da fitxategi 1 inportatu argazki-liburutegiaren karpetan ezin "
+"delako idatzi:\n"
+msgstr[1] ""
+"Ezin izan dira %d fitxategi inportatu argazki-liburutegiaren karpetan ezin "
+"delako idatzi:\n"
+
+#: src/Dialogs.vala:729
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] ""
+"Argazki baten inportazioak huts egin du kamera-errore baten erruz:\n"
+msgstr[1] ""
+"%d argazkiren inportazioak huts egin du kamera-errore baten erruz:\n"
+
+#: src/Dialogs.vala:732
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] "Bideo baten inportazioak huts egin du kamera-errore baten erruz:\n"
+msgstr[1] "%d bideoren inportazioak huts egin du kamera-errore baten erruz:\n"
+
+#: src/Dialogs.vala:735
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] ""
+"Argazki/bideo baten inportazioak huts egin du kamera-errore baten erruz:\n"
+msgstr[1] ""
+"%d argazkiren/bideoren inportazioak huts egin du kamera-errore baten erruz:\n"
+
+#: src/Dialogs.vala:738
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] "Ezin izan da fitxategi 1 inportatu kameran errorea egon delako:\n"
+msgstr[1] ""
+"Ezin izan dira %d fitxategi inportatu kameran errorea egon delako:\n"
+
+#: src/Dialogs.vala:752
+#, c-format
+msgid "1 photo failed to import because it was corrupt:\n"
+msgid_plural "%d photos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:755
+#, c-format
+msgid "1 video failed to import because it was corrupt:\n"
+msgid_plural "%d videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:758
+#, c-format
+msgid "1 photo/video failed to import because it was corrupt:\n"
+msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:761
+#, c-format
+msgid "1 file failed to import because it was corrupt:\n"
+msgid_plural "%d files failed to import because it was corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:778
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "Onartzen ez den argazki bat saltatu da:\n"
+msgstr[1] "Onartzen ez diren %d argazki saltatu dira:\n"
+
+#: src/Dialogs.vala:793
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] "Irudia ez den fitxategi bat saltatu da.\n"
+msgstr[1] "Irudiak ez diren %d fitxategi saltatu dira.\n"
+
+#: src/Dialogs.vala:804
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] "Argazki bat saltatu da erabiltzaileak bertan behera utzi duelako:\n"
+msgstr[1] ""
+"%d argazki saltatu dira erabiltzaileak bertan behera utzi dituelako:\n"
+
+#: src/Dialogs.vala:807
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] "Bideo bat saltatu da erabiltzaileak bertan behera utzi duelako:\n"
+msgstr[1] ""
+"%d bideo saltatu dira erabiltzaileak bertan behera utzi dituelako:\n"
+
+#: src/Dialogs.vala:810
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] ""
+"Argazki/bideo bat saltatu da erabiltzaileak bertan behera utzi duelako:\n"
+msgstr[1] ""
+"%d argazki/bideo saltatu dira erabiltzaileak bertan behera utzi dituelako:\n"
+
+#: src/Dialogs.vala:813
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] ""
+"Fitxategi 1 saltatu da erabiltzaileak ekintza bertan behera utzi duelako:\n"
+msgstr[1] ""
+"%d fitxategi saltatu dira erabiltzaileak ekintza bertan behera utzi "
+"duelako:\n"
+
+#: src/Dialogs.vala:827
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "Argazki bat ongi inportatu da.\n"
+msgstr[1] "%d argazki ongi inportatu dira.\n"
+
+#: src/Dialogs.vala:830
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "Bideo bat ongi inportatu da.\n"
+msgstr[1] "%d bideo ongi inportatu dira.\n"
+
+#: src/Dialogs.vala:833
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "Argazki/bideo bat ongi inportatu da.\n"
+msgstr[1] "%d bideo/argazki ongi inportatu dira.\n"
+
+#: src/Dialogs.vala:849
+msgid "No photos or videos imported.\n"
+msgstr "Ez da ez argazkirik ez bideorik inportatu.\n"
+
+#: src/Dialogs.vala:856 src/Dialogs.vala:875
+msgid "Import Complete"
+msgstr "Inportazioa osatu da"
+
+#: src/Dialogs.vala:1103
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "Segundo %d"
+msgstr[1] "%d segundo"
+
+#: src/Dialogs.vala:1106
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "Minutu %d"
+msgstr[1] "%d minutu"
+
+#: src/Dialogs.vala:1110
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "Ordu %d"
+msgstr[1] "%d ordu"
+
+#: src/Dialogs.vala:1113
+msgid "1 day"
+msgstr "Egun bat"
+
+#: src/Dialogs.vala:1263 src/Resources.vala:205
+msgid "Rename Event"
+msgstr "Berrizendatu gertaera"
+
+#: src/Dialogs.vala:1263
+msgid "Name:"
+msgstr "Izena:"
+
+#: src/Dialogs.vala:1273 src/Resources.vala:274
+msgid "Edit Title"
+msgstr "Editatu izenburua"
+
+#: src/Dialogs.vala:1287 src/Resources.vala:280
+msgid "Edit Event Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1287
+msgid "Edit Photo/Video Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1304
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "Bota fitxategia _zakarrontzira"
+msgstr[1] "Bota fitxategiak _zakarrontzira"
+
+#: src/Dialogs.vala:1308
+msgid "Only _Remove"
+msgstr "_Kendu soilik"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edit?"
+msgstr "Leheneratu kanpoko edizioak?"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edits?"
+msgstr "Leheneratu kanpo-edizioak?"
+
+#: src/Dialogs.vala:1353
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] ""
+"Honek kanpoko fitxategian egindako aldaketa guztiak suntsituko ditu.  "
+"Jarraitu?"
+msgstr[1] ""
+"Honek %d kanpoko fitxategitan egindako aldaketa guztiak suntsituko ditu.  "
+"Jarraitu?"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edit"
+msgstr "_Leheneratu kanpoko edizioa"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edits"
+msgstr "_Leheneratu kanpoko edizioak"
+
+#: src/Dialogs.vala:1378
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "Argazkia liburutegitik kenduko da.  Jarraitu?"
+msgstr[1] "%d argazki liburutegitik kenduko dira.  Jarraitu?"
+
+#: src/Dialogs.vala:1385
+msgid "_Remove"
+msgstr "_Kendu"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photo From Library"
+msgstr "Kendu argazkia liburutegitik"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photos From Library"
+msgstr "Kendu argazkiak liburutegitik"
+
+#: src/Dialogs.vala:1479
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/Dialogs.vala:1626
+msgid "AM"
+msgstr "AM"
+
+#: src/Dialogs.vala:1627
+msgid "PM"
+msgstr "PM"
+
+#: src/Dialogs.vala:1628
+msgid "24 Hr"
+msgstr "24 or."
+
+#: src/Dialogs.vala:1643
+msgid "_Shift photos/videos by the same amount"
+msgstr "De_splazatu argazkiak/bideoak maila berean"
+
+#: src/Dialogs.vala:1648
+msgid "Set _all photos/videos to this time"
+msgstr "Ezarri argazki/bideo guztiei _data hau"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo file"
+msgstr "Al_datu jatorrizko argazki-fitxategia"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo files"
+msgstr "Al_datau jatorrizko argazki-fitxategiak"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original file"
+msgstr "_Aldatu jatorrizko fitxategia"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original files"
+msgstr "_Aldatu jatorrizko fitxategiak"
+
+#: src/Dialogs.vala:1744
+msgid "Original: "
+msgstr "Jatorrizkoa: "
+
+#: src/Dialogs.vala:1745
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%Y/%m/%d, %H:%M:%S"
+
+#: src/Dialogs.vala:1746
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%Y/%m/%d, %I:%M:%S %p"
+
+#: src/Dialogs.vala:1835
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Esposizio-data aurrera mugituko da\n"
+"%d %s, %d %s, %d %s, eta %d %s."
+
+#: src/Dialogs.vala:1836
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Esposizio-data atzera mugituko da\n"
+"%d %s, %d %s, %d %s, eta %d %s."
+
+#: src/Dialogs.vala:1838
+msgid "day"
+msgid_plural "days"
+msgstr[0] "egun"
+msgstr[1] "egun"
+
+#: src/Dialogs.vala:1839
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "ordu"
+msgstr[1] "ordu"
+
+#: src/Dialogs.vala:1840
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minutu"
+msgstr[1] "minutu"
+
+#: src/Dialogs.vala:1841
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "segundo"
+msgstr[1] "segundo"
+
+#: src/Dialogs.vala:1885
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"Eta beste %d."
+msgstr[1] ""
+"\n"
+"\n"
+"Eta beste %d."
+
+#: src/Dialogs.vala:1907 src/Dialogs.vala:1934
+msgid "Tags (separated by commas):"
+msgstr "Etiketak (koma bidez banandurik):"
+
+#: src/Dialogs.vala:2014
+msgid "Welcome!"
+msgstr "Ongi etorri!"
+
+#: src/Dialogs.vala:2021
+#, c-format
+msgid "Welcome to Shotwell!"
+msgstr "Ongi etorri Shotwell-era!"
+
+#: src/Dialogs.vala:2025
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr "Hasteko, inportatu argazkiak honela:"
+
+#: src/Dialogs.vala:2044
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr ""
+"Hautatu <span weight=\"bold\">Fitxategia %s Inportatu karpetatik</span>"
+
+#: src/Dialogs.vala:2045
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "Arrastatu eta jaregin argazkiak Shotwell-en leihoan"
+
+#: src/Dialogs.vala:2046
+msgid "Connect a camera to your computer and import"
+msgstr "Konektatu kamera bat zure ordenagailura eta inportatu"
+
+#: src/Dialogs.vala:2056
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "_Inportatu argazkiak zure %s karpetatik"
+
+#: src/Dialogs.vala:2063
+msgid "You can also import photos in any of these ways:"
+msgstr "Beste modu hauek ere erabil ditzakezu argazkiak inportatzeko:"
+
+#: src/Dialogs.vala:2073
+msgid "_Don't show this message again"
+msgstr "_Ez erakutsi mezu hau berriro"
+
+#: src/Dialogs.vala:2108
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "Inportatu argazkiak zure %s liburutegitik"
+
+#: src/Dialogs.vala:2252 src/Dialogs.vala:2256
+msgid "(Help)"
+msgstr "(Laguntza)"
+
+#: src/Dialogs.vala:2265
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "Urtea%sHila%sEguna"
+
+#: src/Dialogs.vala:2267
+#, c-format
+msgid "Year%sMonth"
+msgstr "Urtea%sHila"
+
+#: src/Dialogs.vala:2269
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "Urtea%sHila-Eguna"
+
+#: src/Dialogs.vala:2271
+msgid "Year-Month-Day"
+msgstr "Urtea-Hila-Eguna"
+
+#: src/Dialogs.vala:2272 src/editing_tools/EditingTools.vala:777
+msgid "Custom"
+msgstr "Pertsonalizatua"
+
+#: src/Dialogs.vala:2509
+msgid "Invalid pattern"
+msgstr "Baliogabeko eredua"
+
+#: src/Dialogs.vala:2612
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr ""
+"Shotwell-ek argazkiak zure liburutegi-karpetan kopia ditzake edo haiek "
+"kopiatu gabe inporta ditzake."
+
+#: src/Dialogs.vala:2617
+msgid "Co_py Photos"
+msgstr "Ko_piatu argazkiak"
+
+#: src/Dialogs.vala:2618
+msgid "_Import in Place"
+msgstr "_Inportatu tokian"
+
+#: src/Dialogs.vala:2619
+msgid "Import to Library"
+msgstr "Inportatu liburutegira"
+
+#: src/Dialogs.vala:2629 src/PhotoPage.vala:3075
+msgid "Remove From Library"
+msgstr "Kendu liburutegitik"
+
+#: src/Dialogs.vala:2630 src/PhotoPage.vala:3075
+msgid "Removing Photo From Library"
+msgstr "Argazkia liburutegitik kentzen"
+
+#: src/Dialogs.vala:2630
+msgid "Removing Photos From Library"
+msgstr "Argazkiak liburutegitik kentzen"
+
+#: src/Dialogs.vala:2644
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also "
+"like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you "
+"also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Honek argazkia/bideoa kenduko du zure Shotwell liburutegitik  Fitxategia "
+"zure mahaigaineko zakarrontzira ere mugitu nahi duzu?\n"
+"\n"
+"Ekintza hau ezin da desegin."
+msgstr[1] ""
+"%d argazki/bideo zure Shotwell liburutegitik kenduko dira.  Fitxategiak zure "
+"mahaigaineko zakarrontzira ere mugitu nahi dituzu?\n"
+"\n"
+"Ekintza hau ezin da desegin."
+
+#: src/Dialogs.vala:2648
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Honek bideoa kenduko du zure Shotwell liburutegitik  Fitxategia zure "
+"mahaigaineko zakarrontzira ere mugitu nahi duzu?\n"
+"\n"
+"Ekintza hau ezin da desegin."
+msgstr[1] ""
+"%d bideo zure Shotwell liburutegitik kenduko dira.  Fitxategiak zure "
+"mahaigaineko zakarrontzira ere mugitu nahi dituzu?\n"
+"\n"
+"Ekintza hau ezin da desegin."
+
+#: src/Dialogs.vala:2652
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Argazkia zure Shotwell liburutegitik kenduko da.  Fitxategia zure "
+"mahaigaineko zakarrontzira ere mugitu nahi duzu?\n"
+"\n"
+"Ekintza hau ezin da desegin."
+msgstr[1] ""
+"%d argazki zure Shotwell liburutegitik kenduko dira.  Fitxategiak zure "
+"mahaigaineko zakarrontzira ere mugitu nahi dituzu?\n"
+"\n"
+"Ekintza hau ezin da desegin."
+
+#: src/Dialogs.vala:2684
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] ""
+"Argazkia edo bideoa ezin da mugitu zure mahaigainaren zakarrontzira.  "
+"Fitxategi hau ezabatu nahi duzu?"
+msgstr[1] ""
+"%d argazki/bideo ezin dira mugitu zure mahaigainaren zakarrontzira.  "
+"Fitxategi hauek ezabatu nahi dituzu?"
+
+#: src/Dialogs.vala:2701
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "Argazkia edo bideoa ezin da ezabatu."
+msgstr[1] "%d bideo/argazki ezin dira ezabatu."
+
+#: src/folders/Branch.vala:141
+msgid "Folders"
+msgstr "Karpetak"
+
+#: src/tags/Branch.vala:127
+msgid "Tags"
+msgstr "Etiketak"
+
+#: src/BatchImport.vala:26
+msgid "Success"
+msgstr "Arrakasta"
+
+#: src/BatchImport.vala:29
+msgid "File error"
+msgstr "Fitxategi-errorea"
+
+#: src/BatchImport.vala:32
+msgid "Unable to decode file"
+msgstr "Ezin izan da fitxategia deskodetu"
+
+#: src/BatchImport.vala:35
+msgid "Database error"
+msgstr "Datu-basearen errorea"
+
+#: src/BatchImport.vala:38
+msgid "User aborted import"
+msgstr "Erabiltzaileak bertan behera utzitako inportazioa"
+
+#: src/BatchImport.vala:41
+msgid "Not a file"
+msgstr "Ez da fitxategi bat"
+
+#: src/BatchImport.vala:44
+msgid "File already exists in database"
+msgstr "Fitxategia jadanik existitzen da datu-basean"
+
+#: src/BatchImport.vala:47
+msgid "Unsupported file format"
+msgstr "Fitxategi-formatua ez da onartzen"
+
+#: src/BatchImport.vala:50
+msgid "Not an image file"
+msgstr "Ez da irudi-fitxategia"
+
+#: src/BatchImport.vala:53
+msgid "Disk failure"
+msgstr "Disko-hutsegitea"
+
+#: src/BatchImport.vala:56
+msgid "Disk full"
+msgstr "Diskoa beterik dago"
+
+#: src/BatchImport.vala:59
+msgid "Camera error"
+msgstr "Kamera-errorea"
+
+#: src/BatchImport.vala:62
+msgid "File write error"
+msgstr "Errorea fitxategia idaztean"
+
+#: src/BatchImport.vala:65
+msgid "Corrupt image file"
+msgstr ""
+
+#: src/BatchImport.vala:68
+#, c-format
+msgid "Imported failed (%d)"
+msgstr "Inportazioak huts egin du (%d)"
+
+#: src/Photo.vala:3656
+msgid "modified"
+msgstr "aldatua"
+
+#: src/PhotoPage.vala:532
+msgid "Previous photo"
+msgstr "Aurreko argazkia"
+
+#: src/PhotoPage.vala:537
+msgid "Next photo"
+msgstr "Hurrengo argazkia"
+
+#: src/PhotoPage.vala:1844
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "Argazkiaren jatorrizko fitxategia falta da: %s"
+
+#: src/PhotoPage.vala:2404 src/library/LibraryWindow.vala:360
+#: src/direct/DirectPhotoPage.vala:165
+msgid "_View"
+msgstr "_Ikusi"
+
+#: src/PhotoPage.vala:2408 src/direct/DirectPhotoPage.vala:81
+msgid "T_ools"
+msgstr "T_resnak"
+
+#: src/PhotoPage.vala:2413 src/direct/DirectPhotoPage.vala:86
+msgid "_Previous Photo"
+msgstr "Au_rreko argazkia"
+
+#: src/PhotoPage.vala:2414 src/direct/DirectPhotoPage.vala:87
+msgid "Previous Photo"
+msgstr "Aurreko argazkia"
+
+#: src/PhotoPage.vala:2419 src/direct/DirectPhotoPage.vala:92
+msgid "_Next Photo"
+msgstr "_Hurrengo argazkia"
+
+#: src/PhotoPage.vala:2420 src/direct/DirectPhotoPage.vala:93
+msgid "Next Photo"
+msgstr "Hurrengo argazkia"
+
+#: src/PhotoPage.vala:2583 src/direct/DirectPhotoPage.vala:174
+#: src/MediaPage.vala:325
+msgid "Zoom _In"
+msgstr "_Handiagotu"
+
+#: src/PhotoPage.vala:2584 src/direct/DirectPhotoPage.vala:175
+msgid "Increase the magnification of the photo"
+msgstr "Handiagotu argazkiaren bistaratze-tamaina"
+
+#: src/PhotoPage.vala:2589 src/direct/DirectPhotoPage.vala:180
+#: src/MediaPage.vala:331
+msgid "Zoom _Out"
+msgstr "_Txikiagotu"
+
+#: src/PhotoPage.vala:2590 src/direct/DirectPhotoPage.vala:181
+msgid "Decrease the magnification of the photo"
+msgstr "Txikiagotu argazkiaren bistaratze-tamaina"
+
+#: src/PhotoPage.vala:2595 src/direct/DirectPhotoPage.vala:186
+msgid "Fit to _Page"
+msgstr "Doitu _orrialdera"
+
+#: src/PhotoPage.vala:2596 src/direct/DirectPhotoPage.vala:187
+msgid "Zoom the photo to fit on the screen"
+msgstr "Doitu argazkia pantailara"
+
+#: src/PhotoPage.vala:2601 src/direct/DirectPhotoPage.vala:192
+msgid "Zoom _100%"
+msgstr "Zoom %_100"
+
+#: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
+#, fuzzy, c-format
+msgid "Zoom the photo to 100% magnification"
+msgstr "Jarri argazkiaren zoom-a %100ean"
+
+#: src/PhotoPage.vala:2607 src/direct/DirectPhotoPage.vala:198
+msgid "Zoom _200%"
+msgstr "Zoom _%200"
+
+#: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
+#, fuzzy, c-format
+msgid "Zoom the photo to 200% magnification"
+msgstr "Jarri zrgazkiaren zoom-a %200ean"
+
+#: src/PhotoPage.vala:2628 src/MediaPage.vala:413
+msgid "_Developer"
+msgstr "_Garatzailea"
+
+#: src/PhotoPage.vala:3216
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "Ezin izan da %s esportatu: %s"
+
+#: src/data_imports/DataImportsPluginHost.vala:65
+#: src/data_imports/DataImportsPluginHost.vala:78
+#, c-format
+msgid "%s Database"
+msgstr "%s datu-basea"
+
+#: src/data_imports/DataImportsPluginHost.vala:148
+#: src/data_imports/DataImportsPluginHost.vala:294
+#, c-format
+msgid "Importing from %s can't continue because an error occurred:"
+msgstr ""
+"%s zerbitzutik egin nahi izan den inportazioak ezin du jarraitu errore bat "
+"gertatu delako:"
+
+#: src/data_imports/DataImportsPluginHost.vala:151
+msgid "To try importing from another service, select one from the above menu."
+msgstr ""
+"Beste zerbitzu batetik inportatzen saiatzeko, hautatu bat goiko menutik."
+
+#: src/data_imports/DataImports.vala:22
+msgid "Data Imports"
+msgstr "Datu-inportazioak"
+
+#: src/data_imports/DataImportsUI.vala:10
+msgid ""
+"You do not have any data imports plugins enabled.\n"
+"\n"
+"In order to use the Import From Application functionality, you need to have "
+"at least one data imports plugin enabled. Plugins can be enabled in the "
+"Preferences dialog."
+msgstr ""
+"Ez daukazu datuak inportatzeko pluginik gaituta.\n"
+"\n"
+"\"Inportatu aplikaziotik\" funtzionaltasuna erabiltzeko, datuak inportatzeko "
+"plugin bat gutxienez eduki behar duzu gaituta. Pluginak hobespenen leihoan "
+"gai daitezke."
+
+#: src/data_imports/DataImportsUI.vala:100
+msgid "Database file:"
+msgstr "Datu-basearen fitxategia:"
+
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:899
+msgid "_Import"
+msgstr "_Inportatu"
+
+#: src/data_imports/DataImportsUI.vala:216
+msgid "Import From Application"
+msgstr "Inportatu aplikaziotik"
+
+#: src/data_imports/DataImportsUI.vala:217
+msgid "Import media _from:"
+msgstr "Inportatu multimedia _hemendik:"
+
+#: src/data_imports/DataImportsUI.vala:394
+#: src/publishing/PublishingUI.vala:493
+msgid "_Close"
+msgstr "_Itxi"
+
+#: src/SlideshowPage.vala:49 src/SlideshowPage.vala:182
+msgid "Settings"
+msgstr "Ezarpenak"
+
+#: src/SlideshowPage.vala:141 src/Screensaver.vala:18
+msgid "Slideshow"
+msgstr "Diapositiba_aurkezpena"
+
+#: src/SlideshowPage.vala:161
+msgid "Back"
+msgstr "Aurrekoa"
+
+#: src/SlideshowPage.vala:162
+msgid "Go to the previous photo"
+msgstr "Joan aurreko argazkira"
+
+#: src/SlideshowPage.vala:168 src/SlideshowPage.vala:273
+msgid "Pause"
+msgstr "Pausa"
+
+#: src/SlideshowPage.vala:169 src/SlideshowPage.vala:274
+msgid "Pause the slideshow"
+msgstr "Pausatu diapositiba-aurkezpena"
+
+#: src/SlideshowPage.vala:175
+msgid "Next"
+msgstr "Hurrengoa"
+
+#: src/SlideshowPage.vala:176
+msgid "Go to the next photo"
+msgstr "Joan hurrengo argazkira"
+
+#: src/SlideshowPage.vala:183
+msgid "Change slideshow settings"
+msgstr "Aldatu aurkezpenaren ezarpenak"
+
+#: src/SlideshowPage.vala:237
+msgid "All photo source files are missing."
+msgstr "Argazkien jatorri-fitxategi guztiak galdu dira."
+
+#: src/SlideshowPage.vala:269
+msgid "Play"
+msgstr "Erreproduzitu"
+
+#: src/SlideshowPage.vala:270
+msgid "Continue the slideshow"
+msgstr "Jarraitu diapositiba-aurkezpena"
+
+#: src/Commands.vala:733
+msgid "Reverting"
+msgstr "Leheneratzen"
+
+#: src/Commands.vala:733
+msgid "Undoing Revert"
+msgstr "Leheneratzea desegiten"
+
+#: src/Commands.vala:777
+msgid "Enhancing"
+msgstr "Hobetzen"
+
+#: src/Commands.vala:777
+msgid "Undoing Enhance"
+msgstr "Hobetzea desegiten"
+
+#: src/Commands.vala:845
+msgid "Applying Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:845
+msgid "Undoing Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:995
+msgid "Creating New Event"
+msgstr "Gertaera berria sortzen"
+
+#: src/Commands.vala:996
+msgid "Removing Event"
+msgstr "Gertaera kentzen"
+
+#: src/Commands.vala:1005
+msgid "Moving Photos to New Event"
+msgstr "Argazkiak gertaera berrira mugitzen"
+
+#: src/Commands.vala:1006
+msgid "Setting Photos to Previous Event"
+msgstr "Argazkiak aurreko gertaeran ezartzen"
+
+#: src/Commands.vala:1063
+msgid "Merging"
+msgstr "Batzen"
+
+#: src/Commands.vala:1064
+msgid "Unmerging"
+msgstr "Banatzen"
+
+#: src/Commands.vala:1073
+msgid "Duplicating photos"
+msgstr "Argazkiak bikoizten"
+
+#: src/Commands.vala:1073
+msgid "Removing duplicated photos"
+msgstr "Argazki bikoiztuak kentzen"
+
+#: src/Commands.vala:1096
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "Ezin izan da argazki bat bikoiztu fitxategi-errore baten erruz"
+msgstr[1] "Ezin izan dira %d argazki bikoiztu fitxategi-erroreen erruz"
+
+#: src/Commands.vala:1183
+msgid "Restoring previous rating"
+msgstr "Aurreko balorazioa berrezartzen"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Increasing ratings"
+msgstr "Balorazioak handitzen"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Decreasing ratings"
+msgstr "Balorazioak txikitzen"
+
+#: src/Commands.vala:1244
+msgid "Setting RAW developer"
+msgstr "RAW garatzailea ezartzen"
+
+#: src/Commands.vala:1244
+msgid "Restoring previous RAW developer"
+msgstr "Aurreko RAW garatzailea berrezartzen"
+
+#: src/Commands.vala:1245
+msgid "Set Developer"
+msgstr "Ezarri garatzailea"
+
+#: src/Commands.vala:1335
+msgid "Original photo could not be adjusted."
+msgstr "Jatorrizko argazkia ezin izan da doitu."
+
+#: src/Commands.vala:1356
+msgid "Adjusting Date and Time"
+msgstr "Data eta ordua doitzen"
+
+#: src/Commands.vala:1356
+msgid "Undoing Date and Time Adjustment"
+msgstr "Dataren eta orduaren doitzea desegiten"
+
+#: src/Commands.vala:1387
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "Jatorrizko argazki bat ezin izan da doitu."
+msgstr[1] "Hurrengo jatorrizko argazkiak ezin izan dira doitu."
+
+#: src/Commands.vala:1389 src/Commands.vala:1413
+msgid "Time Adjustment Error"
+msgstr "Errorea ordua doitzean"
+
+#: src/Commands.vala:1411
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] "Ordu-doiketak ezin dira desegin hurrengo argazki-fitxategian."
+msgstr[1] "Ordu-doiketak ezin dira desegin hurrengo argazki-fitxategietan."
+
+#: src/Commands.vala:1625 src/Commands.vala:1648
+msgid "Create Tag"
+msgstr "Sortu etiketa"
+
+#: src/Commands.vala:1683
+#, c-format
+msgid "Move Tag \"%s\""
+msgstr "Mugitu \"%s\" etiketa"
+
+#: src/Commands.vala:2335
+msgid "Move Photos to Trash"
+msgstr "Mugitu argazkiak zakarrontzira"
+
+#: src/Commands.vala:2335
+msgid "Restore Photos from Trash"
+msgstr "Leheneratu argazkiak zakarrontzitik"
+
+#: src/Commands.vala:2336
+msgid "Move the photos to the Shotwell trash"
+msgstr "Mugitu argazkiak Shotwell-en zakarrontzira"
+
+#: src/Commands.vala:2336
+msgid "Restore the photos back to the Shotwell library"
+msgstr "Leheneratu argazkiak Shotwell-en liburutegira"
+
+#: src/Commands.vala:2355
+msgid "Moving Photos to Trash"
+msgstr "Argazkiak zakarrontzira mugitzen"
+
+#: src/Commands.vala:2355
+msgid "Restoring Photos From Trash"
+msgstr "Zakarrontziko argazkiak leheneratzen"
+
+#: src/Commands.vala:2441
+msgid "Flag selected photos"
+msgstr "Jarri bandera argazki hautatuei"
+
+#: src/Commands.vala:2442
+msgid "Unflag selected photos"
+msgstr "Kendu argazki hautatuen bandera"
+
+#: src/Commands.vala:2443
+msgid "Flagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2444
+msgid "Unflagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2451
+msgid "Flag"
+msgstr "Jarri bandera"
+
+#: src/Commands.vala:2451
+msgid "Unflag"
+msgstr "Kendu bandera"
+
+#: src/photos/RawSupport.vala:134
+msgid "RAW"
+msgstr "RAW"
+
+#: src/photos/RawSupport.vala:297 src/MediaPage.vala:420
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: src/photos/BmpSupport.vala:32
+msgid "BMP"
+msgstr "BMP"
+
+#: src/photos/JfifSupport.vala:84
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/photos/JfifSupport.vala:182
+#, c-format
+msgid "Low (%d%%)"
+msgstr "Baxua (%d%%)"
+
+#: src/photos/JfifSupport.vala:185
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "Ertaina (%d%%)"
+
+#: src/photos/JfifSupport.vala:188
+#, c-format
+msgid "High (%d%%)"
+msgstr "Altua (%d%%)"
+
+#: src/photos/JfifSupport.vala:191
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "Maximoa (%d%%)"
+
+#: src/photos/PngSupport.vala:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/photos/TiffSupport.vala:86
+msgid "TIFF"
+msgstr "TIFF"
+
+#: src/Page.vala:1268
+msgid "No photos/videos"
+msgstr "Argazkirik/bideorik ez"
+
+#: src/Page.vala:1272
+msgid "No photos/videos found"
+msgstr "Ez da argazkirik/bideorik aurkitu"
+
+#: src/Page.vala:2569
+msgid "Photos cannot be exported to this directory."
+msgstr "Argazkiak ezin dira direktorio honetara esportatu."
+
+#: src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "Ezin izan dira prozesatu eguneratze-monitorizazioak: %s"
+
+#: src/Printing.vala:255
+msgid "Fill the entire page"
+msgstr "Bete orri osoa"
+
+#: src/Printing.vala:256
+msgid "2 images per page"
+msgstr "2 irudi orriko"
+
+#: src/Printing.vala:257
+msgid "4 images per page"
+msgstr "4 irudi orriko"
+
+#: src/Printing.vala:258
+msgid "6 images per page"
+msgstr "6 irudi orriko"
+
+#: src/Printing.vala:259
+msgid "8 images per page"
+msgstr "8 irudi orriko"
+
+#: src/Printing.vala:260
+msgid "16 images per page"
+msgstr "16 irudi orriko"
+
+#: src/Printing.vala:261
+msgid "32 images per page"
+msgstr "32 irudi orriko"
+
+#: src/Printing.vala:348
+msgid "in."
+msgstr "hazbete"
+
+#: src/Printing.vala:349
+msgid "cm"
+msgstr "cm"
+
+#: src/Printing.vala:817 src/editing_tools/EditingTools.vala:757
+msgid "Wallet (2 x 3 in.)"
+msgstr "Zorroa (2 x 3 hazbete)"
+
+#: src/Printing.vala:820 src/editing_tools/EditingTools.vala:758
+msgid "Notecard (3 x 5 in.)"
+msgstr "Txartela (3 x 5 hazbete)"
+
+#: src/Printing.vala:823 src/editing_tools/EditingTools.vala:759
+msgid "4 x 6 in."
+msgstr "4 x 6 hazbete"
+
+#: src/Printing.vala:826 src/editing_tools/EditingTools.vala:760
+msgid "5 x 7 in."
+msgstr "5 x 7 hazbete"
+
+#: src/Printing.vala:829 src/editing_tools/EditingTools.vala:761
+msgid "8 x 10 in."
+msgstr "8 x 10 hazbete"
+
+#: src/Printing.vala:832 src/editing_tools/EditingTools.vala:763
+msgid "11 x 14 in."
+msgstr "11 x 14 hazbete"
+
+#: src/Printing.vala:835 src/editing_tools/EditingTools.vala:765
+msgid "16 x 20 in."
+msgstr "16 x 20 hazbete"
+
+#: src/Printing.vala:841 src/editing_tools/EditingTools.vala:767
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr "Zorro metrikoa (9 x 13 cm)"
+
+#: src/Printing.vala:844 src/editing_tools/EditingTools.vala:768
+msgid "Postcard (10 x 15 cm)"
+msgstr "Postala (10 x 15 cm)"
+
+#: src/Printing.vala:847 src/editing_tools/EditingTools.vala:769
+msgid "13 x 18 cm"
+msgstr "13 x 18 cm"
+
+#: src/Printing.vala:850 src/editing_tools/EditingTools.vala:770
+msgid "18 x 24 cm"
+msgstr "18 x 24 cm"
+
+#: src/Printing.vala:853 src/editing_tools/EditingTools.vala:772
+msgid "20 x 30 cm"
+msgstr "20 x 30 cm"
+
+#: src/Printing.vala:856 src/editing_tools/EditingTools.vala:773
+msgid "24 x 40 cm"
+msgstr "24 x 40 cm"
+
+#: src/Printing.vala:859 src/editing_tools/EditingTools.vala:774
+msgid "30 x 40 cm"
+msgstr "30 x 40 cm"
+
+#: src/Printing.vala:875
+msgid "Image Settings"
+msgstr "Irudiaren ezarpenak"
+
+#: src/Printing.vala:888
+msgid "Printing..."
+msgstr "Inprimatzen..."
+
+#: src/Printing.vala:908 src/Printing.vala:1111
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"Ezin izan da argazkia inprimatu:\n"
+"\n"
+"%s"
+
+#: src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "Ezin izan da argazkien %s datu-basea ireki/sortu: %d errore-kodea"
+
+#: src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr ""
+"Ezin izan da idatzi argazkiaren datu-basearen fitxategian:\n"
+" %s"
+
+#: src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr ""
+"Errorea datu-basearen fitxategia atzitzean:\n"
+" %s\n"
+"\n"
+"Errorea hau da: \n"
+"%s"
+
+#: src/VideoSupport.vala:464
+msgid "Export Videos"
+msgstr "Esportatu bideoak"
+
+#: src/DesktopIntegration.vala:118
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "Ezin izan da Nautilus-en \"Bidali hona\" abiarazi: %s"
+
+#: src/DesktopIntegration.vala:126
+msgid "Send To"
+msgstr "Bidali hona:"
+
+#: src/DesktopIntegration.vala:171
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "Ezin izan da atzeko planoa esportatu %s-(e)ra: %s"
+
+#: src/DesktopIntegration.vala:299
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "Ezin da mahaigaineko diapositiba-aurkezpena prestatu: %s"
+
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:587
+#: src/SearchFilter.vala:588 src/SearchFilter.vala:990
+msgid "Flagged"
+msgstr "Bandera jarria"
+
+#: src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "Zakarrontzia"
+
+#: src/library/TrashPage.vala:108
+msgid "Trash is empty"
+msgstr "Zakarrontzia hutxik dago"
+
+#: src/library/TrashPage.vala:112
+msgid "Delete"
+msgstr "Ezabatu"
+
+#: src/library/TrashPage.vala:113
+msgid "Deleting Photos"
+msgstr "Argazkiak ezabatzen"
+
+#: src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "Falta diren fitxategiak"
+
+#: src/library/OfflinePage.vala:106
+msgid "Deleting..."
+msgstr "Ezabatzen..."
+
+#: src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "Azken inportazioa"
+
+#: src/library/LibraryWindow.vala:301
+msgid "_Import From Folder..."
+msgstr "Inportatu _karpetatik..."
+
+#: src/library/LibraryWindow.vala:302
+msgid "Import photos from disk to library"
+msgstr "Inportatu argazkiak diskotik liburutegira"
+
+#: src/library/LibraryWindow.vala:309
+msgid "Import From _Application..."
+msgstr "Inportatu _aplikaziotik..."
+
+#: src/library/LibraryWindow.vala:313
+msgid "Sort _Events"
+msgstr "Ordenatu _gertaerak"
+
+#: src/library/LibraryWindow.vala:323
+msgid "Empty T_rash"
+msgstr "Hustu _zakarrontzia"
+
+#: src/library/LibraryWindow.vala:324
+msgid "Delete all photos in the trash"
+msgstr "Ezabatu zakarrontziko argazki guztiak"
+
+#: src/library/LibraryWindow.vala:329
+msgid "View Eve_nt for Photo"
+msgstr "I_kusi gertaera argazkirako"
+
+#: src/library/LibraryWindow.vala:334
+msgid "_Find"
+msgstr "A_urkitu"
+
+#: src/library/LibraryWindow.vala:335
+msgid "Find photos and videos by search criteria"
+msgstr "Aurkitu argazkiak eta bideoak bilaketa-irizpideen arabera"
+
+#: src/library/LibraryWindow.vala:352 src/direct/DirectPhotoPage.vala:46
+msgid "_File"
+msgstr "_Fitxategia"
+
+#: src/library/LibraryWindow.vala:356 src/direct/DirectPhotoPage.vala:73
+msgid "_Edit"
+msgstr "_Editatu"
+
+#: src/library/LibraryWindow.vala:364 src/direct/DirectPhotoPage.vala:77
+msgid "_Photo"
+msgstr "_Argazkia"
+
+#: src/library/LibraryWindow.vala:368
+msgid "_Photos"
+msgstr "_Argazkiak"
+
+#: src/library/LibraryWindow.vala:372
+msgid "Even_ts"
+msgstr "Ger_taerak"
+
+#: src/library/LibraryWindow.vala:376 src/MediaPage.vala:454
+msgid "Ta_gs"
+msgstr "_Etiketak"
+
+#: src/library/LibraryWindow.vala:380 src/direct/DirectPhotoPage.vala:169
+msgid "_Help"
+msgstr "_Laguntza"
+
+#: src/library/LibraryWindow.vala:391
+msgid "_Basic Information"
+msgstr "_Oinarrizko informazioa"
+
+#: src/library/LibraryWindow.vala:392
+msgid "Display basic information for the selection"
+msgstr "Erakutsi hautapenaren oinarrizko informazioa"
+
+#: src/library/LibraryWindow.vala:397
+msgid "E_xtended Information"
+msgstr "Informazio _gehigarria"
+
+#: src/library/LibraryWindow.vala:398
+msgid "Display extended information for the selection"
+msgstr "Erakutsi hautapenaren informazio gehigarria"
+
+#: src/library/LibraryWindow.vala:403
+msgid "_Search Bar"
+msgstr "_Bilaketa-barra"
+
+#: src/library/LibraryWindow.vala:404
+msgid "Display the search bar"
+msgstr "Erakutsi bilaketa-barra"
+
+#: src/library/LibraryWindow.vala:409
+msgid "S_idebar"
+msgstr "_Alboko barra"
+
+#: src/library/LibraryWindow.vala:410
+msgid "Display the sidebar"
+msgstr "Erakutsi alboko barra"
+
+#: src/library/LibraryWindow.vala:422 src/MediaPage.vala:494
+msgid "_Ascending"
+msgstr "_Gorantz"
+
+#: src/library/LibraryWindow.vala:423 src/MediaPage.vala:495
+msgid "Sort photos in an ascending order"
+msgstr "Ordenatu argazkiak goranzko ordenan"
+
+#: src/library/LibraryWindow.vala:429 src/MediaPage.vala:500
+msgid "D_escending"
+msgstr "_Beherantz"
+
+#: src/library/LibraryWindow.vala:430 src/MediaPage.vala:501
+msgid "Sort photos in a descending order"
+msgstr "Ordenatu argazkiak beheranzko ordenan"
+
+#: src/library/LibraryWindow.vala:668
+msgid "Import From Folder"
+msgstr "Inportatu karpetatik"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Empty Trash"
+msgstr "Hustu zakarrontzia"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Emptying Trash..."
+msgstr "Zakarrontzia husten..."
+
+#: src/library/LibraryWindow.vala:896
+msgid "Shotwell is configured to import photos to your home directory.\n"
+msgstr ""
+"Shotwell zure direktorio nagusiko argazkiak inportatzeko konfiguratuta "
+"dago.\n"
+
+#: src/library/LibraryWindow.vala:899
+msgid "Library Location"
+msgstr "Liburutegiaren kokapena"
+
+#: src/library/LibraryWindow.vala:912
+msgid "Photos cannot be imported from this directory."
+msgstr "Direktorio honetatik ezin dira argazkiak inportatu"
+
+#: src/library/LibraryWindow.vala:1200
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/library/LibraryWindow.vala:1244 src/library/LibraryWindow.vala:1255
+msgid "Updating library..."
+msgstr "Liburutegia eguneratzen..."
+
+#: src/library/LibraryWindow.vala:1261
+msgid "Preparing to auto-import photos..."
+msgstr "Argazkiak automatikoki inportatzeko prestatzen..."
+
+#: src/library/LibraryWindow.vala:1266
+msgid "Auto-importing photos..."
+msgstr "Argazkiak automatikoki inportatzen..."
+
+#: src/library/LibraryWindow.vala:1274
+msgid "Writing metadata to files..."
+msgstr "Metadatuak fitxategietan idazten..."
+
+#: src/library/Branch.vala:37
+msgid "Library"
+msgstr "Liburutegia"
+
+#: src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "Inportatzen..."
+
+#: src/library/ImportQueuePage.vala:66
+msgid "_Stop Import"
+msgstr "_Gelditu inportazioa"
+
+#: src/library/ImportQueuePage.vala:67
+msgid "Stop importing photos"
+msgstr "Gelditu argazkien inportazioa"
+
+#: src/library/ImportQueuePage.vala:123
+msgid "Preparing to import..."
+msgstr "Inportatzeko prestatzen..."
+
+#: src/library/ImportQueuePage.vala:150
+#, c-format
+msgid "Imported %s"
+msgstr "%s inportatua"
+
+#: src/direct/DirectPhotoPage.vala:51 src/direct/DirectPhotoPage.vala:413
+msgid "_Save"
+msgstr "_Gorde"
+
+#: src/direct/DirectPhotoPage.vala:52
+msgid "Save photo"
+msgstr "Gorde argazkia"
+
+#: src/direct/DirectPhotoPage.vala:57
+msgid "Save _As..."
+msgstr "Gorde _honela..."
+
+#: src/direct/DirectPhotoPage.vala:58
+msgid "Save photo with a different name"
+msgstr "Gorde argazkia beste izen batekin"
+
+#: src/direct/DirectPhotoPage.vala:69
+msgid "Print the photo to a printer connected to your computer"
+msgstr ""
+"Inprimatu argazkia zure ordenagailuari konektatutako inprimagailu batean"
+
+#: src/direct/DirectPhotoPage.vala:223
+#, c-format
+msgid "%s does not exist."
+msgstr "%s ez da existitzen."
+
+#: src/direct/DirectPhotoPage.vala:225
+#, c-format
+msgid "%s is not a file."
+msgstr "%s ez da fitxategia."
+
+#: src/direct/DirectPhotoPage.vala:227
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr "%s-(e)k ez du onartzen %s-(r)en fitxategi-formatua."
+
+#: src/direct/DirectPhotoPage.vala:413
+msgid "_Save a Copy"
+msgstr "Gorde _kopia bat"
+
+#: src/direct/DirectPhotoPage.vala:416
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "%s-(r)i egindako aldaketak galdu nahi dituzu?"
+
+#: src/direct/DirectPhotoPage.vala:417
+msgid "Close _without Saving"
+msgstr "Itxi g_orde gabe"
+
+#: src/direct/DirectPhotoPage.vala:450
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "Errorea %s gordetzean: %s"
+
+#: src/direct/DirectPhotoPage.vala:478 src/direct/DirectPhotoPage.vala:499
+msgid "Save As"
+msgstr "Gorde honela"
+
+#: src/DirectoryMonitor.vala:889
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "Ezin izan da %s aztertu: Ez da direktorio bat (%s)"
+
+#: src/Resources.vala:17
+msgid "Photo Manager"
+msgstr "Argazki-kudeatzailea"
+
+#: src/Resources.vala:18
+msgid "Photo Viewer"
+msgstr "Argazki-ikustailea"
+
+#: src/Resources.vala:27 plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:32
+#: plugins/shotwell-publishing/PicasaPublishing.vala:32
+#: plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: plugins/shotwell-data-imports/FSpotImporter.vala:34
+msgid "Copyright 2009-2013 Yorba Foundation"
+msgstr "Copyright 2009-2013 Yorba Foundation"
+
+#: src/Resources.vala:144
+msgid "Rotate _Right"
+msgstr "Biratu e_skuinera"
+
+#: src/Resources.vala:145 src/Resources.vala:150
+msgid "Rotate"
+msgstr "Biratu"
+
+#: src/Resources.vala:146
+msgid "Rotate Right"
+msgstr "Biratu eskuinera"
+
+#: src/Resources.vala:147
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "Biratu argazkiak eskuinera (sakatu Ktrl ezkerrera biratzeko)"
+
+#: src/Resources.vala:149
+msgid "Rotate _Left"
+msgstr "Biratu e_zkerrera"
+
+#: src/Resources.vala:151
+msgid "Rotate Left"
+msgstr "Biratu ezkerrera"
+
+#: src/Resources.vala:152
+msgid "Rotate the photos left"
+msgstr "Biratu argazkiak ezkerrera"
+
+#: src/Resources.vala:154
+msgid "Flip Hori_zontally"
+msgstr "Irauli _horizontalki"
+
+#: src/Resources.vala:155
+msgid "Flip Horizontally"
+msgstr "Irauli horizontalki"
+
+#: src/Resources.vala:157
+msgid "Flip Verti_cally"
+msgstr "Irauli _bertikalki"
+
+#: src/Resources.vala:158
+msgid "Flip Vertically"
+msgstr "Irauli bertikalki"
+
+#: src/Resources.vala:160
+msgid "_Enhance"
+msgstr "H_obetu"
+
+#: src/Resources.vala:161
+msgid "Enhance"
+msgstr "Hobetu"
+
+#: src/Resources.vala:162
+msgid "Automatically improve the photo's appearance"
+msgstr "Hobetu automatikoki argazkiaren itxura"
+
+#: src/Resources.vala:164
+msgid "_Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:165
+msgid "Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:166
+msgid "Copy the color adjustments applied to the photo"
+msgstr ""
+
+#: src/Resources.vala:168
+msgid "_Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:169
+msgid "Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:170
+msgid "Apply copied color adjustments to the selected photos"
+msgstr ""
+
+#: src/Resources.vala:172
+msgid "_Crop"
+msgstr "_Moztu"
+
+#: src/Resources.vala:173
+msgid "Crop"
+msgstr "Moztu"
+
+#: src/Resources.vala:174
+msgid "Crop the photo's size"
+msgstr "Moztu argazkiaren tamaina"
+
+#: src/Resources.vala:176 src/editing_tools/StraightenTool.vala:100
+msgid "_Straighten"
+msgstr "Jarri _zuzen"
+
+#: src/Resources.vala:177
+msgid "Straighten"
+msgstr "Jarri zuzen"
+
+#: src/Resources.vala:178
+msgid "Straighten the photo"
+msgstr "Jarri zuzen argazkia"
+
+#: src/Resources.vala:180
+msgid "_Red-eye"
+msgstr "Begi _gorriak"
+
+#: src/Resources.vala:181
+msgid "Red-eye"
+msgstr "Begi gorriak"
+
+#: src/Resources.vala:182
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "Murriztu edo ezabatu begi gorrien efektua argazkitik"
+
+#: src/Resources.vala:184
+msgid "_Adjust"
+msgstr "_Doitu"
+
+#: src/Resources.vala:185
+msgid "Adjust"
+msgstr "Doitu"
+
+#: src/Resources.vala:186
+msgid "Adjust the photo's color and tone"
+msgstr "Doitu argazkiaren kolorea eta tonua"
+
+#: src/Resources.vala:188
+msgid "Re_vert to Original"
+msgstr "_Leheneratu jatorrizkora"
+
+#: src/Resources.vala:189
+msgid "Revert to Original"
+msgstr "Leheneratu jatorrizkora"
+
+#: src/Resources.vala:191
+msgid "Revert External E_dits"
+msgstr "Leheneratu _kanpoko edizioak"
+
+#: src/Resources.vala:192
+msgid "Revert to the master photo"
+msgstr "Leheneratu argazki maisura"
+
+#: src/Resources.vala:194
+msgid "Set as _Desktop Background"
+msgstr "Ezarri _mahaigainaren atzeko plano gisa"
+
+#: src/Resources.vala:195
+msgid "Set selected image to be the new desktop background"
+msgstr "Ezarri hautatutako irudia mahaigainaren atzeko planoa izan dadin"
+
+#: src/Resources.vala:196
+msgid "Set as _Desktop Slideshow..."
+msgstr "Ezarri _mahaigainaren diapositiba-aurkezpen gisa..."
+
+#: src/Resources.vala:198
+msgid "_Undo"
+msgstr "D_esegin"
+
+#: src/Resources.vala:199
+msgid "Undo"
+msgstr "Desegin"
+
+#: src/Resources.vala:201
+msgid "_Redo"
+msgstr "Be_rregin"
+
+#: src/Resources.vala:202
+msgid "Redo"
+msgstr "Berregin"
+
+#: src/Resources.vala:204
+msgid "Re_name Event..."
+msgstr "Be_rrizendatu gertaera..."
+
+#: src/Resources.vala:207
+msgid "Make _Key Photo for Event"
+msgstr "Sortu gertaeraren argazki _gakoa"
+
+#: src/Resources.vala:208
+msgid "Make Key Photo for Event"
+msgstr "Sortu gertaeraren argazki gakoa"
+
+#: src/Resources.vala:210
+msgid "_New Event"
+msgstr "Gertaera _berria"
+
+#: src/Resources.vala:211
+msgid "New Event"
+msgstr "Gertaera berria"
+
+#: src/Resources.vala:213
+msgid "Move Photos"
+msgstr "Mugitu argazkiak"
+
+#: src/Resources.vala:214
+msgid "Move photos to an event"
+msgstr "Mugitu argazkiak gertaera batera"
+
+#: src/Resources.vala:216
+msgid "_Merge Events"
+msgstr "Ba_tu gertaerak"
+
+#: src/Resources.vala:217
+msgid "Merge"
+msgstr "Batu"
+
+#: src/Resources.vala:218
+msgid "Combine events into a single event"
+msgstr "Konbinatu gertaerak gertaera bakarrean"
+
+#: src/Resources.vala:220
+msgid "_Set Rating"
+msgstr "E_zarri balorazioa"
+
+#: src/Resources.vala:221
+msgid "Set Rating"
+msgstr "Ezarri balorazioa"
+
+#: src/Resources.vala:222
+msgid "Change the rating of your photo"
+msgstr "Aldatu zure argazkiaren balorazioa"
+
+#: src/Resources.vala:224
+msgid "_Increase"
+msgstr "_Handitu"
+
+#: src/Resources.vala:225
+msgid "Increase Rating"
+msgstr "Handitu balorazioa"
+
+#: src/Resources.vala:227
+msgid "_Decrease"
+msgstr "_Txikitu"
+
+#: src/Resources.vala:228
+msgid "Decrease Rating"
+msgstr "Txikitu balorazioa"
+
+#: src/Resources.vala:230
+msgid "_Unrated"
+msgstr "Ba_loratu gabea"
+
+#: src/Resources.vala:231
+msgid "Unrated"
+msgstr "Puntuatu gabea"
+
+#: src/Resources.vala:232
+msgid "Rate Unrated"
+msgstr "Eman balorazioa"
+
+#: src/Resources.vala:233
+msgid "Setting as unrated"
+msgstr "Balorazioa kentzen"
+
+#: src/Resources.vala:234
+msgid "Remove any ratings"
+msgstr "Kendu balorazio guztiak"
+
+#: src/Resources.vala:236
+msgid "_Rejected"
+msgstr "_Ezetsia"
+
+#: src/Resources.vala:237
+msgid "Rejected"
+msgstr "Baztertua"
+
+#: src/Resources.vala:238
+msgid "Rate Rejected"
+msgstr "Eman ezetsiaren balorazioa"
+
+#: src/Resources.vala:239
+msgid "Setting as rejected"
+msgstr "Ezetsi modura ezartzen"
+
+#: src/Resources.vala:240
+msgid "Set rating to rejected"
+msgstr "Ezarri ezetsiaren balorazioa"
+
+#: src/Resources.vala:242
+msgid "Rejected _Only"
+msgstr "Ezetsia _soilik"
+
+#: src/Resources.vala:243
+msgid "Rejected Only"
+msgstr "Ezetsia soilik"
+
+#: src/Resources.vala:244
+msgid "Show only rejected photos"
+msgstr "Erakutsi ezetsitako argazkiak soilik"
+
+#: src/Resources.vala:246
+msgid "All + _Rejected"
+msgstr "Denak + _ezetsiak"
+
+#: src/Resources.vala:247 src/Resources.vala:248
+msgid "Show all photos, including rejected"
+msgstr "Erakutsi argazki guztiak, ezetsiak barne"
+
+#: src/Resources.vala:250
+msgid "_All Photos"
+msgstr "_Argazki guztiak"
+
+#: src/Resources.vala:251 src/Resources.vala:252
+msgid "Show all photos"
+msgstr "Erakutsi argazki guztiak"
+
+#: src/Resources.vala:254
+msgid "_Ratings"
+msgstr "_Balorazioak"
+
+#: src/Resources.vala:255
+msgid "Display each photo's rating"
+msgstr "Erakutsi argazki bakoitzaren balorazioa"
+
+#: src/Resources.vala:257
+msgid "_Filter Photos"
+msgstr "_Iragazi argazkiak"
+
+#: src/Resources.vala:258
+msgid "Filter Photos"
+msgstr "Iragazi argazkiak"
+
+#: src/Resources.vala:259
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "Mugatu erakutsiko diren argazkien kopurua iragazki baten bidez"
+
+#: src/Resources.vala:261
+msgid "_Duplicate"
+msgstr "Bi_koiztu"
+
+#: src/Resources.vala:262
+msgid "Duplicate"
+msgstr "Bikoiztu"
+
+#: src/Resources.vala:263
+msgid "Make a duplicate of the photo"
+msgstr "Egin argazkiaren bikoizketa"
+
+#: src/Resources.vala:265
+msgid "_Export..."
+msgstr "_Esportatu..."
+
+#: src/Resources.vala:267
+msgid "_Print..."
+msgstr "_Inprimatu..."
+
+#: src/Resources.vala:269
+msgid "Pu_blish..."
+msgstr "A_rgitaratu..."
+
+#: src/Resources.vala:270
+msgid "Publish"
+msgstr "Argitaratu"
+
+#: src/Resources.vala:271
+msgid "Publish to various websites"
+msgstr "Argitaratu hainbat webgunetan"
+
+#: src/Resources.vala:273
+msgid "Edit _Title..."
+msgstr "Editatu _izenburua..."
+
+#: src/Resources.vala:276
+msgid "Edit _Comment..."
+msgstr "Editatu _iruzkina..."
+
+#: src/Resources.vala:277
+msgid "Edit Comment"
+msgstr "Editatu iruzkina"
+
+#: src/Resources.vala:279
+msgid "Edit Event _Comment..."
+msgstr ""
+
+#: src/Resources.vala:282
+msgid "_Adjust Date and Time..."
+msgstr "_Doitu data eta ordua..."
+
+#: src/Resources.vala:283
+msgid "Adjust Date and Time"
+msgstr "Doitu data eta ordua"
+
+#: src/Resources.vala:285
+msgid "Add _Tags..."
+msgstr "Gehitu _etiketak..."
+
+#: src/Resources.vala:286
+msgid "_Add Tags..."
+msgstr "Gehitu _etiketak..."
+
+#: src/Resources.vala:287 src/Resources.vala:318
+msgid "Add Tags"
+msgstr "Gehitu etiketak"
+
+#: src/Resources.vala:289
+msgid "_Preferences"
+msgstr "_Hobespenak"
+
+#: src/Resources.vala:291
+msgid "Open With E_xternal Editor"
+msgstr "Ireki _kanpoko editore batekin"
+
+#: src/Resources.vala:293
+msgid "Open With RA_W Editor"
+msgstr "Ireki RA_W editorearekin"
+
+#: src/Resources.vala:295
+msgid "Send _To..."
+msgstr "Bidali _hona..."
+
+#: src/Resources.vala:296
+msgid "Send T_o..."
+msgstr "Bidali h_ona..."
+
+#: src/Resources.vala:298
+msgid "_Find..."
+msgstr "_Aurkitu..."
+
+#: src/Resources.vala:299
+msgid "Find"
+msgstr "Aurkitu"
+
+#: src/Resources.vala:300
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr ""
+"Aurkitu irudi bat bere izenean edo etiketetan ageri den testuren bat idatziz"
+
+#: src/Resources.vala:302
+msgid "_Flag"
+msgstr "_Bandera"
+
+#: src/Resources.vala:304
+msgid "Un_flag"
+msgstr "_Kendu bandera"
+
+#: src/Resources.vala:307
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "Ezin izan da editorea abiarazi: %s"
+
+#: src/Resources.vala:312
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "Gehitu \"%s\" etiketa"
+
+#: src/Resources.vala:314
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "Gehitu \"%s\" eta \"%s\" etiketak"
+
+#: src/Resources.vala:322
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "E_zabatu \"%s\" etiketa"
+
+#: src/Resources.vala:326
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "Ezabatu \"%s\" etiketa"
+
+#: src/Resources.vala:329
+msgid "Delete Tag"
+msgstr "Ezabatu etiketa"
+
+#: src/Resources.vala:332
+msgid "_New"
+msgstr "_Berria"
+
+#: src/Resources.vala:335
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "Berrize_ndatu \"%s\" etiketa..."
+
+#: src/Resources.vala:339
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "Berrizendatu \"%s\" etiketa eta \"%s\" jarri"
+
+#: src/Resources.vala:342
+msgid "_Rename..."
+msgstr "Be_rrizendatu..."
+
+#: src/Resources.vala:344
+msgid "Modif_y Tags..."
+msgstr "Al_datu etiketak..."
+
+#: src/Resources.vala:345
+msgid "Modify Tags"
+msgstr "Aldatu etiketak"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "Jarri \"%s\" etiketa argazkiari"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "Jarri \"%s\" etiketa argazkiei"
+
+#: src/Resources.vala:352
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "Jarri \"%s\" etiketa hautatutako argazkiari"
+
+#: src/Resources.vala:353
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "Jarri \"%s\" etiketa hautatutako argazkiei"
+
+#: src/Resources.vala:357
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "Kendu \"%s\" etiketa _argazkitik"
+
+#: src/Resources.vala:358
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "Kendu \"%s\" etiketa _argazkietatik"
+
+#: src/Resources.vala:362
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "Kendu \"%s\" etiketa argazkitik"
+
+#: src/Resources.vala:363
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "Kendu \"%s\" etiketa argazkietatik"
+
+#: src/Resources.vala:367
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr ""
+"Ezin izan da etiketaren izena aldatu eta \"%s\" jarri, etiketa hori jadanik "
+"existitzen delako."
+
+#: src/Resources.vala:371
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr ""
+"Ezin izan zaio bilaketari \"%s\" izena jarri, izen hori jadanik existitzen "
+"baita."
+
+#: src/Resources.vala:374
+msgid "Saved Search"
+msgstr "Gordetako bilaketa"
+
+#: src/Resources.vala:376
+msgid "Delete Search"
+msgstr "Ezabatu bilaketa"
+
+#: src/Resources.vala:379
+msgid "_Edit..."
+msgstr "_Editatu..."
+
+#: src/Resources.vala:380
+msgid "Re_name..."
+msgstr "Be_rrizendatu..."
+
+#: src/Resources.vala:383
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "Berrizendatu \"%s\" bilaketa \"%s\"-(e)ra"
+
+#: src/Resources.vala:387
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "Ezabatu \"%s\" bilaketa"
+
+#: src/Resources.vala:545
+#, c-format
+msgid "Rate %s"
+msgstr "Eman balorazioa %s-(e)ri"
+
+#: src/Resources.vala:546
+#, c-format
+msgid "Set rating to %s"
+msgstr "Ezarri balorazioa %s-(e)ri"
+
+#: src/Resources.vala:547
+#, c-format
+msgid "Setting rating to %s"
+msgstr "Balorazioa ezartzen %s-(e)ri"
+
+#: src/Resources.vala:549
+#, c-format
+msgid "Display %s"
+msgstr "Erakutsi %s"
+
+#: src/Resources.vala:550
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "Erakutsi %s balorazioa duten argazkiak soilik"
+
+#: src/Resources.vala:551
+#, c-format
+msgid "%s or Better"
+msgstr "%s edo hobea"
+
+#: src/Resources.vala:552
+#, c-format
+msgid "Display %s or Better"
+msgstr "Erakutsi %s edo hobea"
+
+#: src/Resources.vala:553
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr "Erakutsi %s balorazioa edo hobea duten argazkiak soilik"
+
+#: src/Resources.vala:644
+msgid "Remove the selected photos from the trash"
+msgstr "Kendu hautatutako argazkiak zakarrontzitik"
+
+#: src/Resources.vala:645
+msgid "Remove the selected photos from the library"
+msgstr "Kendu hautatutako argazkiak liburutegitik"
+
+#: src/Resources.vala:647
+msgid "_Restore"
+msgstr "_Leheneratu"
+
+#: src/Resources.vala:648
+msgid "Move the selected photos back into the library"
+msgstr "Mugitu hautatutako argazkiak berriro liburutegira"
+
+#: src/Resources.vala:650
+msgid "Show in File Mana_ger"
+msgstr "Erakutsi fitxategi-kudeat_zailean"
+
+#: src/Resources.vala:651
+msgid "Open the selected photo's directory in the file manager"
+msgstr "Ireki hautatutako argazkiaren direktorioa fitxategi-kudeatzailean"
+
+#: src/Resources.vala:654
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "Ezin izan da fitxategi-kudeatzailean ireki: %s"
+
+#: src/Resources.vala:657
+msgid "R_emove From Library"
+msgstr "Ke_ndu liburutegitik"
+
+#: src/Resources.vala:659
+msgid "_Move to Trash"
+msgstr "_Mugitu zakarrontzira"
+
+#: src/Resources.vala:661
+msgid "Select _All"
+msgstr "Hautatu _denak"
+
+#: src/Resources.vala:662
+msgid "Select all items"
+msgstr "Hautatu elementu guztiak"
+
+#: src/Resources.vala:740
+msgid "%-I:%M %p"
+msgstr "%-I:%M %p"
+
+#: src/Resources.vala:741
+msgid "%-I:%M:%S %p"
+msgstr "%-I:%M:%S %p"
+
+#: src/Resources.vala:742
+msgid "%a %b %d, %Y"
+msgstr "%a %b %d, %Y"
+
+#: src/Resources.vala:743 src/Resources.vala:745
+msgid "%a %b %d"
+msgstr "%a %b %d"
+
+#: src/Resources.vala:744
+msgid "%d, %Y"
+msgstr "%d, %Y"
+
+#: src/editing_tools/StraightenTool.vala:99
+msgid "Angle:"
+msgstr "Angelua:"
+
+#: src/editing_tools/StraightenTool.vala:102
+#: src/editing_tools/EditingTools.vala:2204
+msgid "_Reset"
+msgstr "_Berrezarri"
+
+#: src/editing_tools/EditingTools.vala:661
+msgid "Return to current photo dimensions"
+msgstr "Itzuli uneko argazkiaren neurrietara"
+
+#: src/editing_tools/EditingTools.vala:664
+msgid "Set the crop for this photo"
+msgstr "Ezarri argazki honen mozketa"
+
+#: src/editing_tools/EditingTools.vala:676
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr ""
+"Aldatu mozketa-laukizuzena orientazio horizontalaren eta bertikalaren artean"
+
+#: src/editing_tools/EditingTools.vala:749
+msgid "Unconstrained"
+msgstr "Mugarik gabea"
+
+#: src/editing_tools/EditingTools.vala:750
+msgid "Square"
+msgstr "Karratua"
+
+#: src/editing_tools/EditingTools.vala:751
+msgid "Screen"
+msgstr "Pantaila"
+
+#: src/editing_tools/EditingTools.vala:752
+#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+msgid "Original Size"
+msgstr "Jatorrizko tamaina"
+
+#: src/editing_tools/EditingTools.vala:753
+#: src/editing_tools/EditingTools.vala:756
+#: src/editing_tools/EditingTools.vala:766
+#: src/editing_tools/EditingTools.vala:776
+msgid "-"
+msgstr "-"
+
+#: src/editing_tools/EditingTools.vala:754
+msgid "SD Video (4 : 3)"
+msgstr "SD bideoa (4 : 3)"
+
+#: src/editing_tools/EditingTools.vala:755
+msgid "HD Video (16 : 9)"
+msgstr "HD bideoa (16 : 9)"
+
+#: src/editing_tools/EditingTools.vala:762
+msgid "Letter (8.5 x 11 in.)"
+msgstr "Eskutitza (8.5 x 11 hazbete)"
+
+#: src/editing_tools/EditingTools.vala:764
+msgid "Tabloid (11 x 17 in.)"
+msgstr "Tabloidea (11 x 17 hazbete)"
+
+#: src/editing_tools/EditingTools.vala:771
+msgid "A4 (210 x 297 mm)"
+msgstr "A4 (210 x 297 mm)"
+
+#: src/editing_tools/EditingTools.vala:775
+msgid "A3 (297 x 420 mm)"
+msgstr "A3 (297 x 420 mm)"
+
+#: src/editing_tools/EditingTools.vala:1865
+msgid "Close the red-eye tool"
+msgstr "Itxi begi gorrien tresna"
+
+#: src/editing_tools/EditingTools.vala:1868
+msgid "Remove any red-eye effects in the selected region"
+msgstr "Kendu begi gorrien efektua hautatutako eskualdean"
+
+#: src/editing_tools/EditingTools.vala:2226
+msgid "Saturation:"
+msgstr "Saturazioa:"
+
+#: src/editing_tools/EditingTools.vala:2234
+msgid "Tint:"
+msgstr "Ñabardura:"
+
+#: src/editing_tools/EditingTools.vala:2243
+msgid "Temperature:"
+msgstr "Tenperatura:"
+
+#: src/editing_tools/EditingTools.vala:2251
+msgid "Shadows:"
+msgstr "Itzalak:"
+
+#: src/editing_tools/EditingTools.vala:2259
+msgid "Highlights:"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset Colors"
+msgstr "Berrezarri koloreak"
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset all color adjustments to original"
+msgstr "Berrezarri kolore-doiketa guztiak jatorrizkora"
+
+#: src/editing_tools/EditingTools.vala:2665
+msgid "Temperature"
+msgstr "Tenperatura"
+
+#: src/editing_tools/EditingTools.vala:2678
+msgid "Tint"
+msgstr "Ñabardura"
+
+#: src/editing_tools/EditingTools.vala:2691
+msgid "Saturation"
+msgstr "Saturazioa"
+
+#: src/editing_tools/EditingTools.vala:2704
+msgid "Exposure"
+msgstr "Esposizioa"
+
+#: src/editing_tools/EditingTools.vala:2717
+msgid "Shadows"
+msgstr "Itzalak"
+
+#: src/editing_tools/EditingTools.vala:2730
+msgid "Highlights"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2740
+msgid "Contrast Expansion"
+msgstr "Kontrastearen hedapena"
+
+#: src/AppWindow.vala:49
+msgid "Pin Toolbar"
+msgstr "Finkatu tresna-barra"
+
+#: src/AppWindow.vala:50
+msgid "Pin the toolbar open"
+msgstr "Finkatu tresna-barra irekita"
+
+#: src/AppWindow.vala:53 src/AppWindow.vala:131
+msgid "Leave fullscreen"
+msgstr "Utzi pantaila osoan"
+
+#: src/AppWindow.vala:130
+msgid "Leave _Fullscreen"
+msgstr "Utzi pantaila _osoan"
+
+#: src/AppWindow.vala:491
+msgid "_Quit"
+msgstr "_Irten"
+
+#: src/AppWindow.vala:496
+msgid "_About"
+msgstr "_Honi buruz"
+
+#: src/AppWindow.vala:501
+msgid "Fulls_creen"
+msgstr "Pantaila o_soa"
+
+#: src/AppWindow.vala:506
+msgid "_Contents"
+msgstr "_Edukiak"
+
+#: src/AppWindow.vala:511
+msgid "_Frequently Asked Questions"
+msgstr "_Maiz egiten diren galderak"
+
+#: src/AppWindow.vala:516
+msgid "_Report a Problem..."
+msgstr "_Jakinarazi akatsa..."
+
+#: src/AppWindow.vala:663
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"Errore larria gertatu da Shotwell-en liburutegia atzitzean  Shotwell-ek ezin "
+"du jarraitu.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:683 plugins/common/Resources.vala:9
+msgid "Visit the Yorba web site"
+msgstr "Joan Yorba-ren webgunera"
+
+#: src/AppWindow.vala:686 plugins/common/Resources.vala:28
+msgid "translator-credits"
+msgstr "Asier Sarasua Garmendia <asiersar@yahoo.com>"
+
+#: src/AppWindow.vala:695
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "Ezin izan da laguntza erakutsi: %s"
+
+#: src/AppWindow.vala:703
+#, c-format
+msgid "Unable to navigate to bug database: %s"
+msgstr "Ezin izan da akatsen datu-basera nabigatu: %s"
+
+#: src/AppWindow.vala:711
+#, c-format
+msgid "Unable to display FAQ: %s"
+msgstr "Ezin izan dira MEGak erakutsi: %s"
+
+#: src/Tag.vala:817
+msgid "untitled"
+msgstr "izenik gabea"
+
+#: src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+msgid "Original size"
+msgstr "Jatorrizko tamaina"
+
+#: src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "Zabalera edo altuera"
+
+#: src/Dimensions.vala:23
+msgid "Width"
+msgstr "Zabalera"
+
+#: src/Dimensions.vala:26
+msgid "Height"
+msgstr "Altuera"
+
+#: src/MediaPage.vala:143
+msgid "Adjust the size of the thumbnails"
+msgstr "Doitu miniaturen tamaina"
+
+#: src/MediaPage.vala:326
+msgid "Increase the magnification of the thumbnails"
+msgstr "Handiagotu miniaturen bistaratze-tamaina"
+
+#: src/MediaPage.vala:332
+msgid "Decrease the magnification of the thumbnails"
+msgstr "Txikiagotu miniaturen bistaratze-tamaina"
+
+#: src/MediaPage.vala:399
+msgid "Sort _Photos"
+msgstr "Ordenatu _argazkiak"
+
+#: src/MediaPage.vala:408
+msgid "_Play Video"
+msgstr "_Erreproduzitu bideoa"
+
+#: src/MediaPage.vala:409
+msgid "Open the selected videos in the system video player"
+msgstr "Ireki hautatutako bideoak sistemaren bideo-erreproduzigailuan"
+
+#: src/MediaPage.vala:442 src/events/EventsDirectoryPage.vala:130
+msgid "_Comments"
+msgstr "_Iruzkinak"
+
+#: src/MediaPage.vala:443
+msgid "Display the comment of each photo"
+msgstr "Erakutsi argazki bakoitzaren iruzkina"
+
+#: src/MediaPage.vala:455
+msgid "Display each photo's tags"
+msgstr "Erakutsi argazkien etiketak"
+
+#: src/MediaPage.vala:471
+msgid "By _Title"
+msgstr "_Izenburuaren arabera"
+
+#: src/MediaPage.vala:472
+msgid "Sort photos by title"
+msgstr "Ordenatu argazkiak izenburuaren arabera"
+
+#: src/MediaPage.vala:477
+msgid "By Exposure _Date"
+msgstr "Esposizio-_dataren arabera"
+
+#: src/MediaPage.vala:478
+msgid "Sort photos by exposure date"
+msgstr "Ordenatu argazkiak esposizio-dataren arabera"
+
+#: src/MediaPage.vala:483
+msgid "By _Rating"
+msgstr "_Balorazioaren arabera"
+
+#: src/MediaPage.vala:484
+msgid "Sort photos by rating"
+msgstr "Ordenatu argazkiak balorazioaren arabera"
+
+#: src/MediaPage.vala:702
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"Shotwell-ek ezin izan du erreproduzitu hautatutako bideoa:\n"
+"%s"
+
+#: src/events/EventDirectoryItem.vala:83
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d argazki/bideo"
+msgstr[1] "Argazki/bideo %d"
+
+#: src/events/EventsDirectoryPage.vala:131
+msgid "Display the comment of each event"
+msgstr "Erakutsi gertaera bakoitzaren iruzkina"
+
+#: src/events/EventsDirectoryPage.vala:155
+msgid "No events"
+msgstr "Gertaerarik ez"
+
+#: src/events/EventsDirectoryPage.vala:159
+msgid "No events found"
+msgstr "Ez da gertaerarik aurkitu"
+
+#: src/events/EventsDirectoryPage.vala:230
+msgid "Events"
+msgstr "Gertaerak"
+
+#: src/events/EventsDirectoryPage.vala:244
+msgid "Undated"
+msgstr "Datarik gabea"
+
+#: src/events/EventsDirectoryPage.vala:245
+msgid "%Y"
+msgstr "%Y"
+
+#: src/events/EventsDirectoryPage.vala:246
+msgid "%B"
+msgstr "%B"
+
+#: src/events/EventPage.vala:129
+msgid "No Event"
+msgstr "Gertaerarik ez"
+
+#: src/AppDirs.vala:48 src/AppDirs.vala:99
+#, c-format
+msgid "Unable to create cache directory %s: %s"
+msgstr "Ezin izan da %s katxe-direktorioa sortu: %s"
+
+#: src/AppDirs.vala:58 src/AppDirs.vala:88
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "Ezin izan da %s datu-direktorioa sortu: %s"
+
+#: src/AppDirs.vala:152
+msgid "Pictures"
+msgstr "Irudiak"
+
+#: src/AppDirs.vala:190
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "Ezin izan da behin-behineko %s direktorioa sortu: %s"
+
+#: src/AppDirs.vala:207 src/AppDirs.vala:223
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "Ezin izan da %s datu-azpidirektorioa sortu: %s"
+
+#: src/slideshow/TransitionEffects.vala:98
+msgid "(None)"
+msgstr "(Ezer ez)"
+
+#: src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Ezer ez"
+
+#: src/slideshow/TransitionEffects.vala:339
+msgid "Random"
+msgstr "Ausazkoa"
+
+#: src/slideshow/Slideshow.vala:22
+msgid "Slideshow Transitions"
+msgstr "Diapositiba-trantsizioak"
+
+#: src/Exporter.vala:232
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "Ezin izan da behin-behineko fitxategia sortu %s-(e)rako: %s"
+
+#: src/Exporter.vala:299
+msgid "Exporting"
+msgstr "Esportatzen"
+
+#: src/Exporter.vala:317
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "%s fitxategia dagoeneko existitzen da.  Ordeztu?"
+
+#: src/Exporter.vala:319
+msgid "_Skip"
+msgstr "_Saltatu"
+
+#: src/Exporter.vala:319
+msgid "_Replace"
+msgstr "_Ordeztu"
+
+#: src/Exporter.vala:319
+msgid "Replace _All"
+msgstr "Ordeztu _denak"
+
+#: src/Exporter.vala:319
+msgid "Export"
+msgstr "Esportatu"
+
+#: src/SearchFilter.vala:593 src/SearchFilter.vala:594
+msgid "Photos"
+msgstr "Argazkiak"
+
+#: src/SearchFilter.vala:599 src/SearchFilter.vala:600
+msgid "Videos"
+msgstr "Bideoak"
+
+#: src/SearchFilter.vala:605
+msgid "RAW Photos"
+msgstr "RAW argazkiak"
+
+#: src/SearchFilter.vala:606
+msgid "RAW photos"
+msgstr "RAW argazkiak"
+
+#: src/SearchFilter.vala:952
+#, c-format
+msgid "Error loading UI file %s: %s"
+msgstr "Errorea %s EI fitxategia kargatzean: %s"
+
+#: src/SearchFilter.vala:969
+msgid "Type"
+msgstr "Mota"
+
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "Argitaratzea"
+
+#: src/publishing/PublishingUI.vala:105
+msgid "The selected photos/videos were successfully published."
+msgstr "Hautatutako argazkiak/bideoak ongi argitaratu dira."
+
+#: src/publishing/PublishingUI.vala:107
+msgid "The selected videos were successfully published."
+msgstr "Hautatutako bideoak ongi argitaratu dira."
+
+#: src/publishing/PublishingUI.vala:109
+msgid "The selected photos were successfully published."
+msgstr "Hautatutako argazkiak ongi argitaratu dira."
+
+#: src/publishing/PublishingUI.vala:112
+msgid "The selected video was successfully published."
+msgstr "Hautatutako bideoa ongi argitaratu da."
+
+#: src/publishing/PublishingUI.vala:114
+msgid "The selected photo was successfully published."
+msgstr "Hautatutako argazkia ongi argitaratu da."
+
+#: src/publishing/PublishingUI.vala:122
+msgid "Fetching account information..."
+msgstr "Kontu-informazioa eskuratzen..."
+
+#: src/publishing/PublishingUI.vala:128
+msgid "Logging in..."
+msgstr "Saioa hasten..."
+
+#: src/publishing/PublishingUI.vala:183
+msgid "Publish Photos"
+msgstr "Argitaratu argazkiak"
+
+#: src/publishing/PublishingUI.vala:184
+msgid "Publish photos _to:"
+msgstr "Argitaratu argazkiak _hemen:"
+
+#: src/publishing/PublishingUI.vala:186
+msgid "Publish Videos"
+msgstr "Argitaratu bideoak"
+
+#: src/publishing/PublishingUI.vala:187
+msgid "Publish videos _to"
+msgstr "Argitaratu bideoak _hemen:"
+
+#: src/publishing/PublishingUI.vala:189
+msgid "Publish Photos and Videos"
+msgstr "Argitaratu argazkiak eta bideoak"
+
+#: src/publishing/PublishingUI.vala:190
+msgid "Publish photos and videos _to"
+msgstr "Argitaratu argazkiak eta bideoak _hemen:"
+
+#: src/publishing/PublishingUI.vala:383
+msgid "Unable to publish"
+msgstr "Ezin izan da argitaratu"
+
+#: src/publishing/PublishingUI.vala:384
+#, c-format
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugins</b> tab."
+msgstr ""
+"Shotwell-ek ezin ditu hautatutako elementuak argitaratu ez daukazulako "
+"gaituta bateragarririk den pluginik. Hau zuzentzeko, hautatu <b>Editatu %s "
+"Hobespenak</b> eta gaitu <b>Plugina</b> fitxan dagoen argitaratze-"
+"pluginetako bat edo gehiago."
+
+#: src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "Igotzeko prestatzen"
+
+#: src/publishing/PublishingPluginHost.vala:12
+#, c-format
+msgid "Uploading %d of %d"
+msgstr "%d %d-(e)tik igotzen"
+
+#: src/publishing/PublishingPluginHost.vala:81
+#, c-format
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr "Ezin da %s-(e)ko argitaratzearekin jarraitu errore bat gertatu delako:"
+
+#: src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr "Saiatu beste zerbitzu batean argitaratzen, hautatu bat goiko menuan."
+
+#: src/sidebar/Tree.vala:199
+msgid "New _Tag..."
+msgstr "_Etiketa berria..."
+
+#: plugins/common/RESTSupport.vala:424
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
+#, fuzzy
+msgid "A temporary file needed for publishing is unavailable"
+msgstr ""
+"Argitaratzea gauzatzeko beharrezkoa den behin-behineko fitxategi bat ez dago "
+"eskuragarri"
+
+#: plugins/common/RESTSupport.vala:1138
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:57
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"YouTube-n saioa hasi gabe zaude.\n"
+"\n"
+"Google-n kontu bat eduki behar duzu eta hura YouTube-n erabiltzeko "
+"konfiguratuta eduki behar duzu jarraitzeko. Kontu gehiago sor ditzakezu zure "
+"nabigatzailearekin YouTube-ra gutxienez behin sartuz."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:362
+msgid ""
+"A file required for publishing is unavailable. Publishing to Youtube can't "
+"continue."
+msgstr ""
+"Argitaratzeko beharrezkoa den fitxategi bat ez dago eskuragarri. Youtube-en "
+"argitaratzeak ezin du jarraitu."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:461
+#, c-format
+msgid "You are logged into YouTube as %s."
+msgstr "YouTube-n saioa hasita daukazu %s erabiltzaile-izenarekin."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:463
+#, c-format
+msgid "Videos will appear in '%s'"
+msgstr "Bideoak '%s'-(e)n agertuko dira"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:495
+msgid "Public listed"
+msgstr "Publikoa zerrendatua"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:496
+msgid "Public unlisted"
+msgstr "Publikoa zerrendatu gabea"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:497
+msgid "Private"
+msgstr "Pribatua"
+
+#: plugins/shotwell-publishing/shotwell-publishing.vala:26
+msgid "Core Publishing Services"
+msgstr "Oinarrizko argitaratze-zerbitzuak"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Login to log into Flickr in your Web browser.  You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"Flickr-en saioa hasi gabe zaude.\n"
+"\n"
+"Egin klik saioa hasteko aukeran, Flickr-en saioa hasteko zure web "
+"nabigatzailean.  Baimena eman beharko diozu Shotwell Connect-i zure Flickr "
+"kontuarekin lotura sortzeko."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:63
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Dagoeneko hasi eta amaitu duzu Flickr-eko saioa Shotwell-en saio honetan "
+"zehar.\n"
+"Flickr-en argitaratzen jarraitzeko irten eta berrabiarazi Shotwell, eta gero "
+"saiatu berriro argitaratzen."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "Saioa hasteko prestatzen..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: plugins/shotwell-publishing/FlickrPublishing.vala:595
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can't "
+"continue."
+msgstr ""
+"Argitaratzeko beharrezkoa den fitxategi bat ez dago eskuragarri. Flickr-en "
+"argitaratzeak ezin du jarraitu."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "Baimena egiaztatzen..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1153
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr ""
+"Flickr-en saioa hasita daukazu %s erabiltzaile-izenarekin.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"Zure Flickr-eko doaneko kontuak mugatuta dauka hilero igo dezakezun datu-"
+"kopurua.\n"
+"Hilabete honetan %d megabyte geratzen zaizkizu zure igotze-kuota betetzeko."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1157
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr "Zure Flickr-eko Pro kontuarekin mugarik gabe igo ditzakezu datuak."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1162
+msgid "Photos _visible to:"
+msgstr "Argazkiak _ikusgai hauentzat:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
+msgid "Videos _visible to:"
+msgstr "Bideoak _ikusgai hauentzat:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1167
+msgid "Photos and videos _visible to:"
+msgstr "Argazkiak eta bideoak _ikusgai hauentzat:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1182
+msgid "Everyone"
+msgstr "Edonor"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
+msgid "Friends & family only"
+msgstr "Lagunak eta familia soilik"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+msgid "Family only"
+msgstr "Familia soilik"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
+msgid "Friends only"
+msgstr "Lagunka soilik"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1180
+msgid "Just me"
+msgstr "Ni neu"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1229
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
+msgid "500 x 375 pixels"
+msgstr "500 x 375 pixel"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1230
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:108
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 pixel"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 pixel"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 pixel"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:746
+#, c-format
+msgid "Creating album %s..."
+msgstr "%s albuma sortzen..."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:917
+msgid "An error message occurred when publishing to Piwigo. Please try again."
+msgstr ""
+"Errore-mezua agertu da Piwigo zerbitzuak argitaratzean. Saiatu berriro."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:998
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+"Sartu zure Piwigo argazki-liburutegiaren URLa eta zure Piwigo kontuari "
+"lotutako erabiltzaile-izena eta pasahitza."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:999
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
+"entered"
+msgstr ""
+"Shotwell-ek ezin du zure Piwigo argazki-liburutegiarekin kontaktatu. "
+"Egiaztatu sartu duzun URLa."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
+#, fuzzy
+msgid "Username and/or password invalid. Please try again"
+msgstr ""
+"Erabiltzaile-izena edo pasahitz okerra. Saiatu berriro."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1032
+#, c-format
+msgid "Invalid URL"
+msgstr "Baliogabeko URLa"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
+#, c-format
+msgid "Invalid User Name or Password"
+msgstr "Erabiltzaile-izen edo pasahitz okerra"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1127
+#: plugins/shotwell-publishing/PicasaPublishing.vala:59
+#: plugins/shotwell-publishing/FacebookPublishing.vala:61
+msgid "Shotwell Connect"
+msgstr "Shotwell Connect"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+msgid "Admins, Family, Friends, Contacts"
+msgstr "Administratzaileak, familia, lagunak, kontaktuak"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+msgid "Admins, Family, Friends"
+msgstr "Administratzaileak, familia, lagunak"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+msgid "Admins, Family"
+msgstr "Administratzaileak, familia"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+msgid "Admins"
+msgstr "Administratzaileak"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Login to log into Picasa Web Albums in your Web browser. You will have "
+"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"Picasa-n saioa hasi gabe zaude.\n"
+"\n"
+"Egin klik saioa hasteko aukeran, Picasa Web Albums zerbitzuan saioa hasteko "
+"zure web-nabigatzailean. Baimena eman beharko diozu Shotwell Connect-i zure "
+"Picasa Web Albums kontuarekin lotura sortzeko."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa can't "
+"continue."
+msgstr ""
+"Argitaratzeko beharrezkoa den fitxategi bat ez dago eskuragarri. Picasa-n "
+"argitaratzeak ezin du jarraitu."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:379
+#: plugins/shotwell-publishing/FacebookPublishing.vala:347
+msgid "Creating album..."
+msgstr "Albuma sortzen..."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "Picasa-n saioa hasita daukazu %s erabiltzaile-izenarekin."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+msgid "Videos will appear in:"
+msgstr "Bideoak hemen agertuko dira:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+msgid "Photos will appear in:"
+msgstr "Argazkiak hemen agertuko dira:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+msgid "Small (640 x 480 pixels)"
+msgstr "Txikia (640 x 480 pixel)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+msgid "Medium (1024 x 768 pixels)"
+msgstr "Ertaina (1024 x 768 pixel)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "Gomendatua (1600 x 1200 pixel)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+msgid "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 pixel)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:63
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"Facebook-en saioa hasi gabe zaude.\n"
+"\n"
+"Oraindik Facebook-en konturik ez badaukazu, bat sor dezakezu saioa hasteko "
+"prozesuan. Saioa hastean, Shotwell Connect-ek zure baimena eska dezake "
+"argazkiak igotzeko eta zure jarioa argitaratzeko. Baimen hauek "
+"derrigorrezkoak dira Shotwell Connect-ek funtziona dezan."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:65
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Dagoeneko hasi eta amaitu duzu Facebook-eko saioa Shotwell-en saio honetan "
+"zehar.\n"
+"Facebook-en argitaratzen jarraitzeko irten eta berrabiarazi Shotwell, eta "
+"gero saiatu berriro argitaratzen."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:86
+msgid "Standard (720 pixels)"
+msgstr "Estandarra (720 pixel)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:89
+msgid "Large (2048 pixels)"
+msgstr "Handia (2.048 pixel)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:254
+msgid "Testing connection to Facebook..."
+msgstr "Facebook-erako konexioa probatzen..."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:374
+msgid ""
+"A file required for publishing is unavailable. Publishing to Facebook can't "
+"continue."
+msgstr ""
+"Argitaratzeko beharrezkoa den fitxategi bat ez dago eskuragarri. Facebook-en "
+"argitaratzeak ezin du jarraitu."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#, c-format
+msgid ""
+"You are logged into Facebook as %s.\n"
+"\n"
+msgstr ""
+"Facebook-en saioa hasita daukazu %s erabiltzaile-izenarekin.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1020
+msgid "Where would you like to publish the selected photos?"
+msgstr "Non argitaratu nahi dituzu hautatutako argazkiak?"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1021
+msgid "Upload _size:"
+msgstr "Igoera-_tamaina:"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1181
+msgid "Friends"
+msgstr "Lagunak"
+
+#: plugins/shotwell-transitions/CrumbleEffect.vala:20
+msgid "Crumble"
+msgstr "Birrindu"
+
+#: plugins/shotwell-transitions/ChessEffect.vala:20
+msgid "Chess"
+msgstr "Xakea"
+
+#: plugins/shotwell-transitions/CirclesEffect.vala:20
+msgid "Circles"
+msgstr "Zirkuluak"
+
+#: plugins/shotwell-transitions/BlindsEffect.vala:20
+msgid "Blinds"
+msgstr "Pertsianak"
+
+#: plugins/shotwell-transitions/StripesEffect.vala:20
+msgid "Stripes"
+msgstr "Marrak"
+
+#: plugins/shotwell-transitions/ClockEffect.vala:20
+msgid "Clock"
+msgstr "Ordularia"
+
+#: plugins/shotwell-transitions/CircleEffect.vala:20
+msgid "Circle"
+msgstr "Zirkulua"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+msgid "Core Slideshow Transitions"
+msgstr "Oinarrizko diapositiba-trantsizioak"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:75
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+
+#: plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "Diapositiba"
+
+#: plugins/shotwell-transitions/FadeEffect.vala:20
+msgid "Fade"
+msgstr "Iraungi"
+
+#: plugins/shotwell-transitions/SquaresEffect.vala:20
+msgid "Squares"
+msgstr "Koadroak"
+
+#: plugins/shotwell-data-imports/shotwell-data-imports.vala:22
+msgid "Core Data Import Services"
+msgstr "Datuak inportatzeko oinarrizko zerbitzuak"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:56
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select a library to import, either by selecting one of the existing "
+"libraries found by Shotwell or by selecting an alternative F-Spot database "
+"file."
+msgstr ""
+"Ongi etorri F-Spot aplikazioaren liburutegiak inportatzeko zerbitzura.\n"
+"\n"
+"Mesedez, hautatu liburutegi bat inportaziorako, bai Shotwellek aurkitu duen "
+"liburutegietako bat hautatuz bai F-Spot-en datu-base fitxategi bat hautatuz."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:58
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select an F-Spot database file."
+msgstr ""
+"Ongi etorri F-Spot aplikazioaren liburutegiak inportatzeko zerbitzura.\n"
+"\n"
+"Hautatu F-Spot aplikazioaren datu-base fitxategi bat."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:60
+msgid "Manually select an F-Spot database file to import:"
+msgstr ""
+"Hautatu eskuz F-Spot aplikazioaren datu-base fitxategi bat inportazioa "
+"egiteko:"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:62
+msgid ""
+"Cannot open the selected F-Spot database file: the file does not exist or is "
+"not an F-Spot database"
+msgstr ""
+"Ezin izan da hautatutako F-Spot-en datu-base fitxategia ireki: fitxategia ez "
+"da existitzen edo ez da F-Spot datu-basea"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:64
+msgid ""
+"Cannot open the selected F-Spot database file: this version of the F-Spot "
+"database is not supported by Shotwell"
+msgstr ""
+"Ezin izan da hautatutako F-Spot-en datu-base fitxategia ireki: Shotwellek ez "
+"du F-Spot datu-baseen bertsio hau onartzen"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:66
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr ""
+"Ezin izan da hautatutako F-Spot-en datu-base fitxategia irakurri: errorea "
+"etiketen taula irakurtzean"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:68
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading photos "
+"table"
+msgstr ""
+"Ezin izan da hautatutako F-Spot-en datu-base fitxategia irakurri: errorea "
+"argazkien taula irakurtzean"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:70
+#, c-format
+msgid ""
+"Shotwell has found %d photos in the F-Spot library and is currently "
+"importing them. Duplicates will be automatically detected and removed.\n"
+"\n"
+"You can close this dialog and start using Shotwell while the import is "
+"taking place in the background."
+msgstr ""
+"Shotwell-ek %d argazki aurkitu ditu F-Spot liburutegian eta haiek "
+"inportatzen ari da orain. Bikoiztuak automatikoki ezabatu eta kenduko dira.\n"
+"\n"
+"Elkarrizketa-koadro hau itxi eta Shotwell erabiltzen has zaitezke "
+"inportazioa atzeko planoan gertatzen ari den bitartean."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:84
+#, c-format
+msgid "F-Spot library: %s"
+msgstr "F-Spot liburutegia: %s"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:416
+msgid "Preparing to import"
+msgstr "Inportatzeko prestatzen"
+
+#: ui/set_background_dialog.glade:14
+msgid "Set as Desktop Slideshow"
+msgstr "Ezarri mahaigainaren diapositiba-aurkezpen gisa"
+
+#: ui/set_background_dialog.glade:55
+msgid "Generate desktop background slideshow"
+msgstr "Sortu mahaigainaren atzeko planorako diapositiba-aurkezpena"
+
+#: ui/set_background_dialog.glade:82
+msgid "Show each photo for"
+msgstr "Erakutsi argazki bakoitza denbora-tarte honetan:"
+
+#: ui/set_background_dialog.glade:94
+msgid "period of time"
+msgstr "denbora-tartea"
+
+#: ui/set_background_dialog.glade:116
+msgid "How long each photo is shown on the desktop background"
+msgstr ""
+"Zenbat denboran erakutsiko den argazki bakoitza mahaigainaren atzeko planoan"
+
+#: ui/shotwell.glade:7
+msgid "Search"
+msgstr "Bilatu"
+
+#: ui/shotwell.glade:47
+msgid "_Name of search:"
+msgstr "Bilaketaren _izena:"
+
+#: ui/shotwell.glade:108
+msgid "_Match"
+msgstr "_Parekatu"
+
+#: ui/shotwell.glade:137
+msgid "of the following:"
+msgstr "hurrengoak:"
+
+#: ui/shotwell.glade:218
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Inprimatutako irudi-tamaina</b>"
+
+#: ui/shotwell.glade:235
+msgid "Use a _standard size:"
+msgstr "Erabili tamaina e_standarra:"
+
+#: ui/shotwell.glade:278
+msgid "Use a c_ustom size:"
+msgstr "Erabili tamaina _pertsonalizatua:"
+
+#: ui/shotwell.glade:368
+msgid "_Match photo aspect ratio"
+msgstr "Bat _etorri argazkiaren aspektu-erlazioarekin"
+
+#: ui/shotwell.glade:392
+msgid "_Autosize:"
+msgstr "Tamaina _automatikoa:"
+
+#: ui/shotwell.glade:432
+msgid "<b>Titles</b>"
+msgstr "<b>Izenburuak</b>"
+
+#: ui/shotwell.glade:449
+msgid "Print image _title"
+msgstr "Inprimatu irudiaren _izenburua"
+
+#: ui/shotwell.glade:493
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Pixel-bereizmena</b>"
+
+#: ui/shotwell.glade:513
+msgid "_Output photo at:"
+msgstr "_Atera argazkia hemendik:"
+
+#: ui/shotwell.glade:548
+msgid "pixels per inch"
+msgstr "pixel/hazbete"
+
+#: ui/shotwell.glade:581 ui/shotwell.glade:623
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:27
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
+msgid "label"
+msgstr "etiketa"
+
+#: ui/shotwell.glade:719
+msgid "Shotwell Preferences"
+msgstr "Shotwell-en hobespenak"
+
+#: ui/shotwell.glade:796
+msgid "white"
+msgstr "zuria"
+
+#: ui/shotwell.glade:823
+msgid "black"
+msgstr "beltza"
+
+#: ui/shotwell.glade:871
+msgid "_Watch library directory for new files"
+msgstr "_Behatu liburutegi-direktorioa fitxategi berriak aurkitzeko"
+
+#: ui/shotwell.glade:900
+msgid "Metadata"
+msgstr "Metadatuak"
+
+#: ui/shotwell.glade:920
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr ""
+"Idatzi etiketak, izenburuak eta beste _metadatu batzuk argazki-fitxategietan"
+
+#: ui/shotwell.glade:946
+msgid "Display"
+msgstr "Erakutsi"
+
+#: ui/shotwell.glade:967
+msgid "_Import photos to:"
+msgstr "_Inportatu argazkiak hona:"
+
+#: ui/shotwell.glade:990
+msgid "_Background:"
+msgstr "At_zeko planoa:"
+
+#: ui/shotwell.glade:1013
+msgid "Importing"
+msgstr "Inportatzen"
+
+#: ui/shotwell.glade:1036
+msgid "_Directory structure:"
+msgstr "_Direktorio-egitura:"
+
+#: ui/shotwell.glade:1075
+msgid "_Pattern:"
+msgstr "_Eredua:"
+
+#: ui/shotwell.glade:1157
+msgid "Example:"
+msgstr "Adibidea:"
+
+#: ui/shotwell.glade:1174
+msgid "R_ename imported files to lowercase"
+msgstr "Jarri _minuskuletan inportatutako fitxategien izenak"
+
+#: ui/shotwell.glade:1203
+msgid "RAW Developer"
+msgstr "RAW garatzailea"
+
+#: ui/shotwell.glade:1238
+msgid "De_fault:"
+msgstr "Le_henetsia:"
+
+#: ui/shotwell.glade:1292
+msgid "E_xternal photo editor:"
+msgstr "_Kanpoko argazki-editorea"
+
+#: ui/shotwell.glade:1308
+msgid "External _RAW editor:"
+msgstr "Kanpoko _RAW editorea:"
+
+#: ui/shotwell.glade:1373
+msgid "External Editors"
+msgstr "Kanpoko editoreak"
+
+#: ui/shotwell.glade:1400
+msgid "Plugins"
+msgstr "Pluginak"
+
+#: ui/shotwell.glade:1469
+msgid "_Delay:"
+msgstr "_Atzerapena:"
+
+#: ui/shotwell.glade:1485
+msgid "_Transition effect:"
+msgstr "_Trantsizio-efektua:"
+
+#: ui/shotwell.glade:1501
+msgid "Transition d_elay:"
+msgstr "Trantsizio-at_zerapena:"
+
+#: ui/shotwell.glade:1513
+msgid "Show t_itle"
+msgstr "Erakutsi _izenburua"
+
+#: ui/shotwell.glade:1603 ui/shotwell.glade:1616
+msgid "seconds"
+msgstr "segundo"
+
+#: ui/shotwell.glade:1696
+msgid "_Login"
+msgstr "Hasi _saioa"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:21
+msgid ""
+" (text depends on fb username and is modified in the app - \n"
+"anything put into this field won't display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:39
+msgid "Publish to an e_xisting album:"
+msgstr "Argitaratu jadanik e_xistitzen den album batean:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:57
+msgid "Create a _new album named:"
+msgstr "Sortu album _berri bat izen honekin:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:139
+msgid "Videos and new photo albums _visible to:"
+msgstr "Bideoak eta argazki-album berriak ikusgai _hauentzat:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:175
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:102
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:178
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:226
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:197
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:137
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:229
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:99
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
+msgid "_Logout"
+msgstr "A_maitu saioa"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:212
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:153
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:243
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:115
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
+msgid "_Publish"
+msgstr "_Argitaratu"
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:16
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr ""
+"Sartu Flickr-en saioa hasi ondoren zure nabigatzailean agertzen den "
+"baieztapen-zenbakia."
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:37
+msgid "Authorization _Number:"
+msgstr "Baimen-_zenbakia:"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Flickr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:44
+msgid "_visibility label (populated in the code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:61
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
+msgid "Photo _size:"
+msgstr "Argazki-_tamaina:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:18
+msgid ""
+"'you are logged in as $name'\n"
+"(populated in the application code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:75
+msgid "An _existing album:"
+msgstr "Jadanik _existitzen den album batean:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:94
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:52
+msgid "A _new album named:"
+msgstr "Album _berri batean, izen honekin:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:113
+msgid "L_ist album in public gallery"
+msgstr "_Zerrendatu albuma galeria publikoan"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:134
+msgid ""
+"$mediatype will appear in\n"
+"(populated in code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:150
+msgid "Photo _size preset:"
+msgstr "Argazki _tamainaren aurrezarpena:"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:49
+msgid "_URL of your Piwigo photo library"
+msgstr "Zure Piwigo argazki-liburutegiaren _URLa"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:59
+msgid "User _name"
+msgstr "Erabiltzaile-ize_na"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:73
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:59
+msgid "_Password"
+msgstr "_Pasahitza"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:130
+msgid "_Remember Password"
+msgstr "Gogo_ratu pasahitza"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:151
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:107
+msgid "Login"
+msgstr "Hasi saioa"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:40
+msgid "An _existing category:"
+msgstr "Jadanik _existitzen den kategoria bat:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:121
+msgid "Photos will be _visible by:"
+msgstr "Argazkiak hurrengoek _ikusiko dituzte:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:149
+msgid "Photo size:"
+msgstr "Argazki-tamaina:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:176
+msgid "within category:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:210
+msgid "Album comment:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:242
+msgid "_If a title is set and comment unset, use title as comment"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:258
+msgid "_Do no upload tags"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:278
+msgid "Logout"
+msgstr "Amaitu saioa"
+
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:55
+msgid "Video privacy _setting:"
+msgstr "Bideoaren _pribatutasun-ezarpena:"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Copyright 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
+msgid "1280 x 853 pixels"
+msgstr "1280 x 853 pixel"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr "'%s' ez da erantzun baliagarria OAuth autentifikazio-eskarietarako"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start( ): ezin da hasi; argitaratzaile hau ezin da "
+"berrabiarazi."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "Sartu zure Tumblr kontuaren erabiltzaile-izena eta pasahitza."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Ezin izan da EIa kargatu: %s"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Tumblr-en saioa hasi duzu %s erabiltzailearekin.\n"
+"\n"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Bisitatu Yandex.Fotki webgunea"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "Yandex.Fotki-n saioa hasi gabe zaude."
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:49
+msgid "_Email address"
+msgstr "_Posta-helbidea"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Tumblr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+"Tumblr-en saioa hasi duzu (name) izenarekin.\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
+msgid "Blogs:"
+msgstr "Blogak:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
+msgid "_Albums (or write new):"
+msgstr "_Albumak (edo idatzi berria):"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
+msgid "Access _type:"
+msgstr "Atzipen-_mota:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
+msgid "Disable _comments"
+msgstr "Desgaitu _iruzkinak"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
+msgid "_Forbid downloading original photo"
+msgstr "_Debekatu jatorrizko argazkia deskargatzea"

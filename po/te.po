@@ -1,0 +1,4503 @@
+# po/shotwell-core/shotwell.pot
+# PO message string template file for Shotwell Core Components
+# Copyright (C) 2009-2013 Yorba Foundation
+# See COPYING for license.
+#
+#
+# Translators:
+# Krishnababu Krothapalli <kkrothap@redhat.com>, 2012-2013
+# verayin <vera@yorba.org>, 2011
+# ప్రవీణ్ ఇళ్ళ <mail2ipn@gmail.com>, 2011-2012
+# ప్రవీణ్ ఇళ్ళ <mail2ipn@gmail.com>, 2011
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
+"Last-Translator: Krishnababu Krothapalli <krisnababu@gmail.com>\n"
+"Language-Team: Telugu (http://www.transifex.com/projects/p/shotwell/language/"
+"te/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: te\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Event.vala:737
+#, c-format
+msgid "Event %s"
+msgstr "కార్యక్రమం %s"
+
+#: src/camera/Branch.vala:87
+msgid "Cameras"
+msgstr "కెమెరాలు"
+
+#: src/camera/Branch.vala:101 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:300
+#: src/MediaPage.vala:425
+msgid "Camera"
+msgstr "కెమెరా"
+
+#: src/camera/ImportPage.vala:312 src/Properties.vala:227
+#, c-format
+msgid "RAW+JPEG"
+msgstr "RAW+JPEG"
+
+#: src/camera/ImportPage.vala:459
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr "కెమెరాను అన్‌మౌంట్ చేయలేకపోతోంది.  కెమెరాను ఫైల్ నిర్వాహకం నుంచి అన్‌మౌంట్ చేయడానికి ప్రయత్నించండి."
+
+#: src/camera/ImportPage.vala:776
+msgid "Hide photos already imported"
+msgstr "ఇదివరకే దిగుమతిచేయబడిన ఫోటోలను దాయి"
+
+#: src/camera/ImportPage.vala:777
+msgid "Only display photos that have not been imported"
+msgstr "దిగుమతిచేయబడని ఫోటోలను మాత్రమే ప్రదర్శించు"
+
+#: src/camera/ImportPage.vala:845
+msgid "Starting import, please wait..."
+msgstr "దిగుమతి ప్రారంభమైంది, దయచేసి వేచివుండండి..."
+
+#: src/camera/ImportPage.vala:872 src/MediaPage.vala:436
+msgid "_Titles"
+msgstr "శీర్షికలు (_T)"
+
+#: src/camera/ImportPage.vala:873 src/MediaPage.vala:437
+msgid "Display the title of each photo"
+msgstr "ప్రతీఒక్క ఫోటో శీర్షికను చూపించు"
+
+#: src/camera/ImportPage.vala:884
+msgid "Import _Selected"
+msgstr "ఎంచుకున్న వాటిని దిగుమతిచేయి(_S)"
+
+#: src/camera/ImportPage.vala:885
+msgid "Import the selected photos into your library"
+msgstr "ఎంచుకున్న ఫొటోలను మీ లైబ్రరీలోనికి దిగుమతిచేయి"
+
+#: src/camera/ImportPage.vala:890
+msgid "Import _All"
+msgstr "అన్నిటినీ దిగుమతిచేయి(_A)"
+
+#: src/camera/ImportPage.vala:891
+msgid "Import all the photos into your library"
+msgstr "ఫొటోలన్నింటినీ మీ లైబ్రరీలోనికి దిగుమతిచేసుకోండి"
+
+#: src/camera/ImportPage.vala:1012
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr "షాట్‌వెల్ కెమెరాను వాడకోగలగాలంటే ఫైల్ వ్యవస్థ నుండి దానిని అన్‌మౌంట్ చేయాల్సిఉంది.  కొనసాగమంటారా?"
+
+#: src/camera/ImportPage.vala:1018
+msgid "_Unmount"
+msgstr "అన్‌మౌంట్(_U)"
+
+#: src/camera/ImportPage.vala:1023
+msgid "Please unmount the camera."
+msgstr "దయచేసి కెమెరాను అన్‌మౌంట్ చేయండి."
+
+#: src/camera/ImportPage.vala:1028
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr ""
+"కెమెరా మరొక అనువర్తనముచే లాక్ చేయబడింది.  దానిని అన్‌లాక్ చేసినపుడు మాత్రమే షాట్‌వెల్ కెమెరాను వాడుకునే సౌలభ్యం "
+"ఉంటుంది.  దయచేసి కెమెరాను వాడుతున్న ఇతర అనువర్తనాన్ని మూసివేసి మరలా ప్రయత్నించండి."
+
+#: src/camera/ImportPage.vala:1038
+msgid "Please close any other application using the camera."
+msgstr "దయచేసి కెమెరాను వాడుతున్న ఇతర అనువర్తనాన్ని మూసివేయండి."
+
+#: src/camera/ImportPage.vala:1043
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+"కెమెరా నుండి మునుజూపును తెచ్చుట వీలుకాలేదు:\n"
+"%s"
+
+#: src/camera/ImportPage.vala:1060
+msgid "Unmounting..."
+msgstr "అన్‌మౌంట్‌చేస్తోంది..."
+
+#: src/camera/ImportPage.vala:1166
+msgid "Fetching photo information"
+msgstr "ఫోటో సమాచారాన్ని తెస్తోంది"
+
+#: src/camera/ImportPage.vala:1521
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "%s కొరకు మునుజూపును తెస్తోంది"
+
+#: src/camera/ImportPage.vala:1637
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "కెమెరాను లాక్ చేయలేకపోతోంది: %s"
+
+#: src/camera/ImportPage.vala:1722
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "ఈ ఫొటోను కెమెరా నుండి తీసివేయమంటారా?"
+msgstr[1] "ఈ %d ఫొటోలను కెమెరా నుండి తీసివేయమంటారా?"
+
+#: src/camera/ImportPage.vala:1725
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "ఈ వీడియోను కెమెరా నుండి తీసివేయమంటారా?"
+msgstr[1] "ఈ %d వీడియోలను కెమెరా నుండి తీసివేయమంటారా?"
+
+#: src/camera/ImportPage.vala:1728
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "ఈ ఫొటో/వీడియోను కెమెరా నుండి తీసివేయమంటారా?"
+msgstr[1] "ఈ %d ఫొటోలు/వీడియోలను కెమెరా నుండి తీసివేయమంటారా?"
+
+#: src/camera/ImportPage.vala:1731
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "ఈ ఫైళ్ళను కెమెరా నుండి తీసివేయాలా?"
+msgstr[1] "ఈ %d ఫైళ్ళను కెమెరా నుండి తీసివేయాలా?"
+
+#: src/camera/ImportPage.vala:1739 src/Dialogs.vala:1328
+msgid "_Keep"
+msgstr "ఉంచు(_K)"
+
+#: src/camera/ImportPage.vala:1758
+msgid "Removing photos/videos from camera"
+msgstr "ఫొటోలు/వీడియోలు కెమెరా నుంచి తొలగించబడుతున్నాయి"
+
+#: src/camera/ImportPage.vala:1762
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] "దోషముల కారణంగా %d ఫొటో/వీడియో కెమెరా నుండి తీసివేయలేకపోతోంది."
+msgstr[1] "దోషముల కారణంగా %d ఫొటోలు/వీడియోలను కెమెరా నుండి తీసివేయలేకపోతోంది."
+
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2623
+msgid "S_lideshow"
+msgstr "స్లైడ్‌షో (_l)"
+
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2624
+msgid "Play a slideshow"
+msgstr "పలకప్రదర్శనను ఆడించు"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photo/Video"
+msgstr "ఫొటోలు/వీడియోలు ఎగుమతిచేయి"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photos/Videos"
+msgstr "ఫొటోలు/వీడియోలను ఎగుమతిచేయి"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:58 src/PhotoPage.vala:3196
+msgid "Export Photo"
+msgstr "ఫొటో ఎగుమతిచేయి"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:87
+msgid "Export Photos"
+msgstr "ఫొటోలను ఎగుమతిచేయి"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Rotating"
+msgstr "తిప్పబడుతోంది"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Undoing Rotate"
+msgstr "తిప్పినదానిని రద్దుచేస్తోంది"
+
+#: src/CollectionPage.vala:570
+msgid "Flipping Horizontally"
+msgstr "అడ్డముగా తిప్పబడుతోంది"
+
+#: src/CollectionPage.vala:571
+msgid "Undoing Flip Horizontally"
+msgstr "అడ్డంగా తిప్పినదానిని రద్దుచేయి"
+
+#: src/CollectionPage.vala:580
+msgid "Flipping Vertically"
+msgstr "నిలువుగా తిప్పబడుతోంది"
+
+#: src/CollectionPage.vala:581
+msgid "Undoing Flip Vertically"
+msgstr "నిలువుగా తిప్పినదానిని రద్దుచేయి"
+
+#: src/searches/SearchBoolean.vala:157
+msgid "Any text"
+msgstr "ఏదైనా పాఠ్యం"
+
+#: src/searches/SearchBoolean.vala:160
+msgid "Title"
+msgstr "శీర్షిక"
+
+#: src/searches/SearchBoolean.vala:163
+msgid "Tag"
+msgstr "ట్యాగు"
+
+#: src/searches/SearchBoolean.vala:166
+msgid "Comment"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:169
+msgid "Event name"
+msgstr "కార్యక్రమం పేరు"
+
+#: src/searches/SearchBoolean.vala:172
+msgid "File name"
+msgstr "ఫైల్ పేరు"
+
+#: src/searches/SearchBoolean.vala:175
+msgid "Media type"
+msgstr "మీడియా రకము"
+
+#: src/searches/SearchBoolean.vala:178
+msgid "Flag state"
+msgstr "ఫ్లాగు స్థితి"
+
+#: src/searches/SearchBoolean.vala:181
+msgid "Photo state"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:1003
+msgid "Rating"
+msgstr "రేటింగు"
+
+#: src/searches/SearchBoolean.vala:187
+msgid "Date"
+msgstr "తేదీ"
+
+#: src/searches/SavedSearchDialog.vala:169
+msgid "contains"
+msgstr "కలిగివుంటుంది"
+
+#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:497
+msgid "is exactly"
+msgstr "ఖచ్చితముగా ఇదే"
+
+#: src/searches/SavedSearchDialog.vala:171
+msgid "starts with"
+msgstr "దీనితో ప్రారంభమవుతుంది"
+
+#: src/searches/SavedSearchDialog.vala:172
+msgid "ends with"
+msgstr "దీనితో అంతమవుతుంది"
+
+#: src/searches/SavedSearchDialog.vala:173
+msgid "does not contain"
+msgstr "వీటిని కలిగివుండదు"
+
+#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:501
+msgid "is not set"
+msgstr "అమర్చబడలేదు"
+
+#: src/searches/SavedSearchDialog.vala:245
+#: src/searches/SavedSearchDialog.vala:376
+#: src/searches/SavedSearchDialog.vala:441
+msgid "is"
+msgstr "అనేది"
+
+#: src/searches/SavedSearchDialog.vala:246
+msgid "is not"
+msgstr "అనేది కాదు"
+
+#: src/searches/SavedSearchDialog.vala:252
+msgid "any photo"
+msgstr "ఏదైనా ఫొటో"
+
+#: src/searches/SavedSearchDialog.vala:253
+msgid "a raw photo"
+msgstr "ఒక raw ఫొటో"
+
+#: src/searches/SavedSearchDialog.vala:254
+msgid "a video"
+msgstr "ఒక వీడియో"
+
+#: src/searches/SavedSearchDialog.vala:308
+msgid "has"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:309
+msgid "has no"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:314
+msgid "modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:315
+msgid "internal modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:316
+msgid "external modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:370
+msgid "flagged"
+msgstr "పతాకించబడింది"
+
+#: src/searches/SavedSearchDialog.vala:371
+msgid "not flagged"
+msgstr "పతాకించబడలేదు"
+
+#: src/searches/SavedSearchDialog.vala:434
+msgid "and higher"
+msgstr "మరియు ఎక్కువ"
+
+#: src/searches/SavedSearchDialog.vala:435
+msgid "only"
+msgstr "మాత్రమే"
+
+#: src/searches/SavedSearchDialog.vala:436
+msgid "and lower"
+msgstr "మరియు తక్కువ"
+
+#: src/searches/SavedSearchDialog.vala:498
+msgid "is after"
+msgstr "అనేది ఆ తరువాత"
+
+#: src/searches/SavedSearchDialog.vala:499
+msgid "is before"
+msgstr "అనేది ఇంతకుముందు"
+
+#: src/searches/SavedSearchDialog.vala:500
+msgid "is between"
+msgstr "అనేది మధ్యన"
+
+#: src/searches/SavedSearchDialog.vala:513
+msgid "and"
+msgstr "మరియు"
+
+#: src/searches/SavedSearchDialog.vala:720
+msgid "any"
+msgstr "ఏదైనా"
+
+#: src/searches/SavedSearchDialog.vala:721
+msgid "all"
+msgstr "అన్నీ"
+
+#: src/searches/SavedSearchDialog.vala:722
+msgid "none"
+msgstr "ఏదీకాదు"
+
+#: src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "దాచబడిన శోధనలు"
+
+#: src/searches/Branch.vala:77 src/library/LibraryWindow.vala:346
+#: src/sidebar/Tree.vala:195
+msgid "Ne_w Saved Search..."
+msgstr "కొత్తగా భద్రపరచబడిన శోధన...(_w)"
+
+#: src/main.vala:54
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr ""
+"మీ ఫొటో లైబ్రరీ  ఈ షాట్వెల్ రూపాంతరముతో సరిపోదు. అది షాట్వెల్%s (స్కీమా %d) సృష్టంచినట్లుంది.  "
+"ఇప్పటిరూపాంతరము %s (స్కీమా %d).  ఇటీవలి రూపాంతరము మాత్రమే వాడుము"
+
+#: src/main.vala:59
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"షాట్వెల్%s (స్కీమా %d) నుండి %s (స్కీమా %d) కొరకు మీ ఫొటో లైబ్రరీ నవీకరించుట వీలుకాలేదు.  మరిన్ని "
+"వివరాలకు  %s దగ్గర షాట్వెల్ వికీ చూడుము"
+
+#: src/main.vala:65
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"మీ ఫొటో లైబ్రరీ ఈ షాట్వెల్ రూపాంతరముతో సరిపోదు. అది షాట్వెల్%s  (స్కీమా %d) సృష్టంచినట్లుంది. "
+"ఇప్పటిరూపాంతరము %s  (స్కీమా %d).  మీ లైబ్రరీనుండి %s తొలగించి మరియు మరల మీ ఫొటోలు దిగుమతి "
+"చేయడంద్వారా లైబ్రరీ శుభ్రం చేయుము."
+
+#: src/main.vala:71
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr "తెలియని దోషం షాట్‌వెల్ యొక్క డేటాబేసుని సరిచూచుటకు ప్రయత్నిస్తోంది: %s"
+
+#: src/main.vala:104
+msgid "Loading Shotwell"
+msgstr "షాట్‌వెల్ లోడవుతోంది"
+
+#: src/main.vala:294
+msgid "Path to Shotwell's private data"
+msgstr "షాట్‌వెల్ వ్యక్తిగత దత్తాంశముకు పాత్"
+
+#: src/main.vala:294
+msgid "DIRECTORY"
+msgstr "సంచయం"
+
+#: src/main.vala:298
+msgid "Do not monitor library directory at runtime for changes"
+msgstr "రన్‌టైమ్ నందు లైబ్రరీ సంచయమును మార్పుల కొరకు పర్యవేక్షించవద్దు"
+
+#: src/main.vala:302
+msgid "Don't display startup progress meter"
+msgstr "ప్రారంభపు పురోగమన మీటర్‌ను ప్రదర్శించవద్దు"
+
+#: src/main.vala:306
+msgid "Show the application's version"
+msgstr "అనువర్తనము వర్షన్ చూపుము"
+
+#: src/main.vala:338
+msgid "[FILE]"
+msgstr "[FILE]"
+
+#: src/main.vala:342
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr "అందుబాటులో ఉన్న కమాండ్ లైన్ ఐచ్ఛికాల పూర్తి జాబితాను చూచుటకు '%s --help' నడుపుము.\n"
+
+#: src/Properties.vala:84
+msgid "Today"
+msgstr "ఈరోజు"
+
+#: src/Properties.vala:86
+msgid "Yesterday"
+msgstr "నిన్న"
+
+#: src/Properties.vala:340 src/Dialogs.vala:1273
+msgid "Title:"
+msgstr "శీర్షిక:"
+
+#: src/Properties.vala:343
+msgid "Items:"
+msgstr "అంశాలు:"
+
+#: src/Properties.vala:346
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "%d కార్యక్రమం"
+msgstr[1] "%d కార్యక్రమాలు"
+
+#: src/Properties.vala:353 src/events/EventDirectoryItem.vala:87
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d ఫొటో"
+msgstr[1] "%d ఫొటోలు"
+
+#: src/Properties.vala:355 src/events/EventDirectoryItem.vala:85
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d వీడియో"
+msgstr[1] "%d వీడియోలు"
+
+#: src/Properties.vala:377
+msgid "Date:"
+msgstr "తేది:"
+
+#: src/Properties.vala:381
+msgid "Time:"
+msgstr "సమయం:"
+
+#: src/Properties.vala:384 src/Properties.vala:389
+msgid "From:"
+msgstr "నుండి:"
+
+#: src/Properties.vala:385 src/Properties.vala:390
+msgid "To:"
+msgstr "వరకు:"
+
+#: src/Properties.vala:395 src/editing_tools/EditingTools.vala:1850
+msgid "Size:"
+msgstr "పరిమాణం:"
+
+#: src/Properties.vala:404
+msgid "Duration:"
+msgstr "నిడివి:"
+
+#: src/Properties.vala:404
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f సెకనులు"
+
+#: src/Properties.vala:408
+msgid "Developer:"
+msgstr "అభివృద్ధికారుడు:"
+
+#: src/Properties.vala:436 src/Properties.vala:440 src/Properties.vala:447
+#: src/editing_tools/EditingTools.vala:2218
+msgid "Exposure:"
+msgstr "ఎక్స్‍పోజర్:"
+
+#: src/Properties.vala:585
+msgid "Location:"
+msgstr "స్థానము:"
+
+#: src/Properties.vala:588
+msgid "File size:"
+msgstr "ఫైలు పరిమాణం:"
+
+#: src/Properties.vala:592
+msgid "Current Development:"
+msgstr "ప్రస్తుత అభివృద్ది:"
+
+#: src/Properties.vala:594
+msgid "Original dimensions:"
+msgstr "అసలు కొలతలు:"
+
+#: src/Properties.vala:597
+msgid "Camera make:"
+msgstr "కెమెరా తయారీదారు:"
+
+#: src/Properties.vala:600
+msgid "Camera model:"
+msgstr "కెమెరా మోడల్:"
+
+#: src/Properties.vala:603
+msgid "Flash:"
+msgstr "ఫ్లాష్:"
+
+#: src/Properties.vala:605
+msgid "Focal length:"
+msgstr "నాభ్యంతరం:"
+
+#: src/Properties.vala:608
+msgid "Exposure date:"
+msgstr "ఎక్సుపోజర్ తేది:"
+
+#: src/Properties.vala:611
+msgid "Exposure time:"
+msgstr "ఎక్స్‍పోజర్‌ కాలం:"
+
+#: src/Properties.vala:614
+msgid "Exposure bias:"
+msgstr "ఎక్స్‍పోసర్ బయాస్:"
+
+#: src/Properties.vala:616
+msgid "GPS latitude:"
+msgstr "GPS అక్షాంశం:"
+
+#: src/Properties.vala:619
+msgid "GPS longitude:"
+msgstr "GPS రేఖాంశం:"
+
+#: src/Properties.vala:622
+msgid "Artist:"
+msgstr "కళాకారుడు:"
+
+#: src/Properties.vala:624
+msgid "Copyright:"
+msgstr "నకలుహక్కు:"
+
+#: src/Properties.vala:626
+msgid "Software:"
+msgstr "సాఫ్ట్‍వేర్:"
+
+#: src/Properties.vala:630 src/Dialogs.vala:1288
+msgid "Comment:"
+msgstr "వ్యాఖ్య:"
+
+#: src/Properties.vala:639
+msgid "Extended Information"
+msgstr "పొడిగించిన సమాచారం"
+
+#: src/Dialogs.vala:16
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "ఇది \"%s\" ట్యాగును ఒక ఫొటో నుండి తొలగిస్తుంది.  కొనసాగమంటారా?"
+msgstr[1] "ఇది \"%s\" ట్యాగును %d ఫొటోల నుండి తొలగిస్తుంది.  కొనసాగమంటారా?"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1361
+#: src/Dialogs.vala:1384 src/data_imports/DataImportsUI.vala:399
+#: src/AppWindow.vala:615 src/AppWindow.vala:636 src/AppWindow.vala:653
+#: src/publishing/PublishingUI.vala:498
+msgid "_Cancel"
+msgstr "రద్దుచేయి (_C)"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1329
+#: src/Resources.vala:330 src/Resources.vala:378 src/Resources.vala:643
+msgid "_Delete"
+msgstr "తీసివేయి(_D)"
+
+#: src/Dialogs.vala:25
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr "ఇది భద్రపరచబడిన వెతుకులాట \"%s\"ను తీసివేస్తుంది.  కొనసాగాలనుకుంటున్నారా?"
+
+#: src/Dialogs.vala:35
+#, c-format
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] ""
+"అభివృద్దికారులను మార్చుట అనునది మీరు యీ ఫోటోకు షాట్‌వెల్ నందు చేసిన అన్ని మార్పులను తిరిగివుంచును"
+msgstr[1] ""
+"అభివృద్దికారులను మార్చుట అనునది మీరు యీ ఫోటోలకు షాట్‌వెల్ నందు చేసిన అన్ని మార్పులను తిరిగివుంచును"
+
+#: src/Dialogs.vala:39
+msgid "_Switch Developer"
+msgstr "అభివృద్దికారి మార్చు (_S)"
+
+#: src/Dialogs.vala:58
+msgid "Export Video"
+msgstr "వీడియో ఎగుమతిచేయి"
+
+#: src/Dialogs.vala:115
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr "%s కు రాయు హక్కులు లేకపోవుటవలన షాట్వెల్ ఫొటోని సవరించుటకు ఫైల్ సృష్టించలేకపోయింది."
+
+#: src/Dialogs.vala:124
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr ""
+"ఫైల్ దోషం వలన క్రిందఇవ్వబడిన ఫొటో ఎగుమతి వీలుకాలేదు.\n"
+"\n"
+
+#: src/Dialogs.vala:130
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr ""
+"\n"
+"\n"
+"మీరు ఇంకా ఎగుమతిని కొనసాగించాలనుకుంటున్నారా?"
+
+#: src/Dialogs.vala:131
+msgid "Con_tinue"
+msgstr "కొనసాగించు (_t)"
+
+#: src/Dialogs.vala:147
+msgid "Unmodified"
+msgstr "మార్చబడనిది"
+
+#: src/Dialogs.vala:148
+msgid "Current"
+msgstr "ప్రస్థుత"
+
+#: src/Dialogs.vala:212
+msgid "_Format:"
+msgstr "ఫార్మాట్ (_F):"
+
+#: src/Dialogs.vala:215
+msgid "_Quality:"
+msgstr "నాణ్యత(_Q)"
+
+#: src/Dialogs.vala:218
+msgid "_Scaling constraint:"
+msgstr "స్కేలింగ్ కన్‌స్ట్రెయింట్(_S):"
+
+#: src/Dialogs.vala:221
+msgid " _pixels"
+msgstr " పిక్సెళ్ళు ( _p)"
+
+#: src/Dialogs.vala:229
+msgid "Export metadata"
+msgstr "మెటాడేటాను ఎగుమతిచేయి"
+
+#: src/Dialogs.vala:465
+msgid "Save Details..."
+msgstr "వివరాలను దాయి..."
+
+#: src/Dialogs.vala:466
+msgid "Save Details"
+msgstr "వివరాలను దాయి"
+
+#: src/Dialogs.vala:481
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(మరియు %d మరిన్ని)\n"
+
+#: src/Dialogs.vala:534
+msgid "Import Results Report"
+msgstr "ఫలితాల నివేదిక దిగుమతిచేయి"
+
+#: src/Dialogs.vala:538
+#, c-format
+msgid "Attempted to import %d file."
+msgid_plural "Attempted to import %d files."
+msgstr[0] "%d ఫైలును దిగుమతిచేయుటకు ప్రయత్నించెను"
+msgstr[1] "%d ఫైళ్ళను దిగుమతిచేయుటకు ప్రయత్నించెను"
+
+#: src/Dialogs.vala:541
+#, c-format
+msgid "Of these, %d file was successfully imported."
+msgid_plural "Of these, %d files were successfully imported."
+msgstr[0] "వీటిలో, %d ఫైలు విజయవంతంగా దిగుమతైను."
+msgstr[1] "వీటిలో, %d ఫైళ్ళు విజయవంతంగా దిగుమతైను."
+
+#: src/Dialogs.vala:553
+msgid "Duplicate Photos/Videos Not Imported:"
+msgstr "నకిలీ ఛాయాచిత్రాలు/వీడియోలు దిగుమతి కాలేదు:"
+
+#: src/Dialogs.vala:557
+msgid "duplicates existing media item"
+msgstr "ఉన్న మాధ్యమ అంశాన్ని నకిలీచేయును"
+
+#: src/Dialogs.vala:568
+msgid "Photos/Videos Not Imported Due to Camera Errors:"
+msgstr "ఛాయాచిత్రాలు/వీడియోలు కేమెరా దోషముల కారణంగా దిగుమతి కాలేదు:"
+
+#: src/Dialogs.vala:571 src/Dialogs.vala:586 src/Dialogs.vala:601
+#: src/Dialogs.vala:617 src/Dialogs.vala:632 src/Dialogs.vala:646
+msgid "error message:"
+msgstr "దోష సందేశం:"
+
+#: src/Dialogs.vala:582
+msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgstr "ఫైళ్ళు ఛాయాచిత్రములుగా కాని వీడియోలుగా కాని గుర్తించబడని కారణంగా దిగుమతి కాలేదు:"
+
+#: src/Dialogs.vala:597
+msgid ""
+"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Understands:"
+msgstr "ఛాయాచిత్రాలు/వీడియోలు షాట్‌వెల్ అర్ధము చేసుకోగల రూపంలో లేని కారణంగా దిగుమతి కాలేదు:"
+
+#: src/Dialogs.vala:612
+msgid ""
+"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Library:"
+msgstr "షాట్‌వెల్ ఛాయాచిత్రాలను/వీడియోలను దాని లైబ్రరీకు నకలు తీయలేకపోయిన కారణంగా దిగుమతి కాలేదు:"
+
+#: src/Dialogs.vala:616
+#, c-format
+msgid ""
+"couldn't copy %s\n"
+"\tto %s"
+msgstr ""
+"%s నకలు తీయలేక పోయెను\n"
+"\t %s కు"
+
+#: src/Dialogs.vala:628
+msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
+msgstr ""
+
+#: src/Dialogs.vala:643
+msgid "Photos/Videos Not Imported for Other Reasons:"
+msgstr "ఛాయాచిత్రాలు/వీడియోలు వేరే కారణాల వల్ల దిగుమతికాలేదు:"
+
+#: src/Dialogs.vala:663
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "1 నకిలీ ఫొటో దిగుమతి చేయలేదు:\n"
+msgstr[1] "%d నకిలీ ఫొటోలు దిగుమతి చేయలేదు:\n"
+
+#: src/Dialogs.vala:666
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "1 నకిలీ వీడియో దిగుమతి చేయలేదు:\n"
+msgstr[1] "%d నకిలీ వీడియోలు దిగుమతి చేయలేదు:\n"
+
+#: src/Dialogs.vala:669
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "1 నకిలీ ఫొటో/వీడియో దిగుమతి చేయలేదు:\n"
+msgstr[1] "%d నకిలీ ఫొటోలు/వీడియోలు దిగుమతి చేయలేదు:\n"
+
+#: src/Dialogs.vala:683
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] "ఫైల్ లేదా హార్డ్‍వేర్‌లో దోషం కారణంగా 1 ఫొటోను దిగుమతిచేయుటలో విఫలమైంది:\n"
+msgstr[1] "ఫైల్ లేదా హార్డ్‍వేర్‌లో దోషం కారణంగా %d ఫొటోలను దిగుమతిచేయుటలో విఫలమైంది:\n"
+
+#: src/Dialogs.vala:686
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] "ఒక ఫైల్ లేదా హార్డ్‍వేర్ దోషం వలన 1 వీడియోను దిగుమతిచేయుటలో విఫలమైంది:\n"
+msgstr[1] "ఒక ఫైల్ లేదా హార్డ్‍వేర్ దోషం వలన %d వీడియోలను దిగుమతిచేయుటలో విఫలమైంది:\n"
+
+#: src/Dialogs.vala:689
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] "ఒక ఫైల్ లేదా హార్డ్‍వేర్ దోషం వలన 1 ఫొటో/వీడియోను దిగుమతిచేయుటలో విఫలమైంది:\n"
+msgstr[1] "ఒక ఫైల్ లేదా హార్డ్‍వేర్ దోషం వలన %d ఫొటోలు/వీడియోలను దిగుమతిచేయుటలో విఫలమైంది:\n"
+
+#: src/Dialogs.vala:692
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] "ఫైలు లేదా హార్డువేర్ దోషము కారణంగా 1 ఫైలు దిగుమతి విఫలమైంది:\n"
+msgstr[1] "ఫైలు లేదా హార్డువేర్ దోషము కారణంగా %d ఫైళ్ళ దిగుమతి విఫలమైంది:\n"
+
+#: src/Dialogs.vala:706
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "లైబ్రరీ లో రాయుటకు హక్కులులేని కారణం వలన 1 ఫొటో దిగుమతి విఫలం :\n"
+msgstr[1] "లైబ్రరీ లో రాయుటకు హక్కులులేని కారణం వలన %d ఫొటోల దిగుమతి విఫలం:\n"
+
+#: src/Dialogs.vala:709
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "లైబ్రరీ లో రాయుటకు హక్కులులేని కారణం వలన 1  వీడియో దిగుమతి విఫలం\n"
+msgstr[1] "లైబ్రరీ లో రాయుటకు హక్కులులేని కారణం వలన %d  వీడియోల దిగుమతి విఫలం\n"
+
+#: src/Dialogs.vala:712
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "లైబ్రరీ లో రాయుటకు హక్కులులేని కారణం వలన 1 ఫొటో/ వీడియో దిగుమతి విఫలం\n"
+msgstr[1] "లైబ్రరీ లో రాయుటకు హక్కులులేని కారణం వలన %d  ఫొటోలు/ వీడియోలు దిగుమతి విఫలం\n"
+
+#: src/Dialogs.vala:715
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "ఫొటో లైబ్రరీ సంచయం వ్రాయదగునదిగా లేని కారణంగా 1 ఫైలు దిగుమతి విఫలమైంది:\n"
+msgstr[1] "ఫొటో లైబ్రరీ సంచయం వ్రాయదగునదిగా లేని కారణంగా %d ఫైళ్ళ దిగుమతి విఫలమైంది:\n"
+
+#: src/Dialogs.vala:729
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] "కెమెరా దోషం వలన 1 ఫొటోను దిగుమతిచేయుటలో విఫలమయింది:\n"
+msgstr[1] "కెమెరా దోషం వలన %d ఫొటోలను దిగుమతిచేయుటలో విఫలమయింది:\n"
+
+#: src/Dialogs.vala:732
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] "కెమెరా దోషం వలన 1 వీడియోను దిగుమతిచేయుటలో విఫలమయింది:\n"
+msgstr[1] "కెమెరా దోషం వలన %d వీడియోలను దిగుమతిచేయుటలో విఫలమయింది:\n"
+
+#: src/Dialogs.vala:735
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] "కెమెరా దోషం వలన 1 ఫొటో/వీడియోను దిగుమతిచేయుటలో విఫలమైంది:\n"
+msgstr[1] "కెమెరా దోషం వలన %d ఫొటోలు/వీడియోలను దిగుమతిచేయుటలో విఫలమైంది:\n"
+
+#: src/Dialogs.vala:738
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] "1 ఫైలు కేమేరా దోషం వలన దిగుమతించుటలో విఫలమైంది:\n"
+msgstr[1] "%d ఫైళ్లు కేమేరా దోషం వలన దిగుమతించుటలో విఫలమైనాయి:\n"
+
+#: src/Dialogs.vala:752
+#, c-format
+msgid "1 photo failed to import because it was corrupt:\n"
+msgid_plural "%d photos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:755
+#, c-format
+msgid "1 video failed to import because it was corrupt:\n"
+msgid_plural "%d videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:758
+#, c-format
+msgid "1 photo/video failed to import because it was corrupt:\n"
+msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:761
+#, c-format
+msgid "1 file failed to import because it was corrupt:\n"
+msgid_plural "%d files failed to import because it was corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:778
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "1 మద్ధతులేని ఫొటో దాటవేయబడింది:\n"
+msgstr[1] "%d మద్ధతులేని ఫొటోలు దాటవేయబడినవి:\n"
+
+#: src/Dialogs.vala:793
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] "1 బొమ్మకాని ఫైలు దాటవేయబడింది.\n"
+msgstr[1] "%d బొమ్మకాని ఫైళ్ళు దాటవేయబడినవి.\n"
+
+#: src/Dialogs.vala:804
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] "వాడుకరి రద్దుచేయడం వలన 1 ఫొటో దాటవేయబడింది:\n"
+msgstr[1] "వాడుకరి రద్దుచేయడం వలన %d ఫొటోలు దాటవేయబడినవి:\n"
+
+#: src/Dialogs.vala:807
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] "వాడుకరి రద్దుచేయడం వలన 1 వీడియో దాటవేయబడింది:\n"
+msgstr[1] "వాడుకరి రద్దుచేయడం వలన %d వీడియోలు దాటవేయబడినవి:\n"
+
+#: src/Dialogs.vala:810
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] "వాడుకరి రద్దుచేయడం వలన 1 ఫొటో/వీడియో దాటవేయబడింది:\n"
+msgstr[1] "వాడుకరి రద్దుచేయడం వలన %d ఫొటోలు/వీడియోలు దాటవేయబడినవి:\n"
+
+#: src/Dialogs.vala:813
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] "1 ఫైలు వాడుకరి రద్దుచేయడం వలన దాటవేయబడింది:\n"
+msgstr[1] "%d ఫైళ్లు వాడుకరి రద్దుచేయడం వలన దాటవేయబడ్డాయి:\n"
+
+#: src/Dialogs.vala:827
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "1 ఫొటో విజయవంతంగా దిగుమతిచేయబడింది.\n"
+msgstr[1] "%d ఫొటోలు విజయవంతంగా దిగుమతిచేయబడినవి.\n"
+
+#: src/Dialogs.vala:830
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "1 వీడియో విజయవంతంగా దిగుమతి అయింది.\n"
+msgstr[1] "%d వీడియోలు విజయవంతంగా దిగుమతి అయ్యాయి.\n"
+
+#: src/Dialogs.vala:833
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "1 ఫొటో/వీడియో విజయవంతంగా దిగుమతిచేయబడింది.\n"
+msgstr[1] "%d ఫొటోలు/వీడియోలు విజయవంతంగా దిగుమతిచేయబడినవి.\n"
+
+#: src/Dialogs.vala:849
+msgid "No photos or videos imported.\n"
+msgstr "ఏ ఫొటోలు లేదా వీడియోలు దిగుమతికాలేదు.\n"
+
+#: src/Dialogs.vala:856 src/Dialogs.vala:875
+msgid "Import Complete"
+msgstr "దిగుమతి పూర్తయినది"
+
+#: src/Dialogs.vala:1103
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d సెకను"
+msgstr[1] "%d సెకనులు"
+
+#: src/Dialogs.vala:1106
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d నిమిషం"
+msgstr[1] "%d నిమిషాలు"
+
+#: src/Dialogs.vala:1110
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d గంట"
+msgstr[1] "%d గంటలు"
+
+#: src/Dialogs.vala:1113
+msgid "1 day"
+msgstr "1 రోజు"
+
+#: src/Dialogs.vala:1263 src/Resources.vala:205
+msgid "Rename Event"
+msgstr "కార్యక్రమం పేరుమార్చు"
+
+#: src/Dialogs.vala:1263
+msgid "Name:"
+msgstr "పేరు:"
+
+#: src/Dialogs.vala:1273 src/Resources.vala:274
+msgid "Edit Title"
+msgstr "శీర్షికను సవరించు"
+
+#: src/Dialogs.vala:1287 src/Resources.vala:280
+msgid "Edit Event Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1287
+msgid "Edit Photo/Video Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1304
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "ఫైలును చెత్తబుట్టలోవేయి(_T)"
+msgstr[1] "ఫైళ్ళను చెత్తబుట్టలోవేయి(_T)"
+
+#: src/Dialogs.vala:1308
+msgid "Only _Remove"
+msgstr "కేవలం తొలగించు(_R)"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edit?"
+msgstr "బాహ్య కూర్పును సవరించాలా?"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edits?"
+msgstr "బాహ్య కూర్పులను రద్దుచేయాలా?"
+
+#: src/Dialogs.vala:1353
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] "ఇది బహిరంగ ఫైలుకు చేసిన అన్ని మార్పులను రద్దుచేస్తుంది.  కొనసాగాలా?"
+msgstr[1] "ఇది %d బహిరంగ ఫైళ్ళకు చేసిన అన్ని మార్పులను రద్దుచేస్తుంది.  కొనసాగాలా?"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edit"
+msgstr "బయటి కూర్పుల మార్పులను రద్దుచేయి(_v)"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edits"
+msgstr "బాహ్య కూర్పులను రద్దుచేయుము (_v)"
+
+#: src/Dialogs.vala:1378
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "ఇది ఫొటోను లైబ్రరీ నుంచి తొలగిస్తుంది.  కొనసాగాలా?"
+msgstr[1] "ఇది %d ఫొటోలను లైబ్రరీ నుంచి తొలగిస్తుంది.  కొనసాగాలా?"
+
+#: src/Dialogs.vala:1385
+msgid "_Remove"
+msgstr "తొలగించు(_R)"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photo From Library"
+msgstr "ఫొటోలను లైబ్రరీ నుండి తొలగించు"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photos From Library"
+msgstr "లైబ్రరీ నుండి ఫొటోలను తొలగించు"
+
+#: src/Dialogs.vala:1479
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/Dialogs.vala:1626
+msgid "AM"
+msgstr "AM"
+
+#: src/Dialogs.vala:1627
+msgid "PM"
+msgstr "PM"
+
+#: src/Dialogs.vala:1628
+msgid "24 Hr"
+msgstr "24 Hr"
+
+#: src/Dialogs.vala:1643
+msgid "_Shift photos/videos by the same amount"
+msgstr "ఒకే మౌంట్ ద్వారా ఫొటోలు/వీడియోలు షిఫ్ట్ చేయి (_S)"
+
+#: src/Dialogs.vala:1648
+msgid "Set _all photos/videos to this time"
+msgstr "అన్ని ఫొటోలు/వీడియోలను ఈ సమయానికి అమర్చు (_a)"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo file"
+msgstr "యధార్థ ఫోటో ఫైలను సవరించు (_M)"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo files"
+msgstr "యధార్థ ఫోటో ఫైళ్ళను సవరించు (_M)"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original file"
+msgstr "అసలు ఫైళ్ళను సవరించు(_M)"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original files"
+msgstr "అసలు ఫైళ్ళను సవరించు (_M)"
+
+#: src/Dialogs.vala:1744
+msgid "Original: "
+msgstr "అసలు: "
+
+#: src/Dialogs.vala:1745
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%m/%d/%Y, %H:%M:%S"
+
+#: src/Dialogs.vala:1746
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%m/%d/%Y, %I:%M:%S %p"
+
+#: src/Dialogs.vala:1835
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"ఎక్సపోజర్ సమయం ముందుకు మార్చబడుతుంది\n"
+"%d %s, %d %s, %d %s, మరియు %d %s."
+
+#: src/Dialogs.vala:1836
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"ఎక్సపోజర్ సమయం వెనుకకు మార్చబడుతుంది\n"
+"%d %s, %d %s, %d %s, మరియు %d %s."
+
+#: src/Dialogs.vala:1838
+msgid "day"
+msgid_plural "days"
+msgstr[0] "రోజు"
+msgstr[1] "రోజులు"
+
+#: src/Dialogs.vala:1839
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "గంట"
+msgstr[1] "గంటలు"
+
+#: src/Dialogs.vala:1840
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "నిముషం"
+msgstr[1] "నిముషాలు"
+
+#: src/Dialogs.vala:1841
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "సెకను"
+msgstr[1] "సెకనులు"
+
+#: src/Dialogs.vala:1885
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"మరియు %d ఇతర."
+msgstr[1] ""
+"\n"
+"\n"
+"మరియు %d ఇతరాలు."
+
+#: src/Dialogs.vala:1907 src/Dialogs.vala:1934
+msgid "Tags (separated by commas):"
+msgstr "ట్యాగులు (కామాలతో వేరుచేయబడినవి):"
+
+#: src/Dialogs.vala:2014
+msgid "Welcome!"
+msgstr "స్వాగతం!"
+
+#: src/Dialogs.vala:2021
+#, c-format
+msgid "Welcome to Shotwell!"
+msgstr "షాట్‌వెల్‌కు స్వాగతం!"
+
+#: src/Dialogs.vala:2025
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr "ఇపుడు ప్రారంభించుటకు, కింద తెలిపిన మార్గాల ద్వారా దిగుమతిచేసుకోవచ్చు:"
+
+#: src/Dialogs.vala:2044
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr "ఎన్నుకోండి <span weight=\\\"bold\\\">ఫైల్ %s సంచయం నుండి దిగుమతిచేయి</span>"
+
+#: src/Dialogs.vala:2045
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "షాట్‌వెల్ విండో మీదకి ఫొటోలను లాగుము మరియు వదిలివేయుము"
+
+#: src/Dialogs.vala:2046
+msgid "Connect a camera to your computer and import"
+msgstr "ఒక కెమెరాను కంప్యూటర్‌కు అనుసంధానించి దిగుమతిచేయండి"
+
+#: src/Dialogs.vala:2056
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "మీ %s సంచయం నుండి ఫొటోలను దిగుమతిచేయి(_I)"
+
+#: src/Dialogs.vala:2063
+msgid "You can also import photos in any of these ways:"
+msgstr "కిందతెలిపిన ఏదైనా ఒక మార్గం ద్వారా మీరు ఫొటోలను దిగుమతిచేసుకోవచ్చు:"
+
+#: src/Dialogs.vala:2073
+msgid "_Don't show this message again"
+msgstr "ఈ సందేశాన్ని మళ్ళీ చూపించవద్దు(_D)"
+
+#: src/Dialogs.vala:2108
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "మీ %s నుండి ఫొటోలను దిగుమతించండి"
+
+#: src/Dialogs.vala:2252 src/Dialogs.vala:2256
+msgid "(Help)"
+msgstr "(సహాయము)"
+
+#: src/Dialogs.vala:2265
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "సంవత్సరం%sనెల%sరోజు"
+
+#: src/Dialogs.vala:2267
+#, c-format
+msgid "Year%sMonth"
+msgstr "సంవత్సరం%sనెల"
+
+#: src/Dialogs.vala:2269
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "సంవత్సరం%sనెల-రోజు"
+
+#: src/Dialogs.vala:2271
+msgid "Year-Month-Day"
+msgstr "సంవత్సరం-నెల-రోజు"
+
+#: src/Dialogs.vala:2272 src/editing_tools/EditingTools.vala:777
+msgid "Custom"
+msgstr "అనురూపిత"
+
+#: src/Dialogs.vala:2509
+msgid "Invalid pattern"
+msgstr "సరిలేని మాదిరి"
+
+#: src/Dialogs.vala:2612
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr "షాట్‌వెల్ ఫొటోలను లైబ్రరీ సంచయంలోనికి నకలుతీయగలదు లేదా వాటిని నకలుతీయకుండానే దిగుమతిచేసుకోగలదు."
+
+#: src/Dialogs.vala:2617
+msgid "Co_py Photos"
+msgstr "ఫోటోలను నకలుతీయి(_p)"
+
+#: src/Dialogs.vala:2618
+msgid "_Import in Place"
+msgstr "అదే స్థానంలో దిగుమతి (_I)"
+
+#: src/Dialogs.vala:2619
+msgid "Import to Library"
+msgstr "లైబ్రరీకి దిగుమతిచేయి"
+
+#: src/Dialogs.vala:2629 src/PhotoPage.vala:3075
+msgid "Remove From Library"
+msgstr "లైబ్రరీ నుండి తొలగించు"
+
+#: src/Dialogs.vala:2630 src/PhotoPage.vala:3075
+msgid "Removing Photo From Library"
+msgstr "లైబ్రరీ నుండి ఫొటోలను తొలగిస్తోంది"
+
+#: src/Dialogs.vala:2630
+msgid "Removing Photos From Library"
+msgstr "లైబ్రరీ నుండి ఫొటోలను తొలగిస్తున్నది"
+
+#: src/Dialogs.vala:2644
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also "
+"like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you "
+"also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"ఇది మీ షాట్‌వెల్ లైబ్రరీ నుండి ఫొటో/వీడియోను తొలగిస్తుంది.  డెస్క్‍టాప్ చెత్తబుట్టకు కూడా ఫైలుని తరలించడానికి "
+"ఇష్టపడుతున్నారా?\n"
+"\n"
+"ఈ చర్యను వెనక్కి తీసుకొవడం సాధ్యపడదు."
+msgstr[1] ""
+"ఇది మీ షాట్‌వెల్ లైబ్రరీ నుండి %d ఫొటోలు/వీడియోలను తొలగిస్తుంది.  డెస్క్‍టాప్ చెత్తబుట్టకు కూడా ఫైలుని "
+"తరలించడానికి ఇష్టపడుతున్నారా?\n"
+"\n"
+"ఈ చర్యను వెనక్కి తీసుకొవడం సాధ్యపడదు."
+
+#: src/Dialogs.vala:2648
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"ఇది మీ షాట్‌వెల్ లైబ్రరీ నుండి వీడియోను తొలగిస్తుంది.  డెస్క్‍టాప్ చెత్తబుట్టకు కూడా ఫైలుని తరలించడానికి "
+"ఇష్టపడుతున్నారా?\n"
+"\n"
+"ఈ చర్యను వెనక్కి తీసుకొవడం సాధ్యపడదు."
+msgstr[1] ""
+"ఇది మీ షాట్‌వెల్ లైబ్రరీ నుండి %d వీడియోలను తొలగిస్తుంది.  డెస్క్‍టాప్ చెత్తబుట్టకు కూడా ఫైలుని తరలించడానికి "
+"ఇష్టపడుతున్నారా?\n"
+"\n"
+"ఈ చర్యను వెనక్కి తీసుకొవడం సాధ్యపడదు."
+
+#: src/Dialogs.vala:2652
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"ఇది మీ షాట్‌వెల్ లైబ్రరీ నుండి ఫొటోను తొలగిస్తుంది.  డెస్క్‍టాప్ చెత్తబుట్టకు కూడా ఫైలుని తరలించడానికి "
+"ఇష్టపడుతున్నారా?\n"
+"\n"
+"ఈ చర్యను వెనక్కి తీసుకొవడం సాధ్యపడదు."
+msgstr[1] ""
+"ఇది మీ షాట్‌వెల్ లైబ్రరీ నుండి %d ఫొటోలను తొలగిస్తుంది.  డెస్క్‍టాప్ చెత్తబుట్టకు కూడా పైళ్ళని తరలించడానికి "
+"ఇష్టపడుతున్నారా?\n"
+"\n"
+"ఈ చర్యను వెనక్కి తీసుకొవడం సాధ్యపడదు."
+
+#: src/Dialogs.vala:2684
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] "ఈ ఫొటో లేదా వీడియోను డెస్క్‍టాప్ చెత్తబుట్టకి తరలించడం వీలుకావడంలేదు.  ఈ ఫైలుని తీసివేయాలా?"
+msgstr[1] ""
+"ఈ %d ఫొటోలు లేదా వీడియోలను డెస్క్‍టాప్ చెత్తబుట్టకి తరలించడం వీలుకావడంలేదు.  ఈ ఫైళ్ళని తీసివేయాలా?"
+
+#: src/Dialogs.vala:2701
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "ఫోటో లేదా వీడియో తీసివేయుట వీలుపడదు."
+msgstr[1] "%d ఫోటోలు/వీడియోలు తీసివేయుట వీలుపడదు."
+
+#: src/folders/Branch.vala:141
+msgid "Folders"
+msgstr "సంచయాలు"
+
+#: src/tags/Branch.vala:127
+msgid "Tags"
+msgstr "ట్యాగులు"
+
+#: src/BatchImport.vala:26
+msgid "Success"
+msgstr "విజయవంతం"
+
+#: src/BatchImport.vala:29
+msgid "File error"
+msgstr "ఫైల్ దోషం"
+
+#: src/BatchImport.vala:32
+msgid "Unable to decode file"
+msgstr "ఫైలుని డీకోడ్ చేయలేకపోయింది"
+
+#: src/BatchImport.vala:35
+msgid "Database error"
+msgstr "డేటాబేసు దోషం"
+
+#: src/BatchImport.vala:38
+msgid "User aborted import"
+msgstr "దిగుమతిని వాడుకరి మధ్యలోరద్దుచేసారు"
+
+#: src/BatchImport.vala:41
+msgid "Not a file"
+msgstr "ఫైల్ కాదు"
+
+#: src/BatchImport.vala:44
+msgid "File already exists in database"
+msgstr "ఫైల్ ఇదివరకే డేటాబేసులో ఉంది"
+
+#: src/BatchImport.vala:47
+msgid "Unsupported file format"
+msgstr "మద్ధతులేని ఫైల్ ఫార్మేట్"
+
+#: src/BatchImport.vala:50
+msgid "Not an image file"
+msgstr "బొమ్మ ఫైల్ కాదు"
+
+#: src/BatchImport.vala:53
+msgid "Disk failure"
+msgstr "డిస్కు వైఫల్యత"
+
+#: src/BatchImport.vala:56
+msgid "Disk full"
+msgstr "డిస్కు నిండినది"
+
+#: src/BatchImport.vala:59
+msgid "Camera error"
+msgstr "కెమెరా దోషం"
+
+#: src/BatchImport.vala:62
+msgid "File write error"
+msgstr "ఫైలుకి వ్రాయు దోషం"
+
+#: src/BatchImport.vala:65
+msgid "Corrupt image file"
+msgstr ""
+
+#: src/BatchImport.vala:68
+#, c-format
+msgid "Imported failed (%d)"
+msgstr "దిగుమతి విఫలమైంది (%d)"
+
+#: src/Photo.vala:3656
+msgid "modified"
+msgstr "సవరించబడినది"
+
+#: src/PhotoPage.vala:532
+msgid "Previous photo"
+msgstr "ముందు ఫోటో"
+
+#: src/PhotoPage.vala:537
+msgid "Next photo"
+msgstr "తరువాత ఫోటో"
+
+#: src/PhotoPage.vala:1844
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "ఫొటో ఆధార ఫైలు తప్పిపోయినది: %s"
+
+#: src/PhotoPage.vala:2404 src/library/LibraryWindow.vala:360
+#: src/direct/DirectPhotoPage.vala:165
+msgid "_View"
+msgstr "వీక్షణం (_V)"
+
+#: src/PhotoPage.vala:2408 src/direct/DirectPhotoPage.vala:81
+msgid "T_ools"
+msgstr "పనిముట్లు (_o)"
+
+#: src/PhotoPage.vala:2413 src/direct/DirectPhotoPage.vala:86
+msgid "_Previous Photo"
+msgstr "మునుపటి ఫోటో(_P)"
+
+#: src/PhotoPage.vala:2414 src/direct/DirectPhotoPage.vala:87
+msgid "Previous Photo"
+msgstr "మునుపటి ఫోటో"
+
+#: src/PhotoPage.vala:2419 src/direct/DirectPhotoPage.vala:92
+msgid "_Next Photo"
+msgstr "తరువాత ఫొటో(_N)"
+
+#: src/PhotoPage.vala:2420 src/direct/DirectPhotoPage.vala:93
+msgid "Next Photo"
+msgstr "తరువాత ఫొటో"
+
+#: src/PhotoPage.vala:2583 src/direct/DirectPhotoPage.vala:174
+#: src/MediaPage.vala:325
+msgid "Zoom _In"
+msgstr "పెద్దగాచేయి (_I)"
+
+#: src/PhotoPage.vala:2584 src/direct/DirectPhotoPage.vala:175
+msgid "Increase the magnification of the photo"
+msgstr "ఫొటో యొక్క వృద్ధికరణ పెంచండి"
+
+#: src/PhotoPage.vala:2589 src/direct/DirectPhotoPage.vala:180
+#: src/MediaPage.vala:331
+msgid "Zoom _Out"
+msgstr "చిన్నగాచేయి (_O)"
+
+#: src/PhotoPage.vala:2590 src/direct/DirectPhotoPage.vala:181
+msgid "Decrease the magnification of the photo"
+msgstr "ఫొటో యొక్క వృద్ధికరణ తగ్గించండి"
+
+#: src/PhotoPage.vala:2595 src/direct/DirectPhotoPage.vala:186
+msgid "Fit to _Page"
+msgstr "పేజీకి కుదుర్చు(_P)"
+
+#: src/PhotoPage.vala:2596 src/direct/DirectPhotoPage.vala:187
+msgid "Zoom the photo to fit on the screen"
+msgstr "తెరకు సరిపోయేలా అమర్చుటకు ఫొటోను జూమ్‌చేయండి"
+
+#: src/PhotoPage.vala:2601 src/direct/DirectPhotoPage.vala:192
+msgid "Zoom _100%"
+msgstr "100% జూమ్ (_1)"
+
+#: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
+#, fuzzy, c-format
+msgid "Zoom the photo to 100% magnification"
+msgstr "ఫొటోను 100% వృద్ధికరణ వరకూ జూమ్ చేయండి"
+
+#: src/PhotoPage.vala:2607 src/direct/DirectPhotoPage.vala:198
+msgid "Zoom _200%"
+msgstr "200% జూమ్ (_2)"
+
+#: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
+#, fuzzy, c-format
+msgid "Zoom the photo to 200% magnification"
+msgstr "ఫొటోను 200% వృద్ధికరణ వరకూ జూమ్ చేయండి"
+
+#: src/PhotoPage.vala:2628 src/MediaPage.vala:413
+msgid "_Developer"
+msgstr "అభివృద్ధికారుడు (_D)"
+
+#: src/PhotoPage.vala:3216
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "%s ఎగుమతిచేయలేకపోతోంది: %s"
+
+#: src/data_imports/DataImportsPluginHost.vala:65
+#: src/data_imports/DataImportsPluginHost.vala:78
+#, c-format
+msgid "%s Database"
+msgstr "%s డేటాబేసు"
+
+#: src/data_imports/DataImportsPluginHost.vala:148
+#: src/data_imports/DataImportsPluginHost.vala:294
+#, c-format
+msgid "Importing from %s can't continue because an error occurred:"
+msgstr "దోషం యెదురైన కారణంగా దిగుమతి %s నుండి కొనసాగించలేము:"
+
+#: src/data_imports/DataImportsPluginHost.vala:151
+msgid "To try importing from another service, select one from the above menu."
+msgstr "వేరొక సేవనుండి దిగుమతిని ప్రయత్నించుటకు, పై మెనూనుండి వొకటి యెంచుకొనుము."
+
+#: src/data_imports/DataImports.vala:22
+msgid "Data Imports"
+msgstr "డేటా దిగుమతులు"
+
+#: src/data_imports/DataImportsUI.vala:10
+msgid ""
+"You do not have any data imports plugins enabled.\n"
+"\n"
+"In order to use the Import From Application functionality, you need to have "
+"at least one data imports plugin enabled. Plugins can be enabled in the "
+"Preferences dialog."
+msgstr ""
+"మీరు యెటువంటి దత్తాంశ చొప్పింతలను చేతనంగా కలిగిలేరు.\n"
+"\n"
+"అనువర్తనం ప్రమేయతనుండి దిగుమతిని వుపయోగించుటకు, మీరు కనీసం వొక దత్తాంశ చొప్పింతను చేతనంగా "
+"కలిగివుండాలి. చొప్పింతలు ఆభీష్టాల డైలాగ్‌నుండి చేతనం చేయగలం."
+
+#: src/data_imports/DataImportsUI.vala:100
+msgid "Database file:"
+msgstr "డేటాబేసు ఫైల్:"
+
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:899
+msgid "_Import"
+msgstr "దిగుమతిచేయి(_I)"
+
+#: src/data_imports/DataImportsUI.vala:216
+msgid "Import From Application"
+msgstr "అనువర్తనం నుండి దిగుమతిచేయి"
+
+#: src/data_imports/DataImportsUI.vala:217
+msgid "Import media _from:"
+msgstr "ఇచట నుండి మాధ్యమాన్ని దిగుమతిచేయండి (_f):"
+
+#: src/data_imports/DataImportsUI.vala:394
+#: src/publishing/PublishingUI.vala:493
+msgid "_Close"
+msgstr "మూసివేయి (_C)"
+
+#: src/SlideshowPage.vala:49 src/SlideshowPage.vala:182
+msgid "Settings"
+msgstr "అమరికలు"
+
+#: src/SlideshowPage.vala:141 src/Screensaver.vala:18
+msgid "Slideshow"
+msgstr "స్లైడ్‌షో"
+
+#: src/SlideshowPage.vala:161
+msgid "Back"
+msgstr "వెనుకకు"
+
+#: src/SlideshowPage.vala:162
+msgid "Go to the previous photo"
+msgstr "మునుపటి ఫోటోకు వెళ్ళు"
+
+#: src/SlideshowPage.vala:168 src/SlideshowPage.vala:273
+msgid "Pause"
+msgstr "నిలిపివేయి(_P)"
+
+#: src/SlideshowPage.vala:169 src/SlideshowPage.vala:274
+msgid "Pause the slideshow"
+msgstr "స్లైడ్‌షోను నిలిపివేయి"
+
+#: src/SlideshowPage.vala:175
+msgid "Next"
+msgstr "తరువాత"
+
+#: src/SlideshowPage.vala:176
+msgid "Go to the next photo"
+msgstr "తరువాతి ఫోటోకు వెళ్ళు"
+
+#: src/SlideshowPage.vala:183
+msgid "Change slideshow settings"
+msgstr "స్లైడ్‌షో అమరికలను మార్చు"
+
+#: src/SlideshowPage.vala:237
+msgid "All photo source files are missing."
+msgstr "ఫోటో ఆధార ఫైళ్ళు అన్నీ తప్పిపోయినవి."
+
+#: src/SlideshowPage.vala:269
+msgid "Play"
+msgstr "ప్లేచేయి"
+
+#: src/SlideshowPage.vala:270
+msgid "Continue the slideshow"
+msgstr "స్లైడ్‌షోను కొనసాగించు"
+
+#: src/Commands.vala:733
+msgid "Reverting"
+msgstr "మార్పులురద్దుచేయబడుతున్నాయి"
+
+#: src/Commands.vala:733
+msgid "Undoing Revert"
+msgstr "రద్దుని రద్దు చేయు"
+
+#: src/Commands.vala:777
+msgid "Enhancing"
+msgstr "మెరుగుపరుస్తోంది"
+
+#: src/Commands.vala:777
+msgid "Undoing Enhance"
+msgstr "మెరుగుపరినవాటిని రద్దుచేస్తోంది"
+
+#: src/Commands.vala:845
+msgid "Applying Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:845
+msgid "Undoing Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:995
+msgid "Creating New Event"
+msgstr "కొత్త కార్యక్రమం సృష్టించబడుతోంది"
+
+#: src/Commands.vala:996
+msgid "Removing Event"
+msgstr "కార్యక్రమాన్ని తొలగిస్తోంది"
+
+#: src/Commands.vala:1005
+msgid "Moving Photos to New Event"
+msgstr "ఫొటోలను కొత్త కార్యక్రమానికి తరలిస్తోంది"
+
+#: src/Commands.vala:1006
+msgid "Setting Photos to Previous Event"
+msgstr "ఫొటోలను మునుపటి కార్యక్రమానికి అమరుస్తుంది"
+
+#: src/Commands.vala:1063
+msgid "Merging"
+msgstr "కలిపివేస్తోంది"
+
+#: src/Commands.vala:1064
+msgid "Unmerging"
+msgstr "కలిపివేసినవాటినిరద్దుచేస్తోంది"
+
+#: src/Commands.vala:1073
+msgid "Duplicating photos"
+msgstr "ఫొటోలను నకిలీ చేస్తోంది"
+
+#: src/Commands.vala:1073
+msgid "Removing duplicated photos"
+msgstr "నకిలీచేయబడిన ఫొటోలను తొలగిస్తోంది"
+
+#: src/Commands.vala:1096
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "ఫైల్ దోషం కారణంగా ఒక ఫొటోను నకిలీచేయడం కుదరటంలేదు"
+msgstr[1] "ఫైల్ దోషం కారణంగా %d ఫొటోలను నకిలీచేయడం కుదరటంలేదు"
+
+#: src/Commands.vala:1183
+msgid "Restoring previous rating"
+msgstr "మునుపటి రేటింగు పునరుద్ధరిస్తోంది"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Increasing ratings"
+msgstr "రేటింగులను పెంచుతున్నారు"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Decreasing ratings"
+msgstr "రేటింగులను తగ్గిస్తున్నారు"
+
+#: src/Commands.vala:1244
+msgid "Setting RAW developer"
+msgstr "RAW అభివృద్ధికారుని అమరుస్తోంది"
+
+#: src/Commands.vala:1244
+msgid "Restoring previous RAW developer"
+msgstr "మునుపటి RAW అభివృద్ధికారుని తిరిగివుంచుతోంది"
+
+#: src/Commands.vala:1245
+msgid "Set Developer"
+msgstr "అభివృద్ధికారిని అమర్చు"
+
+#: src/Commands.vala:1335
+msgid "Original photo could not be adjusted."
+msgstr "అసలు ఫోటో సరిచేయుటకు సాధ్యపడదు."
+
+#: src/Commands.vala:1356
+msgid "Adjusting Date and Time"
+msgstr "తేదీ మరియు సమయాన్ని సరిచేస్తోంది"
+
+#: src/Commands.vala:1356
+msgid "Undoing Date and Time Adjustment"
+msgstr "తేదీ మరియు సమయం మార్పులు రద్దుచేస్తోంది"
+
+#: src/Commands.vala:1387
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "ఒక మూల ఫోటో సవరింపు వీలుకాలేదు."
+msgstr[1] "ఈక్రింది మూల ఫోటోల  సవరింపు వీలుకాలేదు."
+
+#: src/Commands.vala:1389 src/Commands.vala:1413
+msgid "Time Adjustment Error"
+msgstr "సమయం సరిచేయుటలో దోషం"
+
+#: src/Commands.vala:1411
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] "కింద తెలిపిన ఫొటో ఫైలుకు సమయం సవరణలు చేయుటకు సాధ్యపడలేదు."
+msgstr[1] "కింద తెలిపిన ఫొటో ఫైళ్ళకు సమయం సవరణలు చేయుటకు సాధ్యపడటంలేదు."
+
+#: src/Commands.vala:1625 src/Commands.vala:1648
+msgid "Create Tag"
+msgstr "ట్యాగ్ సృష్టించు"
+
+#: src/Commands.vala:1683
+#, c-format
+msgid "Move Tag \"%s\""
+msgstr "\"%s\" కొసని తరలించు"
+
+#: src/Commands.vala:2335
+msgid "Move Photos to Trash"
+msgstr "ఫొటోలను చెత్తబుట్టలోకి తరలించు"
+
+#: src/Commands.vala:2335
+msgid "Restore Photos from Trash"
+msgstr "చెత్తబుట్టలో నుంచి ఫొటోలను పూర్వస్థానంలో ఉంచు"
+
+#: src/Commands.vala:2336
+msgid "Move the photos to the Shotwell trash"
+msgstr "ఫొటోలను షాట్‌వెల్ చెత్తబుట్టలోకి తరలించు"
+
+#: src/Commands.vala:2336
+msgid "Restore the photos back to the Shotwell library"
+msgstr "ఫొటోలను షాట్‌వెల్ లైబ్రరీలోకి తిరిగి పునరుద్ధరించు"
+
+#: src/Commands.vala:2355
+msgid "Moving Photos to Trash"
+msgstr "ఫొటోలు చెత్తబుట్టలోకి తరలించబడుతున్నాయి"
+
+#: src/Commands.vala:2355
+msgid "Restoring Photos From Trash"
+msgstr "చెత్తబుట్టలోనున్న ఫొటోలు పునరుద్ధరించడుతున్నాయి"
+
+#: src/Commands.vala:2441
+msgid "Flag selected photos"
+msgstr "ఎంచుకున్న ఫొటోలకు గుర్తుపెట్టు"
+
+#: src/Commands.vala:2442
+msgid "Unflag selected photos"
+msgstr "ఎంచుకున్న ఫొటోలకు గుర్తుతీసివేయి"
+
+#: src/Commands.vala:2443
+msgid "Flagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2444
+msgid "Unflagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2451
+msgid "Flag"
+msgstr "గుర్తుపెట్టు"
+
+#: src/Commands.vala:2451
+msgid "Unflag"
+msgstr "గుర్తునుతీసివేయి"
+
+#: src/photos/RawSupport.vala:134
+msgid "RAW"
+msgstr "RAW"
+
+#: src/photos/RawSupport.vala:297 src/MediaPage.vala:420
+msgid "Shotwell"
+msgstr "షాట్‌వెల్"
+
+#: src/photos/BmpSupport.vala:32
+msgid "BMP"
+msgstr "BMP"
+
+#: src/photos/JfifSupport.vala:84
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/photos/JfifSupport.vala:182
+#, c-format
+msgid "Low (%d%%)"
+msgstr "అత్యల్ప (%d%%)"
+
+#: src/photos/JfifSupport.vala:185
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "మధ్యస్థ (%d%%)"
+
+#: src/photos/JfifSupport.vala:188
+#, c-format
+msgid "High (%d%%)"
+msgstr "అధిక (%d%%)"
+
+#: src/photos/JfifSupport.vala:191
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "అత్యధిక (%d%%)"
+
+#: src/photos/PngSupport.vala:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/photos/TiffSupport.vala:86
+msgid "TIFF"
+msgstr "TIFF"
+
+#: src/Page.vala:1268
+msgid "No photos/videos"
+msgstr "ఫొటోలు/వీడియోలు లేవు"
+
+#: src/Page.vala:1272
+msgid "No photos/videos found"
+msgstr "ఫొటోలు/వీడియోలు కనబడలేదు"
+
+#: src/Page.vala:2569
+msgid "Photos cannot be exported to this directory."
+msgstr "ఈ డైరెక్టరీకి ఫొటోలను ఎగుమతి చేయడం వీలుకాదు."
+
+#: src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "పర్యవేక్షక నవీకరణలను జరుపలేక పోతోంది: %s"
+
+#: src/Printing.vala:255
+msgid "Fill the entire page"
+msgstr "పేజీ మొత్తం నింపు(_F)"
+
+#: src/Printing.vala:256
+msgid "2 images per page"
+msgstr "పేజీకి 2 బొమ్మలు"
+
+#: src/Printing.vala:257
+msgid "4 images per page"
+msgstr "పేజీకి 4 బొమ్మలు"
+
+#: src/Printing.vala:258
+msgid "6 images per page"
+msgstr "పేజీకి 6 బొమ్మలు"
+
+#: src/Printing.vala:259
+msgid "8 images per page"
+msgstr "పేజీకి 8 బొమ్మలు"
+
+#: src/Printing.vala:260
+msgid "16 images per page"
+msgstr "పేజీకి 16 బొమ్మలు"
+
+#: src/Printing.vala:261
+msgid "32 images per page"
+msgstr "పేజీకి 32 బొమ్మలు"
+
+#: src/Printing.vala:348
+msgid "in."
+msgstr "in."
+
+#: src/Printing.vala:349
+msgid "cm"
+msgstr "cm"
+
+#: src/Printing.vala:817 src/editing_tools/EditingTools.vala:757
+msgid "Wallet (2 x 3 in.)"
+msgstr "వాలెట్ (2 x 3 in.)"
+
+#: src/Printing.vala:820 src/editing_tools/EditingTools.vala:758
+msgid "Notecard (3 x 5 in.)"
+msgstr "నోట్‌కార్డు (3 x 5 in.)"
+
+#: src/Printing.vala:823 src/editing_tools/EditingTools.vala:759
+msgid "4 x 6 in."
+msgstr "4 x 6 in."
+
+#: src/Printing.vala:826 src/editing_tools/EditingTools.vala:760
+msgid "5 x 7 in."
+msgstr "5 x 7 in."
+
+#: src/Printing.vala:829 src/editing_tools/EditingTools.vala:761
+msgid "8 x 10 in."
+msgstr "8 x 10 in."
+
+#: src/Printing.vala:832 src/editing_tools/EditingTools.vala:763
+msgid "11 x 14 in."
+msgstr "11 x 14 in."
+
+#: src/Printing.vala:835 src/editing_tools/EditingTools.vala:765
+msgid "16 x 20 in."
+msgstr "16 x 20 in."
+
+#: src/Printing.vala:841 src/editing_tools/EditingTools.vala:767
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr "మెట్రిక్ వాలెట్ (9 x 13 cm)"
+
+#: src/Printing.vala:844 src/editing_tools/EditingTools.vala:768
+msgid "Postcard (10 x 15 cm)"
+msgstr "పోస్టుకార్డు (10 x 15 cm)"
+
+#: src/Printing.vala:847 src/editing_tools/EditingTools.vala:769
+msgid "13 x 18 cm"
+msgstr "13 x 18 cm"
+
+#: src/Printing.vala:850 src/editing_tools/EditingTools.vala:770
+msgid "18 x 24 cm"
+msgstr "18 x 24 cm"
+
+#: src/Printing.vala:853 src/editing_tools/EditingTools.vala:772
+msgid "20 x 30 cm"
+msgstr "20 x 30 cm"
+
+#: src/Printing.vala:856 src/editing_tools/EditingTools.vala:773
+msgid "24 x 40 cm"
+msgstr "24 x 40 cm"
+
+#: src/Printing.vala:859 src/editing_tools/EditingTools.vala:774
+msgid "30 x 40 cm"
+msgstr "30 x 40 cm"
+
+#: src/Printing.vala:875
+msgid "Image Settings"
+msgstr "బొమ్మ అమరికలు"
+
+#: src/Printing.vala:888
+msgid "Printing..."
+msgstr "ముద్రిస్తోంది..."
+
+#: src/Printing.vala:908 src/Printing.vala:1111
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"ఫొటోను ముద్రించలేకపోతుంది:\n"
+"\n"
+"%s"
+
+#: src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "ఫొటో డేటాబేసు %s తెరుచుట/సృష్టించుట కుదరటంలేదు: దోషము కోడ్ %d"
+
+#: src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr ""
+"ఫొటో డేటాబేసు ఫైలుకి వ్రాయలేకపోతున్నది:\n"
+"%s"
+
+#: src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr ""
+"డేటాబేసు ఫైలును అనుమతిలో దోషము:\n"
+"%s\n"
+"\n"
+"దోషము ఏమిటంటే:\n"
+"%s"
+
+#: src/VideoSupport.vala:464
+msgid "Export Videos"
+msgstr "వీడియోలను ఎగుమతిచేయి"
+
+#: src/DesktopIntegration.vala:118
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "నాటిలస్ ఇచటకు పంపు ప్రారంభించుట విఫలం%s"
+
+#: src/DesktopIntegration.vala:126
+msgid "Send To"
+msgstr "ఇచటకు పంపు"
+
+#: src/DesktopIntegration.vala:171
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "%s కు నేపథ్యముగా ఎగుమతిచేయలేకపోతోంది: %s"
+
+#: src/DesktopIntegration.vala:299
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "డెస్క్‍టాప్ స్లైడ్‌షో సిద్ధంచేయలేకపోతోంది: %s"
+
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:587
+#: src/SearchFilter.vala:588 src/SearchFilter.vala:990
+msgid "Flagged"
+msgstr "గుర్తుపెట్టబడినవి"
+
+#: src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "చెత్తబుట్ట"
+
+#: src/library/TrashPage.vala:108
+msgid "Trash is empty"
+msgstr "చెత్తబుట్ట ఖాళీగాఉంది"
+
+#: src/library/TrashPage.vala:112
+msgid "Delete"
+msgstr "తీసివేయి"
+
+#: src/library/TrashPage.vala:113
+msgid "Deleting Photos"
+msgstr "ఫొటోలను తీసివేస్తున్నది"
+
+#: src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "తప్పిపోయిన ఫైళ్ళు"
+
+#: src/library/OfflinePage.vala:106
+msgid "Deleting..."
+msgstr "తీసివేస్తోంది..."
+
+#: src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "ఆఖరి దిగుమతి"
+
+#: src/library/LibraryWindow.vala:301
+msgid "_Import From Folder..."
+msgstr "సంచయం నుండి దిగుమతిచేయి...(_I)"
+
+#: src/library/LibraryWindow.vala:302
+msgid "Import photos from disk to library"
+msgstr "డిస్కు నుంచి లైబ్రరీకి ఫొటోలను దిగుమతిచేయి"
+
+#: src/library/LibraryWindow.vala:309
+msgid "Import From _Application..."
+msgstr "అనువర్తనం నుండి దిగుమతిచేయండి (_A)"
+
+#: src/library/LibraryWindow.vala:313
+msgid "Sort _Events"
+msgstr "కార్యక్రమాలను క్రమబద్దీకరించు(_E)"
+
+#: src/library/LibraryWindow.vala:323
+msgid "Empty T_rash"
+msgstr "చెత్తబుట్టని ఖాళీచేయి(_r)"
+
+#: src/library/LibraryWindow.vala:324
+msgid "Delete all photos in the trash"
+msgstr "చెత్తబుట్టలో ఉన్న అన్ని ఫొటోలను తీసివేయి"
+
+#: src/library/LibraryWindow.vala:329
+msgid "View Eve_nt for Photo"
+msgstr "ఫొటో కోసం కార్యక్రమాలను చూడు(_n)"
+
+#: src/library/LibraryWindow.vala:334
+msgid "_Find"
+msgstr "కనుగొను (_F)"
+
+#: src/library/LibraryWindow.vala:335
+msgid "Find photos and videos by search criteria"
+msgstr "అన్వేషణ వివరాల ప్రకారం ఫొటోలు, వీడియోలు వెతుకు"
+
+#: src/library/LibraryWindow.vala:352 src/direct/DirectPhotoPage.vala:46
+msgid "_File"
+msgstr "ఫైల్ (_F)"
+
+#: src/library/LibraryWindow.vala:356 src/direct/DirectPhotoPage.vala:73
+msgid "_Edit"
+msgstr "సవరణ (_E)"
+
+#: src/library/LibraryWindow.vala:364 src/direct/DirectPhotoPage.vala:77
+msgid "_Photo"
+msgstr "ఫోటో (_P)"
+
+#: src/library/LibraryWindow.vala:368
+msgid "_Photos"
+msgstr "ఫోటోలు(_P)"
+
+#: src/library/LibraryWindow.vala:372
+msgid "Even_ts"
+msgstr "కార్యక్రమాలు (_t)"
+
+#: src/library/LibraryWindow.vala:376 src/MediaPage.vala:454
+msgid "Ta_gs"
+msgstr "కొసలు (_g)"
+
+#: src/library/LibraryWindow.vala:380 src/direct/DirectPhotoPage.vala:169
+msgid "_Help"
+msgstr "సహాయం (_H)"
+
+#: src/library/LibraryWindow.vala:391
+msgid "_Basic Information"
+msgstr "ప్రాథమిక సమాచారం (_B)"
+
+#: src/library/LibraryWindow.vala:392
+msgid "Display basic information for the selection"
+msgstr "ఎంపిక యొక్క ప్రాథమిక సమాచారాన్ని చూపించు"
+
+#: src/library/LibraryWindow.vala:397
+msgid "E_xtended Information"
+msgstr "అధిక సమాచారం(_x)"
+
+#: src/library/LibraryWindow.vala:398
+msgid "Display extended information for the selection"
+msgstr "ఎంపిక యొక్క అధిక సమాచారాన్ని చూపించు"
+
+#: src/library/LibraryWindow.vala:403
+msgid "_Search Bar"
+msgstr "అన్వేషణ పట్టీ(_S)"
+
+#: src/library/LibraryWindow.vala:404
+msgid "Display the search bar"
+msgstr "అన్వేషణ పట్టీ చూపు"
+
+#: src/library/LibraryWindow.vala:409
+msgid "S_idebar"
+msgstr "పక్క పట్టీ (_i)"
+
+#: src/library/LibraryWindow.vala:410
+msgid "Display the sidebar"
+msgstr "పక్కపట్టీ ప్రదర్శించుము"
+
+#: src/library/LibraryWindow.vala:422 src/MediaPage.vala:494
+msgid "_Ascending"
+msgstr "ఆరోహణ(_A)"
+
+#: src/library/LibraryWindow.vala:423 src/MediaPage.vala:495
+msgid "Sort photos in an ascending order"
+msgstr "ఫొటోలను అరోహణ క్రమంలో  చూపుము"
+
+#: src/library/LibraryWindow.vala:429 src/MediaPage.vala:500
+msgid "D_escending"
+msgstr "అవరోహణ(_e)"
+
+#: src/library/LibraryWindow.vala:430 src/MediaPage.vala:501
+msgid "Sort photos in a descending order"
+msgstr "ఫొటోలను అవరోహణ క్రమంలో పేర్చు"
+
+#: src/library/LibraryWindow.vala:668
+msgid "Import From Folder"
+msgstr "సంచయం నుండి దిగుమతిచేయి"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Empty Trash"
+msgstr "చెత్తబుట్టని  ఖాళీచేయి"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Emptying Trash..."
+msgstr "చెత్తబుట్టను ఖాళీచేస్తోంది..."
+
+#: src/library/LibraryWindow.vala:896
+msgid "Shotwell is configured to import photos to your home directory.\n"
+msgstr "ఫొటోలను మీ నివాస డైరెక్టరీలోకి దిగుమతిచేయడానికి షాట్‌వెల్ స్వరూపించబడింది.\n"
+
+#: src/library/LibraryWindow.vala:899
+msgid "Library Location"
+msgstr "లైబ్రరీ స్థానము"
+
+#: src/library/LibraryWindow.vala:912
+msgid "Photos cannot be imported from this directory."
+msgstr "ఈ డైరెక్టరీ నుంచి ఫొటోలను దిగుమతిచేయుట సాధ్యపడదు."
+
+#: src/library/LibraryWindow.vala:1200
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/library/LibraryWindow.vala:1244 src/library/LibraryWindow.vala:1255
+msgid "Updating library..."
+msgstr "లైబ్రరీని నవీకరిస్తోంది..."
+
+#: src/library/LibraryWindow.vala:1261
+msgid "Preparing to auto-import photos..."
+msgstr "ఫొటోల స్వయం-దిగుమతికి సిద్ధంచేస్తోంది..."
+
+#: src/library/LibraryWindow.vala:1266
+msgid "Auto-importing photos..."
+msgstr "ఫొటోలను స్వయం-దిగుమతిచేస్తోంది..."
+
+#: src/library/LibraryWindow.vala:1274
+msgid "Writing metadata to files..."
+msgstr "మెటాడేటాను ఫైళ్ళకి వ్రాస్తుంది..."
+
+#: src/library/Branch.vala:37
+msgid "Library"
+msgstr "లైబ్రరీ"
+
+#: src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "దిగుమతిచేస్తోంది..."
+
+#: src/library/ImportQueuePage.vala:66
+msgid "_Stop Import"
+msgstr "దిగుమతిని ఆపు(_S)"
+
+#: src/library/ImportQueuePage.vala:67
+msgid "Stop importing photos"
+msgstr "ఫొటోల దిగుమతిని ఆపు"
+
+#: src/library/ImportQueuePage.vala:123
+msgid "Preparing to import..."
+msgstr "దిగుమతిచేయుటకు సిద్ధంచేస్తోంది..."
+
+#: src/library/ImportQueuePage.vala:150
+#, c-format
+msgid "Imported %s"
+msgstr "%s దిగుమతిచేయబడినవి"
+
+#: src/direct/DirectPhotoPage.vala:51 src/direct/DirectPhotoPage.vala:413
+msgid "_Save"
+msgstr "దాచు (_S)"
+
+#: src/direct/DirectPhotoPage.vala:52
+msgid "Save photo"
+msgstr "ఫోటో భద్రపరుచు"
+
+#: src/direct/DirectPhotoPage.vala:57
+msgid "Save _As..."
+msgstr "ఇలా దాచు...(_A)"
+
+#: src/direct/DirectPhotoPage.vala:58
+msgid "Save photo with a different name"
+msgstr "ఫొటోను వేరొక పేరుతో దాచండి"
+
+#: src/direct/DirectPhotoPage.vala:69
+msgid "Print the photo to a printer connected to your computer"
+msgstr "మీ కంప్యూటర్‌కి ఒక ముద్రకం అనుసంధానించి ఫొటోను ముద్రించు"
+
+#: src/direct/DirectPhotoPage.vala:223
+#, c-format
+msgid "%s does not exist."
+msgstr "%s ఏమాత్రం లేదు."
+
+#: src/direct/DirectPhotoPage.vala:225
+#, c-format
+msgid "%s is not a file."
+msgstr "%s ఫైలు కాదు."
+
+#: src/direct/DirectPhotoPage.vala:227
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr ""
+"%s  తోడ్పాటు లేదు : ఫైల్ ఫార్మాట్\n"
+"%s."
+
+#: src/direct/DirectPhotoPage.vala:413
+msgid "_Save a Copy"
+msgstr "ఒక నకలు దాచు(_S)"
+
+#: src/direct/DirectPhotoPage.vala:416
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "%s మార్పులు వదలివేయాలా?"
+
+#: src/direct/DirectPhotoPage.vala:417
+msgid "Close _without Saving"
+msgstr "దాచకుండానే మూసివేయి(_w)"
+
+#: src/direct/DirectPhotoPage.vala:450
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "%s కి భద్రపరుస్తుండగా దోషం: %s"
+
+#: src/direct/DirectPhotoPage.vala:478 src/direct/DirectPhotoPage.vala:499
+msgid "Save As"
+msgstr "ఇలా దాచు"
+
+#: src/DirectoryMonitor.vala:889
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "%s గమనించుట వీలుకాలేదు:  (%s) సంచయం కాదు."
+
+#: src/Resources.vala:17
+msgid "Photo Manager"
+msgstr "ఫోటో నిర్వాహకం"
+
+#: src/Resources.vala:18
+msgid "Photo Viewer"
+msgstr "ఫొటో వీక్షకం"
+
+#: src/Resources.vala:27 plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:32
+#: plugins/shotwell-publishing/PicasaPublishing.vala:32
+#: plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: plugins/shotwell-data-imports/FSpotImporter.vala:34
+msgid "Copyright 2009-2013 Yorba Foundation"
+msgstr "కాపీరైట్ 2009-2013 యోర్బా ఫౌండేషన్"
+
+#: src/Resources.vala:144
+msgid "Rotate _Right"
+msgstr "కుడివైపు తిప్పు(_R)"
+
+#: src/Resources.vala:145 src/Resources.vala:150
+msgid "Rotate"
+msgstr "తిప్పు"
+
+#: src/Resources.vala:146
+msgid "Rotate Right"
+msgstr "కుడివైపు తిప్పు"
+
+#: src/Resources.vala:147
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "ఫొటోలను కుడివైపుకు తిప్పండి (ఎడుమవైపు తిప్పుటకు Ctrl నొక్కండి)"
+
+#: src/Resources.vala:149
+msgid "Rotate _Left"
+msgstr "ఎడమవైపు తిప్పు (_L)"
+
+#: src/Resources.vala:151
+msgid "Rotate Left"
+msgstr "ఎడమవైపు తిప్పు"
+
+#: src/Resources.vala:152
+msgid "Rotate the photos left"
+msgstr "ఫొటోలను ఎడమవైపుకి తిప్పు"
+
+#: src/Resources.vala:154
+msgid "Flip Hori_zontally"
+msgstr "అడ్డంగా తారుమారుచేయి(_z)"
+
+#: src/Resources.vala:155
+msgid "Flip Horizontally"
+msgstr "అడ్డంగా తారుమారుచేయి"
+
+#: src/Resources.vala:157
+msgid "Flip Verti_cally"
+msgstr "నిలువుగా తారుమారుచేయి (_c)"
+
+#: src/Resources.vala:158
+msgid "Flip Vertically"
+msgstr "నిలువుగా తారుమారుచేయి"
+
+#: src/Resources.vala:160
+msgid "_Enhance"
+msgstr "మెరుగుపరుచు(_E)"
+
+#: src/Resources.vala:161
+msgid "Enhance"
+msgstr "మెరుగుపరుచు"
+
+#: src/Resources.vala:162
+msgid "Automatically improve the photo's appearance"
+msgstr "స్వయంచాలకంగా ఫొటో కనపడువిధాన్ని మెరుగుపరుచు"
+
+#: src/Resources.vala:164
+msgid "_Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:165
+msgid "Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:166
+msgid "Copy the color adjustments applied to the photo"
+msgstr ""
+
+#: src/Resources.vala:168
+msgid "_Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:169
+msgid "Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:170
+msgid "Apply copied color adjustments to the selected photos"
+msgstr ""
+
+#: src/Resources.vala:172
+msgid "_Crop"
+msgstr "కత్తిరించు(_c)"
+
+#: src/Resources.vala:173
+msgid "Crop"
+msgstr "కత్తిరించు"
+
+#: src/Resources.vala:174
+msgid "Crop the photo's size"
+msgstr "ఫొటో పరిమాణాన్ని కత్తిరించు"
+
+#: src/Resources.vala:176 src/editing_tools/StraightenTool.vala:100
+msgid "_Straighten"
+msgstr "సరిచేయి (_S)"
+
+#: src/Resources.vala:177
+msgid "Straighten"
+msgstr "సరిచేయి"
+
+#: src/Resources.vala:178
+msgid "Straighten the photo"
+msgstr "ఫొటోని సరిచేయి"
+
+#: src/Resources.vala:180
+msgid "_Red-eye"
+msgstr "రెడ్-ఐ(_R)"
+
+#: src/Resources.vala:181
+msgid "Red-eye"
+msgstr "రెడ్-ఐ"
+
+#: src/Resources.vala:182
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "ఫొటోలో ఉన్న ఏ రెడ్-ఐ ప్రాభావాన్నైనా తగ్గించు లేదా తొలగించు"
+
+#: src/Resources.vala:184
+msgid "_Adjust"
+msgstr "సరిచేయి(_A)"
+
+#: src/Resources.vala:185
+msgid "Adjust"
+msgstr "సరిచేయి"
+
+#: src/Resources.vala:186
+msgid "Adjust the photo's color and tone"
+msgstr "ఫొటో రంగును మరియు వర్ణస్థాయిని సవరించు"
+
+#: src/Resources.vala:188
+msgid "Re_vert to Original"
+msgstr "అసలుకి చేసిన మర్పులనురద్దుచేయి(_v)"
+
+#: src/Resources.vala:189
+msgid "Revert to Original"
+msgstr "అసలుకి చేసిన మర్పులనురద్దుచేయి"
+
+#: src/Resources.vala:191
+msgid "Revert External E_dits"
+msgstr "బయటి కూర్పుల మార్పులను రద్దుచేయి(_d)"
+
+#: src/Resources.vala:192
+msgid "Revert to the master photo"
+msgstr "ఉత్తమ ఫొటోకి చేసిన మార్పులను రద్దుచేయి"
+
+#: src/Resources.vala:194
+msgid "Set as _Desktop Background"
+msgstr "డెస్క్‍టాప్ నేపథ్యం వలె అమర్చు(_D)"
+
+#: src/Resources.vala:195
+msgid "Set selected image to be the new desktop background"
+msgstr "ఎంచుకున్న బొమ్మను కొత్త డెస్క్‍టాప్ నేపథ్యముగా అమర్చు"
+
+#: src/Resources.vala:196
+msgid "Set as _Desktop Slideshow..."
+msgstr "డెస్క్‍టాప్ స్లైడ్‌షోలాగ అమర్చు...(_D)"
+
+#: src/Resources.vala:198
+msgid "_Undo"
+msgstr "చేసినదానిని రద్దుచేయి(_U)"
+
+#: src/Resources.vala:199
+msgid "Undo"
+msgstr "చేసినదానిని రద్దుచేయి"
+
+#: src/Resources.vala:201
+msgid "_Redo"
+msgstr "మళ్ళీచేయి (_R)"
+
+#: src/Resources.vala:202
+msgid "Redo"
+msgstr "మళ్ళీచేయి"
+
+#: src/Resources.vala:204
+msgid "Re_name Event..."
+msgstr "కార్యక్రమం పేరుమార్చు...(_n)"
+
+#: src/Resources.vala:207
+msgid "Make _Key Photo for Event"
+msgstr "కార్యక్రమానికి ముఖచిత్రంగా చేయండి(_K)"
+
+#: src/Resources.vala:208
+msgid "Make Key Photo for Event"
+msgstr "కార్యక్రమానికి ముఖచిత్రంగా చేయండి"
+
+#: src/Resources.vala:210
+msgid "_New Event"
+msgstr "కొత్త కార్యక్రమం(_N)"
+
+#: src/Resources.vala:211
+msgid "New Event"
+msgstr "కొత్త కార్యక్రమం"
+
+#: src/Resources.vala:213
+msgid "Move Photos"
+msgstr "కార్యక్రమంలో చేర్చు"
+
+#: src/Resources.vala:214
+msgid "Move photos to an event"
+msgstr "ఫొటోలను కార్యక్రమంలో చేర్చు"
+
+#: src/Resources.vala:216
+msgid "_Merge Events"
+msgstr "కార్యక్రమాలను ఒకటిగాకలిపివేయి(_M)"
+
+#: src/Resources.vala:217
+msgid "Merge"
+msgstr "ఒకటిగాకలిపివేయి"
+
+#: src/Resources.vala:218
+msgid "Combine events into a single event"
+msgstr "కార్యక్రమాలన్నిటినీ ఒకే కార్యక్రమముగా కలిపివేయి"
+
+#: src/Resources.vala:220
+msgid "_Set Rating"
+msgstr "రేటింగు అమర్చు(_S)"
+
+#: src/Resources.vala:221
+msgid "Set Rating"
+msgstr "రేటింగు అమర్చు(_S)"
+
+#: src/Resources.vala:222
+msgid "Change the rating of your photo"
+msgstr "మీ ఫొటో యొక్క రేటింగు మార్చు"
+
+#: src/Resources.vala:224
+msgid "_Increase"
+msgstr "పెంచండి(_I)"
+
+#: src/Resources.vala:225
+msgid "Increase Rating"
+msgstr "రేటింగు పెంచండి"
+
+#: src/Resources.vala:227
+msgid "_Decrease"
+msgstr "తగ్గించండి(_D)"
+
+#: src/Resources.vala:228
+msgid "Decrease Rating"
+msgstr "రేటింగు తగ్గించండి"
+
+#: src/Resources.vala:230
+msgid "_Unrated"
+msgstr "రేటుచేయనివి(_U)"
+
+#: src/Resources.vala:231
+msgid "Unrated"
+msgstr "రేటింగుచేయనివి"
+
+#: src/Resources.vala:232
+msgid "Rate Unrated"
+msgstr "రేటుచేయనివాటిని రేట్‌చేయి"
+
+#: src/Resources.vala:233
+msgid "Setting as unrated"
+msgstr "రేట్‌చేయనివాటిగా అమరుస్తోంది"
+
+#: src/Resources.vala:234
+msgid "Remove any ratings"
+msgstr "ఏ రేటింగునైనా తొలగించండి"
+
+#: src/Resources.vala:236
+msgid "_Rejected"
+msgstr "తిరస్కరించబడినవి(_R)"
+
+#: src/Resources.vala:237
+msgid "Rejected"
+msgstr "తిరస్కరించబడినవి"
+
+#: src/Resources.vala:238
+msgid "Rate Rejected"
+msgstr "తిరస్కరించబడినవాటిని రేట్ చేయి"
+
+#: src/Resources.vala:239
+msgid "Setting as rejected"
+msgstr "తిరస్కరించిన వాటిగా అమరుస్తోంది"
+
+#: src/Resources.vala:240
+msgid "Set rating to rejected"
+msgstr "తిరస్కరించబడినవాటిగా రేటింగు అమర్చు"
+
+#: src/Resources.vala:242
+msgid "Rejected _Only"
+msgstr "తిరస్కరించబడినవి మాత్రమే(_O)"
+
+#: src/Resources.vala:243
+msgid "Rejected Only"
+msgstr "తిరస్కరించబడినవి మాత్రమే"
+
+#: src/Resources.vala:244
+msgid "Show only rejected photos"
+msgstr "తిరస్కరించబడిన ఫొటోలను మాత్రమే చూపించు"
+
+#: src/Resources.vala:246
+msgid "All + _Rejected"
+msgstr "అన్నీ + తిరస్కరించబడినవి(_R)"
+
+#: src/Resources.vala:247 src/Resources.vala:248
+msgid "Show all photos, including rejected"
+msgstr "అన్ని ఫొటోలను చూపించు, తిరస్కరించబడినవాటిని కూడా"
+
+#: src/Resources.vala:250
+msgid "_All Photos"
+msgstr "అన్ని ఫొటోలు(_A)"
+
+#: src/Resources.vala:251 src/Resources.vala:252
+msgid "Show all photos"
+msgstr "అన్ని ఫొటోలను చూపించు"
+
+#: src/Resources.vala:254
+msgid "_Ratings"
+msgstr "రేటింగులు(_R)"
+
+#: src/Resources.vala:255
+msgid "Display each photo's rating"
+msgstr "ప్రతీ ఫొటో యొక్క రేటింగు చూపుము"
+
+#: src/Resources.vala:257
+msgid "_Filter Photos"
+msgstr "ఫొటోలను వడపోయి(_F)"
+
+#: src/Resources.vala:258
+msgid "Filter Photos"
+msgstr "ఫొటోలను వడపోయి"
+
+#: src/Resources.vala:259
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "వడపోత ఆధారంగా కనబడే ఫోటోల సంఖ్యను పరిమితం చేయి"
+
+#: src/Resources.vala:261
+msgid "_Duplicate"
+msgstr "నకిలీచేయి(_D)"
+
+#: src/Resources.vala:262
+msgid "Duplicate"
+msgstr "నకిలీచేయి"
+
+#: src/Resources.vala:263
+msgid "Make a duplicate of the photo"
+msgstr "ఫోటో యొక్క నకిలీ తయారుచేయి"
+
+#: src/Resources.vala:265
+msgid "_Export..."
+msgstr "ఎగుమతిచేయి...(_E)"
+
+#: src/Resources.vala:267
+msgid "_Print..."
+msgstr "ముద్రించు...(_P)"
+
+#: src/Resources.vala:269
+msgid "Pu_blish..."
+msgstr "ప్రచురించు(_b)"
+
+#: src/Resources.vala:270
+msgid "Publish"
+msgstr "ప్రచురించు"
+
+#: src/Resources.vala:271
+msgid "Publish to various websites"
+msgstr "వివిధ వెబ్‌సైటులకు ప్రచురించు"
+
+#: src/Resources.vala:273
+msgid "Edit _Title..."
+msgstr "శీర్షికను సవరించు...(_T)"
+
+#: src/Resources.vala:276
+msgid "Edit _Comment..."
+msgstr "వ్యాఖ్యానము సరిచేయి... (_C)"
+
+#: src/Resources.vala:277
+msgid "Edit Comment"
+msgstr "వ్యాఖ్య సరికూర్చు"
+
+#: src/Resources.vala:279
+msgid "Edit Event _Comment..."
+msgstr ""
+
+#: src/Resources.vala:282
+msgid "_Adjust Date and Time..."
+msgstr "తేదీ మరియు సమయాన్ని సరిచేయి...(_A)"
+
+#: src/Resources.vala:283
+msgid "Adjust Date and Time"
+msgstr "తేది మరియు సమయాన్ని సరిచేయి"
+
+#: src/Resources.vala:285
+msgid "Add _Tags..."
+msgstr "ట్యాగులను జతచేయి...(_T)"
+
+#: src/Resources.vala:286
+msgid "_Add Tags..."
+msgstr "టాగ్‌లను జతచేయి... (_A)"
+
+#: src/Resources.vala:287 src/Resources.vala:318
+msgid "Add Tags"
+msgstr "ట్యాగులను జతచేయి"
+
+#: src/Resources.vala:289
+msgid "_Preferences"
+msgstr "ప్రాధాన్యతలు(_P)"
+
+#: src/Resources.vala:291
+msgid "Open With E_xternal Editor"
+msgstr "బయటి కూర్పకముతో తెరువు(_x)"
+
+#: src/Resources.vala:293
+msgid "Open With RA_W Editor"
+msgstr "RAW కూర్పరితో తెరువు(_R)"
+
+#: src/Resources.vala:295
+msgid "Send _To..."
+msgstr "దీనికి పంపుము(_T)..."
+
+#: src/Resources.vala:296
+msgid "Send T_o..."
+msgstr "దీనికి పంపు... (_o)"
+
+#: src/Resources.vala:298
+msgid "_Find..."
+msgstr "కనుగొను...(_F)"
+
+#: src/Resources.vala:299
+msgid "Find"
+msgstr "కనుగొను"
+
+#: src/Resources.vala:300
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr "పేరులో కాని టాగ్స్ లో కాని వున్న పాఠంతో  బొమ్మను వెతుకుట"
+
+#: src/Resources.vala:302
+msgid "_Flag"
+msgstr "గుర్తుపెట్టు(_F)"
+
+#: src/Resources.vala:304
+msgid "Un_flag"
+msgstr "గుర్తుతీసివేయి(_f)"
+
+#: src/Resources.vala:307
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "కూర్పరిని ప్రారంభించలేకపోతోంది: %s"
+
+#: src/Resources.vala:312
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "\"%s\" ట్యాగు జతచేయి"
+
+#: src/Resources.vala:314
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "\"%s\" మరియు \"%s\" ట్యాగులను జతచేయి"
+
+#: src/Resources.vala:322
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "\"%s\" ట్యాగుని తీసివేయి(_D)"
+
+#: src/Resources.vala:326
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "\"%s\" ట్యాగుని తీసివేయి"
+
+#: src/Resources.vala:329
+msgid "Delete Tag"
+msgstr "ట్యాగును తీసివేయి"
+
+#: src/Resources.vala:332
+msgid "_New"
+msgstr "కొత్తది (_N)"
+
+#: src/Resources.vala:335
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "\"%s\" ట్యాగు పేరుమార్చు...(_n)"
+
+#: src/Resources.vala:339
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "ట్యాగుపేరుని \"%s\" నుండి \"%s\" కి మార్చండి"
+
+#: src/Resources.vala:342
+msgid "_Rename..."
+msgstr "పేరుమార్చు...(_R)"
+
+#: src/Resources.vala:344
+msgid "Modif_y Tags..."
+msgstr "ట్యాగులను సవరించు...(_y)"
+
+#: src/Resources.vala:345
+msgid "Modify Tags"
+msgstr "ట్యాగులను సవరించు"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "ఫొటోలను \"%s\" వలె ట్యాగ్‌చేయి"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "ఫొటోలను ఇలా \"%s\" ట్యాగ్ చేయి"
+
+#: src/Resources.vala:352
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "ఎంచుకున్న ఫొటోలను \"%s\" వలె ట్యాగ్ చేయి"
+
+#: src/Resources.vala:353
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "ఎంచుకున్న ఫొటోలను ఇలా \"%s\" ట్యాగ్ చేయి"
+
+#: src/Resources.vala:357
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "\"%s\" ట్యాగును ఫొటోల నుండి తొలగించు(_P)"
+
+#: src/Resources.vala:358
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "ఫొటోల నుండి \"%s\" ట్యాగును తొలగించు (_P)"
+
+#: src/Resources.vala:362
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "\"%s\" ట్యాగును ఫొటోల నుండి తొలగించు"
+
+#: src/Resources.vala:363
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "ఫొటోల నుండి \"%s\" ట్యాగును తొలగించు"
+
+#: src/Resources.vala:367
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr "\"%s\" గా పేరు మార్చుట కుదరదు, ఎందుకంటే అది ఇప్పటికే వున్నది."
+
+#: src/Resources.vala:371
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr ""
+"\"%s\" కి వెతుకులాట పేరుని మార్చలేకపోతుంది, ఎందుకంటే అటువంటి వెతుకలాట ఇంతకుముందే ఉన్నది."
+
+#: src/Resources.vala:374
+msgid "Saved Search"
+msgstr "దాచబడిన శోధన"
+
+#: src/Resources.vala:376
+msgid "Delete Search"
+msgstr "శోధనను తొలగించు"
+
+#: src/Resources.vala:379
+msgid "_Edit..."
+msgstr "సవరించు...(_E)"
+
+#: src/Resources.vala:380
+msgid "Re_name..."
+msgstr "పేరుమార్చు...(_n)"
+
+#: src/Resources.vala:383
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "శోధన పేరును \"%s\" నుండి \"%s\" కు మార్చు"
+
+#: src/Resources.vala:387
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "\"%s\" శోధనను తొలగించు"
+
+#: src/Resources.vala:545
+#, c-format
+msgid "Rate %s"
+msgstr "రేట్ %s"
+
+#: src/Resources.vala:546
+#, c-format
+msgid "Set rating to %s"
+msgstr "రేటింగుని %s కి అమర్చు"
+
+#: src/Resources.vala:547
+#, c-format
+msgid "Setting rating to %s"
+msgstr "రేటింగుని %s కి అమరుస్తోంది"
+
+#: src/Resources.vala:549
+#, c-format
+msgid "Display %s"
+msgstr "%s ప్రదర్శించు"
+
+#: src/Resources.vala:550
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "%s రేటింగుతో ఉన్న ఫొటోలను మాత్రమే చూపించు"
+
+#: src/Resources.vala:551
+#, c-format
+msgid "%s or Better"
+msgstr "%s లేదా ఇంకామెరుగైనవి"
+
+#: src/Resources.vala:552
+#, c-format
+msgid "Display %s or Better"
+msgstr "%s ప్రదర్శించు లేదా ఇంకా మెరుగైనవి"
+
+#: src/Resources.vala:553
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr "%s రేటింగు లేదా అంతకంటే మెరుగైన రేటింగు ఉన్న ఫొటోలను మాత్రమే చూపించు"
+
+#: src/Resources.vala:644
+msgid "Remove the selected photos from the trash"
+msgstr "ఎంచుకున్న ఫొటోలను చెత్తబుట్ట నుండి తొలగించు"
+
+#: src/Resources.vala:645
+msgid "Remove the selected photos from the library"
+msgstr "ఎంచుకున్న ఫొటోలను లైబ్రరీ నుండి తొలగించు"
+
+#: src/Resources.vala:647
+msgid "_Restore"
+msgstr "తిరిగిఉంచు(_R)"
+
+#: src/Resources.vala:648
+msgid "Move the selected photos back into the library"
+msgstr "ఎంచుకున్న ఫొటోలను తిరిగి లైబ్రరీలోనికి తరలించు"
+
+#: src/Resources.vala:650
+msgid "Show in File Mana_ger"
+msgstr "ఫైల్ నిర్వాహకిలో చూపించు(_g)"
+
+#: src/Resources.vala:651
+msgid "Open the selected photo's directory in the file manager"
+msgstr "ఎంచుకున్న ఫొటో'ల డైరెక్టరీని ఫైల్ నిర్వాహకంలో తెరువు"
+
+#: src/Resources.vala:654
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "ఫైల్ నిర్వాహకంలో తెరుచుటకు సాధ్యపడటంలేదు: %s"
+
+#: src/Resources.vala:657
+msgid "R_emove From Library"
+msgstr "లైబ్రరీ నుండి తొలగించు(_e)"
+
+#: src/Resources.vala:659
+msgid "_Move to Trash"
+msgstr "చెత్తబుట్టకి తరలించు(_M)"
+
+#: src/Resources.vala:661
+msgid "Select _All"
+msgstr "అన్నింటినీ ఎంచుకో(_A)"
+
+#: src/Resources.vala:662
+msgid "Select all items"
+msgstr "అన్ని అంశాలను ఎంచుకోండి"
+
+#: src/Resources.vala:740
+msgid "%-I:%M %p"
+msgstr "%-I:%M %p"
+
+#: src/Resources.vala:741
+msgid "%-I:%M:%S %p"
+msgstr "%-I:%M:%S %p"
+
+#: src/Resources.vala:742
+msgid "%a %b %d, %Y"
+msgstr "%a %b %d, %Y"
+
+#: src/Resources.vala:743 src/Resources.vala:745
+msgid "%a %b %d"
+msgstr "%a %b %d"
+
+#: src/Resources.vala:744
+msgid "%d, %Y"
+msgstr "%d, %Y"
+
+#: src/editing_tools/StraightenTool.vala:99
+msgid "Angle:"
+msgstr "కోణం:"
+
+#: src/editing_tools/StraightenTool.vala:102
+#: src/editing_tools/EditingTools.vala:2204
+msgid "_Reset"
+msgstr "తిరిగిఅమర్చు(_R)"
+
+#: src/editing_tools/EditingTools.vala:661
+msgid "Return to current photo dimensions"
+msgstr "ప్రస్తుత ఫొటో కొలతలకి తిరిగిరండి"
+
+#: src/editing_tools/EditingTools.vala:664
+msgid "Set the crop for this photo"
+msgstr "ఈ ఫొటోకి కత్తెరింపును అమర్చు"
+
+#: src/editing_tools/EditingTools.vala:676
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr ""
+"చిత్రపటం మరియు ప్రకృతి దృశ్యం తీరుల మధ్య అంచులు సవరించవలసిన దీర్ఘచతురస్రం స్థిరంగావుంచుము."
+
+#: src/editing_tools/EditingTools.vala:749
+msgid "Unconstrained"
+msgstr "నిరోధించబడనివి"
+
+#: src/editing_tools/EditingTools.vala:750
+msgid "Square"
+msgstr "చతురస్రం"
+
+#: src/editing_tools/EditingTools.vala:751
+msgid "Screen"
+msgstr "తెర"
+
+#: src/editing_tools/EditingTools.vala:752
+#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+msgid "Original Size"
+msgstr "అసలు పరిమాణం"
+
+#: src/editing_tools/EditingTools.vala:753
+#: src/editing_tools/EditingTools.vala:756
+#: src/editing_tools/EditingTools.vala:766
+#: src/editing_tools/EditingTools.vala:776
+msgid "-"
+msgstr "-"
+
+#: src/editing_tools/EditingTools.vala:754
+msgid "SD Video (4 : 3)"
+msgstr "SD వీడియో (4 : 3)"
+
+#: src/editing_tools/EditingTools.vala:755
+msgid "HD Video (16 : 9)"
+msgstr "HD వీడియో (16 : 9)"
+
+#: src/editing_tools/EditingTools.vala:762
+msgid "Letter (8.5 x 11 in.)"
+msgstr "లెటర్ (8.5 x 11 in.)"
+
+#: src/editing_tools/EditingTools.vala:764
+msgid "Tabloid (11 x 17 in.)"
+msgstr "టేబ్లోయిడ్ (11 x 17 in.)"
+
+#: src/editing_tools/EditingTools.vala:771
+msgid "A4 (210 x 297 mm)"
+msgstr "A4 (210 x 297 mm)"
+
+#: src/editing_tools/EditingTools.vala:775
+msgid "A3 (297 x 420 mm)"
+msgstr "A3 (297 x 420 mm)"
+
+#: src/editing_tools/EditingTools.vala:1865
+msgid "Close the red-eye tool"
+msgstr "రెడ్-ఐ సాధనాన్ని మూసివేయి"
+
+#: src/editing_tools/EditingTools.vala:1868
+msgid "Remove any red-eye effects in the selected region"
+msgstr "ఎంపికచేసిన ప్రాంతంలో ఉన్న ఏ రెడ్-ఐ ప్రభావాన్నైనా తొలగించు"
+
+#: src/editing_tools/EditingTools.vala:2226
+msgid "Saturation:"
+msgstr "సాచురేషన్:"
+
+#: src/editing_tools/EditingTools.vala:2234
+msgid "Tint:"
+msgstr "లేతరంగు:"
+
+#: src/editing_tools/EditingTools.vala:2243
+msgid "Temperature:"
+msgstr "ఉష్ణోగ్రత:"
+
+#: src/editing_tools/EditingTools.vala:2251
+msgid "Shadows:"
+msgstr "ప్రతిబింబాలు:"
+
+#: src/editing_tools/EditingTools.vala:2259
+msgid "Highlights:"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset Colors"
+msgstr "రంగులను తిరిగిఅమర్చు"
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset all color adjustments to original"
+msgstr "అన్ని రంగు సవరణలని అసలుకి తిరిగిఅమర్చు"
+
+#: src/editing_tools/EditingTools.vala:2665
+msgid "Temperature"
+msgstr "ఉష్ణోగ్రత"
+
+#: src/editing_tools/EditingTools.vala:2678
+msgid "Tint"
+msgstr "లేతరంగు"
+
+#: src/editing_tools/EditingTools.vala:2691
+msgid "Saturation"
+msgstr "సాచురేషన్"
+
+#: src/editing_tools/EditingTools.vala:2704
+msgid "Exposure"
+msgstr "ఎక్స్‍పోజర్"
+
+#: src/editing_tools/EditingTools.vala:2717
+msgid "Shadows"
+msgstr "ప్రతిబింబాలు"
+
+#: src/editing_tools/EditingTools.vala:2730
+msgid "Highlights"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2740
+msgid "Contrast Expansion"
+msgstr "వ్యత్యాస విస్తరణ"
+
+#: src/AppWindow.vala:49
+msgid "Pin Toolbar"
+msgstr "సాధనపట్టీని తగిలించు"
+
+#: src/AppWindow.vala:50
+msgid "Pin the toolbar open"
+msgstr "తెరిచిన సాధనపట్టీని గ్రుచ్చు"
+
+#: src/AppWindow.vala:53 src/AppWindow.vala:131
+msgid "Leave fullscreen"
+msgstr "పూర్తి తెరను వదిలిపెట్టు"
+
+#: src/AppWindow.vala:130
+msgid "Leave _Fullscreen"
+msgstr "పూర్తి తెరను వదిలిపెట్టు (_F)"
+
+#: src/AppWindow.vala:491
+msgid "_Quit"
+msgstr "నిష్క్రమించు (_Q)"
+
+#: src/AppWindow.vala:496
+msgid "_About"
+msgstr "గురించి (_A)"
+
+#: src/AppWindow.vala:501
+msgid "Fulls_creen"
+msgstr "పూర్తితెర (_c)"
+
+#: src/AppWindow.vala:506
+msgid "_Contents"
+msgstr "విషయసూచిక (_C)"
+
+#: src/AppWindow.vala:511
+msgid "_Frequently Asked Questions"
+msgstr "ఇటీవలి అడిగిన ప్రశ్నలు(_F)"
+
+#: src/AppWindow.vala:516
+msgid "_Report a Problem..."
+msgstr "సమస్యను నివేదించు... (_R)"
+
+#: src/AppWindow.vala:663
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"షాట్‌వెల్ లైబ్రరీని వాడటానికి ప్రయత్నిస్తున్నపుడు ఒక ఫేటల్ దోషం సంభవించింది.  షాట్‌వెల్ ఇక కొనసాగించలేదు.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:683 plugins/common/Resources.vala:9
+msgid "Visit the Yorba web site"
+msgstr "యోర్బ వెబ్‌సైటును సందర్శించండి"
+
+#: src/AppWindow.vala:686 plugins/common/Resources.vala:28
+msgid "translator-credits"
+msgstr ""
+"Praveen Illa <mail2ipn@gmail.com>, 2010-12. Krishnababu K <kkrothap@redhat."
+"com>, 2012."
+
+#: src/AppWindow.vala:695
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "సహాయాన్ని చూపలేకపోతుంది: %s"
+
+#: src/AppWindow.vala:703
+#, c-format
+msgid "Unable to navigate to bug database: %s"
+msgstr "బగ్ డాటాబేస్ గుండా నేవిగేట్ కాలేకపోతోంది: %s"
+
+#: src/AppWindow.vala:711
+#, c-format
+msgid "Unable to display FAQ: %s"
+msgstr "FAQలను చూపలేకపోతుంది: %s"
+
+#: src/Tag.vala:817
+msgid "untitled"
+msgstr "శీర్షికలేనిది"
+
+#: src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+msgid "Original size"
+msgstr "అసలు పరిమాణం"
+
+#: src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "వెడల్పు లేదా ఎత్తు"
+
+#: src/Dimensions.vala:23
+msgid "Width"
+msgstr "వెడల్పు"
+
+#: src/Dimensions.vala:26
+msgid "Height"
+msgstr "ఎత్తు"
+
+#: src/MediaPage.vala:143
+msgid "Adjust the size of the thumbnails"
+msgstr "థంబ్‌నెయిళ్ళ యొక్క పరిమాణాన్ని సరిచేయు"
+
+#: src/MediaPage.vala:326
+msgid "Increase the magnification of the thumbnails"
+msgstr "థంబ్ నెయిల్ పరిమాణం పెంచుము"
+
+#: src/MediaPage.vala:332
+msgid "Decrease the magnification of the thumbnails"
+msgstr "థంబ్ నెయిల్ పరిమాణం తగ్గించుము"
+
+#: src/MediaPage.vala:399
+msgid "Sort _Photos"
+msgstr "ఫోటోలను పేర్చు(_P)"
+
+#: src/MediaPage.vala:408
+msgid "_Play Video"
+msgstr "వీడియోను ఆడించు(_P)"
+
+#: src/MediaPage.vala:409
+msgid "Open the selected videos in the system video player"
+msgstr "ఎంచుకున్న వీడియోలను వ్యవస్థ వీడియో ప్లేయర్‌లో తెరవండి"
+
+#: src/MediaPage.vala:442 src/events/EventsDirectoryPage.vala:130
+msgid "_Comments"
+msgstr "వ్యాఖ్యానాలు (_C)"
+
+#: src/MediaPage.vala:443
+msgid "Display the comment of each photo"
+msgstr "ప్రతి ఛాయాచిత్రము యొక్క వ్యాఖ్యానము ప్రదర్శించుము"
+
+#: src/MediaPage.vala:455
+msgid "Display each photo's tags"
+msgstr "ప్రతీఒక్క ఫొటో ట్యాగులను చూపించు"
+
+#: src/MediaPage.vala:471
+msgid "By _Title"
+msgstr "శీర్షికను బట్టి(_T)"
+
+#: src/MediaPage.vala:472
+msgid "Sort photos by title"
+msgstr "శీర్షికను బట్టి ఫోటోలను పేర్చు"
+
+#: src/MediaPage.vala:477
+msgid "By Exposure _Date"
+msgstr "తీసిన తేదీని బట్టి(_D)"
+
+#: src/MediaPage.vala:478
+msgid "Sort photos by exposure date"
+msgstr "తీసిన తేదీని బట్టి ఫొటోలను క్రమబద్ధీకరించు"
+
+#: src/MediaPage.vala:483
+msgid "By _Rating"
+msgstr "రేటింగును బట్టి(_R)"
+
+#: src/MediaPage.vala:484
+msgid "Sort photos by rating"
+msgstr "రేటింగును బట్టి ఫోటోలను పేర్చు"
+
+#: src/MediaPage.vala:702
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"షాట్‌వెల్ కొన్ని కారణాల వల్ల ఎంచుకున్న వీడియోను ప్లే చేయలేకపోతుంది:\n"
+"%s"
+
+#: src/events/EventDirectoryItem.vala:83
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d ఫోటో/వీడియో"
+msgstr[1] "%d ఫొటోలు/వీడియోలు"
+
+#: src/events/EventsDirectoryPage.vala:131
+msgid "Display the comment of each event"
+msgstr "ప్రతి ఘటన యొక్క వ్యాఖ్యను ప్రదర్శించు"
+
+#: src/events/EventsDirectoryPage.vala:155
+msgid "No events"
+msgstr "ఏ కార్యక్రమాలు లేవు"
+
+#: src/events/EventsDirectoryPage.vala:159
+msgid "No events found"
+msgstr "ఏ కార్యక్రమాలు కనిపించలేదు"
+
+#: src/events/EventsDirectoryPage.vala:230
+msgid "Events"
+msgstr "కార్యక్రమాలు"
+
+#: src/events/EventsDirectoryPage.vala:244
+msgid "Undated"
+msgstr "నవీకరించబడింది"
+
+#: src/events/EventsDirectoryPage.vala:245
+msgid "%Y"
+msgstr "%Y"
+
+#: src/events/EventsDirectoryPage.vala:246
+msgid "%B"
+msgstr "%B"
+
+#: src/events/EventPage.vala:129
+msgid "No Event"
+msgstr "సమావేశం లేదు"
+
+#: src/AppDirs.vala:48 src/AppDirs.vala:99
+#, c-format
+msgid "Unable to create cache directory %s: %s"
+msgstr "క్యాచీ డైరెక్టరీ సృష్టించలేక పోయింది %s: %s"
+
+#: src/AppDirs.vala:58 src/AppDirs.vala:88
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "డేటా డైరెక్టరీ %s సృష్టించలేకపోతుంది: %s"
+
+#: src/AppDirs.vala:152
+msgid "Pictures"
+msgstr "చిత్రాలు"
+
+#: src/AppDirs.vala:190
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "తాత్కాలిక డైరెక్టరీ %s సృష్టించలేకపోతుంది: %s"
+
+#: src/AppDirs.vala:207 src/AppDirs.vala:223
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "డేటా సబ్‌డైరెక్టరీ %s ని సృష్టించలేకపోతోంది: %s"
+
+#: src/slideshow/TransitionEffects.vala:98
+msgid "(None)"
+msgstr "(ఏదీకాదు)"
+
+#: src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "ఏదీకాదు"
+
+#: src/slideshow/TransitionEffects.vala:339
+msgid "Random"
+msgstr "యాదృశ్చిక"
+
+#: src/slideshow/Slideshow.vala:22
+msgid "Slideshow Transitions"
+msgstr "స్లైడ్ ప్రదర్శన మారుతీరులు"
+
+#: src/Exporter.vala:232
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "%s: %s కొరకు తాత్కాలిక ఫైల్  సృష్టించుట విఫలం"
+
+#: src/Exporter.vala:299
+msgid "Exporting"
+msgstr "ఎగుమతిచేస్తోంది"
+
+#: src/Exporter.vala:317
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "ఫైల్ %s ఇదివరకే ఉంది.  పునఃస్థాపించాలా?"
+
+#: src/Exporter.vala:319
+msgid "_Skip"
+msgstr "దాటవేయి (_S)"
+
+#: src/Exporter.vala:319
+msgid "_Replace"
+msgstr "పునఃస్థాపించు (_R)"
+
+#: src/Exporter.vala:319
+msgid "Replace _All"
+msgstr "అన్నిటిని పునఃస్థాపించు(_A)"
+
+#: src/Exporter.vala:319
+msgid "Export"
+msgstr "ఎగుమతిచేయి"
+
+#: src/SearchFilter.vala:593 src/SearchFilter.vala:594
+msgid "Photos"
+msgstr "ఫొటోలు"
+
+#: src/SearchFilter.vala:599 src/SearchFilter.vala:600
+msgid "Videos"
+msgstr "వీడియోలు"
+
+#: src/SearchFilter.vala:605
+msgid "RAW Photos"
+msgstr "RAW ఫొటోలు"
+
+#: src/SearchFilter.vala:606
+msgid "RAW photos"
+msgstr "RAW ఫొటోలు"
+
+#: src/SearchFilter.vala:952
+#, c-format
+msgid "Error loading UI file %s: %s"
+msgstr "UI ఫైల్ ఎక్కించుటలో దోషం %s: %s"
+
+#: src/SearchFilter.vala:969
+msgid "Type"
+msgstr "రకం"
+
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "ప్రచురిస్తోంది"
+
+#: src/publishing/PublishingUI.vala:105
+msgid "The selected photos/videos were successfully published."
+msgstr "ఎంచుకున్న ఫొటోలు/వీడియోలు విజయవంతంగా ప్రచురించబడినవి."
+
+#: src/publishing/PublishingUI.vala:107
+msgid "The selected videos were successfully published."
+msgstr "ఎంచుకున్న వీడియోలు విజయవంతంగా ప్రచురించబడినవి."
+
+#: src/publishing/PublishingUI.vala:109
+msgid "The selected photos were successfully published."
+msgstr "ఎంచుకున్న ఫొటోలు విజయవంతంగా ప్రచురించబడినవి."
+
+#: src/publishing/PublishingUI.vala:112
+msgid "The selected video was successfully published."
+msgstr "ఎంచుకున్న వీడియో విజయవంతంగా ప్రచురించబడింది."
+
+#: src/publishing/PublishingUI.vala:114
+msgid "The selected photo was successfully published."
+msgstr "ఎంచుకున్న ఫొటో విజయవంతంగా ప్రచురించబడింది."
+
+#: src/publishing/PublishingUI.vala:122
+msgid "Fetching account information..."
+msgstr "ఖాతా సమాచారాన్ని సాధించుతున్నది..."
+
+#: src/publishing/PublishingUI.vala:128
+msgid "Logging in..."
+msgstr "లోనికి ప్రవేశిస్తున్నారు..."
+
+#: src/publishing/PublishingUI.vala:183
+msgid "Publish Photos"
+msgstr "ఫొటోలను ప్రచురించు"
+
+#: src/publishing/PublishingUI.vala:184
+msgid "Publish photos _to:"
+msgstr "ఫొటోలను దీనికి ప్రచురించు(_t):"
+
+#: src/publishing/PublishingUI.vala:186
+msgid "Publish Videos"
+msgstr "వీడియోలను ప్రచురించు"
+
+#: src/publishing/PublishingUI.vala:187
+msgid "Publish videos _to"
+msgstr "వీడియోలను దీనికి ప్రచురించు(_t)"
+
+#: src/publishing/PublishingUI.vala:189
+msgid "Publish Photos and Videos"
+msgstr "ఫొటోలను మరియు వీడియోలను ప్రచురించు"
+
+#: src/publishing/PublishingUI.vala:190
+msgid "Publish photos and videos _to"
+msgstr "ఫొటోలను మరియు వీడియోలను దీనికి ప్రచురించు(_t)"
+
+#: src/publishing/PublishingUI.vala:383
+msgid "Unable to publish"
+msgstr "ప్రచురించలేకపోతోంది"
+
+#: src/publishing/PublishingUI.vala:384
+#, c-format
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugins</b> tab."
+msgstr ""
+"మీరు సారూప్యతగల ప్రచురణ చొప్పింతను చేతనంగా కలిగిలేని కారణంగా యెంపికచేసిన అంశాలను షాట్‌వెల్ "
+"ప్రచురించలేదు. దీనిని సరిదిద్దుటకు, <b>%s అభీష్టాలను సరిచేయు</b> యెంచుకొని అప్పుడు <b>చొప్పింతలు</"
+"b> టాబ్ పైన వొకటి లేదా అంతకన్నా యెక్కువ ప్రచురణ చొప్పింతలను చేతనంచేయి."
+
+#: src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "అప్‌లోడ్ చేయుటకు సిద్ధంచేస్తోంది"
+
+#: src/publishing/PublishingPluginHost.vala:12
+#, c-format
+msgid "Uploading %d of %d"
+msgstr "%d / %d ఎక్కింపు"
+
+#: src/publishing/PublishingPluginHost.vala:81
+#, c-format
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr "%s కు ముద్రణ కొనసాగ వీలుకాదు ఎందుకంటే ఒక దోషం ఎదురైంది:"
+
+#: src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr "వేరొక ముద్రణ సేవికకకు, మెనూ నుండి ఒకటి ఎంచుకొనుము"
+
+#: src/sidebar/Tree.vala:199
+msgid "New _Tag..."
+msgstr "కొత్త ట్యాగు...(_T)"
+
+#: plugins/common/RESTSupport.vala:424
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
+#, fuzzy
+msgid "A temporary file needed for publishing is unavailable"
+msgstr ""
+"ప్రచురణకు అవసరమైన తాత్కాలిక ఫైలు అందుబాటులో లేదు"
+
+#: plugins/common/RESTSupport.vala:1138
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:57
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"మీరు ప్రస్తుతం యు ట్యూబ్‌లోకి లాగిన్ అయిలేరు.\n"
+"\n"
+"మీరు ఇదివరకే గూగుల్ ఖాతాను కలిగిఉంటే దానిని ఉపయోగించి యూ ట్యూబ్ వాడటానికి ముందుకు కొనసాగండి. మీ విహారినిని "
+"ఉపయోగించి యూట్యూబ్ సైటులోకి కనీసం ఒక్కసారి ప్రవేశించి చాలా ఖాతాలను అమర్చుకోవచ్చును."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:362
+msgid ""
+"A file required for publishing is unavailable. Publishing to Youtube can't "
+"continue."
+msgstr "ప్రచురణ కొరకు అవసరమైన ఫైలు అందుబాటులోలేదు. యూట్యూబ్‌కు ప్రచురించుట కొనసాగించలేదు."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:461
+#, c-format
+msgid "You are logged into YouTube as %s."
+msgstr "మీరు యుట్యూబ్ లోనికి %s.వలె ప్రవేశించారు."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:463
+#, c-format
+msgid "Videos will appear in '%s'"
+msgstr "వీడియోలు %s లలో కనపడతాయి"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:495
+msgid "Public listed"
+msgstr "బహిరంగముగా పెట్టినవి"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:496
+msgid "Public unlisted"
+msgstr "బహిరంగంగా పెట్టనివి"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:497
+msgid "Private"
+msgstr "అంతరంగికం"
+
+#: plugins/shotwell-publishing/shotwell-publishing.vala:26
+msgid "Core Publishing Services"
+msgstr "మూల ముద్రణ సేవలు"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Login to log into Flickr in your Web browser.  You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"మీరు ప్రస్తుతం Flickr కు లాగినైలేరు.\n"
+"\n"
+"Flickr కు లాగిన్ అగుటకు మీ వెబ్ బ్రౌజర్ నందు లాగిన్ నొక్కండి.  మీ Flickr ఖాతా లంకెకు "
+"అనుసంధానమగుటకు మీరు షాట్‌వెల్‌కు అధికారం యీయవలెను."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:63
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"ఈ షాట్‌వెల్ పనిలో ఫ్లికర్‌లో లాగిన్ అయి మరల లాగ్అవుట్ అయ్యారు.\n"
+"ఫ్లికర్‌కు ప్రచురించడానికి, షాట్‌వెల్ నుండి నిష్క్రమించి మరల ప్రారంభించి ప్రయత్నించండి."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "ప్రవేశించుటకు సిద్ధంచేస్తున్నది..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: plugins/shotwell-publishing/FlickrPublishing.vala:595
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can't "
+"continue."
+msgstr "ప్రచురణ కొరకు అవసరమైన ఫైలు అందుబాటులోలేదు. ఫ్లికర్‌కు ప్రచురించుట కొనసాగించలేదు."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "ధృవీకరణను సరిచూస్తున్నది..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1153
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr ""
+"మీరు %s వలె Flickr లోనికి ప్రవేశించారు.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"ఉచిత ఫ్లికర్ ఖాతా మీ నెలసరి అప్‌లోడు పై పరిమితి వుంది.\n"
+"ఈ నెలలో, మీ అప్‌లోడు కోటాలో %d మెగాబైట్లు మిగిలి వుంది."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1157
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr "మీ ప్లికర్ ప్రో ఖాతా అపరిమిత అప్‌లోడులను అనుమతిస్తుంది."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1162
+msgid "Photos _visible to:"
+msgstr "ఫొటోలు వీరికి కనిపించాలి(_v):"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
+msgid "Videos _visible to:"
+msgstr "వీడియోలు వీరికి కనిపించాలి(_v):"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1167
+msgid "Photos and videos _visible to:"
+msgstr "ఫొటోలు మరియు వీడియోలు వీరికి కనిపించాలి(_v):"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1182
+msgid "Everyone"
+msgstr "ప్రతీఒక్కరు"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
+msgid "Friends & family only"
+msgstr "స్నేహితులకు & కుటుంబసభ్యులకు మాత్రమే"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+msgid "Family only"
+msgstr "కుటుంబం మాత్రమే"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
+msgid "Friends only"
+msgstr "స్నేహితులు మాత్రమే"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1180
+msgid "Just me"
+msgstr "నా వరకే"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1229
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
+msgid "500 x 375 pixels"
+msgstr "500 x 375 పిక్సెళ్ళు"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1230
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:108
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 పిక్సెళ్ళు"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 పిక్సెళ్ళు"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 పిక్సెళ్ళు"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:746
+#, c-format
+msgid "Creating album %s..."
+msgstr "ఆల్బమ్ సృష్టిస్తోంది %s..."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:917
+msgid "An error message occurred when publishing to Piwigo. Please try again."
+msgstr "పివిగో కు ప్రచురించునప్పుడు వొక దోష సందేశం యెదురైను. దయచేసి మరలా ప్రయత్నించండి."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:998
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+"మీ Piwigo పోటో లైబ్రరీ యొక్క URL అదేవిందగా మీ Piwigo ఖాతా వాడుకరిపేరు మరియు సంకేతపదంను లైబ్రరీ "
+"కొరకు ప్రవేశపెట్టు."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:999
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
+"entered"
+msgstr "షాట్‌వెల్ మీ Piwigo ఫోటో లైబ్రరీను సంప్రదించలేకపోయింది. మీరు ప్రవేశపెట్టిన URL నిర్థారించుము"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
+#, fuzzy
+msgid "Username and/or password invalid. Please try again"
+msgstr ""
+"వాడుకరిపేరు మరియు/లేదా సంకేతపదం తప్పు. దయచేసి మరలా ప్రయత్నించండి"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1032
+#, c-format
+msgid "Invalid URL"
+msgstr "చెల్లని URL"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
+#, c-format
+msgid "Invalid User Name or Password"
+msgstr "చెల్లని వాడుకరి పేరు లేదా సంకేతపదం"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1127
+#: plugins/shotwell-publishing/PicasaPublishing.vala:59
+#: plugins/shotwell-publishing/FacebookPublishing.vala:61
+msgid "Shotwell Connect"
+msgstr "షాట్‌వెల్ అనుసంధానించు"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+msgid "Admins, Family, Friends, Contacts"
+msgstr "నిర్వాహకులు, కుటుంబం, స్నేహితులు, పరిచయస్తులు"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+msgid "Admins, Family, Friends"
+msgstr "నిర్వాహకులు, కుటుంబం, స్నేహితులు"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+msgid "Admins, Family"
+msgstr "నిర్వాహకులు, కుటుంబం"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+msgid "Admins"
+msgstr "నిర్వాహకులు"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Login to log into Picasa Web Albums in your Web browser. You will have "
+"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"మీరు ప్రస్తుతం పికాసా వెబ్ ఆల్బమ్సుకు లాగినై లేరు.\n"
+"\n"
+"పికాసా వెబ్ ఆల్బమ్సుకు లాగిన్ అగుటకు మీ వెబ్ బ్రౌజర్ నందు లాగిన్ నొక్కండి. షాట్‌వెల్ మీ పికాసా వెబ్ ఆల్బమ్సు "
+"ఖాతాకు లింకు అవుటకు మీరు ధృవీకరించాలి."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa can't "
+"continue."
+msgstr "ప్రచురణ కొరకు అవసరమైన ఫైలు అందుబాటులోలేదు. పికాసాకు ప్రచురించుట కొనసాగించలేదు."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:379
+#: plugins/shotwell-publishing/FacebookPublishing.vala:347
+msgid "Creating album..."
+msgstr "ఆల్బమ్‌ను సృష్టిస్తోంది..."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "మీరు పికాసా వెబ్ ఆల్బమ్‌లోనికి %s వలె ప్రవేశించారు."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+msgid "Videos will appear in:"
+msgstr "వీడియోలు కనబడే స్థానం:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+msgid "Photos will appear in:"
+msgstr "ఫొటోలు ఇందులో కనిపిస్తాయి:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+msgid "Small (640 x 480 pixels)"
+msgstr "చిన్నది (640 x 480 పిక్సెళ్ళు)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+msgid "Medium (1024 x 768 pixels)"
+msgstr "మధ్యస్థం (1024 x 768 పిక్సెళ్ళు)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "సిఫారసుచేయబడింది (1600 x 1200 పిక్సెళ్ళు)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+msgid "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 pixels)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:63
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"మీరు ప్రస్తుతం ఫేస్‌బుక్‌లోకి  ప్రస్తుతం ప్రవేశించిలేరు.\n"
+"\n"
+"మీకు ఫేస్‌బుక్ ఖాతా లేకపోతే, లాగ్ ఇన్ అయ్యేటప్పుడు ఒకటి సృష్టించుకోవచ్చు. లాగిన్ అయ్యేటప్పుడు, షాట్‌వెల్ "
+"కనెక్ట్  ఫోటోలను అప్లోడ్ చేసి మీ ఫీడ్ లో ముద్రణ చేయటకు అనుమతి అడుగుతుంది. షాట్‌వెల్ కనెక్ట్ పనిచేయుటకు ఈ "
+"అనుమతులు అవసరం."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:65
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"ఈ షాట్‌వెల్ పనిలో ఫేస్‌బుక్‌లో లాగిన్ అయి మరల లాగ్అవుట్ అయ్యారు.\n"
+"ఫేస్‌బుక్‌కు ప్రచురించడానికి, షాట్‌వెల్ నుండి నిష్క్రమించి మరలా ప్రారంభించి ప్రయత్నించండి."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:86
+msgid "Standard (720 pixels)"
+msgstr "ప్రామాణికం (720 పిక్సెళ్ళు)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:89
+msgid "Large (2048 pixels)"
+msgstr "అతిపెద్ద (2048 పిక్సెళ్ళు)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:254
+msgid "Testing connection to Facebook..."
+msgstr "ఫేస్‌బుక్‌కు అనుసంధానాన్ని పరీక్షిస్తుంది..."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:374
+msgid ""
+"A file required for publishing is unavailable. Publishing to Facebook can't "
+"continue."
+msgstr "ప్రచురణ కొరకు అవసరమైన ఫైలు అందుబాటులోలేదు. ఫేస్‌బుక్‌కు ప్రచురించుట కొనసాగించలేదు."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#, c-format
+msgid ""
+"You are logged into Facebook as %s.\n"
+"\n"
+msgstr ""
+"మీరు ఫేస్‌బుక్ లోనికి %s వలె ప్రవేశించారు.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1020
+msgid "Where would you like to publish the selected photos?"
+msgstr "ఎంచుకున్న ఫొటోలను ఎక్కడ ప్రచురించడానికి ఇష్టపడుతున్నారు?"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1021
+msgid "Upload _size:"
+msgstr "అప్‌లోడ్ పరిమాణం(_s):"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1181
+msgid "Friends"
+msgstr "స్నేహితులు"
+
+#: plugins/shotwell-transitions/CrumbleEffect.vala:20
+msgid "Crumble"
+msgstr "ముక్కలవు"
+
+#: plugins/shotwell-transitions/ChessEffect.vala:20
+msgid "Chess"
+msgstr "చెస్"
+
+#: plugins/shotwell-transitions/CirclesEffect.vala:20
+msgid "Circles"
+msgstr "వృత్తములు"
+
+#: plugins/shotwell-transitions/BlindsEffect.vala:20
+msgid "Blinds"
+msgstr "బ్లైండ్స్"
+
+#: plugins/shotwell-transitions/StripesEffect.vala:20
+msgid "Stripes"
+msgstr "పట్టీలు"
+
+#: plugins/shotwell-transitions/ClockEffect.vala:20
+msgid "Clock"
+msgstr "గడియారం"
+
+#: plugins/shotwell-transitions/CircleEffect.vala:20
+msgid "Circle"
+msgstr "వృత్తము"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+msgid "Core Slideshow Transitions"
+msgstr "స్లైడ్ ప్రదర్శన మారు మూల విధములు"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:75
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+
+#: plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "స్లైడ్"
+
+#: plugins/shotwell-transitions/FadeEffect.vala:20
+msgid "Fade"
+msgstr "ఫేడ్"
+
+#: plugins/shotwell-transitions/SquaresEffect.vala:20
+msgid "Squares"
+msgstr "చతురస్రములు"
+
+#: plugins/shotwell-data-imports/shotwell-data-imports.vala:22
+msgid "Core Data Import Services"
+msgstr "అంతర్భాగ డేటా దిగుమతి సేవలు"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:56
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select a library to import, either by selecting one of the existing "
+"libraries found by Shotwell or by selecting an alternative F-Spot database "
+"file."
+msgstr ""
+"F-Spot లైబ్రరీ దిగుమతి సేవనకు స్వాగతం.\n"
+"\n"
+"షాట్‌వెల్ నందు కనుగొనబడిన లైబ్రరీలలో వొకదానిని గాని లేదా ప్రత్యామ్నాయ F-Spot డాటాబేస్ ఫైలును గాని యెంపికచేయుట "
+"ద్వారా, దయచేసి లైబ్రరీ దిగుమతికై యెంపికచేయి."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:58
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select an F-Spot database file."
+msgstr ""
+"F-స్పాట్ లైబ్రరీ దిగుమతి సేవకు స్వాగతం.\n"
+"\n"
+"దయచేసి F-స్పాట్ డేటాబేసు ఫైలును ఎంచుకోండి."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:60
+msgid "Manually select an F-Spot database file to import:"
+msgstr "దిగుమతించుటకు F-స్పాట్ డేటాబేసుని మానవీయంగా ఎంచుకోండి:"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:62
+msgid ""
+"Cannot open the selected F-Spot database file: the file does not exist or is "
+"not an F-Spot database"
+msgstr "ఎంపికచేసిన F-Spot డాటాబేస్ ఫైలును తెరువలేము: ఫైలు లేదు లేదా అది F-Spot డాటాబేస్ కాదు"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:64
+msgid ""
+"Cannot open the selected F-Spot database file: this version of the F-Spot "
+"database is not supported by Shotwell"
+msgstr ""
+"ఎంపికచేసిన F-Spot డాటాబేస్ ఫైలును తెరువలేము: F-Spot యొక్క యీ వర్షన్ షాట్‌వెల్ చే తోడ్పాటునీయబడుట లేదు"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:66
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr "ఎంపికచేసిన F-స్పాట్ డేటాబేసు ఫైలును చదువుట వీలుకాదు: కొసల పట్టికను చదువుతున్నపుడు దోషం"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:68
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading photos "
+"table"
+msgstr "ఎంపికచేసిన F-స్పాట్ డేటాబేసు దస్త్రము చదువలేకపోతుంది: ఫొటోల పట్టికను చదువుతున్నపుడు దోషం"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:70
+#, c-format
+msgid ""
+"Shotwell has found %d photos in the F-Spot library and is currently "
+"importing them. Duplicates will be automatically detected and removed.\n"
+"\n"
+"You can close this dialog and start using Shotwell while the import is "
+"taking place in the background."
+msgstr ""
+"షాట్‌వెల్ F-Spot లైబ్రరీనందు %d ఫొటోలను కనుగొన్నది మరియు వాటిని ప్రస్తుతం దిగుమతిచేస్తోంది. నకిలీలు "
+"స్వయంచాలకంగా గుర్తించబడి తొలగించబడును.\n"
+"\n"
+"బ్యాక్‌గ్రౌండ్ నందు దిగుమతి జరుగుచున్నప్పుడు మీరు యీ డైలాగ్‌ను మూసివేసి షాట్‌వెల్‌ను వుపయోగించవచ్చు."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:84
+#, c-format
+msgid "F-Spot library: %s"
+msgstr "F-స్పాట్ లైబ్రరీ: %s"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:416
+msgid "Preparing to import"
+msgstr "దిగుమతి సిద్దమౌతోంది"
+
+#: ui/set_background_dialog.glade:14
+msgid "Set as Desktop Slideshow"
+msgstr "డెస్క్‍టాప్ స్లైడ్‌షోలాగా అమర్చు"
+
+#: ui/set_background_dialog.glade:55
+msgid "Generate desktop background slideshow"
+msgstr "డెస్క్‍టాప్ నేపథ్య స్లైడ్‌షోను ఉత్పత్తిచేయి"
+
+#: ui/set_background_dialog.glade:82
+msgid "Show each photo for"
+msgstr "ప్రతీ ఫొటోను ఇంతసేపు చూపించు"
+
+#: ui/set_background_dialog.glade:94
+msgid "period of time"
+msgstr "కాలవ్యవధి"
+
+#: ui/set_background_dialog.glade:116
+msgid "How long each photo is shown on the desktop background"
+msgstr "ప్రతీ ఫొటోను డెస్క్‍టాప్ నేపథ్యం మీద ఎంతసేపు చూపించాలి"
+
+#: ui/shotwell.glade:7
+msgid "Search"
+msgstr "వెతుకు"
+
+#: ui/shotwell.glade:47
+msgid "_Name of search:"
+msgstr "శోధన యొక్క పేరు (_N):"
+
+#: ui/shotwell.glade:108
+msgid "_Match"
+msgstr "సరిపోల్చు (_M)"
+
+#: ui/shotwell.glade:137
+msgid "of the following:"
+msgstr "కింద పేర్కొన్నవి:"
+
+#: ui/shotwell.glade:218
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>ముద్రిత ప్రతిరూప పరిమాణం</b>"
+
+#: ui/shotwell.glade:235
+msgid "Use a _standard size:"
+msgstr "ఒక ప్రామాణిక పరిమాణాన్ని వాడు(_s):"
+
+#: ui/shotwell.glade:278
+msgid "Use a c_ustom size:"
+msgstr "అనురూపిత పరిమాణాన్ని వాడు(_u):"
+
+#: ui/shotwell.glade:368
+msgid "_Match photo aspect ratio"
+msgstr "ఫొటో పొడవువెడల్పుల నిష్పత్తితో సరిపోల్చుము(_M)"
+
+#: ui/shotwell.glade:392
+msgid "_Autosize:"
+msgstr "స్వయంపరిమాణం(_A):"
+
+#: ui/shotwell.glade:432
+msgid "<b>Titles</b>"
+msgstr "<b>శీర్షికలు</b>"
+
+#: ui/shotwell.glade:449
+msgid "Print image _title"
+msgstr "బొమ్మ శీర్శికను ముద్రించు(_t)"
+
+#: ui/shotwell.glade:493
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>పిగ్జెల్ రిజొల్యూషన్</b>"
+
+#: ui/shotwell.glade:513
+msgid "_Output photo at:"
+msgstr "ఫొటో పంపించవలసిన స్థానం:(_O)"
+
+#: ui/shotwell.glade:548
+msgid "pixels per inch"
+msgstr "పిక్సెల్ పర్ ఇంచ్"
+
+#: ui/shotwell.glade:581 ui/shotwell.glade:623
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:27
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
+msgid "label"
+msgstr "లేబుల్"
+
+#: ui/shotwell.glade:719
+msgid "Shotwell Preferences"
+msgstr "షాట్‌వెల్ ప్రాధాన్యతలు"
+
+#: ui/shotwell.glade:796
+msgid "white"
+msgstr "తెలుపు"
+
+#: ui/shotwell.glade:823
+msgid "black"
+msgstr "నలుపు"
+
+#: ui/shotwell.glade:871
+msgid "_Watch library directory for new files"
+msgstr "కొత్త ఫైళ్ళ కోసం లైబ్రరీ డైరెక్టరీని చూడండి (_W)"
+
+#: ui/shotwell.glade:900
+msgid "Metadata"
+msgstr "మెటాడేటా"
+
+#: ui/shotwell.glade:920
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr "కొనలను,శీర్షికలను, మరియు ఇతర మెటాడేటాను ఫొటో ఫైళ్ళకు వ్రాయి (_m)"
+
+#: ui/shotwell.glade:946
+msgid "Display"
+msgstr "ప్రదర్శించు"
+
+#: ui/shotwell.glade:967
+msgid "_Import photos to:"
+msgstr "ఫొటోలను దీనికి దిగుమతిచేయి(_I):"
+
+#: ui/shotwell.glade:990
+msgid "_Background:"
+msgstr "నేపథ్యం(_B):"
+
+#: ui/shotwell.glade:1013
+msgid "Importing"
+msgstr "దిగుమతిచేస్తోంది"
+
+#: ui/shotwell.glade:1036
+msgid "_Directory structure:"
+msgstr "సంచయ రూపు:(_D)"
+
+#: ui/shotwell.glade:1075
+msgid "_Pattern:"
+msgstr "మాదిరి:(_P)"
+
+#: ui/shotwell.glade:1157
+msgid "Example:"
+msgstr "ఉదాహరణ:"
+
+#: ui/shotwell.glade:1174
+msgid "R_ename imported files to lowercase"
+msgstr "దిగుమతి అయిన ఫైళ్లని క్రిందిబడిఅక్షరాలతో పేరుమార్చు(_e)"
+
+#: ui/shotwell.glade:1203
+msgid "RAW Developer"
+msgstr "RAW అభివృద్ధికారుడు"
+
+#: ui/shotwell.glade:1238
+msgid "De_fault:"
+msgstr "అప్రమేయం (_f):"
+
+#: ui/shotwell.glade:1292
+msgid "E_xternal photo editor:"
+msgstr "బాహ్య ఫొటో కూర్పరి (_x)"
+
+#: ui/shotwell.glade:1308
+msgid "External _RAW editor:"
+msgstr "బయటి RAW కూర్పరి(_R):"
+
+#: ui/shotwell.glade:1373
+msgid "External Editors"
+msgstr "బయటి కూర్పరులు"
+
+#: ui/shotwell.glade:1400
+msgid "Plugins"
+msgstr "ప్లగిన్లు"
+
+#: ui/shotwell.glade:1469
+msgid "_Delay:"
+msgstr "సమయం(_D):"
+
+#: ui/shotwell.glade:1485
+msgid "_Transition effect:"
+msgstr "మారు ప్రభావం: (_T)"
+
+#: ui/shotwell.glade:1501
+msgid "Transition d_elay:"
+msgstr "మారు సమయం:(_e)"
+
+#: ui/shotwell.glade:1513
+msgid "Show t_itle"
+msgstr "శీర్షిక చూపు (_i)"
+
+#: ui/shotwell.glade:1603 ui/shotwell.glade:1616
+msgid "seconds"
+msgstr "సెకనులు"
+
+#: ui/shotwell.glade:1696
+msgid "_Login"
+msgstr "లాగిన్ (_L)"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:21
+msgid ""
+" (text depends on fb username and is modified in the app - \n"
+"anything put into this field won't display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:39
+msgid "Publish to an e_xisting album:"
+msgstr "ఒక ఉనికిఉన్నటువంటి ఆల్బమ్‌కు ప్రచురించు(_x):"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:57
+msgid "Create a _new album named:"
+msgstr "ఒక కొత్త ఆల్బమ్‌ను ఈ పేరుతో సృష్టించు:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:139
+msgid "Videos and new photo albums _visible to:"
+msgstr "వీడియోలు మరియు కొత్త ఆల్బమ్‌లు వీరికి కనపడేటట్లుచేయి(_v):"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:175
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:102
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:178
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:226
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:197
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:137
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:229
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:99
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
+msgid "_Logout"
+msgstr "నిష్క్రమించు (_L)"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:212
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:153
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:243
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:115
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
+msgid "_Publish"
+msgstr "ప్రచురించు (_P)"
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:16
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr "Flickr కు లాగిన్‌ అయిన తరువాత మీ వెబ్ బ్రౌజర్ నందు కనిపించే నిర్ధారణ సంఖ్యను ప్రవేశపెట్టు."
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:37
+msgid "Authorization _Number:"
+msgstr "ధృవీకరణ సంఖ్య (_N):"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Flickr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:44
+msgid "_visibility label (populated in the code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:61
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
+msgid "Photo _size:"
+msgstr "ఫోటో పరిమాణం (_s):"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:18
+msgid ""
+"'you are logged in as $name'\n"
+"(populated in the application code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:75
+msgid "An _existing album:"
+msgstr "ఒక ఉనికిలోనున్న ఆల్బమ్:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:94
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:52
+msgid "A _new album named:"
+msgstr "ఒక కొత్త ఆల్బమ్ పేరు (_n):"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:113
+msgid "L_ist album in public gallery"
+msgstr "బహిరంగ గ్యాలరీలో ఆల్బమ్‌ను పెట్టు(_i)"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:134
+msgid ""
+"$mediatype will appear in\n"
+"(populated in code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:150
+msgid "Photo _size preset:"
+msgstr "ఫొటో పరిమాణం ముందువిలువ:(_s)"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:49
+msgid "_URL of your Piwigo photo library"
+msgstr "మీ పివిగో ఫోటో లైబ్రరీ URL (_U)"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:59
+msgid "User _name"
+msgstr "వాడుకరి పేరు (_n)"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:73
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:59
+msgid "_Password"
+msgstr "సంకేతపదం (_P)"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:130
+msgid "_Remember Password"
+msgstr "సంకేతపదం గుర్తుంచుకొను (_R)"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:151
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:107
+msgid "Login"
+msgstr "ప్రవేశించు"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:40
+msgid "An _existing category:"
+msgstr "ఒక ఉనికిలో ఉన్నటువంటి వర్గం (_e):"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:121
+msgid "Photos will be _visible by:"
+msgstr "ఫోటోలు దీనితో చూపించబడతాయి (_v):"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:149
+msgid "Photo size:"
+msgstr "ఫొటో పరిమాణం:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:176
+msgid "within category:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:210
+msgid "Album comment:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:242
+msgid "_If a title is set and comment unset, use title as comment"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:258
+msgid "_Do no upload tags"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:278
+msgid "Logout"
+msgstr "నిష్క్రమించు"
+
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:55
+msgid "Video privacy _setting:"
+msgstr "వీడియో గోప్యత అమరికలు(_s):"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
+msgid "Copyright 2012 BJA Electronics"
+msgstr "కాపీరైట్ 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
+msgid "1280 x 853 pixels"
+msgstr "1280 x 853 పిగ్జెల్స్"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr "OAuth ధృవీకరణ అభ్యర్ధనకు '%s' చెల్లునటువంటి స్పందనకాదు"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start( ): ప్రారంభించలేదు; ఈ ప్రచురణకర్త పునఃప్రారంభించదగ్గది కాదు."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "మీరు Tumblr ఖాతాకు చెందిన వాడుకరిపేరు మరియు సంకేతపదం ప్రవేశపెట్టుము."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "UI లోడు చేయలేదు: %s"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"మీరు Tumblr కు %s వలే లాగినై వున్నారు.\n"
+"\n"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "కాపీరైట్ 2010+ ఎవ్గెనియ్ పొల్యాకోవ్ <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Yandex.Fotki వెబ్‌సైటుని సందర్శించండి"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "మీరు ప్రస్తుతం Yandex.Fotki లోనికి ప్రవేశించిలేరు."
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:49
+msgid "_Email address"
+msgstr "ఈమెయిల్ చిరునామా (_E)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Tumblr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+"మీరు Tumblr కు (name) వలే లాగినై వున్నారు.\n"
+"\n"
+"(ఈ లేబుల్ యొక్క స్ట్రింగ్ కొడ్ లోపల అమర్చబడివుంది, \n"
+"కనుక యిక్కడ చేసిన మార్పులు ప్రదర్శించబడవు)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
+msgid "Blogs:"
+msgstr "బ్లాగ్స్:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
+msgid "_Albums (or write new):"
+msgstr "ఆల్బమ్‌లు (లేదా కొత్తది వ్రాయి) (_A):"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
+msgid "Access _type:"
+msgstr "అనుమతి రకము (_t):"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
+msgid "Disable _comments"
+msgstr "వ్యాఖ్యలను అచేతనపరుచు (_c)"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
+msgid "_Forbid downloading original photo"
+msgstr "అసలు ఫొటో డౌన్‌లోడును నిషేదించు (_F)"

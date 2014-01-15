@@ -1,0 +1,4674 @@
+# po/shotwell-core/shotwell.pot
+# PO message string template file for Shotwell Core Components
+# Copyright (C) 2009-2013 Yorba Foundation
+# See COPYING for license.
+#
+#
+# Translators:
+# jui <appukonrad@gmail.com>, 2012
+# David Štancl <dstancl@gmail.com>, 2011, 2012
+# David Štancl <dstancl@gmail.com>, 2011
+# Lukáš Zapletal, 2011
+# petr.simacek <petr.simacek@gmail.com>, 2012
+# petr.simacek <petr.simacek@gmail.com>, 2013
+# verayin <vera@yorba.org>, 2011
+# lsbeeler <lucas@yorba.org>, 2011
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
+"Last-Translator: petr.simacek <petr.simacek@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/shotwell/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: src/Event.vala:737
+#, c-format
+msgid "Event %s"
+msgstr "Událost %s"
+
+#: src/camera/Branch.vala:87
+msgid "Cameras"
+msgstr "Fotoaparáty"
+
+#: src/camera/Branch.vala:101 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:300
+#: src/MediaPage.vala:425
+msgid "Camera"
+msgstr "Fotoaparát"
+
+#: src/camera/ImportPage.vala:312 src/Properties.vala:227
+#, c-format
+msgid "RAW+JPEG"
+msgstr "RAW+JPEG"
+
+#: src/camera/ImportPage.vala:459
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr ""
+"Nepodařilo se odpojit fotoaparát. Pokuste se odpojit fotoaparát pomocí "
+"správce souborů."
+
+#: src/camera/ImportPage.vala:776
+msgid "Hide photos already imported"
+msgstr "Schovat již importované fotografie"
+
+#: src/camera/ImportPage.vala:777
+msgid "Only display photos that have not been imported"
+msgstr "Zobrazit jen fotografie, které ještě nebyly importovány"
+
+#: src/camera/ImportPage.vala:845
+msgid "Starting import, please wait..."
+msgstr "Import začíná, prosím, čekejte..."
+
+#: src/camera/ImportPage.vala:872 src/MediaPage.vala:436
+msgid "_Titles"
+msgstr "_Názvy"
+
+#: src/camera/ImportPage.vala:873 src/MediaPage.vala:437
+msgid "Display the title of each photo"
+msgstr "Zobrazí název fotografie"
+
+#: src/camera/ImportPage.vala:884
+msgid "Import _Selected"
+msgstr "Importovat vy_brané"
+
+#: src/camera/ImportPage.vala:885
+msgid "Import the selected photos into your library"
+msgstr "Importuje vybrané fotografie do knihovny"
+
+#: src/camera/ImportPage.vala:890
+msgid "Import _All"
+msgstr "Importovat _všechny"
+
+#: src/camera/ImportPage.vala:891
+msgid "Import all the photos into your library"
+msgstr "Importuje všechny fotografie do knihovny"
+
+#: src/camera/ImportPage.vala:1012
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr ""
+"Shotwell kvůli přístupu potřebuje odpojit fotoaparát ze souborového systému. "
+"Pokračovat?"
+
+#: src/camera/ImportPage.vala:1018
+msgid "_Unmount"
+msgstr "_Odpojit"
+
+#: src/camera/ImportPage.vala:1023
+msgid "Please unmount the camera."
+msgstr "Odpojte fotoaparát."
+
+#: src/camera/ImportPage.vala:1028
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr ""
+"Fotoaparát je používán jinou aplikací. Ukončete všechny aplikace, které ho "
+"používají, a zkuste to znovu."
+
+#: src/camera/ImportPage.vala:1038
+msgid "Please close any other application using the camera."
+msgstr "Ukončete ostatní aplikace používající fotoaparát."
+
+#: src/camera/ImportPage.vala:1043
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+"Nepodařilo se načít náhledy z fotoaparátu:\n"
+"%s"
+
+#: src/camera/ImportPage.vala:1060
+msgid "Unmounting..."
+msgstr "Odpojuje se..."
+
+#: src/camera/ImportPage.vala:1166
+msgid "Fetching photo information"
+msgstr "Získávání informací o fotografii"
+
+#: src/camera/ImportPage.vala:1521
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "Získává se náhled %s"
+
+#: src/camera/ImportPage.vala:1637
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "Nepodařilo se zamknout fotoaparát: %s"
+
+#: src/camera/ImportPage.vala:1722
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "Smazat tuto %d fotografii z fotoaparátu?"
+msgstr[1] "Smazat tyto %d fotografie z fotoaparátu?"
+msgstr[2] "Smazat těchto %d fotografií z fotoaparátu?"
+
+#: src/camera/ImportPage.vala:1725
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "Smazat těchto %d videí z kamery?"
+msgstr[1] "Smazat těchto %d videí z kamery?"
+msgstr[2] "Smazat tato %d videa z kamery?"
+
+#: src/camera/ImportPage.vala:1728
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "Smazat těchto %d videí/fotografií z fotoaparátu?"
+msgstr[1] "Smazat těchto %d videí/fotografií z fotoaparátu?"
+msgstr[2] "Smazat tato %d videa/fotografie z fotoaparátu?"
+
+#: src/camera/ImportPage.vala:1731
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "Smazat tento soubor z fotoaparátu?"
+msgstr[1] "Smazat tyto %d soubory z fotoaparátu?"
+msgstr[2] "Smazat těchto %d souborů z fotoaparátu?"
+
+#: src/camera/ImportPage.vala:1739 src/Dialogs.vala:1328
+msgid "_Keep"
+msgstr "_Zachovat"
+
+#: src/camera/ImportPage.vala:1758
+msgid "Removing photos/videos from camera"
+msgstr "Odstraňují se videa/fotografie z fotoaparátu"
+
+#: src/camera/ImportPage.vala:1762
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] ""
+"Kvůli chybám se nepodařilo z fotoaparátu smazat %d videí/fotografií."
+msgstr[1] ""
+"Kvůli chybám se nepodařilo z fotoaparátu smazat %d video/fotografie."
+msgstr[2] ""
+"Kvůli chybám se nepodařilo z fotoaparátu smazat %d videa/fotografie."
+
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2623
+msgid "S_lideshow"
+msgstr "P_rezentace"
+
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2624
+msgid "Play a slideshow"
+msgstr "Spustí prezentaci"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photo/Video"
+msgstr "Exportovat fotografie/videa"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photos/Videos"
+msgstr "Export fotografií/videí"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:58 src/PhotoPage.vala:3196
+msgid "Export Photo"
+msgstr "Exportování fotografií"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:87
+msgid "Export Photos"
+msgstr "Exportovat fotografie"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Rotating"
+msgstr "Rotace"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Undoing Rotate"
+msgstr "Zpět rotace"
+
+#: src/CollectionPage.vala:570
+msgid "Flipping Horizontally"
+msgstr "Překlopit horizontálně"
+
+#: src/CollectionPage.vala:571
+msgid "Undoing Flip Horizontally"
+msgstr "Zpět horizontální překlopení"
+
+#: src/CollectionPage.vala:580
+msgid "Flipping Vertically"
+msgstr "Překlopit vertikálně"
+
+#: src/CollectionPage.vala:581
+msgid "Undoing Flip Vertically"
+msgstr "Zpět vertikální překlopení"
+
+#: src/searches/SearchBoolean.vala:157
+msgid "Any text"
+msgstr "libovolný text"
+
+#: src/searches/SearchBoolean.vala:160
+msgid "Title"
+msgstr "Název"
+
+#: src/searches/SearchBoolean.vala:163
+msgid "Tag"
+msgstr "Nálepka"
+
+#: src/searches/SearchBoolean.vala:166
+msgid "Comment"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:169
+msgid "Event name"
+msgstr "Název události"
+
+#: src/searches/SearchBoolean.vala:172
+msgid "File name"
+msgstr "Název souboru"
+
+#: src/searches/SearchBoolean.vala:175
+msgid "Media type"
+msgstr "Typ média"
+
+#: src/searches/SearchBoolean.vala:178
+msgid "Flag state"
+msgstr "Stav vlajky"
+
+#: src/searches/SearchBoolean.vala:181
+msgid "Photo state"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:1003
+msgid "Rating"
+msgstr "Hodnocení"
+
+#: src/searches/SearchBoolean.vala:187
+msgid "Date"
+msgstr "Datum"
+
+#: src/searches/SavedSearchDialog.vala:169
+msgid "contains"
+msgstr "obsahuje"
+
+#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:497
+msgid "is exactly"
+msgstr "je přesně"
+
+#: src/searches/SavedSearchDialog.vala:171
+msgid "starts with"
+msgstr "začíná"
+
+#: src/searches/SavedSearchDialog.vala:172
+msgid "ends with"
+msgstr "končí"
+
+#: src/searches/SavedSearchDialog.vala:173
+msgid "does not contain"
+msgstr "neobsahuje"
+
+#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:501
+msgid "is not set"
+msgstr "není nastaveno"
+
+#: src/searches/SavedSearchDialog.vala:245
+#: src/searches/SavedSearchDialog.vala:376
+#: src/searches/SavedSearchDialog.vala:441
+msgid "is"
+msgstr "je"
+
+#: src/searches/SavedSearchDialog.vala:246
+msgid "is not"
+msgstr "není"
+
+#: src/searches/SavedSearchDialog.vala:252
+msgid "any photo"
+msgstr "libovolná fotografie"
+
+#: src/searches/SavedSearchDialog.vala:253
+msgid "a raw photo"
+msgstr "raw fotografie"
+
+#: src/searches/SavedSearchDialog.vala:254
+msgid "a video"
+msgstr "video"
+
+#: src/searches/SavedSearchDialog.vala:308
+msgid "has"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:309
+msgid "has no"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:314
+msgid "modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:315
+msgid "internal modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:316
+msgid "external modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:370
+msgid "flagged"
+msgstr "označeno"
+
+#: src/searches/SavedSearchDialog.vala:371
+msgid "not flagged"
+msgstr "neoznačeno"
+
+#: src/searches/SavedSearchDialog.vala:434
+msgid "and higher"
+msgstr "a více"
+
+#: src/searches/SavedSearchDialog.vala:435
+msgid "only"
+msgstr "jen"
+
+#: src/searches/SavedSearchDialog.vala:436
+msgid "and lower"
+msgstr "a méně"
+
+#: src/searches/SavedSearchDialog.vala:498
+msgid "is after"
+msgstr "je po"
+
+#: src/searches/SavedSearchDialog.vala:499
+msgid "is before"
+msgstr "je před"
+
+#: src/searches/SavedSearchDialog.vala:500
+msgid "is between"
+msgstr "je mezi"
+
+#: src/searches/SavedSearchDialog.vala:513
+msgid "and"
+msgstr "a"
+
+#: src/searches/SavedSearchDialog.vala:720
+msgid "any"
+msgstr "nějaký"
+
+#: src/searches/SavedSearchDialog.vala:721
+msgid "all"
+msgstr "všechny"
+
+#: src/searches/SavedSearchDialog.vala:722
+msgid "none"
+msgstr "žádný"
+
+#: src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "Uložená hledání"
+
+#: src/searches/Branch.vala:77 src/library/LibraryWindow.vala:346
+#: src/sidebar/Tree.vala:195
+msgid "Ne_w Saved Search..."
+msgstr "No_vě uložené vyhledávání..."
+
+#: src/main.vala:54
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr ""
+"Vaše knihovna fotografií není kompatibilní s touto verzí programu Shotwell. "
+"Knihovna je vytvořena ve verzi %s (schéma %d). Spuštěná verze je %s (schéma "
+"%d). Používejte, prosím, poslední verzi programu."
+
+#: src/main.vala:59
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"Programu Shotwell se nepodařilo aktualizovat knihovnu z verze %s (schéma %d) "
+"na verzi %s (schéma %d). Více informací naleznete na stránkách %s (anglicky)"
+
+#: src/main.vala:65
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"Vaše knihovna fotografií není kompatibilní s touto verzí programu Shotwell. "
+"Knihovna je vytvořena ve verzi %s (schéma %d). Spuštěná verze je %s (schéma "
+"%d). Smažte %s a znovu naimportujte fotografie."
+
+#: src/main.vala:71
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr "Neznámá chyba při přístupu k databázi programu Shotwell: %s"
+
+#: src/main.vala:104
+msgid "Loading Shotwell"
+msgstr "Načítá se"
+
+#: src/main.vala:294
+msgid "Path to Shotwell's private data"
+msgstr "Cesta k soukromým datům Shotwellu"
+
+#: src/main.vala:294
+msgid "DIRECTORY"
+msgstr "ADRESÁŘ"
+
+#: src/main.vala:298
+msgid "Do not monitor library directory at runtime for changes"
+msgstr "Nesledovat průběžné změny knihovny adresářů."
+
+#: src/main.vala:302
+msgid "Don't display startup progress meter"
+msgstr "Nezobrazovat při spuštění ukazatel průběhu"
+
+#: src/main.vala:306
+msgid "Show the application's version"
+msgstr "Zobrazit verzi programu"
+
+#: src/main.vala:338
+msgid "[FILE]"
+msgstr "[FILE]"
+
+#: src/main.vala:342
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr "Spuštěním '%s --help' se zobrazí všechny volby příkazového řádku.\n"
+
+#: src/Properties.vala:84
+msgid "Today"
+msgstr "Dnes"
+
+#: src/Properties.vala:86
+msgid "Yesterday"
+msgstr "Včera"
+
+#: src/Properties.vala:340 src/Dialogs.vala:1273
+msgid "Title:"
+msgstr "Název:"
+
+#: src/Properties.vala:343
+msgid "Items:"
+msgstr "Položky:"
+
+#: src/Properties.vala:346
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "%d událost"
+msgstr[1] "%d události"
+msgstr[2] "%d událostí"
+
+#: src/Properties.vala:353 src/events/EventDirectoryItem.vala:87
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d fotografie"
+msgstr[1] "%d fotografie"
+msgstr[2] "%d fotografií"
+
+#: src/Properties.vala:355 src/events/EventDirectoryItem.vala:85
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d video"
+msgstr[1] "%d videa"
+msgstr[2] "%d videí"
+
+#: src/Properties.vala:377
+msgid "Date:"
+msgstr "Datum:"
+
+#: src/Properties.vala:381
+msgid "Time:"
+msgstr "Čas:"
+
+#: src/Properties.vala:384 src/Properties.vala:389
+msgid "From:"
+msgstr "Od:"
+
+#: src/Properties.vala:385 src/Properties.vala:390
+msgid "To:"
+msgstr "Pro:"
+
+#: src/Properties.vala:395 src/editing_tools/EditingTools.vala:1850
+msgid "Size:"
+msgstr "Velikost:"
+
+#: src/Properties.vala:404
+msgid "Duration:"
+msgstr "Délka:"
+
+#: src/Properties.vala:404
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f vteřin"
+
+#: src/Properties.vala:408
+msgid "Developer:"
+msgstr "Vývojář:"
+
+#: src/Properties.vala:436 src/Properties.vala:440 src/Properties.vala:447
+#: src/editing_tools/EditingTools.vala:2218
+msgid "Exposure:"
+msgstr "Expozice:"
+
+#: src/Properties.vala:585
+msgid "Location:"
+msgstr "Místo:"
+
+#: src/Properties.vala:588
+msgid "File size:"
+msgstr "Velikost souboru:"
+
+#: src/Properties.vala:592
+msgid "Current Development:"
+msgstr "Aktuální vývoj:"
+
+#: src/Properties.vala:594
+msgid "Original dimensions:"
+msgstr "Původní velikost:"
+
+#: src/Properties.vala:597
+msgid "Camera make:"
+msgstr "Vytvořeno v:"
+
+#: src/Properties.vala:600
+msgid "Camera model:"
+msgstr "Model fotoaparátu:"
+
+#: src/Properties.vala:603
+msgid "Flash:"
+msgstr "Blesk:"
+
+#: src/Properties.vala:605
+msgid "Focal length:"
+msgstr "Ohnisko:"
+
+#: src/Properties.vala:608
+msgid "Exposure date:"
+msgstr "Datum expozice:"
+
+#: src/Properties.vala:611
+msgid "Exposure time:"
+msgstr "Čas expozice:"
+
+#: src/Properties.vala:614
+msgid "Exposure bias:"
+msgstr "Expozice:"
+
+#: src/Properties.vala:616
+msgid "GPS latitude:"
+msgstr "GPS šířka:"
+
+#: src/Properties.vala:619
+msgid "GPS longitude:"
+msgstr "GPS délka:"
+
+#: src/Properties.vala:622
+msgid "Artist:"
+msgstr "Umělec:"
+
+#: src/Properties.vala:624
+msgid "Copyright:"
+msgstr "Copyright:"
+
+#: src/Properties.vala:626
+msgid "Software:"
+msgstr "Software:"
+
+#: src/Properties.vala:630 src/Dialogs.vala:1288
+msgid "Comment:"
+msgstr "Komentář"
+
+#: src/Properties.vala:639
+msgid "Extended Information"
+msgstr "Další informace"
+
+#: src/Dialogs.vala:16
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "Tím odstraníte nálepku \"%s\" %d fotografie. Pokračovat?"
+msgstr[1] "Tím odstraníte nálepku \"%s\" %d fotografií. Pokračovat?"
+msgstr[2] "Tím odstraníte nálepku \"%s\" %d fotografií. Pokračovat?"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1361
+#: src/Dialogs.vala:1384 src/data_imports/DataImportsUI.vala:399
+#: src/AppWindow.vala:615 src/AppWindow.vala:636 src/AppWindow.vala:653
+#: src/publishing/PublishingUI.vala:498
+msgid "_Cancel"
+msgstr "_Storno"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1329
+#: src/Resources.vala:330 src/Resources.vala:378 src/Resources.vala:643
+msgid "_Delete"
+msgstr "S_mazat"
+
+#: src/Dialogs.vala:25
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr ""
+"Tímto bude odstraněno uložené hledání \"%s\".\n"
+"\n"
+"Pokračovat?"
+
+#: src/Dialogs.vala:35
+#, c-format
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] ""
+"Přepínání vývojářů vrátí zpět všechny změny, které jste provedli na této "
+"fotografii v Shotwellu"
+msgstr[1] ""
+"Přepínání vývojářů vrátí zpět všechny změny, které jste provedli na těchto "
+"fotografiích v Shotwellu"
+msgstr[2] ""
+"Přepínání vývojářů vrátí zpět všechny změny, které jste provedli na těchto "
+"fotografiích v Shotwellu"
+
+#: src/Dialogs.vala:39
+msgid "_Switch Developer"
+msgstr "_Přepnout vývojáře"
+
+#: src/Dialogs.vala:58
+msgid "Export Video"
+msgstr "Exportovat Video"
+
+#: src/Dialogs.vala:115
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr ""
+"Shotwell nemůže vytvořit editační soubor, protože nemůže zapisovat do %s."
+
+#: src/Dialogs.vala:124
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr ""
+"Nepodařilo se exportovat následující fotografii kvůli souborové chybě.\r\n"
+"\r\n"
+
+#: src/Dialogs.vala:130
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr ""
+"\n"
+"\n"
+"Chcete v exportu pokračovat?"
+
+#: src/Dialogs.vala:131
+msgid "Con_tinue"
+msgstr "Po_kračovat"
+
+#: src/Dialogs.vala:147
+msgid "Unmodified"
+msgstr "Bez změny"
+
+#: src/Dialogs.vala:148
+msgid "Current"
+msgstr "Stávající"
+
+#: src/Dialogs.vala:212
+msgid "_Format:"
+msgstr "_Formát:"
+
+#: src/Dialogs.vala:215
+msgid "_Quality:"
+msgstr "_Kvalita:"
+
+#: src/Dialogs.vala:218
+msgid "_Scaling constraint:"
+msgstr "Omezení _zvětšování:"
+
+#: src/Dialogs.vala:221
+msgid " _pixels"
+msgstr "_body"
+
+#: src/Dialogs.vala:229
+msgid "Export metadata"
+msgstr "Exportovat metadata"
+
+#: src/Dialogs.vala:465
+msgid "Save Details..."
+msgstr "Uložit detaily..."
+
+#: src/Dialogs.vala:466
+msgid "Save Details"
+msgstr "Uložit detaily"
+
+#: src/Dialogs.vala:481
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(a %d dalších)\r\n"
+
+#: src/Dialogs.vala:534
+msgid "Import Results Report"
+msgstr "Importovat nahlášené výsledky"
+
+#: src/Dialogs.vala:538
+#, c-format
+msgid "Attempted to import %d file."
+msgid_plural "Attempted to import %d files."
+msgstr[0] "Pokus o import %d souboru."
+msgstr[1] "Pokus o import %d souborů"
+msgstr[2] "Pokus o import %d souborů"
+
+#: src/Dialogs.vala:541
+#, c-format
+msgid "Of these, %d file was successfully imported."
+msgid_plural "Of these, %d files were successfully imported."
+msgstr[0] "Z nich byl %d soubor úspěšně importován."
+msgstr[1] "Z nich byly %d soubory úspěšně importovány."
+msgstr[2] "Z nich bylo %d souborů úspěšně importováno."
+
+#: src/Dialogs.vala:553
+msgid "Duplicate Photos/Videos Not Imported:"
+msgstr "Duplicitní fotografie/Videa nejsou importovány:"
+
+#: src/Dialogs.vala:557
+msgid "duplicates existing media item"
+msgstr "Zduplikuje existující položky"
+
+#: src/Dialogs.vala:568
+msgid "Photos/Videos Not Imported Due to Camera Errors:"
+msgstr "Fotografie/Videa nelze importovat kvůli chybě fotoaparátu:"
+
+#: src/Dialogs.vala:571 src/Dialogs.vala:586 src/Dialogs.vala:601
+#: src/Dialogs.vala:617 src/Dialogs.vala:632 src/Dialogs.vala:646
+msgid "error message:"
+msgstr "chybová zpráva:"
+
+#: src/Dialogs.vala:582
+msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgstr "Soubory nebyly importovány, protože nejde o fotografie nebo videa:"
+
+#: src/Dialogs.vala:597
+msgid ""
+"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Understands:"
+msgstr ""
+"Fotografie/Videa nelze importovat, protože nejde o formát, který Shotwell "
+"dokáže rozeznat:"
+
+#: src/Dialogs.vala:612
+msgid ""
+"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Library:"
+msgstr ""
+"Fotografie/Videa nelze importovat, protože Shotwell je nedokáže překopírovat "
+"do své databáze:"
+
+#: src/Dialogs.vala:616
+#, c-format
+msgid ""
+"couldn't copy %s\n"
+"\tto %s"
+msgstr ""
+"nebylo možné zkopírovat %s\n"
+" »to %s"
+
+#: src/Dialogs.vala:628
+msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
+msgstr ""
+
+#: src/Dialogs.vala:643
+msgid "Photos/Videos Not Imported for Other Reasons:"
+msgstr "Fotografie/Videa nelze importovat z jiných důvodů:"
+
+#: src/Dialogs.vala:663
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "Jedna duplicitní fotografie nebyla naimportována:\r\n"
+msgstr[1] "%d duplicitní fotografie nebyly naimportovány:\r\n"
+msgstr[2] "%d duplicitních fotografií nebylo naimportováno:\r\n"
+
+#: src/Dialogs.vala:666
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "%d duplicitních videí nebylo naimportováno:\n"
+msgstr[1] "%d duplicitních videí nebylo naimportováno:\n"
+msgstr[2] "%d duplicitní videa nebyla naimportována:\n"
+
+#: src/Dialogs.vala:669
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "%d duplicitní videí/fotografií nebyla naimportováno:\n"
+msgstr[1] "%d duplicitní videí/fotografií nebyla naimportováno:\n"
+msgstr[2] "%d duplicitní videa/fotografie nebyla naimportována:\n"
+
+#: src/Dialogs.vala:683
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"import 1 fotografie se nepodařil kvůli chybě souboru, nebo hardware:\r\n"
+msgstr[1] ""
+"import %d fotografií se nepodařil kvůli chybě souboru, nebo hardware:\r\n"
+msgstr[2] ""
+"import %d fotografií se nepodařil kvůli chybě souboru, nebo hardware:\r\n"
+
+#: src/Dialogs.vala:686
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] "%d videí nebylo naimportováno kvůli hardwarové chybě:\n"
+msgstr[1] "%d video se nepodařilo naimportovat kvůli hardwarové chybě:\n"
+msgstr[2] "%d videa nebyla naimportována kvůli hardwarové chybě:\n"
+
+#: src/Dialogs.vala:689
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"%d duplicitních videí/fotografií nebylo naimportováno kvůli hardwarové "
+"chybě:\n"
+msgstr[1] ""
+"%d duplicitní video/fotografie nebylo naimportováno kvůli hardwarové chybě:\n"
+msgstr[2] ""
+"%d duplicitní videa/fotografie nebyly naimportovány kvůli hardwarové chybě:\n"
+
+#: src/Dialogs.vala:692
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"1 soubor se nepodařilo naimportovat kvůli chybě souboru nebo hardware:\n"
+msgstr[1] ""
+"%d soubory se nepodařilo naimportovat kvůli chybě souboru nebo hardware:\n"
+msgstr[2] ""
+"%d souborů se nepodařilo naimportovat kvůli chybě souboru nebo hardware:\n"
+
+#: src/Dialogs.vala:706
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"nepodařilo se importovat jednu fotografii, protože nelze zapisovat do složky "
+"s knihovnou:\n"
+msgstr[1] ""
+"nepodařilo se importovat %d fotografie, protože nelze zapisovat do složky s "
+"knihovnou:\n"
+msgstr[2] ""
+"nepodařilo se importovat %d fotografií, protože nelze zapisovat do složky s "
+"knihovnou:\n"
+
+#: src/Dialogs.vala:709
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"nepodařilo se importovat jedno video, protože nelze zapisovat do složky s "
+"knihovnou:\n"
+msgstr[1] ""
+"nepodařilo se importovat %d videa, protože nelze zapisovat do složky s "
+"knihovnou:\n"
+msgstr[2] ""
+"nepodařilo se importovat %d videí, protože nelze zapisovat do složky s "
+"knihovnou:\n"
+
+#: src/Dialogs.vala:712
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"1 fotografie/video se nepodařilo naimportovat, protože se do složky s "
+"knihovnou nedá zapisovat:\n"
+msgstr[1] ""
+"%d fotografie/videa se nepodařilo naimportovat, protože se do složky s "
+"knihovnou nedá zapisovat:\n"
+msgstr[2] ""
+"%d fotografií/videí se nepodařilo naimportovat, protože se do složky s "
+"knihovnou nedá zapisovat:\n"
+
+#: src/Dialogs.vala:715
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"1 fotografie/video se nepodařilo naimportovat, protože se do složky s "
+"knihovnou nedá zapisovat:\n"
+msgstr[1] ""
+"%d fotografie/videa se nepodařilo naimportovat, protože se do složky s "
+"knihovnou nedá zapisovat:\n"
+msgstr[2] ""
+"%d fotografií/videí se nepodařilo naimportovat, protože se do složky s "
+"knihovnou nedá zapisovat:\n"
+
+#: src/Dialogs.vala:729
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] "import 1 fotografie se nezdařil kvůli chybě fotoaparátu:\r\n"
+msgstr[1] "import %d fotografií se nezdařil kvůli chybě fotoaparátu:\r\n"
+msgstr[2] "import %d fotografií se nezdařil kvůli chybě fotoaparátu:\r\n"
+
+#: src/Dialogs.vala:732
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] "%d videí nebylo naimportováno kvůli chybě kamery:\n"
+msgstr[1] "%d video nebylo naimportováno kvůli chybě kamery:\n"
+msgstr[2] "%d videa nebyla naimportována kvůli chybě kamery:\n"
+
+#: src/Dialogs.vala:735
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] "%d videí/fotografií nebylo naimportováno kvůli chybě kamery:\n"
+msgstr[1] "%d video/fotografie nebylo naimportováno kvůli chybě kamery:\n"
+msgstr[2] "%d videa/fotografie nebyly naimportovány kvůli chybě kamery:\n"
+
+#: src/Dialogs.vala:738
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] "Přidání 1 souboru se nepodařilo kvůli chybě fotoaparátu:\n"
+msgstr[1] ""
+"Přidání %d souborůPřidání 1 souboru se nepodařilo kvůli chybě fotoaparátu:\n"
+msgstr[2] "Přidání %d souborů se nepodařilo kvůli chybě fotoaparátu:\n"
+
+#: src/Dialogs.vala:752
+#, c-format
+msgid "1 photo failed to import because it was corrupt:\n"
+msgid_plural "%d photos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Dialogs.vala:755
+#, c-format
+msgid "1 video failed to import because it was corrupt:\n"
+msgid_plural "%d videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Dialogs.vala:758
+#, c-format
+msgid "1 photo/video failed to import because it was corrupt:\n"
+msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Dialogs.vala:761
+#, c-format
+msgid "1 file failed to import because it was corrupt:\n"
+msgid_plural "%d files failed to import because it was corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Dialogs.vala:778
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "1 nepodporovaná fotografie přeskočena:\r\n"
+msgstr[1] "%d nepodporované fotografie přeskočeny:\r\n"
+msgstr[2] "%d nepodporovaných fotografií přeskočeno:\r\n"
+
+#: src/Dialogs.vala:793
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] "1 neobrázkový soubor přeskočen.\n"
+msgstr[1] "%d neobrázkové soubory přeskočeny.\n"
+msgstr[2] "%d neobrázkových souborů přeskočeno.\n"
+
+#: src/Dialogs.vala:804
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] "1 soubor přeskočen kvůli stornu:\r\n"
+msgstr[1] "%d soubory přeskočeny kvůli stornu:\r\n"
+msgstr[2] "%d souborů přeskočeno kvůli stornu:\r\n"
+
+#: src/Dialogs.vala:807
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] "%d videí přeskočeno na žádost uživatele:\n"
+msgstr[1] "%d video přeskočeno na žádost uživatele:\n"
+msgstr[2] "%d videa přeskočena na žádost uživatele:\n"
+
+#: src/Dialogs.vala:810
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] "%d videí/fotografií přeskočeno na žádost uživatele:\n"
+msgstr[1] "%d video/fotografie přeskočeno na žádost uživatele:\n"
+msgstr[2] "%d videa/fotografie přeskočeny na žádost uživatele:\n"
+
+#: src/Dialogs.vala:813
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] "Soubor přeskočen za žádost uživatele:\n"
+msgstr[1] "%d soubory přeskočeny na žádost uživatele:\n"
+msgstr[2] "%d souborů přeskočeno na žádost uživatele:\n"
+
+#: src/Dialogs.vala:827
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "1 fotografie byla úspěšně naimportována.\n"
+msgstr[1] "%d fotografie byly úspěšně naimportovány.\n"
+msgstr[2] "%d fotografií bylo úspěšně naimportováno.\n"
+
+#: src/Dialogs.vala:830
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "%d videí úspěšně naimportováno.\n"
+msgstr[1] "%d video úspěšně naimportováno.\n"
+msgstr[2] "%d videa úspěšně naimportována.\n"
+
+#: src/Dialogs.vala:833
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "%d videí/fotografií úspěšně naimportováno.\n"
+msgstr[1] "%d video/fotografie úspěšně naimportováno.\n"
+msgstr[2] "%d videa/fotografie úspěšně naimportovány.\n"
+
+#: src/Dialogs.vala:849
+msgid "No photos or videos imported.\n"
+msgstr "Žádná videa ani fotografie nebyla naimportována.\n"
+
+#: src/Dialogs.vala:856 src/Dialogs.vala:875
+msgid "Import Complete"
+msgstr "Import dokončen"
+
+#: src/Dialogs.vala:1103
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d vteřin"
+msgstr[1] "%d vteřina"
+msgstr[2] "%d vteřiny"
+
+#: src/Dialogs.vala:1106
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minut"
+msgstr[1] "%d minuta"
+msgstr[2] "%d minuty"
+
+#: src/Dialogs.vala:1110
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d hodin"
+msgstr[1] "%d hodina"
+msgstr[2] "%d hodiny"
+
+#: src/Dialogs.vala:1113
+msgid "1 day"
+msgstr "1 den"
+
+#: src/Dialogs.vala:1263 src/Resources.vala:205
+msgid "Rename Event"
+msgstr "Přejmenovat událost"
+
+#: src/Dialogs.vala:1263
+msgid "Name:"
+msgstr "Název:"
+
+#: src/Dialogs.vala:1273 src/Resources.vala:274
+msgid "Edit Title"
+msgstr "Upravit název"
+
+#: src/Dialogs.vala:1287 src/Resources.vala:280
+msgid "Edit Event Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1287
+msgid "Edit Photo/Video Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1304
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "_Vyhodit soubor"
+msgstr[1] "_Vyhodit soubory"
+msgstr[2] "_Vyhodit soubory"
+
+#: src/Dialogs.vala:1308
+msgid "Only _Remove"
+msgstr "Jen _odstranit z knihovny"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edit?"
+msgstr "Vzít zpět vnější změny?"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edits?"
+msgstr "Vrátit zpět změny odjinud?"
+
+#: src/Dialogs.vala:1353
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] ""
+"Tím se odstraní všechny provedené změny na externím souboru. Pokračovat?"
+msgstr[1] ""
+"Tím se odstraní všechny provedené změny na %d externích souborech. "
+"Pokračovat?"
+msgstr[2] ""
+"Tím se odstraní všechny provedené změny na %d externích souborech. "
+"Pokračovat?"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edit"
+msgstr "Na_vrátit externí úpravy"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edits"
+msgstr "_Vrátit zpět změny odjinud"
+
+#: src/Dialogs.vala:1378
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "Tímto fotografii odstraníte. Pokračovat?"
+msgstr[1] "Tímto odstraníte %d fotografie. Pokračovat?"
+msgstr[2] "Tímto odstraníte %d fotografií. Pokračovat?"
+
+#: src/Dialogs.vala:1385
+msgid "_Remove"
+msgstr "O_dstranit"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photo From Library"
+msgstr "Probíhá odstraňování fotografií z knihovny"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photos From Library"
+msgstr "Odstranit fotografie z knihovny"
+
+#: src/Dialogs.vala:1479
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/Dialogs.vala:1626
+msgid "AM"
+msgstr "dop."
+
+#: src/Dialogs.vala:1627
+msgid "PM"
+msgstr "odp."
+
+#: src/Dialogs.vala:1628
+msgid "24 Hr"
+msgstr "24 hod."
+
+#: src/Dialogs.vala:1643
+msgid "_Shift photos/videos by the same amount"
+msgstr "_Posunout fotografie/videa o tu samou hodnotu"
+
+#: src/Dialogs.vala:1648
+msgid "Set _all photos/videos to this time"
+msgstr "Nastavit tento čas _všem fotografiím/videím"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo file"
+msgstr "_Upravit původní obrazový soubor"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo files"
+msgstr "_Upravit původní obrazové soubory"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original file"
+msgstr "Z_měnit původní soubory"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original files"
+msgstr "Z_měnit původní soubory"
+
+#: src/Dialogs.vala:1744
+msgid "Original: "
+msgstr "Originál:"
+
+#: src/Dialogs.vala:1745
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%d. %m. %Y, %H:%M:%S"
+
+#: src/Dialogs.vala:1746
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%d. %d. %Y, %I:%M%:S %p"
+
+#: src/Dialogs.vala:1835
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Čas expozice bude posunut dopředu\n"
+"o %d %s, %d %s, %d %s a %d %s."
+
+#: src/Dialogs.vala:1836
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Exposure time will be shifted backward by\n"
+"o %d %s, %d %s, %d %s a %d %s."
+
+#: src/Dialogs.vala:1838
+msgid "day"
+msgid_plural "days"
+msgstr[0] "den"
+msgstr[1] "dny"
+msgstr[2] "dní"
+
+#: src/Dialogs.vala:1839
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "hodina"
+msgstr[1] "hodiny"
+msgstr[2] "hodin"
+
+#: src/Dialogs.vala:1840
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minuta"
+msgstr[1] "minuty"
+msgstr[2] "minut"
+
+#: src/Dialogs.vala:1841
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "vteřina"
+msgstr[1] "vteřiny"
+msgstr[2] "vteřin"
+
+#: src/Dialogs.vala:1885
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"A %d další."
+msgstr[1] ""
+"\n"
+"\n"
+"A %d další."
+msgstr[2] ""
+"\n"
+"\n"
+"A %d dalších."
+
+#: src/Dialogs.vala:1907 src/Dialogs.vala:1934
+msgid "Tags (separated by commas):"
+msgstr "Nálepky (oddělené čárkou):"
+
+#: src/Dialogs.vala:2014
+msgid "Welcome!"
+msgstr "Vítejte!"
+
+#: src/Dialogs.vala:2021
+#, c-format
+msgid "Welcome to Shotwell!"
+msgstr "Vítejte v programu Shotwell!"
+
+#: src/Dialogs.vala:2025
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr "Pro začátek můžete importovat fotografie:"
+
+#: src/Dialogs.vala:2044
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr ""
+"výběrem z menu <span weight=\"bold\">Soubor %s Importovat ze složky</span>"
+
+#: src/Dialogs.vala:2045
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "přetažením a puštěním souborů nad oknem programu"
+
+#: src/Dialogs.vala:2046
+msgid "Connect a camera to your computer and import"
+msgstr "připojením fotoaparátu k počítači a importem z něj"
+
+#: src/Dialogs.vala:2056
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "_Importovat fotografie ze složky %s"
+
+#: src/Dialogs.vala:2063
+msgid "You can also import photos in any of these ways:"
+msgstr "Také můžete fotografie:"
+
+#: src/Dialogs.vala:2073
+msgid "_Don't show this message again"
+msgstr "Příště _nezobrazovat"
+
+#: src/Dialogs.vala:2108
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "Importovat fotografie z knihovny %s"
+
+#: src/Dialogs.vala:2252 src/Dialogs.vala:2256
+msgid "(Help)"
+msgstr "(Nápověda)"
+
+#: src/Dialogs.vala:2265
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "rok%směsíc%sden"
+
+#: src/Dialogs.vala:2267
+#, c-format
+msgid "Year%sMonth"
+msgstr "rok%směsíc"
+
+#: src/Dialogs.vala:2269
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "rok%směsíc-den"
+
+#: src/Dialogs.vala:2271
+msgid "Year-Month-Day"
+msgstr "Rok-měsíc-den"
+
+#: src/Dialogs.vala:2272 src/editing_tools/EditingTools.vala:777
+msgid "Custom"
+msgstr "Vlastní"
+
+#: src/Dialogs.vala:2509
+msgid "Invalid pattern"
+msgstr "Nesprávný vzor"
+
+#: src/Dialogs.vala:2612
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr ""
+"Shotwell může zkopírovat fotografie do knihovny, nebo je může importovat bez "
+"kopírování."
+
+#: src/Dialogs.vala:2617
+msgid "Co_py Photos"
+msgstr "Ko_pírovat fotografie"
+
+#: src/Dialogs.vala:2618
+msgid "_Import in Place"
+msgstr "_Importovat bez kopírování"
+
+#: src/Dialogs.vala:2619
+msgid "Import to Library"
+msgstr "Import do knihovny"
+
+#: src/Dialogs.vala:2629 src/PhotoPage.vala:3075
+msgid "Remove From Library"
+msgstr "Odstranit z knihovny"
+
+#: src/Dialogs.vala:2630 src/PhotoPage.vala:3075
+msgid "Removing Photo From Library"
+msgstr "Probíhá odstraňování fotografií z knihovny"
+
+#: src/Dialogs.vala:2630
+msgid "Removing Photos From Library"
+msgstr "Odstraňují se fotografie z knihovny"
+
+#: src/Dialogs.vala:2644
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also "
+"like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you "
+"also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Tímto odstraníte %d videí/fotografií z knihovny. Chcete odstraněná videa/"
+"fotografie přesunout do koše?\n"
+"\n"
+"Tato operace nemůže být vrácena zpět."
+msgstr[1] ""
+"Tímto odstraníte %d videí/fotografií z knihovny. Chcete odstraněná videa/"
+"fotografie přesunout do koše?\n"
+"\n"
+"Tato operace nemůže být vrácena zpět."
+msgstr[2] ""
+"Tímto odstraníte %d videa/fotografie z knihovny. Chcete odstraněná videa/"
+"fotografie přesunout do koše?\n"
+"\n"
+"Tato operace nemůže být vrácena zpět."
+
+#: src/Dialogs.vala:2648
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Tímto odstraníte %d videí/fotografií z knihovny. Chcete odstraněná videa/"
+"fotografie přesunout do koše?\n"
+"\n"
+"Tato operace nemůže být vrácena zpět."
+msgstr[1] ""
+"Tímto odstraníte %d videí/fotografií z knihovny. Chcete odstraněná videa/"
+"fotografie přesunout do koše?\n"
+"\n"
+"Tato operace nemůže být vrácena zpět."
+msgstr[2] ""
+"Tímto odstraníte %d videa z knihovny. Chcete odstraněná videa přesunout do "
+"koše?\n"
+"\n"
+"Tato operace nemůže být vrácena zpět."
+
+#: src/Dialogs.vala:2652
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Tímto odstraníte fotografii z knihovny programu Shotwell. Chcete také "
+"vyhodit fotografii do koše?\n"
+"\n"
+"Tato akce nemůže být vrácena zpět."
+msgstr[1] ""
+"Tímto odstraníte %d fotografie z knihovny programu Shotwell. Chcete také "
+"vyhodit fotografie do koše?\n"
+"\n"
+"Tato akce nemůže být vrácena zpět."
+msgstr[2] ""
+"Tímto odstraníte %d fotografií z knihovny programu Shotwell. Chcete také "
+"vyhodit fotografie do koše?\n"
+"\n"
+"Tato akce nemůže být vrácena zpět."
+
+#: src/Dialogs.vala:2684
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] ""
+"%d fotografií, nebo videí nemůže být vyhozeno do koše. Smazat tyto soubory?"
+msgstr[1] ""
+"%d fotografií, nebo videí nemůže být vyhozeno do koše. Smazat tyto soubory?"
+msgstr[2] ""
+"%d fotografie, nebo videa nemohou být vyhozeny do koše. Smazat tyto soubory?"
+
+#: src/Dialogs.vala:2701
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "%d fotografií/videí nemůže být smazáno."
+msgstr[1] "%d fotografií/videí nemůže být smazáno."
+msgstr[2] "%d fotografie/videa nemohou být smazány."
+
+#: src/folders/Branch.vala:141
+msgid "Folders"
+msgstr "Složky"
+
+#: src/tags/Branch.vala:127
+msgid "Tags"
+msgstr "Nálepky"
+
+#: src/BatchImport.vala:26
+msgid "Success"
+msgstr "Podařilo se"
+
+#: src/BatchImport.vala:29
+msgid "File error"
+msgstr "Chyba souboru"
+
+#: src/BatchImport.vala:32
+msgid "Unable to decode file"
+msgstr "Nepodařilo se dekódovat soubor"
+
+#: src/BatchImport.vala:35
+msgid "Database error"
+msgstr "Chyba databáze"
+
+#: src/BatchImport.vala:38
+msgid "User aborted import"
+msgstr "Import přerušen uživatelem"
+
+#: src/BatchImport.vala:41
+msgid "Not a file"
+msgstr "Není soubor"
+
+#: src/BatchImport.vala:44
+msgid "File already exists in database"
+msgstr "Soubor je již v databázi"
+
+#: src/BatchImport.vala:47
+msgid "Unsupported file format"
+msgstr "Nepodporovaný formát souboru"
+
+#: src/BatchImport.vala:50
+msgid "Not an image file"
+msgstr "Není soubor s obrázkem"
+
+#: src/BatchImport.vala:53
+msgid "Disk failure"
+msgstr "Chyba disku"
+
+#: src/BatchImport.vala:56
+msgid "Disk full"
+msgstr "Disk je plný"
+
+#: src/BatchImport.vala:59
+msgid "Camera error"
+msgstr "Chyba fotoaparátu"
+
+#: src/BatchImport.vala:62
+msgid "File write error"
+msgstr "Chyba při zápisu souboru"
+
+#: src/BatchImport.vala:65
+msgid "Corrupt image file"
+msgstr ""
+
+#: src/BatchImport.vala:68
+#, c-format
+msgid "Imported failed (%d)"
+msgstr "Chyba importu (%d)"
+
+#: src/Photo.vala:3656
+msgid "modified"
+msgstr "změněno"
+
+#: src/PhotoPage.vala:532
+msgid "Previous photo"
+msgstr "Předchozí fotografie"
+
+#: src/PhotoPage.vala:537
+msgid "Next photo"
+msgstr "Následující fotografie"
+
+#: src/PhotoPage.vala:1844
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "Chybí zdrojový soubor fotografie: %s"
+
+#: src/PhotoPage.vala:2404 src/library/LibraryWindow.vala:360
+#: src/direct/DirectPhotoPage.vala:165
+msgid "_View"
+msgstr "_Zobrazit"
+
+#: src/PhotoPage.vala:2408 src/direct/DirectPhotoPage.vala:81
+msgid "T_ools"
+msgstr "_Nástroje"
+
+#: src/PhotoPage.vala:2413 src/direct/DirectPhotoPage.vala:86
+msgid "_Previous Photo"
+msgstr "_Předchozí fotografie"
+
+#: src/PhotoPage.vala:2414 src/direct/DirectPhotoPage.vala:87
+msgid "Previous Photo"
+msgstr "Předchozí fotografie"
+
+#: src/PhotoPage.vala:2419 src/direct/DirectPhotoPage.vala:92
+msgid "_Next Photo"
+msgstr "_Následující fotografie"
+
+#: src/PhotoPage.vala:2420 src/direct/DirectPhotoPage.vala:93
+msgid "Next Photo"
+msgstr "Následující fotografie"
+
+#: src/PhotoPage.vala:2583 src/direct/DirectPhotoPage.vala:174
+#: src/MediaPage.vala:325
+msgid "Zoom _In"
+msgstr "Z_většit"
+
+#: src/PhotoPage.vala:2584 src/direct/DirectPhotoPage.vala:175
+msgid "Increase the magnification of the photo"
+msgstr "Přiblížit fotografii"
+
+#: src/PhotoPage.vala:2589 src/direct/DirectPhotoPage.vala:180
+#: src/MediaPage.vala:331
+msgid "Zoom _Out"
+msgstr "Z_menšit"
+
+#: src/PhotoPage.vala:2590 src/direct/DirectPhotoPage.vala:181
+msgid "Decrease the magnification of the photo"
+msgstr "Oddálit fotografii"
+
+#: src/PhotoPage.vala:2595 src/direct/DirectPhotoPage.vala:186
+msgid "Fit to _Page"
+msgstr "Přizpůsobit na _stránku"
+
+#: src/PhotoPage.vala:2596 src/direct/DirectPhotoPage.vala:187
+msgid "Zoom the photo to fit on the screen"
+msgstr "Zobrazí fotografii na celé obrazovce"
+
+#: src/PhotoPage.vala:2601 src/direct/DirectPhotoPage.vala:192
+msgid "Zoom _100%"
+msgstr "Zvětšení _100%"
+
+#: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
+#, fuzzy, c-format
+msgid "Zoom the photo to 100% magnification"
+msgstr "Zobrazí fotografii v originální velikosti"
+
+#: src/PhotoPage.vala:2607 src/direct/DirectPhotoPage.vala:198
+msgid "Zoom _200%"
+msgstr "Zvětšení _200%"
+
+#: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
+#, fuzzy, c-format
+msgid "Zoom the photo to 200% magnification"
+msgstr "Zobrazí fotografii ve zvětšení 200%"
+
+#: src/PhotoPage.vala:2628 src/MediaPage.vala:413
+msgid "_Developer"
+msgstr "_Vývojka"
+
+#: src/PhotoPage.vala:3216
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "Nepodařil se export %s: %s"
+
+#: src/data_imports/DataImportsPluginHost.vala:65
+#: src/data_imports/DataImportsPluginHost.vala:78
+#, c-format
+msgid "%s Database"
+msgstr "%s databáze"
+
+#: src/data_imports/DataImportsPluginHost.vala:148
+#: src/data_imports/DataImportsPluginHost.vala:294
+#, c-format
+msgid "Importing from %s can't continue because an error occurred:"
+msgstr "Import z %s nemůže pokračovat kvůli chybě:"
+
+#: src/data_imports/DataImportsPluginHost.vala:151
+msgid "To try importing from another service, select one from the above menu."
+msgstr "Vyberte z menu jinou službu."
+
+#: src/data_imports/DataImports.vala:22
+msgid "Data Imports"
+msgstr "Import dat"
+
+#: src/data_imports/DataImportsUI.vala:10
+msgid ""
+"You do not have any data imports plugins enabled.\n"
+"\n"
+"In order to use the Import From Application functionality, you need to have "
+"at least one data imports plugin enabled. Plugins can be enabled in the "
+"Preferences dialog."
+msgstr ""
+"Nemáte zapnutý žádný importní plugin.\n"
+"\n"
+"Pokud chcete používat funkci Importovat z aplikace, musíte mít zapnut "
+"alespoň jeden plugin zapnut. Pluginy se zapínají v dialogu Nastavení."
+
+#: src/data_imports/DataImportsUI.vala:100
+msgid "Database file:"
+msgstr "Soubor s databází:"
+
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:899
+msgid "_Import"
+msgstr "_Import"
+
+#: src/data_imports/DataImportsUI.vala:216
+msgid "Import From Application"
+msgstr "Importovat z aplikace"
+
+#: src/data_imports/DataImportsUI.vala:217
+msgid "Import media _from:"
+msgstr "Importovat média _z:"
+
+#: src/data_imports/DataImportsUI.vala:394
+#: src/publishing/PublishingUI.vala:493
+msgid "_Close"
+msgstr "_Zavřít"
+
+#: src/SlideshowPage.vala:49 src/SlideshowPage.vala:182
+msgid "Settings"
+msgstr "Nastavení"
+
+#: src/SlideshowPage.vala:141 src/Screensaver.vala:18
+msgid "Slideshow"
+msgstr "Prezentace"
+
+#: src/SlideshowPage.vala:161
+msgid "Back"
+msgstr "Předchozí"
+
+#: src/SlideshowPage.vala:162
+msgid "Go to the previous photo"
+msgstr "Jít na předchozí fotografii"
+
+#: src/SlideshowPage.vala:168 src/SlideshowPage.vala:273
+msgid "Pause"
+msgstr "Pauza"
+
+#: src/SlideshowPage.vala:169 src/SlideshowPage.vala:274
+msgid "Pause the slideshow"
+msgstr "Zastavit prezentaci"
+
+#: src/SlideshowPage.vala:175
+msgid "Next"
+msgstr "Další"
+
+#: src/SlideshowPage.vala:176
+msgid "Go to the next photo"
+msgstr "Jít na další fotografii"
+
+#: src/SlideshowPage.vala:183
+msgid "Change slideshow settings"
+msgstr "Změnit nastavení prezentace"
+
+#: src/SlideshowPage.vala:237
+msgid "All photo source files are missing."
+msgstr "Chybí všechny zdrojové soubory fotografií."
+
+#: src/SlideshowPage.vala:269
+msgid "Play"
+msgstr "Spustit"
+
+#: src/SlideshowPage.vala:270
+msgid "Continue the slideshow"
+msgstr "Pokračovat v prezentaci"
+
+#: src/Commands.vala:733
+msgid "Reverting"
+msgstr "Zpět"
+
+#: src/Commands.vala:733
+msgid "Undoing Revert"
+msgstr "Vrácení akce zpět"
+
+#: src/Commands.vala:777
+msgid "Enhancing"
+msgstr "Vylepšení"
+
+#: src/Commands.vala:777
+msgid "Undoing Enhance"
+msgstr "Vrácení vylepšení"
+
+#: src/Commands.vala:845
+msgid "Applying Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:845
+msgid "Undoing Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:995
+msgid "Creating New Event"
+msgstr "Vytvořit novou událost"
+
+#: src/Commands.vala:996
+msgid "Removing Event"
+msgstr "Odstranit událost"
+
+#: src/Commands.vala:1005
+msgid "Moving Photos to New Event"
+msgstr "Přesunout fotografie do nové události"
+
+#: src/Commands.vala:1006
+msgid "Setting Photos to Previous Event"
+msgstr "Nastavení fotografií na předchozí událost"
+
+#: src/Commands.vala:1063
+msgid "Merging"
+msgstr "Spojování"
+
+#: src/Commands.vala:1064
+msgid "Unmerging"
+msgstr "Rozdělování"
+
+#: src/Commands.vala:1073
+msgid "Duplicating photos"
+msgstr "Zdvojení fotografií"
+
+#: src/Commands.vala:1073
+msgid "Removing duplicated photos"
+msgstr "Odstranění duplicitních fotografií"
+
+#: src/Commands.vala:1096
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "Nemohu zkopírovat %d fotografii kvůli chybám v souboru"
+msgstr[1] "Nemohu zkopírovat %d fotografie kvůli chybám v souboru"
+msgstr[2] "Nemohu zkopírovat %d fotografií kvůli chybám v souboru"
+
+#: src/Commands.vala:1183
+msgid "Restoring previous rating"
+msgstr "Obnovit předchozí ohodnocení"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Increasing ratings"
+msgstr "Zvýšit ohodnocení"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Decreasing ratings"
+msgstr "Snížit ohodnocení"
+
+#: src/Commands.vala:1244
+msgid "Setting RAW developer"
+msgstr "Nastavení RAW vývojky"
+
+#: src/Commands.vala:1244
+msgid "Restoring previous RAW developer"
+msgstr "Obnovení předchozí RAW vývojky"
+
+#: src/Commands.vala:1245
+msgid "Set Developer"
+msgstr "Nastavení vývojky"
+
+#: src/Commands.vala:1335
+msgid "Original photo could not be adjusted."
+msgstr "Originální fotografie nemůže být upravována."
+
+#: src/Commands.vala:1356
+msgid "Adjusting Date and Time"
+msgstr "Nastavení času a data"
+
+#: src/Commands.vala:1356
+msgid "Undoing Date and Time Adjustment"
+msgstr "Vrátit zpět nastavení data a času"
+
+#: src/Commands.vala:1387
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "Jedna původní fotografie nemůže být upravena."
+msgstr[1] "Následující původní fotografie nemohou být upraveny."
+msgstr[2] "Následující původní fotografie nemohou být upraveny."
+
+#: src/Commands.vala:1389 src/Commands.vala:1413
+msgid "Time Adjustment Error"
+msgstr "Chyba při nastavování času"
+
+#: src/Commands.vala:1411
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] "Nastavení data a času nemůže být u této fotografie provedeno."
+msgstr[1] "Nastavení data a času nemůže být u těchto fotografií provedeno."
+msgstr[2] "Nastavení data a času nemůže být u těchto fotografií provedeno."
+
+#: src/Commands.vala:1625 src/Commands.vala:1648
+msgid "Create Tag"
+msgstr "Vytvořit značku"
+
+#: src/Commands.vala:1683
+#, c-format
+msgid "Move Tag \"%s\""
+msgstr "Přesunout značku \"%s\""
+
+#: src/Commands.vala:2335
+msgid "Move Photos to Trash"
+msgstr "Vyhodit fotografie do koše"
+
+#: src/Commands.vala:2335
+msgid "Restore Photos from Trash"
+msgstr "Vyjmout fotografie z koše"
+
+#: src/Commands.vala:2336
+msgid "Move the photos to the Shotwell trash"
+msgstr "Přesune fotografie do koše programu Shotwell"
+
+#: src/Commands.vala:2336
+msgid "Restore the photos back to the Shotwell library"
+msgstr "Vrátí fotografie zpět do knihovny programu Shotwell"
+
+#: src/Commands.vala:2355
+msgid "Moving Photos to Trash"
+msgstr "Probíhá vyhazování fotografií do koše"
+
+#: src/Commands.vala:2355
+msgid "Restoring Photos From Trash"
+msgstr "Probíhá vyjímání fotografií z koše"
+
+#: src/Commands.vala:2441
+msgid "Flag selected photos"
+msgstr "Označit vybrané fotografie"
+
+#: src/Commands.vala:2442
+msgid "Unflag selected photos"
+msgstr "Odznačit vybrané fotografie"
+
+#: src/Commands.vala:2443
+msgid "Flagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2444
+msgid "Unflagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2451
+msgid "Flag"
+msgstr "Označit"
+
+#: src/Commands.vala:2451
+msgid "Unflag"
+msgstr "Odznačit"
+
+#: src/photos/RawSupport.vala:134
+msgid "RAW"
+msgstr "RAW"
+
+#: src/photos/RawSupport.vala:297 src/MediaPage.vala:420
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: src/photos/BmpSupport.vala:32
+msgid "BMP"
+msgstr "BMP"
+
+#: src/photos/JfifSupport.vala:84
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/photos/JfifSupport.vala:182
+#, c-format
+msgid "Low (%d%%)"
+msgstr "nízká (%d%%)"
+
+#: src/photos/JfifSupport.vala:185
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "střední (%d%%)"
+
+#: src/photos/JfifSupport.vala:188
+#, c-format
+msgid "High (%d%%)"
+msgstr "vysoká (%d%%)"
+
+#: src/photos/JfifSupport.vala:191
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "maximální (%d%%)"
+
+#: src/photos/PngSupport.vala:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/photos/TiffSupport.vala:86
+msgid "TIFF"
+msgstr "TIFF"
+
+#: src/Page.vala:1268
+msgid "No photos/videos"
+msgstr "Žádné video, ani fotografie"
+
+#: src/Page.vala:1272
+msgid "No photos/videos found"
+msgstr "Nebylo nalezeno žádné video, ani fotografie"
+
+#: src/Page.vala:2569
+msgid "Photos cannot be exported to this directory."
+msgstr "Fotografie nemohou být exportovány do této složky."
+
+#: src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "Nepodařilo se monitorovat změny: %s"
+
+#: src/Printing.vala:255
+msgid "Fill the entire page"
+msgstr "Vyplnit celou stránku"
+
+#: src/Printing.vala:256
+msgid "2 images per page"
+msgstr "2 obrázky na stránku"
+
+#: src/Printing.vala:257
+msgid "4 images per page"
+msgstr "4 obrázky na stránku"
+
+#: src/Printing.vala:258
+msgid "6 images per page"
+msgstr "6 obrázků na stránku"
+
+#: src/Printing.vala:259
+msgid "8 images per page"
+msgstr "8 obrázků na stránku"
+
+#: src/Printing.vala:260
+msgid "16 images per page"
+msgstr "16 obrázků na stránku"
+
+#: src/Printing.vala:261
+msgid "32 images per page"
+msgstr "32 obrázků na stránku"
+
+#: src/Printing.vala:348
+msgid "in."
+msgstr "palců"
+
+#: src/Printing.vala:349
+msgid "cm"
+msgstr "cm"
+
+#: src/Printing.vala:817 src/editing_tools/EditingTools.vala:757
+msgid "Wallet (2 x 3 in.)"
+msgstr "Peněženka (2 x 3 palce)"
+
+#: src/Printing.vala:820 src/editing_tools/EditingTools.vala:758
+msgid "Notecard (3 x 5 in.)"
+msgstr "Poznámková karta (3x5 palců)"
+
+#: src/Printing.vala:823 src/editing_tools/EditingTools.vala:759
+msgid "4 x 6 in."
+msgstr "4x6 palců"
+
+#: src/Printing.vala:826 src/editing_tools/EditingTools.vala:760
+msgid "5 x 7 in."
+msgstr "5x7 palců"
+
+#: src/Printing.vala:829 src/editing_tools/EditingTools.vala:761
+msgid "8 x 10 in."
+msgstr "8x10 palců"
+
+#: src/Printing.vala:832 src/editing_tools/EditingTools.vala:763
+msgid "11 x 14 in."
+msgstr "11x14 palců"
+
+#: src/Printing.vala:835 src/editing_tools/EditingTools.vala:765
+msgid "16 x 20 in."
+msgstr "16x20 palců"
+
+#: src/Printing.vala:841 src/editing_tools/EditingTools.vala:767
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr "Peněženka metricky (9 x 13 cm)"
+
+#: src/Printing.vala:844 src/editing_tools/EditingTools.vala:768
+msgid "Postcard (10 x 15 cm)"
+msgstr "Pohlednice (10x15 cm)"
+
+#: src/Printing.vala:847 src/editing_tools/EditingTools.vala:769
+msgid "13 x 18 cm"
+msgstr "13x18 cm"
+
+#: src/Printing.vala:850 src/editing_tools/EditingTools.vala:770
+msgid "18 x 24 cm"
+msgstr "18x24 cm"
+
+#: src/Printing.vala:853 src/editing_tools/EditingTools.vala:772
+msgid "20 x 30 cm"
+msgstr "20x30 cm"
+
+#: src/Printing.vala:856 src/editing_tools/EditingTools.vala:773
+msgid "24 x 40 cm"
+msgstr "24x40 cm"
+
+#: src/Printing.vala:859 src/editing_tools/EditingTools.vala:774
+msgid "30 x 40 cm"
+msgstr "30x40 cm"
+
+#: src/Printing.vala:875
+msgid "Image Settings"
+msgstr "Nastavení obrázku"
+
+#: src/Printing.vala:888
+msgid "Printing..."
+msgstr "Tiskne se..."
+
+#: src/Printing.vala:908 src/Printing.vala:1111
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"Nepodařilo se vytisknout fotografii:\n"
+"\n"
+"%s"
+
+#: src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "Nepodařilo se otevřít/vytvořit databázi fotografií %s: kód chyby %d"
+
+#: src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr ""
+"Nepodařilo se zapsat do databázového souboru:\n"
+"%s"
+
+#: src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr ""
+"Chyba při přístupu k databázovému souboru:\n"
+"%s\n"
+"\n"
+"Chyba:\n"
+"%s"
+
+#: src/VideoSupport.vala:464
+msgid "Export Videos"
+msgstr "Export videí"
+
+#: src/DesktopIntegration.vala:118
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "Nepodařilo se spustit službu Nautilus - odeslat: %s"
+
+#: src/DesktopIntegration.vala:126
+msgid "Send To"
+msgstr "Odeslat"
+
+#: src/DesktopIntegration.vala:171
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "Nepodařilo se exportovat pozadí na %s: %s"
+
+#: src/DesktopIntegration.vala:299
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "Nepodařilo se připravit promítání: %s"
+
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:587
+#: src/SearchFilter.vala:588 src/SearchFilter.vala:990
+msgid "Flagged"
+msgstr "Označeno"
+
+#: src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "Koš"
+
+#: src/library/TrashPage.vala:108
+msgid "Trash is empty"
+msgstr "Koš je prázdný"
+
+#: src/library/TrashPage.vala:112
+msgid "Delete"
+msgstr "S_mazat"
+
+#: src/library/TrashPage.vala:113
+msgid "Deleting Photos"
+msgstr "Mazání fotografií"
+
+#: src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "Chybějící soubory"
+
+#: src/library/OfflinePage.vala:106
+msgid "Deleting..."
+msgstr "Maže se..."
+
+#: src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "Poslední import"
+
+#: src/library/LibraryWindow.vala:301
+msgid "_Import From Folder..."
+msgstr "_Importovat ze složky..."
+
+#: src/library/LibraryWindow.vala:302
+msgid "Import photos from disk to library"
+msgstr "Importuje fotografie z disku do knihovny"
+
+#: src/library/LibraryWindow.vala:309
+msgid "Import From _Application..."
+msgstr "Importovat z _aplikace..."
+
+#: src/library/LibraryWindow.vala:313
+msgid "Sort _Events"
+msgstr "Seřadit u_dálosti"
+
+#: src/library/LibraryWindow.vala:323
+msgid "Empty T_rash"
+msgstr "Vyprázdnit _koš"
+
+#: src/library/LibraryWindow.vala:324
+msgid "Delete all photos in the trash"
+msgstr "Vymaže všechny fotografie z koše"
+
+#: src/library/LibraryWindow.vala:329
+msgid "View Eve_nt for Photo"
+msgstr "Zobrazit u_dálosti pro fotografii"
+
+#: src/library/LibraryWindow.vala:334
+msgid "_Find"
+msgstr "Na_jít"
+
+#: src/library/LibraryWindow.vala:335
+msgid "Find photos and videos by search criteria"
+msgstr "Hledá videa a fotografie podle zadaných kritérií"
+
+#: src/library/LibraryWindow.vala:352 src/direct/DirectPhotoPage.vala:46
+msgid "_File"
+msgstr "_Soubor"
+
+#: src/library/LibraryWindow.vala:356 src/direct/DirectPhotoPage.vala:73
+msgid "_Edit"
+msgstr "Ú_pravy"
+
+#: src/library/LibraryWindow.vala:364 src/direct/DirectPhotoPage.vala:77
+msgid "_Photo"
+msgstr "_Fotografie"
+
+#: src/library/LibraryWindow.vala:368
+msgid "_Photos"
+msgstr "_Fotografie"
+
+#: src/library/LibraryWindow.vala:372
+msgid "Even_ts"
+msgstr "Událos_ti"
+
+#: src/library/LibraryWindow.vala:376 src/MediaPage.vala:454
+msgid "Ta_gs"
+msgstr "_Nálepky"
+
+#: src/library/LibraryWindow.vala:380 src/direct/DirectPhotoPage.vala:169
+msgid "_Help"
+msgstr "_Nápověda"
+
+#: src/library/LibraryWindow.vala:391
+msgid "_Basic Information"
+msgstr "_Základní informace"
+
+#: src/library/LibraryWindow.vala:392
+msgid "Display basic information for the selection"
+msgstr "Zobrazí základní informace o vybrané fotografii"
+
+#: src/library/LibraryWindow.vala:397
+msgid "E_xtended Information"
+msgstr "_Rozšířené informace"
+
+#: src/library/LibraryWindow.vala:398
+msgid "Display extended information for the selection"
+msgstr "Zobrazí více informací o vybrané fotografii"
+
+#: src/library/LibraryWindow.vala:403
+msgid "_Search Bar"
+msgstr "Vy_hledávací panel"
+
+#: src/library/LibraryWindow.vala:404
+msgid "Display the search bar"
+msgstr "Zobrazit vyhledávací panel"
+
+#: src/library/LibraryWindow.vala:409
+msgid "S_idebar"
+msgstr "P_ostranní panel"
+
+#: src/library/LibraryWindow.vala:410
+msgid "Display the sidebar"
+msgstr "Zobrazit postranní panel"
+
+#: src/library/LibraryWindow.vala:422 src/MediaPage.vala:494
+msgid "_Ascending"
+msgstr "_Vzestupně"
+
+#: src/library/LibraryWindow.vala:423 src/MediaPage.vala:495
+msgid "Sort photos in an ascending order"
+msgstr "Seřadí fotografie vzestupně"
+
+#: src/library/LibraryWindow.vala:429 src/MediaPage.vala:500
+msgid "D_escending"
+msgstr "_Sestupně"
+
+#: src/library/LibraryWindow.vala:430 src/MediaPage.vala:501
+msgid "Sort photos in a descending order"
+msgstr "Seřadí fotografie sestupně"
+
+#: src/library/LibraryWindow.vala:668
+msgid "Import From Folder"
+msgstr "Import ze složky"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Empty Trash"
+msgstr "Vyprázdnit koš"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Emptying Trash..."
+msgstr "Vysypává se koš..."
+
+#: src/library/LibraryWindow.vala:896
+msgid "Shotwell is configured to import photos to your home directory.\n"
+msgstr ""
+"Program Shotwell je připraven k importu vašich fotografií v domovské "
+"složce.\n"
+
+#: src/library/LibraryWindow.vala:899
+msgid "Library Location"
+msgstr "Umístění knihovny:"
+
+#: src/library/LibraryWindow.vala:912
+msgid "Photos cannot be imported from this directory."
+msgstr "Z této složky fotografie nemohou být importovány."
+
+#: src/library/LibraryWindow.vala:1200
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/library/LibraryWindow.vala:1244 src/library/LibraryWindow.vala:1255
+msgid "Updating library..."
+msgstr "Aktualizuje se knihovna..."
+
+#: src/library/LibraryWindow.vala:1261
+msgid "Preparing to auto-import photos..."
+msgstr "Připravuje se automatický import fotografií..."
+
+#: src/library/LibraryWindow.vala:1266
+msgid "Auto-importing photos..."
+msgstr "Automatický import fotografií..."
+
+#: src/library/LibraryWindow.vala:1274
+msgid "Writing metadata to files..."
+msgstr "Zapisují se metadata do souborů..."
+
+#: src/library/Branch.vala:37
+msgid "Library"
+msgstr "Knihovna"
+
+#: src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "Importuje se..."
+
+#: src/library/ImportQueuePage.vala:66
+msgid "_Stop Import"
+msgstr "Za_stavit import"
+
+#: src/library/ImportQueuePage.vala:67
+msgid "Stop importing photos"
+msgstr "Zastavit import fotografií"
+
+#: src/library/ImportQueuePage.vala:123
+msgid "Preparing to import..."
+msgstr "Příprava na import..."
+
+#: src/library/ImportQueuePage.vala:150
+#, c-format
+msgid "Imported %s"
+msgstr "Importováno %s"
+
+#: src/direct/DirectPhotoPage.vala:51 src/direct/DirectPhotoPage.vala:413
+msgid "_Save"
+msgstr "_Uložit"
+
+#: src/direct/DirectPhotoPage.vala:52
+msgid "Save photo"
+msgstr "Uloží fotografii"
+
+#: src/direct/DirectPhotoPage.vala:57
+msgid "Save _As..."
+msgstr "Uložit j_ako..."
+
+#: src/direct/DirectPhotoPage.vala:58
+msgid "Save photo with a different name"
+msgstr "Uloží fotografii pod jiným názvem"
+
+#: src/direct/DirectPhotoPage.vala:69
+msgid "Print the photo to a printer connected to your computer"
+msgstr "Vytištění fotografie na tiskárně připojené k počítači"
+
+#: src/direct/DirectPhotoPage.vala:223
+#, c-format
+msgid "%s does not exist."
+msgstr "%s neexistuje."
+
+#: src/direct/DirectPhotoPage.vala:225
+#, c-format
+msgid "%s is not a file."
+msgstr "%s není soubor."
+
+#: src/direct/DirectPhotoPage.vala:227
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr "%s nepodporuje formát %s"
+
+#: src/direct/DirectPhotoPage.vala:413
+msgid "_Save a Copy"
+msgstr "Uložit _kopii"
+
+#: src/direct/DirectPhotoPage.vala:416
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "Zahodit změny v %s?"
+
+#: src/direct/DirectPhotoPage.vala:417
+msgid "Close _without Saving"
+msgstr "Zavřít _bez uložení"
+
+#: src/direct/DirectPhotoPage.vala:450
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "Chyba při ukládání %s. %s"
+
+#: src/direct/DirectPhotoPage.vala:478 src/direct/DirectPhotoPage.vala:499
+msgid "Save As"
+msgstr "Uložit jako"
+
+#: src/DirectoryMonitor.vala:889
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "Sledování %s se nepodařilo: není to složka (%s)"
+
+#: src/Resources.vala:17
+msgid "Photo Manager"
+msgstr "Správce fotografií"
+
+#: src/Resources.vala:18
+msgid "Photo Viewer"
+msgstr "Prohlížeč fotografií"
+
+#: src/Resources.vala:27 plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:32
+#: plugins/shotwell-publishing/PicasaPublishing.vala:32
+#: plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: plugins/shotwell-data-imports/FSpotImporter.vala:34
+msgid "Copyright 2009-2013 Yorba Foundation"
+msgstr "Copyright 2009-2013 Yorba Foundation"
+
+#: src/Resources.vala:144
+msgid "Rotate _Right"
+msgstr "Otočit v_pravo"
+
+#: src/Resources.vala:145 src/Resources.vala:150
+msgid "Rotate"
+msgstr "Otočit"
+
+#: src/Resources.vala:146
+msgid "Rotate Right"
+msgstr "Otočit v_levo"
+
+#: src/Resources.vala:147
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "Otočí fotografii vpravo (stiskněte Ctrl pro otáčení vlevo)"
+
+#: src/Resources.vala:149
+msgid "Rotate _Left"
+msgstr "Otočit v_levo"
+
+#: src/Resources.vala:151
+msgid "Rotate Left"
+msgstr "Otočit vlevo"
+
+#: src/Resources.vala:152
+msgid "Rotate the photos left"
+msgstr "Otočí fotografii vlevo (proti směru hodinových ručiček)"
+
+#: src/Resources.vala:154
+msgid "Flip Hori_zontally"
+msgstr "Překlopit hori_zontálně"
+
+#: src/Resources.vala:155
+msgid "Flip Horizontally"
+msgstr "Překlopit horizontálně"
+
+#: src/Resources.vala:157
+msgid "Flip Verti_cally"
+msgstr "Překlopit _vertikálně"
+
+#: src/Resources.vala:158
+msgid "Flip Vertically"
+msgstr "Překlopit vertikálně"
+
+#: src/Resources.vala:160
+msgid "_Enhance"
+msgstr "_Vylepšení"
+
+#: src/Resources.vala:161
+msgid "Enhance"
+msgstr "Vylepšení"
+
+#: src/Resources.vala:162
+msgid "Automatically improve the photo's appearance"
+msgstr "Automaticky vylepšit vzhled fotografií"
+
+#: src/Resources.vala:164
+msgid "_Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:165
+msgid "Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:166
+msgid "Copy the color adjustments applied to the photo"
+msgstr ""
+
+#: src/Resources.vala:168
+msgid "_Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:169
+msgid "Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:170
+msgid "Apply copied color adjustments to the selected photos"
+msgstr ""
+
+#: src/Resources.vala:172
+msgid "_Crop"
+msgstr "_Ořez"
+
+#: src/Resources.vala:173
+msgid "Crop"
+msgstr "Ořez"
+
+#: src/Resources.vala:174
+msgid "Crop the photo's size"
+msgstr "Ořízne fotografii"
+
+#: src/Resources.vala:176 src/editing_tools/StraightenTool.vala:100
+msgid "_Straighten"
+msgstr "_Srovnání"
+
+#: src/Resources.vala:177
+msgid "Straighten"
+msgstr "Srovnání"
+
+#: src/Resources.vala:178
+msgid "Straighten the photo"
+msgstr "Srovnat fotografii"
+
+#: src/Resources.vala:180
+msgid "_Red-eye"
+msgstr "Če_rvené oči"
+
+#: src/Resources.vala:181
+msgid "Red-eye"
+msgstr "Červené oči"
+
+#: src/Resources.vala:182
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "Odstraní, nebo potlačí červené oči ve fotografií"
+
+#: src/Resources.vala:184
+msgid "_Adjust"
+msgstr "_Nastavení"
+
+#: src/Resources.vala:185
+msgid "Adjust"
+msgstr "Nastavení"
+
+#: src/Resources.vala:186
+msgid "Adjust the photo's color and tone"
+msgstr "Nastavení barvy a tónu fotografie"
+
+#: src/Resources.vala:188
+msgid "Re_vert to Original"
+msgstr "Na_vrátit k originálu"
+
+#: src/Resources.vala:189
+msgid "Revert to Original"
+msgstr "Navrátit k originálu"
+
+#: src/Resources.vala:191
+msgid "Revert External E_dits"
+msgstr "Navrátit _externí úpravy"
+
+#: src/Resources.vala:192
+msgid "Revert to the master photo"
+msgstr "Zrušit změny a vrátit se k původní fotografii"
+
+#: src/Resources.vala:194
+msgid "Set as _Desktop Background"
+msgstr "Nastavit jako _pozadí plochy"
+
+#: src/Resources.vala:195
+msgid "Set selected image to be the new desktop background"
+msgstr "Použije vybranou fotografii jako obrázek pozadí pracovní plochy"
+
+#: src/Resources.vala:196
+msgid "Set as _Desktop Slideshow..."
+msgstr "Zobrazit jako sekvenci na _pozadí..."
+
+#: src/Resources.vala:198
+msgid "_Undo"
+msgstr "_Zpět"
+
+#: src/Resources.vala:199
+msgid "Undo"
+msgstr "Zpět"
+
+#: src/Resources.vala:201
+msgid "_Redo"
+msgstr "_Vpřed"
+
+#: src/Resources.vala:202
+msgid "Redo"
+msgstr "Vpřed"
+
+#: src/Resources.vala:204
+msgid "Re_name Event..."
+msgstr "Pře_jmenovat událost..."
+
+#: src/Resources.vala:207
+msgid "Make _Key Photo for Event"
+msgstr "Nastavit jako _klíčovou fotografii událost"
+
+#: src/Resources.vala:208
+msgid "Make Key Photo for Event"
+msgstr "Nastavit jako klíčovou fotografii událost"
+
+#: src/Resources.vala:210
+msgid "_New Event"
+msgstr "_Nová událost"
+
+#: src/Resources.vala:211
+msgid "New Event"
+msgstr "Nová událost"
+
+#: src/Resources.vala:213
+msgid "Move Photos"
+msgstr "Přesunout fotografie"
+
+#: src/Resources.vala:214
+msgid "Move photos to an event"
+msgstr "Přiřadit fotografie k události"
+
+#: src/Resources.vala:216
+msgid "_Merge Events"
+msgstr "S_pojit události"
+
+#: src/Resources.vala:217
+msgid "Merge"
+msgstr "Spojit"
+
+#: src/Resources.vala:218
+msgid "Combine events into a single event"
+msgstr "Sloučit události do jedné"
+
+#: src/Resources.vala:220
+msgid "_Set Rating"
+msgstr "O_hodnocení"
+
+#: src/Resources.vala:221
+msgid "Set Rating"
+msgstr "Ohodnocení"
+
+#: src/Resources.vala:222
+msgid "Change the rating of your photo"
+msgstr "Změna ohodnocení fotografie"
+
+#: src/Resources.vala:224
+msgid "_Increase"
+msgstr "Z_výšit"
+
+#: src/Resources.vala:225
+msgid "Increase Rating"
+msgstr "Zvýšení ohodnocení"
+
+#: src/Resources.vala:227
+msgid "_Decrease"
+msgstr "S_nížit"
+
+#: src/Resources.vala:228
+msgid "Decrease Rating"
+msgstr "Snížení ohodnocení"
+
+#: src/Resources.vala:230
+msgid "_Unrated"
+msgstr "_Bez ohodnocení"
+
+#: src/Resources.vala:231
+msgid "Unrated"
+msgstr "Nehodnoceno"
+
+#: src/Resources.vala:232
+msgid "Rate Unrated"
+msgstr "Bez ohodnocení"
+
+#: src/Resources.vala:233
+msgid "Setting as unrated"
+msgstr "Zrušit ohodnocení"
+
+#: src/Resources.vala:234
+msgid "Remove any ratings"
+msgstr "Zrušit ohodnocení"
+
+#: src/Resources.vala:236
+msgid "_Rejected"
+msgstr "_Nehodnotit"
+
+#: src/Resources.vala:237
+msgid "Rejected"
+msgstr "Odmítnuto"
+
+#: src/Resources.vala:238
+msgid "Rate Rejected"
+msgstr "Nehodnocena"
+
+#: src/Resources.vala:239
+msgid "Setting as rejected"
+msgstr "Nehodnotit"
+
+#: src/Resources.vala:240
+msgid "Set rating to rejected"
+msgstr "Nebude se hodnotit"
+
+#: src/Resources.vala:242
+msgid "Rejected _Only"
+msgstr "Jen _odmítnuté"
+
+#: src/Resources.vala:243
+msgid "Rejected Only"
+msgstr "Jen odmítnuté"
+
+#: src/Resources.vala:244
+msgid "Show only rejected photos"
+msgstr "Zobrazit pouze zamítnuté fotky"
+
+#: src/Resources.vala:246
+msgid "All + _Rejected"
+msgstr "Všechny + _nehodnocené"
+
+#: src/Resources.vala:247 src/Resources.vala:248
+msgid "Show all photos, including rejected"
+msgstr "Zobrazit všechny fotografie včetně nehodnocených"
+
+#: src/Resources.vala:250
+msgid "_All Photos"
+msgstr "_Všechny fotografie"
+
+#: src/Resources.vala:251 src/Resources.vala:252
+msgid "Show all photos"
+msgstr "Zobrazit všechny fotografie"
+
+#: src/Resources.vala:254
+msgid "_Ratings"
+msgstr "_Hodnocení"
+
+#: src/Resources.vala:255
+msgid "Display each photo's rating"
+msgstr "Zobrazit ohodnocení fotografie"
+
+#: src/Resources.vala:257
+msgid "_Filter Photos"
+msgstr "_Filtrovat fotografie"
+
+#: src/Resources.vala:258
+msgid "Filter Photos"
+msgstr "Filtrovat fotografie"
+
+#: src/Resources.vala:259
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "Omezení počtu zobrazených fotografií pomocí filtru"
+
+#: src/Resources.vala:261
+msgid "_Duplicate"
+msgstr "_Kopírovat"
+
+#: src/Resources.vala:262
+msgid "Duplicate"
+msgstr "Kopírovat"
+
+#: src/Resources.vala:263
+msgid "Make a duplicate of the photo"
+msgstr "Vytvořit kopii fotografie"
+
+#: src/Resources.vala:265
+msgid "_Export..."
+msgstr "_Export..."
+
+#: src/Resources.vala:267
+msgid "_Print..."
+msgstr "_Tisk..."
+
+#: src/Resources.vala:269
+msgid "Pu_blish..."
+msgstr "Pu_blikovat..."
+
+#: src/Resources.vala:270
+msgid "Publish"
+msgstr "Publikovat"
+
+#: src/Resources.vala:271
+msgid "Publish to various websites"
+msgstr "Publikovat na různých internetových stránkách"
+
+#: src/Resources.vala:273
+msgid "Edit _Title..."
+msgstr "Upravit _titulek..."
+
+#: src/Resources.vala:276
+msgid "Edit _Comment..."
+msgstr "Upravit_komentář..."
+
+#: src/Resources.vala:277
+msgid "Edit Comment"
+msgstr "Upravit komentář"
+
+#: src/Resources.vala:279
+msgid "Edit Event _Comment..."
+msgstr ""
+
+#: src/Resources.vala:282
+msgid "_Adjust Date and Time..."
+msgstr "Nastavit _datum a čas..."
+
+#: src/Resources.vala:283
+msgid "Adjust Date and Time"
+msgstr "Nastavit datum a čas"
+
+#: src/Resources.vala:285
+msgid "Add _Tags..."
+msgstr "Přidat _nálepky..."
+
+#: src/Resources.vala:286
+msgid "_Add Tags..."
+msgstr "_Přidat nálepky..."
+
+#: src/Resources.vala:287 src/Resources.vala:318
+msgid "Add Tags"
+msgstr "Přidat nálepky"
+
+#: src/Resources.vala:289
+msgid "_Preferences"
+msgstr "_Nastavení"
+
+#: src/Resources.vala:291
+msgid "Open With E_xternal Editor"
+msgstr "Otevřít v e_xterním editoru"
+
+#: src/Resources.vala:293
+msgid "Open With RA_W Editor"
+msgstr "Otevřít editor RA_W"
+
+#: src/Resources.vala:295
+msgid "Send _To..."
+msgstr "Posla_t..."
+
+#: src/Resources.vala:296
+msgid "Send T_o..."
+msgstr "Odesla_t..."
+
+#: src/Resources.vala:298
+msgid "_Find..."
+msgstr "Na_jít..."
+
+#: src/Resources.vala:299
+msgid "Find"
+msgstr "Najít"
+
+#: src/Resources.vala:300
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr "Najít obrázky, jejichž název nebo nálepka obsahuje napsaný text"
+
+#: src/Resources.vala:302
+msgid "_Flag"
+msgstr "_Označit"
+
+#: src/Resources.vala:304
+msgid "Un_flag"
+msgstr "O_dznačit"
+
+#: src/Resources.vala:307
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "Nepodařilo se spustit editor: %s"
+
+#: src/Resources.vala:312
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "Přidat nálepku \"%s\""
+
+#: src/Resources.vala:314
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "Přidat nálepky \"%s\" a \"%s\""
+
+#: src/Resources.vala:322
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "S_mazat nálepku \"%s\""
+
+#: src/Resources.vala:326
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "Smazat nálepku \"%s\""
+
+#: src/Resources.vala:329
+msgid "Delete Tag"
+msgstr "Smazat nálepku"
+
+#: src/Resources.vala:332
+msgid "_New"
+msgstr "_Nový"
+
+#: src/Resources.vala:335
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "Pře_jmenovat nálepku \"%s\"..."
+
+#: src/Resources.vala:339
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "Přejmenovat nálepku \"%s\" na \"%s\""
+
+#: src/Resources.vala:342
+msgid "_Rename..."
+msgstr "_Přejmenovat..."
+
+#: src/Resources.vala:344
+msgid "Modif_y Tags..."
+msgstr "Z_měnit nálepky..."
+
+#: src/Resources.vala:345
+msgid "Modify Tags"
+msgstr "Změnit nálepky"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "Přidat nálepku \"%s\" k fotografiím"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "Označit fotografie nálepkou \"%s\""
+
+#: src/Resources.vala:352
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "Přidat nálepku \"%s\" k vybraným fotografiím"
+
+#: src/Resources.vala:353
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "Označit vybrané fotografie nálepkou \"%s\""
+
+#: src/Resources.vala:357
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "O_dstranit nálepku \"%s\" fotografiím"
+
+#: src/Resources.vala:358
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "Odstranit nálepku \"%s\" z _fotografií"
+
+#: src/Resources.vala:362
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "O_dstranit nálepku \"%s\" fotografiím"
+
+#: src/Resources.vala:363
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "Odstranit nálepku \"%s\" z fotografií"
+
+#: src/Resources.vala:367
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr "Nepodařilo se přejmenovat nálepku na \"%s\", protože taková už je."
+
+#: src/Resources.vala:371
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr ""
+"Nepodařilo se přejmenovat hledání na \"%s\", protože už takové existuje."
+
+#: src/Resources.vala:374
+msgid "Saved Search"
+msgstr "Uložená hledání"
+
+#: src/Resources.vala:376
+msgid "Delete Search"
+msgstr "Smazat hledání"
+
+#: src/Resources.vala:379
+msgid "_Edit..."
+msgstr "_Upravit..."
+
+#: src/Resources.vala:380
+msgid "Re_name..."
+msgstr "Přejmenovat..."
+
+#: src/Resources.vala:383
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "Přejmenovat hledání \"%s\" na \"%s\""
+
+#: src/Resources.vala:387
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "Smazat hledání \"%s\""
+
+#: src/Resources.vala:545
+#, c-format
+msgid "Rate %s"
+msgstr "Hodnocení %s"
+
+#: src/Resources.vala:546
+#, c-format
+msgid "Set rating to %s"
+msgstr "Nastavit ohodnocení na %s"
+
+#: src/Resources.vala:547
+#, c-format
+msgid "Setting rating to %s"
+msgstr "Nastavuje se ohodnocení na %s"
+
+#: src/Resources.vala:549
+#, c-format
+msgid "Display %s"
+msgstr "Zobrazit %s"
+
+#: src/Resources.vala:550
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "Zobrazit fotografie s ohodnocením %s"
+
+#: src/Resources.vala:551
+#, c-format
+msgid "%s or Better"
+msgstr "%s nebo lepším"
+
+#: src/Resources.vala:552
+#, c-format
+msgid "Display %s or Better"
+msgstr "Zobrazit %s nebo lepší"
+
+#: src/Resources.vala:553
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr "Zobrazit fotografie s ohodnocením %s nebo lepším"
+
+#: src/Resources.vala:644
+msgid "Remove the selected photos from the trash"
+msgstr "Vybrané odstraní z koše"
+
+#: src/Resources.vala:645
+msgid "Remove the selected photos from the library"
+msgstr "Odstraní vybrané fotografie z knihovny"
+
+#: src/Resources.vala:647
+msgid "_Restore"
+msgstr "_Obnovit"
+
+#: src/Resources.vala:648
+msgid "Move the selected photos back into the library"
+msgstr "Přesune vybrané fotografie zpět do knihovny"
+
+#: src/Resources.vala:650
+msgid "Show in File Mana_ger"
+msgstr "Otevřít ve správci souborů"
+
+#: src/Resources.vala:651
+msgid "Open the selected photo's directory in the file manager"
+msgstr "Otevřít vybranou složku s fotografiemi ve správci souborů"
+
+#: src/Resources.vala:654
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "Nepodařilo se otevřít ve správci souborů: %s"
+
+#: src/Resources.vala:657
+msgid "R_emove From Library"
+msgstr "O_dstranit z knihovny"
+
+#: src/Resources.vala:659
+msgid "_Move to Trash"
+msgstr "Přesunout do koše"
+
+#: src/Resources.vala:661
+msgid "Select _All"
+msgstr "Vybrat _vše"
+
+#: src/Resources.vala:662
+msgid "Select all items"
+msgstr "Vybrat všechny položky"
+
+#: src/Resources.vala:740
+msgid "%-I:%M %p"
+msgstr "%-I:%M %p"
+
+#: src/Resources.vala:741
+msgid "%-I:%M:%S %p"
+msgstr "%-I:%M:%S %p"
+
+#: src/Resources.vala:742
+msgid "%a %b %d, %Y"
+msgstr "%a %b %d, %Y"
+
+#: src/Resources.vala:743 src/Resources.vala:745
+msgid "%a %b %d"
+msgstr "%a %b %d"
+
+#: src/Resources.vala:744
+msgid "%d, %Y"
+msgstr "%d %Y"
+
+#: src/editing_tools/StraightenTool.vala:99
+msgid "Angle:"
+msgstr "Úhel:"
+
+#: src/editing_tools/StraightenTool.vala:102
+#: src/editing_tools/EditingTools.vala:2204
+msgid "_Reset"
+msgstr "_Obnovit"
+
+#: src/editing_tools/EditingTools.vala:661
+msgid "Return to current photo dimensions"
+msgstr "Vrátit k původním hodnotám"
+
+#: src/editing_tools/EditingTools.vala:664
+msgid "Set the crop for this photo"
+msgstr "Nastaví oříznutí fotografie"
+
+#: src/editing_tools/EditingTools.vala:676
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr "Přetáčet ořezový rám mezi orientací na šířku a na délku"
+
+#: src/editing_tools/EditingTools.vala:749
+msgid "Unconstrained"
+msgstr "Neomezeně"
+
+#: src/editing_tools/EditingTools.vala:750
+msgid "Square"
+msgstr "Čtverec"
+
+#: src/editing_tools/EditingTools.vala:751
+msgid "Screen"
+msgstr "Obrazovka"
+
+#: src/editing_tools/EditingTools.vala:752
+#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+msgid "Original Size"
+msgstr "Původní velikost"
+
+#: src/editing_tools/EditingTools.vala:753
+#: src/editing_tools/EditingTools.vala:756
+#: src/editing_tools/EditingTools.vala:766
+#: src/editing_tools/EditingTools.vala:776
+msgid "-"
+msgstr "-"
+
+#: src/editing_tools/EditingTools.vala:754
+msgid "SD Video (4 : 3)"
+msgstr "SD video (4:3)"
+
+#: src/editing_tools/EditingTools.vala:755
+msgid "HD Video (16 : 9)"
+msgstr "HD video (16:9)"
+
+#: src/editing_tools/EditingTools.vala:762
+msgid "Letter (8.5 x 11 in.)"
+msgstr "Letter (8.5 x 11 palců)"
+
+#: src/editing_tools/EditingTools.vala:764
+msgid "Tabloid (11 x 17 in.)"
+msgstr "Tabloid (11 x 17 palců)"
+
+#: src/editing_tools/EditingTools.vala:771
+msgid "A4 (210 x 297 mm)"
+msgstr "A4 (210 x 297 mm)"
+
+#: src/editing_tools/EditingTools.vala:775
+msgid "A3 (297 x 420 mm)"
+msgstr "A3 (297 x 420 mm)"
+
+#: src/editing_tools/EditingTools.vala:1865
+msgid "Close the red-eye tool"
+msgstr "Zavřít nástroj pro odstranění červených očí"
+
+#: src/editing_tools/EditingTools.vala:1868
+msgid "Remove any red-eye effects in the selected region"
+msgstr "Odstranit červené oči ve vybrané oblasti"
+
+#: src/editing_tools/EditingTools.vala:2226
+msgid "Saturation:"
+msgstr "Sytost:"
+
+#: src/editing_tools/EditingTools.vala:2234
+msgid "Tint:"
+msgstr "Odstín:"
+
+#: src/editing_tools/EditingTools.vala:2243
+msgid "Temperature:"
+msgstr "Teplota:"
+
+#: src/editing_tools/EditingTools.vala:2251
+msgid "Shadows:"
+msgstr "Stín:"
+
+#: src/editing_tools/EditingTools.vala:2259
+msgid "Highlights:"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset Colors"
+msgstr "Obnovit barvy"
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset all color adjustments to original"
+msgstr "Obnoví nastavení barev podle originálu"
+
+#: src/editing_tools/EditingTools.vala:2665
+msgid "Temperature"
+msgstr "Teplota"
+
+#: src/editing_tools/EditingTools.vala:2678
+msgid "Tint"
+msgstr "Odstín"
+
+#: src/editing_tools/EditingTools.vala:2691
+msgid "Saturation"
+msgstr "Sytost"
+
+#: src/editing_tools/EditingTools.vala:2704
+msgid "Exposure"
+msgstr "Expozice"
+
+#: src/editing_tools/EditingTools.vala:2717
+msgid "Shadows"
+msgstr "Stín"
+
+#: src/editing_tools/EditingTools.vala:2730
+msgid "Highlights"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2740
+msgid "Contrast Expansion"
+msgstr "Zvýšení kontrastu"
+
+#: src/AppWindow.vala:49
+msgid "Pin Toolbar"
+msgstr "Špendlík"
+
+#: src/AppWindow.vala:50
+msgid "Pin the toolbar open"
+msgstr "Připíchnout otevřený panel"
+
+#: src/AppWindow.vala:53 src/AppWindow.vala:131
+msgid "Leave fullscreen"
+msgstr "Ukončí prohlížení přes celou obrazovku"
+
+#: src/AppWindow.vala:130
+msgid "Leave _Fullscreen"
+msgstr "Opustit _celou obrazovku"
+
+#: src/AppWindow.vala:491
+msgid "_Quit"
+msgstr "_Konec"
+
+#: src/AppWindow.vala:496
+msgid "_About"
+msgstr "_O programu"
+
+#: src/AppWindow.vala:501
+msgid "Fulls_creen"
+msgstr "_Celá obrazovka"
+
+#: src/AppWindow.vala:506
+msgid "_Contents"
+msgstr "_Obsah"
+
+#: src/AppWindow.vala:511
+msgid "_Frequently Asked Questions"
+msgstr "Často kladené _otázky"
+
+#: src/AppWindow.vala:516
+msgid "_Report a Problem..."
+msgstr "_Nahlásit problém..."
+
+#: src/AppWindow.vala:663
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"Při přístupu ke knihovně programu došlo k fatální chybě. Program nemůže "
+"pokračovat.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:683 plugins/common/Resources.vala:9
+msgid "Visit the Yorba web site"
+msgstr "Navštivte internetovou stránku Yorba"
+
+#: src/AppWindow.vala:686 plugins/common/Resources.vala:28
+msgid "translator-credits"
+msgstr ""
+"David Štancl <dstancl@dstancl.cz>\n"
+"Blonďák <blondak@neser.cz>\n"
+"Lukáš Zapletal <lzap@seznam.cz>\n"
+"Petr Šimáček <petr.simacek@gmail.com>"
+
+#: src/AppWindow.vala:695
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "Nepodařilo se zobrazit nápovědu: %s"
+
+#: src/AppWindow.vala:703
+#, c-format
+msgid "Unable to navigate to bug database: %s"
+msgstr "Nelze přejít do databáze bugů: %s"
+
+#: src/AppWindow.vala:711
+#, c-format
+msgid "Unable to display FAQ: %s"
+msgstr "Nelze zobrazit FAQ: %s"
+
+#: src/Tag.vala:817
+msgid "untitled"
+msgstr "bez názvu"
+
+#: src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+msgid "Original size"
+msgstr "Původní velikost"
+
+#: src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "Šířka nebo výška"
+
+#: src/Dimensions.vala:23
+msgid "Width"
+msgstr "Šířka"
+
+#: src/Dimensions.vala:26
+msgid "Height"
+msgstr "Výška"
+
+#: src/MediaPage.vala:143
+msgid "Adjust the size of the thumbnails"
+msgstr "Nastavit velikost náhledů"
+
+#: src/MediaPage.vala:326
+msgid "Increase the magnification of the thumbnails"
+msgstr "Přiblíží náhledy"
+
+#: src/MediaPage.vala:332
+msgid "Decrease the magnification of the thumbnails"
+msgstr "Oddálí náhledy"
+
+#: src/MediaPage.vala:399
+msgid "Sort _Photos"
+msgstr "Seřadit _fotografie"
+
+#: src/MediaPage.vala:408
+msgid "_Play Video"
+msgstr "_Spustit video"
+
+#: src/MediaPage.vala:409
+msgid "Open the selected videos in the system video player"
+msgstr "Otevřít vybraná videa v systémovém prohlížeči videí"
+
+#: src/MediaPage.vala:442 src/events/EventsDirectoryPage.vala:130
+msgid "_Comments"
+msgstr "_Komentáře"
+
+#: src/MediaPage.vala:443
+msgid "Display the comment of each photo"
+msgstr "Zobrazit komentáře každé fotografie"
+
+#: src/MediaPage.vala:455
+msgid "Display each photo's tags"
+msgstr "Zobrazí u fotografie nálepky"
+
+#: src/MediaPage.vala:471
+msgid "By _Title"
+msgstr "Podle _názvu"
+
+#: src/MediaPage.vala:472
+msgid "Sort photos by title"
+msgstr "Seřadí fotografie podle názvu"
+
+#: src/MediaPage.vala:477
+msgid "By Exposure _Date"
+msgstr "Podle data _vyfocení"
+
+#: src/MediaPage.vala:478
+msgid "Sort photos by exposure date"
+msgstr "Seřadí fotografie podle data vyfocení"
+
+#: src/MediaPage.vala:483
+msgid "By _Rating"
+msgstr "Podle o_hodnocení"
+
+#: src/MediaPage.vala:484
+msgid "Sort photos by rating"
+msgstr "Seřadí fotografie podle ohodnocení"
+
+#: src/MediaPage.vala:702
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"Nepodařilo se přehrát vybrané video:\n"
+"%s"
+
+#: src/events/EventDirectoryItem.vala:83
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d fotografie/videa"
+msgstr[1] "%d fotografií/videí"
+msgstr[2] "%d fotografie/video"
+
+#: src/events/EventsDirectoryPage.vala:131
+msgid "Display the comment of each event"
+msgstr "Zobrazit komentář o každé události"
+
+#: src/events/EventsDirectoryPage.vala:155
+msgid "No events"
+msgstr "Žádné události"
+
+#: src/events/EventsDirectoryPage.vala:159
+msgid "No events found"
+msgstr "Žádné události nebyly nalezeny"
+
+#: src/events/EventsDirectoryPage.vala:230
+msgid "Events"
+msgstr "Události"
+
+#: src/events/EventsDirectoryPage.vala:244
+msgid "Undated"
+msgstr "Bez data"
+
+#: src/events/EventsDirectoryPage.vala:245
+msgid "%Y"
+msgstr "%Y"
+
+#: src/events/EventsDirectoryPage.vala:246
+msgid "%B"
+msgstr "%B"
+
+#: src/events/EventPage.vala:129
+msgid "No Event"
+msgstr "Žádná událost"
+
+#: src/AppDirs.vala:48 src/AppDirs.vala:99
+#, c-format
+msgid "Unable to create cache directory %s: %s"
+msgstr "Nelze vytvořit cache adresáře  %s: %s"
+
+#: src/AppDirs.vala:58 src/AppDirs.vala:88
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "Nepodařilo se vytvořit složku %s pro data: %s"
+
+#: src/AppDirs.vala:152
+msgid "Pictures"
+msgstr "Obrázky"
+
+#: src/AppDirs.vala:190
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "Nepodařilo se vytvořit dočasnou složku %s: %s"
+
+#: src/AppDirs.vala:207 src/AppDirs.vala:223
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "Nepodařilo se vytvořit podsložku %s pro data: %s"
+
+#: src/slideshow/TransitionEffects.vala:98
+msgid "(None)"
+msgstr "(Žádný)"
+
+#: src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Žádný"
+
+#: src/slideshow/TransitionEffects.vala:339
+msgid "Random"
+msgstr "Náhodné"
+
+#: src/slideshow/Slideshow.vala:22
+msgid "Slideshow Transitions"
+msgstr "Přechody mezi snímky"
+
+#: src/Exporter.vala:232
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "Nepodařilo se vytvořit dočasný soubor pro %s: %s"
+
+#: src/Exporter.vala:299
+msgid "Exporting"
+msgstr "Probíhá export"
+
+#: src/Exporter.vala:317
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "Soubor %s již existuje. Přepsat?"
+
+#: src/Exporter.vala:319
+msgid "_Skip"
+msgstr "Pře_skočit"
+
+#: src/Exporter.vala:319
+msgid "_Replace"
+msgstr "_Přepsat"
+
+#: src/Exporter.vala:319
+msgid "Replace _All"
+msgstr "Přepsat _vše"
+
+#: src/Exporter.vala:319
+msgid "Export"
+msgstr "Export"
+
+#: src/SearchFilter.vala:593 src/SearchFilter.vala:594
+msgid "Photos"
+msgstr "Fotografie"
+
+#: src/SearchFilter.vala:599 src/SearchFilter.vala:600
+msgid "Videos"
+msgstr "Videa"
+
+#: src/SearchFilter.vala:605
+msgid "RAW Photos"
+msgstr "RAW fotografie"
+
+#: src/SearchFilter.vala:606
+msgid "RAW photos"
+msgstr "RAW fotografie"
+
+#: src/SearchFilter.vala:952
+#, c-format
+msgid "Error loading UI file %s: %s"
+msgstr "Chyba při čtení UI souboru %s: %s"
+
+#: src/SearchFilter.vala:969
+msgid "Type"
+msgstr "Typ"
+
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "Zveřejnit"
+
+#: src/publishing/PublishingUI.vala:105
+msgid "The selected photos/videos were successfully published."
+msgstr "Vybrané fotografie/videa byla úspěšně publikována."
+
+#: src/publishing/PublishingUI.vala:107
+msgid "The selected videos were successfully published."
+msgstr "Vybraná videa byla úspěšně publikována."
+
+#: src/publishing/PublishingUI.vala:109
+msgid "The selected photos were successfully published."
+msgstr "Vybrané fotografie byly publikovány."
+
+#: src/publishing/PublishingUI.vala:112
+msgid "The selected video was successfully published."
+msgstr "Vybrané video bylo úspěšně publikováno."
+
+#: src/publishing/PublishingUI.vala:114
+msgid "The selected photo was successfully published."
+msgstr "Vybraná fotografie byla úspěšně publikována."
+
+#: src/publishing/PublishingUI.vala:122
+msgid "Fetching account information..."
+msgstr "Získávají se informace o účtu..."
+
+#: src/publishing/PublishingUI.vala:128
+msgid "Logging in..."
+msgstr "Přihlašuje se..."
+
+#: src/publishing/PublishingUI.vala:183
+msgid "Publish Photos"
+msgstr "Publikovat fotografie"
+
+#: src/publishing/PublishingUI.vala:184
+msgid "Publish photos _to:"
+msgstr "Publikovat fotografie _na:"
+
+#: src/publishing/PublishingUI.vala:186
+msgid "Publish Videos"
+msgstr "Publikovat videa"
+
+#: src/publishing/PublishingUI.vala:187
+msgid "Publish videos _to"
+msgstr "Publikova_t videa na"
+
+#: src/publishing/PublishingUI.vala:189
+msgid "Publish Photos and Videos"
+msgstr "Publikovat fotografie a videa"
+
+#: src/publishing/PublishingUI.vala:190
+msgid "Publish photos and videos _to"
+msgstr "Publikova_t fotografie a videa na"
+
+#: src/publishing/PublishingUI.vala:383
+msgid "Unable to publish"
+msgstr "Nepodařilo se publikovat"
+
+#: src/publishing/PublishingUI.vala:384
+#, c-format
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugins</b> tab."
+msgstr ""
+"Shotwell nemůže publikovat vybrané položky, protože nemáte povolen "
+"kompatibilní publikační plugin. Chcete-li tento problém odstranit, "
+"zvolte<b>Upravit %s předvolby</b> a pak kartu <b> Pluginy </ b>pro výběr "
+"jedenoho, nebo více  publikačních pluginů."
+
+#: src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "Příprava nahrávání"
+
+#: src/publishing/PublishingPluginHost.vala:12
+#, c-format
+msgid "Uploading %d of %d"
+msgstr "Nahrávám %d z %d"
+
+#: src/publishing/PublishingPluginHost.vala:81
+#, c-format
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr "Publikování na %s nemůže pokračovat kvůli chybě:"
+
+#: src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr "Pokud chcete zkusit publikovat jinde, zvolte službu z menu."
+
+#: src/sidebar/Tree.vala:199
+msgid "New _Tag..."
+msgstr "Nová _značka..."
+
+#: plugins/common/RESTSupport.vala:424
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
+#, fuzzy
+msgid "A temporary file needed for publishing is unavailable"
+msgstr ""
+"Dočasný soubor pro zveřejnění není dostupný"
+
+#: plugins/common/RESTSupport.vala:1138
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:57
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"K YouTube nejste přihlášeni.\n"
+"\n"
+"Nejprve musíte mít vytvořen Google účet a spojit jej s YouTube. K přihlášení "
+"do YouTube můžete mít účtů více."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:362
+msgid ""
+"A file required for publishing is unavailable. Publishing to Youtube can't "
+"continue."
+msgstr ""
+"Soubor potřebný pro zveřejnění není k dispozici. Publikování na Youtube bylo "
+"zastaveno."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:461
+#, c-format
+msgid "You are logged into YouTube as %s."
+msgstr "Jste přihlášeni k YouTube jako %s."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:463
+#, c-format
+msgid "Videos will appear in '%s'"
+msgstr "Videa se objeví v '%s'"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:495
+msgid "Public listed"
+msgstr "Veřejné"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:496
+msgid "Public unlisted"
+msgstr "Neveřejné"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:497
+msgid "Private"
+msgstr "Soukromé"
+
+#: plugins/shotwell-publishing/shotwell-publishing.vala:26
+msgid "Core Publishing Services"
+msgstr "Základní publikační služby"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Login to log into Flickr in your Web browser.  You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"Nejste přihlášeni ke službě Flickr.\n"
+"\n"
+"Pro přihlášení se na Flickr klikněte na Přihlásit se. Pak musíte povolit "
+"Shotwell Connect ve vašem Flickr účtu."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:63
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Již jste se přihlásili a odhlásili během spuštění programu Shotwell.\n"
+"Před publikováním na Flickr ukončete a znovu spusťte program Shotwell a pak "
+"znovu zvolte Publikovat."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "Připravuje se přihlášení..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: plugins/shotwell-publishing/FlickrPublishing.vala:595
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can't "
+"continue."
+msgstr ""
+"Soubor potřebný pro zveřejnění není k dispozici. Publikování na Flickr bylo "
+"zastaveno."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "Ověřuje se autorizace..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1153
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr ""
+"Jste přihlášeni k Flickr jako %s.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"Váš bezplatný Flickr účet má omezení na množství přenesených dat během "
+"měsíce.\n"
+"Tento měsíc vám zbývá %d megabajtů."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1157
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr "Účet Flickr Pro umožňuje nahrávat neomezeně."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1162
+msgid "Photos _visible to:"
+msgstr "Fotografie _viditelné:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
+msgid "Videos _visible to:"
+msgstr "Videa vidí:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1167
+msgid "Photos and videos _visible to:"
+msgstr "Fotografie a videa vidí:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1182
+msgid "Everyone"
+msgstr "všem"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
+msgid "Friends & family only"
+msgstr "jen přátelům a rodině"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+msgid "Family only"
+msgstr "Pouze rodina"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
+msgid "Friends only"
+msgstr "Pouze přátelé"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1180
+msgid "Just me"
+msgstr "jen mně"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1229
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
+#, fuzzy
+msgid "500 x 375 pixels"
+msgstr ""
+"500 x 375 pixelů"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1230
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:108
+#, fuzzy
+msgid "1024 x 768 pixels"
+msgstr ""
+"1024 x 768 pixelů"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 bodů"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 bodů"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:746
+#, c-format
+msgid "Creating album %s..."
+msgstr "Vytváří se album %s..."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:917
+msgid "An error message occurred when publishing to Piwigo. Please try again."
+msgstr "Při publikování na Piwigo došlo k chybě. Prosím, zkuste to znovu."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:998
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+"Zadejte adresu URL knihovny fotografií Piwigo stejně jako uživatelské jméno "
+"a heslo spojené s vaším Piwigo účtem pro danou knihovnu."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:999
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
+"entered"
+msgstr ""
+"Shotwell se nemůže připojit do vaší fotogalerie Piwigo. Ověřte prosím adresu "
+"URL, kterou jste zadali"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
+#, fuzzy
+msgid "Username and/or password invalid. Please try again"
+msgstr ""
+"Neplatné uživatelské jméno a / nebo heslo. Zkuste to prosím znovu"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1032
+#, c-format
+msgid "Invalid URL"
+msgstr "Neplatná URL"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
+#, c-format
+msgid "Invalid User Name or Password"
+msgstr "Neplatné uživatelské jméno nebo heslo"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1127
+#: plugins/shotwell-publishing/PicasaPublishing.vala:59
+#: plugins/shotwell-publishing/FacebookPublishing.vala:61
+msgid "Shotwell Connect"
+msgstr "Shotwell Connect"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+msgid "Admins, Family, Friends, Contacts"
+msgstr "Administrátoři, Rodina, Přátelé, Kontakty"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+msgid "Admins, Family, Friends"
+msgstr "Administrátoři, Rodina, Přátelé"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+msgid "Admins, Family"
+msgstr "Administrátoři, Rodina"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+msgid "Admins"
+msgstr "Administrátoři"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Login to log into Picasa Web Albums in your Web browser. You will have "
+"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"Nejste přihlášeni do Picasa Webových alb.\n"
+"\n"
+"Klikněte na tlačítko Přihlásit do Webových alb Picasa ve webovém prohlížeči. "
+"Budete muset povolit Shotwell Connect kvůli připojení do webových alb "
+"programu Picasa."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa can't "
+"continue."
+msgstr ""
+"Soubor potřebný pro zveřejnění není k dispozici. Publikování na Picasa bylo "
+"zastaveno."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:379
+#: plugins/shotwell-publishing/FacebookPublishing.vala:347
+msgid "Creating album..."
+msgstr "Vytvářím album..."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "Jste přihlášeni k albu Picasa jako %s."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+msgid "Videos will appear in:"
+msgstr "Videa se objeví v:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+msgid "Photos will appear in:"
+msgstr "Fotografie se objeví v:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+msgid "Small (640 x 480 pixels)"
+msgstr "malá (640x480 bodů)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+msgid "Medium (1024 x 768 pixels)"
+msgstr "střední (1024x768 bodů)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "doporučená (1600x1200 bodů)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+msgid "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 pixelů)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:63
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"Nejste přihlášeni na Facebooku.\n"
+"\n"
+"Jestliže ještě nemáte vytvořen na Facebooku účet, můžete si jej vytvořit "
+"během přihlašování. Během přihlašování se může zobrazit žádost o povolení "
+"nahrávání fotografií. Povolení je pro připojení k Facebooku vyžadováno."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:65
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Již jste se přihlásili a odhlásili během spuštění programu Shotwell\n"
+"Před publikováním na Facebook ukončete a znovu spusťte program Shotwell a "
+"pak znovu zvolte Publikovat."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:86
+msgid "Standard (720 pixels)"
+msgstr "Standard (720 pixelů)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:89
+msgid "Large (2048 pixels)"
+msgstr "Velký (2048 pixelů)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:254
+msgid "Testing connection to Facebook..."
+msgstr "Testuji spojení k Facebooku..."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:374
+msgid ""
+"A file required for publishing is unavailable. Publishing to Facebook can't "
+"continue."
+msgstr ""
+"Soubor potřebný pro zveřejnění není k dispozici. Publikování na Facebook "
+"bylo zastaveno."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#, c-format
+msgid ""
+"You are logged into Facebook as %s.\n"
+"\n"
+msgstr "Jste přihlášeni k Facebooku jako %s.\n"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1020
+msgid "Where would you like to publish the selected photos?"
+msgstr "Chcete publikovat vybrané fotografie?"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1021
+msgid "Upload _size:"
+msgstr "Veliko_st:"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1181
+msgid "Friends"
+msgstr "Přátelé"
+
+#: plugins/shotwell-transitions/CrumbleEffect.vala:20
+msgid "Crumble"
+msgstr "Rozpadání"
+
+#: plugins/shotwell-transitions/ChessEffect.vala:20
+msgid "Chess"
+msgstr "Šachovnice"
+
+#: plugins/shotwell-transitions/CirclesEffect.vala:20
+msgid "Circles"
+msgstr "Kruhy"
+
+#: plugins/shotwell-transitions/BlindsEffect.vala:20
+msgid "Blinds"
+msgstr "Žaluzie"
+
+#: plugins/shotwell-transitions/StripesEffect.vala:20
+msgid "Stripes"
+msgstr "Pruhy"
+
+#: plugins/shotwell-transitions/ClockEffect.vala:20
+msgid "Clock"
+msgstr "Hodiny"
+
+#: plugins/shotwell-transitions/CircleEffect.vala:20
+msgid "Circle"
+msgstr "Kruh"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+msgid "Core Slideshow Transitions"
+msgstr "Základní přechody"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:75
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+
+#: plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "Snímek"
+
+#: plugins/shotwell-transitions/FadeEffect.vala:20
+msgid "Fade"
+msgstr "Slábnutí"
+
+#: plugins/shotwell-transitions/SquaresEffect.vala:20
+msgid "Squares"
+msgstr "Čtverce"
+
+#: plugins/shotwell-data-imports/shotwell-data-imports.vala:22
+msgid "Core Data Import Services"
+msgstr "Hlavní služba importu dat"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:56
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select a library to import, either by selecting one of the existing "
+"libraries found by Shotwell or by selecting an alternative F-Spot database "
+"file."
+msgstr ""
+"Vítejte ve F-Spot knihovně importu služeb. \n"
+"\n"
+"Prosím vyberte knihovnu pro import, a to buď výběrem jedné ze stávajících "
+"knihoven nalezených Shotwellem, nebo volbou alternativy, ve F-Spot databázi."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:58
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select an F-Spot database file."
+msgstr ""
+"Vítejte do služby importu F-Spot knihovny . \n"
+"\n"
+"Prosím vyberte soubor databáze F-Spot."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:60
+msgid "Manually select an F-Spot database file to import:"
+msgstr "Ručně vybrat F-Spot databázový soubor k importu:"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:62
+msgid ""
+"Cannot open the selected F-Spot database file: the file does not exist or is "
+"not an F-Spot database"
+msgstr ""
+"Nelze otevřít vybraný F-Spot databázový soubor: soubor neexistuje nebo není "
+"souborem F-Spot databáze"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:64
+msgid ""
+"Cannot open the selected F-Spot database file: this version of the F-Spot "
+"database is not supported by Shotwell"
+msgstr ""
+"Nelze otevřít vybraný F-Spot databázový soubor: tato verze F-Spot databáze "
+"není v Shotwell podporována"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:66
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr ""
+"Nelze přečíst vybraný F-Spot databázový soubor: Chyba při čtení tabulky "
+"štítků"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:68
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading photos "
+"table"
+msgstr ""
+"Nelze přečíst vybraný F-Spot databázový soubor: Chyba při čtení tabulky "
+"fotografií"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:70
+#, c-format
+msgid ""
+"Shotwell has found %d photos in the F-Spot library and is currently "
+"importing them. Duplicates will be automatically detected and removed.\n"
+"\n"
+"You can close this dialog and start using Shotwell while the import is "
+"taking place in the background."
+msgstr ""
+"Shotwell našel %d fotek ve F-Spot knihobně a momentálne je importuje. "
+"Duplikáty budou automaticky zjištěné a odstraněné. Můžete zavřít toto okno a "
+"začít používat aplikáci Shotwell, zatím co import bude prebíhat na pozadí."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:84
+#, c-format
+msgid "F-Spot library: %s"
+msgstr "F-Spot knihovna: %s"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:416
+msgid "Preparing to import"
+msgstr "Příprava k importu"
+
+#: ui/set_background_dialog.glade:14
+msgid "Set as Desktop Slideshow"
+msgstr "Dát na pozadí jako sekvenci obrázků"
+
+#: ui/set_background_dialog.glade:55
+msgid "Generate desktop background slideshow"
+msgstr "Vytvořit sekvenci obrázků na pozadí"
+
+#: ui/set_background_dialog.glade:82
+msgid "Show each photo for"
+msgstr "Zobrazit fotografie pro"
+
+#: ui/set_background_dialog.glade:94
+msgid "period of time"
+msgstr "násobků času"
+
+#: ui/set_background_dialog.glade:116
+msgid "How long each photo is shown on the desktop background"
+msgstr "Jak dlouho se má zobrazovat jedna fotografie"
+
+#: ui/shotwell.glade:7
+msgid "Search"
+msgstr "Hledání"
+
+#: ui/shotwell.glade:47
+msgid "_Name of search:"
+msgstr "_Název hledání:"
+
+#: ui/shotwell.glade:108
+msgid "_Match"
+msgstr "_Odpovídá"
+
+#: ui/shotwell.glade:137
+msgid "of the following:"
+msgstr "z následujících:"
+
+#: ui/shotwell.glade:218
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Velikost tištěného obrázku</b>"
+
+#: ui/shotwell.glade:235
+msgid "Use a _standard size:"
+msgstr "použít _standardní velikost:"
+
+#: ui/shotwell.glade:278
+msgid "Use a c_ustom size:"
+msgstr "použít _vlastní velikost:"
+
+#: ui/shotwell.glade:368
+msgid "_Match photo aspect ratio"
+msgstr "_Zachovat poměr stran"
+
+#: ui/shotwell.glade:392
+msgid "_Autosize:"
+msgstr "_Automatická velikost:"
+
+#: ui/shotwell.glade:432
+msgid "<b>Titles</b>"
+msgstr "<b>Názvy</b>"
+
+#: ui/shotwell.glade:449
+msgid "Print image _title"
+msgstr "Tisknout _název obrázku"
+
+#: ui/shotwell.glade:493
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Rozlišení</b>"
+
+#: ui/shotwell.glade:513
+msgid "_Output photo at:"
+msgstr "_Vytisknout fotografii:"
+
+#: ui/shotwell.glade:548
+msgid "pixels per inch"
+msgstr "bodů na palec"
+
+#: ui/shotwell.glade:581 ui/shotwell.glade:623
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:27
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
+#, fuzzy
+msgid "label"
+msgstr ""
+"nálepka"
+
+#: ui/shotwell.glade:719
+msgid "Shotwell Preferences"
+msgstr "Nastavení programu"
+
+#: ui/shotwell.glade:796
+msgid "white"
+msgstr "bílé"
+
+#: ui/shotwell.glade:823
+msgid "black"
+msgstr "černé"
+
+#: ui/shotwell.glade:871
+msgid "_Watch library directory for new files"
+msgstr "_Sledovat změny v knihovně"
+
+#: ui/shotwell.glade:900
+msgid "Metadata"
+msgstr "Metadata"
+
+#: ui/shotwell.glade:920
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr "Zapsat nálepky, titulky a další _metadata do souborů s fotografiemi"
+
+#: ui/shotwell.glade:946
+msgid "Display"
+msgstr "Zobrazení"
+
+#: ui/shotwell.glade:967
+msgid "_Import photos to:"
+msgstr "_Importovat fotografie do:"
+
+#: ui/shotwell.glade:990
+msgid "_Background:"
+msgstr "_Pozadí:"
+
+#: ui/shotwell.glade:1013
+msgid "Importing"
+msgstr "Importuje se"
+
+#: ui/shotwell.glade:1036
+msgid "_Directory structure:"
+msgstr "Struktura _složek"
+
+#: ui/shotwell.glade:1075
+msgid "_Pattern:"
+msgstr "_Vzor:"
+
+#: ui/shotwell.glade:1157
+msgid "Example:"
+msgstr "Například:"
+
+#: ui/shotwell.glade:1174
+msgid "R_ename imported files to lowercase"
+msgstr "Př_evést názvy importovaných souborů na malá písmena"
+
+#: ui/shotwell.glade:1203
+msgid "RAW Developer"
+msgstr "RAW vývojka"
+
+#: ui/shotwell.glade:1238
+msgid "De_fault:"
+msgstr "Před_nastaveno:"
+
+#: ui/shotwell.glade:1292
+msgid "E_xternal photo editor:"
+msgstr "E_xterní editor fotografií:"
+
+#: ui/shotwell.glade:1308
+msgid "External _RAW editor:"
+msgstr "Externí editor _RAW:"
+
+#: ui/shotwell.glade:1373
+msgid "External Editors"
+msgstr "Externí editory"
+
+#: ui/shotwell.glade:1400
+msgid "Plugins"
+msgstr "Pluginy"
+
+#: ui/shotwell.glade:1469
+msgid "_Delay:"
+msgstr "Z_poždění:"
+
+#: ui/shotwell.glade:1485
+msgid "_Transition effect:"
+msgstr "Efekt _přechodu:"
+
+#: ui/shotwell.glade:1501
+msgid "Transition d_elay:"
+msgstr "Tr_vání přechodu:"
+
+#: ui/shotwell.glade:1513
+msgid "Show t_itle"
+msgstr "Zobrazit n_ázev"
+
+#: ui/shotwell.glade:1603 ui/shotwell.glade:1616
+msgid "seconds"
+msgstr "vteřin"
+
+#: ui/shotwell.glade:1696
+msgid "_Login"
+msgstr "_Přihlásit se"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:21
+msgid ""
+" (text depends on fb username and is modified in the app - \n"
+"anything put into this field won't display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:39
+msgid "Publish to an e_xisting album:"
+msgstr "Publikovat do s_távajícího alba:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:57
+msgid "Create a _new album named:"
+msgstr "Vytvořit _nové album s názvem:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:139
+msgid "Videos and new photo albums _visible to:"
+msgstr "Videa a nová fotoalba vidí:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:175
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:102
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:178
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:226
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:197
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:137
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:229
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:99
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
+msgid "_Logout"
+msgstr "_Odhlásit"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:212
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:153
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:243
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:115
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
+msgid "_Publish"
+msgstr "_Zveřejnit"
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:16
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr "Vložte ověřovací kód, který najdete po přihlášení se ke službě Flickr."
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:37
+msgid "Authorization _Number:"
+msgstr "Ověřovací _kód:"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Flickr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:44
+msgid "_visibility label (populated in the code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:61
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
+msgid "Photo _size:"
+msgstr "Velikost _fotografie:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:18
+msgid ""
+"'you are logged in as $name'\n"
+"(populated in the application code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:75
+msgid "An _existing album:"
+msgstr "_stávajícím albu:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:94
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:52
+msgid "A _new album named:"
+msgstr "_novém albu:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:113
+msgid "L_ist album in public gallery"
+msgstr "Zobrazit _seznam veřejných alb"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:134
+msgid ""
+"$mediatype will appear in\n"
+"(populated in code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:150
+msgid "Photo _size preset:"
+msgstr "Nastavení _velikosti:"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:49
+msgid "_URL of your Piwigo photo library"
+msgstr "_URL adresa vaší Piwigo fotoknihovny"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:59
+msgid "User _name"
+msgstr "Přihlašovací _jméno"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:73
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:59
+msgid "_Password"
+msgstr "_Heslo"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:130
+msgid "_Remember Password"
+msgstr "_Zapamatovat si heslo"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:151
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:107
+msgid "Login"
+msgstr "Přihlásit"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:40
+msgid "An _existing category:"
+msgstr "existující kategorii:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:121
+msgid "Photos will be _visible by:"
+msgstr "Fotografie se zobrazí"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:149
+msgid "Photo size:"
+msgstr "Velikost fotografie:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:176
+msgid "within category:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:210
+msgid "Album comment:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:242
+msgid "_If a title is set and comment unset, use title as comment"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:258
+msgid "_Do no upload tags"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:278
+msgid "Logout"
+msgstr "Odhlásit"
+
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:55
+msgid "Video privacy _setting:"
+msgstr "_Nastavení soukromí videa:"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Copyright 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
+msgid "1280 x 853 pixels"
+msgstr "1280 x 853 pixelů"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr "'%s' není platná odpověď na požadavek ověření OAuth"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start (): Nelze spustit, tento vydavatel nelze restartovat."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "Vložte uživatelské jméno a heslo k vašemu Tumblr učtu"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Nelze načíst UI: %s"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Jste přihlášeni do Tumblr jako %s.\n"
+"\n"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Navštivte stránky Yandex.Fotki"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "K Yandex.Fotki nejste přihlášeni."
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:49
+msgid "_Email address"
+msgstr "_Emailová adresa"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Tumblr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+"Jste přihlášeni do Tumblr jako (jméno).\n"
+"\n"
+"(Tento řetězec je naplněn a nastaven v kódu,\n"
+"takže změny provedené zde nebudou zobrazeny)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
+msgid "Blogs:"
+msgstr "Blogy:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
+msgid "_Albums (or write new):"
+msgstr "_Alba (nebo nové):"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
+msgid "Access _type:"
+msgstr "_Typ přístupu:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
+msgid "Disable _comments"
+msgstr "Zakázat _komentáře"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
+msgid "_Forbid downloading original photo"
+msgstr "Ne_dovolit stahovat originál"

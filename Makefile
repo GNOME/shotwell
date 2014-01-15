@@ -30,14 +30,7 @@ ifndef LIBEXECDIR
 LIBEXECDIR=$(PREFIX)/libexec/shotwell
 endif
 
-CORE_SUPPORTED_LANGUAGES= ia hi te fr de it es pl et sv sk lv pt bg bn nl da zh_CN \
-    el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR \
-    eu he mk ta vi or km af as gu kn ml mr bn_IN ky nn
-
-EXTRAS_SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk \
-    ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he mk te ta eo or hi \
-    as kn ml mr bn_IN gu nn vi
-    
+CORE_SUPPORTED_LANGUAGES=$(shell cat po/LINGUAS)
 
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR := $(DESTDIR)$(PREFIX)/share/locale
@@ -396,8 +389,7 @@ EXPANDED_THUMBNAILER_SRC_FILES := $(foreach file, $(THUMBNAILER_SRC_FILES), $(TH
 MIGRATOR_DIR := settings-migrator
 MIGRATOR_BIN := $(MIGRATOR_DIR)/$(PROGRAM_MIGRATOR)
 
-EXPANDED_CORE_PO_FILES := $(foreach po,$(CORE_SUPPORTED_LANGUAGES),po/shotwell-core/$(po).po)
-EXPANDED_EXTRAS_PO_FILES := $(foreach po,$(EXTRAS_SUPPORTED_LANGUAGES),po/shotwell-extras/$(po).po)
+EXPANDED_CORE_PO_FILES := $(foreach po,$(CORE_SUPPORTED_LANGUAGES),po/$(po).po)
 
 EXPANDED_SRC_FILES := $(UNITIZED_SRC_FILES) $(foreach src,$(UNUNITIZED_SRC_FILES),src/$(src)) \
 	$(UNITIZE_INITS) $(UNITIZE_ENTRIES)
@@ -421,12 +413,11 @@ PC_FILE := $(PC_INPUT:.m4=.pc)
 DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_DEPS_FILES) $(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) \
 	$(EXPANDED_ICON_FILES) $(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_CORE_PO_FILES) \
-	$(EXPANDED_EXTRAS_PO_FILES) \
-	po/shotwell-core/shotwell.pot po/shotwell-extras/shotwell-extras.pot \
+	po/LINGUAS po/POTFILES.in po/POTFILES.skip \
 	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
 	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES) \
 	vapi/gphoto-2.5/libgphoto2.vapi vapi/gphoto-2.4/libgphoto2.vapi \
-	$(EXPANDED_THUMBNAILER_SRC_FILES) $(MIGRATOR_BIN) potgen-shotwell
+	$(EXPANDED_THUMBNAILER_SRC_FILES) $(MIGRATOR_BIN)
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_XZ = $(DIST_TAR).xz
@@ -472,11 +463,9 @@ endif
 
 include src/plugins/mk/interfaces.mk
 
-$(LANG_STAMP): $(EXPANDED_CORE_PO_FILES) $(EXPANDED_EXTRAS_PO_FILES)
+$(LANG_STAMP): $(EXPANDED_CORE_PO_FILES)
 	@$(foreach po,$(CORE_SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
-		msgfmt -c -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell.mo po/shotwell-core/$(po).po`)
-	@$(foreach po,$(EXTRAS_SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
-		msgfmt -c -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell-extras.mo po/shotwell-extras/$(po).po`)
+		msgfmt -c -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell.mo po/$(po).po`)
 	@touch $(LANG_STAMP)
 
 clean:
@@ -512,9 +501,6 @@ package:
 	$(MAKE) dist
 	cp $(DIST_TAR_XZ) $(PACKAGE_ORIG_XZ)
 	rm -f $(DIST_TAR_XZ)
-
-pot_file:
-	./potgen-shotwell
 
 misc/shotwell.desktop: misc/shotwell.desktop.head $(EXPANDED_CORE_PO_FILES)
 	cp misc/shotwell.desktop.head misc/shotwell.desktop
@@ -620,9 +606,6 @@ endif
 	-$(foreach lang,$(CORE_SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
 		$(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
 		$(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
-	-$(foreach lang,$(EXTRAS_SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
-		$(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell-extras.mo \
-		$(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell-extras.mo`)
 	mkdir -p $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
 	$(INSTALL_PROGRAM) $(PLUGINS_SO) $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
 ifdef PLUGINS_RC
@@ -668,7 +651,6 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 	rm -f $(DESTDIR)$(PREFIX)/share/apport/package-hooks/shotwell.py
 endif
 	$(foreach lang,$(CORE_SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
-	$(foreach lang,$(EXTRAS_SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell-extras.mo`)
 	rm -rf $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
 ifdef INSTALL_HEADERS
 	rm -rf $(DESTDIR)$(PREFIX)/include/shotwell

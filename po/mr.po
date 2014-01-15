@@ -1,0 +1,4512 @@
+# po/shotwell-core/shotwell.pot
+# PO message string template file for Shotwell Core Components
+# Copyright (C) 2009-2013 Yorba Foundation
+# See COPYING for license.
+#
+#
+# Translators:
+# sandeeps <sshedmak@redhat.com>, 2012
+# sandeeps <sshedmak@redhat.com>, 2012-2013
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-20 19:30+0000\n"
+"Last-Translator: sandeeps <sshedmak@redhat.com>\n"
+"Language-Team: Marathi (http://www.transifex.com/projects/p/shotwell/"
+"language/mr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mr\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Event.vala:737
+#, c-format
+msgid "Event %s"
+msgstr "घटना %s"
+
+#: src/camera/Branch.vala:87
+msgid "Cameras"
+msgstr "कॅमेराज्"
+
+#: src/camera/Branch.vala:101 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:300
+#: src/MediaPage.vala:425
+msgid "Camera"
+msgstr "कॅमेरा"
+
+#: src/camera/ImportPage.vala:312 src/Properties.vala:227
+#, c-format
+msgid "RAW+JPEG"
+msgstr "RAW+JPEG"
+
+#: src/camera/ImportPage.vala:459
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr ""
+"कॅमेरा माउंट अशक्य करणे अशक्य.  फाइल व्यवस्थापकपासून कॅमेरा माउंट अशक्य करायचा प्रयत्न करा."
+
+#: src/camera/ImportPage.vala:776
+msgid "Hide photos already imported"
+msgstr "आधिपासूनच आयात केलेले छायाचित्र लपवा"
+
+#: src/camera/ImportPage.vala:777
+msgid "Only display photos that have not been imported"
+msgstr "फक्त आयात न केलेले छायाचित्र दाखवा"
+
+#: src/camera/ImportPage.vala:845
+msgid "Starting import, please wait..."
+msgstr "आयात सुरू करत आहे, कृपया थांबा..."
+
+#: src/camera/ImportPage.vala:872 src/MediaPage.vala:436
+msgid "_Titles"
+msgstr "शीर्षक (_T)"
+
+#: src/camera/ImportPage.vala:873 src/MediaPage.vala:437
+msgid "Display the title of each photo"
+msgstr "प्रत्येक छायाचित्राचे शीर्षक दाखवा"
+
+#: src/camera/ImportPage.vala:884
+msgid "Import _Selected"
+msgstr "आयात नीवडले (_S)"
+
+#: src/camera/ImportPage.vala:885
+msgid "Import the selected photos into your library"
+msgstr "नीवडलेल्या छायाचित्रांना लाइब्ररिमध्ये आयात करा"
+
+#: src/camera/ImportPage.vala:890
+msgid "Import _All"
+msgstr "सर्व आयात करा (_A)"
+
+#: src/camera/ImportPage.vala:891
+msgid "Import all the photos into your library"
+msgstr "सर्व छायाचित्रांना लाइब्ररिमध्ये आयात करा"
+
+#: src/camera/ImportPage.vala:1012
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr "शॉटवेलला फाइलप्रणालीपासून कॅमराला माउंट अशक्य करण्याची आवश्यकता आहे.  पुढे जायचे?"
+
+#: src/camera/ImportPage.vala:1018
+msgid "_Unmount"
+msgstr "माऊंट अशक्य करा (_U)"
+
+#: src/camera/ImportPage.vala:1023
+msgid "Please unmount the camera."
+msgstr "कृपया कॅमेराला माउंट अशक्य करा."
+
+#: src/camera/ImportPage.vala:1028
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr ""
+"कॅमेरा इतर ॲप्लिकेशनतर्फे कुलूपबंद आहे.  कुलूपबंद असल्यावरच शॉटवेल कॅमेराकरीता प्रवेश प्राप्त करू "
+"शकतो.  कृपया कॅमेराचा वापर करून इतर कोणतेहि ॲप्लिकेशन बंद करा व पुन्हा प्रयत्न करा."
+
+#: src/camera/ImportPage.vala:1038
+msgid "Please close any other application using the camera."
+msgstr "कॅमेराचा वापर करून कृपया इतर कोणतेहि ॲप्लिकेशन बंद करा."
+
+#: src/camera/ImportPage.vala:1043
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+"कॅमेरापासून पूर्वावलोकन प्राप्त करणे अशक्य:\n"
+"%s"
+
+#: src/camera/ImportPage.vala:1060
+msgid "Unmounting..."
+msgstr "माउंट अशक्य करत आहे..."
+
+#: src/camera/ImportPage.vala:1166
+msgid "Fetching photo information"
+msgstr "छायाचित्र माहिती प्राप्त करत आहे"
+
+#: src/camera/ImportPage.vala:1521
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "%s करीता पूर्वावलोकन प्राप्त करत आहे"
+
+#: src/camera/ImportPage.vala:1637
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "कॅमेरा: %s कुलूपबंद करत आहे"
+
+#: src/camera/ImportPage.vala:1722
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "कॅमेरापासून हे छायाचित्र नष्ट करायचे?"
+msgstr[1] "कॅमेरापासून हे %d छायाचित्र नष्ट करायचे?"
+
+#: src/camera/ImportPage.vala:1725
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "कॅमेरातून हे व्हिडिओ नष्ट करायचे?"
+msgstr[1] "कॅमेरातून हे %d व्हिडिओ नष्ट करायचे?"
+
+#: src/camera/ImportPage.vala:1728
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "ह्या छायाचित्र/व्हिडिओला कॅमेराऱ्यातून नष्ट करायचे?"
+msgstr[1] "ह्या %d छायाचित्र/व्हिडिओला कॅमेराऱ्यातून नष्ट करायचे?"
+
+#: src/camera/ImportPage.vala:1731
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "कॅमेरापासून ह्या फाइल्स् नष्ट करायचे?"
+msgstr[1] "कॅमेरापासून ह्या %d फाइल्स् नष्ट करायचे?"
+
+#: src/camera/ImportPage.vala:1739 src/Dialogs.vala:1328
+msgid "_Keep"
+msgstr "जपवून ठेवा (_K)"
+
+#: src/camera/ImportPage.vala:1758
+msgid "Removing photos/videos from camera"
+msgstr "कॅमेरापासून छायाचित्र/व्हिडिओज् काढून टाकत आहे"
+
+#: src/camera/ImportPage.vala:1762
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] "त्रुटींमुळे कॅमेरापासून %d छायाचित्र/व्हिडिओ नष्ट करणे अशक्य."
+msgstr[1] "त्रुटींमुळे कॅमेरापासून %d छायाचित्र/व्हिडिओ नष्ट करणे अशक्य."
+
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2623
+msgid "S_lideshow"
+msgstr "स्लाइडशो (_l)"
+
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2624
+msgid "Play a slideshow"
+msgstr "स्लाइडशो दाखवा"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photo/Video"
+msgstr "छायाचित्र/व्हिडिओ एक्सपोर्ट करा"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photos/Videos"
+msgstr "छायाचित्र/व्हिडिओ एक्सपोर्ट करा"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:58 src/PhotoPage.vala:3196
+msgid "Export Photo"
+msgstr "छायाचित्र एक्सपोर्ट करा"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:87
+msgid "Export Photos"
+msgstr "छायाचित्र एक्सपोर्ट करा"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Rotating"
+msgstr "फिरवत आहे"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Undoing Rotate"
+msgstr "फिरवणे पूर्ववत् करत आहे"
+
+#: src/CollectionPage.vala:570
+msgid "Flipping Horizontally"
+msgstr "आडवे पलटी करा"
+
+#: src/CollectionPage.vala:571
+msgid "Undoing Flip Horizontally"
+msgstr "आडवे पलटवणे पूर्ववत् करा"
+
+#: src/CollectionPage.vala:580
+msgid "Flipping Vertically"
+msgstr "उभेरित्या पलटवत आहे"
+
+#: src/CollectionPage.vala:581
+msgid "Undoing Flip Vertically"
+msgstr "उभेरित्या पलटवणे पूर्ववत् करत आहे"
+
+#: src/searches/SearchBoolean.vala:157
+msgid "Any text"
+msgstr "कोणतेहि मजकूर"
+
+#: src/searches/SearchBoolean.vala:160
+msgid "Title"
+msgstr "शीर्षक"
+
+#: src/searches/SearchBoolean.vala:163
+msgid "Tag"
+msgstr "टॅग"
+
+#: src/searches/SearchBoolean.vala:166
+msgid "Comment"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:169
+msgid "Event name"
+msgstr "इव्हेंट नाव"
+
+#: src/searches/SearchBoolean.vala:172
+msgid "File name"
+msgstr "फाइल नाव"
+
+#: src/searches/SearchBoolean.vala:175
+msgid "Media type"
+msgstr "मिडिया प्रकार"
+
+#: src/searches/SearchBoolean.vala:178
+msgid "Flag state"
+msgstr "प्लॅग स्तर"
+
+#: src/searches/SearchBoolean.vala:181
+msgid "Photo state"
+msgstr ""
+
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:1003
+msgid "Rating"
+msgstr "रेटिंग"
+
+#: src/searches/SearchBoolean.vala:187
+msgid "Date"
+msgstr "दिनांक"
+
+#: src/searches/SavedSearchDialog.vala:169
+msgid "contains"
+msgstr "समाविष्टीत"
+
+#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:497
+msgid "is exactly"
+msgstr "हुबेहुब"
+
+#: src/searches/SavedSearchDialog.vala:171
+msgid "starts with"
+msgstr "सुरू होते"
+
+#: src/searches/SavedSearchDialog.vala:172
+msgid "ends with"
+msgstr "समाप्त होते"
+
+#: src/searches/SavedSearchDialog.vala:173
+msgid "does not contain"
+msgstr "समाविष्ट नाही"
+
+#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:501
+msgid "is not set"
+msgstr "सेट केले नाही"
+
+#: src/searches/SavedSearchDialog.vala:245
+#: src/searches/SavedSearchDialog.vala:376
+#: src/searches/SavedSearchDialog.vala:441
+msgid "is"
+msgstr "is"
+
+#: src/searches/SavedSearchDialog.vala:246
+msgid "is not"
+msgstr "is not"
+
+#: src/searches/SavedSearchDialog.vala:252
+msgid "any photo"
+msgstr "कोणतेहि फोटो"
+
+#: src/searches/SavedSearchDialog.vala:253
+msgid "a raw photo"
+msgstr "रॉ फोटो"
+
+#: src/searches/SavedSearchDialog.vala:254
+msgid "a video"
+msgstr "व्हिडिओ"
+
+#: src/searches/SavedSearchDialog.vala:308
+msgid "has"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:309
+msgid "has no"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:314
+msgid "modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:315
+msgid "internal modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:316
+msgid "external modifications"
+msgstr ""
+
+#: src/searches/SavedSearchDialog.vala:370
+msgid "flagged"
+msgstr "फ्लॅग केले"
+
+#: src/searches/SavedSearchDialog.vala:371
+msgid "not flagged"
+msgstr "फ्लॅग केले नाही"
+
+#: src/searches/SavedSearchDialog.vala:434
+msgid "and higher"
+msgstr "व जास्त"
+
+#: src/searches/SavedSearchDialog.vala:435
+msgid "only"
+msgstr "फक्त"
+
+#: src/searches/SavedSearchDialog.vala:436
+msgid "and lower"
+msgstr "व कमी"
+
+#: src/searches/SavedSearchDialog.vala:498
+msgid "is after"
+msgstr "नंतर"
+
+#: src/searches/SavedSearchDialog.vala:499
+msgid "is before"
+msgstr "अगोदर"
+
+#: src/searches/SavedSearchDialog.vala:500
+msgid "is between"
+msgstr "मध्ये आहे"
+
+#: src/searches/SavedSearchDialog.vala:513
+msgid "and"
+msgstr "व"
+
+#: src/searches/SavedSearchDialog.vala:720
+msgid "any"
+msgstr "कोणतेहि"
+
+#: src/searches/SavedSearchDialog.vala:721
+msgid "all"
+msgstr "सर्व"
+
+#: src/searches/SavedSearchDialog.vala:722
+msgid "none"
+msgstr "काहिच नाही"
+
+#: src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "साठवलेले शोध"
+
+#: src/searches/Branch.vala:77 src/library/LibraryWindow.vala:346
+#: src/sidebar/Tree.vala:195
+msgid "Ne_w Saved Search..."
+msgstr "नवीन साठवलेला शोध (_w)..."
+
+#: src/main.vala:54
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr ""
+"तुमची छायाचित्र लाइब्ररि शॉटवेलच्या या आवृत्तीसह सहत्व नाही. शॉटवेल %s (स्किमा %d) तर्फे "
+"निर्माण केले नाही, असे आढळते.  हि आवृत्ती %s (schema %d) आहे.  कृपया शॉटवेलच्या दुसऱ्या "
+"आवृत्तीचा वापर करा."
+
+#: src/main.vala:59
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"आवृत्ती %s (स्किमा %d) पासून %s (स्किमा %d) करीता शॉटवेल छायाचित्र लाइब्ररि सुधारित "
+"करण्यास अशक्य.  अधिक माहितीकरीता %s येथे कृपया शॉटवेल विकि तपासा"
+
+#: src/main.vala:65
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"तुमची छायाचित्र लाइब्ररि शॉटवेलच्या ह्या आवृत्तीसह सहत्व नाही. हे शॉटवेल %s (स्किमा %d) "
+"तर्फे निर्मीत आहे, असे आढळते.  हि आवृत्ती %s (स्किमा %d) आहे.  कृपया %s नष्ट करून लाइब्ररि "
+"नष्ट करा व छायाचित्र पुनः आयात करा."
+
+#: src/main.vala:71
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr "शॉटवेलचे डाटाबेस: %s याची तपासणी करतेवेळी अपरिचीत त्रुटी आढळली"
+
+#: src/main.vala:104
+msgid "Loading Shotwell"
+msgstr "शॉटवेल लोड करत आहे"
+
+#: src/main.vala:294
+msgid "Path to Shotwell's private data"
+msgstr "शॉटवेलच्या वैयक्तिक डाटाकरिता मार्ग"
+
+#: src/main.vala:294
+msgid "DIRECTORY"
+msgstr "डिरेक्ट्री"
+
+#: src/main.vala:298
+msgid "Do not monitor library directory at runtime for changes"
+msgstr "बदलकरिता रनटाइमवेळी लाइब्ररि डिरेक्ट्री मॉनिटर करू नका"
+
+#: src/main.vala:302
+msgid "Don't display startup progress meter"
+msgstr "स्टार्टअप प्रगती मिटिर दाखवू नका"
+
+#: src/main.vala:306
+msgid "Show the application's version"
+msgstr "ॲप्लिकेशनची आवृत्ती दाखवा"
+
+#: src/main.vala:338
+msgid "[FILE]"
+msgstr "[FILE]"
+
+#: src/main.vala:342
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr "उपलब्ध आदेश ओळ पर्यायांची संपूर्ण सूची पहाण्याकरीता '%s --help' चालवा.\n"
+
+#: src/Properties.vala:84
+msgid "Today"
+msgstr "आज"
+
+#: src/Properties.vala:86
+msgid "Yesterday"
+msgstr "काल"
+
+#: src/Properties.vala:340 src/Dialogs.vala:1273
+msgid "Title:"
+msgstr "शीर्षक:"
+
+#: src/Properties.vala:343
+msgid "Items:"
+msgstr "d घटके:"
+
+#: src/Properties.vala:346
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "%d इव्हेंट"
+msgstr[1] "%d इव्हेंट्स्"
+
+#: src/Properties.vala:353 src/events/EventDirectoryItem.vala:87
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d छायाचित्र"
+msgstr[1] "%d छायाचित्र"
+
+#: src/Properties.vala:355 src/events/EventDirectoryItem.vala:85
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d व्हिडिओ"
+msgstr[1] "%d व्हिडिओज्"
+
+#: src/Properties.vala:377
+msgid "Date:"
+msgstr "दिनांक:"
+
+#: src/Properties.vala:381
+msgid "Time:"
+msgstr "वेळ:"
+
+#: src/Properties.vala:384 src/Properties.vala:389
+msgid "From:"
+msgstr "येथून:"
+
+#: src/Properties.vala:385 src/Properties.vala:390
+msgid "To:"
+msgstr "करीता:"
+
+#: src/Properties.vala:395 src/editing_tools/EditingTools.vala:1850
+msgid "Size:"
+msgstr "आकार:"
+
+#: src/Properties.vala:404
+msgid "Duration:"
+msgstr "कालावधी:"
+
+#: src/Properties.vala:404
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f सेकंद"
+
+#: src/Properties.vala:408
+msgid "Developer:"
+msgstr "डेव्हलपर:"
+
+#: src/Properties.vala:436 src/Properties.vala:440 src/Properties.vala:447
+#: src/editing_tools/EditingTools.vala:2218
+msgid "Exposure:"
+msgstr "एक्सपोजर:"
+
+#: src/Properties.vala:585
+msgid "Location:"
+msgstr "ठिकाण:"
+
+#: src/Properties.vala:588
+msgid "File size:"
+msgstr "फाइल आकार:"
+
+#: src/Properties.vala:592
+msgid "Current Development:"
+msgstr "सध्याचे डेव्हलपमेंट:"
+
+#: src/Properties.vala:594
+msgid "Original dimensions:"
+msgstr "मूळ आकार:"
+
+#: src/Properties.vala:597
+msgid "Camera make:"
+msgstr "कॅमेरा मेक्:"
+
+#: src/Properties.vala:600
+msgid "Camera model:"
+msgstr "कॅमेरा मॉडल:"
+
+#: src/Properties.vala:603
+msgid "Flash:"
+msgstr "फ्लॅश:"
+
+#: src/Properties.vala:605
+msgid "Focal length:"
+msgstr "फोकल लेंग्थ्:"
+
+#: src/Properties.vala:608
+msgid "Exposure date:"
+msgstr "एक्सपोजर दिनांक:"
+
+#: src/Properties.vala:611
+msgid "Exposure time:"
+msgstr "एक्सपोजर वेळ:"
+
+#: src/Properties.vala:614
+msgid "Exposure bias:"
+msgstr "एक्सपोजर बायस:"
+
+#: src/Properties.vala:616
+msgid "GPS latitude:"
+msgstr "GPS लॅटिट्युड:"
+
+#: src/Properties.vala:619
+msgid "GPS longitude:"
+msgstr "GPS लाँजिट्युड:"
+
+#: src/Properties.vala:622
+msgid "Artist:"
+msgstr "कलाकार:"
+
+#: src/Properties.vala:624
+msgid "Copyright:"
+msgstr "सर्वहक्काधिकार:"
+
+#: src/Properties.vala:626
+msgid "Software:"
+msgstr "सॉफ्टवेअर:"
+
+#: src/Properties.vala:630 src/Dialogs.vala:1288
+msgid "Comment:"
+msgstr "टिपण्णी:"
+
+#: src/Properties.vala:639
+msgid "Extended Information"
+msgstr "वाढिव माहिती"
+
+#: src/Dialogs.vala:16
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "यामुळे टॅग \"%s\" एका छायाचित्रातून काढून टाकले जाईल.  सुरू ठेवायचे?"
+msgstr[1] "यामुळे टॅग \"%s\", %d छायाचित्रातून काढून टाकले जाईल.  सुरू ठेवायचे?"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1361
+#: src/Dialogs.vala:1384 src/data_imports/DataImportsUI.vala:399
+#: src/AppWindow.vala:615 src/AppWindow.vala:636 src/AppWindow.vala:653
+#: src/publishing/PublishingUI.vala:498
+msgid "_Cancel"
+msgstr "रद्द करा (_C)"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1329
+#: src/Resources.vala:330 src/Resources.vala:378 src/Resources.vala:643
+msgid "_Delete"
+msgstr "नष्ट करा (_D)"
+
+#: src/Dialogs.vala:25
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr "यामुळे साठवलेले सर्च \"%s\" काढून टाकले जाईल. सुरू ठेवायचे?"
+
+#: src/Dialogs.vala:35
+#, c-format
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] "डेव्हलपर्स् बदल्याने शॉटवेलमध्ये ह्या छायाचित्रकरीता केलेले सर्व बदल पूर्ववत् केले जाईल"
+msgstr[1] ""
+"डेव्हलपर्स् बदल्याने शॉटवेलमध्ये ह्या छायाचित्रकरीता केलेले सर्व बदल पूर्ववत् केले जातिल"
+
+#: src/Dialogs.vala:39
+msgid "_Switch Developer"
+msgstr "स्विच् डेव्हलपर (_S)"
+
+#: src/Dialogs.vala:58
+msgid "Export Video"
+msgstr "व्हिडिओ एक्सपोर्ट करा"
+
+#: src/Dialogs.vala:115
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr ""
+"%s करीता लिहण्यास परवानगी नसल्यामुळे, हे छायाचित्र संपादित करण्यासाठी शॉटवेल फाइल "
+"निर्माण करण्यास अशक्य."
+
+#: src/Dialogs.vala:124
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr ""
+"फाइल त्रुटीमुळे खालिल छायाचित्र एक्सपोर्ट करण्यास अशक्य.\n"
+"\n"
+
+#: src/Dialogs.vala:130
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr ""
+"\n"
+"\n"
+"तुम्हाला एक्सपोर्ट करणे सुरू ठेवायचे?"
+
+#: src/Dialogs.vala:131
+msgid "Con_tinue"
+msgstr "सुरू ठेवायचे (_t)"
+
+#: src/Dialogs.vala:147
+msgid "Unmodified"
+msgstr "संपादन अशक्य"
+
+#: src/Dialogs.vala:148
+msgid "Current"
+msgstr "सध्याचे"
+
+#: src/Dialogs.vala:212
+msgid "_Format:"
+msgstr "रूपण (_F):"
+
+#: src/Dialogs.vala:215
+msgid "_Quality:"
+msgstr "दर्जा (_Q):"
+
+#: src/Dialogs.vala:218
+msgid "_Scaling constraint:"
+msgstr "स्केलिंग कंस्ट्रेंट (_S):"
+
+#: src/Dialogs.vala:221
+msgid " _pixels"
+msgstr " पिक्सेल्स् (_p)"
+
+#: src/Dialogs.vala:229
+msgid "Export metadata"
+msgstr "Export metadata"
+
+#: src/Dialogs.vala:465
+msgid "Save Details..."
+msgstr "तपशील दाखवा..."
+
+#: src/Dialogs.vala:466
+msgid "Save Details"
+msgstr "तपशील दाखवा"
+
+#: src/Dialogs.vala:481
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(व %d जास्त)\n"
+
+#: src/Dialogs.vala:534
+msgid "Import Results Report"
+msgstr "आयात परिणामचा अहवाल"
+
+#: src/Dialogs.vala:538
+#, c-format
+msgid "Attempted to import %d file."
+msgid_plural "Attempted to import %d files."
+msgstr[0] "%d फाइल आयात करायचा प्रयत्न केले."
+msgstr[1] "%d फाइल्स आयात करायचा प्रयत्न केला."
+
+#: src/Dialogs.vala:541
+#, c-format
+msgid "Of these, %d file was successfully imported."
+msgid_plural "Of these, %d files were successfully imported."
+msgstr[0] "यापैकी, %d फाइल यशस्वीरित्या आयात झाले."
+msgstr[1] "यापैकी, %d फाइल्स यशस्वीरित्या आयात झाले."
+
+#: src/Dialogs.vala:553
+msgid "Duplicate Photos/Videos Not Imported:"
+msgstr "हुबेहुब छायाचित्र किंवा व्हिडिओज आयात केले नाही:"
+
+#: src/Dialogs.vala:557
+msgid "duplicates existing media item"
+msgstr "हुबेहुब अस्तित्वातील मिडिया घटक"
+
+#: src/Dialogs.vala:568
+msgid "Photos/Videos Not Imported Due to Camera Errors:"
+msgstr "कॅमेरा त्रुटींमुळे छायाचित्र किंवा व्हिडिओज आयात केले नाही:"
+
+#: src/Dialogs.vala:571 src/Dialogs.vala:586 src/Dialogs.vala:601
+#: src/Dialogs.vala:617 src/Dialogs.vala:632 src/Dialogs.vala:646
+msgid "error message:"
+msgstr "त्रुटी संदेश:"
+
+#: src/Dialogs.vala:582
+msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgstr "छायाचित्र किंवा व्हिडिओ म्हणून न ओळखल्यामुळे फाइल्स आयात झाले नाही:"
+
+#: src/Dialogs.vala:597
+msgid ""
+"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Understands:"
+msgstr "छायाचित्र किंवा व्हिडिओज आयात केले नाही कारण ते शॉटवेलला कळेल अशा स्वरूपात नाही:"
+
+#: src/Dialogs.vala:612
+msgid ""
+"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Library:"
+msgstr ""
+"फोटो किंवा व्हिडिओज आयात केले नाही कारण शॉटवेल त्यास लाइब्ररिमध्ये आयात करू शकले नाही:"
+
+#: src/Dialogs.vala:616
+#, c-format
+msgid ""
+"couldn't copy %s\n"
+"\tto %s"
+msgstr ""
+"%sला\n"
+"\t%s करिता प्रत बनवणे अशक्य"
+
+#: src/Dialogs.vala:628
+msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
+msgstr ""
+
+#: src/Dialogs.vala:643
+msgid "Photos/Videos Not Imported for Other Reasons:"
+msgstr "इतर कारणास्तव फोटो किंवा व्हिडिओज आयात केले नाही:"
+
+#: src/Dialogs.vala:663
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "1 हुबेहुब छायाचित्र आयात केले नाही:\n"
+msgstr[1] "%d हुबेहुब छायाचित्र आयात केले नाही:\n"
+
+#: src/Dialogs.vala:666
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "1 हुबेहुब व्हिडिओ आयात केले नाही:\n"
+msgstr[1] "%d हुबेहुब व्हिडिओ आयात केले नाही:\n"
+
+#: src/Dialogs.vala:669
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "1 हुबेहुब छायाचित्र/व्हिडिओ आयात केले नाही:\n"
+msgstr[1] "%d हुबेहुब छायाचित्र/व्हिडिओ आयात केले नाही:\n"
+
+#: src/Dialogs.vala:683
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] "फाइल किंवा हार्डवेअर त्रुटीमुळे 1 छायाचित्र आयात करणे अपयशी:\n"
+msgstr[1] "फाइल किंवा हार्डवेअर त्रुटीमुळे %d छायाचित्र आयात करणे अपयशी:\n"
+
+#: src/Dialogs.vala:686
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] "फाइल किंवा हार्डवेअर त्रुटीमुळे 1 व्हिडिओ आयात होण्यास अपयशी:\n"
+msgstr[1] "फाइल किंवा हार्डवेअर त्रुटीमुळे %d व्हिडिओ आयात होण्यास अपयशी:\n"
+
+#: src/Dialogs.vala:689
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] "फाइल किंवा हार्डवेअर त्रुटीमुळे 1 छायाचित्र/व्हिडिओ अपयशी:\n"
+msgstr[1] "फाइल किंवा हार्डवेअर त्रुटीमुळे %d छायाचित्र/व्हिडिओ अपयशी:\n"
+
+#: src/Dialogs.vala:692
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] "फाइल किंवा हार्डवेअर त्रुटीमुळे 1 फाइल आयात करणे अपयशी:\n"
+msgstr[1] "फाइल किंवा हार्डवेअर त्रुटीमुळे %d फाइल आयात करणे अपयशी:\n"
+
+#: src/Dialogs.vala:706
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"छायाचित्र लाइब्ररि फोल्डर लेखनजोगी नसल्याने 1 छायाचित्र आयात होण्यास अपयशी:\n"
+msgstr[1] ""
+"छायाचित्र लाइब्ररि फोल्डर लेखनजोगी नसल्याने %d छायाचित्र आयात होण्यास अपयशी:\n"
+
+#: src/Dialogs.vala:709
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "छायाचित्र लाइब्ररि लेखनजोगी नसल्याने 1 व्हिडिओ आयात होण्यासअपयशी:\n"
+msgstr[1] "छायाचित्र लाइब्ररि लेखनजोगी नसल्याने %d व्हिडिओज् आयात होण्यासअपयशी:\n"
+
+#: src/Dialogs.vala:712
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"छायाचित्र लाइब्ररि लेखनजोगी नसल्याने 1 छायाचित्र/व्हिडिओ आयात होण्यासअपयशी:\n"
+msgstr[1] ""
+"छायाचित्र लाइब्ररि लेखनजोगी नसल्याने %d छायाचित्र/व्हिडिओ आयात होण्यासअपयशी:\n"
+
+#: src/Dialogs.vala:715
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] "छायाचित्र लाइब्ररि फोल्डर लेखनजोगी नसल्याने 1 फाइल आयात होण्यास अपयशी:\n"
+msgstr[1] "छायाचित्र लाइब्ररि फोल्डर लेखनजोगी नसल्याने %d फाइल्स् आयात होण्यास अपयशी:\n"
+
+#: src/Dialogs.vala:729
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] "कॅमेरा त्रुटीमुळे 1 छायाचित्र आयात होण्यास अपयशी:\n"
+msgstr[1] "कॅमेरा त्रुटीमुळे %d छायाचित्र आयात होण्यास अपयशी:\n"
+
+#: src/Dialogs.vala:732
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] "कॅमेरा त्रुटीमुळे 1 छायाचित्र आयात होण्यास अपयशी:\n"
+msgstr[1] "कॅमेरा त्रुटीमुळे %d छायाचित्र आयात होण्यास अपयशी:\n"
+
+#: src/Dialogs.vala:735
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] "कॅमेरा त्रुटीमुळे 1 छायाचित्र/व्हिडिओ आयात होण्यास अपयशी:\n"
+msgstr[1] "कॅमेरा त्रुटीमुळे %d छायाचित्र/व्हिडिओ आयात होण्यास अपयशी:\n"
+
+#: src/Dialogs.vala:738
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] "कॅमेरा त्रुटीमुळे 1 फाइल आयात होण्यास अपयशी:\n"
+msgstr[1] "कॅमेरा त्रुटीमुळे %d फाइल्स् आयात होण्यास अपयशी:\n"
+
+#: src/Dialogs.vala:752
+#, c-format
+msgid "1 photo failed to import because it was corrupt:\n"
+msgid_plural "%d photos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:755
+#, c-format
+msgid "1 video failed to import because it was corrupt:\n"
+msgid_plural "%d videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:758
+#, c-format
+msgid "1 photo/video failed to import because it was corrupt:\n"
+msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:761
+#, c-format
+msgid "1 file failed to import because it was corrupt:\n"
+msgid_plural "%d files failed to import because it was corrupt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:778
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "1 असमर्थीत छायाचित्र वगळले:\n"
+msgstr[1] "%d असमर्थीत छायाचित्र वगळले:\n"
+
+#: src/Dialogs.vala:793
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] "1 विना-प्रतिमा फाइल वगळले.\n"
+msgstr[1] "%d विना-प्रतिमा फाइल वगळले.\n"
+
+#: src/Dialogs.vala:804
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] "वापरकर्ता रद्द झाल्याने 1 छायाचित्र वगळले:\n"
+msgstr[1] "वापरकर्ता रद्द झाल्याने %d छायाचित्र वगळले:\n"
+
+#: src/Dialogs.vala:807
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] "वापरकर्ता रद्द झाल्याने 1 व्हिडिओ वगळले:\n"
+msgstr[1] "वापरकर्ता रद्द झाल्याने %d व्हिडिओ वगळले:\n"
+
+#: src/Dialogs.vala:810
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] "वापरकर्ता रद्द झाल्याने 1 छायाचित्र/व्हिडिओ वगळले:\n"
+msgstr[1] "वापरकर्ता रद्द झाल्याने %d छायाचित्र/व्हिडिओ वगळले:\n"
+
+#: src/Dialogs.vala:813
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] "वापरकर्ता रद्द झाल्याने 1 फाइल वगळले:\n"
+msgstr[1] "वापरकर्ता रद्द झाल्याने %d फाइल वगळले:\n"
+
+#: src/Dialogs.vala:827
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "1 छायाचित्र यशस्वीरित्या आयात केले.\n"
+msgstr[1] "%d छायाचित्र यशस्वीरित्या आयात केले.\n"
+
+#: src/Dialogs.vala:830
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "1 व्हिडिओ यशस्वीरित्या आयात केले.\n"
+msgstr[1] "%d व्हिडिओ यशस्वीरित्या आयात केले.\n"
+
+#: src/Dialogs.vala:833
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "1 छायाचित्र/व्हिडिओ यशस्वीरित्या आयात केले.\n"
+msgstr[1] "%d छायाचित्र/व्हिडिओ यशस्वीरित्या आयात केले.\n"
+
+#: src/Dialogs.vala:849
+msgid "No photos or videos imported.\n"
+msgstr "छायाचित्र किंवा व्हिडिओ आयात केले नाही:\n"
+
+#: src/Dialogs.vala:856 src/Dialogs.vala:875
+msgid "Import Complete"
+msgstr "आयात पूर्ण झाले"
+
+#: src/Dialogs.vala:1103
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d सेकंद"
+msgstr[1] "%d सेकंद"
+
+#: src/Dialogs.vala:1106
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d मिनिट"
+msgstr[1] "%d मिनिटे"
+
+#: src/Dialogs.vala:1110
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d तास"
+msgstr[1] "%d तास"
+
+#: src/Dialogs.vala:1113
+msgid "1 day"
+msgstr "1 दिवस"
+
+#: src/Dialogs.vala:1263 src/Resources.vala:205
+msgid "Rename Event"
+msgstr "घटनाचे पुनःनामांकन करा"
+
+#: src/Dialogs.vala:1263
+msgid "Name:"
+msgstr "नाव:"
+
+#: src/Dialogs.vala:1273 src/Resources.vala:274
+msgid "Edit Title"
+msgstr "शीर्षक संपादित करा"
+
+#: src/Dialogs.vala:1287 src/Resources.vala:280
+msgid "Edit Event Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1287
+msgid "Edit Photo/Video Comment"
+msgstr ""
+
+#: src/Dialogs.vala:1304
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "ट्रॅश फाइल (_T)"
+msgstr[1] "ट्रॅश फाइल्स् (_T)"
+
+#: src/Dialogs.vala:1308
+msgid "Only _Remove"
+msgstr "फक्त काढून टाका (_R)"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edit?"
+msgstr "बाहेरिल संपादन पूर्वस्थितीत आणायचे?"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edits?"
+msgstr "बाहेरिल संपादन पूर्वस्थितीत आणायचे?"
+
+#: src/Dialogs.vala:1353
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] "यामुळे बाहेरिल फाइलकरीता केलेले सर्व बदल नष्ट होतील.  सुरू ठेवायचे?"
+msgstr[1] "यामुळे बाहेरिल %d फाइलकरीता केलेले सर्व बदल नष्ट होतील.  सुरू ठेवायचे?"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edit"
+msgstr "बाहेरिल संपादन पूर्वस्थितीत आणा (_v)"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edits"
+msgstr "बाहेरिल संपादन पूर्वस्थितीत आणा (_v)"
+
+#: src/Dialogs.vala:1378
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "यामुळे लाइब्ररितून छायाचित्र काढून टाकले जाईल.  सुरू ठेवायचे?"
+msgstr[1] "यामुळे लाइब्ररितून %d छायाचित्र काढून टाकले जाईल.  सुरू ठेवायचे?"
+
+#: src/Dialogs.vala:1385
+msgid "_Remove"
+msgstr "काढून टाका (_R)"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photo From Library"
+msgstr "लाइब्ररिपासून छायाचित्र काढून टाका"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photos From Library"
+msgstr "लाइब्ररितून छायाचित्र काढून टाका"
+
+#: src/Dialogs.vala:1479
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/Dialogs.vala:1626
+msgid "AM"
+msgstr "AM"
+
+#: src/Dialogs.vala:1627
+msgid "PM"
+msgstr "PM"
+
+#: src/Dialogs.vala:1628
+msgid "24 Hr"
+msgstr "24 तास"
+
+#: src/Dialogs.vala:1643
+msgid "_Shift photos/videos by the same amount"
+msgstr "समान प्रमाणात चायाचित्र/व्हिडिओ शिफ्ट करा (_S)"
+
+#: src/Dialogs.vala:1648
+msgid "Set _all photos/videos to this time"
+msgstr "सर्व छायाचित्र/व्हिडिओजना यावेळकरीता सेट करा (_a)"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo file"
+msgstr "मूळ छायाचित्र फाइल संपादित करा (_M)"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo files"
+msgstr "मुळ छायाचित्र फाइल्स् संपादित करा (_M)"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original file"
+msgstr "मुळ फाइल संपादित करा (_M)"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original files"
+msgstr "मूळ फाइल्स् संपादित करा (_M)"
+
+#: src/Dialogs.vala:1744
+msgid "Original: "
+msgstr "मूळ: "
+
+#: src/Dialogs.vala:1745
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%m/%d/%Y, %H:%M:%S"
+
+#: src/Dialogs.vala:1746
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%m/%d/%Y, %I:%M:%S %p"
+
+#: src/Dialogs.vala:1835
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"एक्सपोजर वेळ\n"
+"%d %s, %d %s, %d %s, व %d %s तर्फे पुढे हलविला जाईल."
+
+#: src/Dialogs.vala:1836
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"एक्सपोजर वेळ\n"
+"%d %s, %d %s, %d %s, व %d %s तर्फे मागे हलविला जाईल."
+
+#: src/Dialogs.vala:1838
+msgid "day"
+msgid_plural "days"
+msgstr[0] "दिवस"
+msgstr[1] "दिवस"
+
+#: src/Dialogs.vala:1839
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "तास"
+msgstr[1] "तास"
+
+#: src/Dialogs.vala:1840
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "मिनिट"
+msgstr[1] "मिनिटे"
+
+#: src/Dialogs.vala:1841
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "सेकंद"
+msgstr[1] "सेंकद"
+
+#: src/Dialogs.vala:1885
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"व %d इतर."
+msgstr[1] ""
+"\n"
+"\n"
+"व %d इतर."
+
+#: src/Dialogs.vala:1907 src/Dialogs.vala:1934
+msgid "Tags (separated by commas):"
+msgstr "टॅग्स् (स्वल्पविरामतर्फे विभाजीत):"
+
+#: src/Dialogs.vala:2014
+msgid "Welcome!"
+msgstr "स्वागत आहे!"
+
+#: src/Dialogs.vala:2021
+#, c-format
+msgid "Welcome to Shotwell!"
+msgstr "शॉटवेलवर स्वागत आहे!"
+
+#: src/Dialogs.vala:2025
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr "सुरू करण्यासाठी, छायाचित्रांना खालिलपैकी कोणत्याहि पद्धतीने आयात करा:"
+
+#: src/Dialogs.vala:2044
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr "<span weight=\"bold\">फाइल %s फोल्डरपासून आयात करा</span> पसंत करा"
+
+#: src/Dialogs.vala:2045
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "शॉटवेल पटलावर छायाचित्र ओढा व टाका"
+
+#: src/Dialogs.vala:2046
+msgid "Connect a camera to your computer and import"
+msgstr "संगणकाशी कॅमेराची जोडणी करा व आयात करा"
+
+#: src/Dialogs.vala:2056
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "%s फोल्डरपासून छायाचित्र आयात करा (_I)"
+
+#: src/Dialogs.vala:2063
+msgid "You can also import photos in any of these ways:"
+msgstr "छायाचित्रांना खालिलपैकी कोणत्याहि पद्धतीने आयात करणे शक्य आहे:"
+
+#: src/Dialogs.vala:2073
+msgid "_Don't show this message again"
+msgstr "हे संदेश पुन्हा दाखवू नका (_D)"
+
+#: src/Dialogs.vala:2108
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "%s लाइब्ररितून छायाचित्र आयात करा"
+
+#: src/Dialogs.vala:2252 src/Dialogs.vala:2256
+msgid "(Help)"
+msgstr "(मदत)"
+
+#: src/Dialogs.vala:2265
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "वर्ष%sमहिना%sदिवस"
+
+#: src/Dialogs.vala:2267
+#, c-format
+msgid "Year%sMonth"
+msgstr "वर्ष%sमहिना"
+
+#: src/Dialogs.vala:2269
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "वर्ष%sमहिना-दिवस"
+
+#: src/Dialogs.vala:2271
+msgid "Year-Month-Day"
+msgstr "वर्ष-महिना-दिवस"
+
+#: src/Dialogs.vala:2272 src/editing_tools/EditingTools.vala:777
+msgid "Custom"
+msgstr "पसंतीचे"
+
+#: src/Dialogs.vala:2509
+msgid "Invalid pattern"
+msgstr "अवैध रचना"
+
+#: src/Dialogs.vala:2612
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr ""
+"शॉटवेल छायाचित्रांना लाइब्ररि फोल्डरमध्ये प्रत बनवतो किंवा त्यास प्रत न बनवता आयात करणे "
+"शक्य आहे."
+
+#: src/Dialogs.vala:2617
+msgid "Co_py Photos"
+msgstr "छायाचित्रांचे प्रत बनवा (_p)"
+
+#: src/Dialogs.vala:2618
+msgid "_Import in Place"
+msgstr "आयात जागेवर आहे (_I)"
+
+#: src/Dialogs.vala:2619
+msgid "Import to Library"
+msgstr "लाइब्ररिमध्ये आयात करा"
+
+#: src/Dialogs.vala:2629 src/PhotoPage.vala:3075
+msgid "Remove From Library"
+msgstr "लाइब्ररितून काढून टाका"
+
+#: src/Dialogs.vala:2630 src/PhotoPage.vala:3075
+msgid "Removing Photo From Library"
+msgstr "लाइब्ररितून छायाचित्र काढून टाका"
+
+#: src/Dialogs.vala:2630
+msgid "Removing Photos From Library"
+msgstr "लाइब्ररिपासून छायाचित्र काढून टाकत आहे"
+
+#: src/Dialogs.vala:2644
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also "
+"like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you "
+"also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"यामुळे शॉटवेल लाइब्ररिपासून छायाचित्र/व्हिडिओ काढून टाकले जाईल.  तुम्हाला फाइलला डेस्कटॉप "
+"ट्रॅशकडे हलवायचे?\n"
+"\n"
+"हि कृती पूर्ववत् करणे अशक्य."
+msgstr[1] ""
+"यामुळे शॉटवेल लाइब्ररिपासून %d छायाचित्र/व्हिडिओ काढून टाकले जाईल.  तुम्हाला फाइलला "
+"डेस्कटॉप ट्रॅशकडे हलवायचे?\n"
+"\n"
+"हि कृती पूर्ववत् करणे अशक्य."
+
+#: src/Dialogs.vala:2648
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"यामुळे शॉटवेल लाइब्ररिपासून व्हिडिओ काढून टाकले जाईल.  तुम्हाला फाइलला डेस्कटॉप ट्रॅशकडे "
+"हलवायचे?\n"
+"\n"
+"हि कृती पूर्ववत् करणे अशक्य."
+msgstr[1] ""
+"यामुळे शॉटवेल लाइब्ररिपासून %d व्हिडिओज् काढून टाकले जाईल.  तुम्हाला फाइलला डेस्कटॉप "
+"ट्रॅशकडे हलवायचे?\n"
+"\n"
+"हि कृती पूर्ववत् करणे अशक्य."
+
+#: src/Dialogs.vala:2652
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"यामुळे शॉटवेल लाइब्ररिपासून छायाचित्र काढून टाकले जाईल.  तुम्हाला फाइलला डेस्कटॉप ट्रॅशकडे "
+"हलवायचे?\n"
+"\n"
+"हि कृती पूर्ववत् करणे अशक्य."
+msgstr[1] ""
+"यामुळे शॉटवेल लाइब्ररिपासून %d छायाचित्र काढून टाकले जाईल.  तुम्हाला फाइलला डेस्कटॉप "
+"ट्रॅशकडे हलवायचे?\n"
+"\n"
+"हि कृती पूर्ववत् करणे अशक्य."
+
+#: src/Dialogs.vala:2684
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] ""
+"डेस्कटॉप ट्रॅशककरीता छायाचित्र किंवा व्हिडिओ स्थानांतरीत करणे अशक्य.  फाइल नष्ट करायची?"
+msgstr[1] ""
+"डेस्कटॉप ट्रॅशककरीता %d छायाचित्र/व्हिडिओ स्थानांतरीत करणे अशक्य.  फाइल नष्ट करायचे?"
+
+#: src/Dialogs.vala:2701
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "छायचित्र किंवा व्हिडिओ नष्ट करणे अशक्य."
+msgstr[1] "%d छायचित्र/व्हिडिओ नष्ट करणे अशक्य."
+
+#: src/folders/Branch.vala:141
+msgid "Folders"
+msgstr "फोल्डर्स"
+
+#: src/tags/Branch.vala:127
+msgid "Tags"
+msgstr "टॅग्स्"
+
+#: src/BatchImport.vala:26
+msgid "Success"
+msgstr "यश"
+
+#: src/BatchImport.vala:29
+msgid "File error"
+msgstr "फाइल त्रुटी"
+
+#: src/BatchImport.vala:32
+msgid "Unable to decode file"
+msgstr "फाइल डिकोड करणे अशक्य"
+
+#: src/BatchImport.vala:35
+msgid "Database error"
+msgstr "डाटाबेस त्रुटी"
+
+#: src/BatchImport.vala:38
+msgid "User aborted import"
+msgstr "वापरकर्तातर्फे आयात रद्द केले"
+
+#: src/BatchImport.vala:41
+msgid "Not a file"
+msgstr "फाइल नाही"
+
+#: src/BatchImport.vala:44
+msgid "File already exists in database"
+msgstr "फाइल आधिपासूनच माहितीकोषमध्ये आहे"
+
+#: src/BatchImport.vala:47
+msgid "Unsupported file format"
+msgstr "असमर्थीत फाइल रूपण"
+
+#: src/BatchImport.vala:50
+msgid "Not an image file"
+msgstr "प्रतिमा फाइल नाही"
+
+#: src/BatchImport.vala:53
+msgid "Disk failure"
+msgstr "डिस्क अपयश"
+
+#: src/BatchImport.vala:56
+msgid "Disk full"
+msgstr "डिस्क भरले"
+
+#: src/BatchImport.vala:59
+msgid "Camera error"
+msgstr "कॅमेरा त्रुटी"
+
+#: src/BatchImport.vala:62
+msgid "File write error"
+msgstr "फाइल लिहतेवेळी त्रुटी"
+
+#: src/BatchImport.vala:65
+msgid "Corrupt image file"
+msgstr ""
+
+#: src/BatchImport.vala:68
+#, c-format
+msgid "Imported failed (%d)"
+msgstr "आयात अपयशी (%d)"
+
+#: src/Photo.vala:3656
+msgid "modified"
+msgstr "संपादित केले"
+
+#: src/PhotoPage.vala:532
+msgid "Previous photo"
+msgstr "मागील छायाचित्र"
+
+#: src/PhotoPage.vala:537
+msgid "Next photo"
+msgstr "पुढील छायाचित्र"
+
+#: src/PhotoPage.vala:1844
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "छायाचित्र स्रोत फाइल: %s आढळले नाही"
+
+#: src/PhotoPage.vala:2404 src/library/LibraryWindow.vala:360
+#: src/direct/DirectPhotoPage.vala:165
+msgid "_View"
+msgstr "अवलोकन (_V)"
+
+#: src/PhotoPage.vala:2408 src/direct/DirectPhotoPage.vala:81
+msgid "T_ools"
+msgstr "साधने (_o)"
+
+#: src/PhotoPage.vala:2413 src/direct/DirectPhotoPage.vala:86
+msgid "_Previous Photo"
+msgstr "मागील छायाचित्र (_P)"
+
+#: src/PhotoPage.vala:2414 src/direct/DirectPhotoPage.vala:87
+msgid "Previous Photo"
+msgstr "मागील छायाचित्र"
+
+#: src/PhotoPage.vala:2419 src/direct/DirectPhotoPage.vala:92
+msgid "_Next Photo"
+msgstr "पुढील छायाचित्र (_N)"
+
+#: src/PhotoPage.vala:2420 src/direct/DirectPhotoPage.vala:93
+msgid "Next Photo"
+msgstr "पुढील छायाचित्र"
+
+#: src/PhotoPage.vala:2583 src/direct/DirectPhotoPage.vala:174
+#: src/MediaPage.vala:325
+msgid "Zoom _In"
+msgstr "मोठे करा (_I)"
+
+#: src/PhotoPage.vala:2584 src/direct/DirectPhotoPage.vala:175
+msgid "Increase the magnification of the photo"
+msgstr "छायाचित्राचे वर्धन वाढवा"
+
+#: src/PhotoPage.vala:2589 src/direct/DirectPhotoPage.vala:180
+#: src/MediaPage.vala:331
+msgid "Zoom _Out"
+msgstr "लहान करा (_O)"
+
+#: src/PhotoPage.vala:2590 src/direct/DirectPhotoPage.vala:181
+msgid "Decrease the magnification of the photo"
+msgstr "छायाचित्राचे वर्धन कमी करा"
+
+#: src/PhotoPage.vala:2595 src/direct/DirectPhotoPage.vala:186
+msgid "Fit to _Page"
+msgstr "पृष्ठात घट्ट बसवा (_P)"
+
+#: src/PhotoPage.vala:2596 src/direct/DirectPhotoPage.vala:187
+msgid "Zoom the photo to fit on the screen"
+msgstr "पडद्यात घट्ट बसवण्याकरीता छायाचित्राला मोठे करा"
+
+#: src/PhotoPage.vala:2601 src/direct/DirectPhotoPage.vala:192
+msgid "Zoom _100%"
+msgstr "100% मोठे करा (_1)"
+
+#: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
+#, fuzzy, c-format
+msgid "Zoom the photo to 100% magnification"
+msgstr "छायाचित्राला 100% वर्धन मोठे करा"
+
+#: src/PhotoPage.vala:2607 src/direct/DirectPhotoPage.vala:198
+msgid "Zoom _200%"
+msgstr "200% मोठे करा (_2)"
+
+#: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
+#, fuzzy, c-format
+msgid "Zoom the photo to 200% magnification"
+msgstr "छायाचित्राला 200% वर्धन मोठे करा"
+
+#: src/PhotoPage.vala:2628 src/MediaPage.vala:413
+msgid "_Developer"
+msgstr "डेव्हलपर (_D)"
+
+#: src/PhotoPage.vala:3216
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "%s: %s एक्सपोर्ट करणे अशक्य"
+
+#: src/data_imports/DataImportsPluginHost.vala:65
+#: src/data_imports/DataImportsPluginHost.vala:78
+#, c-format
+msgid "%s Database"
+msgstr "%s डाटाबेस"
+
+#: src/data_imports/DataImportsPluginHost.vala:148
+#: src/data_imports/DataImportsPluginHost.vala:294
+#, c-format
+msgid "Importing from %s can't continue because an error occurred:"
+msgstr "त्रुटी आढळल्यामुळे %s पासून आयात करणे पुढे सुरू ठेवणे आवश्यक:"
+
+#: src/data_imports/DataImportsPluginHost.vala:151
+msgid "To try importing from another service, select one from the above menu."
+msgstr "इतर सर्व्हिसपासून आयात करण्यासठी, वरील मेन्युपासून नीवडा."
+
+#: src/data_imports/DataImports.vala:22
+msgid "Data Imports"
+msgstr "डाटा इम्पोर्टस्"
+
+#: src/data_imports/DataImportsUI.vala:10
+msgid ""
+"You do not have any data imports plugins enabled.\n"
+"\n"
+"In order to use the Import From Application functionality, you need to have "
+"at least one data imports plugin enabled. Plugins can be enabled in the "
+"Preferences dialog."
+msgstr ""
+"तुमच्याकडे कोणतेहि डाटा इम्पोर्टस् प्लगइन्स् सुरू केले नाही.\n"
+"\n"
+"ॲप्लिकेशन फंक्शनॅलिटिपासून आयात करायचे असल्यास, किमान एक डाटा इम्पोर्टस् प्लगइन सुरू असणे "
+"आवश्यक आहे. प्लगइन्स्ला पसंती संवादात सुरू करणे शक्य आहे."
+
+#: src/data_imports/DataImportsUI.vala:100
+msgid "Database file:"
+msgstr "माहितीकोष फाइल:"
+
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:899
+msgid "_Import"
+msgstr "आयात करा (_I)"
+
+#: src/data_imports/DataImportsUI.vala:216
+msgid "Import From Application"
+msgstr "ॲप्लिकेशनपासून आयात करा"
+
+#: src/data_imports/DataImportsUI.vala:217
+msgid "Import media _from:"
+msgstr "मिडिया आयात करा (_f):"
+
+#: src/data_imports/DataImportsUI.vala:394
+#: src/publishing/PublishingUI.vala:493
+msgid "_Close"
+msgstr "बंद करा (_C)"
+
+#: src/SlideshowPage.vala:49 src/SlideshowPage.vala:182
+msgid "Settings"
+msgstr "सेटिंग्स्"
+
+#: src/SlideshowPage.vala:141 src/Screensaver.vala:18
+msgid "Slideshow"
+msgstr "स्लाइशो"
+
+#: src/SlideshowPage.vala:161
+msgid "Back"
+msgstr "मागे"
+
+#: src/SlideshowPage.vala:162
+msgid "Go to the previous photo"
+msgstr "मागील छायाचित्राकडे जा"
+
+#: src/SlideshowPage.vala:168 src/SlideshowPage.vala:273
+msgid "Pause"
+msgstr "थांबा"
+
+#: src/SlideshowPage.vala:169 src/SlideshowPage.vala:274
+msgid "Pause the slideshow"
+msgstr "स्लाइडशो थांबवा"
+
+#: src/SlideshowPage.vala:175
+msgid "Next"
+msgstr "पुढे"
+
+#: src/SlideshowPage.vala:176
+msgid "Go to the next photo"
+msgstr "पुढच्या छायाचित्राकडे जा"
+
+#: src/SlideshowPage.vala:183
+msgid "Change slideshow settings"
+msgstr "स्लाइडशो सेटिंग्स् बदलवा"
+
+#: src/SlideshowPage.vala:237
+msgid "All photo source files are missing."
+msgstr "सर्व छायाचित्र स्रोत फाइल्स् आढळले नाही."
+
+#: src/SlideshowPage.vala:269
+msgid "Play"
+msgstr "चालवा"
+
+#: src/SlideshowPage.vala:270
+msgid "Continue the slideshow"
+msgstr "स्लाइडशो सुरू ठेवा"
+
+#: src/Commands.vala:733
+msgid "Reverting"
+msgstr "पूर्वस्थितीत आणात आहे"
+
+#: src/Commands.vala:733
+msgid "Undoing Revert"
+msgstr "पूर्वस्थितीत आणने अशक्य"
+
+#: src/Commands.vala:777
+msgid "Enhancing"
+msgstr "सुधारित करत आहे"
+
+#: src/Commands.vala:777
+msgid "Undoing Enhance"
+msgstr "सुधारणा पूर्ववत् करणे अशक्य"
+
+#: src/Commands.vala:845
+msgid "Applying Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:845
+msgid "Undoing Color Transformations"
+msgstr ""
+
+#: src/Commands.vala:995
+msgid "Creating New Event"
+msgstr "नवीन घटना निर्माण करत आहे"
+
+#: src/Commands.vala:996
+msgid "Removing Event"
+msgstr "घटना काढून टाकत आहे"
+
+#: src/Commands.vala:1005
+msgid "Moving Photos to New Event"
+msgstr "छायाचित्रांना नवीन घटनाकरीता हलवत आहे"
+
+#: src/Commands.vala:1006
+msgid "Setting Photos to Previous Event"
+msgstr "छायाचित्रांना मागील घटनाकरीता सेट करत आहे"
+
+#: src/Commands.vala:1063
+msgid "Merging"
+msgstr "एकत्र करत आहे"
+
+#: src/Commands.vala:1064
+msgid "Unmerging"
+msgstr "एकत्र अशक्य करत आहे"
+
+#: src/Commands.vala:1073
+msgid "Duplicating photos"
+msgstr "छायाचित्रांना हुबेहुब करत आहे"
+
+#: src/Commands.vala:1073
+msgid "Removing duplicated photos"
+msgstr "हुबेहुब छायाचित्रांना काढून टाकत आहे"
+
+#: src/Commands.vala:1096
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "फाइल त्रुटीमुळे एक छायाचित्र हुबेहुब करण्यास अशक्य"
+msgstr[1] "फाइल त्रुटीमुळे %d छायाचित्रांना हुबेहुब करण्यास अशक्य"
+
+#: src/Commands.vala:1183
+msgid "Restoring previous rating"
+msgstr "मागील रेटिंग पूर्वस्थितीत आणात आहे"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Increasing ratings"
+msgstr "रेटिंग वाढवत आहे"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Decreasing ratings"
+msgstr "रेटिंग कमी करत आहे"
+
+#: src/Commands.vala:1244
+msgid "Setting RAW developer"
+msgstr "RAW डेव्हलपर सेट करत आहे"
+
+#: src/Commands.vala:1244
+msgid "Restoring previous RAW developer"
+msgstr "मागील RAW डेव्हलपर पूर्वस्थितीत आणात आहे"
+
+#: src/Commands.vala:1245
+msgid "Set Developer"
+msgstr "डेव्हलपर सेट करत आहे"
+
+#: src/Commands.vala:1335
+msgid "Original photo could not be adjusted."
+msgstr "मूळ छायाचित्र सुस्थित करणे अशक्य."
+
+#: src/Commands.vala:1356
+msgid "Adjusting Date and Time"
+msgstr "दिनांक व वेळ सुस्थीत करत आहे"
+
+#: src/Commands.vala:1356
+msgid "Undoing Date and Time Adjustment"
+msgstr "दिनांक व वेळ सुस्थीत करणे पूर्ववत् करत आहे"
+
+#: src/Commands.vala:1387
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "एक मूळ छायाचित्र सुस्थीत करणे अशक्य."
+msgstr[1] "खालिल मूळ छायाचित्रांना सुस्थीत करणे अशक्य."
+
+#: src/Commands.vala:1389 src/Commands.vala:1413
+msgid "Time Adjustment Error"
+msgstr "Time Adjustment Error"
+
+#: src/Commands.vala:1411
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] "खालिल छायाचित्र फाइलवर वेळ सुस्थीत करणे पूर्ववत् करण्यास अशक्य."
+msgstr[1] "खालिल छायाचित्र फाइलवर वेळ सुस्थीत करणे पूर्ववत् करण्यास अशक्य."
+
+#: src/Commands.vala:1625 src/Commands.vala:1648
+msgid "Create Tag"
+msgstr "टॅग निर्माण करा"
+
+#: src/Commands.vala:1683
+#, c-format
+msgid "Move Tag \"%s\""
+msgstr "टॅग \"%s\" स्थानांतरीत करा"
+
+#: src/Commands.vala:2335
+msgid "Move Photos to Trash"
+msgstr "छायाचित्रांना ट्रॅशकडे स्थानांतरीत करा"
+
+#: src/Commands.vala:2335
+msgid "Restore Photos from Trash"
+msgstr "ट्रॅशपासून छायाचित्रांना पूर्वस्थितीत आणा"
+
+#: src/Commands.vala:2336
+msgid "Move the photos to the Shotwell trash"
+msgstr "शॉटवेल ट्रॅशकरीता छायाचित्र स्थानांतरीत करत आहे"
+
+#: src/Commands.vala:2336
+msgid "Restore the photos back to the Shotwell library"
+msgstr "शॉटवेल लाइब्ररिकरीता छायाचित्राला पूर्वस्थितीत आणा"
+
+#: src/Commands.vala:2355
+msgid "Moving Photos to Trash"
+msgstr "छायाचित्रांना कचरापेटिकडे स्थानांतरीत करत आहे"
+
+#: src/Commands.vala:2355
+msgid "Restoring Photos From Trash"
+msgstr "कचरापेटिपासून छायाचित्र पूर्वस्थितीत आणात आहे"
+
+#: src/Commands.vala:2441
+msgid "Flag selected photos"
+msgstr "नीवडलेल्या छायाचित्रांना फ्लॅग करा"
+
+#: src/Commands.vala:2442
+msgid "Unflag selected photos"
+msgstr "नीवडलेल्या छायाचित्रांना फ्लॅग अशक्य करा"
+
+#: src/Commands.vala:2443
+msgid "Flagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2444
+msgid "Unflagging selected photos"
+msgstr ""
+
+#: src/Commands.vala:2451
+msgid "Flag"
+msgstr "फ्लॅग"
+
+#: src/Commands.vala:2451
+msgid "Unflag"
+msgstr "फ्लॅग अशक्य"
+
+#: src/photos/RawSupport.vala:134
+msgid "RAW"
+msgstr "RAW"
+
+#: src/photos/RawSupport.vala:297 src/MediaPage.vala:420
+msgid "Shotwell"
+msgstr "शॉटवेल"
+
+#: src/photos/BmpSupport.vala:32
+msgid "BMP"
+msgstr "BMP"
+
+#: src/photos/JfifSupport.vala:84
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/photos/JfifSupport.vala:182
+#, c-format
+msgid "Low (%d%%)"
+msgstr "कमी (%d%%)"
+
+#: src/photos/JfifSupport.vala:185
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "मध्यम (%d%%)"
+
+#: src/photos/JfifSupport.vala:188
+#, c-format
+msgid "High (%d%%)"
+msgstr "जास्त (%d%%)"
+
+#: src/photos/JfifSupport.vala:191
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "कमाल (%d%%)"
+
+#: src/photos/PngSupport.vala:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/photos/TiffSupport.vala:86
+msgid "TIFF"
+msgstr "TIFF"
+
+#: src/Page.vala:1268
+msgid "No photos/videos"
+msgstr "छायाचित्र/व्हिडिओज् नाही"
+
+#: src/Page.vala:1272
+msgid "No photos/videos found"
+msgstr "छायाचित्र/व्हिडिओज् आढळले नाही"
+
+#: src/Page.vala:2569
+msgid "Photos cannot be exported to this directory."
+msgstr "ह्या डिरेक्ट्रीमध्ये छायाचित्र एक्सपोर्ट करणे अशक्य."
+
+#: src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "मॉनिटरिंग सुधारणा: %s चे विश्लेषण अश्कय"
+
+#: src/Printing.vala:255
+msgid "Fill the entire page"
+msgstr "संपूर्ण पृष्ठ भरून काढा"
+
+#: src/Printing.vala:256
+msgid "2 images per page"
+msgstr "2 प्रतिमा दर पृष्ठ"
+
+#: src/Printing.vala:257
+msgid "4 images per page"
+msgstr "4 प्रतिमा दर पृष्ठ"
+
+#: src/Printing.vala:258
+msgid "6 images per page"
+msgstr "6 प्रतिमा दर पृष्ठ"
+
+#: src/Printing.vala:259
+msgid "8 images per page"
+msgstr "8 प्रतिमा दर पृष्ठ"
+
+#: src/Printing.vala:260
+msgid "16 images per page"
+msgstr "16 प्रतिमा दर पृष्ठ"
+
+#: src/Printing.vala:261
+msgid "32 images per page"
+msgstr "32 प्रतिमा दर पृष्ठ"
+
+#: src/Printing.vala:348
+msgid "in."
+msgstr "इन."
+
+#: src/Printing.vala:349
+msgid "cm"
+msgstr "सेमि"
+
+#: src/Printing.vala:817 src/editing_tools/EditingTools.vala:757
+msgid "Wallet (2 x 3 in.)"
+msgstr "वॅलेट (2 x 3 in.)"
+
+#: src/Printing.vala:820 src/editing_tools/EditingTools.vala:758
+msgid "Notecard (3 x 5 in.)"
+msgstr "नोटकार्ड (3 x 5 in.)"
+
+#: src/Printing.vala:823 src/editing_tools/EditingTools.vala:759
+msgid "4 x 6 in."
+msgstr "4 x 6 इंच"
+
+#: src/Printing.vala:826 src/editing_tools/EditingTools.vala:760
+msgid "5 x 7 in."
+msgstr "5 x 7 इंच"
+
+#: src/Printing.vala:829 src/editing_tools/EditingTools.vala:761
+msgid "8 x 10 in."
+msgstr "8 x 10 इंच"
+
+#: src/Printing.vala:832 src/editing_tools/EditingTools.vala:763
+msgid "11 x 14 in."
+msgstr "11 x 14 इंच"
+
+#: src/Printing.vala:835 src/editing_tools/EditingTools.vala:765
+msgid "16 x 20 in."
+msgstr "16 x 20 इंच"
+
+#: src/Printing.vala:841 src/editing_tools/EditingTools.vala:767
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr "मेट्रिक वॅलेट (9 x 13 सेमि)"
+
+#: src/Printing.vala:844 src/editing_tools/EditingTools.vala:768
+msgid "Postcard (10 x 15 cm)"
+msgstr "पोस्टकार्ड (10 x 15 सेमि)"
+
+#: src/Printing.vala:847 src/editing_tools/EditingTools.vala:769
+msgid "13 x 18 cm"
+msgstr "13 x 18 सेमि"
+
+#: src/Printing.vala:850 src/editing_tools/EditingTools.vala:770
+msgid "18 x 24 cm"
+msgstr "18 x 24 सेमि"
+
+#: src/Printing.vala:853 src/editing_tools/EditingTools.vala:772
+msgid "20 x 30 cm"
+msgstr "20 x 30 सेमि"
+
+#: src/Printing.vala:856 src/editing_tools/EditingTools.vala:773
+msgid "24 x 40 cm"
+msgstr "24 x 40 सेमि"
+
+#: src/Printing.vala:859 src/editing_tools/EditingTools.vala:774
+msgid "30 x 40 cm"
+msgstr "30 x 40 सेमि"
+
+#: src/Printing.vala:875
+msgid "Image Settings"
+msgstr "प्रतिमा सेटिंग्स्"
+
+#: src/Printing.vala:888
+msgid "Printing..."
+msgstr "छपाई..."
+
+#: src/Printing.vala:908 src/Printing.vala:1111
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"छायाचित्राची छपाई करणे अशक्य:\n"
+"\n"
+"%s"
+
+#: src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "छायाचित्र माहितीकोष %s उघडणे/निर्माण करणे अशक्य: त्रुटी कोड %d"
+
+#: src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr ""
+"छायाचित्र माहितीकोष फाइलकरीता लिहणे अशक्य:\n"
+" %s"
+
+#: src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr ""
+"माहितीकोष फाइलकरीता प्रवेश प्राप्त करतेवेळी त्रुटी:\n"
+" %s\n"
+"\n"
+"त्रुटी: \n"
+"%s अशी होती"
+
+#: src/VideoSupport.vala:464
+msgid "Export Videos"
+msgstr "व्हिडिओज् एक्सपोर्ट करा"
+
+#: src/DesktopIntegration.vala:118
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "नॉटिलस सेंड-टू: %s सुरू करणे अशक्य"
+
+#: src/DesktopIntegration.vala:126
+msgid "Send To"
+msgstr "येथे पाठवा"
+
+#: src/DesktopIntegration.vala:171
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "%s: %s करीता पार्श्वभूमी एक्सपोर्ट करणे अशक्य"
+
+#: src/DesktopIntegration.vala:299
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "डेस्कटॉप स्लाइडशो: %s तयार करणे अशक्य"
+
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:587
+#: src/SearchFilter.vala:588 src/SearchFilter.vala:990
+msgid "Flagged"
+msgstr "फ्लॅग केले"
+
+#: src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "कचरापेटी"
+
+#: src/library/TrashPage.vala:108
+msgid "Trash is empty"
+msgstr "कचरपेटी रिकामी आहे"
+
+#: src/library/TrashPage.vala:112
+msgid "Delete"
+msgstr "नष्ट करा"
+
+#: src/library/TrashPage.vala:113
+msgid "Deleting Photos"
+msgstr "छायाचित्रांना नष्ट करत आहे"
+
+#: src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "फाइल्स् आढळले नाही"
+
+#: src/library/OfflinePage.vala:106
+msgid "Deleting..."
+msgstr "नष्ट करत आहे..."
+
+#: src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "शेवटचे आयात"
+
+#: src/library/LibraryWindow.vala:301
+msgid "_Import From Folder..."
+msgstr "फोल्डरपासून आयात करा (_I)..."
+
+#: src/library/LibraryWindow.vala:302
+msgid "Import photos from disk to library"
+msgstr "डिस्क ते लाइब्ररि छायाचित्र आयात करा"
+
+#: src/library/LibraryWindow.vala:309
+msgid "Import From _Application..."
+msgstr "ॲप्लिकेशनपासून आयात करा (_A)..."
+
+#: src/library/LibraryWindow.vala:313
+msgid "Sort _Events"
+msgstr "घटनांना क्रमवारित लावा (_E)"
+
+#: src/library/LibraryWindow.vala:323
+msgid "Empty T_rash"
+msgstr "कचरापेटी रिकामी करा (_r)"
+
+#: src/library/LibraryWindow.vala:324
+msgid "Delete all photos in the trash"
+msgstr "कचरापेटितील सर्व छायाचित्र नष्ट करा"
+
+#: src/library/LibraryWindow.vala:329
+msgid "View Eve_nt for Photo"
+msgstr "छायाचित्रकरीता घटनाचे अवलोकन (_n)"
+
+#: src/library/LibraryWindow.vala:334
+msgid "_Find"
+msgstr "शोधा (_F)"
+
+#: src/library/LibraryWindow.vala:335
+msgid "Find photos and videos by search criteria"
+msgstr "सर्च तपशीलतर्फे छायाचित्र व व्हिडिओज शोधा"
+
+#: src/library/LibraryWindow.vala:352 src/direct/DirectPhotoPage.vala:46
+msgid "_File"
+msgstr "फाइल (_F)"
+
+#: src/library/LibraryWindow.vala:356 src/direct/DirectPhotoPage.vala:73
+msgid "_Edit"
+msgstr "संपादित करा (_E)"
+
+#: src/library/LibraryWindow.vala:364 src/direct/DirectPhotoPage.vala:77
+msgid "_Photo"
+msgstr "छायाचित्र (_P)"
+
+#: src/library/LibraryWindow.vala:368
+msgid "_Photos"
+msgstr "छायाचित्र (_P)"
+
+#: src/library/LibraryWindow.vala:372
+msgid "Even_ts"
+msgstr "घटना (_t)"
+
+#: src/library/LibraryWindow.vala:376 src/MediaPage.vala:454
+msgid "Ta_gs"
+msgstr "टॅग्स् (_g)"
+
+#: src/library/LibraryWindow.vala:380 src/direct/DirectPhotoPage.vala:169
+msgid "_Help"
+msgstr "मदत (_H)"
+
+#: src/library/LibraryWindow.vala:391
+msgid "_Basic Information"
+msgstr "मुळ माहिती (_B)"
+
+#: src/library/LibraryWindow.vala:392
+msgid "Display basic information for the selection"
+msgstr "नीवडकरीता मुळ माहिती दाखवा"
+
+#: src/library/LibraryWindow.vala:397
+msgid "E_xtended Information"
+msgstr "विस्तारित माहिती (_x)"
+
+#: src/library/LibraryWindow.vala:398
+msgid "Display extended information for the selection"
+msgstr "नीवडकरीता विस्तारित माहिती दाखवा"
+
+#: src/library/LibraryWindow.vala:403
+msgid "_Search Bar"
+msgstr "सोध पट्टी (_S)"
+
+#: src/library/LibraryWindow.vala:404
+msgid "Display the search bar"
+msgstr "शोध पट्टी दाखवा"
+
+#: src/library/LibraryWindow.vala:409
+msgid "S_idebar"
+msgstr "बाजूचीपट्टी (_i)"
+
+#: src/library/LibraryWindow.vala:410
+msgid "Display the sidebar"
+msgstr "बाजूचीपट्टी दाखवा"
+
+#: src/library/LibraryWindow.vala:422 src/MediaPage.vala:494
+msgid "_Ascending"
+msgstr "चढता क्रम (_A)"
+
+#: src/library/LibraryWindow.vala:423 src/MediaPage.vala:495
+msgid "Sort photos in an ascending order"
+msgstr "चढत्या क्रमवारित छायाचित्र लावा"
+
+#: src/library/LibraryWindow.vala:429 src/MediaPage.vala:500
+msgid "D_escending"
+msgstr "उतरते क्रम (_e)"
+
+#: src/library/LibraryWindow.vala:430 src/MediaPage.vala:501
+msgid "Sort photos in a descending order"
+msgstr "उतरत्या क्रमवारित छायाचित्र लावा"
+
+#: src/library/LibraryWindow.vala:668
+msgid "Import From Folder"
+msgstr "फोल्डरपासून आयात करा"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Empty Trash"
+msgstr "कचरापेटी रिकामी करा"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Emptying Trash..."
+msgstr "कचरापेटी रिकामी करत आहे..."
+
+#: src/library/LibraryWindow.vala:896
+msgid "Shotwell is configured to import photos to your home directory.\n"
+msgstr "होम डिरेक्ट्रीपासून छायाचित्रांना आयात करण्यासाठी शॉटवेलला संरचीत केले आहे.\n"
+
+#: src/library/LibraryWindow.vala:899
+msgid "Library Location"
+msgstr "लाइब्ररिचे ठिकाण"
+
+#: src/library/LibraryWindow.vala:912
+msgid "Photos cannot be imported from this directory."
+msgstr "छायाचित्रांना ह्या डिरेक्ट्रीपासून आयात करणे अशक्य."
+
+#: src/library/LibraryWindow.vala:1200
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/library/LibraryWindow.vala:1244 src/library/LibraryWindow.vala:1255
+msgid "Updating library..."
+msgstr "लाइब्ररि सुधारित करत आहे..."
+
+#: src/library/LibraryWindow.vala:1261
+msgid "Preparing to auto-import photos..."
+msgstr "छायाचित्रांना स्वयं-आयात करण्यास तयार करत आहे..."
+
+#: src/library/LibraryWindow.vala:1266
+msgid "Auto-importing photos..."
+msgstr "छायाचित्रांना स्वयं-आयात करत आहे..."
+
+#: src/library/LibraryWindow.vala:1274
+msgid "Writing metadata to files..."
+msgstr "मेटाडाटाला फाइल्स्करीता लिहत आहे..."
+
+#: src/library/Branch.vala:37
+msgid "Library"
+msgstr "लाइब्ररि"
+
+#: src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "आयात करत आहे..."
+
+#: src/library/ImportQueuePage.vala:66
+msgid "_Stop Import"
+msgstr "आयात थांबवा (_S)"
+
+#: src/library/ImportQueuePage.vala:67
+msgid "Stop importing photos"
+msgstr "छायाचित्रांना आयात करणे थांबवा"
+
+#: src/library/ImportQueuePage.vala:123
+msgid "Preparing to import..."
+msgstr "आयात करण्यास तयार करत आहे..."
+
+#: src/library/ImportQueuePage.vala:150
+#, c-format
+msgid "Imported %s"
+msgstr "%s आयात केले"
+
+#: src/direct/DirectPhotoPage.vala:51 src/direct/DirectPhotoPage.vala:413
+msgid "_Save"
+msgstr "साठवा (_S)"
+
+#: src/direct/DirectPhotoPage.vala:52
+msgid "Save photo"
+msgstr "छायाचित्र साठवा"
+
+#: src/direct/DirectPhotoPage.vala:57
+msgid "Save _As..."
+msgstr "असे साठवा (_A)..."
+
+#: src/direct/DirectPhotoPage.vala:58
+msgid "Save photo with a different name"
+msgstr "वेगळ्या नावाने छायाचित्र साठवा"
+
+#: src/direct/DirectPhotoPage.vala:69
+msgid "Print the photo to a printer connected to your computer"
+msgstr "संगणकाशी जुळलेल्या छपाईयंत्राशी छायाचित्राची छपाई करा"
+
+#: src/direct/DirectPhotoPage.vala:223
+#, c-format
+msgid "%s does not exist."
+msgstr "%s अस्तित्वात नाही."
+
+#: src/direct/DirectPhotoPage.vala:225
+#, c-format
+msgid "%s is not a file."
+msgstr "%s फाइल नाही."
+
+#: src/direct/DirectPhotoPage.vala:227
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr ""
+"%s फाइल रूपणकरीता\n"
+"%s समर्थन पुरवत नाही."
+
+#: src/direct/DirectPhotoPage.vala:413
+msgid "_Save a Copy"
+msgstr "प्रत साठवा (_S)"
+
+#: src/direct/DirectPhotoPage.vala:416
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "%s करीता बदल साठवायचे?"
+
+#: src/direct/DirectPhotoPage.vala:417
+msgid "Close _without Saving"
+msgstr "न साठवता बंद करा (_w)"
+
+#: src/direct/DirectPhotoPage.vala:450
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "%s: %s करीता साठवतेवेळी त्रुटी"
+
+#: src/direct/DirectPhotoPage.vala:478 src/direct/DirectPhotoPage.vala:499
+msgid "Save As"
+msgstr "असे साठवा"
+
+#: src/DirectoryMonitor.vala:889
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "%s नियंत्रीत करणे अशक्य: डिरेक्ट्री नाही (%s)"
+
+#: src/Resources.vala:17
+msgid "Photo Manager"
+msgstr "छायाचित्र व्यवस्थापक"
+
+#: src/Resources.vala:18
+msgid "Photo Viewer"
+msgstr "फोटो दर्शक"
+
+#: src/Resources.vala:27 plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:32
+#: plugins/shotwell-publishing/PicasaPublishing.vala:32
+#: plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: plugins/shotwell-data-imports/FSpotImporter.vala:34
+msgid "Copyright 2009-2013 Yorba Foundation"
+msgstr "सर्वहक्काधिकार 2009-2013 योर्बा फाउंडेशन"
+
+#: src/Resources.vala:144
+msgid "Rotate _Right"
+msgstr "उजवीकडून फिरवा ( _R)"
+
+#: src/Resources.vala:145 src/Resources.vala:150
+msgid "Rotate"
+msgstr "फिरवा"
+
+#: src/Resources.vala:146
+msgid "Rotate Right"
+msgstr "उजवीकडे फिरवा"
+
+#: src/Resources.vala:147
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "चित्रांना उजवीकडे फिरवा (डाविकडे फिरवण्यासाठी Ctrl दाबा)"
+
+#: src/Resources.vala:149
+msgid "Rotate _Left"
+msgstr "डावीकडे फिरवा (_L)"
+
+#: src/Resources.vala:151
+msgid "Rotate Left"
+msgstr "डावीकडे फिरवा"
+
+#: src/Resources.vala:152
+msgid "Rotate the photos left"
+msgstr "चित्रांना डावीकडे फिरवा"
+
+#: src/Resources.vala:154
+msgid "Flip Hori_zontally"
+msgstr "आडवे पलटी करा (_z)"
+
+#: src/Resources.vala:155
+msgid "Flip Horizontally"
+msgstr "आडवे पलटी करा"
+
+#: src/Resources.vala:157
+msgid "Flip Verti_cally"
+msgstr "उभे पलटी करा (_c)"
+
+#: src/Resources.vala:158
+msgid "Flip Vertically"
+msgstr "उभे पलटी करा"
+
+#: src/Resources.vala:160
+msgid "_Enhance"
+msgstr "सुधारित करा (_E)"
+
+#: src/Resources.vala:161
+msgid "Enhance"
+msgstr "सुधारणा करा"
+
+#: src/Resources.vala:162
+msgid "Automatically improve the photo's appearance"
+msgstr "छायाचित्राचे आगमन स्वयं सुधारित करा"
+
+#: src/Resources.vala:164
+msgid "_Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:165
+msgid "Copy Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:166
+msgid "Copy the color adjustments applied to the photo"
+msgstr ""
+
+#: src/Resources.vala:168
+msgid "_Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:169
+msgid "Paste Color Adjustments"
+msgstr ""
+
+#: src/Resources.vala:170
+msgid "Apply copied color adjustments to the selected photos"
+msgstr ""
+
+#: src/Resources.vala:172
+msgid "_Crop"
+msgstr "क्रॉप करा (_C)"
+
+#: src/Resources.vala:173
+msgid "Crop"
+msgstr "क्रॉप"
+
+#: src/Resources.vala:174
+msgid "Crop the photo's size"
+msgstr "छायाचित्राचे आकार क्रॉप करा"
+
+#: src/Resources.vala:176 src/editing_tools/StraightenTool.vala:100
+msgid "_Straighten"
+msgstr "सरळ करा (_S)"
+
+#: src/Resources.vala:177
+msgid "Straighten"
+msgstr "सरळ करा"
+
+#: src/Resources.vala:178
+msgid "Straighten the photo"
+msgstr "छायाचित्र सरळ करा"
+
+#: src/Resources.vala:180
+msgid "_Red-eye"
+msgstr "रेड-आय (_R)"
+
+#: src/Resources.vala:181
+msgid "Red-eye"
+msgstr "रेड-आय"
+
+#: src/Resources.vala:182
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "छायाचित्रातील कोणतेहि रेड-आय प्रभाव कमी किंवा काढून टाका"
+
+#: src/Resources.vala:184
+msgid "_Adjust"
+msgstr "सुस्थीत करा (_A)"
+
+#: src/Resources.vala:185
+msgid "Adjust"
+msgstr "सुस्थीत करा"
+
+#: src/Resources.vala:186
+msgid "Adjust the photo's color and tone"
+msgstr "छायाचित्राचे रंग व टोन सुस्थीत करा"
+
+#: src/Resources.vala:188
+msgid "Re_vert to Original"
+msgstr "मूळ पूर्वस्थितीत आणा (_v)"
+
+#: src/Resources.vala:189
+msgid "Revert to Original"
+msgstr "मूळ स्थितीत आणा"
+
+#: src/Resources.vala:191
+msgid "Revert External E_dits"
+msgstr "बाहेरिल संपादन पूर्वस्थितीत आणा (_d)"
+
+#: src/Resources.vala:192
+msgid "Revert to the master photo"
+msgstr "मास्टर छायाचित्राकडे जा"
+
+#: src/Resources.vala:194
+msgid "Set as _Desktop Background"
+msgstr "डेस्कटॉप पार्श्वभूमी म्हणून सेट करा (_D)"
+
+#: src/Resources.vala:195
+msgid "Set selected image to be the new desktop background"
+msgstr "नीवडलेल्या प्रतिमेला नवीन डेस्टॉप पार्श्वभूमी म्हणून निश्चित करा"
+
+#: src/Resources.vala:196
+msgid "Set as _Desktop Slideshow..."
+msgstr "डेस्कटॉप स्लाइडशो म्हणून ठरवा (_D)..."
+
+#: src/Resources.vala:198
+msgid "_Undo"
+msgstr "पूर्ववत् करा (_U)"
+
+#: src/Resources.vala:199
+msgid "Undo"
+msgstr "पूर्ववत् करा"
+
+#: src/Resources.vala:201
+msgid "_Redo"
+msgstr "पुनः करा (_R)"
+
+#: src/Resources.vala:202
+msgid "Redo"
+msgstr "पुन्हा करा"
+
+#: src/Resources.vala:204
+msgid "Re_name Event..."
+msgstr "घटनाला पुनःनामांकीत करा (_n)..."
+
+#: src/Resources.vala:207
+msgid "Make _Key Photo for Event"
+msgstr "घटनाकरीता कि छायाचित्र बनवा (_K)"
+
+#: src/Resources.vala:208
+msgid "Make Key Photo for Event"
+msgstr "घटनाकरीता कि छायाचित्र बनवा"
+
+#: src/Resources.vala:210
+msgid "_New Event"
+msgstr "नवीन घटना (_N)"
+
+#: src/Resources.vala:211
+msgid "New Event"
+msgstr "नवीन घटना"
+
+#: src/Resources.vala:213
+msgid "Move Photos"
+msgstr "छायाचित्रांना स्थानांतरीत करा"
+
+#: src/Resources.vala:214
+msgid "Move photos to an event"
+msgstr "छायाचित्रांना घटनाकरीता स्थानांतरीत करा"
+
+#: src/Resources.vala:216
+msgid "_Merge Events"
+msgstr "घटना एकत्र करा (_M)"
+
+#: src/Resources.vala:217
+msgid "Merge"
+msgstr "एकत्र करा"
+
+#: src/Resources.vala:218
+msgid "Combine events into a single event"
+msgstr "घटनाला एकाच घटनामध्ये एकत्र करा"
+
+#: src/Resources.vala:220
+msgid "_Set Rating"
+msgstr "रेटिंग ठरवा (_S)"
+
+#: src/Resources.vala:221
+msgid "Set Rating"
+msgstr "रेटिंग ठरवा"
+
+#: src/Resources.vala:222
+msgid "Change the rating of your photo"
+msgstr "छायाचित्राचे रेटिंग बदला"
+
+#: src/Resources.vala:224
+msgid "_Increase"
+msgstr "वाढवा (_I)"
+
+#: src/Resources.vala:225
+msgid "Increase Rating"
+msgstr "रेटिंग वाढवा"
+
+#: src/Resources.vala:227
+msgid "_Decrease"
+msgstr "कमी करा (_D)"
+
+#: src/Resources.vala:228
+msgid "Decrease Rating"
+msgstr "रेटिंग कमी करा"
+
+#: src/Resources.vala:230
+msgid "_Unrated"
+msgstr "रेटिंग न केलेले (_U)"
+
+#: src/Resources.vala:231
+msgid "Unrated"
+msgstr "रेटिंग न केलेले"
+
+#: src/Resources.vala:232
+msgid "Rate Unrated"
+msgstr "रेटिंग न केलेल्यांना रेट करा"
+
+#: src/Resources.vala:233
+msgid "Setting as unrated"
+msgstr "रेट न केलेले म्हणून ठरवत आहे"
+
+#: src/Resources.vala:234
+msgid "Remove any ratings"
+msgstr "कोणतेहि रेटिंग्स् काढून टाका"
+
+#: src/Resources.vala:236
+msgid "_Rejected"
+msgstr "नकारले (_R)"
+
+#: src/Resources.vala:237
+msgid "Rejected"
+msgstr "नकारले"
+
+#: src/Resources.vala:238
+msgid "Rate Rejected"
+msgstr "रेट नकारले"
+
+#: src/Resources.vala:239
+msgid "Setting as rejected"
+msgstr "नकारले म्हणून ठरवत आहे"
+
+#: src/Resources.vala:240
+msgid "Set rating to rejected"
+msgstr "रेटिंगला नकारले म्हणून ठरवत आहे"
+
+#: src/Resources.vala:242
+msgid "Rejected _Only"
+msgstr "फक्त नकारलेले (_O)"
+
+#: src/Resources.vala:243
+msgid "Rejected Only"
+msgstr "फक्त नकारलेले"
+
+#: src/Resources.vala:244
+msgid "Show only rejected photos"
+msgstr "फक्त नकारलेले छायाचित्र दाखवा"
+
+#: src/Resources.vala:246
+msgid "All + _Rejected"
+msgstr "सर्व + नकारलेले (_R)"
+
+#: src/Resources.vala:247 src/Resources.vala:248
+msgid "Show all photos, including rejected"
+msgstr "सर्व छायाचित्र दाखवा, नकारलेले समाविष्टीत"
+
+#: src/Resources.vala:250
+msgid "_All Photos"
+msgstr "सर्व छायाचित्र (_A)"
+
+#: src/Resources.vala:251 src/Resources.vala:252
+msgid "Show all photos"
+msgstr "सर्व छायाचित्र दाखवा"
+
+#: src/Resources.vala:254
+msgid "_Ratings"
+msgstr "रेटिंग्स् (_R)"
+
+#: src/Resources.vala:255
+msgid "Display each photo's rating"
+msgstr "प्रत्येक छायाचित्राचे रेटिंग दाखवा"
+
+#: src/Resources.vala:257
+msgid "_Filter Photos"
+msgstr "छायाचित्र फिल्टर करा (_F)"
+
+#: src/Resources.vala:258
+msgid "Filter Photos"
+msgstr "छायाचित्र फिल्टर करा"
+
+#: src/Resources.vala:259
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "फिल्टरवर आधारित दाखवलेल्या छायाचित्रांची मर्यादा ठरवा"
+
+#: src/Resources.vala:261
+msgid "_Duplicate"
+msgstr "हुबेहुब (_D)"
+
+#: src/Resources.vala:262
+msgid "Duplicate"
+msgstr "हुबेहुब"
+
+#: src/Resources.vala:263
+msgid "Make a duplicate of the photo"
+msgstr "छायाचित्राचे हुबेहुब करा"
+
+#: src/Resources.vala:265
+msgid "_Export..."
+msgstr "एक्सपोर्ट करा (_E)..."
+
+#: src/Resources.vala:267
+msgid "_Print..."
+msgstr "छपाई (_P)..."
+
+#: src/Resources.vala:269
+msgid "Pu_blish..."
+msgstr "प्रकाशित करा (_b)..."
+
+#: src/Resources.vala:270
+msgid "Publish"
+msgstr "प्रकाशित करा"
+
+#: src/Resources.vala:271
+msgid "Publish to various websites"
+msgstr "विविध संकेतस्थळांवर प्रकाशित करा"
+
+#: src/Resources.vala:273
+msgid "Edit _Title..."
+msgstr "शीर्षक संपादित करा (_T)..."
+
+#: src/Resources.vala:276
+msgid "Edit _Comment..."
+msgstr "टिपण्णी संपादित करा (_C)..."
+
+#: src/Resources.vala:277
+msgid "Edit Comment"
+msgstr "टिपण्णी संपादित करा"
+
+#: src/Resources.vala:279
+msgid "Edit Event _Comment..."
+msgstr ""
+
+#: src/Resources.vala:282
+msgid "_Adjust Date and Time..."
+msgstr "दिनांक व वेळ सुस्थीत करा (_A)..."
+
+#: src/Resources.vala:283
+msgid "Adjust Date and Time"
+msgstr "दिनांक व वेळ सुस्थीत करा"
+
+#: src/Resources.vala:285
+msgid "Add _Tags..."
+msgstr "टॅग्स् समाविष्टीत करा (_T)..."
+
+#: src/Resources.vala:286
+msgid "_Add Tags..."
+msgstr "टॅग्स् समाविष्ट करा (_A)..."
+
+#: src/Resources.vala:287 src/Resources.vala:318
+msgid "Add Tags"
+msgstr "टॅग्स् समाविष्ट करा"
+
+#: src/Resources.vala:289
+msgid "_Preferences"
+msgstr "पसंती (_P)"
+
+#: src/Resources.vala:291
+msgid "Open With E_xternal Editor"
+msgstr "बाहेरिल संपादकसह उघडा (_x)"
+
+#: src/Resources.vala:293
+msgid "Open With RA_W Editor"
+msgstr "RAW संपादकासह उघडा (_W)"
+
+#: src/Resources.vala:295
+msgid "Send _To..."
+msgstr "येथे पाठवा (_T)..."
+
+#: src/Resources.vala:296
+msgid "Send T_o..."
+msgstr "येथे पाठवा (_o)..."
+
+#: src/Resources.vala:298
+msgid "_Find..."
+msgstr "शोधा (_F)..."
+
+#: src/Resources.vala:299
+msgid "Find"
+msgstr "शोधा"
+
+#: src/Resources.vala:300
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr "नाव किंवा टॅग्समध्ये आढळणारे मजकूर टाइप करून प्रतिमा शोधा"
+
+#: src/Resources.vala:302
+msgid "_Flag"
+msgstr "फ्लॅग (_F)"
+
+#: src/Resources.vala:304
+msgid "Un_flag"
+msgstr "फ्लॅग अशक्य करा (_f)"
+
+#: src/Resources.vala:307
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "संपादक सुरू करण्यास अशक्य: %s"
+
+#: src/Resources.vala:312
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "टॅग \"%s\" समाविष्ट करा"
+
+#: src/Resources.vala:314
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "\"%s\" व \"%s\" टॅग्स् समाविष्ट करा"
+
+#: src/Resources.vala:322
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "टॅग \"%s\" नष्ट करा (_D)"
+
+#: src/Resources.vala:326
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "टॅग \"%s\" नष्ट करा"
+
+#: src/Resources.vala:329
+msgid "Delete Tag"
+msgstr "टॅग नष्ट करा"
+
+#: src/Resources.vala:332
+msgid "_New"
+msgstr "नवीन (_N)"
+
+#: src/Resources.vala:335
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "टॅग \"%s\" ला पुनःनाव द्या..."
+
+#: src/Resources.vala:339
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "\"%s\" ला \"%s\" असे पुनः टॅग द्या"
+
+#: src/Resources.vala:342
+msgid "_Rename..."
+msgstr "पुनःनामांकित करा (_R)..."
+
+#: src/Resources.vala:344
+msgid "Modif_y Tags..."
+msgstr "टॅग्स् संपादित करा (_y)..."
+
+#: src/Resources.vala:345
+msgid "Modify Tags"
+msgstr "टॅग्स् संपादित करा"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "फोटोला \"%s\" म्हणून टॅग लावा"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "फोटोला \"%s\" म्हणून टॅग लावा"
+
+#: src/Resources.vala:352
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "नीवडलेल्या छायाचित्रांना \"%s\" म्हणून टॅग करा"
+
+#: src/Resources.vala:353
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "नीवडलेल्या छायचित्रांना \"%s\" म्हणून टॅग करा"
+
+#: src/Resources.vala:357
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "छायाचित्रपासून टॅग \"%s\" काढून टाका (_P)"
+
+#: src/Resources.vala:358
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "छायाचित्रांपासून टॅग \"%s\" काढून टाका (_P)"
+
+#: src/Resources.vala:362
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "छायाचित्रांपासून टॅग \"%s\" काढून टाका"
+
+#: src/Resources.vala:363
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "छायाचित्रांपासून टॅग \"%s\" काढून टाका"
+
+#: src/Resources.vala:367
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr "टॅग आधिपासूनच अस्तित्वात असल्यास टॅगला \"%s\" करीता पुनःनामांकीत करा."
+
+#: src/Resources.vala:371
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr "शोध आधिपासूनच अस्तित्वात असल्यास शोधला \"%s\" करीता पुनःनामांकीत करणे अशक्य."
+
+#: src/Resources.vala:374
+msgid "Saved Search"
+msgstr "साठवलेला शोध"
+
+#: src/Resources.vala:376
+msgid "Delete Search"
+msgstr "शोध नष्ट करा"
+
+#: src/Resources.vala:379
+msgid "_Edit..."
+msgstr "संपादित करा (_E)..."
+
+#: src/Resources.vala:380
+msgid "Re_name..."
+msgstr "पुनःनामांकन करा (_n)..."
+
+#: src/Resources.vala:383
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "शोध \"%s\" ला \"%s\" करीता पुनःनामांकीत करा"
+
+#: src/Resources.vala:387
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "शोध \"%s\" नष्ट करा"
+
+#: src/Resources.vala:545
+#, c-format
+msgid "Rate %s"
+msgstr "%s ला रेट करा"
+
+#: src/Resources.vala:546
+#, c-format
+msgid "Set rating to %s"
+msgstr "रेटिंगला %s करीता ठरवा"
+
+#: src/Resources.vala:547
+#, c-format
+msgid "Setting rating to %s"
+msgstr "रेटिंगला %s करीता ठरवा"
+
+#: src/Resources.vala:549
+#, c-format
+msgid "Display %s"
+msgstr "%s दाखवा"
+
+#: src/Resources.vala:550
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "फक्त %s रेटिंगचे फोटज दाखवा"
+
+#: src/Resources.vala:551
+#, c-format
+msgid "%s or Better"
+msgstr "%s किंवा उत्तम"
+
+#: src/Resources.vala:552
+#, c-format
+msgid "Display %s or Better"
+msgstr "%s किंवा उत्तम दाखवा"
+
+#: src/Resources.vala:553
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr "%s किंवा उत्तम असलेले रेटिंगचे छायाचित्र दाखवा"
+
+#: src/Resources.vala:644
+msgid "Remove the selected photos from the trash"
+msgstr "कचरापेटीपासून नीवडलेले छायाचित्र काढून टाका"
+
+#: src/Resources.vala:645
+msgid "Remove the selected photos from the library"
+msgstr "लाइब्ररिपासून नीवडलेलेल छायाचित्र काढून टाका"
+
+#: src/Resources.vala:647
+msgid "_Restore"
+msgstr "पूर्वस्थितीत आणा (_R)"
+
+#: src/Resources.vala:648
+msgid "Move the selected photos back into the library"
+msgstr "लाइब्ररिमध्ये नीवडलेल्या छायाचित्रांना पुनः हलवा"
+
+#: src/Resources.vala:650
+msgid "Show in File Mana_ger"
+msgstr "फाइल व्यवस्थापकात दाखवा (_g)"
+
+#: src/Resources.vala:651
+msgid "Open the selected photo's directory in the file manager"
+msgstr "फाइल व्यवस्थापकात नीवडलेली छायाचित्र डिरेक्ट्री उघडा"
+
+#: src/Resources.vala:654
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "फाइल व्यवस्थापक: %s मध्ये उघडणे अशक्य"
+
+#: src/Resources.vala:657
+msgid "R_emove From Library"
+msgstr "लाइब्ररिपासून काढून टाका (_e)"
+
+#: src/Resources.vala:659
+msgid "_Move to Trash"
+msgstr "कचरापेटीकडे स्थानांतरीत करा (_M)"
+
+#: src/Resources.vala:661
+msgid "Select _All"
+msgstr "सर्व नीवडा (_A)"
+
+#: src/Resources.vala:662
+msgid "Select all items"
+msgstr "सर्व घनकांना नीवडा"
+
+#: src/Resources.vala:740
+msgid "%-I:%M %p"
+msgstr "%-I:%M %p"
+
+#: src/Resources.vala:741
+msgid "%-I:%M:%S %p"
+msgstr "%-I:%M:%S %p"
+
+#: src/Resources.vala:742
+msgid "%a %b %d, %Y"
+msgstr "%a %b %d, %Y"
+
+#: src/Resources.vala:743 src/Resources.vala:745
+msgid "%a %b %d"
+msgstr "%a %b %d"
+
+#: src/Resources.vala:744
+msgid "%d, %Y"
+msgstr "b %-d %Y"
+
+#: src/editing_tools/StraightenTool.vala:99
+msgid "Angle:"
+msgstr "कोन:"
+
+#: src/editing_tools/StraightenTool.vala:102
+#: src/editing_tools/EditingTools.vala:2204
+msgid "_Reset"
+msgstr "मूळस्थितीत आणा (_R)"
+
+#: src/editing_tools/EditingTools.vala:661
+msgid "Return to current photo dimensions"
+msgstr "सध्याच्या छायाचित्र आकारकडे या"
+
+#: src/editing_tools/EditingTools.vala:664
+msgid "Set the crop for this photo"
+msgstr "ह्या छायाचित्रकरीता क्रॉप ठरवा"
+
+#: src/editing_tools/EditingTools.vala:676
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr "उभे व आडवे निर्देशन अंतर्गत क्रॉप चौकोनला पिवोट करा"
+
+#: src/editing_tools/EditingTools.vala:749
+msgid "Unconstrained"
+msgstr "भाग पाडणे अशक्य"
+
+#: src/editing_tools/EditingTools.vala:750
+msgid "Square"
+msgstr "चौकोन"
+
+#: src/editing_tools/EditingTools.vala:751
+msgid "Screen"
+msgstr "पडदा"
+
+#: src/editing_tools/EditingTools.vala:752
+#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+msgid "Original Size"
+msgstr "मूळ आकार"
+
+#: src/editing_tools/EditingTools.vala:753
+#: src/editing_tools/EditingTools.vala:756
+#: src/editing_tools/EditingTools.vala:766
+#: src/editing_tools/EditingTools.vala:776
+msgid "-"
+msgstr "-"
+
+#: src/editing_tools/EditingTools.vala:754
+msgid "SD Video (4 : 3)"
+msgstr "SD व्हिडिओ (4 : 3)"
+
+#: src/editing_tools/EditingTools.vala:755
+msgid "HD Video (16 : 9)"
+msgstr "HD व्हिडिओ (16 : 9)"
+
+#: src/editing_tools/EditingTools.vala:762
+msgid "Letter (8.5 x 11 in.)"
+msgstr "लेटर (8.5 x 11 in.)"
+
+#: src/editing_tools/EditingTools.vala:764
+msgid "Tabloid (11 x 17 in.)"
+msgstr "टॅब्लॉइड (11 x 17 in.)"
+
+#: src/editing_tools/EditingTools.vala:771
+msgid "A4 (210 x 297 mm)"
+msgstr "A4 (210 x 297 mm)"
+
+#: src/editing_tools/EditingTools.vala:775
+msgid "A3 (297 x 420 mm)"
+msgstr "A3 (297 x 420 mm)"
+
+#: src/editing_tools/EditingTools.vala:1865
+msgid "Close the red-eye tool"
+msgstr "रेड-आय साधन बंद करा"
+
+#: src/editing_tools/EditingTools.vala:1868
+msgid "Remove any red-eye effects in the selected region"
+msgstr "नीवडलेल्या क्षेत्रात कोणतेहि रेड-आय प्रभाव काढून टाका"
+
+#: src/editing_tools/EditingTools.vala:2226
+msgid "Saturation:"
+msgstr "संर्पुक्तता:"
+
+#: src/editing_tools/EditingTools.vala:2234
+msgid "Tint:"
+msgstr "टिंट:"
+
+#: src/editing_tools/EditingTools.vala:2243
+msgid "Temperature:"
+msgstr "तापमान:"
+
+#: src/editing_tools/EditingTools.vala:2251
+msgid "Shadows:"
+msgstr "छाया:"
+
+#: src/editing_tools/EditingTools.vala:2259
+msgid "Highlights:"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset Colors"
+msgstr "रंग मूळस्थितीत आणा"
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset all color adjustments to original"
+msgstr "सर्व रंग आयोजनाला मूळस्थितीत आणा"
+
+#: src/editing_tools/EditingTools.vala:2665
+msgid "Temperature"
+msgstr "तापमान"
+
+#: src/editing_tools/EditingTools.vala:2678
+msgid "Tint"
+msgstr "टिंट"
+
+#: src/editing_tools/EditingTools.vala:2691
+msgid "Saturation"
+msgstr "संर्पुक्तता"
+
+#: src/editing_tools/EditingTools.vala:2704
+msgid "Exposure"
+msgstr "एक्सपोजर"
+
+#: src/editing_tools/EditingTools.vala:2717
+msgid "Shadows"
+msgstr "छाया"
+
+#: src/editing_tools/EditingTools.vala:2730
+msgid "Highlights"
+msgstr ""
+
+#: src/editing_tools/EditingTools.vala:2740
+msgid "Contrast Expansion"
+msgstr "काँट्रास्ट एक्सपाँशन"
+
+#: src/AppWindow.vala:49
+msgid "Pin Toolbar"
+msgstr "साधनपट्टीला पिन लावा"
+
+#: src/AppWindow.vala:50
+msgid "Pin the toolbar open"
+msgstr "साधनपट्टी उगडाला पिन करा"
+
+#: src/AppWindow.vala:53 src/AppWindow.vala:131
+msgid "Leave fullscreen"
+msgstr "पडदाभर सोडा"
+
+#: src/AppWindow.vala:130
+msgid "Leave _Fullscreen"
+msgstr "पडदाभर सोडा (_F)"
+
+#: src/AppWindow.vala:491
+msgid "_Quit"
+msgstr "बाहेर पडा (_Q)"
+
+#: src/AppWindow.vala:496
+msgid "_About"
+msgstr "विषयी (_A)"
+
+#: src/AppWindow.vala:501
+msgid "Fulls_creen"
+msgstr "पडदाभर (_c)"
+
+#: src/AppWindow.vala:506
+msgid "_Contents"
+msgstr "अंतर्भुत माहिती (_C)"
+
+#: src/AppWindow.vala:511
+msgid "_Frequently Asked Questions"
+msgstr "फ्रिक्वेंटलि आस्कड् क्वेशन्स् (_F)"
+
+#: src/AppWindow.vala:516
+msgid "_Report a Problem..."
+msgstr "अडचण कळवा (_R)..."
+
+#: src/AppWindow.vala:663
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"शॉटवेलच्या लाइब्ररिकरीता प्रवेश प्राप्त करतेवेळी धोकादायक त्रुटी आढळली.  शॉटवेल पुढे सुरू "
+"ठेवणेअशक्य.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:683 plugins/common/Resources.vala:9
+msgid "Visit the Yorba web site"
+msgstr "योर्बा संकेतस्थावर भेट द्या"
+
+#: src/AppWindow.vala:686 plugins/common/Resources.vala:28
+msgid "translator-credits"
+msgstr "संदिप शेडमाके <sshedmak@redhat.com>, 2012"
+
+#: src/AppWindow.vala:695
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "मदत: %s दाखवणे अशक्य"
+
+#: src/AppWindow.vala:703
+#, c-format
+msgid "Unable to navigate to bug database: %s"
+msgstr "बग डाटाबेस: %s करीता संरचना अशक्य"
+
+#: src/AppWindow.vala:711
+#, c-format
+msgid "Unable to display FAQ: %s"
+msgstr "FAQ: %s दाखवणे अशक्य"
+
+#: src/Tag.vala:817
+msgid "untitled"
+msgstr "विनाशीर्षक"
+
+#: src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+msgid "Original size"
+msgstr "मूळ आकार"
+
+#: src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "रूंदी किंवा ऊंची"
+
+#: src/Dimensions.vala:23
+msgid "Width"
+msgstr "रूंदी"
+
+#: src/Dimensions.vala:26
+msgid "Height"
+msgstr "ऊंची"
+
+#: src/MediaPage.vala:143
+msgid "Adjust the size of the thumbnails"
+msgstr "थंबनेल्स्चा आकार आयोजीत करा"
+
+#: src/MediaPage.vala:326
+msgid "Increase the magnification of the thumbnails"
+msgstr "थंबनेल्स्चे वर्धन वाढवा"
+
+#: src/MediaPage.vala:332
+msgid "Decrease the magnification of the thumbnails"
+msgstr "थंबनेल्स्चे वर्धन कमी करा"
+
+#: src/MediaPage.vala:399
+msgid "Sort _Photos"
+msgstr "छायाचित्र क्रमवारीत लावा (_P)"
+
+#: src/MediaPage.vala:408
+msgid "_Play Video"
+msgstr "व्हिडिओ चालवा (_P)"
+
+#: src/MediaPage.vala:409
+msgid "Open the selected videos in the system video player"
+msgstr "सिस्टम व्हिडिओ प्लेअरमध्ये नीवडलेले व्हिडिओज् उघडा"
+
+#: src/MediaPage.vala:442 src/events/EventsDirectoryPage.vala:130
+msgid "_Comments"
+msgstr "टिपण्णी (_C)"
+
+#: src/MediaPage.vala:443
+msgid "Display the comment of each photo"
+msgstr "प्रत्येक छायाचित्राची टिपण्णी दाखवा"
+
+#: src/MediaPage.vala:455
+msgid "Display each photo's tags"
+msgstr "प्रत्येक छायाचित्राचे टॅग्स् दाखवा"
+
+#: src/MediaPage.vala:471
+msgid "By _Title"
+msgstr "शीर्षक प्रमाणे (_T)"
+
+#: src/MediaPage.vala:472
+msgid "Sort photos by title"
+msgstr "छायाचित्रांना शीर्षक प्रमाणे क्रमवारीत लावा"
+
+#: src/MediaPage.vala:477
+msgid "By Exposure _Date"
+msgstr "एक्सपोजर दिनांक प्रमाणे (_D)"
+
+#: src/MediaPage.vala:478
+msgid "Sort photos by exposure date"
+msgstr "एक्सपोजर दिनांक प्रमाणे छायाचित्र क्रमवारित लावा"
+
+#: src/MediaPage.vala:483
+msgid "By _Rating"
+msgstr "रेटिंग प्रमाणे (_R)"
+
+#: src/MediaPage.vala:484
+msgid "Sort photos by rating"
+msgstr "रेटिंग प्रमाणे छायाचित्र क्रमवारित लावा"
+
+#: src/MediaPage.vala:702
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"शॉटवेल नीवडलेले व्हिडिओ चालवण्यास अशक्य:\n"
+"%s"
+
+#: src/events/EventDirectoryItem.vala:83
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d छायाचित्र/व्हिडिओ"
+msgstr[1] "%d छायाचित्र/व्हिडिओ"
+
+#: src/events/EventsDirectoryPage.vala:131
+msgid "Display the comment of each event"
+msgstr "प्रत्येक घटनाची टिपण्णी दाखवा"
+
+#: src/events/EventsDirectoryPage.vala:155
+msgid "No events"
+msgstr "घटना आढळली नाही"
+
+#: src/events/EventsDirectoryPage.vala:159
+msgid "No events found"
+msgstr "घटना आढळली नाही"
+
+#: src/events/EventsDirectoryPage.vala:230
+msgid "Events"
+msgstr "घटना"
+
+#: src/events/EventsDirectoryPage.vala:244
+msgid "Undated"
+msgstr "दिनांक नाही"
+
+#: src/events/EventsDirectoryPage.vala:245
+msgid "%Y"
+msgstr "%Y"
+
+#: src/events/EventsDirectoryPage.vala:246
+msgid "%B"
+msgstr "%B"
+
+#: src/events/EventPage.vala:129
+msgid "No Event"
+msgstr "घटना आढळली नाही"
+
+#: src/AppDirs.vala:48 src/AppDirs.vala:99
+#, c-format
+msgid "Unable to create cache directory %s: %s"
+msgstr "कॅशे डिरेक्ट्री %s: %s निर्माण करण्यास अशक्य"
+
+#: src/AppDirs.vala:58 src/AppDirs.vala:88
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "डाटा डिरेक्ट्री %s: %s निर्माण करणे अशक्य"
+
+#: src/AppDirs.vala:152
+msgid "Pictures"
+msgstr "चित्र"
+
+#: src/AppDirs.vala:190
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "तात्पुर्ते डिरेक्ट्री %s: %s निर्माण करणे अशक्य"
+
+#: src/AppDirs.vala:207 src/AppDirs.vala:223
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "डाटा सबडिरेक्ट्री %s: %s निर्माण करणे अशक्य"
+
+#: src/slideshow/TransitionEffects.vala:98
+msgid "(None)"
+msgstr "(काहिच नाही)"
+
+#: src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "काहिच नाही"
+
+#: src/slideshow/TransitionEffects.vala:339
+msgid "Random"
+msgstr "विनाक्रम"
+
+#: src/slideshow/Slideshow.vala:22
+msgid "Slideshow Transitions"
+msgstr "स्लाइडशो ट्रांजिशन्स्"
+
+#: src/Exporter.vala:232
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "%s: %s करीता तात्पुर्ती फाइल निर्माण करणे अशक्य"
+
+#: src/Exporter.vala:299
+msgid "Exporting"
+msgstr "एस्पोर्ट करत आहे"
+
+#: src/Exporter.vala:317
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "फाइल %s आधिपासूनच अस्तित्वात आहे.  अदलाबदल करायचे?"
+
+#: src/Exporter.vala:319
+msgid "_Skip"
+msgstr "वगळा (_S)"
+
+#: src/Exporter.vala:319
+msgid "_Replace"
+msgstr "अदलाबदल करा (_R)"
+
+#: src/Exporter.vala:319
+msgid "Replace _All"
+msgstr "सर्व अदलाबदल करा (_A)"
+
+#: src/Exporter.vala:319
+msgid "Export"
+msgstr "एक्सपोर्ट करा"
+
+#: src/SearchFilter.vala:593 src/SearchFilter.vala:594
+msgid "Photos"
+msgstr "छायाचित्र"
+
+#: src/SearchFilter.vala:599 src/SearchFilter.vala:600
+msgid "Videos"
+msgstr "व्हिडिओज्"
+
+#: src/SearchFilter.vala:605
+msgid "RAW Photos"
+msgstr "RAW छायाचित्र"
+
+#: src/SearchFilter.vala:606
+msgid "RAW photos"
+msgstr "RAW छायाचित्र"
+
+#: src/SearchFilter.vala:952
+#, c-format
+msgid "Error loading UI file %s: %s"
+msgstr "UI फाइल %s: %s लोड करतेवेळी त्रुटी"
+
+#: src/SearchFilter.vala:969
+msgid "Type"
+msgstr "प्रकार"
+
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "प्रकाशित करत आहे"
+
+#: src/publishing/PublishingUI.vala:105
+msgid "The selected photos/videos were successfully published."
+msgstr "नीवडलेले छायाचित्र/व्हिडिओज् यशस्वीरित्या प्रकाशित केले."
+
+#: src/publishing/PublishingUI.vala:107
+msgid "The selected videos were successfully published."
+msgstr "नीवडलेले व्हिडिओज यशस्वीरित्या प्रकाशित केले."
+
+#: src/publishing/PublishingUI.vala:109
+msgid "The selected photos were successfully published."
+msgstr "नीवडलेले छायाचित्र यशस्वीरित्या प्रकाशित केले."
+
+#: src/publishing/PublishingUI.vala:112
+msgid "The selected video was successfully published."
+msgstr "नीवडलेले व्हिडिओज् यशस्वीरित्या प्रकाशित केले."
+
+#: src/publishing/PublishingUI.vala:114
+msgid "The selected photo was successfully published."
+msgstr "नीवडलेले छायाचित्र यशस्वीरित्या प्रकाशित केले."
+
+#: src/publishing/PublishingUI.vala:122
+msgid "Fetching account information..."
+msgstr "खाते माहिती प्राप्त करत आहे..."
+
+#: src/publishing/PublishingUI.vala:128
+msgid "Logging in..."
+msgstr "प्रवेश करत आहे..."
+
+#: src/publishing/PublishingUI.vala:183
+msgid "Publish Photos"
+msgstr "छायाचित्र प्रकाशित करा"
+
+#: src/publishing/PublishingUI.vala:184
+msgid "Publish photos _to:"
+msgstr "छायाचित्र येथे प्रकाशित करा (_t):"
+
+#: src/publishing/PublishingUI.vala:186
+msgid "Publish Videos"
+msgstr "व्हिडिओज प्रकाशित करा"
+
+#: src/publishing/PublishingUI.vala:187
+msgid "Publish videos _to"
+msgstr "व्हिडिओज प्रकाशित करा (_t)"
+
+#: src/publishing/PublishingUI.vala:189
+msgid "Publish Photos and Videos"
+msgstr "छायाचित्र व व्हिडिओज प्रकाशित करा"
+
+#: src/publishing/PublishingUI.vala:190
+msgid "Publish photos and videos _to"
+msgstr "Publish photos and videos _to"
+
+#: src/publishing/PublishingUI.vala:383
+msgid "Unable to publish"
+msgstr "प्रकाशित करणे अशक्य"
+
+#: src/publishing/PublishingUI.vala:384
+#, c-format
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugins</b> tab."
+msgstr ""
+"सहत्व प्रकाशन प्लगइन सुरू नसल्यामुळे शॉटवेल नीवडलेल्या घटकांना प्रकाशित करण्यास अशक्य आहे. "
+"यास योग्य करायचे असल्यास, <b>%s पसंती संपादित करत आहे</b> पसंत करा व <b>प्लगइन्स्</b> "
+"टॅबवर एक किंवा त्यापेक्षा जास्त प्रकाशन प्लगइन्स् सुरू किंवा बंद करा."
+
+#: src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "अपलोडची तयारी करत आहे"
+
+#: src/publishing/PublishingPluginHost.vala:12
+#, c-format
+msgid "Uploading %d of %d"
+msgstr "%d सुधारित करत आहे, %d पैकी"
+
+#: src/publishing/PublishingPluginHost.vala:81
+#, c-format
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr "त्रुटी आढळल्यामुळे %s चे प्रकाशन पुढे सुरू ठेवणे अशक्य:"
+
+#: src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr "इतर सर्व्हिसकरीता प्रकाशन सुरू ठेवण्यासाठी, वरीलपासून एक पसंत करा."
+
+#: src/sidebar/Tree.vala:199
+msgid "New _Tag..."
+msgstr "नवीन टॅग (_T)..."
+
+#: plugins/common/RESTSupport.vala:424
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
+msgid "A temporary file needed for publishing is unavailable"
+msgstr "प्रकाशनकरीता आवश्यक तात्पुर्ती फाइल अनुपलब्ध आहे"
+
+#: plugins/common/RESTSupport.vala:1138
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:57
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"तुम्ही सध्या युट्युबमध्ये प्रवेश केला आहे.\n"
+"\n"
+"तुम्ही आधिपासूनच गूगल खातेकरीता स्वाक्षरि केली व पुढे जाण्यासाठी युट्युबसह वापर सेट केले आहे. "
+"युट्युब स्थळावर किमान एकदा प्रवेश करण्यासाठी ब्राऊजरचा वापर करून अनेक खाते ठरवणे शक्य आहे."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:362
+msgid ""
+"A file required for publishing is unavailable. Publishing to Youtube can't "
+"continue."
+msgstr "प्रकाशनकरीता आवश्यक फाइल अनुपलब्ध आहे. युट्युबकरीता प्रकाशन चालू ठेवणे अशक्य."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:461
+#, c-format
+msgid "You are logged into YouTube as %s."
+msgstr "तुम्ही आता युट्युबमध्ये %s म्हणून प्रवेश केला."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:463
+#, c-format
+msgid "Videos will appear in '%s'"
+msgstr "व्हिडिओज् '%s' मध्ये आढळतील"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:495
+msgid "Public listed"
+msgstr "ब्लिक लिस्टेड"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:496
+msgid "Public unlisted"
+msgstr "पब्लिक लिस्ट अशक्य"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:497
+msgid "Private"
+msgstr "खाजगी"
+
+#: plugins/shotwell-publishing/shotwell-publishing.vala:26
+msgid "Core Publishing Services"
+msgstr "कोर पब्लिशिंग सर्व्हिसेस्"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Login to log into Flickr in your Web browser.  You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"तुम्ही सध्या फ्लिकरमध्ये प्रवेश केला नाही.\n"
+"\n"
+"वेब ब्राउजरमध्ये फ्लिकरमध्ये प्रवेश करा क्लिक करा.  फ्लिकर खात्याशी जोडणी करण्यासाठी "
+"तुम्हाला शॉटवेल कनेक्टशी ओळख पटवावी लागेल."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:63
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"ह्या शॉटवेल सत्रवेळी तुम्ही अनेकवेळा फ्लिकरमध्ये प्रवेश केला व बाहेर पडले.\n"
+"फ्लिकरवर प्रकाशन सुरू ठेवायचे असल्यास, शॉटवेलमधून बाहेर पडा व पुनः सुरू करा, व त्यानंतर "
+"पुनःप्रकाशनकरीता प्रयत्न करा."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "प्रवेशकरीता तयार होत आहे..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: plugins/shotwell-publishing/FlickrPublishing.vala:595
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can't "
+"continue."
+msgstr "प्रकाशनकरीता आवश्यक फाइल अनुपलब्ध आहे. फ्लिकरकरीता प्रकाशन चालू ठेवणे अशक्य."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "ओळख पटवणे तपासत आहे..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1153
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr ""
+"तुम्ही आता फ्लिकरमध्ये %s म्हणून प्रवेश केला.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"तुमचे मोफत फ्लिकर खाते प्रत्येक महिन्याला तुम्ही किती डाटा अपलोड करू शकता, ते ठरवते.\n"
+"ह्या महिन्यात, अपलोड कोटामध्ये तुमच्याकडे %d मेगाबाइट्स् उर्वरित आहेत."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1157
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr "तुमचे फ्लिकर प्रो अकाउंट तुम्हाला अमर्यादीत अपलोड्स्करीता परवानगी देते."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1162
+msgid "Photos _visible to:"
+msgstr "छायाचित्र यांस दृष्यास्पद आहे (_v):"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
+msgid "Videos _visible to:"
+msgstr "यास व्हिडिओज् दृष्यास्पद आहे (_v):"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1167
+msgid "Photos and videos _visible to:"
+msgstr "छायाचित्र व व्हिडिओज् दृष्यास्पद आहे (_v):"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1182
+msgid "Everyone"
+msgstr "सर्व"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
+msgid "Friends & family only"
+msgstr "मित्र & फक्त फॅमिलि"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+msgid "Family only"
+msgstr "xफक्त फॅमिलि"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
+msgid "Friends only"
+msgstr "फक्त मित्र"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1180
+msgid "Just me"
+msgstr "फक्त मी"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1229
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
+msgid "500 x 375 pixels"
+msgstr "500 x 375 पिक्सेल्स्"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1230
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:108
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 पिक्सेल्स्"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 पिक्सेल्स्"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 पिक्सेल्स्"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:746
+#, c-format
+msgid "Creating album %s..."
+msgstr "अल्बम %s निर्माण करत आहे..."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:917
+msgid "An error message occurred when publishing to Piwigo. Please try again."
+msgstr "Piwigoकरिता प्रकाशीत करतेवेळी त्रुटी संदेश आढळले. कृपया पुन्हा प्रयत्न करा."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:998
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+"Piwigo छायाचित्र लाइब्ररिचे URL तसेच वापरकर्तानाव व त्या लाइब्ररिशी संबंधित Piwigo "
+"खात्याचे पासवर्ड द्या."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:999
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
+"entered"
+msgstr ""
+"शॉटवेल Piwigo छायाचित्र लाइब्ररिसह संपर्क करण्यास अशक्य. कृपया दिलेल्या URLची तपासणी "
+"करा"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
+msgid "Username and/or password invalid. Please try again"
+msgstr "वापरकर्तानाव व/किंवा पासवर्ड अवैध आहे. कृपया पुन्हा प्रयत्न करा"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1032
+#, c-format
+msgid "Invalid URL"
+msgstr "अवैध URL"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
+#, c-format
+msgid "Invalid User Name or Password"
+msgstr "अवैध वापरकर्ता नाव किंवा पासवर्ड"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1127
+#: plugins/shotwell-publishing/PicasaPublishing.vala:59
+#: plugins/shotwell-publishing/FacebookPublishing.vala:61
+msgid "Shotwell Connect"
+msgstr "शॉटवेल कनेक्ट"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+msgid "Admins, Family, Friends, Contacts"
+msgstr "ॲडमिन्स्, फॅमिलि, मित्र, संपर्क"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+msgid "Admins, Family, Friends"
+msgstr "ॲडमिन्स्, फॅमिलि, मित्र"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+msgid "Admins, Family"
+msgstr "ॲडमिन्स्, फॅमिलि"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+msgid "Admins"
+msgstr "ॲडमिन्स्"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Login to log into Picasa Web Albums in your Web browser. You will have "
+"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"तुम्ही सध्या पिकासा वेब अल्बममध्ये प्रवेश केला नाही.\n"
+"\n"
+"वेब ब्राउजरमध्ये पिकासा वेब अल्बममध्ये प्रवेश करण्यासाठी प्रवेश करा क्लिक करा. पिकासा वेब "
+"अल्बम खात्याशी जोडणी करण्यासाठी शॉटवेल कनेक्टशी ओळख पटवणे आवश्यक आहे."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa can't "
+"continue."
+msgstr "प्रकाशनकरीता आवश्यक फाइल अनुपलब्ध आहे. पिकासाकरीता प्रकाशन चालू ठेवणे अशक्य."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:379
+#: plugins/shotwell-publishing/FacebookPublishing.vala:347
+msgid "Creating album..."
+msgstr "अल्बम निर्माण करत आहे..."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "तुम्ही आता पिकासा वेब अल्बम्समध्ये %s म्हणून प्रवेश केला."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+msgid "Videos will appear in:"
+msgstr "व्हिडिओज् येथे आढळतील:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+msgid "Photos will appear in:"
+msgstr "छायाचित्र येथे आढळतील:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+msgid "Small (640 x 480 pixels)"
+msgstr "लहान (640 x 480 पिक्सेल्स्)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+msgid "Medium (1024 x 768 pixels)"
+msgstr "मध्यम (1024 x 768 पिक्सेल्स्)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "शिफारसीय (1600 x 1200 पिक्सेल्स्)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+msgid "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 पिक्सेल्स्)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:63
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"तुम्ही सध्या फेसबूकमध्ये प्रवेश केला आहे.\n"
+"\n"
+"अजूनही फेसबूक खाते नसल्यास, प्रवेश करतेवेळी त्यास निर्माण करणे शक्य आहे. प्रवेश करतेवेळी, "
+"शॉटवेल कनेक्ट छायाचित्र अपलोड करण्यास व फीड प्रकाशीत करण्यास तुम्हाला परवानगीकरीता "
+"विचारेल. हि परवानगी शॉटवेल कनेक्टला योग्यरित्या कार्य करण्याकरीता आवश्यक आहे."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:65
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"ह्या शॉटवेल सत्रवेळी तुम्ही अनेकवेळा फेसबूकमध्ये प्रवेश केला व बाहेर पडले.\n"
+"फेसबूकवर प्रकाशन सुरू ठेवायचे असल्यास, शॉटवेलमधून बाहेर पडा व पुनः सुरू करा, व त्यानंतर "
+"पुनःप्रकाशनकरीता प्रयत्न करा."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:86
+msgid "Standard (720 pixels)"
+msgstr "मानक (720 पिक्सेल्स्)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:89
+msgid "Large (2048 pixels)"
+msgstr "मोठे (2048 पिक्सेल्स्)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:254
+msgid "Testing connection to Facebook..."
+msgstr "फेसबूकसह जोडणीची चाचणी करत आहे..."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:374
+msgid ""
+"A file required for publishing is unavailable. Publishing to Facebook can't "
+"continue."
+msgstr "प्रकाशनकरीता आवश्यक फाइल अनुपलब्ध आहे. फेसबूककरीता प्रकाशन चालू ठेवणे अशक्य."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#, c-format
+msgid ""
+"You are logged into Facebook as %s.\n"
+"\n"
+msgstr ""
+"तुम्ही फेसबूकमध्ये %s म्हणून प्रवेश केला आहे.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1020
+msgid "Where would you like to publish the selected photos?"
+msgstr "नीवडलेले छायाचित्र कुठे प्रकाशित करायला आवडेल?"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1021
+msgid "Upload _size:"
+msgstr "अपलोड आकार (_s):"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1181
+msgid "Friends"
+msgstr "प्रिय"
+
+#: plugins/shotwell-transitions/CrumbleEffect.vala:20
+msgid "Crumble"
+msgstr "चुरा"
+
+#: plugins/shotwell-transitions/ChessEffect.vala:20
+msgid "Chess"
+msgstr "बुद्धिबळ"
+
+#: plugins/shotwell-transitions/CirclesEffect.vala:20
+msgid "Circles"
+msgstr "वर्तुळ"
+
+#: plugins/shotwell-transitions/BlindsEffect.vala:20
+msgid "Blinds"
+msgstr "ब्लाइंड्स"
+
+#: plugins/shotwell-transitions/StripesEffect.vala:20
+msgid "Stripes"
+msgstr "स्ट्राइप्स"
+
+#: plugins/shotwell-transitions/ClockEffect.vala:20
+msgid "Clock"
+msgstr "घड्याळ"
+
+#: plugins/shotwell-transitions/CircleEffect.vala:20
+msgid "Circle"
+msgstr "वर्तुळ"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+msgid "Core Slideshow Transitions"
+msgstr "कोर स्लाइडशो ट्रांजिशन्स्"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:75
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+msgstr "सर्वहक्काधिकार 2010 मॅक्सिम कार्ताशेव, सर्वहक्काधिकार 2011-2013 योर्बा फाउंडेशन"
+
+#: plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "स्लाइड"
+
+#: plugins/shotwell-transitions/FadeEffect.vala:20
+msgid "Fade"
+msgstr "फिकट"
+
+#: plugins/shotwell-transitions/SquaresEffect.vala:20
+msgid "Squares"
+msgstr "चौरस"
+
+#: plugins/shotwell-data-imports/shotwell-data-imports.vala:22
+msgid "Core Data Import Services"
+msgstr "कोर डाटा इम्पोर्ट सर्व्हिसेस्"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:56
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select a library to import, either by selecting one of the existing "
+"libraries found by Shotwell or by selecting an alternative F-Spot database "
+"file."
+msgstr ""
+"एफ्-स्पॉट लाइब्ररि इम्पोर्ट सर्व्हिसवर आपले स्वागत.\n"
+"\n"
+"शॉटवेलतर्फे आढळलेले अस्तित्वातील लाइब्ररिज्चा पसंत करून किंवा वैकल्पिक एफ्-स्पॉट डाटाबेस फाइल "
+"नीवडून, आयात करण्यासाठी कृपया लाइब्ररि पसंत करा."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:58
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select an F-Spot database file."
+msgstr ""
+"एफ्-स्पॉट लाइब्ररि इम्पोर्ट सर्व्हिसवर आपले स्वागत.\n"
+"\n"
+"कृपया एफ्-स्पॉट डाटाबेस फाइल नीवडा."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:60
+msgid "Manually select an F-Spot database file to import:"
+msgstr "आयातकरीता स्वहस्ते एफ्-स्पॉट डाटाबेस फाइल नीवडा:"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:62
+msgid ""
+"Cannot open the selected F-Spot database file: the file does not exist or is "
+"not an F-Spot database"
+msgstr ""
+"नीवडलेले एफ्-स्पॉट डाटाबेस फाइल उघडणे अशक्य: फाइल अस्तित्वात नाही  किंवा एफ्-स्पॉट "
+"माहितीकोष नाही"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:64
+msgid ""
+"Cannot open the selected F-Spot database file: this version of the F-Spot "
+"database is not supported by Shotwell"
+msgstr ""
+"नीवडलेले एफ्-स्पॉट डाटाबेस फाइल उघडणे अशक्य: एफ्-स्पॉट माहितीकोषची हि आवृत्ती शॉटवेलतर्फे "
+"समर्थीत नाही"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:66
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr "नीवडलेली एफ्-स्पॉट डाटाबेस फाइल वाचणे अशक्य: टॅग्स् तक्ता वाचतेवेळी त्रुटी"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:68
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading photos "
+"table"
+msgstr "नीवडलेली एफ्-स्पॉट डाटाबेस फाइल वाचणे अशक्य: छायाचित्र तक्ता वाचतेवेळी त्रुटी"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:70
+#, c-format
+msgid ""
+"Shotwell has found %d photos in the F-Spot library and is currently "
+"importing them. Duplicates will be automatically detected and removed.\n"
+"\n"
+"You can close this dialog and start using Shotwell while the import is "
+"taking place in the background."
+msgstr ""
+"एफ्-स्पॉट लाइब्ररिमध्ये शॉटवेलकडे %d छायाचित्र आढळली व सध्या त्यास आयात करत आहे. "
+"ड्युप्लिकेट्स् स्वयंरित्या आढळतील व काढून टाकले जातील.\n"
+"\n"
+"पार्श्वभूमीत आयात सुरू असताना तुम्ही हा संवाद बंद करू शकता व शॉटवेलचा वापर करून सुरू करू "
+"शकता."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:84
+#, c-format
+msgid "F-Spot library: %s"
+msgstr "एफ्-स्पॉट लाइब्ररि: %s"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:416
+msgid "Preparing to import"
+msgstr "आयात करण्यास तयार करत आहे"
+
+#: ui/set_background_dialog.glade:14
+msgid "Set as Desktop Slideshow"
+msgstr "डेस्कटॉप स्लाइडशो म्हणून ठरवा"
+
+#: ui/set_background_dialog.glade:55
+msgid "Generate desktop background slideshow"
+msgstr "डेस्कटॉप पार्श्वभूमी स्लाइडसो निर्माण करा"
+
+#: ui/set_background_dialog.glade:82
+msgid "Show each photo for"
+msgstr "करीता प्रत्येक छायाचित्र दाखवा"
+
+#: ui/set_background_dialog.glade:94
+msgid "period of time"
+msgstr "वेळेचा कालवधी"
+
+#: ui/set_background_dialog.glade:116
+msgid "How long each photo is shown on the desktop background"
+msgstr "डेस्कटॉप पार्श्वभूमीवर प्रत्येक छायाचित्र कितिवेळ दाखवले जाते"
+
+#: ui/shotwell.glade:7
+msgid "Search"
+msgstr "शोध"
+
+#: ui/shotwell.glade:47
+msgid "_Name of search:"
+msgstr "शोधचे नाव (_N):"
+
+#: ui/shotwell.glade:108
+msgid "_Match"
+msgstr "जुळवा (_M)"
+
+#: ui/shotwell.glade:137
+msgid "of the following:"
+msgstr "खालिलपैकी:"
+
+#: ui/shotwell.glade:218
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>छपाई प्रतिमा आकार</b>"
+
+#: ui/shotwell.glade:235
+msgid "Use a _standard size:"
+msgstr "मानक आकारचा वापर करा (_s):"
+
+#: ui/shotwell.glade:278
+msgid "Use a c_ustom size:"
+msgstr "पसंतीचे आकारचा वापर करा (_s):"
+
+#: ui/shotwell.glade:368
+msgid "_Match photo aspect ratio"
+msgstr "छायाचित्र ॲस्पेक्ट प्रमाण जुळवा(_M)"
+
+#: ui/shotwell.glade:392
+msgid "_Autosize:"
+msgstr "स्वयंआकार (_A):"
+
+#: ui/shotwell.glade:432
+msgid "<b>Titles</b>"
+msgstr "<b>शीर्षक</b>"
+
+#: ui/shotwell.glade:449
+msgid "Print image _title"
+msgstr "प्रतिमा शीर्षकाची छापाई करा (_t)"
+
+#: ui/shotwell.glade:493
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>पिक्सेल रेजोल्युशन</b>"
+
+#: ui/shotwell.glade:513
+msgid "_Output photo at:"
+msgstr "चायाचित्राचे येथे आउटपुट करा (_O):"
+
+#: ui/shotwell.glade:548
+msgid "pixels per inch"
+msgstr "पिक्सेल्स् दर इंच"
+
+#: ui/shotwell.glade:581 ui/shotwell.glade:623
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:27
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
+msgid "label"
+msgstr "लेबल"
+
+#: ui/shotwell.glade:719
+msgid "Shotwell Preferences"
+msgstr "शॉटवेल पसंती"
+
+#: ui/shotwell.glade:796
+msgid "white"
+msgstr "पांढरे"
+
+#: ui/shotwell.glade:823
+msgid "black"
+msgstr "काळे"
+
+#: ui/shotwell.glade:871
+msgid "_Watch library directory for new files"
+msgstr "नवीन फाइल्स् करीता लाइब्ररि डिरेक्ट्री पहा (_W)"
+
+#: ui/shotwell.glade:900
+msgid "Metadata"
+msgstr "मेटाडेटा"
+
+#: ui/shotwell.glade:920
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr "फोटो फाइल्सकरीता टॅग्स्, शीर्षक, व इतर मेटाडेटा लिहा (_m)"
+
+#: ui/shotwell.glade:946
+msgid "Display"
+msgstr "डिस्पले"
+
+#: ui/shotwell.glade:967
+msgid "_Import photos to:"
+msgstr "येथे छायाचित्र आयात करा (_I):"
+
+#: ui/shotwell.glade:990
+msgid "_Background:"
+msgstr "पार्श्वभूमी (_B):"
+
+#: ui/shotwell.glade:1013
+msgid "Importing"
+msgstr "आयात करत आहे"
+
+#: ui/shotwell.glade:1036
+msgid "_Directory structure:"
+msgstr "डिरेक्ट्री मांडणी (_D):"
+
+#: ui/shotwell.glade:1075
+msgid "_Pattern:"
+msgstr "रचना (_P):"
+
+#: ui/shotwell.glade:1157
+msgid "Example:"
+msgstr "उदाहरणार्थ:"
+
+#: ui/shotwell.glade:1174
+msgid "R_ename imported files to lowercase"
+msgstr "आयात केलेल्या फाइल्स्ला छोट्या आकारात पुनःनामांकीत करा (_e)"
+
+#: ui/shotwell.glade:1203
+msgid "RAW Developer"
+msgstr "RAW डेव्हलपर"
+
+#: ui/shotwell.glade:1238
+msgid "De_fault:"
+msgstr "पूर्वनिर्धारित (_f):"
+
+#: ui/shotwell.glade:1292
+msgid "E_xternal photo editor:"
+msgstr "बाहेरिल संपादकसह उघडा (_x):"
+
+#: ui/shotwell.glade:1308
+msgid "External _RAW editor:"
+msgstr "बाहेरिल RAW संपादक (_R):"
+
+#: ui/shotwell.glade:1373
+msgid "External Editors"
+msgstr "बाहेरिल संपादक"
+
+#: ui/shotwell.glade:1400
+msgid "Plugins"
+msgstr "प्लगइन्स्"
+
+#: ui/shotwell.glade:1469
+msgid "_Delay:"
+msgstr "विलंब (_D):"
+
+#: ui/shotwell.glade:1485
+msgid "_Transition effect:"
+msgstr "ट्रांजिशन प्रभाव (_T):"
+
+#: ui/shotwell.glade:1501
+msgid "Transition d_elay:"
+msgstr "ट्रांजिशन विलंब (_e):"
+
+#: ui/shotwell.glade:1513
+msgid "Show t_itle"
+msgstr "शीर्षक दाखवा (_i)"
+
+#: ui/shotwell.glade:1603 ui/shotwell.glade:1616
+msgid "seconds"
+msgstr "सेंकद"
+
+#: ui/shotwell.glade:1696
+msgid "_Login"
+msgstr "प्रवेश करा (_L)"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:21
+msgid ""
+" (text depends on fb username and is modified in the app - \n"
+"anything put into this field won't display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:39
+msgid "Publish to an e_xisting album:"
+msgstr "अस्तित्वातील अल्बमकरीता प्रकाशित करा (_x):"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:57
+msgid "Create a _new album named:"
+msgstr "ह्या नावाचे नवीन अल्बम निर्माण करा (_n):"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:139
+msgid "Videos and new photo albums _visible to:"
+msgstr "व्हिडिओज् व दृष्यास्पद नवीन छायाचित्र अल्बम्स् (_v):"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:175
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:102
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:178
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:226
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
+msgstr ""
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:197
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:137
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:229
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:99
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
+msgid "_Logout"
+msgstr "बाहेर पडा (_L)"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:212
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:153
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:243
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:115
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
+msgid "_Publish"
+msgstr "प्रकाशित करा (_P)"
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:16
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr "वेब ब्राउजरतर्फे फ्लिकरमध्ये प्रवेश केल्यानंतर कंफर्मेशन क्रमांक द्या."
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:37
+msgid "Authorization _Number:"
+msgstr "ओळख पटवण्यासाठी क्रमांक (_N):"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Flickr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:44
+msgid "_visibility label (populated in the code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:61
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
+msgid "Photo _size:"
+msgstr "छायाचित्राचे आकार (_s):"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:18
+msgid ""
+"'you are logged in as $name'\n"
+"(populated in the application code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:75
+msgid "An _existing album:"
+msgstr "अस्तित्वातील अल्बम (_e):"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:94
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:52
+msgid "A _new album named:"
+msgstr "या नावाचे नवीन अल्बम (_n):"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:113
+msgid "L_ist album in public gallery"
+msgstr "पब्लिक कलादालनमध्ये अल्बम दाखवा (_i)"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:134
+msgid ""
+"$mediatype will appear in\n"
+"(populated in code)"
+msgstr ""
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:150
+msgid "Photo _size preset:"
+msgstr "छायाचित्र आकार प्रिसेट (_s):"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:49
+msgid "_URL of your Piwigo photo library"
+msgstr "Piwigo छायाचित्र लाइब्ररिचे URL (_U)"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:59
+msgid "User _name"
+msgstr "वापरकर्तानाव (_n)"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:73
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:59
+msgid "_Password"
+msgstr "पासवर्ड (_P)"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:130
+msgid "_Remember Password"
+msgstr "पासवर्ड लक्षात ठेवा (_R)"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:151
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:107
+msgid "Login"
+msgstr "प्रवेश"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:40
+msgid "An _existing category:"
+msgstr "अस्तित्वातील विभाग (_e):"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:121
+msgid "Photos will be _visible by:"
+msgstr "छायाचित्र यातर्फे दिसतील (_v):"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:149
+msgid "Photo size:"
+msgstr "छायाचित्र आकार:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:176
+msgid "within category:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:210
+msgid "Album comment:"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:242
+msgid "_If a title is set and comment unset, use title as comment"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:258
+msgid "_Do no upload tags"
+msgstr ""
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:278
+msgid "Logout"
+msgstr "बाहेर पडा"
+
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:55
+msgid "Video privacy _setting:"
+msgstr "व्हिडिओ गोपणियता सेटिंग (_s):"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
+msgid "Copyright 2012 BJA Electronics"
+msgstr "सर्वहक्काधिकार 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
+msgid "1280 x 853 pixels"
+msgstr "1280 x 853 पिक्सेल्स्"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr "OAuth ओळख पटवण्याकरीता विनंतीकरीता '%s' वैध प्रतिसाद नाही"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr "TumblrPublisher: start( ): सुरू करणे अशक्य; ह्या पब्लिशरला पुनःसुरू करणे अशक्य."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "Tumblr खात्यासह सबंधित वापरकर्तानाव व पासवर्ड द्या."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "UI: %s लोड करणे अशक्य"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Tumblr मध्ये %s प्रमाणे प्रवेश केला आहे.\n"
+"\n"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "सर्वहक्काधिकार 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Yandex.Fotki संकेतस्थळ येथे भेट द्या"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "तुम्ही सध्या Yandex.Fotki मध्ये प्रवेश केला नाही."
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:49
+msgid "_Email address"
+msgstr "इमेल पत्ता (_E)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Tumblr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+"Tumblr मध्ये तुम्ही यानुरूप (नाव) प्रवेश केला आहे.\n"
+"\n"
+"(ह्या लेबलचे स्ट्रिंग आढळले व कोड अंतर्गत सेट केले आहे, \n"
+"त्यामुळे येथे केलेले बदल दाखवणे अशक्य आहे)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
+msgid "Blogs:"
+msgstr "ब्लॉग्स्:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
+msgid "_Albums (or write new):"
+msgstr "अल्बम्स् (किंवा नवीन लिहा) (_A):"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
+msgid "Access _type:"
+msgstr "प्रवेश प्रकार (_t):"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
+msgid "Disable _comments"
+msgstr "टिपण्णी बंद करा (_c)"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
+msgid "_Forbid downloading original photo"
+msgstr "मुळ छायाचित्र डाउनलोड करण्यास परवानगी नाही (_F)"
