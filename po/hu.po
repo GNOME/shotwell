@@ -1,23 +1,16 @@
-# po/shotwell-core/shotwell.pot
 # PO message string template file for Shotwell Core Components
-# Copyright (C) 2009-2013 Yorba Foundation
+# Copyright (C) 2009-2014 Yorba Foundation
 # See COPYING for license.
 #
-# Translators:
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2011-2012.
-# kelemeng <kelemeng@gnome.hu>, 2011.
-# verayin <vera@yorba.org>, 2011.
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2012, 2014.
-# kelemeng <kelemeng@gnome.hu>, 2012.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2014.
 # L. Csordas <csola48@gmail.com>, 2012.
 # lsbeeler <lucas@yorba.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.15\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwell"
-"&keywords=I18N+L10N&component=general\n"
+"Project-Id-Version: shotwell master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwell&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2014-01-16 09:35+0000\n"
-"PO-Revision-Date: 2014-02-03 15:14+0100\n"
+"PO-Revision-Date: 2014-02-03 15:45+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -25,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -128,10 +121,8 @@ msgstr ""
 "az F-Spot adatbázis ezen verzióját"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:66
-msgid ""
-"Cannot read the selected F-Spot database file: error while reading tags table"
-msgstr ""
-"A kijelölt F-Spot adatbázisfájl nem olvasható: hiba a címketábla olvasásakor"
+msgid "Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr "A kijelölt F-Spot adatbázisfájl nem olvasható: hiba a címketábla olvasásakor"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:68
 msgid ""
@@ -196,8 +187,7 @@ msgid "'%s' isn't a valid response to an OAuth authentication request"
 msgstr "„%s” nem érvényes válasz OAuth hitelesítési kérésre"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:558
-msgid ""
-"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgid "TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): nem lehet elindítani, ez a közzétevő nem "
 "indítható újra."
@@ -694,8 +684,7 @@ msgstr "A _videókat és új fényképalbumokat láthatja:"
 #: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:7
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:9
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:8
-msgid ""
-"_Remove location, camera, and other identifying information before uploading"
+msgid "_Remove location, camera, and other identifying information before uploading"
 msgstr ""
 "_Eltávolítja a tartózkodási hely, a fényképezőgép és egyebek azonosításra "
 "alkalmas adatait a feltöltés előtt"
@@ -1194,8 +1183,7 @@ msgstr "Hiba az idő megváltoztatásakor"
 
 #: ../src/Commands.vala:1411
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural ""
-"Time adjustments could not be undone on the following photo files."
+msgid_plural "Time adjustments could not be undone on the following photo files."
 msgstr[0] "Az időmódosítás nem vonható vissza a következő fényképen."
 msgstr[1] "Az időmódosítás nem vonható vissza a következő fényképeken."
 
@@ -1438,8 +1426,7 @@ msgstr "hibaüzenet:"
 #.
 #: ../src/Dialogs.vala:582
 msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
-msgstr ""
-"Fotóként vagy videóként fel nem ismert, és emiatt nem importált fájlok:"
+msgstr "Fotóként vagy videóként fel nem ismert, és emiatt nem importált fájlok:"
 
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
@@ -1477,8 +1464,7 @@ msgstr ""
 #.
 #: ../src/Dialogs.vala:628
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
-msgstr ""
-"A fényképek/videók importálása sikertelen volt, mert néhány fájl sérült:"
+msgstr "A fényképek/videók importálása sikertelen volt, mert néhány fájl sérült:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
@@ -1512,10 +1498,8 @@ msgstr[1] "%d duplikált fénykép/videó nem lett importálva:\n"
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
-msgstr[1] ""
-"%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgstr[0] "%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgstr[1] "%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
 
 #: ../src/Dialogs.vala:686
 #, c-format
@@ -1527,12 +1511,9 @@ msgstr[1] "%d videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n
 #: ../src/Dialogs.vala:689
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
-msgid_plural ""
-"%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
-msgstr[1] ""
-"%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgid_plural "%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] "%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgstr[1] "%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
 
 #: ../src/Dialogs.vala:692
 #, c-format
@@ -1543,8 +1524,7 @@ msgstr[1] "%d fájlt nem sikerült importálni hardver- vagy fájlhiba miatt:\n"
 
 #: ../src/Dialogs.vala:706
 #, c-format
-msgid ""
-"1 photo failed to import because the photo library folder was not writable:\n"
+msgid "1 photo failed to import because the photo library folder was not writable:\n"
 msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
@@ -1557,8 +1537,7 @@ msgstr[1] ""
 
 #: ../src/Dialogs.vala:709
 #, c-format
-msgid ""
-"1 video failed to import because the photo library folder was not writable:\n"
+msgid "1 video failed to import because the photo library folder was not writable:\n"
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
@@ -1586,8 +1565,7 @@ msgstr[1] ""
 
 #: ../src/Dialogs.vala:715
 #, c-format
-msgid ""
-"1 file failed to import because the photo library folder was not writable:\n"
+msgid "1 file failed to import because the photo library folder was not writable:\n"
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
@@ -1616,10 +1594,8 @@ msgstr[1] "%d videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] ""
-"1 fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
-msgstr[1] ""
-"%d fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
+msgstr[0] "1 fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
+msgstr[1] "%d fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
 
 #: ../src/Dialogs.vala:738
 #, c-format
@@ -1633,14 +1609,14 @@ msgstr[1] "%d fájlt nem sikerült importálni fényképezőgép-hiba miatt:\n"
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] "1 fénykép importálása sikertelen, mert sérült:\n"
-msgstr[1] "1 fénykép importálása sikertelen, mert sérült:\n"
+msgstr[1] "%d fénykép importálása sikertelen, mert sérült:\n"
 
 #: ../src/Dialogs.vala:755
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "1 videó importálása sikertelen, mert sérült:\n"
-msgstr[1] "1 videó importálása sikertelen, mert sérült:\n"
+msgstr[1] "%d videó importálása sikertelen, mert sérült:\n"
 
 #: ../src/Dialogs.vala:758
 #, c-format
@@ -1813,11 +1789,9 @@ msgstr "Visszavonja a külső szerkesztéseket?"
 #: ../src/Dialogs.vala:1353
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
-msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
+msgid_plural "This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] "Ezzel a külső fájlon végzett minden változtatás elvész. Folytatja?"
-msgstr[1] ""
-"Ezzel a külső %d fájlon végzett minden változtatás elvész. Folytatja?"
+msgstr[1] "Ezzel a külső %d fájlon végzett minden változtatás elvész. Folytatja?"
 
 #: ../src/Dialogs.vala:1357
 msgid "Re_vert External Edit"
@@ -2151,10 +2125,8 @@ msgstr[1] ""
 
 #: ../src/Dialogs.vala:2684
 #, c-format
-msgid ""
-"The photo or video cannot be moved to your desktop trash.  Delete this file?"
-msgid_plural ""
-"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgid "The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
 msgstr[0] "%d fotó vagy videó nem helyezhető át a Kukába. Törli a fájlt?"
 msgstr[1] "%d fotó vagy videó nem helyezhető át a Kukába. Törli a fájlokat?"
 
@@ -3499,8 +3471,7 @@ msgid "Cameras"
 msgstr "Fényképezőgépek"
 
 #: ../src/camera/ImportPage.vala:459
-msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
 "A fényképezőgép leválasztása nem sikerült, próbálja meg a fájlkezelőből "
 "leválasztani."
@@ -3654,8 +3625,7 @@ msgstr "Az importálás innen: %s egy hiba miatt nem folytatódhat:"
 
 #: ../src/data_imports/DataImportsPluginHost.vala:151
 msgid "To try importing from another service, select one from the above menu."
-msgstr ""
-"Egy másik szolgáltatásból való importáláshoz válasszon egyet a fenti menüből."
+msgstr "Egy másik szolgáltatásból való importáláshoz válasszon egyet a fenti menüből."
 
 #: ../src/data_imports/DataImportsUI.vala:10
 msgid ""
@@ -4299,8 +4269,7 @@ msgstr "A közzététel egy hiba miatt nem folytatódhat erre: %s:"
 
 #: ../src/publishing/PublishingPluginHost.vala:84
 msgid "To try publishing to another service, select one from the above menu."
-msgstr ""
-"Próbálja másik szolgáltatáson közzétenni, válasszon egyet a fenti menüből."
+msgstr "Próbálja másik szolgáltatáson közzétenni, válasszon egyet a fenti menüből."
 
 #: ../src/publishing/PublishingUI.vala:105
 msgid "The selected photos/videos were successfully published."
@@ -4741,5 +4710,4 @@ msgstr "másodperc"
 #: ../ui/shotwell.glade.h:43
 msgid "_Login"
 msgstr "Bejele_ntkezés"
-
 
