@@ -8,25 +8,15 @@
             <separator />
             <placeholder name="PrintPlaceholder" />
             <separator />
-            <placeholder name="PublishPlaceholder" />
             <menuitem name="SendTo" action="SendTo" />
             <placeholder name="SetBackgroundPlaceholder" />
-            <separator />
-            <menuitem name="JumpToFile" action="CommonJumpToFile" />
-            <separator />
-            <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
-            <separator />
-            <menuitem name="Quit" action="CommonQuit" />
         </menu>
         
         <menu name="EditMenu" action="EditMenu">
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
-            <menuitem name="NewSearch" action="CommonNewSearch" />
-            <separator />
             <menuitem name="RemoveFromLibrary" action="RemoveFromLibrary" />
-            <menuitem name="MoveToTrash" action="MoveToTrash" />
             <separator />
             <menuitem name="Preferences" action="CommonPreferences" />
         </menu>
@@ -43,9 +33,6 @@
                 <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
             </menu>
             <separator />
-            <menuitem name="IncreaseSize" action="IncreaseSize" />
-            <menuitem name="DecreaseSize" action="DecreaseSize" />
-            <separator />
             <menuitem name="ZoomFit" action="ZoomFit" />
             <menuitem name="Zoom100" action="Zoom100" />
             <menuitem name="Zoom200" action="Zoom200" />
@@ -56,58 +43,15 @@
         </menu>
         
         <menu name="PhotoMenu" action="PhotoMenu">
-            <menuitem name="PrevPhoto" action="PrevPhoto" />
-            <menuitem name="NextPhoto" action="NextPhoto" />
-            <separator />
-            <menuitem name="RotateClockwise" action="RotateClockwise" />
-            <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
             <menuitem name="FlipHorizontally" action="FlipHorizontally" />
             <menuitem name="FlipVertically" action="FlipVertically" />
-            <separator />
-            <menu name="Tools" action="Tools">
-                <menuitem name="Enhance" action="Enhance" />
-                <menuitem name="Crop" action="Crop" />
-                <menuitem name="Straighten" action="Straighten" />
-                <menuitem name="RedEye" action="RedEye" />
-                <menuitem name="Adjust" action="Adjust" />
-            </menu>
-            <menuitem name="Revert" action="Revert" />
             <separator />
             <menuitem name="CopyColorAdjustments" action="CopyColorAdjustments" />
             <menuitem name="PasteColorAdjustments" action="PasteColorAdjustments" />
             <separator/>
-            <menuitem name="Flag" action="Flag" />
-            <menu name="Rate" action="Rate">
-                <menuitem name="RateFive" action="RateFive" />
-                <menuitem name="RateFour" action="RateFour" />
-                <menuitem name="RateThree" action="RateThree" />
-                <menuitem name="RateTwo" action="RateTwo" />
-                <menuitem name="RateOne" action="RateOne" />
-                <menuitem name="RateUnrated" action="RateUnrated" />
-                <menuitem name="RateRejected" action="RateRejected" />
-                <separator />
-                <menuitem name="IncreaseRating" action="IncreaseRating" />
-                <menuitem name="DecreaseRating" action="DecreaseRating" />
-            </menu>
-            <separator />
-            <menuitem name="EditTitle" action="EditTitle" />
-            <menuitem name="EditComment" action="EditComment" />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
-            <separator />
-            <menu name="RawDeveloper" action="RawDeveloper">
-                <menuitem name="RawDeveloperShotwell" action="RawDeveloperShotwell" />
-                <menuitem name="RawDeveloperCamera" action="RawDeveloperCamera" />
-            </menu>
-            <separator />
-            <menuitem name="ExternalEdit" action="ExternalEdit" />
-            <menuitem name="ExternalEditRAW" action="ExternalEditRAW" />
         </menu>
 
-        <menu name="TagsMenu" action="TagsMenu">
-            <menuitem name="AddTags" action="AddTags" />
-            <menuitem name="ModifyTags" action="ModifyTags" />
-        </menu>
-        
         <menu name="HelpMenu" action="HelpMenu">
             <menuitem name="Contents" action="CommonHelpContents" />
             <menuitem name="Frequently Asked Questions" action="CommonHelpFAQ" />
@@ -125,4 +69,3 @@
     </popup>
     
 </ui>
-

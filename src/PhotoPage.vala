@@ -2667,11 +2667,6 @@ public class LibraryPhotoPage : EditingHostPage {
         
         groups += print_group;
         
-        InjectionGroup publish_group = new InjectionGroup("/MenuBar/FileMenu/PublishPlaceholder");
-        publish_group.add_menu_item("Publish");
-        
-        groups += publish_group;
-        
         InjectionGroup bg_group = new InjectionGroup("/MenuBar/FileMenu/SetBackgroundPlaceholder");
         bg_group.add_menu_item("SetBackground");
         

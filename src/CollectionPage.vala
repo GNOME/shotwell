@@ -73,7 +73,6 @@ public abstract class CollectionPage : MediaPage {
         
         group.add_menu_item("Print");
         group.add_separator();
-        group.add_menu_item("Publish");
         group.add_menu_item("SendTo");
         group.add_menu_item("SetBackground");
         
@@ -101,14 +100,6 @@ public abstract class CollectionPage : MediaPage {
     private static InjectionGroup create_photos_menu_edits_injectables() {
         InjectionGroup group = new InjectionGroup("/MenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder");
         
-        group.add_menu_item("RotateClockwise");
-        group.add_menu_item("RotateCounterclockwise");
-        group.add_menu_item("FlipHorizontally");
-        group.add_menu_item("FlipVertically");
-        group.add_separator();
-        group.add_menu_item("Enhance");
-        group.add_menu_item("Revert");
-        group.add_separator();
         group.add_menu_item("CopyColorAdjustments");
         group.add_menu_item("PasteColorAdjustments");
         
@@ -126,8 +117,6 @@ public abstract class CollectionPage : MediaPage {
     private static InjectionGroup create_photos_menu_externals_injectables() {
         InjectionGroup group = new InjectionGroup("/MenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
         
-        group.add_menu_item("ExternalEdit");
-        group.add_menu_item("ExternalEditRAW");
         group.add_menu_item("PlayVideo");
         
         return group;
