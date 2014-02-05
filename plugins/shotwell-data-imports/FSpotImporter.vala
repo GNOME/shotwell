@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2014 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -31,7 +31,7 @@ public class FSpotService : Object, Spit.Pluggable, Spit.DataImports.Service {
 
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Bruno Girin";
-        info.copyright = _("Copyright 2009-2013 Yorba Foundation");
+        info.copyright = _("Copyright 2009-2014 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
