@@ -18,7 +18,7 @@
             <property name="can_focus">False</property>
             <property name="xalign">0.30000001192092896</property>
             <property name="ypad">16</property>
-            <property name="label" translatable="yes"> (text depends on fb username and is modified in the app - 
+            <property name="label" translatable="no"> (text depends on fb username and is modified in the app - 
 anything put into this field won't display)</property>
           </object>
           <packing>

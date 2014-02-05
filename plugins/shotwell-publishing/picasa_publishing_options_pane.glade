@@ -15,7 +15,7 @@
         <property name="can_focus">False</property>
         <property name="margin_top">12</property>
         <property name="margin_bottom">32</property>
-        <property name="label" translatable="yes">'you are logged in as $name'
+        <property name="label" translatable="no">'you are logged in as $name'
 (populated in the application code)</property>
       </object>
       <packing>
@@ -131,7 +131,7 @@
                 <property name="can_focus">False</property>
                 <property name="margin_top">32</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">$mediatype will appear in
+                <property name="label" translatable="no">$mediatype will appear in
 (populated in code)</property>
               </object>
               <packing>

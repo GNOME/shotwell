@@ -16,7 +16,7 @@
           <object class="GtkLabel" id="upload_info_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">You are logged into Flickr as (name).
+            <property name="label" translatable="no">You are logged into Flickr as (name).
 
 (this label's string is populated and set inside the code, 
 so changes made here will not display)</property>
@@ -41,7 +41,7 @@ so changes made here will not display)</property>
               <object class="GtkLabel" id="visibility_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">_visibility label (populated in the code)</property>
+                <property name="label" translatable="no">_visibility label (populated in the code)</property>
                 <property name="use_underline">True</property>
                 <property name="justify">right</property>
                 <property name="mnemonic_widget">visibility_combo</property>

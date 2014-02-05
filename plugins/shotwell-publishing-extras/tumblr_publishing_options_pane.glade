@@ -16,7 +16,7 @@
           <object class="GtkLabel" id="upload_info_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">You are logged into Tumblr as (name).
+            <property name="label" translatable="no">You are logged into Tumblr as (name).
 
 (this label's string is populated and set inside the code, 
 so changes made here will not display)</property>
