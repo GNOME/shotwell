@@ -80,10 +80,11 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     }
     
     private void update_indexable_keywords() {
-        string[] indexables = new string[3];
+        string[] indexables = new string[4];
         indexables[0] = get_title();
         indexables[1] = get_basename();
         indexables[2] = get_comment();
+        indexables[3] = get_keywords_from_path();
         
         indexable_keywords = prepare_indexable_strings(indexables);
     }
@@ -146,6 +147,21 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     
     public virtual string get_basename() {
         return get_file().get_basename();
+    }
+    
+    // If in library, match anywhere along the library's children directories, otherwise
+    // only match against the photo's parent directory
+    public string get_keywords_from_path(){
+        File parent = get_master_file().get_parent();
+        string path_keywords = parent.get_basename();
+        if (AppDirs.is_in_import_dir(get_file())){
+            parent = parent.get_parent();
+            while(!parent.equal(AppDirs.get_import_dir())){
+                path_keywords += " " + parent.get_basename();
+                parent = parent.get_parent();
+            }
+        }
+        return path_keywords;
     }
     
     public abstract File get_file();
