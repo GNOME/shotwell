@@ -93,7 +93,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
     public const string ICON_GENERIC_PLUGIN = "generic-plugin.png";
-    public const string ICON_SLIDESHOW_EXTENSION_POINT = "slideshow-extension-point";
+    public const string ICON_SLIDESHOW_EXTENSION_POINT = "media-playback-start";
     public const string ICON_RATING_REJECTED = "rejected.svg";
     public const string ICON_RATING_ONE = "one-star.svg";
     public const string ICON_RATING_TWO = "two-stars.svg";
@@ -114,18 +114,18 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const int ICON_ZOOM_SCALE = 16;
 
     public const string ICON_CAMERAS = "camera-photo";
-    public const string ICON_EVENTS = "multiple-events";
-    public const string ICON_ONE_EVENT = "one-event";
-    public const string ICON_NO_EVENT = "no-event";
-    public const string ICON_ONE_TAG = "one-tag";
-    public const string ICON_TAGS = "multiple-tags";
+    public const string ICON_EVENTS = "office-calendar";
+    public const string ICON_ONE_EVENT = "office-calendar";
+    public const string ICON_NO_EVENT = "office-calendar";
+    public const string ICON_ONE_TAG = "folder-tag";
+    public const string ICON_TAGS = "folder-tag";
     public const string ICON_FOLDER_CLOSED = "folder";
     public const string ICON_FOLDER_OPEN = "folder-open";
     public const string ICON_FOLDER_DOCUMENTS = "folder-documents";
     public const string ICON_IMPORTING = "go-down";
     public const string ICON_LAST_IMPORT = "document-open-recent";
     public const string ICON_MISSING_FILES = "process-stop";
-    public const string ICON_PHOTOS = "shotwell-16";
+    public const string ICON_PHOTOS = "folder-pictures";
     public const string ICON_SINGLE_PHOTO = "image-x-generic";
     public const string ICON_FILTER_PHOTOS = "filter-photos";
     public const string ICON_FILTER_PHOTOS_DISABLED = "filter-photos-disabled";
@@ -1142,4 +1142,3 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ONIMAGE_FONT_COLOR = "#000000";
     public const string ONIMAGE_FONT_BACKGROUND = "rgba(255,255,255,0.5)";
 }
-

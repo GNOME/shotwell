@@ -191,6 +191,7 @@ ICON_FILES = \
 	five-stars.svg \
 	flag-page.png \
 	flag-trinket.png \
+	folder-tag.svg \
 	four-star-filter-plus.svg \
 	four-stars.svg \
 	image-adjust.svg \
@@ -198,14 +199,9 @@ ICON_FILES = \
 	import.svg \
 	make-primary.svg \
 	merge.svg \
-	multiple-events.png \
-	multiple-tags.png \
-	no-event.png \
 	noninterpretable-video.png \
-	one-event.png \
 	one-star-filter-plus.svg \
 	one-star.svg \
-	one-tag.png \
 	pin-toolbar.svg \
 	publish.png \
 	redeye.png \
@@ -224,7 +220,6 @@ ICON_FILES = \
 	videos-page.png \
 	zoom-in.png \
 	zoom-out.png \
-	slideshow-extension-point.png \
 	generic-plugin.png \
 	filter-raw.png \
 	filter-photos.png \
