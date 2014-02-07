@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-20 23:56+0100\n"
-"PO-Revision-Date: 2014-01-21 00:11+0200\n"
+"POT-Creation-Date: 2014-02-07 01:56+0100\n"
+"PO-Revision-Date: 2014-02-07 01:56+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
@@ -68,8 +68,8 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-msgid "Copyright 2009-2013 Yorba Foundation"
-msgstr "Copyright 2011-2013 Yorba Foundation"
+msgid "Copyright 2009-2014 Yorba Foundation"
+msgstr "Copyright 2011-2014 Yorba Foundation"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -261,40 +261,28 @@ msgid "Login"
 msgstr "Acceso"
 
 #: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:1
-msgid ""
-"You are logged into Tumblr as (name).\n"
-"\n"
-"(this label's string is populated and set inside the code, \n"
-"so changes made here will not display)"
-msgstr ""
-"Accedeu a Tumblr como (name).\n"
-"\n"
-"(esta cadea de etiqueta completarase e estabelecerase o código, \n"
-"polo que non se amosarán aquí os cambios)"
-
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:5
 msgid "Blogs:"
 msgstr "Blogs:"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:6
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
 msgid "Photo _size:"
 msgstr "_Tamaño da foto:"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:3
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:5
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:8
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:8
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:10
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:2
 msgid "_Logout"
 msgstr "_Saír da sesión"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:8
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:4
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:6
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:9
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:9
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:11
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:7
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:3
 msgid "_Publish"
 msgstr "_Publicar"
@@ -401,7 +389,7 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "Desexa publicar as fotos seleccionadas?"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Upload _size:"
 msgstr "_Tamaño do envío:"
 
@@ -662,28 +650,20 @@ msgid "Public unlisted"
 msgstr "Retirado da lista pública"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:1
-msgid ""
-" (text depends on fb username and is modified in the app - \n"
-"anything put into this field won't display)"
-msgstr ""
-" (o texto depende do nome de usuario de fb e é modificado polo aplicativo - \n"
-"calquera cousa que poña neste campo non se mostrará)"
-
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Publish to an e_xisting album:"
 msgstr "Publicar nun álbum e_xistente:"
 
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:2
 msgid "Create a _new album named:"
 msgstr "Crear un _novo álbum con nome:"
 
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
 msgid "Videos and new photo albums _visible to:"
 msgstr "Os novos albumes de fotos e vídeos están _visíbeis para:"
 
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:7
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:9
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:5
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:8
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -708,52 +688,20 @@ msgstr "_Número de autorización:"
 msgid "Con_tinue"
 msgstr "Con_tinuar"
 
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
-msgid ""
-"You are logged into Flickr as (name).\n"
-"\n"
-"(this label's string is populated and set inside the code, \n"
-"so changes made here will not display)"
-msgstr ""
-"Accedeu a Flickr como (name).\n"
-"\n"
-"(esta cadea de etiqueta completarase e estabelecerase o código, \n"
-"polo que non se amosarán aquí os cambios)"
-
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:5
-msgid "_visibility label (populated in the code)"
-msgstr "etiqueta de _visibilidade (completada no código)"
-
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:1
-msgid ""
-"'you are logged in as $name'\n"
-"(populated in the application code)"
-msgstr ""
-"'Accedeu a $name'\n"
-"(completada no código do aplicativo)"
-
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
 msgid "An _existing album:"
 msgstr "Un álbum _existente:"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:2
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:3
 msgid "A _new album named:"
 msgstr "Un _novo álbum co nome:"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
 msgid "L_ist album in public gallery"
 msgstr "L_istar o álbum na galería pública"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
-msgid ""
-"$mediatype will appear in\n"
-"(populated in code)"
-msgstr ""
-"$mediatype aparecerá en \n"
-"(completado en código)"
-
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:8
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
 msgid "Photo _size preset:"
 msgstr "Tamaño de _foto prestabelecido:"
 
@@ -861,8 +809,8 @@ msgid "Core Slideshow Transitions"
 msgstr "Núcleo de transicións de diaporama"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
 
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
@@ -1425,8 +1373,7 @@ msgid ""
 "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
 "Understands:"
 msgstr ""
-"Fotos/Vídeos non importados porque non están nun formato que Shotwel "
-"entende:"
+"Fotos/Vídeos non importados porque non están nun formato que Shotwel entende:"
 
 #: ../src/Dialogs.vala:612
 msgid ""
@@ -4696,3 +4643,50 @@ msgstr "segundos"
 #: ../ui/shotwell.glade.h:43
 msgid "_Login"
 msgstr "_Acceso"
+
+#~ msgid ""
+#~ "You are logged into Tumblr as (name).\n"
+#~ "\n"
+#~ "(this label's string is populated and set inside the code, \n"
+#~ "so changes made here will not display)"
+#~ msgstr ""
+#~ "Accedeu a Tumblr como (name).\n"
+#~ "\n"
+#~ "(esta cadea de etiqueta completarase e estabelecerase o código, \n"
+#~ "polo que non se amosarán aquí os cambios)"
+
+#~ msgid ""
+#~ " (text depends on fb username and is modified in the app - \n"
+#~ "anything put into this field won't display)"
+#~ msgstr ""
+#~ " (o texto depende do nome de usuario de fb e é modificado polo aplicativo "
+#~ "- \n"
+#~ "calquera cousa que poña neste campo non se mostrará)"
+
+#~ msgid ""
+#~ "You are logged into Flickr as (name).\n"
+#~ "\n"
+#~ "(this label's string is populated and set inside the code, \n"
+#~ "so changes made here will not display)"
+#~ msgstr ""
+#~ "Accedeu a Flickr como (name).\n"
+#~ "\n"
+#~ "(esta cadea de etiqueta completarase e estabelecerase o código, \n"
+#~ "polo que non se amosarán aquí os cambios)"
+
+#~ msgid "_visibility label (populated in the code)"
+#~ msgstr "etiqueta de _visibilidade (completada no código)"
+
+#~ msgid ""
+#~ "'you are logged in as $name'\n"
+#~ "(populated in the application code)"
+#~ msgstr ""
+#~ "'Accedeu a $name'\n"
+#~ "(completada no código do aplicativo)"
+
+#~ msgid ""
+#~ "$mediatype will appear in\n"
+#~ "(populated in code)"
+#~ msgstr ""
+#~ "$mediatype aparecerá en \n"
+#~ "(completado en código)"
