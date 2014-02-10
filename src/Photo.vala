@@ -4851,6 +4851,8 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     private bool block_thumbnail_generation = false;
     private OneShotScheduler thumbnail_scheduler = null;
     private Gee.Collection<string>? import_keywords;
+    private string? photo_keywords = null;
+    private string? indexable_keywords = null;
 
     private LibraryPhoto(PhotoRow row) {
         base (row);
@@ -4966,6 +4968,18 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         global.notify_baseline_reimported(this, metadata);
     }
     
+    // use this method as a kind of post-constructor initializer; it means the DataSource has been
+    // added or removed to a SourceCollection.
+    protected override void notify_membership_changed(DataCollection? collection) {
+        if (collection != null && photo_keywords == null) {
+            // don't fire the alteration here, as the MediaSource is only being added to its
+            // SourceCollection
+            update_photo_keywords();
+        }
+        
+        base.notify_membership_changed(collection);
+    }
+    
     private void generate_thumbnails() {
         try {
             ThumbnailCache.import_from_source(this, true);
@@ -4986,12 +5000,54 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         import_keywords = null;
     }
     
+    public override unowned string? get_indexable_keywords() {
+        // combine LibraryPhoto's keywords with the base's keywords
+        unowned string? base_keywords = base.get_indexable_keywords();
+        indexable_keywords = (base_keywords != null) ? base_keywords + " " + photo_keywords : photo_keywords;
+        
+        return indexable_keywords;
+    }
+    
+    // Returns true if the keywords changed
+    private bool update_photo_keywords(){
+        StringBuilder builder = new StringBuilder();
+        
+        // If in library, match anywhere along the library's children directories, otherwise
+        // only match against the photo's parent directory
+        File parent = get_master_file().get_parent();
+        builder.append(parent.get_basename());
+        if (AppDirs.is_in_import_dir(get_file())){
+            parent = parent.get_parent();
+            while(!parent.equal(AppDirs.get_import_dir())){
+                builder.append(" ");
+                builder.append(parent.get_basename());
+                parent = parent.get_parent();
+            }
+        }
+        
+        bool changed = (photo_keywords == null || photo_keywords != builder.str);
+        
+        photo_keywords = builder.str;
+        
+        return changed;
+    }
+    
     public override void notify_altered(Alteration alteration) {
         // generate new thumbnails in the background
         if (!block_thumbnail_generation && alteration.has_subject("image"))
             thumbnail_scheduler.at_priority_idle(Priority.LOW);
         
+        // if the master file changed, update the path_keywords ... if other backings are indexed,
+        // will need to be included here
+        bool keywords_changed = false;
+        if (alteration.has_detail("backing", "master"))
+            keywords_changed = update_photo_keywords();
+        
         base.notify_altered(alteration);
+        
+        // fire this notification after processing current one
+        if (keywords_changed)
+            notify_altered(new Alteration("indexable", "keywords"));
     }
     
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
