@@ -220,20 +220,14 @@ public class VideoReader {
     // Performs video thumbnailing.
     // Note: not thread-safe if called from the same instance of the class.
     private Gdk.Pixbuf? thumbnailer(string video_file) {
-        int[] pipefd = {0, 0};
-        
-        if (Posix.pipe(pipefd) < 0) {
-            warning("Error: unable to open pipe.");
-            return null;
-        }
-        Posix.close(pipefd[1]); // Close the write end of the pipe.
-        
         // Use Shotwell's thumbnailer, redirect output to stdout.
         debug("Launching thumbnailer process: %s", AppDirs.get_thumbnailer_bin().get_path());
         string[] argv = {AppDirs.get_thumbnailer_bin().get_path(), video_file};
+        int child_stdout;
         try {
             GLib.Process.spawn_async_with_pipes(null, argv, null, GLib.SpawnFlags.SEARCH_PATH | 
-                GLib.SpawnFlags.DO_NOT_REAP_CHILD, null, out thumbnailer_pid, null, out pipefd[0], null);
+                GLib.SpawnFlags.DO_NOT_REAP_CHILD, null, out thumbnailer_pid, null, out child_stdout,
+                null);
             debug("Spawned thumbnailer, child pid: %d", (int) thumbnailer_pid);
         } catch (Error e) {
             debug("Error spawning process: %s", e.message);
@@ -248,10 +242,10 @@ public class VideoReader {
         // Read pixbuf from stream.
         Gdk.Pixbuf? buf = null;
         try {
-            GLib.UnixInputStream unix_input = new GLib.UnixInputStream(pipefd[0], true);
+            GLib.UnixInputStream unix_input = new GLib.UnixInputStream(child_stdout, true);
             buf = new Gdk.Pixbuf.from_stream(unix_input, null);
         } catch (Error e) {
-            warning("Error creating pixbuf: %s", e.message);
+            debug("Error creating pixbuf: %s", e.message);
             buf = null;
         }
         
@@ -266,7 +260,7 @@ public class VideoReader {
             buf = null;
         }
         
-        Posix.close(pipefd[0]);
+        Posix.close(child_stdout);
         GLib.Process.close_pid(thumbnailer_pid);
         thumbnailer_pid = 0;
         return buf;
