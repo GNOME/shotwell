@@ -142,6 +142,12 @@
         <summary>photo thumbnail scale</summary>
         <description>The scale of photo thumbnails, ranging from 72 to 360.</description>
     </key>
+
+    <key name="pin-toolbar-state" type="b">
+        <default>false</default>
+        <summary>pin toolbar state</summary>
+        <description>Pin toolbar in fullscreen, or not.</description>
+    </key>
     
     <key name="background-color" type="s">
         <default>'#444'</default>

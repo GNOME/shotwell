@@ -16,7 +16,7 @@ public class FullscreenWindow : PageWindow {
     private bool waiting_for_invoke = false;
     private time_t left_toolbar_time = 0;
     private bool switched_to = false;
-    private bool is_toolbar_dismissal_enabled = true;
+    private bool is_toolbar_dismissal_enabled;
 
     public FullscreenWindow(Page page) {
         set_current_page(page);
@@ -45,9 +45,13 @@ public class FullscreenWindow : PageWindow {
         move(monitor.x, monitor.y);
         
         set_border_width(0);
+
+        // restore pin state
+        is_toolbar_dismissal_enabled = Config.Facade.get_instance().get_pin_toolbar_state();
         
         pin_button.set_label(_("Pin Toolbar"));
         pin_button.set_tooltip_text(_("Pin the toolbar open"));
+        pin_button.set_active(!is_toolbar_dismissal_enabled);
         pin_button.clicked.connect(update_toolbar_dismissal);
         
         close_button.set_tooltip_text(_("Leave fullscreen"));
@@ -150,6 +154,7 @@ public class FullscreenWindow : PageWindow {
     }
     
     private void on_close() {
+        Config.Facade.get_instance().set_pin_toolbar_state(is_toolbar_dismissal_enabled);
         hide_toolbar();
         toolbar_window = null;
         

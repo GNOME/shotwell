@@ -59,6 +59,7 @@ public enum ConfigurableProperty {
     LIBRARY_WINDOW_WIDTH,
     MODIFY_ORIGINALS,
     PHOTO_THUMBNAIL_SCALE,
+    PIN_TOOLBAR_STATE,
     PRINTING_CONTENT_HEIGHT,
     PRINTING_CONTENT_LAYOUT,
     PRINTING_CONTENT_PPI,
@@ -201,6 +202,9 @@ public enum ConfigurableProperty {
                 
             case PHOTO_THUMBNAIL_SCALE:
                 return "PHOTO_THUMBNAIL_SCALE";
+                
+            case PIN_TOOLBAR_STATE:
+                return "PIN_TOOLBAR_STATE";
                 
             case PRINTING_CONTENT_HEIGHT:
                 return "PRINTING_CONTENT_HEIGHT";
@@ -900,7 +904,27 @@ public abstract class ConfigurationFacade : Object {
             on_configuration_error(err);
         }
     }
+    
+    //
+    // pin toolbar state
+    //
+    public virtual bool get_pin_toolbar_state() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.PIN_TOOLBAR_STATE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return false;
+        }
+    }
 
+    public virtual void set_pin_toolbar_state(bool state) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.PIN_TOOLBAR_STATE, state);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+    
     //
     // last crop height
     //

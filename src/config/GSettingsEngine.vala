@@ -72,6 +72,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.LIBRARY_WINDOW_WIDTH] = WINDOW_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.MODIFY_ORIGINALS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PHOTO_THUMBNAIL_SCALE] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.PIN_TOOLBAR_STATE] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PRINTING_CONTENT_HEIGHT] = PRINTING_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PRINTING_CONTENT_LAYOUT] = PRINTING_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PRINTING_CONTENT_PPI] = PRINTING_SCHEMA_NAME;
@@ -134,6 +135,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.LIBRARY_WINDOW_WIDTH] = "library-width";
         key_names[ConfigurableProperty.MODIFY_ORIGINALS] = "modify-originals";
         key_names[ConfigurableProperty.PHOTO_THUMBNAIL_SCALE] = "photo-thumbnail-scale";
+        key_names[ConfigurableProperty.PIN_TOOLBAR_STATE] = "pin-toolbar-state";
         key_names[ConfigurableProperty.PRINTING_CONTENT_HEIGHT] = "content-height";
         key_names[ConfigurableProperty.PRINTING_CONTENT_LAYOUT] = "content-layout";
         key_names[ConfigurableProperty.PRINTING_CONTENT_PPI] = "content-ppi";
