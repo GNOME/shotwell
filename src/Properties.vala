@@ -17,7 +17,6 @@ private abstract class Properties : Gtk.Grid {
         Gtk.Widget info;
 
         label.set_justify(Gtk.Justification.RIGHT);
-        label.set_size_request(150, -1);
         
         label.set_markup(GLib.Markup.printf_escaped("<span font_weight=\"bold\">%s</span>", label_text));
 
@@ -590,9 +589,9 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
                     format_size((int64) filesize) : NO_VALUE);
 
                 if (is_raw)
-                    add_line(_("Current\nDevelopment:"), development_path);
+                    add_line(_("Current Development:"), development_path);
 
-                add_line(_("Original\ndimensions:"), (original_dim != null && original_dim.has_area()) ?
+                add_line(_("Original dimensions:"), (original_dim != null && original_dim.has_area()) ?
                     "%d &#215; %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
 
                 add_line(_("Camera make:"), (camera_make != "" && camera_make != null) ?
