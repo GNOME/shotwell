@@ -720,7 +720,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     }
 
     public string get_searchable_name() {
-        string istring = HierarchicalTagUtilities.get_basename(get_path()).down().normalize();
+        string istring = HierarchicalTagUtilities.get_basename(get_path()).down();
         return String.remove_diacritics(istring);
     }
     

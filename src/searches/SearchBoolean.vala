@@ -265,7 +265,7 @@ public class SearchConditionText : SearchCondition {
     
     public SearchConditionText(SearchCondition.SearchType search_type, string? text, Context context) {
         this.search_type = search_type;
-        this.text = (text != null) ? text.down() : "";
+        this.text = (text != null) ? String.remove_diacritics(text.down()) : "";
         this.context = context;
     }
     

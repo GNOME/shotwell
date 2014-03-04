@@ -185,7 +185,7 @@ public string remove_diacritics(string istring) {
     var builder = new StringBuilder ();
     unichar ch;
     int i = 0;
-    while(istring.get_next_char(ref i, out ch)) {
+    while(istring.normalize().get_next_char(ref i, out ch)) {
         switch(ch.type()) {
             case UnicodeType.CONTROL:
             case UnicodeType.FORMAT:
