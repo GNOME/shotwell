@@ -1,3 +1,11 @@
+Shotwell 0.17.2 - 4 March 2014
+------------------------------
+
+  * UNIX pipe unnecessarily left open for each imported video
+  * Improved searching for event comments and diacritics
+  * Update translations
+
+
 Shotwell 0.17.1 - 17 February 2014
 ----------------------------------
 
