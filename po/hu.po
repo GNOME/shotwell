@@ -5,20 +5,22 @@
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2014.
 # L. Csordas <csola48@gmail.com>, 2012.
 # lsbeeler <lucas@yorba.org>, 2011.
+# Balázs Úr <urbalazs at gmail dot com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-01-16 09:35+0000\n"
-"PO-Revision-Date: 2014-02-03 15:45+0100\n"
-"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2014-03-04 22:34+0000\n"
+"PO-Revision-Date: 2014-03-05 17:11+0100\n"
+"Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -37,14 +39,13 @@ msgstr ""
 "kijelentkezett onnan.\n"
 "\n"
 "A Google szolgáltatásra való feltöltés folytatásához indítsa újra a "
-"Shotwellt, és "
-"próbálja újra a feltöltést."
+"Shotwellt, és próbálja újra a feltöltést."
 
-#: ../plugins/common/Resources.vala:9 ../src/AppWindow.vala:683
+#: ../plugins/common/Resources.vala:9 ../src/AppWindow.vala:688
 msgid "Visit the Yorba web site"
 msgstr "Keresse fel a Yorba weboldalát"
 
-#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:686
+#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:691
 msgid "translator-credits"
 msgstr ""
 "Peter Bojtos <ptr at ulx dot hu>\n"
@@ -73,8 +74,9 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-msgid "Copyright 2009-2013 Yorba Foundation"
-msgstr "Copyright 2009-2013 Yorba Foundation"
+#| msgid "Copyright 2009-2013 Yorba Foundation"
+msgid "Copyright 2009-2014 Yorba Foundation"
+msgstr "Copyright 2009-2014 Yorba Foundation"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -121,8 +123,10 @@ msgstr ""
 "az F-Spot adatbázis ezen verzióját"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:66
-msgid "Cannot read the selected F-Spot database file: error while reading tags table"
-msgstr "A kijelölt F-Spot adatbázisfájl nem olvasható: hiba a címketábla olvasásakor"
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr ""
+"A kijelölt F-Spot adatbázisfájl nem olvasható: hiba a címketábla olvasásakor"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:68
 msgid ""
@@ -187,7 +191,8 @@ msgid "'%s' isn't a valid response to an OAuth authentication request"
 msgstr "„%s” nem érvényes válasz OAuth hitelesítési kérésre"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:558
-msgid "TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): nem lehet elindítani, ez a közzétevő nem "
 "indítható újra."
@@ -234,7 +239,6 @@ msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Jelenleg nincs bejelentkezve a Yandex.Fotki oldalra."
 
 #: ../plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:18
-#| msgid "Core Publishing Services"
 msgid "Shotwell Extra Publishing Services"
 msgstr "Shotwell extra közzétételi szolgáltatások"
 
@@ -259,39 +263,28 @@ msgid "Login"
 msgstr "Bejelentkezés"
 
 #: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:1
-msgid ""
-"You are logged into Tumblr as (name).\n"
-"\n"
-"(this label's string is populated and set inside the code, \n"
-"so changes made here will not display)"
-msgstr ""
-"Bejelentkezett a Tumblr-re, mint (name).\n"
-"\n"
-"(ez a szöveg a kódon belül lesz feltöltve)"
-
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:5
 msgid "Blogs:"
 msgstr "Blogok:"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:6
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
 msgid "Photo _size:"
 msgstr "Fénykép _mérete:"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:3
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:5
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:8
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:8
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:10
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:2
 msgid "_Logout"
 msgstr "_Kijelentkezés"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:8
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:4
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:6
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:9
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:9
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:11
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:7
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:3
 msgid "_Publish"
 msgstr "Közzé_tétel"
@@ -313,7 +306,6 @@ msgid "_Forbid downloading original photo"
 msgstr "_Eredeti kép letöltésének megtiltása"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:7
-#| msgid "Publish"
 msgid "Public"
 msgstr "Nyilvános"
 
@@ -399,7 +391,7 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "Hová szeretné feltölteni a kijelölt fényképeket?"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Upload _size:"
 msgstr "Feltöltés _mérete:"
 
@@ -660,31 +652,23 @@ msgid "Public unlisted"
 msgstr "Nyilvános, felsorolatlan"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:1
-msgid ""
-" (text depends on fb username and is modified in the app - \n"
-"anything put into this field won't display)"
-msgstr ""
-" (a szöveg a Facebook felhasználónévtől függ, és az alkalmazásban módosításra "
-"kerül -\n"
-"ebben a mezőben semmi nem jelenik meg)"
-
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Publish to an e_xisting album:"
 msgstr "Közzététel _meglévő albumban:"
 
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:2
 msgid "Create a _new album named:"
 msgstr "Új _album létrehozása ezen a néven:"
 
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
 msgid "Videos and new photo albums _visible to:"
 msgstr "A _videókat és új fényképalbumokat láthatja:"
 
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:7
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:9
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:5
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:8
-msgid "_Remove location, camera, and other identifying information before uploading"
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
 msgstr ""
 "_Eltávolítja a tartózkodási hely, a fényképezőgép és egyebek azonosításra "
 "alkalmas adatait a feltöltés előtt"
@@ -706,51 +690,20 @@ msgstr "_Hitelesítési szám:"
 msgid "Con_tinue"
 msgstr "Foly_tatás"
 
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
-msgid ""
-"You are logged into Flickr as (name).\n"
-"\n"
-"(this label's string is populated and set inside the code, \n"
-"so changes made here will not display)"
-msgstr ""
-"Bejelentkezett a Flickr-re, mint (name).\n"
-"\n"
-"(ez a szöveg a kódon belül lesz feltöltve)"
-
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:5
-msgid "_visibility label (populated in the code)"
-msgstr "_visibility label (populated in the code)"
-
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:1
-msgid ""
-"'you are logged in as $name'\n"
-"(populated in the application code)"
-msgstr ""
-"'you are logged in as $name'\n"
-"(populated in the application code)"
-
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
 msgid "An _existing album:"
 msgstr "_Egy létező album:"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:2
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:3
 msgid "A _new album named:"
 msgstr "Új _album, a neve:"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
 msgid "L_ist album in public gallery"
 msgstr "Alb_um listázása a nyilvános galériában"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
-msgid ""
-"$mediatype will appear in\n"
-"(populated in code)"
-msgstr ""
-"$mediatype will appear in\n"
-"(populated in code)"
-
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:8
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
 msgid "Photo _size preset:"
 msgstr "Fénykép_méret előbeállítása:"
 
@@ -858,8 +811,9 @@ msgid "Core Slideshow Transitions"
 msgstr "Alap diaátmenetek"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
 
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
@@ -886,55 +840,56 @@ msgstr "Nem hozható létre az ideiglenes könyvtár (%s): %s"
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Nem hozható létre az adatalkönyvtár (%s): %s"
 
-#: ../src/AppWindow.vala:49
+#. restore pin state
+#: ../src/AppWindow.vala:52
 msgid "Pin Toolbar"
 msgstr "Eszköztár rögzítése"
 
-#: ../src/AppWindow.vala:50
+#: ../src/AppWindow.vala:53
 msgid "Pin the toolbar open"
 msgstr "Eszköztár rögzítése nyitva"
 
-#: ../src/AppWindow.vala:53 ../src/AppWindow.vala:131
+#: ../src/AppWindow.vala:57 ../src/AppWindow.vala:135
 msgid "Leave fullscreen"
 msgstr "Teljes képernyő elhagyása"
 
-#: ../src/AppWindow.vala:130
+#: ../src/AppWindow.vala:134
 msgid "Leave _Fullscreen"
 msgstr "Teljes képernyő _elhagyása"
 
-#: ../src/AppWindow.vala:491
+#: ../src/AppWindow.vala:496
 msgid "_Quit"
 msgstr "_Kilépés"
 
-#: ../src/AppWindow.vala:496
+#: ../src/AppWindow.vala:501
 msgid "_About"
 msgstr "_Névjegy"
 
-#: ../src/AppWindow.vala:501
+#: ../src/AppWindow.vala:506
 msgid "Fulls_creen"
 msgstr "Teljes ké_pernyő"
 
-#: ../src/AppWindow.vala:506
+#: ../src/AppWindow.vala:511
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: ../src/AppWindow.vala:511
+#: ../src/AppWindow.vala:516
 msgid "_Frequently Asked Questions"
 msgstr "_Gyakran ismételt kérdések"
 
-#: ../src/AppWindow.vala:516
+#: ../src/AppWindow.vala:521
 msgid "_Report a Problem..."
 msgstr "_Hiba jelentése…"
 
-#: ../src/AppWindow.vala:615 ../src/AppWindow.vala:636
-#: ../src/AppWindow.vala:653 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
+#: ../src/AppWindow.vala:620 ../src/AppWindow.vala:641
+#: ../src/AppWindow.vala:658 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
 #: ../src/Dialogs.vala:1361 ../src/Dialogs.vala:1384
 #: ../src/data_imports/DataImportsUI.vala:399
 #: ../src/publishing/PublishingUI.vala:498
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: ../src/AppWindow.vala:663
+#: ../src/AppWindow.vala:668
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -947,17 +902,17 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/AppWindow.vala:695
+#: ../src/AppWindow.vala:700
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nem lehet megjeleníteni a súgót: %s"
 
-#: ../src/AppWindow.vala:703
+#: ../src/AppWindow.vala:708
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nem nyitható meg a hibaadatbázis: %s"
 
-#: ../src/AppWindow.vala:711
+#: ../src/AppWindow.vala:716
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nem jeleníthető meg a GyIK: %s"
@@ -1183,7 +1138,8 @@ msgstr "Hiba az idő megváltoztatásakor"
 
 #: ../src/Commands.vala:1411
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural "Time adjustments could not be undone on the following photo files."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
 msgstr[0] "Az időmódosítás nem vonható vissza a következő fényképen."
 msgstr[1] "Az időmódosítás nem vonható vissza a következő fényképeken."
 
@@ -1426,7 +1382,8 @@ msgstr "hibaüzenet:"
 #.
 #: ../src/Dialogs.vala:582
 msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
-msgstr "Fotóként vagy videóként fel nem ismert, és emiatt nem importált fájlok:"
+msgstr ""
+"Fotóként vagy videóként fel nem ismert, és emiatt nem importált fájlok:"
 
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
@@ -1464,7 +1421,8 @@ msgstr ""
 #.
 #: ../src/Dialogs.vala:628
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
-msgstr "A fényképek/videók importálása sikertelen volt, mert néhány fájl sérült:"
+msgstr ""
+"A fényképek/videók importálása sikertelen volt, mert néhány fájl sérült:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
@@ -1498,8 +1456,10 @@ msgstr[1] "%d duplikált fénykép/videó nem lett importálva:\n"
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] "%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
-msgstr[1] "%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgstr[0] ""
+"%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgstr[1] ""
+"%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
 
 #: ../src/Dialogs.vala:686
 #, c-format
@@ -1511,9 +1471,12 @@ msgstr[1] "%d videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n
 #: ../src/Dialogs.vala:689
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
-msgid_plural "%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] "%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
-msgstr[1] "%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
+msgstr[1] ""
+"%d fényképet/videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
 
 #: ../src/Dialogs.vala:692
 #, c-format
@@ -1524,7 +1487,8 @@ msgstr[1] "%d fájlt nem sikerült importálni hardver- vagy fájlhiba miatt:\n"
 
 #: ../src/Dialogs.vala:706
 #, c-format
-msgid "1 photo failed to import because the photo library folder was not writable:\n"
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
 msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
@@ -1537,7 +1501,8 @@ msgstr[1] ""
 
 #: ../src/Dialogs.vala:709
 #, c-format
-msgid "1 video failed to import because the photo library folder was not writable:\n"
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
@@ -1565,7 +1530,8 @@ msgstr[1] ""
 
 #: ../src/Dialogs.vala:715
 #, c-format
-msgid "1 file failed to import because the photo library folder was not writable:\n"
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
@@ -1594,8 +1560,10 @@ msgstr[1] "%d videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] "1 fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
-msgstr[1] "%d fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
+msgstr[0] ""
+"1 fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
+msgstr[1] ""
+"%d fényképet/videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
 
 #: ../src/Dialogs.vala:738
 #, c-format
@@ -1789,9 +1757,11 @@ msgstr "Visszavonja a külső szerkesztéseket?"
 #: ../src/Dialogs.vala:1353
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
-msgid_plural "This will destroy all changes made to %d external files.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] "Ezzel a külső fájlon végzett minden változtatás elvész. Folytatja?"
-msgstr[1] "Ezzel a külső %d fájlon végzett minden változtatás elvész. Folytatja?"
+msgstr[1] ""
+"Ezzel a külső %d fájlon végzett minden változtatás elvész. Folytatja?"
 
 #: ../src/Dialogs.vala:1357
 msgid "Re_vert External Edit"
@@ -2125,8 +2095,10 @@ msgstr[1] ""
 
 #: ../src/Dialogs.vala:2684
 #, c-format
-msgid "The photo or video cannot be moved to your desktop trash.  Delete this file?"
-msgid_plural "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
 msgstr[0] "%d fotó vagy videó nem helyezhető át a Kukába. Törli a fájlt?"
 msgstr[1] "%d fotó vagy videó nem helyezhető át a Kukába. Törli a fájlokat?"
 
@@ -2157,7 +2129,7 @@ msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "%s nem figyelhető: nem könyvtár (%s)"
 
 #. if no name, pretty up the start time
-#: ../src/Event.vala:737
+#: ../src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "%s események"
@@ -3462,7 +3434,7 @@ msgid "untitled"
 msgstr "névtelen"
 
 #. multiple videos
-#: ../src/VideoSupport.vala:492
+#: ../src/VideoSupport.vala:486
 msgid "Export Videos"
 msgstr "Videók exportálása"
 
@@ -3471,7 +3443,8 @@ msgid "Cameras"
 msgstr "Fényképezőgépek"
 
 #: ../src/camera/ImportPage.vala:459
-msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
 "A fényképezőgép leválasztása nem sikerült, próbálja meg a fájlkezelőből "
 "leválasztani."
@@ -3625,7 +3598,8 @@ msgstr "Az importálás innen: %s egy hiba miatt nem folytatódhat:"
 
 #: ../src/data_imports/DataImportsPluginHost.vala:151
 msgid "To try importing from another service, select one from the above menu."
-msgstr "Egy másik szolgáltatásból való importáláshoz válasszon egyet a fenti menüből."
+msgstr ""
+"Egy másik szolgáltatásból való importáláshoz válasszon egyet a fenti menüből."
 
 #: ../src/data_imports/DataImportsUI.vala:10
 msgid ""
@@ -4269,7 +4243,8 @@ msgstr "A közzététel egy hiba miatt nem folytatódhat erre: %s:"
 
 #: ../src/publishing/PublishingPluginHost.vala:84
 msgid "To try publishing to another service, select one from the above menu."
-msgstr "Próbálja másik szolgáltatáson közzétenni, válasszon egyet a fenti menüből."
+msgstr ""
+"Próbálja másik szolgáltatáson közzétenni, válasszon egyet a fenti menüből."
 
 #: ../src/publishing/PublishingUI.vala:105
 msgid "The selected photos/videos were successfully published."
@@ -4711,3 +4686,47 @@ msgstr "másodperc"
 msgid "_Login"
 msgstr "Bejele_ntkezés"
 
+#~ msgid ""
+#~ "You are logged into Tumblr as (name).\n"
+#~ "\n"
+#~ "(this label's string is populated and set inside the code, \n"
+#~ "so changes made here will not display)"
+#~ msgstr ""
+#~ "Bejelentkezett a Tumblr-re, mint (name).\n"
+#~ "\n"
+#~ "(ez a szöveg a kódon belül lesz feltöltve)"
+
+#~ msgid ""
+#~ " (text depends on fb username and is modified in the app - \n"
+#~ "anything put into this field won't display)"
+#~ msgstr ""
+#~ " (a szöveg a Facebook felhasználónévtől függ, és az alkalmazásban "
+#~ "módosításra kerül -\n"
+#~ "ebben a mezőben semmi nem jelenik meg)"
+
+#~ msgid ""
+#~ "You are logged into Flickr as (name).\n"
+#~ "\n"
+#~ "(this label's string is populated and set inside the code, \n"
+#~ "so changes made here will not display)"
+#~ msgstr ""
+#~ "Bejelentkezett a Flickr-re, mint (name).\n"
+#~ "\n"
+#~ "(ez a szöveg a kódon belül lesz feltöltve)"
+
+#~ msgid "_visibility label (populated in the code)"
+#~ msgstr "_visibility label (populated in the code)"
+
+#~ msgid ""
+#~ "'you are logged in as $name'\n"
+#~ "(populated in the application code)"
+#~ msgstr ""
+#~ "'you are logged in as $name'\n"
+#~ "(populated in the application code)"
+
+#~ msgid ""
+#~ "$mediatype will appear in\n"
+#~ "(populated in code)"
+#~ msgstr ""
+#~ "$mediatype will appear in\n"
+#~ "(populated in code)"
