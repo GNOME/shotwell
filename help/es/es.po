@@ -7,14 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2014-01-15 20:18+0000\n"
-"PO-Revision-Date: 2014-01-16 10:30+0100\n"
+"POT-Creation-Date: 2014-01-16 09:35+0000\n"
+"PO-Revision-Date: 2014-03-14 18:01+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: Gtranslator 2.91.5\n"
 
@@ -25,7 +25,7 @@ msgstr ""
 
 #: C/view-sidebar.page:21(title)
 msgid "The sidebar"
-msgstr ""
+msgstr "La barra lateral"
 
 #: C/view-sidebar.page:23(p)
 msgid ""
@@ -70,7 +70,7 @@ msgstr ""
 
 #: C/view-information.page:12(title)
 msgid "Basic and extended information"
-msgstr ""
+msgstr "Información básica y extendida"
 
 #: C/view-information.page:14(p)
 msgid ""
@@ -139,7 +139,7 @@ msgstr ""
 
 #: C/view-displaying.page:23(title)
 msgid "Viewing videos"
-msgstr ""
+msgstr "Ver vídeos"
 
 #: C/view-displaying.page:24(p)
 msgid ""
@@ -154,7 +154,7 @@ msgstr ""
 
 #: C/share-upload.page:12(title)
 msgid "Publishing to the Web"
-msgstr ""
+msgstr "Publicar en la web"
 
 #: C/share-upload.page:14(p)
 msgid ""
@@ -165,21 +165,23 @@ msgstr ""
 
 #: C/share-upload.page:18(link)
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: C/share-upload.page:19(link)
 msgid "Flickr"
-msgstr ""
+msgstr "Flickr"
 
 #: C/share-upload.page:20(p)
 msgid ""
 "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
 msgstr ""
+"<link href=\"http://picasaweb.google.com\">Álbumes de Picasa Web</link> y "
+"<link href=\"http://plus.google.com\">Google+</link>"
 
 #: C/share-upload.page:21(p)
 msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
-msgstr ""
+msgstr "<link href=\"http://youtube.com\">YouTube</link> (sólo vídeos)"
 
 #: C/share-upload.page:22(p)
 msgid ""
@@ -227,11 +229,11 @@ msgstr ""
 
 #: C/share-slideshow.page:7(desc)
 msgid "Watch a slideshow of your photos."
-msgstr ""
+msgstr "Ver sus fotos como diapositivas."
 
 #: C/share-slideshow.page:12(title)
 msgid "Slideshows"
-msgstr ""
+msgstr "Diapositivas"
 
 #: C/share-slideshow.page:14(p)
 msgid ""
@@ -250,19 +252,19 @@ msgstr ""
 
 #: C/share-slideshow.page:20(p)
 msgid "You can select different transition effects."
-msgstr ""
+msgstr "Puede seleccionar diferentes efectos de transición."
 
 #: C/share-slideshow.page:21(p)
 msgid "The time for each transition effect: 0.1 - 1.0 seconds"
-msgstr ""
+msgstr "El tiempo para cada efecto de transición: 0.1 - 1.0 segundos"
 
 #: C/share-send.page:7(desc)
 msgid "Send photos via email, instant messaging or in other ways."
-msgstr ""
+msgstr "Enviar fotos por correo-e, mensajería instantánea u otras maneras."
 
 #: C/share-send.page:12(title)
 msgid "Sending photos"
-msgstr ""
+msgstr "Enviar fotos"
 
 #: C/share-send.page:14(p)
 msgid ""
@@ -288,13 +290,15 @@ msgstr ""
 
 #: C/share-print.page:12(title)
 msgid "Printing"
-msgstr ""
+msgstr "Imprimir"
 
 #: C/share-print.page:14(p)
 msgid ""
 "To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</"
 "gui></guiseq>."
 msgstr ""
+"Para imprimir una foto, selecciónela y elija <guiseq><gui>Archivo</"
+"gui><gui>Imprimir</gui></guiseq>."
 
 #: C/share-print.page:16(p)
 msgid ""
@@ -318,7 +322,7 @@ msgstr ""
 
 #: C/share-export.page:12(title)
 msgid "Exporting photos"
-msgstr ""
+msgstr "Exportar fotos"
 
 #: C/share-export.page:14(p)
 msgid ""
@@ -416,7 +420,7 @@ msgstr ""
 
 #: C/running.page:14(title)
 msgid "Running Shotwell"
-msgstr ""
+msgstr "Ejecutar Shotwell"
 
 #: C/running.page:16(p)
 msgid ""
@@ -446,7 +450,7 @@ msgstr ""
 
 #: C/raw.page:12(title)
 msgid "RAW support in Shotwell"
-msgstr ""
+msgstr "Soporte de RAW en Shotwell"
 
 #: C/raw.page:13(p)
 msgid ""
@@ -493,7 +497,7 @@ msgstr ""
 
 #: C/other-plugins.page:12(title)
 msgid "Plugins"
-msgstr ""
+msgstr "Complementos"
 
 #: C/other-plugins.page:13(p)
 msgid ""
@@ -527,7 +531,7 @@ msgstr ""
 
 #: C/other-multiple.page:12(title)
 msgid "Multiple libraries"
-msgstr ""
+msgstr "Varias bibliotecas"
 
 #: C/other-multiple.page:14(p)
 msgid ""
@@ -551,6 +555,8 @@ msgid ""
 "\n"
 "shotwell -d [library-directory]\n"
 msgstr ""
+"\n"
+"shotwell -d [carpeta-biblioteca]\n"
 
 #: C/other-missing.page:7(desc)
 msgid "If Shotwell can't find a photo in your library, it marks it as missing."
@@ -628,15 +634,15 @@ msgstr ""
 
 #: C/other-files.page:38(em)
 msgid "Symbol"
-msgstr ""
+msgstr "Símbolo"
 
 #: C/other-files.page:38(em)
 msgid "Meaning"
-msgstr ""
+msgstr "Significado"
 
 #: C/other-files.page:38(em)
 msgid "Example"
-msgstr ""
+msgstr "Ejemplo"
 
 #: C/other-files.page:43(p)
 msgid "%Y"
@@ -644,7 +650,7 @@ msgstr "%Y"
 
 #: C/other-files.page:43(p)
 msgid "Year: full"
-msgstr ""
+msgstr "Año: completo"
 
 #: C/other-files.page:43(p)
 msgid "2011"
@@ -656,7 +662,7 @@ msgstr "%y"
 
 #: C/other-files.page:46(p)
 msgid "Year: two digit"
-msgstr ""
+msgstr "Año: dos dígitos"
 
 #: C/other-files.page:46(p)
 msgid "11"
@@ -668,7 +674,7 @@ msgstr "%d"
 
 #: C/other-files.page:49(p)
 msgid "Day of the month with leading zero"
-msgstr ""
+msgstr "Dia del mes, empezando por cero"
 
 #: C/other-files.page:49(p)
 msgid "03"
@@ -680,11 +686,11 @@ msgstr "%A"
 
 #: C/other-files.page:52(p)
 msgid "Day name: full"
-msgstr ""
+msgstr "Nombre del día: completo"
 
 #: C/other-files.page:52(p)
 msgid "Wednesday"
-msgstr ""
+msgstr "Miércoles"
 
 #: C/other-files.page:55(p)
 msgid "%a"
@@ -692,11 +698,11 @@ msgstr "%a"
 
 #: C/other-files.page:55(p)
 msgid "Day name: abbreviated"
-msgstr ""
+msgstr "Nombre del día: abreviado"
 
 #: C/other-files.page:55(p)
 msgid "Wed"
-msgstr ""
+msgstr "Mié"
 
 #: C/other-files.page:58(p)
 msgid "%m"
@@ -704,7 +710,7 @@ msgstr "%m"
 
 #: C/other-files.page:58(p)
 msgid "Month number with leading zero"
-msgstr ""
+msgstr "Número de mes, empezando por cero"
 
 #: C/other-files.page:58(p)
 msgid "02"
@@ -716,7 +722,7 @@ msgstr "%b"
 
 #: C/other-files.page:60(p)
 msgid "Month name: abbreviated"
-msgstr ""
+msgstr "Nombre del mes: abreviado"
 
 #: C/other-files.page:60(p)
 msgid "Feb"
@@ -728,11 +734,11 @@ msgstr "%B"
 
 #: C/other-files.page:62(p)
 msgid "Month name: full"
-msgstr ""
+msgstr "Nombre del mes: completo"
 
 #: C/other-files.page:62(p)
 msgid "February"
-msgstr ""
+msgstr "Febrero"
 
 #: C/other-files.page:63(p)
 msgid "%I"
@@ -740,7 +746,7 @@ msgstr "%I"
 
 #: C/other-files.page:63(p)
 msgid "Hour: 12 hour format"
-msgstr ""
+msgstr "Hora: formato de 12 horas"
 
 #: C/other-files.page:63(p)
 msgid "05"
@@ -752,7 +758,7 @@ msgstr "%H"
 
 #: C/other-files.page:64(p)
 msgid "Hour: 24 hour format"
-msgstr ""
+msgstr "Hora: formato de 24 horas"
 
 #: C/other-files.page:64(p)
 msgid "17"
@@ -764,7 +770,7 @@ msgstr "%M"
 
 #: C/other-files.page:66(p)
 msgid "Minute"
-msgstr ""
+msgstr "Minuto"
 
 #: C/other-files.page:66(p)
 msgid "16"
@@ -776,7 +782,7 @@ msgstr "%S"
 
 #: C/other-files.page:67(p)
 msgid "Second"
-msgstr ""
+msgstr "Segundo"
 
 #: C/other-files.page:67(p)
 msgid "30"
@@ -803,7 +809,7 @@ msgstr ""
 
 #: C/other-files.page:79(title)
 msgid "Automatically importing photos"
-msgstr ""
+msgstr "Importar fotos automáticamente"
 
 #: C/other-files.page:81(p)
 msgid ""
@@ -839,7 +845,7 @@ msgstr ""
 
 #: C/other-files.page:107(title)
 msgid "Writing metadata on the fly"
-msgstr ""
+msgstr "Escribir metadatos al vuelo"
 
 #: C/other-files.page:109(p)
 msgid ""
@@ -858,23 +864,23 @@ msgstr ""
 
 #: C/other-files.page:118(p)
 msgid "titles"
-msgstr ""
+msgstr "títulos"
 
 #: C/other-files.page:119(p)
 msgid "tags"
-msgstr ""
+msgstr "etiquetas"
 
 #: C/other-files.page:120(p)
 msgid "ratings"
-msgstr ""
+msgstr "valoraciones"
 
 #: C/other-files.page:121(p)
 msgid "rotation information"
-msgstr ""
+msgstr "información de rotación"
 
 #: C/other-files.page:122(p)
 msgid "time/date"
-msgstr ""
+msgstr "fecha/hora"
 
 #: C/other-files.page:125(p)
 msgid ""
@@ -903,11 +909,11 @@ msgstr ""
 
 #: C/organize-title.page:7(desc)
 msgid "Give titles to your photos."
-msgstr ""
+msgstr "Asignar títulos a las fotos."
 
 #: C/organize-title.page:12(title)
 msgid "Titles"
-msgstr ""
+msgstr "Títulos"
 
 #: C/organize-title.page:14(p)
 msgid ""
@@ -924,11 +930,11 @@ msgstr ""
 
 #: C/organize-tag.page:7(desc)
 msgid "Organize photos by labelling them."
-msgstr ""
+msgstr "Organizar las fotos etiquetándolas."
 
 #: C/organize-tag.page:14(title)
 msgid "Tagging photos"
-msgstr ""
+msgstr "Etiquetar fotos"
 
 #: C/organize-tag.page:16(p)
 msgid ""
@@ -945,10 +951,11 @@ msgstr ""
 #: C/organize-tag.page:28(p)
 msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
 msgstr ""
+"Elija <guiseq><gui>Etiquetas</gui><gui>Añadir etiquetas</gui></guiseq>."
 
 #: C/organize-tag.page:29(p)
 msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
-msgstr ""
+msgstr "Pulse <keyseq><key>Ctrl</key><key>T</key></keyseq>."
 
 #: C/organize-tag.page:30(p)
 msgid "Drag the selected photos and drop them on the desired tag."
@@ -994,7 +1001,7 @@ msgstr ""
 
 #: C/organize-tag.page:73(title)
 msgid "Hierarchical Tags"
-msgstr ""
+msgstr "Etiquetas jerárquicas"
 
 #: C/organize-tag.page:74(p)
 msgid ""
@@ -1021,7 +1028,7 @@ msgstr ""
 
 #: C/organize-search.page:12(title)
 msgid "Searching"
-msgstr ""
+msgstr "Búsqueda"
 
 #: C/organize-search.page:14(p)
 msgid ""
@@ -1033,7 +1040,7 @@ msgstr ""
 
 #: C/organize-search.page:21(title)
 msgid "Search bar"
-msgstr ""
+msgstr "Barra de búsqueda"
 
 #: C/organize-search.page:22(p)
 msgid ""
@@ -1063,7 +1070,7 @@ msgstr ""
 
 #: C/organize-search.page:44(title)
 msgid "Saved search"
-msgstr ""
+msgstr "Búsqueda guardada"
 
 #: C/organize-search.page:45(p)
 msgid ""
@@ -1102,7 +1109,7 @@ msgstr ""
 
 #: C/organize-remove.page:12(title)
 msgid "Removing and deleting photos"
-msgstr ""
+msgstr "Quitar y eliminar fotos"
 
 #: C/organize-remove.page:14(p)
 msgid ""
@@ -1124,7 +1131,7 @@ msgstr ""
 
 #: C/organize-remove.page:18(title)
 msgid "Removing photos from the library"
-msgstr ""
+msgstr "Quitar fotos de la biblioteca"
 
 #: C/organize-remove.page:19(p)
 msgid ""
@@ -1143,7 +1150,7 @@ msgstr ""
 
 #: C/organize-remove.page:26(title)
 msgid "Emptying or restoring the trash folder"
-msgstr ""
+msgstr "Vaciar o restaurar la carpeta de la papelera"
 
 #: C/organize-remove.page:27(p)
 msgid ""
@@ -1154,31 +1161,31 @@ msgstr ""
 
 #: C/organize-remove.page:29(title)
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: C/organize-remove.page:29(p)
 msgid "Delete the selected photos from the trash folder."
-msgstr ""
+msgstr "Eliminar las fotos seleccionadas de la carpeta de la papelera"
 
 #: C/organize-remove.page:30(title)
 msgid "Restore"
-msgstr ""
+msgstr "Restaurar"
 
 #: C/organize-remove.page:30(p)
 msgid "Restore the selected photos into Shotwell."
-msgstr ""
+msgstr "Restaurar las fotos seleccionadas en Shotwell."
 
 #: C/organize-remove.page:31(title)
 msgid "Empty trash"
-msgstr ""
+msgstr "Vaciar la papelera"
 
 #: C/organize-remove.page:31(p)
 msgid "Delete all photos from the trash folder."
-msgstr ""
+msgstr "Eliminar todas las fotos de la papelera."
 
 #: C/organize-remove.page:36(title)
 msgid "Deleting or emptying Trash"
-msgstr ""
+msgstr "Eliminar o vaciar la papelera"
 
 #: C/organize-remove.page:37(p)
 msgid ""
@@ -1206,11 +1213,11 @@ msgstr ""
 
 #: C/organize-remove.page:41(title)
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: C/organize-remove.page:41(p)
 msgid "Do nothing."
-msgstr ""
+msgstr "No hacer nada."
 
 #: C/organize-rating.page:7(desc)
 msgid ""
@@ -1220,7 +1227,7 @@ msgstr ""
 
 #: C/organize-rating.page:12(title)
 msgid "Ratings"
-msgstr ""
+msgstr "Valoraciones"
 
 #: C/organize-rating.page:13(p)
 msgid ""
@@ -1283,7 +1290,7 @@ msgstr ""
 
 #: C/organize-flag.page:12(title)
 msgid "Flagging photos"
-msgstr ""
+msgstr "Marcar fotos"
 
 #: C/organize-flag.page:14(p)
 msgid ""
@@ -1326,7 +1333,7 @@ msgstr ""
 
 #: C/organize-event.page:12(title)
 msgid "Events"
-msgstr ""
+msgstr "Eventos"
 
 #: C/organize-event.page:14(p)
 msgid ""
@@ -1353,7 +1360,7 @@ msgstr ""
 
 #: C/organize-event.page:25(title)
 msgid "Renaming events"
-msgstr ""
+msgstr "Renombrar eventos"
 
 #: C/organize-event.page:27(p)
 msgid ""
@@ -1365,7 +1372,7 @@ msgstr ""
 
 #: C/organize-event.page:31(title)
 msgid "Moving photos between events"
-msgstr ""
+msgstr "Mover fotos entre eventos"
 
 #: C/organize-event.page:33(p)
 msgid ""
@@ -1394,7 +1401,7 @@ msgstr ""
 
 #: C/organize-event.page:43(title)
 msgid "Sorting events"
-msgstr ""
+msgstr "Ordenar eventos"
 
 #: C/organize-event.page:45(p)
 msgid ""
@@ -1478,30 +1485,32 @@ msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
 msgstr ""
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Gestor de fotos "
+"Shotwell"
 
 #: C/index.page:26(title)
 msgid "Importing Photos"
-msgstr ""
+msgstr "Importar fotos"
 
 #: C/index.page:30(title)
 msgid "Viewing Photos"
-msgstr ""
+msgstr "Ver fotos"
 
 #: C/index.page:34(title)
 msgid "Organizing Photos"
-msgstr ""
+msgstr "Organizar fotos"
 
 #: C/index.page:38(title)
 msgid "Editing Photos"
-msgstr ""
+msgstr "Editar fotos"
 
 #: C/index.page:42(title)
 msgid "Sharing Photos"
-msgstr ""
+msgstr "Compartir fotos"
 
 #: C/index.page:46(title)
 msgid "Other Features"
-msgstr ""
+msgstr "Otras características"
 
 #: C/import-memorycard.page:7(desc)
 msgid "Import photos from a digital camera's memory card."
@@ -1509,7 +1518,7 @@ msgstr ""
 
 #: C/import-memorycard.page:12(title)
 msgid "Importing from a memory card"
-msgstr ""
+msgstr "Importar desde una tarjeta de memoria"
 
 #: C/import-memorycard.page:14(p)
 msgid "To import photos from a camera memory card:"
@@ -1555,15 +1564,17 @@ msgstr ""
 
 #: C/import-f-spot.page:12(title)
 msgid "Importing from F-Spot"
-msgstr ""
+msgstr "Importar desde F-Spot"
 
 #: C/import-f-spot.page:14(p)
 msgid "To import an existing photo collection from F-Spot:"
-msgstr ""
+msgstr "Para importar una colección de fotos existente desde F-Spot:"
 
 #: C/import-f-spot.page:16(p)
 msgid "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
 msgstr ""
+"Seleccione <guiseq><gui>Archivo</gui><gui>Importar desde F-Spot</gui></"
+"guiseq>."
 
 #: C/import-f-spot.page:17(p)
 msgid ""
@@ -1587,7 +1598,7 @@ msgstr ""
 
 #: C/import-file.page:12(title)
 msgid "Importing from your hard disk"
-msgstr ""
+msgstr "Importar desde su disco duro"
 
 #: C/import-file.page:14(p)
 msgid ""
@@ -1625,15 +1636,15 @@ msgstr ""
 
 #: C/import-camera.page:7(desc)
 msgid "Copy photos from a digital camera."
-msgstr ""
+msgstr "Copiar fotos desde una cámara digital."
 
 #: C/import-camera.page:12(title)
 msgid "Importing from a camera"
-msgstr ""
+msgstr "Importar desde una cámara"
 
 #: C/import-camera.page:14(p)
 msgid "To import photos from a digital camera:"
-msgstr ""
+msgstr "Para importar fotos desde una cámara digital:"
 
 #: C/import-camera.page:18(p)
 msgid ""
@@ -1675,7 +1686,7 @@ msgstr ""
 
 #: C/formats.page:12(title)
 msgid "Supported photo and video formats"
-msgstr ""
+msgstr "Formatos de foto y vídeo soportados"
 
 #: C/formats.page:14(p)
 msgid ""
@@ -1732,7 +1743,7 @@ msgstr ""
 
 #: C/edit-undo.page:14(title)
 msgid "Undoing changes"
-msgstr ""
+msgstr "Deshacer cambios"
 
 #: C/edit-undo.page:16(p)
 msgid ""
