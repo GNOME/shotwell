@@ -1,0 +1,2973 @@
+# Greek translation for shotwell.
+# Copyright (C) 2014 shotwell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the shotwell package.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell master\n"
+"POT-Creation-Date: 2014-03-16 11:29+0000\n"
+"PO-Revision-Date: 2014-03-16 19:07+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Language-Team: team@lists.gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.0\n"
+
+#: C/view-sidebar.page:7(desc)
+msgid ""
+"The sidebar on the left of the window lists various views of your library."
+msgstr ""
+"Η πλευρική στήλη στα αριστερά του παραθύρου καταχωρίζει ποικίλες προβολές "
+"της βιβλιοθήκης σας."
+
+#: C/view-sidebar.page:21(title)
+msgid "The sidebar"
+msgstr "Η πλευρική στήλη"
+
+#: C/view-sidebar.page:23(p)
+msgid ""
+"The sidebar on the left side of the Shotwell window lists various views of "
+"your library. Although you may see the same photo in multiple views, it's "
+"only stored once on your hard drive."
+msgstr ""
+"Η πλευρική στήλη στα αριστερά του παραθύρου Shotwell εμφανίζει ποικίλες "
+"προβολές της βιβλιοθήκης σας. Αν και μπορείτε να δείτε την ίδια φωτογραφία "
+"σε πολλές προβολές, είναι αποθηκευμένη μόνο μια φορά στον σκληρό σας δίσκο."
+
+#: C/view-sidebar.page:25(p)
+msgid ""
+"The <gui>Last Import</gui> view lists your last imported photos no matter if "
+"they are imported from F-Spot, your camera, a memory card or the hard disk."
+msgstr ""
+"Η προβολή <gui>Τελευταία εισαγωγή</gui> εμφανίζει τις τελευταίες εισηγμένες "
+"φωτογραφίες άσχετα με το αν εισήχθησαν από το F-Spot, τη κάμερά σας, μια "
+"κάρτα μνήμης ή τον σκληρό δίσκο."
+
+#: C/view-sidebar.page:27(p)
+msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
+msgstr ""
+"Το <gui>Με σημαία</gui> εμφανίζει όλες τις φωτογραφίες που είχατε "
+"προηγούμενων με σημαία."
+
+#: C/view-sidebar.page:29(p)
+msgid ""
+"The <gui>Saved Search</gui> allows you to sort your library by many criteria."
+msgstr ""
+"Το <gui>Αποθηκευμένη αναζήτηση</gui> σας επιτρέπει την ταξινόμηση της "
+"βιβλιοθήκης σας με πολλά κριτήρια."
+
+#: C/view-sidebar.page:31(p)
+msgid ""
+"The <gui>Events</gui> folder lists all events in your library. An event is a "
+"group of photos that were taken at approximately the same time."
+msgstr ""
+"Ο φάκελος <gui>Συμβάντα</gui> εμφανίζει όλα τα συμβάντα στη βιβλιοθήκη σας. "
+"Ένα συμβάν είναι μια ομάδα φωτογραφιών που ελήφθησαν περίπου την ίδια ώρα."
+
+#: C/view-sidebar.page:33(p)
+msgid ""
+"The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
+"can have multiple tags attached to them. When you click on the name of a tag "
+"in the sidebar, you will see all the photos associated with that tag."
+msgstr ""
+"Ο φάκελος <gui>Ετικέτες</gui> εμφανίζει όλες τις ετικέτες που έχετε "
+"εκχωρήσει σε φωτογραφίες. Οι φωτογραφίες μπορούν να έχουν πολλαπλές ετικέτες "
+"συσχετισμένες με αυτές. Όταν πατήσετε σε ένα όνομα μιας ετικέτας στην "
+"πλευρική στήλη, θα δείτε όλες τις συσχετισμένες φωτογραφίες με αυτήν την "
+"ετικέτα."
+
+#: C/view-information.page:7(desc)
+msgid ""
+"View more detailed information about photos, like the exposure mode used by "
+"the camera."
+msgstr ""
+"Προβολή περισσότερο λεπτομερών πληροφοριών για τις φωτογραφίες, όπως η "
+"κατάσταση έκθεσης που χρησιμοποιείται από τη φωτογραφική μηχανή."
+
+#: C/view-information.page:12(title)
+msgid "Basic and extended information"
+msgstr "Βασικές και εκτεταμένες πληροφορίες"
+
+#: C/view-information.page:14(p)
+msgid ""
+"The Basic Information pane appears at the bottom of the sidebar, and "
+"displays a brief summary of the photos you've selected. If no photos are "
+"selected, it displays a summary of the entire collection. You can toggle the "
+"display of this pane using the <guiseq><gui>View</gui><gui>Basic "
+"Information</gui></guiseq> command."
+msgstr ""
+"Το βασικό φάτνωμα πληροφοριών εμφανίζεται στο τέλος της πλευρικής στήλης και "
+"εμφανίζει μια σύντομη περίληψη των φωτογραφιών που έχετε επιλέξει. Αν δεν "
+"επιλεγεί καμία φωτογραφία, εμφανίζει μια περίληψη ολόκληρης της συλλογής. "
+"Μπορείτε να εναλλάξετε την εμφάνιση αυτού του φατνώματος χρησιμοποιώντας την "
+"εντολή <guiseq><gui>Προβολή</gui><gui>Βασικές πληροφορίες</gui></guiseq>."
+
+#: C/view-information.page:16(p)
+msgid ""
+"The floating Extended Information window displays more information about the "
+"selected photo. The <guiseq><gui>View</gui><gui>Extended Information</gui></"
+"guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
+"keyseq> toggles the display of this window."
+msgstr ""
+"Το αιωρούμενο εκτεταμένο παράθυρο πληροφοριών εμφανίζει περισσότερες "
+"πληροφορίες για την επιλεγμένη φωτογραφία. Η εντολή <guiseq><gui>Προβολή</"
+"gui><gui>Εκτεταμένες πληροφορίες</gui></guiseq> ή <keyseq><key>Ctrl</"
+"key><key>Shift</key><key>X</key></keyseq> εναλλάσσει την εμφάνιση αυτού του "
+"παραθύρου."
+
+#: C/view-displaying.page:7(desc)
+msgid ""
+"Learn about different ways of viewing your photos: in a grid, filling the "
+"main window, or filling the whole screen."
+msgstr ""
+"Μάθετε για τους διαφορετικούς τρόπους προβολής των φωτογραφιών σας: σε ένα "
+"πλέγμα, με γεμάτο το κυρίως παράθυρο ή όλη την οθόνη."
+
+#: C/view-displaying.page:12(title)
+msgid "Photo views"
+msgstr "Προβολές φωτογραφίας"
+
+#: C/view-displaying.page:14(p)
+msgid ""
+"When you select any collection in the sidebar, Shotwell displays all photos "
+"in the collection in the main window area. At the bottom right is a slider "
+"which adjusts the viewing size of the thumbnails. You may also adjust the "
+"thumbnail size using the plus and minus keys (<key>+</key> and <key>-</key>) "
+"or by pressing <key>Ctrl</key> while moving your mouse scroll wheel."
+msgstr ""
+"Όταν επιλέγετε οποιαδήποτε συλλογή στην πλευρική στήλη, το Shotwell "
+"εμφανίζει όλες τις φωτογραφίες της συλλογής στην περιοχή του κυρίως "
+"παραθύρου. Στα κάτω δεξιά υπάρχει ένας ολισθητής που ρυθμίζει το μέγεθος "
+"προβολής των μικρογραφιών. Μπορείτε επίσης να ρυθμίσετε το μέγεθος "
+"μικρογραφιών χρησιμοποιώντας τα πλήκτρα συν και πλην (<key>+</key> και <key>-"
+"</key>) ή πατώντας το <key>Ctrl</key> ενώ μετακινείτε τον τροχό κύλισης του "
+"ποντικιού."
+
+#: C/view-displaying.page:16(p)
+msgid ""
+"You can view a photo full-window by double-clicking on it. From there you "
+"may move to other photos in the collection with the Back and Forward "
+"buttons. To return to the collection, double-click on the photo or press "
+"<key>Esc</key>."
+msgstr ""
+"Μπορείτε να προβάλετε μια φωτογραφία σε πλήρες παράθυρο διπλοπατώντας την. "
+"Από εκεί μπορείτε να μετακινηθείτε σε άλλες φωτογραφίες στη συλλογή με τα "
+"πλήκτρα πίσω και μπροστά. Για να επιστρέψετε στη συλλογή, διπλοπατήστε στη "
+"φωτογραφία ή πατήστε το πλήκτρο <key>Διαφυγής</key>."
+
+#: C/view-displaying.page:18(p)
+msgid ""
+"When viewing a photo in full-window mode, the slider on the toolbar controls "
+"zoom. You can pan around by grabbing and dragging anywhere on the photo. You "
+"can also zoom using your scroll wheel or by pressing the following keyboard "
+"shortcuts: <keyseq><key>Ctrl</key>0</keyseq> for the full image, "
+"<keyseq><key>Ctrl</key>1</keyseq> for 100% (1 photo pixel = 1 screen pixel), "
+"and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen "
+"pixels)."
+msgstr ""
+"Όταν προβάλετε μια φωτογραφία σε κατάσταση πλήρους παραθύρου, ο ολισθητής "
+"στην εργαλειοθήκη ελέγχει την εστίαση. Μπορείτε να μετακινηθείτε ολόγυρα "
+"συλλαμβάνοντας και μεταφέροντας οπουδήποτε στην φωτογραφία. Μπορείτε επίσης "
+"να εστιάσετε χρησιμοποιώντας τον τροχό κύλισης ή πατώντας τις παρακάτω "
+"συντομεύσεις πληκτρολογίου: <keyseq><key>Ctrl</key>0</keyseq> για την πλήρη "
+"εικόνα, <keyseq><key>Ctrl</key>1</keyseq> για 100% (1 εικονοστοιχείο "
+"φωτογραφίας = 1 εικονοστοιχείο οθόνης) και <keyseq><key>Ctrl</key>2</keyseq> "
+"για 200% (1 εικονοστοιχείο φωτογραφίας = 2x2 εικονοστοιχεία οθόνης)."
+
+#: C/view-displaying.page:20(p)
+msgid ""
+"Shotwell offers a fullscreen mode to display photos. Choose "
+"<guiseq><gui>View</gui><gui>Fullscreen</gui></guiseq> or press <key>F11</"
+"key>. To see the fullscreen toolbar, move your mouse to the bottom of the "
+"screen. The toolbar offers buttons to move through the collection, to pin "
+"the toolbar down (so it isn't hidden when you move the mouse away), and to "
+"leave fullscreen view."
+msgstr ""
+"Το Shotwell προσφέρει μια κατάσταση πλήρους οθόνης για προβολή φωτογραφιών. "
+"Επιλέξτε <guiseq><gui>Προβολή</gui><gui>Πλήρης οθόνη</gui></guiseq> ή "
+"πατήστε <key>F11</key>. Για να δείτε την εργαλειοθήκη πλήρης οθόνη, "
+"μετακινήστε το ποντίκι σας στο τέλος της οθόνης. Η εργαλειοθήκη προσφέρει "
+"πλήκτρα για μετακίνηση μέσα από τη συλλογή, για να προσδέσει την "
+"εργαλειοθήκη (έτσι δεν είναι κρυφή όταν μετακινείτε το ποντίκι μακριά) και "
+"για να αφήσετε την προβολή πλήρους οθόνης."
+
+#: C/view-displaying.page:23(title)
+msgid "Viewing videos"
+msgstr "Προβολή βίντεο"
+
+#: C/view-displaying.page:24(p)
+msgid ""
+"When you double-click a video, Shotwell will launch an external video player "
+"to play the video. It's not currently possible to display a video in full-"
+"window mode in Shotwell or to play the video within Shotwell itself."
+msgstr ""
+"Όταν διπλοπατάτε ένα βίντεο, το Shotwell θα ξεκινήσει μια εξωτερική συσκευή "
+"βίντεο για να αναπαραγάγει το βίντεο. Δεν είναι προς το παρόν δυνατή η "
+"εμφάνιση ενός βίντεο σε κατάσταση πλήρους παραθύρου στο Shotwell ή η "
+"αναπαραγωγή του βίντεο στο ίδιο το Shotwell."
+
+#: C/share-upload.page:7(desc)
+msgid "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
+msgstr ""
+"Δημοσίευση φωτογραφιών στα Facebook, Flickr, συλλογές ιστού Picasa, ή άλλους "
+"τόπους."
+
+#: C/share-upload.page:12(title)
+msgid "Publishing to the Web"
+msgstr "Δημοσιεύοντας στον ιστό"
+
+#: C/share-upload.page:14(p)
+msgid ""
+"Through the use of <link xref=\"other-plugins\">plugins</link>, Shotwell can "
+"publish photos and videos to the following services, each of which requires "
+"an account:"
+msgstr ""
+"Μέσα από τη χρήση <link xref=\"other-plugins\">προσθέτων</link>, το Shotwell "
+"μπορεί να δημοσιεύσει φωτογραφίες και βίντεο στις ακόλουθες υπηρεσίες, που "
+"καθεμιά τους απαιτεί έναν λογαριασμό:"
+
+#: C/share-upload.page:18(link)
+msgid "Facebook"
+msgstr "Facebook"
+
+#: C/share-upload.page:19(link)
+msgid "Flickr"
+msgstr "Flickr"
+
+#: C/share-upload.page:20(p)
+msgid ""
+"<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
+"<link href=\"http://plus.google.com\">Google+</link>"
+msgstr ""
+"<link href=\"http://picasaweb.google.com\">Συλλογές ιστού Picasa</link> και "
+"<link href=\"http://plus.google.com\">Google+</link>"
+
+#: C/share-upload.page:21(p)
+msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
+msgstr "<link href=\"http://youtube.com\">YouTube</link> (μόνο βίντεο)"
+
+#: C/share-upload.page:22(p)
+msgid ""
+"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
+"popular in Russia (photos only)"
+msgstr ""
+"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, έναν δημοφιλή "
+"τόπο φωτογραφιών στη Ρωσία (μόνο φωτογραφίες)"
+
+#: C/share-upload.page:23(p)
+msgid ""
+"Any site running the <link href=\"http://piwigo.org\">Piwigo</link> photo "
+"gallery software (photos only)"
+msgstr ""
+"Οποιονδήποτε τόπο που τρέχει το λογισμικό συλλογής φωτογραφιών <link href="
+"\"http://piwigo.org\">Piwigo</link> (μόνο φωτογραφίες)"
+
+#: C/share-upload.page:26(p)
+msgid ""
+"To publish selected photos in a collection, choose <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
+"to enable the plugin for the service you want to publish to. Next, choose, "
+"<guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</"
+"gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</key></keyseq>. You "
+"will see a dialog that lets you select a publishing service. You will then "
+"need to log in or create an account."
+msgstr ""
+"Για να δημοσιεύσετε επιλεγμένες φωτογραφίες σε μια συλλογή, επιλέξτε "
+"<guiseq><gui>Επεξεργασία</gui><gui>Προτιμήσεις</gui></guiseq> και πατήστε "
+"την καρτέλα <gui>Πρόσθετα</gui> για να ενεργοποιήσετε το πρόσθετο για την "
+"υπηρεσία στην οποία θέλετε να δημοσιεύσετε. Κατόπιν, επιλέξτε, "
+"<guiseq><gui>Αρχείο</gui><gui>Δημοσίευση</gui></guiseq>, πατήστε το πλήκτρο "
+"εργαλειοθήκης <gui>Δημοσίευση</gui> ή χρησιμοποιήστε <keyseq><key>Ctrl</"
+"key><key>P</key></keyseq>. Θα δείτε έναν διάλογο που σας επιτρέπει να "
+"επιλέξετε μια υπηρεσία δημοσίευσης. Θα χρειαστείτε τότε να συνδεθείτε ή να "
+"δημιουργήσετε έναν λογαριασμό."
+
+#: C/share-upload.page:31(p)
+msgid ""
+"Publishing to Facebook requires you to grant certain permissions to the "
+"Shotwell Connect Facebook application. You only need to grant these "
+"permissions once, when you first associate Shotwell Connect with your "
+"Facebook account."
+msgstr ""
+"Η δημοσίευση στο Facebook απαιτεί να δώσετε συγκεκριμένα δικαιώματα στην "
+"εφαρμογή Shotwell Connect με το Facebook. Εσείς χρειάζεστε να δώσετε αυτά τα "
+"δικαιώματα μια φορά, όταν συσχετίζετε για πρώτη φορά το Shotwell Connect με "
+"τον λογαριασμό σας στο Facebook."
+
+#: C/share-upload.page:35(p)
+msgid ""
+"Similarly, publishing to Flickr requires you to log in and permit Shotwell "
+"Connect to access your account."
+msgstr ""
+"Παρόμοια, η δημοσίευση στο Flickr απαιτεί να συνδεθείτε και να επιτρέψετε "
+"στο Shotwell Connect να προσπελάσει τον λογαριασμό σας."
+
+#: C/share-upload.page:37(p)
+msgid ""
+"If you have a Google account, but have not yet used Picasa Web Albums, you "
+"will need to log in to Picasa using a browser once before you can publish to "
+"this service."
+msgstr ""
+"Αν έχετε έναν λογαριασμό Google, αλλά δεν έχετε ακόμα χρησιμοποιήσει τις "
+"συλλογές ιστού Picasa, θα χρειαστείτε να συνδεθείτε στο Picasa "
+"χρησιμοποιώντας έναν περιηγητή μια φορά πριν να μπορείτε να δημοσιεύετε σε "
+"αυτήν την υπηρεσία."
+
+#: C/share-slideshow.page:7(desc)
+msgid "Watch a slideshow of your photos."
+msgstr "Παρακολούθηση μιας προβολής διαφανειών των φωτογραφιών σας."
+
+#: C/share-slideshow.page:12(title)
+msgid "Slideshows"
+msgstr "Προβολές διαφανειών"
+
+#: C/share-slideshow.page:14(p)
+msgid ""
+"To see a sideshow of any collection in Shotwell, navigate to that collection "
+"and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> or press "
+"<key>F5</key>."
+msgstr ""
+"Για να δείτε νια προβολή διαφανειών οποιασδήποτε συλλογής στο Shotwell, "
+"περιηγηθείτε σε αυτήν τη συλλογή και επιλέξτε <guiseq><gui>Προβολή</"
+"gui><gui>Προβολή διαφανειών</gui></guiseq> ή πατήστε <key>F5</key>."
+
+#: C/share-slideshow.page:16(p)
+msgid "You can change some settings in a running slideshow:"
+msgstr ""
+"Μπορείτε να αλλάξετε κάποιες ρυθμίσεις σε μια εκτελούμενη προβολή διαφανειών:"
+
+#: C/share-slideshow.page:19(p)
+msgid "The duration how long an image should be shown: 1 - 30 seconds"
+msgstr ""
+"Η διάρκεια χρόνου εμφάνισης μιας εικόνας πρέπει να είναι: 1 - 30 δευτερόλεπτα"
+
+#: C/share-slideshow.page:20(p)
+msgid "You can select different transition effects."
+msgstr "Μπορείτε να επιλέξετε διαφορετικά εφέ μετάβασης."
+
+#: C/share-slideshow.page:21(p)
+msgid "The time for each transition effect: 0.1 - 1.0 seconds"
+msgstr "Ο χρόνος για κάθε εφέ μετάβασης: 0.1 - 1.0 δευτερόλεπτα"
+
+#: C/share-send.page:7(desc)
+msgid "Send photos via email, instant messaging or in other ways."
+msgstr ""
+"Αποστολή φωτογραφιών μέσα από ηλεκτρονική αλληλογραφία, άμεσα μηνύματα ή με "
+"άλλους τρόπους."
+
+#: C/share-send.page:12(title)
+msgid "Sending photos"
+msgstr "Αποστολή φωτογραφιών"
+
+#: C/share-send.page:14(p)
+msgid ""
+"Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
+"lets you send photos via email, instant messaging or in other ways."
+msgstr ""
+"Το Shotwell μπορεί να στείλει φωτογραφίες χρησιμοποιώντας τον μηχανισμό "
+"αποστολής προς της επιφάνειας εργασίας GNOME, που σας επιτρέπει να στέλνετε "
+"φωτογραφίες μέσα από ηλεκτρονική αλληλογραφία, άμεσα μηνύματα ή με άλλους "
+"τρόπους."
+
+#: C/share-send.page:16(p)
+msgid ""
+"To send photos, select them in Shotwell and choose <guiseq><gui>File</"
+"gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
+"<gui>Send To...</gui> from the context menu. A <gui>Send To</gui> dialog box "
+"will appear which lets you choose a mechanism for sending the files (such as "
+"email or instant messaging) and a destination. You can optionally choose to "
+"send the files in a compressed format."
+msgstr ""
+"Για να στείλετε φωτογραφίες, επιλέξτε τες στο Shotwell και επιλέξτε "
+"<guiseq><gui>Αρχείο</gui><gui>Αποστολή σε...</gui></guiseq>, ή δεξιοπατήστε "
+"τις φωτογραφίες και επιλέξτε <gui>Αποστολή σε...</gui> από το μενού "
+"περιεχομένων. Ένα πλαίσιο διαλόγου <gui>Αποστολή προς</gui> θα εμφανιστεί "
+"που σας επιτρέπει να επιλέξετε έναν μηχανισμό για αποστολή των αρχείων (όπως "
+"ηλεκτρονική αλληλογραφία ή άμεσα μηνύματα) και έναν προορισμό. Μπορείτε "
+"προαιρετικά να επιλέξετε να στείλετε τα αρχεία σε συμπιεσμένη μορφή."
+
+#: C/share-print.page:7(desc)
+msgid ""
+"Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing "
+"options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
+msgstr ""
+"Πατήστε <guiseq><gui>Αρχείο</gui><gui>Εκτύπωση</gui></guiseq>. Για "
+"περισσότερες επιλογές εκτύπωσης, επιλέξτε την καρτέλα <gui>Διαμόρφωση "
+"σελίδας</gui> στον διάλογο <gui>Εκτύπωση</gui>."
+
+#: C/share-print.page:12(title)
+msgid "Printing"
+msgstr "Εκτύπωση"
+
+#: C/share-print.page:14(p)
+msgid ""
+"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</"
+"gui></guiseq>."
+msgstr ""
+"Για να εκτυπώσετε μια φωτογραφία, επιλέξτε την και επιλέξτε "
+"<guiseq><gui>Αρχείο</gui><gui>Εκτύπωση</gui></guiseq>."
+
+#: C/share-print.page:16(p)
+msgid ""
+"Shotwell can also print multiple images in one page; to do this, select "
+"multiple images, choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>, "
+"and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
+"tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
+"options under <gui>Autosize</gui>."
+msgstr ""
+"Το Shotwell μπορεί να εκτυπώσει επίσης πολλαπλές εικόνες σε μια σελίδα· για "
+"να το κάνετε αυτό, επιλέξτε πολλαπλές εικόνες, διαλέξτε <guiseq><gui>Αρχείο</"
+"gui><gui>Εκτύπωση</gui></guiseq> και στον διάλογο <gui>Εκτύπωση</gui>, "
+"επιλέξτε την καρτέλα <gui>Ρυθμίσεις εικόνας</gui>. Στο <gui>Ρυθμίσεις "
+"εικόνας</gui>, επιλέξτε μια από τις επιλογές πολλαπλές εικόνες ανά σελίδα "
+"στο <gui>Αυτόματο μέγεθος</gui>."
+
+#: C/share-print.page:23(p)
+msgid ""
+"If you would like to set formatting, paper size, and orientation options, "
+"choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
+"printing."
+msgstr ""
+"Αν θα θέλατε να ορίσετε επιλογές μορφοποίηση, μέγεθος χαρτιού και "
+"προσανατολισμό, επιλέξτε την καρτέλα <gui>Διαμόρφωση σελίδας</gui> στον "
+"διάλογο <gui>Εκτύπωση</gui> πριν από την εκτύπωση."
+
+#: C/share-export.page:7(desc)
+msgid "Copy photos out of Shotwell so you can put them somewhere else."
+msgstr ""
+"Αντιγραφή φωτογραφιών από το Shotwell, έτσι ώστε να μπορείτε να τις βάλετε "
+"κάπου αλλού."
+
+#: C/share-export.page:12(title)
+msgid "Exporting photos"
+msgstr "Εξαγωγή φωτογραφιών"
+
+#: C/share-export.page:14(p)
+msgid ""
+"To export photos from Shotwell via drag and drop, drag the photos from "
+"Shotwell onto a file manager window or your desktop. The new files will be "
+"full-sized copies of the photos in your library."
+msgstr ""
+"Για να εξάγετε φωτογραφίες από το Shotwell μέσα από μεταφορά και απόθεση, "
+"μεταφέρτε τις φωτογραφίες από το Shotwell σε ένα παράθυρο διαχειριστή "
+"αρχείων ή στην επιφάνεια εργασίας σας. Τα νέα αρχεία θα είναι αντίγραφα "
+"πλήρους μεγέθους των φωτογραφιών στη βιβλιοθήκη σας."
+
+#: C/share-export.page:18(p)
+msgid ""
+"Alternatively, select a set of photos and choose the <guiseq><gui>File</"
+"gui><gui>Export</gui></guiseq> command or press <keyseq><key>Shift</"
+"key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting "
+"you fine-tune the size and dimensions of your photo files. A window will "
+"appear allowing you to make several choices:"
+msgstr ""
+"Εναλλακτικά, επιλέξτε ένα σύνολο φωτογραφιών και διαλέξτε την εντολή "
+"<guiseq><gui>Αρχείο</gui><gui>Εξαγωγή</gui></guiseq> ή πατήστε "
+"<keyseq><key>Shift</key><key>Ctrl</key><key>E</key></keyseq>, που εξάγει "
+"φωτογραφίες ενώ σας επιτρέπει να μικρορυθμίσετε το μέγεθος και τις "
+"διαστάσεις των αρχείων φωτογραφίας σας. Θα εμφανιστεί ένα παράθυρο που σας "
+"επιτρέπει να κάνετε πολλές επιλογές:"
+
+#: C/share-export.page:24(p)
+msgid "A format for export."
+msgstr "Μια μορφή για εξαγωγή."
+
+#: C/share-export.page:27(p)
+msgid ""
+"Choose <gui>Unmodified</gui> to export photos in their original format "
+"without any edits made in Shotwell. RAW photos will be exported in their "
+"original RAW format."
+msgstr ""
+"Επιλέξτε <gui>Ατροποποίητη</gui> για να εξάγετε φωτογραφίες στην αρχική τους "
+"μορφή χωρίς καμιά επεξεργασία που έγινε στο Shotwell. Οι ακατέργαστες "
+"φωτογραφίες θα εξαχθούν στην αρχική τους μορφή RAW."
+
+#: C/share-export.page:29(p)
+msgid ""
+"Choose <gui>Current</gui> to export photos including edits made in Shotwell. "
+"RAW photos will be exported in JPEG format if you have edited them in "
+"Shotwell, and otherwise in their original RAW format."
+msgstr ""
+"Επιλέξτε <gui>Τρέχουσα</gui> για να εξάγετε τις φωτογραφίες "
+"συμπεριλαμβάνοντας τις επεξεργασίες που έγιναν στο Shotwell. Οι ακατέργαστες "
+"φωτογραφίες θα εξαχθούν σε μορφή JPEG αν τις έχετε επεξεργαστεί στο Shotwell "
+"και αλλιώς στην αρχική τους ακατέργαστη μορφή."
+
+#: C/share-export.page:31(p)
+msgid ""
+"Or you can choose a particular image format (JPEG, PNG, TIFF, BMP) to be "
+"used for exporting. Any edits made in Shotwell will be included, and "
+"Shotwell will convert photos to the destination format."
+msgstr ""
+"Ή μπορείτε να επιλέξετε μια ειδική μορφή εικόνας (JPEG, PNG, TIFF, BMP) που "
+"θα χρησιμοποιηθεί για εξαγωγή. Οποιαδήποτε επεξεργασία έγινε στο Shotwell θα "
+"συμπεριληφθεί και το Shotwell θα μετατρέψει τις φωτογραφίες στη μορφή "
+"προορισμού."
+
+#: C/share-export.page:37(p)
+msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
+msgstr "Η ποιότητα εικόνας για εξαγωγή (χαμηλή, μέτρια, υψηλή, ή μέγιστη)."
+
+#: C/share-export.page:38(p)
+msgid ""
+"A scaling constraint (which means how Shotwell will decide to scale the "
+"photos down), and the desired pixel size."
+msgstr ""
+"Ένας περιορισμός κλιμάκωσης (που σημαίνει πώς θα αποφασίσει το Shotwell να "
+"σμικρύνει τις φωτογραφίες) και το επιθυμητό μέγεθος εικονοστοιχείων."
+
+#: C/share-export.page:39(p)
+msgid ""
+"The option whether you like to export metadatas such as tags or ratings. "
+"This can help to save your privacy if you have geolocation tags or tags "
+"which shouldn't be seen by anyone."
+msgstr ""
+"Η επιλογή εξαγωγής μεταδεδομένων όπως ετικέτες ή αξιολογήσεις. Αυτό μπορεί "
+"να βοηθήσει στην αποθήκευση της ιδιωτικότητά σας αν έχετε ετικέτες "
+"γεωεντοπισμού ή ετικέτες που δεν θα έπρεπε να ιδωθούν από κάποιον."
+
+#: C/share-export.page:42(p)
+msgid ""
+"If selected, Shotwell will write tags, titles, and other metadata to the new "
+"files."
+msgstr ""
+"Αν επιλεγεί, το Shotwell θα γράψει ετικέτες, τίτλους και άλλα μεταδεδομένα "
+"στα νέα αρχεία."
+
+#: C/share-background.page:7(desc)
+msgid ""
+"Set your desktop background to a single photo or to a slideshow of photos."
+msgstr ""
+"Ορίστε το παρασκήνιο της επιφάνειας εργασίας σας σε μια μόνο φωτογραφία ή σε "
+"μια προβολή διαφανειών των φωτογραφιών."
+
+#: C/share-background.page:12(title)
+msgid "Set a desktop background or slideshow"
+msgstr "Ορίστε ένα παρασκήνιο επιφάνειας εργασίας ή προβολής διαφανειών"
+
+#: C/share-background.page:14(p)
+msgid ""
+"To set a single photo as your desktop background, select the photo and "
+"choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
+msgstr ""
+"Για να ορίσετε μια μόνο φωτογραφία ως παρασκήνιο της επιφάνειας εργασίας "
+"σας, επιλέξτε τη φωτογραφία και διαλέξτε <guiseq><gui>Αρχείο</"
+"gui><gui>Ορισμός ως παρασκήνιο επιφάνειας εργασίας</gui></guiseq>."
+
+#: C/share-background.page:16(p)
+msgid ""
+"You can also set your background to a slideshow of photos. To do this, "
+"select the photos for the slideshow and choose <guiseq><gui>File</"
+"gui><gui>Set as Desktop Slideshow</gui></guiseq>. Shotwell will prompt you "
+"for a slideshow delay, which can be any interval up to one day in length. "
+"The background slideshow will proceed even when Shotwell is not running."
+msgstr ""
+"Μπορείτε επίσης να ορίσετε το παρασκήνιό σας σε μια προβολή διαφανειών "
+"φωτογραφιών. Για να το κάνετε αυτό, επιλέξτε τις φωτογραφίες για την προβολή "
+"διαφανειών και διαλέξτε <guiseq><gui>Αρχείο</gui><gui>Ορισμός ως προβολής "
+"διαφανειών επιφάνειας εργασίας</gui></guiseq>. Το Shotwell θα σας ζητήσει "
+"μια καθυστέρηση προβολής διαφανειών, που μπορεί να είναι οποιοδήποτε "
+"διάστημα μέχρι μια ημέρα. Η προβολή διαφανειών παρασκηνίου θα συνεχίσει "
+"ακόμα κι όταν το Shotwell δεν εκτελείται."
+
+#: C/running.page:7(desc)
+msgid ""
+"Find Shotwell in the Applications menu, or have it start automatically when "
+"you plug in a camera."
+msgstr ""
+"Βρείτε το Shotwell στο μενού εφαρμογές, ή ξεκινήστε το αυτόματα όταν "
+"συνδέετε μια φωτογραφική μηχανή."
+
+#: C/running.page:14(title)
+msgid "Running Shotwell"
+msgstr "Εκτελώντας το Shotwell"
+
+#: C/running.page:16(p)
+msgid ""
+"Once installed, Shotwell is available in your <gui>Applications</gui> menu "
+"under <gui>Graphics</gui> or <gui>Photography</gui>."
+msgstr ""
+"Μόλις εγκατασταθεί το Shotwell είναι διαθέσιμο στο μενού <gui>Εφαρμογές</"
+"gui> κάτω από το <gui>Γραφικά</gui> ή <gui>Φωτογραφία</gui>."
+
+#: C/running.page:18(p)
+msgid ""
+"Shotwell may also be executed automatically when a camera is plugged in to "
+"your computer. To check that your system is set up to run Shotwell when a "
+"camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
+"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
+"gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
+"you choose Shotwell as your photo handling application."
+msgstr ""
+"Το Shotwell μπορεί επίσης να εκτελεστεί αυτόματα όταν μια φωτογραφική μηχανή "
+"συνδέεται με τον υπολογιστή σας. Για να ελέγξετε ότι το σύστημά σας έχει "
+"ρυθμιστεί να εκτελέσει το Shotwell όταν μια φωτογραφική μηχανή ανιχνευτεί, "
+"πηγαίνετε στο <guiseq><gui>Αρχείο</gui><gui>Προτιμήσεις</gui></guiseq> σε "
+"οποιοδήποτε παράθυρο Ναυτίλου (περιηγητής αρχείου) και επιλέξτε την καρτέλα "
+"<gui>Μέσα</gui>. Θα δείτε ένα πτυσσόμενο πλαίσιο με τίτλο <gui>Φωτογραφίες:</"
+"gui> που σας επιτρέπει να επιλέξετε το Shotwell ως την εφαρμογή διαχείρισης "
+"φωτογραφιών."
+
+#: C/running.page:25(p)
+msgid ""
+"Shotwell may also be executed directly from its build directory, although "
+"this is only recommended for testing out Shotwell or for developers."
+msgstr ""
+"Το Shotwell μπορεί επίσης να εκτελεστεί άμεσα από το δομημένο κατάλογό του "
+"αν και αυτό συνιστάται μόνο για δοκιμή του Shotwell ή για προγραμματιστές."
+
+#: C/raw.page:7(desc)
+msgid "More about RAW support in Shotwell."
+msgstr "Περισσότερα για την υποστήριξη RAW στο Shotwell."
+
+#: C/raw.page:12(title)
+msgid "RAW support in Shotwell"
+msgstr "Υποστήριξη RAW (ακατέργαστο) στο Shotwell"
+
+#: C/raw.page:13(p)
+msgid ""
+"Some cameras have the ability to store data directly off the sensor and into "
+"a file that contains extra color information; this is commonly referred to "
+"as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
+msgstr ""
+"Κάποιες φωτογραφικές μηχανές έχουν τη δυνατότητα να αποθηκεύουν δεδομένα "
+"αμέσως από τον αισθητήρα και σε ένα αρχείο που περιέχει πρόσθετες "
+"πληροφορίες χρώματος· αυτό συνήθως αναφέρεται ως 'RAW' ή 'φωτογραφική μηχανή "
+"RAW' και το Shotwell υποστηρίζει αυτά τα αρχεία επίσης."
+
+#: C/raw.page:18(p)
+msgid ""
+"Since RAW photographs normally cannot be displayed directly, but must be "
+"first developed - that is, have their extra information interpreted and "
+"readied for displaying - most cameras will either embed a JPEG inside a RAW-"
+"format file, or produce a JPEG alongside the RAW file at the time the "
+"snapshot is taken. The latter is referred to throughout this document as RAW"
+"+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
+"treat them as one item in your library."
+msgstr ""
+"Αφού οι φωτογραφίες RAW δεν μπορούν κανονικά να εμφανιστούν άμεσα, αλλά "
+"πρέπει πρώτα να αναπτυχθούν - δηλαδή, έχουν τις δικές τους πρόσθετες "
+"πληροφορίες να ερμηνευτούν και να διαβαστούν για να εμφανιστούν - οι "
+"περισσότερες φωτογραφικές μηχανές ή ενσωματώνουν μια JPEG μέσα σε ένα αρχείο "
+"μορφής RAW, ή παράγουν μια JPEG μαζί με το αρχείο RAW τη στιγμή λήψης του "
+"στιγμιοτύπου. Το δεύτερο αναφέρεται σε όλο αυτό το έγγραφο ως RAW+JPEG. Αν "
+"εισάγετε ένα ζεύγος RAW+JPEG, το Shotwell θα τα κρατήσει συζευγμένα και θα "
+"τα θεωρήσει ως ένα στοιχείο στη βιβλιοθήκη σας."
+
+#: C/raw.page:27(p)
+msgid ""
+"When you import a RAW file, you can choose to either use the camera's "
+"internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
+"gui><gui>Developer</gui></guiseq> in the menus."
+msgstr ""
+"Όταν εισάγετε ένα αρχείο RAW, μπορείτε να επιλέξετε ή να χρησιμοποιήσετε την "
+"εσωτερικά αναπτυγμένη JPEG της φωτογραφικής μηχανής ή του Shotwell "
+"επιλέγοντας <guiseq><gui>Φωτογραφίες</gui><gui>Ανάπτυξη</gui></guiseq> στα "
+"μενού."
+
+#: C/raw.page:33(p)
+msgid ""
+"Changing between developers will cause all edits made to a photograph to be "
+"discarded."
+msgstr ""
+"Η αλλαγή μεταξύ αναπτύξεων θα προκαλέσει την απόρριψη όλων των επεξεργασιών "
+"που έγιναν σε μια φωτογραφία."
+
+#: C/raw.page:39(p)
+msgid ""
+"In order to publish or use a RAW photograph in most other software, it has "
+"to be exported first. Shotwell can export your RAW photos in JPEG, PNG, TIFF "
+"or BMP format, and, when publishing, will internally export a JPEG version "
+"for you and publish that."
+msgstr ""
+"Για να δημοσιεύσετε ή να χρησιμοποιήσετε μια φωτογραφία RAW στα περισσότερα "
+"άλλα λογισμικά, πρέπει πρώτα να εξαχθεί. Το Shotwell μπορεί να εξάγει τις "
+"φωτογραφίες RAW σε μορφή JPEG, PNG, TIFF ή BMP και όταν δημοσιευτούν θα "
+"εξάγει εσωτερικά μια έκδοση JPEG για σας και θα την δημοσιεύσει."
+
+#: C/other-plugins.page:7(desc)
+msgid "Extend Shotwell's functionality dynamically."
+msgstr "Επέκταση της δυναμικής λειτουργικότητας του Shotwell."
+
+#: C/other-plugins.page:12(title)
+msgid "Plugins"
+msgstr "Πρόσθετα"
+
+#: C/other-plugins.page:13(p)
+msgid ""
+"Shotwell can be used with <em>plugins</em>, which are companion shared "
+"libraries that can add support for new publishing destinations or new "
+"slideshow transitions."
+msgstr ""
+"Το Shotwell μπορεί να χρησιμοποιηθεί με <em>πρόσθετα</em>, που είναι συνοδοί "
+"κοινόχρηστων βιβλιοθηκών που μπορούν να προσθέσουν υποστήριξη για "
+"νεοδημοσιευόμενους προορισμούς ή νέες μεταβάσεις προβολής διαφανειών."
+
+#: C/other-plugins.page:18(p)
+msgid ""
+"To see a list of installed plugins, choose <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq>, and in the <gui>Preferences</gui> "
+"window, click on the <gui>Plugins</gui> tab. You'll see a list of currently-"
+"installed plugins, each with a checkbox by it, and you may enable or disable "
+"each by selecting or deselecting the checkbox by its name."
+msgstr ""
+"Για να δείτε έναν κατάλογο εγκατεστημένων προσθέτων, επιλέξτε "
+"<guiseq><gui>Επεξεργασία</gui><gui>Προτιμήσεις</gui></guiseq> και στο "
+"παράθυρο <gui>Προτιμήσεις</gui>, πατώντας στην καρτέλα <gui>Πρόσθετα</gui>. "
+"Θα δείτε έναν κατάλογο των εγκατεστημένων μέχρι τώρα προσθέτων, που το "
+"καθένα τους έχει ένα πλαίσιο ελέγχου και μπορείτε να ενεργοποιήσετε ή να "
+"απενεργοποιήσετε καθένα τους επιλέγοντας ή αποεπιλέγοντας το όνομά του."
+
+#: C/other-plugins.page:25(p)
+msgid ""
+"Full documentation on how to develop new plugins is available at <link href="
+"\"http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins"
+"\">http://redmine.yorba.org/projects/shotwell/wiki/"
+"ShotwellArchWritingPlugins</link>"
+msgstr ""
+"Η πλήρης τεκμηρίωση ανάπτυξης νέων προσθέτων είναι διαθέσιμη στο <link href="
+"\"http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins"
+"\">http://redmine.yorba.org/projects/shotwell/wiki/"
+"ShotwellArchWritingPlugins</link>"
+
+#: C/other-multiple.page:7(desc)
+msgid ""
+"You can open Shotwell with a different photo library by using the command "
+"line."
+msgstr ""
+"Μπορείτε να ανοίξετε το Shotwell με μια διαφορετική βιβλιοθήκη φωτογραφιών "
+"χρησιμοποιώντας τη γραμμή εντολών."
+
+#: C/other-multiple.page:12(title)
+msgid "Multiple libraries"
+msgstr "Πολλαπλές βιβλιοθήκες"
+
+#: C/other-multiple.page:14(p)
+msgid ""
+"Shotwell normally stores its database and photo thumbnails in the directory "
+"<file>~/.shotwell</file> . This directory does not hold photos, but the "
+"database in this directory contains a list of all the photos in the Shotwell "
+"library."
+msgstr ""
+"Το Shotwell κανονικά αποθηκεύει τη βάση δεδομένων του και τις μικρογραφίες "
+"φωτογραφιών στον κατάλογο <file>~/.shotwell</file>. Αυτός ο κατάλογος δεν "
+"περιέχει φωτογραφίες, αλλά η βάση δεδομένων σε αυτόν τον κατάλογο περιέχει "
+"έναν κατάλογο όλων των φωτογραφιών στη βιβλιοθήκη Shotwell."
+
+#: C/other-multiple.page:16(p)
+msgid ""
+"As an advanced feature, it's possible for you to have multiple Shotwell "
+"libraries, each of which has its own set of photos. Each library needs its "
+"own database directory. To launch Shotwell with an alternate library, "
+"specify an alternate database directory on the command line as follows:"
+msgstr ""
+"Ως ένα προχωρημένο γνώρισμα, μπορείτε να έχετε πολλαπλές βιβλιοθήκες "
+"Shotwell, που καθεμιά τους έχει το δικό της σύνολο φωτογραφιών. Κάθε "
+"βιβλιοθήκη χρειάζεται το δικό του κατάλογο βάσης δεδομένων. Για να "
+"ξεκινήσετε το Shotwell με μια εναλλακτική βιβλιοθήκη, ορίστε έναν "
+"εναλλακτικό κατάλογο βάσης δεδομένων στη γραμμή εντολών ως εξής:"
+
+#: C/other-multiple.page:18(screen)
+#, no-wrap
+msgid ""
+"\n"
+"shotwell -d [library-directory]\n"
+msgstr ""
+"\n"
+"shotwell -d [library-directory]\n"
+
+#: C/other-missing.page:7(desc)
+msgid "If Shotwell can't find a photo in your library, it marks it as missing."
+msgstr ""
+"Αν το Shotwell δεν μπορεί να βρει μια φωτογραφία στη βιβλιοθήκη σας, τη "
+"σημειώνει ως χαμένη."
+
+#: C/other-missing.page:12(title)
+msgid "Missing photos"
+msgstr "Χαμένες φωτογραφίες"
+
+#: C/other-missing.page:14(p)
+msgid ""
+"Each time Shotwell starts up, it scans your photo library to verify that all "
+"photo files still exist on your hard drive. If Shotwell finds that any photo "
+"files are missing, it will not display them in the normal Photos, Events and "
+"Tags views, but will instead show them in a separate Missing Files view "
+"which will appear in the sidebar."
+msgstr ""
+"Κάθε φορά που το Shotwell ξεκινά, σαρώνει τη βιβλιοθήκη φωτογραφιών σας για "
+"να επιβεβαιώσει ότι όλα τα αρχεία φωτογραφιών υπάρχουν ακόμα στον σκληρό σας "
+"δίσκο. Αν το Shotwell βρει ότι οποιαδήποτε αρχεία φωτογραφιών λείπουν, δεν "
+"θα τα εμφανίσει στις κανονικές προβολές φωτογραφιών, συμβάντων και ετικετών, "
+"αλλά θα τα εμφανίσει σε μια ξεχωριστή προβολή χαμένων αρχείων που θα "
+"εμφανιστεί στην πλευρική στήλη."
+
+#: C/other-missing.page:16(p)
+msgid ""
+"If you no longer want the missing files to be part of your Shotwell "
+"collection (perhaps because you deleted them), go to the Missing Files view, "
+"select the photos and then click <gui>Remove From Library</gui>."
+msgstr ""
+"Αν δεν θέλετε πια τα χαμένα αρχεία να είναι μέρος της συλλογής σας Shotwell "
+"(ίσως επειδή τα διαγράψατε), πηγαίνετε στην προβολή χαμένα αρχεία, επιλέξτε "
+"τις φωτογραφίες και έπειτα πατήστε <gui>Αφαίρεση από τη βιβλιοθήκη</gui>."
+
+#: C/other-missing.page:18(p)
+msgid ""
+"If you have photos on a removable disk, such as a CD or USB flash drive, and "
+"<link xref=\"index#import\">import</link> them into Shotwell <em>without</"
+"em> copying the photos to your computer, they will show up as missing files "
+"if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
+"to learn how to copy files from removable disks onto your computer."
+msgstr ""
+"Αν έχετε φωτογραφίες σε έναν αφαιρούμενο δίσκο, όπως σε ένα CD ή USB και τα "
+"<link xref=\"index#import\">εισάγετε</link> στο Shotwell <em>χωρίς</em> να "
+"αντιγράψετε τις φωτογραφίες στον υπολογιστή σας, θα εμφανιστούν ως χαμένα "
+"αρχεία αν έπειτα αποσυνδέσετε τον αφαιρούμενο δίσκο. Δείτε <link xref="
+"\"import-file\"/> για να μάθετε πώς να αντιγράψετε αρχεία από αφαιρούμενους "
+"δίσκους στον υπολογιστή σας."
+
+#: C/other-missing.page:20(p)
+msgid ""
+"If any missing photo files become available again, Shotwell will notice this "
+"the next time it starts. The photos will once again appear in the Photos, "
+"Events and Tags views."
+msgstr ""
+"Αν οποιαδήποτε χαμένα αρχεία φωτογραφιών γίνουν διαθέσιμα ξανά, το Shotwell "
+"θα το σημειώσει την επόμενη φορά που ξεκινά. Οι φωτογραφίες θα εμφανιστούν "
+"πάλι στις προβολές φωτογραφιών, συμβάντων και ετικετών."
+
+#: C/other-files.page:7(desc)
+msgid "Keep the Shotwell library in sync with photo files on disk."
+msgstr ""
+"Διατηρείστε τη βιβλιοθήκη Shotwell σε συγχρονισμό με τα αρχεία φωτογραφιών "
+"στον δίσκο."
+
+#: C/other-files.page:12(title)
+msgid "Photo files"
+msgstr "Αρχεία φωτογραφιών"
+
+#: C/other-files.page:14(p)
+msgid ""
+"Every photo in the Shotwell library corresponds to a file stored on your "
+"hard disk. Shotwell has several features which help you keep the Shotwell "
+"library and files on disk in sync."
+msgstr ""
+"Κάθε φωτογραφία στη βιβλιοθήκη Shotwell αντιστοιχεί σε ένα αποθηκευμένο "
+"αρχείο στον σκληρό σας δίσκο. Το Shotwell έχει πολλά γνωρίσματα που σας "
+"βοηθούν να κρατήσετε τη βιβλιοθήκη Shotwell και τα αρχεία στον δίσκο σε "
+"συγχρονισμό."
+
+#: C/other-files.page:21(title)
+msgid "Using a custom directory pattern"
+msgstr "Χρησιμοποιώντας ένα προσαρμοσμένο υπόδειγμα καταλόγου"
+
+#: C/other-files.page:22(p)
+msgid ""
+"Shotwell allows you to specify how it names directories in your library. You "
+"can do this by changing the <gui>Directory Structure</gui> and <gui>Pattern</"
+"gui> settings in the <gui>Preferences</gui> dialog. You may use a "
+"preselected pattern, or choose <gui>Custom</gui> and type in your own."
+msgstr ""
+"Το Shotwell σας επιτρέπει να ορίσετε τον τρόπο ονομασίας των καταλόγων στη "
+"βιβλιοθήκη σας. Μπορείτε να το κάνετε αλλάζοντας τις ρυθμίσεις <gui>Δομή "
+"καταλόγου</gui> και <gui>Υπόδειγμα</gui> στον διάλογο <gui>Προτιμήσεις</"
+"gui>. Μπορείτε να χρησιμοποιήσετε ένα προεπιλεγμένο υπόδειγμα, ή να "
+"επιλέξετε <gui>Προσαρμογή</gui> και να πληκτρολογήσετε το δικό σας."
+
+#: C/other-files.page:29(p)
+msgid ""
+"The available symbols for the directory pattern begin with a % (percent "
+"sign). The values these symbols produce are locale-dependent, so what you "
+"see on your computer may vary from the examples below."
+msgstr ""
+"Τα διαθέσιμα σύμβολα για υπόδειγμα καταλόγου ξεκινά με ένα % (σύμβολο "
+"ποσοστού). Οι τιμές που αυτά τα σύμβολα παράγουν εξαρτώνται από τις τοπικές "
+"ρυθμίσεις, έτσι ό,τι βλέπετε στον υπολογιστή σας μπορεί να διαφέρει από τα "
+"παρακάτω παραδείγματα."
+
+#: C/other-files.page:38(em)
+msgid "Symbol"
+msgstr "Σύμβολο"
+
+#: C/other-files.page:38(em)
+msgid "Meaning"
+msgstr "Σημασία"
+
+#: C/other-files.page:38(em)
+msgid "Example"
+msgstr "Παράδειγμα"
+
+#: C/other-files.page:43(p)
+msgid "%Y"
+msgstr "%Y"
+
+#: C/other-files.page:43(p)
+msgid "Year: full"
+msgstr "Έτος: πλήρες"
+
+#: C/other-files.page:43(p)
+msgid "2011"
+msgstr "2011"
+
+#: C/other-files.page:46(p)
+msgid "%y"
+msgstr "%y"
+
+#: C/other-files.page:46(p)
+msgid "Year: two digit"
+msgstr "Έτος: δύο ψηφία"
+
+#: C/other-files.page:46(p)
+msgid "11"
+msgstr "11"
+
+#: C/other-files.page:49(p)
+msgid "%d"
+msgstr "%d"
+
+#: C/other-files.page:49(p)
+msgid "Day of the month with leading zero"
+msgstr "Ημέρα του μήνα με αρχικό μηδέν"
+
+#: C/other-files.page:49(p)
+msgid "03"
+msgstr "03"
+
+#: C/other-files.page:52(p)
+msgid "%A"
+msgstr "%A"
+
+#: C/other-files.page:52(p)
+msgid "Day name: full"
+msgstr "Όνομα ημέρας: πλήρες"
+
+#: C/other-files.page:52(p)
+msgid "Wednesday"
+msgstr "Τετάρτη"
+
+#: C/other-files.page:55(p)
+msgid "%a"
+msgstr "%a"
+
+#: C/other-files.page:55(p)
+msgid "Day name: abbreviated"
+msgstr "Όνομα ημέρας: συντομευμένο"
+
+#: C/other-files.page:55(p)
+msgid "Wed"
+msgstr "Τετ"
+
+#: C/other-files.page:58(p)
+msgid "%m"
+msgstr "%m"
+
+#: C/other-files.page:58(p)
+msgid "Month number with leading zero"
+msgstr "Αριθμός μήνα με αρχικό μηδέν"
+
+#: C/other-files.page:58(p)
+msgid "02"
+msgstr "02"
+
+#: C/other-files.page:60(p)
+msgid "%b"
+msgstr "%b"
+
+#: C/other-files.page:60(p)
+msgid "Month name: abbreviated"
+msgstr "Όνομα μήνα: συντομευμένο"
+
+#: C/other-files.page:60(p)
+msgid "Feb"
+msgstr "Φεβ"
+
+#: C/other-files.page:62(p)
+msgid "%B"
+msgstr "%B"
+
+#: C/other-files.page:62(p)
+msgid "Month name: full"
+msgstr "Όνομα μήνα: πλήρες"
+
+#: C/other-files.page:62(p)
+msgid "February"
+msgstr "Φεβρουάριος"
+
+#: C/other-files.page:63(p)
+msgid "%I"
+msgstr "%I"
+
+#: C/other-files.page:63(p)
+msgid "Hour: 12 hour format"
+msgstr "Ώρα: 12ώρη μορφή"
+
+#: C/other-files.page:63(p)
+msgid "05"
+msgstr "05"
+
+#: C/other-files.page:64(p)
+msgid "%H"
+msgstr "%H"
+
+#: C/other-files.page:64(p)
+msgid "Hour: 24 hour format"
+msgstr "Ώρα: 24ώρη μορφή"
+
+#: C/other-files.page:64(p)
+msgid "17"
+msgstr "17"
+
+#: C/other-files.page:66(p)
+msgid "%M"
+msgstr "%M"
+
+#: C/other-files.page:66(p)
+msgid "Minute"
+msgstr "Λεπτό"
+
+#: C/other-files.page:66(p)
+msgid "16"
+msgstr "16"
+
+#: C/other-files.page:67(p)
+msgid "%S"
+msgstr "%S"
+
+#: C/other-files.page:67(p)
+msgid "Second"
+msgstr "Δευτερόλεπτο"
+
+#: C/other-files.page:67(p)
+msgid "30"
+msgstr "30"
+
+#: C/other-files.page:68(p)
+msgid "%p"
+msgstr "%p"
+
+#: C/other-files.page:68(p)
+msgid "AM or PM"
+msgstr "ΠΜ ή ΜΜ"
+
+#: C/other-files.page:68(p)
+msgid "PM"
+msgstr "ΜΜ"
+
+#: C/other-files.page:72(p)
+msgid ""
+"There are other symbols available; please check the manual for strftime by "
+"running the command <cmd>man strftime</cmd> if you need one that isn't "
+"listed here."
+msgstr ""
+"Υπάρχουν άλλα διαθέσιμα σύμβολα· παρακαλούμε, ελέγξτε το εγχειρίδιο για "
+"strftime εκτελώντας την εντολή <cmd>man strftime</cmd> αν χρειάζεστε ένα "
+"σύμβολο που δεν είναι καταχωρισμένο εδώ."
+
+#: C/other-files.page:79(title)
+msgid "Automatically importing photos"
+msgstr "Αυτόματη εισαγωγή φωτογραφιών"
+
+#: C/other-files.page:81(p)
+msgid ""
+"Shotwell can automatically import new photos which appear in the library "
+"directory. (The library directory is usually the <file>Pictures</file> "
+"directory in your home directory; you can change its location in in the "
+"<gui>Preferences</gui> window.)"
+msgstr ""
+"Το Shotwell μπορεί να εισάγει αυτόματα νέες φωτογραφίες που εμφανίζονται "
+"στον κατάλογο βιβλιοθήκης. (Ο κατάλογος βιβλιοθήκης είναι συνήθως ο "
+"κατάλογος <file>Εικόνες</file> στον προσωπικό σας κατάλογο· μπορείτε να "
+"αλλάξετε την θέση του στο παράθυρο <gui>Προτιμήσεις</gui>.)"
+
+#: C/other-files.page:86(p)
+msgid ""
+"To enable auto-import, check the box <gui>Watch library directory for new "
+"files</gui> in the <gui>Preferences</gui> window."
+msgstr ""
+"Για την ενεργοποίηση της αυτόματης εισαγωγής, ελέγξτε το πλαίσιο "
+"<gui>Παρακολούθηση του καταλόγου βιβλιοθήκης για νέα αρχεία</gui> στο "
+"παράθυρο <gui>Προτιμήσεις</gui>."
+
+#: C/other-files.page:90(p)
+msgid ""
+"Shotwell can also follow symbolic links inside automatically-imported "
+"directories."
+msgstr ""
+"Το Shotwell μπορεί επίσης να ακολουθήσει τους συμβολικούς δεσμούς σε "
+"αυτόματα εισαγόμενους καταλόγους."
+
+#: C/other-files.page:95(title)
+msgid "Automatically renaming imported photos to lowercase"
+msgstr "Αυτόματη μετονομασία εισαγόμενων φωτογραφιών σε πεζά γράμματα"
+
+#: C/other-files.page:97(p)
+msgid ""
+"Shotwell can automatically change the filenames of imported photos to "
+"lowercase. To enable this, choose <guiseq><gui>Edit</gui><gui>Preferences</"
+"gui></guiseq>, and in the <gui>Preferences</gui> window, check the "
+"<gui>Rename imported files to lowercase</gui> box."
+msgstr ""
+"Το Shotwell μπορεί να αλλάξει αυτόματα τα ονόματα αρχείων των εισαγόμενων "
+"φωτογραφιών σε πεζά γράμματα. Για να το ενεργοποιήσετε αυτό, επιλέξτε "
+"<guiseq><gui>Επεξεργασία</gui><gui>Προτιμήσεις</gui></guiseq> και στο "
+"παράθυρο <gui>Προτιμήσεις</gui>, σημειώστε το πλαίσιο <gui>Μετονομασία "
+"εισαγόμενων αρχείων σε πεζά γράμματα</gui>."
+
+#: C/other-files.page:107(title)
+msgid "Writing metadata on the fly"
+msgstr "Εγγραφή μεταδεδομένων απευθείας"
+
+#: C/other-files.page:109(p)
+msgid ""
+"By default, Shotwell does not modify photo files, even when you edit photos "
+"or change their tags or titles. Shotwell records these changes in its own "
+"database only."
+msgstr ""
+"Από προεπιλογή, το Shotwell δεν τροποποιεί αρχεία φωτογραφιών, ακόμα κι όταν "
+"επεξεργάζεστε φωτογραφίες ή αλλάζετε τις ετικέτες τους ή τίτλους τους. Το "
+"Shotwell καταγράφει αυτές τις αλλαγές μόνο στη δικιά του βάση δεδομένων."
+
+#: C/other-files.page:112(p)
+msgid ""
+"To change this behavior, you can enable the checkbox <gui>Write tags, titles "
+"and other metadata to photo files</gui> in the <gui>Preferences</gui> "
+"dialog. When this option is enabled, Shotwell will write the following "
+"metadata to most photo files whenever you change it in Shotwell:"
+msgstr ""
+"Για να αλλάξετε αυτήν την συμπεριφορά, μπορείτε να ενεργοποιήσετε το πλαίσιο "
+"ελέγχου <gui>Εγγραφή ετικετών, τίτλων και άλλων μεταδεδομένων σε αρχεία "
+"φωτογραφιών</gui> στον διάλογο <gui>Προτιμήσεις</gui>. Όταν αυτή η επιλογή "
+"είναι ενεργή, το Shotwell θα γράψει τα παρακάτω μεταδεδομένα στα περισσότερα "
+"αρχεία φωτογραφιών όποτε το αλλάζετε σε Shotwell:"
+
+#: C/other-files.page:118(p)
+msgid "titles"
+msgstr "τίτλοι"
+
+#: C/other-files.page:119(p)
+msgid "tags"
+msgstr "ετικέτες"
+
+#: C/other-files.page:120(p)
+msgid "ratings"
+msgstr "αξιολογήσεις"
+
+#: C/other-files.page:121(p)
+msgid "rotation information"
+msgstr "πληροφορίες περιστροφής"
+
+#: C/other-files.page:122(p)
+msgid "time/date"
+msgstr "χρόνος/ημερομηνία"
+
+#: C/other-files.page:125(p)
+msgid ""
+"Shotwell stores this information in photo files in EXIF, IPTC and/or XMP "
+"format. Note that Shotwell can write only to photo files in JPEG, PNG and "
+"TIFF format, not to BMP photos, RAW photos or to video files."
+msgstr ""
+"Το Shotwell αποθηκεύει αυτές τις πληροφορίες σε αρχεία φωτογραφιών σε μορφή "
+"EXIF, IPTC και/ή XMP. Σημειώστε ότι το Shotwell μπορεί να γράψει μόνο σε "
+"αρχεία φωτογραφιών σε μορφή JPEG, PNG και TIFF, όχι σε φωτογραφίες BMP, RAW "
+"ή σε αρχεία βίντεο."
+
+#: C/other-files.page:133(title)
+msgid "Runtime monitoring"
+msgstr "Παρακολούθηση χρόνου εκτέλεσης"
+
+#: C/other-files.page:135(p)
+msgid ""
+"While Shotwell is running, it notices changes made to any photo file "
+"externally. When a photo file changes, Shotwell rereads the file and updates "
+"your view of the photo and metadata."
+msgstr ""
+"Ενώ εκτελείται το Shotwell, σημειώνει αλλαγές που έγιναν σε οποιαδήποτε "
+"εξωτερικό αρχείο φωτογραφίας. Όταν ένα αρχείο φωτογραφίας αλλάζει, το "
+"Shotwell ξαναδιαβάζει το αρχείο και ενημερώνει την προβολή σας της "
+"φωτογραφίας και των μεταδεδομένων."
+
+#: C/other-files.page:139(p)
+msgid ""
+"Note that Shotwell checks all photo files for changes at startup, but only "
+"photo files contained in the library directory are monitored in real time "
+"after startup. We hope to remove this limitation in a further release."
+msgstr ""
+"Σημειώστε ότι το Shotwell ελέγχει όλα τα αρχεία φωτογραφιών για αλλαγές στην "
+"εκκίνηση, αλλά μόνο τα περιεχόμενα αρχεία φωτογραφίας στον κατάλογο "
+"βιβλιοθήκης παρακολουθούνται σε πραγματικό χρόνο μετά την εκκίνηση. "
+"Ελπίζουμε να αφαιρέσουμε αυτόν τον περιορισμό σε μια μεταγενέστερη έκδοση."
+
+#: C/organize-title.page:7(desc)
+msgid "Give titles to your photos."
+msgstr "Δώστε τίτλους στις φωτογραφίες σας."
+
+#: C/organize-title.page:12(title)
+msgid "Titles"
+msgstr "Τίτλοι"
+
+#: C/organize-title.page:14(p)
+msgid ""
+"The <guiseq><gui>View</gui><gui>Titles</gui></guiseq> checkbox toggles the "
+"display of titles beneath each photo. By default, a photo's title is its "
+"filename."
+msgstr ""
+"Το πλαίσιο ελέγχου <guiseq><gui>Προβολή</gui><gui>Τίτλοι</gui></guiseq> "
+"εναλλάσσει την εμφάνιση των τίτλων κάτω από κάθε φωτογραφία. Από προεπιλογή, "
+"ο τίτλος μιας φωτογραφίας είναι το όνομα του αρχείου της."
+
+#: C/organize-title.page:17(p)
+msgid ""
+"To change a photo's title, select the photo and click <guiseq><gui>Photos</"
+"gui><gui>Edit Title</gui></guiseq>, or press <key>F2</key>."
+msgstr ""
+"Για να αλλάξετε τον τίτλο μιας φωτογραφίας, επιλέξτε τη φωτογραφία και "
+"πατήστε <guiseq><gui>Φωτογραφίες</gui><gui>Επεξεργασία τίτλου</gui></"
+"guiseq>, ή πατήστε <key>F2</key>."
+
+#: C/organize-tag.page:7(desc)
+msgid "Organize photos by labelling them."
+msgstr "Οργάνωση φωτογραφιών βάζοντας ετικέτες."
+
+#: C/organize-tag.page:14(title)
+msgid "Tagging photos"
+msgstr "Ονομασία φωτογραφιών"
+
+#: C/organize-tag.page:16(p)
+msgid ""
+"You can assign one or more tags to selected photos. A tag can be one or more "
+"words that you want to associate with those photos."
+msgstr ""
+"Μπορείτε να δώσετε μία ή περισσότερες ετικέτες σε επιλεγμένες φωτογραφίες. "
+"Μια ετικέτα μπορεί να έχει μία ή περισσότερες λέξεις που θέλετε να "
+"συσχετίσετε με αυτές τις φωτογραφίες."
+
+#: C/organize-tag.page:22(p)
+msgid ""
+"To add new tags to photos, select the photos you would like to tag, then do "
+"any of the following:"
+msgstr ""
+"Για να προσθέσετε νέες ετικέτες στις φωτογραφίες, επιλέξτε τις φωτογραφίες "
+"στις οποίες θέλετε να βάλετε ετικέτες, έπειτα κάντε οποιοδήποτε από τα "
+"παρακάτω:"
+
+#: C/organize-tag.page:28(p)
+msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
+msgstr ""
+"Επιλέξτε <guiseq><gui>Ετικέτες</gui><gui>Προσθήκη ετικετών</gui></guiseq>."
+
+#: C/organize-tag.page:29(p)
+msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
+msgstr "Πληκτρολογήστε <keyseq><key>Ctrl</key><key>T</key></keyseq>."
+
+#: C/organize-tag.page:30(p)
+msgid "Drag the selected photos and drop them on the desired tag."
+msgstr ""
+"Μεταφέρτε τις επιλεγμένες φωτογραφίες και αποθέστε τες στην επιθυμητή "
+"ετικέτα."
+
+#: C/organize-tag.page:33(p)
+msgid ""
+"When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
+"<guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq> you can type in the "
+"names of one or more tags, separated by commas. Once you have created a tag, "
+"you can rename it by selecting that tag in the sidebar and choosing "
+"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"</gui></guiseq>, by "
+"rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
+"tag in the sidebar."
+msgstr ""
+"Όταν χρησιμοποιείτε <keyseq><key>Ctrl</key><key>T</key></keyseq> ή "
+"<guiseq><gui>Ετικέτες</gui><gui>Προσθήκη ετικετών</gui></guiseq> μπορείτε να "
+"πληκτρολογήσετε τα ονόματα μιας ή περισσότερων ετικετών, χωριζόμενων με "
+"κόμματα. Αφού έχετε δημιουργήσει μια ετικέτα, μπορείτε να την μετονομάσετε "
+"επιλέγοντας αυτήν την ετικέτα στην πλευρική στήλη και επιλέγοντας "
+"<guiseq><gui>Ετικέτες</gui><gui>Μετονομασία ετικέτας \"[όνομα]\"</gui></"
+"guiseq>, δεξιοπατώντας την και επιλέγοντας <gui>Μετονομασία...</gui> ή "
+"διπλοπατώντας την ετικέτα στην πλευρική στήλη."
+
+#: C/organize-tag.page:44(p)
+msgid ""
+"To change which tags are associated with a particular photo, select that "
+"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags</gui></guiseq> or "
+"right-click on a photo and select <gui>Modify Tags</gui> and edit the comma "
+"separated list. To remove a tag from one or more photos, first select that "
+"tag in the sidebar, then select the photos you would like to remove, and "
+"choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</gui></"
+"guiseq> or right-click on the photos an select <gui>Remove Tag \"[name]\" "
+"from Photos</gui>."
+msgstr ""
+"Για να αλλάξετε ποιες ετικέτες συσχετίζονται με μια συγκεκριμένη φωτογραφία, "
+"επιλέξτε αυτήν την φωτογραφία, διαλέξτε <guiseq><gui>Ετικέτες</"
+"gui><gui>Τροποποίηση ετικετών</gui></guiseq> ή δεξιοπατήστε σε μια "
+"φωτογραφία και επιλέξτε <gui>Τροποποίηση ετικετών</gui> και επεξεργαστείτε "
+"τον κατάλογο που χωρίζεται με κόμματα. Για να αφαιρέσετε μια ετικέτα από μία "
+"ή περισσότερες φωτογραφίες, επιλέξτε πρώτα αυτήν την ετικέτα στην πλευρική "
+"στήλη, έπειτα επιλέξτε τις φωτογραφίες που θα θέλατε να αφαιρέσετε και "
+"επιλέξτε <guiseq><gui>Ετικέτες</gui><gui>Αφαίρεση ετικέτας \"[όνομα]\" από "
+"τις φωτογραφίες</gui></guiseq> ή δεξιοπατήστε στις φωτογραφίες και επιλέξτε "
+"<gui>Αφαίρεση ετικέτας \"[όνομα]\" από τις φωτογραφίες</gui>."
+
+#: C/organize-tag.page:58(p)
+msgid ""
+"To delete a tag entirely, select that tag in the sidebar and choose "
+"<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
+"click and select <gui>Delete Tag \"[name]\"</gui>."
+msgstr ""
+"Για να διαγράψετε μια ετικέτα πλήρως, επιλέξτε αυτήν την ετικέτα στην "
+"πλευρική στήλη και επιλέξτε <guiseq><gui>Ετικέτες</gui><gui>Διαγραφή "
+"ετικέτας \"[όνομα]\"</gui></guiseq> ή δεξιοπατήστε και επιλέξτε "
+"<gui>Διαγραφή ετικέτας \"[όνομα]\"</gui>."
+
+#: C/organize-tag.page:64(p)
+msgid ""
+"When you create a tag, it will appear in the sidebar under the Tags item, "
+"which is hidden if there are no tags. Photos can have multiple tags attached "
+"to them, and when you click on the name of a given tag in the sidebar, you "
+"will see all the photos associated with that tag."
+msgstr ""
+"Όταν δημιουργείτε μια ετικέτα, θα εμφανιστεί στην πλευρική στήλη κάτω από το "
+"στοιχείο ετικέτες, που είναι κρυφό αν δεν υπάρχουν ετικέτες. Οι φωτογραφίες "
+"μπορούν να έχουν πολλαπλές ετικέτες προσαρτημένες σε αυτές και όταν πατάτε "
+"στο όνομα μιας δοσμένης ετικέτας στην πλευρική στήλη, θα δείτε όλες τις "
+"συσχετισμένες φωτογραφίες με αυτήν την ετικέτα."
+
+#: C/organize-tag.page:73(title)
+msgid "Hierarchical Tags"
+msgstr "Ιεραρχικές ετικέτες"
+
+#: C/organize-tag.page:74(p)
+msgid ""
+"Shotwell supports also hierarchial tags. You can rearrange your tags by drag "
+"and drop a tag onto another. To create a new subtag right-click on a tag and "
+"select <gui>New</gui>."
+msgstr ""
+"Το Shotwell υποστηρίζει επίσης ιεραρχικές ετικέτες. Μπορείτε να αναδιατάξετε "
+"τις ετικέτες σας με μεταφορά και απόθεση μιας ετικέτας σε μια άλλη. Για να "
+"δημιουργήσετε μια νέα υποετικέτα δεξιοπατήστε σε μια ετικέτα και επιλέξτε "
+"<gui>Νέα</gui>."
+
+#: C/organize-tag.page:81(p)
+msgid ""
+"Hierarchial tags can help you to sort your tag list in ways that better "
+"match how you work or think; for example, you can store location tags like "
+"\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
+"be placed under the tag \"Summer Holidays\"."
+msgstr ""
+"Οι ιεραρχικές ετικέτες μπορεί να σας βοηθήσουν να ταξινομήσετε τον κατάλογο "
+"ετικετών σας έτσι που να ταιριάζει καλύτερα με τον τρόπο εργασίας ή σκέψης "
+"σας· για παράδειγμα, μπορείτε να αποθηκεύσετε ετικέτες θέσης όπως \"βουνά\" "
+"ή \"παραλίες\" κάτω από μια γονική ετικέτα \"Τοποθεσίες\", που η ίδια μπορεί "
+"να τοποθετηθεί κάτω από την ετικέτα \"καλοκαιρινές διακοπές\"."
+
+#: C/organize-tag.page:89(p)
+msgid "Note that deleting a parent tag will also delete its child tags."
+msgstr ""
+"Σημειώστε ότι διαγράφοντας μια γονική ετικέτα διαγράφονται επίσης και οι "
+"θυγατρικές της ετικέτες."
+
+#: C/organize-search.page:7(desc)
+msgid "Find photos and videos in your collection by a variety of criteria."
+msgstr "Εύρεση φωτογραφιών και βίντεο στη συλλογή σας με διάφορα κριτήρια."
+
+#: C/organize-search.page:12(title)
+msgid "Searching"
+msgstr "Αναζήτηση"
+
+#: C/organize-search.page:14(p)
+msgid ""
+"There are two ways to search in Shotwell: the filter toolbar, and with a "
+"saved search. The search bar allows you to quickly search the current view "
+"for certain criteria. Saved Searches feature more complex search criteria "
+"and persist in the sidebar between sessions."
+msgstr ""
+"Υπάρχουν δύο τρόποι αναζήτησης στο Shotwell: η εργαλειοθήκη φίλτρου και με "
+"μια αποθηκευμένη αναζήτηση. Η γραμμή αναζήτησης σας επιτρέπει να αναζητήσετε "
+"γρήγορα την τρέχουσα προβολή για συγκεκριμένα κριτήρια. Αποθηκευμένες "
+"αναζητήσεις χαρακτηρίζουν πιο σύνθετα κριτήρια αναζήτησης και παραμένουν "
+"στην πλευρική στήλη μεταξύ των συνεδριών."
+
+#: C/organize-search.page:21(title)
+msgid "Search bar"
+msgstr "Γραμμή αναζήτησης"
+
+#: C/organize-search.page:22(p)
+msgid ""
+"The <guiseq><gui>View</gui><gui>Search Bar</gui></guiseq> checkbox toggles "
+"the display of the search bar. You can also hit <keyseq><key>Ctrl</"
+"key><key>F</key></keyseq> or <key>F8</key> to bring up the search bar. From "
+"this bar, you can find, show and hide photos and videos based on title, tag, "
+"rating or other options."
+msgstr ""
+"Το πλαίσιο ελέγχου <guiseq><gui>Προβολή</gui><gui>Γραμμή αναζήτησης</gui></"
+"guiseq> εναλλάσσει την εμφάνιση της γραμμής αναζήτησης. Μπορείτε επίσης να "
+"πατήσετε <keyseq><key>Ctrl</key><key>F</key></keyseq> ή <key>F8</key> για να "
+"εμφανίσετε τη γραμμή αναζήτησης. Από αυτήν τη γραμμή, μπορείτε να βρείτε, να "
+"εμφανίσετε και να κρύψετε φωτογραφίες και βίντεο με βάση τον τίτλο, την "
+"ετικέτα, την βαθμολόγηση ή άλλες επιλογές."
+
+#: C/organize-search.page:29(p)
+msgid ""
+"To begin searching, simply enter a search keyword in the text box, or click "
+"on <gui>Flagged</gui>, <gui>Rating</gui> or <gui>Type</gui>. The text search "
+"matches your keywords across tag names, photo or video titles and photos' "
+"original filenames. The <gui>Flagged</gui>, <gui>Rating</gui> and <gui>Type</"
+"gui> buttons allow you to filter your collection by whether photos are "
+"flagged, their current number of stars, and whether the items shown are "
+"images, videos, or raw camera files, respectively."
+msgstr ""
+"Για να ξεκινήσετε την αναζήτηση, εισάγετε απλά μια λέξη-κλειδί αναζήτησης "
+"στο πλαίσιο κειμένου, ή πατήστε στα <gui>Με σημαία</gui>, <gui>Αξιολόγηση</"
+"gui> ή <gui>Τύπος</gui>. Η αναζήτηση κειμένου ταιριάζει με τις λέξεις-"
+"κλειδιά σας σε όλα τα ονόματα ετικετών, φωτογραφιών ή τίτλων βίντεο και με "
+"τα αρχικά ονόματα αρχείων των φωτογραφιών. Τα πλήκτρα <gui>Με σημαία</gui>, "
+"<gui>Αξιολόγηση</gui> και <gui>Τύπος</gui> σας επιτρέπουν να φιλτράρετε τη "
+"συλλογή σας σύμφωνα με το αν οι φωτογραφίες είναι με σημαία, με τον τρέχοντα "
+"αριθμό αστεριών και αν τα εμφανιζόμενα στοιχεία είναι εικόνες, βίντεο ή "
+"ακατέργαστα αρχεία φωτογραφικής μηχανής, αντίστοιχα."
+
+#: C/organize-search.page:38(p)
+msgid ""
+"Disabling the search bar or exiting Shotwell automatically resets the search "
+"bar."
+msgstr ""
+"Η απενεργοποίηση της γραμμής αναζήτησης ή η έξοδος από το Shotwell "
+"επαναφέρει αυτόματα τη γραμμή αναζήτησης."
+
+#: C/organize-search.page:44(title)
+msgid "Saved search"
+msgstr "Αποθηκευμένη αναζήτηση"
+
+#: C/organize-search.page:45(p)
+msgid ""
+"A saved search persists across Shotwell sessions, and is updated as photos "
+"and videos are added and removed from your Shotwell library."
+msgstr ""
+"Μια αποθηκευμένη αναζήτηση παραμένει στις συνεδρίες του Shotwell και "
+"ενημερώνεται καθώς προστίθενται και αφαιρούνται φωτογραφίες και βίντεο από "
+"τη βιβλιοθήκη του Shotwell."
+
+#: C/organize-search.page:50(p)
+msgid ""
+"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Search</gui></"
+"guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></keyseq>. The "
+"dialog box allows you to enter a name for the search and select whether you "
+"want to meet Any, All, or None of the criteria in the following rows."
+msgstr ""
+"Δημιουργήστε μια νέα αποθηκευμένη αναζήτηση με <guiseq><gui>Επεξεργασία</"
+"gui><gui>Νέα αναζήτηση</gui></guiseq> ή πατώντας <keyseq><key>Ctrl</"
+"key><key>S</key></keyseq>. Το πλαίσιο διαλόγου σας επιτρέπει να εισάγετε ένα "
+"όνομα για την αναζήτηση και να επιλέξετε αν θέλετε να ικανοποιεί "
+"οποιοδήποτε, όλα ή κανένα από τα κριτήρια στις επόμενες γραμμές."
+
+#: C/organize-search.page:56(p)
+msgid ""
+"Each row represents a search criterion. Use the + button to add more rows, "
+"and the - button to remove a specific row. The combo box on the left of each "
+"row selects the type of criteria. Criteria must be entered correctly before "
+"the OK button becomes available."
+msgstr ""
+"Κάθε γραμμή αναπαριστά ένα κριτήριο αναζήτησης. Χρησιμοποιήστε το πλήκτρο + "
+"για να προσθέσετε περισσότερες γραμμές και το πλήκτρο - για να αφαιρέσετε "
+"μια συγκεκριμένη γραμμή. Το σύνθετο πλαίσιο στα αριστερά κάθε γραμμής "
+"επιλέγει τον τύπο των κριτηρίων. Τα κριτήρια πρέπει να εισαχθούν σωστά πριν "
+"να γίνει διαθέσιμο το πλήκτρο Εντάξει."
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: C/organize-remove.page:15(None)
+msgid ""
+"@@image: 'figures/trash_process.png'; md5=ed596bda34c2f4a79a310fbc8bb51fd2"
+msgstr ""
+"@@image: 'figures/trash_process.png'· md5=ed596bda34c2f4a79a310fbc8bb51fd2"
+
+#: C/organize-remove.page:7(desc)
+msgid ""
+"Remove photos from the library, or delete them from your computer entirely."
+msgstr ""
+"Αφαίρεση φωτογραφιών από τη βιβλιοθήκη, ή διαγραφή τους από τον υπολογιστή "
+"σας πλήρως."
+
+#: C/organize-remove.page:12(title)
+msgid "Removing and deleting photos"
+msgstr "Αφαίρεση και διαγραφή φωτογραφιών"
+
+#: C/organize-remove.page:14(p)
+msgid ""
+"You may remove photos from your library and you may additionally delete them "
+"entirely from your hard disk."
+msgstr ""
+"Μπορείτε να αφαιρέσετε φωτογραφίες από τη βιβλιοθήκη σας και μπορείτε "
+"πρόσθετα να τις διαγράψετε πλήρως από τον σκληρό σας δίσκο."
+
+#: C/organize-remove.page:15(media)
+msgid "Delete process"
+msgstr "Διαγραφή διεργασίας"
+
+#: C/organize-remove.page:16(p)
+msgid ""
+"This diagram shows how a photo, when deleted, is first put into Shotwell's "
+"trash. If you delete it from Shotwell's trash, it is put into your "
+"computer's trash. If you delete it from your computer's trash the photo is "
+"finally and irretrievably deleted from your computer."
+msgstr ""
+"Αυτό το διάγραμμα εμφανίζει πώς μια φωτογραφία, όταν διαγράφεται, μπαίνει "
+"πρώτα στα απορρίμματα του Shotwell. Αν την διαγράψετε από τα απορρίμματα του "
+"Shotwell, μπαίνει στα απορρίμματα του υπολογιστή σας. Αν την διαγράψετε από "
+"τα απορρίμματα του υπολογιστή σας η φωτογραφία διαγράφεται οριστικά και "
+"αμετάκλητα από τον υπολογιστή σας."
+
+#: C/organize-remove.page:18(title)
+msgid "Removing photos from the library"
+msgstr "Αφαίρεση φωτογραφιών από τη βιβλιοθήκη"
+
+#: C/organize-remove.page:19(p)
+msgid ""
+"Select the photos to remove and choose <guiseq><gui>Edit</gui><gui>Move to "
+"Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
+"photos will be moved from your library to Shotwell's Trash."
+msgstr ""
+"Επιλέξτε τις φωτογραφίες που θέλετε να αφαιρέσετε και επιλέξτε "
+"<guiseq><gui>Επεξεργασία</gui><gui>Μετακίνηση στα απορρίμματα</gui></"
+"guiseq>. (Μπορείτε επίσης να πατήσετε το πλήκτρο <key>Διαγραφή</key>.) Οι "
+"φωτογραφίες θα μετακινηθούν από τη βιβλιοθήκη σας στα απορρίμματα του "
+"Shotwell."
+
+#: C/organize-remove.page:22(p)
+msgid ""
+"If you want to remove photos from Shotwell without having them pass through "
+"the trash, simply select the photos to be removed and choose "
+"<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
+"files will be left in place on disk."
+msgstr ""
+"Αν θέλετε να αφαιρέσετε φωτογραφίες από το Shotwell χωρίς να τις περάσετε "
+"μέσα από τα απορρίμματα, επιλέξτε απλά τις φωτογραφίες που θα αφαιρεθούν και "
+"επιλέξτε <guiseq><gui>Επεξεργασία</gui><gui>Αφαίρεση από τη βιβλιοθήκη</"
+"gui></guiseq>. Τα αρχεία φωτογραφιών θα αφεθούν επί τόπου στον δίσκο."
+
+#: C/organize-remove.page:26(title)
+msgid "Emptying or restoring the trash folder"
+msgstr "Άδειασμα ή επαναφορά του φακέλου απορριμμάτων"
+
+#: C/organize-remove.page:27(p)
+msgid ""
+"Select the Trash entry in the Sidebar and Shotwell will display all photos "
+"that have been marked for removal or deletion. In the Trash view, the "
+"following commands are available:"
+msgstr ""
+"Επιλέξτε την καταχώριση απορριμμάτων στην πλευρική στήλη και το Shotwell θα "
+"εμφανίσει όλες τις φωτογραφίες που έχετε σημειώσει για αφαίρεση ή διαγραφή. "
+"Στην προβολή απορριμάτων, οι επόμενες εντολές είναι διαθέσιμες:"
+
+#: C/organize-remove.page:29(title)
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: C/organize-remove.page:29(p)
+msgid "Delete the selected photos from the trash folder."
+msgstr "Διαγραφή των επιλεγμένων φωτογραφιών από τον φάκελο απορριμμάτων."
+
+#: C/organize-remove.page:30(title)
+msgid "Restore"
+msgstr "Επαναφορά"
+
+#: C/organize-remove.page:30(p)
+msgid "Restore the selected photos into Shotwell."
+msgstr "Επαναφορά των επιλεγμένων φωτογραφιών στο Shotwell."
+
+#: C/organize-remove.page:31(title)
+msgid "Empty trash"
+msgstr "Άδειασμα απορριμάτων"
+
+#: C/organize-remove.page:31(p)
+msgid "Delete all photos from the trash folder."
+msgstr "Διαγραφή όλων των φωτογραφιών από τον φάκελο απορριμμάτων."
+
+#: C/organize-remove.page:36(title)
+msgid "Deleting or emptying Trash"
+msgstr "Διαγραφή ή άδειασμα απορριμμάτων"
+
+#: C/organize-remove.page:37(p)
+msgid ""
+"When you delete files from the Trash folder or empty the Trash folder, you "
+"will be given the following choices:"
+msgstr ""
+"Όταν διαγράφετε αρχεία από τον φάκελο απορριμμάτων ή αδειάζετε τον φάκελο "
+"απορριμμάτων, θα σας δοθούν οι επόμενες επιλογές:"
+
+#: C/organize-remove.page:39(title)
+msgid "Only Remove"
+msgstr "Μόνο αφαίρεση"
+
+#: C/organize-remove.page:39(p)
+msgid ""
+"Remove photos from the library but leave the photos in their location on the "
+"computer."
+msgstr ""
+"Αφαιρεί τις φωτογραφίες από τη βιβλιοθήκη, αλλά τις αφήνει στη θέση τους "
+"στον υπολογιστή."
+
+#: C/organize-remove.page:40(title)
+msgid "Trash file"
+msgstr "Αρχείο απορριμμάτων"
+
+#: C/organize-remove.page:40(p)
+msgid "Remove photos from the library and delete them from the computer."
+msgstr ""
+"Αφαιρεί τις φωτογραφίες από τη βιβλιοθήκη και τις διαγράφει από τον "
+"υπολογιστή."
+
+#: C/organize-remove.page:41(title)
+msgid "Cancel"
+msgstr "Άκυρο"
+
+#: C/organize-remove.page:41(p)
+msgid "Do nothing."
+msgstr "Καμία ενέργεια."
+
+#: C/organize-rating.page:7(desc)
+msgid ""
+"Give photos a rating between 1 and 5 stars. You can reject bad photos, "
+"hiding them from view."
+msgstr ""
+"Δώστε στις φωτογραφίες μια αξιολόγηση μεταξύ 1 και 5 αστεριών. Μπορείτε να "
+"απορρίψετε άσχημες φωτογραφίες, κρύβοντας τες από την προβολή."
+
+#: C/organize-rating.page:12(title)
+msgid "Ratings"
+msgstr "Αξιολογήσεις"
+
+#: C/organize-rating.page:13(p)
+msgid ""
+"You can assign each photo a rating from 1-5 stars, or may alternatively rate "
+"it as Rejected, in which case Shotwell will hide the photo by default."
+msgstr ""
+"Μπορείτε να δώσετε σε κάθε φωτογραφία μια βαθμολόγηση από 1-5 αστέρια, ή "
+"μπορείτε εναλλακτικά να την αξιολογήσετε ως απορριφθείσα, οπότε το Shotwell "
+"θα κρύψει την φωτογραφία από προεπιλογή."
+
+#: C/organize-rating.page:15(p)
+msgid "You can rate a photo or a set of photos in any of these ways:"
+msgstr ""
+"Μπορείτε να αξιολογήσετε μια φωτογραφία ή ένα σύνολο φωτογραφιών με "
+"οποιονδήποτε από αυτούς τους τρόπους:"
+
+#: C/organize-rating.page:18(p)
+msgid ""
+"Select the photo(s), then choose a rating from the top-level "
+"<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
+msgstr ""
+"Επιλέξτε τις φωτογραφίες, έπειτα επιλέξτε μια αξιολόγηση από το μενού "
+"ανωτάτου επιπέδου <guiseq><gui>Φωτογραφίες</gui><gui>Ορισμός αξιολόγησης</"
+"gui></guiseq>."
+
+#: C/organize-rating.page:19(p)
+msgid ""
+"Right-click on the photo(s), then choose a rating from the Set Rating "
+"context menu."
+msgstr ""
+"Δεξιοπατήστε στις φωτογραφίες, έπειτα επιλέξτε μια αξιολόγηση από το μενού "
+"περιεχομένων αξιολόγησης."
+
+#: C/organize-rating.page:20(p)
+msgid ""
+"Select the photo(s), then press any of the shortcut keys <key>1</key>, "
+"<key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. "
+"Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
+"clear the rating(s)."
+msgstr ""
+"Επιλέξτε τις φωτογραφίες, έπειτα πατήστε οποιαδήποτε από τα πλήκτρα "
+"συντόμευσης <key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> ή <key>5</"
+"key> για να δώσετε μια αξιολόγηση. Ή πατήστε <key>9</key> για να σημειώσετε "
+"τις φωτογραφίες ως απορριφθείσες ή <key>0</key> για να καθαρίσετε τις "
+"αξιολογήσεις."
+
+#: C/organize-rating.page:23(p)
+msgid ""
+"Normally Shotwell displays all photos except rejected photos. You can set a "
+"different rating filter using the <guiseq><gui>View</gui><gui>Filter Photos</"
+"gui></guiseq> menu - for example, you can display only photos rated with 3 "
+"stars or higher, or you can display all photos including those marked "
+"rejected. The Shotwell icon on the toolbar displays the current rating "
+"filter and can also be used to set the filter."
+msgstr ""
+"Κανονικά το Shotwell εμφανίζει όλες τις φωτογραφίες εκτός από τις "
+"απορριφθείσες. Μπορείτε να ορίσετε ένα διαφορετικό φίλτρο αξιολόγησης "
+"χρησιμοποιώντας το μενού <guiseq><gui>Προβολή</gui><gui>Φιλτράρισμα "
+"φωτογραφιών</gui></guiseq> - για παράδειγμα, μπορείτε να εμφανίσετε μόνο "
+"φωτογραφίες που αξιολογούνται με 3 αστέρια ή περισσότερο, ή μπορείτε να "
+"εμφανίσετε όλες τις φωτογραφίες συμπεριλαμβανομένων αυτών που σημειώθηκαν ως "
+"απορριφθείσες. Το εικονίδιο Shotwell στην εργαλειοθήκη εμφανίζει το τρέχον "
+"φίλτρο αξιολόγησης και μπορεί επίσης να χρησιμοποιηθεί για να ορίσει το "
+"φίλτρο."
+
+#: C/organize-rating.page:26(p)
+msgid ""
+"Shotwell normally displays each photo's rating in its lower left-hand "
+"corner. You can turn off the display of ratings using the <guiseq><gui>View</"
+"gui><gui>Ratings</gui></guiseq> menu item."
+msgstr ""
+"Το Shotwell κανονικά εμφανίζει αξιολόγηση κάθε φωτογραφίας στην κάτω "
+"αριστερή γωνία. Μπορείτε να απενεργοποιήσετε την εμφάνιση των αξιολογήσεων "
+"χρησιμοποιώντας το στοιχείο μενού <guiseq><gui>Προβολή</"
+"gui><gui>Αξιολογήσεις</gui></guiseq>."
+
+#: C/organize-rating.page:28(p)
+msgid ""
+"You can increase or decrease a photo's rating using the <guiseq><gui>Set "
+"Rating</gui><gui>Increase</gui></guiseq> and <guiseq><gui>Set Rating</"
+"gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
+"<key>&lt;</key> and <key>&gt;</key>."
+msgstr ""
+"Μπορείτε να αυξήσετε ή να μειώσετε την αξιολόγηση μιας φωτογραφίας "
+"χρησιμοποιώντας τις εντολές <guiseq><gui>Ορισμός αξιολόγησης</"
+"gui><gui>Αύξηση</gui></guiseq> και <guiseq><gui>Ορισμός αξιολόγησης</"
+"gui><gui>Μείωση</gui></guiseq>, ή τις συντομεύσεις πληκτρολογίου <key>&lt;</"
+"key> και <key>&gt;</key>."
+
+#: C/organize-flag.page:7(desc)
+msgid "Flag photos to mark them as special or to work with them as a set."
+msgstr ""
+"Βάλτε σημαίες για να τις σημειώσετε ως ειδικές ή για να τις δουλέψετε ως "
+"σύνολο."
+
+#: C/organize-flag.page:12(title)
+msgid "Flagging photos"
+msgstr "Προσθήκη σημαίας στις φωτογραφίες"
+
+#: C/organize-flag.page:14(p)
+msgid ""
+"Shotwell lets you <em>flag</em> photos. When a photo is flagged, a small "
+"flag icon appears in its upper right corner. You can select the "
+"<gui>Flagged</gui> item in the sidebar to see all photos which have been "
+"flagged."
+msgstr ""
+"Το Shotwell σας επιτρέπει να <em>βάλετε σημαία</em> στις φωτογραφίες. Όταν "
+"μια φωτογραφία είναι με σημαία, ένα μικρό εικονίδιο σημαίας εμφανίζεται στην "
+"πάνω δεξιά γωνία. Μπορείτε να επιλέξετε το στοιχείο <gui>με σημαία</gui> "
+"στην πλευρική στήλη για να δείτε όλες τις φωτογραφίες που έχουν σημαία."
+
+#: C/organize-flag.page:18(p)
+msgid ""
+"Flagging a photo marks it as special. You can interpret this in any way you "
+"like. For example, you might flag all photos which need visual adjustment, "
+"or all photos which you want to share with a friend."
+msgstr ""
+"Η προσθήκη σημαίας σε μια φωτογραφία τη σημειώνει ως ειδική. Μπορείτε να το "
+"ερμηνεύσετε όπως θέλετε. Για παράδειγμα, μπορείτε να βάλετε σημαία σε όλες "
+"τις φωτογραφίες που χρειάζονται οπτική ρύθμιση, ή σε όλες τις φωτογραφίες "
+"που θέλετε να μοιραστείτε με έναν φίλο."
+
+#: C/organize-flag.page:22(p)
+msgid ""
+"Flagging is also useful because you can operate on all flagged photos as a "
+"set. For example, you can select the <gui>Flagged</gui> view and then upload "
+"all flagged photos to a publishing service."
+msgstr ""
+"Η προσθήκη σημαίας είναι επίσης χρήσιμη, επειδή μπορείτε να επεξεργαστείτε "
+"όλες τις φωτογραφίες με σημαία ως σύνολο. Για παράδειγμα, μπορείτε να "
+"επιλέξετε την προβολή <gui>με σημαία</gui> και έπειτα να μεταφορτώσετε όλες "
+"τις φωτογραφίες με σημαία σε μια υπηρεσία δημοσίευσης."
+
+#: C/organize-flag.page:27(title)
+msgid "To flag or unflag a photo"
+msgstr "Προσθήκη ή αφαίρεση σημαίας σε φωτογραφία"
+
+#: C/organize-flag.page:28(p)
+msgid ""
+"To flag or unflag a photo, right-click the photo and choose <gui>Flag</gui> "
+"or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
+"key><key>G</key></keyseq> or <key>/</key> shortcut keys."
+msgstr ""
+"Για να προσθέσετε ή να αφαιρέσετε σημαία σε μια φωτογραφία, δεξιοπατήστε τη "
+"φωτογραφία και επιλέξτε <gui>Προσθήκη σημαίας</gui> ή <gui>Αφαίρεση σημαίας</"
+"gui> από το μενού περιεχομένων. Ή χρησιμοποιήστε τα πλήκτρα συντόμευσης "
+"<keyseq><key>Ctrl</key><key>G</key></keyseq> ή <key>/</key>."
+
+#: C/organize-event.page:7(desc)
+msgid ""
+"Group photos together that were taken at the same time. Learn how to rename, "
+"merge, and sort events."
+msgstr ""
+"Ομαδοποιήστε μαζί τις φωτογραφίες που ελήφθησαν ταυτόχρονα. Μάθετε πώς να "
+"μετονομάσετε, να συγχωνεύσετε και να ταξινομήσετε συμβάντα."
+
+#: C/organize-event.page:12(title)
+msgid "Events"
+msgstr "Συμβάντα"
+
+#: C/organize-event.page:14(p)
+msgid ""
+"An event is a group of photos that were taken at approximately the same "
+"time. When you import photos, Shotwell checks when each photo was taken. It "
+"then groups the photos into events."
+msgstr ""
+"Ένα συμβάν είναι μια ομάδα φωτογραφιών που ελήφθησαν περίπου την ίδια ώρα. "
+"Όταν εισάγετε φωτογραφίες, το Shotwell ελέγχει πότε ελήφθη κάθε φωτογραφία. "
+"Έπειτα ομαδοποιεί τις φωτογραφίες σε συμβάντα."
+
+#: C/organize-event.page:16(p)
+msgid ""
+"Choose <gui>Events</gui> from the sidebar to see your photos organized by "
+"date. If you select a month or year from the sidebar, a list of events will "
+"be displayed in the main window. Double-click an event to see all the photos "
+"that were taken around that time."
+msgstr ""
+"Επιλέξτε <gui>Συμβάντα</gui> από την πλευρική στήλη για να δείτε τις "
+"φωτογραφίες σας οργανωμένες κατά ημερομηνία. Αν επιλέξετε έναν μήνα ή έτος "
+"από την πλευρική στήλη, θα εμφανιστεί ένας κατάλογος συμβάντων στο κυρίως "
+"παράθυρο. Διπλοπατήστε όλες τις φωτογραφίες που ελήφθησαν περίπου την ίδια "
+"ώρα."
+
+#: C/organize-event.page:18(p)
+msgid ""
+"If a photo has no embedded date/time information, then Shotwell can't "
+"automatically place it in any event. In this case the photo will appear in "
+"the <gui>No Event</gui> view accessible from the sidebar. You can still move "
+"the photo to any event you like as described below."
+msgstr ""
+"Αν μια φωτογραφία δεν έχει ενσωματωμένες πληροφορίες ημερομηνίας/χρόνου, "
+"τότε το Shotwell δεν μπορεί να την βάλει αυτόματα σε κανένα συμβάν. Σε αυτήν "
+"την περίπτωση η φωτογραφία θα εμφανιστεί στην προβολή <gui>Κανένα συμβάν</"
+"gui> προσβάσιμη από την πλευρική στήλη. Μπορείτε ακόμα να μετακινήσετε την "
+"φωτογραφία σε οποιοδήποτε συμβάν θέλετε όπως περιγράφεται παρακάτω."
+
+#: C/organize-event.page:25(title)
+msgid "Renaming events"
+msgstr "Μετονομασία συμβάντων"
+
+#: C/organize-event.page:27(p)
+msgid ""
+"To give an event a name rather than referring to it by its date, select the "
+"event, click <guiseq><gui>Edit</gui><gui>Rename Event</gui></guiseq> and "
+"enter a new name. Another way of renaming an event is to double-click its "
+"name in the sidebar; type a new name and then press <key>Enter</key>."
+msgstr ""
+"Για να δώσετε ένα όνομα σε ένα συμβάν αντί να το αναφέρετε με την ημερομηνία "
+"του, επιλέξτε το συμβάν, πατήστε <guiseq><gui>Επεξεργασία</"
+"gui><gui>Μετονομασία συμβάντος</gui></guiseq> και εισάγετε ένα νέο όνομα. "
+"Ένας άλλος τρόπος μετονομασίας ενός συμβάντος είναι να διπλοπατήσετε το "
+"όνομά του στην πλευρική στήλη· πληκτρολογήστε ένα νέο όνομα και έπειτα "
+"πατήστε το πλήκτρο <key>Εισαγωγή</key>."
+
+#: C/organize-event.page:31(title)
+msgid "Moving photos between events"
+msgstr "Μετακίνηση φωτογραφιών μεταξύ συμβάντων"
+
+#: C/organize-event.page:33(p)
+msgid ""
+"Even though photos are initially grouped into events by their date, you can "
+"move photos between events. To do this, drag any photo to the sidebar and "
+"drop it on an event."
+msgstr ""
+"Αν και οι φωτογραφίες είναι αρχικά ομαδοποιημένες σε συμβάντα με την "
+"ημερομηνία τους, μπορείτε να μετακινήσετε φωτογραφίες μεταξύ συμβάντων. Για "
+"να το κάνετε αυτό, μεταφέρτε κάθε φωτογραφία στην πλευρική στήλη και "
+"αποθέστε την σε ένα συμβάν."
+
+#: C/organize-event.page:37(title)
+msgid "Creating and merging events"
+msgstr "Δημιουργία και συγχώνευση συμβάντων"
+
+#: C/organize-event.page:38(p)
+msgid ""
+"To create a new event, select the photos you would like in the new event and "
+"click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
+msgstr ""
+"Για να δημιουργήσετε ένα νέο συμβάν, επιλέξτε τις φωτογραφίες που θα θέλατε "
+"στο νέο συμβάν και πατήστε <guiseq><gui>Συμβάντα</gui><gui>Νέο συμβάν</gui></"
+"guiseq>."
+
+#: C/organize-event.page:39(p)
+msgid ""
+"To merge events, select <guiseq><gui>Events</gui></guiseq> from the sidebar, "
+"then, while holding down <key>Ctrl</key> click on the events you want to "
+"merge in the main window area. Finally, click <guiseq><gui>Events</"
+"gui><gui>Merge Events</gui></guiseq>."
+msgstr ""
+"Για να συγχωνεύσετε συμβάντα, επιλέξτε <guiseq><gui>Συμβάντα</gui></guiseq> "
+"από την πλευρική στήλη, έπειτα, ενώ κρατάτε πατημένο το <key>Ctrl</key> "
+"πατήστε στα συμβάντα που θέλετε να συγχωνεύσετε στην περιοχή του κυρίως "
+"παραθύρου. Τελικά, πατήστε <guiseq><gui>Συμβάντα</gui><gui>Συγχώνευση "
+"συμβάντων</gui></guiseq>."
+
+#: C/organize-event.page:43(title)
+msgid "Sorting events"
+msgstr "Ταξινόμηση συμβάντων"
+
+#: C/organize-event.page:45(p)
+msgid ""
+"Events are displayed in a tree in the sidebar, organized by the year and "
+"month of the earliest photo in the event. To change the event sort order, "
+"click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
+"either ascending or descending."
+msgstr ""
+"Τα συμβάντα εμφανίζονται σε ένα δένδρο στην πλευρική στήλη, οργανωμένα "
+"σύμφωνα με το έτος και τον μήνα της πιο πρόσφατης φωτογραφίας στο συμβάν. "
+"Για να αλλάξετε τη σειρά ταξινόμησης του συμβάντος, πατήστε "
+"<guiseq><gui>Προβολή</gui><gui>Ταξινόμηση συμβάντων</gui></guiseq> και "
+"επιλέξτε ή αύξουσα ή φθίνουσα."
+
+#: C/organize-event.page:51(title)
+msgid "Change the photo used to represent each event"
+msgstr ""
+"Αλλαγή της χρησιμοποιούμενης φωτογραφίας που θα αναπαραστήσει κάθε συμβάν"
+
+#: C/organize-event.page:53(p)
+msgid ""
+"If you select the Events item in the sidebar, you'll see a single photo "
+"which represents each event. This is called the key photo."
+msgstr ""
+"Αν επιλέξετε το στοιχείο συμβάντα στην πλευρική στήλη, θα δείτε μια "
+"μεμονωμένη φωτογραφία που απεικονίζει κάθε συμβάν. Αυτή λέγεται βασική "
+"φωτογραφία."
+
+#: C/organize-event.page:55(p)
+msgid ""
+"By default, Shotwell uses the first photo in each event as its key photo. To "
+"use a different key photo, select the photo and choose <guiseq><gui>Photos</"
+"gui><gui>Make Key Photo for Event</gui></guiseq>."
+msgstr ""
+"Από προεπιλογή, το Shotwell χρησιμοποιεί την πρώτη φωτογραφία σε κάθε συμβάν "
+"ως την βασική φωτογραφία. Για να χρησιμοποιήσετε μια διαφορετική φωτογραφία "
+"ως βασική, επιλέξτε την φωτογραφία και διαλέξτε <guiseq><gui>Φωτογραφίες</"
+"gui><gui>Ορισμός ως βασική φωτογραφία για το συμβάν</gui></guiseq>."
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: C/index.page:23(None)
+msgid ""
+"@@image: 'figures/shotwell_logo.png'; md5=59de2b2c4fa64ea1497c98452c509dbd"
+msgstr ""
+"@@image: 'figures/shotwell_logo.png'· md5=59de2b2c4fa64ea1497c98452c509dbd"
+
+#: C/index.page:6(title) C/index.page:7(title)
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: C/index.page:9(name)
+msgid "Jim Nelson"
+msgstr "Jim Nelson"
+
+#: C/index.page:10(email)
+msgid "jim@yorba.org"
+msgstr "jim@yorba.org"
+
+#: C/index.page:11(name)
+msgid "Allison Barlow"
+msgstr "Allison Barlow"
+
+#: C/index.page:12(email)
+msgid "allison@yorba.org"
+msgstr "allison@yorba.org"
+
+#: C/index.page:13(name)
+msgid "Robert Ancell"
+msgstr "Robert Ancell"
+
+#: C/index.page:14(email)
+msgid "robert.ancell@canonical.com"
+msgstr "robert.ancell@canonical.com"
+
+#: C/index.page:15(name)
+msgid "Peter Smith"
+msgstr "Peter Smith"
+
+#: C/index.page:16(email)
+msgid "pdo.smith@gmail.com"
+msgstr "pdo.smith@gmail.com"
+
+#: C/index.page:17(name)
+msgid "Phil Bull"
+msgstr "Phil Bull"
+
+#: C/index.page:18(email)
+msgid "philbull@gmail.com"
+msgstr "philbull@gmail.com"
+
+#: C/index.page:23(title)
+msgid ""
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
+"Manager"
+msgstr ""
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Διαχειριστής "
+"φωτογραφιών Shotwell"
+
+#: C/index.page:26(title)
+msgid "Importing Photos"
+msgstr "Εισαγωγή φωτογραφιών"
+
+#: C/index.page:30(title)
+msgid "Viewing Photos"
+msgstr "Προβολή φωτογραφιών"
+
+#: C/index.page:34(title)
+msgid "Organizing Photos"
+msgstr "Οργάνωση φωτογραφιών"
+
+#: C/index.page:38(title)
+msgid "Editing Photos"
+msgstr "Επεξεργασία φωτογραφιών"
+
+#: C/index.page:42(title)
+msgid "Sharing Photos"
+msgstr "Μερισμός φωτογραφιών"
+
+#: C/index.page:46(title)
+msgid "Other Features"
+msgstr "Άλλα χαρακτηριστικά"
+
+#: C/import-memorycard.page:7(desc)
+msgid "Import photos from a digital camera's memory card."
+msgstr "Εισαγωγή φωτογραφιών από κάρτα μνήμης ψηφιακής φωτογραφικής μηχανής."
+
+#: C/import-memorycard.page:12(title)
+msgid "Importing from a memory card"
+msgstr "Εισαγωγή από μια κάρτα μνήμης"
+
+#: C/import-memorycard.page:14(p)
+msgid "To import photos from a camera memory card:"
+msgstr "Για να εισάγετε φωτογραφίες από μια κάρτα μνήμης φωτογραφικής μηχανής:"
+
+#: C/import-memorycard.page:18(p)
+msgid ""
+"Put the card into your card reader. Make sure the card reader is plugged in "
+"to the computer and switched on."
+msgstr ""
+"Βάλτε την κάρτα στον αναγνώστη καρτών σας. Βεβαιωθείτε ότι ο αναγνώστης "
+"καρτών είναι συνδεμένος με τον υπολογιστή και ενεργός."
+
+#: C/import-memorycard.page:21(p)
+msgid "The card reader and card should be detected automatically."
+msgstr "Ο αναγνώστης καρτών και η κάρτα πρέπει να ανιχνευτούν αυτόματα."
+
+#: C/import-memorycard.page:24(p)
+msgid ""
+"Follow the instructions for <link xref=\"import-file\">importing photos from "
+"your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From "
+"Folder</gui></guiseq>, the memory card should be visible as a folder in the "
+"side bar of the file selection window."
+msgstr ""
+"Ακολουθήστε τις οδηγίες για την <link xref=\"import-file\">εισαγωγή "
+"φωτογραφιών από τον σκληρό σας δίσκο</link>. Αν πατήσετε "
+"<guiseq><gui>Αρχείο</gui><gui>Εισαγωγή από φάκελο</gui></guiseq>, η κάρτα "
+"μνήμης πρέπει να είναι ορατή ως φάκελος στην πλευρική στήλη του παραθύρου "
+"επιλογής αρχείου."
+
+#: C/import-memorycard.page:28(p)
+msgid ""
+"Shotwell can import photos from any memory card that is compatible with your "
+"card reader."
+msgstr ""
+"Το Shotwell μπορεί να εισάγει φωτογραφίες από κάθε κάρτα μνήμης που είναι "
+"συμβατή με τον αναγνώστη της κάρτας σας."
+
+#: C/import-memorycard.page:30(p)
+msgid ""
+"If the card is not detected automatically, your card reader may not have "
+"been recognized. Try unplugging it and then plugging it in again. If that "
+"doesn't work, you should still be able to import photos by <link xref="
+"\"import-camera\">connecting your camera directly to the computer</link>, "
+"though."
+msgstr ""
+"Αν η κάρτα δεν έχει αναγνωριστεί αυτόματα, ο αναγνώστης της κάρτας σας "
+"μπορεί να μην έχει αναγνωριστεί. Δοκιμάστε να την αποσυνδέσετε και έπειτα "
+"συνδέστε την πάλι. Αν αυτό δεν δουλέψει, θα πρέπει να μπορείτε ακόμα να "
+"εισάγετε φωτογραφίες <link xref=\"import-camera\">συνδέοντας την φωτογραφική "
+"μηχανή σας άμεσα με τον υπολογιστή</link>, όμως."
+
+#: C/import-f-spot.page:7(desc)
+msgid ""
+"Shotwell can import all your photos and tags from the F-Spot photo manager."
+msgstr ""
+"Το Shotwell μπορεί να εισάγει όλες τις φωτογραφίες και ετικέτες σας από τον "
+"διαχειριστή φωτογραφιών F-Spot."
+
+#: C/import-f-spot.page:12(title)
+msgid "Importing from F-Spot"
+msgstr "Εισαγωγή από F-Spot"
+
+#: C/import-f-spot.page:14(p)
+msgid "To import an existing photo collection from F-Spot:"
+msgstr "Για να εισάγετε μια υπάρχουσα φωτογραφική συλλογή από F-Spot:"
+
+#: C/import-f-spot.page:16(p)
+msgid "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
+msgstr ""
+"Επιλέξτε <guiseq><gui>Αρχείο</gui><gui>Εισαγωγή από F-Spot</gui></guiseq>."
+
+#: C/import-f-spot.page:17(p)
+msgid ""
+"Now choose either the default F-Spot library or another F-Spot database. If "
+"importing from another F-Spot database, select a directory and file from the "
+"chooser dialog box."
+msgstr ""
+"Τώρα επιλέξτε ή την προεπιλεγμένη βιβλιοθήκη F-Spot ή κάποια άλλη βάση "
+"δεδομένων F-Spot. Αν η εισαγωγή είναι από μια άλλη βάση δεδομένων F-Spot, "
+"επιλέξτε κατάλογο και αρχείο από το πλαίσιο διαλόγου επιλογής."
+
+#: C/import-f-spot.page:20(p)
+msgid ""
+"Shotwell will import your photos, together with their tags and other "
+"information. Once the import is complete, you can select <gui>Last Import</"
+"gui> in the sidebar to see all photos successfully imported. The Events list "
+"will also show new entries for the dates corresponding to the imported "
+"photos."
+msgstr ""
+"Το Shotwell θα εισάγει τις φωτογραφίες σας, μαζί με τις ετικέτες τους και "
+"άλλες πληροφορίες. Αφού συμπληρωθεί η εισαγωγή, μπορείτε να επιλέξετε "
+"<gui>Τελευταία εισαγωγή</gui> στην πλευρική στήλη για να δείτε όλες τις "
+"φωτογραφίες εισηγμένες με επιτυχία. Ο κατάλογος συμβάντων θα εμφανίσει "
+"επίσης νέες καταχωρίσεις για τις ημερομηνίες που αντιστοιχούν στις "
+"εισηγμένες φωτογραφίες."
+
+#: C/import-file.page:7(desc)
+msgid "Import photos that are already saved on your computer."
+msgstr ""
+"Για να εισάγετε φωτογραφίες που είναι ήδη αποθηκευμένες στον υπολογιστή σας."
+
+#: C/import-file.page:12(title)
+msgid "Importing from your hard disk"
+msgstr "Εισαγωγή από τον σκληρό δίσκο σας"
+
+#: C/import-file.page:14(p)
+msgid ""
+"To import photo files from your hard disk into Shotwell, just drag them from "
+"your file browser into the Shotwell window."
+msgstr ""
+"Για να εισάγετε αρχεία φωτογραφιών από τον σκληρό δίσκο σας στο Shotwell, "
+"μεταφέρτε τα απλά από τον περιηγητή αρχείων σας στο παράθυρο Shotwell."
+
+#: C/import-file.page:16(p)
+msgid ""
+"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder</gui></"
+"guiseq> and select the folder containing the photos you want to import."
+msgstr ""
+"Εναλλακτικά, πατήστε <guiseq><gui>Αρχείο</gui><gui>Εισαγωγή από φάκελο</"
+"gui></guiseq> και επιλέξτε τον φάκελο που περιέχει τις φωτογραφίες που "
+"θέλετε να εισάγετε."
+
+#: C/import-file.page:18(p)
+msgid ""
+"Shotwell will ask whether you want to copy the photo files to your library "
+"folder (usually this is the <file>Pictures</file> folder in your home "
+"directory) or to import them in place without copying the files."
+msgstr ""
+"Το Shotwell θα ρωτήσει αν θέλετε να αντιγράψετε τα αρχεία φωτογραφίας στον "
+"φάκελο βιβλιοθήκης (συνήθως αυτός είναι ο φάκελος <file>Pictures</file> στον "
+"προσωπικό σας κατάλογο) ή να τα εισάγετε επί τόπου χωρίς αντιγραφή των "
+"αρχείων."
+
+#: C/import-file.page:20(p)
+msgid ""
+"If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will "
+"copy the photos into your library folder without prompting. Similarly, if "
+"you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
+"dragging photos in, Shotwell will import the photos without copying them."
+msgstr ""
+"Αν κρατάτε πατημένο το <key>Ctrl</key> κατά τη μεταφορά των φωτογραφιών, το "
+"Shotwell θα αντιγράψει τις φωτογραφίες στον φάκελο βιβλιοθήκης χωρίς "
+"ειδοποίηση. Παρόμοια, αν κρατάτε πατημένα τα <keyseq><key>Ctrl</"
+"key><key>Shift</key></keyseq> κατά τη μεταφορά φωτογραφιών, το Shotwell θα "
+"εισάγει τις φωτογραφίες χωρίς να τις αντιγράψει."
+
+#: C/import-file.page:22(p)
+msgid ""
+"Once the import is complete, you can select <gui>Last Import</gui> in the "
+"sidebar to see all photos successfully imported. The Events list will also "
+"show new entries for the dates corresponding to the imported photos."
+msgstr ""
+"Αφού συμπληρωθεί η εισαγωγή, μπορείτε να επιλέξετε <gui>Τελευταία εισαγωγή</"
+"gui> στην πλευρική στήλη για να δείτε όλες τις φωτογραφίες εισηγμένες με "
+"επιτυχία. Ο κατάλογος συμβάντων θα εμφανίσει επίσης νέες καταχωρίσεις για "
+"τις ημερομηνίες που αντιστοιχούν στις εισηγμένες φωτογραφίες."
+
+#: C/import-camera.page:7(desc)
+msgid "Copy photos from a digital camera."
+msgstr "Αντιγραφή φωτογραφιών από μια ψηφιακή φωτογραφική μηχανή."
+
+#: C/import-camera.page:12(title)
+msgid "Importing from a camera"
+msgstr "Εισαγωγή από φωτογραφική μηχανή"
+
+#: C/import-camera.page:14(p)
+msgid "To import photos from a digital camera:"
+msgstr "Για να εισάγετε φωτογραφίες από μια ψηφιακή κάμερα:"
+
+#: C/import-camera.page:18(p)
+msgid ""
+"Connect the camera to your computer and switch it on. Shotwell will detect "
+"it and list it in the sidebar."
+msgstr ""
+"Συνδέστε τη φωτογραφική μηχανή στον υπολογιστή σας και ανοίξτε την. Το "
+"Shotwell θα την αναγνωρίσει και θα την καταχωρίσει στην πλευρική στήλη."
+
+#: C/import-camera.page:22(p)
+msgid ""
+"Select the camera in the sidebar. Previews of each photo on the camera will "
+"be displayed."
+msgstr ""
+"Επιλέξτε τη φωτογραφική μηχανή στην πλευρική στήλη. Οι προεπισκοπήσεις κάθε "
+"φωτογραφίας στη φωτογραφική μηχανή θα εμφανιστούν."
+
+#: C/import-camera.page:25(p)
+msgid ""
+"If you like, you can choose a set of specific photos to import. To do this, "
+"hold down the <key>Ctrl</key> key and click to select individual photos. You "
+"can hold down <key>Shift</key> and click to select a range of photos too."
+msgstr ""
+"Αν θέλετε, μπορείτε να επιλέξετε ένα σύνολο ειδικών φωτογραφιών για "
+"εισαγωγή. Για να το κάνετε αυτό, κρατήστε πατημένο το πλήκτρο <key>Ctrl</"
+"key> και πατήστε για να επιλέξετε τις μεμονωμένες φωτογραφίες. Μπορείτε να "
+"κρατήσετε πατημένο το <key>Shift</key> και να πατήσετε να επιλέξετε μια "
+"περιοχή φωτογραφιών επίσης."
+
+#: C/import-camera.page:28(p)
+msgid ""
+"Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
+"will be copied from the camera and saved on your computer."
+msgstr ""
+"Πατήστε ή <gui>Εισαγωγή επιλεγμένης</gui> ή <gui>Εισαγωγή όλων</gui>. Οι "
+"φωτογραφίες θα αντιγραφούν από τη φωτογραφική μηχανή και θα αποθηκευτούν "
+"στον υπολογιστή σας."
+
+#: C/import-camera.page:32(p)
+msgid ""
+"Once the import is complete, you can open the <gui>Last Import</gui> view "
+"(in the sidebar) to see all photos that were imported. The Events list (also "
+"in the sidebar) will also show the new photos, organized by date."
+msgstr ""
+"Όταν ολοκληρωθεί η εισαγωγή, μπορείτε να ανοίξετε την προβολή <gui>Τελευταία "
+"εισαγωγή</gui> (στην πλευρική στήλη) για να δείτε όλες τις φωτογραφίες που "
+"εισήχθησαν. Ο κατάλογος συμβάντων (επίσης στην πλευρική στήλη) θα εμφανίσει "
+"τις νέες φωτογραφίες, οργανωμένες κατά ημερομηνία."
+
+#: C/formats.page:7(desc)
+msgid ""
+"Shotwell supports JPEG, PNG, TIFF, BMP and RAW photo files as well as video "
+"files."
+msgstr ""
+"Το Shotwell υποστηρίζει αρχεία φωτογραφίας JPEG, PNG, TIFF, BMP και RAW "
+"καθώς και αρχεία βίντεο."
+
+#: C/formats.page:12(title)
+msgid "Supported photo and video formats"
+msgstr "Υποστηριζόμενες μορφές φωτογραφιών και βίντεο"
+
+#: C/formats.page:14(p)
+msgid ""
+"Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref=\"other-"
+"raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
+"format such as GIF."
+msgstr ""
+"Το Shotwell υποστηρίζει αρχεία φωτογραφίας JPEG, PNG, TIFF, BMP και <link "
+"type=\"guide\" xref=\"other-raw\">RAW</link>. Το Shotwell δεν υποστηρίζει "
+"ακόμα άλλες μορφές γραφικών όπως GIF."
+
+#: C/formats.page:16(p)
+msgid ""
+"Shotwell's RAW format support is currently limited. When you view a RAW "
+"photo, you are actually viewing a JPEG derived from the RAW photo, not the "
+"RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit "
+"- you can only export edited photos as 8-bit files. All supported formats "
+"can be used for export (JPEG, PNG, TIFF, BMP)."
+msgstr ""
+"Η υποστήριξη της μορφής RAW του Shotwell είναι προς το παρόν περιορισμένη. "
+"Όταν προβάλετε μια φωτογραφία RAW, στην πραγματικότητα προβάλετε μια JPEG "
+"που παράγεται από τη φωτογραφία RAW, όχι την ίδια την εικόνα RAW. "
+"Επιπρόσθετα, η διοχέτευση επεξεργασίας RAW δεν είναι πλήρως 16-δυαδικών - "
+"μπορείτε μόνο να εξάγετε επεξεργασμένες φωτογραφίες ως αρχεία 8 δυαδικών. "
+"Όλες οι υποστηριζόμενες μορφές μπορούν να χρησιμοποιηθούν για εξαγωγή (JPEG, "
+"PNG, TIFF, BMP)."
+
+#: C/formats.page:18(p)
+msgid ""
+"For more information about RAW-format photos in Shotwell, please see the "
+"<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
+msgstr ""
+"Για περισσότερες πληροφορίες σχετικά με τις φωτογραφίες μορφής RAW στο "
+"Shotwell, παρακαλούμε δείτε την ενότητα <link type=\"guide\" xref=\"other-raw"
+"\">RAW</link>."
+
+#: C/formats.page:22(p)
+msgid ""
+"Shotwell also supports video files in any format supported by the GStreamer "
+"media library on the system where Shotwell is running. This typically "
+"includes the following formats among others:"
+msgstr ""
+"Το Shotwell υποστηρίζει επίσης αρχεία βίντεο σε οποιαδήποτε υποστηριζόμενη "
+"μορφή από τη βιβλιοθήκη πολυμέσων GStreamer στο σύστημα όπου εκτελείται το "
+"Shotwell. Αυτό περιλαμβάνει τυπικά τις παρακάτω μορφές μεταξύ άλλων:"
+
+#: C/formats.page:25(p)
+msgid "Container formats: Ogg, QuickTime, MP4, AVI."
+msgstr "Μορφές περιέκτη: Ogg, QuickTime, MP4, AVI."
+
+#: C/formats.page:26(p)
+msgid ""
+"Codecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Note that some operating "
+"systems may not include all codecs listed here due to legal or licensing "
+"restrictions.</em>"
+msgstr ""
+"Κωδικοποιητές: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Σημειώστε ότι "
+"κάποια λειτουργικά συστήματα μπορεί να μην περιλαμβάνουν όλους τους "
+"καταχωρισμένους κωδικοποιητές εδώ λόγω νομικών περιορισμών ή αδειοδότησης.</"
+"em>"
+
+#: C/formats.page:30(p)
+msgid ""
+"Shotwell supports both photos and videos, but for simplicity, this "
+"documentation uses just the term \"photos\" in most places. Many operations "
+"in Shotwell apply to both photos and videos, however. In particular, events, "
+"flagging, rating, tagging, and publishing work both for photos and for "
+"videos."
+msgstr ""
+"Το Shotwell υποστηρίζει και φωτογραφίες και βίντεο, αλλά για απλότητα, αυτή "
+"η τεκμηρίωση χρησιμοποιεί απλά τον όρο \"φωτογραφίες\" στις περισσότερες "
+"τοποθεσίες. Πολλές λειτουργίες στο Shotwell εφαρμόζονται και στις "
+"φωτογραφίες και στα βίντεο. Ειδικά, τα συμβάντα, η προσθήκη σημαίας, η "
+"αξιολόγηση, οι ετικέτες και η δημοσίευση δουλεύουν και για φωτογραφίες και "
+"για βίντεο."
+
+#: C/edit-undo.page:7(desc)
+msgid "Return a photo to its original, unedited form."
+msgstr "Επιστροφή μιας φωτογραφίας στην αρχική ανεπεξέργαστη μορφή."
+
+#: C/edit-undo.page:14(title)
+msgid "Undoing changes"
+msgstr "Αναίρεση αλλαγών"
+
+#: C/edit-undo.page:16(p)
+msgid ""
+"Because Shotwell is a non-destructive photo editor, you can undo any "
+"alterations you make to a photograph."
+msgstr ""
+"Επειδή το Shotwell είναι ένας μη καταστροφικός επεξεργαστής φωτογραφίας, "
+"μπορείτε να αναιρέσετε οποιεσδήποτε αλλαγές κάνετε σε μια φωτογραφία."
+
+#: C/edit-undo.page:18(p) C/edit-nondestructive.page:16(p)
+msgid ""
+"If you want to see what a photo looked like before your modifications, press "
+"the <key>Shift</key> key. The original photo will be displayed as long as "
+"you hold the key down."
+msgstr ""
+"Αν θέλετε να δείτε πώς ήταν μια φωτογραφία πριν τις τροποποιήσεις σας, "
+"πατήστε το πλήκτρο <key>Shift</key>. Η αρχική φωτογραφία θα εμφανιστεί όσο "
+"κρατάτε πατημένο το πλήκτρο."
+
+#: C/edit-undo.page:20(p)
+msgid ""
+"To completely undo all the changes you've made to a photo, click "
+"<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
+"exception is that time and date adjustments will not be reverted."
+msgstr ""
+"Για να αναιρέσετε πλήρως όλες τις αλλαγές που έχετε κάνει σε μια φωτογραφία, "
+"πατήστε <guiseq><gui>Φωτογραφίες</gui><gui>Επαναφορά στο αρχικό</gui></"
+"guiseq>. Η μόνη εξαίρεση είναι ότι οι ρυθμίσεις ώρας και ημερομηνίας δεν θα "
+"μετατραπούν."
+
+#: C/edit-time-date.page:7(desc)
+msgid "Change the time and date of photos if those details are incorrect."
+msgstr ""
+"Αλλάξτε την ώρα και την ημερομηνία των φωτογραφιών αν αυτές οι λεπτομέρειες "
+"είναι ανακριβείς."
+
+#: C/edit-time-date.page:12(title)
+msgid "Adjust the time and date of photos"
+msgstr "Ρύθμιση της ώρας και της ημερομηνίας των φωτογραφιών"
+
+#: C/edit-time-date.page:14(p)
+msgid ""
+"To adjust the time and date of photos, select the photos you would like to "
+"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Time and Date</gui></"
+"guiseq> and select a new time and date."
+msgstr ""
+"Για να ρυθμίσετε την ώρα και την ημερομηνία των φωτογραφιών, επιλέξτε τις "
+"φωτογραφίες που θα θέλατε να ρυθμίσετε, επιλέξτε <guiseq><gui>Φωτογραφίες</"
+"gui><gui>Ρύθμιση ώρας και ημερομηνίας</gui></guiseq> και επιλέξτε μια νέα "
+"ώρα και ημερομηνία."
+
+#: C/edit-time-date.page:16(p)
+msgid ""
+"If you are changing the date and time of multiple photos at once, you can "
+"choose to shift all the photos by the same amount of time or to set all the "
+"photos to the same time."
+msgstr ""
+"Αν αλλάζετε την ημερομηνία και την ώρα πολλών φωτογραφιών μονομιάς, μπορείτε "
+"να επιλέξετε να μετατοπίσετε όλες τις φωτογραφίες κατά τον ίδιο χρόνο ή να "
+"ορίσετε όλες τις φωτογραφίες στην ίδια ώρα."
+
+#: C/edit-time-date.page:18(p)
+msgid ""
+"By default, the time and date are only changed inside Shotwell. You can also "
+"choose to modify the time and date in the original file, but this cannot be "
+"undone once you exit Shotwell."
+msgstr ""
+"Από προεπιλογή, η ώρα και η ημερομηνία αλλάζουν μόνο μέσα στο Shotwell. "
+"Μπορείτε επίσης να επιλέξετε να τροποποιήσετε την ώρα και την ημερομηνία στο "
+"αρχικό αρχείο, αλλά αυτό δεν μπορεί να αναιρεθεί μόλις εξέλθετε από το "
+"Shotwell."
+
+#: C/edit-straighten.page:7(desc)
+msgid "Straighten a photo so that its horizon appears level."
+msgstr ""
+"Ευθυγράμμιση μιας φωτογραφίας έτσι ώστε ο ορίζοντας της να εμφανίζεται "
+"επίπεδος."
+
+#: C/edit-straighten.page:12(title)
+msgid "Straighten photos"
+msgstr "Ευθυγράμμιση φωτογραφιών"
+
+#: C/edit-straighten.page:14(p)
+msgid ""
+"The straighten tools allows photos to be leveled and straightened. The "
+"straighten tool is only available in full-window or fullscreen mode."
+msgstr ""
+"Τα εργαλεία ευθυγράμμισης επιτρέπουν την εξίσωση και ευθυγράμμιση των "
+"φωτογραφιών. Το εργαλείο ευθυγράμμισης είναι διαθέσιμο μόνο σε πλήρες "
+"παράθυρο ή σε κατάσταση πλήρους οθόνης."
+
+#: C/edit-straighten.page:18(p)
+msgid ""
+"Click <gui>Straighten</gui>. The straighten slider will appear. "
+"Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
+"key></keyseq>."
+msgstr ""
+"Πατήστε <gui>Ευθυγράμμιση</gui>. Ο ολισθητής ευθυγράμμισης θα εμφανιστεί. "
+"Εναλλακτικά, χρησιμοποιήστε τη συντόμευση πληκτρολογίου <keyseq><key>Ctrl</"
+"key><key>A</key></keyseq>."
+
+#: C/edit-straighten.page:21(p)
+msgid "Drag the slider to achieve the desired degree of straightening."
+msgstr ""
+"Μεταφέρτε τον ολισθητή για να πετύχετε τον επιθυμητό βαθμό ευθυγράμμισης."
+
+#: C/edit-straighten.page:24(p)
+msgid "Press <gui>OK</gui> when finished."
+msgstr "Πατήστε <gui>Εντάξει</gui> όταν τελειώσετε."
+
+#: C/edit-rotate.page:7(desc)
+msgid ""
+"Click the <gui>Rotate</gui> button, or choose one of the commands in the "
+"<gui>Photo</gui> menu."
+msgstr ""
+"Πατήστε το πλήκτρο <gui>Περιστροφή</gui>, ή επιλέξτε μια από τις εντολές στο "
+"μενού <gui>Φωτογραφία</gui>."
+
+#: C/edit-rotate.page:12(title)
+msgid "Rotate or flip a photo"
+msgstr "Περιστροφή ή αναστροφή φωτογραφίας"
+
+#: C/edit-rotate.page:14(p)
+msgid ""
+"You can rotate your photos left and right (clockwise and counterclockwise) "
+"with the <gui>Rotate</gui> button on the toolbar of most views. You can also "
+"make a mirror image of any photo."
+msgstr ""
+"Μπορείτε να περιστρέψετε τις φωτογραφίες σας αριστερά και δεξιά (δεξιόστροφα "
+"και αριστερόστροφα) με το πλήκτρο <gui>Περιστροφή</gui> στην εργαλειοθήκη "
+"των περισσότερων προβολών. Μπορείτε επίσης να κάνετε μια κατοπτρική εικόνα "
+"κάθε φωτογραφίας."
+
+#: C/edit-rotate.page:16(p)
+msgid ""
+"To rotate right, click on the <gui>Rotate</gui> button. To rotate left, "
+"press and hold the <key>Ctrl</key> key and then click the button. Both "
+"commands are available in the <gui>Photos</gui> menu too. Alternatively, use "
+"the following keyboard shortcuts:"
+msgstr ""
+"Για να περιστρέψετε δεξιά, πατήστε το πλήκτρο <gui>Περιστροφή</gui>. Για να "
+"περιστρέψετε αριστερά, πατήστε και κρατήστε πατημένο το πλήκτρο <key>Ctrl</"
+"key> και έπειτα πατήστε το πλήκτρο. Και οι δυο εντολές είναι διαθέσιμες "
+"επίσης στο μενού <gui>Φωτογραφίες</gui>. Εναλλακτικά, χρησιμοποιήστε τις "
+"παρακάτω συντομεύσεις πληκτρολογίου:"
+
+#: C/edit-rotate.page:18(p)
+msgid ""
+"rotate left: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> or "
+"<key>[</key>"
+msgstr ""
+"αριστερή περιστροφή: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></"
+"keyseq> ή <key>[</key>"
+
+#: C/edit-rotate.page:19(p)
+msgid ""
+"rotate right: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</key>"
+msgstr ""
+"δεξιά περιστροφή: <keyseq><key>Ctrl</key><key>R</key></keyseq> ή <key>]</key>"
+
+#: C/edit-rotate.page:21(p)
+msgid ""
+"To create a mirror image of a photo, use the <gui>Flip Horizontally</gui> "
+"command in the <gui>Photos</gui> menu. To flip an image vertically, use the "
+"<gui>Flip Vertically</gui> command in the same menu."
+msgstr ""
+"Για να δημιουργήσετε μια κατοπτρική εικόνα μιας φωτογραφίας, χρησιμοποιήστε "
+"την εντολή <gui>Οριζόντια αναστροφή</gui> στο μενού <gui>Φωτογραφίες</gui>. "
+"Για να αναστρέψετε μια εικόνα κάθετα, χρησιμοποιήστε την εντολή <gui>Κάθετη "
+"αναστροφή</gui> στο ίδιο μενού."
+
+#: C/edit-rotate.page:24(p)
+msgid ""
+"If you select more than one image, you can rotate all of them at the same "
+"time."
+msgstr ""
+"Αν επιλέξετε περισσότερες από μία εικόνες, μπορείτε να τις περιστρέψετε όλες "
+"ταυτόχρονα."
+
+#: C/edit-redeye.page:7(desc)
+msgid ""
+"Correct photos where people have red eyes because of the camera's flash."
+msgstr ""
+"Διορθώστε τις φωτογραφίες όπου οι άνθρωποι έχουν κόκκινα μάτια λόγω της "
+"αναλαμπής της φωτογραφικής μηχανής."
+
+#: C/edit-redeye.page:12(title)
+msgid "Removing red-eye"
+msgstr "Αφαίρεση κόκκινου ματιού"
+
+#: C/edit-redeye.page:14(p)
+msgid ""
+"Red-eye occurs when the camera's flash reflects off the pupil of someone's "
+"eye. To eliminate this in a photo, use the Red-eye tool."
+msgstr ""
+"Το κόκκινο μάτι συμβαίνει όταν η αναλαμπή της φωτογραφικής μηχανής ανανακλά "
+"την κόρη του ματιού. Για να το εξουδετερώσετε αυτό σε μια φωτογραφία, "
+"χρησιμοποιήστε το εργαλείο κόκκινου ματιού."
+
+#: C/edit-redeye.page:17(p)
+msgid "Click <gui>Red-eye</gui>. A circle will appear on the photo."
+msgstr ""
+"Πατήστε <gui>Κόκκινο μάτι</gui>. Θα εμφανιστεί ένας κύκλος στη φωτογραφία."
+
+#: C/edit-redeye.page:20(p)
+msgid ""
+"Drag the circle over the affected pupil, adjust its size with the slider "
+"control, and press <gui>Apply</gui>. The redness will be removed."
+msgstr ""
+"Μεταφέρτε τον κύκλο πάνω από την επηρεαζόμενη κόρη, ρυθμίστε το μέγεθός της "
+"με το στοιχείο ελέγχου ολισθητή και πατήστε <gui>Εφαρμογή</gui>. Η "
+"ερυθρότητα θα αφαιρεθεί."
+
+#: C/edit-redeye.page:23(p)
+msgid ""
+"Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
+"when finished."
+msgstr ""
+"Επαναλάβετε αυτήν τη διεργασία για όλες τις κόκκινες κόρες στην φωτογραφία "
+"σας. Πατήστε <gui>κλείσιμο</gui> όταν τελειώσετε."
+
+#: C/edit-nondestructive.page:7(desc)
+msgid ""
+"Shotwell is a non-destructive photo editor - it does not modify your "
+"original photos."
+msgstr ""
+"Το Shotwell είναι ένας μη καταστροφικός επεξεργαστής φωτογραφίας - δεν "
+"τροποποιεί τις αρχικές σας φωτογραφίες."
+
+#: C/edit-nondestructive.page:12(title)
+msgid "What happens to the original when I edit a photo?"
+msgstr "Τι συμβαίνει στην αρχική φωτογραφία όταν επεξεργάζεται μια φωτογραφία;"
+
+#: C/edit-nondestructive.page:14(p)
+msgid ""
+"Shotwell is a non-destructive photo editor. It does not modify your original "
+"photographs. That is to say, if you crop a photo or adjust its colors, the "
+"photo file on disc remains untouched. Shotwell stores your edits in a "
+"database and applies them on the fly as necessary. This means you can undo "
+"any alterations you make to a photograph."
+msgstr ""
+"Το Shotwell είναι ένας μη καταστροφικός επεξεργαστής φωτογραφίας. Δεν "
+"τροποποιεί τις αρχικές σας φωτογραφίες. Δηλαδή, αν περικόψετε μια φωτογραφία "
+"ή ρυθμίσετε τα χρώματά της, το αρχείο φωτογραφίας στον δίσκο παραμένει "
+"ανέπαφο. Το Shotwell αποθηκεύει τις επεξεργασίες σας σε μια βάση δεδομένων "
+"και τις εφαρμόζει απευθείας όταν χρειάζεται. Αυτό σημαίνει ότι μπορείτε να "
+"αναιρέσετε οποιεσδήποτε αλλαγές κάνετε σε μια φωτογραφία."
+
+#: C/edit-nondestructive.page:18(p)
+msgid ""
+"Note that Shotwell can optionally write metadata (such as tags and titles) "
+"to photo files. For more information, see the section <link xref=\"other-"
+"files\">Photo files</link>."
+msgstr ""
+"Σημειώστε ότι το Shotwell μπορεί προαιρετικά να γράψει μεταδεδομένα (όπως "
+"ετικέτες και τίτλους) σε αρχεία φωτογραφίας. Για περισσότερες πληροφορίες, "
+"δείτε την ενότητα <link xref=\"other-files\">Αρχεία φωτογραφιών</link>."
+
+#: C/edit-external.page:7(desc)
+msgid "Use a different program to edit a photo."
+msgstr ""
+"Χρησιμοποιήστε ένα διαφορετικό πρόγραμμα για να επεξεργαστείτε μια "
+"φωτογραφία."
+
+#: C/edit-external.page:12(title)
+msgid "Edit photos with an external program"
+msgstr "Επεξεργασία φωτογραφιών με εξωτερικό πρόγραμμα"
+
+#: C/edit-external.page:16(p)
+msgid ""
+"You might want to use an external editor to do additional work on a photo. "
+"If installed, GIMP and UFRaw are the default external editors for photo and "
+"RAW editing, respectively. If these programs are not installed, you must "
+"select your preferred editors by choosing <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
+"menus of installed applications."
+msgstr ""
+"Μπορεί να θέλετε να χρησιμοποιήσετε έναν εξωτερικό επεξεργαστή για να κάνει "
+"επιπρόσθετη δουλειά σε μια φωτογραφία. Αν εγκατασταθεί, τα GIMP και UFRaw "
+"είναι οι προεπιλεγμένοι εξωτερικοί επεξεργαστές για φωτογραφίες και "
+"επεξεργασία RAW, αντίστοιχα. Αν αυτά τα προγράμματα δεν είναι εγκατεστημένα, "
+"πρέπει να επιλέξετε τους αγαπημένους σας επεξεργαστές επιλέγοντας "
+"<guiseq><gui>Επεξεργασία</gui><gui>Προτιμήσεις</gui></guiseq> και "
+"επιλέγοντας επεξεργαστές από τα πτυσσόμενα μενού των εγκατεστημένων "
+"εφαρμογών."
+
+#: C/edit-external.page:24(p)
+msgid ""
+"Once your editors have been set, select a photo and choose "
+"<guiseq><gui>Photos</gui><gui>Open With External Editor</gui></guiseq> to "
+"open the photo with the external editor. Likewise, if the original photo is "
+"a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
+"guiseq> to edit the RAW file directly with the set RAW editor."
+msgstr ""
+"Όταν έχουν οριστεί οι επεξεργαστές σας, επιλέξτε μια φωτογραφία και διαλέξτε "
+"<guiseq><gui>Φωτογραφίες</gui><gui>Άνοιγμα με εξωτερικό επεξεργαστή</gui></"
+"guiseq> για να ανοίξετε την φωτογραφία με εξωτερικό επεξεργαστή. Παρόμοια, "
+"αν η αρχική φωτογραφία είναι ένα αρχείο RAW, επιλέξτε "
+"<guiseq><gui>Φωτογραφίες</gui><gui>Άνοιγμα με επεξεργαστή RAW</gui></guiseq> "
+"για να επεξεργαστείτε το αρχείο RAW αμέσως με τον ορισμένο επεξεργαστή RAW."
+
+#: C/edit-external.page:31(p)
+msgid ""
+"When you complete your edits and save the file, Shotwell will detect the "
+"changes and update the photo. When external edits have been made, press and "
+"hold the <key>Shift</key> key in full-window view to show the original photo "
+"rather than the externally-edited one."
+msgstr ""
+"Όταν ολοκληρώσετε τις επεξεργασίες σας και αποθηκεύσετε το αρχείο, το "
+"Shotwell θα αναγνωρίσει τις αλλαγές και θα ενημερώσει τη φωτογραφία. Όταν "
+"έχουν γίνει εξωτερικές επεξεργασίες, πατήστε και κρατήστε πατημένο το "
+"πλήκτρο <key>Shift</key> σε προβολή πλήρους παραθύρου για να εμφανίσετε την "
+"αρχική φωτογραφία αντί για την εξωτερικά επεξεργασμένη."
+
+#: C/edit-external.page:38(p)
+msgid "Reverting to original will erase any external edits."
+msgstr "Η επαναφορά στην αρχική θα σβήσει κάθε εξωτερική επεξεργασία."
+
+#: C/edit-external.page:43(p)
+msgid ""
+"If you externally edit a RAW photo and save the result to another image, "
+"such as a JPEG or PNG, Shotwell cannot automatically determine that the "
+"original RAW and the new image should be paired."
+msgstr ""
+"Αν επεξεργαστείτε εξωτερικά μια φωτογραφία RAW και αποθηκεύσετε το "
+"αποτέλεσμα σε μια άλλη εικόνα, όπως JPEG ή PNG, το Shotwell δεν μπορεί να "
+"προσδιορίσει αυτόματα ότι η αρχική RAW και η νέα εικόνα πρέπει να συζευχθούν."
+
+#: C/edit-external.page:49(p)
+msgid ""
+"If you want to work within the resulting image within Shotwell, you'll need "
+"to import it yourself."
+msgstr ""
+"Αν θέλετε να δουλέψετε μέσα στην τελική εικόνα μες το Shotwell, θα "
+"χρειαστείτε να την εισάγετε οι ίδιοι."
+
+#: C/edit-enhance.page:7(desc)
+msgid ""
+"Let Shotwell improve the brightness and contrast of a photo automatically."
+msgstr ""
+"Αφήστε το Shotwell να βελτιώσει τη φωτεινότητα και την αντίθεση μιας "
+"φωτογραφίας αυτόματα."
+
+#: C/edit-enhance.page:14(title)
+msgid "Auto-enhance"
+msgstr "Αυτόματη βελτίωση"
+
+#: C/edit-enhance.page:16(p)
+msgid ""
+"Clicking on the <gui>Enhance</gui> button is a quick way to automatically "
+"adjust the brightness and contrast of your photo. It will often give you a "
+"photo that is correctly exposed. You can also use it as a starting point and "
+"then improve the adjustments by clicking on the <gui>Adjust</gui> button."
+msgstr ""
+"Πατώντας το πλήκτρο <gui>Βελτίωση</gui> είναι ένας γρήγορος τρόπος για "
+"αυτόματη ρύθμιση της φωτεινότητας και της αντίθεσης της φωτογραφίας σας. Θα "
+"σας δώσει συχνά μια φωτογραφία με τη σωστή έκθεση. Μπορείτε επίσης να την "
+"χρησιμοποιήσετε ως αρχικό σημείο και έπειτα να βελτιώσετε τις ρυθμίσεις "
+"πατώντας στο πλήκτρο <gui>Προσαρμογή</gui>."
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: C/edit-crop.page:42(None)
+msgid ""
+"@@image: 'figures/crop_thirds.jpg'; md5=4cf0a026bb812c7eab0c9db8210a9524"
+msgstr ""
+"@@image: 'figures/crop_thirds.jpg'· md5=4cf0a026bb812c7eab0c9db8210a9524"
+
+#: C/edit-crop.page:7(desc)
+msgid "Improve the composition of a photo by cutting out parts of it."
+msgstr "Βελτιώστε τη σύνθεση μιας φωτογραφίας περικόπτοντας τμήματά της."
+
+#: C/edit-crop.page:12(title)
+msgid "Cropping"
+msgstr "Περικοπή"
+
+#: C/edit-crop.page:14(p)
+msgid ""
+"To reduce the area of a photo and concentrate the viewer's attention on a "
+"smaller portion of it, use the Crop tool. The crop tool is only available in "
+"full-window or fullscreen mode."
+msgstr ""
+"Για να μειώσετε την περιοχή μιας φωτογραφίας και να συγκεντρώσετε την "
+"προσοχή του θεατή σε ένα μικρότερο τμήμα της, χρησιμοποιήστε το εργαλείο "
+"περικοπής. Το εργαλείο περικοπής είναι διαθέσιμο μόνο σε πλήρες παράθυρο ή "
+"κατάσταση πλήρους οθόνης."
+
+#: C/edit-crop.page:19(p)
+msgid ""
+"Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
+"gui> button on the toolbar."
+msgstr ""
+"Διπλοπατήστε μια φωτογραφία για να μπείτε στην κατάσταση πλήρους παραθύρου, "
+"έπειτα πατήστε το πλήκτρο <gui>Περικοπή</gui> στην εργαλειοθήκη."
+
+#: C/edit-crop.page:22(p)
+msgid ""
+"A white box, the crop rectangle, will appear over the photo. The lighter "
+"portion of the photo within the crop rectangle represents what the photo "
+"will look like when you crop it."
+msgstr ""
+"Ένα λευκό πλαίσιο, το ορθογώνιο περικοπής, θα εμφανιστεί πάνω από τη "
+"φωτογραφία. Το πιο φωτεινό τμήμα της φωτογραφίας μέσα στο ορθογώνιο "
+"περικοπής απεικονίζει πώς θα μοιάζει η φωτογραφία όταν την περικόψετε."
+
+#: C/edit-crop.page:25(p)
+msgid ""
+"If you place your cursor in the middle of the box, you can move the box "
+"around. If you drag the edges of the box, you can adjust its size. As you "
+"move and adjust the crop box, you'll see four lines appear inside it, like a "
+"tic-tac-toe grid. These are <em>rule of thirds</em> lines."
+msgstr ""
+"Αν τοποθετήσετε τον δρομέα σας στη μέση του πλαισίου, μπορείτε να "
+"μετακινήσετε το πλαίσιο ολόγυρα. Αν σύρετε τις άκρες του πλαισίου, μπορείτε "
+"να ρυθμίσετε το μέγεθός της. Καθώς μετακινείτε και ρυθμίζετε το πλαίσιο "
+"περικοπής, θα δείτε τέσσερις γραμμές να εμφανίζονται μέσα της, όπως ένα "
+"πλέγμα τρίλιζας. Αυτές είναι γραμμές του <em>κανόνα των τρίτων</em>."
+
+#: C/edit-crop.page:26(p)
+msgid ""
+"You can also constrain the crop box to one of many common sizes. Choose a "
+"size from the drop-down list that suits your needs. If you press the flip "
+"button next to it, the orientation of the constraint will switch (from "
+"landscape to portrait)."
+msgstr ""
+"Μπορείτε επίσης να περιορίσετε το πλαίσιο περικοπής σε ένα από τα πολλά "
+"συνηθισμένα μεγέθη. Επιλέξτε ένα μέγεθος από τον πτυσσόμενο κατάλογο που "
+"ταιριάζει τις ανάγκες σας. Αν πατήσετε το κουμπί αναστροφής δίπλα του, ο "
+"προσανατολισμός του περιορισμού θα αλλάξει (από οριζόντιο σε κάθετο)."
+
+#: C/edit-crop.page:29(p)
+msgid ""
+"When you're happy with your crop outline, press the <gui>Apply</gui> button. "
+"Shotwell will display the cropped photo."
+msgstr ""
+"Όταν είσαστε ικανοποιημένοι με το περίγραμμα περικοπής σας, πατήστε το "
+"πλήκτρο <gui>Εφαρμογή</gui>. Το Shotwell θα εμφανίσει την περικομμένη "
+"φωτογραφία."
+
+#: C/edit-crop.page:32(p)
+msgid ""
+"If you change your mind, press the <gui>Crop</gui> button again and fine-"
+"tune the crop."
+msgstr ""
+"Αν αλλάξετε γνώμη, πατήστε το πλήκτρο <gui>Περικοπή</gui> ξανά και "
+"μικρορυθμίστε την περικοπή."
+
+#: C/edit-crop.page:33(p)
+msgid ""
+"If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
+"return to the photo's previous crop dimensions."
+msgstr ""
+"Αν πατήσετε <gui>Άκυρο</gui> αντί για <gui>Εφαρμογή</gui>, το Shotwell θα "
+"επιστρέψει στις διαστάσεις πριν την περικοπή της φωτογραφίας."
+
+#: C/edit-crop.page:38(title)
+msgid "What is the rule of thirds?"
+msgstr "Τι είναι ο κανόνας των τρίτων;"
+
+#: C/edit-crop.page:39(p)
+msgid ""
+"The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
+"photo."
+msgstr ""
+"Ο <em>κανόνας των τρίτων</em> σας βοηθά να επιλέξετε μια καλύτερη σύνθεση "
+"για μια φωτογραφία."
+
+#: C/edit-crop.page:40(p)
+msgid ""
+"Imagine that the scene is divided up into a 3x3 grid by two equally-spaced "
+"vertical lines and two equally-spaced horizontal lines. According to the "
+"rule, you're more likely to get a pleasing composition if you align major "
+"features (like the horizon, or a person's body) with one of the lines. "
+"Paying attention to the way features flow from one part of the grid to "
+"another can also help."
+msgstr ""
+"Θεωρήστε ότι η σκηνή διαιρείται σε ένα πλέγμα 3x3 από δύο ισαπέχουσες "
+"κάθετες γραμμές και δύο ισαπέχουσες οριζόντιες γραμμές. Σύμφωνα με τον "
+"κανόνα, είναι πιο πιθανό να πάρετε μια καλύτερη σύνθεση αν στοιχίσετε τα "
+"μεγάλα γνωρίσματα (όπως τον ορίζοντα, ή το σώμα του ατόμου) με μια από αυτές "
+"τις γραμμές. Προσέχοντας τον τρόπο που τα γνωρίσματα ρέουν από το ένα μέρος "
+"του πλέγματος στο άλλο μπορεί επίσης να βοηθήσει."
+
+#: C/edit-crop.page:41(p)
+msgid ""
+"Cropping a photo so that it conforms to the rule of thirds often results in "
+"a more visually appealing image."
+msgstr ""
+"Η περικοπή μιας φωτογραφίας έτσι ώστε να συμφωνεί με τον κανόνα των τρίτων "
+"καταλήγει συχνά σε μια περισσότερο ελκυστική οπτικά εικόνα."
+
+#: C/edit-crop.page:43(p)
+msgid ""
+"Cropping a photo, using the \"rule of thirds\" lines to improve the "
+"composition."
+msgstr ""
+"Περικοπή μιας φωτογραφίας, χρησιμοποιώντας τον \"κανόνα των τρίτων\" για να "
+"βελτιώσετε τη σύνθεση."
+
+#: C/edit-adjustments.page:7(desc)
+msgid "Change the exposure, saturation, tint, and shadows of a photo."
+msgstr ""
+"Αλλαγή της έκθεσης, του κορεσμού, της απόχρωσης και των σκιών μιας "
+"φωτογραφίας."
+
+#: C/edit-adjustments.page:12(title)
+msgid "Color adjustments"
+msgstr "Προσαρμογές χρώματος"
+
+#: C/edit-adjustments.page:14(p)
+msgid ""
+"The <gui>Adjust</gui> button opens a floating window with a histogram and "
+"sliders to adjust a photo's exposure, saturation, tint, temperature, and "
+"shadows. The histogram also has sliders to reduce the upper and lower "
+"intensity thresholds of the photograph, expanding the contrast of the middle "
+"range."
+msgstr ""
+"Το πλήκτρο <gui>Ρύθμιση</gui> ανοίγει ένα αιωρούμενο παράθυρο με ένα "
+"ιστόγραμμα και ολισθητές για να ρυθμίσουν την έκθεση, τον κορεσμό, την "
+"απόχρωση, τη θερμοκρασία και τις σκιές μιας φωτογραφίας. Το ιστόγραμμα "
+"επίσης έχει ολισθητές που μειώνουν τα πάνω και κάτω κατώφλια έντασης της "
+"φωτογραφίας, επεκτείνοντας την αντίθεση της μεσαίας περιοχής."
+
+#: C/edit-adjustments.page:16(p)
+msgid ""
+"The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
+"improve the quality of a photo."
+msgstr ""
+"Το πλήκτρο <gui>Βελτίωση</gui> ρυθμίζει το ιστόγραμμα και τους ολισθητές "
+"σκιών για να βελτιώσουν την ποιότητα μιας φωτογραφίας."
+
+#: C/edit-adjustments.page:18(p)
+msgid ""
+"When the photo's colors and contrast are to your liking, press <gui>Apply</"
+"gui> to save the changes. <gui>Reset</gui> will return the image to its "
+"original state. <gui>Cancel</gui> discards all changes you've made."
+msgstr ""
+"Όταν τα χρώματα και η αντίθεση της φωτογραφίας σας αρέσουν, πατήστε "
+"<gui>Εφαρμογή</gui> για να αποθηκεύσετε τις αλλαγές. Η <gui>Επαναφορά</gui> "
+"θα επιστρέψει την εικόνα στην αρχική της κατάσταση. Το <gui>Άκυρο</gui> "
+"απορρίπτει όλες τις αλλαγές που έχετε κάνει."
+
+#: C/edit-adjustments.page:21(title)
+msgid "What do the color adjustments do?"
+msgstr "Τι κάνουν οι ρυθμίσεις χρώματος;"
+
+#: C/edit-adjustments.page:24(title)
+msgid "Exposure"
+msgstr "Έκθεση"
+
+#: C/edit-adjustments.page:25(p)
+msgid ""
+"Changes the brightness to make it look like the photo was exposed for a "
+"longer or shorter time. Use this to correct under- or over-exposed photos."
+msgstr ""
+"Αλλάζει τη φωτεινότητα κάνοντας τη φωτογραφία να φαίνεται ότι εκτέθηκε για "
+"μεγαλύτερο ή λιγότερο χρόνο. Χρησιμοποιήστε το για να διορθώσετε "
+"υποεκτεθειμένες ή υπερεκτεθειμένες φωτογραφίες."
+
+#: C/edit-adjustments.page:28(title)
+msgid "Saturation"
+msgstr "Κορεσμός"
+
+#: C/edit-adjustments.page:29(p)
+msgid ""
+"Changes how vivid colors look. If your photo looks gray and washed out, try "
+"increasing the saturation. If colors look too bold, try decreasing it."
+msgstr ""
+"Αλλάζει τη ζωηρότητα των χρωμάτων. Αν η φωτογραφία φαίνεται γκρίζα και "
+"ξεθωριασμένη, δοκιμάστε να αυξήσετε τον κορεσμό. Αν τα χρώματα φαίνονται "
+"υπερβολικά έντονα, δοκιμάστε να τον μειώσετε."
+
+#: C/edit-adjustments.page:32(title)
+msgid "Tint"
+msgstr "Απόχρωση"
+
+#: C/edit-adjustments.page:33(p)
+msgid ""
+"This tints the photo with a color. It's useful for correcting photos taken "
+"with the wrong white balance setting, which typically have an unnatural "
+"color cast. For example, photos taken outdoors with the white balance set to "
+"\"Tungsten\" may have a blue cast."
+msgstr ""
+"Αυτό χρωματίζει τη φωτογραφία με ένα χρώμα. Είναι χρήσιμη για διόρθωση "
+"φωτογραφιών που ελήφθησαν με εσφαλμένη ρύθμιση ισορροπίας λευκού, που τυπικά "
+"έχει μια αφύσικη απόχρωση χρώματος. Για παράδειγμα, οι φωτογραφίες που "
+"ελήφθησαν υπαίθρια με την λευκή ισορροπία ορισμένη σε \"βολφράμιο\" μπορεί "
+"να έχουν μια γαλάζια απόχρωση."
+
+#: C/edit-adjustments.page:36(title)
+msgid "Temperature"
+msgstr "Θερμοκρασία"
+
+#: C/edit-adjustments.page:37(p)
+msgid ""
+"Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
+"depressing scenes look more lively, for example."
+msgstr ""
+"Αλλάζει το πόσο \"θερμή\" ή \"κρύα\" φαίνεται η εικόνα. Χρησιμοποιήστε το "
+"για να κάνετε κρύα μειώνοντας τις σκηνές που φαίνονται πιο ζωντανές, για "
+"παράδειγμα."
+
+#: C/edit-adjustments.page:40(title)
+msgid "Shadows"
+msgstr "Σκιές"
+
+#: C/edit-adjustments.page:41(p)
+msgid ""
+"This makes shadowy areas appear lighter. Use this to make detail more "
+"visible if it's obscured by the darkness of a shadow."
+msgstr ""
+"Αυτό κάνει σκιώδεις περιοχές να φαίνονται πιο ανοικτές. Χρησιμοποιήστε το "
+"για να κάνετε την λεπτομέρεια πιο ορατή αν καλύπτεται από τη σκοτεινότητα "
+"μιας σκιάς."
+
+#: C/edit-adjustments.page:44(title)
+msgid "Intensity Threshold (sliders on the histogram)"
+msgstr "Κατώφλι έντασης (ολισθητές στο ιστόγραμμα)"
+
+#: C/edit-adjustments.page:45(p)
+msgid ""
+"These sliders change how light the brightest white is and how dark the "
+"darkest black is. Use them to change the contrast of the photo. Photos which "
+"look washed out should particularly benefit from changing these settings."
+msgstr ""
+"Αυτοί οι ολισθητές αλλάζουν το πόσο ανοικτό είναι το πιο φωτεινό λευκό και "
+"πόσο σκούρο το πιο σκοτεινό μαύρο. Χρησιμοποιήστε τα για να αλλάξετε την "
+"αντίθεση της φωτογραφίας. Οι φωτογραφίες που φαίνονται ξεθωριασμένες πρέπει "
+"να επωφελούνται ιδιαίτερα από την αλλαγή αυτών των ρυθμίσεων."
+
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: C/edit-adjustments.page:0(None)
+msgid "translator-credits"
+msgstr "Δημήτρης Σπίγγος <dmtrs32@gmail.com>, 2014"
