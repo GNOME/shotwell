@@ -231,53 +231,6 @@ ICON_FILES = \
 	filter-videos.png \
 	filter-flagged.png
 
-HELP_FILES = \
-	edit-adjustments.page \
-	edit-crop.page \
-	edit-enhance.page \
-	edit-external.page \
-	edit-nondestructive.page \
-	edit-redeye.page \
-	edit-rotate.page \
-	edit-straighten.page \
-	edit-time-date.page \
-	edit-undo.page \
-	formats.page \
-	import-camera.page \
-	import-file.page \
-	import-f-spot.page \
-	import-memorycard.page \
-	index.page \
-	organize-event.page \
-	organize-flag.page \
-	organize-rating.page \
-	organize-remove.page \
-	organize-search.page \
-	organize-tag.page \
-	organize-title.page \
-	other-files.page \
-	other-missing.page \
-	other-multiple.page \
-	other-plugins.page \
-	raw.page \
-	running.page \
-	share-background.page \
-	share-export.page \
-	share-print.page \
-	share-send.page \
-	share-slideshow.page \
-	share-upload.page \
-	view-displaying.page \
-	view-information.page \
-	view-sidebar.page
-
-HELP_IMAGES = \
-	crop_thirds.jpg \
-	editing_overview.png \
-	edit_toolbar.png \
-	shotwell_logo.png \
-	trash_process.png
-
 VAPI_DIRS = \
 	./vapi
 
@@ -368,6 +321,9 @@ DIRECT_EDIT_DESKTOP_APP_FULL_NAME="Shotwell Photo Viewer"
 DIRECT_EDIT_DESKTOP_APPLICATION_CLASS="Photo Viewer"
 TEMPORARY_DESKTOP_FILES = misc/shotwell.desktop misc/shotwell-viewer.desktop
 
+# for help page and translation .po files
+include help/Makefile.am
+
 # Process the units
 UNIT_MKS := $(foreach unit,$(UNITS),src/$(unit)/mk/$(notdir $(unit)).mk)
 include $(UNIT_MKS)
@@ -402,10 +358,15 @@ EXPANDED_VAPI_FILES := $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
 EXPANDED_DEPS_FILES := $(foreach deps,$(DEPS_FILES),vapi/$(deps))
 EXPANDED_SRC_HEADER_FILES := $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
 EXPANDED_RESOURCE_FILES := $(foreach res,$(RESOURCE_FILES),ui/$(res))
-EXPANDED_HELP_FILES := $(foreach file,$(HELP_FILES),help/C/$(file))
-EXPANDED_HELP_IMAGES := $(foreach file,$(HELP_IMAGES),help/C/figures/$(file))
+EXPANDED_DOC_IMAGES := $(foreach file,$(DOC_IMAGES),help/C/figures/$(file))
+EXPANDED_DOC_PAGES := $(foreach page,$(DOC_PAGES),help/C/$(page))
+EXPANDED_DOC_PO := $(foreach lang,$(DOC_LINGUAS),help/$(lang)/$(lang).po)
+EXPANDED_XLAT_DOC_PAGES := \
+	$(foreach lang,$(DOC_LINGUAS),\
+		$(foreach page,$(DOC_PAGES),help/$(lang)/$(page)))
 VALA_STAMP := $(BUILD_DIR)/.stamp
 LANG_STAMP := $(LOCAL_LANG_DIR)/.langstamp
+DOC_LANG_STAMP := help/.langstamp
 MAKE_FILES := Makefile $(CONFIG_IN) $(UNIT_MKS) unitize.mk units.mk
 PC_INPUT := shotwell-plugin-dev-1.0.m4
 PC_FILE := $(PC_INPUT:.m4=.pc)
@@ -414,7 +375,7 @@ DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAP
 	$(EXPANDED_DEPS_FILES) $(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) \
 	$(EXPANDED_ICON_FILES) $(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_CORE_PO_FILES) \
 	po/LINGUAS po/POTFILES.in po/POTFILES.skip \
-	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
+	$(EXPANDED_DOC_FILES) $(EXPANDED_DOC_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
 	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES) \
 	vapi/gphoto-2.5/libgphoto2.vapi vapi/gphoto-2.4/libgphoto2.vapi \
 	$(EXPANDED_THUMBNAILER_SRC_FILES) $(MIGRATOR_BIN)
@@ -477,6 +438,8 @@ clean:
 	rm -f $(THUMBNAILER_DIR)/$(PROGRAM_THUMBNAILER)
 	rm -rf $(LOCAL_LANG_DIR)
 	rm -f $(LANG_STAMP)
+	rm -f $(DOC_LANG_STAMP)
+	rm -f $(EXPANDED_XLAT_DOC_PAGES)
 	rm -f $(TEMPORARY_DESKTOP_FILES)
 	rm -f lib$(PROGRAM).so
 	rm -rf $(UNITIZE_DIR)
@@ -493,6 +456,7 @@ cleantemps:
 	rm -f $(EXPANDED_OBJ_FILES)
 	rm -f $(VALA_STAMP)
 	rm -f $(LANG_STAMP)
+	rm -f $(DOC_LANG_STAMP)
 	rm -f $(TEMPORARY_DESKTOP_FILES)
 	@$(MAKE) --directory=plugins cleantemps
 	rm -f misc/gschemas.compiled
@@ -599,9 +563,15 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 endif
 ifndef DISABLE_HELP_INSTALL
 	mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C
-	$(INSTALL_DATA) $(EXPANDED_HELP_FILES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C
+	$(INSTALL_DATA) $(EXPANDED_DOC_PAGES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C
 	mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
-	$(INSTALL_DATA) $(EXPANDED_HELP_IMAGES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
+	$(INSTALL_DATA) $(EXPANDED_DOC_IMAGES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
+	$(foreach lang,$(DOC_LINGUAS),`mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/$(lang)`)
+	$(foreach lang,$(DOC_LINGUAS),\
+		$(foreach page,$(DOC_PAGES),\
+			`$(INSTALL_DATA) help/$(lang)/$(page) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/$(lang)`\
+		)\
+	)
 endif
 	-$(foreach lang,$(CORE_SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
 		$(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
@@ -703,12 +673,17 @@ $(EXPANDED_C_FILES): $(VALA_STAMP)
 $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
-$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN) misc/gschemas.compiled
+$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN) misc/gschemas.compiled $(DOC_LANG_STAMP)
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(LDFLAGS) $(RESOURCES) $(VALA_LDFLAGS) $(EXPORT_FLAGS) -o $@
 
 misc/gschemas.compiled: $(SCHEMA_FILES)
 	rm -f misc/gschemas.compiled
 	glib-compile-schemas misc
+
+$(DOC_LANG_STAMP): $(EXPANDED_DOC_PAGES) $(EXPANDED_DOC_PO)
+	$(foreach lang,$(DOC_LINGUAS), \
+		$(foreach page,$(DOC_PAGES), `xml2po -m mallard -p help/$(lang)/$(lang).po -o help/$(lang)/$(page) help/C/$(page)`))
+	@touch $(DOC_LANG_STAMP)
 
 $(THUMBNAILER_BIN): $(EXPANDED_THUMBNAILER_SRC_FILES)
 	$(VALAC) $(EXPANDED_THUMBNAILER_SRC_FILES) $(VALAFLAGS) -o $@ $(foreach pkg,$(THUMBNAILER_PKGS),--pkg=$(pkg))

@@ -2,6 +2,8 @@ shotwell
 .valencia
 /build
 /configure.mk
+/help/el/*.page
+/help/es/*.page
 /misc/gschemas.compiled
 /misc/shotwell.desktop
 /misc/shotwell-viewer.desktop

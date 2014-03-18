@@ -3,6 +3,13 @@
 
 DOC_ID = shotwell
 
+DOC_IMAGES = \
+	crop_thirds.jpg \
+	editing_overview.png \
+	edit_toolbar.png \
+	shotwell_logo.png \
+	trash_process.png
+
 DOC_PAGES = \
 	edit-adjustments.page \
 	edit-crop.page \
