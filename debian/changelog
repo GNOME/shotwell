@@ -1,3 +1,15 @@
+shotwell (0.18.0-1~saucy1) saucy; urgency=low
+
+  * Tumblr publishing fixed
+  * UNIX pipe unnecessarily left open for each imported video
+  * Improved searching for event comments and diacritics
+  * Bug fixes
+  * Compile and install translated help files
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 17 Mar 2014 15:56:49 -0700
+
+
 shotwell (0.15.1-1~raring1) raring; urgency=low
 
   * Install Tumblr plugin resources
