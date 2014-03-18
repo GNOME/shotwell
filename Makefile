@@ -301,7 +301,8 @@ EXT_PKG_VERSIONS = \
 	libxml-2.0 >= 2.6.32 \
 	rest-0.7 >= 0.7 \
 	sqlite3 >= 3.5.9 \
-	webkitgtk-3.0 >= 1.4.0 
+	webkitgtk-3.0 >= 1.4.0 \
+	gnome-doc-utils
 
 DIRECT_LIBS_VERSIONS =
 
