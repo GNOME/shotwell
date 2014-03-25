@@ -13,16 +13,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=shotwell&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-01-16 09:35+0000\n"
-"PO-Revision-Date: 2014-02-02 10:48+0200\n"
+"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2014-03-04 22:34+0000\n"
+"PO-Revision-Date: 2014-03-25 16:40+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
-"language/uk/)\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"language/uk/)\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.5\n"
@@ -46,11 +46,11 @@ msgstr ""
 "Щоб продовжити оприлюднення фотографій на службах Google, завершіть роботу "
 "Shotwell і запустіть програму знову, а потім повторіть спробу оприлюднення."
 
-#: ../plugins/common/Resources.vala:9 ../src/AppWindow.vala:683
+#: ../plugins/common/Resources.vala:9 ../src/AppWindow.vala:688
 msgid "Visit the Yorba web site"
 msgstr "Відвідати веб-сайт Yorba"
 
-#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:686
+#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:691
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
@@ -61,8 +61,9 @@ msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-msgid "Copyright 2009-2013 Yorba Foundation"
-msgstr "© Yorba Foundation, 2009–2013"
+#| msgid "Copyright 2009-2013 Yorba Foundation"
+msgid "Copyright 2009-2014 Yorba Foundation"
+msgstr "© Yorba Foundation, 2009–2014"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -231,7 +232,6 @@ msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Ви ще не увійшли до системи Yandex.Fotki."
 
 #: ../plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:18
-#| msgid "Core Publishing Services"
 msgid "Shotwell Extra Publishing Services"
 msgstr "Додаткові служби оприлюднення Shotwell"
 
@@ -256,40 +256,28 @@ msgid "Login"
 msgstr "Увійти"
 
 #: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:1
-msgid ""
-"You are logged into Tumblr as (name).\n"
-"\n"
-"(this label's string is populated and set inside the code, \n"
-"so changes made here will not display)"
-msgstr ""
-"Ви увійшли до системи Tumblr від імені (name).\n"
-"\n"
-"(цей рядок мітки заповнюватиметься і встановлюватиметься у коді, \n"
-"отже внесені тут зміни показано не буде)"
-
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:5
 msgid "Blogs:"
 msgstr "Блоги:"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:6
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
 msgid "Photo _size:"
 msgstr "_Розмір фотографії:"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:3
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:5
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:8
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:8
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:10
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:2
 msgid "_Logout"
 msgstr "Ви_йти з системи"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:8
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:4
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:6
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:9
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:9
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:11
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:7
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:3
 msgid "_Publish"
 msgstr "_Оприлюднити"
@@ -311,7 +299,6 @@ msgid "_Forbid downloading original photo"
 msgstr "За_боронити звантаження початкових версій фотографій"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:7
-#| msgid "Publish"
 msgid "Public"
 msgstr "Відкритий доступ"
 
@@ -399,7 +386,7 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "Де ви бажаєте оприлюднити позначені фотографії?"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Upload _size:"
 msgstr "_Розміри вивантаженого:"
 
@@ -668,29 +655,20 @@ msgid "Public unlisted"
 msgstr "Відкрите без показу у списку"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:1
-msgid ""
-" (text depends on fb username and is modified in the app - \n"
-"anything put into this field won't display)"
-msgstr ""
-" (текст залежить від імені користувача fb username і змінюється у програмі "
-"— \n"
-"все, введене у цьому полі, не буде показано)"
-
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Publish to an e_xisting album:"
 msgstr "Оприлюднити у іс_нуючому альбомі:"
 
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:2
 msgid "Create a _new album named:"
 msgstr "Створити _альбом з назвою:"
 
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
 msgid "Videos and new photo albums _visible to:"
 msgstr "Відео і нові фотоальбоми зможуть _бачити:"
 
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:7
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:9
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:5
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:8
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -715,52 +693,20 @@ msgstr "_Число розпізнавання:"
 msgid "Con_tinue"
 msgstr "П_родовжити"
 
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
-msgid ""
-"You are logged into Flickr as (name).\n"
-"\n"
-"(this label's string is populated and set inside the code, \n"
-"so changes made here will not display)"
-msgstr ""
-"Ви увійшли до системи Flickr від імені (name).\n"
-"\n"
-"(цей рядок мітки заповнюватиметься і встановлюватиметься у коді, \n"
-"отже внесені тут зміни показано не буде)"
-
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:5
-msgid "_visibility label (populated in the code)"
-msgstr "мітка _видимості (заповнено у коді)"
-
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:1
-msgid ""
-"'you are logged in as $name'\n"
-"(populated in the application code)"
-msgstr ""
-"«ви увійшли як $name»\n"
-"(заповнено у коді програми)"
-
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
 msgid "An _existing album:"
 msgstr "_Існуючому альбомі:"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:2
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:3
 msgid "A _new album named:"
 msgstr "_Новому альбомі з назвою:"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
 msgid "L_ist album in public gallery"
 msgstr "По_казувати альбом у відкритій галереї"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
-msgid ""
-"$mediatype will appear in\n"
-"(populated in code)"
-msgstr ""
-"$mediatype буде показано у\n"
-"(заповнюється у коді)"
-
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:8
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
 msgid "Photo _size preset:"
 msgstr "Шаблон _розміру фотографій:"
 
@@ -868,8 +814,9 @@ msgid "Core Slideshow Transitions"
 msgstr "Основні переходи під час показу слайдів"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
-msgstr "© Maxim Kartashev, 2010, © Yorba Foundation, 2011–2013"
+#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
+msgstr "© Maxim Kartashev, 2010, © Yorba Foundation, 2011–2014"
 
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
@@ -896,55 +843,56 @@ msgstr "Не вдалося створити тимчасовий каталог
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Не вдалося створити підкаталог даних %s: %s"
 
-#: ../src/AppWindow.vala:49
+#. restore pin state
+#: ../src/AppWindow.vala:52
 msgid "Pin Toolbar"
 msgstr "Зафіксувати панель"
 
-#: ../src/AppWindow.vala:50
+#: ../src/AppWindow.vala:53
 msgid "Pin the toolbar open"
 msgstr "Зафіксувати панель відкритою"
 
-#: ../src/AppWindow.vala:53 ../src/AppWindow.vala:131
+#: ../src/AppWindow.vala:57 ../src/AppWindow.vala:135
 msgid "Leave fullscreen"
 msgstr "Вийти з повноекранного режиму"
 
-#: ../src/AppWindow.vala:130
+#: ../src/AppWindow.vala:134
 msgid "Leave _Fullscreen"
 msgstr "Вийти з _повноекранного режиму"
 
-#: ../src/AppWindow.vala:491
+#: ../src/AppWindow.vala:496
 msgid "_Quit"
 msgstr "Ви_йти"
 
-#: ../src/AppWindow.vala:496
+#: ../src/AppWindow.vala:501
 msgid "_About"
 msgstr "_Про програму"
 
-#: ../src/AppWindow.vala:501
+#: ../src/AppWindow.vala:506
 msgid "Fulls_creen"
 msgstr "На весь _екран"
 
-#: ../src/AppWindow.vala:506
+#: ../src/AppWindow.vala:511
 msgid "_Contents"
 msgstr "_Вміст"
 
-#: ../src/AppWindow.vala:511
+#: ../src/AppWindow.vala:516
 msgid "_Frequently Asked Questions"
 msgstr "По_ширені питання"
 
-#: ../src/AppWindow.vala:516
+#: ../src/AppWindow.vala:521
 msgid "_Report a Problem..."
 msgstr "_Повідомити про проблему…"
 
-#: ../src/AppWindow.vala:615 ../src/AppWindow.vala:636
-#: ../src/AppWindow.vala:653 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
+#: ../src/AppWindow.vala:620 ../src/AppWindow.vala:641
+#: ../src/AppWindow.vala:658 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
 #: ../src/Dialogs.vala:1361 ../src/Dialogs.vala:1384
 #: ../src/data_imports/DataImportsUI.vala:399
 #: ../src/publishing/PublishingUI.vala:498
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: ../src/AppWindow.vala:663
+#: ../src/AppWindow.vala:668
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -957,17 +905,17 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/AppWindow.vala:695
+#: ../src/AppWindow.vala:700
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Не вдалося показати довідку: %s"
 
-#: ../src/AppWindow.vala:703
+#: ../src/AppWindow.vala:708
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Не вдалося перейти до сторінки бази даних вад: %s"
 
-#: ../src/AppWindow.vala:711
+#: ../src/AppWindow.vala:716
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Не вдалося показати сторінку поширених питань: %s"
@@ -2324,7 +2272,7 @@ msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "Неможливо стежити за %s: це не каталог (%s)"
 
 #. if no name, pretty up the start time
-#: ../src/Event.vala:737
+#: ../src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Подія %s"
@@ -3637,7 +3585,7 @@ msgid "untitled"
 msgstr "без назви"
 
 #. multiple videos
-#: ../src/VideoSupport.vala:492
+#: ../src/VideoSupport.vala:486
 msgid "Export Videos"
 msgstr "Експорт відео"
 
@@ -4267,8 +4215,8 @@ msgid ""
 msgstr ""
 "Shotwell налаштовано на імпортування фотографій до вашого домашнього "
 "каталогу.\n"
-"Рекомендуємо змінити ці налаштування за допомогою пункту меню <span "
-"weight=\"bold\">Зміни %s Налаштування</span>.\n"
+"Рекомендуємо змінити ці налаштування за допомогою пункту меню <span weight="
+"\"bold\">Зміни %s Налаштування</span>.\n"
 "Хочете продовжити імпортування фотографій?"
 
 #: ../src/library/LibraryWindow.vala:899 ../ui/shotwell.glade.h:19
@@ -4905,6 +4853,53 @@ msgstr "секунд"
 #: ../ui/shotwell.glade.h:43
 msgid "_Login"
 msgstr "_Увійти"
+
+#~ msgid ""
+#~ "You are logged into Tumblr as (name).\n"
+#~ "\n"
+#~ "(this label's string is populated and set inside the code, \n"
+#~ "so changes made here will not display)"
+#~ msgstr ""
+#~ "Ви увійшли до системи Tumblr від імені (name).\n"
+#~ "\n"
+#~ "(цей рядок мітки заповнюватиметься і встановлюватиметься у коді, \n"
+#~ "отже внесені тут зміни показано не буде)"
+
+#~ msgid ""
+#~ " (text depends on fb username and is modified in the app - \n"
+#~ "anything put into this field won't display)"
+#~ msgstr ""
+#~ " (текст залежить від імені користувача fb username і змінюється у "
+#~ "програмі — \n"
+#~ "все, введене у цьому полі, не буде показано)"
+
+#~ msgid ""
+#~ "You are logged into Flickr as (name).\n"
+#~ "\n"
+#~ "(this label's string is populated and set inside the code, \n"
+#~ "so changes made here will not display)"
+#~ msgstr ""
+#~ "Ви увійшли до системи Flickr від імені (name).\n"
+#~ "\n"
+#~ "(цей рядок мітки заповнюватиметься і встановлюватиметься у коді, \n"
+#~ "отже внесені тут зміни показано не буде)"
+
+#~ msgid "_visibility label (populated in the code)"
+#~ msgstr "мітка _видимості (заповнено у коді)"
+
+#~ msgid ""
+#~ "'you are logged in as $name'\n"
+#~ "(populated in the application code)"
+#~ msgstr ""
+#~ "«ви увійшли як $name»\n"
+#~ "(заповнено у коді програми)"
+
+#~ msgid ""
+#~ "$mediatype will appear in\n"
+#~ "(populated in code)"
+#~ msgstr ""
+#~ "$mediatype буде показано у\n"
+#~ "(заповнюється у коді)"
 
 #~ msgid "Shotwell is configured to import photos to your home directory.\n"
 #~ msgstr ""
