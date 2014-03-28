@@ -1301,11 +1301,11 @@ public class EditCommentDialog : MultiTextEntryDialogMediator {
 // Gtk.ResponseType.CANCEL.
 public Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string title,
     string user_message, int count) {
-    string trash_action = ngettext("_Trash File", "_Trash Files", count);
+    string trash_action = ngettext("Remove and _Trash File", "Remove and _Trash Files", count);
     
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
         Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", user_message);
-    dialog.add_button(_("Only _Remove"), Gtk.ResponseType.NO);
+    dialog.add_button(_("_Remove From Library"), Gtk.ResponseType.NO);
     dialog.add_button(trash_action, Gtk.ResponseType.YES);
 
     // This dialog was previously created outright; we now 'hijack' 
