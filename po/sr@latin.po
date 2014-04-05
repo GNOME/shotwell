@@ -7,16 +7,15 @@
 # lsbeeler <lucas@yorba.org>, 2011
 # Nikola Radovanović <nrad@eunet.rs>, 2011—2012
 # Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2014.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2014-03-04 22:34+0000\n"
-"PO-Revision-Date: 2014-03-26 11:22+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
+"ll&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2014-03-28 20:47+0000\n"
+"PO-Revision-Date: 2014-04-05 21:49+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <(nothing)>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +62,6 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-#| msgid "Copyright 2009-2013 Yorba Foundation"
 msgid "Copyright 2009-2014 Yorba Foundation"
 msgstr "Autorska prava © 2009-2014 Jorba fondacija"
 
@@ -228,7 +226,6 @@ msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Trenutno niste prijavljeni na „Yandex.Fotki“."
 
 #: ../plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:18
-#| msgid "Core Publishing Services"
 msgid "Shotwell Extra Publishing Services"
 msgstr "Foto-bunarove dodatne usluge objavljivanja"
 
@@ -296,7 +293,6 @@ msgid "_Forbid downloading original photo"
 msgstr "_Zabrani preuzimanje izvorne fotografije"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:7
-#| msgid "Publish"
 msgid "Public"
 msgstr "Javno"
 
@@ -799,7 +795,6 @@ msgid "Core Slideshow Transitions"
 msgstr "Ključni prelazi pokretnog prikaza"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
 msgstr ""
 "Autorska prava 2010 Maksim Kartašev, Autorska prava 2011-2014 Jorba Fondacija"
@@ -1492,7 +1487,8 @@ msgstr[1] ""
 "Nisam uspeo da uvezem %d snimka zbog greške u datotekama ili na uređaju:\n"
 msgstr[2] ""
 "Nisam uspeo da uvezem %d snimaka zbog greške u datotekama ili na uređaju:\n"
-msgstr[3] "Nisam uspeo da uvezem %d snimak zbog greške u datoteci ili na uređaju:\n"
+msgstr[3] ""
+"Nisam uspeo da uvezem %d snimak zbog greške u datoteci ili na uređaju:\n"
 
 #: ../src/Dialogs.vala:689
 #, c-format
@@ -1522,7 +1518,8 @@ msgstr[1] ""
 "Nisam uspeo da uvezem %d datoteke zbog greške u datoteci ili na uređaju:\n"
 msgstr[2] ""
 "Nisam uspeo da uvezem %d datoteka zbog greške u datoteci ili na uređaju:\n"
-msgstr[3] "Nisam uspeo da uvezem %d datoteku zbog greške u datoteci ili na uređaju:\n"
+msgstr[3] ""
+"Nisam uspeo da uvezem %d datoteku zbog greške u datoteci ili na uređaju:\n"
 
 #: ../src/Dialogs.vala:706
 #, c-format
@@ -1537,7 +1534,8 @@ msgstr[1] ""
 "Nisam uspeo da uvezem %d fotografije jer fascikla fototeke nije upisiva:\n"
 msgstr[2] ""
 "Nisam uspeo da uvezem %d fotografija jer fascikla fototeke nije upisiva:\n"
-msgstr[3] "Nisam uspeo da uvezem %d fotografiju jer fascikla fototeke nije upisiva:\n"
+msgstr[3] ""
+"Nisam uspeo da uvezem %d fotografiju jer fascikla fototeke nije upisiva:\n"
 
 #: ../src/Dialogs.vala:709
 #, c-format
@@ -1552,7 +1550,8 @@ msgstr[1] ""
 "Nisam uspeo da uvezem %d snimka jer fascikla fototeke nije upisiva:\n"
 msgstr[2] ""
 "Nisam uspeo da uvezem %d snimaka jer fascikla fototeke nije upisiva:\n"
-msgstr[3] "Nisam uspeo da uvezem %d snimak jer fascikla fototeke nije upisiva:\n"
+msgstr[3] ""
+"Nisam uspeo da uvezem %d snimak jer fascikla fototeke nije upisiva:\n"
 
 #: ../src/Dialogs.vala:712
 #, c-format
@@ -1588,7 +1587,8 @@ msgstr[1] ""
 "Nisam uspeo da uvezem %d datoteke jer fascikla fototeke nije upisiva:\n"
 msgstr[2] ""
 "Nisam uspeo da uvezem %d datoteka jer fascikla fototeke nije upisiva:\n"
-msgstr[3] "Nisam uspeo da uvezem %d datoteku jer fascikla fototeke nije upisiva:\n"
+msgstr[3] ""
+"Nisam uspeo da uvezem %d datoteku jer fascikla fototeke nije upisiva:\n"
 
 #: ../src/Dialogs.vala:729
 #, c-format
@@ -1823,16 +1823,19 @@ msgid "Comment:"
 msgstr "Napomena:"
 
 #: ../src/Dialogs.vala:1304
-msgid "_Trash File"
-msgid_plural "_Trash Files"
-msgstr[0] "_Obriši fotografiju"
-msgstr[1] "_Obriši fotografije"
-msgstr[2] "_Obriši fotografije"
-msgstr[3] "_Obriši fotografiju"
+#| msgid "_Trash File"
+#| msgid_plural "_Trash Files"
+msgid "Remove and _Trash File"
+msgid_plural "Remove and _Trash Files"
+msgstr[0] "Ukloni i _obriši fotografiju"
+msgstr[1] "Ukloni i _obriši fotografije"
+msgstr[2] "Ukloni i _obriši fotografije"
+msgstr[3] "Ukloni i _obriši fotografiju"
 
 #: ../src/Dialogs.vala:1308
-msgid "Only _Remove"
-msgstr "Samo _ukloni"
+#| msgid "Remove From Library"
+msgid "_Remove From Library"
+msgstr "_Ukloni iz fototeke"
 
 #: ../src/Dialogs.vala:1328 ../src/camera/ImportPage.vala:1739
 msgid "_Keep"
@@ -4856,6 +4859,9 @@ msgstr "sekunde"
 #: ../ui/shotwell.glade.h:43
 msgid "_Login"
 msgstr "_Prijavi me"
+
+#~ msgid "Only _Remove"
+#~ msgstr "Samo _ukloni"
 
 #~ msgid "Shotwell is configured to import photos to your home directory.\n"
 #~ msgstr "Foto-bunar je podešen da uvozi slike u vašu ličnu fasciklu.\n"
