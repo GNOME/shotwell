@@ -3,39 +3,37 @@
 # See COPYING for license.
 #
 # Translators:
-# Alexandre Franke <alexandre.franke@gmail.com>, 2011
-# ttoine <ttoine@ttoine.net>, 2013
-# Claude Paroz <claude@2xlibre.net>, 2011-2012
-# hellsdark <hellsdark@gmail.com>, 2013
-# esunyer <emmanuel.sunyer@gmail.com>, 2012
-# fbourigault <fabien@bourigault.fr>, 2013
-# hellpe <hell_pe@no-log.org>, 2013
-# MathieuMD <mathieu.md@gmail.com>, 2011
-# Pierre Slamich <pierre.slamich@gmail.com>, 2012
-# raphaelh <raphael.huck@gmail.com>, 2011
-# roumano <roumano@gmail.com>, 2011
-# verayin <vera@yorba.org>, 2011
-# woprandi <william.oprandi@gmail.com>, 2013
-# Clarence Snickers <clarencesnickers@gmail.com>, 2012
-# esunyer <emmanuel.sunyer@gmail.com>, 2012
-# lsbeeler <lucas@yorba.org>, 2011
-# raphaelh <raphael.huck@gmail.com>, 2011
-# roumano <roumano@gmail.com>, 2011
-#
+# Alexandre Franke <alexandre.franke@gmail.com>, 2011.
+# ttoine <ttoine@ttoine.net>, 2013.
+# Claude Paroz <claude@2xlibre.net>, 2011-2012.
+# hellsdark <hellsdark@gmail.com>, 2013.
+# esunyer <emmanuel.sunyer@gmail.com>, 2012.
+# fbourigault <fabien@bourigault.fr>, 2013.
+# hellpe <hell_pe@no-log.org>, 2013.
+# MathieuMD <mathieu.md@gmail.com>, 2011.
+# Pierre Slamich <pierre.slamich@gmail.com>, 2012.
+# raphaelh <raphael.huck@gmail.com>, 2011.
+# roumano <roumano@gmail.com>, 2011.
+# verayin <vera@yorba.org>, 2011.
+# woprandi <william.oprandi@gmail.com>, 2013.
+# Clarence Snickers <clarencesnickers@gmail.com>, 2012.
+# lsbeeler <lucas@yorba.org>, 2011.
+# Sam Friedmann <sam.friedmann@redhat.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2014-02-05 00:58+0000\n"
-"PO-Revision-Date: 2014-02-25 10:47+0100\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"POT-Creation-Date: 2014-04-06 23:13+0000\n"
+"PO-Revision-Date: 2014-04-07 11:23+0000\n"
+"Last-Translator: Sam Friedmann <sam.friedmann@redhat.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -57,11 +55,11 @@ msgstr ""
 "Pour continuer à publier vers les services Google, quittez et redémarrez "
 "Shotwell, puis essayez à nouveau de publier."
 
-#: ../plugins/common/Resources.vala:9 ../src/AppWindow.vala:683
+#: ../plugins/common/Resources.vala:9 ../src/AppWindow.vala:688
 msgid "Visit the Yorba web site"
 msgstr "Visitez le site Web de Yorba"
 
-#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:686
+#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:691
 msgid "translator-credits"
 msgstr ""
 "Gabriel Bousquet <gbousque@clipper.ens.fr>\n"
@@ -90,9 +88,9 @@ msgid ""
 msgstr ""
 "Bienvenue dans le service d'importation de photothèques F-Spot.\n"
 "\n"
-"Veuillez sélectionner une photothèque à importer, soit en sélectionnant "
-"une parmi celles trouvées par Shotwell, soit en sélectionnant un autre "
-"fichier de base de données F-Spot."
+"Veuillez sélectionner une photothèque à importer, soit en sélectionnant une "
+"parmi celles trouvées par Shotwell, soit en sélectionnant un autre fichier "
+"de base de données F-Spot."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:58
 msgid ""
@@ -204,7 +202,8 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
 msgid "Enter the username and password associated with your Tumblr account."
-msgstr "Saisissez le nom d'utilisateur et le mot de passe de votre compte Tumblr."
+msgstr ""
+"Saisissez le nom d'utilisateur et le mot de passe de votre compte Tumblr."
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:587
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1000
@@ -528,9 +527,9 @@ msgid ""
 msgstr ""
 "Vous n'êtes actuellement pas connecté à Picasa Web Albums.\n"
 "\n"
-"Cliquez sur « Se connecter » pour vous connecter à Picasa Web Albums avec votre "
-"navigateur. Vous devrez autoriser Shotwell Connect à communiquer avec votre "
-"compte Picasa Web Albums"
+"Cliquez sur « Se connecter » pour vous connecter à Picasa Web Albums avec "
+"votre navigateur. Vous devrez autoriser Shotwell Connect à communiquer avec "
+"votre compte Picasa Web Albums"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:361
 msgid ""
@@ -592,8 +591,8 @@ msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
 msgstr ""
-"Saisissez l'URL de la photothèque Piwigo ainsi que le nom d'utilisateur et le "
-"mot de passe associés à votre compte Piwigo pour cette photothèque."
+"Saisissez l'URL de la photothèque Piwigo ainsi que le nom d'utilisateur et "
+"le mot de passe associés à votre compte Piwigo pour cette photothèque."
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:999
 msgid ""
@@ -682,8 +681,8 @@ msgstr "Vidéos et nouveaux albums photos _visibles pour :"
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
 msgstr ""
-"_Supprimer l'emplacement, l'appareil et d'autres informations d'identification "
-"avant d'envoyer les photos"
+"_Supprimer l'emplacement, l'appareil et d'autres informations "
+"d'identification avant d'envoyer les photos"
 
 #: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:1
 msgid ""
@@ -851,55 +850,56 @@ msgstr "Impossible de créer le dossier temporaire %s : %s"
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Impossible de créer le sous-dossier de données %s : %s"
 
-#: ../src/AppWindow.vala:49
+#. restore pin state
+#: ../src/AppWindow.vala:52
 msgid "Pin Toolbar"
 msgstr "Fixer la barre d'outils"
 
-#: ../src/AppWindow.vala:50
+#: ../src/AppWindow.vala:53
 msgid "Pin the toolbar open"
 msgstr "Fixe la barre d'outils visible"
 
-#: ../src/AppWindow.vala:53 ../src/AppWindow.vala:131
+#: ../src/AppWindow.vala:57 ../src/AppWindow.vala:135
 msgid "Leave fullscreen"
 msgstr "Quitte le mode plein écran"
 
-#: ../src/AppWindow.vala:130
+#: ../src/AppWindow.vala:134
 msgid "Leave _Fullscreen"
 msgstr "Quitter le mode _plein écran"
 
-#: ../src/AppWindow.vala:491
+#: ../src/AppWindow.vala:496
 msgid "_Quit"
 msgstr "_Quitter"
 
-#: ../src/AppWindow.vala:496
+#: ../src/AppWindow.vala:501
 msgid "_About"
 msgstr "À _propos"
 
-#: ../src/AppWindow.vala:501
+#: ../src/AppWindow.vala:506
 msgid "Fulls_creen"
 msgstr "_Plein écran"
 
-#: ../src/AppWindow.vala:506
+#: ../src/AppWindow.vala:511
 msgid "_Contents"
 msgstr "_Sommaire"
 
-#: ../src/AppWindow.vala:511
+#: ../src/AppWindow.vala:516
 msgid "_Frequently Asked Questions"
 msgstr "_Foire aux questions"
 
-#: ../src/AppWindow.vala:516
+#: ../src/AppWindow.vala:521
 msgid "_Report a Problem..."
 msgstr "_Signaler un problème…"
 
-#: ../src/AppWindow.vala:615 ../src/AppWindow.vala:636
-#: ../src/AppWindow.vala:653 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
+#: ../src/AppWindow.vala:620 ../src/AppWindow.vala:641
+#: ../src/AppWindow.vala:658 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
 #: ../src/Dialogs.vala:1361 ../src/Dialogs.vala:1384
 #: ../src/data_imports/DataImportsUI.vala:399
 #: ../src/publishing/PublishingUI.vala:498
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: ../src/AppWindow.vala:663
+#: ../src/AppWindow.vala:668
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -912,17 +912,17 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/AppWindow.vala:695
+#: ../src/AppWindow.vala:700
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Impossible d'afficher l'aide : %s"
 
-#: ../src/AppWindow.vala:703
+#: ../src/AppWindow.vala:708
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Impossible de parcourir la base de donnée des anomalies : %s"
 
-#: ../src/AppWindow.vala:711
+#: ../src/AppWindow.vala:716
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Impossible d'afficher la FAQ : %s"
@@ -1383,8 +1383,7 @@ msgstr "est identique à un média existant"
 #.
 #: ../src/Dialogs.vala:568
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
-msgstr ""
-"Photos/vidéos non importées à cause d'une erreur de l'appareil photo :"
+msgstr "Photos/vidéos non importées à cause d'une erreur de l'appareil photo :"
 
 #: ../src/Dialogs.vala:571 ../src/Dialogs.vala:586 ../src/Dialogs.vala:601
 #: ../src/Dialogs.vala:617 ../src/Dialogs.vala:632 ../src/Dialogs.vala:646
@@ -1408,8 +1407,8 @@ msgid ""
 "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
 "Understands:"
 msgstr ""
-"Photos/vidéos non importées car elles n'étaient pas dans un format reconnu par "
-"Shotwell :"
+"Photos/vidéos non importées car elles n'étaient pas dans un format reconnu "
+"par Shotwell :"
 
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
@@ -1419,8 +1418,8 @@ msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
 "Library:"
 msgstr ""
-"Photos/vidéos non importées car Shotwell n'a pas pu les copier "
-"dans sa bibliothèque :"
+"Photos/vidéos non importées car Shotwell n'a pas pu les copier dans sa "
+"bibliothèque :"
 
 #: ../src/Dialogs.vala:616
 #, c-format
@@ -1615,21 +1614,25 @@ msgstr[1] ""
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] "L'importation d'une photo a échoué car elle était corrompue :\n"
-msgstr[1] "L'importation de %d photos a échoué car elles étaient corrompues :\n"
+msgstr[1] ""
+"L'importation de %d photos a échoué car elles étaient corrompues :\n"
 
 #: ../src/Dialogs.vala:755
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "L'importation d'une vidéo a échoué car elle était corrompue :\n"
-msgstr[1] "L'importation de %d vidéos a échoué car elles étaient corrompues :\n"
+msgstr[1] ""
+"L'importation de %d vidéos a échoué car elles étaient corrompues :\n"
 
 #: ../src/Dialogs.vala:758
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
-msgstr[0] "L'importation d'une photo/vidéo a échoué car elle était corrompue :\n"
-msgstr[1] "L'importation de %d photos/vidéos a échoué car elles étaient corrompues :\n"
+msgstr[0] ""
+"L'importation d'une photo/vidéo a échoué car elle était corrompue :\n"
+msgstr[1] ""
+"L'importation de %d photos/vidéos a échoué car elles étaient corrompues :\n"
 
 #: ../src/Dialogs.vala:761
 #, c-format
@@ -1775,14 +1778,14 @@ msgid "Comment:"
 msgstr "Commentaire :"
 
 #: ../src/Dialogs.vala:1304
-msgid "_Trash File"
-msgid_plural "_Trash Files"
-msgstr[0] "_Mettre le fichier à la corbeille"
-msgstr[1] "_Mettre les fichiers à la corbeille"
+msgid "Remove and _Trash File"
+msgid_plural "Remove and _Trash Files"
+msgstr[0] "Supprimer et me_ttre le fichier à la corbeille"
+msgstr[1] "Supprimer et me_ttre les fichiers à la corbeille"
 
 #: ../src/Dialogs.vala:1308
-msgid "Only _Remove"
-msgstr "_Enlever seulement"
+msgid "_Remove From Library"
+msgstr "Supp_rimer de la photothèque"
 
 #: ../src/Dialogs.vala:1328 ../src/camera/ImportPage.vala:1739
 msgid "_Keep"
@@ -2175,7 +2178,7 @@ msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "Impossible de surveiller %s : ce n'est pas un dossier (%s)"
 
 #. if no name, pretty up the start time
-#: ../src/Event.vala:737
+#: ../src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Événement %s"
@@ -3486,7 +3489,7 @@ msgid "untitled"
 msgstr "sans nom"
 
 #. multiple videos
-#: ../src/VideoSupport.vala:492
+#: ../src/VideoSupport.vala:486
 msgid "Export Videos"
 msgstr "Exporter les vidéos"
 
@@ -4108,7 +4111,8 @@ msgid ""
 "span>.\n"
 "Do you want to continue importing photos?"
 msgstr ""
-"Shotwell est configuré pour importer les photos dans votre dossier personnel.\n"
+"Shotwell est configuré pour importer les photos dans votre dossier "
+"personnel.\n"
 "Nous recommandons de changer cela dans <span weight=\"bold\">Édition %s "
 "Préférences</span>.\n"
 "Voulez-vous continuer d'importer les photos ?"
@@ -4225,7 +4229,8 @@ msgstr "DOSSIER"
 #: ../src/main.vala:298
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
-"Ne pas surveiller le répertoire de la photothèque pour détecter des changements"
+"Ne pas surveiller le répertoire de la photothèque pour détecter des "
+"changements"
 
 #: ../src/main.vala:302
 msgid "Don't display startup progress meter"
@@ -4753,3 +4758,6 @@ msgstr "secondes"
 #: ../ui/shotwell.glade.h:43
 msgid "_Login"
 msgstr "_Se connecter"
+
+#~ msgid "Only _Remove"
+#~ msgstr "_Enlever seulement"
