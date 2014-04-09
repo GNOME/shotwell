@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2014-01-16 09:35+0000\n"
-"PO-Revision-Date: 2014-03-14 18:01+0100\n"
+"POT-Creation-Date: 2014-03-25 20:02+0000\n"
+"PO-Revision-Date: 2014-04-09 17:50+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -151,6 +151,7 @@ msgstr ""
 #: C/share-upload.page:7(desc)
 msgid "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
 msgstr ""
+"Publica fotos en Facebook, Flickr, álbumes web de Picasa o en otros sitios."
 
 #: C/share-upload.page:12(title)
 msgid "Publishing to the Web"
@@ -188,6 +189,8 @@ msgid ""
 "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
 "popular in Russia (photos only)"
 msgstr ""
+"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, una página de "
+"fotos popular en Rusia (sólo fotos)"
 
 #: C/share-upload.page:23(p)
 msgid ""
@@ -342,7 +345,7 @@ msgstr ""
 
 #: C/share-export.page:24(p)
 msgid "A format for export."
-msgstr ""
+msgstr "Un formato al que exportar."
 
 #: C/share-export.page:27(p)
 msgid ""
@@ -446,7 +449,7 @@ msgstr ""
 
 #: C/raw.page:7(desc)
 msgid "More about RAW support in Shotwell."
-msgstr ""
+msgstr "Más sobre el soporte RAW en Shotwell."
 
 #: C/raw.page:12(title)
 msgid "RAW support in Shotwell"
@@ -604,7 +607,7 @@ msgstr ""
 
 #: C/other-files.page:12(title)
 msgid "Photo files"
-msgstr ""
+msgstr "Archivos de fotos"
 
 #: C/other-files.page:14(p)
 msgid ""
@@ -615,7 +618,7 @@ msgstr ""
 
 #: C/other-files.page:21(title)
 msgid "Using a custom directory pattern"
-msgstr ""
+msgstr "Usar un patrón de carpeta predeterminado"
 
 #: C/other-files.page:22(p)
 msgid ""
@@ -891,7 +894,7 @@ msgstr ""
 
 #: C/other-files.page:133(title)
 msgid "Runtime monitoring"
-msgstr ""
+msgstr "Monitorizazión en tiempo de ejecución"
 
 #: C/other-files.page:135(p)
 msgid ""
@@ -927,6 +930,8 @@ msgid ""
 "To change a photo's title, select the photo and click <guiseq><gui>Photos</"
 "gui><gui>Edit Title</gui></guiseq>, or press <key>F2</key>."
 msgstr ""
+"Para cambiar el título de una foto, selecciónela y pulse <guiseq><gui>Fotos</"
+"gui><gui>Editar título</gui></guiseq>, o pulse <key>F2</key>."
 
 #: C/organize-tag.page:7(desc)
 msgid "Organize photos by labelling them."
@@ -1105,7 +1110,7 @@ msgstr ""
 #: C/organize-remove.page:7(desc)
 msgid ""
 "Remove photos from the library, or delete them from your computer entirely."
-msgstr ""
+msgstr "Quitar fotos de la biblioteca, o eliminarlas por completo del equipo."
 
 #: C/organize-remove.page:12(title)
 msgid "Removing and deleting photos"
@@ -1195,7 +1200,7 @@ msgstr ""
 
 #: C/organize-remove.page:39(title)
 msgid "Only Remove"
-msgstr ""
+msgstr "Sólo eliminar"
 
 #: C/organize-remove.page:39(p)
 msgid ""
@@ -1209,7 +1214,7 @@ msgstr ""
 
 #: C/organize-remove.page:40(p)
 msgid "Remove photos from the library and delete them from the computer."
-msgstr ""
+msgstr "Quitar fotos de la biblioteca y eliminarlas del equipo."
 
 #: C/organize-remove.page:41(title)
 msgid "Cancel"
@@ -1514,7 +1519,7 @@ msgstr "Otras características"
 
 #: C/import-memorycard.page:7(desc)
 msgid "Import photos from a digital camera's memory card."
-msgstr ""
+msgstr "Importar fotos desde una tarjeta de memoria de una cámara digital."
 
 #: C/import-memorycard.page:12(title)
 msgid "Importing from a memory card"
@@ -1522,17 +1527,20 @@ msgstr "Importar desde una tarjeta de memoria"
 
 #: C/import-memorycard.page:14(p)
 msgid "To import photos from a camera memory card:"
-msgstr ""
+msgstr "Para importar fotos desde una tarjeta de memoria de una cámara:"
 
 #: C/import-memorycard.page:18(p)
 msgid ""
 "Put the card into your card reader. Make sure the card reader is plugged in "
 "to the computer and switched on."
 msgstr ""
+"Coloque la tarjeta en el lector de tarjetas. Asegúrese de que el lector está "
+"conectado al equipo y encendido."
 
 #: C/import-memorycard.page:21(p)
 msgid "The card reader and card should be detected automatically."
 msgstr ""
+"El lector de tarjetas y la tarjeta se deberían detectar automáticamente."
 
 #: C/import-memorycard.page:24(p)
 msgid ""
@@ -1547,6 +1555,8 @@ msgid ""
 "Shotwell can import photos from any memory card that is compatible with your "
 "card reader."
 msgstr ""
+"Shotwell puede importar fotos de una tarjeta de memoria que sea compatible "
+"con su lector de tarjetas."
 
 #: C/import-memorycard.page:30(p)
 msgid ""
@@ -1561,6 +1571,8 @@ msgstr ""
 msgid ""
 "Shotwell can import all your photos and tags from the F-Spot photo manager."
 msgstr ""
+"Shotwell puede importar todas sus fotos y etiquetas desde el gestor de fotos "
+"F-Spot."
 
 #: C/import-f-spot.page:12(title)
 msgid "Importing from F-Spot"
@@ -1594,7 +1606,7 @@ msgstr ""
 
 #: C/import-file.page:7(desc)
 msgid "Import photos that are already saved on your computer."
-msgstr ""
+msgstr "Importar fotos que ya están en el equipo."
 
 #: C/import-file.page:12(title)
 msgid "Importing from your hard disk"
@@ -1719,7 +1731,7 @@ msgstr ""
 
 #: C/formats.page:25(p)
 msgid "Container formats: Ogg, QuickTime, MP4, AVI."
-msgstr ""
+msgstr "Formatos de contenedor: Ogg, QuickTime, MP4, AVI."
 
 #: C/formats.page:26(p)
 msgid ""
@@ -1831,7 +1843,7 @@ msgstr ""
 
 #: C/edit-rotate.page:12(title)
 msgid "Rotate or flip a photo"
-msgstr ""
+msgstr "Rotar o voltear una foto"
 
 #: C/edit-rotate.page:14(p)
 msgid ""
@@ -1853,11 +1865,15 @@ msgid ""
 "rotate left: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> or "
 "<key>[</key>"
 msgstr ""
+"rotar a la izquierda: <keyseq><key>Mayús</key><key>Ctrl</key><key>R</key></"
+"keyseq> o <key>[</key>"
 
 #: C/edit-rotate.page:19(p)
 msgid ""
 "rotate right: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</key>"
 msgstr ""
+"rotar a la derecha: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</"
+"key>"
 
 #: C/edit-rotate.page:21(p)
 msgid ""
@@ -1879,7 +1895,7 @@ msgstr ""
 
 #: C/edit-redeye.page:12(title)
 msgid "Removing red-eye"
-msgstr ""
+msgstr "Quitar los ojos rojos"
 
 #: C/edit-redeye.page:14(p)
 msgid ""
@@ -1935,7 +1951,7 @@ msgstr ""
 
 #: C/edit-external.page:12(title)
 msgid "Edit photos with an external program"
-msgstr ""
+msgstr "Editar las fotos con un programa externo"
 
 #: C/edit-external.page:16(p)
 msgid ""
@@ -1988,7 +2004,7 @@ msgstr ""
 
 #: C/edit-enhance.page:14(title)
 msgid "Auto-enhance"
-msgstr ""
+msgstr "Mejora automática"
 
 #: C/edit-enhance.page:16(p)
 msgid ""
@@ -2012,7 +2028,7 @@ msgstr ""
 
 #: C/edit-crop.page:12(title)
 msgid "Cropping"
-msgstr ""
+msgstr "Recortar"
 
 #: C/edit-crop.page:14(p)
 msgid ""
@@ -2070,7 +2086,7 @@ msgstr ""
 
 #: C/edit-crop.page:38(title)
 msgid "What is the rule of thirds?"
-msgstr ""
+msgstr "¿Qué es la regla de los tercios?"
 
 #: C/edit-crop.page:39(p)
 msgid ""
@@ -2102,11 +2118,11 @@ msgstr ""
 
 #: C/edit-adjustments.page:7(desc)
 msgid "Change the exposure, saturation, tint, and shadows of a photo."
-msgstr ""
+msgstr "Cambiar la exposición, saturación matiz y sombras de una foto."
 
 #: C/edit-adjustments.page:12(title)
 msgid "Color adjustments"
-msgstr ""
+msgstr "Ajustes del color"
 
 #: C/edit-adjustments.page:14(p)
 msgid ""
@@ -2132,11 +2148,11 @@ msgstr ""
 
 #: C/edit-adjustments.page:21(title)
 msgid "What do the color adjustments do?"
-msgstr ""
+msgstr "¿Qué hacen los ajustes del color?"
 
 #: C/edit-adjustments.page:24(title)
 msgid "Exposure"
-msgstr ""
+msgstr "Exposición"
 
 #: C/edit-adjustments.page:25(p)
 msgid ""
@@ -2146,7 +2162,7 @@ msgstr ""
 
 #: C/edit-adjustments.page:28(title)
 msgid "Saturation"
-msgstr ""
+msgstr "Saturación"
 
 #: C/edit-adjustments.page:29(p)
 msgid ""
@@ -2156,7 +2172,7 @@ msgstr ""
 
 #: C/edit-adjustments.page:32(title)
 msgid "Tint"
-msgstr ""
+msgstr "Matiz"
 
 #: C/edit-adjustments.page:33(p)
 msgid ""
@@ -2168,7 +2184,7 @@ msgstr ""
 
 #: C/edit-adjustments.page:36(title)
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatura"
 
 #: C/edit-adjustments.page:37(p)
 msgid ""
@@ -2178,7 +2194,7 @@ msgstr ""
 
 #: C/edit-adjustments.page:40(title)
 msgid "Shadows"
-msgstr ""
+msgstr "Sombras"
 
 #: C/edit-adjustments.page:41(p)
 msgid ""
@@ -2198,6 +2214,6 @@ msgid ""
 msgstr ""
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
-#: C/index.page:0(None)
+#: C/edit-adjustments.page:0(None)
 msgid "translator-credits"
 msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2014"
