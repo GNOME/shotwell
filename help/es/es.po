@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2014-03-25 20:02+0000\n"
-"PO-Revision-Date: 2014-04-09 17:50+0200\n"
+"POT-Creation-Date: 2014-04-09 15:51+0000\n"
+"PO-Revision-Date: 2014-04-11 13:21+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -197,6 +197,8 @@ msgid ""
 "Any site running the <link href=\"http://piwigo.org\">Piwigo</link> photo "
 "gallery software (photos only)"
 msgstr ""
+"Cualquier sitio que ejecute el software de galería de fotos <link href="
+"\"http://piwigo.org\">Piwigo</link> (sólo fotos)"
 
 #: C/share-upload.page:26(p)
 msgid ""
@@ -290,6 +292,9 @@ msgid ""
 "Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing "
 "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
 msgstr ""
+"Pulse <guiseq><gui>Archivo</gui><gui>Imprimir</gui></guiseq>. Para más "
+"opciones de impresión, seleccione la pestaña <gui>Configuración de página</"
+"gui> en el diálogo <gui>Imprimir</gui>."
 
 #: C/share-print.page:12(title)
 msgid "Printing"
@@ -322,6 +327,7 @@ msgstr ""
 #: C/share-export.page:7(desc)
 msgid "Copy photos out of Shotwell so you can put them somewhere else."
 msgstr ""
+"Copiar fotos fuera Shotwell, para poder ponerlas en cualquier otro lugar."
 
 #: C/share-export.page:12(title)
 msgid "Exporting photos"
@@ -370,7 +376,7 @@ msgstr ""
 
 #: C/share-export.page:37(p)
 msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
-msgstr ""
+msgstr "La calidad de la imagen al exportarla (baja, media, alta o máxima)."
 
 #: C/share-export.page:38(p)
 msgid ""
@@ -398,7 +404,7 @@ msgstr ""
 
 #: C/share-background.page:12(title)
 msgid "Set a desktop background or slideshow"
-msgstr ""
+msgstr "Configurar un fondo de escritorio o presentación"
 
 #: C/share-background.page:14(p)
 msgid ""
@@ -496,7 +502,7 @@ msgstr ""
 
 #: C/other-plugins.page:7(desc)
 msgid "Extend Shotwell's functionality dynamically."
-msgstr ""
+msgstr "Ampliar la funcionalidad de Shotwell dinámicamente."
 
 #: C/other-plugins.page:12(title)
 msgid "Plugins"
@@ -525,6 +531,10 @@ msgid ""
 "\">http://redmine.yorba.org/projects/shotwell/wiki/"
 "ShotwellArchWritingPlugins</link>"
 msgstr ""
+"La documentación completa sobre cómo desarrollar nuevos complementos está "
+"disponible en <link href=\"http://redmine.yorba.org/projects/shotwell/wiki/"
+"ShotwellArchWritingPlugins\">http://redmine.yorba.org/projects/shotwell/wiki/"
+"ShotwellArchWritingPlugins</link>"
 
 #: C/other-multiple.page:7(desc)
 msgid ""
@@ -677,7 +687,7 @@ msgstr "%d"
 
 #: C/other-files.page:49(p)
 msgid "Day of the month with leading zero"
-msgstr "Dia del mes, empezando por cero"
+msgstr "Día del mes, empezando por cero"
 
 #: C/other-files.page:49(p)
 msgid "03"
@@ -836,7 +846,7 @@ msgstr ""
 
 #: C/other-files.page:95(title)
 msgid "Automatically renaming imported photos to lowercase"
-msgstr ""
+msgstr "Renombrar a minúsculas automáticamente las fotos importadas"
 
 #: C/other-files.page:97(p)
 msgid ""
@@ -946,6 +956,8 @@ msgid ""
 "You can assign one or more tags to selected photos. A tag can be one or more "
 "words that you want to associate with those photos."
 msgstr ""
+"Puede asignar una o más etiquetas a las fotos seleccionadas. Una etiqueta "
+"puede constar de una o más palabras que quiera asociar a esas fotos."
 
 #: C/organize-tag.page:22(p)
 msgid ""
@@ -964,7 +976,7 @@ msgstr "Pulse <keyseq><key>Ctrl</key><key>T</key></keyseq>."
 
 #: C/organize-tag.page:30(p)
 msgid "Drag the selected photos and drop them on the desired tag."
-msgstr ""
+msgstr "Arrastre las fotos y suéltelas en la etiqueta que quiera."
 
 #: C/organize-tag.page:33(p)
 msgid ""
@@ -1026,10 +1038,12 @@ msgstr ""
 #: C/organize-tag.page:89(p)
 msgid "Note that deleting a parent tag will also delete its child tags."
 msgstr ""
+"Tenga en cuenta que al eliminar una etiqueta padre también se eliminarán las "
+"etiquetas hijas."
 
 #: C/organize-search.page:7(desc)
 msgid "Find photos and videos in your collection by a variety of criteria."
-msgstr ""
+msgstr "Buscar fotos y vídeos en su colección siguiendo varios criterios."
 
 #: C/organize-search.page:12(title)
 msgid "Searching"
@@ -1388,13 +1402,15 @@ msgstr ""
 
 #: C/organize-event.page:37(title)
 msgid "Creating and merging events"
-msgstr ""
+msgstr "Crear y combinar eventos"
 
 #: C/organize-event.page:38(p)
 msgid ""
 "To create a new event, select the photos you would like in the new event and "
 "click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
 msgstr ""
+"Para crear un evento nuevo, seleccione las fotos que quiere tener en el "
+"evento y pulse <guiseq><gui>Eventos</gui><gui>Nuevo evento</gui></guiseq>."
 
 #: C/organize-event.page:39(p)
 msgid ""
@@ -1418,7 +1434,7 @@ msgstr ""
 
 #: C/organize-event.page:51(title)
 msgid "Change the photo used to represent each event"
-msgstr ""
+msgstr "Cambiar la foto usada para representar cada evento"
 
 #: C/organize-event.page:53(p)
 msgid ""
