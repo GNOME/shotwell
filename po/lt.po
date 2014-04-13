@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2014-03-04 22:34+0000\n"
-"PO-Revision-Date: 2014-03-07 22:43+0200\n"
+"POT-Creation-Date: 2014-03-28 20:47+0000\n"
+"PO-Revision-Date: 2014-04-13 23:04+0300\n"
 "Last-Translator: menesis <menesis@pov.lt>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/projects/p/shotwell/"
 "language/lt/)\n"
@@ -295,7 +295,6 @@ msgid "_Forbid downloading original photo"
 msgstr "_Drausti parsiųsti originalią nuotrauką"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:7
-#| msgid "Publish"
 msgid "Public"
 msgstr "Vieša"
 
@@ -1755,15 +1754,18 @@ msgid "Comment:"
 msgstr "Komentaras:"
 
 #: ../src/Dialogs.vala:1304
-msgid "_Trash File"
-msgid_plural "_Trash Files"
+#| msgid "_Trash File"
+#| msgid_plural "_Trash Files"
+msgid "Remove and _Trash File"
+msgid_plural "Remove and _Trash Files"
 msgstr[0] "_Perkelti failą į šiukšlinę"
 msgstr[1] "_Perkelti failus į šiukšlinę"
 msgstr[2] "_Perkelti failus į šiukšlinę"
 
 #: ../src/Dialogs.vala:1308
-msgid "Only _Remove"
-msgstr "_Tik pašalinti"
+#| msgid "Remove From Library"
+msgid "_Remove From Library"
+msgstr "Pašalinti iš _bibliotekos"
 
 #: ../src/Dialogs.vala:1328 ../src/camera/ImportPage.vala:1739
 msgid "_Keep"
@@ -4751,3 +4753,4 @@ msgstr "sek."
 #: ../ui/shotwell.glade.h:43
 msgid "_Login"
 msgstr "_Prisijungti"
+
