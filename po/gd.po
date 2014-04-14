@@ -2,22 +2,25 @@
 # Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the shotwell package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-#
+# GunChleoc <fios@foramnagaidhlig.net>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-04-03 04:16+0000\n"
-"PO-Revision-Date: 2014-04-10 15:00+0000\n"
-"Last-Translator: GunChleoc <Unknown>\n"
-"Language-Team: Gaelic; Scottish <gd@li.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
+"ll&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2014-04-11 11:01+0000\n"
+"PO-Revision-Date: 2014-04-14 10:45+0100\n"
+"Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
+"Language-Team: Fòram na Gàidhlig http://www.foramnagaidhlig.net\n"
+"Language: gd\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
+"X-Generator: Virtaal 0.7.1\n"
 "X-Launchpad-Export-Date: 2014-04-10 15:01+0000\n"
-"X-Generator: Launchpad (build 16976)\n"
+"X-Project-Style: gnome\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -26,7 +29,7 @@ msgstr ""
 "Tha feum air faidhle sealach mus gabh foillseachadh a dhèanamh ach chan eil "
 "e ri làimh"
 
-#: ../plugins/common/RESTSupport.vala:1152
+#: ../plugins/common/RESTSupport.vala:1138
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -53,9 +56,9 @@ msgstr ""
 "  alasdair caimbeul https://launchpad.net/~alexd-deactivatedaccount"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:34
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:30
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:32
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:30
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:32
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
@@ -154,13 +157,13 @@ msgid "Copyright 2012 BJA Electronics"
 msgstr "Còir-lethbhreac 2012 BJA Electronics"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:104
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:907
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1229
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1246
 msgid "500 x 375 pixels"
 msgstr "500 x 375 piogsail"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:908
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1230
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1247
 msgid "1024 x 768 pixels"
 msgstr "1024 x 768 piogsail"
@@ -263,16 +266,18 @@ msgstr "_Meud dealbh:"
 
 #: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:3
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:5
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
 #: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:2
 msgid "_Logout"
 msgstr "_Log a-mach"
 
 #: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:4
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:6
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
 #: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:4
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:7
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:3
 msgid "_Publish"
 msgstr "_Foillsich"
@@ -298,7 +303,7 @@ msgid "Public"
 msgstr "Poblach"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:8
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:803
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1181
 msgid "Friends"
 msgstr "Caraidean"
 
@@ -307,13 +312,13 @@ msgstr "Caraidean"
 msgid "Private"
 msgstr "Prìobhaideach"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:56
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:55
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:61
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:59
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1127
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:58
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:63
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
@@ -329,20 +334,36 @@ msgstr ""
 "a luchdadh suas agus foillseachadh a dhèanamh gun inbhir agad. Feumaidh "
 "Shotwell Connect an cead seo mus obraich e."
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:79
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:65
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Rinn thu clàradh a-steach is a-mach air Facebook san t-seisean Shotwell seo "
+"mu thràth.\n"
+"Ma tha thu airson leantainn air foillseachadh air Facebook, fàg an-seo, ath-"
+"thòisich Shotwell is feuch ri fhoillseachadh às ùr."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:86
 msgid "Standard (720 pixels)"
 msgstr "Stannardach (720 piogsail)"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:82
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:89
 msgid "Large (2048 pixels)"
 msgstr "Mòr (2048 piogsail)"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:299
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:347
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:254
+msgid "Testing connection to Facebook..."
+msgstr "A' cur fo dheuchainn a' cheangail ri Facebook..."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:347
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:379
 msgid "Creating album..."
 msgstr "A' cruthachadh an albaim..."
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:326
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:374
 msgid ""
 "A file required for publishing is unavailable. Publishing to Facebook can't "
 "continue."
@@ -350,7 +371,7 @@ msgstr ""
 "Tha feum air faidhle mus gabh foillseachadh a dhèanamh ach tha e a dhìth. "
 "Chan urrainn dhuinn foillseachadh air Facebook dhut."
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:648
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1019
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -359,27 +380,27 @@ msgstr ""
 "Chlàraich thu a-steach air Facebook mar %s.\n"
 "\n"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:649
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1020
 msgid "Where would you like to publish the selected photos?"
 msgstr "Càit a bheil thu airson na dealbhan a thagh thu fhoillseachadh?"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:650
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Upload _size:"
 msgstr "_Meud an luchdaidh suas:"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:802
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:889
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1180
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1211
 msgid "Just me"
 msgstr "Dìreach mi fhìn"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:804
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:885
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1182
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1207
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1234
 msgid "Everyone"
 msgstr "A h-uile duine"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:57
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:61
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
@@ -391,7 +412,7 @@ msgstr ""
 "Clàraich a-steach air Flickr sa bhrabhsair-lìn agad. Bidh agad ri cead a "
 "thoirt dha Shotwell Connect ceangal a dhèanamh ris a' chunntas Flickr agad."
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:59
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:63
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
 "To continue publishing to Flickr, quit and restart Shotwell, then try "
@@ -402,7 +423,12 @@ msgstr ""
 "Ma tha thu airson leantainn air foillseachadh air Flickr, fàg an-seo, ath-"
 "thòisich Shotwell is feuch ri fhoillseachadh às ùr."
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:325
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "Ag ullachadh gus clàradh a-steach..."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:595
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can't "
 "continue."
@@ -410,7 +436,11 @@ msgstr ""
 "Tha feum air faidhle mus gabh foillseachadh a dhèanamh ach tha e a dhìth. "
 "Chan urrainn dhuinn foillseachadh air Flickr dhut."
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:836
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "A' dearbhadh a' chead..."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1153
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -419,7 +449,7 @@ msgstr ""
 "Chlàraich thu a-steach air Flickr mar %s.\n"
 "\n"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:838
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1155
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -429,53 +459,53 @@ msgstr ""
 "as urrainn dhut luchdadh suas gach mìos.\n"
 "Tha %d megabyte dheth air fhàgail agad am mìos-sa."
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:840
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1157
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
 "Tha cunntas Flickr Pro agad agus is urrainn dhut na lùigeas tu a dhàta a "
 "luchdadh suas gach mìos."
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:845
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1162
 msgid "Photos _visible to:"
 msgstr "Chì na _daoine a leanas na dealbhan:"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:847
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1164
 msgid "Videos _visible to:"
 msgstr "Chì na _daoine a leanas na videothan:"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:850
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1167
 msgid "Photos and videos _visible to:"
 msgstr "Chì na _daoine a leanas na dealbhan 's na videothan:"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:886
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1208
 msgid "Friends & family only"
 msgstr "Mo theaghlach ⁊ mo charaidean a-mhàin"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:887
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1209
 msgid "Family only"
 msgstr "Mo theaghlach a-mhàin"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:888
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1210
 msgid "Friends only"
 msgstr "Mo charaidean a-mhàin"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:909
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1231
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1248
 msgid "2048 x 1536 pixels"
 msgstr "2048 x 1536 piogsail"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:910
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1232
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1249
 msgid "4096 x 3072 pixels"
 msgstr "4096 x 3072 piogsail"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:911
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1233
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1250
 #: ../src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Meud tùsail"
 
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:54
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:58
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
@@ -488,7 +518,7 @@ msgstr ""
 "Bidh agad ri cead a thoirt dha Shotwell Connect ceangal a dhèanamh ris a' "
 "chunntas agad air Picasa Web Albums."
 
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:330
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:361
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can't "
 "continue."
@@ -497,37 +527,37 @@ msgstr ""
 "Chan urrainn dhuinn foillseachadh air Picasa dhut."
 
 #. populate any widgets whose contents are programmatically-generated.
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:615
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:659
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Chlàraich thu a-steach air Picasa Web Albums mar %s."
 
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:621
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:665
 msgid "Videos will appear in:"
 msgstr "Nochdaidh na videothan ann an:"
 
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:626
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:670
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:1
 msgid "Photos will appear in:"
 msgstr "Nochdaidh na dealbhan ann an:"
 
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:697
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:746
 msgid "Small (640 x 480 pixels)"
 msgstr "Beag (640 x 480 piogsail)"
 
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:698
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:747
 msgid "Medium (1024 x 768 pixels)"
 msgstr "Meadhanach (1024 x 768 piogsail)"
 
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:699
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:748
 msgid "Recommended (1600 x 1200 pixels)"
 msgstr "Na mholamaid (1600 x 1200 piogsail)"
 
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:700
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:749
 msgid "Google+ (2048 x 1536 pixels)"
 msgstr "Google+ (2048 x 1536 piogsail)"
 
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:701
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:750
 #: ../src/editing_tools/EditingTools.vala:756
 msgid "Original Size"
 msgstr "Am meud tùsail"
@@ -538,8 +568,7 @@ msgid "Creating album %s..."
 msgstr "A' cruthachadh an albaim %s..."
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:917
-msgid ""
-"An error message occurred when publishing to Piwigo. Please try again."
+msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Thachair mearachd nuair a bha sinn a' foillsicheadh air Piwigo. Nach fheuch "
 "thu ris a-rithist?"
@@ -788,18 +817,6 @@ msgstr ""
 "Còir-lethbhreac 2010 Maxim Kartashev, Còir-lethbhreac 2011-2014 Yorba "
 "Foundation"
 
-#: ../misc/shotwell.application.in.h:1
-msgid "Publish your pictures to Picasa"
-msgstr "Foillsich na dealbhan agad air Picasa"
-
-#: ../misc/shotwell.application.in.h:2
-msgid "Publish your pictures to Facebook"
-msgstr "Foillsich na dealbhan agad air Facebook"
-
-#: ../misc/shotwell.application.in.h:3
-msgid "Publish your pictures to Flickr"
-msgstr "Foillsich na dealbhan agad air Flickr"
-
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
 msgid "Unable to create cache directory %s: %s"
@@ -870,7 +887,7 @@ msgstr "Dèan aith_ris air duilgheadas..."
 #: ../src/AppWindow.vala:658 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
 #: ../src/Dialogs.vala:1361 ../src/Dialogs.vala:1384
 #: ../src/data_imports/DataImportsUI.vala:399
-#: ../src/publishing/PublishingUI.vala:561
+#: ../src/publishing/PublishingUI.vala:498
 msgid "_Cancel"
 msgstr "_Sguir dheth"
 
@@ -1385,9 +1402,9 @@ msgstr[1] "Chaidh %d dhiubh seo ion-phortadh gu soirbheachail."
 msgstr[2] "Chaidh %d dhiubh seo ion-phortadh gu soirbheachail."
 msgstr[3] "Chaidh %d dhiubh seo ion-phortadh gu soirbheachail."
 
-#. 
+#.
 #. Duplicates
-#. 
+#.
 #: ../src/Dialogs.vala:553
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr ""
@@ -1397,9 +1414,9 @@ msgstr ""
 msgid "duplicates existing media item"
 msgstr "a dhùblaicheadh ball a tha ann mu thràth"
 
-#. 
+#.
 #. Files Not Imported Due to Camera Errors
-#. 
+#.
 #: ../src/Dialogs.vala:568
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr ""
@@ -1411,19 +1428,18 @@ msgstr ""
 msgid "error message:"
 msgstr "teachdaireachd na mearachd:"
 
-#. 
+#.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
-#. 
+#.
 #: ../src/Dialogs.vala:582
-msgid ""
-"Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
 msgstr ""
 "Cha deach na faidhlichean ion-phortadh air sgàth 's nach deach an "
 "aithneachadh mar dhealbhan no videothan:"
 
-#. 
+#.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
-#. 
+#.
 #: ../src/Dialogs.vala:597
 msgid ""
 "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
@@ -1432,9 +1448,9 @@ msgstr ""
 "Cha deach na dealbhan/videothan ion-phortadh air sgàth 's nach eil iad ann "
 "am fòrmat a thuigeas Shotwell:"
 
-#. 
+#.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
-#. 
+#.
 #: ../src/Dialogs.vala:612
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
@@ -1452,18 +1468,18 @@ msgstr ""
 "nach b' urrainn dha lethbhreac de %s a chur \n"
 "\tdha %s"
 
-#. 
+#.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
-#. 
+#.
 #: ../src/Dialogs.vala:628
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr ""
 "Cha deach na dealbhan/videothan ion-phortadh a chionn 's gu bheil na "
 "faidhlichean coirbte:"
 
-#. 
+#.
 #. Photos/Videos Not Imported for Other Reasons
-#. 
+#.
 #: ../src/Dialogs.vala:643
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr ""
@@ -1493,8 +1509,7 @@ msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "Bha %d dealbh/video dùblaichte ann nach deach ion-phortadh:\n"
 msgstr[1] "Bha %d dhealbh/video dùblaichte ann nach deach ion-phortadh:\n"
-msgstr[2] ""
-"Bha %d dealbhan/videothan dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[2] "Bha %d dealbhan/videothan dùblaichte ann nach deach ion-phortadh:\n"
 msgstr[3] "Bha %d dealbh/video dùblaichte ann nach deach ion-phortadh:\n"
 
 #: ../src/Dialogs.vala:683
@@ -1708,8 +1723,7 @@ msgstr[3] ""
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
-msgstr[0] ""
-"Cha deach %d dealbh ion-phortadh a chionn 's gu bheil e coirbte:\n"
+msgstr[0] "Cha deach %d dealbh ion-phortadh a chionn 's gu bheil e coirbte:\n"
 msgstr[1] ""
 "Cha deach %d dhealbh ion-phortadh a chionn 's gu bheil iad coirbte:\n"
 msgstr[2] ""
@@ -1724,10 +1738,8 @@ msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "Cha deach %d video ion-phortadh a chionn 's gu bheil e coirbte:\n"
 msgstr[1] ""
 "Cha deach %d videothan ion-phortadh a chionn 's gu bheil iad coirbte:\n"
-msgstr[2] ""
-"Cha deach %d video ion-phortadh a chionn 's gu bheil iad coirbte:\n"
-msgstr[3] ""
-"Cha deach %d video ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+msgstr[2] "Cha deach %d video ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+msgstr[3] "Cha deach %d video ion-phortadh a chionn 's gu bheil iad coirbte:\n"
 
 #: ../src/Dialogs.vala:758
 #, c-format
@@ -1764,14 +1776,11 @@ msgstr[3] ""
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] ""
-"Chaidh leum a ghearradh thairis air %d dealbh ris nach eil taic:\n"
-msgstr[1] ""
-"Chaidh leum a ghearradh thairis air %d dhealbh ris nach eil taic:\n"
+msgstr[0] "Chaidh leum a ghearradh thairis air %d dealbh ris nach eil taic:\n"
+msgstr[1] "Chaidh leum a ghearradh thairis air %d dhealbh ris nach eil taic:\n"
 msgstr[2] ""
 "Chaidh leum a ghearradh thairis air %d dealbhan ris nach eil taic:\n"
-msgstr[3] ""
-"Chaidh leum a ghearradh thairis air %d dealbh ris nach eil taic:\n"
+msgstr[3] "Chaidh leum a ghearradh thairis air %d dealbh ris nach eil taic:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
@@ -1953,16 +1962,19 @@ msgid "Comment:"
 msgstr "Beachd:"
 
 #: ../src/Dialogs.vala:1304
-msgid "_Trash File"
-msgid_plural "_Trash Files"
-msgstr[0] "Cuir am _faidhle san sgudal"
-msgstr[1] "Cuir na _faidhlichean san sgudal"
-msgstr[2] "Cuir na _faidhlichean san sgudal"
-msgstr[3] "Cuir na _faidhlichean san sgudal"
+#| msgid "_Trash File"
+#| msgid_plural "_Trash Files"
+msgid "Remove and _Trash File"
+msgid_plural "Remove and _Trash Files"
+msgstr[0] "Thoir am _faidhle air falbh 's cur san sgudal e"
+msgstr[1] "Thoir na _faidhlichean air falbh 's cur san sgudal iad"
+msgstr[2] "Thoir na _faidhlichean air falbh 's cur san sgudal iad"
+msgstr[3] "Thoir na _faidhlichean air falbh 's cur san sgudal iad"
 
 #: ../src/Dialogs.vala:1308
-msgid "Only _Remove"
-msgstr "Na dèan ach a thoirt ai_r falbh"
+#| msgid "Remove From Library"
+msgid "_Remove From Library"
+msgstr "Thoi_r air falbh on leabhar-lann"
 
 #: ../src/Dialogs.vala:1328 ../src/camera/ImportPage.vala:1739
 msgid "_Keep"
@@ -2429,8 +2441,7 @@ msgstr "Àirde"
 #: ../src/DirectoryMonitor.vala:889
 #, c-format
 msgid "Unable to monitor %s: Not a directory (%s)"
-msgstr ""
-"Chan urrainn dhuinn sùil a chumail air %s: Chan e pasgan a tha ann(%s)"
+msgstr "Chan urrainn dhuinn sùil a chumail air %s: Chan e pasgan a tha ann(%s)"
 
 #. if no name, pretty up the start time
 #: ../src/Event.vala:753
@@ -2473,8 +2484,7 @@ msgstr "Às-phortaich"
 #: ../src/MediaMonitor.vala:400
 #, c-format
 msgid "Unable to process monitoring updates: %s"
-msgstr ""
-"Chan urrainn dhuinn na h-ùrachaidhean marasglaidh a làimhseachadh: %s"
+msgstr "Chan urrainn dhuinn na h-ùrachaidhean marasglaidh a làimhseachadh: %s"
 
 #: ../src/MediaPage.vala:143
 msgid "Adjust the size of the thumbnails"
@@ -3887,14 +3897,12 @@ msgstr[3] "A bheil thu airson na %d video seo a sguabadh às a' chamara?"
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] ""
-"A bheil thu airson an %d dealbh/video seo a sguabadh às a' chamara?"
+msgstr[0] "A bheil thu airson an %d dealbh/video seo a sguabadh às a' chamara?"
 msgstr[1] ""
 "A bheil thu airson an %d dhealbh/video seo a sguabadh às a' chamara?"
 msgstr[2] ""
 "A bheil thu airson na %d dealbhan/videothan seo a sguabadh às a' chamara?"
-msgstr[3] ""
-"A bheil thu airson na %d dealbh/video seo a sguabadh às a' chamara?"
+msgstr[3] "A bheil thu airson na %d dealbh/video seo a sguabadh às a' chamara?"
 
 #: ../src/camera/ImportPage.vala:1731
 #, c-format
@@ -3902,8 +3910,7 @@ msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "A bheil thu airson an %d fhaidhle seo a sguabadh às a' chamara?"
 msgstr[1] "A bheil thu airson an %d fhaidhle seo a sguabadh às a' chamara?"
-msgstr[2] ""
-"A bheil thu airson na %d faidhlichean seo a sguabadh às a' chamara?"
+msgstr[2] "A bheil thu airson na %d faidhlichean seo a sguabadh às a' chamara?"
 msgstr[3] "A bheil thu airson na %d faidhle seo a sguabadh às a' chamara?"
 
 #: ../src/camera/ImportPage.vala:1758
@@ -3913,8 +3920,7 @@ msgstr "A' toirt air falbh nan dealbhan/videothan on chamara"
 #: ../src/camera/ImportPage.vala:1762
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
-msgid_plural ""
-"Unable to delete %d photos/videos from the camera due to errors."
+msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
 "Tha %d dealbh/video air a' chamara nach urrainn dhuinn sguabadh às ri linn "
 "mhearachdan."
@@ -3947,8 +3953,7 @@ msgstr ""
 "Chan urrainn dhuinn leantainn air an ion-phortadh o %s oir thachair mearachd:"
 
 #: ../src/data_imports/DataImportsPluginHost.vala:151
-msgid ""
-"To try importing from another service, select one from the above menu."
+msgid "To try importing from another service, select one from the above menu."
 msgstr ""
 "Ma tha thu airson feuchainn ri ion-phortadh a dhèanamh o sheirbheis eile, "
 "tagh tè sa chlàr-taice gu h-àrd."
@@ -3985,7 +3990,7 @@ msgid "Import media _from:"
 msgstr "Ion-phortaich meadhan _o:"
 
 #: ../src/data_imports/DataImportsUI.vala:394
-#: ../src/publishing/PublishingUI.vala:556
+#: ../src/publishing/PublishingUI.vala:493
 msgid "_Close"
 msgstr "_Dùin"
 
@@ -4401,8 +4406,8 @@ msgstr "A' falamhadh an sgudail..."
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
-"We recommend changing this in <span weight=\"bold\">Edit %s "
-"Preferences</span>.\n"
+"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
+"span>.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Chaidh Shotwell a rèiteachadh ach an dèan a ion-phortadh nan dealbhan dhan "
@@ -4541,8 +4546,7 @@ msgstr "[FAIDHLE]"
 
 #: ../src/main.vala:342
 #, c-format
-msgid ""
-"Run '%s --help' to see a full list of available command line options.\n"
+msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Cleachd \"%s –help\" airson liosta shlàn de roghainnean na loidhne-àithne "
 "fhaicinn a tha ri làimh.\n"
@@ -4600,14 +4604,14 @@ msgstr "Ag ullachadh airson luchdadh suas"
 msgid "Uploading %d of %d"
 msgstr "A' luchdadh suas %d à %d"
 
-#: ../src/publishing/PublishingPluginHost.vala:82
+#: ../src/publishing/PublishingPluginHost.vala:81
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred:"
 msgstr ""
 "Chan urrainn leantainn air adhart leis an fhoillseachadh air %s oir thachair "
 "mearachd:"
 
-#: ../src/publishing/PublishingPluginHost.vala:85
+#: ../src/publishing/PublishingPluginHost.vala:84
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
 "A' feuchainn ri fhoillseachadh air seirbhis eile, tagh aonan sa chlàr-taice "
@@ -4641,41 +4645,37 @@ msgstr "A' faighinn fiosrachadh a' chunntais..."
 msgid "Logging in..."
 msgstr "'Gad chlàradh a-steach..."
 
-#: ../src/publishing/PublishingUI.vala:191
+#: ../src/publishing/PublishingUI.vala:183
 msgid "Publish Photos"
 msgstr "Foillsich na dealbhan"
 
-#: ../src/publishing/PublishingUI.vala:192
+#: ../src/publishing/PublishingUI.vala:184
 msgid "Publish photos _to:"
 msgstr "Foillsich na d_ealbhan air:"
 
-#: ../src/publishing/PublishingUI.vala:194
+#: ../src/publishing/PublishingUI.vala:186
 msgid "Publish Videos"
 msgstr "Foillsich na videothan"
 
-#: ../src/publishing/PublishingUI.vala:195
+#: ../src/publishing/PublishingUI.vala:187
 msgid "Publish videos _to"
 msgstr "Foillsich na videothan _air"
 
-#: ../src/publishing/PublishingUI.vala:197
+#: ../src/publishing/PublishingUI.vala:189
 msgid "Publish Photos and Videos"
 msgstr "Foillsich na dealbhan agus videothan"
 
-#: ../src/publishing/PublishingUI.vala:198
+#: ../src/publishing/PublishingUI.vala:190
 msgid "Publish photos and videos _to"
 msgstr "Foillsich na dealbhan agus _videothan air"
 
-#: ../src/publishing/PublishingUI.vala:275
-msgid "Add more accounts..."
-msgstr "Cuir barrachd chunntasan ris..."
-
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: ../src/publishing/PublishingUI.vala:435
+#: ../src/publishing/PublishingUI.vala:383
 msgid "Unable to publish"
 msgstr "Chan urrainn dhuinn foillseachadh"
 
-#: ../src/publishing/PublishingUI.vala:436
+#: ../src/publishing/PublishingUI.vala:384
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -4895,8 +4895,7 @@ msgstr "fad greiseig"
 
 #: ../ui/set_background_dialog.glade.h:5
 msgid "How long each photo is shown on the desktop background"
-msgstr ""
-"Dè cho fad 's a thèid gach dealbh a shealltainn air cùlaibh an deasga"
+msgstr "Dè cho fad 's a thèid gach dealbh a shealltainn air cùlaibh an deasga"
 
 #: ../ui/shotwell.glade.h:1
 msgid "Search"
@@ -5009,8 +5008,7 @@ msgstr "Ball-eisimpleir:"
 
 #: ../ui/shotwell.glade.h:30
 msgid "R_ename imported files to lowercase"
-msgstr ""
-"_Sparr litrichean beaga air ainmean fhaidhlichean a thèid ion-phortadh"
+msgstr "_Sparr litrichean beaga air ainmean fhaidhlichean a thèid ion-phortadh"
 
 #: ../ui/shotwell.glade.h:31
 msgid "RAW Developer"
@@ -5060,44 +5058,40 @@ msgstr "diogan"
 msgid "_Login"
 msgstr "_Clàraich a-steach"
 
+#~ msgid "Publish your pictures to Picasa"
+#~ msgstr "Foillsich na dealbhan agad air Picasa"
+
+#~ msgid "Publish your pictures to Facebook"
+#~ msgstr "Foillsich na dealbhan agad air Facebook"
+
+#~ msgid "Publish your pictures to Flickr"
+#~ msgstr "Foillsich na dealbhan agad air Flickr"
+
+#~ msgid "Only _Remove"
+#~ msgstr "Na dèan ach a thoirt ai_r falbh"
+
+#~ msgid "Add more accounts..."
+#~ msgstr "Cuir barrachd chunntasan ris..."
+
 #~ msgid "Copyright 2009-2013 Yorba Foundation"
 #~ msgstr "Còir-lethbhreac 2009-2013 Fonndas Yorba"
 
 #~ msgid "Shotwell is configured to import photos to your home directory.\n"
 #~ msgstr ""
-#~ "Ion-phortaichidh Shotwell dealbhan dhan phasgan-dachaigh agad a-rèir mar a "
-#~ "chaidh a rèiteachadh.\n"
-
-#~ msgid ""
-#~ "You have already logged in and out of Facebook during this Shotwell "
-#~ "session.\n"
-#~ "To continue publishing to Facebook, quit and restart Shotwell, then try "
-#~ "publishing again."
-#~ msgstr ""
-#~ "Rinn thu clàradh a-steach is a-mach air Facebook san t-seisean Shotwell seo "
-#~ "mu thràth.\n"
-#~ "Ma tha thu airson leantainn air foillseachadh air Facebook, fàg an-seo, ath-"
-#~ "thòisich Shotwell is feuch ri fhoillseachadh às ùr."
-
-#~ msgid "Testing connection to Facebook..."
-#~ msgstr "A' cur fo dheuchainn a' cheangail ri Facebook..."
-
-#~ msgid "Preparing for login..."
-#~ msgstr "Ag ullachadh gus clàradh a-steach..."
-
-#~ msgid "Verifying authorization..."
-#~ msgstr "A' dearbhadh a' chead..."
+#~ "Ion-phortaichidh Shotwell dealbhan dhan phasgan-dachaigh agad a-rèir mar "
+#~ "a chaidh a rèiteachadh.\n"
 
 #~ msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
 #~ msgstr ""
-#~ "Còir-lethbhreac 2010 Maxim Kartashev, Còir-lethbhreac 2011-2013 Fonndas Yorba"
+#~ "Còir-lethbhreac 2010 Maxim Kartashev, Còir-lethbhreac 2011-2013 Fonndas "
+#~ "Yorba"
 
 #~ msgid ""
 #~ " (text depends on fb username and is modified in the app - \n"
 #~ "anything put into this field won't display)"
 #~ msgstr ""
-#~ " (tha an teacsa a' crochadh air ainm-cleachdaiche FB agus thèid atharrachadh "
-#~ "san aplacaid - \n"
+#~ " (tha an teacsa a' crochadh air ainm-cleachdaiche FB agus thèid "
+#~ "atharrachadh san aplacaid - \n"
 #~ "cha dèid dad a chuireas tu san raon seo a thaisbeanadh)"
 
 #~ msgid "_visibility label (populated in the code)"
