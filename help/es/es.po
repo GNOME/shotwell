@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2014-04-09 15:51+0000\n"
-"PO-Revision-Date: 2014-04-11 13:21+0200\n"
+"POT-Creation-Date: 2014-04-11 12:09+0000\n"
+"PO-Revision-Date: 2014-04-14 18:16+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -22,6 +22,8 @@ msgstr ""
 msgid ""
 "The sidebar on the left of the window lists various views of your library."
 msgstr ""
+"La barra lateral de la izquierda de la ventana lista varios tipos de vistas "
+"de su biblioteca."
 
 #: C/view-sidebar.page:21(title)
 msgid "The sidebar"
@@ -163,6 +165,9 @@ msgid ""
 "publish photos and videos to the following services, each of which requires "
 "an account:"
 msgstr ""
+"gracias al uso de <link xref=\"other-plugins\">complementos</link>, Shotwell "
+"puede publicar fotos y vídeos en los siguientes servicios, para los que se "
+"requiere una cuenta."
 
 #: C/share-upload.page:18(link)
 msgid "Facebook"
@@ -231,6 +236,9 @@ msgid ""
 "will need to log in to Picasa using a browser once before you can publish to "
 "this service."
 msgstr ""
+"Si tiene una cuenta de Google, pero nunca ha usado los álbumes web de "
+"Picasa, necesitará iniciar sesión en Picasa usando un navegador antes de "
+"poder publicar algo en este servicio."
 
 #: C/share-slideshow.page:7(desc)
 msgid "Watch a slideshow of your photos."
@@ -250,10 +258,13 @@ msgstr ""
 #: C/share-slideshow.page:16(p)
 msgid "You can change some settings in a running slideshow:"
 msgstr ""
+"Puede cambiar algunas configuraciones de una presentación de diapositivas en "
+"ejecución:"
 
 #: C/share-slideshow.page:19(p)
 msgid "The duration how long an image should be shown: 1 - 30 seconds"
 msgstr ""
+"La duración de cuánto tiempo se debe mostrar una imagen: 1 - 30 segundos"
 
 #: C/share-slideshow.page:20(p)
 msgid "You can select different transition effects."
@@ -401,6 +412,8 @@ msgstr ""
 msgid ""
 "Set your desktop background to a single photo or to a slideshow of photos."
 msgstr ""
+"Configure su fondo de escritorio como una única foto o como una presentación "
+"de fotos."
 
 #: C/share-background.page:12(title)
 msgid "Set a desktop background or slideshow"
@@ -411,6 +424,9 @@ msgid ""
 "To set a single photo as your desktop background, select the photo and "
 "choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
 msgstr ""
+"Para establecer una única foto como fondo del escritorio, seleccione la foto "
+"y escriba <guiseq><gui>Archivo</gui><gui>Establecer como fondo del "
+"escritorio</gui></guiseq>."
 
 #: C/share-background.page:16(p)
 msgid ""
@@ -436,6 +452,8 @@ msgid ""
 "Once installed, Shotwell is available in your <gui>Applications</gui> menu "
 "under <gui>Graphics</gui> or <gui>Photography</gui>."
 msgstr ""
+"Una vez instalado, Shotwell estará disponible en su menú <gui>Aplicaciones</"
+"gui>, en <gui>Gráficos</gui> o en <gui>Fotografía</gui>."
 
 #: C/running.page:18(p)
 msgid ""
@@ -452,6 +470,9 @@ msgid ""
 "Shotwell may also be executed directly from its build directory, although "
 "this is only recommended for testing out Shotwell or for developers."
 msgstr ""
+"También puede ejecutar Shotwell directamente desde la carpeta en la que se "
+"construyó, pero esto sólo se recomienda para probar Shotwell o para "
+"desarrolladores."
 
 #: C/raw.page:7(desc)
 msgid "More about RAW support in Shotwell."
@@ -541,6 +562,8 @@ msgid ""
 "You can open Shotwell with a different photo library by using the command "
 "line."
 msgstr ""
+"Puede abrir Shotwell con una biblioteca de fotos diferente usando la línea "
+"de comandos."
 
 #: C/other-multiple.page:12(title)
 msgid "Multiple libraries"
@@ -574,10 +597,12 @@ msgstr ""
 #: C/other-missing.page:7(desc)
 msgid "If Shotwell can't find a photo in your library, it marks it as missing."
 msgstr ""
+"Si Shotwell no puede encontrar una foto en su biblioteca, la marca como "
+"ausente."
 
 #: C/other-missing.page:12(title)
 msgid "Missing photos"
-msgstr ""
+msgstr "Fotos ausentes"
 
 #: C/other-missing.page:14(p)
 msgid ""
@@ -625,6 +650,9 @@ msgid ""
 "hard disk. Shotwell has several features which help you keep the Shotwell "
 "library and files on disk in sync."
 msgstr ""
+"Cada foto de la biblioteca de Shotwell se corresponde con un archivo "
+"almacenado en su disco duro. Shotwell tienen varias características que le "
+"ayudan a mantener su biblioteca y los archivos del disco sincronizados."
 
 #: C/other-files.page:21(title)
 msgid "Using a custom directory pattern"
@@ -843,6 +871,8 @@ msgid ""
 "Shotwell can also follow symbolic links inside automatically-imported "
 "directories."
 msgstr ""
+"Shotwell también puede seguir los enlaces simbólicos en carpetas importadas "
+"automáticamente."
 
 #: C/other-files.page:95(title)
 msgid "Automatically renaming imported photos to lowercase"
@@ -866,6 +896,9 @@ msgid ""
 "or change their tags or titles. Shotwell records these changes in its own "
 "database only."
 msgstr ""
+"De manera predeterminada, Shotwell no modifica los archivos de fotos, aunque "
+"las edite o cambie sus etiquetas o títulos. Shotwell guardará estos cambios "
+"únicamente en su propia base de datos."
 
 #: C/other-files.page:112(p)
 msgid ""
@@ -964,6 +997,8 @@ msgid ""
 "To add new tags to photos, select the photos you would like to tag, then do "
 "any of the following:"
 msgstr ""
+"Para añadir etiquetas nuevas a las fotos, seleccione las fotos que quiere "
+"etiquetar y siga estos pasos:"
 
 #: C/organize-tag.page:28(p)
 msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
@@ -1086,6 +1121,8 @@ msgid ""
 "Disabling the search bar or exiting Shotwell automatically resets the search "
 "bar."
 msgstr ""
+"Desactivar la barra de búsqueda o salir de Shotwell reinicia automáticamente "
+"la barra de búsqueda."
 
 #: C/organize-search.page:44(title)
 msgid "Saved search"
@@ -1221,6 +1258,8 @@ msgid ""
 "Remove photos from the library but leave the photos in their location on the "
 "computer."
 msgstr ""
+"Quitar fotos de la biblioteca pero mantener las fotos en su ubicación dentro "
+"del equipo."
 
 #: C/organize-remove.page:40(title)
 msgid "Trash file"
@@ -1243,6 +1282,8 @@ msgid ""
 "Give photos a rating between 1 and 5 stars. You can reject bad photos, "
 "hiding them from view."
 msgstr ""
+"Asigne a las fotos una puntuación entre 1 y 5. Puede rechazar las fotos "
+"malas, ocultándolas en la vista."
 
 #: C/organize-rating.page:12(title)
 msgid "Ratings"
@@ -1253,10 +1294,13 @@ msgid ""
 "You can assign each photo a rating from 1-5 stars, or may alternatively rate "
 "it as Rejected, in which case Shotwell will hide the photo by default."
 msgstr ""
+"Puede asignar a cada foto una puntuación entre 1 y 5, o marcarla como "
+"rechazada, en cuyo caso Shotwell la ocultará de manera predeterminada."
 
 #: C/organize-rating.page:15(p)
 msgid "You can rate a photo or a set of photos in any of these ways:"
 msgstr ""
+"Puede valorar una foto o un conjunto de fotos de cualquiera de estas maneras:"
 
 #: C/organize-rating.page:18(p)
 msgid ""
@@ -1335,7 +1379,7 @@ msgstr ""
 
 #: C/organize-flag.page:27(title)
 msgid "To flag or unflag a photo"
-msgstr ""
+msgstr "Para marcar o desmarcar una foto"
 
 #: C/organize-flag.page:28(p)
 msgid ""
@@ -1441,6 +1485,8 @@ msgid ""
 "If you select the Events item in the sidebar, you'll see a single photo "
 "which represents each event. This is called the key photo."
 msgstr ""
+"Si selecciona el elemento Eventos en la barra lateral, verá una única foto "
+"que representa cada evento. Esto se denomina «foto clave»."
 
 #: C/organize-event.page:55(p)
 msgid ""
@@ -1679,12 +1725,16 @@ msgid ""
 "Connect the camera to your computer and switch it on. Shotwell will detect "
 "it and list it in the sidebar."
 msgstr ""
+"Conecte la cámara al equipo y enciéndala. Shotwell la detectará y la "
+"mostrará en la barra lateral."
 
 #: C/import-camera.page:22(p)
 msgid ""
 "Select the camera in the sidebar. Previews of each photo on the camera will "
 "be displayed."
 msgstr ""
+"Seleccione la cámara en la barra lateral. Se mostrará la vista previa de "
+"cada una de las fotos de la cámara."
 
 #: C/import-camera.page:25(p)
 msgid ""
