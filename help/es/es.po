@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2014-04-11 12:09+0000\n"
-"PO-Revision-Date: 2014-04-14 18:16+0200\n"
+"POT-Creation-Date: 2014-04-14 16:17+0000\n"
+"PO-Revision-Date: 2014-04-15 13:57+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -69,6 +69,8 @@ msgid ""
 "View more detailed information about photos, like the exposure mode used by "
 "the camera."
 msgstr ""
+"Ver información más detallada sobre las fotos, como el modo de exposición "
+"usado por la cámara."
 
 #: C/view-information.page:12(title)
 msgid "Basic and extended information"
@@ -82,6 +84,11 @@ msgid ""
 "display of this pane using the <guiseq><gui>View</gui><gui>Basic "
 "Information</gui></guiseq> command."
 msgstr ""
+"El panel de información básica aparece en la parte inferior de la barra "
+"lateral, y muestra un breve resumen de las fotos que ha seleccionado. Si no "
+"se ha seleccionado ninguna foto, muestra un resumen de la colección "
+"completa. Puede cambiar la visibilidad de este panel usando el comando "
+"<guiseq><gui>Ver</gui><gui>Información básica</gui></guiseq>."
 
 #: C/view-information.page:16(p)
 msgid ""
@@ -149,6 +156,9 @@ msgid ""
 "to play the video. It's not currently possible to display a video in full-"
 "window mode in Shotwell or to play the video within Shotwell itself."
 msgstr ""
+"Cuando pulse dos veces sobre un vídeo, Shotwell lanzará un reproductor de "
+"vídeo externo para reproducir el vídeo. Actualmente no es posible mostrar un "
+"vídeo en modo a pantalla completa o reproducirlo dentro del propio Shotwell"
 
 #: C/share-upload.page:7(desc)
 msgid "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
@@ -215,6 +225,14 @@ msgid ""
 "will see a dialog that lets you select a publishing service. You will then "
 "need to log in or create an account."
 msgstr ""
+"Para publicar las fotos seleccionadas en una colección, elija "
+"<guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq> y pulse en la "
+"pestaña <gui>Complementos</gui> para activar el complemento del servicio en "
+"el que quiere publicar. A continuación, elija <guiseq><gui>Archivo</"
+"gui><gui>Publicar</gui></guiseq>, pulse el botón <gui>Publicar</gui> en la "
+"barra de herramientas o pulse <keyseq><key>Ctrl</key><key>P</key></keyseq>. "
+"Verá un diálogo que le permite elegir el servicio de publicación. Necesitará "
+"iniciar sesión o crear una cuenta."
 
 #: C/share-upload.page:31(p)
 msgid ""
@@ -254,6 +272,9 @@ msgid ""
 "and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> or press "
 "<key>F5</key>."
 msgstr ""
+"Para ver una presentación de diapositivas en Shotwell, navegue hasta la "
+"colección y elija <guiseq><gui>Ver</gui><gui>Presentación</gui></guiseq> o "
+"pulse <key>F5</key>."
 
 #: C/share-slideshow.page:16(p)
 msgid "You can change some settings in a running slideshow:"
@@ -287,6 +308,9 @@ msgid ""
 "Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
 "lets you send photos via email, instant messaging or in other ways."
 msgstr ""
+"Shotwell puede enviar fotos usando el mecanismo de «Enviar a» de GNOME, lo "
+"que le permite enviar fotos por correo-e, mensajería instantánea u otras "
+"maneras."
 
 #: C/share-send.page:16(p)
 msgid ""
@@ -442,6 +466,8 @@ msgid ""
 "Find Shotwell in the Applications menu, or have it start automatically when "
 "you plug in a camera."
 msgstr ""
+"Busque Shotwell en el menú Aplicaciones o haga que se inicie automáticamente "
+"cuando conecta una cámara."
 
 #: C/running.page:14(title)
 msgid "Running Shotwell"
@@ -544,6 +570,11 @@ msgid ""
 "installed plugins, each with a checkbox by it, and you may enable or disable "
 "each by selecting or deselecting the checkbox by its name."
 msgstr ""
+"Para ver una lista de los complementos instalados, elija "
+"<guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq>, y en la ventana "
+"de <gui>Preferencias</gui> pulse en la pestaña <gui>Complementos</gui>. Verá "
+"una lista de los complementos actualmente instalados, cada uno con una "
+"casilla mediante la que puede activarlos o desactivarlos por su nombre."
 
 #: C/other-plugins.page:25(p)
 msgid ""
@@ -584,6 +615,11 @@ msgid ""
 "own database directory. To launch Shotwell with an alternate library, "
 "specify an alternate database directory on the command line as follows:"
 msgstr ""
+"Como característica avanzada, es posible tener varias bibliotecas de "
+"Shotwell, cada una de ellas con su propio conjunto de fotos. Cada biblioteca "
+"necesita su propia carpeta de base de datos. Para ejecutar Shotwell con una "
+"biblioteca diferente, especifique una base de datos alternativa en la línea "
+"de comandos como sigue:"
 
 #: C/other-multiple.page:18(screen)
 #, no-wrap
@@ -612,6 +648,11 @@ msgid ""
 "Tags views, but will instead show them in a separate Missing Files view "
 "which will appear in the sidebar."
 msgstr ""
+"Cada vez que Shotwell se inicia, analiza su biblioteca de fotos para "
+"verificar que todos los archivos de fotos siguen existiendo en el disco "
+"duro. Si Shotwell encuentra que falta alguna foto, no la mostrará en las "
+"vistas normales de Fotos, Eventos o Etiquetas, sino que la mostrará en una "
+"vista de Fotos ausentes separada que aparecerá en la barra lateral."
 
 #: C/other-missing.page:16(p)
 msgid ""
@@ -628,6 +669,11 @@ msgid ""
 "if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
 "to learn how to copy files from removable disks onto your computer."
 msgstr ""
+"Si tiene fotos en un disco externo, como un CD o un pendrive USB y las <link "
+"xref=\"index#import\">importa</link> en Shotwell <em>sin</em> copiarlas al "
+"equipo, se mostrarán como archivos ausentes cuando desconecte el disco "
+"extraíble. Consulte la <link xref=\"import-file\"/> para aprender cómo "
+"copiar archivos desde discos extraíbles a su equipo."
 
 #: C/other-missing.page:20(p)
 msgid ""
@@ -635,10 +681,15 @@ msgid ""
 "the next time it starts. The photos will once again appear in the Photos, "
 "Events and Tags views."
 msgstr ""
+"Si una foto ausente vuelve a estar disponible, Shotwell lo tendrá en cuenta "
+"la próxima vez que se inicie. Las fotos volverán a aparecer en las vistas de "
+"Fotos, Eventos y Etiquetas."
 
 #: C/other-files.page:7(desc)
 msgid "Keep the Shotwell library in sync with photo files on disk."
 msgstr ""
+"Mantener la biblioteca de Shotwell sincronizada con los archivos de fotos "
+"del disco."
 
 #: C/other-files.page:12(title)
 msgid "Photo files"
@@ -672,6 +723,10 @@ msgid ""
 "sign). The values these symbols produce are locale-dependent, so what you "
 "see on your computer may vary from the examples below."
 msgstr ""
+"Los símbolos disponibles para los patrones de carpetas empiezan por "
+"«%» (signo de porcentaje). Los valores que estos símbolos producen dependen "
+"de la configuración regional, por lo que lo que vea en su equipo puede ser "
+"diferente a estos ejemplos."
 
 #: C/other-files.page:38(em)
 msgid "Symbol"
@@ -934,6 +989,10 @@ msgid ""
 "format. Note that Shotwell can write only to photo files in JPEG, PNG and "
 "TIFF format, not to BMP photos, RAW photos or to video files."
 msgstr ""
+"Shotwell almacena esta información en archivos de fotos en formato EXIF, "
+"IPTC y/o XMP. Tenga en cuenta que Shotwell sólo puede escribir en archivos "
+"de fotos en formato JPEG, PNG y TIFF, no en fotos en BMP, RAW o en archivos "
+"de vídeo."
 
 #: C/other-files.page:133(title)
 msgid "Runtime monitoring"
@@ -945,6 +1004,9 @@ msgid ""
 "externally. When a photo file changes, Shotwell rereads the file and updates "
 "your view of the photo and metadata."
 msgstr ""
+"Mientras Shotwell está en ejecución, tiene en cuenta los cambios realizados "
+"en un archivo de una foto externamente. Cuando el archivo cambia, Shotwell "
+"vuelve a leer el archivo y actualiza la vista de la foto y sus metadatos."
 
 #: C/other-files.page:139(p)
 msgid ""
@@ -1042,6 +1104,10 @@ msgid ""
 "<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
 "click and select <gui>Delete Tag \"[name]\"</gui>."
 msgstr ""
+"Para eliminar por completo una etiqueta, selecciónela en la barra latera y "
+"elija <guiseq><gui>Etiquetas</gui><gui>Eliminar etiqueta «nombre»</gui></"
+"guiseq> o púlsela con el botón derecho y elija <gui>Eliminar etiqueta "
+"«nombre»</gui>."
 
 #: C/organize-tag.page:64(p)
 msgid ""
@@ -1061,6 +1127,10 @@ msgid ""
 "and drop a tag onto another. To create a new subtag right-click on a tag and "
 "select <gui>New</gui>."
 msgstr ""
+"Shotwell también soporta etiquetas jerárquicas. Puede reordenar sus "
+"etiquetas arrastrando y soltando una etiqueta sobre otra. Para crear una "
+"etiqueta hija nueva, pulse con el botón derecho sobre una etiqueta y elija "
+"<gui>Nuevo</gui>."
 
 #: C/organize-tag.page:81(p)
 msgid ""
@@ -1069,6 +1139,10 @@ msgid ""
 "\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
 "be placed under the tag \"Summer Holidays\"."
 msgstr ""
+"Las etiquetas jerárquicas le pueden ayudar a ordenar su lista de etiquetas "
+"de manera que se ajuste a mejor a lo que necesita; por ejemplo, puede tener "
+"las etiquetas «Montañas» o «Playa» dentro de la etiqueta «Lugares», que a su "
+"vez puede estar dentro de la etiqueta «Vacaciones de verano»."
 
 #: C/organize-tag.page:89(p)
 msgid "Note that deleting a parent tag will also delete its child tags."
@@ -1133,6 +1207,8 @@ msgid ""
 "A saved search persists across Shotwell sessions, and is updated as photos "
 "and videos are added and removed from your Shotwell library."
 msgstr ""
+"Una búsqueda guardada se mantiene entre sesiones de Shotwell, y se actualiza "
+"con las fotos y vídeos que se añaden o quitan de su biblioteca de Shotwell."
 
 #: C/organize-search.page:50(p)
 msgid ""
@@ -1184,6 +1260,10 @@ msgid ""
 "computer's trash. If you delete it from your computer's trash the photo is "
 "finally and irretrievably deleted from your computer."
 msgstr ""
+"Este diagrama muestra cómo, cuando se elimina una foto, se pone primero en "
+"la papelera de Shotwell. Si la elimina de la papelera de Shotwell, se mueve "
+"a la papelera de su equipo. Si la elimina de la papelera del equipo, se "
+"eliminará permanentemente."
 
 #: C/organize-remove.page:18(title)
 msgid "Removing photos from the library"
@@ -1195,6 +1275,10 @@ msgid ""
 "Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
 "photos will be moved from your library to Shotwell's Trash."
 msgstr ""
+"Seleccione las fotos que quiere quitar y elija <guiseq><gui>Editar</"
+"gui><gui>Mover a la papelera</gui></guiseq>. (También puede pulsar la tecla "
+"<key>Supr</key>.) Las fotos se moverán de su biblioteca a la papelera de "
+"Shotwell."
 
 #: C/organize-remove.page:22(p)
 msgid ""
@@ -1214,6 +1298,9 @@ msgid ""
 "that have been marked for removal or deletion. In the Trash view, the "
 "following commands are available:"
 msgstr ""
+"Seleccione la entrada de la papelera en la barra lateral y Shotwell mostrará "
+"todas las fotos que se han marcado para quitar o eliminar. En la vista de la "
+"papelera están disponibles los siguientes comandos:"
 
 #: C/organize-remove.page:29(title)
 msgid "Delete"
@@ -1248,6 +1335,8 @@ msgid ""
 "When you delete files from the Trash folder or empty the Trash folder, you "
 "will be given the following choices:"
 msgstr ""
+"Cuando elimine archivos de la carpeta Papelera, o cuando la vacíe, se le "
+"ofrecerán las siguientes opciones:"
 
 #: C/organize-remove.page:39(title)
 msgid "Only Remove"
@@ -1263,7 +1352,7 @@ msgstr ""
 
 #: C/organize-remove.page:40(title)
 msgid "Trash file"
-msgstr ""
+msgstr "Archivo de Papelera"
 
 #: C/organize-remove.page:40(p)
 msgid "Remove photos from the library and delete them from the computer."
