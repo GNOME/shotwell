@@ -1702,7 +1702,7 @@ msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "Пропущено %d звичайний файл (не є файлами зображень).\n"
 msgstr[1] "Пропущено %d звичайних файла (не є файлами зображень).\n"
-msgstr[2] "Пропущено %d звичайний файлів.\n"
+msgstr[2] "Пропущено %d звичайних файлів.\n"
 
 #: ../src/Dialogs.vala:804
 #, c-format
@@ -2241,7 +2241,7 @@ msgstr[1] ""
 "%d файли фотографій або відеофайли не вдалося пересунути до теки смітника "
 "стільниці. Вилучити ці файли?"
 msgstr[2] ""
-"%d файл фотографії або відеофайл не вдалося пересунути до теки смітника "
+"%d файлів фотографії або відеофайлів не вдалося пересунути до теки смітника "
 "стільниці. Вилучити цей файл?"
 
 #. Alert the user that the files were not removed.
@@ -2251,7 +2251,7 @@ msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "Не вдалося вилучити %d файл фотографій або відеофайл."
 msgstr[1] "Не вдалося вилучити %d файли фотографій або відеофайли."
-msgstr[2] "Не вдалося вилучити %d файл фотографії або відеофайл."
+msgstr[2] "Не вдалося вилучити %d файлів фотографій або відеофайл."
 
 #: ../src/Dimensions.vala:20
 msgid "Width or height"
@@ -3700,7 +3700,7 @@ msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Вилучити %d фотографію з фотоапарата?"
 msgstr[1] "Вилучити %d фотографії з фотоапарата?"
-msgstr[2] "Вилучити %d фотографію з фотоапарата?"
+msgstr[2] "Вилучити %d фотографій з фотоапарата?"
 
 #: ../src/camera/ImportPage.vala:1725
 #, c-format
@@ -3716,7 +3716,7 @@ msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Вилучити %d фотографію або відео з фотоапарата?"
 msgstr[1] "Вилучити %d фотографії або відео з фотоапарата?"
-msgstr[2] "Вилучити %d фотографію або відео з фотоапарата?"
+msgstr[2] "Вилучити %d фотографій або відео з фотоапарата?"
 
 #: ../src/camera/ImportPage.vala:1731
 #, c-format
@@ -3739,7 +3739,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Не вдалося вилучити з фотоапарата %d фотографії або відео через помилки."
 msgstr[2] ""
-"Не вдалося вилучити з фотоапарата %d фотографію або відео через помилки."
+"Не вдалося вилучити з фотоапарата %d фотографій або відео через помилки."
 
 #: ../src/data_imports/DataImports.vala:22
 msgid "Data Imports"
