@@ -27,6 +27,7 @@ RC_FILES := \
 	tumblr.png \
 	tumblr_authentication_pane.glade \
 	tumblr_publishing_options_pane.glade \
+	rajce.png \
 	rajce_authentication_pane.glade \
 	rajce_publishing_options_pane.glade
 

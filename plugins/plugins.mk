@@ -31,6 +31,7 @@ EXTRA_PLUGINS_RC := \
 	plugins/shotwell-publishing-extras/tumblr.png \
 	plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade \
 	plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade \
+	plugins/shotwell-publishing-extras/rajce.png \
 	plugins/shotwell-publishing-extras/rajce_authentication_pane.glade \
 	plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade
 
