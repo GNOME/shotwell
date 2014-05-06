@@ -1702,7 +1702,7 @@ msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "Пропущено %d звичайний файл (не є файлами зображень).\n"
 msgstr[1] "Пропущено %d звичайних файла (не є файлами зображень).\n"
-msgstr[2] "Пропущено %d звичайний файл.\n"
+msgstr[2] "Пропущено %d звичайний файлів.\n"
 
 #: ../src/Dialogs.vala:804
 #, c-format
@@ -1742,7 +1742,7 @@ msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "Успішно імпортовано %d фотографію.\n"
 msgstr[1] "Успішно імпортовано %d фотографії.\n"
-msgstr[2] "Успішно імпортовано %d фотографію.\n"
+msgstr[2] "Успішно імпортовано %d фотографій.\n"
 
 #: ../src/Dialogs.vala:830
 #, c-format
@@ -1758,7 +1758,7 @@ msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
 msgstr[0] "Успішно імпортовано %d фотографію або відео.\n"
 msgstr[1] "Успішно імпортовано %d фотографії або відео.\n"
-msgstr[2] "Успішно імпортовано %d фотографію або відео.\n"
+msgstr[2] "Успішно імпортовано %d фотографій або відео.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
