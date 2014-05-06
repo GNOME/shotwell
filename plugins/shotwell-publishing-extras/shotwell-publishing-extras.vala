@@ -12,6 +12,7 @@ private class ShotwellPublishingExtraServices : Object, Spit.Module {
     public ShotwellPublishingExtraServices(GLib.File module_file) {
         pluggables += new YandexService();
         pluggables += new TumblrService(module_file.get_parent());
+        pluggables += new RajceService(module_file.get_parent());
     }
     
     public unowned string get_module_name() {

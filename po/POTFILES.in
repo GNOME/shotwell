@@ -15,11 +15,14 @@ plugins/shotwell-data-imports/FSpotRollsTable.vala
 plugins/shotwell-data-imports/FSpotTableBehavior.vala
 plugins/shotwell-data-imports/FSpotTagsTable.vala
 plugins/shotwell-data-imports/shotwell-data-imports.vala
+plugins/shotwell-publishing-extras/RajcePublishing.vala
 plugins/shotwell-publishing-extras/TumblrPublishing.vala
 plugins/shotwell-publishing-extras/YandexPublishing.vala
 plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala
 [type: gettext/glade]plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade
 [type: gettext/glade]plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade
+[type: gettext/glade]plugins/shotwell-publishing-extras/rajce_authentication_pane.glade
+[type: gettext/glade]plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade
 [type: gettext/glade]plugins/shotwell-publishing-extras/yandex_publish_model.glade
 plugins/shotwell-publishing/FacebookPublishing.vala
 plugins/shotwell-publishing/FlickrPublishing.vala

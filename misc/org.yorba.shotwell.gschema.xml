@@ -605,7 +605,7 @@
         <summary>enable piwigo publishing plugin</summary>
         <description>True if the Piwigo publishing plugin is enabled, false otherwise</description>
     </key>
-    
+
     <key name="publishing-yandex-fotki" type="b">
         <default>false</default>
         <summary>enable yandex publishing plugin</summary>
@@ -618,6 +618,12 @@
         <description>True if the Tumblr publishing plugin is enabled, false otherwise</description>
     </key>
 
+    <key name="publishing-rajce" type="b">
+        <default>false</default>
+        <summary>enable rajce publishing plugin</summary>
+        <description>True if the Rajce publishing plugin is enabled, false otherwise</description>
+    </key>
+    
     <key name="dataimports-fspot" type="b">
         <default>true</default>
         <summary>enable F-Spot import plugin</summary>

@@ -14,6 +14,7 @@ SRC_FILES := \
 	shotwell-publishing-extras.vala \
 	YandexPublishing.vala \
 	TumblrPublishing.vala \
+	RajcePublishing.vala \
 	../../src/util/string.vala \
 	../common/RESTSupport.vala
 
@@ -21,7 +22,9 @@ RC_FILES := \
 	yandex_publish_model.glade \
 	tumblr.png \
 	tumblr_authentication_pane.glade \
-	tumblr_publishing_options_pane.glade
+	tumblr_publishing_options_pane.glade \
+	rajce_authentication_pane.glade \
+	rajce_publishing_options_pane.glade
 
 include ../Makefile.plugin.mk
 
