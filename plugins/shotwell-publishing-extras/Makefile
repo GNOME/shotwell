@@ -19,6 +19,7 @@ SRC_FILES := \
 	../../src/util/string.vala \
 	../common/RESTSupport.vala
 
+# RC_FILES must also be added to ../plugins.mk to ensure they're installed properly
 RC_FILES := \
 	gallery3.png \
 	gallery3_authentication_pane.glade \
