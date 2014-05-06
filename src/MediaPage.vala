@@ -818,6 +818,14 @@ public abstract class MediaPage : CheckerboardPage {
         set_display_tags(Config.Facade.get_instance().get_display_photo_tags());
         get_view().thaw_notifications();
 
+        // Update cursor position to match the selection that potentially moved while the user
+        // navigated in SinglePhotoPage
+        if (get_view().get_selected_count() > 0) {
+            CheckerboardItem? selected = (CheckerboardItem?) get_view().get_selected_at(0);
+            if (selected != null)
+                cursor_to_item(selected);
+        }
+
         sync_sort();
     }
     
