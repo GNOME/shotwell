@@ -323,6 +323,7 @@
     
     <child name="facebook" schema="org.yorba.shotwell.sharing.facebook" />
     <child name="flickr" schema="org.yorba.shotwell.sharing.flickr" />
+    <child name="gallery3" schema="org.yorba.shotwell.sharing.publishing-gallery3" />
     <child name="picasa" schema="org.yorba.shotwell.sharing.picasa" />
     <child name="youtube" schema="org.yorba.shotwell.sharing.youtube" />
 </schema>
@@ -485,6 +486,50 @@
     </key>
 </schema>
 
+<schema id="org.yorba.shotwell.sharing.publishing-gallery3" path="/org/yorba/shotwell/sharing/gallery3/">
+    <key name="username" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>Gallery3 username</description>
+    </key>
+
+    <key name="api-key" type="s">
+        <default>""</default>
+        <summary>API key</summary>
+        <description>Gallery3 API key</description>
+    </key>
+
+    <key name="url" type="s">
+        <default>""</default>
+        <summary>URL</summary>
+        <description>Gallery3 site URL</description>
+    </key>
+
+    <key name="last-album" type="s">
+        <default>""</default>
+        <summary>last album</summary>
+        <description>The name of the last album the user published photos to, if any</description>
+    </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Indicates whether images being uploaded to Gallery3 should have their metadata removed first</description>
+    </key>
+
+    <key name="scaling-constraint-id" type="i">
+        <default>0</default>
+        <summary>scaling constraint of uploaded picture</summary>
+        <description>The scaling constraint ID of the picture to be uploaded</description>
+    </key>
+
+    <key name="scaling-pixels" type="i">
+        <default>1024</default>
+        <summary>pixels of the major axis uploaded picture</summary>
+        <description>The pixels of the major axis of the picture to be uploaded; used only if scaling-constraint-id is an appropriate value</description>
+    </key>
+</schema>
+
 <schema id="org.yorba.shotwell.sharing.youtube" path="/org/yorba/shotwell/sharing/youtube/">
     <key name="refresh-token" type="s">
         <default>""</default>
@@ -624,6 +669,12 @@
         <description>True if the Rajce publishing plugin is enabled, false otherwise</description>
     </key>
     
+    <key name="publishing-gallery3" type="b">
+        <default>false</default>
+        <summary>enable gallery3 publishing plugin</summary>
+        <description>True if the Gallery3 publishing plugin is enabled, false otherwise</description>
+    </key>
+
     <key name="dataimports-fspot" type="b">
         <default>true</default>
         <summary>enable F-Spot import plugin</summary>

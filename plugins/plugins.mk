@@ -25,6 +25,9 @@ EXTRA_PLUGINS := \
 EXTRA_PLUGINS_RC := \
 	plugins/shotwell-publishing-extras/yandex_publish_model.glade \
 	plugins/shotwell-data-imports/f-spot-24.png \
+	plugins/shotwell-publishing-extras/gallery3.png \
+	plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade \
+	plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade \
 	plugins/shotwell-publishing-extras/tumblr.png \
 	plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade \
 	plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade \

@@ -11,6 +11,7 @@ PLUGIN_PKGS := \
 	json-glib-1.0
 
 SRC_FILES := \
+	GalleryConnector.vala \
 	shotwell-publishing-extras.vala \
 	YandexPublishing.vala \
 	TumblrPublishing.vala \
@@ -19,6 +20,9 @@ SRC_FILES := \
 	../common/RESTSupport.vala
 
 RC_FILES := \
+	gallery3.png \
+	gallery3_authentication_pane.glade \
+	gallery3_publishing_options_pane.glade \
 	yandex_publish_model.glade \
 	tumblr.png \
 	tumblr_authentication_pane.glade \
