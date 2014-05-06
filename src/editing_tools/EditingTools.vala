@@ -927,6 +927,25 @@ public class CropTool : EditingTool {
 
         return result;
     }
+    
+    private float get_constraint_aspect_ratio_for_constraint(ConstraintDescription constraint, Photo photo) {
+        float result = constraint.aspect_ratio;
+        
+        if (result == ORIGINAL_ASPECT_RATIO) {
+            Dimensions orig_dim = photo.get_original_dimensions();
+            result = ((float) orig_dim.width) / ((float) orig_dim.height);
+        } else if (result == SCREEN_ASPECT_RATIO) {
+            Gdk.Screen screen = Gdk.Screen.get_default();
+            result = ((float) screen.get_width()) / ((float) screen.get_height());
+        } else if (result == CUSTOM_ASPECT_RATIO) {
+            result = custom_aspect_ratio;
+        }
+        if (reticle_orientation == ReticleOrientation.PORTRAIT)
+            result = 1.0f / result;
+
+        return result;
+        
+    }
 
     private void constraint_changed() {
         ConstraintDescription selected_constraint = get_selected_constraint();
@@ -1089,6 +1108,16 @@ public class CropTool : EditingTool {
             ConstraintDescription? desc = get_last_constraint(out index);
             if (desc != null && !desc.is_separator())
                 crop_tool_window.constraint_combo.set_active(index);
+        }
+        else {
+            // get aspect ratio of current photo
+            Photo photo = canvas.get_photo();
+            Dimensions cropped_dim = photo.get_dimensions();
+            float ratio = (float) cropped_dim.width / (float) cropped_dim.height;
+            for (int index = 1; index < constraints.length; index++) {
+                if (Math.fabs(ratio - get_constraint_aspect_ratio_for_constraint(constraints[index], photo)) < 0.005)
+                    crop_tool_window.constraint_combo.set_active(index);
+                }
         }
         
         // set up the pivot reticle button
