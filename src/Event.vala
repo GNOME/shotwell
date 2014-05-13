@@ -458,8 +458,6 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
                 should_remake_thumb = true;
         }
         
-        assert(get_primary_source() is MediaSource);
-        
         if (should_remake_thumb) {
             // check whether we actually need to remake this thumbnail...
             if ((get_primary_source() == null) || (get_primary_source().get_rating() == Rating.REJECTED)) {
