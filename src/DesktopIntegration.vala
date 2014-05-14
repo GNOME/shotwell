@@ -16,6 +16,9 @@ private ExporterUI desktop_slideshow_exporter = null;
 private double desktop_slideshow_transition = 0.0;
 private double desktop_slideshow_duration = 0.0;
 
+private bool set_desktop_background = false;
+private bool set_screensaver = false;
+
 public void init() {
     if (init_count++ != 0)
         return;
@@ -152,7 +155,7 @@ private void on_send_to_export_completed(Exporter exporter, bool is_cancelled) {
     send_to_exporter = null;
 }
 
-public void set_background(Photo photo) {
+public void set_background(Photo photo, bool desktop, bool screensaver) {
     // attempt to set the wallpaper to the photo's native format, but if not writeable, go to the
     // system default
     PhotoFileFormat file_format = photo.get_best_export_file_format();
@@ -174,7 +177,12 @@ public void set_background(Photo photo) {
         return;
     }
     
-    Config.Facade.get_instance().set_desktop_background(save_as.get_path());
+    if (desktop) {
+        Config.Facade.get_instance().set_desktop_background(save_as.get_path());
+    }
+    if (screensaver) {
+        Config.Facade.get_instance().set_screensaver(save_as.get_path());
+    }
     
     GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
 }
@@ -254,10 +262,14 @@ private class BackgroundSlideshowXMLBuilder {
     }
 }
 
-public void set_background_slideshow(Gee.Collection<Photo> photos, double duration, double transition) {
+public void set_background_slideshow(Gee.Collection<Photo> photos, double duration, double transition,
+        bool desktop_background, bool screensaver) {
     if (desktop_slideshow_exporter != null)
         return;
     
+    set_desktop_background = desktop_background;
+    set_screensaver = screensaver;
+
     File wallpaper_dir = AppDirs.get_data_subdir("wallpaper");
     
     Gee.Set<string> exceptions = new Gee.HashSet<string>();
@@ -302,7 +314,12 @@ private void on_desktop_slideshow_exported(Exporter exporter, bool is_cancelled)
         return;
     }
     
-    Config.Facade.get_instance().set_desktop_background(xml_file.get_path());
+    if (set_desktop_background) {
+        Config.Facade.get_instance().set_desktop_background(xml_file.get_path());
+    }
+    if (set_screensaver) {
+        Config.Facade.get_instance().set_screensaver(xml_file.get_path());
+    }
 }
 
 }

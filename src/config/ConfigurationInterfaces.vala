@@ -25,6 +25,8 @@ public enum ConfigurableProperty {
     COMMIT_METADATA_TO_MASTERS,
     DESKTOP_BACKGROUND_FILE,
     DESKTOP_BACKGROUND_MODE,
+    SCREENSAVER_FILE,
+    SCREENSAVER_MODE,
     DIRECTORY_PATTERN,
     DIRECTORY_PATTERN_CUSTOM,
     DIRECT_WINDOW_HEIGHT,
@@ -100,6 +102,12 @@ public enum ConfigurableProperty {
                 
             case DESKTOP_BACKGROUND_MODE:
                 return "DESKTOP_BACKGROUND_MODE";
+                
+            case SCREENSAVER_FILE:
+                return "SCREENSAVER_FILE";
+                
+            case SCREENSAVER_MODE:
+                return "SCREENSAVER_MODE";
                 
             case DIRECTORY_PATTERN:
                 return "DIRECTORY_PATTERN";
@@ -454,6 +462,30 @@ public abstract class ConfigurationFacade : Object {
             get_engine().set_string_property(ConfigurableProperty.DESKTOP_BACKGROUND_FILE,
                 filename);
             get_engine().set_string_property(ConfigurableProperty.DESKTOP_BACKGROUND_MODE,
+                "zoom");
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // screensaver background
+    //
+    public virtual string get_screensaver() {
+        try {
+            return get_engine().get_string_property(ConfigurableProperty.SCREENSAVER_FILE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return "";
+        }
+    }
+
+    public virtual void set_screensaver(string filename) {
+        try {
+            get_engine().set_string_property(ConfigurableProperty.SCREENSAVER_FILE,
+                filename);
+            get_engine().set_string_property(ConfigurableProperty.SCREENSAVER_MODE,
                 "zoom");
         } catch (ConfigurationError err) {
             on_configuration_error(err);

@@ -1999,8 +1999,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     public void on_set_background() {
-        if (has_photo())
-            DesktopIntegration.set_background(get_photo());
+        if (has_photo()) {
+            SetBackgroundPhotoDialog dialog = new SetBackgroundPhotoDialog();
+            bool desktop, screensaver;
+            if (dialog.execute(out desktop, out screensaver)) {
+                AppWindow.get_instance().set_busy_cursor();
+                DesktopIntegration.set_background(get_photo(), desktop, screensaver);
+                AppWindow.get_instance().set_normal_cursor();
+            }
+        }
     }
 
     protected override bool on_ctrl_pressed(Gdk.EventKey? event) {

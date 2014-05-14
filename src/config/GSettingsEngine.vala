@@ -18,6 +18,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string IMPORTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".dataimports";
     private const string CROP_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".crop-settings";
     private const string SYSTEM_DESKTOP_SCHEMA_NAME = "org.gnome.desktop.background";
+    private const string SYSTEM_SCREENSAVER_SCHEMA_NAME = "org.gnome.desktop.screensaver";
     private const string PLUGINS_ENABLE_DISABLE_SCHEMA_NAME = ROOT_SCHEMA_NAME +
         ".plugins.enable-state";
 
@@ -38,6 +39,8 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.COMMIT_METADATA_TO_MASTERS] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DESKTOP_BACKGROUND_FILE] = SYSTEM_DESKTOP_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DESKTOP_BACKGROUND_MODE] = SYSTEM_DESKTOP_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.SCREENSAVER_FILE] = SYSTEM_SCREENSAVER_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.SCREENSAVER_MODE] = SYSTEM_SCREENSAVER_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DIRECTORY_PATTERN] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DIRECTORY_PATTERN_CUSTOM] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DIRECT_WINDOW_HEIGHT] = WINDOW_PREFS_SCHEMA_NAME;
@@ -101,6 +104,8 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.COMMIT_METADATA_TO_MASTERS] = "commit-metadata";
         key_names[ConfigurableProperty.DESKTOP_BACKGROUND_FILE] = "picture-uri";
         key_names[ConfigurableProperty.DESKTOP_BACKGROUND_MODE] = "picture-options";
+        key_names[ConfigurableProperty.SCREENSAVER_FILE] = "picture-uri";
+        key_names[ConfigurableProperty.SCREENSAVER_MODE] = "picture-options";
         key_names[ConfigurableProperty.DIRECTORY_PATTERN] = "directory-pattern";
         key_names[ConfigurableProperty.DIRECTORY_PATTERN_CUSTOM] = "directory-pattern-custom";
         key_names[ConfigurableProperty.DIRECT_WINDOW_HEIGHT] = "direct-height";
@@ -308,9 +313,10 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     }
     
     public void set_string_property(ConfigurableProperty p, string val) throws ConfigurationError {
-        // if we're setting the desktop background file, convert the filename into a file URI
+        // if we're setting the desktop background/screensaver file, convert the filename into a file URI
         string converted_val = val;
-        if (p == ConfigurableProperty.DESKTOP_BACKGROUND_FILE) {
+        if (p == ConfigurableProperty.DESKTOP_BACKGROUND_FILE
+            || p == ConfigurableProperty.SCREENSAVER_FILE) {
             converted_val = "file://" + val;
         }
 

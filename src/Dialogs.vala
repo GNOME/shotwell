@@ -1067,14 +1067,16 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
     }
 }
 
-public class SetBackgroundSlideshowDialog {
-    private Gtk.Dialog dialog;
-    private Gtk.Label delay_value_label;
-    private Gtk.Scale delay_scale;
-    private int delay_value = 0;
-    
-    public SetBackgroundSlideshowDialog() {
-        Gtk.Builder builder = AppWindow.create_builder("set_background_dialog.glade", this);
+public abstract class SetBackgroundDialog {
+    protected Gtk.Dialog dialog;
+    protected Gtk.CheckButton desktop_background_button;
+    protected Gtk.CheckButton screensaver_button;
+    protected Gtk.Button ok_button;
+    // the checkbuttons themselves are initialized to these values
+    protected bool desktop = true;
+    protected bool screensaver = false;
+
+    public SetBackgroundDialog(Gtk.Builder builder) {
         
         dialog = builder.get_object("dialog1") as Gtk.Dialog;
         dialog.set_type_hint(Gdk.WindowTypeHint.DIALOG);
@@ -1082,13 +1084,69 @@ public class SetBackgroundSlideshowDialog {
         dialog.set_transient_for(AppWindow.get_instance());
         dialog.set_default_response(Gtk.ResponseType.OK);
         
+        desktop_background_button = builder.get_object("desktop_background_checkbox") as Gtk.CheckButton;
+        desktop_background_button.active = desktop;
+        desktop_background_button.toggled.connect(on_checkbox_clicked);
+        screensaver_button = builder.get_object("screensaver_checkbox") as Gtk.CheckButton;
+        screensaver_button.active = screensaver;
+        screensaver_button.toggled.connect(on_checkbox_clicked);
+        
+        ok_button = builder.get_object("ok_button") as Gtk.Button;
+    }
+    
+    protected void on_checkbox_clicked() {
+        desktop = desktop_background_button.active;
+        screensaver = screensaver_button.active;
+
+        if (!desktop && !screensaver) {
+            ok_button.sensitive = false;
+        } else {
+            ok_button.sensitive = true;
+        }
+    }
+    
+    protected bool execute_base() {
+        dialog.show_all();
+        bool result = dialog.run() == Gtk.ResponseType.OK;
+        dialog.destroy();
+        
+        return result;
+    }
+}
+
+public class SetBackgroundPhotoDialog : SetBackgroundDialog {
+    
+    public SetBackgroundPhotoDialog() {
+        Gtk.Builder builder = AppWindow.create_builder("set_background_dialog.glade", this);
+        base(builder);
+    }
+    
+    public bool execute(out bool desktop_background, out bool screensaver) {
+        bool result = execute_base();
+        
+        desktop_background = this.desktop;
+        screensaver = this.screensaver;
+        
+        return result;
+    }
+}
+
+public class SetBackgroundSlideshowDialog : SetBackgroundDialog {
+    private Gtk.Label delay_value_label;
+    private Gtk.Scale delay_scale;
+    private int delay_value = 0;
+    
+    public SetBackgroundSlideshowDialog() {
+        Gtk.Builder builder = AppWindow.create_builder("set_background_slideshow_dialog.glade", this);
+        base(builder);
+        
         delay_value_label = builder.get_object("delay_value_label") as Gtk.Label;
         
         delay_scale = builder.get_object("delay_scale") as Gtk.Scale;
         delay_scale.value_changed.connect(on_delay_scale_value_changed);
         delay_scale.adjustment.value = 50;
     }
-
+    
     private void on_delay_scale_value_changed() {
         double value = delay_scale.adjustment.value;
         
@@ -1116,15 +1174,13 @@ public class SetBackgroundSlideshowDialog {
         
         delay_value_label.label = text;
     }
-
-    public bool execute(out int delay_value) {
-        dialog.show_all();
-        
-        bool result = dialog.run() == Gtk.ResponseType.OK;
-        
-        dialog.destroy();
+    
+    public bool execute(out int delay_value, out bool desktop_background, out bool screensaver) {
+        bool result = execute_base();
         
         delay_value = this.delay_value;
+        desktop_background = this.desktop;
+        screensaver = this.screensaver;
         
         return result;
     }

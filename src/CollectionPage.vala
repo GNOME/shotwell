@@ -701,17 +701,21 @@ public abstract class CollectionPage : MediaPage {
         MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) get_view().get_selected_sources(),
             photos, null);
         
+        bool desktop, screensaver;
         if (photos.size == 1) {
-            AppWindow.get_instance().set_busy_cursor();
-            DesktopIntegration.set_background(photos[0]);
-            AppWindow.get_instance().set_normal_cursor();
+            SetBackgroundPhotoDialog dialog = new SetBackgroundPhotoDialog();
+            if (dialog.execute(out desktop, out screensaver)) {
+                AppWindow.get_instance().set_busy_cursor();
+                DesktopIntegration.set_background(photos[0], desktop, screensaver);
+                AppWindow.get_instance().set_normal_cursor();
+            }
         } else if (photos.size > 1) {
             SetBackgroundSlideshowDialog dialog = new SetBackgroundSlideshowDialog();
             int delay;
-            if (dialog.execute(out delay)) {
+            if (dialog.execute(out delay, out desktop, out screensaver)) {
                 AppWindow.get_instance().set_busy_cursor();
                 DesktopIntegration.set_background_slideshow(photos, delay,
-                    DESKTOP_SLIDESHOW_TRANSITION_SEC);
+                    DESKTOP_SLIDESHOW_TRANSITION_SEC, desktop, screensaver);
                 AppWindow.get_instance().set_normal_cursor();
             }
         }
