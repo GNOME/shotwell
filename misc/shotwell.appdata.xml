@@ -2,7 +2,8 @@
 <!-- Copyright 2013-2014 Yorba Foundation (shotwell@yorba.org) -->
 <application>
   <id type="desktop">shotwell.desktop</id>
-  <licence>CC0</licence>
+  <metadata_license>CC0</metadata_license>
+  <project_license>LGPL-2.1+</project_license>
   <summary>Popular photo manager</summary>
   <description>
     <p>
@@ -20,7 +21,7 @@
       Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats.
     </p>
   </description>
-  <url type="homepage">http://www.yorba.org/projects/shotwell/</url>
+  <url type="homepage">https://wiki.gnome.org/Apps/Shotwell</url>
   <screenshots>
     <screenshot type="default">http://www.yorba.org/wp-content/uploads/2013/02/harbor.png</screenshot>
     <screenshot>http://www.yorba.org/wp-content/uploads/2013/02/import-300x155.png</screenshot>
