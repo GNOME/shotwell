@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2014-05-06 18:38+0000\n"
-"PO-Revision-Date: 2014-05-10 21:02-0300\n"
+"POT-Creation-Date: 2014-05-11 00:03+0000\n"
+"PO-Revision-Date: 2014-05-25 21:13-0300\n"
 "Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -167,12 +167,6 @@ msgid "Gallery3 publishing module"
 msgstr "módulo de publicação do Gallery3"
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:114
-#| msgid ""
-#| "You are not currently logged into YouTube.\n"
-#| "\n"
-#| "You must have already signed up for a Google account and set it up for "
-#| "use with YouTube to continue. You can set up most accounts by using your "
-#| "browser to log into the YouTube site at least once."
 msgid ""
 "You are not currently logged into your Gallery.\n"
 "\n"
@@ -190,7 +184,6 @@ msgid "Shotwell"
 msgstr "Shotwell"
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:117
-#| msgid "Shotwell Preferences"
 msgid "Shotwell default directory"
 msgstr "Diretório padrão do Shotwell"
 
@@ -218,9 +211,6 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1022
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1774
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Flickr can't "
-#| "continue."
 msgid "A file required for publishing is unavailable. Publishing to "
 msgstr ""
 "Um arquivo necessário para a publicação não está disponível. A publicação "
@@ -230,14 +220,10 @@ msgstr ""
 #. programmatically-generated
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1550
 #, c-format
-#| msgid "Publish Photos and Videos"
 msgid "Publishing to %s as %s."
 msgstr "Publicando para %s e %s."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1816
-#| msgid ""
-#| "Enter the URL of your Piwigo photo library as well as the username and "
-#| "password associated with your Piwigo account for that library."
 msgid ""
 "Enter the URL for your Gallery3 site and the username and password (or API "
 "key) for your Gallery3 account."
@@ -276,24 +262,19 @@ msgid "Copyright (C) 2013 rajce.net"
 msgstr "Copyright (C) 2013 rajce.net"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:742
-#| msgid ""
-#| "An error message occurred when publishing to Piwigo. Please try again."
 msgid "An error message occurred when publishing to Rajce. Please try again."
 msgstr ""
 "Ocorreu uma mensagem de erro ao publicar o Rajce. Por favor tente novamente."
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:831
-#| msgid "Enter the username and password associated with your Tumblr account."
 msgid "Enter email and password associated with your Rajce account."
 msgstr "Digite o e-mail e senha associados à sua conta Rajce."
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:832
-#| msgid "Username and/or password invalid. Please try again"
 msgid "Invalid email and/or password. Please try again"
 msgstr "e-mail e/ou senha inválida. Por favor, tente novamente"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:863
-#| msgid "Invalid User Name or Password"
 msgid "Invalid User Email or Password"
 msgstr "E-mail de usuário ou senha inválidos"
 
@@ -312,7 +293,6 @@ msgstr "_Senha"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:892
 #: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:4
-#| msgid "_Remember Password"
 msgid "_Remember"
 msgstr "Lemb_rar"
 
@@ -330,9 +310,6 @@ msgstr "_Ocultar álbum"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
 #, c-format
-#| msgid ""
-#| "You are logged into Facebook as %s.\n"
-#| "\n"
 msgid "You are logged into Rajce as %s."
 msgstr "Você está autenticado no Rajce como %s"
 
@@ -462,7 +439,6 @@ msgid "Shotwell Extra Publishing Services"
 msgstr "Serviços extras de publicação do Shotwell"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:1
-#| msgid "Back"
 msgid "Go _Back"
 msgstr "_Voltar"
 
@@ -480,12 +456,10 @@ msgid "_Gallery3 URL:"
 msgstr "URL de _Gallery3:"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:5
-#| msgid "User _name"
 msgid "_User name:"
 msgstr "_Nome do usuário:"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:6
-#| msgid "_Password"
 msgid "_Password:"
 msgstr "_Senha:"
 
@@ -494,25 +468,18 @@ msgid "API _Key:"
 msgstr "_Chave de API:"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:8
-#| msgid "hour"
-#| msgid_plural "hours"
 msgid "or"
 msgstr "ou"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:3
-#| msgid "A _new album named:"
 msgid "A _new album"
 msgstr "Um _novo álbum"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:4
-#| msgid "An _existing album:"
 msgid "An _existing album"
 msgstr "Um álbum _existente"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:5
-#| msgid ""
-#| "_Remove location, camera, and other identifying information before "
-#| "uploading"
 msgid "_Remove location, tag and camera-identifying data before uploading"
 msgstr ""
 "_Remover localização, etiquetas e dados identificadores da câmera antes de "
@@ -524,12 +491,10 @@ msgstr ""
 "'Publicação para a $url como $username' (populado no código do aplicativo)"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:7
-#| msgid "_Scaling constraint:"
 msgid "Scaling constraint:"
 msgstr "Restrição de dimensionamento:"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:8
-#| msgid " _pixels"
 msgid "pixels"
 msgstr "pixels"
 
@@ -562,14 +527,10 @@ msgid "Photo _size:"
 msgstr "Tamanho da _foto:"
 
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:1
-#| msgid ""
-#| "You are logged into Facebook as %s.\n"
-#| "\n"
 msgid "you are logged in rajce as $name"
 msgstr "você está autenticado no rajce como $name"
 
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:7
-#| msgid "Videos will appear in:"
 msgid "$mediatype will appear in"
 msgstr "$mediatype irão aparecer em"
 
@@ -2274,7 +2235,7 @@ msgstr ""
 
 #: ../src/Dialogs.vala:2617
 msgid "Co_py Photos"
-msgstr "Co_par fotos"
+msgstr "Co_piar fotos"
 
 #: ../src/Dialogs.vala:2618
 msgid "_Import in Place"
