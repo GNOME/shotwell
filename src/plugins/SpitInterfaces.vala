@@ -15,7 +15,7 @@
  * The Spit namespace is used for all interfaces and code that are made available to plugins or
  * are exposed by plugins.
  *
- * More information can be found at [[http://trac.yorba.org/wiki/ShotwellArchWritingPlugins]]
+ * More information can be found at [[https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins]]
  */
 namespace Spit {
 

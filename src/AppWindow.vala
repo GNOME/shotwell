@@ -683,7 +683,7 @@ public abstract class AppWindow : PageWindow {
             "version", Resources.APP_VERSION,
             "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
-            "website", Resources.YORBA_URL,
+            "website", Resources.HOME_URL,
             "license", Resources.LICENSE,
             "website-label", _("Visit the Yorba web site"),
             "authors", Resources.AUTHORS,
