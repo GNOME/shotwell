@@ -225,4 +225,5 @@ src/util/string.vala
 src/util/system.vala
 src/util/ui.vala
 [type: gettext/glade]ui/set_background_dialog.glade
+[type: gettext/glade]ui/set_background_slideshow_dialog.glade
 [type: gettext/glade]ui/shotwell.glade
