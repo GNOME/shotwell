@@ -1448,6 +1448,11 @@ public abstract class CheckerboardPage : Page {
                     handled = false;
             break;
             
+            case "space":
+                Marker marker = get_view().mark(layout.get_cursor());
+                get_view().toggle_marked(marker);
+            break;
+            
             default:
                 handled = false;
             break;
@@ -1528,6 +1533,7 @@ public abstract class CheckerboardPage : Page {
                     cursor = item;
                 break;
             }
+            layout.set_cursor(item);
         } else {
             // user clicked on "dead" area; only unselect if control is not pressed
             // do we want similar behavior for shift as well?
@@ -1777,11 +1783,13 @@ public abstract class CheckerboardPage : Page {
 
         cursor = item;
         
-        get_view().unselect_all();
+        if (!get_ctrl_pressed()) {
+            get_view().unselect_all();
+            Marker marker = get_view().mark(item);
+            get_view().select_marked(marker);
+        }
+        layout.set_cursor(item);
         
-        Marker marker = get_view().mark(item);
-        get_view().select_marked(marker);
-
         // if item is in any way out of view, scroll to it
         Gtk.Adjustment vadj = get_vadjustment();
         if (get_adjustment_relation(vadj, item.allocation.y) == AdjustmentRelation.IN_RANGE
@@ -1806,13 +1814,17 @@ public abstract class CheckerboardPage : Page {
         if (get_view().get_count() == 0)
             return;
             
-        // if nothing is selected, simply select the first and exit
-        if (get_view().get_selected_count() == 0 || cursor == null) {
+        // if there is no better starting point, simply select the first and exit
+        if (cursor == null && layout.get_cursor() == null) {
             CheckerboardItem item = layout.get_item_at_coordinate(0, 0);
             cursor_to_item(item);
             anchor = item;
 
             return;
+        }
+
+        if (cursor == null) {
+            cursor = layout.get_cursor() as CheckerboardItem;
         }
                
         // move the cursor relative to the "first" item
