@@ -79,7 +79,6 @@ public class Sidebar.Tree : Gtk.TreeView {
     private Gtk.Menu? default_context_menu = null;
     private bool is_internal_drag_in_progress = false;
     private Sidebar.Entry? internal_drag_source_entry = null;
-    private Gtk.TreeRowReference? old_path_ref = null;
     
     public signal void entry_selected(Sidebar.SelectableEntry selectable);
     
@@ -904,8 +903,9 @@ public class Sidebar.Tree : Gtk.TreeView {
             }
         } else if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS) {
             // Is this a click on an already-highlighted tree item?
-            if ((old_path_ref != null) && (old_path_ref.get_path() != null)
-                && (old_path_ref.get_path().compare(path) == 0)) {
+            Gtk.TreePath? cursor_path = null;
+            get_cursor(out cursor_path, null);
+            if ((cursor_path != null) && (cursor_path.compare(path) == 0)) {
                 // yes, don't allow single-click editing, but 
                 // pass the event on for dragging.
                 text_renderer.editable = false;
@@ -917,9 +917,6 @@ public class Sidebar.Tree : Gtk.TreeView {
             if (path != null && get_wrapper_at_path(path).entry is Sidebar.RenameableEntry) {
                 text_renderer.editable = true;
             }
-            
-            // Remember what tree item is highlighted for next time.
-            old_path_ref = (path != null) ?  new Gtk.TreeRowReference(store, path) : null;
         }
 
         return base.button_press_event(event);
