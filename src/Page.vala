@@ -1943,12 +1943,6 @@ public abstract class SinglePhotoPage : Page {
         
         add(viewport);
 
-        // We used to disable GTK double buffering here.  We've had to reenable it
-        // due to this bug: http://redmine.yorba.org/issues/4775 .  
-        //
-        // all painting happens in pixmap, and is sent to the window wholesale in on_canvas_expose
-        // canvas.set_double_buffered(false);
-        
         canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
             | Gdk.EventMask.SUBSTRUCTURE_MASK);
         
@@ -2016,7 +2010,6 @@ public abstract class SinglePhotoPage : Page {
 
     protected void on_interactive_zoom(ZoomState interactive_zoom_state) {
         assert(is_zoom_supported());
-        Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.get_window());
         
         set_source_color_from_string(pixmap_ctx, "#000");
         pixmap_ctx.paint();
@@ -2026,13 +2019,11 @@ public abstract class SinglePhotoPage : Page {
         render_zoomed_to_pixmap(interactive_zoom_state);
         zoom_high_quality = old_quality_setting;
         
-        canvas_ctx.set_source_surface(pixmap, 0, 0);
-        canvas_ctx.paint();
+        canvas.queue_draw();
     }
 
     protected void on_interactive_pan(ZoomState interactive_zoom_state) {
         assert(is_zoom_supported());
-        Cairo.Context canvas_ctx = Gdk.cairo_create(canvas.get_window());
         
         set_source_color_from_string(pixmap_ctx, "#000");
         pixmap_ctx.paint();
@@ -2042,8 +2033,7 @@ public abstract class SinglePhotoPage : Page {
         render_zoomed_to_pixmap(interactive_zoom_state);
         zoom_high_quality = old_quality_setting;
         
-        canvas_ctx.set_source_surface(pixmap, 0, 0);
-        canvas_ctx.paint();
+        canvas.queue_draw();
     }
 
     protected virtual bool is_zoom_supported() {
