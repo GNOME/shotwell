@@ -989,7 +989,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         Gee.HashSet<DataView> collection = new Gee.HashSet<DataView>();
         if (cursor != null) {
             cursor.set_is_cursor(false);
-            collection.add(cursor);
+            // Bug #732334, the cursor DataView might have disappeared when user drags a full screen Photo to another event
+            if (view.contains(cursor)) {
+                collection.add(cursor);
+            }
         }
         item.set_is_cursor(true);
         cursor = item;
