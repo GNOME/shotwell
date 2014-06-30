@@ -7,7 +7,7 @@
 namespace Resources {
 
 public const string WEBSITE_NAME = _("Visit the Yorba web site");
-public const string WEBSITE_URL = "http://www.yorba.org";
+public const string WEBSITE_URL = "https://wiki.gnome.org/Apps/Shotwell";
 
 public const string LICENSE = """
 Shotwell is free software; you can redistribute it and/or modify it under the 

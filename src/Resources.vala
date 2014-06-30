@@ -27,15 +27,13 @@ namespace Resources {
     public const string COPYRIGHT = _("Copyright 2009-2014 Yorba Foundation");
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
-    public const string YORBA_URL = "http://www.yorba.org";
-    public const string WIKI_URL = "http://redmine.yorba.org/projects/shotwell/wiki/Shotwell";
-    public const string FAQ_URL = "http://redmine.yorba.org/projects/shotwell/wiki/ShotwellFAQ";
-    public const string BUG_DB_URL = "http://redmine.yorba.org/projects/shotwell/wiki/ReportingABug";
+    public const string HOME_URL = "https://wiki.gnome.org/Apps/Shotwell";
+    public const string FAQ_URL = "https://wiki.gnome.org/Apps/Shotwell/FAQ";
+    public const string BUG_DB_URL = "https://wiki.gnome.org/Apps/Shotwell/ReportingABug";
     public const string DIR_PATTERN_URI_SYSWIDE = "ghelp:shotwell?other-files";
 
     private const string LIB = _LIB;
     private const string LIBEXECDIR = _LIBEXECDIR;
-
 
     public const string PREFIX = _PREFIX;
 
