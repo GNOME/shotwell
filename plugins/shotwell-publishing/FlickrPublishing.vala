@@ -61,7 +61,7 @@ internal const string SERVICE_WELCOME_MESSAGE =
     _("You are not currently logged into Flickr.\n\nClick Login to log into Flickr in your Web browser.  You will have to authorize Shotwell Connect to link to your Flickr account.");
 internal const string RESTART_ERROR_MESSAGE = 
     _("You have already logged in and out of Flickr during this Shotwell session.\nTo continue publishing to Flickr, quit and restart Shotwell, then try publishing again.");
-internal const string ENDPOINT_URL = "http://api.flickr.com/services/rest";
+internal const string ENDPOINT_URL = "https://api.flickr.com/services/rest";
 internal const string API_KEY = "60dd96d4a2ad04888b09c9e18d82c26f";
 internal const string API_SECRET = "d0960565e03547c1";
 internal const int ORIGINAL_SIZE = -1;
@@ -414,7 +414,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
     
     private void do_launch_system_browser(string token) {
-        string login_uri = "http://www.flickr.com/services/oauth/authorize?oauth_token=" + token +
+        string login_uri = "https://www.flickr.com/services/oauth/authorize?oauth_token=" + token +
             "&perms=write";
         
         debug("ACTION: launching system browser with uri = '%s'", login_uri);
@@ -844,14 +844,14 @@ internal class Transaction : Publishing.RESTSupport.Transaction {
 
 internal class AuthenticationRequestTransaction : Transaction {
     public AuthenticationRequestTransaction(Session session) {
-        base.with_uri(session, "http://www.flickr.com/services/oauth/request_token",
+        base.with_uri(session, "https://www.flickr.com/services/oauth/request_token",
             Publishing.RESTSupport.HttpMethod.GET);
     }
 }
 
 internal class AccessTokenFetchTransaction : Transaction {
     public AccessTokenFetchTransaction(Session session, string user_verifier) {
-        base.with_uri(session, "http://www.flickr.com/services/oauth/access_token",
+        base.with_uri(session, "https://www.flickr.com/services/oauth/access_token",
             Publishing.RESTSupport.HttpMethod.GET);
         add_argument("oauth_verifier", user_verifier);
         add_argument("oauth_token", session.get_request_phase_token());
@@ -873,7 +873,7 @@ private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
     public UploadTransaction(Session session, PublishingParameters parameters,
         Spit.Publishing.Publishable publishable) {
-        base.with_endpoint_url(session, publishable, "http://api.flickr.com/services/upload");
+        base.with_endpoint_url(session, publishable, "https://api.flickr.com/services/upload");
 
         this.parameters = parameters;
         this.session = session;
