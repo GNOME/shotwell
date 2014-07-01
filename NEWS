@@ -1,3 +1,12 @@
+Shotwell 0.18.1 - 30 Jun 2014
+-----------------------------
+
+  * Fix Flickr publishing errors due to Flickr moving to HTTPs-only
+  * Fix crash when updating photo data/time
+  * Fix crash due to nested tag and changing sidebar selection
+  * Corrected URLs to point to new gnome.org pages
+
+
 Shotwell 0.18.0 - 17 March 2014
 -------------------------------
 

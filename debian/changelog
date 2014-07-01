@@ -1,3 +1,13 @@
+shotwell (0.18.1-1~saucy1) saucy; urgency=low
+
+  * Fix Flickr publishing errors due to Flickr moving to HTTPs-only
+  * Fix crash when updating photo data/time
+  * Fix crash due to nested tag and changing sidebar selection
+  * Corrected URLs to point to new gnome.org pages
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 30 Jun 2014 15:11:13 -0700
+
+
 shotwell (0.18.0-1~saucy1) saucy; urgency=low
 
   * Tumblr publishing fixed
