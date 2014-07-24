@@ -662,8 +662,6 @@ $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(GPHOTO_VAPI_FILE) 
 	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
 		$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
 		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
-		$(foreach def,$(DEFINES),-X -D$(def)) \
-		$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
 		$(VALAFLAGS) \
 		$(EXPANDED_SRC_FILES)
 	@touch $@

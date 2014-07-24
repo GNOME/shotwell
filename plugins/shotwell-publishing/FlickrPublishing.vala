@@ -397,7 +397,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             
             if (split_pair.length != 2)
                 host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                    "'%s' isn't a valid response to an OAuth authentication request"));
+                    "'%s' isn't a valid response to an OAuth authentication request", response));
 
             if (split_pair[0] == "oauth_token")
                 oauth_token = split_pair[1];
@@ -407,7 +407,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         if (oauth_token == null || oauth_token_secret == null)
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                "'%s' isn't a valid response to an OAuth authentication request"));
+                "'%s' isn't a valid response to an OAuth authentication request", response));
         
         
         on_authentication_token_available(oauth_token, oauth_token_secret);
