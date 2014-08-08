@@ -12,7 +12,7 @@
     organize them by keywords and events, view them in full-window or fullscreen
     mode, and share them with others via social networking and more.</description>
 
-  <homepage rdf:resource="http://www.yorba.org/projects/shotwell/" />
+  <homepage rdf:resource="https://wiki.gnome.org/Apps/Shotwell" />
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/shotwell-list" />
   <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=shotwell" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
