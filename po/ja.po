@@ -4,7 +4,7 @@
 # See COPYING for license.
 # Translators:
 # Shushi Kurose <md81bird@hitaki.net>, 2011-2014
-# Hajime Taira <htaira@redhat.com>, 2012-2013
+# Hajime Taira <htaira@redhat.com>, 2012-2014
 # kano <kano@na.rim.or.jp>, 2012
 # Kiyoto Hashida <khashida@redhat.com>, 2012
 # lsbeeler <lucas@yorba.org>, 2011
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2014-07-24 21:02+0000\n"
-"PO-Revision-Date: 2014-08-03 16:21+0900\n"
-"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
+"POT-Creation-Date: 2014-08-14 10:26+0000\n"
+"PO-Revision-Date: 2014-08-14 16:14+0900\n"
+"Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -376,7 +376,7 @@ msgstr "現在Yandex.Fotkiにログインしていません。"
 
 #: ../plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
 msgid "Shotwell Extra Publishing Services"
-msgstr ""
+msgstr "Shotwell 公開サービス（拡張）"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:1
 msgid "Go _Back"
@@ -489,7 +489,7 @@ msgstr "オリジナル写真のダウンロード禁止(_F)"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:7
 msgid "Public"
-msgstr "公開先"
+msgstr "公開"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:8
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:1181
@@ -4272,23 +4272,23 @@ msgstr "動画"
 
 #: ../src/searches/SavedSearchDialog.vala:308
 msgid "has"
-msgstr ""
+msgstr "が次である"
 
 #: ../src/searches/SavedSearchDialog.vala:309
 msgid "has no"
-msgstr ""
+msgstr "が次ではない"
 
 #: ../src/searches/SavedSearchDialog.vala:314
 msgid "modifications"
-msgstr "変更"
+msgstr "画像補正がある"
 
 #: ../src/searches/SavedSearchDialog.vala:315
 msgid "internal modifications"
-msgstr "内部での変更"
+msgstr "内部機能で画像補正がある"
 
 #: ../src/searches/SavedSearchDialog.vala:316
 msgid "external modifications"
-msgstr "外部での変更"
+msgstr "外部エディターで画像補正がある"
 
 #. Ordering must correspond with SearchConditionFlagged.State
 #: ../src/searches/SavedSearchDialog.vala:370
