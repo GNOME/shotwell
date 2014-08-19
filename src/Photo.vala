@@ -619,6 +619,12 @@ public abstract class Photo : PhotoSource, Dateable {
         interrogator.interrogate();
         
         DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
+        if (detected == null || interrogator.get_is_photo_corrupted()) {
+            // TODO: Probably should remove from database, but simply exiting for now (prior code
+            // didn't even do this check)
+            return;
+        }
+        
         bpr.dim = detected.image_dim;
         bpr.filesize = info.get_size();
         bpr.timestamp = timestamp.tv_sec;
@@ -1149,9 +1155,12 @@ public abstract class Photo : PhotoSource, Dateable {
             return ImportResult.DECODE_ERROR;
         }
         
+        if (interrogator.get_is_photo_corrupted())
+            return ImportResult.NOT_AN_IMAGE;
+        
         // if not detected photo information, unsupported
         DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
-        if (detected == null)
+        if (detected == null || detected.file_format == PhotoFileFormat.UNKNOWN)
             return ImportResult.UNSUPPORTED_FORMAT;
         
         // copy over supplied MD5s if provided
@@ -1261,7 +1270,7 @@ public abstract class Photo : PhotoSource, Dateable {
         try {
             interrogator.interrogate();
             DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
-            if (detected != null)
+            if (detected != null && !interrogator.get_is_photo_corrupted() && detected.file_format != PhotoFileFormat.UNKNOWN)
                 params.row.master.file_format = detected.file_format;
         } catch (Error err) {
             debug("Unable to interrogate photo file %s: %s", file.get_path(), err.message);
@@ -1288,7 +1297,7 @@ public abstract class Photo : PhotoSource, Dateable {
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file, options);
         interrogator.interrogate();
         detected = interrogator.get_detected_photo_information();
-        if (detected == null) {
+        if (detected == null || interrogator.get_is_photo_corrupted()) {
             critical("Photo update: %s no longer a recognized image", to_string());
             
             return null;
@@ -2232,7 +2241,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
-        if (detected == null) {
+        if (detected == null || interrogator.get_is_photo_corrupted()) {
             critical("file_exif_updated: %s no longer an image", to_string());
             
             return;

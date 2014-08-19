@@ -46,7 +46,7 @@ public abstract class PhotoFileSniffer {
         calc_md5 = (options & Options.NO_MD5) == 0;
     }
     
-    public abstract DetectedPhotoInformation? sniff() throws Error;
+    public abstract DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error;
 }
 
 //
@@ -62,6 +62,7 @@ public class PhotoFileInterrogator {
     private File file;
     private PhotoFileSniffer.Options options;
     private DetectedPhotoInformation? detected = null;
+    private bool is_photo_corrupted = false;
     
     public PhotoFileInterrogator(File file,
         PhotoFileSniffer.Options options = PhotoFileSniffer.Options.GET_ALL) {
@@ -75,12 +76,25 @@ public class PhotoFileInterrogator {
         return detected;
     }
     
+    // Call after interrogate().
+    public bool get_is_photo_corrupted() {
+        return is_photo_corrupted;
+    }
+    
     public void interrogate() throws Error {
         foreach (PhotoFileFormat file_format in PhotoFileFormat.get_supported()) {
             PhotoFileSniffer sniffer = file_format.create_sniffer(file, options);
-            detected = sniffer.sniff();
-            if (detected != null) {
+            
+            bool is_corrupted;
+            detected = sniffer.sniff(out is_corrupted);
+            if (detected != null && !is_corrupted) {
                 assert(detected.file_format == file_format);
+                
+                break;
+            } else if (is_corrupted) {
+                message("Sniffing halted for %s: potentially corrupted image file", file.get_path());
+                is_photo_corrupted = true;
+                detected = null;
                 
                 break;
             }

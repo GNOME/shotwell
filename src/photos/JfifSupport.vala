@@ -102,11 +102,14 @@ public class JfifSniffer : GdkSniffer {
         base (file, options);
     }
     
-    public override DetectedPhotoInformation? sniff() throws Error {
+    public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
+        // Rely on GdkSniffer to detect corruption
+        is_corrupted = false;
+        
         if (!Jpeg.is_jpeg(file))
             return null;
         
-        DetectedPhotoInformation? detected = base.sniff();
+        DetectedPhotoInformation? detected = base.sniff(out is_corrupted);
         if (detected == null)
             return null;
         

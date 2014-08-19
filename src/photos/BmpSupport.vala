@@ -71,14 +71,17 @@ public class BmpSniffer : GdkSniffer {
         return true;
     }
 
-    public override DetectedPhotoInformation? sniff() throws Error {
+    public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
+        // Rely on GdkSniffer to detect corruption
+        is_corrupted = false;
+        
         if (!is_bmp_file(file))
             return null;
-
-        DetectedPhotoInformation? detected = base.sniff();
+        
+        DetectedPhotoInformation? detected = base.sniff(out is_corrupted);
         if (detected == null)
             return null;
-
+        
         return (detected.file_format == PhotoFileFormat.BMP) ? detected : null;
     }
 }

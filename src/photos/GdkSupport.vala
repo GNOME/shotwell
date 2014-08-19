@@ -34,7 +34,7 @@ public abstract class GdkSniffer : PhotoFileSniffer {
         base (file, options);
     }
     
-    public override DetectedPhotoInformation? sniff() throws Error {
+    public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
         detected = new DetectedPhotoInformation();
         
         Gdk.PixbufLoader pixbuf_loader = new Gdk.PixbufLoader();
@@ -53,7 +53,7 @@ public abstract class GdkSniffer : PhotoFileSniffer {
             // no metadata detected
             detected.metadata = null;
         }
-
+        
         if (calc_md5 && detected.metadata != null) {
             uint8[]? flattened_sans_thumbnail = detected.metadata.flatten_exif(false);
             if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
@@ -101,6 +101,9 @@ public abstract class GdkSniffer : PhotoFileSniffer {
         
         if (calc_md5)
             detected.md5 = md5_checksum.get_string();
+        
+        // if size and area are not ready, treat as corrupted file (entire file was read)
+        is_corrupted = !size_ready || !area_prepared;
         
         return detected;
     }

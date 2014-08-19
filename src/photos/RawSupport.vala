@@ -163,7 +163,10 @@ public class RawSniffer : PhotoFileSniffer {
         base (file, options);
     }
     
-    public override DetectedPhotoInformation? sniff() throws Error {
+    public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
+        // this sniffer doesn't detect corrupted files
+        is_corrupted = false;
+        
         DetectedPhotoInformation detected = new DetectedPhotoInformation();
         
         GRaw.Processor processor = new GRaw.Processor();

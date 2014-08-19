@@ -202,9 +202,9 @@ public enum PhotoFileFormat {
             
             case "tiff":
                 return PhotoFileFormat.TIFF;
-
+            
             case "bmp":
-                return PhotoFileFormat.BMP;                
+                return PhotoFileFormat.BMP;
             
             default:
                 return PhotoFileFormat.UNKNOWN;
