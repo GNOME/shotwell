@@ -249,10 +249,10 @@ public struct Dimensions {
 public struct Scaling {
     private const int NO_SCALE = 0;
     
-    private ScaleConstraint constraint;
-    private int scale;
-    private Dimensions viewport;
-    private bool scale_up;
+    public ScaleConstraint constraint;
+    public int scale;
+    public Dimensions viewport;
+    public bool scale_up;
     
     private Scaling(ScaleConstraint constraint, int scale, Dimensions viewport, bool scale_up) {
         this.constraint = constraint;
@@ -461,13 +461,13 @@ public struct Scaling {
 }
 
 public struct ZoomState {
-    private Dimensions content_dimensions;
-    private Dimensions viewport_dimensions;
-    private double zoom_factor;
-    private double interpolation_factor;
-    private double min_factor;
-    private double max_factor;
-    private Gdk.Point viewport_center;
+    public Dimensions content_dimensions;
+    public Dimensions viewport_dimensions;
+    public double zoom_factor;
+    public double interpolation_factor;
+    public double min_factor;
+    public double max_factor;
+    public Gdk.Point viewport_center;
     
     public ZoomState(Dimensions content_dimensions, Dimensions viewport_dimensions,
         double slider_val = 0.0, Gdk.Point? viewport_center = null) {
