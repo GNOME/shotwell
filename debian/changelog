@@ -1,3 +1,14 @@
+shotwell (0.19.0-1~saucy1) saucy; urgency=low
+
+  * Support for Rajce.net and Gallery 3 photo services added
+  * Set background image for lock screen
+  * Better detection of corrupt images during import
+  * Various bug fixes
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Thu, 21 Aug 2014 13:59:52 -0700
+
+
 shotwell (0.18.1-1~saucy1) saucy; urgency=low
 
   * Fix Flickr publishing errors due to Flickr moving to HTTPs-only
