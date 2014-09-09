@@ -3225,14 +3225,15 @@ public abstract class Photo : PhotoSource, Dateable {
      *
      * @return A Pixbuf with the image data from unmodified_precached.
      */
-    public Gdk.Pixbuf? get_prefetched_copy() {
+    public Gdk.Pixbuf get_prefetched_copy() throws Error {
         lock (unmodified_precached) {
             if (unmodified_precached == null) {
                 try {
                     populate_prefetched();
                 } catch (Error e) {
-                    warning("raw pixbuf for %s could not be loaded", this.to_string());
-                    return null;
+                    message("pixbuf for %s could not be loaded: %s", to_string(), e.message);
+                    
+                    throw e;
                 }
             }
 
@@ -3331,12 +3332,10 @@ public abstract class Photo : PhotoSource, Dateable {
         populate_prefetched();
 
         Gdk.Pixbuf pixbuf = get_prefetched_copy();
-
+        
         // remember to delete the cached copy if it isn't being used.
         secs_since_access.start();
         debug("pipeline being run against %s, timer restarted.", this.to_string());
-
-        assert(pixbuf != null);
         
         //
         // Image transformation pipeline
