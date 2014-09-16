@@ -559,8 +559,15 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void on_dphoto_can_rotate_changed(bool should_allow_rotation) {
-        enable_rotate(should_allow_rotation);
-    }   
+        // since this signal handler can be called from a background thread (gah, don't get me
+        // started...), chain to the "enable-rotate" signal in the foreground thread, as it's
+        // tied to UI elements
+        Idle.add(() => {
+            enable_rotate(should_allow_rotation);
+            
+            return false;
+        });
+    }
     
     protected override DataView create_photo_view(DataSource source) {
         return new DirectView((DirectPhoto) source);
