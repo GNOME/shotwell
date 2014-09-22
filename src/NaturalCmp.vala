@@ -39,7 +39,7 @@ class NaturalCmp {
     public static int compare(string a, string b) {
         /* 
          * Implements natural comparison.
-         * Essentially this means that, like strcmp does, foo > bar and 1 > 2
+         * Essentially this means that, like strcmp does, foo > bar and 1 < 2
          * BUT, unlike strcmp, foo10 > foo2 and 1 < 02.
          * See naturalcmp-test.vala
          */ 
