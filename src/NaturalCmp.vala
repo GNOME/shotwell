@@ -63,16 +63,15 @@ class NaturalCmp {
                         int a_chopdepth = 0;
                         int a_number = rip_number(a, ref a_chopdepth);
                         string a_chopped = "";
-                        if (a.length > a_chopdepth) {
-                            a_chopped = a.substring(a_chopdepth);
-                        }
+                        assert (a.length >= a_chopdepth);
+                        // rip_number should not seek beyond string length.
+                        a_chopped = a.substring(a_chopdepth);
 
                         int b_chopdepth = 0;
                         int b_number = rip_number(b, ref b_chopdepth);
                         string b_chopped = "";
-                        if (b.length > b_chopdepth) {
-                            b_chopped = b.substring(b_chopdepth);
-                        }
+                        assert (b.length >= b_chopdepth);
+                        b_chopped = b.substring(b_chopdepth);
 
                         if (a_number > b_number) {
                             return BFIRST;
