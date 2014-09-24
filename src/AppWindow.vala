@@ -142,12 +142,34 @@ public class FullscreenWindow : PageWindow {
         // check for an escape/abort 
         if (Gdk.keyval_name(event.keyval) == "Escape") {
             on_close();
-            
             return true;
         }
+
+        // valac fails with "unreachable code" if I just return inside the switch
+        bool return_value = false;
+        bool must_propagate = true;
+
+	    switch (Gdk.keyval_name(event.keyval)) {
+		    case "Page_Up":
+		    case "Page_Down":
+		    case "KP_Page_Up":
+		    case "KP_Page_Down":
+		    case "Up":
+		    case "Down":
+		    case "Left":
+		    case "Right":
+                // We handle keyboard navigation directly
+                return_value = base.key_press_event(event);
+                must_propagate = false;
+		    break;
+	    }
         
-        // Make sure this event gets propagated to the underlying window...
-        return AppWindow.get_instance().key_press_event(event);
+        if (must_propagate) {
+            // Make sure this event gets propagated to the underlying window
+    	    return_value = AppWindow.get_instance().key_press_event(event);
+        }
+
+        return return_value;
     }
     
     private void on_close() {
