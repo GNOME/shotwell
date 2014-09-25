@@ -1326,7 +1326,9 @@ public class EventRenameDialog : TextEntryDialogMediator {
 
 public class EditTitleDialog : TextEntryDialogMediator {
     public EditTitleDialog(string? photo_title) {
-        base (_("Edit Title"), _("Title:"), photo_title);
+        // Dialog title
+        base (_("Edit Title"),
+            _("Title:"), photo_title);
     }
     
     public virtual string? execute() {
@@ -1340,7 +1342,10 @@ public class EditTitleDialog : TextEntryDialogMediator {
 
 public class EditCommentDialog : MultiTextEntryDialogMediator {
     public EditCommentDialog(string? comment, bool is_event = false) {
-        string title_tmp = (is_event) ? _("Edit Event Comment") : _("Edit Photo/Video Comment");
+        string title_tmp = (is_event)
+            // Dialog title
+            ? _("Edit Event Comment")
+            : _("Edit Photo/Video Comment");
         base(title_tmp, _("Comment:"), comment);
     }
     

@@ -246,7 +246,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = _("Show all photos, including rejected");
     
     public const string DISPLAY_UNRATED_OR_HIGHER_MENU = _("_All Photos");
+    // Button label
     public const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Show all photos");
+    // Button tooltip
     public const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Show all photos");
 
     public const string VIEW_RATINGS_MENU = _("_Ratings");
@@ -269,9 +271,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string PUBLISH_TOOLTIP = _("Publish to various websites");
 
     public const string EDIT_TITLE_MENU = _("Edit _Title...");
+    // Button label
     public const string EDIT_TITLE_LABEL = _("Edit Title");
 
     public const string EDIT_COMMENT_MENU = _("Edit _Comment...");
+    // Button label
     public const string EDIT_COMMENT_LABEL = _("Edit Comment");
 
     public const string EDIT_EVENT_COMMENT_MENU = _("Edit Event _Comment...");
@@ -282,6 +286,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string ADD_TAGS_MENU = _("Add _Tags...");
     public const string ADD_TAGS_CONTEXT_MENU = _("_Add Tags...");
+    // Dialog title
     public const string ADD_TAGS_TITLE = _("Add Tags");
 
     public const string PREFERENCES_MENU = _("_Preferences");
@@ -306,14 +311,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public string add_tags_label(string[] names) {
-        if (names.length == 1)
+        if (names.length == 1) {
             return _("Add Tag \"%s\"").printf(HierarchicalTagUtilities.get_basename(names[0]));
-        else if (names.length == 2)
+        } else if (names.length == 2) {
+            // Used when adding two tags to photo(s)
             return _("Add Tags \"%s\" and \"%s\"").printf(
-            HierarchicalTagUtilities.get_basename(names[0]),
-            HierarchicalTagUtilities.get_basename(names[1]));
-        else
+                HierarchicalTagUtilities.get_basename(names[0]),
+                HierarchicalTagUtilities.get_basename(names[1]));
+        } else {
+            // Undo/Redo command name (in Edit menu)
             return _("Add Tags");
+        }
     }
     
     public string delete_tag_menu(string name) {
