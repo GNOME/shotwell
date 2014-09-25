@@ -146,7 +146,11 @@ public class FullscreenWindow : PageWindow {
             return true;
         }
         
-        // Make sure this event gets propagated to the underlying window...
+        // propagate to this (fullscreen) window respecting "stop propagation" result...
+        if (base.key_press_event != null && base.key_press_event(event))
+            return true;
+        
+        // ... then propagate to the underlying window hidden behind this fullscreen one
         return AppWindow.get_instance().key_press_event(event);
     }
     
