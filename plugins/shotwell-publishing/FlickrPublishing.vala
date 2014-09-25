@@ -1152,7 +1152,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         string upload_label_text = _("You are logged into Flickr as %s.\n\n").printf(parameters.username);
         if (parameters.user_kind == UserKind.FREE) {
-            upload_label_text += _("Your free Flickr account limits how much data you can upload per month.\nThis month, you have %d megabytes remaining in your upload quota.").printf(parameters.quota_free_mb);
+            upload_label_text += ngettext(
+            "Your free Flickr account limits how much data you can upload per month.\nThis month you have %d megabyte remaining in your upload quota.",
+            "Your free Flickr account limits how much data you can upload per month.\nThis month you have %d megabytes remaining in your upload quota.",
+            parameters.quota_free_mb).printf(parameters.quota_free_mb);
         } else {
             upload_label_text += _("Your Flickr Pro account entitles you to unlimited uploads.");
         }
