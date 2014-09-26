@@ -522,7 +522,7 @@ public class SavedSearchDialog {
             update_date_labels();
         }
         
-        ~SearchRowRating() {
+        ~SearchRowDate() {
             context.changed.disconnect(on_changed);
         }
         

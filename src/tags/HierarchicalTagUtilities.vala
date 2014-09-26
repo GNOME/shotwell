@@ -173,7 +173,7 @@ class HierarchicalTagUtilities {
                 return;
 
             Tag? t = null;
-            if (Tag.global.exists(actual_path));
+            if (Tag.global.exists(actual_path))
                 t = Tag.for_path(actual_path);
             
             if (t != null && t.get_hierarchical_children().size == 0)

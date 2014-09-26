@@ -463,7 +463,7 @@ public class XmlDocument {
         document = doc;
     }
 
-    ~RESTXmlDocument() {
+    ~XmlDocument() {
         delete document;
     }
 

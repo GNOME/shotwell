@@ -626,7 +626,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         string built = builder.str;
         
         if (built.length >= separator.length)
-            if (built.substring(built.length - separator.length, separator.length) == separator);
+            if (built.substring(built.length - separator.length, separator.length) == separator)
                 built = built.substring(0, built.length - separator.length);
         
         if (end != null)
