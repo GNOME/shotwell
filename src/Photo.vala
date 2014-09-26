@@ -199,7 +199,10 @@ public abstract class Photo : PhotoSource, Dateable {
 
     // The number of seconds we should hold onto a precached copy of the original image; if
     // it hasn't been accessed in this many seconds, discard it to conserve memory.
-    private const int PRECACHE_TIME_TO_LIVE = 180;
+    private const int SOURCE_PIXBUF_TIME_TO_LIVE_SEC = 10;
+    
+    // size of source pixbuf cache LRU
+    private const int SOURCE_PIXBUF_LRU_COUNT = 3;
     
     // Minimum raw embedded preview size we're willing to accept; any smaller than this, and 
     // it's probably intended primarily for use only as a thumbnail and won't look good on the
@@ -293,6 +296,35 @@ public abstract class Photo : PhotoSource, Dateable {
         public PhotoFileReader editable;
     }
     
+    private class CachedPixbuf {
+        public Photo photo;
+        public Gdk.Pixbuf pixbuf;
+        public Timer last_touched = new Timer();
+        
+        public CachedPixbuf(Photo photo, Gdk.Pixbuf pixbuf) {
+            this.photo = photo;
+            this.pixbuf = pixbuf;
+        }
+    }
+    
+    // The first time we have to run the pipeline on an image, we'll precache
+    // a copy of the unscaled, unmodified version; this allows us to operate
+    // directly on the image data quickly without re-fetching it at the top
+    // of the pipeline, which can cause significant lag with larger images.
+    //
+    // This adds a small amount of (automatically garbage-collected) memory
+    // overhead, but greatly simplifies the pipeline, since scaling can now
+    // be blithely ignored, and most of the pixel operations are fast enough
+    // that the app remains responsive, even with 10MP images.
+    //
+    // In order to make sure we discard unneeded precaches in a timely fashion,
+    // we spawn a timer when the unmodified pixbuf is first precached; if the
+    // timer elapses and the pixbuf hasn't been needed again since then, we'll
+    // discard it and free up the memory.  The cache also has an LRU to prevent
+    // runaway amounts of memory from being stored (see SOURCE_PIXBUF_LRU_COUNT)
+    private static Gee.LinkedList<CachedPixbuf>? source_pixbuf_cache = null;
+    private static uint discard_source_id = 0;
+    
     // because fetching individual items from the database is high-overhead, store all of
     // the photo row in memory
     protected PhotoRow row;
@@ -308,23 +340,6 @@ public abstract class Photo : PhotoSource, Dateable {
     private OneShotScheduler remove_editable_scheduler = null;
     
     protected bool can_rotate_now = true;
-
-    // The first time we have to run the pipeline on an image, we'll precache
-    // a copy of the unscaled, unmodified version; this allows us to operate
-    // directly on the image data quickly without re-fetching it at the top
-    // of the pipeline, which can cause significant lag with larger images.
-    //
-    // This adds a small amount of (automatically garbage-collected) memory
-    // overhead, but greatly simplifies the pipeline, since scaling can now
-    // be blithely ignored, and most of the pixel operations are fast enough
-    // that the app remains responsive, even with 10MP images.
-    //
-    // In order to make sure we discard unneeded precaches in a timely fashion,
-    // we spawn a timer when the unmodified pixbuf is first precached; if the
-    // timer elapses and the pixbuf hasn't been needed again since then, we'll
-    // discard it and free up the memory.
-    private Gdk.Pixbuf unmodified_precached = null;
-    private GLib.Timer secs_since_access = null;
     
     // RAW only: developed backing photos.
     private Gee.HashMap<RawDeveloper, BackingPhotoRow?>? developments = null;
@@ -453,6 +468,19 @@ public abstract class Photo : PhotoSource, Dateable {
         }
 
         cached_exposure_time = this.row.exposure_time;
+    }
+    
+    protected static void init_photo() {
+        source_pixbuf_cache = new Gee.LinkedList<CachedPixbuf>();
+    }
+    
+    protected static void terminate_photo() {
+        source_pixbuf_cache = null;
+        
+        if (discard_source_id != 0) {
+            Source.remove(discard_source_id);
+            discard_source_id = 0;
+        }
     }
     
     protected virtual void notify_editable_replaced(File? old_file, File? new_file) {
@@ -785,7 +813,7 @@ public abstract class Photo : PhotoSource, Dateable {
             if (!is_raw_developer_complete(d)) {
                 develop_photo(d);
                 try {
-                    populate_prefetched();
+                    get_prefetched_copy();
                 } catch (Error e) {
                     // couldn't reload the freshly-developed image, nothing to display
                     return;
@@ -826,7 +854,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         notify_altered(new Alteration("image", "developer"));
-        discard_prefetched(true);
+        discard_prefetched();
     }
     
     public RawDeveloper get_raw_developer() {
@@ -3204,64 +3232,132 @@ public abstract class Photo : PhotoSource, Dateable {
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
         return get_pixbuf_with_options(scaling);
     }
-
+    
     /**
-     * @brief Populates the cached version of the unmodified image.
+     * One-stop shopping for the source pixbuf cache.
+     *
+     * The source pixbuf cache holds untransformed, unscaled (full-sized) pixbufs of Photo objects.
+     * These can be rather large and shouldn't be held in memory for too long, nor should many be
+     * allowed to stack up.
+     *
+     * If locate is non-null, a source pixbuf is returned for the Photo.  If keep is true, the
+     * pixbuf is stored in the cache.  (Thus, passing a Photo w/ keep == false will drop the cached
+     * pixbuf.)  If Photo is non-null but keep is false, null is returned.
+     *
+     * Whether locate is null or not, the cache is walked in its entirety, dropping expired pixbufs
+     * and dropping excessive pixbufs from the LRU.  Locating a Photo "touches" the pixbuf, i.e.
+     * it moves to the head of the LRU.
      */
-    public void populate_prefetched() throws Error {
-        lock (unmodified_precached) {
-            // If we don't have it already, precache the original...
-            if (unmodified_precached == null) {
-                unmodified_precached = load_raw_pixbuf(Scaling.for_original(), Exception.ALL, BackingFetchMode.SOURCE);
-                secs_since_access = new GLib.Timer();
-                GLib.Timeout.add_seconds(5, (GLib.SourceFunc)discard_prefetched);
-                debug("spawning new precache timeout for %s", this.to_string()); 
+    private static Gdk.Pixbuf? run_source_pixbuf_cache(Photo? locate, bool keep) throws Error {
+        lock (source_pixbuf_cache) {
+            CachedPixbuf? found = null;
+            
+            // walk list looking for photo to locate (if specified), dropping expired and LRU'd
+            // pixbufs along the way
+            double min_elapsed = double.MAX;
+            int count = 0;
+            Gee.Iterator<CachedPixbuf> iter = source_pixbuf_cache.iterator();
+            while (iter.next()) {
+                CachedPixbuf cached_pixbuf = iter.get();
+                
+                double elapsed = Math.trunc(cached_pixbuf.last_touched.elapsed()) + 1;
+                
+                if (locate != null && cached_pixbuf.photo.equals(locate)) {
+                    // found it, remove and reinsert at head of LRU (below)...
+                    iter.remove();
+                    found = cached_pixbuf;
+                    
+                    // ...that's why the counter is incremented
+                    count++;
+                } else if (elapsed >= SOURCE_PIXBUF_TIME_TO_LIVE_SEC) {
+                    debug("Dropping expired source pixbuf for %s (%lf)", cached_pixbuf.photo.to_string(),
+                        cached_pixbuf.last_touched.elapsed());
+                    
+                    iter.remove();
+                } else if (count >= SOURCE_PIXBUF_LRU_COUNT) {
+                    debug("Dropping LRU source pixbuf for %s", cached_pixbuf.photo.to_string());
+                    
+                    iter.remove();
+                } else {
+                    // find the item with the most elapsed time to reschedule a cache trim
+                    min_elapsed = double.min(elapsed, min_elapsed);
+                    count++;
+                }
             }
+            
+            // if not found and trying to locate one and keep it, generate now
+            if (found == null && locate != null && keep) {
+                debug("Caching source pixbuf for %s", locate.to_string());
+                
+                found = new CachedPixbuf(locate,
+                    locate.load_raw_pixbuf(Scaling.for_original(), Exception.ALL, BackingFetchMode.SOURCE));
+            } else if (found != null) {
+                // since it was located, touch it so it doesn't expire
+                found.last_touched.start();
+            }
+            
+            // if keeping it, insert at head of LRU
+            if (found != null && keep) {
+                source_pixbuf_cache.insert(0, found);
+                
+                // since this is (re-)inserted, count its elapsed time too ... w/ min_elapsed, this
+                // is almost guaranteed to be the min, since it was was touched mere clock cycles
+                // ago...
+                min_elapsed = double.min(found.last_touched.elapsed(), min_elapsed);
+                
+                // ...which means don't need to readjust the min_elapsed when trimming off excess
+                // due to adding back an element
+                while(source_pixbuf_cache.size > SOURCE_PIXBUF_LRU_COUNT)
+                    source_pixbuf_cache.poll_tail();
+            }
+            
+            // drop expiration timer...
+            if (discard_source_id != 0) {
+                Source.remove(discard_source_id);
+                discard_source_id = 0;
+            }
+            
+            // ...only reschedule if there's something to expire
+            if (source_pixbuf_cache.size > 0) {
+                assert(min_elapsed >= 0.0);
+                
+                // round-up to avoid a bunch of zero-second timeouts
+                uint retry_sec = SOURCE_PIXBUF_TIME_TO_LIVE_SEC - ((uint) Math.trunc(min_elapsed));
+                
+                debug("Rescheduling source pixbuf cache trim in %us (%d in cache)", retry_sec,
+                    source_pixbuf_cache.size);
+                discard_source_id = Timeout.add_seconds(retry_sec, trim_source_pixbuf_cache, Priority.LOW);
+            }
+            
+            return found != null ? found.pixbuf : null;
         }
     }
-
+    
+    private static bool trim_source_pixbuf_cache() {
+        try {
+            run_source_pixbuf_cache(null, false);
+        } catch (Error err) {
+        }
+        
+        return false;
+    }
+    
     /**
      * @brief Get a copy of what's in the cache.
      *
-     * @return A Pixbuf with the image data from unmodified_precached.
+     * @return A copy of the Pixbuf with the image data from unmodified_precached.
      */
     public Gdk.Pixbuf get_prefetched_copy() throws Error {
-        lock (unmodified_precached) {
-            if (unmodified_precached == null) {
-                try {
-                    populate_prefetched();
-                } catch (Error e) {
-                    message("pixbuf for %s could not be loaded: %s", to_string(), e.message);
-                    
-                    throw e;
-                }
-            }
-
-            return unmodified_precached.copy();
-        }
+        return run_source_pixbuf_cache(this, true).copy();
     }
 
     /**
      * @brief Discards the cached version of the unmodified image.
-     *
-     * @param immed Whether the cached version should be discarded now, or not.
      */
-    public bool discard_prefetched(bool immed = false) {
-        lock (unmodified_precached) {
-            if (secs_since_access == null)
-                return false;
-            
-            double tmp;
-            if ((secs_since_access.elapsed(out tmp) > PRECACHE_TIME_TO_LIVE) || (immed)) {
-                debug("pipeline not run in over %d seconds or got immediate command, discarding " + 
-                    "cached original for %s",
-                    PRECACHE_TIME_TO_LIVE, to_string());
-                unmodified_precached = null;
-                secs_since_access = null;
-                return false;
-            }
-
-            return true;
+    public void discard_prefetched() {
+        try {
+            run_source_pixbuf_cache(this, false);
+        } catch (Error err) {
         }
     }
     
@@ -3329,13 +3425,8 @@ public abstract class Photo : PhotoSource, Dateable {
         //
         // Image load-and-decode
         //
-        populate_prefetched();
-
-        Gdk.Pixbuf pixbuf = get_prefetched_copy();
         
-        // remember to delete the cached copy if it isn't being used.
-        secs_since_access.start();
-        debug("pipeline being run against %s, timer restarted.", this.to_string());
+        Gdk.Pixbuf pixbuf = get_prefetched_copy();
         
         //
         // Image transformation pipeline
@@ -4032,12 +4123,12 @@ public abstract class Photo : PhotoSource, Dateable {
 
         // at this point, any image date we have cached is stale,
         // so delete it and force the pipeline to re-fetch it
-        discard_prefetched(true);
+        discard_prefetched();
     }
     
     private void on_reimport_editable() {
         // delete old image data and force the pipeline to load new from file.
-        discard_prefetched(true);
+        discard_prefetched();
         
         debug("Reimporting editable for %s", to_string());
         try {
@@ -4890,6 +4981,8 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     }
     
     public static void init(ProgressMonitor? monitor = null) {
+        init_photo();
+        
         global = new LibraryPhotoSourceCollection();
         
         // prefetch all the photos from the database and add them to the global collection ...
@@ -4921,6 +5014,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
     }
     
     public static void terminate() {
+        terminate_photo();
     }
     
     // This accepts a PhotoRow that was prepared with Photo.prepare_for_import and
