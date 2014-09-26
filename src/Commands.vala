@@ -795,8 +795,16 @@ public class StraightenCommand : GenericPhotoTransformationCommand {
     }
     
     public override void execute_on_photo(Photo photo) {
+        // thaw collection so both alterations are signalled at the same time
+        DataCollection? collection = photo.get_membership();
+        if (collection != null)
+            collection.freeze_notifications();
+        
         photo.set_straighten(theta);
         photo.set_crop(crop);
+        
+        if (collection != null)
+            collection.thaw_notifications();
     }
 }
 
