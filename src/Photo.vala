@@ -3270,16 +3270,12 @@ public abstract class Photo : PhotoSource, Dateable {
                     // ...that's why the counter is incremented
                     count++;
                 } else if (elapsed >= SOURCE_PIXBUF_TIME_TO_LIVE_SEC) {
-                    debug("Dropping expired source pixbuf for %s (%lf)", cached_pixbuf.photo.to_string(),
-                        cached_pixbuf.last_touched.elapsed());
-                    
                     iter.remove();
                 } else if (count >= SOURCE_PIXBUF_LRU_COUNT) {
-                    debug("Dropping LRU source pixbuf for %s", cached_pixbuf.photo.to_string());
-                    
                     iter.remove();
                 } else {
-                    // find the item with the most elapsed time to reschedule a cache trim
+                    // find the item with the least elapsed time to reschedule a cache trim (to
+                    // prevent onesy-twosy reschedules)
                     min_elapsed = double.min(elapsed, min_elapsed);
                     count++;
                 }
@@ -3287,8 +3283,6 @@ public abstract class Photo : PhotoSource, Dateable {
             
             // if not found and trying to locate one and keep it, generate now
             if (found == null && locate != null && keep) {
-                debug("Caching source pixbuf for %s", locate.to_string());
-                
                 found = new CachedPixbuf(locate,
                     locate.load_raw_pixbuf(Scaling.for_original(), Exception.ALL, BackingFetchMode.SOURCE));
             } else if (found != null) {
@@ -3323,9 +3317,6 @@ public abstract class Photo : PhotoSource, Dateable {
                 
                 // round-up to avoid a bunch of zero-second timeouts
                 uint retry_sec = SOURCE_PIXBUF_TIME_TO_LIVE_SEC - ((uint) Math.trunc(min_elapsed));
-                
-                debug("Rescheduling source pixbuf cache trim in %us (%d in cache)", retry_sec,
-                    source_pixbuf_cache.size);
                 discard_source_id = Timeout.add_seconds(retry_sec, trim_source_pixbuf_cache, Priority.LOW);
             }
             
