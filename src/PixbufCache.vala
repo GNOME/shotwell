@@ -265,6 +265,10 @@ public class PixbufCache : Object {
             return;
         }
         
+#if TRACE_PIXBUF_CACHE
+        debug("%s %s fetched into pixbuf cache", type.to_string(), job.photo.to_string());
+#endif
+        
         encache(job.photo, job.pixbuf);
         
         // fire signal
@@ -279,15 +283,13 @@ public class PixbufCache : Object {
             Photo photo = (Photo) object;
             
             if (in_progress.has_key(photo)) {
-                // Load is in progress, must cancel.
+                // Load is in progress, must cancel, but consider in-cache (since it was decached
+                // before being put into progress)
                 in_progress.get(photo).cancel();
                 in_progress.unset(photo);
+            } else if (!cache.has_key(photo)) {
                 continue;
             }
-            
-            // only interested if in this cache
-            if (!cache.has_key(photo))
-                continue;
             
             decache(photo);
             
