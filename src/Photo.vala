@@ -201,8 +201,9 @@ public abstract class Photo : PhotoSource, Dateable {
     // it hasn't been accessed in this many seconds, discard it to conserve memory.
     private const int SOURCE_PIXBUF_TIME_TO_LIVE_SEC = 10;
     
-    // size of source pixbuf cache LRU
-    private const int SOURCE_PIXBUF_LRU_COUNT = 3;
+    // min and max size of source pixbuf cache LRU
+    private const int SOURCE_PIXBUF_MIN_LRU_COUNT = 1;
+    private const int SOURCE_PIXBUF_MAX_LRU_COUNT = 3;
     
     // Minimum raw embedded preview size we're willing to accept; any smaller than this, and 
     // it's probably intended primarily for use only as a thumbnail and won't look good on the
@@ -3271,7 +3272,7 @@ public abstract class Photo : PhotoSource, Dateable {
                     count++;
                 } else if (elapsed >= SOURCE_PIXBUF_TIME_TO_LIVE_SEC) {
                     iter.remove();
-                } else if (count >= SOURCE_PIXBUF_LRU_COUNT) {
+                } else if (count >= SOURCE_PIXBUF_MAX_LRU_COUNT) {
                     iter.remove();
                 } else {
                     // find the item with the least elapsed time to reschedule a cache trim (to
@@ -3301,7 +3302,7 @@ public abstract class Photo : PhotoSource, Dateable {
                 
                 // ...which means don't need to readjust the min_elapsed when trimming off excess
                 // due to adding back an element
-                while(source_pixbuf_cache.size > SOURCE_PIXBUF_LRU_COUNT)
+                while(source_pixbuf_cache.size > SOURCE_PIXBUF_MAX_LRU_COUNT)
                     source_pixbuf_cache.poll_tail();
             }
             
@@ -3312,7 +3313,7 @@ public abstract class Photo : PhotoSource, Dateable {
             }
             
             // ...only reschedule if there's something to expire
-            if (source_pixbuf_cache.size > 0) {
+            if (source_pixbuf_cache.size > SOURCE_PIXBUF_MIN_LRU_COUNT) {
                 assert(min_elapsed >= 0.0);
                 
                 // round-up to avoid a bunch of zero-second timeouts
@@ -3370,7 +3371,7 @@ public abstract class Photo : PhotoSource, Dateable {
         Timer timer = new Timer();
         Timer total_timer = new Timer();
         double redeye_time = 0.0, crop_time = 0.0, adjustment_time = 0.0, orientation_time = 0.0,
-            straighten_time = 0.0;
+            straighten_time = 0.0, scale_time = 0.0;
 
         total_timer.start();
 #endif
@@ -3487,15 +3488,15 @@ public abstract class Photo : PhotoSource, Dateable {
 #endif
         }
         
-#if MEASURE_PIPELINE
-        debug("PIPELINE %s (%s): redeye=%lf crop=%lf adjustment=%lf orientation=%lf total=%lf",
-            to_string(), scaling.to_string(), redeye_time, crop_time, adjustment_time, 
-            orientation_time, total_timer.elapsed());
-#endif
-
         // scale the scratch image, as needed.
         if (is_scaled) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
             pixbuf = pixbuf.scale_simple(scaled_to_viewport.width, scaled_to_viewport.height, Gdk.InterpType.BILINEAR);
+#if MEASURE_PIPELINE
+            scale_time = timer.elapsed();
+#endif
         }
 
         // color adjustment; we do this dead last, since, if an image has been scaled down,
@@ -3516,7 +3517,13 @@ public abstract class Photo : PhotoSource, Dateable {
         // the pixbuf, and must be accounted for the test to be valid.
         if ((is_scaled) && (!is_straightened))
             assert(scaled_to_viewport.approx_equals(Dimensions.for_pixbuf(pixbuf), SCALING_FUDGE));
-
+        
+#if MEASURE_PIPELINE
+        debug("PIPELINE %s (%s): redeye=%lf crop=%lf adjustment=%lf orientation=%lf straighten=%lf scale=%lf total=%lf",
+            to_string(), scaling.to_string(), redeye_time, crop_time, adjustment_time,
+            orientation_time, straighten_time, scale_time, total_timer.elapsed());
+#endif
+        
         return pixbuf;
     }
 
