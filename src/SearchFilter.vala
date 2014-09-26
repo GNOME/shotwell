@@ -694,7 +694,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             this.add(button);
         }
         
-        ~ToggleActionButton() {
+        ~ToggleActionToolButton() {
             button.clicked.disconnect(on_button_activate);
         }
         

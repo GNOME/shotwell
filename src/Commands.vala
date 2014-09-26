@@ -211,7 +211,7 @@ public abstract class GenericPhotoTransformationCommand : SingleDataSourceComman
         base(photo, name, explanation);
     }
     
-    ~GenericPhotoTransformationState() {
+    ~GenericPhotoTransformationCommand() {
         if (original_state != null)
             original_state.broken.disconnect(on_state_broken);
         
