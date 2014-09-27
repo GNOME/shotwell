@@ -42,9 +42,9 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2014-07-30 22:29+0000\n"
-"PO-Revision-Date: 2014-08-21 21:07+0100\n"
-"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
+"POT-Creation-Date: 2014-09-27 10:41+0000\n"
+"PO-Revision-Date: 2014-09-27 13:29+0100\n"
+"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/shotwell/language/"
 "de/)\n"
 "Language: de\n"
@@ -52,7 +52,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.7\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -4715,7 +4715,7 @@ msgstr "RAW-Entwickler"
 
 #: ../ui/shotwell.glade.h:32
 msgid "De_fault:"
-msgstr "Standart:"
+msgstr "_Vorgabe:"
 
 #: ../ui/shotwell.glade.h:34
 msgid "E_xternal photo editor:"
