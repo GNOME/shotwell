@@ -70,6 +70,12 @@ public static int compare(owned string a, owned string b) {
             assert (b.length >= b_chop_bytes_depth);
             b_chopped = b.substring(b_chop_bytes_depth);
 
+            // We had decided earlier that we had two trailing numerals.
+            // We should have chopped something off each string
+
+            assert(a.length != a_chopped.length &&
+                   b.length != b_chopped.length);
+
             if (a_number > b_number) {
                 assert(result == INIT_VALUE);
                 result = BFIRST;
