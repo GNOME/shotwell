@@ -12,9 +12,9 @@
 
 class NaturalCmp {
 
-    private static const int AFIRST = -1; // Return this value if a precedes b
-    private static const int BFIRST = 1;
-    private static const int EQUAL = 0;
+    private const int AFIRST = -1; // Return this value if a precedes b
+    private const int BFIRST = 1;
+    private const int EQUAL = 0;
 
     private static bool is_number(char c) {
         return (c.to_string() in "0123456789");
