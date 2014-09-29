@@ -16,19 +16,22 @@ private const int AFIRST = -1; // Return this value if a precedes b
 private const int BFIRST = 1;
 private const int EQUAL = 0;
 
-private static int rip_number(owned string s, ref int index) {
+private static int read_number(owned string s, ref int byte_index) {
     /*
-     * Given a string in the form [0-9]*[a-zA-Z, etc]*
+     * Given a string in the form [numerals]*[everythingelse]*
      * returns the int value of the first block and increments index
      * by its length as a side effect.
+     * Notice that "numerals" is not just 0-9 but everything else 
+     * Unicode considers a numeral (see: string::isdigit())
      */
     int number = 0;
+
     while (s.length != 0 && s.get_char(0).isdigit()) {
         number = number*10;
         number += s.get_char(0).digit_value();
         int second_char = s.index_of_nth_char(1);
         s = s.substring(second_char);
-        index++;
+        byte_index++;
     }
     return number;
 }
@@ -55,14 +58,14 @@ public static int compare(owned string a, owned string b) {
             // both have trailing numerals: we have to parse the numbers
             int a_chop_bytes_depth = 0;
             // This is in bytes
-            int a_number = rip_number(a, ref a_chop_bytes_depth);
+            int a_number = read_number(a, ref a_chop_bytes_depth);
             string a_chopped = "";
             assert (a.length >= a_chop_bytes_depth);
-            // rip_number should not seek beyond string length.
+            // read_number should not seek beyond string length.
             a_chopped = a.substring(a_chop_bytes_depth);
 
             int b_chop_bytes_depth = 0;
-            int b_number = rip_number(b, ref b_chop_bytes_depth);
+            int b_number = read_number(b, ref b_chop_bytes_depth);
             string b_chopped = "";
             assert (b.length >= b_chop_bytes_depth);
             b_chopped = b.substring(b_chop_bytes_depth);
