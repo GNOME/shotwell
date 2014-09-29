@@ -16,33 +16,32 @@ class NaturalCmp {
     private const int BFIRST = 1;
     private const int EQUAL = 0;
 
-    private static bool is_number(char c) {
-        return (c.to_string() in "0123456789");
-    }
-
     private static int rip_number(owned string s, ref int index) {
-        /* 
+        /*
          * Given a string in the form [0-9]*[a-zA-Z, etc]*
          * returns the int value of the first block and increments index
          * by its length as a side effect.
          */
         int number = 0;
-        while (s.length != 0 && is_number(s[0])) {
+        while (s.length != 0 && s.get_char(0).isdigit()) {
             number = number*10;
-            number += int.parse(s[0].to_string());
-            s = s.substring(1);
+            number += s.get_char(0).digit_value();
+            int second_char = s.index_of_nth_char(1);
+            s = s.substring(second_char);
             index++;
         }
         return number;
     }
 
     public static int compare(string a, string b) {
-        /* 
+        /*
          * Implements natural comparison.
          * Essentially this means that, like strcmp does, foo > bar and 1 < 2
          * BUT, unlike strcmp, foo10 > foo2 and 1 < 02.
          * See naturalcmp-test.vala
-         */ 
+         */
+
+        assert (a.validate() && b.validate());
 
         if (a.length == 0) {
             if (b.length == 0) {
@@ -57,21 +56,24 @@ class NaturalCmp {
                 return BFIRST;
             } else {
                 // Both a,b != ""
-                if (is_number(a[0])) {
-                    if (is_number(b[0])) {
+                unichar a_head = a.get_char(0);
+                unichar b_head = b.get_char(0);
+                if (a_head.isdigit()) { 
+                    if (b_head.isdigit()) {
                         // both have trailing numerals: we have to parse the numbers
-                        int a_chopdepth = 0;
-                        int a_number = rip_number(a, ref a_chopdepth);
+                        int a_chop_bytes_depth = 0;
+                        // This is in bytes
+                        int a_number = rip_number(a, ref a_chop_bytes_depth);
                         string a_chopped = "";
-                        assert (a.length >= a_chopdepth);
+                        assert (a.length >= a_chop_bytes_depth);
                         // rip_number should not seek beyond string length.
-                        a_chopped = a.substring(a_chopdepth);
+                        a_chopped = a.substring(a_chop_bytes_depth);
 
-                        int b_chopdepth = 0;
-                        int b_number = rip_number(b, ref b_chopdepth);
+                        int b_chop_bytes_depth = 0;
+                        int b_number = rip_number(b, ref b_chop_bytes_depth);
                         string b_chopped = "";
-                        assert (b.length >= b_chopdepth);
-                        b_chopped = b.substring(b_chopdepth);
+                        assert (b.length >= b_chop_bytes_depth);
+                        b_chopped = b.substring(b_chop_bytes_depth);
 
                         if (a_number > b_number) {
                             return BFIRST;
@@ -90,18 +92,20 @@ class NaturalCmp {
                         return AFIRST;
                     }
                 } else {
-                    if (is_number(b[0])) {
+                    if (b_head.isdigit()) {
                         // b starts with a numeral, a doesn't
                         return BFIRST;
                     } else { // neither starts with a numberal, we handle this pair of chars strcmp-style
-                        if (a[0] > b[0]) {
+                        if (a.get_char(0) > b.get_char(0)) {
                             return BFIRST;
-                        } else if (a[0] < b[0]) {
+                        } else if (a.get_char(0) < b.get_char(0)) {
                             return AFIRST;
                         } else {
                             // equal
-                            return compare(a.substring(1),
-                                           b.substring(1));
+                            int a_second_char = a.index_of_nth_char(1);
+                            int b_second_char = b.index_of_nth_char(1);
+                            return compare(a.substring(a_second_char),
+                                           b.substring(b_second_char));
                         }
                     }
                 }
