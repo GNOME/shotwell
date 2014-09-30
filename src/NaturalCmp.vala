@@ -31,7 +31,7 @@ private static int read_number(owned string s, ref int byte_index) {
         number += s.get_char(0).digit_value();
         int second_char = s.index_of_nth_char(1);
         s = s.substring(second_char);
-        byte_index++;
+        byte_index += second_char;
     }
     return number;
 }
