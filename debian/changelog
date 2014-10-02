@@ -1,3 +1,12 @@
+shotwell (0.20.1-1~utopic1) utopic; urgency=low
+
+  * Corrects problems with navigating photos in full-screen mode (#737092)
+  * Better memory utilization via more conservative pixbuf cache (#715198)
+  * Fixes minor bugs detected by better Vala code analysis
+
+ -- Jim Nelson <jim@yorba.org>  Thu, 02 Oct 2014 13:08:22 -0700
+
+
 shotwell (0.20.0-1~trusty1) trusty; urgency=low
 
   * Fix crash when deleting a photo in Shotwell Photo Viewer

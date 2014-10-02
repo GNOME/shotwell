@@ -1,3 +1,11 @@
+Shotwell 0.20.1 - 2 October 2014
+--------------------------------
+
+  * Corrects problems with navigating photos in full-screen mode (#737092)
+  * Better memory utilization via more conservative pixbuf cache (#715198)
+  * Fixes minor bugs detected by better Vala code analysis
+
+
 Shotwell 0.20.0 - 16 September 2014
 -----------------------------------
 
