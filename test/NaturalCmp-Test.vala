@@ -78,15 +78,9 @@ void add_bigger_unlike_strcmp_tests () {
 
 void add_unicode_tests() {
     Test.add_func ("/vala/test", () => {
-            string ten_lions = "十時，適十獅適市。";
-            string eleven_lions = "十時，適十一獅適市。";
-            string ten_arabs = "十時，適10獅適市。";
-            string eleven_arabs = "十時，適11獅適市。";
-            assert(NaturalCmp.compare(ten_arabs, eleven_arabs) < 0);
-            // assert('十'.isdigit());
-            // assert(!'適'.isdigit());
-            // assert(NaturalCmp.compare(ten_lions, eleven_lions) < 0);
-            // TODO This fails. Not sure if it should or not, though.
+            string ten_lions = "十時，適10獅適市。";
+            string eleven_lions = "十時，適11獅適市。";
+            assert(NaturalCmp.compare(ten_lions, eleven_lions) < 0);
         });
 }
 void main (string[] args) {
