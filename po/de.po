@@ -37,14 +37,16 @@
 # lsbeeler <lucas@yorba.org>, 2011
 # Typhon <raubkatze91@web.de>, 2012
 # Thomas Zach <sabaot.f@gmail.com>, 2012
+# Wolfgang Stöggl <c72578@yahoo.de>, 2014.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2014-09-27 10:41+0000\n"
-"PO-Revision-Date: 2014-09-29 22:55+0100\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2014-10-06 10:54+0000\n"
+"PO-Revision-Date: 2014-10-06 16:46+0100\n"
+"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/shotwell/language/"
 "de/)\n"
 "Language: de\n"
@@ -52,7 +54,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -115,7 +117,7 @@ msgid ""
 msgstr ""
 "Herzlich Willkommen zum F-Spot Bibliotheksimport-Dienst.\n"
 "\n"
-"Bitte wählen Sie eine F-Spot Datenbandatei."
+"Bitte wählen Sie eine F-Spot Datenbankdatei."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:60
 msgid "Manually select an F-Spot database file to import:"
@@ -141,7 +143,7 @@ msgstr ""
 msgid ""
 "Cannot read the selected F-Spot database file: error while reading tags table"
 msgstr ""
-"Beim lesen der ausgewählten F-Spot Datenbank trat ein Fehler auf: Die "
+"Beim Lesen der ausgewählten F-Spot Datenbank trat ein Fehler auf: Die "
 "Tabelle \"Tags\" konnte nicht gelesen werden."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:68
@@ -149,7 +151,7 @@ msgid ""
 "Cannot read the selected F-Spot database file: error while reading photos "
 "table"
 msgstr ""
-"Beim lesen der ausgewählten F-Spot Datenbank trat ein Fehler auf: Die "
+"Beim Lesen der ausgewählten F-Spot Datenbank trat ein Fehler auf: Die "
 "Tabelle \"Fotos\" konnte nicht gelesen werden."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:70
@@ -420,7 +422,7 @@ msgstr ""
 msgid ""
 "TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgstr ""
-"TumblrPublisher: start( ): kann nicht starten; das Werkezug zum "
+"TumblrPublisher: start( ): kann nicht starten; das Werkzeug zum "
 "Veröffentlichen ist nicht neu startbar."
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
@@ -694,7 +696,7 @@ msgid ""
 msgstr ""
 "Sie sind zurzeit nicht bei Flickr angemeldet.\n"
 "\n"
-"Wählen sie Login um sich über ihren Webbrowser bei Flickr anzumelden. Sie "
+"Wählen Sie Login, um sich über Ihren Webbrowser bei Flickr anzumelden. Sie "
 "müssen \"Shotwell Connect\" autorisieren um sich mit Flickr zu verbinden."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:63
@@ -710,7 +712,7 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:375
 msgid "Preparing for login..."
-msgstr "Vorbereitung für Login..."
+msgstr "Vorbereitung für Login …"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:444
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:595
@@ -826,7 +828,7 @@ msgstr "Klein (640 x 480 Pixel)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:747
 msgid "Medium (1024 x 768 pixels)"
-msgstr "Mittel  (1024 x 768 Pixel)"
+msgstr "Mittel (1024 x 768 Pixel)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:748
 msgid "Recommended (1600 x 1200 pixels)"
@@ -844,12 +846,12 @@ msgstr "Ursprungsgröße"
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:746
 #, c-format
 msgid "Creating album %s..."
-msgstr "Erstelle Alben %s..."
+msgstr "Erstelle Alben %s …"
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:917
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
-"Ein Fehler trat auf beim veröffentlichen auf Piwigo. Bitte versuchen Sie "
+"Ein Fehler trat auf beim Veröffentlichen auf Piwigo. Bitte versuchen Sie "
 "erneut."
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:998
@@ -957,7 +959,7 @@ msgid ""
 "your Web browser."
 msgstr ""
 "Geben Sie die Bestätigungsnummer ein, die nach der Anmeldung bei Flickr mit "
-"ihren Web Browser angezeigt wird."
+"Ihrem Web Browser angezeigt wird."
 
 #: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:2
 msgid "Authorization _Number:"
@@ -1147,7 +1149,7 @@ msgstr "Oft Gestellte _Fragen"
 
 #: ../src/AppWindow.vala:525
 msgid "_Report a Problem..."
-msgstr "_Ein Problem melden..."
+msgstr "_Ein Problem melden …"
 
 #: ../src/AppWindow.vala:624 ../src/AppWindow.vala:645
 #: ../src/AppWindow.vala:662 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
@@ -1166,7 +1168,7 @@ msgid ""
 "%s"
 msgstr ""
 "Ein schwerwiegender Fehler ist beim Zugriff auf Shotwells Bibliothek "
-"aufgetreten.  Shotwell kann nicht fortgesetzt werden.\n"
+"aufgetreten. Shotwell kann nicht fortgesetzt werden.\n"
 "\n"
 "%s"
 
@@ -1498,7 +1500,7 @@ msgstr "Die Arbeitsflächen-Diaschau kann nicht vorbereitet werden: %s"
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
 msgstr[0] "Dies wird den Tag »%s« von einem Foto entfernen. Fortsetzen?"
-msgstr[1] "Dies wird den Tag »%s« von %d  Fotos entfernen. Fortsetzen?"
+msgstr[1] "Dies wird den Tag »%s« von %d Fotos entfernen. Fortsetzen?"
 
 #: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1390
 #: ../src/Resources.vala:336 ../src/Resources.vala:384
@@ -3321,7 +3323,7 @@ msgstr "_Titel bearbeiten"
 
 #: ../src/Resources.vala:277
 msgid "Edit _Comment..."
-msgstr "_Kommentar bearbeiten..."
+msgstr "_Kommentar bearbeiten …"
 
 #. Button label
 #: ../src/Resources.vala:279
@@ -3346,7 +3348,7 @@ msgstr "_Tags hinzufügen …"
 
 #: ../src/Resources.vala:288
 msgid "_Add Tags..."
-msgstr "_Tags hinzufügen..."
+msgstr "_Tags hinzufügen …"
 
 #. Dialog title
 #. Undo/Redo command name (in Edit menu)
@@ -3516,11 +3518,11 @@ msgstr "Suche löschen"
 
 #: ../src/Resources.vala:385
 msgid "_Edit..."
-msgstr "_Bearbeiten..."
+msgstr "_Bearbeiten …"
 
 #: ../src/Resources.vala:386
 msgid "Re_name..."
-msgstr "_Umbenennen..."
+msgstr "_Umbenennen …"
 
 #: ../src/Resources.vala:389
 #, c-format
@@ -3778,7 +3780,7 @@ msgstr "Nur Fotos zeigen, die noch nicht importiert wurden"
 #. please wait" once new strings are being accepted.
 #: ../src/camera/ImportPage.vala:845
 msgid "Starting import, please wait..."
-msgstr "Beginne Import, bitte warten..."
+msgstr "Beginne Import, bitte warten …"
 
 #: ../src/camera/ImportPage.vala:884
 msgid "Import _Selected"
@@ -3928,7 +3930,7 @@ msgid ""
 msgstr ""
 "Sie haben keine Datenimport-Erweiterung aktiviert.\n"
 "\n"
-"Um Importieren von Anwendungen nutzen zu können, müssen sie mindestens eine "
+"Um Importieren von Anwendungen nutzen zu können, müssen Sie mindestens eine "
 "Datenimport-Erweiterung aktiviert haben. Erweiterungen können unter "
 "Einstellungen aktiviert werden."
 
@@ -4122,7 +4124,7 @@ msgstr "A3 (297 x 420 mm)"
 
 #: ../src/editing_tools/EditingTools.vala:1905
 msgid "Close the red-eye tool"
-msgstr "Rote-Augen-Entferner schliessen"
+msgstr "Rote-Augen-Entferner schließen"
 
 #: ../src/editing_tools/EditingTools.vala:1908
 msgid "Remove any red-eye effects in the selected region"
@@ -4275,7 +4277,7 @@ msgstr "Fotos von der Festplatte in die Bibliothek importieren"
 
 #: ../src/library/LibraryWindow.vala:309
 msgid "Import From _Application..."
-msgstr "Importieren von _Anwendung..."
+msgstr "Importieren von _Anwendung …"
 
 #: ../src/library/LibraryWindow.vala:313
 msgid "Sort _Events"
@@ -4304,7 +4306,7 @@ msgstr "Fotos und Videos anhand von Suchkriterien finden"
 #: ../src/library/LibraryWindow.vala:346 ../src/searches/Branch.vala:77
 #: ../src/sidebar/Tree.vala:194
 msgid "Ne_w Saved Search..."
-msgstr "Neue gespeicherte Suche..."
+msgstr "Neue gespeicherte Suche …"
 
 #: ../src/library/LibraryWindow.vala:368
 msgid "_Photos"
@@ -4482,7 +4484,7 @@ msgstr "Verzeichnis"
 
 #: ../src/main.vala:298
 msgid "Do not monitor library directory at runtime for changes"
-msgstr "Bibliothek nicht auf laufend auf Verändungen"
+msgstr "Bibliotheksordner nicht laufend auf Veränderungen prüfen"
 
 #: ../src/main.vala:302
 msgid "Don't display startup progress meter"
@@ -4808,7 +4810,7 @@ msgstr "Datum"
 
 #: ../src/sidebar/Tree.vala:198
 msgid "New _Tag..."
-msgstr "Neuer _Tag..."
+msgstr "Neuer _Tag …"
 
 #: ../src/slideshow/Slideshow.vala:22
 msgid "Slideshow Transitions"
@@ -4878,7 +4880,7 @@ msgstr "Finde _gleiche"
 
 #: ../ui/shotwell.glade.h:4
 msgid "of the following:"
-msgstr "von den Folgenden:"
+msgstr "von den folgenden:"
 
 #: ../ui/shotwell.glade.h:5
 msgid "<b>Printed Image Size</b>"
