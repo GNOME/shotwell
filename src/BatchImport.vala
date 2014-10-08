@@ -1678,8 +1678,6 @@ private class PrepareFilesJob : BackgroundImportJob {
         library_dir = AppDirs.get_import_dir();
         fail_every = get_test_variable("SHOTWELL_FAIL_EVERY");
         skip_every = get_test_variable("SHOTWELL_SKIP_EVERY");
-        
-        set_notification_priority(Priority.LOW);
     }
     
     private static int get_test_variable(string name) {

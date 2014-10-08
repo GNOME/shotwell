@@ -108,7 +108,6 @@ public abstract class BackgroundJob {
     // controlled way (to avoid locking up the UI, for example).  This has ramifications about
     // the order in which completion and notifications arrive (see above note).
     private int completion_priority = Priority.HIGH;
-    private int notification_priority = Priority.DEFAULT_IDLE;
     
     public BackgroundJob(Object? owner = null, CompletionCallback? callback = null,
         Cancellable? cancellable = null, CancellationCallback? cancellation = null,
@@ -139,11 +138,6 @@ public abstract class BackgroundJob {
     // This method is not thread-safe.  Best to set priority before the job is enqueued.
     public void set_completion_priority(int priority) {
         completion_priority = priority;
-    }
-    
-    // This method is not thread-safe.  Best to set priority before the job is enqueued.
-    public void set_notification_priority(int priority) {
-        notification_priority = priority;
     }
     
     // This method is thread-safe, but only waits if a completion semaphore has been set, otherwise
@@ -211,7 +205,7 @@ public abstract class BackgroundJob {
             notify_queue.add(new NotificationJob(callback, this, user));
         }
         
-        Idle.add_full(notification_priority, on_notification_ready);
+        Idle.add(on_notification_ready);
         
         // If an interlocked notification, block until the main thread completes the notification
         // callback
