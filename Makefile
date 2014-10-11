@@ -52,6 +52,10 @@ DEFINES := $(DEFINES) _GIT_VERSION='"$(GITVER)"'
 VALAFLAGS := $(VALAFLAGS) --define=_GITVERSION
 endif
 
+ifdef GPROF_SUPPORT
+VALAFLAGS := $(VALAFLAGS) -X -pg
+endif
+
 EXPORT_FLAGS = -export-dynamic
 
 include units.mk
@@ -423,6 +427,10 @@ else
 all: $(PLUGINS_DIR) $(PROGRAM) $(PC_FILE)
 endif
 
+ifdef GPROF_SUPPORT
+VALA_CFLAGS := $(VALA_CFLAGS) -pg
+CFLAGS := $(CFLAGS) -pg
+endif
 
 include src/plugins/mk/interfaces.mk
 
