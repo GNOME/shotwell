@@ -53,6 +53,8 @@ Options:
                             Install headers and VAPI files (developers only).
     --unity-support
                             Enable support for progress bars in the Unity launcher.
+    --gprof-support
+                            Enable support for profiling with GProf
 EOT
 }
 
@@ -154,6 +156,9 @@ do
         --unity-support)                  variables="${variables}UNITY_SUPPORT=1\n"
                                           ;;
         
+        --gprof-support)                  variables="${variables}GPROF_SUPPORT=1\n"
+                                          ;;
+
         --enable-* | --disable-*)
         
                             echo WARNING: unrecognized option: $option
