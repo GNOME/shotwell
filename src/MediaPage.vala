@@ -17,7 +17,6 @@ public class MediaSourceItem : CheckerboardItem {
         base(source, initial_pixbuf_dim, title, comment, marked_up, alignment);
         if (basis_sprocket_pixbuf == null)
             basis_sprocket_pixbuf = Resources.load_icon("sprocket.png", 0);
-        natural_collation_key = g_utf8_collate_key_for_filename(title);
     }
 
     protected override void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf,
@@ -96,6 +95,9 @@ public class MediaSourceItem : CheckerboardItem {
     }
 
     public string get_natural_collation_key() {
+        if (this.natural_collation_key == null) {
+            this.natural_collation_key = g_utf8_collate_key_for_filename(this.get_title());
+        }
         return this.natural_collation_key;
     }
 }
