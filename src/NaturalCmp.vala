@@ -100,10 +100,14 @@ public static int compare(owned string a, owned string b) {
             assert(result == INIT_VALUE);
             result = BFIRST;
         } else { // neither starts with a numberal, we handle this pair of chars strcmp-style
-            if (a.get_char(0) > b.get_char(0)) {
+            string a_first_char_str = a.get_char(0).to_string();
+            string b_first_char_str = b.get_char(0).to_string();
+            int collate_comparison = a_first_char_str.collate(b_first_char_str);
+
+            if (collate_comparison > 0) {
                 assert(result == INIT_VALUE);
                 result = BFIRST;
-            } else if (a.get_char(0) < b.get_char(0)) {
+            } else if (collate_comparison < 0) {
                 assert(result == INIT_VALUE);
                 result = AFIRST;
             } else {
