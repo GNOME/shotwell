@@ -7,8 +7,8 @@
 public class MediaSourceItem : CheckerboardItem {
     private static Gdk.Pixbuf basis_sprocket_pixbuf = null;
     private static Gdk.Pixbuf current_sprocket_pixbuf = null;
-
     private bool enable_sprockets = false;
+    private string? natural_collation_key = null;
 
     // preserve the same constructor arguments and semantics as CheckerboardItem so that we're
     // a drop-in replacement
@@ -92,6 +92,13 @@ public class MediaSourceItem : CheckerboardItem {
     
     public void set_enable_sprockets(bool enable_sprockets) {
         this.enable_sprockets = enable_sprockets;
+    }
+
+    public string get_natural_collation_key() {
+        if (this.natural_collation_key == null) {
+            this.natural_collation_key = g_utf8_collate_key_for_filename(this.get_title());
+        }
+        return this.natural_collation_key;
     }
 }
 
