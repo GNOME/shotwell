@@ -8,7 +8,7 @@ public class MediaSourceItem : CheckerboardItem {
     private static Gdk.Pixbuf basis_sprocket_pixbuf = null;
     private static Gdk.Pixbuf current_sprocket_pixbuf = null;
     private bool enable_sprockets = false;
-    private string natural_collation_key = null;
+    private string? natural_collation_key = null;
 
     // preserve the same constructor arguments and semantics as CheckerboardItem so that we're
     // a drop-in replacement
