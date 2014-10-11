@@ -7,8 +7,8 @@
 public class MediaSourceItem : CheckerboardItem {
     private static Gdk.Pixbuf basis_sprocket_pixbuf = null;
     private static Gdk.Pixbuf current_sprocket_pixbuf = null;
-
     private bool enable_sprockets = false;
+    private string natural_collation_key = null;
 
     // preserve the same constructor arguments and semantics as CheckerboardItem so that we're
     // a drop-in replacement
@@ -17,6 +17,7 @@ public class MediaSourceItem : CheckerboardItem {
         base(source, initial_pixbuf_dim, title, comment, marked_up, alignment);
         if (basis_sprocket_pixbuf == null)
             basis_sprocket_pixbuf = Resources.load_icon("sprocket.png", 0);
+        natural_collation_key = g_utf8_collate_key_for_filename(title);
     }
 
     protected override void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf,
@@ -92,6 +93,10 @@ public class MediaSourceItem : CheckerboardItem {
     
     public void set_enable_sprockets(bool enable_sprockets) {
         this.enable_sprockets = enable_sprockets;
+    }
+
+    public string get_natural_collation_key() {
+        return this.natural_collation_key;
     }
 }
 
