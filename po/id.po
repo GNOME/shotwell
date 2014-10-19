@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
 "POT-Creation-Date: 2014-10-04 10:53+0000\n"
-"PO-Revision-Date: 2014-10-04 19:57+0700\n"
+"PO-Revision-Date: 2014-10-19 16:45+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -4702,7 +4702,7 @@ msgstr "yang berikut ini:"
 
 #: ../ui/shotwell.glade.h:5
 msgid "<b>Printed Image Size</b>"
-msgstr "<b>Ukuran Foto Tercetak</b?"
+msgstr "<b>Ukuran Foto Tercetak</b>"
 
 #: ../ui/shotwell.glade.h:6
 msgid "Use a _standard size:"
