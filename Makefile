@@ -151,6 +151,7 @@ RESOURCE_FILES = \
 	search_bar.ui \
 	search_sidebar_context.ui \
 	set_background_dialog.glade \
+	set_background_slideshow_dialog.glade \
 	shotwell.glade \
 	shotwell.xml \
 	sidebar_default_context.ui \
