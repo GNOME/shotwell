@@ -104,7 +104,12 @@ class ShotwellThumbnailer {
 
                 buffer = sample.get_buffer();
                 buffer.map(out mapinfo, Gst.MapFlags.READ);
-
+                
+                if (mapinfo.data == null || mapinfo.data.length == 0) {
+                    stderr.printf("Could not get snapshot data buffer\n");
+                    return 7;
+                }
+                
                 // Create pixmap from buffer and save, gstreamer video buffers have a stride
                 // that is rounded up to the nearest multiple of 4.
                 pixbuf = new Gdk.Pixbuf.from_data(mapinfo.data, Gdk.Colorspace.RGB, false, 8,
