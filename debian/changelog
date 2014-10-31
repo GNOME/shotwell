@@ -1,3 +1,12 @@
+shotwell (0.20.2-1~trusty1) trusty; urgency=low
+
+  * Set Desktop Slideshow dialog resource now included in distribution (#739095)
+  * Check for rendering failure in video thumbnailer (#738245)
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Fri, 31 Oct 2014 14:30:15 -0700
+
+
 shotwell (0.20.1-1~utopic1) utopic; urgency=low
 
   * Corrects problems with navigating photos in full-screen mode (#737092)

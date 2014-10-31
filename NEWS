@@ -1,3 +1,11 @@
+Shotwell 0.20.2 - 31 October 2014
+---------------------------------
+
+  * Set Desktop Slideshow dialog resource now included in distribution (#739095)
+  * Check for rendering failure in video thumbnailer (#738245)
+  * Updated translations
+
+
 Shotwell 0.20.1 - 2 October 2014
 --------------------------------
 
