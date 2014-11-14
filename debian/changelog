@@ -1,3 +1,10 @@
+shotwell (0.20.2-1~trusty2) trusty; urgency=low
+
+  * Mark as Conflicts/Replaces Ubuntu's shotwell-common package (#724080)
+
+ -- Jim Nelson <jim@yorba.org>  Thu, 13 Nov 2014 19:12:06 -0800
+
+
 shotwell (0.20.2-1~trusty1) trusty; urgency=low
 
   * Set Desktop Slideshow dialog resource now included in distribution (#739095)
