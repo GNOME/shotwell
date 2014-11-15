@@ -1459,7 +1459,7 @@ msgstr "Nelze exportovat pozadí do %s: %s"
 #: ../src/DesktopIntegration.vala:311
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
-msgstr "Nelze připravit promítání snímků na ploše: %s"
+msgstr "Nelze připravit prezentaci na ploše: %s"
 
 #: ../src/Dialogs.vala:16
 #, c-format
