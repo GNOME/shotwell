@@ -161,7 +161,7 @@ public class Thumbnail : MediaSourceItem {
     }
     
     public static int64 title_ascending_comparator(void *a, void *b) {
-        int64 result = strcmp(((Thumbnail *) a)->media.get_name(), ((Thumbnail *) b)->media.get_name());
+        int64 result = NaturalCmp.compare(((Thumbnail *) a)->media.get_name(), ((Thumbnail *) b)->media.get_name());
         
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
