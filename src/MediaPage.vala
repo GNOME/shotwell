@@ -9,6 +9,7 @@ public class MediaSourceItem : CheckerboardItem {
     private static Gdk.Pixbuf current_sprocket_pixbuf = null;
 
     private bool enable_sprockets = false;
+    private string? natural_collation_key = null;
 
     // preserve the same constructor arguments and semantics as CheckerboardItem so that we're
     // a drop-in replacement
@@ -92,6 +93,19 @@ public class MediaSourceItem : CheckerboardItem {
     
     public void set_enable_sprockets(bool enable_sprockets) {
         this.enable_sprockets = enable_sprockets;
+    }
+    
+    public new void set_title(string text, bool marked_up = false,
+        Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        base.set_title(text, marked_up, alignment);
+        this.natural_collation_key = null;
+    }
+    
+    public string get_natural_collation_key() {
+        if (this.natural_collation_key == null) {
+            this.natural_collation_key = NaturalCollate.collate_key(this.get_title());
+        }
+        return this.natural_collation_key;
     }
 }
 

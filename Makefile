@@ -61,6 +61,7 @@ UNUNITIZED_SRC_FILES = \
 	main.vala \
 	AppWindow.vala \
 	CollectionPage.vala \
+	NaturalCollate.vala \
 	Thumbnail.vala \
 	ThumbnailCache.vala \
 	CheckerboardLayout.vala \
