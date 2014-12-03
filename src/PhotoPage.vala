@@ -3029,15 +3029,13 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     protected override bool on_double_click(Gdk.EventButton event) {
-        if (!(get_container() is FullscreenWindow)) {
+        FullscreenWindow? fs = get_container() as FullscreenWindow;
+        if (fs == null)
             return_to_collection_on_release = true;
-            
-            return true;
-        }
+        else
+            fs.close();
         
-        AppWindow.get_instance().end_fullscreen();
-        
-        return base.on_double_click(event);
+        return true;
     }
     
     protected override bool on_left_released(Gdk.EventButton event) {
