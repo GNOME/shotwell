@@ -101,19 +101,31 @@ class ShotwellThumbnailer {
                     stderr.printf("Could not get snapshot dimension\n");
                     return 6;
                 }
-
+                
+                if (width <= 0 || height <= 0) {
+                    stderr.printf("Bad frame dimensions: %dx%d\n", width, height);
+                    return 7;
+                }
+                
                 buffer = sample.get_buffer();
                 buffer.map(out mapinfo, Gst.MapFlags.READ);
                 
                 if (mapinfo.data == null || mapinfo.data.length == 0) {
                     stderr.printf("Could not get snapshot data buffer\n");
-                    return 7;
+                    return 8;
+                }
+                
+                int rowstride = (((width * 3)+3)&~3);
+                if (mapinfo.data.length < (rowstride * height)) {
+                    stderr.printf("Frame buffer too small for rowstride and height (%d,%d rowstride=%d buffer_size=%d)\n",
+                        width, height, rowstride, mapinfo.data.length);
+                    return 9;
                 }
                 
                 // Create pixmap from buffer and save, gstreamer video buffers have a stride
                 // that is rounded up to the nearest multiple of 4.
                 pixbuf = new Gdk.Pixbuf.from_data(mapinfo.data, Gdk.Colorspace.RGB, false, 8,
-                    width, height, (((width * 3)+3)&~3), null);
+                    width, height, rowstride, null);
                 
                 // Save the pixbuf.
                 pixbuf.save_to_buffer(out pngdata, "png");
