@@ -7,10 +7,7 @@
 # Translators:
 # Aleksandr P <davian818@gmail.com>, 2011
 # prokoudine <alexandre.prokoudine@gmail.com>, 2011
-# prokoudine <alexandre.prokoudine@gmail.com>, 2011
 # georgev <george.vardo@gmail.com>, 2012
-# georgev <george.vardo@gmail.com>, 2012
-# triplepointfive <iya777@yandex.ru>, 2012
 # triplepointfive <iya777@yandex.ru>, 2012
 # Julia <juliette.tux@gmail.com>, 2013
 # Misha Shnurapet <shnurapet@fedoraproject.org>, 2011
@@ -21,8 +18,6 @@
 # Алексей Мусихин <malexlv@apollo.lv>, 2012
 # Марк Коренберг <socketpair@gmail.com>, 2011
 # georgev <george.vardo@gmail.com>, 2012
-# georgev <george.vardo@gmail.com>, 2012
-# triplepointfive <iya777@yandex.ru>, 2012
 # triplepointfive <iya777@yandex.ru>, 2012
 # lsbeeler <lucas@yorba.org>, 2011
 # oleg koptev <koptev.oleg@gmail.com>, 2011
@@ -33,9 +28,9 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2014-12-19 11:43+0000\n"
-"PO-Revision-Date: 2014-12-19 22:13+0100\n"
-"Last-Translator: Misha Shnurapet <shnurapet@fedoraproject.org>\n"
+"POT-Creation-Date: 2014-12-20 23:39+0000\n"
+"PO-Revision-Date: 2014-12-21 11:35+0300\n"
+"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/shotwell/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -44,13 +39,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
-#, fuzzy
 msgid "A temporary file needed for publishing is unavailable"
-msgstr "Временный файл, необходимый для публикации недоступен"
+msgstr "Временный файл, необходимый для публикации, недоступен"
 
 #: ../plugins/common/RESTSupport.vala:1138
 msgid ""
@@ -96,7 +90,7 @@ msgstr ""
 "Добро пожаловать в сервис импорта библиотек F-Spot\n"
 "\n"
 "Пожалуйста, выберите библиотеку для импорта, либо выбором одной из "
-"библиотек, обнаруженной Shotwell, либо выбором альтернативного F-Spot  файла "
+"библиотек, обнаруженной Shotwell, либо выбором альтернативного F-Spot файла "
 "базы данных."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:58
@@ -105,13 +99,13 @@ msgid ""
 "\n"
 "Please select an F-Spot database file."
 msgstr ""
-"Добро Пожаловать в сервис по импорту файлов из библиотеки F-Spot.\n"
+"Добро пожаловать в сервис по импорту файлов из библиотеки F-Spot.\n"
 "\n"
 "Пожалуйста, выберите файл из базы данных F-Spot."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:60
 msgid "Manually select an F-Spot database file to import:"
-msgstr "Вручную выберите файл из базы данных F-Spot для импорта"
+msgstr "Выберите вручную файл из базы данных F-Spot для импортирования:"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:62
 msgid ""
@@ -126,8 +120,8 @@ msgid ""
 "Cannot open the selected F-Spot database file: this version of the F-Spot "
 "database is not supported by Shotwell"
 msgstr ""
-"Не получается открыть выбранный файл из базы данных F-Spot: данная версия "
-"базы данных F-Spot не поддерживается Shotwell"
+"Не удалось открыть выбранный файл из базы данных F-Spot: данная версия базы "
+"данных F-Spot не поддерживается Shotwell"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:66
 msgid ""
@@ -302,21 +296,19 @@ msgstr ""
 "Введите имя пользователя и пароль, связанный с вашей учётной записью Tumblr."
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:832
-#, fuzzy
 msgid "Invalid email and/or password. Please try again"
-msgstr "Имя пользователя и/или пароль неверны. Пожалуйства, попытайтесь снова"
+msgstr "Неверный адрес эл. почты или пароль. Попробуйте ещё раз"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:863
-#, fuzzy
 #| msgid "Invalid User Name or Password"
 msgid "Invalid User Email or Password"
-msgstr "Недопустимое имя пользователя или пароль"
+msgstr "Неверный адрес эл. почты или пароль"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:890
 #: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:2
 #: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:2
 msgid "_Email address"
-msgstr "Адрес _электронной почты:"
+msgstr "Адрес _эл. почты:"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:891
 #: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:3
@@ -327,10 +319,9 @@ msgstr "_Пароль"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:892
 #: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:4
-#, fuzzy
 #| msgid "_Remember Password"
 msgid "_Remember"
-msgstr "_Напомнить пароль"
+msgstr "_Напомнить"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:893
 #: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:4
@@ -683,12 +674,12 @@ msgstr "Большой (2048 пикселов)"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:254
 msgid "Testing connection to Facebook..."
-msgstr "Проверка подключения к Facebook..."
+msgstr "Проверка подключения к Facebook…"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:347
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:379
 msgid "Creating album..."
-msgstr "Создание альбома..."
+msgstr "Создание альбома…"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:374
 msgid ""
@@ -737,7 +728,7 @@ msgstr ""
 "Вы не авторизовались на Flickr.\n"
 "\n"
 "Нажмите кнопку «Войти» для входа на Flickr с помощью веб-браузера. Вам будет "
-"нужно разрешить подключение Shotwell для связи с вашей учетной записи Flickr."
+"нужно разрешить подключение Shotwell для связи с вашей учётной записи Flickr."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:63
 msgid ""
@@ -845,7 +836,7 @@ msgstr ""
 "Вы не авторизовались в Picasa Web Albums.\n"
 "\n"
 "Нажмите кнопку «Войти» для входа в Picasa с помощью веб-браузера. Вам будет "
-"нужно разрешить подключение Shotwell для связи с вашей учетной записи Picasa."
+"нужно разрешить подключение Shotwell для связи с вашей учётной записи Picasa."
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:361
 msgid ""
@@ -888,7 +879,7 @@ msgstr "Фактический размер"
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:746
 #, c-format
 msgid "Creating album %s..."
-msgstr "Создаётся альбом %s..."
+msgstr "Создание альбома %s…"
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:917
 msgid "An error message occurred when publishing to Piwigo. Please try again."
@@ -907,7 +898,7 @@ msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
 msgstr ""
-"Shotwell не удается связаться с Piwigo. Проверьте правильность введенного "
+"Shotwell не удалось связаться с Piwigo. Проверьте правильность введённого "
 "URL-адреса."
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1032
@@ -1223,7 +1214,7 @@ msgstr "Не удалось отобразить справку: %s"
 #: ../src/AppWindow.vala:712
 #, c-format
 msgid "Unable to navigate to bug database: %s"
-msgstr "Не удается перейти к ошибке базы данных: %s"
+msgstr "Не удалось перейти к ошибке базы данных: %s"
 
 #: ../src/AppWindow.vala:720
 #, c-format
@@ -1648,7 +1639,7 @@ msgstr "Экспортировать метаданные"
 
 #: ../src/Dialogs.vala:465
 msgid "Save Details..."
-msgstr "Сохранить подробности..."
+msgstr "Сохранить подробности…"
 
 #: ../src/Dialogs.vala:466
 msgid "Save Details"
@@ -2307,7 +2298,7 @@ msgstr[2] ""
 
 #: ../src/Dialogs.vala:1968 ../src/Dialogs.vala:1995
 msgid "Tags (separated by commas):"
-msgstr "Метки (разделитель запятая):"
+msgstr "Метки (резделяются запятыми):"
 
 #: ../src/Dialogs.vala:2075
 msgid "Welcome!"
@@ -2319,7 +2310,7 @@ msgstr "Добро пожаловать в Shotwell!"
 
 #: ../src/Dialogs.vala:2086
 msgid "To get started, import photos in any of these ways:"
-msgstr "Для начала работы, импортируйте фото одним из следующих способов:"
+msgstr "Для начала работы добавьте снимки одним из следующих способов:"
 
 #: ../src/Dialogs.vala:2105
 #, c-format
@@ -2341,7 +2332,7 @@ msgstr "_Импортирование фотографий из папки %s "
 
 #: ../src/Dialogs.vala:2124
 msgid "You can also import photos in any of these ways:"
-msgstr "Кроме того, вы можете импортировать фото одним из cледующих способов:"
+msgstr "Кроме того, вы можете импортировать фото одним из следующих способов:"
 
 #: ../src/Dialogs.vala:2134
 msgid "_Don't show this message again"
@@ -2553,7 +2544,7 @@ msgstr "Событие %s"
 #: ../src/Exporter.vala:232
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
-msgstr "Не удается создать временный файл для %s: %s"
+msgstr "Не удалось создать временный файл для %s: %s"
 
 #: ../src/Exporter.vala:299
 msgid "Exporting"
@@ -2583,7 +2574,7 @@ msgstr "Экспортирование"
 #: ../src/MediaMonitor.vala:400
 #, c-format
 msgid "Unable to process monitoring updates: %s"
-msgstr "Не удалось обработать рузультаты наблюдения: %s"
+msgstr "Не удалось обработать результаты наблюдения: %s"
 
 #: ../src/MediaPage.vala:157
 msgid "Adjust the size of the thumbnails"
@@ -2897,7 +2888,7 @@ msgstr "Настройки изображения"
 
 #: ../src/Printing.vala:888
 msgid "Printing..."
-msgstr "Печать..."
+msgstr "Печать…"
 
 #: ../src/Printing.vala:908 ../src/Printing.vala:1111
 #, c-format
@@ -3434,7 +3425,7 @@ msgstr "Редактировать _название…"
 
 #: ../src/Resources.vala:277
 msgid "Edit _Comment..."
-msgstr "Изменить _комментарий..."
+msgstr "Изменить _комментарий…"
 
 #. Button label
 #: ../src/Resources.vala:279
@@ -3489,7 +3480,7 @@ msgstr "_Отправить…"
 
 #: ../src/Resources.vala:301
 msgid "_Find..."
-msgstr "_Поиск..."
+msgstr "_Поиск…"
 
 #: ../src/Resources.vala:302
 msgid "Find"
@@ -3617,7 +3608,7 @@ msgstr ""
 
 #: ../src/Resources.vala:380
 msgid "Saved Search"
-msgstr "Сохраненный поиск"
+msgstr "Сохранённый поиск"
 
 #: ../src/Resources.vala:382
 msgid "Delete Search"
@@ -3625,11 +3616,11 @@ msgstr "Удалить поиск"
 
 #: ../src/Resources.vala:385
 msgid "_Edit..."
-msgstr "_Изменить"
+msgstr "_Изменить…"
 
 #: ../src/Resources.vala:386
 msgid "Re_name..."
-msgstr "Переименовать"
+msgstr "_Переименовать…"
 
 #: ../src/Resources.vala:389
 #, c-format
@@ -4069,7 +4060,7 @@ msgstr "_Закрыть"
 #: ../src/db/DatabaseTable.vala:37
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
-msgstr "Невозможно открыть/создать базу данных фото %s: код ошибки %d"
+msgstr "Не удалось открыть или создать базу данных фото %s: код ошибки — %d"
 
 #: ../src/db/DatabaseTable.vala:46
 #, c-format
@@ -4077,7 +4068,7 @@ msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
-"Не удаётся записать в файл базы данных фото:\n"
+"Не удалось записать в файл базы данных фото:\n"
 " %s"
 
 #: ../src/db/DatabaseTable.vala:48
@@ -4089,9 +4080,9 @@ msgid ""
 "Error was: \n"
 "%s"
 msgstr ""
-"Ошибка при доступе к файлу базы данных:\n"
+"Ошибка доступа к файлу базы данных:\n"
 " %s\n"
-"ошибка: \n"
+"Ошибка: \n"
 "%s"
 
 #: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:352
@@ -4413,6 +4404,7 @@ msgstr "Поиск фото и видео"
 
 #: ../src/library/LibraryWindow.vala:346 ../src/searches/Branch.vala:77
 #: ../src/sidebar/Tree.vala:194
+#, fuzzy
 msgid "Ne_w Saved Search..."
 msgstr "Новый Сохранить Поиск..."
 
@@ -5058,6 +5050,7 @@ msgid "_Background:"
 msgstr "_Фон:"
 
 #: ../ui/shotwell.glade.h:26
+#, fuzzy
 msgid "Importing"
 msgstr "Импорт"
 
@@ -5074,14 +5067,17 @@ msgid "Example:"
 msgstr "Пример:"
 
 #: ../ui/shotwell.glade.h:30
+#, fuzzy
 msgid "R_ename imported files to lowercase"
 msgstr "П_еревести названия импортированных файлов в нижний регистр"
 
 #: ../ui/shotwell.glade.h:31
+#, fuzzy
 msgid "RAW Developer"
 msgstr "Обработка RAW"
 
 #: ../ui/shotwell.glade.h:32
+#, fuzzy
 msgid "De_fault:"
 msgstr "По умолчанию:"
 
@@ -5114,6 +5110,7 @@ msgid "Transition d_elay:"
 msgstr "Задержка _перехода:"
 
 #: ../ui/shotwell.glade.h:41
+#, fuzzy
 msgid "Show t_itle"
 msgstr "Показать _заголовок"
 
