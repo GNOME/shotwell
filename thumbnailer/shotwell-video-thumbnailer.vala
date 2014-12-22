@@ -59,7 +59,10 @@ class ShotwellThumbnailer {
             }
 
             /* get the duration */
-            pipeline.query_duration (Gst.Format.TIME, out duration);
+            if (!pipeline.query_duration (Gst.Format.TIME, out duration)) {
+                stderr.printf("Failed to query file for duration\n");
+                return 3;
+            }
 
             position = 1 * Gst.SECOND;
 
