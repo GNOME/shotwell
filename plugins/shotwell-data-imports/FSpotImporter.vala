@@ -94,6 +94,7 @@ public class FSpotImportableItem : Spit.DataImports.ImportableMediaItem, GLib.Ob
     private FSpotImportableRating rating;
     private string folder_path;
     private string filename;
+    private time_t? date_time;
     
     public FSpotImportableItem(
         DataImports.FSpot.Db.FSpotPhotoRow photo_row,
@@ -109,6 +110,7 @@ public class FSpotImportableItem : Spit.DataImports.ImportableMediaItem, GLib.Ob
         this.roll_row = roll_row;
         this.tags = tags;
         this.event = event;
+        this.date_time = photo_row.time;
         if (photo_row.rating > 0)
             this.rating = new FSpotImportableRating(photo_row.rating);
         else if (is_hidden)
@@ -165,6 +167,10 @@ public class FSpotImportableItem : Spit.DataImports.ImportableMediaItem, GLib.Ob
     
     public Spit.DataImports.ImportableRating get_rating() {
         return rating;
+    }
+
+    public time_t? get_exposure_time() {
+        return date_time;
     }
     
     private string decode_url(string url) {
