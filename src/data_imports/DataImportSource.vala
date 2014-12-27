@@ -49,8 +49,11 @@ public class DataImportSource {
                 metadata = null;
             }
             
-            title = (metadata != null) ? metadata.get_title() : null;
             exposure_time = (metadata != null) ? metadata.get_exposure_date_time() : null;
+            title = db_photo.get_title();
+            if (title == null) {
+                title = (metadata != null) ? metadata.get_title() : null;
+            }
             PhotoPreview? preview = metadata != null ? metadata.get_preview(0) : null;
             if (preview != null) {
                 try {
