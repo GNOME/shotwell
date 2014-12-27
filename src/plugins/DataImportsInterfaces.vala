@@ -119,6 +119,8 @@ public interface ImportableMediaItem : GLib.Object {
     public abstract string get_folder_path();
     
     public abstract string get_filename();
+
+    public abstract time_t? get_exposure_time();
 }
 
 /**

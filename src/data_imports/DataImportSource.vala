@@ -48,11 +48,15 @@ public class DataImportSource {
                 warning("Could not get file metadata for %s: %s", get_filename(), e.message);
                 metadata = null;
             }
-            
-            exposure_time = (metadata != null) ? metadata.get_exposure_date_time() : null;
             title = db_photo.get_title();
             if (title == null) {
                 title = (metadata != null) ? metadata.get_title() : null;
+            }
+            time_t? date_time = db_photo.get_exposure_time();
+            if (date_time != null) {
+                exposure_time = new MetadataDateTime(date_time);
+            } else {
+                exposure_time = (metadata != null) ? metadata.get_exposure_date_time() : null;
             }
             PhotoPreview? preview = metadata != null ? metadata.get_preview(0) : null;
             if (preview != null) {

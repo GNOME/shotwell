@@ -157,6 +157,10 @@ public class DataImportJob : BatchImportJob {
         string? title = src_photo.get_title();
         if (title != null)
             photo.set_title(title);
+        // exposure time
+        time_t? date_time = src_photo.get_exposure_time();
+        if (date_time != null)
+            photo.set_exposure_time(date_time);
         // import ID
         photo.set_import_id(import_roll.import_id);
         
