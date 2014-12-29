@@ -66,8 +66,14 @@ public abstract class AbstractSemaphore {
     public void wait() {
         mutex.lock();
         
-        while (do_wait() == WaitAction.SLEEP)
+        while (do_wait() == WaitAction.SLEEP) {
+            // release the mutex and yield to give other threads a chance to notify
+            mutex.unlock();
+            Thread.yield();
+            mutex.lock();
+            
             monitor.wait(mutex);
+        }
         
         mutex.unlock();
     }
