@@ -1398,7 +1398,9 @@ internal class GraphSession {
                 mp_envelope.append_form_string("name", publishable_title);
                 
             //Set 'message' data field with EXIF comment field
-            mp_envelope.append_form_string("message", publishable.get_param_string("comment"));
+            string publishable_comment = publishable.get_param_string("comment");
+            if (publishable_comment != null)
+               mp_envelope.append_form_string("message", publishable_comment);
             
             //Sets correct date of the picture
             mp_envelope.append_form_string("backdated_time", publishable.get_exposure_date_time().to_string());
