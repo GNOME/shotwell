@@ -1396,6 +1396,12 @@ internal class GraphSession {
             string publishable_title = publishable.get_publishing_name();
             if (!suppress_titling && publishable_title != "")
                 mp_envelope.append_form_string("name", publishable_title);
+                
+            //Set 'message' data field with EXIF comment field
+            mp_envelope.append_form_string("message", publishable.get_param_string("comment"));
+            
+            //Sets correct date of the picture
+            mp_envelope.append_form_string("backdated_time", publishable.get_exposure_date_time().to_string());
 
             string source_file_mime_type =
                 (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
