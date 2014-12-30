@@ -86,6 +86,7 @@ public class ThumbnailCache : Object {
         public Gdk.Pixbuf scaled = null;
         public Error err = null;
         public bool fetched = false;
+        public bool replace = false;
         
         public AsyncFetchJob(ThumbnailCache cache, string thumbnail_name,
             ThumbnailSource source, Gdk.Pixbuf? prefetched, Dimensions dim,
@@ -131,38 +132,33 @@ public class ThumbnailCache : Object {
                 // scale if specified
                 scaled = dim.has_area() ? resize_pixbuf(unscaled, dim, interp) : unscaled;
             } catch (Error err) {
-                // Is the problem that the thumbnail couldn't be read? If so, it's recoverable;
-                // we'll just create it and leave this.err as null if creation works.
                 if (err is FileError) {
                     try {
-                        Photo photo = source as Photo;
-                        Video video = source as Video;
-
-                        if (photo != null) {
-                            unscaled = photo.get_pixbuf(Scaling.for_best_fit(dim.width, true));
-                            photo.notify_altered(new Alteration("image","thumbnail"));
-                            return;
-                        }
-
-                        if (video != null) {
-                            unscaled = video.create_thumbnail(dim.width);
-                            scaled = resize_pixbuf(unscaled, dim, interp);
-                            cache.save_thumbnail(cache.get_source_cached_file(source),
-                                unscaled, source);
-                            replace(source, cache.size, unscaled);
-                            return;
-                        }
-
-                    } catch (Error e) {
-                        // Creating the thumbnail failed; tell the rest of the app.
-                        this.err = e;
-                        return;
+                        generate_thumbnail();
+                    } catch (Error generr) {
+                        // save thumbnail generation error, not original, for processing in callback
+                        err = generr;
                     }
+                } else {
+                    // save error for processing in callback
+                    this.err = err;
                 }
-
-                // ...the original error wasn't from reading the file, but something else;
-                // tell the rest of the app.
-                this.err = err;
+            }
+        }
+        
+        private void generate_thumbnail() throws Error {
+            Photo? photo = source as Photo;
+            if (photo != null) {
+                unscaled = photo.get_pixbuf(Scaling.for_best_fit(dim.width, true));
+            } else {
+                Video? video = source as Video;
+                if (video != null)
+                    unscaled = video.create_thumbnail(dim.width);
+            }
+            
+            if (unscaled != null) {
+                scaled = resize_pixbuf(unscaled, dim, interp);
+                replace = true;
             }
         }
     }
@@ -419,6 +415,16 @@ public class ThumbnailCache : Object {
     // Called within Gtk.main's thread context
     private static void async_fetch_completion_callback(BackgroundJob background_job) {
         AsyncFetchJob job = (AsyncFetchJob) background_job;
+        
+        // Is the problem that the thumbnail couldn't be read? If so, it's recoverable;
+        // we'll just create it and leave this.err as null if creation works.
+        if (job.replace && job.unscaled != null) {
+            try {
+                replace(job.source, job.cache.size, job.unscaled);
+            } catch (Error err) {
+                job.err = err;
+            }
+        }
         
         if (job.unscaled != null) {
             if (job.fetched) {
