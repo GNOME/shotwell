@@ -14,13 +14,11 @@ class ShotwellThumbnailer {
     
     public static int main(string[] args) {
         Gst.Element pipeline, sink;
-        int width, height;
-        Gst.Sample sample;
         string descr;
         Gdk.Pixbuf pixbuf;
+        uint8[]? pngdata;
         int64 duration, position;
         Gst.StateChangeReturn ret;
-        bool res;
         
         Gst.init(ref args);
         
@@ -30,7 +28,7 @@ class ShotwellThumbnailer {
         }
         
         descr = "filesrc location=\"%s\" ! decodebin ! videoconvert ! videoscale ! ".printf(args[1]) +
-            "appsink name=sink caps=\"%s\"".printf(caps_string);
+            "%s ! gdkpixbufsink name=sink".printf(caps_string);
         
         try {
             // Create new pipeline.
@@ -72,73 +70,18 @@ class ShotwellThumbnailer {
              * seek a little more */
             pipeline.seek_simple (Gst.Format.TIME, Gst.SeekFlags.KEY_UNIT | Gst.SeekFlags.FLUSH, position);
 
-            /* get the preroll buffer from appsink, this block untils appsink really
-             * prerolls */
-            GLib.Signal.emit_by_name (sink, "pull-preroll", out sample, null);
-
-            // if we have a buffer now, convert it to a pixbuf. It's possible that we
-            // don't have a buffer because we went EOS right away or had an error.
-            if (sample != null) {
-                Gst.Buffer buffer;
-                Gst.Caps caps;
-                unowned Gst.Structure s;
-                Gst.MapInfo mapinfo;
-                uint8[]? pngdata;
-
-                // Get the snapshot buffer format now. We set the caps on the appsink so
-                // that it can only be an rgb buffer. The only thing we have not specified
-                // on the caps is the height, which is dependent on the pixel-aspect-ratio
-                // of the source material.
-                caps = sample.get_caps();
-                if (caps == null) {
-                    stderr.printf("could not get snapshot format\n");
-                    return 5;
-                }
-                
-                s = caps.get_structure(0);
-                
-                // We need to get the final caps on the buffer to get the size.
-                res = s.get_int("width", out width);
-                res |= s.get_int("height", out height);
-                if (!res) {
-                    stderr.printf("Could not get snapshot dimension\n");
-                    return 6;
-                }
-                
-                if (width <= 0 || height <= 0) {
-                    stderr.printf("Bad frame dimensions: %dx%d\n", width, height);
-                    return 7;
-                }
-                
-                buffer = sample.get_buffer();
-                buffer.map(out mapinfo, Gst.MapFlags.READ);
-                
-                if (mapinfo.data == null || mapinfo.data.length == 0) {
-                    stderr.printf("Could not get snapshot data buffer\n");
-                    return 8;
-                }
-                
-                int rowstride = (((width * 3)+3)&~3);
-                if (mapinfo.data.length < (rowstride * height)) {
-                    stderr.printf("Frame buffer too small for rowstride and height (%d,%d rowstride=%d buffer_size=%d)\n",
-                        width, height, rowstride, mapinfo.data.length);
-                    return 9;
-                }
-                
-                // Create pixmap from buffer and save, gstreamer video buffers have a stride
-                // that is rounded up to the nearest multiple of 4.
-                pixbuf = new Gdk.Pixbuf.from_data(mapinfo.data, Gdk.Colorspace.RGB, false, 8,
-                    width, height, rowstride, null);
-                
-                // Save the pixbuf.
-                pixbuf.save_to_buffer(out pngdata, "png");
-                stdout.write(pngdata);
-                buffer.unmap(mapinfo);
-            } else {
-                stderr.printf("Could not make snapshot\n");
-                return 10;
+            ret = pipeline.get_state(null, null, 5 * Gst.SECOND);
+            if (ret == Gst.StateChangeReturn.FAILURE) {
+                stderr.printf("Failed to play the file: couldn't get state.\n");
+                return 3;
             }
-            
+
+            sink.get ("last-pixbuf", out pixbuf);
+
+            // Save the pixbuf.
+            pixbuf.save_to_buffer(out pngdata, "png");
+            stdout.write(pngdata);
+
             // cleanup and exit.
             pipeline.set_state(Gst.State.NULL);
             
