@@ -50,4 +50,4 @@ DOC_PAGES = \
 	view-information.page \
 	view-sidebar.page
 
-DOC_LINGUAS = el es hu
+DOC_LINGUAS = cs el es hu
