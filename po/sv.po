@@ -2830,7 +2830,7 @@ msgstr[1] "%d bilder"
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d film"
-msgstr[1] "%d filemr"
+msgstr[1] "%d filmer"
 
 #. display only one date if start and end are the same
 #: ../src/Properties.vala:377
