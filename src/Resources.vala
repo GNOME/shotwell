@@ -1054,97 +1054,20 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
         providers.set(widget, styler);
     }
-    
-    public const string INSET_FRAME_STYLESHEET =
-        """ .frame {
-               border-style: inset;
-               border-width: 1px;
-           }""";
-           
-    public const string SCROLL_FRAME_STYLESHEET =
-        """ GtkScrolledWindow {
-               border-width: 0;
-               border-style: none;
-               border-radius: 0;
-               padding: 0;
-           }
-           
-            .frame {
-                border-width: 1px;
-                border-style: inset;
-            }""";
 
-    public const string PAGE_STYLESHEET =
-        """ .frame {
-               border-width: 1px;
-               border-style: inset;
-               border-radius: 0;
-               
-               padding: 0;
-           }""";
-    
-    public const string VIEWPORT_STYLESHEET =
-        """ GtkViewport {
-               border-width: 1px;
-               border-style: inset;
-               border-radius: 0;
-               padding: 0;
-           }""";
-
-    public const string TOOLBAR_STYLESHEET_TEMPLATE =
-        """
-             @define-color primary-bg %s;
-             
-            .toolbar {
-                background-color: @primary-bg;
-                border-width: 1px;
-                border-color: shade (@primary-bg, 0.75);
-                border-style: solid;
-            }""";
-
-    public const string SEARCH_BUTTON_STYLESHEET_TEMPLATE =
-        """ 
-             @define-color primary-bg %s;
-             
-            .button {
-                background-image: none;
-                background-color: @primary-bg;
-                border-image: none;
-                border-color: shade (@primary-bg, 0.75) @primary-bg shade (@primary-bg, 0.75) @primary-bg;
-                border-style: solid;
-                margin: 5px;
-                
-                -unico-border-gradient: none;
-                -unico-outer-stroke-width: 0;
-                -unico-outer-stroke-gradient: none;
-                -unico-glow-radius: 0;
-                -unico-inner-stroke-width: 0;
-                -unico-inner-stroke-color: shade (@primary-bg, 1.1);
+    public const string CUSTOM_CSS =
+        """LibraryWindow {
+               -GtkPaned-handle-size: 1;
             }
-            
-            .button:prelight {
-                border-style: solid;
-                border-width: 1px;
-                border-color: shade (@primary-bg, 1.1);
-                
-                -unico-inner-stroke-color: shade (@primary-bg, 1.1);
-                -unico-inner-stroke-width: 0;
-
-                -unico-outer-stroke-width: 1px;
-                -unico-outer-stroke-color: shade (@primary-bg, 0.8);
+            LibraryWindow .pane-separator {
+               background-color: @borders;
             }
-            
-            .button:active {
-                background-image: none;
-                background-color: shade (@primary-bg, 0.75);
-                border-style: solid;
-                border-width: 1px;
-                border-color: shade (@primary-bg, 0.6);
-                
-                -unico-outer-stroke-width: 1px;
-                -unico-outer-stroke-color: shade (@primary-bg, 1.1);
+            SearchFilterToolbar {
+               border-width: 0 0 1px 0;
+               border-style: solid;
+               border-color: @borders;
             }""";
-    
+
     public const string ONIMAGE_FONT_COLOR = "#000000";
     public const string ONIMAGE_FONT_BACKGROUND = "rgba(255,255,255,0.5)";
 }

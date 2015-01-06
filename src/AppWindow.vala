@@ -490,6 +490,14 @@ public abstract class AppWindow : PageWindow {
         
         ui.ensure_update();
         add_accel_group(ui.get_accel_group());
+        
+        Gtk.CssProvider provider = new Gtk.CssProvider();
+        try {
+            provider.load_from_data(Resources.CUSTOM_CSS, -1);
+            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (Error err) {
+            debug("Unable to load custom CSS: %s", err.message);
+        }
     }
     
     private Gtk.ActionEntry[] create_common_actions() {

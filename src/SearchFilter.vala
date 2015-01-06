@@ -671,10 +671,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
                 add(label);
             }
         }
-        
-        public void set_color(Gdk.RGBA color) {
-            label.override_color(Gtk.StateFlags.NORMAL, color);
-        }
     }
     
     private class ToggleActionToolButton : Gtk.ToolItem {
@@ -688,8 +684,8 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             button.set_active(action.active);
             button.clicked.connect(on_button_activate);
             button.set_has_tooltip(true);
-
-            restyle();
+            button.set_relief(Gtk.ReliefStyle.NONE);
+            button.set_margin_start(2);
             
             this.add(button);
         }
@@ -710,14 +706,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
                 image = new Gtk.Image.from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
 
             button.set_image(image);
-        }
-        
-        public void restyle() {
-            string bgcolorname =
-                Resources.to_css_color(Config.Facade.get_instance().get_bg_color());
-            string stylesheet = Resources.SEARCH_BUTTON_STYLESHEET_TEMPLATE.printf(bgcolorname);
-            
-            Resources.style_widget(button, stylesheet);
         }
     }
     
@@ -812,10 +800,10 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             button = new Gtk.Button();
             button.set_image(get_filter_icon(RatingFilter.UNRATED_OR_HIGHER));
             button.set_can_focus(false);
+            button.set_relief(Gtk.ReliefStyle.NONE);
+            button.set_margin_start(2);
 
             button.clicked.connect(on_clicked);
-
-            restyle();
             
             set_homogeneous(false);
             
@@ -910,14 +898,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
 
         private int get_filter_button_size(RatingFilter filter) {
             return get_filter_icon_size(filter) + 2 * FILTER_BUTTON_MARGIN;
-        }
-
-        public void restyle() {
-            string bgcolorname =
-                Resources.to_css_color(Config.Facade.get_instance().get_bg_color());
-            string stylesheet = Resources.SEARCH_BUTTON_STYLESHEET_TEMPLATE.printf(bgcolorname);
-            
-            Resources.style_widget(button, stylesheet);
         }
     }
     
@@ -1016,10 +996,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         // Search box.
         insert(search_box, -1);
         
-        // Set background color of toolbar and update them when the configuration is updated
-        Config.Facade.get_instance().bg_color_name_changed.connect(on_bg_color_name_changed);
-        on_bg_color_name_changed();
-        
         // hook up signals to actions to be notified when they change
         actions.flagged_toggled.connect(on_flagged_toggled);
         actions.photos_toggled.connect(on_photos_toggled);
@@ -1037,7 +1013,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     }
     
     ~SearchFilterToolbar() {
-        Config.Facade.get_instance().bg_color_name_changed.disconnect(on_bg_color_name_changed);
         
         actions.media_context_changed.disconnect(on_media_context_changed);
 
@@ -1073,24 +1048,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             toolbtn_flag.set_icon_name(Resources.ICON_FILTER_FLAGGED);
         else
             toolbtn_flag.set_icon_name(Resources.ICON_FILTER_FLAGGED_DISABLED);
-    }
-    
-    private void on_bg_color_name_changed() {
-        string bgcolorname =
-            Resources.to_css_color(Config.Facade.get_instance().get_bg_color());
-        string toolbar_stylesheet = Resources.TOOLBAR_STYLESHEET_TEMPLATE.printf(bgcolorname);
-        Resources.style_widget(this, toolbar_stylesheet);
-        
-        label_type.set_color(Config.Facade.get_instance().get_unselected_color());
-        label_flagged.set_color(Config.Facade.get_instance().get_unselected_color());
-        label_rating.set_color(Config.Facade.get_instance().get_unselected_color());
-        
-        toolbtn_photos.restyle();
-        toolbtn_videos.restyle();
-        toolbtn_raw.restyle();
-        toolbtn_flag.restyle();
-        rating_button.restyle();
-        
     }
     
     // Ticket #3260 part IV - display the context menu on secondary click

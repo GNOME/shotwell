@@ -1285,52 +1285,36 @@ public class LibraryWindow : AppWindow {
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
         scrolled_sidebar.add(sidebar_tree);
-        scrolled_sidebar.get_style_context().add_class(Gtk.STYLE_CLASS_SIDEBAR);
-        scrolled_sidebar.set_shadow_type(Gtk.ShadowType.IN);
-        get_style_context().add_class("sidebar-pane-separator");
         
-        // divy the sidebar up into selection tree list, background progress bar, and properties
-        Gtk.Frame top_frame = new Gtk.Frame(null);
-        top_frame.add(scrolled_sidebar);
-        top_frame.set_shadow_type(Gtk.ShadowType.IN);
-        
+        background_progress_frame.set_border_width(2);
         background_progress_frame.add(background_progress_bar);
-        background_progress_frame.set_shadow_type(Gtk.ShadowType.IN);
+        background_progress_frame.get_style_context().remove_class("frame");
 
         // pad the bottom frame (properties)
         Gtk.Alignment bottom_alignment = new Gtk.Alignment(0, 0.5f, 1, 0);
-
-        Resources.style_widget(scrolled_sidebar, Resources.SCROLL_FRAME_STYLESHEET);
-        Resources.style_widget(bottom_frame, Resources.INSET_FRAME_STYLESHEET);
         
         bottom_alignment.set_padding(10, 10, 6, 0);
         bottom_alignment.add(basic_properties);
 
         bottom_frame.add(bottom_alignment);
-        bottom_frame.set_shadow_type(Gtk.ShadowType.IN);
+        bottom_frame.get_style_context().remove_class("frame");
         
         // "attach" the progress bar to the sidebar tree, so the movable ridge is to resize the
         // top two and the basic information pane
-        top_section.pack_start(top_frame, true, true, 0);
+        top_section.pack_start(scrolled_sidebar, true, true, 0);
 
         sidebar_paned.pack1(top_section, true, false);
         sidebar_paned.pack2(bottom_frame, false, false);
         sidebar_paned.set_position(1000);
-
-        // layout the selection tree to the left of the collection/toolbar box with an adjustable
-        // gutter between them, framed for presentation
-        Gtk.Frame right_frame = new Gtk.Frame(null);
-        right_frame.set_shadow_type(Gtk.ShadowType.IN);
         
         right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        right_frame.add(right_vbox);
         right_vbox.pack_start(search_toolbar, false, false, 0);
         right_vbox.pack_start(notebook, true, true, 0);
         
         client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
         client_paned.pack1(sidebar_paned, false, false);
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
-        client_paned.pack2(right_frame, true, false);
+        client_paned.pack2(right_vbox, true, false);
         client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         notebook.set_size_request(PAGE_MIN_WIDTH, -1);
