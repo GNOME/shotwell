@@ -168,6 +168,8 @@ public class ExportDialog : Gtk.Dialog {
     private bool in_insert = false;
     
     public ExportDialog(string title) {
+        Object (use_header_bar: 1);
+        
         this.title = title;
         resizable = false;
 
@@ -198,7 +200,6 @@ public class ExportDialog : Gtk.Dialog {
 
         pixels_entry = new Gtk.Entry();
         pixels_entry.set_max_length(6);
-        pixels_entry.set_size_request(60, -1);
         pixels_entry.set_text("%d".printf(current_scale));
         
         // register after preparation to avoid signals during init
@@ -218,30 +219,23 @@ public class ExportDialog : Gtk.Dialog {
         add_label(_("_Scaling constraint:"), 0, 2, constraint_combo);
         add_control(constraint_combo, 1, 2);
 
-        Gtk.Label pixels_label = new Gtk.Label.with_mnemonic(_(" _pixels"));
-        pixels_label.set_mnemonic_widget(pixels_entry);
-        
-        Gtk.Box pixels_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        pixels_box.pack_start(pixels_entry, false, false, 0);
-        pixels_box.pack_end(pixels_label, false, false, 0);
-        add_control(pixels_box, 1, 3);
+        add_label(_("_Pixels:"), 0, 3, pixels_entry);
+        add_control(pixels_entry, 1, 3);
         
         export_metadata = new Gtk.CheckButton.with_label(_("Export metadata"));
         add_control(export_metadata, 1, 4);
         export_metadata.active = true;
         
-        table.set_row_spacing(4);
-        table.set_column_spacing(4);
-        table.set_margin_top(4);
-        table.set_margin_bottom(4);
-        table.set_margin_left(4);
-        table.set_margin_right(4);
+        table.set_row_spacing(5);
+        table.set_column_spacing(5);
+        table.set_border_width(3);
         
         ((Gtk.Box) get_content_area()).add(table);
         
         // add buttons to action area
         add_button(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
         ok_button = add_button(Gtk.Stock.OK, Gtk.ResponseType.OK);
+        set_default_response(Gtk.ResponseType.OK);
         
         ok_button.set_can_default(true);
         ok_button.has_default = true;
@@ -357,7 +351,7 @@ public class ExportDialog : Gtk.Dialog {
     }
     
     private void add_label(string text, int x, int y, Gtk.Widget? widget = null) {
-        Gtk.Alignment left_aligned = new Gtk.Alignment(0.0f, 0.5f, 0, 0);
+        Gtk.Alignment left_aligned = new Gtk.Alignment(1, 0.5f, 0, 0);
         
         Gtk.Label new_label = new Gtk.Label.with_mnemonic(text);
         new_label.set_use_underline(true);
@@ -371,7 +365,7 @@ public class ExportDialog : Gtk.Dialog {
     }
     
     private void add_control(Gtk.Widget widget, int x, int y) {
-        Gtk.Alignment left_aligned = new Gtk.Alignment(0, 0.5f, 0, 0);
+        Gtk.Alignment left_aligned = new Gtk.Alignment(0, 0.5f, 1, 0);
         left_aligned.add(widget);
         
         table.attach(left_aligned, x, y, 1, 1);
@@ -1196,6 +1190,10 @@ public class TextEntryDialog : Gtk.Dialog {
     private Gtk.Button button2;
     private Gtk.ButtonBox action_area_box;
     
+    public TextEntryDialog() {
+        Object (use_header_bar: 1);
+    }
+    
     public void set_builder(Gtk.Builder builder) {
         this.builder = builder;
     }
@@ -1204,7 +1202,6 @@ public class TextEntryDialog : Gtk.Dialog {
         string? initial_text, Gee.Collection<string>? completion_list, string? completion_delimiter) {
         set_title(title);
         set_resizable(true);
-        set_default_size (350, 104);
         set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         on_modify_validate = modify_validate;
@@ -1266,6 +1263,10 @@ public class MultiTextEntryDialog : Gtk.Dialog {
     private Gtk.Button button2;
     private Gtk.ButtonBox action_area_box;
     
+    public MultiTextEntryDialog() {
+        Object (use_header_bar: 1);
+    }
+    
     public void set_builder(Gtk.Builder builder) {
         this.builder = builder;
     }
@@ -1277,12 +1278,6 @@ public class MultiTextEntryDialog : Gtk.Dialog {
         set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         on_modify_validate = modify_validate;
-        
-        Gtk.Label name_label = builder.get_object("label9") as Gtk.Label;
-        name_label.set_text(label);
-        
-        Gtk.ScrolledWindow scrolled = builder.get_object("scrolledwindow1") as Gtk.ScrolledWindow;
-        scrolled.set_shadow_type (Gtk.ShadowType.ETCHED_IN);
         
         entry = builder.get_object("textview1") as Gtk.TextView;
         entry.set_wrap_mode (Gtk.WrapMode.WORD);
@@ -1296,6 +1291,7 @@ public class MultiTextEntryDialog : Gtk.Dialog {
         
         button1 = (Gtk.Button) add_button(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
         button2 = (Gtk.Button) add_button(Gtk.Stock.SAVE, Gtk.ResponseType.OK);
+        set_default_response(Gtk.ResponseType.OK);
         
         set_has_resize_grip(true);
     }
@@ -1653,6 +1649,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         bool contains_video = false, bool only_video = false) {
         assert(source != null);
 
+        Object(use_header_bar: 1);
+        
         set_modal(true);
         set_resizable(false);
         set_transient_for(AppWindow.get_instance());
@@ -1674,13 +1672,16 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         hour.output.connect(on_spin_button_output);
         hour.set_width_chars(2);  
+        hour.set_max_width_chars(2);
 
         minute = new Gtk.SpinButton.with_range(0, 59, 1);
         minute.set_width_chars(2);
+        minute.set_max_width_chars(2);
         minute.output.connect(on_spin_button_output);
 
         second = new Gtk.SpinButton.with_range(0, 59, 1);
         second.set_width_chars(2);
+        second.set_max_width_chars(2);
         second.output.connect(on_spin_button_output);
 
         system = new Gtk.ComboBoxText();
@@ -1689,14 +1690,14 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         system.append_text(_("24 Hr"));
         system.changed.connect(on_time_system_changed);
 
-        Gtk.Box clock = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+        Gtk.Box clock = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
 
-        clock.pack_start(hour, false, false, 3);
-        clock.pack_start(new Gtk.Label(":"), false, false, 3); // internationalize?
-        clock.pack_start(minute, false, false, 3);
-        clock.pack_start(new Gtk.Label(":"), false, false, 3);
-        clock.pack_start(second, false, false, 3);
-        clock.pack_start(system, false, false, 3);
+        clock.pack_start(hour, false, false, 0);
+        clock.pack_start(new Gtk.Label(":"), false, false, 0); // internationalize?
+        clock.pack_start(minute, false, false, 0);
+        clock.pack_start(new Gtk.Label(":"), false, false, 0);
+        clock.pack_start(second, false, false, 0);
+        clock.pack_start(system, false, false, 0);
 
         set_default_response(Gtk.ResponseType.OK);
         
@@ -1724,15 +1725,15 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         modify_originals_check_button.sensitive = (!only_video) &&
             (!Config.Facade.get_instance().get_commit_metadata_to_masters() && display_options);
 
-        Gtk.Box time_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+        Gtk.Box time_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 5);
 
-        time_content.pack_start(calendar, true, false, 3);
-        time_content.pack_start(clock, true, false, 3);
+        time_content.pack_start(calendar, true, false, 0);
+        time_content.pack_start(clock, true, false, 0);
 
         if (display_options) {
-            time_content.pack_start(relativity_radio_button, true, false, 3);
-            time_content.pack_start(batch_radio_button, true, false, 3);
-            time_content.pack_start(modify_originals_check_button, true, false, 3);
+            time_content.pack_start(relativity_radio_button, true, false, 0);
+            time_content.pack_start(batch_radio_button, true, false, 0);
+            time_content.pack_start(modify_originals_check_button, true, false, 0);
         }
 
         Gdk.Pixbuf preview = null;
@@ -1745,26 +1746,26 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         }
         
         Gtk.Box image_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+        image_content.set_valign(Gtk.Align.START);
+        image_content.set_homogeneous(true);
         Gtk.Image image = (preview != null) ? new Gtk.Image.from_pixbuf(preview) : new Gtk.Image();
         original_time_label = new Gtk.Label(null);
-        image_content.pack_start(image, true, false, 3);
-        image_content.pack_start(original_time_label, true, false, 3);
+        image_content.pack_start(image, true, false, 0);
+        image_content.pack_start(original_time_label, true, false, 0);
 
-        Gtk.Box hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        hbox.pack_start(image_content, true, false, 6);
-        hbox.pack_start(time_content, true, false, 6);
+        Gtk.Box hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
+        hbox.set_border_width(3);
+        hbox.pack_start(image_content, true, false, 0);
+        hbox.pack_start(time_content, true, false, 0);
 
         Gtk.Alignment hbox_alignment = new Gtk.Alignment(0.5f, 0.5f, 0, 0);
-        hbox_alignment.set_padding(6, 3, 6, 6);
         hbox_alignment.add(hbox);
 
-        ((Gtk.Box) get_content_area()).pack_start(hbox_alignment, true, false, 6);
+        ((Gtk.Box) get_content_area()).pack_start(hbox_alignment, true, false, 0);
 
         notification = new Gtk.Label("");
         notification.set_line_wrap(true);
         notification.set_justify(Gtk.Justification.CENTER);
-        notification.set_size_request(-1, -1);
-        notification.set_padding(12, 6);
 
         ((Gtk.Box) get_content_area()).pack_start(notification, true, true, 0);
         
@@ -2270,7 +2271,6 @@ public class PreferencesDialog {
     private Gee.ArrayList<PathFormat> path_formats = new Gee.ArrayList<PathFormat>();
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
     private Gtk.CheckButton lowercase;
-    private Gtk.Button close_button;
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
     private Gtk.ComboBoxText default_raw_developer_combo;
 
@@ -2293,8 +2293,6 @@ public class PreferencesDialog {
         bg_color_slider.button_press_event.connect(on_bg_color_reset);
 
         library_dir_button = builder.get_object("library_dir_button") as Gtk.FileChooserButton;
-        
-        close_button = builder.get_object("close_button") as Gtk.Button;
         
         photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
         raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
@@ -2581,7 +2579,6 @@ public class PreferencesDialog {
     
     private void set_allow_closing(bool allow) {
         dialog.set_deletable(allow);
-        close_button.set_sensitive(allow);
         allow_closing = allow;
     }
     

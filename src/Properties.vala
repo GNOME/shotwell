@@ -453,8 +453,6 @@ private class BasicProperties : Properties {
 
 private class ExtendedPropertiesWindow : Gtk.Dialog {
     private ExtendedProperties properties = null;
-    private const int FRAME_BORDER = 6;
-    private Gtk.Button close_button;
 
     private class ExtendedProperties : Properties {
         private const string NO_VALUE = "";
@@ -632,13 +630,13 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
     }
 
     public ExtendedPropertiesWindow(Gtk.Window owner) {
+        Object(use_header_bar: 1);
+        
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.KEY_PRESS_MASK);
         focus_on_map = true;
         set_accept_focus(true);
         set_can_focus(true);
         set_title(_("Extended Information"));
-        set_size_request(300,-1);
-        set_default_size(520, -1);
         set_position(Gtk.WindowPosition.CENTER);
         set_transient_for(owner);
         set_type_hint(Gdk.WindowTypeHint.DIALOG);
@@ -648,20 +646,8 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         properties = new ExtendedProperties();
         Gtk.Alignment alignment = new Gtk.Alignment(0.5f,0.5f,1,1);
         alignment.add(properties);
-        alignment.set_padding(4, 4, 4, 4);
+        alignment.set_border_width(3);
         ((Gtk.Box) get_content_area()).add(alignment);
-        close_button = new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
-        close_button.clicked.connect(on_close_clicked);
-    
-        Gtk.Alignment action_alignment = new Gtk.Alignment(1, 0.5f, 1, 1);
-        action_alignment.add(close_button);
-        ((Gtk.Container) get_action_area()).add(action_alignment);
-        
-        set_has_resize_grip(false);
-    }
-
-    ~ExtendedPropertiesWindow() {
-        close_button.clicked.disconnect(on_close_clicked);
     }
 
     public override bool button_press_event(Gdk.EventButton event) {
@@ -672,10 +658,6 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         begin_move_drag((int) event.button, (int) event.x_root, (int) event.y_root, event.time);
 
         return true;
-    }
-
-    private void on_close_clicked() {
-        hide();
     }
 
     public override bool key_press_event(Gdk.EventKey event) {
