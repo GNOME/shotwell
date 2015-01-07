@@ -5,6 +5,7 @@ shotwell
 /help/el/*.page
 /help/es/*.page
 /help/hu/*.page
+/help/cs/*.page
 /misc/gschemas.compiled
 /misc/shotwell.desktop
 /misc/shotwell-viewer.desktop
