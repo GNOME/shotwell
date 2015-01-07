@@ -48,7 +48,7 @@ public class SavedSearchDialog {
             set_type_combo_box(SearchCondition.SearchType.ANY_TEXT); // Sets default.
             type_combo.changed.connect(on_type_changed);
             
-            remove_button = new Gtk.Button.from_icon_name("list-remove-symbolic");
+            remove_button = new Gtk.Button.from_icon_name("list-remove-symbolic", Gtk.IconSize.BUTTON);
             remove_button.button_press_event.connect(on_removed);
             
             align = new Gtk.Alignment(0,0,0,0);
