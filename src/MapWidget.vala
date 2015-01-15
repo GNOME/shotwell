@@ -22,7 +22,7 @@ private class MapWidget : GtkChamplain.Embed {
         return instance;
     }
 
-    public void setup_map() {
+    private MapWidget() {
         // add scale to bottom left corner of the map
         map_view = get_view();
         map_view.add_layer(marker_layer);
@@ -90,7 +90,7 @@ private class MapWidget : GtkChamplain.Embed {
             // Fall back to the generic champlain marker
             champlain_marker = new Champlain.Point.full(12, { red:10, green:10, blue:255, alpha:255 });
         } else {
-            champlain_marker = new Champlain.CustomMarker(); // TODO: deprecated, switch to Champlain.Marker once libchamplain-0.12.4 is used
+            champlain_marker = new Champlain.Marker();
             Clutter.Texture t = new Clutter.Texture();
             t.set_cogl_texture(marker_cogl_texture);
             champlain_marker.add(t);
@@ -102,19 +102,29 @@ private class MapWidget : GtkChamplain.Embed {
     }
 
     private bool map_zoom_handler(Gdk.EventButton event) {
-        if (event.type == Gdk.EventType.2BUTTON_PRESS) {
-            if (event.button == 1 || event.button == 3) {
-                double lat = map_view.y_to_latitude(event.y);
-                double lon = map_view.x_to_longitude(event.x);
-                if (event.button == 1) {
-                    map_view.zoom_in();
-                } else {
-                    map_view.zoom_out();
-                }
-                map_view.center_on(lat, lon);
-                return true;
-            }
+        if (event.type != Gdk.EventType.2BUTTON_PRESS)
+            return false;
+        
+        // fetch before zooming
+        double lat = map_view.y_to_latitude(event.y);
+        double lon = map_view.x_to_longitude(event.x);
+        
+        switch (event.button) {
+            case 1:
+                map_view.zoom_in();
+            break;
+            
+            case 3:
+                map_view.zoom_out();
+            break;
+            
+            default:
+                return false;
         }
-        return false;
+        
+        map_view.center_on(lat, lon);
+        
+        return true;
     }
 }
+

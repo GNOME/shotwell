@@ -173,8 +173,7 @@ private class BasicProperties : Properties {
 
     public BasicProperties() {
         map_widget = MapWidget.get_instance();
-        map_widget.setup_map();
-        this.pack_end(map_widget);
+        pack_end(map_widget);
     }
 
     protected override void clear_properties() {
