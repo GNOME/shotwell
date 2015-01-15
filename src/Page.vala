@@ -1159,6 +1159,10 @@ public abstract class Page : Gtk.ScrolledWindow {
 
         return false;
     }
+
+    public virtual bool is_map_display_enabled(){
+        return false;
+    }
 }
 
 public abstract class CheckerboardPage : Page {
@@ -2400,6 +2404,10 @@ public abstract class SinglePhotoPage : Page {
             return true;
         
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
+    }
+
+    public override bool is_map_display_enabled(){
+        return true;
     }
 }
 

@@ -42,3 +42,7 @@ public interface Indexable : DataSource {
     }
 }
 
+// Positionable DataSources provide a globally locatable point in longitude and latitude degrees
+public interface Positionable : DataSource {
+    public abstract GpsCoords? get_gps_coords();
+}

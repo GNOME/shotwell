@@ -96,6 +96,22 @@ public abstract class PhotoPreview {
     }
 }
 
+public class GpsCoords {
+    public double latitude { get; private set; }
+    public double longitude { get; private set; }
+    public double altitude { get; private set; }
+    
+    public GpsCoords(double latitude, double longitude, double altitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
+    }
+    
+    public bool equal_to(GpsCoords other) {
+        return latitude == other.latitude && longitude == other.longitude && altitude == other.altitude;
+    }
+}
+
 public class PhotoMetadata : MediaMetadata {
     public enum SetOption {
         ALL_DOMAINS,
@@ -1007,6 +1023,20 @@ public class PhotoMetadata : MediaMetadata {
         lat_ref = get_string("Exif.GPSInfo.GPSLatitudeRef");
         
         return true;
+    }
+    
+    public GpsCoords? get_gps_coords() {
+        double latitude, longitude, altitude;
+        if (!exiv2.get_gps_info(out longitude, out latitude, out altitude))
+            return null;
+        
+        if (get_string("Exif.GPSInfo.GPSLongitudeRef") == "W" && longitude > 0)
+            longitude = -longitude;
+        
+        if (get_string("Exif.GPSInfo.GPSLatitudeRef") == "S" && latitude > 0)
+            latitude = -latitude;
+        
+        return new GpsCoords(latitude, longitude, altitude);
     }
     
     public bool get_exposure(out MetadataRational exposure) {

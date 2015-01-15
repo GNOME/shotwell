@@ -1507,8 +1507,12 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_update_properties_now() {
-        if (bottom_frame.visible)
+        if (bottom_frame.visible){
+            bool map_was_displayed = basic_properties.get_map_widget_displayed();
             basic_properties.update_properties(get_current_page());
+            if (map_was_displayed && !basic_properties.get_map_widget_displayed())
+                sidebar_paned.set_position(1000);
+        }
 
         if (extended_properties.visible)
             extended_properties.update_properties(get_current_page());

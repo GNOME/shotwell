@@ -204,5 +204,9 @@ public class ImportQueuePage : SinglePhotoPage {
     private void on_fatal_error(ImportResult result, string message) {
         AppWindow.error_message(message);
     }
+    
+    public override bool is_map_display_enabled(){
+        return false;
+    }
 }
 

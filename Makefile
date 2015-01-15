@@ -78,6 +78,7 @@ UNUNITIZED_SRC_FILES = \
 	Debug.vala \
 	ColorTransformation.vala \
 	Properties.vala \
+	MapWidget.vala \
 	CustomComponents.vala \
 	Event.vala \
 	International.vala \
@@ -253,6 +254,10 @@ LOCAL_PKGS = \
 
 EXT_PKGS = \
 	atk \
+	champlain-0.12 \
+	champlain-gtk-0.12 \
+	clutter-1.0 \
+	clutter-gtk-1.0 \
 	gdk-3.0 \
 	gee-0.8 \
 	gexiv2 \
@@ -285,6 +290,10 @@ THUMBNAILER_PKGS = \
 DIRECT_LIBS =
 
 EXT_PKG_VERSIONS = \
+	champlain-0.12 >= 0.12.3 \
+	champlain-gtk-0.12 >= 0.12.3 \
+	clutter-1.0 >= 1.12.0 \
+	clutter-gtk-1.0 >= 1.0.0 \
 	gee-0.8 >= 0.8.5 \
 	gexiv2 >= 0.4.90 \
 	gio-unix-2.0 >= 2.20 \

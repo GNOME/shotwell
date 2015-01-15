@@ -4,12 +4,15 @@
  * See the COPYING file in this distribution.
  */
 
-private abstract class Properties : Gtk.Grid {
-    uint line_count = 0;
+private abstract class Properties : Gtk.VBox {
+    protected Gtk.Grid grid = new Gtk.Grid();
+    protected uint line_count = 0;
 
     public Properties() {
-        row_spacing = 0;
-        column_spacing = 6;
+        grid.column_spacing = 6;
+        set_homogeneous(false);
+        set_spacing(0);
+        pack_start(grid, false, true, 0);
     }
 
     protected void add_line(string label_text, string info_text, bool multi_line = false) {
@@ -48,12 +51,12 @@ private abstract class Properties : Gtk.Grid {
             info = (Gtk.Widget) info_label;
         }
 
-        attach(label, 0, (int) line_count, 1, 1);
+        grid.attach(label, 0, (int) line_count, 1, 1);
 
         if (multi_line) {
-            attach(info, 1, (int) line_count, 1, 2);
+            grid.attach(info, 1, (int) line_count, 2, 1);
         } else {
-            attach(info, 1, (int) line_count, 1, 1);
+            grid.attach(info, 1, (int) line_count, 1, 1);
         }
 
         line_count++;
@@ -126,9 +129,9 @@ private abstract class Properties : Gtk.Grid {
     }
 
     protected virtual void clear_properties() {
-        foreach (Gtk.Widget child in get_children())
-            remove(child);
-        
+        foreach (Gtk.Widget child in grid.get_children())
+            grid.remove(child);
+
         line_count = 0;
     }
 
@@ -143,7 +146,7 @@ private abstract class Properties : Gtk.Grid {
     }
     
     public void unselect_text() {
-        foreach (Gtk.Widget child in get_children()) {
+        foreach (Gtk.Widget child in grid.get_children()) {
             if (child is Gtk.Label)
                 ((Gtk.Label) child).select_region(0, 0);
         }
@@ -164,8 +167,14 @@ private class BasicProperties : Properties {
     private double clip_duration;
     private string raw_developer;
     private string raw_assoc;
+    private GpsCoords? gps_coords;
+    private MapWidget map_widget;
+    private bool map_widget_displayed;
 
     public BasicProperties() {
+        map_widget = MapWidget.get_instance();
+        map_widget.setup_map();
+        this.pack_end(map_widget);
     }
 
     protected override void clear_properties() {
@@ -183,6 +192,8 @@ private class BasicProperties : Properties {
         clip_duration = 0.0;
         raw_developer = "";
         raw_assoc = "";
+        map_widget.clear();
+        gps_coords = null;
     }
 
     protected override void get_single_properties(DataView view) {
@@ -192,7 +203,7 @@ private class BasicProperties : Properties {
 
         title = source.get_name();
         
-        if (source is PhotoSource || source is PhotoImportSource) {           
+        if (source is PhotoSource || source is PhotoImportSource) {
             start_time = (source is PhotoSource) ? ((PhotoSource) source).get_exposure_time() :
                 ((PhotoImportSource) source).get_exposure_time();
             end_time = start_time;
@@ -216,6 +227,9 @@ private class BasicProperties : Properties {
                 dimensions = (metadata.get_pixel_dimensions() != null) ?
                     metadata.get_orientation().rotate_dimensions(metadata.get_pixel_dimensions()) :
                     Dimensions(0, 0);
+
+                gps_coords = metadata.get_gps_coords();
+                map_widget.add_position_marker(view);
             }
             
             if (source is PhotoSource)
@@ -262,8 +276,8 @@ private class BasicProperties : Properties {
         video_count = 0;
         foreach (DataView view in iter) {
             DataSource source = view.get_source();
-            
-            if (source is PhotoSource || source is PhotoImportSource) {                  
+
+            if (source is PhotoSource || source is PhotoImportSource) {
                 time_t exposure_time = (source is PhotoSource) ?
                     ((PhotoSource) source).get_exposure_time() :
                     ((PhotoImportSource) source).get_exposure_time();
@@ -448,6 +462,22 @@ private class BasicProperties : Properties {
                 }
             }
         }
+        
+        if (gps_coords != null && page.is_map_display_enabled()){
+            map_widget_displayed = true;
+            map_widget.show_position_markers();
+        }
+        else
+            map_widget_displayed = false;
+    }
+    
+    public override void show_all() {
+        base.show_all();
+        map_widget.set_visible(map_widget_displayed);
+    }
+    
+    public bool get_map_widget_displayed(){
+        return map_widget_displayed;
     }
 }
 

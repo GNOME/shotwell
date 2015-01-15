@@ -158,7 +158,7 @@ public enum Rating {
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're committed en
 // masse to an image file.
-public abstract class Photo : PhotoSource, Dateable {
+public abstract class Photo : PhotoSource, Dateable, Positionable {
     // Need to use "thumb" rather than "photo" for historical reasons -- this name is used
     // directly to load thumbnails from disk by already-existing filenames
     public const string TYPENAME = "thumb";
@@ -2343,6 +2343,12 @@ public abstract class Photo : PhotoSource, Dateable {
         
         if (committed)
             notify_altered(new Alteration("metadata", "name"));
+    }
+    
+    public GpsCoords? get_gps_coords() {
+        PhotoMetadata? metadata = get_metadata();
+        
+        return (metadata != null) ? metadata.get_gps_coords() : null;
     }
     
     public override bool set_comment(string? comment) {
