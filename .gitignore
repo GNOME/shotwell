@@ -2,6 +2,7 @@ shotwell
 .valencia
 /build
 /configure.mk
+/help/de/*.page
 /help/el/*.page
 /help/es/*.page
 /help/hu/*.page
