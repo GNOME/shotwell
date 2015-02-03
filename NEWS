@@ -1,3 +1,13 @@
+Shotwell 0.21.0 - 2 February 2014
+---------------------------------
+
+  * User interface refresh (#742326, #742443)
+  * Fix Shotwell Viewer .desktop file (#743799)
+  * Natural sorting of photo titles (#717960)
+  * Improved video thumbnailer (#739396, #741821)
+  * Updated translations
+
+
 Shotwell 0.20.2 - 31 October 2014
 ---------------------------------
 

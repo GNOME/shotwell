@@ -1,3 +1,14 @@
+shotwell (0.21.0-1~utopic1) utopic; urgency=low
+
+  * User interface refresh (#742326, #742443)
+  * Fix Shotwell Viewer .desktop file (#743799)
+  * Natural sorting of photo titles (#717960)
+  * Improved video thumbnailer (#739396, #741821)
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 02 Feb 2015 18:24:34 -0800
+
+
 shotwell (0.20.2-1~trusty2) trusty; urgency=low
 
   * Mark as Conflicts/Replaces Ubuntu's shotwell-common package (#724080)
