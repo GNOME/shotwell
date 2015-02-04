@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-01-06 20:38+0000\n"
-"PO-Revision-Date: 2015-01-06 22:22+0100\n"
+"POT-Creation-Date: 2015-02-04 01:56+0000\n"
+"PO-Revision-Date: 2015-02-04 10:45+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -4634,7 +4634,7 @@ msgstr "obsahuje"
 
 #. Ordering must correspond with Context
 #: ../src/searches/SavedSearchDialog.vala:169
-#: ../src/searches/SavedSearchDialog.vala:496
+#: ../src/searches/SavedSearchDialog.vala:500
 msgid "is exactly"
 msgstr "je přesně"
 
@@ -4651,112 +4651,116 @@ msgid "does not contain"
 msgstr "neobsahuje"
 
 #: ../src/searches/SavedSearchDialog.vala:173
-#: ../src/searches/SavedSearchDialog.vala:500
+#: ../src/searches/SavedSearchDialog.vala:504
 msgid "is not set"
 msgstr "není nastaveno"
 
+#: ../src/searches/SavedSearchDialog.vala:174
+msgid "is set"
+msgstr "je nastaveno"
+
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: ../src/searches/SavedSearchDialog.vala:244
-#: ../src/searches/SavedSearchDialog.vala:375
-#: ../src/searches/SavedSearchDialog.vala:440
+#: ../src/searches/SavedSearchDialog.vala:248
+#: ../src/searches/SavedSearchDialog.vala:379
+#: ../src/searches/SavedSearchDialog.vala:444
 msgid "is"
 msgstr "je"
 
-#: ../src/searches/SavedSearchDialog.vala:245
+#: ../src/searches/SavedSearchDialog.vala:249
 msgid "is not"
 msgstr "není"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: ../src/searches/SavedSearchDialog.vala:251
+#: ../src/searches/SavedSearchDialog.vala:255
 msgid "any photo"
 msgstr "libovolná fotka"
 
-#: ../src/searches/SavedSearchDialog.vala:252
+#: ../src/searches/SavedSearchDialog.vala:256
 msgid "a raw photo"
 msgstr "fotka RAW"
 
-#: ../src/searches/SavedSearchDialog.vala:253
+#: ../src/searches/SavedSearchDialog.vala:257
 msgid "a video"
 msgstr "video"
 
-#: ../src/searches/SavedSearchDialog.vala:307
+#: ../src/searches/SavedSearchDialog.vala:311
 msgid "has"
 msgstr "má"
 
-#: ../src/searches/SavedSearchDialog.vala:308
+#: ../src/searches/SavedSearchDialog.vala:312
 msgid "has no"
 msgstr "nemá"
 
-#: ../src/searches/SavedSearchDialog.vala:313
+#: ../src/searches/SavedSearchDialog.vala:317
 msgid "modifications"
 msgstr "změny"
 
-#: ../src/searches/SavedSearchDialog.vala:314
+#: ../src/searches/SavedSearchDialog.vala:318
 msgid "internal modifications"
 msgstr "interní změny"
 
-#: ../src/searches/SavedSearchDialog.vala:315
+#: ../src/searches/SavedSearchDialog.vala:319
 msgid "external modifications"
 msgstr "externí změny"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: ../src/searches/SavedSearchDialog.vala:369
+#: ../src/searches/SavedSearchDialog.vala:373
 msgid "flagged"
 msgstr "označeno"
 
-#: ../src/searches/SavedSearchDialog.vala:370
+#: ../src/searches/SavedSearchDialog.vala:374
 msgid "not flagged"
 msgstr "neoznačeno"
 
-#: ../src/searches/SavedSearchDialog.vala:433
+#: ../src/searches/SavedSearchDialog.vala:437
 msgid "and higher"
 msgstr "a více"
 
-#: ../src/searches/SavedSearchDialog.vala:434
+#: ../src/searches/SavedSearchDialog.vala:438
 msgid "only"
 msgstr "jen"
 
-#: ../src/searches/SavedSearchDialog.vala:435
+#: ../src/searches/SavedSearchDialog.vala:439
 msgid "and lower"
 msgstr "a méně"
 
-#: ../src/searches/SavedSearchDialog.vala:497
+#: ../src/searches/SavedSearchDialog.vala:501
 msgid "is after"
 msgstr "je po"
 
-#: ../src/searches/SavedSearchDialog.vala:498
+#: ../src/searches/SavedSearchDialog.vala:502
 msgid "is before"
 msgstr "je před"
 
-#: ../src/searches/SavedSearchDialog.vala:499
+#: ../src/searches/SavedSearchDialog.vala:503
 msgid "is between"
 msgstr "je mezi"
 
-#: ../src/searches/SavedSearchDialog.vala:512
+#: ../src/searches/SavedSearchDialog.vala:516
 msgid "and"
 msgstr "a"
 
-#: ../src/searches/SavedSearchDialog.vala:691
+#: ../src/searches/SavedSearchDialog.vala:695
 msgid "Search"
 msgstr "Hledání"
 
-#: ../src/searches/SavedSearchDialog.vala:696
+#: ../src/searches/SavedSearchDialog.vala:700
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../src/searches/SavedSearchDialog.vala:697
+#: ../src/searches/SavedSearchDialog.vala:701
 msgid "OK"
 msgstr "Budiž"
 
-#: ../src/searches/SavedSearchDialog.vala:715
+#: ../src/searches/SavedSearchDialog.vala:719
 msgid "any"
 msgstr "cokoliv"
 
-#: ../src/searches/SavedSearchDialog.vala:716
+#: ../src/searches/SavedSearchDialog.vala:720
 msgid "all"
 msgstr "vše"
 
-#: ../src/searches/SavedSearchDialog.vala:717
+#: ../src/searches/SavedSearchDialog.vala:721
 msgid "none"
 msgstr "nic"
 
