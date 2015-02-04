@@ -171,6 +171,7 @@ public class SavedSearchDialog {
             text_context.append_text(_("ends with"));
             text_context.append_text(_("does not contain"));
             text_context.append_text(_("is not set"));
+            text_context.append_text(_("is set"));
             text_context.set_active(0);
             text_context.changed.connect(on_changed);
             
@@ -211,7 +212,9 @@ public class SavedSearchDialog {
         }
         
         public override bool is_complete() {
-            return entry.text.chomp() != "" || get_text_context() == SearchConditionText.Context.IS_NOT_SET;
+            return entry.text.chomp() != "" ||
+                get_text_context() == SearchConditionText.Context.IS_NOT_SET ||
+                get_text_context() == SearchConditionText.Context.IS_SET;
         }
         
         private SearchConditionText.Context get_text_context() {
@@ -219,7 +222,8 @@ public class SavedSearchDialog {
         }
         
         private void on_changed() {
-            if (get_text_context() == SearchConditionText.Context.IS_NOT_SET) {
+            if (get_text_context() == SearchConditionText.Context.IS_NOT_SET
+                || get_text_context() == SearchConditionText.Context.IS_SET) {
                 entry.hide();
             } else {
                 entry.show();
