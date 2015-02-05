@@ -1393,9 +1393,19 @@ internal class GraphSession {
             if (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO)
                 mp_envelope.append_form_string("privacy", resource_privacy);
             
-            string publishable_title = publishable.get_publishing_name();
-            if (!suppress_titling && publishable_title != "")
+            //Get photo title and post it as message on FB API
+            string publishable_title = publishable.get_param_string("title");
+            if (!suppress_titling && publishable_title != null)
                 mp_envelope.append_form_string("name", publishable_title);
+                
+            //Set 'message' data field with EXIF comment field. Title has precedence.
+            string publishable_comment = publishable.get_param_string("comment");
+            if (!suppress_titling && publishable_comment != null)
+               mp_envelope.append_form_string("message", publishable_comment);
+            
+            //Sets correct date of the picture
+            if (!suppress_titling)
+               mp_envelope.append_form_string("backdated_time", publishable.get_exposure_date_time().to_string());
 
             string source_file_mime_type =
                 (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
