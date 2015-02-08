@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-11 15:24+0100\n"
-"PO-Revision-Date: 2015-01-11 15:25+0100\n"
+"POT-Creation-Date: 2015-02-08 14:22+0100\n"
+"PO-Revision-Date: 2015-02-08 14:23+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -63,8 +63,8 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-msgid "Copyright 2009-2014 Yorba Foundation"
-msgstr "Copyright 2009-2014 Fundacja Yorba"
+msgid "Copyright 2009-2015 Yorba Foundation"
+msgstr "Copyright 2009-2015 Fundacja Yorba"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -145,7 +145,7 @@ msgstr ""
 msgid "F-Spot library: %s"
 msgstr "Kolekcja programu F-Spot: %s"
 
-#: ../plugins/shotwell-data-imports/FSpotImporter.vala:416
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:422
 msgid "Preparing to import"
 msgstr "Przygotowywanie importu"
 
@@ -1053,8 +1053,8 @@ msgid "Core Slideshow Transitions"
 msgstr "Główne przejścia pokazu slajdów"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Fundacja Yorba"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Fundacja Yorba"
 
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
@@ -4722,7 +4722,7 @@ msgstr "zawiera"
 
 #. Ordering must correspond with Context
 #: ../src/searches/SavedSearchDialog.vala:169
-#: ../src/searches/SavedSearchDialog.vala:496
+#: ../src/searches/SavedSearchDialog.vala:500
 msgid "is exactly"
 msgstr "wynosi dokładnie"
 
@@ -4739,112 +4739,116 @@ msgid "does not contain"
 msgstr "nie zawiera"
 
 #: ../src/searches/SavedSearchDialog.vala:173
-#: ../src/searches/SavedSearchDialog.vala:500
+#: ../src/searches/SavedSearchDialog.vala:504
 msgid "is not set"
 msgstr "nie jest ustawione"
 
+#: ../src/searches/SavedSearchDialog.vala:174
+msgid "is set"
+msgstr "jest ustawione"
+
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: ../src/searches/SavedSearchDialog.vala:244
-#: ../src/searches/SavedSearchDialog.vala:375
-#: ../src/searches/SavedSearchDialog.vala:440
+#: ../src/searches/SavedSearchDialog.vala:248
+#: ../src/searches/SavedSearchDialog.vala:379
+#: ../src/searches/SavedSearchDialog.vala:444
 msgid "is"
 msgstr "jest"
 
-#: ../src/searches/SavedSearchDialog.vala:245
+#: ../src/searches/SavedSearchDialog.vala:249
 msgid "is not"
 msgstr "nie jest"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: ../src/searches/SavedSearchDialog.vala:251
+#: ../src/searches/SavedSearchDialog.vala:255
 msgid "any photo"
 msgstr "wszystkie zdjęcia"
 
-#: ../src/searches/SavedSearchDialog.vala:252
+#: ../src/searches/SavedSearchDialog.vala:256
 msgid "a raw photo"
 msgstr "surowe zdjęcie"
 
-#: ../src/searches/SavedSearchDialog.vala:253
+#: ../src/searches/SavedSearchDialog.vala:257
 msgid "a video"
 msgstr "nagranie wideo"
 
-#: ../src/searches/SavedSearchDialog.vala:307
+#: ../src/searches/SavedSearchDialog.vala:311
 msgid "has"
 msgstr "posiada"
 
-#: ../src/searches/SavedSearchDialog.vala:308
+#: ../src/searches/SavedSearchDialog.vala:312
 msgid "has no"
 msgstr "nie posiada"
 
-#: ../src/searches/SavedSearchDialog.vala:313
+#: ../src/searches/SavedSearchDialog.vala:317
 msgid "modifications"
 msgstr "modyfikacje"
 
-#: ../src/searches/SavedSearchDialog.vala:314
+#: ../src/searches/SavedSearchDialog.vala:318
 msgid "internal modifications"
 msgstr "wewnętrzne modyfikacje"
 
-#: ../src/searches/SavedSearchDialog.vala:315
+#: ../src/searches/SavedSearchDialog.vala:319
 msgid "external modifications"
 msgstr "zewnętrzne modyfikacje"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: ../src/searches/SavedSearchDialog.vala:369
+#: ../src/searches/SavedSearchDialog.vala:373
 msgid "flagged"
 msgstr "oznaczone flagą"
 
-#: ../src/searches/SavedSearchDialog.vala:370
+#: ../src/searches/SavedSearchDialog.vala:374
 msgid "not flagged"
 msgstr "nieoznaczone flagą"
 
-#: ../src/searches/SavedSearchDialog.vala:433
+#: ../src/searches/SavedSearchDialog.vala:437
 msgid "and higher"
 msgstr "i wyższe"
 
-#: ../src/searches/SavedSearchDialog.vala:434
+#: ../src/searches/SavedSearchDialog.vala:438
 msgid "only"
 msgstr "tylko"
 
-#: ../src/searches/SavedSearchDialog.vala:435
+#: ../src/searches/SavedSearchDialog.vala:439
 msgid "and lower"
 msgstr "i niższe"
 
-#: ../src/searches/SavedSearchDialog.vala:497
+#: ../src/searches/SavedSearchDialog.vala:501
 msgid "is after"
 msgstr "jest po"
 
-#: ../src/searches/SavedSearchDialog.vala:498
+#: ../src/searches/SavedSearchDialog.vala:502
 msgid "is before"
 msgstr "jest przed"
 
-#: ../src/searches/SavedSearchDialog.vala:499
+#: ../src/searches/SavedSearchDialog.vala:503
 msgid "is between"
 msgstr "jest między"
 
-#: ../src/searches/SavedSearchDialog.vala:512
+#: ../src/searches/SavedSearchDialog.vala:516
 msgid "and"
 msgstr "oraz"
 
-#: ../src/searches/SavedSearchDialog.vala:691
+#: ../src/searches/SavedSearchDialog.vala:695
 msgid "Search"
 msgstr "Wyszukiwanie"
 
-#: ../src/searches/SavedSearchDialog.vala:696
+#: ../src/searches/SavedSearchDialog.vala:700
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: ../src/searches/SavedSearchDialog.vala:697
+#: ../src/searches/SavedSearchDialog.vala:701
 msgid "OK"
 msgstr "OK"
 
-#: ../src/searches/SavedSearchDialog.vala:715
+#: ../src/searches/SavedSearchDialog.vala:719
 msgid "any"
 msgstr "dowolne"
 
-#: ../src/searches/SavedSearchDialog.vala:716
+#: ../src/searches/SavedSearchDialog.vala:720
 msgid "all"
 msgstr "wszystko"
 
-#: ../src/searches/SavedSearchDialog.vala:717
+#: ../src/searches/SavedSearchDialog.vala:721
 msgid "none"
 msgstr "brak"
 
