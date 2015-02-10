@@ -646,7 +646,8 @@ public class SearchFilterActions {
     }
 }
 
-public class SearchFilterToolbar : Gtk.Toolbar {
+public class SearchFilterToolbar : Gtk.Revealer {
+    private Gtk.Toolbar toolbar;
     private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
     private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon
     private const float FILTER_ICON_SCALE = 0.75f; // changes the size of the all photos icon
@@ -919,11 +920,12 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     
     public SearchFilterToolbar(SearchFilterActions actions) {
         this.actions = actions;
+        toolbar = new Gtk.Toolbar();
         actions.media_context_changed.connect(on_media_context_changed);
         search_box = new SearchBox(actions.text);
         
-        set_name("search-filter-toolbar");
-        set_icon_size(Gtk.IconSize.SMALL_TOOLBAR);
+        toolbar.set_name("search-filter-toolbar");
+        toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR);
         
         File ui_file = Resources.get_ui("search_bar.ui");
         try {
@@ -947,7 +949,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
        
         // Type label and toggles
         label_type = new LabelToolItem(_("Type"), 10, 5);
-        insert(label_type, -1);
+        toolbar.insert(label_type, -1);
         
         toolbtn_photos = new ToggleActionToolButton(actions.photos);
         toolbtn_photos.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayPhotos").tooltip);
@@ -958,43 +960,45 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         toolbtn_raw = new ToggleActionToolButton(actions.raw);
         toolbtn_raw.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayRaw").tooltip);
         
-        insert(toolbtn_photos, -1);
-        insert(toolbtn_videos, -1);
-        insert(toolbtn_raw, -1);
+        toolbar.insert(toolbtn_photos, -1);
+        toolbar.insert(toolbtn_videos, -1);
+        toolbar.insert(toolbtn_raw, -1);
         
         // separator
         sepr_mediatype_flagged = new Gtk.SeparatorToolItem();
-        insert(sepr_mediatype_flagged, -1);
+        toolbar.insert(sepr_mediatype_flagged, -1);
         
         // Flagged label and toggle
         label_flagged = new LabelToolItem(_("Flagged"));
-        insert(label_flagged, -1);
+        toolbar.insert(label_flagged, -1);
         
         toolbtn_flag = new ToggleActionToolButton(actions.flagged);
         toolbtn_flag.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayFlagged").tooltip);
         
-        insert(toolbtn_flag, -1);
+        toolbar.insert(toolbtn_flag, -1);
         
         // separator
         sepr_flagged_rating = new Gtk.SeparatorToolItem();
-        insert(sepr_flagged_rating, -1);
+        toolbar.insert(sepr_flagged_rating, -1);
         
         // Rating label and button
         label_rating = new LabelToolItem(_("Rating"));
-        insert(label_rating, -1);
+        toolbar.insert(label_rating, -1);
         rating_button.filter_popup = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
         rating_button.set_expand(false);
         rating_button.clicked.connect(on_filter_button_clicked);
-        insert(rating_button, -1);
+        toolbar.insert(rating_button, -1);
         
         // Separator to right-align the text box
         Gtk.SeparatorToolItem separator_align = new Gtk.SeparatorToolItem();
         separator_align.set_expand(true);
         separator_align.set_draw(false);
-        insert(separator_align, -1);
+        toolbar.insert(separator_align, -1);
         
         // Search box.
-        insert(search_box, -1);
+        toolbar.insert(search_box, -1);
+
+        add(toolbar);
         
         // hook up signals to actions to be notified when they change
         actions.flagged_toggled.connect(on_flagged_toggled);
@@ -1006,7 +1010,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.criteria_changed.connect(on_criteria_changed);
         
         // #3260 part II Hook up close menu.
-        popup_context_menu.connect(on_context_menu_requested);
+        toolbar.popup_context_menu.connect(on_context_menu_requested);
         
         on_media_context_changed(actions.get_has_photos(), actions.get_has_videos(),
             actions.get_has_raw(), actions.get_has_flagged());
@@ -1024,7 +1028,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.text_changed.disconnect(on_search_text_changed);
         actions.criteria_changed.disconnect(on_criteria_changed);
         
-        popup_context_menu.disconnect(on_context_menu_requested); 
+        toolbar.popup_context_menu.disconnect(on_context_menu_requested); 
     }
     
     private void on_media_context_changed(bool has_photos, bool has_videos, bool has_raw,

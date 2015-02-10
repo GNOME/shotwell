@@ -1415,7 +1415,7 @@ public class LibraryWindow : AppWindow {
     
     // Turns the search bar on or off.  Note that if show is true, page must not be null.
     private void toggle_search_bar(bool show, CheckerboardPage? page = null) {
-        search_toolbar.visible = show;
+        search_toolbar.set_reveal_child(show);
         if (show) {
             assert(null != page);
             search_toolbar.set_view_filter(page.get_search_view_filter());
