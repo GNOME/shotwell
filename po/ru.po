@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-02-09 22:38+0000\n"
-"PO-Revision-Date: 2015-02-10 01:24+0300\n"
+"POT-Creation-Date: 2015-02-11 22:10+0000\n"
+"PO-Revision-Date: 2015-02-12 01:04+0300\n"
 "Last-Translator: Stas Solovey <whats_up@tut.by>\n"
 "Language-Team: Русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -48,7 +48,8 @@ msgid ""
 "To continue publishing to Google services, quit and restart Shotwell, then "
 "try publishing again."
 msgstr ""
-"Вы уже вошли и вышли из сервисов Google в ходе этой сессии Shotwell.\n"
+"Вы уже авторизовались и вышли из сервисов Google в ходе этой сессии "
+"Shotwell.\n"
 "\n"
 "Чтобы продолжить публикацию в сервисы Google, перезапустите Shotwell, затем "
 "повторите попытку публикации."
@@ -155,31 +156,22 @@ msgstr "Подготовка импортирования"
 
 #: ../plugins/shotwell-data-imports/shotwell-data-imports.vala:22
 msgid "Core Data Import Services"
-msgstr ""
+msgstr "Основные сервисы импортирования"
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:41
 msgid "Gallery3 publishing module"
-msgstr ""
+msgstr "Cервис публикации Gallery3"
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:114
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into YouTube.\n"
-#| "\n"
-#| "You must have already signed up for a Google account and set it up for "
-#| "use with YouTube to continue. You can set up most accounts by using your "
-#| "browser to log into the YouTube site at least once."
 msgid ""
 "You are not currently logged into your Gallery.\n"
 "\n"
 "You must have already signed up for a Gallery3 account to complete the login "
 "process."
 msgstr ""
-"Вы не вошли на YouTube.\n"
+"В данный момент вы не авторизованы в Gallery.\n"
 "\n"
-"Чтобы продолжить, вам необходима учётная запись Google, имеющая привязку к "
-"YouTube. Можно связать учётные записи после первого входа на сайт YouTube в "
-"браузере."
+"Для продолжения вам необходима уже созданная учётная запись Gallery3."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
 #: ../src/MediaPage.vala:434 ../src/photos/RawSupport.vala:300
@@ -206,32 +198,24 @@ msgid ""
 msgstr ""
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1022
-#, fuzzy, c-format
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Picasa can't "
-#| "continue."
+#, c-format
 msgid ""
 "A file required for publishing is unavailable. Publishing to %s can't "
 "continue."
 msgstr ""
-"Файл, необходимый для публикации недоступен. Публикация в Picasa невозможна."
+"Файл, необходимый для публикации недоступен. Невозможно продолжить "
+"публикацию в %s."
 
 #. populate any widgets whose contents are
 #. programmatically-generated
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1551
-#, fuzzy, c-format
-#| msgid "Publish Photos and Videos"
+#, c-format
 msgid "Publishing to %s as %s."
-msgstr "Публикация фотографий и видео"
+msgstr "Публикация в %s как %s."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1775
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Flickr can't "
-#| "continue."
 msgid "A file required for publishing is unavailable. Publishing to "
-msgstr ""
-"Файл, необходимый для публикации недоступен. Публикация в Flickr невозможна."
+msgstr "Файл, необходимый для публикации недоступен. Публикация в "
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1817
 #, fuzzy
@@ -264,7 +248,7 @@ msgstr "Нераспознанный пользователь"
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1877
 msgid " Site Not Found"
-msgstr ""
+msgstr " сайт не найден"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:38
 msgid "Copyright (C) 2013 rajce.net"
@@ -278,15 +262,13 @@ msgid "An error message occurred when publishing to Rajce. Please try again."
 msgstr "Ошибка публикации в Piwigo. Попробуйте ещё раз."
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:831
-#, fuzzy
-#| msgid "Enter the username and password associated with your Tumblr account."
 msgid "Enter email and password associated with your Rajce account."
 msgstr ""
-"Введите имя пользователя и пароль, связанный с вашей учётной записью Tumblr."
+"Введите адрес эл. почты и пароль, связанный с вашей учётной записью Rajce."
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:832
 msgid "Invalid email and/or password. Please try again"
-msgstr "Неверный адрес эл. почты или пароль. Попробуйте ещё раз"
+msgstr "Неверный адрес эл. почты и/или пароль. Попробуйте ещё раз"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:863
 msgid "Invalid User Email or Password"
@@ -296,7 +278,7 @@ msgstr "Неверный адрес эл. почты или пароль"
 #: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:2
 #: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:2
 msgid "_Email address"
-msgstr "А_дрес эл. почты:"
+msgstr "А_дрес эл. почты"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:891
 #: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:3
@@ -331,7 +313,7 @@ msgstr "Вы вошли в Rajce как %s."
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:670
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:1
 msgid "Photos will appear in:"
-msgstr "Фото будут расположены в:"
+msgstr "Фотографии будут расположены в:"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:3
@@ -344,12 +326,12 @@ msgstr "_Существующем альбоме:"
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:2
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:3
 msgid "A _new album named:"
-msgstr "Новый _альбом:"
+msgstr "_Новом альбоме:"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:6
 msgid "Open target _album in browser"
-msgstr ""
+msgstr "Открыть целевой альбом в браузере"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:2
@@ -417,12 +399,12 @@ msgstr ""
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:587
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1000
 msgid "Username and/or password invalid. Please try again"
-msgstr "Неправильное имя пользователя и/или пароль. Повторите попытку ещё раз"
+msgstr "Неверное имя пользователя и/или пароль. Повторите попытку ещё раз"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:617
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1037
 msgid "Invalid User Name or Password"
-msgstr "Недопустимое имя пользователя или пароль"
+msgstr "Неверное имя пользователя или пароль"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:636
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:757
@@ -452,16 +434,12 @@ msgid "You are not currently logged into Yandex.Fotki."
 msgstr "В данный момент вы не авторизованы в Yandex.Fotki."
 
 #: ../plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
-#, fuzzy
-#| msgid "Core Publishing Services"
 msgid "Shotwell Extra Publishing Services"
-msgstr "Основные сервисы публикации"
+msgstr "Дополнительные сервисы публикации Shotwell"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:1
-#, fuzzy
-#| msgid "Back"
 msgid "Go _Back"
-msgstr "Назад"
+msgstr "_Назад"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:2
 #: ../ui/shotwell.glade.h:42
@@ -474,7 +452,7 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:4
 msgid "_Gallery3 URL:"
-msgstr ""
+msgstr "_Gallery3 URL:"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:5
 msgid "_User name:"
@@ -486,7 +464,7 @@ msgstr "_Пароль:"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:7
 msgid "API _Key:"
-msgstr ""
+msgstr "API _Key:"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:8
 msgid "or"
@@ -533,7 +511,7 @@ msgstr "пикселов"
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1250
 #: ../src/Dimensions.vala:17
 msgid "Original size"
-msgstr "Фактический размер"
+msgstr "Исходный размер"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:10
 #: ../src/Dimensions.vala:20
@@ -558,20 +536,12 @@ msgid "Photo _size:"
 msgstr "_Размер снимка:"
 
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:1
-#, fuzzy
-#| msgid ""
-#| "You are logged into Facebook as %s.\n"
-#| "\n"
 msgid "you are logged in rajce as $name"
-msgstr ""
-"Вы зашли на Facebook как %s.\n"
-"\n"
+msgstr "вы зашли в rajce как $name"
 
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:7
-#, fuzzy
-#| msgid "Videos will appear in:"
 msgid "$mediatype will appear in"
-msgstr "Видео появятся в:"
+msgstr "$mediatype появятся в"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:1
 msgid "_Albums (or write new):"
@@ -620,10 +590,10 @@ msgid ""
 msgstr ""
 "В данный момент вы не авторизованы в Facebook.\n"
 "\n"
-"Если у вас ещё нет учётной записи Facebook, вы сможете создать её в процессе "
-"авторизации. Во время авторизации менеджер подключений может запросить "
-"разрешение на выгрузку фото и публикацию их в вашей галерее. Это необходимо "
-"для работы менеджера."
+"Если у вас ещё нет учётной записи Facebook, вы можете создать её в процессе "
+"авторизации. Во время авторизации менеджер подключений Shotwell может "
+"запросить разрешение на выгрузку фото и публикацию их в вашей галерее. Это "
+"необходимо для работы менеджера."
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:65
 msgid ""
@@ -632,17 +602,17 @@ msgid ""
 "To continue publishing to Facebook, quit and restart Shotwell, then try "
 "publishing again."
 msgstr ""
-"Вы уже входили в Facebook в течение этой сессии.\n"
-"Для продолжения публикации на Facebook, перезапустите Shotwell и повторите "
-"попытку."
+"Вы уже авторизовались и вышли из Facebook в ходе этой сессии Shotwell.\n"
+"Чтобы продолжить публикацию в Facebook, перезапустите Shotwell, затем "
+"повторите попытку публикации."
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:86
 msgid "Standard (720 pixels)"
-msgstr "Стандарт (720 пикселов)"
+msgstr "Стандартный (720 пикселей)"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:89
 msgid "Large (2048 pixels)"
-msgstr "Большой (2048 пикселов)"
+msgstr "Большой (2048 пикселей)"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:254
 msgid "Testing connection to Facebook..."
@@ -658,8 +628,8 @@ msgid ""
 "A file required for publishing is unavailable. Publishing to Facebook can't "
 "continue."
 msgstr ""
-"Файл, необходимый для публикации недоступен. Публикация в Facebook "
-"невозможна."
+"Файл, необходимый для публикации недоступен. Невозможно продолжить "
+"публикацию в Facebook."
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:1019
 #, c-format
@@ -667,7 +637,7 @@ msgid ""
 "You are logged into Facebook as %s.\n"
 "\n"
 msgstr ""
-"Вы зашли на Facebook как %s.\n"
+"Вы зашли в Facebook как %s.\n"
 "\n"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:1020
@@ -708,13 +678,13 @@ msgid ""
 "To continue publishing to Flickr, quit and restart Shotwell, then try "
 "publishing again."
 msgstr ""
-"Вы уже выходили из Flickr во время этой сессии Shotwell.\n"
-"Для продолжения публикации на Flickr, перезапустите Shotwell и попробуйте "
-"снова."
+"Вы уже авторизовались и вышли из Flickr в ходе этой сессии Shotwell.\n"
+"Чтобы продолжить публикацию в Flickr, перезапустите Shotwell, затем "
+"повторите попытку публикации."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:375
 msgid "Preparing for login..."
-msgstr "Подготовка к входу…"
+msgstr "Подготовка входа…"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:444
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:595
@@ -722,7 +692,8 @@ msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can't "
 "continue."
 msgstr ""
-"Файл, необходимый для публикации недоступен. Публикация в Flickr невозможна."
+"Файл, необходимый для публикации недоступен. Невозможно продолжить "
+"публикацию в Flickr."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:457
 msgid "Verifying authorization..."
@@ -734,7 +705,7 @@ msgid ""
 "You are logged into Flickr as %s.\n"
 "\n"
 msgstr ""
-"Вы зашли на Flickr как %s.\n"
+"Вы зашли в Flickr как %s.\n"
 "\n"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1156
@@ -815,13 +786,14 @@ msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can't "
 "continue."
 msgstr ""
-"Файл, необходимый для публикации недоступен. Публикация в Picasa невозможна."
+"Файл, необходимый для публикации недоступен. Невозможно продолжить "
+"публикацию в Picasa."
 
 #. populate any widgets whose contents are programmatically-generated.
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:659
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr "Вы вошли в альбомы Picasa как %s."
+msgstr "Вы вошли в веб-альбомы Picasa как %s."
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:665
 msgid "Videos will appear in:"
@@ -829,15 +801,15 @@ msgstr "Видео появятся в:"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:746
 msgid "Small (640 x 480 pixels)"
-msgstr "Маленький (640х480 пикселей)"
+msgstr "Маленький (640 х 480 пикселей)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:747
 msgid "Medium (1024 x 768 pixels)"
-msgstr "Средний (1024х768 пикселей)"
+msgstr "Средний (1024 х 768 пикселей)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:748
 msgid "Recommended (1600 x 1200 pixels)"
-msgstr "Рекомендуемый (1600х1200 пикселей)"
+msgstr "Рекомендуемый (1600 х 1200 пикселей)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:749
 msgid "Google+ (2048 x 1536 pixels)"
@@ -846,7 +818,7 @@ msgstr "Google+ (2048 x 1536 пикселей)"
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:750
 #: ../src/editing_tools/EditingTools.vala:756
 msgid "Original Size"
-msgstr "Фактический размер"
+msgstr "Исходный размер"
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:746
 #, c-format
@@ -912,13 +884,13 @@ msgid ""
 "A file required for publishing is unavailable. Publishing to Youtube can't "
 "continue."
 msgstr ""
-"Файл, необходимый для публикации недоступен. Публикация на Youtube "
-"невозможна."
+"Файл, необходимый для публикации недоступен. Невозможно продолжить "
+"публикацию в Youtube."
 
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:461
 #, c-format
 msgid "You are logged into YouTube as %s."
-msgstr "Вы зашли на YouTube как %s."
+msgstr "Вы зашли в YouTube как %s."
 
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:463
 #, c-format
@@ -3727,7 +3699,7 @@ msgstr "Слайдшоу"
 
 #. Flagged label and toggle
 #: ../src/SearchFilter.vala:587 ../src/SearchFilter.vala:588
-#: ../src/SearchFilter.vala:970 ../src/library/FlaggedPage.vala:8
+#: ../src/SearchFilter.vala:972 ../src/library/FlaggedPage.vala:8
 msgid "Flagged"
 msgstr "Отмеченные"
 
@@ -3747,18 +3719,18 @@ msgstr "Изображения RAW"
 msgid "RAW photos"
 msgstr "Изображения RAW"
 
-#: ../src/SearchFilter.vala:932
+#: ../src/SearchFilter.vala:934
 #, c-format
 msgid "Error loading UI file %s: %s"
 msgstr "Не удалось загрузить файл интерфейса %s: %s"
 
 #. Type label and toggles
-#: ../src/SearchFilter.vala:949
+#: ../src/SearchFilter.vala:951
 msgid "Type"
 msgstr "Тип"
 
 #. Rating label and button
-#: ../src/SearchFilter.vala:983 ../src/searches/SearchBoolean.vala:184
+#: ../src/SearchFilter.vala:985 ../src/searches/SearchBoolean.vala:184
 msgid "Rating"
 msgstr "Рейтинг"
 
@@ -4439,25 +4411,25 @@ msgstr "Расположение библиотеки"
 msgid "Photos cannot be imported from this directory."
 msgstr "Фотографии не могут быть импортированы из этого каталога."
 
-#: ../src/library/LibraryWindow.vala:1200
+#: ../src/library/LibraryWindow.vala:1199
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: ../src/library/LibraryWindow.vala:1244
-#: ../src/library/LibraryWindow.vala:1255
+#: ../src/library/LibraryWindow.vala:1243
+#: ../src/library/LibraryWindow.vala:1254
 msgid "Updating library..."
 msgstr "Обновление библиотеки…"
 
-#: ../src/library/LibraryWindow.vala:1261
+#: ../src/library/LibraryWindow.vala:1260
 msgid "Preparing to auto-import photos..."
 msgstr "Подготовка к авто-импортированию…"
 
-#: ../src/library/LibraryWindow.vala:1266
+#: ../src/library/LibraryWindow.vala:1265
 msgid "Auto-importing photos..."
 msgstr "Авто-импортирование фотографий…"
 
-#: ../src/library/LibraryWindow.vala:1274
+#: ../src/library/LibraryWindow.vala:1273
 msgid "Writing metadata to files..."
 msgstr "Запись метаданных в файлы…"
 
@@ -4546,7 +4518,7 @@ msgstr "Не показывать анимированный индикатор 
 
 #: ../src/main.vala:306
 msgid "Show the application's version"
-msgstr "Показывать версию приложения"
+msgstr "Показать версию приложения"
 
 #. init GTK (valac has already called g_threads_init())
 #: ../src/main.vala:338
