@@ -7,13 +7,13 @@
 public interface Sidebar.Entry : Object {
     public signal void sidebar_tooltip_changed(string? tooltip);
     
-    public signal void sidebar_icon_changed(Icon? icon);
+    public signal void sidebar_icon_changed(string? icon);
     
     public abstract string get_sidebar_name();
     
     public abstract string? get_sidebar_tooltip();
     
-    public abstract Icon? get_sidebar_icon();
+    public abstract string? get_sidebar_icon();
     
     public abstract string to_string();
     
@@ -25,11 +25,7 @@ public interface Sidebar.Entry : Object {
 }
 
 public interface Sidebar.ExpandableEntry : Sidebar.Entry {
-    public signal void sidebar_open_closed_icons_changed(Icon? open, Icon? closed);
-    
-    public abstract Icon? get_sidebar_open_icon();
-    
-    public abstract Icon? get_sidebar_closed_icon();
+    public signal void sidebar_open_closed_icons_changed(string? open, string? closed);
     
     public abstract bool expand_on_select();
 }

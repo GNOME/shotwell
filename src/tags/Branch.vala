@@ -124,7 +124,7 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry,
     private Gtk.Menu? context_menu = null;
     
     public Grouping() {
-        base (_("Tags"), new ThemedIcon(Resources.ICON_TAGS));
+        base (_("Tags"), Resources.ICON_TAGS);
         setup_context_menu();
     }
     
@@ -199,7 +199,7 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry,
 public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
     Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry,
     Sidebar.InternalDragSourceEntry {
-    private static Icon single_tag_icon;
+    private string single_tag_icon = Resources.ICON_ONE_TAG;
     
     private Tag tag;
     
@@ -208,11 +208,9 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     }
     
     internal static void init() {
-        single_tag_icon = new ThemedIcon(Resources.ICON_ONE_TAG);
     }
     
     internal static void terminate() {
-        single_tag_icon = null;
     }
     
     public Tag for_tag() {
@@ -223,7 +221,7 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return tag.get_user_visible_name();
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return single_tag_icon;
     }
     
@@ -290,14 +288,6 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return false;
     }
 
-    public Icon? get_sidebar_open_icon() {
-        return single_tag_icon;
-    }
-    
-    public Icon? get_sidebar_closed_icon() {
-        return single_tag_icon;
-    }
-    
     public bool expand_on_select() {
         return false;
     }

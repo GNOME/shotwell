@@ -15,7 +15,6 @@ public class Library.Branch : Sidebar.RootOnlyBranch {
 }
 
 public class Library.SidebarEntry : Sidebar.SimplePageEntry {
-    private Icon icon = new ThemedIcon(Resources.ICON_PHOTOS);
     
     public SidebarEntry() {
     }
@@ -24,8 +23,8 @@ public class Library.SidebarEntry : Sidebar.SimplePageEntry {
         return Library.MainPage.NAME;
     }
     
-    public override Icon? get_sidebar_icon() {
-        return icon;
+    public override string? get_sidebar_icon() {
+        return Resources.ICON_PHOTOS;
     }
     
     protected override Page create_page() {

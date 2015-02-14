@@ -63,8 +63,8 @@ public class Library.ImportQueueSidebarEntry : Sidebar.SimplePageEntry {
         return ImportQueuePage.NAME;
     }
     
-    public override Icon? get_sidebar_icon() {
-        return new ThemedIcon(Resources.ICON_IMPORTING);
+    public override string? get_sidebar_icon() {
+        return Resources.ICON_IMPORTING;
     }
     
     protected override Page create_page() {

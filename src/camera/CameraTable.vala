@@ -8,9 +8,9 @@ public class DiscoveredCamera {
     public GPhoto.Camera gcamera;
     public string uri;
     public string display_name;
-    public GLib.Icon? icon;
+    public string? icon;
     
-    public DiscoveredCamera(GPhoto.Camera gcamera, string uri, string display_name, GLib.Icon? icon) {
+    public DiscoveredCamera(GPhoto.Camera gcamera, string uri, string display_name, string? icon) {
         this.gcamera = gcamera;
         this.uri = uri;
         this.display_name = display_name;
@@ -221,10 +221,10 @@ public class CameraTable {
         return null;
     }
     
-    private GLib.Icon? get_icon_for_uuid(string uuid) {
+    private string? get_icon_for_uuid(string uuid) {
         foreach (Volume volume in volume_monitor.get_volumes()) {
             if (volume.get_identifier(VolumeIdentifier.UUID) == uuid) {
-                return volume.get_icon();
+                return volume.get_icon().to_string();
             }
         }
         return null;
@@ -323,7 +323,7 @@ public class CameraTable {
         foreach (string port in detected_map.keys) {
             string name = detected_map.get(port);
             string display_name = null;
-            GLib.Icon? icon = null;
+            string? icon = null;
             string uri = get_port_uri(port);
 
             if (camera_map.has_key(uri)) {

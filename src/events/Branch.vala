@@ -5,11 +5,10 @@
  */
 
 public class Events.Branch : Sidebar.Branch {
-    internal static Icon open_icon;
-    internal static Icon closed_icon;
-    internal static Icon events_icon;
-    internal static Icon single_event_icon;
-    internal static Icon no_event_icon;
+    internal static string icon = Resources.ICON_FOLDER_CLOSED;
+    internal static string events_icon = Resources.ICON_EVENTS;
+    internal static string single_event_icon = Resources.ICON_ONE_EVENT;
+    internal static string no_event_icon = Resources.ICON_NO_EVENT;
     
     // NOTE: Because the comparators must be static methods (due to CompareFunc's stupid impl.)
     // and there's an assumption that only one Events.Branch is ever created, this is a static
@@ -49,21 +48,10 @@ public class Events.Branch : Sidebar.Branch {
     }
     
     internal static void init() {
-        open_icon = new ThemedIcon(Resources.ICON_FOLDER_OPEN);
-        closed_icon = new ThemedIcon(Resources.ICON_FOLDER_CLOSED);
-        events_icon = new ThemedIcon(Resources.ICON_EVENTS);
-        single_event_icon = new ThemedIcon(Resources.ICON_ONE_EVENT);
-        no_event_icon = new ThemedIcon(Resources.ICON_NO_EVENT);
-        
         sort_ascending = Config.Facade.get_instance().get_events_sort_ascending();
     }
     
     internal static void terminate() {
-        open_icon = null;
-        closed_icon = null;
-        events_icon = null;
-        single_event_icon = null;
-        no_event_icon = null;
     }
     
     public Events.MasterDirectoryEntry get_master_entry() {
@@ -372,16 +360,8 @@ public abstract class Events.DirectoryEntry : Sidebar.SimplePageEntry, Sidebar.E
     public DirectoryEntry() {
     }
     
-    public override Icon? get_sidebar_icon() {
-        return null;
-    }
-    
-    public virtual Icon? get_sidebar_open_icon() {
-        return Events.Branch.open_icon;
-    }
-    
-    public virtual Icon? get_sidebar_closed_icon() {
-        return Events.Branch.closed_icon;
+    public override string? get_sidebar_icon() {
+        return Events.Branch.icon;
     }
     
     public bool expand_on_select() {
@@ -397,15 +377,7 @@ public class Events.MasterDirectoryEntry : Events.DirectoryEntry {
         return MasterEventsDirectoryPage.NAME;
     }
     
-    public override Icon? get_sidebar_icon() {
-        return Events.Branch.events_icon;
-    }
-    
-    public override Icon? get_sidebar_open_icon() {
-        return Events.Branch.events_icon;
-    }
-    
-    public override Icon? get_sidebar_closed_icon() {
+    public override string? get_sidebar_icon() {
         return Events.Branch.events_icon;
     }
     
@@ -492,7 +464,7 @@ public class Events.EventEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return event.get_name();
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return Events.Branch.single_event_icon;
     }
     
@@ -531,7 +503,7 @@ public class Events.NoEventEntry : Sidebar.SimplePageEntry {
         return NoEventPage.NAME;
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return Events.Branch.no_event_icon;
     }
     

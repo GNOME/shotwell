@@ -138,7 +138,7 @@ public class Folders.Branch : Sidebar.Branch {
 
 private class Folders.Root : Sidebar.Grouping {
     public Root() {
-        base (_("Folders"), Folders.opened_icon, Folders.closed_icon);
+        base (_("Folders"), Folders.icon);
     }
 }
 
@@ -172,20 +172,12 @@ public class Folders.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.ExpandableE
         return dir.get_basename();
     }
     
-    public override Icon? get_sidebar_icon() {
-        return count == 0 ? closed_icon : have_photos_icon;
+    public override string? get_sidebar_icon() {
+        return count == 0 ? icon : have_photos_icon;
     }
     
     public override string to_string() {
         return dir.get_path();
-    }
-    
-    public Icon? get_sidebar_open_icon() {
-        return count == 0 ? opened_icon : have_photos_icon;
-    }
-    
-    public Icon? get_sidebar_closed_icon() {
-        return count == 0 ? closed_icon : have_photos_icon;
     }
     
     public bool expand_on_select() {

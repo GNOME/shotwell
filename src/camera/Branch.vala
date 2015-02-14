@@ -5,7 +5,7 @@
  */
 
 public class Camera.Branch : Sidebar.Branch {
-    internal static Icon? cameras_icon = null;
+    internal static string? cameras_icon = null;
     
     private Gee.HashMap<DiscoveredCamera, Camera.SidebarEntry> camera_map = new Gee.HashMap<
         DiscoveredCamera, Camera.SidebarEntry>();
@@ -23,7 +23,7 @@ public class Camera.Branch : Sidebar.Branch {
     }
     
     internal static void init() {
-        cameras_icon = new GLib.ThemedIcon(Resources.ICON_CAMERAS);
+        cameras_icon = Resources.ICON_CAMERAS;
     }
     
     internal static void terminate() {
@@ -101,7 +101,7 @@ public class Camera.SidebarEntry : Sidebar.SimplePageEntry {
         return camera.display_name ?? _("Camera");
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return camera.icon ?? Camera.Branch.cameras_icon;
     }
     

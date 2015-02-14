@@ -40,8 +40,8 @@ public class Library.OfflineSidebarEntry : Sidebar.SimplePageEntry {
         return OfflinePage.NAME;
     }
     
-    public override Icon? get_sidebar_icon() {
-        return new ThemedIcon(Resources.ICON_MISSING_FILES);
+    public override string? get_sidebar_icon() {
+        return Resources.ICON_MISSING_FILES;
     }
     
     protected override Page create_page() {

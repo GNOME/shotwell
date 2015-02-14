@@ -36,8 +36,8 @@ public class Library.LastImportSidebarEntry : Sidebar.SimplePageEntry {
         return LastImportPage.NAME;
     }
     
-    public override Icon? get_sidebar_icon() {
-        return new ThemedIcon(Resources.ICON_LAST_IMPORT);
+    public override string? get_sidebar_icon() {
+        return Resources.ICON_LAST_IMPORT;
     }
     
     protected override Page create_page() {

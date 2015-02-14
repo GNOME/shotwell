@@ -40,8 +40,8 @@ public class Library.FlaggedSidebarEntry : Sidebar.SimplePageEntry, Sidebar.Inte
         return FlaggedPage.NAME;
     }
     
-    public override Icon? get_sidebar_icon() {
-        return new ThemedIcon(Resources.ICON_FLAGGED_PAGE);
+    public override string? get_sidebar_icon() {
+        return Resources.ICON_FLAGGED_PAGE;
     }
     
     protected override Page create_page() {

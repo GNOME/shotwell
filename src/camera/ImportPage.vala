@@ -691,7 +691,7 @@ public class ImportPage : CheckerboardPage {
     private string camera_name;
     private VolumeMonitor volume_monitor = null;
     private ImportPage? local_ref = null;
-    private GLib.Icon? icon;
+    private string? icon;
     private ImportPageSearchViewFilter search_filter = new ImportPageSearchViewFilter();
     private HideImportedViewFilter hide_imported_filter = new HideImportedViewFilter();
     private CameraViewTracker tracker;
@@ -707,7 +707,7 @@ public class ImportPage : CheckerboardPage {
         LIBRARY_ERROR
     }
     
-    public ImportPage(GPhoto.Camera camera, string uri, string? display_name = null, GLib.Icon? icon = null) {
+    public ImportPage(GPhoto.Camera camera, string uri, string? display_name = null, string? icon = null) {
         base(_("Camera"));
         this.camera = camera;
         this.uri = uri;
