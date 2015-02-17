@@ -322,11 +322,11 @@ public class Events.Branch : Sidebar.Branch {
     }
     
     private void graft_event(Sidebar.Entry parent, Event event,
-        owned CompareDataFunc<Sidebar.Entry>? comparator = null) {
+        owned CompareFunc<Sidebar.Entry>? comparator = null) {
         Events.EventEntry entry = new Events.EventEntry(event);
         entry_map.set(event, entry);
         
-        graft(parent, entry, (owned) comparator);
+        graft(parent, entry, comparator);
     }
     
     private void reparent_event(Event event, Sidebar.Entry new_parent) {
