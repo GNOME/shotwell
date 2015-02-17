@@ -91,10 +91,12 @@ public class Sidebar.Tree : Gtk.TreeView {
     public Tree(Gtk.TargetEntry[] target_entries, Gdk.DragAction actions,
         ExternalDropHandler drop_handler) {
         set_model(store);
+        get_style_context().add_class("sidebar");
         
         Gtk.TreeViewColumn text_column = new Gtk.TreeViewColumn();
         text_column.set_sizing(Gtk.TreeViewColumnSizing.FIXED);
         Gtk.CellRendererPixbuf icon_renderer = new Gtk.CellRendererPixbuf();
+        icon_renderer.follow_state = true;
         text_column.pack_start(icon_renderer, false);
         text_column.add_attribute(icon_renderer, "icon_name", Columns.ICON);
         text_renderer = new Gtk.CellRendererText();
@@ -709,7 +711,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         EntryWrapper? wrapper = get_wrapper_at_iter(iter);
         if (wrapper == null)
             return;
-        
         string? icon = wrapper.entry.get_sidebar_icon();
         store.set(iter, Columns.ICON, icon);
     }

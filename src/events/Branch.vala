@@ -5,7 +5,7 @@
  */
 
 public class Events.Branch : Sidebar.Branch {
-    internal static string icon = Resources.ICON_FOLDER_CLOSED;
+    internal static string icon = Resources.ICON_FOLDER;
     internal static string events_icon = Resources.ICON_EVENTS;
     internal static string single_event_icon = Resources.ICON_ONE_EVENT;
     internal static string no_event_icon = Resources.ICON_NO_EVENT;

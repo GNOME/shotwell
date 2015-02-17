@@ -19,7 +19,7 @@ static string? icon = null;
 static string? have_photos_icon = null;
 
 public void init() throws Error {
-    icon = Resources.ICON_FOLDER_CLOSED;
+    icon = Resources.ICON_FOLDER;
     have_photos_icon = Resources.ICON_FOLDER_DOCUMENTS;
 }
 

@@ -25,8 +25,6 @@ public interface Sidebar.Entry : Object {
 }
 
 public interface Sidebar.ExpandableEntry : Sidebar.Entry {
-    public signal void sidebar_open_closed_icons_changed(string? open, string? closed);
-    
     public abstract bool expand_on_select();
 }
 

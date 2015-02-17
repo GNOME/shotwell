@@ -5,7 +5,7 @@
  */
 
 public class Camera.Branch : Sidebar.Branch {
-    internal static string? cameras_icon = null;
+    internal static string? cameras_icon = Resources.ICON_CAMERAS;
     
     private Gee.HashMap<DiscoveredCamera, Camera.SidebarEntry> camera_map = new Gee.HashMap<
         DiscoveredCamera, Camera.SidebarEntry>();
@@ -23,11 +23,9 @@ public class Camera.Branch : Sidebar.Branch {
     }
     
     internal static void init() {
-        cameras_icon = Resources.ICON_CAMERAS;
     }
     
     internal static void terminate() {
-        cameras_icon = null;
     }
     
     private static int camera_comparator(Sidebar.Entry a, Sidebar.Entry b) {
