@@ -1772,9 +1772,11 @@ internal class CredentialsPane : Spit.Publishing.DialogPane, GLib.Object {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is " +
-                        "unavailable. Publishing to " + SERVICE_NAME +
-                        " can't continue.")));
+                    _("A file required for publishing is unavailable. Publishing to %s can't continue.")
+                        .printf(SERVICE_NAME)
+                    )
+                );
+            
             return;
         }
 
