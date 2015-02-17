@@ -417,14 +417,14 @@ public class LibraryWindow : AppWindow {
         Gtk.RadioActionEntry[] actions = new Gtk.RadioActionEntry[0];
         
         Gtk.RadioActionEntry ascending = { "CommonSortEventsAscending",
-            Gtk.Stock.SORT_ASCENDING, TRANSLATABLE, null, TRANSLATABLE,
+            Resources.SORT_ASCENDING_LABEL, TRANSLATABLE, null, TRANSLATABLE,
             SORT_EVENTS_ORDER_ASCENDING };
         ascending.label = _("_Ascending");
         ascending.tooltip = _("Sort photos in an ascending order");
         actions += ascending;
 
         Gtk.RadioActionEntry descending = { "CommonSortEventsDescending",
-            Gtk.Stock.SORT_DESCENDING, TRANSLATABLE, null, TRANSLATABLE,
+            Resources.SORT_DESCENDING_LABEL, TRANSLATABLE, null, TRANSLATABLE,
             SORT_EVENTS_ORDER_DESCENDING };
         descending.label = _("D_escending");
         descending.tooltip = _("Sort photos in a descending order");
@@ -666,8 +666,8 @@ public class LibraryWindow : AppWindow {
     
     private void on_file_import() {
         Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog(_("Import From Folder"), null,
-            Gtk.FileChooserAction.SELECT_FOLDER, Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, 
-            Gtk.Stock.OK, Gtk.ResponseType.OK);
+            Gtk.FileChooserAction.SELECT_FOLDER, Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL, 
+            Resources.OK_LABEL, Gtk.ResponseType.OK);
         import_dialog.set_local_only(false);
         import_dialog.set_select_multiple(true);
         import_dialog.set_current_folder(import_dir);

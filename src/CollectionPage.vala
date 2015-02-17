@@ -215,7 +215,7 @@ public abstract class CollectionPage : MediaPage {
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
         actions += adjust_date_time;
         
-        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.Stock.EDIT, TRANSLATABLE, "<Ctrl>Return",
+        Gtk.ActionEntry external_edit = { "ExternalEdit", Resources.EDIT_LABEL, TRANSLATABLE, "<Ctrl>Return",
             TRANSLATABLE, on_external_edit };
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
         actions += external_edit;

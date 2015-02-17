@@ -98,7 +98,7 @@ public class StraightenTool : EditingTool {
         public Gtk.Label angle_label = new Gtk.Label("");
         public Gtk.Label description_label = new Gtk.Label(_("Angle:"));
         public Gtk.Button ok_button = new Gtk.Button.with_mnemonic(_("_Straighten"));
-        public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
+        public Gtk.Button cancel_button = new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
         public Gtk.Button reset_button = new Gtk.Button.with_mnemonic(_("_Reset"));
 
         /**

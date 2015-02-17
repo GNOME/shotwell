@@ -607,8 +607,8 @@ public class SavedSearchDialog {
             int orig_month = cal.month;
             int orig_year = cal.year;
             Gtk.Dialog d = new Gtk.Dialog.with_buttons(null, null, 
-                Gtk.DialogFlags.MODAL, Gtk.Stock.CANCEL, Gtk.ResponseType.REJECT, 
-                Gtk.Stock.OK, Gtk.ResponseType.ACCEPT);
+                Gtk.DialogFlags.MODAL, Resources.CANCEL_LABEL, Gtk.ResponseType.REJECT, 
+                Resources.OK_LABEL, Gtk.ResponseType.ACCEPT);
             d.set_modal(true);
             d.set_resizable(false);
             d.set_decorated(false);

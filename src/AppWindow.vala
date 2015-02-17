@@ -518,7 +518,7 @@ public abstract class AppWindow : PageWindow {
         fullscreen.label = _("Fulls_creen");
         actions += fullscreen;
 
-        Gtk.ActionEntry help_contents = { "CommonHelpContents", Gtk.Stock.HELP,
+        Gtk.ActionEntry help_contents = { "CommonHelpContents", Resources.HELP_LABEL,
             TRANSLATABLE, "F1", TRANSLATABLE, on_help_contents };
         help_contents.label = _("_Contents");
         actions += help_contents;

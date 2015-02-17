@@ -302,7 +302,7 @@ public abstract class MediaPage : CheckerboardPage {
         send_to_context_menu.label = Resources.SEND_TO_CONTEXT_MENU;
         actions += send_to_context_menu;
         
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Resources.REMOVE_LABEL, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
         actions += remove_from_library;
@@ -334,13 +334,13 @@ public abstract class MediaPage : CheckerboardPage {
         modify_tags.label = Resources.MODIFY_TAGS_MENU;
         actions += modify_tags;
 
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.Stock.ZOOM_IN, TRANSLATABLE,
+        Gtk.ActionEntry increase_size = { "IncreaseSize", Resources.ZOOM_IN_LABEL, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
         increase_size.tooltip = _("Increase the magnification of the thumbnails");
         actions += increase_size;
 
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.Stock.ZOOM_OUT, TRANSLATABLE,
+        Gtk.ActionEntry decrease_size = { "DecreaseSize", Resources.ZOOM_OUT_LABEL, TRANSLATABLE,
             "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
         decrease_size.label = _("Zoom _Out");
         decrease_size.tooltip = _("Decrease the magnification of the thumbnails");
@@ -503,13 +503,13 @@ public abstract class MediaPage : CheckerboardPage {
         // Sort order.
         Gtk.RadioActionEntry[] sort_order_actions = new Gtk.RadioActionEntry[0];
         
-        Gtk.RadioActionEntry ascending = { "SortAscending", Gtk.Stock.SORT_ASCENDING,
+        Gtk.RadioActionEntry ascending = { "SortAscending", Resources.SORT_ASCENDING_LABEL,
             TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_ASCENDING };
         ascending.label = _("_Ascending");
         ascending.tooltip = _("Sort photos in an ascending order");
         sort_order_actions += ascending;
         
-        Gtk.RadioActionEntry descending = { "SortDescending", Gtk.Stock.SORT_DESCENDING,
+        Gtk.RadioActionEntry descending = { "SortDescending", Resources.SORT_DESCENDING_LABEL,
             TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_DESCENDING };
         descending.label = _("D_escending");
         descending.tooltip = _("Sort photos in a descending order");

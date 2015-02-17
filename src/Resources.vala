@@ -82,6 +82,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "applications-internet";
     public const string MERGE = "shotwell-merge-events";
+    
+    public const string GO_NEXT = "go-next";
+    public const string GO_PREVIOUS = "go-previous";
 
     public const string ICON_APP = "shotwell.svg";
     public const string ICON_APP16 = "shotwell-16.svg";
@@ -154,6 +157,23 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string VFLIP_MENU = _("Flip Verti_cally");
     public const string VFLIP_LABEL = _("Flip Vertically");
+    
+    public const string CANCEL_LABEL = _("_Cancel");
+    public const string DELETE_LABEL = _("_Delete");
+    public const string EDIT_LABEL = _("_Edit");
+    public const string FORWARD_LABEL = _("_Forward");
+    public const string HELP_LABEL = _("_Help");
+    public const string NEXT_LABEL = _("_Next");
+    public const string OK_LABEL = _("_OK");
+    public const string PREVIOUS_LABEL = _("_Previous");
+    public const string REMOVE_LABEL = _("_Remove");
+    public const string SORT_ASCENDING_LABEL = _("Sort _Ascending");
+    public const string SORT_DESCENDING_LABEL = _("Sort _Descending");
+    public const string UNDELETE_LABEL = _("_Undelete");
+    public const string ZOOM_100_LABEL = _("_Normal Size");
+    public const string ZOOM_FIT_LABEL = _("Best _Fit");
+    public const string ZOOM_IN_LABEL = _("Zoom _In");
+    public const string ZOOM_OUT_LABEL = _("Zoom _Out");
     
     public const string ENHANCE_MENU = _("_Enhance");
     public const string ENHANCE_LABEL = _("Enhance");

@@ -1736,7 +1736,7 @@ public class ImportPage : CheckerboardPage {
                 photos_string, videos_string, both_string, neither_string);
 
             ImportUI.QuestionParams question = new ImportUI.QuestionParams(
-                question_string, Gtk.Stock.DELETE, _("_Keep"));
+                question_string, Resources.DELETE_LABEL, _("_Keep"));
         
             if (!ImportUI.report_manifest(manifest, false, question))
                 return;
