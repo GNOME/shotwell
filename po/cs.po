@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-02-08 13:23+0000\n"
-"PO-Revision-Date: 2015-02-08 23:13+0100\n"
+"POT-Creation-Date: 2015-02-20 11:53+0000\n"
+"PO-Revision-Date: 2015-02-20 20:54+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -204,6 +204,7 @@ msgstr ""
 "Upozorňujeme, že Gallery3 podporuje jen typy videí, která umí Flowplayer."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1022
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1775
 #, c-format
 msgid ""
 "A file required for publishing is unavailable. Publishing to %s can't "
@@ -219,11 +220,7 @@ msgstr ""
 msgid "Publishing to %s as %s."
 msgstr "Zveřejnění na %s jako %s."
 
-#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1775
-msgid "A file required for publishing is unavailable. Publishing to "
-msgstr "Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na "
-
-#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1817
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
 msgid ""
 "Enter the URL for your Gallery3 site and the username and password (or API "
 "key) for your Gallery3 account."
@@ -231,7 +228,7 @@ msgstr ""
 "Zadejte adresu URL ke svým stránkám Gallery3 a k tomu uživatelské jméno a "
 "heslo (nebo klíč k API) pro účet Gallery3."
 
-#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1818
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1820
 msgid ""
 "The username and password or API key were incorrect. To try again, re-enter "
 "your username and password below."
@@ -239,7 +236,7 @@ msgstr ""
 "Uživatelské jméno nebo heslo nebo klíč k API jsou nesprávné. Zkuste to znovu "
 "zadáním uživatelského jména a hesla níže."
 
-#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1821
 msgid ""
 "The URL entered does not appear to be the main directory of a Gallery3 "
 "instance. Please make sure you typed it correctly and it does not have any "
@@ -249,11 +246,11 @@ msgstr ""
 "se, že jste ji zadali správně a že neobsahuje žádné věci navíc (např. index."
 "php)."
 
-#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1872
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1874
 msgid "Unrecognized User"
 msgstr "Nerozpoznaný uživatel"
 
-#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1877
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1879
 msgid " Site Not Found"
 msgstr " Server nenalezen"
 
@@ -985,7 +982,7 @@ msgid "Logout"
 msgstr "Odhlásit"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:12
-#: ../src/Resources.vala:270
+#: ../src/Resources.vala:289
 msgid "Publish"
 msgstr "Zveřejnit"
 
@@ -1113,7 +1110,7 @@ msgstr "_Nahlásit problém…"
 
 #: ../src/AppWindow.vala:632 ../src/AppWindow.vala:653
 #: ../src/AppWindow.vala:670 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
-#: ../src/Dialogs.vala:1418 ../src/Dialogs.vala:1441
+#: ../src/Dialogs.vala:1418 ../src/Dialogs.vala:1441 ../src/Resources.vala:160
 #: ../src/data_imports/DataImportsUI.vala:374
 #: ../src/publishing/PublishingUI.vala:475
 msgid "_Cancel"
@@ -1468,8 +1465,8 @@ msgstr[1] "Tím odstraníte štítek „%s“ ze %d fotografií. Pokračovat?"
 msgstr[2] "Tím odstraníte štítek „%s“ z %d fotografií. Pokračovat?"
 
 #: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1386
-#: ../src/Resources.vala:336 ../src/Resources.vala:384
-#: ../src/Resources.vala:649
+#: ../src/Resources.vala:161 ../src/Resources.vala:355
+#: ../src/Resources.vala:403 ../src/Resources.vala:668
 msgid "_Delete"
 msgstr "S_mazat"
 
@@ -1981,7 +1978,7 @@ msgstr[2] "%d hodin"
 msgid "1 day"
 msgstr "1 den"
 
-#: ../src/Dialogs.vala:1315 ../src/Resources.vala:203
+#: ../src/Dialogs.vala:1315 ../src/Resources.vala:222
 msgid "Rename Event"
 msgstr "Přejmenovat událost"
 
@@ -1991,7 +1988,7 @@ msgstr "Název:"
 
 #. Dialog title
 #. Button label
-#: ../src/Dialogs.vala:1326 ../src/Resources.vala:275
+#: ../src/Dialogs.vala:1326 ../src/Resources.vala:294
 msgid "Edit Title"
 msgstr "Úprava názvu"
 
@@ -2000,7 +1997,7 @@ msgid "Title:"
 msgstr "Název:"
 
 #. Dialog title
-#: ../src/Dialogs.vala:1343 ../src/Resources.vala:282
+#: ../src/Dialogs.vala:1343 ../src/Resources.vala:301
 msgid "Edit Event Comment"
 msgstr "Úprava komentáře k události"
 
@@ -2063,7 +2060,7 @@ msgstr[0] "Tím se fotka odebere z knihovny. Pokračovat?"
 msgstr[1] "Tím se odeberou %d fotky z knihovny. Pokračovat?"
 msgstr[2] "Tím se odebere %d fotek z knihovny. Pokračovat?"
 
-#: ../src/Dialogs.vala:1442
+#: ../src/Dialogs.vala:1442 ../src/Resources.vala:168
 msgid "_Remove"
 msgstr "Odeb_rat"
 
@@ -2479,7 +2476,7 @@ msgid "Adjust the size of the thumbnails"
 msgstr "Nastavit velikost náhledů"
 
 #: ../src/MediaPage.vala:339 ../src/PhotoPage.vala:2590
-#: ../src/direct/DirectPhotoPage.vala:174
+#: ../src/Resources.vala:174 ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "Přiblíž_it"
 
@@ -2488,7 +2485,7 @@ msgid "Increase the magnification of the thumbnails"
 msgstr "Zvětšit velikost náhledů"
 
 #: ../src/MediaPage.vala:345 ../src/PhotoPage.vala:2596
-#: ../src/direct/DirectPhotoPage.vala:180
+#: ../src/Resources.vala:175 ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "_Oddálit"
 
@@ -2512,7 +2509,7 @@ msgstr "Otevřít vybraná videa v systémovém přehrávači videí"
 msgid "_Developer"
 msgstr "_Vývojka"
 
-#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:101
+#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:99
 #: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
 #: ../src/photos/RawSupport.vala:303
 msgid "Camera"
@@ -2959,657 +2956,703 @@ msgstr "Správce fotografií"
 msgid "Photo Viewer"
 msgstr "Prohlížeč fotografií"
 
-#: ../src/Resources.vala:142
+#: ../src/Resources.vala:144
 msgid "Rotate _Right"
 msgstr "Otočit dop_rava"
 
-#: ../src/Resources.vala:143 ../src/Resources.vala:148
+#: ../src/Resources.vala:145 ../src/Resources.vala:150
 msgid "Rotate"
 msgstr "Otočit"
 
-#: ../src/Resources.vala:144
+#: ../src/Resources.vala:146
 msgid "Rotate Right"
 msgstr "Otočit doprava"
 
-#: ../src/Resources.vala:145
+#: ../src/Resources.vala:147
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Otočit fotografii doprava (pro otočení doleva zmáčkněte Ctrl)"
 
-#: ../src/Resources.vala:147
+#: ../src/Resources.vala:149
 msgid "Rotate _Left"
 msgstr "Otočit do_leva"
 
-#: ../src/Resources.vala:149
+#: ../src/Resources.vala:151
 msgid "Rotate Left"
 msgstr "Otočit doleva"
 
-#: ../src/Resources.vala:150
+#: ../src/Resources.vala:152
 msgid "Rotate the photos left"
 msgstr "Otočí fotografii doleva"
 
-#: ../src/Resources.vala:152
+#: ../src/Resources.vala:154
 msgid "Flip Hori_zontally"
 msgstr "Překlopit vo_dorovně"
 
-#: ../src/Resources.vala:153
+#: ../src/Resources.vala:155
 msgid "Flip Horizontally"
 msgstr "Překlopit vodorovně"
 
-#: ../src/Resources.vala:155
+#: ../src/Resources.vala:157
 msgid "Flip Verti_cally"
 msgstr "Překlopit s_visle"
 
-#: ../src/Resources.vala:156
+#: ../src/Resources.vala:158
 msgid "Flip Vertically"
 msgstr "Překlopit svisle"
 
-#: ../src/Resources.vala:158
+#: ../src/Resources.vala:162 ../src/direct/DirectPhotoPage.vala:73
+#: ../src/library/LibraryWindow.vala:356
+msgid "_Edit"
+msgstr "_Upravit"
+
+#: ../src/Resources.vala:163
+msgid "_Forward"
+msgstr "V_před"
+
+#: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:169
+#: ../src/library/LibraryWindow.vala:380
+msgid "_Help"
+msgstr "_Nápověda"
+
+#: ../src/Resources.vala:165
+msgid "_Next"
+msgstr "_Následující"
+
+#: ../src/Resources.vala:166
+msgid "_OK"
+msgstr "_Budiž"
+
+#: ../src/Resources.vala:167
+msgid "_Previous"
+msgstr "_Předchozí"
+
+#: ../src/Resources.vala:169
+msgid "Sort _Ascending"
+msgstr "Ř_adit vzestupně"
+
+#: ../src/Resources.vala:170
+msgid "Sort _Descending"
+msgstr "Řa_dit sestupně"
+
+#: ../src/Resources.vala:171
+msgid "_Undelete"
+msgstr "Vrátit _smazání"
+
+#: ../src/Resources.vala:172
+msgid "_Normal Size"
+msgstr "_Normální velikost"
+
+#: ../src/Resources.vala:173
+msgid "Best _Fit"
+msgstr "Přizpůso_bit"
+
+#: ../src/Resources.vala:177
 msgid "_Enhance"
 msgstr "_Vylepšit"
 
-#: ../src/Resources.vala:159
+#: ../src/Resources.vala:178
 msgid "Enhance"
 msgstr "Vylepšit"
 
-#: ../src/Resources.vala:160
+#: ../src/Resources.vala:179
 msgid "Automatically improve the photo's appearance"
 msgstr "Automaticky vylepšit vzhled fotografie"
 
-#: ../src/Resources.vala:162
+#: ../src/Resources.vala:181
 msgid "_Copy Color Adjustments"
 msgstr "_Kopírovat úpravu barev"
 
-#: ../src/Resources.vala:163
+#: ../src/Resources.vala:182
 msgid "Copy Color Adjustments"
 msgstr "Kopírovat úpravu barev"
 
-#: ../src/Resources.vala:164
+#: ../src/Resources.vala:183
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Kopírovat parametry úpravy barev použité u fotografie"
 
-#: ../src/Resources.vala:166
+#: ../src/Resources.vala:185
 msgid "_Paste Color Adjustments"
 msgstr "Vložit ú_pravu barev"
 
-#: ../src/Resources.vala:167
+#: ../src/Resources.vala:186
 msgid "Paste Color Adjustments"
 msgstr "Vložit úpravu barev"
 
-#: ../src/Resources.vala:168
+#: ../src/Resources.vala:187
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Použít u vybraných fotografií zkopírované parametry úpravy barev"
 
-#: ../src/Resources.vala:170
+#: ../src/Resources.vala:189
 msgid "_Crop"
 msgstr "_Oříznout"
 
-#: ../src/Resources.vala:171
+#: ../src/Resources.vala:190
 msgid "Crop"
 msgstr "Oříznout"
 
-#: ../src/Resources.vala:172
+#: ../src/Resources.vala:191
 msgid "Crop the photo's size"
 msgstr "Oříznout rozměry fotografie"
 
-#: ../src/Resources.vala:174 ../src/editing_tools/StraightenTool.vala:100
+#: ../src/Resources.vala:193 ../src/editing_tools/StraightenTool.vala:100
 msgid "_Straighten"
 msgstr "_Vyrovnat"
 
-#: ../src/Resources.vala:175
+#: ../src/Resources.vala:194
 msgid "Straighten"
 msgstr "Vyrovnat"
 
-#: ../src/Resources.vala:176
+#: ../src/Resources.vala:195
 msgid "Straighten the photo"
 msgstr "Vyrovnat fotografii"
 
-#: ../src/Resources.vala:178
+#: ../src/Resources.vala:197
 msgid "_Red-eye"
 msgstr "Če_rvené oči"
 
-#: ../src/Resources.vala:179
+#: ../src/Resources.vala:198
 msgid "Red-eye"
 msgstr "Červené oči"
 
-#: ../src/Resources.vala:180
+#: ../src/Resources.vala:199
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Odstranit nebo potlačit efekt červených očí ve fotografii"
 
-#: ../src/Resources.vala:182
+#: ../src/Resources.vala:201
 msgid "_Adjust"
 msgstr "_Upravit"
 
-#: ../src/Resources.vala:183
+#: ../src/Resources.vala:202
 msgid "Adjust"
 msgstr "Upravit"
 
-#: ../src/Resources.vala:184
+#: ../src/Resources.vala:203
 msgid "Adjust the photo's color and tone"
 msgstr "Upravit barvy a tón fotografie"
 
-#: ../src/Resources.vala:186
+#: ../src/Resources.vala:205
 msgid "Re_vert to Original"
 msgstr "_Vrátit zpět na původní"
 
-#: ../src/Resources.vala:187
+#: ../src/Resources.vala:206
 msgid "Revert to Original"
 msgstr "Vrátit zpět na původní"
 
-#: ../src/Resources.vala:189
+#: ../src/Resources.vala:208
 msgid "Revert External E_dits"
 msgstr "Vrátit zpět e_xterní úpravy"
 
-#: ../src/Resources.vala:190
+#: ../src/Resources.vala:209
 msgid "Revert to the master photo"
 msgstr "Zrušit změny a vrátit se zpět k původní fotografii"
 
-#: ../src/Resources.vala:192
+#: ../src/Resources.vala:211
 msgid "Set as _Desktop Background"
 msgstr "Nastavit jako poza_dí plochy"
 
-#: ../src/Resources.vala:193
+#: ../src/Resources.vala:212
 msgid "Set selected image to be the new desktop background"
 msgstr "Nastavit vybranou fotografii jako obrázek na pozadí pracovní plochy"
 
-#: ../src/Resources.vala:194
+#: ../src/Resources.vala:213
 msgid "Set as _Desktop Slideshow..."
 msgstr "Nastavit jako prezentaci na p_loše…"
 
-#: ../src/Resources.vala:196
+#: ../src/Resources.vala:215
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: ../src/Resources.vala:197
+#: ../src/Resources.vala:216
 msgid "Undo"
 msgstr "Zpět"
 
-#: ../src/Resources.vala:199
+#: ../src/Resources.vala:218
 msgid "_Redo"
 msgstr "Zn_ovu"
 
-#: ../src/Resources.vala:200
+#: ../src/Resources.vala:219
 msgid "Redo"
 msgstr "Znovu"
 
-#: ../src/Resources.vala:202
+#: ../src/Resources.vala:221
 msgid "Re_name Event..."
 msgstr "Přejme_novat událost…"
 
-#: ../src/Resources.vala:205
+#: ../src/Resources.vala:224
 msgid "Make _Key Photo for Event"
 msgstr "Použít jako _klíčovou fotku pro událost"
 
-#: ../src/Resources.vala:206
+#: ../src/Resources.vala:225
 msgid "Make Key Photo for Event"
 msgstr "Nastavit jako klíčovou fotografii pro událost"
 
-#: ../src/Resources.vala:208
+#: ../src/Resources.vala:227
 msgid "_New Event"
 msgstr "_Nová událost"
 
-#: ../src/Resources.vala:209
+#: ../src/Resources.vala:228
 msgid "New Event"
 msgstr "Nová událost"
 
-#: ../src/Resources.vala:211
+#: ../src/Resources.vala:230
 msgid "Move Photos"
 msgstr "Přesunout fotky"
 
-#: ../src/Resources.vala:212
+#: ../src/Resources.vala:231
 msgid "Move photos to an event"
 msgstr "Přiřadit fotografie k události"
 
-#: ../src/Resources.vala:214
+#: ../src/Resources.vala:233
 msgid "_Merge Events"
 msgstr "S_pojit události"
 
-#: ../src/Resources.vala:215
+#: ../src/Resources.vala:234
 msgid "Merge"
 msgstr "Spojit"
 
-#: ../src/Resources.vala:216
+#: ../src/Resources.vala:235
 msgid "Combine events into a single event"
 msgstr "Sloučit události do jedné"
 
-#: ../src/Resources.vala:218
+#: ../src/Resources.vala:237
 msgid "_Set Rating"
 msgstr "_Hodnotit"
 
-#: ../src/Resources.vala:219
+#: ../src/Resources.vala:238
 msgid "Set Rating"
 msgstr "Nastavit hodnocení"
 
-#: ../src/Resources.vala:220
+#: ../src/Resources.vala:239
 msgid "Change the rating of your photo"
 msgstr "Změnit hodnocení své fotografie"
 
-#: ../src/Resources.vala:222
+#: ../src/Resources.vala:241
 msgid "_Increase"
 msgstr "Z_výšit"
 
-#: ../src/Resources.vala:223
+#: ../src/Resources.vala:242
 msgid "Increase Rating"
 msgstr "Zvýšení hodnocení"
 
-#: ../src/Resources.vala:225
+#: ../src/Resources.vala:244
 msgid "_Decrease"
 msgstr "S_nížit"
 
-#: ../src/Resources.vala:226
+#: ../src/Resources.vala:245
 msgid "Decrease Rating"
 msgstr "Snížení hodnocení"
 
-#: ../src/Resources.vala:228
+#: ../src/Resources.vala:247
 msgid "_Unrated"
 msgstr "_Bez ohodnocení"
 
-#: ../src/Resources.vala:229
+#: ../src/Resources.vala:248
 msgid "Unrated"
 msgstr "Nehodnoceno"
 
-#: ../src/Resources.vala:230
+#: ../src/Resources.vala:249
 msgid "Rate Unrated"
 msgstr "Bez ohodnocení"
 
-#: ../src/Resources.vala:231
+#: ../src/Resources.vala:250
 msgid "Setting as unrated"
 msgstr "Nastavuje se jako nehodnocené"
 
-#: ../src/Resources.vala:232
+#: ../src/Resources.vala:251
 msgid "Remove any ratings"
 msgstr "Odebrat hodnocení"
 
-#: ../src/Resources.vala:234
+#: ../src/Resources.vala:253
 msgid "_Rejected"
 msgstr "_Zamítnout"
 
-#: ../src/Resources.vala:235
+#: ../src/Resources.vala:254
 msgid "Rejected"
 msgstr "Zamítnuto"
 
-#: ../src/Resources.vala:236
+#: ../src/Resources.vala:255
 msgid "Rate Rejected"
 msgstr "Zamítavé hodnocení"
 
-#: ../src/Resources.vala:237
+#: ../src/Resources.vala:256
 msgid "Setting as rejected"
 msgstr "Nastavuje se na zamítnuté"
 
-#: ../src/Resources.vala:238
+#: ../src/Resources.vala:257
 msgid "Set rating to rejected"
 msgstr "Nastavit hodnocení na zamítnuté"
 
-#: ../src/Resources.vala:240
+#: ../src/Resources.vala:259
 msgid "Rejected _Only"
 msgstr "Jen _zamítnuté"
 
-#: ../src/Resources.vala:241
+#: ../src/Resources.vala:260
 msgid "Rejected Only"
 msgstr "Jen zamítnuté"
 
-#: ../src/Resources.vala:242
+#: ../src/Resources.vala:261
 msgid "Show only rejected photos"
 msgstr "Zobrazit je zamítnuté fotografie"
 
-#: ../src/Resources.vala:244
+#: ../src/Resources.vala:263
 msgid "All + _Rejected"
 msgstr "Všechny + _zamítnuté"
 
-#: ../src/Resources.vala:245 ../src/Resources.vala:246
+#: ../src/Resources.vala:264 ../src/Resources.vala:265
 msgid "Show all photos, including rejected"
 msgstr "Zobrazit všechny fotografie, včetně zamítnutých"
 
-#: ../src/Resources.vala:248
+#: ../src/Resources.vala:267
 msgid "_All Photos"
 msgstr "_Všechny fotografie"
 
 #. Button label
 #. Button tooltip
-#: ../src/Resources.vala:250 ../src/Resources.vala:252
+#: ../src/Resources.vala:269 ../src/Resources.vala:271
 msgid "Show all photos"
 msgstr "Zobrazit všechny fotografie"
 
-#: ../src/Resources.vala:254
+#: ../src/Resources.vala:273
 msgid "_Ratings"
 msgstr "_Hodnocení"
 
-#: ../src/Resources.vala:255
+#: ../src/Resources.vala:274
 msgid "Display each photo's rating"
 msgstr "U každé fotografie zobrazit hodnocení"
 
-#: ../src/Resources.vala:257
+#: ../src/Resources.vala:276
 msgid "_Filter Photos"
 msgstr "_Filtrovat fotografie"
 
-#: ../src/Resources.vala:258
+#: ../src/Resources.vala:277
 msgid "Filter Photos"
 msgstr "Filtrovat fotografie"
 
-#: ../src/Resources.vala:259
+#: ../src/Resources.vala:278
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Omezit počet zobrazených fotografií pomocí filtru"
 
-#: ../src/Resources.vala:261
+#: ../src/Resources.vala:280
 msgid "_Duplicate"
 msgstr "_Duplikovat"
 
-#: ../src/Resources.vala:262
+#: ../src/Resources.vala:281
 msgid "Duplicate"
 msgstr "Duplikovat"
 
-#: ../src/Resources.vala:263
+#: ../src/Resources.vala:282
 msgid "Make a duplicate of the photo"
 msgstr "Vytvořit kopii této fotografie"
 
-#: ../src/Resources.vala:265
+#: ../src/Resources.vala:284
 msgid "_Export..."
 msgstr "_Export…"
 
-#: ../src/Resources.vala:267
+#: ../src/Resources.vala:286
 msgid "_Print..."
 msgstr "_Tisk…"
 
-#: ../src/Resources.vala:269
+#: ../src/Resources.vala:288
 msgid "Pu_blish..."
 msgstr "Zveře_jnit…"
 
-#: ../src/Resources.vala:271
+#: ../src/Resources.vala:290
 msgid "Publish to various websites"
 msgstr "Zveřejnit na různých webových stránkách"
 
-#: ../src/Resources.vala:273
+#: ../src/Resources.vala:292
 msgid "Edit _Title..."
 msgstr "Upravi_t název…"
 
-#: ../src/Resources.vala:277
+#: ../src/Resources.vala:296
 msgid "Edit _Comment..."
 msgstr "Upravit _komentář…"
 
 #. Button label
-#: ../src/Resources.vala:279
+#: ../src/Resources.vala:298
 msgid "Edit Comment"
 msgstr "Upravit komentář"
 
-#: ../src/Resources.vala:281
+#: ../src/Resources.vala:300
 msgid "Edit Event _Comment..."
 msgstr "Upravit _komentář události…"
 
-#: ../src/Resources.vala:284
+#: ../src/Resources.vala:303
 msgid "_Adjust Date and Time..."
 msgstr "Nastavit d_atum a čas…"
 
-#: ../src/Resources.vala:285
+#: ../src/Resources.vala:304
 msgid "Adjust Date and Time"
 msgstr "Nastavení data a času"
 
-#: ../src/Resources.vala:287
+#: ../src/Resources.vala:306
 msgid "Add _Tags..."
 msgstr "Přidat š_títky…"
 
-#: ../src/Resources.vala:288
+#: ../src/Resources.vala:307
 msgid "_Add Tags..."
 msgstr "Přid_at štítky…"
 
 #. Dialog title
 #. Undo/Redo command name (in Edit menu)
-#: ../src/Resources.vala:290 ../src/Resources.vala:323
+#: ../src/Resources.vala:309 ../src/Resources.vala:342
 msgid "Add Tags"
 msgstr "Přidání štítků"
 
-#: ../src/Resources.vala:292
+#: ../src/Resources.vala:311
 msgid "_Preferences"
 msgstr "_Předvolby"
 
-#: ../src/Resources.vala:294
+#: ../src/Resources.vala:313
 msgid "Open With E_xternal Editor"
 msgstr "Otevřít v e_xterním editoru"
 
-#: ../src/Resources.vala:296
+#: ../src/Resources.vala:315
 msgid "Open With RA_W Editor"
 msgstr "Otevřít v editoru RA_W"
 
-#: ../src/Resources.vala:298
+#: ../src/Resources.vala:317
 msgid "Send _To..."
 msgstr "Odesla_t…"
 
-#: ../src/Resources.vala:299
+#: ../src/Resources.vala:318
 msgid "Send T_o..."
 msgstr "_Odeslat…"
 
-#: ../src/Resources.vala:301
+#: ../src/Resources.vala:320
 msgid "_Find..."
 msgstr "Na_jít…"
 
-#: ../src/Resources.vala:302
+#: ../src/Resources.vala:321
 msgid "Find"
 msgstr "Najít"
 
-#: ../src/Resources.vala:303
+#: ../src/Resources.vala:322
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "Najít obrázky, jejichž název nebo štítek obsahují napsaný text"
 
-#: ../src/Resources.vala:305
+#: ../src/Resources.vala:324
 msgid "_Flag"
 msgstr "_Označit"
 
-#: ../src/Resources.vala:307
+#: ../src/Resources.vala:326
 msgid "Un_flag"
 msgstr "Zrušit _označení"
 
-#: ../src/Resources.vala:310
+#: ../src/Resources.vala:329
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Nelze spustit editor: %s"
 
-#: ../src/Resources.vala:315
+#: ../src/Resources.vala:334
 #, c-format
 msgid "Add Tag \"%s\""
 msgstr "Přidat štítek „%s“"
 
 #. Used when adding two tags to photo(s)
-#: ../src/Resources.vala:318
+#: ../src/Resources.vala:337
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
 msgstr "Přidat štítky „%s“ a „%s“"
 
-#: ../src/Resources.vala:328
+#: ../src/Resources.vala:347
 #, c-format
 msgid "_Delete Tag \"%s\""
 msgstr "S_mazat štítek „%s“"
 
-#: ../src/Resources.vala:332
+#: ../src/Resources.vala:351
 #, c-format
 msgid "Delete Tag \"%s\""
 msgstr "Smazat štítek „%s“"
 
-#: ../src/Resources.vala:335
+#: ../src/Resources.vala:354
 msgid "Delete Tag"
 msgstr "Smazat štítek"
 
-#: ../src/Resources.vala:338
+#: ../src/Resources.vala:357
 msgid "_New"
 msgstr "_Nový"
 
-#: ../src/Resources.vala:341
+#: ../src/Resources.vala:360
 #, c-format
 msgid "Re_name Tag \"%s\"..."
 msgstr "Přejme_novat štítek „%s“…"
 
-#: ../src/Resources.vala:345
+#: ../src/Resources.vala:364
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
 msgstr "Přejmenovat štítek „%s“ na „%s“"
 
-#: ../src/Resources.vala:348
+#: ../src/Resources.vala:367
 msgid "_Rename..."
 msgstr "_Přejmenovat…"
 
-#: ../src/Resources.vala:350
+#: ../src/Resources.vala:369
 msgid "Modif_y Tags..."
 msgstr "Změnit štítk_y…"
 
-#: ../src/Resources.vala:351
+#: ../src/Resources.vala:370
 msgid "Modify Tags"
 msgstr "Změnit štítky"
 
-#: ../src/Resources.vala:354
+#: ../src/Resources.vala:373
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgstr "Oštítkovat fotku jak „%s“"
 
-#: ../src/Resources.vala:354
+#: ../src/Resources.vala:373
 #, c-format
 msgid "Tag Photos as \"%s\""
 msgstr "Oštítkovat fotku jak „%s“"
 
-#: ../src/Resources.vala:358
+#: ../src/Resources.vala:377
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgstr "Oštítkovat vybranou fotku jako „%s“"
 
-#: ../src/Resources.vala:359
+#: ../src/Resources.vala:378
 #, c-format
 msgid "Tag the selected photos as \"%s\""
 msgstr "Oštítkovat vybrané fotky jako „%s“"
 
-#: ../src/Resources.vala:363
+#: ../src/Resources.vala:382
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
 msgstr "Odstranit z _fotky štítek „%s“"
 
-#: ../src/Resources.vala:364
+#: ../src/Resources.vala:383
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
 msgstr "Odstranit z _fotek štítek „%s“"
 
-#: ../src/Resources.vala:368
+#: ../src/Resources.vala:387
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgstr "Odstranit z fotky šítek „%s“"
 
-#: ../src/Resources.vala:369
+#: ../src/Resources.vala:388
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
 msgstr "Odstranit z fotek štítek „%s“"
 
-#: ../src/Resources.vala:373
+#: ../src/Resources.vala:392
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgstr "Nelze přejmenovat šítek na „%s“, protože takový už existuje."
 
-#: ../src/Resources.vala:377
+#: ../src/Resources.vala:396
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
 msgstr "Nelze přejmenovat hledání na „%s“, protože takové už existuje."
 
-#: ../src/Resources.vala:380
+#: ../src/Resources.vala:399
 msgid "Saved Search"
 msgstr "Uložené hledání"
 
-#: ../src/Resources.vala:382
+#: ../src/Resources.vala:401
 msgid "Delete Search"
 msgstr "Smazat hledání"
 
-#: ../src/Resources.vala:385
+#: ../src/Resources.vala:404
 msgid "_Edit..."
 msgstr "_Upravit…"
 
-#: ../src/Resources.vala:386
+#: ../src/Resources.vala:405
 msgid "Re_name..."
 msgstr "Přejme_novat…"
 
-#: ../src/Resources.vala:389
+#: ../src/Resources.vala:408
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
 msgstr "Přejmenovat hledání „%s“ na „%s“"
 
-#: ../src/Resources.vala:393
+#: ../src/Resources.vala:412
 #, c-format
 msgid "Delete Search \"%s\""
 msgstr "Smazat hledání „%s“"
 
-#: ../src/Resources.vala:551
+#: ../src/Resources.vala:570
 #, c-format
 msgid "Rate %s"
 msgstr "Hodnocení %s"
 
-#: ../src/Resources.vala:552
+#: ../src/Resources.vala:571
 #, c-format
 msgid "Set rating to %s"
 msgstr "Nastavit ohodnocení na %s"
 
-#: ../src/Resources.vala:553
+#: ../src/Resources.vala:572
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Nastavuje se ohodnocení na %s"
 
-#: ../src/Resources.vala:555
+#: ../src/Resources.vala:574
 #, c-format
 msgid "Display %s"
 msgstr "Zobrazit %s"
 
-#: ../src/Resources.vala:556
+#: ../src/Resources.vala:575
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Zobrazit jen fotografie s ohodnocením %s"
 
-#: ../src/Resources.vala:557
+#: ../src/Resources.vala:576
 #, c-format
 msgid "%s or Better"
 msgstr "%s nebo lepší"
 
-#: ../src/Resources.vala:558
+#: ../src/Resources.vala:577
 #, c-format
 msgid "Display %s or Better"
 msgstr "Zobrazit %s nebo lepší"
 
-#: ../src/Resources.vala:559
+#: ../src/Resources.vala:578
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Zobrazit jen fotografie s hodnocením %s nebo lepším"
 
-#: ../src/Resources.vala:650
+#: ../src/Resources.vala:669
 msgid "Remove the selected photos from the trash"
 msgstr "Odstranit vybrané fotografie z koše"
 
-#: ../src/Resources.vala:651
+#: ../src/Resources.vala:670
 msgid "Remove the selected photos from the library"
 msgstr "Odstraní vybrané fotografie z knihovny"
 
-#: ../src/Resources.vala:653
+#: ../src/Resources.vala:672
 msgid "_Restore"
 msgstr "O_bnovit"
 
-#: ../src/Resources.vala:654
+#: ../src/Resources.vala:673
 msgid "Move the selected photos back into the library"
 msgstr "Přesunout vybrané fotografie zpět do knihovny"
 
-#: ../src/Resources.vala:656
+#: ../src/Resources.vala:675
 msgid "Show in File Mana_ger"
 msgstr "Otevřít ve _správci souborů"
 
-#: ../src/Resources.vala:657
+#: ../src/Resources.vala:676
 msgid "Open the selected photo's directory in the file manager"
 msgstr "Otevřít vybranou složku s fotografiemi ve správci souborů"
 
-#: ../src/Resources.vala:660
+#: ../src/Resources.vala:679
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Nelze otevřít ve správci souborů: %s"
 
-#: ../src/Resources.vala:663
+#: ../src/Resources.vala:682
 msgid "R_emove From Library"
 msgstr "O_dstranit z knihovny"
 
-#: ../src/Resources.vala:665
+#: ../src/Resources.vala:684
 msgid "_Move to Trash"
 msgstr "Přesu_nout do koše"
 
-#: ../src/Resources.vala:667
+#: ../src/Resources.vala:686
 msgid "Select _All"
 msgstr "Vybrat _vše"
 
-#: ../src/Resources.vala:668
+#: ../src/Resources.vala:687
 msgid "Select all items"
 msgstr "Vybrat všechny položky"
 
@@ -3617,20 +3660,20 @@ msgstr "Vybrat všechny položky"
 #. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:749
+#: ../src/Resources.vala:768
 msgid "%-I:%M %p"
 msgstr "%l∶%M %p"
 
 #. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:754
+#: ../src/Resources.vala:773
 msgid "%-I:%M:%S %p"
 msgstr "%l∶%M:%S %p"
 
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:758
+#: ../src/Resources.vala:777
 msgid "%a %b %d, %Y"
 msgstr "%a, %e. %B %Y"
 
@@ -3640,14 +3683,14 @@ msgstr "%a, %e. %B %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:763 ../src/Resources.vala:773
+#: ../src/Resources.vala:782 ../src/Resources.vala:792
 msgid "%a %b %d"
 msgstr "%a, %e. %B"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:768
+#: ../src/Resources.vala:787
 msgid "%d, %Y"
 msgstr "%e. %Y"
 
@@ -3657,7 +3700,7 @@ msgstr "Prezentace"
 
 #. Flagged label and toggle
 #: ../src/SearchFilter.vala:587 ../src/SearchFilter.vala:588
-#: ../src/SearchFilter.vala:970 ../src/library/FlaggedPage.vala:8
+#: ../src/SearchFilter.vala:972 ../src/library/FlaggedPage.vala:8
 msgid "Flagged"
 msgstr "Označeno"
 
@@ -3677,18 +3720,18 @@ msgstr "Fotografie RAW"
 msgid "RAW photos"
 msgstr "Fotografie RAW"
 
-#: ../src/SearchFilter.vala:932
+#: ../src/SearchFilter.vala:934
 #, c-format
 msgid "Error loading UI file %s: %s"
 msgstr "Chyba při čtení souboru %s s uživatelským rozhraním: %s"
 
 #. Type label and toggles
-#: ../src/SearchFilter.vala:949
+#: ../src/SearchFilter.vala:951
 msgid "Type"
 msgstr "Typ"
 
 #. Rating label and button
-#: ../src/SearchFilter.vala:983 ../src/searches/SearchBoolean.vala:184
+#: ../src/SearchFilter.vala:985 ../src/searches/SearchBoolean.vala:184
 msgid "Rating"
 msgstr "Hodnocení"
 
@@ -3748,7 +3791,7 @@ msgstr "bez názvu"
 msgid "Export Videos"
 msgstr "Export videí"
 
-#: ../src/camera/Branch.vala:87
+#: ../src/camera/Branch.vala:85
 msgid "Cameras"
 msgstr "Fotoaparáty"
 
@@ -4000,18 +4043,9 @@ msgstr "Uložit fotografii pod jiným názvem"
 msgid "Print the photo to a printer connected to your computer"
 msgstr "Vytisknout fotografii na tiskárně připojené k počítači"
 
-#: ../src/direct/DirectPhotoPage.vala:73 ../src/library/LibraryWindow.vala:356
-msgid "_Edit"
-msgstr "_Upravit"
-
 #: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:364
 msgid "_Photo"
 msgstr "_Fotografie"
-
-#: ../src/direct/DirectPhotoPage.vala:169
-#: ../src/library/LibraryWindow.vala:380
-msgid "_Help"
-msgstr "_Nápověda"
 
 #: ../src/direct/DirectPhotoPage.vala:227
 #, c-format
@@ -4225,7 +4259,7 @@ msgstr "%B"
 msgid "Folders"
 msgstr "Složky"
 
-#: ../src/library/Branch.vala:37 ../ui/shotwell.glade.h:32
+#: ../src/library/Branch.vala:36 ../ui/shotwell.glade.h:32
 msgid "Library"
 msgstr "Knihovna"
 
@@ -4291,7 +4325,7 @@ msgid "Find photos and videos by search criteria"
 msgstr "Najít fotografie nebo videa podle zadaných kritérií"
 
 #: ../src/library/LibraryWindow.vala:346 ../src/searches/Branch.vala:77
-#: ../src/sidebar/Tree.vala:194
+#: ../src/sidebar/Tree.vala:184
 msgid "Ne_w Saved Search..."
 msgstr "No_vé uložené vyhledávání…"
 
@@ -4802,7 +4836,7 @@ msgstr "Stav fotky"
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/sidebar/Tree.vala:198
+#: ../src/sidebar/Tree.vala:188
 msgid "New _Tag..."
 msgstr "Nový š_títek…"
 
