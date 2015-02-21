@@ -648,11 +648,11 @@
         <property name="layout_style">end</property>
         <child>
           <object class="GtkButton" id="about-plugin-button">
-            <property name="label">gtk-about</property>
+            <property name="label">_About</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="use_stock">True</property>
+            <property name="use_underline">True</property>
           </object>
           <packing>
             <property name="expand">False</property>

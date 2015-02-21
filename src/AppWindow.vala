@@ -10,8 +10,8 @@ public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
     
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
-    private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.Stock.LEAVE_FULLSCREEN);
-    private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton.from_stock(Resources.PIN_TOOLBAR);
+    private Gtk.ToolButton close_button = new Gtk.ToolButton(null, null);
+    private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton();
     private bool is_toolbar_shown = false;
     private bool waiting_for_invoke = false;
     private time_t left_toolbar_time = 0;
@@ -49,11 +49,13 @@ public class FullscreenWindow : PageWindow {
         // restore pin state
         is_toolbar_dismissal_enabled = Config.Facade.get_instance().get_pin_toolbar_state();
         
+        pin_button.set_icon_name("pin-toolbar");
         pin_button.set_label(_("Pin Toolbar"));
         pin_button.set_tooltip_text(_("Pin the toolbar open"));
         pin_button.set_active(!is_toolbar_dismissal_enabled);
         pin_button.clicked.connect(update_toolbar_dismissal);
         
+        close_button.set_icon_name("view-restore");
         close_button.set_tooltip_text(_("Leave fullscreen"));
         close_button.clicked.connect(on_close);
         
@@ -129,10 +131,10 @@ public class FullscreenWindow : PageWindow {
     private Gtk.ActionEntry[] create_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
-        Gtk.ActionEntry leave_fullscreen = { "LeaveFullscreen", Gtk.Stock.LEAVE_FULLSCREEN,
+        Gtk.ActionEntry leave_fullscreen = { "LeaveFullscreen", Resources.LEAVE_FULLSCREEN_LABEL,
             TRANSLATABLE, "F11", TRANSLATABLE, on_close };
-        leave_fullscreen.label = _("Leave _Fullscreen");
-        leave_fullscreen.tooltip = _("Leave fullscreen");
+        leave_fullscreen.label = Resources.LEAVE_FULLSCREEN_LABEL;
+        leave_fullscreen.tooltip = Resources.LEAVE_FULLSCREEN_LABEL;
         actions += leave_fullscreen;
 
         return actions;
@@ -503,19 +505,19 @@ public abstract class AppWindow : PageWindow {
     private Gtk.ActionEntry[] create_common_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
-        Gtk.ActionEntry quit = { "CommonQuit", Gtk.Stock.QUIT, TRANSLATABLE, "<Ctrl>Q",
+        Gtk.ActionEntry quit = { "CommonQuit", Resources.QUIT_LABEL, TRANSLATABLE, "<Ctrl>Q",
             TRANSLATABLE, on_quit };
-        quit.label = _("_Quit");
+        quit.label = Resources.QUIT_LABEL;
         actions += quit;
 
-        Gtk.ActionEntry about = { "CommonAbout", Gtk.Stock.ABOUT, TRANSLATABLE, null,
+        Gtk.ActionEntry about = { "CommonAbout", Resources.ABOUT_LABEL, TRANSLATABLE, null,
             TRANSLATABLE, on_about };
-        about.label = _("_About");
+        about.label = Resources.ABOUT_LABEL;
         actions += about;
 
-        Gtk.ActionEntry fullscreen = { "CommonFullscreen", Gtk.Stock.FULLSCREEN,
+        Gtk.ActionEntry fullscreen = { "CommonFullscreen", Resources.FULLSCREEN_LABEL,
             TRANSLATABLE, "F11", TRANSLATABLE, on_fullscreen };
-        fullscreen.label = _("Fulls_creen");
+        fullscreen.label = Resources.FULLSCREEN_LABEL;
         actions += fullscreen;
 
         Gtk.ActionEntry help_contents = { "CommonHelpContents", Resources.HELP_LABEL,
@@ -533,22 +535,22 @@ public abstract class AppWindow : PageWindow {
         help_report_problem.label = _("_Report a Problem...");
         actions += help_report_problem;
 
-        Gtk.ActionEntry undo = { "CommonUndo", Gtk.Stock.UNDO, TRANSLATABLE, "<Ctrl>Z",
+        Gtk.ActionEntry undo = { "CommonUndo", Resources.UNDO_MENU, TRANSLATABLE, "<Ctrl>Z",
             TRANSLATABLE, on_undo };
         undo.label = Resources.UNDO_MENU;
         actions += undo;
         
-        Gtk.ActionEntry redo = { "CommonRedo", Gtk.Stock.REDO, TRANSLATABLE, "<Ctrl><Shift>Z",
+        Gtk.ActionEntry redo = { "CommonRedo", Resources.REDO_MENU, TRANSLATABLE, "<Ctrl><Shift>Z",
             TRANSLATABLE, on_redo };
         redo.label = Resources.REDO_MENU;
         actions += redo;
 
-        Gtk.ActionEntry jump_to_file = { "CommonJumpToFile", Gtk.Stock.JUMP_TO, TRANSLATABLE, 
+        Gtk.ActionEntry jump_to_file = { "CommonJumpToFile", Resources.JUMP_TO_FILE_MENU, TRANSLATABLE, 
             "<Ctrl><Shift>M", TRANSLATABLE, on_jump_to_file };
         jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
         actions += jump_to_file;
         
-        Gtk.ActionEntry select_all = { "CommonSelectAll", Gtk.Stock.SELECT_ALL, TRANSLATABLE,
+        Gtk.ActionEntry select_all = { "CommonSelectAll", Resources.SELECT_ALL_MENU, TRANSLATABLE,
             "<Ctrl>A", TRANSLATABLE, on_select_all };
         select_all.label = Resources.SELECT_ALL_MENU;
         actions += select_all;

@@ -28,7 +28,8 @@ public class ImportQueuePage : SinglePhotoPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // Stop button
-        Gtk.ToolButton stop_button = new Gtk.ToolButton.from_stock(Gtk.Stock.STOP);
+        Gtk.ToolButton stop_button = new Gtk.ToolButton(null, null);
+        stop_button.set_icon_name("stop");
         stop_button.set_related_action(get_action("Stop"));
         
         toolbar.insert(stop_button, -1);
@@ -61,7 +62,7 @@ public class ImportQueuePage : SinglePhotoPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry stop = { "Stop", Gtk.Stock.STOP, TRANSLATABLE, null, TRANSLATABLE,
+        Gtk.ActionEntry stop = { "Stop", Resources.STOP_LABEL, TRANSLATABLE, null, TRANSLATABLE,
             on_stop };
         stop.label = _("_Stop Import");
         stop.tooltip = _("Stop importing photos");

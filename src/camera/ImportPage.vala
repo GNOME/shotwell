@@ -289,7 +289,7 @@ class ImportPreview : MediaSourceItem {
         bool using_placeholder = (pixbuf == null);
         if (pixbuf == null) {
             if (placeholder_preview == null) {
-                placeholder_preview = AppWindow.get_instance().render_icon(Gtk.Stock.MISSING_IMAGE, 
+                placeholder_preview = AppWindow.get_instance().render_icon("image-missing", 
                     Gtk.IconSize.DIALOG, null);
                 placeholder_preview = scale_pixbuf(placeholder_preview, MAX_SCALE,
                     Gdk.InterpType.BILINEAR, true);
@@ -810,13 +810,15 @@ public class ImportPage : CheckerboardPage {
             toolbar.insert(new Gtk.SeparatorToolItem(), -1);
             
             // Import selected
-            Gtk.ToolButton import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
+            Gtk.ToolButton import_selected_button = new Gtk.ToolButton(null, null);
+            import_selected_button.set_icon_name(Resources.IMPORT);
             import_selected_button.set_related_action(get_action("ImportSelected"));
             
             toolbar.insert(import_selected_button, -1);
             
             // Import all
-            Gtk.ToolButton import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
+            Gtk.ToolButton import_all_button = new Gtk.ToolButton(null, null);
+            import_all_button.set_icon_name(Resources.IMPORT_ALL);
             import_all_button.set_related_action(get_action("ImportAll"));
             
             toolbar.insert(import_all_button, -1);

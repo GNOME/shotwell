@@ -313,12 +313,12 @@ public class LibraryWindow : AppWindow {
         sort.label = _("Sort _Events");
         actions += sort;
 
-        Gtk.ActionEntry preferences = { "CommonPreferences", Gtk.Stock.PREFERENCES, TRANSLATABLE,
+        Gtk.ActionEntry preferences = { "CommonPreferences", Resources.PREFERENCES_LABEL, TRANSLATABLE,
             null, TRANSLATABLE, on_preferences };
         preferences.label = Resources.PREFERENCES_MENU;
         actions += preferences;
         
-        Gtk.ActionEntry empty = { "CommonEmptyTrash", Gtk.Stock.CLEAR, TRANSLATABLE, null, null,
+        Gtk.ActionEntry empty = { "CommonEmptyTrash", null, TRANSLATABLE, null, null,
             on_empty_trash };
         empty.label = _("Empty T_rash");
         empty.tooltip = _("Delete all photos in the trash");
@@ -329,8 +329,7 @@ public class LibraryWindow : AppWindow {
         jump_to_event.label = _("View Eve_nt for Photo");
         actions += jump_to_event;
         
-        Gtk.ActionEntry find = { "CommonFind", Gtk.Stock.FIND, TRANSLATABLE, null, null,
-            on_find };
+        Gtk.ActionEntry find = { "CommonFind", null, TRANSLATABLE, null, null, on_find };
         find.label = _("_Find");
         find.tooltip = _("Find photos and videos by search criteria");
         actions += find;
@@ -398,7 +397,7 @@ public class LibraryWindow : AppWindow {
         extended_props.tooltip = _("Display extended information for the selection");
         actions += extended_props;
         
-        Gtk.ToggleActionEntry searchbar = { "CommonDisplaySearchbar", Gtk.Stock.FIND, TRANSLATABLE,
+        Gtk.ToggleActionEntry searchbar = { "CommonDisplaySearchbar", "edit-find", TRANSLATABLE,
             "F8", TRANSLATABLE, on_display_searchbar, is_search_toolbar_visible };
         searchbar.label = _("_Search Bar");
         searchbar.tooltip = _("Display the search bar");

@@ -59,7 +59,7 @@ public File? choose_file(string current_file_basename) {
         
     Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(file_chooser_title,
         AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.CANCEL_LABEL, 
-        Gtk.ResponseType.CANCEL, Gtk.Stock.SAVE, Gtk.ResponseType.ACCEPT, null);
+        Gtk.ResponseType.CANCEL, Resources.SAVE_LABEL, Gtk.ResponseType.ACCEPT, null);
     chooser.set_do_overwrite_confirmation(true);
     chooser.set_current_folder(current_export_dir.get_path());
     chooser.set_current_name(current_file_basename);
@@ -890,7 +890,7 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
 internal void save_import_results(Gtk.Window? chooser_dialog_parent, string results_log) {
     Gtk.FileChooserDialog chooser_dialog = new Gtk.FileChooserDialog(
         ImportUI.SAVE_RESULTS_FILE_CHOOSER_TITLE, chooser_dialog_parent, Gtk.FileChooserAction.SAVE,
-        Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL, Gtk.Stock.SAVE, Gtk.ResponseType.ACCEPT, null);
+        Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL, Resources.SAVE_AS_LABEL, Gtk.ResponseType.ACCEPT, null);
     chooser_dialog.set_do_overwrite_confirmation(true);
     chooser_dialog.set_current_folder(Environment.get_home_dir());
     chooser_dialog.set_current_name("Shotwell Import Log.txt");
@@ -1218,7 +1218,7 @@ public class TextEntryDialog : Gtk.Dialog {
         action_area_box.set_layout(Gtk.ButtonBoxStyle.END);
         
         button1 = (Gtk.Button) add_button(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
-        button2 = (Gtk.Button) add_button(Gtk.Stock.SAVE, Gtk.ResponseType.OK);
+        button2 = (Gtk.Button) add_button(Resources.SAVE_LABEL, Gtk.ResponseType.OK);
         set_default_response(Gtk.ResponseType.OK);
         
         if (completion_list != null) { // Textfield with autocompletion
@@ -1290,7 +1290,7 @@ public class MultiTextEntryDialog : Gtk.Dialog {
         action_area_box.set_layout(Gtk.ButtonBoxStyle.END);
         
         button1 = (Gtk.Button) add_button(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
-        button2 = (Gtk.Button) add_button(Gtk.Stock.SAVE, Gtk.ResponseType.OK);
+        button2 = (Gtk.Button) add_button(Resources.SAVE_LABEL, Gtk.ResponseType.OK);
         set_default_response(Gtk.ResponseType.OK);
         
         set_has_resize_grip(true);
@@ -2566,13 +2566,13 @@ public class PreferencesDialog {
          if (is_string_empty(example) && !is_string_empty(dir_pattern_entry.text)) {
             // Invalid pattern.
             dir_pattern_example.set_text(_("Invalid pattern"));
-            dir_pattern_entry.set_icon_from_stock(Gtk.EntryIconPosition.SECONDARY, Gtk.Stock.DIALOG_ERROR);
+            dir_pattern_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "dialog-error");
             dir_pattern_entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, false);
             set_allow_closing(false);
          } else {
             // Valid pattern.
             dir_pattern_example.set_text(example);
-            dir_pattern_entry.set_icon_from_stock(Gtk.EntryIconPosition.SECONDARY, null);
+            dir_pattern_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, null);
             set_allow_closing(true);
          }
     }

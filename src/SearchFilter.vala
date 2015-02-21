@@ -714,7 +714,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
     // the searchbar.
     // The close menu. Populated below in the constructor.
     private Gtk.Menu close_menu = new Gtk.Menu();
-    private Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.CLOSE, null);
+    private Gtk.MenuItem close_item = new Gtk.MenuItem();
 
     // Text search box.
     protected class SearchBox : Gtk.ToolItem {
@@ -942,8 +942,8 @@ public class SearchFilterToolbar : Gtk.Revealer {
         // Prepare the close menu for use, but don't
         // display it yet; we'll connect it to secondary
         // click later on.
-        ((Gtk.MenuItem) close_item).show();
-        close_item.always_show_image = true;
+        close_item.set_label(_("Close"));
+        close_item.show();
         close_item.activate.connect(on_context_menu_close_chosen);
         close_menu.append(close_item);
        

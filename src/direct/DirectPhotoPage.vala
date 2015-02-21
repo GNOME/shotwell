@@ -46,13 +46,13 @@ public class DirectPhotoPage : EditingHostPage {
         file.label = _("_File");
         actions += file;
 
-        Gtk.ActionEntry save = { "Save", Gtk.Stock.SAVE, TRANSLATABLE, "<Ctrl>S", TRANSLATABLE,
+        Gtk.ActionEntry save = { "Save", Resources.SAVE_LABEL, TRANSLATABLE, "<Ctrl>S", TRANSLATABLE,
             on_save };
         save.label = _("_Save");
         save.tooltip = _("Save photo");
         actions += save;
 
-        Gtk.ActionEntry save_as = { "SaveAs", Gtk.Stock.SAVE_AS, TRANSLATABLE,
+        Gtk.ActionEntry save_as = { "SaveAs", Resources.SAVE_AS_LABEL, TRANSLATABLE,
             "<Ctrl><Shift>S", TRANSLATABLE, on_save_as };
         save_as.label = _("Save _As...");
         save_as.tooltip = _("Save photo with a different name");
@@ -63,7 +63,7 @@ public class DirectPhotoPage : EditingHostPage {
         send_to.label = Resources.SEND_TO_MENU;
         actions += send_to;
 
-        Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
+        Gtk.ActionEntry print = { "Print", Resources.PRINT_LABEL, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         print.tooltip = _("Print the photo to a printer connected to your computer");
@@ -127,7 +127,7 @@ public class DirectPhotoPage : EditingHostPage {
         crop.tooltip = Resources.CROP_TOOLTIP;
         actions += crop;
         
-        Gtk.ActionEntry straighten = { "Straighten", Gtk.Stock.REFRESH, TRANSLATABLE, "<Ctrl>A",
+        Gtk.ActionEntry straighten = { "Straighten", Resources.REFRESH_LABEL, TRANSLATABLE, "<Ctrl>A",
             TRANSLATABLE, toggle_straighten };
         straighten.label = Resources.STRAIGHTEN_MENU;
         straighten.tooltip = Resources.STRAIGHTEN_TOOLTIP;
@@ -145,7 +145,7 @@ public class DirectPhotoPage : EditingHostPage {
         adjust.tooltip = Resources.ADJUST_TOOLTIP;
         actions += adjust;
         
-        Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE,
+        Gtk.ActionEntry revert = { "Revert", Resources.REVERT_LABEL, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
         actions += revert;

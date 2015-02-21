@@ -1890,9 +1890,9 @@ public class RedeyeTool : EditingTool {
         private Gtk.Label slider_label = new Gtk.Label.with_mnemonic(_("Size:"));
 
         public Gtk.Button apply_button =
-            new Gtk.Button.from_stock(Gtk.Stock.APPLY);
+            new Gtk.Button.with_mnemonic(Resources.APPLY_LABEL);
         public Gtk.Button close_button =
-            new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
+            new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
         public Gtk.Scale slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             RedeyeInstance.MIN_RADIUS, RedeyeInstance.MAX_RADIUS, 1.0);
 

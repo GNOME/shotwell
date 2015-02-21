@@ -285,7 +285,7 @@ public abstract class MediaPage : CheckerboardPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
+        Gtk.ActionEntry export = { "Export", Resources.SAVE_AS_LABEL, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
         actions += export;
@@ -312,7 +312,7 @@ public abstract class MediaPage : CheckerboardPage {
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
         actions += move_to_trash;
         
-        Gtk.ActionEntry new_event = { "NewEvent", Gtk.Stock.NEW, TRANSLATABLE, "<Ctrl>N",
+        Gtk.ActionEntry new_event = { "NewEvent", Resources.NEW_LABEL, TRANSLATABLE, "<Ctrl>N",
             TRANSLATABLE, on_new_event };
         new_event.label = Resources.NEW_EVENT_MENU;
         actions += new_event;
@@ -417,7 +417,7 @@ public abstract class MediaPage : CheckerboardPage {
         filter_photos.label = Resources.FILTER_PHOTOS_MENU;
         actions += filter_photos;
         
-        Gtk.ActionEntry play = { "PlayVideo", Gtk.Stock.MEDIA_PLAY, TRANSLATABLE, "<Ctrl>Y",
+        Gtk.ActionEntry play = { "PlayVideo", Resources.PLAY_LABEL, TRANSLATABLE, "<Ctrl>Y",
             TRANSLATABLE, on_play_video };
         play.label = _("_Play Video");
         play.tooltip = _("Open the selected videos in the system video player");

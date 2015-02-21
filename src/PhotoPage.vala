@@ -398,8 +398,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton straighten_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.Scale zoom_slider = null;
-    private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_BACK);
-    private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_FORWARD);
+    private Gtk.ToolButton prev_button = new Gtk.ToolButton(null, Resources.PREVIOUS_LABEL);
+    private Gtk.ToolButton next_button = new Gtk.ToolButton(null, Resources.NEXT_LABEL);
     private EditingTools.EditingTool current_tool = null;
     private Gtk.ToggleToolButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
@@ -467,7 +467,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(redeye_button, -1);
         
         // adjust tool
-        adjust_button = new Gtk.ToggleToolButton.from_stock(Resources.ADJUST);
+        adjust_button = new Gtk.ToggleToolButton();
+        adjust_button.set_icon_name(Resources.ADJUST);
         adjust_button.set_label(Resources.ADJUST_LABEL);
         adjust_button.set_tooltip_text(Resources.ADJUST_TOOLTIP);
         adjust_button.toggled.connect(on_adjust_toggled);
@@ -475,8 +476,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(adjust_button, -1);
 
         // enhance tool
-        enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
-        enhance_button.set_label(Resources.ENHANCE_LABEL);
+        enhance_button = new Gtk.ToolButton(null, Resources.ENHANCE_LABEL);
+        enhance_button.set_icon_name(Resources.ENHANCE);
         enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
         enhance_button.clicked.connect(on_enhance);
         enhance_button.is_important = true;
@@ -530,11 +531,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // previous button
         prev_button.set_tooltip_text(_("Previous photo"));
+        prev_button.set_icon_name("go-previous");
         prev_button.clicked.connect(on_previous_photo);
         toolbar.insert(prev_button, -1);
         
         // next button
         next_button.set_tooltip_text(_("Next photo"));
+        next_button.set_icon_name("go-next");
         next_button.clicked.connect(on_next_photo);
         toolbar.insert(next_button, -1);
     }
@@ -1157,7 +1160,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
         if (pixbuf == null) {
             // Create empty pixbuf.
-            pixbuf = AppWindow.get_instance().render_icon(Gtk.Stock.MISSING_IMAGE, 
+            pixbuf = AppWindow.get_instance().render_icon("image-missing", 
                 Gtk.IconSize.DIALOG, null);
             get_canvas_scaling().perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
             
@@ -2381,12 +2384,12 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
+        Gtk.ActionEntry export = { "Export", Resources.SAVE_AS_LABEL, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
         actions += export;
 
-        Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
+        Gtk.ActionEntry print = { "Print", Resources.PRINT_LABEL, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         actions += print;
@@ -2473,7 +2476,7 @@ public class LibraryPhotoPage : EditingHostPage {
         crop.tooltip = Resources.CROP_TOOLTIP;
         actions += crop;
         
-        Gtk.ActionEntry straighten = { "Straighten", Gtk.Stock.REFRESH, TRANSLATABLE, "<Ctrl>A",
+        Gtk.ActionEntry straighten = { "Straighten", Resources.REFRESH_LABEL, TRANSLATABLE, "<Ctrl>A",
             TRANSLATABLE, toggle_straighten };
         straighten.label = Resources.STRAIGHTEN_MENU;
         straighten.tooltip = Resources.STRAIGHTEN_TOOLTIP;
@@ -2491,7 +2494,7 @@ public class LibraryPhotoPage : EditingHostPage {
         adjust.tooltip = Resources.ADJUST_TOOLTIP;
         actions += adjust;
         
-        Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE,
+        Gtk.ActionEntry revert = { "Revert", Resources.REVERT_TO_SAVED_LABEL, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
         actions += revert;

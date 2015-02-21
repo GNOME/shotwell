@@ -188,7 +188,6 @@ ICON_FILES = \
 	crop-pivot-reticle.png \
 	crop.svg \
 	drag_nub.png \
-	enhance.png \
 	five-star-filter.svg \
 	five-stars.svg \
 	flag-page.png \
@@ -217,6 +216,7 @@ ICON_FILES = \
 	shotwell.ico \
 	shotwell-street.jpg \
 	shotwell.svg \
+	shotwell-auto-enhance.png \
 	sprocket.png \
 	straighten.svg \
 	three-star-filter-plus.svg \

@@ -142,7 +142,7 @@ public abstract class CollectionPage : MediaPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
 
-        Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
+        Gtk.ActionEntry print = { "Print", Resources.PRINT_LABEL, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         actions += print;
@@ -193,7 +193,7 @@ public abstract class CollectionPage : MediaPage {
         paste_adjustments.tooltip = Resources.PASTE_ADJUSTMENTS_TOOLTIP;
         actions += paste_adjustments;
 
-        Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE, null,
+        Gtk.ActionEntry revert = { "Revert", null, TRANSLATABLE, null,
             TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
         actions += revert;
