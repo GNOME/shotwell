@@ -20,16 +20,16 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2014-02-16 23:27+0000\n"
-"PO-Revision-Date: 2014-02-17 02:18+0200\n"
-"Last-Translator: Vangelis Skarmoutsos <skarmoutsosv@gmail.com>\n"
+"POT-Creation-Date: 2015-02-21 00:57+0000\n"
+"PO-Revision-Date: 2015-02-25 15:45+0200\n"
+"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
 "Language-Team: Ελληνικά <team@gnome.gr>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.7.4\n"
 "X-Project-Style: gnome\n"
 
 #: ../plugins/common/RESTSupport.vala:424
@@ -52,20 +52,25 @@ msgstr ""
 "Για να συνεχίσετε τη δημοσίευση στις υπηρεσίες Google, βγείτε και "
 "επανεκκινήστε το Shotwell, έπειτα προσπαθήστε να δημοσιεύσετε ξανά."
 
-#: ../plugins/common/Resources.vala:9 ../src/AppWindow.vala:683
-msgid "Visit the Yorba web site"
-msgstr "Επισκεφθείτε την ιστοτόπο του Yorba"
+#: ../plugins/common/Resources.vala:9
+msgid "Visit the Shotwell home page"
+msgstr "Επισκεφθείτε τον ιστότοπο Shotwell "
 
-#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:686
+#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:705
 msgid "translator-credits"
 msgstr ""
+"Ελληνική μεταφραστική ομάδα GNOME\n"
 "Δημήτρης Σπίγγος <dmtrs32@gmail.com>\n"
-"Dimitris Glezos <dimitris@glezos.com>\n"
-"Thalia Papoutsaki <saliyath@gmail.com>\n"
-"Sterios Prosiniklis <steriosprosiniklis@gmail.com>\n"
-"Petros Dias <petrosdias@gmail.com>\n"
-"Konstantinos Kypris <kcypre@gmail.com>\n"
-"Evangelos Skarmoutsos <skarmoutsosv@gmail.com>"
+"Δημήτρης Γλέζος <dimitris@glezos.com>\n"
+"Θάλια Παπουτσάκη <saliyath@gmail.com>\n"
+"Στέργιος Προσινικλής <steriosprosiniklis@gmail.com>\n"
+"Πέτρος Ντίας <petrosdias@gmail.com>\n"
+"Κωνσταντίνος Κυπρής <kcypre@gmail.com>\n"
+"Ευάγγελος Σκαρμούτσος <skarmoutsosv@gmail.com>\n"
+"Μαρία Μαυρίδου <mavridou@gmail.com>\n"
+"\n"
+"Για περισσότερες πληροφορίες, επισκεφθείτε τη σελίδα\n"
+"http://gnome.gr/"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:34
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:32
@@ -74,8 +79,8 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-msgid "Copyright 2009-2014 Yorba Foundation"
-msgstr "Πνευματικά δικαιώματα 2009-2014 Ίδρυμα Yorba"
+msgid "Copyright 2009-2015 Yorba Foundation"
+msgstr "Πνευματικά δικαιώματα 2009-2015 Ίδρυμα Yorba"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -110,16 +115,16 @@ msgid ""
 "Cannot open the selected F-Spot database file: the file does not exist or is "
 "not an F-Spot database"
 msgstr ""
-"Δεν είναι εφικτό το άνοιγμα της επιλεγμένης βάσης δεδομένων του F-Spot: το "
-"αρχείο δεν υπάρχει ή δεν είναι βάση δεδομένων του F-Spot"
+"Αδύνατο το άνοιγμα της επιλεγμένης βάσης δεδομένων του F-Spot: το αρχείο δεν "
+"υπάρχει ή δεν είναι βάση δεδομένων του F-Spot"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:64
 msgid ""
 "Cannot open the selected F-Spot database file: this version of the F-Spot "
 "database is not supported by Shotwell"
 msgstr ""
-"Δεν είναι εφικτό το άνοιγμα της επιλεγμένης βάσης δεδομένων του F-Spot: αυτη "
-"η έκδοση της βάση δεδομένων του F-Spot δεν υποστηρίζεται από το Shotwell"
+"Αδύνατο το άνοιγμα της επιλεγμένης βάσης δεδομένων του F-Spot: αυτη η έκδοση "
+"της βάση δεδομένων του F-Spot δεν υποστηρίζεται από το Shotwell"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:66
 msgid ""
@@ -145,10 +150,10 @@ msgid ""
 "You can close this dialog and start using Shotwell while the import is "
 "taking place in the background."
 msgstr ""
-"Το Shotwell βρήκε %d φωτογραφίες στη βιβλιοθήκη F-Spot και τα εισάγει τώρα. "
+"Το Shotwell βρήκε %d φωτογραφίες στη βιβλιοθήκη F-Spot και τις εισάγει τώρα. "
 "Οι διπλοεγγραφές θα αναγνωριστούν αυτόματα και θα αφαιρεθούν.\n"
 "\n"
-"Μπορείτε να κλείσετε αυτόν τον διάλογο και να ξεκινήσετε χρησιμοποιώντας το "
+"Μπορείτε να κλείσετε αυτόν τον διάλογο και να ξεκινήσετε τη χρήση του "
 "Shotwell ενώ η εισαγωγή λαμβάνει χώρα στο παρασκήνιο."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:84
@@ -156,7 +161,7 @@ msgstr ""
 msgid "F-Spot library: %s"
 msgstr "Βιβλιοθήκη F-Spot: %s"
 
-#: ../plugins/shotwell-data-imports/FSpotImporter.vala:416
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:422
 msgid "Preparing to import"
 msgstr "Προετοιμασία για εισαγωγή"
 
@@ -164,18 +169,226 @@ msgstr "Προετοιμασία για εισαγωγή"
 msgid "Core Data Import Services"
 msgstr "Υπηρεσίες εισαγωγής δεδομένων πυρήνα"
 
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:41
+msgid "Gallery3 publishing module"
+msgstr "Άρθρωμα δημοσιεύσεων Gallery3"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:114
+msgid ""
+"You are not currently logged into your Gallery.\n"
+"\n"
+"You must have already signed up for a Gallery3 account to complete the login "
+"process."
+msgstr ""
+"Αυτήν τη στιγμή δεν είστε συνδεδεμένος στο Gallery.\n"
+"\n"
+"Θα πρέπει να έχετε ήδη εγγραφεί για έναν λογαριασμό Gallery3 για "
+"ολοκληρώσετε τη διαδικασία σύνδεσης."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
+#: ../src/MediaPage.vala:434 ../src/photos/RawSupport.vala:300
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:117
+msgid "Shotwell default directory"
+msgstr "Προεπιλεγμένος κατάλογος Shotwell "
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:801
+#, c-format
+msgid ""
+"\n"
+"\n"
+"The file \"%s\" may not be supported by or may be too large for this "
+"instance of Gallery3."
+msgstr ""
+"\n"
+"\n"
+"Το αρχείο \"% s\" δεν μπορεί να υποστηριχθεί από το Gallery3 ή μπορεί να "
+"είναι πολύ μεγάλο γι' αυτήν την περίπτωση. "
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:802
+msgid ""
+"\n"
+"Note that Gallery3 only supports the video types that Flowplayer does."
+msgstr ""
+"\n"
+"Σημειώστε ότι το Gallery3 υποστηρίζει μόνο τους ίδιους τύπους βίντεο που "
+"υποστηρίζει το Flowplayer."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1022
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1775
+#, c-format
+msgid ""
+"A file required for publishing is unavailable. Publishing to %s can't "
+"continue."
+msgstr ""
+"Δεν είναι διαθέσιμο το απαιτούμενο αρχείο για τη δημοσίευση. Η δημοσίευση "
+"στο %s δεν μπορεί να συνεχιστεί."
+
+#. populate any widgets whose contents are
+#. programmatically-generated
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1551
+#, c-format
+msgid "Publishing to %s as %s."
+msgstr "Δημοσίευση στο %s ως %s."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
+msgid ""
+"Enter the URL for your Gallery3 site and the username and password (or API "
+"key) for your Gallery3 account."
+msgstr ""
+"Εισάγετε τη διεύθυνση για την τοποθεσία σας στο Gallery3 και το όνομα χρήστη "
+"και τον κωδικό πρόσβασης (ή το κλειδί API) του λογαγιασμού σας στο Gallery3."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1820
+msgid ""
+"The username and password or API key were incorrect. To try again, re-enter "
+"your username and password below."
+msgstr ""
+"Το όνομα χρήστη και ο κωδικός πρόσβασης ή το κλειδί API δεν ήταν σωστά. Για "
+"να προσπαθήσετε ξανά, εισάγετε εκ νέου το όνομα χρήστη και τον κωδικό "
+"πρόσβασής σας παρακάτω."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1821
+msgid ""
+"The URL entered does not appear to be the main directory of a Gallery3 "
+"instance. Please make sure you typed it correctly and it does not have any "
+"trailing components (e.g., index.php)."
+msgstr ""
+"Η διεύθυνση που πληκτρολογήσατε δεν φαίνεται να είναι o κύριος κατάλογος "
+"μιας περίπτωσης Gallery3. Παρακαλώ βεβαιωθείτε ότι την έχετε πληκτρολογήσει "
+"σωστά και δεν έχει οποιαδήποτε στοιχεία στο τέλος (π.χ. index.php)."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1874
+msgid "Unrecognized User"
+msgstr "Μη αναγνωρίσιμος χρήστης"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1879
+msgid " Site Not Found"
+msgstr " Η τοποθεσία δεν βρέθηκε"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:38
+msgid "Copyright (C) 2013 rajce.net"
+msgstr "Πνευματικά δικαιώματα (C) 2013 rajce.net"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:742
+msgid "An error message occurred when publishing to Rajce. Please try again."
+msgstr ""
+"Ένα μήνυμα λάθους εμφανίστηκε κατά τη δημοσίευση στο Rajce. Παρακαλώ "
+"δοκιμάστε ξανά."
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:831
+msgid "Enter email and password associated with your Rajce account."
+msgstr ""
+"Εισάγετε το όνομα χρήστη και τον κωδικό πρόσβασης που είναι συσχετισμένα με "
+"το λογαριασμό σας στο Rajce."
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:832
+msgid "Invalid email and/or password. Please try again"
+msgstr ""
+"Η διεύθυνση ηλ. αλληλογραφίας και/ή ο κωδικός πρόσβασης δεν είναι έγκυρα. "
+"Παρακαλούμε δοκιμάστε ξανά."
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:863
+msgid "Invalid User Email or Password"
+msgstr "Μη έγκυρη διεύθυνση ηλ. αλληλογραφίας ή κωδικός πρόσβασης"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:890
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:2
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:2
+msgid "_Email address"
+msgstr "Δι_εύθυνση ηλεκτρονικής αλληλογραφίας"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:891
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:3
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:3
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:4
+msgid "_Password"
+msgstr "Κωδικός _πρόσβασης"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:892
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:4
+msgid "_Remember"
+msgstr "Απομ_νημόνευση"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:893
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:4
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:5
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:6
+msgid "Login"
+msgstr "Σύνδεση"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1006
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:5
+msgid "_Hide album"
+msgstr "Απόκρυψ_η άλμπουμ"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
+#, c-format
+msgid "You are logged into Rajce as %s."
+msgstr "Είστε συνδεδεμένος στο Rajce ως %s."
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:1
+msgid "Photos will appear in:"
+msgstr "Οι φωτογραφίες θα εμφανίζονται σε:"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:1
+msgid "An _existing album:"
+msgstr "Ένα _υπάρχον άλμπουμ:"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:3
+msgid "A _new album named:"
+msgstr "Μια _νέα συλλογή με όνομα:"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:6
+msgid "Open target _album in browser"
+msgstr "Ανοίξτε το _άλμπουμ προορισμού στο πρόγραμμα περιήγησης"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:8
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:6
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:3
+msgid "_Publish"
+msgstr "_Δημοσίευση"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:1
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:5
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:2
+msgid "_Logout"
+msgstr "Απο_σύνδεση"
+
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:35
 msgid "Copyright 2012 BJA Electronics"
 msgstr "Πνευματικά δικαιώματα 2012 BJA Electronics"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:104
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1229
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1232
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1246
 msgid "500 x 375 pixels"
 msgstr "500 x 375 εικονοστοιχεία"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1230
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1233
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1247
 msgid "1024 x 768 pixels"
 msgstr "1024 x 768 εικονοστοιχεία"
@@ -194,14 +407,14 @@ msgstr "Το '%s' δεν είναι έγκυρη ανταπόκριση στο �
 msgid ""
 "TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgstr ""
-"TumblrPublisher: start( ): δεν μπορεί να εκκινήσει; ο μηχανισμός "
-"κοινοποίησης δεν είναι διαθέσιμος."
+"TumblrPublisher: start( ): δεν μπορεί να ξεκινήσει, ο μηχανισμός δημοσίευσης "
+"δεν είναι εκκινήσιμος."
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
 msgid "Enter the username and password associated with your Tumblr account."
 msgstr ""
-"Εισάγετε το όνομα χρήστη και κωδικό που είναι συσχετισμένα με το λογαριασμό "
-"του Tumblr σας."
+"Εισάγετε το όνομα χρήστη και κωδικό τον κωδικό πρόσβασης που είναι "
+"συσχετισμένα με το λογαριασμό σας στο Tumblr."
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:587
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1000
@@ -213,13 +426,13 @@ msgstr ""
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:617
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1037
 msgid "Invalid User Name or Password"
-msgstr "Μη έγκυρο Όνομα Χρήστη ή Κωδικός"
+msgstr "Μη έγκυρο όνομα χρήστη ή κωδικός πρόσβασης"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:636
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:757
 #, c-format
 msgid "Could not load UI: %s"
-msgstr "Δεν ήταν δυνατή η φόρτωση της διεπιφάνειας εργασίας: %s"
+msgstr "Δεν ήταν δυνατή η φόρτωση του περιβάλλοντος χρήστη: %s"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:739
 #, c-format
@@ -232,39 +445,98 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Πνευματικά δικαιώματα 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:25
 msgid "Visit the Yandex.Fotki web site"
-msgstr "Επισκεφθείτε τον ιστοχώρο του Yandex.Fotki"
+msgstr "Επισκεφθείτε τον ιστοτόπο του Yandex.Fotki"
 
 #: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:632
 msgid "You are not currently logged into Yandex.Fotki."
-msgstr "Δεν είστε συνδεδεμένος αυτή τη στιγμή στο Yandex.Fotki."
+msgstr "Αυτήν τη στιγμή δεν είστε συνδεδεμένος στο Yandex.Fotki."
 
-#: ../plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:18
+#: ../plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
 msgid "Shotwell Extra Publishing Services"
 msgstr "Πρόσθετες υπηρεσίες δημοσίευσης του Shotwell"
 
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:1
+msgid "Go _Back"
+msgstr "Επιστροφή _πίσω"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:2
+#: ../ui/shotwell.glade.h:42
+msgid "_Login"
+msgstr "_Σύνδεση"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:3
+msgid "Intro message replaced at runtime"
+msgstr "Εισαγωγικό μήνυμα που αντικαταστάθηκε στο χρόνο εκτέλεσης"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:4
+msgid "_Gallery3 URL:"
+msgstr "Διεύθυνση _Gallery3:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:5
+msgid "_User name:"
+msgstr "Όνομα _Χρήστη:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:6
+msgid "_Password:"
+msgstr "_Κωδικός πρόσβασης:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:7
+msgid "API _Key:"
+msgstr "Κλει_δί API:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:8
+msgid "or"
+msgstr "ή"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:3
+msgid "A _new album"
+msgstr "Ένα _νέο άλμπουμ "
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:4
+msgid "An _existing album"
+msgstr "Ένα _υπάρχον άλμπουμ"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:5
+msgid "_Remove location, tag and camera-identifying data before uploading"
+msgstr ""
+"Κατά_ργηση τοποθεσίας, ετικέτας και δεδομένων ταυτοποίησης της κάμερας πριν "
+"από τη αποστολή"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:6
+msgid "'Publishing to $url as $username' (populated in application code)"
+msgstr ""
+"'Δημοσίευση στο $url ως $username' (συμπληρώνεται στον κώδικα εφαρμογής)"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:7
+msgid "Scaling constraint:"
+msgstr "Περιορισμός _κλιμάκωσης:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:8
+msgid "pixels"
+msgstr " _εικονοστοιχεία"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:9
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1236
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+#: ../src/Dimensions.vala:17
+msgid "Original size"
+msgstr "Αρχικό μέγεθος"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:10
+#: ../src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "Πλάτος ή ύψος"
+
 #: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:1
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:1
 #: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:1
-#: ../ui/shotwell.glade.h:15
+#: ../ui/shotwell.glade.h:14
 msgid "label"
 msgstr "ετικέτα"
-
-#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:2
-msgid "_Email address"
-msgstr "_Διεύθυνση email"
-
-#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:3
-#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:4
-msgid "_Password"
-msgstr "_Κωδικός"
-
-#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:4
-#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:6
-msgid "Login"
-msgstr "Σύνδεση"
 
 #: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:1
 msgid "Blogs:"
@@ -273,33 +545,23 @@ msgstr "Ιστολόγια:"
 #: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:2
 #: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
 msgid "Photo _size:"
-msgstr "Μέγεθος_εικόνας:"
+msgstr "Μέγεθος _εικόνας:"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:3
-#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:5
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:3
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
-#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:2
-msgid "_Logout"
-msgstr "_Αποσύνδεση"
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:1
+msgid "you are logged in rajce as $name"
+msgstr "είστε συνδεδεμένος στο rajce ως $name"
 
-#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:4
-#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:6
-#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
-#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:4
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:7
-#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:3
-msgid "_Publish"
-msgstr "_Δημοσίευση"
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:7
+msgid "$mediatype will appear in"
+msgstr "το $mediatype θα εμφανιστεί στο:"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:1
 msgid "_Albums (or write new):"
-msgstr "_Συλλογές (ή εγγραφή νέων):"
+msgstr "Ά_λμπουμ (ή εγγραφή νέων):"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:2
 msgid "Access _type:"
-msgstr "Τύπος _Πρόσβασης:"
+msgstr "Τύπος _πρόσβασης:"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:3
 msgid "Disable _comments"
@@ -338,13 +600,13 @@ msgid ""
 "upload photos and publish to your feed. These permissions are required for "
 "Shotwell Connect to function."
 msgstr ""
-"Δεν είστε ακόμα συνδεδεμένος στο Facebook.\n"
+"Αυτήν τη στιγμή δεν είστε συνδεδεμένος στο Facebook.\n"
 "\n"
 "Αν δεν έχετε ακόμα λογαριασμό στο Facebook, μπορείτε να δημιουργήσετε έναν "
 "κατά τη διαδικασία σύνδεσης. Κατά τη διάρκεια της σύνδεσης το Shotwell "
-"Connect μπορεί να σας ζητήσει την άδεια να φορτώσει φωτογραφίες και να τις "
-"δημοσιοποιήσει στη τροφοδοσία σας. Τα δικαιώματα αυτά είναι απαραίτητα για "
-"τη λειτουργία του Shotwell Connect."
+"Connect μπορεί να σας ζητήσει την άδεια να αποστείλει φωτογραφίες και να τις "
+"δημοσιεύσει στην τροφοδοσία σας. Τα δικαιώματα αυτά είναι απαραίτητα για τη "
+"λειτουργία του Shotwell Connect."
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:65
 msgid ""
@@ -373,7 +635,7 @@ msgstr "Έλεγχος σύνδεσης με το Facebook..."
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:347
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:379
 msgid "Creating album..."
-msgstr "Δημιουργία συλλογής..."
+msgstr "Δημιουργία άλμπουμ..."
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:374
 msgid ""
@@ -399,15 +661,15 @@ msgstr "Που θέλετε να δημοσιεύσετε τις επιλεγμ�
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Upload _size:"
-msgstr "_Μέγεθος μεταφόρτωσης:"
+msgstr "_Μέγεθος αποστολής:"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:1180
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1211
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1214
 msgid "Just me"
 msgstr "Μόνο εγώ"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:1182
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1210
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1234
 msgid "Everyone"
 msgstr "Όλοι"
@@ -419,11 +681,11 @@ msgid ""
 "Click Login to log into Flickr in your Web browser.  You will have to "
 "authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
-"Δεν είστε συνδεδεμένοι με το Flickr.\n"
+"Αυτήν τη στιγμή δεν είστε συνδεδεμένος με το Flickr.\n"
 "\n"
 "Πατήστε στο Σύνδεση για να συνδεθείτε με το Flickr στον περιηγητή ιστού σας. "
 "Θα πρέπει να εξουσιοδοτήσετε το Shotwell Connect για σύνδεση στο λογαριασμό "
-"του Flickr σας."
+"σας στο Flickr."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:63
 msgid ""
@@ -462,60 +724,61 @@ msgstr ""
 "Είστε συνδεδεμένος στο Flickr ως %s.\n"
 "\n"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1156
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
-"This month, you have %d megabytes remaining in your upload quota."
-msgstr ""
+"This month you have %d megabyte remaining in your upload quota."
+msgid_plural ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month you have %d megabytes remaining in your upload quota."
+msgstr[0] ""
 "Ο δωρεάν λογαριασμός Flickr περιορίζει τον όγκο δεδομένων που μπορείτε να "
-"ανεβάσετε κάθε μήνα.\n"
+"αποστέλνετε κάθε μήνα.\n"
+"Αυτόν τον μήνα, έχετε %d megabyte ακόμα μέχρι το ανώτατο όριο."
+msgstr[1] ""
+"Ο δωρεάν λογαριασμός Flickr περιορίζει τον όγκο δεδομένων που μπορείτε να "
+"αποστέλνετε κάθε μήνα.\n"
 "Αυτόν τον μήνα, έχετε %d megabytes ακόμα μέχρι το ανώτατο όριο."
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1157
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1160
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
-"Ο λογαριασμός Flickr Pro σας δίνει το δικαίωμα για απεριόριστα ανεβάσματα."
+"Ο λογαριασμός Flickr Pro σας δίνει το δικαίωμα για απεριόριστες αποστολές."
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1162
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1165
 msgid "Photos _visible to:"
 msgstr "_Φωτογραφίες ορατές σε:"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1164
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1167
 msgid "Videos _visible to:"
 msgstr "_Βίντεο ορατά σε:"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1167
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1170
 msgid "Photos and videos _visible to:"
 msgstr "Φωτογραφίες και βίντεο _ορατά σε:"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1208
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1211
 msgid "Friends & family only"
 msgstr "Φίλοι & οικογένεια μόνο"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1209
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1212
 msgid "Family only"
 msgstr "Μόνο οικογένεια"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1210
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1213
 msgid "Friends only"
 msgstr "Μόνο φίλοι"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1234
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1248
 msgid "2048 x 1536 pixels"
 msgstr "2048 x 1536 εικονοστοιχεία"
 
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1235
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1249
 msgid "4096 x 3072 pixels"
 msgstr "4096 x 3072 εικονοστοιχεία"
-
-#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1233
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1250
-#: ../src/Dimensions.vala:17
-msgid "Original size"
-msgstr "Αρχικό μέγεθος"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:58
 msgid ""
@@ -524,11 +787,11 @@ msgid ""
 "Click Login to log into Picasa Web Albums in your Web browser. You will have "
 "to authorize Shotwell Connect to link to your Picasa Web Albums account."
 msgstr ""
-"Δεν είστε συνδεδεμένοι τώρα με τη συλλογή ιστού Picasa.\n"
+"Αυτήν τη στιγμή δεν είστε συνδεδεμένος με τα άλμπουμ ιστού Picasa.\n"
 "\n"
-"Πατήστε στη σύνδεση για να συνδεθείτε με τη συλλογή ιστού Picasa στον "
+"Πατήστε στη σύνδεση για να συνδεθείτε με τα άλμπουμ ιστού Picasa στον "
 "περιηγητή ιστού σας. Θα πρέπει να εξουσιοδοτήσετε το Shotwell Connect για "
-"σύνδεση στον λογαριασμό σας συλλογών ιστού Picasa."
+"σύνδεση στον λογαριασμό σας των άλμπουμ ιστού Picasa."
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:361
 msgid ""
@@ -542,16 +805,11 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:659
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr "Είστε συνδεδεμένος στη συλλογή ιστού Picasa ως %s."
+msgstr "Είστε συνδεδεμένος με τα άλμπουμ ιστού Picasa ως %s."
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:665
 msgid "Videos will appear in:"
 msgstr "Τα βίντεο θα εμφανιστούν στο:"
-
-#: ../plugins/shotwell-publishing/PicasaPublishing.vala:670
-#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:1
-msgid "Photos will appear in:"
-msgstr "Οι φωτογραφίες θα εμφανίζονται στα:"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:746
 msgid "Small (640 x 480 pixels)"
@@ -577,7 +835,7 @@ msgstr "Αρχικό μέγεθος"
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:746
 #, c-format
 msgid "Creating album %s..."
-msgstr "Δημιουργία συλλογής %s..."
+msgstr "Δημιουργία άλμπουμ %s..."
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:917
 msgid "An error message occurred when publishing to Piwigo. Please try again."
@@ -590,9 +848,9 @@ msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
 msgstr ""
-"Εισάγετε το URL της βιβλιοθήκης φωτογραφιών Piwigo καθώς και το όνομα χρήστη "
-"και τον κωδικό πρόσβασης που συνδέεται με τον λογαριασμό Piwigo για αυτήν τη "
-"βιβλιοθήκη."
+"Εισάγετε τη διεύθυνση της βιβλιοθήκης φωτογραφιών Piwigo καθώς και το όνομα "
+"χρήστη και τον κωδικό πρόσβασης που συνδέεται με τον λογαριασμό σας στο "
+"Piwigo για αυτήν τη βιβλιοθήκη."
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:999
 msgid ""
@@ -600,11 +858,11 @@ msgid ""
 "entered"
 msgstr ""
 "Το Shotwell δεν μπορεί να επικοινωνήσει με τη βιβλιοθήκη φωτογραφιών Piwigo. "
-"Παρακαλούμε επιβεβαιώστε το URL που εισάγατε"
+"Παρακαλούμε επιβεβαιώστε το τη διεύθυνση που εισάγατε"
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1032
 msgid "Invalid URL"
-msgstr "Άκυρο URL"
+msgstr "Άκυρη διεύθυνση"
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1235
 msgid "Admins, Family, Friends, Contacts"
@@ -630,7 +888,7 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once."
 msgstr ""
-"Δεν είστε ακόμα συνδεδεμένος στο YouTube.\n"
+"Αυτήν τη στιγμή δεν είστε συνδεδεμένος στο YouTube.\n"
 "\n"
 "Θα πρέπει να έχετε ήδη εγγραφεί για έναν λογαριασμό Google και να τον έχετε "
 "ρυθμίσει για χρήση με το YouTube για να συνεχίσετε. Μπορείτε να ρυθμίσετε "
@@ -665,15 +923,15 @@ msgstr "Δημόσιο μη αρχειοθετημένα"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:1
 msgid "Publish to an e_xisting album:"
-msgstr "Δημοσίευση σε _υπάρχουσα συλλογή:"
+msgstr "Δημοσίευση σε _υπάρχον άλμπουμ:"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:2
 msgid "Create a _new album named:"
-msgstr "Δημιουργία _νέας συλλογής με όνομα:"
+msgstr "Δημιουργία _νέου άλμπουμ με όνομα:"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
 msgid "Videos and new photo albums _visible to:"
-msgstr "Βίντεο και νέες συλλογές φωτογραφιών _ορατά σε:"
+msgstr "Βίντεο και νέα άλμπουμ φωτογραφιών _ορατά σε:"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:5
 #: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:2
@@ -682,8 +940,8 @@ msgstr "Βίντεο και νέες συλλογές φωτογραφιών _ο
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
 msgstr ""
-"Α_φαιρέστε τοποθεσία, κάμερα και άλλες πληροφορίες αναγνώρισης πριν τη "
-"μεταφόρτωση"
+"Α_φαιρέστε τοποθεσία, κάμερα και άλλες πληροφορίες αναγνώρισης πριν την "
+"αποστολή"
 
 #: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:1
 msgid ""
@@ -702,18 +960,9 @@ msgstr "Α_ριθμός εξουσιοδότησης:"
 msgid "Con_tinue"
 msgstr "_Συνέχεια"
 
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:1
-msgid "An _existing album:"
-msgstr "_Υπάρχουσα συλλογή:"
-
-#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:2
-#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:3
-msgid "A _new album named:"
-msgstr "Μια _νέα συλλογή με όνομα:"
-
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
 msgid "L_ist album in public gallery"
-msgstr "_Ταξινόμηση συλλογής στη δημόσια πινακοθήκη"
+msgstr "_Ταξινόμηση άλμπουμ στη δημόσια πινακοθήκη"
 
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
 msgid "Photo _size preset:"
@@ -721,7 +970,7 @@ msgstr "Προκα_θορισμένο μέγεθος φωτογραφίας:"
 
 #: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:2
 msgid "_URL of your Piwigo photo library"
-msgstr "_URL της βιβλιοθήκης φωτογραφιών Piwigo"
+msgstr "_Διεύθυνση της βιβλιοθήκης φωτογραφιών Piwigo"
 
 #: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:3
 msgid "User _name"
@@ -729,7 +978,7 @@ msgstr "Όνομα _Χρήστη"
 
 #: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:5
 msgid "_Remember Password"
-msgstr "_Απομνημόνευση Κωδικού"
+msgstr "_Απομνημόνευση κωδικού πρόσβασης"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:2
 msgid "An _existing category:"
@@ -749,7 +998,7 @@ msgstr "στην κατηγορία:"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:7
 msgid "Album comment:"
-msgstr "Σχόλιο συλλογής:"
+msgstr "Σχόλιο άλμπουμ:"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:9
 msgid "_If a title is set and comment unset, use title as comment"
@@ -759,14 +1008,14 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:10
 msgid "_Do no upload tags"
-msgstr "Να _μην μεταφορτώνονται ετικέτες"
+msgstr "Να _μην αποστέλνονται ετικέτες"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:11
 msgid "Logout"
 msgstr "Αποσύνδεση"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:12
-#: ../src/Resources.vala:270
+#: ../src/Resources.vala:303
 msgid "Publish"
 msgstr "Δημοσίευση"
 
@@ -776,7 +1025,7 @@ msgstr "Βασικές υπηρεσίες δημοσίευσης"
 
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:1
 msgid "Video privacy _setting:"
-msgstr "_Ρυθμίσεις ιδιωτικότητας βίντεο:"
+msgstr "_Ρυθμίσεις απορρήτου για βίντεο:"
 
 #: ../plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -823,8 +1072,10 @@ msgid "Core Slideshow Transitions"
 msgstr "Βασικές μεταβάσεις αλληλουχίας εικόνων"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
+msgstr ""
+"Πνευματικά δικαιώματα 2010 Maxim Kartashev, Πνευματικά δικαιώματα 2011-2015 "
+"Ίδρυμα Yorba"
 
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
@@ -851,55 +1102,39 @@ msgstr "Αδυναμία δημιουργίας προσωρινού φακέλ�
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Αδυναμία δημιουργίας υποφακέλου %s: %s"
 
-#: ../src/AppWindow.vala:49
+#: ../src/AppWindow.vala:53
 msgid "Pin Toolbar"
 msgstr "Καρφίτσωμα γραμμής εργαλείων"
 
-#: ../src/AppWindow.vala:50
+#: ../src/AppWindow.vala:54
 msgid "Pin the toolbar open"
 msgstr "Ανοικτό καρφίτσωμα της γραμμής εργαλείων"
 
-#: ../src/AppWindow.vala:53 ../src/AppWindow.vala:131
+#: ../src/AppWindow.vala:59
 msgid "Leave fullscreen"
 msgstr "Έξοδος από πλήρη οθόνη"
 
-#: ../src/AppWindow.vala:130
-msgid "Leave _Fullscreen"
-msgstr "Έ_ξοδος από πλήρη οθόνη"
-
-#: ../src/AppWindow.vala:491
-msgid "_Quit"
-msgstr "Έ_ξοδος"
-
-#: ../src/AppWindow.vala:496
-msgid "_About"
-msgstr "Πε_ρί"
-
-#: ../src/AppWindow.vala:501
-msgid "Fulls_creen"
-msgstr "Πλήρης ο_θόνη"
-
-#: ../src/AppWindow.vala:506
+#: ../src/AppWindow.vala:525
 msgid "_Contents"
 msgstr "_Περιεχόμενα"
 
-#: ../src/AppWindow.vala:511
+#: ../src/AppWindow.vala:530
 msgid "_Frequently Asked Questions"
 msgstr "_Συχνές ερωτήσεις"
 
-#: ../src/AppWindow.vala:516
+#: ../src/AppWindow.vala:535
 msgid "_Report a Problem..."
 msgstr "_Αναφορά προβλήματος..."
 
-#: ../src/AppWindow.vala:615 ../src/AppWindow.vala:636
-#: ../src/AppWindow.vala:653 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
-#: ../src/Dialogs.vala:1361 ../src/Dialogs.vala:1384
-#: ../src/data_imports/DataImportsUI.vala:399
-#: ../src/publishing/PublishingUI.vala:498
+#: ../src/AppWindow.vala:634 ../src/AppWindow.vala:655
+#: ../src/AppWindow.vala:672 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
+#: ../src/Dialogs.vala:1418 ../src/Dialogs.vala:1441 ../src/Resources.vala:162
+#: ../src/data_imports/DataImportsUI.vala:374
+#: ../src/publishing/PublishingUI.vala:475
 msgid "_Cancel"
 msgstr "Α_κύρωση"
 
-#: ../src/AppWindow.vala:663
+#: ../src/AppWindow.vala:682
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -912,17 +1147,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/AppWindow.vala:695
+#: ../src/AppWindow.vala:702
+msgid "Visit the Yorba web site"
+msgstr "Επισκεφθείτε τον ιστοτόπο του Yorba"
+
+#: ../src/AppWindow.vala:714
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Δεν ήταν δυνατή η εμφάνιση της βοήθειας: %s"
 
-#: ../src/AppWindow.vala:703
+#: ../src/AppWindow.vala:722
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Αδύνατη η περιήγηση στη βάση δεδομένων σφαλμάτων: %s"
 
-#: ../src/AppWindow.vala:711
+#: ../src/AppWindow.vala:730
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Αδυναμία εμφάνισης συχνών ερωτήσεων: %s"
@@ -988,11 +1227,11 @@ msgstr "Αλλοιωμένο αρχείο εικόνας"
 msgid "Imported failed (%d)"
 msgstr "Αποτυχία εισαγωγής (%d)"
 
-#: ../src/CollectionPage.vala:230 ../src/PhotoPage.vala:2627
+#: ../src/CollectionPage.vala:230 ../src/PhotoPage.vala:2637
 msgid "S_lideshow"
 msgstr "_Αλληλουχία"
 
-#: ../src/CollectionPage.vala:231 ../src/PhotoPage.vala:2628
+#: ../src/CollectionPage.vala:231 ../src/PhotoPage.vala:2638
 msgid "Play a slideshow"
 msgstr "Αναπαραγωγή αλληλουχίας εικόνων"
 
@@ -1005,7 +1244,7 @@ msgid "Export Photos/Videos"
 msgstr "Εξαγωγή φωτογραφιών/βίντεο"
 
 #: ../src/CollectionPage.vala:458 ../src/Dialogs.vala:58
-#: ../src/PhotoPage.vala:3200
+#: ../src/PhotoPage.vala:3211
 msgid "Export Photo"
 msgstr "Εξαγωγή φωτογραφίας"
 
@@ -1053,47 +1292,47 @@ msgstr "Βελτίωση"
 msgid "Undoing Enhance"
 msgstr "Αναίρεση βελτίωσης"
 
-#: ../src/Commands.vala:845
+#: ../src/Commands.vala:853
 msgid "Applying Color Transformations"
 msgstr "Εφαρμογή μετασχηματισμών χρώματος"
 
-#: ../src/Commands.vala:845
+#: ../src/Commands.vala:853
 msgid "Undoing Color Transformations"
 msgstr "Αναίρεση μετασχηματισμών χρώματος"
 
-#: ../src/Commands.vala:995
+#: ../src/Commands.vala:1003
 msgid "Creating New Event"
 msgstr "Δημιουργία νέου συμβάντος"
 
-#: ../src/Commands.vala:996
+#: ../src/Commands.vala:1004
 msgid "Removing Event"
 msgstr "Αφαίρεση συμβάντος"
 
-#: ../src/Commands.vala:1005
+#: ../src/Commands.vala:1013
 msgid "Moving Photos to New Event"
 msgstr "Μετακίνηση φωτογραφιών σε νέο συμβάν"
 
-#: ../src/Commands.vala:1006
+#: ../src/Commands.vala:1014
 msgid "Setting Photos to Previous Event"
 msgstr "Ορισμός φωτογραφιών σε προηγούμενο συμβάν"
 
-#: ../src/Commands.vala:1063
+#: ../src/Commands.vala:1071
 msgid "Merging"
 msgstr "Συγχώνευση"
 
-#: ../src/Commands.vala:1064
+#: ../src/Commands.vala:1072
 msgid "Unmerging"
 msgstr "Ακύρωση συγχώνευσης"
 
-#: ../src/Commands.vala:1073
+#: ../src/Commands.vala:1081
 msgid "Duplicating photos"
 msgstr "Αντιγραφή φωτογραφιών"
 
-#: ../src/Commands.vala:1073
+#: ../src/Commands.vala:1081
 msgid "Removing duplicated photos"
 msgstr "Αφαίρεση διπλών αντιγράφων φωτογραφιών"
 
-#: ../src/Commands.vala:1096
+#: ../src/Commands.vala:1104
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
@@ -1104,53 +1343,53 @@ msgstr[1] ""
 "Δεν ήταν δυνατή η δημιουργία αντιγράφου %d φωτογραφιών εξαιτίας κάποιου "
 "σφάλματος αρχείου"
 
-#: ../src/Commands.vala:1183
+#: ../src/Commands.vala:1191
 msgid "Restoring previous rating"
 msgstr "Επαναφορά προηγούμενων αξιολογήσεων"
 
-#: ../src/Commands.vala:1193 ../src/Commands.vala:1194
+#: ../src/Commands.vala:1201 ../src/Commands.vala:1202
 msgid "Increasing ratings"
 msgstr "Αύξηση αξιολογήσεων"
 
-#: ../src/Commands.vala:1193 ../src/Commands.vala:1194
+#: ../src/Commands.vala:1201 ../src/Commands.vala:1202
 msgid "Decreasing ratings"
 msgstr "Μείωση αξιολογήσεων"
 
-#: ../src/Commands.vala:1244
+#: ../src/Commands.vala:1252
 msgid "Setting RAW developer"
 msgstr "Ορισμός της εφαρμογής επεξεργασίας RAW αρχείων"
 
-#: ../src/Commands.vala:1244
+#: ../src/Commands.vala:1252
 msgid "Restoring previous RAW developer"
 msgstr "Επαναφορά προηγούμενης εφαρμογής επεξεργασίας RAW αρχείων"
 
-#: ../src/Commands.vala:1245
+#: ../src/Commands.vala:1253
 msgid "Set Developer"
 msgstr "Ορισμός εφαρμογής επεξεργασίας RAW αρχείων"
 
-#: ../src/Commands.vala:1335
+#: ../src/Commands.vala:1343
 msgid "Original photo could not be adjusted."
 msgstr "Η αυθεντική φωτογραφία δεν ήταν δυνατό να ρυθμιστεί."
 
-#: ../src/Commands.vala:1356
+#: ../src/Commands.vala:1364
 msgid "Adjusting Date and Time"
 msgstr "Ρύθμιση Ημερομηνίας και Ώρας"
 
-#: ../src/Commands.vala:1356
+#: ../src/Commands.vala:1364
 msgid "Undoing Date and Time Adjustment"
 msgstr "Αναίρεση ρυθμίσεων ημερομηνίας και ώρας"
 
-#: ../src/Commands.vala:1387
+#: ../src/Commands.vala:1395
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Μια αυθεντική φωτογραφία δεν ήταν δυνατό να ρυθμιστεί."
 msgstr[1] "Οι παρακάτω αυθεντικές φωτογραφίες δεν ήταν δυνατό να ρυθμιστούν."
 
-#: ../src/Commands.vala:1389 ../src/Commands.vala:1413
+#: ../src/Commands.vala:1397 ../src/Commands.vala:1421
 msgid "Time Adjustment Error"
 msgstr "Σφάλμα ρύθμισης ώρας"
 
-#: ../src/Commands.vala:1411
+#: ../src/Commands.vala:1419
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
@@ -1159,78 +1398,78 @@ msgstr[0] ""
 msgstr[1] ""
 "Δεν ήταν δυνατή η αναίρεση των ρυθμίσεων ώρας για τα παρακάτω αρχεία εικόνας."
 
-#: ../src/Commands.vala:1625 ../src/Commands.vala:1648
+#: ../src/Commands.vala:1633 ../src/Commands.vala:1656
 msgid "Create Tag"
 msgstr "Δημιουργία ετικέτας"
 
-#: ../src/Commands.vala:1683
+#: ../src/Commands.vala:1691
 #, c-format
 msgid "Move Tag \"%s\""
-msgstr "Μετακίνηση Καρτέλας \"%s\""
+msgstr "Μετακίνηση ετικέτας \"%s\""
 
-#: ../src/Commands.vala:2335
+#: ../src/Commands.vala:2343
 msgid "Move Photos to Trash"
-msgstr "Μετακίνηση φωτογραφιών στον κάδο απορριμμάτων"
+msgstr "Μετακίνηση φωτογραφιών στα απορρίμματα"
 
-#: ../src/Commands.vala:2335
+#: ../src/Commands.vala:2343
 msgid "Restore Photos from Trash"
-msgstr "Επαναφορά φωτογραφιών από τον κάδο απορριμμάτων"
+msgstr "Επαναφορά φωτογραφιών από τα απορρίμματα"
 
-#: ../src/Commands.vala:2336
+#: ../src/Commands.vala:2344
 msgid "Move the photos to the Shotwell trash"
-msgstr "Μετακίνηση φωτογραφιών στον κάδο απορριμμάτων του Shotwell"
+msgstr "Μετακίνηση φωτογραφιών στα απορρίμματα του Shotwell"
 
-#: ../src/Commands.vala:2336
+#: ../src/Commands.vala:2344
 msgid "Restore the photos back to the Shotwell library"
 msgstr "Επαναφορά των εικόνων στη βιβλιοθήκη του Shotwell"
 
-#: ../src/Commands.vala:2355
+#: ../src/Commands.vala:2363
 msgid "Moving Photos to Trash"
-msgstr "Μετακίνηση φωτογραφιών στον κάδο απορριμμάτων"
+msgstr "Μετακίνηση φωτογραφιών στα απορρίμματα"
 
-#: ../src/Commands.vala:2355
+#: ../src/Commands.vala:2363
 msgid "Restoring Photos From Trash"
-msgstr "Επαναφορά φωτογραφιών από τον κάδο απορριμμάτων"
+msgstr "Επαναφορά φωτογραφιών από τα απορρίμματα"
 
-#: ../src/Commands.vala:2441
+#: ../src/Commands.vala:2449
 msgid "Flag selected photos"
 msgstr "Επισήμανση επιλεγμένων φωτογραφιών"
 
-#: ../src/Commands.vala:2442
+#: ../src/Commands.vala:2450
 msgid "Unflag selected photos"
 msgstr "Αναίρεση επισήμανσης επιλεγμένων φωτογραφιών"
 
-#: ../src/Commands.vala:2443
+#: ../src/Commands.vala:2451
 msgid "Flagging selected photos"
 msgstr "Επισήμανση επιλεγμένων φωτογραφιών"
 
-#: ../src/Commands.vala:2444
+#: ../src/Commands.vala:2452
 msgid "Unflagging selected photos"
 msgstr "Αφαίρεση επισήμανσης επιλεγμένων φωτογραφιών"
 
-#: ../src/Commands.vala:2451
+#: ../src/Commands.vala:2459
 msgid "Flag"
 msgstr "Επισήμανση"
 
-#: ../src/Commands.vala:2451
+#: ../src/Commands.vala:2459
 msgid "Unflag"
 msgstr "Αναίρεση επισήμανσης"
 
-#: ../src/DesktopIntegration.vala:118
+#: ../src/DesktopIntegration.vala:121
 #, c-format
 msgid "Unable to launch Nautilus Send-To: %s"
 msgstr "Δεν ήταν δυνατή η εκκίνηση της αποστολής μέσω Ναυτίλου: %s"
 
-#: ../src/DesktopIntegration.vala:126
+#: ../src/DesktopIntegration.vala:129
 msgid "Send To"
 msgstr "Αποστολή σε"
 
-#: ../src/DesktopIntegration.vala:171
+#: ../src/DesktopIntegration.vala:174
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Αδυναμία εξαγωγής φόντου στο %s: %s"
 
-#: ../src/DesktopIntegration.vala:299
+#: ../src/DesktopIntegration.vala:311
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Αδυναμία προετοιμασίας προβολής διαφανειών στην επιφάνεια εργασίας: %s"
@@ -1244,16 +1483,16 @@ msgstr[0] ""
 msgstr[1] ""
 "Αυτή η ενέργεια θα αφαιρέσει την ετικέτα \"%s\" από %d φωτογραφίες. Συνέχεια;"
 
-#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1329
-#: ../src/Resources.vala:330 ../src/Resources.vala:378
-#: ../src/Resources.vala:643
+#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1386
+#: ../src/Resources.vala:163 ../src/Resources.vala:369
+#: ../src/Resources.vala:417 ../src/Resources.vala:682
 msgid "_Delete"
 msgstr "_Διαγραφή"
 
 #: ../src/Dialogs.vala:25
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr "Αυτό θα αφαιρέσει την αποθηκευμένη αναζήτηση \"%s\".  Να συνεχίσει;"
+msgstr "Αυτό θα αφαιρέσει την αποθηκευμένη αναζήτηση \"%s\".  Συνέχεια;"
 
 #: ../src/Dialogs.vala:35
 msgid ""
@@ -1321,51 +1560,51 @@ msgid "Current"
 msgstr "Τρέχον"
 
 #. layout controls
-#: ../src/Dialogs.vala:212
+#: ../src/Dialogs.vala:213
 msgid "_Format:"
 msgstr "_Μορφοποίηση:"
 
-#: ../src/Dialogs.vala:215
+#: ../src/Dialogs.vala:216
 msgid "_Quality:"
 msgstr "_Ποιότητα:"
 
-#: ../src/Dialogs.vala:218
+#: ../src/Dialogs.vala:219
 msgid "_Scaling constraint:"
 msgstr "Περιορισμός _κλίμακας:"
 
-#: ../src/Dialogs.vala:221
-msgid " _pixels"
-msgstr " _Εικονοστοιχεία"
+#: ../src/Dialogs.vala:222
+msgid "_Pixels:"
+msgstr " _Εικονοστοιχεία:"
 
-#: ../src/Dialogs.vala:229
+#: ../src/Dialogs.vala:225
 msgid "Export metadata"
 msgstr "Εξαγωγή μεταδεδομένων"
 
-#: ../src/Dialogs.vala:465
+#: ../src/Dialogs.vala:459
 msgid "Save Details..."
 msgstr "Αποθήκευση Λεπτομερειών..."
 
-#: ../src/Dialogs.vala:466
+#: ../src/Dialogs.vala:460
 msgid "Save Details"
 msgstr "Αποθήκευση Λεπτομερειών"
 
-#: ../src/Dialogs.vala:481
+#: ../src/Dialogs.vala:475
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(και άλλα %d)\n"
 
-#: ../src/Dialogs.vala:534
+#: ../src/Dialogs.vala:528
 msgid "Import Results Report"
-msgstr "Αναφορά Αποτελεσμάτων Εισαγωγής"
+msgstr "Αναφορά αποτελεσμάτων εισαγωγής"
 
-#: ../src/Dialogs.vala:538
+#: ../src/Dialogs.vala:532
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "Προσπάθεια εισαγωγής %d αρχείου."
 msgstr[1] "Προσπάθεια εισαγωγής %d αρχείων."
 
-#: ../src/Dialogs.vala:541
+#: ../src/Dialogs.vala:535
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -1375,37 +1614,37 @@ msgstr[1] "Από αυτά, %d αρχεία εισήχθησαν επιτυχώ�
 #.
 #. Duplicates
 #.
-#: ../src/Dialogs.vala:553
+#: ../src/Dialogs.vala:547
 msgid "Duplicate Photos/Videos Not Imported:"
-msgstr "Διπλότυπες Φωτογραφίες/Βίντεο που δεν Εισήχθησαν:"
+msgstr "Διπλότυπες φωτογραφίες/βίντεο που δεν εισήχθησαν:"
 
-#: ../src/Dialogs.vala:557
+#: ../src/Dialogs.vala:551
 msgid "duplicates existing media item"
-msgstr "Διπλότυπο υπάρχον αντικείμενο"
+msgstr "δημιουργεί αντίφραφο του υφιστάμενου αντικειμένου πολυμέσων"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: ../src/Dialogs.vala:568
+#: ../src/Dialogs.vala:562
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Δεν εισήχθησαν φωτογραφίες/βίντεο λόγω σφαλμάτων κάμερας:"
 
-#: ../src/Dialogs.vala:571 ../src/Dialogs.vala:586 ../src/Dialogs.vala:601
-#: ../src/Dialogs.vala:617 ../src/Dialogs.vala:632 ../src/Dialogs.vala:646
+#: ../src/Dialogs.vala:565 ../src/Dialogs.vala:580 ../src/Dialogs.vala:595
+#: ../src/Dialogs.vala:611 ../src/Dialogs.vala:626 ../src/Dialogs.vala:640
 msgid "error message:"
 msgstr "μήνυμα λάθους:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: ../src/Dialogs.vala:582
+#: ../src/Dialogs.vala:576
 msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
 msgstr "Μη εισαγωγή αρχείων επειδή δεν αναγνωρίστηκαν ως φωτογραφίες ή βίντεο:"
 
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: ../src/Dialogs.vala:597
+#: ../src/Dialogs.vala:591
 msgid ""
 "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
 "Understands:"
@@ -1415,7 +1654,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: ../src/Dialogs.vala:612
+#: ../src/Dialogs.vala:606
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
 "Library:"
@@ -1423,51 +1662,51 @@ msgstr ""
 "Μη εισαγωγή αρχείων επειδή το Shotwell δε μπόρεσε να τα αντιγράψει στη "
 "βιβλιοθήκη:"
 
-#: ../src/Dialogs.vala:616
+#: ../src/Dialogs.vala:610
 #, c-format
 msgid ""
 "couldn't copy %s\n"
 "\tto %s"
 msgstr ""
 "Αδυναμία αντιγραφής %s\n"
-"\tσε %s"
+"\tto %s"
 
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: ../src/Dialogs.vala:628
+#: ../src/Dialogs.vala:622
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
-msgstr "Μη εισαγωγή φωτογραφιών/βίντεο επειδή τα αρχεία είναι αλλοιωμένα:"
+msgstr "Μη εισαγωγή φωτογραφιών/βίντεο επειδή τα αρχεία είναι καταστραμμένα:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: ../src/Dialogs.vala:643
+#: ../src/Dialogs.vala:637
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Μη εισαγωγή φωτογραφιών/βίντεο για άλλους λόγους:"
 
-#: ../src/Dialogs.vala:663
+#: ../src/Dialogs.vala:657
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "1 διπλή φωτογραφία δεν εισήχθη:\n"
 msgstr[1] "%d διπλές φωτογραφίες δεν εισήχθησαν:\n"
 
-#: ../src/Dialogs.vala:666
+#: ../src/Dialogs.vala:660
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "1 διπλό βίντεο δεν εισήχθη:\n"
 msgstr[1] "%d διπλά βίντεο δεν εισήχθησαν:\n"
 
-#: ../src/Dialogs.vala:669
+#: ../src/Dialogs.vala:663
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "1 διπλή φωτογραφία/βίντεο δεν εισήχθη:\n"
 msgstr[1] "%d διπλές φωτογραφίες/βίντεο δεν εισήχθησαν:\n"
 
-#: ../src/Dialogs.vala:683
+#: ../src/Dialogs.vala:677
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
@@ -1478,7 +1717,7 @@ msgstr[1] ""
 "%d φωτογραφίες απέτυχαν να εισαχθούν εξαιτίας ενός σφάλματος αρχείου ή "
 "σφάλματος του υλικού:\n"
 
-#: ../src/Dialogs.vala:686
+#: ../src/Dialogs.vala:680
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
@@ -1489,7 +1728,7 @@ msgstr[1] ""
 "%d βίντεο απέτυχαν να εισαχθούν εξαιτίας ενός σφάλματος αρχείου ή σφάλματος "
 "του υλικού:\n"
 
-#: ../src/Dialogs.vala:689
+#: ../src/Dialogs.vala:683
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -1501,7 +1740,7 @@ msgstr[1] ""
 "%d φωτογραφίες/βίντεο απέτυχαν να εισαχθούν εξαιτίας ενός σφάλματος αρχείου "
 "ή σφάλματος του υλικού:\n"
 
-#: ../src/Dialogs.vala:692
+#: ../src/Dialogs.vala:686
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
@@ -1511,7 +1750,7 @@ msgstr[1] ""
 "Απέτυχε η εισαγωγή %d αρχείων λόγω σφάλματος αρχείου ή σφάλματος του "
 "υλικού:\n"
 
-#: ../src/Dialogs.vala:706
+#: ../src/Dialogs.vala:700
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -1525,7 +1764,7 @@ msgstr[1] ""
 "Απέτυχε η εισαγωγή %d φωτογραφιών επειδή ο φάκελος της βιβλιοθήκης δεν είναι "
 "εγγράψιμος:\n"
 
-#: ../src/Dialogs.vala:709
+#: ../src/Dialogs.vala:703
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -1539,7 +1778,7 @@ msgstr[1] ""
 "Απέτυχε η εισαγωγή %d βίντεο επειδή ο φάκελος της βιβλιοθήκης δεν είναι "
 "εγγράψιμος:\n"
 
-#: ../src/Dialogs.vala:712
+#: ../src/Dialogs.vala:706
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -1554,7 +1793,7 @@ msgstr[1] ""
 "Απέτυχε η εισαγωγή %d φωτογραφιών/βίντεο επειδή ο φάκελος της βιβλιοθήκης "
 "δεν είναι εγγράψιμος:\n"
 
-#: ../src/Dialogs.vala:715
+#: ../src/Dialogs.vala:709
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -1568,7 +1807,7 @@ msgstr[1] ""
 "Απέτυχε η εισαγωγή %d αρχείων επειδή ο φάκελος της βιβλιοθήκης δεν ήταν "
 "εγγράψιμος:\n"
 
-#: ../src/Dialogs.vala:729
+#: ../src/Dialogs.vala:723
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
@@ -1577,7 +1816,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Αποτυχία εισαγωγής %d φωτογραφιών εξαιτίας κάποιου σφάλματος της κάμερας:\n"
 
-#: ../src/Dialogs.vala:732
+#: ../src/Dialogs.vala:726
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
@@ -1586,7 +1825,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Αποτυχία εισαγωγής %d βίντεο εξαιτίας κάποιου σφάλματος της κάμερας:\n"
 
-#: ../src/Dialogs.vala:735
+#: ../src/Dialogs.vala:729
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
@@ -1597,46 +1836,48 @@ msgstr[1] ""
 "Αποτυχία εισαγωγής %d φωτογραφιών/βίντεο εξαιτίας κάποιου σφάλματος της "
 "κάμερας:\n"
 
-#: ../src/Dialogs.vala:738
+#: ../src/Dialogs.vala:732
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "Απέτυχε η εισαγωγή 1 αρχείου λόγω σφάλματος της κάμερας:\n"
 msgstr[1] "Απέτυχε η εισαγωγή %d αρχείων λόγω σφάλματος της κάμερας:\n"
 
-#: ../src/Dialogs.vala:752
+#: ../src/Dialogs.vala:746
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
-msgstr[0] "Αποτυχία εισαγωγής 1 φωτογραφίας επειδή ήταν αλλοιωμένη:\n"
-msgstr[1] "Αποτυχία εισαγωγής %d φωτογραφιών επειδή ήταν αλλοιωμένες:\n"
+msgstr[0] "Αποτυχία εισαγωγής 1 φωτογραφίας επειδή ήταν καταστραμμένη:\n"
+msgstr[1] "Αποτυχία εισαγωγής %d φωτογραφιών επειδή ήταν καταστραμμένες:\n"
 
-#: ../src/Dialogs.vala:755
+#: ../src/Dialogs.vala:749
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
-msgstr[0] "Αποτυχία εισαγωγής 1 βίντεο επειδή ήταν αλλοιωμένο:\n"
-msgstr[1] "Αποτυχία εισαγωγής %d βίντεο επειδή ήταν αλλοιωμένα:\n"
+msgstr[0] "Αποτυχία εισαγωγής 1 βίντεο επειδή ήταν καταστραμμένο:\n"
+msgstr[1] "Αποτυχία εισαγωγής %d βίντεο επειδή ήταν καταστραμμένα:\n"
 
-#: ../src/Dialogs.vala:758
+#: ../src/Dialogs.vala:752
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
-msgstr[0] "Αποτυχία εισαγωγής 1 φωτογραφίας/βίντεο επειδή ήταν αλλοιωμένη:\n"
-msgstr[1] "Αποτυχία εισαγωγής %d φωτογραφιών/βίντεο επειδή ήταν αλλοιωμένες:\n"
+msgstr[0] ""
+"Αποτυχία εισαγωγής 1 φωτογραφίας/βίντεο επειδή ήταν καταστραμμένη/ο:\n"
+msgstr[1] ""
+"Αποτυχία εισαγωγής %d φωτογραφιών/βίντεο επειδή ήταν καταστραμμένες/α:\n"
 
-#: ../src/Dialogs.vala:761
+#: ../src/Dialogs.vala:755
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
-msgstr[0] "Αποτυχία εισαγωγής 1 αρχείου επειδή ήταν αλλοιωμένο:\n"
-msgstr[1] "Αποτυχία εισαγωγής %d αρχείων επειδή ήταν αλλοιωμένα:\n"
+msgstr[0] "Αποτυχία εισαγωγής 1 αρχείου επειδή ήταν καταστραμμένο:\n"
+msgstr[1] "Αποτυχία εισαγωγής %d αρχείων επειδή ήταν καταστραμμένα:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: ../src/Dialogs.vala:778
+#: ../src/Dialogs.vala:772
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -1645,56 +1886,56 @@ msgstr[1] "Παράλειψη %d ανυποστήρικτων φωτογραφί
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: ../src/Dialogs.vala:793
+#: ../src/Dialogs.vala:787
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "Παράλειψη ενός αρχείου που δεν ήταν εικόνας.\n"
 msgstr[1] "Παράλειψη %d αρχείων που δεν ήταν εικόνας.\n"
 
-#: ../src/Dialogs.vala:804
+#: ../src/Dialogs.vala:798
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "Παράλειψη 1 φωτογραφίας λόγω ακύρωσης από το χρήστη:\n"
 msgstr[1] "Παράλειψη %d φωτογραφιών λόγω ακύρωσης από το χρήστη:\n"
 
-#: ../src/Dialogs.vala:807
+#: ../src/Dialogs.vala:801
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "Παράλειψη 1 βίντεο λόγω ακύρωσης από το χρήστη:\n"
 msgstr[1] "Παράλειψη %d βίντεο λόγω ακύρωσης από το χρήστη:\n"
 
-#: ../src/Dialogs.vala:810
+#: ../src/Dialogs.vala:804
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "Παράλειψη 1 φωτογραφίας/βίντεο λόγω ακύρωσης από το χρήστη:\n"
 msgstr[1] "Παράλειψη %d φωτογραφιών/βίντεο λόγω ακύρωσης από το χρήστη:\n"
 
-#: ../src/Dialogs.vala:813
+#: ../src/Dialogs.vala:807
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "1 αρχείο παραλείφθηκε λόγω ακύρωσης από το χρήστη:\n"
 msgstr[1] "%d αρχεία παραλείφθηκαν λόγω ακύρωσης από το χρήστη:\n"
 
-#: ../src/Dialogs.vala:827
+#: ../src/Dialogs.vala:821
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "1 φωτογραφία εισήχθη με επιτυχία.\n"
 msgstr[1] "%d φωτογραφίες εισήχθησαν με επιτυχία.\n"
 
-#: ../src/Dialogs.vala:830
+#: ../src/Dialogs.vala:824
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "1 βίντεο εισήχθη με επιτυχία.\n"
 msgstr[1] "%d βίντεο εισήχθησαν με επιτυχία.\n"
 
-#: ../src/Dialogs.vala:833
+#: ../src/Dialogs.vala:827
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -1703,184 +1944,187 @@ msgstr[1] "%d φωτογραφίες/βίντεο εισήχθησαν με επ
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: ../src/Dialogs.vala:849
+#: ../src/Dialogs.vala:843
 msgid "No photos or videos imported.\n"
 msgstr "Δεν εισήχθησαν εικόνες ή βίντεο.\n"
 
-#: ../src/Dialogs.vala:856 ../src/Dialogs.vala:875
+#: ../src/Dialogs.vala:850 ../src/Dialogs.vala:869
 msgid "Import Complete"
 msgstr "Η εισαγωγή ολοκληρώθηκε"
 
-#: ../src/Dialogs.vala:1103
+#: ../src/Dialogs.vala:1155
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d δευτερόλεπτο"
 msgstr[1] "%d δευτερόλεπτα"
 
-#: ../src/Dialogs.vala:1106
+#: ../src/Dialogs.vala:1158
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d λεπτό"
 msgstr[1] "%d λεπτά"
 
-#: ../src/Dialogs.vala:1110
+#: ../src/Dialogs.vala:1162
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d ώρα"
 msgstr[1] "%d ώρες"
 
-#: ../src/Dialogs.vala:1113
+#: ../src/Dialogs.vala:1165
 msgid "1 day"
 msgstr "1 ημέρα"
 
-#: ../src/Dialogs.vala:1263 ../src/Resources.vala:205
+#: ../src/Dialogs.vala:1315 ../src/Resources.vala:236
 msgid "Rename Event"
 msgstr "Μετονομασία γεγονότος"
 
-#: ../src/Dialogs.vala:1263
+#: ../src/Dialogs.vala:1315
 msgid "Name:"
 msgstr "Όνομα:"
 
-#: ../src/Dialogs.vala:1273 ../src/Resources.vala:274
+#. Dialog title
+#. Button label
+#: ../src/Dialogs.vala:1326 ../src/Resources.vala:308
 msgid "Edit Title"
 msgstr "Επεξεργασία τίτλου"
 
-#: ../src/Dialogs.vala:1273 ../src/Properties.vala:340
+#: ../src/Dialogs.vala:1327 ../src/Properties.vala:340
 msgid "Title:"
 msgstr "Τίτλος:"
 
-#: ../src/Dialogs.vala:1287 ../src/Resources.vala:280
+#. Dialog title
+#: ../src/Dialogs.vala:1343 ../src/Resources.vala:315
 msgid "Edit Event Comment"
 msgstr "Επεξεργασία σχολίου συμβάντος"
 
-#: ../src/Dialogs.vala:1287
+#: ../src/Dialogs.vala:1344
 msgid "Edit Photo/Video Comment"
 msgstr "Επεξεργασία σχολίου φωτογραφίας/βίντεο"
 
-#: ../src/Dialogs.vala:1288 ../src/Properties.vala:630
+#: ../src/Dialogs.vala:1345 ../src/Properties.vala:628
 msgid "Comment:"
 msgstr "Σχόλιο:"
 
-#: ../src/Dialogs.vala:1304
-msgid "_Trash File"
-msgid_plural "_Trash Files"
-msgstr[0] "_Αρχείο κάδου απορριμμάτων"
-msgstr[1] "_Αρχεία κάδου απορριμμάτων"
+#: ../src/Dialogs.vala:1361
+msgid "Remove and _Trash File"
+msgid_plural "Remove and _Trash Files"
+msgstr[0] "Αφαίρεση και μεταφορά του αρχείου στα απορρίμμα_τα"
+msgstr[1] "Αφαίρεση και μεταφορά των αρχείων στα απορρίμμα_τα"
 
-#: ../src/Dialogs.vala:1308
-msgid "Only _Remove"
-msgstr "Α_φαίρεση μόνο"
+#: ../src/Dialogs.vala:1365
+msgid "_Remove From Library"
+msgstr "Αφαί_ρεση από τη βιοβλιοθήκη"
 
-#: ../src/Dialogs.vala:1328 ../src/camera/ImportPage.vala:1739
+#: ../src/Dialogs.vala:1385 ../src/camera/ImportPage.vala:1741
 msgid "_Keep"
 msgstr "_Διατήρηση"
 
-#: ../src/Dialogs.vala:1351
+#: ../src/Dialogs.vala:1408
 msgid "Revert External Edit?"
 msgstr "Να αναιρεθεί η εξωτερική επεξεργασία;"
 
-#: ../src/Dialogs.vala:1351
+#: ../src/Dialogs.vala:1408
 msgid "Revert External Edits?"
 msgstr "Να αναιρεθούν οι εξωτερικές επεξεργασίες;"
 
-#: ../src/Dialogs.vala:1353
+#: ../src/Dialogs.vala:1410
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] ""
 "Αυτή η ενέργεια θα καταστρέψει όλες τις αλλαγές που έγιναν στο εξωτερικό "
-"αρχείο. Να συνεχιστεί;"
+"αρχείο.  Συνέχεια;"
 msgstr[1] ""
 "Αυτή η ενέργεια θα καταστρέψει όλες τις αλλαγές που έγιναν στα %d εξωτερικά "
-"αρχεία. Να συνεχιστεί;"
+"αρχεία.  Συνέχεια;"
 
-#: ../src/Dialogs.vala:1357
+#: ../src/Dialogs.vala:1414
 msgid "Re_vert External Edit"
 msgstr "_Αναίρεση εξωτερικής επεξεργασίας"
 
-#: ../src/Dialogs.vala:1357
+#: ../src/Dialogs.vala:1414
 msgid "Re_vert External Edits"
 msgstr "_Αναίρεση Εξωτερικών Επεξεργασιών"
 
-#: ../src/Dialogs.vala:1378
+#: ../src/Dialogs.vala:1435
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
 msgstr[0] ""
-"Αυτή η ενέργεια θα αφαιρέσει τη φωτογραφία από τη βιβλιοθήκη. Συνέχεια;"
+"Αυτή η ενέργεια θα αφαιρέσει τη φωτογραφία από τη βιβλιοθήκη.  Συνέχεια;"
 msgstr[1] ""
-"Αυτή η ενέργεια θα αφαιρέσει %d φωτογραφίες από τη βιβλιοθήκη. Συνέχεια;"
+"Αυτή η ενέργεια θα αφαιρέσει %d φωτογραφίες από τη βιβλιοθήκη.  Συνέχεια;"
 
-#: ../src/Dialogs.vala:1385
+#: ../src/Dialogs.vala:1442 ../src/Resources.vala:178
 msgid "_Remove"
 msgstr "_Αφαίρεση"
 
-#: ../src/Dialogs.vala:1386
+#: ../src/Dialogs.vala:1443
 msgid "Remove Photo From Library"
 msgstr "Απομάκρυνση της φωτογραφίας από τη βιβλιοθήκη"
 
-#: ../src/Dialogs.vala:1386
+#: ../src/Dialogs.vala:1443
 msgid "Remove Photos From Library"
 msgstr "Απομάκρυνση των φωτογραφιών από τη βιβλιοθήκη"
 
-#: ../src/Dialogs.vala:1479
+#: ../src/Dialogs.vala:1536
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../src/Dialogs.vala:1626
+#: ../src/Dialogs.vala:1688
 msgid "AM"
 msgstr "ΠΜ"
 
-#: ../src/Dialogs.vala:1627
+#: ../src/Dialogs.vala:1689
 msgid "PM"
 msgstr "ΜΜ"
 
-#: ../src/Dialogs.vala:1628
+#: ../src/Dialogs.vala:1690
 msgid "24 Hr"
 msgstr "24 ώρες"
 
-#: ../src/Dialogs.vala:1643
+#: ../src/Dialogs.vala:1705
 msgid "_Shift photos/videos by the same amount"
 msgstr "_Μετακίνηση φωτογραφιών/βίντεο κατά την ίδια ποσότητα"
 
-#: ../src/Dialogs.vala:1648
+#: ../src/Dialogs.vala:1710
 msgid "Set _all photos/videos to this time"
 msgstr "Ορισμός ό_λων των φωτογραφιών/βίντεο σε αυτόν τον χρόνο"
 
-#: ../src/Dialogs.vala:1655
+#: ../src/Dialogs.vala:1717
 msgid "_Modify original photo file"
 msgstr "_Τροποποίηση αρχικού αρχείου φωτογραφίας"
 
-#: ../src/Dialogs.vala:1655
+#: ../src/Dialogs.vala:1717
 msgid "_Modify original photo files"
 msgstr "_Τροποποίηση αρχικών αρχείων φωτογραφίας"
 
-#: ../src/Dialogs.vala:1658
+#: ../src/Dialogs.vala:1720
 msgid "_Modify original file"
 msgstr "_Τροποποίηση αυθεντικού αρχείου"
 
-#: ../src/Dialogs.vala:1658
+#: ../src/Dialogs.vala:1720
 msgid "_Modify original files"
 msgstr "_Τροποποίηση αυθεντικών αρχείων"
 
-#: ../src/Dialogs.vala:1744
+#: ../src/Dialogs.vala:1806
 msgid "Original: "
 msgstr "Αρχικό: "
 
-#: ../src/Dialogs.vala:1745
+#: ../src/Dialogs.vala:1807
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%m/%d/%Y, %H:%M:%S"
 
-#: ../src/Dialogs.vala:1746
+#: ../src/Dialogs.vala:1808
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%m/%d/%Y, %I:%M:%S %p"
 
-#: ../src/Dialogs.vala:1835
+#: ../src/Dialogs.vala:1897
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -1889,7 +2133,7 @@ msgstr ""
 "Ο χρόνος έκθεσης θα μετατοπιστεί προς τα εμπρός κατά\n"
 "%d %s, %d %s, %d %s, και %d %s."
 
-#: ../src/Dialogs.vala:1836
+#: ../src/Dialogs.vala:1898
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -1898,31 +2142,31 @@ msgstr ""
 "Ο χρόνος έκθεσης θα μετατοπιστεί προς τα πίσω κατά\n"
 "%d %s, %d %s, %d %s, και %d %s."
 
-#: ../src/Dialogs.vala:1838
+#: ../src/Dialogs.vala:1900
 msgid "day"
 msgid_plural "days"
 msgstr[0] "ημέρα"
 msgstr[1] "ημέρες"
 
-#: ../src/Dialogs.vala:1839
+#: ../src/Dialogs.vala:1901
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ώρα"
 msgstr[1] "ώρες"
 
-#: ../src/Dialogs.vala:1840
+#: ../src/Dialogs.vala:1902
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "λεπτό"
 msgstr[1] "λεπτά"
 
-#: ../src/Dialogs.vala:1841
+#: ../src/Dialogs.vala:1903
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "δευτερόλεπτο"
 msgstr[1] "δευτερόλεπτα"
 
-#: ../src/Dialogs.vala:1885
+#: ../src/Dialogs.vala:1947
 #, c-format
 msgid ""
 "\n"
@@ -1941,51 +2185,51 @@ msgstr[1] ""
 "\n"
 "Και %d άλλα."
 
-#: ../src/Dialogs.vala:1907 ../src/Dialogs.vala:1934
+#: ../src/Dialogs.vala:1969 ../src/Dialogs.vala:1996
 msgid "Tags (separated by commas):"
 msgstr "Ετικέτες (διαχωρισμένες με κόμματα):"
 
-#: ../src/Dialogs.vala:2014
+#: ../src/Dialogs.vala:2076
 msgid "Welcome!"
 msgstr "Καλώς ήλθατε!"
 
-#: ../src/Dialogs.vala:2021
+#: ../src/Dialogs.vala:2083
 msgid "Welcome to Shotwell!"
 msgstr "Καλωσορίσατε στο Shotwell!"
 
-#: ../src/Dialogs.vala:2025
+#: ../src/Dialogs.vala:2087
 msgid "To get started, import photos in any of these ways:"
 msgstr ""
 "Για να ξεκινήσετε, εισάγετε φωτογραφίες με κάποιον από αυτούς τους τρόπους:"
 
-#: ../src/Dialogs.vala:2044
+#: ../src/Dialogs.vala:2106
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr "Επιλέξτε <span weight=\"bold\">Εισαγωγή %s αρχείων από φάκελο</span>"
 
-#: ../src/Dialogs.vala:2045
+#: ../src/Dialogs.vala:2107
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Μεταφορά και απόθεση φωτογραφιών στο παράθυρο του Shotwell"
 
-#: ../src/Dialogs.vala:2046
+#: ../src/Dialogs.vala:2108
 msgid "Connect a camera to your computer and import"
 msgstr "Συνδέστε μια κάμερα στον υπολογιστή σας και εισάγετε"
 
-#: ../src/Dialogs.vala:2056
+#: ../src/Dialogs.vala:2118
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Εισαγωγή φωτογραφιών από το φάκελο %s"
 
-#: ../src/Dialogs.vala:2063
+#: ../src/Dialogs.vala:2125
 msgid "You can also import photos in any of these ways:"
 msgstr ""
 "Μπορείτε επίσης να εισάγετε φωτογραφίες με κάποιον από αυτούς τους τρόπους:"
 
-#: ../src/Dialogs.vala:2073
+#: ../src/Dialogs.vala:2135
 msgid "_Don't show this message again"
 msgstr "_Να μην εμφανιστεί ξανά αυτό το μήνυμα"
 
-#: ../src/Dialogs.vala:2108
+#: ../src/Dialogs.vala:2170
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Εισαγωγή φωτογραφιών από τη συλλογή %s"
@@ -1993,41 +2237,41 @@ msgstr "Εισαγωγή φωτογραφιών από τη συλλογή %s"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation ghelp: URIs.
-#: ../src/Dialogs.vala:2252 ../src/Dialogs.vala:2256
+#: ../src/Dialogs.vala:2311 ../src/Dialogs.vala:2315
 msgid "(Help)"
 msgstr "(Βοήθεια)"
 
-#: ../src/Dialogs.vala:2265
+#: ../src/Dialogs.vala:2324
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Έτος%sΜήνας%sΗμέρα"
 
-#: ../src/Dialogs.vala:2267
+#: ../src/Dialogs.vala:2326
 #, c-format
 msgid "Year%sMonth"
 msgstr "Έτος%sΜήνας"
 
-#: ../src/Dialogs.vala:2269
+#: ../src/Dialogs.vala:2328
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Έτος%sΜήνας-Ημέρα"
 
-#: ../src/Dialogs.vala:2271
+#: ../src/Dialogs.vala:2330
 msgid "Year-Month-Day"
 msgstr "Έτος-Μήνας-Ημέρα"
 
-#: ../src/Dialogs.vala:2272 ../src/editing_tools/EditingTools.vala:781
+#: ../src/Dialogs.vala:2331 ../src/editing_tools/EditingTools.vala:781
 msgid "Custom"
 msgstr "Προσαρμοσμένο"
 
 #. Invalid pattern.
-#: ../src/Dialogs.vala:2509
+#: ../src/Dialogs.vala:2568
 msgid "Invalid pattern"
 msgstr "Μη έγκυρο πρότυπο"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: ../src/Dialogs.vala:2612
+#: ../src/Dialogs.vala:2670
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -2035,31 +2279,31 @@ msgstr ""
 "Το Shotwell μπορεί να αντιγράψει τις φωτογραφίες στο φάκελο της βιβλιοθήκης "
 "ή μπορεί να τις εισάγει χωρίς να τις αντιγράψει."
 
-#: ../src/Dialogs.vala:2617
+#: ../src/Dialogs.vala:2675
 msgid "Co_py Photos"
 msgstr "_Αντιγραφή φωτογραφιών"
 
-#: ../src/Dialogs.vala:2618
+#: ../src/Dialogs.vala:2676
 msgid "_Import in Place"
 msgstr "_Εισαγωγή σε φάκελο"
 
-#: ../src/Dialogs.vala:2619
+#: ../src/Dialogs.vala:2677
 msgid "Import to Library"
 msgstr "Εισαγωγή στη βιβλιοθήκη"
 
-#: ../src/Dialogs.vala:2629 ../src/PhotoPage.vala:3079
+#: ../src/Dialogs.vala:2687 ../src/PhotoPage.vala:3087
 msgid "Remove From Library"
 msgstr "Απομάκρυνση από τη Βιβλιοθήκη"
 
-#: ../src/Dialogs.vala:2630 ../src/PhotoPage.vala:3079
+#: ../src/Dialogs.vala:2688 ../src/PhotoPage.vala:3087
 msgid "Removing Photo From Library"
 msgstr "Απομάκρυνση της φωτογραφίας από τη βιβλιοθήκη"
 
-#: ../src/Dialogs.vala:2630
+#: ../src/Dialogs.vala:2688
 msgid "Removing Photos From Library"
 msgstr "Αφαίρεση των φωτογραφιών από τη Βιβλιοθήκη"
 
-#: ../src/Dialogs.vala:2644
+#: ../src/Dialogs.vala:2702
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library.  Would you also "
@@ -2084,7 +2328,7 @@ msgstr[1] ""
 "\n"
 "Αυτή η κίνηση δεν μπορεί να αναιρεθεί."
 
-#: ../src/Dialogs.vala:2648
+#: ../src/Dialogs.vala:2706
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library.  Would you also like "
@@ -2109,7 +2353,7 @@ msgstr[1] ""
 "\n"
 "Αυτή η κίνηση δεν μπορεί να αναιρεθεί."
 
-#: ../src/Dialogs.vala:2652
+#: ../src/Dialogs.vala:2710
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library.  Would you also like "
@@ -2134,7 +2378,7 @@ msgstr[1] ""
 "\n"
 "Αυτή η κίνηση δεν μπορεί να αναιρεθεί."
 
-#: ../src/Dialogs.vala:2684
+#: ../src/Dialogs.vala:2742
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash.  Delete this file?"
@@ -2148,16 +2392,12 @@ msgstr[1] ""
 "επιφάνειας εργασίας. Να διαγραφούν αυτά τα αρχεία;"
 
 #. Alert the user that the files were not removed.
-#: ../src/Dialogs.vala:2701
+#: ../src/Dialogs.vala:2759
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "Δεν είναι δυνατή η διαγραφή της εικόνας ή του βίντεο."
 msgstr[1] "Δεν είναι δυνατή η διαγραφή %d εικόνων ή βίντεο."
-
-#: ../src/Dimensions.vala:20
-msgid "Width or height"
-msgstr "Πλάτος ή ύψος"
 
 #: ../src/Dimensions.vala:23
 msgid "Width"
@@ -2174,7 +2414,7 @@ msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "Αδυναμία παρακολούθησης του %s: Δεν είναι φάκελος (%s)"
 
 #. if no name, pretty up the start time
-#: ../src/Event.vala:737
+#: ../src/Event.vala:751
 #, c-format
 msgid "Event %s"
 msgstr "Συμβάν %s"
@@ -2214,120 +2454,116 @@ msgstr "Εξαγωγή"
 msgid "Unable to process monitoring updates: %s"
 msgstr "Η επεξεργασία της παρακολούθησης των ενημερώσεων δεν ήταν δυνατή: %s"
 
-#: ../src/MediaPage.vala:143
+#: ../src/MediaPage.vala:157
 msgid "Adjust the size of the thumbnails"
 msgstr "Προσαρμογή μεγέθους μικρογραφιών"
 
-#: ../src/MediaPage.vala:325 ../src/PhotoPage.vala:2583
-#: ../src/direct/DirectPhotoPage.vala:174
+#: ../src/MediaPage.vala:339 ../src/PhotoPage.vala:2593
+#: ../src/Resources.vala:188 ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "_Μεγέθυνση"
 
-#: ../src/MediaPage.vala:326
+#: ../src/MediaPage.vala:340
 msgid "Increase the magnification of the thumbnails"
 msgstr "Αύξηση της μεγέθυνσης των μικρογραφιών"
 
-#: ../src/MediaPage.vala:331 ../src/PhotoPage.vala:2589
-#: ../src/direct/DirectPhotoPage.vala:180
+#: ../src/MediaPage.vala:345 ../src/PhotoPage.vala:2599
+#: ../src/Resources.vala:189 ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "Σμίκρ_υνση"
 
-#: ../src/MediaPage.vala:332
+#: ../src/MediaPage.vala:346
 msgid "Decrease the magnification of the thumbnails"
 msgstr "Μείωση της μεγέθυνσης των μικρογραφιών"
 
-#: ../src/MediaPage.vala:399
+#: ../src/MediaPage.vala:413
 msgid "Sort _Photos"
 msgstr "_Ταξινόμηση φωτογραφιών"
 
-#: ../src/MediaPage.vala:408
+#: ../src/MediaPage.vala:422
 msgid "_Play Video"
 msgstr "_Αναπαραγωγή βίντεο"
 
-#: ../src/MediaPage.vala:409
+#: ../src/MediaPage.vala:423
 msgid "Open the selected videos in the system video player"
 msgstr ""
 "Άνοιγμα των επιλεγμένων βίντεο με την εφαρμογή αναπαραγωγής του συστήματος"
 
-#: ../src/MediaPage.vala:413 ../src/PhotoPage.vala:2632
+#: ../src/MediaPage.vala:427 ../src/PhotoPage.vala:2642
 msgid "_Developer"
 msgstr "_Επεξεργασία RAW"
 
-#: ../src/MediaPage.vala:420 ../src/photos/RawSupport.vala:297
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#: ../src/MediaPage.vala:425 ../src/camera/Branch.vala:101
+#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:99
 #: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
-#: ../src/photos/RawSupport.vala:300
+#: ../src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Κάμερα"
 
-#: ../src/MediaPage.vala:436 ../src/camera/ImportPage.vala:872
+#: ../src/MediaPage.vala:450 ../src/camera/ImportPage.vala:874
 msgid "_Titles"
 msgstr "Τίτ_λοι"
 
-#: ../src/MediaPage.vala:437 ../src/camera/ImportPage.vala:873
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:875
 msgid "Display the title of each photo"
 msgstr "Εμφάνιση του τίτλου κάθε φωτογραφίας"
 
-#: ../src/MediaPage.vala:442 ../src/events/EventsDirectoryPage.vala:130
+#: ../src/MediaPage.vala:456 ../src/events/EventsDirectoryPage.vala:130
 msgid "_Comments"
 msgstr "_Σχόλια"
 
-#: ../src/MediaPage.vala:443
+#: ../src/MediaPage.vala:457
 msgid "Display the comment of each photo"
 msgstr "Εμφάνιση του σχολίου κάθε φωτογραφίας"
 
-#: ../src/MediaPage.vala:454 ../src/library/LibraryWindow.vala:376
+#: ../src/MediaPage.vala:468 ../src/library/LibraryWindow.vala:375
 msgid "Ta_gs"
 msgstr "_Ετικέτες"
 
-#: ../src/MediaPage.vala:455
+#: ../src/MediaPage.vala:469
 msgid "Display each photo's tags"
 msgstr "Εμφάνιση των ετικετών κάθε φωτογραφίας"
 
-#: ../src/MediaPage.vala:471
+#: ../src/MediaPage.vala:485
 msgid "By _Title"
 msgstr "Κατά _τίτλο"
 
-#: ../src/MediaPage.vala:472
+#: ../src/MediaPage.vala:486
 msgid "Sort photos by title"
 msgstr "Ταξινόμηση των φωτογραφιών βάσει τίτλου"
 
-#: ../src/MediaPage.vala:477
+#: ../src/MediaPage.vala:491
 msgid "By Exposure _Date"
 msgstr "Κατά _ημερομηνία τροποποίησης"
 
-#: ../src/MediaPage.vala:478
+#: ../src/MediaPage.vala:492
 msgid "Sort photos by exposure date"
 msgstr "Ταξινόμηση φωτογραφιών βάσει ημερομηνία έκθεσης"
 
-#: ../src/MediaPage.vala:483
+#: ../src/MediaPage.vala:497
 msgid "By _Rating"
 msgstr "Βάσει _αξιολόγησης"
 
-#: ../src/MediaPage.vala:484
+#: ../src/MediaPage.vala:498
 msgid "Sort photos by rating"
 msgstr "Ταξινόμηση των φωτογραφιών βάσει αξιολόγησης"
 
-#: ../src/MediaPage.vala:494 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:508 ../src/library/LibraryWindow.vala:421
 msgid "_Ascending"
 msgstr "_Αύξουσα"
 
-#: ../src/MediaPage.vala:495 ../src/library/LibraryWindow.vala:423
+#: ../src/MediaPage.vala:509 ../src/library/LibraryWindow.vala:422
 msgid "Sort photos in an ascending order"
 msgstr "Ταξινόμηση φωτογραφιών κατά αύξουσα σειρά"
 
-#: ../src/MediaPage.vala:500 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:514 ../src/library/LibraryWindow.vala:428
 msgid "D_escending"
 msgstr "_Φθινουσα"
 
-#: ../src/MediaPage.vala:501 ../src/library/LibraryWindow.vala:430
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:429
 msgid "Sort photos in a descending order"
 msgstr "Ταξινόμηση φωτογραφιών κατά φθίνουσα σειρά"
 
-#: ../src/MediaPage.vala:702
+#: ../src/MediaPage.vala:716
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -2336,99 +2572,99 @@ msgstr ""
 "Το Shotwell απέτυχε να παίξει το επιλεγμένο βίντεο:\n"
 "%s"
 
-#: ../src/Page.vala:1268
+#: ../src/Page.vala:1263
 msgid "No photos/videos"
 msgstr "Καμία φωτογραφία/βίντεο"
 
-#: ../src/Page.vala:1272
+#: ../src/Page.vala:1267
 msgid "No photos/videos found"
 msgstr "Δεν βρέθηκαν φωτογραφίες/βίντεο"
 
-#: ../src/Page.vala:2569
+#: ../src/Page.vala:2565
 msgid "Photos cannot be exported to this directory."
 msgstr "Δεν είναι δυνατή η εξαγωγή των φωτογραφιών σε αυτόν τον φάκελο."
 
-#: ../src/Photo.vala:3656
+#: ../src/Photo.vala:3753
 msgid "modified"
 msgstr "τροποποιημένο"
 
 #. previous button
-#: ../src/PhotoPage.vala:532
+#: ../src/PhotoPage.vala:533
 msgid "Previous photo"
 msgstr "Προηγούμενη φωτογραφία"
 
 #. next button
-#: ../src/PhotoPage.vala:537
+#: ../src/PhotoPage.vala:539
 msgid "Next photo"
 msgstr "Επόμενη φωτογραφία"
 
-#: ../src/PhotoPage.vala:1844
+#: ../src/PhotoPage.vala:1847
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Το πηγαίο αρχείο της φωτογραφίας λείπει:%s"
 
-#: ../src/PhotoPage.vala:2404 ../src/direct/DirectPhotoPage.vala:165
-#: ../src/library/LibraryWindow.vala:360
+#: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
+#: ../src/library/LibraryWindow.vala:359
 msgid "_View"
 msgstr "_Προβολή"
 
-#: ../src/PhotoPage.vala:2408 ../src/direct/DirectPhotoPage.vala:81
+#: ../src/PhotoPage.vala:2418 ../src/direct/DirectPhotoPage.vala:81
 msgid "T_ools"
 msgstr "Ε_ργαλεία"
 
-#: ../src/PhotoPage.vala:2413 ../src/direct/DirectPhotoPage.vala:86
+#: ../src/PhotoPage.vala:2423 ../src/direct/DirectPhotoPage.vala:86
 msgid "_Previous Photo"
 msgstr "_Προηγούμενη φωτογραφία"
 
-#: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:87
+#: ../src/PhotoPage.vala:2424 ../src/direct/DirectPhotoPage.vala:87
 msgid "Previous Photo"
 msgstr "Προηγούμενη φωτογραφία"
 
-#: ../src/PhotoPage.vala:2419 ../src/direct/DirectPhotoPage.vala:92
+#: ../src/PhotoPage.vala:2429 ../src/direct/DirectPhotoPage.vala:92
 msgid "_Next Photo"
 msgstr "_Επόμενη φωτογραφία"
 
-#: ../src/PhotoPage.vala:2420 ../src/direct/DirectPhotoPage.vala:93
+#: ../src/PhotoPage.vala:2430 ../src/direct/DirectPhotoPage.vala:93
 msgid "Next Photo"
 msgstr "Επόμενη φωτογραφία"
 
-#: ../src/PhotoPage.vala:2584 ../src/direct/DirectPhotoPage.vala:175
+#: ../src/PhotoPage.vala:2594 ../src/direct/DirectPhotoPage.vala:175
 msgid "Increase the magnification of the photo"
 msgstr "Αύξηση της μεγέθυνσης της φωτογραφίας"
 
-#: ../src/PhotoPage.vala:2590 ../src/direct/DirectPhotoPage.vala:181
+#: ../src/PhotoPage.vala:2600 ../src/direct/DirectPhotoPage.vala:181
 msgid "Decrease the magnification of the photo"
 msgstr "Μείωση της μεγέθυνσης της φωτογραφίας"
 
-#: ../src/PhotoPage.vala:2595 ../src/direct/DirectPhotoPage.vala:186
+#: ../src/PhotoPage.vala:2605 ../src/direct/DirectPhotoPage.vala:186
 msgid "Fit to _Page"
 msgstr "Μέγεθος _οθόνης"
 
-#: ../src/PhotoPage.vala:2596 ../src/direct/DirectPhotoPage.vala:187
+#: ../src/PhotoPage.vala:2606 ../src/direct/DirectPhotoPage.vala:187
 msgid "Zoom the photo to fit on the screen"
 msgstr "Μεγέθυνση της εικόνας στο μέγεθος της οθόνης"
 
-#: ../src/PhotoPage.vala:2602 ../src/direct/DirectPhotoPage.vala:193
+#: ../src/PhotoPage.vala:2612 ../src/direct/DirectPhotoPage.vala:193
 #, no-c-format
 msgid "Zoom _100%"
 msgstr "Μεγέθυνση _100%"
 
-#: ../src/PhotoPage.vala:2604 ../src/direct/DirectPhotoPage.vala:195
+#: ../src/PhotoPage.vala:2614 ../src/direct/DirectPhotoPage.vala:195
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Μεγέθυνση της φωτογραφίας στο 100%"
 
-#: ../src/PhotoPage.vala:2610 ../src/direct/DirectPhotoPage.vala:201
+#: ../src/PhotoPage.vala:2620 ../src/direct/DirectPhotoPage.vala:201
 #, no-c-format
 msgid "Zoom _200%"
 msgstr "Μεγέθυνση _200%"
 
-#: ../src/PhotoPage.vala:2612 ../src/direct/DirectPhotoPage.vala:203
+#: ../src/PhotoPage.vala:2622 ../src/direct/DirectPhotoPage.vala:203
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Μεγέθυνση της φωτογραφίας στο 200%"
 
-#: ../src/PhotoPage.vala:3220
+#: ../src/PhotoPage.vala:3231
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Αδυναμία εξαγωγής %s: %s"
@@ -2601,7 +2837,7 @@ msgstr "Από:"
 msgid "To:"
 msgstr "Σε:"
 
-#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1861
+#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1890
 msgid "Size:"
 msgstr "Μέγεθος:"
 
@@ -2620,72 +2856,72 @@ msgstr "Προγραμματιστής:"
 
 #. fit both on the top line, emit and move on
 #: ../src/Properties.vala:436 ../src/Properties.vala:440
-#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2229
+#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2258
 msgid "Exposure:"
 msgstr "Έκθεση:"
 
 #. nothing special to be done for now for Events
-#: ../src/Properties.vala:585
+#: ../src/Properties.vala:583
 msgid "Location:"
 msgstr "Τοποθεσία:"
 
-#: ../src/Properties.vala:588
+#: ../src/Properties.vala:586
 msgid "File size:"
 msgstr "Μέγεθος αρχείου:"
 
-#: ../src/Properties.vala:592
+#: ../src/Properties.vala:590
 msgid "Current Development:"
 msgstr "Τρέχουσα Ανάπτυξη:"
 
-#: ../src/Properties.vala:594
+#: ../src/Properties.vala:592
 msgid "Original dimensions:"
 msgstr "Αρχικές διαστάσεις:"
 
-#: ../src/Properties.vala:597
+#: ../src/Properties.vala:595
 msgid "Camera make:"
 msgstr "Κατασκευαστής κάμερας:"
 
-#: ../src/Properties.vala:600
+#: ../src/Properties.vala:598
 msgid "Camera model:"
 msgstr "Μοντέλο κάμερας:"
 
-#: ../src/Properties.vala:603
+#: ../src/Properties.vala:601
 msgid "Flash:"
 msgstr "Φλας:"
 
-#: ../src/Properties.vala:605
+#: ../src/Properties.vala:603
 msgid "Focal length:"
 msgstr "Εστιακό μήκος:"
 
-#: ../src/Properties.vala:608
+#: ../src/Properties.vala:606
 msgid "Exposure date:"
 msgstr "Ημερομηνία έκθεσης:"
 
-#: ../src/Properties.vala:611
+#: ../src/Properties.vala:609
 msgid "Exposure time:"
 msgstr "Χρόνος έκθεσης:"
 
-#: ../src/Properties.vala:614
+#: ../src/Properties.vala:612
 msgid "Exposure bias:"
 msgstr "Πόλωση έκθεσης:"
 
-#: ../src/Properties.vala:616
+#: ../src/Properties.vala:614
 msgid "GPS latitude:"
 msgstr "Γεωγραφικό πλάτος GPS:"
 
-#: ../src/Properties.vala:619
+#: ../src/Properties.vala:617
 msgid "GPS longitude:"
 msgstr "Γεωγραφικό μήκος GPS:"
 
-#: ../src/Properties.vala:622
+#: ../src/Properties.vala:620
 msgid "Artist:"
 msgstr "Καλλιτέχνης:"
 
-#: ../src/Properties.vala:624
+#: ../src/Properties.vala:622
 msgid "Copyright:"
 msgstr "Πνευματικά δικαιώματα:"
 
-#: ../src/Properties.vala:626
+#: ../src/Properties.vala:624
 msgid "Software:"
 msgstr "Λογισμικό:"
 
@@ -2747,613 +2983,714 @@ msgid "Flip Vertically"
 msgstr "Κατακόρυφος κατοπτρισμός"
 
 #: ../src/Resources.vala:160
+msgid "_About"
+msgstr "Πε_ρί"
+
+#: ../src/Resources.vala:161
+msgid "_Apply"
+msgstr "Ε_φαρμογή"
+
+#: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
+#: ../src/library/LibraryWindow.vala:355
+msgid "_Edit"
+msgstr "_Επεξεργασία"
+
+#: ../src/Resources.vala:165
+msgid "_Forward"
+msgstr "Π_ροώθηση"
+
+#: ../src/Resources.vala:166
+msgid "Fulls_creen"
+msgstr "Πλήρης ο_θόνη"
+
+#: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
+#: ../src/library/LibraryWindow.vala:379
+msgid "_Help"
+msgstr "_Βοήθεια"
+
+#: ../src/Resources.vala:168
+msgid "Leave _Fullscreen"
+msgstr "Έ_ξοδος από πλήρη οθόνη"
+
+#: ../src/Resources.vala:169 ../src/Resources.vala:371
+msgid "_New"
+msgstr "_Νέο"
+
+#: ../src/Resources.vala:170
+msgid "_Next"
+msgstr "Επόμε_νο"
+
+#: ../src/Resources.vala:171
+msgid "_OK"
+msgstr "Ε_ντάξει"
+
+#: ../src/Resources.vala:172
+msgid "_Play"
+msgstr "Ανα_παραγωγή"
+
+#: ../src/Resources.vala:173 ../src/Resources.vala:325
+msgid "_Preferences"
+msgstr "_Προτιμήσεις"
+
+#: ../src/Resources.vala:174
+msgid "_Previous"
+msgstr "Προη_γούμενο"
+
+#: ../src/Resources.vala:175
+msgid "_Print"
+msgstr "Ε_κτύπωση"
+
+#: ../src/Resources.vala:176
+msgid "_Quit"
+msgstr "Έ_ξοδος"
+
+#: ../src/Resources.vala:177
+msgid "_Refresh"
+msgstr "Ανα_νέωση"
+
+#: ../src/Resources.vala:179
+msgid "_Revert"
+msgstr "Επανα_φορά"
+
+#: ../src/Resources.vala:180 ../src/direct/DirectPhotoPage.vala:51
+#: ../src/direct/DirectPhotoPage.vala:422
+msgid "_Save"
+msgstr "_Αποθήκευση"
+
+#: ../src/Resources.vala:181
+msgid "Save _As"
+msgstr "Αποθήκευση _ως"
+
+#: ../src/Resources.vala:182
+msgid "Sort _Ascending"
+msgstr "Αύξουσα τα_ξινόμηση"
+
+#: ../src/Resources.vala:183
+msgid "Sort _Descending"
+msgstr "Φθίνουσα τ_αξινόμηση"
+
+#: ../src/Resources.vala:184
+msgid "_Stop"
+msgstr "_Διακοπή"
+
+#: ../src/Resources.vala:185
+msgid "_Undelete"
+msgstr "Επα_ναφορά"
+
+#: ../src/Resources.vala:186
+msgid "_Normal Size"
+msgstr "Κα_νονικό μέγεθος"
+
+#: ../src/Resources.vala:187
+msgid "Best _Fit"
+msgstr "Βέλτιστο ταί_ριασμα"
+
+#: ../src/Resources.vala:191
 msgid "_Enhance"
 msgstr "_Βελτίωση"
 
-#: ../src/Resources.vala:161
+#: ../src/Resources.vala:192
 msgid "Enhance"
 msgstr "Βελτίωση"
 
-#: ../src/Resources.vala:162
+#: ../src/Resources.vala:193
 msgid "Automatically improve the photo's appearance"
 msgstr "Αυτόματη βελτίωση της εμφάνισης της φωτογραφίας"
 
-#: ../src/Resources.vala:164
+#: ../src/Resources.vala:195
 msgid "_Copy Color Adjustments"
 msgstr "Α_ντιγραφή ρυθμίσεων χρώματος"
 
-#: ../src/Resources.vala:165
+#: ../src/Resources.vala:196
 msgid "Copy Color Adjustments"
 msgstr "Αντιγραφή ρυθμίσεων χρώματος"
 
-#: ../src/Resources.vala:166
+#: ../src/Resources.vala:197
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Αντιγραφή των εφαρμοζόμενων ρυθμίσεων χρώματος στη φωτογραφία"
 
-#: ../src/Resources.vala:168
+#: ../src/Resources.vala:199
 msgid "_Paste Color Adjustments"
 msgstr "Ε_πικόλληση ρυθμίσεων χρώματος"
 
-#: ../src/Resources.vala:169
+#: ../src/Resources.vala:200
 msgid "Paste Color Adjustments"
 msgstr "Επικόλληση ρυθμίσεων χρώματος"
 
-#: ../src/Resources.vala:170
+#: ../src/Resources.vala:201
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Εφαρμογή αντιγραμμένων ρυθμίσεων χρώματος στις επιλεγμένες φωτογραφίες"
 
-#: ../src/Resources.vala:172
+#: ../src/Resources.vala:203
 msgid "_Crop"
 msgstr "_Κοπή"
 
-#: ../src/Resources.vala:173
+#: ../src/Resources.vala:204
 msgid "Crop"
 msgstr "Κοπή"
 
-#: ../src/Resources.vala:174
+#: ../src/Resources.vala:205
 msgid "Crop the photo's size"
 msgstr "Κοπή μεγέθους φωτογραφίας"
 
-#: ../src/Resources.vala:176 ../src/editing_tools/StraightenTool.vala:100
+#: ../src/Resources.vala:207 ../src/editing_tools/StraightenTool.vala:100
 msgid "_Straighten"
 msgstr "Ί_σιωμα"
 
-#: ../src/Resources.vala:177
+#: ../src/Resources.vala:208
 msgid "Straighten"
 msgstr "Ίσιωμα"
 
-#: ../src/Resources.vala:178
+#: ../src/Resources.vala:209
 msgid "Straighten the photo"
 msgstr "Ίσιωμα της εικόνας"
 
-#: ../src/Resources.vala:180
+#: ../src/Resources.vala:211
 msgid "_Red-eye"
 msgstr "_Φαινόμενο κόκκινων ματιών"
 
-#: ../src/Resources.vala:181
+#: ../src/Resources.vala:212
 msgid "Red-eye"
 msgstr "Φαινόμενο κόκκινων ματιών"
 
-#: ../src/Resources.vala:182
+#: ../src/Resources.vala:213
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr ""
 "Μείωση ή εξαφάνιση επιδράσεων φαινομένου κόκκινων-ματιών στη φωτογραφία"
 
-#: ../src/Resources.vala:184
+#: ../src/Resources.vala:215
 msgid "_Adjust"
 msgstr "_Προσαρμογή"
 
-#: ../src/Resources.vala:185
+#: ../src/Resources.vala:216
 msgid "Adjust"
 msgstr "Προσαρμογή"
 
-#: ../src/Resources.vala:186
+#: ../src/Resources.vala:217
 msgid "Adjust the photo's color and tone"
 msgstr "Ρύθμιση χρώματος και τόνου της φωτογραφίας"
 
-#: ../src/Resources.vala:188
+#: ../src/Resources.vala:219
 msgid "Re_vert to Original"
 msgstr "_Επαναφορά στην αρχική"
 
-#: ../src/Resources.vala:189
+#: ../src/Resources.vala:220
 msgid "Revert to Original"
 msgstr "Επαναφορά στην αρχική"
 
-#: ../src/Resources.vala:191
+#: ../src/Resources.vala:222
 msgid "Revert External E_dits"
 msgstr "Αναίρεση ε_ξωτερικών επεξεργασιών"
 
-#: ../src/Resources.vala:192
+#: ../src/Resources.vala:223
 msgid "Revert to the master photo"
 msgstr "Επαναφορά στην αρχική φωτογραφία"
 
-#: ../src/Resources.vala:194
+#: ../src/Resources.vala:225
 msgid "Set as _Desktop Background"
 msgstr "Ορισμός ως _παρασκηνίου επιφάνειας εργασίας"
 
-#: ../src/Resources.vala:195
+#: ../src/Resources.vala:226
 msgid "Set selected image to be the new desktop background"
 msgstr ""
 "Ορισμός της επιλεγμένης φωτογραφίας σαν νέο παρασκήνιο επιφάνειας εργασίας"
 
-#: ../src/Resources.vala:196
+#: ../src/Resources.vala:227
 msgid "Set as _Desktop Slideshow..."
 msgstr "Ορισμός ως προβολής διαφανειών _επιφάνειας εργασίας..."
 
-#: ../src/Resources.vala:198
+#: ../src/Resources.vala:229
 msgid "_Undo"
 msgstr "_Αναίρεση"
 
-#: ../src/Resources.vala:199
+#: ../src/Resources.vala:230
 msgid "Undo"
 msgstr "Αναίρεση"
 
-#: ../src/Resources.vala:201
+#: ../src/Resources.vala:232
 msgid "_Redo"
 msgstr "Α_κύρωση αναίρεσης"
 
-#: ../src/Resources.vala:202
+#: ../src/Resources.vala:233
 msgid "Redo"
 msgstr "Ακύρωση αναίρεσης"
 
-#: ../src/Resources.vala:204
+#: ../src/Resources.vala:235
 msgid "Re_name Event..."
 msgstr "_Μετονομασία συμβάντος..."
 
-#: ../src/Resources.vala:207
+#: ../src/Resources.vala:238
 msgid "Make _Key Photo for Event"
 msgstr "Δημιουργία φωτογραφίας-_κλειδιού για το συμβάν"
 
-#: ../src/Resources.vala:208
+#: ../src/Resources.vala:239
 msgid "Make Key Photo for Event"
 msgstr "Δημιουργία φωτογραφίας-κλειδιού για το συμβάν"
 
-#: ../src/Resources.vala:210
+#: ../src/Resources.vala:241
 msgid "_New Event"
 msgstr "_Νέο συμβάν"
 
-#: ../src/Resources.vala:211
+#: ../src/Resources.vala:242
 msgid "New Event"
 msgstr "Νέο συμβάν"
 
-#: ../src/Resources.vala:213
+#: ../src/Resources.vala:244
 msgid "Move Photos"
 msgstr "Μετακίνηση φωτογραφιών"
 
-#: ../src/Resources.vala:214
+#: ../src/Resources.vala:245
 msgid "Move photos to an event"
 msgstr "Μετακίνηση εικόνων σε ένα συμβάν"
 
-#: ../src/Resources.vala:216
+#: ../src/Resources.vala:247
 msgid "_Merge Events"
 msgstr "_Συγχώνευση συμβάντων"
 
-#: ../src/Resources.vala:217
+#: ../src/Resources.vala:248
 msgid "Merge"
 msgstr "Συγχώνευση"
 
-#: ../src/Resources.vala:218
+#: ../src/Resources.vala:249
 msgid "Combine events into a single event"
 msgstr "Σύμπτηξη εκδηλώσεων σε μια εκδήλωση"
 
-#: ../src/Resources.vala:220
+#: ../src/Resources.vala:251
 msgid "_Set Rating"
 msgstr "_Ορισμός αξιολόγησης"
 
-#: ../src/Resources.vala:221
+#: ../src/Resources.vala:252
 msgid "Set Rating"
 msgstr "Ορισμός αξιολόγησης"
 
-#: ../src/Resources.vala:222
+#: ../src/Resources.vala:253
 msgid "Change the rating of your photo"
 msgstr "Αλλαγή της αξιολόγησης της φωτογραφίας"
 
-#: ../src/Resources.vala:224
+#: ../src/Resources.vala:255
 msgid "_Increase"
 msgstr "_Αύξηση"
 
-#: ../src/Resources.vala:225
+#: ../src/Resources.vala:256
 msgid "Increase Rating"
 msgstr "Αύξηση αξιολόγησης"
 
-#: ../src/Resources.vala:227
+#: ../src/Resources.vala:258
 msgid "_Decrease"
 msgstr "_Μείωση"
 
-#: ../src/Resources.vala:228
+#: ../src/Resources.vala:259
 msgid "Decrease Rating"
 msgstr "Μείωση αξιολόγησης"
 
-#: ../src/Resources.vala:230
+#: ../src/Resources.vala:261
 msgid "_Unrated"
 msgstr "_Χωρίς αξιολόγηση"
 
-#: ../src/Resources.vala:231
+#: ../src/Resources.vala:262
 msgid "Unrated"
 msgstr "Χωρίς αξιολόγηση"
 
-#: ../src/Resources.vala:232
+#: ../src/Resources.vala:263
 msgid "Rate Unrated"
 msgstr "Αξιολόγηση αβαθμολόγητων"
 
-#: ../src/Resources.vala:233
+#: ../src/Resources.vala:264
 msgid "Setting as unrated"
 msgstr "Ορισμός ως χωρίς αξιολόγηση"
 
-#: ../src/Resources.vala:234
+#: ../src/Resources.vala:265
 msgid "Remove any ratings"
 msgstr "Διαγραφή αξιολογήσεων"
 
-#: ../src/Resources.vala:236
+#: ../src/Resources.vala:267
 msgid "_Rejected"
 msgstr "_Απορρίφθηκε"
 
-#: ../src/Resources.vala:237
+#: ../src/Resources.vala:268
 msgid "Rejected"
 msgstr "Απορρίφθηκε"
 
-#: ../src/Resources.vala:238
+#: ../src/Resources.vala:269
 msgid "Rate Rejected"
 msgstr "Η αξιολόγηση απορρίφθηκε"
 
-#: ../src/Resources.vala:239
+#: ../src/Resources.vala:270
 msgid "Setting as rejected"
 msgstr "Ορισμός ως απορριφθείσα"
 
-#: ../src/Resources.vala:240
+#: ../src/Resources.vala:271
 msgid "Set rating to rejected"
 msgstr "Ορισμός αξιολόγησης ως απορριφθείσα"
 
-#: ../src/Resources.vala:242
+#: ../src/Resources.vala:273
 msgid "Rejected _Only"
 msgstr "Απορριφθείσες _μόνο"
 
-#: ../src/Resources.vala:243
+#: ../src/Resources.vala:274
 msgid "Rejected Only"
 msgstr "Απορριφθείσες μόνο"
 
-#: ../src/Resources.vala:244
+#: ../src/Resources.vala:275
 msgid "Show only rejected photos"
 msgstr "Εμφάνιση μόνο των απορριφθέντων φωτογραφιών"
 
-#: ../src/Resources.vala:246
+#: ../src/Resources.vala:277
 msgid "All + _Rejected"
 msgstr "Όλες + _απορριφθείσες"
 
-#: ../src/Resources.vala:247 ../src/Resources.vala:248
+#: ../src/Resources.vala:278 ../src/Resources.vala:279
 msgid "Show all photos, including rejected"
 msgstr "Προβολή όλων των φωτογραφιών, συμπεριλαμβανομένων των απορριφθέντων"
 
-#: ../src/Resources.vala:250
+#: ../src/Resources.vala:281
 msgid "_All Photos"
 msgstr "Ό_λες οι φωτογραφίες"
 
-#: ../src/Resources.vala:251 ../src/Resources.vala:252
+#. Button label
+#. Button tooltip
+#: ../src/Resources.vala:283 ../src/Resources.vala:285
 msgid "Show all photos"
 msgstr "Εμφάνιση όλων των φωτογραφιών"
 
-#: ../src/Resources.vala:254
+#: ../src/Resources.vala:287
 msgid "_Ratings"
 msgstr "Α_ξιολογήσεις"
 
-#: ../src/Resources.vala:255
+#: ../src/Resources.vala:288
 msgid "Display each photo's rating"
 msgstr "Προβολή αξιολόγησης κάθε φωτογραφίας"
 
-#: ../src/Resources.vala:257
+#: ../src/Resources.vala:290
 msgid "_Filter Photos"
 msgstr "_Φιλτράρισμα φωτογραφιών"
 
-#: ../src/Resources.vala:258
+#: ../src/Resources.vala:291
 msgid "Filter Photos"
 msgstr "Φιλτράρισμα φωτογραφιών"
 
-#: ../src/Resources.vala:259
+#: ../src/Resources.vala:292
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Μείωση του αριθμού φωτογραφιών που προβάλλονται βάσει φίλτρου"
 
-#: ../src/Resources.vala:261
+#: ../src/Resources.vala:294
 msgid "_Duplicate"
 msgstr "Α_ντίγραφο"
 
-#: ../src/Resources.vala:262
+#: ../src/Resources.vala:295
 msgid "Duplicate"
 msgstr "Αντίγραφο"
 
-#: ../src/Resources.vala:263
+#: ../src/Resources.vala:296
 msgid "Make a duplicate of the photo"
 msgstr "Δημιουργία αντιγράφου της φωτογραφίας"
 
-#: ../src/Resources.vala:265
+#: ../src/Resources.vala:298
 msgid "_Export..."
 msgstr "_Εξαγωγή..."
 
-#: ../src/Resources.vala:267
+#: ../src/Resources.vala:300
 msgid "_Print..."
 msgstr "Ε_κτύπωση..."
 
-#: ../src/Resources.vala:269
+#: ../src/Resources.vala:302
 msgid "Pu_blish..."
 msgstr "_Δημοσίευση..."
 
-#: ../src/Resources.vala:271
+#: ../src/Resources.vala:304
 msgid "Publish to various websites"
 msgstr "Δημοσίευση σε διάφορες ιστοσελίδες"
 
-#: ../src/Resources.vala:273
+#: ../src/Resources.vala:306
 msgid "Edit _Title..."
 msgstr "Επεξεργασία _Τίτλου..."
 
-#: ../src/Resources.vala:276
+#: ../src/Resources.vala:310
 msgid "Edit _Comment..."
 msgstr "Επεξεργασία _σχολίου..."
 
-#: ../src/Resources.vala:277
+#. Button label
+#: ../src/Resources.vala:312
 msgid "Edit Comment"
 msgstr "Επεξεργασία σχολίου"
 
-#: ../src/Resources.vala:279
+#: ../src/Resources.vala:314
 msgid "Edit Event _Comment..."
 msgstr "Επεξεργασία _σχολίου συμβάντος..."
 
-#: ../src/Resources.vala:282
+#: ../src/Resources.vala:317
 msgid "_Adjust Date and Time..."
 msgstr "Ρύθμιση ώ_ρας και ημερομηνίας..."
 
-#: ../src/Resources.vala:283
+#: ../src/Resources.vala:318
 msgid "Adjust Date and Time"
 msgstr "Ρύθμιση ημερομηνίας και ώρας"
 
-#: ../src/Resources.vala:285
+#: ../src/Resources.vala:320
 msgid "Add _Tags..."
 msgstr "_Προσθήκη ετικετών..."
 
-#: ../src/Resources.vala:286
+#: ../src/Resources.vala:321
 msgid "_Add Tags..."
 msgstr "_Προσθήκη ετικετών..."
 
-#: ../src/Resources.vala:287 ../src/Resources.vala:318
+#. Dialog title
+#. Undo/Redo command name (in Edit menu)
+#: ../src/Resources.vala:323 ../src/Resources.vala:356
 msgid "Add Tags"
 msgstr "Προσθήκη ετικετών"
 
-#: ../src/Resources.vala:289
-msgid "_Preferences"
-msgstr "_Προτιμήσεις"
-
-#: ../src/Resources.vala:291
+#: ../src/Resources.vala:327
 msgid "Open With E_xternal Editor"
 msgstr "Άνοιγμα με Ε_ξωτερική Εφαρμογή"
 
-#: ../src/Resources.vala:293
+#: ../src/Resources.vala:329
 msgid "Open With RA_W Editor"
 msgstr "Άνοιγμα με εφαρμογή _επεξεργασίας RAW"
 
-#: ../src/Resources.vala:295
+#: ../src/Resources.vala:331
 msgid "Send _To..."
 msgstr "Αποστολή _σε..."
 
-#: ../src/Resources.vala:296
+#: ../src/Resources.vala:332
 msgid "Send T_o..."
 msgstr "Αποστολή σ_ε..."
 
-#: ../src/Resources.vala:298
+#: ../src/Resources.vala:334
 msgid "_Find..."
 msgstr "_Εύρεση..."
 
-#: ../src/Resources.vala:299
+#: ../src/Resources.vala:335
 msgid "Find"
 msgstr "Εύρεση"
 
-#: ../src/Resources.vala:300
+#: ../src/Resources.vala:336
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
 "Βρείτε μια φωτογραφία γράφοντας κείμενο που εμφανίζεται στο όνομα της ή στις "
 "ετικέτες της"
 
-#: ../src/Resources.vala:302
+#: ../src/Resources.vala:338
 msgid "_Flag"
 msgstr "_Επισήμανση"
 
-#: ../src/Resources.vala:304
+#: ../src/Resources.vala:340
 msgid "Un_flag"
 msgstr "_Αναίρεση επισήμανσης"
 
-#: ../src/Resources.vala:307
+#: ../src/Resources.vala:343
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Δεν ήταν δυνατή η εκκίνηση της εφαρμογής επεξεργασίας: %s"
 
-#: ../src/Resources.vala:312
+#: ../src/Resources.vala:348
 #, c-format
 msgid "Add Tag \"%s\""
 msgstr "Προσθήκη ετικέτας \"%s\""
 
-#: ../src/Resources.vala:314
+#. Used when adding two tags to photo(s)
+#: ../src/Resources.vala:351
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
 msgstr "Προσθήκη των ετικετών \"%s\" και \"%s\""
 
-#: ../src/Resources.vala:322
+#: ../src/Resources.vala:361
 #, c-format
 msgid "_Delete Tag \"%s\""
 msgstr "_Διαγραφή ετικέτας \"%s\""
 
-#: ../src/Resources.vala:326
+#: ../src/Resources.vala:365
 #, c-format
 msgid "Delete Tag \"%s\""
 msgstr "Διαγραφή ετικέτας \"%s\""
 
-#: ../src/Resources.vala:329
+#: ../src/Resources.vala:368
 msgid "Delete Tag"
 msgstr "Διαγραφή ετικέτας"
 
-#: ../src/Resources.vala:332
-msgid "_New"
-msgstr "_Νέο"
-
-#: ../src/Resources.vala:335
+#: ../src/Resources.vala:374
 #, c-format
 msgid "Re_name Tag \"%s\"..."
 msgstr "Με_τονομασία ετικέτας \"%s\"..."
 
-#: ../src/Resources.vala:339
+#: ../src/Resources.vala:378
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
 msgstr "Μετονομασία ετικέτας \"%s\" σε \"%s\""
 
-#: ../src/Resources.vala:342
+#: ../src/Resources.vala:381
 msgid "_Rename..."
 msgstr "_Μετονομασία..."
 
-#: ../src/Resources.vala:344
+#: ../src/Resources.vala:383
 msgid "Modif_y Tags..."
 msgstr "_Μετατροπή ετικετών..."
 
-#: ../src/Resources.vala:345
+#: ../src/Resources.vala:384
 msgid "Modify Tags"
 msgstr "Μετατροπή ετικετών"
 
-#: ../src/Resources.vala:348
+#: ../src/Resources.vala:387
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgstr "Ορισμός ετικέτας στις φωτογραφίες \"%s\""
 
-#: ../src/Resources.vala:348
+#: ../src/Resources.vala:387
 #, c-format
 msgid "Tag Photos as \"%s\""
 msgstr "Προσθήκη στις φωτογραφίες της ετικέτας \"%s\""
 
-#: ../src/Resources.vala:352
+#: ../src/Resources.vala:391
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgstr "Ορισμός ετικέτας στις επιλεγμένες φωτογραφίες \"%s\""
 
-#: ../src/Resources.vala:353
+#: ../src/Resources.vala:392
 #, c-format
 msgid "Tag the selected photos as \"%s\""
 msgstr "Προσθήκη στις επιλεγμένες φωτογραφίες της ετικέτας \"%s\""
 
-#: ../src/Resources.vala:357
+#: ../src/Resources.vala:396
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
 msgstr "Αφαίρεση ετικέτας \"%s\" από τις _φωτογραφίες"
 
-#: ../src/Resources.vala:358
+#: ../src/Resources.vala:397
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
 msgstr "Αφαίρεση της ετικέτας \"%s\" από τις _επιλεγμένες φωτογραφίες"
 
-#: ../src/Resources.vala:362
+#: ../src/Resources.vala:401
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgstr "Αφαίρεση ετικέτας \"%s\" από τις φωτογραφίες"
 
-#: ../src/Resources.vala:363
+#: ../src/Resources.vala:402
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
 msgstr "Αφαίρεση της ετικέτας \"%s\" από τις φωτογραφίες"
 
-#: ../src/Resources.vala:367
+#: ../src/Resources.vala:406
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgstr ""
 "Αδυναμία μετονομασίας της ετικέτας \"%s\" επειδή η ετικέτα υπάρχει ήδη."
 
-#: ../src/Resources.vala:371
+#: ../src/Resources.vala:410
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
 msgstr ""
 "Δεν ήταν δυνατή η μετονομασία της αναζήτησης σε \"%s\" γιατί η αναζήτηση "
 "αυτή υπάρχει ήδη."
 
-#: ../src/Resources.vala:374
+#: ../src/Resources.vala:413
 msgid "Saved Search"
 msgstr "Αποθηκευμένη αναζήτηση"
 
-#: ../src/Resources.vala:376
+#: ../src/Resources.vala:415
 msgid "Delete Search"
 msgstr "Διαγραφή Αναζήτησης"
 
-#: ../src/Resources.vala:379
+#: ../src/Resources.vala:418
 msgid "_Edit..."
 msgstr "_Επεξεργασία..."
 
-#: ../src/Resources.vala:380
+#: ../src/Resources.vala:419
 msgid "Re_name..."
 msgstr "Με_τονομασία..."
 
-#: ../src/Resources.vala:383
+#: ../src/Resources.vala:422
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
 msgstr "Μετονομασία της αναζήτησης \"%s\" σε \"%s\""
 
-#: ../src/Resources.vala:387
+#: ../src/Resources.vala:426
 #, c-format
 msgid "Delete Search \"%s\""
 msgstr "Διαγραφή της Αναζήτησης \"%s\""
 
-#: ../src/Resources.vala:545
+#: ../src/Resources.vala:584
 #, c-format
 msgid "Rate %s"
 msgstr "Αξιολόγηση %s"
 
-#: ../src/Resources.vala:546
+#: ../src/Resources.vala:585
 #, c-format
 msgid "Set rating to %s"
 msgstr "Ορισμός αξιολόγησης σε %s"
 
-#: ../src/Resources.vala:547
+#: ../src/Resources.vala:586
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Ορισμός αξιολόγησης σε %s"
 
-#: ../src/Resources.vala:549
+#: ../src/Resources.vala:588
 #, c-format
 msgid "Display %s"
 msgstr "Προβολή %s"
 
-#: ../src/Resources.vala:550
+#: ../src/Resources.vala:589
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Προβολή μόνο φωτογραφιών με αξιολόγηση %s"
 
-#: ../src/Resources.vala:551
+#: ../src/Resources.vala:590
 #, c-format
 msgid "%s or Better"
 msgstr "%s ή καλύτερη"
 
-#: ../src/Resources.vala:552
+#: ../src/Resources.vala:591
 #, c-format
 msgid "Display %s or Better"
 msgstr "Προβολή %s ή καλύτερων"
 
-#: ../src/Resources.vala:553
+#: ../src/Resources.vala:592
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Προβολή μόνο φωτογραφιών με αξιολόγηση %s ή καλύτερη"
 
-#: ../src/Resources.vala:644
+#: ../src/Resources.vala:683
 msgid "Remove the selected photos from the trash"
-msgstr "Αφαίρεση των επιλεγμένων εικόνων από τον κάδο"
+msgstr "Αφαίρεση των επιλεγμένων εικόνων από τα απορρίματα"
 
-#: ../src/Resources.vala:645
+#: ../src/Resources.vala:684
 msgid "Remove the selected photos from the library"
 msgstr "Αφαίρεση των επιλεγμένων εικόνων από τη βιβλιοθήκη"
 
-#: ../src/Resources.vala:647
+#: ../src/Resources.vala:686
 msgid "_Restore"
 msgstr "_Επαναφορά"
 
-#: ../src/Resources.vala:648
+#: ../src/Resources.vala:687
 msgid "Move the selected photos back into the library"
 msgstr "Μετακίνηση των επιλεγμένων εικόνων πίσω στη βιβλιοθήκη"
 
-#: ../src/Resources.vala:650
+#: ../src/Resources.vala:689
 msgid "Show in File Mana_ger"
 msgstr "Προβολή στη _διαχείριση αρχείων"
 
-#: ../src/Resources.vala:651
+#: ../src/Resources.vala:690
 msgid "Open the selected photo's directory in the file manager"
 msgstr "Άνοιγμα του φακέλου των επιλεγμένων εικόνων με τον περιηγητή αρχείων"
 
-#: ../src/Resources.vala:654
+#: ../src/Resources.vala:693
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Αδυναμία ανοίγματος με τη διαχείριση αρχείων: %s"
 
-#: ../src/Resources.vala:657
+#: ../src/Resources.vala:696
 msgid "R_emove From Library"
 msgstr "_Απομάκρυνση από τη βιβλιοθήκη"
 
-#: ../src/Resources.vala:659
+#: ../src/Resources.vala:698
 msgid "_Move to Trash"
-msgstr "_Μετακίνηση στον κάδο απορριμμάτων"
+msgstr "_Μετακίνηση στα απορρίματα"
 
-#: ../src/Resources.vala:661
+#: ../src/Resources.vala:700
 msgid "Select _All"
 msgstr "Επιλογή ό_λων"
 
-#: ../src/Resources.vala:662
+#: ../src/Resources.vala:701
 msgid "Select all items"
 msgstr "Επιλογή όλων των αντικειμένων"
 
@@ -3361,20 +3698,20 @@ msgstr "Επιλογή όλων των αντικειμένων"
 #. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:743
+#: ../src/Resources.vala:780
 msgid "%-I:%M %p"
 msgstr "%-I:%M %p"
 
 #. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:748
+#: ../src/Resources.vala:785
 msgid "%-I:%M:%S %p"
 msgstr "%-I:%M:%S %p"
 
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:752
+#: ../src/Resources.vala:789
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
 
@@ -3384,14 +3721,14 @@ msgstr "%a %b %d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:757 ../src/Resources.vala:767
+#: ../src/Resources.vala:794 ../src/Resources.vala:804
 msgid "%a %b %d"
 msgstr "%a %b %d"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:762
+#: ../src/Resources.vala:799
 msgid "%d, %Y"
 msgstr "%d, %Y"
 
@@ -3401,7 +3738,7 @@ msgstr "Προβολή σε αλληλουχία"
 
 #. Flagged label and toggle
 #: ../src/SearchFilter.vala:587 ../src/SearchFilter.vala:588
-#: ../src/SearchFilter.vala:990 ../src/library/FlaggedPage.vala:8
+#: ../src/SearchFilter.vala:972 ../src/library/FlaggedPage.vala:8
 msgid "Flagged"
 msgstr "Με επισήμανση"
 
@@ -3421,28 +3758,37 @@ msgstr "Εικόνες RAW"
 msgid "RAW photos"
 msgstr "εικόνες RAW"
 
-#: ../src/SearchFilter.vala:952
+#: ../src/SearchFilter.vala:934
 #, c-format
 msgid "Error loading UI file %s: %s"
 msgstr "Σφάλμα κατά τη φόρτωση του αρχείου UI %s: %s"
 
+#. Ticket #3260 - Add a 'close' context menu to
+#. the searchbar.
+#. Prepare the close menu for use, but don't
+#. display it yet; we'll connect it to secondary
+#. click later on.
+#: ../src/SearchFilter.vala:945
+msgid "Close"
+msgstr "Κλείσιμο"
+
 #. Type label and toggles
-#: ../src/SearchFilter.vala:969
+#: ../src/SearchFilter.vala:951
 msgid "Type"
 msgstr "Τύπος"
 
 #. Rating label and button
-#: ../src/SearchFilter.vala:1003 ../src/searches/SearchBoolean.vala:184
+#: ../src/SearchFilter.vala:985 ../src/searches/SearchBoolean.vala:184
 msgid "Rating"
 msgstr "Αξιολόγηση"
 
-#: ../src/SlideshowPage.vala:49 ../src/SlideshowPage.vala:182
+#: ../src/SlideshowPage.vala:49 ../src/SlideshowPage.vala:183
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
 #. Set up toolbar
 #. add toolbar buttons
-#: ../src/SlideshowPage.vala:161
+#: ../src/SlideshowPage.vala:160
 msgid "Back"
 msgstr "Πίσω"
 
@@ -3450,15 +3796,15 @@ msgstr "Πίσω"
 msgid "Go to the previous photo"
 msgstr "Μετάβαση στην προηγούμενη φωτογραφία"
 
-#: ../src/SlideshowPage.vala:168 ../src/SlideshowPage.vala:273
+#: ../src/SlideshowPage.vala:167 ../src/SlideshowPage.vala:274
 msgid "Pause"
 msgstr "Παύση"
 
-#: ../src/SlideshowPage.vala:169 ../src/SlideshowPage.vala:274
+#: ../src/SlideshowPage.vala:169 ../src/SlideshowPage.vala:275
 msgid "Pause the slideshow"
 msgstr "Παύση αλληλουχίας"
 
-#: ../src/SlideshowPage.vala:175
+#: ../src/SlideshowPage.vala:174
 msgid "Next"
 msgstr "Επόμενη"
 
@@ -3466,20 +3812,20 @@ msgstr "Επόμενη"
 msgid "Go to the next photo"
 msgstr "Μετάβαση στην επόμενη φωτογραφία"
 
-#: ../src/SlideshowPage.vala:183
+#: ../src/SlideshowPage.vala:184
 msgid "Change slideshow settings"
 msgstr "Αλλαγή ρυθμίσεων αλληλουχίας"
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: ../src/SlideshowPage.vala:237
+#: ../src/SlideshowPage.vala:238
 msgid "All photo source files are missing."
 msgstr "Όλα τα πηγαία αρχεία των φωτογραφιών λείπουν."
 
-#: ../src/SlideshowPage.vala:269
+#: ../src/SlideshowPage.vala:270
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
-#: ../src/SlideshowPage.vala:270
+#: ../src/SlideshowPage.vala:271
 msgid "Continue the slideshow"
 msgstr "Συνέχιση αλληλουχίας"
 
@@ -3488,11 +3834,11 @@ msgid "untitled"
 msgstr "χωρίς τίτλο"
 
 #. multiple videos
-#: ../src/VideoSupport.vala:492
+#: ../src/VideoSupport.vala:489
 msgid "Export Videos"
 msgstr "Εξαγωγή βίντεο"
 
-#: ../src/camera/Branch.vala:87
+#: ../src/camera/Branch.vala:85
 msgid "Cameras"
 msgstr "Κάμερες"
 
@@ -3516,44 +3862,44 @@ msgstr "Εμφάνιση μόνο των φωτογραφιών που δεν έ
 #. prior to import.
 #. TODO: replace this with approved text for "talking to camera,
 #. please wait" once new strings are being accepted.
-#: ../src/camera/ImportPage.vala:845
+#: ../src/camera/ImportPage.vala:847
 msgid "Starting import, please wait..."
 msgstr "Εκκίνηση εισαγωγής, παρακαλώ περιμένετε..."
 
-#: ../src/camera/ImportPage.vala:884
+#: ../src/camera/ImportPage.vala:886
 msgid "Import _Selected"
 msgstr "_Εισαγωγή επιλεγμένων"
 
-#: ../src/camera/ImportPage.vala:885
+#: ../src/camera/ImportPage.vala:887
 msgid "Import the selected photos into your library"
 msgstr "Εισαγωγή των επιλεγμένων φωτογραφιών στην βιβλιοθήκη"
 
-#: ../src/camera/ImportPage.vala:890
+#: ../src/camera/ImportPage.vala:892
 msgid "Import _All"
 msgstr "_Εισαγωγή όλων"
 
-#: ../src/camera/ImportPage.vala:891
+#: ../src/camera/ImportPage.vala:893
 msgid "Import all the photos into your library"
 msgstr "Εισαγωγή όλων των φωτογραφιών στην βιβλιοθήκη"
 
 #. it's mounted, offer to unmount for the user
-#: ../src/camera/ImportPage.vala:1012
+#: ../src/camera/ImportPage.vala:1014
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
 msgstr ""
 "Το Shotwell πρέπει να αποπροσαρτήσει την κάμερα από το σύστημα αρχείων για "
-"να έχει πρόσβαση σε αυτήν. Συνέχεια;"
+"να έχει πρόσβαση σε αυτήν.  Συνέχεια;"
 
-#: ../src/camera/ImportPage.vala:1018
+#: ../src/camera/ImportPage.vala:1020
 msgid "_Unmount"
 msgstr "_Αποπροσάρτηση"
 
-#: ../src/camera/ImportPage.vala:1023
+#: ../src/camera/ImportPage.vala:1025
 msgid "Please unmount the camera."
 msgstr "Παρακαλώ αποπροσαρτήστε την κάμερα."
 
-#: ../src/camera/ImportPage.vala:1028
+#: ../src/camera/ImportPage.vala:1030
 msgid ""
 "The camera is locked by another application.  Shotwell can only access the "
 "camera when it's unlocked.  Please close any other application using the "
@@ -3563,11 +3909,11 @@ msgstr ""
 "έχει πρόσβαση στη κάμερα μόνο όταν είναι ξεκλείδωτη. Παρακαλώ κλείστε κάθε "
 "άλλη εφαρμογή που χρησιμοποιεί την κάμερα και προσπαθήστε ξανά."
 
-#: ../src/camera/ImportPage.vala:1038
+#: ../src/camera/ImportPage.vala:1040
 msgid "Please close any other application using the camera."
 msgstr "Παρακαλώ κλείστε κάθε άλλη εφαρμογή που χρησιμοποιεί την κάμερα."
 
-#: ../src/camera/ImportPage.vala:1043
+#: ../src/camera/ImportPage.vala:1045
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -3576,57 +3922,57 @@ msgstr ""
 "Αδυναμία μεταφοράς προεπισκοπήσεων από την κάμερα:\n"
 "%s"
 
-#: ../src/camera/ImportPage.vala:1060
+#: ../src/camera/ImportPage.vala:1062
 msgid "Unmounting..."
 msgstr "Αποπροσάρτηση..."
 
-#: ../src/camera/ImportPage.vala:1166
+#: ../src/camera/ImportPage.vala:1168
 msgid "Fetching photo information"
 msgstr "Λήψη πληροφοριών φωτογραφίας"
 
-#: ../src/camera/ImportPage.vala:1521
+#: ../src/camera/ImportPage.vala:1523
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Λήψη προεπισκοπήσεων για %s"
 
-#: ../src/camera/ImportPage.vala:1637
+#: ../src/camera/ImportPage.vala:1639
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Αδυναμία κλειδώματος κάμερας: %s"
 
-#: ../src/camera/ImportPage.vala:1722
+#: ../src/camera/ImportPage.vala:1724
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Διαγραφή αυτής της φωτογραφίας από τη κάμερα;"
 msgstr[1] "Διαγραφή αυτών των %d φωτογραφιών από τη κάμερα;"
 
-#: ../src/camera/ImportPage.vala:1725
+#: ../src/camera/ImportPage.vala:1727
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Διαγραφή αυτού του βίντεο από τη κάμερα;"
 msgstr[1] "Διαγραφή αυτών των %d βίντεο από τη κάμερα;"
 
-#: ../src/camera/ImportPage.vala:1728
+#: ../src/camera/ImportPage.vala:1730
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Διαγραφή αυτής της φωτογραφίας/βίντεο από τη κάμερα;"
 msgstr[1] "Διαγραφή αυτών των %d φωτογραφιών/βίντεο από τη κάμερα;"
 
-#: ../src/camera/ImportPage.vala:1731
+#: ../src/camera/ImportPage.vala:1733
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Να διαγραφούν αυτά τα αρχεία από την κάμερα;"
 msgstr[1] "Να διαγραφούν αυτά τα %d αρχεία από την κάμερα;"
 
-#: ../src/camera/ImportPage.vala:1758
+#: ../src/camera/ImportPage.vala:1760
 msgid "Removing photos/videos from camera"
 msgstr "Απομάκρυνση των φωτογραφιών/βίντεο από την κάμερα"
 
-#: ../src/camera/ImportPage.vala:1762
+#: ../src/camera/ImportPage.vala:1764
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3667,31 +4013,27 @@ msgid ""
 "at least one data imports plugin enabled. Plugins can be enabled in the "
 "Preferences dialog."
 msgstr ""
-"Δεν έχετε ενεργοποιήσει τις πρόσθετες λειτουργίας εισαγωγής δεδομένων.\n"
+"Δεν έχετε ενεργοποιήσει το πρόσθετο εισαγωγής δεδομένων.\n"
 "\n"
-"Για να χρησιμοποιήσετε τη λειτουργία Εισαγωγής από Εφαρμογή, πρέπει να έχετε "
-"ενεργοποιήσει τουλάχιστο μια πρόσθετη λειτουργία εισαγωγής. Μπορείτε να "
-"ενεργοποιήσετε τις πρόσθετες λειτουργίες στις Ρυθμίσεις."
+"Για να χρησιμοποιήσετε τη λειτουργία εισαγωγής από εφαρμογή, πρέπει να έχετε "
+"ενεργοποιήσει τουλάχιστο ένα πρόσθετο εισαγωγής δεδομένων. Μπορείτε να "
+"ενεργοποιήσετε τα πρόσθετα στις ρυθμίσεις."
 
 #: ../src/data_imports/DataImportsUI.vala:100
 msgid "Database file:"
 msgstr "Αρχείο βάσης δεδομένων:"
 
 #: ../src/data_imports/DataImportsUI.vala:112
-#: ../src/library/LibraryWindow.vala:899
+#: ../src/library/LibraryWindow.vala:898
 msgid "_Import"
 msgstr "Ει_σαγωγή"
 
-#: ../src/data_imports/DataImportsUI.vala:216
+#: ../src/data_imports/DataImportsUI.vala:217
 msgid "Import From Application"
 msgstr "Εισαγωγή από εφαρμογή"
 
-#: ../src/data_imports/DataImportsUI.vala:217
-msgid "Import media _from:"
-msgstr "Εισαγωγή πολυμέσων _από:"
-
-#: ../src/data_imports/DataImportsUI.vala:394
-#: ../src/publishing/PublishingUI.vala:493
+#: ../src/data_imports/DataImportsUI.vala:369
+#: ../src/publishing/PublishingUI.vala:470
 msgid "_Close"
 msgstr "_Κλείσιμο"
 
@@ -3726,14 +4068,9 @@ msgstr ""
 "Το σφάλμα ήταν: \n"
 "%s"
 
-#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:352
+#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:351
 msgid "_File"
 msgstr "_Αρχείο"
-
-#: ../src/direct/DirectPhotoPage.vala:51
-#: ../src/direct/DirectPhotoPage.vala:417
-msgid "_Save"
-msgstr "_Αποθήκευση"
 
 #: ../src/direct/DirectPhotoPage.vala:52
 msgid "Save photo"
@@ -3752,18 +4089,9 @@ msgid "Print the photo to a printer connected to your computer"
 msgstr ""
 "Εκτυπώστε την φωτογραφία σε έναν εκτυπωτή συνδεδεμένο στον υπολογιστή σας"
 
-#: ../src/direct/DirectPhotoPage.vala:73 ../src/library/LibraryWindow.vala:356
-msgid "_Edit"
-msgstr "_Επεξεργασία"
-
-#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:364
+#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:363
 msgid "_Photo"
 msgstr "_Φωτογραφία"
-
-#: ../src/direct/DirectPhotoPage.vala:169
-#: ../src/library/LibraryWindow.vala:380
-msgid "_Help"
-msgstr "_Βοήθεια"
 
 #: ../src/direct/DirectPhotoPage.vala:227
 #, c-format
@@ -3784,26 +4112,26 @@ msgstr ""
 "Το %s δεν υποστηρίζει τη μορφή αρχείου του\n"
 "%s."
 
-#: ../src/direct/DirectPhotoPage.vala:417
+#: ../src/direct/DirectPhotoPage.vala:422
 msgid "_Save a Copy"
 msgstr "_Αποθήκευση αντιγράφου"
 
-#: ../src/direct/DirectPhotoPage.vala:420
+#: ../src/direct/DirectPhotoPage.vala:425
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Απόρριψη αλλαγών του %s;"
 
-#: ../src/direct/DirectPhotoPage.vala:421
+#: ../src/direct/DirectPhotoPage.vala:426
 msgid "Close _without Saving"
 msgstr "Κλείσιμο _χωρίς αποθήκευση"
 
-#: ../src/direct/DirectPhotoPage.vala:454
+#: ../src/direct/DirectPhotoPage.vala:459
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Σφάλμα κατά την αποθήκευση στο %s: %s"
 
-#: ../src/direct/DirectPhotoPage.vala:482
-#: ../src/direct/DirectPhotoPage.vala:503
+#: ../src/direct/DirectPhotoPage.vala:487
+#: ../src/direct/DirectPhotoPage.vala:508
 msgid "Save As"
 msgstr "Αποθήκευση ως"
 
@@ -3863,74 +4191,74 @@ msgstr "A4 (210 x 297 mm)"
 msgid "A3 (297 x 420 mm)"
 msgstr "A3 (297 x 420 mm)"
 
-#: ../src/editing_tools/EditingTools.vala:1876
+#: ../src/editing_tools/EditingTools.vala:1905
 msgid "Close the red-eye tool"
 msgstr "Κλείσιμο του εργαλείου κόκκινων ματιών"
 
-#: ../src/editing_tools/EditingTools.vala:1879
+#: ../src/editing_tools/EditingTools.vala:1908
 msgid "Remove any red-eye effects in the selected region"
 msgstr ""
 "Αφαίρεση κάθε επίδρασης του φαινομένου κόκκινων ματιών στην επιλεγμένη "
 "περιοχή"
 
-#: ../src/editing_tools/EditingTools.vala:2215
+#: ../src/editing_tools/EditingTools.vala:2244
 #: ../src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Επαναφορά"
 
-#: ../src/editing_tools/EditingTools.vala:2237
+#: ../src/editing_tools/EditingTools.vala:2266
 msgid "Saturation:"
 msgstr "Κορεσμός:"
 
-#: ../src/editing_tools/EditingTools.vala:2245
+#: ../src/editing_tools/EditingTools.vala:2274
 msgid "Tint:"
 msgstr "Απόχρωση:"
 
-#: ../src/editing_tools/EditingTools.vala:2254
+#: ../src/editing_tools/EditingTools.vala:2283
 msgid "Temperature:"
 msgstr "Θερμοκρασία:"
 
-#: ../src/editing_tools/EditingTools.vala:2262
+#: ../src/editing_tools/EditingTools.vala:2291
 msgid "Shadows:"
 msgstr "Σκιές:"
 
-#: ../src/editing_tools/EditingTools.vala:2270
+#: ../src/editing_tools/EditingTools.vala:2299
 msgid "Highlights:"
 msgstr "Επισημάνσεις:"
 
-#: ../src/editing_tools/EditingTools.vala:2324
+#: ../src/editing_tools/EditingTools.vala:2353
 msgid "Reset Colors"
 msgstr "Επαναφορά χρωμάτων"
 
-#: ../src/editing_tools/EditingTools.vala:2324
+#: ../src/editing_tools/EditingTools.vala:2353
 msgid "Reset all color adjustments to original"
 msgstr "Επαναφορά όλων των χρωματικών ρυθμίσεων στις αρχικές"
 
-#: ../src/editing_tools/EditingTools.vala:2676
+#: ../src/editing_tools/EditingTools.vala:2705
 msgid "Temperature"
 msgstr "Θερμοκρασία"
 
-#: ../src/editing_tools/EditingTools.vala:2689
+#: ../src/editing_tools/EditingTools.vala:2718
 msgid "Tint"
 msgstr "Απόχρωση"
 
-#: ../src/editing_tools/EditingTools.vala:2702
+#: ../src/editing_tools/EditingTools.vala:2731
 msgid "Saturation"
 msgstr "Κορεσμός"
 
-#: ../src/editing_tools/EditingTools.vala:2715
+#: ../src/editing_tools/EditingTools.vala:2744
 msgid "Exposure"
 msgstr "Έκθεση"
 
-#: ../src/editing_tools/EditingTools.vala:2728
+#: ../src/editing_tools/EditingTools.vala:2757
 msgid "Shadows"
 msgstr "Σκιές"
 
-#: ../src/editing_tools/EditingTools.vala:2741
+#: ../src/editing_tools/EditingTools.vala:2770
 msgid "Highlights"
 msgstr "Επισημάνσεις"
 
-#: ../src/editing_tools/EditingTools.vala:2751
+#: ../src/editing_tools/EditingTools.vala:2780
 msgid "Contrast Expansion"
 msgstr "Επέκταση αντίθεσης"
 
@@ -3981,7 +4309,7 @@ msgstr "%B"
 msgid "Folders"
 msgstr "Φάκελοι"
 
-#: ../src/library/Branch.vala:37 ../ui/shotwell.glade.h:33
+#: ../src/library/Branch.vala:36 ../ui/shotwell.glade.h:32
 msgid "Library"
 msgstr "Βιβλιοθήκη"
 
@@ -3989,19 +4317,19 @@ msgstr "Βιβλιοθήκη"
 msgid "Importing..."
 msgstr "Γίνεται εισαγωγή..."
 
-#: ../src/library/ImportQueuePage.vala:66
+#: ../src/library/ImportQueuePage.vala:67
 msgid "_Stop Import"
 msgstr "_Διακοπή Εισαγωγής"
 
-#: ../src/library/ImportQueuePage.vala:67
+#: ../src/library/ImportQueuePage.vala:68
 msgid "Stop importing photos"
 msgstr "Διακοπή εισαγωγής εικόνων"
 
-#: ../src/library/ImportQueuePage.vala:123
+#: ../src/library/ImportQueuePage.vala:124
 msgid "Preparing to import..."
 msgstr "Προετοιμασία για εισαγωγή..."
 
-#: ../src/library/ImportQueuePage.vala:150
+#: ../src/library/ImportQueuePage.vala:151
 #, c-format
 msgid "Imported %s"
 msgstr "Εισήχθησαν %s"
@@ -4028,82 +4356,82 @@ msgstr "_Ταξινόμηση συμβάντων"
 
 #: ../src/library/LibraryWindow.vala:323
 msgid "Empty T_rash"
-msgstr "Άδειασμα _κάδου απορριμμάτων"
+msgstr "Άδειασμα απο_ρριμμάτων"
 
 #: ../src/library/LibraryWindow.vala:324
 msgid "Delete all photos in the trash"
-msgstr "Διαγραφή όλων των εικόνων στον κάδο απορριμμάτων"
+msgstr "Διαγραφή όλων των εικόνων από τα απορρίματα"
 
 #: ../src/library/LibraryWindow.vala:329
 msgid "View Eve_nt for Photo"
 msgstr "Προβολή _συμβάντος φωτογραφίας"
 
-#: ../src/library/LibraryWindow.vala:334
+#: ../src/library/LibraryWindow.vala:333
 msgid "_Find"
 msgstr "_Εύρεση"
 
-#: ../src/library/LibraryWindow.vala:335
+#: ../src/library/LibraryWindow.vala:334
 msgid "Find photos and videos by search criteria"
 msgstr "Αναζήτηση φωτογραφιών και βίντεο βάσει κριτηρίων"
 
-#: ../src/library/LibraryWindow.vala:346 ../src/searches/Branch.vala:77
-#: ../src/sidebar/Tree.vala:195
+#: ../src/library/LibraryWindow.vala:345 ../src/searches/Branch.vala:77
+#: ../src/sidebar/Tree.vala:185
 msgid "Ne_w Saved Search..."
 msgstr "_Νέα αποθηκευμένη αναζήτηση..."
 
-#: ../src/library/LibraryWindow.vala:368
+#: ../src/library/LibraryWindow.vala:367
 msgid "_Photos"
 msgstr "Φω_τογραφίες"
 
-#: ../src/library/LibraryWindow.vala:372
+#: ../src/library/LibraryWindow.vala:371
 msgid "Even_ts"
 msgstr "Συ_μβάντα"
 
-#: ../src/library/LibraryWindow.vala:391
+#: ../src/library/LibraryWindow.vala:390
 msgid "_Basic Information"
 msgstr "_Βασικές πληροφορίες"
 
-#: ../src/library/LibraryWindow.vala:392
+#: ../src/library/LibraryWindow.vala:391
 msgid "Display basic information for the selection"
 msgstr "Προβολή βασικών πληροφοριών της επιλογής"
 
-#: ../src/library/LibraryWindow.vala:397
+#: ../src/library/LibraryWindow.vala:396
 msgid "E_xtended Information"
 msgstr "Εκτενείς _πληροφορίες"
 
-#: ../src/library/LibraryWindow.vala:398
+#: ../src/library/LibraryWindow.vala:397
 msgid "Display extended information for the selection"
 msgstr "Εμφάνιση εκτενών πληροφοριών της επιλογής"
 
-#: ../src/library/LibraryWindow.vala:403
+#: ../src/library/LibraryWindow.vala:402
 msgid "_Search Bar"
 msgstr "_Γραμμή αναζήτησης"
 
-#: ../src/library/LibraryWindow.vala:404
+#: ../src/library/LibraryWindow.vala:403
 msgid "Display the search bar"
 msgstr "Εμφάνιση της γραμμής αναζήτησης"
 
-#: ../src/library/LibraryWindow.vala:409
+#: ../src/library/LibraryWindow.vala:408
 msgid "S_idebar"
 msgstr "Πλευ_ρική στήλη"
 
-#: ../src/library/LibraryWindow.vala:410
+#: ../src/library/LibraryWindow.vala:409
 msgid "Display the sidebar"
 msgstr "Εμφάνιση της πλαϊνής μπάρας"
 
-#: ../src/library/LibraryWindow.vala:668
+#: ../src/library/LibraryWindow.vala:667
 msgid "Import From Folder"
 msgstr "Εισαγωγή από φάκελο"
 
-#: ../src/library/LibraryWindow.vala:737
+#: ../src/library/LibraryWindow.vala:736
 msgid "Empty Trash"
-msgstr "Άδειασμα κάδου απορριμμάτων"
+msgstr "Άδειασμα απορριμμάτων"
 
-#: ../src/library/LibraryWindow.vala:737
+#: ../src/library/LibraryWindow.vala:736
 msgid "Emptying Trash..."
-msgstr "Άδειασμα κάδου..."
+msgstr "Άδειασμα απορριμμάτων..."
 
-#: ../src/library/LibraryWindow.vala:896
+#: ../src/library/LibraryWindow.vala:895
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4117,34 +4445,34 @@ msgstr ""
 "προτιμήσεων</span>.\n"
 "Θέλετε να συνεχίσετε την εισαγωγή φωτογραφιών;"
 
-#: ../src/library/LibraryWindow.vala:899 ../ui/shotwell.glade.h:19
+#: ../src/library/LibraryWindow.vala:898 ../ui/shotwell.glade.h:18
 msgid "Library Location"
 msgstr "Τοποθεσία βιβλιοθήκης"
 
 #. TODO: Specify which directory/file.
-#: ../src/library/LibraryWindow.vala:912
+#: ../src/library/LibraryWindow.vala:911
 msgid "Photos cannot be imported from this directory."
 msgstr "Δεν ήταν δυνατή η εισαγωγή των φωτογραφιών από αυτόν τον φάκελο."
 
-#: ../src/library/LibraryWindow.vala:1200
+#: ../src/library/LibraryWindow.vala:1199
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: ../src/library/LibraryWindow.vala:1244
-#: ../src/library/LibraryWindow.vala:1255
+#: ../src/library/LibraryWindow.vala:1243
+#: ../src/library/LibraryWindow.vala:1254
 msgid "Updating library..."
 msgstr "Ενημέρωση βιβλιοθήκης..."
 
-#: ../src/library/LibraryWindow.vala:1261
+#: ../src/library/LibraryWindow.vala:1260
 msgid "Preparing to auto-import photos..."
 msgstr "Προετοιμασία για αυτόματη εισαγωγή φωτογραφιών..."
 
-#: ../src/library/LibraryWindow.vala:1266
+#: ../src/library/LibraryWindow.vala:1265
 msgid "Auto-importing photos..."
 msgstr "Αυτόματη εισαγωγή εικόνων..."
 
-#: ../src/library/LibraryWindow.vala:1274
+#: ../src/library/LibraryWindow.vala:1273
 msgid "Writing metadata to files..."
 msgstr "Εγγραφή μεταδεδομένων στα αρχεία..."
 
@@ -4158,11 +4486,11 @@ msgstr "Διαγραφή..."
 
 #: ../src/library/TrashPage.vala:8
 msgid "Trash"
-msgstr "Κάδος απορριμμάτων"
+msgstr "Απορρίματα"
 
 #: ../src/library/TrashPage.vala:108
 msgid "Trash is empty"
-msgstr "Ο κάδος απορριμάτων είναι άδειος"
+msgstr "Ο απορρίματα είναι άδεια"
 
 #: ../src/library/TrashPage.vala:112
 msgid "Delete"
@@ -4260,22 +4588,22 @@ msgstr "BMP"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: ../src/photos/JfifSupport.vala:182
+#: ../src/photos/JfifSupport.vala:185
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Χαμηλό (%d%%)"
 
-#: ../src/photos/JfifSupport.vala:185
+#: ../src/photos/JfifSupport.vala:188
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Μεσαίο (%d%%)"
 
-#: ../src/photos/JfifSupport.vala:188
+#: ../src/photos/JfifSupport.vala:191
 #, c-format
 msgid "High (%d%%)"
 msgstr "Υψηλό (%d%%)"
 
-#: ../src/photos/JfifSupport.vala:191
+#: ../src/photos/JfifSupport.vala:194
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Μέγιστο (%d%%)"
@@ -4298,12 +4626,12 @@ msgstr "Δημοσίευση"
 
 #: ../src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
-msgstr "Προετοιμασία για ανέβασμα"
+msgstr "Προετοιμασία για αποστολή"
 
 #: ../src/publishing/PublishingPluginHost.vala:12
 #, c-format
 msgid "Uploading %d of %d"
-msgstr "Ανέβασμα %d από %d"
+msgstr "Αποστολή %d από %d"
 
 #: ../src/publishing/PublishingPluginHost.vala:81
 #, c-format
@@ -4344,37 +4672,37 @@ msgstr "Λήψη πληροφοριών λογαριασμού..."
 msgid "Logging in..."
 msgstr "Σύνδεση..."
 
-#: ../src/publishing/PublishingUI.vala:183
+#: ../src/publishing/PublishingUI.vala:185
 msgid "Publish Photos"
 msgstr "Δημοσίευση φωτογραφιών"
 
-#: ../src/publishing/PublishingUI.vala:184
+#: ../src/publishing/PublishingUI.vala:186
 msgid "Publish photos _to:"
 msgstr "Δημοσίευση _φωτογραφιών στο:"
 
-#: ../src/publishing/PublishingUI.vala:186
+#: ../src/publishing/PublishingUI.vala:188
 msgid "Publish Videos"
 msgstr "Δημοσίευση βίντεο"
 
-#: ../src/publishing/PublishingUI.vala:187
+#: ../src/publishing/PublishingUI.vala:189
 msgid "Publish videos _to"
 msgstr "Δημοσίευση _φωτογραφιών στο"
 
-#: ../src/publishing/PublishingUI.vala:189
+#: ../src/publishing/PublishingUI.vala:191
 msgid "Publish Photos and Videos"
 msgstr "Δημοσίευση φωτογραφιών και βίντεο"
 
-#: ../src/publishing/PublishingUI.vala:190
+#: ../src/publishing/PublishingUI.vala:192
 msgid "Publish photos and videos _to"
 msgstr "Δημοσίευση φωτογραφιών και βίντεο _στο"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: ../src/publishing/PublishingUI.vala:383
+#: ../src/publishing/PublishingUI.vala:360
 msgid "Unable to publish"
 msgstr "Δεν ήταν δυνατή η δημοσίευση"
 
-#: ../src/publishing/PublishingUI.vala:384
+#: ../src/publishing/PublishingUI.vala:361
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -4393,123 +4721,139 @@ msgid "Saved Searches"
 msgstr "Αποθηκευμένες Αναζητήσεις"
 
 #. Ordering must correspond with SearchConditionText.Context
-#: ../src/searches/SavedSearchDialog.vala:169
+#: ../src/searches/SavedSearchDialog.vala:168
 msgid "contains"
 msgstr "περιέχει"
 
 #. Ordering must correspond with Context
-#: ../src/searches/SavedSearchDialog.vala:170
-#: ../src/searches/SavedSearchDialog.vala:497
+#: ../src/searches/SavedSearchDialog.vala:169
+#: ../src/searches/SavedSearchDialog.vala:500
 msgid "is exactly"
 msgstr "είναι ακριβώς"
 
-#: ../src/searches/SavedSearchDialog.vala:171
+#: ../src/searches/SavedSearchDialog.vala:170
 msgid "starts with"
 msgstr "αρχίζει με"
 
-#: ../src/searches/SavedSearchDialog.vala:172
+#: ../src/searches/SavedSearchDialog.vala:171
 msgid "ends with"
 msgstr "τελειώνει με"
 
-#: ../src/searches/SavedSearchDialog.vala:173
+#: ../src/searches/SavedSearchDialog.vala:172
 msgid "does not contain"
 msgstr "δεν περιέχει"
 
-#: ../src/searches/SavedSearchDialog.vala:174
-#: ../src/searches/SavedSearchDialog.vala:501
+#: ../src/searches/SavedSearchDialog.vala:173
+#: ../src/searches/SavedSearchDialog.vala:504
 msgid "is not set"
 msgstr "δεν είναι ορισμένο"
 
+#: ../src/searches/SavedSearchDialog.vala:174
+msgid "is set"
+msgstr "είναι ορισμένο"
+
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: ../src/searches/SavedSearchDialog.vala:245
-#: ../src/searches/SavedSearchDialog.vala:376
-#: ../src/searches/SavedSearchDialog.vala:441
+#: ../src/searches/SavedSearchDialog.vala:248
+#: ../src/searches/SavedSearchDialog.vala:379
+#: ../src/searches/SavedSearchDialog.vala:444
 msgid "is"
 msgstr "είναι"
 
-#: ../src/searches/SavedSearchDialog.vala:246
+#: ../src/searches/SavedSearchDialog.vala:249
 msgid "is not"
 msgstr "δεν είναι"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: ../src/searches/SavedSearchDialog.vala:252
+#: ../src/searches/SavedSearchDialog.vala:255
 msgid "any photo"
 msgstr "οποιαδήποτε φωτογραφία"
 
-#: ../src/searches/SavedSearchDialog.vala:253
+#: ../src/searches/SavedSearchDialog.vala:256
 msgid "a raw photo"
 msgstr "μια φωτογραφία raw"
 
-#: ../src/searches/SavedSearchDialog.vala:254
+#: ../src/searches/SavedSearchDialog.vala:257
 msgid "a video"
 msgstr "ένα βίντεο"
 
-#: ../src/searches/SavedSearchDialog.vala:308
+#: ../src/searches/SavedSearchDialog.vala:311
 msgid "has"
 msgstr "έχει"
 
-#: ../src/searches/SavedSearchDialog.vala:309
+#: ../src/searches/SavedSearchDialog.vala:312
 msgid "has no"
 msgstr "δεν έχει"
 
-#: ../src/searches/SavedSearchDialog.vala:314
+#: ../src/searches/SavedSearchDialog.vala:317
 msgid "modifications"
 msgstr "τροποποιήσεις"
 
-#: ../src/searches/SavedSearchDialog.vala:315
+#: ../src/searches/SavedSearchDialog.vala:318
 msgid "internal modifications"
 msgstr "εσωτερικές τροποποιήσεις"
 
-#: ../src/searches/SavedSearchDialog.vala:316
+#: ../src/searches/SavedSearchDialog.vala:319
 msgid "external modifications"
 msgstr "εξωτερικές τροποποιήσεις"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: ../src/searches/SavedSearchDialog.vala:370
+#: ../src/searches/SavedSearchDialog.vala:373
 msgid "flagged"
 msgstr "με ετικέτα"
 
-#: ../src/searches/SavedSearchDialog.vala:371
+#: ../src/searches/SavedSearchDialog.vala:374
 msgid "not flagged"
 msgstr "χωρίς ετικέτα"
 
-#: ../src/searches/SavedSearchDialog.vala:434
+#: ../src/searches/SavedSearchDialog.vala:437
 msgid "and higher"
 msgstr "και ψηλότερα"
 
-#: ../src/searches/SavedSearchDialog.vala:435
+#: ../src/searches/SavedSearchDialog.vala:438
 msgid "only"
 msgstr "μόνο"
 
-#: ../src/searches/SavedSearchDialog.vala:436
+#: ../src/searches/SavedSearchDialog.vala:439
 msgid "and lower"
 msgstr "και χαμηλότερα"
 
-#: ../src/searches/SavedSearchDialog.vala:498
+#: ../src/searches/SavedSearchDialog.vala:501
 msgid "is after"
 msgstr "είναι μετά"
 
-#: ../src/searches/SavedSearchDialog.vala:499
+#: ../src/searches/SavedSearchDialog.vala:502
 msgid "is before"
 msgstr "είναι πριν"
 
-#: ../src/searches/SavedSearchDialog.vala:500
+#: ../src/searches/SavedSearchDialog.vala:503
 msgid "is between"
 msgstr "είναι ανάμεσα"
 
-#: ../src/searches/SavedSearchDialog.vala:513
+#: ../src/searches/SavedSearchDialog.vala:516
 msgid "and"
 msgstr "και"
 
-#: ../src/searches/SavedSearchDialog.vala:720
+#: ../src/searches/SavedSearchDialog.vala:695
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: ../src/searches/SavedSearchDialog.vala:700
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: ../src/searches/SavedSearchDialog.vala:701
+msgid "OK"
+msgstr "Eντάξει"
+
+#: ../src/searches/SavedSearchDialog.vala:719
 msgid "any"
 msgstr "οποιαδήποτε"
 
-#: ../src/searches/SavedSearchDialog.vala:721
+#: ../src/searches/SavedSearchDialog.vala:720
 msgid "all"
 msgstr "όλα"
 
-#: ../src/searches/SavedSearchDialog.vala:722
+#: ../src/searches/SavedSearchDialog.vala:721
 msgid "none"
 msgstr "καμία"
 
@@ -4553,7 +4897,7 @@ msgstr "Κατάσταση φωτογραφίας"
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: ../src/sidebar/Tree.vala:199
+#: ../src/sidebar/Tree.vala:189
 msgid "New _Tag..."
 msgstr "Καινούρια _Καρτέλα..."
 
@@ -4578,187 +4922,207 @@ msgid "Tags"
 msgstr "Ετικέτες"
 
 #: ../ui/set_background_dialog.glade.h:1
+msgid "Set as Desktop Background"
+msgstr "Ορισμός ως παρασκηνίου επιφάνειας εργασίας"
+
+#: ../ui/set_background_dialog.glade.h:2
+#: ../ui/set_background_slideshow_dialog.glade.h:6
+msgid "Use for Desktop"
+msgstr "Χρήση για την επιφάνεια εργασίας"
+
+#: ../ui/set_background_dialog.glade.h:3
+#: ../ui/set_background_slideshow_dialog.glade.h:7
+msgid "Use for Lock Screen"
+msgstr "Χρήση για την οθόνη κλειδώματος"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:1
 msgid "Set as Desktop Slideshow"
 msgstr "Ορισμός ως προβολής διαφανειών επιφάνειας εργασίας"
 
-#: ../ui/set_background_dialog.glade.h:2
-msgid "Generate desktop background slideshow"
-msgstr "Δημιουργία προβολής διαφανειών παρασκηνίου επιφάνειας εργασίας"
-
-#: ../ui/set_background_dialog.glade.h:3
+#: ../ui/set_background_slideshow_dialog.glade.h:2
 msgid "Show each photo for"
 msgstr "Εμφάνιση κάθε φωτογραφίας για"
 
-#: ../ui/set_background_dialog.glade.h:4
+#: ../ui/set_background_slideshow_dialog.glade.h:3
 msgid "period of time"
 msgstr "περίοδος χρόνου"
 
-#: ../ui/set_background_dialog.glade.h:5
+#: ../ui/set_background_slideshow_dialog.glade.h:4
+msgid "Generate desktop background slideshow"
+msgstr "Δημιουργία προβολής διαφανειών παρασκηνίου επιφάνειας εργασίας"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:5
 msgid "How long each photo is shown on the desktop background"
 msgstr ""
 "Το χρονικό διάστημα κατά το οποίο μια φωτογραφία παραμένει στην επιφάνεια "
 "εργασίας"
 
 #: ../ui/shotwell.glade.h:1
-msgid "Search"
-msgstr "Αναζήτηση"
-
-#: ../ui/shotwell.glade.h:2
 msgid "_Name of search:"
 msgstr "Ό_νομα αναζήτησης:"
 
-#: ../ui/shotwell.glade.h:3
+#: ../ui/shotwell.glade.h:2
 msgid "_Match"
 msgstr "_Ταίριασμα"
 
-#: ../ui/shotwell.glade.h:4
+#: ../ui/shotwell.glade.h:3
 msgid "of the following:"
 msgstr "από τα παρακάτω:"
 
-#: ../ui/shotwell.glade.h:5
+#: ../ui/shotwell.glade.h:4
 msgid "<b>Printed Image Size</b>"
 msgstr "<b>Μέγεθος εκτυπωμένης εικόνας</b>"
 
-#: ../ui/shotwell.glade.h:6
+#: ../ui/shotwell.glade.h:5
 msgid "Use a _standard size:"
 msgstr "Χρήση πρό_τυπου μέγεθους:"
 
-#: ../ui/shotwell.glade.h:7
+#: ../ui/shotwell.glade.h:6
 msgid "Use a c_ustom size:"
 msgstr "Χρήση _προσαρμοσμένου μεγέθους:"
 
-#: ../ui/shotwell.glade.h:8
+#: ../ui/shotwell.glade.h:7
 msgid "_Match photo aspect ratio"
 msgstr "_Ταίριασμα με τις αναλογίες της φωτογραφίας"
 
-#: ../ui/shotwell.glade.h:9
+#: ../ui/shotwell.glade.h:8
 msgid "_Autosize:"
 msgstr "_Αυτόματο μέγεθος:"
 
-#: ../ui/shotwell.glade.h:10
+#: ../ui/shotwell.glade.h:9
 msgid "<b>Titles</b>"
 msgstr "<b>Τίτλοι</b>"
 
-#: ../ui/shotwell.glade.h:11
+#: ../ui/shotwell.glade.h:10
 msgid "Print image _title"
 msgstr "_Εκτύπωση τίτλου εικόνας"
 
-#: ../ui/shotwell.glade.h:12
+#: ../ui/shotwell.glade.h:11
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>Ανάλυση εικονοστοιχείου</b>"
 
-#: ../ui/shotwell.glade.h:13
+#: ../ui/shotwell.glade.h:12
 msgid "_Output photo at:"
 msgstr "Ε_ξαγωγή φωτογραφίας στο:"
 
-#: ../ui/shotwell.glade.h:14
+#: ../ui/shotwell.glade.h:13
 msgid "pixels per inch"
 msgstr "εικονοστοιχεία ανά ίντσα"
 
-#: ../ui/shotwell.glade.h:16
+#: ../ui/shotwell.glade.h:15
 msgid "Shotwell Preferences"
 msgstr "Προτιμήσεις Shotwell"
 
-#: ../ui/shotwell.glade.h:17
+#: ../ui/shotwell.glade.h:16
 msgid "white"
 msgstr "λευκό"
 
-#: ../ui/shotwell.glade.h:18
+#: ../ui/shotwell.glade.h:17
 msgid "black"
 msgstr "μαύρο"
 
-#: ../ui/shotwell.glade.h:20
+#: ../ui/shotwell.glade.h:19
 msgid "_Watch library directory for new files"
 msgstr "_Παρακολούθηση φακέλου βιβλιοθήκης για νέα αρχεία"
 
-#: ../ui/shotwell.glade.h:21
+#: ../ui/shotwell.glade.h:20
 msgid "Metadata"
 msgstr "Μεταδεδομένα"
 
-#: ../ui/shotwell.glade.h:22
+#: ../ui/shotwell.glade.h:21
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr ""
 "Εγγραφή ετικετών, τίτλων και λοιπών _μεταδεδομένων στα αρχεία φωτογραφιών"
 
-#: ../ui/shotwell.glade.h:23
+#: ../ui/shotwell.glade.h:22
 msgid "Display"
 msgstr "Προβολή"
 
-#: ../ui/shotwell.glade.h:24
+#: ../ui/shotwell.glade.h:23
 msgid "_Import photos to:"
 msgstr "Εισαγωγή _φωτογραφιών στο:"
 
-#: ../ui/shotwell.glade.h:25
+#: ../ui/shotwell.glade.h:24
 msgid "_Background:"
 msgstr "_Παρασκήνιο:"
 
-#: ../ui/shotwell.glade.h:26
+#: ../ui/shotwell.glade.h:25
 msgid "Importing"
 msgstr "Εισαγωγή"
 
-#: ../ui/shotwell.glade.h:27
+#: ../ui/shotwell.glade.h:26
 msgid "_Directory structure:"
 msgstr "_Δομή καταλόγου:"
 
-#: ../ui/shotwell.glade.h:28
+#: ../ui/shotwell.glade.h:27
 msgid "_Pattern:"
 msgstr "_Υπόδειγμα:"
 
-#: ../ui/shotwell.glade.h:29
+#: ../ui/shotwell.glade.h:28
 msgid "Example:"
 msgstr "Παράδειγμα:"
 
-#: ../ui/shotwell.glade.h:30
+#: ../ui/shotwell.glade.h:29
 msgid "R_ename imported files to lowercase"
 msgstr "_Μετονομασία των εισαγόμενων αρχείων με χρήση πεζών γραμμάτων"
 
-#: ../ui/shotwell.glade.h:31
+#: ../ui/shotwell.glade.h:30
 msgid "RAW Developer"
 msgstr "Εφαρμογή επεξεργασίας RAW αρχείων"
 
-#: ../ui/shotwell.glade.h:32
+#: ../ui/shotwell.glade.h:31
 msgid "De_fault:"
 msgstr "_Προεπιλογή:"
 
-#: ../ui/shotwell.glade.h:34
+#: ../ui/shotwell.glade.h:33
 msgid "E_xternal photo editor:"
 msgstr "Ε_ξωτερικός Επεξεργαστής φωτογραφιών:"
 
-#: ../ui/shotwell.glade.h:35
+#: ../ui/shotwell.glade.h:34
 msgid "External _RAW editor:"
 msgstr "Εξωτερική εφαρμογή _επεξεργασίας αρχείων RAW:"
 
-#: ../ui/shotwell.glade.h:36
+#: ../ui/shotwell.glade.h:35
 msgid "External Editors"
 msgstr "Εξωτερικές εφαρμογές επεξεργασίας"
 
-#: ../ui/shotwell.glade.h:37
+#: ../ui/shotwell.glade.h:36
 msgid "Plugins"
 msgstr "Πρόσθετα"
 
-#: ../ui/shotwell.glade.h:38
+#: ../ui/shotwell.glade.h:37
 msgid "_Delay:"
 msgstr "_Καθυστέρηση:"
 
-#: ../ui/shotwell.glade.h:39
+#: ../ui/shotwell.glade.h:38
 msgid "_Transition effect:"
 msgstr "_Εφέ μετάβασης:"
 
-#: ../ui/shotwell.glade.h:40
+#: ../ui/shotwell.glade.h:39
 msgid "Transition d_elay:"
 msgstr "Καθυστέρηση _μετάβασης:"
 
-#: ../ui/shotwell.glade.h:41
+#: ../ui/shotwell.glade.h:40
 msgid "Show t_itle"
 msgstr "Εμφάνιση _τίτλου"
 
-#: ../ui/shotwell.glade.h:42
+#: ../ui/shotwell.glade.h:41
 msgid "seconds"
 msgstr "δευτερόλεπτα"
 
-#: ../ui/shotwell.glade.h:43
-msgid "_Login"
-msgstr "_Σύνδεση"
+#~| msgid ""
+#~| "A file required for publishing is unavailable. Publishing to Flickr "
+#~| "can't continue."
+#~ msgid "A file required for publishing is unavailable. Publishing to "
+#~ msgstr ""
+#~ "Ένα απαιτούμενο αρχείο για τη δημοσίευση δεν είναι διαθέσιμο. Δημοσίευση "
+#~ "στο "
+
+#~ msgid "Import media _from:"
+#~ msgstr "Εισαγωγή πολυμέσων _από:"
+
+#~ msgid "Only _Remove"
+#~ msgstr "Α_φαίρεση μόνο"
 
 #~ msgid ""
 #~ "You are logged into Tumblr as (name).\n"
@@ -4794,13 +5158,6 @@ msgstr "_Σύνδεση"
 
 #~ msgid "_visibility label (populated in the code)"
 #~ msgstr "η ετικέτα _ορατότητας (συμπληρωμένη στον κώδικα)"
-
-#~ msgid ""
-#~ "'you are logged in as $name'\n"
-#~ "(populated in the application code)"
-#~ msgstr ""
-#~ "'είσαστε συνδεμένοι ως $name'\n"
-#~ "(συμπληρωμένο στον κώδικα εφαρμογής)"
 
 #~ msgid ""
 #~ "$mediatype will appear in\n"
