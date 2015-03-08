@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-02-21 00:57+0000\n"
-"PO-Revision-Date: 2014-12-22 23:41+0900\n"
+"POT-Creation-Date: 2015-03-08 11:59+0000\n"
+"PO-Revision-Date: 2015-03-08 22:22+0900\n"
 "Last-Translator: Kim Boram <boramism@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/shotwell/language/"
 "ko/)\n"
@@ -58,10 +58,8 @@ msgstr "Kim, Boram <boramism@gmail.com>"
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-#, fuzzy
-#| msgid "Copyright 2009-2014 Yorba Foundation"
 msgid "Copyright 2009-2015 Yorba Foundation"
-msgstr "Copyright 2009-2014 Yorba Foundation"
+msgstr "Copyright 2009-2015 Yorba Foundation"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -95,8 +93,8 @@ msgid ""
 "Cannot open the selected F-Spot database file: the file does not exist or is "
 "not an F-Spot database"
 msgstr ""
-"선택한 F-Spot 데이터베이스 파일을 열 수 없습니다: 파일이 존재하지 않거나 F-"
-"Spot 데이터베이스 파일이 아닙니다."
+"선택한 F-Spot 데이터베이스 파일을 열 수 없습니다: 파일이 없거나 F-Spot 데이터"
+"베이스 파일이 아닙니다."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:64
 msgid ""
@@ -1008,10 +1006,8 @@ msgid "Core Slideshow Transitions"
 msgstr "핵심 슬라이드 쇼 전환 효과"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-#, fuzzy
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
@@ -1492,10 +1488,8 @@ msgid "_Scaling constraint:"
 msgstr "크기 조정 제한(_S):"
 
 #: ../src/Dialogs.vala:222
-#, fuzzy
-#| msgid " _pixels"
 msgid "_Pixels:"
-msgstr "픽셀(_P)"
+msgstr "픽셀(_P):"
 
 #: ../src/Dialogs.vala:225
 msgid "Export metadata"
@@ -2791,7 +2785,7 @@ msgstr "정보(_A)"
 
 #: ../src/Resources.vala:161
 msgid "_Apply"
-msgstr ""
+msgstr "적용(_A)"
 
 #: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
 #: ../src/library/LibraryWindow.vala:355
@@ -2799,10 +2793,8 @@ msgid "_Edit"
 msgstr "편집(_E)"
 
 #: ../src/Resources.vala:165
-#, fuzzy
-#| msgid "_Format:"
 msgid "_Forward"
-msgstr "형식(_F):"
+msgstr "앞으로(_F)"
 
 #: ../src/Resources.vala:166
 msgid "Fulls_creen"
@@ -2822,36 +2814,28 @@ msgid "_New"
 msgstr "새 항목(_N)"
 
 #: ../src/Resources.vala:170
-#, fuzzy
-#| msgid "Next"
 msgid "_Next"
-msgstr "다음"
+msgstr "다음(_N)"
 
 #: ../src/Resources.vala:171
 msgid "_OK"
-msgstr ""
+msgstr "확인(_O)"
 
 #: ../src/Resources.vala:172
-#, fuzzy
-#| msgid "Play"
 msgid "_Play"
-msgstr "재생"
+msgstr "재생(_P)"
 
 #: ../src/Resources.vala:173 ../src/Resources.vala:325
 msgid "_Preferences"
 msgstr "기본 설정(_P)"
 
 #: ../src/Resources.vala:174
-#, fuzzy
-#| msgid "_Previous Photo"
 msgid "_Previous"
-msgstr "이전 사진(_P)"
+msgstr "이전(_P)"
 
 #: ../src/Resources.vala:175
-#, fuzzy
-#| msgid "_Print..."
 msgid "_Print"
-msgstr "인쇄(_P)..."
+msgstr "인쇄(_P)"
 
 #: ../src/Resources.vala:176
 msgid "_Quit"
@@ -2859,13 +2843,11 @@ msgstr "끝내기(_Q)"
 
 #: ../src/Resources.vala:177
 msgid "_Refresh"
-msgstr ""
+msgstr "새로 고침(_R)"
 
 #: ../src/Resources.vala:179
-#, fuzzy
-#| msgid "Reverting"
 msgid "_Revert"
-msgstr "되돌리기"
+msgstr "되돌리기(_R)"
 
 #: ../src/Resources.vala:180 ../src/direct/DirectPhotoPage.vala:51
 #: ../src/direct/DirectPhotoPage.vala:422
@@ -2873,42 +2855,32 @@ msgid "_Save"
 msgstr "저장(_S)"
 
 #: ../src/Resources.vala:181
-#, fuzzy
-#| msgid "Save As"
 msgid "Save _As"
-msgstr "다른 이름으로 저장"
+msgstr "다른 이름으로 저장(_A)"
 
 #: ../src/Resources.vala:182
-#, fuzzy
-#| msgid "_Ascending"
 msgid "Sort _Ascending"
-msgstr "오름차순(_A)"
+msgstr "오름차순 정렬 (_A)"
 
 #: ../src/Resources.vala:183
-#, fuzzy
-#| msgid "D_escending"
 msgid "Sort _Descending"
-msgstr "내림차순(_E)"
+msgstr "내림차순 정렬(_D)"
 
 #: ../src/Resources.vala:184
 msgid "_Stop"
-msgstr ""
+msgstr "멈춤(_S)"
 
 #: ../src/Resources.vala:185
-#, fuzzy
-#| msgid "_Delete"
 msgid "_Undelete"
-msgstr "삭제(_D)"
+msgstr "삭제 취소(_U)"
 
 #: ../src/Resources.vala:186
-#, fuzzy
-#| msgid "Original Size"
 msgid "_Normal Size"
-msgstr "원본 크기"
+msgstr "보통 크기(_N)"
 
 #: ../src/Resources.vala:187
 msgid "Best _Fit"
-msgstr ""
+msgstr "화면에 맞추기(_F)"
 
 #: ../src/Resources.vala:191
 msgid "_Enhance"
@@ -3587,10 +3559,8 @@ msgstr "UI 파일 %s을(를) 불러올 수 없습니다: %s"
 #. display it yet; we'll connect it to secondary
 #. click later on.
 #: ../src/SearchFilter.vala:945
-#, fuzzy
-#| msgid "_Close"
 msgid "Close"
-msgstr "닫기(_C)"
+msgstr "닫기"
 
 #. Type label and toggles
 #: ../src/SearchFilter.vala:951
@@ -3903,7 +3873,7 @@ msgstr "사진(_P)"
 #: ../src/direct/DirectPhotoPage.vala:227
 #, c-format
 msgid "%s does not exist."
-msgstr "%s(이)가 존재하지 않습니다."
+msgstr "%s(이)가 없습니다."
 
 #: ../src/direct/DirectPhotoPage.vala:229
 #, c-format
@@ -4541,10 +4511,8 @@ msgid "is not set"
 msgstr "설정하지 않음"
 
 #: ../src/searches/SavedSearchDialog.vala:174
-#, fuzzy
-#| msgid "is not set"
 msgid "is set"
-msgstr "설정하지 않음"
+msgstr "설정"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
 #: ../src/searches/SavedSearchDialog.vala:248
@@ -4632,14 +4600,12 @@ msgid "Search"
 msgstr "검색"
 
 #: ../src/searches/SavedSearchDialog.vala:700
-#, fuzzy
-#| msgid "_Cancel"
 msgid "Cancel"
-msgstr "취소(_C)"
+msgstr "취소"
 
 #: ../src/searches/SavedSearchDialog.vala:701
 msgid "OK"
-msgstr ""
+msgstr "확인"
 
 #: ../src/searches/SavedSearchDialog.vala:719
 msgid "any"
