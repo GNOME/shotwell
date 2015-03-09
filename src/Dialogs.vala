@@ -1785,8 +1785,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         calendar.select_day(time.day);
 
         if (Config.Facade.get_instance().get_use_24_hour_time()) {
-            hour.set_value(time.hour);
             system.set_active(TimeSystem.24HR);
+            hour.set_value(time.hour);
         } else {
             int AMPM_hour = time.hour % 12;
             hour.set_value((AMPM_hour == 0) ? 12 : AMPM_hour);
