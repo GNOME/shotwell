@@ -55,6 +55,7 @@
             <separator />
             <menu name="SortPhotos" action="SortPhotos">
                 <menuitem name="SortByTitle" action="SortByTitle" />
+                <menuitem name="SortByFilename" action="SortByFilename" />
                 <menuitem name="SortByExposureDate" action="SortByExposureDate" />
                 <menuitem name="SortByRating" action="SortByRating" />
                 <separator />

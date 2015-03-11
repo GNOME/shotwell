@@ -122,7 +122,8 @@ public abstract class MediaPage : CheckerboardPage {
         TITLE = 1,
         EXPOSURE_DATE = 2,
         RATING = 3,
-        MAX = 3
+        FILENAME = 4,
+        MAX = 4
     }
 
     protected class ZoomSliderAssembly : Gtk.ToolItem {
@@ -498,6 +499,12 @@ public abstract class MediaPage : CheckerboardPage {
         by_rating.tooltip = _("Sort photos by rating");
         sort_crit_actions += by_rating;
         
+        Gtk.RadioActionEntry by_filename = { "SortByFilename", null, TRANSLATABLE, null,
+            TRANSLATABLE, SortBy.FILENAME };
+        by_filename.label = _("By _Filename");
+        by_filename.tooltip = _("Sort photos by filename");
+        sort_crit_actions += by_filename;
+
         action_group.add_radio_actions(sort_crit_actions, sort_by, on_sort_changed);
         
         // Sort order.
@@ -1220,6 +1227,13 @@ public abstract class MediaPage : CheckerboardPage {
                 predicate = Thumbnail.rating_comparator_predicate;
                 break;
             
+            case SortBy.FILENAME:
+                if (ascending)
+                    comparator = Thumbnail.filename_ascending_comparator;
+                else comparator = Thumbnail.filename_descending_comparator;
+                predicate = Thumbnail.filename_comparator_predicate;
+                break;
+
             default:
                 debug("Unknown sort criteria: %s", get_menu_sort_by().to_string());
                 comparator = Thumbnail.title_descending_comparator;
@@ -1240,6 +1254,9 @@ public abstract class MediaPage : CheckerboardPage {
             
             case SortBy.RATING:
                 return "/MenuBar/ViewMenu/SortPhotos/SortByRating";
+
+            case SortBy.FILENAME:
+                return "/MenuBar/ViewMenu/SortPhotos/SortByFilename";
             
             default:
                 debug("Unknown sort criteria: %d", sort_by);

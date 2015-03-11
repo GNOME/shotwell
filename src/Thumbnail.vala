@@ -193,6 +193,10 @@ public class Thumbnail : MediaSourceItem {
         return alteration.has_detail("metadata", "exposure-time");
     }
     
+    public static bool filename_comparator_predicate(DataObject object, Alteration alteration) {
+        return alteration.has_detail("metadata", "filename");
+    }
+
     public static int64 filename_ascending_comparator(void *a, void *b) {
         string path_a = ((Thumbnail *) a)->media.get_file().get_basename().down();
         string path_b = ((Thumbnail *) b)->media.get_file().get_basename().down();
