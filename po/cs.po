@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-03-01 12:01+0000\n"
-"PO-Revision-Date: 2015-03-01 18:57+0100\n"
+"POT-Creation-Date: 2015-03-12 09:02+0000\n"
+"PO-Revision-Date: 2015-03-12 11:37+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -174,7 +174,7 @@ msgstr ""
 "Gallery3."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: ../src/MediaPage.vala:434 ../src/photos/RawSupport.vala:300
+#: ../src/MediaPage.vala:435 ../src/photos/RawSupport.vala:300
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -2454,115 +2454,123 @@ msgstr "Export"
 msgid "Unable to process monitoring updates: %s"
 msgstr "Nelze sledovat změny: %s"
 
-#: ../src/MediaPage.vala:157
+#: ../src/MediaPage.vala:158
 msgid "Adjust the size of the thumbnails"
 msgstr "Nastavit velikost náhledů"
 
-#: ../src/MediaPage.vala:339 ../src/PhotoPage.vala:2593
+#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2593
 #: ../src/Resources.vala:188 ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "Přiblíž_it"
 
-#: ../src/MediaPage.vala:340
+#: ../src/MediaPage.vala:341
 msgid "Increase the magnification of the thumbnails"
 msgstr "Zvětšit velikost náhledů"
 
-#: ../src/MediaPage.vala:345 ../src/PhotoPage.vala:2599
+#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2599
 #: ../src/Resources.vala:189 ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "_Oddálit"
 
-#: ../src/MediaPage.vala:346
+#: ../src/MediaPage.vala:347
 msgid "Decrease the magnification of the thumbnails"
 msgstr "Zmenšit velikost náhledů"
 
-#: ../src/MediaPage.vala:413
+#: ../src/MediaPage.vala:414
 msgid "Sort _Photos"
 msgstr "Seřadit _fotky"
 
-#: ../src/MediaPage.vala:422
+#: ../src/MediaPage.vala:423
 msgid "_Play Video"
 msgstr "_Přehrát video"
 
-#: ../src/MediaPage.vala:423
+#: ../src/MediaPage.vala:424
 msgid "Open the selected videos in the system video player"
 msgstr "Otevřít vybraná videa v systémovém přehrávači videí"
 
-#: ../src/MediaPage.vala:427 ../src/PhotoPage.vala:2642
+#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2642
 msgid "_Developer"
 msgstr "_Vývojka"
 
-#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:99
+#: ../src/MediaPage.vala:440 ../src/camera/Branch.vala:99
 #: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
 #: ../src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Fotoaparát"
 
-#: ../src/MediaPage.vala:450 ../src/camera/ImportPage.vala:874
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:874
 msgid "_Titles"
 msgstr "_Názvy"
 
-#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:875
+#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:875
 msgid "Display the title of each photo"
 msgstr "U každé fotografie zobrazit název"
 
-#: ../src/MediaPage.vala:456 ../src/events/EventsDirectoryPage.vala:130
+#: ../src/MediaPage.vala:457 ../src/events/EventsDirectoryPage.vala:130
 msgid "_Comments"
 msgstr "_Komentáře"
 
-#: ../src/MediaPage.vala:457
+#: ../src/MediaPage.vala:458
 msgid "Display the comment of each photo"
 msgstr "U každé fotografie zobrazit komentář"
 
-#: ../src/MediaPage.vala:468 ../src/library/LibraryWindow.vala:375
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:375
 msgid "Ta_gs"
 msgstr "Štít_ky"
 
-#: ../src/MediaPage.vala:469
+#: ../src/MediaPage.vala:470
 msgid "Display each photo's tags"
 msgstr "U každé fotografie zobrazit štítky"
 
-#: ../src/MediaPage.vala:485
+#: ../src/MediaPage.vala:486
 msgid "By _Title"
 msgstr "Podle _názvu"
 
-#: ../src/MediaPage.vala:486
+#: ../src/MediaPage.vala:487
 msgid "Sort photos by title"
 msgstr "Seřadit fotografie podle názvu"
 
-#: ../src/MediaPage.vala:491
+#: ../src/MediaPage.vala:492
 msgid "By Exposure _Date"
 msgstr "Podle _data pořízení"
 
-#: ../src/MediaPage.vala:492
+#: ../src/MediaPage.vala:493
 msgid "Sort photos by exposure date"
 msgstr "Seřadit fotografie podle data pořízení"
 
-#: ../src/MediaPage.vala:497
+#: ../src/MediaPage.vala:498
 msgid "By _Rating"
 msgstr "Podle _hodnocení"
 
-#: ../src/MediaPage.vala:498
+#: ../src/MediaPage.vala:499
 msgid "Sort photos by rating"
 msgstr "Seřadit fotografie podle hodnocení"
 
-#: ../src/MediaPage.vala:508 ../src/library/LibraryWindow.vala:421
+#: ../src/MediaPage.vala:504
+msgid "By _Filename"
+msgstr "Podle názvu _souboru"
+
+#: ../src/MediaPage.vala:505
+msgid "Sort photos by filename"
+msgstr "Seřadit fotografie podle názvu souboru"
+
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:421
 msgid "_Ascending"
 msgstr "_Vzestupně"
 
-#: ../src/MediaPage.vala:509 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:422
 msgid "Sort photos in an ascending order"
 msgstr "Seřadit fotografie ve vzestupném pořadí"
 
-#: ../src/MediaPage.vala:514 ../src/library/LibraryWindow.vala:428
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:428
 msgid "D_escending"
 msgstr "_Sestupně"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:429
 msgid "Sort photos in a descending order"
 msgstr "Seřadit fotografie v sestupném pořadí"
 
-#: ../src/MediaPage.vala:716
+#: ../src/MediaPage.vala:723
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
