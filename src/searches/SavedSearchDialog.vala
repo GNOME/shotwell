@@ -614,7 +614,9 @@ public class SavedSearchDialog {
             d.set_decorated(false);
             ((Gtk.Box) d.get_content_area()).add(cal);
             ulong id_1 = cal.day_selected.connect(()=>{update_date_labels();});
-            ulong id_2 = cal.day_selected_double_click.connect(()=>{d.close();});
+            ulong id_2 = cal.day_selected_double_click.connect(()=> {
+                  d.response(Gtk.ResponseType.ACCEPT);
+            });
             d.show_all();
             int res = d.run();
             if (res != Gtk.ResponseType.ACCEPT) {
