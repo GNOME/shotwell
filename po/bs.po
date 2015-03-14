@@ -1,0 +1,5165 @@
+# Bosnian translation for bosnianuniversetranslation
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the bosnianuniversetranslation package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bosnianuniversetranslation\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2015-02-26 23:57+0000\n"
+"PO-Revision-Date: 2015-03-02 23:38+0100\n"
+"Last-Translator: Samir Ribic <samir.ribic@etf.unsa.ba>\n"
+"Language-Team: Bosnian <bs@li.org>\n"
+"Language: bs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 1.7.4\n"
+"X-Launchpad-Export-Date: 2015-02-17 06:23+0000\n"
+
+#: ../plugins/common/RESTSupport.vala:424
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
+msgid "A temporary file needed for publishing is unavailable"
+msgstr "Privremena datoteka, neophodna za objavljivanje nije dostupna"
+
+#: ../plugins/common/RESTSupport.vala:1138
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+"Već ste prijavljeni i odjavljeni s Google servisa tokom ove Shotwell "
+"sesije.\n"
+"\n"
+"Za nastavak objavljivanja na Google usluge, zatvorite i ponovo pokrenite "
+"Shotwell, a zatim pokušajte ponovo objavljivanje."
+
+#: ../plugins/common/Resources.vala:9
+msgid "Visit the Shotwell home page"
+msgstr "Posjeti Shotwell početnu stranicu"
+
+#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:705
+msgid "translator-credits"
+msgstr ""
+"   Maida Bakovic https://launchpad.net/~maidabakovic\n"
+"  Samir Ribić https://launchpad.net/~megaribi"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:34
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:32
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: ../src/Resources.vala:27
+msgid "Copyright 2009-2015 Yorba Foundation"
+msgstr "Autorska prava 2009-2015 Yorba Foundation"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select a library to import, either by selecting one of the existing "
+"libraries found by Shotwell or by selecting an alternative F-Spot database "
+"file."
+msgstr ""
+"Dobro došli u servis za uvoz F-Spot zbirke slika.\n"
+"\n"
+"Molim izaberite zbirku za uvoz, izborom postojeće zbirke koju je Foto-bunar "
+"pronašao ili izborom neke druge datoteke F-Spot zbirke."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:58
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select an F-Spot database file."
+msgstr ""
+"Dobro došli u servis za uvoz F-Spot zbirke slika.\n"
+"\n"
+"Molim izaberite datoteku F-Spot zbirke."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:60
+msgid "Manually select an F-Spot database file to import:"
+msgstr "Ručni izbor datoteke F-Spot zbirke za uvoz:"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:62
+msgid ""
+"Cannot open the selected F-Spot database file: the file does not exist or is "
+"not an F-Spot database"
+msgstr ""
+"Nije uspjelo otvaranje datoteke F-Spot zbirke: datoteka ne postoji ili nije "
+"F-Spot zbirka"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:64
+msgid ""
+"Cannot open the selected F-Spot database file: this version of the F-Spot "
+"database is not supported by Shotwell"
+msgstr ""
+"Nije uspjelo otvaranje datoteke F-Spot zbirke:  Shotwell ne podržava ovu "
+"verzija F-Spot zbirke."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:66
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr ""
+"Nije uspelo otvaranje datoteke F-Spot zbirke: greška prilikom čitanja tabele "
+"sa oznakama"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:68
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading photos "
+"table"
+msgstr ""
+"Nije uspelo otvaranje datoteke F-Spot zbirke: greška prilikom čitanja tabele "
+"sa slikama"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:70
+#, c-format
+msgid ""
+"Shotwell has found %d photos in the F-Spot library and is currently "
+"importing them. Duplicates will be automatically detected and removed.\n"
+"\n"
+"You can close this dialog and start using Shotwell while the import is "
+"taking place in the background."
+msgstr ""
+"Shotwell je pronašao %d slika u F-Spot zbirci i trenutno ih uvozi. Duplikati "
+"će automatski biti pronađeni i obrisani.\n"
+"\n"
+"Možete zatvoriti ovaj dijalog i započeti korišćenje Shotwella, uvoz slika će "
+"se nastaviti u pozadini."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:84
+#, c-format
+msgid "F-Spot library: %s"
+msgstr "F-Spot zbirka: %s"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:422
+msgid "Preparing to import"
+msgstr "Pripremam za uvoz"
+
+#: ../plugins/shotwell-data-imports/shotwell-data-imports.vala:22
+msgid "Core Data Import Services"
+msgstr "Osnovni servis za uvoz"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:41
+msgid "Gallery3 publishing module"
+msgstr "Gallery3 modul za objavljivanje"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:114
+msgid ""
+"You are not currently logged into your Gallery.\n"
+"\n"
+"You must have already signed up for a Gallery3 account to complete the login "
+"process."
+msgstr ""
+"Trenutno niste logirani u vašu galeriju.\n"
+"\n"
+"Morate imati već prijavljen Gallery3 račun da dovršite login proces."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
+#: ../src/MediaPage.vala:434 ../src/photos/RawSupport.vala:300
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:117
+msgid "Shotwell default directory"
+msgstr "Shotwell zadani direktorij"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:801
+#, c-format
+msgid ""
+"\n"
+"\n"
+"The file \"%s\" may not be supported by or may be too large for this "
+"instance of Gallery3."
+msgstr ""
+"\n"
+"\n"
+"Datoteka \"%s\" možda nije podržana ili je prevelika za ovu instancu "
+"Gallery3."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:802
+msgid ""
+"\n"
+"Note that Gallery3 only supports the video types that Flowplayer does."
+msgstr ""
+"\n"
+"Imajte na umu da Gallery3 podržava samo video tipove koje podržava i "
+"Flowplayer."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1022
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1775
+#, c-format
+msgid ""
+"A file required for publishing is unavailable. Publishing to %s can't "
+"continue."
+msgstr ""
+"Datoteka potrebna za objavljivanje je nedostupna. Objava na %s se ne može "
+"nastaviti."
+
+#. populate any widgets whose contents are
+#. programmatically-generated
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1551
+#, c-format
+msgid "Publishing to %s as %s."
+msgstr "Objavljivanje na %s kao %s."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
+msgid ""
+"Enter the URL for your Gallery3 site and the username and password (or API "
+"key) for your Gallery3 account."
+msgstr ""
+"Unesite URL za vašu Gallery3 stranicu, i korisničko ime i lozinku (ili API "
+"ključ) za vaš Gallery3 račun."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1820
+msgid ""
+"The username and password or API key were incorrect. To try again, re-enter "
+"your username and password below."
+msgstr ""
+"Korisničko ime i lozinka ili API ključ nisu ispravni. Da pokušate ponovo, "
+"unesite vaše korisničko ime i lozinku ispod."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1821
+msgid ""
+"The URL entered does not appear to be the main directory of a Gallery3 "
+"instance. Please make sure you typed it correctly and it does not have any "
+"trailing components (e.g., index.php)."
+msgstr ""
+"Unešeni URL nije glavni direktorij Gallery3 instance. Provjerite da li ste "
+"ukucali ispravno i da ne sadrži nikakve prateće komponente (npr., index.php)."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1874
+msgid "Unrecognized User"
+msgstr "Nepoznat korisnik"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1879
+msgid " Site Not Found"
+msgstr " Stranica nije pronađena"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:38
+msgid "Copyright (C) 2013 rajce.net"
+msgstr "Autorska prava (C) 2013 rajce.nit"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:742
+msgid "An error message occurred when publishing to Rajce. Please try again."
+msgstr ""
+"Poruka greške se pojavila prilikom objavljivanja na Rajce. Pokušajte ponovo."
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:831
+msgid "Enter email and password associated with your Rajce account."
+msgstr "Unesite e-mail i lozinku povezanu vašim Rajce računom."
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:832
+msgid "Invalid email and/or password. Please try again"
+msgstr "Pogrešna e-mail adresa i/ili lozinka. Pokušajte ponovo"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:863
+msgid "Invalid User Email or Password"
+msgstr "Pogrešna e-mail adresa korisnika ili lozinka"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:890
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:2
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:2
+msgid "_Email address"
+msgstr "_E-mail adresa"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:891
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:3
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:3
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:4
+msgid "_Password"
+msgstr "_Lozinka"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:892
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:4
+msgid "_Remember"
+msgstr "_Zapamti"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:893
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:4
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:5
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:6
+msgid "Login"
+msgstr "Login"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1006
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:5
+msgid "_Hide album"
+msgstr "_Sakrij album"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
+#, c-format
+msgid "You are logged into Rajce as %s."
+msgstr "Logirani ste u Rajce kao %s."
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:1
+msgid "Photos will appear in:"
+msgstr "Slike će se pojaviti u:"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:1
+msgid "An _existing album:"
+msgstr "_Postojeći album:"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:3
+msgid "A _new album named:"
+msgstr "_Novi album:"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:6
+msgid "Open target _album in browser"
+msgstr "Otvori ciljani _album u pretraživaču"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:8
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:6
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:3
+msgid "_Publish"
+msgstr "_Objavi"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:1
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:5
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:2
+msgid "_Logout"
+msgstr "_Odjava"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:35
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Autorska prava 2012 BJA Electronics"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:104
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1246
+msgid "500 x 375 pixels"
+msgstr "500 x 375 piksela"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 piksela"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
+msgid "1280 x 853 pixels"
+msgstr "1280 x 853 piksela"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:310
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:320
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr "'%s' nije ispravan odgovor na OAuth upit za autorizaciju"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:558
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start( ): se ne može ponovo pokrenuti jer objavljivač to ne "
+"dozvoljava."
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "Unesite korisničko ime i lozinku za pristup vašem Tumblr računu."
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:587
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+msgid "Username and/or password invalid. Please try again"
+msgstr "Korisničko ime i/ili lozinka nisu ispravni. Pokušajte ponovo."
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:617
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+msgid "Invalid User Name or Password"
+msgstr "Nije ispravno korisničko ime ili lozinka"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:636
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:757
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Ne mogu da učitam korisnički interfejs: %s"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:739
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Prijavljeni ste na Tumblr kao %s.\n"
+"\n"
+
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:22
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Autorska prava 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:25
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Posjetite Yandex.Fotki web stranicu"
+
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "Trenutno niste prijavljeni na Yandex.Fotki."
+
+#: ../plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
+msgid "Shotwell Extra Publishing Services"
+msgstr "Shotwell dodatne usluge za objavljivanje"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:1
+msgid "Go _Back"
+msgstr "Idi _nazad"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:2
+#: ../ui/shotwell.glade.h:42
+msgid "_Login"
+msgstr "_Login"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:3
+msgid "Intro message replaced at runtime"
+msgstr "Uvodna poruka zamijenjena za vrijeme izvršenja"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:4
+msgid "_Gallery3 URL:"
+msgstr "_Gallery3 URL:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:5
+msgid "_User name:"
+msgstr "_Korisničko ime:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:6
+msgid "_Password:"
+msgstr "_Lozinka:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:7
+msgid "API _Key:"
+msgstr "API _Ključ:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:8
+msgid "or"
+msgstr "ili"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:3
+msgid "A _new album"
+msgstr "_Novi album"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:4
+msgid "An _existing album"
+msgstr "_Postojeći album"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:5
+msgid "_Remove location, tag and camera-identifying data before uploading"
+msgstr ""
+"_Ukloni lokaciju, oznaku i podatke za identifikaciju kamere prije slanja"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:6
+msgid "'Publishing to $url as $username' (populated in application code)"
+msgstr "'Objavljivanje na $url kao $username' (smješteno u aplikacijskom kodu)"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:7
+msgid "Scaling constraint:"
+msgstr "Ograničenje skaliranja:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:8
+msgid "pixels"
+msgstr "pikseli"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:9
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1236
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+#: ../src/Dimensions.vala:17
+msgid "Original size"
+msgstr "Originalna veličina"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:10
+#: ../src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "Širina ili visina"
+
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:1
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:1
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:1
+#: ../ui/shotwell.glade.h:14
+msgid "label"
+msgstr "oznaka"
+
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:1
+msgid "Blogs:"
+msgstr "Blogovi:"
+
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
+msgid "Photo _size:"
+msgstr "_Veličina slike:"
+
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:1
+msgid "you are logged in rajce as $name"
+msgstr "logirani ste u rajce kao $name"
+
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:7
+msgid "$mediatype will appear in"
+msgstr "$mediatype će se pojaviti u"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:1
+msgid "_Albums (or write new):"
+msgstr "_Albumi (ili piši novi):"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:2
+msgid "Access _type:"
+msgstr "_Tip pristupa:"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:3
+msgid "Disable _comments"
+msgstr "Onemogući _komentare"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:4
+msgid "_Forbid downloading original photo"
+msgstr "_Zabrani preuzimanje originalne slike"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:7
+msgid "Public"
+msgstr "Javno"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:8
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1181
+msgid "Friends"
+msgstr "Prijatelji"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:9
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:497
+msgid "Private"
+msgstr "Privatni"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:61
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:59
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1127
+msgid "Shotwell Connect"
+msgstr "Shotwell povezivanje"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:63
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"Trenutno niste prijavljeni na Facebook.\n"
+"\n"
+"Ako ne posedujete Facebook nalog, moći ćete da ga otvorite tokom ovog "
+"procesa. Takođe je neophodno da dozvolite Shotwell-u pristup vašem nalogu. "
+"To je neophodno za funkcionisanje ovog servisa."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:65
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Tokom ove Shotwell sesije već ste se jednom prijavljivali i odjavljivali sa "
+"Facebook-a.\n"
+"Kako bi nastavili objavljivanje slika na Facebook, izađite i ponovo "
+"pokrenite Shotwell, pa pokušajte ponovo."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:86
+msgid "Standard (720 pixels)"
+msgstr "Standardno (720 piksela)"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:89
+msgid "Large (2048 pixels)"
+msgstr "Veliko (2048 piksela)"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:254
+msgid "Testing connection to Facebook..."
+msgstr "Testiram vezu sa Facebook-om ..."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:347
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:379
+msgid "Creating album..."
+msgstr "Pravljenje albuma..."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:374
+msgid ""
+"A file required for publishing is unavailable. Publishing to Facebook can't "
+"continue."
+msgstr ""
+"Ne mogu da nastavim objavljivanje na Facebook jer nije dostupna datoteka."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#, c-format
+msgid ""
+"You are logged into Facebook as %s.\n"
+"\n"
+msgstr ""
+"Prijavili ste se na Facebook kao %s.\n"
+"\n"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1020
+msgid "Where would you like to publish the selected photos?"
+msgstr "Gdje želite da objavite izabrane slike?"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
+msgid "Upload _size:"
+msgstr "_Veličina slanja:"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1180
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1214
+msgid "Just me"
+msgstr "Samo meni"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1182
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1210
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+msgid "Everyone"
+msgstr "Svi"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Login to log into Flickr in your Web browser.  You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"Trenutno niste povezani sa vašim Flickr nalogom.\n"
+"\n"
+"Prijavite se na Flickr u vašem pretraživaču interneta.  Kako bi se povezali "
+"sa vašim Flickr nalogom morate autorizovati vezu."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:63
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Već ste se prijavljivali i odjavljivali sa Flickr-a tokom ove Shotwell "
+"sesije.\n"
+"Da bi nastavili slanje slika na Flickr morate ponovo pokrenuti Shotwell i "
+"pokušati ponovo."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "Spremam se za prijavljivanje ..."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:595
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can't "
+"continue."
+msgstr ""
+"Ne mogu da nastavim objavljivanje na Flickr jer nije dostupna datoteka."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "Verifikujem autorizaciju ..."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1153
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr ""
+"Logirani ste na Flickr kao %s.\n"
+"\n"
+
+#         translations.
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1156
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month you have %d megabyte remaining in your upload quota."
+msgid_plural ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month you have %d megabytes remaining in your upload quota."
+msgstr[0] ""
+"Vaš Flickr račun ograničava koliko podataka možete upload-ovati mjesečno.\n"
+"Ovaj mjesec imate %d megabajt preostalo u vašoj upload kvoti."
+msgstr[1] ""
+"Vaš Flickr račun ograničava koliko podataka možete upload-ovati mjesečno.\n"
+"Ovaj mjesec imate %d megabajta preostalo u vašoj upload kvoti."
+msgstr[2] ""
+"Vaš Flickr račun ograničava koliko podataka možete upload-ovati mjesečno.\n"
+"Ovaj mjesec imate %d megabajta preostalo u vašoj upload kvoti."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1160
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr "Vaš Flickr Pro račun omogućava Vam neograničen upload slika."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1165
+msgid "Photos _visible to:"
+msgstr "Slike su _vidljive za:"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1167
+msgid "Videos _visible to:"
+msgstr "Video snimak je _vidljiv za:"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1170
+msgid "Photos and videos _visible to:"
+msgstr "Fotografije i video snimci su _vidljivi:"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1211
+msgid "Friends & family only"
+msgstr "Samo prijateljima i porodici"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1212
+msgid "Family only"
+msgstr "Samo porodica"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1213
+msgid "Friends only"
+msgstr "Samo prijatelji"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1234
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 piksela"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1235
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 piksela"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:58
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Login to log into Picasa Web Albums in your Web browser. You will have "
+"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"Trenutno niste prijavljeni na  Picasa internet albume.\n"
+"\n"
+"Kliknite \"Prijavi se\" za pristup Picasa internet albumima u vašem "
+"pregledaču interneta. Potrebno je da autorizujete Shotwell povezivač kako bi "
+"se povezali sa vašim Picasa računom."
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:361
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa can't "
+"continue."
+msgstr ""
+"Ne mogu da nastavim objavljivanje na Picasa jer nije dostupna datoteka."
+
+#. populate any widgets whose contents are programmatically-generated.
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:659
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "Prijavljeni ste u Picasa Web Albums kao %s."
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:665
+msgid "Videos will appear in:"
+msgstr "Video snimci će se pojaviti u:"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:746
+msgid "Small (640 x 480 pixels)"
+msgstr "Mala (640 x 480 piksela)"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:747
+msgid "Medium (1024 x 768 pixels)"
+msgstr "Srednja (1024 x 768 piksela)"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:748
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "Preporučeno (1600 x 1200 piksela)"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:749
+msgid "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 piksela)"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:750
+#: ../src/editing_tools/EditingTools.vala:756
+msgid "Original Size"
+msgstr "Originalna veličina"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:746
+#, c-format
+msgid "Creating album %s..."
+msgstr "Pravim album %s..."
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:917
+msgid "An error message occurred when publishing to Piwigo. Please try again."
+msgstr ""
+"Poruka o grešci se pojavila pri objavljivanju na Piwigo. Molim pokušajte "
+"ponovo."
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:998
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+"Unesite internet adresu vaše Piwigo zbirke slika kao i korisničko ime i "
+"lozinku za pristup Piwigo računu te zbirke slika."
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:999
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
+"entered"
+msgstr ""
+"Shotwell nije uspio da pristupi Piwigo zbirci slika. Molimo da provjerite "
+"unešenu internet adresu."
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1032
+msgid "Invalid URL"
+msgstr "Pogrešan URL"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+msgid "Admins, Family, Friends, Contacts"
+msgstr "Administratori, Porodica, Prijatelji, Kontakti"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+msgid "Admins, Family, Friends"
+msgstr "Administratori, porodica, prijatelji"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+msgid "Admins, Family"
+msgstr "Administratori, porodica"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+msgid "Admins"
+msgstr "Administratori"
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:57
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"Trenutno niste prijavljeni na YouTube.\n"
+"\n"
+"Da bi nastavili morate da posjedujete Google račun koji je podešen da "
+"koristi YouTube. Račun možete podesiti i prijaviti se na YouTube-u koristeći "
+"vaš omiljeni pretraživač interneta."
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:362
+msgid ""
+"A file required for publishing is unavailable. Publishing to Youtube can't "
+"continue."
+msgstr ""
+"Ne mogu da nastavim objavljivanje na Youtube jer nije dostupna datoteka."
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:461
+#, c-format
+msgid "You are logged into YouTube as %s."
+msgstr "Logirani ste na YouTube kao %s."
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:463
+#, c-format
+msgid "Videos will appear in '%s'"
+msgstr "Video snimci će se pojaviti u '%s'"
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:495
+msgid "Public listed"
+msgstr "Javno je dostupno"
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:496
+msgid "Public unlisted"
+msgstr "Nije javno dostupno"
+
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:1
+msgid "Publish to an e_xisting album:"
+msgstr "Objavi u _postojeći album:"
+
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:2
+msgid "Create a _new album named:"
+msgstr "Napravite _novi album imenovan:"
+
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
+msgid "Videos and new photo albums _visible to:"
+msgstr "Novi albumi video  snimaka i fotografija su _vidljivi za:"
+
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:8
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
+msgstr ""
+"_Ukloni lokaciju, kameru i druge identifikacijske informacije prije slanja"
+
+#: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:1
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr ""
+"Unesite broj za potvrdu koji se pojavljuje nakon što pristupite vašem Flickr "
+"računu u pretraživaču interneta."
+
+#: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:2
+msgid "Authorization _Number:"
+msgstr "_Broj za autorizaciju:"
+
+#: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:3
+#: ../src/Dialogs.vala:131
+msgid "Con_tinue"
+msgstr "_Nastavi"
+
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
+msgid "L_ist album in public gallery"
+msgstr "_Spisak albuma u javnoj galeriji"
+
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
+msgid "Photo _size preset:"
+msgstr "_Veličine slika:"
+
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:2
+msgid "_URL of your Piwigo photo library"
+msgstr "_URL vaše Piwigo foto biblioteke"
+
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:3
+msgid "User _name"
+msgstr "Koris_ničko ime"
+
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:5
+msgid "_Remember Password"
+msgstr "_Zapamti lozinku"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:2
+msgid "An _existing category:"
+msgstr "_Postojeća kategorija:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:4
+msgid "Photos will be _visible by:"
+msgstr "Slike će biti _vidljive za:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:5
+msgid "Photo size:"
+msgstr "Veličina slike:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:6
+msgid "within category:"
+msgstr "u kategoriji:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:7
+msgid "Album comment:"
+msgstr "Komentar albuma:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:9
+msgid "_If a title is set and comment unset, use title as comment"
+msgstr ""
+"_Ako je naslov postavljen, a komentar nije, koristi naslov kao komentar"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:10
+msgid "_Do no upload tags"
+msgstr "_Nemoj slati oznake"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:11
+msgid "Logout"
+msgstr "Odjava"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:12
+#: ../src/Resources.vala:303
+msgid "Publish"
+msgstr "Objavi"
+
+#: ../plugins/shotwell-publishing/shotwell-publishing.vala:26
+msgid "Core Publishing Services"
+msgstr "Osnovni servis za objavljivanje"
+
+#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:1
+msgid "Video privacy _setting:"
+msgstr "Podešavanje _privatnosti video snimka:"
+
+#: ../plugins/shotwell-transitions/BlindsEffect.vala:20
+msgid "Blinds"
+msgstr "Separatori"
+
+#: ../plugins/shotwell-transitions/ChessEffect.vala:20
+msgid "Chess"
+msgstr "Šah"
+
+#: ../plugins/shotwell-transitions/CircleEffect.vala:20
+msgid "Circle"
+msgstr "Krug"
+
+#: ../plugins/shotwell-transitions/CirclesEffect.vala:20
+msgid "Circles"
+msgstr "Krugovi"
+
+#: ../plugins/shotwell-transitions/ClockEffect.vala:20
+msgid "Clock"
+msgstr "Sat"
+
+#: ../plugins/shotwell-transitions/CrumbleEffect.vala:20
+msgid "Crumble"
+msgstr "Raspadanje"
+
+#: ../plugins/shotwell-transitions/FadeEffect.vala:20
+msgid "Fade"
+msgstr "Utapanje"
+
+#: ../plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "Slajd"
+
+#: ../plugins/shotwell-transitions/SquaresEffect.vala:20
+msgid "Squares"
+msgstr "Kvadrati"
+
+#: ../plugins/shotwell-transitions/StripesEffect.vala:20
+msgid "Stripes"
+msgstr "Trake"
+
+#: ../plugins/shotwell-transitions/shotwell-transitions.vala:28
+msgid "Core Slideshow Transitions"
+msgstr "Osnovni prijelaz pokretnog prikaza"
+
+#: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
+msgstr ""
+"Autorska prava 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
+
+#: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
+#, c-format
+msgid "Unable to create cache directory %s: %s"
+msgstr "Nisam uspio da napravim direktorijum privremene ostave %s: %s"
+
+#: ../src/AppDirs.vala:58 ../src/AppDirs.vala:88
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "Ne mogu kreirati direktorij podataka %s: %s"
+
+#. If XDG yarfed, usi ~/Pictures
+#: ../src/AppDirs.vala:152
+msgid "Pictures"
+msgstr "Slike"
+
+#: ../src/AppDirs.vala:190
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "Nije moguće kreirati privremeni direktorij %s: %s"
+
+#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:223
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "Nije moguće kreirati poddirektorij podataka %s: %s"
+
+#: ../src/AppWindow.vala:53
+msgid "Pin Toolbar"
+msgstr "Prikači alatnu traku"
+
+#: ../src/AppWindow.vala:54
+msgid "Pin the toolbar open"
+msgstr "Otkači alatnu traku"
+
+#: ../src/AppWindow.vala:59
+msgid "Leave fullscreen"
+msgstr "Napusti prikaz preko cijelog ekrana"
+
+#: ../src/AppWindow.vala:525
+msgid "_Contents"
+msgstr "_Sadržaji"
+
+#: ../src/AppWindow.vala:530
+msgid "_Frequently Asked Questions"
+msgstr "_Često postavljana pitanja"
+
+#: ../src/AppWindow.vala:535
+msgid "_Report a Problem..."
+msgstr "_Prijavi problem..."
+
+#: ../src/AppWindow.vala:634 ../src/AppWindow.vala:655
+#: ../src/AppWindow.vala:672 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
+#: ../src/Dialogs.vala:1418 ../src/Dialogs.vala:1441 ../src/Resources.vala:162
+#: ../src/data_imports/DataImportsUI.vala:374
+#: ../src/publishing/PublishingUI.vala:475
+msgid "_Cancel"
+msgstr "_Otkaži"
+
+#: ../src/AppWindow.vala:682
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"Pojavila se fatalna greška prilikom pristupa Shotwell biblioteci.  Shotwell "
+"ne može da nastavi rad.\n"
+"\n"
+"%s"
+
+#: ../src/AppWindow.vala:702
+msgid "Visit the Yorba web site"
+msgstr "Posjeti Yorba internet stranicu"
+
+#: ../src/AppWindow.vala:714
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "Nije moguće prikazati pomoć: %s"
+
+#: ../src/AppWindow.vala:722
+#, c-format
+msgid "Unable to navigate to bug database: %s"
+msgstr "Ne mogu da pristupim bazi podataka o greškama: %s"
+
+#: ../src/AppWindow.vala:730
+#, c-format
+msgid "Unable to display FAQ: %s"
+msgstr "Nisam uspeo da prikažem ČPP: %s"
+
+#: ../src/BatchImport.vala:26
+msgid "Success"
+msgstr "Uspješno"
+
+#: ../src/BatchImport.vala:29
+msgid "File error"
+msgstr "Greška u datoteci"
+
+#: ../src/BatchImport.vala:32
+msgid "Unable to decode file"
+msgstr "Ne mogu da dešifrujem datoteku"
+
+#: ../src/BatchImport.vala:35
+msgid "Database error"
+msgstr "Greška u bazi podataka"
+
+#: ../src/BatchImport.vala:38
+msgid "User aborted import"
+msgstr "Korisnički prekinut uvoz"
+
+#: ../src/BatchImport.vala:41
+msgid "Not a file"
+msgstr "Nije datoteka"
+
+#: ../src/BatchImport.vala:44
+msgid "File already exists in database"
+msgstr "Datoteka već postoji u bazi"
+
+#: ../src/BatchImport.vala:47
+msgid "Unsupported file format"
+msgstr "Format datoteke nije podržan"
+
+#: ../src/BatchImport.vala:50
+msgid "Not an image file"
+msgstr "Datoteka nije slika"
+
+#: ../src/BatchImport.vala:53
+msgid "Disk failure"
+msgstr "Greška na disku"
+
+#: ../src/BatchImport.vala:56
+msgid "Disk full"
+msgstr "Disk je pun"
+
+#: ../src/BatchImport.vala:59
+msgid "Camera error"
+msgstr "Greška kamere"
+
+#: ../src/BatchImport.vala:62
+msgid "File write error"
+msgstr "Greška prilikom upisa u datoteku"
+
+#: ../src/BatchImport.vala:65
+msgid "Corrupt image file"
+msgstr "Oštećena datoteka slike"
+
+#: ../src/BatchImport.vala:68
+#, c-format
+msgid "Imported failed (%d)"
+msgstr "Uvoz nije uspješan (%d)"
+
+#: ../src/CollectionPage.vala:230 ../src/PhotoPage.vala:2637
+msgid "S_lideshow"
+msgstr "_Prikaz slajdova"
+
+#: ../src/CollectionPage.vala:231 ../src/PhotoPage.vala:2638
+msgid "Play a slideshow"
+msgstr "Započni prikaz slajdova"
+
+#: ../src/CollectionPage.vala:456
+msgid "Export Photo/Video"
+msgstr "Eksportuj sliku/video"
+
+#: ../src/CollectionPage.vala:456
+msgid "Export Photos/Videos"
+msgstr "Izvezi sliku/video"
+
+#: ../src/CollectionPage.vala:458 ../src/Dialogs.vala:58
+#: ../src/PhotoPage.vala:3211
+msgid "Export Photo"
+msgstr "Izvezi sliku"
+
+#: ../src/CollectionPage.vala:458 ../src/Dialogs.vala:87
+msgid "Export Photos"
+msgstr "Izvezi slike"
+
+#: ../src/CollectionPage.vala:545 ../src/CollectionPage.vala:561
+msgid "Rotating"
+msgstr "Rotiranje"
+
+#: ../src/CollectionPage.vala:545 ../src/CollectionPage.vala:561
+msgid "Undoing Rotate"
+msgstr "Poništavam rotaciju"
+
+#: ../src/CollectionPage.vala:570
+msgid "Flipping Horizontally"
+msgstr "Okretanje horizontalno"
+
+#: ../src/CollectionPage.vala:571
+msgid "Undoing Flip Horizontally"
+msgstr "Poništavam okretanje horizontalno"
+
+#: ../src/CollectionPage.vala:580
+msgid "Flipping Vertically"
+msgstr "Okretanje vertikalno"
+
+#: ../src/CollectionPage.vala:581
+msgid "Undoing Flip Vertically"
+msgstr "Poništavam okretanje vertikalno"
+
+#: ../src/Commands.vala:733
+msgid "Reverting"
+msgstr "Poništavanje"
+
+#: ../src/Commands.vala:733
+msgid "Undoing Revert"
+msgstr "Povrati prethodno"
+
+#: ../src/Commands.vala:777
+msgid "Enhancing"
+msgstr "Poboljšavanje"
+
+#: ../src/Commands.vala:777
+msgid "Undoing Enhance"
+msgstr "Poništavam poboljšavanje"
+
+#: ../src/Commands.vala:853
+msgid "Applying Color Transformations"
+msgstr "Primjenjujem transformaciju boja"
+
+#: ../src/Commands.vala:853
+msgid "Undoing Color Transformations"
+msgstr "Poništavam transformaciju boja"
+
+#: ../src/Commands.vala:1003
+msgid "Creating New Event"
+msgstr "Pravljenje novog događaja"
+
+#: ../src/Commands.vala:1004
+msgid "Removing Event"
+msgstr "Uklanjam događaj"
+
+#: ../src/Commands.vala:1013
+msgid "Moving Photos to New Event"
+msgstr "Premjesti slike u novi događaj"
+
+#: ../src/Commands.vala:1014
+msgid "Setting Photos to Previous Event"
+msgstr "Dodjeli sliku u prethodnom događaju"
+
+#: ../src/Commands.vala:1071
+msgid "Merging"
+msgstr "Spajanje"
+
+#: ../src/Commands.vala:1072
+msgid "Unmerging"
+msgstr "Razdvajanje"
+
+#: ../src/Commands.vala:1081
+msgid "Duplicating photos"
+msgstr "Dupliciranje slika"
+
+#: ../src/Commands.vala:1081
+msgid "Removing duplicated photos"
+msgstr "Uklanjanje dupliciranja slika"
+
+#         translations.
+#: ../src/Commands.vala:1104
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "Nemoguće duplicirati %d sliku zbog greške u datoteci"
+msgstr[1] "Nemoguće duplicirati %d slike zbog greške u datoteci"
+msgstr[2] "Nemoguće duplicirati %d slika zbog greške u datoteci"
+
+#: ../src/Commands.vala:1191
+msgid "Restoring previous rating"
+msgstr "Vraćam prethodnu ocjenu"
+
+#: ../src/Commands.vala:1201 ../src/Commands.vala:1202
+msgid "Increasing ratings"
+msgstr "Povećavam ocjenu"
+
+#: ../src/Commands.vala:1201 ../src/Commands.vala:1202
+msgid "Decreasing ratings"
+msgstr "Smanjujem ocjenu"
+
+#: ../src/Commands.vala:1252
+msgid "Setting RAW developer"
+msgstr "Postavljam RAW razvijač"
+
+#: ../src/Commands.vala:1252
+msgid "Restoring previous RAW developer"
+msgstr "Obnavljam prethodni RAW razvijač"
+
+#: ../src/Commands.vala:1253
+msgid "Set Developer"
+msgstr "Postavi razvijača"
+
+#: ../src/Commands.vala:1343
+msgid "Original photo could not be adjusted."
+msgstr "Ne mogu da korigujem izvornu sliku."
+
+#: ../src/Commands.vala:1364
+msgid "Adjusting Date and Time"
+msgstr "Korigujem datum i vrijeme"
+
+#: ../src/Commands.vala:1364
+msgid "Undoing Date and Time Adjustment"
+msgstr "Poništavam promjenu datuma i vremena"
+
+#         translations.
+#: ../src/Commands.vala:1395
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "Ne mogu da korigujem izvornu sliku."
+msgstr[1] "Ne mogu da korigujem izvorne slike."
+msgstr[2] "Ne mogu da korigujem izvorne slike."
+
+#: ../src/Commands.vala:1397 ../src/Commands.vala:1421
+msgid "Time Adjustment Error"
+msgstr "Greška pri korigovanju vremena"
+
+#         translations.
+#: ../src/Commands.vala:1419
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] ""
+"Podešavanja vremena se ne mogu poništiti na sljedećoj fotografskoj datoteci."
+msgstr[1] ""
+"Podešavanja vremena se ne mogu poništiti na sljedećim fotografskim "
+"datotekama."
+msgstr[2] "Time adjustments could not bje undone on the following photo files."
+
+#: ../src/Commands.vala:1633 ../src/Commands.vala:1656
+msgid "Create Tag"
+msgstr "Kreiraj oznaku"
+
+#: ../src/Commands.vala:1691
+#, c-format
+msgid "Move Tag \"%s\""
+msgstr "Premjesti oznaku \"%s\""
+
+#: ../src/Commands.vala:2343
+msgid "Move Photos to Trash"
+msgstr "Premjesti slike u kantu"
+
+#: ../src/Commands.vala:2343
+msgid "Restore Photos from Trash"
+msgstr "Povrati slike iz kante"
+
+#: ../src/Commands.vala:2344
+msgid "Move the photos to the Shotwell trash"
+msgstr "Premjesti slike u Shotwell kantu"
+
+#: ../src/Commands.vala:2344
+msgid "Restore the photos back to the Shotwell library"
+msgstr "Povrati slike nazad u Shotwell biblioteku"
+
+#: ../src/Commands.vala:2363
+msgid "Moving Photos to Trash"
+msgstr "Premještam slike u kantu"
+
+#: ../src/Commands.vala:2363
+msgid "Restoring Photos From Trash"
+msgstr "Vraćam slike iz kante"
+
+#: ../src/Commands.vala:2449
+msgid "Flag selected photos"
+msgstr "Označi odabrane fotografije"
+
+#: ../src/Commands.vala:2450
+msgid "Unflag selected photos"
+msgstr "Poništi označenost odabranih fotografija"
+
+#: ../src/Commands.vala:2451
+msgid "Flagging selected photos"
+msgstr "Označavam izabrane fotografije"
+
+#: ../src/Commands.vala:2452
+msgid "Unflagging selected photos"
+msgstr "Skidam oznaku s izabranih fotografija"
+
+#: ../src/Commands.vala:2459
+msgid "Flag"
+msgstr "Označi"
+
+#: ../src/Commands.vala:2459
+msgid "Unflag"
+msgstr "Ukini oznaku"
+
+#: ../src/DesktopIntegration.vala:121
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "Nije moguće pokrenuti Nautilus Send-To: %s"
+
+#: ../src/DesktopIntegration.vala:129
+msgid "Send To"
+msgstr "Pošalji za"
+
+#: ../src/DesktopIntegration.vala:174
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "Nisam uspeo da izvezem pozadinu u %s: %s"
+
+#: ../src/DesktopIntegration.vala:311
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "Nije moguće pripremiti prikaz slajdova na radnoj površini: %s"
+
+#         translations.
+#: ../src/Dialogs.vala:16
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "Da li ste sigurni da želite da uklonite oznaku \"%s\" sa %d slike?"
+msgstr[1] "Da li ste sigurni da želite da uklonite oznaku \"%s\" sa %d slike?"
+msgstr[2] "Da li ste sigurni da želite da uklonite oznaku \"%s\" sa %d slika?"
+
+#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1386
+#: ../src/Resources.vala:163 ../src/Resources.vala:369
+#: ../src/Resources.vala:417 ../src/Resources.vala:682
+msgid "_Delete"
+msgstr "_Ukloni"
+
+#: ../src/Dialogs.vala:25
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr "Ovo će ukloniti snimljenu pretragui \"%s\".  Nastavi?"
+
+#         translations.
+#: ../src/Dialogs.vala:35
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] ""
+"Promjena razvijača će poništiti sve izmjene koje ste napravili na ovoj "
+"fotografiji"
+msgstr[1] ""
+"Promjena razvijača će poništiti sve izmjene koje ste napravili na ovim "
+"fotografijama"
+msgstr[2] ""
+"Promjena razvijača će poništiti sve izmjene koje ste napravili na ovim "
+"fotografijama"
+
+#: ../src/Dialogs.vala:39
+msgid "_Switch Developer"
+msgstr "_Promijeni razvijač"
+
+#: ../src/Dialogs.vala:58
+msgid "Export Video"
+msgstr "Izvezi video"
+
+#. Ticket #3023
+#. Attempt to replace the system error with something friendlier
+#. if we can't copy an image over for editing in an external tool.
+#. Did we fail because we can't write to this directory?
+#. Yes - display an alternate error message here.
+#: ../src/Dialogs.vala:115
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr ""
+"Shotwell ne može da uređuje ovu fotografiju jer nemate neophodne dozvole za "
+"upis u %s."
+
+#: ../src/Dialogs.vala:124
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr ""
+"Izvoz slike nije uspeo zbog greške u datoteci.\n"
+"\n"
+
+#: ../src/Dialogs.vala:130
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr ""
+"\n"
+"\n"
+"Da li želite da nastavite izvoz?"
+
+#. "Unmodified" and "Current," though they appear in the "Format:" popup mijenu, really
+#. aren't formats so much as they are operating modes that determine specific formats.
+#. Hereafter we'll refer to these as "special formats."
+#: ../src/Dialogs.vala:147
+msgid "Unmodified"
+msgstr "Neizmijenjeno"
+
+#: ../src/Dialogs.vala:148
+msgid "Current"
+msgstr "Trenutni"
+
+#. layout controls
+#: ../src/Dialogs.vala:213
+msgid "_Format:"
+msgstr "_Format:"
+
+#: ../src/Dialogs.vala:216
+msgid "_Quality:"
+msgstr "_Kvalitet:"
+
+#: ../src/Dialogs.vala:219
+msgid "_Scaling constraint:"
+msgstr "_Ograničenje skaliranja:"
+
+#: ../src/Dialogs.vala:222
+msgid "_Pixels:"
+msgstr "_Pikseli:"
+
+#: ../src/Dialogs.vala:225
+msgid "Export metadata"
+msgstr "Izvezi metapodatke"
+
+#: ../src/Dialogs.vala:459
+msgid "Save Details..."
+msgstr "Sačuvaj detalje..."
+
+#: ../src/Dialogs.vala:460
+msgid "Save Details"
+msgstr "Sačuvaj detalje"
+
+#: ../src/Dialogs.vala:475
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(i još %d)\n"
+
+#: ../src/Dialogs.vala:528
+msgid "Import Results Report"
+msgstr "Izvještaj o rezultatima uvoza"
+
+#         translations.
+#: ../src/Dialogs.vala:532
+#, c-format
+msgid "Attempted to import %d file."
+msgid_plural "Attempted to import %d files."
+msgstr[0] "Pokušaj uvoza %d datoteke."
+msgstr[1] "Pokušaj uvoza %d datoteke."
+msgstr[2] "Pokušaj uvoza %d datoteka."
+
+#         translations.
+#: ../src/Dialogs.vala:535
+#, c-format
+msgid "Of these, %d file was successfully imported."
+msgid_plural "Of these, %d files were successfully imported."
+msgstr[0] "Od toga %d datoteka je uspješno uvezena."
+msgstr[1] "Od toga %d datoteka su uspješno uvezene."
+msgstr[2] "Od toga %d datoteka je uspješno uvezeno."
+
+#.
+#. Duplicates
+#.
+#: ../src/Dialogs.vala:547
+msgid "Duplicate Photos/Videos Not Imported:"
+msgstr "Duple slike/video nisu uvezene:"
+
+#: ../src/Dialogs.vala:551
+msgid "duplicates existing media item"
+msgstr "duplicira postojeći medijski element"
+
+#.
+#. Files Not Imported Due to Camera Errors
+#.
+#: ../src/Dialogs.vala:562
+msgid "Photos/Videos Not Imported Due to Camera Errors:"
+msgstr "Fotografije/Video nisu uvezeni zbog greške kamere:"
+
+#: ../src/Dialogs.vala:565 ../src/Dialogs.vala:580 ../src/Dialogs.vala:595
+#: ../src/Dialogs.vala:611 ../src/Dialogs.vala:626 ../src/Dialogs.vala:640
+msgid "error message:"
+msgstr "poruka greške:"
+
+#.
+#. Files Not Imported Because They Weren't Recognized as Photos or Videos
+#.
+#: ../src/Dialogs.vala:576
+msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgstr ""
+"Fotografije/Video nisu uvezene jer nisu prepoznati kao fotografije ili video:"
+
+#.
+#. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
+#.
+#: ../src/Dialogs.vala:591
+msgid ""
+"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Understands:"
+msgstr ""
+"Fotografije/Video nisu uvezene jer nisu u formatu koji Shotwell razumije:"
+
+#.
+#. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
+#.
+#: ../src/Dialogs.vala:606
+msgid ""
+"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Library:"
+msgstr ""
+"Fotografije/Video nisu uvezeni jer ih Shotwell ne može kopirati u biblioteku:"
+
+#: ../src/Dialogs.vala:610
+#, c-format
+msgid ""
+"couldn't copy %s\n"
+"\tto %s"
+msgstr ""
+"ne mogu kopirati %s\n"
+"\tna %s"
+
+#.
+#. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
+#.
+#: ../src/Dialogs.vala:622
+msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
+msgstr "Fotografije/video nisu uvezene jer su oštećeni:"
+
+#.
+#. Photos/Videos Not Imported for Other Reasons
+#.
+#: ../src/Dialogs.vala:637
+msgid "Photos/Videos Not Imported for Other Reasons:"
+msgstr "Fotografije/Video nisu uvezene iz drugih razloga:"
+
+#         translations.
+#: ../src/Dialogs.vala:657
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "%d slika nije uvežena jer se već nalazi u biblioteci:\n"
+msgstr[1] "%d slike nisu uvežene jer se već nalazi u biblioteci:\n"
+msgstr[2] "%d slika nije uveženo jer se već nalaze u biblioteci:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:660
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "%d dupli video snimak nije uvezen:\n"
+msgstr[1] "%d dupla video snimka nisu uvezena:\n"
+msgstr[2] "%d duplih video snimaka nije uvezeno:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:663
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "%d dupla fotografija/video snimak nije uvezena:\n"
+msgstr[1] "%d duple fotografije/video snimka nisu uvezene:\n"
+msgstr[2] "%d duplih fotografija/video snimaka nije uvezeno:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:677
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] "%d slika nije uvežena zbog hardverske greške:\n"
+msgstr[1] "%d slike nisu uvežene zbog hardverske greške:\n"
+msgstr[2] "%d slika nije uveženo zbog hardverske greške:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:680
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Uvoz %d video snimka nije uspio zbog greške u datoteci ili uređaju:\n"
+msgstr[1] ""
+"Uvoz %d video snimka nije uspio zbog greške u datoteci ili uređaju:\n"
+msgstr[2] ""
+"Uvoz %d video snimkaa nije uspio zbog greške u datoteci ili uređaju:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:683
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Uvoz %d fotografije/video snimka nije uspio zbog greške u datoteci ili "
+"uređaju:\n"
+msgstr[1] ""
+"Uvoz %d fotografije/video snimka nije uspio zbog greške u datoteci ili "
+"uređaju:\n"
+msgstr[2] ""
+"Uvoz %d fotografija/video snimaka nije uspio zbog greške u datoteci ili "
+"uređaju:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:686
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"%d datoteka je neuspjela s uvozom zbog greške u datoteci ili hardveru:\n"
+msgstr[1] ""
+"%d datoteke su neuspjela s uvozom zbog greške u datoteci ili hardveru:\n"
+msgstr[2] ""
+"%d datoteka je neuspjelo s uvozom zbog greške u datoteci ili hardveru:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:700
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"%d fotografija nije uspjela da se uveze, jer se ne može pisati u direktorij "
+"foto biblioteke:\n"
+msgstr[1] ""
+"%d fotografije nisu uspjela da se uvezu, jer se ne može pisati u direktorij "
+"foto biblioteke:\n"
+msgstr[2] ""
+"%d fotografije nije uspjelo da se uvez, jer se ne može pisati u direktorij "
+"foto biblioteke:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:703
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Uvoz %d video snimka nije uspio, jer nije dozvoljeno pisanje u direktorijum "
+"zbirke fotografija:\n"
+msgstr[1] ""
+"Uvoz %d video snimka nije uspio, jer nije dozvoljeno pisanje u direktorijum "
+"zbirke fotografija:\n"
+msgstr[2] ""
+"Uvoz %d video snimaka nije uspio, jer nije dozvoljeno pisanje u direktorijum "
+"zbirke fotografija:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:706
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"%d fotografija/video zapis nije uspjela da se uveze, jer se ne može pisati u "
+"direktorij foto biblioteke:\n"
+msgstr[1] ""
+"%d fotografije/video zapisa nije uspjelo da se uveze, jer se ne može pisati "
+"u direktorij foto biblioteke:\n"
+msgstr[2] ""
+"%d fotografija/video zapisa nije uspjelo da se uveze, jer se ne može pisati "
+"u direktorij foto biblioteke:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:709
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"%d datoteka je neuspjela s uvozom jer direktorij fotobiblioteke nije "
+"upisiv:\n"
+msgstr[1] ""
+"%d datoteka su neuspjele s uvozom jer direktorij fotobiblioteke nije "
+"upisiv:\n"
+msgstr[2] ""
+"%d datoteka je neuspjelo s uvozom jer direktorij fotobiblioteke nije "
+"upisiv:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:723
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] "%d slika nije uvežena zbog greške u fotoaparatu:\n"
+msgstr[1] "%d slike nisu uvežene zbog greške u fotoaparatu:\n"
+msgstr[2] "%d slika nije uveženo zbog greške u fotoaparatu:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:726
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] "Uvoz %d video snimka nije uspio zbog greške na fotoaparatu:\n"
+msgstr[1] "Uvoz %d video snimka nije uspio zbog greške na fotoaparatu:\n"
+msgstr[2] "Uvoz %d video snimaka nije uspio zbog greške na fotoaparatu:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:729
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] ""
+"Uvoz %d fotografije/video snimka nije uspio zbog greške na fotoaparatu:\n"
+msgstr[1] ""
+"Uvoz %d fotografije/video snimka nije uspio zbog greške na fotoaparatu:\n"
+msgstr[2] ""
+"Uvoz %d fotografija/video snimaka nije uspio zbog greške na fotoaparatu:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:732
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] "%d datoteka je neuspjela s uvozom zbog greške u fotoaparatu:\n"
+msgstr[1] "%d datoteka su neuspjele s uvozom zbog greške u fotoaparatu:\n"
+msgstr[2] "%d datoteka je neuspjelo s uvozom zbog greške u fotoaparatu:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:746
+#, c-format
+msgid "1 photo failed to import because it was corrupt:\n"
+msgid_plural "%d photos failed to import because they were corrupt:\n"
+msgstr[0] "%d fotografija neuspjela jer je oštećena:\n"
+msgstr[1] "%d fotografije neuspjele jer su oštećena:\n"
+msgstr[2] "%d fotografija neuspjelo jer su oštećena:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:749
+#, c-format
+msgid "1 video failed to import because it was corrupt:\n"
+msgid_plural "%d videos failed to import because they were corrupt:\n"
+msgstr[0] "%d video neuspio jer je oštećen:\n"
+msgstr[1] "%d video neuspjela jer su oštećena:\n"
+msgstr[2] "%d video neuspjelo jer su oštećena:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:752
+#, c-format
+msgid "1 photo/video failed to import because it was corrupt:\n"
+msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
+msgstr[0] "%d foto/video zapis neuspio jer je oštećen:\n"
+msgstr[1] "%d foto/video zapisa neuspjelo jer su oštećena:\n"
+msgstr[2] "%d foto/video zapisa neuspjelo jer je oštećeno:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:755
+#, c-format
+msgid "1 file failed to import because it was corrupt:\n"
+msgid_plural "%d files failed to import because it was corrupt:\n"
+msgstr[0] "%d datoteka  neuspjela za uvoz jer je oštećena:\n"
+msgstr[1] "%d datoteke neuspjele za uvoz jer su oštećene:\n"
+msgstr[2] "%d datoteka neuspjelo za uvoz jer su oštećene:\n"
+
+#         translations.
+#. we have no notion of "unsupported" video files right now in Shotwell (all
+#. standard container formats are supported, it's just that the streams in them
+#. might or might not bje interpretable), so this message does not need to bje
+#. media specific
+#: ../src/Dialogs.vala:772
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "Preskočena je %d nepodržana slika:\n"
+msgstr[1] "Preskočene su %d nepodržane slike:\n"
+msgstr[2] "Preskočene su %d nepodržanih slika:\n"
+
+#         translations.
+#. we have no notion of "non-video" video files right now in Shotwell, so this
+#. message doesn't need to bje media specific
+#: ../src/Dialogs.vala:787
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] "Preskočena je %d datoteka koja nije slika:\n"
+msgstr[1] "Preskočene su %d datoteke koje nisu slike:\n"
+msgstr[2] "Preskočeno je %d datoteka koje nisu slike:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:798
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] "%d slika nije uvežena jer ste prekinuli uvoz:\n"
+msgstr[1] "%d slike nisu uvežena jer ste prekinuli uvoz:\n"
+msgstr[2] "%d slika nije uveženo jer ste prekinuli uvoz:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:801
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] "%d video snimak je preskočen pri uvozu:\n"
+msgstr[1] "%d video snimka su preskočena pri uvozu:\n"
+msgstr[2] "%d video snimaka jepreskočeno pri uvozu:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:804
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] "%d fotografija/video snimak je preskočena pri uvozu:\n"
+msgstr[1] "%d fotografije/video snimka su preskočene pri uvozu:\n"
+msgstr[2] "%d fotografija/video snimaka je preskočeno pri uvozu:\n"
+
+#         translations.
+#: ../src/Dialogs.vala:807
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] "%d datoteka preskočena zbog korisničkog otkazivanja\n"
+msgstr[1] "%d datoteke preskočene zbog korisničkog otkazivanja\n"
+msgstr[2] "%d datoteka preskočeno zbog korisničkog otkazivanja\n"
+
+#         translations.
+#: ../src/Dialogs.vala:821
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "%d slika je uspješno uvežena.\n"
+msgstr[1] "%d slike su uspješno uvežene.\n"
+msgstr[2] "%d slika je uspješno uveženo.\n"
+
+#         translations.
+#: ../src/Dialogs.vala:824
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "%d video snimak je uspješno uvezen.\n"
+msgstr[1] "%d video snimka su uspješno uvezena.\n"
+msgstr[2] "%d video snimaka jw uspješno uvezeno.\n"
+
+#         translations.
+#: ../src/Dialogs.vala:827
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "%d fotografija/video snimak je uspješno uvezen.\n"
+msgstr[1] "%d fotografije/video snimak je uspješno uvezen.\n"
+msgstr[2] "%d fotografija/video snimaka je uspješno uvezen.\n"
+
+#. if no media items were imported at all (i.e. an empty directory attempted), need to at least
+#. report that nothing was imported
+#: ../src/Dialogs.vala:843
+msgid "No photos or videos imported.\n"
+msgstr "Nijedna fotografija ni video snimak nisu uvezeni.\n"
+
+#: ../src/Dialogs.vala:850 ../src/Dialogs.vala:869
+msgid "Import Complete"
+msgstr "Uvoz je završen"
+
+#         translations.
+#: ../src/Dialogs.vala:1155
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d sekunda"
+msgstr[1] "%d sekunde"
+msgstr[2] "%d sekundi"
+
+#         translations.
+#: ../src/Dialogs.vala:1158
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minuta"
+msgstr[1] "%d minute"
+msgstr[2] "%d minuta"
+
+#         translations.
+#: ../src/Dialogs.vala:1162
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d sat"
+msgstr[1] "%d sata"
+msgstr[2] "%d sati"
+
+#: ../src/Dialogs.vala:1165
+msgid "1 day"
+msgstr "1 dan"
+
+#: ../src/Dialogs.vala:1315 ../src/Resources.vala:236
+msgid "Rename Event"
+msgstr "Preimenuj događaj"
+
+#: ../src/Dialogs.vala:1315
+msgid "Name:"
+msgstr "Ime:"
+
+#. Dialog title
+#. Button label
+#: ../src/Dialogs.vala:1326 ../src/Resources.vala:308
+msgid "Edit Title"
+msgstr "Uredi naslov"
+
+#: ../src/Dialogs.vala:1327 ../src/Properties.vala:340
+msgid "Title:"
+msgstr "Naslov:"
+
+#. Dialog title
+#: ../src/Dialogs.vala:1343 ../src/Resources.vala:315
+msgid "Edit Event Comment"
+msgstr "Uredi komentar događaja"
+
+#: ../src/Dialogs.vala:1344
+msgid "Edit Photo/Video Comment"
+msgstr "Uredi komentar fotografije/video"
+
+#: ../src/Dialogs.vala:1345 ../src/Properties.vala:628
+msgid "Comment:"
+msgstr "Komentar:"
+
+#         translations.
+#: ../src/Dialogs.vala:1361
+msgid "Remove and _Trash File"
+msgid_plural "Remove and _Trash Files"
+msgstr[0] "Ukloni i smjesti datoteku u _kantu"
+msgstr[1] "Ukloni i smjesti datoteke u _kantu"
+msgstr[2] "Ukloni i smjesti datoteke u _kantu"
+
+#: ../src/Dialogs.vala:1365
+msgid "_Remove From Library"
+msgstr "_Ukloni iz zbirke"
+
+#: ../src/Dialogs.vala:1385 ../src/camera/ImportPage.vala:1741
+msgid "_Keep"
+msgstr "_Zadrži"
+
+#: ../src/Dialogs.vala:1408
+msgid "Revert External Edit?"
+msgstr "Poništiti spoljnju izmjenu?"
+
+#: ../src/Dialogs.vala:1408
+msgid "Revert External Edits?"
+msgstr "Da vratim spoljna uređivanja?"
+
+#         translations.
+#: ../src/Dialogs.vala:1410
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] ""
+"Ova akcija će poništiti sve promjene na %d datoteci izvršene u spoljnom "
+"uređivaču. Da li želite da nastavite?"
+msgstr[1] ""
+"Ova akcija će poništiti sve promjene na %d datotekr izvršene u spoljnom "
+"uređivaču. Da li želite da nastavite?"
+msgstr[2] ""
+"Ova akcija će poništiti sve promjene na %d datoteka izvršene u spoljnom "
+"uređivaču. Da li želite da nastavite?"
+
+#: ../src/Dialogs.vala:1414
+msgid "Re_vert External Edit"
+msgstr "_Vrati spoljno uređivanje"
+
+#: ../src/Dialogs.vala:1414
+msgid "Re_vert External Edits"
+msgstr "_Vrati spoljna uređivanja"
+
+#         translations.
+#: ../src/Dialogs.vala:1435
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "Ovo će ukloniti %d sliku iz biblioteke? Nastaviti?"
+msgstr[1] "Ovo će ukloniti %d slike iz biblioteke? Nastaviti?"
+msgstr[2] "Ovo će ukloniti %d slika iz biblioteke? Nastaviti?"
+
+#: ../src/Dialogs.vala:1442 ../src/Resources.vala:178
+msgid "_Remove"
+msgstr "_Ukloni"
+
+#: ../src/Dialogs.vala:1443
+msgid "Remove Photo From Library"
+msgstr "Ukloni fotografiju iz zbirke"
+
+#: ../src/Dialogs.vala:1443
+msgid "Remove Photos From Library"
+msgstr "Ukloni fotografije iz zbirke"
+
+#: ../src/Dialogs.vala:1536
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: ../src/Dialogs.vala:1688
+msgid "AM"
+msgstr "AM"
+
+#: ../src/Dialogs.vala:1689
+msgid "PM"
+msgstr "PM"
+
+#: ../src/Dialogs.vala:1690
+msgid "24 Hr"
+msgstr "24 sata"
+
+#: ../src/Dialogs.vala:1705
+msgid "_Shift photos/videos by the same amount"
+msgstr "_Pomjeri fotografije/video snimke za istu vrijednost"
+
+#: ../src/Dialogs.vala:1710
+msgid "Set _all photos/videos to this time"
+msgstr "Postavi ovo vrijeme za _sve fotografije"
+
+#: ../src/Dialogs.vala:1717
+msgid "_Modify original photo file"
+msgstr "_Izmijeni izvornu fotografiju"
+
+#: ../src/Dialogs.vala:1717
+msgid "_Modify original photo files"
+msgstr "_Izmijeni izvorne fotografije"
+
+#: ../src/Dialogs.vala:1720
+msgid "_Modify original file"
+msgstr "_Izmijeni izvornu datoteku"
+
+#: ../src/Dialogs.vala:1720
+msgid "_Modify original files"
+msgstr "_Izmijeni izvorne datoteke"
+
+#: ../src/Dialogs.vala:1806
+msgid "Original: "
+msgstr "Izvorno: "
+
+#: ../src/Dialogs.vala:1807
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%d.%m.%Y. %H:%M:%S"
+
+#: ../src/Dialogs.vala:1808
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%d.%m.%Y. %H:%M:%S"
+
+#: ../src/Dialogs.vala:1897
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Datum slikanja će biti pomjeren unaprijed za\n"
+"%d %s, %d %s, %d %s, and %d %s."
+
+#: ../src/Dialogs.vala:1898
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Datum slikanja će biti pomjeren unazad za\n"
+"%d %s, %d %s, %d %s, and %d %s."
+
+#         translations.
+#: ../src/Dialogs.vala:1900
+msgid "day"
+msgid_plural "days"
+msgstr[0] "dan"
+msgstr[1] "dani"
+msgstr[2] "dani"
+
+#         translations.
+#: ../src/Dialogs.vala:1901
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "sat"
+msgstr[1] "sati"
+msgstr[2] "sati"
+
+#         translations.
+#: ../src/Dialogs.vala:1902
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minuta"
+msgstr[1] "minute"
+msgstr[2] "minute"
+
+#         translations.
+#: ../src/Dialogs.vala:1903
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "sekunda"
+msgstr[1] "sekunde"
+msgstr[2] "sekunde"
+
+#         translations.
+#: ../src/Dialogs.vala:1947
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"I %d drugi."
+msgstr[1] ""
+"\n"
+"\n"
+"I %d druga."
+msgstr[2] ""
+"\n"
+"\n"
+"I %d drugih."
+
+#: ../src/Dialogs.vala:1969 ../src/Dialogs.vala:1996
+msgid "Tags (separated by commas):"
+msgstr "Oznake (razdvojene zarezima):"
+
+#: ../src/Dialogs.vala:2076
+msgid "Welcome!"
+msgstr "Dobrodošli!"
+
+#: ../src/Dialogs.vala:2083
+msgid "Welcome to Shotwell!"
+msgstr "Dobrodošli u Shotwell"
+
+#: ../src/Dialogs.vala:2087
+msgid "To get started, import photos in any of these ways:"
+msgstr "Kako bi počeli, morate uvesti slike na neki od sljedećih načina:"
+
+#: ../src/Dialogs.vala:2106
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr ""
+"Izaberite <span weight=\"bold\">Datoteka %s Uvezi iz direktorija</span>"
+
+#: ../src/Dialogs.vala:2107
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "Prevucite sliku iz menadžera datoteka u Shotwell prozor"
+
+#: ../src/Dialogs.vala:2108
+msgid "Connect a camera to your computer and import"
+msgstr "Povežite fotoaparat sa računarom i uvezite slike"
+
+#: ../src/Dialogs.vala:2118
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "_Uvezi slike iz %s direktorija"
+
+#: ../src/Dialogs.vala:2125
+msgid "You can also import photos in any of these ways:"
+msgstr "Možete uvesti slike na neki od sljedećih načina:"
+
+#: ../src/Dialogs.vala:2135
+msgid "_Don't show this message again"
+msgstr "_Ne prikazuj više ovu poruku"
+
+#: ../src/Dialogs.vala:2170
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "Uvezi fotografije iz vaše %s zbirke"
+
+#. We're installed system-wide, so usi the system help.
+#. We're being run from the build directory; we'll have to handle clicks to this
+#. link manually ourselves, due to a limitation ghelp: URIs.
+#: ../src/Dialogs.vala:2311 ../src/Dialogs.vala:2315
+msgid "(Help)"
+msgstr "(Pomoć)"
+
+#: ../src/Dialogs.vala:2324
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "Godina%sMjesec%sDan"
+
+#: ../src/Dialogs.vala:2326
+#, c-format
+msgid "Year%sMonth"
+msgstr "Godina%sMjesec"
+
+#: ../src/Dialogs.vala:2328
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "Godina%sMjesec-Dan"
+
+#: ../src/Dialogs.vala:2330
+msgid "Year-Month-Day"
+msgstr "Godina-mjesec-dan"
+
+#: ../src/Dialogs.vala:2331 ../src/editing_tools/EditingTools.vala:781
+msgid "Custom"
+msgstr "Prilagođeno"
+
+#. Invalid pattern.
+#: ../src/Dialogs.vala:2568
+msgid "Invalid pattern"
+msgstr "Neispravan obrazac"
+
+#. This function is used to determine whether or not files should bje copied or linked when imported.
+#. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
+#: ../src/Dialogs.vala:2670
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr ""
+"Shotwell može da iskopira slike u vašu zbirku ili napravi vezu ka vašim "
+"slikama bez kopiranja."
+
+#: ../src/Dialogs.vala:2675
+msgid "Co_py Photos"
+msgstr "Ko_piraj slike"
+
+#: ../src/Dialogs.vala:2676
+msgid "_Import in Place"
+msgstr "Uvez_i na mjestu"
+
+#: ../src/Dialogs.vala:2677
+msgid "Import to Library"
+msgstr "Uvezi u zbirku"
+
+#: ../src/Dialogs.vala:2687 ../src/PhotoPage.vala:3087
+msgid "Remove From Library"
+msgstr "Ukloni iz zbirke"
+
+#: ../src/Dialogs.vala:2688 ../src/PhotoPage.vala:3087
+msgid "Removing Photo From Library"
+msgstr "Uklanjam fotografiju iz zbirke"
+
+#: ../src/Dialogs.vala:2688
+msgid "Removing Photos From Library"
+msgstr "Uklanjam fotografije iz zbirke"
+
+#         translations.
+#: ../src/Dialogs.vala:2702
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also "
+"like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you "
+"also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Uklanjam %d fotografiju/video snimak iz Shotwellove zbirke.   Da li želite "
+"da ga prebacite u smeće na radnoj površini?\n"
+"\n"
+"Ova akcija je nepovratna."
+msgstr[1] ""
+"Uklanjam %d fotografije/video snimka iz Shotwellove zbirke.  Da li želite da "
+"ih prebacite u smeće na radnoj površini?\n"
+"\n"
+"Ova akcija je nepovratna."
+msgstr[2] ""
+"Uklanjam %d fotografija/video snimaka iz Shotwellove zbirke.   Da li želite "
+"da ih prebacite u smeće na radnoj površini?\n"
+"\n"
+"Ova akcija je nepovratna."
+
+#         translations.
+#: ../src/Dialogs.vala:2706
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Uklanjam %d video snimak iz Shotwellove zbirke.  Da li želite da ga "
+"prebacite u smeće na radnoj površini?\n"
+"\n"
+"Ova akcija je nepovratna."
+msgstr[1] ""
+"Uklanjam %d video snimka iz Shotwellove zbirke.  Da li želite da ih "
+"prebacite u smeće na radnoj površini?\n"
+"\n"
+"Ova akcija je nepovratna."
+msgstr[2] ""
+"Uklanjam %d video snimaka iz Shotwellove zbirke.  Da li želite da ih "
+"prebacite u smeće na radnoj površini?\n"
+"\n"
+"Ova akcija je nepovratna."
+
+#         translations.
+#: ../src/Dialogs.vala:2710
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Ova akcija će ukloniti %d sliku iz Shotwell biblioteke.  Da li želite da je "
+"prebacite u smeće na radnoj površini?\n"
+"\n"
+"Ova akcija je nepovratna."
+msgstr[1] ""
+"Ova akcija će ukloniti %d slike iz Shotwell biblioteke.  Da li želite daih "
+"prebacite u smeće na radnoj površini?\n"
+"\n"
+"Ova akcija je nepovratna."
+msgstr[2] ""
+"Ova akcija će ukloniti %d slika iz Shotwell biblioteke.  Da li želite daih "
+"prebacite u smeće na radnoj površini?\n"
+"\n"
+"Ova akcija je nepovratna."
+
+#         translations.
+#: ../src/Dialogs.vala:2742
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] ""
+"%d fotografija/video snimak ne mogu premjestiti u smeće.  Da li želite da ga "
+"uklonim trajno sa diska?"
+msgstr[1] ""
+"%d fotografije/video snimka ne mogu premjestiti u smeće.  Da li želite da ga "
+"uklonim trajno sa diska?"
+msgstr[2] ""
+"%d fotografija/video snimaka ne mogu premjestiti u smeće.  Da li želite da "
+"ih uklonim trajno sa diska?"
+
+#         translations.
+#. Alert the user that the files were not removed.
+#: ../src/Dialogs.vala:2759
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "Ne mogu da obrišem %d fotografiju/video snimak."
+msgstr[1] "Ne mogu da obrišem %d fotografije/video snimak."
+msgstr[2] "Ne mogu da obrišem %d fotografija/video snimak."
+
+#: ../src/Dimensions.vala:23
+msgid "Width"
+msgstr "Širina"
+
+#: ../src/Dimensions.vala:26
+msgid "Height"
+msgstr "Visina"
+
+#. verify this is a directory
+#: ../src/DirectoryMonitor.vala:889
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "Ne mogu da pratim %s: Nije direktorij (%s)"
+
+#. if no nami, pretty up the start time
+#: ../src/Event.vala:751
+#, c-format
+msgid "Event %s"
+msgstr "Događaj %s"
+
+#: ../src/Exporter.vala:232
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "Nisam uspio da napravim privremenu datoteku za %s: %s"
+
+#: ../src/Exporter.vala:299
+msgid "Exporting"
+msgstr "Izvozim"
+
+#: ../src/Exporter.vala:317
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "Datoteka %s već postoji. Da li da je zamjenim?"
+
+#: ../src/Exporter.vala:319
+msgid "_Skip"
+msgstr "_Preskoči"
+
+#: ../src/Exporter.vala:319
+msgid "_Replace"
+msgstr "_Zamijeni"
+
+#: ../src/Exporter.vala:319
+msgid "Replace _All"
+msgstr "Zamjeni _Sve"
+
+#: ../src/Exporter.vala:319
+msgid "Export"
+msgstr "Izvoz"
+
+#: ../src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "Ne mogu obraditi praćenje nadogradnji: %s"
+
+#: ../src/MediaPage.vala:157
+msgid "Adjust the size of the thumbnails"
+msgstr "Promjeni dimezije umanjenog prikaza"
+
+#: ../src/MediaPage.vala:339 ../src/PhotoPage.vala:2593
+#: ../src/Resources.vala:188 ../src/direct/DirectPhotoPage.vala:174
+msgid "Zoom _In"
+msgstr "_Uvećaj"
+
+#: ../src/MediaPage.vala:340
+msgid "Increase the magnification of the thumbnails"
+msgstr "Uvećaj prikaz umanjenih sličica"
+
+#: ../src/MediaPage.vala:345 ../src/PhotoPage.vala:2599
+#: ../src/Resources.vala:189 ../src/direct/DirectPhotoPage.vala:180
+msgid "Zoom _Out"
+msgstr "_Umanji"
+
+#: ../src/MediaPage.vala:346
+msgid "Decrease the magnification of the thumbnails"
+msgstr "Umanji prikaz umanjenih sličica"
+
+#: ../src/MediaPage.vala:413
+msgid "Sort _Photos"
+msgstr "Sortiraj slike"
+
+#: ../src/MediaPage.vala:422
+msgid "_Play Video"
+msgstr "_Pusti video snimak"
+
+#: ../src/MediaPage.vala:423
+msgid "Open the selected videos in the system video player"
+msgstr "Otvori izabrani video snimak u programu za njihovo puštanje"
+
+#: ../src/MediaPage.vala:427 ../src/PhotoPage.vala:2642
+msgid "_Developer"
+msgstr "_Razvio"
+
+#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:99
+#: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
+#: ../src/photos/RawSupport.vala:303
+msgid "Camera"
+msgstr "Kamera"
+
+#: ../src/MediaPage.vala:450 ../src/camera/ImportPage.vala:874
+msgid "_Titles"
+msgstr "_Naslovi"
+
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:875
+msgid "Display the title of each photo"
+msgstr "Prikaži nazive slika"
+
+#: ../src/MediaPage.vala:456 ../src/events/EventsDirectoryPage.vala:130
+msgid "_Comments"
+msgstr "_Komentari"
+
+#: ../src/MediaPage.vala:457
+msgid "Display the comment of each photo"
+msgstr "Prikaži komentar na svaku sliku"
+
+#: ../src/MediaPage.vala:468 ../src/library/LibraryWindow.vala:375
+msgid "Ta_gs"
+msgstr "Oz_nake"
+
+#: ../src/MediaPage.vala:469
+msgid "Display each photo's tags"
+msgstr "Prikaži oznake slika"
+
+#: ../src/MediaPage.vala:485
+msgid "By _Title"
+msgstr "Po _nazivu"
+
+#: ../src/MediaPage.vala:486
+msgid "Sort photos by title"
+msgstr "Sortiraj slike po nazivu"
+
+#: ../src/MediaPage.vala:491
+msgid "By Exposure _Date"
+msgstr "Po _datumu slikanja"
+
+#: ../src/MediaPage.vala:492
+msgid "Sort photos by exposure date"
+msgstr "Sortiraj slike po datumu slikanja"
+
+#: ../src/MediaPage.vala:497
+msgid "By _Rating"
+msgstr "Po _ocjeni"
+
+#: ../src/MediaPage.vala:498
+msgid "Sort photos by rating"
+msgstr "Sortiraj slike po ocjeni"
+
+#: ../src/MediaPage.vala:508 ../src/library/LibraryWindow.vala:421
+msgid "_Ascending"
+msgstr "_Rastuće"
+
+#: ../src/MediaPage.vala:509 ../src/library/LibraryWindow.vala:422
+msgid "Sort photos in an ascending order"
+msgstr "Sortiraj slike po rastućem poretku"
+
+#: ../src/MediaPage.vala:514 ../src/library/LibraryWindow.vala:428
+msgid "D_escending"
+msgstr "_Opadajući"
+
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:429
+msgid "Sort photos in a descending order"
+msgstr "Sortiraj slike po opadajućem poretku"
+
+#: ../src/MediaPage.vala:716
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"Shotwell nije uspio da pusti izabrani video snimak:\n"
+"%s"
+
+#: ../src/Page.vala:1263
+msgid "No photos/videos"
+msgstr "Nema fotografija/videa"
+
+#: ../src/Page.vala:1267
+msgid "No photos/videos found"
+msgstr "Nema pronađenih fotografija/videa"
+
+#: ../src/Page.vala:2565
+msgid "Photos cannot be exported to this directory."
+msgstr "Slike ne mogu biti izvezene u ovaj direktorij."
+
+#: ../src/Photo.vala:3753
+msgid "modified"
+msgstr "izmijenjeno"
+
+#. previous button
+#: ../src/PhotoPage.vala:533
+msgid "Previous photo"
+msgstr "Prethodna slika"
+
+#. next button
+#: ../src/PhotoPage.vala:539
+msgid "Next photo"
+msgstr "Slijedeća slika"
+
+#: ../src/PhotoPage.vala:1847
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "Izvorna datoteka slike %s više ne postoji."
+
+#: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
+#: ../src/library/LibraryWindow.vala:359
+msgid "_View"
+msgstr "_Pregled"
+
+#: ../src/PhotoPage.vala:2418 ../src/direct/DirectPhotoPage.vala:81
+msgid "T_ools"
+msgstr "_Alati"
+
+#: ../src/PhotoPage.vala:2423 ../src/direct/DirectPhotoPage.vala:86
+msgid "_Previous Photo"
+msgstr "_Prethodna slika"
+
+#: ../src/PhotoPage.vala:2424 ../src/direct/DirectPhotoPage.vala:87
+msgid "Previous Photo"
+msgstr "Prethodna slika"
+
+#: ../src/PhotoPage.vala:2429 ../src/direct/DirectPhotoPage.vala:92
+msgid "_Next Photo"
+msgstr "_Slijedeća slika"
+
+#: ../src/PhotoPage.vala:2430 ../src/direct/DirectPhotoPage.vala:93
+msgid "Next Photo"
+msgstr "Slijedeća slika"
+
+#: ../src/PhotoPage.vala:2594 ../src/direct/DirectPhotoPage.vala:175
+msgid "Increase the magnification of the photo"
+msgstr "Uvećaj prikaz slike"
+
+#: ../src/PhotoPage.vala:2600 ../src/direct/DirectPhotoPage.vala:181
+msgid "Decrease the magnification of the photo"
+msgstr "Umanji prikaz slike"
+
+#: ../src/PhotoPage.vala:2605 ../src/direct/DirectPhotoPage.vala:186
+msgid "Fit to _Page"
+msgstr "Prilagodi za _stranicu"
+
+#: ../src/PhotoPage.vala:2606 ../src/direct/DirectPhotoPage.vala:187
+msgid "Zoom the photo to fit on the screen"
+msgstr "Prikaži sliku tako da se cijela vidi na ekranu"
+
+#: ../src/PhotoPage.vala:2612 ../src/direct/DirectPhotoPage.vala:193
+#, no-c-format
+msgid "Zoom _100%"
+msgstr "Uvećaj na _100%"
+
+#: ../src/PhotoPage.vala:2614 ../src/direct/DirectPhotoPage.vala:195
+#, no-c-format
+msgid "Zoom the photo to 100% magnification"
+msgstr "Prikaži sliku u punoj rezoluciji"
+
+#: ../src/PhotoPage.vala:2620 ../src/direct/DirectPhotoPage.vala:201
+#, no-c-format
+msgid "Zoom _200%"
+msgstr "Uvećaj na _200%"
+
+#: ../src/PhotoPage.vala:2622 ../src/direct/DirectPhotoPage.vala:203
+#, no-c-format
+msgid "Zoom the photo to 200% magnification"
+msgstr "Prikaži sliku uvećanu za duplo"
+
+#: ../src/PhotoPage.vala:3231
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "Nije uspjeo izvoz %s: %s"
+
+#: ../src/Printing.vala:255
+msgid "Fill the entire page"
+msgstr "Raširi na cijelu stranu"
+
+#: ../src/Printing.vala:256
+msgid "2 images per page"
+msgstr "2 slike po strani"
+
+#: ../src/Printing.vala:257
+msgid "4 images per page"
+msgstr "4 slike po strani"
+
+#: ../src/Printing.vala:258
+msgid "6 images per page"
+msgstr "6 slika po strani"
+
+#: ../src/Printing.vala:259
+msgid "8 images per page"
+msgstr "8 slika po strani"
+
+#: ../src/Printing.vala:260
+msgid "16 images per page"
+msgstr "16 slika po strani"
+
+#: ../src/Printing.vala:261
+msgid "32 images per page"
+msgstr "32 slike po strani"
+
+#: ../src/Printing.vala:348
+msgid "in."
+msgstr "inč."
+
+#: ../src/Printing.vala:349
+msgid "cm"
+msgstr "cm"
+
+#: ../src/Printing.vala:817 ../src/editing_tools/EditingTools.vala:761
+msgid "Wallet (2 x 3 in.)"
+msgstr "Novčanik (2 x 3 inča)"
+
+#: ../src/Printing.vala:820 ../src/editing_tools/EditingTools.vala:762
+msgid "Notecard (3 x 5 in.)"
+msgstr "Zabilješka (3 x 5 inča)"
+
+#: ../src/Printing.vala:823 ../src/editing_tools/EditingTools.vala:763
+msgid "4 x 6 in."
+msgstr "4 x 6 inča."
+
+#: ../src/Printing.vala:826 ../src/editing_tools/EditingTools.vala:764
+msgid "5 x 7 in."
+msgstr "5 x 7 inča."
+
+#: ../src/Printing.vala:829 ../src/editing_tools/EditingTools.vala:765
+msgid "8 x 10 in."
+msgstr "8 x 10 inča."
+
+#: ../src/Printing.vala:832 ../src/editing_tools/EditingTools.vala:767
+msgid "11 x 14 in."
+msgstr "11 x 14 inča."
+
+#: ../src/Printing.vala:835 ../src/editing_tools/EditingTools.vala:769
+msgid "16 x 20 in."
+msgstr "16 x 20 inča."
+
+#: ../src/Printing.vala:841 ../src/editing_tools/EditingTools.vala:771
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr "Metrički novčanik (9 x 13 cm)"
+
+#: ../src/Printing.vala:844 ../src/editing_tools/EditingTools.vala:772
+msgid "Postcard (10 x 15 cm)"
+msgstr "Čestitka (10 x 15 cm)"
+
+#: ../src/Printing.vala:847 ../src/editing_tools/EditingTools.vala:773
+msgid "13 x 18 cm"
+msgstr "13 x 18 cm"
+
+#: ../src/Printing.vala:850 ../src/editing_tools/EditingTools.vala:774
+msgid "18 x 24 cm"
+msgstr "18 x 24 cm"
+
+#: ../src/Printing.vala:853 ../src/editing_tools/EditingTools.vala:776
+msgid "20 x 30 cm"
+msgstr "20 x 30 cm"
+
+#: ../src/Printing.vala:856 ../src/editing_tools/EditingTools.vala:777
+msgid "24 x 40 cm"
+msgstr "24 x 40 cm"
+
+#: ../src/Printing.vala:859 ../src/editing_tools/EditingTools.vala:778
+msgid "30 x 40 cm"
+msgstr "30 x 40 cm"
+
+#: ../src/Printing.vala:875
+msgid "Image Settings"
+msgstr "Postavke slike"
+
+#: ../src/Printing.vala:888
+msgid "Printing..."
+msgstr "Ispis ..."
+
+#: ../src/Printing.vala:908 ../src/Printing.vala:1111
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"Neuspjelo printanje slike:\n"
+"\n"
+"%s"
+
+#: ../src/Properties.vala:84
+msgid "Today"
+msgstr "Danas"
+
+#: ../src/Properties.vala:86
+msgid "Yesterday"
+msgstr "Jučer"
+
+#: ../src/Properties.vala:227 ../src/camera/ImportPage.vala:312
+msgid "RAW+JPEG"
+msgstr "RAW+JPEG"
+
+#: ../src/Properties.vala:343
+msgid "Items:"
+msgstr "Stavke:"
+
+#         translations.
+#: ../src/Properties.vala:346
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "%d događaj"
+msgstr[1] "%d događaja"
+msgstr[2] "%d događaja"
+
+#         translations.
+#: ../src/Properties.vala:353 ../src/events/EventDirectoryItem.vala:87
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d slika"
+msgstr[1] "%d slike"
+msgstr[2] "%d slika"
+
+#         translations.
+#: ../src/Properties.vala:355 ../src/events/EventDirectoryItem.vala:85
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d video snimak"
+msgstr[1] "%d video snimka"
+msgstr[2] "%d video snimaka"
+
+#. display only one date if start and end are the same
+#: ../src/Properties.vala:377
+msgid "Date:"
+msgstr "Datum:"
+
+#. display only one time if start and end are the same
+#: ../src/Properties.vala:381
+msgid "Time:"
+msgstr "Vrijeme:"
+
+#. display time range
+#. display date range
+#: ../src/Properties.vala:384 ../src/Properties.vala:389
+msgid "From:"
+msgstr "Od:"
+
+#: ../src/Properties.vala:385 ../src/Properties.vala:390
+msgid "To:"
+msgstr "Za:"
+
+#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1890
+msgid "Size:"
+msgstr "Veličina:"
+
+#: ../src/Properties.vala:404
+msgid "Duration:"
+msgstr "Trajanje:"
+
+#: ../src/Properties.vala:404
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f sekundi"
+
+#: ../src/Properties.vala:408
+msgid "Developer:"
+msgstr "Razvio:"
+
+#. fit both on the top linije, emit and move on
+#: ../src/Properties.vala:436 ../src/Properties.vala:440
+#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2258
+msgid "Exposure:"
+msgstr "Izloženost:"
+
+#. nothing special to bje donje for now for Events
+#: ../src/Properties.vala:583
+msgid "Location:"
+msgstr "Lokacija:"
+
+#: ../src/Properties.vala:586
+msgid "File size:"
+msgstr "Veličina datoteke:"
+
+#: ../src/Properties.vala:590
+msgid "Current Development:"
+msgstr "Trenutni razvoj:"
+
+#: ../src/Properties.vala:592
+msgid "Original dimensions:"
+msgstr "Izvorne dimenzije:"
+
+#: ../src/Properties.vala:595
+msgid "Camera make:"
+msgstr "Marka fotoaparata:"
+
+#: ../src/Properties.vala:598
+msgid "Camera model:"
+msgstr "Model fotoaparata:"
+
+#: ../src/Properties.vala:601
+msgid "Flash:"
+msgstr "Blic:"
+
+#: ../src/Properties.vala:603
+msgid "Focal length:"
+msgstr "Žižna daljina:"
+
+#: ../src/Properties.vala:606
+msgid "Exposure date:"
+msgstr "Datum ekspozicije:"
+
+#: ../src/Properties.vala:609
+msgid "Exposure time:"
+msgstr "Vrijeme ekspozicije:"
+
+#: ../src/Properties.vala:612
+msgid "Exposure bias:"
+msgstr "Kompenzacija ekspozicije:"
+
+#: ../src/Properties.vala:614
+msgid "GPS latitude:"
+msgstr "Geografska širina:"
+
+#: ../src/Properties.vala:617
+msgid "GPS longitude:"
+msgstr "Geografska dužina:"
+
+#: ../src/Properties.vala:620
+msgid "Artist:"
+msgstr "Izvođač:"
+
+#: ../src/Properties.vala:622
+msgid "Copyright:"
+msgstr "Autorska prava:"
+
+#: ../src/Properties.vala:624
+msgid "Software:"
+msgstr "Verzija programa:"
+
+#: ../src/Properties.vala:639
+msgid "Extended Information"
+msgstr "Dodatni podaci"
+
+#: ../src/Resources.vala:17
+msgid "Photo Manager"
+msgstr "Organizator Slika"
+
+#: ../src/Resources.vala:18
+msgid "Photo Viewer"
+msgstr "Preglednik fotografija"
+
+#: ../src/Resources.vala:144
+msgid "Rotate _Right"
+msgstr "Rotiraj _desno"
+
+#: ../src/Resources.vala:145 ../src/Resources.vala:150
+msgid "Rotate"
+msgstr "Rotiraj"
+
+#: ../src/Resources.vala:146
+msgid "Rotate Right"
+msgstr "Rotiraj desno"
+
+#: ../src/Resources.vala:147
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "Okreće slike na desno (pritisni Ctrl za okretanje na lijevo)"
+
+#: ../src/Resources.vala:149
+msgid "Rotate _Left"
+msgstr "Rotiraj _lijevo"
+
+#: ../src/Resources.vala:151
+msgid "Rotate Left"
+msgstr "Rotiraj lijevo"
+
+#: ../src/Resources.vala:152
+msgid "Rotate the photos left"
+msgstr "Okreni slike lijevo"
+
+#: ../src/Resources.vala:154
+msgid "Flip Hori_zontally"
+msgstr "Izvrni _vodoravno"
+
+#: ../src/Resources.vala:155
+msgid "Flip Horizontally"
+msgstr "Izvrni vodoravno"
+
+#: ../src/Resources.vala:157
+msgid "Flip Verti_cally"
+msgstr "Izvrni verti_kalno"
+
+#: ../src/Resources.vala:158
+msgid "Flip Vertically"
+msgstr "Izvrni vertikalno"
+
+#: ../src/Resources.vala:160
+msgid "_About"
+msgstr "_O programu"
+
+#: ../src/Resources.vala:161
+msgid "_Apply"
+msgstr "_Primijeni"
+
+#: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
+#: ../src/library/LibraryWindow.vala:355
+msgid "_Edit"
+msgstr "_Izmijeni..."
+
+#: ../src/Resources.vala:165
+msgid "_Forward"
+msgstr "_Naprijed"
+
+#: ../src/Resources.vala:166
+msgid "Fulls_creen"
+msgstr "Preko _cijelog ekrana"
+
+#: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
+#: ../src/library/LibraryWindow.vala:379
+msgid "_Help"
+msgstr "_Pomoć"
+
+#: ../src/Resources.vala:168
+msgid "Leave _Fullscreen"
+msgstr "Napusti _prikaz preko cijelog ekrana"
+
+#: ../src/Resources.vala:169 ../src/Resources.vala:371
+msgid "_New"
+msgstr "_Novi"
+
+#: ../src/Resources.vala:170
+msgid "_Next"
+msgstr "_Sljedeća"
+
+#: ../src/Resources.vala:171
+msgid "_OK"
+msgstr "_U redu"
+
+#: ../src/Resources.vala:172
+msgid "_Play"
+msgstr "_Izvedi"
+
+#: ../src/Resources.vala:173 ../src/Resources.vala:325
+msgid "_Preferences"
+msgstr "_Podešavanja"
+
+#: ../src/Resources.vala:174
+msgid "_Previous"
+msgstr "_Prethodno"
+
+#: ../src/Resources.vala:175
+msgid "_Print"
+msgstr "Š_tampaj"
+
+#: ../src/Resources.vala:176
+msgid "_Quit"
+msgstr "_Izlaz"
+
+#: ../src/Resources.vala:177
+msgid "_Refresh"
+msgstr "_Osvježi"
+
+#: ../src/Resources.vala:179
+msgid "_Revert"
+msgstr "_Vrati"
+
+#: ../src/Resources.vala:180 ../src/direct/DirectPhotoPage.vala:51
+#: ../src/direct/DirectPhotoPage.vala:422
+msgid "_Save"
+msgstr "_Sačuvaj"
+
+#: ../src/Resources.vala:181
+msgid "Save _As"
+msgstr "Snimi _Kao"
+
+#: ../src/Resources.vala:182
+msgid "Sort _Ascending"
+msgstr "Razvrstaj _rastuće"
+
+#: ../src/Resources.vala:183
+msgid "Sort _Descending"
+msgstr "Razvrstaj _opadajuće"
+
+#: ../src/Resources.vala:184
+msgid "_Stop"
+msgstr "_Zaustavi"
+
+#: ../src/Resources.vala:185
+msgid "_Undelete"
+msgstr "_Vrati obrisano"
+
+#: ../src/Resources.vala:186
+msgid "_Normal Size"
+msgstr "_Normalna veličina"
+
+#: ../src/Resources.vala:187
+msgid "Best _Fit"
+msgstr "Naj_bolje uklapanje"
+
+#: ../src/Resources.vala:191
+msgid "_Enhance"
+msgstr "_Poboljšaj"
+
+#: ../src/Resources.vala:192
+msgid "Enhance"
+msgstr "Poboljšaj"
+
+#: ../src/Resources.vala:193
+msgid "Automatically improve the photo's appearance"
+msgstr "Automatski unaprijedi izgled slike"
+
+#: ../src/Resources.vala:195
+msgid "_Copy Color Adjustments"
+msgstr "_Kopiraj prilagođenje boja"
+
+#: ../src/Resources.vala:196
+msgid "Copy Color Adjustments"
+msgstr "Kopiraj prilagođenje boja"
+
+#: ../src/Resources.vala:197
+msgid "Copy the color adjustments applied to the photo"
+msgstr "Kopiraj prilagođenje boja primijenjenih na fotografiju"
+
+#: ../src/Resources.vala:199
+msgid "_Paste Color Adjustments"
+msgstr "_Umetni prilagođenje boja"
+
+#: ../src/Resources.vala:200
+msgid "Paste Color Adjustments"
+msgstr "Umetni prilagođenje boja"
+
+#: ../src/Resources.vala:201
+msgid "Apply copied color adjustments to the selected photos"
+msgstr "Primijeni prilagođenje boja na izabrane fotografije"
+
+#: ../src/Resources.vala:203
+msgid "_Crop"
+msgstr "_Isijeci"
+
+#: ../src/Resources.vala:204
+msgid "Crop"
+msgstr "Isijeci"
+
+#: ../src/Resources.vala:205
+msgid "Crop the photo's size"
+msgstr "Smanjivanje veličine slike"
+
+#: ../src/Resources.vala:207 ../src/editing_tools/StraightenTool.vala:100
+msgid "_Straighten"
+msgstr "_Ispravi"
+
+#: ../src/Resources.vala:208
+msgid "Straighten"
+msgstr "Ispravi"
+
+#: ../src/Resources.vala:209
+msgid "Straighten the photo"
+msgstr "Ispravi sliku"
+
+#: ../src/Resources.vala:211
+msgid "_Red-eye"
+msgstr "_Uklanjanje crvenih očiju"
+
+#: ../src/Resources.vala:212
+msgid "Red-eye"
+msgstr "Uklanjanje crvenih očiju"
+
+#: ../src/Resources.vala:213
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "Smanjuje i uklanja efekat crvenih očiju sa slike"
+
+#: ../src/Resources.vala:215
+msgid "_Adjust"
+msgstr "_Podesi"
+
+#: ../src/Resources.vala:216
+msgid "Adjust"
+msgstr "Podesi"
+
+#: ../src/Resources.vala:217
+msgid "Adjust the photo's color and tone"
+msgstr "Podesi boje i ton slike"
+
+#: ../src/Resources.vala:219
+msgid "Re_vert to Original"
+msgstr "V_rati na original"
+
+#: ../src/Resources.vala:220
+msgid "Revert to Original"
+msgstr "Vrati na original"
+
+#: ../src/Resources.vala:222
+msgid "Revert External E_dits"
+msgstr "Vrati na _izmijenjenu sliku"
+
+#: ../src/Resources.vala:223
+msgid "Revert to the master photo"
+msgstr "Povrati izvornu sliku"
+
+#: ../src/Resources.vala:225
+msgid "Set as _Desktop Background"
+msgstr "Postavi kao _pozadinu radne površine"
+
+#: ../src/Resources.vala:226
+msgid "Set selected image to be the new desktop background"
+msgstr "Postavlja izabranu sliku kao vašu novu pozadinu radne površine"
+
+#: ../src/Resources.vala:227
+msgid "Set as _Desktop Slideshow..."
+msgstr "Postavi kao promjenjivu _pozadinsku sliku..."
+
+#: ../src/Resources.vala:229
+msgid "_Undo"
+msgstr "_Poništi"
+
+#: ../src/Resources.vala:230
+msgid "Undo"
+msgstr "Poništi"
+
+#: ../src/Resources.vala:232
+msgid "_Redo"
+msgstr "_Ponovi"
+
+#: ../src/Resources.vala:233
+msgid "Redo"
+msgstr "Vrati"
+
+#: ../src/Resources.vala:235
+msgid "Re_name Event..."
+msgstr "_Preimenuj događaj..."
+
+#: ../src/Resources.vala:238
+msgid "Make _Key Photo for Event"
+msgstr "Postavite kao _ključnu sliku za ovaj događaj"
+
+#: ../src/Resources.vala:239
+msgid "Make Key Photo for Event"
+msgstr "Postavite kao ključnu sliku za ovaj događaj"
+
+#: ../src/Resources.vala:241
+msgid "_New Event"
+msgstr "_Novi događaj"
+
+#: ../src/Resources.vala:242
+msgid "New Event"
+msgstr "Novi događaj"
+
+#: ../src/Resources.vala:244
+msgid "Move Photos"
+msgstr "Premjesti slike"
+
+#: ../src/Resources.vala:245
+msgid "Move photos to an event"
+msgstr "Premješta slike u događaj"
+
+#: ../src/Resources.vala:247
+msgid "_Merge Events"
+msgstr "_Spoji događaje"
+
+#: ../src/Resources.vala:248
+msgid "Merge"
+msgstr "Spoji"
+
+#: ../src/Resources.vala:249
+msgid "Combine events into a single event"
+msgstr "Spajanje dva događaja u jedan"
+
+#: ../src/Resources.vala:251
+msgid "_Set Rating"
+msgstr "_Ocijeni"
+
+#: ../src/Resources.vala:252
+msgid "Set Rating"
+msgstr "Ocjeni"
+
+#: ../src/Resources.vala:253
+msgid "Change the rating of your photo"
+msgstr "Promjeni ocjenu slike"
+
+#: ../src/Resources.vala:255
+msgid "_Increase"
+msgstr "_Uvećaj"
+
+#: ../src/Resources.vala:256
+msgid "Increase Rating"
+msgstr "Uvećaj ocjenu"
+
+#: ../src/Resources.vala:258
+msgid "_Decrease"
+msgstr "_Umanji"
+
+#: ../src/Resources.vala:259
+msgid "Decrease Rating"
+msgstr "Umanji ocjenu"
+
+#: ../src/Resources.vala:261
+msgid "_Unrated"
+msgstr "_Bez ocjene"
+
+#: ../src/Resources.vala:262
+msgid "Unrated"
+msgstr "Bez ocjene"
+
+#: ../src/Resources.vala:263
+msgid "Rate Unrated"
+msgstr "Postavi kao neocijenjeno"
+
+#: ../src/Resources.vala:264
+msgid "Setting as unrated"
+msgstr "Označava da slika nije ocjenjena"
+
+#: ../src/Resources.vala:265
+msgid "Remove any ratings"
+msgstr "Skini sve ocjene"
+
+#: ../src/Resources.vala:267
+msgid "_Rejected"
+msgstr "_Odbijeno"
+
+#: ../src/Resources.vala:268
+msgid "Rejected"
+msgstr "Odbijeno"
+
+#: ../src/Resources.vala:269
+msgid "Rate Rejected"
+msgstr "Ocijeni kao odbijeno"
+
+#: ../src/Resources.vala:270
+msgid "Setting as rejected"
+msgstr "Postavi kao odbijenu"
+
+#: ../src/Resources.vala:271
+msgid "Set rating to rejected"
+msgstr "Postavi ocjenu na odbijeno"
+
+#: ../src/Resources.vala:273
+msgid "Rejected _Only"
+msgstr "Samo _odbijene"
+
+#: ../src/Resources.vala:274
+msgid "Rejected Only"
+msgstr "Samo odbijene"
+
+#: ../src/Resources.vala:275
+msgid "Show only rejected photos"
+msgstr "Prikaži samo odbijene slike"
+
+#: ../src/Resources.vala:277
+msgid "All + _Rejected"
+msgstr "Sve + _Loša"
+
+#: ../src/Resources.vala:278 ../src/Resources.vala:279
+msgid "Show all photos, including rejected"
+msgstr "Prikaži sve slike uključujući i odbijene"
+
+#: ../src/Resources.vala:281
+msgid "_All Photos"
+msgstr "_Sve slike"
+
+#. Button label
+#. Button tooltip
+#: ../src/Resources.vala:283 ../src/Resources.vala:285
+msgid "Show all photos"
+msgstr "Prikaži sve slike"
+
+#: ../src/Resources.vala:287
+msgid "_Ratings"
+msgstr "_Ocjene"
+
+#: ../src/Resources.vala:288
+msgid "Display each photo's rating"
+msgstr "Prikaži ocjene svih slika"
+
+#: ../src/Resources.vala:290
+msgid "_Filter Photos"
+msgstr "_Filtrirane slike"
+
+#: ../src/Resources.vala:291
+msgid "Filter Photos"
+msgstr "Filtriranje slike"
+
+#: ../src/Resources.vala:292
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "Ograniči broj slika koje se prikazuju na osnovu filtera"
+
+#: ../src/Resources.vala:294
+msgid "_Duplicate"
+msgstr "_Dupliciraj"
+
+#: ../src/Resources.vala:295
+msgid "Duplicate"
+msgstr "Dupliciraj"
+
+#: ../src/Resources.vala:296
+msgid "Make a duplicate of the photo"
+msgstr "Napravi duplikat slike"
+
+#: ../src/Resources.vala:298
+msgid "_Export..."
+msgstr "_Izvoz..."
+
+#: ../src/Resources.vala:300
+msgid "_Print..."
+msgstr "_Ispis..."
+
+#: ../src/Resources.vala:302
+msgid "Pu_blish..."
+msgstr "_Objavi..."
+
+#: ../src/Resources.vala:304
+msgid "Publish to various websites"
+msgstr "Objavi izabrane slike na različitim sajtovima"
+
+#: ../src/Resources.vala:306
+msgid "Edit _Title..."
+msgstr "Izmijeni _naslov ..."
+
+#: ../src/Resources.vala:310
+msgid "Edit _Comment..."
+msgstr "Uredi _komentar..."
+
+#. Button label
+#: ../src/Resources.vala:312
+msgid "Edit Comment"
+msgstr "Uredi komentar"
+
+#: ../src/Resources.vala:314
+msgid "Edit Event _Comment..."
+msgstr "Uredi _komentare događaja..."
+
+#: ../src/Resources.vala:317
+msgid "_Adjust Date and Time..."
+msgstr "_Podesi datum i vrijeme..."
+
+#: ../src/Resources.vala:318
+msgid "Adjust Date and Time"
+msgstr "Podesi datum i vrijeme"
+
+#: ../src/Resources.vala:320
+msgid "Add _Tags..."
+msgstr "Dodaj _oznake ..."
+
+#: ../src/Resources.vala:321
+msgid "_Add Tags..."
+msgstr "_Dodaj oznake..."
+
+#. Dialog title
+#. Undo/Redo command nami (in Edit mijenu)
+#: ../src/Resources.vala:323 ../src/Resources.vala:356
+msgid "Add Tags"
+msgstr "Dodaj oznake"
+
+#: ../src/Resources.vala:327
+msgid "Open With E_xternal Editor"
+msgstr "_Otvori u spoljnom uređivaču slika"
+
+#: ../src/Resources.vala:329
+msgid "Open With RA_W Editor"
+msgstr "Otvori u uređivaču RA_W slika"
+
+#: ../src/Resources.vala:331
+msgid "Send _To..."
+msgstr "Pošalji _na..."
+
+#: ../src/Resources.vala:332
+msgid "Send T_o..."
+msgstr "Pošalji _na..."
+
+#: ../src/Resources.vala:334
+msgid "_Find..."
+msgstr "_Nađi..."
+
+#: ../src/Resources.vala:335
+msgid "Find"
+msgstr "Nađi"
+
+#: ../src/Resources.vala:336
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr "Nađi slike unoseći tekst koji se pojavljuje u imenu ili oznaci"
+
+#: ../src/Resources.vala:338
+msgid "_Flag"
+msgstr "_Obilježi"
+
+#: ../src/Resources.vala:340
+msgid "Un_flag"
+msgstr "_Skini obilježje"
+
+#: ../src/Resources.vala:343
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "Neuspjelo pokretanje uređivača slika: %s"
+
+#: ../src/Resources.vala:348
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "Dodaj oznaku \"%s\""
+
+#. Used when adding two tags to photo(s)
+#: ../src/Resources.vala:351
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "Dodaj oznake \"%s\" i \"%s\""
+
+#: ../src/Resources.vala:361
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "_Izbriši oznaku \"%s\""
+
+#: ../src/Resources.vala:365
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "Izbriši oznaku \"%s\""
+
+#: ../src/Resources.vala:368
+msgid "Delete Tag"
+msgstr "Ukloni oznaku"
+
+#: ../src/Resources.vala:374
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "_Preimenuj oznaku \"%s\"..."
+
+#: ../src/Resources.vala:378
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "Preimenuj oznaku \"%s\" u \"%s\""
+
+#: ../src/Resources.vala:381
+msgid "_Rename..."
+msgstr "_Preimenuj..."
+
+#: ../src/Resources.vala:383
+msgid "Modif_y Tags..."
+msgstr "Izmjena _oznaka ..."
+
+#: ../src/Resources.vala:384
+msgid "Modify Tags"
+msgstr "Izmjena oznaka"
+
+#: ../src/Resources.vala:387
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "Označi sliku kao \"%s\""
+
+#: ../src/Resources.vala:387
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "Označi fotografije kao „%s“"
+
+#: ../src/Resources.vala:391
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "Označi izabranu fotografiju kao \"%s\""
+
+#: ../src/Resources.vala:392
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "Označi izabrane fotografije kao „%s“"
+
+#: ../src/Resources.vala:396
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "Ukloni oznaku \"%s\" sa _fotografije"
+
+#: ../src/Resources.vala:397
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "Ukloni oznaku „%s“ sa _fotografija"
+
+#: ../src/Resources.vala:401
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "Ukloni oznaku \"%s\" sa fotografije"
+
+#: ../src/Resources.vala:402
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "Ukloni oznaku „%s“ sa fotografija"
+
+#: ../src/Resources.vala:406
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr ""
+"Nije uspjela promjena oznake na \"%s\" jer već postoji oznaka sa tim nazivom."
+
+#: ../src/Resources.vala:410
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr "Nije uspjela promjena pretrage na \"%s\" jer ta pretraga već postoji."
+
+#: ../src/Resources.vala:413
+msgid "Saved Search"
+msgstr "Sačuvana pretraga"
+
+#: ../src/Resources.vala:415
+msgid "Delete Search"
+msgstr "Obriši pretragu"
+
+#: ../src/Resources.vala:418
+msgid "_Edit..."
+msgstr "_Izmijeni..."
+
+#: ../src/Resources.vala:419
+msgid "Re_name..."
+msgstr "_Preimenuj..."
+
+#: ../src/Resources.vala:422
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "Preimenuj pretragu \"%s\" u \"%s\""
+
+#: ../src/Resources.vala:426
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "Obriši pretragu \"%s\""
+
+#: ../src/Resources.vala:584
+#, c-format
+msgid "Rate %s"
+msgstr "Ocijeni %s"
+
+#: ../src/Resources.vala:585
+#, c-format
+msgid "Set rating to %s"
+msgstr "Ocijeni %s"
+
+#: ../src/Resources.vala:586
+#, c-format
+msgid "Setting rating to %s"
+msgstr "Ocijenjujem %s"
+
+#: ../src/Resources.vala:588
+#, c-format
+msgid "Display %s"
+msgstr "Prikaži %s"
+
+#: ../src/Resources.vala:589
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "Prikazuje samo slike sa ocjenom %s"
+
+#: ../src/Resources.vala:590
+#, c-format
+msgid "%s or Better"
+msgstr "%s ili bolje"
+
+#: ../src/Resources.vala:591
+#, c-format
+msgid "Display %s or Better"
+msgstr "Prikaži %s ili više"
+
+#: ../src/Resources.vala:592
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr "Prikazuje samo slike sa ocjenom %s ili više"
+
+#: ../src/Resources.vala:683
+msgid "Remove the selected photos from the trash"
+msgstr "Uklanja izabrane slike iz kante"
+
+#: ../src/Resources.vala:684
+msgid "Remove the selected photos from the library"
+msgstr "Uklanja izabrane slike iz biblioteke"
+
+#: ../src/Resources.vala:686
+msgid "_Restore"
+msgstr "_Povrati"
+
+#: ../src/Resources.vala:687
+msgid "Move the selected photos back into the library"
+msgstr "Premješta izabrane slike nazad u biblioteku"
+
+#: ../src/Resources.vala:689
+msgid "Show in File Mana_ger"
+msgstr "Prikaži u _upravitelju datoteka"
+
+#: ../src/Resources.vala:690
+msgid "Open the selected photo's directory in the file manager"
+msgstr "Otvori direktorij izabranih slika u upravitelju datoteka"
+
+#: ../src/Resources.vala:693
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "Neuspjelo otvaranje upravitelja datoteka: %s"
+
+#: ../src/Resources.vala:696
+msgid "R_emove From Library"
+msgstr "U_kloni iz biblioteke"
+
+#: ../src/Resources.vala:698
+msgid "_Move to Trash"
+msgstr "Premjesti u sme_će"
+
+#: ../src/Resources.vala:700
+msgid "Select _All"
+msgstr "Odaberi _Sve"
+
+#: ../src/Resources.vala:701
+msgid "Select all items"
+msgstr "Izaberi sv_e stavke"
+
+#. ...precache the timestamp string...
+#. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
+#. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+#. / Seje http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:780
+msgid "%-I:%M %p"
+msgstr "%-I:%M %p"
+
+#. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
+#. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+#. / Seje http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:785
+msgid "%-I:%M:%S %p"
+msgstr "%-I:%M:%S %p"
+
+#. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
+#. / Seje http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:789
+msgid "%a %b %d, %Y"
+msgstr "%a %b %d, %Y"
+
+#. / Locale-specific starting date format for multi-date strings,
+#. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
+#. / Seje http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#. / Locale-specific calendar date format for multi-month strings,
+#. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
+#. / Seje http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:794 ../src/Resources.vala:804
+msgid "%a %b %d"
+msgstr "%a %b %d"
+
+#. / Locale-specific ending date format for multi-date strings,
+#. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
+#. / Seje http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:799
+msgid "%d, %Y"
+msgstr "%d, %Y"
+
+#: ../src/Screensaver.vala:18 ../src/SlideshowPage.vala:141
+msgid "Slideshow"
+msgstr "Prikaz slajdova"
+
+#. Flagged label and toggle
+#: ../src/SearchFilter.vala:587 ../src/SearchFilter.vala:588
+#: ../src/SearchFilter.vala:972 ../src/library/FlaggedPage.vala:8
+msgid "Flagged"
+msgstr "Označeno"
+
+#: ../src/SearchFilter.vala:593 ../src/SearchFilter.vala:594
+msgid "Photos"
+msgstr "Fotografije"
+
+#: ../src/SearchFilter.vala:599 ../src/SearchFilter.vala:600
+msgid "Videos"
+msgstr "Videi"
+
+#: ../src/SearchFilter.vala:605
+msgid "RAW Photos"
+msgstr "RAW fotografije"
+
+#: ../src/SearchFilter.vala:606
+msgid "RAW photos"
+msgstr "RAW fotografije"
+
+#: ../src/SearchFilter.vala:934
+#, c-format
+msgid "Error loading UI file %s: %s"
+msgstr "Greška prilikom učitavanja UI datoteke %s: %s"
+
+#. Ticket #3260 - Add a 'close' context mijenu to
+#. the searchbar.
+#. Prepare the close mijenu for usi, but don't
+#. display it yet; we'll connect it to secondary
+#. click later on.
+#: ../src/SearchFilter.vala:945
+msgid "Close"
+msgstr "Zatvori"
+
+#. Type label and toggles
+#: ../src/SearchFilter.vala:951
+msgid "Type"
+msgstr "Tip:"
+
+#. Rating label and button
+#: ../src/SearchFilter.vala:985 ../src/searches/SearchBoolean.vala:184
+msgid "Rating"
+msgstr "Ocjena"
+
+#: ../src/SlideshowPage.vala:49 ../src/SlideshowPage.vala:183
+msgid "Settings"
+msgstr "Postavke"
+
+#. Set up toolbar
+#. add toolbar buttons
+#: ../src/SlideshowPage.vala:160
+msgid "Back"
+msgstr "Nazad"
+
+#: ../src/SlideshowPage.vala:162
+msgid "Go to the previous photo"
+msgstr "Idi na prethodnu sliku"
+
+#: ../src/SlideshowPage.vala:167 ../src/SlideshowPage.vala:274
+msgid "Pause"
+msgstr "Pauza"
+
+#: ../src/SlideshowPage.vala:169 ../src/SlideshowPage.vala:275
+msgid "Pause the slideshow"
+msgstr "Pauziraj prikaz slajdova"
+
+#: ../src/SlideshowPage.vala:174
+msgid "Next"
+msgstr "Slijedeći"
+
+#: ../src/SlideshowPage.vala:176
+msgid "Go to the next photo"
+msgstr "Idi na slijedeću sliku"
+
+#: ../src/SlideshowPage.vala:184
+msgid "Change slideshow settings"
+msgstr "Mijenja postavke prikaza slajdova"
+
+#. An entire slideshow set might bje missing, so check for a loop.
+#: ../src/SlideshowPage.vala:238
+msgid "All photo source files are missing."
+msgstr "Ne postoji nijedna datoteka sa slikom."
+
+#: ../src/SlideshowPage.vala:270
+msgid "Play"
+msgstr "Pusti"
+
+#: ../src/SlideshowPage.vala:271
+msgid "Continue the slideshow"
+msgstr "Nastavi prikaz slajdova"
+
+#: ../src/Tag.vala:817
+msgid "untitled"
+msgstr "bez naslova"
+
+#. multiple videos
+#: ../src/VideoSupport.vala:489
+msgid "Export Videos"
+msgstr "Izvoz video snimaka"
+
+#: ../src/camera/Branch.vala:85
+msgid "Cameras"
+msgstr "Kamere"
+
+#: ../src/camera/ImportPage.vala:459
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr ""
+"Neuspješno demontiranje kamere. Probajte da je demontirate preko menadžera "
+"datoteka."
+
+#. hide duplicates checkbox
+#: ../src/camera/ImportPage.vala:776
+msgid "Hide photos already imported"
+msgstr "Sakrij slike koje su već uvežene"
+
+#: ../src/camera/ImportPage.vala:777
+msgid "Only display photos that have not been imported"
+msgstr "Prikaži samo slike koje nisu uvežene"
+
+#. Ticket #3304 - Import page shouldn't display confusing message
+#. prior to import.
+#. TODO: replace this with approved text for "talking to camera,
+#. please wait" once new strings are being accepted.
+#: ../src/camera/ImportPage.vala:847
+msgid "Starting import, please wait..."
+msgstr "Pokrećem uvoženje, molim sačekajte..."
+
+#: ../src/camera/ImportPage.vala:886
+msgid "Import _Selected"
+msgstr "Uvezi _izabrano"
+
+#: ../src/camera/ImportPage.vala:887
+msgid "Import the selected photos into your library"
+msgstr "Uvezi izabrane slike u vašu biblioteku"
+
+#: ../src/camera/ImportPage.vala:892
+msgid "Import _All"
+msgstr "Uvezi _sve"
+
+#: ../src/camera/ImportPage.vala:893
+msgid "Import all the photos into your library"
+msgstr "Uvozi sve slike u vašu zbirku slika"
+
+#. it's mounted, offer to unmount for the user
+#: ../src/camera/ImportPage.vala:1014
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr ""
+"Shotwell mora da demontira kameru sa sistema kako bi mu pristupio. Da li "
+"želite da nastavite?"
+
+#: ../src/camera/ImportPage.vala:1020
+msgid "_Unmount"
+msgstr "_Demontiraj"
+
+#: ../src/camera/ImportPage.vala:1025
+msgid "Please unmount the camera."
+msgstr "Molim Vas demontirajte kameru."
+
+#: ../src/camera/ImportPage.vala:1030
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr ""
+"Kameru koristi neki drugi program. Morate zatvoriti taj program kako bi "
+"omogućili Shotwell-u da mu pristupi."
+
+#: ../src/camera/ImportPage.vala:1040
+msgid "Please close any other application using the camera."
+msgstr "Molim vas zatvorite sve druge programe koji koriste kameru."
+
+#: ../src/camera/ImportPage.vala:1045
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+"Neuspješno preuzimanje pregleda slika sa kamere:\n"
+"%s"
+
+#: ../src/camera/ImportPage.vala:1062
+msgid "Unmounting..."
+msgstr "Demontiram..."
+
+#: ../src/camera/ImportPage.vala:1168
+msgid "Fetching photo information"
+msgstr "Preuzimam podatke o slici"
+
+#: ../src/camera/ImportPage.vala:1523
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "Preuzimam izgled slike %s"
+
+#: ../src/camera/ImportPage.vala:1639
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "Ne mogu da zaključam kameru: %s"
+
+#         translations.
+#: ../src/camera/ImportPage.vala:1724
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "Da li da izbrišem %d sliku sa fotoaparata?"
+msgstr[1] "Da li da izbrišem %d slike sa fotoaparata?"
+msgstr[2] "Da li da izbrišem %d slika sa fotoaparata?"
+
+#         translations.
+#: ../src/camera/ImportPage.vala:1727
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "Da li da izbrišem %d video snimak sa fotoaparata?"
+msgstr[1] "Da li da izbrišem %d video snimka sa fotoaparata?"
+msgstr[2] "Da li da izbrišem %d video snimaka sa fotoaparata?"
+
+#         translations.
+#: ../src/camera/ImportPage.vala:1730
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "Da li da izbrišem %d fotografiju/video snimak sa fotoaparata?"
+msgstr[1] "Da li da izbrišem %d fotografije/video snimka sa fotoaparata?"
+msgstr[2] "Da li da izbrišem %d fotografija/video snimaka sa fotoaparata?"
+
+#         translations.
+#: ../src/camera/ImportPage.vala:1733
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "Obrisati ovu %d datoteku s aparata?"
+msgstr[1] "Obrisati ove %d datoteke s aparata?"
+msgstr[2] "Obrisati ovih %d datoteka s aparata?"
+
+#: ../src/camera/ImportPage.vala:1760
+msgid "Removing photos/videos from camera"
+msgstr "Uklanjam fotografije/video snimke sa fotoaparata"
+
+#         translations.
+#: ../src/camera/ImportPage.vala:1764
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] ""
+"Nisam uspio da izbrišem %d fotografiju/video snimak sa fotoaparata, usljed "
+"greške."
+msgstr[1] ""
+"Nisam uspio da izbrišem %d fotografije/video snimka sa fotoaparata, usljed "
+"greške."
+msgstr[2] ""
+"Nisam uspio da izbrišem %d fotografije/video snimaka sa fotoaparata, usljed "
+"greške."
+
+#: ../src/data_imports/DataImports.vala:22
+msgid "Data Imports"
+msgstr "Uvoz podataka"
+
+#. Send an empty job to the queue to mark the end of the import
+#: ../src/data_imports/DataImportsPluginHost.vala:65
+#: ../src/data_imports/DataImportsPluginHost.vala:78
+#, c-format
+msgid "%s Database"
+msgstr "%s Baza podataka"
+
+#: ../src/data_imports/DataImportsPluginHost.vala:148
+#: ../src/data_imports/DataImportsPluginHost.vala:294
+#, c-format
+msgid "Importing from %s can't continue because an error occurred:"
+msgstr "Ne mogu da nastavim uvoz iz %s jer se pojavila slijedeća greška:"
+
+#: ../src/data_imports/DataImportsPluginHost.vala:151
+msgid "To try importing from another service, select one from the above menu."
+msgstr "Izaberite neki od servisa iz gornjeg menija za uvoz fotografija."
+
+#: ../src/data_imports/DataImportsUI.vala:10
+msgid ""
+"You do not have any data imports plugins enabled.\n"
+"\n"
+"In order to use the Import From Application functionality, you need to have "
+"at least one data imports plugin enabled. Plugins can be enabled in the "
+"Preferences dialog."
+msgstr ""
+"Niste uključili ni jedan dodatak za uvoz podataka.\n"
+"\n"
+"Kako bi koristili mogućnost uvoza iz programa, morate uključiti bar jedan "
+"dodatak. Dodatke možete uključiti u dijalogu postavki."
+
+#: ../src/data_imports/DataImportsUI.vala:100
+msgid "Database file:"
+msgstr "Datoteka baze podataka:"
+
+#: ../src/data_imports/DataImportsUI.vala:112
+#: ../src/library/LibraryWindow.vala:898
+msgid "_Import"
+msgstr "_Uvezi"
+
+#: ../src/data_imports/DataImportsUI.vala:217
+msgid "Import From Application"
+msgstr "Uvoz iz programa"
+
+#: ../src/data_imports/DataImportsUI.vala:369
+#: ../src/publishing/PublishingUI.vala:470
+msgid "_Close"
+msgstr "_Zatvori"
+
+#: ../src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "Nije moguće otvoriti/kreirati bazu podataka za slike %s: kod greške %d"
+
+#: ../src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr ""
+"Ne mogu da pišem u datoteku baze podataka slika:\n"
+" %s"
+
+#: ../src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr ""
+"Greška prilikom pristupa datoteci baze podataka:\n"
+" %s\n"
+"\n"
+"Greška je:\n"
+"%s"
+
+#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:351
+msgid "_File"
+msgstr "_Datoteka"
+
+#: ../src/direct/DirectPhotoPage.vala:52
+msgid "Save photo"
+msgstr "Sačuvaj sliku"
+
+#: ../src/direct/DirectPhotoPage.vala:57
+msgid "Save _As..."
+msgstr "Spremi _kao..."
+
+#: ../src/direct/DirectPhotoPage.vala:58
+msgid "Save photo with a different name"
+msgstr "Spremi sliku pod drugim nazivom"
+
+#: ../src/direct/DirectPhotoPage.vala:69
+msgid "Print the photo to a printer connected to your computer"
+msgstr "Printaj sliku štampačem konektovanim na vaš računar"
+
+#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:363
+msgid "_Photo"
+msgstr "_Slika"
+
+#: ../src/direct/DirectPhotoPage.vala:227
+#, c-format
+msgid "%s does not exist."
+msgstr "%s ne postoji."
+
+#: ../src/direct/DirectPhotoPage.vala:229
+#, c-format
+msgid "%s is not a file."
+msgstr "%s nije datoteka."
+
+#: ../src/direct/DirectPhotoPage.vala:231
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr ""
+"%s ne podržava format datoteke\n"
+"%s."
+
+#: ../src/direct/DirectPhotoPage.vala:422
+msgid "_Save a Copy"
+msgstr "_Sačuvaj kopiju"
+
+#: ../src/direct/DirectPhotoPage.vala:425
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "Zaboravi izmjene za %s?"
+
+#: ../src/direct/DirectPhotoPage.vala:426
+msgid "Close _without Saving"
+msgstr "Zatvori bez _spremanja"
+
+#: ../src/direct/DirectPhotoPage.vala:459
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "Greška pri spremanju u %s: %s"
+
+#: ../src/direct/DirectPhotoPage.vala:487
+#: ../src/direct/DirectPhotoPage.vala:508
+msgid "Save As"
+msgstr "Sačuvaj kao"
+
+#: ../src/editing_tools/EditingTools.vala:665
+msgid "Return to current photo dimensions"
+msgstr "Vrati na postojeću veličinu slike"
+
+#: ../src/editing_tools/EditingTools.vala:668
+msgid "Set the crop for this photo"
+msgstr "Isijeci sliku"
+
+#: ../src/editing_tools/EditingTools.vala:680
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr ""
+"Mijenja orijentaciju pravougaonika za isijecanje između vodoravne i uspravne "
+"orijentacije"
+
+#: ../src/editing_tools/EditingTools.vala:753
+msgid "Unconstrained"
+msgstr "Neograničeno"
+
+#: ../src/editing_tools/EditingTools.vala:754
+msgid "Square"
+msgstr "Kvadrat"
+
+#: ../src/editing_tools/EditingTools.vala:755
+msgid "Screen"
+msgstr "Ekran"
+
+#: ../src/editing_tools/EditingTools.vala:757
+#: ../src/editing_tools/EditingTools.vala:760
+#: ../src/editing_tools/EditingTools.vala:770
+#: ../src/editing_tools/EditingTools.vala:780
+msgid "-"
+msgstr "-"
+
+#: ../src/editing_tools/EditingTools.vala:758
+msgid "SD Video (4 : 3)"
+msgstr "SD video (4 : 3)"
+
+#: ../src/editing_tools/EditingTools.vala:759
+msgid "HD Video (16 : 9)"
+msgstr "HD video (16 : 9)"
+
+#: ../src/editing_tools/EditingTools.vala:766
+msgid "Letter (8.5 x 11 in.)"
+msgstr "Pismo (8.5 x 11 in.)"
+
+#: ../src/editing_tools/EditingTools.vala:768
+msgid "Tabloid (11 x 17 in.)"
+msgstr "Tabloid (11 x 17 in.)"
+
+#: ../src/editing_tools/EditingTools.vala:775
+msgid "A4 (210 x 297 mm)"
+msgstr "A4 (210 x 297 mm)"
+
+#: ../src/editing_tools/EditingTools.vala:779
+msgid "A3 (297 x 420 mm)"
+msgstr "A3 (297×420 mm)"
+
+#: ../src/editing_tools/EditingTools.vala:1905
+msgid "Close the red-eye tool"
+msgstr "Zatvori alat za uklanjanje crvenih očiju"
+
+#: ../src/editing_tools/EditingTools.vala:1908
+msgid "Remove any red-eye effects in the selected region"
+msgstr "Ukloni efekat crvenih očiju u izabranom dijelu slike"
+
+#: ../src/editing_tools/EditingTools.vala:2244
+#: ../src/editing_tools/StraightenTool.vala:102
+msgid "_Reset"
+msgstr "_Resetuj"
+
+#: ../src/editing_tools/EditingTools.vala:2266
+msgid "Saturation:"
+msgstr "Zasićenje:"
+
+#: ../src/editing_tools/EditingTools.vala:2274
+msgid "Tint:"
+msgstr "Nijansa:"
+
+#: ../src/editing_tools/EditingTools.vala:2283
+msgid "Temperature:"
+msgstr "Temperatura:"
+
+#: ../src/editing_tools/EditingTools.vala:2291
+msgid "Shadows:"
+msgstr "Sjene:"
+
+#: ../src/editing_tools/EditingTools.vala:2299
+msgid "Highlights:"
+msgstr "Naglašeno:"
+
+#: ../src/editing_tools/EditingTools.vala:2353
+msgid "Reset Colors"
+msgstr "Povrati boje"
+
+#: ../src/editing_tools/EditingTools.vala:2353
+msgid "Reset all color adjustments to original"
+msgstr "Poništi sve promjene boja"
+
+#: ../src/editing_tools/EditingTools.vala:2705
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: ../src/editing_tools/EditingTools.vala:2718
+msgid "Tint"
+msgstr "Nijansa"
+
+#: ../src/editing_tools/EditingTools.vala:2731
+msgid "Saturation"
+msgstr "Zasićenje"
+
+#: ../src/editing_tools/EditingTools.vala:2744
+msgid "Exposure"
+msgstr "Ekspozicija"
+
+#: ../src/editing_tools/EditingTools.vala:2757
+msgid "Shadows"
+msgstr "Sjene"
+
+#: ../src/editing_tools/EditingTools.vala:2770
+msgid "Highlights"
+msgstr "Naglašeno"
+
+#: ../src/editing_tools/EditingTools.vala:2780
+msgid "Contrast Expansion"
+msgstr "Ekspanzija kontrasta"
+
+#: ../src/editing_tools/StraightenTool.vala:99
+msgid "Angle:"
+msgstr "Ugao:"
+
+#         translations.
+#: ../src/events/EventDirectoryItem.vala:83
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d fotografija/video snimak"
+msgstr[1] "%d fotografije/video snimka"
+msgstr[2] "%d fotografija/video snimaka"
+
+#: ../src/events/EventPage.vala:129
+msgid "No Event"
+msgstr "Bez događaja"
+
+#: ../src/events/EventsDirectoryPage.vala:131
+msgid "Display the comment of each event"
+msgstr "Prikaz komentara na svakom događaju"
+
+#: ../src/events/EventsDirectoryPage.vala:155
+msgid "No events"
+msgstr "Bez događaja"
+
+#: ../src/events/EventsDirectoryPage.vala:159
+msgid "No events found"
+msgstr "Nije pronađen nijedan događaj"
+
+#: ../src/events/EventsDirectoryPage.vala:230
+msgid "Events"
+msgstr "Događaji"
+
+#: ../src/events/EventsDirectoryPage.vala:244
+msgid "Undated"
+msgstr "Bez datuma"
+
+#: ../src/events/EventsDirectoryPage.vala:245
+msgid "%Y"
+msgstr "%Y"
+
+#: ../src/events/EventsDirectoryPage.vala:246
+msgid "%B"
+msgstr "%B"
+
+#: ../src/folders/Branch.vala:141
+msgid "Folders"
+msgstr "Direktoriji"
+
+#: ../src/library/Branch.vala:36 ../ui/shotwell.glade.h:32
+msgid "Library"
+msgstr "Biblioteka"
+
+#: ../src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "Uvozim..."
+
+#: ../src/library/ImportQueuePage.vala:67
+msgid "_Stop Import"
+msgstr "_Zaustavi uvoz"
+
+#: ../src/library/ImportQueuePage.vala:68
+msgid "Stop importing photos"
+msgstr "Prekini uvoz slika"
+
+#: ../src/library/ImportQueuePage.vala:124
+msgid "Preparing to import..."
+msgstr "Spremam slike za uvoz..."
+
+#: ../src/library/ImportQueuePage.vala:151
+#, c-format
+msgid "Imported %s"
+msgstr "Uveženo je %s slika"
+
+#: ../src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "Poslijednji uvoz"
+
+#: ../src/library/LibraryWindow.vala:301
+msgid "_Import From Folder..."
+msgstr "_Uvezi iz direktorija..."
+
+#: ../src/library/LibraryWindow.vala:302
+msgid "Import photos from disk to library"
+msgstr "Uvozi slike sa diska u biblioteku"
+
+#: ../src/library/LibraryWindow.vala:309
+msgid "Import From _Application..."
+msgstr "Uvezi iz _programa ..."
+
+#: ../src/library/LibraryWindow.vala:313
+msgid "Sort _Events"
+msgstr "Poredaj _događaje"
+
+#: ../src/library/LibraryWindow.vala:323
+msgid "Empty T_rash"
+msgstr "Isprazni _kantu"
+
+#: ../src/library/LibraryWindow.vala:324
+msgid "Delete all photos in the trash"
+msgstr "Briše sve slike iz kante"
+
+#: ../src/library/LibraryWindow.vala:329
+msgid "View Eve_nt for Photo"
+msgstr "Pregled do_gađaja sa slike"
+
+#: ../src/library/LibraryWindow.vala:333
+msgid "_Find"
+msgstr "_Nađi"
+
+#: ../src/library/LibraryWindow.vala:334
+msgid "Find photos and videos by search criteria"
+msgstr "Pretražuje zbirku po izabranom kriteriju"
+
+#: ../src/library/LibraryWindow.vala:345 ../src/searches/Branch.vala:77
+#: ../src/sidebar/Tree.vala:185
+msgid "Ne_w Saved Search..."
+msgstr "No_va sačuvana pretraga..."
+
+#: ../src/library/LibraryWindow.vala:367
+msgid "_Photos"
+msgstr "_Slike"
+
+#: ../src/library/LibraryWindow.vala:371
+msgid "Even_ts"
+msgstr "_Događaji"
+
+#: ../src/library/LibraryWindow.vala:390
+msgid "_Basic Information"
+msgstr "_Osnovni podaci"
+
+#: ../src/library/LibraryWindow.vala:391
+msgid "Display basic information for the selection"
+msgstr "Prikazuje osnovne podatke o izabranoj slici"
+
+#: ../src/library/LibraryWindow.vala:396
+msgid "E_xtended Information"
+msgstr "_Dodatni podaci"
+
+#: ../src/library/LibraryWindow.vala:397
+msgid "Display extended information for the selection"
+msgstr "Prikazuje dodatne podatke o izabranoj slici"
+
+#: ../src/library/LibraryWindow.vala:402
+msgid "_Search Bar"
+msgstr "_Linija pretrage"
+
+#: ../src/library/LibraryWindow.vala:403
+msgid "Display the search bar"
+msgstr "Prikaži liniju pretrage"
+
+#: ../src/library/LibraryWindow.vala:408
+msgid "S_idebar"
+msgstr "_Rubni stupac"
+
+#: ../src/library/LibraryWindow.vala:409
+msgid "Display the sidebar"
+msgstr "Prikaži bočnu traku"
+
+#: ../src/library/LibraryWindow.vala:667
+msgid "Import From Folder"
+msgstr "Uvezi iz direktorija"
+
+#: ../src/library/LibraryWindow.vala:736
+msgid "Empty Trash"
+msgstr "Isprazni kantu"
+
+#: ../src/library/LibraryWindow.vala:736
+msgid "Emptying Trash..."
+msgstr "Praznim kantu..."
+
+#: ../src/library/LibraryWindow.vala:895
+#, c-format
+msgid ""
+"Shotwell is configured to import photos to your home directory.\n"
+"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
+"span>.\n"
+"Do you want to continue importing photos?"
+msgstr ""
+"Shotwell je konfigurisan za uvoz fotografija u vaš lični direktoriju.\n"
+"Preporučujemo da ovo promijenite u <span weight=\"bold\">Uredi %s postavke</"
+"span>.\n"
+"Želite li nastaviti s uvozom fotografija?"
+
+#: ../src/library/LibraryWindow.vala:898 ../ui/shotwell.glade.h:18
+msgid "Library Location"
+msgstr "Lokacija biblioteke"
+
+#. TODO: Specify which directory/file.
+#: ../src/library/LibraryWindow.vala:911
+msgid "Photos cannot be imported from this directory."
+msgstr "Slike ne mogu biti uvežene iz ovog direktorija."
+
+#: ../src/library/LibraryWindow.vala:1199
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: ../src/library/LibraryWindow.vala:1243
+#: ../src/library/LibraryWindow.vala:1254
+msgid "Updating library..."
+msgstr "Osvježavam zbirku slika ..."
+
+#: ../src/library/LibraryWindow.vala:1260
+msgid "Preparing to auto-import photos..."
+msgstr "Spremam slike za automatski uvoz..."
+
+#: ../src/library/LibraryWindow.vala:1265
+msgid "Auto-importing photos..."
+msgstr "Automatski uvozim slike..."
+
+#: ../src/library/LibraryWindow.vala:1273
+msgid "Writing metadata to files..."
+msgstr "Upisujem metapodatake u datoteke ..."
+
+#: ../src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "Datoteke koje nedostaju"
+
+#: ../src/library/OfflinePage.vala:106
+msgid "Deleting..."
+msgstr "Brišem..."
+
+#: ../src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "Kanta"
+
+#: ../src/library/TrashPage.vala:108
+msgid "Trash is empty"
+msgstr "Kanta je prazna"
+
+#: ../src/library/TrashPage.vala:112
+msgid "Delete"
+msgstr "Obriši"
+
+#: ../src/library/TrashPage.vala:113
+msgid "Deleting Photos"
+msgstr "Brišem fotografije"
+
+#: ../src/main.vala:54
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr ""
+"Vaša zbirka slika nije kompatibilna sa ovom verzijom Shotwell.  Formirana je "
+"od Shotwell %s (izdanje %d).  Trenutna verzija je %s (izdanje %d).  Molim da "
+"uvijek koristite najnoviju verziju Shotwell."
+
+#: ../src/main.vala:59
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema %"
+"d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"Shotwell nije uspio da unaprijedi vašu zbirku slika sa verzije %s (izdanje %"
+"d) na %s (izdanje %d).  Za više podataka posjetite Shotwell Viki na %s"
+
+#: ../src/main.vala:65
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"Vaša zbirka slika nije kompatibilna sa ovom verzijom Shotwella.  Formirana "
+"je od Shotwella %s (izdanje %d).  Trenutna verzija je %s (izdanje %d).  "
+"Molim izbrišite vašu zbirku slika, brisanjem datoteke %s, a zatim ponovo "
+"uvezite slike."
+
+#: ../src/main.vala:71
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr ""
+"Pojavila se nepoznata greška prilikom pokušaja provjere Shotwell baze: %s"
+
+#: ../src/main.vala:104
+msgid "Loading Shotwell"
+msgstr "Učitavam Shotwell"
+
+#: ../src/main.vala:294
+msgid "Path to Shotwell's private data"
+msgstr "Putanja do Shotwell privatnih podataka"
+
+#: ../src/main.vala:294
+msgid "DIRECTORY"
+msgstr "DIREKTORIJ"
+
+#: ../src/main.vala:298
+msgid "Do not monitor library directory at runtime for changes"
+msgstr "Ne prati direktorij biblioteke u toku izvršenja za promjene"
+
+#: ../src/main.vala:302
+msgid "Don't display startup progress meter"
+msgstr "Ne prikazuj mjerač napretka pri startu"
+
+#: ../src/main.vala:306
+msgid "Show the application's version"
+msgstr "Prikaži verziju programa"
+
+#. init GTK (valac has already called g_threads_init())
+#: ../src/main.vala:338
+msgid "[FILE]"
+msgstr "[DATOTEKA]"
+
+#: ../src/main.vala:342
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Pokrenite „%s --help“ da biste vidjeli cijelu listu dostupnih opcija "
+"komandne linije.\n"
+
+#: ../src/photos/BmpSupport.vala:32
+msgid "BMP"
+msgstr "BMP"
+
+#: ../src/photos/JfifSupport.vala:84
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../src/photos/JfifSupport.vala:185
+#, c-format
+msgid "Low (%d%%)"
+msgstr "Nizak (%d%%)"
+
+#: ../src/photos/JfifSupport.vala:188
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "Srednji (%d%%)"
+
+#: ../src/photos/JfifSupport.vala:191
+#, c-format
+msgid "High (%d%%)"
+msgstr "Visok (%d%%)"
+
+#: ../src/photos/JfifSupport.vala:194
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "Najveći (%d%%)"
+
+#: ../src/photos/PngSupport.vala:30
+msgid "PNG"
+msgstr "PNG"
+
+#: ../src/photos/RawSupport.vala:134
+msgid "RAW"
+msgstr "RAW"
+
+#: ../src/photos/TiffSupport.vala:86
+msgid "TIFF"
+msgstr "TIFF"
+
+#: ../src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "Objavljivanje"
+
+#: ../src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "Pripremam za slanje"
+
+#: ../src/publishing/PublishingPluginHost.vala:12
+#, c-format
+msgid "Uploading %d of %d"
+msgstr "Postavljam %d od %d"
+
+#: ../src/publishing/PublishingPluginHost.vala:81
+#, c-format
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr ""
+"Ne mogu da nastavim objavljivanje na %s jer se pojavila slijedeća greška:"
+
+#: ../src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr "Izaberite drugi servis za objavljivanje slika iz menija iznad."
+
+#: ../src/publishing/PublishingUI.vala:105
+msgid "The selected photos/videos were successfully published."
+msgstr "Izabrane fotografije/video snimci su uspješno objavljeni."
+
+#: ../src/publishing/PublishingUI.vala:107
+msgid "The selected videos were successfully published."
+msgstr "Izabrani video snimak je uspješno objavljen."
+
+#: ../src/publishing/PublishingUI.vala:109
+msgid "The selected photos were successfully published."
+msgstr "Izabrane slike su uspješno objavljene."
+
+#: ../src/publishing/PublishingUI.vala:112
+msgid "The selected video was successfully published."
+msgstr "Izabrani video snimak je uspješno objavljen."
+
+#: ../src/publishing/PublishingUI.vala:114
+msgid "The selected photo was successfully published."
+msgstr "Izabrana fotografija je uspješno objavljena."
+
+#: ../src/publishing/PublishingUI.vala:122
+msgid "Fetching account information..."
+msgstr "Pribavljam podataki o računu ..."
+
+#: ../src/publishing/PublishingUI.vala:128
+msgid "Logging in..."
+msgstr "Prijavljujem se..."
+
+#: ../src/publishing/PublishingUI.vala:185
+msgid "Publish Photos"
+msgstr "Objavi slike"
+
+#: ../src/publishing/PublishingUI.vala:186
+msgid "Publish photos _to:"
+msgstr "Objavi slike _na:"
+
+#: ../src/publishing/PublishingUI.vala:188
+msgid "Publish Videos"
+msgstr "Objavi video snimak"
+
+#: ../src/publishing/PublishingUI.vala:189
+msgid "Publish videos _to"
+msgstr "Objavi video snimke _na"
+
+#: ../src/publishing/PublishingUI.vala:191
+msgid "Publish Photos and Videos"
+msgstr "Objavi fotografije i video snimke"
+
+#: ../src/publishing/PublishingUI.vala:192
+msgid "Publish photos and videos _to"
+msgstr "Objavi fotografije i video snimke _na"
+
+#. There are no enabled publishing services that accept this media type,
+#. warn the user.
+#: ../src/publishing/PublishingUI.vala:360
+msgid "Unable to publish"
+msgstr "Ne mogu objaviti"
+
+#: ../src/publishing/PublishingUI.vala:361
+#, c-format
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugins</b> tab."
+msgstr ""
+"Shotwell ne može da objavi izabrane stavke jer nemate aktivan kompatibilni "
+"dodatak za to. Da bi ovo ispravili idite na <b>Izmijeni %s Postavke</b> i "
+"uključite jedan ili više dodataka za objavljivanje pod karticomom <b>Dodaci</"
+"b>."
+
+#: ../src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "Sačuvane pretrage"
+
+#. Ordering must correspond with SearchConditionText.Context
+#: ../src/searches/SavedSearchDialog.vala:168
+msgid "contains"
+msgstr "sadrži"
+
+#. Ordering must correspond with Context
+#: ../src/searches/SavedSearchDialog.vala:169
+#: ../src/searches/SavedSearchDialog.vala:500
+msgid "is exactly"
+msgstr "je tačno"
+
+#: ../src/searches/SavedSearchDialog.vala:170
+msgid "starts with"
+msgstr "počni sa"
+
+#: ../src/searches/SavedSearchDialog.vala:171
+msgid "ends with"
+msgstr "završi sa"
+
+#: ../src/searches/SavedSearchDialog.vala:172
+msgid "does not contain"
+msgstr "ne sadrži"
+
+#: ../src/searches/SavedSearchDialog.vala:173
+#: ../src/searches/SavedSearchDialog.vala:504
+msgid "is not set"
+msgstr "nije postavljeno"
+
+#: ../src/searches/SavedSearchDialog.vala:174
+msgid "is set"
+msgstr "je postavljeno"
+
+#. Ordering must correspond with SearchConditionMediaType.Context
+#: ../src/searches/SavedSearchDialog.vala:248
+#: ../src/searches/SavedSearchDialog.vala:379
+#: ../src/searches/SavedSearchDialog.vala:444
+msgid "is"
+msgstr "je"
+
+#: ../src/searches/SavedSearchDialog.vala:249
+msgid "is not"
+msgstr "nije"
+
+#. Ordering must correspond with SearchConditionMediaType.MediaType
+#: ../src/searches/SavedSearchDialog.vala:255
+msgid "any photo"
+msgstr "bilo koja fotografija"
+
+#: ../src/searches/SavedSearchDialog.vala:256
+msgid "a raw photo"
+msgstr "sirova fotografija"
+
+#: ../src/searches/SavedSearchDialog.vala:257
+msgid "a video"
+msgstr "video snimak"
+
+#: ../src/searches/SavedSearchDialog.vala:311
+msgid "has"
+msgstr "ima"
+
+#: ../src/searches/SavedSearchDialog.vala:312
+msgid "has no"
+msgstr "nema"
+
+#: ../src/searches/SavedSearchDialog.vala:317
+msgid "modifications"
+msgstr "izmjene"
+
+#: ../src/searches/SavedSearchDialog.vala:318
+msgid "internal modifications"
+msgstr "interne izmjene"
+
+#: ../src/searches/SavedSearchDialog.vala:319
+msgid "external modifications"
+msgstr "vanjske izmjene"
+
+#. Ordering must correspond with SearchConditionFlagged.Stati
+#: ../src/searches/SavedSearchDialog.vala:373
+msgid "flagged"
+msgstr "označena"
+
+#: ../src/searches/SavedSearchDialog.vala:374
+msgid "not flagged"
+msgstr "neoznačena"
+
+#: ../src/searches/SavedSearchDialog.vala:437
+msgid "and higher"
+msgstr "i više"
+
+#: ../src/searches/SavedSearchDialog.vala:438
+msgid "only"
+msgstr "samo"
+
+#: ../src/searches/SavedSearchDialog.vala:439
+msgid "and lower"
+msgstr "i niže"
+
+#: ../src/searches/SavedSearchDialog.vala:501
+msgid "is after"
+msgstr "je poslije"
+
+#: ../src/searches/SavedSearchDialog.vala:502
+msgid "is before"
+msgstr "je prije"
+
+#: ../src/searches/SavedSearchDialog.vala:503
+msgid "is between"
+msgstr "je između"
+
+#: ../src/searches/SavedSearchDialog.vala:516
+msgid "and"
+msgstr "i"
+
+#: ../src/searches/SavedSearchDialog.vala:695
+msgid "Search"
+msgstr "Pretraga"
+
+#: ../src/searches/SavedSearchDialog.vala:700
+msgid "Cancel"
+msgstr "Otkaži"
+
+#: ../src/searches/SavedSearchDialog.vala:701
+msgid "OK"
+msgstr "_U redu"
+
+#: ../src/searches/SavedSearchDialog.vala:719
+msgid "any"
+msgstr "bilo koji"
+
+#: ../src/searches/SavedSearchDialog.vala:720
+msgid "all"
+msgstr "sve"
+
+#: ../src/searches/SavedSearchDialog.vala:721
+msgid "none"
+msgstr "ništa"
+
+#: ../src/searches/SearchBoolean.vala:157
+msgid "Any text"
+msgstr "Bilo koji tekst"
+
+#: ../src/searches/SearchBoolean.vala:160
+msgid "Title"
+msgstr "Naslov"
+
+#: ../src/searches/SearchBoolean.vala:163
+msgid "Tag"
+msgstr "Oznaka"
+
+#: ../src/searches/SearchBoolean.vala:166
+msgid "Comment"
+msgstr "Komentar"
+
+#: ../src/searches/SearchBoolean.vala:169
+msgid "Event name"
+msgstr "Ime događaja"
+
+#: ../src/searches/SearchBoolean.vala:172
+msgid "File name"
+msgstr "Naziv datoteke"
+
+#: ../src/searches/SearchBoolean.vala:175
+msgid "Media type"
+msgstr "Tip medija"
+
+#: ../src/searches/SearchBoolean.vala:178
+msgid "Flag state"
+msgstr "Stanje oznake"
+
+#: ../src/searches/SearchBoolean.vala:181
+msgid "Photo state"
+msgstr "Stanje slike"
+
+#: ../src/searches/SearchBoolean.vala:187
+msgid "Date"
+msgstr "Datum"
+
+#: ../src/sidebar/Tree.vala:189
+msgid "New _Tag..."
+msgstr "Nova _oznaka ..."
+
+#: ../src/slideshow/Slideshow.vala:22
+msgid "Slideshow Transitions"
+msgstr "Prelazi u prikazu slajdova"
+
+#: ../src/slideshow/TransitionEffects.vala:98
+msgid "(None)"
+msgstr "(Nijedan)"
+
+#: ../src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Nijedan"
+
+#: ../src/slideshow/TransitionEffects.vala:339
+msgid "Random"
+msgstr "Nasumičan"
+
+#: ../src/tags/Branch.vala:127
+msgid "Tags"
+msgstr "Oznake"
+
+#: ../ui/set_background_dialog.glade.h:1
+msgid "Set as Desktop Background"
+msgstr "Postavi kao pozadinu radne površine"
+
+#: ../ui/set_background_dialog.glade.h:2
+#: ../ui/set_background_slideshow_dialog.glade.h:6
+msgid "Use for Desktop"
+msgstr "Koristi za radnu površinu"
+
+#: ../ui/set_background_dialog.glade.h:3
+#: ../ui/set_background_slideshow_dialog.glade.h:7
+msgid "Use for Lock Screen"
+msgstr "Koristi za zakključavanje ekrana"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:1
+msgid "Set as Desktop Slideshow"
+msgstr "Postavi kao promjenjivu pozadinu radne površine"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:2
+msgid "Show each photo for"
+msgstr "Prikaži svaku sliku za"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:3
+msgid "period of time"
+msgstr "period vremena"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:4
+msgid "Generate desktop background slideshow"
+msgstr "Generiši promjenjivu pozadinu radne površine"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:5
+msgid "How long each photo is shown on the desktop background"
+msgstr "Koliko dugo će izabrana slika da bude pozadina vaše radne površine"
+
+#: ../ui/shotwell.glade.h:1
+msgid "_Name of search:"
+msgstr "_Naziv pretrage:"
+
+#: ../ui/shotwell.glade.h:2
+msgid "_Match"
+msgstr "_Poklapanje sa"
+
+#: ../ui/shotwell.glade.h:3
+msgid "of the following:"
+msgstr "od sljedećih:"
+
+#: ../ui/shotwell.glade.h:4
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Veličina ištampane slike</b>"
+
+#: ../ui/shotwell.glade.h:5
+msgid "Use a _standard size:"
+msgstr "Koristi standardnu veličinu:"
+
+#: ../ui/shotwell.glade.h:6
+msgid "Use a c_ustom size:"
+msgstr "Koristi prilagođenu veličinu:"
+
+#: ../ui/shotwell.glade.h:7
+msgid "_Match photo aspect ratio"
+msgstr "_Podesi omjer slike"
+
+#: ../ui/shotwell.glade.h:8
+msgid "_Autosize:"
+msgstr "_Automatska veličina:"
+
+#: ../ui/shotwell.glade.h:9
+msgid "<b>Titles</b>"
+msgstr "<b>Naslovi</b>"
+
+#: ../ui/shotwell.glade.h:10
+msgid "Print image _title"
+msgstr "Ispiši _naslov slike"
+
+#: ../ui/shotwell.glade.h:11
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Rezolucija piksela</b>"
+
+#: ../ui/shotwell.glade.h:12
+msgid "_Output photo at:"
+msgstr "_Ispis slike u:"
+
+#: ../ui/shotwell.glade.h:13
+msgid "pixels per inch"
+msgstr "piksela po inču"
+
+#: ../ui/shotwell.glade.h:15
+msgid "Shotwell Preferences"
+msgstr "Shotwell postavke"
+
+#: ../ui/shotwell.glade.h:16
+msgid "white"
+msgstr "bijela"
+
+#: ../ui/shotwell.glade.h:17
+msgid "black"
+msgstr "crna"
+
+#: ../ui/shotwell.glade.h:19
+msgid "_Watch library directory for new files"
+msgstr "_Prati pojavljivanje novih datoteka u direktoriju biblioteke"
+
+#: ../ui/shotwell.glade.h:20
+msgid "Metadata"
+msgstr "Metapodaci"
+
+#: ../ui/shotwell.glade.h:21
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr "Upisuj oznake, naslove i ostale _metapodatke u datoteke slika"
+
+#: ../ui/shotwell.glade.h:22
+msgid "Display"
+msgstr "Prikaži"
+
+#: ../ui/shotwell.glade.h:23
+msgid "_Import photos to:"
+msgstr "_Uvezi slike u:"
+
+#: ../ui/shotwell.glade.h:24
+msgid "_Background:"
+msgstr "_Pozadina:"
+
+#: ../ui/shotwell.glade.h:25
+msgid "Importing"
+msgstr "Uvozim"
+
+#: ../ui/shotwell.glade.h:26
+msgid "_Directory structure:"
+msgstr "Struktura _direktorija:"
+
+#: ../ui/shotwell.glade.h:27
+msgid "_Pattern:"
+msgstr "_Šablon:"
+
+#: ../ui/shotwell.glade.h:28
+msgid "Example:"
+msgstr "Primjer:"
+
+#: ../ui/shotwell.glade.h:29
+msgid "R_ename imported files to lowercase"
+msgstr "_Preimenuj uvežene datoteke na mala slova"
+
+#: ../ui/shotwell.glade.h:30
+msgid "RAW Developer"
+msgstr "RAW razvijač"
+
+#: ../ui/shotwell.glade.h:31
+msgid "De_fault:"
+msgstr "Po_drazumijevano:"
+
+#: ../ui/shotwell.glade.h:33
+msgid "E_xternal photo editor:"
+msgstr "E_ksterni foto editor:"
+
+#: ../ui/shotwell.glade.h:34
+msgid "External _RAW editor:"
+msgstr "Spoljni uređivač _RAW slika:"
+
+#: ../ui/shotwell.glade.h:35
+msgid "External Editors"
+msgstr "Spoljni uređivači"
+
+#: ../ui/shotwell.glade.h:36
+msgid "Plugins"
+msgstr "Plugini"
+
+#: ../ui/shotwell.glade.h:37
+msgid "_Delay:"
+msgstr "_Odgoda:"
+
+#: ../ui/shotwell.glade.h:38
+msgid "_Transition effect:"
+msgstr "_Efekti prijelaza:"
+
+#: ../ui/shotwell.glade.h:39
+msgid "Transition d_elay:"
+msgstr "_Zadrška između prijelaza:"
+
+#: ../ui/shotwell.glade.h:40
+msgid "Show t_itle"
+msgstr "Prikaži _naslov"
+
+#: ../ui/shotwell.glade.h:41
+msgid "seconds"
+msgstr "sekunde"
