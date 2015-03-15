@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-03-08 11:59+0000\n"
-"PO-Revision-Date: 2015-03-08 22:22+0900\n"
+"POT-Creation-Date: 2015-03-12 11:55+0000\n"
+"PO-Revision-Date: 2015-03-12 23:24+0900\n"
 "Last-Translator: Kim Boram <boramism@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/shotwell/language/"
 "ko/)\n"
@@ -163,7 +163,7 @@ msgstr ""
 "로그인 과정을 끝내려면 갤러리 3 계정을 만들어야 합니다."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: ../src/MediaPage.vala:434 ../src/photos/RawSupport.vala:300
+#: ../src/MediaPage.vala:435 ../src/photos/RawSupport.vala:300
 msgid "Shotwell"
 msgstr "샷웰"
 
@@ -2256,115 +2256,123 @@ msgstr "내보내기"
 msgid "Unable to process monitoring updates: %s"
 msgstr "감시 업데이트를 처리할 수 없습니다: %s"
 
-#: ../src/MediaPage.vala:157
+#: ../src/MediaPage.vala:158
 msgid "Adjust the size of the thumbnails"
 msgstr "섬네일 크기를 조정합니다"
 
-#: ../src/MediaPage.vala:339 ../src/PhotoPage.vala:2593
+#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2593
 #: ../src/Resources.vala:188 ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "확대(_I)"
 
-#: ../src/MediaPage.vala:340
+#: ../src/MediaPage.vala:341
 msgid "Increase the magnification of the thumbnails"
 msgstr "섬네일을 확대합니다"
 
-#: ../src/MediaPage.vala:345 ../src/PhotoPage.vala:2599
+#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2599
 #: ../src/Resources.vala:189 ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "축소(_O)"
 
-#: ../src/MediaPage.vala:346
+#: ../src/MediaPage.vala:347
 msgid "Decrease the magnification of the thumbnails"
 msgstr "섬네일을 축소합니다"
 
-#: ../src/MediaPage.vala:413
+#: ../src/MediaPage.vala:414
 msgid "Sort _Photos"
 msgstr "사진 정렬(_P)"
 
-#: ../src/MediaPage.vala:422
+#: ../src/MediaPage.vala:423
 msgid "_Play Video"
 msgstr "비디오 재생(_P)"
 
-#: ../src/MediaPage.vala:423
+#: ../src/MediaPage.vala:424
 msgid "Open the selected videos in the system video player"
 msgstr "시스템의 비디오 재생 프로그램으로 선택한 비디오 열기"
 
-#: ../src/MediaPage.vala:427 ../src/PhotoPage.vala:2642
+#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2642
 msgid "_Developer"
 msgstr "편집 프로그램(_D)"
 
-#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:99
+#: ../src/MediaPage.vala:440 ../src/camera/Branch.vala:99
 #: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
 #: ../src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "카메라"
 
-#: ../src/MediaPage.vala:450 ../src/camera/ImportPage.vala:874
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:874
 msgid "_Titles"
 msgstr "제목(_T)"
 
-#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:875
+#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:875
 msgid "Display the title of each photo"
 msgstr "각 사진의 제목을 표시합니다"
 
-#: ../src/MediaPage.vala:456 ../src/events/EventsDirectoryPage.vala:130
+#: ../src/MediaPage.vala:457 ../src/events/EventsDirectoryPage.vala:130
 msgid "_Comments"
 msgstr "설명(_C)"
 
-#: ../src/MediaPage.vala:457
+#: ../src/MediaPage.vala:458
 msgid "Display the comment of each photo"
 msgstr "각 사진의 설명 표시"
 
-#: ../src/MediaPage.vala:468 ../src/library/LibraryWindow.vala:375
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:375
 msgid "Ta_gs"
 msgstr "태그(_G)"
 
-#: ../src/MediaPage.vala:469
+#: ../src/MediaPage.vala:470
 msgid "Display each photo's tags"
 msgstr "각 사진의 태그를 표시합니다"
 
-#: ../src/MediaPage.vala:485
+#: ../src/MediaPage.vala:486
 msgid "By _Title"
 msgstr "제목 순으로(_T)"
 
-#: ../src/MediaPage.vala:486
+#: ../src/MediaPage.vala:487
 msgid "Sort photos by title"
 msgstr "사진을 제목 순으로 정렬합니다"
 
-#: ../src/MediaPage.vala:491
+#: ../src/MediaPage.vala:492
 msgid "By Exposure _Date"
 msgstr "촬영 날짜 순(_D)"
 
-#: ../src/MediaPage.vala:492
+#: ../src/MediaPage.vala:493
 msgid "Sort photos by exposure date"
 msgstr "사진을 촬영 날짜 순으로 정렬합니다"
 
-#: ../src/MediaPage.vala:497
+#: ../src/MediaPage.vala:498
 msgid "By _Rating"
 msgstr "평점으로(_R)"
 
-#: ../src/MediaPage.vala:498
+#: ../src/MediaPage.vala:499
 msgid "Sort photos by rating"
 msgstr "평점 순으로 사진 정렬"
 
-#: ../src/MediaPage.vala:508 ../src/library/LibraryWindow.vala:421
+#: ../src/MediaPage.vala:504
+msgid "By _Filename"
+msgstr "파일 이름으로(_F)"
+
+#: ../src/MediaPage.vala:505
+msgid "Sort photos by filename"
+msgstr "사진을 파일 이름 순으로 정렬합니다"
+
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:421
 msgid "_Ascending"
 msgstr "오름차순(_A)"
 
-#: ../src/MediaPage.vala:509 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:422
 msgid "Sort photos in an ascending order"
 msgstr "사진을 오름차순으로 정렬합니다"
 
-#: ../src/MediaPage.vala:514 ../src/library/LibraryWindow.vala:428
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:428
 msgid "D_escending"
 msgstr "내림차순(_E)"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:429
 msgid "Sort photos in a descending order"
 msgstr "사진을 내림차순으로 정렬합니다"
 
-#: ../src/MediaPage.vala:716
+#: ../src/MediaPage.vala:723
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
