@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-03-10 23:53+0000\n"
-"PO-Revision-Date: 2015-03-11 10:55+0500\n"
+"POT-Creation-Date: 2015-03-15 14:32+0000\n"
+"PO-Revision-Date: 2015-03-15 22:53+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh (http://www.transifex.com/projects/p/shotwell/language/"
 "kk/)\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.3\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -57,7 +57,6 @@ msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-#| msgid "Copyright 2009-2014 Yorba Foundation"
 msgid "Copyright 2009-2015 Yorba Foundation"
 msgstr "Copyright 2009-2015 Yorba Foundation"
 
@@ -163,7 +162,7 @@ msgstr ""
 "Кіруді сәтті орындау үшін сізде Gallery3 тіркелгісі болуы тиіс."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: ../src/MediaPage.vala:434 ../src/photos/RawSupport.vala:300
+#: ../src/MediaPage.vala:435 ../src/photos/RawSupport.vala:300
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1022,7 +1021,6 @@ msgid "Core Slideshow Transitions"
 msgstr "Слайдшоу арасында өту аралығы"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 
@@ -2274,115 +2272,123 @@ msgstr "Экспорт"
 msgid "Unable to process monitoring updates: %s"
 msgstr "Жаңартуларды бақылау мүмкін емес: %s"
 
-#: ../src/MediaPage.vala:157
+#: ../src/MediaPage.vala:158
 msgid "Adjust the size of the thumbnails"
 msgstr "Кіші көріністердің өлшемдерін баптау"
 
-#: ../src/MediaPage.vala:339 ../src/PhotoPage.vala:2593
+#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2593
 #: ../src/Resources.vala:188 ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "Үлке_йту"
 
-#: ../src/MediaPage.vala:340
+#: ../src/MediaPage.vala:341
 msgid "Increase the magnification of the thumbnails"
 msgstr "Кіші көріністерді үлкейту"
 
-#: ../src/MediaPage.vala:345 ../src/PhotoPage.vala:2599
+#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2599
 #: ../src/Resources.vala:189 ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "Кі_шірейту"
 
-#: ../src/MediaPage.vala:346
+#: ../src/MediaPage.vala:347
 msgid "Decrease the magnification of the thumbnails"
 msgstr "Кіші көріністерді кішірейту"
 
-#: ../src/MediaPage.vala:413
+#: ../src/MediaPage.vala:414
 msgid "Sort _Photos"
 msgstr "Фот_оларды сұрыптау"
 
-#: ../src/MediaPage.vala:422
+#: ../src/MediaPage.vala:423
 msgid "_Play Video"
 msgstr "Видеоны о_йнату"
 
-#: ../src/MediaPage.vala:423
+#: ../src/MediaPage.vala:424
 msgid "Open the selected videos in the system video player"
 msgstr "Таңдалған видеоларды жүйелік видео плеерінде ашу"
 
-#: ../src/MediaPage.vala:427 ../src/PhotoPage.vala:2642
+#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2642
 msgid "_Developer"
 msgstr "Ө_ндіруші"
 
-#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:99
+#: ../src/MediaPage.vala:440 ../src/camera/Branch.vala:99
 #: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
 #: ../src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Камера"
 
-#: ../src/MediaPage.vala:450 ../src/camera/ImportPage.vala:874
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:874
 msgid "_Titles"
 msgstr "_Атаулар"
 
-#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:875
+#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:875
 msgid "Display the title of each photo"
 msgstr "Әр фотоның атауын көрсету"
 
-#: ../src/MediaPage.vala:456 ../src/events/EventsDirectoryPage.vala:130
+#: ../src/MediaPage.vala:457 ../src/events/EventsDirectoryPage.vala:130
 msgid "_Comments"
 msgstr "_Пікірлер"
 
-#: ../src/MediaPage.vala:457
+#: ../src/MediaPage.vala:458
 msgid "Display the comment of each photo"
 msgstr "Әр фотоның түсіндірмесін көрсету"
 
-#: ../src/MediaPage.vala:468 ../src/library/LibraryWindow.vala:375
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:375
 msgid "Ta_gs"
 msgstr "Те_гтер"
 
-#: ../src/MediaPage.vala:469
+#: ../src/MediaPage.vala:470
 msgid "Display each photo's tags"
 msgstr "Әр фотоның тегтерін көрсету"
 
-#: ../src/MediaPage.vala:485
+#: ../src/MediaPage.vala:486
 msgid "By _Title"
 msgstr "А_тауы бойынша"
 
-#: ../src/MediaPage.vala:486
+#: ../src/MediaPage.vala:487
 msgid "Sort photos by title"
 msgstr "Фотоларды атаулары бойынша сұрыптау"
 
-#: ../src/MediaPage.vala:491
+#: ../src/MediaPage.vala:492
 msgid "By Exposure _Date"
 msgstr "Түсірілген _күні бойынша"
 
-#: ../src/MediaPage.vala:492
+#: ../src/MediaPage.vala:493
 msgid "Sort photos by exposure date"
 msgstr "Фотоларды түсірілген күні бойынша сұрыптау"
 
-#: ../src/MediaPage.vala:497
+#: ../src/MediaPage.vala:498
 msgid "By _Rating"
 msgstr "Ре_йтингі бойынша"
 
-#: ../src/MediaPage.vala:498
+#: ../src/MediaPage.vala:499
 msgid "Sort photos by rating"
 msgstr "Фотоларды рейтингі бойынша сұрыптау"
 
-#: ../src/MediaPage.vala:508 ../src/library/LibraryWindow.vala:421
+#: ../src/MediaPage.vala:504
+msgid "By _Filename"
+msgstr "_Файл аты бойынша"
+
+#: ../src/MediaPage.vala:505
+msgid "Sort photos by filename"
+msgstr "Фотоларды файл аты бойынша сұрыптау"
+
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:421
 msgid "_Ascending"
 msgstr "Өс_у ретімен"
 
-#: ../src/MediaPage.vala:509 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:422
 msgid "Sort photos in an ascending order"
 msgstr "Фотоларды өсу ретімен сұрыптау"
 
-#: ../src/MediaPage.vala:514 ../src/library/LibraryWindow.vala:428
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:428
 msgid "D_escending"
 msgstr "К_ему ретімен"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:429
 msgid "Sort photos in a descending order"
 msgstr "Фотоларды кему ретімен сұрыптау"
 
-#: ../src/MediaPage.vala:716
+#: ../src/MediaPage.vala:723
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
