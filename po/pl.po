@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-22 20:54+0100\n"
-"PO-Revision-Date: 2015-02-22 20:55+0100\n"
+"POT-Creation-Date: 2015-03-15 22:52+0100\n"
+"PO-Revision-Date: 2015-03-15 22:53+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -169,7 +169,7 @@ msgstr ""
 "Należy już posiadać konto w serwisie Gallery3, aby ukończyć proces logowania."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: ../src/MediaPage.vala:434 ../src/photos/RawSupport.vala:300
+#: ../src/MediaPage.vala:435 ../src/photos/RawSupport.vala:300
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -2524,115 +2524,123 @@ msgstr "Eksport"
 msgid "Unable to process monitoring updates: %s"
 msgstr "Nie można przetworzyć aktualizacji monitorowania: %s"
 
-#: ../src/MediaPage.vala:157
+#: ../src/MediaPage.vala:158
 msgid "Adjust the size of the thumbnails"
 msgstr "Dopasowuje rozmiar miniatur"
 
-#: ../src/MediaPage.vala:339 ../src/PhotoPage.vala:2593
+#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2593
 #: ../src/Resources.vala:188 ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "Pow_iększ"
 
-#: ../src/MediaPage.vala:340
+#: ../src/MediaPage.vala:341
 msgid "Increase the magnification of the thumbnails"
 msgstr "Zwiększa powiększenie miniatur"
 
-#: ../src/MediaPage.vala:345 ../src/PhotoPage.vala:2599
+#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2599
 #: ../src/Resources.vala:189 ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "P_omniejsz"
 
-#: ../src/MediaPage.vala:346
+#: ../src/MediaPage.vala:347
 msgid "Decrease the magnification of the thumbnails"
 msgstr "Zmniejsza powiększenie miniatur"
 
-#: ../src/MediaPage.vala:413
+#: ../src/MediaPage.vala:414
 msgid "Sort _Photos"
 msgstr "_Uporządkuj zdjęcia"
 
-#: ../src/MediaPage.vala:422
+#: ../src/MediaPage.vala:423
 msgid "_Play Video"
 msgstr "_Odtwórz nagranie wideo"
 
-#: ../src/MediaPage.vala:423
+#: ../src/MediaPage.vala:424
 msgid "Open the selected videos in the system video player"
 msgstr "Otwiera wybrane nagrania wideo w systemowym odtwarzaczu filmów"
 
-#: ../src/MediaPage.vala:427 ../src/PhotoPage.vala:2642
+#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2642
 msgid "_Developer"
 msgstr "_Wywoływacz"
 
-#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:99
+#: ../src/MediaPage.vala:440 ../src/camera/Branch.vala:99
 #: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
 #: ../src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Aparat"
 
-#: ../src/MediaPage.vala:450 ../src/camera/ImportPage.vala:874
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:874
 msgid "_Titles"
 msgstr "_Tytuły"
 
-#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:875
+#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:875
 msgid "Display the title of each photo"
 msgstr "Wyświetla tytuł każdego zdjęcia"
 
-#: ../src/MediaPage.vala:456 ../src/events/EventsDirectoryPage.vala:130
+#: ../src/MediaPage.vala:457 ../src/events/EventsDirectoryPage.vala:130
 msgid "_Comments"
 msgstr "_Komentarze"
 
-#: ../src/MediaPage.vala:457
+#: ../src/MediaPage.vala:458
 msgid "Display the comment of each photo"
 msgstr "Wyświetla komentarz każdego zdjęcia"
 
-#: ../src/MediaPage.vala:468 ../src/library/LibraryWindow.vala:375
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:375
 msgid "Ta_gs"
 msgstr "_Etykiety"
 
-#: ../src/MediaPage.vala:469
+#: ../src/MediaPage.vala:470
 msgid "Display each photo's tags"
 msgstr "Wyświetla etykiety każdego zdjęcia"
 
-#: ../src/MediaPage.vala:485
+#: ../src/MediaPage.vala:486
 msgid "By _Title"
 msgstr "Według _tytułu"
 
-#: ../src/MediaPage.vala:486
+#: ../src/MediaPage.vala:487
 msgid "Sort photos by title"
 msgstr "Porządkuje zdjęcia według tytułu"
 
-#: ../src/MediaPage.vala:491
+#: ../src/MediaPage.vala:492
 msgid "By Exposure _Date"
 msgstr "We_dług daty ekspozycji"
 
-#: ../src/MediaPage.vala:492
+#: ../src/MediaPage.vala:493
 msgid "Sort photos by exposure date"
 msgstr "Porządkuje zdjęcia według daty ekspozycji"
 
-#: ../src/MediaPage.vala:497
+#: ../src/MediaPage.vala:498
 msgid "By _Rating"
 msgstr "Według _oceny"
 
-#: ../src/MediaPage.vala:498
+#: ../src/MediaPage.vala:499
 msgid "Sort photos by rating"
 msgstr "Porządkuje zdjęcia według oceny"
 
-#: ../src/MediaPage.vala:508 ../src/library/LibraryWindow.vala:421
+#: ../src/MediaPage.vala:504
+msgid "By _Filename"
+msgstr "Według _nazw plików"
+
+#: ../src/MediaPage.vala:505
+msgid "Sort photos by filename"
+msgstr "Porządkuje zdjęcia według nazw plików"
+
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:421
 msgid "_Ascending"
 msgstr "_Rosnąco"
 
-#: ../src/MediaPage.vala:509 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:422
 msgid "Sort photos in an ascending order"
 msgstr "Porządkuje zdjęcia w porządku rosnącym"
 
-#: ../src/MediaPage.vala:514 ../src/library/LibraryWindow.vala:428
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:428
 msgid "D_escending"
 msgstr "Mal_ejąco"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:429
 msgid "Sort photos in a descending order"
 msgstr "Porządkuje zdjęcia w porządku malejącym"
 
-#: ../src/MediaPage.vala:716
+#: ../src/MediaPage.vala:723
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
