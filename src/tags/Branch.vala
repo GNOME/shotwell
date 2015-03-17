@@ -8,7 +8,7 @@ public class Tags.Branch : Sidebar.Branch {
     private Gee.HashMap<Tag, Tags.SidebarEntry> entry_map = new Gee.HashMap<Tag, Tags.SidebarEntry>();
     
     public Branch() {
-        base (new Tags.Grouping(),
+        base (new Tags.Header(),
             Sidebar.Branch.Options.HIDE_IF_EMPTY
                 | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD
                 | Sidebar.Branch.Options.STARTUP_OPEN_GROUPING,
@@ -29,6 +29,10 @@ public class Tags.Branch : Sidebar.Branch {
     
     public Tags.SidebarEntry? get_entry_for_tag(Tag tag) {
         return entry_map.get(tag);
+    }
+    
+    public bool is_user_renameable() {
+        return true;
     }
     
     private static int comparator(Sidebar.Entry a, Sidebar.Entry b) {
@@ -118,13 +122,13 @@ public class Tags.Branch : Sidebar.Branch {
     }
 }
 
-public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, 
+public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry, 
     Sidebar.InternalDragSourceEntry, Sidebar.Contextable {
     private Gtk.UIManager ui = new Gtk.UIManager();
     private Gtk.Menu? context_menu = null;
     
-    public Grouping() {
-        base (_("Tags"), Resources.ICON_TAGS);
+    public Header() {
+        base (_("Tags"));
         setup_context_menu();
     }
     
@@ -227,6 +231,10 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     
     protected override Page create_page() {
         return new TagPage(tag);
+    }
+    
+    public bool is_user_renameable() {
+        return true;
     }
     
     public void rename(string new_name) {

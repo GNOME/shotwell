@@ -136,9 +136,9 @@ public class Folders.Branch : Sidebar.Branch {
     }
 }
 
-private class Folders.Root : Sidebar.Grouping {
+private class Folders.Root : Sidebar.Header {
     public Root() {
-        base (_("Folders"), Folders.icon);
+        base (_("Folders"));
     }
 }
 

@@ -4,38 +4,19 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-public class Library.FlaggedBranch : Sidebar.RootOnlyBranch {
-    public FlaggedBranch() {
-        base (new Library.FlaggedSidebarEntry());
-        
+public class Library.FlaggedSidebarEntry : Library.HideablePageEntry, Sidebar.InternalDropTargetEntry {
+    public FlaggedSidebarEntry() {
         foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all())
             media_sources.flagged_contents_altered.connect(on_flagged_contents_altered);
         
-        set_show_branch(get_total_flagged() != 0);
+        visible = (get_total_flagged() != 0);
     }
     
-    ~FlaggedBranch() {
+    ~FlaggedSidebarEntry() {
         foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all())
             media_sources.flagged_contents_altered.disconnect(on_flagged_contents_altered);
-    }
-    
-    private void on_flagged_contents_altered() {
-        set_show_branch(get_total_flagged() != 0);
-    }
-    
-    private int get_total_flagged() {
-        int total = 0;
-        foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all())
-            total += media_sources.get_flagged().size;
-        
-        return total;
-    }
-}
-
-public class Library.FlaggedSidebarEntry : Sidebar.SimplePageEntry, Sidebar.InternalDropTargetEntry {
-    public FlaggedSidebarEntry() {
-    }
-    
+    } 
+       
     public override string get_sidebar_name() {
         return FlaggedPage.NAME;
     }
@@ -56,6 +37,18 @@ public class Library.FlaggedSidebarEntry : Sidebar.SimplePageEntry, Sidebar.Inte
     
     public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
         return false;
+    }
+
+    private void on_flagged_contents_altered() {
+        visible = (get_total_flagged() != 0);
+    }
+    
+    private int get_total_flagged() {
+        int total = 0;
+        foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all())
+            total += media_sources.get_flagged().size;
+        
+        return total;
     }
 }
 

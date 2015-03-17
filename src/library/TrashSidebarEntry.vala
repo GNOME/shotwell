@@ -4,12 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-public class Library.TrashBranch : Sidebar.RootOnlyBranch {
-    public TrashBranch() {
-        base (new Library.TrashSidebarEntry());
-    }
-}
-
 public class Library.TrashSidebarEntry : Sidebar.SimplePageEntry, Sidebar.InternalDropTargetEntry {
     
     public TrashSidebarEntry() {

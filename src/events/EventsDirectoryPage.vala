@@ -227,7 +227,7 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
 }
 
 public class MasterEventsDirectoryPage : EventsDirectoryPage {
-    public const string NAME = _("Events");
+    public const string NAME = _("All Events");
     
     public MasterEventsDirectoryPage() {
         base (NAME, new EventDirectoryManager(), (Gee.Collection<Event>) Event.global.get_all());

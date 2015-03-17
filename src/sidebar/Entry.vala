@@ -47,6 +47,15 @@ public interface Sidebar.RenameableEntry : Sidebar.Entry {
     public signal void sidebar_name_changed(string name);
     
     public abstract void rename(string new_name);
+    
+    // Return true to allow the user to rename the sidebar entry in the UI.
+    public abstract bool is_user_renameable();
+}
+
+public interface Sidebar.EmphasizableEntry : Sidebar.Entry {
+    public signal void is_emphasized_changed(bool emphasized);
+    
+    public abstract bool is_emphasized();
 }
 
 public interface Sidebar.DestroyableEntry : Sidebar.Entry {

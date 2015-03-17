@@ -19,10 +19,13 @@ public class Events.Branch : Sidebar.Branch {
         Event, Events.EventEntry>();
     private Events.UndatedDirectoryEntry undated_entry = new Events.UndatedDirectoryEntry();
     private Events.NoEventEntry no_event_entry = new Events.NoEventEntry();
+    private Events.MasterDirectoryEntry all_events_entry = new Events.MasterDirectoryEntry();
     
     public Branch() {
-        base (new Events.MasterDirectoryEntry(), Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
+        base (new Sidebar.Header(_("Events")), Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
             event_year_comparator);
+        
+        graft(get_root(), all_events_entry);
         
         // seed the branch
         foreach (DataObject object in Event.global.get_all())
@@ -54,8 +57,12 @@ public class Events.Branch : Sidebar.Branch {
     internal static void terminate() {
     }
     
+    public bool is_user_renameable() {
+        return true;
+    }
+    
     public Events.MasterDirectoryEntry get_master_entry() {
-        return (Events.MasterDirectoryEntry) get_root();
+        return all_events_entry;
     }
     
     private static int event_year_comparator(Sidebar.Entry a, Sidebar.Entry b) {
@@ -78,6 +85,12 @@ public class Events.Branch : Sidebar.Branch {
             return 1;
         else if (b is Events.NoEventEntry)
             return -1;
+        
+        // The All events entry should always appear on top
+        if (a is Events.MasterDirectoryEntry)
+            return -1;
+        else if (b is Events.MasterDirectoryEntry)
+            return 1;
         
         if (!sort_ascending) {
             Sidebar.Entry swap = a;
@@ -300,7 +313,8 @@ public class Events.Branch : Sidebar.Branch {
         int event_year = event_tm.year + 1900;
         
         return find_first_child(get_root(), (entry) => {
-            if ((entry is Events.UndatedDirectoryEntry) || (entry is Events.NoEventEntry))
+            if ((entry is Events.UndatedDirectoryEntry) || (entry is Events.NoEventEntry) || 
+                 entry is Events.MasterDirectoryEntry)
                 return false;
             else
                 return ((Events.YearDirectoryEntry) entry).get_year() == event_year;
@@ -472,6 +486,10 @@ public class Events.EventEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return new EventPage(event);
     }
     
+    public bool is_user_renameable() {
+        return true;
+    }
+    
     public void rename(string new_name) {
         string? prepped = Event.prep_event_name(new_name);
         if (prepped != null)
@@ -494,6 +512,7 @@ public class Events.EventEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return false;
     }
 }
+
 
 public class Events.NoEventEntry : Sidebar.SimplePageEntry {
     public NoEventEntry() {

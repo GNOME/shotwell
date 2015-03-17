@@ -42,16 +42,11 @@ public class LibraryWindow : AppWindow {
     // outside the app.
     private enum SidebarRootPosition {
         LIBRARY,
-        FLAGGED,
-        LAST_IMPORTED,
         CAMERAS,
-        IMPORT_QUEUE,
         SAVED_SEARCH,
         EVENTS,
         FOLDERS,
-        TAGS,
-        TRASH,
-        OFFLINE
+        TAGS
     }
     
     public enum TargetType {
@@ -114,12 +109,7 @@ public class LibraryWindow : AppWindow {
     private Library.Branch library_branch = new Library.Branch();
     private Tags.Branch tags_branch = new Tags.Branch();
     private Folders.Branch folders_branch = new Folders.Branch();
-    private Library.TrashBranch trash_branch = new Library.TrashBranch();
     private Events.Branch events_branch = new Events.Branch();
-    private Library.OfflineBranch offline_branch = new Library.OfflineBranch();
-    private Library.FlaggedBranch flagged_branch = new Library.FlaggedBranch();
-    private Library.LastImportBranch last_import_branch = new Library.LastImportBranch();
-    private Library.ImportQueueBranch import_queue_branch = new Library.ImportQueueBranch();
     private Camera.Branch camera_branch = new Camera.Branch();
     private Searches.Branch saved_search_branch = new Searches.Branch();
     private bool page_switching_enabled = true;
@@ -172,12 +162,7 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
         sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
         sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
-        sidebar_tree.graft(trash_branch, SidebarRootPosition.TRASH);
         sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
-        sidebar_tree.graft(offline_branch, SidebarRootPosition.OFFLINE);
-        sidebar_tree.graft(flagged_branch, SidebarRootPosition.FLAGGED);
-        sidebar_tree.graft(last_import_branch, SidebarRootPosition.LAST_IMPORTED);
-        sidebar_tree.graft(import_queue_branch, SidebarRootPosition.IMPORT_QUEUE);
         sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
         sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
         
@@ -207,7 +192,7 @@ public class LibraryWindow : AppWindow {
         menubar.no_show_all = true;
         
         // create the main layout & start at the Library page
-        create_layout(library_branch.get_main_page());
+        create_layout(library_branch.photos_entry.get_page());
         
         // settings that should persist between sessions
         load_configuration();
@@ -882,7 +867,7 @@ public class LibraryWindow : AppWindow {
     }
 
     public void enqueue_batch_import(BatchImport batch_import, bool allow_user_cancel) {
-        import_queue_branch.enqueue_and_schedule(batch_import, allow_user_cancel);
+        library_branch.import_queue_entry.enqueue_and_schedule(batch_import, allow_user_cancel);
     }
     
     private void import_reporter(ImportManifest manifest) {
@@ -1028,7 +1013,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_library_page() {
-        switch_to_page(library_branch.get_main_page());
+        switch_to_page(library_branch.photos_entry.get_page());
     }
     
     public void switch_to_event(Event event) {
@@ -1065,7 +1050,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_import_queue_page() {
-        switch_to_page(import_queue_branch.get_queue_page());
+        switch_to_page(library_branch.import_queue_entry.get_page());
     }
     
     private void on_camera_added(DiscoveredCamera camera) {
@@ -1440,7 +1425,7 @@ public class LibraryWindow : AppWindow {
     private void on_destroying_page(Sidebar.PageRepresentative entry, Page page) {
         // if page is the current page, switch to fallback before destroying
         if (page == get_current_page())
-            switch_to_page(library_branch.get_main_page());
+            switch_to_page(library_branch.photos_entry.get_page());
         
         remove_from_notebook(page);
         
@@ -1458,9 +1443,11 @@ public class LibraryWindow : AppWindow {
         // if the currently selected item is removed, want to jump to fallback page (which
         // depends on the item that was selected)
         
+        Library.LastImportSidebarEntry last_import_entry = library_branch.last_imported_entry;
+        
         // Importing... -> Last Import (if available)
-        if (selectable is Library.ImportQueueSidebarEntry && last_import_branch.get_show_branch()) {
-            switch_to_page(last_import_branch.get_main_entry().get_page());
+        if (selectable is Library.ImportQueueSidebarEntry && last_import_entry.visible) {
+            switch_to_page(last_import_entry.get_page());
             
             return;
         }
@@ -1480,7 +1467,7 @@ public class LibraryWindow : AppWindow {
         }
         
         // basic all-around default: jump to the Library page
-        switch_to_page(library_branch.get_main_page());
+        switch_to_page(library_branch.photos_entry.get_page());
     }
     
     private void subscribe_for_basic_information(Page page) {

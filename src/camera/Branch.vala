@@ -11,7 +11,7 @@ public class Camera.Branch : Sidebar.Branch {
         DiscoveredCamera, Camera.SidebarEntry>();
     
     public Branch() {
-        base (new Camera.Grouping(),
+        base (new Camera.Header(),
             Sidebar.Branch.Options.HIDE_IF_EMPTY | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD,
             camera_comparator);
         
@@ -80,9 +80,9 @@ public class Camera.Branch : Sidebar.Branch {
     }
 }
 
-public class Camera.Grouping : Sidebar.Grouping {
-    public Grouping() {
-        base (_("Cameras"), Camera.Branch.cameras_icon);
+public class Camera.Header : Sidebar.Header {
+    public Header() {
+        base (_("Cameras"));
     }
 }
 

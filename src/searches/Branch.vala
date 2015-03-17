@@ -9,7 +9,7 @@ public class Searches.Branch : Sidebar.Branch {
         new Gee.HashMap<SavedSearch, Searches.SidebarEntry>();
     
     public Branch() {
-        base (new Searches.Grouping(),
+        base (new Searches.Header(),
             Sidebar.Branch.Options.HIDE_IF_EMPTY
                 | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD
                 | Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
@@ -60,12 +60,12 @@ public class Searches.Branch : Sidebar.Branch {
     }
 }
 
-public class Searches.Grouping : Sidebar.Grouping, Sidebar.Contextable {
+public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
     private Gtk.UIManager ui = new Gtk.UIManager();
     private Gtk.Menu? context_menu = null;
     
-    public Grouping() {
-        base (_("Saved Searches"), "find");
+    public Header() {
+        base (_("Saved Searches"));
         setup_context_menu();
     }
     
@@ -132,6 +132,10 @@ public class Searches.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.Renameable
     
     protected override Page create_page() {
         return new SavedSearchPage(search);
+    }
+    
+    public bool is_user_renameable() {
+        return true;
     }
     
     public void rename(string new_name) {

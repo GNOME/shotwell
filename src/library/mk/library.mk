@@ -13,11 +13,11 @@ UNIT_DIR := library
 UNIT_FILES := \
 	LibraryWindow.vala \
 	Branch.vala \
-	TrashBranch.vala \
-	OfflineBranch.vala \
-	FlaggedBranch.vala \
-	LastImportBranch.vala \
-	ImportQueueBranch.vala \
+        TrashSidebarEntry.vala \
+        OfflineSidebarEntry.vala \
+        FlaggedSidebarEntry.vala \
+        LastImportSidebarEntry.vala \
+        ImportQueueSidebarEntry.vala \
 	FlaggedPage.vala \
 	ImportQueuePage.vala \
 	LastImportPage.vala \

@@ -37,8 +37,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     private class RootWrapper : EntryWrapper {
         public int root_position;
         
-        public RootWrapper(Gtk.TreeModel model, Sidebar.Entry entry, Gtk.TreePath path, int root_position) 
-            requires (root_position >= 0) {
+        public RootWrapper(Gtk.TreeModel model, Sidebar.Entry entry, Gtk.TreePath path, int root_position) {
             base (model, entry, path);
             
             this.root_position = root_position;
@@ -71,8 +70,11 @@ public class Sidebar.Tree : Gtk.TreeView {
     private bool mask_entry_selected_signal = false;
     private weak EntryWrapper? selected_wrapper = null;
     private Gtk.Menu? default_context_menu = null;
+    private bool expander_called_manually = false;
+    private int expander_special_count = 0;
     private bool is_internal_drag_in_progress = false;
     private Sidebar.Entry? internal_drag_source_entry = null;
+    private Gtk.TreeRowReference? old_path_ref = null;
     
     public signal void entry_selected(Sidebar.SelectableEntry selectable);
     
@@ -99,6 +101,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         icon_renderer.follow_state = true;
         text_column.pack_start(icon_renderer, false);
         text_column.add_attribute(icon_renderer, "icon_name", Columns.ICON);
+        text_column.set_cell_data_func(icon_renderer, icon_renderer_function);
         text_renderer = new Gtk.CellRendererText();
         text_renderer.ellipsize = Pango.EllipsizeMode.END;
         text_renderer.editing_canceled.connect(on_editing_canceled);
@@ -126,6 +129,9 @@ public class Sidebar.Tree : Gtk.TreeView {
         selection.set_mode(Gtk.SelectionMode.BROWSE);
         selection.set_select_function(on_selection);
         
+        test_expand_row.connect(on_toggle_row);
+        test_collapse_row.connect(on_toggle_row);
+        
         // It Would Be Nice if the target entries and actions were gleaned by querying each 
         // Sidebar.Entry as it was added, but that's a tad too complicated for our needs
         // currently
@@ -150,6 +156,14 @@ public class Sidebar.Tree : Gtk.TreeView {
     ~Tree() {
         text_renderer.editing_canceled.disconnect(on_editing_canceled);
         text_renderer.editing_started.disconnect(on_editing_started);
+    }
+    
+    public void icon_renderer_function(Gtk.CellLayout layout, Gtk.CellRenderer renderer, Gtk.TreeModel model, Gtk.TreeIter iter) {
+        EntryWrapper? wrapper = get_wrapper_at_iter(iter);
+        if (wrapper == null) {
+            return;
+        }
+        renderer.visible = !(wrapper.entry is Sidebar.Header);
     }
     
     private void on_drag_begin(Gdk.DragContext ctx) {
@@ -261,19 +275,43 @@ public class Sidebar.Tree : Gtk.TreeView {
     public bool is_selected(Sidebar.Entry entry) {
         EntryWrapper? wrapper = get_wrapper(entry);
         
-        return (wrapper != null) ? get_selection().path_is_selected(wrapper.get_path()) : false;
+        // Even though get_selection() does not report its return type as nullable, it can be null
+        // if the window has been destroyed.
+        Gtk.TreeSelection selection = get_selection();
+        if (selection == null)
+            return false;
+        
+        return (wrapper != null) ? selection.path_is_selected(wrapper.get_path()) : false;
     }
     
     public bool is_any_selected() {
         return get_selection().count_selected_rows() != 0;
     }
-    
+
     private Gtk.TreePath? get_selected_path() {
         Gtk.TreeModel model;
-        GLib.List<Gtk.TreePath> rows = get_selection().get_selected_rows(out model);
+        Gtk.TreeSelection? selection = get_selection();
+        if (selection == null){
+            return null;
+        }
+        GLib.List<Gtk.TreePath> rows = selection.get_selected_rows(out model);
         assert(rows.length() == 0 || rows.length() == 1);
-        
+
         return rows.length() != 0 ? rows.nth_data(0) : null;
+    }
+
+    private string get_name_for_entry(Sidebar.Entry entry) {
+        string name = guarded_markup_escape_text(entry.get_sidebar_name());
+        
+        Sidebar.EmphasizableEntry? emphasizable_entry = entry as Sidebar.EmphasizableEntry;
+        if (emphasizable_entry != null && emphasizable_entry.is_emphasized())
+            name = "<b>%s</b>".printf(name);
+        
+        return name;
+    }
+    
+    public virtual bool accept_cursor_changed() {
+        return true;
     }
     
     public override void cursor_changed() {
@@ -281,21 +319,28 @@ public class Sidebar.Tree : Gtk.TreeView {
         if (path == null) {
             if (base.cursor_changed != null)
                 base.cursor_changed();
-            
             return;
         }
         
         EntryWrapper? wrapper = get_wrapper_at_path(path);
-      
-        selected_wrapper = wrapper;
         
-        if (editing_disabled == 0 && wrapper != null)
-            text_renderer.editable = wrapper.entry is Sidebar.RenameableEntry;
-        
-        if (wrapper != null && !mask_entry_selected_signal) {
-            Sidebar.SelectableEntry? selectable = wrapper.entry as Sidebar.SelectableEntry;
-            if (selectable != null)
-                entry_selected(selectable);
+        if (selected_wrapper != wrapper) {
+            EntryWrapper old_wrapper = selected_wrapper;
+            selected_wrapper = wrapper;
+            
+            if (editing_disabled == 0 && wrapper != null && wrapper.entry is Sidebar.RenameableEntry)
+                text_renderer.editable = ((Sidebar.RenameableEntry) wrapper.entry).is_user_renameable();
+            
+            if (wrapper != null && !mask_entry_selected_signal) {
+                Sidebar.SelectableEntry? selectable = wrapper.entry as Sidebar.SelectableEntry;
+                if (selectable != null) {
+                    if (accept_cursor_changed()) {
+                        entry_selected(selectable);
+                    } else {
+                        place_cursor(old_wrapper.entry, true);
+                    }
+                }
+            }
         }
         
         if (base.cursor_changed != null)
@@ -311,11 +356,14 @@ public class Sidebar.Tree : Gtk.TreeView {
         Gtk.TreePath? path = get_selected_path();
         if (path != null && editing_disabled > 0 && --editing_disabled == 0) {
             EntryWrapper? wrapper = get_wrapper_at_path(path);
-            text_renderer.editable = (wrapper != null && (wrapper.entry is Sidebar.RenameableEntry));
+            if (wrapper != null && (wrapper.entry is Sidebar.RenameableEntry))
+                text_renderer.editable = ((Sidebar.RenameableEntry) wrapper.entry).
+                    is_user_renameable();
         }
     }
     
     public void toggle_branch_expansion(Gtk.TreePath path, bool expand_all) {
+        expander_called_manually = true;
         if (is_row_expanded(path))
             collapse_row(path);
         else
@@ -323,6 +371,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     }
     
     public bool expand_to_entry(Sidebar.Entry entry) {
+        expander_called_manually = true;
         EntryWrapper? wrapper = get_wrapper(entry);
         if (wrapper == null)
             return false;
@@ -333,6 +382,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     }
     
     public void expand_to_first_child(Sidebar.Entry entry) {
+        expander_called_manually = true;
         EntryWrapper? wrapper = get_wrapper(entry);
         if (wrapper == null)
             return;
@@ -436,7 +486,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         assert(!entry_map.has_key(entry));
         entry_map.set(entry, wrapper);
         
-        store.set(assoc_iter, Columns.NAME, guarded_markup_escape_text(entry.get_sidebar_name()));
+        store.set(assoc_iter, Columns.NAME, get_name_for_entry(entry));
         store.set(assoc_iter, Columns.TOOLTIP, guarded_markup_escape_text(entry.get_sidebar_tooltip()));
         store.set(assoc_iter, Columns.WRAPPER, wrapper);
         load_entry_icons(assoc_iter);
@@ -449,6 +499,10 @@ public class Sidebar.Tree : Gtk.TreeView {
             pageable.page_created.connect(on_sidebar_page_created);
             pageable.destroying_page.connect(on_sidebar_destroying_page);
         }
+
+        Sidebar.EmphasizableEntry? emphasizable = entry as Sidebar.EmphasizableEntry;
+        if (emphasizable != null)
+            emphasizable.is_emphasized_changed.connect(on_is_emphasized_changed);
         
         Sidebar.RenameableEntry? renameable = entry as Sidebar.RenameableEntry;
         if (renameable != null)
@@ -466,7 +520,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         EntryWrapper new_wrapper = new EntryWrapper(store, entry, store.get_path(new_iter));
         entry_map.set(entry, new_wrapper);
         
-        store.set(new_iter, Columns.NAME, guarded_markup_escape_text(entry.get_sidebar_name()));
+        store.set(new_iter, Columns.NAME, get_name_for_entry(entry));
         store.set(new_iter, Columns.TOOLTIP, guarded_markup_escape_text(entry.get_sidebar_tooltip()));
         store.set(new_iter, Columns.WRAPPER, new_wrapper);
         load_entry_icons(new_iter);
@@ -557,6 +611,10 @@ public class Sidebar.Tree : Gtk.TreeView {
         Sidebar.RenameableEntry? renameable = entry as Sidebar.RenameableEntry;
         if (renameable != null)
             renameable.sidebar_name_changed.disconnect(on_sidebar_name_changed);
+        
+        Sidebar.EmphasizableEntry? emphasizable = entry as Sidebar.EmphasizableEntry;
+        if (emphasizable != null)
+            emphasizable.is_emphasized_changed.disconnect(on_is_emphasized_changed);
         
         bool removed = entry_map.unset(entry);
         assert(removed);
@@ -692,20 +750,28 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         store.set(wrapper.get_iter(), Columns.ICON, icon);
     }
+
+    private void rename_entry(Sidebar.Entry entry) {
+        EntryWrapper? wrapper = get_wrapper(entry);
+        assert(wrapper != null);
+        
+        store.set(wrapper.get_iter(), Columns.NAME, get_name_for_entry(entry));
+    }
+    
+    private void on_sidebar_name_changed(Sidebar.Entry entry, string name) {
+        rename_entry(entry);
+    }
     
     private void on_sidebar_page_created(Sidebar.PageRepresentative entry, Page page) {
         page_created(entry, page);
     }
     
-    private void on_sidebar_destroying_page(Sidebar.PageRepresentative entry, Page page) {
-        destroying_page(entry, page);
+    private void on_is_emphasized_changed(Sidebar.EmphasizableEntry entry, bool is_emphasized) {
+        rename_entry(entry);
     }
     
-    private void on_sidebar_name_changed(Sidebar.RenameableEntry entry, string name) {
-        EntryWrapper? wrapper = get_wrapper(entry);
-        assert(wrapper != null);
-        
-        store.set(wrapper.get_iter(), Columns.NAME, guarded_markup_escape_text(name));
+    private void on_sidebar_destroying_page(Sidebar.PageRepresentative entry, Page page) {
+        destroying_page(entry, page);
     }
     
     private void load_entry_icons(Gtk.TreeIter iter) {
@@ -799,6 +865,42 @@ public class Sidebar.Tree : Gtk.TreeView {
         return true;
     }
     
+    public bool on_toggle_row(Gtk.TreeIter iter, Gtk.TreePath path) {
+        // Determine whether to allow the row to toggle
+        EntryWrapper? wrapper = get_wrapper_at_iter(iter);
+        if (wrapper == null) {
+            return false; // don't affect things
+        }
+        
+        // Most of the time, only allow manual toggles
+        bool should_allow_toggle = expander_called_manually;
+        
+        // Cancel out the manual flag
+        expander_called_manually = false;
+        
+        // If we are an expanded parent entry with content
+        if (is_row_expanded(path) && store.iter_has_child(iter) && wrapper.entry is Sidebar.SelectableEntry) {
+            // We are taking a special action
+            expander_special_count++;
+            if (expander_special_count == 1) {
+                // Workaround that prevents arrows from double-toggling
+                return true;
+            } else {
+                // Toggle only if non-manual, as opposed to the usual behavior
+                should_allow_toggle = !should_allow_toggle;
+            }
+        } else {
+            // Reset the special behavior count
+            expander_special_count = 0;
+        }
+        
+        if (should_allow_toggle) {
+            return false;
+        }
+        // Prevent branch expansion toggle
+        return true;
+    }
+    
     public override bool button_press_event(Gdk.EventButton event) {
         Gtk.TreePath? path = get_path_from_event(event);
 
@@ -813,19 +915,29 @@ public class Sidebar.Tree : Gtk.TreeView {
                 popup_context_menu(path, event);
             else
                 popup_default_context_menu(event);
-        } else if (event.button == 1 && event.type == Gdk.EventType.2BUTTON_PRESS) {
-            // double left click
-            if (path != null) {
-                toggle_branch_expansion(path, false);
-                
-                if (can_rename_path(path))
-                    return false;
-            }
         } else if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS) {
+            if (path == null) {
+                old_path_ref = null;
+                return base.button_press_event(event);
+            }
+            
+            EntryWrapper? wrapper = get_wrapper_at_path(path);
+            
+            if (wrapper == null) {
+                old_path_ref = null;
+                return base.button_press_event(event);
+            }
+            
+            // Enable single click to toggle tree entries (bug 4985)
+            if (wrapper.entry is Sidebar.ExpandableEntry
+                || wrapper.entry is Sidebar.InternalDropTargetEntry) {
+                // all labels are InternalDropTargetEntries
+                toggle_branch_expansion(path, false);
+            }
+            
             // Is this a click on an already-highlighted tree item?
-            Gtk.TreePath? cursor_path = null;
-            get_cursor(out cursor_path, null);
-            if ((cursor_path != null) && (cursor_path.compare(path) == 0)) {
+            if ((old_path_ref != null) && (old_path_ref.get_path() != null)
+                && (old_path_ref.get_path().compare(path) == 0)) {
                 // yes, don't allow single-click editing, but 
                 // pass the event on for dragging.
                 text_renderer.editable = false;
@@ -834,9 +946,13 @@ public class Sidebar.Tree : Gtk.TreeView {
             
             // Got click on different tree item, make sure it is editable
             // if it needs to be.
-            if (path != null && get_wrapper_at_path(path).entry is Sidebar.RenameableEntry) {
+            if (wrapper.entry is Sidebar.RenameableEntry &&
+                ((Sidebar.RenameableEntry) wrapper.entry).is_user_renameable()) {
                 text_renderer.editable = true;
             }
+            
+            // Remember what tree item is highlighted for next time.
+            old_path_ref = new Gtk.TreeRowReference(store, path);
         }
 
         return base.button_press_event(event);
@@ -1024,6 +1140,9 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         Sidebar.RenameableEntry? renameable = wrapper.entry as Sidebar.RenameableEntry;
         if (renameable == null)
+            return false;
+        
+        if (wrapper.entry is Sidebar.Header)
             return false;
         
         get_selection().select_path(path);
