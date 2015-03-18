@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-03-11 20:26+0000\n"
+"POT-Creation-Date: 2015-03-18 11:16+0000\n"
 "PO-Revision-Date: 2015-03-12 10:01+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <gnome-sk-list@gnome.org>\n"
@@ -2572,7 +2572,7 @@ msgstr "Komentár"
 msgid "Display the comment of each photo"
 msgstr "Zobrazí komentár ku každej fotografii"
 
-#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:375
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:360
 msgid "Ta_gs"
 msgstr "_Značky"
 
@@ -2612,19 +2612,19 @@ msgstr "Podľa názvu _súboru"
 msgid "Sort photos by filename"
 msgstr "Usporiada fotografie podľa názvu súboru"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:421
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:406
 msgid "_Ascending"
 msgstr "Vz_ostupne"
 
-#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:407
 msgid "Sort photos in an ascending order"
 msgstr "Usporiadať fotografie vo vzostupnom poradí"
 
-#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:428
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:413
 msgid "D_escending"
 msgstr "Zo_stupne"
 
-#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:414
 msgid "Sort photos in a descending order"
 msgstr "Usporiadať fotografie v zostupnom poradí"
 
@@ -2669,7 +2669,7 @@ msgid "Photo source file missing: %s"
 msgstr "Chýba zdrojový súbor fotografie: %s"
 
 #: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
-#: ../src/library/LibraryWindow.vala:359
+#: ../src/library/LibraryWindow.vala:344
 msgid "_View"
 msgstr "_Zobraziť"
 
@@ -3058,7 +3058,7 @@ msgid "_Apply"
 msgstr "_Použiť"
 
 #: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
-#: ../src/library/LibraryWindow.vala:355
+#: ../src/library/LibraryWindow.vala:340
 msgid "_Edit"
 msgstr "_Upraviť"
 
@@ -3071,7 +3071,7 @@ msgid "Fulls_creen"
 msgstr "Na _celú obrazovku"
 
 #: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
-#: ../src/library/LibraryWindow.vala:379
+#: ../src/library/LibraryWindow.vala:364
 msgid "_Help"
 msgstr "_Pomocník"
 
@@ -3819,6 +3819,7 @@ msgid "Flagged"
 msgstr "Označené"
 
 #: ../src/SearchFilter.vala:593 ../src/SearchFilter.vala:594
+#: ../src/library/Branch.vala:97
 msgid "Photos"
 msgstr "Fotografie"
 
@@ -4102,7 +4103,7 @@ msgid "Database file:"
 msgstr "Súbor databázy:"
 
 #: ../src/data_imports/DataImportsUI.vala:112
-#: ../src/library/LibraryWindow.vala:898
+#: ../src/library/LibraryWindow.vala:883
 msgid "_Import"
 msgstr "_Importovať"
 
@@ -4143,7 +4144,7 @@ msgstr ""
 "Popis chyby: \n"
 "%s"
 
-#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:351
+#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:336
 msgid "_File"
 msgstr "_Súbor"
 
@@ -4163,7 +4164,7 @@ msgstr "Uložiť fotografiu pod novým názvom"
 msgid "Print the photo to a printer connected to your computer"
 msgstr "Vytlačiť fotografiu na tlačiarni pripojenej k vášmu počítaču"
 
-#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:363
+#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:348
 msgid "_Photo"
 msgstr "_Fotografia"
 
@@ -4340,6 +4341,10 @@ msgstr "Rozšíriť kontrast"
 msgid "Angle:"
 msgstr "Uhol:"
 
+#: ../src/events/Branch.vala:25
+msgid "Events"
+msgstr "Udalosti"
+
 #: ../src/events/EventDirectoryItem.vala:83
 #, c-format
 msgid "%d Photo/Video"
@@ -4366,8 +4371,8 @@ msgid "No events found"
 msgstr "Neboli nájdené žiadne udalosti"
 
 #: ../src/events/EventsDirectoryPage.vala:230
-msgid "Events"
-msgstr "Udalosti"
+msgid "All Events"
+msgstr "Všetky udalosti"
 
 #: ../src/events/EventsDirectoryPage.vala:244
 msgid "Undated"
@@ -4385,7 +4390,8 @@ msgstr "%B"
 msgid "Folders"
 msgstr "Priečinky"
 
-#: ../src/library/Branch.vala:36 ../ui/shotwell.glade.h:32
+#: ../src/library/Branch.vala:30 ../src/library/Branch.vala:130
+#: ../ui/shotwell.glade.h:32
 msgid "Library"
 msgstr "Knižnica"
 
@@ -4414,101 +4420,101 @@ msgstr "Importovaný súbor „%s“"
 msgid "Last Import"
 msgstr "Posledné importovanie"
 
-#: ../src/library/LibraryWindow.vala:301
+#: ../src/library/LibraryWindow.vala:286
 msgid "_Import From Folder..."
 msgstr "_Importovať z priečinka..."
 
-#: ../src/library/LibraryWindow.vala:302
+#: ../src/library/LibraryWindow.vala:287
 msgid "Import photos from disk to library"
 msgstr "Importovať fotografie z disku do knižnice"
 
-#: ../src/library/LibraryWindow.vala:309
+#: ../src/library/LibraryWindow.vala:294
 msgid "Import From _Application..."
 msgstr "Importovať z _aplikácie..."
 
-#: ../src/library/LibraryWindow.vala:313
+#: ../src/library/LibraryWindow.vala:298
 msgid "Sort _Events"
 msgstr "Zora_diť udalosti"
 
-#: ../src/library/LibraryWindow.vala:323
+#: ../src/library/LibraryWindow.vala:308
 msgid "Empty T_rash"
 msgstr "_Vyprázdniť kôš"
 
 # tooltip
-#: ../src/library/LibraryWindow.vala:324
+#: ../src/library/LibraryWindow.vala:309
 msgid "Delete all photos in the trash"
 msgstr "Odstráni všetky fotografie v koši"
 
-#: ../src/library/LibraryWindow.vala:329
+#: ../src/library/LibraryWindow.vala:314
 msgid "View Eve_nt for Photo"
 msgstr "Zobraziť u_dalosť fotografie"
 
-#: ../src/library/LibraryWindow.vala:333
+#: ../src/library/LibraryWindow.vala:318
 msgid "_Find"
 msgstr "_Nájsť"
 
-#: ../src/library/LibraryWindow.vala:334
+#: ../src/library/LibraryWindow.vala:319
 msgid "Find photos and videos by search criteria"
 msgstr "Nájsť fotografie a videá podľa kritérií hľadania"
 
-#: ../src/library/LibraryWindow.vala:345 ../src/searches/Branch.vala:77
-#: ../src/sidebar/Tree.vala:185
+#: ../src/library/LibraryWindow.vala:330 ../src/searches/Branch.vala:77
+#: ../src/sidebar/Tree.vala:199
 msgid "Ne_w Saved Search..."
 msgstr "No_vé uložené vyhľadávanie..."
 
-#: ../src/library/LibraryWindow.vala:367
+#: ../src/library/LibraryWindow.vala:352
 msgid "_Photos"
 msgstr "_Fotografie"
 
-#: ../src/library/LibraryWindow.vala:371
+#: ../src/library/LibraryWindow.vala:356
 msgid "Even_ts"
 msgstr "U_dalosti"
 
-#: ../src/library/LibraryWindow.vala:390
+#: ../src/library/LibraryWindow.vala:375
 msgid "_Basic Information"
 msgstr "_Základné informácie"
 
-#: ../src/library/LibraryWindow.vala:391
+#: ../src/library/LibraryWindow.vala:376
 msgid "Display basic information for the selection"
 msgstr "Zobraziť základné informácie pre výber"
 
-#: ../src/library/LibraryWindow.vala:396
+#: ../src/library/LibraryWindow.vala:381
 msgid "E_xtended Information"
 msgstr "_Rozšírené informácie"
 
-#: ../src/library/LibraryWindow.vala:397
+#: ../src/library/LibraryWindow.vala:382
 msgid "Display extended information for the selection"
 msgstr "Zobraziť rozšírené informácie pre výber"
 
-#: ../src/library/LibraryWindow.vala:402
+#: ../src/library/LibraryWindow.vala:387
 msgid "_Search Bar"
 msgstr "_Vyhľadávacia lišta"
 
-#: ../src/library/LibraryWindow.vala:403
+#: ../src/library/LibraryWindow.vala:388
 msgid "Display the search bar"
 msgstr "Zobrazí vyhľadávaciu lištu"
 
-#: ../src/library/LibraryWindow.vala:408
+#: ../src/library/LibraryWindow.vala:393
 msgid "S_idebar"
 msgstr "Bočný panel"
 
-#: ../src/library/LibraryWindow.vala:409
+#: ../src/library/LibraryWindow.vala:394
 msgid "Display the sidebar"
 msgstr "Zobraz bočný panel"
 
-#: ../src/library/LibraryWindow.vala:667
+#: ../src/library/LibraryWindow.vala:652
 msgid "Import From Folder"
 msgstr "Importovať z priečinka"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:721
 msgid "Empty Trash"
 msgstr "Vyprázdniť kôš"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:721
 msgid "Emptying Trash..."
 msgstr "Vyprázdňuje sa kôš..."
 
-#: ../src/library/LibraryWindow.vala:895
+#: ../src/library/LibraryWindow.vala:880
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4522,34 +4528,34 @@ msgstr ""
 "programu %s</span>.\n"
 "Chcete pokračovať s importovaním fotografií?"
 
-#: ../src/library/LibraryWindow.vala:898 ../ui/shotwell.glade.h:18
+#: ../src/library/LibraryWindow.vala:883 ../ui/shotwell.glade.h:18
 msgid "Library Location"
 msgstr "Umiestnenie knižnice"
 
 #. TODO: Specify which directory/file.
-#: ../src/library/LibraryWindow.vala:911
+#: ../src/library/LibraryWindow.vala:896
 msgid "Photos cannot be imported from this directory."
 msgstr "Fotografie sa nedajú importovať z tohto adresára."
 
-#: ../src/library/LibraryWindow.vala:1199
+#: ../src/library/LibraryWindow.vala:1184
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: ../src/library/LibraryWindow.vala:1243
-#: ../src/library/LibraryWindow.vala:1254
+#: ../src/library/LibraryWindow.vala:1228
+#: ../src/library/LibraryWindow.vala:1239
 msgid "Updating library..."
 msgstr "Aktualizuje sa knižnica..."
 
-#: ../src/library/LibraryWindow.vala:1260
+#: ../src/library/LibraryWindow.vala:1245
 msgid "Preparing to auto-import photos..."
 msgstr "Pripravuje sa automatické importovanie fotografií..."
 
-#: ../src/library/LibraryWindow.vala:1265
+#: ../src/library/LibraryWindow.vala:1250
 msgid "Auto-importing photos..."
 msgstr "Prebieha automatické importovanie fotografií..."
 
-#: ../src/library/LibraryWindow.vala:1273
+#: ../src/library/LibraryWindow.vala:1258
 msgid "Writing metadata to files..."
 msgstr "Zapisujú sa metaúdaje do súborov..."
 
@@ -4909,27 +4915,27 @@ msgstr "je medzi"
 msgid "and"
 msgstr "a"
 
-#: ../src/searches/SavedSearchDialog.vala:695
+#: ../src/searches/SavedSearchDialog.vala:697
 msgid "Search"
 msgstr "Hľadať"
 
-#: ../src/searches/SavedSearchDialog.vala:700
+#: ../src/searches/SavedSearchDialog.vala:702
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: ../src/searches/SavedSearchDialog.vala:701
+#: ../src/searches/SavedSearchDialog.vala:703
 msgid "OK"
 msgstr "OK"
 
-#: ../src/searches/SavedSearchDialog.vala:719
+#: ../src/searches/SavedSearchDialog.vala:721
 msgid "any"
 msgstr "aspoň jedno"
 
-#: ../src/searches/SavedSearchDialog.vala:720
+#: ../src/searches/SavedSearchDialog.vala:722
 msgid "all"
 msgstr "všetky"
 
-#: ../src/searches/SavedSearchDialog.vala:721
+#: ../src/searches/SavedSearchDialog.vala:723
 msgid "none"
 msgstr "žiadne"
 
@@ -4973,7 +4979,7 @@ msgstr "Stav fotografie"
 msgid "Date"
 msgstr "Dátum"
 
-#: ../src/sidebar/Tree.vala:189
+#: ../src/sidebar/Tree.vala:203
 msgid "New _Tag..."
 msgstr "Nová _značka"
 
@@ -4993,7 +4999,7 @@ msgstr "Žiadny"
 msgid "Random"
 msgstr "Náhodná"
 
-#: ../src/tags/Branch.vala:127
+#: ../src/tags/Branch.vala:131
 msgid "Tags"
 msgstr "Značky"
 
