@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-02-23 11:50+0000\n"
-"PO-Revision-Date: 2015-02-23 22:18+0800\n"
+"POT-Creation-Date: 2015-03-19 11:55+0000\n"
+"PO-Revision-Date: 2015-03-19 22:02+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/shotwell/"
 "language/zh_TW/)\n"
@@ -154,7 +154,7 @@ msgstr ""
 "您必須已經註冊 Gallery3 帳號才能完成登入程序。"
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: ../src/MediaPage.vala:434 ../src/photos/RawSupport.vala:300
+#: ../src/MediaPage.vala:435 ../src/photos/RawSupport.vala:300
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -2201,115 +2201,123 @@ msgstr "匯出"
 msgid "Unable to process monitoring updates: %s"
 msgstr "無法處理監視更新：%s"
 
-#: ../src/MediaPage.vala:157
+#: ../src/MediaPage.vala:158
 msgid "Adjust the size of the thumbnails"
 msgstr "調整縮圖大小"
 
-#: ../src/MediaPage.vala:339 ../src/PhotoPage.vala:2593 ../src/Resources.vala:188
+#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2593 ../src/Resources.vala:188
 #: ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "拉近(_I)"
 
-#: ../src/MediaPage.vala:340
+#: ../src/MediaPage.vala:341
 msgid "Increase the magnification of the thumbnails"
 msgstr "放大縮圖"
 
-#: ../src/MediaPage.vala:345 ../src/PhotoPage.vala:2599 ../src/Resources.vala:189
+#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2599 ../src/Resources.vala:189
 #: ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "拉遠(_O)"
 
-#: ../src/MediaPage.vala:346
+#: ../src/MediaPage.vala:347
 msgid "Decrease the magnification of the thumbnails"
 msgstr "縮小縮圖"
 
-#: ../src/MediaPage.vala:413
+#: ../src/MediaPage.vala:414
 msgid "Sort _Photos"
 msgstr "排序相片(_P)"
 
-#: ../src/MediaPage.vala:422
+#: ../src/MediaPage.vala:423
 msgid "_Play Video"
 msgstr "播放視訊(_P)"
 
-#: ../src/MediaPage.vala:423
+#: ../src/MediaPage.vala:424
 msgid "Open the selected videos in the system video player"
 msgstr "在系統影片播放程式內開啟所選的視訊"
 
-#: ../src/MediaPage.vala:427 ../src/PhotoPage.vala:2642
+#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2642
 msgid "_Developer"
 msgstr "顯影器(_D)"
 
-#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:99
+#: ../src/MediaPage.vala:440 ../src/camera/Branch.vala:99
 #: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
 #: ../src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "相機"
 
-#: ../src/MediaPage.vala:450 ../src/camera/ImportPage.vala:874
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:874
 msgid "_Titles"
 msgstr "標題(_T)"
 
-#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:875
+#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:875
 msgid "Display the title of each photo"
 msgstr "顯示每張相片的標題"
 
-#: ../src/MediaPage.vala:456 ../src/events/EventsDirectoryPage.vala:130
+#: ../src/MediaPage.vala:457 ../src/events/EventsDirectoryPage.vala:130
 msgid "_Comments"
 msgstr "評註(_C)"
 
-#: ../src/MediaPage.vala:457
+#: ../src/MediaPage.vala:458
 msgid "Display the comment of each photo"
 msgstr "顯示每張相片的評註"
 
-#: ../src/MediaPage.vala:468 ../src/library/LibraryWindow.vala:375
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:360
 msgid "Ta_gs"
 msgstr "標籤(_G)"
 
-#: ../src/MediaPage.vala:469
+#: ../src/MediaPage.vala:470
 msgid "Display each photo's tags"
 msgstr "顯示每張相片的標籤"
 
-#: ../src/MediaPage.vala:485
+#: ../src/MediaPage.vala:486
 msgid "By _Title"
 msgstr "依標題(_T)"
 
-#: ../src/MediaPage.vala:486
+#: ../src/MediaPage.vala:487
 msgid "Sort photos by title"
 msgstr "依標題排序相片"
 
-#: ../src/MediaPage.vala:491
+#: ../src/MediaPage.vala:492
 msgid "By Exposure _Date"
 msgstr "依拍攝日期(_D)"
 
-#: ../src/MediaPage.vala:492
+#: ../src/MediaPage.vala:493
 msgid "Sort photos by exposure date"
 msgstr "依拍攝日期排序照片"
 
-#: ../src/MediaPage.vala:497
+#: ../src/MediaPage.vala:498
 msgid "By _Rating"
 msgstr "依評等(_R)"
 
-#: ../src/MediaPage.vala:498
+#: ../src/MediaPage.vala:499
 msgid "Sort photos by rating"
 msgstr "依評等排序相片"
 
-#: ../src/MediaPage.vala:508 ../src/library/LibraryWindow.vala:421
+#: ../src/MediaPage.vala:504
+msgid "By _Filename"
+msgstr "依檔名(_F)"
+
+#: ../src/MediaPage.vala:505
+msgid "Sort photos by filename"
+msgstr "依檔案名稱排序相片"
+
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:406
 msgid "_Ascending"
 msgstr "遞增(_A)"
 
-#: ../src/MediaPage.vala:509 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:407
 msgid "Sort photos in an ascending order"
 msgstr "以遞增方式排序相片"
 
-#: ../src/MediaPage.vala:514 ../src/library/LibraryWindow.vala:428
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:413
 msgid "D_escending"
 msgstr "遞減(_E)"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:414
 msgid "Sort photos in a descending order"
 msgstr "以遞減方式排序相片"
 
-#: ../src/MediaPage.vala:716
+#: ../src/MediaPage.vala:723
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -2350,7 +2358,7 @@ msgid "Photo source file missing: %s"
 msgstr "相片來源檔案遺失：%s"
 
 #: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
-#: ../src/library/LibraryWindow.vala:359
+#: ../src/library/LibraryWindow.vala:344
 msgid "_View"
 msgstr "檢視(_V)"
 
@@ -2733,7 +2741,7 @@ msgid "_Apply"
 msgstr "套用(_A)"
 
 #: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
-#: ../src/library/LibraryWindow.vala:355
+#: ../src/library/LibraryWindow.vala:340
 msgid "_Edit"
 msgstr "編輯(_E)"
 
@@ -2746,7 +2754,7 @@ msgid "Fulls_creen"
 msgstr "全螢幕(_C)"
 
 #: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
-#: ../src/library/LibraryWindow.vala:379
+#: ../src/library/LibraryWindow.vala:364
 msgid "_Help"
 msgstr "幫助(_H)"
 
@@ -3478,6 +3486,7 @@ msgid "Flagged"
 msgstr "已加上旗幟"
 
 #: ../src/SearchFilter.vala:593 ../src/SearchFilter.vala:594
+#: ../src/library/Branch.vala:97
 msgid "Photos"
 msgstr "相片"
 
@@ -3741,7 +3750,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "資料庫檔案："
 
-#: ../src/data_imports/DataImportsUI.vala:112 ../src/library/LibraryWindow.vala:898
+#: ../src/data_imports/DataImportsUI.vala:112 ../src/library/LibraryWindow.vala:883
 msgid "_Import"
 msgstr "匯入(_I)"
 
@@ -3783,7 +3792,7 @@ msgstr ""
 "錯誤為：\n"
 "%s"
 
-#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:351
+#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:336
 msgid "_File"
 msgstr "檔案(_F)"
 
@@ -3803,7 +3812,7 @@ msgstr "以不同名稱儲存相片"
 msgid "Print the photo to a printer connected to your computer"
 msgstr "將該相片以連結至您電腦的印表機列印"
 
-#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:363
+#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:348
 msgid "_Photo"
 msgstr "相片(_P)"
 
@@ -3976,6 +3985,10 @@ msgstr "對比擴展"
 msgid "Angle:"
 msgstr "角度："
 
+#: ../src/events/Branch.vala:25
+msgid "Events"
+msgstr "事件"
+
 #: ../src/events/EventDirectoryItem.vala:83
 #, c-format
 msgid "%d Photo/Video"
@@ -3999,8 +4012,8 @@ msgid "No events found"
 msgstr "找不到事件"
 
 #: ../src/events/EventsDirectoryPage.vala:230
-msgid "Events"
-msgstr "事件"
+msgid "All Events"
+msgstr "所有事件"
 
 #: ../src/events/EventsDirectoryPage.vala:244
 msgid "Undated"
@@ -4008,17 +4021,18 @@ msgstr "未限定日期"
 
 #: ../src/events/EventsDirectoryPage.vala:245
 msgid "%Y"
-msgstr "%Y"
+msgstr "%Y年"
 
 #: ../src/events/EventsDirectoryPage.vala:246
 msgid "%B"
-msgstr "%B"
+msgstr "%b"
 
 #: ../src/folders/Branch.vala:141
 msgid "Folders"
 msgstr "資料夾"
 
-#: ../src/library/Branch.vala:36 ../ui/shotwell.glade.h:32
+#: ../src/library/Branch.vala:30 ../src/library/Branch.vala:130
+#: ../ui/shotwell.glade.h:32
 msgid "Library"
 msgstr "珍藏館"
 
@@ -4047,100 +4061,100 @@ msgstr "已匯入 %s"
 msgid "Last Import"
 msgstr "上次匯入"
 
-#: ../src/library/LibraryWindow.vala:301
+#: ../src/library/LibraryWindow.vala:286
 msgid "_Import From Folder..."
 msgstr "從資料夾匯入(_I)..."
 
-#: ../src/library/LibraryWindow.vala:302
+#: ../src/library/LibraryWindow.vala:287
 msgid "Import photos from disk to library"
 msgstr "從磁碟匯入相片至珍藏館"
 
-#: ../src/library/LibraryWindow.vala:309
+#: ../src/library/LibraryWindow.vala:294
 msgid "Import From _Application..."
 msgstr "從應用程式匯入(_A)..."
 
-#: ../src/library/LibraryWindow.vala:313
+#: ../src/library/LibraryWindow.vala:298
 msgid "Sort _Events"
 msgstr "排序事件(_E)"
 
-#: ../src/library/LibraryWindow.vala:323
+#: ../src/library/LibraryWindow.vala:308
 msgid "Empty T_rash"
 msgstr "清空回收筒(_R)"
 
-#: ../src/library/LibraryWindow.vala:324
+#: ../src/library/LibraryWindow.vala:309
 msgid "Delete all photos in the trash"
 msgstr "刪除回收筒中的所有相片"
 
-#: ../src/library/LibraryWindow.vala:329
+#: ../src/library/LibraryWindow.vala:314
 msgid "View Eve_nt for Photo"
 msgstr "檢視相片的事件(_N)"
 
-#: ../src/library/LibraryWindow.vala:333
+#: ../src/library/LibraryWindow.vala:318
 msgid "_Find"
 msgstr "尋找(_F)"
 
-#: ../src/library/LibraryWindow.vala:334
+#: ../src/library/LibraryWindow.vala:319
 msgid "Find photos and videos by search criteria"
 msgstr "根據搜尋準則尋找相片與視訊"
 
-#: ../src/library/LibraryWindow.vala:345 ../src/searches/Branch.vala:77
-#: ../src/sidebar/Tree.vala:185
+#: ../src/library/LibraryWindow.vala:330 ../src/searches/Branch.vala:77
+#: ../src/sidebar/Tree.vala:199
 msgid "Ne_w Saved Search..."
 msgstr "新的儲存搜尋(_W)..."
 
-#: ../src/library/LibraryWindow.vala:367
+#: ../src/library/LibraryWindow.vala:352
 msgid "_Photos"
 msgstr "相片(_P)"
 
-#: ../src/library/LibraryWindow.vala:371
+#: ../src/library/LibraryWindow.vala:356
 msgid "Even_ts"
 msgstr "事件(_T)"
 
-#: ../src/library/LibraryWindow.vala:390
+#: ../src/library/LibraryWindow.vala:375
 msgid "_Basic Information"
 msgstr "基本資訊(_B)"
 
-#: ../src/library/LibraryWindow.vala:391
+#: ../src/library/LibraryWindow.vala:376
 msgid "Display basic information for the selection"
 msgstr "顯示選取項目的基礎資訊"
 
-#: ../src/library/LibraryWindow.vala:396
+#: ../src/library/LibraryWindow.vala:381
 msgid "E_xtended Information"
 msgstr "擴充資訊(_X)"
 
-#: ../src/library/LibraryWindow.vala:397
+#: ../src/library/LibraryWindow.vala:382
 msgid "Display extended information for the selection"
 msgstr "顯示選取項目的擴充資訊"
 
-#: ../src/library/LibraryWindow.vala:402
+#: ../src/library/LibraryWindow.vala:387
 msgid "_Search Bar"
 msgstr "搜尋列(_S)"
 
-#: ../src/library/LibraryWindow.vala:403
+#: ../src/library/LibraryWindow.vala:388
 msgid "Display the search bar"
 msgstr "顯示搜尋列"
 
-#: ../src/library/LibraryWindow.vala:408
+#: ../src/library/LibraryWindow.vala:393
 msgid "S_idebar"
 msgstr "側邊欄(_I)"
 
-#: ../src/library/LibraryWindow.vala:409
+#: ../src/library/LibraryWindow.vala:394
 msgid "Display the sidebar"
 msgstr "顯示側邊欄"
 
-#: ../src/library/LibraryWindow.vala:667
+#: ../src/library/LibraryWindow.vala:652
 msgid "Import From Folder"
 msgstr "從資料夾匯入"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:721
 msgid "Empty Trash"
 msgstr "清空回收筒"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:721
 msgid "Emptying Trash..."
 msgstr "正在清空回收筒..."
 
-#: ../src/library/LibraryWindow.vala:895
+#: ../src/library/LibraryWindow.vala:880
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4151,33 +4165,33 @@ msgstr ""
 "我們建議您在 <span weight=\"bold\">編輯 %s 偏好設定</span> 中更改此設定。\n"
 "您是否想要繼續匯入相片？"
 
-#: ../src/library/LibraryWindow.vala:898 ../ui/shotwell.glade.h:18
+#: ../src/library/LibraryWindow.vala:883 ../ui/shotwell.glade.h:18
 msgid "Library Location"
 msgstr "珍藏館位置"
 
 #. TODO: Specify which directory/file.
-#: ../src/library/LibraryWindow.vala:911
+#: ../src/library/LibraryWindow.vala:896
 msgid "Photos cannot be imported from this directory."
 msgstr "相片無法從此目錄匯入。"
 
-#: ../src/library/LibraryWindow.vala:1199
+#: ../src/library/LibraryWindow.vala:1184
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: ../src/library/LibraryWindow.vala:1243 ../src/library/LibraryWindow.vala:1254
+#: ../src/library/LibraryWindow.vala:1228 ../src/library/LibraryWindow.vala:1239
 msgid "Updating library..."
 msgstr "正在更新珍藏館..."
 
-#: ../src/library/LibraryWindow.vala:1260
+#: ../src/library/LibraryWindow.vala:1245
 msgid "Preparing to auto-import photos..."
 msgstr "正在準備自動匯入相片..."
 
-#: ../src/library/LibraryWindow.vala:1265
+#: ../src/library/LibraryWindow.vala:1250
 msgid "Auto-importing photos..."
 msgstr "正在自動匯入相片..."
 
-#: ../src/library/LibraryWindow.vala:1273
+#: ../src/library/LibraryWindow.vala:1258
 msgid "Writing metadata to files..."
 msgstr "正在寫入中介資料至檔案中..."
 
@@ -4521,27 +4535,27 @@ msgstr "介於"
 msgid "and"
 msgstr "與"
 
-#: ../src/searches/SavedSearchDialog.vala:695
+#: ../src/searches/SavedSearchDialog.vala:697
 msgid "Search"
 msgstr "搜尋"
 
-#: ../src/searches/SavedSearchDialog.vala:700
+#: ../src/searches/SavedSearchDialog.vala:702
 msgid "Cancel"
 msgstr "取消"
 
-#: ../src/searches/SavedSearchDialog.vala:701
+#: ../src/searches/SavedSearchDialog.vala:703
 msgid "OK"
 msgstr "確定"
 
-#: ../src/searches/SavedSearchDialog.vala:719
+#: ../src/searches/SavedSearchDialog.vala:721
 msgid "any"
 msgstr "任何"
 
-#: ../src/searches/SavedSearchDialog.vala:720
+#: ../src/searches/SavedSearchDialog.vala:722
 msgid "all"
 msgstr "全部"
 
-#: ../src/searches/SavedSearchDialog.vala:721
+#: ../src/searches/SavedSearchDialog.vala:723
 msgid "none"
 msgstr "無"
 
@@ -4585,7 +4599,7 @@ msgstr "相片狀態"
 msgid "Date"
 msgstr "日期"
 
-#: ../src/sidebar/Tree.vala:189
+#: ../src/sidebar/Tree.vala:203
 msgid "New _Tag..."
 msgstr "新增標籤(_T)..."
 
@@ -4605,7 +4619,7 @@ msgstr "無"
 msgid "Random"
 msgstr "隨機"
 
-#: ../src/tags/Branch.vala:127
+#: ../src/tags/Branch.vala:131
 msgid "Tags"
 msgstr "標籤"
 
