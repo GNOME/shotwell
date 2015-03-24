@@ -1,3 +1,14 @@
+Shotwell 0.22.0 - 23 March 2015
+-------------------------------
+
+  * Improved metadata support for Facebook upload (#742163)
+  * Saved search now properly supports text is-set, not-set (#743924, #743923)
+  * Import title, exposure time when available
+  * User interface improvements (#744291, #719284, more)
+  * Sort photos by filename (#717878)
+  * Updated translations
+
+
 Shotwell 0.21.0 - 2 February 2015
 ---------------------------------
 

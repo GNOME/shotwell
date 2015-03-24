@@ -1,3 +1,15 @@
+shotwell (0.22.0-1~vivid1) vivid; urgency=low
+
+  * Improved metadata support for Facebook upload (#742163)
+  * Saved search now properly supports text is-set, not-set (#743924, #743923)
+  * Import title, exposure time when available
+  * User interface improvements (#744291, #719284, more)
+  * Sort photos by filename (#717878)
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 02 Feb 2015 18:24:34 -0800
+
+
 shotwell (0.21.0-1~utopic1) utopic; urgency=low
 
   * User interface refresh (#742326, #742443)
