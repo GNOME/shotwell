@@ -211,8 +211,21 @@ class AppDirs {
         return subdir;
     }
 
+    public static void ensure_writable(File dir) {
+        try {
+            FileInfo info = dir.query_info(FileAttribute.UNIX_MODE, FileQueryInfoFlags.NONE);
+            uint32 mode = info.get_attribute_uint32(FileAttribute.UNIX_MODE) | 0700;
+            if (!dir.set_attribute_uint32(FileAttribute.UNIX_MODE, mode, FileQueryInfoFlags.NONE)) {
+                AppWindow.panic(_("Could not make dir %s writable").printf(dir.get_path()));
+            }
+        } catch (Error err) {
+            AppWindow.panic(_("Could not make dir %s writable: %s").printf(dir.get_path(), err.message));
+        }
+    }
+
     public static File get_cache_subdir(string name, string? subname = null) {
         File subdir = get_cache_dir().get_child(name);
+        ensure_writable(subdir);
         if (subname != null)
             subdir = subdir.get_child(subname);
 
@@ -223,7 +236,7 @@ class AppDirs {
             AppWindow.panic(_("Unable to create data subdirectory %s: %s").printf(subdir.get_path(),
                 err.message));
         }
-        
+        ensure_writable(subdir);
         return subdir;
     }
     
