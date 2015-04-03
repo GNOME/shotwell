@@ -989,12 +989,6 @@ public class CropTool : EditingTool {
             crop_tool_window.get_size(out crop_tool_window.normal_width,
                 out crop_tool_window.normal_height);
 
-        int window_x_pos = 0;
-        int window_y_pos = 0;
-        crop_tool_window.get_position(out window_x_pos, out window_y_pos);
-
-        crop_tool_window.hide();
-
         crop_tool_window.layout.remove(crop_tool_window.constraint_combo);
         crop_tool_window.layout.remove(crop_tool_window.pivot_reticle_button);
         crop_tool_window.layout.remove(crop_tool_window.response_layout);
@@ -1015,7 +1009,6 @@ public class CropTool : EditingTool {
         }
         custom_aspect_ratio = ((float) custom_init_width) / ((float) custom_init_height);
 
-        crop_tool_window.move(window_x_pos, window_y_pos);
         crop_tool_window.show_all();
 
         constraint_mode = ConstraintMode.CUSTOM;
@@ -1024,12 +1017,6 @@ public class CropTool : EditingTool {
     private void set_normal_constraint_mode() {
         if (constraint_mode == ConstraintMode.NORMAL)
             return;
-
-        int window_x_pos = 0;
-        int window_y_pos = 0;
-        crop_tool_window.get_position(out window_x_pos, out window_y_pos);
-
-        crop_tool_window.hide();
 
         crop_tool_window.layout.remove(crop_tool_window.constraint_combo);
         crop_tool_window.layout.remove(crop_tool_window.custom_width_entry);
@@ -1045,7 +1032,6 @@ public class CropTool : EditingTool {
         crop_tool_window.resize(crop_tool_window.normal_width,
             crop_tool_window.normal_height);
 
-        crop_tool_window.move(window_x_pos, window_y_pos);
         crop_tool_window.show_all();
 
         constraint_mode = ConstraintMode.NORMAL;
@@ -1156,11 +1142,7 @@ public class CropTool : EditingTool {
 
         base.activate(canvas);
 
-        // make sure the window has its regular size before going into
-        // custom mode, which will resize it and needs to save the old
-        // size first.
         crop_tool_window.show_all();
-        crop_tool_window.hide();
 
         // was 'custom' the most-recently-chosen menu item?
         if(!canvas.get_photo().has_crop()) {
