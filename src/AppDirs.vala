@@ -217,10 +217,10 @@ class AppDirs {
                 FileInfo info = dir.query_info(FileAttribute.UNIX_MODE, FileQueryInfoFlags.NONE);
                 uint32 mode = info.get_attribute_uint32(FileAttribute.UNIX_MODE) | 0700;
                 if (!dir.set_attribute_uint32(FileAttribute.UNIX_MODE, mode, FileQueryInfoFlags.NONE)) {
-                    AppWindow.panic(_("Could not make dir %s writable").printf(dir.get_path()));
+                    AppWindow.panic(_("Could not make directory %s writable").printf(dir.get_path()));
                 }
             } catch (Error err) {
-                AppWindow.panic(_("Could not make dir %s writable: %s").printf(dir.get_path(), err.message));
+                AppWindow.panic(_("Could not make directory %s writable: %s").printf(dir.get_path(), err.message));
             }
         }
     }
