@@ -407,7 +407,7 @@ VALAFLAGS := $(VALAFLAGS) $(VALA_DEFINES) --vapidir=plugins/
 ifdef ENABLE_FACES
 DIST_FILES := $(DIST_FILES) $(EXPANDED_FACEDETECT_SRC_FILES) $(FACEDETECT_DIR)/facedetect-haarcascade.xml
 
-CXX = gcc -Wall
+CXX = g++ -Wall
 
 VALAFLAGS := $(VALAFLAGS) --define=ENABLE_FACES 
 DEFINES := $(DEFINES) ENABLE_FACES=true
