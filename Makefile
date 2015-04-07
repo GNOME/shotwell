@@ -3,23 +3,23 @@ PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 PROGRAM_MIGRATOR = shotwell-settings-migrator
 PROGRAM_FACEDETECT = shotwell-facedetect
 
-VERSION = 0.13.1+trunk
+VERSION = 0.21.0
+GITVER := $(shell git log -n 1 2>/dev/null | head -n 1 | awk '{print $$2}')
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
 ifndef VALAC
-VALAC := valac
+VALAC := $(shell which valac)
+else
+VALAC := $(shell which $(VALAC))
 endif
+
 VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
-MIN_VALAC_VERSION := 0.18.0
+MIN_VALAC_VERSION := 0.20.1
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 
 export MIN_GLIB_VERSION=2.30.0
-
-# needed for testing
-VALADATE_PKG_NAME := valadate-1.0
-MIN_VALADATE_VERSION := 0.1.1
 
 # defaults that may be overridden by configure.mk
 PREFIX=/usr/local
@@ -27,18 +27,16 @@ BUILD_RELEASE=1
 LIB=lib
 
 -include configure.mk
+ifndef LIBEXECDIR
+LIBEXECDIR=$(PREFIX)/libexec/shotwell
+endif
 
-CORE_SUPPORTED_LANGUAGES= ia hi ta_IN te_IN fr de it es pl et sv sk lv pt bg bn nl da zh_CN \
-    el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR \
-    eu he mk te ta vi or km
-
-EXTRAS_SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk \
-    ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk pt_BR eu he mk te ta eo or
+CORE_SUPPORTED_LANGUAGES=$(shell cat po/LINGUAS)
 
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR := $(DESTDIR)$(PREFIX)/share/locale
 
-VALAFLAGS := -g --enable-checking --thread --fatal-warnings --enable-deprecated --enable-experimental $(USER_VALAFLAGS)
+VALAFLAGS := -g --enable-checking --target-glib=2.32 --thread --fatal-warnings --enable-experimental --enable-deprecated $(USER_VALAFLAGS)
 ifdef UNITY_SUPPORT
 VALAFLAGS := $(VALAFLAGS) --define UNITY_SUPPORT
 endif
@@ -48,7 +46,12 @@ VALAFLAGS := $(VALAFLAGS) --define WITH_GPHOTO_25
 endif
 
 DEFINES := _PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
-	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIB='"${LIB}"'
+	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIB='"${LIB}"' _LIBEXECDIR='"$(LIBEXECDIR)"'
+
+ifdef GITVER
+DEFINES := $(DEFINES) _GIT_VERSION='"$(GITVER)"'
+VALAFLAGS := $(VALAFLAGS) --define=_GITVERSION
+endif
 
 EXPORT_FLAGS = -export-dynamic
 
@@ -59,13 +62,13 @@ UNUNITIZED_SRC_FILES = \
 	main.vala \
 	AppWindow.vala \
 	CollectionPage.vala \
+	NaturalCollate.vala \
 	Thumbnail.vala \
 	ThumbnailCache.vala \
 	CheckerboardLayout.vala \
 	PhotoPage.vala \
 	Page.vala \
 	SortedList.vala \
-	SortedListTests.vala \
 	Dimensions.vala \
 	Box.vala \
 	Photo.vala \
@@ -121,8 +124,14 @@ VAPI_FILES = \
 	LConv.vapi \
 	libexif.vapi \
 	libraw.vapi \
+	webkitgtk-3.0.vapi \
 	unique-3.0.vapi \
-	webkitgtk-3.0.vapi
+	unity.vapi
+
+DEPS_FILES = \
+	webkitgtk-3.0.deps \
+	unique-3.0.deps \
+	unity.deps
 
 ifdef WITH_GPHOTO_25
 GPHOTO_VAPI_FILE = vapi/gphoto-2.5/libgphoto2.vapi
@@ -147,6 +156,7 @@ RESOURCE_FILES = \
 	search_bar.ui \
 	search_sidebar_context.ui \
 	set_background_dialog.glade \
+	set_background_slideshow_dialog.glade \
 	shotwell.glade \
 	shotwell.xml \
 	sidebar_default_context.ui \
@@ -156,6 +166,7 @@ RESOURCE_FILES = \
 	trash.ui 
 
 SYS_INTEGRATION_FILES = \
+	shotwell.appdata.xml \
 	shotwell.desktop.head \
 	shotwell-viewer.desktop.head \
 	org.yorba.shotwell.gschema.xml \
@@ -181,7 +192,6 @@ ICON_FILES = \
 	crop-pivot-reticle.png \
 	crop.svg \
 	drag_nub.png \
-	enhance.png \
 	five-star-filter.svg \
 	five-stars.svg \
 	flag-page.png \
@@ -195,6 +205,7 @@ ICON_FILES = \
 	merge.svg \
 	multiple-events.png \
 	multiple-tags.png \
+	no-event.png \
 	noninterpretable-video.png \
 	one-event.png \
 	one-star-filter-plus.svg \
@@ -209,6 +220,7 @@ ICON_FILES = \
 	shotwell.ico \
 	shotwell-street.jpg \
 	shotwell.svg \
+	shotwell-auto-enhance.png \
 	sprocket.png \
 	straighten.svg \
 	three-star-filter-plus.svg \
@@ -224,53 +236,6 @@ ICON_FILES = \
 	filter-photos.png \
 	filter-videos.png \
 	filter-flagged.png
-
-HELP_FILES = \
-	edit-adjustments.page \
-	edit-crop.page \
-	edit-enhance.page \
-	edit-external.page \
-	edit-nondestructive.page \
-	edit-redeye.page \
-	edit-rotate.page \
-	edit-straighten.page \
-	edit-time-date.page \
-	edit-undo.page \
-	formats.page \
-	import-camera.page \
-	import-file.page \
-	import-f-spot.page \
-	import-memorycard.page \
-	index.page \
-	organize-event.page \
-	organize-flag.page \
-	organize-rating.page \
-	organize-remove.page \
-	organize-search.page \
-	organize-tag.page \
-	organize-title.page \
-	other-files.page \
-	other-missing.page \
-	other-multiple.page \
-	other-plugins.page \
-	raw.page \
-	running.page \
-	share-background.page \
-	share-export.page \
-	share-print.page \
-	share-send.page \
-	share-slideshow.page \
-	share-upload.page \
-	view-displaying.page \
-	view-information.page \
-	view-sidebar.page
-
-HELP_IMAGES = \
-	crop_thirds.jpg \
-	editing_overview.png \
-	edit_toolbar.png \
-	shotwell_logo.png \
-	trash_process.png
 
 VAPI_DIRS = \
 	./vapi
@@ -293,8 +258,7 @@ LOCAL_PKGS = \
 EXT_PKGS = \
 	atk \
 	gdk-3.0 \
-	gdk-x11-3.0 \
-	gee-1.0 \
+	gee-0.8 \
 	gexiv2 \
 	gio-unix-2.0 \
 	glib-2.0 \
@@ -311,7 +275,6 @@ EXT_PKGS = \
 	libsoup-2.4 \
 	libxml-2.0 \
 	sqlite3 \
-	unique-3.0 \
 	webkitgtk-3.0
 ifdef UNITY_SUPPORT
 EXT_PKGS += unity
@@ -319,7 +282,7 @@ endif
 
 THUMBNAILER_PKGS = \
     gtk+-3.0 \
-    gee-1.0 \
+    gee-0.8 \
     gstreamer-1.0 \
     gstreamer-base-1.0
 
@@ -332,8 +295,8 @@ FACEDETECT_LIBS = \
 DIRECT_LIBS =
 
 EXT_PKG_VERSIONS = \
-	gee-1.0 >= 0.5.0 \
-	gexiv2 >= 0.4.1 \
+	gee-0.8 >= 0.8.5 \
+	gexiv2 >= 0.4.90 \
 	gio-unix-2.0 >= 2.20 \
 	glib-2.0 >= $(MIN_GLIB_VERSION) \
 	gmodule-2.0 >= 2.24.0 \
@@ -341,21 +304,18 @@ EXT_PKG_VERSIONS = \
 	gstreamer-base-1.0 >= 1.0.0 \
 	gstreamer-plugins-base-1.0 >= 1.0.0 \
 	gstreamer-pbutils-1.0 >= 1.0.0 \
-	gtk+-3.0 >= 3.0.11 \
+	gtk+-3.0 >= 3.12.2 \
 	gudev-1.0 >= 145 \
 	libexif >= 0.6.16 \
 	libgphoto2 >= 2.4.2 \
 	libraw >= 0.13.2 \
 	libsoup-2.4 >= 2.26.0 \
 	libxml-2.0 >= 2.6.32 \
+	rest-0.7 >= 0.7 \
 	sqlite3 >= 3.5.9 \
-	unique-3.0 >= 3.0.0 \
-	webkitgtk-3.0 >= 1.4.0 
+	webkitgtk-3.0 >= 1.4.0 \
+	gnome-doc-utils
 
-ifdef ENABLE_TESTS
-EXT_PKGS += valadate-1.0
-EXT_PKG_VERSIONS += valadate-1.0 >= 0.1.1
-endif
 DIRECT_LIBS_VERSIONS =
 
 VALA_PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
@@ -373,6 +333,9 @@ DIRECT_EDIT_DESKTOP_APP_SHORT_NAME="Shotwell"
 DIRECT_EDIT_DESKTOP_APP_FULL_NAME="Shotwell Photo Viewer"
 DIRECT_EDIT_DESKTOP_APPLICATION_CLASS="Photo Viewer"
 TEMPORARY_DESKTOP_FILES = misc/shotwell.desktop misc/shotwell-viewer.desktop
+
+# for help page and translation .po files
+include help/Makefile.am
 
 # Process the units
 UNIT_MKS := $(foreach unit,$(UNITS),src/$(unit)/mk/$(notdir $(unit)).mk)
@@ -399,8 +362,7 @@ FACEDETECT_DIR := facedetect
 FACEDETECT_BIN := $(FACEDETECT_DIR)/$(PROGRAM_FACEDETECT)
 EXPANDED_FACEDETECT_SRC_FILES := $(foreach file, $(FACEDETECT_SRC_FILES), $(FACEDETECT_DIR)/$(file))
 
-EXPANDED_CORE_PO_FILES := $(foreach po,$(CORE_SUPPORTED_LANGUAGES),po/shotwell-core/$(po).po)
-EXPANDED_EXTRAS_PO_FILES := $(foreach po,$(EXTRAS_SUPPORTED_LANGUAGES),po/shotwell-extras/$(po).po)
+EXPANDED_CORE_PO_FILES := $(foreach po,$(CORE_SUPPORTED_LANGUAGES),po/$(po).po)
 
 EXPANDED_SRC_FILES := $(UNITIZED_SRC_FILES) $(foreach src,$(UNUNITIZED_SRC_FILES),src/$(src)) \
 	$(UNITIZE_INITS) $(UNITIZE_ENTRIES)
@@ -410,36 +372,37 @@ EXPANDED_OBJ_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FIL
 EXPANDED_SYS_INTEGRATION_FILES := $(foreach file,$(SYS_INTEGRATION_FILES),misc/$(file))
 EXPANDED_ICON_FILES := $(foreach file,$(ICON_FILES),icons/$(file))
 EXPANDED_VAPI_FILES := $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
+EXPANDED_DEPS_FILES := $(foreach deps,$(DEPS_FILES),vapi/$(deps))
 EXPANDED_SRC_HEADER_FILES := $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
 EXPANDED_RESOURCE_FILES := $(foreach res,$(RESOURCE_FILES),ui/$(res))
-EXPANDED_HELP_FILES := $(foreach file,$(HELP_FILES),help/C/$(file))
-EXPANDED_HELP_IMAGES := $(foreach file,$(HELP_IMAGES),help/C/figures/$(file))
+EXPANDED_DOC_IMAGES := $(foreach file,$(DOC_IMAGES),help/C/figures/$(file))
+EXPANDED_DOC_PAGES := $(foreach page,$(DOC_PAGES),help/C/$(page))
+EXPANDED_DOC_PO := $(foreach lang,$(DOC_LINGUAS),help/$(lang)/$(lang).po)
+EXPANDED_XLAT_DOC_PAGES := \
+	$(foreach lang,$(DOC_LINGUAS),\
+		$(foreach page,$(DOC_PAGES),help/$(lang)/$(page)))
 VALA_STAMP := $(BUILD_DIR)/.stamp
 LANG_STAMP := $(LOCAL_LANG_DIR)/.langstamp
+DOC_LANG_STAMP := help/.langstamp
 MAKE_FILES := Makefile $(CONFIG_IN) $(UNIT_MKS) unitize.mk units.mk
 PC_INPUT := shotwell-plugin-dev-1.0.m4
 PC_FILE := $(PC_INPUT:.m4=.pc)
 
 DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAPI_FILES) \
-	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
-	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_CORE_PO_FILES) $(EXPANDED_EXTRAS_PO_FILES) \
-	po/shotwell-core/shotwell.pot po/shotwell-extras/shotwell-extras.pot \
-	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES) apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
+	$(EXPANDED_DEPS_FILES) $(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) \
+	$(EXPANDED_ICON_FILES) $(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_CORE_PO_FILES) \
+	po/LINGUAS po/POTFILES.in po/POTFILES.skip \
+	$(EXPANDED_DOC_PAGES) $(EXPANDED_DOC_IMAGES) $(EXPANDED_DOC_PO) help/Makefile.am \
+	apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
 	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES) \
 	vapi/gphoto-2.5/libgphoto2.vapi vapi/gphoto-2.4/libgphoto2.vapi \
 	$(EXPANDED_THUMBNAILER_SRC_FILES) $(MIGRATOR_BIN)
-	
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_XZ = $(DIST_TAR).xz
 PACKAGE_ORIG_XZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.xz
 
 VALAFLAGS := $(VALAFLAGS) $(VALA_DEFINES) --vapidir=plugins/
-
-ifdef ENABLE_TESTS
-VALAFLAGS := $(VALAFLAGS) --vapi=libshotwell.vapi --define=ENABLE_TESTS 
-DEFINES := $(DEFINES) ENABLE_TESTS=true
-endif
 
 ifdef ENABLE_FACES
 DIST_FILES := $(DIST_FILES) $(EXPANDED_FACEDETECT_SRC_FILES) $(FACEDETECT_DIR)/facedetect-haarcascade.xml
@@ -471,43 +434,26 @@ PLUGIN_CFLAGS = -O2 -g -pipe
 endif
 endif
 
-CFLAGS += $(REQUIRED_CFLAGS)
-PLUGIN_CFLAGS += $(REQUIRED_CFLAGS)
+CFLAGS += $(PROFILE_FLAGS) $(REQUIRED_CFLAGS)
+PLUGIN_CFLAGS += $(PROFILE_FLAGS) $(REQUIRED_CFLAGS)
 
 # Required for gudev-1.0
 CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE
 
-define check_valadate_version
-	@ pkg-config $(VALADATE_PKG_NAME) --atleast-version=$(MIN_VALADATE_VERSION) || ( echo 'Shotwell testing requires Valadate $(MIN_VALADATE_VERSION) or greater.  You are running' `pkg-config --modversion $(VALADATE_PKG_NAME)` '\b.'; exit 1 )
-endef
-
-all: pkgcheck valacheck
+all: pkgcheck valacheck desktop
 
 ifdef ENABLE_BUILD_FOR_GLADE
 all: $(PLUGINS_DIR) lib$(PROGRAM).so $(PROGRAM) $(PC_FILE)
 else
-ifdef ENABLE_TESTS
 all: $(PLUGINS_DIR) $(PROGRAM) $(PC_FILE)
-
-valadate_check: 
-	$(call check_valadate_version)
-
-check: valadate_check $(PLUGINS_DIR) lib$(PROGRAM).so $(PROGRAM) $(PC_FILE)
-	valadate -L shotwell --dir=vapi --dir=. --verbose-search -f src/libshotwell.vapi
-
-else
-all: $(PLUGINS_DIR) $(PROGRAM) $(PC_FILE)
-endif
 endif
 
 
 include src/plugins/mk/interfaces.mk
 
-$(LANG_STAMP): $(EXPANDED_CORE_PO_FILES) $(EXPANDED_EXTRAS_PO_FILES)
+$(LANG_STAMP): $(EXPANDED_CORE_PO_FILES)
 	@$(foreach po,$(CORE_SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
-		msgfmt -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell.mo po/shotwell-core/$(po).po`)
-	@$(foreach po,$(EXTRAS_SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
-		msgfmt -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell-extras.mo po/shotwell-extras/$(po).po`)
+		msgfmt -c -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell.mo po/$(po).po`)
 	@touch $(LANG_STAMP)
 
 clean:
@@ -520,6 +466,8 @@ clean:
 	$(if $(ENABLE_FACES), rm -f $(FACEDETECT_DIR)/$(PROGRAM_FACEDETECT))
 	rm -rf $(LOCAL_LANG_DIR)
 	rm -f $(LANG_STAMP)
+	rm -f $(DOC_LANG_STAMP)
+	rm -f $(EXPANDED_XLAT_DOC_PAGES)
 	rm -f $(TEMPORARY_DESKTOP_FILES)
 	rm -f lib$(PROGRAM).so
 	rm -rf $(UNITIZE_DIR)
@@ -536,6 +484,7 @@ cleantemps:
 	rm -f $(EXPANDED_OBJ_FILES)
 	rm -f $(VALA_STAMP)
 	rm -f $(LANG_STAMP)
+	rm -f $(DOC_LANG_STAMP)
 	rm -f $(TEMPORARY_DESKTOP_FILES)
 	@$(MAKE) --directory=plugins cleantemps
 	rm -f misc/gschemas.compiled
@@ -544,6 +493,45 @@ package:
 	$(MAKE) dist
 	cp $(DIST_TAR_XZ) $(PACKAGE_ORIG_XZ)
 	rm -f $(DIST_TAR_XZ)
+
+misc/shotwell.desktop: misc/shotwell.desktop.head $(EXPANDED_CORE_PO_FILES)
+	cp misc/shotwell.desktop.head misc/shotwell.desktop
+	@ $(foreach lang,$(CORE_SUPPORTED_LANGUAGES), echo X-GNOME-FullName[$(lang)]=`TEXTDOMAINDIR=locale-langpack \
+		LANGUAGE=$(lang) gettext --domain=shotwell $(DESKTOP_APP_FULL_NAME)` \
+		>> misc/shotwell.desktop ; \
+		echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) \
+		gettext --domain=shotwell $(DESKTOP_APPLICATION_CLASS)` >> misc/shotwell.desktop ; \
+		echo Comment[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
+		--domain=shotwell $(DESKTOP_APPLICATION_COMMENT)` >> misc/shotwell.desktop ; \
+		echo Keywords[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
+		--domain=shotwell $(DESKTOP_APP_KEYWORDS)` >> misc/shotwell.desktop ;) 
+ifndef DISABLE_DESKTOP_VALIDATE
+	@ desktop-file-validate misc/shotwell.desktop 1>misc/shotwell.desktop.errors 2>&1; \
+	if test -s misc/shotwell.desktop.errors; then \
+		echo -e "\nThe file misc/shotwell.desktop.head or one of the .po files contains errors and may need to be edited.\nPlease see the file misc/shotwell.desktop.errors for details."; \
+		exit 1; \
+	else rm -f misc/shotwell.desktop.errors; \
+	fi
+endif
+	
+misc/shotwell-viewer.desktop: misc/shotwell-viewer.desktop.head $(EXPANDED_CORE_PO_FILES)
+	cp misc/shotwell-viewer.desktop.head misc/shotwell-viewer.desktop
+	$(foreach lang,$(CORE_SUPPORTED_LANGUAGES), echo X-GNOME-FullName[$(lang)]=`TEXTDOMAINDIR=locale-langpack \
+		LANGUAGE=$(lang) gettext --domain=shotwell $(DIRECT_EDIT_DESKTOP_APP_FULL_NAME)` \
+		>> misc/shotwell-viewer.desktop ; \
+		echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
+		--domain=shotwell $(DIRECT_EDIT_DESKTOP_APPLICATION_CLASS)` >> misc/shotwell-viewer.desktop ;)
+ifndef DISABLE_DESKTOP_VALIDATE
+	@ desktop-file-validate misc/shotwell-viewer.desktop 1>misc/shotwell-viewer.desktop.errors 2>&1; \
+	if test -s misc/shotwell-viewer.desktop.errors; then \
+		echo -e S"\nThe file misc/shotwell-viewer.desktop.head or one of the .po files contains errors and may need to be edited.\nPlease see the file misc/shotwell-viewer.desktop.errors for details."; \
+		exit 1; \
+	else rm -f misc/shotwell-viewer.desktop.errors; \
+	fi
+endif
+
+.PHONY: desktop
+desktop: misc/shotwell.desktop misc/shotwell-viewer.desktop
 
 .PHONY: dist
 dist:
@@ -559,27 +547,12 @@ distclean: clean
 
 .PHONY: install
 install:
-	cp misc/shotwell.desktop.head misc/shotwell.desktop
-	cp misc/shotwell-viewer.desktop.head misc/shotwell-viewer.desktop
-	$(foreach lang,$(CORE_SUPPORTED_LANGUAGES), echo X-GNOME-FullName[$(lang)]=`TEXTDOMAINDIR=locale-langpack \
-		LANGUAGE=$(lang) gettext --domain=shotwell $(DESKTOP_APP_FULL_NAME)` \
-		>> misc/shotwell.desktop ; \
-		echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) \
-		gettext --domain=shotwell $(DESKTOP_APPLICATION_CLASS)` >> misc/shotwell.desktop ; \
-		echo Comment[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
-		--domain=shotwell $(DESKTOP_APPLICATION_COMMENT)` >> misc/shotwell.desktop ; \
-		echo Keywords[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
-		--domain=shotwell $(DESKTOP_APP_KEYWORDS)` >> misc/shotwell.desktop ; \
-		echo X-GNOME-FullName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
-		--domain=shotwell $(DIRECT_EDIT_DESKTOP_APP_FULL_NAME)` >> misc/shotwell-viewer.desktop ; \
-		echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
-		--domain=shotwell $(DIRECT_EDIT_DESKTOP_APPLICATION_CLASS)` >> misc/shotwell-viewer.desktop ;)
 	touch $(LANG_STAMP)
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	$(INSTALL_PROGRAM) $(PROGRAM) $(DESTDIR)$(PREFIX)/bin
-	$(INSTALL_PROGRAM) $(THUMBNAILER_BIN) $(DESTDIR)$(PREFIX)/bin
-	mkdir -p $(DESTDIR)$(PREFIX)/libexec/shotwell
-	$(INSTALL_PROGRAM) $(MIGRATOR_BIN) $(DESTDIR)$(PREFIX)/libexec/shotwell
+	mkdir -p $(DESTDIR)$(LIBEXECDIR)
+	$(INSTALL_PROGRAM) $(THUMBNAILER_BIN) $(DESTDIR)$(LIBEXECDIR)
+	$(INSTALL_PROGRAM) $(MIGRATOR_BIN) $(DESTDIR)$(LIBEXECDIR)
 	$(if $(ENABLE_FACES), mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/$(FACEDETECT_DIR))
 	$(if $(ENABLE_FACES), $(INSTALL_PROGRAM) $(FACEDETECT_BIN) $(DESTDIR)$(PREFIX)/bin)
 	$(if $(ENABLE_FACES), $(INSTALL_DATA) $(FACEDETECT_DIR)/facedetect-haarcascade.xml $(DESTDIR)$(PREFIX)/share/shotwell/$(FACEDETECT_DIR)/facedetect-haarcascade.xml)
@@ -607,8 +580,10 @@ endif
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) ui/* $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
+	mkdir -p $(DESTDIR)$(PREFIX)/share/appdata
 	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)$(PREFIX)/share/applications
 	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)$(PREFIX)/share/applications
+	$(INSTALL_DATA) misc/shotwell.appdata.xml $(DESTDIR)$(PREFIX)/share/appdata
 ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
@@ -618,16 +593,19 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 endif
 ifndef DISABLE_HELP_INSTALL
 	mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C
-	$(INSTALL_DATA) $(EXPANDED_HELP_FILES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C
+	$(INSTALL_DATA) $(EXPANDED_DOC_PAGES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C
 	mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
-	$(INSTALL_DATA) $(EXPANDED_HELP_IMAGES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
+	$(INSTALL_DATA) $(EXPANDED_DOC_IMAGES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
+	$(foreach lang,$(DOC_LINGUAS),`mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/$(lang)`)
+	$(foreach lang,$(DOC_LINGUAS),\
+		$(foreach page,$(DOC_PAGES),\
+			`$(INSTALL_DATA) help/$(lang)/$(page) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/$(lang)`\
+		)\
+	)
 endif
 	-$(foreach lang,$(CORE_SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
 		$(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
 		$(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
-	-$(foreach lang,$(EXTRAS_SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
-		$(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell-extras.mo \
-		$(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell-extras.mo`)
 	mkdir -p $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
 	$(INSTALL_PROGRAM) $(PLUGINS_SO) $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
 ifdef PLUGINS_RC
@@ -649,17 +627,21 @@ ifdef INSTALL_HEADERS
 	$(INSTALL_DATA) $(PC_FILE) $(DESTDIR)$(PREFIX)/$(LIB)/pkgconfig
 endif
 
+# Old versions of Makefile installed util binaries to $(PREFIX)/bin, so uninstall from there for now
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM_THUMBNAILER)
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM_MIGRATOR)
 	$(if $(ENABLE_FACES), rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM_FACEDETECT))
+	rm -f $(DESTDIR)$(LIBEXECDIR)/$(PROGRAM_THUMBNAILER)
+	rm -f $(DESTDIR)$(LIBEXECDIR)/$(PROGRAM_MIGRATOR)
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
 	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps/shotwell.svg
 	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.svg
 	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.svg
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell-viewer.desktop
+	rm -f $(DESTDIR)$(PREFIX)/share/appdata/shotwell.appdata.xml
 ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
@@ -670,7 +652,6 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 	rm -f $(DESTDIR)$(PREFIX)/share/apport/package-hooks/shotwell.py
 endif
 	$(foreach lang,$(CORE_SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
-	$(foreach lang,$(EXTRAS_SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell-extras.mo`)
 	rm -rf $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
 ifdef INSTALL_HEADERS
 	rm -rf $(DESTDIR)$(PREFIX)/include/shotwell
@@ -710,8 +691,6 @@ $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(GPHOTO_VAPI_FILE) 
 	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src \
 		$(foreach pkg,$(VALA_PKGS),--pkg=$(pkg)) \
 		$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
-		$(foreach def,$(DEFINES),-X -D$(def)) \
-		$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
 		$(VALAFLAGS) \
 		$(EXPANDED_SRC_FILES)
 	@touch $@
@@ -723,12 +702,18 @@ $(EXPANDED_C_FILES): $(VALA_STAMP)
 $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
-$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN) $(FACEDETECT_BIN) misc/gschemas.compiled
+$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP) $(THUMBNAILER_BIN) $(FACEDETECT_BIN) misc/gschemas.compiled $(DOC_LANG_STAMP)
+
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(LDFLAGS) $(RESOURCES) $(VALA_LDFLAGS) $(EXPORT_FLAGS) -o $@
 
 misc/gschemas.compiled: $(SCHEMA_FILES)
 	rm -f misc/gschemas.compiled
 	glib-compile-schemas misc
+
+$(DOC_LANG_STAMP): $(EXPANDED_DOC_PAGES) $(EXPANDED_DOC_PO)
+	$(foreach lang,$(DOC_LINGUAS), \
+		$(foreach page,$(DOC_PAGES), `xml2po -m mallard -p help/$(lang)/$(lang).po -o help/$(lang)/$(page) help/C/$(page)`))
+	@touch $(DOC_LANG_STAMP)
 
 $(THUMBNAILER_BIN): $(EXPANDED_THUMBNAILER_SRC_FILES)
 	$(VALAC) $(EXPANDED_THUMBNAILER_SRC_FILES) $(VALAFLAGS) -o $@ $(foreach pkg,$(THUMBNAILER_PKGS),--pkg=$(pkg))
@@ -784,3 +769,6 @@ ifdef EXT_PKGS
 endif
 endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
+ifndef DISABLE_DESKTOP_VALIDATE
+	@ type desktop-file-validate > /dev/null || ( echo 'desktop-file-validate (usually found in the desktop-file-utils package) is missing and is required to build Shotwell. ' ; exit 1 )
+endif

@@ -5,8 +5,8 @@
  */
 #if ENABLE_FACES
 public class FaceSourceCollection : ContainerSourceCollection {
-    private Gee.HashMap<string, Face> name_map = new Gee.HashMap<string, Face>(Face.hash_name_string,
-        Face.equal_name_strings);
+    private Gee.HashMap<string, Face> name_map = new Gee.HashMap<string, Face>
+        ((Gee.HashDataFunc)Face.hash_name_string, (Gee.EqualDataFunc)Face.equal_name_strings);
     private Gee.HashMap<MediaSource, Gee.List<Face>> source_map =
         new Gee.HashMap<MediaSource, Gee.List<Face>>();
     

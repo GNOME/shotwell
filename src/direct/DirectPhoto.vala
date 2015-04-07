@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -38,6 +38,8 @@ public class DirectPhoto : Photo {
     }
 
     public static void init(File initial_file) {
+        init_photo();
+        
         global = new DirectPhotoSourceCollection(initial_file);
         DirectPhoto photo;
         string? reason = global.fetch(initial_file, out photo, false);
@@ -47,6 +49,7 @@ public class DirectPhoto : Photo {
     }
     
     public static void terminate() {
+        terminate_photo();
     }
 
     // Gets the dimensions of this photo's pixbuf when scaled to original
@@ -171,7 +174,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
     private const int DISCOVERED_FILES_BATCH_ADD = 500;
     private Gee.Collection<DirectPhoto> prepared_photos = new Gee.ArrayList<DirectPhoto>();
     private Gee.HashMap<File, DirectPhoto> file_map = new Gee.HashMap<File, DirectPhoto>(file_hash, 
-        file_equal, direct_equal);
+        file_equal);
     private DirectoryMonitor monitor;
     
     public DirectPhotoSourceCollection(File initial_file) {
@@ -257,7 +260,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     public void reimport_photo(DirectPhoto photo) {
-        photo.discard_prefetched(true);
+        photo.discard_prefetched();
         DirectPhoto reimported_photo;
         fetch(photo.get_file(), out reimported_photo, true);
     }

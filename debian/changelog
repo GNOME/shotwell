@@ -1,3 +1,167 @@
+shotwell (0.21.0-1~utopic1) utopic; urgency=low
+
+  * User interface refresh (#742326, #742443)
+  * Fix Shotwell Viewer .desktop file (#743799)
+  * Natural sorting of photo titles (#717960)
+  * Improved video thumbnailer (#739396, #741821)
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 02 Feb 2015 18:24:34 -0800
+
+
+shotwell (0.20.2-1~trusty2) trusty; urgency=low
+
+  * Mark as Conflicts/Replaces Ubuntu's shotwell-common package (#724080)
+
+ -- Jim Nelson <jim@yorba.org>  Thu, 13 Nov 2014 19:12:06 -0800
+
+
+shotwell (0.20.2-1~trusty1) trusty; urgency=low
+
+  * Set Desktop Slideshow dialog resource now included in distribution (#739095)
+  * Check for rendering failure in video thumbnailer (#738245)
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Fri, 31 Oct 2014 14:30:15 -0700
+
+
+shotwell (0.20.1-1~utopic1) utopic; urgency=low
+
+  * Corrects problems with navigating photos in full-screen mode (#737092)
+  * Better memory utilization via more conservative pixbuf cache (#715198)
+  * Fixes minor bugs detected by better Vala code analysis
+
+ -- Jim Nelson <jim@yorba.org>  Thu, 02 Oct 2014 13:08:22 -0700
+
+
+shotwell (0.20.0-1~trusty1) trusty; urgency=low
+
+  * Fix crash when deleting a photo in Shotwell Photo Viewer
+  * Fix crash when deleting a photo
+  * Better detection of corrupt files while importing
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Tue, 16 Sep 2014 15:36:44 -0700
+
+
+shotwell (0.19.0-1~saucy1) saucy; urgency=low
+
+  * Support for Rajce.net and Gallery 3 photo services added
+  * Set background image for lock screen
+  * Better detection of corrupt images during import
+  * Various bug fixes
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Thu, 21 Aug 2014 13:59:52 -0700
+
+
+shotwell (0.18.1-1~saucy1) saucy; urgency=low
+
+  * Fix Flickr publishing errors due to Flickr moving to HTTPs-only
+  * Fix crash when updating photo data/time
+  * Fix crash due to nested tag and changing sidebar selection
+  * Corrected URLs to point to new gnome.org pages
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 30 Jun 2014 15:11:13 -0700
+
+
+shotwell (0.18.0-1~saucy1) saucy; urgency=low
+
+  * Tumblr publishing fixed
+  * UNIX pipe unnecessarily left open for each imported video
+  * Improved searching for event comments and diacritics
+  * Bug fixes
+  * Compile and install translated help files
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 17 Mar 2014 15:56:49 -0700
+
+
+shotwell (0.15.1-1~raring1) raring; urgency=low
+
+  * Install Tumblr plugin resources
+  * Fix crash when video thumbnails are being inspected and created
+
+ -- Jim Nelson <jim@yorba.org>  Tue, 19 Nov 2013 16:28:43 -0800
+
+
+shotwell (0.15.0-2~raring1) raring; urgency=low
+
+  * Update to latest gexiv2
+
+ -- Charles Lindsay <chaz@yorba.org>  Fri, 04 Oct 2013 12:51:06 -0700
+
+shotwell (0.15.0-1~raring2) raring; urgency=low
+
+  * Copy and paste color adjustments between photos
+  * Highlights detail adjustment
+  * YouTube plugin now uses OAuth / OpenID
+  * Videos in Missing Files now re-import properly
+  * Improvements when thumbnailing videos
+  * Numerous bug fixes
+
+ -- Jim Nelson <jim@yorba.org>  Thu, 03 Oct 2013 16:33:28 -0700
+
+
+shotwell (0.14.1-1~quantal1) quantal; urgency=low
+
+  * Fixes a critical issue where Shotwell could
+    close unexpectedly when working with RAW photos
+    in direct-edit mode
+  * The Facebook Connector now recovers smoothly
+    from type 7 errors
+  * EXIF-oriented photos uploaded to Facebook now
+    appear in their correct orientation, even when
+    the strip metadata option is turned on
+  * Fixes an issue where incorrect view filter
+    settings were applied on tag and event pages
+  * The Camera Developer is now disabled for RAW
+    images that lack a suitable paired or embedded
+    JPEG preview
+  * Updated translations for many languages,
+    including an updated Catalan translation that
+    corrects a problem where incorrect event dates
+    were displayed
+  * Assorted other bug fixes
+
+ -- Lucas Beeler <lucas@yorba.org>  Wed, 3 Apr 2013 10:59:20 -0700
+
+
+shotwell (0.14.0-1~quantal1) quantal; urgency=low
+
+  * A folder tree in the sidebar provides a directory-
+    hierarchy view of your Shotwell library.
+  * Dramatically improved user experience for RAW
+    photographers: long-standing bugs involving RAW
+    developer switching have been fixed.
+  * Comprehensive logging of photo and video import,
+    including the ability to save an import log file
+    to disk. The log tracks which files were detected
+    as duplicates as well as files that couldn't be
+    imported due to disk or camera problems.
+  * The Facebook Connector now uses the Facebook
+    Graph API, resulting in a smoother, more stable
+    experience uploading photos and videos to Facebook.
+    As a bonus, Shotwell photo titles now appear as
+    Facebook photo captions!
+  * The Shotwell video subsystem now relies on
+    GStreamer 1.0, making for easier, more stable video
+    import, better video thumbnails, and better handling
+    of video metadata.
+  * New slideshow effects, improved Piwigo support,
+    the ability to show and hide the main Shotwell sidebar,
+    and numerous bug fixes and translation updates!
+
+ -- Lucas Beeler <lucas@yorba.org>  Mon, 18 Mar 2013 12:15:51 -0700
+
+
+shotwell (0.14.0pr1-1~precise1) precise; urgency=low
+
+  * 0.14.0 pre-release
+
+ -- Jim Nelson <jim@yorba.org>  Wed, 06 Mar 2013 12:27:58 -0800
+
+
 shotwell (0.13.1-1~precise1) precise; urgency=low
 
   * Fixes an issue in which Shotwell would crash after deleting

@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -119,6 +119,8 @@ public interface ImportableMediaItem : GLib.Object {
     public abstract string get_folder_path();
     
     public abstract string get_filename();
+
+    public abstract time_t? get_exposure_time();
 }
 
 /**

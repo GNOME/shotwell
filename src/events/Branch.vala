@@ -1,15 +1,14 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 public class Events.Branch : Sidebar.Branch {
-    internal static Icon open_icon;
-    internal static Icon closed_icon;
-    internal static Icon events_icon;
-    internal static Icon single_event_icon;
-    internal static Icon no_event_icon;
+    internal static string icon = Resources.ICON_FOLDER;
+    internal static string events_icon = Resources.ICON_EVENTS;
+    internal static string single_event_icon = Resources.ICON_ONE_EVENT;
+    internal static string no_event_icon = Resources.ICON_NO_EVENT;
     
     // NOTE: Because the comparators must be static methods (due to CompareFunc's stupid impl.)
     // and there's an assumption that only one Events.Branch is ever created, this is a static
@@ -20,10 +19,13 @@ public class Events.Branch : Sidebar.Branch {
         Event, Events.EventEntry>();
     private Events.UndatedDirectoryEntry undated_entry = new Events.UndatedDirectoryEntry();
     private Events.NoEventEntry no_event_entry = new Events.NoEventEntry();
+    private Events.MasterDirectoryEntry all_events_entry = new Events.MasterDirectoryEntry();
     
     public Branch() {
-        base (new Events.MasterDirectoryEntry(), Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
+        base (new Sidebar.Header(_("Events")), Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
             event_year_comparator);
+        
+        graft(get_root(), all_events_entry);
         
         // seed the branch
         foreach (DataObject object in Event.global.get_all())
@@ -49,48 +51,52 @@ public class Events.Branch : Sidebar.Branch {
     }
     
     internal static void init() {
-        open_icon = new ThemedIcon(Resources.ICON_FOLDER_OPEN);
-        closed_icon = new ThemedIcon(Resources.ICON_FOLDER_CLOSED);
-        events_icon = new ThemedIcon(Resources.ICON_EVENTS);
-        single_event_icon = new ThemedIcon(Resources.ICON_ONE_EVENT);
-        no_event_icon = new ThemedIcon(Resources.ICON_MISSING_FILES);
-        
         sort_ascending = Config.Facade.get_instance().get_events_sort_ascending();
     }
     
     internal static void terminate() {
-        open_icon = null;
-        closed_icon = null;
-        events_icon = null;
-        single_event_icon = null;
-        no_event_icon = null;
+    }
+    
+    public bool is_user_renameable() {
+        return true;
     }
     
     public Events.MasterDirectoryEntry get_master_entry() {
-        return (Events.MasterDirectoryEntry) get_root();
+        return all_events_entry;
     }
     
     private static int event_year_comparator(Sidebar.Entry a, Sidebar.Entry b) {
         if (a == b)
             return 0;
         
-        // No Event entry is always last in the list
+        // The Undated and No Event entries should always appear last in the
+        // list, respectively.
+        if (a is Events.UndatedDirectoryEntry) {
+            if (b is Events.NoEventEntry)
+                return -1;
+            return 1;
+        } else if (b is Events.UndatedDirectoryEntry) {
+            if (a is Events.NoEventEntry)
+                return 1;
+            return -1;
+        }
+        
         if (a is Events.NoEventEntry)
             return 1;
         else if (b is Events.NoEventEntry)
             return -1;
+        
+        // The All events entry should always appear on top
+        if (a is Events.MasterDirectoryEntry)
+            return -1;
+        else if (b is Events.MasterDirectoryEntry)
+            return 1;
         
         if (!sort_ascending) {
             Sidebar.Entry swap = a;
             a = b;
             b = swap;
         }
-        
-        // Undated is earliest in list
-        if (a is Events.UndatedDirectoryEntry)
-            return -1;
-        else if (b is Events.UndatedDirectoryEntry)
-            return 1;
         
         int result = 
             ((Events.YearDirectoryEntry) a).get_year() - ((Events.YearDirectoryEntry) b).get_year();
@@ -307,7 +313,8 @@ public class Events.Branch : Sidebar.Branch {
         int event_year = event_tm.year + 1900;
         
         return find_first_child(get_root(), (entry) => {
-            if ((entry is Events.UndatedDirectoryEntry) || (entry is Events.NoEventEntry))
+            if ((entry is Events.UndatedDirectoryEntry) || (entry is Events.NoEventEntry) || 
+                 entry is Events.MasterDirectoryEntry)
                 return false;
             else
                 return ((Events.YearDirectoryEntry) entry).get_year() == event_year;
@@ -329,7 +336,7 @@ public class Events.Branch : Sidebar.Branch {
     }
     
     private void graft_event(Sidebar.Entry parent, Event event,
-        CompareFunc<Sidebar.Entry>? comparator = null) {
+        owned CompareFunc<Sidebar.Entry>? comparator = null) {
         Events.EventEntry entry = new Events.EventEntry(event);
         entry_map.set(event, entry);
         
@@ -367,16 +374,8 @@ public abstract class Events.DirectoryEntry : Sidebar.SimplePageEntry, Sidebar.E
     public DirectoryEntry() {
     }
     
-    public override Icon? get_sidebar_icon() {
-        return null;
-    }
-    
-    public virtual Icon? get_sidebar_open_icon() {
-        return Events.Branch.open_icon;
-    }
-    
-    public virtual Icon? get_sidebar_closed_icon() {
-        return Events.Branch.closed_icon;
+    public override string? get_sidebar_icon() {
+        return Events.Branch.icon;
     }
     
     public bool expand_on_select() {
@@ -392,15 +391,7 @@ public class Events.MasterDirectoryEntry : Events.DirectoryEntry {
         return MasterEventsDirectoryPage.NAME;
     }
     
-    public override Icon? get_sidebar_icon() {
-        return Events.Branch.events_icon;
-    }
-    
-    public override Icon? get_sidebar_open_icon() {
-        return Events.Branch.events_icon;
-    }
-    
-    public override Icon? get_sidebar_closed_icon() {
+    public override string? get_sidebar_icon() {
         return Events.Branch.events_icon;
     }
     
@@ -487,12 +478,16 @@ public class Events.EventEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return event.get_name();
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return Events.Branch.single_event_icon;
     }
     
     protected override Page create_page() {
         return new EventPage(event);
+    }
+    
+    public bool is_user_renameable() {
+        return true;
     }
     
     public void rename(string new_name) {
@@ -518,6 +513,7 @@ public class Events.EventEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     }
 }
 
+
 public class Events.NoEventEntry : Sidebar.SimplePageEntry {
     public NoEventEntry() {
     }
@@ -526,7 +522,7 @@ public class Events.NoEventEntry : Sidebar.SimplePageEntry {
         return NoEventPage.NAME;
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return Events.Branch.no_event_icon;
     }
     

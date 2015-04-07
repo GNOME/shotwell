@@ -1,4 +1,4 @@
-/* Copyright 2010-2013 Yorba Foundation
+/* Copyright 2010-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -71,14 +71,17 @@ public class BmpSniffer : GdkSniffer {
         return true;
     }
 
-    public override DetectedPhotoInformation? sniff() throws Error {
+    public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
+        // Rely on GdkSniffer to detect corruption
+        is_corrupted = false;
+        
         if (!is_bmp_file(file))
             return null;
-
-        DetectedPhotoInformation? detected = base.sniff();
+        
+        DetectedPhotoInformation? detected = base.sniff(out is_corrupted);
         if (detected == null)
             return null;
-
+        
         return (detected.file_format == PhotoFileFormat.BMP) ? detected : null;
     }
 }
@@ -161,7 +164,7 @@ public class BmpFileFormatDriver : PhotoFileFormatDriver {
     }
     
     public override bool can_write_metadata() {
-        return true;
+        return false;
     }
     
     public override PhotoFileWriter? create_writer(string filepath) {

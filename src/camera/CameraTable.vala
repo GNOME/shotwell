@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -8,9 +8,9 @@ public class DiscoveredCamera {
     public GPhoto.Camera gcamera;
     public string uri;
     public string display_name;
-    public GLib.Icon? icon;
+    public string? icon;
     
-    public DiscoveredCamera(GPhoto.Camera gcamera, string uri, string display_name, GLib.Icon? icon) {
+    public DiscoveredCamera(GPhoto.Camera gcamera, string uri, string display_name, string? icon) {
         this.gcamera = gcamera;
         this.uri = uri;
         this.display_name = display_name;
@@ -32,8 +32,7 @@ public class CameraTable {
     private GPhoto.CameraAbilitiesList abilities_list;
     private VolumeMonitor volume_monitor;
     
-    private Gee.HashMap<string, DiscoveredCamera> camera_map = new Gee.HashMap<string, DiscoveredCamera>(
-        str_hash, str_equal, direct_equal);
+    private Gee.HashMap<string, DiscoveredCamera> camera_map = new Gee.HashMap<string, DiscoveredCamera>();
 
     public signal void camera_added(DiscoveredCamera camera);
     
@@ -222,10 +221,10 @@ public class CameraTable {
         return null;
     }
     
-    private GLib.Icon? get_icon_for_uuid(string uuid) {
+    private string? get_icon_for_uuid(string uuid) {
         foreach (Volume volume in volume_monitor.get_volumes()) {
             if (volume.get_identifier(VolumeIdentifier.UUID) == uuid) {
-                return volume.get_icon();
+                return volume.get_icon().to_string();
             }
         }
         return null;
@@ -241,8 +240,7 @@ public class CameraTable {
         do_op(GPhoto.CameraList.create(out camera_list), "create camera list");
         do_op(abilities_list.detect(port_info_list, camera_list, null_context), "detect cameras");
         
-        Gee.HashMap<string, string> detected_map = new Gee.HashMap<string, string>(str_hash, str_equal,
-            str_equal);
+        Gee.HashMap<string, string> detected_map = new Gee.HashMap<string, string>();
         
         // walk the USB chain and find all PTP cameras; this is necessary for usb_esp
         string[] usb_cameras = get_all_usb_cameras();
@@ -325,7 +323,7 @@ public class CameraTable {
         foreach (string port in detected_map.keys) {
             string name = detected_map.get(port);
             string display_name = null;
-            GLib.Icon? icon = null;
+            string? icon = null;
             string uri = get_port_uri(port);
 
             if (camera_map.has_key(uri)) {

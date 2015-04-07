@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -517,17 +517,12 @@ public class SourceBacklink {
         return "Backlink %s=%s".printf(name, value);
     }
     
-    public static uint hash_func(void *key) {
-        SourceBacklink *backlink = (SourceBacklink *) key;
-        
-        return str_hash(backlink->_name) ^ str_hash(backlink->_value);
+    public static uint hash_func(SourceBacklink? backlink) {        
+        return str_hash(backlink._name) ^ str_hash(backlink._value);
     }
     
-    public static bool equal_func(void *a, void *b) {
-        SourceBacklink *alink = (SourceBacklink *) a;
-        SourceBacklink *blink = (SourceBacklink *) b;
-        
-        return str_equal(alink->_name, blink->_name) && str_equal(alink->_value, blink->_value);
+    public static bool equal_func(SourceBacklink? alink, SourceBacklink? blink) {       
+        return str_equal(alink._name, blink._name) && str_equal(alink._value, blink._value);
     }
 }
 

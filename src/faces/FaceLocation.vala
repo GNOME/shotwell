@@ -89,16 +89,15 @@ public class FaceLocation : Object {
             new FaceLocation(row.face_location_id, row.face_id, row.photo_id, row.geometry);
         
         Gee.Map<PhotoID?, FaceLocation> photos_map = face_photos_map.get(row.face_id);
-        if (photos_map == null) {
-            photos_map = new Gee.HashMap<PhotoID?, FaceLocation>(FaceLocation.photo_id_hash, FaceLocation.photo_ids_equal);
-            
+        if (photos_map == null) {photos_map = new Gee.HashMap<PhotoID?, FaceLocation>
+            ((Gee.HashDataFunc)FaceLocation.photo_id_hash, (Gee.EqualDataFunc)FaceLocation.photo_ids_equal);
             face_photos_map.set(row.face_id, photos_map);
         }
         photos_map.set(row.photo_id, face_location);
         
         Gee.Map<FaceID?, FaceLocation> faces_map = photo_faces_map.get(row.photo_id);
-        if (faces_map == null) {
-            faces_map = new Gee.HashMap<FaceID?, FaceLocation>(FaceLocation.face_id_hash, FaceLocation.face_ids_equal);
+        if (faces_map == null) {faces_map = new Gee.HashMap<FaceID?, FaceLocation>
+            ((Gee.HashDataFunc)FaceLocation.face_id_hash, (Gee.EqualDataFunc)FaceLocation.face_ids_equal);
             
             photo_faces_map.set(row.photo_id, faces_map);
         }
@@ -134,14 +133,14 @@ public class FaceLocation : Object {
     public static bool photo_ids_equal(void *a, void *b) {
         PhotoID *aid = (PhotoID *) a;
         PhotoID *bid = (PhotoID *) b;
-	
+    
         return aid->id == bid->id;
     }
     
     public static bool face_ids_equal(void *a, void *b) {
         FaceID *aid = (FaceID *) a;
         FaceID *bid = (FaceID *) b;
-	
+    
         return aid->id == bid->id;
     }
     
@@ -166,12 +165,12 @@ public class FaceLocation : Object {
         
         return hash;
     }
-    
+
     public static void init(ProgressMonitor? monitor) {
-        face_photos_map =
-            new Gee.HashMap<FaceID?, Gee.HashMap<PhotoID?, FaceLocation>>(face_id_hash, face_ids_equal);
-        photo_faces_map =
-            new Gee.HashMap<PhotoID?, Gee.HashMap<FaceID?, FaceLocation>>(photo_id_hash, photo_ids_equal);
+        face_photos_map = new Gee.HashMap<FaceID?, Gee.HashMap<PhotoID?, FaceLocation>>
+            ((Gee.HashDataFunc)face_id_hash, (Gee.EqualDataFunc)face_ids_equal);
+        photo_faces_map = new Gee.HashMap<PhotoID?, Gee.HashMap<FaceID?, FaceLocation>>
+            ((Gee.HashDataFunc)photo_id_hash, (Gee.EqualDataFunc)photo_ids_equal);
         
         // scoop up all the rows at once
         Gee.List<FaceLocationRow?> rows = null;

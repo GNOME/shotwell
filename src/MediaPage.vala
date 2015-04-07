@@ -1,4 +1,4 @@
-/* Copyright 2010-2013 Yorba Foundation
+/* Copyright 2010-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -9,6 +9,7 @@ public class MediaSourceItem : CheckerboardItem {
     private static Gdk.Pixbuf current_sprocket_pixbuf = null;
 
     private bool enable_sprockets = false;
+    private string? natural_collation_key = null;
 
     // preserve the same constructor arguments and semantics as CheckerboardItem so that we're
     // a drop-in replacement
@@ -93,6 +94,19 @@ public class MediaSourceItem : CheckerboardItem {
     public void set_enable_sprockets(bool enable_sprockets) {
         this.enable_sprockets = enable_sprockets;
     }
+    
+    public new void set_title(string text, bool marked_up = false,
+        Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        base.set_title(text, marked_up, alignment);
+        this.natural_collation_key = null;
+    }
+    
+    public string get_natural_collation_key() {
+        if (this.natural_collation_key == null) {
+            this.natural_collation_key = NaturalCollate.collate_key(this.get_title());
+        }
+        return this.natural_collation_key;
+    }
 }
 
 public abstract class MediaPage : CheckerboardPage {
@@ -108,7 +122,8 @@ public abstract class MediaPage : CheckerboardPage {
         TITLE = 1,
         EXPOSURE_DATE = 2,
         RATING = 3,
-        MAX = 3
+        FILENAME = 4,
+        MAX = 4
     }
 
     protected class ZoomSliderAssembly : Gtk.ToolItem {
@@ -271,7 +286,7 @@ public abstract class MediaPage : CheckerboardPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
+        Gtk.ActionEntry export = { "Export", Resources.SAVE_AS_LABEL, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
         actions += export;
@@ -288,7 +303,7 @@ public abstract class MediaPage : CheckerboardPage {
         send_to_context_menu.label = Resources.SEND_TO_CONTEXT_MENU;
         actions += send_to_context_menu;
         
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Resources.REMOVE_LABEL, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
         actions += remove_from_library;
@@ -298,7 +313,7 @@ public abstract class MediaPage : CheckerboardPage {
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
         actions += move_to_trash;
         
-        Gtk.ActionEntry new_event = { "NewEvent", Gtk.Stock.NEW, TRANSLATABLE, "<Ctrl>N",
+        Gtk.ActionEntry new_event = { "NewEvent", Resources.NEW_LABEL, TRANSLATABLE, "<Ctrl>N",
             TRANSLATABLE, on_new_event };
         new_event.label = Resources.NEW_EVENT_MENU;
         actions += new_event;
@@ -320,13 +335,13 @@ public abstract class MediaPage : CheckerboardPage {
         modify_tags.label = Resources.MODIFY_TAGS_MENU;
         actions += modify_tags;
 
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.Stock.ZOOM_IN, TRANSLATABLE,
+        Gtk.ActionEntry increase_size = { "IncreaseSize", Resources.ZOOM_IN_LABEL, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
         increase_size.tooltip = _("Increase the magnification of the thumbnails");
         actions += increase_size;
 
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.Stock.ZOOM_OUT, TRANSLATABLE,
+        Gtk.ActionEntry decrease_size = { "DecreaseSize", Resources.ZOOM_OUT_LABEL, TRANSLATABLE,
             "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
         decrease_size.label = _("Zoom _Out");
         decrease_size.tooltip = _("Decrease the magnification of the thumbnails");
@@ -403,7 +418,7 @@ public abstract class MediaPage : CheckerboardPage {
         filter_photos.label = Resources.FILTER_PHOTOS_MENU;
         actions += filter_photos;
         
-        Gtk.ActionEntry play = { "PlayVideo", Gtk.Stock.MEDIA_PLAY, TRANSLATABLE, "<Ctrl>Y",
+        Gtk.ActionEntry play = { "PlayVideo", Resources.PLAY_LABEL, TRANSLATABLE, "<Ctrl>Y",
             TRANSLATABLE, on_play_video };
         play.label = _("_Play Video");
         play.tooltip = _("Open the selected videos in the system video player");
@@ -484,18 +499,24 @@ public abstract class MediaPage : CheckerboardPage {
         by_rating.tooltip = _("Sort photos by rating");
         sort_crit_actions += by_rating;
         
+        Gtk.RadioActionEntry by_filename = { "SortByFilename", null, TRANSLATABLE, null,
+            TRANSLATABLE, SortBy.FILENAME };
+        by_filename.label = _("By _Filename");
+        by_filename.tooltip = _("Sort photos by filename");
+        sort_crit_actions += by_filename;
+
         action_group.add_radio_actions(sort_crit_actions, sort_by, on_sort_changed);
         
         // Sort order.
         Gtk.RadioActionEntry[] sort_order_actions = new Gtk.RadioActionEntry[0];
         
-        Gtk.RadioActionEntry ascending = { "SortAscending", Gtk.Stock.SORT_ASCENDING,
+        Gtk.RadioActionEntry ascending = { "SortAscending", Resources.SORT_ASCENDING_LABEL,
             TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_ASCENDING };
         ascending.label = _("_Ascending");
         ascending.tooltip = _("Sort photos in an ascending order");
         sort_order_actions += ascending;
         
-        Gtk.RadioActionEntry descending = { "SortDescending", Gtk.Stock.SORT_DESCENDING,
+        Gtk.RadioActionEntry descending = { "SortDescending", Resources.SORT_DESCENDING_LABEL,
             TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_DESCENDING };
         descending.label = _("D_escending");
         descending.tooltip = _("Sort photos in a descending order");
@@ -817,6 +838,14 @@ public abstract class MediaPage : CheckerboardPage {
         set_display_ratings(Config.Facade.get_instance().get_display_photo_ratings());
         set_display_tags(Config.Facade.get_instance().get_display_photo_tags());
         get_view().thaw_notifications();
+
+        // Update cursor position to match the selection that potentially moved while the user
+        // navigated in SinglePhotoPage
+        if (get_view().get_selected_count() > 0) {
+            CheckerboardItem? selected = (CheckerboardItem?) get_view().get_selected_at(0);
+            if (selected != null)
+                cursor_to_item(selected);
+        }
 
         sync_sort();
     }
@@ -1198,8 +1227,18 @@ public abstract class MediaPage : CheckerboardPage {
                 predicate = Thumbnail.rating_comparator_predicate;
                 break;
             
+            case SortBy.FILENAME:
+                if (ascending)
+                    comparator = Thumbnail.filename_ascending_comparator;
+                else comparator = Thumbnail.filename_descending_comparator;
+                predicate = Thumbnail.filename_comparator_predicate;
+                break;
+
             default:
-                error("Unknown sort criteria: %s", get_menu_sort_by().to_string());
+                debug("Unknown sort criteria: %s", get_menu_sort_by().to_string());
+                comparator = Thumbnail.title_descending_comparator;
+                predicate = Thumbnail.title_comparator_predicate;
+                break;
         }
         
         get_view().set_comparator(comparator, predicate);
@@ -1215,9 +1254,13 @@ public abstract class MediaPage : CheckerboardPage {
             
             case SortBy.RATING:
                 return "/MenuBar/ViewMenu/SortPhotos/SortByRating";
+
+            case SortBy.FILENAME:
+                return "/MenuBar/ViewMenu/SortPhotos/SortByFilename";
             
             default:
-                error("Unknown sort criteria: %d", sort_by);
+                debug("Unknown sort criteria: %d", sort_by);
+                return "/MenuBar/ViewMenu/SortPhotos/SortByTitle";
         }
     }
 

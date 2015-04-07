@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -17,53 +17,48 @@ class SlideshowPage : SinglePhotoPage {
     private Timer timer = new Timer();
     private bool playing = true;
     private bool exiting = false;
+    private string[] transitions;
 
     private Screensaver screensaver;
 
     public signal void hide_toolbar();
     
     private class SettingsDialog : Gtk.Dialog {
+        private Gtk.Builder builder = null;
         Gtk.SpinButton delay_entry;
-        Gtk.Scale hscale;
+        Gtk.Scale delay_hscale;
         Gtk.ComboBoxText transition_effect_selector;
         Gtk.Scale transition_effect_hscale;
         Gtk.SpinButton transition_effect_entry;
         Gtk.Adjustment transition_effect_adjustment;
         Gtk.CheckButton show_title_button;
+        Gtk.Box pane;
         
         public SettingsDialog() {
+            builder = AppWindow.create_builder();
+            pane = builder.get_object("slideshow_settings_pane") as Gtk.Box;
+            get_content_area().add(pane);
+            
             double delay = Config.Facade.get_instance().get_slideshow_delay();
             
             set_modal(true);
             set_transient_for(AppWindow.get_fullscreen());
-
-            add_buttons(Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL, 
-                Gtk.Stock.OK, Gtk.ResponseType.OK);
-            set_title(_("Settings"));
-
-            Gtk.Label delay_label = new Gtk.Label.with_mnemonic(_("_Delay:"));
-            delay_label.xalign = (float) 1.0;
-            Gtk.Label units_label = new Gtk.Label(_("seconds"));
-            units_label.xalign = (float) 0.0;
-            Gtk.Label units_label1 = new Gtk.Label(_("seconds"));
-            units_label1.xalign = (float) 0.0;
-
-            Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.Facade.SLIDESHOW_DELAY_MIN, Config.Facade.SLIDESHOW_DELAY_MAX, 0.1, 1, 0);
-            hscale = new Gtk.Scale(Gtk.Orientation.HORIZONTAL, adjustment);
-            hscale.set_draw_value(false);
-            hscale.set_size_request(150,-1);
-            delay_label.set_mnemonic_widget(hscale);
             
-            delay_entry = new Gtk.SpinButton(adjustment, 0.1, 1);
+            add_buttons(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL, 
+                Resources.OK_LABEL, Gtk.ResponseType.OK);
+            set_title(_("Settings"));
+            
+            Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.Facade.SLIDESHOW_DELAY_MIN, Config.Facade.SLIDESHOW_DELAY_MAX, 0.1, 1, 0);
+            delay_hscale = builder.get_object("delay_hscale") as Gtk.Scale;
+            delay_hscale.adjustment = adjustment;
+            
+            delay_entry = builder.get_object("delay_entry") as Gtk.SpinButton;
+            delay_entry.adjustment = adjustment;
             delay_entry.set_value(delay);
             delay_entry.set_numeric(true);
             delay_entry.set_activates_default(true);
 
-            transition_effect_selector = new Gtk.ComboBoxText();
-            Gtk.Label transition_effect_selector_label = new Gtk.Label.with_mnemonic(
-                _("_Transition effect:"));
-            transition_effect_selector_label.xalign = (float) 1.0;
-            transition_effect_selector_label.set_mnemonic_widget(transition_effect_selector);
+            transition_effect_selector = builder.get_object("transition_effect_selector") as Gtk.ComboBoxText;
             
             // get last effect id
             string effect_id = Config.Facade.get_instance().get_slideshow_transition_effect_id();
@@ -88,78 +83,24 @@ class SlideshowPage : SinglePhotoPage {
             }
             transition_effect_selector.changed.connect(on_transition_changed);
             
-            Gtk.Label transition_delay_label = new Gtk.Label.with_mnemonic(_("Transition d_elay:"));
-            transition_delay_label.xalign = (float) 1.0;
-            
             double transition_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
             transition_effect_adjustment = new Gtk.Adjustment(transition_delay,
                 Config.Facade.SLIDESHOW_TRANSITION_DELAY_MIN, Config.Facade.SLIDESHOW_TRANSITION_DELAY_MAX,
                 0.1, 1, 0);
-            transition_effect_hscale = new Gtk.Scale(Gtk.Orientation.HORIZONTAL,transition_effect_adjustment);
-            transition_effect_hscale.set_draw_value(false);
-            transition_effect_hscale.set_size_request(150, -1);
+            transition_effect_hscale = builder.get_object("transition_effect_hscale") as Gtk.Scale;
+            transition_effect_hscale.adjustment = transition_effect_adjustment;
             
-            transition_effect_entry = new Gtk.SpinButton(transition_effect_adjustment, 0.1, 1);
+            transition_effect_entry = builder.get_object("transition_effect_entry") as Gtk.SpinButton;
+            transition_effect_entry.adjustment = transition_effect_adjustment;
             transition_effect_entry.set_value(transition_delay);
             transition_effect_entry.set_numeric(true);
             transition_effect_entry.set_activates_default(true);
-            transition_delay_label.set_mnemonic_widget(transition_effect_hscale);
             
             bool show_title = Config.Facade.get_instance().get_slideshow_show_title();
-            show_title_button = new Gtk.CheckButton.with_mnemonic(_("Show t_itle"));
+            show_title_button = builder.get_object("show_title_button") as  Gtk.CheckButton;
             show_title_button.active = show_title;
             
             set_default_response(Gtk.ResponseType.OK);
-            
-            Gtk.Table tbl = new Gtk.Table(4, 4, false);
-            tbl.attach(delay_label, 0, 1, 0, 1, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 0);
-            tbl.attach(hscale, 1, 2, 0, 1, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 0);
-            tbl.attach(delay_entry, 2, 3, 0, 1, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 0);
-            tbl.attach(units_label, 3, 4, 0, 1, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 0);
-                
-            tbl.attach(transition_effect_selector_label, 0, 1, 1, 2, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 6);
-            tbl.attach(transition_effect_selector, 1, 2, 1, 2, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 6);
-                
-            tbl.attach(transition_delay_label, 0, 1, 2, 3, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 0);
-            tbl.attach(transition_effect_hscale, 1, 2, 2, 3, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 0);
-            tbl.attach(transition_effect_entry, 2, 3, 2, 3, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 0);
-            tbl.attach(units_label1, 3, 4, 2, 3, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 0);
-            tbl.attach(show_title_button, 0, 4, 3, 4, 
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-                3, 0);
-            
-            ((Gtk.Box) get_content_area()).pack_start(tbl, true, false, 6);
             
             on_transition_changed();
         }
@@ -201,6 +142,13 @@ class SlideshowPage : SinglePhotoPage {
         
         this.sources = sources;
         this.controller = controller;
+        
+        Gee.Collection<string> pluggables = TransitionEffectsManager.get_instance().get_effect_ids();
+        Gee.ArrayList<string> a = new Gee.ArrayList<string>();
+        a.add_all(pluggables);
+        a.remove(NullTransitionDescriptor.EFFECT_ID);
+        a.remove(RandomEffectDescriptor.EFFECT_ID);
+        transitions = a.to_array();
         current = start;
         
         update_transition_effect();
@@ -209,28 +157,29 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // add toolbar buttons
-        Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_BACK);
-        previous_button.set_label(_("Back"));
+        Gtk.ToolButton previous_button = new Gtk.ToolButton(null, _("Back"));
+        previous_button.set_icon_name("go-previous");
         previous_button.set_tooltip_text(_("Go to the previous photo"));
         previous_button.clicked.connect(on_previous_photo);
         
         toolbar.insert(previous_button, -1);
         
-        play_pause_button = new Gtk.ToolButton.from_stock(Gtk.Stock.MEDIA_PAUSE);
-        play_pause_button.set_label(_("Pause"));
+        play_pause_button = new Gtk.ToolButton(null, _("Pause"));
+        play_pause_button.set_icon_name("media-playback-pause");
         play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         play_pause_button.clicked.connect(on_play_pause);
         
         toolbar.insert(play_pause_button, -1);
         
-        Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_FORWARD);
-        next_button.set_label(_("Next"));
+        Gtk.ToolButton next_button = new Gtk.ToolButton(null, _("Next"));
+        next_button.set_icon_name("go-next");
         next_button.set_tooltip_text(_("Go to the next photo"));
         next_button.clicked.connect(on_next_photo);
         
         toolbar.insert(next_button, -1);
 
-        settings_button = new Gtk.ToolButton.from_stock(Gtk.Stock.PREFERENCES);
+        settings_button = new Gtk.ToolButton(null, null);
+        settings_button.set_icon_name("preferences-system");
         settings_button.set_label(_("Settings"));
         settings_button.set_tooltip_text(_("Change slideshow settings"));
         settings_button.clicked.connect(on_change_settings);
@@ -317,11 +266,11 @@ class SlideshowPage : SinglePhotoPage {
 
     private void on_play_pause() {
         if (playing) {
-            play_pause_button.set_stock_id(Gtk.Stock.MEDIA_PLAY);
+            play_pause_button.set_icon_name("media-playback-start");
             play_pause_button.set_label(_("Play"));
             play_pause_button.set_tooltip_text(_("Continue the slideshow"));
         } else {
-            play_pause_button.set_stock_id(Gtk.Stock.MEDIA_PAUSE);
+            play_pause_button.set_icon_name("media-playback-pause");
             play_pause_button.set_label(_("Pause"));
             play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         }
@@ -377,6 +326,11 @@ class SlideshowPage : SinglePhotoPage {
             }
         }
 
+        if (Config.Facade.get_instance().get_slideshow_transition_effect_id() ==
+            RandomEffectDescriptor.EFFECT_ID) {
+            random_transition_effect();
+        }
+        
         advance(next_photo, Direction.FORWARD);
     }
     
@@ -453,6 +407,16 @@ class SlideshowPage : SinglePhotoPage {
         string effect_id = Config.Facade.get_instance().get_slideshow_transition_effect_id();
         double effect_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
         
+        set_transition(effect_id, (int) (effect_delay * 1000.0));
+    }
+    
+    private void random_transition_effect() {
+        double effect_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
+        string effect_id = TransitionEffectsManager.NULL_EFFECT_ID;
+        if (0 < transitions.length) {
+            int random = Random.int_range(0, transitions.length);
+            effect_id = transitions[random];
+        }
         set_transition(effect_id, (int) (effect_delay * 1000.0));
     }
     

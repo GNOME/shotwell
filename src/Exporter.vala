@@ -1,4 +1,4 @@
-/* Copyright 2010-2013 Yorba Foundation
+/* Copyright 2010-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -109,7 +109,7 @@ public class Exporter : Object {
     private File? dir;
     private Scaling scaling;
     private int completed_count = 0;
-    private Workers workers = new Workers(Workers.threads_per_cpu(), false);
+    private Workers workers = new Workers(Workers.threads_per_cpu(1, 4), false);
     private unowned CompletionCallback? completion_callback = null;
     private unowned ExportFailedCallback? error_callback = null;
     private unowned OverwriteCallback? overwrite_callback = null;

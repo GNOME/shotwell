@@ -1,17 +1,17 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 public class Camera.Branch : Sidebar.Branch {
-    internal static Icon? cameras_icon = null;
+    internal static string? cameras_icon = Resources.ICON_CAMERAS;
     
     private Gee.HashMap<DiscoveredCamera, Camera.SidebarEntry> camera_map = new Gee.HashMap<
         DiscoveredCamera, Camera.SidebarEntry>();
     
     public Branch() {
-        base (new Camera.Grouping(),
+        base (new Camera.Header(),
             Sidebar.Branch.Options.HIDE_IF_EMPTY | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD,
             camera_comparator);
         
@@ -23,11 +23,9 @@ public class Camera.Branch : Sidebar.Branch {
     }
     
     internal static void init() {
-        cameras_icon = new GLib.ThemedIcon(Resources.ICON_CAMERAS);
     }
     
     internal static void terminate() {
-        cameras_icon = null;
     }
     
     private static int camera_comparator(Sidebar.Entry a, Sidebar.Entry b) {
@@ -82,9 +80,9 @@ public class Camera.Branch : Sidebar.Branch {
     }
 }
 
-public class Camera.Grouping : Sidebar.Grouping {
-    public Grouping() {
-        base (_("Cameras"), Camera.Branch.cameras_icon);
+public class Camera.Header : Sidebar.Header {
+    public Header() {
+        base (_("Cameras"));
     }
 }
 
@@ -101,7 +99,7 @@ public class Camera.SidebarEntry : Sidebar.SimplePageEntry {
         return camera.display_name ?? _("Camera");
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return camera.icon ?? Camera.Branch.cameras_icon;
     }
     

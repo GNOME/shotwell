@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -58,7 +58,7 @@ void library_exec(string[] mounts) {
         case Db.VerifyResult.UPGRADE_ERROR:
             errormsg = _("Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d).  For more information please check the Shotwell Wiki at %s").printf(
                 app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION,
-                Resources.WIKI_URL);
+                Resources.HOME_URL);
         break;
         
         case Db.VerifyResult.NO_UPGRADE_AVAILABLE:
@@ -95,7 +95,7 @@ void library_exec(string[] mounts) {
         // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
         // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
         // objects and then populating the initial page with them.
-        uint64 grand_total = (PhotoTable.get_instance().get_row_count() * 2) 
+        uint64 grand_total = PhotoTable.get_instance().get_row_count()
             + EventTable.get_instance().get_row_count()
             + TagTable.get_instance().get_row_count()
             + VideoTable.get_instance().get_row_count()
@@ -108,6 +108,12 @@ void library_exec(string[] mounts) {
             progress_dialog = new ProgressDialog(null, _("Loading Shotwell"));
             progress_dialog.update_display_every(100);
             progress_dialog.set_minimum_on_screen_time_msec(250);
+            try {
+                string icon_path = AppDirs.get_resources_dir().get_child("icons").get_child("shotwell.svg").get_path();
+                progress_dialog.icon = new Gdk.Pixbuf.from_file(icon_path);
+            } catch (Error err) {
+                debug("Warning - could not load application icon for loading window: %s", err.message);
+            }
             
             aggregate_monitor = new AggregateProgressMonitor(grand_total, progress_dialog.monitor);
             monitor = aggregate_monitor.monitor;
@@ -302,19 +308,19 @@ public OptionEntry[] get_options() {
         return entries;
     
     OptionEntry datadir = { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
-        N_("Path to Shotwell's private data"), N_("DIRECTORY") };
+        _("Path to Shotwell's private data"), _("DIRECTORY") };
     entries += datadir;
     
     OptionEntry no_monitoring = { "no-runtime-monitoring", 0, 0, OptionArg.NONE, &no_runtime_monitoring,
-        N_("Do not monitor library directory at runtime for changes"), null };
+        _("Do not monitor library directory at runtime for changes"), null };
     entries += no_monitoring;
     
     OptionEntry no_startup = { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
-        N_("Don't display startup progress meter"), null };
+        _("Don't display startup progress meter"), null };
     entries += no_startup;
     
     OptionEntry version = { "version", 'V', 0, OptionArg.NONE, &show_version, 
-        N_("Show the application's version"), null };
+        _("Show the application's version"), null };
     entries += version;
     
     OptionEntry terminator = { null, 0, 0, 0, null, null, null };
@@ -344,10 +350,6 @@ void main(string[] args) {
             "/misc", true);
     }
     
-    // Run the gsettings-data-convert tool to migrate GConf settings to gsettings ... note that this
-    // is designed to run every execution.  See http://developer.gnome.org/gio/2.28/ch28s07.html
-    GSettingsConfigurationEngine.run_gsettings_data_converter();
-    
     // init GTK (valac has already called g_threads_init())
     try {
         Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.get_options(),
@@ -360,8 +362,11 @@ void main(string[] args) {
     }
     
     if (CommandlineOptions.show_version) {
-        print("%s %s\n", Resources.APP_TITLE, Resources.APP_VERSION);
-        
+        if (Resources.GIT_VERSION != null)
+            print("%s %s (%s)\n", Resources.APP_TITLE, Resources.APP_VERSION, Resources.GIT_VERSION);
+        else
+            print("%s %s\n", Resources.APP_TITLE, Resources.APP_VERSION);
+
         AppDirs.terminate();
         
         return;
@@ -388,9 +393,15 @@ void main(string[] args) {
     }
     
     Debug.init(is_string_empty(filename) ? Debug.LIBRARY_PREFIX : Debug.VIEWER_PREFIX);
-    message("Shotwell %s %s",
-        is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
-        Resources.APP_VERSION);
+
+    if (Resources.GIT_VERSION != null)
+        message("Shotwell %s %s (%s)",
+            is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
+            Resources.APP_VERSION, Resources.GIT_VERSION);
+    else
+        message("Shotwell %s %s",
+            is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
+            Resources.APP_VERSION);
         
     // Have a filename here?  If so, configure ourselves for direct
     // mode, otherwise, default to library mode.

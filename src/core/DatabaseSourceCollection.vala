@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -15,7 +15,7 @@ public delegate int64 GetSourceDatabaseKey(DataSource source);
 public abstract class DatabaseSourceCollection : SourceCollection {
     private unowned GetSourceDatabaseKey source_key_func;
     private Gee.HashMap<int64?, DataSource> map = new Gee.HashMap<int64?, DataSource>(int64_hash, 
-        int64_equal, direct_equal);
+        int64_equal);
         
     public DatabaseSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
         base (name);

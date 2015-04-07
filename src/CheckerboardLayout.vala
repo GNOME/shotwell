@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -126,6 +126,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     private bool comment_visible = true;
     private CheckerboardItemText? subtitle = null;
     private bool subtitle_visible = false;
+    private bool is_cursor = false;
     private Gdk.Pixbuf pixbuf = null;
     private Gdk.Pixbuf display_pixbuf = null;
     private Gdk.Pixbuf brightened = null;
@@ -274,6 +275,14 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         recalc_size("set_subtitle_visible");
         notify_view_altered();
+    }
+
+    public void set_is_cursor(bool is_cursor) {
+        this.is_cursor = is_cursor;
+    }
+
+    public bool get_is_cusor() {
+        return is_cursor;
     }
     
     protected override void notify_membership_changed(DataCollection? collection) {
@@ -549,6 +558,16 @@ public abstract class CheckerboardItem : ThumbnailView {
             ctx.restore();
         }
         
+        // draw a border for the cursor with the selection width and normal border color
+        if (is_cursor) {
+            ctx.save();
+            ctx.set_source_rgba(border_color.red, border_color.green, border_color.blue,
+                    border_color.alpha);
+            paint_border(ctx, pixbuf_dim, pixbuf_origin,
+                get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height)));
+            ctx.restore();
+        }
+        
         // draw selection border
         if (is_selected()) {
             // border thickness depends on the size of the thumbnail
@@ -795,6 +814,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private bool flow_scheduled = false;
     private bool exposure_dirty = true;
     private CheckerboardItem? anchor = null;
+    private CheckerboardItem? cursor = null;
     private bool in_center_on_anchor = false;
     private bool size_allocate_due_to_reflow = false;
     private bool is_in_view = false;
@@ -964,6 +984,26 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         in_center_on_anchor = false;
     }
+
+    public void set_cursor(CheckerboardItem item) {
+        Gee.HashSet<DataView> collection = new Gee.HashSet<DataView>();
+        if (cursor != null) {
+            cursor.set_is_cursor(false);
+            // Bug #732334, the cursor DataView might have disappeared when user drags a full screen Photo to another event
+            if (view.contains(cursor)) {
+                collection.add(cursor);
+            }
+        }
+        item.set_is_cursor(true);
+        cursor = item;
+        collection.add(item);
+        on_items_state_changed(collection);
+    }
+    
+    public CheckerboardItem get_cursor() {
+        return cursor;
+    }
+    
     
     private void on_contents_altered(Gee.Iterable<DataObject>? added, 
         Gee.Iterable<DataObject>? removed) {

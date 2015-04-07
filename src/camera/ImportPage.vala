@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -266,13 +266,17 @@ class ImportPreview : MediaSourceItem {
     
     private static Gdk.Pixbuf placeholder_preview = null;
     
+    private DuplicatedFile? duplicated_file;
+    
     public ImportPreview(ImportSource source) {
         base(source, Dimensions(), source.get_name(), null);
-
+        
+        this.duplicated_file = null;
+        
         // draw sprocket holes as visual indications on video previews
         if (source is VideoImportSource)
             set_enable_sprockets(true);
-
+        
         // scale down pixbuf if necessary
         Gdk.Pixbuf pixbuf = null;
         try {
@@ -285,7 +289,7 @@ class ImportPreview : MediaSourceItem {
         bool using_placeholder = (pixbuf == null);
         if (pixbuf == null) {
             if (placeholder_preview == null) {
-                placeholder_preview = AppWindow.get_instance().render_icon(Gtk.Stock.MISSING_IMAGE, 
+                placeholder_preview = AppWindow.get_instance().render_icon("image-missing", 
                     Gtk.IconSize.DIALOG, null);
                 placeholder_preview = scale_pixbuf(placeholder_preview, MAX_SCALE,
                     Gdk.InterpType.BILINEAR, true);
@@ -321,6 +325,10 @@ class ImportPreview : MediaSourceItem {
             // ignore trashed duplicates
             if (!is_string_empty(preview_md5)
                 && LibraryPhoto.has_nontrash_duplicate(null, preview_md5, null, file_format)) {
+                
+                duplicated_file = DuplicatedFile.create_from_photo_id(
+                    LibraryPhoto.get_nontrash_duplicate(null, preview_md5, null, file_format));
+                
                 return true;
             }
             
@@ -333,6 +341,11 @@ class ImportPreview : MediaSourceItem {
                 if (filesize <= int64.MAX) {
                     if (LibraryPhoto.global.has_basename_filesize_duplicate(
                         get_import_source().get_filename(), (int64) filesize)) {
+                        
+                        duplicated_file = DuplicatedFile.create_from_photo_id(
+                            LibraryPhoto.global.get_basename_filesize_duplicate(
+                            get_import_source().get_filename(), (int64) filesize));
+                        
                         return true;
                     }
                 }
@@ -344,11 +357,17 @@ class ImportPreview : MediaSourceItem {
         VideoImportSource video_import_source = get_import_source() as VideoImportSource;
         if (video_import_source != null) {
             // Unlike photos, if a video does have a thumbnail (i.e. gphoto2 can retrieve one from
-            // a sidebar file), it will be unavailable to Shotwell during the import process, so
+            // a sidecar file), it will be unavailable to Shotwell during the import process, so
             // no comparison is available.  Instead, like RAW files, use name and filesize to
             // do a less-reliable but better-than-nothing comparison
             if (Video.global.has_basename_filesize_duplicate(video_import_source.get_filename(),
                 video_import_source.get_filesize())) {
+                
+                duplicated_file = DuplicatedFile.create_from_video_id(
+                    Video.global.get_basename_filesize_duplicate(
+                    video_import_source.get_filename(),
+                    video_import_source.get_filesize()));
+                
                 return true;
             }
             
@@ -356,6 +375,13 @@ class ImportPreview : MediaSourceItem {
         }
         
         return false;
+    }
+    
+    public DuplicatedFile? get_duplicated_file() {
+        if (!is_already_imported())
+            return null;
+        
+        return duplicated_file;
     }
     
     public ImportSource get_import_source() {
@@ -455,10 +481,13 @@ public class ImportPage : CheckerboardPage {
         private time_t exposure_time;
         private CameraImportJob? associated = null;
         private BackingPhotoRow? associated_file = null;
+        private DuplicatedFile? duplicated_file;
         
-        public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file) {
+        public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file,
+            DuplicatedFile? duplicated_file = null) {
             this.context = context;
             this.import_file = import_file;
+            this.duplicated_file = duplicated_file;
             
             // stash everything called in prepare(), as it may/will be called from a separate thread
             camera = import_file.get_camera();
@@ -474,6 +503,10 @@ public class ImportPage : CheckerboardPage {
         
         public time_t get_exposure_time() {
             return exposure_time;
+        }
+        
+        public override DuplicatedFile? get_duplicated_file() {
+            return duplicated_file;
         }
 
         public override time_t get_exposure_time_override() {
@@ -585,6 +618,7 @@ public class ImportPage : CheckerboardPage {
                 if (associated_file != null) {
                     photo.add_backing_photo_for_development(RawDeveloper.CAMERA, associated_file);
                     ret = true;
+                    photo.set_raw_developer(Config.Facade.get_instance().get_default_raw_developer());
                 }
             }
             return ret;
@@ -657,7 +691,7 @@ public class ImportPage : CheckerboardPage {
     private string camera_name;
     private VolumeMonitor volume_monitor = null;
     private ImportPage? local_ref = null;
-    private GLib.Icon? icon;
+    private string? icon;
     private ImportPageSearchViewFilter search_filter = new ImportPageSearchViewFilter();
     private HideImportedViewFilter hide_imported_filter = new HideImportedViewFilter();
     private CameraViewTracker tracker;
@@ -673,7 +707,7 @@ public class ImportPage : CheckerboardPage {
         LIBRARY_ERROR
     }
     
-    public ImportPage(GPhoto.Camera camera, string uri, string? display_name = null, GLib.Icon? icon = null) {
+    public ImportPage(GPhoto.Camera camera, string uri, string? display_name = null, string? icon = null) {
         base(_("Camera"));
         this.camera = camera;
         this.uri = uri;
@@ -776,13 +810,15 @@ public class ImportPage : CheckerboardPage {
             toolbar.insert(new Gtk.SeparatorToolItem(), -1);
             
             // Import selected
-            Gtk.ToolButton import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
+            Gtk.ToolButton import_selected_button = new Gtk.ToolButton(null, null);
+            import_selected_button.set_icon_name(Resources.IMPORT);
             import_selected_button.set_related_action(get_action("ImportSelected"));
             
             toolbar.insert(import_selected_button, -1);
             
             // Import all
-            Gtk.ToolButton import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
+            Gtk.ToolButton import_all_button = new Gtk.ToolButton(null, null);
+            import_all_button.set_icon_name(Resources.IMPORT_ALL);
             import_all_button.set_related_action(get_action("ImportAll"));
             
             toolbar.insert(import_all_button, -1);
@@ -1620,7 +1656,9 @@ public class ImportPage : CheckerboardPage {
             if (preview.is_already_imported()) {
                 message("Skipping import of %s: checksum detected in library", 
                     import_file.get_filename());
-                already_imported.add(new CameraImportJob(null_context, import_file));
+                
+                already_imported.add(new CameraImportJob(null_context, import_file,
+                    preview.get_duplicated_file()));
                 
                 continue;
             }
@@ -1700,7 +1738,7 @@ public class ImportPage : CheckerboardPage {
                 photos_string, videos_string, both_string, neither_string);
 
             ImportUI.QuestionParams question = new ImportUI.QuestionParams(
-                question_string, Gtk.Stock.DELETE, _("_Keep"));
+                question_string, Resources.DELETE_LABEL, _("_Keep"));
         
             if (!ImportUI.report_manifest(manifest, false, question))
                 return;

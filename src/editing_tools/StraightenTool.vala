@@ -1,5 +1,5 @@
 
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -97,8 +97,8 @@ public class StraightenTool : EditingTool {
         public Gtk.Scale angle_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL, MIN_ANGLE, MAX_ANGLE, INCREMENT);
         public Gtk.Label angle_label = new Gtk.Label("");
         public Gtk.Label description_label = new Gtk.Label(_("Angle:"));
-        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
-        public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
+        public Gtk.Button ok_button = new Gtk.Button.with_mnemonic(_("_Straighten"));
+        public Gtk.Button cancel_button = new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
         public Gtk.Button reset_button = new Gtk.Button.with_mnemonic(_("_Reset"));
 
         /**
@@ -180,6 +180,7 @@ public class StraightenTool : EditingTool {
     private double preview_scale;
 
     private StraightenTool() {
+        base("StraightenTool");
     }
 
     public static StraightenTool factory() {
@@ -213,15 +214,7 @@ public class StraightenTool : EditingTool {
             Box.from_center(new_crop_center,
                 (int) (rotate_scale * crop_width), (int) (rotate_scale * crop_height)),
             Resources.STRAIGHTEN_LABEL, Resources.STRAIGHTEN_TOOLTIP);
-        AppWindow.get_command_manager().execute(command);
-
-        high_qual_repaint();
-        deactivate();
-    }
-
-    private void on_cancel_clicked() {
-        high_qual_repaint();
-        deactivate();
+        applied(command, null, image_dims, true);
     }
 
     private void high_qual_repaint(){
@@ -262,7 +255,7 @@ public class StraightenTool : EditingTool {
         }
 
         if (Gdk.keyval_name(event.keyval) == "Escape") {
-            on_cancel_clicked();
+            notify_cancel();
             return true;
         }
 
@@ -409,14 +402,14 @@ public class StraightenTool : EditingTool {
     private void bind_window_handlers() {
         window.key_press_event.connect(on_keypress);
         window.ok_button.clicked.connect(on_ok_clicked);
-        window.cancel_button.clicked.connect(on_cancel_clicked);
+        window.cancel_button.clicked.connect(notify_cancel);
         window.angle_slider.value_changed.connect(on_angle_changed);
     }
 
     private void unbind_window_handlers() {
         window.key_press_event.disconnect(on_keypress);
         window.ok_button.clicked.disconnect(on_ok_clicked);
-        window.cancel_button.clicked.disconnect(on_cancel_clicked);
+        window.cancel_button.clicked.disconnect(notify_cancel);
         window.angle_slider.value_changed.disconnect(on_angle_changed);
     }
 

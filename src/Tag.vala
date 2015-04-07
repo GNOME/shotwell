@@ -1,4 +1,4 @@
-/* Copyright 2010-2013 Yorba Foundation
+/* Copyright 2010-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -529,19 +529,16 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     public static void terminate() {
     }
     
-    public static int compare_names(void *a, void *b) {
-        Tag *atag = (Tag *) a;
-        Tag *btag = (Tag *) b;
-        
-        return String.precollated_compare(atag->get_name(), atag->get_name_collation_key(),
-            btag->get_name(), btag->get_name_collation_key());
+    public static int compare_names(Tag a, Tag b) {        
+        return String.precollated_compare(a.get_name(), a.get_name_collation_key(), b.get_name(),
+            b.get_name_collation_key());
     }
     
-    public static uint hash_name_string(void *a) {
+    public static uint hash_name_string(string a) {
         return String.collated_hash(a);
     }
     
-    public static bool equal_name_strings(void *a, void *b) {
+    public static bool equal_name_strings(string a, string b) {
         return String.collated_equals(a, b);
     }
     
@@ -629,7 +626,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         string built = builder.str;
         
         if (built.length >= separator.length)
-            if (built.substring(built.length - separator.length, separator.length) == separator);
+            if (built.substring(built.length - separator.length, separator.length) == separator)
                 built = built.substring(0, built.length - separator.length);
         
         if (end != null)
@@ -720,6 +717,11 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     
     public string get_user_visible_name() {
         return HierarchicalTagUtilities.get_basename(get_path());
+    }
+
+    public string get_searchable_name() {
+        string istring = HierarchicalTagUtilities.get_basename(get_path()).down();
+        return String.remove_diacritics(istring);
     }
     
     public void flatten() {
@@ -936,7 +938,7 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     }
     
     private void update_indexable_keywords() {
-        indexable_keywords = prepare_indexable_string(get_user_visible_name());
+        indexable_keywords = prepare_indexable_string(get_searchable_name());
     }
     
     public unowned string? get_indexable_keywords() {

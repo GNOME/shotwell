@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -15,7 +15,7 @@
  * The Spit namespace is used for all interfaces and code that are made available to plugins or
  * are exposed by plugins.
  *
- * More information can be found at [[http://trac.yorba.org/wiki/ShotwellArchWritingPlugins]]
+ * More information can be found at [[https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins]]
  */
 namespace Spit {
 

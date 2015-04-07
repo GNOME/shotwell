@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -28,14 +28,16 @@ public class Workers {
         empty_event.notify();
         
         try {
-            thread_pool = new ThreadPool<void *>(thread_start, max_threads, exclusive);
+            thread_pool = new ThreadPool<void *>.with_owned_data(thread_start, max_threads, exclusive);
         } catch (ThreadError err) {
             error("Unable to create thread pool: %s", err.message);
         }
     }
     
-    public static int threads_per_cpu(int per = 1) requires (per > 0) ensures (result > 0) {
-        return number_of_processors() * per;
+    public static int threads_per_cpu(int per = 1, int max = -1) requires (per > 0) ensures (result > 0) {
+        int count = number_of_processors() * per;
+        
+        return (max < 0) ? count : count.clamp(0, max);
     }
     
     // This is useful when the intent is for the worker threads to use all the CPUs minus one for
@@ -55,7 +57,7 @@ public class Workers {
         }
         
         try {
-            thread_pool.push(job);
+            thread_pool.add(job);
         } catch (ThreadError err) {
             // error should only occur when a thread could not be created, in which case, the
             // BackgroundJob is queued up

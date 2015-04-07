@@ -1,4 +1,4 @@
-/* Copyright 2010-2013 Yorba Foundation
+/* Copyright 2010-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -23,6 +23,8 @@ public class MetadataWriter : Object {
         public Photo.ReimportMasterState reimport_master_state = null;
         public Photo.ReimportEditableState reimport_editable_state = null;
         public Error? err = null;
+        public bool wrote_master = false;
+        public bool wrote_editable = false;
         
         public CommitJob(MetadataWriter owner, LibraryPhoto photo, Gee.Set<string>? keywords) {
             base (owner, owner.on_update_completed, new Cancellable(), owner.on_update_cancelled);
@@ -41,11 +43,16 @@ public class MetadataWriter : Object {
         }
         
         private void commit_master() throws Error {
+            // If we have an editable, any orientation changes should be written only to it;
+            // otherwise, we'll end up ruining the original, and as such, breaking the
+            // ability to revert to it.
+            bool skip_orientation = photo.has_editable();
+            
             if (!photo.get_master_file_format().can_write_metadata())
                 return;
             
             PhotoMetadata metadata = photo.get_master_metadata();
-            if (update_metadata(metadata)) {
+            if (update_metadata(metadata, skip_orientation)) {
                 LibraryMonitor.blacklist_file(photo.get_master_file(), "MetadataWriter.commit_master");
                 try {
                     photo.persist_master_metadata(metadata, out reimport_master_state);
@@ -53,6 +60,8 @@ public class MetadataWriter : Object {
                     LibraryMonitor.unblacklist_file(photo.get_master_file());
                 }
             }
+            
+            wrote_master = true;
         }
         
         private void commit_editable() throws Error {
@@ -70,9 +79,11 @@ public class MetadataWriter : Object {
                     LibraryMonitor.unblacklist_file(photo.get_editable_file());
                 }
             }
+            
+            wrote_editable = true;
         }
         
-        private bool update_metadata(PhotoMetadata metadata) {
+        private bool update_metadata(PhotoMetadata metadata, bool skip_orientation = false) {
             bool changed = false;
             
             // title (caption)
@@ -132,10 +143,12 @@ public class MetadataWriter : Object {
             }
 
             // orientation
-            Orientation current_orientation = photo.get_orientation();
-            if (current_orientation != metadata.get_orientation()) {
-                metadata.set_orientation(current_orientation);
-                changed = true;
+            if (!skip_orientation) {
+                Orientation current_orientation = photo.get_orientation();
+                if (current_orientation != metadata.get_orientation()) {
+                    metadata.set_orientation(current_orientation);
+                    changed = true;
+                }
             }
 
             // add the software name/version only if updating the metadata in the file
@@ -610,10 +623,21 @@ public class MetadataWriter : Object {
     private void on_update_completed(BackgroundJob j) {
         CommitJob job = (CommitJob) j;
         
-        if (job.err != null)
-            warning("Unable to update metadata for %s: %s", job.photo.to_string(), job.err.message);
-        else
-            message("Completed writing metadata for %s", job.photo.to_string());
+        if (job.err != null) {
+            warning("Unable to write metadata to %s: %s", job.photo.to_string(), job.err.message);
+        } else {
+            if (job.wrote_master)
+                message("Completed writing metadata to %s", job.photo.get_master_file().get_path());
+            else
+                message("Unable to write metadata to %s", job.photo.get_master_file().get_path());
+            
+            if (job.photo.get_editable_file() != null) {
+                if (job.wrote_editable)
+                    message("Completed writing metadata to %s", job.photo.get_editable_file().get_path());
+                else
+                    message("Unable to write metadata to %s", job.photo.get_editable_file().get_path());
+            }
+        }
         
         bool removed = pending.unset(job.photo);
         assert(removed);

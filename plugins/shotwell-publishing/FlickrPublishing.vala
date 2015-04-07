@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -31,7 +31,7 @@ public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Lucas Beeler";
-        info.copyright = _("Copyright 2009-2013 Yorba Foundation");
+        info.copyright = _("Copyright 2009-2015 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -61,7 +61,7 @@ internal const string SERVICE_WELCOME_MESSAGE =
     _("You are not currently logged into Flickr.\n\nClick Login to log into Flickr in your Web browser.  You will have to authorize Shotwell Connect to link to your Flickr account.");
 internal const string RESTART_ERROR_MESSAGE = 
     _("You have already logged in and out of Flickr during this Shotwell session.\nTo continue publishing to Flickr, quit and restart Shotwell, then try publishing again.");
-internal const string ENDPOINT_URL = "http://api.flickr.com/services/rest";
+internal const string ENDPOINT_URL = "https://api.flickr.com/services/rest";
 internal const string API_KEY = "60dd96d4a2ad04888b09c9e18d82c26f";
 internal const string API_SECRET = "d0960565e03547c1";
 internal const int ORIGINAL_SIZE = -1;
@@ -397,7 +397,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             
             if (split_pair.length != 2)
                 host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                    "'%s' isn't a valid response to an OAuth authentication request"));
+                    "'%s' isn't a valid response to an OAuth authentication request", response));
 
             if (split_pair[0] == "oauth_token")
                 oauth_token = split_pair[1];
@@ -407,14 +407,14 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         if (oauth_token == null || oauth_token_secret == null)
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                "'%s' isn't a valid response to an OAuth authentication request"));
+                "'%s' isn't a valid response to an OAuth authentication request", response));
         
         
         on_authentication_token_available(oauth_token, oauth_token_secret);
     }
     
     private void do_launch_system_browser(string token) {
-        string login_uri = "http://www.flickr.com/services/oauth/authorize?oauth_token=" + token +
+        string login_uri = "https://www.flickr.com/services/oauth/authorize?oauth_token=" + token +
             "&perms=write";
         
         debug("ACTION: launching system browser with uri = '%s'", login_uri);
@@ -629,7 +629,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         foreach (Spit.Publishing.Publishable p in publishables) {
             sorted_list.add(p);
         }
-        sorted_list.sort((CompareFunc) flickr_date_time_compare_func);
+        sorted_list.sort(flickr_date_time_compare_func);
         
         Uploader uploader = new Uploader(session, sorted_list.to_array(), parameters, strip_metadata);
         uploader.upload_complete.connect(on_upload_complete);
@@ -844,14 +844,14 @@ internal class Transaction : Publishing.RESTSupport.Transaction {
 
 internal class AuthenticationRequestTransaction : Transaction {
     public AuthenticationRequestTransaction(Session session) {
-        base.with_uri(session, "http://www.flickr.com/services/oauth/request_token",
+        base.with_uri(session, "https://www.flickr.com/services/oauth/request_token",
             Publishing.RESTSupport.HttpMethod.GET);
     }
 }
 
 internal class AccessTokenFetchTransaction : Transaction {
     public AccessTokenFetchTransaction(Session session, string user_verifier) {
-        base.with_uri(session, "http://www.flickr.com/services/oauth/access_token",
+        base.with_uri(session, "https://www.flickr.com/services/oauth/access_token",
             Publishing.RESTSupport.HttpMethod.GET);
         add_argument("oauth_verifier", user_verifier);
         add_argument("oauth_token", session.get_request_phase_token());
@@ -873,7 +873,7 @@ private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
     public UploadTransaction(Session session, PublishingParameters parameters,
         Spit.Publishing.Publishable publishable) {
-        base.with_endpoint_url(session, publishable, "http://api.flickr.com/services/upload");
+        base.with_endpoint_url(session, publishable, "https://api.flickr.com/services/upload");
 
         this.parameters = parameters;
         this.session = session;
@@ -1152,7 +1152,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         string upload_label_text = _("You are logged into Flickr as %s.\n\n").printf(parameters.username);
         if (parameters.user_kind == UserKind.FREE) {
-            upload_label_text += _("Your free Flickr account limits how much data you can upload per month.\nThis month, you have %d megabytes remaining in your upload quota.").printf(parameters.quota_free_mb);
+            upload_label_text += ngettext(
+            "Your free Flickr account limits how much data you can upload per month.\nThis month you have %d megabyte remaining in your upload quota.",
+            "Your free Flickr account limits how much data you can upload per month.\nThis month you have %d megabytes remaining in your upload quota.",
+            parameters.quota_free_mb).printf(parameters.quota_free_mb);
         } else {
             upload_label_text += _("Your Flickr Pro account entitles you to unlimited uploads.");
         }

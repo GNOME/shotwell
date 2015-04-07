@@ -1,19 +1,30 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 // A simple grouping Entry that is only expandable
-public class Sidebar.Grouping : Object, Sidebar.Entry, Sidebar.ExpandableEntry {
-    private string name;
-    private Icon? open_icon;
-    private Icon? closed_icon;
+public class Sidebar.Grouping : Object, Sidebar.Entry, Sidebar.ExpandableEntry,
+    Sidebar.RenameableEntry {
     
-    public Grouping(string name, Icon? open_icon, Icon? closed_icon = null) {
+    private string name;
+    private string? tooltip;
+    private string? icon;
+    
+    public Grouping(string name, string? icon, string? tooltip = null) {
         this.name = name;
-        this.open_icon = open_icon;
-        this.closed_icon = closed_icon ?? open_icon;
+        this.icon = icon;
+        this.tooltip = tooltip;
+    }
+    
+    public void rename(string name) {
+        this.name = name;
+        sidebar_name_changed(name);
+    }
+    
+    public bool is_user_renameable() {
+        return false;
     }
     
     public string get_sidebar_name() {
@@ -21,19 +32,11 @@ public class Sidebar.Grouping : Object, Sidebar.Entry, Sidebar.ExpandableEntry {
     }
     
     public string? get_sidebar_tooltip() {
-        return name;
+        return tooltip;
     }
     
-    public Icon? get_sidebar_icon() {
-        return null;
-    }
-    
-    public Icon? get_sidebar_open_icon() {
-        return open_icon;
-    }
-    
-    public Icon? get_sidebar_closed_icon() {
-        return closed_icon;
+    public string? get_sidebar_icon() {
+        return icon;
     }
     
     public string to_string() {
@@ -61,7 +64,7 @@ public abstract class Sidebar.SimplePageEntry : Object, Sidebar.Entry, Sidebar.S
         return get_sidebar_name();
     }
     
-    public abstract Icon? get_sidebar_icon();
+    public abstract string? get_sidebar_icon();
     
     public virtual string to_string() {
         return get_sidebar_name();
@@ -104,6 +107,26 @@ public class Sidebar.RootOnlyBranch : Sidebar.Branch {
     
     private static int null_comparator(Sidebar.Entry a, Sidebar.Entry b) {
         return (a != b) ? -1 : 0;
+    }
+}
+
+/**
+ * A header is an entry that is visually distinguished from its children. Bug 6397 recommends
+ * headers to appear bolded and without any icons. To prevent the icons from rendering, we set the
+ * icons to null in the base class @see Sidebar.Grouping. But we also go a step further by
+ * using a custom cell_data_function (@see Sidebar.Tree::icon_renderer_function) which ensures that
+ * header icons won't be rendered. This approach avoids the blank icon spacing issues.
+ */
+public class Sidebar.Header : Sidebar.Grouping, Sidebar.EmphasizableEntry {
+    private bool emphasized;
+    
+    public Header(string name, bool emphasized = true) {
+        base(name, null);
+        this.emphasized = emphasized;
+    }
+    
+    public bool is_emphasized() {
+        return emphasized;
     }
 }
 

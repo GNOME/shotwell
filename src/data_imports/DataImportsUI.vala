@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -202,19 +202,19 @@ public class DataImportsDialog : Gtk.Dialog {
     public const int STANDARD_ACTION_BUTTON_WIDTH = 128;
 
     private Gtk.ComboBoxText service_selector_box;
-    private Gtk.Label service_selector_box_label;
     private Gtk.Box central_area_layouter;
     private Gtk.Button close_cancel_button;
     private Spit.DataImports.DialogPane active_pane;
     private Spit.DataImports.ConcreteDataImportsHost host;
 
     protected DataImportsDialog() {
+        Object(use_header_bar: 1);
+        ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
 
         resizable = false;
         delete_event.connect(on_window_close);
         
         string title = _("Import From Application");
-        string label = _("Import media _from:");
         
         set_title(title);
 
@@ -225,9 +225,6 @@ public class DataImportsDialog : Gtk.Dialog {
             // service to select from
             service_selector_box = new Gtk.ComboBoxText();
             service_selector_box.set_active(0);
-            service_selector_box_label = new Gtk.Label.with_mnemonic(label);
-            service_selector_box_label.set_mnemonic_widget(service_selector_box);
-            service_selector_box_label.set_alignment(0.0f, 0.5f);
 
             // get the name of the service the user last used
             string? last_used_service = Config.Facade.get_instance().get_last_used_dataimports_service();
@@ -248,30 +245,6 @@ public class DataImportsDialog : Gtk.Dialog {
                 service_selector_box.set_active(0);
 
             service_selector_box.changed.connect(on_service_changed);
-
-            /* the wrapper is not an extraneous widget -- it's necessary to prevent the service
-               selection box from growing and shrinking whenever its parent's size changes.
-               When wrapped inside a Gtk.Alignment, the Alignment grows and shrinks instead of
-               the service selection box. */
-            Gtk.Alignment service_selector_box_wrapper = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
-            service_selector_box_wrapper.add(service_selector_box);
-
-            Gtk.Box service_selector_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-            service_selector_layouter.set_border_width(12);
-            service_selector_layouter.add(service_selector_box_label);
-            service_selector_layouter.pack_start(service_selector_box_wrapper, true, true, 0);
-            
-            /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
-               rest of the dialog */
-            Gtk.Box service_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-            service_area_layouter.pack_start(service_selector_layouter, true, true, 0);
-            Gtk.Separator service_central_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
-            service_area_layouter.add(service_central_separator);
-            
-            Gtk.Alignment service_area_wrapper = new Gtk.Alignment(0.0f, 0.0f, 1.0f, 0.0f);
-            service_area_wrapper.add(service_area_layouter);
-
-            ((Gtk.Box) get_content_area()).pack_start(service_area_wrapper, false, false, 0);
         }
         
         // Intall the central area in all cases
@@ -281,7 +254,9 @@ public class DataImportsDialog : Gtk.Dialog {
         close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
         close_cancel_button.set_can_default(true);
         close_cancel_button.clicked.connect(on_close_cancel_clicked);
-        ((Gtk.Box) get_action_area()).add(close_cancel_button);
+
+        ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
+        ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
 
         set_standard_window_mode();
         

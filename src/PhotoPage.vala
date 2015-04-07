@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -398,8 +398,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton straighten_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.Scale zoom_slider = null;
-    private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_BACK);
-    private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.Stock.GO_FORWARD);
+    private Gtk.ToolButton prev_button = new Gtk.ToolButton(null, Resources.PREVIOUS_LABEL);
+    private Gtk.ToolButton next_button = new Gtk.ToolButton(null, Resources.NEXT_LABEL);
     private EditingTools.EditingTool current_tool = null;
     private Gtk.ToggleToolButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
@@ -412,6 +412,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool is_pan_in_progress = false;
     private double saved_slider_val = 0.0;
     private ZoomBuffer? zoom_buffer = null;
+    private Gee.HashMap<string, int> last_locations = new Gee.HashMap<string, int>();
     
     public EditingHostPage(SourceCollection sources, string name) {
         base(name, false);
@@ -466,7 +467,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(redeye_button, -1);
         
         // adjust tool
-        adjust_button = new Gtk.ToggleToolButton.from_stock(Resources.ADJUST);
+        adjust_button = new Gtk.ToggleToolButton();
+        adjust_button.set_icon_name(Resources.ADJUST);
         adjust_button.set_label(Resources.ADJUST_LABEL);
         adjust_button.set_tooltip_text(Resources.ADJUST_TOOLTIP);
         adjust_button.toggled.connect(on_adjust_toggled);
@@ -474,8 +476,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(adjust_button, -1);
 
         // enhance tool
-        enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
-        enhance_button.set_label(Resources.ENHANCE_LABEL);
+        enhance_button = new Gtk.ToolButton(null, Resources.ENHANCE_LABEL);
+        enhance_button.set_icon_name(Resources.ENHANCE);
         enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
         enhance_button.clicked.connect(on_enhance);
         enhance_button.is_important = true;
@@ -534,11 +536,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // previous button
         prev_button.set_tooltip_text(_("Previous photo"));
+        prev_button.set_icon_name("go-previous");
         prev_button.clicked.connect(on_previous_photo);
         toolbar.insert(prev_button, -1);
         
         // next button
         next_button.set_tooltip_text(_("Next photo"));
+        next_button.set_icon_name("go-next");
         next_button.clicked.connect(on_next_photo);
         toolbar.insert(next_button, -1);
     }
@@ -1161,7 +1165,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
         if (pixbuf == null) {
             // Create empty pixbuf.
-            pixbuf = AppWindow.get_instance().render_icon(Gtk.Stock.MISSING_IMAGE, 
+            pixbuf = AppWindow.get_instance().render_icon("image-missing", 
                 Gtk.IconSize.DIALOG, null);
             get_canvas_scaling().perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
             
@@ -1362,7 +1366,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     protected override bool on_shift_pressed(Gdk.EventKey? event) {
         // show quick compare of original only if no tool is in use, the original pixbuf is handy
-        if (current_tool == null && !get_ctrl_pressed() && !get_alt_pressed())
+        if (current_tool == null && !get_ctrl_pressed() && !get_alt_pressed() && has_photo())
             swap_in_original();
         
         return base.on_shift_pressed(event);
@@ -1390,15 +1394,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     private void swap_in_original() {
-        Gdk.Pixbuf? original;
-
+        Gdk.Pixbuf original;
         try {
-            original = get_photo().get_unmodified_pixbuf(cache.get_scaling(), true);
-
-            if (original == null)
-                return;
-        }
-        catch (Error e) {
+            original = get_photo().get_original_orientation().rotate_pixbuf(
+                get_photo().get_prefetched_copy());
+        } catch (Error err) {
             return;
         }
         
@@ -1484,6 +1484,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         EditingTools.EditingTool tool = current_tool;
         current_tool = null;
+
+        // save the position of the tool
+        EditingTools.EditingToolWindow? tool_window = tool.get_tool_window();
+        if (tool_window != null && tool_window.has_user_moved()) {
+            int last_location_x, last_location_y;
+            tool_window.get_position(out last_location_x, out last_location_y);            
+            last_locations[tool.name + "_x"] = last_location_x;
+            last_locations[tool.name + "_y"] = last_location_y;
+        }
         
         // deactivate with the tool taken out of the hooks and
         // disconnect any signals we may have connected on activating
@@ -1697,7 +1706,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         base.on_move(rect);
     }
-    
+
+    protected override void on_move_finished(Gdk.Rectangle rect) {
+        last_locations.clear();
+
+        base.on_move_finished(rect);
+    }
+
     private bool on_keyboard_pan_event(Gdk.EventKey event) {
         ZoomState current_zoom_state = get_zoom_state();
         Gdk.Point viewport_center = current_zoom_state.get_viewport_center();
@@ -1992,8 +2007,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     public void on_set_background() {
-        if (has_photo())
-            DesktopIntegration.set_background(get_photo());
+        if (has_photo()) {
+            SetBackgroundPhotoDialog dialog = new SetBackgroundPhotoDialog();
+            bool desktop, screensaver;
+            if (dialog.execute(out desktop, out screensaver)) {
+                AppWindow.get_instance().set_busy_cursor();
+                DesktopIntegration.set_background(get_photo(), desktop, screensaver);
+                AppWindow.get_instance().set_normal_cursor();
+            }
+        }
     }
 
     protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
@@ -2136,6 +2158,23 @@ public abstract class EditingHostPage : SinglePhotoPage {
         EnhanceSingleCommand command = new EnhanceSingleCommand(get_photo());
         get_command_manager().execute(command);
     }
+    
+    public void on_copy_adjustments() {
+        if (!has_photo())
+            return;
+        PixelTransformationBundle.set_copied_color_adjustments(get_photo().get_color_adjustments());
+        set_action_sensitive("PasteColorAdjustments", true);
+    }
+    
+    public void on_paste_adjustments() {
+        PixelTransformationBundle? copied_adjustments = PixelTransformationBundle.get_copied_color_adjustments();
+        if (!has_photo() || copied_adjustments == null)
+            return;
+            
+        AdjustColorsSingleCommand command = new AdjustColorsSingleCommand(get_photo(), copied_adjustments,
+            Resources.PASTE_ADJUSTMENTS_LABEL, Resources.PASTE_ADJUSTMENTS_TOOLTIP);
+        get_command_manager().execute(command);
+    }
 
     private void place_tool_window() {
         if (current_tool == null)
@@ -2151,63 +2190,65 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         Gtk.Allocation tool_alloc;
         tool_window.get_allocation(out tool_alloc);
+        int x, y;
         
-        if (get_container() == AppWindow.get_instance()) {
-            // Normal: position crop tool window centered on viewport/canvas at the bottom,
-            // straddling the canvas and the toolbar
-            int rx, ry;
-            get_container().get_window().get_root_origin(out rx, out ry);
-            
-            Gtk.Allocation viewport_allocation;
-            viewport.get_allocation(out viewport_allocation);
-            
-            int cx, cy, cwidth, cheight;
-            cx = viewport_allocation.x;
-            cy = viewport_allocation.y;
-            cwidth = viewport_allocation.width;
-            cheight = viewport_allocation.height;
-            
-            // it isn't clear why, but direct mode seems to want to position tool windows
-            // differently than library mode...
-            int new_x = (this is DirectPhotoPage) ? (rx + cx + (cwidth / 2) - (tool_alloc.width / 2)) :
-                (rx + cx + (cwidth / 2));
-            int new_y = ry + cy + cheight - ((tool_alloc.height / 4) * 3);
-            
-            // however, clamp the window so it's never off-screen initially
-            Gdk.Screen screen = get_container().get_screen();
-            new_x = new_x.clamp(0, screen.get_width() - tool_alloc.width);
-            new_y = new_y.clamp(0, screen.get_height() - tool_alloc.height);
-            
-            tool_window.move(new_x, new_y);
+        // Check if the last location of the adjust tool is stored.
+        if (last_locations.has_key(current_tool.name + "_x")) {
+            x = last_locations[current_tool.name + "_x"];
+            y = last_locations[current_tool.name + "_y"];
         } else {
-            assert(get_container() is FullscreenWindow);
-            
-            // Fullscreen: position crop tool window centered on screen at the bottom, just above the
-            // toolbar
-            Gtk.Allocation toolbar_alloc;
-            get_toolbar().get_allocation(out toolbar_alloc);
-            
-            Gdk.Screen screen = get_container().get_screen();
-            int x = screen.get_width();
-            int y = screen.get_height() - toolbar_alloc.height -
-                    tool_alloc.height - TOOL_WINDOW_SEPARATOR;
-            
-            // put larger adjust tool off to the side
-            if (current_tool is EditingTools.AdjustTool) {
-                x = x * 3 / 4;
+            // No stored position
+            if (get_container() == AppWindow.get_instance()) {
+                
+                // Normal: position crop tool window centered on viewport/canvas at the bottom,
+                // straddling the canvas and the toolbar
+                int rx, ry;
+                get_container().get_window().get_root_origin(out rx, out ry);
+                
+                Gtk.Allocation viewport_allocation;
+                viewport.get_allocation(out viewport_allocation);
+                
+                int cx, cy, cwidth, cheight;
+                cx = viewport_allocation.x;
+                cy = viewport_allocation.y;
+                cwidth = viewport_allocation.width;
+                cheight = viewport_allocation.height;
+                
+                // it isn't clear why, but direct mode seems to want to position tool windows
+                // differently than library mode...
+                x = (this is DirectPhotoPage) ? (rx + cx + (cwidth / 2) - (tool_alloc.width / 2)) :
+                    (rx + cx + (cwidth / 2));
+                y = ry + cy + cheight - ((tool_alloc.height / 4) * 3);
             } else {
-                x = (x - tool_alloc.width) / 2;
+                assert(get_container() is FullscreenWindow);
+                
+                // Fullscreen: position crop tool window centered on screen at the bottom, just above the
+                // toolbar
+                Gtk.Allocation toolbar_alloc;
+                get_toolbar().get_allocation(out toolbar_alloc);
+                
+                Gdk.Screen screen = get_container().get_screen();
+                x = screen.get_width();
+                y = screen.get_height() - toolbar_alloc.height -
+                        tool_alloc.height - TOOL_WINDOW_SEPARATOR;
+                
+                // put larger adjust tool off to the side
+                if (current_tool is EditingTools.AdjustTool) {
+                    x = x * 3 / 4;
+                } else {
+                    x = (x - tool_alloc.width) / 2;
+                }
             }
-            
-            tool_window.move(x, y);
         }
         
-        // we need both show & present so we get keyboard focus in metacity, but due to a bug in
-        // compiz, we only want to show the window. 
-        // ticket #2141 prompted this: http://trac.yorba.org/ticket/2141
+        // however, clamp the window so it's never off-screen initially
+        Gdk.Screen screen = get_container().get_screen();
+        x = x.clamp(0, screen.get_width() - tool_alloc.width);
+        y = y.clamp(0, screen.get_height() - tool_alloc.height);
+        
+        tool_window.move(x, y);
         tool_window.show();
-        if (!get_window_manager().down().contains("compiz"))
-            tool_window.present();
+        tool_window.present();
     }
     
     protected override void on_next_photo() {
@@ -2359,12 +2400,12 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry export = { "Export", Gtk.Stock.SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
+        Gtk.ActionEntry export = { "Export", Resources.SAVE_AS_LABEL, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;
         actions += export;
 
-        Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
+        Gtk.ActionEntry print = { "Print", Resources.PRINT_LABEL, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         actions += print;
@@ -2375,7 +2416,7 @@ public class LibraryPhotoPage : EditingHostPage {
         publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
         
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.Stock.REMOVE, TRANSLATABLE,
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Resources.REMOVE_LABEL, TRANSLATABLE,
             "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
         actions += remove_from_library;
@@ -2393,13 +2434,13 @@ public class LibraryPhotoPage : EditingHostPage {
         tools.label = _("T_ools");
         actions += tools;
         
-        Gtk.ActionEntry prev = { "PrevPhoto", Gtk.Stock.GO_BACK, TRANSLATABLE, null,
+        Gtk.ActionEntry prev = { "PrevPhoto", Resources.PREVIOUS_LABEL, TRANSLATABLE, null,
             TRANSLATABLE, on_previous_photo };
         prev.label = _("_Previous Photo");
         prev.tooltip = _("Previous Photo");
         actions += prev;
 
-        Gtk.ActionEntry next = { "NextPhoto", Gtk.Stock.GO_FORWARD, TRANSLATABLE, null,
+        Gtk.ActionEntry next = { "NextPhoto", Resources.NEXT_LABEL, TRANSLATABLE, null,
             TRANSLATABLE, on_next_photo };
         next.label = _("_Next Photo");
         next.tooltip = _("Next Photo");
@@ -2433,13 +2474,25 @@ public class LibraryPhotoPage : EditingHostPage {
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
         
+        Gtk.ActionEntry copy_adjustments = { "CopyColorAdjustments", null, TRANSLATABLE,
+            "<Ctrl><Shift>C", TRANSLATABLE, on_copy_adjustments};
+        copy_adjustments.label = Resources.COPY_ADJUSTMENTS_MENU;
+        copy_adjustments.tooltip = Resources.COPY_ADJUSTMENTS_TOOLTIP;
+        actions += copy_adjustments;
+        
+        Gtk.ActionEntry paste_adjustments = { "PasteColorAdjustments", null, TRANSLATABLE,
+            "<Ctrl><Shift>V", TRANSLATABLE, on_paste_adjustments};
+        paste_adjustments.label = Resources.PASTE_ADJUSTMENTS_MENU;
+        paste_adjustments.tooltip = Resources.PASTE_ADJUSTMENTS_TOOLTIP;
+        actions += paste_adjustments;
+        
         Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>O",
             TRANSLATABLE, toggle_crop };
         crop.label = Resources.CROP_MENU;
         crop.tooltip = Resources.CROP_TOOLTIP;
         actions += crop;
         
-        Gtk.ActionEntry straighten = { "Straighten", Gtk.Stock.REFRESH, TRANSLATABLE, "<Ctrl>A",
+        Gtk.ActionEntry straighten = { "Straighten", Resources.REFRESH_LABEL, TRANSLATABLE, "<Ctrl>A",
             TRANSLATABLE, toggle_straighten };
         straighten.label = Resources.STRAIGHTEN_MENU;
         straighten.tooltip = Resources.STRAIGHTEN_TOOLTIP;
@@ -2457,7 +2510,7 @@ public class LibraryPhotoPage : EditingHostPage {
         adjust.tooltip = Resources.ADJUST_TOOLTIP;
         actions += adjust;
         
-        Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE,
+        Gtk.ActionEntry revert = { "Revert", Resources.REVERT_TO_SAVED_LABEL, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
         actions += revert;
@@ -2477,7 +2530,7 @@ public class LibraryPhotoPage : EditingHostPage {
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
         actions += adjust_date_time;
         
-        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.Stock.EDIT, TRANSLATABLE,
+        Gtk.ActionEntry external_edit = { "ExternalEdit", Resources.EDIT_LABEL, TRANSLATABLE,
             "<Ctrl>Return", TRANSLATABLE, on_external_edit };
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
         actions += external_edit;
@@ -2551,33 +2604,37 @@ public class LibraryPhotoPage : EditingHostPage {
         rate_five.label = Resources.rating_menu(Rating.FIVE);
         actions += rate_five;
 
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.Stock.ZOOM_IN, TRANSLATABLE,
+        Gtk.ActionEntry increase_size = { "IncreaseSize", Resources.ZOOM_IN_LABEL, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
         increase_size.tooltip = _("Increase the magnification of the photo");
         actions += increase_size;
 
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.Stock.ZOOM_OUT, TRANSLATABLE,
+        Gtk.ActionEntry decrease_size = { "DecreaseSize", Resources.ZOOM_OUT_LABEL, TRANSLATABLE,
             "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
         decrease_size.label = _("Zoom _Out");
         decrease_size.tooltip = _("Decrease the magnification of the photo");
         actions += decrease_size;
 
-        Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.Stock.ZOOM_FIT, TRANSLATABLE,
+        Gtk.ActionEntry best_fit = { "ZoomFit", Resources.ZOOM_FIT_LABEL, TRANSLATABLE,
             "<Ctrl>0", TRANSLATABLE, snap_zoom_to_min };
         best_fit.label = _("Fit to _Page");
         best_fit.tooltip = _("Zoom the photo to fit on the screen");
         actions += best_fit;
 
-        Gtk.ActionEntry actual_size = { "Zoom100", Gtk.Stock.ZOOM_100, TRANSLATABLE,
+        Gtk.ActionEntry actual_size = { "Zoom100", Resources.ZOOM_100_LABEL, TRANSLATABLE,
             "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
+        /// xgettext:no-c-format
         actual_size.label = _("Zoom _100%");
+        /// xgettext:no-c-format
         actual_size.tooltip = _("Zoom the photo to 100% magnification");
         actions += actual_size;
         
         Gtk.ActionEntry max_size = { "Zoom200", null, TRANSLATABLE,
             "<Ctrl>2", TRANSLATABLE, snap_zoom_to_max };
+        /// xgettext:no-c-format
         max_size.label = _("Zoom _200%");
+        /// xgettext:no-c-format
         max_size.tooltip = _("Zoom the photo to 200% magnification");
         actions += max_size;
 
@@ -2713,6 +2770,9 @@ public class LibraryPhotoPage : EditingHostPage {
         }
         
         set_action_sensitive("SetBackground", has_photo());
+        
+        set_action_sensitive("CopyColorAdjustments", (has_photo() && get_photo().has_color_adjustments()));
+        set_action_sensitive("PasteColorAdjustments", PixelTransformationBundle.has_copied_color_adjustments());
         
         set_action_sensitive("PrevPhoto", multiple);
         set_action_sensitive("NextPhoto", multiple);
@@ -2997,15 +3057,13 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     protected override bool on_double_click(Gdk.EventButton event) {
-        if (!(get_container() is FullscreenWindow)) {
+        FullscreenWindow? fs = get_container() as FullscreenWindow;
+        if (fs == null)
             return_to_collection_on_release = true;
-            
-            return true;
-        }
+        else
+            fs.close();
         
-        AppWindow.get_instance().end_fullscreen();
-        
-        return base.on_double_click(event);
+        return true;
     }
     
     protected override bool on_left_released(Gdk.EventButton event) {
@@ -3112,6 +3170,9 @@ public class LibraryPhotoPage : EditingHostPage {
         
         // move on to the next one in the collection
         on_next_photo();
+        
+        ViewCollection view = get_view();
+        view.remove_marked(view.mark(view.get_view_for_source(photo)));
         if (photo.equals(get_photo())) {
             // this indicates there is only one photo in the controller, or now zero, so switch 
             // to the Photos page, which is guaranteed to be there

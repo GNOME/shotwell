@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -15,6 +15,13 @@ private class ShotwellTransitions : Object, Spit.Module {
         pluggables += new FadeEffectDescriptor(resource_directory);
         pluggables += new SlideEffectDescriptor(resource_directory);
         pluggables += new CrumbleEffectDescriptor(resource_directory);
+        pluggables += new BlindsEffectDescriptor(resource_directory);
+        pluggables += new CircleEffectDescriptor(resource_directory);
+        pluggables += new CirclesEffectDescriptor(resource_directory);
+        pluggables += new ClockEffectDescriptor(resource_directory);
+        pluggables += new SquaresEffectDescriptor(resource_directory);
+        pluggables += new ChessEffectDescriptor(resource_directory);
+        pluggables += new StripesEffectDescriptor(resource_directory);
     }
     
     public unowned string get_module_name() {
@@ -65,7 +72,7 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
     
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Maxim Kartashev";
-        info.copyright = _("Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation");
+        info.copyright = _("Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;

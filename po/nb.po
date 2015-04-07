@@ -1,0 +1,4597 @@
+# po/shotwell-core/shotwell.pot
+# PO message string template file for Shotwell Core Components
+# Copyright (C) 2009-2013 Yorba Foundation
+# See COPYING for license.
+#
+#
+# Translators:
+# janroar <janroed@gmail.com>, 2011-2012
+# janroar <janroed@gmail.com>, 2012
+# janroar <janroed@gmail.com>, 2011
+# unhammer <unhammer+dill@mm.st>, 2013
+# unhammer <unhammer+dill@mm.st>, 2013
+# verayin <vera@yorba.org>, 2011
+# lsbeeler <lucas@yorba.org>, 2011
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell-0.15\n"
+"Report-Msgid-Bugs-To: shotwell@yorba.org\n"
+"POT-Creation-Date: 2013-09-20 11:55-0700\n"
+"PO-Revision-Date: 2013-09-25 08:30+0000\n"
+"Last-Translator: unhammer <unhammer+dill@mm.st>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/"
+"shotwell/language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Event.vala:737
+#, c-format
+msgid "Event %s"
+msgstr "Hendelse %s"
+
+#: src/camera/Branch.vala:87
+msgid "Cameras"
+msgstr "Kameraer"
+
+#: src/camera/Branch.vala:101 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:300
+#: src/MediaPage.vala:425
+msgid "Camera"
+msgstr "Kamera"
+
+#: src/camera/ImportPage.vala:312 src/Properties.vala:227
+#, c-format
+msgid "RAW+JPEG"
+msgstr "RAW+JPEG"
+
+#: src/camera/ImportPage.vala:459
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr ""
+"Kan ikke avmontere kameraet. Prøv å avmontere kameraet fra filbehandleren."
+
+#: src/camera/ImportPage.vala:776
+msgid "Hide photos already imported"
+msgstr "Skjul bilder som allerede er importert"
+
+#: src/camera/ImportPage.vala:777
+msgid "Only display photos that have not been imported"
+msgstr "Vis kun bilder som ikke har blitt importert"
+
+#: src/camera/ImportPage.vala:845
+msgid "Starting import, please wait..."
+msgstr "Importering starter, vennligst vent..."
+
+#: src/camera/ImportPage.vala:872 src/MediaPage.vala:436
+msgid "_Titles"
+msgstr "_Titler"
+
+#: src/camera/ImportPage.vala:873 src/MediaPage.vala:437
+msgid "Display the title of each photo"
+msgstr "Vis titlene for hvert bilde"
+
+#: src/camera/ImportPage.vala:884
+msgid "Import _Selected"
+msgstr "Importer _valgte"
+
+#: src/camera/ImportPage.vala:885
+msgid "Import the selected photos into your library"
+msgstr "Importer de valgte bildene til ditt bildebibliotek"
+
+#: src/camera/ImportPage.vala:890
+msgid "Import _All"
+msgstr "Importer _alle"
+
+#: src/camera/ImportPage.vala:891
+msgid "Import all the photos into your library"
+msgstr "Importer alle bildene til ditt bildebibliotek"
+
+#: src/camera/ImportPage.vala:1012
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr ""
+"Shotwell trenger å avmontere kameraet fra filsystemet for å få tilgang til "
+"det. Fortsett?"
+
+#: src/camera/ImportPage.vala:1018
+msgid "_Unmount"
+msgstr "_Avmonter"
+
+#: src/camera/ImportPage.vala:1023
+msgid "Please unmount the camera."
+msgstr "Vennligst avmonter kameraet."
+
+#: src/camera/ImportPage.vala:1028
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr ""
+"Kameraet er låst av et annet program. Shotwell kan bare få tilgang til "
+"kameraet når det er ulåst. Vennligst steng andre programmer som bruker "
+"kameraet, og prøv igjen."
+
+#: src/camera/ImportPage.vala:1038
+msgid "Please close any other application using the camera."
+msgstr "Vennligst lukk alle andre programmer som bruker kameraet."
+
+#: src/camera/ImportPage.vala:1043
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+"Kan ikke hente forhåndsvisninger fra kameraet:\n"
+"%s"
+
+#: src/camera/ImportPage.vala:1060
+msgid "Unmounting..."
+msgstr "Avmonterer..."
+
+#: src/camera/ImportPage.vala:1166
+msgid "Fetching photo information"
+msgstr "Henter bildeinformasjon"
+
+#: src/camera/ImportPage.vala:1521
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "innhenter forhåndsvisning for %s"
+
+#: src/camera/ImportPage.vala:1637
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "Kan ikke låse kamera: %s"
+
+#: src/camera/ImportPage.vala:1722
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "Vil du slette dette bildet fra kameraet?"
+msgstr[1] "Vil du slette disse %d bildene fra kameraet?"
+
+#: src/camera/ImportPage.vala:1725
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "Vil du slette denne videoen fra kameraet?"
+msgstr[1] "Vil du slette disse %d videoene fra kameraet?"
+
+#: src/camera/ImportPage.vala:1728
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "Slette bildet/videoen fra kameraet?"
+msgstr[1] "Slette disse %d bildene/videoene fra kameraet?"
+
+#: src/camera/ImportPage.vala:1731
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "Vil du slette disse filene fra kameraet?"
+msgstr[1] "Vil du slette disse %d filene fra kameraet?"
+
+#: src/camera/ImportPage.vala:1739 src/Dialogs.vala:1328
+msgid "_Keep"
+msgstr "_Behold"
+
+#: src/camera/ImportPage.vala:1758
+msgid "Removing photos/videos from camera"
+msgstr "Fjerner bilder/videoer fra kameraet"
+
+#: src/camera/ImportPage.vala:1762
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] "Kan ikke slette %d bildet/videoen fra kameraet pga. feil."
+msgstr[1] "Kan ikke slette %d bildene/videoene fra kameraet pga. feil."
+
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2623
+msgid "S_lideshow"
+msgstr "L_ysbildefremvisning"
+
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2624
+msgid "Play a slideshow"
+msgstr "vis et diasshow"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photo/Video"
+msgstr "Eksporter bilder / videoer"
+
+#: src/CollectionPage.vala:456
+msgid "Export Photos/Videos"
+msgstr "Eksporterer bilder/videoer"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:58 src/PhotoPage.vala:3196
+msgid "Export Photo"
+msgstr "Eksporter bilder"
+
+#: src/CollectionPage.vala:458 src/Dialogs.vala:87
+msgid "Export Photos"
+msgstr "Eksporter bilder"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Rotating"
+msgstr "Rotering"
+
+#: src/CollectionPage.vala:545 src/CollectionPage.vala:561
+msgid "Undoing Rotate"
+msgstr "angre rotering"
+
+#: src/CollectionPage.vala:570
+msgid "Flipping Horizontally"
+msgstr "Flipper horisontalt"
+
+#: src/CollectionPage.vala:571
+msgid "Undoing Flip Horizontally"
+msgstr "Angre horisontal flipp"
+
+#: src/CollectionPage.vala:580
+msgid "Flipping Vertically"
+msgstr "Flipper vertikalt"
+
+#: src/CollectionPage.vala:581
+msgid "Undoing Flip Vertically"
+msgstr "Angre vertikal flipp"
+
+#: src/searches/SearchBoolean.vala:157
+msgid "Any text"
+msgstr "allslags tekst"
+
+#: src/searches/SearchBoolean.vala:160
+msgid "Title"
+msgstr "Tittel"
+
+#: src/searches/SearchBoolean.vala:163
+msgid "Tag"
+msgstr "Tagg"
+
+#: src/searches/SearchBoolean.vala:166
+msgid "Comment"
+msgstr "Kommentar"
+
+#: src/searches/SearchBoolean.vala:169
+msgid "Event name"
+msgstr "Hendelsesnavn"
+
+#: src/searches/SearchBoolean.vala:172
+msgid "File name"
+msgstr "Filnavn"
+
+#: src/searches/SearchBoolean.vala:175
+msgid "Media type"
+msgstr "Mediatype"
+
+#: src/searches/SearchBoolean.vala:178
+msgid "Flag state"
+msgstr "Flaggtilstand"
+
+#: src/searches/SearchBoolean.vala:181
+msgid "Photo state"
+msgstr "Fototilstand"
+
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:1003
+msgid "Rating"
+msgstr "Rangering"
+
+#: src/searches/SearchBoolean.vala:187
+msgid "Date"
+msgstr "Dato"
+
+#: src/searches/SavedSearchDialog.vala:169
+msgid "contains"
+msgstr "inneholder"
+
+#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:497
+msgid "is exactly"
+msgstr "er eksakt"
+
+#: src/searches/SavedSearchDialog.vala:171
+msgid "starts with"
+msgstr "starter med"
+
+#: src/searches/SavedSearchDialog.vala:172
+msgid "ends with"
+msgstr "slutter med"
+
+#: src/searches/SavedSearchDialog.vala:173
+msgid "does not contain"
+msgstr "inneholder ikke"
+
+#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:501
+msgid "is not set"
+msgstr "er ikke satt"
+
+#: src/searches/SavedSearchDialog.vala:245
+#: src/searches/SavedSearchDialog.vala:376
+#: src/searches/SavedSearchDialog.vala:441
+msgid "is"
+msgstr "er"
+
+#: src/searches/SavedSearchDialog.vala:246
+msgid "is not"
+msgstr "er ikke"
+
+#: src/searches/SavedSearchDialog.vala:252
+msgid "any photo"
+msgstr "hvilket som helst bilde"
+
+#: src/searches/SavedSearchDialog.vala:253
+msgid "a raw photo"
+msgstr "et RAW-bilde"
+
+#: src/searches/SavedSearchDialog.vala:254
+msgid "a video"
+msgstr "en video"
+
+#: src/searches/SavedSearchDialog.vala:308
+msgid "has"
+msgstr "har"
+
+#: src/searches/SavedSearchDialog.vala:309
+msgid "has no"
+msgstr "har ikke"
+
+#: src/searches/SavedSearchDialog.vala:314
+msgid "modifications"
+msgstr "endringer"
+
+#: src/searches/SavedSearchDialog.vala:315
+msgid "internal modifications"
+msgstr "interne endringer"
+
+#: src/searches/SavedSearchDialog.vala:316
+msgid "external modifications"
+msgstr "eksterne endringer"
+
+#: src/searches/SavedSearchDialog.vala:370
+msgid "flagged"
+msgstr "flagget"
+
+#: src/searches/SavedSearchDialog.vala:371
+msgid "not flagged"
+msgstr "ikke flagget"
+
+#: src/searches/SavedSearchDialog.vala:434
+msgid "and higher"
+msgstr "og høyere"
+
+#: src/searches/SavedSearchDialog.vala:435
+msgid "only"
+msgstr "bare"
+
+#: src/searches/SavedSearchDialog.vala:436
+msgid "and lower"
+msgstr "og lavere"
+
+#: src/searches/SavedSearchDialog.vala:498
+msgid "is after"
+msgstr "er etter"
+
+#: src/searches/SavedSearchDialog.vala:499
+msgid "is before"
+msgstr "er før"
+
+#: src/searches/SavedSearchDialog.vala:500
+msgid "is between"
+msgstr "er mellom"
+
+#: src/searches/SavedSearchDialog.vala:513
+msgid "and"
+msgstr "og"
+
+#: src/searches/SavedSearchDialog.vala:720
+msgid "any"
+msgstr "enhver"
+
+#: src/searches/SavedSearchDialog.vala:721
+msgid "all"
+msgstr "alle"
+
+#: src/searches/SavedSearchDialog.vala:722
+msgid "none"
+msgstr "ingen"
+
+#: src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "Lagrede søk"
+
+#: src/searches/Branch.vala:77 src/library/LibraryWindow.vala:346
+#: src/sidebar/Tree.vala:195
+msgid "Ne_w Saved Search..."
+msgstr "Nyt_t lagret søk..."
+
+#: src/main.vala:54
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr ""
+"Ditt bildebibliotek er ikke kompatibel med denne versjonen av Shotwell. Det "
+"ser ut til at det var laget med Shotwell %s (skjema %d). Denne versjonen er "
+"%s (skjema %d). Vennligst bruk den nyeste versjonen av Shotwell."
+
+#: src/main.vala:59
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"Shotwell var ikke istand til å oppgradere ditt bildebibliotek fra versjon "
+"%s  (skjema %d) til %s (skjema %d). For mer informasjon, vennligst sjekk "
+"Shotwells Wiki på %s"
+
+#: src/main.vala:65
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"Ditt bildebibliotek er ikke kompatibel med denne versjonen av Shotwell. Det "
+"ser ut til at det var laget med Shotwell %s (skjema %d). Denne versjonen er "
+"%s. (skjema %d). Vennligst rydd opp  i biblioteket ved å slette %s og "
+"importer bildene dine på nytt."
+
+#: src/main.vala:71
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr "Ukjent feil under verifisering av Shotwells database: %s"
+
+#: src/main.vala:104
+msgid "Loading Shotwell"
+msgstr "Laster Shotwell"
+
+#: src/main.vala:294
+msgid "Path to Shotwell's private data"
+msgstr "sti til Shotwells private data"
+
+#: src/main.vala:294
+msgid "DIRECTORY"
+msgstr "KATALOG"
+
+#: src/main.vala:298
+msgid "Do not monitor library directory at runtime for changes"
+msgstr "Ikke kontroller for endringer i bibliotek-katalogen under kjøring"
+
+#: src/main.vala:302
+msgid "Don't display startup progress meter"
+msgstr "Ikke vis oppstartsprogresjon"
+
+#: src/main.vala:306
+msgid "Show the application's version"
+msgstr "Vis applikasjonsversjonen"
+
+#: src/main.vala:338
+msgid "[FILE]"
+msgstr "[FIL]"
+
+#: src/main.vala:342
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Kjør '%s --help' for å se en fullstendig liste over tilgjengelige "
+"kommandolinje kommandoer.\n"
+
+#: src/Properties.vala:84
+msgid "Today"
+msgstr "Idag"
+
+#: src/Properties.vala:86
+msgid "Yesterday"
+msgstr "Igår"
+
+#: src/Properties.vala:340 src/Dialogs.vala:1273
+msgid "Title:"
+msgstr "Tittel:"
+
+#: src/Properties.vala:343
+msgid "Items:"
+msgstr "Punkter:"
+
+#: src/Properties.vala:346
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "%d hendelse"
+msgstr[1] "%d hendelser"
+
+#: src/Properties.vala:353 src/events/EventDirectoryItem.vala:87
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d bilde"
+msgstr[1] "%d bilder"
+
+#: src/Properties.vala:355 src/events/EventDirectoryItem.vala:85
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d video"
+msgstr[1] "%d videoer"
+
+#: src/Properties.vala:377
+msgid "Date:"
+msgstr "Dato:"
+
+#: src/Properties.vala:381
+msgid "Time:"
+msgstr "Tid:"
+
+#: src/Properties.vala:384 src/Properties.vala:389
+msgid "From:"
+msgstr "Fra:"
+
+#: src/Properties.vala:385 src/Properties.vala:390
+msgid "To:"
+msgstr "Til:"
+
+#: src/Properties.vala:395 src/editing_tools/EditingTools.vala:1850
+msgid "Size:"
+msgstr "Størrelse:"
+
+#: src/Properties.vala:404
+msgid "Duration:"
+msgstr "Varighet:"
+
+#: src/Properties.vala:404
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f sekunder"
+
+#: src/Properties.vala:408
+msgid "Developer:"
+msgstr "Fremkaller:"
+
+#: src/Properties.vala:436 src/Properties.vala:440 src/Properties.vala:447
+#: src/editing_tools/EditingTools.vala:2218
+msgid "Exposure:"
+msgstr "Eksponering:"
+
+#: src/Properties.vala:585
+msgid "Location:"
+msgstr "Plassering:"
+
+#: src/Properties.vala:588
+msgid "File size:"
+msgstr "Filstørrelse:"
+
+#: src/Properties.vala:592
+msgid "Current Development:"
+msgstr "Gjeldende fremkalling:"
+
+#: src/Properties.vala:594
+msgid "Original dimensions:"
+msgstr "Orginaldimensjoner:"
+
+#: src/Properties.vala:597
+msgid "Camera make:"
+msgstr "Kamera merke:"
+
+#: src/Properties.vala:600
+msgid "Camera model:"
+msgstr "Kamera modell:"
+
+#: src/Properties.vala:603
+msgid "Flash:"
+msgstr "Blits:"
+
+#: src/Properties.vala:605
+msgid "Focal length:"
+msgstr "Brennvidde:"
+
+#: src/Properties.vala:608
+msgid "Exposure date:"
+msgstr "Eksponerings dato:"
+
+#: src/Properties.vala:611
+msgid "Exposure time:"
+msgstr "Eksponeringstid:"
+
+#: src/Properties.vala:614
+msgid "Exposure bias:"
+msgstr "Eksponeringsjustering:"
+
+#: src/Properties.vala:616
+msgid "GPS latitude:"
+msgstr "GPS-breddegrad:"
+
+#: src/Properties.vala:619
+msgid "GPS longitude:"
+msgstr "GPS-lengdegrad:"
+
+#: src/Properties.vala:622
+msgid "Artist:"
+msgstr "Kunstner:"
+
+#: src/Properties.vala:624
+msgid "Copyright:"
+msgstr "Opphavsrett:"
+
+#: src/Properties.vala:626
+msgid "Software:"
+msgstr "Programvare:"
+
+#: src/Properties.vala:630 src/Dialogs.vala:1288
+msgid "Comment:"
+msgstr "Kommenter:"
+
+#: src/Properties.vala:639
+msgid "Extended Information"
+msgstr "Utvidet informasjon"
+
+#: src/Dialogs.vala:16
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "Dette vil fjerne taggen \"%s\" fra ett bilde. Fortsett?"
+msgstr[1] "Dette vil fjerne taggen \"%s\" fra %d bilder. Fortsett?"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1361
+#: src/Dialogs.vala:1384 src/data_imports/DataImportsUI.vala:399
+#: src/AppWindow.vala:615 src/AppWindow.vala:636 src/AppWindow.vala:653
+#: src/publishing/PublishingUI.vala:498
+msgid "_Cancel"
+msgstr "_Avbryt"
+
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1329
+#: src/Resources.vala:330 src/Resources.vala:378 src/Resources.vala:643
+msgid "_Delete"
+msgstr "_Slett"
+
+#: src/Dialogs.vala:25
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr "Dette vil fjerne det lagrede søket \"%s\". Forsette?"
+
+#: src/Dialogs.vala:35
+#, c-format
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] ""
+"Å forandre fremkaller vil fjerne alle endringer du har gjort på dette bildet "
+"i Shotwell"
+msgstr[1] ""
+"Å forandre fremkaller vil fjerne alle endringer du har gjort disse bildene i "
+"Shotwell"
+
+#: src/Dialogs.vala:39
+msgid "_Switch Developer"
+msgstr "_Bytt fremkaller"
+
+#: src/Dialogs.vala:58
+msgid "Export Video"
+msgstr "Eksporter video"
+
+#: src/Dialogs.vala:115
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr ""
+"Shotwell kunne ikke lage en fil for redigering av dette bildet da du ikke "
+"har tillatelse for å skrive til %s."
+
+#: src/Dialogs.vala:124
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr ""
+"kan ikke eksportere dette bildet p.g.a en filfeil.\n"
+"\n"
+
+#: src/Dialogs.vala:130
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr ""
+"\n"
+"\n"
+"Vil du fortsette eksporteringen?"
+
+#: src/Dialogs.vala:131
+msgid "Con_tinue"
+msgstr "For_tsett"
+
+#: src/Dialogs.vala:147
+msgid "Unmodified"
+msgstr "umodifisert"
+
+#: src/Dialogs.vala:148
+msgid "Current"
+msgstr "Nåværende"
+
+#: src/Dialogs.vala:212
+msgid "_Format:"
+msgstr "_Format:"
+
+#: src/Dialogs.vala:215
+msgid "_Quality:"
+msgstr "_Kvalitet"
+
+#: src/Dialogs.vala:218
+msgid "_Scaling constraint:"
+msgstr "_skaleringsbegrensing"
+
+#: src/Dialogs.vala:221
+msgid " _pixels"
+msgstr "_bildepunkter"
+
+#: src/Dialogs.vala:229
+msgid "Export metadata"
+msgstr "Eksporter metadata"
+
+#: src/Dialogs.vala:465
+msgid "Save Details..."
+msgstr "Lagre detaljer..."
+
+#: src/Dialogs.vala:466
+msgid "Save Details"
+msgstr "Lagre detaljer"
+
+#: src/Dialogs.vala:481
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(og %d flere)\n"
+
+#: src/Dialogs.vala:534
+msgid "Import Results Report"
+msgstr "Importeringsrapport"
+
+#: src/Dialogs.vala:538
+#, c-format
+msgid "Attempted to import %d file."
+msgid_plural "Attempted to import %d files."
+msgstr[0] "Prøvde å importere %d fil."
+msgstr[1] "Prøvde å importere %d filer."
+
+#: src/Dialogs.vala:541
+#, c-format
+msgid "Of these, %d file was successfully imported."
+msgid_plural "Of these, %d files were successfully imported."
+msgstr[0] "av disse, %d fil ble importert uten feil."
+msgstr[1] "av disse, %d filer ble importert uten feil"
+
+#: src/Dialogs.vala:553
+msgid "Duplicate Photos/Videos Not Imported:"
+msgstr "Duplikat bilder/Videoer som ikke ble importert:"
+
+#: src/Dialogs.vala:557
+msgid "duplicates existing media item"
+msgstr "Duplikater finnes i dette mediet"
+
+#: src/Dialogs.vala:568
+msgid "Photos/Videos Not Imported Due to Camera Errors:"
+msgstr "Bilder/Videoer ble ikke importert p.g.a kamerafeil:"
+
+#: src/Dialogs.vala:571 src/Dialogs.vala:586 src/Dialogs.vala:601
+#: src/Dialogs.vala:617 src/Dialogs.vala:632 src/Dialogs.vala:646
+msgid "error message:"
+msgstr "Feilmelding:"
+
+#: src/Dialogs.vala:582
+msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgstr ""
+"Filene ble ikke importert da de ikke ble oppfattet som bilder eller videoer:"
+
+#: src/Dialogs.vala:597
+msgid ""
+"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Understands:"
+msgstr ""
+"Bilder/videoer ble ikke importert fordi de er i et format som er ukjent for "
+"Shotwell:"
+
+#: src/Dialogs.vala:612
+msgid ""
+"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Library:"
+msgstr ""
+"Bilder/videoer ble ikke importert da Shotwell ikke greide å kopiere de til "
+"sitt bibliotek:"
+
+#: src/Dialogs.vala:616
+#, c-format
+msgid ""
+"couldn't copy %s\n"
+"\tto %s"
+msgstr ""
+"kunne ikke kopiere %s\n"
+"\ttil %s"
+
+#: src/Dialogs.vala:628
+msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
+msgstr "Bilder/videoer ble ikke importert fordi filene har feil i seg:"
+
+#: src/Dialogs.vala:643
+msgid "Photos/Videos Not Imported for Other Reasons:"
+msgstr "Bilder/videoer ble ikke importert p.g.a andre årsaker:"
+
+#: src/Dialogs.vala:663
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "1 duplikatbilde ble ikke importert:\n"
+msgstr[1] "%d duplikatbilder ble ikke importert:\n"
+
+#: src/Dialogs.vala:666
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "1 duplikatvideo ble ikke importert:\n"
+msgstr[1] "%d duplikatvideoer ble ikke importert:\n"
+
+#: src/Dialogs.vala:669
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "1 duplikatbilde/video ble ikke importert:\n"
+msgstr[1] "%d duplikatbilder/videoer ble ikke importert:\n"
+
+#: src/Dialogs.vala:683
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] "1 bilde ble ikke importert p.g.a en filfeil eller maskinvarefeil:\n"
+msgstr[1] "%d bilder ble ikke importert p.g.a en fil- eller hardwarefeil:\n"
+
+#: src/Dialogs.vala:686
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] "1 video ble ikke importert p.g.a en filfeil eller maskinvarefeil:\n"
+msgstr[1] "%d videoer ble ikke importert p.g.a en fil- eller maskinvarefeil:\n"
+
+#: src/Dialogs.vala:689
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"1 bilde/video ble ikke importert p.g.a en filfeil eller maskinvarefeil:\n"
+msgstr[1] ""
+"%d bilder/videoer ble ikke importert p.g.a en fil- eller maskinvarefeil:\n"
+
+#: src/Dialogs.vala:692
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] "1 fil ble ikke importert p.g.a en fil- eller maskinvarefeil:\n"
+msgstr[1] "%d filer ble ikke importert p.g.a en fil- eller maskinvarefeil:\n"
+
+#: src/Dialogs.vala:706
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"1 bilde feilet under importering fordi bildebibliotekmappen ikke var "
+"skrivbar:\n"
+msgstr[1] ""
+"%d bilder feilet under importering fordi bildebibliotekmappen ikke var "
+"skrivbar:\n"
+
+#: src/Dialogs.vala:709
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"1 video feilet under importering fordi bildebibliotekmappen ikke var "
+"skrivbar:\n"
+msgstr[1] "%d bla bla\n"
+
+#: src/Dialogs.vala:712
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"1 bilde/video feilet under importering fordi bildebibliotekmappen ikke var "
+"skrivbar:\n"
+msgstr[1] ""
+"%d videoer feilet under importering fordi bildebibliotekmappen ikke var "
+"skrivbar:\n"
+
+#: src/Dialogs.vala:715
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"1 fil feilet under importering fordi bildebibliotekmappen ikke var "
+"skrivbar:\n"
+msgstr[1] ""
+"%d filer feilet under importering fordi bildebibliotekmappen ikke var "
+"skrivbar:\n"
+
+#: src/Dialogs.vala:729
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] "1 bilde ble ikke importert p.g.a. en kamerafeil:\n"
+msgstr[1] "%d bilder ble ikke importert p.g.a. en kamerafeil:\n"
+
+#: src/Dialogs.vala:732
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] "1 video ble ikke importert p.g.a. en kamerafeil:\n"
+msgstr[1] "%d videoer ble ikke importert p.g.a. en kamerafeil:\n"
+
+#: src/Dialogs.vala:735
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] "1 bilde/video ble ikke importert p.g.a. en kamerafeil:\n"
+msgstr[1] "%d bilder/videoer ble ikke importert p.g.a. en kamerafeil:\n"
+
+#: src/Dialogs.vala:738
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] "1 fil ble ikke importert pg.a. en kamerafeil.\n"
+msgstr[1] "%d filer ble ikke importert p.g.a. en kamerafeil:\n"
+
+#: src/Dialogs.vala:752
+#, c-format
+msgid "1 photo failed to import because it was corrupt:\n"
+msgid_plural "%d photos failed to import because they were corrupt:\n"
+msgstr[0] "Ett bilde ble ikke importert fordi fila hadde feil i seg:\n"
+msgstr[1] "%d bilder ble ikke importert fordi filene hadde feil i seg:\n"
+
+#: src/Dialogs.vala:755
+#, c-format
+msgid "1 video failed to import because it was corrupt:\n"
+msgid_plural "%d videos failed to import because they were corrupt:\n"
+msgstr[0] "Én video ble ikke importert fordi fila hadde feil i seg:\n"
+msgstr[1] "%d videoer ble ikke importert fordi filene hadde feil i seg:\n"
+
+#: src/Dialogs.vala:758
+#, c-format
+msgid "1 photo/video failed to import because it was corrupt:\n"
+msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
+msgstr[0] "1 bilde/video ble ikke importert fordi fila hadde feil i seg:\n"
+msgstr[1] ""
+"%d bilder/videoer ble ikke importert fordi filene hadde feil i seg:\n"
+
+#: src/Dialogs.vala:761
+#, c-format
+msgid "1 file failed to import because it was corrupt:\n"
+msgid_plural "%d files failed to import because it was corrupt:\n"
+msgstr[0] "1 fil ble ikke importert fordi den hadde feil i seg:\n"
+msgstr[1] "%d filer ble ikke importert fordi de hadde feil i seg:\n"
+
+#: src/Dialogs.vala:778
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "1 bilde ble utelatt (formatet støttes ikke):\n"
+msgstr[1] "%d bilder ble utelatt (formatet støttes ikke):\n"
+
+#: src/Dialogs.vala:793
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] "1 fil, som ikke er et bilde, ble utelatt.\n"
+msgstr[1] "%d filer, som ikke er bilder, ble utelatt.\n"
+
+#: src/Dialogs.vala:804
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] "1 bilde utelatt p.g.a. brukeren avbrøt operasjonen:\n"
+msgstr[1] "%d bilder utelatt p.g.a. brukeren avbrøt operasjonen:\n"
+
+#: src/Dialogs.vala:807
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] "1 video utelatt p.g.a. brukeren avbrøt operasjonen:\n"
+msgstr[1] "%d videoer utelatt p.g.a. brukeren avbrøt operasjonen:\n"
+
+#: src/Dialogs.vala:810
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] "1 bilde/video ble utelatt p.g.a. brukeren avbrøt operasjonen:\n"
+msgstr[1] "%d bilder/videoer ble utelatt p.g.a. brukeren avbrøt operasjonen:\n"
+
+#: src/Dialogs.vala:813
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] "1 fil utelatt p.g.a. brukeren avbrøt operasjonen.\n"
+msgstr[1] "%d filer utelatt p.g.a. brukeren avbrøt operasjonen.\n"
+
+#: src/Dialogs.vala:827
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "1 bilde importert.\n"
+msgstr[1] "%d bilder importert.\n"
+
+#: src/Dialogs.vala:830
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "1 video ble importert.\n"
+msgstr[1] "%d videoer ble importert.\n"
+
+#: src/Dialogs.vala:833
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "1 bilde/video ble importert.\n"
+msgstr[1] "%d bilder/videoer ble importert.\n"
+
+#: src/Dialogs.vala:849
+msgid "No photos or videos imported.\n"
+msgstr "Ingen bilder eller videoer ble importert.\n"
+
+#: src/Dialogs.vala:856 src/Dialogs.vala:875
+msgid "Import Complete"
+msgstr "Import ferdig"
+
+#: src/Dialogs.vala:1103
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d sekund"
+msgstr[1] "%d sekunder"
+
+#: src/Dialogs.vala:1106
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minutt"
+msgstr[1] "%d minutter"
+
+#: src/Dialogs.vala:1110
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d time"
+msgstr[1] "%d timer"
+
+#: src/Dialogs.vala:1113
+msgid "1 day"
+msgstr "1 dag"
+
+#: src/Dialogs.vala:1263 src/Resources.vala:205
+msgid "Rename Event"
+msgstr "gi nytt navn til en hendelse"
+
+#: src/Dialogs.vala:1263
+msgid "Name:"
+msgstr "Navn:"
+
+#: src/Dialogs.vala:1273 src/Resources.vala:274
+msgid "Edit Title"
+msgstr "Endre tittel"
+
+#: src/Dialogs.vala:1287 src/Resources.vala:280
+msgid "Edit Event Comment"
+msgstr "Rediger hendelseskommentar"
+
+#: src/Dialogs.vala:1287
+msgid "Edit Photo/Video Comment"
+msgstr "Rediger bilde-/videokommentar"
+
+#: src/Dialogs.vala:1304
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "_Slett fil"
+msgstr[1] "_Slett filer"
+
+#: src/Dialogs.vala:1308
+msgid "Only _Remove"
+msgstr "_Fjern kun"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edit?"
+msgstr "Omgjør eksterne redigeringer?"
+
+#: src/Dialogs.vala:1351
+msgid "Revert External Edits?"
+msgstr "nullstille eksterne redigeringer?"
+
+#: src/Dialogs.vala:1353
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] ""
+"Dette vil ødelegge alle endringer som er gjort i den eksterne filen. "
+"Fortsett?"
+msgstr[1] ""
+"Dette vil ødelegge alle endringer som er gjort i de %d eksterne filene. "
+"Fortsett?"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edit"
+msgstr "omgj_ør eksterne redigeringer"
+
+#: src/Dialogs.vala:1357
+msgid "Re_vert External Edits"
+msgstr "nu_llstille ekstern redigering"
+
+#: src/Dialogs.vala:1378
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "Dette vil fjerne bildet fra bildebiblioteket. Fortsett?"
+msgstr[1] "Dette vil fjerne %d bilder fra bildebiblioteket. Fortsett?"
+
+#: src/Dialogs.vala:1385
+msgid "_Remove"
+msgstr "_Fjern"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photo From Library"
+msgstr "Fjerner bilder fra bildebiblioteket"
+
+#: src/Dialogs.vala:1386
+msgid "Remove Photos From Library"
+msgstr "Fjern bilder fra bildebiblioteket"
+
+#: src/Dialogs.vala:1479
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/Dialogs.vala:1626
+msgid "AM"
+msgstr "AM"
+
+#: src/Dialogs.vala:1627
+msgid "PM"
+msgstr "PM"
+
+#: src/Dialogs.vala:1628
+msgid "24 Hr"
+msgstr "24 t."
+
+#: src/Dialogs.vala:1643
+msgid "_Shift photos/videos by the same amount"
+msgstr "_flytt bilder/videoer med den samme mengden"
+
+#: src/Dialogs.vala:1648
+msgid "Set _all photos/videos to this time"
+msgstr "Gi _alle bilder/videoer denne dato/tid"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo file"
+msgstr "_Modifiser bildets originalfil"
+
+#: src/Dialogs.vala:1655
+msgid "_Modify original photo files"
+msgstr "_Modifiser bildenes originalfiler"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original file"
+msgstr "_Modifiser orginalfilene"
+
+#: src/Dialogs.vala:1658
+msgid "_Modify original files"
+msgstr "_Modifiser originalfiler"
+
+#: src/Dialogs.vala:1744
+msgid "Original: "
+msgstr "Original:"
+
+#: src/Dialogs.vala:1745
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%d/%m/%Y, %H:%M:%S"
+
+#: src/Dialogs.vala:1746
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%d/%M/%Y, %H:%M:%S"
+
+#: src/Dialogs.vala:1835
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Eksponeringstiden vil bli flyttet fram med\n"
+"%d %s, %d %s, %d %s, og %d %s."
+
+#: src/Dialogs.vala:1836
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Eksponeringstidspunktet vil bli satt tilbake med\n"
+"%d %s, %d %s, %d %s, og %d %s."
+
+#: src/Dialogs.vala:1838
+msgid "day"
+msgid_plural "days"
+msgstr[0] "dag"
+msgstr[1] "dager"
+
+#: src/Dialogs.vala:1839
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "time"
+msgstr[1] "timer"
+
+#: src/Dialogs.vala:1840
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minutt"
+msgstr[1] "minutter"
+
+#: src/Dialogs.vala:1841
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "sekund"
+msgstr[1] "sekunder"
+
+#: src/Dialogs.vala:1885
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"og %d annen."
+msgstr[1] ""
+"\n"
+"\n"
+"Og %d andre."
+
+#: src/Dialogs.vala:1907 src/Dialogs.vala:1934
+msgid "Tags (separated by commas):"
+msgstr "Tagger (kommaseparert):"
+
+#: src/Dialogs.vala:2014
+msgid "Welcome!"
+msgstr "Velkommen!"
+
+#: src/Dialogs.vala:2021
+#, c-format
+msgid "Welcome to Shotwell!"
+msgstr "Velkommen til Shotwell!"
+
+#: src/Dialogs.vala:2025
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr "For å komme igang, kan du importere bilder på en av følgende måter:"
+
+#: src/Dialogs.vala:2044
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr "Velg <span weight=\"bold\">Import av fil %s fra en mappe</span>"
+
+#: src/Dialogs.vala:2045
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "Dra og slipp bilder inn i Shotwellvinduet"
+
+#: src/Dialogs.vala:2046
+msgid "Connect a camera to your computer and import"
+msgstr "Koble et kamera til din datamaskin og importer bilder"
+
+#: src/Dialogs.vala:2056
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "_Importer bilder fra din %s mappe"
+
+#: src/Dialogs.vala:2063
+msgid "You can also import photos in any of these ways:"
+msgstr "Du kan også importere bilder på en av følgende måter:"
+
+#: src/Dialogs.vala:2073
+msgid "_Don't show this message again"
+msgstr "_Vis ikke denne beskjeden igjen"
+
+#: src/Dialogs.vala:2108
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "Importer bilder fra ditt %s bibliotek "
+
+#: src/Dialogs.vala:2252 src/Dialogs.vala:2256
+msgid "(Help)"
+msgstr "(Hjelp)"
+
+#: src/Dialogs.vala:2265
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "År%sMåned%sDag"
+
+#: src/Dialogs.vala:2267
+#, c-format
+msgid "Year%sMonth"
+msgstr "År%sMåned"
+
+#: src/Dialogs.vala:2269
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "År%sMåned-Dag"
+
+#: src/Dialogs.vala:2271
+msgid "Year-Month-Day"
+msgstr "År-Måned-Dag"
+
+#: src/Dialogs.vala:2272 src/editing_tools/EditingTools.vala:777
+msgid "Custom"
+msgstr "Tilpasset"
+
+#: src/Dialogs.vala:2509
+msgid "Invalid pattern"
+msgstr "Ugyldig mønster"
+
+#: src/Dialogs.vala:2612
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr ""
+"Shotwell kan kopiere bildene til din bildebibliotekmappe, eller lenke til "
+"bildene uten å kopiere dem. "
+
+#: src/Dialogs.vala:2617
+msgid "Co_py Photos"
+msgstr "Ko_pier bilder"
+
+#: src/Dialogs.vala:2618
+msgid "_Import in Place"
+msgstr "_Importer til sted"
+
+#: src/Dialogs.vala:2619
+msgid "Import to Library"
+msgstr "Importer til biblioteket"
+
+#: src/Dialogs.vala:2629 src/PhotoPage.vala:3075
+msgid "Remove From Library"
+msgstr "Fjern fra bildebiblioteket"
+
+#: src/Dialogs.vala:2630 src/PhotoPage.vala:3075
+msgid "Removing Photo From Library"
+msgstr "Fjerner bilder fra bildebiblioteket"
+
+#: src/Dialogs.vala:2630
+msgid "Removing Photos From Library"
+msgstr "Fjerner bilder fra bildebiblioteket"
+
+#: src/Dialogs.vala:2644
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also "
+"like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you "
+"also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Dette vil fjerne bildet/videoen fra ditt Shotwell bildebibliotek. Vil du "
+"også flytte filen til din søppelkasse? (slette bildefilen)\n"
+"\n"
+"Denne operasjonen kan ikke angres / omgjøres"
+msgstr[1] ""
+"Dette vil fjerne %d bilder/videoer fra ditt Shotwell bildebibliotek. Vil du "
+"også flytte filene til din søppelkasse? (slette bildefilene)\n"
+"\n"
+"Denne operasjonen kan ikke angres / omgjøres"
+
+#: src/Dialogs.vala:2648
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Dette vil fjerne videoen fra ditt Shotwellbibliotek. Vil du også flytte "
+"filen til din søppelkasse? (slette bildefilen)\n"
+"\n"
+"Denne operasjonen kan ikke angres / omgjøres"
+msgstr[1] ""
+"Dette vil fjerne %d bilder fra ditt Shotwell bildebibliotek. Vil du også "
+"flytte filene til din søppelkasse? (slette bildefilene)\n"
+"\n"
+"Denne operasjonen kan ikke angres / omgjøres"
+
+#: src/Dialogs.vala:2652
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Dette vil fjerne bildet fra ditt Shotwell bildebibliotek. Vil du også flytte "
+"filen til din søppelkasse? (slette bildefilen)\n"
+"\n"
+"Denne operasjonen kan ikke angres / omgjøres"
+msgstr[1] ""
+"Dette vil fjerne %d bilder fra ditt Shotwell bildebibliotek. Vil du også "
+"flytte filene til din søppelkasse? (slette bildefilene)\n"
+"\n"
+"Denne operasjonen kan ikke angres / omgjøres"
+
+#: src/Dialogs.vala:2684
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] ""
+"Bildet eller videoen kan ikke bli flyttet til søppelbøtten på skrivebordet. "
+"Slett denne filen?"
+msgstr[1] ""
+"%d bilder/videoer kan ikke bli flyttet til søppelbøtten på ditt skrivebord. "
+"Slett disse filene?"
+
+#: src/Dialogs.vala:2701
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "Bildet eller videoen kan ikke slettes."
+msgstr[1] "%d bilder/videoer kan ikke slettes."
+
+#: src/folders/Branch.vala:141
+msgid "Folders"
+msgstr "Mapper"
+
+#: src/tags/Branch.vala:127
+msgid "Tags"
+msgstr "Tagger"
+
+#: src/BatchImport.vala:26
+msgid "Success"
+msgstr "Vellykket"
+
+#: src/BatchImport.vala:29
+msgid "File error"
+msgstr "Filfeil"
+
+#: src/BatchImport.vala:32
+msgid "Unable to decode file"
+msgstr "kan ikke dekode filen"
+
+#: src/BatchImport.vala:35
+msgid "Database error"
+msgstr "Databasefeil"
+
+#: src/BatchImport.vala:38
+msgid "User aborted import"
+msgstr "Brukeren avbrøt import"
+
+#: src/BatchImport.vala:41
+msgid "Not a file"
+msgstr "Ikke en fil"
+
+#: src/BatchImport.vala:44
+msgid "File already exists in database"
+msgstr "Filen finnes allerede i databasen"
+
+#: src/BatchImport.vala:47
+msgid "Unsupported file format"
+msgstr "Filformatet er ikke støttet"
+
+#: src/BatchImport.vala:50
+msgid "Not an image file"
+msgstr "Ikke en bildefil"
+
+#: src/BatchImport.vala:53
+msgid "Disk failure"
+msgstr "diskfeil"
+
+#: src/BatchImport.vala:56
+msgid "Disk full"
+msgstr "Disken er full"
+
+#: src/BatchImport.vala:59
+msgid "Camera error"
+msgstr "Kamerafeil"
+
+#: src/BatchImport.vala:62
+msgid "File write error"
+msgstr "Feil under filskriving"
+
+#: src/BatchImport.vala:65
+msgid "Corrupt image file"
+msgstr "Skadd bildefil"
+
+#: src/BatchImport.vala:68
+#, c-format
+msgid "Imported failed (%d)"
+msgstr "Import feilet (%d)"
+
+#: src/Photo.vala:3656
+msgid "modified"
+msgstr "modifisert"
+
+#: src/PhotoPage.vala:532
+msgid "Previous photo"
+msgstr "Forrige bilde"
+
+#: src/PhotoPage.vala:537
+msgid "Next photo"
+msgstr "Neste bilde"
+
+#: src/PhotoPage.vala:1844
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "Kildefil for bilde mangler: %s"
+
+#: src/PhotoPage.vala:2404 src/library/LibraryWindow.vala:360
+#: src/direct/DirectPhotoPage.vala:165
+msgid "_View"
+msgstr "_Vis"
+
+#: src/PhotoPage.vala:2408 src/direct/DirectPhotoPage.vala:81
+msgid "T_ools"
+msgstr "V_erktøy"
+
+#: src/PhotoPage.vala:2413 src/direct/DirectPhotoPage.vala:86
+msgid "_Previous Photo"
+msgstr "_Forrige bilde"
+
+#: src/PhotoPage.vala:2414 src/direct/DirectPhotoPage.vala:87
+msgid "Previous Photo"
+msgstr "Forrige bilde"
+
+#: src/PhotoPage.vala:2419 src/direct/DirectPhotoPage.vala:92
+msgid "_Next Photo"
+msgstr "_Neste bilde"
+
+#: src/PhotoPage.vala:2420 src/direct/DirectPhotoPage.vala:93
+msgid "Next Photo"
+msgstr "Neste bilde"
+
+#: src/PhotoPage.vala:2583 src/direct/DirectPhotoPage.vala:174
+#: src/MediaPage.vala:325
+msgid "Zoom _In"
+msgstr "Zoom _inn"
+
+#: src/PhotoPage.vala:2584 src/direct/DirectPhotoPage.vala:175
+msgid "Increase the magnification of the photo"
+msgstr "Øk bildets forstørrelsesgrad"
+
+#: src/PhotoPage.vala:2589 src/direct/DirectPhotoPage.vala:180
+#: src/MediaPage.vala:331
+msgid "Zoom _Out"
+msgstr "Zoom _ut"
+
+#: src/PhotoPage.vala:2590 src/direct/DirectPhotoPage.vala:181
+msgid "Decrease the magnification of the photo"
+msgstr "minsk bildets forstørrelsesgrad"
+
+#: src/PhotoPage.vala:2595 src/direct/DirectPhotoPage.vala:186
+msgid "Fit to _Page"
+msgstr "Tilpass til _Side"
+
+#: src/PhotoPage.vala:2596 src/direct/DirectPhotoPage.vala:187
+msgid "Zoom the photo to fit on the screen"
+msgstr "Zoom til å passe til skjermen"
+
+#: src/PhotoPage.vala:2601 src/direct/DirectPhotoPage.vala:192
+msgid "Zoom _100%"
+msgstr "Zoom _100%"
+
+#: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
+#, c-format
+msgid "Zoom the photo to 100% magnification"
+msgstr "Zoom bildet til 100% magnifisering"
+
+#: src/PhotoPage.vala:2607 src/direct/DirectPhotoPage.vala:198
+msgid "Zoom _200%"
+msgstr "Zoom _200%"
+
+#: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
+#, c-format
+msgid "Zoom the photo to 200% magnification"
+msgstr "Zoom bildet til 200% magnifisering"
+
+#: src/PhotoPage.vala:2628 src/MediaPage.vala:413
+msgid "_Developer"
+msgstr "_Fremkaller"
+
+#: src/PhotoPage.vala:3216
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "Kan ikke eksportere %s: %s"
+
+#: src/data_imports/DataImportsPluginHost.vala:65
+#: src/data_imports/DataImportsPluginHost.vala:78
+#, c-format
+msgid "%s Database"
+msgstr "%s Database"
+
+#: src/data_imports/DataImportsPluginHost.vala:148
+#: src/data_imports/DataImportsPluginHost.vala:294
+#, c-format
+msgid "Importing from %s can't continue because an error occurred:"
+msgstr "Importering fra %s kan ikke fortsette pga. en feil:"
+
+#: src/data_imports/DataImportsPluginHost.vala:151
+msgid "To try importing from another service, select one from the above menu."
+msgstr ""
+"For å forsøke å importere fra en annen tjeneste, velg tjeneste fra "
+"ovenstående meny."
+
+#: src/data_imports/DataImports.vala:22
+msgid "Data Imports"
+msgstr "Dataimporteringer"
+
+#: src/data_imports/DataImportsUI.vala:10
+msgid ""
+"You do not have any data imports plugins enabled.\n"
+"\n"
+"In order to use the Import From Application functionality, you need to have "
+"at least one data imports plugin enabled. Plugins can be enabled in the "
+"Preferences dialog."
+msgstr ""
+"Du har ingen aktiverte innstikk for dataimportering\n"
+"\n"
+"For å bruke funksjonen \"Importer fra program\", må du ha minst ett innstikk "
+"for dataimportering aktivert.Innstikk kan aktiveres via menyen: Innstillinger"
+
+#: src/data_imports/DataImportsUI.vala:100
+msgid "Database file:"
+msgstr "Databasefil:"
+
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:899
+msgid "_Import"
+msgstr "_Importer"
+
+#: src/data_imports/DataImportsUI.vala:216
+msgid "Import From Application"
+msgstr "Importer fra program"
+
+#: src/data_imports/DataImportsUI.vala:217
+msgid "Import media _from:"
+msgstr "Importer media _fra:"
+
+#: src/data_imports/DataImportsUI.vala:394
+#: src/publishing/PublishingUI.vala:493
+msgid "_Close"
+msgstr "_Lukk"
+
+#: src/SlideshowPage.vala:49 src/SlideshowPage.vala:182
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: src/SlideshowPage.vala:141 src/Screensaver.vala:18
+msgid "Slideshow"
+msgstr "blidefremvising"
+
+#: src/SlideshowPage.vala:161
+msgid "Back"
+msgstr "Tilbake"
+
+#: src/SlideshowPage.vala:162
+msgid "Go to the previous photo"
+msgstr "Gå tilbake til forrige bilde"
+
+#: src/SlideshowPage.vala:168 src/SlideshowPage.vala:273
+msgid "Pause"
+msgstr "Pause"
+
+#: src/SlideshowPage.vala:169 src/SlideshowPage.vala:274
+msgid "Pause the slideshow"
+msgstr "Pause bildefremvisningen"
+
+#: src/SlideshowPage.vala:175
+msgid "Next"
+msgstr "Neste"
+
+#: src/SlideshowPage.vala:176
+msgid "Go to the next photo"
+msgstr "Gå til det neste bilde"
+
+#: src/SlideshowPage.vala:183
+msgid "Change slideshow settings"
+msgstr "Endre instillinger for bildefremviser"
+
+#: src/SlideshowPage.vala:237
+msgid "All photo source files are missing."
+msgstr "Alle bildekildefiler mangler"
+
+#: src/SlideshowPage.vala:269
+msgid "Play"
+msgstr "avspill"
+
+#: src/SlideshowPage.vala:270
+msgid "Continue the slideshow"
+msgstr "Fortsett bildefremvisningen"
+
+#: src/Commands.vala:733
+msgid "Reverting"
+msgstr "Forkaster"
+
+#: src/Commands.vala:733
+msgid "Undoing Revert"
+msgstr "Angre forkastelse"
+
+#: src/Commands.vala:777
+msgid "Enhancing"
+msgstr "Gjør skarpere"
+
+#: src/Commands.vala:777
+msgid "Undoing Enhance"
+msgstr "Angre oppskarping"
+
+#: src/Commands.vala:845
+msgid "Applying Color Transformations"
+msgstr "Legger til fargetransformasjoner"
+
+#: src/Commands.vala:845
+msgid "Undoing Color Transformations"
+msgstr "Gjør om fargetransformasjoner"
+
+#: src/Commands.vala:995
+msgid "Creating New Event"
+msgstr "Oppretter ny hendelse"
+
+#: src/Commands.vala:996
+msgid "Removing Event"
+msgstr "Fjerner hendelse"
+
+#: src/Commands.vala:1005
+msgid "Moving Photos to New Event"
+msgstr "Flytter bilder til den nye hendelsen"
+
+#: src/Commands.vala:1006
+msgid "Setting Photos to Previous Event"
+msgstr "angi bilder til forrige hendelse"
+
+#: src/Commands.vala:1063
+msgid "Merging"
+msgstr "Fletter"
+
+#: src/Commands.vala:1064
+msgid "Unmerging"
+msgstr "Fjerner fletting"
+
+#: src/Commands.vala:1073
+msgid "Duplicating photos"
+msgstr "Duplikerer bilder"
+
+#: src/Commands.vala:1073
+msgid "Removing duplicated photos"
+msgstr "Fjerner duplikatbilder"
+
+#: src/Commands.vala:1096
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "Kunne ikke duplisere et bilde p.g.a en filfeil"
+msgstr[1] "kunne ikke duplisere %d bilder p.g.a filfeil"
+
+#: src/Commands.vala:1183
+msgid "Restoring previous rating"
+msgstr "Gjenoppretter tidligere rangering"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Increasing ratings"
+msgstr "Øker rangeringer"
+
+#: src/Commands.vala:1193 src/Commands.vala:1194
+msgid "Decreasing ratings"
+msgstr "Senker rangeringer"
+
+#: src/Commands.vala:1244
+msgid "Setting RAW developer"
+msgstr "Velger RAW-fremkaller"
+
+#: src/Commands.vala:1244
+msgid "Restoring previous RAW developer"
+msgstr "gjenoppretter forrige RAW-fremkaller"
+
+#: src/Commands.vala:1245
+msgid "Set Developer"
+msgstr "juster fremkaller"
+
+#: src/Commands.vala:1335
+msgid "Original photo could not be adjusted."
+msgstr "Orginalbildet kunne ikke justeres"
+
+#: src/Commands.vala:1356
+msgid "Adjusting Date and Time"
+msgstr "Justerer tid og dato"
+
+#: src/Commands.vala:1356
+msgid "Undoing Date and Time Adjustment"
+msgstr "fjerner justering av tid og dato"
+
+#: src/Commands.vala:1387
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "Ett orginalbilde kunne ikke justeres"
+msgstr[1] "Følgende orginalbilder kunne ikke justeres."
+
+#: src/Commands.vala:1389 src/Commands.vala:1413
+msgid "Time Adjustment Error"
+msgstr "Tidsjusteringsfeil"
+
+#: src/Commands.vala:1411
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] "Tidsjusteringer kunne ikke omgjøres på den følgende bildefilen."
+msgstr[1] "Tidsjusteringen kunne ikke omgjøres på de følgende bildefiler."
+
+#: src/Commands.vala:1625 src/Commands.vala:1648
+msgid "Create Tag"
+msgstr "Lag en tagg"
+
+#: src/Commands.vala:1683
+#, c-format
+msgid "Move Tag \"%s\""
+msgstr "Flytt taggen \"%s\""
+
+#: src/Commands.vala:2335
+msgid "Move Photos to Trash"
+msgstr "Flytt bilder til søppelbøtten"
+
+#: src/Commands.vala:2335
+msgid "Restore Photos from Trash"
+msgstr "Gjenopprett bilder fra  søppelkassen"
+
+#: src/Commands.vala:2336
+msgid "Move the photos to the Shotwell trash"
+msgstr "Flytt bildene til Shotwells søppelbøtte"
+
+#: src/Commands.vala:2336
+msgid "Restore the photos back to the Shotwell library"
+msgstr "Gjenopprett bildene i Shotwells bildebibliotek"
+
+#: src/Commands.vala:2355
+msgid "Moving Photos to Trash"
+msgstr "Flytter bilder til søppelbøtten"
+
+#: src/Commands.vala:2355
+msgid "Restoring Photos From Trash"
+msgstr "Gjenoppretter bilder fra søppelbøtten"
+
+#: src/Commands.vala:2441
+msgid "Flag selected photos"
+msgstr "Flagg valgte bilder"
+
+#: src/Commands.vala:2442
+msgid "Unflag selected photos"
+msgstr "Fjern flagget fra valgte bilder"
+
+#: src/Commands.vala:2443
+msgid "Flagging selected photos"
+msgstr "Flagger valgte bilder"
+
+#: src/Commands.vala:2444
+msgid "Unflagging selected photos"
+msgstr "Fjerner flagg fra valgte bilder"
+
+#: src/Commands.vala:2451
+msgid "Flag"
+msgstr "Flagg"
+
+#: src/Commands.vala:2451
+msgid "Unflag"
+msgstr "Fjern flagg"
+
+#: src/photos/RawSupport.vala:134
+msgid "RAW"
+msgstr "RAW"
+
+#: src/photos/RawSupport.vala:297 src/MediaPage.vala:420
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: src/photos/BmpSupport.vala:32
+msgid "BMP"
+msgstr "BMP"
+
+#: src/photos/JfifSupport.vala:84
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/photos/JfifSupport.vala:182
+#, c-format
+msgid "Low (%d%%)"
+msgstr "Lav (%d%%)"
+
+#: src/photos/JfifSupport.vala:185
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "Medium (%d%%)"
+
+#: src/photos/JfifSupport.vala:188
+#, c-format
+msgid "High (%d%%)"
+msgstr "Høy (%d%%)"
+
+#: src/photos/JfifSupport.vala:191
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "Maksimum (%d%%)"
+
+#: src/photos/PngSupport.vala:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/photos/TiffSupport.vala:86
+msgid "TIFF"
+msgstr "TIFF"
+
+#: src/Page.vala:1268
+msgid "No photos/videos"
+msgstr "Ingen bilder/videoer"
+
+#: src/Page.vala:1272
+msgid "No photos/videos found"
+msgstr "Ingen bilder/videoer funnet"
+
+#: src/Page.vala:2569
+msgid "Photos cannot be exported to this directory."
+msgstr "Bilder kan ikke eksporteres til denne mappen."
+
+#: src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "Greide ikke å behandle mon.  oppdateringene :%s"
+
+#: src/Printing.vala:255
+msgid "Fill the entire page"
+msgstr "Fyll hele siden"
+
+#: src/Printing.vala:256
+msgid "2 images per page"
+msgstr "2 bilder pr. side"
+
+#: src/Printing.vala:257
+msgid "4 images per page"
+msgstr "4 bilder pr. side"
+
+#: src/Printing.vala:258
+msgid "6 images per page"
+msgstr "6 bilder pr. side"
+
+#: src/Printing.vala:259
+msgid "8 images per page"
+msgstr "8 bilder pr. side"
+
+#: src/Printing.vala:260
+msgid "16 images per page"
+msgstr "16 bilder pr. side"
+
+#: src/Printing.vala:261
+msgid "32 images per page"
+msgstr "32 bilder pr. side"
+
+#: src/Printing.vala:348
+msgid "in."
+msgstr "tomme"
+
+#: src/Printing.vala:349
+msgid "cm"
+msgstr "cm"
+
+#: src/Printing.vala:817 src/editing_tools/EditingTools.vala:757
+msgid "Wallet (2 x 3 in.)"
+msgstr "Lommebok (2 x 3 tommer)"
+
+#: src/Printing.vala:820 src/editing_tools/EditingTools.vala:758
+msgid "Notecard (3 x 5 in.)"
+msgstr "Notekort (3 x 5 tommer)"
+
+#: src/Printing.vala:823 src/editing_tools/EditingTools.vala:759
+msgid "4 x 6 in."
+msgstr "4 x 6 tommer"
+
+#: src/Printing.vala:826 src/editing_tools/EditingTools.vala:760
+msgid "5 x 7 in."
+msgstr "5 x 7 tommer"
+
+#: src/Printing.vala:829 src/editing_tools/EditingTools.vala:761
+msgid "8 x 10 in."
+msgstr "8 x 10 tommer"
+
+#: src/Printing.vala:832 src/editing_tools/EditingTools.vala:763
+msgid "11 x 14 in."
+msgstr "11 x 14 tommer"
+
+#: src/Printing.vala:835 src/editing_tools/EditingTools.vala:765
+msgid "16 x 20 in."
+msgstr "16 x 20 tommer"
+
+#: src/Printing.vala:841 src/editing_tools/EditingTools.vala:767
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr "Metrisk Lommebok (9x 13 cm)"
+
+#: src/Printing.vala:844 src/editing_tools/EditingTools.vala:768
+msgid "Postcard (10 x 15 cm)"
+msgstr "Postkort (10 x 15 cm)"
+
+#: src/Printing.vala:847 src/editing_tools/EditingTools.vala:769
+msgid "13 x 18 cm"
+msgstr "13 x 18 cm"
+
+#: src/Printing.vala:850 src/editing_tools/EditingTools.vala:770
+msgid "18 x 24 cm"
+msgstr "18 x 24 cm"
+
+#: src/Printing.vala:853 src/editing_tools/EditingTools.vala:772
+msgid "20 x 30 cm"
+msgstr "20 x 30 cm"
+
+#: src/Printing.vala:856 src/editing_tools/EditingTools.vala:773
+msgid "24 x 40 cm"
+msgstr "24 x 40 cm"
+
+#: src/Printing.vala:859 src/editing_tools/EditingTools.vala:774
+msgid "30 x 40 cm"
+msgstr "30 x 40 cm"
+
+#: src/Printing.vala:875
+msgid "Image Settings"
+msgstr "Bildeinnstillinger"
+
+#: src/Printing.vala:888
+msgid "Printing..."
+msgstr "Skriver ut..."
+
+#: src/Printing.vala:908 src/Printing.vala:1111
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"Kan ikke skrive ut bildet:\n"
+"\n"
+"%s"
+
+#: src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr "Kan ikke åpne/lage bildedatabase %s: feilkode %d"
+
+#: src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr ""
+"kan ikke skrive til databasefilen:\n"
+" %s"
+
+#: src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr ""
+"Feil ved tilgang til databasefilen:\n"
+" %s\n"
+"\n"
+"Feilen er: \n"
+"%s"
+
+#: src/VideoSupport.vala:464
+msgid "Export Videos"
+msgstr "Eksporter videoer"
+
+#: src/DesktopIntegration.vala:118
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "Klarer ikke å starte Nautilus send-til:: %s"
+
+#: src/DesktopIntegration.vala:126
+msgid "Send To"
+msgstr "Send til"
+
+#: src/DesktopIntegration.vala:171
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "Kan ikke eksportere bakgrunn til %s: %s"
+
+#: src/DesktopIntegration.vala:299
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "Klarer ikke å forberede lysbildeshow med skrivebordsbakgrunner: %s"
+
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:587
+#: src/SearchFilter.vala:588 src/SearchFilter.vala:990
+msgid "Flagged"
+msgstr "Flagget"
+
+#: src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "Søppelbøtte"
+
+#: src/library/TrashPage.vala:108
+msgid "Trash is empty"
+msgstr "Søppeldunken er tom"
+
+#: src/library/TrashPage.vala:112
+msgid "Delete"
+msgstr "Slett"
+
+#: src/library/TrashPage.vala:113
+msgid "Deleting Photos"
+msgstr "Sletter bilder"
+
+#: src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "Manglende filer"
+
+#: src/library/OfflinePage.vala:106
+msgid "Deleting..."
+msgstr "Sletter..."
+
+#: src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "Siste importering"
+
+#: src/library/LibraryWindow.vala:301
+msgid "_Import From Folder..."
+msgstr "_Importer fra mappe..."
+
+#: src/library/LibraryWindow.vala:302
+msgid "Import photos from disk to library"
+msgstr "Importer bilder fra harddisken til biblioteket"
+
+#: src/library/LibraryWindow.vala:309
+msgid "Import From _Application..."
+msgstr "Importer fra _program..."
+
+#: src/library/LibraryWindow.vala:313
+msgid "Sort _Events"
+msgstr "Sorter _hendelser"
+
+#: src/library/LibraryWindow.vala:323
+msgid "Empty T_rash"
+msgstr "Tøm _Søppelbøtten"
+
+#: src/library/LibraryWindow.vala:324
+msgid "Delete all photos in the trash"
+msgstr "Slett alle bilder som befinner seg i søppelbøtten"
+
+#: src/library/LibraryWindow.vala:329
+msgid "View Eve_nt for Photo"
+msgstr "Se hen_delsen bildet tilhører"
+
+#: src/library/LibraryWindow.vala:334
+msgid "_Find"
+msgstr "_Finn"
+
+#: src/library/LibraryWindow.vala:335
+msgid "Find photos and videos by search criteria"
+msgstr "Finn bilder og videoer via søkekriterier"
+
+#: src/library/LibraryWindow.vala:352 src/direct/DirectPhotoPage.vala:46
+msgid "_File"
+msgstr "_Fil"
+
+#: src/library/LibraryWindow.vala:356 src/direct/DirectPhotoPage.vala:73
+msgid "_Edit"
+msgstr "_Rediger"
+
+#: src/library/LibraryWindow.vala:364 src/direct/DirectPhotoPage.vala:77
+msgid "_Photo"
+msgstr "_Bilde"
+
+#: src/library/LibraryWindow.vala:368
+msgid "_Photos"
+msgstr "_Bilder"
+
+#: src/library/LibraryWindow.vala:372
+msgid "Even_ts"
+msgstr "_Hendelse"
+
+#: src/library/LibraryWindow.vala:376 src/MediaPage.vala:454
+msgid "Ta_gs"
+msgstr "Ta_gger"
+
+#: src/library/LibraryWindow.vala:380 src/direct/DirectPhotoPage.vala:169
+msgid "_Help"
+msgstr "_Hjelp"
+
+#: src/library/LibraryWindow.vala:391
+msgid "_Basic Information"
+msgstr "_Grunnleggende informasjon"
+
+#: src/library/LibraryWindow.vala:392
+msgid "Display basic information for the selection"
+msgstr "Vis grunnleggende informasjon for denne markeringen"
+
+#: src/library/LibraryWindow.vala:397
+msgid "E_xtended Information"
+msgstr "_Utvidet informasjon"
+
+#: src/library/LibraryWindow.vala:398
+msgid "Display extended information for the selection"
+msgstr "Vis utvidet informasjon for denne markeringen"
+
+#: src/library/LibraryWindow.vala:403
+msgid "_Search Bar"
+msgstr "_Søkefelt"
+
+#: src/library/LibraryWindow.vala:404
+msgid "Display the search bar"
+msgstr "Vis søkefeltet"
+
+#: src/library/LibraryWindow.vala:409
+msgid "S_idebar"
+msgstr "S_idestolpe"
+
+#: src/library/LibraryWindow.vala:410
+msgid "Display the sidebar"
+msgstr "Vis sidestolpen"
+
+#: src/library/LibraryWindow.vala:422 src/MediaPage.vala:494
+msgid "_Ascending"
+msgstr "_Stigende"
+
+#: src/library/LibraryWindow.vala:423 src/MediaPage.vala:495
+msgid "Sort photos in an ascending order"
+msgstr "Sorter bilder i stigende rekkefølge"
+
+#: src/library/LibraryWindow.vala:429 src/MediaPage.vala:500
+msgid "D_escending"
+msgstr "S_ynkende"
+
+#: src/library/LibraryWindow.vala:430 src/MediaPage.vala:501
+msgid "Sort photos in a descending order"
+msgstr "Sorter bilder i synkende rekkefølge"
+
+#: src/library/LibraryWindow.vala:668
+msgid "Import From Folder"
+msgstr "Importer fra mappe"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Empty Trash"
+msgstr "Tøm søppelbøtten"
+
+#: src/library/LibraryWindow.vala:737
+msgid "Emptying Trash..."
+msgstr "tømmer søppelbøtten..."
+
+#: src/library/LibraryWindow.vala:896
+msgid "Shotwell is configured to import photos to your home directory.\n"
+msgstr "Shotwell er satt opp til å importere bilder inn i ditt hjemmeområde.\n"
+
+#: src/library/LibraryWindow.vala:899
+msgid "Library Location"
+msgstr "Bildebibliotekets plassering:"
+
+#: src/library/LibraryWindow.vala:912
+msgid "Photos cannot be imported from this directory."
+msgstr "Ingen bilder kan importeres fra denne mappen."
+
+#: src/library/LibraryWindow.vala:1200
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/library/LibraryWindow.vala:1244 src/library/LibraryWindow.vala:1255
+msgid "Updating library..."
+msgstr "Oppdaterer bildebiblioteket..."
+
+#: src/library/LibraryWindow.vala:1261
+msgid "Preparing to auto-import photos..."
+msgstr "forbereder automatisk importering av bilder..."
+
+#: src/library/LibraryWindow.vala:1266
+msgid "Auto-importing photos..."
+msgstr "Automatisk importering av bilder..."
+
+#: src/library/LibraryWindow.vala:1274
+msgid "Writing metadata to files..."
+msgstr "Skriver metadata til filer..."
+
+#: src/library/Branch.vala:37
+msgid "Library"
+msgstr "Bibliotek"
+
+#: src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "Importerer..."
+
+#: src/library/ImportQueuePage.vala:66
+msgid "_Stop Import"
+msgstr "_Stopp import"
+
+#: src/library/ImportQueuePage.vala:67
+msgid "Stop importing photos"
+msgstr "Stopp importering av bilder"
+
+#: src/library/ImportQueuePage.vala:123
+msgid "Preparing to import..."
+msgstr "Gjør klart til importering..."
+
+#: src/library/ImportQueuePage.vala:150
+#, c-format
+msgid "Imported %s"
+msgstr "Importerte %s"
+
+#: src/direct/DirectPhotoPage.vala:51 src/direct/DirectPhotoPage.vala:413
+msgid "_Save"
+msgstr "_Lagre"
+
+#: src/direct/DirectPhotoPage.vala:52
+msgid "Save photo"
+msgstr "Lagre bilde"
+
+#: src/direct/DirectPhotoPage.vala:57
+msgid "Save _As..."
+msgstr "Lagre _som..."
+
+#: src/direct/DirectPhotoPage.vala:58
+msgid "Save photo with a different name"
+msgstr "Lagre bilde med et annet navn"
+
+#: src/direct/DirectPhotoPage.vala:69
+msgid "Print the photo to a printer connected to your computer"
+msgstr "skriv ut bildet med en skriver tilkoplet din datamaskin"
+
+#: src/direct/DirectPhotoPage.vala:223
+#, c-format
+msgid "%s does not exist."
+msgstr "%s finnes ikke."
+
+#: src/direct/DirectPhotoPage.vala:225
+#, c-format
+msgid "%s is not a file."
+msgstr "%s er ingen fil."
+
+#: src/direct/DirectPhotoPage.vala:227
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr ""
+"%s støtter ikke filformatet til\n"
+"%s."
+
+#: src/direct/DirectPhotoPage.vala:413
+msgid "_Save a Copy"
+msgstr "_Lagre en kopi"
+
+#: src/direct/DirectPhotoPage.vala:416
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "Fjern endringer til %s?"
+
+#: src/direct/DirectPhotoPage.vala:417
+msgid "Close _without Saving"
+msgstr "Lukk _uten å lagre"
+
+#: src/direct/DirectPhotoPage.vala:450
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "Feil under lagring til %s: %s"
+
+#: src/direct/DirectPhotoPage.vala:478 src/direct/DirectPhotoPage.vala:499
+msgid "Save As"
+msgstr "Lagre som"
+
+#: src/DirectoryMonitor.vala:889
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "Kan ikke overvåke %s: Dette er ingen mappe (%s)"
+
+#: src/Resources.vala:17
+msgid "Photo Manager"
+msgstr "Fotobehandler"
+
+#: src/Resources.vala:18
+msgid "Photo Viewer"
+msgstr "Fotofremviser"
+
+#: src/Resources.vala:27 plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:32
+#: plugins/shotwell-publishing/PicasaPublishing.vala:32
+#: plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: plugins/shotwell-data-imports/FSpotImporter.vala:34
+msgid "Copyright 2009-2013 Yorba Foundation"
+msgstr "Copyright 2009-2013 Yorba Foundation"
+
+#: src/Resources.vala:144
+msgid "Rotate _Right"
+msgstr "Roter _høyre"
+
+#: src/Resources.vala:145 src/Resources.vala:150
+msgid "Rotate"
+msgstr "Roter"
+
+#: src/Resources.vala:146
+msgid "Rotate Right"
+msgstr "Roter høyre"
+
+#: src/Resources.vala:147
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "Roter bildene mot høyre (trykk Ctrl for å rotere mot venstre)"
+
+#: src/Resources.vala:149
+msgid "Rotate _Left"
+msgstr "Roter _venstre"
+
+#: src/Resources.vala:151
+msgid "Rotate Left"
+msgstr "Roter venstre"
+
+#: src/Resources.vala:152
+msgid "Rotate the photos left"
+msgstr "Roter bildet mot venstre"
+
+#: src/Resources.vala:154
+msgid "Flip Hori_zontally"
+msgstr "Flipp Hori_sontalt"
+
+#: src/Resources.vala:155
+msgid "Flip Horizontally"
+msgstr "Flipp horisontalt"
+
+#: src/Resources.vala:157
+msgid "Flip Verti_cally"
+msgstr "Flipp Verti_kalt"
+
+#: src/Resources.vala:158
+msgid "Flip Vertically"
+msgstr "Flipp vertikalt"
+
+#: src/Resources.vala:160
+msgid "_Enhance"
+msgstr "_gjør skarpere"
+
+#: src/Resources.vala:161
+msgid "Enhance"
+msgstr "Gjør skarpere"
+
+#: src/Resources.vala:162
+msgid "Automatically improve the photo's appearance"
+msgstr "Automatisk forbedring av bildet"
+
+#: src/Resources.vala:164
+msgid "_Copy Color Adjustments"
+msgstr "_Kopier fargejusteringer"
+
+#: src/Resources.vala:165
+msgid "Copy Color Adjustments"
+msgstr "Kopier fargejusteringer"
+
+#: src/Resources.vala:166
+msgid "Copy the color adjustments applied to the photo"
+msgstr "Kopier fargejusteringene brukt på bildet"
+
+#: src/Resources.vala:168
+msgid "_Paste Color Adjustments"
+msgstr "_Lim inn fargejusteringer"
+
+#: src/Resources.vala:169
+msgid "Paste Color Adjustments"
+msgstr "Lim inn fargejusteringer"
+
+#: src/Resources.vala:170
+msgid "Apply copied color adjustments to the selected photos"
+msgstr "Bruk de kopierte fargejusteringene på de valgte bildene"
+
+#: src/Resources.vala:172
+msgid "_Crop"
+msgstr "_Beskjær"
+
+#: src/Resources.vala:173
+msgid "Crop"
+msgstr "Beskjær"
+
+#: src/Resources.vala:174
+msgid "Crop the photo's size"
+msgstr "Beskjær bildets størrelse"
+
+#: src/Resources.vala:176 src/editing_tools/StraightenTool.vala:100
+msgid "_Straighten"
+msgstr "_Oppretting"
+
+#: src/Resources.vala:177
+msgid "Straighten"
+msgstr "Oppretting"
+
+#: src/Resources.vala:178
+msgid "Straighten the photo"
+msgstr "Rett opp bildet"
+
+#: src/Resources.vala:180
+msgid "_Red-eye"
+msgstr "_Rødeøyne"
+
+#: src/Resources.vala:181
+msgid "Red-eye"
+msgstr "Rødøye"
+
+#: src/Resources.vala:182
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "Reduser eller fjern eventuelle rødeøyer i bildet"
+
+#: src/Resources.vala:184
+msgid "_Adjust"
+msgstr "_Juster"
+
+#: src/Resources.vala:185
+msgid "Adjust"
+msgstr "Juster"
+
+#: src/Resources.vala:186
+msgid "Adjust the photo's color and tone"
+msgstr "Juster bildets farge og tonegjengivelse"
+
+#: src/Resources.vala:188
+msgid "Re_vert to Original"
+msgstr "omgj_ør til orginal"
+
+#: src/Resources.vala:189
+msgid "Revert to Original"
+msgstr "Omgjør til orginal"
+
+#: src/Resources.vala:191
+msgid "Revert External E_dits"
+msgstr "Omgjør eksterne re_digeringer"
+
+#: src/Resources.vala:192
+msgid "Revert to the master photo"
+msgstr "gå tilbake til orginalbildet"
+
+#: src/Resources.vala:194
+msgid "Set as _Desktop Background"
+msgstr "Angi som _skrivebordsbakgrunn"
+
+#: src/Resources.vala:195
+msgid "Set selected image to be the new desktop background"
+msgstr "Angi valgte bilde til å bli din nye skrivebordsbakgrunn"
+
+#: src/Resources.vala:196
+msgid "Set as _Desktop Slideshow..."
+msgstr "Angi som lysbildeshow med _skrivebordsbakgrunner"
+
+#: src/Resources.vala:198
+msgid "_Undo"
+msgstr "_Gjenskap"
+
+#: src/Resources.vala:199
+msgid "Undo"
+msgstr "Gjenskap"
+
+#: src/Resources.vala:201
+msgid "_Redo"
+msgstr "_Omgjør"
+
+#: src/Resources.vala:202
+msgid "Redo"
+msgstr "omgjør"
+
+#: src/Resources.vala:204
+msgid "Re_name Event..."
+msgstr "_Omdøp hendelsen..."
+
+#: src/Resources.vala:207
+msgid "Make _Key Photo for Event"
+msgstr "Lag nøkkelfoto for hendelsen"
+
+#: src/Resources.vala:208
+msgid "Make Key Photo for Event"
+msgstr "Lag et nøkkelbilde for hendelsen"
+
+#: src/Resources.vala:210
+msgid "_New Event"
+msgstr "_Ny hendelse"
+
+#: src/Resources.vala:211
+msgid "New Event"
+msgstr "Ny hendelse"
+
+#: src/Resources.vala:213
+msgid "Move Photos"
+msgstr "Flytt bildene"
+
+#: src/Resources.vala:214
+msgid "Move photos to an event"
+msgstr "flytt bildene til en hendelse"
+
+#: src/Resources.vala:216
+msgid "_Merge Events"
+msgstr "_Flett hendelser"
+
+#: src/Resources.vala:217
+msgid "Merge"
+msgstr "Flett"
+
+#: src/Resources.vala:218
+msgid "Combine events into a single event"
+msgstr "Slå sammen flere hendelser til en enkelt hendelse"
+
+#: src/Resources.vala:220
+msgid "_Set Rating"
+msgstr "_Gi Rangering"
+
+#: src/Resources.vala:221
+msgid "Set Rating"
+msgstr "Gi rangering"
+
+#: src/Resources.vala:222
+msgid "Change the rating of your photo"
+msgstr "Forandre rangeringen av ditt bilde"
+
+#: src/Resources.vala:224
+msgid "_Increase"
+msgstr "Ø_k"
+
+#: src/Resources.vala:225
+msgid "Increase Rating"
+msgstr "Øk rangeringen"
+
+#: src/Resources.vala:227
+msgid "_Decrease"
+msgstr "_Senk"
+
+#: src/Resources.vala:228
+msgid "Decrease Rating"
+msgstr "Senk rangering"
+
+#: src/Resources.vala:230
+msgid "_Unrated"
+msgstr "_Urangert"
+
+#: src/Resources.vala:231
+msgid "Unrated"
+msgstr "urangert"
+
+#: src/Resources.vala:232
+msgid "Rate Unrated"
+msgstr "Ranger urangerte"
+
+#: src/Resources.vala:233
+msgid "Setting as unrated"
+msgstr "Satt som urangert"
+
+#: src/Resources.vala:234
+msgid "Remove any ratings"
+msgstr "Fjern alle rangeringer"
+
+#: src/Resources.vala:236
+msgid "_Rejected"
+msgstr "_Forkastet"
+
+#: src/Resources.vala:237
+msgid "Rejected"
+msgstr "forkastet"
+
+#: src/Resources.vala:238
+msgid "Rate Rejected"
+msgstr "rangering forkastet"
+
+#: src/Resources.vala:239
+msgid "Setting as rejected"
+msgstr "Satt som forkastet"
+
+#: src/Resources.vala:240
+msgid "Set rating to rejected"
+msgstr "Sett rangeringen til forkastet"
+
+#: src/Resources.vala:242
+msgid "Rejected _Only"
+msgstr "_Bare forkastede"
+
+#: src/Resources.vala:243
+msgid "Rejected Only"
+msgstr "Bare forkastede"
+
+#: src/Resources.vala:244
+msgid "Show only rejected photos"
+msgstr "Vis bare forkastede bilder"
+
+#: src/Resources.vala:246
+msgid "All + _Rejected"
+msgstr "Alle + fo_rkastet"
+
+#: src/Resources.vala:247 src/Resources.vala:248
+msgid "Show all photos, including rejected"
+msgstr "Vis alle bilder, inkludert de som er forkastet"
+
+#: src/Resources.vala:250
+msgid "_All Photos"
+msgstr "_Alle bilder"
+
+#: src/Resources.vala:251 src/Resources.vala:252
+msgid "Show all photos"
+msgstr "Vis alle bilder"
+
+#: src/Resources.vala:254
+msgid "_Ratings"
+msgstr "_Rangering"
+
+#: src/Resources.vala:255
+msgid "Display each photo's rating"
+msgstr "Vis rangeringen for hvert bilde"
+
+#: src/Resources.vala:257
+msgid "_Filter Photos"
+msgstr "_Filtrer bilder"
+
+#: src/Resources.vala:258
+msgid "Filter Photos"
+msgstr "Filtrer bilder"
+
+#: src/Resources.vala:259
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "Begrens antall bilder vist basert på et filter"
+
+#: src/Resources.vala:261
+msgid "_Duplicate"
+msgstr "_Dupliker"
+
+#: src/Resources.vala:262
+msgid "Duplicate"
+msgstr "Dupliker"
+
+#: src/Resources.vala:263
+msgid "Make a duplicate of the photo"
+msgstr "Lag et duplikat av bildet"
+
+#: src/Resources.vala:265
+msgid "_Export..."
+msgstr "_Eksporter..."
+
+#: src/Resources.vala:267
+msgid "_Print..."
+msgstr "_Utskrift..."
+
+#: src/Resources.vala:269
+msgid "Pu_blish..."
+msgstr "Pu_bliser..."
+
+#: src/Resources.vala:270
+msgid "Publish"
+msgstr "Publiser"
+
+#: src/Resources.vala:271
+msgid "Publish to various websites"
+msgstr "Publiser til diverse nettsteder"
+
+#: src/Resources.vala:273
+msgid "Edit _Title..."
+msgstr "Endre _tittel..."
+
+#: src/Resources.vala:276
+msgid "Edit _Comment..."
+msgstr "endre_kommentar"
+
+#: src/Resources.vala:277
+msgid "Edit Comment"
+msgstr "Endre kommentar"
+
+#: src/Resources.vala:279
+msgid "Edit Event _Comment..."
+msgstr "Rediger _hendelseskommentar …"
+
+#: src/Resources.vala:282
+msgid "_Adjust Date and Time..."
+msgstr "_Juster dato og tid..."
+
+#: src/Resources.vala:283
+msgid "Adjust Date and Time"
+msgstr "Juster dato og tid"
+
+#: src/Resources.vala:285
+msgid "Add _Tags..."
+msgstr "Legg til _Tagger"
+
+#: src/Resources.vala:286
+msgid "_Add Tags..."
+msgstr "_Legge til tagger..."
+
+#: src/Resources.vala:287 src/Resources.vala:318
+msgid "Add Tags"
+msgstr "Legg til tagger"
+
+#: src/Resources.vala:289
+msgid "_Preferences"
+msgstr "_Preferanser"
+
+#: src/Resources.vala:291
+msgid "Open With E_xternal Editor"
+msgstr "Åpne i en e_kstern bildebehandler"
+
+#: src/Resources.vala:293
+msgid "Open With RA_W Editor"
+msgstr "Åpne med en RA_W behandler"
+
+#: src/Resources.vala:295
+msgid "Send _To..."
+msgstr "Send _til..."
+
+#: src/Resources.vala:296
+msgid "Send T_o..."
+msgstr "Send T_il..."
+
+#: src/Resources.vala:298
+msgid "_Find..."
+msgstr "_Finn..."
+
+#: src/Resources.vala:299
+msgid "Find"
+msgstr "Finn"
+
+#: src/Resources.vala:300
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr "Finn et bilde ved å skrive tekst som finnes i navn eller nøkkelord"
+
+#: src/Resources.vala:302
+msgid "_Flag"
+msgstr "_Flagg"
+
+#: src/Resources.vala:304
+msgid "Un_flag"
+msgstr "av_flagg"
+
+#: src/Resources.vala:307
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "Klarer ikke å starte bildebehandleren: %s"
+
+#: src/Resources.vala:312
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "Legg til tagg \"%s\""
+
+#: src/Resources.vala:314
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "Legg til taggene \"%s\" og \"%s\""
+
+#: src/Resources.vala:322
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "_Slett tagg \"%s\""
+
+#: src/Resources.vala:326
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "Slett tag \"%s\""
+
+#: src/Resources.vala:329
+msgid "Delete Tag"
+msgstr "Slett tagg"
+
+#: src/Resources.vala:332
+msgid "_New"
+msgstr "_Ny"
+
+#: src/Resources.vala:335
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "_Omdøp tagg  \"%s\"..."
+
+#: src/Resources.vala:339
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "Omdøp taggen \"%s\" til \"%s\""
+
+#: src/Resources.vala:342
+msgid "_Rename..."
+msgstr "_Gi nytt navn..."
+
+#: src/Resources.vala:344
+msgid "Modif_y Tags..."
+msgstr "Modif_iser tagger..."
+
+#: src/Resources.vala:345
+msgid "Modify Tags"
+msgstr "Modifiser tagger"
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "Tagg bildene som \"%s\""
+
+#: src/Resources.vala:348
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "Tagg bildet som \"%s\""
+
+#: src/Resources.vala:352
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "Tagg de valgte bildene som \"%s\""
+
+#: src/Resources.vala:353
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "Tagg de utvalgte bildene som \"%s\""
+
+#: src/Resources.vala:357
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "Fjern taggen \"%s\" fra _bildene"
+
+#: src/Resources.vala:358
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "Fjern taggen \"%s\" fra _bildene"
+
+#: src/Resources.vala:362
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "Fjern taggen \"%s\" fra bildene"
+
+#: src/Resources.vala:363
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "Fjern taggen \"%s\" fra bildene"
+
+#: src/Resources.vala:367
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr "Kan ikke omdøpe taggen til \"%s\" fordi den allerede finnes."
+
+#: src/Resources.vala:371
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr "Kan ikke endre søket til \"%s\" da søket allerede finnes."
+
+#: src/Resources.vala:374
+msgid "Saved Search"
+msgstr "Lagrede søk"
+
+#: src/Resources.vala:376
+msgid "Delete Search"
+msgstr "slett søk"
+
+#: src/Resources.vala:379
+msgid "_Edit..."
+msgstr "_Redger..."
+
+#: src/Resources.vala:380
+msgid "Re_name..."
+msgstr "nytt_navn...."
+
+#: src/Resources.vala:383
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "omdøp søk \"%s\" til \"%s\""
+
+#: src/Resources.vala:387
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "Slett søk \"%s\""
+
+#: src/Resources.vala:545
+#, c-format
+msgid "Rate %s"
+msgstr "Ranger %s"
+
+#: src/Resources.vala:546
+#, c-format
+msgid "Set rating to %s"
+msgstr "Sett rangering til %s"
+
+#: src/Resources.vala:547
+#, c-format
+msgid "Setting rating to %s"
+msgstr "Setter rangering til %s"
+
+#: src/Resources.vala:549
+#, c-format
+msgid "Display %s"
+msgstr "Vis %s"
+
+#: src/Resources.vala:550
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "Bare vis bilder som er rangert til %s"
+
+#: src/Resources.vala:551
+#, c-format
+msgid "%s or Better"
+msgstr "%s eller bedre"
+
+#: src/Resources.vala:552
+#, c-format
+msgid "Display %s or Better"
+msgstr "Vis %s eller bedre"
+
+#: src/Resources.vala:553
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr "Bare vis bilder med en rangering på %s eller bedre"
+
+#: src/Resources.vala:644
+msgid "Remove the selected photos from the trash"
+msgstr "Fjern de valgte bildene fra søppelkassen"
+
+#: src/Resources.vala:645
+msgid "Remove the selected photos from the library"
+msgstr "Fjern de utvalgte bildene fra bildebiblioteket"
+
+#: src/Resources.vala:647
+msgid "_Restore"
+msgstr "_Gjenopprett"
+
+#: src/Resources.vala:648
+msgid "Move the selected photos back into the library"
+msgstr "Flytt de valgte bildene tilbake til biblioteket"
+
+#: src/Resources.vala:650
+msgid "Show in File Mana_ger"
+msgstr "Åpne med filhåndtereren"
+
+#: src/Resources.vala:651
+msgid "Open the selected photo's directory in the file manager"
+msgstr "Åpne de valgte bildemappene i filbehandleren"
+
+#: src/Resources.vala:654
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "Kan ikke åpnes i filbehandleren: %s"
+
+#: src/Resources.vala:657
+msgid "R_emove From Library"
+msgstr "Fj_ern fra bildebiblioteket"
+
+#: src/Resources.vala:659
+msgid "_Move to Trash"
+msgstr "Flytt til søppelkassen"
+
+#: src/Resources.vala:661
+msgid "Select _All"
+msgstr "Velg _alle"
+
+#: src/Resources.vala:662
+msgid "Select all items"
+msgstr "Velg alle"
+
+#: src/Resources.vala:740
+msgid "%-I:%M %p"
+msgstr "%-I:%M %p"
+
+#: src/Resources.vala:741
+msgid "%-I:%M:%S %p"
+msgstr "%-I:%M:%S %p"
+
+#: src/Resources.vala:742
+msgid "%a %b %d, %Y"
+msgstr "%a %d. %b. %Y"
+
+#: src/Resources.vala:743 src/Resources.vala:745
+msgid "%a %b %d"
+msgstr "%a %b %d"
+
+#: src/Resources.vala:744
+msgid "%d, %Y"
+msgstr "%d, %Y"
+
+#: src/editing_tools/StraightenTool.vala:99
+msgid "Angle:"
+msgstr "Vinkel:"
+
+#: src/editing_tools/StraightenTool.vala:102
+#: src/editing_tools/EditingTools.vala:2204
+msgid "_Reset"
+msgstr "_Nullstill"
+
+#: src/editing_tools/EditingTools.vala:661
+msgid "Return to current photo dimensions"
+msgstr "Gå tilbake til aktuelle bildedimensjoner"
+
+#: src/editing_tools/EditingTools.vala:664
+msgid "Set the crop for this photo"
+msgstr "Angi beskjæring av dette bildet"
+
+#: src/editing_tools/EditingTools.vala:676
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr "Pivoter beskjæringsrektanglet mellom stående eller liggende"
+
+#: src/editing_tools/EditingTools.vala:749
+msgid "Unconstrained"
+msgstr "Ubegrenset"
+
+#: src/editing_tools/EditingTools.vala:750
+msgid "Square"
+msgstr "Firkant"
+
+#: src/editing_tools/EditingTools.vala:751
+msgid "Screen"
+msgstr "Skjerm"
+
+#: src/editing_tools/EditingTools.vala:752
+#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+msgid "Original Size"
+msgstr "Opprinnelig størrelse"
+
+#: src/editing_tools/EditingTools.vala:753
+#: src/editing_tools/EditingTools.vala:756
+#: src/editing_tools/EditingTools.vala:766
+#: src/editing_tools/EditingTools.vala:776
+msgid "-"
+msgstr "-"
+
+#: src/editing_tools/EditingTools.vala:754
+msgid "SD Video (4 : 3)"
+msgstr "SD Video (4 : 3)"
+
+#: src/editing_tools/EditingTools.vala:755
+msgid "HD Video (16 : 9)"
+msgstr "HD Video (16 : 9)"
+
+#: src/editing_tools/EditingTools.vala:762
+msgid "Letter (8.5 x 11 in.)"
+msgstr "Letter (8.5\" x 11\" )"
+
+#: src/editing_tools/EditingTools.vala:764
+msgid "Tabloid (11 x 17 in.)"
+msgstr "Tabloid (11\" x 17\")"
+
+#: src/editing_tools/EditingTools.vala:771
+msgid "A4 (210 x 297 mm)"
+msgstr "A4 (210 x 297 mm)"
+
+#: src/editing_tools/EditingTools.vala:775
+msgid "A3 (297 x 420 mm)"
+msgstr "A3 (297 x 420 mm)"
+
+#: src/editing_tools/EditingTools.vala:1865
+msgid "Close the red-eye tool"
+msgstr "Steng ned rødøye-verktøyet"
+
+#: src/editing_tools/EditingTools.vala:1868
+msgid "Remove any red-eye effects in the selected region"
+msgstr "Fjern eventuelle rødeøyer i det valgte området"
+
+#: src/editing_tools/EditingTools.vala:2226
+msgid "Saturation:"
+msgstr "Metning:"
+
+#: src/editing_tools/EditingTools.vala:2234
+msgid "Tint:"
+msgstr "Nyanse"
+
+#: src/editing_tools/EditingTools.vala:2243
+msgid "Temperature:"
+msgstr "Temperatur:"
+
+#: src/editing_tools/EditingTools.vala:2251
+msgid "Shadows:"
+msgstr "Skygger:"
+
+#: src/editing_tools/EditingTools.vala:2259
+msgid "Highlights:"
+msgstr "Uthevinger:"
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset Colors"
+msgstr "Nullstill farger"
+
+#: src/editing_tools/EditingTools.vala:2313
+msgid "Reset all color adjustments to original"
+msgstr "tilbakestill alle fargejusteringer til orginalverdiene"
+
+#: src/editing_tools/EditingTools.vala:2665
+msgid "Temperature"
+msgstr "Temperatur"
+
+#: src/editing_tools/EditingTools.vala:2678
+msgid "Tint"
+msgstr "Nyanse"
+
+#: src/editing_tools/EditingTools.vala:2691
+msgid "Saturation"
+msgstr "Metning"
+
+#: src/editing_tools/EditingTools.vala:2704
+msgid "Exposure"
+msgstr "Eksponering"
+
+#: src/editing_tools/EditingTools.vala:2717
+msgid "Shadows"
+msgstr "Skygger"
+
+#: src/editing_tools/EditingTools.vala:2730
+msgid "Highlights"
+msgstr "Uthevinger"
+
+#: src/editing_tools/EditingTools.vala:2740
+msgid "Contrast Expansion"
+msgstr "Kontrastutvidelse"
+
+#: src/AppWindow.vala:49
+msgid "Pin Toolbar"
+msgstr "Lås verktøylinjen"
+
+#: src/AppWindow.vala:50
+msgid "Pin the toolbar open"
+msgstr "Lås verktøylinjen åpen"
+
+#: src/AppWindow.vala:53 src/AppWindow.vala:131
+msgid "Leave fullscreen"
+msgstr "Forlat fullskjerm"
+
+#: src/AppWindow.vala:130
+msgid "Leave _Fullscreen"
+msgstr "Forlat _fullskjerm"
+
+#: src/AppWindow.vala:491
+msgid "_Quit"
+msgstr "_Avslutt"
+
+#: src/AppWindow.vala:496
+msgid "_About"
+msgstr "_Om"
+
+#: src/AppWindow.vala:501
+msgid "Fulls_creen"
+msgstr "Fulls_kjerm"
+
+#: src/AppWindow.vala:506
+msgid "_Contents"
+msgstr "_Innhold"
+
+#: src/AppWindow.vala:511
+msgid "_Frequently Asked Questions"
+msgstr "_Ofte spurte spørsmål (OSS)"
+
+#: src/AppWindow.vala:516
+msgid "_Report a Problem..."
+msgstr "_Rapporter et problem..."
+
+#: src/AppWindow.vala:663
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"En alvorlig feil oppstod når du hentet data fra Shotwells bibliotek. "
+"Shotwell kan ikke fortsette.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:683 plugins/common/Resources.vala:9
+msgid "Visit the Yorba web site"
+msgstr "Besøk Yorbas nettsted"
+
+#: src/AppWindow.vala:686 plugins/common/Resources.vala:28
+msgid "translator-credits"
+msgstr "Jan Roar Roed <janroed@gmail.com>"
+
+#: src/AppWindow.vala:695
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "Kan ikke vise hjelp: %s"
+
+#: src/AppWindow.vala:703
+#, c-format
+msgid "Unable to navigate to bug database: %s"
+msgstr "Kan ikke navigere til feilkodedatabase: %s"
+
+#: src/AppWindow.vala:711
+#, c-format
+msgid "Unable to display FAQ: %s"
+msgstr "Kan ikke vise OSS: %s"
+
+#: src/Tag.vala:817
+msgid "untitled"
+msgstr "Uten tittel"
+
+#: src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+msgid "Original size"
+msgstr "Orginalstørrelse"
+
+#: src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "Bredde eller høyde"
+
+#: src/Dimensions.vala:23
+msgid "Width"
+msgstr "Bredde"
+
+#: src/Dimensions.vala:26
+msgid "Height"
+msgstr "Høyde"
+
+#: src/MediaPage.vala:143
+msgid "Adjust the size of the thumbnails"
+msgstr "Juster størrelsen på miniatyrbildene"
+
+#: src/MediaPage.vala:326
+msgid "Increase the magnification of the thumbnails"
+msgstr "Øk forstørrelsen på miniatyrbildene"
+
+#: src/MediaPage.vala:332
+msgid "Decrease the magnification of the thumbnails"
+msgstr "minske forstørrelsen på miniatyrbildene"
+
+#: src/MediaPage.vala:399
+msgid "Sort _Photos"
+msgstr "Sorter _bilder"
+
+#: src/MediaPage.vala:408
+msgid "_Play Video"
+msgstr "S_pill Video"
+
+#: src/MediaPage.vala:409
+msgid "Open the selected videos in the system video player"
+msgstr "Åpne de valgte videoene i systemets videoavspiller"
+
+#: src/MediaPage.vala:442 src/events/EventsDirectoryPage.vala:130
+msgid "_Comments"
+msgstr "_Kommentarer:"
+
+#: src/MediaPage.vala:443
+msgid "Display the comment of each photo"
+msgstr "Vis kommentar for hvert bilde"
+
+#: src/MediaPage.vala:455
+msgid "Display each photo's tags"
+msgstr "Vis taggene for hvert bilde"
+
+#: src/MediaPage.vala:471
+msgid "By _Title"
+msgstr "Etter _tittel"
+
+#: src/MediaPage.vala:472
+msgid "Sort photos by title"
+msgstr "Sorter bilder etter tittel"
+
+#: src/MediaPage.vala:477
+msgid "By Exposure _Date"
+msgstr "_Etter eksponeringsdato"
+
+#: src/MediaPage.vala:478
+msgid "Sort photos by exposure date"
+msgstr "Sorter bildene etter eksponeringsdato"
+
+#: src/MediaPage.vala:483
+msgid "By _Rating"
+msgstr "Etter _Rangering"
+
+#: src/MediaPage.vala:484
+msgid "Sort photos by rating"
+msgstr "Sorter bilder etter rangering"
+
+#: src/MediaPage.vala:702
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"Shotwell greide ikke å spille den valgte videoen:\n"
+"%s"
+
+#: src/events/EventDirectoryItem.vala:83
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d bilde/Video"
+msgstr[1] "%d bilder / videoer"
+
+#: src/events/EventsDirectoryPage.vala:131
+msgid "Display the comment of each event"
+msgstr "Vis kommentaren for hver begivenhet"
+
+#: src/events/EventsDirectoryPage.vala:155
+msgid "No events"
+msgstr "Ingen eventer"
+
+#: src/events/EventsDirectoryPage.vala:159
+msgid "No events found"
+msgstr "Ingen eventer funnet"
+
+#: src/events/EventsDirectoryPage.vala:230
+msgid "Events"
+msgstr "Hendelser"
+
+#: src/events/EventsDirectoryPage.vala:244
+msgid "Undated"
+msgstr "udatert"
+
+#: src/events/EventsDirectoryPage.vala:245
+msgid "%Y"
+msgstr "%Y"
+
+#: src/events/EventsDirectoryPage.vala:246
+msgid "%B"
+msgstr "%B"
+
+#: src/events/EventPage.vala:129
+msgid "No Event"
+msgstr "Ingen hendelse"
+
+#: src/AppDirs.vala:48 src/AppDirs.vala:99
+#, c-format
+msgid "Unable to create cache directory %s: %s"
+msgstr "Kan ikke lage mellomlagerkatalog %s: %s"
+
+#: src/AppDirs.vala:58 src/AppDirs.vala:88
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "Kan ikke lage datakatalog %s: %s"
+
+#: src/AppDirs.vala:152
+msgid "Pictures"
+msgstr "Bilder"
+
+#: src/AppDirs.vala:190
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "Kan ikke midlertidig katalog %s: %s"
+
+#: src/AppDirs.vala:207 src/AppDirs.vala:223
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "Kan ikke lage data for underkatalog %s: %s"
+
+#: src/slideshow/TransitionEffects.vala:98
+msgid "(None)"
+msgstr "(Ingen)"
+
+#: src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Ingen"
+
+#: src/slideshow/TransitionEffects.vala:339
+msgid "Random"
+msgstr "Tilfeldig"
+
+#: src/slideshow/Slideshow.vala:22
+msgid "Slideshow Transitions"
+msgstr "Overganger for lysbildefremvisning"
+
+#: src/Exporter.vala:232
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "Kan ikke generere en midlertidig fil for %s: %s"
+
+#: src/Exporter.vala:299
+msgid "Exporting"
+msgstr "Exporterer"
+
+#: src/Exporter.vala:317
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr "filen %s finnes fra før. Overskriv?"
+
+#: src/Exporter.vala:319
+msgid "_Skip"
+msgstr "_Utelat"
+
+#: src/Exporter.vala:319
+msgid "_Replace"
+msgstr "_Overskriv"
+
+#: src/Exporter.vala:319
+msgid "Replace _All"
+msgstr "Overskriv _alle"
+
+#: src/Exporter.vala:319
+msgid "Export"
+msgstr "Eksporter"
+
+#: src/SearchFilter.vala:593 src/SearchFilter.vala:594
+msgid "Photos"
+msgstr "Bilder"
+
+#: src/SearchFilter.vala:599 src/SearchFilter.vala:600
+msgid "Videos"
+msgstr "Videoer"
+
+#: src/SearchFilter.vala:605
+msgid "RAW Photos"
+msgstr "RAW-bilder"
+
+#: src/SearchFilter.vala:606
+msgid "RAW photos"
+msgstr "RAW-bilder"
+
+#: src/SearchFilter.vala:952
+#, c-format
+msgid "Error loading UI file %s: %s"
+msgstr "Feil under innlasting av UI-fil %s: %s"
+
+#: src/SearchFilter.vala:969
+msgid "Type"
+msgstr "Skriv"
+
+#: src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "Publiserer"
+
+#: src/publishing/PublishingUI.vala:105
+msgid "The selected photos/videos were successfully published."
+msgstr "vellykket publisering av de utvalgte bildene/videoene."
+
+#: src/publishing/PublishingUI.vala:107
+msgid "The selected videos were successfully published."
+msgstr "Vellykket publisering av de utvalgte videoene."
+
+#: src/publishing/PublishingUI.vala:109
+msgid "The selected photos were successfully published."
+msgstr "de valgte bildene ble publisert."
+
+#: src/publishing/PublishingUI.vala:112
+msgid "The selected video was successfully published."
+msgstr "Vellykket publisering av den valgte videoen."
+
+#: src/publishing/PublishingUI.vala:114
+msgid "The selected photo was successfully published."
+msgstr "Vellykket publisering av det valgte bildet."
+
+#: src/publishing/PublishingUI.vala:122
+msgid "Fetching account information..."
+msgstr "Henter kontoinformasjon..."
+
+#: src/publishing/PublishingUI.vala:128
+msgid "Logging in..."
+msgstr "Logger inn..."
+
+#: src/publishing/PublishingUI.vala:183
+msgid "Publish Photos"
+msgstr "Publiser bilder"
+
+#: src/publishing/PublishingUI.vala:184
+msgid "Publish photos _to:"
+msgstr "Publiserer bilder _til:"
+
+#: src/publishing/PublishingUI.vala:186
+msgid "Publish Videos"
+msgstr "Publiser videoer"
+
+#: src/publishing/PublishingUI.vala:187
+msgid "Publish videos _to"
+msgstr "Publiserer videoer _til"
+
+#: src/publishing/PublishingUI.vala:189
+msgid "Publish Photos and Videos"
+msgstr "Publiser bilder og videoer"
+
+#: src/publishing/PublishingUI.vala:190
+msgid "Publish photos and videos _to"
+msgstr "Publiserer bilder og videoer _til"
+
+#: src/publishing/PublishingUI.vala:383
+msgid "Unable to publish"
+msgstr "kan ikke publisere"
+
+#: src/publishing/PublishingUI.vala:384
+#, c-format
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugins</b> tab."
+msgstr ""
+"Shotwell kan ikke publisere de valgte elementene, da du ikke har aktivert et "
+"kompatibelt publiseringsinnstikk. For å rette på dette, velg <b>Rediger %s "
+"Preferanser</b> og slå på en eller flere av publiseringsinnstikkene på "
+"<b>Innstikk</b> fanen. "
+
+#: src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "Gjør klart til opplasting"
+
+#: src/publishing/PublishingPluginHost.vala:12
+#, c-format
+msgid "Uploading %d of %d"
+msgstr "Laster opp %d av %d"
+
+#: src/publishing/PublishingPluginHost.vala:81
+#, c-format
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr "Publisering til %s kan ikke fortsette pga. en feil:"
+
+#: src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr ""
+"For å forsøke å publisere til en annen tjeneste: velg tjeneste fra "
+"ovenstående meny."
+
+#: src/sidebar/Tree.vala:199
+msgid "New _Tag..."
+msgstr "<ny _Tagg..."
+
+#: plugins/common/RESTSupport.vala:424
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:971
+#, fuzzy
+msgid "A temporary file needed for publishing is unavailable"
+msgstr ""
+"En midlertidig fil som kreves for å publisere er ikke tilgjengelig"
+
+#: plugins/common/RESTSupport.vala:1138
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+"Du har allerede logget inn og ut av en Google-tjeneste i denne Shotwell-"
+"økten.\n"
+"\n"
+"For å fortsette å publisere til Google-tjenester må du avslutte og omstarte "
+"Shotwell, og så prøve å publisere igjen."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:57
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"Du er ikke innlogget på YouTube.\n"
+"\n"
+"Du må ha en gyldig konto hos Google, som er satt opp for bruk med Youtube "
+"for å fortsette. Du kan sette opp de fleste kontoene ved å bruke nettleseren "
+"og logge på YouTube minst en gang."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:362
+msgid ""
+"A file required for publishing is unavailable. Publishing to Youtube can't "
+"continue."
+msgstr ""
+"En fil som er nødvendig for publisering er ikke tilgjengelig. Publisering "
+"til Youtube kan ikke fortsette."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:461
+#, c-format
+msgid "You are logged into YouTube as %s."
+msgstr "Du er innlogget på YouTube som %s."
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:463
+#, c-format
+msgid "Videos will appear in '%s'"
+msgstr "Videoer vil dukke opp i '%s'"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:495
+msgid "Public listed"
+msgstr "Offentlig listet"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:496
+msgid "Public unlisted"
+msgstr "Offentlig ulistet"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:497
+msgid "Private"
+msgstr "Privat"
+
+#: plugins/shotwell-publishing/shotwell-publishing.vala:26
+msgid "Core Publishing Services"
+msgstr "Hovedtjeneste for publisering"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Login to log into Flickr in your Web browser.  You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"Du er ikke innlogget på Flickr.\n"
+"\n"
+"Klikk for å logge på Flickr i din nettleser. Under påloggingen må du gi "
+"tillatelse til at Shotwell Connect peker til din Flickr-konto."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:63
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Du har alerede logget inn og ut av Flickr under denne Shotwell økten.\n"
+"For å fortsette publiseringen til Flickr: Avslutt og start Shotwell. "
+"Deretter kan du forsøke å publisere igjen."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "Forbereder pålogging..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: plugins/shotwell-publishing/FlickrPublishing.vala:595
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can't "
+"continue."
+msgstr ""
+"En fil som er nødvendig for publisering er ikke tilgjengelig. Publisering "
+"til Flickr kan ikke fortsette."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "Kontrollerer autorisasjon..."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1153
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr ""
+"Du er innlogget på Flickr som %s.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"Din gratiskonto hos Flickr begrenser hvor mye data du kan laste opp pr. "
+"mnd.\n"
+"Denne måneden har du %d megabytes igjen av din opplastingskvote."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1157
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr "Din Flickr Pro-konto gir deg rett til ubegrenset opplastingsmengde."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1162
+msgid "Photos _visible to:"
+msgstr "Bilder er  _synlige for:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
+msgid "Videos _visible to:"
+msgstr "Videoer er _synlige for:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1167
+msgid "Photos and videos _visible to:"
+msgstr "Bilder og videoer er _synlige for:"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1182
+msgid "Everyone"
+msgstr "Alle"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
+msgid "Friends & family only"
+msgstr "Kun venner & familie"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+msgid "Family only"
+msgstr "Kun familie"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
+msgid "Friends only"
+msgstr "Kun venner"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1180
+msgid "Just me"
+msgstr "Bare meg selv"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1229
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
+#, fuzzy
+msgid "500 x 375 pixels"
+msgstr ""
+"500 x 375 bildepunkter"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1230
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:108
+#, fuzzy
+msgid "1024 x 768 pixels"
+msgstr ""
+"1024 x 768 bildepunkter"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 piksler"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 piksler"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:746
+#, c-format
+msgid "Creating album %s..."
+msgstr "Lager album %s..."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:917
+msgid "An error message occurred when publishing to Piwigo. Please try again."
+msgstr "En feil oppsto under publisering til Piwigo. Vennligst prøv igjen."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:998
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+"Legg inn adressen (URL)til  ditt Piwigo fotobibliotek med tilhørende "
+"brukernavn og passord for dette bilioteket."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:999
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
+"entered"
+msgstr ""
+"Shotwell kan ikke kontakte ditt Piwigo fotobibliotek. Vennligst verifiser "
+"adressen (URL)"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:590
+#, fuzzy
+msgid "Username and/or password invalid. Please try again"
+msgstr ""
+"Brukernavn og/eller passord er feil. Vennligst prøv igjen"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1032
+#, c-format
+msgid "Invalid URL"
+msgstr "ikke gyldig URL"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:620
+#, fuzzy, c-format
+msgid "Invalid User Name or Password"
+msgstr ""
+"Ugyldig brukernavn og passord"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1127
+#: plugins/shotwell-publishing/PicasaPublishing.vala:59
+#: plugins/shotwell-publishing/FacebookPublishing.vala:61
+msgid "Shotwell Connect"
+msgstr "Shotwell - tilkopling"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+msgid "Admins, Family, Friends, Contacts"
+msgstr "Administratorer, familie, venner, kontakter"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+msgid "Admins, Family, Friends"
+msgstr "Administratorer, familie, venner"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+msgid "Admins, Family"
+msgstr "Administratorer, Familie"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+msgid "Admins"
+msgstr "administratorer"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Login to log into Picasa Web Albums in your Web browser. You will have "
+"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"Du er ikke innlogget på Picasa Web Album.\n"
+"\n"
+"Klikk Logg inn for å logge  "
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa can't "
+"continue."
+msgstr ""
+"En fil som er nødvendig for publisering er ikke tilgjengelig. Publisering "
+"til Picasa kan ikke fortsette."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:379
+#: plugins/shotwell-publishing/FacebookPublishing.vala:347
+msgid "Creating album..."
+msgstr "Oppretter album..."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "Du er innlogget hos Picasa Web Albums som %s."
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+msgid "Videos will appear in:"
+msgstr "Videoer vil dukke opp i:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+msgid "Photos will appear in:"
+msgstr "Bildene vil vises i:"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+msgid "Small (640 x 480 pixels)"
+msgstr "Liten (640 x 480 piksler)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+msgid "Medium (1024 x 768 pixels)"
+msgstr "Medium (1024 x 768 piksler)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "Anbefalt (1600 x 1200 piksler)"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+msgid "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 bildepunkter)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:63
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"Det er nå ikke innlogget på Facebook.\n"
+"\n"
+"Hvis du ikke har en Facebook-konto, kan du opprette en under "
+"innloggingsprosessen. Under innloggingen, kan Shotwell komme til å spørre "
+"deg om tillatelse til å laste opp bilder og publisere dem i din Facebook-"
+"strøm. Disse tillatelsene er påkrevd for at Shotwell Connector skal fungere."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:65
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Du har allerede logget inn og ut av Facebook under denne Shotwell- økten.\n"
+"For å fortsette å publisere ttil Facebook: Avslutt og restart Shotwell, "
+"deretter forsøk å publiser igjen."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:86
+msgid "Standard (720 pixels)"
+msgstr "Standard (720 piksler)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:89
+msgid "Large (2048 pixels)"
+msgstr "Stor (2048 piksler)"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:254
+msgid "Testing connection to Facebook..."
+msgstr "Tester forbindelsen til Facebook..."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:374
+msgid ""
+"A file required for publishing is unavailable. Publishing to Facebook can't "
+"continue."
+msgstr ""
+"En fil som er nødvendig for publisering er ikke tilgjengelig. Publisering "
+"til Facebook kan ikke fortsette."
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#, c-format
+msgid ""
+"You are logged into Facebook as %s.\n"
+"\n"
+msgstr ""
+"Du er innlogget på Facebook som %s.\n"
+"\n"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1020
+msgid "Where would you like to publish the selected photos?"
+msgstr "Hvor vil du publisere de utvalgte bildene?"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1021
+msgid "Upload _size:"
+msgstr "Opplastningsstørrelse"
+
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1181
+msgid "Friends"
+msgstr "Venner"
+
+#: plugins/shotwell-transitions/CrumbleEffect.vala:20
+msgid "Crumble"
+msgstr "Bryte opp"
+
+#: plugins/shotwell-transitions/ChessEffect.vala:20
+msgid "Chess"
+msgstr "Sjakk"
+
+#: plugins/shotwell-transitions/CirclesEffect.vala:20
+msgid "Circles"
+msgstr "Sirkler"
+
+#: plugins/shotwell-transitions/BlindsEffect.vala:20
+msgid "Blinds"
+msgstr "Gardiner"
+
+#: plugins/shotwell-transitions/StripesEffect.vala:20
+msgid "Stripes"
+msgstr "Striper"
+
+#: plugins/shotwell-transitions/ClockEffect.vala:20
+msgid "Clock"
+msgstr "Klokke"
+
+#: plugins/shotwell-transitions/CircleEffect.vala:20
+msgid "Circle"
+msgstr "Sirkel"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+msgid "Core Slideshow Transitions"
+msgstr "Hovedoverganger for lysbildefremviser"
+
+#: plugins/shotwell-transitions/shotwell-transitions.vala:75
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+
+#: plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "Lysbilde"
+
+#: plugins/shotwell-transitions/FadeEffect.vala:20
+msgid "Fade"
+msgstr "Tone"
+
+#: plugins/shotwell-transitions/SquaresEffect.vala:20
+msgid "Squares"
+msgstr "Kvadrat"
+
+#: plugins/shotwell-data-imports/shotwell-data-imports.vala:22
+msgid "Core Data Import Services"
+msgstr "Kjerne Data Import tjenester"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:56
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select a library to import, either by selecting one of the existing "
+"libraries found by Shotwell or by selecting an alternative F-Spot database "
+"file."
+msgstr ""
+"Velkommen til tjenesten for importering av F-Spot biblioteker\n"
+"\n"
+"Vennligst velg et bibliotek for importering, enten ved å velge et av de "
+"eksisterende biblioteker funnet av Shotwell, eller ved å velge en alternativ "
+"F-Spot-databasefil."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:58
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select an F-Spot database file."
+msgstr ""
+"Velkommen til tjenesten for importering av F-Spot-bibliotek\n"
+"\n"
+"Vennligst velg en F-Spot databasefil."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:60
+msgid "Manually select an F-Spot database file to import:"
+msgstr "Manuelt valg av en F-Spot database som skal importeres:"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:62
+msgid ""
+"Cannot open the selected F-Spot database file: the file does not exist or is "
+"not an F-Spot database"
+msgstr ""
+"Kan ikke åpne den valgte F-Spotdatabasen: filen eksisterer ikke eller er "
+"ikke en F-Spot-database"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:64
+msgid ""
+"Cannot open the selected F-Spot database file: this version of the F-Spot "
+"database is not supported by Shotwell"
+msgstr ""
+"Kan ikke åpne den valgte F-Spotdatabasen: Dene versjonen av F-Spot-databasen "
+"støttes ikke av Shotwell"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:66
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr ""
+"Kan ikke lese den valgte F-Spot-databasefilen: Feil ved lesing av taggtabell"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:68
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading photos "
+"table"
+msgstr ""
+"Kan ikke lese den valgte F-Spot-databasefilen: Feil ved lesing av bildetabell"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:70
+#, c-format
+msgid ""
+"Shotwell has found %d photos in the F-Spot library and is currently "
+"importing them. Duplicates will be automatically detected and removed.\n"
+"\n"
+"You can close this dialog and start using Shotwell while the import is "
+"taking place in the background."
+msgstr ""
+"Shotwell har funnet %d bilder i F-Spot biblioteket, og er i gang med å "
+"importere dem. Duplikater vil automatisk bli oppdaget og fjernet.\n"
+"\n"
+"Du kan stenge dette dialogvinduet, og bruke Shotwell. Importeringen vil "
+"fortsette i bakgrunnen."
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:84
+#, c-format
+msgid "F-Spot library: %s"
+msgstr "F-Spot bibliotek: %s"
+
+#: plugins/shotwell-data-imports/FSpotImporter.vala:416
+msgid "Preparing to import"
+msgstr "Klargjør for importering"
+
+#: ui/set_background_dialog.glade:14
+msgid "Set as Desktop Slideshow"
+msgstr "Angi som lysbildeshow for skrivebordsbakgrunn"
+
+#: ui/set_background_dialog.glade:55
+msgid "Generate desktop background slideshow"
+msgstr "Generer lysbildeshow for skrivebordsbakgrunn"
+
+#: ui/set_background_dialog.glade:82
+msgid "Show each photo for"
+msgstr "Vis alle bilder for"
+
+#: ui/set_background_dialog.glade:94
+msgid "period of time"
+msgstr "Tidsperiode"
+
+#: ui/set_background_dialog.glade:116
+msgid "How long each photo is shown on the desktop background"
+msgstr "Hvor lenge hvert bilde er vist på skrivebordsbakgrunnen"
+
+#: ui/shotwell.glade:7
+msgid "Search"
+msgstr "Søk"
+
+#: ui/shotwell.glade:47
+msgid "_Name of search:"
+msgstr "_Søkets navn:"
+
+#: ui/shotwell.glade:108
+msgid "_Match"
+msgstr "_Treff"
+
+#: ui/shotwell.glade:137
+msgid "of the following:"
+msgstr "for de følgende:"
+
+#: ui/shotwell.glade:218
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Utskriftstørrelse</b>"
+
+#: ui/shotwell.glade:235
+msgid "Use a _standard size:"
+msgstr "Bruk en _standardstørrelse:"
+
+#: ui/shotwell.glade:278
+msgid "Use a c_ustom size:"
+msgstr "Bruk en _tilpasset størrelse:"
+
+#: ui/shotwell.glade:368
+msgid "_Match photo aspect ratio"
+msgstr "oppretthold bildedi_Mensjonene"
+
+#: ui/shotwell.glade:392
+msgid "_Autosize:"
+msgstr "_Autostørrelse:"
+
+#: ui/shotwell.glade:432
+msgid "<b>Titles</b>"
+msgstr "<b>Titler</b>"
+
+#: ui/shotwell.glade:449
+msgid "Print image _title"
+msgstr "skriv ut bilde_tittel"
+
+#: ui/shotwell.glade:493
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Oppløsning i bildepunkter</b>"
+
+#: ui/shotwell.glade:513
+msgid "_Output photo at:"
+msgstr "_Send bilde til:"
+
+#: ui/shotwell.glade:548
+msgid "pixels per inch"
+msgstr "piksler per tomme"
+
+#: ui/shotwell.glade:581 ui/shotwell.glade:623
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:27
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
+msgid "label"
+msgstr "Etikett"
+
+#: ui/shotwell.glade:719
+msgid "Shotwell Preferences"
+msgstr "Shotwell innstillinger"
+
+#: ui/shotwell.glade:796
+msgid "white"
+msgstr "hvit"
+
+#: ui/shotwell.glade:823
+msgid "black"
+msgstr "svart"
+
+#: ui/shotwell.glade:871
+msgid "_Watch library directory for new files"
+msgstr "_Følg med biblioteksmappen for å oppdage nye filer"
+
+#: ui/shotwell.glade:900
+msgid "Metadata"
+msgstr "Metadata"
+
+#: ui/shotwell.glade:920
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr "Skriv merkelapper, titler og andre _metadata for bildefiler"
+
+#: ui/shotwell.glade:946
+msgid "Display"
+msgstr "Display"
+
+#: ui/shotwell.glade:967
+msgid "_Import photos to:"
+msgstr "_Importer bilde til:"
+
+#: ui/shotwell.glade:990
+msgid "_Background:"
+msgstr "_Bakgrunn:"
+
+#: ui/shotwell.glade:1013
+msgid "Importing"
+msgstr "Importerer"
+
+#: ui/shotwell.glade:1036
+msgid "_Directory structure:"
+msgstr "_Mappestruktur"
+
+#: ui/shotwell.glade:1075
+msgid "_Pattern:"
+msgstr "_Mønster:"
+
+#: ui/shotwell.glade:1157
+msgid "Example:"
+msgstr "Eksempel:"
+
+#: ui/shotwell.glade:1174
+msgid "R_ename imported files to lowercase"
+msgstr "E_ndre filnavnene til importerte filer til småbokstaver."
+
+#: ui/shotwell.glade:1203
+msgid "RAW Developer"
+msgstr "RAW-Fremkaller"
+
+#: ui/shotwell.glade:1238
+msgid "De_fault:"
+msgstr "St_andard:"
+
+#: ui/shotwell.glade:1292
+msgid "E_xternal photo editor:"
+msgstr "E_kstern bilderedigeringsprogram:"
+
+#: ui/shotwell.glade:1308
+msgid "External _RAW editor:"
+msgstr "Ekstern _RAW behandler:"
+
+#: ui/shotwell.glade:1373
+msgid "External Editors"
+msgstr "Ekstern bildebehandler"
+
+#: ui/shotwell.glade:1400
+msgid "Plugins"
+msgstr "Innstikk"
+
+#: ui/shotwell.glade:1469
+msgid "_Delay:"
+msgstr "_Forsinkelse:"
+
+#: ui/shotwell.glade:1485
+msgid "_Transition effect:"
+msgstr "_Overgangseffekt:"
+
+#: ui/shotwell.glade:1501
+msgid "Transition d_elay:"
+msgstr "Overgangsforsink_else:"
+
+#: ui/shotwell.glade:1513
+msgid "Show t_itle"
+msgstr "Vis t_ittel"
+
+#: ui/shotwell.glade:1603 ui/shotwell.glade:1616
+msgid "seconds"
+msgstr "Sekunder"
+
+#: ui/shotwell.glade:1696
+msgid "_Login"
+msgstr "_Logg inn"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:21
+msgid ""
+" (text depends on fb username and is modified in the app - \n"
+"anything put into this field won't display)"
+msgstr ""
+"(teksten avhenger av fb-brukernavnet og er endret i applikasjonen –\n"
+"det du skriver i dette feltet vil ikke vises)"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:39
+msgid "Publish to an e_xisting album:"
+msgstr "Publiser til et eks_isterende album:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:57
+msgid "Create a _new album named:"
+msgstr "Lag et _nytt album med navnet:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:139
+msgid "Videos and new photo albums _visible to:"
+msgstr "videoer og nye fotoalbum er _synlige for:"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:175
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:102
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:178
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:226
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
+msgstr ""
+"_Fjern sted, kamera og annen identifiserende informasjon før opplasting"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:197
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:137
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:229
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:99
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
+msgid "_Logout"
+msgstr "_Logg ut"
+
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:212
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:153
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:243
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:115
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
+msgid "_Publish"
+msgstr "_Publiser"
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:16
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr ""
+"Skriv inn bekreftelsesnummeret som dukker opp etter du logger på Flickr i "
+"din nettleser."
+
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:37
+msgid "Authorization _Number:"
+msgstr "Autorisasjons_nummer:"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Flickr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+"Du er logget inn på Flickr som (name).\n"
+"\n"
+"(dette feltet er fylt inn i koden,\n"
+"så endringer her vil ikke vises)"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:44
+msgid "_visibility label (populated in the code)"
+msgstr "_synlighetsmerke (fylt inn i koden)"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:61
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
+msgid "Photo _size:"
+msgstr "Bilde_størrelse:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:18
+msgid ""
+"'you are logged in as $name'\n"
+"(populated in the application code)"
+msgstr ""
+"«du er logget inn som $name»\n"
+"(fylt inn i applikasjonskoden)"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:75
+msgid "An _existing album:"
+msgstr "Et _eksisterende album:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:94
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:52
+msgid "A _new album named:"
+msgstr "Et _nytt album ved navn:"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:113
+msgid "L_ist album in public gallery"
+msgstr "V_is albumet i offentlig galleri"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:134
+msgid ""
+"$mediatype will appear in\n"
+"(populated in code)"
+msgstr ""
+"$mediatype vil vises i\n"
+"(fylt inn i koden)"
+
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:150
+msgid "Photo _size preset:"
+msgstr "_Standardstørrelse på bildet:"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:49
+msgid "_URL of your Piwigo photo library"
+msgstr "_URL til ditt Piwigo bildebibliotek"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:59
+msgid "User _name"
+msgstr "Bruker_navn"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:73
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:59
+msgid "_Password"
+msgstr "_Passord"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:130
+msgid "_Remember Password"
+msgstr "_Husk passord"
+
+#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:151
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:107
+msgid "Login"
+msgstr "Logg inn"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:40
+msgid "An _existing category:"
+msgstr "en _eksisterende kategori:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:121
+msgid "Photos will be _visible by:"
+msgstr "Bilder vil være _synlig for:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:149
+msgid "Photo size:"
+msgstr "Bildestørrelse:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:176
+msgid "within category:"
+msgstr "innenfor kategori:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:210
+msgid "Album comment:"
+msgstr "Albumkommentar:"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:242
+msgid "_If a title is set and comment unset, use title as comment"
+msgstr "_Hvis en tittel er gitt og kommentaren tom, bruk tittel som kommentar"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:258
+msgid "_Do no upload tags"
+msgstr "_Ikke last opp tagger"
+
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:278
+msgid "Logout"
+msgstr "Logg ut"
+
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:55
+msgid "Video privacy _setting:"
+msgstr "video inn_stilling for personvern:"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:38
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Copyright 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:109
+msgid "1280 x 853 pixels"
+msgstr "1280 x 853 bildepunkter"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:313
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:323
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr "'%s' er ikke et gyldig svar på en OAuth autentiseringsforespørsel"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:561
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start( ): kan ikke starte; Dette publiseringsverktøyet kan "
+"ikke omstartes."
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:589
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "Skriv inn brukernavnet og passordet som tilhører din Tumblrkonto"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:639
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:760
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Kunne ikke laste UI:%s"
+
+#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:742
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Du er innlogger på Tumblr som %s.\n"
+"\n"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:24
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:27
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Besøk nettsiden Yandex.Fotki"
+
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:635
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "Du er nå innlogget på Yandex.Fotki."
+
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:49
+msgid "_Email address"
+msgstr "_Epostadresse"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:19
+msgid ""
+"You are logged into Tumblr as (name).\n"
+"\n"
+"(this label's string is populated and set inside the code, \n"
+"so changes made here will not display)"
+msgstr ""
+"Du er innlogget på Tumblr som (navn).\n"
+"\n"
+"Denne strengen er satt inn i koden,\n"
+"Så endringer her vil ikke vises)"
+
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
+msgid "Blogs:"
+msgstr "Blogger:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
+msgid "_Albums (or write new):"
+msgstr "_Albumer (eller lag nye):"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
+msgid "Access _type:"
+msgstr "Tilgangs_type:"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
+msgid "Disable _comments"
+msgstr "Koble ut _kommentarer"
+
+#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
+msgid "_Forbid downloading original photo"
+msgstr "_Forby nedlastning av originalbilde"

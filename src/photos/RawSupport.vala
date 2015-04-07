@@ -1,4 +1,4 @@
-/* Copyright 2010-2013 Yorba Foundation
+/* Copyright 2010-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -163,7 +163,10 @@ public class RawSniffer : PhotoFileSniffer {
         base (file, options);
     }
     
-    public override DetectedPhotoInformation? sniff() throws Error {
+    public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
+        // this sniffer doesn't detect corrupted files
+        is_corrupted = false;
+        
         DetectedPhotoInformation detected = new DetectedPhotoInformation();
         
         GRaw.Processor processor = new GRaw.Processor();

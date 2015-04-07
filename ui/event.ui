@@ -7,6 +7,7 @@
         </menu>
         <menu name="EventsMenu" action="EventsMenu">
             <menuitem name="EventRename" action="Rename" />
+            <menuitem name="EditComment" action="EditComment" />
         </menu>
     </menubar>
 
@@ -17,6 +18,7 @@
 
     <popup name="EventContextMenu">
         <menuitem name="ContextRename" action="Rename" />
+        <menuitem name="EditEventComment" action="EditEventComment" />
     </popup>
     
 </ui>

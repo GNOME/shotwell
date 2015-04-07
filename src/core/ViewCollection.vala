@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -69,8 +69,7 @@ public class ViewCollection : DataCollection {
     
     // TODO: source-to-view mapping ... for now, only one view is allowed for each source.
     // This may need to change in the future.
-    private Gee.HashMap<DataSource, DataView> source_map = new Gee.HashMap<DataSource, DataView>(
-        direct_hash, direct_equal, direct_equal);
+    private Gee.HashMap<DataSource, DataView> source_map = new Gee.HashMap<DataSource, DataView>();
     
     // Signal aggregator.
     public virtual signal void items_selected(Gee.Iterable<DataView> selected) {

@@ -1,16 +1,15 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
  */
 
-private abstract class Properties : Gtk.Table {
+private abstract class Properties : Gtk.Grid {
     uint line_count = 0;
 
     public Properties() {
         row_spacing = 0;
         column_spacing = 6;
-        set_homogeneous(false);
     }
 
     protected void add_line(string label_text, string info_text, bool multi_line = false) {
@@ -49,13 +48,12 @@ private abstract class Properties : Gtk.Table {
             info = (Gtk.Widget) info_label;
         }
 
-        attach(label, 0, 1, line_count, line_count + 1, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL, 0, 0);
+        attach(label, 0, (int) line_count, 1, 1);
 
         if (multi_line) {
-            attach(info, 1, 2, line_count, line_count + 1, Gtk.AttachOptions.FILL,
-                Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 0, 0);
+            attach(info, 1, (int) line_count, 1, 2);
         } else {
-            attach_defaults(info, 1, 2, line_count, line_count + 1);
+            attach(info, 1, (int) line_count, 1, 1);
         }
 
         line_count++;
@@ -69,7 +67,16 @@ private abstract class Properties : Gtk.Table {
         
         return timestring;
     }
-
+    
+    protected string get_prettyprint_time_with_seconds(Time time) {
+        string timestring = time.format(Resources.get_hh_mm_ss_format_string());
+        
+        if (timestring[0] == '0')
+            timestring = timestring.substring(1, -1);
+        
+        return timestring;
+    }
+    
     protected string get_prettyprint_date(Time date) {
         string date_string = null;
         Time today = Time.local(time_t());
@@ -446,11 +453,10 @@ private class BasicProperties : Properties {
 
 private class ExtendedPropertiesWindow : Gtk.Dialog {
     private ExtendedProperties properties = null;
-    private const int FRAME_BORDER = 6;
-    private Gtk.Button close_button;
 
     private class ExtendedProperties : Properties {
         private const string NO_VALUE = "";
+        // Photo stuff
         private string file_path;
         private uint64 filesize;
         private Dimensions? original_dim;
@@ -467,12 +473,24 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         private string copyright;
         private string software;
         private string exposure_bias;
+        private string exposure_date;
+        private string exposure_time;
+        private bool is_raw;
+        private string? development_path;
+        
+        // Event stuff
+        // nothing here which is not already shown in the BasicProperties but
+        // comments, which are common, see below
+        
+        // common stuff
         private string comment;
             
         protected override void clear_properties() {
             base.clear_properties();
 
             file_path = "";
+            development_path = "";
+            is_raw = false;
             filesize = 0;
             original_dim = Dimensions(0, 0);
             camera_make = "";
@@ -487,93 +505,138 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
             copyright = "";
             software = "";
             exposure_bias = "";
+            exposure_date = "";
+            exposure_time = "";
             comment = "";
         }
 
         protected override void get_single_properties(DataView view) {
             base.get_single_properties(view);
             
-            MediaSource media = view.get_source() as MediaSource;
-            if (media == null)
+            DataSource source = view.get_source();
+            if (source == null)
                 return;
             
-            file_path = media.get_master_file().get_path();
-            filesize = media.get_filesize();
-            comment = media.get_comment();
+            if (source is MediaSource) {
+                MediaSource media = (MediaSource) source;
+                file_path = media.get_master_file().get_path();
+                development_path = media.get_file().get_path();
+                filesize = media.get_master_filesize();
 
-            // as of right now, all extended properties other than filesize, filepath & comment aren't
-            // applicable to non-photo media types, so if the current media source isn't a photo,
-            // just do a short-circuit return
-            Photo photo = media as Photo;
-            if (photo == null)
-                return;
+                // as of right now, all extended properties other than filesize, filepath & comment aren't
+                // applicable to non-photo media types, so if the current media source isn't a photo,
+                // just do a short-circuit return
+                Photo photo = media as Photo;
+                if (photo == null)
+                    return;
             
-            PhotoMetadata? metadata = photo.get_metadata();
-            if (metadata == null)
-                return;
-            
-            original_dim = metadata.get_pixel_dimensions();
-            camera_make = metadata.get_camera_make();
-            camera_model = metadata.get_camera_model();
-            flash = metadata.get_flash_string();
-            focal_length = metadata.get_focal_length_string();
-            metadata.get_gps(out gps_long, out gps_long_ref, out gps_lat, out gps_lat_ref, out gps_alt);
-            artist = metadata.get_artist();
-            copyright = metadata.get_copyright();
-            software = metadata.get_software();
-            exposure_bias = metadata.get_exposure_bias();
+                PhotoMetadata? metadata;
+
+                try {
+                    // For some raw files, the developments may not contain metadata (please
+                    // see the comment about cameras generating 'crazy' exif segments in
+                    // Photo.develop_photo() for why), and so we'll want to display what was
+                    // in the original raw file instead.
+                    metadata = photo.get_master_metadata();
+                } catch (Error e) {
+                    metadata = photo.get_metadata();
+                }
+                
+                if (metadata == null)
+                    return;
+                
+                // Fix up any timestamp weirdness.
+                //
+                // If the exposure date wasn't properly set (the most likely cause of this
+                // is a raw with a metadataless development), use the one from the photo
+                // row.
+                if (metadata.get_exposure_date_time() == null)
+                    metadata.set_exposure_date_time(new MetadataDateTime(photo.get_timestamp()));
+                
+                is_raw = (photo.get_master_file_format() == PhotoFileFormat.RAW);
+                original_dim = metadata.get_pixel_dimensions();
+                camera_make = metadata.get_camera_make();
+                camera_model = metadata.get_camera_model();
+                flash = metadata.get_flash_string();
+                focal_length = metadata.get_focal_length_string();
+                metadata.get_gps(out gps_long, out gps_long_ref, out gps_lat, out gps_lat_ref, out gps_alt);
+                artist = metadata.get_artist();
+                copyright = metadata.get_copyright();
+                software = metadata.get_software();
+                exposure_bias = metadata.get_exposure_bias();
+                time_t exposure_time_obj = metadata.get_exposure_date_time().get_timestamp();
+                exposure_date = get_prettyprint_date(Time.local(exposure_time_obj));
+                exposure_time = get_prettyprint_time_with_seconds(Time.local(exposure_time_obj));
+                comment = media.get_comment();
+            } else if (source is EventSource) {
+                Event event = (Event) source;
+                comment = event.get_comment();
+            }
         }
         
         public override void internal_update_properties(Page page) {
             base.internal_update_properties(page);
 
-            add_line(_("Location:"), (file_path != "" && file_path != null) ? 
-                file_path.replace("&", "&amp;") : NO_VALUE);
+            if (page is EventsDirectoryPage) {
+                // nothing special to be done for now for Events
+            } else {
+                add_line(_("Location:"), (file_path != "" && file_path != null) ? 
+                    file_path.replace("&", "&amp;") : NO_VALUE);
 
-            add_line(_("File size:"), (filesize > 0) ? 
-                format_size((int64) filesize) : NO_VALUE);
+                add_line(_("File size:"), (filesize > 0) ? 
+                    format_size((int64) filesize) : NO_VALUE);
 
-            add_line(_("Original dimensions:"), (original_dim != null && original_dim.has_area()) ?
-                "%d &#215; %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
+                if (is_raw)
+                    add_line(_("Current Development:"), development_path);
 
-            add_line(_("Camera make:"), (camera_make != "" && camera_make != null) ?
-                camera_make : NO_VALUE);
+                add_line(_("Original dimensions:"), (original_dim != null && original_dim.has_area()) ?
+                    "%d &#215; %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
 
-            add_line(_("Camera model:"), (camera_model != "" && camera_model != null) ?
-                camera_model : NO_VALUE);
+                add_line(_("Camera make:"), (camera_make != "" && camera_make != null) ?
+                    camera_make : NO_VALUE);
 
-            add_line(_("Flash:"), (flash != "" && flash != null) ? flash : NO_VALUE);
+                add_line(_("Camera model:"), (camera_model != "" && camera_model != null) ?
+                    camera_model : NO_VALUE);
 
-            add_line(_("Focal length:"), (focal_length != "" && focal_length != null) ?
-                focal_length : NO_VALUE);
+                add_line(_("Flash:"), (flash != "" && flash != null) ? flash : NO_VALUE);
 
-            add_line(_("Exposure bias:"), (exposure_bias != "" && exposure_bias != null) ? exposure_bias : NO_VALUE);
+                add_line(_("Focal length:"), (focal_length != "" && focal_length != null) ?
+                    focal_length : NO_VALUE);
+                
+                add_line(_("Exposure date:"), (exposure_date != "" && exposure_date != null) ?
+                    exposure_date : NO_VALUE);
+                
+                add_line(_("Exposure time:"), (exposure_time != "" && exposure_time != null) ?
+                   exposure_time : NO_VALUE);
+                
+                add_line(_("Exposure bias:"), (exposure_bias != "" && exposure_bias != null) ? exposure_bias : NO_VALUE);
             
-            add_line(_("GPS latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
-                gps_lat_ref != null) ? "%f °%s".printf(gps_lat, gps_lat_ref) : NO_VALUE);
+                add_line(_("GPS latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
+                    gps_lat_ref != null) ? "%f °%s".printf(gps_lat, gps_lat_ref) : NO_VALUE);
             
-            add_line(_("GPS longitude:"), (gps_long != -1 && gps_long_ref != "" && 
-                gps_long_ref != null) ? "%f °%s".printf(gps_long, gps_long_ref) : NO_VALUE);
+                add_line(_("GPS longitude:"), (gps_long != -1 && gps_long_ref != "" && 
+                    gps_long_ref != null) ? "%f °%s".printf(gps_long, gps_long_ref) : NO_VALUE);
 
-            add_line(_("Artist:"), (artist != "" && artist != null) ? artist : NO_VALUE);
+                add_line(_("Artist:"), (artist != "" && artist != null) ? artist : NO_VALUE);
 
-            add_line(_("Copyright:"), (copyright != "" && copyright != null) ? copyright : NO_VALUE);
+                add_line(_("Copyright:"), (copyright != "" && copyright != null) ? copyright : NO_VALUE);
     
-            add_line(_("Software:"), (software != "" && software != null) ? software : NO_VALUE);
-            
+                add_line(_("Software:"), (software != "" && software != null) ? software : NO_VALUE);
+            }
+
             bool has_comment = (comment != "" && comment != null);
             add_line(_("Comment:"), has_comment ? comment : NO_VALUE, has_comment);
         }
     }
 
     public ExtendedPropertiesWindow(Gtk.Window owner) {
+        Object(use_header_bar: 1);
+        
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.KEY_PRESS_MASK);
         focus_on_map = true;
         set_accept_focus(true);
         set_can_focus(true);
         set_title(_("Extended Information"));
-        set_size_request(300,-1);
-        set_default_size(520, -1);
         set_position(Gtk.WindowPosition.CENTER);
         set_transient_for(owner);
         set_type_hint(Gdk.WindowTypeHint.DIALOG);
@@ -583,20 +646,8 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         properties = new ExtendedProperties();
         Gtk.Alignment alignment = new Gtk.Alignment(0.5f,0.5f,1,1);
         alignment.add(properties);
-        alignment.set_padding(4, 4, 4, 4);
+        alignment.set_border_width(3);
         ((Gtk.Box) get_content_area()).add(alignment);
-        close_button = new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
-        close_button.clicked.connect(on_close_clicked);
-    
-        Gtk.Alignment action_alignment = new Gtk.Alignment(1, 0.5f, 1, 1);
-        action_alignment.add(close_button);
-        ((Gtk.Container) get_action_area()).add(action_alignment);
-        
-        set_has_resize_grip(false);
-    }
-
-    ~ExtendedPropertiesWindow() {
-        close_button.clicked.disconnect(on_close_clicked);
     }
 
     public override bool button_press_event(Gdk.EventButton event) {
@@ -607,10 +658,6 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         begin_move_drag((int) event.button, (int) event.x_root, (int) event.y_root, event.time);
 
         return true;
-    }
-
-    private void on_close_clicked() {
-        hide();
     }
 
     public override bool key_press_event(Gdk.EventKey event) {

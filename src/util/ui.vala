@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -84,10 +84,6 @@ public bool has_only_key_modifier(Gdk.ModifierType field, Gdk.ModifierType mask)
         | Gdk.ModifierType.SUPER_MASK
         | Gdk.ModifierType.HYPER_MASK
         | Gdk.ModifierType.META_MASK)) == mask;
-}
-
-public string get_window_manager() {
-    return Gdk.X11Screen.get_window_manager_name(AppWindow.get_instance().get_screen());
 }
 
 public string build_dummy_ui_string(Gtk.ActionGroup[] groups) {

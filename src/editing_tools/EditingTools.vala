@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -54,6 +54,8 @@ public abstract class EditingToolWindow : Gtk.Window {
         set_can_focus(true);
         set_has_resize_grip(false);
 
+        // Needed to prevent the (spurious) 'This event was synthesised outside of GDK'
+        // warnings after a keypress.
         Log.set_handler("Gdk", LogLevelFlags.LEVEL_WARNING, suppress_warnings);
     }
 
@@ -333,6 +335,28 @@ public abstract class PhotoCanvas {
         ctx.stroke();
     }
 
+     public void draw_text(Cairo.Context ctx, string text, int x, int y, bool use_scaled_pos = true) {
+        if (use_scaled_pos) {
+            x += scaled_position.x;
+            y += scaled_position.y;
+        }
+        Cairo.TextExtents extents;
+        ctx.text_extents(text, out extents);
+        x -= (int) extents.width / 2;
+        
+        set_source_color_from_string(ctx, Resources.ONIMAGE_FONT_BACKGROUND);
+        
+        int pane_border = 5; // border around edge of pane in pixels
+        ctx.rectangle(x - pane_border, y - pane_border - extents.height, 
+            extents.width + 2 * pane_border, 
+            extents.height + 2 * pane_border);
+        ctx.fill();
+        
+        ctx.move_to(x, y);
+        set_source_color_from_string(ctx, Resources.ONIMAGE_FONT_COLOR);
+        ctx.show_text(text);
+    }
+
     /**
      * Draw a horizontal line into the specified Cairo context at the specified position, taking
      * into account the scaled position of the image unless directed otherwise.
@@ -446,6 +470,7 @@ public abstract class EditingTool {
 
     private EditingToolWindow tool_window = null;
     protected Cairo.Surface surface;
+    public string name;
 
     [CCode (has_target=false)]
     public delegate EditingTool Factory();
@@ -461,7 +486,8 @@ public abstract class EditingTool {
 
     public signal void aborted();
 
-    public EditingTool() {
+    public EditingTool(string name) {
+        this.name = name;
     }
 
     // base.activate() should always be called by an overriding member to ensure the base class
@@ -596,6 +622,10 @@ public class CropTool : EditingTool {
                 aspect_ratio = new_aspect_ratio;
             is_pivotable = new_pivotable;
         }
+        
+        public bool is_separator() {
+            return !is_pivotable && aspect_ratio == SEPARATOR;
+        }
     }
 
     private enum ReticleOrientation {
@@ -617,7 +647,7 @@ public class CropTool : EditingTool {
         private const int CONTROL_SPACING = 8;
 
         public Gtk.Button ok_button = new Gtk.Button.with_label(Resources.CROP_LABEL);
-        public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
+        public Gtk.Button cancel_button = new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
         public Gtk.ComboBox constraint_combo;
         public Gtk.Button pivot_reticle_button = new Gtk.Button();
         public Gtk.Entry custom_width_entry = new Gtk.Entry();
@@ -681,6 +711,7 @@ public class CropTool : EditingTool {
     private Cairo.Context wide_black_ctx = null;
     private Cairo.Context wide_white_ctx = null;
     private Cairo.Context thin_white_ctx = null;
+    private Cairo.Context text_ctx = null;
 
     // This is where we draw our crop tool
     private Cairo.Surface crop_surface = null;
@@ -703,6 +734,7 @@ public class CropTool : EditingTool {
     private float pre_aspect_ratio = ANY_ASPECT_RATIO;
 
     private CropTool() {
+        base("CropTool");
     }
 
     public static CropTool factory() {
@@ -895,6 +927,25 @@ public class CropTool : EditingTool {
 
         return result;
     }
+    
+    private float get_constraint_aspect_ratio_for_constraint(ConstraintDescription constraint, Photo photo) {
+        float result = constraint.aspect_ratio;
+        
+        if (result == ORIGINAL_ASPECT_RATIO) {
+            Dimensions orig_dim = photo.get_original_dimensions();
+            result = ((float) orig_dim.width) / ((float) orig_dim.height);
+        } else if (result == SCREEN_ASPECT_RATIO) {
+            Gdk.Screen screen = Gdk.Screen.get_default();
+            result = ((float) screen.get_width()) / ((float) screen.get_height());
+        } else if (result == CUSTOM_ASPECT_RATIO) {
+            result = custom_aspect_ratio;
+        }
+        if (reticle_orientation == ReticleOrientation.PORTRAIT)
+            result = 1.0f / result;
+
+        return result;
+        
+    }
 
     private void constraint_changed() {
         ConstraintDescription selected_constraint = get_selected_constraint();
@@ -1024,7 +1075,13 @@ public class CropTool : EditingTool {
         
         return crop;
     }
-
+    
+    private ConstraintDescription? get_last_constraint(out int index) {
+        index = Config.Facade.get_instance().get_last_crop_menu_choice();
+        
+        return (index < constraints.length) ? constraints[index] : null;
+    }
+    
     public override void activate(PhotoCanvas canvas) {
         bind_canvas_handlers(canvas);
 
@@ -1047,7 +1104,20 @@ public class CropTool : EditingTool {
         // set up the constraint combo box
         crop_tool_window.constraint_combo.set_model(constraint_list);
         if(!canvas.get_photo().has_crop()) {
-            crop_tool_window.constraint_combo.set_active(Config.Facade.get_instance().get_last_crop_menu_choice());
+            int index;
+            ConstraintDescription? desc = get_last_constraint(out index);
+            if (desc != null && !desc.is_separator())
+                crop_tool_window.constraint_combo.set_active(index);
+        }
+        else {
+            // get aspect ratio of current photo
+            Photo photo = canvas.get_photo();
+            Dimensions cropped_dim = photo.get_dimensions();
+            float ratio = (float) cropped_dim.width / (float) cropped_dim.height;
+            for (int index = 1; index < constraints.length; index++) {
+                if (Math.fabs(ratio - get_constraint_aspect_ratio_for_constraint(constraints[index], photo)) < 0.005)
+                    crop_tool_window.constraint_combo.set_active(index);
+                }
         }
         
         // set up the pivot reticle button
@@ -1094,11 +1164,9 @@ public class CropTool : EditingTool {
 
         // was 'custom' the most-recently-chosen menu item?
         if(!canvas.get_photo().has_crop()) {
-            if (constraints[Config.Facade.get_instance().get_last_crop_menu_choice()].aspect_ratio ==
-                CUSTOM_ASPECT_RATIO) {
-                // yes, switch to custom mode, make the entry fields appear.
+            ConstraintDescription? desc = get_last_constraint(null);
+            if (desc != null && !desc.is_separator() && desc.aspect_ratio == CUSTOM_ASPECT_RATIO)
                 set_custom_constraint_mode();
-            }
         }
 
         // since we no longer just run with the default, but rather
@@ -1221,6 +1289,9 @@ public class CropTool : EditingTool {
         thin_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(thin_white_ctx, "#FFF");
         thin_white_ctx.set_line_width(0.5);
+
+        text_ctx = new Cairo.Context(ctx.get_target());
+        text_ctx.select_font_face("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
     }
 
     private void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
@@ -1280,6 +1351,7 @@ public class CropTool : EditingTool {
             on_canvas_manipulation(x, y);
 
         update_cursor(x, y);
+        canvas.repaint();
     }
 
     public override void paint(Cairo.Context default_ctx) {
@@ -1696,8 +1768,6 @@ public class CropTool : EditingTool {
             return;
         }
 
-        // erase crop and rule-of-thirds lines
-        erase_crop_tool(scaled_crop);
         canvas.invalidate_area(scaled_crop);
 
         Box horizontal;
@@ -1726,8 +1796,6 @@ public class CropTool : EditingTool {
             return;
         }
 
-        // erase crop and rule-of-thirds lines
-        erase_crop_tool(scaled_crop);
         canvas.invalidate_area(scaled_crop);
 
         set_area_alpha(scaled_crop, 0.5);
@@ -1749,7 +1817,7 @@ public class CropTool : EditingTool {
     }
 
     private void paint_crop_tool(Box crop) {
-        // paint rule-of-thirds lines if user is manipulating the crop
+        // paint rule-of-thirds lines and current dimensions if user is manipulating the crop
         if (in_manipulation != BoxLocation.OUTSIDE) {
             int one_third_x = crop.get_width() / 3;
             int one_third_y = crop.get_height() / 3;
@@ -1759,6 +1827,16 @@ public class CropTool : EditingTool {
 
             canvas.draw_vertical_line(thin_white_ctx, crop.left + one_third_x, crop.top, crop.get_height());
             canvas.draw_vertical_line(thin_white_ctx, crop.left + (one_third_x * 2), crop.top, crop.get_height());
+
+            // current dimensions
+            // scale screen-coordinate crop to photo's coordinate system
+            Box adj_crop = scaled_crop.get_scaled_similar(
+                Dimensions.for_rectangle(canvas.get_scaled_pixbuf_position()),
+                canvas.get_photo().get_dimensions(Photo.Exception.CROP));
+            string text = adj_crop.get_width().to_string() + "x" + adj_crop.get_height().to_string();
+            int x = crop.left + crop.get_width() / 2;
+            int y = crop.top + crop.get_height() / 2;
+            canvas.draw_text(text_ctx, text, x, y);
         }
 
         // outer rectangle ... outer line in black, inner in white, corners fully black
@@ -1767,24 +1845,6 @@ public class CropTool : EditingTool {
         canvas.draw_box(wide_white_ctx, crop.get_reduced(2));
     }
 
-    private void erase_crop_tool(Box crop) {
-        // erase rule-of-thirds lines if user is manipulating the crop
-        if (in_manipulation != BoxLocation.OUTSIDE) {
-            int one_third_x = crop.get_width() / 3;
-            int one_third_y = crop.get_height() / 3;
-
-            canvas.erase_horizontal_line(crop.left, crop.top + one_third_y, crop.get_width());
-            canvas.erase_horizontal_line(crop.left, crop.top + (one_third_y * 2), crop.get_width());
-
-            canvas.erase_vertical_line(crop.left + one_third_x, crop.top, crop.get_height());
-            canvas.erase_vertical_line(crop.left + (one_third_x * 2), crop.top, crop.get_height());
-        }
-
-        // erase border
-        canvas.erase_box(crop);
-        canvas.erase_box(crop.get_reduced(1));
-        canvas.erase_box(crop.get_reduced(2));
-    }
 }
 
 #if ENABLE_FACES
@@ -2112,38 +2172,38 @@ public class FacesTool : EditingTool {
             
             faces = new Gee.PriorityQueue<string>();
             string[] lines = output.split("\n");
-			foreach (string line in lines) {
-				if (line.length == 0)
-					continue;
-				
-				string[] type_and_serialized = line.split(";");
-				if (type_and_serialized.length != 2) {
+            foreach (string line in lines) {
+                if (line.length == 0)
+                    continue;
+                
+                string[] type_and_serialized = line.split(";");
+                if (type_and_serialized.length != 2) {
                     stderr.printf("Wrong serialized line in face detection program output.");
                     assert_not_reached();
                 }
-				
-				switch (type_and_serialized[0]) {
-					case "face":
+                
+                switch (type_and_serialized[0]) {
+                    case "face":
                         StringBuilder serialized_geometry = new StringBuilder();
                         serialized_geometry.append(FaceRectangle.SHAPE_TYPE);
                         serialized_geometry.append(";");
                         serialized_geometry.append(parse_serialized_geometry(type_and_serialized[1]));
 
                         faces.add(serialized_geometry.str);
-						break;
-					
-					case "warning":
-						stderr.printf("%s\n", type_and_serialized[1]);
-						break;
-					
-					case "error":
-						stderr.printf("%s\n", type_and_serialized[1]);
-						assert_not_reached();
-					
-					default:
-						assert_not_reached();
-				}
-			}
+                        break;
+                    
+                    case "warning":
+                        stderr.printf("%s\n", type_and_serialized[1]);
+                        break;
+                    
+                    case "error":
+                        stderr.printf("%s\n", type_and_serialized[1]);
+                        assert_not_reached();
+                    
+                    default:
+                        assert_not_reached();
+                }
+            }
         }
         
         private string parse_serialized_geometry(string serialized_geometry) {
@@ -2217,6 +2277,7 @@ public class FacesTool : EditingTool {
     private FacesToolWindow faces_tool_window = null;
 
     private FacesTool() {
+        base("FacesTool");
     }
 
     public static FacesTool factory() {
@@ -2781,9 +2842,9 @@ public class RedeyeTool : EditingTool {
         private Gtk.Label slider_label = new Gtk.Label.with_mnemonic(_("Size:"));
 
         public Gtk.Button apply_button =
-            new Gtk.Button.from_stock(Gtk.Stock.APPLY);
+            new Gtk.Button.with_mnemonic(Resources.APPLY_LABEL);
         public Gtk.Button close_button =
-            new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
+            new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
         public Gtk.Scale slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             RedeyeInstance.MIN_RADIUS, RedeyeInstance.MAX_RADIUS, 1.0);
 
@@ -2822,6 +2883,7 @@ public class RedeyeTool : EditingTool {
     private Gdk.Pixbuf current_pixbuf = null;
 
     private RedeyeTool() {
+        base("RedeyeTool");
     }
 
     public static RedeyeTool factory() {
@@ -3121,56 +3183,77 @@ public class AdjustTool : EditingTool {
         public Gtk.Scale temperature_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             TemperatureTransformation.MIN_PARAMETER, TemperatureTransformation.MAX_PARAMETER,
             1.0);
+
         public Gtk.Scale shadows_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             ShadowDetailTransformation.MIN_PARAMETER, ShadowDetailTransformation.MAX_PARAMETER,
             1.0);
-        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
+
+        public Gtk.Scale highlights_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
+            HighlightDetailTransformation.MIN_PARAMETER, HighlightDetailTransformation.MAX_PARAMETER,
+            1.0);
+
+        public Gtk.Button ok_button = new Gtk.Button.with_mnemonic(Resources.OK_LABEL);
         public Gtk.Button reset_button = new Gtk.Button.with_mnemonic(_("_Reset"));
-        public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.Stock.CANCEL);
+        public Gtk.Button cancel_button = new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
         public RGBHistogramManipulator histogram_manipulator = new RGBHistogramManipulator();
 
         public AdjustToolWindow(Gtk.Window container) {
             base(container);
 
-            Gtk.Table slider_organizer = new Gtk.Table(4, 2, false);
-            slider_organizer.set_row_spacings(12);
-            slider_organizer.set_col_spacings(12);
+            Gtk.Grid slider_organizer = new Gtk.Grid();
+            slider_organizer.set_column_homogeneous(false);
+            slider_organizer.set_row_spacing(12);
+            slider_organizer.set_column_spacing(12);
+            slider_organizer.set_margin_left(12);
+            slider_organizer.set_margin_bottom(12);
 
             Gtk.Label exposure_label = new Gtk.Label.with_mnemonic(_("Exposure:"));
             exposure_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(exposure_label, 0, 1, 0, 1);
-            slider_organizer.attach_defaults(exposure_slider, 1, 2, 0, 1);
+            slider_organizer.attach(exposure_label, 0, 0, 1, 1);
+            slider_organizer.attach(exposure_slider, 1, 0, 1, 1);
             exposure_slider.set_size_request(SLIDER_WIDTH, -1);
             exposure_slider.set_draw_value(false);
-
+            exposure_slider.set_margin_right(0);
+            
             Gtk.Label saturation_label = new Gtk.Label.with_mnemonic(_("Saturation:"));
             saturation_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(saturation_label, 0, 1, 1, 2);
-            slider_organizer.attach_defaults(saturation_slider, 1, 2, 1, 2);
+            slider_organizer.attach(saturation_label, 0, 1, 1, 1);
+            slider_organizer.attach(saturation_slider, 1, 1, 1, 1);
             saturation_slider.set_size_request(SLIDER_WIDTH, -1);
             saturation_slider.set_draw_value(false);
+            saturation_slider.set_margin_right(0);
 
             Gtk.Label tint_label = new Gtk.Label.with_mnemonic(_("Tint:"));
             tint_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(tint_label, 0, 1, 2, 3);
-            slider_organizer.attach_defaults(tint_slider, 1, 2, 2, 3);
+            slider_organizer.attach(tint_label, 0, 2, 1, 1);
+            slider_organizer.attach(tint_slider, 1, 2, 1, 1);
             tint_slider.set_size_request(SLIDER_WIDTH, -1);
             tint_slider.set_draw_value(false);
+            tint_slider.set_margin_right(0);
 
             Gtk.Label temperature_label =
                 new Gtk.Label.with_mnemonic(_("Temperature:"));
             temperature_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(temperature_label, 0, 1, 3, 4);
-            slider_organizer.attach_defaults(temperature_slider, 1, 2, 3, 4);
+            slider_organizer.attach(temperature_label, 0, 3, 1, 1);
+            slider_organizer.attach(temperature_slider, 1, 3, 1, 1);
             temperature_slider.set_size_request(SLIDER_WIDTH, -1);
             temperature_slider.set_draw_value(false);
+            temperature_slider.set_margin_right(0);
 
             Gtk.Label shadows_label = new Gtk.Label.with_mnemonic(_("Shadows:"));
             shadows_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach_defaults(shadows_label, 0, 1, 4, 5);
-            slider_organizer.attach_defaults(shadows_slider, 1, 2, 4, 5);
+            slider_organizer.attach(shadows_label, 0, 4, 1, 1);
+            slider_organizer.attach(shadows_slider, 1, 4, 1, 1);
             shadows_slider.set_size_request(SLIDER_WIDTH, -1);
             shadows_slider.set_draw_value(false);
+            shadows_slider.set_margin_right(0);
+
+            Gtk.Label highlights_label = new Gtk.Label.with_mnemonic(_("Highlights:"));
+            highlights_label.set_alignment(0.0f, 0.5f);
+            slider_organizer.attach(highlights_label, 0, 5, 1, 1);
+            slider_organizer.attach(highlights_slider, 1, 5, 1, 1);
+            highlights_slider.set_size_request(SLIDER_WIDTH, -1);
+            highlights_slider.set_draw_value(false);
 
             Gtk.Box button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             button_layouter.set_homogeneous(true);
@@ -3178,8 +3261,9 @@ public class AdjustTool : EditingTool {
             button_layouter.pack_start(reset_button, true, true, 1);
             button_layouter.pack_start(ok_button, true, true, 1);
 
-            Gtk.Alignment histogram_aligner = new Gtk.Alignment(0.5f, 0.0f, 0.0f, 0.0f);
+            Gtk.Alignment histogram_aligner = new Gtk.Alignment(0.0f, 0.0f, 0.0f, 0.0f);
             histogram_aligner.add(histogram_manipulator);
+            histogram_aligner.set_padding(12, 8, 12, 12);
 
             Gtk.Box pane_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
             pane_layouter.add(histogram_aligner);
@@ -3371,8 +3455,10 @@ public class AdjustTool : EditingTool {
     private OneShotScheduler? saturation_scheduler = null;
     private OneShotScheduler? exposure_scheduler = null;
     private OneShotScheduler? shadows_scheduler = null;
+    private OneShotScheduler? highlights_scheduler = null;
 
     private AdjustTool() {
+        base("AdjustTool");
     }
 
     public static AdjustTool factory() {
@@ -3406,6 +3492,12 @@ public class AdjustTool : EditingTool {
             transformations.get_transformation(PixelTransformationType.SHADOWS);
         histogram_transformer.attach_transformation(shadows_trans);
         adjust_tool_window.shadows_slider.set_value(shadows_trans.get_parameter());
+
+        /* set up highlights */
+        HighlightDetailTransformation highlights_trans = (HighlightDetailTransformation)
+            transformations.get_transformation(PixelTransformationType.HIGHLIGHTS);
+        histogram_transformer.attach_transformation(highlights_trans);
+        adjust_tool_window.highlights_slider.set_value(highlights_trans.get_parameter());
 
         /* set up temperature & tint */
         TemperatureTransformation temp_trans = (TemperatureTransformation)
@@ -3523,7 +3615,7 @@ public class AdjustTool : EditingTool {
 
         get_tool_window().hide();
 
-        applied(new AdjustColorsCommand(canvas.get_photo(), transformations,
+        applied(new AdjustColorsSingleCommand(canvas.get_photo(), transformations,
             Resources.ADJUST_LABEL, Resources.ADJUST_TOOLTIP), draw_to_pixbuf,
             canvas.get_photo().get_dimensions(), false);
     }
@@ -3617,6 +3709,19 @@ public class AdjustTool : EditingTool {
         slider_updated(new_shadows_trans, _("Shadows"));
     }
 
+    private void on_highlights_adjustment() {
+        if (highlights_scheduler == null)
+            highlights_scheduler = new OneShotScheduler("highlights", on_delayed_highlights_adjustment);
+
+        highlights_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
+    }
+
+    private void on_delayed_highlights_adjustment() {
+        HighlightDetailTransformation new_highlights_trans = new HighlightDetailTransformation(
+            (float) adjust_tool_window.highlights_slider.get_value());
+        slider_updated(new_highlights_trans, _("Highlights"));
+    }
+
     private void on_histogram_constraint() {
         int expansion_black_point =
             adjust_tool_window.histogram_manipulator.get_left_nub_position();
@@ -3663,6 +3768,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.value_changed.connect(on_tint_adjustment);
         adjust_tool_window.temperature_slider.value_changed.connect(on_temperature_adjustment);
         adjust_tool_window.shadows_slider.value_changed.connect(on_shadows_adjustment);
+        adjust_tool_window.highlights_slider.value_changed.connect(on_highlights_adjustment);
         adjust_tool_window.histogram_manipulator.nub_position_changed.connect(on_histogram_constraint);
 
         adjust_tool_window.saturation_slider.button_press_event.connect(on_hscale_reset);
@@ -3670,6 +3776,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.temperature_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.shadows_slider.button_press_event.connect(on_hscale_reset);
+        adjust_tool_window.highlights_slider.button_press_event.connect(on_hscale_reset);
     }
 
     private void unbind_window_handlers() {
@@ -3681,6 +3788,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.value_changed.disconnect(on_tint_adjustment);
         adjust_tool_window.temperature_slider.value_changed.disconnect(on_temperature_adjustment);
         adjust_tool_window.shadows_slider.value_changed.disconnect(on_shadows_adjustment);
+        adjust_tool_window.highlights_slider.value_changed.disconnect(on_highlights_adjustment);
         adjust_tool_window.histogram_manipulator.nub_position_changed.disconnect(on_histogram_constraint);
 
         adjust_tool_window.saturation_slider.button_press_event.disconnect(on_hscale_reset);
@@ -3688,6 +3796,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.temperature_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.shadows_slider.button_press_event.disconnect(on_hscale_reset);
+        adjust_tool_window.highlights_slider.button_press_event.disconnect(on_hscale_reset);
     }
 
     public bool enhance() {
@@ -3735,6 +3844,11 @@ public class AdjustTool : EditingTool {
             case PixelTransformationType.SHADOWS:
                 adjust_tool_window.shadows_slider.set_value(
                     ((ShadowDetailTransformation) transformation).get_parameter());
+            break;
+
+            case PixelTransformationType.HIGHLIGHTS:
+                adjust_tool_window.highlights_slider.set_value(
+                    ((HighlightDetailTransformation) transformation).get_parameter());
             break;
 
             case PixelTransformationType.EXPOSURE:

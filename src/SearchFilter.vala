@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -40,8 +40,8 @@ public abstract class SearchViewFilter : ViewFilter {
     private bool rating_allow_higher = true;
     
     // Rating to filter by.
-    private Rating rating = Rating.REJECTED;
-    private RatingFilter rating_filter = RatingFilter.REJECTED_OR_HIGHER;
+    private Rating rating = Rating.UNRATED;
+    private RatingFilter rating_filter = RatingFilter.UNRATED_OR_HIGHER;
     
     // Show flagged only if set to true.
     public bool flagged { get; set; default = false; }
@@ -270,6 +270,16 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
     }
 }
 
+public class DisabledViewFilter : SearchViewFilter {
+    public override bool predicate(DataView view) {
+        return true;
+    }
+    
+    public override uint get_criteria() {
+        return SearchFilterCriteria.RATING;
+    }
+}
+
 public class TextAction {
     public string? value {
         get {
@@ -325,61 +335,6 @@ public class TextAction {
     }
 }
 
-public class TextActionEntry : Gtk.Entry {
-    private TextAction action;
-    
-    public TextActionEntry(TextAction action) {
-        this.action = action;
-        
-        set_nullable_text(action.value);
-        
-        action.text_changed.connect(on_action_text_changed);
-        action.sensitivity_changed.connect(on_sensitivity_changed);
-        action.visibility_changed.connect(on_visibility_changed);
-        
-        buffer.deleted_text.connect(on_entry_changed);
-        buffer.inserted_text.connect(on_entry_changed);
-    }
-    
-    ~TextActionEntry() {
-        action.text_changed.disconnect(on_action_text_changed);
-        action.sensitivity_changed.disconnect(on_sensitivity_changed);
-        action.visibility_changed.disconnect(on_visibility_changed);
-        
-        buffer.deleted_text.disconnect(on_entry_changed);
-        buffer.inserted_text.disconnect(on_entry_changed);
-    }
-    
-    public TextAction get_text_action() {
-        return action;
-    }
-    
-    private void on_action_text_changed(string? text) {
-        buffer.deleted_text.disconnect(on_entry_changed);
-        buffer.inserted_text.disconnect(on_entry_changed);
-        set_nullable_text(text);
-        buffer.deleted_text.connect(on_entry_changed);
-        buffer.inserted_text.connect(on_entry_changed);
-    }
-    
-    private void on_entry_changed() {
-        action.text_changed.disconnect(on_action_text_changed);
-        action.set_text(get_text());
-        action.text_changed.connect(on_action_text_changed);
-    }
-    
-    private void on_sensitivity_changed(bool sensitive) {
-        this.sensitive = sensitive;
-    }
-    
-    private void on_visibility_changed(bool visible) {
-        ((Gtk.Widget) this).visible = visible;
-    }
-    
-    private void set_nullable_text(string? text) {
-        set_text(text != null ? text : "");
-    }
-}
 
 public class SearchFilterActions {
     public unowned Gtk.ToggleAction? flagged {
@@ -711,7 +666,8 @@ public class SearchFilterActions {
     }
 }
 
-public class SearchFilterToolbar : Gtk.Toolbar {
+public class SearchFilterToolbar : Gtk.Revealer {
+    private Gtk.Toolbar toolbar;
     private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
     private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon
     private const float FILTER_ICON_SCALE = 0.75f; // changes the size of the all photos icon
@@ -736,10 +692,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
                 add(label);
             }
         }
-        
-        public void set_color(Gdk.RGBA color) {
-            label.override_color(Gtk.StateFlags.NORMAL, color);
-        }
     }
     
     private class ToggleActionToolButton : Gtk.ToolItem {
@@ -753,13 +705,13 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             button.set_active(action.active);
             button.clicked.connect(on_button_activate);
             button.set_has_tooltip(true);
-
-            restyle();
+            button.set_relief(Gtk.ReliefStyle.NONE);
+            button.set_margin_start(2);
             
             this.add(button);
         }
         
-        ~ToggleActionButton() {
+        ~ToggleActionToolButton() {
             button.clicked.disconnect(on_button_activate);
         }
         
@@ -776,76 +728,85 @@ public class SearchFilterToolbar : Gtk.Toolbar {
 
             button.set_image(image);
         }
-        
-        public void restyle() {
-            string bgcolorname =
-                Resources.to_css_color(Config.Facade.get_instance().get_bg_color());
-            string stylesheet = Resources.SEARCH_BUTTON_STYLESHEET_TEMPLATE.printf(bgcolorname);
-            
-            Resources.style_widget(button, stylesheet);
-        }
     }
     
     // Ticket #3260 - Add a 'close' context menu to
     // the searchbar.
     // The close menu. Populated below in the constructor.
     private Gtk.Menu close_menu = new Gtk.Menu();
-    private Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.CLOSE, null);
-   
+    private Gtk.MenuItem close_item = new Gtk.MenuItem();
+
     // Text search box.
     protected class SearchBox : Gtk.ToolItem {
-        private TextActionEntry entry;
+        private Gtk.SearchEntry search_entry;
+        private TextAction action;
         
         public SearchBox(TextAction action) {
-            entry = new TextActionEntry(action);
+            this.action = action;
+            search_entry = new Gtk.SearchEntry();
             
-            entry.primary_icon_name = "edit-find-symbolic";
-            entry.primary_icon_activatable = false;
-            entry.secondary_icon_stock = null;
-            entry.secondary_icon_activatable = true;
-            entry.width_chars = 23;
-            entry.icon_release.connect(on_icon_release);
-            entry.key_press_event.connect(on_key_typed);
-            entry.key_release_event.connect(on_key_typed);
-            entry.key_press_event.connect(on_escape_key); 
-            add(entry);
+            search_entry.width_chars = 23;
+            search_entry.key_press_event.connect(on_escape_key); 
+            add(search_entry);
+            
+            set_nullable_text(action.value);
+            
+            action.text_changed.connect(on_action_text_changed);
+            action.sensitivity_changed.connect(on_sensitivity_changed);
+            action.visibility_changed.connect(on_visibility_changed);
+            
+            search_entry.buffer.deleted_text.connect(on_entry_changed);
+            search_entry.buffer.inserted_text.connect(on_entry_changed);
         }
         
         ~SearchBox() {
-            entry.icon_release.disconnect(on_icon_release);
-            entry.key_press_event.disconnect(on_escape_key);
-            entry.key_press_event.disconnect(on_key_typed);
-            entry.key_release_event.disconnect(on_key_typed);
-        }
-        
-        private void on_icon_release(Gtk.EntryIconPosition pos, Gdk.Event event) {
-            if (Gtk.EntryIconPosition.SECONDARY == pos)
-                entry.get_text_action().clear();
-            entry.secondary_icon_stock = null;
+            action.text_changed.disconnect(on_action_text_changed);
+            action.sensitivity_changed.disconnect(on_sensitivity_changed);
+            action.visibility_changed.disconnect(on_visibility_changed);
+            
+            search_entry.buffer.deleted_text.disconnect(on_entry_changed);
+            search_entry.buffer.inserted_text.disconnect(on_entry_changed);
         }
         
         public void get_focus() {
-            entry.has_focus = true;
-        }
-        
-        private bool on_key_typed(Gdk.EventKey e) {
-            if (entry.get_text().length > 0)
-                entry.secondary_icon_name = "edit-clear-symbolic";
-            else
-                entry.secondary_icon_stock = null;
-            
-            return false;
+            search_entry.has_focus = true;
         }
         
         // Ticket #3124 - user should be able to clear 
         // the search textbox by typing 'Esc'. 
         private bool on_escape_key(Gdk.EventKey e) { 
             if(Gdk.keyval_name(e.keyval) == "Escape")
-                entry.get_text_action().clear(); 
+                action.clear();
             
-            // Continue processing this event, since the 
-            // text entry functionality needs to see it too. 
+           // Continue processing this event, since the 
+           // text entry functionality needs to see it too. 
             return false; 
+        }
+        
+        private void on_action_text_changed(string? text) {
+            search_entry.buffer.deleted_text.disconnect(on_entry_changed);
+            search_entry.buffer.inserted_text.disconnect(on_entry_changed);
+            set_nullable_text(text);
+            search_entry.buffer.deleted_text.connect(on_entry_changed);
+            search_entry.buffer.inserted_text.connect(on_entry_changed);
+        }
+        
+        private void on_entry_changed() {
+            action.text_changed.disconnect(on_action_text_changed);
+            action.set_text(search_entry.get_text());
+            action.text_changed.connect(on_action_text_changed);
+        }
+        
+        private void on_sensitivity_changed(bool sensitive) {
+            this.sensitive = sensitive;
+        }
+        
+        private void on_visibility_changed(bool visible) {
+            ((Gtk.Widget) this).visible = visible;
+        }
+        
+        private void set_nullable_text(string? text) {
+            search_entry.set_text(text != null ? text : "");
         }
     }
     
@@ -860,10 +821,10 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             button = new Gtk.Button();
             button.set_image(get_filter_icon(RatingFilter.UNRATED_OR_HIGHER));
             button.set_can_focus(false);
+            button.set_relief(Gtk.ReliefStyle.NONE);
+            button.set_margin_start(2);
 
             button.clicked.connect(on_clicked);
-
-            restyle();
             
             set_homogeneous(false);
             
@@ -959,25 +920,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         private int get_filter_button_size(RatingFilter filter) {
             return get_filter_icon_size(filter) + 2 * FILTER_BUTTON_MARGIN;
         }
-
-        public void restyle() {
-            string bgcolorname =
-                Resources.to_css_color(Config.Facade.get_instance().get_bg_color());
-            string stylesheet = Resources.SEARCH_BUTTON_STYLESHEET_TEMPLATE.printf(bgcolorname);
-            
-            Resources.style_widget(button, stylesheet);
-        }
-    }
-    
-    // Used to disable the toolbar.
-    private class DisabledViewFilter : SearchViewFilter {
-        public override bool predicate(DataView view) {
-            return true;
-        }
-        
-        public override uint get_criteria() {
-            return SearchFilterCriteria.NONE;
-        }
     }
     
     public Gtk.UIManager ui = new Gtk.UIManager();
@@ -998,11 +940,12 @@ public class SearchFilterToolbar : Gtk.Toolbar {
     
     public SearchFilterToolbar(SearchFilterActions actions) {
         this.actions = actions;
+        toolbar = new Gtk.Toolbar();
         actions.media_context_changed.connect(on_media_context_changed);
         search_box = new SearchBox(actions.text);
         
-        set_name("search-filter-toolbar");
-        set_icon_size(Gtk.IconSize.SMALL_TOOLBAR);
+        toolbar.set_name("search-filter-toolbar");
+        toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR);
         
         File ui_file = Resources.get_ui("search_bar.ui");
         try {
@@ -1019,14 +962,14 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         // Prepare the close menu for use, but don't
         // display it yet; we'll connect it to secondary
         // click later on.
-        ((Gtk.MenuItem) close_item).show();
-        close_item.always_show_image = true;
+        close_item.set_label(_("Close"));
+        close_item.show();
         close_item.activate.connect(on_context_menu_close_chosen);
         close_menu.append(close_item);
        
         // Type label and toggles
         label_type = new LabelToolItem(_("Type"), 10, 5);
-        insert(label_type, -1);
+        toolbar.insert(label_type, -1);
         
         toolbtn_photos = new ToggleActionToolButton(actions.photos);
         toolbtn_photos.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayPhotos").tooltip);
@@ -1037,47 +980,45 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         toolbtn_raw = new ToggleActionToolButton(actions.raw);
         toolbtn_raw.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayRaw").tooltip);
         
-        insert(toolbtn_photos, -1);
-        insert(toolbtn_videos, -1);
-        insert(toolbtn_raw, -1);
+        toolbar.insert(toolbtn_photos, -1);
+        toolbar.insert(toolbtn_videos, -1);
+        toolbar.insert(toolbtn_raw, -1);
         
         // separator
         sepr_mediatype_flagged = new Gtk.SeparatorToolItem();
-        insert(sepr_mediatype_flagged, -1);
+        toolbar.insert(sepr_mediatype_flagged, -1);
         
         // Flagged label and toggle
         label_flagged = new LabelToolItem(_("Flagged"));
-        insert(label_flagged, -1);
+        toolbar.insert(label_flagged, -1);
         
         toolbtn_flag = new ToggleActionToolButton(actions.flagged);
         toolbtn_flag.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayFlagged").tooltip);
         
-        insert(toolbtn_flag, -1);
+        toolbar.insert(toolbtn_flag, -1);
         
         // separator
         sepr_flagged_rating = new Gtk.SeparatorToolItem();
-        insert(sepr_flagged_rating, -1);
+        toolbar.insert(sepr_flagged_rating, -1);
         
         // Rating label and button
         label_rating = new LabelToolItem(_("Rating"));
-        insert(label_rating, -1);
+        toolbar.insert(label_rating, -1);
         rating_button.filter_popup = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
         rating_button.set_expand(false);
         rating_button.clicked.connect(on_filter_button_clicked);
-        insert(rating_button, -1);
+        toolbar.insert(rating_button, -1);
         
         // Separator to right-align the text box
         Gtk.SeparatorToolItem separator_align = new Gtk.SeparatorToolItem();
         separator_align.set_expand(true);
         separator_align.set_draw(false);
-        insert(separator_align, -1);
+        toolbar.insert(separator_align, -1);
         
         // Search box.
-        insert(search_box, -1);
-        
-        // Set background color of toolbar and update them when the configuration is updated
-        Config.Facade.get_instance().bg_color_name_changed.connect(on_bg_color_name_changed);
-        on_bg_color_name_changed();
+        toolbar.insert(search_box, -1);
+
+        add(toolbar);
         
         // hook up signals to actions to be notified when they change
         actions.flagged_toggled.connect(on_flagged_toggled);
@@ -1089,14 +1030,13 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.criteria_changed.connect(on_criteria_changed);
         
         // #3260 part II Hook up close menu.
-        popup_context_menu.connect(on_context_menu_requested);
+        toolbar.popup_context_menu.connect(on_context_menu_requested);
         
         on_media_context_changed(actions.get_has_photos(), actions.get_has_videos(),
             actions.get_has_raw(), actions.get_has_flagged());
     }
     
     ~SearchFilterToolbar() {
-        Config.Facade.get_instance().bg_color_name_changed.disconnect(on_bg_color_name_changed);
         
         actions.media_context_changed.disconnect(on_media_context_changed);
 
@@ -1108,7 +1048,7 @@ public class SearchFilterToolbar : Gtk.Toolbar {
         actions.text_changed.disconnect(on_search_text_changed);
         actions.criteria_changed.disconnect(on_criteria_changed);
         
-        popup_context_menu.disconnect(on_context_menu_requested); 
+        toolbar.popup_context_menu.disconnect(on_context_menu_requested); 
     }
     
     private void on_media_context_changed(bool has_photos, bool has_videos, bool has_raw,
@@ -1132,24 +1072,6 @@ public class SearchFilterToolbar : Gtk.Toolbar {
             toolbtn_flag.set_icon_name(Resources.ICON_FILTER_FLAGGED);
         else
             toolbtn_flag.set_icon_name(Resources.ICON_FILTER_FLAGGED_DISABLED);
-    }
-    
-    private void on_bg_color_name_changed() {
-        string bgcolorname =
-            Resources.to_css_color(Config.Facade.get_instance().get_bg_color());
-        string toolbar_stylesheet = Resources.TOOLBAR_STYLESHEET_TEMPLATE.printf(bgcolorname);
-        Resources.style_widget(this, toolbar_stylesheet);
-        
-        label_type.set_color(Config.Facade.get_instance().get_unselected_color());
-        label_flagged.set_color(Config.Facade.get_instance().get_unselected_color());
-        label_rating.set_color(Config.Facade.get_instance().get_unselected_color());
-        
-        toolbtn_photos.restyle();
-        toolbtn_videos.restyle();
-        toolbtn_raw.restyle();
-        toolbtn_flag.restyle();
-        rating_button.restyle();
-        
     }
     
     // Ticket #3260 part IV - display the context menu on secondary click

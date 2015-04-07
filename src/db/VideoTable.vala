@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -21,8 +21,8 @@ public struct VideoID {
         return (id != INVALID);
     }
     
-    public static uint hash(void *a) {
-        return int64_hash(&((VideoID *) a)->id);
+    public static uint hash(VideoID? a) {
+        return int64_hash(a.id);
     }
     
     public static bool equal(void *a, void *b) {

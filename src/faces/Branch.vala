@@ -85,15 +85,15 @@ public class Faces.Branch : Sidebar.Branch {
     }
 }
 
-public class Faces.Grouping : Sidebar.Grouping {
+public class Faces.Grouping : Sidebar.Header {
     public Grouping() {
-        base (_("Faces"), new ThemedIcon(Resources.ICON_FACES));
+        base (_("Faces"));
     }
 }
 
 public class Faces.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
     Sidebar.DestroyableEntry {
-    private static Icon single_face_icon;
+    private static string single_face_icon = Resources.ICON_ONE_FACE;
     
     private Face face;
     
@@ -102,22 +102,24 @@ public class Faces.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEnt
     }
     
     internal static void init() {
-        single_face_icon = new ThemedIcon(Resources.ICON_ONE_FACE);
     }
     
     internal static void terminate() {
-        single_face_icon = null;
     }
     
     public Face for_face() {
         return face;
     }
     
+    public bool is_user_renameable() {
+        return true;
+    }
+    
     public override string get_sidebar_name() {
         return face.get_name();
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return single_face_icon;
     }
     

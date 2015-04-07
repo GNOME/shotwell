@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -9,22 +9,31 @@ extern const string _PREFIX;
 extern const string _VERSION;
 extern const string GETTEXT_PACKAGE;
 extern const string _LIB;
+extern const string _LIBEXECDIR;
+extern const string? _GIT_VERSION;
 
 namespace Resources {
     public const string APP_TITLE = "Shotwell";
     public const string APP_LIBRARY_ROLE = _("Photo Manager");
     public const string APP_DIRECT_ROLE = _("Photo Viewer");
     public const string APP_VERSION = _VERSION;
-    public const string COPYRIGHT = _("Copyright 2009-2013 Yorba Foundation");
+
+#if _GITVERSION
+    public const string? GIT_VERSION = _GIT_VERSION;
+#else
+    public const string? GIT_VERSION = null;
+#endif
+
+    public const string COPYRIGHT = _("Copyright 2009-2015 Yorba Foundation");
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
-    public const string YORBA_URL = "http://www.yorba.org";
-    public const string WIKI_URL = "http://redmine.yorba.org/projects/shotwell/wiki/Shotwell";
-    public const string FAQ_URL = "http://redmine.yorba.org/projects/shotwell/wiki/ShotwellFAQ";
-    public const string BUG_DB_URL = "http://redmine.yorba.org/projects/shotwell/issues/new";
+    public const string HOME_URL = "https://wiki.gnome.org/Apps/Shotwell";
+    public const string FAQ_URL = "https://wiki.gnome.org/Apps/Shotwell/FAQ";
+    public const string BUG_DB_URL = "https://wiki.gnome.org/Apps/Shotwell/ReportingABug";
     public const string DIR_PATTERN_URI_SYSWIDE = "ghelp:shotwell?other-files";
 
     private const string LIB = _LIB;
+    private const string LIBEXECDIR = _LIBEXECDIR;
 
     public const string PREFIX = _PREFIX;
 
@@ -64,7 +73,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string CROP = "shotwell-crop";
     public const string STRAIGHTEN = "shotwell-straighten";
     public const string REDEYE = "shotwell-redeye";
-    public const string ADJUST = "shotwell-adjust";
+    public const string ADJUST = "image-adjust";
     public const string PIN_TOOLBAR = "shotwell-pin-toolbar";
     public const string MAKE_PRIMARY = "shotwell-make-primary";
     public const string IMPORT = "shotwell-import";
@@ -74,7 +83,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string PUBLISH = "applications-internet";
     public const string MERGE = "shotwell-merge-events";
     public const string FACES_TOOL = "faces";
-
+    public const string GO_NEXT = "go-next";
+    public const string GO_PREVIOUS = "go-previous";
     public const string ICON_APP = "shotwell.svg";
     public const string ICON_APP16 = "shotwell-16.svg";
     public const string ICON_APP24 = "shotwell-24.svg";
@@ -106,12 +116,12 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_CAMERAS = "camera-photo";
     public const string ICON_EVENTS = "multiple-events";
     public const string ICON_ONE_EVENT = "one-event";
+    public const string ICON_NO_EVENT = "no-event";
     public const string ICON_ONE_TAG = "one-tag";
     public const string ICON_TAGS = "multiple-tags";
     public const string ICON_ONE_FACE = "one-face";
     public const string ICON_FACES = "many-faces";
-    public const string ICON_FOLDER_CLOSED = "folder";
-    public const string ICON_FOLDER_OPEN = "folder-open";
+    public const string ICON_FOLDER = "folder";
     public const string ICON_FOLDER_DOCUMENTS = "folder-documents";
     public const string ICON_IMPORTING = "go-down";
     public const string ICON_LAST_IMPORT = "document-open-recent";
@@ -148,9 +158,48 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string VFLIP_MENU = _("Flip Verti_cally");
     public const string VFLIP_LABEL = _("Flip Vertically");
     
+    public const string ABOUT_LABEL = _("_About");
+    public const string APPLY_LABEL = _("_Apply");
+    public const string CANCEL_LABEL = _("_Cancel");
+    public const string DELETE_LABEL = _("_Delete");
+    public const string EDIT_LABEL = _("_Edit");
+    public const string FORWARD_LABEL = _("_Forward");
+    public const string FULLSCREEN_LABEL = _("Fulls_creen");
+    public const string HELP_LABEL = _("_Help");
+    public const string LEAVE_FULLSCREEN_LABEL = _("Leave _Fullscreen");
+    public const string NEW_LABEL = _("_New");
+    public const string NEXT_LABEL = _("_Next");
+    public const string OK_LABEL = _("_OK");
+    public const string PLAY_LABEL = _("_Play");
+    public const string PREFERENCES_LABEL = _("_Preferences");
+    public const string PREVIOUS_LABEL = _("_Previous");
+    public const string PRINT_LABEL = _("_Print");
+    public const string QUIT_LABEL = _("_Quit");
+    public const string REFRESH_LABEL = _("_Refresh");
+    public const string REMOVE_LABEL = _("_Remove");
+    public const string REVERT_TO_SAVED_LABEL = _("_Revert");
+    public const string SAVE_LABEL = _("_Save");
+    public const string SAVE_AS_LABEL = _("Save _As");
+    public const string SORT_ASCENDING_LABEL = _("Sort _Ascending");
+    public const string SORT_DESCENDING_LABEL = _("Sort _Descending");
+    public const string STOP_LABEL = _("_Stop");
+    public const string UNDELETE_LABEL = _("_Undelete");
+    public const string ZOOM_100_LABEL = _("_Normal Size");
+    public const string ZOOM_FIT_LABEL = _("Best _Fit");
+    public const string ZOOM_IN_LABEL = _("Zoom _In");
+    public const string ZOOM_OUT_LABEL = _("Zoom _Out");
+    
     public const string ENHANCE_MENU = _("_Enhance");
     public const string ENHANCE_LABEL = _("Enhance");
     public const string ENHANCE_TOOLTIP = _("Automatically improve the photo's appearance");
+    
+    public const string COPY_ADJUSTMENTS_MENU = _("_Copy Color Adjustments");
+    public const string COPY_ADJUSTMENTS_LABEL = _("Copy Color Adjustments");
+    public const string COPY_ADJUSTMENTS_TOOLTIP = _("Copy the color adjustments applied to the photo");
+    
+    public const string PASTE_ADJUSTMENTS_MENU = _("_Paste Color Adjustments");
+    public const string PASTE_ADJUSTMENTS_LABEL = _("Paste Color Adjustments");
+    public const string PASTE_ADJUSTMENTS_TOOLTIP = _("Apply copied color adjustments to the selected photos");
     
     public const string CROP_MENU = _("_Crop");
     public const string CROP_LABEL = _("Crop");
@@ -231,7 +280,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = _("Show all photos, including rejected");
     
     public const string DISPLAY_UNRATED_OR_HIGHER_MENU = _("_All Photos");
+    // Button label
     public const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Show all photos");
+    // Button tooltip
     public const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Show all photos");
 
     public const string VIEW_RATINGS_MENU = _("_Ratings");
@@ -254,16 +305,22 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string PUBLISH_TOOLTIP = _("Publish to various websites");
 
     public const string EDIT_TITLE_MENU = _("Edit _Title...");
+    // Button label
     public const string EDIT_TITLE_LABEL = _("Edit Title");
 
     public const string EDIT_COMMENT_MENU = _("Edit _Comment...");
+    // Button label
     public const string EDIT_COMMENT_LABEL = _("Edit Comment");
+
+    public const string EDIT_EVENT_COMMENT_MENU = _("Edit Event _Comment...");
+    public const string EDIT_EVENT_COMMENT_LABEL = _("Edit Event Comment");
 
     public const string ADJUST_DATE_TIME_MENU = _("_Adjust Date and Time...");
     public const string ADJUST_DATE_TIME_LABEL = _("Adjust Date and Time");
     
     public const string ADD_TAGS_MENU = _("Add _Tags...");
     public const string ADD_TAGS_CONTEXT_MENU = _("_Add Tags...");
+    // Dialog title
     public const string ADD_TAGS_TITLE = _("Add Tags");
 
     public const string PREFERENCES_MENU = _("_Preferences");
@@ -298,14 +355,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public string add_tags_label(string[] names) {
-        if (names.length == 1)
+        if (names.length == 1) {
             return _("Add Tag \"%s\"").printf(HierarchicalTagUtilities.get_basename(names[0]));
-        else if (names.length == 2)
+        } else if (names.length == 2) {
+            // Used when adding two tags to photo(s)
             return _("Add Tags \"%s\" and \"%s\"").printf(
-            HierarchicalTagUtilities.get_basename(names[0]),
-            HierarchicalTagUtilities.get_basename(names[1]));
-        else
+                HierarchicalTagUtilities.get_basename(names[0]),
+                HierarchicalTagUtilities.get_basename(names[1]));
+        } else {
+            // Undo/Redo command name (in Edit menu)
             return _("Add Tags");
+        }
     }
     
     public string delete_tag_menu(string name) {
@@ -521,19 +581,20 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
     }
 
-    // TODO: remove unicode stars from the code, replace with HTML escape
+    private const int[] rating_thresholds = { 0, 1, 25, 50, 75, 99 };
+
     private string get_stars(Rating rating) {
         switch (rating) {
             case Rating.ONE:
-                return "★";
+                return "\xE2\x98\x85";
             case Rating.TWO:
-                return "★★";
+                return "\xE2\x98\x85\xE2\x98\x85";
             case Rating.THREE:
-                return "★★★";
+                return "\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85";
             case Rating.FOUR:
-                return "★★★★";
+                return "\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85";
             case Rating.FIVE:
-                return "★★★★★";
+                return "\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85";
             default:
                 return "";
         }
@@ -685,6 +746,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     Gee.HashMap<string, Gdk.Pixbuf> scaled_icon_cache = null;
     
     private string HH_MM_FORMAT_STRING = null;
+    private string HH_MM_SS_FORMAT_STRING = null;
     private string LONG_DATE_FORMAT_STRING = null;
     private string START_MULTIDAY_DATE_FORMAT_STRING = null;
     private string END_MULTIDAY_DATE_FORMAT_STRING = null;
@@ -700,13 +762,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("faces-tool.png"), FACES_TOOL);
 #endif
         add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
-        add_stock_icon(icons_dir.get_child("image-adjust.svg"), ADJUST);
-        add_stock_icon(icons_dir.get_child("pin-toolbar.svg"), PIN_TOOLBAR);
         add_stock_icon(icons_dir.get_child("make-primary.svg"), MAKE_PRIMARY);
         add_stock_icon(icons_dir.get_child("import.svg"), IMPORT);
         add_stock_icon(icons_dir.get_child("straighten.svg"), STRAIGHTEN);
         add_stock_icon(icons_dir.get_child("import-all.png"), IMPORT_ALL);
-        add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
+        add_stock_icon(icons_dir.get_child("shotwell-auto-enhance.png"), ENHANCE);
         add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
         add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
         add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FLAGGED_PAGE), ICON_FLAGGED_PAGE);
@@ -758,10 +818,33 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         
         // ...precache the timestamp string...
-        HH_MM_FORMAT_STRING = _("%I:%M %p");
+        /// Locale-specific time format for 12-hour time, i.e. 8:31 PM
+        /// Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+        HH_MM_FORMAT_STRING = _("%-I:%M %p");
+        
+        /// Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
+        /// Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+        HH_MM_SS_FORMAT_STRING = _("%-I:%M:%S %p");
+        
+        /// Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         LONG_DATE_FORMAT_STRING = _("%a %b %d, %Y");
+        
+        /// Locale-specific starting date format for multi-date strings,
+        /// i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         START_MULTIDAY_DATE_FORMAT_STRING = _("%a %b %d");
+        
+        /// Locale-specific ending date format for multi-date strings,
+        /// i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         END_MULTIDAY_DATE_FORMAT_STRING = _("%d, %Y");
+        
+        /// Locale-specific calendar date format for multi-month strings,
+        /// i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         START_MULTIMONTH_DATE_FORMAT_STRING = _("%a %b %d");
         
         // ...put everything back like we found it.
@@ -784,6 +867,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         
         return HH_MM_FORMAT_STRING;
+    }
+    
+    public string get_hh_mm_ss_format_string() {
+        if (HH_MM_SS_FORMAT_STRING == null) {
+            fetch_lc_time_format();
+        }
+        
+        return HH_MM_SS_FORMAT_STRING;
     }
     
     public string get_long_date_format_string() {
@@ -1038,95 +1129,21 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
         providers.set(widget, styler);
     }
-    
-    public const string INSET_FRAME_STYLESHEET =
-        """ .frame {
-               border-style: inset;
-               border-width: 1px;
-           }""";
-           
-    public const string SCROLL_FRAME_STYLESHEET =
-        """ GtkScrolledWindow {
-               border-width: 0;
-               border-style: none;
-               border-radius: 0;
-               padding: 0;
-           }
-           
-            .frame {
-                border-width: 1px;
-                border-style: inset;
-            }""";
 
-    public const string PAGE_STYLESHEET =
-        """ .frame {
-               border-width: 1px;
-               border-style: inset;
-               border-radius: 0;
-               
-               padding: 0;
-           }""";
-    
-    public const string VIEWPORT_STYLESHEET =
-        """ GtkViewport {
-               border-width: 1px;
-               border-style: inset;
-               border-radius: 0;
-               padding: 0;
-           }""";
-
-    public const string TOOLBAR_STYLESHEET_TEMPLATE =
-        """
-             @define-color primary-bg %s;
-             
-            .toolbar {
-                background-color: @primary-bg;
-                border-width: 1px;
-                border-color: shade (@primary-bg, 0.75);
-                border-style: solid;
-            }""";
-
-    public const string SEARCH_BUTTON_STYLESHEET_TEMPLATE =
-        """ 
-             @define-color primary-bg %s;
-             
-            .button {
-                background-image: none;
-                background-color: @primary-bg;
-                border-image: none;
-                border-color: shade (@primary-bg, 0.75) @primary-bg shade (@primary-bg, 0.75) @primary-bg;
-                border-style: solid;
-                margin: 5px;
-                
-                -unico-border-gradient: none;
-                -unico-outer-stroke-width: 0;
-                -unico-outer-stroke-gradient: none;
-                -unico-glow-radius: 0;
-                -unico-inner-stroke-width: 0;
-                -unico-inner-stroke-color: shade (@primary-bg, 1.1);
+    public const string CUSTOM_CSS =
+        """LibraryWindow {
+               -GtkPaned-handle-size: 1;
             }
-            
-            .button:prelight {
-                border-style: solid;
-                border-width: 1px;
-                border-color: shade (@primary-bg, 1.1);
-                
-                -unico-inner-stroke-color: shade (@primary-bg, 1.1);
-                -unico-inner-stroke-width: 0;
-
-                -unico-outer-stroke-width: 1px;
-                -unico-outer-stroke-color: shade (@primary-bg, 0.8);
+            LibraryWindow .pane-separator {
+               background-color: @borders;
             }
-            
-            .button:active {
-                background-image: none;
-                background-color: shade (@primary-bg, 0.75);
-                border-style: solid;
-                border-width: 1px;
-                border-color: shade (@primary-bg, 0.6);
-                
-                -unico-outer-stroke-width: 1px;
-                -unico-outer-stroke-color: shade (@primary-bg, 1.1);
+            SearchFilterToolbar {
+               border-width: 0 0 1px 0;
+               border-style: solid;
+               border-color: @borders;
             }""";
+
+    public const string ONIMAGE_FONT_COLOR = "#000000";
+    public const string ONIMAGE_FONT_BACKGROUND = "rgba(255,255,255,0.5)";
 }
 

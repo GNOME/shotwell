@@ -1,4 +1,4 @@
-/* Copyright 2012-2013 Yorba Foundation
+/* Copyright 2012-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -32,18 +32,37 @@ public class Folders.Branch : Sidebar.Branch {
         if (a == b)
             return 0;
         
-        return strcmp(((Folders.SidebarEntry) a).collation, ((Folders.SidebarEntry) b).collation);
+        int coll_key_equality = strcmp(((Folders.SidebarEntry) a).collation,
+            ((Folders.SidebarEntry) b).collation);
+        
+        if (coll_key_equality == 0) {
+            // Collation keys were the same, double-check that
+            // these really are the same string...
+            return strcmp(((Folders.SidebarEntry) a).get_sidebar_name(), 
+                ((Folders.SidebarEntry) b).get_sidebar_name());
+        }
+        
+        return coll_key_equality;
+    }
+
+    private void on_master_source_replaced(MediaSource media_source, File old_file, File new_file) {
+        remove_entry(old_file);
+        add_entry(media_source);
     }
     
     private void on_media_contents_altered(Gee.Iterable<DataObject>? added, Gee.Iterable<DataObject>? removed) {
         if (added != null) {
-            foreach (DataObject object in added)
+            foreach (DataObject object in added) {
                 add_entry((MediaSource) object);
+                ((MediaSource) object).master_replaced.connect(on_master_source_replaced);
+            }
         }
         
         if (removed != null) {
-            foreach (DataObject object in removed)
-                remove_entry((MediaSource) object);
+            foreach (DataObject object in removed) {
+                remove_entry(((MediaSource) object).get_file());
+                ((MediaSource) object).master_replaced.disconnect(on_master_source_replaced);
+            }
         }
     }
     
@@ -87,8 +106,8 @@ public class Folders.Branch : Sidebar.Branch {
         }
     }
     
-    void remove_entry(MediaSource media) {
-        Folders.SidebarEntry? folder_entry = entries.get(media.get_file().get_parent());
+    private void remove_entry(File file) {
+        Folders.SidebarEntry? folder_entry = entries.get(file.get_parent());
         if (folder_entry == null)
             return;
         
@@ -117,9 +136,9 @@ public class Folders.Branch : Sidebar.Branch {
     }
 }
 
-private class Folders.Root : Sidebar.Grouping {
+private class Folders.Root : Sidebar.Header {
     public Root() {
-        base (_("Folders"), Folders.opened_icon, Folders.closed_icon);
+        base (_("Folders"));
     }
 }
 
@@ -153,20 +172,12 @@ public class Folders.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.ExpandableE
         return dir.get_basename();
     }
     
-    public override Icon? get_sidebar_icon() {
-        return count == 0 ? closed_icon : have_photos_icon;
+    public override string? get_sidebar_icon() {
+        return count == 0 ? icon : have_photos_icon;
     }
     
     public override string to_string() {
         return dir.get_path();
-    }
-    
-    public Icon? get_sidebar_open_icon() {
-        return count == 0 ? opened_icon : have_photos_icon;
-    }
-    
-    public Icon? get_sidebar_closed_icon() {
-        return count == 0 ? closed_icon : have_photos_icon;
     }
     
     public bool expand_on_select() {

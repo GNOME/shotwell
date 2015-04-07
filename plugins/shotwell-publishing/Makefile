@@ -8,7 +8,7 @@ PLUGIN_PKGS := \
 	webkitgtk-3.0 \
 	gexiv2 \
 	rest-0.7 \
-	gee-1.0 \
+	gee-0.8 \
 	json-glib-1.0
 
 SRC_FILES := \
@@ -19,8 +19,7 @@ SRC_FILES := \
 	YouTubePublishing.vala \
 	PiwigoPublishing.vala \
 	../../src/util/string.vala \
-	../common/RESTSupport.vala \
-	../common/ui.vala
+	../common/RESTSupport.vala
 
 RC_FILES := \
 	facebook.png \
@@ -29,8 +28,6 @@ RC_FILES := \
 	flickr_publishing_options_pane.glade \
 	flickr_pin_entry_pane.glade \
 	picasa.png \
-	picasa_auth_code_entry_pane.glade \
-    picasa_not_set_up_pane.glade \
 	picasa_publishing_options_pane.glade \
 	piwigo.png \
 	piwigo_authentication_pane.glade \

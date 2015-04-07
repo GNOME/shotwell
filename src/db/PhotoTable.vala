@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -20,11 +20,11 @@ public struct PhotoID {
     public bool is_valid() {
         return (id != INVALID);
     }
-    
-    public static uint hash(void *a) {
-        return int64_hash(&((PhotoID *) a)->id);
+
+    public uint hash() {
+        return int64_hash(id);
     }
-    
+
     public static bool equal(void *a, void *b) {
         return ((PhotoID *) a)->id == ((PhotoID *) b)->id;
     }
@@ -59,14 +59,9 @@ public struct ImportID {
         return (id != INVALID);
     }
     
-    public static int compare_func(void *a, void *b) {
-        int64 cmp = comparator(a, b);
-        if (cmp < 0)
-            return -1;
-        else if (cmp > 0)
-            return 1;
-        else
-            return 0;
+    public static int compare_func(ImportID? a, ImportID? b) {
+        assert (a != null && b != null);
+        return (int) (a.id - b.id);
     }
     
     public static int64 comparator(void *a, void *b) {
@@ -397,7 +392,7 @@ public class PhotoTable : DatabaseTable {
         row.editable_id = BackingPhotoID(stmt.column_int64(21));
         row.metadata_dirty = stmt.column_int(22) != 0;
         row.developer = stmt.column_text(23) != null ? RawDeveloper.from_string(stmt.column_text(23)) :
-            RawDeveloper.SHOTWELL;
+            RawDeveloper.CAMERA;
         row.development_ids[RawDeveloper.SHOTWELL] = BackingPhotoID(stmt.column_int64(24));
         row.development_ids[RawDeveloper.CAMERA] = BackingPhotoID(stmt.column_int64(25));
         row.development_ids[RawDeveloper.EMBEDDED] = BackingPhotoID(stmt.column_int64(26));
@@ -445,7 +440,7 @@ public class PhotoTable : DatabaseTable {
             row.editable_id = BackingPhotoID(stmt.column_int64(22));
             row.metadata_dirty = stmt.column_int(23) != 0;
             row.developer = stmt.column_text(24) != null ? RawDeveloper.from_string(stmt.column_text(24)) :
-                RawDeveloper.SHOTWELL;
+                RawDeveloper.CAMERA;
             row.development_ids[RawDeveloper.SHOTWELL] = BackingPhotoID(stmt.column_int64(25));
             row.development_ids[RawDeveloper.CAMERA] = BackingPhotoID(stmt.column_int64(26));
             row.development_ids[RawDeveloper.EMBEDDED] = BackingPhotoID(stmt.column_int64(27));
@@ -763,8 +758,7 @@ public class PhotoTable : DatabaseTable {
             if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                 return null;
             
-            Gee.HashMap<string, KeyValueMap> map = new Gee.HashMap<string, KeyValueMap>(str_hash,
-                str_equal, direct_equal);
+            Gee.HashMap<string, KeyValueMap> map = new Gee.HashMap<string, KeyValueMap>();
             
             string[] objects = keyfile.get_groups();
             foreach (string object in objects) {
@@ -1014,7 +1008,9 @@ public class PhotoTable : DatabaseTable {
         
         row.development_ids[rd] = backing_photo_id;
         update_int64_by_id_2(row.photo_id.id, col, backing_photo_id.id);
-        update_text_by_id_2(row.photo_id.id, "developer", rd.to_string());
+        
+        if (backing_photo_id.id != BackingPhotoID.INVALID)
+            update_text_by_id_2(row.photo_id.id, "developer", rd.to_string());
     }
     
     public void remove_development(PhotoRow row, RawDeveloper rd) throws DatabaseError {

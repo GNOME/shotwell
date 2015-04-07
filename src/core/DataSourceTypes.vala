@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -73,14 +73,18 @@ public abstract class EventSource : ThumbnailSource {
     }
     
     public abstract time_t get_start_time();
-
+    
     public abstract time_t get_end_time();
-
+    
     public abstract uint64 get_total_filesize();
     
     public abstract int get_media_count();
     
     public abstract Gee.Collection<MediaSource> get_media();
+    
+    public abstract string? get_comment();
+    
+    public abstract bool set_comment(string? comment);
 }
 
 //

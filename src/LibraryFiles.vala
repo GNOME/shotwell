@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -80,8 +80,11 @@ private File duplicate(File src, FileProgressCallback? progress_callback, bool b
     
     try {
         src.copy(dest, FileCopyFlags.ALL_METADATA | FileCopyFlags.OVERWRITE, null, progress_callback);
-    } finally {
         if (blacklist)
+            LibraryMonitor.unblacklist_file(dest);
+    } catch (Error err) {
+        message("There was a problem copying %s: %s", src.get_path(), err.message);
+        if (blacklist && (md5_file(src) != md5_file(dest)))
             LibraryMonitor.unblacklist_file(dest);
     }
     

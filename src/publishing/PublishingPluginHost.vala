@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -198,7 +198,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         install_progress_pane();
         PublishingUI.ProgressPane progress_pane =
             (PublishingUI.ProgressPane) dialog.get_active_pane();
-        
+
         // spin the event loop right after installing the progress_pane so that the progress_pane
         // will appear and let the user know that something is going on while file serialization
         // takes place

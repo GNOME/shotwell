@@ -1,4 +1,4 @@
-/* Copyright 2010-2013 Yorba Foundation
+/* Copyright 2010-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -17,6 +17,16 @@ public class Application {
     }
     
     public virtual signal void init_done() {
+    }
+
+    private bool fixup_raw_thumbs = false;
+    
+    public void set_raw_thumbs_fix_required(bool should_fixup) {
+        fixup_raw_thumbs = should_fixup;
+    }
+
+    public bool get_raw_thumbs_fix_required() {
+        return fixup_raw_thumbs;
     }
 
     private bool running = false;

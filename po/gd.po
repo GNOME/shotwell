@@ -1,0 +1,5355 @@
+# Gaelic; Scottish translation for shotwell
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the shotwell package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+# GunChleoc <fios@foramnagaidhlig.net>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
+"ll&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2014-07-10 22:25+0000\n"
+"PO-Revision-Date: 2014-07-11 10:58+0100\n"
+"Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
+"Language-Team: Fòram na Gàidhlig http://www.foramnagaidhlig.net\n"
+"Language: gd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
+"(n > 2 && n < 20) ? 2 : 3;\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Launchpad-Export-Date: 2014-04-10 15:01+0000\n"
+"X-Project-Style: gnome\n"
+
+#: ../plugins/common/RESTSupport.vala:424
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
+msgid "A temporary file needed for publishing is unavailable"
+msgstr ""
+"Tha feum air faidhle sealach mus gabh foillseachadh a dhèanamh ach chan eil "
+"e ri làimh"
+
+#: ../plugins/common/RESTSupport.vala:1138
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+"Chlàraich thu a-steach is a-mach à seirbheis Google rè an t-seisein Shotwell "
+"seo mu thràth.\n"
+"\n"
+"Airson leantainn air adhart leis an obair-fhoillseachaidh air seirbheisean "
+"Google, fàg Shotwell, ath-thòisich e is feuch ris a-rithist."
+
+#: ../plugins/common/Resources.vala:9
+msgid "Visit the Shotwell home page"
+msgstr "Tadhail air an duilleag-dhachaigh aig Shotwell"
+
+#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:688
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Akerbeltz https://launchpad.net/~fios\n"
+"  GunChleoc https://launchpad.net/~gunchleoc\n"
+"  alasdair caimbeul https://launchpad.net/~alexd-deactivatedaccount"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:34
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:32
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:34
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:32
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
+#: ../src/Resources.vala:27
+msgid "Copyright 2009-2014 Yorba Foundation"
+msgstr "Còir-lethbhreac 2009-2014 Yorba Foundation"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select a library to import, either by selecting one of the existing "
+"libraries found by Shotwell or by selecting an alternative F-Spot database "
+"file."
+msgstr ""
+"Fàilte do sheirbheis ion-phortadh leabhar-lannan F-Spot .\n"
+"\n"
+"Tagh leabhar-lann a bu mhath leat ion-phortadh 's tu a' taghadh leabharlann "
+"a lorg Shotwell no a' taghadh faidhle stòr-dàta F-Spot eile."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:58
+msgid ""
+"Welcome to the F-Spot library import service.\n"
+"\n"
+"Please select an F-Spot database file."
+msgstr ""
+"Fàilte do sheirbheis ion-phortadh leabhar-lannan F-Spot .\n"
+"\n"
+"Tagh faidhle stòr-dàta F-Spot."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:60
+msgid "Manually select an F-Spot database file to import:"
+msgstr "Tagh faidhle stòr-dàta F-Spot de làimh gus ion-phortadh:"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:62
+msgid ""
+"Cannot open the selected F-Spot database file: the file does not exist or is "
+"not an F-Spot database"
+msgstr ""
+"Cha ghabh am faidhle stòr-dàta F-Spot a thagh thu fhosgladh; chan eil am "
+"faidhle ann no chan e stòr-dàta F-Spot tha ann."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:64
+msgid ""
+"Cannot open the selected F-Spot database file: this version of the F-Spot "
+"database is not supported by Shotwell"
+msgstr ""
+"Cha ghabh am faidhle stòr-dàta F-Spot a thagh thu fhosgladh; chan eil "
+"Shotwell a' cur taic dhan tionndadh seo de stòr-dàta F-Spot."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:66
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading tags table"
+msgstr ""
+"Cha ghabh am faidhle stòr-dàta F-Spot a thagh thu a leughadh; thachair "
+"mearachd fhad 's a bha sinn a' leughadh clàr nan tagaichean."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:68
+msgid ""
+"Cannot read the selected F-Spot database file: error while reading photos "
+"table"
+msgstr ""
+"Cha ghabh am faidhle stòr-dàta F-Spot a thagh thu a leughadh; thachair "
+"mearachd fhad 's a bha sinn a' leughadh clàr nan dealbhan."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:70
+#, c-format
+msgid ""
+"Shotwell has found %d photos in the F-Spot library and is currently "
+"importing them. Duplicates will be automatically detected and removed.\n"
+"\n"
+"You can close this dialog and start using Shotwell while the import is "
+"taking place in the background."
+msgstr ""
+"Lorg Shotwell %d dealbhan san leabhar-lann F-Spot agus tha e 'gan ion-"
+"phortadh. Mothaichidh sinn do dhealbhan a tha ann iomadh turas gu fèin-"
+"obrachail is bheir sinn air falbh iad.\n"
+"\n"
+"'S urrainn dhut an còmhradh seo a dhùnadh agus tòiseachadh air Shotwell a "
+"chleachdadh fhad 's a tha sinne 'ga ion-phortadh fhathast sa chùlaibh."
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:84
+#, c-format
+msgid "F-Spot library: %s"
+msgstr "Leabhar-lann F-Spot: %s"
+
+#: ../plugins/shotwell-data-imports/FSpotImporter.vala:416
+msgid "Preparing to import"
+msgstr "Ag ullachadh airson ion-phortadh"
+
+#: ../plugins/shotwell-data-imports/shotwell-data-imports.vala:22
+msgid "Core Data Import Services"
+msgstr "Seirbheisean ion-phortadh prìomh-dhàta"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:41
+msgid "Gallery3 publishing module"
+msgstr "Mòideal foillseachaidh Gallery3"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:114
+msgid ""
+"You are not currently logged into your Gallery.\n"
+"\n"
+"You must have already signed up for a Gallery3 account to complete the login "
+"process."
+msgstr ""
+"Cha do rinn thu clàradh a-steach air a' ghailearaidh agad.\n"
+"\n"
+"Feumaidh cunntas Gallery3 a bhith agad ro làimh ach an urrainn dhut an "
+"logadh a-steach a choileanadh."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
+#: ../src/MediaPage.vala:420 ../src/photos/RawSupport.vala:297
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:117
+msgid "Shotwell default directory"
+msgstr "Pasgan bunaiteach Shotwell"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:801
+#, c-format
+msgid ""
+"\n"
+"\n"
+"The file \"%s\" may not be supported by or may be too large for this "
+"instance of Gallery3."
+msgstr ""
+"\n"
+"\n"
+"Cha chuirear taic ris an fhaidhle \"%s\" no tha e ro mhòr airson an ionstans "
+"seo de Gallery3."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:802
+msgid ""
+"\n"
+"Note that Gallery3 only supports the video types that Flowplayer does."
+msgstr ""
+"\n"
+"Thoir an aire nach cuir Gallery3 taic ach ris na seòrsaichean video ris a "
+"chuireas Flowplayer taic."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1022
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1774
+msgid "A file required for publishing is unavailable. Publishing to "
+msgstr ""
+"Tha feum air faidhle mus gabh foillseachadh a dhèanamh ach tha e a dhìth. A' "
+"foillseachadh gu "
+
+#. populate any widgets whose contents are
+#. programmatically-generated
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1550
+#, c-format
+msgid "Publishing to %s as %s."
+msgstr "'Ga fhoillseachadh gu %s mar %s."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1816
+msgid ""
+"Enter the URL for your Gallery3 site and the username and password (or API "
+"key) for your Gallery3 account."
+msgstr ""
+"Cuir a-steach an URL airson an làrach Gallery3 agad 's an t-ainm-"
+"cleachdaiche 's am facal-faire (no iuchair API) airson a' chunntais Gallery3 "
+"agad."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1817
+msgid ""
+"The username and password or API key were incorrect. To try again, re-enter "
+"your username and password below."
+msgstr ""
+"Cha robh an t-ainm-cleachdaiche 's facal-faire no an iuchair API mar bu "
+"chòir. Chuir a-steach d' ainm-cleachdaiche 's facal-faire gu h-ìosal gus "
+"feuchainn ris a-rithist."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1818
+msgid ""
+"The URL entered does not appear to be the main directory of a Gallery3 "
+"instance. Please make sure you typed it correctly and it does not have any "
+"trailing components (e.g., index.php)."
+msgstr ""
+"Chan e am prìomh phasgan aig an ionstans de Gallery3 agad a tha san URL a "
+"chuir thu a-steach a-rèir coltais. Dèan cinnteach gun do sgrìobh thu gu "
+"ceart e 's nach eil co-phàirtean aig an deireadh (m.e. index.php)."
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1871
+msgid "Unrecognized User"
+msgstr "Cleachdaiche neo-aithnichte"
+
+#: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1876
+msgid " Site Not Found"
+msgstr " Cha deach an làrach a lorg"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:38
+msgid "Copyright (C) 2013 rajce.net"
+msgstr "Còir-lethbhreac (C) 2013 rajce.net"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:742
+msgid "An error message occurred when publishing to Rajce. Please try again."
+msgstr ""
+"Thachair mearachd nuair a bha sinn a' foillsicheadh air Rajce. Nach fheuch "
+"thu ris a-rithist?"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:831
+msgid "Enter email and password associated with your Rajce account."
+msgstr ""
+"Cuir a-steach an t-ainm-cleachdaiche agus am facal-faire a tha co-"
+"cheangailte ris a' chunntas Rajce agad."
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:832
+msgid "Invalid email and/or password. Please try again"
+msgstr ""
+"Tha am post-d agus/no am facal-faire cearr. Nach fheuch thu ris a-rithist?"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:863
+msgid "Invalid User Email or Password"
+msgstr "Post-d a' chleachdaiche no facal-faire cearr"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:890
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:2
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:2
+msgid "_Email address"
+msgstr "Seòladh _puist-d"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:891
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:3
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:3
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:4
+msgid "_Password"
+msgstr "_Facal-faire"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:892
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:4
+msgid "_Remember"
+msgstr "_Cuimhnich"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:893
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:4
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:5
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:6
+msgid "Login"
+msgstr "Clàraich a-steach"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1006
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:5
+msgid "_Hide album"
+msgstr "Falaic_h an t-albam"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
+#, c-format
+msgid "You are logged into Rajce as %s."
+msgstr "Chlàraich thu a-steach air Rajce mar %s."
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:1
+msgid "Photos will appear in:"
+msgstr "Nochdaidh na dealbhan ann an:"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:1
+msgid "An _existing album:"
+msgstr "Albam _maireannach:"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:3
+msgid "A _new album named:"
+msgstr "Albam _ùr ainmichte:"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:6
+msgid "Open target _album in browser"
+msgstr "Fosgal an t-_albam-uidhe sa bhrabhsair"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:8
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:6
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:4
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:7
+#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:3
+msgid "_Publish"
+msgstr "_Foillsich"
+
+#: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:1
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:5
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:3
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
+#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:2
+msgid "_Logout"
+msgstr "_Log a-mach"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:35
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Còir-lethbhreac 2012 BJA Electronics"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:104
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1229
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1246
+msgid "500 x 375 pixels"
+msgstr "500 x 375 piogsail"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1230
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+msgid "1024 x 768 pixels"
+msgstr "1024 x 768 piogsail"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
+msgid "1280 x 853 pixels"
+msgstr "1280 x 853 piogsail"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:310
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:320
+#, c-format
+msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgstr ""
+"Chan e  freagairt cheart air iarratas dearbhaidh OAuth a tha ann \"%s\""
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:558
+msgid ""
+"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: Chan urrainn dha start( ): tòiseachadh, cha ghabh am "
+"foillsichear seo a thòiseachadh às ùr."
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:586
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr ""
+"Cuir a-steach an t-ainm-cleachdaiche agus am facal-faire a tha co-"
+"cheangailte ris a' chunntas Tumblr agad."
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:587
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+msgid "Username and/or password invalid. Please try again"
+msgstr ""
+"Tha an t-ainm-cleachdaiche agus/no am facal-faire cearr. Nach fheuch thu ris "
+"a-rithist?"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:617
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+msgid "Invalid User Name or Password"
+msgstr "Ainm-cleachdaiche no facal-faire cearr"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:636
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:757
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Cha b' urrainn dhuinn an UI a luchdadh: %s"
+
+#: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:739
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Chlàraich thu a-steach air Tumblr mar %s.\n"
+"\n"
+
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:22
+msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Còir-lethbhreac 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:25
+msgid "Visit the Yandex.Fotki web site"
+msgstr "Tadhail air làrach-lìn Yandex.Fotki"
+
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+msgid "You are not currently logged into Yandex.Fotki."
+msgstr "Cha do chlàraich thu a-steach air Yandex.Fotki."
+
+#: ../plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
+msgid "Shotwell Extra Publishing Services"
+msgstr "Seirbheisean foillsicheachadh a bharrachd Shotwell"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:1
+msgid "Go _Back"
+msgstr "Ai_r ais"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:2
+#: ../ui/shotwell.glade.h:43
+msgid "_Login"
+msgstr "_Clàraich a-steach"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:3
+msgid "Intro message replaced at runtime"
+msgstr "Teachdaireachd tòiseachaidh 'ga chur an àite nuair a bhios e a' ruith"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:4
+msgid "_Gallery3 URL:"
+msgstr "URL _Gallery3:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:5
+msgid "_User name:"
+msgstr "_Ainm-cleachdaiche:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:6
+msgid "_Password:"
+msgstr "_Facal-faire:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:7
+msgid "API _Key:"
+msgstr "_Iuchair API:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade.h:8
+msgid "or"
+msgstr "no"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:3
+msgid "A _new album"
+msgstr "Albam ùr"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:4
+msgid "An _existing album"
+msgstr "Albam a tha _ann"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:5
+msgid "_Remove location, tag and camera-identifying data before uploading"
+msgstr ""
+"Thoi_r air falbh an t-ionad, an taga agus fiosrachadh a dh'aithnicheadh an "
+"camara mus dèanar luchdadh suas"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:6
+msgid "'Publishing to $url as $username' (populated in application code)"
+msgstr ""
+"\"'Ga fhoillseachadh gu $url mar $username\" ('ga lìonadh ann an còd na h-"
+"aplacaid)"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:7
+msgid "Scaling constraint:"
+msgstr "Bacadh sgèilidh:"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:8
+msgid "pixels"
+msgstr "piogsailean"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:9
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+#: ../src/Dimensions.vala:17
+msgid "Original size"
+msgstr "Meud tùsail"
+
+#: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:10
+#: ../src/Dimensions.vala:20
+msgid "Width or height"
+msgstr "Leud no àirde"
+
+#: ../plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade.h:1
+#: ../plugins/shotwell-publishing-extras/rajce_authentication_pane.glade.h:1
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:1
+#: ../ui/shotwell.glade.h:15
+msgid "label"
+msgstr "leubail"
+
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:1
+msgid "Blogs:"
+msgstr "Blogaichean:"
+
+#: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
+msgid "Photo _size:"
+msgstr "_Meud dealbh:"
+
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:1
+msgid "you are logged in rajce as $name"
+msgstr "Chlàraich thu a-steach air rajce mar $name"
+
+#: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:7
+msgid "$mediatype will appear in"
+msgstr "Nochdaidh $mediatype an-seo:"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:1
+msgid "_Albums (or write new):"
+msgstr "_Albaman (no sgrìobh fear ùr)"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:2
+msgid "Access _type:"
+msgstr "Seòrsa an _inntrigidh:"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:3
+msgid "Disable _comments"
+msgstr "C_uir beachdan à comas"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:4
+msgid "_Forbid downloading original photo"
+msgstr "_Toirmisg luchdadh a-nuas dhe na dealbhan tùsail"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:7
+msgid "Public"
+msgstr "Poblach"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:8
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1181
+msgid "Friends"
+msgstr "Caraidean"
+
+#: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:9
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:497
+msgid "Private"
+msgstr "Prìobhaideach"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:61
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:59
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1127
+msgid "Shotwell Connect"
+msgstr "Shotwell Connect"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:63
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"Cha do rinn thu clàradh a-steach air Facebook.\n"
+"\n"
+"Mur eil cunntas Facebook agad, bidh cothrom agad fear a chruthachadh rè a' "
+"chlàraidh a-steach. Dh'fhaoidte gun iarr Shotwell Connect cead ort dealbhan "
+"a luchdadh suas agus foillseachadh a dhèanamh gun inbhir agad. Feumaidh "
+"Shotwell Connect an cead seo mus obraich e."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:65
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Rinn thu clàradh a-steach is a-mach air Facebook san t-seisean Shotwell seo "
+"mu thràth.\n"
+"Ma tha thu airson leantainn air foillseachadh air Facebook, fàg an-seo, ath-"
+"thòisich Shotwell is feuch ri fhoillseachadh às ùr."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:86
+msgid "Standard (720 pixels)"
+msgstr "Stannardach (720 piogsail)"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:89
+msgid "Large (2048 pixels)"
+msgstr "Mòr (2048 piogsail)"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:254
+msgid "Testing connection to Facebook..."
+msgstr "A' cur fo dheuchainn a' cheangail ri Facebook..."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:347
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:379
+msgid "Creating album..."
+msgstr "A' cruthachadh an albaim..."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:374
+msgid ""
+"A file required for publishing is unavailable. Publishing to Facebook can't "
+"continue."
+msgstr ""
+"Tha feum air faidhle mus gabh foillseachadh a dhèanamh ach tha e a dhìth. "
+"Chan urrainn dhuinn foillseachadh air Facebook dhut."
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#, c-format
+msgid ""
+"You are logged into Facebook as %s.\n"
+"\n"
+msgstr ""
+"Chlàraich thu a-steach air Facebook mar %s.\n"
+"\n"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1020
+msgid "Where would you like to publish the selected photos?"
+msgstr "Càit a bheil thu airson na dealbhan a thagh thu fhoillseachadh?"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
+msgid "Upload _size:"
+msgstr "_Meud an luchdaidh suas:"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1180
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1211
+msgid "Just me"
+msgstr "Dìreach mi fhìn"
+
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1182
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+msgid "Everyone"
+msgstr "A h-uile duine"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:61
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Login to log into Flickr in your Web browser.  You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"Cha do rinn thu clàradh a-steach air Flickr.\n"
+"\n"
+"Clàraich a-steach air Flickr sa bhrabhsair-lìn agad. Bidh agad ri cead a "
+"thoirt dha Shotwell Connect ceangal a dhèanamh ris a' chunntas Flickr agad."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:63
+msgid ""
+"You have already logged in and out of Flickr during this Shotwell session.\n"
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Rinn thu clàradh a-steach is a-mach air fLICKR san t-seisean Shotwell seo mu "
+"thràth.\n"
+"Ma tha thu airson leantainn air foillseachadh air Flickr, fàg an-seo, ath-"
+"thòisich Shotwell is feuch ri fhoillseachadh às ùr."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:375
+msgid "Preparing for login..."
+msgstr "Ag ullachadh gus clàradh a-steach..."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:595
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can't "
+"continue."
+msgstr ""
+"Tha feum air faidhle mus gabh foillseachadh a dhèanamh ach tha e a dhìth. "
+"Chan urrainn dhuinn foillseachadh air Flickr dhut."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:457
+msgid "Verifying authorization..."
+msgstr "A' dearbhadh a' chead..."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1153
+#, c-format
+msgid ""
+"You are logged into Flickr as %s.\n"
+"\n"
+msgstr ""
+"Chlàraich thu a-steach air Flickr mar %s.\n"
+"\n"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"Tha cunntas saor agad air Flickr agus tha sin a' cuingeachadh uiread a dhàta "
+"as urrainn dhut luchdadh suas gach mìos.\n"
+"Tha %d megabyte dheth air fhàgail agad am mìos-sa."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1157
+msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgstr ""
+"Tha cunntas Flickr Pro agad agus is urrainn dhut na lùigeas tu a dhàta a "
+"luchdadh suas gach mìos."
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1162
+msgid "Photos _visible to:"
+msgstr "Chì na _daoine a leanas na dealbhan:"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1164
+msgid "Videos _visible to:"
+msgstr "Chì na _daoine a leanas na videothan:"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1167
+msgid "Photos and videos _visible to:"
+msgstr "Chì na _daoine a leanas na dealbhan 's na videothan:"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1208
+msgid "Friends & family only"
+msgstr "Mo theaghlach ⁊ mo charaidean a-mhàin"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1209
+msgid "Family only"
+msgstr "Mo theaghlach a-mhàin"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1210
+msgid "Friends only"
+msgstr "Mo charaidean a-mhàin"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+msgid "2048 x 1536 pixels"
+msgstr "2048 x 1536 piogsail"
+
+#: ../plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+msgid "4096 x 3072 pixels"
+msgstr "4096 x 3072 piogsail"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:58
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Login to log into Picasa Web Albums in your Web browser. You will have "
+"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"Cha do rinn thu clàradh a-steach air Picasa Web Albums.\n"
+"\n"
+"Briog air \"Clàraich a-steach\" gus sin a dhèanamh sa bhrabhsair-lìn agad. "
+"Bidh agad ri cead a thoirt dha Shotwell Connect ceangal a dhèanamh ris a' "
+"chunntas agad air Picasa Web Albums."
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:361
+msgid ""
+"A file required for publishing is unavailable. Publishing to Picasa can't "
+"continue."
+msgstr ""
+"Tha feum air faidhle mus gabh foillseachadh a dhèanamh ach tha e a dhìth. "
+"Chan urrainn dhuinn foillseachadh air Picasa dhut."
+
+#. populate any widgets whose contents are programmatically-generated.
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:659
+#, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr "Chlàraich thu a-steach air Picasa Web Albums mar %s."
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:665
+msgid "Videos will appear in:"
+msgstr "Nochdaidh na videothan ann an:"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:746
+msgid "Small (640 x 480 pixels)"
+msgstr "Beag (640 x 480 piogsail)"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:747
+msgid "Medium (1024 x 768 pixels)"
+msgstr "Meadhanach (1024 x 768 piogsail)"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:748
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "Na mholamaid (1600 x 1200 piogsail)"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:749
+msgid "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 piogsail)"
+
+#: ../plugins/shotwell-publishing/PicasaPublishing.vala:750
+#: ../src/editing_tools/EditingTools.vala:756
+msgid "Original Size"
+msgstr "Am meud tùsail"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:746
+#, c-format
+msgid "Creating album %s..."
+msgstr "A' cruthachadh an albaim %s..."
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:917
+msgid "An error message occurred when publishing to Piwigo. Please try again."
+msgstr ""
+"Thachair mearachd nuair a bha sinn a' foillsicheadh air Piwigo. Nach fheuch "
+"thu ris a-rithist?"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:998
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+"Cuir a-steach URL leabhar-lann na dealbhan agad air Piwigo agus an t-ainm-"
+"cleachdaiche 's am facal-faire agad airson a' cunntais Piwigo agad a tha co-"
+"cheangailte ris  an leabharlann sin."
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:999
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
+"entered"
+msgstr ""
+"Chan urrainn dha Shotwell conaltradh a dhèanamh ri leabhar-lann nan dealbhan "
+"agad air Piwigo. Thoir sùil air an URL a chuir thu a-steach."
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1032
+msgid "Invalid URL"
+msgstr "URL mì-dhligheach"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+msgid "Admins, Family, Friends, Contacts"
+msgstr "Rianairean, mo theaghlach, mo charaidean is an luchd-aithne agam"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+msgid "Admins, Family, Friends"
+msgstr "Rianairean, mo theaghlach is mo charaidean"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+msgid "Admins, Family"
+msgstr "Rianairean 's mo theaghlach"
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+msgid "Admins"
+msgstr "Rianairean"
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:57
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"Cha do rinn thu clàradh a-steach air YouTube.\n"
+"\n"
+"Feumaidh cunntas Google a bhith agad ro làimh 's e air a shuidheachadh "
+"airson 's gun gabh a chleachdadh airson YouTube mus urrainn dhut leantainn "
+"air adhart. 'S urrainn dhut, mar is trice, sin a chur air dòigh ma "
+"chlàraicheas tu a-steach air YouTube sa bhrabhsair-lìn agad co-dhiù aon "
+"turas."
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:362
+msgid ""
+"A file required for publishing is unavailable. Publishing to Youtube can't "
+"continue."
+msgstr ""
+"Tha feum air faidhle mus gabh foillseachadh a dhèanamh ach tha e a dhìth. "
+"Chan urrainn dhuinn foillseachadh air YouTube dhut."
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:461
+#, c-format
+msgid "You are logged into YouTube as %s."
+msgstr "Chlàraich thu a-steach air YouTube mar %s."
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:463
+#, c-format
+msgid "Videos will appear in '%s'"
+msgstr "Nochdaidh na videothan ann an \"%s\""
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:495
+msgid "Public listed"
+msgstr "Air a liostadh gu poblach"
+
+#: ../plugins/shotwell-publishing/YouTubePublishing.vala:496
+msgid "Public unlisted"
+msgstr "Chan eil e air a liostadh gu poblach"
+
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:1
+msgid "Publish to an e_xisting album:"
+msgstr "Foillsich gu albam m_airneach:"
+
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:2
+msgid "Create a _new album named:"
+msgstr "Cruthaich albam _ùr ainmichte:"
+
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
+msgid "Videos and new photo albums _visible to:"
+msgstr "Albaman bhidiothan agus dealbhan ùr _soilleir gu:"
+
+#: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:2
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:5
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:8
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
+msgstr ""
+"Thoi_r air falbh fiosrachadh mar fiosrachadh aithneachaidh, an t-ionad agus "
+"an camara mus dèanar luchdadh suas"
+
+#: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:1
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr ""
+"Cuir a-steach an àireamh-dhearbhadh tha a nochdadh an dèidh dhut logadh a-"
+"steach dhan Flickr nad bhrabhsair lìon."
+
+#: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:2
+msgid "Authorization _Number:"
+msgstr "_Àireamh Ùghdarras:"
+
+#: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:3
+#: ../src/Dialogs.vala:131
+msgid "Con_tinue"
+msgstr "Lean air adhar_t"
+
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
+msgid "L_ist album in public gallery"
+msgstr "L_iosta albam anns gailearaidh poblach"
+
+#: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
+msgid "Photo _size preset:"
+msgstr "Ro-shocraich _meud dealbh:"
+
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:2
+msgid "_URL of your Piwigo photo library"
+msgstr "_URL na leabhar-lainn dealbhan Piwigo agad"
+
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:3
+msgid "User _name"
+msgstr "_Ainm-cleachdaiche"
+
+#: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:5
+msgid "_Remember Password"
+msgstr "_Cuimhnich am facal-faire"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:2
+msgid "An _existing category:"
+msgstr "Roinn-seòrsa _maireann:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:4
+msgid "Photos will be _visible by:"
+msgstr "Chì na daoine a leanas na _dealbhan:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:5
+msgid "Photo size:"
+msgstr "Meud an deilbh:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:6
+msgid "within category:"
+msgstr "san roinn-seòrsa:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:7
+msgid "Album comment:"
+msgstr "Beachd mun albam:"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:9
+msgid "_If a title is set and comment unset, use title as comment"
+msgstr ""
+"Ma thè_id tiotal a shuidheachadh agus beachd a dhì-shuidheachadh, cleachd an "
+"tiotal mar bheachd"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:10
+msgid "_Do no upload tags"
+msgstr "Na luch_daich suas na tagaichean"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:11
+msgid "Logout"
+msgstr "Clàraich a-mach"
+
+#: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:12
+#: ../src/Resources.vala:268
+msgid "Publish"
+msgstr "Foillsich"
+
+#: ../plugins/shotwell-publishing/shotwell-publishing.vala:26
+msgid "Core Publishing Services"
+msgstr "Prìomh-sheirbheisean foillseachaidh"
+
+#: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:1
+msgid "Video privacy _setting:"
+msgstr "_Suidheachadh prìobhaid bhideo:"
+
+#: ../plugins/shotwell-transitions/BlindsEffect.vala:20
+msgid "Blinds"
+msgstr "Sgàilean-uinneige"
+
+#: ../plugins/shotwell-transitions/ChessEffect.vala:20
+msgid "Chess"
+msgstr "Tàileasg"
+
+#: ../plugins/shotwell-transitions/CircleEffect.vala:20
+msgid "Circle"
+msgstr "Cearcall"
+
+#: ../plugins/shotwell-transitions/CirclesEffect.vala:20
+msgid "Circles"
+msgstr "Cearcallan"
+
+#: ../plugins/shotwell-transitions/ClockEffect.vala:20
+msgid "Clock"
+msgstr "Cleoc"
+
+#: ../plugins/shotwell-transitions/CrumbleEffect.vala:20
+msgid "Crumble"
+msgstr "Criomagaich"
+
+#: ../plugins/shotwell-transitions/FadeEffect.vala:20
+msgid "Fade"
+msgstr "Crìon"
+
+#: ../plugins/shotwell-transitions/SlideEffect.vala:20
+msgid "Slide"
+msgstr "Sleamhnag"
+
+#: ../plugins/shotwell-transitions/SquaresEffect.vala:20
+msgid "Squares"
+msgstr "Ceàrnagan"
+
+#: ../plugins/shotwell-transitions/StripesEffect.vala:20
+msgid "Stripes"
+msgstr "Stiallan"
+
+#: ../plugins/shotwell-transitions/shotwell-transitions.vala:28
+msgid "Core Slideshow Transitions"
+msgstr "Prìomh tar-mhùthaidhean airson taisbeanaidhean-shleamhnagan"
+
+#: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
+msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
+msgstr ""
+"Còir-lethbhreac 2010 Maxim Kartashev, Còir-lethbhreac 2011-2014 Yorba "
+"Foundation"
+
+#: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
+#, c-format
+msgid "Unable to create cache directory %s: %s"
+msgstr "Cha ghabh pasgan an tasgadain %s a chruthachadh: %s"
+
+#: ../src/AppDirs.vala:58 ../src/AppDirs.vala:88
+#, c-format
+msgid "Unable to create data directory %s: %s"
+msgstr "Cha ghabh pasgan an dàta %s a chruthachadh: %s"
+
+#. If XDG yarfed, use ~/Pictures
+#: ../src/AppDirs.vala:152
+msgid "Pictures"
+msgstr "Dealbhan"
+
+#: ../src/AppDirs.vala:190
+#, c-format
+msgid "Unable to create temporary directory %s: %s"
+msgstr "Cha ghabh am pasgan sealach %s a chruthachadh: %s"
+
+#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:223
+#, c-format
+msgid "Unable to create data subdirectory %s: %s"
+msgstr "Cha ghabh fo-phasgan an dàta %s a chruthachadh: %s"
+
+#. restore pin state
+#: ../src/AppWindow.vala:52
+msgid "Pin Toolbar"
+msgstr "Prìnich am bàr-inneal"
+
+#: ../src/AppWindow.vala:53
+msgid "Pin the toolbar open"
+msgstr "Prìnich am bàr-inneal fosgailte"
+
+#: ../src/AppWindow.vala:57 ../src/AppWindow.vala:135
+msgid "Leave fullscreen"
+msgstr "Fàg an làn-sgrìn"
+
+#: ../src/AppWindow.vala:134
+msgid "Leave _Fullscreen"
+msgstr "_Fàg an làn-sgrìn"
+
+#: ../src/AppWindow.vala:493
+msgid "_Quit"
+msgstr "_Fàg an-seo"
+
+#: ../src/AppWindow.vala:498
+msgid "_About"
+msgstr "_Mu dhèidhinn"
+
+#: ../src/AppWindow.vala:503
+msgid "Fulls_creen"
+msgstr "_Làn-sgrìn"
+
+#: ../src/AppWindow.vala:508
+msgid "_Contents"
+msgstr "_Susbaint"
+
+#: ../src/AppWindow.vala:513
+msgid "_Frequently Asked Questions"
+msgstr "_Ceistean àbhaisteach"
+
+#: ../src/AppWindow.vala:518
+msgid "_Report a Problem..."
+msgstr "Dèan aith_ris air duilgheadas..."
+
+#: ../src/AppWindow.vala:617 ../src/AppWindow.vala:638
+#: ../src/AppWindow.vala:655 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
+#: ../src/Dialogs.vala:1417 ../src/Dialogs.vala:1440
+#: ../src/data_imports/DataImportsUI.vala:399
+#: ../src/publishing/PublishingUI.vala:498
+msgid "_Cancel"
+msgstr "_Sguir dheth"
+
+#: ../src/AppWindow.vala:665
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"Thachair mearachd mharbhtach nuair a bha sinn ag inntrigeadh leabhar-lann "
+"Shotwell. Chan urrainn dha Shotwell leantainn air adhart.\n"
+"\n"
+"%s"
+
+#: ../src/AppWindow.vala:685
+msgid "Visit the Yorba web site"
+msgstr "Tadhail air làrach-lìn Yorba"
+
+#: ../src/AppWindow.vala:697
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "Chan urrainn dhuinn a' chobhair a shealltainn: %s"
+
+#: ../src/AppWindow.vala:705
+#, c-format
+msgid "Unable to navigate to bug database: %s"
+msgstr "Cha ruig sinn stòr-dàta nam bugaichean: %s"
+
+#: ../src/AppWindow.vala:713
+#, c-format
+msgid "Unable to display FAQ: %s"
+msgstr "Chan urrainn dhuinn na CÀBHA a shealltainn: %s"
+
+#: ../src/BatchImport.vala:26
+msgid "Success"
+msgstr "Soirbheas"
+
+#: ../src/BatchImport.vala:29
+msgid "File error"
+msgstr "Mearachd faidhle"
+
+#: ../src/BatchImport.vala:32
+msgid "Unable to decode file"
+msgstr "Cha ghabh am faidhle a dhì-chòdachadh"
+
+#: ../src/BatchImport.vala:35
+msgid "Database error"
+msgstr "Mearachd an stòir-dhàta"
+
+#: ../src/BatchImport.vala:38
+msgid "User aborted import"
+msgstr "Sguireadh an cleachdaiche dhen ion-phortadh"
+
+#: ../src/BatchImport.vala:41
+msgid "Not a file"
+msgstr "Chan e faidhle a tha ann"
+
+#: ../src/BatchImport.vala:44
+msgid "File already exists in database"
+msgstr "Tha faidhle san stòr-dàta mu thràth"
+
+#: ../src/BatchImport.vala:47
+msgid "Unsupported file format"
+msgstr "Fòrmat faidhle ris nach eil taic"
+
+#: ../src/BatchImport.vala:50
+msgid "Not an image file"
+msgstr "Chan e faidhle deilbh a tha ann"
+
+#: ../src/BatchImport.vala:53
+msgid "Disk failure"
+msgstr "Dh'fhàillig an diosg"
+
+#: ../src/BatchImport.vala:56
+msgid "Disk full"
+msgstr "Tha an diosg làn"
+
+#: ../src/BatchImport.vala:59
+msgid "Camera error"
+msgstr "Mearachd a' chamara"
+
+#: ../src/BatchImport.vala:62
+msgid "File write error"
+msgstr "Mearachd le sgrìobhadh an fhaidhle"
+
+#: ../src/BatchImport.vala:65
+msgid "Corrupt image file"
+msgstr "Tha faidhle an deilbh coirbte"
+
+#: ../src/BatchImport.vala:68
+#, c-format
+msgid "Imported failed (%d)"
+msgstr "Dh'fhàillig ion-phortadh (%d)"
+
+#: ../src/CollectionPage.vala:230 ../src/PhotoPage.vala:2634
+msgid "S_lideshow"
+msgstr "T_aisbeanadh-shleamhnagan"
+
+#: ../src/CollectionPage.vala:231 ../src/PhotoPage.vala:2635
+msgid "Play a slideshow"
+msgstr "Cluich an taisbeanadh-shleamhnagan"
+
+#: ../src/CollectionPage.vala:456
+msgid "Export Photo/Video"
+msgstr "Às-phortaich an dealbh/video"
+
+#: ../src/CollectionPage.vala:456
+msgid "Export Photos/Videos"
+msgstr "Às-phortaich dealbhan/videothan"
+
+#: ../src/CollectionPage.vala:458 ../src/Dialogs.vala:58
+#: ../src/PhotoPage.vala:3207
+msgid "Export Photo"
+msgstr "Às-phortaich an dealbh"
+
+#: ../src/CollectionPage.vala:458 ../src/Dialogs.vala:87
+msgid "Export Photos"
+msgstr "Às-phortaich dealbhan"
+
+#: ../src/CollectionPage.vala:545 ../src/CollectionPage.vala:561
+msgid "Rotating"
+msgstr "Cuairteachadh"
+
+#: ../src/CollectionPage.vala:545 ../src/CollectionPage.vala:561
+msgid "Undoing Rotate"
+msgstr "A' neo-dhèanamh a' chuairteachaidh"
+
+#: ../src/CollectionPage.vala:570
+msgid "Flipping Horizontally"
+msgstr "A' flipeadh air a' chòmhnard"
+
+#: ../src/CollectionPage.vala:571
+msgid "Undoing Flip Horizontally"
+msgstr "A' neo-dhèanamh flipeadh air a' chòmhnard"
+
+#: ../src/CollectionPage.vala:580
+msgid "Flipping Vertically"
+msgstr "A' flipeadh gu h-inghearach"
+
+#: ../src/CollectionPage.vala:581
+msgid "Undoing Flip Vertically"
+msgstr "A' neo-dhèanamh flipeadh inghearach"
+
+#: ../src/Commands.vala:733
+msgid "Reverting"
+msgstr "'Ga thilleadh"
+
+#: ../src/Commands.vala:733
+msgid "Undoing Revert"
+msgstr "A' neo-dhèanamh a thillidh"
+
+#: ../src/Commands.vala:777
+msgid "Enhancing"
+msgstr "'Ga leasachadh"
+
+#: ../src/Commands.vala:777
+msgid "Undoing Enhance"
+msgstr "A' neo-dhèanamh a leasachaidh"
+
+#: ../src/Commands.vala:845
+msgid "Applying Color Transformations"
+msgstr "A' cur an sàs atharraichean nan dathan"
+
+#: ../src/Commands.vala:845
+msgid "Undoing Color Transformations"
+msgstr "A' neo-dhèanamh atharraichean nan dathan"
+
+#: ../src/Commands.vala:995
+msgid "Creating New Event"
+msgstr "A' cruthachadh tachartas ùr"
+
+#: ../src/Commands.vala:996
+msgid "Removing Event"
+msgstr "A' toirt air falbh an tachartais"
+
+#: ../src/Commands.vala:1005
+msgid "Moving Photos to New Event"
+msgstr "A' gluasad nan dealbhan gun tachartas ùr"
+
+#: ../src/Commands.vala:1006
+msgid "Setting Photos to Previous Event"
+msgstr "A' suidheachadh nan dealbhan gun tachartas roimhe"
+
+#: ../src/Commands.vala:1063
+msgid "Merging"
+msgstr "'Gan co-aonadh"
+
+#: ../src/Commands.vala:1064
+msgid "Unmerging"
+msgstr "A' neo-dhèanamh an co-aonadh"
+
+#: ../src/Commands.vala:1073
+msgid "Duplicating photos"
+msgstr "A' dùblachadh nan dealbhan"
+
+#: ../src/Commands.vala:1073
+msgid "Removing duplicated photos"
+msgstr "A' toirt air falbh nan dealbhan dùblaichte"
+
+#: ../src/Commands.vala:1096
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] ""
+"Tha %d dealbh ann nach urrainn dhuinn dùblachadh ri linn mearachd faidhle"
+msgstr[1] ""
+"Tha %d dhealbh ann nach urrainn dhuinn dùblachadh ri linn mhearachdan faidhle"
+msgstr[2] ""
+"Tha %d dealbhan ann nach urrainn dhuinn dùblachadh ri linn mhearachdan "
+"faidhle"
+msgstr[3] ""
+"Tha %d dealbh ann nach urrainn dhuinn dùblachadh ri linn mhearachdan faidhle"
+
+#: ../src/Commands.vala:1183
+msgid "Restoring previous rating"
+msgstr "Ag aiseag an rangachadh roimhe"
+
+#: ../src/Commands.vala:1193 ../src/Commands.vala:1194
+msgid "Increasing ratings"
+msgstr "A' cur an àirde nan rangachaidhean"
+
+#: ../src/Commands.vala:1193 ../src/Commands.vala:1194
+msgid "Decreasing ratings"
+msgstr "A' lùghdachadh nan rangachaidhean"
+
+#: ../src/Commands.vala:1244
+msgid "Setting RAW developer"
+msgstr "A' suidheachadh an leasaicheir RAW"
+
+#: ../src/Commands.vala:1244
+msgid "Restoring previous RAW developer"
+msgstr "Ag aiseag an leasaicheir RAW a bha agad roimhe"
+
+#: ../src/Commands.vala:1245
+msgid "Set Developer"
+msgstr "Suidhich an leasaichear"
+
+#: ../src/Commands.vala:1335
+msgid "Original photo could not be adjusted."
+msgstr "Cha b' urrainn dhuinn an dealbh tùsail a chur air gleus."
+
+#: ../src/Commands.vala:1356
+msgid "Adjusting Date and Time"
+msgstr "A' cur air gleus a' chinn-là agus an ama"
+
+#: ../src/Commands.vala:1356
+msgid "Undoing Date and Time Adjustment"
+msgstr "A' neo-dhèanamh gleusadh a' chinn-là agus an ama"
+
+#: ../src/Commands.vala:1387
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] ""
+"Bha %d dealbh ann nach b' urrainn dhuinn an tionndadh tùsail aige/aca a chur "
+"air gleus"
+msgstr[1] ""
+"Bha %d dhealbh ann nach b' urrainn dhuinn an tionndadh tùsail aca a chur air "
+"gleus"
+msgstr[2] ""
+"Bha %d dealbhan ann nach b' urrainn dhuinn an tionndadh tùsail aca a chur "
+"air gleus"
+msgstr[3] ""
+"Bha %d dealbh ann nach b' urrainn dhuinn an tionndadh tùsail aca a chur air "
+"gleus"
+
+#: ../src/Commands.vala:1389 ../src/Commands.vala:1413
+msgid "Time Adjustment Error"
+msgstr "Mearachd a' cur air gleus an ama"
+
+#: ../src/Commands.vala:1411
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] ""
+"Bha %d dealbh ann nach b' urrainn dhuinn an t-àm aige/aca a chur air gleus."
+msgstr[1] ""
+"Bha %d dhealbh ann nach b' urrainn dhuinn an t-àm aca a chur air gleus."
+msgstr[2] ""
+"Bha %d dealbhan ann nach b' urrainn dhuinn an t-àm aca a chur air gleus."
+msgstr[3] ""
+"Bha %d dealbh ann nach b' urrainn dhuinn an t-àm aca a chur air gleus."
+
+#: ../src/Commands.vala:1625 ../src/Commands.vala:1648
+msgid "Create Tag"
+msgstr "Cruthaich an taga"
+
+#: ../src/Commands.vala:1683
+#, c-format
+msgid "Move Tag \"%s\""
+msgstr "Gluais an taga \"%s\""
+
+#: ../src/Commands.vala:2335
+msgid "Move Photos to Trash"
+msgstr "Gluais na dealbhan dhan sgudal"
+
+#: ../src/Commands.vala:2335
+msgid "Restore Photos from Trash"
+msgstr "Aisig na dealbhan on sgudal"
+
+#: ../src/Commands.vala:2336
+msgid "Move the photos to the Shotwell trash"
+msgstr "Gluais na dealbhan do sgudal Shotwell"
+
+#: ../src/Commands.vala:2336
+msgid "Restore the photos back to the Shotwell library"
+msgstr "Aisig na dealbhan do leabhar-lann Shotwell"
+
+#: ../src/Commands.vala:2355
+msgid "Moving Photos to Trash"
+msgstr "A' gluasad nan dealbhan dhan sgudal"
+
+#: ../src/Commands.vala:2355
+msgid "Restoring Photos From Trash"
+msgstr "Ag aiseag nan dealbhan on sgudal"
+
+#: ../src/Commands.vala:2441
+msgid "Flag selected photos"
+msgstr "Cuir bratach ris na dealbhan a thagh thu"
+
+#: ../src/Commands.vala:2442
+msgid "Unflag selected photos"
+msgstr "Thoir air falbh na brataichean o na dealbhan a thagh thu"
+
+#: ../src/Commands.vala:2443
+msgid "Flagging selected photos"
+msgstr "A' cur bratach ris na dealbhan a thagh thu"
+
+#: ../src/Commands.vala:2444
+msgid "Unflagging selected photos"
+msgstr "A' toirt air falbh nam brataichean o na dealbhan a thagh thu"
+
+#: ../src/Commands.vala:2451
+msgid "Flag"
+msgstr "Cuir bratach ris"
+
+#: ../src/Commands.vala:2451
+msgid "Unflag"
+msgstr "Thoir a' bhratach air falbh"
+
+#: ../src/DesktopIntegration.vala:121
+#, c-format
+msgid "Unable to launch Nautilus Send-To: %s"
+msgstr "Chan urrainn dhuinn Nautilus Send-To a chur gu dol: %s"
+
+#: ../src/DesktopIntegration.vala:129
+msgid "Send To"
+msgstr "Cuir gu"
+
+#: ../src/DesktopIntegration.vala:174
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "Chan urrainn dhuinn an cùlaibh às-phortadh gu %s: %s"
+
+#: ../src/DesktopIntegration.vala:311
+#, c-format
+msgid "Unable to prepare desktop slideshow: %s"
+msgstr "Chan urrainn dhuinn taisbeanadh-shleamhnagan an deasga ullachadh: %s"
+
+#: ../src/Dialogs.vala:16
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] ""
+"Bheir seo air falbh a' bhratach \"%s\" o %d dealbh. A bheil thu airson "
+"leantainn air adhart?"
+msgstr[1] ""
+"Bheir seo air falbh a' bhratach \"%s\" o %d dhealbh. A bheil thu airson "
+"leantainn air adhart?"
+msgstr[2] ""
+"Bheir seo air falbh a' bhratach \"%s\" o %d dealbhan. A bheil thu airson "
+"leantainn air adhart?"
+msgstr[3] ""
+"Bheir seo air falbh a' bhratach \"%s\" o %d dealbh. A bheil thu airson "
+"leantainn air adhart?"
+
+#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1385
+#: ../src/Resources.vala:328 ../src/Resources.vala:376
+#: ../src/Resources.vala:641
+msgid "_Delete"
+msgstr "_Sguab às"
+
+#: ../src/Dialogs.vala:25
+#, c-format
+msgid "This will remove the saved search \"%s\".  Continue?"
+msgstr ""
+"Bheir seo air falbh an lorg %s a shàbhail thu roimhe. A bheil thu airson "
+"leantainn air adhart?"
+
+#: ../src/Dialogs.vala:35
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] ""
+"Ma thaghas tu leasaichear eile, thèid gach atharrachadh a rinn thu air an "
+"dealbh seo ann an Shotwell a chur gu neoini."
+msgstr[1] ""
+"Ma thaghas tu leasaichear eile, thèid gach atharrachadh a rinn thu air na "
+"dealbhan seo ann an Shotwell a chur gu neoini."
+msgstr[2] ""
+"Ma thaghas tu leasaichear eile, thèid gach atharrachadh a rinn thu air na "
+"dealbhan seo ann an Shotwell a chur gu neoini."
+msgstr[3] ""
+"Ma thaghas tu leasaichear eile, thèid gach atharrachadh a rinn thu air na "
+"dealbhan seo ann an Shotwell a chur gu neoini."
+
+#: ../src/Dialogs.vala:39
+msgid "_Switch Developer"
+msgstr "_Cleachd an leasaichear eile"
+
+#: ../src/Dialogs.vala:58
+msgid "Export Video"
+msgstr "Às-phortaich a' video"
+
+#. Ticket #3023
+#. Attempt to replace the system error with something friendlier
+#. if we can't copy an image over for editing in an external tool.
+#. Did we fail because we can't write to this directory?
+#. Yes - display an alternate error message here.
+#: ../src/Dialogs.vala:115
+#, c-format
+msgid ""
+"Shotwell couldn't create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr ""
+"Cha b' urrainn dha Shotwell faidhle a chruthachadh gus an dealbh seo a "
+"dheasachadh air sgàth 's nach eil cead-sgrìobhaidh agad ann an %s."
+
+#: ../src/Dialogs.vala:124
+msgid ""
+"Unable to export the following photo due to a file error.\n"
+"\n"
+msgstr ""
+"Chan urrainn dhuinn an dealbh a leanas às-phortadh air sgàth mearachd "
+"faidhle.\n"
+"\n"
+
+#: ../src/Dialogs.vala:130
+msgid ""
+"\n"
+"\n"
+"Would you like to continue exporting?"
+msgstr ""
+"\n"
+"\n"
+"A bheil thu airson leantainn air adhart leis an às-phortadh?"
+
+#. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
+#. aren't formats so much as they are operating modes that determine specific formats.
+#. Hereafter we'll refer to these as "special formats."
+#: ../src/Dialogs.vala:147
+msgid "Unmodified"
+msgstr "Gun atharrachadh"
+
+#: ../src/Dialogs.vala:148
+msgid "Current"
+msgstr "Làithreach"
+
+#. layout controls
+#: ../src/Dialogs.vala:212
+msgid "_Format:"
+msgstr "_Fòrmat:"
+
+#: ../src/Dialogs.vala:215
+msgid "_Quality:"
+msgstr "_Càileachd:"
+
+#: ../src/Dialogs.vala:218
+msgid "_Scaling constraint:"
+msgstr "_Bacadh sgèilidh:"
+
+#: ../src/Dialogs.vala:221
+msgid " _pixels"
+msgstr " _piogsailean"
+
+#: ../src/Dialogs.vala:229
+msgid "Export metadata"
+msgstr "Às-phortaich am metadata"
+
+#: ../src/Dialogs.vala:465
+msgid "Save Details..."
+msgstr "Sàbhail am mion-fhiosrachadh..."
+
+#: ../src/Dialogs.vala:466
+msgid "Save Details"
+msgstr "Sàbhail am mion-fhiosrachadh"
+
+#: ../src/Dialogs.vala:481
+#, c-format
+msgid "(and %d more)\n"
+msgstr "(agus %d a bharrachd)\n"
+
+#: ../src/Dialogs.vala:534
+msgid "Import Results Report"
+msgstr "An aithris air coileanas an ion-phortaidh"
+
+#: ../src/Dialogs.vala:538
+#, c-format
+msgid "Attempted to import %d file."
+msgid_plural "Attempted to import %d files."
+msgstr[0] "Dh'fheuch sinn ri %d fhaidhle ion-phortadh."
+msgstr[1] "Dh'fheuch sinn ri %d fhaidhle ion-phortadh."
+msgstr[2] "Dh'fheuch sinn ri %d faidhlichean ion-phortadh."
+msgstr[3] "Dh'fheuch sinn ri %d faidhle ion-phortadh."
+
+#: ../src/Dialogs.vala:541
+#, c-format
+msgid "Of these, %d file was successfully imported."
+msgid_plural "Of these, %d files were successfully imported."
+msgstr[0] "Chaidh %d dhiubh seo ion-phortadh gu soirbheachail."
+msgstr[1] "Chaidh %d dhiubh seo ion-phortadh gu soirbheachail."
+msgstr[2] "Chaidh %d dhiubh seo ion-phortadh gu soirbheachail."
+msgstr[3] "Chaidh %d dhiubh seo ion-phortadh gu soirbheachail."
+
+#.
+#. Duplicates
+#.
+#: ../src/Dialogs.vala:553
+msgid "Duplicate Photos/Videos Not Imported:"
+msgstr ""
+"Dealbhan/videothan a bha ann iomadh turas is nach deach an ion-phortadh:"
+
+#: ../src/Dialogs.vala:557
+msgid "duplicates existing media item"
+msgstr "a dhùblaicheadh ball a tha ann mu thràth"
+
+#.
+#. Files Not Imported Due to Camera Errors
+#.
+#: ../src/Dialogs.vala:568
+msgid "Photos/Videos Not Imported Due to Camera Errors:"
+msgstr ""
+"Dealbhan/videothan a bha ann iomadh turas is nach deach an ion-phortadh ri "
+"linn mearachd a' chamara:"
+
+#: ../src/Dialogs.vala:571 ../src/Dialogs.vala:586 ../src/Dialogs.vala:601
+#: ../src/Dialogs.vala:617 ../src/Dialogs.vala:632 ../src/Dialogs.vala:646
+msgid "error message:"
+msgstr "teachdaireachd na mearachd:"
+
+#.
+#. Files Not Imported Because They Weren't Recognized as Photos or Videos
+#.
+#: ../src/Dialogs.vala:582
+msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgstr ""
+"Cha deach na faidhlichean ion-phortadh air sgàth 's nach deach an "
+"aithneachadh mar dhealbhan no videothan:"
+
+#.
+#. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
+#.
+#: ../src/Dialogs.vala:597
+msgid ""
+"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Understands:"
+msgstr ""
+"Cha deach na dealbhan/videothan ion-phortadh air sgàth 's nach eil iad ann "
+"am fòrmat a thuigeas Shotwell:"
+
+#.
+#. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
+#.
+#: ../src/Dialogs.vala:612
+msgid ""
+"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Library:"
+msgstr ""
+"Cha deach na dealbhan/videothan ion-phortadh air sgàth 's nach b' urrainn "
+"dha Shotwell lethbhreac dhiubh a chur dhan leabhar-lann aige."
+
+#: ../src/Dialogs.vala:616
+#, c-format
+msgid ""
+"couldn't copy %s\n"
+"\tto %s"
+msgstr ""
+"nach b' urrainn dha lethbhreac de %s a chur \n"
+"\tdha %s"
+
+#.
+#. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
+#.
+#: ../src/Dialogs.vala:628
+msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
+msgstr ""
+"Cha deach na dealbhan/videothan ion-phortadh a chionn 's gu bheil na "
+"faidhlichean coirbte:"
+
+#.
+#. Photos/Videos Not Imported for Other Reasons
+#.
+#: ../src/Dialogs.vala:643
+msgid "Photos/Videos Not Imported for Other Reasons:"
+msgstr ""
+"Dealbhan/videothan nach deach an ion-phortadh air sgàth adhbharan eile:"
+
+#: ../src/Dialogs.vala:663
+#, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "Bha %d dealbh dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[1] "Bha %d dhealbh dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[2] "Bha %d dealbhan dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[3] "Bha %d dealbh dùblaichte ann nach deach ion-phortadh:\n"
+
+#: ../src/Dialogs.vala:666
+#, c-format
+msgid "1 duplicate video was not imported:\n"
+msgid_plural "%d duplicate videos were not imported:\n"
+msgstr[0] "Bha %d video dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[1] "Bha %d video dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[2] "Bha %d videothan dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[3] "Bha %d video dùblaichte ann nach deach ion-phortadh:\n"
+
+#: ../src/Dialogs.vala:669
+#, c-format
+msgid "1 duplicate photo/video was not imported:\n"
+msgid_plural "%d duplicate photos/videos were not imported:\n"
+msgstr[0] "Bha %d dealbh/video dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[1] "Bha %d dhealbh/video dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[2] "Bha %d dealbhan/videothan dùblaichte ann nach deach ion-phortadh:\n"
+msgstr[3] "Bha %d dealbh/video dùblaichte ann nach deach ion-phortadh:\n"
+
+#: ../src/Dialogs.vala:683
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Bha %d dealbh ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[1] ""
+"Bha %d dhealbh ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[2] ""
+"Bha %d dealbhan ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[3] ""
+"Bha %d dealbh ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+
+#: ../src/Dialogs.vala:686
+#, c-format
+msgid "1 video failed to import due to a file or hardware error:\n"
+msgid_plural "%d videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Bha %d video ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[1] ""
+"Bha %d video ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[2] ""
+"Bha %d videothan ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[3] ""
+"Bha %d video ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+
+#: ../src/Dialogs.vala:689
+#, c-format
+msgid "1 photo/video failed to import due to a file or hardware error:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Bha %d dealbh/video ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[1] ""
+"Bha %d dhealbh/video ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[2] ""
+"Bha %d dealbhan/videothan ann nach deach ion-phortadh ri linn mearachd "
+"faidhle no mearachd bathair-chruaidh:\n"
+msgstr[3] ""
+"Bha %d dealbh/video ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+
+#: ../src/Dialogs.vala:692
+#, c-format
+msgid "1 file failed to import due to a file or hardware error:\n"
+msgid_plural "%d files failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Bha %d fhaidhle ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[1] ""
+"Bha %d fhaidhle ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[2] ""
+"Bha %d faidhlichean ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+msgstr[3] ""
+"Bha %d faidhle ann nach deach ion-phortadh ri linn mearachd faidhle no "
+"mearachd bathair-chruaidh:\n"
+
+#: ../src/Dialogs.vala:706
+#, c-format
+msgid ""
+"1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Bha %d dealbh ann nach deach ion-phortadh a chionn 's nach b' urrainn dhuinn "
+"sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[1] ""
+"Bha %d dhealbh ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[2] ""
+"Bha %d dealbhan ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[3] ""
+"Bha %d dealbh ann nach deach ion-phortadh a chionn 's nach b' urrainn dhuinn "
+"sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+
+#: ../src/Dialogs.vala:709
+#, c-format
+msgid ""
+"1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Bha %d video ann nach deach ion-phortadh a chionn 's nach b' urrainn dhuinn "
+"sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[1] ""
+"Bha %d video ann nach deach ion-phortadh a chionn 's nach b' urrainn dhuinn "
+"sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[2] ""
+"Bha %d videothan ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[3] ""
+"Bha %d video ann nach deach ion-phortadh a chionn 's nach b' urrainn dhuinn "
+"sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+
+#: ../src/Dialogs.vala:712
+#, c-format
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Bha %d dealbh/video ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[1] ""
+"Bha %d dhealbh/video ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[2] ""
+"Bha %d dealbhan/videothan ann nach deach ion-phortadh a chionn 's nach b' "
+"urrainn dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[3] ""
+"Bha %d dealbh/video ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+
+#: ../src/Dialogs.vala:715
+#, c-format
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Bha %d fhaidhle ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[1] ""
+"Bha %d fhaidhle ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[2] ""
+"Bha %d faidhlichean ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+msgstr[3] ""
+"Bha %d faidhle ann nach deach ion-phortadh a chionn 's nach b' urrainn "
+"dhuinn sgrìobhadh ann am pasgan leabhar-lann nan dealbhan:\n"
+
+#: ../src/Dialogs.vala:729
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] ""
+"Bha %d dealbh ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+msgstr[1] ""
+"Bha %d dhealbh ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+msgstr[2] ""
+"Bha %d dealbhan ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+msgstr[3] ""
+"Bha %d dealbh ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+
+#: ../src/Dialogs.vala:732
+#, c-format
+msgid "1 video failed to import due to a camera error:\n"
+msgid_plural "%d videos failed to import due to a camera error:\n"
+msgstr[0] ""
+"Bha %d video ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+msgstr[1] ""
+"Bha %d video ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+msgstr[2] ""
+"Bha %d videothan ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+msgstr[3] ""
+"Bha %d video ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+
+#: ../src/Dialogs.vala:735
+#, c-format
+msgid "1 photo/video failed to import due to a camera error:\n"
+msgid_plural "%d photos/videos failed to import due to a camera error:\n"
+msgstr[0] ""
+"Bha %d dealbh/video ann nach deach ion-phortadh ri linn mearachd a' "
+"chamara:\n"
+msgstr[1] ""
+"Bha %d dhealbh/video ann nach deach ion-phortadh ri linn mearachd a' "
+"chamara:\n"
+msgstr[2] ""
+"Bha %d dealbhan/videothan ann nach deach ion-phortadh ri linn mearachd a' "
+"chamara:\n"
+msgstr[3] ""
+"Bha %d dealbh/video ann nach deach ion-phortadh ri linn mearachd a' "
+"chamara:\n"
+
+#: ../src/Dialogs.vala:738
+#, c-format
+msgid "1 file failed to import due to a camera error:\n"
+msgid_plural "%d files failed to import due to a camera error:\n"
+msgstr[0] ""
+"Bha %d fhaidhle ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+msgstr[1] ""
+"Bha %d fhaidhle ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+msgstr[2] ""
+"Bha %d faidhlichean ann nach deach ion-phortadh ri linn mearachd a' "
+"chamara:\n"
+msgstr[3] ""
+"Bha %d fhaidhle ann nach deach ion-phortadh ri linn mearachd a' chamara:\n"
+
+#: ../src/Dialogs.vala:752
+#, c-format
+msgid "1 photo failed to import because it was corrupt:\n"
+msgid_plural "%d photos failed to import because they were corrupt:\n"
+msgstr[0] "Cha deach %d dealbh ion-phortadh a chionn 's gu bheil e coirbte:\n"
+msgstr[1] ""
+"Cha deach %d dhealbh ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+msgstr[2] ""
+"Cha deach %d dealbhan ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+msgstr[3] ""
+"Cha deach %d dealbh ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+
+#: ../src/Dialogs.vala:755
+#, c-format
+msgid "1 video failed to import because it was corrupt:\n"
+msgid_plural "%d videos failed to import because they were corrupt:\n"
+msgstr[0] "Cha deach %d video ion-phortadh a chionn 's gu bheil e coirbte:\n"
+msgstr[1] ""
+"Cha deach %d videothan ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+msgstr[2] "Cha deach %d video ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+msgstr[3] "Cha deach %d video ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+
+#: ../src/Dialogs.vala:758
+#, c-format
+msgid "1 photo/video failed to import because it was corrupt:\n"
+msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
+msgstr[0] ""
+"Cha deach %d dealbh/video ion-phortadh a chionn 's gu bheil e coirbte:\n"
+msgstr[1] ""
+"Cha deach %d dhealbh/video ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+msgstr[2] ""
+"Cha deach %d dealbhan/videothan ion-phortadh a chionn 's gu bheil iad "
+"coirbte:\n"
+msgstr[3] ""
+"Cha deach %d dealbh/video ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+
+#: ../src/Dialogs.vala:761
+#, c-format
+msgid "1 file failed to import because it was corrupt:\n"
+msgid_plural "%d files failed to import because it was corrupt:\n"
+msgstr[0] ""
+"Cha deach %d fhaidhle ion-phortadh a chionn 's gu bheil e coirbte:\n"
+msgstr[1] ""
+"Cha deach %d fhaidhle ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+msgstr[2] ""
+"Cha deach %d faidhlichean ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+msgstr[3] ""
+"Cha deach %d faidhle ion-phortadh a chionn 's gu bheil iad coirbte:\n"
+
+#. we have no notion of "unsupported" video files right now in Shotwell (all
+#. standard container formats are supported, it's just that the streams in them
+#. might or might not be interpretable), so this message does not need to be
+#. media specific
+#: ../src/Dialogs.vala:778
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] "Chaidh leum a ghearradh thairis air %d dealbh ris nach eil taic:\n"
+msgstr[1] "Chaidh leum a ghearradh thairis air %d dhealbh ris nach eil taic:\n"
+msgstr[2] ""
+"Chaidh leum a ghearradh thairis air %d dealbhan ris nach eil taic:\n"
+msgstr[3] "Chaidh leum a ghearradh thairis air %d dealbh ris nach eil taic:\n"
+
+#. we have no notion of "non-video" video files right now in Shotwell, so this
+#. message doesn't need to be media specific
+#: ../src/Dialogs.vala:793
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] ""
+"Chaidh leum a ghearradh thairis air %d fhaidhle nach eil 'na dhealbh:\n"
+msgstr[1] ""
+"Chaidh leum a ghearradh thairis air %d fhaidhle nach eil 'nan dealbhan:\n"
+msgstr[2] ""
+"Chaidh leum a ghearradh thairis air %d faidhlichean nach eil 'nan dealbhan:\n"
+msgstr[3] ""
+"Chaidh leum a ghearradh thairis air %d faidhle nach eil 'nan dealbhan:\n"
+
+#: ../src/Dialogs.vala:804
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] ""
+"Chaidh leum a ghearradh thairis air %d dealbh oir sguir an cleachdaiche "
+"dheth:\n"
+msgstr[1] ""
+"Chaidh leum a ghearradh thairis air %d dhealbh oir sguir an cleachdaiche "
+"dhiubh:\n"
+msgstr[2] ""
+"Chaidh leum a ghearradh thairis air %d dealbhan oir sguir an cleachdaiche "
+"dhiubh:\n"
+msgstr[3] ""
+"Chaidh leum a ghearradh thairis air %d dealbh oir sguir an cleachdaiche "
+"dhiubh:\n"
+
+#: ../src/Dialogs.vala:807
+#, c-format
+msgid "1 video skipped due to user cancel:\n"
+msgid_plural "%d videos skipped due to user cancel:\n"
+msgstr[0] ""
+"Chaidh leum a ghearradh thairis air %d video oir sguir an cleachdaiche "
+"dhiubh:\n"
+msgstr[1] ""
+"Chaidh leum a ghearradh thairis air %d video oir sguir an cleachdaiche "
+"dhiubh:\n"
+msgstr[2] ""
+"Chaidh leum a ghearradh thairis air %d videothan oir sguir an cleachdaiche "
+"dhiubh:\n"
+msgstr[3] ""
+"Chaidh leum a ghearradh thairis air %d video oir sguir an cleachdaiche "
+"dhiubh:\n"
+
+#: ../src/Dialogs.vala:810
+#, c-format
+msgid "1 photo/video skipped due to user cancel:\n"
+msgid_plural "%d photos/videos skipped due to user cancel:\n"
+msgstr[0] ""
+"Chaidh leum a ghearradh thairis air %d dealbh/video oir sguir an "
+"cleachdaiche dhiubh:\n"
+msgstr[1] ""
+"Chaidh leum a ghearradh thairis air %d dhealbh/video oir sguir an "
+"cleachdaiche dhiubh:\n"
+msgstr[2] ""
+"Chaidh leum a ghearradh thairis air %d dealbhan/videothan oir sguir an "
+"cleachdaiche dhiubh:\n"
+msgstr[3] ""
+"Chaidh leum a ghearradh thairis air %d dealbh/video oir sguir an "
+"cleachdaiche dhiubh:\n"
+
+#: ../src/Dialogs.vala:813
+#, c-format
+msgid "1 file skipped due to user cancel:\n"
+msgid_plural "%d file skipped due to user cancel:\n"
+msgstr[0] ""
+"Chaidh leum a ghearradh thairis air %d fhaidhle oir sguir an cleachdaiche "
+"dhiubh:\n"
+msgstr[1] ""
+"Chaidh leum a ghearradh thairis air %d fhaidhle oir sguir an cleachdaiche "
+"dhiubh:\n"
+msgstr[2] ""
+"Chaidh leum a ghearradh thairis air %d faidhlichean oir sguir an "
+"cleachdaiche dhiubh:\n"
+msgstr[3] ""
+"Chaidh leum a ghearradh thairis air %d faidhle oir sguir an cleachdaiche "
+"dhiubh:\n"
+
+#: ../src/Dialogs.vala:827
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "Chaidh %d dealbh ion-phortadh.\n"
+msgstr[1] "Chaidh %d dhealbh ion-phortadh.\n"
+msgstr[2] "Chaidh %d dealbhan ion-phortadh.\n"
+msgstr[3] "Chaidh %d dealbh ion-phortadh.\n"
+
+#: ../src/Dialogs.vala:830
+#, c-format
+msgid "1 video successfully imported.\n"
+msgid_plural "%d videos successfully imported.\n"
+msgstr[0] "Chaidh %d video ion-phortadh.\n"
+msgstr[1] "Chaidh %d video ion-phortadh.\n"
+msgstr[2] "Chaidh %d videothan ion-phortadh.\n"
+msgstr[3] "Chaidh %d video ion-phortadh.\n"
+
+#: ../src/Dialogs.vala:833
+#, c-format
+msgid "1 photo/video successfully imported.\n"
+msgid_plural "%d photos/videos successfully imported.\n"
+msgstr[0] "Chaidh %d dealbh/video ion-phortadh.\n"
+msgstr[1] "Chaidh %d dhealbh/video ion-phortadh.\n"
+msgstr[2] "Chaidh %d dealbhan/videothan ion-phortadh.\n"
+msgstr[3] "Chaidh %d dealbh/video ion-phortadh.\n"
+
+#. if no media items were imported at all (i.e. an empty directory attempted), need to at least
+#. report that nothing was imported
+#: ../src/Dialogs.vala:849
+msgid "No photos or videos imported.\n"
+msgstr "Cha deach dealbh no video sam bith ion-phortadh.\n"
+
+#: ../src/Dialogs.vala:856 ../src/Dialogs.vala:875
+msgid "Import Complete"
+msgstr "Deiseil leis an ion-phortadh"
+
+#: ../src/Dialogs.vala:1161
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d diog"
+msgstr[1] "%d dhiog"
+msgstr[2] "%d diogan"
+msgstr[3] "%d diog"
+
+#: ../src/Dialogs.vala:1164
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d mhionaid"
+msgstr[1] "%d mhionaid"
+msgstr[2] "%d mionaidean"
+msgstr[3] "%d mionaid"
+
+#: ../src/Dialogs.vala:1168
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d uair a thìde"
+msgstr[1] "%d uair a thìde"
+msgstr[2] "%d uairean a thìde"
+msgstr[3] "%d uair a thìde"
+
+#: ../src/Dialogs.vala:1171
+msgid "1 day"
+msgstr "1 latha"
+
+#: ../src/Dialogs.vala:1319 ../src/Resources.vala:203
+msgid "Rename Event"
+msgstr "Thoir ainm ùr air an tachartas"
+
+#: ../src/Dialogs.vala:1319
+msgid "Name:"
+msgstr "Aimn:"
+
+#: ../src/Dialogs.vala:1329 ../src/Resources.vala:272
+msgid "Edit Title"
+msgstr "Deasaich an tiotal"
+
+#: ../src/Dialogs.vala:1329 ../src/Properties.vala:340
+msgid "Title:"
+msgstr "Tiotal:"
+
+#: ../src/Dialogs.vala:1343 ../src/Resources.vala:278
+msgid "Edit Event Comment"
+msgstr "Deasaich beachd an tachartais"
+
+#: ../src/Dialogs.vala:1343
+msgid "Edit Photo/Video Comment"
+msgstr "Deasaich beachd an deilbh/video"
+
+#: ../src/Dialogs.vala:1344 ../src/Properties.vala:630
+msgid "Comment:"
+msgstr "Beachd:"
+
+#: ../src/Dialogs.vala:1360
+msgid "Remove and _Trash File"
+msgid_plural "Remove and _Trash Files"
+msgstr[0] "Thoir am _faidhle air falbh 's cur san sgudal e"
+msgstr[1] "Thoir na _faidhlichean air falbh 's cur san sgudal iad"
+msgstr[2] "Thoir na _faidhlichean air falbh 's cur san sgudal iad"
+msgstr[3] "Thoir na _faidhlichean air falbh 's cur san sgudal iad"
+
+#: ../src/Dialogs.vala:1364
+msgid "_Remove From Library"
+msgstr "Thoi_r air falbh on leabhar-lann"
+
+#: ../src/Dialogs.vala:1384 ../src/camera/ImportPage.vala:1739
+msgid "_Keep"
+msgstr "_Cum iad"
+
+#: ../src/Dialogs.vala:1407
+msgid "Revert External Edit?"
+msgstr ""
+"A bheil thu airson an deasachadh a rinneadh air taobh a-muigh a thilleadh?"
+
+#: ../src/Dialogs.vala:1407
+msgid "Revert External Edits?"
+msgstr ""
+"A bheil thu airson na deasachaidhean a rinneadh air an taobh a-muigh a "
+"thilleadh?"
+
+#: ../src/Dialogs.vala:1409
+#, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] ""
+"Cuiridh seo gu neoini gach atharrachadh a rinneadh air an %d fhaidhle air an "
+"taobh a-muigh. A bheil thu airson leantainn air adhart?"
+msgstr[1] ""
+"Cuiridh seo gu neoini gach atharrachadh a rinneadh air an %d fhaidhle air an "
+"taobh a-muigh. A bheil thu airson leantainn air adhart?"
+msgstr[2] ""
+"Cuiridh seo gu neoini gach atharrachadh a rinneadh air na %d faidhlichean "
+"air an taobh a-muigh. A bheil thu airson leantainn air adhart?"
+msgstr[3] ""
+"Cuiridh seo gu neoini gach atharrachadh a rinneadh air na %d faidhle air an "
+"taobh a-muigh. A bheil thu airson leantainn air adhart?"
+
+#: ../src/Dialogs.vala:1413
+msgid "Re_vert External Edit"
+msgstr "Till an deasachadh a rinneadh air an taobh a-_muigh"
+
+#: ../src/Dialogs.vala:1413
+msgid "Re_vert External Edits"
+msgstr "Till na deasachaidhean a rinneadh air an taobh a-_muigh"
+
+#: ../src/Dialogs.vala:1434
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] ""
+"Bheir seo air falbh %d dealbh on leabhar-lann. A bheil thu airson leantainn "
+"air adhart?"
+msgstr[1] ""
+"Bheir seo air falbh %d dhealbh on leabhar-lann. A bheil thu airson leantainn "
+"air adhart?"
+msgstr[2] ""
+"Bheir seo air falbh %d dealbhan on leabhar-lann. A bheil thu airson "
+"leantainn air adhart?"
+msgstr[3] ""
+"Bheir seo air falbh %d dealbh on leabhar-lann. A bheil thu airson leantainn "
+"air adhart?"
+
+#: ../src/Dialogs.vala:1441
+msgid "_Remove"
+msgstr "_Thoir air falbh"
+
+#: ../src/Dialogs.vala:1442
+msgid "Remove Photo From Library"
+msgstr "Thoir air falbh an dealbh on leabhar-lann"
+
+#: ../src/Dialogs.vala:1442
+msgid "Remove Photos From Library"
+msgstr "Thoir air falbh na dealbhan on leabhar-lann"
+
+#: ../src/Dialogs.vala:1535
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: ../src/Dialogs.vala:1682
+msgid "AM"
+msgstr "m"
+
+#: ../src/Dialogs.vala:1683
+msgid "PM"
+msgstr "f"
+
+#: ../src/Dialogs.vala:1684
+msgid "24 Hr"
+msgstr "Cleoc nan 24 uairean"
+
+#: ../src/Dialogs.vala:1699
+msgid "_Shift photos/videos by the same amount"
+msgstr "_Gluais na dealbhan/videothan an aon astar"
+
+#: ../src/Dialogs.vala:1704
+msgid "Set _all photos/videos to this time"
+msgstr "Cleachd _an t-àm seo airson gach dealbh/video"
+
+#: ../src/Dialogs.vala:1711
+msgid "_Modify original photo file"
+msgstr "_Atharraich faidhle tùsail an deilbh"
+
+#: ../src/Dialogs.vala:1711
+msgid "_Modify original photo files"
+msgstr "_Atharraich faidhlichean tùsail an deilbh"
+
+#: ../src/Dialogs.vala:1714
+msgid "_Modify original file"
+msgstr "_Atharraich am faidhle tùsail"
+
+#: ../src/Dialogs.vala:1714
+msgid "_Modify original files"
+msgstr "_Atharraich na faidhlichean tùsail"
+
+#: ../src/Dialogs.vala:1800
+msgid "Original: "
+msgstr "Am feat tùsail: "
+
+#: ../src/Dialogs.vala:1801
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%d/%m/%Y, %H:%M:%S"
+
+#: ../src/Dialogs.vala:1802
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%d/%m/%Y, %I:%M:%S %p"
+
+#: ../src/Dialogs.vala:1891
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Thèid àm an deisearais a ghluasad air adhart le\n"
+"%d %s, %d %s, %d %s agus %d %s."
+
+#: ../src/Dialogs.vala:1892
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Thèid àm an deisearais a ghluasad air ais le\n"
+"%d %s, %d %s, %d %s agus %d %s."
+
+#: ../src/Dialogs.vala:1894
+msgid "day"
+msgid_plural "days"
+msgstr[0] "latha"
+msgstr[1] "latha"
+msgstr[2] "làithean"
+msgstr[3] "latha"
+
+#: ../src/Dialogs.vala:1895
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "uair"
+msgstr[1] "uairean"
+msgstr[2] "uairean a thìde"
+msgstr[3] "uair a thìde"
+
+#: ../src/Dialogs.vala:1896
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "mhionaid"
+msgstr[1] "mhionaid"
+msgstr[2] "mionaidean"
+msgstr[3] "mionaid"
+
+#: ../src/Dialogs.vala:1897
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "diog"
+msgstr[1] "dhiog"
+msgstr[2] "diogan"
+msgstr[3] "diog"
+
+#: ../src/Dialogs.vala:1941
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"Agus %d eile."
+msgstr[1] ""
+"\n"
+"\n"
+"Agus %d eile."
+msgstr[2] ""
+"\n"
+"\n"
+"Agus %d eile."
+msgstr[3] ""
+"\n"
+"\n"
+"Agus %d eile."
+
+#: ../src/Dialogs.vala:1963 ../src/Dialogs.vala:1990
+msgid "Tags (separated by commas):"
+msgstr "Tagaichean (air an sgaradh le cromagan):"
+
+#: ../src/Dialogs.vala:2070
+msgid "Welcome!"
+msgstr "Fàilte!"
+
+#: ../src/Dialogs.vala:2077
+msgid "Welcome to Shotwell!"
+msgstr "Fàilte gu Shotwell!"
+
+#: ../src/Dialogs.vala:2081
+msgid "To get started, import photos in any of these ways:"
+msgstr ""
+"Dèan toiseach tòiseachaidh is ion-phortaich dealbhan air gin dhe na dòighean "
+"a leanas:"
+
+#: ../src/Dialogs.vala:2100
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr "Tagh <span weight=\"bold\">Ion-phortadh faidhle %s o phasgan</span>"
+
+#: ../src/Dialogs.vala:2101
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "Slaod is leig às dealbhan air uinneag Shotwell"
+
+#: ../src/Dialogs.vala:2102
+msgid "Connect a camera to your computer and import"
+msgstr "Ceangail camara ris a' choimpiutair agad agus dèan ion-phortadh"
+
+#: ../src/Dialogs.vala:2112
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "_Ion-phortaich dealbhan on phasgan %s agad"
+
+#: ../src/Dialogs.vala:2119
+msgid "You can also import photos in any of these ways:"
+msgstr ""
+"'S urrainn dhut dealbhan ion-phortadh air gin dhe na dòighean seo leanas "
+"cuideachd:"
+
+#: ../src/Dialogs.vala:2129
+msgid "_Don't show this message again"
+msgstr "_ Na seall an teachdaireachd seo a-rithist"
+
+#: ../src/Dialogs.vala:2164
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "Ion-phortaich dealbhan on leabhar-lann %s agad"
+
+#. We're installed system-wide, so use the system help.
+#. We're being run from the build directory; we'll have to handle clicks to this
+#. link manually ourselves, due to a limitation ghelp: URIs.
+#: ../src/Dialogs.vala:2308 ../src/Dialogs.vala:2312
+msgid "(Help)"
+msgstr "(Cobhair)"
+
+#: ../src/Dialogs.vala:2321
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "Bliadhna%sMìos%sLatha"
+
+#: ../src/Dialogs.vala:2323
+#, c-format
+msgid "Year%sMonth"
+msgstr "Bliadhna%sMìos"
+
+#: ../src/Dialogs.vala:2325
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "Bliadhna%sMìos-Latha"
+
+#: ../src/Dialogs.vala:2327
+msgid "Year-Month-Day"
+msgstr "Bliadhna-Mìos-Latha"
+
+#: ../src/Dialogs.vala:2328 ../src/editing_tools/EditingTools.vala:781
+msgid "Custom"
+msgstr "Gnàthaichte"
+
+#. Invalid pattern.
+#: ../src/Dialogs.vala:2565
+msgid "Invalid pattern"
+msgstr "Pàtran mì-dhligheach"
+
+#. This function is used to determine whether or not files should be copied or linked when imported.
+#. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
+#: ../src/Dialogs.vala:2668
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr ""
+"'S urrainn dha Shotwell lethbhreacan dhe na dealbhan a chur do phasgan na "
+"leabhar-lainn agad no an ion-phortadh gun a bhith a' dèanamh lethbhreacan "
+"dhiubh."
+
+#: ../src/Dialogs.vala:2673
+msgid "Co_py Photos"
+msgstr "Dèan le_thbhreacan dhe na dealbhan"
+
+#: ../src/Dialogs.vala:2674
+msgid "_Import in Place"
+msgstr "_Ion-phortaich 'na àite"
+
+#: ../src/Dialogs.vala:2675
+msgid "Import to Library"
+msgstr "Ion-phortaich dhan leabhar-lann"
+
+#: ../src/Dialogs.vala:2685 ../src/PhotoPage.vala:3086
+msgid "Remove From Library"
+msgstr "Thoir air falbh on leabhar-lann"
+
+#: ../src/Dialogs.vala:2686 ../src/PhotoPage.vala:3086
+msgid "Removing Photo From Library"
+msgstr "A' toirt air falbh an deilbh on leabhar-lann"
+
+#: ../src/Dialogs.vala:2686
+msgid "Removing Photos From Library"
+msgstr "A' toirt air falbh dealbhan on leabhar-lann"
+
+#: ../src/Dialogs.vala:2700
+#, c-format
+msgid ""
+"This will remove the photo/video from your Shotwell library.  Would you also "
+"like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos/videos from your Shotwell library.  Would you "
+"also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Bheir seo air falbh %d dealbh/video o leabhar-lann Shotwell agad. A bheil "
+"thu airson a ghluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+msgstr[1] ""
+"Bheir seo air falbh %d dhealbh/video o leabhar-lann Shotwell agad. A bheil "
+"thu airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+msgstr[2] ""
+"Bheir seo air falbh %d dealbhan/video o leabhar-lann Shotwell agad. A bheil "
+"thu airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+msgstr[3] ""
+"Bheir seo air falbh %d dealbh/video o leabhar-lann Shotwell agad. A bheil "
+"thu airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+
+#: ../src/Dialogs.vala:2704
+#, c-format
+msgid ""
+"This will remove the video from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d videos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Bheir seo air falbh %d video o leabhar-lann Shotwell agad. A bheil thu "
+"airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+msgstr[1] ""
+"Bheir seo air falbh %d video o leabhar-lann Shotwell agad. A bheil thu "
+"airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+msgstr[2] ""
+"Bheir seo air falbh %d videothan o leabhar-lann Shotwell agad. A bheil thu "
+"airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+msgstr[3] ""
+"Bheir seo air falbh %d video o leabhar-lann Shotwell agad. A bheil thu "
+"airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+
+#: ../src/Dialogs.vala:2708
+#, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Bheir seo air falbh %d dealbh o leabhar-lann Shotwell agad. A bheil thu "
+"airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+msgstr[1] ""
+"Bheir seo air falbh %d dhealbh o leabhar-lann Shotwell agad. A bheil thu "
+"airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+msgstr[2] ""
+"Bheir seo air falbh %d dealbhan o leabhar-lann Shotwell agad. A bheil thu "
+"airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+msgstr[3] ""
+"Bheir seo air falbh %d dealbh o leabhar-lann Shotwell agad. A bheil thu "
+"airson an gluasad dhan sgudal air an deasg agad cuideachd?\n"
+"\n"
+"Cha ghabh seo a neo-dhèanamh."
+
+#: ../src/Dialogs.vala:2740
+#, c-format
+msgid ""
+"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+msgstr[0] ""
+"Cha ghabh an %d dealbh no video seo a ghluasad dhan sgudal air an deasg. A "
+"bheil thu airson a sguabadh às?"
+msgstr[1] ""
+"Cha ghabh an %d dhealbh no video seo a ghluasad dhan sgudal air an deasg. A "
+"bheil thu airson an sguabadh às?"
+msgstr[2] ""
+"Cha ghabh na %d dealbhan no videothan seo a ghluasad dhan sgudal air an "
+"deasg. A bheil thu airson an sguabadh às?"
+msgstr[3] ""
+"Cha ghabh na %d dealbh no video seo a ghluasad dhan sgudal air an deasg. A "
+"bheil thu airson an sguabadh às?"
+
+#. Alert the user that the files were not removed.
+#: ../src/Dialogs.vala:2757
+#, c-format
+msgid "The photo or video cannot be deleted."
+msgid_plural "%d photos/videos cannot be deleted."
+msgstr[0] "Cha ghabh an %d dealbh no video seo a sguabadh às."
+msgstr[1] "Cha ghabh an %d dhealbh no video seo a sguabadh às."
+msgstr[2] "Cha ghabh na %d dealbhan no videothan seo a sguabadh às."
+msgstr[3] "Cha ghabh na %d dealbh no video seo a sguabadh às."
+
+#: ../src/Dimensions.vala:23
+msgid "Width"
+msgstr "Leud"
+
+#: ../src/Dimensions.vala:26
+msgid "Height"
+msgstr "Àirde"
+
+#. verify this is a directory
+#: ../src/DirectoryMonitor.vala:889
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "Chan urrainn dhuinn sùil a chumail air %s: Chan e pasgan a tha ann(%s)"
+
+#. if no name, pretty up the start time
+#: ../src/Event.vala:751
+#, c-format
+msgid "Event %s"
+msgstr "Tachartas %s"
+
+#: ../src/Exporter.vala:232
+#, c-format
+msgid "Unable to generate a temporary file for %s: %s"
+msgstr "Cha b' urrainn dhuinn faidhle sealach airson %s a chruthachadh: %s"
+
+#: ../src/Exporter.vala:299
+msgid "Exporting"
+msgstr "Ag às-phortadh"
+
+#: ../src/Exporter.vala:317
+#, c-format
+msgid "File %s already exists.  Replace?"
+msgstr ""
+"Tha am faidhle %s ann mu thràth. A bheil thu airson am fear ùr a chur 'na "
+"àite?"
+
+#: ../src/Exporter.vala:319
+msgid "_Skip"
+msgstr "Gearr leum thairi_s air"
+
+#: ../src/Exporter.vala:319
+msgid "_Replace"
+msgstr "_Cuir 'na àite"
+
+#: ../src/Exporter.vala:319
+msgid "Replace _All"
+msgstr "Cuir an àite n_a h-uile"
+
+#: ../src/Exporter.vala:319
+msgid "Export"
+msgstr "Às-phortaich"
+
+#: ../src/MediaMonitor.vala:400
+#, c-format
+msgid "Unable to process monitoring updates: %s"
+msgstr "Chan urrainn dhuinn na h-ùrachaidhean marasglaidh a làimhseachadh: %s"
+
+#: ../src/MediaPage.vala:143
+msgid "Adjust the size of the thumbnails"
+msgstr "Cuir air gleus meud nan dealbhagan"
+
+#: ../src/MediaPage.vala:325 ../src/PhotoPage.vala:2590
+#: ../src/direct/DirectPhotoPage.vala:174
+msgid "Zoom _In"
+msgstr "Sù_m a-steach"
+
+#: ../src/MediaPage.vala:326
+msgid "Increase the magnification of the thumbnails"
+msgstr "Cuir an àirde meudachadh nan dealbhagan"
+
+#: ../src/MediaPage.vala:331 ../src/PhotoPage.vala:2596
+#: ../src/direct/DirectPhotoPage.vala:180
+msgid "Zoom _Out"
+msgstr "Sùm _a-mach"
+
+#: ../src/MediaPage.vala:332
+msgid "Decrease the magnification of the thumbnails"
+msgstr "Lùghdaich meudachadh nan dealbhagan"
+
+#: ../src/MediaPage.vala:399
+msgid "Sort _Photos"
+msgstr "Seòrsaich na _dealbhan"
+
+#: ../src/MediaPage.vala:408
+msgid "_Play Video"
+msgstr "_Cluich a' video"
+
+#: ../src/MediaPage.vala:409
+msgid "Open the selected videos in the system video player"
+msgstr ""
+"Fosgail na videothan a thagh thu ann an cluicheadair video an t-siostaim"
+
+#: ../src/MediaPage.vala:413 ../src/PhotoPage.vala:2639
+msgid "_Developer"
+msgstr "_Leasaichear"
+
+#: ../src/MediaPage.vala:425 ../src/camera/Branch.vala:101
+#: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
+#: ../src/photos/RawSupport.vala:300
+msgid "Camera"
+msgstr "Camara"
+
+#: ../src/MediaPage.vala:436 ../src/camera/ImportPage.vala:872
+msgid "_Titles"
+msgstr "_Tiotalan"
+
+#: ../src/MediaPage.vala:437 ../src/camera/ImportPage.vala:873
+msgid "Display the title of each photo"
+msgstr "Seall an tiotal aig gach dealbh"
+
+#: ../src/MediaPage.vala:442 ../src/events/EventsDirectoryPage.vala:130
+msgid "_Comments"
+msgstr "_Beachdan"
+
+#: ../src/MediaPage.vala:443
+msgid "Display the comment of each photo"
+msgstr "Seall na beachdan aig gach dealbh"
+
+#: ../src/MediaPage.vala:454 ../src/library/LibraryWindow.vala:376
+msgid "Ta_gs"
+msgstr "Ta_gaichean"
+
+#: ../src/MediaPage.vala:455
+msgid "Display each photo's tags"
+msgstr "Seall na tagaichean aig gach dealbh"
+
+#: ../src/MediaPage.vala:471
+msgid "By _Title"
+msgstr "A-rèir _tiotail"
+
+#: ../src/MediaPage.vala:472
+msgid "Sort photos by title"
+msgstr "Seòrsaich na dealbhan a-rèir tiotail"
+
+#: ../src/MediaPage.vala:477
+msgid "By Exposure _Date"
+msgstr "A-rèir _ceann-là an deisearais"
+
+#: ../src/MediaPage.vala:478
+msgid "Sort photos by exposure date"
+msgstr "Seòrsaich na dealbhan a-rèir ceann-là an deisearais"
+
+#: ../src/MediaPage.vala:483
+msgid "By _Rating"
+msgstr "A-rèir _rangachaidh"
+
+#: ../src/MediaPage.vala:484
+msgid "Sort photos by rating"
+msgstr "Seòrsaich na dealbhan a-rèir rangachaidh"
+
+#: ../src/MediaPage.vala:494 ../src/library/LibraryWindow.vala:422
+msgid "_Ascending"
+msgstr "A' _dìreadh"
+
+#: ../src/MediaPage.vala:495 ../src/library/LibraryWindow.vala:423
+msgid "Sort photos in an ascending order"
+msgstr "Seòrsaich na dealbhan a' dìreadh"
+
+#: ../src/MediaPage.vala:500 ../src/library/LibraryWindow.vala:429
+msgid "D_escending"
+msgstr "A' teàrna_dh"
+
+#: ../src/MediaPage.vala:501 ../src/library/LibraryWindow.vala:430
+msgid "Sort photos in a descending order"
+msgstr "Seòrsaich na dealbhan a' teàrnadh"
+
+#: ../src/MediaPage.vala:702
+#, c-format
+msgid ""
+"Shotwell was unable to play the selected video:\n"
+"%s"
+msgstr ""
+"Cha b' urrainn dha Shotwell a' video a thagh thu a chluich:\n"
+"%s"
+
+#: ../src/Page.vala:1268
+msgid "No photos/videos"
+msgstr "Chan eil dealbhan/videothan ann"
+
+#: ../src/Page.vala:1272
+msgid "No photos/videos found"
+msgstr "Cha deach dealbhan/videothan a lorg"
+
+#: ../src/Page.vala:2573
+msgid "Photos cannot be exported to this directory."
+msgstr "Cha ghabh dealbhan às-phortadh dhan phasgan seo."
+
+#: ../src/Photo.vala:3656
+msgid "modified"
+msgstr "air atharrachadh"
+
+#. previous button
+#: ../src/PhotoPage.vala:532
+msgid "Previous photo"
+msgstr "An dealbh roimhe"
+
+#. next button
+#: ../src/PhotoPage.vala:537
+msgid "Next photo"
+msgstr "An ath-dhealbh"
+
+#: ../src/PhotoPage.vala:1844
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr "Tha faidhle bun-tùs an deilbh a dhìth: %s"
+
+#: ../src/PhotoPage.vala:2411 ../src/direct/DirectPhotoPage.vala:165
+#: ../src/library/LibraryWindow.vala:360
+msgid "_View"
+msgstr "_Sealladh"
+
+#: ../src/PhotoPage.vala:2415 ../src/direct/DirectPhotoPage.vala:81
+msgid "T_ools"
+msgstr "I_nnealan"
+
+#: ../src/PhotoPage.vala:2420 ../src/direct/DirectPhotoPage.vala:86
+msgid "_Previous Photo"
+msgstr "An dealbh _roimhe"
+
+#: ../src/PhotoPage.vala:2421 ../src/direct/DirectPhotoPage.vala:87
+msgid "Previous Photo"
+msgstr "An dealbh roimhe"
+
+#: ../src/PhotoPage.vala:2426 ../src/direct/DirectPhotoPage.vala:92
+msgid "_Next Photo"
+msgstr "_An ath-dhealbh"
+
+#: ../src/PhotoPage.vala:2427 ../src/direct/DirectPhotoPage.vala:93
+msgid "Next Photo"
+msgstr "An ath-dhealbh"
+
+#: ../src/PhotoPage.vala:2591 ../src/direct/DirectPhotoPage.vala:175
+msgid "Increase the magnification of the photo"
+msgstr "Iomadaich meudachadh an deilbh"
+
+#: ../src/PhotoPage.vala:2597 ../src/direct/DirectPhotoPage.vala:181
+msgid "Decrease the magnification of the photo"
+msgstr "Lùghdaich meudachadh an deilbh"
+
+#: ../src/PhotoPage.vala:2602 ../src/direct/DirectPhotoPage.vala:186
+msgid "Fit to _Page"
+msgstr "Co-fhreagair ris an _duilleag"
+
+#: ../src/PhotoPage.vala:2603 ../src/direct/DirectPhotoPage.vala:187
+msgid "Zoom the photo to fit on the screen"
+msgstr "Sùm an dealbh ach am freagair e ris an sgrìn"
+
+#: ../src/PhotoPage.vala:2609 ../src/direct/DirectPhotoPage.vala:193
+#, no-c-format
+msgid "Zoom _100%"
+msgstr "_100% de shùm"
+
+#: ../src/PhotoPage.vala:2611 ../src/direct/DirectPhotoPage.vala:195
+#, no-c-format
+msgid "Zoom the photo to 100% magnification"
+msgstr "Cuir sùm an deilbh gu 100%"
+
+#: ../src/PhotoPage.vala:2617 ../src/direct/DirectPhotoPage.vala:201
+#, no-c-format
+msgid "Zoom _200%"
+msgstr "_200% de shùm"
+
+#: ../src/PhotoPage.vala:2619 ../src/direct/DirectPhotoPage.vala:203
+#, no-c-format
+msgid "Zoom the photo to 200% magnification"
+msgstr "Sùm an dealbh/foto a mheudachadh 200%"
+
+#: ../src/PhotoPage.vala:3227
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "Cha ghabh %s às-phortadh: %s"
+
+#: ../src/Printing.vala:255
+msgid "Fill the entire page"
+msgstr "Lìon an duilleag gu lèir"
+
+#: ../src/Printing.vala:256
+msgid "2 images per page"
+msgstr "2 ìomhaigh air gach duilleag"
+
+#: ../src/Printing.vala:257
+msgid "4 images per page"
+msgstr "4 ìomhaighean air gach duilleag"
+
+#: ../src/Printing.vala:258
+msgid "6 images per page"
+msgstr "6 ìomhaighean air gach duilleag"
+
+#: ../src/Printing.vala:259
+msgid "8 images per page"
+msgstr "8 ìomhaighean air gach duilleag"
+
+#: ../src/Printing.vala:260
+msgid "16 images per page"
+msgstr "16 ìomhaighean air gach duilleag"
+
+#: ../src/Printing.vala:261
+msgid "32 images per page"
+msgstr "32 ìomhaigh air gach duilleag"
+
+#: ../src/Printing.vala:348
+msgid "in."
+msgstr "òir."
+
+#: ../src/Printing.vala:349
+msgid "cm"
+msgstr "cm"
+
+#: ../src/Printing.vala:817 ../src/editing_tools/EditingTools.vala:761
+msgid "Wallet (2 x 3 in.)"
+msgstr "Meud sporain (2 x 3 òirlich)"
+
+#: ../src/Printing.vala:820 ../src/editing_tools/EditingTools.vala:762
+msgid "Notecard (3 x 5 in.)"
+msgstr "Cairt-nòta (3 x 5 òirlich)"
+
+#: ../src/Printing.vala:823 ../src/editing_tools/EditingTools.vala:763
+msgid "4 x 6 in."
+msgstr "4 x 6 òirlich"
+
+#: ../src/Printing.vala:826 ../src/editing_tools/EditingTools.vala:764
+msgid "5 x 7 in."
+msgstr "5 x 7 òirlich"
+
+#: ../src/Printing.vala:829 ../src/editing_tools/EditingTools.vala:765
+msgid "8 x 10 in."
+msgstr "8 x 10 òirlich"
+
+#: ../src/Printing.vala:832 ../src/editing_tools/EditingTools.vala:767
+msgid "11 x 14 in."
+msgstr "11 x 14 òirlich"
+
+#: ../src/Printing.vala:835 ../src/editing_tools/EditingTools.vala:769
+msgid "16 x 20 in."
+msgstr "16 x 20 òirlich"
+
+#: ../src/Printing.vala:841 ../src/editing_tools/EditingTools.vala:771
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr "Meud sporain (meatrach, 9 x 13 cm)"
+
+#: ../src/Printing.vala:844 ../src/editing_tools/EditingTools.vala:772
+msgid "Postcard (10 x 15 cm)"
+msgstr "Cairt-phuist (10 x 15 cm)"
+
+#: ../src/Printing.vala:847 ../src/editing_tools/EditingTools.vala:773
+msgid "13 x 18 cm"
+msgstr "13 x 18 cm"
+
+#: ../src/Printing.vala:850 ../src/editing_tools/EditingTools.vala:774
+msgid "18 x 24 cm"
+msgstr "18 x 24 cm"
+
+#: ../src/Printing.vala:853 ../src/editing_tools/EditingTools.vala:776
+msgid "20 x 30 cm"
+msgstr "20 x 30 cm"
+
+#: ../src/Printing.vala:856 ../src/editing_tools/EditingTools.vala:777
+msgid "24 x 40 cm"
+msgstr "24 x 40 cm"
+
+#: ../src/Printing.vala:859 ../src/editing_tools/EditingTools.vala:778
+msgid "30 x 40 cm"
+msgstr "30 x 40 cm"
+
+#: ../src/Printing.vala:875
+msgid "Image Settings"
+msgstr "Roghainnean an deilbh"
+
+#: ../src/Printing.vala:888
+msgid "Printing..."
+msgstr "'Ga chlò-bhualadh..."
+
+#: ../src/Printing.vala:908 ../src/Printing.vala:1111
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"Chan urrainn dhuinn an dealbh a chlò-bhualadh\n"
+"%s"
+
+#: ../src/Properties.vala:84
+msgid "Today"
+msgstr "An-diugh"
+
+#: ../src/Properties.vala:86
+msgid "Yesterday"
+msgstr "An-dè"
+
+#: ../src/Properties.vala:227 ../src/camera/ImportPage.vala:312
+msgid "RAW+JPEG"
+msgstr "RAW+JPEG"
+
+#: ../src/Properties.vala:343
+msgid "Items:"
+msgstr "Nithean"
+
+#: ../src/Properties.vala:346
+#, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "%d tachartas"
+msgstr[1] "%d thachartas"
+msgstr[2] "%d tachartasan"
+msgstr[3] "%d tachartas"
+
+#: ../src/Properties.vala:353 ../src/events/EventDirectoryItem.vala:87
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d dealbh"
+msgstr[1] "%d dhealbh"
+msgstr[2] "%d dealbhan"
+msgstr[3] "%d dealbh"
+
+#: ../src/Properties.vala:355 ../src/events/EventDirectoryItem.vala:85
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d video"
+msgstr[1] "%d video"
+msgstr[2] "%d videothan"
+msgstr[3] "%d video"
+
+#. display only one date if start and end are the same
+#: ../src/Properties.vala:377
+msgid "Date:"
+msgstr "Ceann-là:"
+
+#. display only one time if start and end are the same
+#: ../src/Properties.vala:381
+msgid "Time:"
+msgstr "Àm:"
+
+#. display time range
+#. display date range
+#: ../src/Properties.vala:384 ../src/Properties.vala:389
+msgid "From:"
+msgstr "O:"
+
+#: ../src/Properties.vala:385 ../src/Properties.vala:390
+msgid "To:"
+msgstr "Gu:"
+
+#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1890
+msgid "Size:"
+msgstr "Meud:"
+
+#: ../src/Properties.vala:404
+msgid "Duration:"
+msgstr "Faid:"
+
+#: ../src/Properties.vala:404
+#, c-format
+msgid "%.1f seconds"
+msgstr "%.1f diogan"
+
+#: ../src/Properties.vala:408
+msgid "Developer:"
+msgstr "Leasaichear:"
+
+#. fit both on the top line, emit and move on
+#: ../src/Properties.vala:436 ../src/Properties.vala:440
+#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2258
+msgid "Exposure:"
+msgstr "Deisearas:"
+
+#. nothing special to be done for now for Events
+#: ../src/Properties.vala:585
+msgid "Location:"
+msgstr "Ionad:"
+
+#: ../src/Properties.vala:588
+msgid "File size:"
+msgstr "Meud an fhaidhle:"
+
+#: ../src/Properties.vala:592
+msgid "Current Development:"
+msgstr "Obair-leasachaidh làithreach:"
+
+#: ../src/Properties.vala:594
+msgid "Original dimensions:"
+msgstr "Am meud tùsail:"
+
+#: ../src/Properties.vala:597
+msgid "Camera make:"
+msgstr "Brannd a' chamara:"
+
+#: ../src/Properties.vala:600
+msgid "Camera model:"
+msgstr "Modail a' chamara:"
+
+#: ../src/Properties.vala:603
+msgid "Flash:"
+msgstr "Solas-boillsgidh:"
+
+#: ../src/Properties.vala:605
+msgid "Focal length:"
+msgstr "Faid an fhòcais:"
+
+#: ../src/Properties.vala:608
+msgid "Exposure date:"
+msgstr "Ceann-là deisearais:"
+
+#: ../src/Properties.vala:611
+msgid "Exposure time:"
+msgstr "Faid an deisearais"
+
+#: ../src/Properties.vala:614
+msgid "Exposure bias:"
+msgstr "Bias an deisearais:"
+
+#: ../src/Properties.vala:616
+msgid "GPS latitude:"
+msgstr "Domhan-leud GPS:"
+
+#: ../src/Properties.vala:619
+msgid "GPS longitude:"
+msgstr "Domhan-fhad GPS:"
+
+#: ../src/Properties.vala:622
+msgid "Artist:"
+msgstr "Neach-ealain:"
+
+#: ../src/Properties.vala:624
+msgid "Copyright:"
+msgstr "Còir-lethbhreac:"
+
+#: ../src/Properties.vala:626
+msgid "Software:"
+msgstr "Bathar-bog:"
+
+#: ../src/Properties.vala:639
+msgid "Extended Information"
+msgstr "Fiosrachadh leudaichte"
+
+#: ../src/Resources.vala:17
+msgid "Photo Manager"
+msgstr "Manaidsear dealbh/foto"
+
+#: ../src/Resources.vala:18
+msgid "Photo Viewer"
+msgstr "Sealladair dealbh/foto"
+
+#: ../src/Resources.vala:142
+msgid "Rotate _Right"
+msgstr "Cuairtich gu _deiseil"
+
+#: ../src/Resources.vala:143 ../src/Resources.vala:148
+msgid "Rotate"
+msgstr "Cuairtich"
+
+#: ../src/Resources.vala:144
+msgid "Rotate Right"
+msgstr "Cuairtich gu deiseil"
+
+#: ../src/Resources.vala:145
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr ""
+"Cuairtich na dealbhan gu deiseil (brùth Ctrl gus a chuairteachadh gu "
+"tuathail)"
+
+#: ../src/Resources.vala:147
+msgid "Rotate _Left"
+msgstr "Cuairtich gu _tuathail"
+
+#: ../src/Resources.vala:149
+msgid "Rotate Left"
+msgstr "Cuairtich gu tuathail"
+
+#: ../src/Resources.vala:150
+msgid "Rotate the photos left"
+msgstr "Cuairtich na dealbhan gu tuathail"
+
+#: ../src/Resources.vala:152
+msgid "Flip Hori_zontally"
+msgstr "Thoir flip air a' chòmh_nard"
+
+#: ../src/Resources.vala:153
+msgid "Flip Horizontally"
+msgstr "Thoir flip air a' chòmhnard"
+
+#: ../src/Resources.vala:155
+msgid "Flip Verti_cally"
+msgstr "Thoir flip gu _h-inghearach"
+
+#: ../src/Resources.vala:156
+msgid "Flip Vertically"
+msgstr "Thoir flip gu h-inghearach"
+
+#: ../src/Resources.vala:158
+msgid "_Enhance"
+msgstr "_Leasaich"
+
+#: ../src/Resources.vala:159
+msgid "Enhance"
+msgstr "Leasaich"
+
+#: ../src/Resources.vala:160
+msgid "Automatically improve the photo's appearance"
+msgstr "Leasaich dreach an deilbh gu fèin-obrachail"
+
+#: ../src/Resources.vala:162
+msgid "_Copy Color Adjustments"
+msgstr "Dèan lethbhrea_c de dh'atharraichean nan dathan"
+
+#: ../src/Resources.vala:163
+msgid "Copy Color Adjustments"
+msgstr "Dèan lethbhreac de dh'atharraichean nan dathan"
+
+#: ../src/Resources.vala:164
+msgid "Copy the color adjustments applied to the photo"
+msgstr ""
+"Dèan lethbhreac de dh'atharraichean nan dathan a chaidh a chur air an dealbh"
+
+#: ../src/Resources.vala:166
+msgid "_Paste Color Adjustments"
+msgstr "Cuir ann atharraichean nan _dathan"
+
+#: ../src/Resources.vala:167
+msgid "Paste Color Adjustments"
+msgstr "Cuir ann atharraichean nan dathan"
+
+#: ../src/Resources.vala:168
+msgid "Apply copied color adjustments to the selected photos"
+msgstr ""
+"Cuir ann atharraichean nan dathan a chaidh a chur air na dealbhan a thagh thu"
+
+#: ../src/Resources.vala:170
+msgid "_Crop"
+msgstr "_Bearr"
+
+#: ../src/Resources.vala:171
+msgid "Crop"
+msgstr "Bearr"
+
+#: ../src/Resources.vala:172
+msgid "Crop the photo's size"
+msgstr "Bearr meud an deilbh"
+
+#: ../src/Resources.vala:174 ../src/editing_tools/StraightenTool.vala:100
+msgid "_Straighten"
+msgstr "_Dèan dìreach"
+
+#: ../src/Resources.vala:175
+msgid "Straighten"
+msgstr "Dèan dìreach"
+
+#: ../src/Resources.vala:176
+msgid "Straighten the photo"
+msgstr "Dèan dìreach an dealbh"
+
+#: ../src/Resources.vala:178
+msgid "_Red-eye"
+msgstr "_Sùil dhearg"
+
+#: ../src/Resources.vala:179
+msgid "Red-eye"
+msgstr "Sùil dhearg"
+
+#: ../src/Resources.vala:180
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr "Lughdaich no thoir air falbh sùil dhearg sam bith anns an dealbh"
+
+#: ../src/Resources.vala:182
+msgid "_Adjust"
+msgstr "C_uir air gleus"
+
+#: ../src/Resources.vala:183
+msgid "Adjust"
+msgstr "Cuir air gleus"
+
+#: ../src/Resources.vala:184
+msgid "Adjust the photo's color and tone"
+msgstr "Cuir air gleus dath agus tòna an deilbh"
+
+#: ../src/Resources.vala:186
+msgid "Re_vert to Original"
+msgstr "Ti_ll an tionndadh tùsail"
+
+#: ../src/Resources.vala:187
+msgid "Revert to Original"
+msgstr "Till an tionndadh tùsail"
+
+#: ../src/Resources.vala:189
+msgid "Revert External E_dits"
+msgstr "Neo-dhèan d_easachadh a-muigh sam bith"
+
+#: ../src/Resources.vala:190
+msgid "Revert to the master photo"
+msgstr "Till maighstir an deilbh"
+
+#: ../src/Resources.vala:192
+msgid "Set as _Desktop Background"
+msgstr "Suidhich mar chùlaibh an _deasga"
+
+#: ../src/Resources.vala:193
+msgid "Set selected image to be the new desktop background"
+msgstr "Suidhich an dealbh a thagh thu mar chùlaibh an deasga"
+
+#: ../src/Resources.vala:194
+msgid "Set as _Desktop Slideshow..."
+msgstr "Suidhich mar thaisbeanadh-shleamhnagan an _deasga..."
+
+#: ../src/Resources.vala:196
+msgid "_Undo"
+msgstr "_Neo-dhèan"
+
+#: ../src/Resources.vala:197
+msgid "Undo"
+msgstr "Neo-dhèan"
+
+#: ../src/Resources.vala:199
+msgid "_Redo"
+msgstr "_Ath-dhèan"
+
+#: ../src/Resources.vala:200
+msgid "Redo"
+msgstr "Ath-dhèan"
+
+#: ../src/Resources.vala:202
+msgid "Re_name Event..."
+msgstr "Thoir ai_nm ùr air an tachartas..."
+
+#: ../src/Resources.vala:205
+msgid "Make _Key Photo for Event"
+msgstr "Cleachd _seo mar phrìomh-dhealbh an tachartais"
+
+#: ../src/Resources.vala:206
+msgid "Make Key Photo for Event"
+msgstr "Cleachd seo mar phrìomh-dhealbh an tachartais"
+
+#: ../src/Resources.vala:208
+msgid "_New Event"
+msgstr "Tachartas ù_r"
+
+#: ../src/Resources.vala:209
+msgid "New Event"
+msgstr "Tachartas ùr"
+
+#: ../src/Resources.vala:211
+msgid "Move Photos"
+msgstr "Gluais na dealbhan"
+
+#: ../src/Resources.vala:212
+msgid "Move photos to an event"
+msgstr "Gluais na dealbhan gu tachartas"
+
+#: ../src/Resources.vala:214
+msgid "_Merge Events"
+msgstr "_Co-aonaich na tachartasan"
+
+#: ../src/Resources.vala:215
+msgid "Merge"
+msgstr "Co-aonaich"
+
+#: ../src/Resources.vala:216
+msgid "Combine events into a single event"
+msgstr "Cuir còmhla na tachartasan san aon tachartas"
+
+#: ../src/Resources.vala:218
+msgid "_Set Rating"
+msgstr "_Suidhich rangachadh"
+
+#: ../src/Resources.vala:219
+msgid "Set Rating"
+msgstr "Suidhich rangachadh"
+
+#: ../src/Resources.vala:220
+msgid "Change the rating of your photo"
+msgstr "Atharraich rangachadh an deilbh agad"
+
+#: ../src/Resources.vala:222
+msgid "_Increase"
+msgstr "_Cuir am meud"
+
+#: ../src/Resources.vala:223
+msgid "Increase Rating"
+msgstr "Cuir am meud an rangachadh"
+
+#: ../src/Resources.vala:225
+msgid "_Decrease"
+msgstr "_Lùghdaich"
+
+#: ../src/Resources.vala:226
+msgid "Decrease Rating"
+msgstr "Lùghdaich an rangachadh"
+
+#: ../src/Resources.vala:228
+msgid "_Unrated"
+msgstr "_Gun rangachadh"
+
+#: ../src/Resources.vala:229
+msgid "Unrated"
+msgstr "Gun rangachadh"
+
+#: ../src/Resources.vala:230
+msgid "Rate Unrated"
+msgstr "Thoir air falbh rangachadh sam bith"
+
+#: ../src/Resources.vala:231
+msgid "Setting as unrated"
+msgstr "A' toirt air falbh rangachadh sam bith"
+
+#: ../src/Resources.vala:232
+msgid "Remove any ratings"
+msgstr "Thoir air falbh rangachadh sam bith"
+
+#: ../src/Resources.vala:234
+msgid "_Rejected"
+msgstr "Air a _dhiùltadh"
+
+#: ../src/Resources.vala:235
+msgid "Rejected"
+msgstr "Air a dhiùltadh"
+
+#: ../src/Resources.vala:236
+msgid "Rate Rejected"
+msgstr "Thoir rangachadh \"Air a dhiùltadh\" dha"
+
+#: ../src/Resources.vala:237
+msgid "Setting as rejected"
+msgstr "A' toirt rangachadh \"Air a dhiùltadh\" dha"
+
+#: ../src/Resources.vala:238
+msgid "Set rating to rejected"
+msgstr "Thoir rangachadh \"Air a dhiùltadh\" dha"
+
+#: ../src/Resources.vala:240
+msgid "Rejected _Only"
+msgstr "Na chaidh a dhiùltadh a-_mhàin"
+
+#: ../src/Resources.vala:241
+msgid "Rejected Only"
+msgstr "Na chaidh a dhiùltadh a-mhàin"
+
+#: ../src/Resources.vala:242
+msgid "Show only rejected photos"
+msgstr "Na seall ach dealbhan a chaidh a dhiùltadh"
+
+#: ../src/Resources.vala:244
+msgid "All + _Rejected"
+msgstr "Na h-uile ⁊ feadhainn air _dhiùltadh"
+
+#: ../src/Resources.vala:245 ../src/Resources.vala:246
+msgid "Show all photos, including rejected"
+msgstr "Seall gach dealbh, a' toirt a-steach feadhainn a chaidh a dhiùltadh"
+
+#: ../src/Resources.vala:248
+msgid "_All Photos"
+msgstr "_Na h-uile dealbh"
+
+#: ../src/Resources.vala:249 ../src/Resources.vala:250
+msgid "Show all photos"
+msgstr "Seall a h-uile dealbh"
+
+#: ../src/Resources.vala:252
+msgid "_Ratings"
+msgstr "_Rangachaidhean"
+
+#: ../src/Resources.vala:253
+msgid "Display each photo's rating"
+msgstr "Seall an rangachadh aig gach dealbh"
+
+#: ../src/Resources.vala:255
+msgid "_Filter Photos"
+msgstr "_Criathraich na dealbhan"
+
+#: ../src/Resources.vala:256
+msgid "Filter Photos"
+msgstr "Criathraich na dealbhan"
+
+#: ../src/Resources.vala:257
+msgid "Limit the number of photos displayed based on a filter"
+msgstr "Cuingich àireamh nan dealbhan a chithear le criathrag"
+
+#: ../src/Resources.vala:259
+msgid "_Duplicate"
+msgstr "_Dùblaich"
+
+#: ../src/Resources.vala:260
+msgid "Duplicate"
+msgstr "Dùblaich"
+
+#: ../src/Resources.vala:261
+msgid "Make a duplicate of the photo"
+msgstr "Dùblaich an dealbh"
+
+#: ../src/Resources.vala:263
+msgid "_Export..."
+msgstr "Às-p_hortaich"
+
+#: ../src/Resources.vala:265
+msgid "_Print..."
+msgstr "Clò-_bhuail..."
+
+#: ../src/Resources.vala:267
+msgid "Pu_blish..."
+msgstr "_Foillsich..."
+
+#: ../src/Resources.vala:269
+msgid "Publish to various websites"
+msgstr "Foillsich air iomadh làrach-lìn"
+
+#: ../src/Resources.vala:271
+msgid "Edit _Title..."
+msgstr "Deasaich an _tiotal..."
+
+#: ../src/Resources.vala:274
+msgid "Edit _Comment..."
+msgstr "Deasaich am _beachd..."
+
+#: ../src/Resources.vala:275
+msgid "Edit Comment"
+msgstr "Deasaich am beachd"
+
+#: ../src/Resources.vala:277
+msgid "Edit Event _Comment..."
+msgstr "Deasaich beachd an _tachartais..."
+
+#: ../src/Resources.vala:280
+msgid "_Adjust Date and Time..."
+msgstr "Cu_ir air gleus an ceann-là agus an t-àm..."
+
+#: ../src/Resources.vala:281
+msgid "Adjust Date and Time"
+msgstr "Cuir air gleus an ceann-là agus an t-àm"
+
+#: ../src/Resources.vala:283
+msgid "Add _Tags..."
+msgstr "Cuir _tagaichean ris..."
+
+#: ../src/Resources.vala:284
+msgid "_Add Tags..."
+msgstr "Cuir t_agaichean ris..."
+
+#: ../src/Resources.vala:285 ../src/Resources.vala:316
+msgid "Add Tags"
+msgstr "Cuir tagaichean ris"
+
+#: ../src/Resources.vala:287
+msgid "_Preferences"
+msgstr "_Roghainnean"
+
+#: ../src/Resources.vala:289
+msgid "Open With E_xternal Editor"
+msgstr "Fosgail le deasaiche air an ta_obh a-muigh"
+
+#: ../src/Resources.vala:291
+msgid "Open With RA_W Editor"
+msgstr "Fosgail le deasaiche RA_W"
+
+#: ../src/Resources.vala:293
+msgid "Send _To..."
+msgstr "C_uir gu..."
+
+#: ../src/Resources.vala:294
+msgid "Send T_o..."
+msgstr "Cui_r gu..."
+
+#: ../src/Resources.vala:296
+msgid "_Find..."
+msgstr "_Lorg..."
+
+#: ../src/Resources.vala:297
+msgid "Find"
+msgstr "Lorg"
+
+#: ../src/Resources.vala:298
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr ""
+"Lorg dealbh 's tu a' cur a-steach teacsa a tha a' nochdadh 'na ainm no sna "
+"tagaichean aige."
+
+#: ../src/Resources.vala:300
+msgid "_Flag"
+msgstr "Cuir _bratach ris"
+
+#: ../src/Resources.vala:302
+msgid "Un_flag"
+msgstr "Thoir a' bhratach air _falbh"
+
+#: ../src/Resources.vala:305
+#, c-format
+msgid "Unable to launch editor: %s"
+msgstr "Chan urrainn dhuinn an deasaiche a chur gu dol: %s"
+
+#: ../src/Resources.vala:310
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "Cuir an taga \"%s\" ris"
+
+#: ../src/Resources.vala:312
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "Cuir na tagaichean \"%s\" agus \"%s\" ris"
+
+#: ../src/Resources.vala:320
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "_Sguab às an taga \"%s\""
+
+#: ../src/Resources.vala:324
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "Sguab às an taga \"%s\""
+
+#: ../src/Resources.vala:327
+msgid "Delete Tag"
+msgstr "Sguab às an taga"
+
+#: ../src/Resources.vala:330
+msgid "_New"
+msgstr "Ù_r"
+
+#: ../src/Resources.vala:333
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "Thoir ai_nm eile air an taga \"%s\"..."
+
+#: ../src/Resources.vala:337
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "Thoir \"%2s\" air \"%1s\""
+
+#: ../src/Resources.vala:340
+msgid "_Rename..."
+msgstr "_Thoir ainm ùr air..."
+
+#: ../src/Resources.vala:342
+msgid "Modif_y Tags..."
+msgstr "Athar_raich na tagaichean..."
+
+#: ../src/Resources.vala:343
+msgid "Modify Tags"
+msgstr "Atharraich na tagaichean"
+
+#: ../src/Resources.vala:346
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgstr "Cuir an taga \"%s\" ris an dealbh"
+
+#: ../src/Resources.vala:346
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "Cuir an taga \"%s\" ris na dealbhan"
+
+#: ../src/Resources.vala:350
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgstr "Cuir an taga \"%s\" ris an dealbh a thagh thu"
+
+#: ../src/Resources.vala:351
+#, c-format
+msgid "Tag the selected photos as \"%s\""
+msgstr "Cuir an taga \"%s\" ris na dealbhan a thagh thu"
+
+#: ../src/Resources.vala:355
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgstr "Thoir air falbh an taga \"%s\" on _dealbh"
+
+#: ../src/Resources.vala:356
+#, c-format
+msgid "Remove Tag \"%s\" From _Photos"
+msgstr "Thoir air falbh an taga \"%s\" on na _dealbhan"
+
+#: ../src/Resources.vala:360
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgstr "Thoir air falbh an taga \"%s\" on dealbh"
+
+#: ../src/Resources.vala:361
+#, c-format
+msgid "Remove Tag \"%s\" From Photos"
+msgstr "Thoir air falbh an taga \"%s\" on na dealbhan"
+
+#: ../src/Resources.vala:365
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr ""
+"Chan urrainn dhuinn \"%s\" a thoirt air an taga a chionn 's gu bheil an taga "
+"sin ann mu thràth."
+
+#: ../src/Resources.vala:369
+#, c-format
+msgid "Unable to rename search to \"%s\" because the search already exists."
+msgstr ""
+"Chan urrainn dhuinn \"%s\" a thoirt air an lorg air sgàth 's gu bheil a "
+"leithid ann mar-thà."
+
+#: ../src/Resources.vala:372
+msgid "Saved Search"
+msgstr "Lorg a chaidh a shàbhaladh"
+
+#: ../src/Resources.vala:374
+msgid "Delete Search"
+msgstr "Sguab às an lorg"
+
+#: ../src/Resources.vala:377
+msgid "_Edit..."
+msgstr "D_easaich..."
+
+#: ../src/Resources.vala:378
+msgid "Re_name..."
+msgstr "Thoir ain_m ùr air..."
+
+#: ../src/Resources.vala:381
+#, c-format
+msgid "Rename Search \"%s\" to \"%s\""
+msgstr "Thoir \"%2s\" air an lorg \"%1s\""
+
+#: ../src/Resources.vala:385
+#, c-format
+msgid "Delete Search \"%s\""
+msgstr "Sguab às an lorg \"%s\""
+
+#: ../src/Resources.vala:543
+#, c-format
+msgid "Rate %s"
+msgstr "Thoir an rangachadh %s dha"
+
+#: ../src/Resources.vala:544
+#, c-format
+msgid "Set rating to %s"
+msgstr "Thoir an rangachadh %s dha"
+
+#: ../src/Resources.vala:545
+#, c-format
+msgid "Setting rating to %s"
+msgstr "A' toirt an rangachadh %s dha"
+
+#: ../src/Resources.vala:547
+#, c-format
+msgid "Display %s"
+msgstr "Seall %s"
+
+#: ../src/Resources.vala:548
+#, c-format
+msgid "Only show photos with a rating of %s"
+msgstr "Na seall ach dealbhan aig a bheil an rangachadh %s"
+
+#: ../src/Resources.vala:549
+#, c-format
+msgid "%s or Better"
+msgstr "%s no nas fhearr"
+
+#: ../src/Resources.vala:550
+#, c-format
+msgid "Display %s or Better"
+msgstr "Seall %s no feadhainn nas fhearr"
+
+#: ../src/Resources.vala:551
+#, c-format
+msgid "Only show photos with a rating of %s or better"
+msgstr ""
+"Na seall dealbhan ach feadhainn aig a bheil rangachadh %s no fear nas fhearr"
+
+#: ../src/Resources.vala:642
+msgid "Remove the selected photos from the trash"
+msgstr "Thoir na dealbhan a thagh thu air falbh on sgudal"
+
+#: ../src/Resources.vala:643
+msgid "Remove the selected photos from the library"
+msgstr "Thoir na dealbhan a thagh thu air falbh on leabhar-lann"
+
+#: ../src/Resources.vala:645
+msgid "_Restore"
+msgstr "_Aisig"
+
+#: ../src/Resources.vala:646
+msgid "Move the selected photos back into the library"
+msgstr "Gluais na dealbhan a thagh thu air ais dhan leabhar-lann"
+
+#: ../src/Resources.vala:648
+msgid "Show in File Mana_ger"
+msgstr "Seall ann am manai_dsear nam faidhlichean"
+
+#: ../src/Resources.vala:649
+msgid "Open the selected photo's directory in the file manager"
+msgstr ""
+"Fosgail pasgan an deilbh a thagh thu ann am manaidsear nam faidhlichean"
+
+#: ../src/Resources.vala:652
+#, c-format
+msgid "Unable to open in file manager: %s"
+msgstr "Cha ghabh fhosgladh manaidsear nam faidhlichean: %s"
+
+#: ../src/Resources.vala:655
+msgid "R_emove From Library"
+msgstr "T_hoir air falbh on leabhar-lann"
+
+#: ../src/Resources.vala:657
+msgid "_Move to Trash"
+msgstr "_Gluais dhan sgudal"
+
+#: ../src/Resources.vala:659
+msgid "Select _All"
+msgstr "Tagh n_a h-uile"
+
+#: ../src/Resources.vala:660
+msgid "Select all items"
+msgstr "Tagh a h-uile nì"
+
+#. ...precache the timestamp string...
+#. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
+#. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:741
+msgid "%-I:%M %p"
+msgstr "%-I:%M %p"
+
+#. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
+#. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:746
+msgid "%-I:%M:%S %p"
+msgstr "%-I:%M:%S %p"
+
+#. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:750
+msgid "%a %b %d, %Y"
+msgstr "%a %d %b %Y"
+
+#. / Locale-specific starting date format for multi-date strings,
+#. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#. / Locale-specific calendar date format for multi-month strings,
+#. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:755 ../src/Resources.vala:765
+msgid "%a %b %d"
+msgstr "%a %d %b"
+
+#. / Locale-specific ending date format for multi-date strings,
+#. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:760
+msgid "%d, %Y"
+msgstr "%d, %Y"
+
+#: ../src/Screensaver.vala:18 ../src/SlideshowPage.vala:141
+msgid "Slideshow"
+msgstr "Taisbeanadh-shleamhnagan"
+
+#. Flagged label and toggle
+#: ../src/SearchFilter.vala:587 ../src/SearchFilter.vala:588
+#: ../src/SearchFilter.vala:990 ../src/library/FlaggedPage.vala:8
+msgid "Flagged"
+msgstr "Le bratach"
+
+#: ../src/SearchFilter.vala:593 ../src/SearchFilter.vala:594
+msgid "Photos"
+msgstr "Dealbhan"
+
+#: ../src/SearchFilter.vala:599 ../src/SearchFilter.vala:600
+msgid "Videos"
+msgstr "Videothan"
+
+#: ../src/SearchFilter.vala:605
+msgid "RAW Photos"
+msgstr "Dealbhan RAW"
+
+#: ../src/SearchFilter.vala:606
+msgid "RAW photos"
+msgstr "Dealbhan RAW"
+
+#: ../src/SearchFilter.vala:952
+#, c-format
+msgid "Error loading UI file %s: %s"
+msgstr "Mearachd a' luchdadh faidhle an UI %s: %s"
+
+#. Type label and toggles
+#: ../src/SearchFilter.vala:969
+msgid "Type"
+msgstr "Seòrsa"
+
+#. Rating label and button
+#: ../src/SearchFilter.vala:1003 ../src/searches/SearchBoolean.vala:184
+msgid "Rating"
+msgstr "Rangachadh"
+
+#: ../src/SlideshowPage.vala:49 ../src/SlideshowPage.vala:182
+msgid "Settings"
+msgstr "Roghainnean"
+
+#. Set up toolbar
+#. add toolbar buttons
+#: ../src/SlideshowPage.vala:161
+msgid "Back"
+msgstr "Air ais"
+
+#: ../src/SlideshowPage.vala:162
+msgid "Go to the previous photo"
+msgstr "Air ais dhan dealbh roimhe"
+
+#: ../src/SlideshowPage.vala:168 ../src/SlideshowPage.vala:273
+msgid "Pause"
+msgstr "Cuir 'na stad"
+
+#: ../src/SlideshowPage.vala:169 ../src/SlideshowPage.vala:274
+msgid "Pause the slideshow"
+msgstr "Cuir an taisbeanadh-shleamhnagan 'na stad"
+
+#: ../src/SlideshowPage.vala:175
+msgid "Next"
+msgstr "Air adhart"
+
+#: ../src/SlideshowPage.vala:176
+msgid "Go to the next photo"
+msgstr "Air adhart dhan ath-dhealbh"
+
+#: ../src/SlideshowPage.vala:183
+msgid "Change slideshow settings"
+msgstr "Atharraich roghainnean an taisbeanaidh-shleamhnagan"
+
+#. An entire slideshow set might be missing, so check for a loop.
+#: ../src/SlideshowPage.vala:237
+msgid "All photo source files are missing."
+msgstr "Tha gach tùs-fhaidhl nan dealbhan a dhìth."
+
+#: ../src/SlideshowPage.vala:269
+msgid "Play"
+msgstr "Cluich"
+
+#: ../src/SlideshowPage.vala:270
+msgid "Continue the slideshow"
+msgstr "Lean air an taisbeanadh-shleamhnagan"
+
+#: ../src/Tag.vala:817
+msgid "untitled"
+msgstr "gun tiotal"
+
+#. multiple videos
+#: ../src/VideoSupport.vala:486
+msgid "Export Videos"
+msgstr "Às-phortaich videothan"
+
+#: ../src/camera/Branch.vala:87
+msgid "Cameras"
+msgstr "Camarathan"
+
+#: ../src/camera/ImportPage.vala:459
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr ""
+"Cha ghabh an camara a dhì-mhunntachadh. Feuch is dì-mhunntaich an camara o "
+"mhanaidsear nam faidhlichean."
+
+#. hide duplicates checkbox
+#: ../src/camera/ImportPage.vala:776
+msgid "Hide photos already imported"
+msgstr "Falaich dealbhan a chaidh ion-phortadh mar-thà"
+
+#: ../src/camera/ImportPage.vala:777
+msgid "Only display photos that have not been imported"
+msgstr "Na seall ach dealbhan nach deach ion-phortadh fhathast"
+
+#. Ticket #3304 - Import page shouldn't display confusing message
+#. prior to import.
+#. TODO: replace this with approved text for "talking to camera,
+#. please wait" once new strings are being accepted.
+#: ../src/camera/ImportPage.vala:845
+msgid "Starting import, please wait..."
+msgstr "A' tòiseachadh air ion-phortadh, fuirich ort..."
+
+#: ../src/camera/ImportPage.vala:884
+msgid "Import _Selected"
+msgstr "Ion-phortaich na _thagh thu"
+
+#: ../src/camera/ImportPage.vala:885
+msgid "Import the selected photos into your library"
+msgstr "Ion-phortaich na dealbhan a thagh thu dhan leabhar-lann agad"
+
+#: ../src/camera/ImportPage.vala:890
+msgid "Import _All"
+msgstr "Ion-phortaich na _h-uile"
+
+#: ../src/camera/ImportPage.vala:891
+msgid "Import all the photos into your library"
+msgstr "Ion-phortaich na dealbhan uile dhan leabhar-lann agad"
+
+#. it's mounted, offer to unmount for the user
+#: ../src/camera/ImportPage.vala:1012
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
+msgstr ""
+"Feumaidh Shotwell an camara a dhì-mhunntachadh o shiostam nam faidhlichean "
+"mus gabh e cothrom air.  A bheil thu airson leantainn air adhart?"
+
+#: ../src/camera/ImportPage.vala:1018
+msgid "_Unmount"
+msgstr "_Dì-mhunntaich"
+
+#: ../src/camera/ImportPage.vala:1023
+msgid "Please unmount the camera."
+msgstr "Dì-mhunntaich an camara"
+
+#: ../src/camera/ImportPage.vala:1028
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
+msgstr ""
+"Chaidh an camara a ghlasadh le aplacaid eile. Chan fhaigh Shotwell cothrom "
+"air a' chamara ach nuair tha e fosgailte. Dùin aplacaid sam bith eile a tha "
+"a' cleachdadh a' chamara agus feuch ris a-rithist."
+
+#: ../src/camera/ImportPage.vala:1038
+msgid "Please close any other application using the camera."
+msgstr "Dùin aplacaid sam bith eile a tha a' cleachdadh a' chamara."
+
+#: ../src/camera/ImportPage.vala:1043
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+"Chan urrainn dhuinn ro-shealladh sam bith fhaighinn on chamara\n"
+"%s"
+
+#: ../src/camera/ImportPage.vala:1060
+msgid "Unmounting..."
+msgstr "A' dì-mhunntachadh..."
+
+#: ../src/camera/ImportPage.vala:1166
+msgid "Fetching photo information"
+msgstr "A' faighinn fiosrachadh an deilbh"
+
+#: ../src/camera/ImportPage.vala:1521
+#, c-format
+msgid "Fetching preview for %s"
+msgstr "A' faighinn ro-shealladh %s"
+
+#: ../src/camera/ImportPage.vala:1637
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "Chan urrainn dhuinn an camara a ghlasadh: %s"
+
+#: ../src/camera/ImportPage.vala:1722
+#, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "A bheil thu airson an %d dealbh seo a sguabadh às a' chamara?"
+msgstr[1] "A bheil thu airson an %d dhealbh seo a sguabadh às a' chamara?"
+msgstr[2] "A bheil thu airson na %d dealbhan seo a sguabadh às a' chamara?"
+msgstr[3] "A bheil thu airson na %d dealbh seo a sguabadh às a' chamara?"
+
+#: ../src/camera/ImportPage.vala:1725
+#, c-format
+msgid "Delete this video from camera?"
+msgid_plural "Delete these %d videos from camera?"
+msgstr[0] "A bheil thu airson an %d video seo a sguabadh às a' chamara?"
+msgstr[1] "A bheil thu airson an %d video seo a sguabadh às a' chamara?"
+msgstr[2] "A bheil thu airson na %d videothan seo a sguabadh às a' chamara?"
+msgstr[3] "A bheil thu airson na %d video seo a sguabadh às a' chamara?"
+
+#: ../src/camera/ImportPage.vala:1728
+#, c-format
+msgid "Delete this photo/video from camera?"
+msgid_plural "Delete these %d photos/videos from camera?"
+msgstr[0] "A bheil thu airson an %d dealbh/video seo a sguabadh às a' chamara?"
+msgstr[1] ""
+"A bheil thu airson an %d dhealbh/video seo a sguabadh às a' chamara?"
+msgstr[2] ""
+"A bheil thu airson na %d dealbhan/videothan seo a sguabadh às a' chamara?"
+msgstr[3] "A bheil thu airson na %d dealbh/video seo a sguabadh às a' chamara?"
+
+#: ../src/camera/ImportPage.vala:1731
+#, c-format
+msgid "Delete these files from camera?"
+msgid_plural "Delete these %d files from camera?"
+msgstr[0] "A bheil thu airson an %d fhaidhle seo a sguabadh às a' chamara?"
+msgstr[1] "A bheil thu airson an %d fhaidhle seo a sguabadh às a' chamara?"
+msgstr[2] "A bheil thu airson na %d faidhlichean seo a sguabadh às a' chamara?"
+msgstr[3] "A bheil thu airson na %d faidhle seo a sguabadh às a' chamara?"
+
+#: ../src/camera/ImportPage.vala:1758
+msgid "Removing photos/videos from camera"
+msgstr "A' toirt air falbh nan dealbhan/videothan on chamara"
+
+#: ../src/camera/ImportPage.vala:1762
+#, c-format
+msgid "Unable to delete %d photo/video from the camera due to errors."
+msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] ""
+"Tha %d dealbh/video air a' chamara nach urrainn dhuinn sguabadh às ri linn "
+"mhearachdan."
+msgstr[1] ""
+"Tha %d dhealbh/video air a' chamara nach urrainn dhuinn sguabadh às ri linn "
+"mhearachdan."
+msgstr[2] ""
+"Tha %d dealbhan/videothan air a' chamara nach urrainn dhuinn sguabadh às ri "
+"linn mhearachdan."
+msgstr[3] ""
+"Tha %d dealbh/video air a' chamara nach urrainn dhuinn sguabadh às ri linn "
+"mhearachdan."
+
+#: ../src/data_imports/DataImports.vala:22
+msgid "Data Imports"
+msgstr "Ion-phortadh dàta"
+
+#. Send an empty job to the queue to mark the end of the import
+#: ../src/data_imports/DataImportsPluginHost.vala:65
+#: ../src/data_imports/DataImportsPluginHost.vala:78
+#, c-format
+msgid "%s Database"
+msgstr "Stòr-dàta %s"
+
+#: ../src/data_imports/DataImportsPluginHost.vala:148
+#: ../src/data_imports/DataImportsPluginHost.vala:294
+#, c-format
+msgid "Importing from %s can't continue because an error occurred:"
+msgstr ""
+"Chan urrainn dhuinn leantainn air an ion-phortadh o %s oir thachair mearachd:"
+
+#: ../src/data_imports/DataImportsPluginHost.vala:151
+msgid "To try importing from another service, select one from the above menu."
+msgstr ""
+"Ma tha thu airson feuchainn ri ion-phortadh a dhèanamh o sheirbheis eile, "
+"tagh tè sa chlàr-taice gu h-àrd."
+
+#: ../src/data_imports/DataImportsUI.vala:10
+msgid ""
+"You do not have any data imports plugins enabled.\n"
+"\n"
+"In order to use the Import From Application functionality, you need to have "
+"at least one data imports plugin enabled. Plugins can be enabled in the "
+"Preferences dialog."
+msgstr ""
+"Chan eil plugain sam bith an comas leis an urrainn dhut dàta ion-phortadh.\n"
+"\n"
+"Mus urrainn dhut an gleus \"Ion-phortaich o aplacaid\" a chleachdadh, "
+"feumaidh tu co-dhiù aon phlugan a chur an comas a nì ion-phortadh dàta dhut. "
+"'S urrainn dhut plugain a chur an comas ann an còmhradh nan roghainnean."
+
+#: ../src/data_imports/DataImportsUI.vala:100
+msgid "Database file:"
+msgstr "Faidhle stòir-dhàta:"
+
+#: ../src/data_imports/DataImportsUI.vala:112
+#: ../src/library/LibraryWindow.vala:899
+msgid "_Import"
+msgstr "_Ion-phortaich"
+
+#: ../src/data_imports/DataImportsUI.vala:216
+msgid "Import From Application"
+msgstr "Ion-phortaich o aplacaid"
+
+#: ../src/data_imports/DataImportsUI.vala:217
+msgid "Import media _from:"
+msgstr "Ion-phortaich meadhan _o:"
+
+#: ../src/data_imports/DataImportsUI.vala:394
+#: ../src/publishing/PublishingUI.vala:493
+msgid "_Close"
+msgstr "_Dùin"
+
+#: ../src/db/DatabaseTable.vala:37
+#, c-format
+msgid "Unable to open/create photo database %s: error code %d"
+msgstr ""
+"Cha b' urrainn fosgail/cruthachadh stòr-dàta dealbh/foto %s: còd mearachd %d"
+
+#: ../src/db/DatabaseTable.vala:46
+#, c-format
+msgid ""
+"Unable to write to photo database file:\n"
+" %s"
+msgstr ""
+"Cha b' urrainn sgrìobhadh gu faidhle stòr-dàta dealbh/foto:\n"
+" %s"
+
+#: ../src/db/DatabaseTable.vala:48
+#, c-format
+msgid ""
+"Error accessing database file:\n"
+" %s\n"
+"\n"
+"Error was: \n"
+"%s"
+msgstr ""
+"Mearachd faighinn cothrom air faidhle stòr-dàta:\n"
+" %s\n"
+"\n"
+"'S e am mearachd: \n"
+"%s"
+
+#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:352
+msgid "_File"
+msgstr "_Faidhle"
+
+#: ../src/direct/DirectPhotoPage.vala:51
+#: ../src/direct/DirectPhotoPage.vala:417
+msgid "_Save"
+msgstr "_Sàbhail"
+
+#: ../src/direct/DirectPhotoPage.vala:52
+msgid "Save photo"
+msgstr "Sàbhail an dealbh"
+
+#: ../src/direct/DirectPhotoPage.vala:57
+msgid "Save _As..."
+msgstr "Sàbhail _mar..."
+
+#: ../src/direct/DirectPhotoPage.vala:58
+msgid "Save photo with a different name"
+msgstr "Sàbhail an dealbh fo ainm eile"
+
+#: ../src/direct/DirectPhotoPage.vala:69
+msgid "Print the photo to a printer connected to your computer"
+msgstr ""
+"Clò-bhuail an dealbh air clò-bhualadair a tha ceangailte ris a' choimpiutair "
+"agad"
+
+#: ../src/direct/DirectPhotoPage.vala:73 ../src/library/LibraryWindow.vala:356
+msgid "_Edit"
+msgstr "D_easaich"
+
+#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:364
+msgid "_Photo"
+msgstr "_Dealbh"
+
+#: ../src/direct/DirectPhotoPage.vala:169
+#: ../src/library/LibraryWindow.vala:380
+msgid "_Help"
+msgstr "_Cobhair"
+
+#: ../src/direct/DirectPhotoPage.vala:227
+#, c-format
+msgid "%s does not exist."
+msgstr "Chan eill %s ann."
+
+#: ../src/direct/DirectPhotoPage.vala:229
+#, c-format
+msgid "%s is not a file."
+msgstr "Chan e faidhle a tha ann an \"%s\"."
+
+#: ../src/direct/DirectPhotoPage.vala:231
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr ""
+"Chan eil %s a' cur taic ris an fhòrmat fhaidhle aig\n"
+"%s."
+
+#: ../src/direct/DirectPhotoPage.vala:417
+msgid "_Save a Copy"
+msgstr "_Sàbhail lethbhreac dheth"
+
+#: ../src/direct/DirectPhotoPage.vala:420
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "A bheil thu airson na dh'atharraich thu air %s a chall?"
+
+#: ../src/direct/DirectPhotoPage.vala:421
+msgid "Close _without Saving"
+msgstr "Dùin _gun a shàbhaladh"
+
+#: ../src/direct/DirectPhotoPage.vala:454
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "Thachair mearachd fhad 's a bha sinn a' sàbhaladh ann an %s: %s"
+
+#: ../src/direct/DirectPhotoPage.vala:482
+#: ../src/direct/DirectPhotoPage.vala:503
+msgid "Save As"
+msgstr "Sàbhail mar"
+
+#: ../src/editing_tools/EditingTools.vala:665
+msgid "Return to current photo dimensions"
+msgstr "Till do mheudachd an deilbh làithrich"
+
+#: ../src/editing_tools/EditingTools.vala:668
+msgid "Set the crop for this photo"
+msgstr "Suidhich bearradh an deilbh seo"
+
+#: ../src/editing_tools/EditingTools.vala:680
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr ""
+"Cuairtich an ceart-cheàrnach bearraidh eadar comhair portraid is dreach-tìre"
+
+#: ../src/editing_tools/EditingTools.vala:753
+msgid "Unconstrained"
+msgstr "Gun chuingeachadh"
+
+#: ../src/editing_tools/EditingTools.vala:754
+msgid "Square"
+msgstr "Ceàrnagach"
+
+#: ../src/editing_tools/EditingTools.vala:755
+msgid "Screen"
+msgstr "Sgrìn"
+
+#: ../src/editing_tools/EditingTools.vala:757
+#: ../src/editing_tools/EditingTools.vala:760
+#: ../src/editing_tools/EditingTools.vala:770
+#: ../src/editing_tools/EditingTools.vala:780
+msgid "-"
+msgstr "-"
+
+#: ../src/editing_tools/EditingTools.vala:758
+msgid "SD Video (4 : 3)"
+msgstr "SD Video (4 : 3)"
+
+#: ../src/editing_tools/EditingTools.vala:759
+msgid "HD Video (16 : 9)"
+msgstr "HD Video (16 : 9)"
+
+#: ../src/editing_tools/EditingTools.vala:766
+msgid "Letter (8.5 x 11 in.)"
+msgstr "Litir (8.5 x 11 òirlich)"
+
+#: ../src/editing_tools/EditingTools.vala:768
+msgid "Tabloid (11 x 17 in.)"
+msgstr "Tabloid (11 x 17 òirlich)"
+
+#: ../src/editing_tools/EditingTools.vala:775
+msgid "A4 (210 x 297 mm)"
+msgstr "A4 (210 x 297 mm)"
+
+#: ../src/editing_tools/EditingTools.vala:779
+msgid "A3 (297 x 420 mm)"
+msgstr "A3 (297 x 420 mm)"
+
+#: ../src/editing_tools/EditingTools.vala:1905
+msgid "Close the red-eye tool"
+msgstr "Dùin inneal nan sùilean dearga"
+
+#: ../src/editing_tools/EditingTools.vala:1908
+msgid "Remove any red-eye effects in the selected region"
+msgstr "Thoir air falbh sùil dhearg sam bith san raon a thagh thu"
+
+#: ../src/editing_tools/EditingTools.vala:2244
+#: ../src/editing_tools/StraightenTool.vala:102
+msgid "_Reset"
+msgstr "_Ath-shuidhich"
+
+#: ../src/editing_tools/EditingTools.vala:2266
+msgid "Saturation:"
+msgstr "Sàthachd:"
+
+#: ../src/editing_tools/EditingTools.vala:2274
+msgid "Tint:"
+msgstr "Tuar:"
+
+#: ../src/editing_tools/EditingTools.vala:2283
+msgid "Temperature:"
+msgstr "Teothachd:"
+
+#: ../src/editing_tools/EditingTools.vala:2291
+msgid "Shadows:"
+msgstr "Sgàilean:"
+
+#: ../src/editing_tools/EditingTools.vala:2299
+msgid "Highlights:"
+msgstr "Soillseachadh:"
+
+#: ../src/editing_tools/EditingTools.vala:2353
+msgid "Reset Colors"
+msgstr "Ath-shuidhich na dathan"
+
+#: ../src/editing_tools/EditingTools.vala:2353
+msgid "Reset all color adjustments to original"
+msgstr "Ath-shuidhich gach rèiteachadh datha gu roghainn thùsail aige"
+
+#: ../src/editing_tools/EditingTools.vala:2705
+msgid "Temperature"
+msgstr "Teothachd"
+
+#: ../src/editing_tools/EditingTools.vala:2718
+msgid "Tint"
+msgstr "Tuar"
+
+#: ../src/editing_tools/EditingTools.vala:2731
+msgid "Saturation"
+msgstr "Sàthachd"
+
+#: ../src/editing_tools/EditingTools.vala:2744
+msgid "Exposure"
+msgstr "Deisearas"
+
+#: ../src/editing_tools/EditingTools.vala:2757
+msgid "Shadows"
+msgstr "Sgàilean"
+
+#: ../src/editing_tools/EditingTools.vala:2770
+msgid "Highlights"
+msgstr "Soillseachadh"
+
+#: ../src/editing_tools/EditingTools.vala:2780
+msgid "Contrast Expansion"
+msgstr "Leudachadh an iomsgaraidh"
+
+#: ../src/editing_tools/StraightenTool.vala:99
+msgid "Angle:"
+msgstr "Ceàrn:"
+
+#: ../src/events/EventDirectoryItem.vala:83
+#, c-format
+msgid "%d Photo/Video"
+msgid_plural "%d Photos/Videos"
+msgstr[0] "%d dealbh/video"
+msgstr[1] "%d dhealbh/video"
+msgstr[2] "%d dealbhan/videothan"
+msgstr[3] "%d dealbh/video"
+
+#: ../src/events/EventPage.vala:129
+msgid "No Event"
+msgstr "Chan eil tachartas ann"
+
+#: ../src/events/EventsDirectoryPage.vala:131
+msgid "Display the comment of each event"
+msgstr "Seall na beachdan a tha ri gach tachartas"
+
+#: ../src/events/EventsDirectoryPage.vala:155
+msgid "No events"
+msgstr "Chan eil tachartas sam bith ann"
+
+#: ../src/events/EventsDirectoryPage.vala:159
+msgid "No events found"
+msgstr "Cha deach tachartas sam bith a lorg"
+
+#: ../src/events/EventsDirectoryPage.vala:230
+msgid "Events"
+msgstr "Tachartasan"
+
+#: ../src/events/EventsDirectoryPage.vala:244
+msgid "Undated"
+msgstr "Gun cheann-là"
+
+#: ../src/events/EventsDirectoryPage.vala:245
+msgid "%Y"
+msgstr "%Y"
+
+#: ../src/events/EventsDirectoryPage.vala:246
+msgid "%B"
+msgstr "%B"
+
+#: ../src/folders/Branch.vala:141
+msgid "Folders"
+msgstr "Pasganan"
+
+#: ../src/library/Branch.vala:37 ../ui/shotwell.glade.h:33
+msgid "Library"
+msgstr "Leabhar-lann"
+
+#: ../src/library/ImportQueuePage.vala:8
+msgid "Importing..."
+msgstr "Ag ion-phortadh..."
+
+#: ../src/library/ImportQueuePage.vala:66
+msgid "_Stop Import"
+msgstr "Thoir _stad air an ion-phortadh"
+
+#: ../src/library/ImportQueuePage.vala:67
+msgid "Stop importing photos"
+msgstr "Thoir stad air ion-phortadh na dealbhan"
+
+#: ../src/library/ImportQueuePage.vala:123
+msgid "Preparing to import..."
+msgstr "Ag ullachadh an ion-phortadh..."
+
+#: ../src/library/ImportQueuePage.vala:150
+#, c-format
+msgid "Imported %s"
+msgstr "Chaidh %s ion-phortadh"
+
+#: ../src/library/LastImportPage.vala:8
+msgid "Last Import"
+msgstr "An t-ion-phortadh mu dheireadh"
+
+#: ../src/library/LibraryWindow.vala:301
+msgid "_Import From Folder..."
+msgstr "_Ion-phortaich o phasgan..."
+
+#: ../src/library/LibraryWindow.vala:302
+msgid "Import photos from disk to library"
+msgstr "Ion-phortaich dealbhan o dhiosg dha leabhar-lann"
+
+#: ../src/library/LibraryWindow.vala:309
+msgid "Import From _Application..."
+msgstr "Ion-phortaich o _aplacaid..."
+
+#: ../src/library/LibraryWindow.vala:313
+msgid "Sort _Events"
+msgstr "Seòrsaich na _tachartasan"
+
+#: ../src/library/LibraryWindow.vala:323
+msgid "Empty T_rash"
+msgstr "Falamhaich an s_gudal"
+
+#: ../src/library/LibraryWindow.vala:324
+msgid "Delete all photos in the trash"
+msgstr "Sguab às na dealbhan uile a tha san sgudal"
+
+#: ../src/library/LibraryWindow.vala:329
+msgid "View Eve_nt for Photo"
+msgstr "Seall an tac_hartas aig an dealbh"
+
+#: ../src/library/LibraryWindow.vala:334
+msgid "_Find"
+msgstr "_Lorg"
+
+#: ../src/library/LibraryWindow.vala:335
+msgid "Find photos and videos by search criteria"
+msgstr "Lorg dealbhan agus videothan a-rèir cuspairean-deuchainn"
+
+#: ../src/library/LibraryWindow.vala:346 ../src/searches/Branch.vala:77
+#: ../src/sidebar/Tree.vala:194
+msgid "Ne_w Saved Search..."
+msgstr "Lorg ù_r a chaidh a shàbhaladh..."
+
+#: ../src/library/LibraryWindow.vala:368
+msgid "_Photos"
+msgstr "_Dealbhan"
+
+#: ../src/library/LibraryWindow.vala:372
+msgid "Even_ts"
+msgstr "Tach_artasan"
+
+#: ../src/library/LibraryWindow.vala:391
+msgid "_Basic Information"
+msgstr "_Fiosrachadh bunasach"
+
+#: ../src/library/LibraryWindow.vala:392
+msgid "Display basic information for the selection"
+msgstr "Seall fiosrachadh bunasach mun rug a thagh thu"
+
+#: ../src/library/LibraryWindow.vala:397
+msgid "E_xtended Information"
+msgstr "F_iosrachdadh leudaichte"
+
+#: ../src/library/LibraryWindow.vala:398
+msgid "Display extended information for the selection"
+msgstr "Seall fiosrachadh leudaichte mun rug a thagh thu"
+
+#: ../src/library/LibraryWindow.vala:403
+msgid "_Search Bar"
+msgstr "_Bàr nan lorg"
+
+#: ../src/library/LibraryWindow.vala:404
+msgid "Display the search bar"
+msgstr "Seall bàr nan lorg"
+
+#: ../src/library/LibraryWindow.vala:409
+msgid "S_idebar"
+msgstr "Bàr-_taoibh"
+
+#: ../src/library/LibraryWindow.vala:410
+msgid "Display the sidebar"
+msgstr "Seall am bàr-taoibh"
+
+#: ../src/library/LibraryWindow.vala:668
+msgid "Import From Folder"
+msgstr "Ion-phortaich o phasgan"
+
+#: ../src/library/LibraryWindow.vala:737
+msgid "Empty Trash"
+msgstr "Falamhaich an sgudal"
+
+#: ../src/library/LibraryWindow.vala:737
+msgid "Emptying Trash..."
+msgstr "A' falamhadh an sgudail..."
+
+#: ../src/library/LibraryWindow.vala:896
+#, c-format
+msgid ""
+"Shotwell is configured to import photos to your home directory.\n"
+"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
+"span>.\n"
+"Do you want to continue importing photos?"
+msgstr ""
+"Chaidh Shotwell a rèiteachadh ach an dèan a ion-phortadh nan dealbhan dhan "
+"phasgan dhachaigh agad.\n"
+"Mholamaid gun atharraich thu seo ann an <span weight=\"bold\">Deasaich "
+"roghainnean %s</span>.\n"
+"A bheil thu airson leantainn air adhart le ion-phortachadh nan dealbhan?"
+
+#: ../src/library/LibraryWindow.vala:899 ../ui/shotwell.glade.h:19
+msgid "Library Location"
+msgstr "Ionad na leabhar-lainn"
+
+#. TODO: Specify which directory/file.
+#: ../src/library/LibraryWindow.vala:912
+msgid "Photos cannot be imported from this directory."
+msgstr "Cha ghabh dealbhan ion-phortadh on phasgan seo."
+
+#: ../src/library/LibraryWindow.vala:1200
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: ../src/library/LibraryWindow.vala:1244
+#: ../src/library/LibraryWindow.vala:1255
+msgid "Updating library..."
+msgstr "Ag ùrachadh na leabhar-lainn..."
+
+#: ../src/library/LibraryWindow.vala:1261
+msgid "Preparing to auto-import photos..."
+msgstr "Ag ullachadh airson ion-phortadh gu fèin-obrach de dhealbhan..."
+
+#: ../src/library/LibraryWindow.vala:1266
+msgid "Auto-importing photos..."
+msgstr "Ag ion-phortadh nan dealbhan gu fèin-obrachail..."
+
+#: ../src/library/LibraryWindow.vala:1274
+msgid "Writing metadata to files..."
+msgstr "A' sgrìobhadh a' metadata sna faidhlichean..."
+
+#: ../src/library/OfflinePage.vala:8
+msgid "Missing Files"
+msgstr "Faidhlichean a tha a dhìth"
+
+#: ../src/library/OfflinePage.vala:106
+msgid "Deleting..."
+msgstr "'Ga(n) sguabadh às..."
+
+#: ../src/library/TrashPage.vala:8
+msgid "Trash"
+msgstr "An sgudal"
+
+#: ../src/library/TrashPage.vala:108
+msgid "Trash is empty"
+msgstr "Tha an sgudal falamh"
+
+#: ../src/library/TrashPage.vala:112
+msgid "Delete"
+msgstr "Sguab às"
+
+#: ../src/library/TrashPage.vala:113
+msgid "Deleting Photos"
+msgstr "A' sguabadh às nan dealbhan"
+
+#: ../src/main.vala:54
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please use the latest version of Shotwell."
+msgstr ""
+"Chan eil leabhar-lann nan dealbhan agad co-chòrdail leis an tionndadh seo de "
+"Shotwell. Tha coltas gun deach a chruthachadh le Shotwell %s (sgeama %d). "
+"Seo tionndadh %s (sgeama %d). Nach cleachd thu an tionndadh às ùire de "
+"Shotwell?"
+
+#: ../src/main.vala:59
+#, c-format
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"Cha b' urrainn dha Shotwell leabhar-lann nan dealbhan agad àrdachadh o "
+"thionndadh %s (sgeama %d) gu %s (sgeama %d). Airson barrachd fiosrachaidh, "
+"thoir sùil air an uicipeid aig Shotwell aig %s"
+
+#: ../src/main.vala:65
+#, c-format
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s (schema %d).  This version is %s "
+"(schema %d).  Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"Chan eil leabhar-lann nan dealbh agad co-chòrdail leis an tionndadh seo de "
+"Shotwell. Tha coltas gun deach a chruthachadh le Shotwell %s (sgeama %d). "
+"Seo tionndadh %s (sgeama %d). Glan an leabhar-lann agad - sguab às %s agus "
+"ion-phortaich na dealbhan agad às ùr an uairsin."
+
+#: ../src/main.vala:71
+#, c-format
+msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgstr ""
+"Thachair mearachd nach aithne dhuinn nuair a dh'fheuch sinn ri stòr-dàta "
+"Shotwell a dhearbhadh: %s"
+
+#: ../src/main.vala:104
+msgid "Loading Shotwell"
+msgstr "A' luchdadh Shotwell"
+
+#: ../src/main.vala:294
+msgid "Path to Shotwell's private data"
+msgstr "An t-slighe dhan dàta phrìobhaideach aig Shotwell"
+
+#: ../src/main.vala:294
+msgid "DIRECTORY"
+msgstr "PASGAN"
+
+#: ../src/main.vala:298
+msgid "Do not monitor library directory at runtime for changes"
+msgstr ""
+"Na cum sùil air pasgan na leabhar-lainn airson atharraichean aig àm ruith"
+
+#: ../src/main.vala:302
+msgid "Don't display startup progress meter"
+msgstr "Na seall an t-adhartas tòiseachaidh nuair a thòisicheas e"
+
+#: ../src/main.vala:306
+msgid "Show the application's version"
+msgstr "Seall tionndadh na h-aplacaid"
+
+#. init GTK (valac has already called g_threads_init())
+#: ../src/main.vala:338
+msgid "[FILE]"
+msgstr "[FAIDHLE]"
+
+#: ../src/main.vala:342
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Cleachd \"%s –help\" airson liosta shlàn de roghainnean na loidhne-àithne "
+"fhaicinn a tha ri làimh.\n"
+
+#: ../src/photos/BmpSupport.vala:32
+msgid "BMP"
+msgstr "BMP"
+
+#: ../src/photos/JfifSupport.vala:84
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../src/photos/JfifSupport.vala:182
+#, c-format
+msgid "Low (%d%%)"
+msgstr "Ìseal (%d%%)"
+
+#: ../src/photos/JfifSupport.vala:185
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "Meadhanach (%d%%)"
+
+#: ../src/photos/JfifSupport.vala:188
+#, c-format
+msgid "High (%d%%)"
+msgstr "Àrd (%d%%)"
+
+#: ../src/photos/JfifSupport.vala:191
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "As motha (%d%%)"
+
+#: ../src/photos/PngSupport.vala:30
+msgid "PNG"
+msgstr "PNG"
+
+#: ../src/photos/RawSupport.vala:134
+msgid "RAW"
+msgstr "RAW"
+
+#: ../src/photos/TiffSupport.vala:86
+msgid "TIFF"
+msgstr "TIFF"
+
+#: ../src/publishing/Publishing.vala:16
+msgid "Publishing"
+msgstr "'Ga fhoillseachadh"
+
+#: ../src/publishing/PublishingPluginHost.vala:11
+msgid "Preparing for upload"
+msgstr "Ag ullachadh airson luchdadh suas"
+
+#: ../src/publishing/PublishingPluginHost.vala:12
+#, c-format
+msgid "Uploading %d of %d"
+msgstr "A' luchdadh suas %d à %d"
+
+#: ../src/publishing/PublishingPluginHost.vala:81
+#, c-format
+msgid "Publishing to %s can't continue because an error occurred:"
+msgstr ""
+"Chan urrainn leantainn air adhart leis an fhoillseachadh air %s oir thachair "
+"mearachd:"
+
+#: ../src/publishing/PublishingPluginHost.vala:84
+msgid "To try publishing to another service, select one from the above menu."
+msgstr ""
+"A' feuchainn ri fhoillseachadh air seirbhis eile, tagh aonan sa chlàr-taice "
+"gu h-àrd."
+
+#: ../src/publishing/PublishingUI.vala:105
+msgid "The selected photos/videos were successfully published."
+msgstr "Chaidh na dealbhan/videothan a thagh thu fhoillseachadh."
+
+#: ../src/publishing/PublishingUI.vala:107
+msgid "The selected videos were successfully published."
+msgstr "Chaidh na videothan a thagh thu fhoillseachadh."
+
+#: ../src/publishing/PublishingUI.vala:109
+msgid "The selected photos were successfully published."
+msgstr "Chaidh na dealbhan a thagh thu fhoillseachadh."
+
+#: ../src/publishing/PublishingUI.vala:112
+msgid "The selected video was successfully published."
+msgstr "Chaidh a' video a thagh thu fhoillseachadh."
+
+#: ../src/publishing/PublishingUI.vala:114
+msgid "The selected photo was successfully published."
+msgstr "Chaidh an dealbh a thagh thu fhoillseachadh."
+
+#: ../src/publishing/PublishingUI.vala:122
+msgid "Fetching account information..."
+msgstr "A' faighinn fiosrachadh a' chunntais..."
+
+#: ../src/publishing/PublishingUI.vala:128
+msgid "Logging in..."
+msgstr "'Gad chlàradh a-steach..."
+
+#: ../src/publishing/PublishingUI.vala:183
+msgid "Publish Photos"
+msgstr "Foillsich na dealbhan"
+
+#: ../src/publishing/PublishingUI.vala:184
+msgid "Publish photos _to:"
+msgstr "Foillsich na d_ealbhan air:"
+
+#: ../src/publishing/PublishingUI.vala:186
+msgid "Publish Videos"
+msgstr "Foillsich na videothan"
+
+#: ../src/publishing/PublishingUI.vala:187
+msgid "Publish videos _to"
+msgstr "Foillsich na videothan _air"
+
+#: ../src/publishing/PublishingUI.vala:189
+msgid "Publish Photos and Videos"
+msgstr "Foillsich na dealbhan agus videothan"
+
+#: ../src/publishing/PublishingUI.vala:190
+msgid "Publish photos and videos _to"
+msgstr "Foillsich na dealbhan agus _videothan air"
+
+#. There are no enabled publishing services that accept this media type,
+#. warn the user.
+#: ../src/publishing/PublishingUI.vala:383
+msgid "Unable to publish"
+msgstr "Chan urrainn dhuinn foillseachadh"
+
+#: ../src/publishing/PublishingUI.vala:384
+#, c-format
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+"Preferences</b> and enable one or more of the publishing plugins on the "
+"<b>Plugins</b> tab."
+msgstr ""
+"Chan urrainn dha Shotwell na nithean a thagh thu fhoillseachadh air sgàth 's "
+"nach eil plugan foillseachaidh freagarrach an comas agad. Airson seo a chur "
+"ceart, tagh <b>Deasaich roghainnean %s</b> agus cuir an comas co-dhiù aon "
+"phlugan foillseachaidh air an taba <b>Plugain</b>"
+
+#: ../src/searches/Branch.vala:68
+msgid "Saved Searches"
+msgstr "Luirg a shàbhail thu"
+
+#. Ordering must correspond with SearchConditionText.Context
+#: ../src/searches/SavedSearchDialog.vala:169
+msgid "contains"
+msgstr "is na leanas 'na bhroinn"
+
+#. Ordering must correspond with Context
+#: ../src/searches/SavedSearchDialog.vala:170
+#: ../src/searches/SavedSearchDialog.vala:497
+msgid "is exactly"
+msgstr "a tha gu pongail"
+
+#: ../src/searches/SavedSearchDialog.vala:171
+msgid "starts with"
+msgstr "a tha a' tòiseachadh le"
+
+#: ../src/searches/SavedSearchDialog.vala:172
+msgid "ends with"
+msgstr "a tha a' crìochnachadh le"
+
+#: ../src/searches/SavedSearchDialog.vala:173
+msgid "does not contain"
+msgstr "anns nach eil"
+
+#: ../src/searches/SavedSearchDialog.vala:174
+#: ../src/searches/SavedSearchDialog.vala:501
+msgid "is not set"
+msgstr "nach deach a shuidheachadh"
+
+#. Ordering must correspond with SearchConditionMediaType.Context
+#: ../src/searches/SavedSearchDialog.vala:245
+#: ../src/searches/SavedSearchDialog.vala:376
+#: ../src/searches/SavedSearchDialog.vala:441
+msgid "is"
+msgstr "a tha 'na"
+
+#: ../src/searches/SavedSearchDialog.vala:246
+msgid "is not"
+msgstr "nach eil 'na"
+
+#. Ordering must correspond with SearchConditionMediaType.MediaType
+#: ../src/searches/SavedSearchDialog.vala:252
+msgid "any photo"
+msgstr "dealbh sam bith"
+
+#: ../src/searches/SavedSearchDialog.vala:253
+msgid "a raw photo"
+msgstr "dhealbh amh"
+
+#: ../src/searches/SavedSearchDialog.vala:254
+msgid "a video"
+msgstr "video"
+
+#: ../src/searches/SavedSearchDialog.vala:308
+msgid "has"
+msgstr "Chaidh"
+
+#: ../src/searches/SavedSearchDialog.vala:309
+msgid "has no"
+msgstr "Cha deach"
+
+#: ../src/searches/SavedSearchDialog.vala:314
+msgid "modifications"
+msgstr "atharrachadh a dhèanamh air"
+
+#: ../src/searches/SavedSearchDialog.vala:315
+msgid "internal modifications"
+msgstr "atharrachadh inntearnail a dhèanamh air"
+
+#: ../src/searches/SavedSearchDialog.vala:316
+msgid "external modifications"
+msgstr "atharrachadh on taobh a-muigh a dhèanamh air"
+
+#. Ordering must correspond with SearchConditionFlagged.State
+#: ../src/searches/SavedSearchDialog.vala:370
+msgid "flagged"
+msgstr "a tha bratach ris"
+
+#: ../src/searches/SavedSearchDialog.vala:371
+msgid "not flagged"
+msgstr "nach eil bratach ris"
+
+#: ../src/searches/SavedSearchDialog.vala:434
+msgid "and higher"
+msgstr "agus nas àirde"
+
+#: ../src/searches/SavedSearchDialog.vala:435
+msgid "only"
+msgstr "a-mhàin"
+
+#: ../src/searches/SavedSearchDialog.vala:436
+msgid "and lower"
+msgstr "agus nas lugha"
+
+#: ../src/searches/SavedSearchDialog.vala:498
+msgid "is after"
+msgstr "a tha àn dèidh"
+
+#: ../src/searches/SavedSearchDialog.vala:499
+msgid "is before"
+msgstr "a tha ro"
+
+#: ../src/searches/SavedSearchDialog.vala:500
+msgid "is between"
+msgstr "a tha eadar"
+
+#: ../src/searches/SavedSearchDialog.vala:513
+msgid "and"
+msgstr "agus"
+
+#: ../src/searches/SavedSearchDialog.vala:720
+msgid "any"
+msgstr "gin sam bith"
+
+#: ../src/searches/SavedSearchDialog.vala:721
+msgid "all"
+msgstr "na h-uile"
+
+#: ../src/searches/SavedSearchDialog.vala:722
+msgid "none"
+msgstr "chan eil gin"
+
+#: ../src/searches/SearchBoolean.vala:157
+msgid "Any text"
+msgstr "Teacsa sam bith"
+
+#: ../src/searches/SearchBoolean.vala:160
+msgid "Title"
+msgstr "Tiotal"
+
+#: ../src/searches/SearchBoolean.vala:163
+msgid "Tag"
+msgstr "Taga"
+
+#: ../src/searches/SearchBoolean.vala:166
+msgid "Comment"
+msgstr "Beachd"
+
+#: ../src/searches/SearchBoolean.vala:169
+msgid "Event name"
+msgstr "Ainm an tachartais"
+
+#: ../src/searches/SearchBoolean.vala:172
+msgid "File name"
+msgstr "Ainm an fhaidhle"
+
+#: ../src/searches/SearchBoolean.vala:175
+msgid "Media type"
+msgstr "Seòrsa a' mheadhain"
+
+#: ../src/searches/SearchBoolean.vala:178
+msgid "Flag state"
+msgstr "Staid na brataich"
+
+#: ../src/searches/SearchBoolean.vala:181
+msgid "Photo state"
+msgstr "Staid an deilbh:"
+
+#: ../src/searches/SearchBoolean.vala:187
+msgid "Date"
+msgstr "Ceann-là"
+
+#: ../src/sidebar/Tree.vala:198
+msgid "New _Tag..."
+msgstr "_Taga ùr..."
+
+#: ../src/slideshow/Slideshow.vala:22
+msgid "Slideshow Transitions"
+msgstr "Tar-mhùthaidhean an taisbeanaidh-shleamhnagan"
+
+#: ../src/slideshow/TransitionEffects.vala:98
+msgid "(None)"
+msgstr "(Chan eil gin)"
+
+#: ../src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Chan eil gin"
+
+#: ../src/slideshow/TransitionEffects.vala:339
+msgid "Random"
+msgstr "Air thuaiream"
+
+#: ../src/tags/Branch.vala:127
+msgid "Tags"
+msgstr "Tagaichean"
+
+#: ../ui/set_background_dialog.glade.h:1
+#| msgid "Set as _Desktop Background"
+msgid "Set as Desktop Background"
+msgstr "Suidhich mar chùlaibh an deasga"
+
+#: ../ui/set_background_dialog.glade.h:2
+#: ../ui/set_background_slideshow_dialog.glade.h:6
+msgid "Use for Desktop"
+msgstr "Cleachd airson an deasga"
+
+#: ../ui/set_background_dialog.glade.h:3
+#: ../ui/set_background_slideshow_dialog.glade.h:7
+msgid "Use for Lock Screen"
+msgstr "Cleachd airson na sgrìn-glasaidh"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:1
+msgid "Set as Desktop Slideshow"
+msgstr "Suidhich mar thaisbeanadh-shleamhnagan an deasga"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:2
+msgid "Show each photo for"
+msgstr "Seall gach dealbh"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:3
+msgid "period of time"
+msgstr "fad greiseig"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:4
+msgid "Generate desktop background slideshow"
+msgstr "Cruthaich taisbeanadh-shleamhnagan a' chùlaibh"
+
+#: ../ui/set_background_slideshow_dialog.glade.h:5
+msgid "How long each photo is shown on the desktop background"
+msgstr "Dè cho fad 's a thèid gach dealbh a shealltainn air cùlaibh an deasga"
+
+#: ../ui/shotwell.glade.h:1
+msgid "Search"
+msgstr "Lorg"
+
+#: ../ui/shotwell.glade.h:2
+msgid "_Name of search:"
+msgstr "_Ainm an luirg:"
+
+#: ../ui/shotwell.glade.h:3
+msgid "_Match"
+msgstr "_Maidsich"
+
+#: ../ui/shotwell.glade.h:4
+msgid "of the following:"
+msgstr "dhe na leanas:"
+
+#: ../ui/shotwell.glade.h:5
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Meud an deilbh chlò-bhuailte</b>"
+
+#: ../ui/shotwell.glade.h:6
+msgid "Use a _standard size:"
+msgstr "Cleachd meud _stannardach:"
+
+#: ../ui/shotwell.glade.h:7
+msgid "Use a c_ustom size:"
+msgstr "Cleachd meud g_nàthaichte:"
+
+#: ../ui/shotwell.glade.h:8
+msgid "_Match photo aspect ratio"
+msgstr "_Maidsich co-mheas an deilbh"
+
+#: ../ui/shotwell.glade.h:9
+msgid "_Autosize:"
+msgstr "Meud fèin-_obrachail:"
+
+#: ../ui/shotwell.glade.h:10
+msgid "<b>Titles</b>"
+msgstr "<b>Tiotalan</b>"
+
+#: ../ui/shotwell.glade.h:11
+msgid "Print image _title"
+msgstr "Clo-bhuail _tiotal an deilbh"
+
+#: ../ui/shotwell.glade.h:12
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Dùmhlachd-bhreacaidh nam piogsailean</b>"
+
+#: ../ui/shotwell.glade.h:13
+msgid "_Output photo at:"
+msgstr "Dèan de_albh aig:"
+
+#: ../ui/shotwell.glade.h:14
+msgid "pixels per inch"
+msgstr "piogsailean gach òirleach"
+
+#: ../ui/shotwell.glade.h:16
+msgid "Shotwell Preferences"
+msgstr "Roghainnean Shotwell"
+
+#: ../ui/shotwell.glade.h:17
+msgid "white"
+msgstr "geal"
+
+#: ../ui/shotwell.glade.h:18
+msgid "black"
+msgstr "dubh"
+
+#: ../ui/shotwell.glade.h:20
+msgid "_Watch library directory for new files"
+msgstr "_Cum sùil air pasgan na leabhar-lainn airson faidhlichean ùra"
+
+#: ../ui/shotwell.glade.h:21
+msgid "Metadata"
+msgstr "Meata-dàta"
+
+#: ../ui/shotwell.glade.h:22
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr ""
+"Sgrìobh tagaichean, tiotalan agus _meata-dàta eile ann am faidhlichean deilbh"
+
+#: ../ui/shotwell.glade.h:23
+msgid "Display"
+msgstr "Sealladh"
+
+#: ../ui/shotwell.glade.h:24
+msgid "_Import photos to:"
+msgstr "_Ion-phortaich dealbhan dha:"
+
+#: ../ui/shotwell.glade.h:25
+msgid "_Background:"
+msgstr "Cùlai_bh:"
+
+#: ../ui/shotwell.glade.h:26
+msgid "Importing"
+msgstr "Ag ion-phortadh"
+
+#: ../ui/shotwell.glade.h:27
+msgid "_Directory structure:"
+msgstr "Structar a' p_hasgain:"
+
+#: ../ui/shotwell.glade.h:28
+msgid "_Pattern:"
+msgstr "_Pàtran:"
+
+#: ../ui/shotwell.glade.h:29
+msgid "Example:"
+msgstr "Ball-eisimpleir:"
+
+#: ../ui/shotwell.glade.h:30
+msgid "R_ename imported files to lowercase"
+msgstr "_Sparr litrichean beaga air ainmean fhaidhlichean a thèid ion-phortadh"
+
+#: ../ui/shotwell.glade.h:31
+msgid "RAW Developer"
+msgstr "Leasaichear RAW"
+
+#: ../ui/shotwell.glade.h:32
+msgid "De_fault:"
+msgstr "B_un-roghainn"
+
+#: ../ui/shotwell.glade.h:34
+msgid "E_xternal photo editor:"
+msgstr "Deasaiche dhealbhan air an taobh a-m_uigh:"
+
+#: ../ui/shotwell.glade.h:35
+msgid "External _RAW editor:"
+msgstr "Deasaiche _RAW air an taobh a-muigh:"
+
+#: ../ui/shotwell.glade.h:36
+msgid "External Editors"
+msgstr "Deasaichean air an taobh a-muigh:"
+
+#: ../ui/shotwell.glade.h:37
+msgid "Plugins"
+msgstr "Plugain"
+
+#: ../ui/shotwell.glade.h:38
+msgid "_Delay:"
+msgstr "_Dàil:"
+
+#: ../ui/shotwell.glade.h:39
+msgid "_Transition effect:"
+msgstr "Èifeachd an _tar-mhùthaidh:"
+
+#: ../ui/shotwell.glade.h:40
+msgid "Transition d_elay:"
+msgstr "Dàil an tar-mhùthaidh:"
+
+#: ../ui/shotwell.glade.h:41
+msgid "Show t_itle"
+msgstr "Seall an t_iotal"
+
+#: ../ui/shotwell.glade.h:42
+msgid "seconds"
+msgstr "diogan"
+
+#~ msgid "Publish your pictures to Picasa"
+#~ msgstr "Foillsich na dealbhan agad air Picasa"
+
+#~ msgid "Publish your pictures to Facebook"
+#~ msgstr "Foillsich na dealbhan agad air Facebook"
+
+#~ msgid "Publish your pictures to Flickr"
+#~ msgstr "Foillsich na dealbhan agad air Flickr"
+
+#~ msgid "Only _Remove"
+#~ msgstr "Na dèan ach a thoirt ai_r falbh"
+
+#~ msgid "Add more accounts..."
+#~ msgstr "Cuir barrachd chunntasan ris..."
+
+#~ msgid "Copyright 2009-2013 Yorba Foundation"
+#~ msgstr "Còir-lethbhreac 2009-2013 Fonndas Yorba"
+
+#~ msgid "Shotwell is configured to import photos to your home directory.\n"
+#~ msgstr ""
+#~ "Ion-phortaichidh Shotwell dealbhan dhan phasgan-dachaigh agad a-rèir mar "
+#~ "a chaidh a rèiteachadh.\n"
+
+#~ msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2013 Yorba Foundation"
+#~ msgstr ""
+#~ "Còir-lethbhreac 2010 Maxim Kartashev, Còir-lethbhreac 2011-2013 Fonndas "
+#~ "Yorba"
+
+#~ msgid ""
+#~ " (text depends on fb username and is modified in the app - \n"
+#~ "anything put into this field won't display)"
+#~ msgstr ""
+#~ " (tha an teacsa a' crochadh air ainm-cleachdaiche FB agus thèid "
+#~ "atharrachadh san aplacaid - \n"
+#~ "cha dèid dad a chuireas tu san raon seo a thaisbeanadh)"
+
+#~ msgid "_visibility label (populated in the code)"
+#~ msgstr "_leubail na faicsinneachd ('ga lìonadh san chòd)"
+
+#~ msgid ""
+#~ "You are logged into Flickr as (name).\n"
+#~ "\n"
+#~ "(this label's string is populated and set inside the code, \n"
+#~ "so changes made here will not display)"
+#~ msgstr ""
+#~ "Tha thu clàraichte a-steach air Flickr mar (ainm).\n"
+#~ "\n"
+#~ "(gheibhear na tha san leubail seo o bhroinn a' chòd, \n"
+#~ "cha dèid atharrachadh sam bith a nì thu an-seo a thaisbeanadh)"
+
+#~ msgid ""
+#~ "$mediatype will appear in\n"
+#~ "(populated in code)"
+#~ msgstr ""
+#~ "Nochdaidh $mediatype ann an\n"
+#~ "('ga lìonadh san chòd)"

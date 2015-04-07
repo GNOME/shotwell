@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -515,6 +515,8 @@ public interface Publishable : GLib.Object {
 
     public static const string PARAM_STRING_BASENAME    = "basename";
     public static const string PARAM_STRING_TITLE       = "title";
+    public static const string PARAM_STRING_COMMENT     = "comment";
+    public static const string PARAM_STRING_EVENTCOMMENT= "eventcomment";
 
     /**
      * Returns a handle to the file on disk to which this publishable's data has been

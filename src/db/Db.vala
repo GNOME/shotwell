@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -311,6 +311,44 @@ private VerifyResult upgrade_database(int input_version) {
     }
     
     version = 17;
+    
+    //
+    // Version 18:
+    // * Added comment column to EventTable
+    //
+    
+    if (!DatabaseTable.has_column("EventTable", "comment")) {
+        message("upgrade_database: adding comment column to EventTable");
+        if (!DatabaseTable.add_column("EventTable", "comment", "TEXT"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 18;
+    
+    //
+    // Version 19:
+    // * Deletion and regeneration of camera-raw thumbnails from previous versions,
+    //   since they're likely to be incorrect.
+    //
+    //   The database itself doesn't change; this is to force the thumbnail fixup to
+    //   occur.
+    //
+    
+    if  (input_version < 19) {
+        Application.get_instance().set_raw_thumbs_fix_required(true);
+    }
+    
+    version = 19;
+    
+    // 
+    // Version 20:
+    // * No change to database schema but fixing issue #6541 ("Saved searches should be aware of
+    //   comments") added a new enumeration value that is stored in the SavedSearchTable. The
+    //   presence of this heretofore unseen enumeration value will cause prior versions of
+    //   Shotwell to yarf, so we bump the version here to ensure this doesn't happen
+    //
+    
+    version = 20;
     
     //
     // Finalize the upgrade process

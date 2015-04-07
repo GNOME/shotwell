@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -57,17 +57,20 @@ public abstract class SearchCondition {
 #endif
         MEDIA_TYPE,
         FLAG_STATE,
+        MODIFIED_STATE,
         RATING,
+        COMMENT,
         DATE;
         // Note: when adding new types, be sure to update all functions below.
         
         public static SearchType[] as_array() {
-            return { ANY_TEXT, TITLE, TAG, EVENT_NAME, FILE_NAME, 
+            return { ANY_TEXT, TITLE, TAG, COMMENT, EVENT_NAME, FILE_NAME, 
 #if ENABLE_FACES   
             FACE, 
 #endif
-            MEDIA_TYPE, FLAG_STATE, RATING, 
+            MEDIA_TYPE, FLAG_STATE, MODIFIED_STATE, RATING,
                 DATE };
+
         }
         
         // Sorts an array alphabetically by display name.
@@ -88,6 +91,9 @@ public abstract class SearchCondition {
                 
                 case SearchType.TAG:
                     return "TAG";
+
+                case SearchType.COMMENT:
+                    return "COMMENT";
                 
                 case SearchType.EVENT_NAME:
                     return "EVENT_NAME";
@@ -103,6 +109,9 @@ public abstract class SearchCondition {
                 
                 case SearchType.FLAG_STATE:
                     return "FLAG_STATE";
+                
+                case SearchType.MODIFIED_STATE:
+                    return "MODIFIED_STATE";
                 
                 case SearchType.RATING:
                     return "RATING";
@@ -124,6 +133,9 @@ public abstract class SearchCondition {
             
             else if (str == "TAG")
                 return SearchType.TAG;
+
+            else if (str == "COMMENT")
+                return SearchType.COMMENT;
             
             else if (str == "EVENT_NAME")
                 return SearchType.EVENT_NAME;
@@ -139,6 +151,9 @@ public abstract class SearchCondition {
             
             else if (str == "FLAG_STATE")
                 return SearchType.FLAG_STATE;
+            
+            else if (str == "MODIFIED_STATE")
+                return SearchType.MODIFIED_STATE;
             
             else if (str == "RATING")
                 return SearchType.RATING;
@@ -161,6 +176,9 @@ public abstract class SearchCondition {
                 case SearchType.TAG:
                     return _("Tag");
                 
+                case SearchType.COMMENT:
+                    return _("Comment");
+
                 case SearchType.EVENT_NAME:
                     return _("Event name");
                 
@@ -175,6 +193,9 @@ public abstract class SearchCondition {
                 
                 case SearchType.FLAG_STATE:
                     return _("Flag state");
+                
+                case SearchType.MODIFIED_STATE:
+                    return _("Photo state");
                 
                 case SearchType.RATING:
                     return _("Rating");
@@ -202,7 +223,8 @@ public class SearchConditionText : SearchCondition {
         STARTS_WITH,
         ENDS_WITH,
         DOES_NOT_CONTAIN,
-        IS_NOT_SET;
+        IS_NOT_SET,
+        IS_SET;
         
         public string to_string() {
             switch (this) {
@@ -223,6 +245,9 @@ public class SearchConditionText : SearchCondition {
                 
                 case Context.IS_NOT_SET:
                     return "IS_NOT_SET";
+                
+                case Context.IS_SET:
+                    return "IS_SET";
                 
                 default:
                     error("unrecognized text search context enumeration value");
@@ -248,6 +273,9 @@ public class SearchConditionText : SearchCondition {
             else if (str == "IS_NOT_SET")
                 return Context.IS_NOT_SET;
             
+            else if (str == "IS_SET")
+                return Context.IS_SET;
+            
             else
                 error("unrecognized text search context name: %s", str);
         }
@@ -261,7 +289,7 @@ public class SearchConditionText : SearchCondition {
     
     public SearchConditionText(SearchCondition.SearchType search_type, string? text, Context context) {
         this.search_type = search_type;
-        this.text = (text != null) ? text.down() : "";
+        this.text = (text != null) ? String.remove_diacritics(text.down()) : "";
         this.context = context;
     }
     
@@ -283,6 +311,9 @@ public class SearchConditionText : SearchCondition {
 
             case Context.IS_NOT_SET:
                 return (is_string_empty(haystack));
+            
+            case Context.IS_SET:
+                return (!is_string_empty(haystack));
         }
         
         return false;
@@ -292,29 +323,44 @@ public class SearchConditionText : SearchCondition {
     public override bool predicate(MediaSource source) {
         bool ret = false;
         
+        // title
         if (SearchType.ANY_TEXT == search_type || SearchType.TITLE == search_type) {
-            ret |= string_match(text, (source.get_title() != null) ? source.get_title().down() : null);
+            string? title = (null != source.get_title()) ?
+                String.remove_diacritics(source.get_title().down()) : null;
+            ret |= string_match(text, title);
         }
         
+        // tags
         if (SearchType.ANY_TEXT == search_type || SearchType.TAG == search_type) {
             Gee.List<Tag>? tag_list = Tag.global.fetch_for_source(source);
             if (null != tag_list) {
+                string itag;
                 foreach (Tag tag in tag_list) {
-                    ret |= string_match(text, tag.get_user_visible_name().down());
+                    itag = tag.get_searchable_name().down(); // get_searchable already remove diacritics
+                    ret |= string_match(text, itag);
                 }
             } else {
                 ret |= string_match(text, null); // for IS_NOT_SET
             }
         }
         
+        // event name
         if (SearchType.ANY_TEXT == search_type || SearchType.EVENT_NAME == search_type) {
             string? event_name = (null != source.get_event()) ? 
-                source.get_event().get_name().down() : null;
+                String.remove_diacritics(source.get_event().get_name().down()) : null;
             ret |= string_match(text, event_name);
         }
+
+        // comment
+        if (SearchType.ANY_TEXT == search_type || SearchType.COMMENT == search_type) {
+            string? comment = source.get_comment();
+            if(null != comment)
+                ret |= string_match(text, String.remove_diacritics(comment.down()));
+        }
         
+        // file name
         if (SearchType.ANY_TEXT == search_type || SearchType.FILE_NAME == search_type) {
-            ret |= string_match(text, source.get_basename().down());
+            ret |= string_match(text, String.remove_diacritics(source.get_basename().down()));
         }
 
 #if ENABLE_FACES
@@ -492,6 +538,111 @@ public class SearchConditionFlagged : SearchCondition {
         }
     }
 }
+
+// Condition for modified state matching.
+public class SearchConditionModified : SearchCondition {
+
+    public enum Context {
+        HAS = 0,
+        HAS_NO;
+        
+        public string to_string() {
+            switch (this) {
+                case Context.HAS:
+                    return "HAS";
+                
+                case Context.HAS_NO:
+                    return "HAS_NO";
+                
+                default:
+                    error("unrecognized modified search context enumeration value");
+            }
+        }
+        
+        public static Context from_string(string str) {
+            if (str == "HAS")
+                return Context.HAS;
+            
+            else if (str == "HAS_NO")
+                return Context.HAS_NO;
+            
+            else
+                error("unrecognized modified search context name: %s", str);
+        }
+    }
+    
+    public enum State {
+        MODIFIED = 0,
+        INTERNAL_CHANGES,
+        EXTERNAL_CHANGES;
+        
+        public string to_string() {
+            switch (this) {
+                case State.MODIFIED:
+                    return "MODIFIED";
+                
+                case State.INTERNAL_CHANGES:
+                    return "INTERNAL_CHANGES";
+                    
+                 case State.EXTERNAL_CHANGES:
+                    return "EXTERNAL_CHANGES";
+                
+                default:
+                    error("unrecognized modified search state enumeration value");
+            }
+        }
+        
+        public static State from_string(string str) {
+            if (str == "MODIFIED")
+                return State.MODIFIED;
+            
+            else if (str == "INTERNAL_CHANGES")
+                return State.INTERNAL_CHANGES;
+                
+            else if (str == "EXTERNAL_CHANGES")
+                return State.EXTERNAL_CHANGES;
+            
+            else
+                error("unrecognized modified search state name: %s", str);
+        }
+    }
+
+    // What to match.
+    public State state { get; private set; }
+
+    // How to match.
+    public Context context { get; private set; }
+
+    public SearchConditionModified(SearchCondition.SearchType search_type, Context context, State state) {
+        this.search_type = search_type;
+        this.context = context;
+        this.state = state;
+    }
+    
+    // Determines whether the source is included.
+    public override bool predicate(MediaSource source) {
+        // check against state and the given search context.
+        Photo? photo = source as Photo;
+        if (photo == null)
+            return false;
+        
+        bool match;
+        if (state == State.MODIFIED)
+            match = photo.has_transformations() || photo.has_editable();
+        else if (state == State.INTERNAL_CHANGES)
+            match = photo.has_transformations();
+        else if (state == State.EXTERNAL_CHANGES)
+            match = photo.has_editable();
+        else
+            error("unrecognized modified search state");
+
+        if (match)
+            return context == Context.HAS;
+        else
+            return context == Context.HAS_NO;
+    }
+}
+
 
 // Condition for rating matching.
 public class SearchConditionRating : SearchCondition {

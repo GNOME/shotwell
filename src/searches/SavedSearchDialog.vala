@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -48,13 +48,12 @@ public class SavedSearchDialog {
             set_type_combo_box(SearchCondition.SearchType.ANY_TEXT); // Sets default.
             type_combo.changed.connect(on_type_changed);
             
-            remove_button = new Gtk.Button();
-            remove_button.set_label(" – ");
+            remove_button = new Gtk.Button.from_icon_name("list-remove-symbolic", Gtk.IconSize.BUTTON);
             remove_button.button_press_event.connect(on_removed);
             
             align = new Gtk.Alignment(0,0,0,0);
         
-            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.pack_start(type_combo, false, false, 0);
             box.pack_start(align, false, false, 0);
             box.pack_start(new Gtk.Alignment(0,0,0,0), true, true, 0); // Fill space.
@@ -83,6 +82,7 @@ public class SavedSearchDialog {
                 case SearchCondition.SearchType.FACE:
 #endif
                 case SearchCondition.SearchType.TAG:
+                case SearchCondition.SearchType.COMMENT:
                 case SearchCondition.SearchType.TITLE:
                     my_row = new SearchRowText(this);
                     break;
@@ -93,6 +93,10 @@ public class SavedSearchDialog {
                     
                 case SearchCondition.SearchType.FLAG_STATE:
                     my_row = new SearchRowFlagged(this);
+                    break;
+                    
+                case SearchCondition.SearchType.MODIFIED_STATE:
+                    my_row = new SearchRowModified(this);
                     break;
                 
                 case SearchCondition.SearchType.RATING:
@@ -170,6 +174,7 @@ public class SavedSearchDialog {
             text_context.append_text(_("ends with"));
             text_context.append_text(_("does not contain"));
             text_context.append_text(_("is not set"));
+            text_context.append_text(_("is set"));
             text_context.set_active(0);
             text_context.changed.connect(on_changed);
             
@@ -178,7 +183,7 @@ public class SavedSearchDialog {
             entry.set_activates_default(true);
             entry.changed.connect(on_changed);
             
-            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.pack_start(text_context, false, false, 0);
             box.pack_start(entry, false, false, 0);
             box.show_all();
@@ -210,7 +215,9 @@ public class SavedSearchDialog {
         }
         
         public override bool is_complete() {
-            return entry.text.chomp() != "" || get_text_context() == SearchConditionText.Context.IS_NOT_SET;
+            return entry.text.chomp() != "" ||
+                get_text_context() == SearchConditionText.Context.IS_NOT_SET ||
+                get_text_context() == SearchConditionText.Context.IS_SET;
         }
         
         private SearchConditionText.Context get_text_context() {
@@ -218,7 +225,8 @@ public class SavedSearchDialog {
         }
         
         private void on_changed() {
-            if (get_text_context() == SearchConditionText.Context.IS_NOT_SET) {
+            if (get_text_context() == SearchConditionText.Context.IS_NOT_SET
+                || get_text_context() == SearchConditionText.Context.IS_SET) {
                 entry.hide();
             } else {
                 entry.show();
@@ -253,7 +261,7 @@ public class SavedSearchDialog {
             media_type.set_active(0);
             media_type.changed.connect(on_changed);
             
-            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.pack_start(media_context, false, false, 0);
             box.pack_start(media_type, false, false, 0);
             box.show_all();
@@ -292,6 +300,68 @@ public class SavedSearchDialog {
         }
     }
     
+    private class SearchRowModified : SearchRow {
+        private Gtk.Box box;
+        private Gtk.ComboBoxText modified_context;
+        private Gtk.ComboBoxText modified_state;
+        
+        private SearchRowContainer parent;
+        
+        public SearchRowModified(SearchRowContainer parent) {
+            this.parent = parent;
+
+            modified_context = new Gtk.ComboBoxText();
+            modified_context.append_text(_("has"));
+            modified_context.append_text(_("has no"));
+            modified_context.set_active(0);
+            modified_context.changed.connect(on_changed);
+            
+            modified_state = new Gtk.ComboBoxText();
+            modified_state.append_text(_("modifications"));
+            modified_state.append_text(_("internal modifications"));
+            modified_state.append_text(_("external modifications"));
+            modified_state.set_active(0);
+            modified_state.changed.connect(on_changed);
+            
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
+            box.pack_start(modified_context, false, false, 0);
+            box.pack_start(modified_state, false, false, 0);
+            box.show_all();
+        }
+        
+        ~SearchRowModified() {
+            modified_state.changed.disconnect(on_changed);
+            modified_context.changed.disconnect(on_changed);
+        }
+        
+        public override Gtk.Widget get_widget() {
+            return box;
+        }
+
+        public override SearchCondition get_search_condition() {
+            SearchCondition.SearchType search_type = parent.get_search_type();
+            SearchConditionModified.Context context = (SearchConditionModified.Context) modified_context.get_active();
+            SearchConditionModified.State state = (SearchConditionModified.State) modified_state.get_active();
+            SearchConditionModified c = new SearchConditionModified(search_type, context, state);
+            return c;
+        }
+        
+        public override void populate(SearchCondition sc) {
+            SearchConditionModified? scm = sc as SearchConditionModified;
+            assert(scm != null);
+            modified_state.set_active(scm.state);
+            modified_context.set_active(scm.context);
+        }
+        
+        public override bool is_complete() {
+            return true;
+        }
+        
+        private void on_changed() {
+            parent.changed(parent);
+        }
+    }
+    
     private class SearchRowFlagged : SearchRow {
         private Gtk.Box box;
         private Gtk.ComboBoxText flagged_state;
@@ -308,7 +378,7 @@ public class SavedSearchDialog {
             flagged_state.set_active(0);
             flagged_state.changed.connect(on_changed);
             
-            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.pack_start(new Gtk.Label(_("is")), false, false, 0);
             box.pack_start(flagged_state, false, false, 0);
             box.show_all();
@@ -373,7 +443,7 @@ public class SavedSearchDialog {
             context.set_active(0);
             context.changed.connect(on_changed);
             
-            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.pack_start(new Gtk.Label(_("is")), false, false, 0);
             box.pack_start(rating, false, false, 0);
             box.pack_start(context, false, false, 0);
@@ -448,7 +518,7 @@ public class SavedSearchDialog {
             
             and = new Gtk.Label(_("and"));
             
-            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.pack_start(context, false, false, 0);
             box.pack_start(label_one, false, false, 0);
             box.pack_start(and, false, false, 0);
@@ -458,7 +528,7 @@ public class SavedSearchDialog {
             update_date_labels();
         }
         
-        ~SearchRowRating() {
+        ~SearchRowDate() {
             context.changed.disconnect(on_changed);
         }
         
@@ -540,14 +610,16 @@ public class SavedSearchDialog {
             int orig_month = cal.month;
             int orig_year = cal.year;
             Gtk.Dialog d = new Gtk.Dialog.with_buttons(null, null, 
-                Gtk.DialogFlags.MODAL, Gtk.Stock.CANCEL, Gtk.ResponseType.REJECT, 
-                Gtk.Stock.OK, Gtk.ResponseType.ACCEPT);
+                Gtk.DialogFlags.MODAL, Resources.CANCEL_LABEL, Gtk.ResponseType.REJECT, 
+                Resources.OK_LABEL, Gtk.ResponseType.ACCEPT);
             d.set_modal(true);
             d.set_resizable(false);
             d.set_decorated(false);
             ((Gtk.Box) d.get_content_area()).add(cal);
             ulong id_1 = cal.day_selected.connect(()=>{update_date_labels();});
-            ulong id_2 = cal.day_selected_double_click.connect(()=>{d.close();});
+            ulong id_2 = cal.day_selected_double_click.connect(()=> {
+                  d.response(Gtk.ResponseType.ACCEPT);
+            });
             d.show_all();
             int res = d.run();
             if (res != Gtk.ResponseType.ACCEPT) {
@@ -592,14 +664,7 @@ public class SavedSearchDialog {
         // Default is text search.
         add_text_search();
         row_list.get(0).allow_removal(false);
-        
-        // Add buttons for new search.
-        dialog.add_action_widget(new Gtk.Button.from_stock(Gtk.Stock.CANCEL), Gtk.ResponseType.CANCEL);
-        Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.Stock.OK);
-        ok_button.can_default = true;
-        dialog.add_action_widget(ok_button, Gtk.ResponseType.OK);
-        dialog.set_default_response(Gtk.ResponseType.OK);
-        
+
         dialog.show_all();
         set_valid(false);
     }
@@ -608,12 +673,6 @@ public class SavedSearchDialog {
         previous_search = saved_search;
         edit_mode = true;
         setup_dialog();
-        
-        // Add close button.
-        Gtk.Button close_button = new Gtk.Button.from_stock(Gtk.Stock.CLOSE);
-        close_button.can_default = true;
-        dialog.add_action_widget(close_button, Gtk.ResponseType.OK);
-        dialog.set_default_response(Gtk.ResponseType.OK);
         
         dialog.show_all();
         
@@ -637,12 +696,21 @@ public class SavedSearchDialog {
     // Builds the dialog UI.  Doesn't add buttons to the dialog or call dialog.show().
     private void setup_dialog() {
         builder = AppWindow.create_builder();
-        
-        dialog = builder.get_object("Search criteria") as Gtk.Dialog;
-        dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
+
+        dialog = new Gtk.Dialog.with_buttons(_("Search"),
+                                         (Gtk.Window) AppWindow.get_instance().get_parent_window(),
+                                         Gtk.DialogFlags.MODAL |
+                                         Gtk.DialogFlags.DESTROY_WITH_PARENT |
+                                         Gtk.DialogFlags.USE_HEADER_BAR,
+                                         _("Cancel"), Gtk.ResponseType.CANCEL,
+                                         _("OK"), Gtk.ResponseType.OK,
+                                         null);
+        dialog.set_resizable(false);
         dialog.set_transient_for(AppWindow.get_instance());
+        dialog.set_default_response(Gtk.ResponseType.OK);
         dialog.response.connect(on_response);
-        
+        dialog.get_content_area().add(builder.get_object("criteria") as Gtk.Widget);
+
         add_criteria = builder.get_object("Add search button") as Gtk.Button;
         add_criteria.button_press_event.connect(on_add_criteria);
         

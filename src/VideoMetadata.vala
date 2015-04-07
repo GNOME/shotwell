@@ -1,4 +1,4 @@
-/* Copyright 2010-2013 Yorba Foundation
+/* Copyright 2010-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -21,7 +21,7 @@ public class VideoMetadata : MediaMetadata {
         if (quicktime.is_supported()) {
             timestamp = quicktime.get_creation_date_time();
             title = quicktime.get_title();
-	    // TODO is there an quicktime.get_comment ??
+	        // TODO: is there an quicktime.get_comment ??
             comment = null;
             return;
         }    
@@ -54,7 +54,7 @@ private class QuickTimeMetadataLoader {
 
     // Quicktime calendar date/time format is number of seconds since January 1, 1904.
     // This converts to UNIX time (66 years + 17 leap days).
-    public static const ulong QUICKTIME_EPOCH_ADJUSTMENT = 2082844800;
+    public const time_t QUICKTIME_EPOCH_ADJUSTMENT = 2082844800;
 
     private File file = null;
 
@@ -113,7 +113,7 @@ private class QuickTimeMetadataLoader {
 
     private ulong get_creation_date_time_for_quicktime() {
         QuickTimeAtom test = new QuickTimeAtom(file);
-        ulong timestamp = 0;
+        time_t timestamp = 0;
         
         try {
             test.open_file();
@@ -154,7 +154,19 @@ private class QuickTimeMetadataLoader {
         } catch (GLib.Error e) {
             debug("Error while closing Quicktime file: %s", e.message);
         }
-        return timestamp;
+        
+        // Some Android phones package videos recorded with their internal cameras in a 3GP
+        // container that looks suspiciously like a QuickTime container but really isn't -- for
+        // the timestamps of these Android 3GP videos are relative to the UNIX epoch
+        // (January 1, 1970) instead of the QuickTime epoch (January 1, 1904). So, if we detect a
+        // QuickTime movie with a negative timestamp, we can be pretty sure it isn't a valid
+        // QuickTime movie that was shot before 1904 but is instead a non-compliant 3GP video
+        // file. If we detect such a video, we correct its time. See this Redmine ticket
+        // (http://redmine.yorba.org/issues/3314) for more information.
+        if (timestamp < 0)
+            timestamp += QUICKTIME_EPOCH_ADJUSTMENT;
+        
+        return (ulong) timestamp;
     }
 }
 
@@ -421,40 +433,33 @@ private class AVIMetadataLoader {
         if (sdate.length == 0) {
             return 0;
         }
+        
         Date date = Date();
         uint seconds = 0;
-        if (sdate[0].isdigit() && !sdate.contains("/")) {
+        int year, month, day, hour, min, sec;
+        char weekday[4];
+        char monthstr[4];
+        
+        if (sdate[0].isdigit()) {
             // Format is: 2005:08:17 11:42:43
-            int year, month, day, hour, min, sec;
-            int result = sdate.scanf("%d:%d:%d %d:%d:%d", out year, out month, out day, 
-                out hour, out min, out sec);
-            if (6 != result) {
-                return 0; // Error
+            // Format is: 2010/11/30/ 19:42
+            // Format is: 2010/11/30 19:42
+            string tmp = sdate.dup();
+            tmp.canon("0123456789 ", ' '); // strip everything but numbers and spaces
+            sec = 0;
+            int result = tmp.scanf("%d %d %d %d %d %d", out year, out month, out day, out hour, out min, out sec);
+            if(result < 5) {
+                return 0;
             }
             date.set_dmy((DateDay) day, (DateMonth) month, (DateYear) year);
             seconds = sec + min * 60 + hour * 3600;
-        } else if (sdate[0].isdigit()) {
-            // This is specific to Casio cameras.
-            // Format is: 2010/11/30/ 19:42
-            int year, month, day, hour, min;
-            int result = sdate.scanf("%d/%d/%d/ %d:%d", out year, out month, out day, 
-                out hour, out min);
-            if (5 != result) {
-                return 0; // Error
-            }
-            date.set_dmy((DateDay) day, (DateMonth) month, (DateYear) year);
-            seconds = min * 60 + hour * 3600;
         } else {
             // Format is: Mon Mar  3 09:44:56 2008
-            int year, day, hour, min, sec;
-            string weekday = "";
-            string monthstr = "";
-            int result = sdate.scanf("%3s %3s %d %d:%d:%d %d", weekday, monthstr, out day, out hour,
-                  out min, out sec, out year);
-            if (7 != result) {
+            if(7 != sdate.scanf("%3s %3s %d %d:%d:%d %d", weekday, monthstr, out day, out hour,
+                  out min, out sec, out year)) {
                 return 0; // Error
             }
-            date.set_dmy((DateDay) day, month_from_string(monthstr), (DateYear) year);
+            date.set_dmy((DateDay) day, month_from_string((string) monthstr), (DateYear) year);
             seconds = sec + min * 60 + hour * 3600;
         }
         

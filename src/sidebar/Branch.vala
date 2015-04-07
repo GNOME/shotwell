@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -48,16 +48,13 @@ public class Sidebar.Branch : Object {
             this.comparator = comparator;
         }
         
-        private static int comparator_wrapper(void *a, void *b) {
-            if (a == b)
+        private static int comparator_wrapper(Node anode, Node bnode) {
+            if (anode == bnode)
                 return 0;
             
-            Node *anode = (Node *) a;
-            Node *bnode = (Node *) b;
+            assert(anode.parent == bnode.parent);
             
-            assert(anode->parent == bnode->parent);
-            
-            return anode->parent.comparator(anode->entry, bnode->entry);
+            return anode.parent.comparator(anode.entry, bnode.entry);
         }
         
         public bool has_children() {
@@ -79,7 +76,7 @@ public class Sidebar.Branch : Object {
             
             Gee.SortedSet<Node> new_children = new Gee.TreeSet<Node>(comparator_wrapper);
             
-            // For similar reasons as in reorder_child(), can't rely on TreeSet to locate this
+            // For similar reasons as in reorder_child(), can't rely on Gee.TreeSet to locate this
             // node because we need reference equality.
             bool found = false;
             foreach (Node c in children) {

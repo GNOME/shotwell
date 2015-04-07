@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -50,7 +50,7 @@ public struct RGBAnalyticPixel {
         return (uchar)(blue * 255.0f);
     }
 
-    public bool equals(ref RGBAnalyticPixel rhs) {
+    public bool equals(RGBAnalyticPixel? rhs) {
         return ((red == rhs.red) && (green == rhs.green) && (blue == rhs.blue));
     }
 
@@ -223,6 +223,7 @@ public enum PixelFormat {
 public enum PixelTransformationType {
     TONE_EXPANSION,
     SHADOWS,
+    HIGHLIGHTS,
     TEMPERATURE,
     TINT,
     SATURATION,
@@ -230,10 +231,24 @@ public enum PixelTransformationType {
 }
 
 public class PixelTransformationBundle {
+    private static PixelTransformationBundle? copied_color_adjustments = null;
+    
     private Gee.HashMap<int, PixelTransformation> map = new Gee.HashMap<int, PixelTransformation>(
         Gee.Functions.get_hash_func_for(typeof(int)), Gee.Functions.get_equal_func_for(typeof(int)));
     
     public PixelTransformationBundle() {
+    }
+    
+    public static PixelTransformationBundle? get_copied_color_adjustments() {
+        return copied_color_adjustments;
+    }
+    
+    public static void set_copied_color_adjustments(PixelTransformationBundle adjustments) {
+        copied_color_adjustments = adjustments;
+    }
+    
+    public static bool has_copied_color_adjustments() {
+        return copied_color_adjustments != null;
     }
     
     public void set(PixelTransformation transformation) {
@@ -243,6 +258,7 @@ public class PixelTransformationBundle {
     public void set_to_identity() {
         set(new ExpansionTransformation.from_extrema(0, 255));
         set(new ShadowDetailTransformation(0.0f));
+        set(new HighlightDetailTransformation(0.0f));
         set(new TemperatureTransformation(0.0f));
         set(new TintTransformation(0.0f));
         set(new SaturationTransformation(0.0f));
@@ -257,6 +273,7 @@ public class PixelTransformationBundle {
             set(new ExpansionTransformation.from_string(expansion_params_encoded));
         
         set(new ShadowDetailTransformation(store.get_float("shadows", 0.0f)));
+        set(new HighlightDetailTransformation(store.get_float("highlights", 0.0f)));
         set(new TemperatureTransformation(store.get_float("temperature", 0.0f)));
         set(new TintTransformation(store.get_float("tint", 0.0f)));
         set(new SaturationTransformation(store.get_float("saturation", 0.0f)));
@@ -275,6 +292,11 @@ public class PixelTransformationBundle {
             (ShadowDetailTransformation) get_transformation(PixelTransformationType.SHADOWS);
         assert(new_shadows_trans != null);
         store.set_float("shadows", new_shadows_trans.get_parameter());
+
+        HighlightDetailTransformation? new_highlight_trans =
+            (HighlightDetailTransformation) get_transformation(PixelTransformationType.HIGHLIGHTS);
+        assert(new_highlight_trans != null);
+        store.set_float("highlights", new_highlight_trans.get_parameter());
         
         TemperatureTransformation? new_temp_trans =
             (TemperatureTransformation) get_transformation(PixelTransformationType.TEMPERATURE);
@@ -1375,6 +1397,55 @@ public class HermiteGammaApproximationFunction {
     }
 }
 
+public class HighlightDetailTransformation : HSVTransformation {
+    private const float MAX_EFFECT_SHIFT = 0.5f;
+    private const float MIN_TONAL_WIDTH = 0.1f;
+    private const float MAX_TONAL_WIDTH = 1.0f;
+    private const float TONAL_WIDTH = 1.0f;
+
+    private float intensity = 0.0f;
+    private float[] remap_table = null;
+    
+    public const float MIN_PARAMETER = -32.0f;
+    public const float MAX_PARAMETER = 0.0f;
+
+    public HighlightDetailTransformation(float user_intensity) {
+        base(PixelTransformationType.HIGHLIGHTS);
+        
+        intensity = user_intensity;
+        float intensity_adj = (intensity / MIN_PARAMETER).clamp(0.0f, 1.0f);
+
+        float effect_shift = MAX_EFFECT_SHIFT * intensity_adj;
+        HermiteGammaApproximationFunction func =
+            new HermiteGammaApproximationFunction(TONAL_WIDTH);
+        
+        remap_table = new float[256];
+        for (int i = 0; i < 256; i++) {
+            float x = ((float) i) / 255.0f;
+            float weight = func.evaluate(1.0f - x);
+            remap_table[i] = (weight * (x - effect_shift)) + ((1.0f - weight) * x);
+        }
+    }
+
+    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
+        HSVAnalyticPixel result = pixel;
+        result.light_value = (remap_table[(int)(pixel.light_value * 255.0f)]).clamp(0.0f, 1.0f);
+        return result;
+    }
+
+    public override PixelTransformation copy() {
+        return new HighlightDetailTransformation(intensity);
+    }
+    
+    public override bool is_identity() {
+        return (intensity == 0.0f);
+    }
+
+    public float get_parameter() {
+        return intensity;
+    }
+}
+
 namespace AutoEnhance {
     const int SHADOW_DETECT_MIN_INTENSITY = 8;
     const int SHADOW_DETECT_MAX_INTENSITY = 100;
@@ -1436,6 +1507,7 @@ public PixelTransformationBundle create_auto_enhance_adjustments(Gdk.Pixbuf pixb
     }
     /* zero out any existing color transformations as these may conflict with
        auto-enhancement */
+    adjustments.set(new HighlightDetailTransformation(0.0f));
     adjustments.set(new TemperatureTransformation(0.0f));
     adjustments.set(new TintTransformation(0.0f));
     adjustments.set(new ExposureTransformation(0.0f));

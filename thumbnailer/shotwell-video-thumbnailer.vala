@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  * 
  * This is a Vala-rewrite of GStreamer snapshot example. Adapted from earlier 
  * work from Wim Taymans.
@@ -10,17 +10,15 @@
 // Shotwell Thumbnailer takes in a video file and returns a thumbnail to stdout.  This is
 // a replacement for totem-video-thumbnailer
 class ShotwellThumbnailer {
-    const string caps_string = """video/x-raw,format=RGB,bpp=32,depth=32,pixel-aspect-ratio=1/1""";
+    const string caps_string = """video/x-raw,format=RGB,pixel-aspect-ratio=1/1""";
     
     public static int main(string[] args) {
         Gst.Element pipeline, sink;
-        int width, height;
-        Gst.Sample sample;
         string descr;
         Gdk.Pixbuf pixbuf;
+        uint8[]? pngdata;
         int64 duration, position;
         Gst.StateChangeReturn ret;
-        bool res;
         
         Gst.init(ref args);
         
@@ -30,7 +28,7 @@ class ShotwellThumbnailer {
         }
         
         descr = "filesrc location=\"%s\" ! decodebin ! videoconvert ! videoscale ! ".printf(args[1]) +
-            "appsink name=sink caps=\"%s\"".printf(caps_string);
+            "%s ! gdkpixbufsink name=sink".printf(caps_string);
         
         try {
             // Create new pipeline.
@@ -59,15 +57,12 @@ class ShotwellThumbnailer {
             }
 
             /* get the duration */
-            pipeline.query_duration (Gst.Format.TIME, out duration);
-
-            if (duration != -1) {
-                /* we have a duration, seek to 5% */
-                position = duration * 5 / 100;
-            } else {
-                /* no duration, seek to 1 second, this could EOS */
-                position = 1 * Gst.SECOND;
+            if (!pipeline.query_duration (Gst.Format.TIME, out duration)) {
+                stderr.printf("Failed to query file for duration\n");
+                return 3;
             }
+
+            position = 1 * Gst.SECOND;
 
             /* seek to the a position in the file. Most files have a black first frame so
              * by seeking to somewhere else we have a bigger chance of getting something
@@ -75,54 +70,18 @@ class ShotwellThumbnailer {
              * seek a little more */
             pipeline.seek_simple (Gst.Format.TIME, Gst.SeekFlags.KEY_UNIT | Gst.SeekFlags.FLUSH, position);
 
-            /* get the preroll buffer from appsink, this block untils appsink really
-             * prerolls */
-            GLib.Signal.emit_by_name (sink, "pull-preroll", out sample, null);
-
-            // if we have a buffer now, convert it to a pixbuf. It's possible that we
-            // don't have a buffer because we went EOS right away or had an error.
-            if (sample != null) {
-                Gst.Buffer buffer;
-                Gst.Caps caps;
-                Gst.Structure s;
-                Gst.MapInfo mapinfo;
-
-                // Get the snapshot buffer format now. We set the caps on the appsink so
-                // that it can only be an rgb buffer. The only thing we have not specified
-                // on the caps is the height, which is dependent on the pixel-aspect-ratio
-                // of the source material.
-                caps = sample.get_caps();
-                if (caps == null) {
-                    stderr.printf("could not get snapshot format\n");
-                    return 5;
-                }
-                
-                s = caps.get_structure(0);
-                
-                // We need to get the final caps on the buffer to get the size.
-                res = s.get_int("width", out width);
-                res |= s.get_int("height", out height);
-                if (!res) {
-                    stderr.printf("Could not get snapshot dimension\n");
-                    return 6;
-                }
-
-                buffer = sample.get_buffer();
-                buffer.map(out mapinfo, Gst.MapFlags.READ);
-
-                // Create pixmap from buffer and save, gstreamer video buffers have a stride
-                // that is rounded up to the nearest multiple of 4.
-                pixbuf = new Gdk.Pixbuf.from_data(mapinfo.data, Gdk.Colorspace.RGB, false, 8,
-                    width, height, (((width * 3)+3)&~3), null);
-                
-                // Save the pixbuf.
-                pixbuf.save("/dev/stdout", "png");
-                buffer.unmap(mapinfo);
-            } else {
-                stderr.printf("Could not make snapshot\n");
-                return 10;
+            ret = pipeline.get_state(null, null, 5 * Gst.SECOND);
+            if (ret == Gst.StateChangeReturn.FAILURE) {
+                stderr.printf("Failed to play the file: couldn't get state.\n");
+                return 3;
             }
-            
+
+            sink.get ("last-pixbuf", out pixbuf);
+
+            // Save the pixbuf.
+            pixbuf.save_to_buffer(out pngdata, "png");
+            stdout.write(pngdata);
+
             // cleanup and exit.
             pipeline.set_state(Gst.State.NULL);
             

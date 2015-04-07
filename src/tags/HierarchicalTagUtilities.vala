@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -173,7 +173,7 @@ class HierarchicalTagUtilities {
                 return;
 
             Tag? t = null;
-            if (Tag.global.exists(actual_path));
+            if (Tag.global.exists(actual_path))
                 t = Tag.for_path(actual_path);
             
             if (t != null && t.get_hierarchical_children().size == 0)

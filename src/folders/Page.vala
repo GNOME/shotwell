@@ -1,4 +1,4 @@
-/* Copyright 2012-2013 Yorba Foundation
+/* Copyright 2012-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -15,20 +15,7 @@ public class Folders.Page : CollectionPage {
         }
         
         public override bool include_in_view(DataSource source) {
-            int maxdepth = 10;
-            int depth = 0;
-
-            File myfile = ((MediaSource) source).get_file();
-
-            while (myfile.has_parent(null) && depth < maxdepth) {
-                if (myfile.get_parent().equal(dir))
-                    return true;
-              
-                myfile = myfile.get_parent();
-                depth++;
-            }
-            
-            return false;
+            return ((MediaSource) source).get_file().has_prefix(dir);
         }
     }
     

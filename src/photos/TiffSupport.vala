@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -104,11 +104,14 @@ private class TiffSniffer : GdkSniffer {
         base (file, options);
     }
     
-    public override DetectedPhotoInformation? sniff() throws Error {
+    public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
+        // Rely on GdkSniffer to detect corruption
+        is_corrupted = false;
+        
         if (!is_tiff(file))
             return null;
         
-        DetectedPhotoInformation? detected = base.sniff();
+        DetectedPhotoInformation? detected = base.sniff(out is_corrupted);
         if (detected == null)
             return null;
         

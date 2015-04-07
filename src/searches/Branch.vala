@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -9,7 +9,7 @@ public class Searches.Branch : Sidebar.Branch {
         new Gee.HashMap<SavedSearch, Searches.SidebarEntry>();
     
     public Branch() {
-        base (new Searches.Grouping(),
+        base (new Searches.Header(),
             Sidebar.Branch.Options.HIDE_IF_EMPTY
                 | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD
                 | Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
@@ -60,12 +60,12 @@ public class Searches.Branch : Sidebar.Branch {
     }
 }
 
-public class Searches.Grouping : Sidebar.Grouping, Sidebar.Contextable {
+public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
     private Gtk.UIManager ui = new Gtk.UIManager();
     private Gtk.Menu? context_menu = null;
     
-    public Grouping() {
-        base (_("Saved Searches"), new ThemedIcon(Gtk.Stock.FIND));
+    public Header() {
+        base (_("Saved Searches"));
         setup_context_menu();
     }
     
@@ -104,7 +104,7 @@ public class Searches.Grouping : Sidebar.Grouping, Sidebar.Contextable {
 
 public class Searches.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
     Sidebar.DestroyableEntry {
-    private static Icon single_search_icon;
+    private static string single_search_icon = "find";
     
     private SavedSearch search;
     
@@ -113,11 +113,9 @@ public class Searches.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.Renameable
     }
     
     internal static void init() {
-        single_search_icon = new ThemedIcon(Gtk.Stock.FIND);
     }
     
     internal static void terminate() {
-        single_search_icon = null;
     }
     
     public SavedSearch for_saved_search() {
@@ -128,12 +126,16 @@ public class Searches.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.Renameable
         return search.get_name();
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return single_search_icon;
     }
     
     protected override Page create_page() {
         return new SavedSearchPage(search);
+    }
+    
+    public bool is_user_renameable() {
+        return true;
     }
     
     public void rename(string new_name) {

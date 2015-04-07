@@ -1,12 +1,12 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
  */
 
-public uint int64_hash(void *p) {
+public uint int64_hash(int64? n) {
     // Rotating XOR hash
-    uint8 *u8 = (uint8 *) p;
+    uint8 *u8 = (uint8 *) n;
     uint hash = 0;
     for (int ctr = 0; ctr < (sizeof(int64) / sizeof(uint8)); ctr++) {
         hash = (hash << 4) ^ (hash >> 28) ^ (*u8++);
@@ -15,14 +15,14 @@ public uint int64_hash(void *p) {
     return hash;
 }
 
-public bool int64_equal(void *a, void *b) {
+public bool int64_equal(int64? a, int64? b) {
     int64 *bia = (int64 *) a;
     int64 *bib = (int64 *) b;
     
     return (*bia) == (*bib);
 }
 
-public int int64_compare(void *a, void *b) {
+public int int64_compare(int64? a, int64? b) {
     int64 diff = *((int64 *) a) - *((int64 *) b);
     if (diff < 0)
         return -1;
@@ -32,7 +32,7 @@ public int int64_compare(void *a, void *b) {
         return 0;
 }
 
-public int uint64_compare(void *a, void *b) {
+public int uint64_compare(uint64? a, uint64? b) {
     uint64 a64 = *((uint64 *) a);
     uint64 b64 = *((uint64 *) b);
     
@@ -374,5 +374,4 @@ public bool is_twentyfour_hr_time_system() {
     // if no AM/PM designation is found, the location is set to use a 24 hr time system
     return is_string_empty(Time.local(0).format("%p"));
 }
-
 

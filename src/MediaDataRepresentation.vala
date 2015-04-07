@@ -1,4 +1,4 @@
-/* Copyright 2010-2013 Yorba Foundation
+/* Copyright 2010-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -160,7 +160,7 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     public abstract string? get_title();
     public abstract string? get_comment();
     public abstract void set_title(string? title);
-    public abstract void set_comment(string? comment);
+    public abstract bool set_comment(string? comment);
     
     public static string? prep_title(string? title) {
         return prepare_input_text(title, 
@@ -169,7 +169,7 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
 
     public static string? prep_comment(string? comment) {
         return prepare_input_text(comment,
-            PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF & ~PrepareInputTextOptions.EMPTY_IS_NULL, DEFAULT_USER_TEXT_INPUT_LENGTH);
+            PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF & ~PrepareInputTextOptions.EMPTY_IS_NULL, -1);
     }
     
     public abstract Rating get_rating();

@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -29,7 +29,7 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Lucas Beeler";
-        info.copyright = _("Copyright 2009-2013 Yorba Foundation");
+        info.copyright = _("Copyright 2009-2015 Yorba Foundation");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -324,10 +324,13 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
                 Json.Object current_album = album_list.get_object_element(i);
                 string album_id = current_album.get_string_member("id");
                 string album_name = current_album.get_string_member("name");
-                bool can_upload = current_album.get_boolean_member("can_upload");
-                
-                if (can_upload)
-                    publishing_params.add_album(album_name, album_id);
+
+                // Note that we are completely ignoring the "can_upload" flag in the list of albums
+                // that we pulled from facebook eariler -- effectively, we add every album to the
+                // publishing_params album list regardless of the value of its can_upload flag. In
+                // the future we may wish to make adding to the publishing_params album list
+                // conditional on the value of the can_upload flag being true
+                publishing_params.add_album(album_name, album_id);
             }
         } catch (Error error) {
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(error.message));
@@ -686,6 +689,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             }
         } else {
             // we're publishing only videos and we don't need an album name
+            do_upload();
         }
     }
     
@@ -980,7 +984,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
     }
 
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.COLOSSAL_SIZE;
+        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
     }
 
     public void on_pane_installed() {
@@ -1077,25 +1081,30 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         publish_button.clicked.connect(on_publish_button_clicked);
         logout_button.clicked.connect(on_logout_button_clicked);
-
-        // Ticket #2916 - if the user is uploading photographs, allow
-        // them to choose what resolution they should be uploaded at.
-        if (publishing_photos()) {
-            setup_resolution_combo();
-
-            // Ticket #3232 - Remember facebook size settings.
-            resolution_combo.set_active(publisher.get_persistent_default_size());
-            resolution_combo.changed.connect(on_size_changed);
-        }
-
+        
+        setup_resolution_combo();
+        resolution_combo.set_active(publisher.get_persistent_default_size());
+        resolution_combo.changed.connect(on_size_changed);
+        
         // Ticket #3175, part 2: make sure this widget starts out sensitive
         // if it needs to by checking whether we're starting with a video
         // or a new gallery.
         visibility_combo.set_sensitive(
             (create_new_radio != null && create_new_radio.active) ||
             ((media_type & Spit.Publishing.Publisher.MediaType.VIDEO) != 0));
+        
+        // if publishing only videos, disable all photo-specific controls
+        if (media_type == Spit.Publishing.Publisher.MediaType.VIDEO) {
+            strip_metadata_check.set_active(false);
+            strip_metadata_check.set_sensitive(false);
+            resolution_combo.set_sensitive(false);
+            use_existing_radio.set_sensitive(false);
+            create_new_radio.set_sensitive(false);
+            existing_albums_combo.set_sensitive(false);
+            new_album_entry.set_sensitive(false);
+        }
     }
-
+    
     private bool publishing_photos() {
         return (media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0;
     }
@@ -1246,6 +1255,28 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 }
 
+internal enum Endpoint {
+    DEFAULT,
+    VIDEO,
+    TEST_CONNECTION;
+    
+    public string to_uri() {
+        switch (this) {
+            case DEFAULT:
+                return "https://graph.facebook.com/";
+                
+            case VIDEO:
+                return "https://graph-video.facebook.com/";
+                
+            case TEST_CONNECTION:
+                return "https://www.facebook.com/";
+                
+            default:
+                assert_not_reached();
+        }
+    }
+}
+
 internal abstract class GraphMessage {
     public signal void completed();
     public signal void failed(Spit.Publishing.PublishingError err);
@@ -1257,25 +1288,24 @@ internal abstract class GraphMessage {
 
 internal class GraphSession {
     private abstract class GraphMessageImpl : GraphMessage {
-        private const string ENDPOINT_URI = "https://graph.facebook.com/";
-        
         public Publishing.RESTSupport.HttpMethod method;
         public string uri;
         public string access_token;
         public Soup.Message soup_message;
-        public GraphSession host_session;
+        public weak GraphSession host_session;
         public int bytes_so_far;
         
         public GraphMessageImpl(GraphSession host_session, Publishing.RESTSupport.HttpMethod method,
-            string relative_uri, string access_token) {
+            string relative_uri, string access_token, Endpoint endpoint = Endpoint.DEFAULT) {
             this.method = method;
             this.access_token = access_token;
             this.host_session = host_session;
             this.bytes_so_far = 0;
             
+            string endpoint_uri = endpoint.to_uri();
             try {
                 Regex starting_slashes = new Regex("^/+");
-                this.uri = ENDPOINT_URI + starting_slashes.replace(relative_uri, -1, 0, "");
+                this.uri = endpoint_uri + starting_slashes.replace(relative_uri, -1, 0, "");
             } catch (RegexError err) {
                 assert_not_reached();
             }
@@ -1298,66 +1328,6 @@ internal class GraphSession {
             
             data_transmitted(bytes_so_far, (int) soup_message.request_body.length);
         }
-    
-        public void on_finished(Soup.Session session, Soup.Message msg) {
-            assert(msg == soup_message);
-            
-            msg.wrote_body_data.disconnect(on_wrote_body_data);
-            
-            Spit.Publishing.PublishingError? error = null;
-            switch (msg.status_code) {
-                case Soup.KnownStatusCode.OK:
-                case Soup.KnownStatusCode.CREATED: // HTTP code 201 (CREATED) signals that a new
-                                                   // resource was created in response to a PUT
-                                                   // or POST
-                break;
-                
-                case EXPIRED_SESSION_STATUS_CODE:
-                    error = new Spit.Publishing.PublishingError.EXPIRED_SESSION(
-                        "OAuth Access Token has Expired. Logout user.", get_uri(), msg.status_code);
-                break;
-                
-                case Soup.KnownStatusCode.CANT_RESOLVE:
-                case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
-                    error = new Spit.Publishing.PublishingError.NO_ANSWER(
-                        "Unable to resolve %s (error code %u)", get_uri(), msg.status_code);
-                break;
-                
-                case Soup.KnownStatusCode.CANT_CONNECT:
-                case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
-                    error = new Spit.Publishing.PublishingError.NO_ANSWER(
-                        "Unable to connect to %s (error code %u)", get_uri(), msg.status_code);
-                break;
-                
-                default:
-                    // status codes below 100 are used by Soup, 100 and above are defined HTTP
-                    // codes
-                    if (msg.status_code >= 100) {
-                        error = new Spit.Publishing.PublishingError.NO_ANSWER(
-                            "Service %s returned HTTP status code %u %s", get_uri(),
-                            msg.status_code, msg.reason_phrase);
-                    } else {
-                        error = new Spit.Publishing.PublishingError.NO_ANSWER(
-                            "Failure communicating with %s (error code %u)", get_uri(),
-                            msg.status_code);
-                    }
-                break;
-            }
-
-            // All valid communication with Facebook involves body data in the response
-            if (error == null)
-                if (msg.response_body.data == null || msg.response_body.data.length == 0)
-                    error = new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                        "No response data from %s", get_uri());
-            
-            if (error == null)
-                completed();
-            else
-                failed(error);
-
-            host_session.unmanage_message(this);
-            host_session = null;
-        }
     }
     
     private class GraphQueryMessage : GraphMessageImpl {
@@ -1373,7 +1343,8 @@ internal class GraphSession {
     
     private class GraphEndpointProbeMessage : GraphMessageImpl {
         public GraphEndpointProbeMessage(GraphSession host_session) {
-            base(host_session, Publishing.RESTSupport.HttpMethod.GET, "/", "");
+            base(host_session, Publishing.RESTSupport.HttpMethod.GET, "/", "",
+                Endpoint.TEST_CONNECTION);
 
             soup_message = new Soup.Message.from_uri(method.to_string(), new Soup.URI(uri));
             soup_message.wrote_body_data.connect(on_wrote_body_data);
@@ -1386,8 +1357,16 @@ internal class GraphSession {
         
         public GraphUploadMessage(GraphSession host_session, string access_token,
             string relative_uri, Spit.Publishing.Publishable publishable,
-            bool suppress_titling) {
-            base(host_session, Publishing.RESTSupport.HttpMethod.POST, relative_uri, access_token);
+            bool suppress_titling, string? resource_privacy = null) {
+            base(host_session, Publishing.RESTSupport.HttpMethod.POST, relative_uri, access_token,
+                (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
+                Endpoint.VIDEO : Endpoint.DEFAULT);
+            
+            // Video uploads require a privacy string at the per-resource level. Since they aren't
+            // placed in albums, they can't inherit their privacy settings from their containing
+            // album like photos do
+            assert(publishable.get_media_type() != Spit.Publishing.Publisher.MediaType.VIDEO ||
+                resource_privacy != null);
             
             this.publishable = publishable;
             
@@ -1411,12 +1390,28 @@ internal class GraphSession {
             
             mp_envelope.append_form_string("access_token", access_token);
             
-            string publishable_title = publishable.get_publishing_name();
-            if (!suppress_titling && publishable_title != "")
+            if (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO)
+                mp_envelope.append_form_string("privacy", resource_privacy);
+            
+            //Get photo title and post it as message on FB API
+            string publishable_title = publishable.get_param_string("title");
+            if (!suppress_titling && publishable_title != null)
                 mp_envelope.append_form_string("name", publishable_title);
+                
+            //Set 'message' data field with EXIF comment field. Title has precedence.
+            string publishable_comment = publishable.get_param_string("comment");
+            if (!suppress_titling && publishable_comment != null)
+               mp_envelope.append_form_string("message", publishable_comment);
+            
+            //Sets correct date of the picture
+            if (!suppress_titling)
+               mp_envelope.append_form_string("backdated_time", publishable.get_exposure_date_time().to_string());
 
+            string source_file_mime_type =
+                (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
+                "video" : "image/jpeg";
             mp_envelope.append_form_file("source", publishable.get_serialized_file().get_basename(),
-                "image/jpeg", image_data);
+                source_file_mime_type, image_data);
             
             mp_envelope.to_message(soup_message.request_headers, soup_message.request_body);
         }
@@ -1437,7 +1432,7 @@ internal class GraphSession {
             string album_name, string album_privacy) {
             base(host_session, Publishing.RESTSupport.HttpMethod.POST, "/me/albums", access_token);
             
-            assert(album_privacy != null || album_privacy != "");
+            assert(album_privacy != null && album_privacy != "");
             
             this.soup_message = new Soup.Message.from_uri(method.to_string(), new Soup.URI(uri));
             
@@ -1455,25 +1450,101 @@ internal class GraphSession {
     
     private Soup.Session soup_session;
     private string? access_token;
-    private Gee.Set<GraphMessage> messages;
+    private GraphMessage? current_message;
     
     public GraphSession() {
         this.soup_session = new Soup.SessionAsync();
+        this.soup_session.request_unqueued.connect(on_request_unqueued);
+        this.soup_session.timeout = 15;
         this.access_token = null;
-        this.messages = new Gee.HashSet<GraphMessage>();
+        this.current_message = null;
     }
+
+    ~GraphSession() {
+         soup_session.request_unqueued.disconnect(on_request_unqueued);
+     }
     
     private void manage_message(GraphMessage msg) {
-        assert(!messages.contains(msg));
+        assert(current_message == null);
         
-        messages.add(msg);
+        current_message = msg;
     }
     
     private void unmanage_message(GraphMessage msg) {
-        assert(messages.contains(msg));
+        assert(current_message != null);
         
-        messages.remove(msg);
+        current_message = null;
     }
+
+     private void on_request_unqueued(Soup.Message msg) {
+        assert(current_message != null);
+        GraphMessageImpl real_message = (GraphMessageImpl) current_message;
+        assert(real_message.soup_message == msg);
+        
+        // these error types are always recoverable given the unique behavior of the Facebook
+        // endpoint, so try again
+        if (msg.status_code == Soup.KnownStatusCode.IO_ERROR ||
+            msg.status_code == Soup.KnownStatusCode.MALFORMED ||
+            msg.status_code == Soup.KnownStatusCode.TRY_AGAIN) {
+            real_message.bytes_so_far = 0;
+            soup_session.queue_message(msg, null);
+            return;
+        }
+        
+        unmanage_message(real_message);
+        msg.wrote_body_data.disconnect(real_message.on_wrote_body_data);
+        
+        Spit.Publishing.PublishingError? error = null;
+        switch (msg.status_code) {
+            case Soup.KnownStatusCode.OK:
+            case Soup.KnownStatusCode.CREATED: // HTTP code 201 (CREATED) signals that a new
+                                               // resource was created in response to a PUT
+                                               // or POST
+            break;
+            
+            case EXPIRED_SESSION_STATUS_CODE:
+                error = new Spit.Publishing.PublishingError.EXPIRED_SESSION(
+                    "OAuth Access Token has Expired. Logout user.");
+            break;
+            
+            case Soup.KnownStatusCode.CANT_RESOLVE:
+            case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
+                error = new Spit.Publishing.PublishingError.NO_ANSWER(
+                    "Unable to resolve %s (error code %u)", real_message.get_uri(), msg.status_code);
+            break;
+            
+            case Soup.KnownStatusCode.CANT_CONNECT:
+            case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
+                error = new Spit.Publishing.PublishingError.NO_ANSWER(
+                    "Unable to connect to %s (error code %u)", real_message.get_uri(), msg.status_code);
+            break;
+            
+            default:
+                // status codes below 100 are used by Soup, 100 and above are defined HTTP
+                // codes
+                if (msg.status_code >= 100) {
+                    error = new Spit.Publishing.PublishingError.NO_ANSWER(
+                        "Service %s returned HTTP status code %u %s", real_message.get_uri(),
+                        msg.status_code, msg.reason_phrase);
+                } else {
+                    error = new Spit.Publishing.PublishingError.NO_ANSWER(
+                        "Failure communicating with %s (error code %u)", real_message.get_uri(),
+                        msg.status_code);
+                }
+            break;
+        }
+
+        // All valid communication with Facebook involves body data in the response
+        if (error == null)
+            if (msg.response_body.data == null || msg.response_body.data.length == 0)
+                error = new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
+                    "No response data from %s", real_message.get_uri());
+        
+        if (error == null)
+            real_message.completed();
+        else
+            real_message.failed(error);
+     }
     
     public void authenticate(string access_token) {
         this.access_token = access_token;
@@ -1498,9 +1569,9 @@ internal class GraphSession {
     }
 
     public GraphMessage new_upload(string resource_path, Spit.Publishing.Publishable publishable,
-        bool suppress_titling) {
+        bool suppress_titling, string? resource_privacy = null) {
         return new GraphUploadMessage(this, access_token, resource_path, publishable,
-            suppress_titling);
+            suppress_titling, resource_privacy);
     }
     
     public GraphMessage new_create_album(string album_name, string privacy) {
@@ -1509,9 +1580,12 @@ internal class GraphSession {
     
     public void send_message(GraphMessage message) {
         GraphMessageImpl real_message = (GraphMessageImpl) message;
+        
+        debug("making HTTP request to URI: " + real_message.soup_message.uri.to_string(false));
+        
         if (real_message.prepare_for_transmission()) {
             manage_message(message);
-            soup_session.queue_message(real_message.soup_message, real_message.on_finished);
+            soup_session.queue_message(real_message.soup_message, null);
         }
     }
     
@@ -1547,10 +1621,15 @@ internal class Uploader {
             current_file++;
             return;
         }
-
-        GraphMessage upload_message = session.new_upload("/%s/photos".printf(
-            publishing_params.get_target_album_id()), publishable,
-            publishing_params.strip_metadata);
+        
+        string resource_uri =
+            (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.PHOTO) ?
+            "/%s/photos".printf(publishing_params.get_target_album_id()) : "/me/videos";
+        string? resource_privacy =
+            (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
+            publishing_params.privacy_object : null;
+        GraphMessage upload_message = session.new_upload(resource_uri, publishable,
+            publishing_params.strip_metadata, resource_privacy);
 
         upload_message.data_transmitted.connect(on_chunk_transmitted);
         upload_message.completed.connect(on_message_completed);

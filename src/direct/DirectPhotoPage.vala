@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -46,13 +46,13 @@ public class DirectPhotoPage : EditingHostPage {
         file.label = _("_File");
         actions += file;
 
-        Gtk.ActionEntry save = { "Save", Gtk.Stock.SAVE, TRANSLATABLE, "<Ctrl>S", TRANSLATABLE,
+        Gtk.ActionEntry save = { "Save", Resources.SAVE_LABEL, TRANSLATABLE, "<Ctrl>S", TRANSLATABLE,
             on_save };
         save.label = _("_Save");
         save.tooltip = _("Save photo");
         actions += save;
 
-        Gtk.ActionEntry save_as = { "SaveAs", Gtk.Stock.SAVE_AS, TRANSLATABLE,
+        Gtk.ActionEntry save_as = { "SaveAs", Resources.SAVE_AS_LABEL, TRANSLATABLE,
             "<Ctrl><Shift>S", TRANSLATABLE, on_save_as };
         save_as.label = _("Save _As...");
         save_as.tooltip = _("Save photo with a different name");
@@ -63,14 +63,14 @@ public class DirectPhotoPage : EditingHostPage {
         send_to.label = Resources.SEND_TO_MENU;
         actions += send_to;
 
-        Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
+        Gtk.ActionEntry print = { "Print", Resources.PRINT_LABEL, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         print.tooltip = _("Print the photo to a printer connected to your computer");
         actions += print;
         
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
-        edit.label = _("Edit");
+        edit.label = _("_Edit");
         actions += edit;
 
         Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null, null };
@@ -81,13 +81,13 @@ public class DirectPhotoPage : EditingHostPage {
         tools.label = _("T_ools");
         actions += tools;
         
-        Gtk.ActionEntry prev = { "PrevPhoto", Gtk.Stock.GO_BACK, TRANSLATABLE, null,
+        Gtk.ActionEntry prev = { "PrevPhoto", Resources.PREVIOUS_LABEL, TRANSLATABLE, null,
             TRANSLATABLE, on_previous_photo };
         prev.label = _("_Previous Photo");
         prev.tooltip = _("Previous Photo");
         actions += prev;
 
-        Gtk.ActionEntry next = { "NextPhoto", Gtk.Stock.GO_FORWARD, TRANSLATABLE, null,
+        Gtk.ActionEntry next = { "NextPhoto", Resources.NEXT_LABEL, TRANSLATABLE, null,
             TRANSLATABLE, on_next_photo };
         next.label = _("_Next Photo");
         next.tooltip = _("Next Photo");
@@ -127,7 +127,7 @@ public class DirectPhotoPage : EditingHostPage {
         crop.tooltip = Resources.CROP_TOOLTIP;
         actions += crop;
         
-        Gtk.ActionEntry straighten = { "Straighten", Gtk.Stock.REFRESH, TRANSLATABLE, "<Ctrl>A",
+        Gtk.ActionEntry straighten = { "Straighten", Resources.REFRESH_LABEL, TRANSLATABLE, "<Ctrl>A",
             TRANSLATABLE, toggle_straighten };
         straighten.label = Resources.STRAIGHTEN_MENU;
         straighten.tooltip = Resources.STRAIGHTEN_TOOLTIP;
@@ -145,7 +145,7 @@ public class DirectPhotoPage : EditingHostPage {
         adjust.tooltip = Resources.ADJUST_TOOLTIP;
         actions += adjust;
         
-        Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE,
+        Gtk.ActionEntry revert = { "Revert", Resources.REVERT_LABEL, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
         actions += revert;
@@ -169,33 +169,37 @@ public class DirectPhotoPage : EditingHostPage {
         help.label = _("_Help");
         actions += help;
 
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.Stock.ZOOM_IN, TRANSLATABLE,
+        Gtk.ActionEntry increase_size = { "IncreaseSize", Resources.ZOOM_IN_LABEL, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
         increase_size.tooltip = _("Increase the magnification of the photo");
         actions += increase_size;
 
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.Stock.ZOOM_OUT, TRANSLATABLE,
+        Gtk.ActionEntry decrease_size = { "DecreaseSize", Resources.ZOOM_OUT_LABEL, TRANSLATABLE,
             "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
         decrease_size.label = _("Zoom _Out");
         decrease_size.tooltip = _("Decrease the magnification of the photo");
         actions += decrease_size;
 
-        Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.Stock.ZOOM_FIT, TRANSLATABLE,
+        Gtk.ActionEntry best_fit = { "ZoomFit", Resources.ZOOM_FIT_LABEL, TRANSLATABLE,
             "<Ctrl>0", TRANSLATABLE, snap_zoom_to_min };
         best_fit.label = _("Fit to _Page");
         best_fit.tooltip = _("Zoom the photo to fit on the screen");
         actions += best_fit;
 
-        Gtk.ActionEntry actual_size = { "Zoom100", Gtk.Stock.ZOOM_100, TRANSLATABLE,
+        Gtk.ActionEntry actual_size = { "Zoom100", Resources.ZOOM_100_LABEL, TRANSLATABLE,
             "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
+        /// xgettext:no-c-format
         actual_size.label = _("Zoom _100%");
+        /// xgettext:no-c-format
         actual_size.tooltip = _("Zoom the photo to 100% magnification");
         actions += actual_size;
         
         Gtk.ActionEntry max_size = { "Zoom200", null, TRANSLATABLE,
             "<Ctrl>2", TRANSLATABLE, snap_zoom_to_max };
+        /// xgettext:no-c-format
         max_size.label = _("Zoom _200%");
+        /// xgettext:no-c-format
         max_size.tooltip = _("Zoom the photo to 200% magnification");
         actions += max_size;
 
@@ -320,10 +324,15 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     protected override bool on_double_click(Gdk.EventButton event) {
-        AppWindow.get_instance().end_fullscreen();
+        FullscreenWindow? fs = get_container() as FullscreenWindow;
+        if (fs != null) {
+            fs.close();
+            
+            return true;
+        }
         
         return base.on_double_click(event);
-    }    
+    }
     
     protected override void update_ui(bool missing) {
         bool sensitivity = !missing;
@@ -497,8 +506,8 @@ public class DirectPhotoPage : EditingHostPage {
         }
 
         Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog(_("Save As"), 
-            AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.Stock.CANCEL, 
-            Gtk.ResponseType.CANCEL, Gtk.Stock.OK, Gtk.ResponseType.OK);
+            AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.CANCEL_LABEL, 
+            Gtk.ResponseType.CANCEL, Resources.OK_LABEL, Gtk.ResponseType.OK);
         save_as_dialog.set_select_multiple(false);
         save_as_dialog.set_current_name(filename);
         save_as_dialog.set_current_folder(current_save_dir.get_path());
@@ -555,8 +564,15 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void on_dphoto_can_rotate_changed(bool should_allow_rotation) {
-        enable_rotate(should_allow_rotation);
-    }   
+        // since this signal handler can be called from a background thread (gah, don't get me
+        // started...), chain to the "enable-rotate" signal in the foreground thread, as it's
+        // tied to UI elements
+        Idle.add(() => {
+            enable_rotate(should_allow_rotation);
+            
+            return false;
+        });
+    }
     
     protected override DataView create_photo_view(DataSource source) {
         return new DirectView((DirectPhoto) source);

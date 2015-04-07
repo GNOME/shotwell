@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -211,7 +211,7 @@ public abstract class GenericPhotoTransformationCommand : SingleDataSourceComman
         base(photo, name, explanation);
     }
     
-    ~GenericPhotoTransformationState() {
+    ~GenericPhotoTransformationCommand() {
         if (original_state != null)
             original_state.broken.disconnect(on_state_broken);
         
@@ -665,6 +665,26 @@ public class RenameEventCommand : SimpleProxyableCommand {
     }
 }
 
+public class EditEventCommentCommand : SimpleProxyableCommand {
+    private string new_comment;
+    private string? old_comment;
+    
+    public EditEventCommentCommand(Event event, string new_comment) {
+        base(event, Resources.EDIT_COMMENT_LABEL, "");
+        
+        this.new_comment = new_comment;
+        old_comment = event.get_comment();
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        ((Event) source).set_comment(new_comment);
+    }
+    
+    public override void undo_on_source(DataSource source) {
+        ((Event) source).set_comment(old_comment);
+    }
+}
+
 public class SetKeyPhotoCommand : SingleDataSourceCommand {
     private MediaSource new_primary_source;
     private MediaSource old_primary_source;
@@ -775,8 +795,16 @@ public class StraightenCommand : GenericPhotoTransformationCommand {
     }
     
     public override void execute_on_photo(Photo photo) {
+        // thaw collection so both alterations are signalled at the same time
+        DataCollection? collection = photo.get_membership();
+        if (collection != null)
+            collection.freeze_notifications();
+        
         photo.set_straighten(theta);
         photo.set_crop(crop);
+        
+        if (collection != null)
+            collection.thaw_notifications();
     }
 }
 
@@ -794,10 +822,10 @@ public class CropCommand : GenericPhotoTransformationCommand {
     }
 }
 
-public class AdjustColorsCommand : GenericPhotoTransformationCommand {
+public class AdjustColorsSingleCommand : GenericPhotoTransformationCommand {
     private PixelTransformationBundle transformations;
     
-    public AdjustColorsCommand(Photo photo, PixelTransformationBundle transformations,
+    public AdjustColorsSingleCommand(Photo photo, PixelTransformationBundle transformations,
         string name, string explanation) {
         base(photo, name, explanation);
         
@@ -813,7 +841,23 @@ public class AdjustColorsCommand : GenericPhotoTransformationCommand {
     }
     
     public override bool can_compress(Command command) {
-        return command is AdjustColorsCommand;
+        return command is AdjustColorsSingleCommand;
+    }
+}
+
+public class AdjustColorsMultipleCommand : MultiplePhotoTransformationCommand {
+    private PixelTransformationBundle transformations;
+    
+    public AdjustColorsMultipleCommand(Gee.Iterable<DataView> iter,
+        PixelTransformationBundle transformations, string name, string explanation) {
+        base(iter, _("Applying Color Transformations"), _("Undoing Color Transformations"),
+            name, explanation);
+        
+        this.transformations = transformations;
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        ((Photo) source).set_color_adjustments(transformations);
     }
 }
 
@@ -872,8 +916,27 @@ public abstract class MovePhotosCommand : Command {
         }
         
         public override void execute() {
-            // switch to new event page first (to prevent flicker if other pages are destroyed)
-            LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
+            // Are we at an event page already?
+            if ((LibraryWindow.get_app().get_current_page() is EventPage)) {
+                Event evt = ((EventPage) LibraryWindow.get_app().get_current_page()).get_event();
+                
+                // Will moving these empty this event?
+                if (evt.get_media_count() == source_list.size) {
+                    // Yes - jump away from this event, since it will have zero
+                    // entries and is going to be removed.
+                    LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
+                }
+            } else {
+                // We're in a library or tag page.
+                
+                // Are we moving these to a newly-created (and therefore empty) event?
+                if (((Event) new_event_proxy.get_source()).get_media_count() == 0) {
+                    // Yes - jump to the new event.
+                    LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
+                }
+            }
+            
+            // Otherwise - don't jump; users found the jumping disconcerting.
             
             // create the new event
             base.execute();
@@ -957,17 +1020,44 @@ public class MergeEventsCommand : MovePhotosCommand {
     public MergeEventsCommand(Gee.Iterable<DataView> iter) {
         base (Resources.MERGE_LABEL, "");
         
-        // the master event is the first one found with a name, otherwise the first one in the lot
+        // Because it requires fewer operations to merge small events onto large ones,
+        // rather than the other way round, we try to choose the event with the most
+        // sources as the 'master', preferring named events over unnamed ones so that
+        // names can persist.
         Event master_event = null;
+        int named_evt_src_count = 0;
+        int unnamed_evt_src_count = 0;
         Gee.ArrayList<ThumbnailView> media_thumbs = new Gee.ArrayList<ThumbnailView>();
         
         foreach (DataView view in iter) {
             Event event = (Event) view.get_source();
             
-            if (master_event == null)
+            // First event we've examined?
+            if (master_event == null) {
+                // Yes. Make it the master for now and remember it as
+                // having the most sources (out of what we've seen so far).
                 master_event = event;
-            else if (!master_event.has_name() && event.has_name())
-                master_event = event;
+                unnamed_evt_src_count = master_event.get_media_count();
+                if (event.has_name())
+                    named_evt_src_count = master_event.get_media_count();
+            } else {
+                // No. Check whether this event has a name and whether
+                // it has more sources than any other we've seen...
+                if (event.has_name()) {
+                    if (event.get_media_count() > named_evt_src_count) {
+                        named_evt_src_count = event.get_media_count();
+                        master_event = event;
+                    }
+                } else if (named_evt_src_count == 0) {
+                    // Per the original app design, named events -always- trump
+                    // unnamed ones, so only choose an unnamed one if we haven't
+                    // seen any named ones yet.
+                    if (event.get_media_count() > unnamed_evt_src_count) {
+                        unnamed_evt_src_count = event.get_media_count();
+                        master_event = event;
+                    }
+                }
+            }
             
             // store all media sources in this operation; they will be moved to the master event
             // (keep proxies of their original event for undo)
@@ -2355,19 +2445,47 @@ public class TrashUntrashPhotosCommand : PageCommand {
 }
 
 public class FlagUnflagCommand : MultipleDataSourceAtOnceCommand {
+    private const int MIN_PROGRESS_BAR_THRESHOLD = 1000;
+    private const string FLAG_SELECTED_STRING = _("Flag selected photos");
+    private const string UNFLAG_SELECTED_STRING = _("Unflag selected photos");
+    private const string FLAG_PROGRESS = _("Flagging selected photos");
+    private const string UNFLAG_PROGRESS = _("Unflagging selected photos");
+    
     private bool flag;
+    private ProgressDialog progress_dialog = null;
     
     public FlagUnflagCommand(Gee.Collection<MediaSource> sources, bool flag) {
         base (sources,
             flag ? _("Flag") : _("Unflag"),
-            flag ? _("Flag selected photos") : _("Unflag selected photos"));
+            flag ? FLAG_SELECTED_STRING : UNFLAG_SELECTED_STRING);
         
         this.flag = flag;
+        
+        if (sources.size >= MIN_PROGRESS_BAR_THRESHOLD) {
+            progress_dialog = new ProgressDialog(null,
+                flag ? FLAG_PROGRESS : UNFLAG_PROGRESS);
+            
+            progress_dialog.show_all();
+        }
     }
     
     public override void execute_on_all(Gee.Collection<DataSource> sources) {
-        foreach (DataSource source in sources)
+        int num_processed = 0;
+        
+        foreach (DataSource source in sources) {
             flag_unflag(source, flag);
+            
+            num_processed++;
+            
+            if (progress_dialog != null) {
+                progress_dialog.set_fraction(num_processed, sources.size);
+                progress_dialog.queue_draw();
+                spin_event_loop();
+            }
+        }
+        
+        if (progress_dialog != null)
+            progress_dialog.hide();
     }
     
     public override void undo_on_all(Gee.Collection<DataSource> sources) {
@@ -2453,8 +2571,8 @@ public class RenameFaceCommand : SimpleProxyableCommand {
 }
 
 public class DeleteFaceCommand : SimpleProxyableCommand {
-    private Gee.Map<PhotoID?, string> photo_geometry_map =
-        new Gee.HashMap<PhotoID?, string>(FaceLocation.photo_id_hash, FaceLocation.photo_ids_equal);
+    private Gee.Map<PhotoID?, string> photo_geometry_map = new Gee.HashMap<PhotoID?, string>
+        ((Gee.HashDataFunc)FaceLocation.photo_id_hash, (Gee.EqualDataFunc)FaceLocation.photo_ids_equal);
     
     public DeleteFaceCommand(Face face) {
         base (face, Resources.delete_face_label(face.get_name()), face.get_name());

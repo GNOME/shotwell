@@ -1,4 +1,4 @@
-/* Copyright 2009-2013 Yorba Foundation
+/* Copyright 2009-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -108,6 +108,9 @@ public abstract class CollectionPage : MediaPage {
         group.add_separator();
         group.add_menu_item("Enhance");
         group.add_menu_item("Revert");
+        group.add_separator();
+        group.add_menu_item("CopyColorAdjustments");
+        group.add_menu_item("PasteColorAdjustments");
         
         return group;
     }
@@ -139,7 +142,7 @@ public abstract class CollectionPage : MediaPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
 
-        Gtk.ActionEntry print = { "Print", Gtk.Stock.PRINT, TRANSLATABLE, "<Ctrl>P",
+        Gtk.ActionEntry print = { "Print", Resources.PRINT_LABEL, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = Resources.PRINT_MENU;
         actions += print;
@@ -178,7 +181,19 @@ public abstract class CollectionPage : MediaPage {
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
 
-        Gtk.ActionEntry revert = { "Revert", Gtk.Stock.REVERT_TO_SAVED, TRANSLATABLE, null,
+        Gtk.ActionEntry copy_adjustments = { "CopyColorAdjustments", null, TRANSLATABLE,
+            "<Ctrl><Shift>C", TRANSLATABLE, on_copy_adjustments};
+        copy_adjustments.label = Resources.COPY_ADJUSTMENTS_MENU;
+        copy_adjustments.tooltip = Resources.COPY_ADJUSTMENTS_TOOLTIP;
+        actions += copy_adjustments;
+
+        Gtk.ActionEntry paste_adjustments = { "PasteColorAdjustments", null, TRANSLATABLE,
+            "<Ctrl><Shift>V", TRANSLATABLE, on_paste_adjustments};
+        paste_adjustments.label = Resources.PASTE_ADJUSTMENTS_MENU;
+        paste_adjustments.tooltip = Resources.PASTE_ADJUSTMENTS_TOOLTIP;
+        actions += paste_adjustments;
+
+        Gtk.ActionEntry revert = { "Revert", null, TRANSLATABLE, null,
             TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
         actions += revert;
@@ -200,7 +215,7 @@ public abstract class CollectionPage : MediaPage {
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
         actions += adjust_date_time;
         
-        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.Stock.EDIT, TRANSLATABLE, "<Ctrl>Return",
+        Gtk.ActionEntry external_edit = { "ExternalEdit", Resources.EDIT_LABEL, TRANSLATABLE, "<Ctrl>Return",
             TRANSLATABLE, on_external_edit };
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
         actions += external_edit;
@@ -284,6 +299,10 @@ public abstract class CollectionPage : MediaPage {
             && !is_string_empty(Config.Facade.get_instance().get_external_raw_app()));
         set_action_sensitive("Revert", (!selection_has_videos) && can_revert_selected());
         set_action_sensitive("Enhance", (!selection_has_videos) && has_selected);
+        set_action_sensitive("CopyColorAdjustments", (!selection_has_videos) && one_selected &&
+            ((Photo) get_view().get_selected_at(0).get_source()).has_color_adjustments());
+        set_action_sensitive("PasteColorAdjustments", (!selection_has_videos) && has_selected &&
+            PixelTransformationBundle.has_copied_color_adjustments());
         set_action_sensitive("RotateClockwise", (!selection_has_videos) && has_selected);
         set_action_sensitive("RotateCounterclockwise", (!selection_has_videos) && has_selected);
         set_action_sensitive("FlipHorizontally", (!selection_has_videos) && has_selected);
@@ -327,6 +346,7 @@ public abstract class CollectionPage : MediaPage {
             // since the photo can be altered externally to Shotwell now, need to make the revert
             // command available appropriately, even if the selection doesn't change
             set_action_sensitive("Revert", can_revert_selected());
+            set_action_sensitive("CopyColorAdjustments", photo.has_color_adjustments());
             
             break;
         }
@@ -580,6 +600,24 @@ public abstract class CollectionPage : MediaPage {
         get_command_manager().execute(command);
     }
     
+    public void on_copy_adjustments() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        Photo photo = (Photo) get_view().get_selected_at(0).get_source();
+        PixelTransformationBundle.set_copied_color_adjustments(photo.get_color_adjustments());
+        set_action_sensitive("PasteColorAdjustments", true);
+    }
+    
+    public void on_paste_adjustments() {
+        PixelTransformationBundle? copied_adjustments = PixelTransformationBundle.get_copied_color_adjustments();
+        if (get_view().get_selected_count() == 0 || copied_adjustments == null)
+            return;
+        
+        AdjustColorsMultipleCommand command = new AdjustColorsMultipleCommand(get_view().get_selected(),
+            copied_adjustments, Resources.PASTE_ADJUSTMENTS_LABEL, Resources.PASTE_ADJUSTMENTS_TOOLTIP);
+        get_command_manager().execute(command);
+    }
+    
     private void on_enhance() {
         if (get_view().get_selected_count() == 0)
             return;
@@ -663,17 +701,21 @@ public abstract class CollectionPage : MediaPage {
         MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) get_view().get_selected_sources(),
             photos, null);
         
+        bool desktop, screensaver;
         if (photos.size == 1) {
-            AppWindow.get_instance().set_busy_cursor();
-            DesktopIntegration.set_background(photos[0]);
-            AppWindow.get_instance().set_normal_cursor();
+            SetBackgroundPhotoDialog dialog = new SetBackgroundPhotoDialog();
+            if (dialog.execute(out desktop, out screensaver)) {
+                AppWindow.get_instance().set_busy_cursor();
+                DesktopIntegration.set_background(photos[0], desktop, screensaver);
+                AppWindow.get_instance().set_normal_cursor();
+            }
         } else if (photos.size > 1) {
             SetBackgroundSlideshowDialog dialog = new SetBackgroundSlideshowDialog();
             int delay;
-            if (dialog.execute(out delay)) {
+            if (dialog.execute(out delay, out desktop, out screensaver)) {
                 AppWindow.get_instance().set_busy_cursor();
                 DesktopIntegration.set_background_slideshow(photos, delay,
-                    DESKTOP_SLIDESHOW_TRANSITION_SEC);
+                    DESKTOP_SLIDESHOW_TRANSITION_SEC, desktop, screensaver);
                 AppWindow.get_instance().set_normal_cursor();
             }
         }

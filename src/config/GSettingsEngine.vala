@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -18,6 +18,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string IMPORTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".dataimports";
     private const string CROP_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".crop-settings";
     private const string SYSTEM_DESKTOP_SCHEMA_NAME = "org.gnome.desktop.background";
+    private const string SYSTEM_SCREENSAVER_SCHEMA_NAME = "org.gnome.desktop.screensaver";
     private const string PLUGINS_ENABLE_DISABLE_SCHEMA_NAME = ROOT_SCHEMA_NAME +
         ".plugins.enable-state";
 
@@ -38,6 +39,8 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.COMMIT_METADATA_TO_MASTERS] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DESKTOP_BACKGROUND_FILE] = SYSTEM_DESKTOP_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DESKTOP_BACKGROUND_MODE] = SYSTEM_DESKTOP_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.SCREENSAVER_FILE] = SYSTEM_SCREENSAVER_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.SCREENSAVER_MODE] = SYSTEM_SCREENSAVER_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DIRECTORY_PATTERN] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DIRECTORY_PATTERN_CUSTOM] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DIRECT_WINDOW_HEIGHT] = WINDOW_PREFS_SCHEMA_NAME;
@@ -46,10 +49,12 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.DISPLAY_BASIC_PROPERTIES] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_EXTENDED_PROPERTIES] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_SIDEBAR] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.DISPLAY_SEARCH_BAR] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_RATINGS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_TAGS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_TITLES] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_COMMENTS] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.DISPLAY_EVENT_COMMENTS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
@@ -70,6 +75,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.LIBRARY_WINDOW_WIDTH] = WINDOW_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.MODIFY_ORIGINALS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PHOTO_THUMBNAIL_SCALE] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.PIN_TOOLBAR_STATE] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PRINTING_CONTENT_HEIGHT] = PRINTING_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PRINTING_CONTENT_LAYOUT] = PRINTING_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PRINTING_CONTENT_PPI] = PRINTING_SCHEMA_NAME;
@@ -98,6 +104,8 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.COMMIT_METADATA_TO_MASTERS] = "commit-metadata";
         key_names[ConfigurableProperty.DESKTOP_BACKGROUND_FILE] = "picture-uri";
         key_names[ConfigurableProperty.DESKTOP_BACKGROUND_MODE] = "picture-options";
+        key_names[ConfigurableProperty.SCREENSAVER_FILE] = "picture-uri";
+        key_names[ConfigurableProperty.SCREENSAVER_MODE] = "picture-options";
         key_names[ConfigurableProperty.DIRECTORY_PATTERN] = "directory-pattern";
         key_names[ConfigurableProperty.DIRECTORY_PATTERN_CUSTOM] = "directory-pattern-custom";
         key_names[ConfigurableProperty.DIRECT_WINDOW_HEIGHT] = "direct-height";
@@ -106,10 +114,12 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.DISPLAY_BASIC_PROPERTIES] = "display-basic-properties";
         key_names[ConfigurableProperty.DISPLAY_EXTENDED_PROPERTIES] = "display-extended-properties";
         key_names[ConfigurableProperty.DISPLAY_SIDEBAR] = "display-sidebar";
+        key_names[ConfigurableProperty.DISPLAY_SEARCH_BAR] = "display-search-bar";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_RATINGS] = "display-photo-ratings";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_TAGS] = "display-photo-tags";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_TITLES] = "display-photo-titles";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_COMMENTS] = "display-photo-comments";
+        key_names[ConfigurableProperty.DISPLAY_EVENT_COMMENTS] = "display-event-comments";
         key_names[ConfigurableProperty.EVENT_PHOTOS_SORT_ASCENDING] = "event-photos-sort-ascending";
         key_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = "event-photos-sort-by";
         key_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = "events-sort-ascending";
@@ -130,6 +140,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.LIBRARY_WINDOW_WIDTH] = "library-width";
         key_names[ConfigurableProperty.MODIFY_ORIGINALS] = "modify-originals";
         key_names[ConfigurableProperty.PHOTO_THUMBNAIL_SCALE] = "photo-thumbnail-scale";
+        key_names[ConfigurableProperty.PIN_TOOLBAR_STATE] = "pin-toolbar-state";
         key_names[ConfigurableProperty.PRINTING_CONTENT_HEIGHT] = "content-height";
         key_names[ConfigurableProperty.PRINTING_CONTENT_LAYOUT] = "content-layout";
         key_names[ConfigurableProperty.PRINTING_CONTENT_PPI] = "content-ppi";
@@ -235,6 +246,14 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
 
         schema_object.set_string(key, value);
     }
+    
+    private void reset_gs_to_default(string schema, string key) throws ConfigurationError {
+        check_key_valid(schema, key);
+
+        Settings schema_object = new Settings(schema);
+
+        schema_object.reset(key);
+    }
 
     private static string? clean_plugin_id(string id) {
         string cleaned = id.replace("/", "-");
@@ -294,9 +313,10 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     }
     
     public void set_string_property(ConfigurableProperty p, string val) throws ConfigurationError {
-        // if we're setting the desktop background file, convert the filename into a file URI
+        // if we're setting the desktop background/screensaver file, convert the filename into a file URI
         string converted_val = val;
-        if (p == ConfigurableProperty.DESKTOP_BACKGROUND_FILE) {
+        if (p == ConfigurableProperty.DESKTOP_BACKGROUND_FILE
+            || p == ConfigurableProperty.SCREENSAVER_FILE) {
             converted_val = "file://" + val;
         }
 
@@ -407,7 +427,13 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     }
 
     public void unset_plugin_key(string domain, string id, string key) {
-        ; // "unsetting" has no meaning in the world of GSettings
+        string schema_name = make_plugin_schema_name(domain, id);
+        
+        try {
+            reset_gs_to_default(schema_name, make_gsettings_key(key));
+        } catch (ConfigurationError err) {
+            critical("GSettingsConfigurationEngine: error: %s", err.message);
+        }
     }
     
     public FuzzyPropertyState is_plugin_enabled(string id) {
@@ -429,47 +455,6 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
             set_gs_bool(PLUGINS_ENABLE_DISABLE_SCHEMA_NAME, enable_disable_name, enabled);
         } catch (ConfigurationError err) {
             critical("GSettingsConfigurationEngine: error: %s", err.message);
-        }
-    }
-    
-    // This method will convert Shotwell's GConf settings to gsettings by executing an external
-    // application.  This can be executed any number of times without causing problems.  It first
-    // checks if the Shotwell settings have been converted, and if not, runs the program.
-    public static void run_gsettings_data_converter() {
-        try {
-            KeyFile keyfile = new KeyFile();
-            keyfile.load_from_data_dirs("gsettings-data-convert", null, KeyFileFlags.NONE);
-            
-            // search to see if Shotwell's GConf settings have already been converted
-            string[]? list = keyfile.get_string_list("State", "converted");
-            if (list != null) {
-                foreach (string name in list) {
-                    // shotwell.convert is the key file stored in the build misc directory
-                    if (name == "shotwell.convert")
-                        return;
-                }
-            }
-        } catch (Error err) {
-            message("Error loading or parsing gsettings convert keyfile: %s", err.message);
-        }
-        
-        debug("Converting GConf settings to gsettings...");
-        
-        // Conversion hasn't occurred, do it now
-        // (Note that running this program multiple times is not a problem, so if the above
-        // logic fails, no worries.  See http://developer.gnome.org/gio/2.28/ch28s07.html)
-        try {
-            string so, se;
-            int ec;
-            Process.spawn_command_line_sync("gsettings-data-convert", out so, out se, out ec);
-            if (ec != 0) {
-                message("Error %d running gsettings-data-convert: stdout=\"%s\" stderr=\"%s\"",
-                    ec, so, se);
-            }
-            
-            debug("GConf to gsettings conversion completed");
-        } catch (Error err) {
-            message("Error running gsettings-data-convert: %s", err.message);
         }
     }
     

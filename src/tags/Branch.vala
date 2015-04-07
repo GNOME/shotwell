@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -8,7 +8,7 @@ public class Tags.Branch : Sidebar.Branch {
     private Gee.HashMap<Tag, Tags.SidebarEntry> entry_map = new Gee.HashMap<Tag, Tags.SidebarEntry>();
     
     public Branch() {
-        base (new Tags.Grouping(),
+        base (new Tags.Header(),
             Sidebar.Branch.Options.HIDE_IF_EMPTY
                 | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD
                 | Sidebar.Branch.Options.STARTUP_OPEN_GROUPING,
@@ -29,6 +29,10 @@ public class Tags.Branch : Sidebar.Branch {
     
     public Tags.SidebarEntry? get_entry_for_tag(Tag tag) {
         return entry_map.get(tag);
+    }
+    
+    public bool is_user_renameable() {
+        return true;
     }
     
     private static int comparator(Sidebar.Entry a, Sidebar.Entry b) {
@@ -118,13 +122,13 @@ public class Tags.Branch : Sidebar.Branch {
     }
 }
 
-public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry, 
+public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry, 
     Sidebar.InternalDragSourceEntry, Sidebar.Contextable {
     private Gtk.UIManager ui = new Gtk.UIManager();
     private Gtk.Menu? context_menu = null;
     
-    public Grouping() {
-        base (_("Tags"), new ThemedIcon(Resources.ICON_TAGS));
+    public Header() {
+        base (_("Tags"));
         setup_context_menu();
     }
     
@@ -199,7 +203,7 @@ public class Tags.Grouping : Sidebar.Grouping, Sidebar.InternalDropTargetEntry,
 public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
     Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry,
     Sidebar.InternalDragSourceEntry {
-    private static Icon single_tag_icon;
+    private string single_tag_icon = Resources.ICON_ONE_TAG;
     
     private Tag tag;
     
@@ -208,11 +212,9 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     }
     
     internal static void init() {
-        single_tag_icon = new ThemedIcon(Resources.ICON_ONE_TAG);
     }
     
     internal static void terminate() {
-        single_tag_icon = null;
     }
     
     public Tag for_tag() {
@@ -223,12 +225,16 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return tag.get_user_visible_name();
     }
     
-    public override Icon? get_sidebar_icon() {
+    public override string? get_sidebar_icon() {
         return single_tag_icon;
     }
     
     protected override Page create_page() {
         return new TagPage(tag);
+    }
+    
+    public bool is_user_renameable() {
+        return true;
     }
     
     public void rename(string new_name) {
@@ -290,14 +296,6 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return false;
     }
 
-    public Icon? get_sidebar_open_icon() {
-        return single_tag_icon;
-    }
-    
-    public Icon? get_sidebar_closed_icon() {
-        return single_tag_icon;
-    }
-    
     public bool expand_on_select() {
         return false;
     }

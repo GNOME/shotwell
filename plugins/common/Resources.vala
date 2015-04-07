@@ -1,4 +1,4 @@
-/* Copyright 2011-2013 Yorba Foundation
+/* Copyright 2011-2015 Yorba Foundation
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -6,8 +6,8 @@
 
 namespace Resources {
 
-public const string WEBSITE_NAME = _("Visit the Yorba web site");
-public const string WEBSITE_URL = "http://www.yorba.org";
+public const string WEBSITE_NAME = _("Visit the Shotwell home page");
+public const string WEBSITE_URL = "https://wiki.gnome.org/Apps/Shotwell";
 
 public const string LICENSE = """
 Shotwell is free software; you can redistribute it and/or modify it under the 
