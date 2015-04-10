@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-04-01 08:39+0000\n"
-"PO-Revision-Date: 2015-04-01 20:27+0100\n"
+"POT-Creation-Date: 2015-04-09 23:23+0000\n"
+"PO-Revision-Date: 2015-04-10 12:58+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -1074,19 +1074,19 @@ msgstr "Obrázky"
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Nepodarilo sa vytvoriť dočasný adresár %s: %s"
 
-#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:236
+#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Nepodarilo sa vytvoriť dátový podadresár %s: %s"
 
-#: ../src/AppDirs.vala:219
+#: ../src/AppDirs.vala:220
 #, c-format
-msgid "Could not make dir %s writable"
+msgid "Could not make directory %s writable"
 msgstr "Nepodarilo sa urobiť adresár %s zapisovateľným"
 
-#: ../src/AppDirs.vala:222
+#: ../src/AppDirs.vala:223
 #, c-format
-msgid "Could not make dir %s writable: %s"
+msgid "Could not make directory %s writable: %s"
 msgstr "Nepodarilo sa urobiť adresár %s zapisovateľným: %s"
 
 #: ../src/AppWindow.vala:53
@@ -2915,7 +2915,7 @@ msgstr "Od:"
 msgid "To:"
 msgstr "Do:"
 
-#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1890
+#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1872
 msgid "Size:"
 msgstr "Veľkosť:"
 
@@ -2934,7 +2934,7 @@ msgstr "Vývojka:"
 
 #. fit both on the top line, emit and move on
 #: ../src/Properties.vala:436 ../src/Properties.vala:440
-#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2258
+#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2240
 msgid "Exposure:"
 msgstr "Expozícia:"
 
@@ -4278,72 +4278,72 @@ msgstr "A4 (210 x 297 mm)"
 msgid "A3 (297 x 420 mm)"
 msgstr "A3 (297 x 420 mm)"
 
-#: ../src/editing_tools/EditingTools.vala:1905
+#: ../src/editing_tools/EditingTools.vala:1887
 msgid "Close the red-eye tool"
 msgstr "Zavrieť nástroj na odstraňovanie červených očí"
 
-#: ../src/editing_tools/EditingTools.vala:1908
+#: ../src/editing_tools/EditingTools.vala:1890
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Odstrániť efekt červených očí vo vybranej oblasti"
 
-#: ../src/editing_tools/EditingTools.vala:2244
+#: ../src/editing_tools/EditingTools.vala:2226
 #: ../src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Obnoviť"
 
-#: ../src/editing_tools/EditingTools.vala:2266
+#: ../src/editing_tools/EditingTools.vala:2248
 msgid "Saturation:"
 msgstr "Sýtosť:"
 
-#: ../src/editing_tools/EditingTools.vala:2274
+#: ../src/editing_tools/EditingTools.vala:2256
 msgid "Tint:"
 msgstr "Sfarbenie:"
 
-#: ../src/editing_tools/EditingTools.vala:2283
+#: ../src/editing_tools/EditingTools.vala:2265
 msgid "Temperature:"
 msgstr "Teplota:"
 
-#: ../src/editing_tools/EditingTools.vala:2291
+#: ../src/editing_tools/EditingTools.vala:2273
 msgid "Shadows:"
 msgstr "Tiene:"
 
-#: ../src/editing_tools/EditingTools.vala:2299
+#: ../src/editing_tools/EditingTools.vala:2281
 msgid "Highlights:"
 msgstr "Zvýraznenie:"
 
-#: ../src/editing_tools/EditingTools.vala:2353
+#: ../src/editing_tools/EditingTools.vala:2335
 msgid "Reset Colors"
 msgstr "Obnoviť farby"
 
-#: ../src/editing_tools/EditingTools.vala:2353
+#: ../src/editing_tools/EditingTools.vala:2335
 msgid "Reset all color adjustments to original"
 msgstr "Obnoviť všetky úpravy farby na pôvodné hodnoty"
 
-#: ../src/editing_tools/EditingTools.vala:2705
+#: ../src/editing_tools/EditingTools.vala:2687
 msgid "Temperature"
 msgstr "Teplota"
 
-#: ../src/editing_tools/EditingTools.vala:2718
+#: ../src/editing_tools/EditingTools.vala:2700
 msgid "Tint"
 msgstr "Sfarbenie"
 
-#: ../src/editing_tools/EditingTools.vala:2731
+#: ../src/editing_tools/EditingTools.vala:2713
 msgid "Saturation"
 msgstr "Sýtosť"
 
-#: ../src/editing_tools/EditingTools.vala:2744
+#: ../src/editing_tools/EditingTools.vala:2726
 msgid "Exposure"
 msgstr "Expozícia"
 
-#: ../src/editing_tools/EditingTools.vala:2757
+#: ../src/editing_tools/EditingTools.vala:2739
 msgid "Shadows"
 msgstr "Tiene"
 
-#: ../src/editing_tools/EditingTools.vala:2770
+#: ../src/editing_tools/EditingTools.vala:2752
 msgid "Highlights"
 msgstr "Zvýraznenie"
 
-#: ../src/editing_tools/EditingTools.vala:2780
+#: ../src/editing_tools/EditingTools.vala:2762
 msgid "Contrast Expansion"
 msgstr "Rozšíriť kontrast"
 
