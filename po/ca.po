@@ -16,9 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-03-16 23:45+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-28 07:26+0100\n"
 "PO-Revision-Date: 2015-03-17 07:17+0100\n"
 "Last-Translator: Pau Iranzo <paugnu@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/shotwell/"
@@ -1841,7 +1840,8 @@ msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] ""
 "No s'ha pogut importar 1 foto/vídeo perquè el fitxer està corromput:\n"
 msgstr[1] ""
-"No s'han pogut importar %d fotos/vídeos perquè els fitxers estan corromputs:\n"
+"No s'han pogut importar %d fotos/vídeos perquè els fitxers estan "
+"corromputs:\n"
 
 #: ../src/Dialogs.vala:755
 #, c-format
@@ -2483,7 +2483,7 @@ msgstr "_Comentaris"
 msgid "Display the comment of each photo"
 msgstr "Mostra el comentari de cada foto"
 
-#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:375
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:359
 msgid "Ta_gs"
 msgstr "Eti_quetes"
 
@@ -2523,19 +2523,19 @@ msgstr "Per nom de _fitxer"
 msgid "Sort photos by filename"
 msgstr "Ordena les fotografies per nom de fitxer"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:421
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:405
 msgid "_Ascending"
 msgstr "_Ascendent"
 
-#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:406
 msgid "Sort photos in an ascending order"
 msgstr "Ordena les fotografies en ordre ascendent"
 
-#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:428
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:412
 msgid "D_escending"
 msgstr "D_escendent"
 
-#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:413
 msgid "Sort photos in a descending order"
 msgstr "Ordena les fotografies en ordre descendent"
 
@@ -2580,7 +2580,7 @@ msgid "Photo source file missing: %s"
 msgstr "Manca el fitxer font de la fotografia: %s"
 
 #: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
-#: ../src/library/LibraryWindow.vala:359
+#: ../src/library/LibraryWindow.vala:343
 msgid "_View"
 msgstr "_Visualitza"
 
@@ -2967,7 +2967,7 @@ msgid "_Apply"
 msgstr "_Aplica"
 
 #: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
-#: ../src/library/LibraryWindow.vala:355
+#: ../src/library/LibraryWindow.vala:339
 msgid "_Edit"
 msgstr "_Edita"
 
@@ -2980,7 +2980,7 @@ msgid "Fulls_creen"
 msgstr "_Pantalla completa"
 
 #: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
-#: ../src/library/LibraryWindow.vala:379
+#: ../src/library/LibraryWindow.vala:363
 msgid "_Help"
 msgstr "A_juda"
 
@@ -3717,6 +3717,7 @@ msgid "Flagged"
 msgstr "Senyalat"
 
 #: ../src/SearchFilter.vala:593 ../src/SearchFilter.vala:594
+#: ../src/library/Branch.vala:97
 msgid "Photos"
 msgstr "Fotografies"
 
@@ -3997,7 +3998,7 @@ msgid "Database file:"
 msgstr "Fitxer de base de dades:"
 
 #: ../src/data_imports/DataImportsUI.vala:112
-#: ../src/library/LibraryWindow.vala:898
+#: ../src/library/LibraryWindow.vala:882
 msgid "_Import"
 msgstr "_Importa"
 
@@ -4041,7 +4042,7 @@ msgstr ""
 "L'error ha estat: \n"
 "%s"
 
-#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:351
+#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:335
 msgid "_File"
 msgstr "_Fitxer"
 
@@ -4061,7 +4062,7 @@ msgstr "Desa la fotografia amb un nom diferent"
 msgid "Print the photo to a printer connected to your computer"
 msgstr "Imprimeix la fotografia a una impressora connectada a l'ordinador"
 
-#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:363
+#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:347
 msgid "_Photo"
 msgstr "_Fotografia"
 
@@ -4236,6 +4237,10 @@ msgstr "Expansió del contrast"
 msgid "Angle:"
 msgstr "Angle:"
 
+#: ../src/events/Branch.vala:25
+msgid "Events"
+msgstr "Esdeveniments"
+
 #: ../src/events/EventDirectoryItem.vala:83
 #, c-format
 msgid "%d Photo/Video"
@@ -4260,8 +4265,8 @@ msgid "No events found"
 msgstr "No s'han trobat esdeveniments"
 
 #: ../src/events/EventsDirectoryPage.vala:230
-msgid "Events"
-msgstr "Esdeveniments"
+msgid "All Events"
+msgstr "Tots els esdeveniments"
 
 #: ../src/events/EventsDirectoryPage.vala:244
 msgid "Undated"
@@ -4279,7 +4284,8 @@ msgstr "%B"
 msgid "Folders"
 msgstr "Carpetes"
 
-#: ../src/library/Branch.vala:36 ../ui/shotwell.glade.h:32
+#: ../src/library/Branch.vala:30 ../src/library/Branch.vala:130
+#: ../ui/shotwell.glade.h:32
 msgid "Library"
 msgstr "Biblioteca"
 
@@ -4308,100 +4314,100 @@ msgstr "S'ha importat %s"
 msgid "Last Import"
 msgstr "Darrera importació"
 
-#: ../src/library/LibraryWindow.vala:301
+#: ../src/library/LibraryWindow.vala:285
 msgid "_Import From Folder..."
 msgstr "_Importa des d'una carpeta..."
 
-#: ../src/library/LibraryWindow.vala:302
+#: ../src/library/LibraryWindow.vala:286
 msgid "Import photos from disk to library"
 msgstr "Importa fotografies des del disc a la biblioteca"
 
-#: ../src/library/LibraryWindow.vala:309
+#: ../src/library/LibraryWindow.vala:293
 msgid "Import From _Application..."
 msgstr "Importa des de l'_aplicació..."
 
-#: ../src/library/LibraryWindow.vala:313
+#: ../src/library/LibraryWindow.vala:297
 msgid "Sort _Events"
 msgstr "Ordena els es_deveniments"
 
-#: ../src/library/LibraryWindow.vala:323
+#: ../src/library/LibraryWindow.vala:307
 msgid "Empty T_rash"
 msgstr "Buida la _paperera"
 
-#: ../src/library/LibraryWindow.vala:324
+#: ../src/library/LibraryWindow.vala:308
 msgid "Delete all photos in the trash"
 msgstr "Suprimeix totes les fotografies de la paperera"
 
-#: ../src/library/LibraryWindow.vala:329
+#: ../src/library/LibraryWindow.vala:313
 msgid "View Eve_nt for Photo"
 msgstr "Visualitza l'_esdeveniment de la fotografia"
 
-#: ../src/library/LibraryWindow.vala:333
+#: ../src/library/LibraryWindow.vala:317
 msgid "_Find"
 msgstr "_Cerca"
 
-#: ../src/library/LibraryWindow.vala:334
+#: ../src/library/LibraryWindow.vala:318
 msgid "Find photos and videos by search criteria"
 msgstr "Cerca fotografies i vídeos per criteri de cerca"
 
-#: ../src/library/LibraryWindow.vala:345 ../src/searches/Branch.vala:77
-#: ../src/sidebar/Tree.vala:185
+#: ../src/library/LibraryWindow.vala:329 ../src/searches/Branch.vala:77
+#: ../src/sidebar/Tree.vala:199
 msgid "Ne_w Saved Search..."
 msgstr "Cerca no_va desada..."
 
-#: ../src/library/LibraryWindow.vala:367
+#: ../src/library/LibraryWindow.vala:351
 msgid "_Photos"
 msgstr "_Fotografies"
 
-#: ../src/library/LibraryWindow.vala:371
+#: ../src/library/LibraryWindow.vala:355
 msgid "Even_ts"
 msgstr "E_sdeveniments"
 
-#: ../src/library/LibraryWindow.vala:390
+#: ../src/library/LibraryWindow.vala:374
 msgid "_Basic Information"
 msgstr "Informació _bàsica"
 
-#: ../src/library/LibraryWindow.vala:391
+#: ../src/library/LibraryWindow.vala:375
 msgid "Display basic information for the selection"
 msgstr "Mostra informació bàsica sobre la selecció"
 
-#: ../src/library/LibraryWindow.vala:396
+#: ../src/library/LibraryWindow.vala:380
 msgid "E_xtended Information"
 msgstr "Informació am_pliada"
 
-#: ../src/library/LibraryWindow.vala:397
+#: ../src/library/LibraryWindow.vala:381
 msgid "Display extended information for the selection"
 msgstr "Mostra informació ampliada sobre la selecció"
 
-#: ../src/library/LibraryWindow.vala:402
+#: ../src/library/LibraryWindow.vala:386
 msgid "_Search Bar"
 msgstr "Barra de _cerca"
 
-#: ../src/library/LibraryWindow.vala:403
+#: ../src/library/LibraryWindow.vala:387
 msgid "Display the search bar"
 msgstr "Mostra la barra de cerca"
 
-#: ../src/library/LibraryWindow.vala:408
+#: ../src/library/LibraryWindow.vala:392
 msgid "S_idebar"
 msgstr "_Barra lateral"
 
-#: ../src/library/LibraryWindow.vala:409
+#: ../src/library/LibraryWindow.vala:393
 msgid "Display the sidebar"
 msgstr "Mostra la barra lateral"
 
-#: ../src/library/LibraryWindow.vala:667
+#: ../src/library/LibraryWindow.vala:651
 msgid "Import From Folder"
 msgstr "Importa des d'una carpeta"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:720
 msgid "Empty Trash"
 msgstr "Buida la paperera"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:720
 msgid "Emptying Trash..."
 msgstr "S'està buidant la paperera..."
 
-#: ../src/library/LibraryWindow.vala:895
+#: ../src/library/LibraryWindow.vala:879
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4415,34 +4421,34 @@ msgstr ""
 "span>.\n"
 "Voleu continuar la importació de les fotos?"
 
-#: ../src/library/LibraryWindow.vala:898 ../ui/shotwell.glade.h:18
+#: ../src/library/LibraryWindow.vala:882 ../ui/shotwell.glade.h:18
 msgid "Library Location"
 msgstr "Ubicació de la biblioteca"
 
 #. TODO: Specify which directory/file.
-#: ../src/library/LibraryWindow.vala:911
+#: ../src/library/LibraryWindow.vala:895
 msgid "Photos cannot be imported from this directory."
 msgstr "No es poden importar fotografies des d'aquest directori."
 
-#: ../src/library/LibraryWindow.vala:1199
+#: ../src/library/LibraryWindow.vala:1183
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: ../src/library/LibraryWindow.vala:1243
-#: ../src/library/LibraryWindow.vala:1254
+#: ../src/library/LibraryWindow.vala:1227
+#: ../src/library/LibraryWindow.vala:1238
 msgid "Updating library..."
 msgstr "S'està actualitzant la biblioteca..."
 
-#: ../src/library/LibraryWindow.vala:1260
+#: ../src/library/LibraryWindow.vala:1244
 msgid "Preparing to auto-import photos..."
 msgstr "S'està preparant la importació automàtica de fotografies..."
 
-#: ../src/library/LibraryWindow.vala:1265
+#: ../src/library/LibraryWindow.vala:1249
 msgid "Auto-importing photos..."
 msgstr "S'estan important automàticament les fotografies..."
 
-#: ../src/library/LibraryWindow.vala:1273
+#: ../src/library/LibraryWindow.vala:1257
 msgid "Writing metadata to files..."
 msgstr "S'estan escrivint les metadades als fitxers..."
 
@@ -4865,7 +4871,7 @@ msgstr "Estat de la foto"
 msgid "Date"
 msgstr "Data"
 
-#: ../src/sidebar/Tree.vala:189
+#: ../src/sidebar/Tree.vala:203
 msgid "New _Tag..."
 msgstr "_Etiqueta nova..."
 
@@ -4885,7 +4891,7 @@ msgstr "Cap"
 msgid "Random"
 msgstr "Aleatori"
 
-#: ../src/tags/Branch.vala:127
+#: ../src/tags/Branch.vala:131
 msgid "Tags"
 msgstr "Etiquetes"
 
