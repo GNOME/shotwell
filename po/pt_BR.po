@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-03-03 11:53+0000\n"
-"PO-Revision-Date: 2015-03-03 12:05-0300\n"
+"POT-Creation-Date: 2015-04-23 23:38+0000\n"
+"PO-Revision-Date: 2015-04-23 21:26-0300\n"
 "Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -72,7 +72,6 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-#| msgid "Copyright 2009-2014 Yorba Foundation"
 msgid "Copyright 2009-2015 Yorba Foundation"
 msgstr "Copyright 2009-2015 Yorba Foundation"
 
@@ -180,7 +179,7 @@ msgstr ""
 "autenticação."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: ../src/MediaPage.vala:434 ../src/photos/RawSupport.vala:300
+#: ../src/MediaPage.vala:435 ../src/photos/RawSupport.vala:300
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -315,7 +314,7 @@ msgstr "_Ocultar álbum"
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
 #, c-format
 msgid "You are logged into Rajce as %s."
-msgstr "Você está autenticado no Rajce como %s"
+msgstr "Você está autenticado no Rajce como %s."
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:670
@@ -540,7 +539,7 @@ msgstr "$mediatype irão aparecer em"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:1
 msgid "_Albums (or write new):"
-msgstr "_Álbuns (ou gravar novo):"
+msgstr "Á_lbuns (ou gravar novo):"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:2
 msgid "Access _type:"
@@ -1043,7 +1042,6 @@ msgid "Core Slideshow Transitions"
 msgstr "Transições principais de exibição de slides"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 
@@ -1067,10 +1065,20 @@ msgstr "Fotos"
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Não foi possível criar diretório temporário %s: %s"
 
-#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:223
+#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Não foi possível criar subdiretório de dados %s: %s"
+
+#: ../src/AppDirs.vala:220
+#, c-format
+msgid "Could not make directory %s writable"
+msgstr "Não foi possível tornar o diretório %s gravável"
+
+#: ../src/AppDirs.vala:223
+#, c-format
+msgid "Could not make directory %s writable: %s"
+msgstr "Não foi possível tornar o diretório %s gravável: %s"
 
 #: ../src/AppWindow.vala:53
 msgid "Pin Toolbar"
@@ -2401,115 +2409,123 @@ msgstr "Exportar"
 msgid "Unable to process monitoring updates: %s"
 msgstr "Não foi possível processar as atualizações monitoradas: %s"
 
-#: ../src/MediaPage.vala:157
+#: ../src/MediaPage.vala:158
 msgid "Adjust the size of the thumbnails"
 msgstr "Ajustar o tamanho das miniaturas"
 
-#: ../src/MediaPage.vala:339 ../src/PhotoPage.vala:2593
+#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2593
 #: ../src/Resources.vala:188 ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "Ampl_iar"
 
-#: ../src/MediaPage.vala:340
+#: ../src/MediaPage.vala:341
 msgid "Increase the magnification of the thumbnails"
 msgstr "Aumentar a ampliação das miniaturas"
 
-#: ../src/MediaPage.vala:345 ../src/PhotoPage.vala:2599
+#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2599
 #: ../src/Resources.vala:189 ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "Redu_zir"
 
-#: ../src/MediaPage.vala:346
+#: ../src/MediaPage.vala:347
 msgid "Decrease the magnification of the thumbnails"
 msgstr "Diminuir a ampliação das miniaturas"
 
-#: ../src/MediaPage.vala:413
+#: ../src/MediaPage.vala:414
 msgid "Sort _Photos"
 msgstr "Ordenar _fotos"
 
-#: ../src/MediaPage.vala:422
+#: ../src/MediaPage.vala:423
 msgid "_Play Video"
 msgstr "_Reproduzir vídeo"
 
-#: ../src/MediaPage.vala:423
+#: ../src/MediaPage.vala:424
 msgid "Open the selected videos in the system video player"
 msgstr "Abra os vídeos selecionados no reprodutor de vídeo do sistema"
 
-#: ../src/MediaPage.vala:427 ../src/PhotoPage.vala:2642
+#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2642
 msgid "_Developer"
 msgstr "_Desenvolvedor"
 
-#: ../src/MediaPage.vala:439 ../src/camera/Branch.vala:99
+#: ../src/MediaPage.vala:440 ../src/camera/Branch.vala:99
 #: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
 #: ../src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Câmera"
 
-#: ../src/MediaPage.vala:450 ../src/camera/ImportPage.vala:874
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:874
 msgid "_Titles"
 msgstr "_Títulos"
 
-#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:875
+#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:875
 msgid "Display the title of each photo"
 msgstr "Exibe o título de cada foto"
 
-#: ../src/MediaPage.vala:456 ../src/events/EventsDirectoryPage.vala:130
+#: ../src/MediaPage.vala:457 ../src/events/EventsDirectoryPage.vala:130
 msgid "_Comments"
 msgstr "_Comentários"
 
-#: ../src/MediaPage.vala:457
+#: ../src/MediaPage.vala:458
 msgid "Display the comment of each photo"
 msgstr "Exibe o comentário de cada foto"
 
-#: ../src/MediaPage.vala:468 ../src/library/LibraryWindow.vala:375
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:359
 msgid "Ta_gs"
 msgstr "Eti_quetas"
 
-#: ../src/MediaPage.vala:469
+#: ../src/MediaPage.vala:470
 msgid "Display each photo's tags"
 msgstr "Exibe as etiquetas de cada foto"
 
-#: ../src/MediaPage.vala:485
+#: ../src/MediaPage.vala:486
 msgid "By _Title"
 msgstr "Por _título"
 
-#: ../src/MediaPage.vala:486
+#: ../src/MediaPage.vala:487
 msgid "Sort photos by title"
-msgstr "Ordena as fotos pelo título"
+msgstr "Ordena as fotos por título"
 
-#: ../src/MediaPage.vala:491
+#: ../src/MediaPage.vala:492
 msgid "By Exposure _Date"
 msgstr "Por _data de exposição"
 
-#: ../src/MediaPage.vala:492
+#: ../src/MediaPage.vala:493
 msgid "Sort photos by exposure date"
-msgstr "Ordena as fotos pela data de exposição"
+msgstr "Ordena as fotos por data de exposição"
 
-#: ../src/MediaPage.vala:497
+#: ../src/MediaPage.vala:498
 msgid "By _Rating"
 msgstr "Por _avaliação"
 
-#: ../src/MediaPage.vala:498
+#: ../src/MediaPage.vala:499
 msgid "Sort photos by rating"
 msgstr "Ordena as fotos por avaliação"
 
-#: ../src/MediaPage.vala:508 ../src/library/LibraryWindow.vala:421
+#: ../src/MediaPage.vala:504
+msgid "By _Filename"
+msgstr "Por _nome de arquivo"
+
+#: ../src/MediaPage.vala:505
+msgid "Sort photos by filename"
+msgstr "Ordena as fotos por nome do arquivo"
+
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:405
 msgid "_Ascending"
 msgstr "_Ascendente"
 
-#: ../src/MediaPage.vala:509 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:406
 msgid "Sort photos in an ascending order"
 msgstr "Ordena as fotos em ordem ascendente"
 
-#: ../src/MediaPage.vala:514 ../src/library/LibraryWindow.vala:428
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:412
 msgid "D_escending"
 msgstr "D_escendente"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:413
 msgid "Sort photos in a descending order"
 msgstr "Ordena as fotos em ordem descendente"
 
-#: ../src/MediaPage.vala:716
+#: ../src/MediaPage.vala:723
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -2550,7 +2566,7 @@ msgid "Photo source file missing: %s"
 msgstr "Faltando arquivo fonte da foto: %s"
 
 #: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
-#: ../src/library/LibraryWindow.vala:359
+#: ../src/library/LibraryWindow.vala:343
 msgid "_View"
 msgstr "_Ver"
 
@@ -2783,7 +2799,7 @@ msgstr "De:"
 msgid "To:"
 msgstr "Para:"
 
-#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1890
+#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1872
 msgid "Size:"
 msgstr "Tamanho:"
 
@@ -2802,7 +2818,7 @@ msgstr "Desenvolvedor:"
 
 #. fit both on the top line, emit and move on
 #: ../src/Properties.vala:436 ../src/Properties.vala:440
-#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2258
+#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2240
 msgid "Exposure:"
 msgstr "Exposição:"
 
@@ -2936,7 +2952,7 @@ msgid "_Apply"
 msgstr "_Aplicar"
 
 #: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
-#: ../src/library/LibraryWindow.vala:355
+#: ../src/library/LibraryWindow.vala:339
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -2949,7 +2965,7 @@ msgid "Fulls_creen"
 msgstr "Tela _cheia"
 
 #: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
-#: ../src/library/LibraryWindow.vala:379
+#: ../src/library/LibraryWindow.vala:363
 msgid "_Help"
 msgstr "A_juda"
 
@@ -3689,6 +3705,7 @@ msgid "Flagged"
 msgstr "Sinalizadas"
 
 #: ../src/SearchFilter.vala:593 ../src/SearchFilter.vala:594
+#: ../src/library/Branch.vala:97
 msgid "Photos"
 msgstr "Fotos"
 
@@ -3966,7 +3983,7 @@ msgid "Database file:"
 msgstr "Arquivo de banco de dados:"
 
 #: ../src/data_imports/DataImportsUI.vala:112
-#: ../src/library/LibraryWindow.vala:898
+#: ../src/library/LibraryWindow.vala:882
 msgid "_Import"
 msgstr "Parar _importação"
 
@@ -4009,7 +4026,7 @@ msgstr ""
 "O erro foi: \n"
 "%s"
 
-#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:351
+#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:335
 msgid "_File"
 msgstr "_Arquivo"
 
@@ -4029,7 +4046,7 @@ msgstr "Salva a foto com um nome diferente"
 msgid "Print the photo to a printer connected to your computer"
 msgstr "Imprime a foto em uma impressora conectada em seu computador"
 
-#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:363
+#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:347
 msgid "_Photo"
 msgstr "_Foto"
 
@@ -4130,78 +4147,82 @@ msgstr "A4 (210 x 297 mm)"
 msgid "A3 (297 x 420 mm)"
 msgstr "A4 (210 x 297 mm)"
 
-#: ../src/editing_tools/EditingTools.vala:1905
+#: ../src/editing_tools/EditingTools.vala:1887
 msgid "Close the red-eye tool"
 msgstr "Fechar ferramenta de olhos vermelhos"
 
-#: ../src/editing_tools/EditingTools.vala:1908
+#: ../src/editing_tools/EditingTools.vala:1890
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Remove qualquer efeito de olhos vermelhos na região selecionada"
 
-#: ../src/editing_tools/EditingTools.vala:2244
+#: ../src/editing_tools/EditingTools.vala:2226
 #: ../src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Reiniciar"
 
-#: ../src/editing_tools/EditingTools.vala:2266
+#: ../src/editing_tools/EditingTools.vala:2248
 msgid "Saturation:"
 msgstr "Saturação:"
 
-#: ../src/editing_tools/EditingTools.vala:2274
+#: ../src/editing_tools/EditingTools.vala:2256
 msgid "Tint:"
 msgstr "Colorir:"
 
-#: ../src/editing_tools/EditingTools.vala:2283
+#: ../src/editing_tools/EditingTools.vala:2265
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: ../src/editing_tools/EditingTools.vala:2291
+#: ../src/editing_tools/EditingTools.vala:2273
 msgid "Shadows:"
 msgstr "Sombras:"
 
-#: ../src/editing_tools/EditingTools.vala:2299
+#: ../src/editing_tools/EditingTools.vala:2281
 msgid "Highlights:"
 msgstr "Destaques:"
 
-#: ../src/editing_tools/EditingTools.vala:2353
+#: ../src/editing_tools/EditingTools.vala:2335
 msgid "Reset Colors"
 msgstr "Reiniciar cores"
 
-#: ../src/editing_tools/EditingTools.vala:2353
+#: ../src/editing_tools/EditingTools.vala:2335
 msgid "Reset all color adjustments to original"
 msgstr "Reiniciar todos os ajustes de cores para o original"
 
-#: ../src/editing_tools/EditingTools.vala:2705
+#: ../src/editing_tools/EditingTools.vala:2687
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: ../src/editing_tools/EditingTools.vala:2718
+#: ../src/editing_tools/EditingTools.vala:2700
 msgid "Tint"
 msgstr "Colorir"
 
-#: ../src/editing_tools/EditingTools.vala:2731
+#: ../src/editing_tools/EditingTools.vala:2713
 msgid "Saturation"
 msgstr "Saturação"
 
-#: ../src/editing_tools/EditingTools.vala:2744
+#: ../src/editing_tools/EditingTools.vala:2726
 msgid "Exposure"
 msgstr "Exposição"
 
-#: ../src/editing_tools/EditingTools.vala:2757
+#: ../src/editing_tools/EditingTools.vala:2739
 msgid "Shadows"
 msgstr "Sombras"
 
-#: ../src/editing_tools/EditingTools.vala:2770
+#: ../src/editing_tools/EditingTools.vala:2752
 msgid "Highlights"
 msgstr "Destaques"
 
-#: ../src/editing_tools/EditingTools.vala:2780
+#: ../src/editing_tools/EditingTools.vala:2762
 msgid "Contrast Expansion"
 msgstr "Expansão de contraste"
 
 #: ../src/editing_tools/StraightenTool.vala:99
 msgid "Angle:"
 msgstr "Ângulo:"
+
+#: ../src/events/Branch.vala:25
+msgid "Events"
+msgstr "Eventos"
 
 #: ../src/events/EventDirectoryItem.vala:83
 #, c-format
@@ -4227,8 +4248,8 @@ msgid "No events found"
 msgstr "Sem eventos encontrados"
 
 #: ../src/events/EventsDirectoryPage.vala:230
-msgid "Events"
-msgstr "Eventos"
+msgid "All Events"
+msgstr "Todos eventos"
 
 #: ../src/events/EventsDirectoryPage.vala:244
 msgid "Undated"
@@ -4246,7 +4267,8 @@ msgstr "%B"
 msgid "Folders"
 msgstr "Pastas"
 
-#: ../src/library/Branch.vala:36 ../ui/shotwell.glade.h:32
+#: ../src/library/Branch.vala:30 ../src/library/Branch.vala:130
+#: ../ui/shotwell.glade.h:32
 msgid "Library"
 msgstr "Biblioteca"
 
@@ -4275,100 +4297,100 @@ msgstr "Importado %s"
 msgid "Last Import"
 msgstr "Última importação"
 
-#: ../src/library/LibraryWindow.vala:301
+#: ../src/library/LibraryWindow.vala:285
 msgid "_Import From Folder..."
 msgstr "_Importar da pasta..."
 
-#: ../src/library/LibraryWindow.vala:302
+#: ../src/library/LibraryWindow.vala:286
 msgid "Import photos from disk to library"
 msgstr "Importar fotos do disco para a galeria"
 
-#: ../src/library/LibraryWindow.vala:309
+#: ../src/library/LibraryWindow.vala:293
 msgid "Import From _Application..."
 msgstr "Importação de _aplicativo..."
 
-#: ../src/library/LibraryWindow.vala:313
+#: ../src/library/LibraryWindow.vala:297
 msgid "Sort _Events"
 msgstr "Ordenar _eventos"
 
-#: ../src/library/LibraryWindow.vala:323
+#: ../src/library/LibraryWindow.vala:307
 msgid "Empty T_rash"
 msgstr "Esvaziar l_ixeira"
 
-#: ../src/library/LibraryWindow.vala:324
+#: ../src/library/LibraryWindow.vala:308
 msgid "Delete all photos in the trash"
 msgstr "Apaga todas as fotos na lixeira"
 
-#: ../src/library/LibraryWindow.vala:329
+#: ../src/library/LibraryWindow.vala:313
 msgid "View Eve_nt for Photo"
 msgstr "Ver eve_nto para foto"
 
-#: ../src/library/LibraryWindow.vala:333
+#: ../src/library/LibraryWindow.vala:317
 msgid "_Find"
 msgstr "_Localizar"
 
-#: ../src/library/LibraryWindow.vala:334
+#: ../src/library/LibraryWindow.vala:318
 msgid "Find photos and videos by search criteria"
 msgstr "Localiza fotos e vídeos através de pesquisa"
 
-#: ../src/library/LibraryWindow.vala:345 ../src/searches/Branch.vala:77
-#: ../src/sidebar/Tree.vala:185
+#: ../src/library/LibraryWindow.vala:329 ../src/searches/Branch.vala:77
+#: ../src/sidebar/Tree.vala:199
 msgid "Ne_w Saved Search..."
 msgstr "Nova busca salva..."
 
-#: ../src/library/LibraryWindow.vala:367
+#: ../src/library/LibraryWindow.vala:351
 msgid "_Photos"
 msgstr "_Fotos"
 
-#: ../src/library/LibraryWindow.vala:371
+#: ../src/library/LibraryWindow.vala:355
 msgid "Even_ts"
 msgstr "Even_tos"
 
-#: ../src/library/LibraryWindow.vala:390
+#: ../src/library/LibraryWindow.vala:374
 msgid "_Basic Information"
 msgstr "Informações _básicas"
 
-#: ../src/library/LibraryWindow.vala:391
+#: ../src/library/LibraryWindow.vala:375
 msgid "Display basic information for the selection"
 msgstr "Exibe informações básicas para a seleção"
 
-#: ../src/library/LibraryWindow.vala:396
+#: ../src/library/LibraryWindow.vala:380
 msgid "E_xtended Information"
 msgstr "Informações _estendidas"
 
-#: ../src/library/LibraryWindow.vala:397
+#: ../src/library/LibraryWindow.vala:381
 msgid "Display extended information for the selection"
 msgstr "Exibe informações básicas para a seleção"
 
-#: ../src/library/LibraryWindow.vala:402
+#: ../src/library/LibraryWindow.vala:386
 msgid "_Search Bar"
 msgstr "Barra de pe_squisa"
 
-#: ../src/library/LibraryWindow.vala:403
+#: ../src/library/LibraryWindow.vala:387
 msgid "Display the search bar"
 msgstr "Exibe a barra de pesquisa"
 
-#: ../src/library/LibraryWindow.vala:408
+#: ../src/library/LibraryWindow.vala:392
 msgid "S_idebar"
 msgstr "Ba_rra lateral"
 
-#: ../src/library/LibraryWindow.vala:409
+#: ../src/library/LibraryWindow.vala:393
 msgid "Display the sidebar"
 msgstr "Exibe a barra lateral"
 
-#: ../src/library/LibraryWindow.vala:667
+#: ../src/library/LibraryWindow.vala:651
 msgid "Import From Folder"
 msgstr "Importa da pasta"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:720
 msgid "Empty Trash"
 msgstr "Esvaziar lixeira"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:720
 msgid "Emptying Trash..."
 msgstr "Esvaziando lixeira..."
 
-#: ../src/library/LibraryWindow.vala:895
+#: ../src/library/LibraryWindow.vala:879
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4381,34 +4403,34 @@ msgstr ""
 "%s</span>.\n"
 "Você deseja continuar a importação de fotos?"
 
-#: ../src/library/LibraryWindow.vala:898 ../ui/shotwell.glade.h:18
+#: ../src/library/LibraryWindow.vala:882 ../ui/shotwell.glade.h:18
 msgid "Library Location"
 msgstr "Localização da biblioteca"
 
 #. TODO: Specify which directory/file.
-#: ../src/library/LibraryWindow.vala:911
+#: ../src/library/LibraryWindow.vala:895
 msgid "Photos cannot be imported from this directory."
 msgstr "Fotos não podem ser importadas deste diretório."
 
-#: ../src/library/LibraryWindow.vala:1199
+#: ../src/library/LibraryWindow.vala:1183
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: ../src/library/LibraryWindow.vala:1243
-#: ../src/library/LibraryWindow.vala:1254
+#: ../src/library/LibraryWindow.vala:1227
+#: ../src/library/LibraryWindow.vala:1238
 msgid "Updating library..."
 msgstr "Atualizando biblioteca..."
 
-#: ../src/library/LibraryWindow.vala:1260
+#: ../src/library/LibraryWindow.vala:1244
 msgid "Preparing to auto-import photos..."
 msgstr "Preparando para auto-importação de fotos..."
 
-#: ../src/library/LibraryWindow.vala:1265
+#: ../src/library/LibraryWindow.vala:1249
 msgid "Auto-importing photos..."
 msgstr "Auto-importação de fotos..."
 
-#: ../src/library/LibraryWindow.vala:1273
+#: ../src/library/LibraryWindow.vala:1257
 msgid "Writing metadata to files..."
 msgstr "Escrevendo metadados para arquivos..."
 
@@ -4764,27 +4786,27 @@ msgstr "é entre"
 msgid "and"
 msgstr "e"
 
-#: ../src/searches/SavedSearchDialog.vala:695
+#: ../src/searches/SavedSearchDialog.vala:697
 msgid "Search"
 msgstr "Pesquisa"
 
-#: ../src/searches/SavedSearchDialog.vala:700
+#: ../src/searches/SavedSearchDialog.vala:702
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../src/searches/SavedSearchDialog.vala:701
+#: ../src/searches/SavedSearchDialog.vala:703
 msgid "OK"
 msgstr "OK"
 
-#: ../src/searches/SavedSearchDialog.vala:719
+#: ../src/searches/SavedSearchDialog.vala:721
 msgid "any"
 msgstr "qualquer"
 
-#: ../src/searches/SavedSearchDialog.vala:720
+#: ../src/searches/SavedSearchDialog.vala:722
 msgid "all"
 msgstr "todos"
 
-#: ../src/searches/SavedSearchDialog.vala:721
+#: ../src/searches/SavedSearchDialog.vala:723
 msgid "none"
 msgstr "nenhum"
 
@@ -4828,7 +4850,7 @@ msgstr "Estado da foto"
 msgid "Date"
 msgstr "Data"
 
-#: ../src/sidebar/Tree.vala:189
+#: ../src/sidebar/Tree.vala:203
 msgid "New _Tag..."
 msgstr "Nova etique_ta..."
 
@@ -4848,7 +4870,7 @@ msgstr "Nenhum"
 msgid "Random"
 msgstr "Aleatório"
 
-#: ../src/tags/Branch.vala:127
+#: ../src/tags/Branch.vala:131
 msgid "Tags"
 msgstr "Etiquetas"
 
