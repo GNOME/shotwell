@@ -2236,8 +2236,9 @@ msgid "Year-Month-Day"
 msgstr "Any-Mes-Dia"
 
 #: ../src/Dialogs.vala:2331 ../src/editing_tools/EditingTools.vala:781
+# N.T.: femení
 msgid "Custom"
-msgstr "Personalitzat"
+msgstr "Personalitzada"
 
 #. Invalid pattern.
 #: ../src/Dialogs.vala:2568
@@ -2394,8 +2395,9 @@ msgid "Unable to generate a temporary file for %s: %s"
 msgstr "No s'ha pogut generar un fitxer temporal per a %s: %s"
 
 #: ../src/Exporter.vala:299
+# N.T.: Títol d'una secció d'un diàleg
 msgid "Exporting"
-msgstr "S'està exportant"
+msgstr "Exportació"
 
 #: ../src/Exporter.vala:317
 #, c-format
@@ -4596,8 +4598,9 @@ msgid "TIFF"
 msgstr "TIFF"
 
 #: ../src/publishing/Publishing.vala:16
+# N.T.: Títol d'un grup de connectors
 msgid "Publishing"
-msgstr "S'està publicant"
+msgstr "Publicació"
 
 #: ../src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
@@ -5004,7 +5007,7 @@ msgstr "Metadades"
 #: ../ui/shotwell.glade.h:21
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr ""
-"Escrius etiquetes, títols i altres _metadades als fitxers de fotografies"
+"Escriu etiquetes, títols i altres _metadades als fitxers de fotografies"
 
 #: ../ui/shotwell.glade.h:22
 msgid "Display"
