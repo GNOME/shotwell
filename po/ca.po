@@ -76,9 +76,9 @@ msgid ""
 msgstr ""
 "Benvingut al servei d'importació de biblioteques de F-Spot\n"
 "\n"
-"Per favor triau una biblioteca a importar, ja sigui triant una de les "
-"biblioteques trobades per Shotwell o bé seleccionant un fitxer de biblioteca "
-"F-Spot alternatiu."
+"Trieu una biblioteca a importar, ja sigui triant una de les "
+"biblioteques trobades per Shotwell o bé seleccionant alternativament un fitxer de base de dades de "
+"l'F-Spot."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:58
 msgid ""
@@ -242,7 +242,7 @@ msgid ""
 msgstr ""
 "L'URL que s'ha introduït no forma part del directori principal d'una "
 "instància Gallery3. Assegureu-vos que l'heu introduït correctament i que no "
-"conté cap component al final (p.e. index.php)."
+"conté cap component al final (p. ex. index.php)."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1874
 msgid "Unrecognized User"
@@ -778,7 +778,7 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:659
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr "Heu entrant als àlbums web del Picasa com a %s."
+msgstr "Heu entrat als àlbums web del Picasa com a %s."
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:665
 msgid "Videos will appear in:"
@@ -798,7 +798,7 @@ msgstr "Recomanada (1600 x 1200 píxels)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:749
 msgid "Google+ (2048 x 1536 pixels)"
-msgstr "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048 x 1536 píxels)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:750
 #: ../src/editing_tools/EditingTools.vala:756
@@ -3229,7 +3229,7 @@ msgstr "Combina"
 
 #: ../src/Resources.vala:249
 msgid "Combine events into a single event"
-msgstr "Combina les esdeveniments en un únic esdeveniment"
+msgstr "Combina els esdeveniments en un únic esdeveniment"
 
 #: ../src/Resources.vala:251
 msgid "_Set Rating"
