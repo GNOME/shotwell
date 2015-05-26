@@ -168,7 +168,9 @@ public class ExportDialog : Gtk.Dialog {
     private bool in_insert = false;
     
     public ExportDialog(string title) {
-        Object (use_header_bar: 1);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object (use_header_bar: use_header ? 1 : 0);
         
         this.title = title;
         resizable = false;
@@ -1191,7 +1193,9 @@ public class TextEntryDialog : Gtk.Dialog {
     private Gtk.ButtonBox action_area_box;
     
     public TextEntryDialog() {
-        Object (use_header_bar: 1);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object (use_header_bar: use_header ? 1 : 0);
     }
     
     public void set_builder(Gtk.Builder builder) {
@@ -1264,7 +1268,9 @@ public class MultiTextEntryDialog : Gtk.Dialog {
     private Gtk.ButtonBox action_area_box;
     
     public MultiTextEntryDialog() {
-        Object (use_header_bar: 1);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object (use_header_bar: use_header ? 1 : 0);
     }
     
     public void set_builder(Gtk.Builder builder) {
@@ -1649,7 +1655,9 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         bool contains_video = false, bool only_video = false) {
         assert(source != null);
 
-        Object(use_header_bar: 1);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object(use_header_bar: use_header ? 1 : 0);
         
         set_modal(true);
         set_resizable(false);
@@ -2278,6 +2286,12 @@ public class PreferencesDialog {
         builder = AppWindow.create_builder();
         
         dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        if (!use_header) {
+            Gtk.Widget null_titlebar = null;
+            dialog.set_titlebar (null_titlebar);
+        }
         dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
         dialog.set_transient_for(AppWindow.get_instance());
         dialog.delete_event.connect(on_delete);
