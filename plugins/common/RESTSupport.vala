@@ -741,10 +741,9 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
 
             webview = new WebKit.WebView();
             webview.get_settings().enable_plugins = false;
-            webview.get_settings().enable_default_context_menu = false;
 
-            webview.load_finished.connect(on_page_load);
-            webview.load_started.connect(on_load_started);
+            webview.load_changed.connect(on_page_load_changed);
+            webview.context_menu.connect(() => { return false; });
 
             webview_frame.add(webview);
             pane_widget.pack_start(webview_frame, true, true, 0);
@@ -754,7 +753,7 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
             return cache_dirty;
         }
         
-        private void on_page_load(WebKit.WebFrame origin_frame) {
+        private void on_page_load() {
             pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
             
             string page_title = webview.get_title();
@@ -772,8 +771,21 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
             }
         }
 
-        private void on_load_started(WebKit.WebFrame frame) {
+        private void on_load_started() {
             pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+        }
+
+        private void on_page_load_changed (WebKit.LoadEvent load_event) {
+            switch (load_event) {
+                case WebKit.LoadEvent.STARTED:
+                    on_load_started();
+                    break;
+                case WebKit.LoadEvent.FINISHED:
+                    on_page_load();
+                    break;
+            }
+
+            return;
         }
         
         public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
@@ -785,7 +797,7 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
         }
 
         public void on_pane_installed() {
-            webview.open(auth_sequence_start_url);
+            webview.load_uri(auth_sequence_start_url);
         }
 
         public void on_pane_uninstalled() {

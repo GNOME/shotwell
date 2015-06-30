@@ -14,7 +14,7 @@ VALAC := $(shell which $(VALAC))
 endif
 
 VALAC_VERSION := `$(VALAC) --version | awk '{print $$2}'`
-MIN_VALAC_VERSION := 0.20.1
+MIN_VALAC_VERSION := 0.28.0
 INSTALL_PROGRAM := install
 INSTALL_DATA := install -m 644
 
@@ -120,12 +120,10 @@ VAPI_FILES = \
 	LConv.vapi \
 	libexif.vapi \
 	libraw.vapi \
-	webkitgtk-3.0.vapi \
 	unique-3.0.vapi \
 	unity.vapi
 
 DEPS_FILES = \
-	webkitgtk-3.0.deps \
 	unique-3.0.deps \
 	unity.deps
 
@@ -271,7 +269,7 @@ EXT_PKGS = \
 	libsoup-2.4 \
 	libxml-2.0 \
 	sqlite3 \
-	webkitgtk-3.0
+	webkit2gtk-4.0
 ifdef UNITY_SUPPORT
 EXT_PKGS += unity
 endif
@@ -303,7 +301,7 @@ EXT_PKG_VERSIONS = \
 	libxml-2.0 >= 2.6.32 \
 	rest-0.7 >= 0.7 \
 	sqlite3 >= 3.5.9 \
-	webkitgtk-3.0 >= 1.4.0 \
+	webkit2gtk-4.0 \
 	gnome-doc-utils
 
 DIRECT_LIBS_VERSIONS =

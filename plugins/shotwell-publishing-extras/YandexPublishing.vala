@@ -120,41 +120,68 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
 
         webview = new WebKit.WebView();
         webview.get_settings().enable_plugins = false;
-        webview.get_settings().enable_default_context_menu = false;
 
-        webview.load_finished.connect(on_page_load);
-        webview.load_started.connect(on_load_started);
-        webview.navigation_requested.connect(navigation_requested);
+        webview.load_changed.connect(on_page_load_changed);
+        webview.decide_policy.connect(on_decide_policy);
+        webview.context_menu.connect(() => { return false; });
 
         webview_frame.add(webview);
         pane_widget.pack_start(webview_frame, true, true, 0);
     }
 
-    private void on_page_load(WebKit.WebFrame origin_frame) {
+    private void on_page_load() {
         pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
     }
 
-    private WebKit.NavigationResponse navigation_requested (WebKit.WebFrame frame, WebKit.NetworkRequest req) {
-        debug("Navigating to '%s'", req.uri);
+    private bool on_decide_policy (WebKit.PolicyDecision decision,
+                                   WebKit.PolicyDecisionType type) {
+        switch (type) {
+            case WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+                WebKit.NavigationPolicyDecision n_decision = (WebKit.NavigationPolicyDecision) decision;
+                WebKit.NavigationAction action = n_decision.navigation_action;
+                string uri = action.get_request().uri;
+                debug("Navigating to '%s'", uri);
 
-        MatchInfo info = null;
+                MatchInfo info = null;
 
-        if (re.match(req.uri, 0, out info)) {
-            string access_token = info.fetch_all()[2];
+                if (re.match(uri, 0, out info)) {
+                    string access_token = info.fetch_all()[2];
 
-            debug("Load completed: %s", access_token);
-            pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-            if (access_token != null) {
-                login_succeeded(access_token);
-                return WebKit.NavigationResponse.IGNORE;
-            } else
-                login_failed();
+                    debug("Load completed: %s", access_token);
+                    pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+                    if (access_token != null) {
+                        login_succeeded(access_token);
+                        decision.ignore();
+                        break;
+                    } else
+                        login_failed();
+                }
+                decision.use();
+                break;
+            case WebKit.PolicyDecisionType.RESPONSE:
+                decision.use();
+                break;
+            default:
+                return false;
         }
-        return WebKit.NavigationResponse.ACCEPT;
+        return true;
     }
 
-    private void on_load_started(WebKit.WebFrame frame) {
+    private void on_load_started() {
         pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+    }
+
+    private void on_page_load_changed (WebKit.LoadEvent load_event) {
+        switch (load_event) {
+            case WebKit.LoadEvent.STARTED:
+                on_load_started();
+                break;
+            case WebKit.LoadEvent.FINISHED:
+                on_page_load();
+                break;
+        }
+
+        return;
     }
 
     public Gtk.Widget get_widget() {
@@ -166,7 +193,7 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     public void on_pane_installed() {
-        webview.open(login_url);
+        webview.load_uri(login_url);
     }
 
     public void on_pane_uninstalled() {
