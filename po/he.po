@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-13 03:38+0200\n"
-"PO-Revision-Date: 2015-03-13 04:20+0200\n"
-"Last-Translator: Yosef Or Boczko <yoseforb@gnome.org>\n"
+"POT-Creation-Date: 2015-08-30 11:34+0300\n"
+"PO-Revision-Date: 2015-08-30 11:35+0300\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -1037,10 +1037,20 @@ msgstr "תמונות"
 msgid "Unable to create temporary directory %s: %s"
 msgstr "לא ניתן ליצור את התיקייה הזמנית %s:‏ %s"
 
-#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:223
+#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "לא ניתן ליצור את תת־תיקיית הנתונים %s: ‏%s"
+
+#: ../src/AppDirs.vala:220
+#, c-format
+msgid "Could not make directory %s writable"
+msgstr "לא ניתן להפוך את התיקייה %s לניתנת לכתיבה"
+
+#: ../src/AppDirs.vala:223
+#, c-format
+msgid "Could not make directory %s writable: %s"
+msgstr "לא ניתן להפוך את התיקייה %s לניתנת לכתיבה: ‏%s"
 
 #: ../src/AppWindow.vala:53
 msgid "Pin Toolbar"
@@ -2401,7 +2411,7 @@ msgstr "ה_ערות"
 msgid "Display the comment of each photo"
 msgstr "יש להציג הערה זו עבור כל תמונה"
 
-#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:375
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:359
 msgid "Ta_gs"
 msgstr "ת_גיות"
 
@@ -2441,19 +2451,19 @@ msgstr "לפי _שם קובץ"
 msgid "Sort photos by filename"
 msgstr "מיון תמונות לפי שמות קבצים"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:421
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:405
 msgid "_Ascending"
 msgstr "_עולה"
 
-#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:422
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:406
 msgid "Sort photos in an ascending order"
 msgstr "סידור התמונות בסדר עולה"
 
-#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:428
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:412
 msgid "D_escending"
 msgstr "_יורד"
 
-#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:429
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:413
 msgid "Sort photos in a descending order"
 msgstr "סידור התמונות בסדר יורד"
 
@@ -2498,7 +2508,7 @@ msgid "Photo source file missing: %s"
 msgstr "קובץ המקור לתמונה חסר: %s"
 
 #: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
-#: ../src/library/LibraryWindow.vala:359
+#: ../src/library/LibraryWindow.vala:343
 msgid "_View"
 msgstr "ת_צוגה"
 
@@ -2731,7 +2741,7 @@ msgstr "מ־:"
 msgid "To:"
 msgstr "עד:"
 
-#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1890
+#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1872
 msgid "Size:"
 msgstr "גודל:"
 
@@ -2750,7 +2760,7 @@ msgstr "מתכנת:"
 
 #. fit both on the top line, emit and move on
 #: ../src/Properties.vala:436 ../src/Properties.vala:440
-#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2258
+#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2240
 msgid "Exposure:"
 msgstr "חשיפה:"
 
@@ -2884,7 +2894,7 @@ msgid "_Apply"
 msgstr "ה_חלה"
 
 #: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
-#: ../src/library/LibraryWindow.vala:355
+#: ../src/library/LibraryWindow.vala:339
 msgid "_Edit"
 msgstr "ע_ריכה"
 
@@ -2897,7 +2907,7 @@ msgid "Fulls_creen"
 msgstr "מ_סך מלא"
 
 #: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
-#: ../src/library/LibraryWindow.vala:379
+#: ../src/library/LibraryWindow.vala:363
 msgid "_Help"
 msgstr "ע_זרה"
 
@@ -3629,6 +3639,7 @@ msgid "Flagged"
 msgstr "סימון בדגל"
 
 #: ../src/SearchFilter.vala:593 ../src/SearchFilter.vala:594
+#: ../src/library/Branch.vala:97
 msgid "Photos"
 msgstr "תמונות"
 
@@ -3899,7 +3910,7 @@ msgid "Database file:"
 msgstr "קובץ מסד נתונים:"
 
 #: ../src/data_imports/DataImportsUI.vala:112
-#: ../src/library/LibraryWindow.vala:898
+#: ../src/library/LibraryWindow.vala:882
 msgid "_Import"
 msgstr "י_בוא"
 
@@ -3941,7 +3952,7 @@ msgstr ""
 "השגיאה הייתה: \n"
 "%s"
 
-#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:351
+#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:335
 msgid "_File"
 msgstr "_קובץ"
 
@@ -3961,7 +3972,7 @@ msgstr "שמירת תמונה בשם אחר"
 msgid "Print the photo to a printer connected to your computer"
 msgstr "הדפסת התמונה במדפסת המחוברת למחשב שלך"
 
-#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:363
+#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:347
 msgid "_Photo"
 msgstr "_תמונה"
 
@@ -4062,78 +4073,82 @@ msgstr "A4 (210 x 297 מ\"מ)"
 msgid "A3 (297 x 420 mm)"
 msgstr "A3 (297 x 420 מ\"מ)"
 
-#: ../src/editing_tools/EditingTools.vala:1905
+#: ../src/editing_tools/EditingTools.vala:1887
 msgid "Close the red-eye tool"
 msgstr "סגירת הכלי לעיניים אדומות"
 
-#: ../src/editing_tools/EditingTools.vala:1908
+#: ../src/editing_tools/EditingTools.vala:1890
 msgid "Remove any red-eye effects in the selected region"
 msgstr "הסרת אפקטים של עין אדומה באזור הנבחר"
 
-#: ../src/editing_tools/EditingTools.vala:2244
+#: ../src/editing_tools/EditingTools.vala:2226
 #: ../src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_איפוס"
 
-#: ../src/editing_tools/EditingTools.vala:2266
+#: ../src/editing_tools/EditingTools.vala:2248
 msgid "Saturation:"
 msgstr "רוויה:"
 
-#: ../src/editing_tools/EditingTools.vala:2274
+#: ../src/editing_tools/EditingTools.vala:2256
 msgid "Tint:"
 msgstr "גוון:"
 
-#: ../src/editing_tools/EditingTools.vala:2283
+#: ../src/editing_tools/EditingTools.vala:2265
 msgid "Temperature:"
 msgstr "טמפרטורה:"
 
-#: ../src/editing_tools/EditingTools.vala:2291
+#: ../src/editing_tools/EditingTools.vala:2273
 msgid "Shadows:"
 msgstr "צללים:"
 
-#: ../src/editing_tools/EditingTools.vala:2299
+#: ../src/editing_tools/EditingTools.vala:2281
 msgid "Highlights:"
 msgstr "הדגשה:"
 
-#: ../src/editing_tools/EditingTools.vala:2353
+#: ../src/editing_tools/EditingTools.vala:2335
 msgid "Reset Colors"
 msgstr "איפוס הצבעים"
 
-#: ../src/editing_tools/EditingTools.vala:2353
+#: ../src/editing_tools/EditingTools.vala:2335
 msgid "Reset all color adjustments to original"
 msgstr "איפוס כל ההתאמות לצבע המקורי"
 
-#: ../src/editing_tools/EditingTools.vala:2705
+#: ../src/editing_tools/EditingTools.vala:2687
 msgid "Temperature"
 msgstr "טמפרטורה"
 
-#: ../src/editing_tools/EditingTools.vala:2718
+#: ../src/editing_tools/EditingTools.vala:2700
 msgid "Tint"
 msgstr "גוון"
 
-#: ../src/editing_tools/EditingTools.vala:2731
+#: ../src/editing_tools/EditingTools.vala:2713
 msgid "Saturation"
 msgstr "רוויה"
 
-#: ../src/editing_tools/EditingTools.vala:2744
+#: ../src/editing_tools/EditingTools.vala:2726
 msgid "Exposure"
 msgstr "חשיפה"
 
-#: ../src/editing_tools/EditingTools.vala:2757
+#: ../src/editing_tools/EditingTools.vala:2739
 msgid "Shadows"
 msgstr "צללים"
 
-#: ../src/editing_tools/EditingTools.vala:2770
+#: ../src/editing_tools/EditingTools.vala:2752
 msgid "Highlights"
 msgstr "הדגשות"
 
-#: ../src/editing_tools/EditingTools.vala:2780
+#: ../src/editing_tools/EditingTools.vala:2762
 msgid "Contrast Expansion"
 msgstr "הרחבת הניגודיות"
 
 #: ../src/editing_tools/StraightenTool.vala:99
 msgid "Angle:"
 msgstr "זווית:"
+
+#: ../src/events/Branch.vala:25
+msgid "Events"
+msgstr "אירועים"
 
 #: ../src/events/EventDirectoryItem.vala:83
 #, c-format
@@ -4159,8 +4174,8 @@ msgid "No events found"
 msgstr "לא נמצאו אירועים"
 
 #: ../src/events/EventsDirectoryPage.vala:230
-msgid "Events"
-msgstr "אירועים"
+msgid "All Events"
+msgstr "כל האירועים"
 
 #: ../src/events/EventsDirectoryPage.vala:244
 msgid "Undated"
@@ -4178,7 +4193,8 @@ msgstr "%B"
 msgid "Folders"
 msgstr "תיקיות"
 
-#: ../src/library/Branch.vala:36 ../ui/shotwell.glade.h:32
+#: ../src/library/Branch.vala:30 ../src/library/Branch.vala:130
+#: ../ui/shotwell.glade.h:32
 msgid "Library"
 msgstr "ספרייה"
 
@@ -4207,100 +4223,100 @@ msgstr "יובאו %s"
 msgid "Last Import"
 msgstr "היבוא האחרון"
 
-#: ../src/library/LibraryWindow.vala:301
+#: ../src/library/LibraryWindow.vala:285
 msgid "_Import From Folder..."
 msgstr "י_בוא מתיקייה..."
 
-#: ../src/library/LibraryWindow.vala:302
+#: ../src/library/LibraryWindow.vala:286
 msgid "Import photos from disk to library"
 msgstr "יבוא תמונות מהכונן לספרייה"
 
-#: ../src/library/LibraryWindow.vala:309
+#: ../src/library/LibraryWindow.vala:293
 msgid "Import From _Application..."
 msgstr "ייבוא מ_יישום..."
 
-#: ../src/library/LibraryWindow.vala:313
+#: ../src/library/LibraryWindow.vala:297
 msgid "Sort _Events"
 msgstr "מיון _אירועים"
 
-#: ../src/library/LibraryWindow.vala:323
+#: ../src/library/LibraryWindow.vala:307
 msgid "Empty T_rash"
 msgstr "פינוי ה_אשפה"
 
-#: ../src/library/LibraryWindow.vala:324
+#: ../src/library/LibraryWindow.vala:308
 msgid "Delete all photos in the trash"
 msgstr "מחיקת כל התמונות באשפה"
 
-#: ../src/library/LibraryWindow.vala:329
+#: ../src/library/LibraryWindow.vala:313
 msgid "View Eve_nt for Photo"
 msgstr "צפייה ב_אירוע עבור תמונה"
 
-#: ../src/library/LibraryWindow.vala:333
+#: ../src/library/LibraryWindow.vala:317
 msgid "_Find"
 msgstr "_חיפוש"
 
-#: ../src/library/LibraryWindow.vala:334
+#: ../src/library/LibraryWindow.vala:318
 msgid "Find photos and videos by search criteria"
 msgstr "חיפוש תמונות וקטעי וידאו לפי קריטריונים של חיפוש"
 
-#: ../src/library/LibraryWindow.vala:345 ../src/searches/Branch.vala:77
-#: ../src/sidebar/Tree.vala:185
+#: ../src/library/LibraryWindow.vala:329 ../src/searches/Branch.vala:77
+#: ../src/sidebar/Tree.vala:199
 msgid "Ne_w Saved Search..."
 msgstr "חיפוש _שמור חדש..."
 
-#: ../src/library/LibraryWindow.vala:367
+#: ../src/library/LibraryWindow.vala:351
 msgid "_Photos"
 msgstr "_תמונות"
 
-#: ../src/library/LibraryWindow.vala:371
+#: ../src/library/LibraryWindow.vala:355
 msgid "Even_ts"
 msgstr "_אירועים"
 
-#: ../src/library/LibraryWindow.vala:390
+#: ../src/library/LibraryWindow.vala:374
 msgid "_Basic Information"
 msgstr "פרטים _בסיסיים"
 
-#: ../src/library/LibraryWindow.vala:391
+#: ../src/library/LibraryWindow.vala:375
 msgid "Display basic information for the selection"
 msgstr "הצגת פרטים בסיסיים עבור הבחירה"
 
-#: ../src/library/LibraryWindow.vala:396
+#: ../src/library/LibraryWindow.vala:380
 msgid "E_xtended Information"
 msgstr "_פרטים מורחבים"
 
-#: ../src/library/LibraryWindow.vala:397
+#: ../src/library/LibraryWindow.vala:381
 msgid "Display extended information for the selection"
 msgstr "הצגת פרטים מורחבים עבור הבחירה"
 
-#: ../src/library/LibraryWindow.vala:402
+#: ../src/library/LibraryWindow.vala:386
 msgid "_Search Bar"
 msgstr "_סרגל חיפוש"
 
-#: ../src/library/LibraryWindow.vala:403
+#: ../src/library/LibraryWindow.vala:387
 msgid "Display the search bar"
 msgstr "הצגת סרגל החיפוש"
 
-#: ../src/library/LibraryWindow.vala:408
+#: ../src/library/LibraryWindow.vala:392
 msgid "S_idebar"
 msgstr "סרגל _צד"
 
-#: ../src/library/LibraryWindow.vala:409
+#: ../src/library/LibraryWindow.vala:393
 msgid "Display the sidebar"
 msgstr "הצגת סרגל הצד"
 
-#: ../src/library/LibraryWindow.vala:667
+#: ../src/library/LibraryWindow.vala:651
 msgid "Import From Folder"
 msgstr "יבוא מתיקייה"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:720
 msgid "Empty Trash"
 msgstr "פינוי האשפה"
 
-#: ../src/library/LibraryWindow.vala:736
+#: ../src/library/LibraryWindow.vala:720
 msgid "Emptying Trash..."
 msgstr "האשפה מתרוקנת..."
 
-#: ../src/library/LibraryWindow.vala:895
+#: ../src/library/LibraryWindow.vala:879
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4312,34 +4328,34 @@ msgstr ""
 "אנו ממליצים לשנות זאת ב<span weight=\"bold\">עריכה %s העדפות</span>.\n"
 "האם ברצונך להמשיך בייבוא התמונות?"
 
-#: ../src/library/LibraryWindow.vala:898 ../ui/shotwell.glade.h:18
+#: ../src/library/LibraryWindow.vala:882 ../ui/shotwell.glade.h:18
 msgid "Library Location"
 msgstr "מיקום הספרייה"
 
 #. TODO: Specify which directory/file.
-#: ../src/library/LibraryWindow.vala:911
+#: ../src/library/LibraryWindow.vala:895
 msgid "Photos cannot be imported from this directory."
 msgstr "לא ניתן לייבא תמונות לתיקייה זו."
 
-#: ../src/library/LibraryWindow.vala:1199
+#: ../src/library/LibraryWindow.vala:1183
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: ../src/library/LibraryWindow.vala:1243
-#: ../src/library/LibraryWindow.vala:1254
+#: ../src/library/LibraryWindow.vala:1227
+#: ../src/library/LibraryWindow.vala:1238
 msgid "Updating library..."
 msgstr "הספרייה מתעדכנת..."
 
-#: ../src/library/LibraryWindow.vala:1260
+#: ../src/library/LibraryWindow.vala:1244
 msgid "Preparing to auto-import photos..."
 msgstr "בהכנות ליבוא תמונות באופן אוטומטי...."
 
-#: ../src/library/LibraryWindow.vala:1265
+#: ../src/library/LibraryWindow.vala:1249
 msgid "Auto-importing photos..."
 msgstr "התמונות מיובאות אוטומטית..."
 
-#: ../src/library/LibraryWindow.vala:1273
+#: ../src/library/LibraryWindow.vala:1257
 msgid "Writing metadata to files..."
 msgstr "נתוני העל נכתבים לקבצים..."
 
@@ -4689,27 +4705,27 @@ msgstr "הוא בין"
 msgid "and"
 msgstr "וגם"
 
-#: ../src/searches/SavedSearchDialog.vala:695
+#: ../src/searches/SavedSearchDialog.vala:697
 msgid "Search"
 msgstr "חיפוש"
 
-#: ../src/searches/SavedSearchDialog.vala:700
+#: ../src/searches/SavedSearchDialog.vala:702
 msgid "Cancel"
 msgstr "ביטול"
 
-#: ../src/searches/SavedSearchDialog.vala:701
+#: ../src/searches/SavedSearchDialog.vala:703
 msgid "OK"
 msgstr "אישור"
 
-#: ../src/searches/SavedSearchDialog.vala:719
+#: ../src/searches/SavedSearchDialog.vala:721
 msgid "any"
 msgstr "כלשהו"
 
-#: ../src/searches/SavedSearchDialog.vala:720
+#: ../src/searches/SavedSearchDialog.vala:722
 msgid "all"
 msgstr "הכול"
 
-#: ../src/searches/SavedSearchDialog.vala:721
+#: ../src/searches/SavedSearchDialog.vala:723
 msgid "none"
 msgstr "אף אחד מאלה"
 
@@ -4753,7 +4769,7 @@ msgstr "מצב תמונה"
 msgid "Date"
 msgstr "תאריך"
 
-#: ../src/sidebar/Tree.vala:189
+#: ../src/sidebar/Tree.vala:203
 msgid "New _Tag..."
 msgstr "תגית _חדשה..."
 
@@ -4773,7 +4789,7 @@ msgstr "אין"
 msgid "Random"
 msgstr "אקראי"
 
-#: ../src/tags/Branch.vala:127
+#: ../src/tags/Branch.vala:131
 msgid "Tags"
 msgstr "תגיות"
 
