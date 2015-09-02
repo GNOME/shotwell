@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-22 16:34+0100\n"
-"PO-Revision-Date: 2015-03-22 16:35+0100\n"
+"POT-Creation-Date: 2015-09-02 19:39+0200\n"
+"PO-Revision-Date: 2015-09-02 19:40+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -74,7 +74,7 @@ msgid ""
 "libraries found by Shotwell or by selecting an alternative F-Spot database "
 "file."
 msgstr ""
-"Witaj w usłudze importu kolekcji programu F-Spot.\n"
+"Witamy w usłudze importu kolekcji programu F-Spot.\n"
 "\n"
 "Proszę wybrać kolekcję do zaimportowania, wybierając jedną z istniejących "
 "kolekcji odnalezionych przez program Shotwell lub wybierając alternatywny "
@@ -86,7 +86,7 @@ msgid ""
 "\n"
 "Please select an F-Spot database file."
 msgstr ""
-"Witaj w usłudze importu kolekcji programu F-Spot.\n"
+"Witamy w usłudze importu kolekcji programu F-Spot.\n"
 "\n"
 "Proszę wybrać plik bazy danych programu F-Spot."
 
@@ -187,7 +187,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Plik \"%s\" może nie być obsługiwany lub może być za dużo dla tej witryny "
+"Plik „%s” może nie być obsługiwany lub może być za dużo dla tej witryny "
 "Gallery3."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:802
@@ -252,7 +252,7 @@ msgstr " Nie odnaleziono witryny"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:38
 msgid "Copyright (C) 2013 rajce.net"
-msgstr "Copyright (C) 2013 rajce.net"
+msgstr "Copyright © 2013 rajce.net"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:742
 msgid "An error message occurred when publishing to Rajce. Please try again."
@@ -363,24 +363,23 @@ msgstr "Copyright 2012 BJA Electronics"
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1232
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1246
 msgid "500 x 375 pixels"
-msgstr "500x375 pikseli"
+msgstr "500×375 pikseli"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1233
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1247
 msgid "1024 x 768 pixels"
-msgstr "1024x768 pikseli"
+msgstr "1024×768 pikseli"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
 msgid "1280 x 853 pixels"
-msgstr "1280 x 853 piksele"
+msgstr "1280×853 piksele"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:310
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:320
 #, c-format
 msgid "'%s' isn't a valid response to an OAuth authentication request"
-msgstr ""
-"\"%s\" nie jest prawidłową odpowiedzią na żądanie uwierzytelnienia OAuth"
+msgstr "„%s” nie jest prawidłową odpowiedzią na żądanie uwierzytelnienia OAuth"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:558
 msgid ""
@@ -485,7 +484,7 @@ msgstr ""
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:6
 msgid "'Publishing to $url as $username' (populated in application code)"
 msgstr ""
-"\"Publikowanie w $url jako użytkownika $username\" (uzupełniane w kodzie "
+"„Publikowanie w $url jako użytkownika $username” (uzupełniane w kodzie "
 "programu)"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:7
@@ -607,12 +606,12 @@ msgstr "Duże (2048 pikseli)"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:254
 msgid "Testing connection to Facebook..."
-msgstr "Testowanie połączenia z serwisem Facebook..."
+msgstr "Testowanie połączenia z serwisem Facebook…"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:347
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:379
 msgid "Creating album..."
-msgstr "Tworzenie albumu..."
+msgstr "Tworzenie albumu…"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:374
 msgid ""
@@ -677,7 +676,7 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:375
 msgid "Preparing for login..."
-msgstr "Przygotowywanie do zalogowania..."
+msgstr "Przygotowywanie do zalogowania…"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:444
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:595
@@ -690,7 +689,7 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:457
 msgid "Verifying authorization..."
-msgstr "Sprawdzanie upoważnienia..."
+msgstr "Sprawdzanie upoważnienia…"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1153
 #, c-format
@@ -753,12 +752,12 @@ msgstr "Tylko przyjaciele"
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1234
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1248
 msgid "2048 x 1536 pixels"
-msgstr "2048x1536 pikseli"
+msgstr "2048×1536 pikseli"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1235
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1249
 msgid "4096 x 3072 pixels"
-msgstr "4096x3072 piksele"
+msgstr "4096×3072 piksele"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:58
 msgid ""
@@ -793,19 +792,19 @@ msgstr "Nagrania wideo pojawią się w:"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:746
 msgid "Small (640 x 480 pixels)"
-msgstr "Małe (640x480 pikseli)"
+msgstr "Małe (640×480 pikseli)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:747
 msgid "Medium (1024 x 768 pixels)"
-msgstr "Średnie (1024x768 pikseli)"
+msgstr "Średnie (1024×768 pikseli)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:748
 msgid "Recommended (1600 x 1200 pixels)"
-msgstr "Zalecane (1600x1200 pikseli)"
+msgstr "Zalecane (1600×1200 pikseli)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:749
 msgid "Google+ (2048 x 1536 pixels)"
-msgstr "Google+ (2048 x 1536 pikseli)"
+msgstr "Google+ (2048×1536 pikseli)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:750
 #: ../src/editing_tools/EditingTools.vala:756
@@ -815,7 +814,7 @@ msgstr "Rozmiar pierwotny"
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:746
 #, c-format
 msgid "Creating album %s..."
-msgstr "Tworzenie albumu %s..."
+msgstr "Tworzenie albumu %s…"
 
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:917
 msgid "An error message occurred when publishing to Piwigo. Please try again."
@@ -890,7 +889,7 @@ msgstr "Zalogowano w serwisie YouTube jako użytkownik %s."
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:463
 #, c-format
 msgid "Videos will appear in '%s'"
-msgstr "Nagrania wideo pojawią się w \"%s\""
+msgstr "Nagrania wideo pojawią się w „%s”"
 
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:495
 msgid "Public listed"
@@ -1100,7 +1099,7 @@ msgstr "Naj_częściej zadawane pytania"
 
 #: ../src/AppWindow.vala:535
 msgid "_Report a Problem..."
-msgstr "_Zgłoś problem..."
+msgstr "_Zgłoś problem…"
 
 #: ../src/AppWindow.vala:634 ../src/AppWindow.vala:655
 #: ../src/AppWindow.vala:672 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
@@ -1378,7 +1377,7 @@ msgstr "Utwórz etykietę"
 #: ../src/Commands.vala:1691
 #, c-format
 msgid "Move Tag \"%s\""
-msgstr "Przenieś etykietę \"%s\""
+msgstr "Przenieś etykietę „%s”"
 
 #: ../src/Commands.vala:2343
 msgid "Move Photos to Trash"
@@ -1431,7 +1430,7 @@ msgstr "Usuń flagę"
 #: ../src/DesktopIntegration.vala:121
 #, c-format
 msgid "Unable to launch Nautilus Send-To: %s"
-msgstr "Nie można uruchomić rozszerzenia \"Wyślij do\" programu Nautilus: %s"
+msgstr "Nie można uruchomić rozszerzenia „Wyślij do” programu Nautilus: %s"
 
 #: ../src/DesktopIntegration.vala:129
 msgid "Send To"
@@ -1451,9 +1450,9 @@ msgstr "Nie można przygotować pokazu slajdów pulpitu: %s"
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] "Etykieta \"%s\" zostanie usunięta ze zdjęcia. Kontynuować?"
-msgstr[1] "Etykieta \"%s\" zostanie usunięta z %d zdjęć. Kontynuować?"
-msgstr[2] "Etykieta \"%s\" zostanie usunięta z %d zdjęć. Kontynuować?"
+msgstr[0] "Etykieta „%s” zostanie usunięta ze zdjęcia. Kontynuować?"
+msgstr[1] "Etykieta „%s” zostanie usunięta z %d zdjęć. Kontynuować?"
+msgstr[2] "Etykieta „%s” zostanie usunięta z %d zdjęć. Kontynuować?"
 
 #: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1386
 #: ../src/Resources.vala:163 ../src/Resources.vala:369
@@ -1464,7 +1463,7 @@ msgstr "_Usuń"
 #: ../src/Dialogs.vala:25
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr "Spowoduje to usunięcie zapisanego wyszukiwania \"%s\". Kontynuować?"
+msgstr "Spowoduje to usunięcie zapisanego wyszukiwania „%s”. Kontynuować?"
 
 #: ../src/Dialogs.vala:35
 msgid ""
@@ -1557,7 +1556,7 @@ msgstr "Wyeksportuj metadane"
 
 #: ../src/Dialogs.vala:459
 msgid "Save Details..."
-msgstr "Zapisz szczegóły..."
+msgstr "Zapisz szczegóły…"
 
 #: ../src/Dialogs.vala:460
 msgid "Save Details"
@@ -2252,11 +2251,11 @@ msgstr "Etykiety (oddzielone przecinkami):"
 
 #: ../src/Dialogs.vala:2076
 msgid "Welcome!"
-msgstr "Witaj"
+msgstr "Witamy"
 
 #: ../src/Dialogs.vala:2083
 msgid "Welcome to Shotwell!"
-msgstr "Witaj w programie Shotwell"
+msgstr "Witamy w programie Shotwell"
 
 #: ../src/Dialogs.vala:2087
 msgid "To get started, import photos in any of these ways:"
@@ -2784,59 +2783,59 @@ msgstr "cm"
 
 #: ../src/Printing.vala:817 ../src/editing_tools/EditingTools.vala:761
 msgid "Wallet (2 x 3 in.)"
-msgstr "Portfel (2x3 cale)"
+msgstr "Portfel (2×3 cale)"
 
 #: ../src/Printing.vala:820 ../src/editing_tools/EditingTools.vala:762
 msgid "Notecard (3 x 5 in.)"
-msgstr "Notatka (3x5 cali)"
+msgstr "Notatka (3×5 cali)"
 
 #: ../src/Printing.vala:823 ../src/editing_tools/EditingTools.vala:763
 msgid "4 x 6 in."
-msgstr "4x6 cali"
+msgstr "4×6 cali"
 
 #: ../src/Printing.vala:826 ../src/editing_tools/EditingTools.vala:764
 msgid "5 x 7 in."
-msgstr "5x7 cali"
+msgstr "5×7 cali"
 
 #: ../src/Printing.vala:829 ../src/editing_tools/EditingTools.vala:765
 msgid "8 x 10 in."
-msgstr "8x10 cali"
+msgstr "8×10 cali"
 
 #: ../src/Printing.vala:832 ../src/editing_tools/EditingTools.vala:767
 msgid "11 x 14 in."
-msgstr "11x14 cali"
+msgstr "11×14 cali"
 
 #: ../src/Printing.vala:835 ../src/editing_tools/EditingTools.vala:769
 msgid "16 x 20 in."
-msgstr "16x20 cali"
+msgstr "16×20 cali"
 
 #: ../src/Printing.vala:841 ../src/editing_tools/EditingTools.vala:771
 msgid "Metric Wallet (9 x 13 cm)"
-msgstr "Portfel metryczny (9x13 cm)"
+msgstr "Portfel metryczny (9×13 cm)"
 
 #: ../src/Printing.vala:844 ../src/editing_tools/EditingTools.vala:772
 msgid "Postcard (10 x 15 cm)"
-msgstr "Kartka pocztowa (10x15 cm)"
+msgstr "Kartka pocztowa (10×15 cm)"
 
 #: ../src/Printing.vala:847 ../src/editing_tools/EditingTools.vala:773
 msgid "13 x 18 cm"
-msgstr "13x18 cm"
+msgstr "13×18 cm"
 
 #: ../src/Printing.vala:850 ../src/editing_tools/EditingTools.vala:774
 msgid "18 x 24 cm"
-msgstr "18x24 cm"
+msgstr "18×24 cm"
 
 #: ../src/Printing.vala:853 ../src/editing_tools/EditingTools.vala:776
 msgid "20 x 30 cm"
-msgstr "20x30 cm"
+msgstr "20×30 cm"
 
 #: ../src/Printing.vala:856 ../src/editing_tools/EditingTools.vala:777
 msgid "24 x 40 cm"
-msgstr "24x40 cm"
+msgstr "24×40 cm"
 
 #: ../src/Printing.vala:859 ../src/editing_tools/EditingTools.vala:778
 msgid "30 x 40 cm"
-msgstr "30x40 cm"
+msgstr "30×40 cm"
 
 #: ../src/Printing.vala:875
 msgid "Image Settings"
@@ -2844,7 +2843,7 @@ msgstr "Ustawienia obrazu"
 
 #: ../src/Printing.vala:888
 msgid "Printing..."
-msgstr "Drukowanie..."
+msgstr "Drukowanie…"
 
 #: ../src/Printing.vala:908 ../src/Printing.vala:1111
 #, c-format
@@ -3105,7 +3104,7 @@ msgstr "_OK"
 
 #: ../src/Resources.vala:172
 msgid "_Play"
-msgstr "_Odtwórz"
+msgstr "Od_twórz"
 
 #: ../src/Resources.vala:173 ../src/Resources.vala:325
 msgid "_Preferences"
@@ -3198,7 +3197,7 @@ msgstr "Wklej dostosowania kolorów"
 
 #: ../src/Resources.vala:201
 msgid "Apply copied color adjustments to the selected photos"
-msgstr "Wkleja sopiowane dostosowania kolorów zastosowane na zdjęciu"
+msgstr "Wkleja skopiowane dostosowania kolorów zastosowane na zdjęciu"
 
 #: ../src/Resources.vala:203
 msgid "_Crop"
@@ -3274,7 +3273,7 @@ msgstr "Ustawia wybrany obraz jako nowe tło pulpitu"
 
 #: ../src/Resources.vala:227
 msgid "Set as _Desktop Slideshow..."
-msgstr "Ustaw jako pokaz slaj_dów pulpitu..."
+msgstr "Ustaw jako pokaz slaj_dów pulpitu…"
 
 #: ../src/Resources.vala:229
 msgid "_Undo"
@@ -3294,7 +3293,7 @@ msgstr "Ponów"
 
 #: ../src/Resources.vala:235
 msgid "Re_name Event..."
-msgstr "Zmień _nazwę wydarzenia..."
+msgstr "Zmień _nazwę wydarzenia…"
 
 #: ../src/Resources.vala:238
 msgid "Make _Key Photo for Event"
@@ -3464,15 +3463,15 @@ msgstr "Tworzy duplikat zdjęcia"
 
 #: ../src/Resources.vala:298
 msgid "_Export..."
-msgstr "Wy_eksportuj..."
+msgstr "Wy_eksportuj…"
 
 #: ../src/Resources.vala:300
 msgid "_Print..."
-msgstr "Wy_drukuj..."
+msgstr "Wy_drukuj…"
 
 #: ../src/Resources.vala:302
 msgid "Pu_blish..."
-msgstr "Opu_blikuj..."
+msgstr "Opu_blikuj…"
 
 #: ../src/Resources.vala:304
 msgid "Publish to various websites"
@@ -3480,11 +3479,11 @@ msgstr "Publikuje na różnych witrynach WWW"
 
 #: ../src/Resources.vala:306
 msgid "Edit _Title..."
-msgstr "Mo_dyfikuj tytuł..."
+msgstr "Mo_dyfikuj tytuł…"
 
 #: ../src/Resources.vala:310
 msgid "Edit _Comment..."
-msgstr "Modyfikuj _komentarz..."
+msgstr "Modyfikuj _komentarz…"
 
 #. Button label
 #: ../src/Resources.vala:312
@@ -3493,11 +3492,11 @@ msgstr "Modyfikacja komentarza"
 
 #: ../src/Resources.vala:314
 msgid "Edit Event _Comment..."
-msgstr "Modyfikuj _komentarz wydarzenia:"
+msgstr "Modyfikuj _komentarz wydarzenia…"
 
 #: ../src/Resources.vala:317
 msgid "_Adjust Date and Time..."
-msgstr "Dostosuj d_atę i czas..."
+msgstr "Dostosuj d_atę i czas…"
 
 #: ../src/Resources.vala:318
 msgid "Adjust Date and Time"
@@ -3505,11 +3504,11 @@ msgstr "Dostosowuje datę i czas"
 
 #: ../src/Resources.vala:320
 msgid "Add _Tags..."
-msgstr "Dodaj e_tykiety..."
+msgstr "Dodaj e_tykiety…"
 
 #: ../src/Resources.vala:321
 msgid "_Add Tags..."
-msgstr "_Dodaj etykiety..."
+msgstr "_Dodaj etykiety…"
 
 #. Dialog title
 #. Undo/Redo command name (in Edit menu)
@@ -3527,15 +3526,15 @@ msgstr "Otwórz za pomocą edytora plików _RAW"
 
 #: ../src/Resources.vala:331
 msgid "Send _To..."
-msgstr "Wyślij _do..."
+msgstr "Wyślij _do…"
 
 #: ../src/Resources.vala:332
 msgid "Send T_o..."
-msgstr "Wyślij d_o..."
+msgstr "Wyślij d_o…"
 
 #: ../src/Resources.vala:334
 msgid "_Find..."
-msgstr "_Znajdź..."
+msgstr "_Znajdź…"
 
 #: ../src/Resources.vala:335
 msgid "Find"
@@ -3549,7 +3548,7 @@ msgstr ""
 
 #: ../src/Resources.vala:338
 msgid "_Flag"
-msgstr "Dod_aj flagę"
+msgstr "_Dodaj flagę"
 
 #: ../src/Resources.vala:340
 msgid "Un_flag"
@@ -3563,23 +3562,23 @@ msgstr "Nie można uruchomić edytora: %s"
 #: ../src/Resources.vala:348
 #, c-format
 msgid "Add Tag \"%s\""
-msgstr "Dodaj etykietę \"%s\""
+msgstr "Dodaj etykietę „%s”"
 
 #. Used when adding two tags to photo(s)
 #: ../src/Resources.vala:351
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
-msgstr "Dodaj etykiety \"%s\" i \"%s\""
+msgstr "Dodaj etykiety „%s” i „%s”"
 
 #: ../src/Resources.vala:361
 #, c-format
 msgid "_Delete Tag \"%s\""
-msgstr "_Usuń etykietę \"%s\""
+msgstr "_Usuń etykietę „%s”"
 
 #: ../src/Resources.vala:365
 #, c-format
 msgid "Delete Tag \"%s\""
-msgstr "Usuń etykietę \"%s\""
+msgstr "Usuń etykietę „%s”"
 
 #: ../src/Resources.vala:368
 msgid "Delete Tag"
@@ -3588,20 +3587,20 @@ msgstr "Usuń etykietę"
 #: ../src/Resources.vala:374
 #, c-format
 msgid "Re_name Tag \"%s\"..."
-msgstr "Zmień _nazwę etykiety \"%s\"..."
+msgstr "Zmień _nazwę etykiety „%s”…"
 
 #: ../src/Resources.vala:378
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
-msgstr "Zmień nazwę etykiety \"%s\" na \"%s\""
+msgstr "Zmień nazwę etykiety „%s” na „%s”"
 
 #: ../src/Resources.vala:381
 msgid "_Rename..."
-msgstr "_Zmień nazwę..."
+msgstr "_Zmień nazwę…"
 
 #: ../src/Resources.vala:383
 msgid "Modif_y Tags..."
-msgstr "M_odyfikuj etykiety..."
+msgstr "M_odyfikuj etykiety…"
 
 #: ../src/Resources.vala:384
 msgid "Modify Tags"
@@ -3610,55 +3609,54 @@ msgstr "Modyfikuj etykiety"
 #: ../src/Resources.vala:387
 #, c-format
 msgid "Tag Photo as \"%s\""
-msgstr "Dodaje etykietę \"%s\" do zdjęcia"
+msgstr "Dodaje etykietę „%s” do zdjęcia"
 
 #: ../src/Resources.vala:387
 #, c-format
 msgid "Tag Photos as \"%s\""
-msgstr "Dodaje etykietę \"%s\" do zdjęć"
+msgstr "Dodaje etykietę „%s” do zdjęć"
 
 #: ../src/Resources.vala:391
 #, c-format
 msgid "Tag the selected photo as \"%s\""
-msgstr "Dodaje etykietę \"%s\" do wybranego zdjęcia"
+msgstr "Dodaje etykietę „%s” do wybranego zdjęcia"
 
 #: ../src/Resources.vala:392
 #, c-format
 msgid "Tag the selected photos as \"%s\""
-msgstr "Dodaje etykietę \"%s\" do wybranych zdjęć"
+msgstr "Dodaje etykietę „%s” do wybranych zdjęć"
 
 #: ../src/Resources.vala:396
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
-msgstr "Usuń etykietę \"%s\" ze _zdjęcia"
+msgstr "Usuń etykietę „%s” ze _zdjęcia"
 
 #: ../src/Resources.vala:397
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr "Usuwa etykietę \"%s\" ze _zdjęć"
+msgstr "Usuwa etykietę „%s” ze _zdjęć"
 
 #: ../src/Resources.vala:401
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
-msgstr "Usuwa etykietę \"%s\" ze zdjęcia"
+msgstr "Usuwa etykietę „%s” ze zdjęcia"
 
 #: ../src/Resources.vala:402
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
-msgstr "Usuwa etykietę \"%s\" ze zdjęć"
+msgstr "Usuwa etykietę „%s” ze zdjęć"
 
 #: ../src/Resources.vala:406
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgstr ""
-"Nie można zmienić nazwy etykiety na \"%s\", ponieważ ta etykieta już "
-"istnieje."
+"Nie można zmienić nazwy etykiety na „%s”, ponieważ ta etykieta już istnieje."
 
 #: ../src/Resources.vala:410
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
 msgstr ""
-"Nie można zmienić nazwy wyszukiwania na \"%s\", ponieważ takie wyszukiwanie "
+"Nie można zmienić nazwy wyszukiwania na „%s”, ponieważ takie wyszukiwanie "
 "już istnieje."
 
 #: ../src/Resources.vala:413
@@ -3671,21 +3669,21 @@ msgstr "Usunięcie wyszukiwania"
 
 #: ../src/Resources.vala:418
 msgid "_Edit..."
-msgstr "_Modyfikuj..."
+msgstr "_Modyfikuj…"
 
 #: ../src/Resources.vala:419
 msgid "Re_name..."
-msgstr "Zmień _nazwę..."
+msgstr "Zmień _nazwę…"
 
 #: ../src/Resources.vala:422
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
-msgstr "Zmienia nazwę wyszukiwania z \"%s\" na \"%s\""
+msgstr "Zmienia nazwę wyszukiwania z „%s” na „%s”"
 
 #: ../src/Resources.vala:426
 #, c-format
 msgid "Delete Search \"%s\""
-msgstr "Usuwa wyszukiwanie \"%s\""
+msgstr "Usuwa wyszukiwanie „%s”"
 
 #: ../src/Resources.vala:584
 #, c-format
@@ -3791,7 +3789,7 @@ msgstr "%H∶%M∶%S"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: ../src/Resources.vala:789
 msgid "%a %b %d, %Y"
-msgstr "%a %e %b %Y"
+msgstr "%a, %e %b %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
@@ -3801,7 +3799,7 @@ msgstr "%a %e %b %Y"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: ../src/Resources.vala:794 ../src/Resources.vala:804
 msgid "%a %b %d"
-msgstr "%a %e %b"
+msgstr "%a, %e %b"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
@@ -3943,7 +3941,7 @@ msgstr "Wyświetla tylko zdjęcia, które nie zostały jeszcze zaimportowane"
 #. please wait" once new strings are being accepted.
 #: ../src/camera/ImportPage.vala:847
 msgid "Starting import, please wait..."
-msgstr "Rozpoczynanie importowania, proszę czekać..."
+msgstr "Rozpoczynanie importowania, proszę czekać…"
 
 #: ../src/camera/ImportPage.vala:886
 msgid "Import _Selected"
@@ -4003,7 +4001,7 @@ msgstr ""
 
 #: ../src/camera/ImportPage.vala:1062
 msgid "Unmounting..."
-msgstr "Odmontowywanie..."
+msgstr "Odmontowywanie…"
 
 #: ../src/camera/ImportPage.vala:1168
 msgid "Fetching photo information"
@@ -4159,7 +4157,7 @@ msgstr "Zapisuje zdjęcie"
 
 #: ../src/direct/DirectPhotoPage.vala:57
 msgid "Save _As..."
-msgstr "Z_apisz jako..."
+msgstr "Z_apisz jako…"
 
 #: ../src/direct/DirectPhotoPage.vala:58
 msgid "Save photo with a different name"
@@ -4248,27 +4246,27 @@ msgstr "-"
 
 #: ../src/editing_tools/EditingTools.vala:758
 msgid "SD Video (4 : 3)"
-msgstr "Plik wideo SD (4:3)"
+msgstr "Plik wideo SD (4∶3)"
 
 #: ../src/editing_tools/EditingTools.vala:759
 msgid "HD Video (16 : 9)"
-msgstr "Plik wideo HD (16:9)"
+msgstr "Plik wideo HD (16∶9)"
 
 #: ../src/editing_tools/EditingTools.vala:766
 msgid "Letter (8.5 x 11 in.)"
-msgstr "Letter (8.5 x 11 cali)"
+msgstr "Letter (8.5 × 11 cali)"
 
 #: ../src/editing_tools/EditingTools.vala:768
 msgid "Tabloid (11 x 17 in.)"
-msgstr "Tabloid (11 x 17 cali)"
+msgstr "Tabloid (11 × 17 cali)"
 
 #: ../src/editing_tools/EditingTools.vala:775
 msgid "A4 (210 x 297 mm)"
-msgstr "A4 (210 x 297 mm)"
+msgstr "A4 (210 × 297 mm)"
 
 #: ../src/editing_tools/EditingTools.vala:779
 msgid "A3 (297 x 420 mm)"
-msgstr "A3 (297 x 420 mm)"
+msgstr "A3 (297 × 420 mm)"
 
 #: ../src/editing_tools/EditingTools.vala:1905
 msgid "Close the red-eye tool"
@@ -4398,7 +4396,7 @@ msgstr "Kolekcja"
 
 #: ../src/library/ImportQueuePage.vala:8
 msgid "Importing..."
-msgstr "Importowanie..."
+msgstr "Importowanie…"
 
 #: ../src/library/ImportQueuePage.vala:67
 msgid "_Stop Import"
@@ -4410,7 +4408,7 @@ msgstr "Zatrzymuje importowanie zdjęć"
 
 #: ../src/library/ImportQueuePage.vala:124
 msgid "Preparing to import..."
-msgstr "Przygotowywanie do zaimportowania..."
+msgstr "Przygotowywanie do zaimportowania…"
 
 #: ../src/library/ImportQueuePage.vala:151
 #, c-format
@@ -4423,7 +4421,7 @@ msgstr "Ostatni import"
 
 #: ../src/library/LibraryWindow.vala:286
 msgid "_Import From Folder..."
-msgstr "_Zaimportuj z katalogu..."
+msgstr "_Zaimportuj z katalogu…"
 
 #: ../src/library/LibraryWindow.vala:287
 msgid "Import photos from disk to library"
@@ -4431,7 +4429,7 @@ msgstr "Importuje zdjęcia z dysku do kolekcji"
 
 #: ../src/library/LibraryWindow.vala:294
 msgid "Import From _Application..."
-msgstr "Zaimportuj z p_rogramu..."
+msgstr "Zaimportuj z p_rogramu…"
 
 #: ../src/library/LibraryWindow.vala:298
 msgid "Sort _Events"
@@ -4460,7 +4458,7 @@ msgstr "Wyszukuje zdjęcia i nagrania wideo według kryteriów wyszukiwania"
 #: ../src/library/LibraryWindow.vala:330 ../src/searches/Branch.vala:77
 #: ../src/sidebar/Tree.vala:199
 msgid "Ne_w Saved Search..."
-msgstr "No_we zapisane wyszukiwanie..."
+msgstr "No_we zapisane wyszukiwanie…"
 
 #: ../src/library/LibraryWindow.vala:352
 msgid "_Photos"
@@ -4512,7 +4510,7 @@ msgstr "Opróżnij kosz"
 
 #: ../src/library/LibraryWindow.vala:721
 msgid "Emptying Trash..."
-msgstr "Opróżnianie kosza..."
+msgstr "Opróżnianie kosza…"
 
 #: ../src/library/LibraryWindow.vala:880
 #, c-format
@@ -4545,19 +4543,19 @@ msgstr "%s (%d%%)"
 #: ../src/library/LibraryWindow.vala:1228
 #: ../src/library/LibraryWindow.vala:1239
 msgid "Updating library..."
-msgstr "Aktualizowanie kolekcji..."
+msgstr "Aktualizowanie kolekcji…"
 
 #: ../src/library/LibraryWindow.vala:1245
 msgid "Preparing to auto-import photos..."
-msgstr "Przygotowywanie do automatycznego zaimportowania zdjęć..."
+msgstr "Przygotowywanie do automatycznego zaimportowania zdjęć…"
 
 #: ../src/library/LibraryWindow.vala:1250
 msgid "Auto-importing photos..."
-msgstr "Automatyczne importowanie zdjęć..."
+msgstr "Automatyczne importowanie zdjęć…"
 
 #: ../src/library/LibraryWindow.vala:1258
 msgid "Writing metadata to files..."
-msgstr "Zapisywanie metadanych do plików..."
+msgstr "Zapisywanie metadanych do plików…"
 
 #: ../src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -4565,7 +4563,7 @@ msgstr "Brak plików"
 
 #: ../src/library/OfflinePage.vala:106
 msgid "Deleting..."
-msgstr "Usuwanie..."
+msgstr "Usuwanie…"
 
 #: ../src/library/TrashPage.vala:8
 msgid "Trash"
@@ -4657,8 +4655,8 @@ msgstr "[PLIK]"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Wykonanie polecenia \"%s --help\" wyświetli pełną listę dostępnych opcji "
-"wiersza poleceń.\n"
+"Polecenie „%s --help” wyświetli pełną listę dostępnych opcji wiersza "
+"poleceń.\n"
 
 #: ../src/photos/BmpSupport.vala:32
 msgid "BMP"
@@ -4746,11 +4744,11 @@ msgstr "Wybrane nagrania wideo zostały pomyślnie opublikowane."
 
 #: ../src/publishing/PublishingUI.vala:122
 msgid "Fetching account information..."
-msgstr "Pobieranie informacji o koncie..."
+msgstr "Pobieranie informacji o koncie…"
 
 #: ../src/publishing/PublishingUI.vala:128
 msgid "Logging in..."
-msgstr "Logowanie..."
+msgstr "Logowanie…"
 
 #: ../src/publishing/PublishingUI.vala:185
 msgid "Publish Photos"
@@ -4978,7 +4976,7 @@ msgstr "Data"
 
 #: ../src/sidebar/Tree.vala:203
 msgid "New _Tag..."
-msgstr "Nowa _etykieta..."
+msgstr "Nowa _etykieta…"
 
 #: ../src/slideshow/Slideshow.vala:22
 msgid "Slideshow Transitions"
