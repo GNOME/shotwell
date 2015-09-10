@@ -13,6 +13,7 @@
 # ZupaDupa <kallerainio@gmail.com>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
 # Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2011-2013, 2014, 2015.
+# Timo Jyrinki <timo.jyrinki@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
@@ -20,8 +21,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
 "POT-Creation-Date: 2015-09-05 11:43+0000\n"
-"PO-Revision-Date: 2015-09-05 17:15+0300\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
+"PO-Revision-Date: 2015-09-10 18:50+0300\n"
+"Last-Translator: Timo Jyrinki <timo.jyrinki@gmail.com>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -2051,7 +2052,7 @@ msgstr "%d.%m.%Y, %H.%M.%S"
 
 #: ../src/Dialogs.vala:1808
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%d.%m.%Y, %I.%M.%S"
+msgstr "%d.%m.%Y, %H.%M.%S"
 
 #: ../src/Dialogs.vala:1897
 #, c-format
@@ -3637,14 +3638,14 @@ msgstr "Valitse kaikki"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: ../src/Resources.vala:780
 msgid "%-I:%M %p"
-msgstr ""
+msgstr "%H:%M"
 
 #. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: ../src/Resources.vala:785
 msgid "%-I:%M:%S %p"
-msgstr ""
+msgstr "%H:%M"
 
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
