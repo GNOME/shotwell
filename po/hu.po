@@ -11,16 +11,16 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-05-08 23:23+0000\n"
-"PO-Revision-Date: 2015-05-09 11:08+0200\n"
-"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
+"POT-Creation-Date: 2015-09-25 12:24+0000\n"
+"PO-Revision-Date: 2015-09-25 20:32+0200\n"
+"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -54,6 +54,7 @@ msgstr ""
 "Kelemen Gábor <kelemeng at gnome dot hu>\n"
 "Kökéndy Ákos https://launchpad.net/~kokendy-akos\n"
 "Robert Roth https://launchpad.net/~evfool\n"
+"Meskó Balázs <meskobalazs at gmail dot com>\n"
 "\n"
 "Launchpad Contributions:\n"
 "  Adamyno https://launchpad.net/~adam-pretz\n"
@@ -74,7 +75,6 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-#| msgid "Copyright 2009-2014 Yorba Foundation"
 msgid "Copyright 2009-2015 Yorba Foundation"
 msgstr "Copyright 2009-2015 Yorba Foundation"
 
@@ -382,7 +382,7 @@ msgstr "1024 x 768 képpont"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
 msgid "1280 x 853 pixels"
-msgstr "1280 x 853 pixel"
+msgstr "1280 x 853 képpont"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:310
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:320
@@ -490,9 +490,6 @@ msgstr ""
 "a feltöltés előtt"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:6
-#| msgid ""
-#| "'you are logged in as $name'\n"
-#| "(populated in the application code)"
 msgid "'Publishing to $url as $username' (populated in application code)"
 msgstr "küldjünk bugot hogy ezt szedjék ki"
 
@@ -1048,7 +1045,6 @@ msgid "Core Slideshow Transitions"
 msgstr "Alap diaátmenetek"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 
@@ -1072,10 +1068,20 @@ msgstr "Képek"
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Nem hozható létre az ideiglenes könyvtár (%s): %s"
 
-#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:223
+#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Nem hozható létre az adatalkönyvtár (%s): %s"
+
+#: ../src/AppDirs.vala:220
+#, c-format
+msgid "Could not make directory %s writable"
+msgstr "Nem sikerült a(z) %s könyvtárat írhatóvá tenni"
+
+#: ../src/AppDirs.vala:223
+#, c-format
+msgid "Could not make directory %s writable: %s"
+msgstr "Nem sikerült a(z) %s könyvtárat írhatóvá tenni: %s"
 
 #: ../src/AppWindow.vala:53
 msgid "Pin Toolbar"
@@ -1540,7 +1546,6 @@ msgid "_Scaling constraint:"
 msgstr "_Méretezési megszorítás:"
 
 #: ../src/Dialogs.vala:222
-#| msgid " _pixels"
 msgid "_Pixels:"
 msgstr "Ké_ppont:"
 
@@ -2453,7 +2458,7 @@ msgstr "_Megjegyzések"
 msgid "Display the comment of each photo"
 msgstr "Az egyes képek megjegyzéseinek megjelenítése"
 
-#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:360
+#: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:359
 msgid "Ta_gs"
 msgstr "Cí_mkék"
 
@@ -2486,28 +2491,26 @@ msgid "Sort photos by rating"
 msgstr "Fényképek rendezése értékelés szerint"
 
 #: ../src/MediaPage.vala:504
-#| msgid "File name"
 msgid "By _Filename"
 msgstr "Fájl_név szerint"
 
 #: ../src/MediaPage.vala:505
-#| msgid "Sort photos by title"
 msgid "Sort photos by filename"
 msgstr "Fényképek rendezése fájlnév szerint"
 
-#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:406
+#: ../src/MediaPage.vala:515 ../src/library/LibraryWindow.vala:405
 msgid "_Ascending"
 msgstr "_Növekvő"
 
-#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:407
+#: ../src/MediaPage.vala:516 ../src/library/LibraryWindow.vala:406
 msgid "Sort photos in an ascending order"
 msgstr "Fényképek növekvő sorrendbe rendezése"
 
-#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:413
+#: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:412
 msgid "D_escending"
 msgstr "_Csökkenő"
 
-#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:414
+#: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:413
 msgid "Sort photos in a descending order"
 msgstr "Fényképek csökkenő sorrendbe rendezése"
 
@@ -2552,7 +2555,7 @@ msgid "Photo source file missing: %s"
 msgstr "A fénykép forrásfájlja hiányzik: %s"
 
 #: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
-#: ../src/library/LibraryWindow.vala:344
+#: ../src/library/LibraryWindow.vala:343
 msgid "_View"
 msgstr "_Nézet"
 
@@ -2785,7 +2788,7 @@ msgstr "Ettől:"
 msgid "To:"
 msgstr "Eddig:"
 
-#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1890
+#: ../src/Properties.vala:395 ../src/editing_tools/EditingTools.vala:1872
 msgid "Size:"
 msgstr "Méret:"
 
@@ -2804,7 +2807,7 @@ msgstr "Előhívó:"
 
 #. fit both on the top line, emit and move on
 #: ../src/Properties.vala:436 ../src/Properties.vala:440
-#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2258
+#: ../src/Properties.vala:447 ../src/editing_tools/EditingTools.vala:2240
 msgid "Exposure:"
 msgstr "Expozíció:"
 
@@ -2938,12 +2941,11 @@ msgid "_Apply"
 msgstr "_Alkalmaz"
 
 #: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
-#: ../src/library/LibraryWindow.vala:340
+#: ../src/library/LibraryWindow.vala:339
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
 #: ../src/Resources.vala:165
-#| msgid "_Format:"
 msgid "_Forward"
 msgstr "_Előre"
 
@@ -2952,7 +2954,7 @@ msgid "Fulls_creen"
 msgstr "Teljes ké_pernyő"
 
 #: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
-#: ../src/library/LibraryWindow.vala:364
+#: ../src/library/LibraryWindow.vala:363
 msgid "_Help"
 msgstr "_Súgó"
 
@@ -2965,7 +2967,6 @@ msgid "_New"
 msgstr "Ú_j"
 
 #: ../src/Resources.vala:170
-#| msgid "Next"
 msgid "_Next"
 msgstr "Kö_vetkező"
 
@@ -2974,7 +2975,6 @@ msgid "_OK"
 msgstr "_OK"
 
 #: ../src/Resources.vala:172
-#| msgid "Play"
 msgid "_Play"
 msgstr "_Lejátszás"
 
@@ -2983,12 +2983,10 @@ msgid "_Preferences"
 msgstr "_Beállítások"
 
 #: ../src/Resources.vala:174
-#| msgid "_Previous Photo"
 msgid "_Previous"
 msgstr "_Előző"
 
 #: ../src/Resources.vala:175
-#| msgid "_Print..."
 msgid "_Print"
 msgstr "_Nyomtatás"
 
@@ -3001,7 +2999,6 @@ msgid "_Refresh"
 msgstr "_Frissítés"
 
 #: ../src/Resources.vala:179
-#| msgid "Reverting"
 msgid "_Revert"
 msgstr "_Visszaállítás"
 
@@ -3011,17 +3008,14 @@ msgid "_Save"
 msgstr "M_entés"
 
 #: ../src/Resources.vala:181
-#| msgid "Save As"
 msgid "Save _As"
 msgstr "Men_tés másként"
 
 #: ../src/Resources.vala:182
-#| msgid "_Ascending"
 msgid "Sort _Ascending"
 msgstr "_Növekvő sorrend"
 
 #: ../src/Resources.vala:183
-#| msgid "D_escending"
 msgid "Sort _Descending"
 msgstr "_Csökkenő sorrend"
 
@@ -3030,12 +3024,10 @@ msgid "_Stop"
 msgstr "_Leállítás"
 
 #: ../src/Resources.vala:185
-#| msgid "_Delete"
 msgid "_Undelete"
 msgstr "_Visszaállítás"
 
 #: ../src/Resources.vala:186
-#| msgid "Original Size"
 msgid "_Normal Size"
 msgstr "_Normál méret"
 
@@ -3721,7 +3713,6 @@ msgstr "Hiba a(z) %s felületfájl betöltésekor: %s"
 #. display it yet; we'll connect it to secondary
 #. click later on.
 #: ../src/SearchFilter.vala:945
-#| msgid "_Close"
 msgid "Close"
 msgstr "Bezárás"
 
@@ -3973,7 +3964,7 @@ msgid "Database file:"
 msgstr "Adatbázisfájl:"
 
 #: ../src/data_imports/DataImportsUI.vala:112
-#: ../src/library/LibraryWindow.vala:883
+#: ../src/library/LibraryWindow.vala:882
 msgid "_Import"
 msgstr "_Importálás"
 
@@ -4015,7 +4006,7 @@ msgstr ""
 "A hibaüzenet: \n"
 "%s"
 
-#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:336
+#: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:335
 msgid "_File"
 msgstr "_Fájl"
 
@@ -4035,7 +4026,7 @@ msgstr "Fénykép mentése más névvel"
 msgid "Print the photo to a printer connected to your computer"
 msgstr "Fénykép nyomtatása a számítógéphez csatlakozó nyomtatón"
 
-#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:348
+#: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:347
 msgid "_Photo"
 msgstr "_Fénykép"
 
@@ -4136,72 +4127,72 @@ msgstr "A4 (210 x 297 mm)"
 msgid "A3 (297 x 420 mm)"
 msgstr "A3 (297 x 420 mm)"
 
-#: ../src/editing_tools/EditingTools.vala:1905
+#: ../src/editing_tools/EditingTools.vala:1887
 msgid "Close the red-eye tool"
 msgstr "Vörösszem-effektus eszköz bezárása"
 
-#: ../src/editing_tools/EditingTools.vala:1908
+#: ../src/editing_tools/EditingTools.vala:1890
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Minden vörösszem-effektus eltávolítása a kijelölt területről"
 
-#: ../src/editing_tools/EditingTools.vala:2244
+#: ../src/editing_tools/EditingTools.vala:2226
 #: ../src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Visszaállítás"
 
-#: ../src/editing_tools/EditingTools.vala:2266
+#: ../src/editing_tools/EditingTools.vala:2248
 msgid "Saturation:"
 msgstr "Telítettség:"
 
-#: ../src/editing_tools/EditingTools.vala:2274
+#: ../src/editing_tools/EditingTools.vala:2256
 msgid "Tint:"
 msgstr "Árnyalat:"
 
-#: ../src/editing_tools/EditingTools.vala:2283
+#: ../src/editing_tools/EditingTools.vala:2265
 msgid "Temperature:"
 msgstr "Hőmérséklet:"
 
-#: ../src/editing_tools/EditingTools.vala:2291
+#: ../src/editing_tools/EditingTools.vala:2273
 msgid "Shadows:"
 msgstr "Árnyékok:"
 
-#: ../src/editing_tools/EditingTools.vala:2299
+#: ../src/editing_tools/EditingTools.vala:2281
 msgid "Highlights:"
 msgstr "Kiemelések:"
 
-#: ../src/editing_tools/EditingTools.vala:2353
+#: ../src/editing_tools/EditingTools.vala:2335
 msgid "Reset Colors"
 msgstr "Színek visszaállítása"
 
-#: ../src/editing_tools/EditingTools.vala:2353
+#: ../src/editing_tools/EditingTools.vala:2335
 msgid "Reset all color adjustments to original"
 msgstr "Minden színmódosítás elvetése"
 
-#: ../src/editing_tools/EditingTools.vala:2705
+#: ../src/editing_tools/EditingTools.vala:2687
 msgid "Temperature"
 msgstr "Hőmérséklet"
 
-#: ../src/editing_tools/EditingTools.vala:2718
+#: ../src/editing_tools/EditingTools.vala:2700
 msgid "Tint"
 msgstr "Árnyalat"
 
-#: ../src/editing_tools/EditingTools.vala:2731
+#: ../src/editing_tools/EditingTools.vala:2713
 msgid "Saturation"
 msgstr "Telítettség"
 
-#: ../src/editing_tools/EditingTools.vala:2744
+#: ../src/editing_tools/EditingTools.vala:2726
 msgid "Exposure"
 msgstr "Expozíció"
 
-#: ../src/editing_tools/EditingTools.vala:2757
+#: ../src/editing_tools/EditingTools.vala:2739
 msgid "Shadows"
 msgstr "Árnyékok"
 
-#: ../src/editing_tools/EditingTools.vala:2770
+#: ../src/editing_tools/EditingTools.vala:2752
 msgid "Highlights"
 msgstr "Kiemelések"
 
-#: ../src/editing_tools/EditingTools.vala:2780
+#: ../src/editing_tools/EditingTools.vala:2762
 msgid "Contrast Expansion"
 msgstr "Kontraszt növelése"
 
@@ -4237,7 +4228,6 @@ msgid "No events found"
 msgstr "Nem találhatók események"
 
 #: ../src/events/EventsDirectoryPage.vala:230
-#| msgid "Events"
 msgid "All Events"
 msgstr "Minden esemény"
 
@@ -4287,100 +4277,100 @@ msgstr "%s importálva"
 msgid "Last Import"
 msgstr "Utolsó importálás"
 
-#: ../src/library/LibraryWindow.vala:286
+#: ../src/library/LibraryWindow.vala:285
 msgid "_Import From Folder..."
 msgstr "_Importálás mappából…"
 
-#: ../src/library/LibraryWindow.vala:287
+#: ../src/library/LibraryWindow.vala:286
 msgid "Import photos from disk to library"
 msgstr "Fényképek importálása a gyűjteménybe lemezről"
 
-#: ../src/library/LibraryWindow.vala:294
+#: ../src/library/LibraryWindow.vala:293
 msgid "Import From _Application..."
 msgstr "Importálás _alkalmazásból…"
 
-#: ../src/library/LibraryWindow.vala:298
+#: ../src/library/LibraryWindow.vala:297
 msgid "Sort _Events"
 msgstr "_Események rendezése"
 
-#: ../src/library/LibraryWindow.vala:308
+#: ../src/library/LibraryWindow.vala:307
 msgid "Empty T_rash"
 msgstr "_Kuka ürítése"
 
-#: ../src/library/LibraryWindow.vala:309
+#: ../src/library/LibraryWindow.vala:308
 msgid "Delete all photos in the trash"
 msgstr "Minden fénykép törlése a Kukában"
 
-#: ../src/library/LibraryWindow.vala:314
+#: ../src/library/LibraryWindow.vala:313
 msgid "View Eve_nt for Photo"
 msgstr "Fénykép _eseményének megjelenítése"
 
-#: ../src/library/LibraryWindow.vala:318
+#: ../src/library/LibraryWindow.vala:317
 msgid "_Find"
 msgstr "_Keresés"
 
-#: ../src/library/LibraryWindow.vala:319
+#: ../src/library/LibraryWindow.vala:318
 msgid "Find photos and videos by search criteria"
 msgstr "Fényképek és videók keresése keresőkifejezésekkel"
 
-#: ../src/library/LibraryWindow.vala:330 ../src/searches/Branch.vala:77
+#: ../src/library/LibraryWindow.vala:329 ../src/searches/Branch.vala:77
 #: ../src/sidebar/Tree.vala:199
 msgid "Ne_w Saved Search..."
 msgstr "Új _mentett keresés…"
 
-#: ../src/library/LibraryWindow.vala:352
+#: ../src/library/LibraryWindow.vala:351
 msgid "_Photos"
 msgstr "Fény_képek"
 
-#: ../src/library/LibraryWindow.vala:356
+#: ../src/library/LibraryWindow.vala:355
 msgid "Even_ts"
 msgstr "_Események"
 
-#: ../src/library/LibraryWindow.vala:375
+#: ../src/library/LibraryWindow.vala:374
 msgid "_Basic Information"
 msgstr "_Alapvető információk"
 
-#: ../src/library/LibraryWindow.vala:376
+#: ../src/library/LibraryWindow.vala:375
 msgid "Display basic information for the selection"
 msgstr "Kijelöltek alapvető információinak megjelenítése"
 
-#: ../src/library/LibraryWindow.vala:381
+#: ../src/library/LibraryWindow.vala:380
 msgid "E_xtended Information"
 msgstr "_További információk"
 
-#: ../src/library/LibraryWindow.vala:382
+#: ../src/library/LibraryWindow.vala:381
 msgid "Display extended information for the selection"
 msgstr "Kijelöltek további információinak megjelenítése"
 
-#: ../src/library/LibraryWindow.vala:387
+#: ../src/library/LibraryWindow.vala:386
 msgid "_Search Bar"
 msgstr "Keresősá_v"
 
-#: ../src/library/LibraryWindow.vala:388
+#: ../src/library/LibraryWindow.vala:387
 msgid "Display the search bar"
 msgstr "A keresősáv megjelenítése"
 
-#: ../src/library/LibraryWindow.vala:393
+#: ../src/library/LibraryWindow.vala:392
 msgid "S_idebar"
 msgstr "_Oldalsáv"
 
-#: ../src/library/LibraryWindow.vala:394
+#: ../src/library/LibraryWindow.vala:393
 msgid "Display the sidebar"
 msgstr "Az oldalsáv megjelenítése"
 
-#: ../src/library/LibraryWindow.vala:652
+#: ../src/library/LibraryWindow.vala:651
 msgid "Import From Folder"
 msgstr "Importálás mappából"
 
-#: ../src/library/LibraryWindow.vala:721
+#: ../src/library/LibraryWindow.vala:720
 msgid "Empty Trash"
 msgstr "Kuka ürítése"
 
-#: ../src/library/LibraryWindow.vala:721
+#: ../src/library/LibraryWindow.vala:720
 msgid "Emptying Trash..."
 msgstr "Kuka ürítése…"
 
-#: ../src/library/LibraryWindow.vala:880
+#: ../src/library/LibraryWindow.vala:879
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4393,34 +4383,34 @@ msgstr ""
 "szerkesztése</span> alatt.\n"
 "Szeretné folytatni a fényképek importálását?"
 
-#: ../src/library/LibraryWindow.vala:883 ../ui/shotwell.glade.h:18
+#: ../src/library/LibraryWindow.vala:882 ../ui/shotwell.glade.h:18
 msgid "Library Location"
 msgstr "Gyűjtemény helye"
 
 #. TODO: Specify which directory/file.
-#: ../src/library/LibraryWindow.vala:896
+#: ../src/library/LibraryWindow.vala:895
 msgid "Photos cannot be imported from this directory."
 msgstr "Ebből a könyvtárból nem importálhatók fényképek."
 
-#: ../src/library/LibraryWindow.vala:1184
+#: ../src/library/LibraryWindow.vala:1183
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: ../src/library/LibraryWindow.vala:1228
-#: ../src/library/LibraryWindow.vala:1239
+#: ../src/library/LibraryWindow.vala:1227
+#: ../src/library/LibraryWindow.vala:1238
 msgid "Updating library..."
 msgstr "Gyűjtemény frissítése…"
 
-#: ../src/library/LibraryWindow.vala:1245
+#: ../src/library/LibraryWindow.vala:1244
 msgid "Preparing to auto-import photos..."
 msgstr "Felkészülés fényképek automatikus importáláshoz…"
 
-#: ../src/library/LibraryWindow.vala:1250
+#: ../src/library/LibraryWindow.vala:1249
 msgid "Auto-importing photos..."
 msgstr "Fényképek automatikus importálása…"
 
-#: ../src/library/LibraryWindow.vala:1258
+#: ../src/library/LibraryWindow.vala:1257
 msgid "Writing metadata to files..."
 msgstr "Metaadatok írása a fájlokba…"
 
@@ -4691,7 +4681,6 @@ msgid "is not set"
 msgstr "nincs beállítva"
 
 #: ../src/searches/SavedSearchDialog.vala:174
-#| msgid "is not set"
 msgid "is set"
 msgstr "beállítva"
 
@@ -4781,7 +4770,6 @@ msgid "Search"
 msgstr "Keresés"
 
 #: ../src/searches/SavedSearchDialog.vala:702
-#| msgid "_Cancel"
 msgid "Cancel"
 msgstr "Mégse"
 
