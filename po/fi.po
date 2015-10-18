@@ -12,24 +12,24 @@
 # Ville-Pekka Vainio <vpvainio@iki.fi>, 2011
 # ZupaDupa <kallerainio@gmail.com>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
-# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2011-2013, 2014, 2015.
 # Timo Jyrinki <timo.jyrinki@gmail.com>, 2015.
+# Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2011-2013, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-09-05 11:43+0000\n"
-"PO-Revision-Date: 2015-09-10 18:50+0300\n"
-"Last-Translator: Timo Jyrinki <timo.jyrinki@gmail.com>\n"
+"POT-Creation-Date: 2015-10-18 00:30+0000\n"
+"PO-Revision-Date: 2015-10-18 12:38+0300\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -64,7 +64,6 @@ msgstr "Jiri Grönroos"
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-#| msgid "Copyright 2009-2014 Yorba Foundation"
 msgid "Copyright 2009-2015 Yorba Foundation"
 msgstr "Tekijänoikeus 2009-2015 Yorba Foundation"
 
@@ -196,9 +195,6 @@ msgstr ""
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1022
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1775
 #, c-format
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Picasa can't "
-#| "continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to %s can't "
 "continue."
@@ -209,10 +205,10 @@ msgstr ""
 #. populate any widgets whose contents are
 #. programmatically-generated
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1551
-#, fuzzy, c-format
+#, c-format
 #| msgid "Publish Photos and Videos"
 msgid "Publishing to %s as %s."
-msgstr "Julkaise kuvia ja videoita"
+msgstr "Julkaistaan palveluun %s käyttäjänä %s."
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
 #, fuzzy
@@ -486,7 +482,6 @@ msgstr ""
 "(populated in the application code)"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:7
-#| msgid "_Scaling constraint:"
 msgid "Scaling constraint:"
 msgstr "\tSkaalausrajoite:"
 
@@ -694,7 +689,7 @@ msgstr ""
 "\n"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1156
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Your free Flickr account limits how much data you can upload per month.\n"
 #| "This month, you have %d megabytes remaining in your upload quota."
@@ -706,7 +701,7 @@ msgid_plural ""
 "This month you have %d megabytes remaining in your upload quota."
 msgstr[0] ""
 "Ilmaisessa Flickr-tilissä on kuukausittainen rajoitus datan lähetykselle.\n"
-"Tässä kuussa voit vielä lähettää %d megatavua."
+"Tässä kuussa voit vielä lähettää %d megatavun."
 msgstr[1] ""
 "Ilmaisessa Flickr-tilissä on kuukausittainen rajoitus datan lähetykselle.\n"
 "Tässä kuussa voit vielä lähettää %d megatavua."
@@ -1028,7 +1023,6 @@ msgid "Core Slideshow Transitions"
 msgstr "Keskeiset diaesityssiirtymät"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 msgstr ""
 "Tekijänoikeus 2010 Maxim Kartashev, tekijänoikeus 2011-2015 Yorba Foundation"
@@ -1525,7 +1519,6 @@ msgid "_Scaling constraint:"
 msgstr "_Skaalausrajoite:"
 
 #: ../src/Dialogs.vala:222
-#| msgid " _pixels"
 msgid "_Pixels:"
 msgstr "_Pikselit:"
 
@@ -1805,7 +1798,7 @@ msgstr[1] "%d kuvan/videon tuominen epäonnistui, koska ne ovat rikki:\n"
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
 msgstr[0] "1 tiedoston tuominen epäonnistui, koska se on rikki:\n"
-msgstr[1] "%D tiedoston tuominen epäonnistui, koska ne ovat rikki:\n"
+msgstr[1] "%d tiedoston tuominen epäonnistui, koska ne ovat rikki:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
 #. standard container formats are supported, it's just that the streams in them
@@ -2468,12 +2461,10 @@ msgid "Sort photos by rating"
 msgstr "Järjestä kuvat arvostelun mukaan"
 
 #: ../src/MediaPage.vala:504
-#| msgid "File name"
 msgid "By _Filename"
 msgstr "Tie_dostonimen mukaan"
 
 #: ../src/MediaPage.vala:505
-#| msgid "Sort photos by title"
 msgid "Sort photos by filename"
 msgstr "Järjestä kuvat tiedostonimen mukaan"
 
@@ -2925,7 +2916,6 @@ msgid "_Edit"
 msgstr "_Muokkaa"
 
 #: ../src/Resources.vala:165
-#| msgid "_Format:"
 msgid "_Forward"
 msgstr "_Eteenpäin"
 
@@ -2947,7 +2937,6 @@ msgid "_New"
 msgstr "_Uusi"
 
 #: ../src/Resources.vala:170
-#| msgid "Next"
 msgid "_Next"
 msgstr "_Seuraava"
 
@@ -2956,7 +2945,6 @@ msgid "_OK"
 msgstr "_OK"
 
 #: ../src/Resources.vala:172
-#| msgid "Play"
 msgid "_Play"
 msgstr "T_oista"
 
@@ -2965,12 +2953,10 @@ msgid "_Preferences"
 msgstr "_Asetukset"
 
 #: ../src/Resources.vala:174
-#| msgid "_Previous Photo"
 msgid "_Previous"
 msgstr "_Edellinen"
 
 #: ../src/Resources.vala:175
-#| msgid "_Print..."
 msgid "_Print"
 msgstr "_Tulosta"
 
@@ -2983,7 +2969,6 @@ msgid "_Refresh"
 msgstr "_Päivitä"
 
 #: ../src/Resources.vala:179
-#| msgid "Reverting"
 msgid "_Revert"
 msgstr "Pa_lauta"
 
@@ -2993,17 +2978,14 @@ msgid "_Save"
 msgstr "_Tallenna"
 
 #: ../src/Resources.vala:181
-#| msgid "Save As"
 msgid "Save _As"
 msgstr "Tallenna nim_ellä"
 
 #: ../src/Resources.vala:182
-#| msgid "_Ascending"
 msgid "Sort _Ascending"
 msgstr "Järjestä _nousevasti"
 
 #: ../src/Resources.vala:183
-#| msgid "D_escending"
 msgid "Sort _Descending"
 msgstr "Järjestä _laskevasti"
 
@@ -3012,12 +2994,10 @@ msgid "_Stop"
 msgstr "_Pysäytä"
 
 #: ../src/Resources.vala:185
-#| msgid "_Delete"
 msgid "_Undelete"
 msgstr "_Peru poistaminen"
 
 #: ../src/Resources.vala:186
-#| msgid "Original Size"
 msgid "_Normal Size"
 msgstr "_Normaali koko"
 
@@ -3708,7 +3688,6 @@ msgstr "Virhe ladatessa käyttöliittymätiedostoa %s: %s"
 #. display it yet; we'll connect it to secondary
 #. click later on.
 #: ../src/SearchFilter.vala:945
-#| msgid "_Close"
 msgid "Close"
 msgstr "Sulje"
 
@@ -4218,7 +4197,6 @@ msgid "No events found"
 msgstr "Tapahtumia ei löytynyt"
 
 #: ../src/events/EventsDirectoryPage.vala:230
-#| msgid "Events"
 msgid "All Events"
 msgstr "Kaikki tapahtumat"
 
@@ -4667,7 +4645,6 @@ msgid "is not set"
 msgstr "ei ole asetettu"
 
 #: ../src/searches/SavedSearchDialog.vala:174
-#| msgid "is not set"
 msgid "is set"
 msgstr "on asetettu"
 
@@ -4757,7 +4734,6 @@ msgid "Search"
 msgstr "Etsi"
 
 #: ../src/searches/SavedSearchDialog.vala:702
-#| msgid "_Cancel"
 msgid "Cancel"
 msgstr "Peru"
 
