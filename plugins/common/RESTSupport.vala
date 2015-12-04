@@ -20,6 +20,7 @@ public abstract class Session {
     public Session(string? endpoint_url = null) {
         this.endpoint_url = endpoint_url;
         soup_session = new Soup.SessionAsync();
+        this.soup_session.ssl_use_system_ca_file = true;
     }
     
     protected void notify_wire_message_unqueued(Soup.Message message) {

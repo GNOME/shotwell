@@ -1473,6 +1473,7 @@ internal class GraphSession {
         this.soup_session.timeout = 15;
         this.access_token = null;
         this.current_message = null;
+        this.soup_session.ssl_use_system_ca_file = true;
     }
 
     ~GraphSession() {
