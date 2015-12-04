@@ -725,7 +725,6 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
         
         private WebKit.WebView webview;
         private Gtk.Box pane_widget;
-        private Gtk.ScrolledWindow webview_frame;
         private string auth_sequence_start_url;
 
         public signal void authorized(string auth_code);
@@ -735,18 +734,13 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
 
             pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
-            webview_frame = new Gtk.ScrolledWindow(null, null);
-            webview_frame.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
-            webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-
             webview = new WebKit.WebView();
             webview.get_settings().enable_plugins = false;
 
             webview.load_changed.connect(on_page_load_changed);
             webview.context_menu.connect(() => { return false; });
 
-            webview_frame.add(webview);
-            pane_widget.pack_start(webview_frame, true, true, 0);
+            pane_widget.pack_start(webview, true, true, 0);
         }
         
         public static bool is_cache_dirty() {
