@@ -829,7 +829,6 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
 
         webview = new WebKit.WebView();
         webview.get_settings().enable_plugins = false;
-        webview.get_settings().enable_xss_auditor = false;
 
         webview.load_changed.connect(on_page_load_changed);
         webview.context_menu.connect(() => { return true; });
