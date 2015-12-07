@@ -3,25 +3,28 @@
 # This file is distributed under the same license as the shotwell package.
 # Christian Kirbach <Christian.Kirbach@gmail.com>, 2015.
 # Benjamin Steinwender <b@stbe.at>, 2015.
+# Wolfgang Stöggl <c72578@yahoo.de>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.20\n"
-"POT-Creation-Date: 2015-01-27 11:44+0000\n"
-"PO-Revision-Date: 2015-01-27 20:35+0100\n"
-"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
+"POT-Creation-Date: 2015-11-11 14:22+0000\n"
+"PO-Revision-Date: 2015-12-05 14:48+0100\n"
+"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: C/view-sidebar.page:7(desc)
 msgid ""
 "The sidebar on the left of the window lists various views of your library."
 msgstr ""
+"Die Seitenleiste auf der linken Seite des Fensters listet verschiedene "
+"Ansichten Ihrer Bibliothek auf."
 
 #: C/view-sidebar.page:21(title)
 msgid "The sidebar"
@@ -33,6 +36,10 @@ msgid ""
 "your library. Although you may see the same photo in multiple views, it's "
 "only stored once on your hard drive."
 msgstr ""
+"Die Seitenleiste auf der linken Seite des Shotwell-Fensters listet "
+"verschiedene Ansichten Ihrer Bibliothek auf. Selbst wenn Sie dasselbe Foto "
+"in mehreren Ansichten sehen, ist es nur einmal auf Ihrem Datenträger "
+"gespeichert."
 
 #: C/view-sidebar.page:25(p)
 msgid ""
@@ -70,7 +77,7 @@ msgstr ""
 
 #: C/view-information.page:12(title)
 msgid "Basic and extended information"
-msgstr ""
+msgstr "Einfache und erweiterte Informationen"
 
 #: C/view-information.page:14(p)
 msgid ""
@@ -97,7 +104,7 @@ msgstr ""
 
 #: C/view-displaying.page:12(title)
 msgid "Photo views"
-msgstr ""
+msgstr "Fotoansichten"
 
 #: C/view-displaying.page:14(p)
 msgid ""
@@ -176,10 +183,12 @@ msgid ""
 "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
 msgstr ""
+"<link href=\"http://picasaweb.google.com\">Picasa Internet-Alben</link> und "
+"<link href=\"http://plus.google.com\">Google+</link>"
 
 #: C/share-upload.page:21(p)
 msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
-msgstr ""
+msgstr "<link href=\"http://youtube.com\">YouTube</link> (Nur Videos)"
 
 #: C/share-upload.page:22(p)
 msgid ""
@@ -250,11 +259,11 @@ msgstr ""
 
 #: C/share-slideshow.page:20(p)
 msgid "You can select different transition effects."
-msgstr ""
+msgstr "Sie können verschiedene Übergangseffekte wählen."
 
 #: C/share-slideshow.page:21(p)
 msgid "The time for each transition effect: 0.1 - 1.0 seconds"
-msgstr ""
+msgstr "Die Zeit für jeden Übergangseffekt: 0,1 - 1,0 Sekunden"
 
 #: C/share-send.page:7(desc)
 msgid "Send photos via email, instant messaging or in other ways."
@@ -338,7 +347,7 @@ msgstr ""
 
 #: C/share-export.page:24(p)
 msgid "A format for export."
-msgstr ""
+msgstr "Ein Exportformat."
 
 #: C/share-export.page:27(p)
 msgid ""
@@ -446,7 +455,7 @@ msgstr ""
 
 #: C/raw.page:12(title)
 msgid "RAW support in Shotwell"
-msgstr ""
+msgstr "RAW-Unterstützung in Shotwell"
 
 #: C/raw.page:13(p)
 msgid ""
@@ -492,9 +501,8 @@ msgid "Extend Shotwell's functionality dynamically."
 msgstr ""
 
 #: C/other-plugins.page:12(title)
-#, fuzzy
 msgid "Plugins"
-msgstr "Plugins"
+msgstr "Erweiterungen"
 
 #: C/other-plugins.page:13(p)
 msgid ""
@@ -528,7 +536,7 @@ msgstr ""
 
 #: C/other-multiple.page:12(title)
 msgid "Multiple libraries"
-msgstr ""
+msgstr "Mehrere Bibliotheken"
 
 #: C/other-multiple.page:14(p)
 msgid ""
@@ -552,6 +560,8 @@ msgid ""
 "\n"
 "shotwell -d [library-directory]\n"
 msgstr ""
+"\n"
+"shotwell -d [Bibliotheksordner]\n"
 
 #: C/other-missing.page:7(desc)
 msgid "If Shotwell can't find a photo in your library, it marks it as missing."
@@ -599,7 +609,7 @@ msgstr ""
 
 #: C/other-files.page:12(title)
 msgid "Photo files"
-msgstr ""
+msgstr "Fotodateien"
 
 #: C/other-files.page:14(p)
 msgid ""
@@ -862,9 +872,8 @@ msgid "titles"
 msgstr "Titel"
 
 #: C/other-files.page:119(p)
-#, fuzzy
 msgid "tags"
-msgstr "Markierungen"
+msgstr "Schlagworte"
 
 #: C/other-files.page:120(p)
 msgid "ratings"
@@ -905,7 +914,7 @@ msgstr ""
 
 #: C/organize-title.page:7(desc)
 msgid "Give titles to your photos."
-msgstr ""
+msgstr "Betiteln Ihrer Fotos"
 
 #: C/organize-title.page:12(title)
 msgid "Titles"
@@ -926,7 +935,7 @@ msgstr ""
 
 #: C/organize-tag.page:7(desc)
 msgid "Organize photos by labelling them."
-msgstr ""
+msgstr "Fotos durch Kennzeichnung organisieren."
 
 #: C/organize-tag.page:14(title)
 msgid "Tagging photos"
@@ -1022,9 +1031,8 @@ msgid "Find photos and videos in your collection by a variety of criteria."
 msgstr ""
 
 #: C/organize-search.page:12(title)
-#, fuzzy
 msgid "Searching"
-msgstr "﻿Suchen"
+msgstr "Suchen"
 
 #: C/organize-search.page:14(p)
 msgid ""
@@ -1125,9 +1133,8 @@ msgid ""
 msgstr ""
 
 #: C/organize-remove.page:18(title)
-#, fuzzy
 msgid "Removing photos from the library"
-msgstr "Fotos werden aus Bibliothek entfernt"
+msgstr "Fotos werden aus der Bibliothek entfernt"
 
 #: C/organize-remove.page:19(p)
 msgid ""
