@@ -4301,20 +4301,29 @@ public abstract class Photo : PhotoSource, Dateable {
         if ((x >= 0) && (y >= 0) && (x < pixbuf.width) && (y < pixbuf.height)) {
             unowned uchar[] pixel_data = pixbuf.get_pixels();
         
-            /* The pupil of the human eye has no pigment, so we expect all
-               color channels to be of about equal intensity. This means that at
-               any point within the effects region, the value of the red channel
-               should be about the same as the values of the green and blue
-               channels. So set the value of the red channel to be the mean of the
-               values of the red and blue channels. This preserves achromatic
-               intensity across all channels while eliminating any extraneous flare
-               affecting the red channel only (i.e. the red-eye effect). */
+            /*  Red-eye removal algorithm adapted from 
+			    the GIMP plugin by Robert Merkel, Andreas Røsdal, 2006
+			    */
+            uchar r = pixel_data[px_start_byte_offset];
             uchar g = pixel_data[px_start_byte_offset + 1];
             uchar b = pixel_data[px_start_byte_offset + 2];
             
-            uchar r = (g + b) / 2;
-            
-            pixel_data[px_start_byte_offset] = r;
+            double adjusted_red  = r * 0.5133333;
+            double adjusted_green = g;
+            double adjusted_blue  = b * 0.1933333;
+          	int threshold = 50;
+            int adjusted_threshold = (threshold - 50) * 2;
+		    double newred;
+            if (adjusted_red >= adjusted_green - adjusted_threshold &&
+	              adjusted_red >= adjusted_blue - adjusted_threshold)  	{
+              
+              	newred = (double) (adjusted_green + adjusted_blue) / (2.0  * 0.5133333);
+              	if ( newred > 255 )
+              		newred = 255;
+              	else if (newred < 0 ) 
+              		newred = 0;
+              	pixel_data[px_start_byte_offset] = (uint8) newred;
+            }
         }
 
         return pixbuf;
