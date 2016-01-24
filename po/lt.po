@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-10-29 14:21+0000\n"
-"PO-Revision-Date: 2015-11-03 21:22+0200\n"
+"POT-Creation-Date: 2016-01-08 14:30+0000\n"
+"PO-Revision-Date: 2016-01-08 20:29+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -26,14 +26,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 1.8.6\n"
 
-#: ../plugins/common/RESTSupport.vala:424
+#: ../plugins/common/RESTSupport.vala:425
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Laikinasis failas, reikalingas paskelbimui, neprieinamas"
 
-#: ../plugins/common/RESTSupport.vala:1138
+#: ../plugins/common/RESTSupport.vala:1145
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -426,7 +426,7 @@ msgstr "Autorinės teisės 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Aplankykite Yandex.Fotki tinklapį"
 
-#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:659
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Šiuo metu nesate prisijungęs prie Yandex.Fotki."
 
@@ -550,7 +550,7 @@ msgid "Public"
 msgstr "Vieša"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:8
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1181
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1195
 msgid "Friends"
 msgstr "Draugams"
 
@@ -617,7 +617,7 @@ msgid ""
 msgstr ""
 "Viešinimui reikalingas failas nepasiekiamas. Negalima viešinti Facebook."
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1033
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -626,21 +626,21 @@ msgstr ""
 "Jūs esate prisijungę prie „Facebook“ kaip %s.\n"
 "\n"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1020
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1034
 msgid "Where would you like to publish the selected photos?"
 msgstr "Kur jūs norėtumėte paskelbti parinktas nuotraukas?"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1035
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Upload _size:"
 msgstr "Įkėlimo _dydis:"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1180
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1194
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1214
 msgid "Just me"
 msgstr "Tik aš"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1182
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1196
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1210
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1234
 msgid "Everyone"
@@ -2321,7 +2321,7 @@ msgstr[1] ""
 "Šio veiksmo nebegalėsite atšaukti."
 msgstr[2] ""
 "Iš jūsų „Shotwell“ bibliotekos bus pašalinta %d nuotraukų ar vaizdo įrašų. "
-"Ar norite, kad šie failai taip pat būtų perkelti į jūsų darbo aplinkos "
+"Ar norite, kad šie failai taip pat būtų perkelti į jūsų darbalaukio "
 "šiukšlinę?\n"
 "\n"
 "Šio veiksmo nebegalėsite atšaukti."
@@ -2350,7 +2350,7 @@ msgstr[1] ""
 "Šio veiksmo nebegalėsite atšaukti."
 msgstr[2] ""
 "Iš jūsų „Shotwell“ bibliotekos bus pašalinta %d vaizdo įrašų. Ar norite, kad "
-"šie failai taip pat būtų perkelti į jūsų darbo aplinkos šiukšlinę?\n"
+"šie failai taip pat būtų perkelti į jūsų darbalaukio šiukšlinę?\n"
 "\n"
 "Šio veiksmo nebegalėsite atšaukti."
 
@@ -2378,7 +2378,7 @@ msgstr[1] ""
 "Šio veiksmo nebegalėsite atšaukti."
 msgstr[2] ""
 "Iš jūsų „Shotwell“ bibliotekos bus pašalinta %d nuotraukų. Ar norite, kad "
-"šie failai taip pat būtų perkelti į jūsų darbo aplinkos šiukšlinę?\n"
+"šie failai taip pat būtų perkelti į jūsų darbalaukio šiukšlinę?\n"
 "\n"
 "Šio veiksmo nebegalėsite atšaukti."
 
@@ -2389,14 +2389,14 @@ msgid ""
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
 msgstr[0] ""
-"%d nuotrauka ar vaizdo įrašas negali būti perkeltas į darbo aplinkos "
-"šiukšlinę. Ištrinti šį failą?"
+"%d nuotrauka ar vaizdo įrašas negali būti perkeltas į darbalaukio šiukšlinę. "
+"Ištrinti šį failą?"
 msgstr[1] ""
-"%d nuotraukos ar vaizdo įrašai negali būti perkelti į darbo aplinkos "
-"šiukšlinę. Ištrinti šiuos failus?"
+"%d nuotraukos ar vaizdo įrašai negali būti perkelti į darbalaukio šiukšlinę. "
+"Ištrinti šiuos failus?"
 msgstr[2] ""
-"%d nuotraukų ar vaizdo įrašų negali būti perkelta į darbo aplinkos "
-"šiukšlinę. Ištrinti šiuos failus?"
+"%d nuotraukų ar vaizdo įrašų negali būti perkelta į darbalaukio šiukšlinę. "
+"Ištrinti šiuos failus?"
 
 #. Alert the user that the files were not removed.
 #: ../src/Dialogs.vala:2759
@@ -2778,7 +2778,7 @@ msgstr "30 x 40 cm"
 
 #: ../src/Printing.vala:875
 msgid "Image Settings"
-msgstr "Paveikslėlio parametrai"
+msgstr "Paveikslėlio nustatymai"
 
 #: ../src/Printing.vala:888
 msgid "Printing..."
@@ -2949,7 +2949,7 @@ msgstr "Papildoma informacija"
 
 #: ../src/Resources.vala:17
 msgid "Photo Manager"
-msgstr "Nuotraukų tvarkymo programa"
+msgstr "Nuotraukų tvarkytuvė"
 
 #: ../src/Resources.vala:18
 msgid "Photo Viewer"
@@ -3204,11 +3204,11 @@ msgstr "Atstatyti pagrindinę nuotrauką"
 
 #: ../src/Resources.vala:225
 msgid "Set as _Desktop Background"
-msgstr "Nustatyti kaip _darbastalio foną"
+msgstr "Nustatyti kaip _darbalaukio foną"
 
 #: ../src/Resources.vala:226
 msgid "Set selected image to be the new desktop background"
-msgstr "Padaryti pasirinktą paveikslėlį naujuoju darbastalio paveikslėliu"
+msgstr "Padaryti pasirinktą paveikslėlį naujuoju darbalaukio fonu"
 
 #: ../src/Resources.vala:227
 msgid "Set as _Desktop Slideshow..."
@@ -3332,7 +3332,7 @@ msgstr "Įvertinti kaip atmestą"
 
 #: ../src/Resources.vala:270
 msgid "Setting as rejected"
-msgstr "Įvertinama kaip atmesta"
+msgstr "Nustatoma kaip atmesta"
 
 #: ../src/Resources.vala:271
 msgid "Set rating to rejected"
@@ -3677,16 +3677,16 @@ msgstr "Perkelti pasirinktas nuotraukas atgal į biblioteką"
 
 #: ../src/Resources.vala:689
 msgid "Show in File Mana_ger"
-msgstr "Rodyti failų _naršyklėje"
+msgstr "Rodyti failų _tvarkytuvėje"
 
 #: ../src/Resources.vala:690
 msgid "Open the selected photo's directory in the file manager"
-msgstr "Atverti pasirinktos nuotraukos aplanką failų naršyklėje"
+msgstr "Atverti pasirinktos nuotraukos aplanką failų tvarkytuvėje"
 
 #: ../src/Resources.vala:693
 #, c-format
 msgid "Unable to open in file manager: %s"
-msgstr "Nepavyko atverti failų naršyklėje: %s"
+msgstr "Nepavyko atverti failų tvarkytuvėje: %s"
 
 #: ../src/Resources.vala:696
 msgid "R_emove From Library"
@@ -3795,7 +3795,7 @@ msgstr "Reitingas"
 
 #: ../src/SlideshowPage.vala:49 ../src/SlideshowPage.vala:183
 msgid "Settings"
-msgstr "Parametrai"
+msgstr "Nustatymai"
 
 #. Set up toolbar
 #. add toolbar buttons
@@ -3825,7 +3825,7 @@ msgstr "Pereiti prie kitos nuotraukos"
 
 #: ../src/SlideshowPage.vala:184
 msgid "Change slideshow settings"
-msgstr "Keisti skaidrių peržiūros parametrus"
+msgstr "Keisti skaidrių peržiūros nustatymus"
 
 #. An entire slideshow set might be missing, so check for a loop.
 #: ../src/SlideshowPage.vala:238
@@ -3857,7 +3857,7 @@ msgstr "Fotoaparatai"
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
-"Nepavyko atjungti fotoaparato. Pabandykite jį atjungti failų naršyklėje."
+"Nepavyko atjungti fotoaparato. Pabandykite jį atjungti failų tvarkytuvėje."
 
 #. hide duplicates checkbox
 #: ../src/camera/ImportPage.vala:776
@@ -4583,7 +4583,7 @@ msgstr "[FAILAS]"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Norėdami pamatyti visą galimų komandų eilutės parinkčių sąrašą, paleiskite "
+"Norėdami pamatyti visą galimų komandų eilutės parametrų sąrašą, paleiskite "
 "„%s --help“.\n"
 
 #: ../src/photos/BmpSupport.vala:32
@@ -4927,12 +4927,12 @@ msgstr "Žymos"
 
 #: ../ui/set_background_dialog.glade.h:1
 msgid "Set as Desktop Background"
-msgstr "Nustatyti kaip darbastalio foną"
+msgstr "Nustatyti kaip darbalaukio foną"
 
 #: ../ui/set_background_dialog.glade.h:2
 #: ../ui/set_background_slideshow_dialog.glade.h:6
 msgid "Use for Desktop"
-msgstr "Naudoti darbastaliui"
+msgstr "Naudoti darbalaukiui"
 
 #: ../ui/set_background_dialog.glade.h:3
 #: ../ui/set_background_slideshow_dialog.glade.h:7
@@ -4941,7 +4941,7 @@ msgstr "Naudoti užrakinimo ekranui"
 
 #: ../ui/set_background_slideshow_dialog.glade.h:1
 msgid "Set as Desktop Slideshow"
-msgstr "Nustatyti kaip darbastalio fonų demonstraciją"
+msgstr "Nustatyti kaip darbalaukio fonų demonstraciją"
 
 #: ../ui/set_background_slideshow_dialog.glade.h:2
 msgid "Show each photo for"
@@ -4953,7 +4953,7 @@ msgstr "laiko tarpą"
 
 #: ../ui/set_background_slideshow_dialog.glade.h:4
 msgid "Generate desktop background slideshow"
-msgstr "Generuoti darbastalio fonų demonstraciją"
+msgstr "Generuoti darbalaukio fonų demonstraciją"
 
 #: ../ui/set_background_slideshow_dialog.glade.h:5
 msgid "How long each photo is shown on the desktop background"
