@@ -1,11 +1,11 @@
 # Swedish translation for shotwell help
-# Copyright (C) 2015 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2015-07-20 11:39+0000\n"
+"POT-Creation-Date: 2016-02-18 02:40+0000\n"
 "PO-Revision-Date: 2015-07-20 18:10+0200\n"
 "Last-Translator: Josef Andersson <josef.andersson@fripost.org>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -2791,7 +2791,7 @@ msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
 msgstr ""
-"Ändrar hur ”varm“ eller ”kall” bilden ser ut. Använd exempelvis denna för "
+"Ändrar hur ”varm” eller ”kall” bilden ser ut. Använd exempelvis denna för "
 "att få kalla, deprimerande motiv att se mer levande ut."
 
 #: C/edit-adjustments.page:40(title)
