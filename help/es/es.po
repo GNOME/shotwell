@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the shotwell package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2014-04-18 22:42+0000\n"
-"PO-Revision-Date: 2014-04-22 17:53+0200\n"
+"POT-Creation-Date: 2015-10-15 00:48+0000\n"
+"PO-Revision-Date: 2016-03-02 08:13+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -36,12 +36,18 @@ msgid ""
 "your library. Although you may see the same photo in multiple views, it's "
 "only stored once on your hard drive."
 msgstr ""
+"La barra lateral a la izquierda de la ventana de Shotwell lista varias "
+"vistas de su biblioteca. Aunque puede ver muchas vistas de la misma "
+"fotografía, solo se guarda una en su disco duro"
 
 #: C/view-sidebar.page:25(p)
 msgid ""
 "The <gui>Last Import</gui> view lists your last imported photos no matter if "
 "they are imported from F-Spot, your camera, a memory card or the hard disk."
 msgstr ""
+"La vista <gui>Última importación</gui> lista sus últimas fotografías "
+"importadas no importa si estas se importaron de F-Spot, su cámara, una "
+"tarjeta de memoria o su disco duro."
 
 #: C/view-sidebar.page:27(p)
 msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
@@ -61,6 +67,9 @@ msgid ""
 "The <gui>Events</gui> folder lists all events in your library. An event is a "
 "group of photos that were taken at approximately the same time."
 msgstr ""
+"La carpeta de <gui>Eventos</gui> lista todos los eventos en su biblioteca. "
+"Un evento es un grupo de fotografías que se tomaron aproximadamente al mismo "
+"tiempo."
 
 #: C/view-sidebar.page:33(p)
 msgid ""
@@ -68,6 +77,11 @@ msgid ""
 "can have multiple tags attached to them. When you click on the name of a tag "
 "in the sidebar, you will see all the photos associated with that tag."
 msgstr ""
+"La carpeta <gui>Etiquetas</gui> lista todas las etiquetas que ha asignado a "
+"sus fotografías. Las fotografías pueden tener múltiples etiquetas "
+"relacionadas con las mismas. Cuando posiciona el cursor sobre el nombre de "
+"una etiqueta en la barra lateral, podrá ver todas las fotografías asociadas "
+"a esa etiqueta."
 
 #: C/view-information.page:7(desc)
 msgid ""
@@ -123,6 +137,12 @@ msgid ""
 "thumbnail size using the plus and minus keys (<key>+</key> and <key>-</key>) "
 "or by pressing <key>Ctrl</key> while moving your mouse scroll wheel."
 msgstr ""
+"Cuando selecciona cualquier colección en la barra lateral, Shotwell muestra "
+"todas las fotografías en esa colección en la ventana principal. En la "
+"esquina inferior derecha hay un control deslizante que puede ajustar el "
+"tamaño de las vistas en miniatura. Puede ajustar el tamaño de las miniaturas "
+"usando las teclas más y menos (<key>+</key> y <key>-</key>) o presionando "
+"<key>Ctrl</key> mientras mueve la rueda central del ratón."
 
 #: C/view-displaying.page:16(p)
 msgid ""
@@ -131,6 +151,10 @@ msgid ""
 "buttons. To return to the collection, double-click on the photo or press "
 "<key>Esc</key>."
 msgstr ""
+"Puede ver la vista de la fotografía en pantalla completa pulsando dos veces. "
+"Desde ahí puede moverse a otras fotografías en la colección con los botones "
+"de retroceso y avance. Para regresar a la colección, pulsando dos veces en "
+"la fotografía o presionando <key>Esc</key>."
 
 #: C/view-displaying.page:18(p)
 msgid ""
