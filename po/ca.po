@@ -2174,9 +2174,7 @@ msgstr "Us donem la benvinguda al Shotwell"
 
 #: ../src/Dialogs.vala:2087
 msgid "To get started, import photos in any of these ways:"
-msgstr ""
-"Per començar, podeu importar fotografies de qualsevol de les maneres "
-"següents:"
+msgstr "Per començar, importeu fotografies de qualsevol de les següents formes:"
 
 #: ../src/Dialogs.vala:2106
 #, c-format
@@ -5022,8 +5020,9 @@ msgid "_Background:"
 msgstr "_Fons:"
 
 #: ../ui/shotwell.glade.h:25
+# N.T.: Títol d'una secció a un quadre de diàleg
 msgid "Importing"
-msgstr "S'està important"
+msgstr "Importació"
 
 #: ../ui/shotwell.glade.h:26
 msgid "_Directory structure:"
@@ -5055,7 +5054,7 @@ msgstr "Editor fotogràfic e_xtern:"
 
 #: ../ui/shotwell.glade.h:34
 msgid "External _RAW editor:"
-msgstr "Editor extern d'imatges _RAW:"
+msgstr "Editor d'imatges _RAW extern:"
 
 #: ../ui/shotwell.glade.h:35
 msgid "External Editors"
