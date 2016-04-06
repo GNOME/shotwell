@@ -1,34 +1,33 @@
 # Brazilian Portuguese translation of shotwell.
 # Copyright (C) 2009-2014 Yorba Foundation
 # This file is distributed under the same license as the shotwell package.
-#
 # Translators from Transifex (until 2014):
-#  Djavan Fagundes <djavan@comum.org>, 2011-2012
-#  dnoway <dnoway@gmail.com>, 2011
-#  Glaucia Freitas <gcintra@redhat.com>, 2013
-#  Xapolin <gut_tri@hotmail.com>, 2013
-#  Bruno Bacelar <mail2buy8@gmail.com>, 2012
-#  verayin <vera@yorba.org>, 2011
-#  lsbeeler <lucas@yorba.org>, 2011
-#
+# Djavan Fagundes <djavan@comum.org>, 2011-2012
+# dnoway <dnoway@gmail.com>, 2011
+# Glaucia Freitas <gcintra@redhat.com>, 2013
+# Xapolin <gut_tri@hotmail.com>, 2013
+# Bruno Bacelar <mail2buy8@gmail.com>, 2012
+# verayin <vera@yorba.org>, 2011
+# lsbeeler <lucas@yorba.org>, 2011
 # Translators from GNOME Translation Project (2014 forward):
-#  Rafael Ferreira <rafael.f.f1@gmail.com>, 2014, 2015.
-#
+# Rafael Ferreira <rafael.f.f1@gmail.com>, 2014, 2015.
+# Felipe Braga <fbobraga@gmail.com>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-04-23 23:38+0000\n"
-"PO-Revision-Date: 2015-04-23 21:26-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
+"l&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2015-04-24 00:33+0000\n"
+"PO-Revision-Date: 2015-04-28 09:39-0200\n"
+"Last-Translator: Felipe Braga <fbobraga@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -63,7 +62,8 @@ msgstr ""
 "Allisson Azevedo <allisson@gmail.com>\n"
 "Samuel Raffo <samuelrafo@gmail.com>\n"
 "Glaucia Cintra <gcintra@redhat.com>\n"
-"Rafael Ferreira <rafael.f.f1@gmail.com>"
+"Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"Felipe Braga <fbobraga@gmail.com>"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:34
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:32
@@ -941,7 +941,7 @@ msgstr "Tama_nho pré-definido da foto:"
 
 #: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:2
 msgid "_URL of your Piwigo photo library"
-msgstr "_URL da sua galeria de fotos Piwigo"
+msgstr "_URL da sua biblioteca de fotos Piwigo"
 
 #: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:3
 msgid "User _name"
@@ -1120,7 +1120,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Um erro fatal ocorreu ao acessar a galeria do Shotwell. O Shotwell não pode "
+"Um erro fatal ocorreu ao acessar a biblioteca do Shotwell. O Shotwell não pode "
 "continuar.\n"
 "\n"
 "%s"
@@ -1395,7 +1395,7 @@ msgstr "Mover as fotos para a lixeira do Shotwell"
 
 #: ../src/Commands.vala:2344
 msgid "Restore the photos back to the Shotwell library"
-msgstr "Restaurar as fotos selecionadas para a galeria"
+msgstr "Restaurar as fotos selecionadas para a biblioteca"
 
 #: ../src/Commands.vala:2363
 msgid "Moving Photos to Trash"
@@ -1464,7 +1464,7 @@ msgstr "_Apagar"
 #: ../src/Dialogs.vala:25
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr "Isto irá remover a pesquisa salva \"%s\". Continuar?"
+msgstr "Isto irá remover a busca salva \"%s\". Continuar?"
 
 #: ../src/Dialogs.vala:35
 msgid ""
@@ -2021,8 +2021,8 @@ msgstr "Re_verter edições externas"
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
-msgstr[0] "Isto irá remover a foto da galeria. Continuar?"
-msgstr[1] "Isto irá remover %d fotos da galeria. Continuar?"
+msgstr[0] "Isto irá remover a foto da biblioteca. Continuar?"
+msgstr[1] "Isto irá remover %d fotos da biblioteca. Continuar?"
 
 #: ../src/Dialogs.vala:1442 ../src/Resources.vala:178
 msgid "_Remove"
@@ -2030,11 +2030,11 @@ msgstr "_Remover"
 
 #: ../src/Dialogs.vala:1443
 msgid "Remove Photo From Library"
-msgstr "Remover fotos da galeria"
+msgstr "Remover fotos da biblioteca"
 
 #: ../src/Dialogs.vala:1443
 msgid "Remove Photos From Library"
-msgstr "Remover fotos da galeria"
+msgstr "Remover fotos da biblioteca"
 
 #: ../src/Dialogs.vala:1536
 #, c-format
@@ -2325,12 +2325,12 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Isto irá remover a foto da sua galeria do Shotwell. Você gostaria também de "
+"Isto irá remover a foto da sua biblioteca do Shotwell. Você gostaria também de "
 "mover o arquivo para a lixeira?\n"
 "\n"
 "Esta ação não poderá ser desfeita."
 msgstr[1] ""
-"Isto irá remover %d fotos da sua galeria do Shotwell. Você gostaria também "
+"Isto irá remover %d fotos da sua biblioteca do Shotwell. Você gostaria também "
 "mover os arquivos para a lixeira?\n"
 "\n"
 "Esta ação não poderá ser desfeita."
@@ -3545,7 +3545,7 @@ msgstr ""
 
 #: ../src/Resources.vala:413
 msgid "Saved Search"
-msgstr "Pesquisa salva"
+msgstr "Busca salva"
 
 #: ../src/Resources.vala:415
 msgid "Delete Search"
@@ -3623,7 +3623,7 @@ msgstr "_Restaurar"
 
 #: ../src/Resources.vala:687
 msgid "Move the selected photos back into the library"
-msgstr "Remover as fotos selecionadas para a galeria"
+msgstr "Remover as fotos selecionadas para a biblioteca"
 
 #: ../src/Resources.vala:689
 msgid "Show in File Mana_ger"
@@ -3702,7 +3702,7 @@ msgstr "Exibição de slides"
 #: ../src/SearchFilter.vala:587 ../src/SearchFilter.vala:588
 #: ../src/SearchFilter.vala:972 ../src/library/FlaggedPage.vala:8
 msgid "Flagged"
-msgstr "Sinalizadas"
+msgstr "Marcadas"
 
 #: ../src/SearchFilter.vala:593 ../src/SearchFilter.vala:594
 #: ../src/library/Branch.vala:97
@@ -3765,7 +3765,7 @@ msgstr "Pausar"
 
 #: ../src/SlideshowPage.vala:169 ../src/SlideshowPage.vala:275
 msgid "Pause the slideshow"
-msgstr "Pausar apresentação de slides"
+msgstr "Pausar exibição de slides"
 
 #: ../src/SlideshowPage.vala:174
 msgid "Next"
@@ -3835,7 +3835,7 @@ msgstr "Importar _selecionadas"
 
 #: ../src/camera/ImportPage.vala:887
 msgid "Import the selected photos into your library"
-msgstr "Remover as fotos selecionadas para a sua galeria"
+msgstr "Remover as fotos selecionadas para a sua biblioteca"
 
 #: ../src/camera/ImportPage.vala:892
 msgid "Import _All"
@@ -4303,7 +4303,7 @@ msgstr "_Importar da pasta..."
 
 #: ../src/library/LibraryWindow.vala:286
 msgid "Import photos from disk to library"
-msgstr "Importar fotos do disco para a galeria"
+msgstr "Importar fotos do disco para a biblioteca"
 
 #: ../src/library/LibraryWindow.vala:293
 msgid "Import From _Application..."
@@ -4360,7 +4360,7 @@ msgstr "Informações _estendidas"
 
 #: ../src/library/LibraryWindow.vala:381
 msgid "Display extended information for the selection"
-msgstr "Exibe informações básicas para a seleção"
+msgstr "Exibe informações estendidas para a seleção"
 
 #: ../src/library/LibraryWindow.vala:386
 msgid "_Search Bar"
@@ -4671,7 +4671,7 @@ msgstr ""
 
 #: ../src/searches/Branch.vala:68
 msgid "Saved Searches"
-msgstr "Pesquisas salvas"
+msgstr "Buscas salvas"
 
 #. Ordering must correspond with SearchConditionText.Context
 #: ../src/searches/SavedSearchDialog.vala:168
@@ -4752,11 +4752,11 @@ msgstr "modificações externas"
 #. Ordering must correspond with SearchConditionFlagged.State
 #: ../src/searches/SavedSearchDialog.vala:373
 msgid "flagged"
-msgstr "sinalizada"
+msgstr "marcada"
 
 #: ../src/searches/SavedSearchDialog.vala:374
 msgid "not flagged"
-msgstr "não sinalizada"
+msgstr "não marcada"
 
 #: ../src/searches/SavedSearchDialog.vala:437
 msgid "and higher"
@@ -4840,7 +4840,7 @@ msgstr "Tipo de mídia"
 
 #: ../src/searches/SearchBoolean.vala:178
 msgid "Flag state"
-msgstr "Sinalizar estado"
+msgstr "Marcada"
 
 #: ../src/searches/SearchBoolean.vala:181
 msgid "Photo state"
@@ -4890,7 +4890,7 @@ msgstr "Usar para tela de bloqueio"
 
 #: ../ui/set_background_slideshow_dialog.glade.h:1
 msgid "Set as Desktop Slideshow"
-msgstr "Definir apresentação de slides da área de trabalho"
+msgstr "Definir exibição de slides da área de trabalho"
 
 #: ../ui/set_background_slideshow_dialog.glade.h:2
 msgid "Show each photo for"
@@ -4975,7 +4975,7 @@ msgstr "﻿preto"
 
 #: ../ui/shotwell.glade.h:19
 msgid "_Watch library directory for new files"
-msgstr "_Monitorar diretório de galeria por novos arquivos"
+msgstr "_Monitorar diretório da biblioteca por novos arquivos"
 
 #: ../ui/shotwell.glade.h:20
 msgid "Metadata"
