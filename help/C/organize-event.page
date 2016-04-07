@@ -24,7 +24,7 @@
     <section>
     <title>Renaming events</title>
 
-    <p>To give an event a name rather than referring to it by its date, select the event, click <guiseq><gui>Edit</gui><gui>Rename Event</gui></guiseq> and enter a new name. Another way of renaming an event is to double-click its name in the sidebar; type a new name and then press <key>Enter</key>.</p>
+    <p>To give an event a name rather than referring to it by its date, select the event, click <guiseq><gui>Events</gui><gui>Rename Event...</gui></guiseq> and enter a new name. Another way of renaming an event is to double-click its name in the sidebar; type a new name and then press <key>Enter</key>.</p>
     </section>
 
     <section>

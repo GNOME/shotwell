@@ -26,7 +26,7 @@
   <p>You can also constrain the crop box to one of many common sizes. Choose a size from the drop-down list that suits your needs. If you press the flip button next to it, the orientation of the constraint will switch (from landscape to portrait).</p>
  </item>
  <item>
-  <p>When you're happy with your crop outline, press the <gui>Apply</gui> button. Shotwell will display the cropped photo.</p>
+  <p>When you're happy with your crop outline, apply it by pressing the <gui>Crop</gui> button. Shotwell will display the cropped photo.</p>
  </item>
  <item>
   <p>If you change your mind, press the <gui>Crop</gui> button again and fine-tune the crop.</p>

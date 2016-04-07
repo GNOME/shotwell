@@ -16,7 +16,7 @@ a file manager window or your desktop. The new files will be full-sized copies o
 the photos in your library.</p>
 
 <p>
-Alternatively, select a set of photos and choose the <guiseq><gui>File</gui><gui>Export</gui></guiseq> command or press <keyseq><key>Shift</key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting you fine-tune the size and dimensions of your photo files.
+Alternatively, select a set of photos and choose the <guiseq><gui>File</gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting you fine-tune the size and dimensions of your photo files.
 A window will appear allowing you to make several choices:
 </p>
 

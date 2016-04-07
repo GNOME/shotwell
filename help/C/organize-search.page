@@ -48,7 +48,7 @@
             </p>
             
             <p>
-                Create a new saved search with <guiseq><gui>Edit</gui><gui>New Search</gui></guiseq> or by hitting 
+                Create a new saved search with <guiseq><gui>Edit</gui><gui>New Saved Search...</gui></guiseq> or by hitting
                 <keyseq><key>Ctrl</key><key>S</key></keyseq>. The dialog box allows you to enter a name for the
                 search and select whether you want to meet Any, All, or None of the criteria in the following rows.
             </p>

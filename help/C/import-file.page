@@ -13,7 +13,7 @@
 
     <p>To import photo files from your hard disk into Shotwell, just drag them from your file browser into the Shotwell window.</p>
     
-    <p>Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder</gui></guiseq> and select the folder containing the photos you want to import.</p>
+    <p>Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</gui></guiseq> and select the folder containing the photos you want to import.</p>
     
     <p>Shotwell will ask whether you want to copy the photo files to your library folder (usually this is the <file>Pictures</file> folder in your home directory) or to import them in place without copying the files.</p>
     
