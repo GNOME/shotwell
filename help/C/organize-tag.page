@@ -63,9 +63,9 @@
 
     <p>
 		When you create a tag, it will appear in the sidebar under the 
-		Tags item, which is hidden if there are no tags. Photos can have 
-		multiple tags attached to them, and when you click on the name 
-		of a given tag in the sidebar, you will see all the photos 
+		<gui>Tags</gui> item, which is hidden if there are no tags. Photos
+		can have multiple tags attached to them, and when you click on the
+		name of a given tag in the sidebar, you will see all the photos
 		associated with that tag.
 	</p>
     

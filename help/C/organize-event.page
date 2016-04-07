@@ -50,7 +50,7 @@
     <section>
     <title>Change the photo used to represent each event</title>
 
-    <p>If you select the Events item in the sidebar, you'll see a single photo which represents each event. This is called the key photo.</p>
+    <p>If you select the <gui>Events</gui> item in the sidebar, you'll see a single photo which represents each event. This is called the key photo.</p>
 
     <p>By default, Shotwell uses the first photo in each event as its key photo.
     To use a different key photo, select the photo and choose <guiseq><gui>Photos</gui><gui>Make Key Photo for Event</gui></guiseq>.</p>
