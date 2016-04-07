@@ -12,15 +12,14 @@
 # Translators from GNOME Translation Project (2014 forward):
 # Felipe Braga <fbobraga@gmail.com>, 2015.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2014, 2015, 2016.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
 "l&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-04-24 00:33+0000\n"
-"PO-Revision-Date: 2015-04-28 09:39-0200\n"
-"Last-Translator: Felipe Braga <fbobraga@gmail.com>\n"
+"POT-Creation-Date: 2016-04-07 17:46+0000\n"
+"PO-Revision-Date: 2016-04-07 15:08-0200\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -1111,8 +1110,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Um erro fatal ocorreu ao acessar a biblioteca do Shotwell. O Shotwell não pode "
-"continuar.\n"
+"Um erro fatal ocorreu ao acessar a biblioteca do Shotwell. O Shotwell não "
+"pode continuar.\n"
 "\n"
 "%s"
 
@@ -2316,13 +2315,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Isto irá remover a foto da sua biblioteca do Shotwell. Você gostaria também de "
-"mover o arquivo para a lixeira?\n"
+"Isto irá remover a foto da sua biblioteca do Shotwell. Você gostaria também "
+"de mover o arquivo para a lixeira?\n"
 "\n"
 "Esta ação não poderá ser desfeita."
 msgstr[1] ""
-"Isto irá remover %d fotos da sua biblioteca do Shotwell. Você gostaria também "
-"mover os arquivos para a lixeira?\n"
+"Isto irá remover %d fotos da sua biblioteca do Shotwell. Você gostaria "
+"também mover os arquivos para a lixeira?\n"
 "\n"
 "Esta ação não poderá ser desfeita."
 
@@ -3614,7 +3613,7 @@ msgstr "_Restaurar"
 
 #: ../src/Resources.vala:687
 msgid "Move the selected photos back into the library"
-msgstr "Remover as fotos selecionadas para a biblioteca"
+msgstr "Mover as fotos selecionadas para a biblioteca"
 
 #: ../src/Resources.vala:689
 msgid "Show in File Mana_ger"
@@ -3826,7 +3825,7 @@ msgstr "Importar _selecionadas"
 
 #: ../src/camera/ImportPage.vala:887
 msgid "Import the selected photos into your library"
-msgstr "Remover as fotos selecionadas para a sua biblioteca"
+msgstr "Importar as fotos selecionadas para a sua biblioteca"
 
 #: ../src/camera/ImportPage.vala:892
 msgid "Import _All"
