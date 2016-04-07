@@ -1,11 +1,11 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide"
-      id="edit-time-date">
+      id="edit-date-time">
 
     <info>
         <link type="guide" xref="index#edit"/>
         <desc>Change the date and time of photos if those details are incorrect.</desc>
-        
+
         <link type="next" xref="edit-enhance" />
     </info>
 
@@ -18,4 +18,3 @@
 <p>By default, the date and time are only changed inside Shotwell. You can also choose to modify the date and time in the original file, but this cannot be undone once you exit Shotwell.</p>
 
 </page>
-

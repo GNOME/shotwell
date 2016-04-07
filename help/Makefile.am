@@ -19,7 +19,7 @@ DOC_PAGES = \
 	edit-redeye.page \
 	edit-rotate.page \
 	edit-straighten.page \
-	edit-time-date.page \
+	edit-date-time.page \
 	edit-undo.page \
 	formats.page \
 	import-camera.page \
