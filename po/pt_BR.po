@@ -12,14 +12,15 @@
 # Translators from GNOME Translation Project (2014 forward):
 # Rafael Ferreira <rafael.f.f1@gmail.com>, 2014, 2015.
 # Felipe Braga <fbobraga@gmail.com>, 2015.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
 "l&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-04-24 00:33+0000\n"
-"PO-Revision-Date: 2015-04-28 09:39-0200\n"
-"Last-Translator: Felipe Braga <fbobraga@gmail.com>\n"
+"POT-Creation-Date: 2016-04-07 14:13+0000\n"
+"PO-Revision-Date: 2016-04-07 13:52-0200\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -29,12 +30,12 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
-#: ../plugins/common/RESTSupport.vala:424
+#: ../plugins/common/RESTSupport.vala:425
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Um arquivo temporário necessário para a publicação não está disponível"
 
-#: ../plugins/common/RESTSupport.vala:1138
+#: ../plugins/common/RESTSupport.vala:1145
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -433,7 +434,7 @@ msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Visite o site do Yandex.Fotki"
 
-#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:659
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Você não está atualmente autenticado em Yandex.Fotki."
 
@@ -558,7 +559,7 @@ msgid "Public"
 msgstr "Público"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:8
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1181
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1195
 msgid "Friends"
 msgstr "Amigos"
 
@@ -625,7 +626,7 @@ msgstr ""
 "O arquivo necessário para a publicação não está disponível. A publicação "
 "para o Facebook não pode continuar."
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1033
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -634,21 +635,21 @@ msgstr ""
 "Você está autenticado no Facebook como %s.\n"
 "\n"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1020
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1034
 msgid "Where would you like to publish the selected photos?"
 msgstr "Onde você gostaria de publicar as fotos selecionadas?"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1035
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Upload _size:"
 msgstr "Tama_nho de upload:"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1180
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1194
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1214
 msgid "Just me"
 msgstr "Somente para mim"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1182
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1196
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1210
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1234
 msgid "Everyone"
@@ -1120,8 +1121,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Um erro fatal ocorreu ao acessar a biblioteca do Shotwell. O Shotwell não pode "
-"continuar.\n"
+"Um erro fatal ocorreu ao acessar a biblioteca do Shotwell. O Shotwell não "
+"pode continuar.\n"
 "\n"
 "%s"
 
@@ -1464,7 +1465,7 @@ msgstr "_Apagar"
 #: ../src/Dialogs.vala:25
 #, c-format
 msgid "This will remove the saved search \"%s\".  Continue?"
-msgstr "Isto irá remover a busca salva \"%s\". Continuar?"
+msgstr "Isto irá remover a pesquisa salva \"%s\". Continuar?"
 
 #: ../src/Dialogs.vala:35
 msgid ""
@@ -2225,7 +2226,7 @@ msgstr "Ano-Mês-Dia"
 
 #: ../src/Dialogs.vala:2331 ../src/editing_tools/EditingTools.vala:781
 msgid "Custom"
-msgstr "Customizar"
+msgstr "Personalizar"
 
 #. Invalid pattern.
 #: ../src/Dialogs.vala:2568
@@ -2325,13 +2326,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Isto irá remover a foto da sua biblioteca do Shotwell. Você gostaria também de "
-"mover o arquivo para a lixeira?\n"
+"Isto irá remover a foto da sua biblioteca do Shotwell. Você gostaria também "
+"de mover o arquivo para a lixeira?\n"
 "\n"
 "Esta ação não poderá ser desfeita."
 msgstr[1] ""
-"Isto irá remover %d fotos da sua biblioteca do Shotwell. Você gostaria também "
-"mover os arquivos para a lixeira?\n"
+"Isto irá remover %d fotos da sua biblioteca do Shotwell. Você gostaria "
+"também mover os arquivos para a lixeira?\n"
 "\n"
 "Esta ação não poderá ser desfeita."
 
@@ -3265,7 +3266,7 @@ msgstr "Remove avaliação"
 
 #: ../src/Resources.vala:267
 msgid "_Rejected"
-msgstr "_Rejeita"
+msgstr "_Rejeitada"
 
 #: ../src/Resources.vala:268
 msgid "Rejected"
@@ -3273,23 +3274,23 @@ msgstr "Rejeitada"
 
 #: ../src/Resources.vala:269
 msgid "Rate Rejected"
-msgstr "Avaliar como rejeitado"
+msgstr "Avaliar como rejeitada"
 
 #: ../src/Resources.vala:270
 msgid "Setting as rejected"
-msgstr "Definir como rejeitado"
+msgstr "Definir como rejeitada"
 
 #: ../src/Resources.vala:271
 msgid "Set rating to rejected"
-msgstr "Avaliar como rejeitado"
+msgstr "Avaliar como rejeitada"
 
 #: ../src/Resources.vala:273
 msgid "Rejected _Only"
-msgstr "Rejeitado _apenas"
+msgstr "Rejeitada _apenas"
 
 #: ../src/Resources.vala:274
 msgid "Rejected Only"
-msgstr "Rejeitados Apenas"
+msgstr "Rejeitadas apenas"
 
 #: ../src/Resources.vala:275
 msgid "Show only rejected photos"
@@ -3297,7 +3298,7 @@ msgstr "Exibir apenas fotos rejeitadas"
 
 #: ../src/Resources.vala:277
 msgid "All + _Rejected"
-msgstr "Tudo + _rejeitado"
+msgstr "Tudo + _rejeitadas"
 
 #: ../src/Resources.vala:278 ../src/Resources.vala:279
 msgid "Show all photos, including rejected"
@@ -3545,7 +3546,7 @@ msgstr ""
 
 #: ../src/Resources.vala:413
 msgid "Saved Search"
-msgstr "Busca salva"
+msgstr "Pesquisa salva"
 
 #: ../src/Resources.vala:415
 msgid "Delete Search"
@@ -4336,7 +4337,7 @@ msgstr "Localiza fotos e vídeos através de pesquisa"
 #: ../src/library/LibraryWindow.vala:329 ../src/searches/Branch.vala:77
 #: ../src/sidebar/Tree.vala:199
 msgid "Ne_w Saved Search..."
-msgstr "Nova busca salva..."
+msgstr "No_va pesquisa salva..."
 
 #: ../src/library/LibraryWindow.vala:351
 msgid "_Photos"
@@ -4671,7 +4672,7 @@ msgstr ""
 
 #: ../src/searches/Branch.vala:68
 msgid "Saved Searches"
-msgstr "Buscas salvas"
+msgstr "Pesquisas salvas"
 
 #. Ordering must correspond with SearchConditionText.Context
 #: ../src/searches/SavedSearchDialog.vala:168
