@@ -3,7 +3,7 @@ PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 PROGRAM_MIGRATOR = shotwell-settings-migrator
 
 VERSION = 0.22.0
-GITVER := $(shell git log -n 1 2>/dev/null | head -n 1 | awk '{print $$2}')
+GITVER := $(shell git rev-parse HEAD)
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
