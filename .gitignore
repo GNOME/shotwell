@@ -7,6 +7,8 @@ shotwell
 /help/es/*.page
 /help/hu/*.page
 /help/cs/*.page
+/help/pt_BR/*.page
+/help/sv/*.page
 /misc/gschemas.compiled
 /misc/shotwell.desktop
 /misc/shotwell-viewer.desktop
