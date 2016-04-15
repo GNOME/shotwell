@@ -1,3 +1,10 @@
+shotwell (0.22.0-1~wily1) wily; urgency=medium
+
+  * Updated translations
+  * New maintainer
+
+ -- Jens Georg <mail@jensge.org>  Fri, 15 Apr 2016 22:20:50 +0200
+
 shotwell (0.22.0-1~vivid1) vivid; urgency=low
 
   * Improved metadata support for Facebook upload (#742163)
