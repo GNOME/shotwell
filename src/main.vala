@@ -433,9 +433,17 @@ void main(string[] args) {
     if (is_string_empty(filename) && !was_already_running) {
         string orig_path = AppDirs.get_data_subdir("data").get_child("photo.db").get_path();
         string backup_path = orig_path + ".bak";
-        string cmdline = "cp " + orig_path + " " + backup_path;
-        Posix.system(cmdline);
-        Posix.system("sync");
+        try {
+            File src = File.new_for_commandline_arg(orig_path);
+            File dest = File.new_for_commandline_arg(backup_path);
+            src.copy(dest,
+                     FileCopyFlags.OVERWRITE |
+                     FileCopyFlags.ALL_METADATA);
+        } catch(Error error) {
+            warning("Failed to create backup file of database: %s",
+                    error.message);
+        }
+        Posix.sync();
     }
 }
 

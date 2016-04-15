@@ -69,10 +69,17 @@ public abstract class DatabaseTable {
             db = null;
             
             string backup_path = filename + ".bak";
-            string cmdline = "cp " + backup_path + " " + filename;
-            Posix.system(cmdline);    
 
-            prepare_db(filename);
+            try {
+                File src = File.new_for_commandline_arg(backup_path);
+                File dest = File.new_for_commandline_arg(filename);
+                src.copy(dest,
+                         FileCopyFlags.OVERWRITE |
+                         FileCopyFlags.ALL_METADATA);
+                prepare_db(filename);
+            } catch (Error error) {
+                AppWindow.panic(_("Unable to restore photo database %s").printf(error.message));
+            }
         }
 
         // disable synchronized commits for performance reasons ... this is not vital, hence we
