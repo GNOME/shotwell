@@ -15,10 +15,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-04-07 17:15+0000\n"
-"PO-Revision-Date: 2016-04-07 14:45-0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
+"l&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2016-04-16 08:17+0000\n"
+"PO-Revision-Date: 2016-04-16 08:00-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -4025,6 +4025,14 @@ msgstr ""
 "\n"
 "O erro foi: \n"
 "%s"
+
+#: ../src/db/DatabaseTable.vala:81
+#, c-format
+#| msgid ""
+#| "Unable to write to photo database file:\n"
+#| " %s"
+msgid "Unable to restore photo database %s"
+msgstr "Não foi possível restaurar o banco de dados de fotos %s"
 
 #: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:335
 msgid "_File"
