@@ -1,14 +1,14 @@
 # Czech translation for shotwell.
 # Copyright (C) 2014 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Marek Černocký <marek@manet.cz>, 2014.
+# 
+# Marek Černocký <marek@manet.cz>, 2014, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2014-11-15 20:31+0000\n"
-"PO-Revision-Date: 2014-11-15 22:39+0100\n"
+"POT-Creation-Date: 2016-04-16 08:18+0000\n"
+"PO-Revision-Date: 2016-04-16 18:24+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -379,10 +379,10 @@ msgstr ""
 
 #: C/share-print.page:7(desc)
 msgid ""
-"Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing "
+"Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
 "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
 msgstr ""
-"Klikněte na <guiseq><gui>Soubor</gui><gui>Tisk</gui></guiseq>. Další volby "
+"Klikněte na <guiseq><gui>Soubor</gui><gui>Tisk…</gui></guiseq> Další volby "
 "tisku najdete na kartě <gui>Nastavení stránky</gui> v dialogovém okně "
 "<gui>Tisk</gui>."
 
@@ -392,22 +392,22 @@ msgstr "Tisk"
 
 #: C/share-print.page:14(p)
 msgid ""
-"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</"
+"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
 "gui></guiseq>."
 msgstr ""
 "Když chcete fotografii vytisknout, vyberte ji a zvolte <guiseq><gui>Soubor</"
-"gui><gui>Tisk</gui></guiseq>."
+"gui><gui>Tisk…</gui></guiseq>"
 
 #: C/share-print.page:16(p)
 msgid ""
 "Shotwell can also print multiple images in one page; to do this, select "
-"multiple images, choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>, "
+"multiple images, choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq>, "
 "and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
 "tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
 "options under <gui>Autosize</gui>."
 msgstr ""
 "Shotwell umí také tisknout více obrázků na jednu stránku. Udělá se to tak, "
-"že se vybere více obrázků, zvolí <guiseq><gui>Soubor</gui> <gui>Tisk</gui></"
+"že se vybere více obrázků, zvolí <guiseq><gui>Soubor</gui> <gui>Tisk…</gui></"
 "guiseq> a v dialogovém okně <gui>Tisk</gui> se vybere karta <gui>Nastavení "
 "obrázku</gui>. Tam ve volbě <gui>Automatická velikost</gui> vyberte jednu z "
 "možností „X obrázků na stránku“."
@@ -443,13 +443,13 @@ msgstr ""
 #: C/share-export.page:18(p)
 msgid ""
 "Alternatively, select a set of photos and choose the <guiseq><gui>File</"
-"gui><gui>Export</gui></guiseq> command or press <keyseq><key>Shift</"
+"gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</"
 "key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting "
 "you fine-tune the size and dimensions of your photo files. A window will "
 "appear allowing you to make several choices:"
 msgstr ""
 "Jinou možností exportu je vybrat sadu fotografií a zvolit "
-"<guiseq><gui>Soubor</gui> <gui>Export</gui></guiseq> nebo zmáčknout "
+"<guiseq><gui>Soubor</gui> <gui>Export…</gui></guiseq> nebo zmáčknout "
 "<keyseq><key>Shift</key><key>Ctrl</key><key>E</key></keyseq>, čímž se "
 "fotografie exportují s poskytnutím volby jejich velikosti a rozměrů. Objeví "
 "se okno, ve kterém můžete provést tyto volby:"
@@ -543,14 +543,15 @@ msgstr ""
 msgid ""
 "You can also set your background to a slideshow of photos. To do this, "
 "select the photos for the slideshow and choose <guiseq><gui>File</"
-"gui><gui>Set as Desktop Slideshow</gui></guiseq>. Shotwell will prompt you "
-"for a slideshow delay, which can be any interval up to one day in length. "
-"The background slideshow will proceed even when Shotwell is not running."
+"gui><gui>Set as Desktop Slideshow...</gui></guiseq>. Shotwell will prompt "
+"you for a slideshow delay, which can be any interval up to one day in "
+"length. The background slideshow will proceed even when Shotwell is not "
+"running."
 msgstr ""
 "Pozadí své pracovní plochy můžete nastavit také na promítání fotografií. "
 "Stačí fotografie, které chcete promítat, vybrat a zvolit "
-"<guiseq><gui>Soubor</gui><gui>Nastavit jako prezentaci na ploše</gui></"
-"guiseq>. Shotwell se vás dotáže na dobu zobrazení snímků, což může být "
+"<guiseq><gui>Soubor</gui><gui>Nastavit jako prezentaci na ploše…</gui></"
+"guiseq> Shotwell se vás dotáže na dobu zobrazení snímků, což může být "
 "libovolný čas až jeden den dlouhý. Promítání na pozadí bude probíhat, i když "
 "nebude Shotwell spuštěný."
 
@@ -1186,10 +1187,10 @@ msgstr ""
 #: C/organize-title.page:17(p)
 msgid ""
 "To change a photo's title, select the photo and click <guiseq><gui>Photos</"
-"gui><gui>Edit Title</gui></guiseq>, or press <key>F2</key>."
+"gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
 msgstr ""
 "Název můžete změnit tak, že fotografii vyberete a kliknete na "
-"<guiseq><gui>Fotografie</gui> <gui>Změnit název</gui></guiseq> nebo "
+"<guiseq><gui>Fotografie</gui> <gui>Změnit název…</gui></guiseq> nebo "
 "zmáčknete <key>F2</key>."
 
 #: C/organize-tag.page:7(desc)
@@ -1217,8 +1218,8 @@ msgstr ""
 "následujícího:"
 
 #: C/organize-tag.page:28(p)
-msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
-msgstr "Zvolte <guiseq><gui>Štítky</gui> <gui>Přídat štítky</gui></guiseq>."
+msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>."
+msgstr "Zvolte <guiseq><gui>Štítky</gui> <gui>Přídat štítky…</gui></guiseq>"
 
 #: C/organize-tag.page:29(p)
 msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
@@ -1231,15 +1232,15 @@ msgstr "Přetáhněte fotografii na požadovaný štítek v postranním panelu."
 #: C/organize-tag.page:33(p)
 msgid ""
 "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
-"<guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq> you can type in the "
+"<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
 "names of one or more tags, separated by commas. Once you have created a tag, "
 "you can rename it by selecting that tag in the sidebar and choosing "
-"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"</gui></guiseq>, by "
+"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></guiseq>, by "
 "rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
 "tag in the sidebar."
 msgstr ""
 "Když použijete <keyseq><key>Ctrl</key> <key>T</key></keyseq> nebo "
-"<guiseq><gui>Štítky</gui> <gui>Přidat štítky</gui></guiseq>, můžete napsat "
+"<guiseq><gui>Štítky</gui> <gui>Přidat štítky…</gui></guiseq>, můžete napsat "
 "název jednoho nebo i více štítků oddělených čárkami. Jakmile máte štítek "
 "jednou vytvořený, můžete jej přejmenovat tak, že jej vyberete v postranním "
 "panelu a zvolíte <guiseq><gui>Štítky</gui> <gui>Přejmenovat štítek "
@@ -1249,13 +1250,13 @@ msgstr ""
 #: C/organize-tag.page:44(p)
 msgid ""
 "To change which tags are associated with a particular photo, select that "
-"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags</gui></guiseq> or "
-"right-click on a photo and select <gui>Modify Tags</gui> and edit the comma "
-"separated list. To remove a tag from one or more photos, first select that "
-"tag in the sidebar, then select the photos you would like to remove, and "
-"choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</gui></"
-"guiseq> or right-click on the photos an select <gui>Remove Tag \"[name]\" "
-"from Photos</gui>."
+"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
+"right-click on a photo and select <gui>Modify Tags...</gui> and edit the "
+"comma separated list. To remove a tag from one or more photos, first select "
+"that tag in the sidebar, then select the photos you would like to remove, "
+"and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</"
+"gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
+"\"[name]\" from Photos</gui>."
 msgstr ""
 "V případě, že chcete změnit přidružení štítku k některé fotografii, vyberte "
 "danou fotografii, zvolte <guiseq><gui>Štítky</gui> <gui>Změnit štítky…</"
@@ -1280,14 +1281,14 @@ msgstr ""
 
 #: C/organize-tag.page:64(p)
 msgid ""
-"When you create a tag, it will appear in the sidebar under the Tags item, "
-"which is hidden if there are no tags. Photos can have multiple tags attached "
-"to them, and when you click on the name of a given tag in the sidebar, you "
-"will see all the photos associated with that tag."
+"When you create a tag, it will appear in the sidebar under the <gui>Tags</"
+"gui> item, which is hidden if there are no tags. Photos can have multiple "
+"tags attached to them, and when you click on the name of a given tag in the "
+"sidebar, you will see all the photos associated with that tag."
 msgstr ""
-"Jakmile vytvoříte štítek, objeví se v postranním panelu pod položkou Štítky, "
-"která je skrytá v případě, že žádné štítky neexistují. Ke každé fotografii "
-"může být přiřazeno i více štítků a když kliknete na název štítku v "
+"Jakmile vytvoříte štítek, objeví se v postranním panelu pod položkou <gui>"
+"Štítky</gui>, která je skrytá v případě, že žádné štítky neexistují. Ke každé "
+"fotografii může být přiřazeno i více štítků a když kliknete na název štítku v "
 "postranním panelu, uvidíte všechny fotografie, které mají štítek přiřazený."
 
 #: C/organize-tag.page:73(title)
@@ -1402,28 +1403,29 @@ msgstr ""
 
 #: C/organize-search.page:50(p)
 msgid ""
-"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Search</gui></"
-"guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></keyseq>. The "
-"dialog box allows you to enter a name for the search and select whether you "
-"want to meet Any, All, or None of the criteria in the following rows."
+"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Saved "
+"Search...</gui></guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></"
+"keyseq>. The dialog box allows you to enter a name for the search and select "
+"whether you want to meet Any, All, or None of the criteria in the following "
+"rows."
 msgstr ""
 "Nové uložené hledání vytvoříte pomocí <guiseq><gui>Upravit</gui> <gui>Nové "
-"uložené hledání</gui></guiseq> nebo zmáčknutím <keyseq><key>Ctrl</"
+"uložené hledání…</gui></guiseq> nebo zmáčknutím <keyseq><key>Ctrl</"
 "key><key>S</key></keyseq>. V dialogovém okně můžete zadat název hledání a "
 "vybrat, jestli se kritéria v následujících řádcích mají platit pro cokoliv, "
 "vše nebo nic."
 
 #: C/organize-search.page:56(p)
 msgid ""
-"Each row represents a search criterion. Use the + button to add more rows, "
-"and the - button to remove a specific row. The combo box on the left of each "
-"row selects the type of criteria. Criteria must be entered correctly before "
-"the OK button becomes available."
+"Each row represents a search criterion. Use the <gui>+</gui> button to add "
+"more rows, and the <gui>-</gui> button to remove a specific row. The combo "
+"box on the left of each row selects the type of criteria. Criteria must be "
+"entered correctly before the <gui>OK</gui> button becomes available."
 msgstr ""
 "Každý řádek představuje jedno vyhledávací kritérium. Pro přidání dalších "
-"řádků použijte tlačítko +, pro odebrání konkrétního řádku tlačítko -. V "
-"rozbalovací nabídce po levé stráně každého řádku jsou typy kritérií. Aby "
-"bylo přístupné tlačítko Budiž, musí být kritéria zadána správně."
+"řádků použijte tlačítko <gui>+</gui>, pro odebrání konkrétního řádku tlačítko "
+"<gui>-</gui>. V rozbalovací nabídce po levé stráně každého řádku jsou typy "
+"kritérií. Aby bylo přístupné tlačítko <gui>Budiž</gui>, musí být kritéria zadána správně."
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -1772,13 +1774,13 @@ msgstr "Přejmenování události"
 #: C/organize-event.page:27(p)
 msgid ""
 "To give an event a name rather than referring to it by its date, select the "
-"event, click <guiseq><gui>Edit</gui><gui>Rename Event</gui></guiseq> and "
-"enter a new name. Another way of renaming an event is to double-click its "
-"name in the sidebar; type a new name and then press <key>Enter</key>."
+"event, click <guiseq><gui>Events</gui><gui>Rename Event...</gui></guiseq> "
+"and enter a new name. Another way of renaming an event is to double-click "
+"its name in the sidebar; type a new name and then press <key>Enter</key>."
 msgstr ""
 "Pokud si nějakou událost chcete raději pojmenovat namísto toho, aby byla "
 "označena datem, vyberte ji, klikněte na <guiseq><gui>Události</"
-"gui><gui>Přejmenovat událost</gui></guiseq> a zadejte nový název. Jiný možný "
+"gui><gui>Přejmenovat událost…</gui></guiseq> a zadejte nový název. Jiný možný "
 "postup je dvojitě kliknout na název události v postranním panelu, napsat "
 "nový název a zmáčknout <key>Enter</key>."
 
@@ -1844,11 +1846,12 @@ msgstr "Změna fotografie, která událost reprezentuje"
 
 #: C/organize-event.page:53(p)
 msgid ""
-"If you select the Events item in the sidebar, you'll see a single photo "
-"which represents each event. This is called the key photo."
+"If you select the <gui>Events</gui> item in the sidebar, you'll see a single "
+"photo which represents each event. This is called the key photo."
 msgstr ""
-"Když v postranním panelu vyberete Události, uvidíte jednotlivé fotografie "
-"reprezentující jednotlivé události. Tyto fotografie se nazývají klíčové."
+"Když v postranním panelu vyberete <gui>Události</gui>, uvidíte jednotlivé "
+"fotografie reprezentující jednotlivé události. Tyto fotografie se nazývají "
+"klíčové."
 
 #: C/organize-event.page:55(p)
 msgid ""
@@ -1973,12 +1976,12 @@ msgstr "Čtečka karet a karta by měly být detekovány počítačem automatick
 msgid ""
 "Follow the instructions for <link xref=\"import-file\">importing photos from "
 "your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From "
-"Folder</gui></guiseq>, the memory card should be visible as a folder in the "
-"side bar of the file selection window."
+"Folder...</gui></guiseq>, the memory card should be visible as a folder in "
+"the side bar of the file selection window."
 msgstr ""
 "Postupujte podle instrukcí pro <link xref=\"import-file\">import fotografií "
 "z pevného disku</link>. Když kliknete na <guiseq><gui>Soubor</gui> "
-"<gui>Importovat ze složky</gui></guiseq>, měla by být paměťová karta vidět "
+"<gui>Importovat ze složky…</gui></guiseq>, měla by být paměťová karta vidět "
 "mezi složkami v postranním panelu okna pro výběr souboru."
 
 #: C/import-memorycard.page:28(p)
@@ -2065,11 +2068,11 @@ msgstr ""
 
 #: C/import-file.page:16(p)
 msgid ""
-"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder</gui></"
-"guiseq> and select the folder containing the photos you want to import."
+"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
+"gui></guiseq> and select the folder containing the photos you want to import."
 msgstr ""
 "Případně můžete kliknout na <guiseq><gui>Soubor</gui> <gui>Importovat ze "
-"složky</gui></guiseq> a vyberte složku obsahující fotografie, které chcete "
+"složky…</gui></guiseq> a vyberte složku obsahující fotografie, které chcete "
 "importovat."
 
 #: C/import-file.page:18(p)
@@ -2284,25 +2287,25 @@ msgstr ""
 "na <guiseq><gui>Fotografie</gui> <gui>Vráti zpět na původní</gui></guiseq>. "
 "Jedinou výjimkou je změna data a času, které vráceny nebudou."
 
-#: C/edit-time-date.page:7(desc)
-msgid "Change the time and date of photos if those details are incorrect."
+#: C/edit-date-time.page:7(desc)
+msgid "Change the date and time of photos if those details are incorrect."
 msgstr "Jak změnit datum a čas fotografií, když je tento údaj špatně."
 
-#: C/edit-time-date.page:12(title)
-msgid "Adjust the time and date of photos"
+#: C/edit-date-time.page:12(title)
+msgid "Adjust the date and time of photos"
 msgstr "Úprava data a času fotografií"
 
-#: C/edit-time-date.page:14(p)
+#: C/edit-date-time.page:14(p)
 msgid ""
-"To adjust the time and date of photos, select the photos you would like to "
-"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Time and Date</gui></"
-"guiseq> and select a new time and date."
+"To adjust the date and time of photos, select the photos you would like to "
+"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
+"guiseq> and select a new date and time."
 msgstr ""
 "Když chcete upravit čas a datum fotografie, vyberte ji a zvolte "
-"<guiseq><gui>Fotografie</gui> <gui>Nastavit datum a čas</gui></guiseq> a "
+"<guiseq><gui>Fotografie</gui> <gui>Nastavit datum a čas…</gui></guiseq> a "
 "vyberte nové datum a čas."
 
-#: C/edit-time-date.page:16(p)
+#: C/edit-date-time.page:16(p)
 msgid ""
 "If you are changing the date and time of multiple photos at once, you can "
 "choose to shift all the photos by the same amount of time or to set all the "
@@ -2312,10 +2315,10 @@ msgstr ""
 "posun času u všech fotografií vůči stávajícímu nebo u všech nastavit ten "
 "samý čas."
 
-#: C/edit-time-date.page:18(p)
+#: C/edit-date-time.page:18(p)
 msgid ""
-"By default, the time and date are only changed inside Shotwell. You can also "
-"choose to modify the time and date in the original file, but this cannot be "
+"By default, the date and time are only changed inside Shotwell. You can also "
+"choose to modify the date and time in the original file, but this cannot be "
 "undone once you exit Shotwell."
 msgstr ""
 "Standardně se mění datum a čas jen v rámci aplikace Shotwell. Můžete zadat, "
@@ -2353,8 +2356,8 @@ msgid "Drag the slider to achieve the desired degree of straightening."
 msgstr "Posuňte táhlo tak, abyste dosáhli požadovaného narovnání."
 
 #: C/edit-straighten.page:24(p)
-msgid "Press <gui>OK</gui> when finished."
-msgstr "Až máte fotografii narovnanou, zmáčkněte <gui>Budiž</gui>."
+msgid "Press <gui>Straighten</gui> when finished."
+msgstr "Až máte fotografii narovnanou, zmáčkněte <gui>Vyrovnat</gui>."
 
 #: C/edit-rotate.page:7(desc)
 msgid ""
@@ -2659,11 +2662,11 @@ msgstr ""
 
 #: C/edit-crop.page:29(p)
 msgid ""
-"When you're happy with your crop outline, press the <gui>Apply</gui> button. "
-"Shotwell will display the cropped photo."
+"When you're happy with your crop outline, apply it by pressing the "
+"<gui>Crop</gui> button. Shotwell will display the cropped photo."
 msgstr ""
-"Až jste s výběrem ořezávané části spokojeni, zmáčkněte tlačítko <gui>Použít</"
-"gui>. Shotwell zobrazí ořezanou fotografii."
+"Až jste s výběrem ořezávané části spokojeni, zmáčkněte tlačítko <gui>"
+"Oříznout</gui>. Shotwell zobrazí ořezanou fotografii."
 
 #: C/edit-crop.page:32(p)
 msgid ""
@@ -2754,12 +2757,12 @@ msgstr ""
 
 #: C/edit-adjustments.page:18(p)
 msgid ""
-"When the photo's colors and contrast are to your liking, press <gui>Apply</"
-"gui> to save the changes. <gui>Reset</gui> will return the image to its "
-"original state. <gui>Cancel</gui> discards all changes you've made."
+"When the photo's colors and contrast are to your liking, press <gui>OK</gui> "
+"to save the changes. <gui>Reset</gui> will return the image to its original "
+"state. <gui>Cancel</gui> discards all changes you've made."
 msgstr ""
 "Až barevnost a kontrast fotografie odpovídají vašim představám, zmáčkněte "
-"<gui>Použít</gui> a změny se uloží. Tlačítko <gui>Původní</gui> vrací "
+"<gui>Budiž</gui> a změny se uloží. Tlačítko <gui>Původní</gui> vrací "
 "obrázek do původního stavu. Pomocí <gui>Zrušit</gui> se všechny provedené "
 "změny zahodí a s úpravami se skončí."
 
