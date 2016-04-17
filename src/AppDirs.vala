@@ -40,7 +40,7 @@ class AppDirs {
             return;
 
         File cache_dir = get_cache_dir();
-        Posix.mode_t mask = Posix.umask(0700);
+        Posix.mode_t mask = Posix.umask(0077);
         if (!cache_dir.query_exists()) {
             try {
                 cache_dir.make_directory_with_parents(null);
