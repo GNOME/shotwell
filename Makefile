@@ -388,11 +388,11 @@ PACKAGE_ORIG_XZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.or
 
 VALAFLAGS := $(VALAFLAGS) $(VALA_DEFINES) --vapidir=plugins/
 
-VALA_CFLAGS := `pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0` \
+VALA_CFLAGS := $(shell pkg-config --cflags $(EXT_PKGS) $(DIRECT_LIBS)) \
 	$(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
 	$(foreach def,$(DEFINES),-D$(def))
 
-VALA_LDFLAGS := `pkg-config --libs $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0`
+VALA_LDFLAGS := $(shell pkg-config --libs $(EXT_PKGS) $(DIRECT_LIBS) gthread-2.0)
 
 # REQUIRED_CFLAGS absolutely get appended to CFLAGS, whatever the
 # the value of CFLAGS in the environment
