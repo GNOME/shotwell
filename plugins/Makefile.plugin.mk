@@ -52,11 +52,11 @@ all: $(PLUGIN).so
 $(CFILES): .stamp
 	@
 
-$(OFILES): %.o: %.c $(CFILES)
-	$(CC) -c $(CFLAGS) $(DEFINES) -I../.. $(CFILES)
+.c.o:
+	$(CC) -c $(CFLAGS) $(DEFINES) -I../.. $<
 
 $(PLUGIN).so: $(OFILES)
-	$(CC) $(CFLAGS) $(LDFLAGS) -shared $(OFILES) $(LIBS) -o $@
+	$(CC) $(LDFLAGS) -shared $(OFILES) $(LIBS) -o $@
 
 .PHONY: cleantemps
 cleantemps:
