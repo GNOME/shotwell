@@ -1,3 +1,120 @@
+Shotwell 0.23.0 - 25 April 2016
+-------------------------------
+
+  * Allow thinner minimum sidebar (#718611)
+  * Check .cache directory for read/write permissions (#737747)
+  * Fix crash during metadata update (#739917)
+  * Fixed Crop Ribbon / Control not visible (#747201)
+  * Port to webkit2gtk-4.0 (#751709)
+  * Have all soup sessions validate TLS certificates
+  * Remove shell magic from Makefile
+  * Remove calls to Posix.system()
+  * Documentation fixes and improvements (#764800)
+  * Fix CSS issue introduced with previous CSS improvements (#747637)
+  * Don't use GtkHeaderBar on dialogs if the gtk-dialogs-use-header setting is
+    not set (#749874)
+  * Use proper umask to create XDG_USER_CACHE and XDG_USER_DATA when they not
+    exist (#765182)
+  * Don't build the plugin twice
+  * Call pkg-config only once, not every compiler call
+  * Fix parallel builds not to build plugins several times over
+  * Fix contradicting license in rejected.svg (#757643)
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=747637
+ - https://bugzilla.gnome.org/show_bug.cgi?id=749874
+ - https://bugzilla.gnome.org/show_bug.cgi?id=751709
+ - https://bugzilla.gnome.org/show_bug.cgi?id=757643
+ - https://bugzilla.gnome.org/show_bug.cgi?id=764800
+ - https://bugzilla.gnome.org/show_bug.cgi?id=765182
+
+All contributors to this release:
+ - Marek Černocký <marek@manet.cz>
+ - Jens Georg <mail@jensge.org>
+ - Wolfgang Steitz <wsteitz@gmail.com>
+ - Wolfgang Steitz <wolfer7@web.de>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Stas Solovey <whats_up@tut.by>
+ - Jim Nelson <jim@yorba.org>
+ - Tim Waugh <twaugh@redhat.com>
+ - Mayela Miranda <mayela0x14@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - Trần Ngọc Quân <vnwildman@gmail.com>
+ - Michael Catanzaro <mcatanzaro@igalia.com>
+ - Yosef Or Boczko <yoseforb@src.gnome.org>
+ - Rafael Ferreira <rafael.f.f1@gmail.com>
+ - Kjartan Maraas <kmaraas@gnome.org>
+ - Kim Boram <boramism@gmail.com>
+ - Josef Andersson <josef.andersson@gmail.com>
+ - Felipe Braga <fbobraga@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Brian Masney <masneyb@onstation.org>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Aurimas Černius <aurisc4@gmail.com>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Trinh Anh Ngoc <atw1990@gmail.com>
+ - Timo Jyrinki <timo@debian.org>
+ - Samir Ribic <samir.ribic@etf.unsa.ba>
+ - Robert Ancell <robert.ancell@canonical.com>
+ - Pedro Albuquerque <palbuquerque73@gmail.com>
+ - Pau Iranzo <paugnu@gmail.com>
+ - Muhammet Kara <muhammetk@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Maria  Mavridou <mavridou@gmail.com>
+ - Josef Andersson <josef.andersson@fripost.org>
+ - Jiri Grönroos <jiri.gronroos+l10n@iki.fi>
+ - Jiri Grönroos <jiri.gronroos@iki.fi>
+ - Iain Lane <iain@orangesquash.org.uk>
+ - Gábor Kelemen <kelemeng@openscope.org>
+ - Eduardo Arnold <eduardoarnoldh@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Claude Paroz <claude@2xlibre.net>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Cheng-Chia Tseng <>
+ - Changwoo Ryu <cwryu@debian.org>
+ - Cédric Valmary <cvalmary@yahoo.fr>
+ - Boram Kim <boramism@gmail.com>
+ - Balázs Úr <urbalazs@gmail.com>
+ - Balázs Meskó <meskobalazs@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Alexandre Franke <alexandre.franke@gmail.com>
+
+Added/updated translations
+ - bs, courtesy of Samir Ribic
+ - ca, courtesy of Pau Iranzo
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Mario Blättermann
+ - de, courtesy of Wolfgang Stoeggl
+ - el, courtesy of Tom Tryfonidis
+ - es, courtesy of Daniel Mustieles
+ - fi, courtesy of Jiri Grönroos
+ - fr, courtesy of Claude Paroz
+ - he, courtesy of Yosef Or Boczko
+ - hu, courtesy of Gabor Kelemen
+ - hu, courtesy of Meskó Balázs
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - kn, courtesy of Shankar
+ - ko, courtesy of Kim Boram
+ - lt, courtesy of Aurimas Černius
+ - nb, courtesy of Runar Ingebrigtsen
+ - oc, courtesy of Cédric Valmary (totenoc.eu)
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - pt, courtesy of Pedro Albuquerque
+ - ru, courtesy of Stas Solovey
+ - sk, courtesy of Dušan Kazik
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+ - sv, courtesy of Josef Andersson
+ - tr, courtesy of Muhammet Kara
+ - vi, courtesy of Trần Ngọc Quân
+ - zh_TW, courtesy of Cheng-Chia Tseng
+
+Changed dependencies:
+ - webkit2gtk instead of webkitgtk
+
 Shotwell 0.22.0 - 23 March 2015
 -------------------------------
 
