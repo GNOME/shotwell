@@ -1,3 +1,26 @@
+shotwell (0.23.0-1~xenial1) xenial; urgency=medium
+
+  * Allow thinner minimum sidebar (#718611)
+  * Check .cache directory for read/write permissions (#737747)
+  * Fix crash during metadata update (#739917)
+  * Fixed Crop Ribbon / Control not visible (#747201)
+  * Port to webkit2gtk-4.0 (#751709)
+  * Have all soup sessions validate TLS certificates
+  * Remove shell magic from Makefile
+  * Remove calls to Posix.system()
+  * Documentation fixes and improvements (#764800)
+  * Fix CSS issue introduced with previous CSS improvements (#747637)
+  * Don't use GtkHeaderBar on dialogs if the gtk-dialogs-use-header setting is
+    not set (#749874)
+  * Use proper umask to create XDG_USER_CACHE and XDG_USER_DATA when they not
+    exist (#765182)
+  * Don't build the plugin twice
+  * Call pkg-config only once, not every compiler call
+  * Fix parallel builds not to build plugins several times over
+  * Fix contradicting license in rejected.svg (#757643)
+
+ -- Jens Georg <mail@jensge.org>  Tue, 26 Apr 2016 18:50:55 +0200
+
 shotwell (0.22.0-1~vivid1) vivid; urgency=low
 
   * Improved metadata support for Facebook upload (#742163)
