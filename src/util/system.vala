@@ -4,11 +4,6 @@
  * See the COPYING file in this distribution.
  */
 
-int number_of_processors() {
-    int n = (int) ExtendedPosix.sysconf(ExtendedPosix.ConfName._SC_NPROCESSORS_ONLN);
-    return n <= 0 ? 1 : n;
-}
-
 // Return the directory in which Shotwell is installed, or null if uninstalled.
 File? get_sys_install_dir(File exec_dir) {
     // guard against exec_dir being a symlink

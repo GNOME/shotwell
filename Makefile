@@ -116,15 +116,12 @@ THUMBNAILER_SRC_FILES = \
 	shotwell-video-thumbnailer.vala
 
 VAPI_FILES = \
-	ExtendedPosix.vapi \
 	LConv.vapi \
 	libexif.vapi \
 	libraw.vapi \
-	unique-3.0.vapi \
 	unity.vapi
 
 DEPS_FILES = \
-	unique-3.0.deps \
 	unity.deps
 
 ifdef WITH_GPHOTO_25
@@ -245,7 +242,6 @@ HEADER_DIRS = \
 	./vapi
 
 LOCAL_PKGS = \
-	ExtendedPosix \
 	posix \
 	LConv
 

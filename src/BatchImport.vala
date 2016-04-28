@@ -431,7 +431,7 @@ public class BatchImport : Object {
     private Gee.HashMap<string, File> imported_full_md5_table = new Gee.HashMap<string, File>();
 #endif
     private uint throbber_id = 0;
-    private int max_outstanding_import_jobs = Workers.thread_per_cpu_minus_one();
+    private uint max_outstanding_import_jobs = Workers.thread_per_cpu_minus_one();
     private bool untrash_duplicates = true;
     private bool mark_duplicates_online = true;
     
