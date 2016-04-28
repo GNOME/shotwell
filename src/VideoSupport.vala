@@ -258,8 +258,9 @@ public class VideoReader {
         if (ret_waitpid < 0) {
             debug("waitpid returned error code: %d", ret_waitpid);
             buf = null;
-        } else if (0 != posix_wexitstatus(child_status)) {
-            debug("Thumbnailer exited with error code: %d", posix_wexitstatus(child_status));
+        } else if (0 != Process.exit_status(child_status)) {
+            debug("Thumbnailer exited with error code: %d",
+                    Process.exit_status(child_status));
             buf = null;
         }
         

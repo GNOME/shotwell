@@ -30,6 +30,3 @@ void show_file_in_nautilus(string filename) throws Error {
     GLib.Process.spawn_command_line_async(get_nautilus_install_location() + " " + filename);
 }
 
-int posix_wexitstatus(int status) {
-    return (((status) & 0xff00) >> 8);
-}
