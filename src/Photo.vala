@@ -4079,7 +4079,14 @@ public abstract class Photo : PhotoSource, Dateable {
     private void on_editable_file_changed(File file, File? other_file, FileMonitorEvent event) {
         // This has some expense, but this assertion is important for a lot of sanity reasons.
         lock (readers) {
-            assert(readers.editable != null && file.equal(readers.editable.get_file()));
+            assert(readers.editable != null);
+
+            if (!file.equal(readers.editable.get_file())) {
+                // Ignore. When the export file is created, we receive a
+                // DELETE event for renaming temporary file created by exiv2 when
+                // writing meta-data.
+                return;
+            }
         }
         
         debug("EDITABLE %s: %s", event.to_string(), file.get_path());
