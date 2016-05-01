@@ -699,7 +699,7 @@ public abstract class AppWindow : PageWindow {
             "copyright", Resources.COPYRIGHT,
             "website", Resources.HOME_URL,
             "license", Resources.LICENSE,
-            "website-label", _("Visit the Yorba web site"),
+            "website-label", _("Visit the Shotwell web site"),
             "authors", Resources.AUTHORS,
             "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1),
             "translator-credits", _("translator-credits"),
