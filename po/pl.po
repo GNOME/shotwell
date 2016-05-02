@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-17 15:25+0200\n"
-"PO-Revision-Date: 2016-04-17 15:27+0200\n"
+"POT-Creation-Date: 2016-05-02 12:28+0200\n"
+"PO-Revision-Date: 2016-05-02 12:29+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -1133,8 +1133,8 @@ msgstr ""
 "%s"
 
 #: ../src/AppWindow.vala:702
-msgid "Visit the Yorba web site"
-msgstr "Witryna Fundacji Yorba"
+msgid "Visit the Shotwell web site"
+msgstr "Witryna programu Shotwell"
 
 #: ../src/AppWindow.vala:714
 #, c-format
@@ -3921,7 +3921,7 @@ msgid "untitled"
 msgstr "bez nazwy"
 
 #. multiple videos
-#: ../src/VideoSupport.vala:489
+#: ../src/VideoSupport.vala:490
 msgid "Export Videos"
 msgstr "Eksport nagrań wideo"
 
