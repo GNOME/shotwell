@@ -4,39 +4,36 @@
 # See COPYING for license.
 # Translators:
 # manuelmarque <manuelmarque@gmail.com>, 2012
-# manuelmarque <manuelmarque@gmail.com>, 2012
-# Master0010 <miguel.fontoura1@gmail.com>, 2012
 # Master0010 <miguel.fontoura1@gmail.com>, 2012
 # Sérgio Marques <smarquespt@gmail.com>, 2011-2013
 # verayin <vera@yorba.org>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
-# Master0010 <miguel.fontoura1@gmail.com>, 2012
-# Sérgio Marques <smarquespt@gmail.com>, 2011-2012
-# Tiago S. <almosthumane@portugalmail.pt>, 2015
+# Tiago Santos <tiagofsantos81@sapo.pt>, 2015, 2016
 # Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
-"ll&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-10-20 12:34+0000\n"
-"PO-Revision-Date: 2015-11-17 07:58+0100\n"
-"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2016-05-04 14:43+0000\n"
+"PO-Revision-Date: 2016-05-04 20:06+0100\n"
+"Last-Translator: Tiago Santos <tiagofsantos81@sapo.pt>\n"
 "Language-Team: Pedro Albuquerque\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Project-Style: gnome\n"
 
-#: ../plugins/common/RESTSupport.vala:424
+#: ../plugins/common/RESTSupport.vala:425
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
 msgid "A temporary file needed for publishing is unavailable"
-msgstr "Um ficheiro temporário necessário para a publicação não está disponível"
+msgstr ""
+"Um ficheiro temporário necessário para a publicação não está disponível"
 
-#: ../plugins/common/RESTSupport.vala:1138
+#: ../plugins/common/RESTSupport.vala:1145
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -62,7 +59,7 @@ msgstr ""
 "Slackhideo <burajirugaijin@yahoo.co.jp>\n"
 "Sérgio Marques <smarquespt@gmail.com>\n"
 "Pedro Albuquerque <palbuquerque73@gmail.com>\n"
-"Tiago S. <almosthumane@portugalmail.pt>"
+"Tiago Santos <tiagofsantos81@sapo.pt>"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:34
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:32
@@ -429,7 +426,7 @@ msgstr "Direitos de autor 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Visite a página web Yandex.Fotki"
 
-#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:659
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Não está autenticado no Yandex.Fotki"
 
@@ -486,7 +483,8 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:6
 msgid "'Publishing to $url as $username' (populated in application code)"
-msgstr "\"A publicar para $url como $username\" (populado no código da aplicação)"
+msgstr ""
+"\"A publicar para $url como $username\" (populado no código da aplicação)"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:7
 msgid "Scaling constraint:"
@@ -553,7 +551,7 @@ msgid "Public"
 msgstr "Público"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:8
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1181
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1195
 msgid "Friends"
 msgstr "Amigos"
 
@@ -620,7 +618,7 @@ msgstr ""
 "O ficheiro necessário para a publicação não está disponível. A publicação no "
 "Facebook não é possível."
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1033
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -629,21 +627,21 @@ msgstr ""
 "Está autenticado no Facebook como %s\n"
 "\n"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1020
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1034
 msgid "Where would you like to publish the selected photos?"
 msgstr "Onde é que pretende publicar as fotografias selecionadas?"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1035
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Upload _size:"
 msgstr "_Tamanho do envio:"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1180
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1194
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1214
 msgid "Just me"
 msgstr "Para mim"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1182
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1196
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1210
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1234
 msgid "Everyone"
@@ -1103,9 +1101,9 @@ msgstr "_Reportar um erro..."
 
 #: ../src/AppWindow.vala:634 ../src/AppWindow.vala:655
 #: ../src/AppWindow.vala:672 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
-#: ../src/Dialogs.vala:1418 ../src/Dialogs.vala:1441 ../src/Resources.vala:162
-#: ../src/data_imports/DataImportsUI.vala:374
-#: ../src/publishing/PublishingUI.vala:475
+#: ../src/Dialogs.vala:1424 ../src/Dialogs.vala:1447 ../src/Resources.vala:162
+#: ../src/data_imports/DataImportsUI.vala:413
+#: ../src/publishing/PublishingUI.vala:512
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -1123,8 +1121,9 @@ msgstr ""
 "%s"
 
 #: ../src/AppWindow.vala:702
-msgid "Visit the Yorba web site"
-msgstr "Visite a página web da Yorba"
+#| msgid "Visit the Shotwell home page"
+msgid "Visit the Shotwell web site"
+msgstr "Visite a página principal do Shotwell"
 
 #: ../src/AppWindow.vala:714
 #, c-format
@@ -1450,7 +1449,7 @@ msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
 msgstr[0] "Vai remover a etiqueta \"%s\" de uma fotografia. Continuar?"
 msgstr[1] "Vai remover a etiqueta \"%s\" de %d fotografias. Continuar?"
 
-#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1386
+#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1392
 #: ../src/Resources.vala:163 ../src/Resources.vala:369
 #: ../src/Resources.vala:417 ../src/Resources.vala:682
 msgid "_Delete"
@@ -1527,51 +1526,51 @@ msgid "Current"
 msgstr "Atual"
 
 #. layout controls
-#: ../src/Dialogs.vala:213
+#: ../src/Dialogs.vala:215
 msgid "_Format:"
 msgstr "_Formato:"
 
-#: ../src/Dialogs.vala:216
+#: ../src/Dialogs.vala:218
 msgid "_Quality:"
 msgstr "_Qualidade:"
 
-#: ../src/Dialogs.vala:219
+#: ../src/Dialogs.vala:221
 msgid "_Scaling constraint:"
 msgstr "Re_Strição de escala:"
 
-#: ../src/Dialogs.vala:222
+#: ../src/Dialogs.vala:224
 msgid "_Pixels:"
 msgstr " _Pixels:"
 
-#: ../src/Dialogs.vala:225
+#: ../src/Dialogs.vala:227
 msgid "Export metadata"
 msgstr "Exportar metadados"
 
-#: ../src/Dialogs.vala:459
+#: ../src/Dialogs.vala:461
 msgid "Save Details..."
 msgstr "Gravar detalhes..."
 
-#: ../src/Dialogs.vala:460
+#: ../src/Dialogs.vala:462
 msgid "Save Details"
 msgstr "Gravar detalhes"
 
-#: ../src/Dialogs.vala:475
+#: ../src/Dialogs.vala:477
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(e %d mais)\n"
 
-#: ../src/Dialogs.vala:528
+#: ../src/Dialogs.vala:530
 msgid "Import Results Report"
 msgstr "Relatório de importação"
 
-#: ../src/Dialogs.vala:532
+#: ../src/Dialogs.vala:534
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "Tentativa de importação de %d ficheiro."
 msgstr[1] "Tentativa de importação de %d ficheiros."
 
-#: ../src/Dialogs.vala:535
+#: ../src/Dialogs.vala:537
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -1581,30 +1580,30 @@ msgstr[1] "Destes, %d ficheiros foram importados com sucesso."
 #.
 #. Duplicates
 #.
-#: ../src/Dialogs.vala:547
+#: ../src/Dialogs.vala:549
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Fotografias/Vídeos não importados por serem duplicados:"
 
-#: ../src/Dialogs.vala:551
+#: ../src/Dialogs.vala:553
 msgid "duplicates existing media item"
 msgstr "ficheiros duplicados"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: ../src/Dialogs.vala:562
+#: ../src/Dialogs.vala:564
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Fotografias/Vídeos não importados devido a erros da câmara:"
 
-#: ../src/Dialogs.vala:565 ../src/Dialogs.vala:580 ../src/Dialogs.vala:595
-#: ../src/Dialogs.vala:611 ../src/Dialogs.vala:626 ../src/Dialogs.vala:640
+#: ../src/Dialogs.vala:567 ../src/Dialogs.vala:582 ../src/Dialogs.vala:597
+#: ../src/Dialogs.vala:613 ../src/Dialogs.vala:628 ../src/Dialogs.vala:642
 msgid "error message:"
 msgstr "mensagem de erro:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: ../src/Dialogs.vala:576
+#: ../src/Dialogs.vala:578
 msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
 msgstr ""
 "Ficheiros não importados por não serem reconhecidos como fotografias ou "
@@ -1613,7 +1612,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: ../src/Dialogs.vala:591
+#: ../src/Dialogs.vala:593
 msgid ""
 "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
 "Understands:"
@@ -1623,13 +1622,13 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: ../src/Dialogs.vala:606
+#: ../src/Dialogs.vala:608
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
 "Library:"
 msgstr "Ficheiros não importados por não ser possível copiar para a galeria:"
 
-#: ../src/Dialogs.vala:610
+#: ../src/Dialogs.vala:612
 #, c-format
 msgid ""
 "couldn't copy %s\n"
@@ -1641,39 +1640,40 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: ../src/Dialogs.vala:622
+#: ../src/Dialogs.vala:624
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
-msgstr "Fotografias/Vídeos não importados porque os ficheiros estão danificados:"
+msgstr ""
+"Fotografias/Vídeos não importados porque os ficheiros estão danificados:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: ../src/Dialogs.vala:637
+#: ../src/Dialogs.vala:639
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Fotografias/Vídeos não importados por outras razões:"
 
-#: ../src/Dialogs.vala:657
+#: ../src/Dialogs.vala:659
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "Não foi importada 1 fotografias duplicada:\n"
 msgstr[1] "Não foram importadas %d fotografias duplicadas:\n"
 
-#: ../src/Dialogs.vala:660
+#: ../src/Dialogs.vala:662
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "Não foi importado 1 vídeo duplicado:\n"
 msgstr[1] "Não foram importados %d vídeos duplicados:\n"
 
-#: ../src/Dialogs.vala:663
+#: ../src/Dialogs.vala:665
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "Não foi importada(o) 1 fotografia/vídeo duplicada(o):\n"
 msgstr[1] "Não foram importada(o)s %d fotografias/vídeos duplicada(o)s:\n"
 
-#: ../src/Dialogs.vala:677
+#: ../src/Dialogs.vala:679
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
@@ -1684,7 +1684,7 @@ msgstr[1] ""
 "Falha ao importar %d fotografias. Ocorreu um erro no ficheiro ou no "
 "equipamento:\n"
 
-#: ../src/Dialogs.vala:680
+#: ../src/Dialogs.vala:682
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
@@ -1693,7 +1693,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Falha ao importar %d vídeos. Ocorreu um erro no ficheiro ou no equipamento:\n"
 
-#: ../src/Dialogs.vala:683
+#: ../src/Dialogs.vala:685
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -1705,7 +1705,7 @@ msgstr[1] ""
 "Falha ao importar %d fotografias/vídeos. Ocorreu um erro no ficheiro ou no "
 "equipamento:\n"
 
-#: ../src/Dialogs.vala:686
+#: ../src/Dialogs.vala:688
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
@@ -1714,7 +1714,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Falha ao importar%d ficheiros em virtude de um erro de equipamento:\n"
 
-#: ../src/Dialogs.vala:700
+#: ../src/Dialogs.vala:702
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -1728,7 +1728,7 @@ msgstr[1] ""
 "Ocorreu um erro ao importar %d fotografias. Não possui permissões de escrita "
 "na pasta:\n"
 
-#: ../src/Dialogs.vala:703
+#: ../src/Dialogs.vala:705
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -1742,7 +1742,7 @@ msgstr[1] ""
 "Ocorreu um erro ao importar %d vídeos. Não possui permissões de escrita na "
 "pasta:\n"
 
-#: ../src/Dialogs.vala:706
+#: ../src/Dialogs.vala:708
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -1757,7 +1757,7 @@ msgstr[1] ""
 "Ocorreu um erro ao importar %d fotografias/vídeos. Não possui permissões de "
 "escrita na pasta:\n"
 
-#: ../src/Dialogs.vala:709
+#: ../src/Dialogs.vala:711
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -1769,21 +1769,21 @@ msgstr[0] ""
 msgstr[1] ""
 "Falha ao importar %d ficheiros. Não pode escrever na pasta da galeria:\n"
 
-#: ../src/Dialogs.vala:723
+#: ../src/Dialogs.vala:725
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "Falha ao importar 1 fotografia. Ocorreu um erro na câmara:\n"
 msgstr[1] "Falha ao importar %d fotografias. Ocorreu um erro na câmara:\n"
 
-#: ../src/Dialogs.vala:726
+#: ../src/Dialogs.vala:728
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] "Falha ao importar 1 vídeo. Ocorreu um erro na câmara:\n"
 msgstr[1] "Falha ao importar %d vídeos. Ocorreu um erro na câmara:\n"
 
-#: ../src/Dialogs.vala:729
+#: ../src/Dialogs.vala:731
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
@@ -1791,28 +1791,28 @@ msgstr[0] "Falha ao importar 1 fotografia/vídeo. Ocorreu um erro na câmara:\n"
 msgstr[1] ""
 "Falha ao importar %d fotografias/vídeos. Ocorreu um erro na câmara:\n"
 
-#: ../src/Dialogs.vala:732
+#: ../src/Dialogs.vala:734
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "Falha ao importar 1 ficheiro em virtude dum erro da câmara:\n"
 msgstr[1] "Falha ao importar %d ficheiros em virtude dum erro da câmara:\n"
 
-#: ../src/Dialogs.vala:746
+#: ../src/Dialogs.vala:748
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] "1 fotografia não foi importada por estar danificada:\n"
 msgstr[1] "%d fotografias não foram importadas por estarem danificadas:\n"
 
-#: ../src/Dialogs.vala:749
+#: ../src/Dialogs.vala:751
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "1 vídeo não foi importado por estar danificado:\n"
 msgstr[1] "%d vídeos não foram importados por estarem danificados:\n"
 
-#: ../src/Dialogs.vala:752
+#: ../src/Dialogs.vala:754
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
@@ -1820,7 +1820,7 @@ msgstr[0] "1 fotografia/vídeo não foi importada(o) por estar danificada(o):\n"
 msgstr[1] ""
 "%d fotografias/vídeos não foram importada(o)s por estarem danificada(o)s:\n"
 
-#: ../src/Dialogs.vala:755
+#: ../src/Dialogs.vala:757
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -1831,7 +1831,7 @@ msgstr[1] "%d ficheiros não foram importados por estarem danificados:\n"
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: ../src/Dialogs.vala:772
+#: ../src/Dialogs.vala:774
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -1840,28 +1840,28 @@ msgstr[1] "%d fotografias não suportadas foram ignoradas:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: ../src/Dialogs.vala:787
+#: ../src/Dialogs.vala:789
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "Foi ignorado 1 ficheiro pois não era uma imagem\n"
 msgstr[1] "Foram ignorados %d ficheiros pois não eram imagens\n"
 
-#: ../src/Dialogs.vala:798
+#: ../src/Dialogs.vala:800
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "Foi ignorado 1 ficheiro em virtude do cancelamento:\n"
 msgstr[1] "Foram ignorados %d ficheiros em virtude do cancelamento:\n"
 
-#: ../src/Dialogs.vala:801
+#: ../src/Dialogs.vala:803
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "Foi ignorado 1 vídeo em virtude do cancelamento:\n"
 msgstr[1] "Foram ignorados %d vídeos em virtude do cancelamento:\n"
 
-#: ../src/Dialogs.vala:804
+#: ../src/Dialogs.vala:806
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
@@ -1869,28 +1869,28 @@ msgstr[0] "Foi ignorada(o) 1 fotografia/vídeo em virtude do cancelamento:\n"
 msgstr[1] ""
 "Foram ignorada(o)s %d fotografias/vídeos em virtude do cancelamento:\n"
 
-#: ../src/Dialogs.vala:807
+#: ../src/Dialogs.vala:809
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "Foi ignorado 1 ficheiro em virtude do cancelamento:\n"
 msgstr[1] "Foram ignorados %d ficheiros em virtude do cancelamento:\n"
 
-#: ../src/Dialogs.vala:821
+#: ../src/Dialogs.vala:823
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "Foi importada com sucesso 1 fotografia\n"
 msgstr[1] "Foram importadas com sucesso %d fotografias\n"
 
-#: ../src/Dialogs.vala:824
+#: ../src/Dialogs.vala:826
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "Foi importado com sucesso 1 vídeo\n"
 msgstr[1] "Foram importados com sucesso %d vídeos\n"
 
-#: ../src/Dialogs.vala:827
+#: ../src/Dialogs.vala:829
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -1899,93 +1899,93 @@ msgstr[1] "Foram importada(o)s com sucesso %d fotografias/vídeos\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: ../src/Dialogs.vala:843
+#: ../src/Dialogs.vala:845
 msgid "No photos or videos imported.\n"
 msgstr "Nenhum(a) vídeo ou fotografia importado(a)\n"
 
-#: ../src/Dialogs.vala:850 ../src/Dialogs.vala:869
+#: ../src/Dialogs.vala:852 ../src/Dialogs.vala:871
 msgid "Import Complete"
 msgstr "Importação terminada"
 
-#: ../src/Dialogs.vala:1155
+#: ../src/Dialogs.vala:1157
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d segundo"
 msgstr[1] "%d segundos"
 
-#: ../src/Dialogs.vala:1158
+#: ../src/Dialogs.vala:1160
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minuto"
 msgstr[1] "%d minutos"
 
-#: ../src/Dialogs.vala:1162
+#: ../src/Dialogs.vala:1164
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d hora"
 msgstr[1] "%d horas"
 
-#: ../src/Dialogs.vala:1165
+#: ../src/Dialogs.vala:1167
 msgid "1 day"
 msgstr "1 dia"
 
-#: ../src/Dialogs.vala:1315 ../src/Resources.vala:236
+#: ../src/Dialogs.vala:1321 ../src/Resources.vala:236
 msgid "Rename Event"
 msgstr "Renomear evento"
 
-#: ../src/Dialogs.vala:1315
+#: ../src/Dialogs.vala:1321
 msgid "Name:"
 msgstr "Nome:"
 
 #. Dialog title
 #. Button label
-#: ../src/Dialogs.vala:1326 ../src/Resources.vala:308
+#: ../src/Dialogs.vala:1332 ../src/Resources.vala:308
 msgid "Edit Title"
 msgstr "Editar título"
 
-#: ../src/Dialogs.vala:1327 ../src/Properties.vala:340
+#: ../src/Dialogs.vala:1333 ../src/Properties.vala:340
 msgid "Title:"
 msgstr "Título:"
 
 #. Dialog title
-#: ../src/Dialogs.vala:1343 ../src/Resources.vala:315
+#: ../src/Dialogs.vala:1349 ../src/Resources.vala:315
 msgid "Edit Event Comment"
 msgstr "Editar comentário"
 
-#: ../src/Dialogs.vala:1344
+#: ../src/Dialogs.vala:1350
 msgid "Edit Photo/Video Comment"
 msgstr "Editar comentário de fotografia/vídeo"
 
-#: ../src/Dialogs.vala:1345 ../src/Properties.vala:628
+#: ../src/Dialogs.vala:1351 ../src/Properties.vala:628
 msgid "Comment:"
 msgstr "Comentário:"
 
-#: ../src/Dialogs.vala:1361
+#: ../src/Dialogs.vala:1367
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "_Remover e enviar o ficheiro para a lixeira"
 msgstr[1] "_Remover e enviar os ficheiros para a lixeira"
 
-#: ../src/Dialogs.vala:1365
+#: ../src/Dialogs.vala:1371
 msgid "_Remove From Library"
 msgstr "_Remover da galeria"
 
-#: ../src/Dialogs.vala:1385 ../src/camera/ImportPage.vala:1741
+#: ../src/Dialogs.vala:1391 ../src/camera/ImportPage.vala:1741
 msgid "_Keep"
 msgstr "_Manter"
 
-#: ../src/Dialogs.vala:1408
+#: ../src/Dialogs.vala:1414
 msgid "Revert External Edit?"
 msgstr "Reverter edição externa?"
 
-#: ../src/Dialogs.vala:1408
+#: ../src/Dialogs.vala:1414
 msgid "Revert External Edits?"
 msgstr "Reverter edições externas?"
 
-#: ../src/Dialogs.vala:1410
+#: ../src/Dialogs.vala:1416
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural ""
@@ -1995,87 +1995,87 @@ msgstr[0] ""
 msgstr[1] ""
 "Vai destruir todas as alterações feitas em %d ficheiros externos. Continuar?"
 
-#: ../src/Dialogs.vala:1414
+#: ../src/Dialogs.vala:1420
 msgid "Re_vert External Edit"
 msgstr "Re_Verter edição externa"
 
-#: ../src/Dialogs.vala:1414
+#: ../src/Dialogs.vala:1420
 msgid "Re_vert External Edits"
 msgstr "Re_Verter edições externas"
 
-#: ../src/Dialogs.vala:1435
+#: ../src/Dialogs.vala:1441
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
 msgstr[0] "Vai remover a fotografia da galeria. Continuar?"
 msgstr[1] "Vai remover %d fotografias da galeria. Continuar?"
 
-#: ../src/Dialogs.vala:1442 ../src/Resources.vala:178
+#: ../src/Dialogs.vala:1448 ../src/Resources.vala:178
 msgid "_Remove"
 msgstr "_Remover"
 
-#: ../src/Dialogs.vala:1443
+#: ../src/Dialogs.vala:1449
 msgid "Remove Photo From Library"
 msgstr "Remover fotografia da galeria"
 
-#: ../src/Dialogs.vala:1443
+#: ../src/Dialogs.vala:1449
 msgid "Remove Photos From Library"
 msgstr "Remover fotografias da galeria"
 
-#: ../src/Dialogs.vala:1536
+#: ../src/Dialogs.vala:1542
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../src/Dialogs.vala:1688
+#: ../src/Dialogs.vala:1696
 msgid "AM"
 msgstr "AM"
 
-#: ../src/Dialogs.vala:1689
+#: ../src/Dialogs.vala:1697
 msgid "PM"
 msgstr "PM"
 
-#: ../src/Dialogs.vala:1690
+#: ../src/Dialogs.vala:1698
 msgid "24 Hr"
 msgstr "24 Hr"
 
-#: ../src/Dialogs.vala:1705
+#: ../src/Dialogs.vala:1713
 msgid "_Shift photos/videos by the same amount"
 msgstr "De_Slocar fotografias/vídeos na mesma proporção"
 
-#: ../src/Dialogs.vala:1710
+#: ../src/Dialogs.vala:1718
 msgid "Set _all photos/videos to this time"
 msgstr "Definir fotografias/videos para esta hor_A"
 
-#: ../src/Dialogs.vala:1717
+#: ../src/Dialogs.vala:1725
 msgid "_Modify original photo file"
 msgstr "_Modificar fotografia original"
 
-#: ../src/Dialogs.vala:1717
+#: ../src/Dialogs.vala:1725
 msgid "_Modify original photo files"
 msgstr "_Modificar fotografias originais"
 
-#: ../src/Dialogs.vala:1720
+#: ../src/Dialogs.vala:1728
 msgid "_Modify original file"
 msgstr "_Modificar ficheiro original"
 
-#: ../src/Dialogs.vala:1720
+#: ../src/Dialogs.vala:1728
 msgid "_Modify original files"
 msgstr "_Modificar ficheiros originais"
 
-#: ../src/Dialogs.vala:1806
+#: ../src/Dialogs.vala:1814
 msgid "Original: "
 msgstr "Original: "
 
-#: ../src/Dialogs.vala:1807
+#: ../src/Dialogs.vala:1815
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d-%m-%Y, %H:%M:%S"
 
-#: ../src/Dialogs.vala:1808
+#: ../src/Dialogs.vala:1816
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d-%m-%Y, %I:%M:%S %p"
 
-#: ../src/Dialogs.vala:1897
+#: ../src/Dialogs.vala:1905
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -2084,7 +2084,7 @@ msgstr ""
 "O tempo de exposição será aumentado em\n"
 "%d %s, %d %s, %d %s, e %d %s."
 
-#: ../src/Dialogs.vala:1898
+#: ../src/Dialogs.vala:1906
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -2093,31 +2093,31 @@ msgstr ""
 "O tempo de exposição será diminuído em\n"
 "%d %s, %d %s, %d %s, e %d %s."
 
-#: ../src/Dialogs.vala:1900
+#: ../src/Dialogs.vala:1908
 msgid "day"
 msgid_plural "days"
 msgstr[0] "dia"
 msgstr[1] "dias"
 
-#: ../src/Dialogs.vala:1901
+#: ../src/Dialogs.vala:1909
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hora"
 msgstr[1] "horas"
 
-#: ../src/Dialogs.vala:1902
+#: ../src/Dialogs.vala:1910
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuto"
 msgstr[1] "minutos"
 
-#: ../src/Dialogs.vala:1903
+#: ../src/Dialogs.vala:1911
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "segundo"
 msgstr[1] "segundos"
 
-#: ../src/Dialogs.vala:1947
+#: ../src/Dialogs.vala:1955
 #, c-format
 msgid ""
 "\n"
@@ -2136,49 +2136,49 @@ msgstr[1] ""
 "\n"
 "E mais %d."
 
-#: ../src/Dialogs.vala:1969 ../src/Dialogs.vala:1996
+#: ../src/Dialogs.vala:1977 ../src/Dialogs.vala:2004
 msgid "Tags (separated by commas):"
 msgstr "Etiquetas (separadas por vírgulas):"
 
-#: ../src/Dialogs.vala:2076
+#: ../src/Dialogs.vala:2084
 msgid "Welcome!"
 msgstr "Boas vindas!"
 
-#: ../src/Dialogs.vala:2083
+#: ../src/Dialogs.vala:2091
 msgid "Welcome to Shotwell!"
 msgstr "Boas vindas ao Shotwell!"
 
-#: ../src/Dialogs.vala:2087
+#: ../src/Dialogs.vala:2095
 msgid "To get started, import photos in any of these ways:"
 msgstr "Para iniciar, importe as fotografias de alguma destas formas:"
 
-#: ../src/Dialogs.vala:2106
+#: ../src/Dialogs.vala:2114
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr "Escolha <span weight=\"bold\">Ficheiro %s importar da pasta</span>"
 
-#: ../src/Dialogs.vala:2107
+#: ../src/Dialogs.vala:2115
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Arraste e solte as fotografias na janela do Shotwell"
 
-#: ../src/Dialogs.vala:2108
+#: ../src/Dialogs.vala:2116
 msgid "Connect a camera to your computer and import"
 msgstr "Ligue uma câmara ao computador e importe"
 
-#: ../src/Dialogs.vala:2118
+#: ../src/Dialogs.vala:2126
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Importar fotografias da sua pasta %s"
 
-#: ../src/Dialogs.vala:2125
+#: ../src/Dialogs.vala:2133
 msgid "You can also import photos in any of these ways:"
 msgstr "Também pode importar fotografias de alguma destas formas:"
 
-#: ../src/Dialogs.vala:2135
+#: ../src/Dialogs.vala:2143
 msgid "_Don't show this message again"
 msgstr "Não exibir no_Vamente a mensagem"
 
-#: ../src/Dialogs.vala:2170
+#: ../src/Dialogs.vala:2178
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Importar fotografias da galeria %s"
@@ -2186,41 +2186,41 @@ msgstr "Importar fotografias da galeria %s"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation ghelp: URIs.
-#: ../src/Dialogs.vala:2311 ../src/Dialogs.vala:2315
+#: ../src/Dialogs.vala:2325 ../src/Dialogs.vala:2329
 msgid "(Help)"
 msgstr "(ajuda)"
 
-#: ../src/Dialogs.vala:2324
+#: ../src/Dialogs.vala:2338
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Dia%sMês%sAno"
 
-#: ../src/Dialogs.vala:2326
+#: ../src/Dialogs.vala:2340
 #, c-format
 msgid "Year%sMonth"
 msgstr "Mês%sAno"
 
-#: ../src/Dialogs.vala:2328
+#: ../src/Dialogs.vala:2342
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Dia%sMês-Ano"
 
-#: ../src/Dialogs.vala:2330
+#: ../src/Dialogs.vala:2344
 msgid "Year-Month-Day"
 msgstr "Dia-Mês-Ano"
 
-#: ../src/Dialogs.vala:2331 ../src/editing_tools/EditingTools.vala:781
+#: ../src/Dialogs.vala:2345 ../src/editing_tools/EditingTools.vala:781
 msgid "Custom"
 msgstr "Personalizar"
 
 #. Invalid pattern.
-#: ../src/Dialogs.vala:2568
+#: ../src/Dialogs.vala:2582
 msgid "Invalid pattern"
 msgstr "Padrão inválido"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: ../src/Dialogs.vala:2670
+#: ../src/Dialogs.vala:2684
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -2228,31 +2228,31 @@ msgstr ""
 "O Shotwell pode copiar as fotografias para a galeria, mas também as consegue "
 "importar sem copiar"
 
-#: ../src/Dialogs.vala:2675
+#: ../src/Dialogs.vala:2689
 msgid "Co_py Photos"
 msgstr "C_Opiar fotografias"
 
-#: ../src/Dialogs.vala:2676
+#: ../src/Dialogs.vala:2690
 msgid "_Import in Place"
 msgstr "_Importar sem copiar"
 
-#: ../src/Dialogs.vala:2677
+#: ../src/Dialogs.vala:2691
 msgid "Import to Library"
 msgstr "Importar para a galeria"
 
-#: ../src/Dialogs.vala:2687 ../src/PhotoPage.vala:3087
+#: ../src/Dialogs.vala:2701 ../src/PhotoPage.vala:3087
 msgid "Remove From Library"
 msgstr "Remover da galeria"
 
-#: ../src/Dialogs.vala:2688 ../src/PhotoPage.vala:3087
+#: ../src/Dialogs.vala:2702 ../src/PhotoPage.vala:3087
 msgid "Removing Photo From Library"
 msgstr "A remover fotografia da galeria"
 
-#: ../src/Dialogs.vala:2688
+#: ../src/Dialogs.vala:2702
 msgid "Removing Photos From Library"
 msgstr "A remover fotografias da galeria"
 
-#: ../src/Dialogs.vala:2702
+#: ../src/Dialogs.vala:2716
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library.  Would you also "
@@ -2275,7 +2275,7 @@ msgstr[1] ""
 "\n"
 "Esta ação não pode ser desfeita."
 
-#: ../src/Dialogs.vala:2706
+#: ../src/Dialogs.vala:2720
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library.  Would you also like "
@@ -2298,7 +2298,7 @@ msgstr[1] ""
 "\n"
 "Esta ação não pode ser desfeita."
 
-#: ../src/Dialogs.vala:2710
+#: ../src/Dialogs.vala:2724
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library.  Would you also like "
@@ -2321,7 +2321,7 @@ msgstr[1] ""
 "\n"
 "Esta ação não pode ser desfeita."
 
-#: ../src/Dialogs.vala:2742
+#: ../src/Dialogs.vala:2756
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash.  Delete this file?"
@@ -2335,7 +2335,7 @@ msgstr[1] ""
 "permanentemente?"
 
 #. Alert the user that the files were not removed.
-#: ../src/Dialogs.vala:2759
+#: ../src/Dialogs.vala:2773
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -2875,7 +2875,7 @@ msgstr "Direitos de autor:"
 msgid "Software:"
 msgstr "Aplicação:"
 
-#: ../src/Properties.vala:639
+#: ../src/Properties.vala:641
 msgid "Extended Information"
 msgstr "Informações detalhadas"
 
@@ -3777,7 +3777,7 @@ msgid "untitled"
 msgstr "sem título"
 
 #. multiple videos
-#: ../src/VideoSupport.vala:489
+#: ../src/VideoSupport.vala:490
 msgid "Export Videos"
 msgstr "Exportar vídeos"
 
@@ -3966,12 +3966,16 @@ msgstr "Ficheiro da base de dados:"
 msgid "_Import"
 msgstr "_Importar"
 
-#: ../src/data_imports/DataImportsUI.vala:217
+#: ../src/data_imports/DataImportsUI.vala:220
 msgid "Import From Application"
 msgstr "Importar da aplicação"
 
-#: ../src/data_imports/DataImportsUI.vala:369
-#: ../src/publishing/PublishingUI.vala:470
+#: ../src/data_imports/DataImportsUI.vala:221
+msgid "Import media _from:"
+msgstr "Importar _ficheiros de:"
+
+#: ../src/data_imports/DataImportsUI.vala:408
+#: ../src/publishing/PublishingUI.vala:507
 msgid "_Close"
 msgstr "_Fechar"
 
@@ -4003,6 +4007,14 @@ msgstr ""
 "\n"
 "Detalhe do erro: \n"
 "%s"
+
+#: ../src/db/DatabaseTable.vala:81
+#, c-format
+#| msgid ""
+#| "Unable to write to photo database file:\n"
+#| " %s"
+msgid "Unable to restore photo database %s"
+msgstr "Impossível restaurar a base de dados %s"
 
 #: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:335
 msgid "_File"
@@ -4604,37 +4616,37 @@ msgstr "A obter informações da conta..."
 msgid "Logging in..."
 msgstr "A autenticar..."
 
-#: ../src/publishing/PublishingUI.vala:185
+#: ../src/publishing/PublishingUI.vala:188
 msgid "Publish Photos"
 msgstr "Publicar fotografias"
 
-#: ../src/publishing/PublishingUI.vala:186
+#: ../src/publishing/PublishingUI.vala:189
 msgid "Publish photos _to:"
 msgstr "Publicar fotografias _No:"
 
-#: ../src/publishing/PublishingUI.vala:188
+#: ../src/publishing/PublishingUI.vala:191
 msgid "Publish Videos"
 msgstr "Publicar vídeos"
 
-#: ../src/publishing/PublishingUI.vala:189
+#: ../src/publishing/PublishingUI.vala:192
 msgid "Publish videos _to"
 msgstr "Publicar vídeos _No"
 
-#: ../src/publishing/PublishingUI.vala:191
+#: ../src/publishing/PublishingUI.vala:194
 msgid "Publish Photos and Videos"
 msgstr "Publicar fotografias e vídeos"
 
-#: ../src/publishing/PublishingUI.vala:192
+#: ../src/publishing/PublishingUI.vala:195
 msgid "Publish photos and videos _to"
 msgstr "Publicar fotografias e vídeos _No"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: ../src/publishing/PublishingUI.vala:360
+#: ../src/publishing/PublishingUI.vala:397
 msgid "Unable to publish"
 msgstr "Impossível publicar"
 
-#: ../src/publishing/PublishingUI.vala:361
+#: ../src/publishing/PublishingUI.vala:398
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -5040,11 +5052,11 @@ msgstr "Mostrar títu_Lo"
 msgid "seconds"
 msgstr "segundos"
 
+#~ msgid "Visit the Yorba web site"
+#~ msgstr "Visite a página web da Yorba"
+
 #~ msgid "Only _Remove"
 #~ msgstr "Só _remoção"
-
-#~ msgid "Import media _from:"
-#~ msgstr "Importar _ficheiros de:"
 
 #~ msgid "Shotwell is configured to import photos to your home directory.\n"
 #~ msgstr ""
