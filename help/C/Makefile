@@ -5,7 +5,7 @@
 # Adapted from http://www.mail-archive.com/gnome-doc-list@gnome.org/msg04608.html
 # and the mal2html script in the yelp-xsl package.
 #
-# Copyright 2010-2015 Yorba Foundation
+# Copyright 2016 Software Freedom Conservancy Inc.
 #
 
 pages=$(wildcard *.page)

@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  * 
  * This is a Vala-rewrite of GStreamer snapshot example. Adapted from earlier 
  * work from Wim Taymans.

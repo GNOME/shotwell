@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -24,7 +24,7 @@ namespace Resources {
     public const string? GIT_VERSION = null;
 #endif
 
-    public const string COPYRIGHT = _("Copyright 2009-2015 Yorba Foundation");
+    public const string COPYRIGHT = _("Copyright 2016 Software Freedom Conservancy Inc.");
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string HOME_URL = "https://wiki.gnome.org/Apps/Shotwell";
