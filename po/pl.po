@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 12:28+0200\n"
-"PO-Revision-Date: 2016-05-02 12:29+0200\n"
+"POT-Creation-Date: 2016-05-07 00:31+0200\n"
+"PO-Revision-Date: 2016-05-07 00:32+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -63,8 +63,8 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-msgid "Copyright 2009-2015 Yorba Foundation"
-msgstr "Copyright 2009-2015 Fundacja Yorba"
+msgid "Copyright 2016 Software Freedom Conservancy Inc."
+msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -1049,8 +1049,12 @@ msgid "Core Slideshow Transitions"
 msgstr "Główne przejścia pokazu slajdów"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Fundacja Yorba"
+msgid ""
+"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
+"Inc."
+msgstr ""
+"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
+"Inc."
 
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
