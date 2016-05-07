@@ -15,10 +15,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
-"l&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-05-03 14:36+0000\n"
-"PO-Revision-Date: 2016-05-03 15:35-0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
+"ll&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2016-05-06 15:10+0000\n"
+"PO-Revision-Date: 2016-05-06 21:44-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -72,8 +72,8 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-msgid "Copyright 2009-2015 Yorba Foundation"
-msgstr "Copyright 2009-2015 Yorba Foundation"
+msgid "Copyright 2016 Software Freedom Conservancy Inc."
+msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -1042,8 +1042,13 @@ msgid "Core Slideshow Transitions"
 msgstr "Transições principais de exibição de slides"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
+#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
+msgid ""
+"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
+"Inc."
+msgstr ""
+"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
+"Inc."
 
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
@@ -1126,7 +1131,6 @@ msgstr ""
 "%s"
 
 #: ../src/AppWindow.vala:702
-#| msgid "Visit the Shotwell home page"
 msgid "Visit the Shotwell web site"
 msgstr "Visitar o página web do Shotwell"
 
@@ -5070,6 +5074,9 @@ msgstr "Mostrar títul_o"
 #: ../ui/shotwell.glade.h:41
 msgid "seconds"
 msgstr "segundos"
+
+#~ msgid "Copyright 2009-2015 Yorba Foundation"
+#~ msgstr "Copyright 2009-2015 Yorba Foundation"
 
 #~ msgid "Visit the Yorba web site"
 #~ msgstr "Visite o site da Yorba"
