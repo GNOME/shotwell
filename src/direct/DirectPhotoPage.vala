@@ -406,7 +406,12 @@ public class DirectPhotoPage : EditingHostPage {
         base.update_actions(selected_count, count);
     }
     
-    private bool check_ok_to_close_photo(Photo photo) {
+    private bool check_ok_to_close_photo(Photo? photo) {
+        // Means we failed to load the photo for some reason. Do not block
+        // shutdown
+        if (photo == null)
+            return true;
+
         if (!photo.has_alterations())
             return true;
         
