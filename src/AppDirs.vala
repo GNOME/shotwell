@@ -34,8 +34,29 @@ class AppDirs {
     }
     
     public static void try_migrate_data() {
+        // Migrate the user plugin dir from .gnome2 to .local
+        File user_plugin_dir = get_user_plugins_dir();
+        File old_dir =
+            get_home_dir().get_child(".gnome2").get_child("shotwell").get_child("plugins");
+
+        if (old_dir.query_exists() && !user_plugin_dir.get_parent().query_exists()) {
+            try {
+              user_plugin_dir.get_parent().make_directory_with_parents(null);
+            } catch (Error err) {
+                AppWindow.panic(_("Unable to create data directory %s: %s").printf(user_plugin_dir.get_parent().get_path(),
+                                                                                   err.message));
+            }
+        }
+
+        try {
+            old_dir.move(user_plugin_dir, FileCopyFlags.NONE);
+        } catch (Error err) {
+            AppWindow.panic(_("Unable to move plugin directory: %s").printf(err.message));
+        }
+
+
         File new_dir = get_data_dir();
-        File old_dir = get_home_dir().get_child(".shotwell");
+        old_dir = get_home_dir().get_child(".shotwell");
         if (new_dir.query_exists() || !old_dir.query_exists())
             return;
 
@@ -261,7 +282,7 @@ class AppDirs {
     }
     
     public static File get_user_plugins_dir() {
-        return get_home_dir().get_child(".gnome2").get_child("shotwell").get_child("plugins");
+        return get_data_dir().get_child("plugins");
     }
     
     public static File? get_log_file() {
