@@ -449,14 +449,7 @@ public abstract class AppWindow : PageWindow {
         instance = this;
 
         title = Resources.APP_TITLE;
-        
-        GLib.List<Gdk.Pixbuf> pixbuf_list = new GLib.List<Gdk.Pixbuf>();
-        foreach (string resource in Resources.APP_ICONS)
-            pixbuf_list.append(Resources.get_icon(resource, 0));
-        // Use copy() because set_default_icon_list() actually accepts an owned reference
-        // If we didn't hold the pixbufs in memory, would need to use copy_deep()
-        // See https://mail.gnome.org/archives/vala-list/2014-August/msg00022.html
-        set_default_icon_list(pixbuf_list.copy());
+        set_default_icon_name("shotwell");
 
         // restore previous size and maximization state
         if (this is LibraryWindow) {

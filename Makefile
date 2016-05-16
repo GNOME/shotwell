@@ -206,11 +206,7 @@ ICON_FILES = \
 	publish.png \
 	redeye.png \
 	rejected.svg \
-	shotwell-16.svg \
-	shotwell-24.svg \
-	shotwell.ico \
 	shotwell-street.jpg \
-	shotwell.svg \
 	shotwell-auto-enhance.png \
 	sprocket.png \
 	straighten.svg \
@@ -351,6 +347,7 @@ EXPANDED_C_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FILES
 EXPANDED_OBJ_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FILES)),$(file:.vala=.o))
 EXPANDED_SYS_INTEGRATION_FILES := $(foreach file,$(SYS_INTEGRATION_FILES),misc/$(file))
 EXPANDED_ICON_FILES := $(foreach file,$(ICON_FILES),icons/$(file))
+EXPANDED_APP_ICON_FILES := $(shell find -type f app-icons)
 EXPANDED_VAPI_FILES := $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
 EXPANDED_DEPS_FILES := $(foreach deps,$(DEPS_FILES),vapi/$(deps))
 EXPANDED_SRC_HEADER_FILES := $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
@@ -370,7 +367,7 @@ PC_FILE := $(PC_INPUT:.m4=.pc)
 
 DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_DEPS_FILES) $(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) \
-	$(EXPANDED_ICON_FILES) $(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_CORE_PO_FILES) \
+	$(EXPANDED_ICON_FILES) $(EXPANDED_APP_ICON_FILES) $(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_CORE_PO_FILES) \
 	po/LINGUAS po/POTFILES.in po/POTFILES.skip \
 	$(EXPANDED_DOC_PAGES) $(EXPANDED_DOC_IMAGES) $(EXPANDED_DOC_PO) help/Makefile.am \
 	apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
@@ -525,12 +522,21 @@ install:
 	$(INSTALL_PROGRAM) $(MIGRATOR_BIN) $(DESTDIR)$(LIBEXECDIR)
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
-	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
-	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps
-	$(INSTALL_DATA) icons/shotwell-16.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.svg
+	$(INSTALL_DATA) app-icons/16x16/apps/shotwell.png $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.png
+	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/22x22/apps
+	$(INSTALL_DATA) app-icons/22x22/apps/shotwell.png $(DESTDIR)$(PREFIX)/share/icons/hicolor/22x22/apps/shotwell.png
 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps
-	$(INSTALL_DATA) icons/shotwell-24.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.svg
+	$(INSTALL_DATA) app-icons/24x24/apps/shotwell.png $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.png
+	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/32x32/apps
+	$(INSTALL_DATA) app-icons/32x32/apps/shotwell.png $(DESTDIR)$(PREFIX)/share/icons/hicolor/32x32/apps/shotwell.png
+	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/256x256/apps
+	$(INSTALL_DATA) app-icons/256x256/apps/shotwell.png $(DESTDIR)$(PREFIX)/share/icons/hicolor/256x256/apps/shotwell.png
+	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/48x48/apps
+	$(INSTALL_DATA) app-icons/48x48/apps/shotwell.png $(DESTDIR)$(PREFIX)/share/icons/hicolor/48x48/apps/shotwell.png
+	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/symbolic/apps
+	$(INSTALL_DATA) app-icons/symbolic/apps/shotwell-symbolic.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/symbolic/apps/shotwell-symbolic.svg
+
 	mkdir -p $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 	$(INSTALL_DATA) misc/org.yorba.shotwell.gschema.xml $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
 	$(INSTALL_DATA) misc/org.yorba.shotwell-extras.gschema.xml $(DESTDIR)$(PREFIX)/share/glib-2.0/schemas
@@ -602,9 +608,13 @@ uninstall:
 	rm -f $(DESTDIR)$(LIBEXECDIR)/$(PROGRAM_THUMBNAILER)
 	rm -f $(DESTDIR)$(LIBEXECDIR)/$(PROGRAM_MIGRATOR)
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
-	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps/shotwell.svg
-	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.svg
-	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.svg
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/16x16/apps/shotwell.png
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/22x22/apps/shotwell.png
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/24x24/apps/shotwell.png
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/32x32/apps/shotwell.png
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/48x48/apps/shotwell.png
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/256x256/apps/shotwell.png
+	rm -f $(DESTDIR)$(PREFIX)/share/icons/hicolor/symbolic/apps/shotwell-symbolic.svg
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell-viewer.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/appdata/shotwell.appdata.xml
