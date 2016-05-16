@@ -42,17 +42,12 @@ class AppDirs {
         if (old_dir.query_exists() && !user_plugin_dir.get_parent().query_exists()) {
             try {
               user_plugin_dir.get_parent().make_directory_with_parents(null);
-            } catch (Error err) {
-                AppWindow.panic(_("Unable to create data directory %s: %s").printf(user_plugin_dir.get_parent().get_path(),
-                                                                                   err.message));
-            }
+            } catch (Error err) { }
         }
 
         try {
             old_dir.move(user_plugin_dir, FileCopyFlags.NONE);
-        } catch (Error err) {
-            AppWindow.panic(_("Unable to move plugin directory: %s").printf(err.message));
-        }
+        } catch (Error err) { }
 
 
         File new_dir = get_data_dir();
