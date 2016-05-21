@@ -1160,11 +1160,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             }
         }
         if (pixbuf == null) {
-            // Create empty pixbuf.
-            pixbuf = AppWindow.get_instance().render_icon("image-missing", 
-                Gtk.IconSize.DIALOG, null);
+            pixbuf = get_placeholder_pixbuf();
             get_canvas_scaling().perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
-            
         }
         return pixbuf;
     }

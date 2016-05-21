@@ -289,8 +289,7 @@ class ImportPreview : MediaSourceItem {
         bool using_placeholder = (pixbuf == null);
         if (pixbuf == null) {
             if (placeholder_preview == null) {
-                placeholder_preview = AppWindow.get_instance().render_icon("image-missing", 
-                    Gtk.IconSize.DIALOG, null);
+                placeholder_preview = get_placeholder_pixbuf();
                 placeholder_preview = scale_pixbuf(placeholder_preview, MAX_SCALE,
                     Gdk.InterpType.BILINEAR, true);
             }

@@ -4,6 +4,116 @@
  * See the COPYING file in this distribution.
  */
 
+
+/* XPM */
+private const string fallback_image_missing[] = {
+/* columns rows colors chars-per-pixel */
+"48 48 54 1 ",
+"  c #6A6D67",
+". c #6C6E69",
+"X c #72746F",
+"o c #747672",
+"O c #777974",
+"+ c #797B77",
+"@ c #7C7E7A",
+"# c #7F817C",
+"$ c #81837F",
+"% c #848682",
+"& c #878984",
+"* c #888A86",
+"= c #8C8D8A",
+"- c #8F908C",
+"; c #90928E",
+": c #949591",
+"> c #969894",
+", c #999B96",
+"< c #9C9E9A",
+"1 c #9FA09C",
+"2 c #A1A39E",
+"3 c #A4A6A2",
+"4 c #A6A9A4",
+"5 c #A9ABA6",
+"6 c #ACADA9",
+"7 c #AEB1AB",
+"8 c #B1B2AF",
+"9 c #B3B4B1",
+"0 c #B6B9B3",
+"q c #B9BCB6",
+"w c #BDBEBA",
+"e c #BEC2BB",
+"r c #C1C4BE",
+"t c #C5C5C2",
+"y c #C6C9C3",
+"u c #C9CCC6",
+"i c #CCCDCB",
+"p c #CED2CA",
+"a c #D2D6CE",
+"s c #D5D5D3",
+"d c #D7D8D5",
+"f c #D9D9D6",
+"g c #DCDCDA",
+"h c #DFE0DD",
+"j c #E0E0DE",
+"k c #E4E4E2",
+"l c #E7E8E5",
+"z c #E9E9E7",
+"x c #EDEDEC",
+"c c #EFF0EE",
+"v c #F1F1EF",
+"b c #F2F2F1",
+"n c #FFFFFF",
+"m c None",
+/* pixels */
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmaaaaaaaaaasaisaaaaaaaaaaaaaaaaaaapppiipuuuuumm",
+"mannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnym",
+"manbbbbbbbbbvbbvvvvxvvvbvvvvvvvvccccccxxvxvxxnym",
+"manbt89898888988888888888999999999999999999txnrm",
+"manb6======================-;;=;;;;;;;;;;=:7znrm",
+"manv6&%%**%*%%%%*%%****=======;==;;;;=;=;==7znem",
+"manv4%%%%$%%%%%%%%%%%=****=======;==-======6znwm",
+"manx3%%#$$$$##%#$%%%*%**==========-=--=====6znqm",
+"manx1$@%#$@$###%%%%=****=*===--;;----====*=5lnqm",
+"manx<@@@@@@@@##%$%%%%****========-==-======5kn0m",
+"manz<@@@+@+@@@#$%%%%%=%=%===;=:=--------=-*4kn8m",
+"manz>O+O+O+@@@#$$%%%%========;;=--------=*=3kn9m",
+"mpnl:OOOOO+@@$##%%%%%=%=====;=;;--;-----===3kn8m",
+"munl;OooOOO@@@#$%%%%%======;;;;;:;;;;;---==1hn7m",
+"munl;oXoOO+@###$%%=%=======;::;::::;;---&#+-gn7m",
+"mynk*XXooOO+$$#$%%%%=%===;;:;:::::;:-$#XooX-fn5m",
+"mynk*XXOOO@@$$$$%%=%====;::::>::;*#OXXXXXXX*dn5m",
+"mrnk*oOO@@@#$$$$%=====::::>>>=%@OXOooXXXooo&dn3m",
+"mrnj*++@$$$$**$===-;;::>>:=@Ooo@XOOoo#o#OOO=fn3m",
+"menj*@#$$$$$**===;;:::=%@@@@@@O@#O#Oo#o#++@;gn2m",
+"menj*$$$$&**===;:;=*#@@@@@@@@@@@#######o##%>gn2m",
+"menh*$$%**===;=*%###########%@@@###$####$%=,gn1m",
+"m0nj=%***=**&$$$%$$$%$$%$$$$%$$$$$$$$$$%*;:2hn<m",
+"m0nj****&&&$$&&$%%%%%%%%%%%%%%%%$$*$%%%*;>13gn,m",
+"m0ng****&&&&&&&&&&&&*%*%*%%*%******%**-:,136kz;m",
+"m0nh***$&&&&&&&&&&&&%**********%*$***;:,1358r7*m",
+"m8ng*&&&&&&&&&*$&*&&&&$=$=$=&&&&&&**=:,<11>$65mm",
+"m7ng*&&&&&&&&&**&&&&&&**=$-$&&&&&&*-:,1..&1wi:mm",
+"m7ng&&&&&&&&=$*$&&&&&***$$$$&&&***=>,1<onxsi6*mm",
+"m6nf*&&&&&*&$***&&&&*$*$--$-&&&%*=;,13,:ztw9%mmm",
+"m5nf*%&&&&&&=$=$%*&&**%*$$&&&&**=>,225;5srw%mmmm",
+"m4nf3*&&**&&$-$-*******%$;&&*&*->,2365+ui7$mmmmm",
+"m3nsfffdddsddaffssssdassgaaaassddfgjg4wu;ommmmmm",
+"m3nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnvq3<$.mmmmmmm",
+"mm2211111,<,,,,,,>>>>:::;::;----=====@mmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+};
+
 bool is_color_parsable(string spec) {
     Gdk.Color color;
     return Gdk.Color.parse(spec, out color);
@@ -28,6 +138,22 @@ void set_source_color_from_string(Cairo.Context ctx, string spec) {
 
 private const int MIN_SCALED_WIDTH = 10;
 private const int MIN_SCALED_HEIGHT = 10;
+
+Gdk.Pixbuf get_placeholder_pixbuf () {
+    // Create empty pixbuf.
+    Gdk.Pixbuf? pixbuf = null;
+
+    try {
+        var icon_theme = Gtk.IconTheme.get_default ();
+        pixbuf = icon_theme.load_icon("image-missing",
+                Gtk.IconSize.DIALOG, 0);
+    } catch (Error error) {
+        pixbuf = new Gdk.Pixbuf.from_xpm_data(fallback_image_missing);
+        warning("Could not load icon from theme: %s", error.message);
+    }
+
+    return pixbuf;
+}
 
 Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp, bool scale_up) {
     Dimensions original = Dimensions.for_pixbuf(pixbuf);
