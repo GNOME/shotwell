@@ -1157,6 +1157,9 @@ public abstract class Page : Gtk.ScrolledWindow {
         if (event_source != null)
             event_source.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.BLANK_CURSOR));
 
+        // We remove the timeout so reset the id
+        last_timeout_id = 0;
+
         return false;
     }
 }
