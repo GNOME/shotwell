@@ -121,8 +121,10 @@ public class DirectPhoto : Photo {
     }
 
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
-        return (get_metadata().get_preview_count() == 0) ? null :
-            get_orientation().rotate_pixbuf(get_metadata().get_preview(0).get_pixbuf());
+        var metadata = get_metadata();
+
+        return (metadata == null || metadata.get_preview_count() == 0) ? null :
+            get_orientation().rotate_pixbuf(metadata.get_preview(0).get_pixbuf());
     }
 
     protected override void notify_altered(Alteration alteration) {
