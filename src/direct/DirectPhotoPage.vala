@@ -242,7 +242,12 @@ public class DirectPhotoPage : EditingHostPage {
         
         DirectPhoto? photo = DirectPhoto.global.get_file_source(initial_file);
         
-        display_mirror_of(view_controller, photo);
+        if (photo != null) {
+            display_mirror_of(view_controller, photo);
+        } else {
+            AppWindow.panic(_("Unable open photo %s. Sorry.").printf(initial_file.get_path()));
+        }
+
         initial_file = null;
     }
     
