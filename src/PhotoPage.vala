@@ -1136,6 +1136,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 
                 set_pixbuf(pixbuf, photo.get_dimensions());
             } catch (GLib.Error err) {
+                set_pixbuf(new Gdk.Pixbuf(Gdk.Colorspace.RGB, false, 8, 1, 1), photo.get_dimensions());
                 warning("%s", err.message);
             }
         }
