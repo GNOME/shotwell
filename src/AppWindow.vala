@@ -81,16 +81,6 @@ public class FullscreenWindow : PageWindow {
         toolbar_window.add(toolbar);
         
         toolbar_window.realize.connect(on_toolbar_realized);
-
-        this.focus_in_event.connect(() => {
-            toolbar_window.show();
-            return false;
-        });
-
-        this.focus_out_event.connect (() => {
-            toolbar_window.hide();
-            return false;
-        });
         
         add(page);
 
