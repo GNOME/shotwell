@@ -347,7 +347,7 @@ EXPANDED_C_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FILES
 EXPANDED_OBJ_FILES := $(foreach file,$(subst src,$(BUILD_DIR),$(EXPANDED_SRC_FILES)),$(file:.vala=.o))
 EXPANDED_SYS_INTEGRATION_FILES := $(foreach file,$(SYS_INTEGRATION_FILES),misc/$(file))
 EXPANDED_ICON_FILES := $(foreach file,$(ICON_FILES),icons/$(file))
-EXPANDED_APP_ICON_FILES := $(shell find -type f app-icons)
+EXPANDED_APP_ICON_FILES := $(shell find app-icons -type f)
 EXPANDED_VAPI_FILES := $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
 EXPANDED_DEPS_FILES := $(foreach deps,$(DEPS_FILES),vapi/$(deps))
 EXPANDED_SRC_HEADER_FILES := $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
