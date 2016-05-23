@@ -136,7 +136,7 @@ public class LibraryWindow : AppWindow {
     private BasicProperties basic_properties = new BasicProperties();
     private ExtendedPropertiesWindow extended_properties;
     
-    private Gtk.Notebook notebook = new Gtk.Notebook();
+    private Gtk.Stack stack = new Gtk.Stack();
     private Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.Box right_vbox;
     
@@ -1037,7 +1037,7 @@ public class LibraryWindow : AppWindow {
         assert(controller.get_view().get_view_for_source(current) != null);
         if (photo_page == null) {
             photo_page = new LibraryPhotoPage();
-            add_to_notebook(photo_page);
+            add_to_stack(photo_page);
             
             // need to do this to allow the event loop a chance to map and realize the page
             // before switching to it
@@ -1080,22 +1080,20 @@ public class LibraryWindow : AppWindow {
     }
 
     // This should only be called by LibraryWindow and PageStub.
-    public void add_to_notebook(Page page) {
-        // need to show all before handing over to notebook
+    public void add_to_stack(Page page) {
+        // need to show all before handing over to stack
         page.show_all();
         
-        int pos = notebook.append_page(page, null);
-        assert(pos >= 0);
-        
+        stack.add(page);
         // need to show_all() after pages are added and removed
-        notebook.show_all();
+        stack.show_all();
     }
     
-    private void remove_from_notebook(Page page) {
-        notebook.remove(page);
+    private void remove_from_stack(Page page) {
+        stack.remove(page);
         
         // need to show_all() after pages are added and removed
-        notebook.show_all();
+        stack.show_all();
     }
     
     // check for settings that should persist between instances
@@ -1260,9 +1258,6 @@ public class LibraryWindow : AppWindow {
     }
     
     private void create_layout(Page start_page) {
-        // use a Notebook to hold all the pages, which are switched when a sidebar child is selected
-        notebook.set_show_tabs(false);
-        notebook.set_show_border(false);
         
         // put the sidebar in a scrolling window
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);
@@ -1292,7 +1287,7 @@ public class LibraryWindow : AppWindow {
         
         right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         right_vbox.pack_start(search_toolbar, false, false, 0);
-        right_vbox.pack_start(notebook, true, true, 0);
+        right_vbox.pack_start(stack, true, true, 0);
         
         client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
         client_paned.pack1(sidebar_paned, false, false);
@@ -1300,7 +1295,7 @@ public class LibraryWindow : AppWindow {
         client_paned.pack2(right_vbox, true, false);
         client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
-        notebook.set_size_request(PAGE_MIN_WIDTH, -1);
+        stack.set_size_request(PAGE_MIN_WIDTH, -1);
 
         layout.pack_end(client_paned, true, true, 0);
         
@@ -1343,7 +1338,7 @@ public class LibraryWindow : AppWindow {
             unsubscribe_from_basic_information(current_page);
         }
         
-        notebook.set_current_page(notebook.page_num(page));
+        stack.set_visible_child(page);
         
         // do this prior to changing selection, as the change will fire a cursor-changed event,
         // which will then call this function again
@@ -1418,7 +1413,7 @@ public class LibraryWindow : AppWindow {
         assert(!page_map.has_key(page));
         page_map.set(page, entry);
         
-        add_to_notebook(page);
+        add_to_stack(page);
     }
     
     private void on_destroying_page(Sidebar.PageRepresentative entry, Page page) {
@@ -1426,7 +1421,7 @@ public class LibraryWindow : AppWindow {
         if (page == get_current_page())
             switch_to_page(library_branch.photos_entry.get_page());
         
-        remove_from_notebook(page);
+        remove_from_stack(page);
         
         bool removed = page_map.unset(page);
         assert(removed);
