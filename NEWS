@@ -1,3 +1,59 @@
+Shotwell 0.23.1 - 23 May 2016
+-----------------------------
+
+  * Update Facebook application id. Facebook integration works again (#748991)
+  * Remove obsolete VAPIs
+  * Remove custom WEXITSTATUS implementation
+  * Fix an assert in file monitor caused by renaming a file (#759403)
+  * Rename "Yorba website" to "Shotwell website" in About dialog so it
+    actually says what it does.
+  * Change the way how shotwell checks whether it runs uninstalled to allow
+    running with symlinks (#747374)
+  * Copyright was transferred from Yorba to SFC
+  * Do not block closing the viewer if there was an issue loading the photo
+    (#740436)
+  * Remove remaining references to .gnome2 directory (#766339)
+  * Update icons to hires versions and add a symbolic one (#717326)
+  * If we can't find any pixbuf representation of the Photo, push an empty
+    pixmap to force the display of the error message (#766338)
+  * Fix a critical when get_metadata returns null
+  * Remove deprecated calls to gtk_widget_render_icon() (#719188)
+  * Panic out if we cannot open the file in the viewer
+  * Make toolbar use GtkOverlay instead of implementing a custom pop-up to
+    prevent all kinds of issues with overlaying other applications or
+    toolboxes (#756126)
+  * Remove criticals caused by mouse hiding algorithm
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717326
+ - https://bugzilla.gnome.org/show_bug.cgi?id=740436
+ - https://bugzilla.gnome.org/show_bug.cgi?id=747374
+ - https://bugzilla.gnome.org/show_bug.cgi?id=748991
+ - https://bugzilla.gnome.org/show_bug.cgi?id=756126
+ - https://bugzilla.gnome.org/show_bug.cgi?id=759403
+ - https://bugzilla.gnome.org/show_bug.cgi?id=766338
+ - https://bugzilla.gnome.org/show_bug.cgi?id=766339
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Tiago Santos <tiagofsantos81@sapo.pt>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Balázs Meskó <meskobalazs@gmail.com>
+ - Adam Dingle <adam@medovina.org>
+
+Added/updated translations
+ - es, courtesy of Daniel Mustieles
+ - hu, courtesy of Meskó Balázs
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - pl, courtesy of Piotr Drąg
+ - pt, courtesy of Tiago Santos
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sk, courtesy of Dušan Kazik
+
 Shotwell 0.23.0 - 25 April 2016
 -------------------------------
 
