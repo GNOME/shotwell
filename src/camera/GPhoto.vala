@@ -25,8 +25,6 @@ namespace GPhoto {
         public virtual void idle() {
         }
 
-#if WITH_GPHOTO_25
-
         public virtual void error(string text, void *data) {
         }
 
@@ -75,57 +73,6 @@ namespace GPhoto {
             progress_stop();
         }
 
-#else
-
-        public virtual void error(string format, void *va_list) {
-        }
-
-        public virtual void status(string format, void *va_list) {
-        }
-
-        public virtual void message(string format, void *va_list) {
-        }
-
-        public virtual void progress_start(float target, string format, void *va_list) {
-        }
-
-        public virtual void progress_update(float current) {
-        }
-
-        public virtual void progress_stop() {
-        }
-
-        private void on_idle(Context context) {
-            idle();
-        }
-
-        private void on_error(Context context, string format, void *va_list) {
-            error(format, va_list);
-        }
-
-        private void on_status(Context context, string format, void *va_list) {
-            status(format, va_list);
-        }
-
-        private void on_message(Context context, string format, void *va_list) {
-            message(format, va_list);
-        }
-
-        private uint on_progress_start(Context context, float target, string format, void *va_list) {
-            progress_start(target, format, va_list);
-            
-            return 0;
-        }
-
-        private void on_progress_update(Context context, uint id, float current) {
-            progress_update(current);
-        }
-
-        private void on_progress_stop(Context context, uint id) {
-            progress_stop();
-        }
-
-#endif
     }
     
     public class SpinIdleWrapper : ContextWrapper {
@@ -137,19 +84,12 @@ namespace GPhoto {
             
             spin_event_loop();
         }
-#if WITH_GPHOTO_25  
+
         public override void progress_update(float current, void *data) {
             base.progress_update(current, data);
 
             spin_event_loop();
         }
-#else
-        public override void progress_update(float current) {
-            base.progress_update(current);
-
-            spin_event_loop();
-        }
-#endif
     }
 
     // For CameraFileInfoFile, CameraFileInfoPreview, and CameraStorageInformation.  See:
@@ -187,11 +127,7 @@ namespace GPhoto {
         camera.get_port_info(out port_info);
         
         string path;
-#if WITH_GPHOTO_25
         port_info.get_path(out path);
-#else
-        path = port_info.path;
-#endif
         
         string prefix = "disk:";
         if(path.has_prefix(prefix))

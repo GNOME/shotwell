@@ -40,10 +40,6 @@ ifdef UNITY_SUPPORT
 VALAFLAGS := $(VALAFLAGS) --define UNITY_SUPPORT
 endif
 
-ifdef WITH_GPHOTO_25
-VALAFLAGS := $(VALAFLAGS) --define WITH_GPHOTO_25
-endif
-
 DEFINES := _PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
 	_LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"' _LIB='"${LIB}"' _LIBEXECDIR='"$(LIBEXECDIR)"'
 
@@ -119,16 +115,11 @@ VAPI_FILES = \
 	LConv.vapi \
 	libexif.vapi \
 	libraw.vapi \
-	unity.vapi
+	unity.vapi \
+	libgphoto2.vapi
 
 DEPS_FILES = \
 	unity.deps
-
-ifdef WITH_GPHOTO_25
-GPHOTO_VAPI_FILE = vapi/gphoto-2.5/libgphoto2.vapi
-else
-GPHOTO_VAPI_FILE = vapi/gphoto-2.4/libgphoto2.vapi
-endif
 
 RESOURCE_FILES = \
 	collection.ui \
@@ -226,13 +217,6 @@ ICON_FILES = \
 
 VAPI_DIRS = \
 	./vapi
-
-ifdef WITH_GPHOTO_25
-VAPI_DIRS += ./vapi/gphoto-2.5
-else
-VAPI_DIRS += ./vapi/gphoto-2.4
-endif
-
 
 HEADER_DIRS = \
 	./vapi
@@ -371,7 +355,6 @@ DIST_FILES = Makefile configure chkver $(EXPANDED_DIST_SRC_FILES) $(EXPANDED_VAP
 	$(EXPANDED_DOC_PAGES) $(EXPANDED_DOC_IMAGES) $(EXPANDED_DOC_PO) help/Makefile.am \
 	apport/shotwell.py $(UNIT_RESOURCES) $(UNIT_MKS) \
 	unitize.mk units.mk $(PC_INPUT) $(PLUGINS_DIST_FILES) \
-	vapi/gphoto-2.5/libgphoto2.vapi vapi/gphoto-2.4/libgphoto2.vapi \
 	$(EXPANDED_THUMBNAILER_SRC_FILES) $(MIGRATOR_BIN)
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
@@ -659,7 +642,7 @@ $(UNITIZE_INITS) $(UNITIZE_ENTRIES): $(UNITIZE_STAMP)
 	@
 
 # EXPANDED_SRC_FILES includes UNITIZE_INITS and UNITIZE_ENTRY
-$(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(GPHOTO_VAPI_FILE) $(EXPANDED_SRC_HEADER_FILES)
+$(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES)
 	$(call check_valac_version)
 	@echo Compiling Vala code...
 	@mkdir -p $(BUILD_DIR)

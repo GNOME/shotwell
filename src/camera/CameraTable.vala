@@ -276,11 +276,7 @@ public class CameraTable {
             do_op(camera.gcamera.get_port_info(out port_info), 
                 "retrieve missing camera port information");
             
-#if WITH_GPHOTO_25
             port_info.get_path(out tmp_path);
-#else
-            tmp_path = port_info.path;
-#endif
             
             GPhoto.CameraAbilities abilities;
             do_op(camera.gcamera.get_abilities(out abilities), "retrieve camera abilities");
@@ -303,11 +299,7 @@ public class CameraTable {
             
             do_op(camera.gcamera.get_port_info(out port_info),
                 "retrieve missing camera port information");
-#if WITH_GPHOTO_25
             port_info.get_path(out tmp_path);
-#else
-            tmp_path = port_info.path;
-#endif
             
             GPhoto.CameraAbilities abilities;
             do_op(camera.gcamera.get_abilities(out abilities), "retrieve missing camera abilities");
@@ -363,11 +355,7 @@ public class CameraTable {
             string tmp_path;
             
             do_op(port_info_list.get_info(index, out port_info), "get port info for %s".printf(port));
-#if WITH_GPHOTO_25
             port_info.get_path(out tmp_path);
-#else
-            tmp_path = port_info.path;
-#endif            
             
             // this should match, every time
             assert(port == tmp_path);
