@@ -54,6 +54,11 @@ shotwell_VALAFLAGS = --pkg gio-2.0 --pkg gtk+-3.0 --pkg gee-0.8 \
 	-g --enable-checking --target-glib=2.32 --thread --fatal-warnings \
 	--enable-experimental --enable-deprecated
 
+if IS_GITVERSION
+shotwell_CFLAGS += -D_GIT_VERSION='"@GITVER@"'
+shotwell_VALAFLAGS += --define=_GITVERSION
+endif
+
 shotwell_SOURCES = \
 	src/unit/Unit.vala \
 	src/util/Util.vala \

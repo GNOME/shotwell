@@ -13,6 +13,8 @@ m4_define([api_version],[major_version])
 
 AX_IS_RELEASE([micro-version])
 
+m4_define([git_version],[m4_esyscmd(git rev-parse HEAD)])
+
 dnl ***********************************************************************
 dnl Initialize autoconf
 dnl ***********************************************************************
@@ -33,6 +35,8 @@ AC_SUBST([MINOR_VERSION],minor_version)
 AC_SUBST([MICRO_VERSION],micro_version)
 AC_SUBST([API_VERSION],api_version)
 
+AC_SUBST([GITVER],git_version)
+AM_CONDITIONAL([IS_GITVERSION],[test "x$GITVER" != "x"])
 
 dnl ***********************************************************************
 dnl Initialize automake
