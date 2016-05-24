@@ -103,6 +103,23 @@ PKG_CHECK_MODULES(SHOTWELL, [
                              webkit2gtk-4.0
                             ])
 
+AC_ARG_ENABLE([unity-support],
+              AS_HELP_STRING([--enable-unity-support],
+                             [Enable Ubuntu Unity integration]),,
+              [enable_unity_support=no])
+
+AS_IF([test "x$enable_unity_support" = "xyes"],
+      [
+       PKG_CHECK_MODULES(UNITY, [unity],
+                         [
+                          HAVE_UNITY=yes
+                          UNITY_VALAFLAGS="--pkg unity --define UNITY_SUPPORT"
+                          AC_SUBST([UNITY_VALAFLAGS])
+                         ], [HAVE_UNITY=no])
+      ], [HAVE_UNITY=no])
+AC_SUBST([HAVE_UNITY])
+AM_CONDITIONAL([HAVE_UNITY],[test "x$HAVE_UNITY" = "xyes"])
+
 dnl ***********************************************************************
 dnl Initialize Libtool
 dnl ***********************************************************************

@@ -35,7 +35,9 @@ GITIGNOREFILES = \
 -include $(top_srcdir)/git.mk
 
 bin_PROGRAMS = shotwell
-shotwell_CFLAGS = $(SHOTWELL_CFLAGS) \
+shotwell_CFLAGS = \
+	$(SHOTWELL_CFLAGS) \
+	$(UNITY_CFLAGS) \
 	-I$(top_srcdir)/vapi \
 	-D_PREFIX='"$(prefix)"' \
 	-D_VERSION='"$(VERSION)"' \
@@ -44,7 +46,7 @@ shotwell_CFLAGS = $(SHOTWELL_CFLAGS) \
 	-D_LIBEXECDIR='"$(libexecdir)"' \
 	-D_LIB='"$(libdir)"'
 
-shotwell_LIBS = $(SHOTWELL_LIBS)
+shotwell_LDADD = $(SHOTWELL_LIBS) $(UNITY_LIBS)
 shotwell_VALAFLAGS = --pkg gio-2.0 --pkg gtk+-3.0 --pkg gee-0.8 \
 	--pkg gio-unix-2.0 --pkg sqlite3 --pkg gmodule-2.0 \
 	--vapidir $(top_srcdir)/vapi \
@@ -52,7 +54,8 @@ shotwell_VALAFLAGS = --pkg gio-2.0 --pkg gtk+-3.0 --pkg gee-0.8 \
 	--pkg libexif --pkg gudev-1.0 --pkg gstreamer-1.0 \
 	--pkg gstreamer-pbutils-1.0 \
 	-g --enable-checking --target-glib=2.32 --thread --fatal-warnings \
-	--enable-experimental --enable-deprecated
+	--enable-experimental --enable-deprecated \
+	$(UNITY_VALAFLAGS)
 
 if IS_GITVERSION
 shotwell_CFLAGS += -D_GIT_VERSION='"@GITVER@"'
