@@ -1,4 +1,3 @@
-[encoding: UTF-8]
 plugins/common/RESTSupport.vala
 plugins/common/Resources.vala
 plugins/shotwell-data-imports/FSpotDatabase.vala
@@ -20,26 +19,26 @@ plugins/shotwell-publishing-extras/RajcePublishing.vala
 plugins/shotwell-publishing-extras/TumblrPublishing.vala
 plugins/shotwell-publishing-extras/YandexPublishing.vala
 plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala
-[type: gettext/glade]plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing-extras/rajce_authentication_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing-extras/yandex_publish_model.glade
+plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade
+plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade
+plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade
+plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade
+plugins/shotwell-publishing-extras/rajce_authentication_pane.glade
+plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade
+plugins/shotwell-publishing-extras/yandex_publish_model.glade
 plugins/shotwell-publishing/FacebookPublishing.vala
 plugins/shotwell-publishing/FlickrPublishing.vala
 plugins/shotwell-publishing/PicasaPublishing.vala
 plugins/shotwell-publishing/PiwigoPublishing.vala
 plugins/shotwell-publishing/YouTubePublishing.vala
-[type: gettext/glade]plugins/shotwell-publishing/facebook_publishing_options_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing/flickr_pin_entry_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing/flickr_publishing_options_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing/picasa_publishing_options_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing/piwigo_authentication_pane.glade
-[type: gettext/glade]plugins/shotwell-publishing/piwigo_publishing_options_pane.glade
+plugins/shotwell-publishing/facebook_publishing_options_pane.glade
+plugins/shotwell-publishing/flickr_pin_entry_pane.glade
+plugins/shotwell-publishing/flickr_publishing_options_pane.glade
+plugins/shotwell-publishing/picasa_publishing_options_pane.glade
+plugins/shotwell-publishing/piwigo_authentication_pane.glade
+plugins/shotwell-publishing/piwigo_publishing_options_pane.glade
 plugins/shotwell-publishing/shotwell-publishing.vala
-[type: gettext/glade]plugins/shotwell-publishing/youtube_publishing_options_pane.glade
+plugins/shotwell-publishing/youtube_publishing_options_pane.glade
 plugins/shotwell-transitions/BlindsEffect.vala
 plugins/shotwell-transitions/ChessEffect.vala
 plugins/shotwell-transitions/CircleEffect.vala
@@ -224,6 +223,6 @@ src/util/misc.vala
 src/util/string.vala
 src/util/system.vala
 src/util/ui.vala
-[type: gettext/glade]ui/set_background_dialog.glade
-[type: gettext/glade]ui/set_background_slideshow_dialog.glade
-[type: gettext/glade]ui/shotwell.glade
+ui/set_background_dialog.glade
+ui/set_background_slideshow_dialog.glade
+ui/shotwell.glade
