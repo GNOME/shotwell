@@ -38,15 +38,6 @@ private class PositionMarker : Object {
         }
         set {
             marker.set_selected(value);
-            if (!(marker is Champlain.Point)) {
-                // first child of the marker is a ClutterGroup which contains the texture
-                var t = (Clutter.Texture) marker.get_first_child().get_first_child();
-                if (value) {
-                    t.set_cogl_texture(map_widget.marker_selected_cogl_texture);
-                } else {
-                    t.set_cogl_texture(map_widget.marker_cogl_texture);
-                }
-            }
         }
     }
 
@@ -92,12 +83,15 @@ private class MapWidget : Gtk.Bin {
     private Gee.Collection<MarkerGroup> marker_groups = new Gee.LinkedList<MarkerGroup>();
     private unowned Page page = null;
 
-    public Cogl.Handle marker_cogl_texture { get; private set; }
-    public Cogl.Handle marker_selected_cogl_texture { get; private set; }
+    public float marker_image_width { get; private set; }
+    public float marker_image_height { get; private set; }
+    public Clutter.Image? marker_image { get; private set; }
+    public Clutter.Image? marker_selected_image { get; private set; }
+    public const Clutter.Color marker_point_color = { 10, 10, 255, 192 };
 
     private MapWidget() {
-        add(gtk_champlain_widget);
         setup_map();
+        add(gtk_champlain_widget);
     }
 
     public static MapWidget get_instance() {
@@ -267,27 +261,26 @@ private class MapWidget : Gtk.Bin {
         Gdk.Pixbuf gdk_marker_selected = Resources.get_icon(Resources.ICON_GPS_MARKER_SELECTED);
         try {
             // this is what GtkClutter.Texture.set_from_pixmap does
-            var tex = new Clutter.Texture(); // TODO: DEPRECATED Use Clutter.Image
-            tex.set_from_rgb_data(gdk_marker.get_pixels(),
-                                            gdk_marker.get_has_alpha(),
-                                            gdk_marker.get_width(),
-                                            gdk_marker.get_height(),
-                                            gdk_marker.get_rowstride(),
-                                            gdk_marker.get_has_alpha() ? 4 : 3,
-                                            Clutter.TextureFlags.NONE);
-            marker_cogl_texture = tex.get_cogl_texture();
-            tex.set_from_rgb_data(gdk_marker_selected.get_pixels(),
-                                            gdk_marker_selected.get_has_alpha(),
-                                            gdk_marker_selected.get_width(),
-                                            gdk_marker_selected.get_height(),
-                                            gdk_marker_selected.get_rowstride(),
-                                            gdk_marker_selected.get_has_alpha() ? 4 : 3,
-                                            Clutter.TextureFlags.NONE);
-            marker_selected_cogl_texture = tex.get_cogl_texture();
+            marker_image = new Clutter.Image();
+            marker_image.set_data(gdk_marker.get_pixels(),
+                    gdk_marker.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
+                    gdk_marker.get_width(),
+                    gdk_marker.get_height(),
+                    gdk_marker.get_rowstride());
+
+            marker_selected_image = new Clutter.Image();
+            marker_selected_image.set_data(gdk_marker_selected.get_pixels(),
+                    gdk_marker_selected.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
+                    gdk_marker_selected.get_width(),
+                    gdk_marker_selected.get_height(),
+                    gdk_marker_selected.get_rowstride());
+
+            marker_image_width = gdk_marker.get_width();
+            marker_image_height = gdk_marker.get_height();
         } catch (GLib.Error e) {
             // Fall back to the generic champlain marker
-            marker_cogl_texture = null;
-            marker_selected_cogl_texture = null;
+            marker_image = null;
+            marker_selected_image = null;
         }
     }
 
@@ -297,14 +290,18 @@ private class MapWidget : Gtk.Bin {
         GpsCoords gps_coords = p.get_gps_coords();
         assert(gps_coords.has_gps > 0);
         Champlain.Marker champlain_marker;
-        if (marker_cogl_texture == null) {
+        if (marker_image == null) {
             // Fall back to the generic champlain marker
-            champlain_marker = new Champlain.Point.full(12, { red:10, green:10, blue:255, alpha:255 });
+            champlain_marker = new Champlain.Point.full(12, marker_point_color);
         } else {
             champlain_marker = new Champlain.Marker();
-            var t = new Clutter.Texture();
-            t.set_cogl_texture(marker_cogl_texture);
-            champlain_marker.add_child(t);
+            champlain_marker.set_content(marker_image);
+            champlain_marker.set_size(marker_image_width, marker_image_height);
+            champlain_marker.notify.connect((o, p) => {
+                Champlain.Marker? m = o as Champlain.Marker;
+                if (p.name == "selected")
+                    m.set_content(m.selected ? marker_selected_image : marker_image);
+            });
         }
         champlain_marker.set_pivot_point(0.5f, 0.5f); // set center of marker
         champlain_marker.set_location(gps_coords.latitude, gps_coords.longitude);
