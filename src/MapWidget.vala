@@ -76,15 +76,21 @@ private class MapWidget : Gtk.Bin {
     private uint last_zoom_level = DEFAULT_ZOOM_LEVEL;
     private Champlain.Scale map_scale = new Champlain.Scale();
     private Champlain.MarkerLayer marker_layer = new Champlain.MarkerLayer();
+    public bool map_edit_lock { get; set; }
     private Gee.Map<DataView, PositionMarker> position_markers =
         new Gee.HashMap<DataView, PositionMarker>();
     private Gee.TreeMap<long, Gee.TreeMap<long, MarkerGroup>> marker_groups_tree =
         new Gee.TreeMap<long, Gee.TreeMap<long, MarkerGroup>>();
     private Gee.Collection<MarkerGroup> marker_groups = new Gee.LinkedList<MarkerGroup>();
     private unowned Page page = null;
+    private Clutter.Image? map_edit_locked_image;
+    private Clutter.Image? map_edit_unlocked_image;
+    private Clutter.Actor map_edit_lock_button = new Clutter.Actor();
 
     public float marker_image_width { get; private set; }
     public float marker_image_height { get; private set; }
+    public float map_edit_lock_image_width { get; private set; }
+    public float map_edit_lock_image_height { get; private set; }
     public Clutter.Image? marker_image { get; private set; }
     public Clutter.Image? marker_selected_image { get; private set; }
     public const Clutter.Color marker_point_color = { 10, 10, 255, 192 };
@@ -239,6 +245,33 @@ private class MapWidget : Gtk.Bin {
         map_view = gtk_champlain_widget.get_view();
         map_view.add_layer(marker_layer);
 
+        // add lock/unlock button to top left corner of map
+        map_edit_lock_button.content_gravity = Clutter.ContentGravity.TOP_RIGHT;
+        map_edit_lock_button.reactive = true;
+        map_edit_lock_button.button_release_event.connect((a, e) => {
+            if (e.button != 1 /* CLUTTER_BUTTON_PRIMARY */)
+                return false;
+            map_edit_lock = !map_edit_lock;
+            map_edit_lock_button.set_content(map_edit_lock ?
+                map_edit_locked_image : map_edit_unlocked_image);
+            return true;
+        });
+        map_view.bin_layout_add(map_edit_lock_button, Clutter.BinAlignment.END, Clutter.BinAlignment.START);
+        gtk_champlain_widget.has_tooltip = true;
+        gtk_champlain_widget.query_tooltip.connect((x, y, keyboard_tooltip, tooltip) => {
+            Gdk.Rectangle lock_rect = {
+                (int) map_edit_lock_button.x,
+                (int) map_edit_lock_button.y,
+                (int) map_edit_lock_button.width,
+                (int) map_edit_lock_button.height,
+            };
+            Gdk.Rectangle mouse_pos = { x, y, 1, 1 };
+            if (!lock_rect.intersect(mouse_pos, null))
+                return false;
+            tooltip.set_text(_("Lock or unlock map for geotagging by dragging pictures onto the map"));
+            return true;
+        });
+
         // add scale to bottom left corner of the map
         map_scale.content_gravity = Clutter.ContentGravity.BOTTOM_LEFT;
         map_scale.connect_view(map_view);
@@ -264,6 +297,18 @@ private class MapWidget : Gtk.Bin {
         marker_image_height = h;
         marker_selected_image = Resources.get_icon_as_clutter_image(
                 Resources.ICON_GPS_MARKER_SELECTED, out w, out h);
+        map_edit_locked_image = Resources.get_icon_as_clutter_image(
+                Resources.ICON_MAP_EDIT_LOCKED, out w, out h);
+        map_edit_unlocked_image = Resources.get_icon_as_clutter_image(
+                Resources.ICON_MAP_EDIT_UNLOCKED, out w, out h);
+        map_edit_lock_image_width = w;
+        map_edit_lock_image_height = h;
+        if (map_edit_locked_image == null) {
+            warning("Couldn't load map edit lock image");
+        } else {
+            map_edit_lock_button.set_content(map_edit_locked_image);
+            map_edit_lock_button.set_size(map_edit_lock_image_width, map_edit_lock_image_height);
+            map_edit_lock = true;
         }
     }
 
@@ -357,6 +402,9 @@ private class MapWidget : Gtk.Bin {
     }
 
     private bool internal_drop_received(Gee.List<MediaSource> media, double lat, double lon) {
+        if (map_edit_lock) {
+            return false;
+        }
         int i = 0;
         bool success = false;
         while (i < media.size) {

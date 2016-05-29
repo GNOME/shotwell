@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2394"
+   viewBox="0 0 500 500"
+   version="1.0"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="map-edit-lock.svg">
+  <defs
+     id="defs3618" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1440"
+     inkscape:window-height="836"
+     id="namedview3616"
+     showgrid="false"
+     inkscape:zoom="1.3350176"
+     inkscape:cx="245.59921"
+     inkscape:cy="225.03259"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2394">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4324" />
+  </sodipodi:namedview>
+  <path
+     style="fill:#2c2c2c;fill-rule:evenodd"
+     d="M 138.14453 235.48047 C 138.14734 235.54209 138.1495 235.84106 138.15234 235.88086 L 122.5625 235.88086 L 122.56055 235.88086 C 108.43055 235.88086 97.001953 247.31922 97.001953 261.44922 L 97.001953 416.94922 L 409.43164 416.94922 L 409.43164 261.44922 C 409.43164 247.31922 398.00109 235.88086 383.87109 235.88086 L 368.28125 235.88086 C 368.28423 235.84106 368.28613 235.54209 368.28906 235.48047 L 298.55273 235.48047 C 298.54126 235.58953 298.53125 235.82185 298.51953 235.88086 L 207.91016 235.88086 C 207.89864 235.82184 207.88824 235.58955 207.87695 235.48047 L 138.14453 235.48047 z M 97.357422 434.69922 C 99.381422 446.80922 109.89055 456.00977 122.56055 456.00977 L 383.86914 456.00977 C 396.53914 456.00977 407.05008 446.80922 409.08008 434.69922 L 97.359375 434.69922 L 97.357422 434.69922 z "
+     id="path14" />
+  <metadata
+     id="metadata3614">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Padlock Icon</dc:title>
+        <dc:date>2010-06-25T17:53:36</dc:date>
+        <dc:description>a simple padlock icon</dc:description>
+        <dc:source>https://openclipart.org/detail/68533/padlock-icon-by-jaschon</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>jaschon</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>black</rdf:li>
+            <rdf:li>black and white</rdf:li>
+            <rdf:li>key</rdf:li>
+            <rdf:li>keyhole</rdf:li>
+            <rdf:li>lock</rdf:li>
+            <rdf:li>padlock</rdf:li>
+            <rdf:li>security</rdf:li>
+            <rdf:li>silhouette</rdf:li>
+            <rdf:li>symbol</rdf:li>
+            <rdf:li>tool</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <path
+     inkscape:connector-curvature="0"
+     style="fill:#2c2c2c;fill-rule:evenodd"
+     d="m 253.22266,81.94726 c -63.73,-0.002 -115.39063,51.66086 -115.39063,115.38086 0,2.99 0.11031,66.29047 0.32031,69.23047 l 230.12891,0 c 0.22,-2.94 0.32031,-66.24047 0.32031,-69.23047 0,-63.72 -51.6589,-115.38086 -115.3789,-115.38086 z m -0.002,69.23047 c 25.49,0 46.14844,20.66039 46.14844,46.15039 0,3.06 -0.27961,66.36047 -0.84961,69.23047 l -90.60937,0 c -0.56,-2.87 -0.84961,-66.17047 -0.84961,-69.23047 0,-25.49 20.67015,-46.15039 46.16015,-46.15039 z"
+     id="path14-5"
+     sodipodi:nodetypes="csccscssccss" />
+</svg>
