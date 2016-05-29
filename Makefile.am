@@ -1,4 +1,4 @@
-SUBDIRS = po
+SUBDIRS = po misc
 
 EXTRA_DIST = AUTHORS
 

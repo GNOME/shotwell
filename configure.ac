@@ -132,11 +132,8 @@ dnl Process .in Files
 dnl ***********************************************************************
 AC_CONFIG_FILES([
 	Makefile
-
 	src/Makefile
-
-
-
+    misc/Makefile
 	po/Makefile.in
 ],[],
 [API_VERSION='$API_VERSION'])
