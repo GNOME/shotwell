@@ -911,7 +911,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             debug("on_viewport_resized: due_to_reflow=%s set_size_request %dx%d",
                 size_allocate_due_to_reflow.to_string(), parent_allocation.width, req.height);
 #endif
-            set_size_request(parent_allocation.width - SCROLLBAR_PLACEHOLDER_WIDTH, req.height);
+            // But if the current height is 0, don't request a size yet. Delay
+            // it to do_reflow (bgo#766864)
+            if (req.height != 0) {
+                set_size_request(parent_allocation.width - SCROLLBAR_PLACEHOLDER_WIDTH, req.height);
+            }
         } else {
             // set the layout's width and height to always match the parent's
             set_size_request(parent_allocation.width, parent_allocation.height);
