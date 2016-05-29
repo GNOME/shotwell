@@ -1068,6 +1068,27 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return (scale > 0) ? scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false) : pixbuf;
     }
     
+    // Helper method for loading the result of get_icon into a Clutter.Image
+    // Returns null on error, in which case width and height are set to 0.
+    public static Clutter.Image? get_icon_as_clutter_image(string name, out float width, out float height) {
+        Gdk.Pixbuf pixbuf = Resources.get_icon(name);
+        Clutter.Image clutter_image = new Clutter.Image();
+        try {
+            clutter_image.set_data(pixbuf.get_pixels(),
+                pixbuf.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
+                pixbuf.get_width(),
+                pixbuf.get_height(),
+                pixbuf.get_rowstride());
+            width = pixbuf.get_width();
+            height = pixbuf.get_height();
+        } catch (GLib.Error e) {
+            width = 0;
+            height = 0;
+            return null;
+        }
+        return clutter_image;
+    }
+
     // Get the directory where our help files live.  Returns a string
     // describing the help path we want, or, if we're installed system
     // -wide already, returns null.

@@ -256,31 +256,14 @@ private class MapWidget : Gtk.Bin {
         button_press_event.connect(map_zoom_handler);
         set_size_request(200, 200);
 
-        // Load gdk pixbuf via Resources class
-        Gdk.Pixbuf gdk_marker = Resources.get_icon(Resources.ICON_GPS_MARKER);
-        Gdk.Pixbuf gdk_marker_selected = Resources.get_icon(Resources.ICON_GPS_MARKER_SELECTED);
-        try {
-            // this is what GtkClutter.Texture.set_from_pixmap does
-            marker_image = new Clutter.Image();
-            marker_image.set_data(gdk_marker.get_pixels(),
-                    gdk_marker.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
-                    gdk_marker.get_width(),
-                    gdk_marker.get_height(),
-                    gdk_marker.get_rowstride());
-
-            marker_selected_image = new Clutter.Image();
-            marker_selected_image.set_data(gdk_marker_selected.get_pixels(),
-                    gdk_marker_selected.get_has_alpha() ? Cogl.PixelFormat.RGBA_8888 : Cogl.PixelFormat.RGB_888,
-                    gdk_marker_selected.get_width(),
-                    gdk_marker_selected.get_height(),
-                    gdk_marker_selected.get_rowstride());
-
-            marker_image_width = gdk_marker.get_width();
-            marker_image_height = gdk_marker.get_height();
-        } catch (GLib.Error e) {
-            // Fall back to the generic champlain marker
-            marker_image = null;
-            marker_selected_image = null;
+        // Load icons
+        float w, h;
+        marker_image = Resources.get_icon_as_clutter_image(
+                Resources.ICON_GPS_MARKER, out w, out h);
+        marker_image_width = w;
+        marker_image_height = h;
+        marker_selected_image = Resources.get_icon_as_clutter_image(
+                Resources.ICON_GPS_MARKER_SELECTED, out w, out h);
         }
     }
 
