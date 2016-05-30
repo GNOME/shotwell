@@ -701,13 +701,19 @@ public class SearchFilterToolbar : Gtk.Revealer {
         
         public void set_icon_name(string icon_name) {
             Gtk.Image? image = null;
+            button.set_always_show_image(true);
             if (icon_name.contains("disabled"))
                 image = new Gtk.Image.from_stock(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
             else
                 image = new Gtk.Image.from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
-
+            image.set_margin_end(6);
             button.set_image(image);
         }
+
+        public void set_label(string label) {
+            button.set_label(label);
+        }
+
     }
     
     // Ticket #3260 - Add a 'close' context menu to
@@ -857,8 +863,11 @@ public class SearchFilterToolbar : Gtk.Revealer {
                 break;
             }
             
-            return new Gtk.Image.from_pixbuf(Resources.load_icon(filename,
+            Gtk.Image image = new Gtk.Image.from_pixbuf(Resources.load_icon(filename,
                 get_filter_icon_size(filter)));
+            image.set_margin_end(6);
+
+            return image;
         }
 
         private int get_filter_icon_size(RatingFilter filter) {
@@ -890,6 +899,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
         }
 
         public void set_filter_icon(RatingFilter filter) {
+            button.set_always_show_image(true);
             button.set_image(get_filter_icon(filter));
             set_size_request(get_filter_button_size(filter), -1);
             set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
@@ -900,6 +910,11 @@ public class SearchFilterToolbar : Gtk.Revealer {
         private int get_filter_button_size(RatingFilter filter) {
             return get_filter_icon_size(filter) + 2 * FILTER_BUTTON_MARGIN;
         }
+
+        public void set_label(string label) {
+            button.set_label(label);
+        }
+
     }
     
     public Gtk.UIManager ui = new Gtk.UIManager();
@@ -909,8 +924,6 @@ public class SearchFilterToolbar : Gtk.Revealer {
     private RatingFilterButton rating_button = new RatingFilterButton();
     private SearchViewFilter? search_filter = null;
     private LabelToolItem label_type;
-    private LabelToolItem label_flagged;
-    private LabelToolItem label_rating;
     private ToggleActionToolButton toolbtn_photos;
     private ToggleActionToolButton toolbtn_videos;
     private ToggleActionToolButton toolbtn_raw;
@@ -968,11 +981,10 @@ public class SearchFilterToolbar : Gtk.Revealer {
         sepr_mediatype_flagged = new Gtk.SeparatorToolItem();
         toolbar.insert(sepr_mediatype_flagged, -1);
         
-        // Flagged label and toggle
-        label_flagged = new LabelToolItem(_("Flagged"));
-        toolbar.insert(label_flagged, -1);
+        // Flagged button
         
         toolbtn_flag = new ToggleActionToolButton(actions.flagged);
+        toolbtn_flag.set_label(_("Flagged"));
         toolbtn_flag.set_tooltip_text(actions.get_action_group().get_action("CommonDisplayFlagged").tooltip);
         
         toolbar.insert(toolbtn_flag, -1);
@@ -981,10 +993,9 @@ public class SearchFilterToolbar : Gtk.Revealer {
         sepr_flagged_rating = new Gtk.SeparatorToolItem();
         toolbar.insert(sepr_flagged_rating, -1);
         
-        // Rating label and button
-        label_rating = new LabelToolItem(_("Rating"));
-        toolbar.insert(label_rating, -1);
+        // Rating button
         rating_button.filter_popup = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
+        rating_button.set_label(_("Rating"));
         rating_button.set_expand(false);
         rating_button.clicked.connect(on_filter_button_clicked);
         toolbar.insert(rating_button, -1);
@@ -1160,9 +1171,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
         search_box.visible = ((criteria & SearchFilterCriteria.TEXT) != 0);
 
         rating_button.visible = ((criteria & SearchFilterCriteria.RATING) != 0);
-        label_rating.visible = ((criteria & SearchFilterCriteria.RATING) != 0);
         
-        label_flagged.visible = ((criteria & SearchFilterCriteria.FLAG) != 0);
         toolbtn_flag.visible = ((criteria & SearchFilterCriteria.FLAG) != 0);
         
         label_type.visible = ((criteria & SearchFilterCriteria.MEDIA) != 0);
@@ -1172,10 +1181,10 @@ public class SearchFilterToolbar : Gtk.Revealer {
 
         // Ticket #3290, part IV - ensure that the separators
         // are shown and/or hidden as needed.
-        sepr_mediatype_flagged.visible = (label_type.visible && label_flagged.visible);
+        sepr_mediatype_flagged.visible = (label_type.visible && toolbtn_flag.visible);
 
-        sepr_flagged_rating.visible = ((label_type.visible && label_rating.visible) ||
-            (label_flagged.visible && label_rating.visible));
+        sepr_flagged_rating.visible = ((label_type.visible && rating_button.visible) ||
+            (toolbtn_flag.visible && rating_button.visible));
 
         // Send update to view collection.
         search_filter.refresh();
