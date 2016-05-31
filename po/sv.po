@@ -10,29 +10,30 @@
 # verayin <vera@yorba.org>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-07-20 11:39+0000\n"
-"PO-Revision-Date: 2015-07-20 18:14+0200\n"
-"Last-Translator: Josef Andersson <josef.andersson@fripost.org>\n"
+"POT-Creation-Date: 2016-05-29 14:27+0000\n"
+"PO-Revision-Date: 2016-05-31 20:46+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Project-Style: gnome\n"
 
-#: ../plugins/common/RESTSupport.vala:424
+#: ../plugins/common/RESTSupport.vala:425
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "En temporärfil som krävs för publicering är inte tillgänglig"
 
-#: ../plugins/common/RESTSupport.vala:1138
+#: ../plugins/common/RESTSupport.vala:1145
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -48,7 +49,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Besök Shotwells webbplats"
 
-#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:705
+#: ../plugins/common/Resources.vala:28 ../src/AppWindow.vala:676
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
@@ -64,8 +65,8 @@ msgstr ""
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:32
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:32
 #: ../src/Resources.vala:27
-msgid "Copyright 2009-2015 Yorba Foundation"
-msgstr "Copyright 2009-2015 Yorba Foundation"
+msgid "Copyright 2016 Software Freedom Conservancy Inc."
+msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:56
 msgid ""
@@ -422,7 +423,7 @@ msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Besök webbplatsen för Yandex.Fotki"
 
-#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:632
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:659
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Du är för närvarande inte inloggad på Yandex.Fotki."
 
@@ -546,7 +547,7 @@ msgid "Public"
 msgstr "Offentlig"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:8
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1181
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1195
 msgid "Friends"
 msgstr "Vänner"
 
@@ -613,7 +614,7 @@ msgstr ""
 "En fil som krävs för publiceringen saknas. Därför kan publiceringen till "
 "Facebook inte fortsätta."
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1019
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1033
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -622,21 +623,21 @@ msgstr ""
 "Du är inloggad på Facebook som %s.\n"
 "\n"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1020
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1034
 msgid "Where would you like to publish the selected photos?"
 msgstr "Var vill du publicera de markerade bilderna?"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1021
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1035
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:3
 msgid "Upload _size:"
 msgstr "_Storlek att skicka upp:"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1180
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1194
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1214
 msgid "Just me"
 msgstr "Bara jag"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1182
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1196
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1210
 #: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1234
 msgid "Everyone"
@@ -972,7 +973,7 @@ msgid "Logout"
 msgstr "Logga ut"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:12
-#: ../src/Resources.vala:303
+#: ../src/Resources.vala:298
 msgid "Publish"
 msgstr "Publicera"
 
@@ -1029,77 +1030,81 @@ msgid "Core Slideshow Transitions"
 msgstr "Standardövergångar för bildspel"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
+msgid ""
+"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
+"Inc."
+msgstr ""
+"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
+"Inc."
 
-#: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
+#: ../src/AppDirs.vala:64 ../src/AppDirs.vala:115
 #, c-format
 msgid "Unable to create cache directory %s: %s"
 msgstr "Det går inte att skapa cache-katalogen %s: %s"
 
-#: ../src/AppDirs.vala:58 ../src/AppDirs.vala:88
+#: ../src/AppDirs.vala:74 ../src/AppDirs.vala:104
 #, c-format
 msgid "Unable to create data directory %s: %s"
 msgstr "Kunde inte skapa datakatalogen %s: %s"
 
 #. If XDG yarfed, use ~/Pictures
-#: ../src/AppDirs.vala:152
+#: ../src/AppDirs.vala:168
 msgid "Pictures"
 msgstr "Bilder"
 
-#: ../src/AppDirs.vala:190
+#: ../src/AppDirs.vala:206
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Kunde inte skapa den temporära katalogen %s: %s"
 
-#: ../src/AppDirs.vala:207 ../src/AppDirs.vala:238
+#: ../src/AppDirs.vala:223 ../src/AppDirs.vala:254
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Kunde inte skapa den underliggande datakatalogen %s: %s"
 
-#: ../src/AppDirs.vala:220
+#: ../src/AppDirs.vala:236
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Kunde inte göra katalogen %s skrivbar"
 
-#: ../src/AppDirs.vala:223
+#: ../src/AppDirs.vala:239
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Kunde inte göra katalogen %s skrivbar: %s"
 
-#: ../src/AppWindow.vala:53
+#: ../src/AppWindow.vala:54
 msgid "Pin Toolbar"
 msgstr "Fäst verktygsfält"
 
-#: ../src/AppWindow.vala:54
+#: ../src/AppWindow.vala:55
 msgid "Pin the toolbar open"
 msgstr "Fäst verktygsfältet i öppet läge"
 
-#: ../src/AppWindow.vala:59
+#: ../src/AppWindow.vala:60
 msgid "Leave fullscreen"
 msgstr "Avsluta helskärmsläge"
 
-#: ../src/AppWindow.vala:525
+#: ../src/AppWindow.vala:496
 msgid "_Contents"
 msgstr "_Innehåll"
 
-#: ../src/AppWindow.vala:530
+#: ../src/AppWindow.vala:501
 msgid "_Frequently Asked Questions"
 msgstr "_Återkommande frågor"
 
-#: ../src/AppWindow.vala:535
+#: ../src/AppWindow.vala:506
 msgid "_Report a Problem..."
 msgstr "_Rapportera ett problem…"
 
-#: ../src/AppWindow.vala:634 ../src/AppWindow.vala:655
-#: ../src/AppWindow.vala:672 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
-#: ../src/Dialogs.vala:1418 ../src/Dialogs.vala:1441 ../src/Resources.vala:162
-#: ../src/data_imports/DataImportsUI.vala:374
-#: ../src/publishing/PublishingUI.vala:475
+#: ../src/AppWindow.vala:605 ../src/AppWindow.vala:626
+#: ../src/AppWindow.vala:643 ../src/Dialogs.vala:20 ../src/Dialogs.vala:28
+#: ../src/Dialogs.vala:1424 ../src/Dialogs.vala:1447 ../src/Resources.vala:157
+#: ../src/data_imports/DataImportsUI.vala:413
+#: ../src/publishing/PublishingUI.vala:512
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: ../src/AppWindow.vala:682
+#: ../src/AppWindow.vala:653
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -1112,21 +1117,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/AppWindow.vala:702
-msgid "Visit the Yorba web site"
-msgstr "Besök Yorbas webbplats"
+#: ../src/AppWindow.vala:673
+msgid "Visit the Shotwell web site"
+msgstr "Besök Shotwells webbplats"
 
-#: ../src/AppWindow.vala:714
+#: ../src/AppWindow.vala:685
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Kunde inte visa hjälp: %s"
 
-#: ../src/AppWindow.vala:722
+#: ../src/AppWindow.vala:693
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Det går inte att komma åt feldatabasen: %s"
 
-#: ../src/AppWindow.vala:730
+#: ../src/AppWindow.vala:701
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Kunde inte visa återkommande frågor: %s"
@@ -1192,11 +1197,11 @@ msgstr "Korrupt bildfil"
 msgid "Imported failed (%d)"
 msgstr "Importen misslyckades (%d)"
 
-#: ../src/CollectionPage.vala:230 ../src/PhotoPage.vala:2637
+#: ../src/CollectionPage.vala:230 ../src/PhotoPage.vala:2635
 msgid "S_lideshow"
 msgstr "_Bildspel"
 
-#: ../src/CollectionPage.vala:231 ../src/PhotoPage.vala:2638
+#: ../src/CollectionPage.vala:231 ../src/PhotoPage.vala:2636
 msgid "Play a slideshow"
 msgstr "Spela upp ett bildspel"
 
@@ -1209,7 +1214,7 @@ msgid "Export Photos/Videos"
 msgstr "Exportera bilder/filmer"
 
 #: ../src/CollectionPage.vala:458 ../src/Dialogs.vala:58
-#: ../src/PhotoPage.vala:3211
+#: ../src/PhotoPage.vala:3209
 msgid "Export Photo"
 msgstr "Exportera bild"
 
@@ -1442,9 +1447,9 @@ msgstr[0] ""
 msgstr[1] ""
 "Det här kommer att ta bort taggen ”%s” från %d bilder. Vill du fortsätta?"
 
-#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1386
-#: ../src/Resources.vala:163 ../src/Resources.vala:369
-#: ../src/Resources.vala:417 ../src/Resources.vala:682
+#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1392
+#: ../src/Resources.vala:158 ../src/Resources.vala:364
+#: ../src/Resources.vala:412 ../src/Resources.vala:677
 msgid "_Delete"
 msgstr "_Radera"
 
@@ -1519,51 +1524,51 @@ msgid "Current"
 msgstr "Aktuellt"
 
 #. layout controls
-#: ../src/Dialogs.vala:213
+#: ../src/Dialogs.vala:215
 msgid "_Format:"
 msgstr "_Format:"
 
-#: ../src/Dialogs.vala:216
+#: ../src/Dialogs.vala:218
 msgid "_Quality:"
 msgstr "_Kvalitet:"
 
-#: ../src/Dialogs.vala:219
+#: ../src/Dialogs.vala:221
 msgid "_Scaling constraint:"
 msgstr "_Skalningsbegränsning:"
 
-#: ../src/Dialogs.vala:222
+#: ../src/Dialogs.vala:224
 msgid "_Pixels:"
 msgstr "_Bildpunkter:"
 
-#: ../src/Dialogs.vala:225
+#: ../src/Dialogs.vala:227
 msgid "Export metadata"
 msgstr "Exportera metadata"
 
-#: ../src/Dialogs.vala:459
+#: ../src/Dialogs.vala:461
 msgid "Save Details..."
 msgstr "Spara detaljer…"
 
-#: ../src/Dialogs.vala:460
+#: ../src/Dialogs.vala:462
 msgid "Save Details"
 msgstr "Spara detaljer"
 
-#: ../src/Dialogs.vala:475
+#: ../src/Dialogs.vala:477
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(och ytterligare %d)\n"
 
-#: ../src/Dialogs.vala:528
+#: ../src/Dialogs.vala:530
 msgid "Import Results Report"
 msgstr "Importera resultatrapport"
 
-#: ../src/Dialogs.vala:532
+#: ../src/Dialogs.vala:534
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "Försökte importera %d fil."
 msgstr[1] "Försökte importera %d filer."
 
-#: ../src/Dialogs.vala:535
+#: ../src/Dialogs.vala:537
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -1573,30 +1578,30 @@ msgstr[1] "Av dessa importerades %d filer framgångsrikt."
 #.
 #. Duplicates
 #.
-#: ../src/Dialogs.vala:547
+#: ../src/Dialogs.vala:549
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Dubbletter av bilder/filmer som inte importerades:"
 
-#: ../src/Dialogs.vala:551
+#: ../src/Dialogs.vala:553
 msgid "duplicates existing media item"
 msgstr "dubblett av befintligt media"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: ../src/Dialogs.vala:562
+#: ../src/Dialogs.vala:564
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "På grund av ett kamerafel importerades inga bilder eller filmer:"
 
-#: ../src/Dialogs.vala:565 ../src/Dialogs.vala:580 ../src/Dialogs.vala:595
-#: ../src/Dialogs.vala:611 ../src/Dialogs.vala:626 ../src/Dialogs.vala:640
+#: ../src/Dialogs.vala:567 ../src/Dialogs.vala:582 ../src/Dialogs.vala:597
+#: ../src/Dialogs.vala:613 ../src/Dialogs.vala:628 ../src/Dialogs.vala:642
 msgid "error message:"
 msgstr "felmeddelande:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: ../src/Dialogs.vala:576
+#: ../src/Dialogs.vala:578
 msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
 msgstr ""
 "Filerna importerades inte på grund av att de inte kändes igen som bild- "
@@ -1605,7 +1610,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: ../src/Dialogs.vala:591
+#: ../src/Dialogs.vala:593
 msgid ""
 "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
 "Understands:"
@@ -1616,7 +1621,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: ../src/Dialogs.vala:606
+#: ../src/Dialogs.vala:608
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
 "Library:"
@@ -1624,7 +1629,7 @@ msgstr ""
 "Bilderna eller filmerna importerades inte på grund av att det inte gick att "
 "kopiera dem till biblioteket:"
 
-#: ../src/Dialogs.vala:610
+#: ../src/Dialogs.vala:612
 #, c-format
 msgid ""
 "couldn't copy %s\n"
@@ -1636,39 +1641,39 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: ../src/Dialogs.vala:622
+#: ../src/Dialogs.vala:624
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr "Bilder/filmer importerades inte eftersom filer är korrupta:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: ../src/Dialogs.vala:637
+#: ../src/Dialogs.vala:639
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Bilder/filmer importerades inte på grund av andra anledningar:"
 
-#: ../src/Dialogs.vala:657
+#: ../src/Dialogs.vala:659
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "1 bilddubblett importerades inte:\n"
 msgstr[1] "%d bilddubbletter importerades inte:\n"
 
-#: ../src/Dialogs.vala:660
+#: ../src/Dialogs.vala:662
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "1 filmdubblett importerades inte:\n"
 msgstr[1] "%d filmdubbletter importerades inte:\n"
 
-#: ../src/Dialogs.vala:663
+#: ../src/Dialogs.vala:665
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "1 film-/bilddubblett importerades inte:\n"
 msgstr[1] "%d bild- och filmdubbletter importerades inte:\n"
 
-#: ../src/Dialogs.vala:677
+#: ../src/Dialogs.vala:679
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
@@ -1677,7 +1682,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Import av %d bilder misslyckades på grund av ett fil- eller hårdvarufel:\n"
 
-#: ../src/Dialogs.vala:680
+#: ../src/Dialogs.vala:682
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
@@ -1686,7 +1691,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d filmer gick inte att importera på grund av ett fil- eller hårdvarufel:\n"
 
-#: ../src/Dialogs.vala:683
+#: ../src/Dialogs.vala:685
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -1697,7 +1702,7 @@ msgstr[1] ""
 "%d bilder och filmer gick inte att importera på grund av ett fil- eller "
 "hårdvarufel:\n"
 
-#: ../src/Dialogs.vala:686
+#: ../src/Dialogs.vala:688
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
@@ -1706,7 +1711,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d filer gick inte att importera på grund av ett fil- eller hårdvarufel:\n"
 
-#: ../src/Dialogs.vala:700
+#: ../src/Dialogs.vala:702
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -1720,7 +1725,7 @@ msgstr[1] ""
 "%d bilder gick inte att importera därför att bildbiblioteksmappen inte var "
 "skrivbar:\n"
 
-#: ../src/Dialogs.vala:703
+#: ../src/Dialogs.vala:705
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -1734,7 +1739,7 @@ msgstr[1] ""
 "%d filmer gick inte att importera därför att bildbiblioteksmappen inte var "
 "skrivbar:\n"
 
-#: ../src/Dialogs.vala:706
+#: ../src/Dialogs.vala:708
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -1749,7 +1754,7 @@ msgstr[1] ""
 "%d bilder och filmer gick inte att importera därför att bildbiblioteksmappen "
 "inte var skrivbar:\n"
 
-#: ../src/Dialogs.vala:709
+#: ../src/Dialogs.vala:711
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -1763,21 +1768,21 @@ msgstr[1] ""
 "%d filer gick inte att importera på grund av att bildbibliotekets mapp inte "
 "var skrivbar:\n"
 
-#: ../src/Dialogs.vala:723
+#: ../src/Dialogs.vala:725
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "Import av ett bild misslyckades på grund av ett kamerafel:\n"
 msgstr[1] "%d bilder gick inte att importera på grund av ett kamerafel:\n"
 
-#: ../src/Dialogs.vala:726
+#: ../src/Dialogs.vala:728
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] "1 video gick inte att importera på grund av ett kamerafel:\n"
 msgstr[1] "%d filmer gick inte att importera på grund av ett kamerafel:\n"
 
-#: ../src/Dialogs.vala:729
+#: ../src/Dialogs.vala:731
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
@@ -1785,14 +1790,14 @@ msgstr[0] "1 bild/film gick inte att importera på grund av ett kamerafel:\n"
 msgstr[1] ""
 "%d bilder och filmer gick inte att importera på grund av ett kamerafel:\n"
 
-#: ../src/Dialogs.vala:732
+#: ../src/Dialogs.vala:734
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "En fil gick inte att importera på grund av ett kamerafel:\n"
 msgstr[1] "%d filer gick inte att importera på grund av ett kamerafel:\n"
 
-#: ../src/Dialogs.vala:746
+#: ../src/Dialogs.vala:748
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
@@ -1800,7 +1805,7 @@ msgstr[0] "Misslyckades med att importera en bild eftersom den var korrupt:\n"
 msgstr[1] ""
 "Misslyckades med att importera %d bilder eftersom de var korrupta:\n"
 
-#: ../src/Dialogs.vala:749
+#: ../src/Dialogs.vala:751
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
@@ -1808,7 +1813,7 @@ msgstr[0] "Misslyckades med att importera en film eftersom den var korrupt:\n"
 msgstr[1] ""
 "Misslyckades med att importera %d filmer eftersom de var korrupta:\n"
 
-#: ../src/Dialogs.vala:752
+#: ../src/Dialogs.vala:754
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
@@ -1817,7 +1822,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Misslyckades med att importera %d bilder/filmer eftersom de var korrupta:\n"
 
-#: ../src/Dialogs.vala:755
+#: ../src/Dialogs.vala:757
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -1828,7 +1833,7 @@ msgstr[1] "Misslyckades med att importera %d filer eftersom de var korrupta:\n"
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: ../src/Dialogs.vala:772
+#: ../src/Dialogs.vala:774
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -1837,56 +1842,56 @@ msgstr[1] "%d bilder som inte stöds hoppades över:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: ../src/Dialogs.vala:787
+#: ../src/Dialogs.vala:789
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "En icke-bildfil hoppades över.\n"
 msgstr[1] "%d icke-bildfiler hoppades över.\n"
 
-#: ../src/Dialogs.vala:798
+#: ../src/Dialogs.vala:800
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "En bild hoppades över därför att användaren avbröt:\n"
 msgstr[1] "%d bilder hoppades över därför att användaren avbröt:\n"
 
-#: ../src/Dialogs.vala:801
+#: ../src/Dialogs.vala:803
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "1 film hoppades över därför att användaren avbröt:\n"
 msgstr[1] "%d filmer hoppades över därför att användaren avbröt:\n"
 
-#: ../src/Dialogs.vala:804
+#: ../src/Dialogs.vala:806
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "1 bild/film hoppades över därför att användaren avbröt:\n"
 msgstr[1] "%d bilder och filmer hoppades över därför att användaren avbröt:\n"
 
-#: ../src/Dialogs.vala:807
+#: ../src/Dialogs.vala:809
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "En fil hoppades över därför att användaren avbröt:\n"
 msgstr[1] "%d filer hoppades över därför att användaren avbröt:\n"
 
-#: ../src/Dialogs.vala:821
+#: ../src/Dialogs.vala:823
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "En bild importerades.\n"
 msgstr[1] "%d bilder importerades.\n"
 
-#: ../src/Dialogs.vala:824
+#: ../src/Dialogs.vala:826
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "En film importerades.\n"
 msgstr[1] "%d filmer importerades.\n"
 
-#: ../src/Dialogs.vala:827
+#: ../src/Dialogs.vala:829
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -1895,93 +1900,93 @@ msgstr[1] "%d bilder och filmer importerades.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: ../src/Dialogs.vala:843
+#: ../src/Dialogs.vala:845
 msgid "No photos or videos imported.\n"
 msgstr "Inga bilder eller filmer importerades.\n"
 
-#: ../src/Dialogs.vala:850 ../src/Dialogs.vala:869
+#: ../src/Dialogs.vala:852 ../src/Dialogs.vala:871
 msgid "Import Complete"
 msgstr "Importen är färdig"
 
-#: ../src/Dialogs.vala:1155
+#: ../src/Dialogs.vala:1157
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d sekund"
 msgstr[1] "%d sekunder"
 
-#: ../src/Dialogs.vala:1158
+#: ../src/Dialogs.vala:1160
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minut"
 msgstr[1] "%d minuter"
 
-#: ../src/Dialogs.vala:1162
+#: ../src/Dialogs.vala:1164
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d timme"
 msgstr[1] "%d timmar"
 
-#: ../src/Dialogs.vala:1165
+#: ../src/Dialogs.vala:1167
 msgid "1 day"
 msgstr "Ett dygn"
 
-#: ../src/Dialogs.vala:1315 ../src/Resources.vala:236
+#: ../src/Dialogs.vala:1321 ../src/Resources.vala:231
 msgid "Rename Event"
 msgstr "Byt namn på händelse"
 
-#: ../src/Dialogs.vala:1315
+#: ../src/Dialogs.vala:1321
 msgid "Name:"
 msgstr "Namn:"
 
 #. Dialog title
 #. Button label
-#: ../src/Dialogs.vala:1326 ../src/Resources.vala:308
+#: ../src/Dialogs.vala:1332 ../src/Resources.vala:303
 msgid "Edit Title"
 msgstr "Redigera titel"
 
-#: ../src/Dialogs.vala:1327 ../src/Properties.vala:340
+#: ../src/Dialogs.vala:1333 ../src/Properties.vala:340
 msgid "Title:"
 msgstr "Titel:"
 
 #. Dialog title
-#: ../src/Dialogs.vala:1343 ../src/Resources.vala:315
+#: ../src/Dialogs.vala:1349 ../src/Resources.vala:310
 msgid "Edit Event Comment"
 msgstr "Redigera händelsekommentar"
 
-#: ../src/Dialogs.vala:1344
+#: ../src/Dialogs.vala:1350
 msgid "Edit Photo/Video Comment"
 msgstr "Redigera bild/filmkommentar"
 
-#: ../src/Dialogs.vala:1345 ../src/Properties.vala:628
+#: ../src/Dialogs.vala:1351 ../src/Properties.vala:628
 msgid "Comment:"
 msgstr "Kommentar:"
 
-#: ../src/Dialogs.vala:1361
+#: ../src/Dialogs.vala:1367
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "_Flytta filen till papperskorgen"
 msgstr[1] "_Flytta filerna till papperskorgen"
 
-#: ../src/Dialogs.vala:1365
+#: ../src/Dialogs.vala:1371
 msgid "_Remove From Library"
 msgstr "_Ta bort från bibliotek"
 
-#: ../src/Dialogs.vala:1385 ../src/camera/ImportPage.vala:1741
+#: ../src/Dialogs.vala:1391 ../src/camera/ImportPage.vala:1740
 msgid "_Keep"
 msgstr "_Behåll"
 
-#: ../src/Dialogs.vala:1408
+#: ../src/Dialogs.vala:1414
 msgid "Revert External Edit?"
 msgstr "Återställ extern redigering?"
 
-#: ../src/Dialogs.vala:1408
+#: ../src/Dialogs.vala:1414
 msgid "Revert External Edits?"
 msgstr "Återställ externa redigeringar?"
 
-#: ../src/Dialogs.vala:1410
+#: ../src/Dialogs.vala:1416
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural ""
@@ -1993,15 +1998,15 @@ msgstr[1] ""
 "Det här kommer att förstöra alla ändringar som gjorts i de %d externa "
 "filerna.  Vill du fortsätta?"
 
-#: ../src/Dialogs.vala:1414
+#: ../src/Dialogs.vala:1420
 msgid "Re_vert External Edit"
 msgstr "Åters_täll externa redigeringar"
 
-#: ../src/Dialogs.vala:1414
+#: ../src/Dialogs.vala:1420
 msgid "Re_vert External Edits"
 msgstr "Åt_erställ externa redigeringar"
 
-#: ../src/Dialogs.vala:1435
+#: ../src/Dialogs.vala:1441
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
@@ -2010,72 +2015,72 @@ msgstr[0] ""
 msgstr[1] ""
 "Det här kommer att ta bort %d bilder från biblioteket. Vill du fortsätta?"
 
-#: ../src/Dialogs.vala:1442 ../src/Resources.vala:178
+#: ../src/Dialogs.vala:1448 ../src/Resources.vala:173
 msgid "_Remove"
 msgstr "_Ta bort"
 
-#: ../src/Dialogs.vala:1443
+#: ../src/Dialogs.vala:1449
 msgid "Remove Photo From Library"
 msgstr "Ta bort bild från biblioteket"
 
-#: ../src/Dialogs.vala:1443
+#: ../src/Dialogs.vala:1449
 msgid "Remove Photos From Library"
 msgstr "Ta bort bilder från bibliotek"
 
-#: ../src/Dialogs.vala:1536
+#: ../src/Dialogs.vala:1542
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../src/Dialogs.vala:1688
+#: ../src/Dialogs.vala:1696
 msgid "AM"
 msgstr "AM"
 
-#: ../src/Dialogs.vala:1689
+#: ../src/Dialogs.vala:1697
 msgid "PM"
 msgstr "PM"
 
-#: ../src/Dialogs.vala:1690
+#: ../src/Dialogs.vala:1698
 msgid "24 Hr"
 msgstr "24 timmar"
 
-#: ../src/Dialogs.vala:1705
+#: ../src/Dialogs.vala:1713
 msgid "_Shift photos/videos by the same amount"
 msgstr "_Förskjut bilder/filmer med samma värde"
 
-#: ../src/Dialogs.vala:1710
+#: ../src/Dialogs.vala:1718
 msgid "Set _all photos/videos to this time"
 msgstr "Ställ in _alla bilder/filmer till denna tid"
 
-#: ../src/Dialogs.vala:1717
+#: ../src/Dialogs.vala:1725
 msgid "_Modify original photo file"
 msgstr "_Modifiera originalbilden"
 
-#: ../src/Dialogs.vala:1717
+#: ../src/Dialogs.vala:1725
 msgid "_Modify original photo files"
 msgstr "_Modifiera originalbilderna"
 
-#: ../src/Dialogs.vala:1720
+#: ../src/Dialogs.vala:1728
 msgid "_Modify original file"
 msgstr "Än_dra originalfil"
 
-#: ../src/Dialogs.vala:1720
+#: ../src/Dialogs.vala:1728
 msgid "_Modify original files"
 msgstr "Än_dra originalfiler"
 
-#: ../src/Dialogs.vala:1806
+#: ../src/Dialogs.vala:1814
 msgid "Original: "
 msgstr "Original: "
 
-#: ../src/Dialogs.vala:1807
+#: ../src/Dialogs.vala:1815
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%Y-%m-%d, %H:%M:%S"
 
-#: ../src/Dialogs.vala:1808
+#: ../src/Dialogs.vala:1816
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%Y-%m-%d, %H:%M:%S"
 
-#: ../src/Dialogs.vala:1897
+#: ../src/Dialogs.vala:1905
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -2084,7 +2089,7 @@ msgstr ""
 "Exponeringsögonblicket kommer att flyttas framåt med\n"
 "%d %s, %d %s, %d %s och %d %s."
 
-#: ../src/Dialogs.vala:1898
+#: ../src/Dialogs.vala:1906
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -2093,31 +2098,31 @@ msgstr ""
 "Exponeringsögonblicket kommer att flyttas bakåt med\n"
 "%d %s, %d %s, %d %s och %d %s."
 
-#: ../src/Dialogs.vala:1900
+#: ../src/Dialogs.vala:1908
 msgid "day"
 msgid_plural "days"
 msgstr[0] "dag"
 msgstr[1] "dagar"
 
-#: ../src/Dialogs.vala:1901
+#: ../src/Dialogs.vala:1909
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "timme"
 msgstr[1] "timmar"
 
-#: ../src/Dialogs.vala:1902
+#: ../src/Dialogs.vala:1910
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minuter"
 
-#: ../src/Dialogs.vala:1903
+#: ../src/Dialogs.vala:1911
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "sekund"
 msgstr[1] "sekunder"
 
-#: ../src/Dialogs.vala:1947
+#: ../src/Dialogs.vala:1955
 #, c-format
 msgid ""
 "\n"
@@ -2136,49 +2141,49 @@ msgstr[1] ""
 "\n"
 "och %d andra."
 
-#: ../src/Dialogs.vala:1969 ../src/Dialogs.vala:1996
+#: ../src/Dialogs.vala:1977 ../src/Dialogs.vala:2004
 msgid "Tags (separated by commas):"
 msgstr "Taggar (separerade med kommatecken):"
 
-#: ../src/Dialogs.vala:2076
+#: ../src/Dialogs.vala:2084
 msgid "Welcome!"
 msgstr "Välkommen!"
 
-#: ../src/Dialogs.vala:2083
+#: ../src/Dialogs.vala:2091
 msgid "Welcome to Shotwell!"
 msgstr "Välkommen till Shotwell!"
 
-#: ../src/Dialogs.vala:2087
+#: ../src/Dialogs.vala:2095
 msgid "To get started, import photos in any of these ways:"
 msgstr "Importera bilder på något av dessa sätt för att komma igång:"
 
-#: ../src/Dialogs.vala:2106
+#: ../src/Dialogs.vala:2114
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr "Välj <span weight=\"bold\">Arkiv %s Importera från mapp</span>"
 
-#: ../src/Dialogs.vala:2107
+#: ../src/Dialogs.vala:2115
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Dra och släpp bilder till Shotwell-fönstret"
 
-#: ../src/Dialogs.vala:2108
+#: ../src/Dialogs.vala:2116
 msgid "Connect a camera to your computer and import"
 msgstr "Anslut en kamera till din dator och importera"
 
-#: ../src/Dialogs.vala:2118
+#: ../src/Dialogs.vala:2126
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Importera bilder från din %s-mapp"
 
-#: ../src/Dialogs.vala:2125
+#: ../src/Dialogs.vala:2133
 msgid "You can also import photos in any of these ways:"
 msgstr "Du kan även importera bilder på något av dessa sätt:"
 
-#: ../src/Dialogs.vala:2135
+#: ../src/Dialogs.vala:2143
 msgid "_Don't show this message again"
 msgstr "Visa _inte detta meddelande igen"
 
-#: ../src/Dialogs.vala:2170
+#: ../src/Dialogs.vala:2178
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Importera bilder från ditt %s-bibliotek"
@@ -2186,41 +2191,41 @@ msgstr "Importera bilder från ditt %s-bibliotek"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation ghelp: URIs.
-#: ../src/Dialogs.vala:2311 ../src/Dialogs.vala:2315
+#: ../src/Dialogs.vala:2325 ../src/Dialogs.vala:2329
 msgid "(Help)"
 msgstr "(Hjälp)"
 
-#: ../src/Dialogs.vala:2324
+#: ../src/Dialogs.vala:2338
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "År%sMånad%sDag"
 
-#: ../src/Dialogs.vala:2326
+#: ../src/Dialogs.vala:2340
 #, c-format
 msgid "Year%sMonth"
 msgstr "År%sMånad"
 
-#: ../src/Dialogs.vala:2328
+#: ../src/Dialogs.vala:2342
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "År%sMånad-Dag"
 
-#: ../src/Dialogs.vala:2330
+#: ../src/Dialogs.vala:2344
 msgid "Year-Month-Day"
 msgstr "År-Månad-Dag"
 
-#: ../src/Dialogs.vala:2331 ../src/editing_tools/EditingTools.vala:781
+#: ../src/Dialogs.vala:2345 ../src/editing_tools/EditingTools.vala:781
 msgid "Custom"
 msgstr "Anpassad"
 
 #. Invalid pattern.
-#: ../src/Dialogs.vala:2568
+#: ../src/Dialogs.vala:2582
 msgid "Invalid pattern"
 msgstr "Ogiltigt mönster"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: ../src/Dialogs.vala:2670
+#: ../src/Dialogs.vala:2684
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -2228,31 +2233,31 @@ msgstr ""
 "Shotwell kan kopiera bilderna till din biblioteksmapp eller importera dem "
 "utan att kopiera dem."
 
-#: ../src/Dialogs.vala:2675
+#: ../src/Dialogs.vala:2689
 msgid "Co_py Photos"
 msgstr "Ko_piera bilder"
 
-#: ../src/Dialogs.vala:2676
+#: ../src/Dialogs.vala:2690
 msgid "_Import in Place"
 msgstr "_Importera på plats"
 
-#: ../src/Dialogs.vala:2677
+#: ../src/Dialogs.vala:2691
 msgid "Import to Library"
 msgstr "Importera till biblioteket"
 
-#: ../src/Dialogs.vala:2687 ../src/PhotoPage.vala:3087
+#: ../src/Dialogs.vala:2701 ../src/PhotoPage.vala:3085
 msgid "Remove From Library"
 msgstr "Ta bort från biblioteket"
 
-#: ../src/Dialogs.vala:2688 ../src/PhotoPage.vala:3087
+#: ../src/Dialogs.vala:2702 ../src/PhotoPage.vala:3085
 msgid "Removing Photo From Library"
 msgstr "Tar bort bild från bibliotek"
 
-#: ../src/Dialogs.vala:2688
+#: ../src/Dialogs.vala:2702
 msgid "Removing Photos From Library"
 msgstr "Tar bort bilder från bibliotek"
 
-#: ../src/Dialogs.vala:2702
+#: ../src/Dialogs.vala:2716
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library.  Would you also "
@@ -2275,7 +2280,7 @@ msgstr[1] ""
 "\n"
 "Den här åtgärden kan inte ångras."
 
-#: ../src/Dialogs.vala:2706
+#: ../src/Dialogs.vala:2720
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library.  Would you also like "
@@ -2298,7 +2303,7 @@ msgstr[1] ""
 "\n"
 "Den här åtgärd kan inte ångras."
 
-#: ../src/Dialogs.vala:2710
+#: ../src/Dialogs.vala:2724
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library.  Would you also like "
@@ -2321,7 +2326,7 @@ msgstr[1] ""
 "\n"
 "Den här åtgärden kan inte ångras."
 
-#: ../src/Dialogs.vala:2742
+#: ../src/Dialogs.vala:2756
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash.  Delete this file?"
@@ -2335,7 +2340,7 @@ msgstr[1] ""
 "dessa filer direkt?"
 
 #. Alert the user that the files were not removed.
-#: ../src/Dialogs.vala:2759
+#: ../src/Dialogs.vala:2773
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -2401,8 +2406,8 @@ msgstr "Kunde inte behandla övervakningsuppdateringar: %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Justera storleken på miniatyrbilderna"
 
-#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2593
-#: ../src/Resources.vala:188 ../src/direct/DirectPhotoPage.vala:174
+#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2591
+#: ../src/Resources.vala:183 ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "_Förstora"
 
@@ -2410,8 +2415,8 @@ msgstr "_Förstora"
 msgid "Increase the magnification of the thumbnails"
 msgstr "Öka förstoringen på miniatyrbilderna"
 
-#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2599
-#: ../src/Resources.vala:189 ../src/direct/DirectPhotoPage.vala:180
+#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2597
+#: ../src/Resources.vala:184 ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "_Förminska"
 
@@ -2431,21 +2436,21 @@ msgstr "Spela _upp film"
 msgid "Open the selected videos in the system video player"
 msgstr "Öppna markerade filmer i systemets filmspelare"
 
-#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2642
+#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2640
 msgid "_Developer"
 msgstr "_Framkallare"
 
 #: ../src/MediaPage.vala:440 ../src/camera/Branch.vala:99
-#: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
+#: ../src/camera/ImportPage.vala:710 ../src/camera/ImportPage.vala:726
 #: ../src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Kamera"
 
-#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:874
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:873
 msgid "_Titles"
 msgstr "_Titlar"
 
-#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:875
+#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:874
 msgid "Display the title of each photo"
 msgstr "Visa titeln för varje bild"
 
@@ -2522,15 +2527,15 @@ msgstr ""
 "Shotwell kunde inte spela upp den markerade filmen:\n"
 "%s"
 
-#: ../src/Page.vala:1263
+#: ../src/Page.vala:1266
 msgid "No photos/videos"
 msgstr "Inga bilder eller filmer"
 
-#: ../src/Page.vala:1267
+#: ../src/Page.vala:1270
 msgid "No photos/videos found"
 msgstr "Inga bilder eller filmer hittades"
 
-#: ../src/Page.vala:2565
+#: ../src/Page.vala:2568
 msgid "Photos cannot be exported to this directory."
 msgstr "Bilderna kan inte exporteras till denna mapp."
 
@@ -2548,73 +2553,73 @@ msgstr "Föregående bild"
 msgid "Next photo"
 msgstr "Nästa bild"
 
-#: ../src/PhotoPage.vala:1847
+#: ../src/PhotoPage.vala:1845
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Källfilen för bilden saknas: %s"
 
-#: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
+#: ../src/PhotoPage.vala:2412 ../src/direct/DirectPhotoPage.vala:165
 #: ../src/library/LibraryWindow.vala:343
 msgid "_View"
 msgstr "_Visa"
 
-#: ../src/PhotoPage.vala:2418 ../src/direct/DirectPhotoPage.vala:81
+#: ../src/PhotoPage.vala:2416 ../src/direct/DirectPhotoPage.vala:81
 msgid "T_ools"
 msgstr "_Verktyg"
 
-#: ../src/PhotoPage.vala:2423 ../src/direct/DirectPhotoPage.vala:86
+#: ../src/PhotoPage.vala:2421 ../src/direct/DirectPhotoPage.vala:86
 msgid "_Previous Photo"
 msgstr "_Föregående bild"
 
-#: ../src/PhotoPage.vala:2424 ../src/direct/DirectPhotoPage.vala:87
+#: ../src/PhotoPage.vala:2422 ../src/direct/DirectPhotoPage.vala:87
 msgid "Previous Photo"
 msgstr "Föregående bild"
 
-#: ../src/PhotoPage.vala:2429 ../src/direct/DirectPhotoPage.vala:92
+#: ../src/PhotoPage.vala:2427 ../src/direct/DirectPhotoPage.vala:92
 msgid "_Next Photo"
 msgstr "_Nästa bild"
 
-#: ../src/PhotoPage.vala:2430 ../src/direct/DirectPhotoPage.vala:93
+#: ../src/PhotoPage.vala:2428 ../src/direct/DirectPhotoPage.vala:93
 msgid "Next Photo"
 msgstr "Nästa bild"
 
-#: ../src/PhotoPage.vala:2594 ../src/direct/DirectPhotoPage.vala:175
+#: ../src/PhotoPage.vala:2592 ../src/direct/DirectPhotoPage.vala:175
 msgid "Increase the magnification of the photo"
 msgstr "Öka förstoringen av bilden"
 
-#: ../src/PhotoPage.vala:2600 ../src/direct/DirectPhotoPage.vala:181
+#: ../src/PhotoPage.vala:2598 ../src/direct/DirectPhotoPage.vala:181
 msgid "Decrease the magnification of the photo"
 msgstr "Minska förstoringen av bilden"
 
-#: ../src/PhotoPage.vala:2605 ../src/direct/DirectPhotoPage.vala:186
+#: ../src/PhotoPage.vala:2603 ../src/direct/DirectPhotoPage.vala:186
 msgid "Fit to _Page"
 msgstr "_Anpassa till sidan"
 
-#: ../src/PhotoPage.vala:2606 ../src/direct/DirectPhotoPage.vala:187
+#: ../src/PhotoPage.vala:2604 ../src/direct/DirectPhotoPage.vala:187
 msgid "Zoom the photo to fit on the screen"
 msgstr "Zooma bilden för att passa på skärmen"
 
-#: ../src/PhotoPage.vala:2612 ../src/direct/DirectPhotoPage.vala:193
+#: ../src/PhotoPage.vala:2610 ../src/direct/DirectPhotoPage.vala:193
 #, no-c-format
 msgid "Zoom _100%"
 msgstr "_Visa 100%"
 
-#: ../src/PhotoPage.vala:2614 ../src/direct/DirectPhotoPage.vala:195
+#: ../src/PhotoPage.vala:2612 ../src/direct/DirectPhotoPage.vala:195
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Zooma bilden till 100% förstoring"
 
-#: ../src/PhotoPage.vala:2620 ../src/direct/DirectPhotoPage.vala:201
+#: ../src/PhotoPage.vala:2618 ../src/direct/DirectPhotoPage.vala:201
 #, no-c-format
 msgid "Zoom _200%"
 msgstr "_Visa 200%"
 
-#: ../src/PhotoPage.vala:2622 ../src/direct/DirectPhotoPage.vala:203
+#: ../src/PhotoPage.vala:2620 ../src/direct/DirectPhotoPage.vala:203
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Zooma bilden till 200% förstoring"
 
-#: ../src/PhotoPage.vala:3231
+#: ../src/PhotoPage.vala:3229
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Kunde inte exportera %s: %s"
@@ -2738,7 +2743,7 @@ msgstr "Idag"
 msgid "Yesterday"
 msgstr "Igår"
 
-#: ../src/Properties.vala:227 ../src/camera/ImportPage.vala:312
+#: ../src/Properties.vala:227 ../src/camera/ImportPage.vala:311
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
@@ -2875,7 +2880,7 @@ msgstr "Upphovsrätt:"
 msgid "Software:"
 msgstr "Program:"
 
-#: ../src/Properties.vala:639
+#: ../src/Properties.vala:641
 msgid "Extended Information"
 msgstr "Utökad information"
 
@@ -2887,754 +2892,754 @@ msgstr "Bildhanterare"
 msgid "Photo Viewer"
 msgstr "Bildvisare"
 
-#: ../src/Resources.vala:144
+#: ../src/Resources.vala:139
 msgid "Rotate _Right"
 msgstr "Rotera åt _höger"
 
-#: ../src/Resources.vala:145 ../src/Resources.vala:150
+#: ../src/Resources.vala:140 ../src/Resources.vala:145
 msgid "Rotate"
 msgstr "Rotera"
 
-#: ../src/Resources.vala:146
+#: ../src/Resources.vala:141
 msgid "Rotate Right"
 msgstr "Rotera åt höger"
 
-#: ../src/Resources.vala:147
+#: ../src/Resources.vala:142
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Rotera bilderna åt höger (tryck Ctrl för att rotera åt vänster)"
 
-#: ../src/Resources.vala:149
+#: ../src/Resources.vala:144
 msgid "Rotate _Left"
 msgstr "Rotera åt _vänster"
 
-#: ../src/Resources.vala:151
+#: ../src/Resources.vala:146
 msgid "Rotate Left"
 msgstr "Rotera åt vänster"
 
-#: ../src/Resources.vala:152
+#: ../src/Resources.vala:147
 msgid "Rotate the photos left"
 msgstr "Rotera bilderna åt vänster"
 
-#: ../src/Resources.vala:154
+#: ../src/Resources.vala:149
 msgid "Flip Hori_zontally"
 msgstr "Vänd hor_isontellt"
 
-#: ../src/Resources.vala:155
+#: ../src/Resources.vala:150
 msgid "Flip Horizontally"
 msgstr "Vänd horisontellt"
 
-#: ../src/Resources.vala:157
+#: ../src/Resources.vala:152
 msgid "Flip Verti_cally"
 msgstr "Vänd verti_kalt"
 
-#: ../src/Resources.vala:158
+#: ../src/Resources.vala:153
 msgid "Flip Vertically"
 msgstr "Vänd vertikalt"
 
-#: ../src/Resources.vala:160
+#: ../src/Resources.vala:155
 msgid "_About"
 msgstr "_Om"
 
-#: ../src/Resources.vala:161
+#: ../src/Resources.vala:156
 msgid "_Apply"
 msgstr "_Verkställ"
 
-#: ../src/Resources.vala:164 ../src/direct/DirectPhotoPage.vala:73
+#: ../src/Resources.vala:159 ../src/direct/DirectPhotoPage.vala:73
 #: ../src/library/LibraryWindow.vala:339
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: ../src/Resources.vala:165
+#: ../src/Resources.vala:160
 msgid "_Forward"
 msgstr "_Framåt"
 
-#: ../src/Resources.vala:166
+#: ../src/Resources.vala:161
 msgid "Fulls_creen"
 msgstr "_Helskärm"
 
-#: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
+#: ../src/Resources.vala:162 ../src/direct/DirectPhotoPage.vala:169
 #: ../src/library/LibraryWindow.vala:363
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../src/Resources.vala:168
+#: ../src/Resources.vala:163
 msgid "Leave _Fullscreen"
 msgstr "Avsluta _helskärmsläge"
 
-#: ../src/Resources.vala:169 ../src/Resources.vala:371
+#: ../src/Resources.vala:164 ../src/Resources.vala:366
 msgid "_New"
 msgstr "_Ny"
 
-#: ../src/Resources.vala:170
+#: ../src/Resources.vala:165
 msgid "_Next"
 msgstr "_Nästa"
 
-#: ../src/Resources.vala:171
+#: ../src/Resources.vala:166
 msgid "_OK"
 msgstr "_OK"
 
-#: ../src/Resources.vala:172
+#: ../src/Resources.vala:167
 msgid "_Play"
 msgstr "_Spela"
 
-#: ../src/Resources.vala:173 ../src/Resources.vala:325
+#: ../src/Resources.vala:168 ../src/Resources.vala:320
 msgid "_Preferences"
 msgstr "_Inställningar"
 
-#: ../src/Resources.vala:174
+#: ../src/Resources.vala:169
 msgid "_Previous"
 msgstr "_Föregående"
 
-#: ../src/Resources.vala:175
+#: ../src/Resources.vala:170
 msgid "_Print"
 msgstr "Skriv _ut"
 
-#: ../src/Resources.vala:176
+#: ../src/Resources.vala:171
 msgid "_Quit"
 msgstr "_Avsluta"
 
-#: ../src/Resources.vala:177
+#: ../src/Resources.vala:172
 msgid "_Refresh"
 msgstr "_Uppdatera"
 
-#: ../src/Resources.vala:179
+#: ../src/Resources.vala:174
 msgid "_Revert"
 msgstr "_Återställ"
 
-#: ../src/Resources.vala:180 ../src/direct/DirectPhotoPage.vala:51
-#: ../src/direct/DirectPhotoPage.vala:422
+#: ../src/Resources.vala:175 ../src/direct/DirectPhotoPage.vala:51
+#: ../src/direct/DirectPhotoPage.vala:432
 msgid "_Save"
 msgstr "_Spara"
 
-#: ../src/Resources.vala:181
+#: ../src/Resources.vala:176
 msgid "Save _As"
 msgstr "_Spara som"
 
-#: ../src/Resources.vala:182
+#: ../src/Resources.vala:177
 msgid "Sort _Ascending"
 msgstr "Sortera _stigande"
 
-#: ../src/Resources.vala:183
+#: ../src/Resources.vala:178
 msgid "Sort _Descending"
 msgstr "Sortera _fallande"
 
-#: ../src/Resources.vala:184
+#: ../src/Resources.vala:179
 msgid "_Stop"
 msgstr "_Stoppa"
 
-#: ../src/Resources.vala:185
+#: ../src/Resources.vala:180
 msgid "_Undelete"
 msgstr "_Ångra radering"
 
-#: ../src/Resources.vala:186
+#: ../src/Resources.vala:181
 msgid "_Normal Size"
 msgstr "_Normalstorlek"
 
-#: ../src/Resources.vala:187
+#: ../src/Resources.vala:182
 msgid "Best _Fit"
 msgstr "_Passa"
 
-#: ../src/Resources.vala:191
+#: ../src/Resources.vala:186
 msgid "_Enhance"
 msgstr "Förbä_ttra"
 
-#: ../src/Resources.vala:192
+#: ../src/Resources.vala:187
 msgid "Enhance"
 msgstr "Förbättra"
 
-#: ../src/Resources.vala:193
+#: ../src/Resources.vala:188
 msgid "Automatically improve the photo's appearance"
 msgstr "Förbättra visningen av bilden automatiskt"
 
-#: ../src/Resources.vala:195
+#: ../src/Resources.vala:190
 msgid "_Copy Color Adjustments"
 msgstr "_Kopiera färgjusteringar"
 
-#: ../src/Resources.vala:196
+#: ../src/Resources.vala:191
 msgid "Copy Color Adjustments"
 msgstr "Kopiera färgjusteringar"
 
-#: ../src/Resources.vala:197
+#: ../src/Resources.vala:192
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Kopiera färgjusteringarna verkställda på bilden"
 
-#: ../src/Resources.vala:199
+#: ../src/Resources.vala:194
 msgid "_Paste Color Adjustments"
 msgstr "_Klistra in färgjusteringar"
 
-#: ../src/Resources.vala:200
+#: ../src/Resources.vala:195
 msgid "Paste Color Adjustments"
 msgstr "Klistra in färgjusteringar"
 
-#: ../src/Resources.vala:201
+#: ../src/Resources.vala:196
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Verkställ kopierade färgjusteringar till de markerade bilderna"
 
-#: ../src/Resources.vala:203
+#: ../src/Resources.vala:198
 msgid "_Crop"
 msgstr "_Beskär"
 
-#: ../src/Resources.vala:204
+#: ../src/Resources.vala:199
 msgid "Crop"
 msgstr "Beskär"
 
-#: ../src/Resources.vala:205
+#: ../src/Resources.vala:200
 msgid "Crop the photo's size"
 msgstr "Beskär bildstorlek"
 
-#: ../src/Resources.vala:207 ../src/editing_tools/StraightenTool.vala:100
+#: ../src/Resources.vala:202 ../src/editing_tools/StraightenTool.vala:100
 msgid "_Straighten"
 msgstr "_Räta ut"
 
-#: ../src/Resources.vala:208
+#: ../src/Resources.vala:203
 msgid "Straighten"
 msgstr "Räta ut"
 
-#: ../src/Resources.vala:209
+#: ../src/Resources.vala:204
 msgid "Straighten the photo"
 msgstr "Räta ut bilden"
 
-#: ../src/Resources.vala:211
+#: ../src/Resources.vala:206
 msgid "_Red-eye"
 msgstr "_Röda ögon"
 
-#: ../src/Resources.vala:212
+#: ../src/Resources.vala:207
 msgid "Red-eye"
 msgstr "Röda ögon"
 
-#: ../src/Resources.vala:213
+#: ../src/Resources.vala:208
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Minska eller ta bort röda ögon i bilden"
 
-#: ../src/Resources.vala:215
+#: ../src/Resources.vala:210
 msgid "_Adjust"
 msgstr "_Justera"
 
-#: ../src/Resources.vala:216
+#: ../src/Resources.vala:211
 msgid "Adjust"
 msgstr "Justera"
 
-#: ../src/Resources.vala:217
+#: ../src/Resources.vala:212
 msgid "Adjust the photo's color and tone"
 msgstr "Justera bildfärg och -ton"
 
-#: ../src/Resources.vala:219
+#: ../src/Resources.vala:214
 msgid "Re_vert to Original"
 msgstr "_Återställ till original"
 
-#: ../src/Resources.vala:220
+#: ../src/Resources.vala:215
 msgid "Revert to Original"
 msgstr "Återställ till original"
 
-#: ../src/Resources.vala:222
+#: ../src/Resources.vala:217
 msgid "Revert External E_dits"
 msgstr "Återställ externa r_edigeringar"
 
-#: ../src/Resources.vala:223
+#: ../src/Resources.vala:218
 msgid "Revert to the master photo"
 msgstr "Återställ till huvudbild"
 
-#: ../src/Resources.vala:225
+#: ../src/Resources.vala:220
 msgid "Set as _Desktop Background"
 msgstr "Använd som skrivbords_bakgrund"
 
-#: ../src/Resources.vala:226
+#: ../src/Resources.vala:221
 msgid "Set selected image to be the new desktop background"
 msgstr "Använd bilden som ny skrivbordsbakgrund"
 
-#: ../src/Resources.vala:227
+#: ../src/Resources.vala:222
 msgid "Set as _Desktop Slideshow..."
 msgstr "_Använd som bildspel för skrivbord…"
 
-#: ../src/Resources.vala:229
+#: ../src/Resources.vala:224
 msgid "_Undo"
 msgstr "_Ångra"
 
-#: ../src/Resources.vala:230
+#: ../src/Resources.vala:225
 msgid "Undo"
 msgstr "Ångra"
 
-#: ../src/Resources.vala:232
+#: ../src/Resources.vala:227
 msgid "_Redo"
 msgstr "_Gör om"
 
-#: ../src/Resources.vala:233
+#: ../src/Resources.vala:228
 msgid "Redo"
 msgstr "Gör om"
 
-#: ../src/Resources.vala:235
+#: ../src/Resources.vala:230
 msgid "Re_name Event..."
 msgstr "B_yt namn på händelse…"
 
-#: ../src/Resources.vala:238
+#: ../src/Resources.vala:233
 msgid "Make _Key Photo for Event"
 msgstr "Gör till _huvudbild för händelsen"
 
-#: ../src/Resources.vala:239
+#: ../src/Resources.vala:234
 msgid "Make Key Photo for Event"
 msgstr "Gör till huvudbild för händelsen"
 
-#: ../src/Resources.vala:241
+#: ../src/Resources.vala:236
 msgid "_New Event"
 msgstr "_Ny händelse"
 
-#: ../src/Resources.vala:242
+#: ../src/Resources.vala:237
 msgid "New Event"
 msgstr "Ny händelse"
 
-#: ../src/Resources.vala:244
+#: ../src/Resources.vala:239
 msgid "Move Photos"
 msgstr "Flytta bilder"
 
-#: ../src/Resources.vala:245
+#: ../src/Resources.vala:240
 msgid "Move photos to an event"
 msgstr "Flytta bilder till en händelse"
 
-#: ../src/Resources.vala:247
+#: ../src/Resources.vala:242
 msgid "_Merge Events"
 msgstr "Sa_mmanfoga händelser"
 
-#: ../src/Resources.vala:248
+#: ../src/Resources.vala:243
 msgid "Merge"
 msgstr "Sammanfoga"
 
-#: ../src/Resources.vala:249
+#: ../src/Resources.vala:244
 msgid "Combine events into a single event"
 msgstr "Lägg samman händelser till en enskild händelse"
 
-#: ../src/Resources.vala:251
+#: ../src/Resources.vala:246
 msgid "_Set Rating"
 msgstr "_Betygsätt"
 
-#: ../src/Resources.vala:252
+#: ../src/Resources.vala:247
 msgid "Set Rating"
 msgstr "Betygsätt"
 
-#: ../src/Resources.vala:253
+#: ../src/Resources.vala:248
 msgid "Change the rating of your photo"
 msgstr "Ändra betyget för din bild"
 
-#: ../src/Resources.vala:255
+#: ../src/Resources.vala:250
 msgid "_Increase"
 msgstr "_Höj"
 
-#: ../src/Resources.vala:256
+#: ../src/Resources.vala:251
 msgid "Increase Rating"
 msgstr "Höj betyg"
 
-#: ../src/Resources.vala:258
+#: ../src/Resources.vala:253
 msgid "_Decrease"
 msgstr "_Sänk"
 
-#: ../src/Resources.vala:259
+#: ../src/Resources.vala:254
 msgid "Decrease Rating"
 msgstr "Sänk betyg"
 
-#: ../src/Resources.vala:261
+#: ../src/Resources.vala:256
 msgid "_Unrated"
 msgstr "_Ej betygsatt"
 
-#: ../src/Resources.vala:262
+#: ../src/Resources.vala:257
 msgid "Unrated"
 msgstr "Ej betygsatt"
 
-#: ../src/Resources.vala:263
+#: ../src/Resources.vala:258
 msgid "Rate Unrated"
 msgstr "Ange som ej betygsatt"
 
-#: ../src/Resources.vala:264
+#: ../src/Resources.vala:259
 msgid "Setting as unrated"
 msgstr "Anger som ej betygsatt"
 
-#: ../src/Resources.vala:265
+#: ../src/Resources.vala:260
 msgid "Remove any ratings"
 msgstr "Ta bort eventuella betyg"
 
-#: ../src/Resources.vala:267
+#: ../src/Resources.vala:262
 msgid "_Rejected"
 msgstr "_Avvisad"
 
-#: ../src/Resources.vala:268
+#: ../src/Resources.vala:263
 msgid "Rejected"
 msgstr "Avvisad"
 
-#: ../src/Resources.vala:269
+#: ../src/Resources.vala:264
 msgid "Rate Rejected"
 msgstr "Ange som avvisad"
 
-#: ../src/Resources.vala:270
+#: ../src/Resources.vala:265
 msgid "Setting as rejected"
 msgstr "Anger som avvisad"
 
-#: ../src/Resources.vala:271
+#: ../src/Resources.vala:266
 msgid "Set rating to rejected"
 msgstr "Ange som avvisad"
 
-#: ../src/Resources.vala:273
+#: ../src/Resources.vala:268
 msgid "Rejected _Only"
 msgstr "_Enbart avvisade"
 
-#: ../src/Resources.vala:274
+#: ../src/Resources.vala:269
 msgid "Rejected Only"
 msgstr "Enbart avvisade"
 
-#: ../src/Resources.vala:275
+#: ../src/Resources.vala:270
 msgid "Show only rejected photos"
 msgstr "Visa enbart avvisade bilder"
 
-#: ../src/Resources.vala:277
+#: ../src/Resources.vala:272
 msgid "All + _Rejected"
 msgstr "Alla + _avvisade"
 
-#: ../src/Resources.vala:278 ../src/Resources.vala:279
+#: ../src/Resources.vala:273 ../src/Resources.vala:274
 msgid "Show all photos, including rejected"
 msgstr "Visa alla bilder, inklusive avvisade"
 
-#: ../src/Resources.vala:281
+#: ../src/Resources.vala:276
 msgid "_All Photos"
 msgstr "_Alla bilder"
 
 #. Button label
 #. Button tooltip
-#: ../src/Resources.vala:283 ../src/Resources.vala:285
+#: ../src/Resources.vala:278 ../src/Resources.vala:280
 msgid "Show all photos"
 msgstr "Visa alla bilder"
 
-#: ../src/Resources.vala:287
+#: ../src/Resources.vala:282
 msgid "_Ratings"
 msgstr "_Betyg"
 
-#: ../src/Resources.vala:288
+#: ../src/Resources.vala:283
 msgid "Display each photo's rating"
 msgstr "Visa betyg för varje bild"
 
-#: ../src/Resources.vala:290
+#: ../src/Resources.vala:285
 msgid "_Filter Photos"
 msgstr "_Filtrera bilder"
 
-#: ../src/Resources.vala:291
+#: ../src/Resources.vala:286
 msgid "Filter Photos"
 msgstr "Filtrera bilder"
 
-#: ../src/Resources.vala:292
+#: ../src/Resources.vala:287
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Begränsa antalet bilder som visas baserat på ett filter"
 
-#: ../src/Resources.vala:294
+#: ../src/Resources.vala:289
 msgid "_Duplicate"
 msgstr "_Duplicera"
 
-#: ../src/Resources.vala:295
+#: ../src/Resources.vala:290
 msgid "Duplicate"
 msgstr "Duplicera"
 
-#: ../src/Resources.vala:296
+#: ../src/Resources.vala:291
 msgid "Make a duplicate of the photo"
 msgstr "Gör en kopia av bilden"
 
-#: ../src/Resources.vala:298
+#: ../src/Resources.vala:293
 msgid "_Export..."
 msgstr "_Exportera…"
 
-#: ../src/Resources.vala:300
+#: ../src/Resources.vala:295
 msgid "_Print..."
 msgstr "Skriv _ut…"
 
-#: ../src/Resources.vala:302
+#: ../src/Resources.vala:297
 msgid "Pu_blish..."
 msgstr "Pu_blicera…"
 
-#: ../src/Resources.vala:304
+#: ../src/Resources.vala:299
 msgid "Publish to various websites"
 msgstr "Publicera till olika webbplatser"
 
-#: ../src/Resources.vala:306
+#: ../src/Resources.vala:301
 msgid "Edit _Title..."
 msgstr "Redigera _titel…"
 
-#: ../src/Resources.vala:310
+#: ../src/Resources.vala:305
 msgid "Edit _Comment..."
 msgstr "Redigera _kommentar…"
 
 #. Button label
-#: ../src/Resources.vala:312
+#: ../src/Resources.vala:307
 msgid "Edit Comment"
 msgstr "Redigera kommentar"
 
-#: ../src/Resources.vala:314
+#: ../src/Resources.vala:309
 msgid "Edit Event _Comment..."
 msgstr "Redigera _händelsekommentar…"
 
-#: ../src/Resources.vala:317
+#: ../src/Resources.vala:312
 msgid "_Adjust Date and Time..."
 msgstr "_Justera datum och tid…"
 
-#: ../src/Resources.vala:318
+#: ../src/Resources.vala:313
 msgid "Adjust Date and Time"
 msgstr "Justera datum och tid"
 
-#: ../src/Resources.vala:320
+#: ../src/Resources.vala:315
 msgid "Add _Tags..."
 msgstr "Lägg till _taggar…"
 
-#: ../src/Resources.vala:321
+#: ../src/Resources.vala:316
 msgid "_Add Tags..."
 msgstr "_Lägg till taggar…"
 
 #. Dialog title
 #. Undo/Redo command name (in Edit menu)
-#: ../src/Resources.vala:323 ../src/Resources.vala:356
+#: ../src/Resources.vala:318 ../src/Resources.vala:351
 msgid "Add Tags"
 msgstr "Lägg till taggar"
 
-#: ../src/Resources.vala:327
+#: ../src/Resources.vala:322
 msgid "Open With E_xternal Editor"
 msgstr "Öppna med e_xtern redigerare"
 
-#: ../src/Resources.vala:329
+#: ../src/Resources.vala:324
 msgid "Open With RA_W Editor"
 msgstr "Öppna i RA_W-redigerare"
 
-#: ../src/Resources.vala:331
+#: ../src/Resources.vala:326
 msgid "Send _To..."
 msgstr "Skicka _till…"
 
-#: ../src/Resources.vala:332
+#: ../src/Resources.vala:327
 msgid "Send T_o..."
 msgstr "Skicka _till…"
 
-#: ../src/Resources.vala:334
+#: ../src/Resources.vala:329
 msgid "_Find..."
 msgstr "_Sök…"
 
-#: ../src/Resources.vala:335
+#: ../src/Resources.vala:330
 msgid "Find"
 msgstr "Sök"
 
-#: ../src/Resources.vala:336
+#: ../src/Resources.vala:331
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
 "Sök efter en bild genom att skriva något som finns i dess namn eller taggar"
 
-#: ../src/Resources.vala:338
+#: ../src/Resources.vala:333
 msgid "_Flag"
 msgstr "_Flagga"
 
-#: ../src/Resources.vala:340
+#: ../src/Resources.vala:335
 msgid "Un_flag"
 msgstr "Flagga _av"
 
-#: ../src/Resources.vala:343
+#: ../src/Resources.vala:338
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Kunde inte starta redigerare: %s"
 
-#: ../src/Resources.vala:348
+#: ../src/Resources.vala:343
 #, c-format
 msgid "Add Tag \"%s\""
 msgstr "Lägg till taggen ”%s”"
 
 #. Used when adding two tags to photo(s)
-#: ../src/Resources.vala:351
+#: ../src/Resources.vala:346
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
 msgstr "Lägg till taggarna ”%s” och ”%s”"
 
-#: ../src/Resources.vala:361
+#: ../src/Resources.vala:356
 #, c-format
 msgid "_Delete Tag \"%s\""
 msgstr "_Ta bort taggen ”%s”"
 
-#: ../src/Resources.vala:365
+#: ../src/Resources.vala:360
 #, c-format
 msgid "Delete Tag \"%s\""
 msgstr "Ta bort taggen ”%s”"
 
-#: ../src/Resources.vala:368
+#: ../src/Resources.vala:363
 msgid "Delete Tag"
 msgstr "Ta bort tagg"
 
-#: ../src/Resources.vala:374
+#: ../src/Resources.vala:369
 #, c-format
 msgid "Re_name Tag \"%s\"..."
 msgstr "B_yt namn på taggen ”%s”…"
 
-#: ../src/Resources.vala:378
+#: ../src/Resources.vala:373
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
 msgstr "Byt namn på taggen ”%s” till ”%s”"
 
-#: ../src/Resources.vala:381
+#: ../src/Resources.vala:376
 msgid "_Rename..."
 msgstr "_Byt namn…"
 
-#: ../src/Resources.vala:383
+#: ../src/Resources.vala:378
 msgid "Modif_y Tags..."
 msgstr "Än_dra taggar…"
 
-#: ../src/Resources.vala:384
+#: ../src/Resources.vala:379
 msgid "Modify Tags"
 msgstr "Ändra taggar"
 
-#: ../src/Resources.vala:387
+#: ../src/Resources.vala:382
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgstr "Lägg till taggen ”%s” till bilden"
 
-#: ../src/Resources.vala:387
+#: ../src/Resources.vala:382
 #, c-format
 msgid "Tag Photos as \"%s\""
 msgstr "Lägg till taggen ”%s” till bilderna"
 
-#: ../src/Resources.vala:391
+#: ../src/Resources.vala:386
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgstr "Lägg till taggen ”%s” på den markerade bilden"
 
-#: ../src/Resources.vala:392
+#: ../src/Resources.vala:387
 #, c-format
 msgid "Tag the selected photos as \"%s\""
 msgstr "Lägg till taggen ”%s” på de markerade bilderna"
 
-#: ../src/Resources.vala:396
+#: ../src/Resources.vala:391
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
 msgstr "_Ta bort taggen ”%s” från bild"
 
-#: ../src/Resources.vala:397
+#: ../src/Resources.vala:392
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
 msgstr "_Ta bort taggen ”%s” från bilderna"
 
-#: ../src/Resources.vala:401
+#: ../src/Resources.vala:396
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgstr "Ta bort taggen ”%s” från bilden"
 
-#: ../src/Resources.vala:402
+#: ../src/Resources.vala:397
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
 msgstr "Ta bort taggen ”%s” från bilderna"
 
-#: ../src/Resources.vala:406
+#: ../src/Resources.vala:401
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgstr "Kunde inte byta namn på taggen till ”%s” eftersom taggen redan finns."
 
-#: ../src/Resources.vala:410
+#: ../src/Resources.vala:405
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
 msgstr ""
 "Kunde inte byta namn på sökningen till ”%s” eftersom sökningen redan finns."
 
-#: ../src/Resources.vala:413
+#: ../src/Resources.vala:408
 msgid "Saved Search"
 msgstr "Sparad sökning"
 
-#: ../src/Resources.vala:415
+#: ../src/Resources.vala:410
 msgid "Delete Search"
 msgstr "Ta bort sökning"
 
-#: ../src/Resources.vala:418
+#: ../src/Resources.vala:413
 msgid "_Edit..."
 msgstr "R_edigera…"
 
-#: ../src/Resources.vala:419
+#: ../src/Resources.vala:414
 msgid "Re_name..."
 msgstr "Byt _namn…"
 
-#: ../src/Resources.vala:422
+#: ../src/Resources.vala:417
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
 msgstr "Byt namn på sökningen ”%s” till ”%s”"
 
-#: ../src/Resources.vala:426
+#: ../src/Resources.vala:421
 #, c-format
 msgid "Delete Search \"%s\""
 msgstr "Ta bort sökningen ”%s”"
 
-#: ../src/Resources.vala:584
+#: ../src/Resources.vala:579
 #, c-format
 msgid "Rate %s"
 msgstr "Betyg %s"
 
-#: ../src/Resources.vala:585
+#: ../src/Resources.vala:580
 #, c-format
 msgid "Set rating to %s"
 msgstr "Sätt betyget %s"
 
-#: ../src/Resources.vala:586
+#: ../src/Resources.vala:581
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Sätt betyget till %s"
 
-#: ../src/Resources.vala:588
+#: ../src/Resources.vala:583
 #, c-format
 msgid "Display %s"
 msgstr "Visa %s"
 
-#: ../src/Resources.vala:589
+#: ../src/Resources.vala:584
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Visa endast bilder med betyget %s"
 
-#: ../src/Resources.vala:590
+#: ../src/Resources.vala:585
 #, c-format
 msgid "%s or Better"
 msgstr "%s eller högre"
 
-#: ../src/Resources.vala:591
+#: ../src/Resources.vala:586
 #, c-format
 msgid "Display %s or Better"
 msgstr "Visa %s eller högre"
 
-#: ../src/Resources.vala:592
+#: ../src/Resources.vala:587
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Visa endast bilder med betyget %s eller högre"
 
-#: ../src/Resources.vala:683
+#: ../src/Resources.vala:678
 msgid "Remove the selected photos from the trash"
 msgstr "Ta bort markerade bilder från papperskorgen"
 
-#: ../src/Resources.vala:684
+#: ../src/Resources.vala:679
 msgid "Remove the selected photos from the library"
 msgstr "Ta bort markerade bilder från biblioteket"
 
-#: ../src/Resources.vala:686
+#: ../src/Resources.vala:681
 msgid "_Restore"
 msgstr "Åt_erställ"
 
-#: ../src/Resources.vala:687
+#: ../src/Resources.vala:682
 msgid "Move the selected photos back into the library"
 msgstr "Flytta tillbaka markerade bilder till biblioteket"
 
-#: ../src/Resources.vala:689
+#: ../src/Resources.vala:684
 msgid "Show in File Mana_ger"
 msgstr "Öppna med _filhanteraren"
 
-#: ../src/Resources.vala:690
+#: ../src/Resources.vala:685
 msgid "Open the selected photo's directory in the file manager"
 msgstr "Öppna mappen för den markerade bilden i filhanteraren"
 
-#: ../src/Resources.vala:693
+#: ../src/Resources.vala:688
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Kunde inte öppna i filhanterare: %s"
 
-#: ../src/Resources.vala:696
+#: ../src/Resources.vala:691
 msgid "R_emove From Library"
 msgstr "Ta _bort från biblioteket"
 
-#: ../src/Resources.vala:698
+#: ../src/Resources.vala:693
 msgid "_Move to Trash"
 msgstr "_Flytta till papperskorgen"
 
-#: ../src/Resources.vala:700
+#: ../src/Resources.vala:695
 msgid "Select _All"
 msgstr "Markera _alla"
 
-#: ../src/Resources.vala:701
+#: ../src/Resources.vala:696
 msgid "Select all items"
 msgstr "Markera alla objekt"
 
@@ -3642,20 +3647,20 @@ msgstr "Markera alla objekt"
 #. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:780
+#: ../src/Resources.vala:775
 msgid "%-I:%M %p"
 msgstr "%-I:%M %p"
 
 #. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:785
+#: ../src/Resources.vala:780
 msgid "%-I:%M:%S %p"
 msgstr "%-I:%M:%S %p"
 
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:789
+#: ../src/Resources.vala:784
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b, %Y"
 
@@ -3665,14 +3670,14 @@ msgstr "%a %d %b, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:794 ../src/Resources.vala:804
+#: ../src/Resources.vala:789 ../src/Resources.vala:799
 msgid "%a %b %d"
 msgstr "%a %d %b"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:799
+#: ../src/Resources.vala:794
 msgid "%d, %Y"
 msgstr "%d, %Y"
 
@@ -3779,7 +3784,7 @@ msgid "untitled"
 msgstr "namnlös"
 
 #. multiple videos
-#: ../src/VideoSupport.vala:489
+#: ../src/VideoSupport.vala:490
 msgid "Export Videos"
 msgstr "Exportera filmer"
 
@@ -3787,7 +3792,7 @@ msgstr "Exportera filmer"
 msgid "Cameras"
 msgstr "Kameror"
 
-#: ../src/camera/ImportPage.vala:459
+#: ../src/camera/ImportPage.vala:458
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
@@ -3795,11 +3800,11 @@ msgstr ""
 "filhanteraren."
 
 #. hide duplicates checkbox
-#: ../src/camera/ImportPage.vala:776
+#: ../src/camera/ImportPage.vala:775
 msgid "Hide photos already imported"
 msgstr "Dölj bilder som redan importerats"
 
-#: ../src/camera/ImportPage.vala:777
+#: ../src/camera/ImportPage.vala:776
 msgid "Only display photos that have not been imported"
 msgstr "Visa enbart bilder som inte har importerats"
 
@@ -3807,28 +3812,28 @@ msgstr "Visa enbart bilder som inte har importerats"
 #. prior to import.
 #. TODO: replace this with approved text for "talking to camera,
 #. please wait" once new strings are being accepted.
-#: ../src/camera/ImportPage.vala:847
+#: ../src/camera/ImportPage.vala:846
 msgid "Starting import, please wait..."
 msgstr "Påbörjar importen, var god vänta…"
 
-#: ../src/camera/ImportPage.vala:886
+#: ../src/camera/ImportPage.vala:885
 msgid "Import _Selected"
 msgstr "Importera _markerade"
 
-#: ../src/camera/ImportPage.vala:887
+#: ../src/camera/ImportPage.vala:886
 msgid "Import the selected photos into your library"
 msgstr "Importera de valda bilderna till ditt bibliotek"
 
-#: ../src/camera/ImportPage.vala:892
+#: ../src/camera/ImportPage.vala:891
 msgid "Import _All"
 msgstr "Importera _alla"
 
-#: ../src/camera/ImportPage.vala:893
+#: ../src/camera/ImportPage.vala:892
 msgid "Import all the photos into your library"
 msgstr "Importera alla bilder till ditt bibliotek"
 
 #. it's mounted, offer to unmount for the user
-#: ../src/camera/ImportPage.vala:1014
+#: ../src/camera/ImportPage.vala:1013
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
@@ -3836,15 +3841,15 @@ msgstr ""
 "Shotwell behöver avmontera kameran från filsystemet för att kunna komma åt "
 "den. Vill du fortsätta?"
 
-#: ../src/camera/ImportPage.vala:1020
+#: ../src/camera/ImportPage.vala:1019
 msgid "_Unmount"
 msgstr "A_vmontera"
 
-#: ../src/camera/ImportPage.vala:1025
+#: ../src/camera/ImportPage.vala:1024
 msgid "Please unmount the camera."
 msgstr "Avmontera kameran."
 
-#: ../src/camera/ImportPage.vala:1030
+#: ../src/camera/ImportPage.vala:1029
 msgid ""
 "The camera is locked by another application.  Shotwell can only access the "
 "camera when it's unlocked.  Please close any other application using the "
@@ -3854,11 +3859,11 @@ msgstr ""
 "när den är olåst.  Stäng alla andra program som använder kameran och försök "
 "igen."
 
-#: ../src/camera/ImportPage.vala:1040
+#: ../src/camera/ImportPage.vala:1039
 msgid "Please close any other application using the camera."
 msgstr "Stäng alla andra program som använder kameran."
 
-#: ../src/camera/ImportPage.vala:1045
+#: ../src/camera/ImportPage.vala:1044
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -3867,57 +3872,57 @@ msgstr ""
 "Kunde inte hämta förhandsvisningar från kameran:\n"
 "%s"
 
-#: ../src/camera/ImportPage.vala:1062
+#: ../src/camera/ImportPage.vala:1061
 msgid "Unmounting..."
 msgstr "Avmonterar…"
 
-#: ../src/camera/ImportPage.vala:1168
+#: ../src/camera/ImportPage.vala:1167
 msgid "Fetching photo information"
 msgstr "Hämtar bildinformation"
 
-#: ../src/camera/ImportPage.vala:1523
+#: ../src/camera/ImportPage.vala:1522
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Hämtar förhandsvisning av %s"
 
-#: ../src/camera/ImportPage.vala:1639
+#: ../src/camera/ImportPage.vala:1638
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kunde inte låsa kameran: %s"
 
-#: ../src/camera/ImportPage.vala:1724
+#: ../src/camera/ImportPage.vala:1723
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Radera denna bild från kameran?"
 msgstr[1] "Radera dessa %d bilder från kameran?"
 
-#: ../src/camera/ImportPage.vala:1727
+#: ../src/camera/ImportPage.vala:1726
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Radera denna film från kameran?"
 msgstr[1] "Radera dessa %d filmer från kameran?"
 
-#: ../src/camera/ImportPage.vala:1730
+#: ../src/camera/ImportPage.vala:1729
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Radera denna bild och film från kameran?"
 msgstr[1] "Radera dessa %d bilder och filmer från kameran?"
 
-#: ../src/camera/ImportPage.vala:1733
+#: ../src/camera/ImportPage.vala:1732
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Radera denna fil från kameran?"
 msgstr[1] "Radera dessa %d filer från kameran?"
 
-#: ../src/camera/ImportPage.vala:1760
+#: ../src/camera/ImportPage.vala:1759
 msgid "Removing photos/videos from camera"
 msgstr "Tar bort bilder och filmer från kameran"
 
-#: ../src/camera/ImportPage.vala:1764
+#: ../src/camera/ImportPage.vala:1763
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3972,12 +3977,16 @@ msgstr "Databasfil:"
 msgid "_Import"
 msgstr "_Importera"
 
-#: ../src/data_imports/DataImportsUI.vala:217
+#: ../src/data_imports/DataImportsUI.vala:220
 msgid "Import From Application"
 msgstr "Importera från program"
 
-#: ../src/data_imports/DataImportsUI.vala:369
-#: ../src/publishing/PublishingUI.vala:470
+#: ../src/data_imports/DataImportsUI.vala:221
+msgid "Import media _from:"
+msgstr "Importera mediafiler från:"
+
+#: ../src/data_imports/DataImportsUI.vala:408
+#: ../src/publishing/PublishingUI.vala:507
 msgid "_Close"
 msgstr "S_täng"
 
@@ -4009,6 +4018,11 @@ msgstr ""
 "\n"
 "Felet var: \n"
 "%s"
+
+#: ../src/db/DatabaseTable.vala:81
+#, c-format
+msgid "Unable to restore photo database %s"
+msgstr "Kunde inte återställa bilddatabasen %s"
 
 #: ../src/direct/DirectPhotoPage.vala:46 ../src/library/LibraryWindow.vala:335
 msgid "_File"
@@ -4053,26 +4067,31 @@ msgstr ""
 "%s saknar stöd för filformatet för\n"
 "%s."
 
-#: ../src/direct/DirectPhotoPage.vala:422
+#: ../src/direct/DirectPhotoPage.vala:248
+#, c-format
+msgid "Unable open photo %s. Sorry."
+msgstr "Kunde inte öppna bilden %s."
+
+#: ../src/direct/DirectPhotoPage.vala:432
 msgid "_Save a Copy"
 msgstr "_Spara en kopia"
 
-#: ../src/direct/DirectPhotoPage.vala:425
+#: ../src/direct/DirectPhotoPage.vala:435
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Förkasta ändringarna i %s?"
 
-#: ../src/direct/DirectPhotoPage.vala:426
+#: ../src/direct/DirectPhotoPage.vala:436
 msgid "Close _without Saving"
 msgstr "_Stäng utan att spara"
 
-#: ../src/direct/DirectPhotoPage.vala:459
+#: ../src/direct/DirectPhotoPage.vala:469
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Fel vid sparande till %s: %s"
 
-#: ../src/direct/DirectPhotoPage.vala:487
-#: ../src/direct/DirectPhotoPage.vala:508
+#: ../src/direct/DirectPhotoPage.vala:497
+#: ../src/direct/DirectPhotoPage.vala:518
 msgid "Save As"
 msgstr "Spara som"
 
@@ -4396,25 +4415,25 @@ msgstr "Biblioteksplats"
 msgid "Photos cannot be imported from this directory."
 msgstr "Bilder kan inte importeras från denna mapp."
 
-#: ../src/library/LibraryWindow.vala:1183
+#: ../src/library/LibraryWindow.vala:1181
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: ../src/library/LibraryWindow.vala:1227
-#: ../src/library/LibraryWindow.vala:1238
+#: ../src/library/LibraryWindow.vala:1225
+#: ../src/library/LibraryWindow.vala:1236
 msgid "Updating library..."
 msgstr "Uppdaterar biblioteket…"
 
-#: ../src/library/LibraryWindow.vala:1244
+#: ../src/library/LibraryWindow.vala:1242
 msgid "Preparing to auto-import photos..."
 msgstr "Förbereder automatisk importer av bilder…"
 
-#: ../src/library/LibraryWindow.vala:1249
+#: ../src/library/LibraryWindow.vala:1247
 msgid "Auto-importing photos..."
 msgstr "Importerar bilder automatiskt..."
 
-#: ../src/library/LibraryWindow.vala:1257
+#: ../src/library/LibraryWindow.vala:1255
 msgid "Writing metadata to files..."
 msgstr "Skriver metadata till filer…"
 
@@ -4611,37 +4630,37 @@ msgstr "Hämtar kontoinformation…"
 msgid "Logging in..."
 msgstr "Loggar in…"
 
-#: ../src/publishing/PublishingUI.vala:185
+#: ../src/publishing/PublishingUI.vala:188
 msgid "Publish Photos"
 msgstr "Publicera bilder"
 
-#: ../src/publishing/PublishingUI.vala:186
+#: ../src/publishing/PublishingUI.vala:189
 msgid "Publish photos _to:"
 msgstr "Publicera bilder _till:"
 
-#: ../src/publishing/PublishingUI.vala:188
+#: ../src/publishing/PublishingUI.vala:191
 msgid "Publish Videos"
 msgstr "Publicera filmer"
 
-#: ../src/publishing/PublishingUI.vala:189
+#: ../src/publishing/PublishingUI.vala:192
 msgid "Publish videos _to"
 msgstr "Publicera filmer _till"
 
-#: ../src/publishing/PublishingUI.vala:191
+#: ../src/publishing/PublishingUI.vala:194
 msgid "Publish Photos and Videos"
 msgstr "Publicera bilder och filmer"
 
-#: ../src/publishing/PublishingUI.vala:192
+#: ../src/publishing/PublishingUI.vala:195
 msgid "Publish photos and videos _to"
 msgstr "Publicera bilder och filmer _till"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: ../src/publishing/PublishingUI.vala:360
+#: ../src/publishing/PublishingUI.vala:397
 msgid "Unable to publish"
 msgstr "Kunde inte publicera"
 
-#: ../src/publishing/PublishingUI.vala:361
+#: ../src/publishing/PublishingUI.vala:398
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -5045,6 +5064,12 @@ msgstr "_Visa titel"
 msgid "seconds"
 msgstr "sekunder"
 
+#~ msgid "Copyright 2009-2015 Yorba Foundation"
+#~ msgstr "Copyright 2009-2015 Yorba Foundation"
+
+#~ msgid "Visit the Yorba web site"
+#~ msgstr "Besök Yorbas webbplats"
+
 #, fuzzy
 #~| msgid ""
 #~| "A file required for publishing is unavailable. Publishing to Flickr "
@@ -5053,9 +5078,6 @@ msgstr "sekunder"
 #~ msgstr ""
 #~ "En fil som krävs för publiceringen saknas. Därför kan publiceringen till "
 #~ "Flickr inte fortsätta."
-
-#~ msgid "Import media _from:"
-#~ msgstr "Importera mediafiler från:"
 
 #~ msgid "Only _Remove"
 #~ msgstr "Ta _endast bort"
