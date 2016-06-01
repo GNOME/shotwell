@@ -588,7 +588,7 @@ internal class UploadTransaction :
         // create a message that can be sent over the wire whose payload is the multipart container
         // that we've been building up
         Soup.Message outbound_message =
-            soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
+            Soup.Form.request_new_from_multipart(get_endpoint_url(), message_parts);
         outbound_message.request_headers.append("Authorization", "Bearer " +
             session.get_access_token());
         set_message(outbound_message);

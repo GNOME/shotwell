@@ -592,7 +592,7 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
         // create a message that can be sent over the wire whose payload is the multipart container
         // that we've been building up
         Soup.Message outbound_message =
-            soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
+            Soup.Form.request_new_from_multipart(get_endpoint_url(), message_parts);
         outbound_message.request_headers.append("X-GData-Key", "key=%s".printf(DEVELOPER_KEY));
         outbound_message.request_headers.append("Slug",
             publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME));

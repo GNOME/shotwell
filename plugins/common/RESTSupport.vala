@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-extern Soup.Message soup_form_request_new_from_multipart(string uri, Soup.Multipart multipart);
-
 namespace Publishing.RESTSupport {
 
 public abstract class Session {
@@ -437,7 +435,7 @@ public class UploadTransaction : Transaction {
         image_part_header.set_content_disposition("form-data", binary_disposition_table);
 
         Soup.Message outbound_message =
-            soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
+            Soup.Form.request_new_from_multipart(get_endpoint_url(), message_parts);
         // TODO: there must be a better way to iterate over a map
         Gee.MapIterator<string, string> i = message_headers.map_iterator();
         bool cont = i.next();

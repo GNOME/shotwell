@@ -338,7 +338,7 @@ private class UploadTransaction: Transaction {
 
         image_part_header.set_content_disposition("form-data", result);
 
-        Soup.Message outbound_message = soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
+        Soup.Message outbound_message = Soup.Form.request_new_from_multipart(get_endpoint_url(), message_parts);
         outbound_message.request_headers.append("Authorization", ("OAuth %s").printf(session.get_auth_token()));
         outbound_message.request_headers.append("Connection", "close");
         set_message(outbound_message);
