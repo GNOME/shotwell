@@ -6,7 +6,6 @@
  */
 
 
-extern string hmac_sha1(string key, string message);
 public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
    private const string ICON_FILENAME = "tumblr.png";
 
@@ -1105,7 +1104,7 @@ internal class Session : Publishing.RESTSupport.Session {
         debug("signing key = '%s'", signing_key);
 
         // compute the signature
-        string signature = hmac_sha1(signing_key, signature_base_string);
+        string signature = Publishing.RESTSupport.hmac_sha1(signing_key, signature_base_string);
         debug("signature = '%s'", signature);
         signature = Soup.URI.encode(signature, ENCODE_RFC_3986_EXTRA);
 

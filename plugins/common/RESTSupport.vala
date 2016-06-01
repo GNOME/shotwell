@@ -6,6 +6,22 @@
 
 namespace Publishing.RESTSupport {
 
+// Ported from librest
+// https://git.gnome.org/browse/librest/tree/rest/sha1.c?id=e412da58080eec2e771482e7e4c509b9e71477ff#n38
+
+internal const int SHA1_HMAC_LENGTH = 20;
+
+public string hmac_sha1(string key, string message) {
+    uint8 buffer[SHA1_HMAC_LENGTH];
+    size_t len = SHA1_HMAC_LENGTH;
+
+    var mac = new Hmac (ChecksumType.SHA1, key.data);
+    mac.update (message.data);
+    mac.get_digest (buffer, ref len);
+
+    return Base64.encode (buffer[0:len]);
+}
+
 public abstract class Session {
     private string? endpoint_url = null;
     private Soup.Session soup_session = null;
