@@ -9,8 +9,8 @@ PLUGIN_PKGS := \
 
 SRC_FILES := \
 	shotwell-data-imports.vala \
-	../common/VersionNumber.vala \
-	../common/SqliteSupport.vala \
+	VersionNumber.vala \
+	SqliteSupport.vala \
 	FSpotImporter.vala \
 	FSpotDatabaseBehavior.vala \
 	FSpotDatabase.vala \
