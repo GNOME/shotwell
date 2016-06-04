@@ -1,8 +1,6 @@
 [encoding: UTF-8]
 plugins/common/RESTSupport.vala
 plugins/common/Resources.vala
-plugins/common/SqliteSupport.vala
-plugins/common/VersionNumber.vala
 plugins/shotwell-data-imports/FSpotDatabase.vala
 plugins/shotwell-data-imports/FSpotDatabaseBehavior.vala
 plugins/shotwell-data-imports/FSpotDatabaseTable.vala
@@ -15,6 +13,8 @@ plugins/shotwell-data-imports/FSpotRollsTable.vala
 plugins/shotwell-data-imports/FSpotTableBehavior.vala
 plugins/shotwell-data-imports/FSpotTagsTable.vala
 plugins/shotwell-data-imports/shotwell-data-imports.vala
+plugins/shotwell-data-imports/SqliteSupport.vala
+plugins/shotwell-data-imports/VersionNumber.vala
 plugins/shotwell-publishing-extras/GalleryConnector.vala
 plugins/shotwell-publishing-extras/RajcePublishing.vala
 plugins/shotwell-publishing-extras/TumblrPublishing.vala
