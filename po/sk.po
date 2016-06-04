@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-05-16 19:21+0000\n"
-"PO-Revision-Date: 2016-05-21 10:43+0200\n"
+"POT-Creation-Date: 2016-05-21 16:40+0000\n"
+"PO-Revision-Date: 2016-06-04 10:11+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -1050,7 +1050,6 @@ msgid "Core Slideshow Transitions"
 msgstr "Hlavné prechody prezentácie"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
@@ -1218,11 +1217,11 @@ msgstr "Poškodený súbor obrázku"
 msgid "Imported failed (%d)"
 msgstr "Importovanie zlyhalo (%d)"
 
-#: ../src/CollectionPage.vala:230 ../src/PhotoPage.vala:2637
+#: ../src/CollectionPage.vala:230 ../src/PhotoPage.vala:2635
 msgid "S_lideshow"
 msgstr "P_rezentácia"
 
-#: ../src/CollectionPage.vala:231 ../src/PhotoPage.vala:2638
+#: ../src/CollectionPage.vala:231 ../src/PhotoPage.vala:2636
 msgid "Play a slideshow"
 msgstr "Spustiť prezentáciu"
 
@@ -1235,7 +1234,7 @@ msgid "Export Photos/Videos"
 msgstr "Exportovať fotografie/videá"
 
 #: ../src/CollectionPage.vala:458 ../src/Dialogs.vala:58
-#: ../src/PhotoPage.vala:3211
+#: ../src/PhotoPage.vala:3209
 msgid "Export Photo"
 msgstr "Exportovať fotografiu"
 
@@ -2065,7 +2064,7 @@ msgstr[2] "_Vyhodiť súbory do koša"
 msgid "_Remove From Library"
 msgstr "Odstrániť z knižnice"
 
-#: ../src/Dialogs.vala:1391 ../src/camera/ImportPage.vala:1741
+#: ../src/Dialogs.vala:1391 ../src/camera/ImportPage.vala:1740
 msgid "_Keep"
 msgstr "_Ponechať"
 
@@ -2345,11 +2344,11 @@ msgstr "_Importovať na mieste"
 msgid "Import to Library"
 msgstr "Importovať do knižnice"
 
-#: ../src/Dialogs.vala:2701 ../src/PhotoPage.vala:3087
+#: ../src/Dialogs.vala:2701 ../src/PhotoPage.vala:3085
 msgid "Remove From Library"
 msgstr "Odstrániť z knižnice"
 
-#: ../src/Dialogs.vala:2702 ../src/PhotoPage.vala:3087
+#: ../src/Dialogs.vala:2702 ../src/PhotoPage.vala:3085
 msgid "Removing Photo From Library"
 msgstr "Odstraňuje sa fotografia z knižnice"
 
@@ -2529,7 +2528,7 @@ msgstr "Nie je možné spracovať aktualizácie sledovania: %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Upraví veľkosť náhľadov"
 
-#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2593
+#: ../src/MediaPage.vala:340 ../src/PhotoPage.vala:2591
 #: ../src/Resources.vala:183 ../src/direct/DirectPhotoPage.vala:174
 msgid "Zoom _In"
 msgstr "_Priblížiť"
@@ -2538,7 +2537,7 @@ msgstr "_Priblížiť"
 msgid "Increase the magnification of the thumbnails"
 msgstr "Zvýšiť zväčšenie nadhľadov"
 
-#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2599
+#: ../src/MediaPage.vala:346 ../src/PhotoPage.vala:2597
 #: ../src/Resources.vala:184 ../src/direct/DirectPhotoPage.vala:180
 msgid "Zoom _Out"
 msgstr "_Vzdialiť"
@@ -2559,21 +2558,21 @@ msgstr "_Prehrať video"
 msgid "Open the selected videos in the system video player"
 msgstr "Otvoriť vybrané videá v systémovom prehrávači videa"
 
-#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2642
+#: ../src/MediaPage.vala:428 ../src/PhotoPage.vala:2640
 msgid "_Developer"
 msgstr "_Vývojár"
 
 #: ../src/MediaPage.vala:440 ../src/camera/Branch.vala:99
-#: ../src/camera/ImportPage.vala:711 ../src/camera/ImportPage.vala:727
+#: ../src/camera/ImportPage.vala:710 ../src/camera/ImportPage.vala:726
 #: ../src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Fotoaparát"
 
-#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:874
+#: ../src/MediaPage.vala:451 ../src/camera/ImportPage.vala:873
 msgid "_Titles"
 msgstr "_Názvy"
 
-#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:875
+#: ../src/MediaPage.vala:452 ../src/camera/ImportPage.vala:874
 msgid "Display the title of each photo"
 msgstr "Zobraziť názov každej fotografie"
 
@@ -2677,73 +2676,73 @@ msgstr "Predchádzajúca fotografia"
 msgid "Next photo"
 msgstr "Ďalšia fotografia"
 
-#: ../src/PhotoPage.vala:1847
+#: ../src/PhotoPage.vala:1845
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Chýba zdrojový súbor fotografie: %s"
 
-#: ../src/PhotoPage.vala:2414 ../src/direct/DirectPhotoPage.vala:165
+#: ../src/PhotoPage.vala:2412 ../src/direct/DirectPhotoPage.vala:165
 #: ../src/library/LibraryWindow.vala:343
 msgid "_View"
 msgstr "_Zobraziť"
 
-#: ../src/PhotoPage.vala:2418 ../src/direct/DirectPhotoPage.vala:81
+#: ../src/PhotoPage.vala:2416 ../src/direct/DirectPhotoPage.vala:81
 msgid "T_ools"
 msgstr "Nás_troje"
 
-#: ../src/PhotoPage.vala:2423 ../src/direct/DirectPhotoPage.vala:86
+#: ../src/PhotoPage.vala:2421 ../src/direct/DirectPhotoPage.vala:86
 msgid "_Previous Photo"
 msgstr "_Predchádzajúca fotografia"
 
-#: ../src/PhotoPage.vala:2424 ../src/direct/DirectPhotoPage.vala:87
+#: ../src/PhotoPage.vala:2422 ../src/direct/DirectPhotoPage.vala:87
 msgid "Previous Photo"
 msgstr "Predchádzajúca fotografia"
 
-#: ../src/PhotoPage.vala:2429 ../src/direct/DirectPhotoPage.vala:92
+#: ../src/PhotoPage.vala:2427 ../src/direct/DirectPhotoPage.vala:92
 msgid "_Next Photo"
 msgstr "Ďa_lšia fotografia"
 
-#: ../src/PhotoPage.vala:2430 ../src/direct/DirectPhotoPage.vala:93
+#: ../src/PhotoPage.vala:2428 ../src/direct/DirectPhotoPage.vala:93
 msgid "Next Photo"
 msgstr "Ďalšia fotografia"
 
-#: ../src/PhotoPage.vala:2594 ../src/direct/DirectPhotoPage.vala:175
+#: ../src/PhotoPage.vala:2592 ../src/direct/DirectPhotoPage.vala:175
 msgid "Increase the magnification of the photo"
 msgstr "Zvýšiť zväčšenie fotografie"
 
-#: ../src/PhotoPage.vala:2600 ../src/direct/DirectPhotoPage.vala:181
+#: ../src/PhotoPage.vala:2598 ../src/direct/DirectPhotoPage.vala:181
 msgid "Decrease the magnification of the photo"
 msgstr "Zmenšiť zväčšenie fotografie"
 
-#: ../src/PhotoPage.vala:2605 ../src/direct/DirectPhotoPage.vala:186
+#: ../src/PhotoPage.vala:2603 ../src/direct/DirectPhotoPage.vala:186
 msgid "Fit to _Page"
 msgstr "Prispôsobiť _strane"
 
-#: ../src/PhotoPage.vala:2606 ../src/direct/DirectPhotoPage.vala:187
+#: ../src/PhotoPage.vala:2604 ../src/direct/DirectPhotoPage.vala:187
 msgid "Zoom the photo to fit on the screen"
 msgstr "Zväčšiť fotografiu na veľkosť obrazovky"
 
-#: ../src/PhotoPage.vala:2612 ../src/direct/DirectPhotoPage.vala:193
+#: ../src/PhotoPage.vala:2610 ../src/direct/DirectPhotoPage.vala:193
 #, no-c-format
 msgid "Zoom _100%"
 msgstr "Mierka _100%"
 
-#: ../src/PhotoPage.vala:2614 ../src/direct/DirectPhotoPage.vala:195
+#: ../src/PhotoPage.vala:2612 ../src/direct/DirectPhotoPage.vala:195
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Priblížiť fotografiu na 100% zväčšenie"
 
-#: ../src/PhotoPage.vala:2620 ../src/direct/DirectPhotoPage.vala:201
+#: ../src/PhotoPage.vala:2618 ../src/direct/DirectPhotoPage.vala:201
 #, no-c-format
 msgid "Zoom _200%"
 msgstr "Mierka _200%"
 
-#: ../src/PhotoPage.vala:2622 ../src/direct/DirectPhotoPage.vala:203
+#: ../src/PhotoPage.vala:2620 ../src/direct/DirectPhotoPage.vala:203
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Priblížiť fotografiu na 200% zväčšenie"
 
-#: ../src/PhotoPage.vala:3231
+#: ../src/PhotoPage.vala:3229
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nepodarilo sa exportovať %s: %s"
@@ -2867,7 +2866,7 @@ msgstr "Dnes"
 msgid "Yesterday"
 msgstr "Včera"
 
-#: ../src/Properties.vala:227 ../src/camera/ImportPage.vala:312
+#: ../src/Properties.vala:227 ../src/camera/ImportPage.vala:311
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
@@ -3134,7 +3133,7 @@ msgid "_Revert"
 msgstr "V_rátiť"
 
 #: ../src/Resources.vala:175 ../src/direct/DirectPhotoPage.vala:51
-#: ../src/direct/DirectPhotoPage.vala:427
+#: ../src/direct/DirectPhotoPage.vala:432
 msgid "_Save"
 msgstr "_Uložiť"
 
@@ -3933,7 +3932,7 @@ msgstr "Exportovať videá"
 msgid "Cameras"
 msgstr "Fotoaparáty"
 
-#: ../src/camera/ImportPage.vala:459
+#: ../src/camera/ImportPage.vala:458
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
@@ -3941,11 +3940,11 @@ msgstr ""
 "súborov."
 
 #. hide duplicates checkbox
-#: ../src/camera/ImportPage.vala:776
+#: ../src/camera/ImportPage.vala:775
 msgid "Hide photos already imported"
 msgstr "Skryť fotografie, ktoré sú už importované"
 
-#: ../src/camera/ImportPage.vala:777
+#: ../src/camera/ImportPage.vala:776
 msgid "Only display photos that have not been imported"
 msgstr "Zobraziť iba fotografie, ktoré neboli importované"
 
@@ -3953,28 +3952,28 @@ msgstr "Zobraziť iba fotografie, ktoré neboli importované"
 #. prior to import.
 #. TODO: replace this with approved text for "talking to camera,
 #. please wait" once new strings are being accepted.
-#: ../src/camera/ImportPage.vala:847
+#: ../src/camera/ImportPage.vala:846
 msgid "Starting import, please wait..."
 msgstr "Začína sa import, prosím, čakajte..."
 
-#: ../src/camera/ImportPage.vala:886
+#: ../src/camera/ImportPage.vala:885
 msgid "Import _Selected"
 msgstr "Importovať vy_brané"
 
-#: ../src/camera/ImportPage.vala:887
+#: ../src/camera/ImportPage.vala:886
 msgid "Import the selected photos into your library"
 msgstr "Importovať vybrané fotografie do vašej knižnice"
 
-#: ../src/camera/ImportPage.vala:892
+#: ../src/camera/ImportPage.vala:891
 msgid "Import _All"
 msgstr "Importovať _všetky"
 
-#: ../src/camera/ImportPage.vala:893
+#: ../src/camera/ImportPage.vala:892
 msgid "Import all the photos into your library"
 msgstr "Importovať všetky fotografie do vašej knižnice"
 
 #. it's mounted, offer to unmount for the user
-#: ../src/camera/ImportPage.vala:1014
+#: ../src/camera/ImportPage.vala:1013
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
@@ -3982,15 +3981,15 @@ msgstr ""
 "Shotwell potrebuje odpojiť váš fotoaparát od súborového systému, aby k nemu "
 "mohol pristupovať.  Chcete pokračovať?"
 
-#: ../src/camera/ImportPage.vala:1020
+#: ../src/camera/ImportPage.vala:1019
 msgid "_Unmount"
 msgstr "_Odpojiť"
 
-#: ../src/camera/ImportPage.vala:1025
+#: ../src/camera/ImportPage.vala:1024
 msgid "Please unmount the camera."
 msgstr "Prosím, odpojte fotoaparát."
 
-#: ../src/camera/ImportPage.vala:1030
+#: ../src/camera/ImportPage.vala:1029
 msgid ""
 "The camera is locked by another application.  Shotwell can only access the "
 "camera when it's unlocked.  Please close any other application using the "
@@ -4000,11 +3999,11 @@ msgstr ""
 "fotoaparátu iba ak nie je uzamknutý.  Zatvorte, prosím, ostatné aplikácie, "
 "ktoré používajú fotoaparát, a skúste to znova."
 
-#: ../src/camera/ImportPage.vala:1040
+#: ../src/camera/ImportPage.vala:1039
 msgid "Please close any other application using the camera."
 msgstr "Zatvorte, prosím, ostatné aplikácie, ktoré používajú fotoaparát."
 
-#: ../src/camera/ImportPage.vala:1045
+#: ../src/camera/ImportPage.vala:1044
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -4013,25 +4012,25 @@ msgstr ""
 "Nepodarilo sa získať náhľady z fotoaparátu:\n"
 "%s"
 
-#: ../src/camera/ImportPage.vala:1062
+#: ../src/camera/ImportPage.vala:1061
 msgid "Unmounting..."
 msgstr "Odpája sa..."
 
-#: ../src/camera/ImportPage.vala:1168
+#: ../src/camera/ImportPage.vala:1167
 msgid "Fetching photo information"
 msgstr "Získavajú sa informácie o fotografiách"
 
-#: ../src/camera/ImportPage.vala:1523
+#: ../src/camera/ImportPage.vala:1522
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Získava sa náhľad pre %s"
 
-#: ../src/camera/ImportPage.vala:1639
+#: ../src/camera/ImportPage.vala:1638
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nepodarilo sa uzamknúť fotoaparát: %s"
 
-#: ../src/camera/ImportPage.vala:1724
+#: ../src/camera/ImportPage.vala:1723
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -4039,7 +4038,7 @@ msgstr[0] "Odstrániť týchto %d fotografií z fotoaparátu?"
 msgstr[1] "Odstrániť túto fotografiu z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d fotografie z fotoaparátu?"
 
-#: ../src/camera/ImportPage.vala:1727
+#: ../src/camera/ImportPage.vala:1726
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -4047,7 +4046,7 @@ msgstr[0] "Odstrániť týchto %d videí z fotoaparátu?"
 msgstr[1] "Odstrániť toto %d video z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d videá z fotoaparátu?"
 
-#: ../src/camera/ImportPage.vala:1730
+#: ../src/camera/ImportPage.vala:1729
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -4055,7 +4054,7 @@ msgstr[0] "Odstrániť týchto %d fotografií/videí z fotoaparátu?"
 msgstr[1] "Odstrániť túto %d fotografiu/video z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d fotografie/videá z fotoaparátu?"
 
-#: ../src/camera/ImportPage.vala:1733
+#: ../src/camera/ImportPage.vala:1732
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -4063,11 +4062,11 @@ msgstr[0] "Odstrániť týchto %d súborov z fotoaparátu?"
 msgstr[1] "Odstrániť tento %d súbor z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d súbory z fotoaparátu?"
 
-#: ../src/camera/ImportPage.vala:1760
+#: ../src/camera/ImportPage.vala:1759
 msgid "Removing photos/videos from camera"
 msgstr "Odstraňujú sa fotografie/videá z fotoaparátu"
 
-#: ../src/camera/ImportPage.vala:1764
+#: ../src/camera/ImportPage.vala:1763
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4210,26 +4209,31 @@ msgstr ""
 "%s nepodporuje súborový formát\n"
 "%s."
 
-#: ../src/direct/DirectPhotoPage.vala:427
+#: ../src/direct/DirectPhotoPage.vala:248
+#, c-format
+msgid "Unable open photo %s. Sorry."
+msgstr "Nie je možné otvoriť fotografiu %s. Prepáčte."
+
+#: ../src/direct/DirectPhotoPage.vala:432
 msgid "_Save a Copy"
 msgstr "_Uložiť kópiu"
 
-#: ../src/direct/DirectPhotoPage.vala:430
+#: ../src/direct/DirectPhotoPage.vala:435
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Zahodiť zmeny vo %s?"
 
-#: ../src/direct/DirectPhotoPage.vala:431
+#: ../src/direct/DirectPhotoPage.vala:436
 msgid "Close _without Saving"
 msgstr "Zavrieť _bez uloženia"
 
-#: ../src/direct/DirectPhotoPage.vala:464
+#: ../src/direct/DirectPhotoPage.vala:469
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Chyba počas ukladania do %s: %s"
 
-#: ../src/direct/DirectPhotoPage.vala:492
-#: ../src/direct/DirectPhotoPage.vala:513
+#: ../src/direct/DirectPhotoPage.vala:497
+#: ../src/direct/DirectPhotoPage.vala:518
 msgid "Save As"
 msgstr "Uložiť ako"
 
