@@ -940,8 +940,7 @@ internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
 
     private string get_login_url() {
         string facebook_locale = get_system_locale_as_facebook_locale();
-
-        return "https://%s.facebook.com/dialog/oauth?client_id=%s&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=publish_actions,user_photos,user_videos&response_type=token".printf(facebook_locale, APPLICATION_ID);
+        return "https://%s.facebook.com/dialog/oauth?client_id=%s&redirect_uri=https://www.facebook.com/connect/login_success.html&display=popup&scope=publish_actions,user_photos,user_videos&response_type=token".printf(facebook_locale, APPLICATION_ID);
     }
 
     private void on_page_load() {
