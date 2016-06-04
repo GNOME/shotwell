@@ -25,5 +25,5 @@ $(PLUGIN_HEADER): $(PLUGIN_VAPI)
 $(PLUGIN_VAPI): $(PLUGIN_INTERFACES) src/plugins/mk/interfaces.mk
 	$(call check_valac_version)
 	$(VALAC) -c $(VALAFLAGS) -X -DGETTEXT_PACKAGE='"shotwell"' -X -I. $(foreach pkg,$(PLUGIN_PKG_REQS),--pkg=$(pkg)) --includedir=plugins --vapi=$@ --header=$(basename $@).h $(PLUGIN_INTERFACES)
-	$(foreach src,$(PLUGIN_INTERFACES),`rm $(notdir $(src)).o`)
+	$(foreach src,$(PLUGIN_INTERFACES),`rm -f $(notdir $(src)).o`)
 
