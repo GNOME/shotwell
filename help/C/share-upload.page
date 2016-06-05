@@ -28,9 +28,10 @@
      <guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</key></keyseq>.
     You will see a dialog that lets you select a publishing service.  You will then need to log in or create an account.</p>
     
-    <p>Publishing to Facebook requires you to grant certain permissions to the Shotwell Connect Facebook application.
-    You only need to grant these permissions once, when you first associate Shotwell Connect with your Facebook account.
+    <p>Publishing to Facebook requires you to grant certain permissions to the Shotwell Facebook application.
+    You only need to grant these permissions once, when you first associate Shotwell with your Facebook account.
 </p>
+    <note style="advanced"><p>You will be only able to publish images with at most the permission you granted to the Shotwell Facebook application</p></note>
     
     <p>Similarly, publishing to Flickr requires you to log in and permit Shotwell Connect to access your account.</p>
     
