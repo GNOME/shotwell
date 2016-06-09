@@ -937,29 +937,18 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      * @param txn the received transaction
      * @return the value of pwg_id if present or null if not found
      */
-    private new string? get_pwg_id_from_transaction(Publishing.RESTSupport.Transaction txn) {
-        string cookie = txn.get_response_headers().get_list("Set-Cookie");
-        string pwg_id = null;
-        debug("Full cookie string: %s".printf(cookie));
-        if (!is_string_empty(cookie)) {
-            string[] cookie_segments = cookie.split(";");
-            debug("Split full string into %d individual segments".printf(cookie_segments.length));
-            foreach(string cookie_segment in cookie_segments) {
-                debug("Individual cookie segment: %s".printf(cookie_segment));
-                string[] cookie_sub_segments = cookie_segment.split(",");
-                debug("Split segment into %d individual sub-segments".printf(cookie_sub_segments.length));
-                foreach(string cookie_sub_segment in cookie_sub_segments) {
-                    debug("Individual cookie sub-segment: %s".printf(cookie_sub_segment));
-                    string[] cookie_kv = cookie_sub_segment.split("=");
-                    debug("Split sub-segment into %d chunks".printf(cookie_kv.length));
-                    if (cookie_kv.length > 1 && cookie_kv[0].strip() == "pwg_id") {
-                        debug("Found pwg_id: %s".printf(cookie_kv[1].strip()));
-                        pwg_id = cookie_kv[1].strip();
-                    }
-                }
+    private string? get_pwg_id_from_transaction(Publishing.RESTSupport.Transaction txn) {
+        string? pwg_id = null;
+
+        foreach (var cookie in Soup.cookies_from_response(txn.get_message())) {
+            if (cookie.get_name() == "pwg_id") {
+                // Collect all ids, last one is the one to use. First one is
+                // for Guest apparently
+                pwg_id = cookie.get_value();
+                debug ("Found pwg_id %s", pwg_id);
             }
         }
-        
+
         return pwg_id;
     }
 }

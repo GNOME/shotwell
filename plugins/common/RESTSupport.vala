@@ -352,6 +352,11 @@ public class Transaction {
         assert(get_is_executed());
         return message.response_headers;
     }
+
+    public Soup.Message get_message() {
+        assert(get_is_executed());
+        return message;
+    }
    
     public void add_argument(string name, string value) {
         arguments += new Argument(name, value);
