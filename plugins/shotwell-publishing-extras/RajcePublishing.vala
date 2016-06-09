@@ -932,9 +932,8 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object
     
     private void update_login_button_sensitivity()
 	{
-        login_button.set_sensitive(
-            !is_string_empty(username_entry.get_text()) &&
-            !is_string_empty(password_entry.get_text())
+        login_button.set_sensitive(username_entry.text_length > 0 &&
+                                   password_entry.text_length > 0);
         );
     }
     

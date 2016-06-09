@@ -18,7 +18,6 @@ SRC_FILES := \
 	FlickrPublishing.vala \
 	YouTubePublishing.vala \
 	PiwigoPublishing.vala \
-	../../src/util/string.vala \
 	../common/RESTSupport.vala
 
 RC_FILES := \

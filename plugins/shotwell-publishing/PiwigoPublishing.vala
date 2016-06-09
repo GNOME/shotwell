@@ -1082,11 +1082,9 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
     }
     
     private void update_login_button_sensitivity() {
-        login_button.set_sensitive(
-            !is_string_empty(url_entry.get_text()) &&
-            !is_string_empty(username_entry.get_text()) &&
-            !is_string_empty(password_entry.get_text())
-        );
+        login_button.set_sensitive(url_entry.text_length != 0 &&
+                                   username_entry.text_length != 0 &&
+                                   password_entry.text_length != 0);
     }
     
     public Gtk.Widget get_widget() {
@@ -1314,7 +1312,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             !(
                 create_new_radio.get_active() &&
                 (
-                    is_string_empty(category_name) ||
+                    category_name != "" ||
                     category_already_exists(search_name)
                 )
             )
@@ -1658,12 +1656,7 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         string[] keywords = publishable.get_publishing_keywords();
         string tags = "";
         if (keywords != null) {
-            foreach (string tag in keywords) {
-                if (!is_string_empty(tags)) {
-                    tags += ",";
-                }
-                tags += tag;
-            }
+            tags = string.joinv (",", keywords);
         }
         
         debug("PiwigoConnector: Uploading photo %s to category id %d with perm level %d",
@@ -1672,16 +1665,16 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         string name = publishable.get_publishing_name();
         string comment = publishable.get_param_string(
             Spit.Publishing.Publishable.PARAM_STRING_COMMENT);
-        if (is_string_empty(name)) {
+        if (name != "") {
             name = publishable.get_param_string(
                 Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
             add_argument("name", name);
-            if (!is_string_empty(comment)) {
+            if (comment != null && comment != "") {
                 add_argument("comment", comment);
             }
         } else {
             // name is set
-            if (!is_string_empty(comment)) {
+            if (comment != null && comment != "") {
                 add_argument("name", name);
                 add_argument("comment", comment);
             } else {
@@ -1699,7 +1692,7 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         add_argument("category", parameters.category.id.to_string());
         add_argument("level", parameters.perm_level.id.to_string());
         if (!parameters.no_upload_tags)
-            if (!is_string_empty(tags))
+            if (tags != "")
                 add_argument("tags", tags);
         // TODO: update the Publishable interface so that it gives access to
         // the image's meta-data where the author (artist) is kept
