@@ -123,7 +123,7 @@ public class Argument {
     }
     
     public static Argument[] sort(Argument[] inputArray) {
-        FixedTreeSet<Argument> sorted_args = new FixedTreeSet<Argument>(Argument.compare);
+        Gee.TreeSet<Argument> sorted_args = new Gee.TreeSet<Argument>(Argument.compare);
 
         foreach (Argument arg in inputArray)
             sorted_args.add(arg);
@@ -676,20 +676,6 @@ public string asciify_string(string s) {
     }
     
     return b.str;
-}
-
-/** @brief Work-around for a problem in libgee where a TreeSet can leak references when it
- * goes out of scope; please see https://bugzilla.gnome.org/show_bug.cgi?id=695045 for more
- * details. This class merely wraps it and adds a call to clear() to the destructor.
- */
-public class FixedTreeSet<G> : Gee.TreeSet<G> {
-    public FixedTreeSet(owned CompareDataFunc<G>? comp_func = null) {
-        base((owned) comp_func);
-    }
-    
-    ~FixedTreeSet() {
-        clear();
-    }
 }
 
 public abstract class GoogleSession : Session {
