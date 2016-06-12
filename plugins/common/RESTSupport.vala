@@ -130,6 +130,10 @@ public class Argument {
 
         return sorted_args.to_array();
     }
+
+    public string to_string () {
+        return "%s=%s".printf (this.key, this.value);
+    }
 }
 
 public class Transaction {
@@ -312,7 +316,7 @@ public class Transaction {
         // concatenate the REST arguments array into an HTTP formdata string
         string formdata_string = "";
         for (int i = 0; i < arguments.length; i++) {
-            formdata_string += ("%s=%s".printf(arguments[i].key, arguments[i].value));
+            formdata_string += arguments[i].to_string ();
             if (i < arguments.length - 1)
                 formdata_string += "&";
         }
