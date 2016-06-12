@@ -934,7 +934,6 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object
 	{
         login_button.set_sensitive(username_entry.text_length > 0 &&
                                    password_entry.text_length > 0);
-        );
     }
     
     public Gtk.Widget get_widget()
