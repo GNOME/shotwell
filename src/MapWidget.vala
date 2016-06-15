@@ -4,96 +4,280 @@
  * See the COPYING file in this distribution.
  */
 
-private class PositionMarker : Object {
-    private MapWidget map_widget;
+private interface PositionMarker : Object {
+    public abstract Champlain.Marker champlain_marker { get; protected set; }
+    public abstract bool highlighted { get; set; }
+    public abstract bool selected { get; set; }
+}
 
-    protected PositionMarker.from_group(MapWidget map_widget) {
-        this.map_widget = map_widget;
+private abstract class AbstractPositionMarker : Object, PositionMarker {
+    private bool _selected = false;
+    protected MapWidget map_widget;
+
+    public Champlain.Marker champlain_marker { get; protected set; }
+
+    protected abstract Gee.Collection<DataViewPositionMarker> data_view_position_markers { owned get; }
+
+    public bool highlighted {
+        get { return champlain_marker.get_selected(); }
+        set {
+            if (value || !_selected)
+                champlain_marker.set_selected(value);
+        }
     }
-
-    public PositionMarker(MapWidget map_widget, DataView view, Champlain.Marker marker) {
-        this.map_widget = map_widget;
-        this.view = view;
-        marker.selectable = true;
-        marker.button_release_event.connect ((event) => {
-            if (event.button > 1)
-                return true;
-            map_widget.select_data_view(this);
-            return true;
-        });
-        marker.enter_event.connect ((event) => {
-            map_widget.highlight_data_view(this);
-            return true;
-        });
-        marker.leave_event.connect ((event) => {
-            map_widget.unhighlight_data_view(this);
-            return true;
-        });
-        this.marker = marker;
-    }
-
     public bool selected {
         get {
-            return marker.get_selected();
+            return _selected;
         }
         set {
-            marker.set_selected(value);
+            _selected = value;
+            champlain_marker.set_selected(value);
         }
     }
 
-    public Champlain.Marker marker { get; protected set; }
+    protected void bind_mouse_events() {
+        champlain_marker.button_release_event.connect ((event) => {
+            if (event.button > 1 || _selected)
+                return true;
+            champlain_marker.selected = true;
+            map_widget.select_data_views(data_view_position_markers);
+            return true;
+        });
+        champlain_marker.enter_event.connect ((event) => {
+            if (!_selected)
+                champlain_marker.selected = true;
+            map_widget.highlight_data_views(data_view_position_markers);
+            return true;
+        });
+        champlain_marker.leave_event.connect ((event) => {
+            if (!_selected)
+                champlain_marker.selected = false;
+            map_widget.unhighlight_data_views(data_view_position_markers);
+            return true;
+        });
+    }
+}
+
+private class DataViewPositionMarker : AbstractPositionMarker {
+    private Gee.ArrayList<DataViewPositionMarker> _data_view_position_markers;
+
+    protected override Gee.Collection<DataViewPositionMarker> data_view_position_markers {
+        owned get { return _data_view_position_markers.read_only_view; }
+    }
+
     // Geo lookup
     // public string location_country { get; set; }
     // public string location_city { get; set; }
-    public unowned DataView view { get; protected set; }
+    public weak DataView view { get; protected set; }
+
+    public DataViewPositionMarker(MapWidget map_widget, DataView view, Champlain.Marker champlain_marker) {
+        this.map_widget = map_widget;
+        this.view = view;
+        champlain_marker.selectable = true;
+        var list = new Gee.ArrayList<DataViewPositionMarker>();
+        list.add(this);
+        this._data_view_position_markers = list;
+        this.champlain_marker = champlain_marker;
+        bind_mouse_events();
+    }
 }
 
-private class MarkerGroup : PositionMarker {
-    private Gee.Set<PositionMarker> markers = new Gee.HashSet<PositionMarker>();
-    public MarkerGroup(MapWidget map_widget, PositionMarker first_marker) {
-        base.from_group(map_widget);
-        markers.add(first_marker);
-        // use the first markers internal texture as the group's
-        marker = first_marker.marker;
-        view = first_marker.view;
+private class MarkerGroup : AbstractPositionMarker {
+    private Gee.Collection<DataViewPositionMarker> _data_view_position_markers =
+        new Gee.LinkedList<DataViewPositionMarker>();
+    private Gee.Collection<PositionMarker> _position_markers = new Gee.LinkedList<PositionMarker>();
+    private Champlain.BoundingBox bbox = new Champlain.BoundingBox();
+
+    protected override Gee.Collection<DataViewPositionMarker> data_view_position_markers {
+        owned get { return _data_view_position_markers.read_only_view; }
     }
-    public void add_marker(PositionMarker marker) {
-        markers.add(marker);
+
+    public Gee.Collection<PositionMarker> position_markers {
+        owned get { return _position_markers.read_only_view; }
     }
-    public Gee.Set<PositionMarker> get_markers() {
-        return markers;
+
+    public MarkerGroup(MapWidget map_widget, Champlain.Marker champlain_marker) {
+        this.map_widget = map_widget;
+        champlain_marker.selectable = true;
+        this.champlain_marker = champlain_marker;
+        bind_mouse_events();
+    }
+
+    public void add_position_marker(PositionMarker marker) {
+        var data_view_position_marker = marker as DataViewPositionMarker;
+        if (data_view_position_marker != null)
+            _data_view_position_markers.add(data_view_position_marker);
+        var new_champlain_marker = marker.champlain_marker;
+        bbox.extend(new_champlain_marker.latitude, new_champlain_marker.longitude);
+        double lat, lon;
+        bbox.get_center(out lat, out lon);
+        champlain_marker.set_location(lat, lon);
+        _position_markers.add(marker);
+    }
+}
+
+private class MarkerGroupRaster : Object {
+    private const long MARKER_GROUP_RASTER_WIDTH_PX = 30l;
+    private const long MARKER_GROUP_RASTER_HEIGHT_PX = 30l;
+
+    private MapWidget map_widget;
+    private Champlain.View map_view;
+    private Champlain.MarkerLayer marker_layer;
+
+    // position_markers_tree is a two-dimensional tree for grouping position
+    // markers indexed by x (outer tree) and y (inner tree) raster coordinates.
+    // It maps coordinates to the PositionMarker (DataViewMarker or MarkerGroup)
+    // corresponding to them.
+    // If either raster index keys are empty, there is no marker within the
+    // raster cell. If both exist there are two possibilities:
+    // (1) the value is a MarkerGroup which means that multiple markers are
+    // grouped together, or (2) the value is a PositionMarker (but not a
+    // MarkerGroup) which means that there is exactly one marker in the raster
+    // cell. The tree is recreated every time the zoom level changes.
+    private Gee.TreeMap<long, Gee.TreeMap<long, weak PositionMarker?>?> position_markers_tree =
+        new Gee.TreeMap<long, Gee.TreeMap<long, weak PositionMarker?>?>();
+    // The marker groups collection keeps track of and owns all PositionMarkers including the marker groups
+    private Gee.Map<DataView, weak PositionMarker> data_view_map = new Gee.HashMap<DataView, weak PositionMarker>();
+    private Gee.Set<PositionMarker> position_markers = new Gee.HashSet<PositionMarker>();
+
+    public MarkerGroupRaster(MapWidget map_widget, Champlain.View map_view, Champlain.MarkerLayer marker_layer) {
+        this.map_widget = map_widget;
+        this.map_view = map_view;
+        this.marker_layer = marker_layer;
+        map_widget.zoom_changed.connect(regroup);
+    }
+
+    public void clear() {
+        data_view_map.clear();
+        position_markers_tree.clear();
+        position_markers.clear();
+    }
+
+    public weak PositionMarker? find_position_marker(DataView data_view) {
+        if (!data_view_map.has_key(data_view))
+            return null;
+        weak PositionMarker? m;
+        lock (position_markers) {
+            m = data_view_map.get(data_view);
+        }
+        return m;
+    }
+
+    public bool has_markers() {
+        return !position_markers.is_empty;
+    }
+
+    public void rasterize_marker(PositionMarker position_marker, bool already_on_map=false) {
+        var data_view_position_marker = position_marker as DataViewPositionMarker;
+        var champlain_marker = position_marker.champlain_marker;
+        long x, y;
+
+        lock (position_markers) {
+            rasterize_coords(champlain_marker.longitude, champlain_marker.latitude, out x, out y);
+            var yg = position_markers_tree.get(x);
+            if (yg == null) {
+                yg = new Gee.TreeMap<long, weak PositionMarker?>();
+                position_markers_tree.set(x, yg);
+            }
+            var cell = yg.get(y);
+            if (cell == null) {
+                // first marker in this raster cell
+                yg.set(y, position_marker);
+                position_markers.add(position_marker);
+                if (!already_on_map)
+                    marker_layer.add_marker(position_marker.champlain_marker);
+                if (data_view_position_marker != null)
+                    data_view_map.set(data_view_position_marker.view, position_marker);
+
+            } else {
+                var marker_group = cell as MarkerGroup;
+                if (marker_group == null) {
+                    // single marker already occupies raster cell: create new group
+                    GpsCoords rasterized_gps_coords = GpsCoords() {
+                        has_gps = 1,
+                        longitude = map_view.x_to_longitude(x),
+                        latitude = map_view.y_to_latitude(y)
+                    };
+                    marker_group = map_widget.create_marker_group(rasterized_gps_coords);
+                    marker_group.add_position_marker(cell);
+                    if (cell is DataViewPositionMarker)
+                        data_view_map.set(((DataViewPositionMarker) cell).view, marker_group);
+                    yg.set(y, marker_group);
+                    position_markers.add(marker_group);
+                    position_markers.remove(cell);
+                    marker_layer.add_marker(marker_group.champlain_marker);
+                    marker_layer.remove_marker(cell.champlain_marker);
+                }
+                // group already exists, add new marker to it
+                marker_group.add_position_marker(position_marker);
+                if (already_on_map)
+                    marker_layer.remove_marker(position_marker.champlain_marker);
+                if (data_view_position_marker != null)
+                    data_view_map.set(data_view_position_marker.view, marker_group);
+            }
+        }
+    }
+
+    private void rasterize_coords(double longitude, double latitude, out long x, out long y) {
+        x = (Math.lround(map_view.longitude_to_x(longitude) / MARKER_GROUP_RASTER_WIDTH_PX)) *
+            MARKER_GROUP_RASTER_WIDTH_PX + (MARKER_GROUP_RASTER_WIDTH_PX / 2);
+        y = (Math.lround(map_view.latitude_to_y(latitude) / MARKER_GROUP_RASTER_HEIGHT_PX)) *
+            MARKER_GROUP_RASTER_HEIGHT_PX + (MARKER_GROUP_RASTER_HEIGHT_PX / 2);
+    }
+
+    private void regroup() {
+        lock (position_markers) {
+            var position_markers_current = (owned) position_markers;
+            position_markers = new Gee.HashSet<PositionMarker>();
+            position_markers_tree.clear();
+
+            foreach (var pm in position_markers_current) {
+                var marker_group = pm as MarkerGroup;
+                if (marker_group != null) {
+                    marker_layer.remove_marker(marker_group.champlain_marker);
+                    foreach (var position_marker in marker_group.position_markers) {
+                        rasterize_marker(position_marker, false);
+                    }
+                } else {
+                    rasterize_marker(pm, true);
+                }
+            }
+            position_markers_current = null;
+        }
     }
 }
 
 private class MapWidget : Gtk.Bin {
     private const uint DEFAULT_ZOOM_LEVEL = 8;
-    private const long MARKER_GROUP_RASTER_WIDTH = 30l;
 
     private static MapWidget instance = null;
 
     private GtkChamplain.Embed gtk_champlain_widget = new GtkChamplain.Embed();
     private Champlain.View map_view = null;
-    private uint last_zoom_level = DEFAULT_ZOOM_LEVEL;
     private Champlain.Scale map_scale = new Champlain.Scale();
     private Champlain.MarkerLayer marker_layer = new Champlain.MarkerLayer();
     public bool map_edit_lock { get; set; }
-    private Gee.Map<DataView, PositionMarker> position_markers =
-        new Gee.HashMap<DataView, PositionMarker>();
-    private Gee.TreeMap<long, Gee.TreeMap<long, MarkerGroup>> marker_groups_tree =
-        new Gee.TreeMap<long, Gee.TreeMap<long, MarkerGroup>>();
-    private Gee.Collection<MarkerGroup> marker_groups = new Gee.LinkedList<MarkerGroup>();
-    private unowned Page page = null;
+    private MarkerGroupRaster marker_group_raster = null;
+    private weak Page page = null;
     private Clutter.Image? map_edit_locked_image;
     private Clutter.Image? map_edit_unlocked_image;
     private Clutter.Actor map_edit_lock_button = new Clutter.Actor();
 
+    public const float MARKER_IMAGE_HORIZONTAL_PIN_RATIO = 0.5f;
+    public const float MARKER_IMAGE_VERTICAL_PIN_RATIO = 0.825f;
     public float marker_image_width { get; private set; }
     public float marker_image_height { get; private set; }
+    public float marker_group_image_width { get; private set; }
+    public float marker_group_image_height { get; private set; }
     public float map_edit_lock_image_width { get; private set; }
     public float map_edit_lock_image_height { get; private set; }
     public Clutter.Image? marker_image { get; private set; }
     public Clutter.Image? marker_selected_image { get; private set; }
+    public Clutter.Image? marker_group_image { get; private set; }
+    public Clutter.Image? marker_group_selected_image { get; private set; }
     public const Clutter.Color marker_point_color = { 10, 10, 255, 192 };
+
+    public signal void zoom_changed();
 
     private MapWidget() {
         setup_map();
@@ -126,54 +310,23 @@ private class MapWidget : Gtk.Bin {
 
     public void clear() {
         marker_layer.remove_all();
-        marker_groups_tree.clear();
-        marker_groups.clear();
-        position_markers.clear();
+        marker_group_raster.clear();
     }
 
-    public void add_position_marker(DataView view) {
+    public void add_data_view(DataView view) {
         DataSource view_source = view.get_source();
-        if (!(view_source is Positionable)) {
+        if (!(view_source is Positionable))
             return;
-        }
         Positionable p = (Positionable) view_source;
         GpsCoords gps_coords = p.get_gps_coords();
-        if (gps_coords.has_gps <= 0) {
+        if (gps_coords.has_gps <= 0)
             return;
-        }
-
-        // rasterize coords
-        long x = (long)(map_view.longitude_to_x(gps_coords.longitude) / MARKER_GROUP_RASTER_WIDTH);
-        long y = (long)(map_view.latitude_to_y(gps_coords.latitude) / MARKER_GROUP_RASTER_WIDTH);
         PositionMarker position_marker = create_position_marker(view);
-        var yg = marker_groups_tree.get(x);
-        if (yg == null) {
-            // y group doesn't exist, initialize it
-            yg = new Gee.TreeMap<long, MarkerGroup>();
-            var mg = new MarkerGroup(this, position_marker);
-            yg.set(y, mg);
-            marker_groups.add(mg);
-            marker_groups_tree.set(x, yg);
-            add_marker(mg.marker);
-        } else {
-            var mg = yg.get(y);
-            if (mg == null) {
-                // first marker in this group
-                mg = new MarkerGroup(this, position_marker);
-                yg.set(y, mg);
-                marker_groups.add(mg);
-                add_marker(mg.marker);
-            } else {
-                // marker group already exists
-                mg.add_marker(position_marker);
-            }
-        }
-
-        position_markers.set(view, position_marker);
+        marker_group_raster.rasterize_marker(position_marker);
     }
 
     public void show_position_markers() {
-        if (!position_markers.is_empty) {
+        if (!marker_group_raster.has_markers()) {
             if (map_view.get_zoom_level() < DEFAULT_ZOOM_LEVEL) {
                 map_view.set_zoom_level(DEFAULT_ZOOM_LEVEL);
             }
@@ -182,62 +335,81 @@ private class MapWidget : Gtk.Bin {
         }
     }
 
-    public void select_data_view(PositionMarker m) {
-        ViewCollection page_view = null;
-        if (page != null)
-            page_view = page.get_view();
-        if (page_view != null && m.view is CheckerboardItem) {
+    public void select_data_views(Gee.Collection<DataViewPositionMarker> ms) {
+        if (page == null)
+            return;
+
+        ViewCollection page_view = page.get_view();
+        if (page_view != null) {
             Marker marked = page_view.start_marking();
-            marked.mark(m.view);
+            foreach (var m in ms) {
+                if (m.view is CheckerboardItem) {
+                    marked.mark(m.view);
+                }
+            }
             page_view.unselect_all();
             page_view.select_marked(marked);
         }
     }
 
-    public void highlight_data_view(PositionMarker m) {
-        if (page != null && m.view is CheckerboardItem) {
-            CheckerboardItem item = (CheckerboardItem) m.view;
+    public void highlight_data_views(Gee.Collection<DataViewPositionMarker> ms) {
+        if (page == null)
+            return;
 
-            // if item is in any way out of view, scroll to it
-            Gtk.Adjustment vadj = page.get_vadjustment();
+        bool did_adjust_view = false;
+        foreach (var m in ms) {
+            if (m.view is CheckerboardItem) {
+                CheckerboardItem item = (CheckerboardItem) m.view;
 
-            if (!(get_adjustment_relation(vadj, item.allocation.y) == AdjustmentRelation.IN_RANGE
-                && (get_adjustment_relation(vadj, item.allocation.y + item.allocation.height) == AdjustmentRelation.IN_RANGE))) {
+                if (!did_adjust_view) {
+                    // if first item is in any way out of view, scroll to it
+                    Gtk.Adjustment vadj = page.get_vadjustment();
 
-                // scroll to see the new item
-                int top = 0;
-                if (item.allocation.y < vadj.get_value()) {
-                    top = item.allocation.y;
-                    top -= CheckerboardLayout.ROW_GUTTER_PADDING / 2;
-                } else {
-                    top = item.allocation.y + item.allocation.height - (int) vadj.get_page_size();
-                    top += CheckerboardLayout.ROW_GUTTER_PADDING / 2;
+                    if (!(get_adjustment_relation(vadj, item.allocation.y) == AdjustmentRelation.IN_RANGE
+                        && (get_adjustment_relation(vadj, item.allocation.y + item.allocation.height) == AdjustmentRelation.IN_RANGE))) {
+
+                        // scroll to see the new item
+                        int top = 0;
+                        if (item.allocation.y < vadj.get_value()) {
+                            top = item.allocation.y;
+                            top -= CheckerboardLayout.ROW_GUTTER_PADDING / 2;
+                        } else {
+                            top = item.allocation.y + item.allocation.height - (int) vadj.get_page_size();
+                            top += CheckerboardLayout.ROW_GUTTER_PADDING / 2;
+                        }
+
+                        vadj.set_value(top);
+                    }
+                    did_adjust_view = true;
                 }
-
-                vadj.set_value(top);
+                item.brighten();
             }
-            item.brighten();
         }
     }
 
-    public void unhighlight_data_view(PositionMarker m) {
-        if (page != null && m.view is CheckerboardItem) {
-            CheckerboardItem item = (CheckerboardItem) m.view;
-            item.unbrighten();
+    public void unhighlight_data_views(Gee.Collection<DataViewPositionMarker> ms) {
+        if (page == null)
+            return;
+
+        foreach (var m in ms) {
+            if (m.view is CheckerboardItem) {
+                CheckerboardItem item = (CheckerboardItem) m.view;
+                item.unbrighten();
+            }
         }
     }
 
     public void highlight_position_marker(DataView v) {
-        PositionMarker? m = position_markers.get(v);
-        if (m != null) {
-            m.selected = true;
+        weak PositionMarker? position_marker = marker_group_raster.find_position_marker(v);
+        if (position_marker != null) {
+            position_marker.highlighted = true;
         }
     }
 
     public void unhighlight_position_marker(DataView v) {
-        PositionMarker? m = position_markers.get(v);
-        if (m != null) {
-            m.selected = false;
+        weak PositionMarker? position_marker = marker_group_raster.find_position_marker(v);
+        if (position_marker != null) {
+            position_marker.highlighted = false;
         }
     }
 
@@ -278,7 +450,10 @@ private class MapWidget : Gtk.Bin {
         map_view.bin_layout_add(map_scale, Clutter.BinAlignment.START, Clutter.BinAlignment.END);
 
         map_view.set_zoom_on_double_click(false);
-        map_view.layer_relocated.connect(map_relocated_handler);
+        map_view.notify.connect((o, p) => {
+            if (p.name == "zoom-level")
+                zoom_changed();
+        });
 
         Gtk.TargetEntry[] dnd_targets = {
             LibraryWindow.DND_TARGET_ENTRIES[LibraryWindow.TargetType.URI_LIST],
@@ -289,6 +464,8 @@ private class MapWidget : Gtk.Bin {
         button_press_event.connect(map_zoom_handler);
         set_size_request(200, 200);
 
+        marker_group_raster = new MarkerGroupRaster(this, map_view, marker_layer);
+
         // Load icons
         float w, h;
         marker_image = Resources.get_icon_as_clutter_image(
@@ -297,6 +474,12 @@ private class MapWidget : Gtk.Bin {
         marker_image_height = h;
         marker_selected_image = Resources.get_icon_as_clutter_image(
                 Resources.ICON_GPS_MARKER_SELECTED, out w, out h);
+        marker_group_image = Resources.get_icon_as_clutter_image(
+                Resources.ICON_GPS_GROUP_MARKER, out w, out h);
+        marker_group_image_width = w;
+        marker_group_image_height = h;
+        marker_group_selected_image = Resources.get_icon_as_clutter_image(
+                Resources.ICON_GPS_GROUP_MARKER_SELECTED, out w, out h);
         map_edit_locked_image = Resources.get_icon_as_clutter_image(
                 Resources.ICON_MAP_EDIT_LOCKED, out w, out h);
         map_edit_unlocked_image = Resources.get_icon_as_clutter_image(
@@ -312,10 +495,9 @@ private class MapWidget : Gtk.Bin {
         }
     }
 
-    private PositionMarker create_position_marker(DataView view) {
-        DataSource data_source = view.get_source();
-        Positionable p = (Positionable) data_source;
-        GpsCoords gps_coords = p.get_gps_coords();
+    private Champlain.Marker create_champlain_marker(GpsCoords gps_coords, Clutter.Image? marker_image,
+                                                     Clutter.Image? marker_selected_image,
+                                                     float marker_image_width, float marker_image_height) {
         assert(gps_coords.has_gps > 0);
         Champlain.Marker champlain_marker;
         if (marker_image == null) {
@@ -325,6 +507,9 @@ private class MapWidget : Gtk.Bin {
             champlain_marker = new Champlain.Marker();
             champlain_marker.set_content(marker_image);
             champlain_marker.set_size(marker_image_width, marker_image_height);
+            champlain_marker.set_translation(-marker_image_width * MARKER_IMAGE_HORIZONTAL_PIN_RATIO,
+                                             -marker_image_height * MARKER_IMAGE_VERTICAL_PIN_RATIO, 0);
+            //champlain_marker.set_pivot_point(MARKER_IMAGE_HORIZONTAL_PIN_RATIO, MARKER_IMAGE_VERTICAL_PIN_RATIO);
             champlain_marker.notify.connect((o, p) => {
                 Champlain.Marker? m = o as Champlain.Marker;
                 if (p.name == "selected")
@@ -333,11 +518,23 @@ private class MapWidget : Gtk.Bin {
         }
         champlain_marker.set_pivot_point(0.5f, 0.5f); // set center of marker
         champlain_marker.set_location(gps_coords.latitude, gps_coords.longitude);
-        return new PositionMarker(this, view, champlain_marker);
+        return champlain_marker;
     }
 
-    private void add_marker(Champlain.Marker marker) {
-        marker_layer.add_marker(marker);
+    private DataViewPositionMarker create_position_marker(DataView view) {
+        // TODO: store markers in map to only create them once
+        DataSource data_source = view.get_source();
+        Positionable p = (Positionable) data_source;
+        GpsCoords gps_coords = p.get_gps_coords();
+        Champlain.Marker champlain_marker = create_champlain_marker(gps_coords, marker_image,
+            marker_selected_image, marker_image_width, marker_image_height);
+        return new DataViewPositionMarker(this, view, champlain_marker);
+    }
+
+    internal MarkerGroup create_marker_group(GpsCoords gps_coords) {
+        Champlain.Marker champlain_marker = create_champlain_marker(gps_coords, marker_group_image,
+            marker_group_selected_image, marker_group_image_width, marker_group_image_height);
+        return new MarkerGroup(this, champlain_marker);
     }
 
     private bool map_zoom_handler(Gdk.EventButton event) {
@@ -355,50 +552,6 @@ private class MapWidget : Gtk.Bin {
             }
         }
         return false;
-    }
-
-    private void map_relocated_handler() {
-        uint new_zoom_level = map_view.get_zoom_level();
-        if (last_zoom_level != new_zoom_level) {
-            rezoom();
-            last_zoom_level = new_zoom_level;
-        }
-    }
-
-    private void rezoom() {
-        marker_groups_tree.clear();
-        Gee.Collection<MarkerGroup> marker_groups_new = new Gee.LinkedList<MarkerGroup>();
-        foreach (var marker_group in marker_groups) {
-            marker_layer.remove_marker(marker_group.marker);
-            foreach (var position_marker in marker_group.get_markers()) {
-                // rasterize coords
-                long x = (long)(map_view.longitude_to_x(position_marker.marker.longitude) / MARKER_GROUP_RASTER_WIDTH);
-                long y = (long)(map_view.latitude_to_y(position_marker.marker.latitude) / MARKER_GROUP_RASTER_WIDTH);
-                var yg = marker_groups_tree.get(x);
-                if (yg == null) {
-                    // y group doesn't exist, initialize it
-                    yg = new Gee.TreeMap<long, MarkerGroup>();
-                    var mg = new MarkerGroup(this, position_marker);
-                    yg.set(y, mg);
-                    marker_groups_new.add(mg);
-                    marker_groups_tree.set(x, yg);
-                    add_marker(mg.marker);
-                } else {
-                    var mg = yg.get(y);
-                    if (mg == null) {
-                        // first marker -> create new group
-                        mg = new MarkerGroup(this, position_marker);
-                        yg.set(y, mg);
-                        marker_groups_new.add(mg);
-                        add_marker(mg.marker);
-                    } else {
-                        // marker group already exists
-                        mg.add_marker(position_marker);
-                    }
-                }
-            }
-        }
-        marker_groups = marker_groups_new;
     }
 
     private bool internal_drop_received(Gee.List<MediaSource> media, double lat, double lon) {
