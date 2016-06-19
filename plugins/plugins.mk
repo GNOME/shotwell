@@ -1,5 +1,6 @@
 
 PLUGINS := \
+	common \
 	shotwell-transitions \
 	shotwell-publishing \
 	shotwell-data-imports

@@ -1,6 +1,10 @@
 
 PLUGIN := shotwell-transitions
 
+PLUGIN_PKGS := \
+	libxml-2.0 \
+	libsoup-2.4
+
 SRC_FILES := \
 	shotwell-transitions.vala \
 	FadeEffect.vala \

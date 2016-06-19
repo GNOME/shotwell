@@ -310,7 +310,8 @@ UNITIZE_INITS := $(foreach nm,$(UNIT_NAMESPACES),$(UNITIZE_DIR)/_$(nm)Internals.
 UNITIZE_STAMP := $(UNITIZE_DIR)/.unitized
 
 PLUGINS_DIR := plugins
-PLUGINS_SO := $(foreach plugin,$(PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
+INSTALL_PLUGINS = $(filter-out common,$(PLUGINS))
+PLUGINS_SO := $(foreach plugin,$(INSTALL_PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
 EXTRA_PLUGINS_SO := $(foreach plugin,$(EXTRA_PLUGINS),$(PLUGINS_DIR)/$(plugin)/$(plugin).so)
 PLUGINS_DIST_FILES := `$(MAKE) --directory=plugins --no-print-directory listfiles`
 
@@ -563,6 +564,7 @@ endif
 		$(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 	mkdir -p $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
 	$(INSTALL_PROGRAM) $(PLUGINS_SO) $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
+	$(INSTALL_PROGRAM) plugins/common/libshotwell-plugin-common.so $(DESTDIR)$(PREFIX)/$(LIB)
 ifdef PLUGINS_RC
 	$(INSTALL_DATA) $(PLUGINS_RC) $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
 endif
@@ -611,6 +613,7 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 endif
 	$(foreach lang,$(CORE_SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 	rm -rf $(DESTDIR)$(PREFIX)/$(LIB)/shotwell/plugins/builtin
+	rm -rf $(DESTDIR)$(PREFIX)/$(LIB)/libshotwell-plugin-common.so
 ifdef INSTALL_HEADERS
 	rm -rf $(DESTDIR)$(PREFIX)/include/shotwell
 	rm -f $(foreach vapi,$(PLUGIN_VAPI),$(DESTDIR)$(PREFIX)/share/vala/vapi/$(notdir $(vapi)))

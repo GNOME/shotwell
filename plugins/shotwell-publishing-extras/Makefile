@@ -16,7 +16,6 @@ SRC_FILES := \
 	YandexPublishing.vala \
 	TumblrPublishing.vala \
 	RajcePublishing.vala \
-	../common/RESTSupport.vala
 
 # RC_FILES must also be added to ../plugins.mk to ensure they're installed properly
 RC_FILES := \

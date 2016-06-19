@@ -585,7 +585,7 @@ public string decimal_entity_encode(string source) {
     return encoded_str_builder.str;
 }
 
-internal abstract class BatchUploader {
+public abstract class BatchUploader {
     private int current_file = 0;
     private Spit.Publishing.Publishable[] publishables = null;
     private Session session = null;

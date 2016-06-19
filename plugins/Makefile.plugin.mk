@@ -28,9 +28,6 @@ PKGS := $(shell sed ':a;N;$$!ba;s/\n/ /g' ../shotwell-plugin-dev-1.0.deps) $(PKG
 EXT_PKGS := $(PKGS)
 PKGS := shotwell-plugin-dev-1.0 $(PKGS) $(PLUGIN_PKGS)
 
-# automatically include the Resources.vala common file
-SRC_FILES := ../common/Resources.vala $(SRC_FILES)
-
 CFILES := $(notdir $(SRC_FILES:.vala=.c))
 OFILES := $(notdir $(SRC_FILES:.vala=.o))
 
@@ -41,10 +38,14 @@ DEFINES := -D_VERSION='"$(PLUGINS_VERSION)"' -DGETTEXT_PACKAGE='"shotwell"'
 
 all: $(PLUGIN).so
 
+PLUGIN_EXTRAFLAGS ?= --vapidir=../common --pkg shotwell-plugin-common
+PLUGIN_EXTRALINKFLAGS ?= -L../common/ -lshotwell-plugin-common
+
 .stamp: $(SRC_FILES) $(MAKE_FILES) $(HEADER_FILES)
 	$(VALAC) --target-glib=$(MIN_GLIB_VERSION) -g --enable-checking --fatal-warnings --ccode --enable-deprecated \
 		--vapidir=../ $(foreach pkg,$(PKGS),--pkg=$(pkg)) $(foreach pkg,$(CUSTOM_VAPI_PKGS),--pkg=$(pkg)) \
 		$(USER_VALAFLAGS) \
+		$(PLUGIN_EXTRAFLAGS) \
 		--vapidir=../../vapi \
 		$(SRC_FILES)
 	@touch .stamp
@@ -53,10 +54,10 @@ $(CFILES): .stamp
 	@
 
 .c.o:
-	$(CC) -c $(CFLAGS) $(DEFINES) -I../.. $<
+	$(CC) -c $(CFLAGS) $(DEFINES) -I../.. -I ../common $<
 
 $(PLUGIN).so: $(OFILES)
-	$(CC) $(LDFLAGS) -shared $(OFILES) $(LIBS) -o $@
+	$(CC) $(LDFLAGS) -shared $(OFILES) $(LIBS) $(PLUGIN_EXTRALINKFLAGS) -o $@
 
 .PHONY: cleantemps
 cleantemps:
