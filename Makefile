@@ -2,7 +2,7 @@ PROGRAM = shotwell
 PROGRAM_THUMBNAILER = shotwell-video-thumbnailer
 PROGRAM_MIGRATOR = shotwell-settings-migrator
 
-VERSION = 0.23.1
+VERSION = 0.23.2
 GITVER := $(shell git rev-parse HEAD)
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1

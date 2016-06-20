@@ -1,3 +1,58 @@
+Shotwell 0.23.2 - 20 Jun 2016
+
+  * Use yelp-build to generate HTML docs
+  * Remove gphoto-2.4 support
+  * Fix background color drawing (#766864)
+  * Port GtkNotebook to GtkStack (#744289)
+  * Fix missing scroll bars in events (#766864)
+  * Fix URLs in manpage
+  * Clean up external functions
+  * Port librest's internal hmac_sha1 implementation to Vala
+  * Fix multiplication of symbols in plugins
+  * Request "popup" login in Facebook
+  * Update help regarding publishing permissions in Facebook (#766919)
+  * Add source SVG for new app icons
+  * Update logo for help
+  * Remove executable flag on images
+  * Piwigo: Let libsoup parse the cookie
+  * Remove string utility functions in publishing plugins
+  * Remove a libgee work-around, bump to 0.10 minimum version
+  * Make filter toolbar buttons contain text and image
+  * Move commonly used functions into shared library to prevent multiple
+    definition of symbols
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=744289
+ - https://bugzilla.gnome.org/show_bug.cgi?id=766864
+ - https://bugzilla.gnome.org/show_bug.cgi?id=766919
+ - https://bugzilla.gnome.org/show_bug.cgi?id=767042
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Wolfgang Steitz <wsteitz@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Enrico Nicoletto <liverig@gmail.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Abel 'Akronix' Serrano Juste <akronix5@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Christian Kirbach
+ - es, courtesy of Daniel Mustieles
+ - id, courtesy of Andika Triwidada
+ - pt_BR, courtesy of Enrico Nicoletto
+ - sk, courtesy of Dušan Kazik
+ - sv, courtesy of Anders Jonsson
+
+Added/Updated dependencies
+ - libgee minimal version bumped to 0.10
+
 Shotwell 0.23.1 - 23 May 2016
 -----------------------------
 
