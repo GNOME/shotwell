@@ -71,8 +71,10 @@ clean: cleantemps
 .PHONY: distclean
 distclean: clean
 
+PLUGIN_DIR ?= $(PLUGIN)
+
 .PHONY: listfiles
 listfiles:
-	@printf "plugins/$(PLUGIN)/Makefile $(foreach file,$(SRC_FILES),plugins/$(PLUGIN)/$(file)) "
-	@printf "$(foreach rc,$(RC_FILES),plugins/$(PLUGIN)/$(rc)) "
+	@printf "plugins/$(PLUGIN_DIR)/Makefile $(foreach file,$(SRC_FILES),plugins/$(PLUGIN_DIR)/$(file)) "
+	@printf "$(foreach rc,$(RC_FILES),plugins/$(PLUGIN_DIR)/$(rc)) "
 

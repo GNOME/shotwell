@@ -1,5 +1,6 @@
 
 PLUGIN := libshotwell-plugin-common
+PLUGIN_DIR := common
 
 PLUGIN_PKGS := \
 	gee-0.8 \
