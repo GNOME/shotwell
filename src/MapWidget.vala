@@ -124,6 +124,12 @@ private class MarkerGroupRaster : Object {
     private Champlain.View map_view;
     private Champlain.MarkerLayer marker_layer;
 
+    public bool is_empty {
+        get {
+            return position_markers.is_empty;
+        }
+    }
+
     // position_markers_tree is a two-dimensional tree for grouping position
     // markers indexed by x (outer tree) and y (inner tree) raster coordinates.
     // It maps coordinates to the PositionMarker (DataViewMarker or MarkerGroup)
@@ -161,10 +167,6 @@ private class MarkerGroupRaster : Object {
             m = data_view_map.get(data_view);
         }
         return m;
-    }
-
-    public bool has_markers() {
-        return !position_markers.is_empty;
     }
 
     public void rasterize_marker(PositionMarker position_marker, bool already_on_map=false) {
@@ -331,7 +333,7 @@ private class MapWidget : Gtk.Bin {
     }
 
     public void show_position_markers() {
-        if (!marker_group_raster.has_markers()) {
+        if (!marker_group_raster.is_empty) {
             if (map_view.get_zoom_level() < DEFAULT_ZOOM_LEVEL) {
                 map_view.set_zoom_level(DEFAULT_ZOOM_LEVEL);
             }
