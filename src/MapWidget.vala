@@ -266,6 +266,7 @@ private class MapWidget : Gtk.Bin {
     private Clutter.Image? map_edit_locked_image;
     private Clutter.Image? map_edit_unlocked_image;
     private Clutter.Actor map_edit_lock_button = new Clutter.Actor();
+    private uint position_markers_timeout = 0;
 
     public const float MARKER_IMAGE_HORIZONTAL_PIN_RATIO = 0.5f;
     public const float MARKER_IMAGE_VERTICAL_PIN_RATIO = 0.825f;
@@ -333,12 +334,40 @@ private class MapWidget : Gtk.Bin {
     }
 
     public void show_position_markers() {
-        if (!marker_group_raster.is_empty) {
-            if (map_view.get_zoom_level() < DEFAULT_ZOOM_LEVEL) {
-                map_view.set_zoom_level(DEFAULT_ZOOM_LEVEL);
-            }
-            Champlain.BoundingBox bbox = marker_layer.get_bounding_box();
+        if (marker_group_raster.is_empty)
+            return;
+
+        map_view.stop_go_to();
+        double lat, lon;
+        var bbox = marker_layer.get_bounding_box();
+        var zoom_level = map_view.get_zoom_level();
+        var zoom_level_test = zoom_level < 2 ? 0 : zoom_level - 2;
+        bbox.get_center(out lat, out lon);
+
+        if (map_view.get_bounding_box_for_zoom_level(zoom_level_test).covers(lat, lon)) {
+            // Don't zoom in/out if target is in proximity
             map_view.ensure_visible(bbox, true);
+        } else if (zoom_level >= DEFAULT_ZOOM_LEVEL) {
+            // zoom out to DEFAULT_ZOOM_LEVEL first, then move
+            map_view.set_zoom_level(DEFAULT_ZOOM_LEVEL);
+            map_view.ensure_visible(bbox, true);
+        } else {
+            // move first, then zoom in to DEFAULT_ZOOM_LEVEL
+            map_view.go_to(lat, lon);
+            // There seems to be a runtime issue with the animation_completed signal
+            // sig = map_view.animation_completed["go-to"].connect((v) => { ... }
+            // so we're using a timeout-based approach instead. It should be kept in sync with
+            // the animation time (500ms by default.)
+            if (position_markers_timeout > 0)
+                Source.remove(position_markers_timeout);
+            position_markers_timeout = Timeout.add(500, () => {
+                map_view.center_on(lat, lon); // ensure the timeout wasn't too fast
+                if (map_view.get_zoom_level() < DEFAULT_ZOOM_LEVEL)
+                    map_view.set_zoom_level(DEFAULT_ZOOM_LEVEL);
+                map_view.ensure_visible(bbox, true);
+                position_markers_timeout = 0;
+                return Source.REMOVE;
+            });
         }
     }
 
