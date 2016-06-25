@@ -163,7 +163,7 @@ public class ProcessedImage {
     public ushort colors;
     public ushort bits;
     public uint data_size;
-    [CCode (array_length=false)]
+    [CCode (array_length_cname="data_size")]
     public uint8[] data;
 }
 
