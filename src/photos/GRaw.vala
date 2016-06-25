@@ -125,7 +125,8 @@ public class ProcessedImage {
         // to be decoded before being useful.  This will throw an error if the format is not
         // supported
         try {
-            pixbuf = new Gdk.Pixbuf.from_stream(new MemoryInputStream.from_data(image.data, null),
+            var bytes = new Bytes.static (image.data);
+            pixbuf = new Gdk.Pixbuf.from_stream(new MemoryInputStream.from_bytes(bytes),
                 null);
         } catch (Error err) {
             throw new Exception.UNSUPPORTED_THUMBNAIL(err.message);
