@@ -8,23 +8,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.20\n"
-"POT-Creation-Date: 2015-11-11 14:22+0000\n"
-"PO-Revision-Date: 2015-12-05 14:48+0100\n"
-"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
+"POT-Creation-Date: 2016-06-24 20:56+0000\n"
+"PO-Revision-Date: 2016-06-25 21:14+0200\n"
+"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: C/view-sidebar.page:7(desc)
 msgid ""
 "The sidebar on the left of the window lists various views of your library."
 msgstr ""
-"Die Seitenleiste auf der linken Seite des Fensters listet verschiedene "
-"Ansichten Ihrer Bibliothek auf."
+"Die Seitenleiste links des Fensters zeigt verschiedene Ansichten Ihrer "
+"Bibliothek."
 
 #: C/view-sidebar.page:21(title)
 msgid "The sidebar"
@@ -36,31 +36,38 @@ msgid ""
 "your library. Although you may see the same photo in multiple views, it's "
 "only stored once on your hard drive."
 msgstr ""
-"Die Seitenleiste auf der linken Seite des Shotwell-Fensters listet "
-"verschiedene Ansichten Ihrer Bibliothek auf. Selbst wenn Sie dasselbe Foto "
-"in mehreren Ansichten sehen, ist es nur einmal auf Ihrem Datenträger "
-"gespeichert."
+"Die Seitenleiste links des Shotwell-Fensters zeigt verschiedene Ansichten "
+"Ihrer Bibliothek. Obwohl Sie eventuell das selbe Foto in mehreren Ansichten "
+"sehen, ist es tatsächlich nur einmal auf Ihrem System gespeichert."
 
 #: C/view-sidebar.page:25(p)
 msgid ""
 "The <gui>Last Import</gui> view lists your last imported photos no matter if "
 "they are imported from F-Spot, your camera, a memory card or the hard disk."
 msgstr ""
+"Die Ansicht <gui>Letzter Import</gui> zeigt die zuletzt importierten Fotos "
+"unabhängig von Ihrer Quelle wie F-Spot, Ihrer Kamera, einer Speicherkarte "
+"oder der Festplatte."
 
 #: C/view-sidebar.page:27(p)
 msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
-msgstr ""
+msgstr "<gui>Markiert</gui> listet alle zuvor markierten Fotos."
 
 #: C/view-sidebar.page:29(p)
 msgid ""
 "The <gui>Saved Search</gui> allows you to sort your library by many criteria."
 msgstr ""
+"Mit <gui>Gespeicherte Suchen</gui> sortieren Sie Ihre Bibliothek anhand von "
+"vielen verschiedenen Kriterien."
 
 #: C/view-sidebar.page:31(p)
 msgid ""
 "The <gui>Events</gui> folder lists all events in your library. An event is a "
 "group of photos that were taken at approximately the same time."
 msgstr ""
+"Der Ordner <gui>Ereignisse</gui> listet alle Ereignisse Ihrer Bibliothek "
+"auf. Ein Ereignis ist eine Menge von Fotos, die ungefähr im gleichen "
+"Zeitraum aufgenommen wurden."
 
 #: C/view-sidebar.page:33(p)
 msgid ""
@@ -68,16 +75,21 @@ msgid ""
 "can have multiple tags attached to them. When you click on the name of a tag "
 "in the sidebar, you will see all the photos associated with that tag."
 msgstr ""
+"Der Ordner <gui>Markierungen</gui> listet alle markierten Fotos auf. Fotos "
+"können mehrfach markiert sein. Klicken Sie auf den Namen einer Markierung in "
+"der Seitenleiste, um alle mit der entsprechenden Markierung zu sehen."
 
 #: C/view-information.page:7(desc)
 msgid ""
 "View more detailed information about photos, like the exposure mode used by "
 "the camera."
 msgstr ""
+"Sehen Sie sich weitere Details über Fotos an, wie das von der Kamera "
+"verwendete Belichtungsverfahren."
 
 #: C/view-information.page:12(title)
 msgid "Basic and extended information"
-msgstr "Einfache und erweiterte Informationen"
+msgstr "Grundlegende und erweiterte Informationen"
 
 #: C/view-information.page:14(p)
 msgid ""
@@ -87,6 +99,12 @@ msgid ""
 "display of this pane using the <guiseq><gui>View</gui><gui>Basic "
 "Information</gui></guiseq> command."
 msgstr ""
+"Das Teilfenster mit grundlegenden Informationen erscheint unten in der "
+"Seitenleiste und zeigt eine kurze Übersicht der von Ihnen gewählten Fotos. "
+"Wenn keine Fotos ausgewählt sind, wird eine Zusammenfassung der gesamten "
+"Sammlung angezeigt. Schalten Sie die Darstellung des Teilfensters mit "
+"<guiseq><gui>Ansicht</gui><gui>Grundlegende Informationen</gui></guiseq> ein "
+"oder aus."
 
 #: C/view-information.page:16(p)
 msgid ""
@@ -95,12 +113,19 @@ msgid ""
 "guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
 "keyseq> toggles the display of this window."
 msgstr ""
+"Das schwebende Fenster »Erweiterte Informationen« zeigt weitere "
+"Informationen zu den gewählten Fotos. Mit <guiseq><gui>Ansicht</"
+"gui><gui>Erweiterte Informationen</gui></guiseq> oder <keyseq><key>Strg</"
+"key><key>Umschalttaste</key><key>X</key></keyseq> blenden Sie das Fenster "
+"ein oder aus."
 
 #: C/view-displaying.page:7(desc)
 msgid ""
 "Learn about different ways of viewing your photos: in a grid, filling the "
 "main window, or filling the whole screen."
 msgstr ""
+"Erfahren Sie mehr über die verschiedenen Ansichtsmöglichkeiten Ihrer Fotos: "
+"Im Raster, im Hauptfenster oder Bildschirm füllend."
 
 #: C/view-displaying.page:12(title)
 msgid "Photo views"
@@ -114,6 +139,12 @@ msgid ""
 "thumbnail size using the plus and minus keys (<key>+</key> and <key>-</key>) "
 "or by pressing <key>Ctrl</key> while moving your mouse scroll wheel."
 msgstr ""
+"Wenn Sie eine Sammlung in der Seitenleiste wählen, zeigt Shotwell alle Fotos "
+"der Sammlung im Hauptfenster an. Unten rechts befindet sich ein "
+"Schieberegler zur Anpassung der Größe der Vorschaubilder. Sie können "
+"ebenfalls die Größe der Vorschaubilder mit den Tasten <key>+</key> und <key>-"
+"</key> anpassen, oder indem Sie <key>Strg</key> gedrückt halten, während das "
+"Mausrad gedreht wird."
 
 #: C/view-displaying.page:16(p)
 msgid ""
@@ -122,6 +153,10 @@ msgid ""
 "buttons. To return to the collection, double-click on the photo or press "
 "<key>Esc</key>."
 msgstr ""
+"Schauen Sie sich ein Foto im Vollbild an, indem Sie zweimal darauf klicken. "
+"Daraufhin wechseln Sie zu anderen Fotos Ihrer Sammlung mit den Tasten ← und "
+"→. Klicken Sie zweimal auf das Foto oder drücken Sie <key>Esc</key>, um zur "
+"Sammlung zurückzukehren."
 
 #: C/view-displaying.page:18(p)
 msgid ""
@@ -133,6 +168,14 @@ msgid ""
 "and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen "
 "pixels)."
 msgstr ""
+"Beim Ansehen von Fotos im Vollbildmodus steuert der Regler in der "
+"Werkzeugleiste die Vergrößerung. Verschieben Sie das Foto, indem Sie die "
+"Maustaste gedrückt halten und die Maus bewegen. Sie können die Ansicht auch "
+"durch Drehen des Mausrads vergrößern und verkleinern, oder indem Sie die "
+"folgenden Tastenkürzel einsetzen: <keyseq><key>Strg</key>0</keyseq> für "
+"Vollansicht, <keyseq><key>Strg</key>1</keyseq> für 100% (1 Bildpunkt = 1 "
+"Bildschirmpunkt) und <keyseq><key>Strg</key>2</keyseq> für 200% (1 Bildpunkt "
+"= 2x2 Bildschirmpunkte)."
 
 #: C/view-displaying.page:20(p)
 msgid ""
@@ -143,6 +186,13 @@ msgid ""
 "the toolbar down (so it isn't hidden when you move the mouse away), and to "
 "leave fullscreen view."
 msgstr ""
+"Shotwell kann Fotos auf dem gesamten Bildschirm darstellen. Wählen Sie dazu "
+"<guiseq><gui>Ansicht</gui><gui>Bildschirmfüllend</gui></guiseq> oder drücken "
+"Sie <key>F11</key>. Bewegen Sie den Mauszeiger unten auf den Bildschirm, um "
+"die Werkzeugleiste im Vollbildmodus einzublenden. Die Werkzeugleiste hat "
+"Knöpfe zum Blättern in der Sammlung, zum Anheften der Werkzeugleiste (so "
+"dass diese nicht mehr automatisch verborgen wird) und zum Verlassen des "
+"Vollbildmodus."
 
 #: C/view-displaying.page:23(title)
 msgid "Viewing videos"
@@ -154,10 +204,16 @@ msgid ""
 "to play the video. It's not currently possible to display a video in full-"
 "window mode in Shotwell or to play the video within Shotwell itself."
 msgstr ""
+"Wenn Sie zweimal auf ein Video klicken, startet Shotwell ein externes "
+"Wiedergabeprogramm zum Abspielen. Es ist derzeit nicht möglich, ein Video im "
+"Vollbildmodus in Shotwell darzustellen oder das Video in Shotwell selbst "
+"anzuzeigen."
 
 #: C/share-upload.page:7(desc)
 msgid "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
 msgstr ""
+"So veröffentlichen Sie Fotos bei Facebook, Flickr, Picasa Webalben und "
+"anderen Seiten."
 
 #: C/share-upload.page:12(title)
 msgid "Publishing to the Web"
@@ -169,6 +225,9 @@ msgid ""
 "publish photos and videos to the following services, each of which requires "
 "an account:"
 msgstr ""
+"Mit Hilfe von <link xref=\"other-plugins\">Plugins</link> kann Shotwell "
+"Fotos und Videos bei den folgenden Diensten veröffentlichen. Jeder Dienst "
+"erfordert ein Benutzerkonto:"
 
 #: C/share-upload.page:18(link)
 msgid "Facebook"
@@ -183,24 +242,28 @@ msgid ""
 "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
 msgstr ""
-"<link href=\"http://picasaweb.google.com\">Picasa Internet-Alben</link> und "
-"<link href=\"http://plus.google.com\">Google+</link>"
+"<link href=\"https://picasaweb.google.com/home?hl=de\">Picasa Webalben</"
+"link> und <link href=\"http://plus.google.com\">Google+</link>"
 
 #: C/share-upload.page:21(p)
 msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
-msgstr "<link href=\"http://youtube.com\">YouTube</link> (Nur Videos)"
+msgstr "<link href=\"http://youtube.com\">YouTube</link> (nur Videos)"
 
 #: C/share-upload.page:22(p)
 msgid ""
 "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
 "popular in Russia (photos only)"
 msgstr ""
+"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, eine in Russland "
+"beliebte Fotoseite (nur Fotos)"
 
 #: C/share-upload.page:23(p)
 msgid ""
 "Any site running the <link href=\"http://piwigo.org\">Piwigo</link> photo "
 "gallery software (photos only)"
 msgstr ""
+"Jede Internetseite, welche die Fotogalerie-Software <link href=\"http://"
+"piwigo.org\">Piwigo</link> installiert hat (nur Fotos)"
 
 #: C/share-upload.page:26(p)
 msgid ""
@@ -212,27 +275,50 @@ msgid ""
 "will see a dialog that lets you select a publishing service. You will then "
 "need to log in or create an account."
 msgstr ""
+"Wählen Sie zum Veröffentlichen von gewählten Fotos einer Sammlung "
+"<guiseq><gui>Bearbeiten</gui><gui>Einstellungen</gui></guiseq> und dann den "
+"Reiter <gui>Erweiterungen</gui> zum Einschalten der Erweiterung für den "
+"Dienst, den Sie verwenden wollen. Wählen Sie anschließend "
+"<guiseq><gui>Datei</gui><gui>Veröffentlichen</gui></guiseq> oder den Knopf "
+"<gui>Veröffentlichen</gui> in der Werkzeugleiste oder tippen Sie "
+"<keyseq><key>Strg</key><key>P</key></keyseq>. Daraufhin erscheint ein "
+"Fenster, in dem Sie den Dienst zur Veröffentlichung wählen. Sie müssen sich "
+"dann beim Dienst anmelden."
 
 #: C/share-upload.page:31(p)
 msgid ""
 "Publishing to Facebook requires you to grant certain permissions to the "
-"Shotwell Connect Facebook application. You only need to grant these "
-"permissions once, when you first associate Shotwell Connect with your "
-"Facebook account."
+"Shotwell Facebook application. You only need to grant these permissions "
+"once, when you first associate Shotwell with your Facebook account."
+msgstr ""
+"Die Veröffentlichung auf Facebook erfordert es, der Anwendung »Shotwell "
+"Connect Facebook« verschiedene Rechte einzuräumen. Sie müssen diese "
+"Zugriffsrechte nur einmal gewähren, wenn Sie Shotwell zum ersten Mal mit "
+"Facebook verbinden."
+
+#: C/share-upload.page:34(p)
+msgid ""
+"You will be only able to publish images with at most the permission you "
+"granted to the Shotwell Facebook application"
 msgstr ""
 
-#: C/share-upload.page:35(p)
+#: C/share-upload.page:36(p)
 msgid ""
 "Similarly, publishing to Flickr requires you to log in and permit Shotwell "
 "Connect to access your account."
 msgstr ""
+"Ebenso erfordert es die Veröffentlichung auf Flickr, Shotwell Connect zu "
+"gestatten, auf Ihr Konto zuzugreifen."
 
-#: C/share-upload.page:37(p)
+#: C/share-upload.page:38(p)
 msgid ""
 "If you have a Google account, but have not yet used Picasa Web Albums, you "
 "will need to log in to Picasa using a browser once before you can publish to "
 "this service."
 msgstr ""
+"Wenn Sie ein Google-Konto verfügen, aber die Picasa-Webalben noch nicht "
+"genutzt haben, müssen Sie sich zunächst in einem Browser bei Picasa "
+"anmelden, bevor Sie diesen Dienst zur Veröffentlichung nutzen können."
 
 #: C/share-slideshow.page:7(desc)
 msgid "Watch a slideshow of your photos."
@@ -248,14 +334,17 @@ msgid ""
 "and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> or press "
 "<key>F5</key>."
 msgstr ""
+"Um eine Diaschau einer Sammlung in Shotwell zu sehen, wählen Sie diese "
+"Sammlung und dann <guiseq><gui>Ansicht</gui><gui>Diaschau</gui></guiseq> "
+"oder drücken Sie <key>F5</key>."
 
 #: C/share-slideshow.page:16(p)
 msgid "You can change some settings in a running slideshow:"
-msgstr ""
+msgstr "Sie können folgende Einstellungen während einer Diaschau anpassen:"
 
 #: C/share-slideshow.page:19(p)
 msgid "The duration how long an image should be shown: 1 - 30 seconds"
-msgstr ""
+msgstr "Die Darstellungsdauer eines Bildes: 1 - 30 Sekunden"
 
 #: C/share-slideshow.page:20(p)
 msgid "You can select different transition effects."
@@ -268,6 +357,7 @@ msgstr "Die Zeit für jeden Übergangseffekt: 0,1 - 1,0 Sekunden"
 #: C/share-send.page:7(desc)
 msgid "Send photos via email, instant messaging or in other ways."
 msgstr ""
+"So verschicken Sie Fotos per E-Mail, Sofortnachricht oder auf andere Weisen."
 
 #: C/share-send.page:12(title)
 msgid "Sending photos"
@@ -278,6 +368,9 @@ msgid ""
 "Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
 "lets you send photos via email, instant messaging or in other ways."
 msgstr ""
+"Shotwell versendet Fotos mit dem Mechanismus »Senden an« der GNOME "
+"Arbeitsumgebung. So können Sie Fotos per E-Mail, Sofortnachricht oder auf "
+"andere Weisen verschicken."
 
 #: C/share-send.page:16(p)
 msgid ""
@@ -288,12 +381,22 @@ msgid ""
 "email or instant messaging) and a destination. You can optionally choose to "
 "send the files in a compressed format."
 msgstr ""
+"Wählen Sie Fotos zum Verschicken in Shotwell aus und wählen Sie dann "
+"<guiseq><gui>Datei</gui><gui>Senden an</gui></guiseq>, oder klicken Sie mit "
+"der rechten Maustaste auf das Foto und wählen Sie <gui>Senden an</gui> im "
+"Kontextmenü. Daraufhin erscheint der Dialog <gui>Senden an</gui>, wo Sie ein "
+"Verfahren zum Verschicken der Fotos (wie zum Beispiel E-Mail oder "
+"Sofortnachricht) und einen Empfänger festlegen. Optional können Sie Dateien "
+"komprimieren und versenden."
 
 #: C/share-print.page:7(desc)
 msgid ""
-"Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing "
+"Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
 "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
 msgstr ""
+"Klicken Sie auf <guiseq><gui>Datei</gui><gui>Drucken</gui></guiseq>. Wählen "
+"Sie für weitere Druckeinstellungen den Reiter <gui>Seite einrichten</gui> im "
+"Dialog <gui>Drucken</gui>."
 
 #: C/share-print.page:12(title)
 msgid "Printing"
@@ -301,18 +404,25 @@ msgstr "Drucken"
 
 #: C/share-print.page:14(p)
 msgid ""
-"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</"
+"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
 "gui></guiseq>."
 msgstr ""
+"Um ein Foto zu drucken, wählen Sie es aus und wählen Sie anschließend "
+"<guiseq><gui>Datei</gui><gui>Drucken</gui></guiseq>."
 
 #: C/share-print.page:16(p)
 msgid ""
 "Shotwell can also print multiple images in one page; to do this, select "
-"multiple images, choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>, "
+"multiple images, choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq>, "
 "and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
 "tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
 "options under <gui>Autosize</gui>."
 msgstr ""
+"Shotwell kann mehrere Fotos auf eine Seite drucken. Wählen Sie dazu mehrere "
+"Bilder und dann <guiseq><gui>Datei</gui><gui>Drucken</gui></guiseq> und "
+"anschließend im Dialog <gui>Drucken</gui> den Reiter <gui>Bildeinstellungen</"
+"gui>. Wählen Sie unter <gui>Bildeinstellungen</gui> eine der Einstellungen "
+"für mehrere Bilder pro Seite unter <gui>Automatische Größe</gui>."
 
 #: C/share-print.page:23(p)
 msgid ""
@@ -320,10 +430,14 @@ msgid ""
 "choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
 "printing."
 msgstr ""
+"Zum Festlegen der Formatierung, der Papiergröße und der Ausrichtung "
+"verwenden Sie vor dem Drucken den Reiter <gui>Seite einrichten</gui> im "
+"Dialog <gui>Drucken</gui>."
 
 #: C/share-export.page:7(desc)
 msgid "Copy photos out of Shotwell so you can put them somewhere else."
 msgstr ""
+"So kopieren Sie Fotos aus Shotwell heraus, um sie anderweitig abzulegen."
 
 #: C/share-export.page:12(title)
 msgid "Exporting photos"
@@ -335,15 +449,25 @@ msgid ""
 "Shotwell onto a file manager window or your desktop. The new files will be "
 "full-sized copies of the photos in your library."
 msgstr ""
+"Um Fotos aus Shotwell mittels Ziehen-und-Ablegen zu exportieren, ziehen Sie "
+"die Fotos aus Shotwell in das Fenster einer Dateiverwaltung oder auf Ihre "
+"Arbeitsfläche. Die neuen Dateien entsprechen dann einer Kopie der Fotos "
+"Ihrer Bibliothek in Originalgröße."
 
 #: C/share-export.page:18(p)
+#, fuzzy
 msgid ""
 "Alternatively, select a set of photos and choose the <guiseq><gui>File</"
-"gui><gui>Export</gui></guiseq> command or press <keyseq><key>Shift</"
+"gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</"
 "key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting "
 "you fine-tune the size and dimensions of your photo files. A window will "
 "appear allowing you to make several choices:"
 msgstr ""
+"Alternativ wählen Sie eine Gruppe Fotos und wählen Sie <guiseq><gui>Datei</"
+"gui><gui>Exportieren</gui></guiseq> oder drücken Sie "
+"<keyseq><key>Umschalttaste</key><key>Strg</key><key>E</key></keyseq>, um "
+"Fotos zu exportieren und dabei die Größe der Fotodateien zu bestimmen. "
+"Daraufhin erscheint ein Fenster mit mehreren Wahlmöglichkeiten:"
 
 #: C/share-export.page:24(p)
 msgid "A format for export."
@@ -355,6 +479,9 @@ msgid ""
 "without any edits made in Shotwell. RAW photos will be exported in their "
 "original RAW format."
 msgstr ""
+"Wählen Sie <gui>Unverändert</gui>, um Fotos im ursprünglichen Format ohne "
+"Veränderungen durch Shotwell zu exportieren. RAW-Fotos werden im "
+"ursprünglichen RAW-Format exportiert."
 
 #: C/share-export.page:29(p)
 msgid ""
@@ -362,6 +489,10 @@ msgid ""
 "RAW photos will be exported in JPEG format if you have edited them in "
 "Shotwell, and otherwise in their original RAW format."
 msgstr ""
+"Wählen Sie <gui>Aktuell</gui>, um Fotos einschließlich aller in Shotwell "
+"gemachter Änderungen zu exportieren. RAW-Fotos werden im JPEG-Format "
+"exportiert, wenn sie diese in Shotwell bearbeitet haben, anderenfalls werden "
+"sie in ihren RAW-Format exportiert."
 
 #: C/share-export.page:31(p)
 msgid ""
@@ -369,16 +500,21 @@ msgid ""
 "used for exporting. Any edits made in Shotwell will be included, and "
 "Shotwell will convert photos to the destination format."
 msgstr ""
+"Alternativ wählen Sie ein bestimmtes Bildformat (JPEG, PNG, TIFF, BMP) für "
+"den Export. Alle in Shotwell getätigten Änderungen werden mit einbezogen und "
+"Shotwell wandelt die Fotos in das Zielformat um."
 
 #: C/share-export.page:37(p)
 msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
-msgstr ""
+msgstr "Die Bildqualität beim Exportieren (gering, mittel, hoch oder maximal)."
 
 #: C/share-export.page:38(p)
 msgid ""
 "A scaling constraint (which means how Shotwell will decide to scale the "
 "photos down), and the desired pixel size."
 msgstr ""
+"Eine Skalierungsbeschränkung (sie legt fest, wie Shotwell entscheidet die "
+"Fotos zu skalieren) und die gewünschte Pixelgröße."
 
 #: C/share-export.page:39(p)
 msgid ""
@@ -386,35 +522,45 @@ msgid ""
 "This can help to save your privacy if you have geolocation tags or tags "
 "which shouldn't be seen by anyone."
 msgstr ""
+"Legt fest, ob Metadaten wie beispielsweise Markierungen oder Bewertungen "
+"exportiert werden sollen. Im Falle von Metadaten für Ortsdienste oder "
+"anderweitiger privater Markierungen kann dies dabei helfen, Ihre "
+"Privatsphäre zu schützen."
 
 #: C/share-export.page:42(p)
 msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
 msgstr ""
+"Legt fest, ob Shotwell Markierungen, Titel und andere Metadaten in die neuen "
+"Dateien schreiben soll."
 
 #: C/share-background.page:7(desc)
 msgid ""
 "Set your desktop background to a single photo or to a slideshow of photos."
 msgstr ""
+"Das Hintergrundbild als ein Foto oder eine Diaschau von Fotos festlegen."
 
 #: C/share-background.page:12(title)
 msgid "Set a desktop background or slideshow"
-msgstr ""
+msgstr "Ein Schreibtisch-Hintergrund oder eine Diaschau festlegen"
 
 #: C/share-background.page:14(p)
 msgid ""
 "To set a single photo as your desktop background, select the photo and "
 "choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
 msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Als Hintergrundbild festlegen</gui></"
+"guiseq>, um ein einzelnes Foto als Schreibtisch-Hintergrund festzulegen."
 
 #: C/share-background.page:16(p)
 msgid ""
 "You can also set your background to a slideshow of photos. To do this, "
 "select the photos for the slideshow and choose <guiseq><gui>File</"
-"gui><gui>Set as Desktop Slideshow</gui></guiseq>. Shotwell will prompt you "
-"for a slideshow delay, which can be any interval up to one day in length. "
-"The background slideshow will proceed even when Shotwell is not running."
+"gui><gui>Set as Desktop Slideshow...</gui></guiseq>. Shotwell will prompt "
+"you for a slideshow delay, which can be any interval up to one day in "
+"length. The background slideshow will proceed even when Shotwell is not "
+"running."
 msgstr ""
 
 #: C/running.page:7(desc)
@@ -422,16 +568,20 @@ msgid ""
 "Find Shotwell in the Applications menu, or have it start automatically when "
 "you plug in a camera."
 msgstr ""
+"So finden Sie Shotwell im Anwendungsmenü oder lassen Sie es automatisch "
+"starten, wenn eine Kamera angeschlossen wird."
 
 #: C/running.page:14(title)
 msgid "Running Shotwell"
-msgstr ""
+msgstr "Shotwell ausführen"
 
 #: C/running.page:16(p)
 msgid ""
 "Once installed, Shotwell is available in your <gui>Applications</gui> menu "
 "under <gui>Graphics</gui> or <gui>Photography</gui>."
 msgstr ""
+"Sobald Shotwell installiert wurde, ist es in Ihrem <gui>Anwendungs</gui>-"
+"Menü verfügbar unter <gui>Grafik</gui> oder <gui>Fotografie</gui>."
 
 #: C/running.page:18(p)
 msgid ""
@@ -442,16 +592,25 @@ msgid ""
 "gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
 "you choose Shotwell as your photo handling application."
 msgstr ""
+"Shotwell kann automatisch gestartet werden, sobald eine Kamera an Ihren "
+"Rechner angeschlossen wird. Um zu prüfen, ob Ihr System so eingerichtet ist, "
+"dass Shotwell gestartet wird, sobald eine Kamera erkannt wird, öffnen Sie "
+"<guiseq><gui>Bearbeiten</gui><gui>Einstellungen</gui></guiseq> in der "
+"Dateiverwaltung Nautilus und wählen Sie den Reiter <gui>Medien</gui>. Dort "
+"finden Sie ein Auswahlfeld namens <gui>Fotos:</gui>, wo Sie Shotwell als die "
+"Vorgabe-Anwendung für Fotos festlegen."
 
 #: C/running.page:25(p)
 msgid ""
 "Shotwell may also be executed directly from its build directory, although "
 "this is only recommended for testing out Shotwell or for developers."
 msgstr ""
+"Shotwell kann auch direkt im Erstellungsordner ausgeführt werden. Dies ist "
+"jedoch nur zum Testen von Shotwell und für Entwickler empfohlen."
 
 #: C/raw.page:7(desc)
 msgid "More about RAW support in Shotwell."
-msgstr ""
+msgstr "Weiteres zur RAW-Unterstützung in Shotwell."
 
 #: C/raw.page:12(title)
 msgid "RAW support in Shotwell"
@@ -545,6 +704,10 @@ msgid ""
 "database in this directory contains a list of all the photos in the Shotwell "
 "library."
 msgstr ""
+"Shotwell speichert normalerweise seine Datenbank und Vorschaubilder der "
+"Fotos im Ordner <file>~/.shotwell</file>. Dieser Ordner enthält keine Fotos, "
+"sondern lediglich eine Datenbank mit einer Liste aller Fotos in der Shotwell-"
+"Bibliothek."
 
 #: C/other-multiple.page:16(p)
 msgid ""
@@ -620,7 +783,7 @@ msgstr ""
 
 #: C/other-files.page:21(title)
 msgid "Using a custom directory pattern"
-msgstr ""
+msgstr "Ein eigenes Namensschema verwenden"
 
 #: C/other-files.page:22(p)
 msgid ""
@@ -629,6 +792,11 @@ msgid ""
 "gui> settings in the <gui>Preferences</gui> dialog. You may use a "
 "preselected pattern, or choose <gui>Custom</gui> and type in your own."
 msgstr ""
+"Shotwell erlaubt es, ein eigenes Namensschema für Ihre Bibliothek zu "
+"verwenden. Passen Sie dazu die Einstellungen für <gui>Ordnerstruktur</gui> "
+"und <gui>Muster</gui> in den <gui>Einstellungen</gui> an. Verwenden Sie ein "
+"vorgewähltes Schema oder wählen Sie <gui>Benutzerdefiniert</gui> und tippen "
+"Sie Ihr eigenes ein."
 
 #: C/other-files.page:29(p)
 msgid ""
@@ -930,7 +1098,7 @@ msgstr ""
 #: C/organize-title.page:17(p)
 msgid ""
 "To change a photo's title, select the photo and click <guiseq><gui>Photos</"
-"gui><gui>Edit Title</gui></guiseq>, or press <key>F2</key>."
+"gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
 msgstr ""
 
 #: C/organize-tag.page:7(desc)
@@ -954,7 +1122,7 @@ msgid ""
 msgstr ""
 
 #: C/organize-tag.page:28(p)
-msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
+msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>."
 msgstr ""
 
 #: C/organize-tag.page:29(p)
@@ -968,10 +1136,10 @@ msgstr ""
 #: C/organize-tag.page:33(p)
 msgid ""
 "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
-"<guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq> you can type in the "
+"<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
 "names of one or more tags, separated by commas. Once you have created a tag, "
 "you can rename it by selecting that tag in the sidebar and choosing "
-"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"</gui></guiseq>, by "
+"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></guiseq>, by "
 "rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
 "tag in the sidebar."
 msgstr ""
@@ -979,13 +1147,13 @@ msgstr ""
 #: C/organize-tag.page:44(p)
 msgid ""
 "To change which tags are associated with a particular photo, select that "
-"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags</gui></guiseq> or "
-"right-click on a photo and select <gui>Modify Tags</gui> and edit the comma "
-"separated list. To remove a tag from one or more photos, first select that "
-"tag in the sidebar, then select the photos you would like to remove, and "
-"choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</gui></"
-"guiseq> or right-click on the photos an select <gui>Remove Tag \"[name]\" "
-"from Photos</gui>."
+"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
+"right-click on a photo and select <gui>Modify Tags...</gui> and edit the "
+"comma separated list. To remove a tag from one or more photos, first select "
+"that tag in the sidebar, then select the photos you would like to remove, "
+"and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</"
+"gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
+"\"[name]\" from Photos</gui>."
 msgstr ""
 
 #: C/organize-tag.page:58(p)
@@ -997,10 +1165,10 @@ msgstr ""
 
 #: C/organize-tag.page:64(p)
 msgid ""
-"When you create a tag, it will appear in the sidebar under the Tags item, "
-"which is hidden if there are no tags. Photos can have multiple tags attached "
-"to them, and when you click on the name of a given tag in the sidebar, you "
-"will see all the photos associated with that tag."
+"When you create a tag, it will appear in the sidebar under the <gui>Tags</"
+"gui> item, which is hidden if there are no tags. Photos can have multiple "
+"tags attached to them, and when you click on the name of a given tag in the "
+"sidebar, you will see all the photos associated with that tag."
 msgstr ""
 
 #: C/organize-tag.page:73(title)
@@ -1084,18 +1252,19 @@ msgstr ""
 
 #: C/organize-search.page:50(p)
 msgid ""
-"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Search</gui></"
-"guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></keyseq>. The "
-"dialog box allows you to enter a name for the search and select whether you "
-"want to meet Any, All, or None of the criteria in the following rows."
+"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Saved "
+"Search...</gui></guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></"
+"keyseq>. The dialog box allows you to enter a name for the search and select "
+"whether you want to meet Any, All, or None of the criteria in the following "
+"rows."
 msgstr ""
 
 #: C/organize-search.page:56(p)
 msgid ""
-"Each row represents a search criterion. Use the + button to add more rows, "
-"and the - button to remove a specific row. The combo box on the left of each "
-"row selects the type of criteria. Criteria must be entered correctly before "
-"the OK button becomes available."
+"Each row represents a search criterion. Use the <gui>+</gui> button to add "
+"more rows, and the <gui>-</gui> button to remove a specific row. The combo "
+"box on the left of each row selects the type of criteria. Criteria must be "
+"entered correctly before the <gui>OK</gui> button becomes available."
 msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
@@ -1153,7 +1322,7 @@ msgstr ""
 
 #: C/organize-remove.page:26(title)
 msgid "Emptying or restoring the trash folder"
-msgstr ""
+msgstr "Den Papierkorb leeren oder Fotos wiederherstellen"
 
 #: C/organize-remove.page:27(p)
 msgid ""
@@ -1168,7 +1337,7 @@ msgstr "Löschen"
 
 #: C/organize-remove.page:29(p)
 msgid "Delete the selected photos from the trash folder."
-msgstr ""
+msgstr "Löschen der ausgewählten Fotos aus dem Papierkorb."
 
 #: C/organize-remove.page:30(title)
 msgid "Restore"
@@ -1176,7 +1345,7 @@ msgstr "Wiederherstellen"
 
 #: C/organize-remove.page:30(p)
 msgid "Restore the selected photos into Shotwell."
-msgstr ""
+msgstr "Wiederherstellen der gewählten Fotos in Shotwell."
 
 #: C/organize-remove.page:31(title)
 msgid "Empty trash"
@@ -1184,11 +1353,11 @@ msgstr "Papierkorb leeren"
 
 #: C/organize-remove.page:31(p)
 msgid "Delete all photos from the trash folder."
-msgstr ""
+msgstr "Löschen aller Fotos im Papierkorb."
 
 #: C/organize-remove.page:36(title)
 msgid "Deleting or emptying Trash"
-msgstr ""
+msgstr "Löschen oder Leeren des Papierkorbs"
 
 #: C/organize-remove.page:37(p)
 msgid ""
@@ -1290,10 +1459,12 @@ msgstr ""
 #: C/organize-flag.page:7(desc)
 msgid "Flag photos to mark them as special or to work with them as a set."
 msgstr ""
+"Markieren Sie Fotos, um sie als besondere zu kennzeichnen oder mit diesen "
+"als Menge zu arbeiten."
 
 #: C/organize-flag.page:12(title)
 msgid "Flagging photos"
-msgstr ""
+msgstr "Fotos markieren"
 
 #: C/organize-flag.page:14(p)
 msgid ""
@@ -1319,7 +1490,7 @@ msgstr ""
 
 #: C/organize-flag.page:27(title)
 msgid "To flag or unflag a photo"
-msgstr ""
+msgstr "So markieren Sie ein Foto oder heben die Markierung auf"
 
 #: C/organize-flag.page:28(p)
 msgid ""
@@ -1368,9 +1539,9 @@ msgstr ""
 #: C/organize-event.page:27(p)
 msgid ""
 "To give an event a name rather than referring to it by its date, select the "
-"event, click <guiseq><gui>Edit</gui><gui>Rename Event</gui></guiseq> and "
-"enter a new name. Another way of renaming an event is to double-click its "
-"name in the sidebar; type a new name and then press <key>Enter</key>."
+"event, click <guiseq><gui>Events</gui><gui>Rename Event...</gui></guiseq> "
+"and enter a new name. Another way of renaming an event is to double-click "
+"its name in the sidebar; type a new name and then press <key>Enter</key>."
 msgstr ""
 
 #: C/organize-event.page:31(title)
@@ -1420,8 +1591,8 @@ msgstr ""
 
 #: C/organize-event.page:53(p)
 msgid ""
-"If you select the Events item in the sidebar, you'll see a single photo "
-"which represents each event. This is called the key photo."
+"If you select the <gui>Events</gui> item in the sidebar, you'll see a single "
+"photo which represents each event. This is called the key photo."
 msgstr ""
 
 #: C/organize-event.page:55(p)
@@ -1435,8 +1606,8 @@ msgstr ""
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/index.page:23(None)
 msgid ""
-"@@image: 'figures/shotwell_logo.png'; md5=59de2b2c4fa64ea1497c98452c509dbd"
-msgstr "original"
+"@@image: 'figures/shotwell_logo.png'; md5=4b333499555b4e496b1a38f7899067f3"
+msgstr ""
 
 #: C/index.page:6(title) C/index.page:7(title)
 msgid "Shotwell"
@@ -1487,30 +1658,32 @@ msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
 msgstr ""
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell "
+"Fotoverwaltung"
 
 #: C/index.page:26(title)
 msgid "Importing Photos"
-msgstr ""
+msgstr "Fotos importieren"
 
 #: C/index.page:30(title)
 msgid "Viewing Photos"
-msgstr ""
+msgstr "Fotos ansehen"
 
 #: C/index.page:34(title)
 msgid "Organizing Photos"
-msgstr ""
+msgstr "Fotos organisieren"
 
 #: C/index.page:38(title)
 msgid "Editing Photos"
-msgstr ""
+msgstr "Fotos bearbeiten"
 
 #: C/index.page:42(title)
 msgid "Sharing Photos"
-msgstr ""
+msgstr "Fotos teilen"
 
 #: C/index.page:46(title)
 msgid "Other Features"
-msgstr ""
+msgstr "Weitere Funktionen"
 
 #: C/import-memorycard.page:7(desc)
 msgid "Import photos from a digital camera's memory card."
@@ -1518,11 +1691,11 @@ msgstr ""
 
 #: C/import-memorycard.page:12(title)
 msgid "Importing from a memory card"
-msgstr ""
+msgstr "Importieren von einer Speicherkarte"
 
 #: C/import-memorycard.page:14(p)
 msgid "To import photos from a camera memory card:"
-msgstr ""
+msgstr "So importieren Sie Fotos von einer Speicherkarte:"
 
 #: C/import-memorycard.page:18(p)
 msgid ""
@@ -1538,8 +1711,8 @@ msgstr ""
 msgid ""
 "Follow the instructions for <link xref=\"import-file\">importing photos from "
 "your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From "
-"Folder</gui></guiseq>, the memory card should be visible as a folder in the "
-"side bar of the file selection window."
+"Folder...</gui></guiseq>, the memory card should be visible as a folder in "
+"the side bar of the file selection window."
 msgstr ""
 
 #: C/import-memorycard.page:28(p)
@@ -1564,15 +1737,17 @@ msgstr ""
 
 #: C/import-f-spot.page:12(title)
 msgid "Importing from F-Spot"
-msgstr ""
+msgstr "Importieren aus F-Spot"
 
 #: C/import-f-spot.page:14(p)
 msgid "To import an existing photo collection from F-Spot:"
-msgstr ""
+msgstr "So importieren Sie eine bestehende Fotosammlung aus F-Spot:"
 
 #: C/import-f-spot.page:16(p)
 msgid "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
 msgstr ""
+"Wählen Sie <guiseq><gui>Datei</gui><gui>Importieren aus F-Spot</gui></"
+"guiseq>."
 
 #: C/import-f-spot.page:17(p)
 msgid ""
@@ -1580,6 +1755,9 @@ msgid ""
 "importing from another F-Spot database, select a directory and file from the "
 "chooser dialog box."
 msgstr ""
+"Wählen Sie anschließend die voreingestellte F-Spot-Bibliothek oder eine "
+"andere F-Spot-Datenbank. Wenn Sie aus einer anderen F-Spot-Datenbank "
+"importieren, wählen Sie einen Ordner und eine Datei im Dateiwähler."
 
 #: C/import-f-spot.page:20(p)
 msgid ""
@@ -1596,7 +1774,7 @@ msgstr ""
 
 #: C/import-file.page:12(title)
 msgid "Importing from your hard disk"
-msgstr ""
+msgstr "Importieren von Ihrer Festplatte"
 
 #: C/import-file.page:14(p)
 msgid ""
@@ -1606,8 +1784,8 @@ msgstr ""
 
 #: C/import-file.page:16(p)
 msgid ""
-"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder</gui></"
-"guiseq> and select the folder containing the photos you want to import."
+"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
+"gui></guiseq> and select the folder containing the photos you want to import."
 msgstr ""
 
 #: C/import-file.page:18(p)
@@ -1634,15 +1812,15 @@ msgstr ""
 
 #: C/import-camera.page:7(desc)
 msgid "Copy photos from a digital camera."
-msgstr ""
+msgstr "So kopieren Sie Fotos von einer Digitalkamera."
 
 #: C/import-camera.page:12(title)
 msgid "Importing from a camera"
-msgstr ""
+msgstr "Importieren von einer Kamera"
 
 #: C/import-camera.page:14(p)
 msgid "To import photos from a digital camera:"
-msgstr ""
+msgstr "So importieren Sie Fotos von einer Digitalkamera:"
 
 #: C/import-camera.page:18(p)
 msgid ""
@@ -1681,10 +1859,12 @@ msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP and RAW photo files as well as video "
 "files."
 msgstr ""
+"Shotwell unterstützt JPEG, PNG, TIFF, BMP und RAW-Fotos ebenso wie Video-"
+"Dateien."
 
 #: C/formats.page:12(title)
 msgid "Supported photo and video formats"
-msgstr ""
+msgstr "Unterstützte Foto- und Video-Formate"
 
 #: C/formats.page:14(p)
 msgid ""
@@ -1763,32 +1943,32 @@ msgid ""
 "exception is that time and date adjustments will not be reverted."
 msgstr ""
 
-#: C/edit-time-date.page:7(desc)
-msgid "Change the time and date of photos if those details are incorrect."
+#: C/edit-date-time.page:7(desc)
+msgid "Change the date and time of photos if those details are incorrect."
 msgstr ""
 
-#: C/edit-time-date.page:12(title)
-msgid "Adjust the time and date of photos"
+#: C/edit-date-time.page:12(title)
+msgid "Adjust the date and time of photos"
 msgstr ""
 
-#: C/edit-time-date.page:14(p)
+#: C/edit-date-time.page:14(p)
 msgid ""
-"To adjust the time and date of photos, select the photos you would like to "
-"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Time and Date</gui></"
-"guiseq> and select a new time and date."
+"To adjust the date and time of photos, select the photos you would like to "
+"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
+"guiseq> and select a new date and time."
 msgstr ""
 
-#: C/edit-time-date.page:16(p)
+#: C/edit-date-time.page:16(p)
 msgid ""
 "If you are changing the date and time of multiple photos at once, you can "
 "choose to shift all the photos by the same amount of time or to set all the "
 "photos to the same time."
 msgstr ""
 
-#: C/edit-time-date.page:18(p)
+#: C/edit-date-time.page:18(p)
 msgid ""
-"By default, the time and date are only changed inside Shotwell. You can also "
-"choose to modify the time and date in the original file, but this cannot be "
+"By default, the date and time are only changed inside Shotwell. You can also "
+"choose to modify the date and time in the original file, but this cannot be "
 "undone once you exit Shotwell."
 msgstr ""
 
@@ -1818,7 +1998,7 @@ msgid "Drag the slider to achieve the desired degree of straightening."
 msgstr ""
 
 #: C/edit-straighten.page:24(p)
-msgid "Press <gui>OK</gui> when finished."
+msgid "Press <gui>Straighten</gui> when finished."
 msgstr ""
 
 #: C/edit-rotate.page:7(desc)
@@ -2049,8 +2229,8 @@ msgstr ""
 
 #: C/edit-crop.page:29(p)
 msgid ""
-"When you're happy with your crop outline, press the <gui>Apply</gui> button. "
-"Shotwell will display the cropped photo."
+"When you're happy with your crop outline, apply it by pressing the "
+"<gui>Crop</gui> button. Shotwell will display the cropped photo."
 msgstr ""
 
 #: C/edit-crop.page:32(p)
@@ -2067,13 +2247,14 @@ msgstr ""
 
 #: C/edit-crop.page:38(title)
 msgid "What is the rule of thirds?"
-msgstr ""
+msgstr "Was ist die Drittelregel?"
 
 #: C/edit-crop.page:39(p)
 msgid ""
 "The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
 "photo."
 msgstr ""
+"Die <em>Drittelregel</em> hilft, ein Foto optisch ansprechend zu gestalten."
 
 #: C/edit-crop.page:40(p)
 msgid ""
@@ -2103,7 +2284,7 @@ msgstr ""
 
 #: C/edit-adjustments.page:12(title)
 msgid "Color adjustments"
-msgstr ""
+msgstr "Farbanpassungen"
 
 #: C/edit-adjustments.page:14(p)
 msgid ""
@@ -2122,14 +2303,14 @@ msgstr ""
 
 #: C/edit-adjustments.page:18(p)
 msgid ""
-"When the photo's colors and contrast are to your liking, press <gui>Apply</"
-"gui> to save the changes. <gui>Reset</gui> will return the image to its "
-"original state. <gui>Cancel</gui> discards all changes you've made."
+"When the photo's colors and contrast are to your liking, press <gui>OK</gui> "
+"to save the changes. <gui>Reset</gui> will return the image to its original "
+"state. <gui>Cancel</gui> discards all changes you've made."
 msgstr ""
 
 #: C/edit-adjustments.page:21(title)
 msgid "What do the color adjustments do?"
-msgstr ""
+msgstr "Was bewirken die Farbregler?"
 
 #: C/edit-adjustments.page:24(title)
 msgid "Exposure"
@@ -2140,6 +2321,9 @@ msgid ""
 "Changes the brightness to make it look like the photo was exposed for a "
 "longer or shorter time. Use this to correct under- or over-exposed photos."
 msgstr ""
+"Änderung der Helligkeit, so dass es aussieht, also ob das Foto länger oder "
+"kürzer belichtet worden wäre. Verwenden Sie diese Möglichkeit, um über- und "
+"unterbelichtete Fotos zu korrigieren."
 
 #: C/edit-adjustments.page:28(title)
 msgid "Saturation"
