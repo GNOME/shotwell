@@ -23,12 +23,12 @@
   </description>
   <url type="homepage">https://wiki.gnome.org/Apps/Shotwell</url>
   <screenshots>
-    <screenshot type="default">http://www.yorba.org/wp-content/uploads/2013/02/harbor.png</screenshot>
-    <screenshot>http://www.yorba.org/wp-content/uploads/2013/02/import-300x155.png</screenshot>
-    <screenshot>http://www.yorba.org/wp-content/uploads/2013/02/organize-300x197.png</screenshot>
-    <screenshot>http://www.yorba.org/wp-content/uploads/2013/02/edit-300x247.png</screenshot>
-    <screenshot>http://www.yorba.org/wp-content/uploads/2013/02/publish-300x213.png</screenshot>
+    <screenshot type="default">http://shotwell-project.org/appdata/shotwell/harbor.png</screenshot>
+    <screenshot>http://shotwell-project.org/appdata/shotwell/import-300x155.png</screenshot>
+    <screenshot>http://shotwell-project.org/appdata/shotwell/organize-300x197.png</screenshot>
+    <screenshot>http://shotwell-project.org/appdata/shotwell/edit-300x247.png</screenshot>
+    <screenshot>http://shotwell-project.org/appdata/shotwell/publish-300x213.png</screenshot>
   </screenshots>
-  <updatecontact>shotwell@yorba.org</updatecontact>
+  <updatecontact>mail@jensge.org</updatecontact>
   <project_group>GNOME</project_group>
 </application>
