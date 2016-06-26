@@ -49,6 +49,13 @@ public abstract class DatabaseTable {
                     e.message));
             }
         }
+#if SQLITE_DEBUG
+        db.trace (on_trace);
+#endif
+    }
+
+    public static void on_trace (string message) {
+        debug ("SQLITE: %s", message);
     }
 
     public static void init(string filename) {
