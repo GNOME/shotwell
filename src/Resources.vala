@@ -30,7 +30,7 @@ namespace Resources {
     public const string HOME_URL = "https://wiki.gnome.org/Apps/Shotwell";
     public const string FAQ_URL = "https://wiki.gnome.org/Apps/Shotwell/FAQ";
     public const string BUG_DB_URL = "https://wiki.gnome.org/Apps/Shotwell/ReportingABug";
-    public const string DIR_PATTERN_URI_SYSWIDE = "ghelp:shotwell?other-files";
+    public const string DIR_PATTERN_URI_SYSWIDE = "help:shotwell/other-files";
 
     private const string LIB = _LIB;
     private const string LIBEXECDIR = _LIBEXECDIR;
@@ -1023,7 +1023,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             }
             
             string[] argv = new string[3];
-            argv[0] = "gnome-help";
+            argv[0] = "yelp";
             argv[1] = help_path;
             argv[2] = null;
             
@@ -1038,9 +1038,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         
         // launch from system-installed help
         if (anchor != null) {
-            sys_show_uri(screen, "ghelp:shotwell" + anchor);
+            sys_show_uri(screen, "help:shotwell" + anchor);
         } else {
-            sys_show_uri(screen, "ghelp:shotwell");
+            sys_show_uri(screen, "help:shotwell");
         }
     }
     

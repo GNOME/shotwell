@@ -2325,7 +2325,7 @@ public class PreferencesDialog {
             pattern_help.set_markup("<a href=\"" + Resources.DIR_PATTERN_URI_SYSWIDE + "\">" + _("(Help)") + "</a>");
         } else {
             // We're being run from the build directory; we'll have to handle clicks to this
-            // link manually ourselves, due to a limitation ghelp: URIs.
+            // link manually ourselves, due to a limitation of help: URIs.
             pattern_help.set_markup("<a href=\"dummy:\">" + _("(Help)") + "</a>");
             pattern_help.activate_link.connect(on_local_pattern_help);
         }
@@ -2390,7 +2390,7 @@ public class PreferencesDialog {
     // the help viewer and specify the full path to the subsection we want...
     private bool on_local_pattern_help(string ignore) {
         try {
-            Resources.launch_help(AppWindow.get_instance().get_screen(), "?other-files");
+            Resources.launch_help(AppWindow.get_instance().get_screen(), "other-files.page");
         } catch (Error e) {
             message("Unable to launch help: %s", e.message);
         }
