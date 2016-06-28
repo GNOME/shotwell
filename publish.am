@@ -1,6 +1,7 @@
-pkglib_LTLIBRARIES = plugins/shotwell-publishing/libshotwell-publishing.la
+plugin_LTLIBRARIES += plugins/shotwell-publishing/shotwell-publishing.la
 
-plugins_shotwell_publishing_libshotwell_publishing_la_SOURCES = \
+
+plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/shotwell-publishing.vala \
 	plugins/shotwell-publishing/FacebookPublishing.vala \
 	plugins/shotwell-publishing/PicasaPublishing.vala \
@@ -9,7 +10,7 @@ plugins_shotwell_publishing_libshotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/PiwigoPublishing.vala \
 	plugins/shotwell-plugin-common.vapi
 
-plugins_shotwell_publishing_libshotwell_publishing_la_VALAFLAGS = \
+plugins_shotwell_publishing_shotwell_publishing_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
 	--pkg gtk+-3.0 \
 	--pkg libsoup-2.4 \
@@ -22,13 +23,13 @@ plugins_shotwell_publishing_libshotwell_publishing_la_VALAFLAGS = \
 	--pkg webkit2gtk-4.0 \
 	--vapidir $(top_srcdir)/plugins
 
-plugins_shotwell_publishing_libshotwell_publishing_la_CFLAGS = \
+plugins_shotwell_publishing_shotwell_publishing_la_CFLAGS = \
 	$(PLUGIN_CFLAGS) \
 	$(COMMON_CFLAGS) \
 	-I $(top_srcdir)/plugins
 
-plugins_shotwell_publishing_libshotwell_publishing_la_LDFLAGS = \
+plugins_shotwell_publishing_shotwell_publishing_la_LDFLAGS = \
 	$(SHOTWELL_PLUGIN_LDFLAGS)
 
-plugins_shotwell_publishing_libshotwell_publishing_la_LIBADD = \
+plugins_shotwell_publishing_shotwell_publishing_la_LIBADD = \
 	$(top_builddir)/plugins/common/libshotwell-plugin-common.la

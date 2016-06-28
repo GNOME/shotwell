@@ -1,6 +1,6 @@
-pkglib_LTLIBRARIES += plugins/shotwell-data-imports/libshotwell-data-imports.la
+plugin_LTLIBRARIES += plugins/shotwell-data-imports/shotwell-data-imports.la
 
-plugins_shotwell_data_imports_libshotwell_data_imports_la_SOURCES = \
+plugins_shotwell_data_imports_shotwell_data_imports_la_SOURCES = \
 	plugins/shotwell-data-imports/FSpotDatabaseBehavior.vala \
 	plugins/shotwell-data-imports/FSpotDatabaseTable.vala \
 	plugins/shotwell-data-imports/FSpotDatabase.vala \
@@ -17,7 +17,7 @@ plugins_shotwell_data_imports_libshotwell_data_imports_la_SOURCES = \
 	plugins/shotwell-data-imports/VersionNumber.vala \
 	plugins/shotwell-plugin-common.vapi
 
-plugins_shotwell_data_imports_libshotwell_data_imports_la_VALAFLAGS = \
+plugins_shotwell_data_imports_shotwell_data_imports_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
 	--pkg gtk+-3.0 \
 	--pkg libsoup-2.4 \
@@ -31,13 +31,13 @@ plugins_shotwell_data_imports_libshotwell_data_imports_la_VALAFLAGS = \
 	--pkg sqlite3 \
 	--vapidir $(top_srcdir)/plugins
 
-plugins_shotwell_data_imports_libshotwell_data_imports_la_CFLAGS = \
+plugins_shotwell_data_imports_shotwell_data_imports_la_CFLAGS = \
 	$(PLUGIN_CFLAGS) \
 	$(COMMON_CFLAGS) \
 	-I $(top_srcdir)/plugins
 
-plugins_shotwell_data_imports_libshotwell_data_imports_la_LDFLAGS = \
+plugins_shotwell_data_imports_shotwell_data_imports_la_LDFLAGS = \
 	$(SHOTWELL_PLUGIN_LDFLAGS)
 
-plugins_shotwell_data_imports_libshotwell_data_imports_la_LIBADD = \
+plugins_shotwell_data_imports_shotwell_data_imports_la_LIBADD = \
 	$(top_builddir)/plugins/common/libshotwell-plugin-common.la

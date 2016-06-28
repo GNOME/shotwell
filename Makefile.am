@@ -89,6 +89,10 @@ SHOTWELL_PLUGIN_LDFLAGS = \
 
 -include $(top_srcdir)/git.mk
 
+plugindir = $(pkglibdir)/plugins/builtin
+plugin_LTLIBRARIES =
+plugin_DATA =
+
 include $(top_srcdir)/common.am
 include $(top_srcdir)/shotwell.am
 include $(top_srcdir)/thumbnailer.am
