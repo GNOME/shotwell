@@ -32,6 +32,33 @@ GITIGNOREFILES = \
 	INSTALL \
 	$(NULL)
 
+lib_LTLIBRARIES = \
+	plugins/common/libshotwell-plugin-common.la
+
+plugins_common_libshotwell_plugin_common_la_SOURCES = \
+	plugins/common/RESTSupport.vala \
+	plugins/common/Resources.vala \
+	plugins/shotwell-plugin-dev-1.0.vapi
+
+
+plugins_common_libshotwell_plugin_common_la_VALAFLAGS = \
+	--library publishing-support \
+	--pkg gtk+-3.0 \
+	--pkg json-glib-1.0 \
+	--pkg libsoup-2.4 \
+	--pkg libxml-2.0 \
+	--pkg webkit2gtk-4.0 \
+	--pkg gee-0.8 \
+	--vapi=plugins/shotwell-publishing-support.vapi \
+	--header=plugins/shotwell-publishing-support.h
+
+plugins_common_libshotwell_plugin_common_la_CFLAGS = \
+	$(PLUGIN_CFLAGS) \
+	-DGETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
+	-I plugins
+
+plugins/shotwell-plugin-dev-1.0.vapi: src_plugins_libplugin_la_vala.stamp
+
 noinst_LTLIBRARIES = \
 	src/plugins/libplugin.la
 
