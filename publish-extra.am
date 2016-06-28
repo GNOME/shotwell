@@ -1,0 +1,34 @@
+pkglib_LTLIBRARIES += plugins/shotwell-publishing-extras/libshotwell-publishing-extras.la
+
+
+plugins_shotwell_publishing_extras_libshotwell_publishing_extras_la_SOURCES = \
+	plugins/shotwell-publishing-extras/GalleryConnector.vala \
+	plugins/shotwell-publishing-extras/RajcePublishing.vala \
+	plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala \
+	plugins/shotwell-publishing-extras/TumblrPublishing.vala \
+	plugins/shotwell-publishing-extras/YandexPublishing.vala \
+	plugins/shotwell-plugin-common.vapi
+
+plugins_shotwell_publishing_extras_libshotwell_publishing_extras_la_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
+	--pkg gtk+-3.0 \
+	--pkg libsoup-2.4 \
+	--pkg gexiv2 \
+	--pkg rest-0.7 \
+	--pkg gee-0.8 \
+	--pkg json-glib-1.0 \
+	--pkg shotwell-plugin-dev-1.0 \
+	--pkg libxml-2.0 \
+	--pkg webkit2gtk-4.0 \
+	--vapidir $(top_srcdir)/plugins
+
+plugins_shotwell_publishing_extras_libshotwell_publishing_extras_la_CFLAGS = \
+	$(PLUGIN_CFLAGS) \
+	$(COMMON_CFLAGS) \
+	-I $(top_srcdir)/plugins
+
+plugins_shotwell_publishing_extras_libshotwell_publishing_extras_la_LDFLAGS = \
+	-Wno-undefined
+
+plugins_shotwell_publishing_extras_libshotwell_publishing_extras_la_LIBADD = \
+	$(top_builddir)/plugins/common/libshotwell-plugin-common.la

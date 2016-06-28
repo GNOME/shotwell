@@ -7,8 +7,7 @@ plugins_shotwell_publishing_libshotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/FlickrPublishing.vala \
 	plugins/shotwell-publishing/YouTubePublishing.vala \
 	plugins/shotwell-publishing/PiwigoPublishing.vala \
-	src/util/string.vala \
-	plugins/shotwell-publishing-support.vapi
+	plugins/shotwell-plugin-common.vapi
 
 plugins_shotwell_publishing_libshotwell_publishing_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
@@ -25,5 +24,9 @@ plugins_shotwell_publishing_libshotwell_publishing_la_VALAFLAGS = \
 
 plugins_shotwell_publishing_libshotwell_publishing_la_CFLAGS = \
 	$(PLUGIN_CFLAGS) \
-	$(COMMON_CFLAGS)
+	$(COMMON_CFLAGS) \
+	-I $(top_srcdir)/plugins
 plugins_shotwell_publishing_libshotwell_publishing_la_LDFLAGS = -Wno-undefined
+
+plugins_shotwell_publishing_libshotwell_publishing_la_LIBADD = \
+	$(top_builddir)/plugins/common/libshotwell-plugin-common.la

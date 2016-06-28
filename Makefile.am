@@ -40,6 +40,8 @@ plugins_common_libshotwell_plugin_common_la_SOURCES = \
 	plugins/common/Resources.vala \
 	plugins/shotwell-plugin-dev-1.0.vapi
 
+$(top_srcdir)/plugins/shotwell-plugin-common.vapi: \
+	plugins_common_libshotwell_plugin_common_la_vala.stamp
 
 plugins_common_libshotwell_plugin_common_la_VALAFLAGS = \
 	--library publishing-support \
@@ -49,8 +51,8 @@ plugins_common_libshotwell_plugin_common_la_VALAFLAGS = \
 	--pkg libxml-2.0 \
 	--pkg webkit2gtk-4.0 \
 	--pkg gee-0.8 \
-	--vapi=plugins/shotwell-publishing-support.vapi \
-	--header=plugins/shotwell-publishing-support.h
+	--vapi=plugins/shotwell-plugin-common.vapi \
+	--header=plugins/shotwell-plugin-common.h
 
 plugins_common_libshotwell_plugin_common_la_CFLAGS = \
 	$(PLUGIN_CFLAGS) \
@@ -87,3 +89,4 @@ include $(top_srcdir)/thumbnailer.am
 
 # Plugins
 include $(top_srcdir)/publish.am
+include $(top_srcdir)/publish-extra.am
