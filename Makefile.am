@@ -36,3 +36,4 @@ GITIGNOREFILES = \
 
 include $(top_srcdir)/common.am
 include $(top_srcdir)/shotwell.am
+include $(top_srcdir)/thumbnailer.am

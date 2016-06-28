@@ -102,6 +102,8 @@ PKG_CHECK_MODULES(SHOTWELL, [
                              sqlite3 >= 3.5.9
                              webkit2gtk-4.0
                             ])
+PKG_CHECK_MODULES(THUMBNAILER, [gee-0.8 >= 0.8.5 gtk+-3.0 >= 3.12.2
+                                gstreamer-base-1.0 >= 1.0.0])
 
 AC_ARG_ENABLE([unity-support],
               AS_HELP_STRING([--enable-unity-support],
