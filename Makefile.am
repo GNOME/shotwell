@@ -1,4 +1,4 @@
-SUBDIRS = misc help po
+SUBDIRS = misc help po app-icons
 
 EXTRA_DIST = AUTHORS
 
