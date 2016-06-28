@@ -132,6 +132,10 @@ dnl ***********************************************************************
 LT_PREREQ([2.2])
 LT_INIT
 
+dnl ***********************************************************************
+dnl Help processing
+dnl ***********************************************************************
+YELP_HELP_INIT
 
 dnl ***********************************************************************
 dnl Process .in Files
@@ -141,6 +145,7 @@ AC_CONFIG_FILES([
 	src/Makefile
     misc/Makefile
 	po/Makefile.in
+    help/Makefile
 ],[],
 [API_VERSION='$API_VERSION'])
 AC_OUTPUT
