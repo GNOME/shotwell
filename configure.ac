@@ -152,6 +152,7 @@ AC_CONFIG_FILES([
 	po/Makefile.in
     help/Makefile
     app-icons/Makefile
+    icons/Makefile
 ],[],
 [API_VERSION='$API_VERSION'])
 AC_OUTPUT
