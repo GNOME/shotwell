@@ -80,6 +80,12 @@ src_plugins_libplugin_la_VALAFLAGS = \
 	--header=plugins/shotwell-plugin-dev-1.0.h
 
 src_plugins_libplugin_la_CFLAGS = $(PLUGIN_CFLAGS)
+SHOTWELL_PLUGIN_LDFLAGS = \
+	-no-undefined \
+	-module \
+	-shared \
+	-export_dynamic \
+	-avoid-version
 
 -include $(top_srcdir)/git.mk
 

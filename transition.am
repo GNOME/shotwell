@@ -32,7 +32,8 @@ plugins_shotwell_transitions_libshotwell_transitions_la_CFLAGS = \
 	$(COMMON_CFLAGS) \
 	-I $(top_srcdir)/plugins
 
-plugins_shotwell_transitions_libshotwell_transitions_la_LDFLAGS = -Wno-undefined
+plugins_shotwell_transitions_libshotwell_transitions_la_LDFLAGS = \
+	$(SHOTWELL_PLUGIN_LDFLAGS)
 
 plugins_shotwell_transitions_libshotwell_transitions_la_LIBADD = \
 	$(top_builddir)/plugins/common/libshotwell-plugin-common.la

@@ -28,7 +28,7 @@ plugins_shotwell_publishing_extras_libshotwell_publishing_extras_la_CFLAGS = \
 	-I $(top_srcdir)/plugins
 
 plugins_shotwell_publishing_extras_libshotwell_publishing_extras_la_LDFLAGS = \
-	-Wno-undefined
+	$(SHOTWELL_PLUGIN_LDFLAGS)
 
 plugins_shotwell_publishing_extras_libshotwell_publishing_extras_la_LIBADD = \
 	$(top_builddir)/plugins/common/libshotwell-plugin-common.la
