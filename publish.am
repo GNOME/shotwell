@@ -26,6 +26,7 @@ plugins_shotwell_publishing_libshotwell_publishing_la_CFLAGS = \
 	$(PLUGIN_CFLAGS) \
 	$(COMMON_CFLAGS) \
 	-I $(top_srcdir)/plugins
+
 plugins_shotwell_publishing_libshotwell_publishing_la_LDFLAGS = -Wno-undefined
 
 plugins_shotwell_publishing_libshotwell_publishing_la_LIBADD = \

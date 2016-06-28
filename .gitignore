@@ -28,3 +28,4 @@ shotwell
 *.stamp
 *~
 
+/plugins/shotwell-transitions/libshotwell-transitiosn.la

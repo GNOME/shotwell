@@ -90,3 +90,4 @@ include $(top_srcdir)/thumbnailer.am
 # Plugins
 include $(top_srcdir)/publish.am
 include $(top_srcdir)/publish-extra.am
+include $(top_srcdir)/transition.am
