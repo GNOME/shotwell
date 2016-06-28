@@ -92,6 +92,9 @@ SHOTWELL_PLUGIN_LDFLAGS = \
 plugindir = $(pkglibdir)/plugins/builtin
 plugin_LTLIBRARIES =
 plugin_DATA =
+pkglibexec_PROGRAMS =
+
+pkglibexec_SCRIPTS = $(top_srcdir)/settings-migrator/shotwell-settings-migrator
 
 include $(top_srcdir)/common.am
 include $(top_srcdir)/shotwell.am

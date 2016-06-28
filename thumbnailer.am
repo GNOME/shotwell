@@ -1,4 +1,4 @@
-pkglibexec_PROGRAMS = thumbnailer/shotwell-video-thumbnailer
+pkglibexec_PROGRAMS += thumbnailer/shotwell-video-thumbnailer
 
 thumbnailer_shotwell_video_thumbnailer_SOURCES = thumbnailer/shotwell-video-thumbnailer.vala
 thumbnailer_shotwell_video_thumbnailer_VALAFLAGS = $(COMMON_VALAFLAGS) \
