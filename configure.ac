@@ -5,8 +5,8 @@ dnl ***********************************************************************
 dnl Define Versioning Information
 dnl ***********************************************************************
 m4_define([major_version],[0])
-m4_define([minor_version],[1])
-m4_define([micro_version],[0])
+m4_define([minor_version],[23])
+m4_define([micro_version],[1])
 m4_define([package_version],[major_version.minor_version.micro_version])
 m4_define([bug_report_url],[https://bugzilla.gnome.org/enter_bug.cgi?product=shotwell])
 m4_define([api_version],[major_version])
@@ -77,8 +77,27 @@ GLIB_GSETTINGS
 dnl ***********************************************************************
 dnl Check for required packages
 dnl ***********************************************************************
-PKG_CHECK_MODULES(SHOTWELL, [gio-2.0 >= 2.42])
-
+PKG_CHECK_MODULES(SHOTWELL, [
+                             gee-0.8 >= 0.8.5
+                             gexiv2 >= 0.4.90
+                             gio-unix-2.0 >= 2.20
+                             glib-2.0 >= 2.30.0
+                             gmodule-2.0 >= 2.24.0
+                             gstreamer-1.0 >= 1.0.0
+                             gstreamer-base-1.0 >= 1.0.0
+                             gstreamer-plugins-base-1.0 >= 1.0.0
+                             gstreamer-pbutils-1.0 >= 1.0.0
+                             gtk+-3.0 >= 3.12.2
+                             gudev-1.0 >= 145
+                             libexif >= 0.6.16
+                             libgphoto2 >= 2.5.0
+                             libraw >= 0.13.2
+                             libsoup-2.4 >= 2.26.0
+                             libxml-2.0 >= 2.6.32
+                             rest-0.7 >= 0.7
+                             sqlite3 >= 3.5.9
+                             webkit2gtk-4.0
+                            ])
 
 dnl ***********************************************************************
 dnl Initialize Libtool
