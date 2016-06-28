@@ -104,6 +104,10 @@ PKG_CHECK_MODULES(SHOTWELL, [
                             ])
 PKG_CHECK_MODULES(THUMBNAILER, [gee-0.8 >= 0.8.5 gtk+-3.0 >= 3.12.2
                                 gstreamer-base-1.0 >= 1.0.0])
+PKG_CHECK_MODULES(PLUGIN, [gee-0.8 >= 0.8.5 gtk+-3.0 >= 3.12.2
+                           gio-2.0 >= 2.30.0 libsoup-2.4 json-glib-1.0
+                           webkit2gtk-4.0 rest-0.7
+                           ])
 
 AC_ARG_ENABLE([unity-support],
               AS_HELP_STRING([--enable-unity-support],

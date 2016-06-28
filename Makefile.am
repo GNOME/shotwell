@@ -84,3 +84,6 @@ src_plugins_libplugin_la_CFLAGS = $(PLUGIN_CFLAGS)
 include $(top_srcdir)/common.am
 include $(top_srcdir)/shotwell.am
 include $(top_srcdir)/thumbnailer.am
+
+# Plugins
+include $(top_srcdir)/publish.am
