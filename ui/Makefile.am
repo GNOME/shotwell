@@ -1,0 +1,26 @@
+uidir = $(datadir)/shotwell/ui
+ui_DATA = \
+	collection.ui \
+	direct_context.ui \
+	direct.ui \
+	events_directory.ui \
+	event.ui \
+	fullscreen.ui \
+	import_queue.ui \
+	import.ui \
+	media.ui \
+	offline.ui \
+	photo_context.ui \
+	photo.ui \
+	savedsearch.ui \
+	search_bar.ui \
+	search_sidebar_context.ui \
+	set_background_dialog.glade \
+	set_background_slideshow_dialog.glade \
+	shotwell.glade \
+	shotwell.xml \
+	sidebar_default_context.ui \
+	tag_sidebar_context.ui \
+	tags.ui \
+	top.ui \
+	trash.ui
