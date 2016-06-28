@@ -3,3 +3,17 @@
 COMMON_VALAFLAGS = \
 	--enable-checking -g --target-glib=2.32 --thread --fatal-warnings \
 	--enable-experimental --enable-deprecated
+
+COMMON_CFLAGS = \
+	-I$(top_srcdir)/vapi \
+	-D_PREFIX='"$(prefix)"' \
+	-D_VERSION='"$(VERSION)"' \
+	-DGETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
+	-D_LANG_SUPPORT_DIR='"$(prefix)/share/locale"' \
+	-D_LIBEXECDIR='"$(libexecdir)"' \
+	-D_LIB='"$(libdir)"'
+
+if IS_GITVERSION
+COMMON_CFLAGS += -D_GIT_VERSION='"@GITVER@"'
+COMMON_VALAFLAGS += --define=_GITVERSION
+endif

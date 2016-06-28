@@ -2,15 +2,10 @@ bin_PROGRAMS = shotwell
 shotwell_CFLAGS = \
 	$(SHOTWELL_CFLAGS) \
 	$(UNITY_CFLAGS) \
-	-I$(top_srcdir)/vapi \
-	-D_PREFIX='"$(prefix)"' \
-	-D_VERSION='"$(VERSION)"' \
-	-DGETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
-	-D_LANG_SUPPORT_DIR='"$(prefix)/share/locale"' \
-	-D_LIBEXECDIR='"$(libexecdir)"' \
-	-D_LIB='"$(libdir)"'
+	$(COMMON_CFLAGS) \
+	-Iplugins
 
-shotwell_LDADD = $(SHOTWELL_LIBS) $(UNITY_LIBS)
+shotwell_LDADD = src/plugins/libplugin.la $(SHOTWELL_LIBS) $(UNITY_LIBS)
 shotwell_VALAFLAGS = $(COMMON_VALAFLAGS) \
 	--pkg gio-2.0 --pkg gtk+-3.0 --pkg gee-0.8 \
 	--pkg gio-unix-2.0 --pkg sqlite3 --pkg gmodule-2.0 \
@@ -20,11 +15,6 @@ shotwell_VALAFLAGS = $(COMMON_VALAFLAGS) \
 	--pkg gstreamer-pbutils-1.0 \
 	$(UNITY_VALAFLAGS) \
 	$(COMMON_VALAFLAGS_POST)
-
-if IS_GITVERSION
-shotwell_CFLAGS += -D_GIT_VERSION='"@GITVER@"'
-shotwell_VALAFLAGS += --define=_GITVERSION
-endif
 
 shotwell_SOURCES = \
 	src/unit/Unit.vala \
@@ -51,13 +41,6 @@ shotwell_SOURCES = \
 	src/db/SavedSearchDBTable.vala \
 	src/editing_tools/EditingTools.vala \
 	src/editing_tools/StraightenTool.vala \
-	src/plugins/Plugins.vala \
-	src/plugins/PublishingInterfaces.vala \
-	src/plugins/SpitInterfaces.vala \
-	src/plugins/TransitionsInterfaces.vala \
-	src/plugins/StandardHostInterface.vala \
-	src/plugins/ManifestWidget.vala \
-	src/plugins/DataImportsInterfaces.vala \
 	src/slideshow/Slideshow.vala \
 	src/slideshow/TransitionEffects.vala \
 	src/photos/Photos.vala \
@@ -72,6 +55,9 @@ shotwell_SOURCES = \
 	src/photos/RawSupport.vala \
 	src/photos/PngSupport.vala \
 	src/photos/TiffSupport.vala \
+	src/plugins/Plugins.vala \
+	src/plugins/StandardHostInterface.vala \
+	src/plugins/ManifestWidget.vala \
 	src/publishing/Publishing.vala \
 	src/publishing/PublishingUI.vala \
 	src/publishing/PublishingPluginHost.vala \
@@ -221,4 +207,5 @@ shotwell_SOURCES = \
 	src/.unitize/_DataImportsInternals.vala \
 	src/.unitize/_FoldersInternals.vala \
 	src/.unitize/_Library_unitize_entry.vala \
-	src/.unitize/_Direct_unitize_entry.vala
+	src/.unitize/_Direct_unitize_entry.vala \
+	plugins/shotwell-plugin-dev-1.0.vapi

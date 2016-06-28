@@ -32,6 +32,26 @@ GITIGNOREFILES = \
 	INSTALL \
 	$(NULL)
 
+noinst_LTLIBRARIES = \
+	src/plugins/libplugin.la
+
+src_plugins_libplugin_la_SOURCES = \
+	src/plugins/SpitInterfaces.vala \
+	src/plugins/TransitionsInterfaces.vala \
+	src/plugins/PublishingInterfaces.vala \
+	src/plugins/DataImportsInterfaces.vala
+
+src_plugins_libplugin_la_VALAFLAGS = \
+	--pkg gio-2.0 \
+	--pkg gtk+-3.0 \
+	--pkg gmodule-2.0 \
+	--pkg gee-0.8 \
+	--library plugins \
+	--vapi=plugins/shotwell-plugin-dev-1.0.vapi \
+	--header=plugins/shotwell-plugin-dev-1.0.h
+
+src_plugins_libplugin_la_CFLAGS = $(PLUGIN_CFLAGS)
+
 -include $(top_srcdir)/git.mk
 
 include $(top_srcdir)/common.am
