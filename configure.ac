@@ -75,7 +75,9 @@ AC_PATH_PROG([GLIB_GENMARSHAL],[glib-genmarshal])
 AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 AC_PATH_PROG([GLIB_COMPILE_RESOURCES],[glib-compile-resources])
 PKG_PROG_PKG_CONFIG([0.22])
+AX_REQUIRE_DEFINED([GLIB_GSETTINGS])
 GLIB_GSETTINGS
+
 
 
 dnl ***********************************************************************
@@ -135,11 +137,13 @@ LT_INIT
 dnl ***********************************************************************
 dnl Help processing
 dnl ***********************************************************************
+AX_REQUIRE_DEFINED([YELP_HELP_INIT])
 YELP_HELP_INIT
 
 dnl ***********************************************************************
 dnl AppData support
 dnl ***********************************************************************
+AX_REQUIRE_DEFINED([APPDATA_XML])
 APPDATA_XML
 
 dnl ***********************************************************************
