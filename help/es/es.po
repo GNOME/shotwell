@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the shotwell package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2014-04-18 22:42+0000\n"
-"PO-Revision-Date: 2014-04-22 17:53+0200\n"
+"POT-Creation-Date: 2016-06-29 09:42+0000\n"
+"PO-Revision-Date: 2016-06-30 16:03+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -248,6 +248,9 @@ msgid ""
 "permissions once, when you first associate Shotwell Connect with your "
 "Facebook account."
 msgstr ""
+"Para publicar en Facebook es necesario otorgar permisos a la aplicación "
+"«Shotwell Connect Facebook». Sólo necesita conceder los permisos la primera "
+"vez que se asocia «Shotwell Connect» con su cuenta de Facebook."
 
 #: C/share-upload.page:35(p)
 msgid ""
@@ -2107,12 +2110,16 @@ msgid ""
 "Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
 "when finished."
 msgstr ""
+"Repita este proceso para todas las pupilas rojas de su foto. Pulse "
+"<gui>Cerrar</gui> cuando haya terminado."
 
 #: C/edit-nondestructive.page:7(desc)
 msgid ""
 "Shotwell is a non-destructive photo editor - it does not modify your "
 "original photos."
 msgstr ""
+"Shotwell es un editor de fotos no destructivo: no modifica sus fotos "
+"originales."
 
 #: C/edit-nondestructive.page:12(title)
 msgid "What happens to the original when I edit a photo?"
@@ -2133,6 +2140,9 @@ msgid ""
 "to photo files. For more information, see the section <link xref=\"other-"
 "files\">Photo files</link>."
 msgstr ""
+"Tena en cuenta que Shotwell puede opcionalmente escribir metadatos (como "
+"etiquetas y títulos) en los archivos de fotos. Para obtener más infomración, "
+"consulte la sección <link xref=\"other-files\">Archivos de fotos</link>."
 
 #: C/edit-external.page:7(desc)
 msgid "Use a different program to edit a photo."
@@ -2190,6 +2200,8 @@ msgstr ""
 msgid ""
 "Let Shotwell improve the brightness and contrast of a photo automatically."
 msgstr ""
+"Deje que Shotwell mejore el brillo y el contraste de una foto "
+"automáticamente."
 
 #: C/edit-enhance.page:14(title)
 msgid "Auto-enhance"
@@ -2213,7 +2225,7 @@ msgstr ""
 
 #: C/edit-crop.page:7(desc)
 msgid "Improve the composition of a photo by cutting out parts of it."
-msgstr ""
+msgstr "Mejorar la composición de una foto recortando algunas partes."
 
 #: C/edit-crop.page:12(title)
 msgid "Cropping"
@@ -2231,6 +2243,8 @@ msgid ""
 "Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
 "gui> button on the toolbar."
 msgstr ""
+"Pulse dos veces sobre una foto para verla a pantalla completa, y luego pulse "
+"el botón <gui>Recortar</gui> en la barra de herramientas."
 
 #: C/edit-crop.page:22(p)
 msgid ""
@@ -2266,12 +2280,16 @@ msgid ""
 "If you change your mind, press the <gui>Crop</gui> button again and fine-"
 "tune the crop."
 msgstr ""
+"Si cambia de idea, pulse el botón <gui>Recortar</gui> otra vez y ajuste el "
+"recorte."
 
 #: C/edit-crop.page:33(p)
 msgid ""
 "If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
 "return to the photo's previous crop dimensions."
 msgstr ""
+"Si pulsa <gui>Cancelar</gui> en lugar de <gui>Aplicar</gui>, Shotwell "
+"volverá al tamaño anterior de la foto antes de recortarla."
 
 #: C/edit-crop.page:38(title)
 msgid "What is the rule of thirds?"
@@ -2282,6 +2300,8 @@ msgid ""
 "The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
 "photo."
 msgstr ""
+"La <em>regla de los tercios</em> le ayuda a elegir un composición adecuada "
+"para una foto."
 
 #: C/edit-crop.page:40(p)
 msgid ""
@@ -2304,6 +2324,8 @@ msgid ""
 "Cropping a photo, using the \"rule of thirds\" lines to improve the "
 "composition."
 msgstr ""
+"Recortar una foto, usando la regla de los tercios para mejorar la "
+"composición."
 
 #: C/edit-adjustments.page:7(desc)
 msgid "Change the exposure, saturation, tint, and shadows of a photo."
@@ -2327,6 +2349,8 @@ msgid ""
 "The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
 "improve the quality of a photo."
 msgstr ""
+"El botón <gui>Mejorar</gui> ajusta el histograma y los deslizadores de "
+"sombras para mejorar la calidad de una foto."
 
 #: C/edit-adjustments.page:18(p)
 msgid ""
@@ -2406,5 +2430,5 @@ msgstr ""
 #: C/edit-adjustments.page:0(None)
 msgid "translator-credits"
 msgstr ""
-"Dámaris Letelier <dam.letelier@gmail.com>, 2014\n"
-"Daniel Mustieles <daniel.mustieles@gmail.com>, 2014"
+"Daniel Mustieles <daniel.mustieles@gmail.com>, 2014 - 2016\n"
+"Dámaris Letelier <dam.letelier@gmail.com>, 2014"
