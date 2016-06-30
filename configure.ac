@@ -78,7 +78,10 @@ PKG_PROG_PKG_CONFIG([0.22])
 AX_REQUIRE_DEFINED([GLIB_GSETTINGS])
 GLIB_GSETTINGS
 
-
+# Using -g in target's _VALAFLAGS triggers a bug in Vala's automake integration
+# that causes invalid makefile generation, so we put it into global VALAFLAGS
+VALAFLAGS="-g"
+AC_SUBST([VALAFLAGS])
 
 dnl ***********************************************************************
 dnl Check for required packages

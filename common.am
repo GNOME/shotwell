@@ -1,7 +1,7 @@
 # --enable-checking needs to come first to not trigger
 #  https://debbugs.gnu.org/cgi/bugreport.cgi?bug=18734
 COMMON_VALAFLAGS = \
-	--enable-checking -g --target-glib=2.32 --thread --fatal-warnings \
+	--enable-checking --target-glib=2.32 --thread --fatal-warnings \
 	--enable-experimental --enable-deprecated
 
 COMMON_CFLAGS = \
