@@ -31,6 +31,9 @@ GITIGNOREFILES = \
 	gtk-doc.make \
 	INSTALL \
 	$(NULL)
+#
+# Generate utility library for plugins
+#
 
 lib_LTLIBRARIES = \
 	plugins/common/libshotwell-plugin-common.la
@@ -44,6 +47,7 @@ $(top_srcdir)/plugins/shotwell-plugin-common.vapi: \
 	plugins_common_libshotwell_plugin_common_la_vala.stamp
 
 plugins_common_libshotwell_plugin_common_la_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
 	--library publishing-support \
 	--pkg gtk+-3.0 \
 	--pkg json-glib-1.0 \
@@ -61,6 +65,9 @@ plugins_common_libshotwell_plugin_common_la_CFLAGS = \
 
 plugins/shotwell-plugin-dev-1.0.vapi: src_plugins_libplugin_la_vala.stamp
 
+#
+# Create intermediate library for the Plugin API
+#
 noinst_LTLIBRARIES = \
 	src/plugins/libplugin.la
 
@@ -71,6 +78,7 @@ src_plugins_libplugin_la_SOURCES = \
 	src/plugins/DataImportsInterfaces.vala
 
 src_plugins_libplugin_la_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
 	--pkg gio-2.0 \
 	--pkg gtk+-3.0 \
 	--pkg gmodule-2.0 \
@@ -80,6 +88,7 @@ src_plugins_libplugin_la_VALAFLAGS = \
 	--header=plugins/shotwell-plugin-dev-1.0.h
 
 src_plugins_libplugin_la_CFLAGS = $(PLUGIN_CFLAGS)
+
 SHOTWELL_PLUGIN_LDFLAGS = \
 	-no-undefined \
 	-module \
