@@ -295,8 +295,13 @@ private class MapWidget : Gtk.Bin {
         return instance;
     }
 
+    public override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
+        map_view.stop_go_to();
+        return true;
+    }
+
     public override void drag_data_received(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint info, uint time) {
+            Gtk.SelectionData selection_data, uint info, uint time) {
         bool success = false;
         Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.get_data(),
             selection_data.get_length());
