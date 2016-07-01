@@ -154,7 +154,6 @@ dnl Process .in Files
 dnl ***********************************************************************
 AC_CONFIG_FILES([
 	Makefile
-	src/Makefile
     misc/Makefile
 	po/Makefile.in
     help/Makefile
