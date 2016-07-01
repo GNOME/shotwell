@@ -2,7 +2,7 @@ gsettings_SCHEMAS = \
 	org.yorba.shotwell.gschema.xml \
 	org.yorba.shotwell-extras.gschema.xml
 
-appdata_in_files = shotwell.appdata.xml.in
+appdata_in_files = $(srcdir)/shotwell.appdata.xml.in
 appdata_XML = \
 	shotwell.appdata.xml
 
