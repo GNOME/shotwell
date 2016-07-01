@@ -1,6 +1,6 @@
 plugin_LTLIBRARIES += plugins/shotwell-publishing/shotwell-publishing.la
 
-plugin_DATA += \
+dist_plugin_DATA += \
 	plugins/shotwell-publishing/facebook.png \
 	plugins/shotwell-publishing/flickr.png \
 	plugins/shotwell-publishing/picasa.png \

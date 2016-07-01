@@ -1,5 +1,5 @@
 plugin_LTLIBRARIES += plugins/shotwell-data-imports/shotwell-data-imports.la
-plugin_DATA += plugins/shotwell-data-imports/f-spot-24.png
+dist_plugin_DATA += plugins/shotwell-data-imports/f-spot-24.png
 
 plugins_shotwell_data_imports_shotwell_data_imports_la_SOURCES = \
 	plugins/shotwell-data-imports/FSpotDatabaseBehavior.vala \

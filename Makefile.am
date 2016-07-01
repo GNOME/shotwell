@@ -61,7 +61,7 @@ plugins_common_libshotwell_plugin_common_la_VALAFLAGS = \
 plugins_common_libshotwell_plugin_common_la_CFLAGS = \
 	$(PLUGIN_CFLAGS) \
 	-DGETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
-	-I plugins
+	-I $(top_srcdir)/plugins -I$(top_builddir)/plugins
 
 plugins/shotwell-plugin-dev-1.0.vapi: src_plugins_libplugin_la_vala.stamp
 
@@ -100,10 +100,10 @@ SHOTWELL_PLUGIN_LDFLAGS = \
 
 plugindir = $(pkglibdir)/plugins/builtin
 plugin_LTLIBRARIES =
-plugin_DATA =
+dist_plugin_DATA =
 pkglibexec_PROGRAMS =
 
-pkglibexec_SCRIPTS = $(top_srcdir)/settings-migrator/shotwell-settings-migrator
+dist_pkglibexec_SCRIPTS = $(top_srcdir)/settings-migrator/shotwell-settings-migrator
 
 include $(top_srcdir)/common.am
 include $(top_srcdir)/shotwell.am
@@ -114,3 +114,17 @@ include $(top_srcdir)/publish.am
 include $(top_srcdir)/publish-extra.am
 include $(top_srcdir)/transition.am
 include $(top_srcdir)/import.am
+
+dist_noinst_SCRIPTS = \
+	autogen.sh
+
+dist_noinst_DATA = \
+	plugins/shotwell-plugin-dev-1.0.h \
+	plugins/shotwell-plugin-common.h \
+	vapi/gphoto.h \
+	vapi/LConv.vapi \
+	vapi/libexif.vapi \
+	vapi/libgphoto2.vapi \
+	vapi/libraw.vapi \
+	vapi/unity.deps \
+	vapi/unity.vapi

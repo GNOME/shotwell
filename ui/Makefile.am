@@ -1,5 +1,5 @@
 uidir = $(datadir)/shotwell/ui
-ui_DATA = \
+dist_ui_DATA = \
 	collection.ui \
 	direct_context.ui \
 	direct.ui \
@@ -24,3 +24,4 @@ ui_DATA = \
 	tags.ui \
 	top.ui \
 	trash.ui
+

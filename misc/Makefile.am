@@ -7,7 +7,7 @@ appdata_XML = \
 	shotwell.appdata.xml
 
 desktopdir = $(datadir)/applications
-desktop_in_files = $(srcdir)/shotwell.desktop.in $(srcdir)/shotwell-viewer.desktop.in
+desktop_in_files = shotwell.desktop.in shotwell-viewer.desktop.in
 desktop_DATA = shotwell.desktop shotwell-viewer.desktop
 
 $(appdata_XML) : $(appdata_in_files)
@@ -22,3 +22,11 @@ $(desktop_DATA): $(desktop_in_files)
 
 @GSETTINGS_RULES@
 @APPDATA_XML_RULES@
+
+CLEANFILES = $(appdata_XML) $(desktop_DATA) $(desktop_in_files)
+
+dist_noinst_DATA = \
+	$(srcdir)/shotwell.desktop.in.in \
+	$(srcdir)/shotwell-viewer.desktop.in.in \
+	$(gsettings_SCHEMAS) \
+	$(appdata_in_files)

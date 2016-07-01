@@ -3,7 +3,8 @@ shotwell_CFLAGS = \
 	$(SHOTWELL_CFLAGS) \
 	$(UNITY_CFLAGS) \
 	$(COMMON_CFLAGS) \
-	-Iplugins
+	-I$(top_builddir)/plugins \
+	-I$(top_srcdir)/plugins
 
 shotwell_LDADD = src/plugins/libplugin.la $(SHOTWELL_LIBS) $(UNITY_LIBS)
 shotwell_VALAFLAGS = $(COMMON_VALAFLAGS) \
