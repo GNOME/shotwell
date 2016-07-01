@@ -1,0 +1,5 @@
+# List of source files that should *not* be translated.
+# Please keep this file sorted alphabetically.
+misc/shotwell.appdata.xml
+misc/shotwell.desktop.in
+misc/shotwell-viewer.desktop.in
