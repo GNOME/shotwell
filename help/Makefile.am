@@ -1,6 +1,8 @@
 # Dummy Makefile.am to allow the help to be translated on l10n.gnome.org.
 # This isn't actually processed by automake.
 
+dist_man1_MANS = shotwell.1
+
 @YELP_HELP_RULES@
 
 HELP_ID = shotwell
