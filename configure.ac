@@ -71,9 +71,6 @@ dnl ***********************************************************************
 AM_PROG_VALAC([0.28])
 AC_PROG_CC
 AC_PROG_INSTALL
-AC_PATH_PROG([GLIB_GENMARSHAL],[glib-genmarshal])
-AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
-AC_PATH_PROG([GLIB_COMPILE_RESOURCES],[glib-compile-resources])
 PKG_PROG_PKG_CONFIG([0.22])
 AX_REQUIRE_DEFINED([GLIB_GSETTINGS])
 GLIB_GSETTINGS
