@@ -1,4 +1,6 @@
 misc/shotwell.appdata.xml.in
+misc/org.yorba.shotwell-extras.gschema.xml
+misc/org.yorba.shotwell.gschema.xml
 plugins/common/RESTSupport.vala
 plugins/common/Resources.vala
 plugins/shotwell-data-imports/FSpotDatabase.vala

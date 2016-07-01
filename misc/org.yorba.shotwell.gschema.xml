@@ -1,4 +1,4 @@
-<schemalist>
+<schemalist gettext-domain="shotwell">
 
 <schema id="org.yorba.shotwell" path="/org/yorba/shotwell/">
     <child name="preferences" schema="org.yorba.shotwell.preferences" />
