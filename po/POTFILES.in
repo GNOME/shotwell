@@ -1,6 +1,8 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 misc/shotwell.appdata.xml.in
+misc/shotwell.desktop.in.in
+misc/shotwell-viewer.desktop.in.in
 misc/org.yorba.shotwell-extras.gschema.xml
 misc/org.yorba.shotwell.gschema.xml
 plugins/common/Resources.vala
