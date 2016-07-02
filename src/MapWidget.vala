@@ -296,7 +296,10 @@ private class MapWidget : Gtk.Bin {
     }
 
     public override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
-        map_view.stop_go_to();
+        if (!map_edit_lock)
+            map_view.stop_go_to();
+        else
+            Gdk.drag_status(context, 0, time);
         return true;
     }
 
