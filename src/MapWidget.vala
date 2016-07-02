@@ -227,7 +227,7 @@ private class MarkerGroupRaster : Object {
             MARKER_GROUP_RASTER_HEIGHT_PX + (MARKER_GROUP_RASTER_HEIGHT_PX / 2);
     }
 
-    private void regroup() {
+    internal void regroup() {
         lock (position_markers) {
             var position_markers_current = (owned) position_markers;
             position_markers = new Gee.HashSet<PositionMarker>();
@@ -457,6 +457,30 @@ private class MapWidget : Gtk.Bin {
         }
     }
 
+    public void media_source_position_changed(Gee.List<MediaSource> media, GpsCoords gps_coords) {
+        if (page == null)
+            return;
+        var view_collection = page.get_view();
+        foreach (var source in media) {
+            var view = view_collection.get_view_for_source(source);
+            if (view == null)
+                continue;
+            var marker = data_view_marker_cache.get(view);
+            if (marker != null) {
+                if (gps_coords.has_gps > 0) {
+                    // update individual marker cache
+                    marker.champlain_marker.set_location(gps_coords.latitude, gps_coords.longitude);
+                } else {
+                    // TODO: position removal not supported by GUI
+                    // remove marker from cache, map_layer
+                    // remove from marker_group_raster (needs a removal method which also removes the
+                    // item from the group if (marker_group_raster.find_position_marker(view) is MarkerGroup)
+                }
+            }
+        }
+        marker_group_raster.regroup();
+    }
+
     private void setup_map() {
         map_view = gtk_champlain_widget.get_view();
         map_view.add_layer(marker_layer);
@@ -605,19 +629,21 @@ private class MapWidget : Gtk.Bin {
     private bool internal_drop_received(Gee.List<MediaSource> media, double lat, double lon) {
         if (map_edit_lock)
             return false;
+
         bool success = false;
+        GpsCoords gps_coords = GpsCoords() {
+            has_gps = 1,
+            latitude = lat,
+            longitude = lon
+        };
         foreach (var m in media) {
             Positionable p = m as Positionable;
             if (p != null) {
-                GpsCoords gps_coords = GpsCoords() {
-                    has_gps = 1,
-                    latitude = lat,
-                    longitude = lon
-                };
                 p.set_gps_coords(gps_coords);
                 success = true;
             }
         }
+        media_source_position_changed(media, gps_coords);
         return success;
     }
 }
