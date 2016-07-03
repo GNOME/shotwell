@@ -315,7 +315,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ADD_TAGS_MENU = _("Add _Tags...");
     public const string ADD_TAGS_CONTEXT_MENU = _("_Add Tags...");
     // Dialog title
-    public const string ADD_TAGS_TITLE = _("Add Tags");
+    public const string ADD_TAGS_TITLE = NC_("Dialog Title", "Add Tags");
 
     public const string PREFERENCES_MENU = _("_Preferences");
     
@@ -348,7 +348,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
                 HierarchicalTagUtilities.get_basename(names[1]));
         } else {
             // Undo/Redo command name (in Edit menu)
-            return _("Add Tags");
+            return C_("UndoRedo menu entry", "Add Tags");
         }
     }
     
