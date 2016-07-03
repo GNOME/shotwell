@@ -270,12 +270,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DISPLAY_REJECTED_ONLY_TOOLTIP = _("Show only rejected photos");
     
     public const string DISPLAY_REJECTED_OR_HIGHER_MENU = _("All + _Rejected");
-    public const string DISPLAY_REJECTED_OR_HIGHER_LABEL = _("Show all photos, including rejected");
-    public const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = _("Show all photos, including rejected");
+    public const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = NC_("Tooltip", "Show all photos, including rejected");
     
     public const string DISPLAY_UNRATED_OR_HIGHER_MENU = _("_All Photos");
-    // Button label
-    public const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Show all photos");
     // Button tooltip
     public const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Show all photos");
 
