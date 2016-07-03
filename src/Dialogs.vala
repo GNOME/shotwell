@@ -1329,7 +1329,7 @@ public class EventRenameDialog : TextEntryDialogMediator {
 public class EditTitleDialog : TextEntryDialogMediator {
     public EditTitleDialog(string? photo_title) {
         // Dialog title
-        base (_("Edit Title"),
+        base (C_("Dialog Title", "Edit Title"),
             _("Title:"), photo_title);
     }
     

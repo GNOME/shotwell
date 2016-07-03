@@ -297,7 +297,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string EDIT_TITLE_MENU = _("Edit _Title...");
     // Button label
-    public const string EDIT_TITLE_LABEL = _("Edit Title");
+    public const string EDIT_TITLE_LABEL = NC_("Button Label", "Edit Title");
 
     public const string EDIT_COMMENT_MENU = _("Edit _Comment...");
     // Button label
