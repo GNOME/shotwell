@@ -2205,6 +2205,9 @@ public class AdjustTool : EditingTool {
         public Gtk.Scale exposure_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             ExposureTransformation.MIN_PARAMETER, ExposureTransformation.MAX_PARAMETER,
             1.0);
+        public Gtk.HScale contrast_slider = new Gtk.HScale.with_range(
+            ContrastTransformation.MIN_PARAMETER, ContrastTransformation.MAX_PARAMETER,
+            1.0);
         public Gtk.Scale saturation_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             SaturationTransformation.MIN_PARAMETER, SaturationTransformation.MAX_PARAMETER,
             1.0);
@@ -2244,19 +2247,27 @@ public class AdjustTool : EditingTool {
             exposure_slider.set_size_request(SLIDER_WIDTH, -1);
             exposure_slider.set_draw_value(false);
             exposure_slider.set_margin_right(0);
-            
+
+            Gtk.Label contrast_label = new Gtk.Label.with_mnemonic(_("Contrast:"));
+            contrast_label.set_alignment(0.0f, 0.5f);
+            slider_organizer.attach(contrast_label, 0, 1, 1, 1);
+            slider_organizer.attach(contrast_slider, 1, 1, 1, 1);
+            contrast_slider.set_size_request(SLIDER_WIDTH, -1);
+            contrast_slider.set_draw_value(false);
+            contrast_slider.set_margin_right(0);
+
             Gtk.Label saturation_label = new Gtk.Label.with_mnemonic(_("Saturation:"));
             saturation_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(saturation_label, 0, 1, 1, 1);
-            slider_organizer.attach(saturation_slider, 1, 1, 1, 1);
+            slider_organizer.attach(saturation_label, 0, 2, 1, 1);
+            slider_organizer.attach(saturation_slider, 1, 2, 1, 1);
             saturation_slider.set_size_request(SLIDER_WIDTH, -1);
             saturation_slider.set_draw_value(false);
             saturation_slider.set_margin_right(0);
 
             Gtk.Label tint_label = new Gtk.Label.with_mnemonic(_("Tint:"));
             tint_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(tint_label, 0, 2, 1, 1);
-            slider_organizer.attach(tint_slider, 1, 2, 1, 1);
+            slider_organizer.attach(tint_label, 0, 3, 1, 1);
+            slider_organizer.attach(tint_slider, 1, 3, 1, 1);
             tint_slider.set_size_request(SLIDER_WIDTH, -1);
             tint_slider.set_draw_value(false);
             tint_slider.set_margin_right(0);
@@ -2264,24 +2275,24 @@ public class AdjustTool : EditingTool {
             Gtk.Label temperature_label =
                 new Gtk.Label.with_mnemonic(_("Temperature:"));
             temperature_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(temperature_label, 0, 3, 1, 1);
-            slider_organizer.attach(temperature_slider, 1, 3, 1, 1);
+            slider_organizer.attach(temperature_label, 0, 4, 1, 1);
+            slider_organizer.attach(temperature_slider, 1, 4, 1, 1);
             temperature_slider.set_size_request(SLIDER_WIDTH, -1);
             temperature_slider.set_draw_value(false);
             temperature_slider.set_margin_right(0);
 
             Gtk.Label shadows_label = new Gtk.Label.with_mnemonic(_("Shadows:"));
             shadows_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(shadows_label, 0, 4, 1, 1);
-            slider_organizer.attach(shadows_slider, 1, 4, 1, 1);
+            slider_organizer.attach(shadows_label, 0, 5, 1, 1);
+            slider_organizer.attach(shadows_slider, 1, 5, 1, 1);
             shadows_slider.set_size_request(SLIDER_WIDTH, -1);
             shadows_slider.set_draw_value(false);
             shadows_slider.set_margin_right(0);
 
             Gtk.Label highlights_label = new Gtk.Label.with_mnemonic(_("Highlights:"));
             highlights_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(highlights_label, 0, 5, 1, 1);
-            slider_organizer.attach(highlights_slider, 1, 5, 1, 1);
+            slider_organizer.attach(highlights_label, 0, 6, 1, 1);
+            slider_organizer.attach(highlights_slider, 1, 6, 1, 1);
             highlights_slider.set_size_request(SLIDER_WIDTH, -1);
             highlights_slider.set_draw_value(false);
 
@@ -2482,6 +2493,7 @@ public class AdjustTool : EditingTool {
     private bool disable_histogram_refresh = false;
     private OneShotScheduler? temperature_scheduler = null;
     private OneShotScheduler? tint_scheduler = null;
+    private OneShotScheduler? contrast_scheduler = null;
     private OneShotScheduler? saturation_scheduler = null;
     private OneShotScheduler? exposure_scheduler = null;
     private OneShotScheduler? shadows_scheduler = null;
@@ -2551,6 +2563,12 @@ public class AdjustTool : EditingTool {
             transformations.get_transformation(PixelTransformationType.EXPOSURE);
         histogram_transformer.attach_transformation(exposure_trans);
         adjust_tool_window.exposure_slider.set_value(exposure_trans.get_parameter());
+
+        /* set up contrast */
+        ContrastTransformation contrast_trans = (ContrastTransformation)
+            transformations.get_transformation(PixelTransformationType.CONTRAST);
+        histogram_transformer.attach_transformation(contrast_trans);
+        adjust_tool_window.contrast_slider.set_value(contrast_trans.get_parameter());
 
         bind_canvas_handlers(canvas);
         bind_window_handlers();
@@ -2690,7 +2708,6 @@ public class AdjustTool : EditingTool {
     private void on_tint_adjustment() {
         if (tint_scheduler == null)
             tint_scheduler = new OneShotScheduler("tint", on_delayed_tint_adjustment);
-
         tint_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
     }
 
@@ -2699,6 +2716,19 @@ public class AdjustTool : EditingTool {
             (float) adjust_tool_window.tint_slider.get_value());
         slider_updated(new_tint_trans, _("Tint"));
     }
+
+    private void on_contrast_adjustment() {
+        if (this.contrast_scheduler == null)
+            this.contrast_scheduler = new OneShotScheduler("contrast", on_delayed_contrast_adjustment);
+        this.contrast_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
+    }
+
+    private void on_delayed_contrast_adjustment() {
+        ContrastTransformation new_exp_trans = new ContrastTransformation(
+            (float) adjust_tool_window.contrast_slider.get_value());
+        slider_updated(new_exp_trans, _("Contrast"));
+    }
+
 
     private void on_saturation_adjustment() {
         if (saturation_scheduler == null)
@@ -2794,6 +2824,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.reset_button.clicked.connect(on_reset);
         adjust_tool_window.cancel_button.clicked.connect(notify_cancel);
         adjust_tool_window.exposure_slider.value_changed.connect(on_exposure_adjustment);
+        adjust_tool_window.contrast_slider.value_changed.connect(on_contrast_adjustment);
         adjust_tool_window.saturation_slider.value_changed.connect(on_saturation_adjustment);
         adjust_tool_window.tint_slider.value_changed.connect(on_tint_adjustment);
         adjust_tool_window.temperature_slider.value_changed.connect(on_temperature_adjustment);
@@ -2803,6 +2834,7 @@ public class AdjustTool : EditingTool {
 
         adjust_tool_window.saturation_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.exposure_slider.button_press_event.connect(on_hscale_reset);
+        adjust_tool_window.contrast_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.tint_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.temperature_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.shadows_slider.button_press_event.connect(on_hscale_reset);
@@ -2814,6 +2846,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.reset_button.clicked.disconnect(on_reset);
         adjust_tool_window.cancel_button.clicked.disconnect(notify_cancel);
         adjust_tool_window.exposure_slider.value_changed.disconnect(on_exposure_adjustment);
+        adjust_tool_window.contrast_slider.value_changed.disconnect(on_contrast_adjustment);
         adjust_tool_window.saturation_slider.value_changed.disconnect(on_saturation_adjustment);
         adjust_tool_window.tint_slider.value_changed.disconnect(on_tint_adjustment);
         adjust_tool_window.temperature_slider.value_changed.disconnect(on_temperature_adjustment);
@@ -2823,6 +2856,7 @@ public class AdjustTool : EditingTool {
 
         adjust_tool_window.saturation_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.exposure_slider.button_press_event.disconnect(on_hscale_reset);
+        adjust_tool_window.contrast_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.tint_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.temperature_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.shadows_slider.button_press_event.disconnect(on_hscale_reset);
@@ -2877,6 +2911,11 @@ public class AdjustTool : EditingTool {
             break;
 
             case PixelTransformationType.HIGHLIGHTS:
+                adjust_tool_window.contrast_slider.set_value(
+                    ((ContrastTransformation) transformation).get_parameter());
+            break;
+
+            case PixelTransformationType.CONTRAST:
                 adjust_tool_window.highlights_slider.set_value(
                     ((HighlightDetailTransformation) transformation).get_parameter());
             break;

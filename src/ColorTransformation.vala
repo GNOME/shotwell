@@ -227,7 +227,8 @@ public enum PixelTransformationType {
     TEMPERATURE,
     TINT,
     SATURATION,
-    EXPOSURE
+    EXPOSURE,
+    CONTRAST
 }
 
 public class PixelTransformationBundle {
@@ -263,6 +264,7 @@ public class PixelTransformationBundle {
         set(new TintTransformation(0.0f));
         set(new SaturationTransformation(0.0f));
         set(new ExposureTransformation(0.0f));
+        set(new ContrastTransformation(0.0f));
     }
     
     public void load(KeyValueMap store) {
@@ -278,6 +280,7 @@ public class PixelTransformationBundle {
         set(new TintTransformation(store.get_float("tint", 0.0f)));
         set(new SaturationTransformation(store.get_float("saturation", 0.0f)));
         set(new ExposureTransformation(store.get_float("exposure", 0.0f)));
+        set(new ContrastTransformation(store.get_float("contrast", 0.0f)));
     }
     
     public KeyValueMap save(string group) {
@@ -318,6 +321,11 @@ public class PixelTransformationBundle {
         assert(new_exposure_trans != null);
         store.set_float("exposure", new_exposure_trans.get_parameter());
         
+        ContrastTransformation? new_contrast_trans =
+            (ContrastTransformation) get_transformation(PixelTransformationType.CONTRAST);
+        assert(new_contrast_trans != null);
+        store.set_float("contrast", new_contrast_trans.get_parameter());
+
         return store;
     }
     
@@ -718,6 +726,42 @@ public class ExposureTransformation : RGBTransformation {
             matrix_entries[0] = adjusted_param;
             matrix_entries[5] = adjusted_param;
             matrix_entries[10] = adjusted_param;
+
+            identity = false;
+        }
+    }
+
+    public float get_parameter() {
+        return parameter;
+    }
+}
+
+public class ContrastTransformation : RGBTransformation {
+    public const float MIN_PARAMETER = -16.0f;
+    public const float MAX_PARAMETER = 16.0f;
+
+    const float MAX_CONTRAST_ADJUSTMENT = 0.5f;  // must be less than 1.0
+
+    float parameter;
+
+    public ContrastTransformation(float client_parameter) {
+        base(PixelTransformationType.CONTRAST);
+
+        parameter = client_parameter.clamp(MIN_PARAMETER, MAX_PARAMETER);
+
+        if (parameter != 0.0f) {
+
+            float contrast_adjustment = (parameter / 16.0f) * MAX_CONTRAST_ADJUSTMENT;
+            float component_coefficient = 1.0f + contrast_adjustment;
+            float component_offset = contrast_adjustment / -2.0f;
+
+            matrix_entries[0] = component_coefficient;
+            matrix_entries[5] = component_coefficient;
+            matrix_entries[10] = component_coefficient;
+
+            matrix_entries[3] = component_offset;
+            matrix_entries[7] = component_offset;
+            matrix_entries[11] = component_offset;
 
             identity = false;
         }
@@ -1511,6 +1555,7 @@ public PixelTransformationBundle create_auto_enhance_adjustments(Gdk.Pixbuf pixb
     adjustments.set(new TemperatureTransformation(0.0f));
     adjustments.set(new TintTransformation(0.0f));
     adjustments.set(new ExposureTransformation(0.0f));
+    adjustments.set(new ContrastTransformation(0.0f));
     adjustments.set(new SaturationTransformation(0.0f));
     
     return adjustments;
