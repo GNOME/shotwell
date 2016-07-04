@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-07-04 01:44+0000\n"
-"PO-Revision-Date: 2016-07-04 09:17+0200\n"
+"POT-Creation-Date: 2016-07-04 07:20+0000\n"
+"PO-Revision-Date: 2016-07-04 14:35+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -20,7 +20,6 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.6\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
-#| msgid "translator-credits"
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
@@ -148,8 +147,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/edit-crop.page:42
-#| msgid ""
-#| "@@image: 'figures/crop_thirds.jpg'; md5=4cf0a026bb812c7eab0c9db8210a9524"
 msgctxt "_"
 msgid ""
 "external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
@@ -886,14 +883,12 @@ msgstr ""
 
 #. (itstool) path: info/title
 #: C/index.page:6
-#| msgid "Shotwell"
 msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
 #. (itstool) path: info/title
 #: C/index.page:7
-#| msgid "Shotwell"
 msgctxt "text"
 msgid "Shotwell"
 msgstr "Shotwell"
@@ -1233,8 +1228,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/organize-remove.page:15
-#| msgid ""
-#| "@@image: 'figures/trash_process.png'; md5=ed596bda34c2f4a79a310fbc8bb51fd2"
 msgctxt "_"
 msgid ""
 "external ref='figures/trash_process.png' "
@@ -1519,7 +1512,6 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/organize-tag.page:28
-#| msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
 msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>."
 msgstr ""
 "Elija <guiseq><gui>Etiquetas</gui><gui>Añadir etiquetas...</gui></guiseq>."
@@ -1720,13 +1712,11 @@ msgstr "<em>Símbolo</em>"
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
-#| msgid "Meaning"
 msgid "<em>Meaning</em>"
 msgstr "<em>Significado</em>"
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
-#| msgid "Example"
 msgid "<em>Example</em>"
 msgstr "<em>Ejemplo</em>"
 
@@ -2473,10 +2463,6 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/share-print.page:7
-#| msgid ""
-#| "Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing "
-#| "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> "
-#| "dialog."
 msgid ""
 "Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
 "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
@@ -2643,13 +2629,11 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"http://facebook.com\">Facebook</link>"
 msgstr "<link href=\"http://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"http://flickr.com\">Flickr</link>"
 msgstr "<link href=\"http://flickr.com\">Flickr</link>"
 
@@ -2815,7 +2799,7 @@ msgid ""
 "leave fullscreen view."
 msgstr ""
 "Shotwell ofrece un modo de pantalla completa para mostrar las fotos. Escoja "
-"<guiseg><gui>Ver</gui><gui>Pantalla completa</gui></guiseq> o presione "
+"<guiseq><gui>Ver</gui><gui>Pantalla completa</gui></guiseq> o presione "
 "<key>F11</key>. Para ver la barra de herramientas de pantalla completa, "
 "mueva su ratón a la parte inferior de la pantalla. La barra de herramientas "
 "le ofrece botones para moverse a través de la colección, para fijar la barra "
