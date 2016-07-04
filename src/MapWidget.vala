@@ -4,19 +4,10 @@
  * See the COPYING file in this distribution.
  */
 
-private interface PositionMarker : Object {
-    public abstract Champlain.Marker champlain_marker { get; protected set; }
-    public abstract bool highlighted { get; set; }
-    public abstract bool selected { get; set; }
-}
-
-private abstract class AbstractPositionMarker : Object, PositionMarker {
-    private bool _selected = false;
-    protected MapWidget map_widget;
+private abstract class PositionMarker : Object {
+    protected bool _selected = false;
 
     public Champlain.Marker champlain_marker { get; protected set; }
-
-    protected abstract Gee.Collection<DataViewPositionMarker> data_view_position_markers { owned get; }
 
     public bool highlighted {
         get { return champlain_marker.get_selected(); }
@@ -34,73 +25,81 @@ private abstract class AbstractPositionMarker : Object, PositionMarker {
             champlain_marker.set_selected(value);
         }
     }
-
-    protected void bind_mouse_events() {
-        champlain_marker.button_release_event.connect ((event) => {
-            if (event.button > 1 || _selected)
-                return true;
-            champlain_marker.selected = true;
-            map_widget.select_data_views(data_view_position_markers);
-            return true;
-        });
-        champlain_marker.enter_event.connect ((event) => {
-            if (!_selected)
-                champlain_marker.selected = true;
-            map_widget.highlight_data_views(data_view_position_markers);
-            return true;
-        });
-        champlain_marker.leave_event.connect ((event) => {
-            if (!_selected)
-                champlain_marker.selected = false;
-            map_widget.unhighlight_data_views(data_view_position_markers);
-            return true;
-        });
-    }
 }
 
-private class DataViewPositionMarker : AbstractPositionMarker {
-    private Gee.ArrayList<DataViewPositionMarker> _data_view_position_markers;
-
-    protected override Gee.Collection<DataViewPositionMarker> data_view_position_markers {
-        owned get { return _data_view_position_markers.read_only_view; }
-    }
+private class DataViewPositionMarker : PositionMarker {
+    private Gee.LinkedList<weak DataViewPositionMarker> _data_view_position_markers = new Gee.LinkedList<weak DataViewPositionMarker>();
 
     // Geo lookup
     // public string location_country { get; set; }
     // public string location_city { get; set; }
     public weak DataView view { get; protected set; }
 
-    public DataViewPositionMarker(MapWidget map_widget, DataView view, Champlain.Marker champlain_marker) {
-        this.map_widget = map_widget;
+    public DataViewPositionMarker(DataView view, Champlain.Marker champlain_marker) {
         this.view = view;
         champlain_marker.selectable = true;
-        var list = new Gee.ArrayList<DataViewPositionMarker>();
-        list.add(this);
-        this._data_view_position_markers = list;
+        this._data_view_position_markers.add(this);
         this.champlain_marker = champlain_marker;
-        bind_mouse_events();
+    }
+
+    public void bind_mouse_events(MapWidget map_widget) {
+        champlain_marker.button_release_event.connect ((event) => {
+            if (event.button > 1 || _selected)
+                return true;
+            champlain_marker.selected = true;
+            map_widget.select_data_views(_data_view_position_markers);
+            return true;
+        });
+        champlain_marker.enter_event.connect ((event) => {
+            if (!_selected)
+                champlain_marker.selected = true;
+            map_widget.highlight_data_views(_data_view_position_markers);
+            return true;
+        });
+        champlain_marker.leave_event.connect ((event) => {
+            if (!_selected)
+                champlain_marker.selected = false;
+            map_widget.unhighlight_data_views(_data_view_position_markers);
+            return true;
+        });
     }
 }
 
-private class MarkerGroup : AbstractPositionMarker {
+private class MarkerGroup : PositionMarker {
     private Gee.Collection<DataViewPositionMarker> _data_view_position_markers =
         new Gee.LinkedList<DataViewPositionMarker>();
     private Gee.Collection<PositionMarker> _position_markers = new Gee.LinkedList<PositionMarker>();
     private Champlain.BoundingBox bbox = new Champlain.BoundingBox();
 
-    protected override Gee.Collection<DataViewPositionMarker> data_view_position_markers {
-        owned get { return _data_view_position_markers.read_only_view; }
+    public void bind_mouse_events(MapWidget map_widget) {
+        champlain_marker.button_release_event.connect ((event) => {
+            if (event.button > 1 || _selected)
+                return true;
+            champlain_marker.selected = true;
+            map_widget.select_data_views(_data_view_position_markers.read_only_view);
+            return true;
+        });
+        champlain_marker.enter_event.connect ((event) => {
+            if (!_selected)
+                champlain_marker.selected = true;
+            map_widget.highlight_data_views(_data_view_position_markers.read_only_view);
+            return true;
+        });
+        champlain_marker.leave_event.connect ((event) => {
+            if (!_selected)
+                champlain_marker.selected = false;
+            map_widget.unhighlight_data_views(_data_view_position_markers.read_only_view);
+            return true;
+        });
     }
 
     public Gee.Collection<PositionMarker> position_markers {
         owned get { return _position_markers.read_only_view; }
     }
 
-    public MarkerGroup(MapWidget map_widget, Champlain.Marker champlain_marker) {
-        this.map_widget = map_widget;
+    public MarkerGroup(Champlain.Marker champlain_marker) {
         champlain_marker.selectable = true;
         this.champlain_marker = champlain_marker;
-        bind_mouse_events();
     }
 
     public void add_position_marker(PositionMarker marker) {
@@ -120,9 +119,9 @@ private class MarkerGroupRaster : Object {
     private const long MARKER_GROUP_RASTER_WIDTH_PX = 30l;
     private const long MARKER_GROUP_RASTER_HEIGHT_PX = 30l;
 
-    private MapWidget map_widget;
-    private Champlain.View map_view;
-    private Champlain.MarkerLayer marker_layer;
+    private weak MapWidget map_widget;
+    private weak Champlain.View map_view;
+    private weak Champlain.MarkerLayer marker_layer;
 
     public bool is_empty {
         get {
@@ -140,10 +139,10 @@ private class MarkerGroupRaster : Object {
     // grouped together, or (2) the value is a PositionMarker (but not a
     // MarkerGroup) which means that there is exactly one marker in the raster
     // cell. The tree is recreated every time the zoom level changes.
-    private Gee.TreeMap<long, Gee.TreeMap<long, weak PositionMarker?>?> position_markers_tree =
-        new Gee.TreeMap<long, Gee.TreeMap<long, weak PositionMarker?>?>();
-    // The marker groups collection keeps track of and owns all PositionMarkers including the marker groups
-    private Gee.Map<DataView, weak PositionMarker> data_view_map = new Gee.HashMap<DataView, weak PositionMarker>();
+    private Gee.TreeMap<long, Gee.TreeMap<long, unowned PositionMarker?>?> position_markers_tree =
+        new Gee.TreeMap<long, Gee.TreeMap<long, unowned PositionMarker?>?>();
+    // The marker group's collection keeps track of and owns all PositionMarkers including the marker groups
+    private Gee.Map<DataView, unowned PositionMarker> data_view_map = new Gee.HashMap<DataView, unowned PositionMarker>();
     private Gee.Set<PositionMarker> position_markers = new Gee.HashSet<PositionMarker>();
 
     public MarkerGroupRaster(MapWidget map_widget, Champlain.View map_view, Champlain.MarkerLayer marker_layer) {
@@ -154,15 +153,17 @@ private class MarkerGroupRaster : Object {
     }
 
     public void clear() {
-        data_view_map.clear();
-        position_markers_tree.clear();
-        position_markers.clear();
+        lock (position_markers) {
+            data_view_map.clear();
+            position_markers_tree.clear();
+            position_markers.clear();
+        }
     }
 
-    public weak PositionMarker? find_position_marker(DataView data_view) {
+    public unowned PositionMarker? find_position_marker(DataView data_view) {
         if (!data_view_map.has_key(data_view))
             return null;
-        weak PositionMarker? m;
+        unowned PositionMarker? m;
         lock (position_markers) {
             m = data_view_map.get(data_view);
         }
@@ -178,7 +179,7 @@ private class MarkerGroupRaster : Object {
             rasterize_coords(champlain_marker.longitude, champlain_marker.latitude, out x, out y);
             var yg = position_markers_tree.get(x);
             if (yg == null) {
-                yg = new Gee.TreeMap<long, weak PositionMarker?>();
+                yg = new Gee.TreeMap<long, unowned PositionMarker?>();
                 position_markers_tree.set(x, yg);
             }
             var cell = yg.get(y);
@@ -260,8 +261,8 @@ private class MapWidget : Gtk.Bin {
     private Champlain.MarkerLayer marker_layer = new Champlain.MarkerLayer();
     public bool map_edit_lock { get; set; }
     private MarkerGroupRaster marker_group_raster = null;
-    private Gee.Map<DataView, DataViewPositionMarker> data_view_marker_cache =
-        new Gee.HashMap<DataView, DataViewPositionMarker>();
+    private Gee.Map<DataView, unowned DataViewPositionMarker> data_view_marker_cache =
+        new Gee.HashMap<DataView, unowned DataViewPositionMarker>();
     private weak Page? page = null;
     private Clutter.Image? map_edit_locked_image;
     private Clutter.Image? map_edit_unlocked_image;
@@ -325,6 +326,7 @@ private class MapWidget : Gtk.Bin {
     }
 
     public void clear() {
+        data_view_marker_cache.clear();
         marker_layer.remove_all();
         marker_group_raster.clear();
     }
@@ -379,7 +381,7 @@ private class MapWidget : Gtk.Bin {
         }
     }
 
-    public void select_data_views(Gee.Collection<DataViewPositionMarker> ms) {
+    public void select_data_views(Gee.Collection<unowned DataViewPositionMarker> ms) {
         if (page == null)
             return;
 
@@ -396,7 +398,7 @@ private class MapWidget : Gtk.Bin {
         }
     }
 
-    public void highlight_data_views(Gee.Collection<DataViewPositionMarker> ms) {
+    public void highlight_data_views(Gee.Collection<unowned DataViewPositionMarker> ms) {
         if (page == null)
             return;
 
@@ -431,7 +433,7 @@ private class MapWidget : Gtk.Bin {
         }
     }
 
-    public void unhighlight_data_views(Gee.Collection<DataViewPositionMarker> ms) {
+    public void unhighlight_data_views(Gee.Collection<unowned DataViewPositionMarker> ms) {
         if (page == null)
             return;
 
@@ -444,14 +446,14 @@ private class MapWidget : Gtk.Bin {
     }
 
     public void highlight_position_marker(DataView v) {
-        weak PositionMarker? position_marker = marker_group_raster.find_position_marker(v);
+        var position_marker = marker_group_raster.find_position_marker(v);
         if (position_marker != null) {
             position_marker.highlighted = true;
         }
     }
 
     public void unhighlight_position_marker(DataView v) {
-        weak PositionMarker? position_marker = marker_group_raster.find_position_marker(v);
+        var position_marker = marker_group_raster.find_position_marker(v);
         if (position_marker != null) {
             position_marker.highlighted = false;
         }
@@ -577,7 +579,6 @@ private class MapWidget : Gtk.Bin {
             champlain_marker.set_size(marker_image_width, marker_image_height);
             champlain_marker.set_translation(-marker_image_width * MARKER_IMAGE_HORIZONTAL_PIN_RATIO,
                                              -marker_image_height * MARKER_IMAGE_VERTICAL_PIN_RATIO, 0);
-            //champlain_marker.set_pivot_point(MARKER_IMAGE_HORIZONTAL_PIN_RATIO, MARKER_IMAGE_VERTICAL_PIN_RATIO);
             champlain_marker.notify.connect((o, p) => {
                 Champlain.Marker? m = o as Champlain.Marker;
                 if (p.name == "selected")
@@ -598,15 +599,18 @@ private class MapWidget : Gtk.Bin {
         GpsCoords gps_coords = p.get_gps_coords();
         Champlain.Marker champlain_marker = create_champlain_marker(gps_coords, marker_image,
             marker_selected_image, marker_image_width, marker_image_height);
-        position_marker = new DataViewPositionMarker(this, view, champlain_marker);
+        position_marker = new DataViewPositionMarker(view, champlain_marker);
+        position_marker.bind_mouse_events(this);
         data_view_marker_cache.set(view, position_marker);
-        return position_marker;
+        return (owned) position_marker;
     }
 
     internal MarkerGroup create_marker_group(GpsCoords gps_coords) {
         Champlain.Marker champlain_marker = create_champlain_marker(gps_coords, marker_group_image,
             marker_group_selected_image, marker_group_image_width, marker_group_image_height);
-        return new MarkerGroup(this, champlain_marker);
+        var g = new MarkerGroup(champlain_marker);
+        g.bind_mouse_events(this);
+        return (owned) g;
     }
 
     private bool map_zoom_handler(Gdk.EventButton event) {
