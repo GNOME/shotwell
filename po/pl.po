@@ -6,14 +6,14 @@
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # verayin <vera@yorba.org>, 2011.
 # lsbeeler <lucas@yorba.org>, 2011.
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2014-2015.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2016.
+# Aviary.pl <gnomepl@aviary.pl>, 2014-2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 19:39+0200\n"
-"PO-Revision-Date: 2015-09-02 19:40+0200\n"
+"POT-Creation-Date: 2016-07-04 03:40+0200\n"
+"PO-Revision-Date: 2016-07-04 03:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -53,8 +53,8 @@ msgid "translator-credits"
 msgstr ""
 "verayin <vera@yorba.org>, 2011\n"
 "lsbeeler <lucas@yorba.org>, 2011\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2011-2015\n"
-"Aviary.pl <gnomepl@aviary.pl>, 2014-2015"
+"Piotr Drąg <piotrdrag@gmail.com>, 2011-2016\n"
+"Aviary.pl <gnomepl@aviary.pl>, 2014-2016"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:34
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:32
@@ -2927,7 +2927,7 @@ msgstr "Czas trwania:"
 #: ../src/Properties.vala:404
 #, c-format
 msgid "%.1f seconds"
-msgstr "%.1f sekund"
+msgstr "%.1f s"
 
 #: ../src/Properties.vala:408
 msgid "Developer:"
@@ -4600,8 +4600,8 @@ msgid ""
 "at %s"
 msgstr ""
 "Program Shotwell nie mógł zaktualizować kolekcji zdjęć z wersji %s (schemat "
-"%d) do %s (schemat %d). Aby dowiedzieć się więcej, proszę sprawdzić wiki "
-"programu Shotwell na %s"
+"%d) do %s (schemat %d). Wiki programu Shotwell na %s zawiera więcej "
+"informacji."
 
 #: ../src/main.vala:65
 #, c-format
@@ -5182,4 +5182,4 @@ msgstr "Wyświetlanie tyt_ułu"
 
 #: ../ui/shotwell.glade.h:41
 msgid "seconds"
-msgstr "sekundy"
+msgstr "s"
