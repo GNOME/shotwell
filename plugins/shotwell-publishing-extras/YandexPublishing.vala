@@ -238,7 +238,7 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
 
         box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         
-        File ui_file = host.get_module_file().get_parent().get_child("yandex_publish_model.glade");
+        File ui_file = host.get_module_file().get_parent().get_child("yandex_publish_model.ui");
         
         try {
             builder = new Gtk.Builder();

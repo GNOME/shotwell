@@ -24,7 +24,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="valign">center</property>
-            <property name="label" translatable="yes">you are logged in rajce as $name</property>
+            <property name="label">you are logged in rajce as $name</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -199,7 +199,7 @@
                 <property name="margin_top">4</property>
                 <property name="margin_bottom">8</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">$mediatype will appear in</property>
+                <property name="label">$mediatype will appear in</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>

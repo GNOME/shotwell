@@ -597,7 +597,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
         File ui_file = publisher.get_host().get_module_file().get_parent().
-            get_child("tumblr_authentication_pane.glade");
+            get_child("tumblr_authentication_pane.ui");
         
         try {
             builder = new Gtk.Builder();
@@ -715,7 +715,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 		this.sizes = sizes;
 		this.blogs=blogs;
         File ui_file = publisher.get_host().get_module_file().get_parent().
-            get_child("tumblr_publishing_options_pane.glade");
+            get_child("tumblr_publishing_options_pane.ui");
         
         try {
 			builder = new Gtk.Builder();

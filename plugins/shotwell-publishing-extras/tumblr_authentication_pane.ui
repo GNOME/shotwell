@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkWindow" id="authentication_pane">
     <property name="can_focus">False</property>
     <child>
@@ -24,7 +24,7 @@
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">label</property>
+                <property name="label">label</property>
                 <property name="wrap">True</property>
               </object>
               <packing>
@@ -37,33 +37,19 @@
               <object class="GtkTable" id="field_table">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="n_rows">3</property>
+                <property name="n_rows">2</property>
                 <property name="n_columns">2</property>
                 <property name="column_spacing">8</property>
                 <property name="row_spacing">2</property>
-                <child>
-                  <object class="GtkLabel" id="label1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">_URL of your Piwigo photo library</property>
-                    <property name="use_underline">True</property>
-                    <property name="mnemonic_widget">url_entry</property>
-                  </object>
-                </child>
                 <child>
                   <object class="GtkLabel" id="label2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">User _name</property>
+                    <property name="label" translatable="yes">_Email address</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">username_entry</property>
                   </object>
-                  <packing>
-                    <property name="top_attach">1</property>
-                    <property name="bottom_attach">2</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label3">
@@ -75,19 +61,8 @@
                     <property name="mnemonic_widget">password_entry</property>
                   </object>
                   <packing>
-                    <property name="top_attach">2</property>
-                    <property name="bottom_attach">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="url_entry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="invisible_char">●</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
+                    <property name="top_attach">1</property>
+                    <property name="bottom_attach">2</property>
                   </packing>
                 </child>
                 <child>
@@ -99,8 +74,6 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
-                    <property name="top_attach">1</property>
-                    <property name="bottom_attach">2</property>
                   </packing>
                 </child>
                 <child>
@@ -114,8 +87,8 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
-                    <property name="top_attach">2</property>
-                    <property name="bottom_attach">3</property>
+                    <property name="top_attach">1</property>
+                    <property name="bottom_attach">2</property>
                   </packing>
                 </child>
               </object>
@@ -126,29 +99,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="remember_password_checkbutton">
-                <property name="label" translatable="yes">_Remember Password</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkHButtonBox" id="hbuttonbox1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkButton" id="login_button">
                     <property name="label" translatable="yes">Login</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>

@@ -353,7 +353,7 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
             // with File objects directly and expects a pathname instead.
             builder.add_from_file(
                 get_host().get_module_file().get_parent().
-                get_child("picasa_publishing_options_pane.glade").get_path());
+                get_child("picasa_publishing_options_pane.ui").get_path());
         } catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);
             get_host().post_error(

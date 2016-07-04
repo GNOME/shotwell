@@ -1113,7 +1113,7 @@ public abstract class SetBackgroundDialog {
 public class SetBackgroundPhotoDialog : SetBackgroundDialog {
     
     public SetBackgroundPhotoDialog() {
-        Gtk.Builder builder = AppWindow.create_builder("set_background_dialog.glade", this);
+        Gtk.Builder builder = AppWindow.create_builder("set_background_dialog.ui", this);
         base(builder);
     }
     
@@ -1133,7 +1133,7 @@ public class SetBackgroundSlideshowDialog : SetBackgroundDialog {
     private int delay_value = 0;
     
     public SetBackgroundSlideshowDialog() {
-        Gtk.Builder builder = AppWindow.create_builder("set_background_slideshow_dialog.glade", this);
+        Gtk.Builder builder = AppWindow.create_builder("set_background_slideshow_dialog.ui", this);
         base(builder);
         
         delay_value_label = builder.get_object("delay_value_label") as Gtk.Label;

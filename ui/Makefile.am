@@ -15,9 +15,9 @@ dist_ui_DATA = \
 	savedsearch.ui \
 	search_bar.ui \
 	search_sidebar_context.ui \
-	set_background_dialog.glade \
-	set_background_slideshow_dialog.glade \
-	shotwell.glade \
+	set_background_dialog.ui \
+	set_background_slideshow_dialog.ui \
+	shotwell.ui \
 	shotwell.xml \
 	sidebar_default_context.ui \
 	tag_sidebar_context.ui \

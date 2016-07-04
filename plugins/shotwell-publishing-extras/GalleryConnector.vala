@@ -1013,7 +1013,7 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             builder.add_from_file(
                 host.get_module_file().get_parent().get_child(
-                    "gallery3_publishing_options_pane.glade").get_path());
+                    "gallery3_publishing_options_pane.ui").get_path());
         }
         catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);
@@ -1766,7 +1766,7 @@ internal class CredentialsPane : Spit.Publishing.DialogPane, GLib.Object {
         try {
             builder.add_from_file(
                 host.get_module_file().get_parent().get_child(
-                    "gallery3_authentication_pane.glade").get_path());
+                    "gallery3_authentication_pane.ui").get_path());
         }
         catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);

@@ -844,7 +844,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object
     public AuthenticationPane( RajcePublisher publisher, Mode mode = Mode.INTRO )
 	{
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        File ui_file = publisher.get_host().get_module_file().get_parent().get_child("rajce_authentication_pane.glade");
+        File ui_file = publisher.get_host().get_module_file().get_parent().get_child("rajce_authentication_pane.ui");
         try
 		{
             builder = new Gtk.Builder();
@@ -986,7 +986,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object
         this.publisher = publisher;
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 		
-        File ui_file = publisher.get_host().get_module_file().get_parent().get_child("rajce_publishing_options_pane.glade");
+        File ui_file = publisher.get_host().get_module_file().get_parent().get_child("rajce_publishing_options_pane.ui");
         try
 		{
 		    this.builder = new Gtk.Builder();

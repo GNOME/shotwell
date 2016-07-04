@@ -3,13 +3,13 @@ dist_plugin_DATA += \
 	plugins/shotwell-publishing-extras/gallery3.png \
 	plugins/shotwell-publishing-extras/rajce.png \
 	plugins/shotwell-publishing-extras/tumblr.png \
-	plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade \
-	plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade \
-	plugins/shotwell-publishing-extras/rajce_authentication_pane.glade \
-	plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade \
-	plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade \
-	plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade \
-	plugins/shotwell-publishing-extras/yandex_publish_model.glade
+	plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui \
+	plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui \
+	plugins/shotwell-publishing-extras/rajce_authentication_pane.ui \
+	plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui \
+	plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui \
+	plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui \
+	plugins/shotwell-publishing-extras/yandex_publish_model.ui
 
 plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_SOURCES = \
 	plugins/shotwell-publishing-extras/GalleryConnector.vala \
