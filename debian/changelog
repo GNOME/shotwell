@@ -1,3 +1,28 @@
+shotwell (0.23.2-1~jensge2~xenial1) xenial; urgency=medium
+
+  * Use yelp-build to generate HTML docs
+  * Remove gphoto-2.4 support
+  * Fix background color drawing (#766864)
+  * Port GtkNotebook to GtkStack (#744289)
+  * Fix missing scroll bars in events (#766864)
+  * Fix URLs in manpage
+  * Clean up external functions
+  * Port librest's internal hmac_sha1 implementation to Vala
+  * Fix multiplication of symbols in plugins
+  * Request "popup" login in Facebook
+  * Update help regarding publishing permissions in Facebook (#766919)
+  * Add source SVG for new app icons
+  * Update logo for help
+  * Remove executable flag on images
+  * Piwigo: Let libsoup parse the cookie
+  * Remove string utility functions in publishing plugins
+  * Remove a libgee work-around, bump to 0.10 minimum version
+  * Make filter toolbar buttons contain text and image
+  * Move commonly used functions into shared library to prevent multiple
+    definition of symbols
+
+ -- Jens Georg <mail@jensge.org>  Mon, 04 Jul 2016 22:06:16 +0200
+
 shotwell (0.23.1-1~jensge2~xenial1) xenial; urgency=medium
 
   * Update Facebook application id. Facebook integration works again (#748991)
