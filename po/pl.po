@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-02 20:48+0200\n"
-"PO-Revision-Date: 2016-07-04 03:43+0200\n"
+"POT-Creation-Date: 2016-07-06 21:29+0200\n"
+"PO-Revision-Date: 2016-07-06 21:30+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -230,101 +230,91 @@ msgstr "Przygotowywanie importu"
 msgid "Core Data Import Services"
 msgstr "Usługi importowania głównych danych"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:5
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:125
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:5
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
 msgid "Go _Back"
 msgstr "_Wstecz"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:8
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:145
-#: ui/shotwell.glade:1627
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:8
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:145
+#: ui/shotwell.ui:1627
 msgid "_Login"
 msgstr "Za_loguj"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:18
-msgid "Intro message replaced at runtime"
-msgstr "Komunikat powitalny zastępowany podczas uruchamiania"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:34
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:34
 msgid "_Gallery3 URL:"
 msgstr "Adres URL witryny _Gallery3:"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:64
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:64
 msgid "_User name:"
 msgstr "_Nazwa użytkownika:"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:79
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:79
 msgid "_Password:"
 msgstr "_Hasło:"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:178
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:178
 msgid "API _Key:"
 msgstr "_Klucz API:"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.glade:208
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:208
 msgid "or"
 msgstr "lub"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:5
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade:38
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:5
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:38
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:116
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:115
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:197
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:137
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:229
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:99
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:116
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:115
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:197
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:137
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:229
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Wyloguj"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:8
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade:247
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:8
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:247
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:134
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:129
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:212
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:153
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:243
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:115
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:134
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:129
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:212
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:153
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:243
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
 msgid "_Publish"
 msgstr "Opu_blikuj"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:11
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:11
 msgid "A _new album"
 msgstr "_Nowy album"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:17
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:17
 msgid "An _existing album"
 msgstr "Istni_ejący album"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:22
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:22
 msgid "_Remove location, tag and camera-identifying data before uploading"
 msgstr ""
 "_Usunięcie położenia, etykiety, aparatu i innych informacji "
 "identyfikacyjnych przed wysłaniem"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:33
-msgid "'Publishing to $url as $username' (populated in application code)"
-msgstr ""
-"„Publikowanie w $url jako użytkownika $username” (uzupełniane w kodzie "
-"programu)"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:135
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:135
 msgid "Scaling constraint:"
 msgstr "Ograniczenie skalowania:"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:153
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:153
 msgid "pixels"
 msgstr "piksele"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:195
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1236
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1237
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Rozmiar pierwotny"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade:196
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:196
 #: src/Dimensions.vala:20
 msgid "Width or height"
 msgstr "Szerokość lub wysokość"
@@ -421,68 +411,53 @@ msgstr "Nierozpoznany użytkownik"
 msgid " Site Not Found"
 msgstr " Nie odnaleziono witryny"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.glade:27
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:27
-#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:27
-#: ui/shotwell.glade:559
-msgid "label"
-msgstr "etykieta"
-
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.glade:49
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:49
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:890
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:49
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:49
 msgid "_Email address"
 msgstr "Adres _e-mail"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.glade:59
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:59
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:891
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:59
-#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:73
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:59
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:73
 msgid "_Password"
 msgstr "_Hasło"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.glade:103
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:103
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
 msgid "_Remember"
 msgstr "_Zapamiętanie"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.glade:125
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:125
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.glade:107
-#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:151
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:107
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:151
 msgid "Login"
 msgstr "Zaloguj"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade:27
-msgid "you are logged in rajce as $name"
-msgstr "zalogowano w serwisie Rajce jako użytkownik $name"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade:111
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:75
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:75
 msgid "An _existing album:"
 msgstr "Istni_ejącym albumie:"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade:135
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:135
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:94
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:52
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:52
 msgid "A _new album named:"
 msgstr "_Nowym albumie o nazwie:"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade:159
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:159
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1004
 msgid "_Hide album"
 msgstr "_Ukrycie albumu"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade:178
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:178
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
 msgid "Open target _album in browser"
 msgstr "Otwieranie _albumu docelowego w przeglądarce"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade:202
-msgid "$mediatype will appear in"
-msgstr "$mediatype pojawi się w"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:38
 msgid "Copyright (C) 2013 rajce.net"
@@ -513,7 +488,7 @@ msgstr "Zalogowano w serwisie Rajce jako użytkownik %s."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1012
 #: plugins/shotwell-publishing/PicasaPublishing.vala:670
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:24
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:24
 msgid "Photos will appear in:"
 msgstr "Zdjęcia pojawią się w:"
 
@@ -521,12 +496,12 @@ msgstr "Zdjęcia pojawią się w:"
 msgid "Shotwell Extra Publishing Services"
 msgstr "Dodatkowe usługi publikowania programu Shotwell"
 
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:43
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:43
 msgid "Blogs:"
 msgstr "Blogi:"
 
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade:60
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:61
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:60
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 msgid "Photo _size:"
 msgstr "_Rozmiar zdjęcia:"
 
@@ -605,57 +580,57 @@ msgstr "Witryna serwisu Yandex.Fotki"
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Obecnie nie zalogowano w serwisie Yandex.Fotki."
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:24
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:24
 msgid "_Albums (or write new):"
 msgstr "_Albumy (lub zapisanie nowego):"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:38
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:38
 msgid "Access _type:"
 msgstr "_Typ dostępu:"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:81
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:81
 msgid "Disable _comments"
 msgstr "Wyłączenie _komentarzy"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:96
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:96
 msgid "_Forbid downloading original photo"
 msgstr "_Zakazanie pobierania oryginalnego zdjęcia"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:159
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 msgid "Public"
 msgstr "Publiczne"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:162
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:162
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1194
 msgid "Friends"
 msgstr "Przyjaciele"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.glade:165
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:165
 #: plugins/shotwell-publishing/YouTubePublishing.vala:497
 msgid "Private"
 msgstr "Prywatne"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:39
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:39
 msgid "Publish to an e_xisting album:"
 msgstr "Opublikowanie do i_stniejącego albumu:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:57
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:57
 msgid "Create a _new album named:"
 msgstr "Utworzenie _nowego albumu o nazwie:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:108
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:108
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1034
 msgid "Upload _size:"
 msgstr "_Rozmiar wysyłania:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:139
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:139
 msgid "Videos and new photo albums _visible to:"
 msgstr "Nagrania wideo i nowe albumy zdjęć _widoczne dla:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.glade:175
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.glade:102
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:178
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:226
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:175
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:226
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
 msgstr ""
@@ -746,7 +721,7 @@ msgstr "Tylko dla mnie"
 msgid "Everyone"
 msgstr "Wszystkich"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:16
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:16
 msgid ""
 "Enter the confirmation number which appears after you log into Flickr in "
 "your Web browser."
@@ -754,12 +729,11 @@ msgstr ""
 "Proszę podać numer potwierdzenia pojawiający się po zalogowaniu do serwisu "
 "Flickr w przeglądarce WWW."
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:37
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:37
 msgid "Authorization _Number:"
 msgstr "_Numer upoważnienia:"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.glade:83
-#: src/Dialogs.vala:131
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:83 src/Dialogs.vala:131
 msgid "Con_tinue"
 msgstr "Ko_ntynuuj"
 
@@ -872,11 +846,11 @@ msgstr "2048×1536 pikseli"
 msgid "4096 x 3072 pixels"
 msgstr "4096×3072 piksele"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:113
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
 msgid "L_ist album in public gallery"
 msgstr "Wyśw_ietlenie listy albumów w publicznej galerii"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.glade:150
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:150
 msgid "Photo _size preset:"
 msgstr "Rozmiar _zdjęcia:"
 
@@ -932,53 +906,53 @@ msgstr "Google+ (2048×1536 pikseli)"
 msgid "Original Size"
 msgstr "Rozmiar pierwotny"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:49
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:49
 msgid "_URL of your Piwigo photo library"
 msgstr "Adres _URL kolekcji zdjęć Piwigo"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:59
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:59
 msgid "User _name"
 msgstr "_Nazwa użytkownika"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.glade:130
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:130
 msgid "_Remember Password"
 msgstr "_Zapamiętanie hasła"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:40
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:40
 msgid "An _existing category:"
 msgstr "_Istniejącej kategorii:"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:121
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:121
 msgid "Photos will be _visible by:"
 msgstr "Zdjęcia będą _widoczne dla:"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:149
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:149
 msgid "Photo size:"
 msgstr "Rozmiar zdjęcia:"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:176
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:176
 msgid "within category:"
 msgstr "w kategorii:"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:210
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:210
 msgid "Album comment:"
 msgstr "Komentarz albumu:"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:242
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:242
 msgid "_If a title is set and comment unset, use title as comment"
 msgstr ""
 "_Jeśli tytuł jest ustawiony, a komentarz nie, to użycie tytułu jako komentarz"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:258
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:258
 msgid "_Do no upload tags"
 msgstr "_Bez wysyłania etykiet"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:278
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:278
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.glade:291
-#: src/Resources.vala:298
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:291
+#: src/Resources.vala:295
 msgid "Publish"
 msgstr "Opublikuj"
 
@@ -1033,7 +1007,7 @@ msgstr "Administratorzy"
 msgid "Core Publishing Services"
 msgstr "Główne usługi publikowania"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.glade:55
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
 msgid "Video privacy _setting:"
 msgstr "U_stawienia prywatności nagrań wideo:"
 
@@ -1802,8 +1776,8 @@ msgstr[1] "Etykieta „%s” zostanie usunięta z %d zdjęć. Kontynuować?"
 msgstr[2] "Etykieta „%s” zostanie usunięta z %d zdjęć. Kontynuować?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1392
-#: src/Resources.vala:158 src/Resources.vala:364 src/Resources.vala:412
-#: src/Resources.vala:677
+#: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:409
+#: src/Resources.vala:674
 msgid "_Delete"
 msgstr "_Usuń"
 
@@ -2383,8 +2357,8 @@ msgid "Name:"
 msgstr "Nazwa:"
 
 #. Dialog title
-#. Button label
-#: src/Dialogs.vala:1332 src/Resources.vala:303
+#: src/Dialogs.vala:1332
+msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Modyfikacja tytułu"
 
@@ -2393,7 +2367,7 @@ msgid "Title:"
 msgstr "Tytuł:"
 
 #. Dialog title
-#: src/Dialogs.vala:1349 src/Resources.vala:310
+#: src/Dialogs.vala:1349 src/Resources.vala:307
 msgid "Edit Event Comment"
 msgstr "Modyfikuj komentarz wydarzenia"
 
@@ -3283,8 +3257,7 @@ msgstr "Eksport"
 msgid "Folders"
 msgstr "Katalogi"
 
-#: src/library/Branch.vala:30 src/library/Branch.vala:130
-#: ui/shotwell.glade:1191
+#: src/library/Branch.vala:30 src/library/Branch.vala:130 ui/shotwell.ui:1191
 msgid "Library"
 msgstr "Kolekcja"
 
@@ -3450,7 +3423,7 @@ msgstr ""
 "Preferencje</span>.\n"
 "Kontynuować importowanie zdjęć?"
 
-#: src/library/LibraryWindow.vala:882 ui/shotwell.glade:784
+#: src/library/LibraryWindow.vala:882 ui/shotwell.ui:784
 msgid "Library Location"
 msgstr "Położenie kolekcji"
 
@@ -4075,7 +4048,7 @@ msgstr "_Pełny ekran"
 msgid "Leave _Fullscreen"
 msgstr "Opuść p_ełny ekran"
 
-#: src/Resources.vala:164 src/Resources.vala:366
+#: src/Resources.vala:164 src/Resources.vala:363
 msgid "_New"
 msgstr "_Nowa"
 
@@ -4091,7 +4064,7 @@ msgstr "_OK"
 msgid "_Play"
 msgstr "Od_twórz"
 
-#: src/Resources.vala:168 src/Resources.vala:320
+#: src/Resources.vala:168 src/Resources.vala:317
 msgid "_Preferences"
 msgstr "_Preferencje"
 
@@ -4391,358 +4364,370 @@ msgstr "Wyświetla tylko odrzucone zdjęcia"
 msgid "All + _Rejected"
 msgstr "Wszystko + _odrzucone"
 
-#: src/Resources.vala:273 src/Resources.vala:274
+#: src/Resources.vala:273
+msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Wyświetla wszystkie zdjęcia, w tym odrzucone"
 
-#: src/Resources.vala:276
+#: src/Resources.vala:275
 msgid "_All Photos"
 msgstr "_Wszystkie zdjęcia"
 
-#. Button label
 #. Button tooltip
-#: src/Resources.vala:278 src/Resources.vala:280
+#: src/Resources.vala:277
 msgid "Show all photos"
 msgstr "Wyświetla wszystkie zdjęcia"
 
-#: src/Resources.vala:282
+#: src/Resources.vala:279
 msgid "_Ratings"
 msgstr "O_ceny"
 
-#: src/Resources.vala:283
+#: src/Resources.vala:280
 msgid "Display each photo's rating"
 msgstr "Wyświetla oceny każdego zdjęcia"
 
-#: src/Resources.vala:285
+#: src/Resources.vala:282
 msgid "_Filter Photos"
 msgstr "_Filtruj zdjęcia"
 
-#: src/Resources.vala:286
+#: src/Resources.vala:283
 msgid "Filter Photos"
 msgstr "Filtruj zdjęcia"
 
-#: src/Resources.vala:287
+#: src/Resources.vala:284
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Ogranicza liczbę wyświetlanych zdjęć w oparciu o filtr"
 
-#: src/Resources.vala:289
+#: src/Resources.vala:286
 msgid "_Duplicate"
 msgstr "Utwórz _duplikat"
 
-#: src/Resources.vala:290
+#: src/Resources.vala:287
 msgid "Duplicate"
 msgstr "Utwórz duplikat"
 
-#: src/Resources.vala:291
+#: src/Resources.vala:288
 msgid "Make a duplicate of the photo"
 msgstr "Tworzy duplikat zdjęcia"
 
-#: src/Resources.vala:293
+#: src/Resources.vala:290
 msgid "_Export..."
 msgstr "Wy_eksportuj…"
 
-#: src/Resources.vala:295
+#: src/Resources.vala:292
 msgid "_Print..."
 msgstr "Wy_drukuj…"
 
-#: src/Resources.vala:297
+#: src/Resources.vala:294
 msgid "Pu_blish..."
 msgstr "Opu_blikuj…"
 
-#: src/Resources.vala:299
+#: src/Resources.vala:296
 msgid "Publish to various websites"
 msgstr "Publikuje na różnych witrynach WWW"
 
-#: src/Resources.vala:301
+#: src/Resources.vala:298
 msgid "Edit _Title..."
 msgstr "Mo_dyfikuj tytuł…"
 
-#: src/Resources.vala:305
+#. Button label
+#: src/Resources.vala:300
+msgctxt "Button Label"
+msgid "Edit Title"
+msgstr "Modyfikuj tytuł"
+
+#: src/Resources.vala:302
 msgid "Edit _Comment..."
 msgstr "Modyfikuj _komentarz…"
 
 #. Button label
-#: src/Resources.vala:307
+#: src/Resources.vala:304
 msgid "Edit Comment"
 msgstr "Modyfikacja komentarza"
 
-#: src/Resources.vala:309
+#: src/Resources.vala:306
 msgid "Edit Event _Comment..."
 msgstr "Modyfikuj _komentarz wydarzenia…"
 
-#: src/Resources.vala:312
+#: src/Resources.vala:309
 msgid "_Adjust Date and Time..."
 msgstr "Dostosuj d_atę i czas…"
 
-#: src/Resources.vala:313
+#: src/Resources.vala:310
 msgid "Adjust Date and Time"
 msgstr "Dostosowuje datę i czas"
 
-#: src/Resources.vala:315
+#: src/Resources.vala:312
 msgid "Add _Tags..."
 msgstr "Dodaj e_tykiety…"
 
-#: src/Resources.vala:316
+#: src/Resources.vala:313
 msgid "_Add Tags..."
 msgstr "_Dodaj etykiety…"
 
 #. Dialog title
-#. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:318 src/Resources.vala:351
+#: src/Resources.vala:315
+msgctxt "Dialog Title"
 msgid "Add Tags"
-msgstr "Dodaj etykiety"
+msgstr "Dodanie etykiet"
 
-#: src/Resources.vala:322
+#: src/Resources.vala:319
 msgid "Open With E_xternal Editor"
 msgstr "_Otwórz za pomocą zewnętrznego edytora"
 
-#: src/Resources.vala:324
+#: src/Resources.vala:321
 msgid "Open With RA_W Editor"
 msgstr "Otwórz za pomocą edytora plików _RAW"
 
-#: src/Resources.vala:326
+#: src/Resources.vala:323
 msgid "Send _To..."
 msgstr "Wyślij _do…"
 
-#: src/Resources.vala:327
+#: src/Resources.vala:324
 msgid "Send T_o..."
 msgstr "Wyślij d_o…"
 
-#: src/Resources.vala:329
+#: src/Resources.vala:326
 msgid "_Find..."
 msgstr "_Znajdź…"
 
-#: src/Resources.vala:330
+#: src/Resources.vala:327
 msgid "Find"
 msgstr "Wyszukiwanie"
 
-#: src/Resources.vala:331
+#: src/Resources.vala:328
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
 "Wyszukuje obraz przez wpisanie tekstu pojawiającego się w jego nazwie lub "
 "etykietach"
 
-#: src/Resources.vala:333
+#: src/Resources.vala:330
 msgid "_Flag"
 msgstr "_Dodaj flagę"
 
-#: src/Resources.vala:335
+#: src/Resources.vala:332
 msgid "Un_flag"
 msgstr "_Usuń flagę"
 
-#: src/Resources.vala:338
+#: src/Resources.vala:335
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Nie można uruchomić edytora: %s"
 
-#: src/Resources.vala:343
+#: src/Resources.vala:340
 #, c-format
 msgid "Add Tag \"%s\""
 msgstr "Dodaj etykietę „%s”"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:346
+#: src/Resources.vala:343
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
 msgstr "Dodaj etykiety „%s” i „%s”"
 
-#: src/Resources.vala:356
+#. Undo/Redo command name (in Edit menu)
+#: src/Resources.vala:348
+msgctxt "UndoRedo menu entry"
+msgid "Add Tags"
+msgstr "Dodaj etykiety"
+
+#: src/Resources.vala:353
 #, c-format
 msgid "_Delete Tag \"%s\""
 msgstr "_Usuń etykietę „%s”"
 
-#: src/Resources.vala:360
+#: src/Resources.vala:357
 #, c-format
 msgid "Delete Tag \"%s\""
 msgstr "Usuń etykietę „%s”"
 
-#: src/Resources.vala:363
+#: src/Resources.vala:360
 msgid "Delete Tag"
 msgstr "Usuń etykietę"
 
-#: src/Resources.vala:369
+#: src/Resources.vala:366
 #, c-format
 msgid "Re_name Tag \"%s\"..."
 msgstr "Zmień _nazwę etykiety „%s”…"
 
-#: src/Resources.vala:373
+#: src/Resources.vala:370
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
 msgstr "Zmień nazwę etykiety „%s” na „%s”"
 
-#: src/Resources.vala:376
+#: src/Resources.vala:373
 msgid "_Rename..."
 msgstr "_Zmień nazwę…"
 
-#: src/Resources.vala:378
+#: src/Resources.vala:375
 msgid "Modif_y Tags..."
 msgstr "M_odyfikuj etykiety…"
 
-#: src/Resources.vala:379
+#: src/Resources.vala:376
 msgid "Modify Tags"
 msgstr "Modyfikuj etykiety"
 
-#: src/Resources.vala:382
+#: src/Resources.vala:379
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgstr "Dodaje etykietę „%s” do zdjęcia"
 
-#: src/Resources.vala:382
+#: src/Resources.vala:379
 #, c-format
 msgid "Tag Photos as \"%s\""
 msgstr "Dodaje etykietę „%s” do zdjęć"
 
-#: src/Resources.vala:386
+#: src/Resources.vala:383
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgstr "Dodaje etykietę „%s” do wybranego zdjęcia"
 
-#: src/Resources.vala:387
+#: src/Resources.vala:384
 #, c-format
 msgid "Tag the selected photos as \"%s\""
 msgstr "Dodaje etykietę „%s” do wybranych zdjęć"
 
-#: src/Resources.vala:391
+#: src/Resources.vala:388
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
 msgstr "Usuń etykietę „%s” ze _zdjęcia"
 
-#: src/Resources.vala:392
+#: src/Resources.vala:389
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
 msgstr "Usuwa etykietę „%s” ze _zdjęć"
 
-#: src/Resources.vala:396
+#: src/Resources.vala:393
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgstr "Usuwa etykietę „%s” ze zdjęcia"
 
-#: src/Resources.vala:397
+#: src/Resources.vala:394
 #, c-format
 msgid "Remove Tag \"%s\" From Photos"
 msgstr "Usuwa etykietę „%s” ze zdjęć"
 
-#: src/Resources.vala:401
+#: src/Resources.vala:398
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgstr ""
 "Nie można zmienić nazwy etykiety na „%s”, ponieważ ta etykieta już istnieje."
 
-#: src/Resources.vala:405
+#: src/Resources.vala:402
 #, c-format
 msgid "Unable to rename search to \"%s\" because the search already exists."
 msgstr ""
 "Nie można zmienić nazwy wyszukiwania na „%s”, ponieważ takie wyszukiwanie "
 "już istnieje."
 
-#: src/Resources.vala:408
+#: src/Resources.vala:405
 msgid "Saved Search"
 msgstr "Zapisane wyszukiwanie"
 
-#: src/Resources.vala:410
+#: src/Resources.vala:407
 msgid "Delete Search"
 msgstr "Usunięcie wyszukiwania"
 
-#: src/Resources.vala:413
+#: src/Resources.vala:410
 msgid "_Edit..."
 msgstr "_Modyfikuj…"
 
-#: src/Resources.vala:414
+#: src/Resources.vala:411
 msgid "Re_name..."
 msgstr "Zmień _nazwę…"
 
-#: src/Resources.vala:417
+#: src/Resources.vala:414
 #, c-format
 msgid "Rename Search \"%s\" to \"%s\""
 msgstr "Zmienia nazwę wyszukiwania z „%s” na „%s”"
 
-#: src/Resources.vala:421
+#: src/Resources.vala:418
 #, c-format
 msgid "Delete Search \"%s\""
 msgstr "Usuwa wyszukiwanie „%s”"
 
-#: src/Resources.vala:579
+#: src/Resources.vala:576
 #, c-format
 msgid "Rate %s"
 msgstr "Ocena %s"
 
-#: src/Resources.vala:580
+#: src/Resources.vala:577
 #, c-format
 msgid "Set rating to %s"
 msgstr "Ustaw ocenę na %s"
 
-#: src/Resources.vala:581
+#: src/Resources.vala:578
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Ustawianie oceny na %s"
 
-#: src/Resources.vala:583
+#: src/Resources.vala:580
 #, c-format
 msgid "Display %s"
 msgstr "Wyświetlanie %s"
 
-#: src/Resources.vala:584
+#: src/Resources.vala:581
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Wyświetla tylko z oceną %s"
 
-#: src/Resources.vala:585
+#: src/Resources.vala:582
 #, c-format
 msgid "%s or Better"
 msgstr "%s lub lepszą"
 
-#: src/Resources.vala:586
+#: src/Resources.vala:583
 #, c-format
 msgid "Display %s or Better"
 msgstr "Wyświetlanie %s lub lepszych"
 
-#: src/Resources.vala:587
+#: src/Resources.vala:584
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Wyświetla tylko zdjęcia z oceną %s lub lepszą"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:675
 msgid "Remove the selected photos from the trash"
 msgstr "Usuwa wybrane zdjęcia z kosza"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:676
 msgid "Remove the selected photos from the library"
 msgstr "Usuwa wybrane zdjęcia z kolekcji"
 
-#: src/Resources.vala:681
+#: src/Resources.vala:678
 msgid "_Restore"
 msgstr "P_rzywróć"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:679
 msgid "Move the selected photos back into the library"
 msgstr "Przenosi wybrane zdjęcia z powrotem do kolekcji"
 
-#: src/Resources.vala:684
+#: src/Resources.vala:681
 msgid "Show in File Mana_ger"
 msgstr "Wyświetl w mene_dżerze plików"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:682
 msgid "Open the selected photo's directory in the file manager"
 msgstr "Otwiera wybrany katalog zdjęć w menedżerze plików"
 
-#: src/Resources.vala:688
+#: src/Resources.vala:685
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Nie można otworzyć w menedżerze plików: %s"
 
-#: src/Resources.vala:691
+#: src/Resources.vala:688
 msgid "R_emove From Library"
 msgstr "_Usuń z kolekcji"
 
-#: src/Resources.vala:693
+#: src/Resources.vala:690
 msgid "_Move to Trash"
 msgstr "Przenieś do _kosza"
 
-#: src/Resources.vala:695
+#: src/Resources.vala:692
 msgid "Select _All"
 msgstr "Z_aznacz wszystkie"
 
-#: src/Resources.vala:696
+#: src/Resources.vala:693
 msgid "Select all items"
 msgstr "Zaznacza wszystkie elementy"
 
@@ -4750,20 +4735,20 @@ msgstr "Zaznacza wszystkie elementy"
 #. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:775
+#: src/Resources.vala:772
 msgid "%-I:%M %p"
 msgstr "%H∶%M"
 
 #. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:780
+#: src/Resources.vala:777
 msgid "%-I:%M:%S %p"
 msgstr "%H∶%M∶%S"
 
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:784
+#: src/Resources.vala:781
 msgid "%a %b %d, %Y"
 msgstr "%a, %e %b %Y"
 
@@ -4773,14 +4758,14 @@ msgstr "%a, %e %b %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:789 src/Resources.vala:799
+#: src/Resources.vala:786 src/Resources.vala:796
 msgid "%a %b %d"
 msgstr "%a, %e %b"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:794
+#: src/Resources.vala:791
 msgid "%d, %Y"
 msgstr "%e, %Y"
 
@@ -5085,188 +5070,190 @@ msgstr "bez nazwy"
 msgid "Export Videos"
 msgstr "Eksport nagrań wideo"
 
-#: ui/set_background_dialog.glade:15
+#: ui/set_background_dialog.ui:15
 msgid "Set as Desktop Background"
 msgstr "Ustaw jako tło pulpitu"
 
-#: ui/set_background_dialog.glade:77
-#: ui/set_background_slideshow_dialog.glade:132
+#: ui/set_background_dialog.ui:77 ui/set_background_slideshow_dialog.ui:132
 msgid "Use for Desktop"
 msgstr "Użycie na pulpicie"
 
-#: ui/set_background_dialog.glade:93
-#: ui/set_background_slideshow_dialog.glade:148
+#: ui/set_background_dialog.ui:93 ui/set_background_slideshow_dialog.ui:148
 msgid "Use for Lock Screen"
 msgstr "Użycie na ekranie blokady"
 
-#: ui/set_background_slideshow_dialog.glade:15
+#: ui/set_background_slideshow_dialog.ui:15
 msgid "Set as Desktop Slideshow"
 msgstr "Ustaw jako pokaz slajdów pulpitu"
 
-#: ui/set_background_slideshow_dialog.glade:33
+#: ui/set_background_slideshow_dialog.ui:33
 msgid "Show each photo for"
 msgstr "Wyświetlanie każdego zdjęcia przez"
 
-#: ui/set_background_slideshow_dialog.glade:45
+#: ui/set_background_slideshow_dialog.ui:45
 msgid "period of time"
 msgstr "okres czasu"
 
-#: ui/set_background_slideshow_dialog.glade:94
+#: ui/set_background_slideshow_dialog.ui:94
 msgid "Generate desktop background slideshow"
 msgstr "Utwórz pokaz slajdów tła pulpitu"
 
-#: ui/set_background_slideshow_dialog.glade:115
+#: ui/set_background_slideshow_dialog.ui:115
 msgid "How long each photo is shown on the desktop background"
 msgstr "Jak długo każde zdjęcie jest wyświetlane jako tło pulpitu"
 
-#: ui/shotwell.glade:23
+#: ui/shotwell.ui:23
 msgid "_Name of search:"
 msgstr "_Nazwa wyszukiwania:"
 
-#: ui/shotwell.glade:81
+#: ui/shotwell.ui:81
 msgid "_Match"
 msgstr "_Dopasowanie"
 
-#: ui/shotwell.glade:108
+#: ui/shotwell.ui:108
 msgid "of the following:"
 msgstr "następujących:"
 
-#: ui/shotwell.glade:195
+#: ui/shotwell.ui:195
 msgid "<b>Printed Image Size</b>"
 msgstr "<b>Rozmiar wydrukowanego obrazu</b>"
 
-#: ui/shotwell.glade:212
+#: ui/shotwell.ui:212
 msgid "Use a _standard size:"
 msgstr "Użycie _standardowego rozmiaru:"
 
-#: ui/shotwell.glade:255
+#: ui/shotwell.ui:255
 msgid "Use a c_ustom size:"
 msgstr "_Użycie własnego rozmiaru:"
 
-#: ui/shotwell.glade:345
+#: ui/shotwell.ui:345
 msgid "_Match photo aspect ratio"
 msgstr "Utrzy_mywanie proporcji zdjęcia"
 
-#: ui/shotwell.glade:369
+#: ui/shotwell.ui:369
 msgid "_Autosize:"
 msgstr "Rozmiar _automatyczny:"
 
-#: ui/shotwell.glade:409
+#: ui/shotwell.ui:409
 msgid "<b>Titles</b>"
 msgstr "<b>Tytuły</b>"
 
-#: ui/shotwell.glade:426
+#: ui/shotwell.ui:426
 msgid "Print image _title"
 msgstr "Drukowanie _tytułów obrazów"
 
-#: ui/shotwell.glade:470
+#: ui/shotwell.ui:470
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>Rozdzielczość w pikselach</b>"
 
-#: ui/shotwell.glade:490
+#: ui/shotwell.ui:490
 msgid "_Output photo at:"
 msgstr "Wyjście zdjęcia na:"
 
-#: ui/shotwell.glade:525
+#: ui/shotwell.ui:525
 msgid "pixels per inch"
 msgstr "piksele na cal"
 
-#: ui/shotwell.glade:681
+#: ui/shotwell.ui:559
+msgid "label"
+msgstr "etykieta"
+
+#: ui/shotwell.ui:681
 msgid "Shotwell Preferences"
 msgstr "Preferencje programu Shotwell"
 
-#: ui/shotwell.glade:730
+#: ui/shotwell.ui:730
 msgid "white"
 msgstr "biały"
 
-#: ui/shotwell.glade:757
+#: ui/shotwell.ui:757
 msgid "black"
 msgstr "czarny"
 
-#: ui/shotwell.glade:805
+#: ui/shotwell.ui:805
 msgid "_Watch library directory for new files"
 msgstr "_Obserwacja katalogu kolekcji pod kątem nowych plików"
 
-#: ui/shotwell.glade:834
+#: ui/shotwell.ui:834
 msgid "Metadata"
 msgstr "Metadane"
 
-#: ui/shotwell.glade:854
+#: ui/shotwell.ui:854
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "Zapisywanie etykiet, tytułów i innych metadanych do plików zdjęć"
 
-#: ui/shotwell.glade:880
+#: ui/shotwell.ui:880
 msgid "Display"
 msgstr "Ekran"
 
-#: ui/shotwell.glade:901
+#: ui/shotwell.ui:901
 msgid "_Import photos to:"
 msgstr "_Importowanie zdjęć do:"
 
-#: ui/shotwell.glade:924
+#: ui/shotwell.ui:924
 msgid "_Background:"
 msgstr "_Tło:"
 
-#: ui/shotwell.glade:947
+#: ui/shotwell.ui:947
 msgid "Importing"
 msgstr "Importowanie"
 
-#: ui/shotwell.glade:970
+#: ui/shotwell.ui:970
 msgid "_Directory structure:"
 msgstr "Struktura _katalogów:"
 
-#: ui/shotwell.glade:1009
+#: ui/shotwell.ui:1009
 msgid "_Pattern:"
 msgstr "_Wzór:"
 
-#: ui/shotwell.glade:1091
+#: ui/shotwell.ui:1091
 msgid "Example:"
 msgstr "Przykład:"
 
-#: ui/shotwell.glade:1108
+#: ui/shotwell.ui:1108
 msgid "R_ename imported files to lowercase"
 msgstr "_Zmienianie nazw importowanych plików na małe litery"
 
-#: ui/shotwell.glade:1137
+#: ui/shotwell.ui:1137
 msgid "RAW Developer"
 msgstr "Wywoływacz RAW"
 
-#: ui/shotwell.glade:1172
+#: ui/shotwell.ui:1172
 msgid "De_fault:"
 msgstr "_Domyślnie:"
 
-#: ui/shotwell.glade:1226
+#: ui/shotwell.ui:1226
 msgid "E_xternal photo editor:"
 msgstr "_Zewnętrzny edytor zdjęć:"
 
-#: ui/shotwell.glade:1242
+#: ui/shotwell.ui:1242
 msgid "External _RAW editor:"
 msgstr "Zewnętrzny edytor plików _RAW:"
 
-#: ui/shotwell.glade:1307
+#: ui/shotwell.ui:1307
 msgid "External Editors"
 msgstr "Zewnętrzne edytory"
 
-#: ui/shotwell.glade:1334
+#: ui/shotwell.ui:1334
 msgid "Plugins"
 msgstr "Wtyczki"
 
-#: ui/shotwell.glade:1400
+#: ui/shotwell.ui:1400
 msgid "_Delay:"
 msgstr "_Opóźnienie:"
 
-#: ui/shotwell.glade:1416
+#: ui/shotwell.ui:1416
 msgid "_Transition effect:"
 msgstr "_Efekt przejścia:"
 
-#: ui/shotwell.glade:1432
+#: ui/shotwell.ui:1432
 msgid "Transition d_elay:"
 msgstr "Opóźnienie prz_ejścia:"
 
-#: ui/shotwell.glade:1444
+#: ui/shotwell.ui:1444
 msgid "Show t_itle"
 msgstr "Wyświetlanie tyt_ułu"
 
-#: ui/shotwell.glade:1534 ui/shotwell.glade:1547
+#: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "s"
