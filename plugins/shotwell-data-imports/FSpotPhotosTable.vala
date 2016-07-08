@@ -25,7 +25,7 @@ public class FSpotPhotoRow : Object {
  * This class represents the F-Spot photos table.
  */
 public class FSpotPhotosTable : FSpotDatabaseTable<FSpotPhotoRow> {
-    public static const string TABLE_NAME = "Photos";
+    public const string TABLE_NAME = "Photos";
     
     public FSpotPhotosTable(Sqlite.Database db, FSpotDatabaseBehavior db_behavior) {
         base(db);

@@ -22,13 +22,13 @@ public class FSpotTagRow : Object {
  * This class represents the F-Spot tags table.
  */
 public class FSpotTagsTable : FSpotDatabaseTable<FSpotTagRow> {
-    public static const string TABLE_NAME = "Tags";
+    public const string TABLE_NAME = "Tags";
     
-    public static const string PREFIX_STOCK_ICON = "stock_icon:";
-    public static const string STOCK_ICON_FAV    = "stock_icon:emblem-favorite";
-    public static const string STOCK_ICON_PEOPLE = "stock_icon:emblem-people";
-    public static const string STOCK_ICON_PLACES = "stock_icon:emblem-places";
-    public static const string STOCK_ICON_EVENTS = "stock_icon:emblem-event";
+    public const string PREFIX_STOCK_ICON = "stock_icon:";
+    public const string STOCK_ICON_FAV    = "stock_icon:emblem-favorite";
+    public const string STOCK_ICON_PEOPLE = "stock_icon:emblem-people";
+    public const string STOCK_ICON_PLACES = "stock_icon:emblem-places";
+    public const string STOCK_ICON_EVENTS = "stock_icon:emblem-event";
     
     private FSpotTableBehavior<FSpotPhotoTagRow> photo_tags_behavior;
     

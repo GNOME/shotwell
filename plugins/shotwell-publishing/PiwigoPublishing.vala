@@ -63,7 +63,7 @@ internal class Category {
     public string comment;
     public string display_name;
     public string uppercats;
-    public static const int NO_ID = -1;
+    public const int NO_ID = -1;
 
     public Category(int id, string name, string uppercats, string? comment = "") {
         this.id = id;

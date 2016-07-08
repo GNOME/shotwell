@@ -81,7 +81,7 @@ public class FSpotMetaTable : FSpotDatabaseTable<FSpotMetaRow> {
 }
 
 public class FSpotMetaBehavior : FSpotTableBehavior<FSpotMetaRow>, Object {
-    public static const string TABLE_NAME = "Meta";
+    public const string TABLE_NAME = "Meta";
     
     private static FSpotMetaBehavior instance;
     

@@ -6,7 +6,7 @@
 
 namespace Db {
 
-public static const string IN_MEMORY_NAME = ":memory:";
+public const string IN_MEMORY_NAME = ":memory:";
 
 private string? filename = null;
 

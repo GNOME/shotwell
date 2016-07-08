@@ -23,7 +23,7 @@ public class FSpotPhotoVersionRow : Object {
  * This class represents the F-Spot photo_versions table.
  */
 public class FSpotPhotoVersionsTable : FSpotDatabaseTable<FSpotPhotoVersionRow> {
-    public static const string TABLE_NAME = "Photo_versions";
+    public const string TABLE_NAME = "Photo_versions";
 
     public FSpotPhotoVersionsTable(Sqlite.Database db, FSpotDatabaseBehavior db_behavior) {
         base(db);

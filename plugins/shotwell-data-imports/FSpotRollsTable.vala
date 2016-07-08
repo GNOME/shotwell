@@ -18,8 +18,8 @@ public class FSpotRollRow : Object {
  * This class represents the F-Spot rolls table.
  */
 public class FSpotRollsTable : FSpotDatabaseTable<FSpotRollRow> {
-    public static const string TABLE_NAME = "Rolls";
-    public static const string TABLE_NAME_PRE_V5 = "Imports";
+    public const string TABLE_NAME = "Rolls";
+    public const string TABLE_NAME_PRE_V5 = "Imports";
     
     public FSpotRollsTable(Sqlite.Database db, FSpotDatabaseBehavior db_behavior) {
         base(db);

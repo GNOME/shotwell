@@ -5,9 +5,9 @@
  */
 
 
-static const string G3_VERSION = "0.1";
+const string G3_VERSION = "0.1";
 
-static const string G3_LICENSE = """
+const string G3_LICENSE = """
 The Gallery3Publishing module is free software; you can redistribute it
 and/or modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either version 2.1
@@ -24,7 +24,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA
 """;
 
-static const string WEBSITE_URL =
+const string WEBSITE_URL =
     "https://github.com/sappjw/shotwell-gallery3";
 
 // This module's Spit.Module

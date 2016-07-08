@@ -18,7 +18,7 @@ public class FSpotPhotoTagRow : Object {
  * This class represents the F-Spot photo_tags table.
  */
 public class FSpotPhotoTagsTable : FSpotDatabaseTable<FSpotPhotoTagRow> {
-    public static const string TABLE_NAME = "Photo_Tags";
+    public const string TABLE_NAME = "Photo_Tags";
     
     public FSpotPhotoTagsTable(Sqlite.Database db, FSpotDatabaseBehavior db_behavior) {
         base(db);

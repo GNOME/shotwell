@@ -36,7 +36,7 @@ public enum BoxComplements {
 }
 
 public struct Box {
-    public static const int HAND_GRENADES = 12;
+    public const int HAND_GRENADES = 12;
     
     public int left;
     public int top;
