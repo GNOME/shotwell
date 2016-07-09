@@ -1,38 +1,31 @@
 # po/shotwell-core/shotwell.pot
 # PO message string template file for Shotwell Core Components
-# Copyright (C) 2009-2013 Yorba Foundation
+# Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
-#
-#
 # Translators:
 # manuelmarque <manuelmarque@gmail.com>, 2012
-# manuelmarque <manuelmarque@gmail.com>, 2012
-# Master0010 <miguel.fontoura1@gmail.com>, 2012
 # Master0010 <miguel.fontoura1@gmail.com>, 2012
 # Sérgio Marques <smarquespt@gmail.com>, 2011-2013
 # verayin <vera@yorba.org>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
-# Master0010 <miguel.fontoura1@gmail.com>, 2012
-# Sérgio Marques <smarquespt@gmail.com>, 2011-2012
-# Tiago S. <almosthumane@portugalmail.pt>, 2015
+# Tiago Santos <tiagofsantos81@sapo.pt>, 2015, 2016
 # Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2015-10-20 12:35+0000\n"
-"PO-Revision-Date: 2015-10-25 09:02+0000\n"
-"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
-"Language-Team: Portuguese (http://www.transifex.com/projects/p/shotwell/"
-"language/pt/)\n"
+"POT-Creation-Date: 2016-07-07 11:56+0000\n"
+"PO-Revision-Date: 2016-07-09 07:00+0100\n"
+"Last-Translator: Tiago Santos <tiagofsantos81@sapo.pt>\n"
+"Language-Team: Pedro Albuquerque\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Project-Style: gnome\n"
 
 #: ../plugins/common/RESTSupport.vala:424
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:968
@@ -66,7 +59,7 @@ msgstr ""
 "Slackhideo <burajirugaijin@yahoo.co.jp>\n"
 "Sérgio Marques <smarquespt@gmail.com>\n"
 "Pedro Albuquerque <palbuquerque73@gmail.com>\n"
-"Tiago S. <almosthumane@portugalmail.pt>"
+"Tiago Santos <tiagofsantos81@sapo.pt>"
 
 #: ../plugins/shotwell-data-imports/FSpotImporter.vala:34
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:32
@@ -325,14 +318,14 @@ msgstr "As fotografias aparecerão em:"
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:3
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:1
 msgid "An _existing album:"
-msgstr "Um álbum _Existente:"
+msgstr "Um álbum _existente:"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:4
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:2
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:3
 msgid "A _new album named:"
-msgstr "Um _Novo álbum com o nome:"
+msgstr "Um _novo álbum com o nome:"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:6
@@ -361,7 +354,7 @@ msgstr "_Publicar"
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:6
 #: ../plugins/shotwell-publishing/youtube_publishing_options_pane.glade.h:2
 msgid "_Logout"
-msgstr "T_Erminar sessão"
+msgstr "T_erminar sessão"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:35
 msgid "Copyright 2012 BJA Electronics"
@@ -476,11 +469,11 @@ msgstr "ou"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:3
 msgid "A _new album"
-msgstr "Um _Novo álbum"
+msgstr "Um _novo álbum"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:4
 msgid "An _existing album"
-msgstr "Um álbum _Existente"
+msgstr "Um álbum _existente"
 
 #: ../plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.glade.h:5
 msgid "_Remove location, tag and camera-identifying data before uploading"
@@ -527,7 +520,7 @@ msgstr "Blogues:"
 #: ../plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.glade.h:2
 #: ../plugins/shotwell-publishing/flickr_publishing_options_pane.glade.h:1
 msgid "Photo _size:"
-msgstr "Tamanho da _Fotografia:"
+msgstr "Tamanho da _fotografia:"
 
 #: ../plugins/shotwell-publishing-extras/rajce_publishing_options_pane.glade.h:1
 msgid "you are logged in rajce as $name"
@@ -539,7 +532,7 @@ msgstr "$mediatype aparecerão em"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:1
 msgid "_Albums (or write new):"
-msgstr "Ál_Bums (ou um novo):"
+msgstr "Ál_bums (ou um novo):"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:2
 msgid "Access _type:"
@@ -547,11 +540,11 @@ msgstr "_Tipo de acesso:"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:3
 msgid "Disable _comments"
-msgstr "Desativar _Comentários"
+msgstr "Desativar _comentários"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:4
 msgid "_Forbid downloading original photo"
-msgstr "Proibir transferir _Fotografia original"
+msgstr "Proibir transferir _fotografia original"
 
 #: ../plugins/shotwell-publishing-extras/yandex_publish_model.glade.h:7
 msgid "Public"
@@ -726,7 +719,7 @@ msgstr "A sua conta Pro do Flickr oferece-lhe envios ilimitados."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1165
 msgid "Photos _visible to:"
-msgstr "Fotografias _Visíveis para:"
+msgstr "Fotografias _visíveis para:"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1167
 msgid "Videos _visible to:"
@@ -896,11 +889,11 @@ msgstr "Público não listado"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:1
 msgid "Publish to an e_xisting album:"
-msgstr "Publicar num álbum e_Xistente:"
+msgstr "Publicar num álbum e_xistente:"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:2
 msgid "Create a _new album named:"
-msgstr "Criar um _Novo álbum chamado:"
+msgstr "Criar um _novo álbum chamado:"
 
 #: ../plugins/shotwell-publishing/facebook_publishing_options_pane.glade.h:4
 msgid "Videos and new photo albums _visible to:"
@@ -930,11 +923,11 @@ msgstr "_Número de autorização:"
 #: ../plugins/shotwell-publishing/flickr_pin_entry_pane.glade.h:3
 #: ../src/Dialogs.vala:131
 msgid "Con_tinue"
-msgstr "Con_Tinuar"
+msgstr "Con_tinuar"
 
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:3
 msgid "L_ist album in public gallery"
-msgstr "L_Istar os álbuns na galeria pública"
+msgstr "L_istar os álbuns na galeria pública"
 
 #: ../plugins/shotwell-publishing/picasa_publishing_options_pane.glade.h:4
 msgid "Photo _size preset:"
@@ -946,7 +939,7 @@ msgstr "_URL da galeria de fotografias Piwigo"
 
 #: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:3
 msgid "User _name"
-msgstr "_Nome de usador"
+msgstr "_Nome de utilizador"
 
 #: ../plugins/shotwell-publishing/piwigo_authentication_pane.glade.h:5
 msgid "_Remember Password"
@@ -954,11 +947,11 @@ msgstr "_Lembrar senha"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:2
 msgid "An _existing category:"
-msgstr "Uma categoria _Existente:"
+msgstr "Uma categoria _existente:"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:4
 msgid "Photos will be _visible by:"
-msgstr "As fotografias vão estar _Visíveis por:"
+msgstr "As fotografias vão estar _visíveis por:"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:5
 msgid "Photo size:"
@@ -975,11 +968,11 @@ msgstr "Comentário do álbum:"
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:9
 msgid "_If a title is set and comment unset, use title as comment"
 msgstr ""
-"Se o título est_Iver definido e o comentário não, usar título como comentário"
+"Se o título est_iver definido e o comentário não, usar título como comentário"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:10
 msgid "_Do no upload tags"
-msgstr "Não enviar _Detalhes"
+msgstr "Não enviar _detalhes"
 
 #: ../plugins/shotwell-publishing/piwigo_publishing_options_pane.glade.h:11
 msgid "Logout"
@@ -1043,9 +1036,12 @@ msgid "Core Slideshow Transitions"
 msgstr "Transições principais"
 
 #: ../plugins/shotwell-transitions/shotwell-transitions.vala:75
+#| msgid ""
+#| "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom "
+#| "Conservancy Inc."
 msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 msgstr ""
-"Direitos de autor 2010 Maxim Kartashev, Copyright 2011-2015 Fundação Yorba"
+"Direitos de autor 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 
 #: ../src/AppDirs.vala:48 ../src/AppDirs.vala:99
 #, c-format
@@ -1090,7 +1086,7 @@ msgstr "_Conteúdo"
 
 #: ../src/AppWindow.vala:530
 msgid "_Frequently Asked Questions"
-msgstr "Perguntas _Frequentes"
+msgstr "Perguntas _frequentes"
 
 #: ../src/AppWindow.vala:535
 msgid "_Report a Problem..."
@@ -1154,7 +1150,7 @@ msgstr "Erro na base de dados"
 
 #: ../src/BatchImport.vala:38
 msgid "User aborted import"
-msgstr "O usador cancelou a importação"
+msgstr "O utilizador cancelou a importação"
 
 #: ../src/BatchImport.vala:41
 msgid "Not a file"
@@ -1532,11 +1528,11 @@ msgstr "_Qualidade:"
 
 #: ../src/Dialogs.vala:219
 msgid "_Scaling constraint:"
-msgstr "Re_Strição de escala:"
+msgstr "Re_strição de escala:"
 
 #: ../src/Dialogs.vala:222
 msgid "_Pixels:"
-msgstr " _Pixels:"
+msgstr " _Pixeis:"
 
 #: ../src/Dialogs.vala:225
 msgid "Export metadata"
@@ -1939,6 +1935,8 @@ msgstr "Nome:"
 #. Dialog title
 #. Button label
 #: ../src/Dialogs.vala:1326 ../src/Resources.vala:308
+#| msgctxt "Button Label"
+#| msgid "Edit Title"
 msgid "Edit Title"
 msgstr "Editar título"
 
@@ -1993,11 +1991,11 @@ msgstr[1] ""
 
 #: ../src/Dialogs.vala:1414
 msgid "Re_vert External Edit"
-msgstr "Re_Verter edição externa"
+msgstr "Re_verter edição externa"
 
 #: ../src/Dialogs.vala:1414
 msgid "Re_vert External Edits"
-msgstr "Re_Verter edições externas"
+msgstr "Re_verter edições externas"
 
 #: ../src/Dialogs.vala:1435
 #, c-format
@@ -2037,11 +2035,11 @@ msgstr "24 Hr"
 
 #: ../src/Dialogs.vala:1705
 msgid "_Shift photos/videos by the same amount"
-msgstr "De_Slocar fotografias/vídeos na mesma proporção"
+msgstr "De_slocar fotografias/vídeos na mesma proporção"
 
 #: ../src/Dialogs.vala:1710
 msgid "Set _all photos/videos to this time"
-msgstr "Definir fotografias/videos para esta hor_A"
+msgstr "Definir fotografias/vídeos para esta hor_a"
 
 #: ../src/Dialogs.vala:1717
 msgid "_Modify original photo file"
@@ -2172,7 +2170,7 @@ msgstr "Também pode importar fotografias de alguma destas formas:"
 
 #: ../src/Dialogs.vala:2135
 msgid "_Don't show this message again"
-msgstr "Não exibir no_Vamente a mensagem"
+msgstr "Não exibir no_vamente a mensagem"
 
 #: ../src/Dialogs.vala:2170
 #, c-format
@@ -2226,7 +2224,7 @@ msgstr ""
 
 #: ../src/Dialogs.vala:2675
 msgid "Co_py Photos"
-msgstr "C_Opiar fotografias"
+msgstr "C_opiar fotografias"
 
 #: ../src/Dialogs.vala:2676
 msgid "_Import in Place"
@@ -2382,7 +2380,7 @@ msgstr "_Substituir"
 
 #: ../src/Exporter.vala:319
 msgid "Replace _All"
-msgstr "Substituir _Tudo"
+msgstr "Substituir _tudo"
 
 #: ../src/Exporter.vala:319
 msgid "Export"
@@ -2421,7 +2419,7 @@ msgstr "_Organizar fotografias"
 
 #: ../src/MediaPage.vala:423
 msgid "_Play Video"
-msgstr "Reprodu_Zir vídeos"
+msgstr "Reprodu_zir vídeos"
 
 #: ../src/MediaPage.vala:424
 msgid "Open the selected videos in the system video player"
@@ -2455,7 +2453,7 @@ msgstr "Mostrar comentário de todas as fotografias"
 
 #: ../src/MediaPage.vala:469 ../src/library/LibraryWindow.vala:360
 msgid "Ta_gs"
-msgstr "Eti_Quetas"
+msgstr "Eti_quetas"
 
 #: ../src/MediaPage.vala:470
 msgid "Display each photo's tags"
@@ -2463,7 +2461,7 @@ msgstr "Mostrar etiquetas de cada fotografias"
 
 #: ../src/MediaPage.vala:486
 msgid "By _Title"
-msgstr "Por _Título"
+msgstr "Por _título"
 
 #: ../src/MediaPage.vala:487
 msgid "Sort photos by title"
@@ -2471,7 +2469,7 @@ msgstr "Organizar fotografias por título"
 
 #: ../src/MediaPage.vala:492
 msgid "By Exposure _Date"
-msgstr "Por _Data de exposição"
+msgstr "Por _data de exposição"
 
 #: ../src/MediaPage.vala:493
 msgid "Sort photos by exposure date"
@@ -2479,7 +2477,7 @@ msgstr "Organizar fotografias por data de exposição"
 
 #: ../src/MediaPage.vala:498
 msgid "By _Rating"
-msgstr "Por _Classificação"
+msgstr "Por _classificação"
 
 #: ../src/MediaPage.vala:499
 msgid "Sort photos by rating"
@@ -2487,7 +2485,7 @@ msgstr "Organizar fotografias por classificação"
 
 #: ../src/MediaPage.vala:504
 msgid "By _Filename"
-msgstr "Por nome do _Ficheiro"
+msgstr "Por nome do _ficheiro"
 
 #: ../src/MediaPage.vala:505
 msgid "Sort photos by filename"
@@ -2503,7 +2501,7 @@ msgstr "Organizar fotografias por ordem ascendente"
 
 #: ../src/MediaPage.vala:521 ../src/library/LibraryWindow.vala:413
 msgid "D_escending"
-msgstr "D_Escendente"
+msgstr "D_escendente"
 
 #: ../src/MediaPage.vala:522 ../src/library/LibraryWindow.vala:414
 msgid "Sort photos in a descending order"
@@ -2560,7 +2558,7 @@ msgstr "_Ferramentas"
 
 #: ../src/PhotoPage.vala:2423 ../src/direct/DirectPhotoPage.vala:86
 msgid "_Previous Photo"
-msgstr "Fotografia _Anterior"
+msgstr "Fotografia _anterior"
 
 #: ../src/PhotoPage.vala:2424 ../src/direct/DirectPhotoPage.vala:87
 msgid "Previous Photo"
@@ -2568,7 +2566,7 @@ msgstr "Fotografia anterior"
 
 #: ../src/PhotoPage.vala:2429 ../src/direct/DirectPhotoPage.vala:92
 msgid "_Next Photo"
-msgstr "Fotografia _Seguinte"
+msgstr "Fotografia _seguinte"
 
 #: ../src/PhotoPage.vala:2430 ../src/direct/DirectPhotoPage.vala:93
 msgid "Next Photo"
@@ -2584,7 +2582,7 @@ msgstr "Diminuir tamanho da fotografia"
 
 #: ../src/PhotoPage.vala:2605 ../src/direct/DirectPhotoPage.vala:186
 msgid "Fit to _Page"
-msgstr "Ajustar à _Página"
+msgstr "Ajustar à _página"
 
 #: ../src/PhotoPage.vala:2606 ../src/direct/DirectPhotoPage.vala:187
 msgid "Zoom the photo to fit on the screen"
@@ -2885,7 +2883,7 @@ msgstr "Visualizador de fotografias"
 
 #: ../src/Resources.vala:144
 msgid "Rotate _Right"
-msgstr "Rodar à _Direita"
+msgstr "Rodar à _direita"
 
 #: ../src/Resources.vala:145 ../src/Resources.vala:150
 msgid "Rotate"
@@ -2901,7 +2899,7 @@ msgstr "Rodar as fotografias à direita (prima Ctrl para rodar à esquerda)"
 
 #: ../src/Resources.vala:149
 msgid "Rotate _Left"
-msgstr "Rodar à _Esquerda"
+msgstr "Rodar à _esquerda"
 
 #: ../src/Resources.vala:151
 msgid "Rotate Left"
@@ -2913,7 +2911,7 @@ msgstr "Rodar as fotografias à esquerda"
 
 #: ../src/Resources.vala:154
 msgid "Flip Hori_zontally"
-msgstr "Inverter hori_Zontalmente"
+msgstr "Inverter hori_zontalmente"
 
 #: ../src/Resources.vala:155
 msgid "Flip Horizontally"
@@ -2921,7 +2919,7 @@ msgstr "Inverter horizontalmente"
 
 #: ../src/Resources.vala:157
 msgid "Flip Verti_cally"
-msgstr "Inverter verti_Calmente"
+msgstr "Inverter verti_calmente"
 
 #: ../src/Resources.vala:158
 msgid "Flip Vertically"
@@ -2946,16 +2944,16 @@ msgstr "_Avançar"
 
 #: ../src/Resources.vala:166
 msgid "Fulls_creen"
-msgstr "Ecrã _Completo"
+msgstr "Ecrã _completo"
 
 #: ../src/Resources.vala:167 ../src/direct/DirectPhotoPage.vala:169
 #: ../src/library/LibraryWindow.vala:364
 msgid "_Help"
-msgstr "A_Juda"
+msgstr "A_juda"
 
 #: ../src/Resources.vala:168
 msgid "Leave _Fullscreen"
-msgstr "Sair de _Ecrã completo"
+msgstr "Sair de _ecrã completo"
 
 #: ../src/Resources.vala:169 ../src/Resources.vala:371
 msgid "_New"
@@ -2963,7 +2961,7 @@ msgstr "_Novo"
 
 #: ../src/Resources.vala:170
 msgid "_Next"
-msgstr "Segui_Nte"
+msgstr "Segui_nte"
 
 #: ../src/Resources.vala:171
 msgid "_OK"
@@ -2971,7 +2969,7 @@ msgstr "_Aceitar"
 
 #: ../src/Resources.vala:172
 msgid "_Play"
-msgstr "Re_Produzir"
+msgstr "Re_produzir"
 
 #: ../src/Resources.vala:173 ../src/Resources.vala:325
 msgid "_Preferences"
@@ -2991,7 +2989,7 @@ msgstr "_Sair"
 
 #: ../src/Resources.vala:177
 msgid "_Refresh"
-msgstr "Atualiza_R"
+msgstr "Atualiza_r"
 
 #: ../src/Resources.vala:179
 msgid "_Revert"
@@ -3004,15 +3002,15 @@ msgstr "_Gravar"
 
 #: ../src/Resources.vala:181
 msgid "Save _As"
-msgstr "Gravar _Como"
+msgstr "Gravar _como"
 
 #: ../src/Resources.vala:182
 msgid "Sort _Ascending"
-msgstr "Ordem _Ascendente"
+msgstr "Ordem _ascendente"
 
 #: ../src/Resources.vala:183
 msgid "Sort _Descending"
-msgstr "Ordem _Descendente"
+msgstr "Ordem _descendente"
 
 #: ../src/Resources.vala:184
 msgid "_Stop"
@@ -3020,11 +3018,11 @@ msgstr "_Parar"
 
 #: ../src/Resources.vala:185
 msgid "_Undelete"
-msgstr "Rec_Uperar"
+msgstr "Rec_uperar"
 
 #: ../src/Resources.vala:186
 msgid "_Normal Size"
-msgstr "Tamanho _Normal"
+msgstr "Tamanho _normal"
 
 #: ../src/Resources.vala:187
 msgid "Best _Fit"
@@ -3032,7 +3030,7 @@ msgstr "_Melhor ajuste"
 
 #: ../src/Resources.vala:191
 msgid "_Enhance"
-msgstr "M_Elhorar"
+msgstr "M_elhorar"
 
 #: ../src/Resources.vala:192
 msgid "Enhance"
@@ -3056,7 +3054,7 @@ msgstr "Copiar ajustes de cor efetuados na fotografia"
 
 #: ../src/Resources.vala:199
 msgid "_Paste Color Adjustments"
-msgstr "Co_Lar ajustes de cor"
+msgstr "Co_lar ajustes de cor"
 
 #: ../src/Resources.vala:200
 msgid "Paste Color Adjustments"
@@ -3080,7 +3078,7 @@ msgstr "Cortar tamanho da fotografia"
 
 #: ../src/Resources.vala:207 ../src/editing_tools/StraightenTool.vala:100
 msgid "_Straighten"
-msgstr "E_Ndireitar"
+msgstr "E_ndireitar"
 
 #: ../src/Resources.vala:208
 msgid "Straighten"
@@ -3124,7 +3122,7 @@ msgstr "Reverter para o original"
 
 #: ../src/Resources.vala:222
 msgid "Revert External E_dits"
-msgstr "Reverter e_Dição externa"
+msgstr "Reverter e_dição externa"
 
 #: ../src/Resources.vala:223
 msgid "Revert to the master photo"
@@ -3160,7 +3158,7 @@ msgstr "Refazer"
 
 #: ../src/Resources.vala:235
 msgid "Re_name Event..."
-msgstr "Re_Nomear evento..."
+msgstr "Re_nomear evento..."
 
 #: ../src/Resources.vala:238
 msgid "Make _Key Photo for Event"
@@ -3283,12 +3281,14 @@ msgid "All + _Rejected"
 msgstr "Tudo + _Rejeitadas"
 
 #: ../src/Resources.vala:278 ../src/Resources.vala:279
+#| msgctxt "Tooltip"
+#| msgid "Show all photos, including rejected"
 msgid "Show all photos, including rejected"
 msgstr "Mostrar todas as fotografias, inclusive as rejeitadas"
 
 #: ../src/Resources.vala:281
 msgid "_All Photos"
-msgstr "Todas as _Fotografias"
+msgstr "Todas as _fotografias"
 
 #. Button label
 #. Button tooltip
@@ -3338,7 +3338,7 @@ msgstr "_Imprimir..."
 
 #: ../src/Resources.vala:302
 msgid "Pu_blish..."
-msgstr "Pu_Blicar..."
+msgstr "Pu_blicar..."
 
 #: ../src/Resources.vala:304
 msgid "Publish to various websites"
@@ -3346,11 +3346,11 @@ msgstr "Publicar para vários sítios web"
 
 #: ../src/Resources.vala:306
 msgid "Edit _Title..."
-msgstr "Editar _Título..."
+msgstr "Editar _título..."
 
 #: ../src/Resources.vala:310
 msgid "Edit _Comment..."
-msgstr "Editar _Comentário..."
+msgstr "Editar _comentário..."
 
 #. Button label
 #: ../src/Resources.vala:312
@@ -3359,7 +3359,7 @@ msgstr "Editar comentário"
 
 #: ../src/Resources.vala:314
 msgid "Edit Event _Comment..."
-msgstr "Editar _Comentário do evento..."
+msgstr "Editar _comentário do evento..."
 
 #: ../src/Resources.vala:317
 msgid "_Adjust Date and Time..."
@@ -3380,12 +3380,14 @@ msgstr "_Adicionar etiquetas..."
 #. Dialog title
 #. Undo/Redo command name (in Edit menu)
 #: ../src/Resources.vala:323 ../src/Resources.vala:356
+#| msgctxt "Dialog Title"
+#| msgid "Add Tags"
 msgid "Add Tags"
 msgstr "Adicionar etiquetas"
 
 #: ../src/Resources.vala:327
 msgid "Open With E_xternal Editor"
-msgstr "Abrir com editor e_Xterno"
+msgstr "Abrir com editor e_xterno"
 
 #: ../src/Resources.vala:329
 msgid "Open With RA_W Editor"
@@ -3397,7 +3399,7 @@ msgstr "_Enviar para..."
 
 #: ../src/Resources.vala:332
 msgid "Send T_o..."
-msgstr "En_Viar para..."
+msgstr "En_viar para..."
 
 #: ../src/Resources.vala:334
 msgid "_Find..."
@@ -3413,11 +3415,11 @@ msgstr "Localizar imagem com base no texto do nome ou etiqueta"
 
 #: ../src/Resources.vala:338
 msgid "_Flag"
-msgstr "Mar_Car"
+msgstr "Mar_car"
 
 #: ../src/Resources.vala:340
 msgid "Un_flag"
-msgstr "De_Smarcar"
+msgstr "De_smarcar"
 
 #: ../src/Resources.vala:343
 #, c-format
@@ -3452,7 +3454,7 @@ msgstr "Eliminar etiqueta"
 #: ../src/Resources.vala:374
 #, c-format
 msgid "Re_name Tag \"%s\"..."
-msgstr "Re_Nomear etiqueta \"%s\"..."
+msgstr "Re_nomear etiqueta \"%s\"..."
 
 #: ../src/Resources.vala:378
 #, c-format
@@ -3494,12 +3496,12 @@ msgstr "Identificar fotografias selecionadas como \"%s\""
 #: ../src/Resources.vala:396
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
-msgstr "Remover da fotografia a etiq_Ueta \"%s\""
+msgstr "Remover da fotografia a etiq_ueta \"%s\""
 
 #: ../src/Resources.vala:397
 #, c-format
 msgid "Remove Tag \"%s\" From _Photos"
-msgstr "Remover das fotografias a etiq_Ueta \"%s\""
+msgstr "Remover das fotografias a etiq_ueta \"%s\""
 
 #: ../src/Resources.vala:401
 #, c-format
@@ -3535,7 +3537,7 @@ msgstr "_Editar..."
 
 #: ../src/Resources.vala:419
 msgid "Re_name..."
-msgstr "Re_Nomear..."
+msgstr "Re_nomear..."
 
 #: ../src/Resources.vala:422
 #, c-format
@@ -3605,7 +3607,7 @@ msgstr "Mover para a galeria as fotografias selecionadas"
 
 #: ../src/Resources.vala:689
 msgid "Show in File Mana_ger"
-msgstr "Mostrar no _Gestor de ficheiros"
+msgstr "Mostrar no _gestor de ficheiros"
 
 #: ../src/Resources.vala:690
 msgid "Open the selected photo's directory in the file manager"
@@ -3618,7 +3620,7 @@ msgstr "Impossível abrir no gestor de ficheiros: %s"
 
 #: ../src/Resources.vala:696
 msgid "R_emove From Library"
-msgstr "R_Emover da galeria"
+msgstr "R_emover da galeria"
 
 #: ../src/Resources.vala:698
 msgid "_Move to Trash"
@@ -3807,7 +3809,7 @@ msgstr "A iniciar importação, aguarde..."
 
 #: ../src/camera/ImportPage.vala:886
 msgid "Import _Selected"
-msgstr "Importar _Seleção"
+msgstr "Importar _seleção"
 
 #: ../src/camera/ImportPage.vala:887
 msgid "Import the selected photos into your library"
@@ -3815,7 +3817,7 @@ msgstr "Importar fotografias selecionadas para a galeria"
 
 #: ../src/camera/ImportPage.vala:892
 msgid "Import _All"
-msgstr "Importar _Todas"
+msgstr "Importar _todas"
 
 #: ../src/camera/ImportPage.vala:893
 msgid "Import all the photos into your library"
@@ -4010,7 +4012,7 @@ msgstr "Gravar fotografia"
 
 #: ../src/direct/DirectPhotoPage.vala:57
 msgid "Save _As..."
-msgstr "Gravar _Como..."
+msgstr "Gravar _como..."
 
 #: ../src/direct/DirectPhotoPage.vala:58
 msgid "Save photo with a different name"
@@ -4022,7 +4024,7 @@ msgstr "Imprimir fotografias numa impressora ligada ao computador"
 
 #: ../src/direct/DirectPhotoPage.vala:77 ../src/library/LibraryWindow.vala:348
 msgid "_Photo"
-msgstr "F_Otografia"
+msgstr "F_otografia"
 
 #: ../src/direct/DirectPhotoPage.vala:227
 #, c-format
@@ -4054,7 +4056,7 @@ msgstr "Ignorar alterações em %s?"
 
 #: ../src/direct/DirectPhotoPage.vala:426
 msgid "Close _without Saving"
-msgstr "Fechar s_Em gravar"
+msgstr "Fechar s_em gravar"
 
 #: ../src/direct/DirectPhotoPage.vala:459
 #, c-format
@@ -4252,7 +4254,7 @@ msgstr "A importar..."
 
 #: ../src/library/ImportQueuePage.vala:67
 msgid "_Stop Import"
-msgstr "Pa_Rar importação"
+msgstr "Pa_rar importação"
 
 #: ../src/library/ImportQueuePage.vala:68
 msgid "Stop importing photos"
@@ -4281,15 +4283,15 @@ msgstr "Importar fotografias do disco para a galeria"
 
 #: ../src/library/LibraryWindow.vala:294
 msgid "Import From _Application..."
-msgstr "Importar da _Aplicação..."
+msgstr "Importar da _aplicação..."
 
 #: ../src/library/LibraryWindow.vala:298
 msgid "Sort _Events"
-msgstr "Organizar _Eventos"
+msgstr "Organizar _eventos"
 
 #: ../src/library/LibraryWindow.vala:308
 msgid "Empty T_rash"
-msgstr "Esvazia_R lixo"
+msgstr "Esvazia_r lixo"
 
 #: ../src/library/LibraryWindow.vala:309
 msgid "Delete all photos in the trash"
@@ -4310,19 +4312,19 @@ msgstr "Procurar fotografias e vídeos por critérios de procura"
 #: ../src/library/LibraryWindow.vala:330 ../src/searches/Branch.vala:77
 #: ../src/sidebar/Tree.vala:199
 msgid "Ne_w Saved Search..."
-msgstr "No_Va pesquisa gravada..."
+msgstr "No_va pesquisa gravada..."
 
 #: ../src/library/LibraryWindow.vala:352
 msgid "_Photos"
-msgstr "F_Otografias"
+msgstr "F_otografias"
 
 #: ../src/library/LibraryWindow.vala:356
 msgid "Even_ts"
-msgstr "Even_Tos"
+msgstr "Even_tos"
 
 #: ../src/library/LibraryWindow.vala:375
 msgid "_Basic Information"
-msgstr "Informações _Básicas"
+msgstr "Informações _básicas"
 
 #: ../src/library/LibraryWindow.vala:376
 msgid "Display basic information for the selection"
@@ -4330,7 +4332,7 @@ msgstr "Mostrar informações básicas para a seleção"
 
 #: ../src/library/LibraryWindow.vala:381
 msgid "E_xtended Information"
-msgstr "Informações detal_Hadas"
+msgstr "Informações detal_hadas"
 
 #: ../src/library/LibraryWindow.vala:382
 msgid "Display extended information for the selection"
@@ -4346,7 +4348,7 @@ msgstr "Mostrar barra de procura"
 
 #: ../src/library/LibraryWindow.vala:393
 msgid "S_idebar"
-msgstr "Barra _Lateral"
+msgstr "Barra _lateral"
 
 #: ../src/library/LibraryWindow.vala:394
 msgid "Display the sidebar"
@@ -4606,7 +4608,7 @@ msgstr "Publicar fotografias"
 
 #: ../src/publishing/PublishingUI.vala:186
 msgid "Publish photos _to:"
-msgstr "Publicar fotografias _No:"
+msgstr "Publicar fotografias _no:"
 
 #: ../src/publishing/PublishingUI.vala:188
 msgid "Publish Videos"
@@ -4614,7 +4616,7 @@ msgstr "Publicar vídeos"
 
 #: ../src/publishing/PublishingUI.vala:189
 msgid "Publish videos _to"
-msgstr "Publicar vídeos _No"
+msgstr "Publicar vídeos _no"
 
 #: ../src/publishing/PublishingUI.vala:191
 msgid "Publish Photos and Videos"
@@ -4622,7 +4624,7 @@ msgstr "Publicar fotografias e vídeos"
 
 #: ../src/publishing/PublishingUI.vala:192
 msgid "Publish photos and videos _to"
-msgstr "Publicar fotografias e vídeos _No"
+msgstr "Publicar fotografias e vídeos _no"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
@@ -4826,7 +4828,7 @@ msgstr "Data"
 
 #: ../src/sidebar/Tree.vala:203
 msgid "New _Tag..."
-msgstr "Nova e_Tiqueta..."
+msgstr "Nova e_tiqueta..."
 
 #: ../src/slideshow/Slideshow.vala:22
 msgid "Slideshow Transitions"
@@ -4902,7 +4904,7 @@ msgstr "<b>Tamanho da imagem impressa</b>"
 
 #: ../ui/shotwell.glade.h:5
 msgid "Use a _standard size:"
-msgstr "Usar um taman_Ho padrão:"
+msgstr "Usar um taman_ho padrão:"
 
 #: ../ui/shotwell.glade.h:6
 msgid "Use a c_ustom size:"
@@ -4922,7 +4924,7 @@ msgstr "<b>Títulos</b>"
 
 #: ../ui/shotwell.glade.h:10
 msgid "Print image _title"
-msgstr "Imprimir _Título da imagem"
+msgstr "Imprimir _título da imagem"
 
 #: ../ui/shotwell.glade.h:11
 msgid "<b>Pixel Resolution</b>"
@@ -4958,7 +4960,7 @@ msgstr "Metadados"
 
 #: ../ui/shotwell.glade.h:21
 msgid "Write tags, titles, and other _metadata to photo files"
-msgstr "Escrever etiquetas, títulos e outros _Metadados nos ficheiros"
+msgstr "Escrever etiquetas, títulos e outros _metadados nos ficheiros"
 
 #: ../ui/shotwell.glade.h:22
 msgid "Display"
@@ -4978,7 +4980,7 @@ msgstr "A importar"
 
 #: ../ui/shotwell.glade.h:26
 msgid "_Directory structure:"
-msgstr "Estrutura _Da pasta:"
+msgstr "Estrutura _da pasta:"
 
 #: ../ui/shotwell.glade.h:27
 msgid "_Pattern:"
@@ -4990,7 +4992,7 @@ msgstr "Exemplo:"
 
 #: ../ui/shotwell.glade.h:29
 msgid "R_ename imported files to lowercase"
-msgstr "R_Enomear ficheiros importados para minúsculas"
+msgstr "R_enomear ficheiros importados para minúsculas"
 
 #: ../ui/shotwell.glade.h:30
 msgid "RAW Developer"
@@ -4998,11 +5000,11 @@ msgstr "Editor RAW"
 
 #: ../ui/shotwell.glade.h:31
 msgid "De_fault:"
-msgstr "Prede_Finição:"
+msgstr "Prede_finição:"
 
 #: ../ui/shotwell.glade.h:33
 msgid "E_xternal photo editor:"
-msgstr "Editor e_Xterno de fotografias:"
+msgstr "Editor e_xterno de fotografias:"
 
 #: ../ui/shotwell.glade.h:34
 msgid "External _RAW editor:"
@@ -5022,66 +5024,16 @@ msgstr "_Atraso:"
 
 #: ../ui/shotwell.glade.h:38
 msgid "_Transition effect:"
-msgstr "Efeito de _Transição:"
+msgstr "Efeito de _transição:"
 
 #: ../ui/shotwell.glade.h:39
 msgid "Transition d_elay:"
-msgstr "Atra_So da transição:"
+msgstr "Atra_so da transição:"
 
 #: ../ui/shotwell.glade.h:40
 msgid "Show t_itle"
-msgstr "Mostrar títu_Lo"
+msgstr "Mostrar títu_lo"
 
 #: ../ui/shotwell.glade.h:41
 msgid "seconds"
 msgstr "segundos"
-
-#~ msgid "Only _Remove"
-#~ msgstr "Só _remoção"
-
-#~ msgid "Import media _from:"
-#~ msgstr "Importar _ficheiros de:"
-
-#~ msgid "Shotwell is configured to import photos to your home directory.\n"
-#~ msgstr ""
-#~ "O Shotwell está configurado para importar fotos para a sua pasta pessoal\n"
-#~ "\n"
-
-#~ msgid ""
-#~ " (text depends on fb username and is modified in the app - \n"
-#~ "anything put into this field won't display)"
-#~ msgstr ""
-#~ "(o texto depende do nome de utilizador e é modificado na aplicação -\n"
-#~ "os elementos colocados nestes campo não serão exibidos)"
-
-#~ msgid ""
-#~ "You are logged into Flickr as (name).\n"
-#~ "\n"
-#~ "(this label's string is populated and set inside the code, \n"
-#~ "so changes made here will not display)"
-#~ msgstr ""
-#~ "Você está ligado no Flickr como (name).\n"
-#~ "\n"
-#~ "(a etiqueta desta palavra é preenchida e colocada dentro do código e\n"
-#~ "as alterações feitas aqui não iram ser mostradas)"
-
-#~ msgid "_visibility label (populated in the code)"
-#~ msgstr "_visibilidade da etiqueta (prenchido pelo código da aplicação)"
-
-#~ msgid ""
-#~ "$mediatype will appear in\n"
-#~ "(populated in code)"
-#~ msgstr ""
-#~ "$mediatype aparecerá em\n"
-#~ "(prenchido pelo código)"
-
-#~ msgid ""
-#~ "You are logged into Tumblr as (name).\n"
-#~ "\n"
-#~ "(this label's string is populated and set inside the code, \n"
-#~ "so changes made here will not display)"
-#~ msgstr ""
-#~ "Sessão iniciada no Tumblr como (name)\n"
-#~ "\n"
-#~ "(A etiqueta desta palavra é preenchida e colocada dentro do código e\n"
-#~ "as alterações feitas aqui não serão mostradas)"
