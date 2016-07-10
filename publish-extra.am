@@ -30,12 +30,12 @@ plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_VALAFLAGS = \
 	--pkg shotwell-plugin-dev-1.0 \
 	--pkg libxml-2.0 \
 	--pkg webkit2gtk-4.0 \
-	--vapidir $(top_srcdir)/plugins
+	--vapidir $(abs_top_srcdir)/plugins
 
 plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_CFLAGS = \
 	$(PLUGIN_CFLAGS) \
 	$(COMMON_CFLAGS) \
-	-I $(top_srcdir)/plugins
+	-I $(abs_top_srcdir)/plugins
 
 plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_LDFLAGS = \
 	$(SHOTWELL_PLUGIN_LDFLAGS)
