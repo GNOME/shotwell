@@ -538,7 +538,8 @@ public class SearchFilterActions {
         Gtk.RadioActionEntry rejected_or_higher = { "CommonDisplayRejectedOrHigher", null, TRANSLATABLE,
             "<Ctrl>9", TRANSLATABLE, RatingFilter.REJECTED_OR_HIGHER };
         rejected_or_higher.label = Resources.DISPLAY_REJECTED_OR_HIGHER_MENU;
-        rejected_or_higher.tooltip = Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP;
+        rejected_or_higher.tooltip = GLib.dpgettext2 (null, "Tooltip",
+                Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP);
         view_filter_actions += rejected_or_higher;
         
         Gtk.RadioActionEntry unrated_or_higher = { "CommonDisplayUnratedOrHigher", null, TRANSLATABLE, 

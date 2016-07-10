@@ -564,7 +564,9 @@ public class EditTitleCommand : SingleDataSourceCommand {
     private string? old_title;
     
     public EditTitleCommand(MediaSource source, string new_title) {
-        base(source, Resources.EDIT_TITLE_LABEL, "");
+        var title = GLib.dpgettext2 (null, "Button Label",
+                Resources.EDIT_TITLE_LABEL);
+        base(source, title, "");
         
         this.new_title = new_title;
         old_title = source.get_title();
@@ -604,7 +606,9 @@ public class EditMultipleTitlesCommand : MultipleDataSourceAtOnceCommand {
     public Gee.HashMap<MediaSource, string?> old_titles = new Gee.HashMap<MediaSource, string?>();
     
     public EditMultipleTitlesCommand(Gee.Collection<MediaSource> media_sources, string new_title) {
-        base (media_sources, Resources.EDIT_TITLE_LABEL, "");
+        var title = GLib.dpgettext2 (null, "Button Label",
+                Resources.EDIT_TITLE_LABEL);
+        base (media_sources, title, "");
         
         this.new_title = new_title;
         foreach (MediaSource media in media_sources)

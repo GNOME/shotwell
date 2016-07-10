@@ -1974,7 +1974,9 @@ public abstract class TagsDialog : TextEntryDialogMediator {
 
 public class AddTagsDialog : TagsDialog {
     public AddTagsDialog() {
-        base (Resources.ADD_TAGS_TITLE, _("Tags (separated by commas):"));
+        var title = GLib.dpgettext2 (null, "Dialog Title",
+                Resources.ADD_TAGS_TITLE);
+        base (title, _("Tags (separated by commas):"));
     }
 
     public string[]? execute() {
