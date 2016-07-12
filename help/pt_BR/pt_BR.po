@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-07-01 22:40+0000\n"
-"PO-Revision-Date: 2016-07-03 04:10-0200\n"
+"POT-Creation-Date: 2016-07-10 08:26+0000\n"
+"PO-Revision-Date: 2016-07-12 12:59-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -18,7 +18,6 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
-#| msgid "translator-credits"
 msgctxt "_"
 msgid "translator-credits"
 msgstr "Felipe Braga <fbobraga@gmail.com>, 2015"
@@ -174,8 +173,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/edit-crop.page:42
-#| msgid ""
-#| "@@image: 'figures/crop_thirds.jpg'; md5=4cf0a026bb812c7eab0c9db8210a9524"
 msgctxt "_"
 msgid ""
 "external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
@@ -379,12 +376,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/edit-external.page:24
-#| msgid ""
-#| "Once your editors have been set, select a photo and choose "
-#| "<guiseq><gui>Photos</gui><gui>Open With External Editor</gui></guiseq> to "
-#| "open the photo with the external editor. Likewise, if the original photo "
-#| "is a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</"
-#| "gui></guiseq> to edit the RAW file directly with the set RAW editor."
 msgid ""
 "Once your editors have been set, select a photo and choose "
 "<guiseq><gui>Photos</gui> <gui>Open With External Editor</gui></guiseq> to "
@@ -640,8 +631,8 @@ msgid ""
 "key></keyseq>."
 msgstr ""
 "Clique em <gui>Endireitar</gui>. O controle de endireitar aparecerá. Como "
-"alternativa, use o atalho de teclado <keyseq><key>Ctrl</key><key>A</key></"
-"keyseq>."
+"alternativa, use o atalho de teclado "
+"<keyseq><key>Ctrl</key><key>A</key></keyseq>."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:21
@@ -1086,14 +1077,12 @@ msgstr ""
 
 #. (itstool) path: info/title
 #: C/index.page:6
-#| msgid "Shotwell"
 msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
 #. (itstool) path: info/title
 #: C/index.page:7
-#| msgid "Shotwell"
 msgctxt "text"
 msgid "Shotwell"
 msgstr "Shotwell"
@@ -1369,7 +1358,7 @@ msgid ""
 msgstr ""
 "Marcar também é útil para sinalizar todas as fotos conjunto a ser "
 "trabalhado. Por exemplo, você pode selecionar o modo de exibição de fotos "
-"marcadas e, em seguida, enviar elas para um serviço de publicação."
+"<gui>Marcadas</gui> e, em seguida, enviar elas para um serviço de publicação."
 
 #. (itstool) path: section/title
 #: C/organize-flag.page:27
@@ -1498,8 +1487,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/organize-remove.page:15
-#| msgid ""
-#| "@@image: 'figures/trash_process.png'; md5=ed596bda34c2f4a79a310fbc8bb51fd2"
 msgctxt "_"
 msgid ""
 "external ref='figures/trash_process.png' "
@@ -2026,13 +2013,11 @@ msgstr "<em>Símbolo</em>"
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
-#| msgid "Meaning"
 msgid "<em>Meaning</em>"
 msgstr "<em>Significado</em>"
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
-#| msgid "Example"
 msgid "<em>Example</em>"
 msgstr "<em>Exemplo</em>"
 
@@ -2482,10 +2467,9 @@ msgid ""
 "database in this directory contains a list of all the photos in the Shotwell "
 "library."
 msgstr ""
-"O Shotwell normalmente armazena seus bancos de dados no diretório "
-"<file>~/.shotwell</file>. Este diretório não contém as fotos, mas o banco de "
-"dados neste diretório contém a lista de todas as fotos na biblioteca do "
-"Shotwell."
+"O Shotwell normalmente armazena seus bancos de dados no diretório <file>~/."
+"shotwell</file>. Este diretório não contém as fotos, mas o banco de dados "
+"neste diretório contém a lista de todas as fotos na biblioteca do Shotwell."
 
 #. (itstool) path: page/p
 #: C/other-multiple.page:16
@@ -2696,7 +2680,7 @@ msgid ""
 "Set your desktop background to a single photo or to a slideshow of photos."
 msgstr ""
 "Defina o pano de fundo de sua área de trabalho com uma única foto ou uma "
-"exibição de slides de fotos."
+"apresentação de slides de fotos."
 
 #. (itstool) path: page/title
 #: C/share-background.page:12
@@ -2724,12 +2708,12 @@ msgid ""
 "running."
 msgstr ""
 "Você também pode definir o plano de fundo da área de trabalho como uma "
-"exibição de slides de fotos. Para fazer isso, selecione as fotos para a "
-"apresentação de slides e use o item de menu <guiseq><gui>Arquivo</"
-"gui><gui>Definir apresentação de slides da área de trabalho...</gui></"
-"guiseq>. O Shotwell pedirá um intervalo de tempo entre as fotos, que pode "
-"ser de até um dia de comprimento. A troca de fotos do fundo da área de "
-"trabalho funciona mesmo quando o Shotwell não está em execução."
+"apresentação de slides de fotos. Para fazer isso, selecione as fotos para a "
+"apresentação de slides e use o item de menu <guiseq><gui>Arquivo</gui><gui>"
+"Definir apresentação de slides da área de trabalho...</gui></guiseq>. O "
+"Shotwell pedirá um intervalo de tempo entre as fotos, que pode ser de até um "
+"dia de comprimento. A troca de fotos do fundo da área de trabalho funciona "
+"mesmo quando o Shotwell não está em execução."
 
 #. (itstool) path: info/desc
 #: C/share-export.page:7
@@ -2873,11 +2857,11 @@ msgid ""
 "options under <gui>Autosize</gui>."
 msgstr ""
 "O Shotwell também pode imprimir várias fotos em uma única página; para fazer "
-"isso, selecione múltiplas fotos e use o menu "
-"<guiseq><gui>Arquivo</gui><gui>Imprimir...</gui></guiseq> e, na caixa de "
-"diálogo de impressão, escolha a aba <gui>Configurações da imagem</gui>. "
-"Nela, escolha uma das várias opções de quantidade de imagens por página em "
-"<gui>Tamanho automático</gui>."
+"isso, selecione múltiplas fotos e use o menu <guiseq><gui>Arquivo</"
+"gui><gui>Imprimir...</gui></guiseq> e, na caixa de diálogo de impressão, "
+"escolha a aba <gui>Configurações da imagem</gui>. Nela, escolha uma das "
+"várias opções de quantidade de imagens por página em <gui>Tamanho "
+"automático</gui>."
 
 #. (itstool) path: page/p
 #: C/share-print.page:23
@@ -2932,12 +2916,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/share-slideshow.page:7
 msgid "Watch a slideshow of your photos."
-msgstr "Veja uma exibição de slides de suas fotos."
+msgstr "Veja uma apresentação de slides de suas fotos."
 
 #. (itstool) path: page/title
 #: C/share-slideshow.page:12
 msgid "Slideshows"
-msgstr "Exibição de slides"
+msgstr "Apresentação de slides"
 
 #. (itstool) path: page/p
 #: C/share-slideshow.page:14
@@ -2946,14 +2930,14 @@ msgid ""
 "and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> or press "
 "<key>F5</key>."
 msgstr ""
-"Para ver uma exibição de slides de qualquer coleção no Shotwell, navegue até "
-"ela e use o menu <guiseq><gui>Ver</gui><gui>Exibição de slides</gui></"
-"guiseq> ou pressione a tecla <key>F5</key>."
+"Para ver uma apresentação de slides de qualquer coleção no Shotwell, navegue "
+"até ela e use o menu <guiseq><gui>Ver</gui><gui>Apresentação de "
+"slides</gui></guiseq> ou pressione a tecla <key>F5</key>."
 
 #. (itstool) path: page/p
 #: C/share-slideshow.page:16
 msgid "You can change some settings in a running slideshow:"
-msgstr "Você pode ajustar as configurações durante uma exibição de slides:"
+msgstr "Você pode ajustar as configurações durante uma apresentação de slides:"
 
 #. (itstool) path: item/p
 #: C/share-slideshow.page:19
@@ -2994,13 +2978,11 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"http://facebook.com\">Facebook</link>"
 msgstr "<link href=\"http://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"http://flickr.com\">Flickr</link>"
 msgstr "<link href=\"http://flickr.com\">Flickr</link>"
 
@@ -3058,11 +3040,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-upload.page:31
-#| msgid ""
-#| "Publishing to Facebook requires you to grant certain permissions to the "
-#| "Shotwell Connect Facebook application. You only need to grant these "
-#| "permissions once, when you first associate Shotwell Connect with your "
-#| "Facebook account."
 msgid ""
 "Publishing to Facebook requires you to grant certain permissions to the "
 "Shotwell Facebook application. You only need to grant these permissions "
@@ -3127,9 +3104,10 @@ msgid ""
 msgstr ""
 "Ao selecionar qualquer coleção na barra lateral, o Shotwell exibe todas as "
 "fotos dela na área da janela principal. No canto inferior direito há um "
-"controle que ajusta o tamanho das miniaturas. Você também pode ajustar o "
-"tamanho das miniaturas utilizando as teclas <key>+</key> e <key>-</key> ou "
-"pressionando a tecla <key>Ctrl</key> enquanto move a roda do mouse."
+"controle deslizante que ajusta o tamanho das miniaturas. Você também pode "
+"ajustar o tamanho das miniaturas utilizando as teclas <key>+</key> e "
+"<key>-</key> ou pressionando a tecla <key>Ctrl</key> enquanto move a roda do "
+"mouse."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:16
@@ -3155,13 +3133,13 @@ msgid ""
 "and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen "
 "pixels)."
 msgstr ""
-"Ao visualizar uma foto na janela toda, existirá um controle no canto da tela "
-"para manipular o zoom da visualização. Você pode movimentar a visualização "
-"clicando e arrastando em qualquer lugar da foto. Você também pode aumentar o "
-"zoom usando a roda do mouse ou pressionando as teclas: <keyseq><key>Ctrl</"
-"key><key>0</key></keyseq> para mostrar toda a foto, <keyseq><key>Ctrl</"
-"key><key>1</key></keyseq> para 100% de zoom, e <keyseq><key>Ctrl</"
-"key><key>2</key></keyseq> para 200% de zoom."
+"Ao visualizar uma foto na janela toda, existirá um controle deslizante no "
+"canto da tela para manipular o zoom da visualização. Você pode movimentar a "
+"visualização clicando e arrastando em qualquer lugar da foto. Você também "
+"pode aumentar o zoom usando a roda do mouse ou pressionando as teclas: "
+"<keyseq><key>Ctrl</key><key>0</key></keyseq> para mostrar toda a foto, "
+"<keyseq><key>Ctrl</key><key>1</key></keyseq> para 100% de zoom, e "
+"<keyseq><key>Ctrl</key><key>2</key></keyseq> para 200% de zoom."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:20
@@ -3223,8 +3201,8 @@ msgstr ""
 "Um painel de informações básicas aparece na parte inferior da barra lateral, "
 "mostrando um resumo das fotos selecionadas. Se nenhuma foto estiver "
 "selecionada, ele exibe um resumo de toda a biblioteca. Você pode alternar a "
-"exibição deste painel usando o item de menu <guiseq><gui>Ver</"
-"gui><gui>Informações Básicas</gui></guiseq>."
+"exibição deste painel usando o item de menu <guiseq><gui>Ver</gui><gui>"
+"Informações Básicas</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/view-information.page:16
@@ -3236,8 +3214,9 @@ msgid ""
 msgstr ""
 "A janela de informações estendidas exibe mais informações sobre a foto "
 "selecionada. O item de menu <guiseq><gui>Ver</gui><gui>Informações "
-"estendidas</gui></guiseq> ou a combinação de teclas <keyseq><key>Ctrl</"
-"key><key>Shift</key><key>X</key></keyseq> alterna a exibição desta janela."
+"estendidas</gui></guiseq> ou a combinação de teclas "
+"<keyseq><key>Ctrl</key><key>Shift</key><key>X</key></keyseq> alterna a "
+"exibição desta janela."
 
 #. (itstool) path: info/desc
 #: C/view-sidebar.page:7
