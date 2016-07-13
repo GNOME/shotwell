@@ -1267,7 +1267,7 @@ public abstract class CheckerboardPage : Page {
     }
 
     protected virtual string get_filter_no_match_message() {
-        return _("No photos/videos found");
+        return _("No photos/videos found which match the current filter");
     }
 
     protected virtual void on_item_activated(CheckerboardItem item, Activator activator, 
