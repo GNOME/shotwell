@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
 "l&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-07-10 13:35+0000\n"
-"PO-Revision-Date: 2016-07-12 06:36-0200\n"
+"POT-Creation-Date: 2016-07-13 19:55+0000\n"
+"PO-Revision-Date: 2016-07-13 19:13-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -4752,8 +4752,8 @@ msgid "No photos/videos"
 msgstr "Sem fotos/vídeos"
 
 #: src/Page.vala:1270
-msgid "No photos/videos found"
-msgstr "Sem fotos/vídeos encontrados"
+msgid "No photos/videos found which match the current filter"
+msgstr "Nenhuma foto ou vídeo encontrados que correspondam ao filtro atual"
 
 #: src/Page.vala:2568
 msgid "Photos cannot be exported to this directory."
@@ -6369,6 +6369,9 @@ msgstr "Mostrar títul_o"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "segundos"
+
+#~ msgid "No photos/videos found"
+#~ msgstr "Sem fotos/vídeos encontrados"
 
 #~ msgid "Intro message replaced at runtime"
 #~ msgstr "Mensagem de introdução substituída em tempo real"
