@@ -158,7 +158,7 @@ public enum Rating {
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're committed en
 // masse to an image file.
-public abstract class Photo : PhotoSource, Dateable {
+public abstract class Photo : PhotoSource, Dateable, Positionable {
     // Need to use "thumb" rather than "photo" for historical reasons -- this name is used
     // directly to load thumbnails from disk by already-existing filenames
     public const string TYPENAME = "thumb";
@@ -1222,6 +1222,7 @@ public abstract class Photo : PhotoSource, Dateable {
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
         string title = "";
+        GpsCoords gps_coords = GpsCoords();
         string comment = "";
         Rating rating = Rating.UNRATED;
         
@@ -1237,6 +1238,7 @@ public abstract class Photo : PhotoSource, Dateable {
             
             orientation = detected.metadata.get_orientation();
             title = detected.metadata.get_title();
+            gps_coords = detected.metadata.get_gps_coords();
             comment = detected.metadata.get_comment();
             params.keywords = detected.metadata.get_keywords();
             rating = detected.metadata.get_rating();
@@ -1272,6 +1274,7 @@ public abstract class Photo : PhotoSource, Dateable {
         params.row.flags = 0;
         params.row.master.file_format = detected.file_format;
         params.row.title = title;
+        params.row.gps_coords = gps_coords;
         params.row.comment = comment;
         params.row.rating = rating;
         
@@ -1313,6 +1316,7 @@ public abstract class Photo : PhotoSource, Dateable {
         params.row.flags = 0;
         params.row.master.file_format = PhotoFileFormat.JFIF;
         params.row.title = null;
+        params.row.gps_coords = GpsCoords();
         params.row.comment = null;
         params.row.rating = Rating.UNRATED;
         
@@ -1465,7 +1469,9 @@ public abstract class Photo : PhotoSource, Dateable {
             list += "image:orientation";
             updated_row.master.original_orientation = backing.original_orientation;
         }
-        
+
+        GpsCoords gps_coords = GpsCoords();
+
         if (detected.metadata != null) {
             MetadataDateTime? date_time = detected.metadata.get_exposure_date_time();
             if (date_time != null && updated_row.exposure_time != date_time.get_timestamp())
@@ -1473,6 +1479,11 @@ public abstract class Photo : PhotoSource, Dateable {
             
             if (updated_row.title != detected.metadata.get_title())
                 list += "metadata:name";
+
+            gps_coords = detected.metadata.get_gps_coords();
+            if (updated_row.gps_coords != gps_coords)
+                list += "metadata:gps";
+
             
             if (updated_row.comment != detected.metadata.get_comment())
                 list += "metadata:comment";
@@ -1493,7 +1504,8 @@ public abstract class Photo : PhotoSource, Dateable {
             MetadataDateTime? date_time = detected.metadata.get_exposure_date_time();
             if (date_time != null)
                 updated_row.exposure_time = date_time.get_timestamp();
-            
+
+            updated_row.gps_coords = gps_coords;
             updated_row.title = detected.metadata.get_title();
             updated_row.comment = detected.metadata.get_comment();
             updated_row.rating = detected.metadata.get_rating();
@@ -1604,6 +1616,7 @@ public abstract class Photo : PhotoSource, Dateable {
         
         if (reimport_state.metadata != null) {
             set_title(reimport_state.metadata.get_title());
+            set_gps_coords(reimport_state.metadata.get_gps_coords());
             set_comment(reimport_state.metadata.get_comment());
             set_rating(reimport_state.metadata.get_rating());
             apply_user_metadata_for_reimport(reimport_state.metadata);
@@ -2365,6 +2378,29 @@ public abstract class Photo : PhotoSource, Dateable {
         if (committed)
             notify_altered(new Alteration("metadata", "name"));
     }
+
+    public GpsCoords get_gps_coords() {
+        lock (row) {
+            return row.gps_coords;
+        }
+    }
+
+    public void set_gps_coords(GpsCoords gps_coords) {
+        DatabaseError dberr = null;
+        lock (row) {
+            try {
+                PhotoTable.get_instance().set_gps_coords(row.photo_id, gps_coords);
+                row.gps_coords = gps_coords;
+            } catch (DatabaseError err) {
+                dberr = err;
+            }
+        }
+        if (dberr == null)
+            notify_altered(new Alteration("metadata", "gps"));
+        else
+            warning("Unable to write gps coordinates for %s: %s", to_string(), dberr.message);
+    }
+
     
     public override bool set_comment(string? comment) {
         string? new_comment = prep_comment(comment);
@@ -3215,6 +3251,7 @@ public abstract class Photo : PhotoSource, Dateable {
         double orientation_time = 0.0;
         
         total_timer.start();
+
 #endif
         
         // get required fields all at once, to avoid holding the row lock
@@ -4979,7 +5016,12 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         this.import_keywords = null;
         
         thumbnail_scheduler = new OneShotScheduler("LibraryPhoto", generate_thumbnails);
-        
+        // import gps coords of photos imported with prior versions of shotwell
+        if (row.gps_coords.has_gps == -1) {
+            var gps_import_scheduler = new OneShotScheduler("LibraryPhoto", import_gps_metadata);
+            gps_import_scheduler.at_priority_idle(Priority.LOW);
+        }
+
         // if marked in a state where they're held in an orphanage, rehydrate their backlinks
         if ((row.flags & (FLAG_TRASH | FLAG_OFFLINE)) != 0)
             rehydrate_backlinks(global, row.backlinks);
@@ -5100,7 +5142,12 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         // fire signal that thumbnails have changed
         notify_thumbnail_altered();
     }
-    
+
+    private void import_gps_metadata() {
+        GpsCoords gps_coords = get_metadata().get_gps_coords();
+        set_gps_coords(gps_coords);
+    }
+
     // These keywords are only used during import and should not be relied upon elsewhere.
     public Gee.Collection<string>? get_import_keywords() {
         return import_keywords;

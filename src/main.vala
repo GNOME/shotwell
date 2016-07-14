@@ -370,7 +370,7 @@ void main(string[] args) {
     
     // init GTK (valac has already called g_threads_init())
     try {
-        Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
+        GtkClutter.init_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
             Resources.APP_GETTEXT_PACKAGE);
 
         var use_dark = Config.Facade.get_instance().get_gtk_theme_variant();

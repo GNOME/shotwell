@@ -4,12 +4,16 @@
  * See the COPYING file in this distribution.
  */
 
-private abstract class Properties : Gtk.Grid {
-    uint line_count = 0;
+private abstract class Properties : Gtk.Box {
+    protected Gtk.Grid grid = new Gtk.Grid();
+    protected uint line_count = 0;
 
     public Properties() {
-        row_spacing = 6;
-        column_spacing = 12;
+        grid.row_spacing = 6;
+        grid.column_spacing = 12;
+        set_homogeneous(false);
+        set_orientation(Gtk.Orientation.VERTICAL);
+        pack_start(grid, false, false, 0);
     }
 
     protected void add_line(string label_text, string info_text, bool multi_line = false, string? href = null) {
@@ -62,12 +66,12 @@ private abstract class Properties : Gtk.Grid {
             info = (Gtk.Widget) info_label;
         }
 
-        attach(label, 0, (int) line_count, 1, 1);
+        grid.attach(label, 0, (int) line_count, 1, 1);
 
         if (multi_line) {
-            attach(info, 1, (int) line_count, 1, 3);
+            grid.attach(info, 1, (int) line_count, 1, 3);
         } else {
-            attach(info, 1, (int) line_count, 1, 1);
+            grid.attach(info, 1, (int) line_count, 1, 1);
         }
 
         line_count++;
@@ -140,9 +144,9 @@ private abstract class Properties : Gtk.Grid {
     }
 
     protected virtual void clear_properties() {
-        foreach (Gtk.Widget child in get_children())
-            remove(child);
-        
+        foreach (Gtk.Widget child in grid.get_children())
+            grid.remove(child);
+
         line_count = 0;
     }
 
@@ -171,8 +175,11 @@ private class BasicProperties : Properties {
     private double clip_duration;
     private string raw_developer;
     private string raw_assoc;
+    private MapWidget map_widget;
 
     public BasicProperties() {
+        map_widget = MapWidget.get_instance();
+        pack_start(map_widget, true, true, 0);
     }
 
     protected override void clear_properties() {
@@ -190,6 +197,7 @@ private class BasicProperties : Properties {
         clip_duration = 0.0;
         raw_developer = "";
         raw_assoc = "";
+        map_widget.clear();
     }
 
     protected override void get_single_properties(DataView view) {
@@ -260,6 +268,8 @@ private class BasicProperties : Properties {
             }
             end_time = start_time;
         }
+        map_widget.add_position_marker(view);
+
     }
 
     protected override void get_multiple_properties(Gee.Iterable<DataView>? iter) {
@@ -269,8 +279,8 @@ private class BasicProperties : Properties {
         video_count = 0;
         foreach (DataView view in iter) {
             DataSource source = view.get_source();
-            
-            if (source is PhotoSource || source is PhotoImportSource) {                  
+
+            if (source is PhotoSource || source is PhotoImportSource) {
                 time_t exposure_time = (source is PhotoSource) ?
                     ((PhotoSource) source).get_exposure_time() :
                     ((PhotoImportSource) source).get_exposure_time();
@@ -282,7 +292,7 @@ private class BasicProperties : Properties {
                     if (end_time == 0 || exposure_time > end_time)
                         end_time = exposure_time;
                 }
-                
+
                 photo_count++;
             } else if (source is EventSource) {
                 EventSource event_source = (EventSource) source;
@@ -324,12 +334,14 @@ private class BasicProperties : Properties {
 
                 video_count++;
             }
+            map_widget.add_position_marker(view);
         }
     }
 
     protected override void get_properties(Page current_page) {
         base.get_properties(current_page);
 
+        map_widget.set_page(current_page);
         if (end_time == 0)
             end_time = start_time;
         if (start_time == 0)
@@ -455,6 +467,8 @@ private class BasicProperties : Properties {
                 }
             }
         }
+
+        map_widget.show_position_markers();
     }
 }
 
@@ -485,7 +499,7 @@ private class ExtendedProperties : Properties {
 
     public ExtendedProperties() {
         base();
-        row_spacing = 6;
+        grid.row_spacing = 6;
     }
 
     // Event stuff

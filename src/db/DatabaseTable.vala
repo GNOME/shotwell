@@ -21,6 +21,7 @@ public abstract class DatabaseTable {
      * tables are created on demand and tables and columns are easily ignored when already present.
      * However, the change should be noted in upgrade_database() as a comment.
      ***/
+    public const int SCHEMA_VERSION = 21;
 #if ENABLE_FACES
     public const int SCHEMA_VERSION = 21;
 #else
@@ -291,7 +292,19 @@ public abstract class DatabaseTable {
         if (res != Sqlite.DONE)
             throw_error("DatabaseTable.update_int64_by_id_2 %s.%s".printf(table_name, column), res);
     }
-    
+
+    protected void update_double_by_id_2(int64 id, string column, double value) throws DatabaseError {
+        Sqlite.Statement stmt;
+        prepare_update_by_id(id, column, out stmt);
+
+        int res = stmt.bind_double(1, value);
+        assert(res == Sqlite.OK);
+
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("DatabaseTable.update_double_by_id_2 %s.%s".printf(table_name, column), res);
+    }
+
     protected void delete_by_id(int64 id) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("DELETE FROM %s WHERE id=?".printf(table_name), -1, out stmt);

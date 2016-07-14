@@ -144,7 +144,9 @@ public class LibraryWindow : AppWindow {
     private Gtk.ProgressBar background_progress_bar = new Gtk.ProgressBar();
     private bool background_progress_displayed = false;
     
-    private BasicProperties basic_properties = new BasicProperties();
+    // Instantiate later in constructor becase the map support loads its icons in there and we need
+    // to have the global app instance available for that
+    private BasicProperties basic_properties;
     private ExtendedProperties extended_properties = new ExtendedProperties();
     private Gtk.Revealer extended_properties_revealer = new Gtk.Revealer();
     
@@ -192,6 +194,7 @@ public class LibraryWindow : AppWindow {
         search_toolbar = new SearchFilterToolbar(search_actions);
 
         // create the main layout & start at the Library page
+        basic_properties = new BasicProperties();
         create_layout(library_branch.photos_entry.get_page());
         
         // settings that should persist between sessions
@@ -1168,11 +1171,11 @@ public class LibraryWindow : AppWindow {
         basic_properties.halign = Gtk.Align.FILL;
         basic_properties.valign = Gtk.Align.CENTER;
         basic_properties.hexpand = true;
-        basic_properties.vexpand = false;
+        basic_properties.vexpand = true;
         basic_properties.margin_top = 10;
         basic_properties.margin_bottom = 10;
         basic_properties.margin_start = 6;
-        basic_properties.margin_end = 0;
+        basic_properties.margin_end = 6;
 
         bottom_frame.add(basic_properties);
         bottom_frame.get_style_context().remove_class("frame");

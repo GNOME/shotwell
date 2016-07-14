@@ -293,7 +293,7 @@ private VerifyResult upgrade_database(int input_version) {
     }
     
     version = 16;
-    
+
     //
     // Version 17:
     // * Added comment column to PhotoTable and VideoTable
@@ -377,9 +377,23 @@ private VerifyResult upgrade_database(int input_version) {
 #endif
     
     //
+    // Version 21:
+    // * Add has_gps, gps_lat and gps_lon columns to PhotoTable
+
+    if (!DatabaseTable.ensure_column("PhotoTable", "has_gps", "INTEGER DEFAULT -1",
+        "upgrade_database: adding gps_lat column to PhotoTable")
+        || !DatabaseTable.ensure_column("PhotoTable", "gps_lat", "REAL",
+        "upgrade_database: adding gps_lat column to PhotoTable")
+        || !DatabaseTable.ensure_column("PhotoTable", "gps_lon", "REAL",
+        "upgrade_database: adding gps_lon column to PhotoTable")) {
+        return VerifyResult.UPGRADE_ERROR;
+    }
+
+    version = 21;
+    //
     // Finalize the upgrade process
     //
-    
+
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     

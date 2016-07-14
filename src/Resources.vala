@@ -82,6 +82,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const int ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE = 32;
     public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 16;
     public const int ICON_ZOOM_SCALE = 16;
+    public const string ICON_GPS_MARKER = "gps-marker.svg";
+    public const string ICON_GPS_MARKER_SELECTED = "gps-marker-selected.svg";
 
     public const string ICON_CAMERAS = "camera-photo-symbolic";
     public const string ICON_EVENTS = "multiple-events-symbolic";

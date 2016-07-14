@@ -15,7 +15,7 @@ public class MetadataWriter : Object {
     public const uint COMMIT_DELAY_MSEC = 3000;
     public const uint COMMIT_SPACING_MSEC = 50;
     
-    private const string[] INTERESTED_PHOTO_METADATA_DETAILS = { "name", "comment", "rating", "exposure-time" };
+    private const string[] INTERESTED_PHOTO_METADATA_DETAILS = { "name", "comment", "rating", "exposure-time", "gps" };
     
     private class CommitJob : BackgroundJob {
         public LibraryPhoto photo;
@@ -117,6 +117,14 @@ public class MetadataWriter : Object {
                 metadata.set_exposure_date_time(current_exposure_time != 0
                     ? new MetadataDateTime(current_exposure_time)
                     : null);
+                changed = true;
+            }
+
+            // gps location
+            GpsCoords current_gps_coords = photo.get_gps_coords();
+            GpsCoords metadata_gps_coords = metadata.get_gps_coords();
+            if (!current_gps_coords.equals(ref metadata_gps_coords)) {
+                metadata.set_gps_coords(current_gps_coords);
                 changed = true;
             }
 
