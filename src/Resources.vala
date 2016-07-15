@@ -702,6 +702,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private string START_MULTIDAY_DATE_FORMAT_STRING = null;
     private string END_MULTIDAY_DATE_FORMAT_STRING = null;
     private string START_MULTIMONTH_DATE_FORMAT_STRING = null;
+    private string END_MULTIMONTH_DATE_FORMAT_STRING = null;
         
     public void init () {
         // load application-wide stock icons as IconSets
@@ -783,18 +784,23 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         /// Locale-specific starting date format for multi-date strings,
         /// i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        START_MULTIDAY_DATE_FORMAT_STRING = _("%a %b %d");
+        START_MULTIDAY_DATE_FORMAT_STRING = C_("MultidayFormat", "%a %b %d");
         
         /// Locale-specific ending date format for multi-date strings,
         /// i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        END_MULTIDAY_DATE_FORMAT_STRING = _("%d, %Y");
+        END_MULTIDAY_DATE_FORMAT_STRING = C_("MultidayFormat", "%d, %Y");
         
         /// Locale-specific calendar date format for multi-month strings,
         /// i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        START_MULTIMONTH_DATE_FORMAT_STRING = _("%a %b %d");
-        
+        START_MULTIMONTH_DATE_FORMAT_STRING = C_("MultimonthFormat", "%a %b %d");
+
+        /// Locale-specific calendar date format for multi-month strings,
+        /// i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+        END_MULTIMONTH_DATE_FORMAT_STRING = C_("MultimonthFormat", "%a %b %d, %Y");
+
         // ...put everything back like we found it.
         if (old_messages != null) {
             Intl.setlocale(LocaleCategory.MESSAGES, old_messages);
@@ -858,7 +864,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
 
     public string get_end_multimonth_span_format_string() {
-        return get_long_date_format_string();
+        if (END_MULTIMONTH_DATE_FORMAT_STRING == null) {
+            fetch_lc_time_format();
+        }
+
+        return END_MULTIMONTH_DATE_FORMAT_STRING;
     }
 
     public File get_ui(string filename) {
