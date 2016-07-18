@@ -1,3 +1,55 @@
+Shotwell 0.23.3 - 18 Jul 2016
+
+  * libraw: Fix binding of ProcessedImage.data
+  * graw: Prevent needless array duplication
+  * Fix screenshot URLs in appdata
+  * db: Add option to trace SQL statements
+  * Change build system to autotools
+  * Add help, appdata, gsettings and desktop files to translation system
+  * Change way help is built and installed
+  * Always install the manpage
+  * Several translation fixes
+  * Make message more clear that there are no photos matching a filter
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=715578
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717064
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719122
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719200
+ - https://bugzilla.gnome.org/show_bug.cgi?id=730665
+ - https://bugzilla.gnome.org/show_bug.cgi?id=730669
+ - https://bugzilla.gnome.org/show_bug.cgi?id=740873
+ - https://bugzilla.gnome.org/show_bug.cgi?id=741508
+ - https://bugzilla.gnome.org/show_bug.cgi?id=744251
+ - https://bugzilla.gnome.org/show_bug.cgi?id=744254
+ - https://bugzilla.gnome.org/show_bug.cgi?id=744255
+ - https://bugzilla.gnome.org/show_bug.cgi?id=768054
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Tiago Santos <tiagofsantos81@sapo.pt>
+ - Stas Solovey <whats_up@tut.by>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Lorenz Adam Damara <lorenzadam@resolution-consulting.co.id>
+ - Jeremy Bicha <jbicha@ubuntu.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Andreas Brauchli <a.brauchli@elementarea.net>
+
+Added/updated translations
+ - de, courtesy of Christian Kirbach
+ - es, courtesy of Daniel Mustieles
+ - gu, courtesy of Ankit Patel
+ - id, courtesy of Andika Triwidada
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - pt, courtesy of Tiago Santos
+ - ru, courtesy of Stas Solovey
+ - sk, courtesy of Dušan Kazik
+
 Shotwell 0.23.2 - 20 Jun 2016
 
   * Use yelp-build to generate HTML docs

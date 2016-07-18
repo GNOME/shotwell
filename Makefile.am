@@ -17,8 +17,9 @@ AUTHORS:
 
 # Generate the ChangeLog and clean the dist tarball
 @GENERATE_CHANGELOG_RULES@
+
 dist-hook: dist-ChangeLog
-	find $(distdir) -name "*.c" -o -name "shotwell*.h" -o -name "shotwell*.vapi" -o -name "*vala.stamp" -exec rm {} \;
+#	find $(distdir) -name "*.c" -o -name "shotwell*.h" -o -name "shotwell*.vapi" -o -name "*vala.stamp" -exec rm {} \;
 
 INTAINERCLEANFILES = \
 	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
