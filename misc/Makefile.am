@@ -30,3 +30,5 @@ dist_noinst_DATA = \
 	$(srcdir)/shotwell-viewer.desktop.in.in \
 	$(gsettings_SCHEMAS) \
 	$(appdata_in_files)
+
+-include $(top_srcdir)/git.mk

@@ -25,3 +25,5 @@ dist_ui_DATA = \
 	top.ui \
 	trash.ui
 
+
+-include $(top_srcdir)/git.mk

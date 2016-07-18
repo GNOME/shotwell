@@ -37,3 +37,5 @@ uninstall-update-icon-cache:
 		$(AM_V_at)$(POST_UNINSTALL)
 			test -n "$(DESTDIR)" || $(UPDATE_ICON_CACHE) "$(iconthemedir)"
 
+
+-include $(top_srcdir)/git.mk

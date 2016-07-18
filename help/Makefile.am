@@ -55,3 +55,5 @@ HELP_FILES = \
 	view-sidebar.page
 
 HELP_LINGUAS = cs de el es hu pt_BR sv
+
+-include $(top_srcdir)/git.mk

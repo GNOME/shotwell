@@ -20,9 +20,19 @@ AUTHORS:
 dist-hook: dist-ChangeLog
 	find $(distdir) -name "*.c" -o -name "shotwell*.h" -o -name "shotwell*.vapi" -o -name "*vala.stamp" -exec rm {} \;
 
+INTAINERCLEANFILES = \
+	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL)
+
 GITIGNOREFILES = \
-	**/*.swp \
+	ABOUT-NLS \
+	plugins/**/*.h \
+	plugins/**/*.vapi \
+	**/*.sw[nop] \
+	**/*~ \
 	*.o \
+	m4/* \
 	aclocal.m4 \
 	build-aux \
 	ChangeLog \

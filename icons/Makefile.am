@@ -50,3 +50,5 @@ dist_images_DATA = \
 	videos-page.png \
 	zoom-in.png \
 	zoom-out.png
+
+-include $(top_srcdir)/git.mk
