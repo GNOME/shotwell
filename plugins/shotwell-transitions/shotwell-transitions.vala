@@ -58,7 +58,8 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
     
     public ShotwellTransitionDescriptor(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_icon_set(resource_directory.get_child(ICON_FILENAME));
+            icon_pixbuf_set =
+                Resources.load_from_resource(Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
     }
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {

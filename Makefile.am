@@ -119,6 +119,7 @@ dist_plugin_DATA =
 pkglibexec_PROGRAMS =
 
 dist_pkglibexec_SCRIPTS = $(top_srcdir)/settings-migrator/shotwell-settings-migrator
+dist_noinst_DATA = $(NULL)
 
 include $(top_srcdir)/common.am
 include $(top_srcdir)/shotwell.am
@@ -133,7 +134,7 @@ include $(top_srcdir)/import.am
 dist_noinst_SCRIPTS = \
 	autogen.sh
 
-dist_noinst_DATA = \
+dist_noinst_DATA += \
 	plugins/shotwell-plugin-dev-1.0.h \
 	plugins/shotwell-plugin-common.h \
 	vapi/gphoto.h \

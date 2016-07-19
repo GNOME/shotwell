@@ -146,6 +146,11 @@ dnl ***********************************************************************
 AX_REQUIRE_DEFINED([APPDATA_XML])
 APPDATA_XML
 
+dnl
+dnl
+dnl
+AC_SUBST([GLIB_COMPILE_RESOURCES], [`$PKG_CONFIG --variable glib_compile_resources gio-2.0`])
+
 dnl ***********************************************************************
 dnl Process .in Files
 dnl ***********************************************************************

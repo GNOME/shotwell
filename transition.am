@@ -1,5 +1,5 @@
 plugin_LTLIBRARIES += plugins/shotwell-transitions/shotwell-transitions.la
-dist_plugin_DATA += plugins/shotwell-transitions/slideshow-plugin.png
+dist_noinst_DATA += plugins/shotwell-transitions/slideshow-plugin.png
 
 plugins_shotwell_transitions_shotwell_transitions_la_SOURCES = \
 	plugins/shotwell-transitions/BlindsEffect.vala \
@@ -15,6 +15,12 @@ plugins_shotwell_transitions_shotwell_transitions_la_SOURCES = \
 	plugins/shotwell-transitions/StripesEffect.vala \
 	plugins/shotwell-plugin-common.vapi
 
+nodist_plugins_shotwell_transitions_shotwell_transitions_la_SOURCES = \
+	plugins/shotwell-transitions/resource.c
+
+plugins/shotwell-transitions/resource.c: plugins/shotwell-transitions/org.gnome.Shotwell.Transitions.gresource.xml
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=plugins/shotwell-transitions --generate $<
+
 plugins_shotwell_transitions_shotwell_transitions_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
 	--pkg gtk+-3.0 \
@@ -29,6 +35,7 @@ plugins_shotwell_transitions_shotwell_transitions_la_VALAFLAGS = \
 	--vapidir $(abs_top_srcdir)/plugins
 
 plugins_shotwell_transitions_shotwell_transitions_la_CFLAGS = \
+	-DPLUGIN_RESOURCE_PATH='"/org/gnome/Shotwell/Transitions"' \
 	$(PLUGIN_CFLAGS) \
 	$(COMMON_CFLAGS) \
 	-I $(abs_top_srcdir)/plugins
