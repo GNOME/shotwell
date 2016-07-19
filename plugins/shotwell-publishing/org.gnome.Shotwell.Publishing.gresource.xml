@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Shotwell/Publishing">
+      <file>facebook.png</file>
+      <file>flickr.png</file>
+      <file>picasa.png</file>
+      <file>piwigo.png</file>
+      <file>youtube.png</file>
+      <file>facebook_publishing_options_pane.ui</file>
+      <file>flickr_pin_entry_pane.ui</file>
+      <file>flickr_publishing_options_pane.ui</file>
+      <file>picasa_publishing_options_pane.ui</file>
+      <file>piwigo_authentication_pane.ui</file>
+      <file>piwigo_publishing_options_pane.ui</file>
+      <file>youtube_publishing_options_pane.ui</file>
+  </gresource>
+</gresources>

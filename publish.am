@@ -1,6 +1,6 @@
 plugin_LTLIBRARIES += plugins/shotwell-publishing/shotwell-publishing.la
 
-dist_plugin_DATA += \
+dist_noinst_DATA += \
 	plugins/shotwell-publishing/facebook.png \
 	plugins/shotwell-publishing/flickr.png \
 	plugins/shotwell-publishing/picasa.png \
@@ -23,6 +23,12 @@ plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/PiwigoPublishing.vala \
 	plugins/shotwell-plugin-common.vapi
 
+nodist_plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
+	plugins/shotwell-publishing/resource.c
+
+plugins/shotwell-publishing/resource.c: plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=plugins/shotwell-publishing --generate $<
+
 plugins_shotwell_publishing_shotwell_publishing_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
 	--pkg gtk+-3.0 \
@@ -37,6 +43,7 @@ plugins_shotwell_publishing_shotwell_publishing_la_VALAFLAGS = \
 	--vapidir $(abs_top_srcdir)/plugins
 
 plugins_shotwell_publishing_shotwell_publishing_la_CFLAGS = \
+	-DPLUGIN_RESOURCE_PATH='"/org/gnome/Shotwell/Publishing"' \
 	$(PLUGIN_CFLAGS) \
 	$(COMMON_CFLAGS) \
 	-I $(top_srcdir)/plugins

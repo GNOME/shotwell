@@ -11,7 +11,8 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public FacebookService(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_icon_set(resource_directory.get_child(ICON_FILENAME));
+            icon_pixbuf_set = Resources.load_from_resource
+                (Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
     }
     
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
@@ -364,9 +365,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             // the trailing get_path() is required, since add_from_file can't cope
             // with File objects directly and expects a pathname instead.
-            builder.add_from_file(
-                host.get_module_file().get_parent().
-                get_child("facebook_publishing_options_pane.ui").get_path());
+            builder.add_from_resource (Resources.RESOURCE_PATH + "/" +
+                    "facebook_publishing_options_pane.ui");
         } catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
