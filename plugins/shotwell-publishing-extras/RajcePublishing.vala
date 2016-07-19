@@ -13,7 +13,9 @@ public class RajceService : Object, Spit.Pluggable, Spit.Publishing.Service
     public RajceService(GLib.File resource_directory)
 	{
         if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_icon_set(resource_directory.get_child(ICON_FILENAME));
+            icon_pixbuf_set =
+                Resources.load_from_resource(Resources.RESOURCE_PATH + "/" +
+                        ICON_FILENAME);
     }
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface)
@@ -844,11 +846,11 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object
     public AuthenticationPane( RajcePublisher publisher, Mode mode = Mode.INTRO )
 	{
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        File ui_file = publisher.get_host().get_module_file().get_parent().get_child("rajce_authentication_pane.ui");
         try
 		{
             builder = new Gtk.Builder();
-            builder.add_from_file(ui_file.get_path());
+            builder.add_from_resource (Resources.RESOURCE_PATH +
+                    "/rajce_authentication_pane.ui");
             builder.connect_signals(null);
             Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
             Gtk.Label message_label = builder.get_object("message_label") as Gtk.Label;
@@ -986,11 +988,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object
         this.publisher = publisher;
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 		
-        File ui_file = publisher.get_host().get_module_file().get_parent().get_child("rajce_publishing_options_pane.ui");
         try
 		{
 		    this.builder = new Gtk.Builder();
-			builder.add_from_file(ui_file.get_path());
+			builder.add_from_resource (Resources.RESOURCE_PATH + "/rajce_publishing_options_pane.ui");
             builder.connect_signals(null);
 			
 		    pane_widget = (Gtk.Box) builder.get_object("rajce_pane_widget");

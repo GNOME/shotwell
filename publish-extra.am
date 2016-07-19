@@ -1,5 +1,6 @@
 plugin_LTLIBRARIES += plugins/shotwell-publishing-extras/shotwell-publishing-extras.la
-dist_plugin_DATA += \
+
+dist_noinst_DATA += \
 	plugins/shotwell-publishing-extras/gallery3.png \
 	plugins/shotwell-publishing-extras/rajce.png \
 	plugins/shotwell-publishing-extras/tumblr.png \
@@ -19,6 +20,13 @@ plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_SOURCES = \
 	plugins/shotwell-publishing-extras/YandexPublishing.vala \
 	plugins/shotwell-plugin-common.vapi
 
+nodist_plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_SOURCES = \
+	plugins/shotwell-publishing-extras/resource.c
+
+plugins/shotwell-publishing-extras/resource.c: plugins/shotwell-publishing-extras/org.gnome.Shotwell.Publishing.Extras.gresource.xml
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=plugins/shotwell-publishing-extras --generate $<
+
+
 plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
 	--pkg gtk+-3.0 \
@@ -33,6 +41,7 @@ plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_VALAFLAGS = \
 	--vapidir $(abs_top_srcdir)/plugins
 
 plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_CFLAGS = \
+	-DPLUGIN_RESOURCE_PATH='"/org/gnome/Shotwell/Publishing/Extras"' \
 	$(PLUGIN_CFLAGS) \
 	$(COMMON_CFLAGS) \
 	-I $(abs_top_srcdir)/plugins

@@ -238,11 +238,10 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
 
         box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         
-        File ui_file = host.get_module_file().get_parent().get_child("yandex_publish_model.ui");
-        
         try {
             builder = new Gtk.Builder();
-            builder.add_from_file(ui_file.get_path());
+            builder.add_from_resource (Resources.RESOURCE_PATH + "/yandex_publish_model.ui");
+
             builder.connect_signals(null);
             Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
 

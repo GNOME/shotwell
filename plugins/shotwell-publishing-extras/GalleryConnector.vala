@@ -63,8 +63,8 @@ public class Gallery3Service : Object, Spit.Pluggable,
 
     public Gallery3Service(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_icon_set(
-                resource_directory.get_child(ICON_FILENAME));
+            icon_pixbuf_set = Resources.load_from_resource
+                (Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
     }
 
     public int get_pluggable_interface(int min_host_interface,
@@ -1011,9 +1011,8 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         Gtk.Builder builder = new Gtk.Builder();
 
         try {
-            builder.add_from_file(
-                host.get_module_file().get_parent().get_child(
-                    "gallery3_publishing_options_pane.ui").get_path());
+            builder.add_from_resource(Resources.RESOURCE_PATH +
+                    "/gallery3_publishing_options_pane.ui");
         }
         catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);
@@ -1764,9 +1763,8 @@ internal class CredentialsPane : Spit.Publishing.DialogPane, GLib.Object {
         Gtk.Builder builder = new Gtk.Builder();
 
         try {
-            builder.add_from_file(
-                host.get_module_file().get_parent().get_child(
-                    "gallery3_authentication_pane.ui").get_path());
+            builder.add_from_resource (Resources.RESOURCE_PATH +
+                    "/gallery3_authentication_pane.ui");
         }
         catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);

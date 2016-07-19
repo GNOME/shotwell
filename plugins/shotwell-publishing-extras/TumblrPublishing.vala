@@ -13,7 +13,9 @@ public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public TumblrService(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_icon_set(resource_directory.get_child(ICON_FILENAME));
+            icon_pixbuf_set =
+                Resources.load_from_resource(Resources.RESOURCE_PATH + "/" +
+                        ICON_FILENAME);
     }
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
@@ -596,12 +598,9 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
     public AuthenticationPane(TumblrPublisher publisher, Mode mode = Mode.INTRO) {
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
-        File ui_file = publisher.get_host().get_module_file().get_parent().
-            get_child("tumblr_authentication_pane.ui");
-        
         try {
             builder = new Gtk.Builder();
-            builder.add_from_file(ui_file.get_path());
+            builder.add_from_resource (Resources.RESOURCE_PATH + "/tumblr_authentication_pane.ui");
             builder.connect_signals(null);
             Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
             
@@ -714,12 +713,11 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 		this.media_type = media_type;
 		this.sizes = sizes;
 		this.blogs=blogs;
-        File ui_file = publisher.get_host().get_module_file().get_parent().
-            get_child("tumblr_publishing_options_pane.ui");
-        
+
         try {
 			builder = new Gtk.Builder();
-			builder.add_from_file(ui_file.get_path());
+			builder.add_from_resource (Resources.RESOURCE_PATH +
+                    "/tumblr_publishing_options_pane.ui");
 			builder.connect_signals(null);
 
 			// pull in the necessary widgets from the glade file
