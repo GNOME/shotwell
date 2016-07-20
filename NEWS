@@ -1,3 +1,6 @@
+Shotwell 0.23.4 - 20 Jul 2016
+  * Plugins: Fix linking error
+
 Shotwell 0.23.3 - 18 Jul 2016
 
   * libraw: Fix binding of ProcessedImage.data
