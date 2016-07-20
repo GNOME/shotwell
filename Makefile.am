@@ -75,6 +75,9 @@ plugins_common_libshotwell_plugin_common_la_CFLAGS = \
 	-DGETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
 	-I $(top_srcdir)/plugins -I$(top_builddir)/plugins
 
+plugins_common_libshotwell_plugin_common_la_LIBADD = \
+	$(PLUGIN_LIBS)
+
 plugins/shotwell-plugin-dev-1.0.vapi plugins/shotwell-plugin-dev-1.0.h: src_plugins_libplugin_la_vala.stamp
 
 #
