@@ -392,7 +392,13 @@ public class LibraryWindow : AppWindow {
         sidebar.label = _("S_idebar");
         sidebar.tooltip = _("Display the sidebar");
         actions += sidebar;
-        
+
+        Gtk.ToggleActionEntry toolbar = { "CommonDisplayToolbar", null, TRANSLATABLE,
+            "<Ctrl>F9", TRANSLATABLE, on_display_toolbar, is_toolbar_visible() };
+        toolbar.label = _("T_oolbar");
+        toolbar.tooltip = _("Display the tool bar");
+        actions += toolbar;
+
         return actions;
     }
     
@@ -837,7 +843,7 @@ public class LibraryWindow : AppWindow {
         set_sidebar_visible(((Gtk.ToggleAction) action).get_active());
         
     }
-    
+
     private void set_sidebar_visible(bool visible) {
         sidebar_paned.set_visible(visible);
         Config.Facade.get_instance().set_display_sidebar(visible);
@@ -847,6 +853,22 @@ public class LibraryWindow : AppWindow {
         return Config.Facade.get_instance().get_display_sidebar();
     }
     
+    private void on_display_toolbar (Gtk.Action action) {
+        set_toolbar_visible ((action as Gtk.ToggleAction).get_active ());
+    }
+
+    private void set_toolbar_visible (bool visible) {
+        var toolbar = get_current_page ().get_toolbar ();
+        if (toolbar != null) {
+            toolbar.set_visible (visible);
+        }
+        Config.Facade.get_instance().set_display_toolbar (visible);
+    }
+
+    private bool is_toolbar_visible () {
+        return Config.Facade.get_instance ().get_display_toolbar ();
+    }
+
     private void show_extended_properties() {
         sync_extended_properties(true);
     }
@@ -1382,6 +1404,7 @@ public class LibraryWindow : AppWindow {
         if (toolbar != null) {
             right_vbox.add(toolbar);
             toolbar.show_all();
+            toolbar.set_visible (this.is_toolbar_visible ());
         }
 
         page.ready();

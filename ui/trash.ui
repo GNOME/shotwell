@@ -31,6 +31,7 @@
             <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
             <menuitem name="DisplaySearchbar" action="CommonDisplaySearchbar" />
             <menuitem name="DisplaySidebar" action="CommonDisplaySidebar" />
+            <menuitem name="DisplayToolbar" action="CommonDisplayToolbar" />
             <separator />
             <menu name="FilterPhotos" action="CommonFilterPhotos">
                 <menuitem name="DisplayFiveOrHigher" action="CommonDisplayFiveOrHigher" />

@@ -36,6 +36,7 @@ public enum ConfigurableProperty {
     DISPLAY_EVENT_COMMENTS,
     DISPLAY_EXTENDED_PROPERTIES,
     DISPLAY_SIDEBAR,
+    DISPLAY_TOOLBAR,
     DISPLAY_SEARCH_BAR,
     DISPLAY_PHOTO_RATINGS,
     DISPLAY_PHOTO_TAGS,
@@ -132,6 +133,9 @@ public enum ConfigurableProperty {
                 
             case DISPLAY_SIDEBAR:
                 return "DISPLAY_SIDEBAR";
+
+            case DISPLAY_TOOLBAR:
+                return "DISPLAY_TOOLBAR";
                 
             case DISPLAY_SEARCH_BAR:
                 return "DISPLAY_SEARCH_BAR";
@@ -630,6 +634,28 @@ public abstract class ConfigurationFacade : Object {
         }
     }
     
+
+    //
+    // display toolbar
+    //
+    public virtual bool get_display_toolbar() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.DISPLAY_TOOLBAR);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return false;
+        }
+    }
+
+    public virtual void set_display_toolbar(bool display) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.DISPLAY_TOOLBAR, display);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
     //
     // display search & filter toolbar
     //

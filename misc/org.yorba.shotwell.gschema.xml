@@ -35,6 +35,12 @@
         <description>True if the sidebar is to be displayed, false otherwise.</description>
     </key>
     
+    <key name="display-toolbar" type="b">
+        <default>true</default>
+        <summary>display toolbar</summary>
+        <description>True if the bottom toolbar is to be displayed, false otherwise.</description>
+    </key>
+
     <key name="display-search-bar" type="b">
         <default>false</default>
         <summary>display search bar</summary>
