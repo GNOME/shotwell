@@ -7,7 +7,7 @@
 // This dialog displays a boolean search configuration.
 public class SavedSearchDialog {
     
-    // Conatins a search row, with a type selector and remove button.
+    // Contains a search row, with a type selector and remove button.
     private class SearchRowContainer {
         public signal void remove(SearchRowContainer this_row);
         public signal void changed(SearchRowContainer this_row);

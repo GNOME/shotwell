@@ -13,6 +13,7 @@ public enum SearchFilterCriteria {
     FLAG,
     MEDIA,
     RATING,
+    SAVEDSEARCH,
     ALL = 0xFFFFFFFF
 }
 
@@ -54,6 +55,9 @@ public abstract class SearchViewFilter : ViewFilter {
     // Search text filter.  Should only be set to lower-case.
     private string? search_filter = null;
     private string[]? search_filter_words = null;
+
+    // Saved search filter
+    public SavedSearch saved_search { get; set; default = null; }
     
     // Returns a bitmask of SearchFilterCriteria.
     // IMPORTANT: There is no signal on this, changing this value after the
@@ -153,6 +157,10 @@ public abstract class SearchViewFilter : ViewFilter {
         search_filter_words = null;
     }
     
+    public bool has_saved_search() {
+        return saved_search != null;
+    }
+
     public bool get_rating_allow_higher() {
         return rating_allow_higher;
     }
@@ -207,6 +215,7 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
             }
         }
         
+        // Text
         if (((SearchFilterCriteria.TEXT & criteria) != 0) && has_search_filter()) {
             unowned string? media_keywords = source.get_indexable_keywords();
             
@@ -246,6 +255,11 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
             }
         }
         
+        // Saved search
+        if (((SearchFilterCriteria.SAVEDSEARCH & criteria) != 0) && has_saved_search()) {
+            return saved_search.predicate(source);
+        }
+
         return true;
     }
 }
@@ -917,12 +931,197 @@ public class SearchFilterToolbar : Gtk.Revealer {
         }
 
     }
+
+    protected class SavedSearchFilterButton : Gtk.ToolItem {
+        public SavedSearchPopover filter_popup = null;
+        public Gtk.ToggleButton button;
+
+        public signal void clicked();
+
+        public SavedSearchFilterButton() {
+            button = new Gtk.ToggleButton();
+            button.set_always_show_image(true);
+
+            Gtk.Image? image = new Gtk.Image.from_icon_name("find", Gtk.IconSize.SMALL_TOOLBAR);
+            image.set_margin_end(6);
+            button.set_image(image);
+            button.set_can_focus(false);
+
+            button.clicked.connect(on_clicked);
+
+            restyle();
+
+            set_homogeneous(false);
+
+            this.add(button);
+        }
+
+        ~SavedSearchFilterButton() {
+            button.clicked.disconnect(on_clicked);
+        }
+
+        private void on_clicked() {
+            clicked();
+        }
+
+        public void set_active(bool active) {
+            button.set_active(active);
+        }
+
+        public void set_label(string label) {
+            button.set_label(label);
+        }
+
+        public void restyle() {
+			button.set_size_request(24, 24);
+			button.relief = Gtk.ReliefStyle.NONE;
+        }
+    }
+
+    protected class SavedSearchPopover {
+        private Gtk.Popover popover = null;
+        private Gtk.ListBox list_box = null;
+        private DataButton[] edit_buttons = null;
+        private DataButton[] delete_buttons = null;
+        Gtk.Button add = null;
+
+        public signal void search_activated(SavedSearch search);
+        public signal void edit_clicked(SavedSearch search);
+        public signal void delete_clicked(SavedSearch search);
+        public signal void add_clicked();
+
+        public signal void closed();
+
+        private class DataButton : Gtk.Bin {
+            private Gtk.Button button = null;
+            public SavedSearch search { get; private set; }
+
+            public signal void clicked(SavedSearch search);
+
+            public DataButton(SavedSearch search, string name) {
+                button = new Gtk.Button.from_icon_name(name, Gtk.IconSize.SMALL_TOOLBAR);
+                this.search = search;
+                this.add(button);
+
+                restyle();
+
+                button.clicked.connect(on_click);
+            }
+
+            ~DataButton() {
+                button.clicked.disconnect(on_click);
+            }
+
+            public void restyle() {
+                button.set_size_request(24, 24);
+                button.relief = Gtk.ReliefStyle.NONE;
+            }
+
+            private void on_click() {
+                clicked(this.search);
+            }
+        }
+
+        public SavedSearchPopover(Gtk.Widget relative_to) {
+            popover = new Gtk.Popover(relative_to);
+            popover.closed.connect(on_popover_closed);
+            list_box = new Gtk.ListBox();
+            edit_buttons = new DataButton[0];
+            delete_buttons = new DataButton[0];
+
+            foreach (SavedSearch search in SavedSearchTable.get_instance().get_all()) {
+                Gtk.Box row = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 1);
+                row.set_homogeneous(false);
+                Gtk.Label label = new Gtk.Label(search.get_name());
+                label.halign = Gtk.Align.START;
+                row.pack_start(label, true, true, 3);
+
+                DataButton delete_button = new DataButton(search, "edit-delete-symbolic");
+                row.pack_end(delete_button, false, false);
+                delete_button.clicked.connect(on_delete_click);
+                delete_buttons += delete_button;
+
+                DataButton edit_button = new DataButton(search, "text-editor-symbolic");
+                row.pack_end(edit_button, false, false);
+                edit_button.clicked.connect(on_edit_click);
+                edit_buttons += edit_button;
+
+                list_box.insert(row, -1);
+            }
+            add = new Gtk.Button.from_icon_name("list-add-symbolic", Gtk.IconSize.BUTTON);
+            add.clicked.connect(on_add_click);
+            list_box.insert(add, -1);
+            list_box.row_activated.connect(on_activate_row);
+            list_box.selection_mode = Gtk.SelectionMode.NONE;
+            popover.add(list_box);
+
+            restyle();
+        }
+
+        ~SavedSearchPopover() {
+            foreach (DataButton button in edit_buttons) button.clicked.disconnect(on_edit_click);
+            foreach (DataButton button in delete_buttons) button.clicked.disconnect(on_delete_click);
+            add.clicked.disconnect(on_add_click);
+            list_box.row_activated.disconnect(on_activate_row);
+            popover.closed.disconnect(on_popover_closed);
+        }
+
+        public void restyle() {
+            add.relief = Gtk.ReliefStyle.NONE;
+            foreach (DataButton button in edit_buttons) button.restyle();
+            foreach (DataButton button in delete_buttons) button.restyle();
+        }
+
+        private bool is_search_row(Gtk.ListBoxRow? row) {
+            if (row == null) return false;
+            if (row.get_children().last().data is Gtk.Button) return false;
+            return true;
+        }
+
+        private SavedSearch get_search(Gtk.ListBoxRow row) {
+            DataButton button = (row.get_children().first().data as Gtk.Box).get_children().last().data as DataButton;
+            return button.search;
+        }
+
+        private void on_activate_row(Gtk.ListBoxRow? row) {
+            if (is_search_row(row))
+                search_activated(get_search(row));
+            popover.hide();
+        }
+
+        private void on_edit_click(SavedSearch search) {
+            edit_clicked(search);
+        }
+
+        private void on_delete_click(SavedSearch search) {
+            delete_clicked(search);
+        }
+
+        private void on_add_click() {
+            add_clicked();
+        }
+
+        private void on_popover_closed() {
+            closed();
+        }
+
+        public void show_all() {
+            popover.show_all();
+        }
+
+        public void hide() {
+            popover.hide();
+        }
+    }
     
     public Gtk.UIManager ui = new Gtk.UIManager();
     
     private SearchFilterActions actions;
+    private SavedSearch saved_search = null;
     private SearchBox search_box;
     private RatingFilterButton rating_button = new RatingFilterButton();
+    private SavedSearchFilterButton saved_search_button = new SavedSearchFilterButton();
+    private bool elide_showing_again = false;
     private SearchViewFilter? search_filter = null;
     private LabelToolItem label_type;
     private ToggleActionToolButton toolbtn_photos;
@@ -931,6 +1130,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
     private ToggleActionToolButton toolbtn_flag;
     private Gtk.SeparatorToolItem sepr_mediatype_flagged;
     private Gtk.SeparatorToolItem sepr_flagged_rating;
+    private Gtk.SeparatorToolItem sepr_rating_saved;
     
     public SearchFilterToolbar(SearchFilterActions actions) {
         this.actions = actions;
@@ -1001,6 +1201,17 @@ public class SearchFilterToolbar : Gtk.Revealer {
         rating_button.clicked.connect(on_filter_button_clicked);
         toolbar.insert(rating_button, -1);
         
+        // separator
+        sepr_rating_saved = new Gtk.SeparatorToolItem();
+        toolbar.insert(sepr_rating_saved, -1);
+
+        // Saved search button
+        saved_search_button.set_expand(false);
+		saved_search_button.set_label(_("Saved Search"));
+        saved_search_button.set_tooltip_text(_("Use a saved search to filter items in the current view"));
+        saved_search_button.clicked.connect(on_saved_search_button_clicked);
+        toolbar.insert(saved_search_button, -1);
+
         // Separator to right-align the text box
         Gtk.SeparatorToolItem separator_align = new Gtk.SeparatorToolItem();
         separator_align.set_expand(true);
@@ -1164,6 +1375,8 @@ public class SearchFilterToolbar : Gtk.Revealer {
         RatingFilter filter = (RatingFilter) actions.rating.current_value;
         search_filter.set_rating_filter(filter);
         rating_button.set_filter_icon(filter);
+
+        search_filter.saved_search = saved_search;
         
         // Ticket #3290, part III - check the current criteria
         // and show or hide widgets as needed.
@@ -1179,6 +1392,8 @@ public class SearchFilterToolbar : Gtk.Revealer {
         toolbtn_photos.visible = ((criteria & SearchFilterCriteria.MEDIA) != 0); 
         toolbtn_videos.visible = ((criteria & SearchFilterCriteria.MEDIA) != 0);
         toolbtn_raw.visible = ((criteria & SearchFilterCriteria.MEDIA) != 0);
+
+        saved_search_button.visible = ((criteria & SearchFilterCriteria.SAVEDSEARCH) != 0);
 
         // Ticket #3290, part IV - ensure that the separators
         // are shown and/or hidden as needed.
@@ -1215,7 +1430,67 @@ public class SearchFilterToolbar : Gtk.Revealer {
         rating_button.filter_popup.popup(null, null, position_filter_popup, 0,
             Gtk.get_current_event_time());
     }
+
+    private void on_savedsearch_selected(SavedSearch saved_search) {
+        this.saved_search = saved_search;
+        update();
+    }
+
+    private void disable_savedsearch() {
+        this.saved_search = null;
+        update();
+    }
     
+    private void edit_dialog(SavedSearch search) {
+        saved_search_button.filter_popup.hide();
+        SavedSearchDialog ssd = new SavedSearchDialog.edit_existing(search);
+        ssd.show();
+    }
+
+    private void delete_dialog(SavedSearch search) {
+        saved_search_button.filter_popup.hide();
+        if (Dialogs.confirm_delete_saved_search(search))
+            AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
+    }
+
+    private void add_dialog() {
+        saved_search_button.filter_popup.hide();
+        (new SavedSearchDialog()).show();
+    }
+
+    private void on_popover_closed() {
+        // set_active emits clicked, so have a flag to not actually do anything
+        elide_showing_again = true;
+        saved_search_button.set_active(saved_search != null);
+        saved_search_button.filter_popup.hide();
+    }
+
+    private void on_saved_search_button_clicked() {
+        if (elide_showing_again && saved_search == null) {
+        } else if (saved_search != null) {
+            saved_search = null;
+            saved_search_button.set_active(false);
+            disable_savedsearch();
+        } else {
+            if (saved_search_button.filter_popup != null) {
+                saved_search_button.filter_popup.edit_clicked.disconnect(edit_dialog);
+                saved_search_button.filter_popup.search_activated.disconnect(on_savedsearch_selected);
+                saved_search_button.filter_popup.delete_clicked.disconnect(delete_dialog);
+                saved_search_button.filter_popup.add_clicked.disconnect(add_dialog);
+                saved_search_button.filter_popup.closed.disconnect(on_popover_closed);
+            }
+            saved_search_button.filter_popup = new SavedSearchPopover(saved_search_button);
+            saved_search_button.filter_popup.edit_clicked.connect(edit_dialog);
+            saved_search_button.filter_popup.search_activated.connect(on_savedsearch_selected);
+            saved_search_button.filter_popup.delete_clicked.connect(delete_dialog);
+            saved_search_button.filter_popup.add_clicked.connect(add_dialog);
+            saved_search_button.filter_popup.closed.connect(on_popover_closed);
+
+            saved_search_button.filter_popup.show_all();
+        }
+        elide_showing_again = false;
+    }
+
     public void take_focus() {
         search_box.get_focus();
     }
