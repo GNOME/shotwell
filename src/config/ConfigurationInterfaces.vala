@@ -39,6 +39,7 @@ public enum ConfigurableProperty {
     DISPLAY_EXTENDED_PROPERTIES,
     DISPLAY_SIDEBAR,
     DISPLAY_TOOLBAR,
+    DISPLAY_MAP_WIDGET,
     DISPLAY_SEARCH_BAR,
     DISPLAY_PHOTO_RATINGS,
     DISPLAY_PHOTO_TAGS,
@@ -150,7 +151,10 @@ public enum ConfigurableProperty {
 
             case DISPLAY_TOOLBAR:
                 return "DISPLAY_TOOLBAR";
-                
+
+            case DISPLAY_MAP_WIDGET:
+                return "DISPLAY_MAP_WIDGET";
+
             case DISPLAY_SEARCH_BAR:
                 return "DISPLAY_SEARCH_BAR";
                 
@@ -722,7 +726,6 @@ public abstract class ConfigurationFacade : Object {
             on_configuration_error(err);
         }
     }
-    
 
     //
     // display toolbar
@@ -740,6 +743,26 @@ public abstract class ConfigurationFacade : Object {
     public virtual void set_display_toolbar(bool display) {
         try {
             get_engine().set_bool_property(ConfigurableProperty.DISPLAY_TOOLBAR, display);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // display map widget
+    //
+    public virtual bool get_display_map_widget() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.DISPLAY_MAP_WIDGET);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return false;
+        }
+    }
+    public virtual void set_display_map_widget(bool display) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.DISPLAY_MAP_WIDGET, display);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
         }

@@ -95,6 +95,11 @@
           <attribute name="accel">&lt;Primary&gt;F9</attribute>
           <attribute name="action">win.CommonDisplayToolbar</attribute>
         </item>
+        <item>
+          <attribute name="label" translatable="yes">_Map Overview</attribute>
+          <attribute name="accel">F10</attribute>
+          <attribute name="action">win.CommonDisplayMap</attribute>
+        </item>
       </section>
       <section>
         <item>

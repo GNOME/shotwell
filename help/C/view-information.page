@@ -13,6 +13,8 @@
 
 <p>The Basic Information pane appears at the bottom of the sidebar, and displays a brief summary of the photos you've selected. If no photos are selected, it displays a summary of the entire collection. You can toggle the display of this pane using the <guiseq><gui>View</gui><gui>Basic Information</gui></guiseq> command.</p>
 
+<p>The map pane appears at the bottom of the sidebar as part of the Basic Information pane, and displays an overview map the photos you've selected. If no photos are selected, it displays an overview of the entire collection. You can toggle the display of this pane using the <guiseq><gui>View</gui><gui>Show Map</gui></guiseq> command. Note that the map will only show when the Basic Information pane is displayed.</p>
+
 <p>The floating Extended Information window displays more information about the selected photo.  The <guiseq><gui>View</gui><gui>Extended Information</gui></guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></keyseq> toggles the display of this window.</p>
 
 </page>

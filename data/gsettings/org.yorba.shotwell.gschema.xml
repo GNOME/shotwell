@@ -42,6 +42,12 @@
         <description>True if the bottom toolbar is to be displayed, false otherwise.</description>
     </key>
 
+    <key name="display-map-widget" type="b">
+        <default>true</default>
+        <summary>display map widget</summary>
+        <description>True if the map widget is to be displayed, false otherwise.</description>
+    </key>
+
     <key name="display-search-bar" type="b">
         <default>false</default>
         <summary>display search bar</summary>

@@ -299,6 +299,7 @@ public class LibraryWindow : AppWindow {
         { "CommonDisplaySearchbar", null, null, "false", on_display_searchbar },
         { "CommonDisplaySidebar", on_action_toggle, null, "true", on_display_sidebar },
         { "CommonDisplayToolbar", null, null, "true", on_display_toolbar },
+        { "CommonDisplayMap", on_action_toggle, null, "true", on_display_map_widget },
 
         { "CommonSortEvents", on_action_radio, "s", "'ascending'", on_events_sort_changed }
     };
@@ -311,6 +312,7 @@ public class LibraryWindow : AppWindow {
         lookup_action ("CommonDisplaySearchbar").change_state (Config.Facade.get_instance().get_display_search_bar());
         lookup_action ("CommonDisplaySidebar").change_state (is_sidebar_visible ());
         lookup_action ("CommonDisplayToolbar").change_state (is_toolbar_visible ());
+        lookup_action ("CommonDisplayMap").change_state (is_map_widget_visible ());
     }
 
     protected override void switched_pages(Page? old_page, Page? new_page) {
@@ -768,6 +770,21 @@ public class LibraryWindow : AppWindow {
 
     private bool is_toolbar_visible () {
         return Config.Facade.get_instance ().get_display_toolbar ();
+    }
+
+    private void on_display_map_widget (GLib.SimpleAction action, Variant variant) {
+        set_map_widget_visible (variant.get_boolean ());
+
+        action.set_state (variant);
+    }
+
+    private void set_map_widget_visible(bool visible) {
+        MapWidget.get_instance().set_visible(visible);
+        Config.Facade.get_instance().set_display_map_widget(visible);
+    }
+
+    private bool is_map_widget_visible() {
+        return Config.Facade.get_instance().get_display_map_widget();
     }
 
     public void enqueue_batch_import(BatchImport batch_import, bool allow_user_cancel) {

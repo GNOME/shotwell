@@ -310,6 +310,7 @@ private class MapWidget : Gtk.Bin {
     private const uint DEFAULT_ZOOM_LEVEL = 8;
 
     private static MapWidget instance = null;
+    private bool hide_map = false;
 
     private GtkChamplain.Embed gtk_champlain_widget = new GtkChamplain.Embed();
     private Champlain.View map_view = null;
@@ -366,6 +367,17 @@ private class MapWidget : Gtk.Bin {
         }
 
         Gtk.drag_finish(context, success, false, time);
+    }
+
+    public new void set_visible(bool visible) {
+        /* hides Gtk.Widget.set_visible */
+        hide_map = !visible;
+        base.set_visible(visible);
+    }
+
+    public override void show_all() {
+        if (!hide_map)
+            base.show_all();
     }
 
     public void set_page(Page page) {
