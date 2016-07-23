@@ -31,9 +31,10 @@ public bool confirm_delete_saved_search(SavedSearch search) {
 
 public bool confirm_warn_developer_changed(int number) {
     Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup(AppWindow.get_instance(),
-        Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s",
-        "<span weight=\"bold\" size=\"larger\">%s</span>".printf(ngettext("Switching developers will undo all changes you have made to this photo in Shotwell",
-        "Switching developers will undo all changes you have made to these photos in Shotwell", number)));
+        Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE,
+        "<span weight=\"bold\" size=\"larger\">%s</span>",
+        ngettext("Switching developers will undo all changes you have made to this photo in Shotwell",
+        "Switching developers will undo all changes you have made to these photos in Shotwell", number));
 
     dialog.add_buttons(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
     dialog.add_buttons(_("_Switch Developer"), Gtk.ResponseType.YES);
