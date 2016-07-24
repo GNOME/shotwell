@@ -158,6 +158,33 @@ public class PhotoTable : DatabaseTable {
         if (res2 != Sqlite.DONE)
             fatal("create photo table", res2);
 
+        // These are for duplicate searches
+        // https://bugzilla.gnome.org/show_bug.cgi?id=742670
+        //
+        // 1) index on md5,file_format
+        res = db.prepare_v2 ("CREATE UNIQUE INDEX IF NOT EXISTS PhotoTableMD5Format on PhotoTable(md5, file_format)", -1, out stmt);
+        assert (res == Sqlite.OK);
+        res = stmt.step ();
+        if (res == Sqlite.DONE) {
+            DatabaseTable.warning ("Failed to create index on md5 and file_format", res);
+        }
+
+        // 2) index on thumbnail_md5,file_format
+        res = db.prepare_v2 ("CREATE UNIQUE INDEX IF NOT EXISTS PhotoTableThumbnailMD5Format on PhotoTable(md5, file_format)", -1, out stmt);
+        assert (res == Sqlite.OK);
+        res = stmt.step ();
+        if (res == Sqlite.DONE) {
+            DatabaseTable.warning ("Failed to create index on md5 and file_format", res);
+        }
+
+        // 3) index on thumbnail_md5,md5
+        res = db.prepare_v2 ("CREATE UNIQUE INDEX IF NOT EXISTS PhotoTableThumbnailMD5MD5 on PhotoTable(thumbnail_md5, md5)", -1, out stmt);
+        assert (res == Sqlite.OK);
+        res = stmt.step ();
+        if (res == Sqlite.DONE) {
+            DatabaseTable.warning ("Failed to create index on thumbnail_md5 and md5", res);
+        }
+
         set_table_name("PhotoTable");
     }
     
