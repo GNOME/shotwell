@@ -1,3 +1,18 @@
+shotwell (0.23.4-1~jensge1~xenial1) xenial; urgency=medium
+
+  * libraw: Fix binding of ProcessedImage.data
+  * graw: Prevent needless array duplication
+  * Fix screenshot URLs in appdata
+  * db: Add option to trace SQL statements
+  * Change build system to autotools
+  * Add help, appdata, gsettings and desktop files to translation system
+  * Change way help is built and installed
+  * Always install the manpage
+  * Several translation fixes
+  * Make message more clear that there are no photos matching a filter
+
+ -- Jens Georg <mail@jensge.org>  Sun, 24 Jul 2016 18:43:30 +0200
+
 shotwell (0.23.2-1~jensge2~xenial1) xenial; urgency=medium
 
   * Use yelp-build to generate HTML docs
