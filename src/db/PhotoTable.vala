@@ -165,7 +165,7 @@ public class PhotoTable : DatabaseTable {
         res = db.prepare_v2 ("CREATE UNIQUE INDEX IF NOT EXISTS PhotoTableMD5Format on PhotoTable(md5, file_format)", -1, out stmt);
         assert (res == Sqlite.OK);
         res = stmt.step ();
-        if (res == Sqlite.DONE) {
+        if (res != Sqlite.DONE) {
             DatabaseTable.warning ("Failed to create index on md5 and file_format", res);
         }
 
@@ -173,7 +173,7 @@ public class PhotoTable : DatabaseTable {
         res = db.prepare_v2 ("CREATE UNIQUE INDEX IF NOT EXISTS PhotoTableThumbnailMD5Format on PhotoTable(md5, file_format)", -1, out stmt);
         assert (res == Sqlite.OK);
         res = stmt.step ();
-        if (res == Sqlite.DONE) {
+        if (res != Sqlite.DONE) {
             DatabaseTable.warning ("Failed to create index on md5 and file_format", res);
         }
 
@@ -181,7 +181,7 @@ public class PhotoTable : DatabaseTable {
         res = db.prepare_v2 ("CREATE UNIQUE INDEX IF NOT EXISTS PhotoTableThumbnailMD5MD5 on PhotoTable(thumbnail_md5, md5)", -1, out stmt);
         assert (res == Sqlite.OK);
         res = stmt.step ();
-        if (res == Sqlite.DONE) {
+        if (res != Sqlite.DONE) {
             DatabaseTable.warning ("Failed to create index on thumbnail_md5 and md5", res);
         }
 
