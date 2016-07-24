@@ -146,18 +146,18 @@ dnl ***********************************************************************
 AX_REQUIRE_DEFINED([APPDATA_XML])
 APPDATA_XML
 
-dnl
-dnl
-dnl
+dnl ***********************************************************************
+dnl GResource compiler
+dnl ***********************************************************************
 AC_SUBST([GLIB_COMPILE_RESOURCES], [`$PKG_CONFIG --variable glib_compile_resources gio-2.0`])
 
 dnl ***********************************************************************
 dnl Process .in Files
 dnl ***********************************************************************
 AC_CONFIG_FILES([
-	Makefile
+    Makefile
     misc/Makefile
-	po/Makefile.in
+    po/Makefile.in
     help/Makefile
     app-icons/Makefile
     icons/Makefile
