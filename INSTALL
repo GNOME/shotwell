@@ -4,14 +4,15 @@
 
     To build and install Shotwell, type the following commands:
 
+    $ [ -f configure ] || ./autogen.sh
     $ ./configure
     $ make
-    $ make install
+    $ Optional: make install
 
     * By default, Shotwell will install under /usr/local.  The configure script
       can customize the prefix directory.  Run ./configure --help for
       instructions and other installation options.
-  
+
     * You may need to execute "make install" as root (i.e. sudo make install)
       if installing to system directories.
 
