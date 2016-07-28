@@ -170,7 +170,7 @@ public class PhotoTable : DatabaseTable {
         }
 
         // 2) index on thumbnail_md5,file_format
-        res = db.prepare_v2 ("CREATE UNIQUE INDEX IF NOT EXISTS PhotoTableThumbnailMD5Format on PhotoTable(md5, file_format)", -1, out stmt);
+        res = db.prepare_v2 ("CREATE INDEX IF NOT EXISTS PhotoTableThumbnailMD5Format on PhotoTable(thumbnail_md5, file_format)", -1, out stmt);
         assert (res == Sqlite.OK);
         res = stmt.step ();
         if (res != Sqlite.DONE) {
@@ -178,7 +178,7 @@ public class PhotoTable : DatabaseTable {
         }
 
         // 3) index on thumbnail_md5,md5
-        res = db.prepare_v2 ("CREATE UNIQUE INDEX IF NOT EXISTS PhotoTableThumbnailMD5MD5 on PhotoTable(thumbnail_md5, md5)", -1, out stmt);
+        res = db.prepare_v2 ("CREATE INDEX IF NOT EXISTS PhotoTableThumbnailMD5MD5 on PhotoTable(thumbnail_md5, md5)", -1, out stmt);
         assert (res == Sqlite.OK);
         res = stmt.step ();
         if (res != Sqlite.DONE) {
