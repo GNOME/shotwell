@@ -433,7 +433,7 @@
 <schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-piwigo" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-piwigo/">
     <key name="url" type="s">
         <default>""</default>
-        <summary>Piwigio URL</summary>
+        <summary>Piwigo URL</summary>
         <description>URL of the Piwigo server.</description>
     </key>
     
