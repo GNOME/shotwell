@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-extern string hmac_sha1(string key, string message);
-
 public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
     private const string ICON_FILENAME = "flickr.png";
 
@@ -1030,7 +1028,7 @@ internal class Session : Publishing.RESTSupport.Session {
         debug("signing key = '%s'", signing_key);
 
         // compute the signature
-        string signature = hmac_sha1(signing_key, signature_base_string);
+        string signature = RESTSupport.hmac_sha1(signing_key, signature_base_string);
         signature = Soup.URI.encode(signature, ENCODE_RFC_3986_EXTRA);
 
         debug("signature = '%s'", signature);
