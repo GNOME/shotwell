@@ -831,7 +831,7 @@ msgstr "No s'ha pogut crear el subdirectori de dades %s: %s"
 #: ../src/AppDirs.vala:236
 #, c-format
 msgid "Could not make directory %s writable"
-msgstr ""
+msgstr "No s'ha pogut fer que es pugui escriure al directori %s"
 
 #: ../src/AppDirs.vala:239
 #, c-format
@@ -1600,15 +1600,15 @@ msgstr "Importa l'informe de resultats"
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
-msgstr[0] "S'ha intentat importar %d fitxer"
-msgstr[1] "S'han intentat importar %d fitxers"
+msgstr[0] "S'ha intentat importar %d fitxer."
+msgstr[1] "S'han intentat importar %d fitxers."
 
 #: ../src/Dialogs.vala:538
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
-msgstr[0] "D'aquests, s'ha importat correctament %d fitxer"
-msgstr[1] "D'aquests, s'han importat correctament %d fitxers"
+msgstr[0] "D'aquests, s'ha importat correctament %d fitxer."
+msgstr[1] "D'aquests, s'han importat correctament %d fitxers."
 
 #.
 #. Duplicates
@@ -1898,8 +1898,8 @@ msgstr[1] "S'han omès %d fotografies no compatibles:\n"
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "S'ha omès un fitxer que no era d'imatge:\n"
-msgstr[1] "S'han omès %d fitxers que no eren d'imatge:\n"
+msgstr[0] "S'ha omès un fitxer que no era d'imatge.\n"
+msgstr[1] "S'han omès %d fitxers que no eren d'imatge.\n"
 
 #: ../src/Dialogs.vala:801
 #, c-format
