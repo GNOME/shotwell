@@ -127,6 +127,9 @@ public abstract class CheckerboardItem : ThumbnailView {
     private CheckerboardItemText? subtitle = null;
     private bool subtitle_visible = false;
     private bool is_cursor = false;
+    private Pango.Alignment tag_alignment = Pango.Alignment.LEFT;
+    private Gee.List<Tag>? user_visible_tag_list = null;
+    private Gee.Collection<Tag> tags;
     private Gdk.Pixbuf pixbuf = null;
     private Gdk.Pixbuf display_pixbuf = null;
     private Gdk.Pixbuf brightened = null;
@@ -154,7 +157,9 @@ public abstract class CheckerboardItem : ThumbnailView {
         // (notify_membership_changed) and calculate when the collection's property settings
         // are known
     }
-    
+
+    public bool has_tags { get; private set; }
+
     public override string get_name() {
         return (title != null) ? title.get_text() : base.get_name();
     }
@@ -236,8 +241,58 @@ public abstract class CheckerboardItem : ThumbnailView {
         recalc_size("set_comment_visible");
         notify_view_altered();
     }
-    
-    
+
+    public void set_tags(Gee.Collection<Tag>? tags,
+            Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        has_tags = (tags != null && tags.size > 0);
+        tag_alignment = alignment;
+        string text;
+        if (has_tags) {
+            this.tags = tags;
+            user_visible_tag_list = Tag.make_user_visible_tag_list(tags);
+            text = Tag.make_tag_markup_string(user_visible_tag_list);
+        } else {
+            text = "<small>.</small>";
+        }
+
+        if (subtitle != null && subtitle.is_set_to(text, true, alignment))
+            return;
+        subtitle = new CheckerboardItemText(text, alignment, true);
+
+        if (subtitle_visible) {
+            recalc_size("set_subtitle");
+            notify_view_altered();
+        }
+    }
+
+    public void clear_tags() {
+        clear_subtitle();
+        has_tags = false;
+        user_visible_tag_list = null;
+    }
+
+    public void highlight_user_visible_tag(int index)
+            requires (user_visible_tag_list != null) {
+        string text = Tag.make_tag_markup_string(user_visible_tag_list, index);
+        subtitle = new CheckerboardItemText(text, tag_alignment, true);
+
+        if (subtitle_visible)
+            notify_view_altered();
+    }
+
+    public Tag get_user_visible_tag(int index)
+            requires (index >= 0 && index < user_visible_tag_list.size) {
+        return user_visible_tag_list.get(index);
+    }
+
+    public Pango.Layout? get_tag_list_layout() {
+        return has_tags ? subtitle.get_pango_layout() : null;
+    }
+
+    public Gdk.Rectangle get_subtitle_allocation() {
+        return subtitle.allocation;
+    }
+
     public string get_subtitle() {
         return (subtitle != null) ? subtitle.get_text() : "";
     }
@@ -1182,7 +1237,68 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         return null;
     }
-    
+
+    public static int get_tag_index_at_pos(string tag_list, int pos) {
+        int sep_len = Tag.TAG_LIST_SEPARATOR_STRING.length;
+        assert (sep_len > 0);
+        int len = tag_list.length;
+        if (pos < 0 || pos >= len)
+            return -1;
+
+        // check if we're hovering on a separator
+        for (int i = 0; i < sep_len; ++i) {
+            if (tag_list[pos] == Tag.TAG_LIST_SEPARATOR_STRING[i] && pos >= i) {
+                if (tag_list.substring(pos - i, sep_len) == Tag.TAG_LIST_SEPARATOR_STRING)
+                    return -1;
+            }
+        }
+
+        // Determine the tag index by counting the number of separators before
+        // the requested position. This only works if the separator string
+        // contains the delimiter used to delimit tags (i.e. the comma `,'.)
+        int index = 0;
+        for (int i = 0; i < pos; ++i) {
+            if (tag_list[i] == Tag.TAG_LIST_SEPARATOR_STRING[0] &&
+                    i + sep_len <= len &&
+                    tag_list.substring(i, sep_len) == Tag.TAG_LIST_SEPARATOR_STRING) {
+                ++index;
+                i += sep_len - 1;
+            }
+        }
+        return index;
+    }
+
+    private int internal_handle_tag_mouse_event(CheckerboardItem item, int x, int y) {
+        Pango.Layout? layout = item.get_tag_list_layout();
+        if (layout == null)
+            return -1;
+        Gdk.Rectangle rect = item.get_subtitle_allocation();
+        int index, trailing;
+        int px = (x - rect.x) * Pango.SCALE;
+        int py = (y - rect.y) * Pango.SCALE;
+        if (layout.xy_to_index(px, py, out index, out trailing))
+            return get_tag_index_at_pos(layout.get_text(), index);
+        return -1;
+    }
+
+    public bool handle_mouse_motion(CheckerboardItem item, int x, int y, Gdk.ModifierType mask) {
+        if (!item.has_tags || is_drag_select_active())
+            return false;
+        int tag_index = internal_handle_tag_mouse_event(item, x, y);
+        item.highlight_user_visible_tag(tag_index);
+        return (tag_index >= 0);
+    }
+
+    public bool handle_left_click(CheckerboardItem item, double xd, double yd, Gdk.ModifierType mask) {
+        int tag_index = internal_handle_tag_mouse_event(item, (int)Math.round(xd), (int)Math.round(yd));
+        if (tag_index >= 0) {
+            Tag tag = item.get_user_visible_tag(tag_index);
+            LibraryWindow.get_app().switch_to_tag(tag);
+            return true;
+        }
+        return false;
+    }
+
     public Gee.List<CheckerboardItem> get_visible_items() {
         return intersection(visible_page);
     }

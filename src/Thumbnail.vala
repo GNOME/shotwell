@@ -80,11 +80,9 @@ public class Thumbnail : MediaSourceItem {
     private void update_tags(bool init = false) {
         Gee.Collection<Tag>? tags = Tag.global.fetch_sorted_for_source(media);
         if (tags == null || tags.size == 0)
-            clear_subtitle();
-        else if (!init)
-            set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>", true), true);
+            clear_tags();
         else
-            set_subtitle("<small>.</small>", true);
+            set_tags(tags);
     }
     
     private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,

@@ -1471,9 +1471,14 @@ public abstract class CheckerboardPage : Page {
         uint state = event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
         
         // use clicks for multiple selection and activation only; single selects are handled by
-        // button release, to allow for multiple items to be selected then dragged
+        // button release, to allow for multiple items to be selected then dragged ...
         CheckerboardItem item = get_item_at_pixel(event.x, event.y);
         if (item != null) {
+            // ... however, there is no dragging if the user clicks on an interactive part of the
+            // CheckerboardItem (e.g. a tag)
+            if (layout.handle_left_click(item, event.x, event.y, event.state))
+                return true;
+
             switch (state) {
                 case Gdk.ModifierType.CONTROL_MASK:
                     // with only Ctrl pressed, multiple selections are possible ... chosen item
@@ -1644,6 +1649,9 @@ public abstract class CheckerboardPage : Page {
     }
     
     protected virtual bool on_mouse_over(CheckerboardItem? item, int x, int y, Gdk.ModifierType mask) {
+        if (item != null)
+            layout.handle_mouse_motion(item, x, y, mask);
+
         // if hovering over the last hovered item, or both are null (nothing highlighted and
         // hovering over empty space), do nothing
         if (item == highlighted)

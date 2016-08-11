@@ -269,6 +269,7 @@ public class TagSourceCollection : ContainerSourceCollection {
 public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     public const string TYPENAME = "tag";
     public const string PATH_SEPARATOR_STRING = "/";
+    public const string TAG_LIST_SEPARATOR_STRING = ", ";
     
     private class TagSnapshot : SourceSnapshot {
         private TagRow row;
@@ -533,7 +534,12 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         return String.precollated_compare(a.get_name(), a.get_name_collation_key(), b.get_name(),
             b.get_name_collation_key());
     }
-    
+
+    public static int compare_user_visible_names(Tag a, Tag b) {
+        return String.precollated_compare(a.get_user_visible_name(), a.get_name_collation_key(),
+                                          b.get_user_visible_name(), b.get_name_collation_key());
+    }
+
     public static uint hash_name_string(string a) {
         return String.collated_hash(a);
     }
@@ -601,40 +607,47 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         
         return result;
     }
-    
-    public static string make_tag_string(Gee.Collection<Tag> tags, string? start = null, 
-        string separator = ", ", string? end = null, bool escape = false) {
-        StringBuilder builder = new StringBuilder(start ?? "");
+
+    // Creates a sorted list of terminal tags, unique by user-visible-name
+    public static Gee.List<Tag> make_user_visible_tag_list(Gee.Collection<Tag> tags) {
         Gee.HashSet<string> seen_tags = new Gee.HashSet<string>();
         Gee.Collection<Tag> terminal_tags = get_terminal_tags(tags);
-        Gee.ArrayList<string> sorted_tags = new Gee.ArrayList<string>();
+        Gee.ArrayList<Tag> sorted_tags = new Gee.ArrayList<Tag>();
         foreach (Tag tag in terminal_tags) {
-            string user_visible_name = escape ? guarded_markup_escape_text(
-                tag.get_user_visible_name()) : tag.get_user_visible_name();
+            string user_visible_name = tag.get_user_visible_name();
+            if (!seen_tags.contains(user_visible_name)) {
+                sorted_tags.add(tag);
+                seen_tags.add(user_visible_name);
+            }
+        }
+        sorted_tags.sort(Tag.compare_user_visible_names);
+        return sorted_tags;
+    }
 
-            if (!seen_tags.contains(user_visible_name))
-                sorted_tags.add(user_visible_name);
+    public static string make_tag_markup_string(Gee.List<Tag> tags, int highlight_index = -1) {
+        StringBuilder builder = new StringBuilder("<small>");
+        int i = 0;
+        bool first = true;
+        foreach(Tag tag in tags) {
+            string tag_name = tag.get_user_visible_name();
+            string esc_tag_name = guarded_markup_escape_text(tag_name);
+            if (first)
+                first = false;
+            else
+                builder.append(TAG_LIST_SEPARATOR_STRING);
+            if (highlight_index == i)
+                builder.append("<u>");
+            builder.append(esc_tag_name);
+            if (highlight_index == i)
+                builder.append("</u>");
+            ++i;
         }
-        
-        sorted_tags.sort();
-        Gee.Iterator<string> iter = sorted_tags.iterator();
-        while(iter.next()) {
-            builder.append(iter.get());
-            builder.append(separator);
-        }
-        
+
+        builder.append("</small>");
         string built = builder.str;
-        
-        if (built.length >= separator.length)
-            if (built.substring(built.length - separator.length, separator.length) == separator)
-                built = built.substring(0, built.length - separator.length);
-        
-        if (end != null)
-            built += end;
-        
         return built;
     }
-    
+
     // Utility function to cleanup a tag name that comes from user input and prepare it for use
     // in the system and storage in the database.  Returns null if the name is unacceptable.
     public static string? prep_tag_name(string name) {
