@@ -34,6 +34,7 @@ GITIGNOREFILES = \
 	**/*~ \
 	*.o \
 	m4/* \
+	**/resource.c \
 	aclocal.m4 \
 	build-aux \
 	ChangeLog \
