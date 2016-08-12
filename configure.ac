@@ -100,16 +100,23 @@ PKG_CHECK_MODULES(SHOTWELL, [
                              libraw >= 0.13.2
                              libsoup-2.4 >= 2.26.0
                              libxml-2.0 >= 2.6.32
-                             rest-0.7 >= 0.7
                              sqlite3 >= 3.5.9
                              webkit2gtk-4.0
                             ])
 PKG_CHECK_MODULES(THUMBNAILER, [gee-0.8 >= 0.8.5 gtk+-3.0 >= 3.12.2
                                 gstreamer-base-1.0 >= 1.0.0])
-PKG_CHECK_MODULES(PLUGIN, [gee-0.8 >= 0.8.5 gtk+-3.0 >= 3.12.2
-                           gio-2.0 >= 2.30.0 libsoup-2.4 json-glib-1.0
-                           webkit2gtk-4.0 rest-0.7
-                           ])
+
+PKG_CHECK_MODULES(PLUGIN, [gobject-2.0 glib-2.0 json-glib-1.0 libxml-2.0
+                           libsoup-2.4 webkit2gtk-4.0 gee-0.8])
+
+PKG_CHECK_MODULES(IMPORT, [gee-0.8 >= 0.8.5 glib-2.0 gio-2.0 sqlite3])
+
+PKG_CHECK_MODULES(PUBLISHING, [gobject-2.0 glib-2.0 gexiv2 json-glib-1.0
+                               gee-0.8 libsoup-2.4 libxml-2.0 gtk+-3.0
+                               webkit2gtk-4.0])
+
+PKG_CHECK_MODULES(TRANSITIONS, [gobject-2.0 cairo gio-2.0 gdk-pixbuf-2.0
+                                gdk-3.0])
 
 AC_ARG_ENABLE([unity-support],
               AS_HELP_STRING([--enable-unity-support],
