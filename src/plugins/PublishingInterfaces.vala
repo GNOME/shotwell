@@ -82,7 +82,14 @@ public errordomain PublishingError {
      * Indicates that the remote host has rejected the session identifier used by the local
      * client as out-of-date. The local client should acquire a new session identifier.
      */
-    EXPIRED_SESSION
+    EXPIRED_SESSION,
+
+    /**
+     * Indicates that a secure connection to the remote host cannot be
+     * established. This might have various reasons such as expired
+     * certificats, invalid certificates, self-signed certificates...
+     */
+    SSL_FAILED
 }
 
 /** 

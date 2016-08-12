@@ -202,6 +202,9 @@ public class Transaction {
             case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
                 throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to connect to %s (error code %u)",
                     get_endpoint_url(), message.status_code);
+            case Soup.KnownStatusCode.SSL_FAILED:
+                throw new Spit.Publishing.PublishingError.SSL_FAILED ("Unable to connect to %s: Secure connection failed",
+                    get_endpoint_url ());
             
             default:
                 // status codes below 100 are used by Soup, 100 and above are defined HTTP codes

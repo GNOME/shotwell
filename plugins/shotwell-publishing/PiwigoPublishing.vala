@@ -912,6 +912,8 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             error_type = "LOCAL_FILE_ERROR";
         } else if(e is Spit.Publishing.PublishingError.EXPIRED_SESSION) {
             error_type = "EXPIRED_SESSION";
+        } else if (e is Spit.Publishing.PublishingError.SSL_FAILED) {
+            error_type = "SECURE_CONNECTION_FAILED";
         }
         
         debug("Unhandled error: type=%s; message='%s'".printf(error_type, e.message));
