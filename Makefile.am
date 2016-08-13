@@ -128,7 +128,11 @@ include $(top_srcdir)/thumbnailer.am
 
 # Plugins
 include $(top_srcdir)/publish.am
+
+if HAVE_EXTRA_PLUGINS
 include $(top_srcdir)/publish-extra.am
+endif
+
 include $(top_srcdir)/transition.am
 include $(top_srcdir)/import.am
 

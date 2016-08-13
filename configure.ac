@@ -118,9 +118,13 @@ PKG_CHECK_MODULES(PUBLISHING, [gobject-2.0 glib-2.0 gexiv2 json-glib-1.0
 PKG_CHECK_MODULES(TRANSITIONS, [gobject-2.0 cairo gio-2.0 gdk-pixbuf-2.0
                                 gdk-3.0])
 
+dnl ***********************************************************************
+dnl Unity support
+dnl ***********************************************************************
 AC_ARG_ENABLE([unity-support],
               AS_HELP_STRING([--enable-unity-support],
-                             [Enable Ubuntu Unity integration]),,
+                             [Enable Ubuntu Unity integration]),
+              [],
               [enable_unity_support=no])
 
 AS_IF([test "x$enable_unity_support" = "xyes"],
@@ -134,6 +138,19 @@ AS_IF([test "x$enable_unity_support" = "xyes"],
       ], [HAVE_UNITY=no])
 AC_SUBST([HAVE_UNITY])
 AM_CONDITIONAL([HAVE_UNITY],[test "x$HAVE_UNITY" = "xyes"])
+
+dnl ***********************************************************************
+dnl Extra publishing plugins
+dnl ***********************************************************************
+AC_ARG_ENABLE([extra-plugins],
+              AS_HELP_STRING([--disable-extra-plugins],
+                             [Enable building and installation of extra
+                              publishing plugins]),
+              [],[enable_extra_plugins=yes])
+AS_IF([test "x$enable_extra_plugins" = "xyes"],
+      [HAVE_EXTRA_PLUGINS=yes], [HAVE_EXTRA_PLUGINS=no])
+AC_SUBST([HAVE_EXTRA_PLUGINS])
+AM_CONDITIONAL([HAVE_EXTRA_PLUGINS], [text "x$HAVE_EXTRA_PLUGINS" = "xyes"])
 
 dnl ***********************************************************************
 dnl Initialize Libtool
@@ -181,4 +198,5 @@ echo ""
 echo "  Prefix ............................... : ${prefix}"
 echo "  Libdir ............................... : ${libdir}"
 echo "  Unity support ........................ : ${HAVE_UNITY}"
+echo "  Additional publishing plugins ........ : ${HAVE_EXTRA_PLUGINS}"
 echo ""
