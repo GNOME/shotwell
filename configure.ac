@@ -61,7 +61,7 @@ GETTEXT_PACKAGE=AC_PACKAGE_TARNAME
 AC_SUBST([GETTEXT_PACKAGE])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [GETTEXT package name])
 
-AM_GNU_GETTEXT_VERSION([0.19.8])
+AM_GNU_GETTEXT_VERSION([0.19.7])
 AM_GNU_GETTEXT([external])
 
 
@@ -150,7 +150,7 @@ AC_ARG_ENABLE([extra-plugins],
 AS_IF([test "x$enable_extra_plugins" = "xyes"],
       [HAVE_EXTRA_PLUGINS=yes], [HAVE_EXTRA_PLUGINS=no])
 AC_SUBST([HAVE_EXTRA_PLUGINS])
-AM_CONDITIONAL([HAVE_EXTRA_PLUGINS], [text "x$HAVE_EXTRA_PLUGINS" = "xyes"])
+AM_CONDITIONAL([HAVE_EXTRA_PLUGINS], [test "x$HAVE_EXTRA_PLUGINS" = "xyes"])
 
 dnl ***********************************************************************
 dnl Initialize Libtool
