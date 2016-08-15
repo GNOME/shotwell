@@ -295,20 +295,20 @@ class AppDirs {
     
     public static File get_thumbnailer_bin() {
         const string filename = "shotwell-video-thumbnailer";
-        File f = File.new_for_path(AppDirs.get_libexec_dir().get_path() + "/thumbnailer/" + filename);
+        File f = AppDirs.get_libexec_dir().get_child("thumbnailer").get_child (filename);
         if (!f.query_exists()) {
             // If we're running installed.
-            f = File.new_for_path(AppDirs.get_libexec_dir().get_path() + "/" + filename);
+            f = AppDirs.get_libexec_dir () .get_child ("shotwell").get_child (filename);
         }
         return f;
     }
 
     public static File get_settings_migrator_bin() {
         const string filename = "shotwell-settings-migrator";
-        File f = File.new_for_path(AppDirs.get_libexec_dir().get_path() + "/settings-migrator/" + filename);
+        File f = AppDirs.get_libexec_dir().get_child ("settings-migrator").get_child (filename);
         if (!f.query_exists()) {
             // If we're running installed.
-            f = File.new_for_path(AppDirs.get_libexec_dir().get_path() + "/" + filename);
+            f = AppDirs.get_libexec_dir () .get_child ("shotwell").get_child (filename);
         }
         return f;
     }
