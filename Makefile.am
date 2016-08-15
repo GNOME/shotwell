@@ -21,7 +21,7 @@ AUTHORS:
 dist-hook: dist-ChangeLog
 #	find $(distdir) -name "*.c" -o -name "shotwell*.h" -o -name "shotwell*.vapi" -o -name "*vala.stamp" -exec rm {} \;
 
-INTAINERCLEANFILES = \
+MAINTAINERCLEANFILES = \
 	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
 	$(GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN) \
 	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL)
@@ -121,6 +121,8 @@ pkglibexec_PROGRAMS =
 
 dist_pkglibexec_SCRIPTS = $(top_srcdir)/settings-migrator/shotwell-settings-migrator
 dist_noinst_DATA = $(NULL)
+
+MOSTLYCLEANFILES = $(NULL)
 
 include $(top_srcdir)/common.am
 include $(top_srcdir)/shotwell.am

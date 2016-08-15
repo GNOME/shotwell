@@ -10,7 +10,8 @@ dist_noinst_DATA += \
 	plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui \
 	plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui \
 	plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui \
-	plugins/shotwell-publishing-extras/yandex_publish_model.ui
+	plugins/shotwell-publishing-extras/yandex_publish_model.ui \
+	plugins/shotwell-publishing-extras/org.gnome.Shotwell.Publishing.Extras.gresource.xml
 
 plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_SOURCES = \
 	plugins/shotwell-publishing-extras/GalleryConnector.vala \
@@ -22,9 +23,10 @@ plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_SOURCES = \
 
 nodist_plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_SOURCES = \
 	plugins/shotwell-publishing-extras/resource.c
+MOSTLYCLEANFILES += plugins/shotwell-publishing-extras/resource.c
 
 plugins/shotwell-publishing-extras/resource.c: plugins/shotwell-publishing-extras/org.gnome.Shotwell.Publishing.Extras.gresource.xml
-	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=plugins/shotwell-publishing-extras --generate $<
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(abs_top_srcdir)/plugins/shotwell-publishing-extras --generate $<
 
 
 plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_VALAFLAGS = \

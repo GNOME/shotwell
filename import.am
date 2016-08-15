@@ -1,5 +1,7 @@
 plugin_LTLIBRARIES += plugins/shotwell-data-imports/shotwell-data-imports.la
-dist_noinst_DATA += plugins/shotwell-data-imports/f-spot-24.png
+dist_noinst_DATA += \
+	plugins/shotwell-data-imports/f-spot-24.png \
+	plugins/shotwell-data-imports/org.gnome.Shotwell.Imports.gresource.xml
 
 plugins_shotwell_data_imports_shotwell_data_imports_la_SOURCES = \
 	plugins/shotwell-data-imports/FSpotDatabaseBehavior.vala \
@@ -20,9 +22,10 @@ plugins_shotwell_data_imports_shotwell_data_imports_la_SOURCES = \
 
 nodist_plugins_shotwell_data_imports_shotwell_data_imports_la_SOURCES = \
 	plugins/shotwell-data-imports/resource.c
+MOSTLYCLEANFILES += plugins/shotwell-data-imports/resource.c
 
 plugins/shotwell-data-imports/resource.c: plugins/shotwell-data-imports/org.gnome.Shotwell.Imports.gresource.xml
-	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=plugins/shotwell-data-imports --generate $<
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(abs_top_srcdir)/plugins/shotwell-data-imports --generate $<
 
 plugins_shotwell_data_imports_shotwell_data_imports_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \

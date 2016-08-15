@@ -1,5 +1,7 @@
 plugin_LTLIBRARIES += plugins/shotwell-transitions/shotwell-transitions.la
-dist_noinst_DATA += plugins/shotwell-transitions/slideshow-plugin.png
+dist_noinst_DATA += \
+	plugins/shotwell-transitions/slideshow-plugin.png \
+	plugins/shotwell-transitions/org.gnome.Shotwell.Transitions.gresource.xml
 
 plugins_shotwell_transitions_shotwell_transitions_la_SOURCES = \
 	plugins/shotwell-transitions/BlindsEffect.vala \
@@ -17,9 +19,10 @@ plugins_shotwell_transitions_shotwell_transitions_la_SOURCES = \
 
 nodist_plugins_shotwell_transitions_shotwell_transitions_la_SOURCES = \
 	plugins/shotwell-transitions/resource.c
+MOSTLYCLEANFILES += plugins/shotwell-transitions/resource.c
 
 plugins/shotwell-transitions/resource.c: plugins/shotwell-transitions/org.gnome.Shotwell.Transitions.gresource.xml
-	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=plugins/shotwell-transitions --generate $<
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(abs_top_srcdir)/plugins/shotwell-transitions --generate $<
 
 plugins_shotwell_transitions_shotwell_transitions_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \

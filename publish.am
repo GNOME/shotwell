@@ -12,7 +12,8 @@ dist_noinst_DATA += \
 	plugins/shotwell-publishing/picasa_publishing_options_pane.ui \
 	plugins/shotwell-publishing/piwigo_authentication_pane.ui \
 	plugins/shotwell-publishing/piwigo_publishing_options_pane.ui \
-	plugins/shotwell-publishing/youtube_publishing_options_pane.ui
+	plugins/shotwell-publishing/youtube_publishing_options_pane.ui \
+	plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
 
 plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/shotwell-publishing.vala \
@@ -25,9 +26,10 @@ plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 
 nodist_plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/resource.c
+MOSTLYCLEANFILES += plugins/shotwell-publishing/resource.c
 
 plugins/shotwell-publishing/resource.c: plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
-	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=plugins/shotwell-publishing --generate $<
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(abs_top_srcdir)/plugins/shotwell-publishing --generate $<
 
 plugins_shotwell_publishing_shotwell_publishing_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
