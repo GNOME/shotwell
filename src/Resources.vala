@@ -770,13 +770,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         /// Locale-specific time format for 12-hour time, i.e. 8:31 PM
         /// Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        HH_MM_FORMAT_STRING = _("%-I:%M %p");
+        HH_MM_FORMAT_STRING = "%X";
         
         /// Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
         /// Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        HH_MM_SS_FORMAT_STRING = _("%-I:%M:%S %p");
-        
+        HH_MM_SS_FORMAT_STRING = Nl.langinfo (Nl.Item.T_FMT);
+
         /// Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         LONG_DATE_FORMAT_STRING = _("%a %b %d, %Y");
