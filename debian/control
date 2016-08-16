@@ -2,7 +2,7 @@ Source: shotwell
 Section: gnome
 Priority: optional
 Maintainer: Jens Georg <mail@jensge.org>
-Build-Depends: debhelper (>= 7), 
+Build-Depends: debhelper (>= 9),
  desktop-file-utils (>= 0.13),
  libatk1.0-dev (>= 1.30.0),
  libexif-dev (>= 0.6.16),
@@ -16,7 +16,6 @@ Build-Depends: debhelper (>= 7),
  libgudev-1.0-dev (>= 145),
  libjson-glib-dev (>= 0.10.0),
  libraw-dev (>= 0.13.2),
- librest-dev (>= 0.7.10),
  libsoup2.4-dev (>= 2.26.0),
  libsqlite3-dev (>= 3.5.9),
  libunity-dev (>= 5.10.0),
@@ -25,6 +24,7 @@ Build-Depends: debhelper (>= 7),
  m4 (>= 1.4.13),
  valac (>= 0.20.1),
  gnome-doc-utils,
+ autotools-dev,
  yelp-tools,
  appstream-util,
  gettext ( >= 0.19.8)
@@ -34,6 +34,7 @@ Homepage: https://wiki.gnome.org/Apps/Shotwell/
 Package: shotwell
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, librsvg2-common, dbus-x11, dconf-tools
+Recommends: desktop-file-utils
 Conflicts: shotwell-common
 Replaces: shotwell-common
 Description: Digital photo manager
