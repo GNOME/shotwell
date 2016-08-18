@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.20\n"
-"POT-Creation-Date: 2016-06-24 20:55+0000\n"
-"PO-Revision-Date: 2016-06-24 23:35+0200\n"
+"POT-Creation-Date: 2016-07-25 02:19+0000\n"
+"PO-Revision-Date: 2016-08-18 20:59+0200\n"
 "Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: C/view-sidebar.page:7(desc)
 msgid ""
@@ -519,8 +519,8 @@ msgid ""
 msgstr ""
 "Legt fest, ob Metadaten wie beispielsweise Markierungen oder Bewertungen "
 "exportiert werden sollen. Im Falle von Metadaten für Ortsdienste oder "
-"anderweitiger privater Markierungen kann dies dabei helfen, Ihre Privatsphäre "
-"zu schützen."
+"anderweitiger privater Markierungen kann dies dabei helfen, Ihre "
+"Privatsphäre zu schützen."
 
 #: C/share-export.page:42(p)
 msgid ""
@@ -534,8 +534,7 @@ msgstr ""
 msgid ""
 "Set your desktop background to a single photo or to a slideshow of photos."
 msgstr ""
-"Das Hintergrundbild als ein Foto oder eine Diaschau von Fotos "
-"festlegen."
+"Das Hintergrundbild als ein Foto oder eine Diaschau von Fotos festlegen."
 
 #: C/share-background.page:12(title)
 msgid "Set a desktop background or slideshow"
@@ -557,6 +556,12 @@ msgid ""
 "for a slideshow delay, which can be any interval up to one day in length. "
 "The background slideshow will proceed even when Shotwell is not running."
 msgstr ""
+"Sie können den Hintergrund auch als Diaschau aus Ihren Fotos darstellen "
+"lassen. Wählen Sie hierzu die Fotos für die Diaschau aus und wählen Sie "
+"<guiseq><gui>Datei</gui><gui>Als Hintergrundbild-Vorführung festlegen</gui></"
+"guiseq>. Shotwell fragt Sie nach der Verzögerung für den Bildwechsel, die "
+"bis zu einen Tag betragen kann. Die Diaschau wird auch dann weitergeführt, "
+"wenn Shotwell nicht läuft."
 
 #: C/running.page:7(desc)
 msgid ""
@@ -617,6 +622,9 @@ msgid ""
 "a file that contains extra color information; this is commonly referred to "
 "as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
 msgstr ""
+"Einige Kameras können Daten direkt vom Sensor ablesen und mit zusätzlichen "
+"\" \"Farbinformationen in eine Datei schreiben. Diese werden allgemein als "
+"»RAW«-Dateien bezeichnet. Shotwell unterstützt diese Dateien."
 
 #: C/raw.page:18(p)
 msgid ""
@@ -628,19 +636,33 @@ msgid ""
 "+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
 "treat them as one item in your library."
 msgstr ""
+"Weil RAW-Fotos normalerweise nicht direkt dargestellt werden können, müssen "
+"diese zunächst entwickelt werden. Das heißt, die zusätzlichen Informationen "
+"werden interpretiert und für die Anzeige vorbereitet. Die meisten Kameras "
+"betten bei einer Aufnahme ein JPEG in einer RAW-Datei ein oder erstellen "
+"eine zusätzliche JPEG-Datei. Letzteres Verfahren wird in diesem Dokument als "
+"RAW+JPEG bezeichnet. Wenn Sie ein RAW+JPEG-Paar importieren, wird Shotwell "
+"beide gemeinsam behalten und als ein Objekt in Ihrer Bibliothek führen."
 
+# »in the menus« ist Blödsinn, es gibt nur ein Menü.
 #: C/raw.page:27(p)
 msgid ""
 "When you import a RAW file, you can choose to either use the camera's "
 "internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
 "gui><gui>Developer</gui></guiseq> in the menus."
 msgstr ""
+"Beim Import einer RAW-Datei können Sie wählen, ob Sie das intern in der "
+"Kamera entwickelte JPEG-Bild oder das von Shotwell erzeugte Bild verwenden "
+"wollen. Wählen Sie hierzu <guiseq><gui>Fotos</gui><gui>Entwickler</gui></"
+"guiseq> im Menü."
 
 #: C/raw.page:33(p)
 msgid ""
 "Changing between developers will cause all edits made to a photograph to be "
 "discarded."
 msgstr ""
+"Ein Wechsel zwischen Entwicklern führt zum Verlust aller Änderungen, die an "
+"einem Foto gemacht wurden."
 
 #: C/raw.page:39(p)
 msgid ""
@@ -649,10 +671,15 @@ msgid ""
 "or BMP format, and, when publishing, will internally export a JPEG version "
 "for you and publish that."
 msgstr ""
+"Um ein RAW-Bild zu veröffentlichen oder in einer anderen Software zu "
+"verwenden, muss es meist zunächst exportiert werden. Shotwell kann Ihre "
+"Fotos in die Formate JPEG, PNG, TIFF oder BMP exportieren. Beim "
+"Veröffentlichen wird intern eine JPEG-Datei exportiert und diese "
+"veröffentlicht."
 
 #: C/other-plugins.page:7(desc)
 msgid "Extend Shotwell's functionality dynamically."
-msgstr ""
+msgstr "Die Funktionalität von Shotwell dynamisch erweitern."
 
 #: C/other-plugins.page:12(title)
 msgid "Plugins"
@@ -724,6 +751,8 @@ msgstr ""
 #: C/other-missing.page:7(desc)
 msgid "If Shotwell can't find a photo in your library, it marks it as missing."
 msgstr ""
+"Falls Shotwell ein Foto in Ihrer Bibliothek nicht finden kann, wird dieses "
+"als fehlend markiert."
 
 #: C/other-missing.page:12(title)
 msgid "Missing photos"
@@ -737,6 +766,12 @@ msgid ""
 "Tags views, but will instead show them in a separate Missing Files view "
 "which will appear in the sidebar."
 msgstr ""
+"Bei jedem Programmstart liest Shotwell Ihre Fotobibliothek neu ein, um "
+"sicherzustellen, dass alle Fotodateien auf Ihrem Datenträger noch vorhanden "
+"sind. Falls festgestellt wird, dass Fotodateien fehlen, werden diese nicht "
+"in den gewöhnlichen Foto-, Ereignis- und Stichwortansichten angezeigt, "
+"sondern in einer separaten Ansicht für fehlende Dateien in der Seitenleiste "
+"dargestellt."
 
 #: C/other-missing.page:16(p)
 msgid ""
@@ -744,6 +779,10 @@ msgid ""
 "collection (perhaps because you deleted them), go to the Missing Files view, "
 "select the photos and then click <gui>Remove From Library</gui>."
 msgstr ""
+"Falls Sie die nicht mehr benötigten Dateien aus der Shotwell-Sammlung "
+"entfernen wollen (weil Sie beispielsweise die Dateien bewusst gelöscht "
+"haben), wählen Sie diese Fotos in der Ansicht für fehlende Dateien in der "
+"Seitenleiste aus und klicken Sie auf <gui>Aus der Bibliothek entfernen</gui>."
 
 #: C/other-missing.page:18(p)
 msgid ""
@@ -790,8 +829,8 @@ msgstr ""
 "Shotwell erlaubt es, ein eigenes Namensschema für Ihre Bibliothek zu "
 "verwenden. Passen Sie dazu die Einstellungen für <gui>Ordnerstruktur</gui> "
 "und <gui>Muster</gui> in den <gui>Einstellungen</gui> an. Verwenden Sie ein "
-"vorgewähltes Schema oder wählen Sie <gui>Benutzerdefiniert</gui> und "
-"tippen Sie Ihr eigenes ein."
+"vorgewähltes Schema oder wählen Sie <gui>Benutzerdefiniert</gui> und tippen "
+"Sie Ihr eigenes ein."
 
 #: C/other-files.page:29(p)
 msgid ""
@@ -1077,7 +1116,7 @@ msgstr ""
 
 #: C/organize-title.page:7(desc)
 msgid "Give titles to your photos."
-msgstr ""
+msgstr "Betiteln Ihrer Fotos"
 
 #: C/organize-title.page:12(title)
 msgid "Titles"
@@ -1098,7 +1137,7 @@ msgstr ""
 
 #: C/organize-tag.page:7(desc)
 msgid "Organize photos by labelling them."
-msgstr ""
+msgstr "Fotos durch Kennzeichnung organisieren."
 
 #: C/organize-tag.page:14(title)
 msgid "Tagging photos"
@@ -1194,7 +1233,6 @@ msgid "Find photos and videos in your collection by a variety of criteria."
 msgstr ""
 
 #: C/organize-search.page:12(title)
-#, fuzzy
 msgid "Searching"
 msgstr "Suchen"
 
@@ -1359,6 +1397,8 @@ msgid ""
 "When you delete files from the Trash folder or empty the Trash folder, you "
 "will be given the following choices:"
 msgstr ""
+"Wenn Sie Dateien aus dem Papierkorb-Ordner löschen oder den Papierkorb-"
+"Ordner leeren, haben Sie folgende Möglichkeiten:"
 
 #: C/organize-remove.page:39(title)
 msgid "Only Remove"
@@ -1369,6 +1409,8 @@ msgid ""
 "Remove photos from the library but leave the photos in their location on the "
 "computer."
 msgstr ""
+"Dadurch werden die Dateien aus der Bibliothek entfernt, aber die "
+"eigentlichen Fotos verbleiben an deren Speicherorten auf Ihrem Rechner."
 
 #: C/organize-remove.page:40(title)
 msgid "Trash file"
@@ -1377,6 +1419,8 @@ msgstr "Datei löschen"
 #: C/organize-remove.page:40(p)
 msgid "Remove photos from the library and delete them from the computer."
 msgstr ""
+"Dadurch werden die Dateien sowohl aus der Bibliothek entfernt als auch auf "
+"dem Rechner gelöscht."
 
 #: C/organize-remove.page:41(title)
 msgid "Cancel"
@@ -1529,7 +1573,7 @@ msgstr ""
 
 #: C/organize-event.page:25(title)
 msgid "Renaming events"
-msgstr ""
+msgstr "Ereignisse umbenennen"
 
 #: C/organize-event.page:27(p)
 msgid ""
@@ -1541,7 +1585,7 @@ msgstr ""
 
 #: C/organize-event.page:31(title)
 msgid "Moving photos between events"
-msgstr ""
+msgstr "Fotos zwischen Ereignissen verschieben"
 
 #: C/organize-event.page:33(p)
 msgid ""
@@ -1552,7 +1596,7 @@ msgstr ""
 
 #: C/organize-event.page:37(title)
 msgid "Creating and merging events"
-msgstr ""
+msgstr "Ereignisse erstellen und zusammenführen"
 
 #: C/organize-event.page:38(p)
 msgid ""
@@ -1570,7 +1614,7 @@ msgstr ""
 
 #: C/organize-event.page:43(title)
 msgid "Sorting events"
-msgstr ""
+msgstr "Ereignisse sortieren"
 
 #: C/organize-event.page:45(p)
 msgid ""
@@ -1682,7 +1726,7 @@ msgstr "Weitere Funktionen"
 
 #: C/import-memorycard.page:7(desc)
 msgid "Import photos from a digital camera's memory card."
-msgstr ""
+msgstr "Fotos von der Speicherkarte einer Digitalkamera importieren."
 
 #: C/import-memorycard.page:12(title)
 msgid "Importing from a memory card"
@@ -1697,10 +1741,12 @@ msgid ""
 "Put the card into your card reader. Make sure the card reader is plugged in "
 "to the computer and switched on."
 msgstr ""
+"Schieben Sie die Karte in Ihren Kartenleser. Stellen Sie sicher, dass der "
+"Kartenleser an den Rechner angeschlossen und eingeschaltet ist."
 
 #: C/import-memorycard.page:21(p)
 msgid "The card reader and card should be detected automatically."
-msgstr ""
+msgstr "Der Kartenleser und die Karte sollten automatisch erkannt werden."
 
 #: C/import-memorycard.page:24(p)
 msgid ""
@@ -1709,12 +1755,18 @@ msgid ""
 "Folder</gui></guiseq>, the memory card should be visible as a folder in the "
 "side bar of the file selection window."
 msgstr ""
+"Folgen Sie den Anweisungen zum <link xref=\"import-file\">Importieren von "
+"Fotos von Ihrer Festplatte</link>. Wenn Sie <guiseq><gui>Datei</gui><gui>Aus "
+"Ordner importieren</gui></guiseq> wählen, sollte die Speicherkarte als "
+"Ordner in der Seitenleiste des Dateiauswahlfensters sichtbar sein."
 
 #: C/import-memorycard.page:28(p)
 msgid ""
 "Shotwell can import photos from any memory card that is compatible with your "
 "card reader."
 msgstr ""
+"Shotwell kann Fotos von jeder Speicherkarte importieren, die mit Ihrem "
+"Kartenleser kompatibel ist."
 
 #: C/import-memorycard.page:30(p)
 msgid ""
@@ -1724,11 +1776,18 @@ msgid ""
 "\"import-camera\">connecting your camera directly to the computer</link>, "
 "though."
 msgstr ""
+"Falls die Karte nicht automatisch erkannt wird, könnte Ihr Kartenleser diese "
+"nicht richtig erkannt haben. Versuchen sie, die Karte aus- und erneut "
+"einzustecken. Sollte dies nicht funktionieren, könnten Sie immer noch Fotos "
+"importieren, indem Sie die <link xref=\"import-camera\">Kamera direkt an den "
+"Rechner anschließen</link>."
 
 #: C/import-f-spot.page:7(desc)
 msgid ""
 "Shotwell can import all your photos and tags from the F-Spot photo manager."
 msgstr ""
+"Shotwell kann alle Ihre Fotos und Stichworte aus der Fotoverwaltung F-Spot "
+"importieren."
 
 #: C/import-f-spot.page:12(title)
 msgid "Importing from F-Spot"
@@ -1762,10 +1821,15 @@ msgid ""
 "will also show new entries for the dates corresponding to the imported "
 "photos."
 msgstr ""
+"Shotwell importiert daraufhin Ihre Fotos zusammen mit den zugehörigen "
+"Markierungen und weiteren Informationen. Sobald der Import abgeschlossen "
+"ist, wählen Sie <gui>Letzter Import</gui> in der Seitenleiste, um alle "
+"erfolgreich importierten Fotos zu sehen. Die Ereignisliste zeigt auch neue "
+"Einträge für die importierten Fotos mit den zugehörigen Zeitstempeln."
 
 #: C/import-file.page:7(desc)
 msgid "Import photos that are already saved on your computer."
-msgstr ""
+msgstr "Fotos importieren, die bereits auf Ihrem Rechner gespeichert sind."
 
 #: C/import-file.page:12(title)
 msgid "Importing from your hard disk"
@@ -2161,7 +2225,7 @@ msgstr ""
 
 #: C/edit-enhance.page:14(title)
 msgid "Auto-enhance"
-msgstr ""
+msgstr "Automatisch verbessern"
 
 #: C/edit-enhance.page:16(p)
 msgid ""
@@ -2275,7 +2339,7 @@ msgstr ""
 
 #: C/edit-adjustments.page:7(desc)
 msgid "Change the exposure, saturation, tint, and shadows of a photo."
-msgstr ""
+msgstr "Belichtung, Sättigung, Farbton und Schatten eines Fotos ändern."
 
 #: C/edit-adjustments.page:12(title)
 msgid "Color adjustments"
