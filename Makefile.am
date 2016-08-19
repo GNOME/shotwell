@@ -145,7 +145,6 @@ dist_noinst_DATA += \
 	plugins/shotwell-plugin-dev-1.0.h \
 	plugins/shotwell-plugin-common.h \
 	vapi/gphoto.h \
-	vapi/LConv.vapi \
 	vapi/langinfo.vapi \
 	vapi/libexif.vapi \
 	vapi/libgphoto2.vapi \

@@ -513,7 +513,8 @@ public class CustomPrintTab : Gtk.Fixed {
         if (length == -1)
             length = (int) text.length;
 
-        string decimal_point = Intl.localeconv().decimal_point;
+        unowned string decimal_point = Nl.langinfo (Nl.Item.RADIXCHAR);
+
         bool contains_decimal_point = sender.get_text().contains(decimal_point);
 
         string new_text = "";
