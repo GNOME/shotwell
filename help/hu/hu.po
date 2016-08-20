@@ -1,219 +1,2598 @@
-# Hungarian translation of shotwell help
-# Copyright (C) 2014. Free Software Foundation, Inc.
-# This file is distributed under the same license as the user help.
+# Hungarian translation for shotwell help.
+# Copyright (C) 2014-2016 Free Software Foundation, Inc.
+# This file is distributed under the same license as the shotwell package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2014, 2015.
-# Balázs Úr <urbalazs@gmail.com>, 2015.
+# Balázs Úr <urbalazs at gmail dot com>, 2015, 2016.
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell_help master\n"
-"POT-Creation-Date: 2015-05-09 11:28+0000\n"
-"PO-Revision-Date: 2015-05-22 10:31+0200\n"
-"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
+"Project-Id-Version: shotwell master\n"
+"POT-Creation-Date: 2016-08-18 20:06+0000\n"
+"PO-Revision-Date: 2016-08-20 13:43+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope@googlegroups.com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 1.2\n"
 
-#: C/view-sidebar.page:7(desc)
-msgid ""
-"The sidebar on the left of the window lists various views of your library."
+#. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
+#| msgid "translator-credits"
+msgctxt "_"
+msgid "translator-credits"
 msgstr ""
-"Az ablak bal oldalán lévő oldalsáv a gyűjtemény különböző nézeteit sorolja "
-"fel."
+"Kelemen Gábor <kelemeng at gnome dot hu>, 2014.\n"
+"Úr Balázs <urbalazs at gmail dot hu>, 2015, 2016."
 
-#: C/view-sidebar.page:21(title)
-msgid "The sidebar"
-msgstr "Az oldalsáv"
-
-#: C/view-sidebar.page:23(p)
-msgid ""
-"The sidebar on the left side of the Shotwell window lists various views of "
-"your library. Although you may see the same photo in multiple views, it's "
-"only stored once on your hard drive."
+#. (itstool) path: info/desc
+#: C/edit-adjustments.page:7
+msgid "Change the exposure, saturation, tint, and shadows of a photo."
 msgstr ""
-"A Shotwell bal oldalán lévő oldalsáv a gyűjtemény különböző nézeteit sorolja "
-"fel. Noha ugyanazt a fényképet több nézetben is láthatja, az a lemezen csak "
-"egyszer van tárolva."
 
-#: C/view-sidebar.page:25(p)
-msgid ""
-"The <gui>Last Import</gui> view lists your last imported photos no matter if "
-"they are imported from F-Spot, your camera, a memory card or the hard disk."
+#. (itstool) path: page/title
+#: C/edit-adjustments.page:12
+msgid "Color adjustments"
 msgstr ""
-"Az <gui>Utolsó importálás</gui> nézet az utoljára importált fényképeket "
-"sorolja fel, függetlenül attól, hogy az F-Spotból, fényképezőgépéről, "
-"memóriakártyáról vagy a merevlemezről importálta azokat."
 
-#: C/view-sidebar.page:27(p)
-msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
-msgstr "A <gui>Megjelölt</gui> a korábban megjelölt fényképeket sorolja fel."
-
-#: C/view-sidebar.page:29(p)
+#. (itstool) path: page/p
+#: C/edit-adjustments.page:14
 msgid ""
-"The <gui>Saved Search</gui> allows you to sort your library by many criteria."
+"The <gui>Adjust</gui> button opens a floating window with a histogram and "
+"sliders to adjust a photo's exposure, saturation, tint, temperature, and "
+"shadows. The histogram also has sliders to reduce the upper and lower "
+"intensity thresholds of the photograph, expanding the contrast of the middle "
+"range."
 msgstr ""
-"A <gui>Mentett keresés</gui> lehetővé teszi gyűjteménye rendezését több "
-"szempont szerint."
 
-#: C/view-sidebar.page:31(p)
+#. (itstool) path: page/p
+#: C/edit-adjustments.page:16
 msgid ""
-"The <gui>Events</gui> folder lists all events in your library. An event is a "
-"group of photos that were taken at approximately the same time."
+"The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
+"improve the quality of a photo."
 msgstr ""
-"Az <gui>Események</gui> mappa felsorolja a gyűjtemény összes eseményt. Az "
-"esemény a nagyjából egy időben készített fényképek csoportja."
 
-#: C/view-sidebar.page:33(p)
+#. (itstool) path: page/p
+#: C/edit-adjustments.page:18
 msgid ""
-"The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
-"can have multiple tags attached to them. When you click on the name of a tag "
-"in the sidebar, you will see all the photos associated with that tag."
+"When the photo's colors and contrast are to your liking, press <gui>OK</gui> "
+"to save the changes. <gui>Reset</gui> will return the image to its original "
+"state. <gui>Cancel</gui> discards all changes you've made."
 msgstr ""
-"A <gui>Címkék</gui> mappa felsorolja a fényképekhez társított összes címkét. "
-"A fényképekhez több címke is csatolható. Amikor egy címke nevére kattint az "
-"oldalsávon, a címkéhez társított összes kép megjelenik."
 
-#: C/view-information.page:7(desc)
+#. (itstool) path: section/title
+#: C/edit-adjustments.page:21
+msgid "What do the color adjustments do?"
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:24
+msgid "Exposure"
+msgstr "Expozíció"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:25
 msgid ""
-"View more detailed information about photos, like the exposure mode used by "
-"the camera."
+"Changes the brightness to make it look like the photo was exposed for a "
+"longer or shorter time. Use this to correct under- or over-exposed photos."
 msgstr ""
-"Részletesebb információk megjelenítése a fényképekről, mint a fényképezőgép "
-"által használt expozíciós mód."
 
-#: C/view-information.page:12(title)
-msgid "Basic and extended information"
-msgstr "Alapvető és bővített információk"
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:28
+msgid "Saturation"
+msgstr "Telítettség"
 
-#: C/view-information.page:14(p)
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:29
 msgid ""
-"The Basic Information pane appears at the bottom of the sidebar, and "
-"displays a brief summary of the photos you've selected. If no photos are "
-"selected, it displays a summary of the entire collection. You can toggle the "
-"display of this pane using the <guiseq><gui>View</gui><gui>Basic "
-"Information</gui></guiseq> command."
+"Changes how vivid colors look. If your photo looks gray and washed out, try "
+"increasing the saturation. If colors look too bold, try decreasing it."
 msgstr ""
-"Az Alapvető információk panel az oldalsáv alján jelenik meg, és a kijelölt "
-"fényképek rövid összefoglalását jeleníti meg. Ha nincsenek kijelölve "
-"fényképek, akkor a teljes gyűjtemény összefoglalását jeleníti meg. A panel "
-"megjelenítését a <guiseq><gui>Nézet</gui><gui>Alapvető információk</gui></"
-"guiseq> parancs használatával lehet be- vagy kikapcsolni."
 
-#: C/view-information.page:16(p)
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:32
+msgid "Tint"
+msgstr "Árnyalat"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:33
 msgid ""
-"The floating Extended Information window displays more information about the "
-"selected photo. The <guiseq><gui>View</gui><gui>Extended Information</gui></"
-"guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
-"keyseq> toggles the display of this window."
+"This tints the photo with a color. It's useful for correcting photos taken "
+"with the wrong white balance setting, which typically have an unnatural "
+"color cast. For example, photos taken outdoors with the white balance set to "
+"\"Tungsten\" may have a blue cast."
 msgstr ""
-"A lebegő Bővített információk ablak további információkat jelenít meg a "
-"kijelölt fényképről. A <guiseq><gui>Nézet</gui><gui>Bővített információk</"
-"gui></guiseq> parancs vagy a <keyseq><key>Ctrl</key><key>Shift</key><key>X</"
-"key></keyseq> kombináció használatával lehet be- vagy kikapcsolni."
 
-#: C/view-displaying.page:7(desc)
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:36
+msgid "Temperature"
+msgstr "Hőmérséklet"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:37
 msgid ""
-"Learn about different ways of viewing your photos: in a grid, filling the "
-"main window, or filling the whole screen."
+"Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
+"depressing scenes look more lively, for example."
 msgstr ""
-"Ismerje meg a fényképek megjelenítésének különböző módjait: rácsban, a "
-"főablakot kitöltve vagy a teljes képernyőt kitöltve."
 
-#: C/view-displaying.page:12(title)
-msgid "Photo views"
-msgstr "Fényképnézetek"
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:40
+msgid "Shadows"
+msgstr "Árnyékok"
 
-#: C/view-displaying.page:14(p)
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:41
 msgid ""
-"When you select any collection in the sidebar, Shotwell displays all photos "
-"in the collection in the main window area. At the bottom right is a slider "
-"which adjusts the viewing size of the thumbnails. You may also adjust the "
-"thumbnail size using the plus and minus keys (<key>+</key> and <key>-</key>) "
-"or by pressing <key>Ctrl</key> while moving your mouse scroll wheel."
+"This makes shadowy areas appear lighter. Use this to make detail more "
+"visible if it's obscured by the darkness of a shadow."
 msgstr ""
-"Amikor kiválaszt egy gyűjteményt az oldalsávban, a Shotwell annak minden "
-"fényképét megjeleníti a fő ablakterületen. A jobb alsó sarokban lévő csúszka "
-"segítségével módosíthatja a bélyegképek megjelenítési méretét. A bélyegképek "
-"mérete a plusz és mínusz billentyűkkel (<key>+</key> és <key>-</key>) vagy a "
-"<key>Ctrl</key> lenyomásával és az egérgörgő egyidejű mozgatásával is "
-"módosítható."
 
-#: C/view-displaying.page:16(p)
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:44
+msgid "Intensity Threshold (sliders on the histogram)"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:45
 msgid ""
-"You can view a photo full-window by double-clicking on it. From there you "
-"may move to other photos in the collection with the Back and Forward "
-"buttons. To return to the collection, double-click on the photo or press "
-"<key>Esc</key>."
+"These sliders change how light the brightest white is and how dark the "
+"darkest black is. Use them to change the contrast of the photo. Photos which "
+"look washed out should particularly benefit from changing these settings."
 msgstr ""
-"Egy fényképet duplán rákattintva teljes képernyőn jeleníthet meg. Innen a "
-"gyűjtemény más fényképeire az Előre és Hátra gombokkal léphet. A "
-"gyűjteményhez való visszatéréshez kattintson duplán a fényképre, vagy nyomja "
-"meg az <key>Esc</key> billentyűt."
 
-#: C/view-displaying.page:18(p)
+#. (itstool) path: media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/edit-crop.page:42
+#| msgid ""
+#| "@@image: 'figures/crop_thirds.jpg'; md5=4cf0a026bb812c7eab0c9db8210a9524"
+msgctxt "_"
 msgid ""
-"When viewing a photo in full-window mode, the slider on the toolbar controls "
-"zoom. You can pan around by grabbing and dragging anywhere on the photo. You "
-"can also zoom using your scroll wheel or by pressing the following keyboard "
-"shortcuts: <keyseq><key>Ctrl</key>0</keyseq> for the full image, "
-"<keyseq><key>Ctrl</key>1</keyseq> for 100% (1 photo pixel = 1 screen pixel), "
-"and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen "
-"pixels)."
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
 msgstr ""
-"Egy fénykép teljes képernyős módban való megjelenítésekor az eszköztáron "
-"lévő csúszka vezérli a nagyítást. A fénykép megfogásával és húzásával "
-"tetszőleges irányba görgetheti a fényképet. Nagyíthat is az egérgörgő "
-"használatával, vagy a következő gyorsbillentyűk megnyomásával: "
-"<keyseq><key>Ctrl</key>0</keyseq> a teljes képhez, <keyseq><key>Ctrl</key>1</"
-"keyseq> a 100%-hoz (1 képpont a fényképen = 1 képpont a képernyőn), és "
-"<keyseq><key>Ctrl</key>2</keyseq> a 200%-hoz (1 képpont a fényképen = 2x2 "
-"képpont a képernyőn)."
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
 
-#: C/view-displaying.page:20(p)
+#. (itstool) path: info/desc
+#: C/edit-crop.page:7
+msgid "Improve the composition of a photo by cutting out parts of it."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-crop.page:12
+msgid "Cropping"
+msgstr "Vágás"
+
+#. (itstool) path: page/p
+#: C/edit-crop.page:14
 msgid ""
-"Shotwell offers a fullscreen mode to display photos. Choose "
-"<guiseq><gui>View</gui><gui>Fullscreen</gui></guiseq> or press <key>F11</"
-"key>. To see the fullscreen toolbar, move your mouse to the bottom of the "
-"screen. The toolbar offers buttons to move through the collection, to pin "
-"the toolbar down (so it isn't hidden when you move the mouse away), and to "
-"leave fullscreen view."
+"To reduce the area of a photo and concentrate the viewer's attention on a "
+"smaller portion of it, use the Crop tool. The crop tool is only available in "
+"full-window or fullscreen mode."
 msgstr ""
-"A Shotwell teljes képernyős módot is kínál a fényképek megjelenítéséhez. "
-"Válassza a <guiseq><gui>Nézet</gui><gui>Teljes képernyő</gui></guiseq> "
-"menüpontot, vagy nyomja meg az <key>F11</key> billentyűt. A teljes képernyős "
-"eszköztár megjelenítéséhez vigye az egérmutatót a képernyő aljára. Az "
-"eszköztár a gyűjteményben mozgásra, az eszköztár rögzítésére (hogy ne tűnjön "
-"el) és a teljes képernyős nézet elhagyására használható gombokat kínál."
 
-#: C/view-displaying.page:23(title)
-msgid "Viewing videos"
-msgstr "Videók megjelenítése"
-
-#: C/view-displaying.page:24(p)
+#. (itstool) path: item/p
+#: C/edit-crop.page:19
 msgid ""
-"When you double-click a video, Shotwell will launch an external video player "
-"to play the video. It's not currently possible to display a video in full-"
-"window mode in Shotwell or to play the video within Shotwell itself."
+"Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
+"gui> button on the toolbar."
 msgstr ""
-"Amikor duplán kattint egy videóra, a Shotwell egy külső videolejátszót indít "
-"el a videó lejátszásához. Jelenleg nem lehetséges videót lejátszani teljes "
-"ablakos módban a Shotwellben, vagy magán a Shotwellen belül."
 
-#: C/share-upload.page:7(desc)
+#. (itstool) path: item/p
+#: C/edit-crop.page:22
+msgid ""
+"A white box, the crop rectangle, will appear over the photo. The lighter "
+"portion of the photo within the crop rectangle represents what the photo "
+"will look like when you crop it."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:25
+msgid ""
+"If you place your cursor in the middle of the box, you can move the box "
+"around. If you drag the edges of the box, you can adjust its size. As you "
+"move and adjust the crop box, you'll see four lines appear inside it, like a "
+"tic-tac-toe grid. These are <em>rule of thirds</em> lines."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:26
+msgid ""
+"You can also constrain the crop box to one of many common sizes. Choose a "
+"size from the drop-down list that suits your needs. If you press the flip "
+"button next to it, the orientation of the constraint will switch (from "
+"landscape to portrait)."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:29
+msgid ""
+"When you're happy with your crop outline, apply it by pressing the "
+"<gui>Crop</gui> button. Shotwell will display the cropped photo."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:32
+msgid ""
+"If you change your mind, press the <gui>Crop</gui> button again and fine-"
+"tune the crop."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:33
+msgid ""
+"If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
+"return to the photo's previous crop dimensions."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/edit-crop.page:38
+msgid "What is the rule of thirds?"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/edit-crop.page:39
+msgid ""
+"The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
+"photo."
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/edit-crop.page:40
+msgid ""
+"Imagine that the scene is divided up into a 3x3 grid by two equally-spaced "
+"vertical lines and two equally-spaced horizontal lines. According to the "
+"rule, you're more likely to get a pleasing composition if you align major "
+"features (like the horizon, or a person's body) with one of the lines. "
+"Paying attention to the way features flow from one part of the grid to "
+"another can also help."
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/edit-crop.page:41
+msgid ""
+"Cropping a photo so that it conforms to the rule of thirds often results in "
+"a more visually appealing image."
+msgstr ""
+
+#. (itstool) path: media/p
+#: C/edit-crop.page:43
+msgid ""
+"Cropping a photo, using the \"rule of thirds\" lines to improve the "
+"composition."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/edit-enhance.page:7
+msgid ""
+"Let Shotwell improve the brightness and contrast of a photo automatically."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-enhance.page:14
+msgid "Auto-enhance"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-enhance.page:16
+msgid ""
+"Clicking on the <gui>Enhance</gui> button is a quick way to automatically "
+"adjust the brightness and contrast of your photo. It will often give you a "
+"photo that is correctly exposed. You can also use it as a starting point and "
+"then improve the adjustments by clicking on the <gui>Adjust</gui> button."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/edit-external.page:7
+msgid "Use a different program to edit a photo."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-external.page:12
+msgid "Edit photos with an external program"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-external.page:16
+msgid ""
+"You might want to use an external editor to do additional work on a photo. "
+"If installed, GIMP and UFRaw are the default external editors for photo and "
+"RAW editing, respectively. If these programs are not installed, you must "
+"select your preferred editors by choosing <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
+"menus of installed applications."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-external.page:24
+msgid ""
+"Once your editors have been set, select a photo and choose "
+"<guiseq><gui>Photos</gui> <gui>Open With External Editor</gui></guiseq> to "
+"open the photo with the external editor. Likewise, if the original photo is "
+"a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
+"guiseq> to edit the RAW file directly with the set RAW editor."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-external.page:31
+msgid ""
+"When you complete your edits and save the file, Shotwell will detect the "
+"changes and update the photo. When external edits have been made, press and "
+"hold the <key>Shift</key> key in full-window view to show the original photo "
+"rather than the externally-edited one."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-external.page:38
+msgid "Reverting to original will erase any external edits."
+msgstr ""
+
+#. (itstool) path: note/p
+#: C/edit-external.page:43
+msgid ""
+"If you externally edit a RAW photo and save the result to another image, "
+"such as a JPEG or PNG, Shotwell cannot automatically determine that the "
+"original RAW and the new image should be paired."
+msgstr ""
+
+#. (itstool) path: note/p
+#: C/edit-external.page:49
+msgid ""
+"If you want to work within the resulting image within Shotwell, you'll need "
+"to import it yourself."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/edit-nondestructive.page:7
+msgid ""
+"Shotwell is a non-destructive photo editor - it does not modify your "
+"original photos."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-nondestructive.page:12
+msgid "What happens to the original when I edit a photo?"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-nondestructive.page:14
+msgid ""
+"Shotwell is a non-destructive photo editor. It does not modify your original "
+"photographs. That is to say, if you crop a photo or adjust its colors, the "
+"photo file on disc remains untouched. Shotwell stores your edits in a "
+"database and applies them on the fly as necessary. This means you can undo "
+"any alterations you make to a photograph."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-nondestructive.page:16 C/edit-undo.page:18
+msgid ""
+"If you want to see what a photo looked like before your modifications, press "
+"the <key>Shift</key> key. The original photo will be displayed as long as "
+"you hold the key down."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-nondestructive.page:18
+msgid ""
+"Note that Shotwell can optionally write metadata (such as tags and titles) "
+"to photo files. For more information, see the section <link xref=\"other-"
+"files\">Photo files</link>."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/edit-redeye.page:7
+msgid ""
+"Correct photos where people have red eyes because of the camera's flash."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-redeye.page:12
+msgid "Removing red-eye"
+msgstr "Vörös szem eltávolítása"
+
+#. (itstool) path: page/p
+#: C/edit-redeye.page:14
+msgid ""
+"Red-eye occurs when the camera's flash reflects off the pupil of someone's "
+"eye. To eliminate this in a photo, use the Red-eye tool."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-redeye.page:17
+msgid "Click <gui>Red-eye</gui>. A circle will appear on the photo."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-redeye.page:20
+msgid ""
+"Drag the circle over the affected pupil, adjust its size with the slider "
+"control, and press <gui>Apply</gui>. The redness will be removed."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-redeye.page:23
+msgid ""
+"Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
+"when finished."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/edit-rotate.page:7
+msgid ""
+"Click the <gui>Rotate</gui> button, or choose one of the commands in the "
+"<gui>Photo</gui> menu."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-rotate.page:12
+msgid "Rotate or flip a photo"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-rotate.page:14
+msgid ""
+"You can rotate your photos left and right (clockwise and counterclockwise) "
+"with the <gui>Rotate</gui> button on the toolbar of most views. You can also "
+"make a mirror image of any photo."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-rotate.page:16
+msgid ""
+"To rotate right, click on the <gui>Rotate</gui> button. To rotate left, "
+"press and hold the <key>Ctrl</key> key and then click the button. Both "
+"commands are available in the <gui>Photos</gui> menu too. Alternatively, use "
+"the following keyboard shortcuts:"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-rotate.page:18
+msgid ""
+"rotate left: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> or "
+"<key>[</key>"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-rotate.page:19
+msgid ""
+"rotate right: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</key>"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-rotate.page:21
+msgid ""
+"To create a mirror image of a photo, use the <gui>Flip Horizontally</gui> "
+"command in the <gui>Photos</gui> menu. To flip an image vertically, use the "
+"<gui>Flip Vertically</gui> command in the same menu."
+msgstr ""
+
+#. (itstool) path: note/p
+#: C/edit-rotate.page:24
+msgid ""
+"If you select more than one image, you can rotate all of them at the same "
+"time."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/edit-straighten.page:7
+msgid "Straighten a photo so that its horizon appears level."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-straighten.page:12
+msgid "Straighten photos"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-straighten.page:14
+msgid ""
+"The straighten tools allows photos to be leveled and straightened. The "
+"straighten tool is only available in full-window or fullscreen mode."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-straighten.page:18
+msgid ""
+"Click <gui>Straighten</gui>. The straighten slider will appear. "
+"Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
+"key></keyseq>."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-straighten.page:21
+msgid "Drag the slider to achieve the desired degree of straightening."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-straighten.page:24
+msgid "Press <gui>Straighten</gui> when finished."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/edit-date-time.page:7
+msgid "Change the date and time of photos if those details are incorrect."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-date-time.page:12
+msgid "Adjust the date and time of photos"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:14
+#| msgid ""
+#| "To change a photo's title, select the photo and click "
+#| "<guiseq><gui>Photos</gui><gui>Edit Title</gui></guiseq>, or press "
+#| "<key>F2</key>."
+msgid ""
+"To adjust the date and time of photos, select the photos you would like to "
+"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
+"guiseq> and select a new date and time."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:16
+msgid ""
+"If you are changing the date and time of multiple photos at once, you can "
+"choose to shift all the photos by the same amount of time or to set all the "
+"photos to the same time."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:18
+msgid ""
+"By default, the date and time are only changed inside Shotwell. You can also "
+"choose to modify the date and time in the original file, but this cannot be "
+"undone once you exit Shotwell."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/edit-undo.page:7
+msgid "Return a photo to its original, unedited form."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-undo.page:14
+msgid "Undoing changes"
+msgstr "A változtatások visszavonása"
+
+#. (itstool) path: page/p
+#: C/edit-undo.page:16
+msgid ""
+"Because Shotwell is a non-destructive photo editor, you can undo any "
+"alterations you make to a photograph."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-undo.page:20
+msgid ""
+"To completely undo all the changes you've made to a photo, click "
+"<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
+"exception is that time and date adjustments will not be reverted."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/formats.page:7
+msgid ""
+"Shotwell supports JPEG, PNG, TIFF, BMP and RAW photo files as well as video "
+"files."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/formats.page:12
+msgid "Supported photo and video formats"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/formats.page:14
+msgid ""
+"Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref=\"other-"
+"raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
+"format such as GIF."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/formats.page:16
+msgid ""
+"Shotwell's RAW format support is currently limited. When you view a RAW "
+"photo, you are actually viewing a JPEG derived from the RAW photo, not the "
+"RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit "
+"- you can only export edited photos as 8-bit files. All supported formats "
+"can be used for export (JPEG, PNG, TIFF, BMP)."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/formats.page:18
+msgid ""
+"For more information about RAW-format photos in Shotwell, please see the "
+"<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/formats.page:22
+msgid ""
+"Shotwell also supports video files in any format supported by the GStreamer "
+"media library on the system where Shotwell is running. This typically "
+"includes the following formats among others:"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/formats.page:25
+msgid "Container formats: Ogg, QuickTime, MP4, AVI."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/formats.page:26
+msgid ""
+"Codecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Note that some operating "
+"systems may not include all codecs listed here due to legal or licensing "
+"restrictions.</em>"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/formats.page:30
+msgid ""
+"Shotwell supports both photos and videos, but for simplicity, this "
+"documentation uses just the term \"photos\" in most places. Many operations "
+"in Shotwell apply to both photos and videos, however. In particular, events, "
+"flagging, rating, tagging, and publishing work both for photos and for "
+"videos."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/import-camera.page:7
+msgid "Copy photos from a digital camera."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/import-camera.page:12
+msgid "Importing from a camera"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-camera.page:14
+msgid "To import photos from a digital camera:"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/import-camera.page:18
+msgid ""
+"Connect the camera to your computer and switch it on. Shotwell will detect "
+"it and list it in the sidebar."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/import-camera.page:22
+msgid ""
+"Select the camera in the sidebar. Previews of each photo on the camera will "
+"be displayed."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/import-camera.page:25
+msgid ""
+"If you like, you can choose a set of specific photos to import. To do this, "
+"hold down the <key>Ctrl</key> key and click to select individual photos. You "
+"can hold down <key>Shift</key> and click to select a range of photos too."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/import-camera.page:28
+msgid ""
+"Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
+"will be copied from the camera and saved on your computer."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-camera.page:32
+msgid ""
+"Once the import is complete, you can open the <gui>Last Import</gui> view "
+"(in the sidebar) to see all photos that were imported. The Events list (also "
+"in the sidebar) will also show the new photos, organized by date."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/import-file.page:7
+msgid "Import photos that are already saved on your computer."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/import-file.page:12
+msgid "Importing from your hard disk"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-file.page:14
+msgid ""
+"To import photo files from your hard disk into Shotwell, just drag them from "
+"your file browser into the Shotwell window."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-file.page:16
+msgid ""
+"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
+"gui></guiseq> and select the folder containing the photos you want to import."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-file.page:18
+msgid ""
+"Shotwell will ask whether you want to copy the photo files to your library "
+"folder (usually this is the <file>Pictures</file> folder in your home "
+"directory) or to import them in place without copying the files."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-file.page:20
+msgid ""
+"If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will "
+"copy the photos into your library folder without prompting. Similarly, if "
+"you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
+"dragging photos in, Shotwell will import the photos without copying them."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-file.page:22
+msgid ""
+"Once the import is complete, you can select <gui>Last Import</gui> in the "
+"sidebar to see all photos successfully imported. The Events list will also "
+"show new entries for the dates corresponding to the imported photos."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/import-f-spot.page:7
+msgid ""
+"Shotwell can import all your photos and tags from the F-Spot photo manager."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/import-f-spot.page:12
+msgid "Importing from F-Spot"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-f-spot.page:14
+msgid "To import an existing photo collection from F-Spot:"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/import-f-spot.page:16
+msgid "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/import-f-spot.page:17
+msgid ""
+"Now choose either the default F-Spot library or another F-Spot database. If "
+"importing from another F-Spot database, select a directory and file from the "
+"chooser dialog box."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-f-spot.page:20
+msgid ""
+"Shotwell will import your photos, together with their tags and other "
+"information. Once the import is complete, you can select <gui>Last Import</"
+"gui> in the sidebar to see all photos successfully imported. The Events list "
+"will also show new entries for the dates corresponding to the imported "
+"photos."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/import-memorycard.page:7
+msgid "Import photos from a digital camera's memory card."
+msgstr "Fényképek importálása digitális fényképezőgép memóriakártyájáról."
+
+#. (itstool) path: page/title
+#: C/import-memorycard.page:12
+msgid "Importing from a memory card"
+msgstr "Importálás memóriakártyáról"
+
+#. (itstool) path: page/p
+#: C/import-memorycard.page:14
+msgid "To import photos from a camera memory card:"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/import-memorycard.page:18
+msgid ""
+"Put the card into your card reader. Make sure the card reader is plugged in "
+"to the computer and switched on."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/import-memorycard.page:21
+msgid "The card reader and card should be detected automatically."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/import-memorycard.page:24
+msgid ""
+"Follow the instructions for <link xref=\"import-file\">importing photos from "
+"your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From "
+"Folder...</gui></guiseq>, the memory card should be visible as a folder in "
+"the side bar of the file selection window."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-memorycard.page:28
+msgid ""
+"Shotwell can import photos from any memory card that is compatible with your "
+"card reader."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/import-memorycard.page:30
+msgid ""
+"If the card is not detected automatically, your card reader may not have "
+"been recognized. Try unplugging it and then plugging it in again. If that "
+"doesn't work, you should still be able to import photos by <link xref="
+"\"import-camera\">connecting your camera directly to the computer</link>, "
+"though."
+msgstr ""
+
+#. (itstool) path: media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/index.page:23
+msgctxt "_"
+msgid ""
+"external ref='figures/shotwell_logo.png' "
+"md5='4b333499555b4e496b1a38f7899067f3'"
+msgstr ""
+"external ref='figures/shotwell_logo.png' "
+"md5='4b333499555b4e496b1a38f7899067f3'"
+
+#. (itstool) path: info/title
+#: C/index.page:6
+#| msgid "Shotwell"
+msgctxt "link"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: info/title
+#: C/index.page:7
+#| msgid "Shotwell"
+msgctxt "text"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: credit/name
+#: C/index.page:9
+msgid "Jim Nelson"
+msgstr "Jim Nelson"
+
+#. (itstool) path: credit/name
+#: C/index.page:11
+msgid "Allison Barlow"
+msgstr "Allison Barlow"
+
+#. (itstool) path: credit/name
+#: C/index.page:13
+msgid "Robert Ancell"
+msgstr "Robert Ancell"
+
+#. (itstool) path: credit/name
+#: C/index.page:15
+msgid "Peter Smith"
+msgstr "Peter Smith"
+
+#. (itstool) path: credit/name
+#: C/index.page:17
+msgid "Phil Bull"
+msgstr "Phil Bull"
+
+#. (itstool) path: page/title
+#: C/index.page:23
+msgid ""
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
+"Manager"
+msgstr ""
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell "
+"fényképkezelő"
+
+#. (itstool) path: section/title
+#: C/index.page:26
+msgid "Importing Photos"
+msgstr "Fényképek importálása"
+
+#. (itstool) path: section/title
+#: C/index.page:30
+msgid "Viewing Photos"
+msgstr "Fényképek megjelenítése"
+
+#. (itstool) path: section/title
+#: C/index.page:34
+msgid "Organizing Photos"
+msgstr "Fényképek rendszerezése"
+
+#. (itstool) path: section/title
+#: C/index.page:38
+msgid "Editing Photos"
+msgstr "Fényképek szerkesztése"
+
+#. (itstool) path: section/title
+#: C/index.page:42
+msgid "Sharing Photos"
+msgstr "Fényképek megosztása"
+
+#. (itstool) path: section/title
+#: C/index.page:46
+msgid "Other Features"
+msgstr "Más funkciók"
+
+#. (itstool) path: info/desc
+#: C/organize-event.page:7
+msgid ""
+"Group photos together that were taken at the same time. Learn how to rename, "
+"merge, and sort events."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/organize-event.page:12
+msgid "Events"
+msgstr "Események"
+
+#. (itstool) path: page/p
+#: C/organize-event.page:14
+msgid ""
+"An event is a group of photos that were taken at approximately the same "
+"time. When you import photos, Shotwell checks when each photo was taken. It "
+"then groups the photos into events."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-event.page:16
+msgid ""
+"Choose <gui>Events</gui> from the sidebar to see your photos organized by "
+"date. If you select a month or year from the sidebar, a list of events will "
+"be displayed in the main window. Double-click an event to see all the photos "
+"that were taken around that time."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-event.page:18
+msgid ""
+"If a photo has no embedded date/time information, then Shotwell can't "
+"automatically place it in any event. In this case the photo will appear in "
+"the <gui>No Event</gui> view accessible from the sidebar. You can still move "
+"the photo to any event you like as described below."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/organize-event.page:25
+msgid "Renaming events"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-event.page:27
+msgid ""
+"To give an event a name rather than referring to it by its date, select the "
+"event, click <guiseq><gui>Events</gui><gui>Rename Event...</gui></guiseq> "
+"and enter a new name. Another way of renaming an event is to double-click "
+"its name in the sidebar; type a new name and then press <key>Enter</key>."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/organize-event.page:31
+msgid "Moving photos between events"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-event.page:33
+msgid ""
+"Even though photos are initially grouped into events by their date, you can "
+"move photos between events. To do this, drag any photo to the sidebar and "
+"drop it on an event."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/organize-event.page:37
+msgid "Creating and merging events"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-event.page:38
+msgid ""
+"To create a new event, select the photos you would like in the new event and "
+"click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-event.page:39
+msgid ""
+"To merge events, select <guiseq><gui>Events</gui></guiseq> from the sidebar, "
+"then, while holding down <key>Ctrl</key> click on the events you want to "
+"merge in the main window area. Finally, click <guiseq><gui>Events</"
+"gui><gui>Merge Events</gui></guiseq>."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/organize-event.page:43
+msgid "Sorting events"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-event.page:45
+msgid ""
+"Events are displayed in a tree in the sidebar, organized by the year and "
+"month of the earliest photo in the event. To change the event sort order, "
+"click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
+"either ascending or descending."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/organize-event.page:51
+msgid "Change the photo used to represent each event"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-event.page:53
+msgid ""
+"If you select the <gui>Events</gui> item in the sidebar, you'll see a single "
+"photo which represents each event. This is called the key photo."
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-event.page:55
+msgid ""
+"By default, Shotwell uses the first photo in each event as its key photo. To "
+"use a different key photo, select the photo and choose <guiseq><gui>Photos</"
+"gui><gui>Make Key Photo for Event</gui></guiseq>."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/organize-flag.page:7
+msgid "Flag photos to mark them as special or to work with them as a set."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/organize-flag.page:12
+msgid "Flagging photos"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-flag.page:14
+msgid ""
+"Shotwell lets you <em>flag</em> photos. When a photo is flagged, a small "
+"flag icon appears in its upper right corner. You can select the "
+"<gui>Flagged</gui> item in the sidebar to see all photos which have been "
+"flagged."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-flag.page:18
+msgid ""
+"Flagging a photo marks it as special. You can interpret this in any way you "
+"like. For example, you might flag all photos which need visual adjustment, "
+"or all photos which you want to share with a friend."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-flag.page:22
+msgid ""
+"Flagging is also useful because you can operate on all flagged photos as a "
+"set. For example, you can select the <gui>Flagged</gui> view and then upload "
+"all flagged photos to a publishing service."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/organize-flag.page:27
+msgid "To flag or unflag a photo"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-flag.page:28
+msgid ""
+"To flag or unflag a photo, right-click the photo and choose <gui>Flag</gui> "
+"or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
+"key><key>G</key></keyseq> or <key>/</key> shortcut keys."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/organize-rating.page:7
+msgid ""
+"Give photos a rating between 1 and 5 stars. You can reject bad photos, "
+"hiding them from view."
+msgstr ""
+"Értékelje a fényképeket 1 és 5 csillag között. Elutasíthatja a rossz "
+"fényképeket, elrejtve azokat szem elől."
+
+#. (itstool) path: page/title
+#: C/organize-rating.page:12
+msgid "Ratings"
+msgstr "Értékelések"
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:13
+msgid ""
+"You can assign each photo a rating from 1-5 stars, or may alternatively rate "
+"it as Rejected, in which case Shotwell will hide the photo by default."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:15
+msgid "You can rate a photo or a set of photos in any of these ways:"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/organize-rating.page:18
+msgid ""
+"Select the photo(s), then choose a rating from the top-level "
+"<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/organize-rating.page:19
+msgid ""
+"Right-click on the photo(s), then choose a rating from the Set Rating "
+"context menu."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/organize-rating.page:20
+msgid ""
+"Select the photo(s), then press any of the shortcut keys <key>1</key>, "
+"<key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. "
+"Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
+"clear the rating(s)."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:23
+msgid ""
+"Normally Shotwell displays all photos except rejected photos. You can set a "
+"different rating filter using the <guiseq><gui>View</gui><gui>Filter Photos</"
+"gui></guiseq> menu - for example, you can display only photos rated with 3 "
+"stars or higher, or you can display all photos including those marked "
+"rejected. The Shotwell icon on the toolbar displays the current rating "
+"filter and can also be used to set the filter."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:26
+msgid ""
+"Shotwell normally displays each photo's rating in its lower left-hand "
+"corner. You can turn off the display of ratings using the <guiseq><gui>View</"
+"gui><gui>Ratings</gui></guiseq> menu item."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:28
+msgid ""
+"You can increase or decrease a photo's rating using the <guiseq><gui>Set "
+"Rating</gui><gui>Increase</gui></guiseq> and <guiseq><gui>Set Rating</"
+"gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
+"<key>&lt;</key> and <key>&gt;</key>."
+msgstr ""
+
+#. (itstool) path: media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/organize-remove.page:15
+#| msgid ""
+#| "@@image: 'figures/trash_process.png'; md5=ed596bda34c2f4a79a310fbc8bb51fd2"
+msgctxt "_"
+msgid ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+msgstr ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+
+#. (itstool) path: info/desc
+#: C/organize-remove.page:7
+msgid ""
+"Remove photos from the library, or delete them from your computer entirely."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/organize-remove.page:12
+msgid "Removing and deleting photos"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-remove.page:14
+msgid ""
+"You may remove photos from your library and you may additionally delete them "
+"entirely from your hard disk."
+msgstr ""
+
+#. (itstool) path: page/media
+#: C/organize-remove.page:15
+msgid "Delete process"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/organize-remove.page:16
+msgid ""
+"This diagram shows how a photo, when deleted, is first put into Shotwell's "
+"trash. If you delete it from Shotwell's trash, it is put into your "
+"computer's trash. If you delete it from your computer's trash the photo is "
+"finally and irretrievably deleted from your computer."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/organize-remove.page:18
+msgid "Removing photos from the library"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:19
+msgid ""
+"Select the photos to remove and choose <guiseq><gui>Edit</gui><gui>Move to "
+"Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
+"photos will be moved from your library to Shotwell's Trash."
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:22
+msgid ""
+"If you want to remove photos from Shotwell without having them pass through "
+"the trash, simply select the photos to be removed and choose "
+"<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
+"files will be left in place on disk."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/organize-remove.page:26
+msgid "Emptying or restoring the trash folder"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:27
+msgid ""
+"Select the Trash entry in the Sidebar and Shotwell will display all photos "
+"that have been marked for removal or deletion. In the Trash view, the "
+"following commands are available:"
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:29
+msgid "Delete"
+msgstr "Törlés"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:29
+msgid "Delete the selected photos from the trash folder."
+msgstr "A kijelölt fényképek törlése a Kuka mappából."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:30
+msgid "Restore"
+msgstr "Visszaállítás"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:30
+msgid "Restore the selected photos into Shotwell."
+msgstr "A kijelölt fényképek visszaállítása a Shotwell programba."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:31
+msgid "Empty trash"
+msgstr "Kuka ürítése"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:31
+msgid "Delete all photos from the trash folder."
+msgstr "Minden fénykép törlése a Kuka mappából."
+
+#. (itstool) path: section/title
+#: C/organize-remove.page:36
+msgid "Deleting or emptying Trash"
+msgstr "Törlés vagy a Kuka ürítése"
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:37
+msgid ""
+"When you delete files from the Trash folder or empty the Trash folder, you "
+"will be given the following choices:"
+msgstr ""
+"Amikor fájlokat töröl a Kuka mappából, vagy kiüríti a Kuka mappát, akkor a "
+"következő választási lehetőségeket fogja kapni:"
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:39
+msgid "Only Remove"
+msgstr "Csak eltávolítás"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:39
+msgid ""
+"Remove photos from the library but leave the photos in their location on the "
+"computer."
+msgstr ""
+"Fényképek eltávolítása a gyűjteményből, de megtartásuk a számítógépen lévő "
+"helyükön."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:40
+msgid "Trash file"
+msgstr "Fájl kidobása"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:40
+msgid "Remove photos from the library and delete them from the computer."
+msgstr ""
+"Fényképek eltávolítása a gyűjteményből, és azok törlése a számítógépről."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:41
+msgid "Cancel"
+msgstr "Mégse"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:41
+msgid "Do nothing."
+msgstr "Ne tegyen semmit."
+
+#. (itstool) path: info/desc
+#: C/organize-search.page:7
+msgid "Find photos and videos in your collection by a variety of criteria."
+msgstr ""
+"Fényképek és videók keresése a gyűjteményben különböző feltételek szerint."
+
+#. (itstool) path: page/title
+#: C/organize-search.page:12
+msgid "Searching"
+msgstr "Keresés"
+
+#. (itstool) path: page/p
+#: C/organize-search.page:14
+msgid ""
+"There are two ways to search in Shotwell: the filter toolbar, and with a "
+"saved search. The search bar allows you to quickly search the current view "
+"for certain criteria. Saved Searches feature more complex search criteria "
+"and persist in the sidebar between sessions."
+msgstr ""
+"Két módon kereshet a Shotwell programban: a szűrő eszköztárral és a mentett "
+"kereséssel. A keresősáv lehetővé teszi az aktuális nézet gyors keresését egy "
+"adott feltétel szerint. A mentett keresések összetettebb keresési "
+"feltételeket tesznek elérhetővé, és megmaradnak az oldalsávon a "
+"programindítások között."
+
+#. (itstool) path: section/title
+#: C/organize-search.page:21
+msgid "Search bar"
+msgstr "Keresősáv"
+
+#. (itstool) path: section/p
+#: C/organize-search.page:22
+msgid ""
+"The <guiseq><gui>View</gui><gui>Search Bar</gui></guiseq> checkbox toggles "
+"the display of the search bar. You can also hit <keyseq><key>Ctrl</"
+"key><key>F</key></keyseq> or <key>F8</key> to bring up the search bar. From "
+"this bar, you can find, show and hide photos and videos based on title, tag, "
+"rating or other options."
+msgstr ""
+"A <guiseq><gui>Nézet</gui><gui>Keresősáv</gui></guiseq> jelölőnégyzet be- "
+"vagy kikapcsolja a keresősáv megjelenítését. Lenyomhatja a "
+"<keyseq><key>Ctrl</key><key>F</key></keyseq> kombinációt vagy az <key>F8</"
+"key> billentyűt is a keresősáv visszahozásához. Erről a sávról kereshet, "
+"megjeleníthet és elrejthet fényképeket és videókat cím, címke, értékelés "
+"vagy egyéb lehetőségek alapján."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:29
+msgid ""
+"To begin searching, simply enter a search keyword in the text box, or click "
+"on <gui>Flagged</gui>, <gui>Rating</gui> or <gui>Type</gui>. The text search "
+"matches your keywords across tag names, photo or video titles and photos' "
+"original filenames. The <gui>Flagged</gui>, <gui>Rating</gui> and <gui>Type</"
+"gui> buttons allow you to filter your collection by whether photos are "
+"flagged, their current number of stars, and whether the items shown are "
+"images, videos, or raw camera files, respectively."
+msgstr ""
+"A keresés elkezdéséhez egyszerűen írjon be egy keresési kulcsszót a "
+"szövegdobozba, vagy kattintson a <gui>Megjelölt</gui>, <gui>Értékelés</gui> "
+"vagy <gui>Típus</gui> gombra. A szöveges keresés a címkeneveken, fénykép "
+"vagy videó címein és a fényképek eredeti fájlnevein keresztül illeszkedik. A "
+"<gui>Megjelölt</gui>, <gui>Értékelés</gui> és <gui>Típus</gui> gombok "
+"lehetővé teszik a gyűjtemény szűrését, hogy mely fényképek vannak "
+"megjelölve, a csillagok száma alapján, illetve hogy a megjelenített elemek "
+"képek, videók vagy nyers fényképezőgép fájlok."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:38
+msgid ""
+"Disabling the search bar or exiting Shotwell automatically resets the search "
+"bar."
+msgstr ""
+"A keresősáv letiltása, vagy a Shotwellből való kilépés automatikusan törli a "
+"keresősávot."
+
+#. (itstool) path: section/title
+#: C/organize-search.page:44
+msgid "Saved search"
+msgstr "Mentett keresés"
+
+#. (itstool) path: section/p
+#: C/organize-search.page:45
+msgid ""
+"A saved search persists across Shotwell sessions, and is updated as photos "
+"and videos are added and removed from your Shotwell library."
+msgstr ""
+"A mentett keresés megmarad a Shotwell indítások között, és frissítve lesz, "
+"amikor fényképeket és videókat adnak hozzá vagy távolítanak el a Shotwell "
+"gyűjteményből."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:50
+#| msgid ""
+#| "Create a new saved search with <guiseq><gui>Edit</gui><gui>New Search</"
+#| "gui></guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></keyseq>. "
+#| "The dialog box allows you to enter a name for the search and select "
+#| "whether you want to meet Any, All, or None of the criteria in the "
+#| "following rows."
+msgid ""
+"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Saved "
+"Search...</gui></guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></"
+"keyseq>. The dialog box allows you to enter a name for the search and select "
+"whether you want to meet Any, All, or None of the criteria in the following "
+"rows."
+msgstr ""
+"Új mentett keresés a <guiseq><gui>Szerkesztés</gui><gui>Új mentett keresés…<"
+"/gui></guiseq> menüponttal, vagy a <keyseq><key>Ctrl</key><key>S</key><"
+"/keyseq> lenyomásával hozható létre. Az ablak lehetővé teszi a keresés "
+"nevének megadását, és annak kiválasztását, hogy a következő sorban lévő "
+"bármely, az összes vagy egyik keresési feltételre se illeszkedjen."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:56
+msgid ""
+"Each row represents a search criterion. Use the <gui>+</gui> button to add "
+"more rows, and the <gui>-</gui> button to remove a specific row. The combo "
+"box on the left of each row selects the type of criteria. Criteria must be "
+"entered correctly before the <gui>OK</gui> button becomes available."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/organize-tag.page:7
+msgid "Organize photos by labelling them."
+msgstr "Fényképek rendezése azok felcímkézésével."
+
+#. (itstool) path: page/title
+#: C/organize-tag.page:14
+msgid "Tagging photos"
+msgstr "Fényképek címkézése"
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:16
+msgid ""
+"You can assign one or more tags to selected photos. A tag can be one or more "
+"words that you want to associate with those photos."
+msgstr ""
+"A kijelölt fényképekhez címkéket rendelhet. Egy címke lehet egy vagy több "
+"szó, amelyet hozzá szeretne rendelni azokhoz a fényképekhez."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:22
+msgid ""
+"To add new tags to photos, select the photos you would like to tag, then do "
+"any of the following:"
+msgstr ""
+"Új címkék fényképekhez adásához válassza ki a címkézendő fényképeket, majd "
+"tegye a következők egyikét:"
+
+#. (itstool) path: item/p
+#: C/organize-tag.page:28
+#| msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
+msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>."
+msgstr ""
+"Válassza a <guiseq><gui>Címkék</gui><gui>Címkék hozzáadása…</gui></guiseq> "
+"menüpontot."
+
+#. (itstool) path: item/p
+#: C/organize-tag.page:29
+msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
+msgstr ""
+"Nyomja le a <keyseq><key>Ctrl</key><key>T</key></keyseq> "
+"billentyűkombinációt."
+
+#. (itstool) path: item/p
+#: C/organize-tag.page:30
+msgid "Drag the selected photos and drop them on the desired tag."
+msgstr "Fogja meg a kijelölt fényképeket, és ejtse azokat a kívánt címkére."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:33
+#| msgid ""
+#| "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
+#| "<guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq> you can type in the "
+#| "names of one or more tags, separated by commas. Once you have created a "
+#| "tag, you can rename it by selecting that tag in the sidebar and choosing "
+#| "<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"</gui></guiseq>, by "
+#| "rightclicking on it and choose <gui>Rename...</gui> or double-click on "
+#| "the tag in the sidebar."
+msgid ""
+"When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
+"<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
+"names of one or more tags, separated by commas. Once you have created a tag, "
+"you can rename it by selecting that tag in the sidebar and choosing "
+"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></guiseq>, by "
+"rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
+"tag in the sidebar."
+msgstr ""
+"Ha a <keyseq><key>Ctrl</key><key>T</key></keyseq> billentyűket vagy a <guiseq>"
+"<gui>Címkék</gui><gui>Címkék hozzáadása…</gui></guiseq> menüpontot használja, "
+"akkor vesszővel elválasztva beírhat több címkenevet is. Ha létrehozott egy "
+"címkét, akkor átnevezheti azt az oldalsávon való kiválasztással, és a <guiseq>"
+"<gui>Címkék</gui><gui>„[név]” címke átnevezése…</gui></guiseq> menüpont "
+"választásával, ha a jobb egérgombbal kattint rá, és az <gui>Átnevezés…</gui> "
+"menüpontot választja, vagy duplán kattint a címkére az oldalsávon."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:44
+#| msgid ""
+#| "To change which tags are associated with a particular photo, select that "
+#| "photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags</gui></guiseq> or "
+#| "right-click on a photo and select <gui>Modify Tags</gui> and edit the "
+#| "comma separated list. To remove a tag from one or more photos, first "
+#| "select that tag in the sidebar, then select the photos you would like to "
+#| "remove, and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from "
+#| "Photos</gui></guiseq> or right-click on the photos an select <gui>Remove "
+#| "Tag \"[name]\" from Photos</gui>."
+msgid ""
+"To change which tags are associated with a particular photo, select that "
+"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
+"right-click on a photo and select <gui>Modify Tags...</gui> and edit the "
+"comma separated list. To remove a tag from one or more photos, first select "
+"that tag in the sidebar, then select the photos you would like to remove, "
+"and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</"
+"gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
+"\"[name]\" from Photos</gui>."
+msgstr ""
+"Annak módosításához, hogy mely címkék legyenek hozzárendelve egy adott "
+"fényképhez, jelölje ki a fényképet, válassza a <guiseq><gui>Címkék</gui><gui>"
+"Címkék módosítása…</gui></guiseq> menüpontot, vagy kattintson a jobb "
+"egérgombbal egy fényképre, és válassza a <gui>Címkék módosítása…</gui> "
+"lehetőséget, majd szerkessze a vesszővel elválasztott listát. Egy címke "
+"fényképekről eltávolításához először jelölje ki az adott címkét az "
+"oldalsávon, majd jelölje ki azokat a fényképeket, amelyekről el szeretné "
+"távolítani, és válassza a <guiseq><gui>Címkék</gui><gui>„[név]” címke "
+"eltávolítása a fényképekről</gui></guiseq> menüpontot, vagy kattintson a jobb "
+"egérgombbal a fényképekre, és válassza a <gui>„[név]” címke eltávolítása a "
+"fényképekről</gui> menüpontot."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:58
+msgid ""
+"To delete a tag entirely, select that tag in the sidebar and choose "
+"<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
+"click and select <gui>Delete Tag \"[name]\"</gui>."
+msgstr ""
+"Egy címke teljes törléséhez jelölje ki a címkét az oldalsávon, és válassza a "
+"<guiseq><gui>Címkék</gui><gui>„[név]” címke törlése</gui></guiseq> "
+"menüpontot, vagy kattintson az egér jobb gombjával, és válassza a "
+"<gui>„[név]” címke törlése</gui> menüpontot."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:64
+#| msgid ""
+#| "When you create a tag, it will appear in the sidebar under the Tags item, "
+#| "which is hidden if there are no tags. Photos can have multiple tags "
+#| "attached to them, and when you click on the name of a given tag in the "
+#| "sidebar, you will see all the photos associated with that tag."
+msgid ""
+"When you create a tag, it will appear in the sidebar under the <gui>Tags</"
+"gui> item, which is hidden if there are no tags. Photos can have multiple "
+"tags attached to them, and when you click on the name of a given tag in the "
+"sidebar, you will see all the photos associated with that tag."
+msgstr ""
+"Ha létrehoz egy címkét, akkor az meg fog jelenni az oldalsávon a <gui>Címkék<"
+"/gui> elem alatt, amely nem látható, ha nincsenek címkék. A fényképekhez több "
+"címkét is lehet csatolni, és amikor rákattint az oldalsávon egy adott címke "
+"nevére, akkor látni fogja az összes fényképet, amely ahhoz a címkéhez van "
+"rendelve."
+
+#. (itstool) path: section/title
+#: C/organize-tag.page:73
+msgid "Hierarchical Tags"
+msgstr "Hierarchikus címkék"
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:74
+msgid ""
+"Shotwell supports also hierarchial tags. You can rearrange your tags by drag "
+"and drop a tag onto another. To create a new subtag right-click on a tag and "
+"select <gui>New</gui>."
+msgstr ""
+"A Shotwell támogatja a hierarchikus címkéket is. Újrarendezheti a címkéit "
+"fogd és vidd módon egymásra rakva. Egy új alcímke létrehozásához kattintson "
+"az egér jobb gombjával egy címkére, és válassza az <gui>Új</gui> menüpontot."
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:81
+msgid ""
+"Hierarchial tags can help you to sort your tag list in ways that better "
+"match how you work or think; for example, you can store location tags like "
+"\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
+"be placed under the tag \"Summer Holidays\"."
+msgstr ""
+"A hierarchikus címkék segítségére lehetnek abban, hogy a címkelistáját oly "
+"módon rendezhesse, ahogy az a legjobban illeszkedik a gondolkodásához. "
+"Például hely címkéket tárolhat – mint „Hegyek” vagy „Tengerpart” – egy "
+"„Helyek” szülőcímke alatt, amely szintén el lehet helyezve a „Nyári "
+"szabadság” címke alatt."
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:89
+msgid "Note that deleting a parent tag will also delete its child tags."
+msgstr ""
+"Ne feledje, hogy egy szülőcímke törlése törölni fogja annak gyermekcímkéit "
+"is."
+
+#. (itstool) path: info/desc
+#: C/organize-title.page:7
+msgid "Give titles to your photos."
+msgstr "Adjon címet a fényképeknek."
+
+#. (itstool) path: page/title
+#: C/organize-title.page:12
+msgid "Titles"
+msgstr "Címek"
+
+#. (itstool) path: page/p
+#: C/organize-title.page:14
+msgid ""
+"The <guiseq><gui>View</gui><gui>Titles</gui></guiseq> checkbox toggles the "
+"display of titles beneath each photo. By default, a photo's title is its "
+"filename."
+msgstr ""
+"A <guiseq><gui>Nézet</gui><gui>Címek</gui></guiseq> jelölőnégyzet be- vagy "
+"kikapcsolja az egyes fényképek alatti címek megjelenítését. "
+"Alapértelmezésben egy fénykép címe annak fájlneve lesz."
+
+#. (itstool) path: page/p
+#: C/organize-title.page:17
+#| msgid ""
+#| "To change a photo's title, select the photo and click "
+#| "<guiseq><gui>Photos</gui><gui>Edit Title</gui></guiseq>, or press "
+#| "<key>F2</key>."
+msgid ""
+"To change a photo's title, select the photo and click <guiseq><gui>Photos</"
+"gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
+msgstr ""
+"Egy fénykép címének módosításához válassza ki a fényképet, és válassza a <"
+"guiseq><gui>Fényképek</gui><gui>Cím szerkesztése…</gui></guiseq> menüpontot, "
+"vagy nyomja meg az <key>F2</key> billentyűt."
+
+#. (itstool) path: info/desc
+#: C/other-files.page:7
+msgid "Keep the Shotwell library in sync with photo files on disk."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/other-files.page:12
+msgid "Photo files"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/other-files.page:14
+msgid ""
+"Every photo in the Shotwell library corresponds to a file stored on your "
+"hard disk. Shotwell has several features which help you keep the Shotwell "
+"library and files on disk in sync."
+msgstr ""
+
+#. (itstool) path: section/title
+#: C/other-files.page:21
+msgid "Using a custom directory pattern"
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/other-files.page:22
+msgid ""
+"Shotwell allows you to specify how it names directories in your library. You "
+"can do this by changing the <gui>Directory Structure</gui> and <gui>Pattern</"
+"gui> settings in the <gui>Preferences</gui> dialog. You may use a "
+"preselected pattern, or choose <gui>Custom</gui> and type in your own."
+msgstr ""
+
+#. (itstool) path: section/p
+#: C/other-files.page:29
+msgid ""
+"The available symbols for the directory pattern begin with a % (percent "
+"sign). The values these symbols produce are locale-dependent, so what you "
+"see on your computer may vary from the examples below."
+msgstr ""
+
+#. (itstool) path: td/p
+#: C/other-files.page:38
+msgid "<em>Symbol</em>"
+msgstr "<em>Szimbólum</em>"
+
+#. (itstool) path: td/p
+#: C/other-files.page:38
+#| msgid "Meaning"
+msgid "<em>Meaning</em>"
+msgstr "<em>Jelentés</em>"
+
+#. (itstool) path: td/p
+#: C/other-files.page:38
+#| msgid "Example"
+msgid "<em>Example</em>"
+msgstr "<em>Példa</em>"
+
+#. (itstool) path: td/p
+#: C/other-files.page:43
+msgid "%Y"
+msgstr "%Y"
+
+#. (itstool) path: td/p
+#: C/other-files.page:43
+msgid "Year: full"
+msgstr "Év: teljes"
+
+#. (itstool) path: td/p
+#: C/other-files.page:43
+msgid "2011"
+msgstr "2011"
+
+#. (itstool) path: td/p
+#: C/other-files.page:46
+msgid "%y"
+msgstr "%y"
+
+#. (itstool) path: td/p
+#: C/other-files.page:46
+msgid "Year: two digit"
+msgstr "Év: két számjeggyel"
+
+#. (itstool) path: td/p
+#: C/other-files.page:46
+msgid "11"
+msgstr "11"
+
+#. (itstool) path: td/p
+#: C/other-files.page:49
+msgid "%d"
+msgstr "%d"
+
+#. (itstool) path: td/p
+#: C/other-files.page:49
+msgid "Day of the month with leading zero"
+msgstr "Hónap napja kezdő nullával"
+
+#. (itstool) path: td/p
+#: C/other-files.page:49
+msgid "03"
+msgstr "03"
+
+#. (itstool) path: td/p
+#: C/other-files.page:52
+msgid "%A"
+msgstr "%A"
+
+#. (itstool) path: td/p
+#: C/other-files.page:52
+msgid "Day name: full"
+msgstr "Nap neve: teljes"
+
+#. (itstool) path: td/p
+#: C/other-files.page:52
+msgid "Wednesday"
+msgstr "Szerda"
+
+#. (itstool) path: td/p
+#: C/other-files.page:55
+msgid "%a"
+msgstr "%a"
+
+#. (itstool) path: td/p
+#: C/other-files.page:55
+msgid "Day name: abbreviated"
+msgstr "Nap neve: rövidített"
+
+#. (itstool) path: td/p
+#: C/other-files.page:55
+msgid "Wed"
+msgstr "Sze"
+
+#. (itstool) path: td/p
+#: C/other-files.page:58
+msgid "%m"
+msgstr "%m"
+
+#. (itstool) path: td/p
+#: C/other-files.page:58
+msgid "Month number with leading zero"
+msgstr "Hónap száma kezdő nullával"
+
+#. (itstool) path: td/p
+#: C/other-files.page:58
+msgid "02"
+msgstr "02"
+
+#. (itstool) path: td/p
+#: C/other-files.page:60
+msgid "%b"
+msgstr "%b"
+
+#. (itstool) path: td/p
+#: C/other-files.page:60
+msgid "Month name: abbreviated"
+msgstr "Hónap neve: rövidített"
+
+#. (itstool) path: td/p
+#: C/other-files.page:60
+msgid "Feb"
+msgstr "Febr"
+
+#. (itstool) path: td/p
+#: C/other-files.page:62
+msgid "%B"
+msgstr "%B"
+
+#. (itstool) path: td/p
+#: C/other-files.page:62
+msgid "Month name: full"
+msgstr "Hónap neve: teljes"
+
+#. (itstool) path: td/p
+#: C/other-files.page:62
+msgid "February"
+msgstr "Február"
+
+#. (itstool) path: td/p
+#: C/other-files.page:63
+msgid "%I"
+msgstr "%I"
+
+#. (itstool) path: td/p
+#: C/other-files.page:63
+msgid "Hour: 12 hour format"
+msgstr "Óra: 12 órás formátum"
+
+#. (itstool) path: td/p
+#: C/other-files.page:63
+msgid "05"
+msgstr "05"
+
+#. (itstool) path: td/p
+#: C/other-files.page:64
+msgid "%H"
+msgstr "%H"
+
+#. (itstool) path: td/p
+#: C/other-files.page:64
+msgid "Hour: 24 hour format"
+msgstr "Óra: 24 órás formátum"
+
+#. (itstool) path: td/p
+#: C/other-files.page:64
+msgid "17"
+msgstr "17"
+
+#. (itstool) path: td/p
+#: C/other-files.page:66
+msgid "%M"
+msgstr "%M"
+
+#. (itstool) path: td/p
+#: C/other-files.page:66
+msgid "Minute"
+msgstr "Perc"
+
+#. (itstool) path: td/p
+#: C/other-files.page:66
+msgid "16"
+msgstr "16"
+
+#. (itstool) path: td/p
+#: C/other-files.page:67
+msgid "%S"
+msgstr "%S"
+
+#. (itstool) path: td/p
+#: C/other-files.page:67
+msgid "Second"
+msgstr "Másodperc"
+
+#. (itstool) path: td/p
+#: C/other-files.page:67
+msgid "30"
+msgstr "30"
+
+#. (itstool) path: td/p
+#: C/other-files.page:68
+msgid "%p"
+msgstr "%p"
+
+#. (itstool) path: td/p
+#: C/other-files.page:68
+msgid "AM or PM"
+msgstr "DE/DU"
+
+#. (itstool) path: td/p
+#: C/other-files.page:68
+msgid "PM"
+msgstr "DU"
+
+#. (itstool) path: section/p
+#: C/other-files.page:72
+msgid ""
+"There are other symbols available; please check the manual for strftime by "
+"running the command <cmd>man strftime</cmd> if you need one that isn't "
+"listed here."
+msgstr ""
+"További szimbólumok érhetők el. Nézze meg az strftime kézikönyvét a <cmd>man "
+"strftime</cmd> parancsot lefuttatva, ha olyanra van szüksége, amely nincs "
+"itt felsorolva."
+
+#. (itstool) path: section/title
+#: C/other-files.page:79
+msgid "Automatically importing photos"
+msgstr "Fényképek automatikus importálása"
+
+#. (itstool) path: section/p
+#: C/other-files.page:81
+msgid ""
+"Shotwell can automatically import new photos which appear in the library "
+"directory. (The library directory is usually the <file>Pictures</file> "
+"directory in your home directory; you can change its location in in the "
+"<gui>Preferences</gui> window.)"
+msgstr ""
+"A Shotwell képes azon új fényképek automatikus importálására, amelyek "
+"megjelennek a gyűjteménykönyvtárban. (A gyűjteménykönyvtár általában a saját "
+"könyvtárban lévő <file>Képek</file> könyvtár. Ennek helyét a "
+"<gui>Beállítások</gui> ablakban változtathatja meg.)"
+
+#. (itstool) path: section/p
+#: C/other-files.page:86
+msgid ""
+"To enable auto-import, check the box <gui>Watch library directory for new "
+"files</gui> in the <gui>Preferences</gui> window."
+msgstr ""
+"Az automatikus importálás engedélyezéséhez jelölje be az <gui>Új fájlok "
+"figyelése a gyűjteménykönyvtárban</gui> lehetőséget a <gui>Beállítások</gui> "
+"ablakban."
+
+#. (itstool) path: note/p
+#: C/other-files.page:90
+msgid ""
+"Shotwell can also follow symbolic links inside automatically-imported "
+"directories."
+msgstr ""
+"A Shotwell képes az automatikusan importált könyvtárakon belüli szimbolikus "
+"linkek követésére is."
+
+#. (itstool) path: section/title
+#: C/other-files.page:95
+msgid "Automatically renaming imported photos to lowercase"
+msgstr "Importált fényképek automatikus átnevezése kisbetűsre"
+
+#. (itstool) path: section/p
+#: C/other-files.page:97
+msgid ""
+"Shotwell can automatically change the filenames of imported photos to "
+"lowercase. To enable this, choose <guiseq><gui>Edit</gui><gui>Preferences</"
+"gui></guiseq>, and in the <gui>Preferences</gui> window, check the "
+"<gui>Rename imported files to lowercase</gui> box."
+msgstr ""
+"A Shotwell automatikusan kisbetűsre tudja változtatni az importált fényképek "
+"fájlneveit. Ennek engedélyezéséhez válassza a <guiseq><gui>Szerkesztés</"
+"gui><gui>Beállítások</gui></guiseq> menüpontot, majd a <gui>Beállítások</"
+"gui> ablakban jelölje be az <gui>Importált fájlok átnevezése kisbetűssé</"
+"gui> lehetőséget."
+
+#. (itstool) path: section/title
+#: C/other-files.page:107
+msgid "Writing metadata on the fly"
+msgstr "Metaadatok írása menet közben"
+
+#. (itstool) path: section/p
+#: C/other-files.page:109
+msgid ""
+"By default, Shotwell does not modify photo files, even when you edit photos "
+"or change their tags or titles. Shotwell records these changes in its own "
+"database only."
+msgstr ""
+"Alapértelmezésben a Shotwell nem módosítja a fényképfájlokat még akkor sem, "
+"ha fényképeket szerkeszt, vagy megváltoztatja azok címkéit vagy címeit. A "
+"Shotwell ezeket a módosításokat csak a saját adatbázisában rögzíti."
+
+#. (itstool) path: section/p
+#: C/other-files.page:112
+msgid ""
+"To change this behavior, you can enable the checkbox <gui>Write tags, titles "
+"and other metadata to photo files</gui> in the <gui>Preferences</gui> "
+"dialog. When this option is enabled, Shotwell will write the following "
+"metadata to most photo files whenever you change it in Shotwell:"
+msgstr ""
+"Ezen viselkedés megváltoztatásához bejelölheti a <gui>Címkék, címek és más "
+"metaadatok fényképfájlokba írása</gui> jelölőnégyzetet a <gui>Beállítások</"
+"gui> ablakban. Ha ez a lehetőség engedélyezve van, akkor a Shotwell a "
+"következő metaadatokat akkor fogja a legtöbb fényképfájlba írni, amikor "
+"megváltoztatja azokat:"
+
+#. (itstool) path: item/p
+#: C/other-files.page:118
+msgid "titles"
+msgstr "címek"
+
+#. (itstool) path: item/p
+#: C/other-files.page:119
+msgid "tags"
+msgstr "címkék"
+
+#. (itstool) path: item/p
+#: C/other-files.page:120
+msgid "ratings"
+msgstr "értékelések"
+
+#. (itstool) path: item/p
+#: C/other-files.page:121
+msgid "rotation information"
+msgstr "forgatási információk"
+
+#. (itstool) path: item/p
+#: C/other-files.page:122
+msgid "time/date"
+msgstr "idő/dátum"
+
+#. (itstool) path: section/p
+#: C/other-files.page:125
+msgid ""
+"Shotwell stores this information in photo files in EXIF, IPTC and/or XMP "
+"format. Note that Shotwell can write only to photo files in JPEG, PNG and "
+"TIFF format, not to BMP photos, RAW photos or to video files."
+msgstr ""
+"A Shotwell ezeket az információkat EXIF, IPTC és/vagy XMP formátumban "
+"tárolja a fényképfájlokban. Ne feledje, hogy a Shotwell csak JPEG, PNG és "
+"TIFF formátumú fényképfájlokba tud írni, BMP vagy RAW fényképekbe vagy "
+"videofájlokba nem."
+
+#. (itstool) path: section/title
+#: C/other-files.page:133
+msgid "Runtime monitoring"
+msgstr "Futásidejű megfigyelés"
+
+#. (itstool) path: section/p
+#: C/other-files.page:135
+msgid ""
+"While Shotwell is running, it notices changes made to any photo file "
+"externally. When a photo file changes, Shotwell rereads the file and updates "
+"your view of the photo and metadata."
+msgstr ""
+"A Shotwell futás közben észreveszi bármely fényképen a külsőleg elvégzett "
+"módosításokat. Amikor egy fényképfájl megváltozik, akkor a Shotwell "
+"újraolvassa a fájlt, és frissíti a fénykép megjelenítését és a metaadatokat."
+
+#. (itstool) path: section/p
+#: C/other-files.page:139
+msgid ""
+"Note that Shotwell checks all photo files for changes at startup, but only "
+"photo files contained in the library directory are monitored in real time "
+"after startup. We hope to remove this limitation in a further release."
+msgstr ""
+"Ne feledje, hogy a Shotwell indításkor az összes fényképet ellenőrzi, hogy "
+"történt-e módosítás, de csak a gyűjteménykönyvárban lévő fényképeknél "
+"történik valós idejű megfigyelés az indítás után. Reméljük, hogy ez a "
+"korlátozás eltávolításra kerül egy későbbi kiadásban."
+
+#. (itstool) path: info/desc
+#: C/other-missing.page:7
+msgid "If Shotwell can't find a photo in your library, it marks it as missing."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/other-missing.page:12
+msgid "Missing photos"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/other-missing.page:14
+msgid ""
+"Each time Shotwell starts up, it scans your photo library to verify that all "
+"photo files still exist on your hard drive. If Shotwell finds that any photo "
+"files are missing, it will not display them in the normal Photos, Events and "
+"Tags views, but will instead show them in a separate Missing Files view "
+"which will appear in the sidebar."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/other-missing.page:16
+msgid ""
+"If you no longer want the missing files to be part of your Shotwell "
+"collection (perhaps because you deleted them), go to the Missing Files view, "
+"select the photos and then click <gui>Remove From Library</gui>."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/other-missing.page:18
+msgid ""
+"If you have photos on a removable disk, such as a CD or USB flash drive, and "
+"<link xref=\"index#import\">import</link> them into Shotwell <em>without</"
+"em> copying the photos to your computer, they will show up as missing files "
+"if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
+"to learn how to copy files from removable disks onto your computer."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/other-missing.page:20
+msgid ""
+"If any missing photo files become available again, Shotwell will notice this "
+"the next time it starts. The photos will once again appear in the Photos, "
+"Events and Tags views."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/other-multiple.page:7
+msgid ""
+"You can open Shotwell with a different photo library by using the command "
+"line."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/other-multiple.page:12
+msgid "Multiple libraries"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/other-multiple.page:14
+msgid ""
+"Shotwell normally stores its database and photo thumbnails in the directory "
+"<file>~/.shotwell</file> . This directory does not hold photos, but the "
+"database in this directory contains a list of all the photos in the Shotwell "
+"library."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/other-multiple.page:16
+msgid ""
+"As an advanced feature, it's possible for you to have multiple Shotwell "
+"libraries, each of which has its own set of photos. Each library needs its "
+"own database directory. To launch Shotwell with an alternate library, "
+"specify an alternate database directory on the command line as follows:"
+msgstr ""
+
+#. (itstool) path: page/screen
+#: C/other-multiple.page:18
+#, no-wrap
+msgid ""
+"\n"
+"shotwell -d [library-directory]\n"
+msgstr ""
+"\n"
+"shotwell -d [gyűjtemény-könyvtára]\n"
+
+#. (itstool) path: info/desc
+#: C/other-plugins.page:7
+msgid "Extend Shotwell's functionality dynamically."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/other-plugins.page:12
+msgid "Plugins"
+msgstr "Bővítmények"
+
+#. (itstool) path: page/p
+#: C/other-plugins.page:13
+msgid ""
+"Shotwell can be used with <em>plugins</em>, which are companion shared "
+"libraries that can add support for new publishing destinations or new "
+"slideshow transitions."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/other-plugins.page:18
+msgid ""
+"To see a list of installed plugins, choose <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq>, and in the <gui>Preferences</gui> "
+"window, click on the <gui>Plugins</gui> tab. You'll see a list of currently-"
+"installed plugins, each with a checkbox by it, and you may enable or disable "
+"each by selecting or deselecting the checkbox by its name."
+msgstr ""
+
+#. (itstool) path: note/p
+#: C/other-plugins.page:25
+msgid ""
+"Full documentation on how to develop new plugins is available at <link href="
+"\"http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins"
+"\">http://redmine.yorba.org/projects/shotwell/wiki/"
+"ShotwellArchWritingPlugins</link>"
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/raw.page:7
+msgid "More about RAW support in Shotwell."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/raw.page:12
+msgid "RAW support in Shotwell"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/raw.page:13
+msgid ""
+"Some cameras have the ability to store data directly off the sensor and into "
+"a file that contains extra color information; this is commonly referred to "
+"as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/raw.page:18
+msgid ""
+"Since RAW photographs normally cannot be displayed directly, but must be "
+"first developed - that is, have their extra information interpreted and "
+"readied for displaying - most cameras will either embed a JPEG inside a RAW-"
+"format file, or produce a JPEG alongside the RAW file at the time the "
+"snapshot is taken. The latter is referred to throughout this document as RAW"
+"+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
+"treat them as one item in your library."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/raw.page:27
+msgid ""
+"When you import a RAW file, you can choose to either use the camera's "
+"internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
+"gui><gui>Developer</gui></guiseq> in the menus."
+msgstr ""
+
+#. (itstool) path: note/p
+#: C/raw.page:33
+msgid ""
+"Changing between developers will cause all edits made to a photograph to be "
+"discarded."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/raw.page:39
+msgid ""
+"In order to publish or use a RAW photograph in most other software, it has "
+"to be exported first. Shotwell can export your RAW photos in JPEG, PNG, TIFF "
+"or BMP format, and, when publishing, will internally export a JPEG version "
+"for you and publish that."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/running.page:7
+msgid ""
+"Find Shotwell in the Applications menu, or have it start automatically when "
+"you plug in a camera."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/running.page:14
+msgid "Running Shotwell"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/running.page:16
+msgid ""
+"Once installed, Shotwell is available in your <gui>Applications</gui> menu "
+"under <gui>Graphics</gui> or <gui>Photography</gui>."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/running.page:18
+msgid ""
+"Shotwell may also be executed automatically when a camera is plugged in to "
+"your computer. To check that your system is set up to run Shotwell when a "
+"camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
+"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
+"gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
+"you choose Shotwell as your photo handling application."
+msgstr ""
+
+#. (itstool) path: note/p
+#: C/running.page:25
+msgid ""
+"Shotwell may also be executed directly from its build directory, although "
+"this is only recommended for testing out Shotwell or for developers."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/share-background.page:7
+msgid ""
+"Set your desktop background to a single photo or to a slideshow of photos."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/share-background.page:12
+msgid "Set a desktop background or slideshow"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/share-background.page:14
+msgid ""
+"To set a single photo as your desktop background, select the photo and "
+"choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/share-background.page:16
+msgid ""
+"You can also set your background to a slideshow of photos. To do this, "
+"select the photos for the slideshow and choose <guiseq><gui>File</"
+"gui><gui>Set as Desktop Slideshow...</gui></guiseq>. Shotwell will prompt "
+"you for a slideshow delay, which can be any interval up to one day in "
+"length. The background slideshow will proceed even when Shotwell is not "
+"running."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/share-export.page:7
+msgid "Copy photos out of Shotwell so you can put them somewhere else."
+msgstr ""
+"Másolja ki fényképeit a Shotwellből, hogy máshol is használhassa azokat."
+
+#. (itstool) path: page/title
+#: C/share-export.page:12
+msgid "Exporting photos"
+msgstr "Fényképek exportálása"
+
+#. (itstool) path: page/p
+#: C/share-export.page:14
+msgid ""
+"To export photos from Shotwell via drag and drop, drag the photos from "
+"Shotwell onto a file manager window or your desktop. The new files will be "
+"full-sized copies of the photos in your library."
+msgstr ""
+"A fényképek exportálásához fogd és vidd módszerrel húzza ki a fényképeket a "
+"Shotwellből egy fájlkezelő ablakba vagy az asztalra. Az új fájlok a "
+"gyűjteményében lévők teljes méretű másolatai lesznek."
+
+#. (itstool) path: page/p
+#: C/share-export.page:18
+#| msgid ""
+#| "Alternatively, select a set of photos and choose the <guiseq><gui>File</"
+#| "gui><gui>Export</gui></guiseq> command or press <keyseq><key>Shift</"
+#| "key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while "
+#| "letting you fine-tune the size and dimensions of your photo files. A "
+#| "window will appear allowing you to make several choices:"
+msgid ""
+"Alternatively, select a set of photos and choose the <guiseq><gui>File</"
+"gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</"
+"key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting "
+"you fine-tune the size and dimensions of your photo files. A window will "
+"appear allowing you to make several choices:"
+msgstr ""
+"Ennek alternatívájaként válassza ki fényképek egy csoportját, és válassza a "
+"<guiseq><gui>Fájl</gui><gui>Exportálás…</gui></guiseq> menüpontot, vagy "
+"nyomja meg a <keyseq><key>Shift</key><key>Ctrl</key><key>E</key></keyseq> "
+"kombinációt. Ezzel a fényképeket úgy exportálhatja, hogy közben a fájlok "
+"méretét és felbontását finomhangolhatja. A megjelenő ablakban több dolgot is "
+"kiválaszthat:"
+
+#. (itstool) path: item/p
+#: C/share-export.page:24
+msgid "A format for export."
+msgstr "A formátumot az exportáláshoz."
+
+#. (itstool) path: item/p
+#: C/share-export.page:27
+msgid ""
+"Choose <gui>Unmodified</gui> to export photos in their original format "
+"without any edits made in Shotwell. RAW photos will be exported in their "
+"original RAW format."
+msgstr ""
+"Válassza a <gui>Módosítatlan</gui> lehetőséget az eredeti formátumban való "
+"exportáláshoz, a Shotwellben végzett módosítások nélkül. A RAW képek az "
+"eredeti RAW formátumban kerülnek exportálásra."
+
+#. (itstool) path: item/p
+#: C/share-export.page:29
+msgid ""
+"Choose <gui>Current</gui> to export photos including edits made in Shotwell. "
+"RAW photos will be exported in JPEG format if you have edited them in "
+"Shotwell, and otherwise in their original RAW format."
+msgstr ""
+"Válassza a <gui>Jelenlegi</gui> lehetőséget a fényképek exportálásához a "
+"Shotwellben végzett módosításokkal együtt. A RAW fényképek JPEG formátumban "
+"kerülnek exportálásra, ha szerkesztette azokat a Shotwellben, egyébként "
+"pedig az eredeti RAW formátumukban."
+
+#. (itstool) path: item/p
+#: C/share-export.page:31
+msgid ""
+"Or you can choose a particular image format (JPEG, PNG, TIFF, BMP) to be "
+"used for exporting. Any edits made in Shotwell will be included, and "
+"Shotwell will convert photos to the destination format."
+msgstr ""
+"Kiválaszthat egy adott képformátumot (JPEG, PNG, TIFF, BMP) is az "
+"exportáláshoz való használatra. A Shotwellben végzett minden módosítást "
+"tartalmazni fog, és a Shotwell a fényképeket átalakítja a cél formátumra."
+
+#. (itstool) path: item/p
+#: C/share-export.page:37
+msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
+msgstr ""
+"Az exportáláshoz használandó képminőség (alacsony, közepes, magas vagy "
+"maximális)."
+
+#. (itstool) path: item/p
+#: C/share-export.page:38
+msgid ""
+"A scaling constraint (which means how Shotwell will decide to scale the "
+"photos down), and the desired pixel size."
+msgstr ""
+"Méretezési megszorítás (azaz a Shotwell eldönti, hogy a fényképeket le kell-"
+"e méretezni), és a kívánt képpontméret."
+
+#. (itstool) path: item/p
+#: C/share-export.page:39
+msgid ""
+"The option whether you like to export metadatas such as tags or ratings. "
+"This can help to save your privacy if you have geolocation tags or tags "
+"which shouldn't be seen by anyone."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/share-export.page:42
+msgid ""
+"If selected, Shotwell will write tags, titles, and other metadata to the new "
+"files."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/share-print.page:7
+#| msgid ""
+#| "Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing "
+#| "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> "
+#| "dialog."
+msgid ""
+"Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
+"options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
+msgstr ""
+"Kattintson a <guiseq><gui>Fájl</gui><gui>Nyomtatás…</gui></guiseq> "
+"menüpontra. További nyomtatási beállításokért válassza a <gui>Nyomtatás</"
+"gui> ablak <gui>Oldalbeállítás</gui> lapját."
+
+#. (itstool) path: page/title
+#: C/share-print.page:12
+msgid "Printing"
+msgstr "Nyomtatás"
+
+#. (itstool) path: page/p
+#: C/share-print.page:14
+#| msgid ""
+#| "To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</"
+#| "gui></guiseq>."
+msgid ""
+"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
+"gui></guiseq>."
+msgstr ""
+"Fénykép nyomtatásához válassza ki azt, majd a <guiseq><gui>Fájl</"
+"gui><gui>Nyomtatás…</gui></guiseq> menüpontot."
+
+#. (itstool) path: page/p
+#: C/share-print.page:16
+#| msgid ""
+#| "Shotwell can also print multiple images in one page; to do this, select "
+#| "multiple images, choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>, "
+#| "and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
+#| "tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-"
+#| "page options under <gui>Autosize</gui>."
+msgid ""
+"Shotwell can also print multiple images in one page; to do this, select "
+"multiple images, choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq>, "
+"and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
+"tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
+"options under <gui>Autosize</gui>."
+msgstr ""
+"A Shotwell képes több képet is egy oldalra nyomtatni, ehhez válasszon ki "
+"több képet, majd a <guiseq><gui>Fájl</gui><gui>Nyomtatás…</gui></guiseq> "
+"menüpontot, ezután a <gui>Nyomtatás</gui> ablakban válassza a "
+"<gui>Képbeállítások</gui> lapot. A <gui>Képbeállítások</gui> alatt válassza "
+"az egyik „több kép oldalanként” lehetőséget az <gui>Automatikus méret</gui> "
+"alatt."
+
+#. (itstool) path: page/p
+#: C/share-print.page:23
+msgid ""
+"If you would like to set formatting, paper size, and orientation options, "
+"choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
+"printing."
+msgstr ""
+"Ha szeretne megadni formázási, papírméret, és tájolási beállításokat, akkor "
+"nyomtatás előtt válassza a <gui>Nyomtatás</gui> ablak <gui>Oldalbeállítás</"
+"gui> lapját."
+
+#. (itstool) path: info/desc
+#: C/share-send.page:7
+msgid "Send photos via email, instant messaging or in other ways."
+msgstr "Fényképek küldése e-mailben, azonnali üzenetben vagy máshogy."
+
+#. (itstool) path: page/title
+#: C/share-send.page:12
+msgid "Sending photos"
+msgstr "Fényképek küldése"
+
+#. (itstool) path: page/p
+#: C/share-send.page:14
+msgid ""
+"Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
+"lets you send photos via email, instant messaging or in other ways."
+msgstr ""
+"A Shotwell képes fényképek elküldésére a GNOME asztali környezet Küldés "
+"szolgáltatásával, amely lehetővé teszi a fényképek elküldését e-mailben, "
+"azonnali üzenetként vagy más módszerekkel."
+
+#. (itstool) path: page/p
+#: C/share-send.page:16
+msgid ""
+"To send photos, select them in Shotwell and choose <guiseq><gui>File</"
+"gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
+"<gui>Send To...</gui> from the context menu. A <gui>Send To</gui> dialog box "
+"will appear which lets you choose a mechanism for sending the files (such as "
+"email or instant messaging) and a destination. You can optionally choose to "
+"send the files in a compressed format."
+msgstr ""
+"Fényképek küldéséhez válassza ki azokat a Shotwellben, és válassza a "
+"<guiseq><gui>Fájl</gui><gui>Küldés</gui></guiseq> menüpontot, vagy "
+"kattintson a jobb egérgombbal a fényképekre, és válassza a <gui>Küldés</gui> "
+"menüpontot. Megjelenik egy <gui>Küldés</gui> ablak, amelyben kiválaszthatja "
+"a fájlok küldésének módszerét (például e-mail vagy azonnali üzenet) és a "
+"célt. Kiválaszthatja azt is, hogy a fájlok tömörített formátumban kerüljenek "
+"elküldésre."
+
+#. (itstool) path: info/desc
+#: C/share-slideshow.page:7
+msgid "Watch a slideshow of your photos."
+msgstr "Diavetítés a fényképekből."
+
+#. (itstool) path: page/title
+#: C/share-slideshow.page:12
+msgid "Slideshows"
+msgstr "Diavetítések"
+
+#. (itstool) path: page/p
+#: C/share-slideshow.page:14
+msgid ""
+"To see a sideshow of any collection in Shotwell, navigate to that collection "
+"and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> or press "
+"<key>F5</key>."
+msgstr ""
+"A Shotwell bármely gyűjteményéből diavetítés megjelenítéséhez nyissa meg a "
+"kívánt gyűjteményt, és válassza a <guiseq><gui>Nézet</gui><gui>Diavetítés</"
+"gui></guiseq> menüpontot, vagy nyomja meg az <key>F5</key> billentyűt."
+
+#. (itstool) path: page/p
+#: C/share-slideshow.page:16
+msgid "You can change some settings in a running slideshow:"
+msgstr "A folyamatban lévő diavetítésben megváltoztathat néhány beállítást:"
+
+#. (itstool) path: item/p
+#: C/share-slideshow.page:19
+msgid "The duration how long an image should be shown: 1 - 30 seconds"
+msgstr "Egy kép megjelenítésének hosszát: 1- 30 másodperc"
+
+#. (itstool) path: item/p
+#: C/share-slideshow.page:20
+msgid "You can select different transition effects."
+msgstr "Kiválaszthat különböző átmeneti effektusokat."
+
+#. (itstool) path: item/p
+#: C/share-slideshow.page:21
+msgid "The time for each transition effect: 0.1 - 1.0 seconds"
+msgstr "Az egyes átmeneti effektusok hossza: 0,1 - 1,0 másodperc"
+
+#. (itstool) path: info/desc
+#: C/share-upload.page:7
 msgid "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
 msgstr ""
 "Tegye közzé fényképeit a Facebook, Flickr, Picasa Webalbumok vagy más "
 "oldalakon"
 
-#: C/share-upload.page:12(title)
+#. (itstool) path: page/title
+#: C/share-upload.page:12
 msgid "Publishing to the Web"
 msgstr "Közzététel a weben"
 
-#: C/share-upload.page:14(p)
+#. (itstool) path: page/p
+#: C/share-upload.page:14
 msgid ""
 "Through the use of <link xref=\"other-plugins\">plugins</link>, Shotwell can "
 "publish photos and videos to the following services, each of which requires "
@@ -223,15 +2602,20 @@ msgstr ""
 "képes fényképeket és videókat közzétenni a következő szolgáltatásokon, "
 "amelyek mindegyike egy fiókot igényel:"
 
-#: C/share-upload.page:18(link)
-msgid "Facebook"
-msgstr "Facebook"
+#. (itstool) path: item/p
+#: C/share-upload.page:18
+#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
+msgid "<link href=\"http://facebook.com\">Facebook</link>"
+msgstr "<link href=\"http://facebook.com\">Facebook</link>"
 
-#: C/share-upload.page:19(link)
-msgid "Flickr"
-msgstr "Flickr"
+#. (itstool) path: item/p
+#: C/share-upload.page:19
+#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
+msgid "<link href=\"http://flickr.com\">Flickr</link>"
+msgstr "<link href=\"http://flickr.com\">Flickr</link>"
 
-#: C/share-upload.page:20(p)
+#. (itstool) path: item/p
+#: C/share-upload.page:20
 msgid ""
 "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
@@ -239,11 +2623,13 @@ msgstr ""
 "<link href=\"http://picasaweb.google.com\">Picasa Webalbumok</link> és <link "
 "href=\"http://plus.google.com\">Google+</link>"
 
-#: C/share-upload.page:21(p)
+#. (itstool) path: item/p
+#: C/share-upload.page:21
 msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgstr "<link href=\"http://youtube.com\">YouTube</link> (csak videók)"
 
-#: C/share-upload.page:22(p)
+#. (itstool) path: item/p
+#: C/share-upload.page:22
 msgid ""
 "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
 "popular in Russia (photos only)"
@@ -251,7 +2637,8 @@ msgstr ""
 "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, egy "
 "Oroszországban népszerű fénykép-megosztó oldal (csak fényképek)"
 
-#: C/share-upload.page:23(p)
+#. (itstool) path: item/p
+#: C/share-upload.page:23
 msgid ""
 "Any site running the <link href=\"http://piwigo.org\">Piwigo</link> photo "
 "gallery software (photos only)"
@@ -259,7 +2646,8 @@ msgstr ""
 "Bármeny oldal, amely a <link href=\"http://piwigo.org\">Piwigo</link> "
 "fényképgaléria-szoftvert futtatja (csak fényképek)"
 
-#: C/share-upload.page:26(p)
+#. (itstool) path: page/p
+#: C/share-upload.page:26
 msgid ""
 "To publish selected photos in a collection, choose <guiseq><gui>Edit</"
 "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
@@ -279,19 +2667,31 @@ msgstr ""
 "ablakban kiválaszthat egy közzétételi szolgáltatást. Ezután be kell "
 "jelentkeznie vagy létre kell hoznia egy fiókot."
 
-#: C/share-upload.page:31(p)
+#. (itstool) path: page/p
+#: C/share-upload.page:31
+#| msgid ""
+#| "Publishing to Facebook requires you to grant certain permissions to the "
+#| "Shotwell Connect Facebook application. You only need to grant these "
+#| "permissions once, when you first associate Shotwell Connect with your "
+#| "Facebook account."
 msgid ""
 "Publishing to Facebook requires you to grant certain permissions to the "
-"Shotwell Connect Facebook application. You only need to grant these "
-"permissions once, when you first associate Shotwell Connect with your "
-"Facebook account."
+"Shotwell Facebook application. You only need to grant these permissions "
+"once, when you first associate Shotwell with your Facebook account."
 msgstr ""
 "A Facebookra való közzétételhez bizonyos jogosultságokat kell adnia a "
-"Shotwell Connect Facebook alkalmazásnak. Ezeket a jogosultságokat csak "
-"egyszer kell megadnia, amikor a Shotwell Connectet először társítja a "
-"Facebook fiókjához."
+"Shotwell Facebook alkalmazásnak. Ezeket a jogosultságokat csak egyszer kell "
+"megadnia, amikor a Shotwell programot először társítja a Facebook fiókjához."
 
-#: C/share-upload.page:35(p)
+#. (itstool) path: note/p
+#: C/share-upload.page:34
+msgid ""
+"You will be only able to publish images with at most the permission you "
+"granted to the Shotwell Facebook application"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/share-upload.page:36
 msgid ""
 "Similarly, publishing to Flickr requires you to log in and permit Shotwell "
 "Connect to access your account."
@@ -299,7 +2699,8 @@ msgstr ""
 "Ehhez hasonlóan a Flickr-en való közzétételhez is be kell jelentkeznie, és "
 "engedélyeznie kell a Shotwell Connectnek a fiók elérését."
 
-#: C/share-upload.page:37(p)
+#. (itstool) path: page/p
+#: C/share-upload.page:38
 msgid ""
 "If you have a Google account, but have not yet used Picasa Web Albums, you "
 "will need to log in to Picasa using a browser once before you can publish to "
@@ -309,2154 +2710,208 @@ msgstr ""
 "egyszer be kell jelentkeznie a Picasaba egy böngészőből mielőtt közzétehetne "
 "képeket ezen a szolgáltatáson."
 
-#: C/share-slideshow.page:7(desc)
-msgid "Watch a slideshow of your photos."
-msgstr "Diavetítés a fényképekből."
-
-#: C/share-slideshow.page:12(title)
-msgid "Slideshows"
-msgstr "Diavetítések"
-
-#: C/share-slideshow.page:14(p)
-msgid ""
-"To see a sideshow of any collection in Shotwell, navigate to that collection "
-"and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> or press "
-"<key>F5</key>."
-msgstr ""
-"A Shotwell bármely gyűjteményéből diavetítés megjelenítéséhez nyissa meg a "
-"kívánt gyűjteményt, és válassza a <guiseq><gui>Nézet</gui><gui>Diavetítés</"
-"gui></guiseq> menüpontot, vagy nyomja meg az <key>F5</key> billentyűt."
-
-#: C/share-slideshow.page:16(p)
-msgid "You can change some settings in a running slideshow:"
-msgstr "A folyamatban lévő diavetítésben megváltoztathat néhány beállítást:"
-
-#: C/share-slideshow.page:19(p)
-msgid "The duration how long an image should be shown: 1 - 30 seconds"
-msgstr "Egy kép megjelenítésének hosszát: 1- 30 másodperc"
-
-#: C/share-slideshow.page:20(p)
-msgid "You can select different transition effects."
-msgstr "Kiválaszthat különböző átmeneti effektusokat."
-
-#: C/share-slideshow.page:21(p)
-msgid "The time for each transition effect: 0.1 - 1.0 seconds"
-msgstr "Az egyes átmeneti effektusok hossza: 0,1 - 1,0 másodperc"
-
-#: C/share-send.page:7(desc)
-msgid "Send photos via email, instant messaging or in other ways."
-msgstr "Fényképek küldése e-mailben, azonnali üzenetben vagy máshogy."
-
-#: C/share-send.page:12(title)
-msgid "Sending photos"
-msgstr "Fényképek küldése"
-
-#: C/share-send.page:14(p)
-msgid ""
-"Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
-"lets you send photos via email, instant messaging or in other ways."
-msgstr ""
-"A Shotwell képes fényképek elküldésére a GNOME asztali környezet Küldés "
-"szolgáltatásával, amely lehetővé teszi a fényképek elküldését e-mailben, "
-"azonnali üzenetként vagy más módszerekkel."
-
-#: C/share-send.page:16(p)
-msgid ""
-"To send photos, select them in Shotwell and choose <guiseq><gui>File</"
-"gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
-"<gui>Send To...</gui> from the context menu. A <gui>Send To</gui> dialog box "
-"will appear which lets you choose a mechanism for sending the files (such as "
-"email or instant messaging) and a destination. You can optionally choose to "
-"send the files in a compressed format."
-msgstr ""
-"Fényképek küldéséhez válassza ki azokat a Shotwellben, és válassza a "
-"<guiseq><gui>Fájl</gui><gui>Küldés</gui></guiseq> menüpontot, vagy "
-"kattintson a jobb egérgombbal a fényképekre, és válassza a <gui>Küldés</gui> "
-"menüpontot. Megjelenik egy <gui>Küldés</gui> ablak, amelyben "
-"kiválaszthatja a fájlok küldésének módszerét (például e-mail vagy azonnali "
-"üzenet) és a célt. Kiválaszthatja azt is, hogy a fájlok tömörített "
-"formátumban kerüljenek elküldésre."
-
-#: C/share-print.page:7(desc)
-msgid ""
-"Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing "
-"options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
-msgstr ""
-"Kattintson a <guiseq><gui>Fájl</gui><gui>Nyomtatás</gui></guiseq> "
-"menüpontra. További nyomtatási beállításokért válassza a <gui>Nyomtatás</"
-"gui> ablak <gui>Oldalbeállítás</gui> lapját."
-
-#: C/share-print.page:12(title)
-msgid "Printing"
-msgstr "Nyomtatás"
-
-#: C/share-print.page:14(p)
-msgid ""
-"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</"
-"gui></guiseq>."
-msgstr ""
-"Fénykép nyomtatásához válassza ki azt, majd a <guiseq><gui>Fájl</"
-"gui><gui>Nyomtatás</gui></guiseq> menüpontot."
-
-#: C/share-print.page:16(p)
-msgid ""
-"Shotwell can also print multiple images in one page; to do this, select "
-"multiple images, choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>, "
-"and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
-"tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
-"options under <gui>Autosize</gui>."
-msgstr ""
-"A Shotwell képes több képet is egy oldalra nyomtatni, ehhez válasszon ki "
-"több képet, majd a <guiseq><gui>Fájl</gui><gui>Nyomtatás</gui></guiseq> "
-"menüpontot, ezután a <gui>Nyomtatás</gui> ablakban válassza a "
-"<gui>Képbeállítások</gui> lapot. A <gui>Képbeállítások</gui> alatt válassza "
-"az egyik „több kép oldalanként” lehetőséget az <gui>Automatikus méret</gui> "
-"alatt."
-
-#: C/share-print.page:23(p)
-msgid ""
-"If you would like to set formatting, paper size, and orientation options, "
-"choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
-"printing."
-msgstr ""
-"Ha szeretne megadni formázási, papírméret, és tájolási beállításokat, akkor "
-"nyomtatás előtt válassza a <gui>Nyomtatás</gui> ablak <gui>Oldalbeállítás</"
-"gui> lapját."
-
-#: C/share-export.page:7(desc)
-msgid "Copy photos out of Shotwell so you can put them somewhere else."
-msgstr ""
-"Másolja ki fényképeit a Shotwellből, hogy máshol is használhassa azokat."
-
-#: C/share-export.page:12(title)
-msgid "Exporting photos"
-msgstr "Fényképek exportálása"
-
-#: C/share-export.page:14(p)
-msgid ""
-"To export photos from Shotwell via drag and drop, drag the photos from "
-"Shotwell onto a file manager window or your desktop. The new files will be "
-"full-sized copies of the photos in your library."
-msgstr ""
-"A fényképek exportálásához fogd és vidd módszerrel húzza ki a fényképeket a "
-"Shotwellből egy fájlkezelő ablakba vagy az asztalra. Az új fájlok a "
-"gyűjteményében lévők teljes méretű másolatai lesznek."
-
-#: C/share-export.page:18(p)
-msgid ""
-"Alternatively, select a set of photos and choose the <guiseq><gui>File</"
-"gui><gui>Export</gui></guiseq> command or press <keyseq><key>Shift</"
-"key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting "
-"you fine-tune the size and dimensions of your photo files. A window will "
-"appear allowing you to make several choices:"
-msgstr ""
-"Ennek alternatívájaként válassza ki fényképek egy csoportját, és válassza a "
-"<guiseq><gui>Fájl</gui><gui>Exportálás</gui></guiseq> menüpontot, vagy "
-"nyomja meg a <keyseq><key>Shift</key><key>Ctrl</key><key>E</key></keyseq> "
-"kombinációt. Ezzel a fényképeket úgy exportálhatja, hogy közben a fájlok "
-"méretét és felbontását finomhangolhatja. A megjelenő ablakban több dolgot is "
-"kiválaszthat:"
-
-#: C/share-export.page:24(p)
-msgid "A format for export."
-msgstr "A formátumot az exportáláshoz."
-
-#: C/share-export.page:27(p)
-msgid ""
-"Choose <gui>Unmodified</gui> to export photos in their original format "
-"without any edits made in Shotwell. RAW photos will be exported in their "
-"original RAW format."
-msgstr ""
-"Válassza a <gui>Módosítatlan</gui> lehetőséget az eredeti formátumban való "
-"exportáláshoz, a Shotwellben végzett módosítások nélkül. A RAW képek az "
-"eredeti RAW formátumban kerülnek exportálásra."
-
-#: C/share-export.page:29(p)
-msgid ""
-"Choose <gui>Current</gui> to export photos including edits made in Shotwell. "
-"RAW photos will be exported in JPEG format if you have edited them in "
-"Shotwell, and otherwise in their original RAW format."
-msgstr ""
-"Válassza a <gui>Jelenlegi</gui> lehetőséget a fényképek exportálásához a "
-"Shotwellben végzett módosításokkal együtt. A RAW fényképek JPEG formátumban "
-"kerülnek exportálásra, ha szerkesztette azokat a Shotwellben, egyébként "
-"pedig az eredeti RAW formátumukban."
-
-#: C/share-export.page:31(p)
-msgid ""
-"Or you can choose a particular image format (JPEG, PNG, TIFF, BMP) to be "
-"used for exporting. Any edits made in Shotwell will be included, and "
-"Shotwell will convert photos to the destination format."
-msgstr ""
-"Kiválaszthat egy adott képformátumot (JPEG, PNG, TIFF, BMP) is az "
-"exportáláshoz való használatra. A Shotwellben végzett minden módosítást "
-"tartalmazni fog, és a Shotwell a fényképeket átalakítja a cél formátumra."
-
-#: C/share-export.page:37(p)
-msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
-msgstr ""
-"Az exportáláshoz használandó képminőség (alacsony, közepes, magas vagy "
-"maximális)."
-
-#: C/share-export.page:38(p)
-msgid ""
-"A scaling constraint (which means how Shotwell will decide to scale the "
-"photos down), and the desired pixel size."
-msgstr ""
-"Méretezési megszorítás (azaz a Shotwell eldönti, hogy a fényképeket le kell-"
-"e méretezni), és a kívánt képpontméret."
-
-#: C/share-export.page:39(p)
-msgid ""
-"The option whether you like to export metadatas such as tags or ratings. "
-"This can help to save your privacy if you have geolocation tags or tags "
-"which shouldn't be seen by anyone."
-msgstr ""
-
-#: C/share-export.page:42(p)
-msgid ""
-"If selected, Shotwell will write tags, titles, and other metadata to the new "
-"files."
-msgstr ""
-
-#: C/share-background.page:7(desc)
-msgid ""
-"Set your desktop background to a single photo or to a slideshow of photos."
-msgstr ""
-
-#: C/share-background.page:12(title)
-msgid "Set a desktop background or slideshow"
-msgstr ""
-
-#: C/share-background.page:14(p)
-msgid ""
-"To set a single photo as your desktop background, select the photo and "
-"choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
-msgstr ""
-
-#: C/share-background.page:16(p)
-msgid ""
-"You can also set your background to a slideshow of photos. To do this, "
-"select the photos for the slideshow and choose <guiseq><gui>File</"
-"gui><gui>Set as Desktop Slideshow</gui></guiseq>. Shotwell will prompt you "
-"for a slideshow delay, which can be any interval up to one day in length. "
-"The background slideshow will proceed even when Shotwell is not running."
-msgstr ""
-
-#: C/running.page:7(desc)
-msgid ""
-"Find Shotwell in the Applications menu, or have it start automatically when "
-"you plug in a camera."
-msgstr ""
-
-#: C/running.page:14(title)
-msgid "Running Shotwell"
-msgstr ""
-
-#: C/running.page:16(p)
-msgid ""
-"Once installed, Shotwell is available in your <gui>Applications</gui> menu "
-"under <gui>Graphics</gui> or <gui>Photography</gui>."
-msgstr ""
-
-#: C/running.page:18(p)
-msgid ""
-"Shotwell may also be executed automatically when a camera is plugged in to "
-"your computer. To check that your system is set up to run Shotwell when a "
-"camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
-"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
-"gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
-"you choose Shotwell as your photo handling application."
-msgstr ""
-
-#: C/running.page:25(p)
-msgid ""
-"Shotwell may also be executed directly from its build directory, although "
-"this is only recommended for testing out Shotwell or for developers."
-msgstr ""
-
-#: C/raw.page:7(desc)
-msgid "More about RAW support in Shotwell."
-msgstr ""
-
-#: C/raw.page:12(title)
-msgid "RAW support in Shotwell"
-msgstr ""
-
-#: C/raw.page:13(p)
-msgid ""
-"Some cameras have the ability to store data directly off the sensor and into "
-"a file that contains extra color information; this is commonly referred to "
-"as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
-msgstr ""
-
-#: C/raw.page:18(p)
-msgid ""
-"Since RAW photographs normally cannot be displayed directly, but must be "
-"first developed - that is, have their extra information interpreted and "
-"readied for displaying - most cameras will either embed a JPEG inside a RAW-"
-"format file, or produce a JPEG alongside the RAW file at the time the "
-"snapshot is taken. The latter is referred to throughout this document as RAW"
-"+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
-"treat them as one item in your library."
-msgstr ""
-
-#: C/raw.page:27(p)
-msgid ""
-"When you import a RAW file, you can choose to either use the camera's "
-"internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
-"gui><gui>Developer</gui></guiseq> in the menus."
-msgstr ""
-
-#: C/raw.page:33(p)
-msgid ""
-"Changing between developers will cause all edits made to a photograph to be "
-"discarded."
-msgstr ""
-
-#: C/raw.page:39(p)
-msgid ""
-"In order to publish or use a RAW photograph in most other software, it has "
-"to be exported first. Shotwell can export your RAW photos in JPEG, PNG, TIFF "
-"or BMP format, and, when publishing, will internally export a JPEG version "
-"for you and publish that."
-msgstr ""
-
-#: C/other-plugins.page:7(desc)
-msgid "Extend Shotwell's functionality dynamically."
-msgstr ""
-
-#: C/other-plugins.page:12(title)
-msgid "Plugins"
-msgstr "Bővítmények"
-
-#: C/other-plugins.page:13(p)
-msgid ""
-"Shotwell can be used with <em>plugins</em>, which are companion shared "
-"libraries that can add support for new publishing destinations or new "
-"slideshow transitions."
-msgstr ""
-
-#: C/other-plugins.page:18(p)
-msgid ""
-"To see a list of installed plugins, choose <guiseq><gui>Edit</"
-"gui><gui>Preferences</gui></guiseq>, and in the <gui>Preferences</gui> "
-"window, click on the <gui>Plugins</gui> tab. You'll see a list of currently-"
-"installed plugins, each with a checkbox by it, and you may enable or disable "
-"each by selecting or deselecting the checkbox by its name."
-msgstr ""
-
-#: C/other-plugins.page:25(p)
-msgid ""
-"Full documentation on how to develop new plugins is available at <link href="
-"\"http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins"
-"\">http://redmine.yorba.org/projects/shotwell/wiki/"
-"ShotwellArchWritingPlugins</link>"
-msgstr ""
-
-#: C/other-multiple.page:7(desc)
-msgid ""
-"You can open Shotwell with a different photo library by using the command "
-"line."
-msgstr ""
-
-#: C/other-multiple.page:12(title)
-msgid "Multiple libraries"
-msgstr ""
-
-#: C/other-multiple.page:14(p)
-msgid ""
-"Shotwell normally stores its database and photo thumbnails in the directory "
-"<file>~/.shotwell</file> . This directory does not hold photos, but the "
-"database in this directory contains a list of all the photos in the Shotwell "
-"library."
-msgstr ""
-
-#: C/other-multiple.page:16(p)
-msgid ""
-"As an advanced feature, it's possible for you to have multiple Shotwell "
-"libraries, each of which has its own set of photos. Each library needs its "
-"own database directory. To launch Shotwell with an alternate library, "
-"specify an alternate database directory on the command line as follows:"
-msgstr ""
-
-#: C/other-multiple.page:18(screen)
-#, no-wrap
-msgid ""
-"\n"
-"shotwell -d [library-directory]\n"
-msgstr ""
-"\n"
-"shotwell -d [gyűjtemény-könyvtára]\n"
-
-#: C/other-missing.page:7(desc)
-msgid "If Shotwell can't find a photo in your library, it marks it as missing."
-msgstr ""
-
-#: C/other-missing.page:12(title)
-msgid "Missing photos"
-msgstr ""
-
-#: C/other-missing.page:14(p)
-msgid ""
-"Each time Shotwell starts up, it scans your photo library to verify that all "
-"photo files still exist on your hard drive. If Shotwell finds that any photo "
-"files are missing, it will not display them in the normal Photos, Events and "
-"Tags views, but will instead show them in a separate Missing Files view "
-"which will appear in the sidebar."
-msgstr ""
-
-#: C/other-missing.page:16(p)
-msgid ""
-"If you no longer want the missing files to be part of your Shotwell "
-"collection (perhaps because you deleted them), go to the Missing Files view, "
-"select the photos and then click <gui>Remove From Library</gui>."
-msgstr ""
-
-#: C/other-missing.page:18(p)
-msgid ""
-"If you have photos on a removable disk, such as a CD or USB flash drive, and "
-"<link xref=\"index#import\">import</link> them into Shotwell <em>without</"
-"em> copying the photos to your computer, they will show up as missing files "
-"if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
-"to learn how to copy files from removable disks onto your computer."
-msgstr ""
-
-#: C/other-missing.page:20(p)
-msgid ""
-"If any missing photo files become available again, Shotwell will notice this "
-"the next time it starts. The photos will once again appear in the Photos, "
-"Events and Tags views."
-msgstr ""
-
-#: C/other-files.page:7(desc)
-msgid "Keep the Shotwell library in sync with photo files on disk."
-msgstr ""
-
-#: C/other-files.page:12(title)
-msgid "Photo files"
-msgstr ""
-
-#: C/other-files.page:14(p)
-msgid ""
-"Every photo in the Shotwell library corresponds to a file stored on your "
-"hard disk. Shotwell has several features which help you keep the Shotwell "
-"library and files on disk in sync."
-msgstr ""
-
-#: C/other-files.page:21(title)
-msgid "Using a custom directory pattern"
-msgstr ""
-
-#: C/other-files.page:22(p)
-msgid ""
-"Shotwell allows you to specify how it names directories in your library. You "
-"can do this by changing the <gui>Directory Structure</gui> and <gui>Pattern</"
-"gui> settings in the <gui>Preferences</gui> dialog. You may use a "
-"preselected pattern, or choose <gui>Custom</gui> and type in your own."
-msgstr ""
-
-#: C/other-files.page:29(p)
-msgid ""
-"The available symbols for the directory pattern begin with a % (percent "
-"sign). The values these symbols produce are locale-dependent, so what you "
-"see on your computer may vary from the examples below."
-msgstr ""
-
-#: C/other-files.page:38(em)
-msgid "Symbol"
-msgstr "Szimbólum"
-
-#: C/other-files.page:38(em)
-msgid "Meaning"
-msgstr "Jelentés"
-
-#: C/other-files.page:38(em)
-msgid "Example"
-msgstr "Példa"
-
-#: C/other-files.page:43(p)
-msgid "%Y"
-msgstr "%Y"
-
-#: C/other-files.page:43(p)
-msgid "Year: full"
-msgstr "Év: teljes"
-
-#: C/other-files.page:43(p)
-msgid "2011"
-msgstr "2011"
-
-#: C/other-files.page:46(p)
-msgid "%y"
-msgstr "%y"
-
-#: C/other-files.page:46(p)
-msgid "Year: two digit"
-msgstr "Év: két számjeggyel"
-
-#: C/other-files.page:46(p)
-msgid "11"
-msgstr "11"
-
-#: C/other-files.page:49(p)
-msgid "%d"
-msgstr "%d"
-
-#: C/other-files.page:49(p)
-msgid "Day of the month with leading zero"
-msgstr "Hónap napja kezdő nullával"
-
-#: C/other-files.page:49(p)
-msgid "03"
-msgstr "03"
-
-#: C/other-files.page:52(p)
-msgid "%A"
-msgstr "%A"
-
-#: C/other-files.page:52(p)
-msgid "Day name: full"
-msgstr "Nap neve: teljes"
-
-#: C/other-files.page:52(p)
-msgid "Wednesday"
-msgstr "Szerda"
-
-#: C/other-files.page:55(p)
-msgid "%a"
-msgstr "%a"
-
-#: C/other-files.page:55(p)
-msgid "Day name: abbreviated"
-msgstr "Nap neve: rövidített"
-
-#: C/other-files.page:55(p)
-msgid "Wed"
-msgstr "Sze"
-
-#: C/other-files.page:58(p)
-msgid "%m"
-msgstr "%m"
-
-#: C/other-files.page:58(p)
-msgid "Month number with leading zero"
-msgstr "Hónap száma kezdő nullával"
-
-#: C/other-files.page:58(p)
-msgid "02"
-msgstr "02"
-
-#: C/other-files.page:60(p)
-msgid "%b"
-msgstr "%b"
-
-#: C/other-files.page:60(p)
-msgid "Month name: abbreviated"
-msgstr "Hónap neve: rövidített"
-
-#: C/other-files.page:60(p)
-msgid "Feb"
-msgstr "Febr"
-
-#: C/other-files.page:62(p)
-msgid "%B"
-msgstr "%B"
-
-#: C/other-files.page:62(p)
-msgid "Month name: full"
-msgstr "Hónap neve: teljes"
-
-#: C/other-files.page:62(p)
-msgid "February"
-msgstr "Február"
-
-#: C/other-files.page:63(p)
-msgid "%I"
-msgstr "%I"
-
-#: C/other-files.page:63(p)
-msgid "Hour: 12 hour format"
-msgstr "Óra: 12 órás formátum"
-
-#: C/other-files.page:63(p)
-msgid "05"
-msgstr "05"
-
-#: C/other-files.page:64(p)
-msgid "%H"
-msgstr "%H"
-
-#: C/other-files.page:64(p)
-msgid "Hour: 24 hour format"
-msgstr "Óra: 24 órás formátum"
-
-#: C/other-files.page:64(p)
-msgid "17"
-msgstr "17"
-
-#: C/other-files.page:66(p)
-msgid "%M"
-msgstr "%M"
-
-#: C/other-files.page:66(p)
-msgid "Minute"
-msgstr "Perc"
-
-#: C/other-files.page:66(p)
-msgid "16"
-msgstr "16"
-
-#: C/other-files.page:67(p)
-msgid "%S"
-msgstr "%S"
-
-#: C/other-files.page:67(p)
-msgid "Second"
-msgstr "Másodperc"
-
-#: C/other-files.page:67(p)
-msgid "30"
-msgstr "30"
-
-#: C/other-files.page:68(p)
-msgid "%p"
-msgstr "%p"
-
-#: C/other-files.page:68(p)
-msgid "AM or PM"
-msgstr "DE/DU"
-
-#: C/other-files.page:68(p)
-msgid "PM"
-msgstr "DU"
-
-#: C/other-files.page:72(p)
-msgid ""
-"There are other symbols available; please check the manual for strftime by "
-"running the command <cmd>man strftime</cmd> if you need one that isn't "
-"listed here."
-msgstr ""
-"További szimbólumok érhetők el. Nézze meg az strftime kézikönyvét a <cmd>man "
-"strftime</cmd> parancsot lefuttatva, ha olyanra van szüksége, amely nincs "
-"itt felsorolva."
-
-#: C/other-files.page:79(title)
-msgid "Automatically importing photos"
-msgstr "Fényképek automatikus importálása"
-
-#: C/other-files.page:81(p)
-msgid ""
-"Shotwell can automatically import new photos which appear in the library "
-"directory. (The library directory is usually the <file>Pictures</file> "
-"directory in your home directory; you can change its location in in the "
-"<gui>Preferences</gui> window.)"
-msgstr ""
-"A Shotwell képes azon új fényképek automatikus importálására, amelyek "
-"megjelennek a gyűjteménykönyvtárban. (A gyűjteménykönyvtár általában a saját "
-"könyvtárban lévő <file>Képek</file> könyvtár. Ennek helyét "
-"a <gui>Beállítások</gui> ablakban változtathatja meg.)"
-
-#: C/other-files.page:86(p)
-msgid ""
-"To enable auto-import, check the box <gui>Watch library directory for new "
-"files</gui> in the <gui>Preferences</gui> window."
-msgstr ""
-"Az automatikus importálás engedélyezéséhez jelölje be az <gui>Új fájlok "
-"figyelése a gyűjteménykönyvtárban</gui> lehetőséget a <gui>Beállítások</gui> "
-"ablakban."
-
-#: C/other-files.page:90(p)
-msgid ""
-"Shotwell can also follow symbolic links inside automatically-imported "
-"directories."
-msgstr ""
-"A Shotwell képes az automatikusan importált könyvtárakon belüli szimbolikus "
-"linkek követésére is."
-
-#: C/other-files.page:95(title)
-msgid "Automatically renaming imported photos to lowercase"
-msgstr "Importált fényképek automatikus átnevezése kisbetűsre"
-
-#: C/other-files.page:97(p)
-msgid ""
-"Shotwell can automatically change the filenames of imported photos to "
-"lowercase. To enable this, choose <guiseq><gui>Edit</gui><gui>Preferences</"
-"gui></guiseq>, and in the <gui>Preferences</gui> window, check the "
-"<gui>Rename imported files to lowercase</gui> box."
-msgstr ""
-"A Shotwell automatikusan kisbetűsre tudja változtatni az importált fényképek "
-"fájlneveit. Ennek engedélyezéséhez válassza a <guiseq><gui>Szerkesztés</"
-"gui><gui>Beállítások</gui></guiseq> menüpontot, majd a <gui>Beállítások</"
-"gui> ablakban jelölje be az <gui>Importált fájlok átnevezése kisbetűssé</gui> "
-"lehetőséget."
-
-#: C/other-files.page:107(title)
-msgid "Writing metadata on the fly"
-msgstr "Metaadatok írása menet közben"
-
-#: C/other-files.page:109(p)
-msgid ""
-"By default, Shotwell does not modify photo files, even when you edit photos "
-"or change their tags or titles. Shotwell records these changes in its own "
-"database only."
-msgstr ""
-"Alapértelmezésben a Shotwell nem módosítja a fényképfájlokat még akkor sem, "
-"ha fényképeket szerkeszt, vagy megváltoztatja azok címkéit vagy címeit. A "
-"Shotwell ezeket a módosításokat csak a saját adatbázisában rögzíti."
-
-#: C/other-files.page:112(p)
-msgid ""
-"To change this behavior, you can enable the checkbox <gui>Write tags, titles "
-"and other metadata to photo files</gui> in the <gui>Preferences</gui> "
-"dialog. When this option is enabled, Shotwell will write the following "
-"metadata to most photo files whenever you change it in Shotwell:"
-msgstr ""
-"Ezen viselkedés megváltoztatásához bejelölheti a <gui>Címkék, címek és más "
-"metaadatok fényképfájlokba írása</gui> jelölőnégyzetet a <gui>Beállítások</"
-"gui> ablakban. Ha ez a lehetőség engedélyezve van, akkor a Shotwell "
-"a következő metaadatokat akkor fogja a legtöbb fényképfájlba írni, amikor "
-"megváltoztatja azokat:"
-
-#: C/other-files.page:118(p)
-msgid "titles"
-msgstr "címek"
-
-#: C/other-files.page:119(p)
-msgid "tags"
-msgstr "címkék"
-
-#: C/other-files.page:120(p)
-msgid "ratings"
-msgstr "értékelések"
-
-#: C/other-files.page:121(p)
-msgid "rotation information"
-msgstr "forgatási információk"
-
-#: C/other-files.page:122(p)
-msgid "time/date"
-msgstr "idő/dátum"
-
-#: C/other-files.page:125(p)
-msgid ""
-"Shotwell stores this information in photo files in EXIF, IPTC and/or XMP "
-"format. Note that Shotwell can write only to photo files in JPEG, PNG and "
-"TIFF format, not to BMP photos, RAW photos or to video files."
-msgstr ""
-"A Shotwell ezeket az információkat EXIF, IPTC és/vagy XMP formátumban "
-"tárolja a fényképfájlokban. Ne feledje, hogy a Shotwell csak JPEG, PNG és "
-"TIFF formátumú fényképfájlokba tud írni, BMP vagy RAW fényképekbe vagy "
-"videofájlokba nem."
-
-#: C/other-files.page:133(title)
-msgid "Runtime monitoring"
-msgstr "Futásidejű megfigyelés"
-
-#: C/other-files.page:135(p)
-msgid ""
-"While Shotwell is running, it notices changes made to any photo file "
-"externally. When a photo file changes, Shotwell rereads the file and updates "
-"your view of the photo and metadata."
-msgstr ""
-"A Shotwell futás közben észreveszi bármely fényképen a külsőleg elvégzett "
-"módosításokat. Amikor egy fényképfájl megváltozik, akkor a Shotwell "
-"újraolvassa a fájlt, és frissíti a fénykép megjelenítését és a metaadatokat."
-
-#: C/other-files.page:139(p)
-msgid ""
-"Note that Shotwell checks all photo files for changes at startup, but only "
-"photo files contained in the library directory are monitored in real time "
-"after startup. We hope to remove this limitation in a further release."
-msgstr ""
-"Ne feledje, hogy a Shotwell indításkor az összes fényképet ellenőrzi, hogy "
-"történt-e módosítás, de csak a gyűjteménykönyvárban lévő fényképeknél "
-"történik valós idejű megfigyelés az indítás után. Reméljük, hogy ez a "
-"korlátozás "
-"eltávolításra kerül egy későbbi kiadásban."
-
-#: C/organize-title.page:7(desc)
-msgid "Give titles to your photos."
-msgstr "Adjon címet a fényképeknek."
-
-#: C/organize-title.page:12(title)
-msgid "Titles"
-msgstr "Címek"
-
-#: C/organize-title.page:14(p)
-msgid ""
-"The <guiseq><gui>View</gui><gui>Titles</gui></guiseq> checkbox toggles the "
-"display of titles beneath each photo. By default, a photo's title is its "
-"filename."
-msgstr ""
-"A <guiseq><gui>Nézet</gui><gui>Címek</gui></guiseq> jelölőnégyzet be- vagy "
-"kikapcsolja az egyes fényképek alatti címek megjelenítését. "
-"Alapértelmezésben egy fénykép címe annak fájlneve lesz."
-
-#: C/organize-title.page:17(p)
-msgid ""
-"To change a photo's title, select the photo and click <guiseq><gui>Photos</"
-"gui><gui>Edit Title</gui></guiseq>, or press <key>F2</key>."
-msgstr ""
-"Egy fénykép címének módosításához válassza ki a fényképet, és válassza a "
-"<guiseq><gui>Fényképek</gui><gui>Cím szerkesztése</gui></guiseq> menüpontot, "
-"vagy nyomja meg az <key>F2</key> billentyűt."
-
-#: C/organize-tag.page:7(desc)
-msgid "Organize photos by labelling them."
-msgstr "Fényképek rendezése azok felcímkézésével."
-
-#: C/organize-tag.page:14(title)
-msgid "Tagging photos"
-msgstr "Fényképek címkézése"
-
-#: C/organize-tag.page:16(p)
-msgid ""
-"You can assign one or more tags to selected photos. A tag can be one or more "
-"words that you want to associate with those photos."
-msgstr ""
-"A kijelölt fényképekhez címkéket rendelhet. Egy címke lehet egy vagy több "
-"szó, amelyet hozzá szeretne rendelni azokhoz a fényképekhez."
-
-#: C/organize-tag.page:22(p)
-msgid ""
-"To add new tags to photos, select the photos you would like to tag, then do "
-"any of the following:"
-msgstr ""
-"Új címkék fényképekhez adásához válassza ki a címkézendő fényképeket, "
-"majd tegye a következők egyikét:"
-
-#: C/organize-tag.page:28(p)
-msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
-msgstr ""
-"Válassza a <guiseq><gui>Címkék</gui><gui>Címkék hozzáadása</gui></guiseq> "
-"menüpontot."
-
-#: C/organize-tag.page:29(p)
-msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
-msgstr ""
-"Nyomja le a <keyseq><key>Ctrl</key><key>T</key></keyseq> "
-"billentyűkombinációt."
-
-#: C/organize-tag.page:30(p)
-msgid "Drag the selected photos and drop them on the desired tag."
-msgstr "Fogja meg a kijelölt fényképeket, és ejtse azokat a kívánt címkére."
-
-#: C/organize-tag.page:33(p)
-msgid ""
-"When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
-"<guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq> you can type in the "
-"names of one or more tags, separated by commas. Once you have created a tag, "
-"you can rename it by selecting that tag in the sidebar and choosing "
-"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"</gui></guiseq>, by "
-"rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
-"tag in the sidebar."
-msgstr ""
-"Ha a <keyseq><key>Ctrl</key><key>T</key></keyseq> billentyűket vagy a "
-"<guiseq><gui>Címkék</gui><gui>Címkék hozzáadása</gui></guiseq> menüpontot "
-"használja, akkor vesszővel elválasztva beírhat több címkenevet is. Ha "
-"létrehozott egy címkét, akkor átnevezheti azt az oldalsávon való "
-"kiválasztással, és a <guiseq><gui>Címkék</gui><gui>„[név]” címke átnevezése</"
-"gui></guiseq> menüpont választásával, ha a jobb egérgombbal kattint rá, és "
-"az <gui>Átnevezés…</gui> menüpontot választja, vagy duplán kattint a címkére "
-"az oldalsávon."
-
-#: C/organize-tag.page:44(p)
-msgid ""
-"To change which tags are associated with a particular photo, select that "
-"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags</gui></guiseq> or "
-"right-click on a photo and select <gui>Modify Tags</gui> and edit the comma "
-"separated list. To remove a tag from one or more photos, first select that "
-"tag in the sidebar, then select the photos you would like to remove, and "
-"choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</gui></"
-"guiseq> or right-click on the photos an select <gui>Remove Tag \"[name]\" "
-"from Photos</gui>."
-msgstr ""
-"Annak módosításához, hogy mely címkék legyenek hozzárendelve egy adott "
-"fényképhez, jelölje ki a fényképet, válassza a <guiseq><gui>Címkék</"
-"gui><gui>Címkék módosítása</gui></guiseq> menüpontot, vagy kattintson a jobb "
-"egérgombbal egy fényképre, és válassza a <gui>Címkék módosítása</gui> "
-"lehetőséget, majd szerkessze a vesszővel elválasztott listát. Egy címke "
-"fényképekről eltávolításához először jelölje ki az adott címkét az "
-"oldalsávon, majd jelölje ki azokat a fényképeket, amelyekről el szeretné "
-"távolítani, és válassza a <guiseq><gui>Címkék</gui><gui>„[név]” címke "
-"eltávolítása a fényképekről</gui></guiseq> menüpontot, vagy kattintson a "
-"jobb egérgombbal a fényképekre, és válassza a <gui>„[név]” címke "
-"eltávolítása a fényképekről</gui> menüpontot."
-
-#: C/organize-tag.page:58(p)
-msgid ""
-"To delete a tag entirely, select that tag in the sidebar and choose "
-"<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
-"click and select <gui>Delete Tag \"[name]\"</gui>."
-msgstr ""
-"Egy címke teljes törléséhez jelölje ki a címkét az oldalsávon, és válassza a "
-"<guiseq><gui>Címkék</gui><gui>„[név]” címke törlése</gui></guiseq> "
-"menüpontot, vagy kattintson az egér jobb gombjával, és válassza a "
-"<gui>„[név]” címke törlése</gui> menüpontot."
-
-#: C/organize-tag.page:64(p)
-msgid ""
-"When you create a tag, it will appear in the sidebar under the Tags item, "
-"which is hidden if there are no tags. Photos can have multiple tags attached "
-"to them, and when you click on the name of a given tag in the sidebar, you "
-"will see all the photos associated with that tag."
-msgstr ""
-"Ha létrehoz egy címkét, akkor az meg fog jelenni az oldalsávon a Címkék elem "
-"alatt, amely nem látható, ha nincsenek címkék. A fényképekhez több "
-"címkét is lehet csatolni, és amikor rákattint az oldalsávon egy adott címke "
-"nevére, akkor látni fogja az összes fényképet, amely ahhoz a címkéhez van "
-"rendelve."
-
-#: C/organize-tag.page:73(title)
-msgid "Hierarchical Tags"
-msgstr "Hierarchikus címkék"
-
-#: C/organize-tag.page:74(p)
-msgid ""
-"Shotwell supports also hierarchial tags. You can rearrange your tags by drag "
-"and drop a tag onto another. To create a new subtag right-click on a tag and "
-"select <gui>New</gui>."
-msgstr ""
-"A Shotwell támogatja a hierarchikus címkéket is. Újrarendezheti a címkéit "
-"fogd és vidd módon egymásra rakva. Egy új alcímke létrehozásához kattintson "
-"az egér jobb gombjával egy címkére, és válassza az <gui>Új</gui> menüpontot."
-
-#: C/organize-tag.page:81(p)
-msgid ""
-"Hierarchial tags can help you to sort your tag list in ways that better "
-"match how you work or think; for example, you can store location tags like "
-"\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
-"be placed under the tag \"Summer Holidays\"."
-msgstr ""
-"A hierarchikus címkék segítségére lehetnek abban, hogy a címkelistáját oly "
-"módon rendezhesse, ahogy az a legjobban illeszkedik a "
-"gondolkodásához. Például hely címkéket tárolhat – mint „Hegyek” vagy "
-"„Tengerpart” – egy „Helyek” szülőcímke alatt, amely szintén el lehet helyezve "
-"a "
-"„Nyári szabadság” címke alatt."
-
-#: C/organize-tag.page:89(p)
-msgid "Note that deleting a parent tag will also delete its child tags."
-msgstr ""
-"Ne feledje, hogy egy szülőcímke törlése törölni fogja annak gyermekcímkéit "
-"is."
-
-#: C/organize-search.page:7(desc)
-msgid "Find photos and videos in your collection by a variety of criteria."
-msgstr ""
-"Fényképek és videók keresése a gyűjteményben különböző feltételek szerint."
-
-#: C/organize-search.page:12(title)
-msgid "Searching"
-msgstr "Keresés"
-
-#: C/organize-search.page:14(p)
-msgid ""
-"There are two ways to search in Shotwell: the filter toolbar, and with a "
-"saved search. The search bar allows you to quickly search the current view "
-"for certain criteria. Saved Searches feature more complex search criteria "
-"and persist in the sidebar between sessions."
-msgstr ""
-"Két módon kereshet a Shotwell programban: a szűrő eszköztárral és "
-"a mentett kereséssel. A keresősáv lehetővé teszi az aktuális nézet gyors "
-"keresését egy adott feltétel szerint. A mentett keresések összetettebb "
-"keresési feltételeket tesznek elérhetővé, és megmaradnak az oldalsávon a "
-"programindítások között."
-
-#: C/organize-search.page:21(title)
-msgid "Search bar"
-msgstr "Keresősáv"
-
-#: C/organize-search.page:22(p)
-msgid ""
-"The <guiseq><gui>View</gui><gui>Search Bar</gui></guiseq> checkbox toggles "
-"the display of the search bar. You can also hit <keyseq><key>Ctrl</"
-"key><key>F</key></keyseq> or <key>F8</key> to bring up the search bar. From "
-"this bar, you can find, show and hide photos and videos based on title, tag, "
-"rating or other options."
-msgstr ""
-"A <guiseq><gui>Nézet</gui><gui>Keresősáv</gui></guiseq> jelölőnégyzet be- "
-"vagy kikapcsolja a keresősáv megjelenítését. Lenyomhatja a "
-"<keyseq><key>Ctrl</key><key>F</key></keyseq> kombinációt vagy az <key>F8</key>"
-" "
-"billentyűt is a keresősáv visszahozásához. Erről a sávról kereshet, "
-"megjeleníthet és elrejthet fényképeket és videókat cím, címke, értékelés "
-"vagy egyéb lehetőségek alapján."
-
-#: C/organize-search.page:29(p)
-msgid ""
-"To begin searching, simply enter a search keyword in the text box, or click "
-"on <gui>Flagged</gui>, <gui>Rating</gui> or <gui>Type</gui>. The text search "
-"matches your keywords across tag names, photo or video titles and photos' "
-"original filenames. The <gui>Flagged</gui>, <gui>Rating</gui> and <gui>Type</"
-"gui> buttons allow you to filter your collection by whether photos are "
-"flagged, their current number of stars, and whether the items shown are "
-"images, videos, or raw camera files, respectively."
-msgstr ""
-"A keresés elkezdéséhez egyszerűen írjon be egy keresési kulcsszót a "
-"szövegdobozba, vagy kattintson a <gui>Megjelölt</gui>, <gui>Értékelés</gui> "
-"vagy <gui>Típus</gui> gombra. A szöveges keresés a címkeneveken, fénykép "
-"vagy videó címein és a fényképek eredeti fájlnevein keresztül illeszkedik. A "
-"<gui>Megjelölt</gui>, <gui>Értékelés</gui> és <gui>Típus</gui> gombok "
-"lehetővé teszik a gyűjtemény szűrését, hogy mely fényképek vannak "
-"megjelölve, a csillagok száma alapján, illetve hogy a megjelenített elemek "
-"képek, videók vagy nyers fényképezőgép fájlok."
-
-#: C/organize-search.page:38(p)
-msgid ""
-"Disabling the search bar or exiting Shotwell automatically resets the search "
-"bar."
-msgstr ""
-"A keresősáv letiltása, vagy a Shotwellből való kilépés automatikusan törli a "
-"keresősávot."
-
-#: C/organize-search.page:44(title)
-msgid "Saved search"
-msgstr "Mentett keresés"
-
-#: C/organize-search.page:45(p)
-msgid ""
-"A saved search persists across Shotwell sessions, and is updated as photos "
-"and videos are added and removed from your Shotwell library."
-msgstr ""
-"A mentett keresés megmarad a Shotwell indítások között, és frissítve "
-"lesz, amikor fényképeket és videókat adnak hozzá vagy távolítanak el a "
-"Shotwell gyűjteményből."
-
-#: C/organize-search.page:50(p)
-msgid ""
-"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Search</gui></"
-"guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></keyseq>. The "
-"dialog box allows you to enter a name for the search and select whether you "
-"want to meet Any, All, or None of the criteria in the following rows."
-msgstr ""
-"Új mentett keresés a <guiseq><gui>Szerkesztés</gui><gui>Új "
-"keresés</gui></guiseq> menüponttal, vagy a <keyseq><key>Ctrl</key><key>S</"
-"key></keyseq> lenyomásával hozható létre. Az ablak lehetővé teszi a keresés "
-"nevének megadását, és annak kiválasztását, hogy a következő sorban lévő "
-"bármely, az összes vagy egyik keresési feltételre se illeszkedjen."
-
-#: C/organize-search.page:56(p)
-msgid ""
-"Each row represents a search criterion. Use the + button to add more rows, "
-"and the - button to remove a specific row. The combo box on the left of each "
-"row selects the type of criteria. Criteria must be entered correctly before "
-"the OK button becomes available."
-msgstr ""
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/organize-remove.page:15(None)
-msgid ""
-"@@image: 'figures/trash_process.png'; md5=ed596bda34c2f4a79a310fbc8bb51fd2"
-msgstr ""
-"@@image: 'figures/trash_process.png'; md5=ed596bda34c2f4a79a310fbc8bb51fd2"
-
-#: C/organize-remove.page:7(desc)
-msgid ""
-"Remove photos from the library, or delete them from your computer entirely."
-msgstr ""
-
-#: C/organize-remove.page:12(title)
-msgid "Removing and deleting photos"
-msgstr ""
-
-#: C/organize-remove.page:14(p)
-msgid ""
-"You may remove photos from your library and you may additionally delete them "
-"entirely from your hard disk."
-msgstr ""
-
-#: C/organize-remove.page:15(media)
-msgid "Delete process"
-msgstr ""
-
-#: C/organize-remove.page:16(p)
-msgid ""
-"This diagram shows how a photo, when deleted, is first put into Shotwell's "
-"trash. If you delete it from Shotwell's trash, it is put into your "
-"computer's trash. If you delete it from your computer's trash the photo is "
-"finally and irretrievably deleted from your computer."
-msgstr ""
-
-#: C/organize-remove.page:18(title)
-msgid "Removing photos from the library"
-msgstr ""
-
-#: C/organize-remove.page:19(p)
-msgid ""
-"Select the photos to remove and choose <guiseq><gui>Edit</gui><gui>Move to "
-"Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
-"photos will be moved from your library to Shotwell's Trash."
-msgstr ""
-
-#: C/organize-remove.page:22(p)
-msgid ""
-"If you want to remove photos from Shotwell without having them pass through "
-"the trash, simply select the photos to be removed and choose "
-"<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
-"files will be left in place on disk."
-msgstr ""
-
-#: C/organize-remove.page:26(title)
-msgid "Emptying or restoring the trash folder"
-msgstr ""
-
-#: C/organize-remove.page:27(p)
-msgid ""
-"Select the Trash entry in the Sidebar and Shotwell will display all photos "
-"that have been marked for removal or deletion. In the Trash view, the "
-"following commands are available:"
-msgstr ""
-
-#: C/organize-remove.page:29(title)
-msgid "Delete"
-msgstr "Törlés"
-
-#: C/organize-remove.page:29(p)
-msgid "Delete the selected photos from the trash folder."
-msgstr "A kijelölt fényképek törlése a Kuka mappából."
-
-#: C/organize-remove.page:30(title)
-msgid "Restore"
-msgstr "Visszaállítás"
-
-#: C/organize-remove.page:30(p)
-msgid "Restore the selected photos into Shotwell."
-msgstr "A kijelölt fényképek visszaállítása a Shotwell programba."
-
-#: C/organize-remove.page:31(title)
-msgid "Empty trash"
-msgstr "Kuka ürítése"
-
-#: C/organize-remove.page:31(p)
-msgid "Delete all photos from the trash folder."
-msgstr "Minden fénykép törlése a Kuka mappából."
-
-#: C/organize-remove.page:36(title)
-msgid "Deleting or emptying Trash"
-msgstr "Törlés vagy a Kuka ürítése"
-
-#: C/organize-remove.page:37(p)
-msgid ""
-"When you delete files from the Trash folder or empty the Trash folder, you "
-"will be given the following choices:"
-msgstr ""
-"Amikor fájlokat töröl a Kuka mappából, vagy kiüríti a Kuka mappát, akkor a "
-"következő választási lehetőségeket fogja kapni:"
-
-#: C/organize-remove.page:39(title)
-msgid "Only Remove"
-msgstr "Csak eltávolítás"
-
-#: C/organize-remove.page:39(p)
-msgid ""
-"Remove photos from the library but leave the photos in their location on the "
-"computer."
-msgstr ""
-"Fényképek eltávolítása a gyűjteményből, de megtartásuk a számítógépen lévő "
-"helyükön."
-
-#: C/organize-remove.page:40(title)
-msgid "Trash file"
-msgstr "Fájl kidobása"
-
-#: C/organize-remove.page:40(p)
-msgid "Remove photos from the library and delete them from the computer."
-msgstr ""
-"Fényképek eltávolítása a gyűjteményből, és azok törlése a számítógépről."
-
-#: C/organize-remove.page:41(title)
-msgid "Cancel"
-msgstr "Mégse"
-
-#: C/organize-remove.page:41(p)
-msgid "Do nothing."
-msgstr "Ne tegyen semmit."
-
-#: C/organize-rating.page:7(desc)
-msgid ""
-"Give photos a rating between 1 and 5 stars. You can reject bad photos, "
-"hiding them from view."
-msgstr ""
-"Értékelje a fényképeket 1 és 5 csillag között. Elutasíthatja a rossz "
-"fényképeket, elrejtve azokat szem elől."
-
-#: C/organize-rating.page:12(title)
-msgid "Ratings"
-msgstr "Értékelések"
-
-#: C/organize-rating.page:13(p)
-msgid ""
-"You can assign each photo a rating from 1-5 stars, or may alternatively rate "
-"it as Rejected, in which case Shotwell will hide the photo by default."
-msgstr ""
-
-#: C/organize-rating.page:15(p)
-msgid "You can rate a photo or a set of photos in any of these ways:"
-msgstr ""
-
-#: C/organize-rating.page:18(p)
-msgid ""
-"Select the photo(s), then choose a rating from the top-level "
-"<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
-msgstr ""
-
-#: C/organize-rating.page:19(p)
-msgid ""
-"Right-click on the photo(s), then choose a rating from the Set Rating "
-"context menu."
-msgstr ""
-
-#: C/organize-rating.page:20(p)
-msgid ""
-"Select the photo(s), then press any of the shortcut keys <key>1</key>, "
-"<key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. "
-"Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
-"clear the rating(s)."
-msgstr ""
-
-#: C/organize-rating.page:23(p)
-msgid ""
-"Normally Shotwell displays all photos except rejected photos. You can set a "
-"different rating filter using the <guiseq><gui>View</gui><gui>Filter Photos</"
-"gui></guiseq> menu - for example, you can display only photos rated with 3 "
-"stars or higher, or you can display all photos including those marked "
-"rejected. The Shotwell icon on the toolbar displays the current rating "
-"filter and can also be used to set the filter."
-msgstr ""
-
-#: C/organize-rating.page:26(p)
-msgid ""
-"Shotwell normally displays each photo's rating in its lower left-hand "
-"corner. You can turn off the display of ratings using the <guiseq><gui>View</"
-"gui><gui>Ratings</gui></guiseq> menu item."
-msgstr ""
-
-#: C/organize-rating.page:28(p)
-msgid ""
-"You can increase or decrease a photo's rating using the <guiseq><gui>Set "
-"Rating</gui><gui>Increase</gui></guiseq> and <guiseq><gui>Set Rating</"
-"gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
-"<key>&lt;</key> and <key>&gt;</key>."
-msgstr ""
-
-#: C/organize-flag.page:7(desc)
-msgid "Flag photos to mark them as special or to work with them as a set."
-msgstr ""
-
-#: C/organize-flag.page:12(title)
-msgid "Flagging photos"
-msgstr ""
-
-#: C/organize-flag.page:14(p)
-msgid ""
-"Shotwell lets you <em>flag</em> photos. When a photo is flagged, a small "
-"flag icon appears in its upper right corner. You can select the "
-"<gui>Flagged</gui> item in the sidebar to see all photos which have been "
-"flagged."
-msgstr ""
-
-#: C/organize-flag.page:18(p)
-msgid ""
-"Flagging a photo marks it as special. You can interpret this in any way you "
-"like. For example, you might flag all photos which need visual adjustment, "
-"or all photos which you want to share with a friend."
-msgstr ""
-
-#: C/organize-flag.page:22(p)
-msgid ""
-"Flagging is also useful because you can operate on all flagged photos as a "
-"set. For example, you can select the <gui>Flagged</gui> view and then upload "
-"all flagged photos to a publishing service."
-msgstr ""
-
-#: C/organize-flag.page:27(title)
-msgid "To flag or unflag a photo"
-msgstr ""
-
-#: C/organize-flag.page:28(p)
-msgid ""
-"To flag or unflag a photo, right-click the photo and choose <gui>Flag</gui> "
-"or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
-"key><key>G</key></keyseq> or <key>/</key> shortcut keys."
-msgstr ""
-
-#: C/organize-event.page:7(desc)
-msgid ""
-"Group photos together that were taken at the same time. Learn how to rename, "
-"merge, and sort events."
-msgstr ""
-
-#: C/organize-event.page:12(title)
-msgid "Events"
-msgstr "Események"
-
-#: C/organize-event.page:14(p)
-msgid ""
-"An event is a group of photos that were taken at approximately the same "
-"time. When you import photos, Shotwell checks when each photo was taken. It "
-"then groups the photos into events."
-msgstr ""
-
-#: C/organize-event.page:16(p)
-msgid ""
-"Choose <gui>Events</gui> from the sidebar to see your photos organized by "
-"date. If you select a month or year from the sidebar, a list of events will "
-"be displayed in the main window. Double-click an event to see all the photos "
-"that were taken around that time."
-msgstr ""
-
-#: C/organize-event.page:18(p)
-msgid ""
-"If a photo has no embedded date/time information, then Shotwell can't "
-"automatically place it in any event. In this case the photo will appear in "
-"the <gui>No Event</gui> view accessible from the sidebar. You can still move "
-"the photo to any event you like as described below."
-msgstr ""
-
-#: C/organize-event.page:25(title)
-msgid "Renaming events"
-msgstr ""
-
-#: C/organize-event.page:27(p)
-msgid ""
-"To give an event a name rather than referring to it by its date, select the "
-"event, click <guiseq><gui>Edit</gui><gui>Rename Event</gui></guiseq> and "
-"enter a new name. Another way of renaming an event is to double-click its "
-"name in the sidebar; type a new name and then press <key>Enter</key>."
-msgstr ""
-
-#: C/organize-event.page:31(title)
-msgid "Moving photos between events"
-msgstr ""
-
-#: C/organize-event.page:33(p)
-msgid ""
-"Even though photos are initially grouped into events by their date, you can "
-"move photos between events. To do this, drag any photo to the sidebar and "
-"drop it on an event."
-msgstr ""
-
-#: C/organize-event.page:37(title)
-msgid "Creating and merging events"
-msgstr ""
-
-#: C/organize-event.page:38(p)
-msgid ""
-"To create a new event, select the photos you would like in the new event and "
-"click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
-msgstr ""
-
-#: C/organize-event.page:39(p)
-msgid ""
-"To merge events, select <guiseq><gui>Events</gui></guiseq> from the sidebar, "
-"then, while holding down <key>Ctrl</key> click on the events you want to "
-"merge in the main window area. Finally, click <guiseq><gui>Events</"
-"gui><gui>Merge Events</gui></guiseq>."
-msgstr ""
-
-#: C/organize-event.page:43(title)
-msgid "Sorting events"
-msgstr ""
-
-#: C/organize-event.page:45(p)
-msgid ""
-"Events are displayed in a tree in the sidebar, organized by the year and "
-"month of the earliest photo in the event. To change the event sort order, "
-"click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
-"either ascending or descending."
-msgstr ""
-
-#: C/organize-event.page:51(title)
-msgid "Change the photo used to represent each event"
-msgstr ""
-
-#: C/organize-event.page:53(p)
-msgid ""
-"If you select the Events item in the sidebar, you'll see a single photo "
-"which represents each event. This is called the key photo."
-msgstr ""
-
-#: C/organize-event.page:55(p)
-msgid ""
-"By default, Shotwell uses the first photo in each event as its key photo. To "
-"use a different key photo, select the photo and choose <guiseq><gui>Photos</"
-"gui><gui>Make Key Photo for Event</gui></guiseq>."
-msgstr ""
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/index.page:23(None)
-msgid ""
-"@@image: 'figures/shotwell_logo.png'; md5=59de2b2c4fa64ea1497c98452c509dbd"
-msgstr ""
-"@@image: 'figures/shotwell_logo.png'; md5=59de2b2c4fa64ea1497c98452c509dbd"
-
-#: C/index.page:6(title) C/index.page:7(title)
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#: C/index.page:9(name)
-msgid "Jim Nelson"
-msgstr "Jim Nelson"
-
-#: C/index.page:10(email)
-msgid "jim@yorba.org"
-msgstr "jim@yorba.org"
-
-#: C/index.page:11(name)
-msgid "Allison Barlow"
-msgstr "Allison Barlow"
-
-#: C/index.page:12(email)
-msgid "allison@yorba.org"
-msgstr "allison@yorba.org"
-
-#: C/index.page:13(name)
-msgid "Robert Ancell"
-msgstr "Robert Ancell"
-
-#: C/index.page:14(email)
-msgid "robert.ancell@canonical.com"
-msgstr "robert.ancell@canonical.com"
-
-#: C/index.page:15(name)
-msgid "Peter Smith"
-msgstr "Peter Smith"
-
-#: C/index.page:16(email)
-msgid "pdo.smith@gmail.com"
-msgstr "pdo.smith@gmail.com"
-
-#: C/index.page:17(name)
-msgid "Phil Bull"
-msgstr "Phil Bull"
-
-#: C/index.page:18(email)
-msgid "philbull@gmail.com"
-msgstr "philbull@gmail.com"
-
-#: C/index.page:23(title)
-msgid ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
-"Manager"
-msgstr ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell "
-"fényképkezelő"
-
-#: C/index.page:26(title)
-msgid "Importing Photos"
-msgstr "Fényképek importálása"
-
-#: C/index.page:30(title)
-msgid "Viewing Photos"
-msgstr "Fényképek megjelenítése"
-
-#: C/index.page:34(title)
-msgid "Organizing Photos"
-msgstr "Fényképek rendszerezése"
-
-#: C/index.page:38(title)
-msgid "Editing Photos"
-msgstr "Fényképek szerkesztése"
-
-#: C/index.page:42(title)
-msgid "Sharing Photos"
-msgstr "Fényképek megosztása"
-
-#: C/index.page:46(title)
-msgid "Other Features"
-msgstr "Más funkciók"
-
-#: C/import-memorycard.page:7(desc)
-msgid "Import photos from a digital camera's memory card."
-msgstr "Fényképek importálása digitális fényképezőgép memóriakártyájáról."
-
-#: C/import-memorycard.page:12(title)
-msgid "Importing from a memory card"
-msgstr "Importálás memóriakártyáról"
-
-#: C/import-memorycard.page:14(p)
-msgid "To import photos from a camera memory card:"
-msgstr ""
-
-#: C/import-memorycard.page:18(p)
-msgid ""
-"Put the card into your card reader. Make sure the card reader is plugged in "
-"to the computer and switched on."
-msgstr ""
-
-#: C/import-memorycard.page:21(p)
-msgid "The card reader and card should be detected automatically."
-msgstr ""
-
-#: C/import-memorycard.page:24(p)
-msgid ""
-"Follow the instructions for <link xref=\"import-file\">importing photos from "
-"your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From "
-"Folder</gui></guiseq>, the memory card should be visible as a folder in the "
-"side bar of the file selection window."
-msgstr ""
-
-#: C/import-memorycard.page:28(p)
-msgid ""
-"Shotwell can import photos from any memory card that is compatible with your "
-"card reader."
-msgstr ""
-
-#: C/import-memorycard.page:30(p)
-msgid ""
-"If the card is not detected automatically, your card reader may not have "
-"been recognized. Try unplugging it and then plugging it in again. If that "
-"doesn't work, you should still be able to import photos by <link xref="
-"\"import-camera\">connecting your camera directly to the computer</link>, "
-"though."
-msgstr ""
-
-#: C/import-f-spot.page:7(desc)
-msgid ""
-"Shotwell can import all your photos and tags from the F-Spot photo manager."
-msgstr ""
-
-#: C/import-f-spot.page:12(title)
-msgid "Importing from F-Spot"
-msgstr ""
-
-#: C/import-f-spot.page:14(p)
-msgid "To import an existing photo collection from F-Spot:"
-msgstr ""
-
-#: C/import-f-spot.page:16(p)
-msgid "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
-msgstr ""
-
-#: C/import-f-spot.page:17(p)
-msgid ""
-"Now choose either the default F-Spot library or another F-Spot database. If "
-"importing from another F-Spot database, select a directory and file from the "
-"chooser dialog box."
-msgstr ""
-
-#: C/import-f-spot.page:20(p)
-msgid ""
-"Shotwell will import your photos, together with their tags and other "
-"information. Once the import is complete, you can select <gui>Last Import</"
-"gui> in the sidebar to see all photos successfully imported. The Events list "
-"will also show new entries for the dates corresponding to the imported "
-"photos."
-msgstr ""
-
-#: C/import-file.page:7(desc)
-msgid "Import photos that are already saved on your computer."
-msgstr ""
-
-#: C/import-file.page:12(title)
-msgid "Importing from your hard disk"
-msgstr ""
-
-#: C/import-file.page:14(p)
-msgid ""
-"To import photo files from your hard disk into Shotwell, just drag them from "
-"your file browser into the Shotwell window."
-msgstr ""
-
-#: C/import-file.page:16(p)
-msgid ""
-"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder</gui></"
-"guiseq> and select the folder containing the photos you want to import."
-msgstr ""
-
-#: C/import-file.page:18(p)
-msgid ""
-"Shotwell will ask whether you want to copy the photo files to your library "
-"folder (usually this is the <file>Pictures</file> folder in your home "
-"directory) or to import them in place without copying the files."
-msgstr ""
-
-#: C/import-file.page:20(p)
-msgid ""
-"If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will "
-"copy the photos into your library folder without prompting. Similarly, if "
-"you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
-"dragging photos in, Shotwell will import the photos without copying them."
-msgstr ""
-
-#: C/import-file.page:22(p)
-msgid ""
-"Once the import is complete, you can select <gui>Last Import</gui> in the "
-"sidebar to see all photos successfully imported. The Events list will also "
-"show new entries for the dates corresponding to the imported photos."
-msgstr ""
-
-#: C/import-camera.page:7(desc)
-msgid "Copy photos from a digital camera."
-msgstr ""
-
-#: C/import-camera.page:12(title)
-msgid "Importing from a camera"
-msgstr ""
-
-#: C/import-camera.page:14(p)
-msgid "To import photos from a digital camera:"
-msgstr ""
-
-#: C/import-camera.page:18(p)
-msgid ""
-"Connect the camera to your computer and switch it on. Shotwell will detect "
-"it and list it in the sidebar."
-msgstr ""
-
-#: C/import-camera.page:22(p)
-msgid ""
-"Select the camera in the sidebar. Previews of each photo on the camera will "
-"be displayed."
-msgstr ""
-
-#: C/import-camera.page:25(p)
-msgid ""
-"If you like, you can choose a set of specific photos to import. To do this, "
-"hold down the <key>Ctrl</key> key and click to select individual photos. You "
-"can hold down <key>Shift</key> and click to select a range of photos too."
-msgstr ""
-
-#: C/import-camera.page:28(p)
-msgid ""
-"Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
-"will be copied from the camera and saved on your computer."
-msgstr ""
-
-#: C/import-camera.page:32(p)
-msgid ""
-"Once the import is complete, you can open the <gui>Last Import</gui> view "
-"(in the sidebar) to see all photos that were imported. The Events list (also "
-"in the sidebar) will also show the new photos, organized by date."
-msgstr ""
-
-#: C/formats.page:7(desc)
-msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and RAW photo files as well as video "
-"files."
-msgstr ""
-
-#: C/formats.page:12(title)
-msgid "Supported photo and video formats"
-msgstr ""
-
-#: C/formats.page:14(p)
-msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref=\"other-"
-"raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
-"format such as GIF."
-msgstr ""
-
-#: C/formats.page:16(p)
-msgid ""
-"Shotwell's RAW format support is currently limited. When you view a RAW "
-"photo, you are actually viewing a JPEG derived from the RAW photo, not the "
-"RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit "
-"- you can only export edited photos as 8-bit files. All supported formats "
-"can be used for export (JPEG, PNG, TIFF, BMP)."
-msgstr ""
-
-#: C/formats.page:18(p)
-msgid ""
-"For more information about RAW-format photos in Shotwell, please see the "
-"<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
-msgstr ""
-
-#: C/formats.page:22(p)
-msgid ""
-"Shotwell also supports video files in any format supported by the GStreamer "
-"media library on the system where Shotwell is running. This typically "
-"includes the following formats among others:"
-msgstr ""
-
-#: C/formats.page:25(p)
-msgid "Container formats: Ogg, QuickTime, MP4, AVI."
-msgstr ""
-
-#: C/formats.page:26(p)
-msgid ""
-"Codecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Note that some operating "
-"systems may not include all codecs listed here due to legal or licensing "
-"restrictions.</em>"
-msgstr ""
-
-#: C/formats.page:30(p)
-msgid ""
-"Shotwell supports both photos and videos, but for simplicity, this "
-"documentation uses just the term \"photos\" in most places. Many operations "
-"in Shotwell apply to both photos and videos, however. In particular, events, "
-"flagging, rating, tagging, and publishing work both for photos and for "
-"videos."
-msgstr ""
-
-#: C/edit-undo.page:7(desc)
-msgid "Return a photo to its original, unedited form."
-msgstr ""
-
-#: C/edit-undo.page:14(title)
-msgid "Undoing changes"
-msgstr "A változtatások visszavonása"
-
-#: C/edit-undo.page:16(p)
-msgid ""
-"Because Shotwell is a non-destructive photo editor, you can undo any "
-"alterations you make to a photograph."
-msgstr ""
-
-#: C/edit-undo.page:18(p) C/edit-nondestructive.page:16(p)
-msgid ""
-"If you want to see what a photo looked like before your modifications, press "
-"the <key>Shift</key> key. The original photo will be displayed as long as "
-"you hold the key down."
-msgstr ""
-
-#: C/edit-undo.page:20(p)
-msgid ""
-"To completely undo all the changes you've made to a photo, click "
-"<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
-"exception is that time and date adjustments will not be reverted."
-msgstr ""
-
-#: C/edit-time-date.page:7(desc)
-msgid "Change the time and date of photos if those details are incorrect."
-msgstr ""
-
-#: C/edit-time-date.page:12(title)
-msgid "Adjust the time and date of photos"
-msgstr ""
-
-#: C/edit-time-date.page:14(p)
-msgid ""
-"To adjust the time and date of photos, select the photos you would like to "
-"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Time and Date</gui></"
-"guiseq> and select a new time and date."
-msgstr ""
-
-#: C/edit-time-date.page:16(p)
-msgid ""
-"If you are changing the date and time of multiple photos at once, you can "
-"choose to shift all the photos by the same amount of time or to set all the "
-"photos to the same time."
-msgstr ""
-
-#: C/edit-time-date.page:18(p)
-msgid ""
-"By default, the time and date are only changed inside Shotwell. You can also "
-"choose to modify the time and date in the original file, but this cannot be "
-"undone once you exit Shotwell."
-msgstr ""
-
-#: C/edit-straighten.page:7(desc)
-msgid "Straighten a photo so that its horizon appears level."
-msgstr ""
-
-#: C/edit-straighten.page:12(title)
-msgid "Straighten photos"
-msgstr ""
-
-#: C/edit-straighten.page:14(p)
-msgid ""
-"The straighten tools allows photos to be leveled and straightened. The "
-"straighten tool is only available in full-window or fullscreen mode."
-msgstr ""
-
-#: C/edit-straighten.page:18(p)
-msgid ""
-"Click <gui>Straighten</gui>. The straighten slider will appear. "
-"Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
-"key></keyseq>."
-msgstr ""
-
-#: C/edit-straighten.page:21(p)
-msgid "Drag the slider to achieve the desired degree of straightening."
-msgstr ""
-
-#: C/edit-straighten.page:24(p)
-msgid "Press <gui>OK</gui> when finished."
-msgstr ""
-
-#: C/edit-rotate.page:7(desc)
-msgid ""
-"Click the <gui>Rotate</gui> button, or choose one of the commands in the "
-"<gui>Photo</gui> menu."
-msgstr ""
-
-#: C/edit-rotate.page:12(title)
-msgid "Rotate or flip a photo"
-msgstr ""
-
-#: C/edit-rotate.page:14(p)
-msgid ""
-"You can rotate your photos left and right (clockwise and counterclockwise) "
-"with the <gui>Rotate</gui> button on the toolbar of most views. You can also "
-"make a mirror image of any photo."
+#. (itstool) path: info/desc
+#: C/view-displaying.page:7
+msgid ""
+"Learn about different ways of viewing your photos: in a grid, filling the "
+"main window, or filling the whole screen."
+msgstr ""
+"Ismerje meg a fényképek megjelenítésének különböző módjait: rácsban, a "
+"főablakot kitöltve vagy a teljes képernyőt kitöltve."
+
+#. (itstool) path: page/title
+#: C/view-displaying.page:12
+msgid "Photo views"
+msgstr "Fényképnézetek"
+
+#. (itstool) path: page/p
+#: C/view-displaying.page:14
+msgid ""
+"When you select any collection in the sidebar, Shotwell displays all photos "
+"in the collection in the main window area. At the bottom right is a slider "
+"which adjusts the viewing size of the thumbnails. You may also adjust the "
+"thumbnail size using the plus and minus keys (<key>+</key> and <key>-</key>) "
+"or by pressing <key>Ctrl</key> while moving your mouse scroll wheel."
+msgstr ""
+"Amikor kiválaszt egy gyűjteményt az oldalsávban, a Shotwell annak minden "
+"fényképét megjeleníti a fő ablakterületen. A jobb alsó sarokban lévő csúszka "
+"segítségével módosíthatja a bélyegképek megjelenítési méretét. A bélyegképek "
+"mérete a plusz és mínusz billentyűkkel (<key>+</key> és <key>-</key>) vagy a "
+"<key>Ctrl</key> lenyomásával és az egérgörgő egyidejű mozgatásával is "
+"módosítható."
+
+#. (itstool) path: page/p
+#: C/view-displaying.page:16
+msgid ""
+"You can view a photo full-window by double-clicking on it. From there you "
+"may move to other photos in the collection with the Back and Forward "
+"buttons. To return to the collection, double-click on the photo or press "
+"<key>Esc</key>."
+msgstr ""
+"Egy fényképet duplán rákattintva teljes képernyőn jeleníthet meg. Innen a "
+"gyűjtemény más fényképeire az Előre és Hátra gombokkal léphet. A "
+"gyűjteményhez való visszatéréshez kattintson duplán a fényképre, vagy nyomja "
+"meg az <key>Esc</key> billentyűt."
+
+#. (itstool) path: page/p
+#: C/view-displaying.page:18
+msgid ""
+"When viewing a photo in full-window mode, the slider on the toolbar controls "
+"zoom. You can pan around by grabbing and dragging anywhere on the photo. You "
+"can also zoom using your scroll wheel or by pressing the following keyboard "
+"shortcuts: <keyseq><key>Ctrl</key>0</keyseq> for the full image, "
+"<keyseq><key>Ctrl</key>1</keyseq> for 100% (1 photo pixel = 1 screen pixel), "
+"and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen "
+"pixels)."
+msgstr ""
+"Egy fénykép teljes képernyős módban való megjelenítésekor az eszköztáron "
+"lévő csúszka vezérli a nagyítást. A fénykép megfogásával és húzásával "
+"tetszőleges irányba görgetheti a fényképet. Nagyíthat is az egérgörgő "
+"használatával, vagy a következő gyorsbillentyűk megnyomásával: "
+"<keyseq><key>Ctrl</key>0</keyseq> a teljes képhez, <keyseq><key>Ctrl</key>1</"
+"keyseq> a 100%-hoz (1 képpont a fényképen = 1 képpont a képernyőn), és "
+"<keyseq><key>Ctrl</key>2</keyseq> a 200%-hoz (1 képpont a fényképen = 2x2 "
+"képpont a képernyőn)."
+
+#. (itstool) path: page/p
+#: C/view-displaying.page:20
+msgid ""
+"Shotwell offers a fullscreen mode to display photos. Choose "
+"<guiseq><gui>View</gui><gui>Fullscreen</gui></guiseq> or press <key>F11</"
+"key>. To see the fullscreen toolbar, move your mouse to the bottom of the "
+"screen. The toolbar offers buttons to move through the collection, to pin "
+"the toolbar down (so it isn't hidden when you move the mouse away), and to "
+"leave fullscreen view."
+msgstr ""
+"A Shotwell teljes képernyős módot is kínál a fényképek megjelenítéséhez. "
+"Válassza a <guiseq><gui>Nézet</gui><gui>Teljes képernyő</gui></guiseq> "
+"menüpontot, vagy nyomja meg az <key>F11</key> billentyűt. A teljes képernyős "
+"eszköztár megjelenítéséhez vigye az egérmutatót a képernyő aljára. Az "
+"eszköztár a gyűjteményben mozgásra, az eszköztár rögzítésére (hogy ne tűnjön "
+"el) és a teljes képernyős nézet elhagyására használható gombokat kínál."
+
+#. (itstool) path: section/title
+#: C/view-displaying.page:23
+msgid "Viewing videos"
+msgstr "Videók megjelenítése"
+
+#. (itstool) path: section/p
+#: C/view-displaying.page:24
+msgid ""
+"When you double-click a video, Shotwell will launch an external video player "
+"to play the video. It's not currently possible to display a video in full-"
+"window mode in Shotwell or to play the video within Shotwell itself."
+msgstr ""
+"Amikor duplán kattint egy videóra, a Shotwell egy külső videolejátszót indít "
+"el a videó lejátszásához. Jelenleg nem lehetséges videót lejátszani teljes "
+"ablakos módban a Shotwellben, vagy magán a Shotwellen belül."
+
+#. (itstool) path: info/desc
+#: C/view-information.page:7
+msgid ""
+"View more detailed information about photos, like the exposure mode used by "
+"the camera."
 msgstr ""
+"Részletesebb információk megjelenítése a fényképekről, mint a fényképezőgép "
+"által használt expozíciós mód."
 
-#: C/edit-rotate.page:16(p)
-msgid ""
-"To rotate right, click on the <gui>Rotate</gui> button. To rotate left, "
-"press and hold the <key>Ctrl</key> key and then click the button. Both "
-"commands are available in the <gui>Photos</gui> menu too. Alternatively, use "
-"the following keyboard shortcuts:"
-msgstr ""
-
-#: C/edit-rotate.page:18(p)
-msgid ""
-"rotate left: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> or "
-"<key>[</key>"
-msgstr ""
-
-#: C/edit-rotate.page:19(p)
-msgid ""
-"rotate right: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</key>"
-msgstr ""
-
-#: C/edit-rotate.page:21(p)
-msgid ""
-"To create a mirror image of a photo, use the <gui>Flip Horizontally</gui> "
-"command in the <gui>Photos</gui> menu. To flip an image vertically, use the "
-"<gui>Flip Vertically</gui> command in the same menu."
-msgstr ""
-
-#: C/edit-rotate.page:24(p)
-msgid ""
-"If you select more than one image, you can rotate all of them at the same "
-"time."
-msgstr ""
-
-#: C/edit-redeye.page:7(desc)
-msgid ""
-"Correct photos where people have red eyes because of the camera's flash."
-msgstr ""
-
-#: C/edit-redeye.page:12(title)
-msgid "Removing red-eye"
-msgstr "Vörös szem eltávolítása"
-
-#: C/edit-redeye.page:14(p)
-msgid ""
-"Red-eye occurs when the camera's flash reflects off the pupil of someone's "
-"eye. To eliminate this in a photo, use the Red-eye tool."
-msgstr ""
-
-#: C/edit-redeye.page:17(p)
-msgid "Click <gui>Red-eye</gui>. A circle will appear on the photo."
-msgstr ""
-
-#: C/edit-redeye.page:20(p)
-msgid ""
-"Drag the circle over the affected pupil, adjust its size with the slider "
-"control, and press <gui>Apply</gui>. The redness will be removed."
-msgstr ""
-
-#: C/edit-redeye.page:23(p)
-msgid ""
-"Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
-"when finished."
-msgstr ""
-
-#: C/edit-nondestructive.page:7(desc)
-msgid ""
-"Shotwell is a non-destructive photo editor - it does not modify your "
-"original photos."
-msgstr ""
-
-#: C/edit-nondestructive.page:12(title)
-msgid "What happens to the original when I edit a photo?"
-msgstr ""
-
-#: C/edit-nondestructive.page:14(p)
-msgid ""
-"Shotwell is a non-destructive photo editor. It does not modify your original "
-"photographs. That is to say, if you crop a photo or adjust its colors, the "
-"photo file on disc remains untouched. Shotwell stores your edits in a "
-"database and applies them on the fly as necessary. This means you can undo "
-"any alterations you make to a photograph."
-msgstr ""
-
-#: C/edit-nondestructive.page:18(p)
-msgid ""
-"Note that Shotwell can optionally write metadata (such as tags and titles) "
-"to photo files. For more information, see the section <link xref=\"other-"
-"files\">Photo files</link>."
-msgstr ""
-
-#: C/edit-external.page:7(desc)
-msgid "Use a different program to edit a photo."
-msgstr ""
-
-#: C/edit-external.page:12(title)
-msgid "Edit photos with an external program"
-msgstr ""
-
-#: C/edit-external.page:16(p)
-msgid ""
-"You might want to use an external editor to do additional work on a photo. "
-"If installed, GIMP and UFRaw are the default external editors for photo and "
-"RAW editing, respectively. If these programs are not installed, you must "
-"select your preferred editors by choosing <guiseq><gui>Edit</"
-"gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
-"menus of installed applications."
-msgstr ""
-
-#: C/edit-external.page:24(p)
-msgid ""
-"Once your editors have been set, select a photo and choose "
-"<guiseq><gui>Photos</gui><gui>Open With External Editor</gui></guiseq> to "
-"open the photo with the external editor. Likewise, if the original photo is "
-"a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
-"guiseq> to edit the RAW file directly with the set RAW editor."
-msgstr ""
-
-#: C/edit-external.page:31(p)
-msgid ""
-"When you complete your edits and save the file, Shotwell will detect the "
-"changes and update the photo. When external edits have been made, press and "
-"hold the <key>Shift</key> key in full-window view to show the original photo "
-"rather than the externally-edited one."
-msgstr ""
-
-#: C/edit-external.page:38(p)
-msgid "Reverting to original will erase any external edits."
-msgstr ""
-
-#: C/edit-external.page:43(p)
-msgid ""
-"If you externally edit a RAW photo and save the result to another image, "
-"such as a JPEG or PNG, Shotwell cannot automatically determine that the "
-"original RAW and the new image should be paired."
-msgstr ""
-
-#: C/edit-external.page:49(p)
-msgid ""
-"If you want to work within the resulting image within Shotwell, you'll need "
-"to import it yourself."
-msgstr ""
-
-#: C/edit-enhance.page:7(desc)
-msgid ""
-"Let Shotwell improve the brightness and contrast of a photo automatically."
-msgstr ""
+#. (itstool) path: page/title
+#: C/view-information.page:12
+msgid "Basic and extended information"
+msgstr "Alapvető és bővített információk"
 
-#: C/edit-enhance.page:14(title)
-msgid "Auto-enhance"
-msgstr ""
-
-#: C/edit-enhance.page:16(p)
-msgid ""
-"Clicking on the <gui>Enhance</gui> button is a quick way to automatically "
-"adjust the brightness and contrast of your photo. It will often give you a "
-"photo that is correctly exposed. You can also use it as a starting point and "
-"then improve the adjustments by clicking on the <gui>Adjust</gui> button."
-msgstr ""
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/edit-crop.page:42(None)
-msgid ""
-"@@image: 'figures/crop_thirds.jpg'; md5=4cf0a026bb812c7eab0c9db8210a9524"
-msgstr ""
-"@@image: 'figures/crop_thirds.jpg'; md5=4cf0a026bb812c7eab0c9db8210a9524"
-
-#: C/edit-crop.page:7(desc)
-msgid "Improve the composition of a photo by cutting out parts of it."
-msgstr ""
-
-#: C/edit-crop.page:12(title)
-msgid "Cropping"
-msgstr "Vágás"
-
-#: C/edit-crop.page:14(p)
-msgid ""
-"To reduce the area of a photo and concentrate the viewer's attention on a "
-"smaller portion of it, use the Crop tool. The crop tool is only available in "
-"full-window or fullscreen mode."
-msgstr ""
-
-#: C/edit-crop.page:19(p)
-msgid ""
-"Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
-"gui> button on the toolbar."
-msgstr ""
-
-#: C/edit-crop.page:22(p)
-msgid ""
-"A white box, the crop rectangle, will appear over the photo. The lighter "
-"portion of the photo within the crop rectangle represents what the photo "
-"will look like when you crop it."
-msgstr ""
-
-#: C/edit-crop.page:25(p)
-msgid ""
-"If you place your cursor in the middle of the box, you can move the box "
-"around. If you drag the edges of the box, you can adjust its size. As you "
-"move and adjust the crop box, you'll see four lines appear inside it, like a "
-"tic-tac-toe grid. These are <em>rule of thirds</em> lines."
-msgstr ""
-
-#: C/edit-crop.page:26(p)
-msgid ""
-"You can also constrain the crop box to one of many common sizes. Choose a "
-"size from the drop-down list that suits your needs. If you press the flip "
-"button next to it, the orientation of the constraint will switch (from "
-"landscape to portrait)."
-msgstr ""
-
-#: C/edit-crop.page:29(p)
-msgid ""
-"When you're happy with your crop outline, press the <gui>Apply</gui> button. "
-"Shotwell will display the cropped photo."
-msgstr ""
-
-#: C/edit-crop.page:32(p)
-msgid ""
-"If you change your mind, press the <gui>Crop</gui> button again and fine-"
-"tune the crop."
-msgstr ""
-
-#: C/edit-crop.page:33(p)
+#. (itstool) path: page/p
+#: C/view-information.page:14
 msgid ""
-"If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
-"return to the photo's previous crop dimensions."
+"The Basic Information pane appears at the bottom of the sidebar, and "
+"displays a brief summary of the photos you've selected. If no photos are "
+"selected, it displays a summary of the entire collection. You can toggle the "
+"display of this pane using the <guiseq><gui>View</gui><gui>Basic "
+"Information</gui></guiseq> command."
 msgstr ""
+"Az Alapvető információk panel az oldalsáv alján jelenik meg, és a kijelölt "
+"fényképek rövid összefoglalását jeleníti meg. Ha nincsenek kijelölve "
+"fényképek, akkor a teljes gyűjtemény összefoglalását jeleníti meg. A panel "
+"megjelenítését a <guiseq><gui>Nézet</gui><gui>Alapvető információk</gui></"
+"guiseq> parancs használatával lehet be- vagy kikapcsolni."
 
-#: C/edit-crop.page:38(title)
-msgid "What is the rule of thirds?"
-msgstr ""
-
-#: C/edit-crop.page:39(p)
-msgid ""
-"The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
-"photo."
-msgstr ""
-
-#: C/edit-crop.page:40(p)
-msgid ""
-"Imagine that the scene is divided up into a 3x3 grid by two equally-spaced "
-"vertical lines and two equally-spaced horizontal lines. According to the "
-"rule, you're more likely to get a pleasing composition if you align major "
-"features (like the horizon, or a person's body) with one of the lines. "
-"Paying attention to the way features flow from one part of the grid to "
-"another can also help."
-msgstr ""
-
-#: C/edit-crop.page:41(p)
-msgid ""
-"Cropping a photo so that it conforms to the rule of thirds often results in "
-"a more visually appealing image."
-msgstr ""
-
-#: C/edit-crop.page:43(p)
-msgid ""
-"Cropping a photo, using the \"rule of thirds\" lines to improve the "
-"composition."
-msgstr ""
-
-#: C/edit-adjustments.page:7(desc)
-msgid "Change the exposure, saturation, tint, and shadows of a photo."
-msgstr ""
-
-#: C/edit-adjustments.page:12(title)
-msgid "Color adjustments"
-msgstr ""
-
-#: C/edit-adjustments.page:14(p)
-msgid ""
-"The <gui>Adjust</gui> button opens a floating window with a histogram and "
-"sliders to adjust a photo's exposure, saturation, tint, temperature, and "
-"shadows. The histogram also has sliders to reduce the upper and lower "
-"intensity thresholds of the photograph, expanding the contrast of the middle "
-"range."
-msgstr ""
-
-#: C/edit-adjustments.page:16(p)
-msgid ""
-"The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
-"improve the quality of a photo."
-msgstr ""
-
-#: C/edit-adjustments.page:18(p)
+#. (itstool) path: page/p
+#: C/view-information.page:16
 msgid ""
-"When the photo's colors and contrast are to your liking, press <gui>Apply</"
-"gui> to save the changes. <gui>Reset</gui> will return the image to its "
-"original state. <gui>Cancel</gui> discards all changes you've made."
+"The floating Extended Information window displays more information about the "
+"selected photo. The <guiseq><gui>View</gui><gui>Extended Information</gui></"
+"guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
+"keyseq> toggles the display of this window."
 msgstr ""
+"A lebegő Bővített információk ablak további információkat jelenít meg a "
+"kijelölt fényképről. A <guiseq><gui>Nézet</gui><gui>Bővített információk</"
+"gui></guiseq> parancs vagy a <keyseq><key>Ctrl</key><key>Shift</key><key>X</"
+"key></keyseq> kombináció használatával lehet be- vagy kikapcsolni."
 
-#: C/edit-adjustments.page:21(title)
-msgid "What do the color adjustments do?"
-msgstr ""
-
-#: C/edit-adjustments.page:24(title)
-msgid "Exposure"
-msgstr "Expozíció"
-
-#: C/edit-adjustments.page:25(p)
+#. (itstool) path: info/desc
+#: C/view-sidebar.page:7
 msgid ""
-"Changes the brightness to make it look like the photo was exposed for a "
-"longer or shorter time. Use this to correct under- or over-exposed photos."
+"The sidebar on the left of the window lists various views of your library."
 msgstr ""
+"Az ablak bal oldalán lévő oldalsáv a gyűjtemény különböző nézeteit sorolja "
+"fel."
 
-#: C/edit-adjustments.page:28(title)
-msgid "Saturation"
-msgstr "Telítettség"
+#. (itstool) path: page/title
+#: C/view-sidebar.page:21
+msgid "The sidebar"
+msgstr "Az oldalsáv"
 
-#: C/edit-adjustments.page:29(p)
+#. (itstool) path: page/p
+#: C/view-sidebar.page:23
 msgid ""
-"Changes how vivid colors look. If your photo looks gray and washed out, try "
-"increasing the saturation. If colors look too bold, try decreasing it."
+"The sidebar on the left side of the Shotwell window lists various views of "
+"your library. Although you may see the same photo in multiple views, it's "
+"only stored once on your hard drive."
 msgstr ""
-
-#: C/edit-adjustments.page:32(title)
-msgid "Tint"
-msgstr "Árnyalat"
+"A Shotwell bal oldalán lévő oldalsáv a gyűjtemény különböző nézeteit sorolja "
+"fel. Noha ugyanazt a fényképet több nézetben is láthatja, az a lemezen csak "
+"egyszer van tárolva."
 
-#: C/edit-adjustments.page:33(p)
+#. (itstool) path: page/p
+#: C/view-sidebar.page:25
 msgid ""
-"This tints the photo with a color. It's useful for correcting photos taken "
-"with the wrong white balance setting, which typically have an unnatural "
-"color cast. For example, photos taken outdoors with the white balance set to "
-"\"Tungsten\" may have a blue cast."
+"The <gui>Last Import</gui> view lists your last imported photos no matter if "
+"they are imported from F-Spot, your camera, a memory card or the hard disk."
 msgstr ""
+"Az <gui>Utolsó importálás</gui> nézet az utoljára importált fényképeket "
+"sorolja fel, függetlenül attól, hogy az F-Spotból, fényképezőgépéről, "
+"memóriakártyáról vagy a merevlemezről importálta azokat."
 
-#: C/edit-adjustments.page:36(title)
-msgid "Temperature"
-msgstr "Hőmérséklet"
+#. (itstool) path: page/p
+#: C/view-sidebar.page:27
+msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
+msgstr "A <gui>Megjelölt</gui> a korábban megjelölt fényképeket sorolja fel."
 
-#: C/edit-adjustments.page:37(p)
+#. (itstool) path: page/p
+#: C/view-sidebar.page:29
 msgid ""
-"Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
-"depressing scenes look more lively, for example."
+"The <gui>Saved Search</gui> allows you to sort your library by many criteria."
 msgstr ""
+"A <gui>Mentett keresés</gui> lehetővé teszi gyűjteménye rendezését több "
+"szempont szerint."
 
-#: C/edit-adjustments.page:40(title)
-msgid "Shadows"
-msgstr "Árnyékok"
-
-#: C/edit-adjustments.page:41(p)
+#. (itstool) path: page/p
+#: C/view-sidebar.page:31
 msgid ""
-"This makes shadowy areas appear lighter. Use this to make detail more "
-"visible if it's obscured by the darkness of a shadow."
-msgstr ""
-
-#: C/edit-adjustments.page:44(title)
-msgid "Intensity Threshold (sliders on the histogram)"
+"The <gui>Events</gui> folder lists all events in your library. An event is a "
+"group of photos that were taken at approximately the same time."
 msgstr ""
+"Az <gui>Események</gui> mappa felsorolja a gyűjtemény összes eseményt. Az "
+"esemény a nagyjából egy időben készített fényképek csoportja."
 
-#: C/edit-adjustments.page:45(p)
+#. (itstool) path: page/p
+#: C/view-sidebar.page:33
 msgid ""
-"These sliders change how light the brightest white is and how dark the "
-"darkest black is. Use them to change the contrast of the photo. Photos which "
-"look washed out should particularly benefit from changing these settings."
-msgstr ""
-
-#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
-#: C/edit-adjustments.page:0(None)
-msgid "translator-credits"
+"The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
+"can have multiple tags attached to them. When you click on the name of a tag "
+"in the sidebar, you will see all the photos associated with that tag."
 msgstr ""
-"Kelemen Gábor <kelemeng at gnome dot hu>, 2014.\n"
-" Úr Balázs <urbalazs at gmail dot hu>, 2015."
+"A <gui>Címkék</gui> mappa felsorolja a fényképekhez társított összes címkét. "
+"A fényképekhez több címke is csatolható. Amikor egy címke nevére kattint az "
+"oldalsávon, a címkéhez társított összes kép megjelenik."
 
