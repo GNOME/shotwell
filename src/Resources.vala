@@ -83,8 +83,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 16;
     public const int ICON_ZOOM_SCALE = 16;
     public const string ICON_GPS_MARKER = "gps-marker.svg";
+    public const string ICON_GPS_MARKER_HIGHLIGHTED = "gps-marker-highlighted.svg";
     public const string ICON_GPS_MARKER_SELECTED = "gps-marker-selected.svg";
     public const string ICON_GPS_GROUP_MARKER = "gps-markers-many.svg";
+    public const string ICON_GPS_GROUP_MARKER_HIGHLIGHTED = "gps-markers-many-highlighted.svg";
     public const string ICON_GPS_GROUP_MARKER_SELECTED = "gps-markers-many-selected.svg";
     public const string ICON_MAP_EDIT_LOCKED = "map-edit-locked.svg";
     public const string ICON_MAP_EDIT_UNLOCKED = "map-edit-unlocked.svg";

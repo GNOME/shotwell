@@ -4,16 +4,43 @@
  * See the COPYING file in this distribution.
  */
 
+private class MarkerImageSet {
+    public float marker_image_width;
+    public float marker_image_height;
+    public Clutter.Image? marker_image;
+    public Clutter.Image? marker_selected_image;
+    public Clutter.Image? marker_highlighted_image;
+}
+
 private abstract class PositionMarker : Object {
+    protected bool _highlighted = false;
     protected bool _selected = false;
+    protected MarkerImageSet image_set;
+
+    protected PositionMarker(Champlain.Marker champlain_marker, MarkerImageSet image_set) {
+        this.champlain_marker = champlain_marker;
+        this.image_set = image_set;
+        champlain_marker.selectable = true;
+        champlain_marker.set_content(image_set.marker_image);
+        float w = image_set.marker_image_width;
+        float h = image_set.marker_image_height;
+        champlain_marker.set_size(w, h);
+        champlain_marker.set_translation(-w * MapWidget.MARKER_IMAGE_HORIZONTAL_PIN_RATIO,
+                                         -h * MapWidget.MARKER_IMAGE_VERTICAL_PIN_RATIO, 0);
+    }
 
     public Champlain.Marker champlain_marker { get; protected set; }
 
     public bool highlighted {
-        get { return champlain_marker.get_selected(); }
+        get {
+            return _highlighted;
+        }
         set {
-            if (value || !_selected)
-                champlain_marker.set_selected(value);
+            if (_highlighted == value)
+                return;
+            _highlighted = value;
+            var base_image = _selected ? image_set.marker_selected_image : image_set.marker_image;
+            champlain_marker.set_content(value ? image_set.marker_highlighted_image : base_image);
         }
     }
     public bool selected {
@@ -21,44 +48,47 @@ private abstract class PositionMarker : Object {
             return _selected;
         }
         set {
+            if (_selected == value)
+                return;
             _selected = value;
+            if (!_highlighted) {
+                var base_image = value ?  image_set.marker_selected_image : image_set.marker_image;
+                champlain_marker.set_content(base_image);
+            }
             champlain_marker.set_selected(value);
         }
     }
 }
 
 private class DataViewPositionMarker : PositionMarker {
-    private Gee.LinkedList<weak DataViewPositionMarker> _data_view_position_markers = new Gee.LinkedList<weak DataViewPositionMarker>();
+    private Gee.LinkedList<weak DataViewPositionMarker> _data_view_position_markers =
+            new Gee.LinkedList<weak DataViewPositionMarker>();
 
-    // Geo lookup
-    // public string location_country { get; set; }
-    // public string location_city { get; set; }
     public weak DataView view { get; protected set; }
 
-    public DataViewPositionMarker(DataView view, Champlain.Marker champlain_marker) {
+    public DataViewPositionMarker(DataView view, Champlain.Marker champlain_marker,
+            MarkerImageSet image_set) {
+        base(champlain_marker, image_set);
         this.view = view;
-        champlain_marker.selectable = true;
+
         this._data_view_position_markers.add(this);
-        this.champlain_marker = champlain_marker;
     }
 
     public void bind_mouse_events(MapWidget map_widget) {
         champlain_marker.button_release_event.connect ((event) => {
-            if (event.button > 1 || _selected)
+            if (event.button > 1)
                 return true;
-            champlain_marker.selected = true;
+            selected = true;
             map_widget.select_data_views(_data_view_position_markers);
             return true;
         });
         champlain_marker.enter_event.connect ((event) => {
-            if (!_selected)
-                champlain_marker.selected = true;
+            highlighted = true;
             map_widget.highlight_data_views(_data_view_position_markers);
             return true;
         });
         champlain_marker.leave_event.connect ((event) => {
-            if (!_selected)
-                champlain_marker.selected = false;
+            highlighted = false;
             map_widget.unhighlight_data_views(_data_view_position_markers);
             return true;
         });
@@ -73,21 +103,22 @@ private class MarkerGroup : PositionMarker {
 
     public void bind_mouse_events(MapWidget map_widget) {
         champlain_marker.button_release_event.connect ((event) => {
-            if (event.button > 1 || _selected)
+            if (event.button > 1)
                 return true;
-            champlain_marker.selected = true;
+            selected = true;
+            foreach (var m in _data_view_position_markers) {
+                m.selected = true;
+            }
             map_widget.select_data_views(_data_view_position_markers.read_only_view);
             return true;
         });
         champlain_marker.enter_event.connect ((event) => {
-            if (!_selected)
-                champlain_marker.selected = true;
+            highlighted = true;
             map_widget.highlight_data_views(_data_view_position_markers.read_only_view);
             return true;
         });
         champlain_marker.leave_event.connect ((event) => {
-            if (!_selected)
-                champlain_marker.selected = false;
+            highlighted = false;
             map_widget.unhighlight_data_views(_data_view_position_markers.read_only_view);
             return true;
         });
@@ -97,9 +128,8 @@ private class MarkerGroup : PositionMarker {
         owned get { return _position_markers.read_only_view; }
     }
 
-    public MarkerGroup(Champlain.Marker champlain_marker) {
-        champlain_marker.selectable = true;
-        this.champlain_marker = champlain_marker;
+    public MarkerGroup(Champlain.Marker champlain_marker, MarkerImageSet image_set) {
+        base(champlain_marker, image_set);
     }
 
     public void add_position_marker(PositionMarker marker) {
@@ -160,6 +190,14 @@ private class MarkerGroupRaster : Object {
         }
     }
 
+    public void clear_selection() {
+        lock (position_markers) {
+            foreach (PositionMarker m in position_markers) {
+                m.selected = false;
+            }
+        }
+    }
+
     public unowned PositionMarker? find_position_marker(DataView data_view) {
         if (!data_view_map.has_key(data_view))
             return null;
@@ -203,6 +241,8 @@ private class MarkerGroupRaster : Object {
                     };
                     marker_group = map_widget.create_marker_group(rasterized_gps_coords);
                     marker_group.add_position_marker(cell);
+                    if (cell.selected) // group becomes selected if any contained marker is
+                        marker_group.selected = true;
                     if (cell is DataViewPositionMarker)
                         data_view_map.set(((DataViewPositionMarker) cell).view, marker_group);
                     yg.set(y, marker_group);
@@ -271,16 +311,10 @@ private class MapWidget : Gtk.Bin {
 
     public const float MARKER_IMAGE_HORIZONTAL_PIN_RATIO = 0.5f;
     public const float MARKER_IMAGE_VERTICAL_PIN_RATIO = 0.825f;
-    public float marker_image_width { get; private set; }
-    public float marker_image_height { get; private set; }
-    public float marker_group_image_width { get; private set; }
-    public float marker_group_image_height { get; private set; }
     public float map_edit_lock_image_width { get; private set; }
     public float map_edit_lock_image_height { get; private set; }
-    public Clutter.Image? marker_image { get; private set; }
-    public Clutter.Image? marker_selected_image { get; private set; }
-    public Clutter.Image? marker_group_image { get; private set; }
-    public Clutter.Image? marker_group_selected_image { get; private set; }
+    public MarkerImageSet marker_image_set { get; private set; }
+    public MarkerImageSet marker_group_image_set { get; private set; }
     public const Clutter.Color marker_point_color = { 10, 10, 255, 192 };
 
     public signal void zoom_changed();
@@ -319,9 +353,39 @@ private class MapWidget : Gtk.Bin {
     }
 
     public void set_page(Page page) {
+        bool page_changed = false;
         if (this.page != page) {
             this.page = page;
+            page_changed = true;
+            clear();
+        }
+        ViewCollection view_collection = page.get_view();
+        if (view_collection == null)
+            return;
+
+        if (page_changed) {
             data_view_marker_cache.clear();
+            foreach (DataObject view in view_collection.get_all()) {
+                if (view is DataView)
+                    add_data_view((DataView) view);
+            }
+            show_position_markers();
+        }
+        // In any case, the selection did change..
+        var selected = view_collection.get_selected();
+        if (selected != null) {
+            marker_group_raster.clear_selection();
+            foreach (DataView v in view_collection.get_selected()) {
+
+                var position_marker = marker_group_raster.find_position_marker(v);
+                if (position_marker != null)
+                    position_marker.selected = true;
+                if (position_marker is MarkerGroup) {
+                    DataViewPositionMarker? m = data_view_marker_cache.get(v);
+                    if (m != null)
+                        m.selected = true;
+                }
+            }
         }
     }
 
@@ -538,18 +602,26 @@ private class MapWidget : Gtk.Bin {
 
         // Load icons
         float w, h;
-        marker_image = Resources.get_icon_as_clutter_image(
+        marker_image_set = new MarkerImageSet();
+        marker_group_image_set = new MarkerImageSet();
+        marker_image_set.marker_image = Resources.get_icon_as_clutter_image(
                 Resources.ICON_GPS_MARKER, out w, out h);
-        marker_image_width = w;
-        marker_image_height = h;
-        marker_selected_image = Resources.get_icon_as_clutter_image(
+        marker_image_set.marker_image_width = w;
+        marker_image_set.marker_image_height = h;
+        marker_image_set.marker_selected_image = Resources.get_icon_as_clutter_image(
                 Resources.ICON_GPS_MARKER_SELECTED, out w, out h);
-        marker_group_image = Resources.get_icon_as_clutter_image(
+        marker_image_set.marker_highlighted_image = Resources.get_icon_as_clutter_image(
+                Resources.ICON_GPS_MARKER_HIGHLIGHTED, out w, out h);
+
+        marker_group_image_set.marker_image = Resources.get_icon_as_clutter_image(
                 Resources.ICON_GPS_GROUP_MARKER, out w, out h);
-        marker_group_image_width = w;
-        marker_group_image_height = h;
-        marker_group_selected_image = Resources.get_icon_as_clutter_image(
+        marker_group_image_set.marker_image_width = w;
+        marker_group_image_set.marker_image_height = h;
+        marker_group_image_set.marker_selected_image = Resources.get_icon_as_clutter_image(
                 Resources.ICON_GPS_GROUP_MARKER_SELECTED, out w, out h);
+        marker_group_image_set.marker_highlighted_image = Resources.get_icon_as_clutter_image(
+                Resources.ICON_GPS_GROUP_MARKER_HIGHLIGHTED, out w, out h);
+
         map_edit_locked_image = Resources.get_icon_as_clutter_image(
                 Resources.ICON_MAP_EDIT_LOCKED, out w, out h);
         map_edit_unlocked_image = Resources.get_icon_as_clutter_image(
@@ -565,26 +637,11 @@ private class MapWidget : Gtk.Bin {
         }
     }
 
-    private Champlain.Marker create_champlain_marker(GpsCoords gps_coords, Clutter.Image? marker_image,
-                                                     Clutter.Image? marker_selected_image,
-                                                     float marker_image_width, float marker_image_height) {
+    private Champlain.Marker create_champlain_marker(GpsCoords gps_coords) {
         assert(gps_coords.has_gps > 0);
+
         Champlain.Marker champlain_marker;
-        if (marker_image == null) {
-            // Fall back to the generic champlain marker
-            champlain_marker = new Champlain.Point.full(12, marker_point_color);
-        } else {
-            champlain_marker = new Champlain.Marker();
-            champlain_marker.set_content(marker_image);
-            champlain_marker.set_size(marker_image_width, marker_image_height);
-            champlain_marker.set_translation(-marker_image_width * MARKER_IMAGE_HORIZONTAL_PIN_RATIO,
-                                             -marker_image_height * MARKER_IMAGE_VERTICAL_PIN_RATIO, 0);
-            champlain_marker.notify.connect((o, p) => {
-                Champlain.Marker? m = o as Champlain.Marker;
-                if (p.name == "selected")
-                    m.set_content(m.selected ? marker_selected_image : marker_image);
-            });
-        }
+        champlain_marker = new Champlain.Marker();
         champlain_marker.set_pivot_point(0.5f, 0.5f); // set center of marker
         champlain_marker.set_location(gps_coords.latitude, gps_coords.longitude);
         return champlain_marker;
@@ -597,18 +654,16 @@ private class MapWidget : Gtk.Bin {
         DataSource data_source = view.get_source();
         Positionable p = (Positionable) data_source;
         GpsCoords gps_coords = p.get_gps_coords();
-        Champlain.Marker champlain_marker = create_champlain_marker(gps_coords, marker_image,
-            marker_selected_image, marker_image_width, marker_image_height);
-        position_marker = new DataViewPositionMarker(view, champlain_marker);
+        Champlain.Marker champlain_marker = create_champlain_marker(gps_coords);
+        position_marker = new DataViewPositionMarker(view, champlain_marker, marker_image_set);
         position_marker.bind_mouse_events(this);
         data_view_marker_cache.set(view, position_marker);
         return (owned) position_marker;
     }
 
     internal MarkerGroup create_marker_group(GpsCoords gps_coords) {
-        Champlain.Marker champlain_marker = create_champlain_marker(gps_coords, marker_group_image,
-            marker_group_selected_image, marker_group_image_width, marker_group_image_height);
-        var g = new MarkerGroup(champlain_marker);
+        Champlain.Marker champlain_marker = create_champlain_marker(gps_coords);
+        var g = new MarkerGroup(champlain_marker, marker_group_image_set);
         g.bind_mouse_events(this);
         return (owned) g;
     }

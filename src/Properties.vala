@@ -197,7 +197,6 @@ private class BasicProperties : Properties {
         clip_duration = 0.0;
         raw_developer = "";
         raw_assoc = "";
-        map_widget.clear();
     }
 
     protected override void get_single_properties(DataView view) {
@@ -268,8 +267,6 @@ private class BasicProperties : Properties {
             }
             end_time = start_time;
         }
-        map_widget.add_data_view(view);
-
     }
 
     protected override void get_multiple_properties(Gee.Iterable<DataView>? iter) {
@@ -334,14 +331,12 @@ private class BasicProperties : Properties {
 
                 video_count++;
             }
-            map_widget.add_data_view(view);
         }
     }
 
     protected override void get_properties(Page current_page) {
         base.get_properties(current_page);
 
-        map_widget.set_page(current_page);
         if (end_time == 0)
             end_time = start_time;
         if (start_time == 0)
@@ -468,7 +463,7 @@ private class BasicProperties : Properties {
             }
         }
 
-        map_widget.show_position_markers();
+        map_widget.set_page(page);
     }
 }
 
