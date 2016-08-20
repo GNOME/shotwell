@@ -12,6 +12,12 @@ private class MarkerImageSet {
     public Clutter.Image? marker_highlighted_image;
 }
 
+private enum SelectionAction {
+    SET,
+    ADD,
+    REMOVE
+}
+
 private abstract class PositionMarker : Object {
     protected bool _highlighted = false;
     protected bool _selected = false;
@@ -78,8 +84,13 @@ private class DataViewPositionMarker : PositionMarker {
         champlain_marker.button_release_event.connect ((event) => {
             if (event.button > 1)
                 return true;
-            selected = true;
-            map_widget.select_data_views(_data_view_position_markers);
+            bool mod = (bool)(event.modifier_state &
+                    (Clutter.ModifierType.CONTROL_MASK | Clutter.ModifierType.SHIFT_MASK));
+            SelectionAction action = SelectionAction.SET;
+            if (mod)
+                action = _selected ? SelectionAction.REMOVE : SelectionAction.ADD;
+            selected = (action != SelectionAction.REMOVE);
+            map_widget.select_data_views(_data_view_position_markers, action);
             return true;
         });
         champlain_marker.enter_event.connect ((event) => {
@@ -105,11 +116,16 @@ private class MarkerGroup : PositionMarker {
         champlain_marker.button_release_event.connect ((event) => {
             if (event.button > 1)
                 return true;
-            selected = true;
+            bool mod = (bool)(event.modifier_state &
+                    (Clutter.ModifierType.CONTROL_MASK | Clutter.ModifierType.SHIFT_MASK));
+            SelectionAction action = SelectionAction.SET;
+            if (mod)
+                action = _selected ? SelectionAction.REMOVE : SelectionAction.ADD;
+            selected = (action != SelectionAction.REMOVE);
             foreach (var m in _data_view_position_markers) {
-                m.selected = true;
+                m.selected = _selected;
             }
-            map_widget.select_data_views(_data_view_position_markers.read_only_view);
+            map_widget.select_data_views(_data_view_position_markers.read_only_view, action);
             return true;
         });
         champlain_marker.enter_event.connect ((event) => {
@@ -445,7 +461,8 @@ private class MapWidget : Gtk.Bin {
         }
     }
 
-    public void select_data_views(Gee.Collection<unowned DataViewPositionMarker> ms) {
+    public void select_data_views(Gee.Collection<unowned DataViewPositionMarker> ms,
+            SelectionAction action = SelectionAction.SET) {
         if (page == null)
             return;
 
@@ -457,8 +474,13 @@ private class MapWidget : Gtk.Bin {
                     marked.mark(m.view);
                 }
             }
-            page_view.unselect_all();
-            page_view.select_marked(marked);
+            if (action == SelectionAction.REMOVE) {
+                page_view.unselect_marked(marked);
+            } else {
+                if (action == SelectionAction.SET)
+                    page_view.unselect_all();
+                page_view.select_marked(marked);
+            }
         }
     }
 
