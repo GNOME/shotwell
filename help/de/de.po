@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.20\n"
-"POT-Creation-Date: 2016-07-25 02:19+0000\n"
-"PO-Revision-Date: 2016-08-18 20:59+0200\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2016-08-18 20:05+0000\n"
+"PO-Revision-Date: 2016-08-20 15:03+0200\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -622,8 +622,8 @@ msgid ""
 "a file that contains extra color information; this is commonly referred to "
 "as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
 msgstr ""
-"Einige Kameras können Daten direkt vom Sensor ablesen und mit zusätzlichen "
-"\" \"Farbinformationen in eine Datei schreiben. Diese werden allgemein als "
+"Einige Kameras können Daten direkt vom Sensor ablesen und in eine Datei "
+"schreiben mit zusätzlichen Farbinformationen. Diese werden allgemein als "
 "»RAW«-Dateien bezeichnet. Shotwell unterstützt diese Dateien."
 
 #: C/raw.page:18(p)
@@ -636,15 +636,15 @@ msgid ""
 "+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
 "treat them as one item in your library."
 msgstr ""
-"Weil RAW-Fotos normalerweise nicht direkt dargestellt werden können, müssen "
-"diese zunächst entwickelt werden. Das heißt, die zusätzlichen Informationen "
+"Weil RAW-Fotos normalerweise nicht direkt dargestellt werden können müssen "
+"diese zunächst entwickelt werden. Das heißt die zusätzlichen Informationen "
 "werden interpretiert und für die Anzeige vorbereitet. Die meisten Kameras "
 "betten bei einer Aufnahme ein JPEG in einer RAW-Datei ein oder erstellen "
-"eine zusätzliche JPEG-Datei. Letzteres Verfahren wird in diesem Dokument als "
-"RAW+JPEG bezeichnet. Wenn Sie ein RAW+JPEG-Paar importieren, wird Shotwell "
-"beide gemeinsam behalten und als ein Objekt in Ihrer Bibliothek führen."
+"neben der RAW-Datei ein JPEG. Letzteres Verfahren wird in diesem Dokument "
+"als RAW+JPEG bezeichnet. Wenn Sie ein RAW+JPEG-Paar importieren, wird "
+"Shotwell beide gemeinsam behalten und als ein Objekt in Ihrer Bibliothek "
+"führen."
 
-# »in the menus« ist Blödsinn, es gibt nur ein Menü.
 #: C/raw.page:27(p)
 msgid ""
 "When you import a RAW file, you can choose to either use the camera's "
@@ -685,12 +685,16 @@ msgstr "Die Funktionalität von Shotwell dynamisch erweitern."
 msgid "Plugins"
 msgstr "Plugins"
 
+# Eigentlich völlig überflüssig, diese »companion shared libraries«, den gewöhnlichen Benutzer interessiert es sowieso nicht, wie ein Plugin intern funktioniert. Es ist eher verwirrend.
 #: C/other-plugins.page:13(p)
 msgid ""
 "Shotwell can be used with <em>plugins</em>, which are companion shared "
 "libraries that can add support for new publishing destinations or new "
 "slideshow transitions."
 msgstr ""
+"In Shotwell können <em>Plugins</em> verwendet werden. Das sind begleitende "
+"gemeinsam genutzte Bibliotheken, die Unterstützung für neue "
+"Veröffentlichungsziele oder neue Übergänge für Diaschauen hinzufügen."
 
 #: C/other-plugins.page:18(p)
 msgid ""
@@ -700,6 +704,12 @@ msgid ""
 "installed plugins, each with a checkbox by it, and you may enable or disable "
 "each by selecting or deselecting the checkbox by its name."
 msgstr ""
+"Um eine Liste der installierten Plugins zu sehen, wählen Sie "
+"<guiseq><gui>Bearbeiten</gui><gui>Einstellungen</gui></guiseq> und "
+"anschließend im Fenster <gui>Einstellungen</gui> den Reiter <gui>Plugins</"
+"gui>. Es wird eine Liste der derzeit installierten Plugins angezeigt. Über "
+"das Ankreuzfeld neben jedem der Plugins können Sie es aktivieren oder "
+"deaktivieren."
 
 #: C/other-plugins.page:25(p)
 msgid ""
@@ -708,12 +718,17 @@ msgid ""
 "\">http://redmine.yorba.org/projects/shotwell/wiki/"
 "ShotwellArchWritingPlugins</link>"
 msgstr ""
+"Eine vollständige Dokumentation über die Entwicklung eigener Plugins finden "
+"Sie im <link href=\"http://redmine.yorba.org/projects/shotwell/wiki/"
+"ShotwellArchWritingPlugins\">Shotwell-Wiki</link>."
 
 #: C/other-multiple.page:7(desc)
 msgid ""
 "You can open Shotwell with a different photo library by using the command "
 "line."
 msgstr ""
+"Sie können Shotwell mit einer anderen Fotobibliothek öffnen, wenn Sie die "
+"Befehlszeile verwenden."
 
 #: C/other-multiple.page:12(title)
 msgid "Multiple libraries"
@@ -738,6 +753,11 @@ msgid ""
 "own database directory. To launch Shotwell with an alternate library, "
 "specify an alternate database directory on the command line as follows:"
 msgstr ""
+"Als erweitertes Funktionsmerkmal können Sie mehrere Shotwell-Bibliotheken "
+"mit jeweils eigenen Fotos haben. Dabei benötigt jede der Bibliotheken ihren "
+"eigenen Datenbankordner. Um Shotwell mit einer alternativen Bibliothek zu "
+"öffnen, geben Sie in der Befehlszeile den entsprechenden Datenbankordner wie "
+"folgt an:"
 
 #: C/other-multiple.page:18(screen)
 #, no-wrap
@@ -792,6 +812,12 @@ msgid ""
 "if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
 "to learn how to copy files from removable disks onto your computer."
 msgstr ""
+"Wenn Sie Fotos auf einem Wechseldatenträger haben, wie einer CD oder einem "
+"USB-Stick, und diese in Shotwell <link xref=\"index#import\">importieren</"
+"link>, <em>ohne</em> dass die Fotos auf Ihren Rechner kopiert werden, werden "
+"diese Fotos als fehlend markiert, sobald Sie den Wechseldatenträger "
+"entfernen. In <link xref=\"import-file\"/> finden Sie eine Anleitung, wie "
+"Sie Dateien von Wechseldatenträgern auf Ihren Rechner kopieren."
 
 #: C/other-missing.page:20(p)
 msgid ""
@@ -799,10 +825,15 @@ msgid ""
 "the next time it starts. The photos will once again appear in the Photos, "
 "Events and Tags views."
 msgstr ""
+"Wenn eines der fehlenden Fotos wieder verfügbar ist, bemerkt Shotwell dies, "
+"wenn es das nächste Mal gestartet wird. Die Fotos erscheinen wieder in den "
+"Foto-, Ereignis- und Stichwortansichten."
 
 #: C/other-files.page:7(desc)
 msgid "Keep the Shotwell library in sync with photo files on disk."
 msgstr ""
+"Halten Sie die Shotwell-Bibliothek auf dem gleichen Stand wie die Fotos auf "
+"Ihrer Festplatte."
 
 #: C/other-files.page:12(title)
 msgid "Photo files"
@@ -814,6 +845,9 @@ msgid ""
 "hard disk. Shotwell has several features which help you keep the Shotwell "
 "library and files on disk in sync."
 msgstr ""
+"Jedes Foto in der Shotwell-Bibliothek entspricht einer auf Ihrer Festplatte "
+"gespeicherten Datei. Shotwell verfügt über verschiedene Funktionen, um die "
+"Shotwell-Bibliothek mit den Dateien auf der Festplatte synchron zu halten."
 
 #: C/other-files.page:21(title)
 msgid "Using a custom directory pattern"
@@ -838,6 +872,10 @@ msgid ""
 "sign). The values these symbols produce are locale-dependent, so what you "
 "see on your computer may vary from the examples below."
 msgstr ""
+"Die verfügbaren Symbole für das Ordnernamensmuster beginnen mit einem % "
+"(Prozentzeichen). Die Werte dieser Symbole sind von der Spracheinstellung "
+"abhängig. Folglich kann das Ergebnis auf Ihrem Rechner von den nachfolgenden "
+"Beispielen abweichen."
 
 #: C/other-files.page:38(em)
 msgid "Symbol"
@@ -1013,6 +1051,9 @@ msgid ""
 "running the command <cmd>man strftime</cmd> if you need one that isn't "
 "listed here."
 msgstr ""
+"Es sind weitere Symbole verfügbar. Bitte schauen Sie dazu im Handbuch von "
+"strftime nach, welches Sie mit dem Befehl <cmd>man strftime</cmd> ansehen "
+"können, falls ein benötigtes Symbol hier nicht aufgelistet ist."
 
 #: C/other-files.page:79(title)
 msgid "Automatically importing photos"
@@ -1025,22 +1066,31 @@ msgid ""
 "directory in your home directory; you can change its location in in the "
 "<gui>Preferences</gui> window.)"
 msgstr ""
+"Shotwell kann Fotos automatisch importieren, die dann im Bibliotheksordner "
+"erscheinen. Der Bibliotheksordner befindet sich im Allgemeinen im Ordner "
+"<file>Bilder</file> in Ihrem persönlichen Ordner. Diesen Ort können Sie in "
+"den <gui>Einstellungen</gui> ändern."
 
 #: C/other-files.page:86(p)
 msgid ""
 "To enable auto-import, check the box <gui>Watch library directory for new "
 "files</gui> in the <gui>Preferences</gui> window."
 msgstr ""
+"Um den automatischen Import zu aktivieren, aktivieren Sie das Ankreuzfeld "
+"<gui>Bibliotheksordner auf neue Dateien überwachen</gui> in den "
+"<gui>Einstellungen</gui>."
 
 #: C/other-files.page:90(p)
 msgid ""
 "Shotwell can also follow symbolic links inside automatically-imported "
 "directories."
 msgstr ""
+"Shotwell kann auch symbolischen Verknüpfungen innerhalb der automatisch "
+"importierten Ordner folgen."
 
 #: C/other-files.page:95(title)
 msgid "Automatically renaming imported photos to lowercase"
-msgstr ""
+msgstr "Umbenennen automatisch importierter Fotos in Kleinbuchstaben"
 
 #: C/other-files.page:97(p)
 msgid ""
@@ -1049,10 +1099,15 @@ msgid ""
 "gui></guiseq>, and in the <gui>Preferences</gui> window, check the "
 "<gui>Rename imported files to lowercase</gui> box."
 msgstr ""
+"Shotwell kann automatisch die Dateinamen importierter Fotos in "
+"Kleinbuchstaben ändern. Um dies zu aktivieren, wählen Sie "
+"<guiseq><gui>Bearbeiten</gui><gui>Einstellungen</gui></guiseq> und "
+"aktivieren Sie im <gui>Einstellungen</gui>-Fenster das Ankreuzfeld "
+"<gui>Namen von importierten Dateien in Kleinbuchstaben ändern</gui>."
 
 #: C/other-files.page:107(title)
 msgid "Writing metadata on the fly"
-msgstr ""
+msgstr "Metadaten unmittelbar ändern"
 
 #: C/other-files.page:109(p)
 msgid ""
@@ -1060,6 +1115,9 @@ msgid ""
 "or change their tags or titles. Shotwell records these changes in its own "
 "database only."
 msgstr ""
+"In der Voreinstellung ändert Shotwell keine Fotos, selbst wenn Sie sie "
+"bearbeiten oder deren Stichworte und Titel ändern. Solche Änderungen werden "
+"lediglich in der Shotwell-eigenen Datenbank registriert."
 
 #: C/other-files.page:112(p)
 msgid ""
@@ -1068,6 +1126,11 @@ msgid ""
 "dialog. When this option is enabled, Shotwell will write the following "
 "metadata to most photo files whenever you change it in Shotwell:"
 msgstr ""
+"Um dieses Verhalten zu ändern, aktivieren Sie das Ankreuzfeld "
+"<gui>Stichworte, Titel und andere Metadaten in die Fotodateien schreiben</"
+"gui> im <gui>Einstellungen</gui>-Dialog. Wenn diese option aktiviert ist, "
+"werden die folgenden Metadaten in die Fotodateien geschrieben, sobald Sie "
+"sie in Shotwell ändern:"
 
 #: C/other-files.page:118(p)
 msgid "titles"
@@ -1095,10 +1158,14 @@ msgid ""
 "format. Note that Shotwell can write only to photo files in JPEG, PNG and "
 "TIFF format, not to BMP photos, RAW photos or to video files."
 msgstr ""
+"Shotwell speichert diese Informationen in Fotodateien im EXIF-, IPTC- und/"
+"oder XMP-Format. Beachten Sie, dass Shotwell nur in Fotodateien in den "
+"Formaten JPEG, PNG und TIFF schreiben kann, nicht in BMP-Fotos, RAW-Fotos "
+"oder Videodateien."
 
 #: C/other-files.page:133(title)
 msgid "Runtime monitoring"
-msgstr ""
+msgstr "Überwachung zur Laufzeit"
 
 #: C/other-files.page:135(p)
 msgid ""
@@ -1106,6 +1173,9 @@ msgid ""
 "externally. When a photo file changes, Shotwell rereads the file and updates "
 "your view of the photo and metadata."
 msgstr ""
+"Wenn Shotwell ausgeführt wird, werden Änderungen an jeder Fotodatei extern "
+"gespeichert. Bei Änderungen an einer Fotodatei liest Shotwell diese erneut "
+"ein und aktualisiert die Bild- und Metadatenansicht."
 
 #: C/other-files.page:139(p)
 msgid ""
@@ -1113,6 +1183,10 @@ msgid ""
 "photo files contained in the library directory are monitored in real time "
 "after startup. We hope to remove this limitation in a further release."
 msgstr ""
+"Beachten Sie, das Shotwell beim Start alle Fotodateien auf Änderungen prüft, "
+"jedoch nach dem Start nur die im Bibliotheksordner enthaltenen Fotodateien "
+"in Echtzeit überwacht werden. Wir hoffen, diese Einschränkung in einer "
+"zukünftigen Version dieses Programms beseitigen zu können."
 
 #: C/organize-title.page:7(desc)
 msgid "Give titles to your photos."
@@ -1128,12 +1202,18 @@ msgid ""
 "display of titles beneath each photo. By default, a photo's title is its "
 "filename."
 msgstr ""
+"Das Ankreuzfeld in <guiseq><gui>Ansicht</gui><gui>Titel</gui></guiseq> "
+"schaltet die Anzeige von Titeln neben jedem Foto an oder aus. In der "
+"Voreinstellung wird der Dateiname als Titel des Fotos verwendet."
 
 #: C/organize-title.page:17(p)
 msgid ""
 "To change a photo's title, select the photo and click <guiseq><gui>Photos</"
 "gui><gui>Edit Title</gui></guiseq>, or press <key>F2</key>."
 msgstr ""
+"Um einen Titel zu ändern, wählen Sie das Foto aus und wählen Sie "
+"anschließend <guiseq><gui>Fotos</gui><gui>Titel bearbeiten</gui></guiseq> "
+"oder drücken Sie <key>F2</key>."
 
 #: C/organize-tag.page:7(desc)
 msgid "Organize photos by labelling them."
@@ -1148,16 +1228,23 @@ msgid ""
 "You can assign one or more tags to selected photos. A tag can be one or more "
 "words that you want to associate with those photos."
 msgstr ""
+"Sie können den ausgewählten Fotos eines oder mehrere Stichworte zuweisen. "
+"Ein Stichwort kann aus einem oder mehreren Wörtern bestehen, die Sie mit "
+"diesen Fotos verbinden."
 
 #: C/organize-tag.page:22(p)
 msgid ""
 "To add new tags to photos, select the photos you would like to tag, then do "
 "any of the following:"
 msgstr ""
+"Um neue Stichworte zu Fotos hinzuzufügen, wählen Sie zunächst die "
+"gewünschten Fotos aus. Auf folgende Weise können Sie nun Stichworte zuweisen:"
 
 #: C/organize-tag.page:28(p)
 msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
 msgstr ""
+"Wählen Sie <guiseq><gui>Stichworte</gui><gui>Stichworte hinzufügen</gui></"
+"guiseq>."
 
 #: C/organize-tag.page:29(p)
 msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
@@ -1166,6 +1253,8 @@ msgstr "Drücken Sie <keyseq><key>Strg</key><key>T</key></keyseq>."
 #: C/organize-tag.page:30(p)
 msgid "Drag the selected photos and drop them on the desired tag."
 msgstr ""
+"Ziehen Sie die gewünschten Fotos und legen Sie sie auf dem gewünschten "
+"Stichwort ab."
 
 #: C/organize-tag.page:33(p)
 msgid ""
@@ -1207,7 +1296,7 @@ msgstr ""
 
 #: C/organize-tag.page:73(title)
 msgid "Hierarchical Tags"
-msgstr ""
+msgstr "Hierarchische Stichworte"
 
 #: C/organize-tag.page:74(p)
 msgid ""
@@ -1231,6 +1320,8 @@ msgstr ""
 #: C/organize-search.page:7(desc)
 msgid "Find photos and videos in your collection by a variety of criteria."
 msgstr ""
+"So finden Sie Fotos und Videos in Ihrer Sammlung anhand einer Vielzahl von "
+"Kriterien."
 
 #: C/organize-search.page:12(title)
 msgid "Searching"
@@ -1243,6 +1334,11 @@ msgid ""
 "for certain criteria. Saved Searches feature more complex search criteria "
 "and persist in the sidebar between sessions."
 msgstr ""
+"Es gibt zwei Suchmöglichkeiten in Shotwell: Die Filter-Werkzeugleiste und "
+"gespeicherte Suchen. Die Suchleiste ermöglicht eine schnellere Suche in der "
+"aktuellen Ansicht nach einem bestimmten Kriterium. Gespeicherte Suchen "
+"bieten komplexere Suchkriterien und verbleiben über Sitzungen hinweg in der "
+"Seitenleiste."
 
 #: C/organize-search.page:21(title)
 msgid "Search bar"
@@ -1273,6 +1369,8 @@ msgid ""
 "Disabling the search bar or exiting Shotwell automatically resets the search "
 "bar."
 msgstr ""
+"Durch Deaktivieren der Suchleiste oder Beenden von Shotwell wird die "
+"Suchleiste automatisch zurückgesetzt."
 
 #: C/organize-search.page:44(title)
 msgid "Saved search"
@@ -1283,6 +1381,9 @@ msgid ""
 "A saved search persists across Shotwell sessions, and is updated as photos "
 "and videos are added and removed from your Shotwell library."
 msgstr ""
+"Eine gespeicherte Suche bleibt auch für eine spätere Shotwell-Sitzung "
+"erhalten. Sie wird durch Hinzufügen und Entfernen von Fotos und Videos zur "
+"beziehungsweise aus der Shotwell-Bibliothek aktualisiert."
 
 #: C/organize-search.page:50(p)
 msgid ""
@@ -1311,20 +1412,24 @@ msgstr ""
 msgid ""
 "Remove photos from the library, or delete them from your computer entirely."
 msgstr ""
+"Entfernen Sie Fotos aus der Bibliothek oder löschen Sie sie vollständig von "
+"Ihrem Rechner."
 
 #: C/organize-remove.page:12(title)
 msgid "Removing and deleting photos"
-msgstr ""
+msgstr "Entfernen und Löschen von Fotos"
 
 #: C/organize-remove.page:14(p)
 msgid ""
 "You may remove photos from your library and you may additionally delete them "
 "entirely from your hard disk."
 msgstr ""
+"Sie können Fotos aus Ihrer Bibliothek entfernen und diese zusätzlich "
+"vollständig von der Festplatte löschen."
 
 #: C/organize-remove.page:15(media)
 msgid "Delete process"
-msgstr ""
+msgstr "Löschvorgang"
 
 #: C/organize-remove.page:16(p)
 msgid ""
@@ -1333,6 +1438,11 @@ msgid ""
 "computer's trash. If you delete it from your computer's trash the photo is "
 "finally and irretrievably deleted from your computer."
 msgstr ""
+"Das Diagramm zeigt, wie ein Foto beim Löschen zunächst in den Shotwell-"
+"eigenen Papierkorb verschoben wird. Wenn Sie es aus dem Papierkorb "
+"entfernen, wird es in den systemeigenen Papierkorb verschoben. Sobald Sie es "
+"aus diesem globalen Papierkorb entfernen, wird es unwiderruflich und "
+"endgültig von Ihrem Rechner entfernt."
 
 #: C/organize-remove.page:18(title)
 msgid "Removing photos from the library"
@@ -1344,6 +1454,10 @@ msgid ""
 "Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
 "photos will be moved from your library to Shotwell's Trash."
 msgstr ""
+"Wählen Sie die zu entfernenden Fotos aus udn wählen Sie "
+"<guiseq><gui>Bearbeiten</gui><gui>In den Papierkorb verschieben</gui></"
+"guiseq> oder drücken Sie die <key>Löschtaste</key>. Die Fotos werden aus "
+"Ihrer Bibliothek in den Shotwell-eigenen Papierkorb verschoben."
 
 #: C/organize-remove.page:22(p)
 msgid ""
@@ -1352,6 +1466,11 @@ msgid ""
 "<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
 "files will be left in place on disk."
 msgstr ""
+"Wenn Sie Fotos aus Shotwell entfernen und dabei den Papierkorb umgehen "
+"wollen, wählen Sie einfach die zu entfernenden Fotos aus und wählen Sie "
+"<guiseq><gui>Bearbeiten</gui><gui>Aus der Bibliothek entfernen</gui></"
+"guiseq>. Die eigentlichen Fotodateien auf Ihrer Festplatte bleiben dabei "
+"erhalten."
 
 #: C/organize-remove.page:26(title)
 msgid "Emptying or restoring the trash folder"
@@ -1363,6 +1482,9 @@ msgid ""
 "that have been marked for removal or deletion. In the Trash view, the "
 "following commands are available:"
 msgstr ""
+"Wählen Sie den Papierkorb-Eintrag in der Seitenleiste aus. Dadurch zeigt "
+"Shotwell alle Fotos an, die zum Entfernen oder Löschen markiert wurden. In "
+"der Papierkorb-Ansicht haben Sie folgende Möglichkeiten:"
 
 #: C/organize-remove.page:29(title)
 msgid "Delete"
@@ -1435,6 +1557,8 @@ msgid ""
 "Give photos a rating between 1 and 5 stars. You can reject bad photos, "
 "hiding them from view."
 msgstr ""
+"Geben Sie Ihren Fotos eine Bewertung zwischen einem und fünf Sternen. Sie "
+"können schlechte Fotos ablehnen, wodurch sie in der Ansicht verborgen werden."
 
 #: C/organize-rating.page:12(title)
 msgid "Ratings"
@@ -1445,22 +1569,29 @@ msgid ""
 "You can assign each photo a rating from 1-5 stars, or may alternatively rate "
 "it as Rejected, in which case Shotwell will hide the photo by default."
 msgstr ""
+"Sie können jedem Foto eine Bewertung zwischen einem und fünf Sternen "
+"zuweisen oder es alternativ als abgelehnt markieren, wodurch Shotwell dieses "
+"Foto in der Voreinstellung nicht mehr anzeigt."
 
 #: C/organize-rating.page:15(p)
 msgid "You can rate a photo or a set of photos in any of these ways:"
-msgstr ""
+msgstr "Sie können auf folgende Weise ein Foto oder mehrere Fotos bewerten:"
 
 #: C/organize-rating.page:18(p)
 msgid ""
 "Select the photo(s), then choose a rating from the top-level "
 "<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
 msgstr ""
+"Wählen Sie das Foto oder die Fotos aus und wählen Sie eine Bewertung aus dem "
+"Menü <guiseq><gui>Fotos</gui><gui>Bewerten</gui></guiseq>"
 
 #: C/organize-rating.page:19(p)
 msgid ""
 "Right-click on the photo(s), then choose a rating from the Set Rating "
 "context menu."
 msgstr ""
+"Klicken Sie mit der rechten Maustaste auf das Foto oder die Fotos und wählen "
+"Sie eine Bewertung aus dem Eintrag <gui>Bewerten</gui> im Kontextmenü aus."
 
 #: C/organize-rating.page:20(p)
 msgid ""
@@ -1469,6 +1600,11 @@ msgid ""
 "Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
 "clear the rating(s)."
 msgstr ""
+"Wählen Sie das Foto oder die Fotos aus und drücken Sie eine der Tasten "
+"<key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> oder <key>5</key>, um "
+"eine Bewertung zuzuweisen. Durch Drücken von <key>9</key> markieren Sie das "
+"Foto als abgelehnt und mit <key>0</key> können Sie vorhandene Bewertungen "
+"löschen."
 
 #: C/organize-rating.page:23(p)
 msgid ""
@@ -1479,6 +1615,14 @@ msgid ""
 "rejected. The Shotwell icon on the toolbar displays the current rating "
 "filter and can also be used to set the filter."
 msgstr ""
+"Normalerweise zeigt Shotwell alle bis auf die abgelehnten Fotos an. Sie "
+"können im Menü <guiseq><gui>Ansicht</gui><gui>Fotos filtern</gui></guiseq> "
+"eine andere Filterung der Bewertungen festlegen. Beispielsweise können Sie "
+"nur Fotos anzeigen, die mit 3 Sternen oder höher bewertet sind, oder auch "
+"jene Fotos in der Anzeige erscheinen lassen, die als abgelehnt markiert "
+"sind. Das Shotwell-Symbol in der Werkzeugleiste zeigt den aktuellen "
+"Bewertungsfilter an und kann auch zum Einrichten des Filters verwendet "
+"werden."
 
 #: C/organize-rating.page:26(p)
 msgid ""
@@ -1543,6 +1687,9 @@ msgid ""
 "Group photos together that were taken at the same time. Learn how to rename, "
 "merge, and sort events."
 msgstr ""
+"Gruppieren Sie Fotos, die zur gleichen Zeit aufgenommen wurden. Erfahren "
+"Sie, wie Sie sie umbenennen, zusammenführen und nach Ereignissen sortieren "
+"können."
 
 #: C/organize-event.page:12(title)
 msgid "Events"
@@ -1554,6 +1701,9 @@ msgid ""
 "time. When you import photos, Shotwell checks when each photo was taken. It "
 "then groups the photos into events."
 msgstr ""
+"Ein Ereignis kennzeichnet eine Gruppe von Fotos, die etwa zur gleichen Zeit "
+"aufgenommen wurden. Beim Importieren von Fotos prüft Shotwell die "
+"Aufnahmezeitpunkte und gruppiert die Fotos in Ereignissen."
 
 #: C/organize-event.page:16(p)
 msgid ""
@@ -1562,6 +1712,11 @@ msgid ""
 "be displayed in the main window. Double-click an event to see all the photos "
 "that were taken around that time."
 msgstr ""
+"Wählen Sie <gui>Ereignisse</gui> in der Seitenleiste, um Ihre Fotos nach "
+"Datum sortieren zu lassen. Wenn Sie in der Seitenleiste einen Monat oder ein "
+"Jahr auswählen, wird eine Liste der Ereignisse im Hauptfenster angezeigt. "
+"Durch Doppelklick auf ein Ereignis sehen Sie alle Fotos, die um diesen "
+"Zeitpunkt herum aufgenommen wurden."
 
 #: C/organize-event.page:18(p)
 msgid ""
@@ -1570,6 +1725,11 @@ msgid ""
 "the <gui>No Event</gui> view accessible from the sidebar. You can still move "
 "the photo to any event you like as described below."
 msgstr ""
+"Falls ein Foto nicht über eingebettete Informationen zu Datum und Zeit "
+"verfügt, kann Shotwell es nicht automatisch in einem Ereignis ablegen. In "
+"diesem Fall erscheint es in der Ansicht <gui>Ereignislos</gui>, die über die "
+"Seitenleiste erreichbar ist. Sie können das Foto dennoch zu einem beliebigen "
+"Ereignis hinzufügen, wie nachfolgend beschrieben."
 
 #: C/organize-event.page:25(title)
 msgid "Renaming events"
@@ -1593,6 +1753,9 @@ msgid ""
 "move photos between events. To do this, drag any photo to the sidebar and "
 "drop it on an event."
 msgstr ""
+"Obwohl Fotos anfänglich anhand deren Zeitstempeln in Ereignisse eingeordnet "
+"werden, können Sie sie zwischen Ereignissen verschieben. Ziehen Sie dazu ein "
+"beliebiges Foto in die Seitenleiste und legen Sie es auf einem Ereignis ab."
 
 #: C/organize-event.page:37(title)
 msgid "Creating and merging events"
@@ -1603,6 +1766,8 @@ msgid ""
 "To create a new event, select the photos you would like in the new event and "
 "click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
 msgstr ""
+"Um ein neues Ereignis zu erstellen, wählen Sie die gewünschten Fotos aus und "
+"wählen Sie <guiseq><gui>Ereignisse</gui><gui>Neues Ereignis</gui></guiseq>."
 
 #: C/organize-event.page:39(p)
 msgid ""
@@ -1626,7 +1791,7 @@ msgstr ""
 
 #: C/organize-event.page:51(title)
 msgid "Change the photo used to represent each event"
-msgstr ""
+msgstr "Das Foto ändern, welches das Ereignis repräsentiert"
 
 #: C/organize-event.page:53(p)
 msgid ""
@@ -1824,8 +1989,8 @@ msgstr ""
 "Shotwell importiert daraufhin Ihre Fotos zusammen mit den zugehörigen "
 "Markierungen und weiteren Informationen. Sobald der Import abgeschlossen "
 "ist, wählen Sie <gui>Letzter Import</gui> in der Seitenleiste, um alle "
-"erfolgreich importierten Fotos zu sehen. Die Ereignisliste zeigt auch neue "
-"Einträge für die importierten Fotos mit den zugehörigen Zeitstempeln."
+"erfolgreich importierten Fotos zu sehen. Die Liste »Ereignisse« zeigt auch "
+"neue Einträge für die importierten Fotos mit den zugehörigen Zeitstempeln."
 
 #: C/import-file.page:7(desc)
 msgid "Import photos that are already saved on your computer."
@@ -1840,12 +2005,17 @@ msgid ""
 "To import photo files from your hard disk into Shotwell, just drag them from "
 "your file browser into the Shotwell window."
 msgstr ""
+"Um Fotos von Ihrer Festplatte in Shotwell zu importieren, ziehen Sie sie "
+"einfach aus der Dateiverwaltung in das Shotwell-Fenster."
 
 #: C/import-file.page:16(p)
 msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder</gui></"
 "guiseq> and select the folder containing the photos you want to import."
 msgstr ""
+"Alternativ wählen Sie <guiseq><gui>Datei</gui><gui>Aus Ordner importieren</"
+"gui></guiseq> und wählen den Ordner aus, der die zu importierenden Fotos "
+"enthält."
 
 #: C/import-file.page:18(p)
 msgid ""
@@ -1853,6 +2023,10 @@ msgid ""
 "folder (usually this is the <file>Pictures</file> folder in your home "
 "directory) or to import them in place without copying the files."
 msgstr ""
+"Shotwell fragt nach, ob die Fotodateien in Ihren Bibliotheksordner kopiert "
+"werden sollen (üblicherweise <file>Bilder</file> in Ihrem persönlichen "
+"Ordner) oder der Import ausgeführt werden soll, ohne die Dateien tatsächlich "
+"zu kopieren."
 
 #: C/import-file.page:20(p)
 msgid ""
@@ -1861,6 +2035,11 @@ msgid ""
 "you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
 "dragging photos in, Shotwell will import the photos without copying them."
 msgstr ""
+"Wenn Sie beim Ziehen der Fotos die <key>Strg</key>-Taste gedrückt halten, "
+"kopiert Shotwell ohne Nachfrage die Fotos in Ihren Bibliotheksordner. Analog "
+"dazu werden beim Drücken und Halten der Tastenkombination <keyseq><key>Strg</"
+"key><key>Umschalttaste</key></keyseq> die Fotos importiert, ohne sie "
+"tatsächlich zu kopieren."
 
 #: C/import-file.page:22(p)
 msgid ""
@@ -1868,6 +2047,10 @@ msgid ""
 "sidebar to see all photos successfully imported. The Events list will also "
 "show new entries for the dates corresponding to the imported photos."
 msgstr ""
+"Sobald der Import abgeschlossen ist, können Sie <gui>Letzter Import</gui> in "
+"der Seitenleiste wählen, woraufhin alle erfolgreich importierten Fotos "
+"angezeigt werden. Die Liste der Ereignisse enthält nun neue Einträge "
+"entsprechend der Zeitstempel der importierten Fotos."
 
 #: C/import-camera.page:7(desc)
 msgid "Copy photos from a digital camera."
@@ -1886,12 +2069,16 @@ msgid ""
 "Connect the camera to your computer and switch it on. Shotwell will detect "
 "it and list it in the sidebar."
 msgstr ""
+"Verbinden Sie die Kamera mit Ihrem Rechner und schalten Sie sie ein. "
+"Shotwell wird die Kamera erkennen und in der Seitenleiste anzeigen."
 
 #: C/import-camera.page:22(p)
 msgid ""
 "Select the camera in the sidebar. Previews of each photo on the camera will "
 "be displayed."
 msgstr ""
+"Wählen Sie die Kamera in der Seitenleiste aus. Vorschaubilder jedes Fotos in "
+"der Kamera werden angezeigt."
 
 #: C/import-camera.page:25(p)
 msgid ""
@@ -1899,12 +2086,19 @@ msgid ""
 "hold down the <key>Ctrl</key> key and click to select individual photos. You "
 "can hold down <key>Shift</key> and click to select a range of photos too."
 msgstr ""
+"Wenn gewünscht, können Sie bestimmte Bilder für den Import auswählen. Halten "
+"Sie hierzu die <key>Strg</key>-Taste gedrückt und klicken Sie auf einzelne "
+"Fotos, um diese auszuwählen. Sie können auch die <key>Umschalttaste</key> "
+"gedrückt halten, um einen bestimmten Bereich von Fotos auszuwählen."
 
 #: C/import-camera.page:28(p)
 msgid ""
 "Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
 "will be copied from the camera and saved on your computer."
 msgstr ""
+"Klicken Sie nun entweder auf <gui>Ausgewählte importieren</gui> oder "
+"<gui>Alle importieren</gui>. Die Fotos werden aus der Kamera kopiert und auf "
+"Ihrem Rechner gespeichert."
 
 #: C/import-camera.page:32(p)
 msgid ""
@@ -1912,6 +2106,10 @@ msgid ""
 "(in the sidebar) to see all photos that were imported. The Events list (also "
 "in the sidebar) will also show the new photos, organized by date."
 msgstr ""
+"Sobald der Import abgeschlossen ist, können Sie die Ansicht <gui>Letzter "
+"Import</gui> (in der Seitenleiste) öffnen, um alle importierten Fotos "
+"anzeigen zu lassen. Die Liste der Ereignisse (ebenfalls in der Seitenleiste) "
+"zeigt auch die neuen Fotos an, nach Zeitstempel geordnet."
 
 #: C/formats.page:7(desc)
 msgid ""
@@ -1931,6 +2129,9 @@ msgid ""
 "raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
 "format such as GIF."
 msgstr ""
+"Shotwell unterstützt JPEG-, PNG-, TIFF-, BMP- und <link type=\"guide\" xref="
+"\"other-raw\">RAW</link>-Fotodateien. Weitere Grafikformate, wie "
+"beispielsweise GIF, werden nicht unterstützt."
 
 #: C/formats.page:16(p)
 msgid ""
@@ -1940,12 +2141,21 @@ msgid ""
 "- you can only export edited photos as 8-bit files. All supported formats "
 "can be used for export (JPEG, PNG, TIFF, BMP)."
 msgstr ""
+"Die Unterstützung für RAW-Formate in Shotwell ist derzeit noch mit "
+"Einschränkungen verbunden. Wenn Sie ein RAW-Foto betrachten, dann wird "
+"eigentlich ein aus diesem erzeugtes JPEG-Bild angezeigt und nicht das RAW-"
+"Foto selbst. Weiterhin ist die Weiterleitung zur Bearbeitung nicht "
+"vollständig auf 16 Bit ausgerichtet. Sie können bearbeitete Fotos nur im 8-"
+"Bit-Format exportieren. Für den Export können Sie alle unterstützten Formate "
+"nutzen (JPEG, PNG, TIFF, BMP)."
 
 #: C/formats.page:18(p)
 msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
 "<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
 msgstr ""
+"Weitere Informationen über Fotos im RAW-Format in Shotwell finden Sie im "
+"Abschnitt <link type=\"guide\" xref=\"other-raw\">RAW</link>."
 
 #: C/formats.page:22(p)
 msgid ""
@@ -1953,10 +2163,14 @@ msgid ""
 "media library on the system where Shotwell is running. This typically "
 "includes the following formats among others:"
 msgstr ""
+"Shotwell unterstützt auch Videodateien in jedem Format, das von der "
+"GStreamer-Medienbibliothek des Systems verarbeitet werden kann, auf dem "
+"Shotwell läuft. Unter anderem sind üblicherweise die folgenden Formate "
+"nutzbar:"
 
 #: C/formats.page:25(p)
 msgid "Container formats: Ogg, QuickTime, MP4, AVI."
-msgstr ""
+msgstr "Containerformate: Ogg, QuickTime, MP4, AVI."
 
 #: C/formats.page:26(p)
 msgid ""
@@ -1964,6 +2178,9 @@ msgid ""
 "systems may not include all codecs listed here due to legal or licensing "
 "restrictions.</em>"
 msgstr ""
+"Codecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Beachten Sie, dass auf "
+"einigen Betriebssystemen aus rechtlichen Gründen oder aufgrund "
+"einschränkender Lizenzbestimmungen nicht alle Codecs verfügbar sind.</em>"
 
 #: C/formats.page:30(p)
 msgid ""
@@ -1977,6 +2194,7 @@ msgstr ""
 #: C/edit-undo.page:7(desc)
 msgid "Return a photo to its original, unedited form."
 msgstr ""
+"Setzen Sie ein Foto in seinen ursprünglichen, unbearbeiteten Zustand zurück."
 
 #: C/edit-undo.page:14(title)
 msgid "Undoing changes"
@@ -2008,7 +2226,7 @@ msgstr ""
 
 #: C/edit-time-date.page:12(title)
 msgid "Adjust the time and date of photos"
-msgstr ""
+msgstr "Zeit und Datum von Fotos anpassen"
 
 #: C/edit-time-date.page:14(p)
 msgid ""
@@ -2037,7 +2255,7 @@ msgstr ""
 
 #: C/edit-straighten.page:12(title)
 msgid "Straighten photos"
-msgstr ""
+msgstr "Fotos begradigen"
 
 #: C/edit-straighten.page:14(p)
 msgid ""
