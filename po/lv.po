@@ -6,14 +6,14 @@
 #
 # Translators:
 #
-# Rudolfs Mazurs <rudolfs.mazurs@gmail.com>, 2011-2016.
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2011-2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwell"
 "&keywords=I18N+L10N&component=Internationalization\n"
 "POT-Creation-Date: 2016-08-21 10:12+0000\n"
-"PO-Revision-Date: 2016-08-24 21:06+0200\n"
+"PO-Revision-Date: 2016-08-24 22:04+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -639,8 +639,8 @@ msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file."
 msgstr ""
-"Ja paiess, izmaiņas metadatos (tagi, nosaukumi u.c.) tiks rakstīti"
-" oriģinājajā fotogrāfijas datnē."
+"Ja patiess, izmaiņas metadatos (tagi, nosaukumi u.c.) tiks rakstīti"
+" oriģinālajā fotogrāfijas datnē."
 
 #: misc/org.yorba.shotwell.gschema.xml:262
 msgid "use lowercase filenames"
@@ -1067,7 +1067,7 @@ msgstr "satura punkti collā"
 
 #: misc/org.yorba.shotwell.gschema.xml:573
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
-msgstr "Pikseļu skatis collā (ppi), ko drukāšanas laikā sūtīt printerim"
+msgstr "Pikseļu skaits collā (ppi), ko drukāšanas laikā sūtīt printerim"
 
 #: misc/org.yorba.shotwell.gschema.xml:578
 msgid "content width"
@@ -1120,7 +1120,7 @@ msgstr "izmēra izvēle"
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
-"Pašreizējā drukāšanas izmēra indekss iepriekš noteiktā stanarta izmēru"
+"Pašreizējā drukāšanas izmēra indekss iepriekš noteiktā standarta izmēru"
 " sarakstā"
 
 #: misc/org.yorba.shotwell.gschema.xml:608
@@ -1419,7 +1419,7 @@ msgid ""
 "Cannot open the selected F-Spot database file: this version of the F-Spot "
 "database is not supported by Shotwell"
 msgstr ""
-"Nevar atvērt izvēlēto F-Spot datubāzes datni — šo F-Sopt datubāzes datnes "
+"Nevar atvērt izvēlēto F-Spot datubāzes datni — šo F-Spot datubāzes datnes "
 "versiju Shotwell neatbalsta"
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:68
@@ -1537,7 +1537,7 @@ msgstr "_Esošs albums"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:22
 msgid "_Remove location, tag and camera-identifying data before uploading"
 msgstr ""
-"_Izņemt uzņemšans vietu, tagus un kameru identificējošus datus pirms"
+"_Izņemt uzņemšanas vietu, tagus un kameru identificējošus datus pirms"
 " augšupielādēt"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:135
@@ -1648,7 +1648,7 @@ msgid ""
 "The username and password or API key were incorrect. To try again, re-enter "
 "your username and password below."
 msgstr ""
-"Lietotājvārds un parole vai API atslēga ir nepareiza. Lai mēģinātu vēreiz,"
+"Lietotājvārds un parole vai API atslēga ir nepareiza. Lai mēģinātu vēlreiz,"
 " atkal ievadiet savu lietotāja vārdu un paroli zemāk."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
@@ -1899,7 +1899,7 @@ msgstr "_Video un jaunie fotogrāfiju albumi ir redzami:"
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
 msgstr ""
-"_Izņemt uzņemšans vietu, kameru un citu identificējošu informāciju pirms"
+"_Izņemtuzņemšanass vietu, kameru un citu identificējošu informāciju pirms"
 " augšupielādēt"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:62
@@ -2542,7 +2542,7 @@ msgstr "RAW+JPEG"
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
-"Neizdevās nomonēt kameru. Mēģiniet nomontēt kameru no datņu pārvaldnieka."
+"Neizdevās nomontēt kameru. Mēģiniet nomontēt kameru no datņu pārvaldnieka."
 
 #. hide duplicates checkbox
 #: src/camera/ImportPage.vala:775
@@ -3185,7 +3185,7 @@ msgstr "dublē esošo datu nesēju vienumus"
 #.
 #: src/Dialogs.vala:565
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
-msgstr "Neimportētās fotogrāfijas/video, jo bja kameras kļūdas:"
+msgstr "Neimportētās fotogrāfijas/video, jo bija kameras kļūdas:"
 
 #: src/Dialogs.vala:568 src/Dialogs.vala:583 src/Dialogs.vala:598
 #: src/Dialogs.vala:614 src/Dialogs.vala:629 src/Dialogs.vala:643
@@ -3219,7 +3219,7 @@ msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
 "Library:"
 msgstr ""
-"Fotogrāfijas/video netika importētas, jo Shotwell nevarēja tās ieimportēt"
+"Fotogrāfijas/video netika importētas, jo Shotwell nevarēja tās importēt"
 " bibliotēkā:"
 
 #: src/Dialogs.vala:613
@@ -6073,7 +6073,7 @@ msgstr "video"
 
 #: src/searches/SavedSearchDialog.vala:311
 msgid "has"
-msgstr "u"
+msgstr "ir"
 
 #: src/searches/SavedSearchDialog.vala:312
 msgid "has no"
