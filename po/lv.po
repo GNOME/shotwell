@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwell"
 "&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-08-21 10:12+0000\n"
-"PO-Revision-Date: 2016-08-24 22:04+0200\n"
+"POT-Creation-Date: 2016-08-24 19:05+0000\n"
+"PO-Revision-Date: 2016-08-25 11:39+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -31,7 +31,6 @@ msgid "Shotwell"
 msgstr "Shotwell"
 
 #: misc/shotwell.appdata.xml.in:9
-#| msgid "Photo Manager"
 msgid "Popular photo manager"
 msgstr "Populārs fotogrāfiju pārvaldnieks"
 
@@ -69,7 +68,6 @@ msgid "Photo Manager"
 msgstr "Fotogrāfiju pārvaldnieks"
 
 #: misc/shotwell.desktop.in.in:6
-#| msgid "any photo"
 msgid "Organize your photos"
 msgstr "Organizē savas fotogrāfijas"
 
@@ -86,12 +84,10 @@ msgstr ""
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: misc/shotwell.desktop.in.in:11 misc/shotwell-viewer.desktop.in.in:8
-#| msgid "Shotwell"
 msgid "shotwell"
 msgstr "shotwell"
 
 #: misc/shotwell-viewer.desktop.in.in:4
-#| msgid "Photo Viewer"
 msgid "Shotwell Viewer"
 msgstr "Shotwell skatītājs"
 
@@ -155,7 +151,6 @@ msgstr "Rajce servera URL."
 #: misc/org.yorba.shotwell.gschema.xml:384
 #: misc/org.yorba.shotwell.gschema.xml:442
 #: misc/org.yorba.shotwell.gschema.xml:498
-#| msgid "User _name"
 msgid "username"
 msgstr "lietotājvārds"
 
@@ -173,7 +168,6 @@ msgstr "lietotāja marķieris, ja ir iegaumēts."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:58
 #: misc/org.yorba.shotwell.gschema.xml:460
-#| msgid "An _existing category:"
 msgid "last category"
 msgstr "pēdējā kategorija"
 
@@ -183,7 +177,6 @@ msgstr "Pēdējā izvēlētā Rajce kategorija."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:64
 #: misc/org.yorba.shotwell.gschema.xml:472
-#| msgid "Photo size:"
 msgid "last photo size"
 msgstr "pēdējais fotogrāfijas izmērs"
 
@@ -246,7 +239,6 @@ msgid "True if the basic properties pane is to be displayed, false otherwise."
 msgstr "Patiess, ja ir jāattēlo pamata īpašību rūti, citādi aplams."
 
 #: misc/org.yorba.shotwell.gschema.xml:28
-#| msgid "Display extended information for the selection"
 msgid "display extended properties"
 msgstr "rādīt paplašinātās īpašības"
 
@@ -256,7 +248,6 @@ msgid ""
 msgstr "Patiess, ja ir jāattēlo paplašināto īpašību rūti, citādi aplams."
 
 #: misc/org.yorba.shotwell.gschema.xml:34
-#| msgid "Display the search bar"
 msgid "display sidebar"
 msgstr "rādīt sānu joslu"
 
@@ -265,7 +256,6 @@ msgid "True if the sidebar is to be displayed, false otherwise."
 msgstr "Patiess, ja ir jāattēlo sānu josla, citādi aplams."
 
 #: misc/org.yorba.shotwell.gschema.xml:40
-#| msgid "Pin Toolbar"
 msgid "display toolbar"
 msgstr "rādīt rīkjoslu"
 
@@ -274,7 +264,6 @@ msgid "True if the bottom toolbar is to be displayed, false otherwise."
 msgstr "Patiess, ja ir jāattēlo rīkjosla, citādi aplams."
 
 #: misc/org.yorba.shotwell.gschema.xml:46
-#| msgid "Display the search bar"
 msgid "display search bar"
 msgstr "rādīt meklēšanas joslu"
 
@@ -283,7 +272,6 @@ msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise."
 msgstr "Patiess, ja ir jāattēlo meklēšanas/filtra josla, citādi aplams."
 
 #: misc/org.yorba.shotwell.gschema.xml:52
-#| msgid "Display each photo's tags"
 msgid "display photo titles"
 msgstr "rādīt fotogrāfiju nosaukumus"
 
@@ -296,7 +284,6 @@ msgstr ""
 "citādi aplams."
 
 #: misc/org.yorba.shotwell.gschema.xml:58
-#| msgid "Display each photo's tags"
 msgid "display photo comments"
 msgstr "rādīt fotogrāfiju komentārus"
 
@@ -309,7 +296,6 @@ msgstr ""
 "citādi aplams."
 
 #: misc/org.yorba.shotwell.gschema.xml:64
-#| msgid "Disable _comments"
 msgid "display event comments"
 msgstr "rādīt notikumu komentārus"
 
@@ -322,7 +308,6 @@ msgstr ""
 "citādi aplams."
 
 #: misc/org.yorba.shotwell.gschema.xml:70
-#| msgid "Display each photo's tags"
 msgid "display photo tags"
 msgstr "rādīt fotogrāfiju tagus"
 
@@ -335,7 +320,6 @@ msgstr ""
 "aplams."
 
 #: misc/org.yorba.shotwell.gschema.xml:76
-#| msgid "Display each photo's rating"
 msgid "display photo ratings"
 msgstr "rādīt fotogrāfiju vērtējumus"
 
@@ -363,7 +347,6 @@ msgstr ""
 "7: piecas zvaigzne vai labākas."
 
 #: misc/org.yorba.shotwell.gschema.xml:88
-#| msgid "No events found"
 msgid "sort events ascending"
 msgstr "kārtot notikumus augoši"
 
@@ -372,7 +355,6 @@ msgid "True if events should be sorted ascending, false if descending."
 msgstr "Patiess, ja notikumiem jābūt augošā secībā; aplams, ja dilstošā."
 
 #: misc/org.yorba.shotwell.gschema.xml:94
-#| msgid "Sort photos in an ascending order"
 msgid "sort library photos ascending"
 msgstr "kārtot bibliotēkas fotogrāfijas augošā secībā"
 
@@ -394,7 +376,6 @@ msgstr ""
 "skatos."
 
 #: misc/org.yorba.shotwell.gschema.xml:106
-#| msgid "Sort photos in an ascending order"
 msgid "sort event photos ascending"
 msgstr "kārtot notikumu fotogrāfijas augošā secībā"
 
@@ -404,7 +385,6 @@ msgstr ""
 "Patiess, ja notikumu fotogrāfijām jābūt augošā secībā; aplams, ja dilstošā."
 
 #: misc/org.yorba.shotwell.gschema.xml:112
-#| msgid "Sort photos by title"
 msgid "sort event photos criteria"
 msgstr "kritērijs notikumu fotogrāfiju kārtošanai"
 
@@ -437,7 +417,6 @@ msgstr ""
 "Aplams, ja visām fotogrāfijām jāpiemēro vienāds laiks."
 
 #: misc/org.yorba.shotwell.gschema.xml:130
-#| msgid "_Modify original photo files"
 msgid "modify original photo files"
 msgstr "mainīt sākotnējo fotogrāfiju datnes"
 
@@ -462,7 +441,6 @@ msgstr ""
 "nav jārāda."
 
 #: misc/org.yorba.shotwell.gschema.xml:142
-#| msgid "Library Location"
 msgid "sidebar position"
 msgstr "sānu joslas novietojums"
 
@@ -479,7 +457,6 @@ msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgstr "Fotogrāfiju sīktēlu mērogs, intervālā no 72 līdz 360."
 
 #: misc/org.yorba.shotwell.gschema.xml:154
-#| msgid "Pin the toolbar open"
 msgid "pin toolbar state"
 msgstr "nofiksēt rīkjoslas stāvokli"
 
@@ -488,7 +465,6 @@ msgid "Pin toolbar in fullscreen, or not."
 msgstr "Nofiksēt rīkjoslu pilnekrānā, vai arī nē."
 
 #: misc/org.yorba.shotwell.gschema.xml:160
-#| msgid "_Background:"
 msgid "background color"
 msgstr "fona krāsa"
 
@@ -509,7 +485,6 @@ msgstr ""
 "importēšanas lapā."
 
 #: misc/org.yorba.shotwell.gschema.xml:174
-#| msgid "_Delay:"
 msgid "delay"
 msgstr "aizture"
 
@@ -518,7 +493,6 @@ msgid "Delay (in seconds) between photos in the slideshow."
 msgstr "Aizture (sekundēs) starp fotogrāfijām slaidrādē."
 
 #: misc/org.yorba.shotwell.gschema.xml:180
-#| msgid "Transition d_elay:"
 msgid "transition delay"
 msgstr "pārejas aizture"
 
@@ -528,7 +502,6 @@ msgid ""
 msgstr "Laiks (sekundēs), cik ilgi notiek pāreja starp fotogrāfijām slaidrādē"
 
 #: misc/org.yorba.shotwell.gschema.xml:186
-#| msgid "_Transition effect:"
 msgid "transition effect id"
 msgstr "pārejas efekta id"
 
@@ -540,7 +513,6 @@ msgstr ""
 "Pārejas efekta nosaukums, kas tiks izmantots starp fotogrāfijām slaidrādē."
 
 #: misc/org.yorba.shotwell.gschema.xml:192
-#| msgid "Show t_itle"
 msgid "Show title"
 msgstr "rādīt virsrakstu"
 
@@ -605,11 +577,10 @@ msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window."
 msgstr ""
-"Pēdējais saglabātais atdalītāja novietojums starp sānu joslu un skatu"
-" lietotnes logā."
+"Pēdējais saglabātais atdalītāja novietojums starp sānu joslu un skatu "
+"lietotnes logā."
 
 #: misc/org.yorba.shotwell.gschema.xml:244
-#| msgid "Import to Library"
 msgid "import directory"
 msgstr "importēšanas direktorija"
 
@@ -618,7 +589,6 @@ msgid "Directory in which imported photo files are placed."
 msgstr "Direktorija, kurā tiks novietotas importētās fotogrāfiju datnes."
 
 #: misc/org.yorba.shotwell.gschema.xml:250
-#| msgid "_Watch library directory for new files"
 msgid "watch library directory for new files"
 msgstr "sekot līdzi jaunām datnēm manā bibliotēkā"
 
@@ -626,11 +596,10 @@ msgstr "sekot līdzi jaunām datnēm manā bibliotēkā"
 msgid ""
 "If true, files added to the library directory are automatically imported."
 msgstr ""
-"Ja patiess, bibliotēkas direktorijā pievienotās datnes tiks automātiski"
-" importētas."
+"Ja patiess, bibliotēkas direktorijā pievienotās datnes tiks automātiski "
+"importētas."
 
 #: misc/org.yorba.shotwell.gschema.xml:256
-#| msgid "Writing metadata to files..."
 msgid "write metadata to master files"
 msgstr "metadatus rakstīt datnēs"
 
@@ -639,8 +608,8 @@ msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file."
 msgstr ""
-"Ja patiess, izmaiņas metadatos (tagi, nosaukumi u.c.) tiks rakstīti"
-" oriģinālajā fotogrāfijas datnē."
+"Ja patiess, izmaiņas metadatos (tagi, nosaukumi u.c.) tiks rakstīti "
+"oriģinālajā fotogrāfijas datnē."
 
 #: misc/org.yorba.shotwell.gschema.xml:262
 msgid "use lowercase filenames"
@@ -651,11 +620,10 @@ msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
 msgstr ""
-"Ja patiess, importējot fotogrāfiju datnes, Shotwell pārveidos visus burtus"
-" datņu nosaukumā uz mazajiem burtiem"
+"Ja patiess, importējot fotogrāfiju datnes, Shotwell pārveidos visus burtus "
+"datņu nosaukumā uz mazajiem burtiem"
 
 #: misc/org.yorba.shotwell.gschema.xml:268
-#| msgid "_Directory structure:"
 msgid "directory pattern"
 msgstr "direktoriju struktūra"
 
@@ -664,8 +632,8 @@ msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import."
 msgstr ""
-"Virkne, kas iekodē nosaukšanas struktūru, ko izmantos fotogrāfiju direktoriju"
-" nosaukšanai importēšanas laikā."
+"Virkne, kas iekodē nosaukšanas struktūru, ko izmantos fotogrāfiju "
+"direktoriju nosaukšanai importēšanas laikā."
 
 #: misc/org.yorba.shotwell.gschema.xml:274
 msgid "directory pattern custom"
@@ -676,11 +644,10 @@ msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import."
 msgstr ""
-"Virkne, kas iekodē pielāgotu nosaukšanas struktūru, ko izmantos fotogrāfiju"
-" direktoriju nosaukšanai importēšanas laikā."
+"Virkne, kas iekodē pielāgotu nosaukšanas struktūru, ko izmantos fotogrāfiju "
+"direktoriju nosaukšanai importēšanas laikā."
 
 #: misc/org.yorba.shotwell.gschema.xml:280
-#| msgid "RAW Developer"
 msgid "RAW developer default"
 msgstr "RAW attīstītājs noklusējuma"
 
@@ -695,8 +662,8 @@ msgstr "Pēdējā izmantotā kadrēšanas malu attiecība."
 #: misc/org.yorba.shotwell.gschema.xml:289
 msgid "A numeric code representing the last crop menu choice the user made."
 msgstr ""
-"Skaitlisks kods, kas attēlo pēdējo izmantoto kadrēšanas izvēlenes izvēli, ko"
-" ir veicis lietotājs."
+"Skaitlisks kods, kas attēlo pēdējo izmantoto kadrēšanas izvēlnes izvēli, ko "
+"ir veicis lietotājs."
 
 #: misc/org.yorba.shotwell.gschema.xml:293
 msgid "Most-recently-used crop custom aspect ratio's numerator."
@@ -707,8 +674,8 @@ msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
 msgstr ""
-"Pozitīvs vesels skaitlis, kas attēlo platuma daļu pielāgotajai kadrēšanas"
-" malu attiecībai, ko ievadīja lietotājs."
+"Pozitīvs vesels skaitlis, kas attēlo platuma daļu pielāgotajai kadrēšanas "
+"malu attiecībai, ko ievadīja lietotājs."
 
 #: misc/org.yorba.shotwell.gschema.xml:298
 msgid "Most-recently-used crop custom aspect ratio's denominator."
@@ -719,11 +686,10 @@ msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered."
 msgstr ""
-"Pozitīvs vesels skaitlis, kas attēlo augstuma daļu pielāgotajai kadrēšanas"
-" malu attiecībai, ko ievadīja lietotājs."
+"Pozitīvs vesels skaitlis, kas attēlo augstuma daļu pielāgotajai kadrēšanas "
+"malu attiecībai, ko ievadīja lietotājs."
 
 #: misc/org.yorba.shotwell.gschema.xml:306
-#| msgid "E_xternal photo editor:"
 msgid "external photo editor"
 msgstr "ārējais fotogrāfiju redaktors"
 
@@ -732,7 +698,6 @@ msgid "External application used to edit photos."
 msgstr "Ārējā lietotne, ko izmantot fotogrāfiju rediģēšanai."
 
 #: misc/org.yorba.shotwell.gschema.xml:312
-#| msgid "External _RAW editor:"
 msgid "external raw editor"
 msgstr "ārējais raw redaktors"
 
@@ -741,7 +706,6 @@ msgid "External application used to edit RAW photos."
 msgstr "Ārējā lietotne, ko izmantot jēlo fotogrāfiju rediģēšanai."
 
 #: misc/org.yorba.shotwell.gschema.xml:320
-#| msgid "Core Publishing Services"
 msgid "last used publishing service"
 msgstr "pēdējais izmantotais publicēšanas pakalpojums"
 
@@ -750,16 +714,14 @@ msgstr "pēdējais izmantotais publicēšanas pakalpojums"
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr ""
-"Skaitlisks kods, kas reprezentē pēdējo pakalpojumu, uz kuru publicēja"
-" fotogrāfijas"
+"Skaitlisks kods, kas reprezentē pēdējo pakalpojumu, uz kuru publicēja "
+"fotogrāfijas"
 
 #: misc/org.yorba.shotwell.gschema.xml:326
-#| msgid "Core Publishing Services"
 msgid "default publishing service"
 msgstr "noklusējuma publicēšanas pakalpojumi"
 
 #: misc/org.yorba.shotwell.gschema.xml:340
-#| msgid "Access _type:"
 msgid "access token"
 msgstr "piekļuves marķieris"
 
@@ -776,12 +738,10 @@ msgid "Facebook user i.d. for the currently logged in user, if any"
 msgstr "Facebook lietotāja identifikācija šai sesijai, ja ir"
 
 #: misc/org.yorba.shotwell.gschema.xml:352
-#| msgid "User _name"
 msgid "user name"
 msgstr "lietotājvārds"
 
 #: misc/org.yorba.shotwell.gschema.xml:353
-#| msgid "You are not currently logged into Yandex.Fotki."
 msgid "The name of the currently logged in Facebook user, if any"
 msgstr "Vārds pašlaik autorizētajam Facebook lietotājam, ja tāds ir"
 
@@ -794,14 +754,14 @@ msgstr "noklusējuma izmērs kodam"
 msgid ""
 "A numeric code representing the default size for photos published to Facebook"
 msgstr ""
-"Skaitlisks kods, kas reprezentē noklusējuma izmēru fotogrāfijām, ko publicēs"
-" Facebook"
+"Skaitlisks kods, kas reprezentē noklusējuma izmēru fotogrāfijām, ko publicēs "
+"Facebook"
 
 #: misc/org.yorba.shotwell.gschema.xml:365
 msgid ""
 "Whether images being uploaded to Facebook should have their metadata removed "
 "first"
-msgstr "Vai pirms uz Facebook augušpielādēt attēlus, no tiem jāizņem metadati"
+msgstr "Vai pirms uz Facebook augšupielādēt attēlus, no tiem jāizņem metadati"
 
 #: misc/org.yorba.shotwell.gschema.xml:372
 msgid "OAuth Access Phase Token"
@@ -820,8 +780,8 @@ msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
 msgstr ""
-"Kriptogrāfiskais noslēpums, ko izmanto pieprasījumu parakstīšanai pret"
-" autorizācijas marķieri pašlaik autorizētam Flickr lietotājam, ja ir"
+"Kriptogrāfiskais noslēpums, ko izmanto pieprasījumu parakstīšanai pret "
+"autorizācijas marķieri pašlaik autorizētam Flickr lietotājam, ja ir"
 
 #: misc/org.yorba.shotwell.gschema.xml:385
 msgid "The user name of the currently logged in Flickr user, if any"
@@ -831,8 +791,8 @@ msgstr "Lietotājvārds pašlaik autorizētajam Flickr lietotājam, ja tāds ir"
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
-"Skaitlisks kods, kas reprezentē noklusējuma izmēru fotogrāfijām, ko publicēs"
-" Flickr"
+"Skaitlisks kods, kas reprezentē noklusējuma izmēru fotogrāfijām, ko publicēs "
+"Flickr"
 
 #: misc/org.yorba.shotwell.gschema.xml:396
 msgid "default visibility"
@@ -843,14 +803,14 @@ msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
 msgstr ""
-"Skaitlisks kods, kas reprezentē noklusējuma redzamību fotogrāfijām, ko"
-" publicēs Flickr"
+"Skaitlisks kods, kas reprezentē noklusējuma redzamību fotogrāfijām, ko "
+"publicēs Flickr"
 
 #: misc/org.yorba.shotwell.gschema.xml:403
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
-msgstr "Vai pirms uz Flickr augušpielādēt attēlus, no tiem jāizņem metadati"
+msgstr "Vai pirms uz Flickr augšupielādēt attēlus, no tiem jāizņem metadati"
 
 #: misc/org.yorba.shotwell.gschema.xml:410
 #: misc/org.yorba.shotwell.gschema.xml:542
@@ -862,17 +822,16 @@ msgid ""
 "The OAuth token used to refresh the Picasa Web Albums session for the "
 "currently logged in user, if any."
 msgstr ""
-"OAuth marķieris, ko izmanto Picasa Web Albums sesijas atsvaidzināšanai šīs"
-" sesijas lietotājam, ja ir."
+"OAuth marķieris, ko izmanto Picasa Web Albums sesijas atsvaidzināšanai šīs "
+"sesijas lietotājam, ja ir."
 
 #: misc/org.yorba.shotwell.gschema.xml:417
 msgid ""
 "A numeric code representing the default size for photos uploaded to Picasa "
 "Web Albums"
 msgstr ""
-"Skaitlisks kods, kas reprezentē noklusējuma izmēru fotogrāfijām, ko publicēs"
-" Picasa "
-"Web Albums"
+"Skaitlisks kods, kas reprezentē noklusējuma izmēru fotogrāfijām, ko publicēs "
+"Picasa Web Albums"
 
 #: misc/org.yorba.shotwell.gschema.xml:422
 #: misc/org.yorba.shotwell.gschema.xml:516
@@ -888,7 +847,7 @@ msgstr "Nosaukums albumam, uz kuru pēdējo reizi lietotājs publicēja, ja ir"
 msgid ""
 "Whether images being uploaded to Picasa should have their metadata removed "
 "first"
-msgstr "Vai pirms uz Picasa augušpielādēt attēlus, no tiem jāizņem metadati"
+msgstr "Vai pirms uz Picasa augšupielādēt attēlus, no tiem jāizņem metadati"
 
 #: misc/org.yorba.shotwell.gschema.xml:436
 msgid "Piwigo URL"
@@ -903,7 +862,6 @@ msgid "Piwigo username, if logged in."
 msgstr "Piwigo lietotājvārds, ja ir ierakstījies."
 
 #: misc/org.yorba.shotwell.gschema.xml:448
-#| msgid "_Password"
 msgid "password"
 msgstr "parole"
 
@@ -912,7 +870,6 @@ msgid "Piwigo password, if logged in."
 msgstr "Piwigo parole, ja ir ierakstījies."
 
 #: misc/org.yorba.shotwell.gschema.xml:454
-#| msgid "_Remember Password"
 msgid "remember password"
 msgstr "atcerēties paroli"
 
@@ -937,29 +894,29 @@ msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo."
 msgstr ""
-"Skaitlisks kods, kas attēlo pēdējo izmantoto priekšiestatījumu, kad publicēja"
-" uz Piwigo."
+"Skaitlisks kods, kas attēlo pēdējo izmantoto priekšiestatījumu, kad "
+"publicēja uz Piwigo."
 
 #: misc/org.yorba.shotwell.gschema.xml:479
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
-msgstr "Vai pirms uz Piwigo augušpielādēt attēlus, no tiem jāizņem metadati"
+msgstr "Vai pirms uz Piwigo augšupielādēt attēlus, no tiem jāizņem metadati"
 
 #: misc/org.yorba.shotwell.gschema.xml:484
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
-"ja ir iestatīs nosaukums un nav komentāru, izmantot nosaukumu kā komentārus,"
-" kad augušpielādē uz Piwigo"
+"ja ir iestatīs nosaukums un nav komentāru, izmantot nosaukumu kā komentārus, "
+"kad augšupielādē uz Piwigo"
 
 #: misc/org.yorba.shotwell.gschema.xml:485
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
 msgstr ""
-"Vai pirms uz Piwigo augušpielādēt attēlus, vai komentārus jāņem no nosaukuma,"
-" ja ir iestatīs nosaukums, bet ne komentāri"
+"Vai pirms uz Piwigo augšupielādēt attēlus, vai komentārus jāņem no "
+"nosaukuma, ja ir iestatīs nosaukums, bet ne komentāri"
 
 #: misc/org.yorba.shotwell.gschema.xml:490
 msgid "do not upload tags when uploading to Piwigo"
@@ -970,8 +927,8 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
 msgstr ""
-"Vai pirms uz Piwigo augušpielādēt attēlus, no tiem jāizņem tagi tā, lai tie"
-" neparādītos attālinātos Piwigo serveros."
+"Vai pirms uz Piwigo augšupielādēt attēlus, no tiem jāizņem tagi tā, lai tie "
+"neparādītos attālinātos Piwigo serveros."
 
 #: misc/org.yorba.shotwell.gschema.xml:499
 msgid "Gallery3 username"
@@ -997,7 +954,7 @@ msgstr "Gallery3 vietnes URL"
 msgid ""
 "Indicates whether images being uploaded to Gallery3 should have their "
 "metadata removed first"
-msgstr "Vai pirms uz Gallery3 augušpielādēt attēlus, no tiem jāizņem metadati"
+msgstr "Vai pirms uz Gallery3 augšupielādēt attēlus, no tiem jāizņem metadati"
 
 #: misc/org.yorba.shotwell.gschema.xml:528
 msgid "scaling constraint of uploaded picture"
@@ -1016,19 +973,18 @@ msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
 msgstr ""
-"Pikseļi galvenās ass attēlam, ko augšupielādēs; izmanto tikai, ja"
-" scaling-constraint-id ir atbilstoša vērtība"
+"Pikseļi galvenās ass attēlam, ko augšupielādēs; izmanto tikai, ja scaling-"
+"constraint-id ir atbilstoša vērtība"
 
 #: misc/org.yorba.shotwell.gschema.xml:543
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
 msgstr ""
-"OAuth marķieris, ko izmanto YouTube sesijas atsvaidzināšanai šīs sesijas"
-" lietotājam, ja ir."
+"OAuth marķieris, ko izmanto YouTube sesijas atsvaidzināšanai šīs sesijas "
+"lietotājam, ja ir."
 
 #: misc/org.yorba.shotwell.gschema.xml:550
-#| msgid "Core Data Import Services"
 msgid "last used import service"
 msgstr "pēdējais izmantotais importēšanas pakalpojums"
 
@@ -1036,8 +992,8 @@ msgstr "pēdējais izmantotais importēšanas pakalpojums"
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
-"Skaitlisks kods, kas reprezentē pēdējo pakalpojumu, no kura importēja"
-" fotogrāfijas"
+"Skaitlisks kods, kas reprezentē pēdējo pakalpojumu, no kura importēja "
+"fotogrāfijas"
 
 #: misc/org.yorba.shotwell.gschema.xml:558
 msgid "interpreter state cookie"
@@ -1046,7 +1002,7 @@ msgstr "interpretatora stāvokļa sīkdatne"
 #: misc/org.yorba.shotwell.gschema.xml:559
 msgid ""
 "A numeric code that captures the state of the GStreamer plug-in environment"
-msgstr "Skaitlisks kods, kas ietver GStreamer spaudņa vides stāvokli"
+msgstr "Skaitlisks kods, kas ietver GStreamer spraudņa vides stāvokli"
 
 #: misc/org.yorba.shotwell.gschema.xml:566
 msgid "content layout mode"
@@ -1057,11 +1013,10 @@ msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
 msgstr ""
-"Skaitlisks kods, kas apraksta, kā drukāšanas laikā fotogrāfijas tiek"
-" izkārtotas uz papīra."
+"Skaitlisks kods, kas apraksta, kā drukāšanas laikā fotogrāfijas tiek "
+"izkārtotas uz papīra."
 
 #: misc/org.yorba.shotwell.gschema.xml:572
-#| msgid "_Contents"
 msgid "content ppi"
 msgstr "satura punkti collā"
 
@@ -1078,7 +1033,6 @@ msgid "The width of the printed emulsion on the page when printing"
 msgstr "Platums izdrukātajai emulsijai uz papīra"
 
 #: misc/org.yorba.shotwell.gschema.xml:584
-#| msgid "Rotate Right"
 msgid "content height"
 msgstr "satura augstums"
 
@@ -1087,7 +1041,6 @@ msgid "The height of the printed emulsion on the page when printing"
 msgstr "Augstums izdrukātajai emulsijai uz papīra"
 
 #: misc/org.yorba.shotwell.gschema.xml:590
-#| msgid "_Contents"
 msgid "content units"
 msgstr "satura vienības"
 
@@ -1096,11 +1049,10 @@ msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
 msgstr ""
-"Skaitlisks kods, kas reprezentē mērvienības (collas vai centimetri), ko"
-" izmantot drukājot"
+"Skaitlisks kods, kas reprezentē mērvienības (collas vai centimetri), ko "
+"izmantot drukājot"
 
 #: misc/org.yorba.shotwell.gschema.xml:596
-#| msgid "2 images per page"
 msgid "images per page code"
 msgstr "attēli lappusē, kods"
 
@@ -1109,8 +1061,8 @@ msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
 msgstr ""
-"Skaitlisks kods, kas reprezentē kodu pašlaik izvēlēto attēlu skaitam lappusē,"
-" kad drukā"
+"Skaitlisks kods, kas reprezentē kodu pašlaik izvēlēto attēlu skaitam "
+"lappusē, kad drukā"
 
 #: misc/org.yorba.shotwell.gschema.xml:602
 msgid "size selection"
@@ -1120,11 +1072,10 @@ msgstr "izmēra izvēle"
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
-"Pašreizējā drukāšanas izmēra indekss iepriekš noteiktā standarta izmēru"
-" sarakstā"
+"Pašreizējā drukāšanas izmēra indekss iepriekš noteiktā standarta izmēru "
+"sarakstā"
 
 #: misc/org.yorba.shotwell.gschema.xml:608
-#| msgid "_Match photo aspect ratio"
 msgid "match aspect ratio"
 msgstr "atbilst malu attiecībām"
 
@@ -1133,11 +1084,10 @@ msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
 msgstr ""
-"Nosaka, vai pielāgotie drukāšanas izmēri atbilst sākotnējās fotogrāfijas malu"
-" attiecībām"
+"Nosaka, vai pielāgotie drukāšanas izmēri atbilst sākotnējās fotogrāfijas "
+"malu attiecībām"
 
 #: misc/org.yorba.shotwell.gschema.xml:614
-#| msgid "Print image _title"
 msgid "print titles"
 msgstr "drukāt nosaukumus"
 
@@ -1158,7 +1108,6 @@ msgstr ""
 "Nosaukums fontam, ko izmantot fotogrāfiju virsrakstiem to drukāšanas laikā."
 
 #: misc/org.yorba.shotwell.gschema.xml:632
-#| msgid "Unable to publish"
 msgid "enable facebook publishing plugin"
 msgstr "ieslēgt facebook publicēšanas spraudni"
 
@@ -1185,7 +1134,6 @@ msgstr ""
 "Ja patiess, ieslēgt Picasa Web Albums publicēšanas spraudni, citādi aplams"
 
 #: misc/org.yorba.shotwell.gschema.xml:650
-#| msgid "Unable to publish"
 msgid "enable youtube publishing plugin"
 msgstr "ieslēgt youtube publicēšanas spraudni"
 
@@ -1194,7 +1142,6 @@ msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "Ja patiess, ieslēgt YouTube publicēšanas spraudni, citādi aplams"
 
 #: misc/org.yorba.shotwell.gschema.xml:656
-#| msgid "Unable to publish"
 msgid "enable piwigo publishing plugin"
 msgstr "ieslēgt piwigo publicēšanas spraudni"
 
@@ -1211,7 +1158,6 @@ msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
 msgstr "Ja patiess, ieslēgt Yandex.Fotki publicēšanas spraudni, citādi aplams"
 
 #: misc/org.yorba.shotwell.gschema.xml:668
-#| msgid "Unable to publish"
 msgid "enable tumblr publishing plugin"
 msgstr "ieslēgt tumblr publicēšanas spraudni"
 
@@ -1244,7 +1190,6 @@ msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr "Ja patiess, ieslēgt F-Spot importēšanas spraudni, citādi aplams"
 
 #: misc/org.yorba.shotwell.gschema.xml:692
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow crumble transition"
 msgstr "ieslēgt slaidrādes sairšanas pāreju"
 
@@ -1255,7 +1200,6 @@ msgstr ""
 "Ja patiess, ieslēgt sairšanas slaidrādes pāreju spraudni, citādi aplams"
 
 #: misc/org.yorba.shotwell.gschema.xml:698
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow fade transition"
 msgstr "ieslēgt slaidrādes izgaišanas pāreju"
 
@@ -1267,7 +1211,6 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:704
 #: misc/org.yorba.shotwell.gschema.xml:728
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow slide transition"
 msgstr "ieslēgt slaidrādes slīdēšanas pāreju"
 
@@ -1278,7 +1221,6 @@ msgstr ""
 "Ja patiess, ieslēgt slaidrādes slīdrādes pāreju spraudni, citādi aplams"
 
 #: misc/org.yorba.shotwell.gschema.xml:710
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow clock transition"
 msgstr "ieslēgt slaidrādes pulksteņa pāreju"
 
@@ -1290,7 +1232,6 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:716
 #: misc/org.yorba.shotwell.gschema.xml:722
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow circle transition"
 msgstr "ieslēgt slaidrādes apļa pāreju"
 
@@ -1310,7 +1251,6 @@ msgid ""
 msgstr "Ja patiess, ieslēgt žalūziju slaidrādes pāreju spraudni, citādi aplams"
 
 #: misc/org.yorba.shotwell.gschema.xml:734
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow squares transition"
 msgstr "ieslēgt slaidrādes kvadrātu pāreju"
 
@@ -1320,7 +1260,6 @@ msgid ""
 msgstr "Ja patiess, ieslēgt kvadrātu slaidrādes pāreju spraudni, citādi aplams"
 
 #: misc/org.yorba.shotwell.gschema.xml:740
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow stripes transition"
 msgstr "ieslēgt slaidrādes strīpas pāreju"
 
@@ -1330,7 +1269,6 @@ msgid ""
 msgstr "Ja patiess, ieslēgt strīpas slaidrādes pāreju spraudni, citādi aplams"
 
 #: misc/org.yorba.shotwell.gschema.xml:746
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow chess transition"
 msgstr "ieslēgt slaidrādes šaha pāreju"
 
@@ -1364,10 +1302,10 @@ msgid ""
 "To continue publishing to Google services, quit and restart Shotwell, then "
 "try publishing again."
 msgstr ""
-"Jūs jau esat ierakstījies un izrakstījies no Google pakalpojuma Shotwell"
-" sesijas laikā.\n"
-"Lai turpinātu publicēšanu Google pakalpojumos, izejiet no Shotwell un"
-" pārlaidiet to vēlreiz."
+"Jūs jau esat ierakstījies un izrakstījies no Google pakalpojuma Shotwell "
+"sesijas laikā.\n"
+"Lai turpinātu publicēšanu Google pakalpojumos, izejiet no Shotwell un "
+"pārlaidiet to vēlreiz."
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:36
 #: plugins/shotwell-publishing/FacebookPublishing.vala:33
@@ -1466,7 +1404,6 @@ msgstr "Kodola datu importēšanas servisi"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:5
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
-#| msgid "Back"
 msgid "Go _Back"
 msgstr "Iet _atpakaļ"
 
@@ -1481,12 +1418,10 @@ msgid "_Gallery3 URL:"
 msgstr "_Gallery3 URL:"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:64
-#| msgid "User _name"
 msgid "_User name:"
 msgstr "_Lietotājvārds:"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:79
-#| msgid "_Password"
 msgid "_Password:"
 msgstr "_Parole:"
 
@@ -1495,8 +1430,6 @@ msgid "API _Key:"
 msgstr "API _atslēga:"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:208
-#| msgid "hour"
-#| msgid_plural "hours"
 msgid "or"
 msgstr "vai"
 
@@ -1525,28 +1458,24 @@ msgid "_Publish"
 msgstr "_Publicēt"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:11
-#| msgid "A _new album named:"
 msgid "A _new album"
 msgstr "Jau_ns albums"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:17
-#| msgid "An _existing album:"
 msgid "An _existing album"
 msgstr "_Esošs albums"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:22
 msgid "_Remove location, tag and camera-identifying data before uploading"
 msgstr ""
-"_Izņemt uzņemšanas vietu, tagus un kameru identificējošus datus pirms"
-" augšupielādēt"
+"_Izņemt uzņemšanas vietu, tagus un kameru identificējošus datus pirms "
+"augšupielādēt"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:135
-#| msgid "_Scaling constraint:"
 msgid "Scaling constraint:"
 msgstr "Mērogošanas ierobežojums:"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:153
-#| msgid " _pixels"
 msgid "pixels"
 msgstr "pikseļi"
 
@@ -1567,12 +1496,6 @@ msgid "Gallery3 publishing module"
 msgstr "Gallery3 publicēšanas modulis"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:114
-#| msgid ""
-#| "You are not currently logged into YouTube.\n"
-#| "\n"
-#| "You must have already signed up for a Google account and set it up for "
-#| "use with YouTube to continue. You can set up most accounts by using your "
-#| "browser to log into the YouTube site at least once."
 msgid ""
 "You are not currently logged into your Gallery.\n"
 "\n"
@@ -1585,7 +1508,6 @@ msgstr ""
 "procesu."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:117
-#| msgid "Shotwell Preferences"
 msgid "Shotwell default directory"
 msgstr "Shotwell noklusējuma direktorija"
 
@@ -1614,9 +1536,6 @@ msgstr ""
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1021
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
 #, c-format
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Picasa can't "
-#| "continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to %s can't "
 "continue."
@@ -1627,29 +1546,24 @@ msgstr ""
 #. programmatically-generated
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1550
 #, c-format
-#| msgid "Publish Photos and Videos"
 msgid "Publishing to %s as %s."
 msgstr "Publicēt uz %s kā %s."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1817
-#| msgid ""
-#| "Enter the URL of your Piwigo photo library as well as the username and "
-#| "password associated with your Piwigo account for that library."
 msgid ""
 "Enter the URL for your Gallery3 site and the username and password (or API "
 "key) for your Gallery3 account."
 msgstr ""
-"Ievadiet Gallery3 vietnes URL, kā arī lietotājvārdu un paroli (vai API"
-" atslēgu), "
-"kas ir saistīta ar Gallery3 kontu."
+"Ievadiet Gallery3 vietnes URL, kā arī lietotājvārdu un paroli (vai API "
+"atslēgu), kas ir saistīta ar Gallery3 kontu."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1818
 msgid ""
 "The username and password or API key were incorrect. To try again, re-enter "
 "your username and password below."
 msgstr ""
-"Lietotājvārds un parole vai API atslēga ir nepareiza. Lai mēģinātu vēlreiz,"
-" atkal ievadiet savu lietotāja vārdu un paroli zemāk."
+"Lietotājvārds un parole vai API atslēga ir nepareiza. Lai mēģinātu vēlreiz, "
+"atkal ievadiet savu lietotāja vārdu un paroli zemāk."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
 msgid ""
@@ -1657,9 +1571,9 @@ msgid ""
 "instance. Please make sure you typed it correctly and it does not have any "
 "trailing components (e.g., index.php)."
 msgstr ""
-"Ievadītais URL neizskatās pēc Gallery3 instances galvenās direktorijas."
-" Pārliecinieties, ka to ievadījāt pareizi un tai nav sekojošu komponenšu,"
-" piemēram, index.php."
+"Ievadītais URL neizskatās pēc Gallery3 instances galvenās direktorijas. "
+"Pārliecinieties, ka to ievadījāt pareizi un tai nav sekojošu komponenšu, "
+"piemēram, index.php."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1872
 msgid "Unrecognized User"
@@ -1684,7 +1598,6 @@ msgstr "_Parole"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:103
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
-#| msgid "_Remember Password"
 msgid "_Remember"
 msgstr "Atce_rēties"
 
@@ -1727,26 +1640,20 @@ msgid "An error message occurred when publishing to Rajce. Please try again."
 msgstr "Gadījās kļūda, publicējot uz Rajce. Lūdzu, mēģiniet vēlreiz."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:833
-#| msgid "Enter the username and password associated with your Tumblr account."
 msgid "Enter email and password associated with your Rajce account."
 msgstr ""
 "Ievadiet e-pasta adresi un paroli, kas ir saistītas ar jūsu Rajce kontu."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:834
-#| msgid "Username and/or password invalid. Please try again"
 msgid "Invalid email and/or password. Please try again"
 msgstr "E-pasta adrese un / vai parole nav pareiza. Lūdzu, mēģiniet vēlreiz"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:865
-#| msgid "Invalid User Name or Password"
 msgid "Invalid User Email or Password"
 msgstr "Nederīga lietotāja e-pasta adrese vai parole"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1012
 #, c-format
-#| msgid ""
-#| "You are logged into Facebook as %s.\n"
-#| "\n"
 msgid "You are logged into Rajce as %s."
 msgstr "Jūs esat ierakstījies Rajce kā “%s”."
 
@@ -1757,7 +1664,6 @@ msgid "Photos will appear in:"
 msgstr "Fotogrāfijas parādīsies:"
 
 #: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
-#| msgid "Core Publishing Services"
 msgid "Shotwell Extra Publishing Services"
 msgstr "Shotwell papildu publicēšanas pakalpojumi"
 
@@ -1861,7 +1767,6 @@ msgid "_Forbid downloading original photo"
 msgstr "Aizliegt lejupielādēt sākotnējo _fotogrāfiju"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
-#| msgid "Publish"
 msgid "Public"
 msgstr "Publisks"
 
@@ -1899,8 +1804,8 @@ msgstr "_Video un jaunie fotogrāfiju albumi ir redzami:"
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
 msgstr ""
-"_Izņemtuzņemšanass vietu, kameru un citu identificējošu informāciju pirms"
-" augšupielādēt"
+"_Izņemt uzņemšanas vietu, kameru un citu identificējošu informāciju pirms "
+"augšupielādēt"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:62
 #: plugins/shotwell-publishing/PicasaPublishing.vala:60
@@ -2051,9 +1956,6 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1155
 #, c-format
-#| msgid ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month, you have %d megabytes remaining in your upload quota."
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month you have %d megabyte remaining in your upload quota."
@@ -2114,7 +2016,7 @@ msgstr "L_ikt albumu publiskā galerijā"
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:150
 msgid "Photo _size preset:"
-msgstr "Fotogrāfiju izmēru priekšie_statījums:"
+msgstr "Fotogrāfiju izmēru priekšiestatījumus:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:59
 msgid ""
@@ -2347,9 +2249,8 @@ msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
 msgstr ""
-"Autortiesības 2010 Maxim Kartashev, Autortiesības 2016 Software Freedom"
-" Conservancy "
-"Inc."
+"Autortiesības 2010 Maxim Kartashev, Autortiesības 2016 Software Freedom "
+"Conservancy Inc."
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
 msgid "Slide"
@@ -2395,7 +2296,6 @@ msgstr "Neizdevās padarīt direktoriju %s rakstāmu"
 
 #: src/AppDirs.vala:239
 #, c-format
-#| msgid "Unable to create cache directory %s: %s"
 msgid "Could not make directory %s writable: %s"
 msgstr "Neizdevās padarīt direktoriju %s rakstāmu — %s"
 
@@ -2444,7 +2344,6 @@ msgstr ""
 "%s"
 
 #: src/AppWindow.vala:673
-#| msgid "Visit the Yorba web site"
 msgid "Visit the Shotwell web site"
 msgstr "Apmeklējiet Shotwell tīmekļa vietni"
 
@@ -3002,9 +2901,6 @@ msgstr ""
 
 #: src/db/DatabaseTable.vala:88
 #, c-format
-#| msgid ""
-#| "Unable to write to photo database file:\n"
-#| " %s"
 msgid "Unable to restore photo database %s"
 msgstr "Nevar atjaunot fotogrāfiju datubāzi %s"
 
@@ -3128,7 +3024,6 @@ msgid "_Scaling constraint:"
 msgstr "_Mērogošanas ierobežojums:"
 
 #: src/Dialogs.vala:225
-#| msgid " _pixels"
 msgid "_Pixels:"
 msgstr " _Pikseļi:"
 
@@ -3208,8 +3103,8 @@ msgid ""
 "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
 "Understands:"
 msgstr ""
-"Fotogrāfijas/video netika importētas, jo tās nebija formātā, ko saprot"
-" Shotwell:"
+"Fotogrāfijas/video netika importētas, jo tās nebija formātā, ko saprot "
+"Shotwell:"
 
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
@@ -3219,8 +3114,8 @@ msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
 "Library:"
 msgstr ""
-"Fotogrāfijas/video netika importētas, jo Shotwell nevarēja tās importēt"
-" bibliotēkā:"
+"Fotogrāfijas/video netika importētas, jo Shotwell nevarēja tās importēt "
+"bibliotēkā:"
 
 #: src/Dialogs.vala:613
 #, c-format
@@ -3556,7 +3451,6 @@ msgstr "Nosaukums:"
 
 #. Dialog title
 #: src/Dialogs.vala:1333
-#| msgid "Edit Title"
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Rediģēt nosaukumu"
@@ -3579,8 +3473,6 @@ msgid "Comment:"
 msgstr "Komentārs:"
 
 #: src/Dialogs.vala:1368
-#| msgid "_Trash File"
-#| msgid_plural "_Trash Files"
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "Izņem_t uz izmest datni"
@@ -3588,7 +3480,6 @@ msgstr[1] "Izņem_t uz izmest datnes"
 msgstr[2] "Izņem_t uz izmest datnes"
 
 #: src/Dialogs.vala:1372
-#| msgid "Remove From Library"
 msgid "_Remove From Library"
 msgstr "_Izņemt no bibliotēkas"
 
@@ -4124,10 +4015,6 @@ msgstr "%s neatbalsta %s datnes formātu."
 
 #: src/direct/DirectPhotoPage.vala:248
 #, c-format
-#| msgid ""
-#| "Unable to print photo:\n"
-#| "\n"
-#| "%s"
 msgid "Unable open photo %s. Sorry."
 msgstr "Nevar atvērt fotogrāfiju %s."
 
@@ -4406,7 +4293,6 @@ msgid "No events found"
 msgstr "Nav atrastu notikumu"
 
 #: src/events/EventsDirectoryPage.vala:230
-#| msgid "Events"
 msgid "All Events"
 msgstr "Visi notikumi"
 
@@ -4587,12 +4473,10 @@ msgid "Display the sidebar"
 msgstr "Rādīt sānu joslu"
 
 #: src/library/LibraryWindow.vala:398
-#| msgid "Pin Toolbar"
 msgid "T_oolbar"
 msgstr "Rīkj_osla"
 
 #: src/library/LibraryWindow.vala:399
-#| msgid "Display the search bar"
 msgid "Display the tool bar"
 msgstr "Rādīt rīkjoslu"
 
@@ -4632,10 +4516,9 @@ msgid ""
 "span>.\n"
 "Do you want to continue importing photos?"
 msgstr ""
-"Shotwell konfigurācijā ir norādīts, ka fotogrāfijas jāimportē jūsu mājas"
-" mapē.\n"
-"Mēs iesakām to mainīt <span weight=\"bold\">Rediģēt %s Iestatījumi</"
-"span>.\n"
+"Shotwell konfigurācijā ir norādīts, ka fotogrāfijas jāimportē jūsu mājas "
+"mapē.\n"
+"Mēs iesakām to mainīt <span weight=\"bold\">Rediģēt %s Iestatījumi</span>.\n"
 "Vai vēlaties turpināt importēt fotogrāfijas?"
 
 #: src/library/LibraryWindow.vala:904 ui/shotwell.ui:784
@@ -4832,12 +4715,10 @@ msgid "Sort photos by rating"
 msgstr "Kārtot fotogrāfijas pēc vērtējuma"
 
 #: src/MediaPage.vala:504
-#| msgid "File name"
 msgid "By _Filename"
 msgstr "Pēc _datņu nosaukuma"
 
 #: src/MediaPage.vala:505
-#| msgid "Sort photos by title"
 msgid "Sort photos by filename"
 msgstr "Kārtot fotogrāfijas pēc datņu nosaukuma"
 
@@ -5252,7 +5133,6 @@ msgid "_Apply"
 msgstr "_Pielietot"
 
 #: src/Resources.vala:160
-#| msgid "_Format:"
 msgid "_Forward"
 msgstr "Uz _priekšu"
 
@@ -5269,7 +5149,6 @@ msgid "_New"
 msgstr "Jau_ns"
 
 #: src/Resources.vala:165
-#| msgid "Next"
 msgid "_Next"
 msgstr "_Nākamais"
 
@@ -5278,7 +5157,6 @@ msgid "_OK"
 msgstr "_Labi"
 
 #: src/Resources.vala:167
-#| msgid "Play"
 msgid "_Play"
 msgstr "_Atskaņot"
 
@@ -5287,12 +5165,10 @@ msgid "_Preferences"
 msgstr "_Iestatījumi"
 
 #: src/Resources.vala:169
-#| msgid "_Previous Photo"
 msgid "_Previous"
 msgstr "Ie_priekšējais"
 
 #: src/Resources.vala:170
-#| msgid "_Print..."
 msgid "_Print"
 msgstr "_Drukāt"
 
@@ -5305,22 +5181,18 @@ msgid "_Refresh"
 msgstr "_Atsvaidzināt"
 
 #: src/Resources.vala:174
-#| msgid "Reverting"
 msgid "_Revert"
 msgstr "Atg_riezt"
 
 #: src/Resources.vala:176
-#| msgid "Save As"
 msgid "Save _As"
 msgstr "S_aglabāt kā"
 
 #: src/Resources.vala:177
-#| msgid "_Ascending"
 msgid "Sort _Ascending"
 msgstr "Kārtot _augoši"
 
 #: src/Resources.vala:178
-#| msgid "D_escending"
 msgid "Sort _Descending"
 msgstr "Kārtot _dilstoši"
 
@@ -5329,12 +5201,10 @@ msgid "_Stop"
 msgstr "_Apturēt"
 
 #: src/Resources.vala:180
-#| msgid "_Delete"
 msgid "_Undelete"
 msgstr "Atja_unot"
 
 #: src/Resources.vala:181
-#| msgid "Original Size"
 msgid "_Normal Size"
 msgstr "_Normāls izmērs"
 
@@ -5591,7 +5461,6 @@ msgid "All + _Rejected"
 msgstr "Visas un no_raidītās"
 
 #: src/Resources.vala:273
-#| msgid "Show all photos, including rejected"
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Rādīt visas fotogrāfijas, tai skaita noraidītās"
@@ -5659,7 +5528,6 @@ msgstr "Rediģē_t nosaukumu..."
 
 #. Button label
 #: src/Resources.vala:300
-#| msgid "Edit Title"
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Rediģēt nosaukumu"
@@ -5695,7 +5563,6 @@ msgstr "Pievienot T_agus..."
 
 #. Dialog title
 #: src/Resources.vala:315
-#| msgid "Add Tags"
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Pievienot tagus"
@@ -5754,7 +5621,6 @@ msgstr "Pievienot tagus “%s” un “%s”"
 
 #. Undo/Redo command name (in Edit menu)
 #: src/Resources.vala:348
-#| msgid "Add Tags"
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Pievienot tagus"
@@ -5974,7 +5840,6 @@ msgstr "%a %b %d, %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:787
-#| msgid "%a %b %d"
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -5983,7 +5848,6 @@ msgstr "%a %b %d"
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:792
-#| msgid "%d, %Y"
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -5992,7 +5856,6 @@ msgstr "%d, %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:797
-#| msgid "%a %b %d"
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -6001,7 +5864,6 @@ msgstr "%a %b %d"
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:802
-#| msgid "%a %b %d, %Y"
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
@@ -6043,7 +5905,6 @@ msgid "is not set"
 msgstr "nav iestatīts"
 
 #: src/searches/SavedSearchDialog.vala:174
-#| msgid "is not set"
 msgid "is set"
 msgstr "ir iestatīts"
 
@@ -6133,7 +5994,6 @@ msgid "Search"
 msgstr "Meklēt"
 
 #: src/searches/SavedSearchDialog.vala:702
-#| msgid "_Cancel"
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -6221,7 +6081,6 @@ msgstr "Kļūda, ielādējot UI datni “%s” — %s"
 #. display it yet; we'll connect it to secondary
 #. click later on.
 #: src/SearchFilter.vala:1159
-#| msgid "_Close"
 msgid "Close"
 msgstr "Aizvērt"
 
@@ -6315,7 +6174,6 @@ msgid "Export Videos"
 msgstr "Eksportēt video"
 
 #: ui/set_background_dialog.ui:15
-#| msgid "Set as _Desktop Background"
 msgid "Set as Desktop Background"
 msgstr "Iestatīt kā darbvirsmas fonu"
 
@@ -6502,3 +6360,4 @@ msgstr "Rādīt v_irsrakstu"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "sekundes"
+
