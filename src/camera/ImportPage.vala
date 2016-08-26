@@ -837,13 +837,13 @@ public class ImportPage : CheckerboardPage {
     public override Core.ViewTracker? get_view_tracker() {
         return tracker;
     }
-    
-    // Ticket #3304 - Import page shouldn't display confusing message
-    // prior to import. 
-    // TODO: replace this with approved text for "talking to camera, 
-    // please wait" once new strings are being accepted.
+
     protected override string get_view_empty_message() {
-        return _("Starting import, please wait...");
+        return _("The camera seems to be empty. No photos/videos found to import");
+    }
+
+    protected override string get_filter_no_match_message () {
+        return _("No new photos/videos found on camera");
     }
 
     private static int64 preview_comparator(void *a, void *b) {
@@ -1149,6 +1149,8 @@ public class ImportPage : CheckerboardPage {
         if (busy)
             return RefreshResult.BUSY;
             
+        this.set_page_message (_("Starting import, please wait..."));
+
         update_status(busy, false);
         
         refresh_error = null;
@@ -1269,6 +1271,9 @@ public class ImportPage : CheckerboardPage {
         }
         
         if (refresh_result == GPhoto.Result.OK) {
+            if (import_sources.get_count () == 0) {
+                this.set_page_message (this.get_view_empty_message ());
+            }
             update_status(false, true);
         } else {
             update_status(false, false);
