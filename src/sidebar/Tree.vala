@@ -1009,7 +1009,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         get_cursor(out cursor_path, out cursor_column);
         
         if (can_rename_path(cursor_path)) {
-            set_cursor(cursor_path, cursor_column, true);
+            set_cursor_on_cell (cursor_path, cursor_column, text_renderer, true);
             
             return true;
         }
