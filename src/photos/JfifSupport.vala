@@ -51,7 +51,7 @@ public class JfifFileFormatDriver : PhotoFileFormatDriver {
 
 public class JfifFileFormatProperties : PhotoFileFormatProperties {
     private static string[] KNOWN_EXTENSIONS = {
-        "jpg", "jpeg", "jpe"
+        "jpg", "jpeg", "jpe", "thm"
     };
 
     private static string[] KNOWN_MIME_TYPES = {
