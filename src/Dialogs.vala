@@ -1766,10 +1766,11 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         hbox.set_border_width(3);
         hbox.pack_start(image_content, true, false, 0);
         hbox.pack_start(time_content, true, false, 0);
-        hbox.valign = Gtk.Align.CENTER;
-        hbox.halign = Gtk.Align.CENTER;
 
-        ((Gtk.Box) get_content_area()).pack_start(hbox, true, false, 0);
+        Gtk.Alignment hbox_alignment = new Gtk.Alignment(0.5f, 0.5f, 0, 0);
+        hbox_alignment.add(hbox);
+
+        ((Gtk.Box) get_content_area()).pack_start(hbox_alignment, true, false, 0);
 
         notification = new Gtk.Label("");
         notification.set_line_wrap(true);
