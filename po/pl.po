@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-14 21:47+0000\n"
-"PO-Revision-Date: 2016-08-16 09:35+0200\n"
+"POT-Creation-Date: 2016-08-26 21:27+0000\n"
+"PO-Revision-Date: 2016-08-28 14:18+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -218,8 +218,8 @@ msgstr "otwieranie albumu w przeglądarce WWW"
 msgid ""
 "If true, open target album in the web browser just after uploading photos"
 msgstr ""
-"Jeśli jest ustawione na wartość „true”, otwiera album docelowy w "
-"przeglądarce WWW od razu po wysłaniu zdjęć"
+"Jeśli jest ustawione na wartość „true”, otwiera album docelowy "
+"w przeglądarce WWW od razu po wysłaniu zdjęć"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:88
 #: misc/org.yorba.shotwell.gschema.xml:364
@@ -596,8 +596,8 @@ msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window."
 msgstr ""
-"Ostatnio zapisane położenie przegrody między panelem bocznym a widokiem w "
-"oknie kolekcji."
+"Ostatnio zapisane położenie przegrody między panelem bocznym a widokiem "
+"w oknie kolekcji."
 
 #: misc/org.yorba.shotwell.gschema.xml:244
 msgid "import directory"
@@ -772,8 +772,8 @@ msgstr "kod domyślnych wymiarów"
 msgid ""
 "A numeric code representing the default size for photos published to Facebook"
 msgstr ""
-"Kod numeryczny przedstawiający domyślne wymiary zdjęć publikowanych w "
-"serwisie Facebook"
+"Kod numeryczny przedstawiający domyślne wymiary zdjęć publikowanych "
+"w serwisie Facebook"
 
 #: misc/org.yorba.shotwell.gschema.xml:365
 msgid ""
@@ -810,8 +810,8 @@ msgstr "Nazwa obecnie zalogowanego użytkownika serwisu Flickr"
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
-"Kod numeryczny przedstawiający domyślne wymiary zdjęć publikowanych w "
-"serwisie Flickr"
+"Kod numeryczny przedstawiający domyślne wymiary zdjęć publikowanych "
+"w serwisie Flickr"
 
 #: misc/org.yorba.shotwell.gschema.xml:396
 msgid "default visibility"
@@ -822,8 +822,8 @@ msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
 msgstr ""
-"Kod numeryczny przedstawiający domyślną widoczność zdjęć publikowanych w "
-"serwisie Flickr"
+"Kod numeryczny przedstawiający domyślną widoczność zdjęć publikowanych "
+"w serwisie Flickr"
 
 #: misc/org.yorba.shotwell.gschema.xml:403
 msgid ""
@@ -1901,8 +1901,8 @@ msgid ""
 msgstr ""
 "Już zalogowano się i wylogowano z serwisu Facebook podczas tej sesji "
 "programu Shotwell.\n"
-"Aby kontynuować publikowanie do serwisu Facebook, należy zakończyć i "
-"ponownie uruchomić program Shotwell, a następnie ponownie spróbować "
+"Aby kontynuować publikowanie do serwisu Facebook, należy zakończyć "
+"i ponownie uruchomić program Shotwell, a następnie ponownie spróbować "
 "publikacji."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:87
@@ -1979,9 +1979,9 @@ msgid ""
 msgstr ""
 "Nie zalogowano w serwisie Flickr.\n"
 "\n"
-"Należy nacisnąć przycisk Zaloguj, aby zalogować się w serwisie Flickr w "
-"przeglądarce WWW. Następnie należy upoważnić Shotwell Connect na dowiązanie "
-"do konta serwisu Flickr."
+"Należy nacisnąć przycisk Zaloguj, aby zalogować się w serwisie Flickr "
+"w przeglądarce WWW. Następnie należy upoważnić Shotwell Connect na "
+"dowiązanie do konta serwisu Flickr."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:62
 msgid ""
@@ -2515,8 +2515,8 @@ msgstr "RAW+JPEG"
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
-"Nie można odmontować aparatu. Proszę spróbować odmontować aparat w "
-"menedżerze plików."
+"Nie można odmontować aparatu. Proszę spróbować odmontować aparat "
+"w menedżerze plików."
 
 #. hide duplicates checkbox
 #: src/camera/ImportPage.vala:775
@@ -2527,13 +2527,15 @@ msgstr "Ukrywa już zaimportowane zdjęcia"
 msgid "Only display photos that have not been imported"
 msgstr "Wyświetla tylko zdjęcia, które nie zostały jeszcze zaimportowane"
 
-#. Ticket #3304 - Import page shouldn't display confusing message
-#. prior to import.
-#. TODO: replace this with approved text for "talking to camera,
-#. please wait" once new strings are being accepted.
+#: src/camera/ImportPage.vala:842
+msgid "The camera seems to be empty. No photos/videos found to import"
+msgstr ""
+"Aparat jest pusty. Nie odnaleziono żadnych zdjęć/nagrań wideo do "
+"zaimportowania"
+
 #: src/camera/ImportPage.vala:846
-msgid "Starting import, please wait..."
-msgstr "Rozpoczynanie importowania, proszę czekać…"
+msgid "No new photos/videos found on camera"
+msgstr "Nie odnaleziono nowych zdjęć/nagrań wideo w aparacie"
 
 #: src/camera/ImportPage.vala:873 src/MediaPage.vala:451
 msgid "_Titles"
@@ -2603,21 +2605,25 @@ msgstr ""
 msgid "Unmounting..."
 msgstr "Odmontowywanie…"
 
-#: src/camera/ImportPage.vala:1167
+#: src/camera/ImportPage.vala:1152
+msgid "Starting import, please wait..."
+msgstr "Rozpoczynanie importowania, proszę czekać…"
+
+#: src/camera/ImportPage.vala:1169
 msgid "Fetching photo information"
 msgstr "Pobieranie informacji o zdjęciach"
 
-#: src/camera/ImportPage.vala:1522
+#: src/camera/ImportPage.vala:1527
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Pobieranie podglądu dla %s"
 
-#: src/camera/ImportPage.vala:1638
+#: src/camera/ImportPage.vala:1643
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nie można zablokować aparatu: %s"
 
-#: src/camera/ImportPage.vala:1723
+#: src/camera/ImportPage.vala:1728
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -2625,7 +2631,7 @@ msgstr[0] "Usunąć to zdjęcie z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć z aparatu?"
 
-#: src/camera/ImportPage.vala:1726
+#: src/camera/ImportPage.vala:1731
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -2633,7 +2639,7 @@ msgstr[0] "Usunąć to nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1729
+#: src/camera/ImportPage.vala:1734
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -2641,7 +2647,7 @@ msgstr[0] "Usunąć to zdjęcie/nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia/nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć/nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1737
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -2649,15 +2655,15 @@ msgstr[0] "Usunąć te pliki z aparatu?"
 msgstr[1] "Usunąć %d pliki z aparatu?"
 msgstr[2] "Usunąć %d plików z aparatu?"
 
-#: src/camera/ImportPage.vala:1740 src/Dialogs.vala:1392
+#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1392
 msgid "_Keep"
 msgstr "_Zatrzymaj"
 
-#: src/camera/ImportPage.vala:1759
+#: src/camera/ImportPage.vala:1764
 msgid "Removing photos/videos from camera"
 msgstr "Usuwanie zdjęć/nagrań wideo z aparatu"
 
-#: src/camera/ImportPage.vala:1763
+#: src/camera/ImportPage.vala:1768
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3028,14 +3034,14 @@ msgid_plural ""
 "Switching developers will undo all changes you have made to these photos in "
 "Shotwell"
 msgstr[0] ""
-"Przełączenie wywoływacza cofnie wszystkie zmiany wprowadzone do zdjęcia w "
-"programie Shotwell"
+"Przełączenie wywoływacza cofnie wszystkie zmiany wprowadzone do zdjęcia "
+"w programie Shotwell"
 msgstr[1] ""
-"Przełączenie wywoływacza cofnie wszystkie zmiany wprowadzone do zdjęć w "
-"programie Shotwell"
+"Przełączenie wywoływacza cofnie wszystkie zmiany wprowadzone do zdjęć "
+"w programie Shotwell"
 msgstr[2] ""
-"Przełączenie wywoływacza cofnie wszystkie zmiany wprowadzone do zdjęć w "
-"programie Shotwell"
+"Przełączenie wywoływacza cofnie wszystkie zmiany wprowadzone do zdjęć "
+"w programie Shotwell"
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
@@ -4228,23 +4234,23 @@ msgstr "Plik wideo SD (4∶3)"
 msgid "HD Video (16 : 9)"
 msgstr "Plik wideo HD (16∶9)"
 
-#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:817
+#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:818
 msgid "Wallet (2 x 3 in.)"
 msgstr "Portfel (2×3 cale)"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:820
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:821
 msgid "Notecard (3 x 5 in.)"
 msgstr "Notatka (3×5 cali)"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:823
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:824
 msgid "4 x 6 in."
 msgstr "4×6 cali"
 
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:826
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:827
 msgid "5 x 7 in."
 msgstr "5×7 cali"
 
-#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:829
+#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:830
 msgid "8 x 10 in."
 msgstr "8×10 cali"
 
@@ -4252,7 +4258,7 @@ msgstr "8×10 cali"
 msgid "Letter (8.5 x 11 in.)"
 msgstr "Letter (8.5×11 cali)"
 
-#: src/editing_tools/EditingTools.vala:767 src/Printing.vala:832
+#: src/editing_tools/EditingTools.vala:767 src/Printing.vala:833
 msgid "11 x 14 in."
 msgstr "11×14 cali"
 
@@ -4260,23 +4266,23 @@ msgstr "11×14 cali"
 msgid "Tabloid (11 x 17 in.)"
 msgstr "Tabloid (11×17 cali)"
 
-#: src/editing_tools/EditingTools.vala:769 src/Printing.vala:835
+#: src/editing_tools/EditingTools.vala:769 src/Printing.vala:836
 msgid "16 x 20 in."
 msgstr "16×20 cali"
 
-#: src/editing_tools/EditingTools.vala:771 src/Printing.vala:841
+#: src/editing_tools/EditingTools.vala:771 src/Printing.vala:842
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr "Portfel metryczny (9×13 cm)"
 
-#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:844
+#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:845
 msgid "Postcard (10 x 15 cm)"
 msgstr "Kartka pocztowa (10×15 cm)"
 
-#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:847
+#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:848
 msgid "13 x 18 cm"
 msgstr "13×18 cm"
 
-#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:850
+#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:851
 msgid "18 x 24 cm"
 msgstr "18×24 cm"
 
@@ -4284,15 +4290,15 @@ msgstr "18×24 cm"
 msgid "A4 (210 x 297 mm)"
 msgstr "A4 (210×297 mm)"
 
-#: src/editing_tools/EditingTools.vala:776 src/Printing.vala:853
+#: src/editing_tools/EditingTools.vala:776 src/Printing.vala:854
 msgid "20 x 30 cm"
 msgstr "20×30 cm"
 
-#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:856
+#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:857
 msgid "24 x 40 cm"
 msgstr "24×40 cm"
 
-#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:859
+#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:860
 msgid "30 x 40 cm"
 msgstr "30×40 cm"
 
@@ -4990,15 +4996,15 @@ msgstr "cale"
 msgid "cm"
 msgstr "cm"
 
-#: src/Printing.vala:875
+#: src/Printing.vala:876
 msgid "Image Settings"
 msgstr "Ustawienia obrazu"
 
-#: src/Printing.vala:888
+#: src/Printing.vala:889
 msgid "Printing..."
 msgstr "Drukowanie…"
 
-#: src/Printing.vala:908 src/Printing.vala:1111
+#: src/Printing.vala:909 src/Printing.vala:1112
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -5148,8 +5154,8 @@ msgstr "Nie można kontynuować publikowania w serwisie %s z powodu błędu:"
 #: src/publishing/PublishingPluginHost.vala:84
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
-"Aby spróbować opublikowania do innego serwisu, należy wybrać jeden z "
-"powyższego menu."
+"Aby spróbować opublikowania do innego serwisu, należy wybrać jeden "
+"z powyższego menu."
 
 #: src/publishing/PublishingUI.vala:105
 msgid "The selected photos/videos were successfully published."
@@ -5978,17 +5984,9 @@ msgstr "Zaznacza wszystkie elementy"
 #. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:773
-msgid "%-I:%M %p"
-msgstr "%H∶%M"
-
 #. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:778
-msgid "%-I:%M:%S %p"
-msgstr "%H∶%M∶%S"
-
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:782
