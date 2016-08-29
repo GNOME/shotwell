@@ -1,3 +1,22 @@
+Shotwell 0.23.7 - 12 Sep 2016
+  * Language updates
+
+All contributors to this release:
+ - Marek Černocký <marek@manet.cz>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jens Georg <mail@jensge.org>
+ - Boram Kim <boramism@gmail.com>
+ - Balázs Úr <urbalazs@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - hu, courtesy of Balázs Úr
+ - ko, courtesy of Kim Boram
+ - pl, courtesy of Piotr Drąg
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
 Shotwell 0.23.6 - 29 Aug 2016
   * Fix locale-dependent times
   * Use nl_langinfo instead of custom LConv

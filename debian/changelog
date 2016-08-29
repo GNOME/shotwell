@@ -1,3 +1,19 @@
+shotwell (0.23.7-1~jensge1~xenial1) xenial; urgency=medium
+
+  * Language updates
+
+ -- Jens Georg <mail@jensge.org>  Mon, 12 Sep 2016 20:10:26 +0200
+
+shotwell (0.23.6-1~jensge1~xenial1) xenial; urgency=medium
+
+  * Fix locale-dependent times
+  * Use nl_langinfo instead of custom LConv
+  * Fix renaming of tags and saved searches
+  * Improve message shown on empty camera
+  * Make thm a recognized extension for JPEG files
+
+ -- Jens Georg <mail@jensge.org>  Mon, 29 Aug 2016 21:26:10 +0200
+
 shotwell (0.23.5-1~jensge1~xenial2) xenial; urgency=medium
 
   * Plugins: Load icons and GtkBuilder files from GResource
