@@ -1,3 +1,32 @@
+Shotwell 0.23.6 - 29 Aug 2016
+  * Fix locale-dependent times
+  * Use nl_langinfo instead of custom LConv
+  * Fix renaming of tags and saved searches
+  * Improve message shown on empty camera
+  * Make thm a recognized extension for JPEG files
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716533
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718796
+ - https://bugzilla.gnome.org/show_bug.cgi?id=731480
+ - https://bugzilla.gnome.org/show_bug.cgi?id=759246
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rūdolfs Mazurs <rudolfsm@src.gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Balázs Úr <urbalazs@gmail.com>
+ - Balázs Meskó <meskobalazs@gmail.com>
+
+Added/updated translations
+ - de, courtesy of Christian Kirbach
+ - hu, courtesy of Balázs Úr
+ - hu, courtesy of Meskó Balázs
+ - lv, courtesy of Rūdolfs Mazurs
+ - pl, courtesy of Piotr Drąg
+
 Shotwell 0.23.5 - 15 Aug 2016
   * Remove obsolete files
   * Plugins: Load icons and GtkBuilder files from GResource
