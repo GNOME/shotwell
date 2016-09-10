@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-26 21:27+0000\n"
-"PO-Revision-Date: 2016-08-28 14:18+0200\n"
+"POT-Creation-Date: 2016-09-04 08:43+0000\n"
+"PO-Revision-Date: 2016-09-10 19:14+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -356,7 +356,7 @@ msgid ""
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
 "or better, 6: Four or better, 7: Five or better."
 msgstr ""
-"Określa sposób filtrowania zdjęć w oparciu o ich oceny. 1: odrzucone lub "
+"Określa sposób filtrowania zdjęć na podstawie ich ocen. 1: odrzucone lub "
 "lepsze, 2: nieocenione lub lepsze, 3: jeden lub lepsze, 4: dwa lub lepsze, "
 "5: trzy lub lepsze, 6: cztery lub lepsze, 7: pięć lub lepsze."
 
@@ -1445,7 +1445,7 @@ msgid ""
 "taking place in the background."
 msgstr ""
 "Program Shotwell odnalazł %d zdjęć w kolekcji programu F-Spot i obecnie je "
-"importuje. Duplikaty zostaną automatycznie wykryte i usunięte.\n"
+"importuje. Podwójne kopie zostaną automatycznie wykryte i usunięte.\n"
 "\n"
 "Można zamknąć to okno i używać programu Shotwell, podczas gdy import jest "
 "przeprowadzany w tle."
@@ -1565,7 +1565,7 @@ msgid ""
 msgstr ""
 "Nie zalogowano w serwisie Gallery.\n"
 "\n"
-"Należy już posiadać konto w serwisie Gallery3, aby ukończyć proces logowania."
+"Należy już mieć konto w serwisie Gallery3, aby ukończyć proces logowania."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:117
 msgid "Shotwell default directory"
@@ -1699,7 +1699,7 @@ msgstr "Copyright © 2013 rajce.net"
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
 msgid "An error message occurred when publishing to Rajce. Please try again."
 msgstr ""
-"Wystąpił komunikat błędu podczas publikowania w serwisie Rajce. Proszę "
+"Wystąpił komunikat o błędzie podczas publikowania w serwisie Rajce. Proszę "
 "spróbować ponownie."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:833
@@ -1708,7 +1708,7 @@ msgstr "Proszę podać adres e-mail i hasło powiązane z kontem serwisu Rajce
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:834
 msgid "Invalid email and/or password. Please try again"
-msgstr "Nieprawidłowy adres e-mail i/lub hasło. Proszę spróbować ponownie"
+msgstr "Nieprawidłowy adres e-mail lub hasło. Proszę spróbować ponownie"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:865
 msgid "Invalid User Email or Password"
@@ -1779,7 +1779,7 @@ msgstr ""
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:992
 msgid "Username and/or password invalid. Please try again"
-msgstr "Nieprawidłowa nazwa użytkownika i/lub hasło. Proszę spróbować ponownie"
+msgstr "Nieprawidłowa nazwa użytkownika lub hasło. Proszę spróbować ponownie"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1026
@@ -1887,10 +1887,10 @@ msgid ""
 msgstr ""
 "Nie zalogowano w serwisie Facebook.\n"
 "\n"
-"Jeśli użytkownik nie posiada jeszcze konta w serwisie Facebook, można je "
-"utworzyć podczas procesu logowania. Podczas logowania Shotwell Connect może "
-"zapytać o pozwolenie na wysyłanie zdjęć i publikowanie ich w kanale "
-"użytkownika. To pozwolenie jest wymagane, aby Shotwell Connect mogło działać."
+"Jeśli użytkownik nie ma jeszcze konta w serwisie Facebook, można je utworzyć "
+"podczas procesu logowania. Podczas logowania Shotwell Connect może zapytać "
+"o pozwolenie na wysyłanie zdjęć i publikowanie ich w kanale użytkownika. To "
+"pozwolenie jest wymagane, aby Shotwell Connect mogło działać."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:66
 msgid ""
@@ -2198,7 +2198,7 @@ msgstr "Tworzenie albumu %s…"
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:920
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
-"Wystąpił komunikat błędu podczas publikowania w serwisie Piwigo. Proszę "
+"Wystąpił komunikat o błędzie podczas publikowania w serwisie Piwigo. Proszę "
 "spróbować ponownie."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:990
@@ -2257,7 +2257,7 @@ msgstr ""
 "\n"
 "Aby kontynuować używanie serwisu YouTube, należy się zalogować do konta "
 "Google i ustawić je do używania serwisu YouTube. Większość kont można "
-"ustawić używając przeglądarki WWW do zalogowania się do serwisu YouTube co "
+"ustawić za pomocą przeglądarki WWW do zalogowania się do serwisu YouTube co "
 "najmniej raz."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:363
@@ -2770,19 +2770,19 @@ msgstr "Cofanie łączenia"
 
 #: src/Commands.vala:1085
 msgid "Duplicating photos"
-msgstr "Tworzenie duplikatów zdjęć"
+msgstr "Tworzenie kopii zdjęć"
 
 #: src/Commands.vala:1085
 msgid "Removing duplicated photos"
-msgstr "Usuwanie duplikatów zdjęć"
+msgstr "Usuwanie podwójnych kopii zdjęć"
 
 #: src/Commands.vala:1108
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] "Nie można utworzyć duplikatu zdjęcia z powodu błędu pliku"
-msgstr[1] "Nie można utworzyć duplikatu %d zdjęć z powodu błędów plików"
-msgstr[2] "Nie można utworzyć duplikatu %d zdjęć z powodu błędów plików"
+msgstr[0] "Nie można utworzyć kopii zdjęcia z powodu błędu pliku"
+msgstr[1] "Nie można utworzyć kopii %d zdjęć z powodu błędów plików"
+msgstr[2] "Nie można utworzyć kopii %d zdjęć z powodu błędów plików"
 
 #: src/Commands.vala:1195
 msgid "Restoring previous rating"
@@ -2913,7 +2913,7 @@ msgstr ""
 #: src/data_imports/DataImportsPluginHost.vala:151
 msgid "To try importing from another service, select one from the above menu."
 msgstr ""
-"Aby spróbować zaimportować z innego serwisu należy wybrać go z powyższego "
+"Aby spróbować zaimportować z innego serwisu, należy wybrać go z powyższego "
 "menu."
 
 #: src/data_imports/DataImportsUI.vala:10
@@ -2926,7 +2926,7 @@ msgid ""
 msgstr ""
 "Nie włączono żadnych wtyczek importowania danych.\n"
 "\n"
-"Aby użyć funkcji importowania z programu należy posiadać co najmniej jedną "
+"Aby użyć funkcji importowania z programu, należy mieć co najmniej jedną "
 "włączoną wtyczkę importowania danych. Wtyczki można włączać w oknie "
 "Preferencji."
 
@@ -3153,11 +3153,11 @@ msgstr[2] "%d plik zostało pomyślnie zaimportowanych."
 #.
 #: src/Dialogs.vala:550
 msgid "Duplicate Photos/Videos Not Imported:"
-msgstr "Niezaimportowane duplikaty zdjęć/nagrań wideo:"
+msgstr "Niezaimportowane podwójne kopie zdjęć/nagrań wideo:"
 
 #: src/Dialogs.vala:554
 msgid "duplicates existing media item"
-msgstr "duplikuje istniejący element multimedialny"
+msgstr "tworzy kopię istniejącego elementu multimedialnego"
 
 #.
 #. Files Not Imported Due to Camera Errors
@@ -3169,7 +3169,7 @@ msgstr "Niezaimportowane zdjęcia/nagrania wideo z powodu błędów aparatu:"
 #: src/Dialogs.vala:568 src/Dialogs.vala:583 src/Dialogs.vala:598
 #: src/Dialogs.vala:614 src/Dialogs.vala:629 src/Dialogs.vala:643
 msgid "error message:"
-msgstr "komunikat błędu:"
+msgstr "komunikat o błędzie:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
@@ -3229,25 +3229,25 @@ msgstr "Niezaimportowane pliki z innego powodu:"
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] "Jeden duplikat zdjęcia nie został zaimportowany:\n"
-msgstr[1] "%d duplikaty zdjęć nie zostały zaimportowane:\n"
-msgstr[2] "%d duplikatów zdjęć nie zostało zaimportowanych:\n"
+msgstr[0] "Jedna kopia zdjęcia nie została zaimportowana:\n"
+msgstr[1] "%d kopie zdjęć nie zostały zaimportowane:\n"
+msgstr[2] "%d kopii zdjęć nie zostało zaimportowanych:\n"
 
 #: src/Dialogs.vala:663
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] "Jeden duplikat nagrania wideo nie został zaimportowany:\n"
-msgstr[1] "%d duplikaty nagrań wideo nie zostały zaimportowane:\n"
-msgstr[2] "%d duplikatów nagrań wideo nie zostało zaimportowanych:\n"
+msgstr[0] "Jedna kopia nagrania wideo nie została zaimportowana:\n"
+msgstr[1] "%d kopie nagrań wideo nie zostały zaimportowane:\n"
+msgstr[2] "%d kopii nagrań wideo nie zostało zaimportowanych:\n"
 
 #: src/Dialogs.vala:666
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] "Jeden duplikat zdjęcia/nagrania wideo nie został zaimportowany:\n"
-msgstr[1] "%d duplikaty zdjęć/nagrań wideo nie zostały zaimportowane:\n"
-msgstr[2] "%d duplikatów zdjęć/nagrań wideo nie zostało zaimportowanych:\n"
+msgstr[0] "Jedna kopia zdjęcia/nagrania wideo nie została zaimportowana:\n"
+msgstr[1] "%d kopie zdjęć/nagrań wideo nie zostały zaimportowane:\n"
+msgstr[2] "%d kopii zdjęć/nagrań wideo nie zostało zaimportowanych:\n"
 
 #: src/Dialogs.vala:680
 #, c-format
@@ -3484,9 +3484,9 @@ msgstr[2] "Pominięto %d nieobsługiwanych zdjęć:\n"
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "Pominięto jeden plik nie będący obrazem.\n"
-msgstr[1] "Pominięto %d pliki nie będące obrazami.\n"
-msgstr[2] "Pominięto %d plików nie będących obrazami.\n"
+msgstr[0] "Pominięto jeden plik niebędący obrazem.\n"
+msgstr[1] "Pominięto %d pliki niebędące obrazami.\n"
+msgstr[2] "Pominięto %d plików niebędących obrazami.\n"
 
 #: src/Dialogs.vala:801
 #, c-format
@@ -3699,7 +3699,7 @@ msgstr "24-godzinny"
 
 #: src/Dialogs.vala:1714
 msgid "_Shift photos/videos by the same amount"
-msgstr "Prze_suń zdjęcia/nagrania wideo o tą samą wartość"
+msgstr "Prze_suń zdjęcia/nagrania wideo o tę samą wartość"
 
 #: src/Dialogs.vala:1719
 msgid "Set _all photos/videos to this time"
@@ -5644,19 +5644,19 @@ msgstr "Filtruj zdjęcia"
 
 #: src/Resources.vala:284
 msgid "Limit the number of photos displayed based on a filter"
-msgstr "Ogranicza liczbę wyświetlanych zdjęć w oparciu o filtr"
+msgstr "Ogranicza liczbę wyświetlanych zdjęć na podstawie filtru"
 
 #: src/Resources.vala:286
 msgid "_Duplicate"
-msgstr "Utwórz _duplikat"
+msgstr "Utwórz _kopię"
 
 #: src/Resources.vala:287
 msgid "Duplicate"
-msgstr "Utwórz duplikat"
+msgstr "Utwórz kopię"
 
 #: src/Resources.vala:288
 msgid "Make a duplicate of the photo"
-msgstr "Tworzy duplikat zdjęcia"
+msgstr "Tworzy kopię zdjęcia"
 
 #: src/Resources.vala:290
 msgid "_Export..."
@@ -6091,11 +6091,11 @@ msgstr "nagranie wideo"
 
 #: src/searches/SavedSearchDialog.vala:311
 msgid "has"
-msgstr "posiada"
+msgstr "ma"
 
 #: src/searches/SavedSearchDialog.vala:312
 msgid "has no"
-msgstr "nie posiada"
+msgstr "nie ma"
 
 #: src/searches/SavedSearchDialog.vala:317
 msgid "modifications"
@@ -6353,7 +6353,7 @@ msgstr "Wyświetlanie każdego zdjęcia przez"
 
 #: ui/set_background_slideshow_dialog.ui:45
 msgid "period of time"
-msgstr "okres czasu"
+msgstr "czas"
 
 #: ui/set_background_slideshow_dialog.ui:94
 msgid "Generate desktop background slideshow"
