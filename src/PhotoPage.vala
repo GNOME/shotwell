@@ -3125,7 +3125,7 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_flag_unflag() {
         if (has_photo()) {
-            Gee.ArrayList<DataSource> photo_list = new Gee.ArrayList<DataSource>();
+            var photo_list = new Gee.ArrayList<MediaSource>();
             photo_list.add(get_photo());
             get_command_manager().execute(new FlagUnflagCommand(photo_list,
                 !((LibraryPhoto) get_photo()).is_flagged()));

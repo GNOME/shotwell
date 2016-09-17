@@ -286,8 +286,8 @@ public abstract class MediaMonitor : Object {
         TransactionController controller, ref int op_count) throws Error {
         Gee.Map<Monitorable, File> set_master_file = null;
         Gee.Map<Monitorable, FileInfo> set_master_file_info = null;
-        Gee.ArrayList<MediaSource> to_offline = null;
-        Gee.ArrayList<MediaSource> to_online = null;
+        Gee.ArrayList<Monitorable> to_offline = null;
+        Gee.ArrayList<Monitorable> to_online = null;
         
         foreach (MonitorableUpdates updates in all_updates) {
             if (op_count >= MAX_OPERATIONS_PER_CYCLE)
