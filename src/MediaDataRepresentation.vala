@@ -400,8 +400,8 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     
     public static void count_media(Gee.Collection<MediaSource> media, out int photo_count,
         out int video_count) {
-        Gee.ArrayList<MediaSource> photos = new Gee.ArrayList<MediaSource>();
-        Gee.ArrayList<MediaSource> videos = new Gee.ArrayList<MediaSource>();
+        var photos = new Gee.ArrayList<LibraryPhoto>();
+        var videos = new Gee.ArrayList<Video>();
         
         filter_media(media, photos, videos);
         
