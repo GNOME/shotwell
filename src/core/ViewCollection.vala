@@ -646,7 +646,8 @@ public class ViewCollection : DataCollection {
     }
     
     public override void items_altered(Gee.Map<DataObject, Alteration> map) {
-        filter_altered_items(map.keys);
+        // Cast - our DataObjects are DataViews.
+        filter_altered_items((Gee.Collection<DataView>)map.keys);
 
         base.items_altered(map);
     }
