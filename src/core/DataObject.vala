@@ -115,7 +115,7 @@ public abstract class DataObject : Object {
         return object_id;
     }
     
-    public Value? get_collection_property(string name, Value? def = null) {
+    public Value get_collection_property(string name, Value? def = null) {
         if (member_of == null)
             return def;
         
