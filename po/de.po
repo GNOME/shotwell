@@ -45,9 +45,9 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-08-02 13:35+0000\n"
-"PO-Revision-Date: 2016-08-04 10:49+0200\n"
-"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"POT-Creation-Date: 2016-09-12 19:18+0000\n"
+"PO-Revision-Date: 2016-09-18 21:01+0200\n"
+"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/shotwell/language/"
 "de/)\n"
 "Language: de\n"
@@ -919,7 +919,7 @@ msgstr ""
 "Legt fest, ob Metadaten vor dem Hochladen zu Picasa entfernt werden sollen"
 
 #: misc/org.yorba.shotwell.gschema.xml:436
-msgid "Piwigio URL"
+msgid "Piwigo URL"
 msgstr "Piwigo-Adresse"
 
 #: misc/org.yorba.shotwell.gschema.xml:437
@@ -1376,14 +1376,14 @@ msgstr ""
 "Christian Kirbach <Christian.Kirbach@gmail.com>, 2014, 2015, 2016\n"
 "Mario Blättermann <mario.blaettermann@gmail.com>"
 
-#: plugins/common/RESTSupport.vala:448
+#: plugins/common/RESTSupport.vala:451
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:958
 msgid "A temporary file needed for publishing is unavailable"
 msgstr ""
 "Eine temporäre Datei, die für das Veröffentlichen benötigt wird, ist nicht "
 "verfügbar"
 
-#: plugins/common/RESTSupport.vala:1154
+#: plugins/common/RESTSupport.vala:1157
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1400,7 +1400,7 @@ msgstr ""
 # Ich würde lieber bei »Copyright« bleiben.
 #: plugins/shotwell-data-imports/FSpotImporter.vala:36
 #: plugins/shotwell-publishing/FacebookPublishing.vala:33
-#: plugins/shotwell-publishing/FlickrPublishing.vala:35
+#: plugins/shotwell-publishing/FlickrPublishing.vala:33
 #: plugins/shotwell-publishing/PicasaPublishing.vala:33
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
 #: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:27
@@ -1572,8 +1572,8 @@ msgid "pixels"
 msgstr "Pixel"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:195
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1237
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1232
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1235
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Ursprüngliche Größe"
@@ -1777,14 +1777,14 @@ msgid "Copyright 2012 BJA Electronics"
 msgstr "Copyright 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1228
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1230
 msgid "500 x 375 pixels"
 msgstr "500 x 375 Pixel"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1234
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1229
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1231
 msgid "1024 x 768 pixels"
 msgstr "1024 x 768 Pixel"
 
@@ -1813,13 +1813,13 @@ msgstr ""
 "Konto ein."
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:990
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:992
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 "Benutzername und/oder Passwort sind ungültig. Bitte versuchen Sie es erneut"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1024
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1026
 msgid "Invalid User Name or Password"
 msgstr "Ungültiger Benutzername oder Passwort"
 
@@ -1910,7 +1910,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:62
 #: plugins/shotwell-publishing/PicasaPublishing.vala:60
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1114
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -1982,13 +1982,13 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "Wo möchten Sie die ausgewählten Fotos veröffentlichen?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1193
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1215
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1213
 msgid "Just me"
 msgstr "Nur mich"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1195
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1216
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1218
 msgid "Everyone"
 msgstr "Alle"
 
@@ -2008,7 +2008,7 @@ msgstr "Autorisierungsnummer:"
 msgid "Con_tinue"
 msgstr "For_tsetzen"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:62
+#: plugins/shotwell-publishing/FlickrPublishing.vala:60
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
@@ -2021,7 +2021,7 @@ msgstr ""
 "anzumelden. Sie müssen »Shotwell Connect« autorisieren, um sich mit Flickr "
 "zu verbinden."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:64
+#: plugins/shotwell-publishing/FlickrPublishing.vala:62
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
 "To continue publishing to Flickr, quit and restart Shotwell, then try "
@@ -2032,12 +2032,12 @@ msgstr ""
 "Um weiterhin auf Flickr zu veröffentlichen zu können, beenden Sie Shotwell, "
 "starten Sie es nochmals und versuchen es dann erneut."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:376
+#: plugins/shotwell-publishing/FlickrPublishing.vala:374
 msgid "Preparing for login..."
 msgstr "Anmeldung wird vorbereitet …"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:446
-#: plugins/shotwell-publishing/FlickrPublishing.vala:596
+#: plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: plugins/shotwell-publishing/FlickrPublishing.vala:594
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can't "
 "continue."
@@ -2045,11 +2045,11 @@ msgstr ""
 "Eine Datei, die veröffentlicht werden soll, ist nicht verfügbar. Die "
 "Veröffentlichung auf Flickr ist nicht möglich."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:459
+#: plugins/shotwell-publishing/FlickrPublishing.vala:457
 msgid "Verifying authorization..."
 msgstr "Autorisierung wird bestätigt …"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1154
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1152
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2058,7 +2058,7 @@ msgstr ""
 "Sie sind bei Flickr als %s angemeldet.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1157
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -2075,41 +2075,41 @@ msgstr[1] ""
 "limitiert.\n"
 "Diesen Monat können Sie noch %d Megabyte hochladen."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1161
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1159
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Ihr Flickr-Pro-Konto erlaubt unbeschränkte Uploads."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1166
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
 msgid "Photos _visible to:"
 msgstr "Fotos _sichtbar für:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1168
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1166
 msgid "Videos _visible to:"
 msgstr "Videos _sichtbar für:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1171
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1169
 msgid "Photos and videos _visible to:"
 msgstr "Fotos und Videos _sichtbar für:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1212
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
 msgid "Friends & family only"
 msgstr "Nur Freunde und Familie"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1213
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
 msgid "Family only"
 msgstr "Nur Familie"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1214
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1212
 msgid "Friends only"
 msgstr "Nur Freunde"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1235
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1230
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1232
 msgid "2048 x 1536 pixels"
 msgstr "2048 x 1536 Pixel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1236
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1231
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1234
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1233
 msgid "4096 x 3072 pixels"
 msgstr "4096 x 3072 Pixel"
 
@@ -2229,13 +2229,13 @@ msgstr "Veröffentlichen"
 msgid "Creating album %s..."
 msgstr "Album %s wird erstellt …"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:918
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:920
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Ein Fehler trat beim Veröffentlichen auf Piwigo auf. Bitte versuchen Sie "
 "erneut."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:988
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:990
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2243,7 +2243,7 @@ msgstr ""
 "Geben Sie die Adresse Ihrer Piwigo-Fotobibliothek sowie Ihren Benutzernamen "
 "und Passwort für das mit Ihrer Bibliothek verbundene Piwigo-Benutzerkonto an."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:989
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:991
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2251,23 +2251,23 @@ msgstr ""
 "Shotwell kann sich nicht mit Ihrer Piwigo-Fotobibliothek verbinden. Bitte "
 "überprüfen Sie Ihre angegebene Adresse."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1019
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
 msgid "Invalid URL"
 msgstr "Ungültige Adresse"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1217
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1219
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Admins, Familie, Freunde, Kontakte"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1218
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1220
 msgid "Admins, Family, Friends"
 msgstr "Admins, Familie, Freunde"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1219
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1221
 msgid "Admins, Family"
 msgstr "Admins, Familie"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1220
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1222
 msgid "Admins"
 msgstr "Admins"
 
@@ -2561,13 +2561,15 @@ msgstr "Bereits importierte Fotos verbergen"
 msgid "Only display photos that have not been imported"
 msgstr "Nur Fotos zeigen, die noch nicht importiert wurden"
 
-#. Ticket #3304 - Import page shouldn't display confusing message
-#. prior to import.
-#. TODO: replace this with approved text for "talking to camera,
-#. please wait" once new strings are being accepted.
+#: src/camera/ImportPage.vala:842
+msgid "The camera seems to be empty. No photos/videos found to import"
+msgstr ""
+"Die Kamera scheint leer zu sein. Es wurden keine Fotos oder Videos zum "
+"Importieren gefunden."
+
 #: src/camera/ImportPage.vala:846
-msgid "Starting import, please wait..."
-msgstr "Import wird gestartet, bitte warten …"
+msgid "No new photos/videos found on camera"
+msgstr "Keine neuen Fotos/Videos auf der Kamera gefunden"
 
 #: src/camera/ImportPage.vala:873 src/MediaPage.vala:451
 msgid "_Titles"
@@ -2638,57 +2640,61 @@ msgstr ""
 msgid "Unmounting..."
 msgstr "Aushängen läuft …"
 
-#: src/camera/ImportPage.vala:1167
+#: src/camera/ImportPage.vala:1152
+msgid "Starting import, please wait..."
+msgstr "Import wird gestartet, bitte warten …"
+
+#: src/camera/ImportPage.vala:1169
 msgid "Fetching photo information"
 msgstr "Foto-Informationen werden abgerufen"
 
-#: src/camera/ImportPage.vala:1522
+#: src/camera/ImportPage.vala:1527
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Vorschaubild für %s wird abgerufen"
 
-#: src/camera/ImportPage.vala:1638
+#: src/camera/ImportPage.vala:1643
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera kann nicht reserviert werden: %s"
 
-#: src/camera/ImportPage.vala:1723
+#: src/camera/ImportPage.vala:1728
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Soll dieses Foto von der Kamera gelöscht werden?"
 msgstr[1] "Sollen diese %d Fotos von der Kamera gelöscht werden?"
 
-#: src/camera/ImportPage.vala:1726
+#: src/camera/ImportPage.vala:1731
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Soll dieses Video von der Kamera gelöscht werden?"
 msgstr[1] "Sollen diese %d Videos von der Kamera gelöscht werden?"
 
-#: src/camera/ImportPage.vala:1729
+#: src/camera/ImportPage.vala:1734
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Soll dieses Foto/Video von der Kamera gelöscht werden?"
 msgstr[1] "Sollen diese %d Fotos/Videos von der Kamera gelöscht werden?"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1737
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Sollen diese Dateien von der Kamera gelöscht werden?"
 msgstr[1] "Sollen diese %d Dateien von der Kamera gelöscht werden?"
 
-#: src/camera/ImportPage.vala:1740 src/Dialogs.vala:1392
+#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1392
 msgid "_Keep"
 msgstr "_Behalten"
 
-#: src/camera/ImportPage.vala:1759
+#: src/camera/ImportPage.vala:1764
 msgid "Removing photos/videos from camera"
 msgstr "Fotos/Videos werden von der Kamera entfernt"
 
-#: src/camera/ImportPage.vala:1763
+#: src/camera/ImportPage.vala:1768
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4164,23 +4170,23 @@ msgstr "SD-Video (4 : 3)"
 msgid "HD Video (16 : 9)"
 msgstr "HD-Video (16 : 9)"
 
-#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:817
+#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:818
 msgid "Wallet (2 x 3 in.)"
 msgstr "Brieftasche (2 x 3 Zoll)"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:820
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:821
 msgid "Notecard (3 x 5 in.)"
 msgstr "Notizzettel (3 x 5 Zoll)"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:823
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:824
 msgid "4 x 6 in."
 msgstr "4 x 6 Zoll"
 
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:826
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:827
 msgid "5 x 7 in."
 msgstr "5 x 7 Zoll"
 
-#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:829
+#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:830
 msgid "8 x 10 in."
 msgstr "8 x 10 Zoll"
 
@@ -4188,7 +4194,7 @@ msgstr "8 x 10 Zoll"
 msgid "Letter (8.5 x 11 in.)"
 msgstr "US-Letter (8.5 x 11 in.)"
 
-#: src/editing_tools/EditingTools.vala:767 src/Printing.vala:832
+#: src/editing_tools/EditingTools.vala:767 src/Printing.vala:833
 msgid "11 x 14 in."
 msgstr "11 x 14 Zoll"
 
@@ -4196,23 +4202,23 @@ msgstr "11 x 14 Zoll"
 msgid "Tabloid (11 x 17 in.)"
 msgstr "Boulevardblatt (11 x 17 in.)"
 
-#: src/editing_tools/EditingTools.vala:769 src/Printing.vala:835
+#: src/editing_tools/EditingTools.vala:769 src/Printing.vala:836
 msgid "16 x 20 in."
 msgstr "16 x 20 Zoll"
 
-#: src/editing_tools/EditingTools.vala:771 src/Printing.vala:841
+#: src/editing_tools/EditingTools.vala:771 src/Printing.vala:842
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr "Metrische Brieftasche (9 x 13 cm)"
 
-#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:844
+#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:845
 msgid "Postcard (10 x 15 cm)"
 msgstr "Postkarte (10 x 15 cm)"
 
-#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:847
+#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:848
 msgid "13 x 18 cm"
 msgstr "13 x 18 cm"
 
-#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:850
+#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:851
 msgid "18 x 24 cm"
 msgstr "18 x 24 cm"
 
@@ -4220,15 +4226,15 @@ msgstr "18 x 24 cm"
 msgid "A4 (210 x 297 mm)"
 msgstr "A4 (210 x 297 mm)"
 
-#: src/editing_tools/EditingTools.vala:776 src/Printing.vala:853
+#: src/editing_tools/EditingTools.vala:776 src/Printing.vala:854
 msgid "20 x 30 cm"
 msgstr "20 x 30 cm"
 
-#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:856
+#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:857
 msgid "24 x 40 cm"
 msgstr "24 x 40 cm"
 
-#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:859
+#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:860
 msgid "30 x 40 cm"
 msgstr "30 x 40 cm"
 
@@ -4428,13 +4434,13 @@ msgstr "Ordner"
 msgid "Library"
 msgstr "Bibliothek"
 
-#: src/library/Branch.vala:97 src/SearchFilter.vala:594
-#: src/SearchFilter.vala:595
+#: src/library/Branch.vala:97 src/SearchFilter.vala:608
+#: src/SearchFilter.vala:609
 msgid "Photos"
 msgstr "Fotos"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:588
-#: src/SearchFilter.vala:589 src/SearchFilter.vala:988
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:602
+#: src/SearchFilter.vala:603 src/SearchFilter.vala:1188
 msgid "Flagged"
 msgstr "Markiert"
 
@@ -4820,7 +4826,7 @@ msgstr "Keine Fotos/Videos"
 msgid "No photos/videos found which match the current filter"
 msgstr "Keine Fotos oder Videos gefunden, die auf den aktuellen Filter passen"
 
-#: src/Page.vala:2568
+#: src/Page.vala:2576
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotos können nicht in diesen Ordner exportiert werden."
 
@@ -4924,15 +4930,15 @@ msgstr "Zoll"
 msgid "cm"
 msgstr "cm"
 
-#: src/Printing.vala:875
+#: src/Printing.vala:876
 msgid "Image Settings"
 msgstr "Bildeinstellungen"
 
-#: src/Printing.vala:888
+#: src/Printing.vala:889
 msgid "Printing..."
 msgstr "Drucken …"
 
-#: src/Printing.vala:908 src/Printing.vala:1111
+#: src/Printing.vala:909 src/Printing.vala:1112
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -5799,7 +5805,8 @@ msgstr ""
 "Die Suche kann nicht nach »%s« umbenannt werden, weil die Suche bereits "
 "vorhanden ist."
 
-#: src/Resources.vala:405
+#. Saved search button
+#: src/Resources.vala:405 src/SearchFilter.vala:1210
 msgid "Saved Search"
 msgstr "Gespeicherte Suche"
 
@@ -5914,39 +5921,46 @@ msgstr "Alle auswählen"
 #. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:772
-msgid "%-I:%M %p"
-msgstr "%-I:%M %p"
-
 #. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:777
-msgid "%-I:%M:%S %p"
-msgstr "%-I:%M:%S %p"
-
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:781
+#: src/Resources.vala:782
 msgid "%a %b %d, %Y"
 msgstr "%a %d. %b, %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#. / Locale-specific calendar date format for multi-month strings,
-#. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:786 src/Resources.vala:796
+#: src/Resources.vala:787
+msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:791
+#: src/Resources.vala:792
+msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
+
+#. / Locale-specific calendar date format for multi-month strings,
+#. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: src/Resources.vala:797
+msgctxt "MultimonthFormat"
+msgid "%a %b %d"
+msgstr "%a %d %b"
+
+#. / Locale-specific calendar date format for multi-month strings,
+#. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: src/Resources.vala:802
+msgctxt "MultimonthFormat"
+msgid "%a %b %d, %Y"
+msgstr "%a %d. %b, %Y"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:141
 msgid "Slideshow"
@@ -6130,7 +6144,7 @@ msgid "Photo state"
 msgstr "Status des Fotos"
 
 #. Rating button
-#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:999
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:1199
 msgid "Rating"
 msgstr "Bewertung"
 
@@ -6138,19 +6152,19 @@ msgstr "Bewertung"
 msgid "Date"
 msgstr "Datum"
 
-#: src/SearchFilter.vala:600 src/SearchFilter.vala:601
+#: src/SearchFilter.vala:614 src/SearchFilter.vala:615
 msgid "Videos"
 msgstr "Videos"
 
-#: src/SearchFilter.vala:606
+#: src/SearchFilter.vala:620
 msgid "RAW Photos"
 msgstr "RAW-Fotos"
 
-#: src/SearchFilter.vala:607
+#: src/SearchFilter.vala:621
 msgid "RAW photos"
 msgstr "RAW-Fotos"
 
-#: src/SearchFilter.vala:948
+#: src/SearchFilter.vala:1148
 #, c-format
 msgid "Error loading UI file %s: %s"
 msgstr "Fehler beim Laden der UI-Datei %s:%s"
@@ -6160,14 +6174,20 @@ msgstr "Fehler beim Laden der UI-Datei %s:%s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:959
+#: src/SearchFilter.vala:1159
 msgid "Close"
 msgstr "Schließen"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:965
+#: src/SearchFilter.vala:1165
 msgid "Type"
 msgstr "Typ"
+
+#: src/SearchFilter.vala:1211
+msgid "Use a saved search to filter items in the current view"
+msgstr ""
+"Eine gespeicherte Suche verwenden, um Objekte in der aktuellen Ansicht zu "
+"filtern"
 
 #: src/sidebar/Tree.vala:203
 msgid "New _Tag..."
@@ -6240,7 +6260,7 @@ msgstr "Zufällig"
 msgid "Tags"
 msgstr "Stichworte"
 
-#: src/Tag.vala:817
+#: src/Tag.vala:830
 msgid "untitled"
 msgstr "unbenannt"
 
@@ -6437,6 +6457,12 @@ msgstr "T_itel anzeigen"
 msgid "seconds"
 msgstr "Sekunden"
 
+#~ msgid "%-I:%M %p"
+#~ msgstr "%-I:%M %p"
+
+#~ msgid "%-I:%M:%S %p"
+#~ msgstr "%-I:%M:%S %p"
+
 #~ msgid "Copyright 2009-2015 Yorba Foundation"
 #~ msgstr "Copyright 2009-2015 Yorba Foundation"
 
@@ -6458,6 +6484,3 @@ msgstr "Sekunden"
 
 #~ msgid "Visit the Yorba web site"
 #~ msgstr "Besuchen Sie die Yorba-Webseite"
-
-#~ msgid "No photos/videos found"
-#~ msgstr "Keine Fotos/Videos gefunden"
