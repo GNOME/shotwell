@@ -16,7 +16,6 @@
 # hpeters <hpeters@redhat.com>, 2013
 # Jan-Christoph Borchardt <hey@jancborchardt.net>, 2011
 # JavaJens <javajens@gmail.com>, 2013
-#   <johanneswilm@gmail.com>, 2011
 # johanneswilm <johanneswilm@gmail.com>, 2011
 # juko <juko@kofler.bz.it>, 2011
 # Konstantin Weitz <>, 2012
@@ -39,15 +38,16 @@
 # Thomas Zach <sabaot.f@gmail.com>, 2012
 # Wolfgang Stöggl <c72578@yahoo.de>, 2014.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016.
+# Bernd Homuth <dev@hmt.im>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-09-12 19:18+0000\n"
-"PO-Revision-Date: 2016-09-18 21:01+0200\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2016-09-18 19:11+0000\n"
+"PO-Revision-Date: 2016-09-18 23:23+0200\n"
+"Last-Translator: Bernd Homuth <dev@hmt.im>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/shotwell/language/"
 "de/)\n"
 "Language: de\n"
@@ -55,7 +55,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -138,7 +138,7 @@ msgstr "Authentifizierungs-Token"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:7
 msgid "Yandex-Fotki authentication token, if logged in."
-msgstr "Authentifizierungs-Token für die Anmeldung bei Yandex-Fotki."
+msgstr "Authentifizierungs-Token für Yandex-Fotki, falls angemeldet."
 
 # https://de.wikipedia.org/wiki/Security-Token
 #: misc/org.yorba.shotwell-extras.gschema.xml:14
@@ -151,11 +151,11 @@ msgstr "Token zum Zugriff auf Tumblr"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:20
 msgid "Secret token"
-msgstr "Sicherheits-Token"
+msgstr "Geheimer Token"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:21
 msgid "The secret token to sign oauth requests"
-msgstr "Sicherheits-Token zum Signieren von OAuth-Anfragen"
+msgstr "Geheimer Token zum Signieren von OAuth-Anfragen"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:26
 #: misc/org.yorba.shotwell.gschema.xml:416
@@ -832,7 +832,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:372
 msgid "OAuth Access Phase Token"
-msgstr ""
+msgstr "OAuth-Token für die Zugriffsphase"
 
 #: misc/org.yorba.shotwell.gschema.xml:373
 msgid "The authorization token for the currently logged in Flickr user, if any"
@@ -842,13 +842,16 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:378
 msgid "OAuth Access Phase Token Secret"
-msgstr ""
+msgstr "OAuth-Token-Geheimnis für die Zugriffsphase"
 
 #: misc/org.yorba.shotwell.gschema.xml:379
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
 msgstr ""
+"Das kryptografische Geheimnis, das beim Signieren von Anfragen gegenüber "
+"dem Authentifizierungs-Token des zur Zeit angemeldeten Flickr-Benutzers "
+"verwendet wird, soweit vorhanden"
 
 #: misc/org.yorba.shotwell.gschema.xml:385
 msgid "The user name of the currently logged in Flickr user, if any"
@@ -883,13 +886,15 @@ msgstr ""
 #: misc/org.yorba.shotwell.gschema.xml:410
 #: misc/org.yorba.shotwell.gschema.xml:542
 msgid "refresh token"
-msgstr ""
+msgstr "Auffrischungs-Token"
 
 #: misc/org.yorba.shotwell.gschema.xml:411
 msgid ""
 "The OAuth token used to refresh the Picasa Web Albums session for the "
 "currently logged in user, if any."
 msgstr ""
+"Der OAuth-Token, der beim Auffrischen der Picasa-Web-Album-Sitzung des "
+"aktuell angemeldeten Benutzers verwendet wird, soweit vorhanden."
 
 #: misc/org.yorba.shotwell.gschema.xml:417
 msgid ""
@@ -1055,6 +1060,8 @@ msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
 msgstr ""
+"Der OAuth-Token, der beim Auffrischen der YouTube-Sitzung des aktuell "
+"angemeldeten Benutzers verwendet wird, soweit vorhanden."
 
 #: misc/org.yorba.shotwell.gschema.xml:550
 msgid "last used import service"
