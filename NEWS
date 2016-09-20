@@ -1,3 +1,19 @@
+Shotwell 0.24.0 - 20 Sep 2016
+  * Fix a memory leak in library mode
+  * Translation updates
+
+All contributors to this release:
+ - Marek Černocký <marek@manet.cz>
+ - Jens Georg <mail@jensge.org>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Bernd Homuth <dev@hmt.im>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Bernd Homuth
+ - es, courtesy of Daniel Mustieles
+
 Shotwell 0.23.7 - 12 Sep 2016
   * Language updates
 
