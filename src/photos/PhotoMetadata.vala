@@ -28,18 +28,130 @@ public enum MetadataDomain {
     IPTC
 }
 
+public abstract class KeywordTransformer {
+    public abstract Gee.List<string> transform (string input) throws Error;
+}
+
+public class NullKeywordTransformer : KeywordTransformer {
+    public override Gee.List<string> transform (string input) throws Error {
+        var result = new Gee.ArrayList<string> ();
+        result.add (input);
+
+        return result;
+    }
+}
+
+/* Transforms ACDSEE's pseudo-XML category format into Lightroom format
+ * <Categories>
+ * <Category Assigned=\"1\">Alben
+ *   <Category Assigned=\"1\">Flowers</Category>
+ * </Category>
+ * <Category Assigned=\"1\">Orte</Category>
+ * <Category Assigned=\"1\">Verschiedenes</Category>
+ * </Categories>
+ *
+ * Will be transformed to a list of Alben, Alben|Flowers, Orte, Verschiedenes
+ */
+public class ACDSeeKeywordTransformer : KeywordTransformer {
+    private MarkupParser parser;
+    private Error error;
+    private Gee.ArrayQueue<string> stack;
+    private Gee.ArrayList<string> result;
+    private bool assigned;
+
+    public ACDSeeKeywordTransformer() {
+        this.parser = MarkupParser ();
+        this.parser.start_element = this.on_start;
+        this.parser.end_element = this.on_end;
+        this.parser.text = this.on_text;
+        this.parser.error = this.on_error;
+        this.result = new Gee.ArrayList<string> ();
+        this.stack = new Gee.ArrayQueue<string> ();
+    }
+
+    public override Gee.List<string> transform (string input) throws Error {
+        var ctx = new MarkupParseContext (this.parser, 0, this, null);
+
+        ctx.parse (input, input.length);
+
+        return result;
+    }
+
+    private void on_start (MarkupParseContext ctx,
+                           string name,
+                           [CCode (array_null_terminated = true,
+                                   array_length = false)]
+                           string[] attribute_names,
+                           [CCode (array_null_terminated = true,
+                                   array_length = false)]
+                           string[] attribute_values) throws MarkupError {
+        this.assigned = false;
+        if (name == "Categories") {
+            return;
+        }
+
+        if (name != "Category") {
+            return;
+        }
+
+        Workaround.markup_collect_attributes (name,
+                                              attribute_names,
+                                              attribute_values,
+                                              Markup.CollectType.BOOLEAN,
+                                              "Assigned", out assigned);
+    }
+
+    private void on_end (MarkupParseContext ctx, string name)
+                         throws MarkupError {
+        if (name == "Category") {
+            this.stack.poll_tail ();
+        }
+    }
+
+    private void on_text (MarkupParseContext ctx, string text)
+                          throws MarkupError {
+        if (text == "") {
+            return;
+        }
+
+        this.stack.offer_tail (text);
+        if (this.assigned) {
+            var builder = new StringBuilder ();
+            foreach (var f in this.stack) {
+                builder.append_printf ("%s|", f);
+            }
+            if (builder.len > 0) {
+                builder.truncate (builder.len - 1);
+            }
+            this.result.add (builder.str);
+        }
+    }
+
+    private void on_error (MarkupParseContext ctx, Error error) {
+        this.error = error;
+    }
+}
+
+
+
 public class HierarchicalKeywordField {
     public string field_name;
     public string path_separator;
     public bool wants_leading_separator;
     public bool is_writeable;
-    
-    public HierarchicalKeywordField(string field_name, string path_separator,
-        bool wants_leading_separator, bool is_writeable) {
+    public KeywordTransformer transformer;
+
+    public HierarchicalKeywordField(string field_name,
+                                    string path_separator,
+                                    bool wants_leading_separator,
+                                    bool is_writeable,
+                                    KeywordTransformer transformer =
+                                        new NullKeywordTransformer ()) {
         this.field_name = field_name;
         this.path_separator = path_separator;
         this.wants_leading_separator = wants_leading_separator;
         this.is_writeable = is_writeable;
+        this.transformer = transformer;
     }
 }
 
@@ -674,7 +786,8 @@ public class PhotoMetadata : MediaMetadata {
     private static string[] DATE_TIME_TAGS = {
         "Exif.Image.DateTime",
         "Xmp.tiff.DateTime",
-        "Xmp.xmp.ModifyDate"
+        "Xmp.xmp.ModifyDate",
+        "Xmp.acdsee.datetime"
     };
     
     public MetadataDateTime? get_modification_date_time() {
@@ -805,7 +918,8 @@ public class PhotoMetadata : MediaMetadata {
         "Iptc.Application2.Caption",
         "Xmp.dc.title",
         "Iptc.Application2.Headline",
-        "Xmp.photoshop.Headline"
+        "Xmp.photoshop.Headline",
+        "Xmp.acdsee.caption"
     };
     
     public override string? get_title() {
@@ -844,27 +958,39 @@ public class PhotoMetadata : MediaMetadata {
             remove_tags(STANDARD_TITLE_TAGS);
         }
     }
+
+    private static string[] COMMENT_TAGS = {
+        "Exif.Photo.UserComment",
+        "Xmp.acdsee.notes"
+    };
     
     public override string? get_comment() {
-        return get_string_interpreted("Exif.Photo.UserComment", PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF);
+        return get_first_string_interpreted (COMMENT_TAGS);
     }
     
     public void set_comment(string? comment) {
         if (!is_string_empty(comment))
-            set_string("Exif.Photo.UserComment", comment, PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF);
+            set_all_string(COMMENT_TAGS,
+                           comment,
+                           PrepareInputTextOptions.DEFAULT
+                           & ~PrepareInputTextOptions.STRIP_CRLF);
         else
-            remove_tag("Exif.Photo.UserComment");
+            remove_tags(COMMENT_TAGS);
     }
     
     private static string[] KEYWORD_TAGS = {
         "Xmp.dc.subject",
-        "Iptc.Application2.Keywords"
+        "Iptc.Application2.Keywords",
+        "Xmp.xmp.Label"
     };
     
     private static HierarchicalKeywordField[] HIERARCHICAL_KEYWORD_TAGS = {
         // Xmp.lr.hierarchicalSubject should be writeable but isn't due to this bug
         // in libexiv2: http://dev.exiv2.org/issues/784
         new HierarchicalKeywordField("Xmp.lr.hierarchicalSubject", "|", false, false),
+        new HierarchicalKeywordField("Xmp.acdsee.keywords", "|", false, false),
+        new HierarchicalKeywordField("Xmp.acdsee.categories", "|", false, false,
+                                     new ACDSeeKeywordTransformer ()),
         new HierarchicalKeywordField("Xmp.digiKam.TagsList", "/", false, true),
         new HierarchicalKeywordField("Xmp.MicrosoftPhoto.LastKeywordXMP", "/", false, true)
     };
@@ -960,9 +1086,22 @@ public class PhotoMetadata : MediaMetadata {
             
             if (values == null || values.size < 1)
                 continue;
+
+            var transformed_values = new Gee.ArrayList<string> ();
+            foreach (var current_value in values) {
+                try {
+                    var transformed = field.transformer.transform (current_value);
+                    transformed_values.add_all (transformed);
+                } catch (Error error) {
+                    critical ("Failed to transform tag value %s: %s",
+                              current_value,
+                              error.message);
+                }
+            }
             
-            foreach (string current_value in values) {
-                string? canonicalized = HierarchicalTagUtilities.canonicalize(current_value,
+            foreach (var current_value in transformed_values) {
+                string? canonicalized =
+                    HierarchicalTagUtilities.canonicalize(current_value,
                     field.path_separator);
 
                 if (canonicalized != null)
@@ -1090,7 +1229,8 @@ public class PhotoMetadata : MediaMetadata {
     
     private static string[] ARTIST_TAGS = {
         "Exif.Image.Artist",
-        "Exif.Canon.OwnerName" // Custom tag used by Canon DSLR cameras
+        "Exif.Canon.OwnerName", // Custom tag used by Canon DSLR cameras
+        "Xmp.acdsee.author" // Custom tag used by ACDSEE software
     };
     
     public string? get_artist() {
@@ -1129,7 +1269,8 @@ public class PhotoMetadata : MediaMetadata {
         "Xmp.xmp.Rating",
         "Iptc.Application2.Urgency",
         "Xmp.photoshop.Urgency",
-        "Exif.Image.Rating"
+        "Exif.Image.Rating",
+        "Xmp.acdsee.rating",
     };
     
     public Rating get_rating() {

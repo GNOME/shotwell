@@ -16,7 +16,7 @@ shotwell_VALAFLAGS = $(COMMON_VALAFLAGS) \
 	--vapidir $(abs_top_srcdir)/vapi \
 	--pkg libgphoto2 --pkg posix --pkg libraw --pkg gexiv2 \
 	--pkg libexif --pkg gudev-1.0 --pkg gstreamer-1.0 \
-	--pkg gstreamer-pbutils-1.0 \
+	--pkg gstreamer-pbutils-1.0 --pkg misc \
 	$(UNITY_VALAFLAGS) \
 	$(COMMON_VALAFLAGS_POST)
 
