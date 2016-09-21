@@ -2910,12 +2910,12 @@ public class AdjustTool : EditingTool {
                     ((ShadowDetailTransformation) transformation).get_parameter());
             break;
 
-            case PixelTransformationType.HIGHLIGHTS:
+            case PixelTransformationType.CONTRAST:
                 adjust_tool_window.contrast_slider.set_value(
                     ((ContrastTransformation) transformation).get_parameter());
             break;
 
-            case PixelTransformationType.CONTRAST:
+            case PixelTransformationType.HIGHLIGHTS:
                 adjust_tool_window.highlights_slider.set_value(
                     ((HighlightDetailTransformation) transformation).get_parameter());
             break;
