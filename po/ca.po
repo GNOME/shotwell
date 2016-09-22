@@ -1569,7 +1569,7 @@ msgstr "_Qualitat:"
 
 #: ../src/Dialogs.vala:222
 msgid "_Scaling constraint:"
-msgstr "Constant d'e_scala:"
+msgstr "Restricció d'e_scala:"
 
 #: ../src/Dialogs.vala:225
 msgid "_Pixels:"
