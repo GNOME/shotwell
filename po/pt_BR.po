@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
 "l&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-09-12 19:18+0000\n"
-"PO-Revision-Date: 2016-09-22 22:18-0200\n"
+"POT-Creation-Date: 2016-09-23 00:32+0000\n"
+"PO-Revision-Date: 2016-09-22 22:21-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -2544,7 +2544,6 @@ msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "A câmera parece está vazia. Não há fotos ou vídeos para importar"
 
 #: src/camera/ImportPage.vala:846
-#| msgid "No photos/videos found"
 msgid "No new photos/videos found on camera"
 msgstr "Sem fotos/vídeos na câmera"
 
@@ -4206,70 +4205,79 @@ msgstr "Fechar ferramenta de olhos vermelhos"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Remove qualquer efeito de olhos vermelhos na região selecionada"
 
-#: src/editing_tools/EditingTools.vala:2226
+#: src/editing_tools/EditingTools.vala:2229
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Reiniciar"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2240 src/Properties.vala:436
+#: src/editing_tools/EditingTools.vala:2243 src/Properties.vala:436
 #: src/Properties.vala:440 src/Properties.vala:447
 msgid "Exposure:"
 msgstr "Exposição:"
 
-#: src/editing_tools/EditingTools.vala:2248
+#: src/editing_tools/EditingTools.vala:2251
+msgid "Contrast:"
+msgstr "Contraste:"
+
+#: src/editing_tools/EditingTools.vala:2259
 msgid "Saturation:"
 msgstr "Saturação:"
 
-#: src/editing_tools/EditingTools.vala:2256
+#: src/editing_tools/EditingTools.vala:2267
 msgid "Tint:"
 msgstr "Colorir:"
 
-#: src/editing_tools/EditingTools.vala:2265
+#: src/editing_tools/EditingTools.vala:2276
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: src/editing_tools/EditingTools.vala:2273
+#: src/editing_tools/EditingTools.vala:2284
 msgid "Shadows:"
 msgstr "Sombras:"
 
-#: src/editing_tools/EditingTools.vala:2281
+#: src/editing_tools/EditingTools.vala:2292
 msgid "Highlights:"
 msgstr "Destaques:"
 
-#: src/editing_tools/EditingTools.vala:2335
+#: src/editing_tools/EditingTools.vala:2346
 msgid "Reset Colors"
 msgstr "Reiniciar cores"
 
-#: src/editing_tools/EditingTools.vala:2335
+#: src/editing_tools/EditingTools.vala:2346
 msgid "Reset all color adjustments to original"
 msgstr "Reiniciar todos os ajustes de cores para o original"
 
-#: src/editing_tools/EditingTools.vala:2687
+#: src/editing_tools/EditingTools.vala:2705
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: src/editing_tools/EditingTools.vala:2700
+#: src/editing_tools/EditingTools.vala:2717
 msgid "Tint"
 msgstr "Colorir"
 
-#: src/editing_tools/EditingTools.vala:2713
+#: src/editing_tools/EditingTools.vala:2729
+#| msgid "Contrast Expansion"
+msgid "Contrast"
+msgstr "Contraste"
+
+#: src/editing_tools/EditingTools.vala:2743
 msgid "Saturation"
 msgstr "Saturação"
 
-#: src/editing_tools/EditingTools.vala:2726
+#: src/editing_tools/EditingTools.vala:2756
 msgid "Exposure"
 msgstr "Exposição"
 
-#: src/editing_tools/EditingTools.vala:2739
+#: src/editing_tools/EditingTools.vala:2769
 msgid "Shadows"
 msgstr "Sombras"
 
-#: src/editing_tools/EditingTools.vala:2752
+#: src/editing_tools/EditingTools.vala:2782
 msgid "Highlights"
 msgstr "Destaques"
 
-#: src/editing_tools/EditingTools.vala:2762
+#: src/editing_tools/EditingTools.vala:2792
 msgid "Contrast Expansion"
 msgstr "Expansão de contraste"
 
@@ -4343,7 +4351,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:751
+#: src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Evento %s"
