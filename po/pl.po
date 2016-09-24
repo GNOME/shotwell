@@ -9,9 +9,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-04 08:43+0000\n"
-"PO-Revision-Date: 2016-09-10 19:14+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2016-09-21 18:37+0000\n"
+"PO-Revision-Date: 2016-09-24 22:15+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -371,13 +372,13 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:94
 msgid "sort library photos ascending"
-msgstr "rosnące porządkowanie zdjęć w bibliotece"
+msgstr "rosnące porządkowanie zdjęć w kolekcji"
 
 #: misc/org.yorba.shotwell.gschema.xml:95
 msgid "True if library photos should be sorted ascending, false if descending."
 msgstr ""
-"Jeśli jest ustawione na wartość „true”, zdjęcia w bibliotece będą "
-"porządkowane rosnąco."
+"Jeśli jest ustawione na wartość „true”, zdjęcia w kolekcji będą porządkowane "
+"rosnąco."
 
 #: misc/org.yorba.shotwell.gschema.xml:100
 msgid "sort library photos criteria"
@@ -1680,7 +1681,7 @@ msgstr "Istni_ejącym albumie:"
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:52
 msgid "A _new album named:"
-msgstr "_Nowym albumie o nazwie:"
+msgstr "_Nowym albumie o nazwie:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:159
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1005
@@ -1849,7 +1850,7 @@ msgstr "Opublikowanie do i_stniejącego albumu:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:57
 msgid "Create a _new album named:"
-msgstr "Utworzenie _nowego albumu o nazwie:"
+msgstr "Utworzenie _nowego albumu o nazwie:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:108
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1034
@@ -1889,7 +1890,7 @@ msgstr ""
 "\n"
 "Jeśli użytkownik nie ma jeszcze konta w serwisie Facebook, można je utworzyć "
 "podczas procesu logowania. Podczas logowania Shotwell Connect może zapytać "
-"o pozwolenie na wysyłanie zdjęć i publikowanie ich w kanale użytkownika. To "
+"o pozwolenie na wysyłanie zdjęć i publikowanie ich w kanale użytkownika. To "
 "pozwolenie jest wymagane, aby Shotwell Connect mogło działać."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:66
@@ -2611,7 +2612,7 @@ msgstr "Rozpoczynanie importowania, proszę czekać…"
 
 #: src/camera/ImportPage.vala:1169
 msgid "Fetching photo information"
-msgstr "Pobieranie informacji o zdjęciach"
+msgstr "Pobieranie informacji o zdjęciach"
 
 #: src/camera/ImportPage.vala:1527
 #, c-format
@@ -3130,7 +3131,7 @@ msgstr "(oraz %d więcej)\n"
 
 #: src/Dialogs.vala:531
 msgid "Import Results Report"
-msgstr "Zaimportuj raport o wynikach"
+msgstr "Zaimportuj raport o wynikach"
 
 #: src/Dialogs.vala:535
 #, c-format
@@ -3699,7 +3700,7 @@ msgstr "24-godzinny"
 
 #: src/Dialogs.vala:1714
 msgid "_Shift photos/videos by the same amount"
-msgstr "Prze_suń zdjęcia/nagrania wideo o tę samą wartość"
+msgstr "Prze_suń zdjęcia/nagrania wideo o tę samą wartość"
 
 #: src/Dialogs.vala:1719
 msgid "Set _all photos/videos to this time"
@@ -4318,70 +4319,78 @@ msgstr "Zamyka narzędzie usuwania czerwonych oczu"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Usuwa wszystkie efekty czerwonych oczu na wybranym obszarze"
 
-#: src/editing_tools/EditingTools.vala:2226
+#: src/editing_tools/EditingTools.vala:2229
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "P_rzywróć"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2240 src/Properties.vala:436
+#: src/editing_tools/EditingTools.vala:2243 src/Properties.vala:436
 #: src/Properties.vala:440 src/Properties.vala:447
 msgid "Exposure:"
 msgstr "Ekspozycja:"
 
-#: src/editing_tools/EditingTools.vala:2248
+#: src/editing_tools/EditingTools.vala:2251
+msgid "Contrast:"
+msgstr "Kontrast:"
+
+#: src/editing_tools/EditingTools.vala:2259
 msgid "Saturation:"
 msgstr "Nasycenie:"
 
-#: src/editing_tools/EditingTools.vala:2256
+#: src/editing_tools/EditingTools.vala:2267
 msgid "Tint:"
 msgstr "Odcień:"
 
-#: src/editing_tools/EditingTools.vala:2265
+#: src/editing_tools/EditingTools.vala:2276
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: src/editing_tools/EditingTools.vala:2273
+#: src/editing_tools/EditingTools.vala:2284
 msgid "Shadows:"
 msgstr "Cienie:"
 
-#: src/editing_tools/EditingTools.vala:2281
+#: src/editing_tools/EditingTools.vala:2292
 msgid "Highlights:"
 msgstr "Wyróżnienia:"
 
-#: src/editing_tools/EditingTools.vala:2335
+#: src/editing_tools/EditingTools.vala:2346
 msgid "Reset Colors"
 msgstr "Przywróć kolory"
 
-#: src/editing_tools/EditingTools.vala:2335
+#: src/editing_tools/EditingTools.vala:2346
 msgid "Reset all color adjustments to original"
 msgstr "Przywraca wszystkie dostosowania kolorów do pierwotnych"
 
-#: src/editing_tools/EditingTools.vala:2687
+#: src/editing_tools/EditingTools.vala:2705
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: src/editing_tools/EditingTools.vala:2700
+#: src/editing_tools/EditingTools.vala:2717
 msgid "Tint"
 msgstr "Odcień"
 
-#: src/editing_tools/EditingTools.vala:2713
+#: src/editing_tools/EditingTools.vala:2729
+msgid "Contrast"
+msgstr "Kontrast"
+
+#: src/editing_tools/EditingTools.vala:2743
 msgid "Saturation"
 msgstr "Nasycenie"
 
-#: src/editing_tools/EditingTools.vala:2726
+#: src/editing_tools/EditingTools.vala:2756
 msgid "Exposure"
 msgstr "Ekspozycja"
 
-#: src/editing_tools/EditingTools.vala:2739
+#: src/editing_tools/EditingTools.vala:2769
 msgid "Shadows"
 msgstr "Cienie"
 
-#: src/editing_tools/EditingTools.vala:2752
+#: src/editing_tools/EditingTools.vala:2782
 msgid "Highlights"
 msgstr "Wyróżnienia"
 
-#: src/editing_tools/EditingTools.vala:2762
+#: src/editing_tools/EditingTools.vala:2792
 msgid "Contrast Expansion"
 msgstr "Rozszerzenie kontrastu"
 
@@ -4595,7 +4604,7 @@ msgstr "_Podstawowe informacje"
 
 #: src/library/LibraryWindow.vala:375
 msgid "Display basic information for the selection"
-msgstr "Wyświetla podstawowe informacje o wybranych zdjęciach"
+msgstr "Wyświetla podstawowe informacje o wybranych zdjęciach"
 
 #: src/library/LibraryWindow.vala:380
 msgid "E_xtended Information"
@@ -4603,7 +4612,7 @@ msgstr "_Rozszerzone informacje"
 
 #: src/library/LibraryWindow.vala:381
 msgid "Display extended information for the selection"
-msgstr "Wyświetla rozszerzone informacje o wybranych zdjęciach"
+msgstr "Wyświetla rozszerzone informacje o wybranych zdjęciach"
 
 #: src/library/LibraryWindow.vala:386
 msgid "_Search Bar"
@@ -5179,7 +5188,7 @@ msgstr "Wybrane nagrania wideo zostały pomyślnie opublikowane."
 
 #: src/publishing/PublishingUI.vala:122
 msgid "Fetching account information..."
-msgstr "Pobieranie informacji o koncie…"
+msgstr "Pobieranie informacji o koncie…"
 
 #: src/publishing/PublishingUI.vala:128
 msgid "Logging in..."
@@ -5278,7 +5287,7 @@ msgstr "Odwróć pionowo"
 
 #: src/Resources.vala:155
 msgid "_About"
-msgstr "_O programie"
+msgstr "_O programie"
 
 #: src/Resources.vala:156
 msgid "_Apply"
