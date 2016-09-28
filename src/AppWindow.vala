@@ -98,6 +98,9 @@ public class FullscreenWindow : PageWindow {
         
         // start off with toolbar invoked, as a clue for the user
         invoke_toolbar();
+
+        // Toolbar steals keyboard focus from page, put it back again
+        page.grab_focus ();
     }
 
     public void disable_toolbar_dismissal() {
