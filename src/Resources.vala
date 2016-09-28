@@ -1089,10 +1089,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
 
     public const string CUSTOM_CSS =
-        """LibraryWindow * {
-               -GtkPaned-handle-size: 1;
-            }
-            LibraryWindow .pane-separator {
+         """LibraryWindow .pane-separator {
                background-color: @borders;
             }
             SearchFilterToolbar {
