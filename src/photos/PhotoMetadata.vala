@@ -968,12 +968,10 @@ public class PhotoMetadata : MediaMetadata {
         return get_first_string_interpreted (COMMENT_TAGS);
     }
     
-    public void set_comment(string? comment) {
+    public void set_comment(string? comment,
+                            SetOption option = SetOption.ALL_DOMAINS) {
         if (!is_string_empty(comment))
-            set_all_string(COMMENT_TAGS,
-                           comment,
-                           PrepareInputTextOptions.DEFAULT
-                           & ~PrepareInputTextOptions.STRIP_CRLF);
+            set_all_string(COMMENT_TAGS, comment, option);
         else
             remove_tags(COMMENT_TAGS);
     }
