@@ -40,7 +40,7 @@ void library_exec(string[] mounts) {
     }
     
     // validate the databases prior to using them
-    message("Verifying database ...");
+    message("Verifying database…");
     string errormsg = null;
     string app_version;
     int schema_version;

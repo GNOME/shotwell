@@ -54,7 +54,7 @@ public class DirectPhotoPage : EditingHostPage {
 
         Gtk.ActionEntry save_as = { "SaveAs", Resources.SAVE_AS_LABEL, TRANSLATABLE,
             "<Ctrl><Shift>S", TRANSLATABLE, on_save_as };
-        save_as.label = _("Save _As...");
+        save_as.label = _("Save _As…");
         save_as.tooltip = _("Save photo with a different name");
         actions += save_as;
         

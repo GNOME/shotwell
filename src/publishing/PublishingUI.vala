@@ -119,13 +119,13 @@ public class SuccessPane : StaticMessagePane {
 
 public class AccountFetchWaitPane : StaticMessagePane {
     public AccountFetchWaitPane() {
-        base(_("Fetching account information..."));
+        base(_("Fetching account information…"));
     }
 }
 
 public class LoginWaitPane : StaticMessagePane {
     public LoginWaitPane() {
-        base(_("Logging in..."));
+        base(_("Logging in…"));
     }
 }
 

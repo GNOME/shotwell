@@ -313,7 +313,7 @@ private bool is_shared_library(File file) {
 }
 
 private void search_for_plugins(File dir) throws Error {
-    debug("Searching %s for plugins ...", dir.get_path());
+    debug("Searching %s for plugins…", dir.get_path());
     
     // build a set of module names sans file extension ... this is to deal with the question of
     // .so vs. .la existing in the same directory (and letting GModule deal with the problem)

@@ -196,11 +196,11 @@ public class Sidebar.Tree : Gtk.TreeView {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
         Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, null, null, on_new_search };
-        new_search.label = _("Ne_w Saved Search...");
+        new_search.label = _("Ne_w Saved Search…");
         actions += new_search;
 
         Gtk.ActionEntry new_tag = { "CommonNewTag", null, TRANSLATABLE, null, null, on_new_tag };
-        new_tag.label = _("New _Tag...");
+        new_tag.label = _("New _Tag…");
         actions += new_tag;
         
         group.add_actions(actions, this);

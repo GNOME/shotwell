@@ -103,7 +103,7 @@ public class OfflinePage : CheckerboardPage {
         
         ProgressDialog progress = null;
         if (sources.size >= 20)
-            progress = new ProgressDialog(AppWindow.get_instance(), _("Deleting..."));
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Deleting…"));
 
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();

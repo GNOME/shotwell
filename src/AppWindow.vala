@@ -506,7 +506,7 @@ public abstract class AppWindow : PageWindow {
         
         Gtk.ActionEntry help_report_problem = { "CommonHelpReportProblem", null, TRANSLATABLE, null, 
             TRANSLATABLE, on_help_report_problem };
-        help_report_problem.label = _("_Report a Problem...");
+        help_report_problem.label = _("_Report a Problem…");
         actions += help_report_problem;
 
         Gtk.ActionEntry undo = { "CommonUndo", Resources.UNDO_MENU, TRANSLATABLE, "<Ctrl>Z",

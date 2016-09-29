@@ -886,7 +886,7 @@ public class PrintManager {
         AppWindow.get_instance().set_busy_cursor();
         
         cancellable = new Cancellable();
-        progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Printing..."), cancellable);
+        progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Printing…"), cancellable);
         
         string? err_msg = null;
         try {

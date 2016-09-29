@@ -459,7 +459,7 @@ public class ExportDialog : Gtk.Dialog {
 
 namespace ImportUI {
 private const int REPORT_FAILURE_COUNT = 4;
-internal const string SAVE_RESULTS_BUTTON_NAME = _("Save Details...");
+internal const string SAVE_RESULTS_BUTTON_NAME = _("Save Details…");
 internal const string SAVE_RESULTS_FILE_CHOOSER_TITLE = _("Save Details");
 internal const int SAVE_RESULTS_RESPONSE_ID = 1024;
 

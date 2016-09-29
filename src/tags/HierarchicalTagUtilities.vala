@@ -21,7 +21,7 @@ class HierarchicalTagUtilities {
     /**
      * converts a hierarchical tag path 'path' (e.g., "/Animals") to a flat tag name
      * (e.g., "Animals"); if 'path' is already a flat tag name, 'path' is returned untouched; note
-     * that 'path' must be a top-level path (i.e., "/Animals" not "/Animals/Mammals/...") with
+     * that 'path' must be a top-level path (i.e., "/Animals" not "/Animals/Mammals/…") with
      * only one path component; invoking this method with a 'path' argument other than a top-level
      * path will cause an assertion failure.
      */

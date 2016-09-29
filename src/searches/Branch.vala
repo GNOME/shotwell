@@ -74,7 +74,7 @@ public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
         Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, null, null, on_new_search };
-        new_search.label = _("Ne_w Saved Search...");
+        new_search.label = _("Ne_w Saved Search…");
         actions += new_search;
         
         group.add_actions(actions, this);
