@@ -85,7 +85,7 @@ dnl Check for required packages
 dnl ***********************************************************************
 PKG_CHECK_MODULES(SHOTWELL, [
                              gee-0.8 >= 0.8.5
-                             gexiv2 >= 0.4.90
+                             gexiv2 >= 0.10.4
                              gio-unix-2.0 >= 2.20
                              glib-2.0 >= 2.30.0
                              gmodule-2.0 >= 2.24.0
