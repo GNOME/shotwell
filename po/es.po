@@ -2,8 +2,8 @@
 # PO message string template file for Shotwell Core Components
 # Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
-# 
-# 
+#
+#
 # Translators:
 # Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2011-2013
 # Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2013
@@ -20,7 +20,6 @@
 # lsbeeler <lucas@yorba.org>, 2011
 # Matias Menich <und34d@gmail.com>, 2012
 # Rodrigo Cares <rcares@gmail.com>, 2012
-# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2015, 2016.
 #
 msgid ""
@@ -28,8 +27,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-09-04 08:43+0000\n"
-"PO-Revision-Date: 2016-07-20 12:36+0200\n"
+"POT-Creation-Date: 2016-09-29 21:07+0000\n"
+"PO-Revision-Date: 2016-09-30 12:17+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -272,16 +271,16 @@ msgid "True if the sidebar is to be displayed, false otherwise."
 msgstr "Cierto si se debe mostrar la barra lateral, falso en otro caso."
 
 #: misc/org.yorba.shotwell.gschema.xml:40
-#, fuzzy
 #| msgid "display sidebar"
 msgid "display toolbar"
-msgstr "mostrar barra lateral"
+msgstr "mostrar barra de herramientas"
 
 #: misc/org.yorba.shotwell.gschema.xml:41
-#, fuzzy
 #| msgid "True if the sidebar is to be displayed, false otherwise."
 msgid "True if the bottom toolbar is to be displayed, false otherwise."
-msgstr "Cierto si se debe mostrar la barra lateral, falso en otro caso."
+msgstr ""
+"Cierto si se debe mostrar la barra de herramientas inferior, falso en otro "
+"caso."
 
 #: misc/org.yorba.shotwell.gschema.xml:46
 msgid "display search bar"
@@ -852,7 +851,6 @@ msgstr ""
 "Picasa"
 
 #: misc/org.yorba.shotwell.gschema.xml:436
-#, fuzzy
 #| msgid "Piwigio URL"
 msgid "Piwigo URL"
 msgstr "URL de Pigwio"
@@ -1322,7 +1320,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Visite la página web de Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:676
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:679
 msgid "translator-credits"
 msgstr ""
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2014-2016\n"
@@ -1608,13 +1606,17 @@ msgstr ""
 "continuación."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
+#| msgid ""
+#| "The URL entered does not appear to be the main directory of a Gallery3 "
+#| "instance. Please make sure you typed it correctly and it does not have "
+#| "any trailing components (e.g, index.php)."
 msgid ""
 "The URL entered does not appear to be the main directory of a Gallery3 "
 "instance. Please make sure you typed it correctly and it does not have any "
-"trailing components (e.g, index.php)."
+"trailing components (e.g., index.php)."
 msgstr ""
 "El URL introducido no parece ser la carpeta principal de una instancia de "
-"Gallery3. Asegrúrese de que lo ha escrito correctamente y que no tiene "
+"Gallery3. Asegúrese de que lo ha escrito correctamente y que no tiene "
 "elementos adicionales (ej. index.php)."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1872
@@ -1943,7 +1945,8 @@ msgstr ""
 msgid "Authorization _Number:"
 msgstr "_Número de autorización:"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:83 src/Dialogs.vala:132
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:83
+#: src/Dialogs.vala:132
 msgid "Con_tinue"
 msgstr "Con_tinuar"
 
@@ -2355,26 +2358,27 @@ msgstr "Mantener abierta la barra de herramientas"
 msgid "Leave fullscreen"
 msgstr "Salir de pantalla completa"
 
-#: src/AppWindow.vala:496
+#: src/AppWindow.vala:499
 msgid "_Contents"
 msgstr "_Contenido"
 
-#: src/AppWindow.vala:501
+#: src/AppWindow.vala:504
 msgid "_Frequently Asked Questions"
 msgstr "_Preguntas más frecuentes"
 
-#: src/AppWindow.vala:506
-msgid "_Report a Problem..."
+#: src/AppWindow.vala:509
+#| msgid "_Report a Problem..."
+msgid "_Report a Problem…"
 msgstr "_Informar de un problema…"
 
-#: src/AppWindow.vala:605 src/AppWindow.vala:626 src/AppWindow.vala:643
+#: src/AppWindow.vala:608 src/AppWindow.vala:629 src/AppWindow.vala:646
 #: src/data_imports/DataImportsUI.vala:413 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1425 src/Dialogs.vala:1448
 #: src/publishing/PublishingUI.vala:512 src/Resources.vala:157
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/AppWindow.vala:653
+#: src/AppWindow.vala:656
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -2387,21 +2391,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:673
+#: src/AppWindow.vala:676
 msgid "Visit the Shotwell web site"
 msgstr "Visite la página web de Shotwell"
 
-#: src/AppWindow.vala:685
+#: src/AppWindow.vala:688
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "No se puede mostrar la ayuda: %s"
 
-#: src/AppWindow.vala:693
+#: src/AppWindow.vala:696
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "No se pudo navegar en la base de datos de errores: %s"
 
-#: src/AppWindow.vala:701
+#: src/AppWindow.vala:704
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "No se pudieron mostrar las P+F: %s"
@@ -2502,10 +2506,9 @@ msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 
 #: src/camera/ImportPage.vala:846
-#, fuzzy
 #| msgid "No photos/videos found"
 msgid "No new photos/videos found on camera"
-msgstr "No se encontraron fotos/vídeos"
+msgstr "No se encontraron fotos/vídeos en la cámara"
 
 #: src/camera/ImportPage.vala:873 src/MediaPage.vala:451
 msgid "_Titles"
@@ -2572,11 +2575,13 @@ msgstr ""
 "%s"
 
 #: src/camera/ImportPage.vala:1061
-msgid "Unmounting..."
+#| msgid "Unmounting..."
+msgid "Unmounting…"
 msgstr "Desmontando…"
 
 #: src/camera/ImportPage.vala:1152
-msgid "Starting import, please wait..."
+#| msgid "Starting import, please wait..."
+msgid "Starting import, please wait…"
 msgstr "Iniciando la importación, espere un momento…"
 
 #: src/camera/ImportPage.vala:1169
@@ -2910,7 +2915,8 @@ msgstr "Importar desde aplicación"
 msgid "Import media _from:"
 msgstr "Importar medios _desde:"
 
-#: src/data_imports/DataImportsUI.vala:408 src/publishing/PublishingUI.vala:507
+#: src/data_imports/DataImportsUI.vala:408
+#: src/publishing/PublishingUI.vala:507
 msgid "_Close"
 msgstr "_Cerrar"
 
@@ -3074,7 +3080,8 @@ msgid "Export metadata"
 msgstr "Exportar metadatos"
 
 #: src/Dialogs.vala:462
-msgid "Save Details..."
+#| msgid "Save Details"
+msgid "Save Details…"
 msgstr "Guardar detalles…"
 
 #: src/Dialogs.vala:463
@@ -3885,8 +3892,9 @@ msgid "Save photo"
 msgstr "Guardar la foto"
 
 #: src/direct/DirectPhotoPage.vala:57
-msgid "Save _As..."
-msgstr "G_uardar como…"
+#| msgid "Save _As"
+msgid "Save _As…"
+msgstr "Guardar _como…"
 
 #: src/direct/DirectPhotoPage.vala:58
 msgid "Save photo with a different name"
@@ -4157,70 +4165,79 @@ msgstr "Cerrar la herramienta de ojos rojos"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Quitar cualquier efecto de ojos rojos en la región seleccionada"
 
-#: src/editing_tools/EditingTools.vala:2226
+#: src/editing_tools/EditingTools.vala:2229
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Restablecer"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2240 src/Properties.vala:436
+#: src/editing_tools/EditingTools.vala:2243 src/Properties.vala:436
 #: src/Properties.vala:440 src/Properties.vala:447
 msgid "Exposure:"
 msgstr "Exposición:"
 
-#: src/editing_tools/EditingTools.vala:2248
+#: src/editing_tools/EditingTools.vala:2251
+msgid "Contrast:"
+msgstr "Contraste:"
+
+#: src/editing_tools/EditingTools.vala:2259
 msgid "Saturation:"
 msgstr "Saturación:"
 
-#: src/editing_tools/EditingTools.vala:2256
+#: src/editing_tools/EditingTools.vala:2267
 msgid "Tint:"
 msgstr "Matiz:"
 
-#: src/editing_tools/EditingTools.vala:2265
+#: src/editing_tools/EditingTools.vala:2276
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: src/editing_tools/EditingTools.vala:2273
+#: src/editing_tools/EditingTools.vala:2284
 msgid "Shadows:"
 msgstr "Sombras:"
 
-#: src/editing_tools/EditingTools.vala:2281
+#: src/editing_tools/EditingTools.vala:2292
 msgid "Highlights:"
 msgstr "Resaltadas:"
 
-#: src/editing_tools/EditingTools.vala:2335
+#: src/editing_tools/EditingTools.vala:2346
 msgid "Reset Colors"
 msgstr "Restablecer colores"
 
-#: src/editing_tools/EditingTools.vala:2335
+#: src/editing_tools/EditingTools.vala:2346
 msgid "Reset all color adjustments to original"
 msgstr "Restablecer todos los ajustes de color al original"
 
-#: src/editing_tools/EditingTools.vala:2687
+#: src/editing_tools/EditingTools.vala:2705
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: src/editing_tools/EditingTools.vala:2700
+#: src/editing_tools/EditingTools.vala:2717
 msgid "Tint"
 msgstr "Matiz"
 
-#: src/editing_tools/EditingTools.vala:2713
+#: src/editing_tools/EditingTools.vala:2729
+#| msgid "Contrast Expansion"
+msgid "Contrast"
+msgstr "Contraste"
+
+#: src/editing_tools/EditingTools.vala:2743
 msgid "Saturation"
 msgstr "Saturación"
 
-#: src/editing_tools/EditingTools.vala:2726
+#: src/editing_tools/EditingTools.vala:2756
 msgid "Exposure"
 msgstr "Exposición"
 
-#: src/editing_tools/EditingTools.vala:2739
+#: src/editing_tools/EditingTools.vala:2769
 msgid "Shadows"
 msgstr "Sombras"
 
-#: src/editing_tools/EditingTools.vala:2752
+#: src/editing_tools/EditingTools.vala:2782
 msgid "Highlights"
 msgstr "Resaltadas"
 
-#: src/editing_tools/EditingTools.vala:2762
+#: src/editing_tools/EditingTools.vala:2792
 msgid "Contrast Expansion"
 msgstr "Expansión de contraste"
 
@@ -4294,7 +4311,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:751
+#: src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Evento %s"
@@ -4348,7 +4365,8 @@ msgid "Flagged"
 msgstr "Marcada"
 
 #: src/library/ImportQueuePage.vala:8
-msgid "Importing..."
+#| msgid "Importing"
+msgid "Importing…"
 msgstr "Importando…"
 
 #: src/library/ImportQueuePage.vala:67
@@ -4360,8 +4378,9 @@ msgid "Stop importing photos"
 msgstr "Detener la importación de fotos"
 
 #: src/library/ImportQueuePage.vala:124
-msgid "Preparing to import..."
-msgstr "Preparando importación…"
+#| msgid "Preparing to import"
+msgid "Preparing to import…"
+msgstr "Preparando para importar…"
 
 #: src/library/ImportQueuePage.vala:151
 #, c-format
@@ -4373,7 +4392,8 @@ msgid "Last Import"
 msgstr "Última importación"
 
 #: src/library/LibraryWindow.vala:285
-msgid "_Import From Folder..."
+#| msgid "Import From Folder"
+msgid "_Import From Folder…"
 msgstr "_Importar desde carpeta…"
 
 #: src/library/LibraryWindow.vala:286
@@ -4381,7 +4401,8 @@ msgid "Import photos from disk to library"
 msgstr "Importar fotos desde el disco a la colección"
 
 #: src/library/LibraryWindow.vala:293
-msgid "Import From _Application..."
+#| msgid "Import From Application"
+msgid "Import From _Application…"
 msgstr "Importar desde _aplicación…"
 
 #: src/library/LibraryWindow.vala:297
@@ -4410,7 +4431,8 @@ msgstr "Buscar fotos y vídeos por criterio de búsqueda"
 
 #: src/library/LibraryWindow.vala:329 src/searches/Branch.vala:77
 #: src/sidebar/Tree.vala:199
-msgid "Ne_w Saved Search..."
+#| msgid "Ne_w Saved Search..."
+msgid "Ne_w Saved Search…"
 msgstr "_Búsqueda guardada nueva…"
 
 #: src/library/LibraryWindow.vala:351
@@ -4458,16 +4480,14 @@ msgid "Display the sidebar"
 msgstr "Mostrar la barra lateral"
 
 #: src/library/LibraryWindow.vala:398
-#, fuzzy
 #| msgid "Pin Toolbar"
 msgid "T_oolbar"
-msgstr "Anclar la barra de herramientas"
+msgstr "B_arra de herramientas"
 
 #: src/library/LibraryWindow.vala:399
-#, fuzzy
 #| msgid "Display the sidebar"
 msgid "Display the tool bar"
-msgstr "Mostrar la barra lateral"
+msgstr "Mostrar la barra de herramientas"
 
 #: src/library/LibraryWindow.vala:411 src/MediaPage.vala:515
 msgid "_Ascending"
@@ -4494,7 +4514,8 @@ msgid "Empty Trash"
 msgstr "Vaciar la papelera"
 
 #: src/library/LibraryWindow.vala:726
-msgid "Emptying Trash..."
+#| msgid "Emptying Trash..."
+msgid "Emptying Trash…"
 msgstr "Vaciando la papelera…"
 
 #: src/library/LibraryWindow.vala:901
@@ -4525,19 +4546,23 @@ msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
 #: src/library/LibraryWindow.vala:1247 src/library/LibraryWindow.vala:1258
-msgid "Updating library..."
+#| msgid "Updating library..."
+msgid "Updating library…"
 msgstr "Actualizando la colección…"
 
 #: src/library/LibraryWindow.vala:1264
-msgid "Preparing to auto-import photos..."
-msgstr "Preparando importación automática…"
+#| msgid "Preparing to auto-import photos..."
+msgid "Preparing to auto-import photos…"
+msgstr "Preparando para importar fotos automáticamente…"
 
 #: src/library/LibraryWindow.vala:1269
-msgid "Auto-importing photos..."
+#| msgid "Auto-importing photos..."
+msgid "Auto-importing photos…"
 msgstr "Importando fotos automáticamente…"
 
 #: src/library/LibraryWindow.vala:1277
-msgid "Writing metadata to files..."
+#| msgid "Writing metadata to files..."
+msgid "Writing metadata to files…"
 msgstr "Escribiendo metadatos en los archivos…"
 
 #: src/library/OfflinePage.vala:8
@@ -4545,7 +4570,8 @@ msgid "Missing Files"
 msgstr "Archivos faltantes"
 
 #: src/library/OfflinePage.vala:106
-msgid "Deleting..."
+#| msgid "Deleting..."
+msgid "Deleting…"
 msgstr "Eliminando…"
 
 #: src/library/TrashPage.vala:8
@@ -4842,7 +4868,8 @@ msgid "Image Settings"
 msgstr "Ajustes de la imagen"
 
 #: src/Printing.vala:889
-msgid "Printing..."
+#| msgid "Printing..."
+msgid "Printing…"
 msgstr "Imprimiendo…"
 
 #: src/Printing.vala:909 src/Printing.vala:1112
@@ -5017,11 +5044,13 @@ msgid "The selected photo was successfully published."
 msgstr "La foto seleccionada se publicó correctamente."
 
 #: src/publishing/PublishingUI.vala:122
-msgid "Fetching account information..."
+#| msgid "Fetching account information..."
+msgid "Fetching account information…"
 msgstr "Obteniendo información de la cuenta…"
 
 #: src/publishing/PublishingUI.vala:128
-msgid "Logging in..."
+#| msgid "Logging in..."
+msgid "Logging in…"
 msgstr "Iniciando sesión…"
 
 #: src/publishing/PublishingUI.vala:188
@@ -5308,7 +5337,8 @@ msgid "Set selected image to be the new desktop background"
 msgstr "Establezca la imagen seleccionada como nuevo fondo de escritorio"
 
 #: src/Resources.vala:222
-msgid "Set as _Desktop Slideshow..."
+#| msgid "Set as Desktop Slideshow"
+msgid "Set as _Desktop Slideshow…"
 msgstr "Establecer como pase de _diapositivas de escritorio…"
 
 #: src/Resources.vala:224
@@ -5328,7 +5358,8 @@ msgid "Redo"
 msgstr "Rehacer"
 
 #: src/Resources.vala:230
-msgid "Re_name Event..."
+#| msgid "Rename Event"
+msgid "Re_name Event…"
 msgstr "Re_nombrar evento…"
 
 #: src/Resources.vala:233
@@ -5498,15 +5529,18 @@ msgid "Make a duplicate of the photo"
 msgstr "Hacer un duplicado de la foto"
 
 #: src/Resources.vala:290
-msgid "_Export..."
+#| msgid "Export"
+msgid "_Export…"
 msgstr "_Exportar…"
 
 #: src/Resources.vala:292
-msgid "_Print..."
+#| msgid "_Print"
+msgid "_Print…"
 msgstr "_Imprimir…"
 
 #: src/Resources.vala:294
-msgid "Pu_blish..."
+#| msgid "Publish"
+msgid "Pu_blish…"
 msgstr "Pu_blicar…"
 
 #: src/Resources.vala:296
@@ -5514,8 +5548,10 @@ msgid "Publish to various websites"
 msgstr "Publicar en varios sitios web"
 
 #: src/Resources.vala:298
-msgid "Edit _Title..."
-msgstr "Editar el _título…"
+#| msgctxt "Dialog Title"
+#| msgid "Edit Title"
+msgid "Edit _Title…"
+msgstr "Editar _título…"
 
 #. Button label
 #: src/Resources.vala:300
@@ -5524,7 +5560,8 @@ msgid "Edit Title"
 msgstr "Editar título"
 
 #: src/Resources.vala:302
-msgid "Edit _Comment..."
+#| msgid "Edit Comment"
+msgid "Edit _Comment…"
 msgstr "Editar _comentario…"
 
 #. Button label
@@ -5533,11 +5570,13 @@ msgid "Edit Comment"
 msgstr "Editar comentario"
 
 #: src/Resources.vala:306
-msgid "Edit Event _Comment..."
-msgstr "Editar _comentario del evento…"
+#| msgid "Edit Event Comment"
+msgid "Edit Event _Comment…"
+msgstr "Editar _comentario de evento…"
 
 #: src/Resources.vala:309
-msgid "_Adjust Date and Time..."
+#| msgid "Adjust Date and Time"
+msgid "_Adjust Date and Time…"
 msgstr "_Ajustar fecha y hora…"
 
 #: src/Resources.vala:310
@@ -5545,11 +5584,15 @@ msgid "Adjust Date and Time"
 msgstr "Ajustar fecha y hora"
 
 #: src/Resources.vala:312
-msgid "Add _Tags..."
+#| msgctxt "Dialog Title"
+#| msgid "Add Tags"
+msgid "Add _Tags…"
 msgstr "Añadir e_tiquetas…"
 
 #: src/Resources.vala:313
-msgid "_Add Tags..."
+#| msgctxt "Dialog Title"
+#| msgid "Add Tags"
+msgid "_Add Tags…"
 msgstr "_Añadir etiquetas…"
 
 #. Dialog title
@@ -5567,16 +5610,19 @@ msgid "Open With RA_W Editor"
 msgstr "Abrir con editor RA_W"
 
 #: src/Resources.vala:323
-msgid "Send _To..."
+#| msgid "Send To"
+msgid "Send _To…"
 msgstr "En_viar a…"
 
 #: src/Resources.vala:324
-msgid "Send T_o..."
-msgstr "En_viar a…"
+#| msgid "Send To"
+msgid "Send T_o…"
+msgstr "Env_iar a…"
 
 #: src/Resources.vala:326
-msgid "_Find..."
-msgstr "Buscar…"
+#| msgid "_Find"
+msgid "_Find…"
+msgstr "_Buscar…"
 
 #: src/Resources.vala:327
 msgid "Find"
@@ -5633,7 +5679,8 @@ msgstr "Eliminar etiqueta"
 
 #: src/Resources.vala:366
 #, c-format
-msgid "Re_name Tag \"%s\"..."
+#| msgid "Re_name Tag \"%s\"..."
+msgid "Re_name Tag \"%s\"…"
 msgstr "Re_nombrar etiqueta «%s»…"
 
 #: src/Resources.vala:370
@@ -5642,12 +5689,14 @@ msgid "Rename Tag \"%s\" to \"%s\""
 msgstr "Renombrar la etiqueta «%s» a «%s»"
 
 #: src/Resources.vala:373
-msgid "_Rename..."
+#| msgid "_Rename..."
+msgid "_Rename…"
 msgstr "_Renombrar…"
 
 #: src/Resources.vala:375
-msgid "Modif_y Tags..."
-msgstr "Modif_icar etiquetas…"
+#| msgid "Modify Tags"
+msgid "Modif_y Tags…"
+msgstr "Mod_ificar etiquetas…"
 
 #: src/Resources.vala:376
 msgid "Modify Tags"
@@ -5713,11 +5762,13 @@ msgid "Delete Search"
 msgstr "Eliminar búsqueda"
 
 #: src/Resources.vala:410
-msgid "_Edit..."
+#| msgid "_Edit"
+msgid "_Edit…"
 msgstr "_Editar…"
 
 #: src/Resources.vala:411
-msgid "Re_name..."
+#| msgid "Re_name..."
+msgid "Re_name…"
 msgstr "Re_nombrar…"
 
 #: src/Resources.vala:414
@@ -5832,7 +5883,6 @@ msgstr "%a %d de %b de %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:787
-#, fuzzy
 #| msgid "%a %b %d"
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
@@ -5842,7 +5892,6 @@ msgstr "%a, %d de %b"
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:792
-#, fuzzy
 #| msgid "%d, %Y"
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
@@ -5852,7 +5901,6 @@ msgstr "%d, %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:797
-#, fuzzy
 #| msgid "%a %b %d"
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
@@ -5862,7 +5910,6 @@ msgstr "%a, %d de %b"
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:802
-#, fuzzy
 #| msgid "%a %b %d, %Y"
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
@@ -6094,7 +6141,8 @@ msgid "Use a saved search to filter items in the current view"
 msgstr ""
 
 #: src/sidebar/Tree.vala:203
-msgid "New _Tag..."
+#| msgid "New _Tag..."
+msgid "New _Tag…"
 msgstr "E_tiqueta nueva…"
 
 #: src/SlideshowPage.vala:49 src/SlideshowPage.vala:183
@@ -6361,6 +6409,72 @@ msgstr "Mostrar tít_ulo"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "segundos"
+
+#~ msgid "Save Details..."
+#~ msgstr "Guardar detalles…"
+
+#~ msgid "Save _As..."
+#~ msgstr "G_uardar como…"
+
+#~ msgid "Importing..."
+#~ msgstr "Importando…"
+
+#~ msgid "Preparing to import..."
+#~ msgstr "Preparando importación…"
+
+#~ msgid "_Import From Folder..."
+#~ msgstr "_Importar desde carpeta…"
+
+#~ msgid "Import From _Application..."
+#~ msgstr "Importar desde _aplicación…"
+
+#~ msgid "Set as _Desktop Slideshow..."
+#~ msgstr "Establecer como pase de _diapositivas de escritorio…"
+
+#~ msgid "Re_name Event..."
+#~ msgstr "Re_nombrar evento…"
+
+#~ msgid "_Export..."
+#~ msgstr "_Exportar…"
+
+#~ msgid "_Print..."
+#~ msgstr "_Imprimir…"
+
+#~ msgid "Pu_blish..."
+#~ msgstr "Pu_blicar…"
+
+#~ msgid "Edit _Title..."
+#~ msgstr "Editar el _título…"
+
+#~ msgid "Edit _Comment..."
+#~ msgstr "Editar _comentario…"
+
+#~ msgid "Edit Event _Comment..."
+#~ msgstr "Editar _comentario del evento…"
+
+#~ msgid "_Adjust Date and Time..."
+#~ msgstr "_Ajustar fecha y hora…"
+
+#~ msgid "Add _Tags..."
+#~ msgstr "Añadir e_tiquetas…"
+
+#~ msgid "_Add Tags..."
+#~ msgstr "_Añadir etiquetas…"
+
+#~ msgid "Send _To..."
+#~ msgstr "En_viar a…"
+
+#~ msgid "Send T_o..."
+#~ msgstr "En_viar a…"
+
+#~ msgid "_Find..."
+#~ msgstr "Buscar…"
+
+#~ msgid "Modif_y Tags..."
+#~ msgstr "Modif_icar etiquetas…"
+
+#~ msgid "_Edit..."
+#~ msgstr "_Editar…"
 
 #~ msgid "%-I:%M %p"
 #~ msgstr "%-I:%M %p"
