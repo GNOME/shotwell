@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-09-21 18:37+0000\n"
-"PO-Revision-Date: 2016-09-21 21:35+0200\n"
+"POT-Creation-Date: 2016-09-29 21:07+0000\n"
+"PO-Revision-Date: 2016-09-30 07:40+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1337,7 +1337,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Navštívit web aplikace Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:676
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:679
 msgid "translator-credits"
 msgstr ""
 "David Štancl <dstancl@dstancl.cz>\n"
@@ -2370,26 +2370,26 @@ msgstr "Připíchnout otevřenou nástrojovou lištu"
 msgid "Leave fullscreen"
 msgstr "Opustit režim celé obrazovky"
 
-#: src/AppWindow.vala:496
+#: src/AppWindow.vala:499
 msgid "_Contents"
 msgstr "_Obsah"
 
-#: src/AppWindow.vala:501
+#: src/AppWindow.vala:504
 msgid "_Frequently Asked Questions"
 msgstr "Ča_sté dotazy a odpovědi"
 
-#: src/AppWindow.vala:506
-msgid "_Report a Problem..."
+#: src/AppWindow.vala:509
+msgid "_Report a Problem…"
 msgstr "_Nahlásit problém…"
 
-#: src/AppWindow.vala:605 src/AppWindow.vala:626 src/AppWindow.vala:643
+#: src/AppWindow.vala:608 src/AppWindow.vala:629 src/AppWindow.vala:646
 #: src/data_imports/DataImportsUI.vala:413 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1425 src/Dialogs.vala:1448
 #: src/publishing/PublishingUI.vala:512 src/Resources.vala:157
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: src/AppWindow.vala:653
+#: src/AppWindow.vala:656
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -2402,21 +2402,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:673
+#: src/AppWindow.vala:676
 msgid "Visit the Shotwell web site"
 msgstr "Navštívit web aplikace Shotwell"
 
-#: src/AppWindow.vala:685
+#: src/AppWindow.vala:688
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nelze zobrazit nápovědu: %s"
 
-#: src/AppWindow.vala:693
+#: src/AppWindow.vala:696
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nelze se připojit k databázi chyb: %s"
 
-#: src/AppWindow.vala:701
+#: src/AppWindow.vala:704
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nelze zobrazit časté dotazy a odpovědi: %s"
@@ -2587,11 +2587,11 @@ msgstr ""
 "%s"
 
 #: src/camera/ImportPage.vala:1061
-msgid "Unmounting..."
+msgid "Unmounting…"
 msgstr "Odpojuje se…"
 
 #: src/camera/ImportPage.vala:1152
-msgid "Starting import, please wait..."
+msgid "Starting import, please wait…"
 msgstr "Začíná import, čekejte prosím…"
 
 #: src/camera/ImportPage.vala:1169
@@ -3099,7 +3099,7 @@ msgid "Export metadata"
 msgstr "Exportovat metadata"
 
 #: src/Dialogs.vala:462
-msgid "Save Details..."
+msgid "Save Details…"
 msgstr "Uložit podrobnosti…"
 
 #: src/Dialogs.vala:463
@@ -3968,8 +3968,8 @@ msgid "Save photo"
 msgstr "Uložit fotografii"
 
 #: src/direct/DirectPhotoPage.vala:57
-msgid "Save _As..."
-msgstr "Uložit j_ako…"
+msgid "Save _As…"
+msgstr "Uložit j_ako"
 
 #: src/direct/DirectPhotoPage.vala:58
 msgid "Save photo with a different name"
@@ -4385,7 +4385,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:751
+#: src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Událost %s"
@@ -4439,8 +4439,8 @@ msgid "Flagged"
 msgstr "Označeno"
 
 #: src/library/ImportQueuePage.vala:8
-msgid "Importing..."
-msgstr "Importuje se…"
+msgid "Importing…"
+msgstr "Import…"
 
 #: src/library/ImportQueuePage.vala:67
 msgid "_Stop Import"
@@ -4451,8 +4451,8 @@ msgid "Stop importing photos"
 msgstr "Zastavit import fotografií"
 
 #: src/library/ImportQueuePage.vala:124
-msgid "Preparing to import..."
-msgstr "Připravuje se na import…"
+msgid "Preparing to import…"
+msgstr "Připravuje se k importu…"
 
 #: src/library/ImportQueuePage.vala:151
 #, c-format
@@ -4464,16 +4464,16 @@ msgid "Last Import"
 msgstr "Poslední import"
 
 #: src/library/LibraryWindow.vala:285
-msgid "_Import From Folder..."
-msgstr "_Importovat ze složky…"
+msgid "_Import From Folder…"
+msgstr "_Import ze složky…"
 
 #: src/library/LibraryWindow.vala:286
 msgid "Import photos from disk to library"
 msgstr "Importovat fotografie z disku do knihovny"
 
 #: src/library/LibraryWindow.vala:293
-msgid "Import From _Application..."
-msgstr "Importovat z _aplikace…"
+msgid "Import From _Application…"
+msgstr "Import z _aplikace…"
 
 #: src/library/LibraryWindow.vala:297
 msgid "Sort _Events"
@@ -4501,7 +4501,7 @@ msgstr "Najít fotografie nebo videa podle zadaných kritérií"
 
 #: src/library/LibraryWindow.vala:329 src/searches/Branch.vala:77
 #: src/sidebar/Tree.vala:199
-msgid "Ne_w Saved Search..."
+msgid "Ne_w Saved Search…"
 msgstr "No_vé uložené vyhledávání…"
 
 #: src/library/LibraryWindow.vala:351
@@ -4581,7 +4581,7 @@ msgid "Empty Trash"
 msgstr "Vyprázdnění koše"
 
 #: src/library/LibraryWindow.vala:726
-msgid "Emptying Trash..."
+msgid "Emptying Trash…"
 msgstr "Vyprazdňuje se koš…"
 
 #: src/library/LibraryWindow.vala:901
@@ -4611,19 +4611,19 @@ msgid "%s (%d%%)"
 msgstr "%s (%d %%)"
 
 #: src/library/LibraryWindow.vala:1247 src/library/LibraryWindow.vala:1258
-msgid "Updating library..."
+msgid "Updating library…"
 msgstr "Aktualizuje se knihovna…"
 
 #: src/library/LibraryWindow.vala:1264
-msgid "Preparing to auto-import photos..."
+msgid "Preparing to auto-import photos…"
 msgstr "Připravuje se automatický import fotografií…"
 
 #: src/library/LibraryWindow.vala:1269
-msgid "Auto-importing photos..."
+msgid "Auto-importing photos…"
 msgstr "Provádí se automatický import fotografií…"
 
 #: src/library/LibraryWindow.vala:1277
-msgid "Writing metadata to files..."
+msgid "Writing metadata to files…"
 msgstr "Zapisují se metadata do souborů…"
 
 #: src/library/OfflinePage.vala:8
@@ -4631,7 +4631,7 @@ msgid "Missing Files"
 msgstr "Chybějící soubory"
 
 #: src/library/OfflinePage.vala:106
-msgid "Deleting..."
+msgid "Deleting…"
 msgstr "Maže se…"
 
 #: src/library/TrashPage.vala:8
@@ -4924,7 +4924,7 @@ msgid "Image Settings"
 msgstr "Nastavení obrázku"
 
 #: src/Printing.vala:889
-msgid "Printing..."
+msgid "Printing…"
 msgstr "Tiskne se…"
 
 #: src/Printing.vala:909 src/Printing.vala:1112
@@ -5099,11 +5099,11 @@ msgid "The selected photo was successfully published."
 msgstr "Vybraná fotografie byla úspěšně zveřejněna."
 
 #: src/publishing/PublishingUI.vala:122
-msgid "Fetching account information..."
+msgid "Fetching account information…"
 msgstr "Získávají se informace o účtu…"
 
 #: src/publishing/PublishingUI.vala:128
-msgid "Logging in..."
+msgid "Logging in…"
 msgstr "Přihlašuje se…"
 
 #: src/publishing/PublishingUI.vala:188
@@ -5390,7 +5390,7 @@ msgid "Set selected image to be the new desktop background"
 msgstr "Nastavit vybranou fotografii jako obrázek na pozadí pracovní plochy"
 
 #: src/Resources.vala:222
-msgid "Set as _Desktop Slideshow..."
+msgid "Set as _Desktop Slideshow…"
 msgstr "Nastavit jako prezentaci na p_loše…"
 
 #: src/Resources.vala:224
@@ -5410,7 +5410,7 @@ msgid "Redo"
 msgstr "Znovu"
 
 #: src/Resources.vala:230
-msgid "Re_name Event..."
+msgid "Re_name Event…"
 msgstr "Přejme_novat událost…"
 
 #: src/Resources.vala:233
@@ -5580,24 +5580,24 @@ msgid "Make a duplicate of the photo"
 msgstr "Vytvořit kopii této fotografie"
 
 #: src/Resources.vala:290
-msgid "_Export..."
+msgid "_Export…"
 msgstr "_Export…"
 
 #: src/Resources.vala:292
-msgid "_Print..."
+msgid "_Print…"
 msgstr "_Tisk…"
 
 #: src/Resources.vala:294
-msgid "Pu_blish..."
-msgstr "Zveře_jnit…"
+msgid "Pu_blish…"
+msgstr "Z_veřejnit…"
 
 #: src/Resources.vala:296
 msgid "Publish to various websites"
 msgstr "Zveřejnit na různých webových stránkách"
 
 #: src/Resources.vala:298
-msgid "Edit _Title..."
-msgstr "Upravi_t název…"
+msgid "Edit _Title…"
+msgstr "Úpravi_t název…"
 
 #. Button label
 #: src/Resources.vala:300
@@ -5606,7 +5606,7 @@ msgid "Edit Title"
 msgstr "Upravit název"
 
 #: src/Resources.vala:302
-msgid "Edit _Comment..."
+msgid "Edit _Comment…"
 msgstr "Upravit _komentář…"
 
 #. Button label
@@ -5615,23 +5615,23 @@ msgid "Edit Comment"
 msgstr "Upravit komentář"
 
 #: src/Resources.vala:306
-msgid "Edit Event _Comment..."
-msgstr "Upravit _komentář události…"
+msgid "Edit Event _Comment…"
+msgstr "Úpravit _komentář k události…"
 
 #: src/Resources.vala:309
-msgid "_Adjust Date and Time..."
-msgstr "Nastavit d_atum a čas…"
+msgid "_Adjust Date and Time…"
+msgstr "N_astavit datum a čas…"
 
 #: src/Resources.vala:310
 msgid "Adjust Date and Time"
 msgstr "Nastavení data a času"
 
 #: src/Resources.vala:312
-msgid "Add _Tags..."
+msgid "Add _Tags…"
 msgstr "Přidat š_títky…"
 
 #: src/Resources.vala:313
-msgid "_Add Tags..."
+msgid "_Add Tags…"
 msgstr "Přid_at štítky…"
 
 #. Dialog title
@@ -5649,15 +5649,15 @@ msgid "Open With RA_W Editor"
 msgstr "Otevřít v editoru RA_W"
 
 #: src/Resources.vala:323
-msgid "Send _To..."
+msgid "Send _To…"
 msgstr "Odesla_t…"
 
 #: src/Resources.vala:324
-msgid "Send T_o..."
+msgid "Send T_o…"
 msgstr "_Odeslat…"
 
 #: src/Resources.vala:326
-msgid "_Find..."
+msgid "_Find…"
 msgstr "Na_jít…"
 
 #: src/Resources.vala:327
@@ -5714,7 +5714,7 @@ msgstr "Smazat štítek"
 
 #: src/Resources.vala:366
 #, c-format
-msgid "Re_name Tag \"%s\"..."
+msgid "Re_name Tag \"%s\"…"
 msgstr "Přejme_novat štítek „%s“…"
 
 #: src/Resources.vala:370
@@ -5723,12 +5723,12 @@ msgid "Rename Tag \"%s\" to \"%s\""
 msgstr "Přejmenovat štítek „%s“ na „%s“"
 
 #: src/Resources.vala:373
-msgid "_Rename..."
+msgid "_Rename…"
 msgstr "_Přejmenovat…"
 
 #: src/Resources.vala:375
-msgid "Modif_y Tags..."
-msgstr "Změnit štítk_y…"
+msgid "Modif_y Tags…"
+msgstr "Změn_it štítky…"
 
 #: src/Resources.vala:376
 msgid "Modify Tags"
@@ -5794,11 +5794,11 @@ msgid "Delete Search"
 msgstr "Smazat hledání"
 
 #: src/Resources.vala:410
-msgid "_Edit..."
+msgid "_Edit…"
 msgstr "_Upravit…"
 
 #: src/Resources.vala:411
-msgid "Re_name..."
+msgid "Re_name…"
 msgstr "Přejme_novat…"
 
 #: src/Resources.vala:414
@@ -6167,7 +6167,7 @@ msgid "Use a saved search to filter items in the current view"
 msgstr "Použít uložené hledání k filtrování položek v aktuálním zobrazení"
 
 #: src/sidebar/Tree.vala:203
-msgid "New _Tag..."
+msgid "New _Tag…"
 msgstr "Nový š_títek…"
 
 #: src/SlideshowPage.vala:49 src/SlideshowPage.vala:183
@@ -6433,3 +6433,4 @@ msgstr "Zobrazovat n_ázev"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "vteřin"
+
