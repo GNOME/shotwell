@@ -158,7 +158,7 @@ public class ExportDialog : Gtk.Dialog {
     private Gtk.ComboBoxText quality_combo;
     private Gtk.ComboBoxText constraint_combo;
     private Gtk.ComboBoxText format_combo;
-    private Gtk.CheckButton export_metadata;
+    private Gtk.Switch export_metadata;
     private Gee.ArrayList<string> format_options = new Gee.ArrayList<string>();
     private Gtk.Entry pixels_entry;
     private Gtk.Widget ok_button;
@@ -230,13 +230,15 @@ public class ExportDialog : Gtk.Dialog {
         add_label(_("_Pixels:"), 0, 3, pixels_entry);
         add_control(pixels_entry, 1, 3);
         
-        export_metadata = new Gtk.CheckButton.with_label(_("Export metadata"));
+        export_metadata = new Gtk.Switch ();
+        add_label(_("Export _metadata:"), 0, 4, export_metadata);
         add_control(export_metadata, 1, 4);
         export_metadata.active = true;
+        export_metadata.halign = Gtk.Align.START;
         
-        table.set_row_spacing(5);
-        table.set_column_spacing(5);
-        table.set_border_width(3);
+        table.set_row_spacing(6);
+        table.set_column_spacing(12);
+        table.set_border_width(18);
         
         ((Gtk.Box) get_content_area()).add(table);
         
@@ -368,24 +370,24 @@ public class ExportDialog : Gtk.Dialog {
     }
     
     private void add_label(string text, int x, int y, Gtk.Widget? widget = null) {
-        Gtk.Alignment left_aligned = new Gtk.Alignment(1, 0.5f, 0, 0);
-        
         Gtk.Label new_label = new Gtk.Label.with_mnemonic(text);
+        new_label.halign = Gtk.Align.END;
+        new_label.valign = Gtk.Align.CENTER;
         new_label.set_use_underline(true);
         
         if (widget != null)
             new_label.set_mnemonic_widget(widget);
         
-        left_aligned.add(new_label);
-        
-        table.attach(left_aligned, x, y, 1, 1);
+        table.attach(new_label, x, y, 1, 1);
     }
     
     private void add_control(Gtk.Widget widget, int x, int y) {
-        Gtk.Alignment left_aligned = new Gtk.Alignment(0, 0.5f, 1, 0);
-        left_aligned.add(widget);
+        widget.halign = Gtk.Align.FILL;
+        widget.valign = Gtk.Align.CENTER;
+        widget.hexpand = true;
+        widget.vexpand = true;
         
-        table.attach(left_aligned, x, y, 1, 1);
+        table.attach(widget, x, y, 1, 1);
     }
     
     private void on_constraint_changed() {
