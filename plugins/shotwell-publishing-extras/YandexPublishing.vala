@@ -194,7 +194,7 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
             builder.add_from_resource (Resources.RESOURCE_PATH + "/yandex_publish_model.ui");
 
             builder.connect_signals(null);
-            Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
+            var content = builder.get_object ("content") as Gtk.Widget;
 
             album_list = builder.get_object ("album_list") as Gtk.ComboBoxText;
             foreach (string key in list.keys)
@@ -208,8 +208,8 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
             publish_button.clicked.connect(on_publish_clicked);
             logout_button.clicked.connect(on_logout_clicked);
 
-            align.reparent(box);
-			box.set_child_packing(align, true, true, 0, Gtk.PackType.START);
+            content.parent.remove (content);
+            box.pack_start (content, true, true, 0);
         } catch (Error e) {
             warning("Could not load UI: %s", e.message);
         }
