@@ -1091,7 +1091,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
     private Gtk.Entry url_entry;
     private Gtk.Entry username_entry;
     private Gtk.Entry password_entry;
-    private Gtk.CheckButton remember_password_checkbutton;
+    private Gtk.Switch remember_password_checkbutton;
     private Gtk.Button login_button;
 
     public signal void login(string url, string user, string password, bool remember_password);
@@ -1103,7 +1103,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
             builder = new Gtk.Builder();
             builder.add_from_resource (Resources.RESOURCE_PATH + "/piwigo_authentication_pane.ui");
             builder.connect_signals(null);
-            Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
+            var content = builder.get_object ("content") as Gtk.Box;
             
             Gtk.Label message_label = builder.get_object("message_label") as Gtk.Label;
             switch (mode) {
@@ -1138,7 +1138,8 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
                 password_entry.set_text(persistent_password);
             }
             remember_password_checkbutton =
-                builder.get_object ("remember_password_checkbutton") as Gtk.CheckButton;
+                builder.get_object ("remember_password_checkbutton") as
+                Gtk.Switch;
             remember_password_checkbutton.set_active(publisher.get_remember_password());
 
             login_button = builder.get_object("login_button") as Gtk.Button;
@@ -1147,8 +1148,9 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
             url_entry.changed.connect(on_url_changed);
             password_entry.changed.connect(on_password_changed);
             login_button.clicked.connect(on_login_button_clicked);
+            content.parent.remove (content);
+            pane_widget.add (content);
 
-            align.reparent(pane_widget);
             publisher.get_host().set_dialog_default_widget(login_button);
         } catch (Error e) {
             warning("Could not load UI: %s", e.message);
@@ -1255,7 +1257,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             builder = new Gtk.Builder();
             builder.add_from_resource (Resources.RESOURCE_PATH + "/piwigo_publishing_options_pane.ui");
             builder.connect_signals(null);
-            Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
+            var content = builder.get_object ("content") as Gtk.Box;
             
             use_existing_radio = builder.get_object("use_existing_radio") as Gtk.RadioButton;
             create_new_radio = builder.get_object("create_new_radio") as Gtk.RadioButton;
@@ -1291,8 +1293,9 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             new_category_entry.changed.connect(on_new_category_entry_changed);
             within_existing_combo.changed.connect(on_existing_combo_changed);
 
-            align.reparent(pane_widget);
-            pane_widget.set_child_packing(align, true, true, 0, Gtk.PackType.START);
+            content.parent.remove (content);
+            pane_widget.add (content);
+            pane_widget.set_child_packing (content, true, true, 0, Gtk.PackType.START);
         } catch (Error e) {
             warning("Could not load UI: %s", e.message);
         }
