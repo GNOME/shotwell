@@ -115,8 +115,8 @@ private const string fallback_image_missing[] = {
 };
 
 bool is_color_parsable(string spec) {
-    Gdk.Color color;
-    return Gdk.Color.parse(spec, out color);
+    var color = Gdk.RGBA ();
+    return color.parse(spec);
 }
 
 Gdk.RGBA parse_color(string spec) {
