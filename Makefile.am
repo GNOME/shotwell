@@ -73,6 +73,7 @@ plugins_common_libshotwell_plugin_common_la_VALAFLAGS = \
 
 plugins_common_libshotwell_plugin_common_la_CFLAGS = \
 	$(PLUGIN_CFLAGS) \
+	-Wno-incompatible-pointer-types -Wno-discarded-qualifiers \
 	-DGETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
 	-I $(top_srcdir)/plugins -I$(top_builddir)/plugins
 

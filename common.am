@@ -7,6 +7,7 @@ COMMON_VALAFLAGS = \
 COMMON_CFLAGS = \
 	-I$(top_srcdir)/vapi \
 	-D_PREFIX='"$(prefix)"' \
+	-Wno-incompatible-pointer-types -Wno-discarded-qualifiers \
 	-D_VERSION='"$(VERSION)"' \
 	-DGETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
 	-D_LANG_SUPPORT_DIR='"$(prefix)/share/locale"' \
