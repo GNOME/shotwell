@@ -92,46 +92,29 @@ internal class Session : Publishing.RESTSupport.Session {
     }
 }
 
-internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
-    private WebKit.WebView webview = null;
-    private Gtk.Box pane_widget = null;
-    private Gtk.ScrolledWindow webview_frame = null;
-
+internal class WebAuthPane : Shotwell.Plugins.Common.WebAuthenticationPane {
     private Regex re;
-    private string? login_url = null;
 
     public signal void login_succeeded(string success_url);
     public signal void login_failed();
 
     public WebAuthPane(string login_url) {
-        this.login_url = login_url;
+        Object (login_uri : login_url,
+                preferred_geometry :
+                Spit.Publishing.DialogPane.GeometryOptions.RESIZABLE);
+    }
 
+    public override void constructed () {
         try {
             this.re = new Regex("(.*)#access_token=([a-zA-Z0-9]*)&");
         } catch (RegexError e) {
-            critical("%s", e.message);
+            assert_not_reached ();
         }
 
-        pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-
-        webview_frame = new Gtk.ScrolledWindow(null, null);
-        webview_frame.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
-        webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-
-        webview = new WebKit.WebView();
-        webview.get_settings().enable_plugins = false;
-
-        webview.load_changed.connect(on_page_load_changed);
-        webview.decide_policy.connect(on_decide_policy);
-        webview.context_menu.connect(() => { return false; });
-
-        webview_frame.add(webview);
-        pane_widget.pack_start(webview_frame, true, true, 0);
+        this.get_view ().decide_policy.connect (on_decide_policy);
     }
 
-    private void on_page_load() {
-        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-    }
+    public override void on_page_load () { }
 
     private bool on_decide_policy (WebKit.PolicyDecision decision,
                                    WebKit.PolicyDecisionType type) {
@@ -148,7 +131,7 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
                     string access_token = info.fetch_all()[2];
 
                     debug("Load completed: %s", access_token);
-                    pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+                    this.set_cursor (Gdk.CursorType.LEFT_PTR);
                     if (access_token != null) {
                         login_succeeded(access_token);
                         decision.ignore();
@@ -165,38 +148,6 @@ internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
                 return false;
         }
         return true;
-    }
-
-    private void on_load_started() {
-        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
-    }
-
-    private void on_page_load_changed (WebKit.LoadEvent load_event) {
-        switch (load_event) {
-            case WebKit.LoadEvent.STARTED:
-                on_load_started();
-                break;
-            case WebKit.LoadEvent.FINISHED:
-                on_page_load();
-                break;
-        }
-
-        return;
-    }
-
-    public Gtk.Widget get_widget() {
-        return pane_widget;
-    }
-
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.RESIZABLE;
-    }
-
-    public void on_pane_installed() {
-        webview.load_uri(login_url);
-    }
-
-    public void on_pane_uninstalled() {
     }
 }
 

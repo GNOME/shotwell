@@ -733,37 +733,21 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
         }
     }
     
-    private class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
+    private class WebAuthenticationPane : Shotwell.Plugins.Common.WebAuthenticationPane {
         public static bool cache_dirty = false;
         
-        private WebKit.WebView webview;
-        private Gtk.Box pane_widget;
-        private string auth_sequence_start_url;
-
         public signal void authorized(string auth_code);
 
         public WebAuthenticationPane(string auth_sequence_start_url) {
-            this.auth_sequence_start_url = auth_sequence_start_url;
-
-            pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-
-            webview = new WebKit.WebView();
-            webview.get_settings().enable_plugins = false;
-
-            webview.load_changed.connect(on_page_load_changed);
-            webview.context_menu.connect(() => { return false; });
-
-            pane_widget.pack_start(webview, true, true, 0);
+            Object (login_uri : auth_sequence_start_url);
         }
         
         public static bool is_cache_dirty() {
             return cache_dirty;
         }
         
-        private void on_page_load() {
-            pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-            
-            string page_title = webview.get_title();
+        public override void on_page_load() {
+            string page_title = get_view ().get_title();
             if (page_title.index_of("state=connect") > 0) {
                 int auth_code_field_start = page_title.index_of("code=");
                 if (auth_code_field_start < 0)
@@ -776,38 +760,6 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
 
                 authorized(auth_code);
             }
-        }
-
-        private void on_load_started() {
-            pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
-        }
-
-        private void on_page_load_changed (WebKit.LoadEvent load_event) {
-            switch (load_event) {
-                case WebKit.LoadEvent.STARTED:
-                    on_load_started();
-                    break;
-                case WebKit.LoadEvent.FINISHED:
-                    on_page_load();
-                    break;
-            }
-
-            return;
-        }
-        
-        public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-            return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-        }
-        
-        public Gtk.Widget get_widget() {
-            return pane_widget;
-        }
-
-        public void on_pane_installed() {
-            webview.load_uri(auth_sequence_start_url);
-        }
-
-        public void on_pane_uninstalled() {
         }
     }
     

@@ -54,6 +54,7 @@ lib_LTLIBRARIES = \
 plugins_common_libshotwell_plugin_common_la_SOURCES = \
 	plugins/common/RESTSupport.vala \
 	plugins/common/Resources.vala \
+	plugins/common/WebAuthenticationPane.vala \
 	plugins/shotwell-plugin-dev-1.0.vapi
 
 $(top_srcdir)/plugins/shotwell-plugin-common.vapi plugins/shotwell-plugin-common.h: \
