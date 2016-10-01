@@ -852,7 +852,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object
             builder.add_from_resource (Resources.RESOURCE_PATH +
                     "/rajce_authentication_pane.ui");
             builder.connect_signals(null);
-            Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
+            var content = builder.get_object ("content") as Gtk.Box;
             Gtk.Label message_label = builder.get_object("message_label") as Gtk.Label;
             switch (mode)
 			{
@@ -897,7 +897,8 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object
             username_entry.changed.connect(on_user_changed);
             password_entry.changed.connect(on_password_changed);
             login_button.clicked.connect(on_login_button_clicked);
-            align.reparent(pane_widget);
+            content.parent.remove (content);
+            pane_widget.add (content);
             publisher.get_host().set_dialog_default_widget(login_button);
         }
 		catch (Error e)
